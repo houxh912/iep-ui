@@ -1,29 +1,10 @@
 .avue-sidebar {
-    user-select: none; 
-    position: relative;
-    padding-top: 74px;
+    padding-top: 60px;
     height: 100%;
     position: relative;
     background-color: #20222a;
-    transition: width .2s;
+    transition: width .6s;
     box-sizing: border-box;
-    box-shadow: 2px 0 6px rgba(0,21,41,.35);
-    &--tip{
-        width:90%;
-        height: 140px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 5px;
-        position: absolute;
-        top:5px;
-        left:5%;
-        color:#ccc;
-        z-index: 2;
-        text-align: center;
-        font-size: 14px;
-        background-color: rgba(0,0,0,.4);
-    }
     .el-menu-item,
     .el-submenu__title {
         font-size: 14px;
@@ -31,11 +12,8 @@
         line-height: 56px;
     }
     .el-menu-item {
-        span,i{
-            color:rgba(255, 255, 255, 0.7);
-        }
         &:hover {
-            background-color: transparent;
+            background-color: transparent !important;
             color: #fff;
             span,
             i {
@@ -43,13 +21,13 @@
             }
         }
         &.is-active {
-            background-color: rgba(0, 0, 0, .8);
+            background-color: rgba(0, 0, 0, .8) !important;
             span,
             i {
                 color: #fff;
             }
             &:hover {
-                background-color: rgba(0, 0, 0, .8);
+                background-color: rgba(0, 0, 0, .8) !important;
             }
             &::before {
                 content: " ";
@@ -63,35 +41,29 @@
         }
     }
     .el-submenu__title {
-        span,i{
-            color:rgba(255, 255, 255, 0.7);
-        }
         &:hover {
             i,
             span {
                 color: #fff;
             }
-            background-color:transparent ;
+            background-color:transparent !important;
         }
     }
     .el-submenu .el-menu-item {
         height: 50px;
         line-height: 50px;
-        span,i{
-            color:rgba(255, 255, 255, 0.7);
-        }
         &.is-active {
-            background-color: rgba(0, 0, 0, .8);
+            background-color: rgba(0, 0, 0, .8) !important;
             span,
             i {
                 color: #fff
             }
             &:hover {
-                background-color: rgba(0, 0, 0, .8);
+                background-color: rgba(0, 0, 0, .8) !important;
             }
         }
         &:hover {
-            background-color: transparent;
+            background-color: transparent !important;
             span,
             i {
                 color: #fff;

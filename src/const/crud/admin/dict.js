@@ -26,6 +26,7 @@ export const tableOption = {
   searchSize: 'mini',
   editBtn: false,
   delBtn: false,
+  dic: [],
   column: [{
     width: 150,
     label: '数据值',

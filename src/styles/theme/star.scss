@@ -25,19 +25,19 @@
         }
     }
     .avue-tabs {
-        padding: 0 20px ;
+        padding: 0 20px !important;
     }
     .avue-sidebar,
     .logo,
     .el-menu-item,
     .el-submenu__title,
     .el-menu {
-        background-color: transparent
+        background-color: transparent !important
     }
     .logo_title,
-    .avue-breadcrumb
+    .avue-breadcrumb,
     {
-        color: #fff ;
+        color: #fff !important;
         i {
             color: #fff;
         }
@@ -53,58 +53,58 @@
         border: none;
     }
     .tag-item {
-        color: #fff ;
-        border: none ;
+        color: #fff !important;
+        border: none !important;
         background-color: rgba(255, 255, 255, .5);
         &.is-active {
-            color: #fff ;
-            border: 1px solid #fff ;
+            color: #fff !important;
+            border: 1px solid #fff !important;
             background-color: rgba(0, 0, 0, .4);
             .tag-item-icon {
-                color: #fff ;
+                color: #fff !important;
             }
         }
     }
     .el-menu-item {
         i,
         span {
-            color: #fff ;
+            color: #fff !important;
         }
         &:hover {
             i,
             span {
-                color: #409eff ;
+                color: #409eff !important;
             }
         }
         &.is-active {
-            background-color: rgba(0, 0, 0, .4) ;
+            background-color: rgba(0, 0, 0, .4) !important;
             &:hover {
-                background-color: rgba(0, 0, 0, .4) ;
+                background-color: rgba(0, 0, 0, .4) !important;
             }
         }
     }
     .el-submenu__title {
         i,
         span {
-            color: #fff ;
+            color: #fff !important;
         }
         &:hover {
             i,
             span {
-                color: #409eff ;
+                color: #409eff !important;
             }
-            background-color:transparent ;
+            background-color:transparent !important;
         }
     }
     .el-submenu .el-menu-item {
         &.is-active {
-            background-color: rgba(0, 0, 0, .4) ;
+            background-color: rgba(0, 0, 0, .4) !important;
             span,
             i {
-                color: $mainBg ;
+                color: $mainBg !important;
             }
             &:hover {
-                background-color: rgba(0, 0, 0, .4) ;
+                background-color: rgba(0, 0, 0, .4) !important;
             }
         }
     }

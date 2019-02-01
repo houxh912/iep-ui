@@ -139,7 +139,6 @@
             message: "操作成功",
             type: "success"
           });
-          this.getList(this.page);
         })
       },
       handleDel(row, index) {
@@ -164,7 +163,6 @@
             message: "删除成功",
             type: "success"
           });
-          this.getList(this.page);
         }).catch(function (err) {
         });
       },

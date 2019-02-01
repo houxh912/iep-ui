@@ -16,13 +16,12 @@ RouterPlugin.install = function (router, store) {
   this.$router.$avueRouter = {
     // 全局配置
     $website: this.$store.getters.website,
-    $defaultTitle: 'PigX微服务快速开发框架',
     routerList: [],
     group: '',
     safe: this,
     // 设置标题
     setTitle: function (title) {
-      title = title ? `${title}——${this.$defaultTitle}` : this.$defaultTitle;
+      title = title ? `${title}——PigX微服务快速开发框架` : 'PigX微服务快速开发框架'
       document.title = title
     },
     closeTag: (value) => {

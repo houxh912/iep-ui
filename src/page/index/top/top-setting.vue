@@ -9,8 +9,8 @@
          :class="{'setting__content--show':box}">
       <div class="setting__header">版权信息</div>
       <div class="setting__body setting__about">
-        <p>Version：PigX 2.2.0</p>
-        <p>Copyright: Pig4Cloud ©2018-2025</p>
+        <p>Version：PigX 2.0.0</p>
+        <p>Copyright: Pig4Cloud ©2018</p>
       </div>
       <div class="setting__header">设置
         <small>(滑动鼠标下面还有更多设置)</small>
@@ -85,8 +85,6 @@ export default {
 .setting {
   margin-left: 10px;
   &__icon {
-    color:#fff;
-    font-size: 20px;
     transform: rotate(90deg);
   }
   &__header {

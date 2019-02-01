@@ -25,6 +25,7 @@ export const tableOption = {
   delBtn: false,
   addBtn: false,
   menuType: 'menu',
+  dic: [],
   column: [
     {
       label: 'ID',
@@ -125,7 +126,7 @@ export const taskOption = {
     },
     {
       label: '用户',
-      prop: 'userId'
+      prop: 'id'
     },
     {
       label: '批注',

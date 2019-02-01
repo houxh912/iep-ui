@@ -69,7 +69,7 @@
               <el-form-item label="节点ID"
                             prop="menuId">
                 <el-input v-model="form.menuId"
-                          :disabled="formEdit || form.menuId"
+                          :disabled="formEdit"
                           placeholder="请输入节点ID"></el-input>
               </el-form-item>
               <el-form-item label="标题"
@@ -152,7 +152,7 @@
 </template>
 
 <script>
-  import {addObj, delObj, fetchMenuTree, getObj, putObj} from '@/api/admin/menu'
+  import {addObj, delObj, fetchTree, getObj, putObj} from '@/api/admin/menu'
   import {mapGetters} from 'vuex'
 
   export default {
@@ -224,7 +224,7 @@
     },
     methods: {
       getList() {
-        fetchMenuTree(this.listQuery).then(response => {
+        fetchTree(this.listQuery).then(response => {
           this.treeData = response.data.data
         })
       },

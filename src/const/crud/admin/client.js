@@ -34,6 +34,7 @@ export const tableOption = {
   editBtn: false,
   delBtn: false,
   viewBtn: true,
+  dic: [],
   column: [{
     width: 150,
     label: '编号',

@@ -71,9 +71,6 @@ export default [{
                 import ( /* webpackChunkName: "page" */ '@/components/iframe/main'),
             props: true
         }]
-    },
-    {
-      path: '*',
-      redirect: '/404',
+
     }
 ]

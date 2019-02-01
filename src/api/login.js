@@ -15,15 +15,13 @@
  * Author: lengleng (wangiegie@gmail.com)
  */
 import request from '@/router/axios'
-const scope = 'server'
 
 export const loginByUsername = (username, password, code, randomStr) => {
-  const grant_type = 'password'
-
+  var grant_type = 'password'
+  var scope = 'server'
   return request({
     url: '/auth/oauth/token',
     headers: {
-      isToken:false,
       'TENANT_ID': '1',
       'Authorization': 'Basic Z2RzOmdkcw=='
     },
@@ -32,22 +30,8 @@ export const loginByUsername = (username, password, code, randomStr) => {
   })
 }
 
-export const refreshToken = (refresh_token) => {
-  const grant_type = 'refresh_token'
-  return request({
-    url: '/auth/oauth/token',
-    headers: {
-      'isToken': false,
-      'TENANT_ID': '1',
-      'Authorization': 'Basic Z2RzOmdkcw==',
-    },
-    method: 'post',
-    params: { refresh_token, grant_type, scope }
-  })
-}
-
 export const loginByMobile = (mobile, code) => {
-  const grant_type = 'mobile'
+  var grant_type = 'mobile'
   return request({
     url: '/auth/mobile/token/sms',
     headers: {
@@ -60,7 +44,7 @@ export const loginByMobile = (mobile, code) => {
 }
 
 export const loginBySocial = (state, code) => {
-  const grant_type = 'mobile'
+  var grant_type = 'mobile'
   return request({
     url: '/auth/mobile/token/social',
     headers: {

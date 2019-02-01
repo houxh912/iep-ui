@@ -42,7 +42,7 @@ export function getObj (id) {
 
 export function delObj (id) {
   return request({
-    url: '/daemon/status-trace-log/' + id,
+    url: '/daemon/statustracelog/' + id,
     method: 'delete'
   })
 }

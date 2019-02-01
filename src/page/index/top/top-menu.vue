@@ -9,7 +9,6 @@
                       :key="index">
           <template slot="title">
             <i :class="item.icon"></i>
-            <span>{{item.label}}</span>
           </template>
         </el-menu-item>
       </template>
@@ -21,26 +20,41 @@
 import { mapGetters } from "vuex";
 export default {
   name: "top-menu",
-  data() {
+  data () {
     return {
       activeIndex: "0",
-      items: []
+      items: [
+        {
+          label: "首页",
+          href: "/wel/index",
+          icon: 'el-icon-menu',
+          parentId: 0
+        },
+        {
+          label: '文档',
+          href: 'https://www.kancloud.cn/lengleng/pig-guide/627970',
+          icon: 'el-icon-document',
+          parentId: 1
+        },
+        {
+          label: 'crud实例',
+          href: '/crud/index',
+          icon: 'el-icon-setting',
+          parentId: 2
+        }
+      ]
     };
   },
-  created() {
-  },
+  created () { },
   computed: {
     ...mapGetters(["tagCurrent", "menu"])
   },
   methods: {
-    openMenu(item) {
-      this.$store.dispatch("GetMenu", item.parentId).then(data => {
-        if (data.length !== 0) {
-          this.$router.$avueRouter.formatRoutes(data, true);
-        }
+    openMenu (item) {
+      this.$store.dispatch("GetMenu", item.parentId).then(() => {
         let itemActive,
           childItemActive = 0;
-        if (item.path) {
+        if (item.href) {
           itemActive = item;
         } else {
           if (this.menu[childItemActive].length == 0) {
@@ -52,7 +66,7 @@ export default {
         this.$router.push({
           path: this.$router.$avueRouter.getPath({
             name: itemActive.label,
-            src: itemActive.path
+            src: itemActive.href
           })
         });
       });

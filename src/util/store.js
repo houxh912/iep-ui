@@ -1,89 +1,74 @@
-import {
-  validatenull
-} from '@/util/validate'
-import website from '@/const/website'
+import { validatenull } from '@/util/validate'
 
-const keyName = website.key + '-';
 /**
  * 存储localStorage
  */
-export const setStore = (params = {}) => {
+export const setStore = (params) => {
   let {
     name,
     content,
-    type,
-  } = params;
-  name = keyName + name
+    type
+  } = params
   let obj = {
     dataType: typeof (content),
     content: content,
     type: type,
     datetime: new Date().getTime()
   }
-  if (type) window.sessionStorage.setItem(name, JSON.stringify(obj));
-  else window.localStorage.setItem(name, JSON.stringify(obj));
+  if (type) window.sessionStorage.setItem(name, JSON.stringify(obj))
+  else window.localStorage.setItem(name, JSON.stringify(obj))
 }
 /**
  * 获取localStorage
  */
 
-export const getStore = (params = {}) => {
+export const getStore = (params) => {
   let {
     name,
     debug
-  } = params;
-  name = keyName + name
-  let obj = {},
-    content;
-  obj = window.sessionStorage.getItem(name);
-  if (validatenull(obj)) obj = window.localStorage.getItem(name);
-  if (validatenull(obj)) return;
-  try {
-    obj = JSON.parse(obj);
-  } catch{
-    return obj;
-  }
+  } = params
+  let obj = {}
+
+  let content
+  obj = window.sessionStorage.getItem(name)
+  if (validatenull(obj)) obj = window.localStorage.getItem(name)
+  if (validatenull(obj)) return
+  obj = JSON.parse(obj)
   if (debug) {
-    return obj;
+    return obj
   }
   if (obj.dataType == 'string') {
-    content = obj.content;
+    content = obj.content
   } else if (obj.dataType == 'number') {
-    content = Number(obj.content);
+    content = Number(obj.content)
   } else if (obj.dataType == 'boolean') {
-    content = eval(obj.content);
+    content = eval(obj.content)
   } else if (obj.dataType == 'object') {
-    content = obj.content;
+    content = obj.content
   }
-  return content;
+  return content
 }
 /**
  * 删除localStorage
  */
-export const removeStore = (params = {}) => {
+export const removeStore = params => {
   let {
-    name,
-    type
-  } = params;
-  name = keyName + name
-  if (type) {
-    window.sessionStorage.removeItem(name);
-  } else {
-    window.localStorage.removeItem(name);
-  }
-
+    name
+  } = params
+  window.localStorage.removeItem(name)
+  window.sessionStorage.removeItem(name)
 }
 
 /**
  * 获取全部localStorage
  */
-export const getAllStore = (params = {}) => {
-  let list = [];
+export const getAllStore = (params) => {
+  let list = []
   let {
     type
-  } = params;
-  if (type) {
-    for (let i = 0; i <= window.sessionStorage.length; i++) {
+  } = params
+  for (let i = 1; i <= window.sessionStorage.length; i++) {
+    if (type) {
       list.push({
         name: window.sessionStorage.key(i),
         content: getStore({
@@ -91,31 +76,29 @@ export const getAllStore = (params = {}) => {
           type: 'session'
         })
       })
-    }
-  } else {
-    for (let i = 0; i <= window.localStorage.length; i++) {
-      list.push({
+    } else {
+      list.push(getStore({
         name: window.localStorage.key(i),
         content: getStore({
-          name: window.localStorage.key(i),
+          name: window.localStorage.key(i)
         })
-      })
-
+      }))
     }
   }
-  return list;
 
+  return list
 }
 
 /**
  * 清空全部localStorage
  */
-export const clearStore = (params = {}) => {
-  let { type } = params;
+export const clearStore = (params) => {
+  let {
+    type
+  } = params
   if (type) {
-    window.sessionStorage.clear();
-  } else {
-    window.localStorage.clear()
+    window.sessionStorage.clear()
+    return
   }
-
+  window.localStorage.clear()
 }

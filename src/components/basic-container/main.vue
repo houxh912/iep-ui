@@ -28,7 +28,7 @@ export default {
     width: 100%;
   }
   &:first-child {
-    padding-top: 0;
+    // padding-top: 0;
   }
   &--block {
     height: 100%;

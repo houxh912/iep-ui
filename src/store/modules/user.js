@@ -1,7 +1,6 @@
-import { removeToken, setToken } from '@/util/auth'
 import { getStore, setStore } from '@/util/store'
 import { isURL } from '@/util/validate'
-import { getUserInfo, loginByMobile, loginBySocial, loginByUsername, logout } from '@/api/login'
+import { getUserInfo, loginByMobile, loginBySocial, loginByUsername, logout, refreshToken } from '@/api/login'
 import { deepClone, encryption } from '@/util/util'
 import webiste from '@/const/website'
 import { GetMenu } from '@/api/admin/menu'
@@ -36,6 +35,9 @@ const user = {
       name: 'menu'
     }) || [],
     menuAll: [],
+    expires_in: getStore({
+      name: 'expires_in'
+    }) || '',
     access_token: getStore({
       name: 'access_token'
     }) || '',
@@ -48,15 +50,15 @@ const user = {
     LoginByUsername ({ commit }, userInfo) {
       const user = encryption({
         data: userInfo,
-        key: 'gdscloudprisbest',
+        key: 'pigxpigxpigxpigx',
         param: ['password']
       })
       return new Promise((resolve, reject) => {
         loginByUsername(user.username, user.password, user.code, user.randomStr).then(response => {
           const data = response.data
-          setToken(data.access_token)
           commit('SET_ACCESS_TOKEN', data.access_token)
           commit('SET_REFRESH_TOKEN', data.refresh_token)
+          commit('SET_EXPIRES_IN', data.expires_in)
           commit('CLEAR_LOCK')
           resolve()
         }).catch(error => {
@@ -69,9 +71,9 @@ const user = {
       return new Promise((resolve, reject) => {
         loginByMobile(userInfo.mobile, userInfo.code).then(response => {
           const data = response.data
-          setToken(data.access_token)
           commit('SET_ACCESS_TOKEN', data.access_token)
           commit('SET_REFRESH_TOKEN', data.refresh_token)
+          commit('SET_EXPIRES_IN', data.expires_in)
           commit('CLEAR_LOCK')
           resolve()
         }).catch(error => {
@@ -84,9 +86,9 @@ const user = {
       return new Promise((resolve, reject) => {
         loginBySocial(param.state, param.code).then(response => {
           const data = response.data
-          setToken(data.access_token)
           commit('SET_ACCESS_TOKEN', data.access_token)
           commit('SET_REFRESH_TOKEN', data.refresh_token)
+          commit('SET_EXPIRES_IN', data.expires_in)
           commit('CLEAR_LOCK')
           resolve()
         }).catch(error => {
@@ -108,11 +110,14 @@ const user = {
       })
     },
     // 刷新token
-    RefeshToken ({ commit }) {
+    RefreshToken ({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout().then(() => {
-          commit('SET_TOKEN', new Date().getTime())
-          setToken()
+        refreshToken(state.refresh_token).then(response => {
+          const data = response.data
+          commit('SET_ACCESS_TOKEN', data.access_token)
+          commit('SET_REFRESH_TOKEN', data.refresh_token)
+          commit('SET_EXPIRES_IN', data.expires_in)
+          commit('CLEAR_LOCK')
           resolve()
         }).catch(error => {
           reject(error)
@@ -128,10 +133,10 @@ const user = {
           commit('SET_USER_INFO', {})
           commit('SET_ACCESS_TOKEN', '')
           commit('SET_REFRESH_TOKEN', '')
+          commit('SET_EXPIRES_IN', '')
           commit('SET_ROLES', [])
           commit('DEL_ALL_TAG')
           commit('CLEAR_LOCK')
-          removeToken()
           resolve()
         }).catch(error => {
           reject(error)
@@ -149,7 +154,6 @@ const user = {
         commit('SET_ROLES', [])
         commit('DEL_ALL_TAG')
         commit('CLEAR_LOCK')
-        removeToken()
         resolve()
       })
     },
@@ -177,6 +181,14 @@ const user = {
       setStore({
         name: 'access_token',
         content: state.access_token,
+        type: 'session'
+      })
+    },
+    SET_EXPIRES_IN: (state, expires_in) => {
+      state.expires_in = expires_in
+      setStore({
+        name: 'expires_in',
+        content: state.expires_in,
         type: 'session'
       })
     },

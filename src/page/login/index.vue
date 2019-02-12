@@ -1,23 +1,10 @@
 <template>
   <div class="login-container pull-height" @keyup.enter.native="handleLogin">
     <div class="login-weaper">
-      <div class="login-left animated fadeInLeft">
-        <div class="login-info">
-          <h2 class="login-info-title">{{website.info.title}}</h2>
-          <ul class="login-info-list">
-            <li class="login-info-item" v-for="(item,index) in website.info.list" :key="index">
-              <i class="el-icon-check"></i>
-              &nbsp;{{item}}
-            </li>
-          </ul>
-        </div>
-      </div>
       <div class="login-border animated fadeInRight">
         <div class="login-main">
           <h4 class="login-title">
-            <el-select class="login-select animated fadeIn" v-model="active" @change="handleCommand" placeholder="点击请选择租户" size="mini">
-              <el-option label="用户登录" value="1"></el-option>
-            </el-select>
+            用户登录
           </h4>
           <userLogin v-if="activeName==='user'"></userLogin>
           <codeLogin v-else-if="activeName==='code'"></codeLogin>
@@ -75,18 +62,13 @@ export default {
     }
   },
   created () {
-    this.active = getStore({ name: "tenantId" });
+    setStore({ name: "tenantId", content: 1 });
   },
   mounted () { },
   computed: {
     ...mapGetters(["website"])
   },
   props: [],
-  methods: {
-    handleCommand (command) {
-      setStore({ name: "tenantId", content: command });
-    }
-  }
 };
 </script>
 
@@ -140,8 +122,8 @@ export default {
   color: rgb(33, 37, 41);
 }
 .login-border {
+  margin: 0 auto;
   width: 50%;
-  float: left;
   box-sizing: border-box;
 }
 .login-main {

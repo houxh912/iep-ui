@@ -1,4 +1,5 @@
-const url = process.env.BASEURL
+const utils = require('./config/utils')
+const devServer = require('./config/devServer')
 module.exports = {
   lintOnSave: true,
   productionSourceMap: false,
@@ -11,60 +12,27 @@ module.exports = {
       'axios': 'axios',
       'element-ui': 'ELEMENT'
     })
+    config.plugin('define').tap(definitions => {
+      definitions[0] = Object.assign(definitions[0], {
+        BUILD_TIME: Date.parse(new Date()),
+        BUILD_GIT_HASH: JSON.stringify(utils.getGitHash()),
+        BUILD_PRO_NAME: JSON.stringify(utils.getProjectName()),
+        BUILD_VER_TAG: JSON.stringify(utils.getCurrentTag()),
+        BUILD_PRO_DESC: JSON.stringify(utils.getProjectDesc()),
+      })
+      return definitions
+    })
   },
   transpileDependencies: ['avue-plugin-transfer', 'avue-plugin-ueditor'],
   // 配置转发代理
   devServer: {
-    proxy: {
-      '/auth': {
-        target: url,
-        ws: true,
-        pathRewrite: {
-          '^/auth': '/auth'
-        }
-      },
-      '/admin': {
-        target: url,
-        ws: true,
-        pathRewrite: {
-          '^/admin': '/admin'
-        }
-      },
-      '/code': {
-        target: url,
-        ws: true,
-        pathRewrite: {
-          '^/code': '/code'
-        }
-      },
-      '/gen': {
-        target: url,
-        ws: true,
-        pathRewrite: {
-          '^/gen': '/gen'
-        }
-      },
-      '/daemon': {
-        target: url,
-        ws: true,
-        pathRewrite: {
-          '^/daemon': '/daemon'
-        }
-      },
-      '/tx': {
-        target: url,
-        ws: true,
-        pathRewrite: {
-          '^/tx': '/tx'
-        }
-      },
-      '/act': {
-        target: url,
-        ws: true,
-        pathRewrite: {
-          '^/act': '/act'
-        }
-      }
-    }
+    host: devServer.host, // can be overwritten by process.env.HOST
+    open: true,
+    port: devServer.port, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    proxy: devServer.proxy,
+    overlay: {
+      warnings: true,
+      errors: true,
+    },
   }
 }

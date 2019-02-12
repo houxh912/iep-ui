@@ -8,9 +8,9 @@
           <br /><br />
         </template>
         <template slot-scope="scope" slot="menu">
-          <el-button type="text" v-if="permissions.generator_syssocialdetails_edit" icon="el-icon-check" size="small" plain @click="handleEdit(scope.row,scope.index)">编辑
+          <el-button type="text" v-if="permissions.generator_syssocialdetails_edit" icon="el-icon-check" size="small" @click="handleEdit(scope.row,scope.index)">编辑
           </el-button>
-          <el-button type="text" v-if="permissions.generator_syssocialdetails_del" icon="el-icon-delete" size="small" plain @click="handleDel(scope.row,scope.index)">删除
+          <el-button type="text" v-if="permissions.generator_syssocialdetails_del" icon="el-icon-delete" size="small" @click="handleDel(scope.row,scope.index)">删除
           </el-button>
         </template>
       </avue-crud>

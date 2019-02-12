@@ -3,9 +3,9 @@
     <basic-container>
       <avue-crud ref="crud" :page="page" :data="tableData" :table-loading="tableLoading" :option="tableOption" @on-load="getList" @refresh-change="refreshChange" @row-update="handleUpdate" @row-save="handleSave" @row-del="rowDel">
         <template slot-scope="scope" slot="menu">
-          <el-button type="text" v-if="permissions.sys_client_edit" icon="el-icon-check" size="mini" plain @click="handleEdit(scope.row,scope.index)">编辑
+          <el-button type="text" v-if="permissions.sys_client_edit" icon="el-icon-check" size="mini" @click="handleEdit(scope.row,scope.index)">编辑
           </el-button>
-          <el-button type="text" v-if="permissions.sys_client_del" icon="el-icon-delete" size="mini" plain @click="handleDel(scope.row,scope.index)">删除
+          <el-button type="text" v-if="permissions.sys_client_del" icon="el-icon-delete" size="mini" @click="handleDel(scope.row,scope.index)">删除
           </el-button>
         </template>
       </avue-crud>

@@ -14,6 +14,7 @@ router.get('/', (ctx) => {
 router.get('/code', codeController.getCode)
 router.post('/auth/oauth/token', authController.getOauthToken)
 router.get('/admin/user/info', adminController.getUserInfo)
+router.get('/admin/file/lengleng-oxjkuoy361p6x5snlogo.png', adminController.getAvatar)
 router.get('/admin/menu', adminController.getMenu)
 
 exports = module.exports = router

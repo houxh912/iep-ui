@@ -69,7 +69,7 @@ export default {
     this.init()
     this.initWebSocket()
   },
-  computed: mapGetters(['isLock', 'isCollapse', 'website', 'expires_in']),
+  computed: mapGetters(['userInfo', 'isLock', 'isCollapse', 'website', 'expires_in']),
   props: [],
   methods: {
     showCollapse () {
@@ -128,7 +128,7 @@ export default {
         'Authorization': 'Bearer ' + token
       }
       // 建立连接对象
-      this.socket = new SockJS('/act/ws');//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
+      this.socket = new SockJS('/api/act/ws');//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
       // 获取STOMP子协议的客户端对象
       this.stompClient = Stomp.over(this.socket);
 

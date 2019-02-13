@@ -2,6 +2,7 @@ const Router = require('koa-router')
 const codeController = require('./controller/code')
 const authController = require('./controller/auth')
 const adminController = require('./controller/admin')
+const dictController = require('./controller/dict')
 const router = new Router()
 /**
  * 获取验证码
@@ -30,6 +31,7 @@ router.get('/admin/menu/tree', adminController.getMenuTree)
 router.get('/admin/role/page', adminController.getRolePage)
 router.get('/admin/dict/type/log_type', adminController.getDictTypeLogType)
 router.get('/admin/log/page', adminController.getLogPage)
-router.get('/admin/dict/page', adminController.getDictPage)
+router.get('/admin/dict/page', dictController.getDictPage)
+router.get('/admin/dict/child/1', dictController.getDictChildById)
 
 exports = module.exports = router

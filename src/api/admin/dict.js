@@ -23,6 +23,13 @@ export function getObj (id) {
   })
 }
 
+export function getChild (id) {
+  return request({
+    url: '/admin/dict/child/' + id,
+    method: 'get'
+  })
+}
+
 export function delObj (row) {
   return request({
     url: '/admin/dict/' + row.id + '/' + row.type,

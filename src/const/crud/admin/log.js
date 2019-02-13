@@ -7,7 +7,6 @@ export const tableOption = {
   menuWidth: 150,
   align: 'center',
   refreshBtn: true,
-  showClomnuBtn: false,
   searchSize: 'mini',
   addBtn: false,
   editBtn: false,

@@ -12,10 +12,18 @@ router.get('/', (ctx) => {
   ctx.body = 'Hello World'
 })
 router.get('/code', codeController.getCode)
+
 router.post('/auth/oauth/token', authController.getOauthToken)
 router.delete('/auth/token/logout', authController.getTokenLogout)
+
 router.get('/admin/user/info', adminController.getUserInfo)
+router.get('/admin/dept/user-tree', adminController.getDeptUserTree)
+router.get('/admin/user/page', adminController.getUserPage)
 router.get('/admin/file/lengleng-oxjkuoy361p6x5snlogo.png', adminController.getAvatar)
 router.get('/admin/menu', adminController.getMenu)
+router.get('/admin/dept/tree', adminController.getDeptTree)
+router.get('/admin/user/details', adminController.getUserDetails)
+router.get('/admin/role/list', adminController.getRoleList)
+router.post('/admin/user', adminController.postUser)
 
 exports = module.exports = router

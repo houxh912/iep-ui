@@ -18,3 +18,27 @@ exports.getAvatar = async function (ctx) {
     ctx.body = res;
   }
 }
+
+exports.getDeptUserTree = async function (ctx) {
+  ctx.body = `{"code":0,"msg":"success","data":[{"id":1,"parentId":0,"children":[{"id":3,"parentId":1,"children":[{"id":4,"parentId":3,"children":[{"id":5,"parentId":4,"children":[],"name":"院校农信"}],"name":"高新农信"}],"name":"潍坊农信"}],"name":"山东农信"}]}`
+}
+
+exports.getUserPage = async function (ctx) {
+  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"userId":1,"username":"admin","password":"$2a$10$QOfWxxFyAMmEEmnuw9UI/..1s4B4eF/u9PzE2ZaGO.ij9YfmcUy.u","salt":null,"wxOpenid":"o_0FT0uyg_H1vVy2H0JpSwlVGhWQ","qqOpenid":null,"createTime":"2018-04-20 07:15:18","updateTime":"2019-01-05 17:11:20","delFlag":"0","lockFlag":"0","phone":"17034642888","avatar":"lengleng-oxjkuoy361p6x5snlogo.png","deptId":1,"tenantId":1,"deptName":null,"roleList":[{"roleId":1,"roleName":"管理员","roleCode":"ROLE_ADMIN","roleDesc":"管理员","dsType":2,"dsScope":"2","createTime":"2017-10-29 15:45:51","updateTime":"2018-12-26 14:09:11","delFlag":"0"}]}],"total":1,"size":20,"current":1,"searchCount":true,"pages":1}}`
+}
+
+exports.getDeptTree = async function (ctx) {
+  ctx.body = `{"code":0,"msg":"success","data":[{"id":1,"parentId":0,"children":[{"id":3,"parentId":1,"children":[{"id":4,"parentId":3,"children":[{"id":5,"parentId":4,"children":[],"name":"院校农信"}],"name":"高新农信"}],"name":"潍坊农信"}],"name":"山东农信"},{"id":2,"parentId":0,"children":[{"id":7,"parentId":2,"children":[{"id":8,"parentId":7,"children":[{"id":11,"parentId":8,"children":[],"name":"院校沙县"}],"name":"潍坊沙县"}],"name":"山东沙县"}],"name":"沙县国际"}]}`
+}
+
+exports.getUserDetails = async function (ctx) {
+  ctx.body = `{"code":0,"msg":"success","data":null}`
+}
+
+exports.getRoleList = async function (ctx) {
+  ctx.body = `{"code":0,"msg":"success","data":[{"roleId":1,"roleName":"管理员","roleCode":"ROLE_ADMIN","roleDesc":"管理员","dsType":2,"dsScope":"2","createTime":"2017-10-29 15:45:51","updateTime":"2018-12-26 14:09:11","delFlag":"0"}]}`
+}
+
+exports.postUser = async function (ctx) {
+  ctx.body = `{"code":0,"msg":"success","data":true}`
+}

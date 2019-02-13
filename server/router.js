@@ -26,5 +26,7 @@ router.get('/admin/user/details', adminController.getUserDetails)
 router.get('/admin/role/list', adminController.getRoleList)
 router.post('/admin/user', adminController.postUser)
 router.delete('/admin/user', adminController.deleteUser)
+router.get('/admin/menu/tree', adminController.getMenuTree)
+router.get('/admin/role/page', adminController.getRolePage)
 
 exports = module.exports = router

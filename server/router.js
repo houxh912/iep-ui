@@ -28,5 +28,8 @@ router.post('/admin/user', adminController.postUser)
 router.delete('/admin/user', adminController.deleteUser)
 router.get('/admin/menu/tree', adminController.getMenuTree)
 router.get('/admin/role/page', adminController.getRolePage)
+router.get('/admin/dict/type/log_type', adminController.getDictTypeLogType)
+router.get('/admin/log/page', adminController.getLogPage)
+router.get('/admin/dict/page', adminController.getDictPage)
 
 exports = module.exports = router

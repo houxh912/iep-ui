@@ -14,6 +14,7 @@ export const tableOption = {
     width: 150,
     label: '字典编码',
     prop: 'code',
+    search: true,
     rules: [{
       required: true,
       message: '请输入字典编码',
@@ -32,11 +33,8 @@ export const tableOption = {
     label: '所属系统',
     prop: 'system',
     search: true,
-    rules: [{
-      required: true,
-      message: '请输入所属系统',
-      trigger: 'blur'
-    }]
+    editDisabled: true,
+    addVisdiplay: false,
   }, {
     label: '创建时间',
     prop: 'createTime',

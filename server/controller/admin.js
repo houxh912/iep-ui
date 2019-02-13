@@ -42,3 +42,7 @@ exports.getRoleList = async function (ctx) {
 exports.postUser = async function (ctx) {
   ctx.body = `{"code":0,"msg":"success","data":true}`
 }
+
+exports.deleteUser = async function (ctx) {
+  ctx.body = `{"code":0,"msg":"success","data":true}`
+}

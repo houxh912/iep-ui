@@ -55,7 +55,7 @@ export function deleteChildById (id) {
 
 export function delObj (row) {
   return request({
-    url: '/admin/dict/' + row.id + '/' + row.type,
+    url: '/admin/dict/' + row.id,
     method: 'delete'
   })
 }

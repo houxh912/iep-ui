@@ -1,7 +1,7 @@
 <template>
   <div class="execution">
     <basic-container>
-      <avue-crud ref="crud" :page="page" :data="tableData" :table-loading="tableLoading" :option="tableOption" @on-load="getList" @row-update="handleUpdate" @row-save="handleSave" @search-change="searchChange" @row-del="rowDel">
+      <avue-crud ref="crud" :page="page" :data="tableData" :table-loading="tableLoading" :option="tableOption" @on-load="getList" @row-update="handleUpdate" @row-save="handleSave" @search-change="searchChange" @refresh-change="refreshChange" @row-del="rowDel">
         <template slot-scope="scope" slot="menu">
           <el-button type="text" icon="el-icon-plus" size="mini" @click="handleChild(scope.row,scope.index)">子项
           </el-button>
@@ -83,7 +83,7 @@ export default {
     },
     rowDel: function (row, index) {
       var _this = this
-      this.$confirm('是否确认删除标签名为"' + row.label + '",数据类型为"' + row.type + '"的数据项?', '警告', {
+      this.$confirm('是否确认删除字典名为"' + row.name + '"的数据项?', '警告', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -138,6 +138,12 @@ export default {
     },
     searchChange (form) {
       this.getList(this.page, form)
+    },
+    /**
+     * 刷新回调
+     */
+    refreshChange () {
+      this.getList(this.page)
     }
   }
 }

@@ -20,13 +20,6 @@
 </template>
 <script>
 import { getChild, postChild, putChild, deleteChildById } from '@/api/admin/dict'
-function initRow () {
-  return {
-    id: null,
-    label: '',
-    value: ''
-  }
-}
 export default {
   props: {
     currentId: {
@@ -61,7 +54,7 @@ export default {
       },
       dialogChildVisible: false,
       data: [],
-      row: initRow()
+      row: this._initRow()
     }
   },
   computed: {
@@ -96,13 +89,21 @@ export default {
     this.getList()
   },
   methods: {
+    _initRow () {
+      return {
+        dictId: this.id,
+        parentId: null,
+        id: null,
+        label: '',
+        value: ''
+      }
+    },
     getList () {
       getChild(this.id).then(({ data }) => {
         this.data = data.data
       })
     },
     handleSubmit (row) {
-      console.log(row)
       let submitChild = null
       if (row.id) {
         submitChild = putChild
@@ -110,7 +111,6 @@ export default {
         submitChild = postChild
       }
       submitChild(row).then(({ data }) => {
-        console.log(data)
         this.getList()
       })
     },
@@ -119,11 +119,11 @@ export default {
         this.row = { ...row }
         this.title = '修改'
       } else {
-        this.row = initRow()
+        this.row = this._initRow()
         this.title = '添加'
       }
       if (isChild) {
-        this.row = initRow()
+        this.row = this._initRow()
         this.title = `添加至<${row.label}>`
         this.row.parentId = row.id
       }

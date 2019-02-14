@@ -1,6 +1,5 @@
 <template>
-  <div class="basic-container"
-       :class="{'basic-container--block':block}">
+  <div class="basic-container" :class="{ 'basic-container--block': block }">
     <el-card>
       <slot></slot>
     </el-card>
@@ -9,14 +8,14 @@
 
 <script>
 export default {
-  name: "basicContainer",
+  name: 'BasicContainer',
   props: {
     block: {
       type: Boolean,
       default: false,
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <style lang="scss">

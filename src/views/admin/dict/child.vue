@@ -6,9 +6,9 @@
         <template slot-scope="scope">
           <el-button v-if="scope.row._level <= 1" type="text" icon="el-icon-plus" size="mini" @click="handleEdit(scope.row, scope.index, true)">子项
           </el-button>
-          <el-button type="text" icon="el-icon-check" size="mini" @click="handleEdit(scope.row,scope.index)">编辑
+          <el-button type="text" icon="el-icon-check" size="mini" @click="handleEdit(scope.row, scope.index)">编辑
           </el-button>
-          <el-button type="text" icon="el-icon-delete" size="mini" @click="handleDel(scope.row,scope.index)">删除
+          <el-button type="text" icon="el-icon-delete" size="mini" @click="handleDel(scope.row, scope.index)">删除
           </el-button>
         </template>
       </el-table-column>
@@ -19,14 +19,19 @@
   </div>
 </template>
 <script>
-import { getChild, postChild, putChild, deleteChildById } from '@/api/admin/dict'
+import {
+  getChild,
+  postChild,
+  putChild,
+  deleteChildById,
+} from '@/api/admin/dict'
 import { mergeByFirst } from '@/util/util'
 export default {
   props: {
     currentId: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   data () {
     return {
@@ -35,36 +40,46 @@ export default {
       option: {
         emptyBtn: true,
         submitBtn: true,
-        column: [{
-          label: "字典值",
-          prop: "value",
-          rules: [{
-            required: true,
-            message: "请输入字典值",
-            trigger: "blur"
-          }]
-        }, {
-          label: "字典名",
-          prop: "label",
-          rules: [{
-            required: true,
-            message: "请输入字典名",
-            trigger: "blur"
-          }]
-        }, {
-          label: "排序",
-          prop: "sort",
-          type: 'number',
-          rules: [{
-            required: true,
-            message: "请输入排序",
-            trigger: "blur"
-          }]
-        }]
+        column: [
+          {
+            label: '字典值',
+            prop: 'value',
+            rules: [
+              {
+                required: true,
+                message: '请输入字典值',
+                trigger: 'blur',
+              },
+            ],
+          },
+          {
+            label: '字典名',
+            prop: 'label',
+            rules: [
+              {
+                required: true,
+                message: '请输入字典名',
+                trigger: 'blur',
+              },
+            ],
+          },
+          {
+            label: '排序',
+            prop: 'sort',
+            type: 'number',
+            rules: [
+              {
+                required: true,
+                message: '请输入排序',
+                trigger: 'blur',
+              },
+            ],
+          },
+        ],
       },
       dialogChildVisible: false,
       data: [],
-      row: this._initRow()
+      row: this._initRow(),
     }
   },
   computed: {
@@ -75,25 +90,25 @@ export default {
           {
             text: 'ID',
             value: 'id',
-            width: 100
+            width: 100,
           },
           {
             text: '字典值',
-            value: 'value'
+            value: 'value',
           },
           {
             text: '字典名',
-            value: 'label'
+            value: 'label',
           },
           {
             text: '排序',
             value: 'sort',
-            width: 100
-          }
+            width: 100,
+          },
         ],
-        data: this.data
+        data: this.data,
       }
-    }
+    },
   },
   created () {
     this.getList()
@@ -106,7 +121,7 @@ export default {
         id: null,
         sort: 1,
         label: '',
-        value: ''
+        value: '',
       }
     },
     getList () {
@@ -122,7 +137,7 @@ export default {
       } else {
         submitChild = postChild
       }
-      submitChild(row).then(({ data }) => {
+      submitChild(row).then(() => {
         this.getList()
       })
     },
@@ -142,14 +157,12 @@ export default {
       }
       this.dialogChildVisible = true
     },
-    handleDel (row, index) {
+    handleDel (row) {
       deleteChildById(row.id).then(() => {
         this.getList()
       })
-    }
-  }
+    },
+  },
 }
 </script>
-<style lang="scss" scoped>
-</style>
-
+<style lang="scss" scoped></style>

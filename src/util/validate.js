@@ -3,7 +3,9 @@
  * @param {*} s
  */
 export function isEmail (s) {
-  return /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(s)
+  return /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(
+    s
+  )
 }
 
 /**
@@ -62,9 +64,13 @@ export function validatAlphabets (str) {
 /* 验证pad还是pc */
 export const vaildatePc = function () {
   const userAgentInfo = navigator.userAgent
-  const Agents = ['Android', 'iPhone',
-    'SymbianOS', 'Windows Phone',
-    'iPad', 'iPod'
+  const Agents = [
+    'Android',
+    'iPhone',
+    'SymbianOS',
+    'Windows Phone',
+    'iPad',
+    'iPod',
   ]
   let flag = true
   for (var v = 0; v < Agents.length; v++) {
@@ -128,7 +134,7 @@ export function cardid (code) {
     71: '台湾',
     81: '香港',
     82: '澳门',
-    91: '国外 '
+    91: '国外 ',
   }
   if (!validatenull(code)) {
     if (code.length == 18) {
@@ -248,7 +254,14 @@ export function validatenull (val) {
   } else if (val instanceof Object) {
     if (JSON.stringify(val) === '{}') return true
   } else {
-    if (val == 'null' || val == null || val == 'undefined' || val == undefined || val == '') return true
+    if (
+      val == 'null' ||
+      val == null ||
+      val == 'undefined' ||
+      val == undefined ||
+      val == ''
+    )
+      return true
     return false
   }
   return false

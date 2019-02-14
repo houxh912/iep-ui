@@ -22,10 +22,10 @@ RouterPlugin.install = function (router, store) {
     safe: this,
     // 设置标题
     setTitle: function (title) {
-      title = title ? `${title}——${this.$defaultTitle}` : this.$defaultTitle;
+      title = title ? `${title}——${this.$defaultTitle}` : this.$defaultTitle
       document.title = title
     },
-    closeTag: (value) => {
+    closeTag: value => {
       const tag = value || this.$store.getters.tag
       this.$store.commit('DEL_TAG', tag)
     },
@@ -67,7 +67,7 @@ RouterPlugin.install = function (router, store) {
         path: propsConfig.path || 'path',
         icon: propsConfig.icon || 'icon',
         children: propsConfig.children || 'children',
-        meta: propsConfig.meta || 'meta'
+        meta: propsConfig.meta || 'meta',
       }
       if (aMenu.length === 0) return
       for (let i = 0; i < aMenu.length; i++) {
@@ -90,7 +90,7 @@ RouterPlugin.install = function (router, store) {
         const children = oMenu[propsDefault.children]
 
         const meta = {
-          keepAlive: Number(oMenu['keepAlive']) === 0
+          keepAlive: Number(oMenu['keepAlive']) === 0,
         }
         const isChild = children.length !== 0
         const oRouter = {
@@ -117,21 +117,27 @@ RouterPlugin.install = function (router, store) {
             else return ''
           })(),
           // 处理是否为一级路由
-          children: !isChild ? (() => {
-            if (first) {
-              oMenu[propsDefault.path] = `${path}/index`
-              return [{
-                component (resolve) { require([`../${component}.vue`], resolve) },
-                icon: icon,
-                name: name,
-                meta: meta,
-                path: 'index'
-              }]
-            }
-            return []
-          })() : (() => {
-            return this.formatRoutes(children, false)
-          })()
+          children: !isChild
+            ? (() => {
+                if (first) {
+                  oMenu[propsDefault.path] = `${path}/index`
+                  return [
+                    {
+                      component (resolve) {
+                        require([`../${component}.vue`], resolve)
+                      },
+                      icon: icon,
+                      name: name,
+                      meta: meta,
+                      path: 'index',
+                    },
+                  ]
+                }
+                return []
+              })()
+            : (() => {
+                return this.formatRoutes(children, false)
+              })(),
         }
         aRouter.push(oRouter)
       }
@@ -143,7 +149,7 @@ RouterPlugin.install = function (router, store) {
       } else {
         return aRouter
       }
-    }
+    },
   }
 }
 export default RouterPlugin

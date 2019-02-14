@@ -4,7 +4,7 @@ export function fetchList (query) {
   return request({
     url: '/admin/route',
     method: 'get',
-    params: query
+    params: query,
   })
 }
 
@@ -12,6 +12,6 @@ export function putObj (obj) {
   return request({
     url: '/admin/route',
     method: 'put',
-    data: obj
+    data: obj,
   })
 }

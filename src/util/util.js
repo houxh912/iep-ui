@@ -1,6 +1,7 @@
 import { validatenull } from './validate'
 import request from '@/router/axios'
 import _ from 'lodash'
+import CryptoJS from 'crypto-js'
 // 表单序列化
 export const serialize = data => {
   let list = []
@@ -21,7 +22,7 @@ export const getObjType = obj => {
     '[object RegExp]': 'regExp',
     '[object Undefined]': 'undefined',
     '[object Null]': 'null',
-    '[object Object]': 'object'
+    '[object Object]': 'object',
   }
   if (obj instanceof Element) {
     return 'element'
@@ -60,7 +61,8 @@ export const diff = (obj1, obj2) => {
   delete obj1.close
   var o1 = obj1 instanceof Object
   var o2 = obj2 instanceof Object
-  if (!o1 || !o2) { /*  判断不是对象  */
+  if (!o1 || !o2) {
+    /*  判断不是对象  */
     return obj1 === obj2
   }
 
@@ -83,7 +85,7 @@ export const diff = (obj1, obj2) => {
 /**
  * 设置灰度模式
  */
-export const toggleGrayMode = (status) => {
+export const toggleGrayMode = status => {
   if (status) {
     document.body.className = document.body.className + ' grayMode'
   } else {
@@ -93,20 +95,15 @@ export const toggleGrayMode = (status) => {
 /**
  * 设置主题
  */
-export const setTheme = (name) => {
+export const setTheme = name => {
   document.body.className = name
 }
 
 /**
  *加密处理
  */
-export const encryption = (params) => {
-  let {
-    data,
-    type,
-    param,
-    key
-  } = params
+export const encryption = params => {
+  let { data, type, param, key } = params
   const result = JSON.parse(JSON.stringify(data))
   if (type === 'Base64') {
     param.forEach(ele => {
@@ -118,13 +115,11 @@ export const encryption = (params) => {
       key = CryptoJS.enc.Latin1.parse(key)
       var iv = key
       // 加密
-      var encrypted = CryptoJS.AES.encrypt(
-        data,
-        key, {
-          iv: iv,
-          mode: CryptoJS.mode.CBC,
-          padding: CryptoJS.pad.ZeroPadding
-        })
+      var encrypted = CryptoJS.AES.encrypt(data, key, {
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.ZeroPadding,
+      })
       result[ele] = encrypted.toString()
     })
   }
@@ -136,36 +131,40 @@ export const encryption = (params) => {
  */
 export const fullscreenToggel = () => {
   if (fullscreenEnable()) {
-    exitFullScreen();
+    exitFullScreen()
   } else {
-    reqFullScreen();
+    reqFullScreen()
   }
-};
+}
 /**
  * esc监听全屏
  */
-export const listenfullscreen = (callback) => {
+export const listenfullscreen = callback => {
   function listen () {
     callback()
   }
-  document.addEventListener("fullscreenchange", function () {
-    listen();
-  });
-  document.addEventListener("mozfullscreenchange", function () {
-    listen();
-  });
-  document.addEventListener("webkitfullscreenchange", function () {
-    listen();
-  });
-  document.addEventListener("msfullscreenchange", function () {
-    listen();
-  });
-};
+  document.addEventListener('fullscreenchange', function () {
+    listen()
+  })
+  document.addEventListener('mozfullscreenchange', function () {
+    listen()
+  })
+  document.addEventListener('webkitfullscreenchange', function () {
+    listen()
+  })
+  document.addEventListener('msfullscreenchange', function () {
+    listen()
+  })
+}
 /**
  * 浏览器判断是否全屏
  */
 export const fullscreenEnable = () => {
-  return document.isFullScreen || document.mozIsFullScreen || document.webkitIsFullScreen
+  return (
+    document.isFullScreen ||
+    document.mozIsFullScreen ||
+    document.webkitIsFullScreen
+  )
 }
 
 /**
@@ -173,25 +172,25 @@ export const fullscreenEnable = () => {
  */
 export const reqFullScreen = () => {
   if (document.documentElement.requestFullScreen) {
-    document.documentElement.requestFullScreen();
+    document.documentElement.requestFullScreen()
   } else if (document.documentElement.webkitRequestFullScreen) {
-    document.documentElement.webkitRequestFullScreen();
+    document.documentElement.webkitRequestFullScreen()
   } else if (document.documentElement.mozRequestFullScreen) {
-    document.documentElement.mozRequestFullScreen();
+    document.documentElement.mozRequestFullScreen()
   }
-};
+}
 /**
  * 浏览器退出全屏
  */
 export const exitFullScreen = () => {
   if (document.documentElement.requestFullScreen) {
-    document.exitFullScreen();
+    document.exitFullScreen()
   } else if (document.documentElement.webkitRequestFullScreen) {
-    document.webkitCancelFullScreen();
+    document.webkitCancelFullScreen()
   } else if (document.documentElement.mozRequestFullScreen) {
-    document.mozCancelFullScreen();
+    document.mozCancelFullScreen()
   }
-};
+}
 /**
  * 递归寻找子类的父类
  */
@@ -230,9 +229,13 @@ export const loadStyle = url => {
 export const isObjectValueEqual = (a, b) => {
   let result = true
   Object.keys(a).forEach(ele => {
-    const type = typeof (a[ele])
+    const type = typeof a[ele]
     if (type === 'string' && a[ele] !== b[ele]) result = false
-    else if (type === 'object' && JSON.stringify(a[ele]) !== JSON.stringify(b[ele])) result = false
+    else if (
+      type === 'object' &&
+      JSON.stringify(a[ele]) !== JSON.stringify(b[ele])
+    )
+      result = false
   })
   return result
 }
@@ -242,7 +245,11 @@ export const isObjectValueEqual = (a, b) => {
 export const findByvalue = (dic, value) => {
   let result = ''
   if (validatenull(dic)) return value
-  if (typeof (value) === 'string' || typeof (value) === 'number' || typeof (value) === 'boolean') {
+  if (
+    typeof value === 'string' ||
+    typeof value === 'number' ||
+    typeof value === 'boolean'
+  ) {
     let index = 0
     index = findArray(dic, value)
     if (index != -1) {
@@ -281,7 +288,9 @@ export const findArray = (dic, value) => {
  */
 export const randomLenNum = (len, date) => {
   let random = ''
-  random = Math.ceil(Math.random() * 100000000000000).toString().substr(0, len || 4)
+  random = Math.ceil(Math.random() * 100000000000000)
+    .toString()
+    .substr(0, len || 4)
   if (date) random = random + Date.now()
   return random
 }
@@ -290,15 +299,36 @@ export const randomLenNum = (len, date) => {
  */
 export const openWindow = (url, title, w, h) => {
   // Fixes dual-screen position                            Most browsers       Firefox
-  const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : screen.left
-  const dualScreenTop = window.screenTop !== undefined ? window.screenTop : screen.top
+  const dualScreenLeft =
+    window.screenLeft !== undefined ? window.screenLeft : screen.left
+  const dualScreenTop =
+    window.screenTop !== undefined ? window.screenTop : screen.top
 
-  const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width
-  const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height
+  const width = window.innerWidth
+    ? window.innerWidth
+    : document.documentElement.clientWidth
+      ? document.documentElement.clientWidth
+      : screen.width
+  const height = window.innerHeight
+    ? window.innerHeight
+    : document.documentElement.clientHeight
+      ? document.documentElement.clientHeight
+      : screen.height
 
-  const left = ((width / 2) - (w / 2)) + dualScreenLeft
-  const top = ((height / 2) - (h / 2)) + dualScreenTop
-  const newWindow = window.open(url, title, 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left)
+  const left = width / 2 - w / 2 + dualScreenLeft
+  const top = height / 2 - h / 2 + dualScreenTop
+  const newWindow = window.open(
+    url,
+    title,
+    'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, copyhistory=no, width=' +
+    w +
+    ', height=' +
+    h +
+    ', top=' +
+    top +
+    ', left=' +
+    left
+  )
 
   // Puts focus on the newWindow
   if (window.focus) {
@@ -311,18 +341,21 @@ export const openWindow = (url, title, w, h) => {
  * @returns {PromiseLike<T | never> | Promise<T | never>}
  */
 export function handleImg (fileName, id) {
-  return validatenull(fileName) ? null : request({
-    url: '/admin/file/' + fileName,
-    method: 'get',
-    responseType: 'blob'
-  }).then((response) => { // 处理返回的文件流
-    let blob = response.data;
-    let img = document.getElementById(id);
-    img.src = URL.createObjectURL(blob);
-    window.setTimeout(function () {
-      window.URL.revokeObjectURL(blob)
-    }, 0)
-  })
+  return validatenull(fileName)
+    ? null
+    : request({
+      url: '/admin/file/' + fileName,
+      method: 'get',
+      responseType: 'blob',
+    }).then(response => {
+      // 处理返回的文件流
+      let blob = response.data
+      let img = document.getElementById(id)
+      img.src = URL.createObjectURL(blob)
+      window.setTimeout(function () {
+        window.URL.revokeObjectURL(blob)
+      }, 0)
+    })
 }
 
 export function mergeByFirst (distObject, srcObject) {

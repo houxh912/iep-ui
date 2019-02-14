@@ -1,6 +1,13 @@
 import { getStore, setStore } from '@/util/store'
 import { isURL } from '@/util/validate'
-import { getUserInfo, loginByMobile, loginBySocial, loginByUsername, logout, refreshToken } from '@/api/login'
+import {
+  getUserInfo,
+  loginByMobile,
+  loginBySocial,
+  loginByUsername,
+  logout,
+  refreshToken,
+} from '@/api/login'
 import { deepClone, encryption } from '@/util/util'
 import webiste from '@/const/website'
 import { GetMenu } from '@/api/admin/menu'
@@ -11,16 +18,19 @@ function addPath (ele, first) {
     label: propsConfig.label || 'label',
     path: propsConfig.path || 'path',
     icon: propsConfig.icon || 'icon',
-    children: propsConfig.children || 'children'
+    children: propsConfig.children || 'children',
   }
-  const isChild = ele[propsDefault.children] && ele[propsDefault.children].length !== 0
+  const isChild =
+    ele[propsDefault.children] && ele[propsDefault.children].length !== 0
   if (!isChild && first) {
     ele[propsDefault.path] = ele[propsDefault.path] + '/index'
     return
   }
   ele[propsDefault.children].forEach(child => {
     if (!isURL(child[propsDefault.path])) {
-      child[propsDefault.path] = `${ele[propsDefault.path]}/${child[propsDefault.path] ? child[propsDefault.path] : 'index'}`
+      child[propsDefault.path] = `${ele[propsDefault.path]}/${
+        child[propsDefault.path] ? child[propsDefault.path] : 'index'
+        }`
     }
     addPath(child)
   })
@@ -31,19 +41,23 @@ const user = {
     userInfo: {},
     permissions: {},
     roles: [],
-    menu: getStore({
-      name: 'menu'
-    }) || [],
+    menu:
+      getStore({
+        name: 'menu',
+      }) || [],
     menuAll: [],
-    expires_in: getStore({
-      name: 'expires_in'
-    }) || '',
-    access_token: getStore({
-      name: 'access_token'
-    }) || '',
-    refresh_token: getStore({
-      name: 'refresh_token'
-    }) || ''
+    expires_in:
+      getStore({
+        name: 'expires_in',
+      }) || '',
+    access_token:
+      getStore({
+        name: 'access_token',
+      }) || '',
+    refresh_token:
+      getStore({
+        name: 'refresh_token',
+      }) || '',
   },
   actions: {
     // 根据用户名登录
@@ -51,96 +65,108 @@ const user = {
       const user = encryption({
         data: userInfo,
         key: 'gdscloudprisbest',
-        param: ['password']
+        param: ['password'],
       })
       return new Promise((resolve, reject) => {
-        loginByUsername(user.username, user.password, user.code, user.randomStr).then(response => {
-          const data = response.data
-          commit('SET_ACCESS_TOKEN', data.access_token)
-          commit('SET_REFRESH_TOKEN', data.refresh_token)
-          commit('SET_EXPIRES_IN', data.expires_in)
-          commit('CLEAR_LOCK')
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+        loginByUsername(user.username, user.password, user.code, user.randomStr)
+          .then(response => {
+            const data = response.data
+            commit('SET_ACCESS_TOKEN', data.access_token)
+            commit('SET_REFRESH_TOKEN', data.refresh_token)
+            commit('SET_EXPIRES_IN', data.expires_in)
+            commit('CLEAR_LOCK')
+            resolve()
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     },
     // 根据手机号登录
     LoginByPhone ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
-        loginByMobile(userInfo.mobile, userInfo.code).then(response => {
-          const data = response.data
-          commit('SET_ACCESS_TOKEN', data.access_token)
-          commit('SET_REFRESH_TOKEN', data.refresh_token)
-          commit('SET_EXPIRES_IN', data.expires_in)
-          commit('CLEAR_LOCK')
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+        loginByMobile(userInfo.mobile, userInfo.code)
+          .then(response => {
+            const data = response.data
+            commit('SET_ACCESS_TOKEN', data.access_token)
+            commit('SET_REFRESH_TOKEN', data.refresh_token)
+            commit('SET_EXPIRES_IN', data.expires_in)
+            commit('CLEAR_LOCK')
+            resolve()
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     },
     // 根据OpenId登录
     LoginBySocial ({ commit }, param) {
       return new Promise((resolve, reject) => {
-        loginBySocial(param.state, param.code).then(response => {
-          const data = response.data
-          commit('SET_ACCESS_TOKEN', data.access_token)
-          commit('SET_REFRESH_TOKEN', data.refresh_token)
-          commit('SET_EXPIRES_IN', data.expires_in)
-          commit('CLEAR_LOCK')
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+        loginBySocial(param.state, param.code)
+          .then(response => {
+            const data = response.data
+            commit('SET_ACCESS_TOKEN', data.access_token)
+            commit('SET_REFRESH_TOKEN', data.refresh_token)
+            commit('SET_EXPIRES_IN', data.expires_in)
+            commit('CLEAR_LOCK')
+            resolve()
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     },
     GetUserInfo ({ commit }) {
       return new Promise((resolve, reject) => {
-        getUserInfo().then((res) => {
-          const data = res.data.data || {}
-          commit('SET_USERIFNO', data.sysUser)
-          commit('SET_ROLES', data.roles || [])
-          commit('SET_PERMISSIONS', data.permissions || [])
-          resolve(data)
-        }).catch((err) => {
-          reject()
-        })
+        getUserInfo()
+          .then(res => {
+            const data = res.data.data || {}
+            commit('SET_USERIFNO', data.sysUser)
+            commit('SET_ROLES', data.roles || [])
+            commit('SET_PERMISSIONS', data.permissions || [])
+            resolve(data)
+          })
+          .catch(() => {
+            reject()
+          })
       })
     },
     // 刷新token
     RefreshToken ({ commit, state }) {
       return new Promise((resolve, reject) => {
-        refreshToken(state.refresh_token).then(response => {
-          const data = response.data
-          commit('SET_ACCESS_TOKEN', data.access_token)
-          commit('SET_REFRESH_TOKEN', data.refresh_token)
-          commit('SET_EXPIRES_IN', data.expires_in)
-          commit('CLEAR_LOCK')
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+        refreshToken(state.refresh_token)
+          .then(response => {
+            const data = response.data
+            commit('SET_ACCESS_TOKEN', data.access_token)
+            commit('SET_REFRESH_TOKEN', data.refresh_token)
+            commit('SET_EXPIRES_IN', data.expires_in)
+            commit('CLEAR_LOCK')
+            resolve()
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     },
     // 登出
     LogOut ({ commit }) {
       return new Promise((resolve, reject) => {
-        logout().then(() => {
-          commit('SET_MENU', [])
-          commit('SET_PERMISSIONS', [])
-          commit('SET_USER_INFO', {})
-          commit('SET_ACCESS_TOKEN', '')
-          commit('SET_REFRESH_TOKEN', '')
-          commit('SET_EXPIRES_IN', '')
-          commit('SET_ROLES', [])
-          commit('DEL_ALL_TAG')
-          commit('CLEAR_LOCK')
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+        logout()
+          .then(() => {
+            commit('SET_MENU', [])
+            commit('SET_PERMISSIONS', [])
+            commit('SET_USER_INFO', {})
+            commit('SET_ACCESS_TOKEN', '')
+            commit('SET_REFRESH_TOKEN', '')
+            commit('SET_EXPIRES_IN', '')
+            commit('SET_ROLES', [])
+            commit('DEL_ALL_TAG')
+            commit('CLEAR_LOCK')
+            resolve()
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     },
     // 注销session
@@ -158,11 +184,9 @@ const user = {
       })
     },
     // 获取系统菜单
-    GetMenu ({
-      commit
-    }) {
+    GetMenu ({ commit }) {
       return new Promise(resolve => {
-        GetMenu().then((res) => {
+        GetMenu().then(res => {
           const data = res.data.data
           let menu = deepClone(data)
           menu.forEach(ele => {
@@ -172,8 +196,7 @@ const user = {
           resolve(menu)
         })
       })
-    }
-
+    },
   },
   mutations: {
     SET_ACCESS_TOKEN: (state, access_token) => {
@@ -181,7 +204,7 @@ const user = {
       setStore({
         name: 'access_token',
         content: state.access_token,
-        type: 'session'
+        type: 'session',
       })
     },
     SET_EXPIRES_IN: (state, expires_in) => {
@@ -189,7 +212,7 @@ const user = {
       setStore({
         name: 'expires_in',
         content: state.expires_in,
-        type: 'session'
+        type: 'session',
       })
     },
     SET_REFRESH_TOKEN: (state, rfToken) => {
@@ -197,7 +220,7 @@ const user = {
       setStore({
         name: 'refresh_token',
         content: state.refresh_token,
-        type: 'session'
+        type: 'session',
       })
     },
     SET_USERIFNO: (state, userInfo) => {
@@ -208,7 +231,7 @@ const user = {
       setStore({
         name: 'menu',
         content: state.menu,
-        type: 'session'
+        type: 'session',
       })
     },
     SET_MENU_ALL: (state, menuAll) => {
@@ -217,14 +240,16 @@ const user = {
     SET_ROLES: (state, roles) => {
       state.roles = roles
     },
+    SET_USER_INFO: (state, userInfo) => {
+      state.userInfo = userInfo
+    },
     SET_PERMISSIONS: (state, permissions) => {
       const list = {}
       for (let i = 0; i < permissions.length; i++) {
         list[permissions[i]] = true
       }
       state.permissions = list
-    }
-  }
-
+    },
+  },
 }
 export default user

@@ -3,14 +3,14 @@
     <basic-container>
       <template>
         <el-tabs @tab-click="switchTab">
-          <el-tab-pane label='信息管理' name='userManager' />
-          <el-tab-pane label='密码管理' name='passwordManager' />
+          <el-tab-pane label="信息管理" name="userManager" />
+          <el-tab-pane label="密码管理" name="passwordManager" />
         </el-tabs>
       </template>
       <el-row>
         <el-col :span="12">
           <div class="grid-content bg-purple">
-            <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" v-if="switchStatus==='userManager'" class="demo-ruleForm">
+            <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" v-if="switchStatus === 'userManager'" class="demo-ruleForm">
               <el-form-item label="用户名" prop="username">
                 <el-input type="text" v-model="ruleForm2.username" disabled></el-input>
               </el-form-item>
@@ -19,7 +19,7 @@
               </el-form-item>
               <el-form-item label="头像">
                 <el-upload class="avatar-uploader" action="/admin/file/upload" :headers="headers" :show-file-list="false" :on-success="handleAvatarSuccess">
-                  <img id="avatar" v-if="ruleForm2.avatar" :src="avatarUrl" class="avatar">
+                  <img id="avatar" v-if="ruleForm2.avatar" :src="avatarUrl" class="avatar" />
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
               </el-form-item>
@@ -32,7 +32,7 @@
                 <el-button @click="resetForm('ruleForm2')">重置</el-button>
               </el-form-item>
             </el-form>
-            <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" v-if="switchStatus==='passwordManager'" class="demo-ruleForm">
+            <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" v-if="switchStatus === 'passwordManager'" class="demo-ruleForm">
               <el-form-item label="原密码" prop="password">
                 <el-input type="password" v-model="ruleForm2.password" auto-complete="off"></el-input>
               </el-form-item>
@@ -55,12 +55,11 @@
   </div>
 </template>
 
-
 <script>
-import { handleDown } from "@/api/admin/user";
+// import { handleDown } from '@/api/admin/user'
 import { handleImg, openWindow } from '@/util/util'
 import { mapState } from 'vuex'
-import store from "@/store";
+import store from '@/store'
 import request from '@/router/axios'
 
 export default {
@@ -81,7 +80,7 @@ export default {
       avatarUrl: '',
       show: false,
       headers: {
-        Authorization: 'Bearer ' + store.getters.access_token
+        Authorization: 'Bearer ' + store.getters.access_token,
       },
       ruleForm2: {
         username: '',
@@ -89,13 +88,24 @@ export default {
         newpassword1: '',
         newpassword2: '',
         avatar: '',
-        phone: ''
+        phone: '',
       },
       rules2: {
-        password: [{ required: true, min: 6, message: '原密码不能为空且不少于6位', trigger: 'change' }],
-        newpassword1: [{ required: false, min: 6, message: '不少于6位', trigger: 'change' }],
-        newpassword2: [{ required: false, validator: validatePass, trigger: 'blur' }]
-      }
+        password: [
+          {
+            required: true,
+            min: 6,
+            message: '原密码不能为空且不少于6位',
+            trigger: 'change',
+          },
+        ],
+        newpassword1: [
+          { required: false, min: 6, message: '不少于6位', trigger: 'change' },
+        ],
+        newpassword2: [
+          { required: false, validator: validatePass, trigger: 'blur' },
+        ],
+      },
     }
   },
   created () {
@@ -107,11 +117,11 @@ export default {
   },
   computed: {
     ...mapState({
-      userInfo: state => state.user.userInfo
+      userInfo: state => state.user.userInfo,
     }),
   },
   methods: {
-    switchTab (tab, event) {
+    switchTab (tab) {
       if (tab.name === 'userManager') {
         handleImg(this.ruleForm2.avatar, 'avatar')
       }
@@ -123,37 +133,39 @@ export default {
           request({
             url: '/admin/user/edit',
             method: 'put',
-            data: this.ruleForm2
-          }).then(response => {
-            if (response.data.data) {
-              this.$notify({
-                title: '成功',
-                message: '修改成功',
-                type: 'success',
-                duration: 2000
-              })
-              // 修改密码之后强制重新登录
-              if (this.switchStatus === 'passwordManager') {
-                this.$store.dispatch('LogOut').then(() => {
-                  location.reload() // 为了重新实例化vue-router对象 避免bug
+            data: this.ruleForm2,
+          })
+            .then(response => {
+              if (response.data.data) {
+                this.$notify({
+                  title: '成功',
+                  message: '修改成功',
+                  type: 'success',
+                  duration: 2000,
+                })
+                // 修改密码之后强制重新登录
+                if (this.switchStatus === 'passwordManager') {
+                  this.$store.dispatch('LogOut').then(() => {
+                    location.reload() // 为了重新实例化vue-router对象 避免bug
+                  })
+                }
+              } else {
+                this.$notify({
+                  title: '失败',
+                  message: response.data.msg,
+                  type: 'error',
+                  duration: 2000,
                 })
               }
-            } else {
+            })
+            .catch(() => {
               this.$notify({
                 title: '失败',
-                message: response.data.msg,
+                message: '修改失败',
                 type: 'error',
-                duration: 2000
+                duration: 2000,
               })
-            }
-          }).catch(() => {
-            this.$notify({
-              title: '失败',
-              message: '修改失败',
-              type: 'error',
-              duration: 2000
             })
-          })
         } else {
           return false
         }
@@ -164,21 +176,36 @@ export default {
     },
     handleClick (thirdpart) {
       let appid, client_id, redirect_uri, url
-      redirect_uri = encodeURIComponent(window.location.origin + '/#/authredirect?type=BIND')
+      redirect_uri = encodeURIComponent(
+        window.location.origin + '/#/authredirect?type=BIND'
+      )
       if (thirdpart === 'wechat') {
         appid = 'wxd1678d3f83b1d83a'
-        url = 'https://open.weixin.qq.com/connect/qrconnect?appid=' + appid + '&redirect_uri=' + redirect_uri + '&state=' + appid + '&response_type=code&scope=snsapi_login#wechat_redirect'
+        url =
+          'https://open.weixin.qq.com/connect/qrconnect?appid=' +
+          appid +
+          '&redirect_uri=' +
+          redirect_uri +
+          '&state=' +
+          appid +
+          '&response_type=code&scope=snsapi_login#wechat_redirect'
       } else if (thirdpart === 'tencent') {
         client_id = '101322838'
-        url = 'https://graph.qq.com/oauth2.0/authorize?response_type=code&state=' + appid + '&client_id=' + client_id + '&redirect_uri=' + redirect_uri
+        url =
+          'https://graph.qq.com/oauth2.0/authorize?response_type=code&state=' +
+          appid +
+          '&client_id=' +
+          client_id +
+          '&redirect_uri=' +
+          redirect_uri
       }
       openWindow(url, thirdpart, 540, 540)
     },
     handleAvatarSuccess (res, file) {
-      this.avatarUrl = URL.createObjectURL(file.raw);
-      this.ruleForm2.avatar = res.data.bucketName + "-" + res.data.fileName;
-    }
-  }
+      this.avatarUrl = URL.createObjectURL(file.raw)
+      this.ruleForm2.avatar = res.data.bucketName + '-' + res.data.fileName
+    },
+  },
 }
 </script>
 <style>

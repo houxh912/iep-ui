@@ -1,13 +1,11 @@
-import {
-  mapGetters
-} from 'vuex'
+import { mapGetters } from 'vuex'
 const version = require('element-ui/package.json').version // element-ui version from node_modules
 const ORIGINAL_THEME = '#409EFF' // default color
 export default function () {
   return {
     data () {
       return {
-        themeVal: ORIGINAL_THEME
+        themeVal: ORIGINAL_THEME,
       }
     },
     created () {
@@ -17,10 +15,10 @@ export default function () {
       themeVal (val, oldVal) {
         this.$store.commit('SET_THEME', val)
         this.updateTheme(val, oldVal)
-      }
+      },
     },
     computed: {
-      ...mapGetters(['theme'])
+      ...mapGetters(['theme']),
     },
     methods: {
       updateTheme (val, oldVal) {
@@ -89,13 +87,12 @@ export default function () {
           .filter(style => {
             const text = style.innerText
             return (
-              new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text)
+              new RegExp(oldVal, 'i').test(text) &&
+              !/Chalk Variables/.test(text)
             )
           })
         styles.forEach(style => {
-          const {
-            innerText
-          } = style
+          const { innerText } = style
           if (typeof innerText !== 'string') return
           style.innerText = this.updateStyle(
             innerText,
@@ -107,7 +104,10 @@ export default function () {
       updateStyle (style, oldCluster, newCluster) {
         let newStyle = style
         oldCluster.forEach((color, index) => {
-          newStyle = newStyle.replace(new RegExp(color, 'ig'), newCluster[index])
+          newStyle = newStyle.replace(
+            new RegExp(color, 'ig'),
+            newCluster[index]
+          )
         })
         return newStyle
       },
@@ -117,7 +117,10 @@ export default function () {
         xhr.onreadystatechange = () => {
           if (xhr.readyState === 4 && xhr.status === 200) {
             if (variable) {
-              this[variable] = xhr.responseText.replace(/@font-face{[^}]+}/, '')
+              this[variable] = xhr.responseText.replace(
+                /@font-face{[^}]+}/,
+                ''
+              )
             }
             callback(xhr.responseText)
           }
@@ -170,7 +173,7 @@ export default function () {
         }
         clusters.push(shadeColor(theme, 0.1))
         return clusters
-      }
-    }
+      },
+    },
   }
 }

@@ -3,11 +3,11 @@
     <basic-container>
       <avue-crud ref="crud" :page="page" :data="tableData" @on-load="getList" :table-loading="tableLoading" :option="tableOption" @refresh-change="refreshChange">
         <template slot-scope="scope" slot="menuBtn">
-          <el-dropdown-item divided v-if="permissions.act_task_manage" @click.native="audit(scope.row,scope.index)">审批
+          <el-dropdown-item divided v-if="permissions.act_task_manage" @click.native="audit(scope.row, scope.index)">审批
           </el-dropdown-item>
-          <el-dropdown-item divided v-if="permissions.act_task_manage" @click.native="comment(scope.row,scope.index)">批注
+          <el-dropdown-item divided v-if="permissions.act_task_manage" @click.native="comment(scope.row, scope.index)">批注
           </el-dropdown-item>
-          <el-dropdown-item divided v-if="permissions.act_task_manage" @click.native="viewPic(scope.row,scope.index)">流程图
+          <el-dropdown-item divided v-if="permissions.act_task_manage" @click.native="viewPic(scope.row, scope.index)">流程图
           </el-dropdown-item>
         </template>
       </avue-crud>
@@ -15,7 +15,7 @@
     <el-dialog title="任务办理" :visible.sync="showTask">
       <avue-form ref="form" v-model="obj" :option="formOption">
         <template slot-scope="scope" slot="menuForm">
-          <el-button icon="el-icon-check" v-for="flag in flagList" :key="flag" @click="handleTask(scope.row,flag)" plain>{{flag}}
+          <el-button icon="el-icon-check" v-for="flag in flagList" :key="flag" @click="handleTask(scope.row, flag)" plain>{{ flag }}
           </el-button>
         </template>
       </avue-form>
@@ -24,18 +24,27 @@
       <avue-crud :data="taskTableData" :option="taskOption"></avue-crud>
     </el-dialog>
     <el-dialog title="流程图" :visible.sync="showPicDialog">
-      <img :src="actPicUrl" v-if="showPicDialog" width="100%">
+      <img :src="actPicUrl" v-if="showPicDialog" width="100%" />
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { doTask, fetchComment, fetchDetail, fetchList } from '@/api/activiti/task'
-import { formOption, tableOption, taskOption } from '@/const/crud/activiti/task'
+import {
+  doTask,
+  fetchComment,
+  fetchDetail,
+  fetchList,
+} from '@/api/activiti/task'
+import {
+  formOption,
+  tableOption,
+  taskOption,
+} from '@/const/crud/activiti/task'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'task',
+  name: 'Task',
   data () {
     return {
       actPicUrl: '',
@@ -49,7 +58,7 @@ export default {
       page: {
         total: 0, // 总页数
         currentPage: 1, // 当前页数
-        pageSize: 20 // 每页显示多少条
+        pageSize: 20, // 每页显示多少条
       },
       tableLoading: false,
       tableOption: tableOption,
@@ -57,27 +66,30 @@ export default {
       taskOption: taskOption,
     }
   },
-  created () {
-  },
-  mounted: function () {
-  },
+  created () { },
+  mounted: function () { },
   computed: {
-    ...mapGetters(['permissions'])
+    ...mapGetters(['permissions']),
   },
   methods: {
     getList (page, params) {
       this.tableLoading = true
-      fetchList(Object.assign({
-        current: page.currentPage,
-        size: page.pageSize
-      }, params)).then(response => {
+      fetchList(
+        Object.assign(
+          {
+            current: page.currentPage,
+            size: page.pageSize,
+          },
+          params
+        )
+      ).then(response => {
         this.tableData = response.data.data.records
         this.page.total = response.data.data.total
         this.tableLoading = false
       })
     },
 
-    audit: function (row, index) {
+    audit: function (row) {
       fetchDetail(row.taskId).then(response => {
         this.obj = response.data.data
         // 根据连线判断下次的流程
@@ -86,7 +98,7 @@ export default {
       })
       this.obj = row
     },
-    comment: function (row, index) {
+    comment: function (row) {
       fetchComment(row.taskId).then(response => {
         this.taskTableData = response.data.data
       })
@@ -97,33 +109,35 @@ export default {
       this.$confirm('是否确认提交ID为' + row.leaveId, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
-      }).then(function () {
-        return submit(row.leaveId)
-      }).then(data => {
-        _this.tableData.splice(index, 1)
-        _this.$message({
-          showClose: true,
-          message: '提交成功',
-          type: 'success'
-        })
-      }).catch(function (err) {
+        type: 'warning',
       })
+        .then(function () {
+          // return submit(row.leaveId)
+        })
+        .then(() => {
+          _this.tableData.splice(index, 1)
+          _this.$message({
+            showClose: true,
+            message: '提交成功',
+            type: 'success',
+          })
+        })
+        .catch(function () { })
     },
     handleTask: function (row, result) {
       this.obj.taskFlag = result
-      doTask(this.obj).then(response => {
+      doTask(this.obj).then(() => {
         this.$message({
           showClose: true,
           message: '提交成功',
-          type: 'success'
+          type: 'success',
         })
         this.showTask = false
         this.getList(this.page)
       })
     },
-    viewPic: function (row, index) {
-      this.actPicUrl = `/act/task/view/` + row.taskId
+    viewPic: function (row) {
+      this.actPicUrl = '/act/task/view/' + row.taskId
       this.showPicDialog = true
     },
     /**
@@ -131,11 +145,9 @@ export default {
      */
     refreshChange () {
       this.getList(this.page)
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
-
+<style lang="scss" scoped></style>

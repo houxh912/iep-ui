@@ -22,23 +22,23 @@ export default {
         column: [
           {
             label: '属性名称',
-            prop: 'key'
+            prop: 'key',
           },
           {
             label: '属性值',
-            prop: 'value'
-          }
-        ]
-      }
+            prop: 'value',
+          },
+        ],
+      },
     }
   },
   created () {
     request({
       url: '/tx/admin/avueSetting',
-      method: 'get'
-    }).then((resp) => {
+      method: 'get',
+    }).then(resp => {
       this.data = resp.data
     })
-  }
+  },
 }
 </script>

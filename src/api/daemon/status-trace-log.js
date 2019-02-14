@@ -4,7 +4,7 @@ export function fetchList (query) {
   return request({
     url: '/daemon/status-trace-log/page',
     method: 'get',
-    params: query
+    params: query,
   })
 }
 
@@ -12,21 +12,21 @@ export function addObj (obj) {
   return request({
     url: '/daemon/status-trace-log',
     method: 'post',
-    data: obj
+    data: obj,
   })
 }
 
 export function getObj (id) {
   return request({
     url: '/daemon/status-trace-log/' + id,
-    method: 'get'
+    method: 'get',
   })
 }
 
 export function delObj (id) {
   return request({
     url: '/daemon/statustracelog/' + id,
-    method: 'delete'
+    method: 'delete',
   })
 }
 
@@ -34,6 +34,6 @@ export function putObj (obj) {
   return request({
     url: '/daemon/status-trace-log',
     method: 'put',
-    data: obj
+    data: obj,
   })
 }

@@ -18,17 +18,22 @@ export function dateFormat (date) {
       'm+': date.getMinutes(), // minute
       's+': date.getSeconds(), // second
       'q+': Math.floor((date.getMonth() + 3) / 3), // quarter
-      'S': date.getMilliseconds() // millisecond
+      S: date.getMilliseconds(), // millisecond
     }
     if (/(y+)/.test(format)) {
-      format = format.replace(RegExp.$1,
-        (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+      format = format.replace(
+        RegExp.$1,
+        (date.getFullYear() + '').substr(4 - RegExp.$1.length)
+      )
     }
     for (var k in o) {
       if (new RegExp('(' + k + ')').test(format)) {
-        format = format.replace(RegExp.$1,
-          RegExp.$1.length == 1 ? o[k]
-            : ('00' + o[k]).substr(('' + o[k]).length))
+        format = format.replace(
+          RegExp.$1,
+          RegExp.$1.length == 1
+            ? o[k]
+            : ('00' + o[k]).substr(('' + o[k]).length)
+        )
       }
     }
     return format
@@ -70,11 +75,12 @@ export function parseTime (time, cFormat) {
     h: date.getHours(),
     i: date.getMinutes(),
     s: date.getSeconds(),
-    a: date.getDay()
+    a: date.getDay(),
   }
   const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
     let value = formatObj[key]
-    if (key === 'a') return ['一', '二', '三', '四', '五', '六', '日'][value - 1]
+    if (key === 'a')
+      return ['一', '二', '三', '四', '五', '六', '日'][value - 1]
     if (result.length > 0 && value < 10) {
       value = '0' + value
     }
@@ -92,7 +98,8 @@ export function formatTime (time, option) {
 
   if (diff < 30) {
     return '刚刚'
-  } else if (diff < 3600) { // less 1 hour
+  } else if (diff < 3600) {
+    // less 1 hour
     return Math.ceil(diff / 60) + '分钟前'
   } else if (diff < 3600 * 24) {
     return Math.ceil(diff / 3600) + '小时前'
@@ -102,23 +109,37 @@ export function formatTime (time, option) {
   if (option) {
     return parseTime(time, option)
   } else {
-    return d.getMonth() + 1 + '月' + d.getDate() + '日' + d.getHours() + '时' + d.getMinutes() + '分'
+    return (
+      d.getMonth() +
+      1 +
+      '月' +
+      d.getDate() +
+      '日' +
+      d.getHours() +
+      '时' +
+      d.getMinutes() +
+      '分'
+    )
   }
 }
 
 /* 数字 格式化 */
 export function nFormatter (num, digits) {
   const si = [
-    { value: 1E18, symbol: 'E' },
-    { value: 1E15, symbol: 'P' },
-    { value: 1E12, symbol: 'T' },
-    { value: 1E9, symbol: 'G' },
-    { value: 1E6, symbol: 'M' },
-    { value: 1E3, symbol: 'k' }
+    { value: 1e18, symbol: 'E' },
+    { value: 1e15, symbol: 'P' },
+    { value: 1e12, symbol: 'T' },
+    { value: 1e9, symbol: 'G' },
+    { value: 1e6, symbol: 'M' },
+    { value: 1e3, symbol: 'k' },
   ]
   for (let i = 0; i < si.length; i++) {
     if (num >= si[i].value) {
-      return (num / si[i].value + 0.1).toFixed(digits).replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') + si[i].symbol
+      return (
+        (num / si[i].value + 0.1)
+          .toFixed(digits)
+          .replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') + si[i].symbol
+      )
     }
   }
   return num.toString()
@@ -131,5 +152,7 @@ export function html2Text (val) {
 }
 
 export function toThousandslsFilter (num) {
-  return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
+  return (+num || 0)
+    .toString()
+    .replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
 }

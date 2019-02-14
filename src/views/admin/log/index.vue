@@ -3,7 +3,7 @@
     <basic-container>
       <avue-crud ref="crud" :page="page" :data="tableData" :table-loading="tableLoading" :option="tableOption" @on-load="getList" @search-change="searchChange" @refresh-change="refreshChange" @row-del="rowDel">
         <template slot-scope="scope" slot="menu">
-          <el-button type="text" v-if="permissions.sys_log_del" icon="el-icon-delete" size="mini" @click="handleDel(scope.row,scope.index)">删除
+          <el-button type="text" v-if="permissions.sys_log_del" icon="el-icon-delete" size="mini" @click="handleDel(scope.row, scope.index)">删除
           </el-button>
         </template>
       </avue-crud>
@@ -17,34 +17,37 @@ import { tableOption } from '@/const/crud/admin/log'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'log',
+  name: 'Log',
   data () {
     return {
       tableData: [],
       page: {
         total: 0, // 总页数
         currentPage: 1, // 当前页数
-        pageSize: 20 // 每页显示多少条
+        pageSize: 20, // 每页显示多少条
       },
       tableLoading: false,
-      tableOption: tableOption
+      tableOption: tableOption,
     }
   },
-  created () {
-  },
-  mounted: function () {
-  },
+  created () { },
+  mounted: function () { },
   computed: {
-    ...mapGetters(['permissions'])
+    ...mapGetters(['permissions']),
   },
   methods: {
     getList (page, params) {
       this.tableLoading = true
-      fetchList(Object.assign({
-        descs: 'create_time',
-        current: page.currentPage,
-        size: page.pageSize
-      }, params)).then(response => {
+      fetchList(
+        Object.assign(
+          {
+            descs: 'create_time',
+            current: page.currentPage,
+            size: page.pageSize,
+          },
+          params
+        )
+      ).then(response => {
         this.tableData = response.data.data.records
         this.page.total = response.data.data.total
         this.tableLoading = false
@@ -53,23 +56,25 @@ export default {
     handleDel (row, index) {
       this.$refs.crud.rowDel(row, index)
     },
-    rowDel: function (row, index) {
+    rowDel: function (row) {
       var _this = this
       this.$confirm('是否确认删除ID为"' + row.id + '"的日志?', '警告', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
-      }).then(function () {
-        return delObj(row.id)
-      }).then(data => {
-        this.getList(this.page)
-        _this.$message({
-          showClose: true,
-          message: '删除成功',
-          type: 'success'
-        })
-      }).catch(function (err) {
+        type: 'warning',
       })
+        .then(function () {
+          return delObj(row.id)
+        })
+        .then(() => {
+          this.getList(this.page)
+          _this.$message({
+            showClose: true,
+            message: '删除成功',
+            type: 'success',
+          })
+        })
+        .catch(function () { })
     },
     /**
      * 搜索回调
@@ -82,11 +87,9 @@ export default {
      */
     refreshChange () {
       this.getList(this.page)
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
-
+<style lang="scss" scoped></style>

@@ -1,14 +1,19 @@
 <template>
   <span class="setting">
-    <div class="setting__shade" :class="{'setting__shade--show':isShade}" @click="close"></div>
+    <div
+      class="setting__shade"
+      :class="{ 'setting__shade--show': isShade }"
+      @click="close"
+    ></div>
     <i class="el-icon-more setting__icon" @click="open"></i>
-    <div class="setting__content" :class="{'setting__content--show':box}">
+    <div class="setting__content" :class="{ 'setting__content--show': box }">
       <div class="setting__header">版权信息</div>
       <div class="setting__body setting__about">
         <p>Version：Gds 1.0.0</p>
         <p>Copyright: GovMade ©2018-2019</p>
       </div>
-      <div class="setting__header">设置
+      <div class="setting__header">
+        设置
         <small>(滑动鼠标下面还有更多设置)</small>
       </div>
       <el-scrollbar style="height:500px">
@@ -21,20 +26,20 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
-import { validatenull } from "@/util/validate";
-import { option, list } from "@/const/setting/";
+import { mapState, mapGetters } from 'vuex'
+import { validatenull } from '@/util/validate'
+import { option, list } from '@/const/setting/'
 export default {
-  data() {
+  data () {
     return {
       box: false,
       form: {},
       list: list,
-      option: option(this)
-    };
+      option: option(this),
+    }
   },
   computed: {
-    ...mapGetters(["isShade"]),
+    ...mapGetters(['isShade']),
     ...mapState({
       showTag: state => state.common.showTag,
       showDebug: state => state.common.showDebug,
@@ -44,38 +49,38 @@ export default {
       showCollapse: state => state.common.showCollapse,
       showSearch: state => state.common.showSearch,
       showMenu: state => state.common.showMenu,
-      showTheme: state => state.common.showTheme
-    })
+      showTheme: state => state.common.showTheme,
+    }),
   },
-  created() {
-    this.init();
+  created () {
+    this.init()
   },
   methods: {
-    close() {
-      this.box = false;
-      this.$store.commit("SET_SHADE", false);
+    close () {
+      this.box = false
+      this.$store.commit('SET_SHADE', false)
     },
-    set(key) {
-      const ele = this.find(key);
-      this.$store.commit(ele.commit, eval(this.form[ele.key]));
+    set (key) {
+      const ele = this.find(key)
+      this.$store.commit(ele.commit, eval(this.form[ele.key]))
     },
-    find(key) {
-      return this.list.filter(ele => ele.key === key)[0];
+    find (key) {
+      return this.list.filter(ele => ele.key === key)[0]
     },
-    init() {
+    init () {
       this.list.forEach(ele => {
         this.form[ele.key] = validatenull(this[ele.key])
-          ? "true"
-          : this[ele.key] + "";
-        this.set(ele.key);
-      });
+          ? 'true'
+          : this[ele.key] + ''
+        this.set(ele.key)
+      })
     },
-    open() {
-      this.box = true;
-      this.$store.commit("SET_SHADE", true);
-    }
-  }
-};
+    open () {
+      this.box = true
+      this.$store.commit('SET_SHADE', true)
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

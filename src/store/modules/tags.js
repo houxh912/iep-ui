@@ -9,7 +9,7 @@ const tagObj = {
   value: '', // 标题的路径
   params: '', // 标题的路径参数
   query: '', // 标题的参数
-  group: [] // 分组
+  group: [], // 分组
 }
 
 // 处理首个标签
@@ -31,7 +31,7 @@ const navs = {
   state: {
     tagList: getStore({ name: 'tagList' }) || [],
     tag: getStore({ name: 'tag' }) || tagObj,
-    tagWel: tagWel
+    tagWel: tagWel,
   },
   actions: {},
   mutations: {
@@ -50,15 +50,17 @@ const navs = {
       setFistTag(state.tagList)
       setStore({ name: 'tagList', content: state.tagList, type: 'session' })
     },
-    DEL_ALL_TAG: (state) => {
+    DEL_ALL_TAG: state => {
       state.tagList = [state.tagWel]
       setStore({ name: 'tagList', content: state.tagList, type: 'session' })
     },
-    DEL_TAG_OTHER: (state) => {
-      state.tagList = state.tagList.filter(item => item.value === state.tag.value)
+    DEL_TAG_OTHER: state => {
+      state.tagList = state.tagList.filter(
+        item => item.value === state.tag.value
+      )
       setFistTag(state.tagList)
       setStore({ name: 'tagList', content: state.tagList, type: 'session' })
-    }
-  }
+    },
+  },
 }
 export default navs

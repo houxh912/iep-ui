@@ -22,31 +22,31 @@ export default {
         column: [
           {
             label: '模块名称',
-            prop: 'model'
+            prop: 'model',
           },
           {
             label: '唯一标示',
-            prop: 'uniqueKey'
+            prop: 'uniqueKey',
           },
           {
             label: '模块地址',
-            prop: 'ipAddress'
+            prop: 'ipAddress',
           },
           {
             label: '管道名称',
-            prop: 'channelName'
-          }
-        ]
-      }
+            prop: 'channelName',
+          },
+        ],
+      },
     }
   },
   created () {
     request({
       url: '/tx/admin/onlines',
-      method: 'get'
-    }).then((resp) => {
+      method: 'get',
+    }).then(resp => {
       this.data = resp.data
     })
-  }
+  },
 }
 </script>

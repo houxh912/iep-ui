@@ -1,4 +1,3 @@
-import 'babel-polyfill'
 import Vue from 'vue'
 import axios from './router/axios'
 import VueAxios from 'vue-axios'
@@ -60,5 +59,5 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app')

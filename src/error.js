@@ -7,7 +7,7 @@ Vue.config.errorHandler = function (err, vm, info) {
       type: 'error',
       message: err.message,
       stack: err.stack,
-      info
+      info,
     })
     if (process.env.NODE_ENV === 'development') {
       console.group('>>>>>> 错误信息 >>>>>>')

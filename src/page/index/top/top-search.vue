@@ -1,13 +1,14 @@
 <template>
-  <el-autocomplete class="top-search"
-                   popper-class="my-autocomplete"
-                   v-model="value"
-                   :fetch-suggestions="querySearch"
-                   placeholder="请输入搜索内容"
-                   @select="handleSelect">
-
+  <el-autocomplete
+    class="top-search"
+    popper-class="my-autocomplete"
+    v-model="value"
+    :fetch-suggestions="querySearch"
+    placeholder="请输入搜索内容"
+    @select="handleSelect"
+  >
     <template slot-scope="{ item }">
-      <i :class="[item[iconKey],'icon']"></i>
+      <i :class="[item[iconKey], 'icon']"></i>
       <div class="name">{{ item[labelKey] }}</div>
       <div class="addr">{{ item[pathKey] }}</div>
     </template>
@@ -15,83 +16,83 @@
 </template>
 
 <script>
-import config from "../sidebar/config.js";
-import { mapGetters } from "vuex";
+import config from '../sidebar/config.js'
+import { mapGetters } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       config: config,
-      value: "",
-      menuList: []
-    };
+      value: '',
+      menuList: [],
+    }
   },
-  created() {
-    this.getMenuList();
+  created () {
+    this.getMenuList()
   },
 
   watch: {
-    menu() {
-      this.getMenuList();
-    }
+    menu () {
+      this.getMenuList()
+    },
   },
   computed: {
-    labelKey() {
-      return this.website.menu.props.label || this.config.propsDefault.label;
+    labelKey () {
+      return this.website.menu.props.label || this.config.propsDefault.label
     },
-    pathKey() {
-      return this.website.menu.props.path || this.config.propsDefault.path;
+    pathKey () {
+      return this.website.menu.props.path || this.config.propsDefault.path
     },
-    iconKey() {
-      return this.website.menu.props.icon || this.config.propsDefault.icon;
+    iconKey () {
+      return this.website.menu.props.icon || this.config.propsDefault.icon
     },
-    childrenKey() {
+    childrenKey () {
       return (
         this.website.menu.props.children || this.config.propsDefault.children
-      );
+      )
     },
-    ...mapGetters(["menu", "website"])
+    ...mapGetters(['menu', 'website']),
   },
   methods: {
-    getMenuList() {
+    getMenuList () {
       const findMenu = list => {
         for (let i = 0; i < list.length; i++) {
-          const ele = Object.assign({}, list[i]);
-          if (ele[this.childrenKey]) findMenu(ele[this.childrenKey]);
-          delete ele[this.childrenKey];
-          this.menuList.push(ele);
+          const ele = Object.assign({}, list[i])
+          if (ele[this.childrenKey]) findMenu(ele[this.childrenKey])
+          delete ele[this.childrenKey]
+          this.menuList.push(ele)
         }
-      };
-      this.menuList = [];
-      findMenu(this.menu);
+      }
+      this.menuList = []
+      findMenu(this.menu)
     },
-    querySearch(queryString, cb) {
-      var restaurants = this.menuList;
+    querySearch (queryString, cb) {
+      var restaurants = this.menuList
       var results = queryString
         ? restaurants.filter(this.createFilter(queryString))
-        : restaurants;
+        : restaurants
       // 调用 callback 返回建议列表的数据
-      cb(results);
+      cb(results)
     },
-    createFilter(queryString) {
+    createFilter (queryString) {
       return restaurant => {
         return (
           restaurant.label.toLowerCase().indexOf(queryString.toLowerCase()) ===
           0
-        );
-      };
+        )
+      }
     },
-    handleSelect(item) {
-      this.value = "";
+    handleSelect (item) {
+      this.value = ''
       this.$router.push({
         path: this.$router.$avueRouter.getPath({
           name: item[this.labelKey],
-          src: item[this.pathKey]
+          src: item[this.pathKey],
         }),
-        query: item.query
-      });
-    }
-  }
-};
+        query: item.query,
+      })
+    },
+  },
+}
 </script>
 
 <style lang="scss">

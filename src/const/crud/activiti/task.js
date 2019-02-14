@@ -15,21 +15,21 @@ export const tableOption = {
       label: 'ID',
       prop: 'taskId',
       editDisabled: true,
-      addVisdiplay: false
+      addVisdiplay: false,
     },
     {
       label: '任务名称',
       prop: 'taskName',
       editDisabled: true,
-      addVisdiplay: false
+      addVisdiplay: false,
     },
     {
       label: '提交时间',
       prop: 'time',
       type: 'datetime',
-      format: 'yyyy-MM-dd HH:mm'
-    }
-  ]
+      format: 'yyyy-MM-dd HH:mm',
+    },
+  ],
 }
 export const formOption = {
   submitBtn: false,
@@ -40,36 +40,36 @@ export const formOption = {
     {
       label: '任务编号',
       prop: 'taskId',
-      disabled: true
+      disabled: true,
     },
     {
       label: '任务名称',
       prop: 'taskName',
-      disabled: true
+      disabled: true,
     },
     {
       label: '申请人',
       prop: 'username',
-      disabled: true
+      disabled: true,
     },
     {
       label: '请假时长',
       prop: 'days',
-      disabled: true
+      disabled: true,
     },
     {
       label: '请假时间',
       prop: 'createTime',
       type: 'datetime',
       format: 'yyyy-MM-dd HH:mm',
-      disabled: true
+      disabled: true,
     },
     {
       label: '提交时间',
       prop: 'time',
       type: 'datetime',
       format: 'yyyy-MM-dd HH:mm',
-      disabled: true
+      disabled: true,
     },
     {
       label: '事由',
@@ -78,7 +78,7 @@ export const formOption = {
       minRows: 2,
       row: true,
       span: 24,
-      disabled: true
+      disabled: true,
     },
     {
       label: '批注',
@@ -87,13 +87,15 @@ export const formOption = {
       minRows: 2,
       row: true,
       span: 24,
-      rules: [{
-        required: true,
-        message: '请输入备注',
-        trigger: 'blur'
-      }]
-    }
-  ]
+      rules: [
+        {
+          required: true,
+          message: '请输入备注',
+          trigger: 'blur',
+        },
+      ],
+    },
+  ],
 }
 
 export const taskOption = {
@@ -106,21 +108,22 @@ export const taskOption = {
     {
       label: 'id',
       prop: 'id',
-      hide: true
+      hide: true,
     },
     {
       label: '用户',
-      prop: 'userId'
+      prop: 'userId',
     },
     {
       label: '批注',
-      prop: 'fullMessage'
-    }, {
+      prop: 'fullMessage',
+    },
+    {
       label: '操作时间',
       prop: 'time',
       type: 'datetime',
       format: 'yyyy-MM-dd hh:mm:ss',
-      valueFormat: 'yyyy-MM-dd hh:mm:ss'
-    }
-  ]
+      valueFormat: 'yyyy-MM-dd hh:mm:ss',
+    },
+  ],
 }

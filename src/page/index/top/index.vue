@@ -1,44 +1,32 @@
 <template>
   <div class="avue-top">
     <div class="top-bar__left">
-      <div class="avue-breadcrumb"
-           :class="[{ 'avue-breadcrumb--active': isCollapse }]"
-           v-if="showCollapse">
-        <i class="icon-navicon"
-           @click="setCollapse"></i>
+      <div class="avue-breadcrumb" :class="[{ 'avue-breadcrumb--active': isCollapse }]" v-if="showCollapse">
+        <i class="icon-navicon" @click="setCollapse"></i>
       </div>
     </div>
     <div class="top-bar__title">
-      <div class="top-bar__item top-bar__item--show"
-           v-if="showMenu">
+      <div class="top-bar__item top-bar__item--show" v-if="showMenu">
         <top-menu></top-menu>
       </div>
     </div>
     <div class="top-bar__right">
-      <el-tooltip effect="dark"
-                  content="锁屏"
-                  placement="bottom">
+      <el-tooltip effect="dark" content="锁屏" placement="bottom">
         <div class="top-bar__item">
           <top-lock></top-lock>
         </div>
       </el-tooltip>
-      <el-tooltip v-if="showFullScren"
-                  effect="dark"
-                  :content="isFullScren?'退出全屏':'全屏'"
-                  placement="bottom">
+      <el-tooltip v-if="showFullScren" effect="dark" :content="isFullScren ? '退出全屏' : '全屏'" placement="bottom">
         <div class="top-bar__item">
-          <i :class="isFullScren?'icon-tuichuquanping':'icon-quanping'"
-             @click="handleScreen"></i>
+          <i :class="isFullScren ? 'icon-tuichuquanping' : 'icon-quanping'" @click="handleScreen"></i>
         </div>
       </el-tooltip>
-      <el-tooltip v-if="this.userInfo.avatar" effect="dark"
-                  content="用户头像"
-                  placement="bottom">
-        <img id="thumbnail" class="top-bar__img">
+      <el-tooltip v-if="this.userInfo.avatar" effect="dark" content="用户头像" placement="bottom">
+        <img id="thumbnail" class="top-bar__img" />
       </el-tooltip>
       <el-dropdown>
         <span class="el-dropdown-link">
-          {{userInfo.username}}
+          {{ userInfo.username }}
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -48,43 +36,42 @@
           <el-dropdown-item>
             <router-link to="/info/index">个人信息</router-link>
           </el-dropdown-item>
-          <el-dropdown-item @click.native="logout"
-                            divided>退出系统</el-dropdown-item>
+          <el-dropdown-item @click.native="logout" divided>退出系统</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
   </div>
 </template>
 <script>
-import { mapGetters, mapState } from "vuex";
-import { fullscreenToggel, listenfullscreen,handleImg } from "@/util/util";
-import topLock from "./top-lock";
-import topMenu from "./top-menu";
-import topSearch from "./top-search";
-import topTheme from "./top-theme";
-import topLogs from "./top-logs";
-import topColor from "./top-color";
-import topSetting from "./top-setting";
+import { mapGetters, mapState } from 'vuex'
+import { fullscreenToggel, listenfullscreen, handleImg } from '@/util/util'
+import topLock from './top-lock'
+import topMenu from './top-menu'
+// import topSearch from './top-search'
+// import topTheme from './top-theme'
+// import topLogs from './top-logs'
+// import topColor from './top-color'
+// import topSetting from './top-setting'
 export default {
   components: {
     topLock,
     topMenu,
-    topSearch,
-    topTheme,
-    topLogs,
-    topColor,
-    topSetting
+    // topSearch,
+    // topTheme,
+    // topLogs,
+    // topColor,
+    // topSetting,
   },
-  name: "top",
-  data() {
-    return {};
+  name: 'Top',
+  data () {
+    return {}
   },
   filters: {},
-  created() {
-    handleImg(this.userInfo.avatar, 'thumbnail');
+  created () {
+    handleImg(this.userInfo.avatar, 'thumbnail')
   },
-  mounted() {
-    listenfullscreen(this.setScreen);
+  mounted () {
+    listenfullscreen(this.setScreen)
   },
   computed: {
     ...mapState({
@@ -94,40 +81,39 @@ export default {
       showMenu: state => state.common.showMenu,
     }),
     ...mapGetters([
-      "userInfo",
-      "isFullScren",
-      "tagWel",
-      "tagList",
-      "isCollapse",
-      "tag",
-      "logsLen",
-      "logsFlag"
-    ])
+      'userInfo',
+      'isFullScren',
+      'tagWel',
+      'tagList',
+      'isCollapse',
+      'tag',
+      'logsLen',
+      'logsFlag',
+    ]),
   },
   methods: {
-    handleScreen() {
-      fullscreenToggel();
+    handleScreen () {
+      fullscreenToggel()
     },
-    setCollapse() {
-      this.$store.commit("SET_COLLAPSE");
+    setCollapse () {
+      this.$store.commit('SET_COLLAPSE')
     },
-    setScreen() {
-      this.$store.commit("SET_FULLSCREN");
+    setScreen () {
+      this.$store.commit('SET_FULLSCREN')
     },
-    logout() {
-      this.$confirm("是否退出系统, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
+    logout () {
+      this.$confirm('是否退出系统, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
       }).then(() => {
-        this.$store.dispatch("LogOut").then(() => {
-          this.$router.push({ path: "/login" });
-        });
-      });
-    }
-  }
-};
+        this.$store.dispatch('LogOut').then(() => {
+          this.$router.push({ path: '/login' })
+        })
+      })
+    },
+  },
+}
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

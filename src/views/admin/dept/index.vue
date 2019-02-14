@@ -13,11 +13,11 @@
       </div>
 
       <el-row>
-        <el-col :span="8" style='margin-top:15px;'>
+        <el-col :span="8" style="margin-top:15px;">
           <el-tree class="filter-tree" :data="treeData" node-key="id" highlight-current :props="defaultProps" :filter-node-method="filterNode" @node-click="getNodeData" default-expand-all>
           </el-tree>
         </el-col>
-        <el-col :span="16" style='margin-top:15px;'>
+        <el-col :span="16" style="margin-top:15px;">
           <el-card class="box-card">
             <el-form :label-position="labelPosition" label-width="80px" :rules="rules" :model="form" ref="form">
               <el-form-item label="父级节点" prop="parentId">
@@ -33,13 +33,11 @@
                 <el-input type="number" v-model="form.sort" :disabled="formEdit" placeholder="请输入排序"></el-input>
               </el-form-item>
               <el-form-item v-if="formStatus == 'update'">
-                <el-button type="primary" @click="update">更新
-                </el-button>
+                <el-button type="primary" @click="update">更新 </el-button>
                 <el-button @click="onCancel">取消</el-button>
               </el-form-item>
               <el-form-item v-if="formStatus == 'create'">
-                <el-button type="primary" @click="create">保存
-                </el-button>
+                <el-button type="primary" @click="create">保存 </el-button>
                 <el-button @click="onCancel">取消</el-button>
               </el-form-item>
             </el-form>
@@ -55,7 +53,7 @@ import { addObj, delObj, fetchTree, getObj, putObj } from '@/api/admin/dept'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'dept',
+  name: 'Dept',
   data () {
     return {
       list: null,
@@ -67,35 +65,33 @@ export default {
       typeOptions: ['0', '1'],
       methodOptions: ['GET', 'POST', 'PUT', 'DELETE'],
       listQuery: {
-        name: undefined
+        name: undefined,
       },
       treeData: [],
       defaultProps: {
         children: 'children',
-        label: 'name'
+        label: 'name',
       },
       rules: {
         parentId: [
-          { required: true, message: '请输入父级节点', trigger: 'blur' }
+          { required: true, message: '请输入父级节点', trigger: 'blur' },
         ],
         deptId: [
-          { required: true, message: '请输入节点编号', trigger: 'blur' }
+          { required: true, message: '请输入节点编号', trigger: 'blur' },
         ],
-        name: [
-          { required: true, message: '请输入部门名称', trigger: 'blur' }
-        ],
+        name: [{ required: true, message: '请输入部门名称', trigger: 'blur' }],
       },
       labelPosition: 'right',
       form: {
         name: undefined,
         orderNum: undefined,
         parentId: undefined,
-        deptId: undefined
+        deptId: undefined,
       },
       currentId: 0,
       deptManager_btn_add: false,
       deptManager_btn_edit: false,
-      deptManager_btn_del: false
+      deptManager_btn_del: false,
     }
   },
   created () {
@@ -105,10 +101,7 @@ export default {
     this.deptManager_btn_del = this.permissions['sys_dept_del']
   },
   computed: {
-    ...mapGetters([
-      'elements',
-      'permissions'
-    ])
+    ...mapGetters(['elements', 'permissions']),
   },
   methods: {
     getList () {
@@ -145,7 +138,7 @@ export default {
       this.$confirm('此操作将永久删除, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
       }).then(() => {
         delObj(this.currentId).then(() => {
           this.getList()
@@ -155,13 +148,13 @@ export default {
             title: '成功',
             message: '删除成功',
             type: 'success',
-            duration: 2000
+            duration: 2000,
           })
         })
       })
     },
     update () {
-      this.$refs.form.validate((valid) => {
+      this.$refs.form.validate(valid => {
         if (!valid) return
         putObj(this.form).then(() => {
           this.getList()
@@ -169,14 +162,13 @@ export default {
             title: '成功',
             message: '更新成功',
             type: 'success',
-            duration: 2000
+            duration: 2000,
           })
         })
       })
-
     },
     create () {
-      this.$refs.form.validate((valid) => {
+      this.$refs.form.validate(valid => {
         if (!valid) return
         addObj(this.form).then(() => {
           this.getList()
@@ -184,7 +176,7 @@ export default {
             title: '成功',
             message: '创建成功',
             type: 'success',
-            duration: 2000
+            duration: 2000,
           })
         })
       })
@@ -197,8 +189,7 @@ export default {
       this.form = {
         parentId: this.currentId,
       }
-    }
-  }
+    },
+  },
 }
 </script>
-

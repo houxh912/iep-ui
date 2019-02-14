@@ -1,20 +1,14 @@
 <template>
   <div class="social-container">
-    <div class="box"
-         @click="handleClick('wechat')">
-      <span class="container"
-            :style="{backgroundColor:'#6ba2d6'}">
-        <i icon-class="wechat"
-           class="iconfont icon-weixin"></i>
+    <div class="box" @click="handleClick('wechat')">
+      <span class="container" :style="{ backgroundColor: '#6ba2d6' }">
+        <i icon-class="wechat" class="iconfont icon-weixin"></i>
       </span>
       <p class="title">微信</p>
     </div>
-    <div class="box"
-         @click="handleClick('tencent')">
-      <span class="container"
-            :style="{backgroundColor:'#8dc349'}">
-        <i icon-class="qq"
-           class="iconfont icon-qq"></i>
+    <div class="box" @click="handleClick('tencent')">
+      <span class="container" :style="{ backgroundColor: '#8dc349' }">
+        <i icon-class="qq" class="iconfont icon-qq"></i>
       </span>
       <p class="title">QQ</p>
     </div>
@@ -25,21 +19,32 @@
 import { openWindow } from '@/util/util'
 
 export default {
-  name: 'social-signin',
+  name: 'SocialSignin',
   methods: {
     handleClick (thirdpart) {
       let appid, client_id, redirect_uri, url
-      redirect_uri = encodeURIComponent(window.location.origin + '/#/authredirect')
+      redirect_uri = encodeURIComponent(
+        window.location.origin + '/#/authredirect'
+      )
       if (thirdpart === 'wechat') {
         appid = 'wxd1678d3f83b1d83a'
-        url = 'https://open.weixin.qq.com/connect/qrconnect?appid=' + appid + '&redirect_uri=' + redirect_uri + '&state=WX&response_type=code&scope=snsapi_login#wechat_redirect'
+        url =
+          'https://open.weixin.qq.com/connect/qrconnect?appid=' +
+          appid +
+          '&redirect_uri=' +
+          redirect_uri +
+          '&state=WX&response_type=code&scope=snsapi_login#wechat_redirect'
       } else if (thirdpart === 'tencent') {
         client_id = '101322838'
-        url = 'https://graph.qq.com/oauth2.0/authorize?response_type=code&state=QQ&client_id=' + client_id + '&redirect_uri=' + redirect_uri
+        url =
+          'https://graph.qq.com/oauth2.0/authorize?response_type=code&state=QQ&client_id=' +
+          client_id +
+          '&redirect_uri=' +
+          redirect_uri
       }
       openWindow(url, thirdpart, 540, 540)
-    }
-  }
+    },
+  },
 }
 </script>
 

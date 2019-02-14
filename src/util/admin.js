@@ -10,5 +10,5 @@ export default {
     } else {
       return 0 // 超小屏幕
     }
-  }
+  },
 }

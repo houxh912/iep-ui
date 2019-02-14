@@ -7,12 +7,12 @@
           </el-button>
         </template>
         <template slot-scope="scope" slot="menuBtn">
-          <el-dropdown-item divided v-if="permissions.act_leavebill_edit && scope.row.state == 0" @click.native="handleSubmit(scope.row,scope.index)">提交
+          <el-dropdown-item divided v-if="permissions.act_leavebill_edit && scope.row.state == 0" @click.native="handleSubmit(scope.row, scope.index)">提交
           </el-dropdown-item>
-          <el-dropdown-item divided v-if="permissions.act_leavebill_edit" @click.native="handleEdit(scope.row,scope.index)">编辑
+          <el-dropdown-item divided v-if="permissions.act_leavebill_edit" @click.native="handleEdit(scope.row, scope.index)">编辑
           </el-dropdown-item>
 
-          <el-dropdown-item divided v-if="permissions.act_leavebill_del" @click.native="handleDel(scope.row,'suspend')">删除
+          <el-dropdown-item divided v-if="permissions.act_leavebill_del" @click.native="handleDel(scope.row, 'suspend')">删除
           </el-dropdown-item>
         </template>
       </avue-crud>
@@ -21,39 +21,48 @@
 </template>
 
 <script>
-import { addObj, delObj, fetchList, getObj, putObj, submit } from '@/api/activiti/leave-bill'
+import {
+  addObj,
+  delObj,
+  fetchList,
+  putObj,
+  submit,
+} from '@/api/activiti/leave-bill'
 import { tableOption } from '@/const/crud/activiti/leave-bill'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'leave-bill',
+  name: 'LeaveBill',
   data () {
     return {
       tableData: [],
       page: {
         total: 0, // 总页数
         currentPage: 1, // 当前页数
-        pageSize: 20 // 每页显示多少条
+        pageSize: 20, // 每页显示多少条
       },
       tableLoading: false,
-      tableOption: tableOption
+      tableOption: tableOption,
     }
   },
-  created () {
-  },
-  mounted: function () {
-  },
+  created () { },
+  mounted: function () { },
   computed: {
-    ...mapGetters(['permissions'])
+    ...mapGetters(['permissions']),
   },
   methods: {
     getList (page, params) {
       this.tableLoading = true
-      fetchList(Object.assign({
-        descs: 'create_time',
-        current: page.currentPage,
-        size: page.pageSize
-      }, params)).then(response => {
+      fetchList(
+        Object.assign(
+          {
+            descs: 'create_time',
+            current: page.currentPage,
+            size: page.pageSize,
+          },
+          params
+        )
+      ).then(response => {
         this.tableData = response.data.data.records
         this.page.total = response.data.data.total
         this.tableLoading = false
@@ -78,35 +87,39 @@ export default {
       this.$confirm('是否确认删除ID为' + row.leaveId, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
-      }).then(function () {
-        return delObj(row.leaveId)
-      }).then(data => {
-        _this.tableData.splice(index, 1)
-        _this.$message({
-          showClose: true,
-          message: '删除成功',
-          type: 'success'
-        })
+        type: 'warning',
       })
+        .then(function () {
+          return delObj(row.leaveId)
+        })
+        .then(() => {
+          _this.tableData.splice(index, 1)
+          _this.$message({
+            showClose: true,
+            message: '删除成功',
+            type: 'success',
+          })
+        })
     },
     handleSubmit: function (row, index) {
       var _this = this
       this.$confirm('是否确认提交ID为' + row.leaveId, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
-      }).then(function () {
-        return submit(row.leaveId)
-      }).then(data => {
-        _this.tableData.splice(index, 1)
-        _this.$message({
-          showClose: true,
-          message: '提交成功',
-          type: 'success'
-        })
-        this.getList(this.page)
+        type: 'warning',
       })
+        .then(function () {
+          return submit(row.leaveId)
+        })
+        .then(() => {
+          _this.tableData.splice(index, 1)
+          _this.$message({
+            showClose: true,
+            message: '提交成功',
+            type: 'success',
+          })
+          this.getList(this.page)
+        })
     },
     /**
      * @title 数据更新
@@ -116,12 +129,12 @@ export default {
      *
      **/
     handleUpdate: function (row, index, done) {
-      putObj(row).then(data => {
+      putObj(row).then(() => {
         this.tableData.splice(index, 1, Object.assign({}, row))
         this.$message({
           showClose: true,
           message: '修改成功',
-          type: 'success'
+          type: 'success',
         })
         done()
         this.getList(this.page)
@@ -134,12 +147,12 @@ export default {
      *
      **/
     handleSave: function (row, done) {
-      addObj(row).then(data => {
+      addObj(row).then(() => {
         this.tableData.push(Object.assign({}, row))
         this.$message({
           showClose: true,
           message: '添加成功',
-          type: 'success'
+          type: 'success',
         })
         done()
         this.getList(this.page)
@@ -157,11 +170,9 @@ export default {
      */
     refreshChange () {
       this.getList(this.page)
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
-
+<style lang="scss" scoped></style>

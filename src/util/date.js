@@ -18,6 +18,6 @@ export const calcDate = (date1, date2) => {
     days: days,
     hours: hours,
     minutes: minutes,
-    seconds: seconds
+    seconds: seconds,
   }
 }

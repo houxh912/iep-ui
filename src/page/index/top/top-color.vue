@@ -1,20 +1,22 @@
 <template>
-  <el-color-picker size="mini"
-                   style="padding-top:18px;"
-                   class="theme-picker"
-                   :predefine="predefineColors"
-                   popper-class="theme-picker-dropdown"
-                   v-model="themeVal"></el-color-picker>
+  <el-color-picker
+    size="mini"
+    style="padding-top:18px;"
+    class="theme-picker"
+    :predefine="predefineColors"
+    popper-class="theme-picker-dropdown"
+    v-model="themeVal"
+  ></el-color-picker>
 </template>
 
 <script>
-import color from "@/mixins/color";
+import color from '@/mixins/color'
 export default {
-  name: "topColor",
+  name: 'TopColor',
   mixins: [color()],
-  data() {
+  data () {
     return {
-      chalk: "",
+      chalk: '',
       predefineColors: [
         '#ff4500',
         '#ff8c00',
@@ -22,11 +24,11 @@ export default {
         '#90ee90',
         '#00ced1',
         '#1e90ff',
-        '#c71585'
-      ]
-    };
-  }
-};
+        '#c71585',
+      ],
+    }
+  },
+}
 </script>
 
 <style>

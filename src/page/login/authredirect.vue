@@ -6,9 +6,9 @@
 import request from '@/router/axios'
 import { mapGetters } from 'vuex'
 export default {
-  name: 'authredirect',
+  name: 'Authredirect',
   computed: {
-    ...mapGetters(['tagWel'])
+    ...mapGetters(['tagWel']),
   },
   created () {
     const params = this.$route.query
@@ -20,23 +20,23 @@ export default {
       request({
         url: '/admin/social/bind',
         method: 'post',
-        params: { state, code }
+        params: { state, code },
       }).then(() => {
         this.$alert('社交账号绑定成功', '成功', {
           confirmButtonText: '确定',
-          callback: action => {
+          callback: () => {
             window.close()
-          }
+          },
         })
       })
     } else {
       window.close()
-      window.opener.location.href = `${window.location.origin}/#/login?state=${state}&code=${code}`
+      window.opener.location.href = `${
+        window.location.origin
+        }/#/login?state=${state}&code=${code}`
     }
-  }
+  },
 }
 </script>
 
-
-<style>
-</style>
+<style></style>

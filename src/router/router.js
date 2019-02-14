@@ -3,7 +3,7 @@ import PageRouter from './page/'
 import ViewsRouter from './views/'
 import AvueRouter from './avue-router'
 import Store from '../store/'
-let Router = new VueRouter({
+const Router = new VueRouter({
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
@@ -13,11 +13,11 @@ let Router = new VueRouter({
       }
       return {
         x: 0,
-        y: to.meta.savedPosition || 0
+        y: to.meta.savedPosition || 0,
       }
     }
   },
-  routes: [].concat([])
+  routes: [].concat([]),
 })
 AvueRouter.install(Router, Store)
 Router.$avueRouter.formatRoutes(Store.state.user.menu, true)

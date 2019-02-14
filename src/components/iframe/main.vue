@@ -1,14 +1,13 @@
 <template>
   <div>
     <basic-container>
-      <iframe v-if="$route.query.src"
-              :src='$route.query.src'
-              class="iframe"
-              ref="iframe"></iframe>
-      <iframe v-else
-              :src="urlPath"
-              class="iframe"
-              ref="iframe"></iframe>
+      <iframe
+        v-if="$route.query.src"
+        :src="$route.query.src"
+        class="iframe"
+        ref="iframe"
+      ></iframe>
+      <iframe v-else :src="urlPath" class="iframe" ref="iframe"></iframe>
     </basic-container>
   </div>
 </template>
@@ -21,7 +20,7 @@ export default {
   name: 'AvueIframe',
   data () {
     return {
-      urlPath: this.getUrlPath() //iframe src 路径
+      urlPath: this.getUrlPath(), //iframe src 路径
     }
   },
   created () {
@@ -39,7 +38,7 @@ export default {
     routerPath: function () {
       // 监听routerPath变化，改变src路径
       this.urlPath = this.getUrlPath()
-    }
+    },
   },
   components: {
     ...mapGetters(['screen']),
@@ -75,12 +74,12 @@ export default {
       list = list.join('&').toString()
       if (flag) {
         this.$route.query.src = `${this.$route.query.src}${
-          list.length > 0 ? `&list` : ''
-          }`
+          list.length > 0 ? '&list' : ''
+        }`
       } else {
         this.$route.query.src = `${this.$route.query.src}${
-          list.length > 0 ? `?list` : ''
-          }`
+          list.length > 0 ? '?list' : ''
+        }`
       }
       //超时5s自动隐藏等待框，加强用户体验
       let time = 5
@@ -96,7 +95,8 @@ export default {
     //iframe窗口初始化
     iframeInit () {
       const iframe = this.$refs.iframe
-      const clientHeight = document.documentElement.clientHeight - (screen > 1 ? 200 : 130);
+      const clientHeight =
+        document.documentElement.clientHeight - (screen > 1 ? 200 : 130)
       iframe.style.height = `${clientHeight}px`
       if (iframe.attachEvent) {
         iframe.attachEvent('onload', () => {
@@ -113,8 +113,8 @@ export default {
       let url = window.location.href
       url = url.replace('/myiframe', '')
       return url
-    }
-  }
+    },
+  },
 }
 </script>
 

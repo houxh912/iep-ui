@@ -8,7 +8,7 @@ export default {
   tokenTime: 6000,
   info: {
     title: 'Gds UI 快速开发框架',
-    list: []
+    list: [],
   },
   statusWhiteList: [428],
   // http的status默认放行不才用统一处理的,
@@ -20,7 +20,7 @@ export default {
     params: {},
     query: {},
     group: [],
-    close: false
+    close: false,
   },
   // 配置菜单的属性
   menu: {
@@ -28,7 +28,7 @@ export default {
       label: 'label',
       path: 'path',
       icon: 'icon',
-      children: 'children'
-    }
-  }
+      children: 'children',
+    },
+  },
 }

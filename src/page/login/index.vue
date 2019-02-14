@@ -6,70 +6,70 @@
           <h4 class="login-title">
             用户登录
           </h4>
-          <userLogin v-if="activeName==='user'"></userLogin>
-          <codeLogin v-else-if="activeName==='code'"></codeLogin>
-          <thirdLogin v-else-if="activeName==='third'"></thirdLogin>
+          <user-login v-if="activeName === 'user'"></user-login>
+          <code-login v-else-if="activeName === 'code'"></code-login>
+          <third-login v-else-if="activeName === 'third'"></third-login>
         </div>
         <div class="login-menu">
-          <a href="#" @click.stop="activeName='user'">账号密码</a>
-          <a href="#" @click.stop="activeName='code'">手机号登录</a>
-          <a href="#" @click.stop="activeName='third'">第三方登录</a>
+          <a href="#" @click.stop="activeName = 'user'">账号密码</a>
+          <a href="#" @click.stop="activeName = 'code'">手机号登录</a>
+          <a href="#" @click.stop="activeName = 'third'">第三方登录</a>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import userLogin from "./userlogin";
-import codeLogin from "./codelogin";
-import thirdLogin from "./thirdlogin";
-import topColor from "../index/top/top-color";
-import color from "@/mixins/color";
-import { setStore, getStore } from "@/util/store";
-import { mapGetters } from "vuex";
-import { validatenull } from "@/util/validate";
+import userLogin from './userlogin'
+import codeLogin from './codelogin'
+import thirdLogin from './thirdlogin'
+// import topColor from '../index/top/top-color'
+import color from '@/mixins/color'
+import { setStore } from '@/util/store'
+import { mapGetters } from 'vuex'
+import { validatenull } from '@/util/validate'
 export default {
-  name: "login",
+  name: 'Login',
   mixins: [color()],
   components: {
-    topColor,
+    // topColor,
     userLogin,
     codeLogin,
-    thirdLogin
+    thirdLogin,
   },
   data () {
     return {
       active: 1,
-      activeName: "user"
-    };
+      activeName: 'user',
+    }
   },
   watch: {
     $route () {
-      const params = this.$route.query;
-      this.socialForm.state = params.state;
-      this.socialForm.code = params.code;
+      const params = this.$route.query
+      this.socialForm.state = params.state
+      this.socialForm.code = params.code
       if (!validatenull(this.socialForm.state)) {
         const loading = this.$loading({
           lock: true,
-          text: `登录中,请稍后。。。`,
-          spinner: "el-icon-loading"
-        });
+          text: '登录中,请稍后。。。',
+          spinner: 'el-icon-loading',
+        })
         setTimeout(() => {
-          loading.close();
-        }, 2000);
-        this.handleSocialLogin();
+          loading.close()
+        }, 2000)
+        this.handleSocialLogin()
       }
-    }
+    },
   },
   created () {
-    setStore({ name: "tenantId", content: 1 });
+    setStore({ name: 'tenantId', content: 1 })
   },
   mounted () { },
   computed: {
-    ...mapGetters(["website"])
+    ...mapGetters(['website']),
   },
   props: [],
-};
+}
 </script>
 
 <style lang="scss">
@@ -237,4 +237,3 @@ export default {
   text-align: center;
 }
 </style>
-

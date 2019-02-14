@@ -3,64 +3,143 @@
     <basic-container>
       <div class="filter-container">
         <el-button-group>
-          <el-button type="primary" v-if="menuManager_btn_add" icon="plus" @click="handlerAdd">添加
+          <el-button
+            type="primary"
+            v-if="menuManager_btn_add"
+            icon="plus"
+            @click="handlerAdd"
+            >添加
           </el-button>
-          <el-button type="primary" v-if="menuManager_btn_edit" icon="edit" @click="handlerEdit">编辑
+          <el-button
+            type="primary"
+            v-if="menuManager_btn_edit"
+            icon="edit"
+            @click="handlerEdit"
+            >编辑
           </el-button>
-          <el-button type="primary" v-if="menuManager_btn_del" icon="delete" @click="handleDelete">删除
+          <el-button
+            type="primary"
+            v-if="menuManager_btn_del"
+            icon="delete"
+            @click="handleDelete"
+            >删除
           </el-button>
         </el-button-group>
       </div>
 
       <el-row>
-        <el-col :span="8" style='margin-top:15px;'>
-          <el-tree class="filter-tree" node-key="id" highlight-current :data="treeData" :default-expanded-keys="aExpandedKeys" :filter-node-method="filterNode" :props="defaultProps" @node-click="getNodeData" @node-expand="nodeExpand" @node-collapse="nodeCollapse">
+        <el-col :span="8" style="margin-top:15px;">
+          <el-tree
+            class="filter-tree"
+            node-key="id"
+            highlight-current
+            :data="treeData"
+            :default-expanded-keys="aExpandedKeys"
+            :filter-node-method="filterNode"
+            :props="defaultProps"
+            @node-click="getNodeData"
+            @node-expand="nodeExpand"
+            @node-collapse="nodeCollapse"
+          >
           </el-tree>
         </el-col>
-        <el-col :span="16" style='margin-top:15px;'>
+        <el-col :span="16" style="margin-top:15px;">
           <el-card class="box-card">
-            <el-form :label-position="labelPosition" label-width="80px" :model="form" ref="form">
+            <el-form
+              :label-position="labelPosition"
+              label-width="80px"
+              :model="form"
+              ref="form"
+            >
               <el-form-item label="父级节点" prop="parentId">
-                <el-input v-model="form.parentId" :disabled="true" placeholder="请输入父级节点"></el-input>
+                <el-input
+                  v-model="form.parentId"
+                  :disabled="true"
+                  placeholder="请输入父级节点"
+                ></el-input>
               </el-form-item>
               <el-form-item label="节点ID" prop="menuId">
-                <el-input v-model="form.menuId" :disabled="formEdit" placeholder="请输入节点ID"></el-input>
+                <el-input
+                  v-model="form.menuId"
+                  :disabled="formEdit"
+                  placeholder="请输入节点ID"
+                ></el-input>
               </el-form-item>
               <el-form-item label="标题" prop="name">
-                <el-input v-model="form.name" :disabled="formEdit" placeholder="请输入标题"></el-input>
+                <el-input
+                  v-model="form.name"
+                  :disabled="formEdit"
+                  placeholder="请输入标题"
+                ></el-input>
               </el-form-item>
               <el-form-item label="权限标识" prop="permission">
-                <el-input v-model="form.permission" :disabled="formEdit" placeholder="请输入权限标识"></el-input>
+                <el-input
+                  v-model="form.permission"
+                  :disabled="formEdit"
+                  placeholder="请输入权限标识"
+                ></el-input>
               </el-form-item>
               <el-form-item label="图标" prop="icon">
-                <el-input v-model="form.icon" :disabled="formEdit" placeholder="请输入图标"></el-input>
+                <el-input
+                  v-model="form.icon"
+                  :disabled="formEdit"
+                  placeholder="请输入图标"
+                ></el-input>
               </el-form-item>
               <el-form-item label="类型" prop="type">
-                <el-select class="filter-item" v-model="form.type" :disabled="formEdit" placeholder="请输入资源请求类型">
-                  <el-option v-for="item in  typeOptions" :key="item" :label="item | typeFilter" :value="item"></el-option>
+                <el-select
+                  class="filter-item"
+                  v-model="form.type"
+                  :disabled="formEdit"
+                  placeholder="请输入资源请求类型"
+                >
+                  <el-option
+                    v-for="item in typeOptions"
+                    :key="item"
+                    :label="item | typeFilter"
+                    :value="item"
+                  ></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="排序" prop="sort">
-                <el-input type="number" v-model="form.sort" :disabled="formEdit" placeholder="请输入排序"></el-input>
+                <el-input
+                  type="number"
+                  v-model="form.sort"
+                  :disabled="formEdit"
+                  placeholder="请输入排序"
+                ></el-input>
               </el-form-item>
               <el-form-item label="前端组件" prop="component">
-                <el-input v-model="form.component" :disabled="formEdit" placeholder="请输入描述"></el-input>
+                <el-input
+                  v-model="form.component"
+                  :disabled="formEdit"
+                  placeholder="请输入描述"
+                ></el-input>
               </el-form-item>
               <el-form-item label="前端地址" prop="component">
-                <el-input v-model="form.path" :disabled="formEdit" placeholder="iframe嵌套地址"></el-input>
+                <el-input
+                  v-model="form.path"
+                  :disabled="formEdit"
+                  placeholder="iframe嵌套地址"
+                ></el-input>
               </el-form-item>
               <el-form-item label="路由缓冲" prop="component">
-                <el-switch v-model="form.keepAlive" :disabled="formEdit" active-color="#13ce66" inactive-color="#ff4949" :active-value='"1"' :inactive-value='"0"'>
+                <el-switch
+                  v-model="form.keepAlive"
+                  :disabled="formEdit"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949"
+                  :active-value="'1'"
+                  :inactive-value="'0'"
+                >
                 </el-switch>
               </el-form-item>
               <el-form-item v-if="formStatus == 'update'">
-                <el-button type="primary" @click="update">更新
-                </el-button>
+                <el-button type="primary" @click="update">更新 </el-button>
                 <el-button @click="onCancel">取消</el-button>
               </el-form-item>
               <el-form-item v-if="formStatus == 'create'">
-                <el-button type="primary" @click="create">保存
-                </el-button>
+                <el-button type="primary" @click="create">保存 </el-button>
                 <el-button @click="onCancel">取消</el-button>
               </el-form-item>
             </el-form>
@@ -72,11 +151,17 @@
 </template>
 
 <script>
-import { addObj, delObj, fetchMenuTree, getObj, putObj } from '@/api/admin/menu'
+import {
+  addObj,
+  delObj,
+  fetchMenuTree,
+  getObj,
+  putObj,
+} from '@/api/admin/menu'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'menu',
+  name: 'Menu',
   data () {
     return {
       list: null,
@@ -88,7 +173,7 @@ export default {
       typeOptions: ['0', '1'],
       methodOptions: ['GET', 'POST', 'PUT', 'DELETE'],
       listQuery: {
-        name: undefined
+        name: undefined,
       },
       treeData: [],
       oExpandedKey: {
@@ -101,7 +186,7 @@ export default {
       aExpandedKeys: [],
       defaultProps: {
         children: 'children',
-        label: 'name'
+        label: 'name',
       },
       labelPosition: 'right',
       form: {
@@ -113,22 +198,22 @@ export default {
         sort: undefined,
         component: undefined,
         type: undefined,
-        path: undefined
+        path: undefined,
       },
       currentId: -1,
       menuManager_btn_add: false,
       menuManager_btn_edit: false,
-      menuManager_btn_del: false
+      menuManager_btn_del: false,
     }
   },
   filters: {
     typeFilter (type) {
       const typeMap = {
         0: '菜单',
-        1: '按钮'
+        1: '按钮',
       }
       return typeMap[type]
-    }
+    },
   },
   created () {
     this.getList()
@@ -137,10 +222,7 @@ export default {
     this.menuManager_btn_del = this.permissions['sys_menu_del']
   },
   computed: {
-    ...mapGetters([
-      'elements',
-      'permissions'
-    ])
+    ...mapGetters(['elements', 'permissions']),
   },
   methods: {
     getList () {
@@ -164,9 +246,9 @@ export default {
     nodeCollapse (data) {
       this.oExpandedKey[data.id] = false
       // 如果有子节点
-      this.treeRecursion(this.oTreeNodeChildren[data.id], (oNode) => {
+      this.treeRecursion(this.oTreeNodeChildren[data.id], oNode => {
         this.oExpandedKey[oNode.id] = false
-      });
+      })
       this.setExpandedKeys()
     },
     setExpandedKeys () {
@@ -174,7 +256,7 @@ export default {
       this.aExpandedKeys = []
       for (let sKey in oTemp) {
         if (oTemp[sKey]) {
-          this.aExpandedKeys.push(parseInt(sKey));
+          this.aExpandedKeys.push(parseInt(sKey))
         }
       }
     },
@@ -213,7 +295,7 @@ export default {
       this.$confirm('此操作将永久删除, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
       }).then(() => {
         delObj(this.currentId).then(() => {
           this.getList()
@@ -223,7 +305,7 @@ export default {
             title: '成功',
             message: '删除成功',
             type: 'success',
-            duration: 2000
+            duration: 2000,
           })
         })
       })
@@ -235,7 +317,7 @@ export default {
           title: '成功',
           message: '更新成功',
           type: 'success',
-          duration: 2000
+          duration: 2000,
         })
       })
     },
@@ -246,7 +328,7 @@ export default {
           title: '成功',
           message: '创建成功',
           type: 'success',
-          duration: 2000
+          duration: 2000,
         })
       })
     },
@@ -264,10 +346,9 @@ export default {
         sort: undefined,
         component: undefined,
         type: undefined,
-        path: undefined
+        path: undefined,
       }
-    }
-  }
+    },
+  },
 }
 </script>
-

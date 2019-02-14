@@ -15,18 +15,18 @@ export const tableOption = {
       label: 'ID',
       prop: 'leaveId',
       editDisabled: true,
-      addVisdiplay: false
+      addVisdiplay: false,
     },
     {
       label: '申请人',
       prop: 'username',
       editDisabled: true,
-      addVisdiplay: false
+      addVisdiplay: false,
     },
     {
       label: '天数',
       prop: 'days',
-      type: 'number'
+      type: 'number',
     },
     {
       label: '请假时间',
@@ -34,7 +34,7 @@ export const tableOption = {
       type: 'datetime',
       overHidden: true,
       format: 'yyyy-MM-dd HH:mm',
-      valueFormat: 'yyyy-MM-dd hh:mm:ss'
+      valueFormat: 'yyyy-MM-dd hh:mm:ss',
     },
     {
       label: '提交时间',
@@ -44,7 +44,7 @@ export const tableOption = {
       format: 'yyyy-MM-dd HH:mm',
       editDisabled: true,
       addVisdiplay: false,
-      hide: true
+      hide: true,
     },
     {
       label: '状态',
@@ -52,7 +52,7 @@ export const tableOption = {
       type: 'select',
       dicData: 'leave_status',
       search: true,
-      addVisdiplay: false
+      addVisdiplay: false,
     },
     {
       label: '备注',
@@ -61,7 +61,7 @@ export const tableOption = {
       overHidden: true,
       minRows: 2,
       row: true,
-      span: 24
-    }
-  ]
+      span: 24,
+    },
+  ],
 }

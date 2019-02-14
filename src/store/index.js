@@ -12,9 +12,9 @@ const store = new Vuex.Store({
     user,
     common,
     logs,
-    tags
+    tags,
   },
-  getters
+  getters,
 })
 
 export default store

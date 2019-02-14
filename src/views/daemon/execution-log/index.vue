@@ -12,12 +12,7 @@
 </template>
 
 <script>
-import {
-  addObj,
-  delObj,
-  fetchList,
-  putObj,
-} from '@/api/daemon/execution-log'
+import { addObj, delObj, fetchList, putObj } from '@/api/daemon/execution-log'
 import { tableOption } from '@/const/crud/daemon/execution-log'
 import { mapGetters } from 'vuex'
 

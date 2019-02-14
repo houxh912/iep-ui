@@ -20,7 +20,7 @@ import '@smallwei/avue/lib/theme-chalk/index.css'
 import basicContainer from './components/basic-container/main'
 import VueClipboard from 'vue-clipboard2'
 // 插件 json 展示
-import vueJsonTreeView from 'vue-json-tree-view'
+// import vueJsonTreeView from 'vue-json-tree-view'
 
 import { validatenull } from '@/util/validate'
 
@@ -31,8 +31,6 @@ Vue.use(Avue, { menuType: 'text' })
 Vue.use(router)
 
 Vue.use(VueClipboard)
-
-Vue.use(vueJsonTreeView)
 
 Vue.use(VueAxios, axios)
 

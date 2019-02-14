@@ -30,6 +30,29 @@ export function getChild (id) {
   })
 }
 
+export function postChild (obj) {
+  return request({
+    url: '/admin/dict/child/create',
+    method: 'post',
+    data: obj
+  })
+}
+
+export function putChild (obj) {
+  return request({
+    url: '/admin/dict/child/update',
+    method: 'post',
+    data: obj
+  })
+}
+
+export function deleteChildById (id) {
+  return request({
+    url: `/admin/dict/child/delete/${id}`,
+    method: 'post',
+  })
+}
+
 export function delObj (row) {
   return request({
     url: '/admin/dict/' + row.id + '/' + row.type,

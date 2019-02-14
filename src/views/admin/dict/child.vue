@@ -14,14 +14,15 @@
       </el-table-column>
     </avue-tree-table>
     <el-dialog :title="title" :visible.sync="dialogChildVisible" append-to-body>
-      <avue-form ref="form" v-model="row" :option="option"></avue-form>
+      <avue-form ref="form" v-model="row" :option="option" @submit="handleSubmit"></avue-form>
     </el-dialog>
   </div>
 </template>
 <script>
-import { getChild } from '@/api/admin/dict'
+import { getChild, postChild, putChild, deleteChildById } from '@/api/admin/dict'
 function initRow () {
   return {
+    id: null,
     label: '',
     value: ''
   }
@@ -100,6 +101,19 @@ export default {
         this.data = data.data
       })
     },
+    handleSubmit (row) {
+      console.log(row)
+      let submitChild = null
+      if (row.id) {
+        submitChild = putChild
+      } else {
+        submitChild = postChild
+      }
+      submitChild(row).then(({ data }) => {
+        console.log(data)
+        this.getList()
+      })
+    },
     handleEdit (row, index, isChild) {
       if (row) {
         this.row = { ...row }
@@ -116,7 +130,9 @@ export default {
       this.dialogChildVisible = true
     },
     handleDel (row, index) {
-
+      deleteChildById(row.id).then(() => {
+        this.getList()
+      })
     }
   }
 }

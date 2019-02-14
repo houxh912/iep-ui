@@ -1,10 +1,10 @@
 {
-  "name": "gds-ui",
+  "name": "iep-ui",
   "version": "1.0.0",
   "private": true,
   "repository": {
     "type": "govmade-gitlab",
-    "url": "http://115.233.227.46:8066/root/gds-ui"
+    "url": "http://115.233.227.46:8066/root/iep-ui"
   },
   "scripts": {
     "serve": "vue-cli-service serve",

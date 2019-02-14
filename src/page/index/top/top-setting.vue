@@ -9,7 +9,7 @@
     <div class="setting__content" :class="{ 'setting__content--show': box }">
       <div class="setting__header">版权信息</div>
       <div class="setting__body setting__about">
-        <p>Version：Gds 1.0.0</p>
+        <p>Version：Iep 1.0.0</p>
         <p>Copyright: GovMade ©2018-2019</p>
       </div>
       <div class="setting__header">

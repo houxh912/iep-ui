@@ -13,7 +13,7 @@
       </avue-crud>
     </basic-container>
     <el-dialog title="字典子项" :visible.sync="dialogDictChildVisible" width="70%" append-to-body>
-      <dict-child :currentId="currentId"></dict-child>
+      <dict-child v-if="dialogDictChildVisible" :currentId="currentId"></dict-child>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogDictChildVisible = false">取 消</el-button>
       </div>

@@ -1,6 +1,6 @@
-import {validatenull} from './validate'
+import { validatenull } from './validate'
 import request from '@/router/axios'
-
+import _ from 'lodash'
 // 表单序列化
 export const serialize = data => {
   let list = []
@@ -145,7 +145,7 @@ export const fullscreenToggel = () => {
  * esc监听全屏
  */
 export const listenfullscreen = (callback) => {
-  function listen() {
+  function listen () {
     callback()
   }
   document.addEventListener("fullscreenchange", function () {
@@ -310,8 +310,8 @@ export const openWindow = (url, title, w, h) => {
  *  <img> <a> src 处理
  * @returns {PromiseLike<T | never> | Promise<T | never>}
  */
-export function handleImg(fileName, id) {
-  return validatenull(fileName)?null: request({
+export function handleImg (fileName, id) {
+  return validatenull(fileName) ? null : request({
     url: '/admin/file/' + fileName,
     method: 'get',
     responseType: 'blob'
@@ -325,3 +325,7 @@ export function handleImg(fileName, id) {
   })
 }
 
+export function mergeByFirst (distObject, srcObject) {
+  const propList = _.keys(distObject)
+  return _.pick(srcObject, propList)
+}

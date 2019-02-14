@@ -20,6 +20,7 @@
 </template>
 <script>
 import { getChild, postChild, putChild, deleteChildById } from '@/api/admin/dict'
+import { mergeByFirst } from '@/util/util'
 export default {
   props: {
     currentId: {
@@ -35,19 +36,28 @@ export default {
         emptyBtn: true,
         submitBtn: true,
         column: [{
-          label: "字典编码",
+          label: "字典值",
           prop: "value",
           rules: [{
             required: true,
-            message: "请输入字典编码",
+            message: "请输入字典值",
             trigger: "blur"
           }]
         }, {
-          label: "字典名称",
+          label: "字典名",
           prop: "label",
           rules: [{
             required: true,
-            message: "请输入字典名称",
+            message: "请输入字典名",
+            trigger: "blur"
+          }]
+        }, {
+          label: "排序",
+          prop: "sort",
+          type: 'number',
+          rules: [{
+            required: true,
+            message: "请输入排序",
             trigger: "blur"
           }]
         }]
@@ -68,11 +78,11 @@ export default {
             width: 100
           },
           {
-            text: '字典编码',
+            text: '字典值',
             value: 'value'
           },
           {
-            text: '字典名称',
+            text: '字典名',
             value: 'label'
           },
           {
@@ -94,6 +104,7 @@ export default {
         dictId: this.id,
         parentId: null,
         id: null,
+        sort: 1,
         label: '',
         value: ''
       }
@@ -101,6 +112,7 @@ export default {
     getList () {
       getChild(this.id).then(({ data }) => {
         this.data = data.data
+        this.dialogChildVisible = false
       })
     },
     handleSubmit (row) {
@@ -116,7 +128,8 @@ export default {
     },
     handleEdit (row, index, isChild) {
       if (row) {
-        this.row = { ...row }
+        this.row = mergeByFirst(this._initRow(), row)
+        console.log(this.row)
         this.title = '修改'
       } else {
         this.row = this._initRow()

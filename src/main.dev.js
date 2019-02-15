@@ -21,6 +21,7 @@ import Avue from '@smallwei/avue/lib/index.js'
 import '@smallwei/avue/lib/theme-chalk/index.css'
 import basicContainer from './components/basic-container/main'
 import VueClipboard from 'vue-clipboard2'
+import '@/config/index'
 // 插件 json 展示
 // import vueJsonTreeView from 'vue-json-tree-view'
 

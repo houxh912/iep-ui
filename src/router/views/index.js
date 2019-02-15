@@ -37,15 +37,4 @@ export default [
       },
     ],
   },
-  {
-    path: '/demo',
-    component: Layout,
-    redirect: 'demoForm',
-    children: [
-      {
-        path: 'demoForm',
-        components: require('@/views/demo/form/index'),
-      },
-    ],
-  },
 ]

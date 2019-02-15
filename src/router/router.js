@@ -1,8 +1,10 @@
 import VueRouter from 'vue-router'
 import PageRouter from './page/'
 import ViewsRouter from './views/'
+import MackRouter from './mack'
 import AvueRouter from './avue-router'
 import Store from '../store/'
+
 const Router = new VueRouter({
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
@@ -21,5 +23,5 @@ const Router = new VueRouter({
 })
 AvueRouter.install(Router, Store)
 Router.$avueRouter.formatRoutes(Store.state.user.menu, true)
-Router.addRoutes([...PageRouter, ...ViewsRouter])
+Router.addRoutes([...PageRouter, ...ViewsRouter, ...MackRouter])
 export default Router

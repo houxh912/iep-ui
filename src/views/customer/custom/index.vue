@@ -1,14 +1,9 @@
 <template>
   <gov-layout-main>
-    <avue-tabs
-      v-model="obj"
-      :data="data"
-      :option="option"
-      @change="change"
-    >
+    <avue-tabs v-model="obj" :data="data" :option="option" @change="change">
     </avue-tabs>
-    <allCustom-tab v-if="type=='allCustom'" ref="allCustom"></allCustom-tab>
-    <myCustom-tab v-if="type=='myCustom'" ref="myCustom"></myCustom-tab>
+    <all-custom-tab v-if="type=='allCustom'" ref="allCustom"></all-custom-tab>
+    <my-custom-tab v-if="type=='myCustom'" ref="myCustom"></my-custom-tab>
     <cooperation-tab v-if="type=='cooperation'" ref="cooperation"></cooperation-tab>
   </gov-layout-main>
 </template>
@@ -30,7 +25,7 @@ export default {
       obj: {},
       data: [],
       type: 'allCustom',
-      option:{
+      option: {
         column: [{
           label: '所有客户',
           prop: 'allCustom',

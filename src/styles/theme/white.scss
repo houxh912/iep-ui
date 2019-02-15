@@ -10,6 +10,7 @@
   }
   .el-dropdown{
     color:#333;
+    cursor: pointer;
   }
   .avue-logo_title{
     font-weight: 400;
@@ -57,12 +58,12 @@
     .el-menu{
       background-color: #fff ;
     }
-    background-color:#fff ;
+    background-color:#fafafa ;
     .el-menu-item,.el-submenu__title{
       i,span{
         color:#666 ;
       }
-      background-color:#fff ;
+      background-color:#fafafa ;
     }
     .el-menu-item,.el-submenu__title{
       &:hover{

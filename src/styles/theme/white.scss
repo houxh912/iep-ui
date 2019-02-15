@@ -9,30 +9,30 @@
     color:#333;
   }
   .el-dropdown{
-    color:#fff;
+    color:#333;
   }
   .avue-logo_title{
     font-weight: 400;
-    color:#fff;
+    color:#333;
   }
   .logo_title,
   .avue-breadcrumb
   {
-      color: #fff ;
+      color: #333 ;
       i {
-          color: #fff;
+          color: #333;
       }
   }
   .avue-top{
     .el-menu-item {
       i,
       span {
-          color: #fff ;
+          color: #333 ;
       }
       &:hover {
           i,
           span {
-              color: #fff ;
+              color: #333 ;
           }
       }
     }
@@ -47,7 +47,7 @@
       &.is-active{
         background-color:#409EFF ;
         span,i {
-          color:#fff ;
+          color:#333 ;
         }
       }
     }
@@ -75,7 +75,7 @@
     .el-menu-item.is-active,.el-submenu__title.is-active{
       background-color:#409EFF ;
       i,span{
-        color:#fff ;
+        color:#333 ;
       }
       &::before{
         display: none;
@@ -83,39 +83,39 @@
       &:hover{
         background-color: #409EFF ;
         i,span{
-          color:#fff ;
+          color:#333 ;
         }
       }
     }
   }
   .top-search {
       .el-input__inner{
-        color: #fff;
+        color: #333;
       }
       input::-webkit-input-placeholder,
       textarea::-webkit-input-placeholder {
           /* WebKit browsers */
-          color: #fff;
+          color: #333;
       }
       input:-moz-placeholder,
       textarea:-moz-placeholder {
           /* Mozilla Firefox 4 to 18 */
-          color: #fff;
+          color: #333;
       }
       input::-moz-placeholder,
       textarea::-moz-placeholder {
           /* Mozilla Firefox 19+ */
-          color: #fff;
+          color: #333;
       }
       input:-ms-input-placeholder,
       textarea:-ms-input-placeholder {
           /* Internet Explorer 10+ */
-          color: #fff;
+          color: #333;
       }
   }
   .top-bar__item {
       i {
-          color: #fff;
+          color: #333;
       }
   }
 }

@@ -16,6 +16,11 @@
           <top-lock></top-lock>
         </div>
       </el-tooltip>
+      <el-tooltip effect="dark" content="主题" placement="bottom">
+        <div class="top-bar__item">
+          <top-theme></top-theme>
+        </div>
+      </el-tooltip>
       <el-tooltip v-if="showFullScren" effect="dark" :content="isFullScren ? '退出全屏' : '全屏'" placement="bottom">
         <div class="top-bar__item">
           <i :class="isFullScren ? 'icon-tuichuquanping' : 'icon-quanping'" @click="handleScreen"></i>
@@ -48,7 +53,7 @@ import { fullscreenToggel, listenfullscreen, handleImg } from '@/util/util'
 import topLock from './top-lock'
 import topMenu from './top-menu'
 // import topSearch from './top-search'
-// import topTheme from './top-theme'
+import topTheme from './top-theme'
 // import topLogs from './top-logs'
 // import topColor from './top-color'
 // import topSetting from './top-setting'
@@ -57,7 +62,7 @@ export default {
     topLock,
     topMenu,
     // topSearch,
-    // topTheme,
+    topTheme,
     // topLogs,
     // topColor,
     // topSetting,

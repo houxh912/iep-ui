@@ -1,27 +1,40 @@
 <template>
   <div class="avue-contail" :class="{ 'avue--collapse': isCollapse }">
-    <div class="avue-header">
-      <!-- 顶部导航栏 -->
-      <top />
+    <el-container style="height: 100vh;">
+      <el-header style="height: 64px;padding: 0;">
+        <!-- 顶部导航栏 -->
+        <top />
+      </el-header>
+      <el-container>
+        <el-aside width="240px">
+          <!-- 左侧导航栏 -->
+          <sidebar />
+        </el-aside>
+        <el-main>
+          <!-- 顶部标签卡 -->
+          <tags />
+          <!-- 主体视图层 -->
+          <el-scrollbar style="height:100%">
+            <keep-alive>
+              <router-view class="avue-view" v-if="$route.meta.$keepAlive" />
+            </keep-alive>
+            <router-view class="avue-view" v-if="!$route.meta.$keepAlive" />
+          </el-scrollbar>
+        </el-main>
+      </el-container>
+    </el-container>
+    <!-- <div class="avue-header">
+
     </div>
 
     <div class="avue-layout">
       <div class="avue-left">
-        <!-- 左侧导航栏 -->
-        <sidebar />
+
       </div>
       <div class="avue-main">
-        <!-- 顶部标签卡 -->
-        <tags />
-        <!-- 主体视图层 -->
-        <el-scrollbar style="height:100%">
-          <keep-alive>
-            <router-view class="avue-view" v-if="$route.meta.$keepAlive" />
-          </keep-alive>
-          <router-view class="avue-view" v-if="!$route.meta.$keepAlive" />
-        </el-scrollbar>
+
       </div>
-    </div>
+    </div> -->
     <div class="avue-shade" @click="showCollapse"></div>
   </div>
 </template>

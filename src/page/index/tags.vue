@@ -1,32 +1,13 @@
 <template>
-  <div class="avue-tags" v-if="showTag">
+  <div class="avue-tags" v-if="false">
     <!-- tag盒子 -->
-    <div
-      v-if="contextmenuFlag"
-      class="avue-tags__contentmenu"
-      :style="{ left: contentmenuX + 'px', top: contentmenuY + 'px' }"
-    >
+    <div v-if="contextmenuFlag" class="avue-tags__contentmenu" :style="{ left: contentmenuX + 'px', top: contentmenuY + 'px' }">
       <div class="item" @click="closeOthersTags">关闭其他</div>
       <div class="item" @click="closeAllTags">关闭全部</div>
     </div>
-    <div
-      class="avue-tags__box"
-      :class="{ 'avue-tags__box--close': !website.isFirstPage }"
-    >
-      <el-tabs
-        v-model="active"
-        type="card"
-        @contextmenu.native="handleContextmenu"
-        :closable="tagLen !== 1"
-        @tab-click="openTag"
-        @edit="menuTag"
-      >
-        <el-tab-pane
-          :key="item.value"
-          v-for="item in tagList"
-          :label="item.label"
-          :name="item.value"
-        >
+    <div class="avue-tags__box" :class="{ 'avue-tags__box--close': !website.isFirstPage }">
+      <el-tabs v-model="active" type="card" @contextmenu.native="handleContextmenu" :closable="tagLen !== 1" @tab-click="openTag" @edit="menuTag">
+        <el-tab-pane :key="item.value" v-for="item in tagList" :label="item.label" :name="item.value">
         </el-tab-pane>
       </el-tabs>
       <el-dropdown class="avue-tags__menu">
@@ -35,12 +16,8 @@
           <i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click.native="closeOthersTags"
-            >关闭其他</el-dropdown-item
-          >
-          <el-dropdown-item @click.native="closeAllTags"
-            >关闭全部</el-dropdown-item
-          >
+          <el-dropdown-item @click.native="closeOthersTags">关闭其他</el-dropdown-item>
+          <el-dropdown-item @click.native="closeAllTags">关闭全部</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -58,7 +35,7 @@ export default {
       contextmenuFlag: false,
     }
   },
-  created () {},
+  created () { },
   mounted () {
     this.setActive()
   },

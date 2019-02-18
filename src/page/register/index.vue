@@ -11,7 +11,7 @@
           <third-login v-else-if="activeName === 'third'"></third-login>
         </div>
         <div class="login-menu">
-          <a href="#" @click.stop="loadLoginPage">登录</a>
+          <a href="#" @click.prevent="loadLoginPage">登录</a>
         </div>
       </div>
     </div>

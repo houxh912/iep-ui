@@ -28,6 +28,7 @@ router.beforeEach((to, from, next) => {
     }
   }
   const meta = to.meta || {}
+  console.log(to)
   if (store.getters.access_token) {
     if (store.getters.isLock && to.path != lockPage) {
       next({ path: lockPage })

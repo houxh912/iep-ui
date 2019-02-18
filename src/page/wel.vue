@@ -4,19 +4,10 @@
       <div class="banner-text">
         <span>
           <a href="https://avue.top/#/pay" target="_blank">
-            <img
-              src="https://img.shields.io/badge/Avue-原子弹-green.svg"
-              alt="Build Status"
-            />
+            <img src="https://img.shields.io/badge/Avue-原子弹-green.svg" alt="Build Status" />
           </a>
-          <img
-            src="https://img.shields.io/badge/Spring%20Boot-2.0.7.RELEASE-yellowgreen.svg"
-            alt="Downloads"
-          />
-          <img
-            src="https://img.shields.io/badge/Spring%20Cloud-Finchley.SR2-blue.svg"
-            alt="Coverage Status"
-          />
+          <img src="https://img.shields.io/badge/Spring%20Boot-2.0.7.RELEASE-yellowgreen.svg" alt="Downloads" />
+          <img src="https://img.shields.io/badge/Spring%20Cloud-Finchley.SR2-blue.svg" alt="Coverage Status" />
         </span>
         <br />
         <span>
@@ -60,15 +51,18 @@
           </el-collapse>
         </span>
       </div>
+      <about-me :creat-list="creatList"></about-me>
     </basic-container>
+
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-
+import aboutMe from '@/components/about-me'
 export default {
   name: 'Wel',
+  components: { aboutMe },
   data () {
     return {
       activeNames: ['1', '2', '3', '4'],
@@ -77,6 +71,7 @@ export default {
       actor: '',
       count: 0,
       isText: false,
+      creatList: { title: '我要创建', details: ['纪要', '报表', '材料', '任务', '审批', '建议', '感想', '邮件', '考试', '调研', '建模'] },
     }
   },
   computed: {

@@ -12,7 +12,6 @@
         </div>
       </template>
       <template v-else>
-        <!-- <avue-form ref="form" v-model="formData" :option="formOption"></avue-form> -->
         <el-form ref="form" :model="formData" label-width="80px">
           <el-form-item label="客户名称">
             <el-input v-model="formData.name"></el-input>
@@ -108,14 +107,13 @@ export default {
       this.$refs['dialog'].close()
     },
     handleClosed () {
-      if (this.state != 'detail') {
-        this.$refs.form.clearValidate()
-        this.$refs.form.resetForm()
-      }
+      
     },
     handleSubmit () {
-      this.$refs['form'].validate().then(()=>{
-        
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          console.log(true)
+        }
       })
     },
   },

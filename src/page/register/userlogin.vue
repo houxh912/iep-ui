@@ -17,8 +17,8 @@
         <i slot="prefix" class="icon-mima"></i>
       </el-input>
     </el-form-item>
-    <el-form-item prop="mobile">
-      <el-input size="small" v-model="registerForm.mobile" auto-complete="off" placeholder="请输入手机号码">
+    <el-form-item prop="phone">
+      <el-input size="small" v-model="registerForm.phone" auto-complete="off" placeholder="请输入手机号码">
         <i slot="prefix" class="icon-shouji"></i>
       </el-input>
     </el-form-item>
@@ -82,7 +82,7 @@ export default {
         username: '',
         password: '',
         cpassword: '',
-        mobile: '',
+        phone: '',
         code: '',
         randomStr: '',
       },
@@ -105,7 +105,7 @@ export default {
           { trigger: 'blur', validator: validatePass2 },
           { min: 6, message: '密码长度最少为6位', trigger: 'blur' },
         ],
-        mobile: [{ required: true, trigger: 'blur', validator: validatePhone }],
+        phone: [{ required: true, trigger: 'blur', validator: validatePhone }],
       },
       passwordType: 'password',
     }
@@ -121,7 +121,7 @@ export default {
   methods: {
     handleSend () {
       if (this.msgKey) return
-      getMobileCode(this.registerForm.mobile).then(response => {
+      getMobileCode(this.registerForm.phone).then(response => {
         if (response.data.data) {
           this.$message.success('验证码发送成功')
         } else {

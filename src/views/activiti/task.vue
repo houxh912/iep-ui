@@ -137,7 +137,7 @@ export default {
       })
     },
     viewPic: function (row) {
-      this.actPicUrl = '/act/task/view/' + row.taskId
+      this.actPicUrl = '/api/act/task/view/' + row.taskId
       this.showPicDialog = true
     },
     /**

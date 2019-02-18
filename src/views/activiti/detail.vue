@@ -3,8 +3,7 @@
     <basic-container>
       <div class="header">
         <p class="header__title">{{ name }}</p>
-        <el-button class="header__btn" type="primary" @click="breaks"
-          >关闭返回列表
+        <el-button class="header__btn" type="primary" @click="breaks">关闭返回列表
         </el-button>
       </div>
     </basic-container>
@@ -29,7 +28,7 @@ export default {
   },
   computed: {
     src () {
-      return `${this.actUrl}${this.id}`
+      return `/api${this.actUrl}${this.id}`
     },
   },
   methods: {
@@ -42,6 +41,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.iframe {
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+}
 .execution {
   height: 99%;
 

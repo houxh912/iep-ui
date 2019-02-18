@@ -1,7 +1,7 @@
 <template>
   <div class="avue-contail" :class="{ 'avue--collapse': isCollapse }">
     <el-container style="height: 100vh;">
-      <el-header style="height: 64px;padding: 0;">
+      <el-header style="height: 64px;padding: 0;z-index: 1000;">
         <!-- 顶部导航栏 -->
         <top />
       </el-header>

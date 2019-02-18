@@ -1,8 +1,9 @@
 <template>
   <div class="avue-top">
     <div class="top-bar__left">
-      <div class="avue-breadcrumb" :class="[{ 'avue-breadcrumb--active': isCollapse }]" v-if="showCollapse">
-        <i class="icon-navicon" @click="setCollapse"></i>
+      <div class="logo-wrapper">
+        <div class="logo"></div>
+        <div class="logo-text">内部智慧平台</div>
       </div>
     </div>
     <div class="top-bar__title">
@@ -121,4 +122,22 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.logo-wrapper {
+  margin: 13px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .logo {
+    width: 90px;
+    height: 38px;
+    background-image: url("/img/logo.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  .logo-text {
+    margin-left: 10px;
+    font-size: 18px;
+  }
+}
+</style>

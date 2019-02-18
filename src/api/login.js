@@ -1,6 +1,20 @@
 import request from '@/router/axios'
 const scope = 'server'
 
+
+export function validRegisterUserName (name) {
+  return request({
+    url: `/admin/user/repeatUsername/${name}`,
+    method: 'get',
+  })
+}
+export function validRegisterUserPhone (phone) {
+  return request({
+    url: `/admin/user/repeatPhone/${phone}`,
+    method: 'get',
+  })
+}
+
 export const registerUser = (userObject) => {
   return request({
     url: '/admin/user/register',

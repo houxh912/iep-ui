@@ -40,7 +40,7 @@
 import { randomLenNum } from '@/util/util'
 import { mapGetters } from 'vuex'
 import { getMobileCode } from '@/api/admin/mobile'
-import { registerUser } from '@/api/login'
+import { registerUser, validRegisterUserName, validRegisterUserPhone } from '@/api/login'
 import { isvalidatemobile } from '@/util/validate'
 const MSGINIT = '发送验证码',
   MSGSCUCCESS = '${time}秒后重发',
@@ -48,11 +48,29 @@ const MSGINIT = '发送验证码',
 export default {
   name: 'Userlogin',
   data () {
+    const checkUserName = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('用户名不能为空'))
+      }
+      validRegisterUserName(value).then(({ data }) => {
+        if (!data.data) {
+          callback(new Error('该用户名已存在，无需新增。'))
+        } else {
+          callback()
+        }
+      })
+    }
     const validatePhone = (rule, value, callback) => {
       if (isvalidatemobile(value)[0]) {
         callback(new Error(isvalidatemobile(value)[1]))
       } else {
-        callback()
+        validRegisterUserPhone(value).then(({ data }) => {
+          if (!data.data) {
+            callback(new Error('该手机号已存在，无需新增。'))
+          } else {
+            callback()
+          }
+        })
       }
     }
     const validatePass = (rule, value, callback) => {
@@ -95,7 +113,7 @@ export default {
       checked: false,
       registerRule: {
         username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { validator: checkUserName, trigger: 'blur' },
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur', validator: validatePass },
@@ -160,7 +178,18 @@ export default {
       this.$refs.registerForm.validate(valid => {
         if (valid) {
           registerUser(this.registerForm).then(({ data }) => {
-            console.log(data)
+            if (data.data) {
+              this.$message({
+                message: '恭喜你，注册成功',
+                type: 'success',
+              })
+              this.$router.push('/login')
+            } else {
+              this.$message({
+                message: data.msg,
+                type: 'warning',
+              })
+            }
           })
         }
       })

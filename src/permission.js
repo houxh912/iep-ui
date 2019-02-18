@@ -28,12 +28,11 @@ router.beforeEach((to, from, next) => {
     }
   }
   const meta = to.meta || {}
-  console.log(to)
   if (store.getters.access_token) {
     if (store.getters.isLock && to.path != lockPage) {
       next({ path: lockPage })
     } else if (to.path === '/login') {
-      next({ path: '/' })
+      next('/')
     } else {
       if (store.getters.roles.length === 0) {
         store
@@ -46,14 +45,13 @@ router.beforeEach((to, from, next) => {
               next({ path: '/login' })
             })
           })
+      } else if (to.path !== '/select_org/index' && store.getters.noOrg) {
+        console.log('no org', to)
+        next({ path: '/select_org/index' })
       } else {
         const value = to.query.src || to.fullPath
         const label = to.query.name || to.name
-        if (
-          meta.isTab !== false &&
-          !validatenull(value) &&
-          !validatenull(label)
-        ) {
+        if (meta.isTab !== false && !validatenull(value) && !validatenull(label)) {
           store.commit('ADD_TAG', {
             label: label,
             value: value,

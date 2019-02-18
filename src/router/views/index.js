@@ -13,6 +13,18 @@ export default [
     ],
   },
   {
+    path: '/select_org',
+    component: Layout,
+    redirect: '/select_org/index',
+    children: [
+      {
+        path: 'index',
+        name: '选择组织',
+        component: () => import(/* webpackChunkName: "views" */ '@/page/select_org/index'),
+      },
+    ],
+  },
+  {
     path: '/info',
     component: Layout,
     redirect: '/info/index',

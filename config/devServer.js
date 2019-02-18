@@ -32,6 +32,14 @@ if (process.env.MOCK === 'true') {
         '^/api': '',
       },
     },
+    '/act': {
+      target: baseUrl,
+      changeOrigin: true,
+      ws: true,
+      pathRewrite: {
+        '^/act': '/act'
+      }
+    }
   }
 }
 // 改成本地 IP

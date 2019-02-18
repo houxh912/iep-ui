@@ -36,7 +36,7 @@
             <el-input type="textarea" v-model="formData.shuoming" placeholder="其他说明"></el-input>
           </el-form-item>
           <el-form-item label="市场经理">
-            
+            <gov-add-tags v-model="formData.jingli"></gov-add-tags>
           </el-form-item>
           <el-form-item label="负责部门">
             <el-input v-model="formData.dizhi"></el-input>
@@ -54,19 +54,19 @@
             <el-alert title="消息提示的文案" type="info" show-icon></el-alert>
           </el-form-item>
           <el-form-item label="合作项目">
-            
+            <gov-add-tags v-model="formData.xiangmu"></gov-add-tags>
           </el-form-item>
           <el-form-item label="相关产品">
-            
+            <gov-add-tags v-model="formData.chanpin"></gov-add-tags>
           </el-form-item>
           <el-form-item label="相关方案">
-            
+            <gov-add-tags v-model="formData.fangan"></gov-add-tags>
           </el-form-item>
           <el-form-item label="拜访记录">
-            
+            <gov-add-tags v-model="formData.jilu"></gov-add-tags>
           </el-form-item>
           <el-form-item label="维护情况">
-            
+            <gov-add-tags v-model="formData.qingkuang"></gov-add-tags>
           </el-form-item>
         </el-form>
       </template>
@@ -84,6 +84,7 @@ export default {
       list: [{value: 1, label: '选项1'}, {value: 2, label: '选项2'}],
     }
   },
+  components: {  },
   computed: {
     formOption () {
       return {}

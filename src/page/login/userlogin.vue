@@ -6,7 +6,7 @@
       </el-input>
     </el-form-item>
     <el-form-item prop="password">
-      <el-input size="small" @keyup.enter.native="handleLogin" :type="passwordType" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码">
+      <el-input size="small" @keyup.enter.native="handleLogin" :type="passwordType" v-model="loginForm.password" auto-complete="false" placeholder="请输入密码">
         <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
         <i slot="prefix" class="icon-mima"></i>
       </el-input>
@@ -14,7 +14,7 @@
     <el-form-item prop="code">
       <el-row :span="24">
         <el-col :span="16">
-          <el-input size="small" @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="loginForm.code" auto-complete="off" placeholder="请输入验证码">
+          <el-input size="small" @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="loginForm.code" auto-complete="false" placeholder="请输入验证码">
             <i slot="prefix" class="icon-yanzhengma"></i>
           </el-input>
         </el-col>

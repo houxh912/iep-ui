@@ -7,11 +7,9 @@
             用户注册
           </h4>
           <user-login v-if="activeName === 'user'"></user-login>
-          <code-login v-else-if="activeName === 'code'"></code-login>
-          <third-login v-else-if="activeName === 'third'"></third-login>
         </div>
         <div class="login-menu">
-          <a href="#" @click.prevent="loadLoginPage">登录</a>
+          <a href="#" @click.prevent="loadLoginPage">返回登录</a>
         </div>
       </div>
     </div>
@@ -19,9 +17,6 @@
 </template>
 <script>
 import userLogin from './userlogin'
-import codeLogin from './codelogin'
-import thirdLogin from './thirdlogin'
-// import topColor from '../index/top/top-color'
 import color from '@/mixins/color'
 import { setStore } from '@/util/store'
 import { mapGetters } from 'vuex'
@@ -32,8 +27,6 @@ export default {
   components: {
     // topColor,
     userLogin,
-    codeLogin,
-    thirdLogin,
   },
   data () {
     return {

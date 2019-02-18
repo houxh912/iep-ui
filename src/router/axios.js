@@ -3,7 +3,6 @@ import { getStore } from '../util/store'
 import axios from 'axios'
 import NProgress from 'nprogress' // progress bar
 import errorCode from '@/const/errorCode'
-import router from '@/router/router'
 import { Message } from 'element-ui'
 import 'nprogress/nprogress.css'
 import store from '@/store' // progress bar style
@@ -55,7 +54,6 @@ axios.interceptors.response.use(
     const message = res.data.msg || errorCode[status] || errorCode['default']
     if (status === 401) {
       store.dispatch('FedLogOut').then(() => {
-        router.push({ path: '/login' })
       })
       return
     }

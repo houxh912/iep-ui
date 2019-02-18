@@ -18,18 +18,18 @@
 
 <script>
 // import { mapGetters } from 'vuex'
-// import { getOrgList } from '@/api/admin/org'
+import { getOrgList } from '@/api/admin/org'
 export default {
-  name: 'select-org',
+  name: 'org',
   created () {
-    // this.loadOrg()
+    this.loadOrg()
   },
   methods: {
-    // loadOrg () {
-    //   getOrgList().then(({ data }) => {
-    //     console.log(data)
-    //   })
-    // },
+    loadOrg () {
+      getOrgList().then(({ data }) => {
+        console.log(data)
+      })
+    },
   },
 }
 </script>

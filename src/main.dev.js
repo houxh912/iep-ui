@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import ElementUI from 'element-ui'
+import axios from './router/axios'
+import VueAxios from 'vue-axios'
 import './permission' // 权限
 import './error' // 日志
 import router from './router/router'
@@ -34,6 +36,8 @@ Vue.use(ElementUI)
 Vue.use(VueRouter)
 
 Vue.use(VueClipboard)
+
+Vue.use(VueAxios, axios)
 
 // 注册全局容器
 Vue.component('basicContainer', basicContainer)

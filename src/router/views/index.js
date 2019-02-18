@@ -1,4 +1,4 @@
-import Layout from '@/page/index/'
+import Layout from '@/page/index/index'
 export default [
   {
     path: '/wel',
@@ -13,14 +13,14 @@ export default [
     ],
   },
   {
-    path: '/select_org',
+    path: '/org',
     component: Layout,
-    redirect: '/select_org/index',
+    redirect: '/org/select',
     children: [
       {
-        path: 'index',
+        path: 'select',
         name: '选择组织',
-        component: () => import(/* webpackChunkName: "views" */ '@/page/select_org/index'),
+        component: () => import(/* webpackChunkName: "views" */ '@/page/org'),
       },
     ],
   },

@@ -45,9 +45,9 @@ router.beforeEach((to, from, next) => {
               next({ path: '/login' })
             })
           })
-      } else if (to.path !== '/select_org/index' && store.getters.noOrg) {
+      } else if (to.path !== '/org/select' && store.getters.noOrg) {
         console.log('no org', to)
-        next({ path: '/select_org/index' })
+        next({ path: '/org/select' })
       } else {
         const value = to.query.src || to.fullPath
         const label = to.query.name || to.name

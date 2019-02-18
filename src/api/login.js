@@ -1,6 +1,16 @@
 import request from '@/router/axios'
 const scope = 'server'
 
+export const registerUser = (userObject) => {
+  return request({
+    url: '/admin/user/register',
+    method: 'post',
+    data: {
+      ...userObject,
+    },
+  })
+}
+
 export const loginByUsername = (username, password, code, randomStr) => {
   const grant_type = 'password'
 

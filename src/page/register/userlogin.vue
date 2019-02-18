@@ -40,6 +40,7 @@
 import { randomLenNum } from '@/util/util'
 import { mapGetters } from 'vuex'
 import { getMobileCode } from '@/api/admin/mobile'
+import { registerUser } from '@/api/login'
 import { isvalidatemobile } from '@/util/validate'
 const MSGINIT = '发送验证码',
   MSGSCUCCESS = '${time}秒后重发',
@@ -158,14 +159,9 @@ export default {
     handleRegister () {
       this.$refs.registerForm.validate(valid => {
         if (valid) {
-          this.$store
-            .dispatch('LoginByUsername', this.registerForm)
-            .then(() => {
-              this.$router.push({ path: this.tagWel.value })
-            })
-            .catch(() => {
-              this.refreshCode()
-            })
+          registerUser(this.registerForm).then(({ data }) => {
+            console.log(data)
+          })
         }
       })
     },

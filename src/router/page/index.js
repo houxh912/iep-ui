@@ -6,7 +6,18 @@ export default [
     component: () =>
       import(/* webpackChunkName: "page" */ '@/page/login/index'),
     meta: {
-      keepAlive: true,
+      keepAlive: false,
+      isTab: false,
+      isAuth: false,
+    },
+  },
+  {
+    path: '/register',
+    name: '注册页',
+    component: () =>
+      import(/* webpackChunkName: "page" */ '@/page/register/index'),
+    meta: {
+      keepAlive: false,
       isTab: false,
       isAuth: false,
     },

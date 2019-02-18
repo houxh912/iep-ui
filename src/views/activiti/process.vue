@@ -68,7 +68,7 @@ export default {
     },
     handlePic (row) {
       this.actPicUrl =
-        '/act/process/resource/' +
+        '/api/act/process/resource/' +
         row.deploymentId +
         '/' +
         row.processonDefinitionId +

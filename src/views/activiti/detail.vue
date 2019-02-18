@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     src () {
-      return `/api${this.actUrl}${this.id}`
+      return `${this.actUrl}${this.id}`
     },
   },
   methods: {

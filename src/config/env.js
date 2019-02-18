@@ -6,5 +6,5 @@ let baseUrl = ''
 let iconfontVersion = ['667895_4y8d30c1og', '567566_qo5lxgtishg']
 let iconfontUrl = '//at.alicdn.com/t/font_$key.css'
 let codeUrl = '/api/code'
-let actUrl = `${window.location.origin}/act/modeler.html?modelId=`
+let actUrl = `${window.location.origin}/api/act/modeler.html?modelId=`
 export { baseUrl, actUrl, iconfontUrl, iconfontVersion, codeUrl, env }

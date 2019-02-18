@@ -14,6 +14,9 @@
               <el-form-item label="用户名" prop="username">
                 <el-input type="text" v-model="ruleForm2.username" disabled></el-input>
               </el-form-item>
+              <el-form-item label="真实姓名" prop="realname">
+                <el-input v-model="ruleForm2.realname" placeholder="请输入真实姓名"></el-input>
+              </el-form-item>
               <el-form-item label="手机号" prop="phone">
                 <el-input v-model="ruleForm2.phone" placeholder="验证码登录使用"></el-input>
               </el-form-item>
@@ -89,6 +92,7 @@ export default {
         newpassword2: '',
         avatar: '',
         phone: '',
+        realname: '',
       },
       rules2: {
         password: [

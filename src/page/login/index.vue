@@ -14,6 +14,7 @@
           <a href="#" @click.stop="activeName = 'user'">账号密码</a>
           <a href="#" @click.stop="activeName = 'code'">手机号登录</a>
           <a href="#" @click.stop="activeName = 'third'">第三方登录</a>
+          <a href="#" @click.stop="handleRegister">新用户注册</a>
         </div>
       </div>
     </div>
@@ -42,6 +43,11 @@ export default {
       active: 1,
       activeName: 'user',
     }
+  },
+  methods: {
+    handleRegister () {
+      this.$router.push('/register')
+    },
   },
   watch: {
     $route () {

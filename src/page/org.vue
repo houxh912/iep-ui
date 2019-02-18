@@ -9,7 +9,9 @@
           <el-button type="text" size="mini">创建组织</el-button>
         </div>
         <div class="bottom-wrapper">
-
+          <div class="grid-container">
+            <el-button class="grid-item" v-for="(item,index) in orgList" :key="index" round>{{item.name}}</el-button>
+          </div>
         </div>
       </div>
     </basic-container>
@@ -21,13 +23,18 @@
 import { getOrgList } from '@/api/admin/org'
 export default {
   name: 'org',
+  data () {
+    return {
+      orgList: [],
+    }
+  },
   created () {
     this.loadOrg()
   },
   methods: {
     loadOrg () {
       getOrgList().then(({ data }) => {
-        console.log(data)
+        this.orgList = data.data
       })
     },
   },
@@ -45,6 +52,16 @@ export default {
       font-size: 14px;
       margin-right: 10px;
       margin-left: 5px;
+    }
+  }
+  .bottom-wrapper {
+    margin-top: 10px;
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+      .grid-item {
+        margin: 10px 20px;
+      }
     }
   }
 }

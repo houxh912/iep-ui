@@ -40,6 +40,9 @@
             <router-link to="/">首页</router-link>
           </el-dropdown-item>
           <el-dropdown-item>
+            <span @click="handleOrg(orgText.type)">{{orgText.tipText}}</span>
+          </el-dropdown-item>
+          <el-dropdown-item>
             <router-link to="/info/index">个人信息</router-link>
           </el-dropdown-item>
           <el-dropdown-item @click.native="logout" divided>退出系统</el-dropdown-item>
@@ -95,9 +98,26 @@ export default {
       'tag',
       'logsLen',
       'logsFlag',
+      'noOrg',
     ]),
+    orgText () {
+      return this.noOrg ? {
+        tipText: '无组织(加入/创建)',
+        type: 0,
+      } : {
+          tipText: '切换组织',
+          type: 1,
+        }
+    },
   },
   methods: {
+    handleOrg (type) {
+      if (type === 0) {
+        this.$router.push('/org')
+      } else {
+        console.log('选择组织切换')
+      }
+    },
     handleScreen () {
       fullscreenToggel()
     },

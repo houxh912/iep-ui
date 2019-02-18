@@ -4,6 +4,7 @@ const authController = require('./controller/auth')
 const adminController = require('./controller/admin')
 const dictController = require('./controller/dict')
 const mobileController = require('./controller/mobile')
+const orgController = require('./controller/org')
 const router = new Router()
 /**
  * 获取验证码
@@ -36,5 +37,6 @@ router.get('/admin/log/page', adminController.getLogPage)
 router.get('/admin/dict/page', dictController.getDictPage)
 router.get('/admin/dict/child/1', dictController.getDictChildById)
 router.get('/admin/mobile/:mobile', mobileController.getMobileCode)
+router.get('/admin/org/list', orgController.getOrgList)
 
 exports = module.exports = router

@@ -4,6 +4,7 @@
  */
 import router from './router/router'
 import store from '@/store'
+import { Message } from 'element-ui'
 // import { getStore } from '@/util/store'
 import { validatenull } from '@/util/validate'
 import NProgress from 'nprogress' // progress bar
@@ -45,8 +46,11 @@ router.beforeEach((to, from, next) => {
               next({ path: '/login' })
             })
           })
-      } else if (to.path !== '/org/select' && store.getters.noOrg) {
-        console.log('no org', to)
+      } else if (!store.getters.roles.includes(1) && to.path !== '/org/select' && store.getters.noOrg) {
+        Message({
+          message: '请先加入一个组织',
+          type: 'warning',
+        })
         next({ path: '/org/select' })
       } else {
         const value = to.query.src || to.fullPath

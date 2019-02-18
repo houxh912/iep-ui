@@ -1,50 +1,20 @@
 <template>
-  <el-form
-    class="login-form"
-    status-icon
-    :rules="loginRules"
-    ref="loginForm"
-    :model="loginForm"
-    label-width="0"
-  >
-    <el-form-item prop="phone">
-      <el-input
-        size="small"
-        @keyup.enter.native="handleLogin"
-        v-model="loginForm.mobile"
-        auto-complete="off"
-        placeholder="请输入手机号码"
-      >
+  <el-form class="login-form" status-icon :rules="loginRules" ref="loginForm" :model="loginForm" label-width="0">
+    <el-form-item prop="mobile">
+      <el-input size="small" v-model="loginForm.mobile" auto-complete="off" placeholder="请输入手机号码">
         <i slot="prefix" class="icon-shouji"></i>
       </el-input>
     </el-form-item>
     <el-form-item prop="code">
-      <el-input
-        size="small"
-        @keyup.enter.native="handleLogin"
-        v-model="loginForm.code"
-        auto-complete="off"
-        placeholder="请输入验证码"
-      >
-        <i slot="prefix" class="icon-yanzhengma" style="margin-top:6px;"></i>
-        <template slot="append">
-          <span
-            @click="handleSend"
-            class="msg-text"
-            :class="[{ display: msgKey }]"
-            >{{ msgText }}</span
-          >
-        </template>
-      </el-input>
+      <div class="code-wrapper">
+        <el-input size="small" @keyup.enter.native="handleLogin" maxlength="4" v-model="loginForm.code" auto-complete="off" placeholder="请输入验证码">
+          <i slot="prefix" class="icon-yanzhengma" style="margin-top:6px;"></i>
+        </el-input>
+        <el-button @click="handleSend" class="msg-text" :class="[{ display: msgKey }]">{{ msgText }}</el-button>
+      </div>
     </el-form-item>
     <el-form-item>
-      <el-button
-        size="small"
-        type="primary"
-        @click.native.prevent="handleLogin"
-        class="login-submit"
-        >登录</el-button
-      >
+      <el-button size="small" type="primary" @click.native.prevent="handleLogin" class="login-submit">登录</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -55,7 +25,7 @@ const MSGINIT = '发送验证码',
   MSGTIME = 60
 import { isvalidatemobile } from '@/util/validate'
 import { mapGetters } from 'vuex'
-import request from '@/router/axios'
+import { getMobileCode } from '@/api/admin/mobile'
 export default {
   name: 'Codelogin',
   data () {
@@ -87,8 +57,8 @@ export default {
       },
     }
   },
-  created () {},
-  mounted () {},
+  created () { },
+  mounted () { },
   computed: {
     ...mapGetters(['tagWel']),
   },
@@ -96,11 +66,7 @@ export default {
   methods: {
     handleSend () {
       if (this.msgKey) return
-
-      request({
-        url: '/admin/mobile/' + this.loginForm.mobile,
-        method: 'get',
-      }).then(response => {
+      getMobileCode(this.loginForm.mobile).then(response => {
         if (response.data.data) {
           this.$message.success('验证码发送成功')
         } else {
@@ -134,10 +100,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.code-wrapper {
+  display: flex;
+}
 .msg-text {
   display: block;
-  width: 60px;
   font-size: 12px;
   text-align: center;
   cursor: pointer;

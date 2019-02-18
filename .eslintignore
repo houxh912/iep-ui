@@ -1,4 +1,5 @@
 /config/
 /dist/
 /public/
+/server/
 vue.config.js

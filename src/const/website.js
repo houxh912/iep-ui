@@ -1,13 +1,13 @@
 export default {
   title: 'Iep',
   logo: 'Iep',
-  indexTitle: 'Iep UI 微服务开发框架',
+  indexTitle: '国脉内部智慧平台',
   whiteList: ['/login', '/404', '/401', '/lock'], // 配置无权限可以访问的页面
   whiteTagList: ['/login', '/404', '/401', '/lock'], // 配置不添加tags页面 （'/advanced-router/mutative-detail/*'——*为通配符）
   lockPage: '/lock',
   tokenTime: 6000,
   info: {
-    title: 'Iep UI 微服务开发框架',
+    title: '国脉内部智慧平台',
     list: [],
   },
   statusWhiteList: [428],

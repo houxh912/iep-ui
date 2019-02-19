@@ -22,6 +22,16 @@
           </el-button>
           <el-button size="mini" type="text" icon="el-icon-delete" v-if="orgManager_btn_del" @click="handleDelete(scope.row, scope.index)">删除
           </el-button>
+          <el-dropdown v-if="scope.row.status===1" size="medium" @command="handleCommand($event, scope.row.orgId)">
+            <span class="el-dropdown-link">
+              <i class="el-icon-share"></i>
+              审核<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="pass">通过</el-dropdown-item>
+              <el-dropdown-item command="reject">驳回</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
       </avue-crud>
     </basic-container>
@@ -34,6 +44,7 @@ import {
   delObj,
   fetchList,
   putObj,
+  reviewById,
 } from '@/api/admin/org'
 import { tableOption } from '@/const/crud/admin/org'
 import { mapGetters } from 'vuex'
@@ -66,6 +77,11 @@ export default {
     ...mapGetters(['elements', 'permissions']),
   },
   methods: {
+    handleCommand (command, id) {
+      reviewById(id, command).then(() => {
+        this.getList(this.page)
+      })
+    },
     getList (page, params) {
       this.listLoading = true
       fetchList(

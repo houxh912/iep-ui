@@ -37,3 +37,10 @@ export function delObj (id) {
     method: 'post',
   })
 }
+
+export function reviewById (id, command) {
+  return request({
+    url: `/admin/org/${command}/` + id,
+    method: 'post',
+  })
+}

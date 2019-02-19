@@ -9,7 +9,7 @@
     color:#333;
   }
   .el-dropdown{
-    color:#333;
+    color:#409EFF;
     cursor: pointer;
   }
   .avue-logo_title{
@@ -46,7 +46,7 @@
         color:#666 ;
       }
       &.is-active{
-        background-color:#409EFF ;
+        background-color:#dcdcdc ;
         span,i {
           color:#333 ;
         }
@@ -74,7 +74,7 @@
       }
     }
     .el-menu-item.is-active,.el-submenu__title.is-active{
-      background-color:#409EFF ;
+      background-color:#dcdcdc ;
       i,span{
         color:#333 ;
       }
@@ -82,7 +82,7 @@
         display: none;
       }
       &:hover{
-        background-color: #409EFF ;
+        background-color: #dcdcdc ;
         i,span{
           color:#333 ;
         }

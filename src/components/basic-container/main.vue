@@ -20,7 +20,7 @@ export default {
 
 <style lang="scss">
 .basic-container {
-  padding: 8px 10px;
+  border-left: 1px solid #eee;
   border-radius: 10px;
   box-sizing: border-box;
   .el-card {

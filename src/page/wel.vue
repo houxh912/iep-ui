@@ -4,19 +4,10 @@
       <div class="banner-text">
         <span>
           <a href="https://avue.top/#/pay" target="_blank">
-            <img
-              src="https://img.shields.io/badge/Avue-原子弹-green.svg"
-              alt="Build Status"
-            />
+            <img src="https://img.shields.io/badge/Avue-原子弹-green.svg" alt="Build Status" />
           </a>
-          <img
-            src="https://img.shields.io/badge/Spring%20Boot-2.0.7.RELEASE-yellowgreen.svg"
-            alt="Downloads"
-          />
-          <img
-            src="https://img.shields.io/badge/Spring%20Cloud-Finchley.SR2-blue.svg"
-            alt="Coverage Status"
-          />
+          <img src="https://img.shields.io/badge/Spring%20Boot-2.0.7.RELEASE-yellowgreen.svg" alt="Downloads" />
+          <img src="https://img.shields.io/badge/Spring%20Cloud-Finchley.SR2-blue.svg" alt="Coverage Status" />
         </span>
         <br />
         <span>
@@ -60,15 +51,18 @@
           </el-collapse>
         </span>
       </div>
+      <about-me :creat-list="creatList" :chance-list="chanceList" :treasure-data="treasureData" @handelAdd="handelAdd"></about-me>
     </basic-container>
+
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-
+import aboutMe from '@/components/about-me'
 export default {
   name: 'Wel',
+  components: { aboutMe },
   data () {
     return {
       activeNames: ['1', '2', '3', '4'],
@@ -77,12 +71,26 @@ export default {
       actor: '',
       count: 0,
       isText: false,
+      creatList: { title: '我要创建', details: ['纪要', '报表', '材料', '任务', '审批', '建议', '感想', '邮件', '考试', '调研', '建模'] },
+      chanceList: { title: '我的机会', details: [{ subtitle: '国策数据加工招募有偿志愿者', date: '2019-01-29', author: '王丽娜' }, { subtitle: '国策数据加工招募有偿志愿者', date: '2019-01-29', author: '王丽娜' }, { subtitle: '国策数据加工招募有偿志愿者', date: '2019-01-29', author: '王丽娜' }, { subtitle: '国策数据加工招募有偿志愿者', date: '2019-01-29', author: '王丽娜' }] },
+      treasureData: {
+        title: '我的财富',
+        dataList: [
+          { name: '报销', totalMoney: 1111.2, change: 3333 },
+          { name: '打赏', totalMoney: 2222.2, change: 2222 },
+          { name: '投资', totalMoney: 3333.2, change: 3333 },
+          { name: '互助基金', totalMoney: 4444.2, change: 4444 },
+        ],
+      },
     }
   },
   computed: {
     ...mapGetters(['website']),
   },
   methods: {
+    //我要创建添加按钮事件
+    handelAdd () {
+    },
     getData () {
       if (this.count < this.DATA.length - 1) {
         this.count++

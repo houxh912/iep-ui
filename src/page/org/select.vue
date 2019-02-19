@@ -97,6 +97,11 @@ export default {
         if (data.data) {
           this.dialogVisible = false
           this.loadOrg()
+        } else {
+          this.$message({
+            message: data.msg,
+            type: 'warning',
+          })
         }
       })
     },

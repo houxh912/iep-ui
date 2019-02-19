@@ -52,3 +52,10 @@ export function applyObj (obj) {
     data: obj,
   })
 }
+
+export function applyPersonList (id) {
+  return request({
+    url: `/admin/org/apply/list/${id}`,
+    method: 'get',
+  })
+}

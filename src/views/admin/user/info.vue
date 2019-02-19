@@ -61,7 +61,7 @@
 <script>
 // import { handleDown } from '@/api/admin/user'
 import { handleImg, openWindow } from '@/util/util'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import store from '@/store'
 import request from '@/router/axios'
 
@@ -116,6 +116,7 @@ export default {
     this.ruleForm2.username = this.userInfo.username
     this.ruleForm2.phone = this.userInfo.phone
     this.ruleForm2.avatar = this.userInfo.avatar
+    this.ruleForm2.realName = this.userInfo.realName
     this.switchStatus = 'userManager'
     handleImg(this.userInfo.avatar, 'avatar')
   },
@@ -125,6 +126,7 @@ export default {
     }),
   },
   methods: {
+    ...mapActions(['GetUserInfo']),
     switchTab (tab) {
       if (tab.name === 'userManager') {
         handleImg(this.ruleForm2.avatar, 'avatar')
@@ -147,6 +149,7 @@ export default {
                   type: 'success',
                   duration: 2000,
                 })
+                this.GetUserInfo()
                 // 修改密码之后强制重新登录
                 if (this.switchStatus === 'passwordManager') {
                   this.$store.dispatch('LogOut').then(() => {

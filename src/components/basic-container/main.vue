@@ -26,9 +26,9 @@ export default {
   .el-card {
     width: 100%;
   }
-  &:first-child {
-    // padding-top: 0;
-  }
+  // &:first-child {
+  //   padding-top: 0;
+  // }
   &--block {
     height: 100%;
     .el-card {

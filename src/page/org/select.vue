@@ -10,7 +10,7 @@
         </div>
         <div class="bottom-wrapper">
           <div v-if="tabsActive===0" class="select-org-container">
-            <el-button class="grid-item" v-for="(item,index) in orgList" :key="index">{{item.name}}</el-button>
+            <el-button class="grid-item" v-for="(item,index) in orgList" :key="index" @click="handleApplyJoin(item)">{{item.name}}</el-button>
           </div>
           <div v-if="tabsActive===1" class="create-org-container">
             <el-form ref="form" :rules="rules" :model="form" label-width="80px">
@@ -35,13 +35,27 @@
         </div>
       </div>
     </basic-container>
+    <el-dialog title="申请" :visible.sync="dialogVisible" width="30%">
+      <el-form ref="applyForm" :model="applyForm" label-width="80px">
+        <el-form-item label="组织名称">
+          <el-input v-model="applyForm.name" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="申请理由">
+          <el-input type="textarea" :rows="4" placeholder="请输入申请理由" v-model="applyForm.message"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleSubmitApply">申 请</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 // import { mapGetters } from 'vuex'
 import store from '@/store'
-import { getOrgList, addObj } from '@/api/admin/org'
+import { getOrgList, addObj, applyObj } from '@/api/admin/org'
 export default {
   name: 'org',
   data () {
@@ -49,6 +63,12 @@ export default {
       tabsActive: 0,
       orgList: [],
       logo: '',
+      applyForm: {
+        name: '',
+        orgId: '',
+        message: '',
+      },
+      dialogVisible: false,
       headers: {
         Authorization: 'Bearer ' + store.getters.access_token,
       },
@@ -72,6 +92,20 @@ export default {
     this.loadOrg()
   },
   methods: {
+    handleSubmitApply () {
+      applyObj(this.applyForm).then(({ data }) => {
+        if (data.data) {
+          this.dialogVisible = false
+          this.loadOrg()
+        }
+      })
+    },
+    handleApplyJoin (item) {
+      this.applyForm.name = item.name
+      this.applyForm.orgId = item.orgId
+      this.applyForm.message = ''
+      this.dialogVisible = true
+    },
     handleAvatarSuccess (res, file) {
       this.logo = URL.createObjectURL(file.raw)
       this.form.logo = res.data.bucketName + '-' + res.data.fileName

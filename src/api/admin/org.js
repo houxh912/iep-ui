@@ -44,3 +44,11 @@ export function reviewById (id, command) {
     method: 'post',
   })
 }
+
+export function applyObj (obj) {
+  return request({
+    url: '/admin/org/applyJoin',
+    method: 'post',
+    data: obj,
+  })
+}

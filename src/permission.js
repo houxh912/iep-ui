@@ -46,12 +46,12 @@ router.beforeEach((to, from, next) => {
               next({ path: '/login' })
             })
           })
-      } else if (!store.getters.roles.includes(1) && to.path !== '/org/select' && store.getters.noOrg) {
+      } else if (!store.getters.roles.includes(1) && to.name !== '选择组织' && store.getters.noOrg) {
         Message({
           message: '请先加入一个组织',
           type: 'warning',
         })
-        next({ path: '/org/select' })
+        next({ name: '选择组织' })
       } else {
         const value = to.query.src || to.fullPath
         const label = to.query.name || to.name

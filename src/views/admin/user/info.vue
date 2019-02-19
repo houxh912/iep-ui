@@ -14,14 +14,14 @@
               <el-form-item label="用户名" prop="username">
                 <el-input type="text" v-model="ruleForm2.username" disabled></el-input>
               </el-form-item>
-              <el-form-item label="真实姓名" prop="realname">
-                <el-input v-model="ruleForm2.realname" placeholder="请输入真实姓名"></el-input>
+              <el-form-item label="真实姓名" prop="realName">
+                <el-input v-model="ruleForm2.realName" placeholder="请输入真实姓名"></el-input>
               </el-form-item>
               <el-form-item label="手机号" prop="phone">
                 <el-input v-model="ruleForm2.phone" placeholder="验证码登录使用"></el-input>
               </el-form-item>
               <el-form-item label="头像">
-                <el-upload class="avatar-uploader" action="/admin/file/upload" :headers="headers" :show-file-list="false" :on-success="handleAvatarSuccess">
+                <el-upload class="avatar-uploader" action="/api/admin/file/upload" :headers="headers" :show-file-list="false" :on-success="handleAvatarSuccess">
                   <img id="avatar" v-if="ruleForm2.avatar" :src="avatarUrl" class="avatar" />
                   <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
@@ -92,7 +92,7 @@ export default {
         newpassword2: '',
         avatar: '',
         phone: '',
-        realname: '',
+        realName: '',
       },
       rules2: {
         password: [
@@ -212,6 +212,7 @@ export default {
   },
 }
 </script>
+
 <style>
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;

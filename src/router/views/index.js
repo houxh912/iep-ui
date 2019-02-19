@@ -20,7 +20,7 @@ export default [
       {
         path: 'select',
         name: '选择组织',
-        component: () => import(/* webpackChunkName: "views" */ '@/page/org'),
+        component: () => import(/* webpackChunkName: "views" */ '@/page/org/select'),
       },
     ],
   },

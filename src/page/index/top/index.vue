@@ -2,7 +2,7 @@
   <div class="avue-top">
     <div class="top-bar__left">
       <div class="logo-wrapper">
-        <div class="logo"></div>
+        <div class="logo" @click="$router.push({name: '首页'})"></div>
         <div class="logo-text">内部智慧平台</div>
       </div>
     </div>
@@ -113,7 +113,7 @@ export default {
   methods: {
     handleOrg (type) {
       if (type === 0) {
-        this.$router.push('/org')
+        this.$router.push({ name: '选择组织' })
       } else {
         console.log('选择组织切换')
       }
@@ -149,6 +149,7 @@ export default {
   justify-content: center;
   align-items: center;
   .logo {
+    cursor: pointer;
     width: 90px;
     height: 38px;
     background-image: url("/img/logo.png");

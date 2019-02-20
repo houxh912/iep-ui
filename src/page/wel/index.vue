@@ -1,6 +1,6 @@
 <template>
   <div class="wel-wrapper">
-    <basic-container class="wel-container">
+    <!-- <basic-container class="wel-container">
       <div class="banner-text">
         <span>
           <a href="https://avue.top/#/pay" target="_blank">
@@ -51,7 +51,8 @@
           </el-collapse>
         </span>
       </div>
-    </basic-container>
+    </basic-container> -->
+    <information class="wel-content" />
     <about-me class="wel-aside"></about-me>
   </div>
 </template>
@@ -59,9 +60,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import aboutMe from './wel-aside/index'
+import information from './wel-content/information'
 export default {
   name: 'Wel',
-  components: { aboutMe },
+  components: { aboutMe, information },
   data () {
     return {
       activeNames: ['1', '2', '3', '4'],
@@ -133,6 +135,9 @@ export default {
 <style scoped="scoped" lang="scss">
 .wel-wrapper {
   display: flex;
+  .wel-content {
+    display: block;
+  }
   .wel-container {
     flex: 1;
   }

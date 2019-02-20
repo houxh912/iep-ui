@@ -3,13 +3,13 @@
     <div class="information">
       <el-row>
         <el-col :span="3" class="dotted">
-          <div class="grid-content bg-purple left">
+          <div class="left">
             <div class="img"><img src="./timg.jpg" alt="头像"></div>
             <div class="code-name">GM000117</div>
           </div>
         </el-col>
         <el-col :span="21">
-          <div class="grid-content bg-purple right">
+          <div class="right">
             <div class="user-poster">早上好，国脉人，人人都要成为专家</div>
             <div class="user-info">
               <el-progress :percentage="80" color="#68C769"></el-progress>
@@ -36,8 +36,7 @@
       </el-row>
       <span class="shrinkage">...</span>
     </div>
-    <about-task>
-    </about-task>
+    <about-task></about-task>
     <project></project>
     <customer></customer>
     <material></material>

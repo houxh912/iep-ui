@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import navTab from './nav-tab'
+import navTab from './navTab'
 export default {
   components: { navTab },
   data () {

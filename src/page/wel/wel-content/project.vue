@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import navTab from './nav-tab'
+import navTab from './navTab'
 import navContent from './navContent'
 export default {
   components: { navTab, navContent },

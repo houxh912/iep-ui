@@ -22,6 +22,8 @@
           </el-button>
           <el-button size="mini" type="text" icon="el-icon-delete" v-if="orgManager_btn_del" @click="handleDelete(scope.row, scope.index)">删除
           </el-button>
+          <el-button size="mini" type="text" icon="el-icon-plus" @click="handlePerson(scope.row, scope.index)">成员
+          </el-button>
           <el-dropdown v-if="scope.row.status===1" size="medium" @command="handleCommand($event, scope.row.orgId)">
             <span class="el-dropdown-link">
               <i class="el-icon-share"></i>
@@ -35,6 +37,12 @@
         </template>
       </avue-crud>
     </basic-container>
+    <el-dialog title="提示" :visible.sync="dialogVisible" width="50%">
+      <review-person v-if="dialogVisible" :orgId="currentOrgId"></review-person>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -46,11 +54,13 @@ import {
   putObj,
   reviewById,
 } from '@/api/admin/org'
+import reviewPerson from './person'
 import { tableOption } from '@/const/crud/admin/org'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'TableOrg',
+  components: { reviewPerson },
   data () {
     return {
       tableOption: tableOption,
@@ -60,6 +70,8 @@ export default {
         pageSize: 20, // 每页显示多少条
       },
       list: [],
+      currentOrgId: 0,
+      dialogVisible: false,
       listLoading: true,
       form: {},
       orgId: undefined,
@@ -77,6 +89,10 @@ export default {
     ...mapGetters(['elements', 'permissions']),
   },
   methods: {
+    handlePerson (row) {
+      this.dialogVisible = true
+      this.currentOrgId = row.orgId
+    },
     handleCommand (command, id) {
       reviewById(id, command).then(() => {
         this.getList(this.page)

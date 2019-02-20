@@ -12,7 +12,6 @@
   "editor.autoIndent": true,
   "editor.insertSpaces": true,
   "editor.wordWrap": "on",
-  "editor.fontFamily": "Consolas, '微软雅黑', monospace",
   "extensions.ignoreRecommendations": false,
   "eslint.autoFixOnSave": true,
   "eslint.validate": [
@@ -78,15 +77,4 @@
   "vetur.validation.template": false,
   "workbench.editor.tabSizing": "shrink",
   "window.zoomLevel": 0,
-  "workbench.iconTheme": "vscode-icons",
-  "workbench.colorTheme": "Default Dark+",
-  "editor.tokenColorCustomizations": {
-    "[Default Dark+]": {}
-  },
-  "workbench.colorCustomizations": {
-    "[Default Dark+]": {
-      "tab.hoverBackground": "#337ab7",
-      "tab.unfocusedHoverBackground": "#4d90fe"
-    }
-  }
 }

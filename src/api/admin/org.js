@@ -59,3 +59,11 @@ export function applyPersonList (id) {
     method: 'get',
   })
 }
+
+export function passPerson (obj) {
+  return request({
+    url: '/admin/org/pass/join',
+    method: 'post',
+    data: obj,
+  })
+}

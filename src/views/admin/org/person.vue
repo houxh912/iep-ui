@@ -11,14 +11,13 @@
     </el-table-column>
     <el-table-column fixed="right" label="操作" width="100">
       <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">通过</el-button>
-        <el-button @click="handleClick(scope.row)" type="text" size="small">驳回</el-button>
+        <el-button @click="handlePass(scope.row)" type="text" size="small">通过</el-button>
       </template>
     </el-table-column>
   </el-table>
 </template>
 <script>
-import { applyPersonList } from '@/api/admin/org'
+import { applyPersonList, passPerson } from '@/api/admin/org'
 export default {
   props: {
     orgId: {
@@ -35,8 +34,14 @@ export default {
     this.load()
   },
   methods: {
-    handleClick () {
-
+    handlePass (row) {
+      passPerson({
+        orgId: this.orgId,
+        userId: row.userId,
+      }).then(({ data }) => {
+        console.log(data.data)
+        this.load()
+      })
     },
     load () {
       applyPersonList(this.orgId).then(({ data }) => {

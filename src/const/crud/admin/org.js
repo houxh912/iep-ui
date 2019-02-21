@@ -1,3 +1,12 @@
+const DIC = {
+  ISOPEN: [{
+    label: '开',
+    value: 0,
+  }, {
+    label: '关',
+    value: 1,
+  }],
+}
 export const tableOption = {
   border: true,
   index: true,
@@ -6,6 +15,7 @@ export const tableOption = {
   menuAlign: 'center',
   editBtn: false,
   delBtn: false,
+  dicData: DIC,
   align: 'center',
   addBtn: false,
   viewBtn: true,
@@ -42,6 +52,16 @@ export const tableOption = {
       prop: 'intro',
       overHidden: true,
       span: 24,
+    },
+    {
+      label: '允许加入',
+      prop: 'isOpen',
+      span: 24,
+      type: 'switch',
+      dicData: 'ISOPEN',
+      mock: {
+        type: 'dic',
+      },
     },
     {
       width: 180,

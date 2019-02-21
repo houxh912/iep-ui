@@ -9,6 +9,7 @@
 import { mapGetters } from 'vuex'
 import aboutMe from './wel-aside/index'
 import information from './wel-content/information'
+
 export default {
   name: 'Wel',
   components: { aboutMe, information },

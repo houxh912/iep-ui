@@ -7,9 +7,10 @@
       </div>
     </div>
     <div class="top-bar__title">
-      <div class="top-bar__item top-bar__item--show" v-if="showMenu">
+      <!-- <div class="top-bar__item top-bar__item--show" v-if="showMenu">
         <top-menu></top-menu>
-      </div>
+      </div> -->
+      <navbar></navbar>
     </div>
     <div class="top-bar__right">
       <el-tooltip v-if="this.userInfo.avatar" effect="dark" content="用户头像" placement="bottom">
@@ -39,11 +40,13 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import { fullscreenToggel, listenfullscreen, handleImg } from '@/util/util'
-import topMenu from './top-menu'
+// import topMenu from './top-menu'
+import navbar from '../../wel/wel-navbar/index'
 // import topSearch from './top-search'
 export default {
   components: {
-    topMenu,
+    // topMenu,
+    navbar,
     // topSearch,
   },
   name: 'Top',
@@ -135,5 +138,9 @@ export default {
     margin-left: 10px;
     font-size: 18px;
   }
+}
+.top-bar__title {
+  padding-left: 270px;
+  padding-right: 150px;
 }
 </style>

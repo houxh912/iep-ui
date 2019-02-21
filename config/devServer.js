@@ -11,7 +11,7 @@ const baseUrl = process.env.BASEURL
 // netsh interface portproxy delete v4tov4 listenport=9999 listenaddress=* protocol=tcp
 if (process.env.MOCK === 'true') {
   // MOCK代理转发表
-  console.log('MOCK代理转发表')
+  console.log(`MOCK代理转发表，代理地址：<${process.env.MOCKURL}>`)
   exports.proxy = {
     '/api': {
       target: process.env.MOCKURL,
@@ -23,7 +23,7 @@ if (process.env.MOCK === 'true') {
   }
 } else {
   // 实际代理转发表
-  console.log('实际代理转发表')
+  console.log(`实际代理转发表，代理地址：<${baseUrl}>`)
   exports.proxy = {
     '/api': {
       target: baseUrl,

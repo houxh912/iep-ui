@@ -4,6 +4,8 @@
  */
 import router from './router/router'
 import store from '@/store'
+import orderBy from 'lodash/orderBy'
+import keyBy from 'lodash/keyBy'
 // import { Message } from 'element-ui'
 // import { getStore } from '@/util/store'
 import { validatenull } from '@/util/validate'
@@ -48,6 +50,18 @@ router.beforeEach((to, from, next) => {
             })
           })
       } else {
+        const parentPath = to.matched[0].path
+        const isMatchedMenu = store.getters.menuPathList.includes(parentPath)
+        if (isMatchedMenu) {
+          const currentMenu = store.getters.menu.find(m => m.path === parentPath)
+          let Menus = [store.getters.mainMenu, ...store.getters.otherMenus]
+          Menus = orderBy(Menus, ['sort'], ['asc'])
+          const otherMenus = Menus.filter(m => m.path !== currentMenu.path)
+          const otherMenusMap = keyBy(Menus, 'path')
+          store.commit('SET_MAINMENU', currentMenu)
+          store.commit('SET_OTHERMENUS', otherMenus)
+          store.commit('SET_OTHERMENUSMAP', otherMenusMap)
+        }
         const value = to.query.src || to.fullPath
         const label = to.query.name || to.name
         if (meta.isTab !== false && !validatenull(value) && !validatenull(label)) {

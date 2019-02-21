@@ -1,14 +1,26 @@
 import Layout from '@/page/index/index'
 export default [
   {
+    path: '/app',
+    component: Layout,
+    redirect: '/app/index',
+    children: [
+      {
+        path: 'index',
+        name: '展示首页',
+        component: () => import(/* webpackChunkName: "views" */ '@/views/app/index/'),
+      },
+    ],
+  },
+  {
     path: '/wel',
     component: Layout,
     redirect: '/wel/index',
     children: [
       {
         path: 'index',
-        name: '首页',
-        component: () => import(/* webpackChunkName: "views" */ '@/views/wel/index'),
+        name: '后台首页',
+        component: () => import(/* webpackChunkName: "views" */ '@/views/wel/index/'),
       },
     ],
   },

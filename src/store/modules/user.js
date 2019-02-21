@@ -8,6 +8,7 @@ import {
   logout,
   refreshToken,
 } from '@/api/login'
+import keyBy from 'lodash/keyBy'
 import { deepClone, encryption } from '@/util/util'
 import webiste from '@/const/website'
 import { GetMenu } from '@/api/admin/menu'
@@ -35,6 +36,21 @@ function addPath (ele, first) {
   })
 }
 
+function detachMenu (menu) {
+  const menuPathList = menu.map(m => m.path)
+  let mainMenu = {}
+  const otherMenus = []
+  for (const iterator of menu) {
+    if (iterator.path === '/wel') {
+      mainMenu = deepClone(iterator)
+    } else {
+      otherMenus.push(iterator)
+    }
+  }
+  const otherMenusMap = keyBy(otherMenus, 'path')
+  return { mainMenu, otherMenus, otherMenusMap, menuPathList }
+}
+
 const user = {
   state: {
     userInfo: {},
@@ -44,7 +60,22 @@ const user = {
       getStore({
         name: 'menu',
       }) || [],
-    menuAll: [],
+    mainMenu:
+      getStore({
+        name: 'mainMenu',
+      }) || {},
+    otherMenus:
+      getStore({
+        name: 'otherMenus',
+      }) || [],
+    otherMenusMap:
+      getStore({
+        name: 'otherMenusMap',
+      }) || {},
+    menuPathList:
+      getStore({
+        name: 'menuPathList',
+      }) || [],
     expires_in:
       getStore({
         name: 'expires_in',
@@ -192,6 +223,11 @@ const user = {
             addPath(ele)
           })
           commit('SET_MENU', menu)
+          const { mainMenu, otherMenus, otherMenusMap, menuPathList } = detachMenu(menu)
+          commit('SET_MAINMENU', mainMenu)
+          commit('SET_OTHERMENUS', otherMenus)
+          commit('SET_OTHERMENUSMAP', otherMenusMap)
+          commit('SET_MENUPATHLIST', menuPathList)
           resolve(menu)
         })
       })
@@ -233,8 +269,37 @@ const user = {
         type: 'session',
       })
     },
-    SET_MENU_ALL: (state, menuAll) => {
-      state.menuAll = menuAll
+    SET_OTHERMENUSMAP: (state, otherMenusMap) => {
+      state.otherMenusMap = otherMenusMap
+      setStore({
+        name: 'otherMenusMap',
+        content: state.otherMenusMap,
+        type: 'session',
+      })
+    },
+    SET_OTHERMENUS: (state, otherMenus) => {
+      state.otherMenus = otherMenus
+      setStore({
+        name: 'otherMenus',
+        content: state.otherMenus,
+        type: 'session',
+      })
+    },
+    SET_MAINMENU: (state, mainMenu) => {
+      state.mainMenu = mainMenu
+      setStore({
+        name: 'mainMenu',
+        content: state.mainMenu,
+        type: 'session',
+      })
+    },
+    SET_MENUPATHLIST: (state, menuPathList) => {
+      state.menuPathList = menuPathList
+      setStore({
+        name: 'menuPathList',
+        content: state.menuPathList,
+        type: 'session',
+      })
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles

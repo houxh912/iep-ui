@@ -20,8 +20,7 @@ function addPath (ele, first) {
     icon: propsConfig.icon || 'icon',
     children: propsConfig.children || 'children',
   }
-  const isChild =
-    ele[propsDefault.children] && ele[propsDefault.children].length !== 0
+  const isChild = ele[propsDefault.children] && ele[propsDefault.children].length !== 0
   if (!isChild && first) {
     ele[propsDefault.path] = ele[propsDefault.path] + '/index'
     return

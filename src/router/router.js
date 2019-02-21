@@ -1,7 +1,6 @@
 import VueRouter from 'vue-router'
 import PageRouter from './page/'
 import ViewsRouter from './views/'
-import MackRouter from './mack'
 import AvueRouter from './avue-router'
 import Store from '../store/'
 
@@ -23,5 +22,5 @@ const Router = new VueRouter({
 })
 AvueRouter.install(Router, Store)
 Router.$avueRouter.formatRoutes(Store.state.user.menu, true)
-Router.addRoutes([...PageRouter, ...ViewsRouter, ...MackRouter])
+Router.addRoutes([...PageRouter, ...ViewsRouter])
 export default Router

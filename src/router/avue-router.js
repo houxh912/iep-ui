@@ -119,25 +119,25 @@ RouterPlugin.install = function (router, store) {
           // 处理是否为一级路由
           children: !isChild
             ? (() => {
-                if (first) {
-                  oMenu[propsDefault.path] = `${path}/index`
-                  return [
-                    {
-                      component (resolve) {
-                        require([`../${component}.vue`], resolve)
-                      },
-                      icon: icon,
-                      name: name,
-                      meta: meta,
-                      path: 'index',
+              if (first) {
+                oMenu[propsDefault.path] = `${path}/index`
+                return [
+                  {
+                    component (resolve) {
+                      require([`../${component}.vue`], resolve)
                     },
-                  ]
-                }
-                return []
-              })()
+                    icon: icon,
+                    name: name,
+                    meta: meta,
+                    path: 'index',
+                  },
+                ]
+              }
+              return []
+            })()
             : (() => {
-                return this.formatRoutes(children, false)
-              })(),
+              return this.formatRoutes(children, false)
+            })(),
         }
         aRouter.push(oRouter)
       }

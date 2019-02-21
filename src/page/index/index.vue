@@ -6,7 +6,7 @@
         <top />
       </el-header>
       <el-container>
-        <el-aside width="240px">
+        <el-aside width="auto">
           <!-- 左侧导航栏 -->
           <sidebar />
         </el-aside>
@@ -178,3 +178,4 @@ export default {
   },
 }
 </script>
+

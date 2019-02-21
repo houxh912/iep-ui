@@ -28,10 +28,11 @@ export default {
 </script>
 <style  lang="scss" scoped>
 .aside {
-  width: 245px;
-  padding: 10px;
+  width: 100%;
   background: #fafafa;
   font-size: 12px;
+  padding: 10px;
+  box-sizing: border-box;
   > div {
     padding: 10px 10px 20px 10px;
     border-bottom: 1px solid #ececec;

@@ -87,11 +87,28 @@ export default {
   .wel-content {
     display: block;
   }
-  .wel-container {
-    flex: 1;
-  }
+  // .wel-container {
+  //   flex: 1;
+  // }
   .wel-aside {
     flex: 0 0 300px;
+  }
+}
+@media (min-width: 769px) and (max-width: 1026px) {
+  .wel-wrapper {
+    .wel-aside {
+      flex: 0 0 220px;
+    }
+  }
+}
+@media (min-width: 0px) and (max-width: 769px) {
+  .wel-wrapper {
+    .wel-content {
+      // width: 200px;
+    }
+    .wel-aside {
+      // flex: 0 0 200px;
+    }
   }
 }
 </style>

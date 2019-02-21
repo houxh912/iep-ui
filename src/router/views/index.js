@@ -8,7 +8,7 @@ export default [
       {
         path: 'index',
         name: '首页',
-        component: () => import(/* webpackChunkName: "views" */ '@/page/wel/index'),
+        component: () => import(/* webpackChunkName: "views" */ '@/views/wel/index'),
       },
     ],
   },

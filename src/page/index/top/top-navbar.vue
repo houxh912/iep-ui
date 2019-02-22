@@ -2,30 +2,15 @@
   <div class="nav">
     <div class="left">
       <div class="navbar">
-        <div class="inline" :class="classIndex==index?'active':''" v-for="(item,index) in navList" :key="index" @click="handelSelect(index)">{{item.name}}</div>
-      </div>
-    </div>
-    <div class="right">
-      <div class="rightBox">
-        <div class="searchGroup">
-          <el-input calss="input" size="mini" v-model="inputValue" v-if="activeInput"></el-input>
-          <div class="search" @click="search"><i class="el-icon-search"></i></div>
+        <div class="navItem" v-show="showItem">
+          <div class="inline" :class="classIndex==index?'active':''" v-for="(item,index) in navList" :key="index" @click="handelSelect(index)">{{item.name}}</div>
         </div>
-        <div class="itemGroup">
-          <div class="item">
-            <span class="message"><i class="el-icon-star-off"></i></span>
-            <span class="dot dot1" v-if="showDot1"></span>
-          </div>
-          <div class="item">
-            <span class="message bell"><i class="el-icon-bell"></i></span>
-            <span class="dot dot2" v-if="showDot2"></span>
-
-          </div>
-          <div class="item">
-            <span class="message"><i class="el-icon-message"></i></span>
-            <span class="dot  dot3" v-if="showDot3"></span>
-          </div>
-        </div>
+        <div class="showItem" @click="showItem=!showItem"><i class="el-icon-tickets"></i></div>
+        <div class="search" @click="search"><i class="el-icon-search"></i></div>
+        <el-select v-model="value8" filterable size="mini">
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
       </div>
     </div>
   </div>
@@ -38,11 +23,26 @@ export default {
       activeIndex: '',
       classIndex: 1,
       inputValue: '',
-      activeInput: false,
-      showDot1: true,
-      showDot2: true,
-      showDot3: true,
+      showItem: false,
+      screenWidth: document.body.clientWidth,
       navList: [{ name: '首页' }, { name: '国脉人' }, { name: '要闻' }, { name: '资源' }, { name: '数据' }, { name: '财富' }, { name: '学院' }],
+      options: [{
+        value: '选项1',
+        label: '国脉集团海洋集团1',
+      }, {
+        value: '选项2',
+        label: '国脉集团海洋集团1',
+      }, {
+        value: '选项3',
+        label: '国脉集团海洋集团1',
+      }, {
+        value: '选项4',
+        label: '国脉集团海洋集团1',
+      }, {
+        value: '选项5',
+        label: '国脉集团海洋集团1',
+      }],
+      value8: '国脉集团海洋集团1',
     }
   },
   methods: {
@@ -50,8 +50,33 @@ export default {
       this.classIndex = index
     },
     search () {
-      this.activeInput = true
-      console.log(this.activeInput)
+    },
+  },
+  created () {
+    if (this.screenWidth >= 769) {
+      this.showItem = true
+    } else { this.showItem = false }
+  },
+  mounted () {
+    const that = this
+    window.onresize = () => {
+      return (() => {
+        window.screenWidth = document.body.clientWidth
+        that.screenWidth = window.screenWidth
+      })()
+    }
+  },
+  watch: {
+    screenWidth (val) {
+      if (!this.timer) {
+        this.screenWidth = val
+        this.timer = true
+        let that = this
+        setTimeout(function () {
+          that.init()
+          that.timer = false
+        }, 400)
+      }
     },
   },
 }
@@ -62,77 +87,51 @@ export default {
   height: 100%;
   font-size: 16px;
   color: #444;
+  padding: 0 0 0 40px;
   .navbar {
     height: 100%;
-    width: auto;
+    position: relative;
     display: flex;
-    align-items: center;
-  }
-  .left {
-    height: 100%;
-    width: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-  }
-  .right {
-    display: inline-block;
-    height: 100%;
-    width: 50%;
-    box-sizing: border-box;
-    .rightBox {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      position: relative;
-      .itemGroup {
-        position: absolute;
-        right: 0;
-      }
-      .item {
-        display: inline-block;
-        padding: 0 10px;
-        font-size: 20px;
-        position: relative;
-        .dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 12px;
-          position: absolute;
-          top: 2px;
-          right: 0;
-        }
-        .dot1 {
-          background: #bf051a;
-        }
-        .dot2 {
-          background: #ff9d4c;
-        }
-        .dot3 {
-          background: #ffc34a;
-        }
+    .showItem {
+      width: 64px;
+      height: 64px;
+      background: #fafafa;
+      position: absolute;
+      top: -18px;
+      left: 0;
+      text-align: center;
+      display: none;
+      font-size: 20px;
+      line-height: 64px;
+    }
+    .inline {
+      display: inline-block;
+      padding: 3px 15px;
+      margin: 0 15px;
+      border-radius: 15px;
+      cursor: pointer;
+      &:hover {
+        color: #cb3737;
       }
     }
-  }
-  .inline {
-    display: inline-block;
-    margin: 0 5px;
-    padding: 3px 15px;
-    border-radius: 15px;
-    cursor: pointer;
-    &:hover {
-      color: #cb3737;
+    .search {
+      display: inline-block;
+      padding: 0 20px;
+      color: #444;
+    }
+    .el-select {
+      width: 180px !important;
+      padding: 0 20px;
+      position: absolute;
+      right: 0;
+    }
+    .left {
+      height: 100%;
+      display: inline-block;
+      box-sizing: border-box;
     }
   }
 
-  .search {
-    display: inline-block;
-    padding: 0 15px;
-    color: #444;
-  }
-  .el-input {
-    width: 180px;
-    padding: 0 15px;
-  }
   .el-icon-search {
     font-size: 20px;
   }
@@ -140,27 +139,60 @@ export default {
     background: #f0f0f0;
   }
 }
+.el-scrollbar__wrap {
+  overflow: auto !important;
+}
 @media screen and (max-width: 1026px) {
   .nav {
     font-size: 12px;
-    .inline {
-      margin: 0;
-      padding: 3px 8px;
-    }
-    .el-input {
-      width: 120px;
-      padding: 0 8px;
+    .navbar {
+      .navItem {
+        display: block;
+      }
+      .inline {
+        margin: 0;
+        padding: 3px 15px;
+      }
+      .el-select {
+        width: 120px !important;
+        padding: 0 15px;
+      }
     }
   }
 }
 @media screen and (max-width: 769px) {
   .nav {
-    // .navbar {
-    //   display: inline-block;
-    //   .inline {
-    //     display: block;
-    //   }
-    // }
+    padding: 0;
+    .navbar {
+      display: inline-block;
+      .showItem {
+        display: inline-block;
+      }
+      .navItem {
+        position: absolute;
+        width: 160px;
+        background: #fff;
+        top: 47px;
+        left: -48px;
+        box-shadow: 0 0 10px #eee;
+        padding: 10px;
+        border-radius: 5px;
+        .inline {
+          display: block;
+        }
+      }
+      .search {
+        display: inline-block;
+        margin-left: 64px;
+        padding: 0 10px;
+        color: #444;
+      }
+      .el-select {
+        width: 180px !important;
+        padding: 0 10px;
+        position: relative;
+      }
+    }
     // .right {
     //   display: inline-block;
     // }

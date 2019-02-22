@@ -26,7 +26,7 @@ export default {
     },
   },
   created () {
-    console.log(this.content)
+    // console.log(this.content)
   },
 }
 </script>

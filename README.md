@@ -22,10 +22,34 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 - 拷贝 `cp .env .env.local`
 - 修改开发环境代理 ip 配置 文件在 `.env.local`
 - 确认安装依赖无错，即可运行 `yarn serve` 或 `npm run serve`
+- 提交使用 `yarn cz` 尽量使用命令提交, 冲突等等可不用
+
+## 内网前端任务分配(组件以及负责人变更需这里修改)
+
+| 组件             | 组件路径          | 组件所属父组件 | 负责人      | 负责人 | 负责人 | 负责人 |
+|------------------|-------------------|----------------|-------------|--------|--------|--------|
+| Top/NavBar       | 顶部导航          | Top            | 重庆-谭建林 |        |        |        |
+| Top/             | 顶部元素          | ElHeader       | 张超        |        |        |        |
+| SideBar/MainItem | 主菜单            | ELAside        | 张超        |        |        |        |
+| Wel/WelAside     | 工作台/右侧操作栏 | Wel            | 重庆-谭建林 |        |        |        |
+| Wel/WelConTent   | 工作台/中间赋能台 | Wel            | 重庆-谭建林 |        |        |        |
+| Hrms             | 人力              | Views          | 张超        |        |        |        |
+| Crms             | 客户              | Views          | 胡争伟      |        |        |        |
+| Core             | 核心              | Views          | 张超        |        |        |        |
+| App              | 游客展示页        | Views          | Undefined   |        |        |        |
 
 ## Git 管理必读
 
 https://juejin.im/post/5aa7e8a6f265da239f070d82
+
+## Git 提交必须
+
+https://zhuanlan.zhihu.com/p/51894196
+
+## 产品设计图获取
+
+https://www.yuque.com/zsr/iep
+私有画板图
 
 ## 菜单规范
 

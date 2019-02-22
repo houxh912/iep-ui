@@ -10,11 +10,11 @@ import {
 } from '@/api/login'
 import keyBy from 'lodash/keyBy'
 import { deepClone, encryption } from '@/util/util'
-import webiste from '@/const/website'
+import website from '@/const/website'
 import { GetMenu } from '@/api/admin/menu'
 
 function addPath (ele, first) {
-  const propsConfig = webiste.menu.props
+  const propsConfig = website.menu.props
   const propsDefault = {
     label: propsConfig.label || 'label',
     path: propsConfig.path || 'path',
@@ -41,7 +41,7 @@ function detachMenu (menu) {
   let mainMenu = {}
   const otherMenus = []
   for (const iterator of menu) {
-    if (iterator.path === '/wel') {
+    if (iterator.path === website.menu.firstMenu.modulePath) {
       mainMenu = deepClone(iterator)
     } else {
       otherMenus.push(iterator)
@@ -63,7 +63,9 @@ const user = {
     mainMenu:
       getStore({
         name: 'mainMenu',
-      }) || {},
+      }) || {
+        label: '个人赋能台',
+      },
     otherMenus:
       getStore({
         name: 'otherMenus',

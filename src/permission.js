@@ -33,6 +33,7 @@ router.beforeEach((to, from, next) => {
   NProgress.start()
   const meta = to.meta || {}
   if (store.getters.access_token) {
+    // debugger
     if (store.getters.isLock && to.path != lockPage) {
       next({ path: lockPage })
     } else if (to.path === '/login') {
@@ -52,8 +53,8 @@ router.beforeEach((to, from, next) => {
       } else {
         const parentPath = to.matched[0].path
         const isMatchedMenu = store.getters.menuPathList.includes(parentPath)
-        if (isMatchedMenu) {
-          const currentMenu = store.getters.menu.find(m => m.path === parentPath)
+        const currentMenu = store.getters.menu.find(m => m.path === parentPath)
+        if (isMatchedMenu && currentMenu) {
           let Menus = [store.getters.mainMenu, ...store.getters.otherMenus]
           Menus = orderBy(Menus, ['sort'], ['asc'])
           const otherMenus = Menus.filter(m => m.path !== currentMenu.path)

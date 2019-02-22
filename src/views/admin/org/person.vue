@@ -38,8 +38,7 @@ export default {
       passPerson({
         orgId: this.orgId,
         userId: row.userId,
-      }).then(({ data }) => {
-        console.log(data.data)
+      }).then(() => {
         this.load()
       })
     },

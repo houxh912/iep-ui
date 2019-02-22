@@ -54,6 +54,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.treasure {
+  width: 100%;
+  box-sizing: border-box;
+}
 .title {
   display: flex;
   padding: 10px 0;
@@ -166,6 +170,21 @@ export default {
 }
 .cursor {
   cursor: pointer;
+}
+@media (min-width: 769px) and (max-width: 1026px) {
+  .treasure {
+    .title {
+      font-size: 14px;
+      .line {
+        font-size: 10px;
+      }
+      .samll {
+        font-size: 10px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 769px) {
 }
 </style>
 

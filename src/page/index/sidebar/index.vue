@@ -63,4 +63,15 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@media (min-width: 1025px) {
+  .avue-sidebar {
+    width: 240px;
+  }
+}
+@media (min-width: 0px) and (max-width: 1025px) {
+  .avue-sidebar {
+    width: 150px;
+  }
+}
+</style>

@@ -41,7 +41,7 @@
 import { mapGetters, mapState } from 'vuex'
 import { fullscreenToggel, listenfullscreen, handleImg } from '@/util/util'
 // import topMenu from './top-menu'
-import navbar from '../../wel/wel-navbar/index'
+import navbar from './top-navbar'
 // import topSearch from './top-search'
 export default {
   components: {
@@ -142,5 +142,20 @@ export default {
 .top-bar__title {
   padding-left: 270px;
   padding-right: 150px;
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .top-bar__title {
+    padding-left: 230px;
+    padding-right: 130px;
+  }
+}
+@media screen and (max-width: 769px) {
+  .top-bar__left {
+    display: none;
+  }
+  .top-bar__title {
+    padding-left: 0;
+    padding-right: 130px;
+  }
 }
 </style>

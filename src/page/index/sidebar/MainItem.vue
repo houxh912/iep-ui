@@ -10,9 +10,7 @@ export default {
   props: {
     mainMenu: {
       type: Object,
-      default: () => {
-        return { label: '个人赋能台' }
-      },
+      default: () => { },
     },
   },
   computed: {

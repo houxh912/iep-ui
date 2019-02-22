@@ -63,7 +63,9 @@ const user = {
     mainMenu:
       getStore({
         name: 'mainMenu',
-      }) || {},
+      }) || {
+        label: '个人赋能台',
+      },
     otherMenus:
       getStore({
         name: 'otherMenus',

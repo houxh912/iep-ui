@@ -1,8 +1,8 @@
 <template>
   <div class="main-item-wrapper">
     <span class="main-link" @click="open">{{website.menu.firstMenu.name}}</span>
-    <span v-if="subText">-</span>
-    <span>{{subText}}</span>
+    <span v-if="isSub">-</span>
+    <span v-if="isSub">{{mainMenu.label}}</span>
   </div>
 </template>
 <script>
@@ -22,10 +22,8 @@ export default {
     }
   },
   computed: {
-    subText () {
-      console.log(this.mainMenu.label)
-      const titleArray = this.mainMenu.label.split('-')
-      return titleArray.length >= 2 ? titleArray[1] : ''
+    isSub () {
+      return !(this.mainMenu.path === website.menu.firstMenu.modulePath)
     },
   },
   methods: {

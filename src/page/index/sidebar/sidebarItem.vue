@@ -101,3 +101,8 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.menu-wrapper {
+  margin: 10px 0;
+}
+</style>

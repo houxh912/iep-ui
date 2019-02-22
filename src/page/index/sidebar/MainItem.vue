@@ -1,10 +1,12 @@
 <template>
   <div class="main-item-wrapper">
-    <span class="main-link" @click="open">{{mainText}}</span>
+    <span class="main-link" @click="open">{{website.menu.firstMenu.name}}</span>
+    <span v-if="subText">-</span>
     <span>{{subText}}</span>
   </div>
 </template>
 <script>
+import website from '@/const/website'
 export default {
   name: 'MainItem',
   props: {
@@ -14,19 +16,15 @@ export default {
     },
   },
   computed: {
-    mainText () {
-      const titleArray = this.mainMenu.label.split('-')
-      return titleArray[0]
-    },
     subText () {
       const titleArray = this.mainMenu.label.split('-')
-      return titleArray.length >= 2 ? '-' + titleArray[1] : ''
+      return titleArray.length >= 2 ? titleArray[1] : ''
     },
   },
   methods: {
     open () {
       this.$router.push({
-        path: '/wel/index',
+        path: website.menu.firstMenu.path,
       })
     },
   },

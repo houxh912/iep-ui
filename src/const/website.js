@@ -30,5 +30,9 @@ export default {
       icon: 'icon',
       children: 'children',
     },
+    firstMenu: {
+      name: '个人赋能台',
+      path: '/wel/index',
+    },
   },
 }

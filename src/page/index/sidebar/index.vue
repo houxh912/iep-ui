@@ -3,7 +3,7 @@
     <el-scrollbar style="height:100%">
       <main-item :mainMenu="mainMenu"></main-item>
       <el-menu unique-opened :default-active="nowTagValue" mode="vertical" :show-timeout="200" :collapse="keyCollapse">
-        <sidebar-item :menu="menu" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
+        <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
       </el-menu>
       <div class="sub-menu-wrapper" v-if="mainMenu.path === '/wel'">
         <li class="sub-menu" v-for="omenu in otherMenus" :key="omenu.path" @click="openModuleMenus(omenu)">
@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-// import logo from '../logo'
+import { mapGetters, mapMutations } from 'vuex'
+import MainItem from './MainItem'
 import sidebarItem from './sidebarItem'
 export default {
   name: 'Sidebar',
-  components: { sidebarItem },
+  components: { sidebarItem, MainItem },
   data () {
     return {}
   },
@@ -32,13 +32,27 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(['website', 'menu', 'tag', 'keyCollapse', 'screen']),
+    ...mapGetters(['website', 'menu', 'mainMenu', 'otherMenus', 'otherMenusMap', 'keyCollapse', 'screen']),
     nowTagValue: function () {
       return this.$router.$avueRouter.getValue(this.$route)
     },
   },
   mounted () { },
-  methods: {},
+  methods: {
+    ...mapMutations({ setMainMenu: 'SET_MAINMENU', setOtherMenus: 'SET_OTHERMENUS', setOtherMenusMap: 'SET_OTHERMENUSMAP' }),
+    openModuleMenus (menu) {
+      function findMenuChidrenPath (cMenu) {
+        if (cMenu.children.length) {
+          return findMenuChidrenPath(cMenu.children[0])
+        } else {
+          return cMenu.path
+        }
+      }
+      this.$router.push({
+        path: findMenuChidrenPath(menu),
+      })
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

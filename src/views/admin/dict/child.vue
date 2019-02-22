@@ -144,7 +144,6 @@ export default {
     handleEdit (row, index, isChild) {
       if (row) {
         this.row = mergeByFirst(this._initRow(), row)
-        console.log(this.row)
         this.title = '修改'
       } else {
         this.row = this._initRow()

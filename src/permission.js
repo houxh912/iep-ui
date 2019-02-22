@@ -52,13 +52,11 @@ router.beforeEach((to, from, next) => {
           })
       } else {
         const parentPath = to.matched[0].path
-        console.log(parentPath)
         const isMatchedMenu = store.getters.menuPathList.includes(parentPath)
         const currentMenu = store.getters.menu.find(m => m.path === parentPath)
         if (isMatchedMenu && currentMenu) {
           let Menus = [store.getters.mainMenu, ...store.getters.otherMenus]
           Menus = orderBy(Menus, ['sort'], ['asc'])
-          console.log(currentMenu)
           const otherMenus = Menus.filter(m => m.path !== currentMenu.path)
           const otherMenusMap = keyBy(Menus, 'path')
           store.commit('SET_MAINMENU', currentMenu)

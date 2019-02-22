@@ -33,6 +33,7 @@ export default {
     firstMenu: {
       name: '个人赋能台',
       path: '/wel/index',
+      modulePath: '/wel',
     },
   },
 }

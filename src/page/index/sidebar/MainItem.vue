@@ -12,11 +12,18 @@ export default {
   props: {
     mainMenu: {
       type: Object,
+      required: true,
       default: () => { },
     },
   },
+  data () {
+    return {
+      website,
+    }
+  },
   computed: {
     subText () {
+      console.log(this.mainMenu.label)
       const titleArray = this.mainMenu.label.split('-')
       return titleArray.length >= 2 ? titleArray[1] : ''
     },

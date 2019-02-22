@@ -82,7 +82,6 @@ export default {
 }
 .information {
   width: 100%;
-  height: 155px;
   background: white;
   border: 1px solid #eee;
   box-shadow: 0 0 10px #eee;
@@ -91,10 +90,14 @@ export default {
   overflow: hidden;
   .el-row {
     height: 100%;
+    display: flex;
+    align-items: center;
     .el-col {
       height: 100%;
       display: flex;
       align-items: center;
+      padding: 10px 0;
+      margin: 0;
       .left {
         width: 100%;
         text-align: center;
@@ -220,6 +223,14 @@ export default {
     transform: rotate(-90deg);
     font-size: 20px;
     color: #c0c0c0;
+  }
+}
+@media (min-width: 0px) and (max-width: 1025px) {
+  .information {
+    font-size: 12px;
+    .dotted {
+      display: none !important;
+    }
   }
 }
 </style>

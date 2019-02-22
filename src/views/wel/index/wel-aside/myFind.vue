@@ -33,6 +33,10 @@ export default {
 }
 </script>
 <style  lang="scss" scoped>
+.find {
+  width: 100%;
+  box-sizing: border-box;
+}
 .find-content {
   content: "";
   clear: both;

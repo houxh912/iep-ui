@@ -27,6 +27,10 @@ export default {
 }
 </script>
 <style  lang="scss" scoped>
+.created {
+  width: 100%;
+  box-sizing: border-box;
+}
 .created-content {
   display: grid;
   grid-template-columns: auto auto auto auto;

@@ -26,6 +26,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .chance {
+  width: 100%;
+  box-sizing: border-box;
   .text {
     padding-bottom: 5px;
     color: #979797;

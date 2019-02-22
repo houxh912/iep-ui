@@ -23,13 +23,18 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 - 修改开发环境代理 ip 配置 文件在 `.env.local`
 - 确认安装依赖无错，即可运行 `yarn serve` 或 `npm run serve`
 
+## Git 管理必读
+
+https://juejin.im/post/5aa7e8a6f265da239f070d82
+
 ## 菜单规范
 
 | 节点ID | 菜单名称 | 类型 | 前端组件               | 前端地址 | 图标 | 权限标识     |
 |--------|----------|------|------------------------|----------|------|--------------|
-| 1000   | 权限管理 | 菜单 | Layout                 | /upms    |      |              |
-| 1100   | 用户管理 | 菜单 | views/admin/user/index | user     |      |              |
-| 1101   | 用户新增 | 按钮 |                        |          |      | sys_user_add |
+| 10000   | 核心管理(模块) | 菜单 | Layout(模块)                 | /core(注意有斜杠)    |      |              |
+| 11000   | 权限管理 | 菜单 | Layout(顶级菜单)              | upms    |      |              |
+| 11100   | 用户管理 | 菜单 | views/admin/user/index(页面菜单) | user     |      |              |
+| 11101   | 用户新增 | 按钮 |                        |          |      | sys_user_add |
 
 模块以1000为单位
 模块下页面以100为单位,子页面以10为单位,权限按钮以1为单位
@@ -38,11 +43,12 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 
 | 节点ID | 菜单名称 | 类型 | 前端组件 | 前端地址 | 图标 | 权限标识 |
 |--------|----------|------|----------|----------|------|----------|
-| 1000   | 权限管理 | 菜单 | Layout   | /upms    |      |          |
-| 2000   | 系统管理 | 菜单 | Layout   | /admin   |      |          |
-| 3000   | 系统监控 | 按钮 | Layout   | /daemon  |      |          |
-| 4000   | 协同管理 | 按钮 | Layout   | /activti |      |          |
-| 5000   | 人力     | 按钮 | Layout   | /hrms    |      |          |
-| 6000   | 客户     | 按钮 | Layout   | /crms    |      |          |
+| 11000   | 权限管理 | 菜单 | Layout   | /upms    |      |          |
+| 12000   | 系统管理 | 菜单 | Layout   | /admin   |      |          |
+| 13000   | 系统监控 | 按钮 | Layout   | /daemon  |      |          |
+| 14000   | 协同管理 | 按钮 | Layout   | /activti |      |          |
+| 5000   | 人力(模块)     | 按钮 | Layout   | /hrms    |      |          |
+| 6000   | 客户(模块)     | 按钮 | Layout   | /crms    |      |          |
+| 10000   | 核心(模块)     | 按钮 | Layout   | /crms    |      |          |
 
 ## 具体见 Wiki

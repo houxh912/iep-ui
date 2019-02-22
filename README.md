@@ -22,6 +22,7 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 - 拷贝 `cp .env .env.local`
 - 修改开发环境代理 ip 配置 文件在 `.env.local`
 - 确认安装依赖无错，即可运行 `yarn serve` 或 `npm run serve`
+- 提交使用 `yarn cz` 尽量使用命令提交, 冲突等等可不用
 
 ## 内网前端任务分配(组件以及负责人变更需这里修改)
 
@@ -37,14 +38,18 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 | Core             | 核心              | Views          | 张超        |        |        |        |
 | App              | 游客展示页        | Views          | Undefined   |        |        |        |
 
+## Git 管理必读
+
+https://juejin.im/post/5aa7e8a6f265da239f070d82
+
+## Git 提交必须
+
+https://zhuanlan.zhihu.com/p/51894196
+
 ## 产品设计图获取
 
 https://www.yuque.com/zsr/iep
 私有画板图
-
-## Git 管理必读
-
-https://juejin.im/post/5aa7e8a6f265da239f070d82
 
 ## 菜单规范
 

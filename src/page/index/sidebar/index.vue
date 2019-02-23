@@ -79,18 +79,18 @@ export default {
     white-space: nowrap;
     list-style: none;
     background-color: #fafafa;
-    color: #303133;
+    color: #666;
     padding: 0 20px;
     cursor: pointer;
     & * {
       vertical-align: middle;
     }
-    i {
-      color: #666;
-      margin-right: 5px;
+    &:hover {
+      background-color: #f9eae7;
+      color: #fb4147;
     }
-    span {
-      color: #666;
+    i {
+      margin-right: 5px;
     }
   }
 }

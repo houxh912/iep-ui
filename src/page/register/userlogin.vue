@@ -202,7 +202,7 @@ export default {
 <style lang="scss" scoped>
 .login-submit {
   display: block;
-  margin: -15px auto 10px auto;
+  margin: -15px auto -10px auto;
   width: 100%;
   height: 48px;
   font-size: 14px;

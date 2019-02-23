@@ -12,7 +12,7 @@
           <user-login v-if="activeName === 'user'"></user-login>
         </div>
         <div class="login-menu">
-          <a href="#" @click.prevent="loadLoginPage">已有账号？立即登录</a>
+          <p>已有账号？<a href="#" @click.prevent="loadLoginPage">立即登录</a></p>
         </div>
         <div class="login-bottom">
           <hr>
@@ -135,8 +135,8 @@ export default {
   width: 100%;
   text-align: center;
   a {
-    color: rgb(153, 153, 153);
-    font-size: 12px;
+    color: red;
+    font-size: 14px;
     margin: 0px 8px;
   }
 }

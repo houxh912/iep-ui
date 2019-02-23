@@ -5,7 +5,6 @@
 import router from './router/router'
 import store from '@/store'
 import orderBy from 'lodash/orderBy'
-import keyBy from 'lodash/keyBy'
 // import { Message } from 'element-ui'
 // import { getStore } from '@/util/store'
 import { validatenull } from '@/util/validate'
@@ -54,14 +53,15 @@ router.beforeEach((to, from, next) => {
         const parentPath = to.matched[0].path
         const isMatchedMenu = store.getters.menuPathList.includes(parentPath)
         const currentMenu = store.getters.menu.find(m => m.path === parentPath)
+        console.log(isMatchedMenu, currentMenu)
         if (isMatchedMenu && currentMenu) {
           let Menus = [store.getters.mainMenu, ...store.getters.otherMenus]
           Menus = orderBy(Menus, ['sort'], ['asc'])
           const otherMenus = Menus.filter(m => m.path !== currentMenu.path)
-          const otherMenusMap = keyBy(Menus, 'path')
+          console.log(otherMenus.map(m => m.name), currentMenu.name)
           store.commit('SET_MAINMENU', currentMenu)
+          console.log(store.getters.mainMenu.name)
           store.commit('SET_OTHERMENUS', otherMenus)
-          store.commit('SET_OTHERMENUSMAP', otherMenusMap)
         }
         const value = to.query.src || to.fullPath
         const label = to.query.name || to.name

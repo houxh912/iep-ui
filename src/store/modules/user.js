@@ -47,8 +47,8 @@ function detachMenu (menu) {
       otherMenus.push(iterator)
     }
   }
-  const otherMenusMap = keyBy(otherMenus, 'path')
-  return { mainMenu, otherMenus, otherMenusMap, menuPathList }
+  const menusMap = keyBy(menu, 'path')
+  return { mainMenu, otherMenus, menusMap, menuPathList }
 }
 
 const user = {
@@ -70,9 +70,9 @@ const user = {
       getStore({
         name: 'otherMenus',
       }) || [],
-    otherMenusMap:
+    menusMap:
       getStore({
-        name: 'otherMenusMap',
+        name: 'menusMap',
       }) || {},
     menuPathList:
       getStore({
@@ -225,10 +225,10 @@ const user = {
             addPath(ele)
           })
           commit('SET_MENU', menu)
-          const { mainMenu, otherMenus, otherMenusMap, menuPathList } = detachMenu(menu)
+          const { mainMenu, otherMenus, menusMap, menuPathList } = detachMenu(menu)
           commit('SET_MAINMENU', mainMenu)
           commit('SET_OTHERMENUS', otherMenus)
-          commit('SET_OTHERMENUSMAP', otherMenusMap)
+          commit('SET_MENUSMAP', menusMap)
           commit('SET_MENUPATHLIST', menuPathList)
           resolve(menu)
         })
@@ -271,18 +271,18 @@ const user = {
         type: 'session',
       })
     },
-    SET_OTHERMENUSMAP: (state, otherMenusMap) => {
-      state.otherMenusMap = otherMenusMap
+    SET_MENUSMAP: (state, menusMap) => {
+      state.menusMap = menusMap
       setStore({
-        name: 'otherMenusMap',
-        content: state.otherMenusMap,
+        name: 'menus_map',
+        content: state.menusMap,
         type: 'session',
       })
     },
     SET_OTHERMENUS: (state, otherMenus) => {
       state.otherMenus = otherMenus
       setStore({
-        name: 'otherMenus',
+        name: 'other_menus',
         content: state.otherMenus,
         type: 'session',
       })
@@ -290,7 +290,7 @@ const user = {
     SET_MAINMENU: (state, mainMenu) => {
       state.mainMenu = mainMenu
       setStore({
-        name: 'mainMenu',
+        name: 'main_menu',
         content: state.mainMenu,
         type: 'session',
       })
@@ -298,7 +298,7 @@ const user = {
     SET_MENUPATHLIST: (state, menuPathList) => {
       state.menuPathList = menuPathList
       setStore({
-        name: 'menuPathList',
+        name: 'menu_path_list',
         content: state.menuPathList,
         type: 'session',
       })

@@ -32,14 +32,14 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(['website', 'menu', 'mainMenu', 'otherMenus', 'otherMenusMap', 'keyCollapse', 'screen']),
+    ...mapGetters(['website', 'menu', 'mainMenu', 'otherMenus', 'menusMap', 'keyCollapse', 'screen']),
     nowTagValue: function () {
       return this.$router.$avueRouter.getValue(this.$route)
     },
   },
   mounted () { },
   methods: {
-    ...mapMutations({ setMainMenu: 'SET_MAINMENU', setOtherMenus: 'SET_OTHERMENUS', setOtherMenusMap: 'SET_OTHERMENUSMAP' }),
+    ...mapMutations({ setMainMenu: 'SET_MAINMENU', setOtherMenus: 'SET_OTHERMENUS', setmenusMap: 'SET_menusMap' }),
     openModuleMenus (menu) {
       function findMenuChidrenPath (cMenu) {
         if (cMenu.children.length) {

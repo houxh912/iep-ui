@@ -5,15 +5,28 @@
 import router from './router/router'
 import store from '@/store'
 import orderBy from 'lodash/orderBy'
-import keyBy from 'lodash/keyBy'
 // import { Message } from 'element-ui'
 // import { getStore } from '@/util/store'
 import { validatenull } from '@/util/validate'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 NProgress.configure({ showSpinner: false })
+
+
 const lockPage = store.getters.website.lockPage // 锁屏页
 router.beforeEach((to, from, next) => {
+
+  const {
+    access_token,
+    isLock,
+    roles,
+    menuPathList,
+    menu,
+    mainMenu,
+    userInfo,
+    otherMenus,
+  } = store.getters
+  console.log(userInfo)
   // 缓冲设置
   // if (
   //   to.meta.keepAlive === true &&
@@ -32,36 +45,30 @@ router.beforeEach((to, from, next) => {
   // }
   NProgress.start()
   const meta = to.meta || {}
-  if (store.getters.access_token) {
-    // debugger
-    if (store.getters.isLock && to.path != lockPage) {
+  if (access_token) {
+    if (isLock && to.path != lockPage) {
       next({ path: lockPage })
     } else if (to.path === '/login') {
       next('/')
     } else {
-      if (store.getters.roles.length === 0) {
-        store
-          .dispatch('GetUserInfo')
-          .then(() => {
-            next({ ...to, replace: true })
+      if (roles.length === 0) {
+        store.dispatch('GetUserInfo').then(() => {
+          next({ ...to, replace: true })
+        }).catch(() => {
+          store.dispatch('FedLogOut').then(() => {
+            next({ path: '/login' })
           })
-          .catch(() => {
-            store.dispatch('FedLogOut').then(() => {
-              next({ path: '/login' })
-            })
-          })
+        })
       } else {
         const parentPath = to.matched[0].path
-        const isMatchedMenu = store.getters.menuPathList.includes(parentPath)
-        const currentMenu = store.getters.menu.find(m => m.path === parentPath)
+        const isMatchedMenu = menuPathList.includes(parentPath)
+        const currentMenu = menu.find(m => m.path === parentPath)
         if (isMatchedMenu && currentMenu) {
-          let Menus = [store.getters.mainMenu, ...store.getters.otherMenus]
+          let Menus = [mainMenu, ...otherMenus]
           Menus = orderBy(Menus, ['sort'], ['asc'])
-          const otherMenus = Menus.filter(m => m.path !== currentMenu.path)
-          const otherMenusMap = keyBy(Menus, 'path')
+          const oMenus = Menus.filter(m => m.path !== currentMenu.path)
           store.commit('SET_MAINMENU', currentMenu)
-          store.commit('SET_OTHERMENUS', otherMenus)
-          store.commit('SET_OTHERMENUSMAP', otherMenusMap)
+          store.commit('SET_OTHERMENUS', oMenus)
         }
         const value = to.query.src || to.fullPath
         const label = to.query.name || to.name
@@ -87,7 +94,8 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(() => {
+  const { tag } = store.getters
   NProgress.done()
-  const title = store.getters.tag.label
+  const title = tag.label
   router.$avueRouter.setTitle(title)
 })

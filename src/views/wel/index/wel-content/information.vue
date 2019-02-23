@@ -143,7 +143,7 @@ export default {
           }
           .more {
             padding: 0 10px;
-            color: blue;
+            color: #4692f5;
           }
         }
         .user-data {

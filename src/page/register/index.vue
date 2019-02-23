@@ -209,6 +209,7 @@ export default {
   margin-left: 50px;
   margin-top: -50px;
   .bottom-text {
+    margin-top: 25px;
     text-align: center;
   }
 }

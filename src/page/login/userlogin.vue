@@ -33,7 +33,9 @@
       </div>
     </el-form-item>
     <el-form-item>
-      <el-button size="small" @click.native.prevent="handleLogin" class="login-submit">登录</el-button>
+      <div>
+        <el-button size="small" @click.native.prevent="handleLogin" class="login-submit">登录</el-button>
+      </div>
       <el-button size="small" class="login-visiter">访客</el-button>
     </el-form-item>
   </el-form>

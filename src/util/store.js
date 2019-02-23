@@ -21,7 +21,6 @@ export const setStore = params => {
 export const getStore = params => {
   let { name, debug } = params
   let obj = {}
-
   let content
   obj = window.sessionStorage.getItem(name)
   if (validatenull(obj)) obj = window.localStorage.getItem(name)

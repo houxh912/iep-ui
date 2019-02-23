@@ -47,9 +47,9 @@
             <span class="dot  dot3" v-if="showDot3"></span>
           </div>
         </div>
-        <!-- <el-tooltip v-if="this.userInfo.avatar" effect="dark" content="用户头像" placement="bottom">
-        <img id="thumbnail" class="top-bar__img" />
-      </el-tooltip> -->
+        <el-tooltip v-if="this.userInfo.avatar" effect="dark" content="用户头像" placement="bottom">
+          <img id="thumbnail" class="top-bar__img" />
+        </el-tooltip>
         <el-dropdown>
           <span class="el-dropdown-link">
             {{ userInfo.username }}

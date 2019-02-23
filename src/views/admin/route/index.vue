@@ -35,21 +35,21 @@ const tempPath = (form) => `
 {
   "routeId": "${form.english}",
   "routeName": "${form.name}",
-  "predicates": "[{"args": {"_genkey_0": "${form.path}"}, "name": "Path"}]",
-  "filters": "[]",
+  "predicates": [{"args": {"_genkey_0": "${form.path}"}, "name": "Path"}],
+  "filters": [],
   "uri": "lb://${form.english}",
   "order": 0,
   "createTime": "2019-02-23 10:40:11",
   "updateTime": null,
-  "delFlag": "0"
-},`
+  "delFlag": 0
+}`
 export default {
   data () {
     return {
       json: null,
       dialogFormVisible: false,
       form: {
-        name: 'gds-codegen',
+        name: '代码生成',
         english: 'gds-codegen',
         path: '/gen/**',
       },
@@ -84,6 +84,7 @@ export default {
       })
     },
     add () {
+      console.log(tempPath(this.form))
       console.log(this.json, JSON.parse(tempPath(this.form)))
       const json = [...this.json, JSON.parse(tempPath(this.form))]
       putObj(json).then(() => {

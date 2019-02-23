@@ -41,7 +41,7 @@ function detachMenu (menu) {
   let mainMenu = {}
   const otherMenus = []
   for (const iterator of menu) {
-    if (iterator.path === website.menu.firstMenu.path) {
+    if (iterator.path === website.menu.firstMenu.modulePath) {
       mainMenu = deepClone(iterator)
     } else {
       otherMenus.push(iterator)

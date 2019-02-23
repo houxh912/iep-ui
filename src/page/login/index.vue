@@ -148,7 +148,7 @@ export default {
 }
 .menu-p {
   height: 60px;
-  line-height: 30px;
+  line-height: 5px;
   text-align: center;
   .menu-line {
     display: inline-block;

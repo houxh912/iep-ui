@@ -152,7 +152,7 @@ export default {
 <style lang="scss" scoped>
 .login-submit {
   display: block;
-  margin: 10px auto 10px auto;
+  margin: -15px auto 10px auto;
   width: 100%;
   height: 48px;
   font-size: 14px;
@@ -162,7 +162,7 @@ export default {
   color: white;
 }
 .login-submit:hover {
-  background-color: #ba1b20;
+  background-color: #f56c6c;
   color: white;
 }
 .login-visiter {
@@ -177,7 +177,7 @@ export default {
   color: black;
 }
 .login-visiter:hover {
-  background-color: #e4e4e4;
+  background-color: #909399;
   color: black;
 }
 .login-text {

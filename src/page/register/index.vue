@@ -3,13 +3,20 @@
     <div class="login-weaper">
       <div class="login-border animated fadeInRight">
         <div class="login-main">
-          <h4 class="login-title">
-            用户注册
-          </h4>
+          <div class="title-image">
+            <img src="/img/logo.png" class="top-image">
+            <h4 class="login-title">
+              欢迎注册
+            </h4>
+          </div>
           <user-login v-if="activeName === 'user'"></user-login>
         </div>
         <div class="login-menu">
-          <a href="#" @click.prevent="loadLoginPage">返回登录</a>
+          <a href="#" @click.prevent="loadLoginPage">已有账号？立即登录</a>
+        </div>
+        <div class="login-bottom">
+          <hr>
+          <div class="bottom-text">Copyright©GOVMADE 版权所有 2018-2020</div>
         </div>
       </div>
     </div>
@@ -76,10 +83,10 @@ export default {
   margin: 0 auto;
 }
 .login-weaper {
-  position: absolute;
-  top: 22%;
-  left: 0;
   width: 100%;
+  height: 100%;
+  background: url("/img/bg/bg.jpg") no-repeat;
+  background-size: cover;
 }
 .login-container::before {
   z-index: -1024;
@@ -89,7 +96,7 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  background-image: url("/img/login.png");
+  background-image: url("/img/bg.jpg");
   background-size: cover;
 }
 .login-left {
@@ -118,30 +125,36 @@ export default {
   color: rgb(33, 37, 41);
 }
 .login-border {
-  margin: 0 auto;
-  width: 50%;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  margin-left: -270px;
+  min-width: 540px;
+  height: 100%;
   box-sizing: border-box;
+  background-color: white;
+  box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6);
 }
 .login-main {
-  margin: 0 auto;
-  width: 50%;
+  margin: 30px;
   box-sizing: border-box;
-}
-.login-main > h3 {
-  margin-bottom: 20px;
-}
-.login-main > p {
-  color: #76838f;
-}
-.login-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 40px;
-  font-weight: 500;
-  font-size: 22px;
-  text-align: center;
-  letter-spacing: 4px;
+  .title-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    margin-top: 80px;
+    .top-image {
+      width: 100px;
+      border-right: 1px solid #eee;
+      padding: 2px 0;
+      padding-right: 20px;
+      margin-right: 20px;
+    }
+    .login-title {
+      font-size: 22px;
+    }
+  }
 }
 .login-select {
   input {
@@ -174,14 +187,30 @@ export default {
 }
 .login-submit {
   display: block !important;
-  margin: 40px auto 10px auto !important;
-  width: 200px;
+  margin: 10px auto 10px auto !important;
+  width: 100%;
   height: 48px;
   font-size: 14px !important;
   text-align: center;
-  border-radius: 50px !important;
   border: 0px;
-  box-shadow: rgba(152, 22, 244, 0.19) 0px 5px 10px 2px;
+  background-color: #ba1b20;
+  color: white;
+}
+.login-submit:hover {
+  background-color: #ba1b20 !important;
+}
+.login-bottom {
+  margin: 0 auto;
+  width: 80%;
+  box-sizing: border-box;
+  color: rgb(153, 153, 153);
+  position: absolute;
+  bottom: 40px;
+  margin-left: 50px;
+  margin-top: -50px;
+  .bottom-text {
+    text-align: center;
+  }
 }
 .login-form {
   margin: 10px 0;
@@ -195,15 +224,6 @@ export default {
     margin-bottom: 12px;
   }
   .el-input {
-    input {
-      padding-bottom: 10px;
-      text-indent: 5px;
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      color: #333;
-      border-bottom: 1px solid rgb(235, 237, 242);
-    }
     .el-input__prefix {
       i {
         padding: 0 5px;

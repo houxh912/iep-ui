@@ -1,34 +1,36 @@
 <template>
   <el-form class="login-form" status-icon :rules="registerRule" ref="registerForm" :model="registerForm" label-width="0">
     <el-form-item prop="username">
-      <el-input size="small" autocomplete="off" v-model="registerForm.username" auto-complete="off" placeholder="请输入用户名">
-        <i slot="prefix" class="icon-yonghu"></i>
+      <el-input autocomplete="off" v-model="registerForm.username" auto-complete="off" placeholder="请输入用户名">
+
       </el-input>
     </el-form-item>
     <el-form-item prop="password">
-      <el-input size="small" autocomplete="off" :type="passwordType" v-model="registerForm.password" placeholder="请输入你的密码">
+      <el-input autocomplete="off" :type="passwordType" v-model="registerForm.password" placeholder="请输入你的密码">
         <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-        <i slot="prefix" class="icon-mima"></i>
+
       </el-input>
     </el-form-item>
     <el-form-item prop="cpassword">
-      <el-input size="small" autocomplete="off" :type="passwordType" v-model="registerForm.cpassword" placeholder="确认你的密码">
+      <el-input autocomplete="off" :type="passwordType" v-model="registerForm.cpassword" placeholder="确认你的密码">
         <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-        <i slot="prefix" class="icon-mima"></i>
+
       </el-input>
     </el-form-item>
     <el-form-item prop="phone">
-      <el-input size="small" v-model="registerForm.phone" auto-complete="off" placeholder="请输入手机号码">
-        <i slot="prefix" class="icon-shouji"></i>
+      <el-input v-model="registerForm.phone" auto-complete="off" placeholder="请输入手机号码">
+
       </el-input>
     </el-form-item>
     <el-form-item prop="code">
       <div class="code-wrapper">
-        <el-input size="small" @keyup.enter.native="handleLogin" maxlength="4" v-model="registerForm.code" auto-complete="off" placeholder="请输入验证码">
-          <i slot="prefix" class="icon-yanzhengma" style="margin-top:6px;"></i>
+        <el-input @keyup.enter.native="handleLogin" maxlength="4" v-model="registerForm.code" auto-complete="off" placeholder="请输入验证码">
         </el-input>
         <el-button @click="handleSend" class="msg-text" :class="[{ display: msgKey }]">{{ msgText }}</el-button>
       </div>
+    </el-form-item>
+    <el-form-item>
+      <el-checkbox v-model="checked">同意并遵守 《用户守则》</el-checkbox>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" size="small" @click.native.prevent="handleRegister" class="login-submit">注册</el-button>

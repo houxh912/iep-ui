@@ -3,18 +3,27 @@
     <div class="login-weaper">
       <div class="login-border animated fadeInRight">
         <div class="login-main">
-          <h4 class="login-title">
-            用户登录
-          </h4>
+          <div class="title-image">
+            <img src="/img/logo.png" class="top-image">
+            <div class="login-title">用户登录</div>
+          </div>
           <user-login v-if="activeName === 'user'"></user-login>
           <code-login v-else-if="activeName === 'code'"></code-login>
           <third-login v-else-if="activeName === 'third'"></third-login>
         </div>
         <div class="login-menu">
+          <div class="menu-p">
+            <span class="menu-line"></span>
+            <span class="menu-text">其他方式登录</span>
+            <span class="menu-line"></span>
+          </div>
           <a href="#" @click.stop="activeName = 'user'">账号密码</a>
           <a href="#" @click.stop="activeName = 'code'">手机号登录</a>
           <a href="#" @click.stop="activeName = 'third'">第三方登录</a>
-          <a href="#" @click.prevent="handleRegister">新用户注册</a>
+        </div>
+        <div class="login-bottom">
+          <hr>
+          <div class="bottom-text">Copyright©GOVMADE 版权所有 2018-2020</div>
         </div>
       </div>
     </div>
@@ -43,11 +52,6 @@ export default {
       active: 1,
       activeName: 'user',
     }
-  },
-  methods: {
-    handleRegister () {
-      this.$router.push('/register')
-    },
   },
   watch: {
     $route () {
@@ -86,10 +90,10 @@ export default {
   margin: 0 auto;
 }
 .login-weaper {
-  position: absolute;
-  top: 22%;
-  left: 0;
   width: 100%;
+  height: 100%;
+  background: url("/img/bg/bg.jpg") no-repeat;
+  background-size: cover;
 }
 .login-container::before {
   z-index: -1024;
@@ -99,7 +103,7 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  background-image: url("/img/login.png");
+  background-image: url("/img/bg/bg.jpg");
   background-size: cover;
 }
 .login-left {
@@ -128,30 +132,36 @@ export default {
   color: rgb(33, 37, 41);
 }
 .login-border {
-  margin: 0 auto;
-  width: 50%;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  margin-left: -270px;
+  min-width: 540px;
+  height: 100%;
   box-sizing: border-box;
+  background-color: white;
+  box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6);
 }
 .login-main {
-  margin: 0 auto;
-  width: 50%;
+  margin: 30px;
   box-sizing: border-box;
-}
-.login-main > h3 {
-  margin-bottom: 20px;
-}
-.login-main > p {
-  color: #76838f;
-}
-.login-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 40px;
-  font-weight: 500;
-  font-size: 22px;
-  text-align: center;
-  letter-spacing: 4px;
+  .title-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    margin-top: 80px;
+    .top-image {
+      width: 100px;
+      border-right: 1px solid #eee;
+      padding: 2px 0;
+      padding-right: 20px;
+      margin-right: 20px;
+    }
+    .login-title {
+      font-size: 22px;
+    }
+  }
 }
 .login-select {
   input {
@@ -160,15 +170,6 @@ export default {
     font-weight: 400;
     border: none;
     text-align: center;
-  }
-}
-.login-menu {
-  width: 100%;
-  text-align: center;
-  a {
-    color: rgb(153, 153, 153);
-    font-size: 12px;
-    margin: 0px 8px;
   }
 }
 .login-index {
@@ -184,14 +185,79 @@ export default {
 }
 .login-submit {
   display: block !important;
-  margin: 40px auto 10px auto !important;
-  width: 200px;
+  margin: 10px auto 10px auto !important;
+  width: 100%;
   height: 48px;
   font-size: 14px !important;
   text-align: center;
-  border-radius: 50px !important;
   border: 0px;
-  box-shadow: rgba(152, 22, 244, 0.19) 0px 5px 10px 2px;
+  background-color: #ba1b20;
+  color: white;
+}
+.login-submit:hover {
+  background-color: #ba1b20 !important;
+  color: white;
+}
+.login-visiter {
+  display: block !important;
+  margin: 20px auto 10px auto !important;
+  width: 100%;
+  height: 48px;
+  font-size: 14px !important;
+  text-align: center;
+  border: 0px;
+  background-color: #e4e4e4;
+  color: black;
+}
+.login-visiter:hover {
+  background-color: #e4e4e4 !important;
+  color: black;
+}
+.login-menu {
+  width: 100%;
+  text-align: center;
+  a {
+    color: rgb(153, 153, 153);
+    font-size: 12px;
+    margin: 0px 8px;
+  }
+}
+.menu-p {
+  height: 60px;
+  line-height: 30px;
+  text-align: center;
+  .menu-line {
+    display: inline-block;
+    width: 180px;
+    border-top: 1px solid #ccc;
+  }
+  .menu-text {
+    color: #686868;
+    vertical-align: middle;
+    vertical-align: -4px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+.login-text {
+  color: red;
+  .check-text {
+    float: right;
+    color: red;
+  }
+}
+.login-bottom {
+  margin: 0 auto;
+  width: 80%;
+  box-sizing: border-box;
+  color: rgb(153, 153, 153);
+  position: absolute;
+  bottom: 40px;
+  margin-left: 50px;
+  margin-top: -50px;
+  .bottom-text {
+    text-align: center;
+  }
 }
 .login-form {
   margin: 10px 0;
@@ -205,15 +271,6 @@ export default {
     margin-bottom: 12px;
   }
   .el-input {
-    input {
-      padding-bottom: 10px;
-      text-indent: 5px;
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      color: #333;
-      border-bottom: 1px solid rgb(235, 237, 242);
-    }
     .el-input__prefix {
       i {
         padding: 0 5px;

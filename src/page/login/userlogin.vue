@@ -1,34 +1,40 @@
 <template>
   <el-form class="login-form" status-icon :rules="loginRules" ref="loginForm" :model="loginForm" label-width="0">
     <el-form-item prop="username">
-      <el-input size="small" @keyup.enter.native="handleLogin" v-model="loginForm.username" auto-complete="off" placeholder="请输入用户名">
-        <i slot="prefix" class="icon-yonghu"></i>
+      <el-input @keyup.enter.native="handleLogin" v-model="loginForm.username" auto-complete="off" placeholder="请输入用户名">
       </el-input>
     </el-form-item>
     <el-form-item prop="password">
-      <el-input size="small" @keyup.enter.native="handleLogin" :type="passwordType" v-model="loginForm.password" auto-complete="false" placeholder="请输入密码">
+      <el-input @keyup.enter.native="handleLogin" :type="passwordType" v-model="loginForm.password" auto-complete="false" placeholder="请输入密码">
         <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-        <i slot="prefix" class="icon-mima"></i>
       </el-input>
     </el-form-item>
     <el-form-item prop="code">
       <el-row :span="24">
         <el-col :span="16">
-          <el-input size="small" @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="loginForm.code" auto-complete="false" placeholder="请输入验证码">
-            <i slot="prefix" class="icon-yanzhengma"></i>
+          <el-input @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="loginForm.code" auto-complete="false" placeholder="请输入验证码">
           </el-input>
         </el-col>
         <el-col :span="8">
           <div class="login-code">
             <span class="login-code-img" @click="refreshCode" v-if="code.type == 'text'">{{ code.value }}</span>
             <img :src="code.src" class="login-code-img" @click="refreshCode" v-else />
-            <!-- <i class="icon-shuaxin login-code-icon" @click="refreshCode"></i> -->
           </div>
         </el-col>
       </el-row>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" size="small" @click.native.prevent="handleLogin" class="login-submit">登录</el-button>
+      <div class="login-text">
+        <el-checkbox v-model="checked">记住密码</el-checkbox>
+        <div class="check-text">
+          <el-button type="text">忘记密码?</el-button>
+          <el-button type="text" @click.prevent="handleRegister">立即注册</el-button>
+        </div>
+      </div>
+    </el-form-item>
+    <el-form-item>
+      <el-button size="small" @click.native.prevent="handleLogin" class="login-submit">登录</el-button>
+      <el-button size="small" class="login-visiter">访客</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -101,6 +107,9 @@ export default {
   },
   props: [],
   methods: {
+    handleRegister () {
+      this.$router.push('/register')
+    },
     refreshCode () {
       this.loginForm.code = ''
       this.loginForm.randomStr = randomLenNum(this.code.len, true)

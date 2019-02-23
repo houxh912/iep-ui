@@ -147,4 +147,83 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.login-submit {
+  display: block;
+  margin: 10px auto 10px auto;
+  width: 100%;
+  height: 48px;
+  font-size: 14px;
+  text-align: center;
+  border: 0px;
+  background-color: #ba1b20;
+  color: white;
+}
+.login-submit:hover {
+  background-color: #ba1b20;
+  color: white;
+}
+.login-visiter {
+  display: block;
+  margin: 20px auto 10px auto;
+  width: 100%;
+  height: 48px;
+  font-size: 14px;
+  text-align: center;
+  border: 0px;
+  background-color: #e4e4e4;
+  color: black;
+}
+.login-visiter:hover {
+  background-color: #e4e4e4;
+  color: black;
+}
+.login-text {
+  color: red;
+  .check-text {
+    float: right;
+    color: red;
+  }
+}
+.login-form {
+  margin: 10px 0;
+  i {
+    color: #999;
+  }
+  .el-form-item__content {
+    width: 100%;
+  }
+  .el-form-item {
+    margin-bottom: 20px;
+  }
+  .el-input {
+    .el-input__prefix {
+      i {
+        padding: 0 5px;
+        font-size: 16px !important;
+      }
+    }
+  }
+}
+.login-code {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 0 0 10px;
+}
+.login-code-img {
+  margin-top: 2px;
+  width: 100px;
+  height: 38px;
+  background-color: #fdfdfd;
+  border: 1px solid #f0f0f0;
+  color: #333;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 5px;
+  line-height: 38px;
+  text-indent: 5px;
+  text-align: center;
+}
+</style>
+

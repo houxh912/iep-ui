@@ -1,34 +1,12 @@
 <template>
   <div class="add-tab">
     <span class="el-tag-item" v-for="(tag, index) in dynamicTags" :key="index">
-      <el-input
-        v-if="updateIndex === index"
-        class="input-new-tag"
-        v-model="inputValue"
-        ref="saveTagInput"
-        size="small"
-        @keyup.enter.native="handleInputConfirm"
-        @blur="handleInputConfirm"
-      ></el-input>
-      <el-tag
-        closable
-        :disable-transitions="transitions"
-        @close="handleClose(tag)"
-        type="info"
-        @click="updateTag(tag, index)"
-        v-else>
+      <el-input v-if="updateIndex === index" class="input-new-tag" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm"></el-input>
+      <el-tag closable :disable-transitions="transitions" @close="handleClose(tag)" type="info" @click="updateTag(tag, index)" v-else>
         {{tag}}
       </el-tag>
     </span>
-    <el-input
-      class="input-new-tag"
-      v-if="inputVisible"
-      v-model="inputValue"
-      ref="saveTagInput"
-      size="small"
-      @keyup.enter.native="handleInputConfirm"
-      @blur="handleInputConfirm"
-    >
+    <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
     </el-input>
     <el-button v-else class="button-new-tag" size="small" @click="showInput"><i class="el-icon-plus"></i></el-button>
     <span class="error" v-if="isError">此条数据已存在</span>
@@ -41,7 +19,7 @@ export default {
   props: {
     value: {
       type: Array,
-      default: () => {},
+      default: () => { },
     },
   },
   data () {
@@ -101,9 +79,6 @@ export default {
 .add-tab {
   .el-tag-item {
     margin-right: 10px;
-  }
-  .el-tag + .el-tag {
-    // margin-left: 10px;
   }
   .button-new-tag {
     height: 32px;

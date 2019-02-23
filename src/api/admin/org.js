@@ -67,3 +67,10 @@ export function passPerson (obj) {
     data: obj,
   })
 }
+
+export function orgDetail () {
+  return request({
+    url: '/admin/org',
+    method: 'get',
+  })
+}

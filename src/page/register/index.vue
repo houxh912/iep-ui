@@ -99,31 +99,6 @@ export default {
   background-image: url("/img/bg.jpg");
   background-size: cover;
 }
-.login-left {
-  float: left;
-  width: 50%;
-  position: relative;
-}
-.login-logo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding-top: 50px;
-  font-size: 24px;
-  color: #333;
-}
-.login-info {
-  padding-left: 140px;
-}
-.login-info-title {
-  line-height: 90px;
-  color: rgb(52, 58, 64);
-}
-.login-info-item {
-  font-size: 14px;
-  line-height: 2.5;
-  color: rgb(33, 37, 41);
-}
 .login-border {
   position: absolute;
   left: 50%;
@@ -156,15 +131,6 @@ export default {
     }
   }
 }
-.login-select {
-  input {
-    color: #333;
-    font-size: 18px;
-    font-weight: 400;
-    border: none;
-    text-align: center;
-  }
-}
 .login-menu {
   width: 100%;
   text-align: center;
@@ -173,31 +139,6 @@ export default {
     font-size: 12px;
     margin: 0px 8px;
   }
-}
-.login-index {
-  margin-top: 40px !important;
-  width: 180px;
-  height: 48px;
-  text-align: center;
-  border-radius: 50px !important;
-  background: transparent !important;
-  color: #333 !important;
-  font-size: 16px !important;
-  border: 1px solid rgb(152, 22, 244);
-}
-.login-submit {
-  display: block !important;
-  margin: 10px auto 10px auto !important;
-  width: 100%;
-  height: 48px;
-  font-size: 14px !important;
-  text-align: center;
-  border: 0px;
-  background-color: #ba1b20;
-  color: white;
-}
-.login-submit:hover {
-  background-color: #ba1b20 !important;
 }
 .login-bottom {
   margin: 0 auto;
@@ -212,45 +153,5 @@ export default {
     margin-top: 25px;
     text-align: center;
   }
-}
-.login-form {
-  margin: 10px 0;
-  i {
-    color: #999;
-  }
-  .el-form-item__content {
-    width: 100%;
-  }
-  .el-form-item {
-    margin-bottom: 20px;
-  }
-  .el-input {
-    .el-input__prefix {
-      i {
-        padding: 0 5px;
-        font-size: 16px !important;
-      }
-    }
-  }
-}
-.login-code {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin: 0 0 0 10px;
-}
-.login-code-img {
-  margin-top: 2px;
-  width: 100px;
-  height: 38px;
-  background-color: #fdfdfd;
-  border: 1px solid #f0f0f0;
-  color: #333;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 5px;
-  line-height: 38px;
-  text-indent: 5px;
-  text-align: center;
 }
 </style>

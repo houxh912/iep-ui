@@ -160,7 +160,7 @@ export default {
   color: white;
 }
 .login-submit:hover {
-  background-color: #ba1b20;
+  background-color: #f56c6c;
   color: white;
 }
 .login-visiter {
@@ -175,7 +175,7 @@ export default {
   color: black;
 }
 .login-visiter:hover {
-  background-color: #e4e4e4;
+  background-color: #909399;
   color: black;
 }
 .login-text {

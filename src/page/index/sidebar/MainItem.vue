@@ -23,7 +23,12 @@ export default {
   },
   computed: {
     isSub () {
-      return !(this.mainMenu.path === website.menu.firstMenu.modulePath)
+      if (this.mainMenu.path) {
+        if (this.mainMenu.path === website.menu.firstMenu.modulePath) {
+          return false
+        }
+      }
+      return true
     },
   },
   methods: {

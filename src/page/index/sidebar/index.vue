@@ -32,14 +32,14 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(['website', 'menu', 'mainMenu', 'otherMenus', 'otherMenusMap', 'keyCollapse', 'screen']),
+    ...mapGetters(['website', 'menu', 'mainMenu', 'otherMenus', 'menusMap', 'keyCollapse', 'screen']),
     nowTagValue: function () {
       return this.$router.$avueRouter.getValue(this.$route)
     },
   },
   mounted () { },
   methods: {
-    ...mapMutations({ setMainMenu: 'SET_MAINMENU', setOtherMenus: 'SET_OTHERMENUS', setOtherMenusMap: 'SET_OTHERMENUSMAP' }),
+    ...mapMutations({ setMainMenu: 'SET_MAINMENU', setOtherMenus: 'SET_OTHERMENUS', setmenusMap: 'SET_menusMap' }),
     openModuleMenus (menu) {
       function findMenuChidrenPath (cMenu) {
         if (cMenu.children.length) {
@@ -79,18 +79,18 @@ export default {
     white-space: nowrap;
     list-style: none;
     background-color: #fafafa;
-    color: #303133;
+    color: #666;
     padding: 0 20px;
     cursor: pointer;
     & * {
       vertical-align: middle;
     }
-    i {
-      color: #666;
-      margin-right: 5px;
+    &:hover {
+      background-color: #f9eae7;
+      color: #fb4147;
     }
-    span {
-      color: #666;
+    i {
+      margin-right: 5px;
     }
   }
 }

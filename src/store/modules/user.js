@@ -47,37 +47,19 @@ function detachMenu (menu) {
       otherMenus.push(iterator)
     }
   }
-  const otherMenusMap = keyBy(otherMenus, 'path')
-  return { mainMenu, otherMenus, otherMenusMap, menuPathList }
+  const menusMap = keyBy(menu, 'path')
+  return { mainMenu, otherMenus, menusMap, menuPathList }
 }
-
 const user = {
   state: {
     userInfo: {},
     permissions: {},
     roles: [],
-    menu:
-      getStore({
-        name: 'menu',
-      }) || [],
-    mainMenu:
-      getStore({
-        name: 'mainMenu',
-      }) || {
-        label: '个人赋能台',
-      },
-    otherMenus:
-      getStore({
-        name: 'otherMenus',
-      }) || [],
-    otherMenusMap:
-      getStore({
-        name: 'otherMenusMap',
-      }) || {},
-    menuPathList:
-      getStore({
-        name: 'menuPathList',
-      }) || [],
+    menu: getStore({ name: 'menu' }) || [],
+    mainMenu: getStore({ name: 'main_menu' }) || {},
+    otherMenus: getStore({ name: 'other_menus' }) || [],
+    menusMap: getStore({ name: 'menus_map' }) || {},
+    menuPathList: getStore({ name: 'menu_path_list' }) || [],
     expires_in:
       getStore({
         name: 'expires_in',
@@ -216,7 +198,7 @@ const user = {
       })
     },
     // 获取系统菜单
-    GetMenu ({ commit }) {
+    GetMenu ({ commit, state }) {
       return new Promise(resolve => {
         GetMenu().then(res => {
           const data = res.data.data
@@ -225,11 +207,13 @@ const user = {
             addPath(ele)
           })
           commit('SET_MENU', menu)
-          const { mainMenu, otherMenus, otherMenusMap, menuPathList } = detachMenu(menu)
-          commit('SET_MAINMENU', mainMenu)
-          commit('SET_OTHERMENUS', otherMenus)
-          commit('SET_OTHERMENUSMAP', otherMenusMap)
-          commit('SET_MENUPATHLIST', menuPathList)
+          if (state.menuPathList.length === 0) {
+            const { mainMenu, otherMenus, menusMap, menuPathList } = detachMenu(menu)
+            commit('SET_MAINMENU', mainMenu)
+            commit('SET_OTHERMENUS', otherMenus)
+            commit('SET_MENUSMAP', menusMap)
+            commit('SET_MENUPATHLIST', menuPathList)
+          }
           resolve(menu)
         })
       })
@@ -267,39 +251,39 @@ const user = {
       state.menu = menu
       setStore({
         name: 'menu',
-        content: state.menu,
+        content: menu,
         type: 'session',
       })
     },
-    SET_OTHERMENUSMAP: (state, otherMenusMap) => {
-      state.otherMenusMap = otherMenusMap
+    SET_MENUSMAP: (state, menusMap) => {
+      state.menusMap = menusMap
       setStore({
-        name: 'otherMenusMap',
-        content: state.otherMenusMap,
+        name: 'menus_map',
+        content: menusMap,
         type: 'session',
       })
     },
     SET_OTHERMENUS: (state, otherMenus) => {
       state.otherMenus = otherMenus
       setStore({
-        name: 'otherMenus',
-        content: state.otherMenus,
+        name: 'other_menus',
+        content: otherMenus,
         type: 'session',
       })
     },
     SET_MAINMENU: (state, mainMenu) => {
       state.mainMenu = mainMenu
       setStore({
-        name: 'mainMenu',
-        content: state.mainMenu,
+        name: 'main_menu',
+        content: mainMenu,
         type: 'session',
       })
     },
     SET_MENUPATHLIST: (state, menuPathList) => {
       state.menuPathList = menuPathList
       setStore({
-        name: 'menuPathList',
-        content: state.menuPathList,
+        name: 'menu_path_list',
+        content: menuPathList,
         type: 'session',
       })
     },

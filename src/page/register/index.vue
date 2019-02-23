@@ -222,7 +222,7 @@ export default {
     width: 100%;
   }
   .el-form-item {
-    margin-bottom: 12px;
+    margin-bottom: 20px;
   }
   .el-input {
     .el-input__prefix {

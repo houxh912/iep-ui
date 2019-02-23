@@ -51,24 +51,20 @@ export default {
       this.$router.push({
         path: findMenuChidrenPath(menu),
       })
-      // let Menus = [this.mainMenu, ...this.otherMenus]
-      // Menus = orderBy(Menus, ['sort'], ['asc'])
-      // const otherMenus = Menus.filter(m => m.path !== menu.path)
-      // const otherMenusMap = keyBy(Menus, 'path')
-      // this.setMainMenu(menu)
-      // this.setOtherMenus(otherMenus)
-      // this.setOtherMenusMap(otherMenusMap)
     },
   },
 }
 </script>
 <style lang="scss" scoped>
-@media (min-width: 1025px) {
+.avue-sidebar {
+  width: 240px;
+}
+@media (min-width: 769px) and (max-width: 1026px) {
   .avue-sidebar {
-    width: 240px;
+    width: 150px;
   }
 }
-@media (min-width: 0px) and (max-width: 1025px) {
+@media (min-width: 0px) and (max-width: 769px) {
   .avue-sidebar {
     width: 150px;
   }

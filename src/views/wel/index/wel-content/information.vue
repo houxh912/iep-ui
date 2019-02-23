@@ -77,7 +77,7 @@ export default {
   width: 100%;
   height: auto;
   background: white;
-  padding: 10px;
+  padding: 20px;
   font-size: 12px;
 }
 .information {
@@ -231,6 +231,18 @@ export default {
     .dotted {
       display: none !important;
     }
+    .el-row {
+      .el-col-21 {
+        width: 100%;
+        .right {
+          padding: 5px;
+        }
+      }
+    }
   }
+}
+@media (min-width: 769px) and (max-width: 1026px) {
+}
+@media (min-width: 0px) and (max-width: 769px) {
 }
 </style>

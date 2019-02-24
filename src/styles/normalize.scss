@@ -346,14 +346,14 @@
   * 3. 处理 Firefox 4+, Safari 5, 及 Chrome 中默认设置不同的外边距。
   */
  
- button,
- input,
- select,
- textarea {
-     font-family: inherit; /* 1 */
-     font-size: 100%; /* 2 */
-     margin: 0; /* 3 */
- }
+//  button,
+//  input,
+//  select,
+//  textarea {
+//      font-family: inherit; /* 1 */
+//      font-size: 100%; /* 2 */
+//      margin: 0; /* 3 */
+//  }
  
  /**
   * Address Firefox 4+ setting `line-height` on `input` using `!important` in

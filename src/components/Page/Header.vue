@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="title-wrapper">
     <span class="page-title">{{title}}</span>
     <span class="page-desc">{{desc}}</span>
   </div>
@@ -30,7 +30,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.page-title {
-  font-size: 23px;
+.title-wrapper {
+  margin-bottom: 10px;
+  .page-title {
+    font-size: 23px;
+  }
 }
 </style>

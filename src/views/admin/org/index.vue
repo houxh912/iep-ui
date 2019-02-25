@@ -66,7 +66,7 @@ import {
 } from '@/api/admin/org'
 import { dictsMap, columnsMap, initOrgForm } from './options'
 import { mergeByFirst } from '@/util/util'
-import mixins from './mixins'
+import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
   components: { PageHeader, IepTable, OperationWrapper, OperationContainer, OperationSearch, AddDialogForm, PersonDialogForm },

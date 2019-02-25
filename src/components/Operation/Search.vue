@@ -12,6 +12,14 @@
 <script>
 export default {
   props: {
+    placeHolder: {
+      type: String,
+      default: '关键字',
+    },
+    prop: {
+      type: String,
+      default: 'name',
+    },
     advanceSearch: {
       type: Boolean,
       default: false,
@@ -20,9 +28,7 @@ export default {
   data () {
     return {
       input: '',
-      paramObj: {
-        name: '',
-      },
+      paramObj: {},
       form: {
         name: '',
         region: '',
@@ -37,7 +43,7 @@ export default {
   },
   methods: {
     handleSearch () {
-      this.$emit('search', this.paramObj)
+      this.$emit('search', this.paramObj[this.prop] = this.input)
     },
   },
 }

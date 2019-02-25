@@ -1,84 +1,83 @@
 <template>
   <div>
-    <gov-layout-header>
-      <gov-search-bar
-        :list-query="listQuery"
-        label-width="100px"
-        :form-props="searchOption"
-        :is-string="false"
-        :reset-ignore="['isAsc', 'limit', 'page']"
-        @handleFilter="handleFilter">
-      </gov-search-bar>
-    </gov-layout-header>
-    <gov-layout-body>
-      <avue-crud
-        :data="mainTableData"
-        :option="mainTableOption"
-        :table-loading="tableLoading"
-        @size-change="sizeChange" 
-        @current-change="currentChange" 
-        :page="pagination"
-        @refresh-change="getList">
-        <template slot-scope="scope" slot="menu">
-          <div class="table-btn-group">
-            <gov-button type="text" @click="handleDetail(scope.row)" text="详情"></gov-button>
-            <gov-button type="text" @click="handleUpdate(scope.row)" text="编辑"></gov-button>
-          </div>
+    <operation-container>
+      <template slot="left">
+        <el-button @click="handleAdd" size="small">新增</el-button>
+        <el-dropdown size="medium">
+          <el-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>修改</el-dropdown-item>
+            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item>转移</el-dropdown-item>
+            <el-dropdown-item divided>添加协作人</el-dropdown-item>
+            <el-dropdown-item>收藏</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </template>
+      <template slot="right">
+        <operation-search @search="search"></operation-search>
+      </template>
+    </operation-container>
+    <iep-table 
+      :isLoadTable="isLoadTable"
+      :pagination="pagination"
+      :dictsMap="dictsMap"
+      :columnsMap="columnsMap"
+      :pagedTable="pagedTable"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      is-index
+      isMutipleSelection
+      @selection-change="selectionChange">
+      <template slot="before-columns">
+        <el-table-column label="客户名称" width="150px">
+          <template slot-scope="scope">
+            <span>{{scope.row.name}}</span>
+          </template>
+        </el-table-column>
+      </template>
+      <el-table-column prop="operation" label="操作" min-width="160">
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <el-button @click="handleEdit(scope.row)" size="small">编辑</el-button>
+            <el-button @click="handleDeleteById(scope.row)" size="small">删除</el-button>
+          </operation-wrapper>
         </template>
-      </avue-crud>
-    </gov-layout-body>
-    <main-dialog ref="mainDialog" :state="state" @successSubmit="getList" :dept-list="deptList"></main-dialog>
+      </el-table-column>
+    </iep-table>
   </div>
 </template>
 
 <script>
-import { mainTableOption, searchOption } from './const/cooperation'
-import mainDialog from './dialog/mainDialog'
-import mixin from '@/mixins/mixin'
-import _ from 'lodash'
+import OperationContainer from '@/components/Operation/Container'
+import OperationSearch from '@/components/Operation/Search'
+import IepTable from '@/components/IepTable/'
+import OperationWrapper from '@/components/Operation/Wrapper'
+import mixins from './mixins'
+import { allTableOption } from './const/index'
+import { fetchList } from '@/api/crms/custom'
 
 export default {
-  name: 'Demand',
-  mixins: [mixin],
-  components: { mainDialog },
-  computed: {
-    searchOption () {
-      return searchOption
-    },
-    mainTableOption () {
-      return mainTableOption
-    },
-  },
+  name: 'custom',
+  mixins: [mixins],
+  components: { OperationContainer, OperationSearch, IepTable, OperationWrapper },
+  computed: {},
   data () {
     return {
-      tableLoading: true,
-      mainTableData: [], // 主表数据
-      state: 'create',
-      deptList: [],
+      dictsMap: {},
+      columnsMap: allTableOption,
     }
   },
   methods: {
-    handleUpdate (row) {
-      this.state = 'update'
-      this.$refs['mainDialog'].open(_.cloneDeep(row))
+    handleAdd () {},
+    handleEdit () {},
+    handleDeleteById () {},
+    selectionChange (val) {
+      console.log('val: ', val)
     },
-    handleDetail () {
-      
+    loadPage (param) {
+      this.loadTable(param, fetchList)
     },
-    // 获取主表数据
-    getList () {
-      // getTableData(this.listQuery).then((res) => {
-      //   this.pagination.total = res.data.data.total
-      //   this.mainTableData = res.data.data.records
-      //   this.tableLoading = false
-      // })
-        this.pagination.total = 2
-        this.mainTableData = [{}, {}]
-        this.tableLoading = false
-    },
-  },
-  created () {
-    this.getList()
   },
 }
 </script>

@@ -6,6 +6,7 @@ const dictController = require('./controller/dict')
 const mobileController = require('./controller/mobile')
 const orgController = require('./controller/org')
 const hrmsController = require('./controller/hrms')
+const crmsController = require('./controller/crms')
 const router = new Router()
 /**
  * 获取验证码
@@ -42,5 +43,8 @@ router.get('/admin/org/list', orgController.getOrgList)
 router.get('/admin/org/page', orgController.getOrgPage)
 
 router.get('/hrms/employee_profile/page', hrmsController.getEmployeeProfilePage)
+
+// crms
+router.get('/crms/custom/page', crmsController.fetchList)
 
 exports = module.exports = router

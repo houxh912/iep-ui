@@ -1,14 +1,22 @@
 <template>
-  <gov-layout-main>
-    <avue-tabs v-model="obj" :data="data" :option="option" @change="change">
-    </avue-tabs>
-    <all-custom-tab v-if="type=='allCustom'" ref="allCustom"></all-custom-tab>
-    <my-custom-tab v-if="type=='myCustom'" ref="myCustom"></my-custom-tab>
-    <cooperation-tab v-if="type=='cooperation'" ref="cooperation"></cooperation-tab>
-  </gov-layout-main>
+  <div class="crms">
+    <page-header title="客户"></page-header>
+    <el-tabs v-model="tabName" @tab-click="change">
+      <el-tab-pane label="全部客户" name="allCustom">
+        <all-custom-tab v-if="tabName=='allCustom'" ref="allCustom"></all-custom-tab>
+      </el-tab-pane>
+      <el-tab-pane label="我的客户" name="myCustom">
+        <my-custom-tab v-if="tabName=='myCustom'" ref="myCustom"></my-custom-tab>
+      </el-tab-pane>
+      <el-tab-pane label="协作客户" name="cooperation">
+        <cooperation-tab v-if="tabName=='cooperation'" ref="cooperation"></cooperation-tab>
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
 <script>
+import PageHeader from '@/components/Page/Header'
 import mixin from '@/mixins/mixin'
 import allCustomTab from './allCustom'
 import myCustomTab from './myCustom'
@@ -17,58 +25,30 @@ import cooperationTab from './cooperation'
 export default {
   name: 'Demand',
   mixins: [mixin],
-  components: { allCustomTab, myCustomTab, cooperationTab },
+  components: { PageHeader, allCustomTab, myCustomTab, cooperationTab },
   computed: {
   },
   data () {
     return {
-      obj: {},
-      data: [],
-      type: 'allCustom',
-      option: {
-        column: [{
-          label: '所有客户',
-          prop: 'allCustom',
-          icon: 'el-icon-date',
-          option: {
-            page: false,
-            column: [],
-            menuBtn: false,
-          },
-        }, {
-          label: '我的客户',
-          prop: 'myCustom',
-          icon: 'el-icon-share',
-          option: {
-            page: false,
-            column: [],
-            menuBtn: false,
-          },
-        }, {
-          label: '我协作的客户',
-          prop: 'cooperation',
-          icon: 'el-icon-share',
-          option: {
-            page: false,
-            column: [],
-            menuBtn: false,
-          },
-        }],
-      },
+      tabName: 'allCustom',
     }
   },
   methods: {
-    change (item) {
-      this.type = item.prop
+    change () {
       this.$nextTick(() => {
-        this.$refs[item.prop].getList()
+        this.$refs[this.tabName].loadPage()
       })
     },
   },
-  created () {
+  mounted () {
+    this.change()
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.crms {
+  padding: 20px;
+  background-color: #fff;
+}
 </style>

@@ -4,32 +4,24 @@ export const searchOption = [
   { label: '客户关系', prop: 'guanxi', type: 'select', data: [{value: 1, label: '11'}, {value: 2, label: '22'}] },
 ]
 
-export const mainTableOption = {
-  selection: false,
-  border:true,
-  menu: false,
-  header: false,
-  column: [
-    {
-      label: '需求部门',
-      prop: 'deptId',
-    }, {
-      label: '事项编码',
-      prop: 'matCode',
-    }, {
-      label: '事项名称',
-      prop: 'matName',
-    },  {
-      label: '状态',
-      prop: 'auditState',
-    }, {
-      label: '操作',
-      prop: 'menu',
-      solt: true,
-      align: 'center',
-    },
-  ],
-}
+export const allTableOption = [
+  {
+    label: '业务类型',
+    prop: 'type',
+  }, {
+    label: '客户类型',
+    prop: 'type',
+  },  {
+    label: '客户关系',
+    prop: 'guanxi',
+  }, {
+    label: '跟进状态',
+    prop: 'zhuangtai',
+  }, {
+    label: '市场经理',
+    prop: 'jingli',
+  },
+]
 
 export const mainFormOption = {
   labelWidth: '155',

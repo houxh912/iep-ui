@@ -27,13 +27,13 @@ export default {
         nameList,
       }
     })
-    const log = formatLogList.map(m => {
+    const log = formatLogList.map((m, i) => {
       let result = m.template
       result = flatMap(result.split('$'), function (part, i) {
         return [part, <span style="color:#2558a9;">{m.nameList[i]}</span>] // JSX
       })
       result.pop()
-      return <p>{result}<span style="float:right;padding-right:20px;">{time}</span></p>
+      return <p>{result}<span style="float:right;padding-right:20px;">{time[i]}</span></p>
     })
     // console.log(log)
     return (

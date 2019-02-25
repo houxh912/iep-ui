@@ -34,7 +34,11 @@
       </div>
       <div class="function">
         <div class="button-switch">
-          <el-switch class="switch" v-model="value1" active-color="#ba1b20"></el-switch>
+          <!-- <el-form-item label="允许加入" prop="isOpen">
+            <el-switch class="switch" v-model="data.isOpen" :active-value="0" :inactive-value="1"></el-switch>
+          </el-form-item> -->
+          <el-switch class="switch" v-model="data.isOpen" :active-value="0" :inactive-value="1" active-color="#ba1b20">
+          </el-switch>
           <span>允许加入</span><br>
           <span class="span2-button">允许用户申请加入组织</span>
         </div>
@@ -52,14 +56,13 @@
   </div>
 </template>
 <script>
-import { orgDetail } from '@/api/admin/org'
+import { orgDetail, gomsOpen } from '@/api/admin/org'
 import { handleImg } from '@/util/util'
 import LogList from './LogList'
 export default {
   components: { LogList },
   data () {
     return {
-      value1: true,
       value2: true,
       data: { 'orgName': '杜照鸿的组织', 'logo': 'image-cde6b6e3b38e4526b24f2bee00e7c15b.jpg', 'realName': '超级管理员', 'logList': [{ 'id': 2, 'userId': 8, 'targetUserId': 0, 'time': '2019-02-22 17:11:03', 'description': '$申请加入组织。,张超', 'orgId': 8 }], 'memberNum': 2, 'applyUserNum': 1, 'deptNum': 0, 'managerList': [{ 'userId': 10, 'username': 'duzhaohong', 'realName': '杜照鸿', 'password': '$2a$10$u6D83/lGaENUrMp7FgvDLezaeVSXHUJl3NwgYL/AI26FdYAcA5Ncq', 'safePassword': '', 'createTime': '2019-02-20 11:38:33', 'updateTime': '2019-02-23 16:19:48', 'delFlag': '0', 'lockFlag': '0', 'avatar': 'image-cde6b6e3b38e4526b24f2bee00e7c15b.jpg', 'phone': '11011011011', 'orgId': 8, 'deptId': 13, 'tenantId': 1, 'wxOpenid': null, 'qqOpenid': null }], 'isOpen': 0 },
       formatLogList: [],
@@ -68,7 +71,11 @@ export default {
   },
   created () {
     this.load()
-
+  },
+  watch: {
+    'data.isOpen' () {
+      gomsOpen()
+    },
   },
   methods: {
     load () {
@@ -84,7 +91,6 @@ export default {
           })
           return templateStr
         })
-        console.log(this.data)
         this.formatLogList = log
         this.managerList = this.data.managerList.filter(m => m)
         this.managerList.forEach((m, i) => {

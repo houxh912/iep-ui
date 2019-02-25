@@ -74,3 +74,18 @@ export function orgDetail () {
     method: 'get',
   })
 }
+
+export function gomsOpen () {
+  return request({
+    url: '/admin/org/update/open',
+    method: 'post',
+  })
+}
+
+export function gomsUserPage (query) {
+  return request({
+    url: '/admin/org/user/page',
+    method: 'get',
+    params: query,
+  })
+}

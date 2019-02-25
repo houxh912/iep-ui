@@ -1,0 +1,96 @@
+<template>
+  <iep-dialog :dialog-show="dialogShow" :title="'客户'" width="80%" @close="closed">
+    <div class="head-info">
+      <p class="dept">{{formData.deptName}}</p>
+      <p class="title">市场经理：<span class="person">{{formData.jingli}}</span></p>
+      <p class="title">协作人：<span class="person">{{formData.xiezuoren}}</span></p>
+    </div>
+    <div class="head-button">
+      <el-tag class="tabs" type="danger">暂无需求</el-tag>
+      <el-tag class="tabs" type="danger">转移给他人</el-tag>
+      <el-tag class="tabs" type="danger">编辑</el-tag>
+      <el-tag class="tabs" type="danger">删除</el-tag>
+    </div>
+    <el-tabs v-model="tabName" @tab-click="change">
+      <el-tab-pane label="客户全景" name="detail">
+        <detail-dialog :formData="formData"></detail-dialog>
+      </el-tab-pane>
+      <el-tab-pane label="联系人" name="contacts">
+        <contacts-dislog :formData="formData"></contacts-dislog>
+      </el-tab-pane>
+      <el-tab-pane label="拜访日志" name="VisitLog">
+        拜访日志
+      </el-tab-pane>
+      <el-tab-pane label="方案" name="programme">
+        方案
+      </el-tab-pane>
+      <el-tab-pane label="合同" name="contract">
+        合同
+      </el-tab-pane>
+      <el-tab-pane label="咨询" name="consultation">
+        咨询
+      </el-tab-pane>
+    </el-tabs>
+  </iep-dialog>
+</template>
+
+<script>
+import IepDialog from '@/components/IepDialog/'
+import DetailDialog from './detailDialog'
+import ContactsDislog from './contactsDislog'
+export default {
+  name: 'detail',
+  components: { IepDialog, DetailDialog, ContactsDislog },
+  data () {
+    return {
+      dialogShow: false,
+      tabName: 'detail',
+      formData: {},
+    }
+  },
+  methods: {
+    open (row) {
+      this.formData = row
+      this.dialogShow = true
+      // 模拟数据
+      this.formData = {
+        deptName: '厦门市信息中心标准规划部',
+        jingli: '李凯',
+        xiezuoren: '胡浩',
+      }
+    },
+    change () {},
+    closed () {
+      this.dialogShow = false
+    },
+  },
+}
+</script>
+
+<style lang="scss">
+.head-info {
+  display: flex;
+  margin-bottom: 20px;
+  .dept {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 15px 0 0;
+    line-height: 20px;
+  }
+  .title {
+    margin: 0 15px 0 0;
+    height: 20px;
+    line-height: 22px;
+    .person {
+      font-weight: 700;
+    }
+  }
+}
+.head-button {
+  margin-bottom: 25px;
+  .tabs {
+    margin-right: 15px;
+    background-color: #fff;
+  }
+}
+</style>

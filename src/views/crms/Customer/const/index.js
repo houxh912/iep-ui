@@ -1,9 +1,3 @@
-export const searchOption = [
-  { label: '客户名称', prop: 'name' },
-  { label: '区域类型', prop: 'type', type: 'select', data: [{value: 1, label: '11'}, {value: 2, label: '22'}] },
-  { label: '客户关系', prop: 'guanxi', type: 'select', data: [{value: 1, label: '11'}, {value: 2, label: '22'}] },
-]
-
 export const allTableOption = [
   {
     label: '业务类型',
@@ -23,51 +17,16 @@ export const allTableOption = [
   },
 ]
 
-export const mainFormOption = {
-  labelWidth: '155',
-  menuBtn: false,
-  selection: false,
-  menu: false,
-  header: false,
-  border:true,
-  column: [
-    {
-      label: '需求部门',
-      prop: 'deptId',
-      span: 24,
-      type: 'select',
-      rules: [{ required: true, message: '不能为空', trigger: 'change' }],
-      dicData: [],
-    },
-    {
-      label: '事项名称',
-      prop: 'matName',
-      span: 24,
-      rules: [{ required: true, message: '不能为空', trigger: 'blur' }],
-      maxlength: 100,
-    },
-    {
-      label: '事项编码',
-      prop: 'matCode',
-      span: 24,
-      rules: [{ required: true, message: '不能为空', trigger: 'blur' }],
-      maxlength: 50,
-    },
-    {
-      label: '事项类别',
-      prop: 'types',
-      span: 24,
-      type: 'cascader',
-      rules: [{ required: true, message: '不能为空', trigger: 'change' }],
-      dicData: [],
-    },
-    {
-      label: '申请理由',
-      prop: 'applyReason',
-      span: 24,
-      type: 'textarea',
-      rules: [{ required: true, message: '不能为空', trigger: 'blur' }],
-      maxlength: 2000,
-    },
+export const initFormData = () => {
+  return {
+    id: '',
+    name: '',
+  }
+}
+
+export const rules = {
+  name: [
+    { required: true, message: '请输入组织名称', trigger: 'blur' },
+    { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' },
   ],
 }

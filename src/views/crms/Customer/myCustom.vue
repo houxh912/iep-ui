@@ -32,7 +32,7 @@
       <template slot="before-columns">
         <el-table-column label="客户名称" width="150px">
           <template slot-scope="scope">
-            <span>{{scope.row.name}}</span>
+            <span class="custom-name" @click="customDetail(scope.row)">{{scope.row.name}}</span>
           </template>
         </el-table-column>
       </template>
@@ -45,6 +45,8 @@
         </template>
       </el-table-column>
     </iep-table>
+    <main-form-dialog ref="mainDialog" @load-page="loadPage"></main-form-dialog>
+    <custom-detail ref="detailDialog"></custom-detail>
   </div>
 </template>
 
@@ -56,11 +58,13 @@ import OperationWrapper from '@/components/Operation/Wrapper'
 import mixins from './mixins'
 import { allTableOption } from './const/index'
 import { fetchList } from '@/api/crms/custom'
+import mainFormDialog from './mainDialog'
+import CustomDetail from './detail/index'
 
 export default {
   name: 'custom',
   mixins: [mixins],
-  components: { OperationContainer, OperationSearch, IepTable, OperationWrapper },
+  components: { OperationContainer, OperationSearch, IepTable, OperationWrapper, mainFormDialog, CustomDetail },
   computed: {},
   data () {
     return {
@@ -69,7 +73,11 @@ export default {
     }
   },
   methods: {
-    handleAdd () {},
+    handleAdd () {
+      this.$refs['mainDialog'].methodName = '新增'
+      this.$refs['mainDialog'].formRequestFn = () => {}
+      this.$refs['mainDialog'].dialogShow = true
+    },
     handleEdit () {},
     handleDeleteById () {},
     selectionChange (val) {
@@ -78,6 +86,16 @@ export default {
     loadPage (param) {
       this.loadTable(param, fetchList)
     },
+    customDetail (row) {
+      this.$refs.detailDialog.open(row)
+    },
   },
 }
 </script>
+
+<style lang="scss">
+.custom-name {
+  cursor: pointer;
+  text-decoration: underline;
+}
+</style>

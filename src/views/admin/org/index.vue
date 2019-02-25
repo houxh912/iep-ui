@@ -16,7 +16,17 @@
           </el-dropdown> -->
         </template>
         <template slot="right">
-          <operation-search @search="search"></operation-search>
+          <operation-search @search="searchPage" advance-search>
+            <el-form :model="paramForm" label-width="80px" size="mini">
+              <el-form-item label="组织名称">
+                <el-input v-model="paramForm.name"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="searchPage">搜索</el-button>
+                <el-button @click="clearSearchParam">清空</el-button>
+              </el-form-item>
+            </el-form>
+          </operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
@@ -64,9 +74,9 @@ import {
   fetchList,
   reviewById,
 } from '@/api/admin/org'
-import { dictsMap, columnsMap, initOrgForm } from './options'
+import { dictsMap, columnsMap, initOrgForm, initOrgSearchForm } from './options'
 import { mergeByFirst } from '@/util/util'
-import mixins from './mixins'
+import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
   components: { PageHeader, IepTable, OperationWrapper, OperationContainer, OperationSearch, AddDialogForm, PersonDialogForm },
@@ -74,12 +84,16 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      paramForm: initOrgSearchForm(),
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
+    clearSearchParam () {
+      this.paramForm = initOrgSearchForm()
+    },
     handlePerson (row) {
       this.$refs['personDialogForm'].orgId = row.orgId
       this.$refs['personDialogForm'].dialogShow = true
@@ -104,7 +118,7 @@ export default {
         this.loadPage()
       })
     },
-    loadPage (param) {
+    loadPage (param = this.paramForm) {
       this.loadTable(param, fetchList)
     },
   },

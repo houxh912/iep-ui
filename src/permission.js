@@ -23,10 +23,8 @@ router.beforeEach((to, from, next) => {
     menuPathList,
     menu,
     mainMenu,
-    userInfo,
     otherMenus,
   } = store.getters
-  console.log(userInfo)
   // 缓冲设置
   // if (
   //   to.meta.keepAlive === true &&

@@ -1,191 +1,111 @@
 <template>
-  <div class="app-container calendar-list-container">
+  <div>
     <basic-container>
-      <avue-crud :option="tableOption" :data="list" ref="crud" :page="page" v-model="form" :table-loading="listLoading" @on-load="getList" @search-change="handleFilter" @refresh-change="handleRefreshChange" @row-update="update" @row-save="create">
-        <template slot="menuLeft">
-          <el-button v-if="orgManager_btn_add" class="filter-item" @click="handleCreate" size="small" type="primary" icon="el-icon-edit">添加
-          </el-button>
-        </template>
-        <template slot="dsScopeForm">
-          <div v-if="form.dsType == 1">
-            <el-tree class="filter-tree" :data="dsScopeData" :check-strictly="true" node-key="id" highlight-current :props="defaultProps" ref="scopeTree" :default-checked-keys="checkedDsScope" show-checkbox>
-            </el-tree>
-          </div>
-        </template>
-
-        <template slot-scope="scope" slot="name">
-          <span>{{scope.row.name}}</span>
-        </template>
-
-        <template slot="menu" slot-scope="scope">
-          <el-button size="mini" type="text" icon="el-icon-edit" v-if="orgManager_btn_edit" @click="handleUpdate(scope.row, scope.index)">编辑
-          </el-button>
-          <el-button size="mini" type="text" icon="el-icon-delete" v-if="orgManager_btn_del" @click="handleDelete(scope.row, scope.index)">删除
-          </el-button>
-          <el-button size="mini" type="text" icon="el-icon-plus" @click="handlePerson(scope.row, scope.index)">成员
-          </el-button>
-          <el-dropdown v-if="scope.row.status===1" size="medium" @command="handleCommand($event, scope.row.orgId)">
-            <span class="el-dropdown-link">
-              <i class="el-icon-share"></i>
-              审核<i class="el-icon-arrow-down el-icon--right"></i>
-            </span>
+      <page-header title="组织管理"></page-header>
+      <operation-container>
+        <template slot="left">
+          <el-button @click="handleAdd" size="small">添加组织</el-button>
+          <!-- <el-dropdown size="medium">
+            <el-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></el-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="pass">通过</el-dropdown-item>
-              <el-dropdown-item command="reject">驳回</el-dropdown-item>
+              <el-dropdown-item>删除</el-dropdown-item>
+              <el-dropdown-item divided>导入</el-dropdown-item>
+              <el-dropdown-item>导出</el-dropdown-item>
+              <el-dropdown-item>分享</el-dropdown-item>
             </el-dropdown-menu>
-          </el-dropdown>
+          </el-dropdown> -->
         </template>
-      </avue-crud>
+        <template slot="right">
+          <operation-search @search="search"></operation-search>
+        </template>
+      </operation-container>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
+        <template slot="before-columns">
+          <el-table-column label="组织名称" width="150px">
+            <template slot-scope="scope">
+              <span>{{scope.row.name}}</span>
+            </template>
+          </el-table-column>
+        </template>
+        <el-table-column prop="operation" label="操作" min-width="160">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <el-button @click="handleEdit(scope.row)" size="small">编辑</el-button>
+              <el-button @click="handleDeleteById(scope.row)" size="small">删除</el-button>
+              <el-button @click="handlePerson(scope.row, scope.index)" size="small">人员</el-button>
+              <el-dropdown size="medium" @command="handleReview($event, scope.row.orgId)">
+                <el-button size="small" type="default">审核<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item command="pass">通过</el-dropdown-item>
+                  <el-dropdown-item command="reject">驳回</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
+      </iep-table>
     </basic-container>
-    <el-dialog title="提示" :visible.sync="dialogVisible" width="50%">
-      <review-person v-if="dialogVisible" :orgId="currentOrgId"></review-person>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-      </span>
-    </el-dialog>
+    <add-dialog-form ref="addDialogForm" @load-page="loadPage"></add-dialog-form>
+    <person-dialog-form ref="personDialogForm" @load-page="loadPage"></person-dialog-form>
   </div>
 </template>
-
 <script>
+import PageHeader from '@/components/Page/Header'
+import OperationSearch from '@/components/Operation/Search'
+import IepTable from '@/components/IepTable/'
+import OperationWrapper from '@/components/Operation/Wrapper'
+import AddDialogForm from './AddDialogForm'
+import PersonDialogForm from './PersonDialogForm'
+import OperationContainer from '@/components/Operation/Container'
 import {
   addObj,
+  putObj,
   delObj,
   fetchList,
-  putObj,
   reviewById,
 } from '@/api/admin/org'
-import reviewPerson from './person'
-import { tableOption } from '@/const/crud/admin/org'
-import { mapGetters } from 'vuex'
-
+import { dictsMap, columnsMap, initOrgForm } from './options'
+import { mergeByFirst } from '@/util/util'
+import mixins from './mixins'
 export default {
-  name: 'TableOrg',
-  components: { reviewPerson },
+  mixins: [mixins],
+  components: { PageHeader, IepTable, OperationWrapper, OperationContainer, OperationSearch, AddDialogForm, PersonDialogForm },
   data () {
     return {
-      tableOption: tableOption,
-      page: {
-        total: 0, // 总页数
-        currentPage: 1, // 当前页数
-        pageSize: 20, // 每页显示多少条
-      },
-      list: [],
-      currentOrgId: 0,
-      dialogVisible: false,
-      listLoading: true,
-      form: {},
-      orgId: undefined,
-      orgManager_btn_add: false,
-      orgManager_btn_edit: false,
-      orgManager_btn_del: false,
+      dictsMap,
+      columnsMap,
     }
   },
   created () {
-    this.orgManager_btn_add = this.permissions['sys_org_add']
-    this.orgManager_btn_edit = this.permissions['sys_org_edit']
-    this.orgManager_btn_del = this.permissions['sys_org_del']
-  },
-  computed: {
-    ...mapGetters(['elements', 'permissions']),
+    this.loadPage()
   },
   methods: {
     handlePerson (row) {
-      this.dialogVisible = true
-      this.currentOrgId = row.orgId
+      this.$refs['personDialogForm'].orgId = row.orgId
+      this.$refs['personDialogForm'].dialogShow = true
+      this.$refs['personDialogForm'].load()
     },
-    handleCommand (command, id) {
+    handleDeleteById (row) {
+      this._handleGlobalDeleteById(row.id, delObj)
+    },
+    handleEdit (row) {
+      this.$refs['addDialogForm'].orgForm = mergeByFirst(initOrgForm(), row)
+      this.$refs['addDialogForm'].methodName = '修改'
+      this.$refs['addDialogForm'].formRequestFn = putObj
+      this.$refs['addDialogForm'].dialogShow = true
+    },
+    handleAdd () {
+      this.$refs['addDialogForm'].methodName = '创建'
+      this.$refs['addDialogForm'].formRequestFn = addObj
+      this.$refs['addDialogForm'].dialogShow = true
+    },
+    handleReview (id, command) {
       reviewById(id, command).then(() => {
-        this.getList(this.page)
+        this.loadPage()
       })
     },
-    getList (page, params) {
-      this.listLoading = true
-      fetchList(
-        Object.assign(
-          {
-            current: page.currentPage,
-            size: page.pageSize,
-          },
-          params
-        )
-      ).then(response => {
-        this.list = response.data.data.records
-        this.page.total = response.data.data.total
-        this.listLoading = false
-      })
-    },
-    handleRefreshChange () {
-      this.getList(this.page)
-    },
-    handleFilter (param) {
-      this.page.page = 1
-      this.getList(this.page, param)
-    },
-    handleCreate () {
-      this.$refs.crud.rowAdd()
-    },
-    handleUpdate (row, index) {
-      this.$refs.crud.rowEdit(row, index)
-    },
-    handleDelete (row, index) {
-      var _this = this
-      this.$confirm(
-        '是否确认删除名称为"' + row.orgName + '"' + '"的数据项?',
-        '警告',
-        {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-        }
-      )
-        .then(function () {
-          return delObj(row.orgId)
-        })
-        .then(() => {
-          this.getList(this.page)
-          this.list.splice(index, 1)
-          _this.$message({
-            showClose: true,
-            message: '删除成功',
-            type: 'success',
-          })
-        })
-        .catch(function () { })
-    },
-    create (row, done, loading) {
-      addObj(this.form)
-        .then(() => {
-          this.getList(this.page)
-          done()
-          this.$notify({
-            title: '成功',
-            message: '创建成功',
-            type: 'success',
-            duration: 2000,
-          })
-        })
-        .catch(() => {
-          loading()
-        })
-    },
-    update (row, index, done, loading) {
-      if (this.form.dsType === 1) {
-        this.form.dsScope = this.$refs.scopeTree.getCheckedKeys().join(',')
-      }
-      putObj(this.form)
-        .then(() => {
-          this.getList(this.page)
-          done()
-          this.$notify({
-            title: '成功',
-            message: '修改成功',
-            type: 'success',
-            duration: 2000,
-          })
-        })
-        .catch(() => {
-          loading()
-        })
+    loadPage (param) {
+      this.loadTable(param, fetchList)
     },
   },
 }

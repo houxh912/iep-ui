@@ -13,7 +13,8 @@
       <div class="center">
         <h4>组织动态</h4>
         <div class="">
-          <log-list :log-list="data.logList"></log-list>
+          <log-list :log-list="tenLogList"></log-list>
+          <el-button v-if="!isListMore" @click="handleListMore" type="text">展开更多>>></el-button>
         </div>
       </div>
     </div>
@@ -59,13 +60,15 @@
 import { orgDetail, gomsOpen } from '@/api/admin/org'
 import { handleImg } from '@/util/util'
 import LogList from './LogList'
+import take from 'lodash/take'
 export default {
   components: { LogList },
   data () {
     return {
       value2: true,
+      isListMore: false,
+      tenLogList: [],
       data: { 'orgName': '杜照鸿的组织', 'logo': 'image-cde6b6e3b38e4526b24f2bee00e7c15b.jpg', 'realName': '超级管理员', 'logList': [{ 'id': 2, 'userId': 8, 'targetUserId': 0, 'time': '2019-02-22 17:11:03', 'description': '$申请加入组织。,张超', 'orgId': 8 }], 'memberNum': 2, 'applyUserNum': 1, 'deptNum': 0, 'managerList': [{ 'userId': 10, 'username': 'duzhaohong', 'realName': '杜照鸿', 'password': '$2a$10$u6D83/lGaENUrMp7FgvDLezaeVSXHUJl3NwgYL/AI26FdYAcA5Ncq', 'safePassword': '', 'createTime': '2019-02-20 11:38:33', 'updateTime': '2019-02-23 16:19:48', 'delFlag': '0', 'lockFlag': '0', 'avatar': 'image-cde6b6e3b38e4526b24f2bee00e7c15b.jpg', 'phone': '11011011011', 'orgId': 8, 'deptId': 13, 'tenantId': 1, 'wxOpenid': null, 'qqOpenid': null }], 'isOpen': 0 },
-      formatLogList: [],
       managerList: [],
     }
   },
@@ -78,20 +81,14 @@ export default {
     },
   },
   methods: {
+    handleListMore () {
+      this.isListMore = true
+      this.tenLogList = this.data.logList
+    },
     load () {
       orgDetail().then((res) => {
         this.data = res.data.data
-        const logList = res.data.data.logList
-        const log = logList.map(m => {
-          const str = m.description
-          const strArr = str.split(',')
-          let templateStr = strArr.shift()
-          strArr.forEach(n => {
-            templateStr = templateStr.replace(/\$/g, n)
-          })
-          return templateStr
-        })
-        this.formatLogList = log
+        this.tenLogList = take(res.data.data.logList, 15)
         this.managerList = this.data.managerList.filter(m => m)
         this.managerList.forEach((m, i) => {
           handleImg(m.avatar, 'avatar' + i)

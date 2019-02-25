@@ -41,4 +41,10 @@ const initOrgForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initOrgForm }
+const initOrgSearchForm = () => {
+  return {
+    name: '',
+  }
+}
+
+export { dictsMap, columnsMap, initOrgForm, initOrgSearchForm }

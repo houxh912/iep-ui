@@ -16,7 +16,23 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search></operation-search>
+          <operation-search @search="searchPage" advance-search>
+            <el-form :model="paramForm" label-width="80px" size="mini">
+              <el-form-item label="员工姓名">
+                <el-input v-model="paramForm.name"></el-input>
+              </el-form-item>
+              <el-form-item label="性别">
+                <el-radio-group v-model="paramForm.sex">
+                  <el-radio label="男"></el-radio>
+                  <el-radio label="女"></el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="searchPage">搜索</el-button>
+                <el-button @click="clearSearchParam">清空</el-button>
+              </el-form-item>
+            </el-form>
+          </operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
@@ -65,39 +81,14 @@ import OperationWrapper from '@/components/Operation/Wrapper'
 import OperationContainer from '@/components/Operation/Container'
 import { getEmployeeProfilePage } from '@/api/hrms/employee_profile'
 import mixins from '@/mixins/mixins'
+import { columnsMap, initSearchForm } from './options'
 export default {
   mixins: [mixins],
   components: { PageHeader, IepTable, OperationWrapper, OperationContainer, OperationSearch },
   data () {
     return {
-      columnsMap: [
-        {
-          prop: '性别',
-          label: '性别',
-          width: 55,
-        },
-        {
-          prop: '部门',
-          label: '部门',
-        },
-        {
-          prop: '入职时间',
-          label: '入职时间',
-        },
-        {
-          prop: '员工状态',
-          label: '员工状态',
-        },
-        {
-          prop: '岗位',
-          label: '岗位',
-        },
-        {
-          prop: '身份证号码',
-          label: '身份证号码',
-          minWidth: 120,
-        },
-      ],
+      columnsMap,
+      paramForm: initSearchForm(),
       replaceText: (data) => `（本周新增${data[0]}位正式员工，新增${data[1]}位实习生，离职${data[2]}人）`,
     }
   },
@@ -105,6 +96,9 @@ export default {
     this.loadPage()
   },
   methods: {
+    clearSearchParam () {
+      this.paramForm = initSearchForm()
+    },
     loadPage (param) {
       this.loadTable(param, getEmployeeProfilePage)
     },

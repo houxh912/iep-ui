@@ -29,7 +29,7 @@
       <div class="manager">
         <p>组织管理员</p>
         <div class="manager-avatar">
-          <div class="avatar" v-for="item in managerList" :key="item.userId"><img :src="item.avatar" id="avatar" alt="">{{item.realName}}</div>
+          <div class="avatar" v-for="(item,index) in managerList" :key="item.userId"><img class="avatar-img" :src="item.avatar" :id="`avatar${index}`" alt="">{{item.realName}}</div>
         </div>
       </div>
       <div class="function">
@@ -87,9 +87,10 @@ export default {
         console.log(this.data)
         this.formatLogList = log
         this.managerList = this.data.managerList.filter(m => m)
-        console.log(this.managerList.avatar)
+        this.managerList.forEach((m, i) => {
+          handleImg(m.avatar, 'avatar' + i)
+        })
         handleImg(this.data.logo, 'logo')
-        handleImg(this.managerList.avatar, 'avatar')
       })
     },
   },
@@ -164,9 +165,9 @@ export default {
           margin-top: 25px;
           margin-right: auto;
           text-align: center;
-          border-radius: 50%;
-          img {
+          .avatar-img {
             width: 100%;
+            border-radius: 50%;
           }
         }
       }

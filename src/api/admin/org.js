@@ -37,6 +37,16 @@ export function delObj (id) {
     method: 'post',
   })
 }
+export function delGomsUser (id, orgId) {
+  return request({
+    url: '/admin/org/org/fire',
+    method: 'post',
+    data: [{
+      id,
+      orgId,
+    }],
+  })
+}
 
 export function reviewById (id, command) {
   return request({
@@ -89,3 +99,18 @@ export function gomsUserPage (query) {
     params: query,
   })
 }
+
+export function usesLock (id) {
+  return request({
+    url: `/admin/org/lock/${id}`,
+    method: 'post',
+    data: id,
+  })
+}
+export function usesUnLock (id) {
+  return request({
+    url: `/admin//org/unlock/${id}`,
+    method: 'post',
+    data: id,
+  })
+} 

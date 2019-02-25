@@ -8,6 +8,14 @@ const dictsMap = {
   },
 }
 
+const optionMap = [{
+  label: '锁定',
+  value: 2,
+}, {
+  label: '解锁',
+  value: 0,
+}]
+
 const columnsMap = [
   {
     prop: 'realName',
@@ -28,4 +36,11 @@ const columnsMap = [
   },
 ]
 
-export { dictsMap, columnsMap }
+const initSearchForm = () => {
+  return {
+    name: '',
+  }
+}
+
+
+export { dictsMap, columnsMap, optionMap, initSearchForm }

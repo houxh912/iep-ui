@@ -17,7 +17,7 @@ export default {
     }
   },
   methods: {
-    search () {
+    searchPage () {
       this.pageOption = pageOption()
       this.loadPage()
     },

@@ -16,7 +16,7 @@
           </el-dropdown> -->
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
+          <operation-search @search="searchPage" :paramForm="paramForm" advance-search>
             <el-form :model="paramForm" label-width="80px" size="mini">
               <el-form-item label="组织名称">
                 <el-input v-model="paramForm.name"></el-input>

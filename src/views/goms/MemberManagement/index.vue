@@ -56,6 +56,7 @@ import IepTable from '@/components/IepTable/'
 import PageHeader from '@/components/Page/Header'
 import OperationContainer from '@/components/Operation/Container'
 import OperationSearch from '@/components/Operation/Search'
+import OperationWrapper from '@/components/Operation/Wrapper'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -75,6 +76,7 @@ export default {
     PageHeader,
     OperationContainer,
     OperationSearch,
+    OperationWrapper,
     IepTable,
   },
   methods: {

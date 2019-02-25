@@ -124,6 +124,7 @@ export default {
   .right {
     background-color: #fafafa;
     border-left: solid 1px #d8d4d4;
+    flex: 0 0 240px;
     .right-top {
       border-bottom: solid 1px #d8d4d4;
       margin-right: 10px;

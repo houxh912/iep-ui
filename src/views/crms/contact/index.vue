@@ -30,7 +30,7 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <add-dialog-form ref="addDialogForm" @load-page="loadPage"></add-dialog-form>
+    <main-dialog ref="addDialogForm" @load-page="loadPage"></main-dialog>
   </div>
 </template>
 <script>
@@ -39,17 +39,17 @@ import OperationContainer from '@/components/Operation/Container'
 import OperationSearch from '@/components/Operation/Search'
 import IepTable from '@/components/IepTable/'
 import OperationWrapper from '@/components/Operation/Wrapper'
-import AddDialogForm from '@/views/admin/org/AddDialogForm'
-import { addObj, putObj, delObj, fetchList, reviewById } from '@/api/admin/org'
-import { dictsMap, columnsMap, initOrgForm } from './const.js'
-import { mergeByFirst } from '@/util/util'
 import mixins from '@/views/admin/org/mixins'
+import MainDialog from './mainDialog'
+import { addObj, putObj, delObj, fetchList, reviewById } from '@/api/admin/org'
+import { columnsMap, initForm } from './const.js'
+import { mergeByFirst } from '@/util/util'
 export default {
   mixins: [mixins],
-  components: { PageHeader, IepTable, OperationWrapper, OperationContainer, OperationSearch, AddDialogForm },
+  components: { PageHeader, IepTable, OperationWrapper, OperationContainer, OperationSearch, MainDialog },
   data () {
     return {
-      dictsMap,
+      dictsMap: {},
       columnsMap,
     }
   },
@@ -61,7 +61,7 @@ export default {
       this._handleGlobalDeleteById(row.id, delObj)
     },
     handleEdit (row) {
-      this.$refs['addDialogForm'].orgForm = mergeByFirst(initOrgForm(), row)
+      this.$refs['addDialogForm'].orgForm = mergeByFirst(initForm(), row)
       this.$refs['addDialogForm'].methodName = '修改'
       this.$refs['addDialogForm'].formRequestFn = putObj
       this.$refs['addDialogForm'].dialogShow = true

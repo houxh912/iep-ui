@@ -1,16 +1,3 @@
-// org config options
-export const dictsMap = {
-  isOpen: {
-    0: '开',
-    1: '关',
-  },
-  status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
-  },
-}
-
 export const columnsMap = [
   {
     prop: 'intro',
@@ -26,7 +13,7 @@ export const columnsMap = [
   },
 ]
 
-export const initOrgForm = () => {
+export const initForm = () => {
   return {
     name: '',
     isOpen: false,

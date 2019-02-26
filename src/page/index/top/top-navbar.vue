@@ -2,7 +2,7 @@
   <div class="nav">
     <div class="left">
       <div class="navbar">
-        <div class="navItem" v-show="showItem">
+        <div class="navItem" v-if="showItem">
           <div class="inline" :class="classIndex==index?'active':''" v-for="(item,index) in navList" :key="index" @click="handelSelect(index)">{{item.name}}</div>
         </div>
         <div class="showItem" @click="showItem=!showItem"><i class="el-icon-tickets"></i></div>
@@ -24,6 +24,8 @@ export default {
       classIndex: 1,
       inputValue: '',
       showItem: false,
+      // 节流，防抖变量
+      timer:null,
       screenWidth: document.body.clientWidth,
       navList: [{ name: '首页' }, { name: '国脉人' }, { name: '要闻' }, { name: '资源' }, { name: '数据' }, { name: '财富' }, { name: '学院' }],
       options: [{
@@ -53,27 +55,35 @@ export default {
     },
   },
   created () {
-    if (this.screenWidth >= 769) {
-      this.showItem = true
-    } else { this.showItem = false }
+    this.$nextTick(()=>{
+      if (this.screenWidth >= 769) {
+        this.showItem = true
+      } else { 
+        this.showItem = false 
+      }
+    })
   },
   mounted () {
     const that = this
-    window.onresize = () => {
+    window.addEventListener('resize', function () {
       return (() => {
-        window.screenWidth = document.body.clientWidth
-        that.screenWidth = window.screenWidth
+        window.screenWidth= document.body.clientWidth
+        that.screenWidth= window.screenWidth
       })()
-    }
+    })
   },
   watch: {
     screenWidth (val) {
+      if (this.screenWidth >= 769) {
+        this.showItem = true
+      } else { 
+        this.showItem = false 
+      }
       if (!this.timer) {
         this.screenWidth = val
         this.timer = true
         let that = this
         setTimeout(function () {
-          that.init()
           that.timer = false
         }, 400)
       }
@@ -122,8 +132,8 @@ export default {
     .el-select {
       width: 180px !important;
       padding: 0 20px;
-      position: absolute;
-      right: 0;
+      // position: absolute;
+      // right: 0;
     }
     .left {
       height: 100%;

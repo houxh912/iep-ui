@@ -36,6 +36,17 @@ const columnsMap = [
   },
 ]
 
+const initGomsForm = () => {
+  return {
+    username: '',
+    realName: '',
+    roleList: [],
+    phone: '',
+    orgNames: [],
+  }
+}
+
+
 const initSearchForm = () => {
   return {
     name: '',
@@ -43,4 +54,4 @@ const initSearchForm = () => {
 }
 
 
-export { dictsMap, columnsMap, optionMap, initSearchForm }
+export { dictsMap, columnsMap, optionMap, initSearchForm, initGomsForm }

@@ -37,16 +37,6 @@ export function delObj (id) {
     method: 'post',
   })
 }
-export function delGomsUser (id, orgId) {
-  return request({
-    url: '/admin/org/org/fire',
-    method: 'post',
-    data: [{
-      id,
-      orgId,
-    }],
-  })
-}
 
 export function reviewById (id, command) {
   return request({
@@ -107,10 +97,53 @@ export function usesLock (id) {
     data: id,
   })
 }
-export function usesUnLock (id) {
+export function gomsPass (id) {
   return request({
-    url: `/admin//org/unlock/${id}`,
+    url: `/admin/org/pass/join/${id}`,
     method: 'post',
     data: id,
   })
-} 
+}
+export function gomsReject (id) {
+  return request({
+    url: `/admin/org/reject/join/${id}`,
+    method: 'post',
+    data: id,
+  })
+}
+export function usesUnLock (id) {
+  return request({
+    url: `/admin/org/unlock/${id}`,
+    method: 'post',
+    data: id,
+  })
+}
+export function delGomsUser (id) {
+  return request({
+    url: `/admin/org/fire/${id}`,
+    method: 'post',
+    data: id,
+  })
+}
+
+export function delAllGomsUser (ids) {
+  return request({
+    url: '/admin/org/fires',
+    method: 'post',
+    data: ids,
+  })
+}
+export function updateGomsUser (obj) {
+  return request({
+    url: '/admin/org/update/user/role',
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function putGoms () {
+  return request({
+    url: '/admin/role/org/list',
+    method: 'get',
+  })
+}

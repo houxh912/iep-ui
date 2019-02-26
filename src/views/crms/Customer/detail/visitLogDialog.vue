@@ -18,8 +18,8 @@
       </el-table-column>
     </el-table>
     <el-row class="add-visit">
-      <el-span class="right button"><i class="el-icon-plus"></i> 拜访日志</el-span>
-      <el-span class="left button"><i class="el-icon-plus"></i> 联系记录</el-span>
+      <el-col class="right button"><i class="el-icon-plus"></i> 拜访日志</el-col>
+      <el-col class="left button"><i class="el-icon-plus"></i> 联系记录</el-col>
     </el-row>
   </div>
 </template>

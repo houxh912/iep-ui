@@ -18,8 +18,8 @@
       <el-tab-pane label="联系人" name="contacts">
         <contacts-dislog :formData="formData"></contacts-dislog>
       </el-tab-pane>
-      <el-tab-pane label="拜访日志" name="VisitLog">
-        拜访日志
+      <el-tab-pane label="拜访日志" name="visitLog">
+        <visit-log-dialog :formData="formData"></visit-log-dialog>
       </el-tab-pane>
       <el-tab-pane label="方案" name="programme">
         方案
@@ -27,8 +27,8 @@
       <el-tab-pane label="合同" name="contract">
         合同
       </el-tab-pane>
-      <el-tab-pane label="咨询" name="consultation">
-        咨询
+      <el-tab-pane label="资讯" name="consultation">
+        <consultation-dialog :formData="formData"></consultation-dialog>
       </el-tab-pane>
     </el-tabs>
   </iep-dialog>
@@ -38,9 +38,11 @@
 import IepDialog from '@/components/IepDialog/'
 import DetailDialog from './detailDialog'
 import ContactsDislog from './contactsDislog'
+import VisitLogDialog from './visitLogDialog'
+import ConsultationDialog from './consultationDialog'
 export default {
   name: 'detail',
-  components: { IepDialog, DetailDialog, ContactsDislog },
+  components: { IepDialog, DetailDialog, ContactsDislog, VisitLogDialog, ConsultationDialog },
   data () {
     return {
       dialogShow: false,
@@ -67,7 +69,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .head-info {
   display: flex;
   margin-bottom: 20px;

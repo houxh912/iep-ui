@@ -1,5 +1,5 @@
 <template>
-  <div class="contacts">
+  <div class="visitLog">
     <el-table
      :data="tableData">
       <el-table-column
@@ -17,28 +17,30 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="add-contacts"><i class="el-icon-plus"></i> 添加联系人</div>
+    <el-row class="add-visit">
+      <el-span class="right button"><i class="el-icon-plus"></i> 拜访日志</el-span>
+      <el-span class="left button"><i class="el-icon-plus"></i> 联系记录</el-span>
+    </el-row>
   </div>
 </template>
 
 <script>
 import OperationWrapper from '@/components/Operation/Wrapper'
 export default {
-  name: 'contacts',
+  name: 'visitLog',
   components: { OperationWrapper },
   data () {
     return {
       isLoadTable: false,
       tableData: [
-        { id:1, name: '马云' },
-        { id:2, name: '丁磊' },
-        { id:3, name: '马化腾' },
+        { id:1, name: '拜访日志1' },
+        { id:2, name: '拜访日志2' },
+        { id:3, name: '拜访日志3' },
       ],
       columnsMap: [
-        { label: '联系人姓名', prop: 'name' },
-        { label: '联系人职务', prop: 'zhiwu' },
-        { label: '关联职务', prop: 'guanlian' },
-        { label: '电话', prop: 'tel' },
+        { label: '主题', prop: 'name' },
+        { label: '拜访时间', prop: 'zhiwu' },
+        { label: '类型', prop: 'guanlian' },
       ],
     }
   },
@@ -50,13 +52,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.contacts {
-  .add-contacts {
+.visitLog {
+  .add-visit {
     text-align: center;
     height: 40px;
     line-height: 40px;
     border-bottom: 1px solid #ececec;
-    cursor: pointer;
+    .button {
+      cursor: pointer;
+      padding: 5px;
+      margin: 0 20px;
+    }
+    .right {
+      text-align: right;
+      color: #db7a7e;
+    }
+    .left {
+      text-align: left;
+    }
   }
 }
 </style>

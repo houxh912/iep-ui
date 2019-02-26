@@ -10,7 +10,7 @@
           <div>
             <el-input placeholder="请输入内容" v-model="input5" class="input-with-select" size="small" prefix-icon="el-icon-search">
               <template slot="append">
-                <span class="search">搜索 </span>
+                <span class="search">搜索</span>
                 <el-dropdown class="icon">
                   <span class="el-dropdown-link">
                     <i class="el-icon-arrow-down el-icon--right"></i>
@@ -111,9 +111,6 @@ export default {
   },
   created () {
     this.loadPage()
-    // this.dataa = data
-    console.log(getAdmniList)
-
   },
   methods: {
     // handleShare (row) { },
@@ -125,7 +122,6 @@ export default {
     },
     handleCommandUser () {
       // console.log(val)
-
     },
   },
 }

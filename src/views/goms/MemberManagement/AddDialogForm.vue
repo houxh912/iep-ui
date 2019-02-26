@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`成员信息`" width="35%" @load="loadPage" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}成员信息`" width="35%" @close="loadPage" @slot-mounted="load">
     <el-form :model="gomsForm" ref="gomsForm" label-width="100px">
       <el-form-item>
         <img :src="gomsForm.avatar" alt="" id="avatar">
@@ -11,21 +11,21 @@
         <el-input v-model="gomsForm.realName" disabled></el-input>
       </el-form-item>
       <el-form-item label="配置角色：" prop="role">
-        <el-select v-model="roleList.roleName" multiple placeholder="请选择">
-          <el-option v-for="role in roleList" :key="role.roleId" :label="role.label" :value="role.value">
+        <el-select v-model="gomsForm.roleList" multiple placeholder="请选择">
+          <el-option v-for="role in roleList" :key="role.roleId" :label="role.roleName" :value="role.roleId">
           </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="手机：" prop="phone">
-        <el-input type="textarea" v-model="gomsForm.phone" disabled></el-input>
+        <el-input v-model="gomsForm.phone" disabled></el-input>
       </el-form-item>
       <el-form-item label="所属组织：" prop="orgNames">
         <li v-for="item in gomsForm.orgNames" :key="item">{{item}}</li>
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <el-button @click="updateForm('gomsForm')">保存</el-button>
-      <el-button @click="handleCancel()">取消</el-button>
+      <el-button @click="updateForm()">保存</el-button>
+      <el-button @click="loadPage">取消</el-button>
     </template>
   </iep-dialog>
 </template>
@@ -47,42 +47,33 @@ export default {
       formRequestFn: () => { },
       methodName: '创建',
       gomsForm: initGomsForm(),
-      role: [],
       orgNames: [],
       rolesOptions: [],
       roleList: [],
-      roleProps: {
-        label: 'roleName',
-        value: 'roleId',
-      },
     }
   },
   methods: {
+    load () {
+      putGoms().then((res) => {
+        this.roleList = res.data.data
+      })
+      handleImg(this.gomsForm.avatar, 'avatar')
+    },
     loadPage () {
       this.gomsForm = initGomsForm()
       this.dialogShow = false
       this.$emit('load-page')
-      putGoms().then((res) => {
-        this.roleList = res.data.data
-      })
-      console.log(this.gomsForm.avatar)
-      handleImg(this.gomsForm.avatar, 'avatar')
     },
     roleSelect () {
       console.log(this.roleList.roleId)
     },
-    updateForm (formName) {
-      this.$refs[formName].resetFields()
+    updateForm () {
       updateGomsUser({
-        userId: this.$refs[formName].userId,
-        roleIds: [this.roleList.roleId],
+        userId: this.gomsForm.userId,
+        roleIds: this.gomsForm.roleList,
       }).then(() => {
-        this.load()
+        this.loadPage()
       })
-      console.log(this.$refs[formName].validate())
-    },
-    handleCancel () {
-      this.$emit('close')
     },
   },
 }

@@ -39,9 +39,9 @@
                 <el-button size="small" type="default">更多<i class="el-icon-arrow-down el-icon--right"></i></el-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item v-if="!([1].includes(scope.row.status))">查看</el-dropdown-item>
-                  <el-dropdown-item v-if="!([1].includes(scope.row.status))" @click="handleDeleteById(scope.row)">删除</el-dropdown-item>
-                  <el-dropdown-item v-if="([1].includes(scope.row.status))" @click="handlePassById(scope.row)">通过</el-dropdown-item>
-                  <el-dropdown-item v-if="([1].includes(scope.row.status))" @click="handleRejectById(scope.row)">不通过</el-dropdown-item>
+                  <el-dropdown-item v-if="!([1].includes(scope.row.status))" @click.native="handleDeleteById(scope.row)">删除</el-dropdown-item>
+                  <el-dropdown-item v-if="([1].includes(scope.row.status))" @click.native="handlePassById(scope.row)">通过</el-dropdown-item>
+                  <el-dropdown-item v-if="([1].includes(scope.row.status))" @click.native="handleRejectById(scope.row)">不通过</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
@@ -49,7 +49,7 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <add-dialog-form ref="addDialogForm" :load-imgae="loadImage" @load-page="loadPage"></add-dialog-form>
+    <add-dialog-form ref="addDialogForm" @load-page="loadPage"></add-dialog-form>
     <batch-review-confirm ref="batchReviewForm" @load-page="loadPage"></batch-review-confirm>
   </div>
 </template>
@@ -101,6 +101,7 @@ export default {
       this._handleGlobalDeleteAll(delAllGomsUser)
     },
     handleEdit (row) {
+      row.roleList = row.roleList.map(m => m.roleId)
       this.$refs['addDialogForm'].gomsForm = mergeByFirst(initGomsForm(), row)
       this.$refs['addDialogForm'].methodName = '编辑'
       this.$refs['addDialogForm'].formRequestFn = putGoms
@@ -175,10 +176,8 @@ export default {
       this.loadTable(param, gomsUserPage)
       orgDetail().then((res) => {
         this.formData = res.data.data
-        this.loadImage = this.formData.avatar
         this.data = [this.formData.memberNum, this.formData.applyUserNum]
       })
-      console.log(this.formData.managerList)
     },
   },
 }

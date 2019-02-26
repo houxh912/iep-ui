@@ -6,6 +6,7 @@
 <style lang="scss" scoped>
 .operation-wrapper > * {
   margin-right: 5px;
+  margin-bottom: 5px;
   &:last-child {
     margin-right: 0;
   }

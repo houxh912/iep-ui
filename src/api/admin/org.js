@@ -89,6 +89,13 @@ export function gomsUserPage (query) {
     params: query,
   })
 }
+export function gomsRolePage (query) {
+  return request({
+    url: '/admin/role/org/page',
+    method: 'get',
+    params: query,
+  })
+}
 
 export function usesLock (id) {
   return request({

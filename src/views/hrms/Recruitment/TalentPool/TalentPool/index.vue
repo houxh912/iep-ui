@@ -2,9 +2,9 @@
   <div>
     <operation-container>
       <template slot="left">
-        <el-button @click="(scope.row)" size="small">表头设置</el-button>
+        <iep-button @click="(scope.row)" type="danger">新增</iep-button>
         <el-dropdown size="medium">
-          <el-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+          <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>删除</el-dropdown-item>
             <el-dropdown-item divided>导入</el-dropdown-item>
@@ -45,9 +45,9 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <el-dropdown size="medium">
-              <el-button size="small" type="default">
+              <iep-button size="small" type="default">
                 变更<i class="el-icon-arrow-down el-icon--right"></i>
-              </el-button>
+              </iep-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>入职</el-dropdown-item>
                 <el-dropdown-item>转正</el-dropdown-item>
@@ -55,9 +55,9 @@
                 <el-dropdown-item>离职</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <el-button @click="(scope.row)" size="small">成长档案</el-button>
+            <iep-button @click="(scope.row)">成长档案</iep-button>
             <el-dropdown size="medium">
-              <el-button size="small" type="default"><i class="el-icon-more-outline"></i></el-button>
+              <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>修改</el-dropdown-item>
                 <el-dropdown-item>删除</el-dropdown-item>

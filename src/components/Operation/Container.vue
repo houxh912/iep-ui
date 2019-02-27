@@ -14,11 +14,16 @@
   justify-content: space-between;
   margin-top: 15px;
   margin-bottom: 15px;
-  & > div * {
+  & > div > * {
     margin-right: 5px;
     &:last-child {
       margin-right: 0;
     }
   }
+}
+</style>
+<style scoped>
+.operation-container > div >>> .el-button + .el-button {
+  margin-left: 0;
 }
 </style>

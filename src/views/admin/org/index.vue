@@ -4,7 +4,7 @@
       <page-header title="组织管理"></page-header>
       <operation-container>
         <template slot="left">
-          <el-button @click="handleAdd" size="small">添加组织</el-button>
+          <iep-button @click="handleAdd" type="danger">添加组织</iep-button>
           <!-- <el-dropdown size="medium">
             <el-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></el-button>
             <el-dropdown-menu slot="dropdown">
@@ -17,7 +17,7 @@
         </template>
         <template slot="right">
           <operation-search @search="searchPage" :paramForm="paramForm" advance-search>
-            <el-form :model="paramForm" label-width="80px" size="mini">
+            <el-form :model="paramForm" label-width="80px" size="small">
               <el-form-item label="组织名称">
                 <el-input v-model="paramForm.name"></el-input>
               </el-form-item>
@@ -40,11 +40,11 @@
         <el-table-column prop="operation" label="操作" min-width="160">
           <template slot-scope="scope">
             <operation-wrapper>
-              <el-button @click="handleEdit(scope.row)" size="small">编辑</el-button>
-              <el-button @click="handleDeleteById(scope.row)" size="small">删除</el-button>
-              <el-button @click="handlePerson(scope.row, scope.index)" size="small">人员</el-button>
+              <iep-button type="warning" @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+              <iep-button @click="handlePerson(scope.row, scope.index)">人员</iep-button>
               <el-dropdown size="medium" @command="handleReview($event, scope.row.orgId)">
-                <el-button size="small" type="default">审核<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+                <iep-button type="default">审核<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item command="pass">通过</el-dropdown-item>
                   <el-dropdown-item command="reject">驳回</el-dropdown-item>
@@ -92,7 +92,6 @@ export default {
     handlePerson (row) {
       this.$refs['personDialogForm'].orgId = row.orgId
       this.$refs['personDialogForm'].dialogShow = true
-      this.$refs['personDialogForm'].load()
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.id, delObj)

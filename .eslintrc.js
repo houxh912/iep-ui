@@ -13,7 +13,7 @@ module.exports = {
         // singleQuote: true,
         bracketSpacing: true,
         jsxBracketSameLine: true,
-        parser: 'babylon',
+        parser: 'babel',
         insertPragma: true,
         requirePragma: true,
       },

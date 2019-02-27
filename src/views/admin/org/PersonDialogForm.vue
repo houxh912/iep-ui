@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="组织人员" width="50%" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="组织人员" width="50%" @close="loadPage" @slot-mounted="load">
     <el-table :data="tableData" style="width: 100%">
       <el-table-column prop="username" label="姓名" width="180">
       </el-table-column>

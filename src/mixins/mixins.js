@@ -1,3 +1,9 @@
+import OperationContainer from '@/components/Operation/Container'
+import PageHeader from '@/components/Page/Header'
+import OperationSearch from '@/components/Operation/Search'
+import IepTable from '@/components/IepTable/'
+import OperationWrapper from '@/components/Operation/Wrapper'
+
 const optNameMap = {
   delete: '删除',
 }
@@ -8,6 +14,9 @@ function pageOption () {
   }
 }
 export default {
+  components: {
+    PageHeader, IepTable, OperationWrapper, OperationContainer, OperationSearch,
+  },
   data () {
     return {
       pagedTable: [],

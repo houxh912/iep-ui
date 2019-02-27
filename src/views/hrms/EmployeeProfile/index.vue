@@ -59,7 +59,7 @@
               </el-dropdown>
               <el-button @click="(scope.row)" size="small">成长档案</el-button>
               <el-dropdown size="medium">
-                <el-button size="small" type="default">...</el-button>
+                <el-button size="small" type="default"><i class="el-icon-more-outline"></i></el-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item>修改</el-dropdown-item>
                   <el-dropdown-item>删除</el-dropdown-item>
@@ -74,17 +74,11 @@
   </div>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
-import OperationSearch from '@/components/Operation/Search'
-import IepTable from '@/components/IepTable/'
-import OperationWrapper from '@/components/Operation/Wrapper'
-import OperationContainer from '@/components/Operation/Container'
 import { getEmployeeProfilePage } from '@/api/hrms/employee_profile'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from './options'
 export default {
   mixins: [mixins],
-  components: { PageHeader, IepTable, OperationWrapper, OperationContainer, OperationSearch },
   data () {
     return {
       columnsMap,

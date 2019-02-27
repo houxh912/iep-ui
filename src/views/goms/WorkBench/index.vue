@@ -14,7 +14,7 @@
         <h4>组织动态</h4>
         <div class="">
           <log-list :log-list="tenLogList"></log-list>
-          <el-button v-if="!isListMore" @click="handleListMore" type="text">展开更多>>></el-button>
+          <el-button v-if="!isListMore && data.logList.length>15" @click="handleListMore" type="text">展开更多>>></el-button>
         </div>
       </div>
     </div>

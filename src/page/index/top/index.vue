@@ -25,13 +25,10 @@
         </el-dropdown>
       </div>
     </div>
+    <div class="center">
+      <navbar></navbar>
+    </div>
     <div class="top-right">
-      <div class="top-title">
-        <!-- <div class="top-bar__item top-bar__item--show" v-if="showMenu">
-        <top-menu></top-menu>
-      </div> -->
-        <navbar></navbar>
-      </div>
       <div class="top-msg">
         <div class="sss">
           <div class="item">
@@ -70,7 +67,6 @@
         </el-dropdown>
       </div>
     </div>
-
   </div>
 </template>
 <script>
@@ -161,32 +157,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.logo-wrapper {
-  margin: 13px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .el-dropdown-link {
-    color: #424242;
-    padding-left: 5px;
-  }
-  .logo {
-    cursor: pointer;
-    width: 90px;
-    height: 38px;
-    background-image: url("/img/logo.png");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-  }
-  .logo-text {
-    margin-left: 10px;
-    font-size: 18px;
-  }
-}
 .top {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: #fff;
   border-bottom: 1px solid #eee;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
@@ -194,56 +165,88 @@ export default {
   height: 64px;
   box-sizing: border-box;
   white-space: nowrap;
-}
-.top-left {
-  flex: 0 0 240px;
-}
-.top-right {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  // font-family: "黑体";
-  .top-title {
-    display: block;
-    width: 100%;
+  position: relative;
+  .top-left {
+    width: 240px;
+    height: 100%;
+    // background: #ccc;
+    position: absolute;
+    left: 0;
+    top: 0;
+    .logo-wrapper {
+      margin: 13px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .el-dropdown-link {
+        color: #424242;
+        padding-left: 5px;
+      }
+      .logo {
+        cursor: pointer;
+        width: 90px;
+        height: 38px;
+        background-image: url("/img/logo.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
+      .logo-text {
+        margin-left: 10px;
+        font-size: 18px;
+      }
+    }
   }
-  .top-msg {
-    flex: 0 0 300px;
-    display: flex;
-    align-items: center;
-    > div {
-      flex-grow: 1;
-    }
-    .item {
-      display: inline-block;
-      padding: 0 10px;
-      font-size: 20px;
-      position: relative;
-      .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 12px;
-        position: absolute;
-        top: 2px;
-        right: 0;
+  .center {
+    height: 100%;
+    // background: #222;
+    margin: 0 300px 0 240px;
+  }
+  .top-right {
+    width: 300px;
+    height: 100%;
+    // background: #444;
+    position: absolute;
+    right: 0;
+    top: 0;
+    .top-msg {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      > div {
+        flex-grow: 1;
       }
-      .dot1 {
-        background: #bf051a;
+      .item {
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 20px;
+        position: relative;
+        .dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 12px;
+          position: absolute;
+          top: 2px;
+          right: 0;
+        }
+        .dot1 {
+          background: #bf051a;
+        }
+        .dot2 {
+          background: #ff9d4c;
+        }
+        .dot3 {
+          background: #ffc34a;
+        }
       }
-      .dot2 {
-        background: #ff9d4c;
+      .el-dropdown-link {
+        color: #6c6c6c;
       }
-      .dot3 {
-        background: #ffc34a;
-      }
-    }
-    .el-dropdown-link {
-      color: #6c6c6c;
     }
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 1024px) and (max-width: 1200px) {
   .top-left {
     flex: 0 0 150px;
     .logo-wrapper {
@@ -268,7 +271,7 @@ export default {
     }
   }
 }
-@media screen and (max-width: 769px) {
+@media screen and (max-width: 1024px) {
   .top-left {
     flex: 0 0 150px;
     .logo-wrapper {

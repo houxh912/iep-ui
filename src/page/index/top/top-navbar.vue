@@ -1,11 +1,11 @@
 <template>
   <div class="nav">
-    <div class="left">
-      <div class="navbar">
-        <div class="navItem" v-if="showItem">
-          <div class="inline" :class="classIndex==index?'active':''" v-for="(item,index) in navList" :key="index" @click="handelSelect(index)">{{item.name}}</div>
-        </div>
-        <div class="showItem" @click="showItem=!showItem"><i class="el-icon-tickets"></i></div>
+    <div class="navbar">
+      <div class="navItem" v-if="showItem">
+        <div class="inline" :class="classIndex==index?'active':''" v-for="(item,index) in navList" :key="index" @click="handelSelect(index)">{{item.name}}</div>
+      </div>
+      <!-- <div class="showItem" @click="showItem=!showItem"><i class="el-icon-tickets"></i></div> -->
+      <div class="searchBar">
         <div class="search" @click="search"><i class="el-icon-search"></i></div>
         <el-select v-model="value8" filterable size="mini">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
@@ -25,7 +25,7 @@ export default {
       inputValue: '',
       showItem: false,
       // 节流，防抖变量
-      timer:null,
+      timer: null,
       screenWidth: document.body.clientWidth,
       navList: [{ name: '首页' }, { name: '国脉人' }, { name: '要闻' }, { name: '资源' }, { name: '数据' }, { name: '财富' }, { name: '学院' }],
       options: [{
@@ -55,11 +55,11 @@ export default {
     },
   },
   created () {
-    this.$nextTick(()=>{
+    this.$nextTick(() => {
       if (this.screenWidth >= 769) {
         this.showItem = true
-      } else { 
-        this.showItem = false 
+      } else {
+        this.showItem = false
       }
     })
   },
@@ -67,8 +67,8 @@ export default {
     const that = this
     window.addEventListener('resize', function () {
       return (() => {
-        window.screenWidth= document.body.clientWidth
-        that.screenWidth= window.screenWidth
+        window.screenWidth = document.body.clientWidth
+        that.screenWidth = window.screenWidth
       })()
     })
   },
@@ -76,8 +76,8 @@ export default {
     screenWidth (val) {
       if (this.screenWidth >= 769) {
         this.showItem = true
-      } else { 
-        this.showItem = false 
+      } else {
+        this.showItem = false
       }
       if (!this.timer) {
         this.screenWidth = val
@@ -92,31 +92,53 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .nav {
+  width: 100%;
   height: 100%;
   font-size: 16px;
   color: #444;
-  padding: 0 0 0 40px;
   .navbar {
     height: 100%;
+    width: 100%;
     position: relative;
-    display: flex;
-    .showItem {
-      width: 64px;
-      height: 64px;
-      background: #fafafa;
-      position: absolute;
-      top: -18px;
-      left: 0;
+    .navItem {
+      height: 100%;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      padding-right: 280px;
+      // padding: 0 10px;
+      box-sizing: border-box;
       text-align: center;
-      display: none;
-      font-size: 20px;
-      line-height: 64px;
+      div {
+        flex-grow: 1;
+      }
     }
+    .searchBar {
+      height: 100%;
+      width: 280px;
+      display: flex;
+      align-items: center;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+    // .showItem {
+    //   width: 64px;
+    //   height: 64px;
+    //   background: #fafafa;
+    //   position: absolute;
+    //   top: -18px;
+    //   left: 0;
+    //   text-align: center;
+    //   display: none;
+    //   font-size: 20px;
+    //   line-height: 64px;
+    // }
     .inline {
       display: inline-block;
-      padding: 3px 15px;
+      padding: 5px 0;
       margin: 0 15px;
       border-radius: 15px;
       cursor: pointer;
@@ -125,7 +147,7 @@ export default {
       }
     }
     .search {
-      display: inline-block;
+      // display: inline-block;
       padding: 0 20px;
       color: #444;
     }
@@ -134,11 +156,6 @@ export default {
       padding: 0 20px;
       // position: absolute;
       // right: 0;
-    }
-    .left {
-      height: 100%;
-      display: inline-block;
-      box-sizing: border-box;
     }
   }
 
@@ -152,16 +169,18 @@ export default {
 .el-scrollbar__wrap {
   overflow: auto !important;
 }
-@media screen and (max-width: 1026px) {
+@media (min-width: 1024px) and (max-width: 1200px) {
   .nav {
     font-size: 12px;
     .navbar {
-      .navItem {
-        display: block;
-      }
-      .inline {
-        margin: 0;
-        padding: 3px 15px;
+      .searchBar {
+        height: 100%;
+        width: 240px;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 0;
+        top: 0;
       }
       .el-select {
         width: 120px !important;
@@ -170,7 +189,7 @@ export default {
     }
   }
 }
-@media screen and (max-width: 769px) {
+@media (min-width: 767px) and (max-width: 1024px) {
   .nav {
     padding: 0;
     .navbar {

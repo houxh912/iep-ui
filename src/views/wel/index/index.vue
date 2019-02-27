@@ -95,14 +95,14 @@ export default {
     flex: 0 0 300px;
   }
 }
-@media (min-width: 769px) and (max-width: 1026px) {
+@media (min-width: 1024px) and (max-width: 1200px) {
   .wel-wrapper {
     .wel-aside {
       flex: 0 0 220px;
     }
   }
 }
-@media (min-width: 0px) and (max-width: 769px) {
+@media screen and (max-width: 1024px) {
   .wel-wrapper {
     .wel-content {
       display: block;

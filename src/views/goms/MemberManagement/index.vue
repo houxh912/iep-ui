@@ -101,7 +101,6 @@ export default {
       this._handleGlobalDeleteAll(delAllGomsUser)
     },
     handleEdit (row) {
-      row.roleList = row.roleList.map(m => m.roleId)
       this.$refs['addDialogForm'].gomsForm = mergeByFirst(initGomsForm(), row)
       this.$refs['addDialogForm'].methodName = '编辑'
       this.$refs['addDialogForm'].formRequestFn = putGoms

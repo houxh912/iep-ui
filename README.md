@@ -33,10 +33,15 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 | SideBar/MainItem | 主菜单            | ELAside        | 张超        |        |        |        |
 | Wel/WelAside     | 工作台/右侧操作栏 | Wel            | 重庆-谭建林 |        |        |        |
 | Wel/WelConTent   | 工作台/中间赋能台 | Wel            | 重庆-谭建林 |        |        |        |
-| Hrms             | 人力              | Views          | 张超        |        |        |        |
-| Crms             | 客户              | Views          | 胡争伟      |        |        |        |
-| Core             | 核心              | Views          | 张超        |        |        |        |
+| Hrms             | 人力(5000)        | Views          | 张超        |        |        |        |
+| Crms             | 客户(6000)        | Views          | 胡争伟      |        |        |        |
+| Core             | 核心(10000)       | Views          | 张超        |        |        |        |
+| Goms             | 组织(7000)        | Views          | 张超        |        |        |        |
 | App              | 游客展示页        | Views          | Undefined   |        |        |        |
+
+## Element-ui 主题管理
+
+详见 package.json script
 
 ## Git 管理必读
 

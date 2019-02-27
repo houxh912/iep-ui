@@ -51,7 +51,6 @@ export default {
     }
   },
   methods: {
-
     toggleFullscreen () {
       this.fullscreen = !this.fullscreen
     },
@@ -68,6 +67,13 @@ export default {
     },
     close () {
       this.$emit('close', false)
+    },
+  },
+  watch: {
+    dialogShow (n) {
+      if (n) {
+        this.$emit('slot-mounted')
+      }
     },
   },
 }

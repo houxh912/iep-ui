@@ -16,16 +16,15 @@
 </template>
 
 <script>
-import PageHeader from '@/components/Page/Header'
-import mixin from '@/mixins/mixin'
+import mixins from '@/mixins/mixins'
 import allCustomTab from './allCustom'
 import myCustomTab from './myCustom'
 import cooperationTab from './cooperation'
 
 export default {
   name: 'Demand',
-  mixins: [mixin],
-  components: { PageHeader, allCustomTab, myCustomTab, cooperationTab },
+  mixins: [mixins],
+  components: { allCustomTab, myCustomTab, cooperationTab },
   computed: {
   },
   data () {

@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="right">
-        <operation-search @search="search"></operation-search>
+        <operation-search @search="searchPage"></operation-search>
       </template>
     </operation-container>
     <iep-table 
@@ -34,18 +34,14 @@
 </template>
 
 <script>
-import OperationContainer from '@/components/Operation/Container'
-import OperationSearch from '@/components/Operation/Search'
-import IepTable from '@/components/IepTable/'
-import OperationWrapper from '@/components/Operation/Wrapper'
-import mixins from './mixins'
+import mixins from '@/mixins/mixins'
 import { allTableOption } from './const/index'
 import { fetchList } from '@/api/crms/custom'
 
 export default {
   name: 'custom',
   mixins: [mixins],
-  components: { OperationContainer, OperationSearch, IepTable, OperationWrapper },
+  components: {  },
   computed: {},
   data () {
     return {

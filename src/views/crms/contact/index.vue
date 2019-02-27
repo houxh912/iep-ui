@@ -16,7 +16,7 @@
           </el-dropdown> -->
         </template>
         <template slot="right">
-          <operation-search @search="search"></operation-search>
+          <operation-search @search="searchPage"></operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
@@ -34,19 +34,14 @@
   </div>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
-import OperationContainer from '@/components/Operation/Container'
-import OperationSearch from '@/components/Operation/Search'
-import IepTable from '@/components/IepTable/'
-import OperationWrapper from '@/components/Operation/Wrapper'
-import mixins from '../Customer/mixins'
+import mixins from '@/mixins/mixins'
 import MainDialog from './mainDialog'
 import { addObj, putObj, delObj, fetchList, reviewById } from '@/api/admin/org'
 import { columnsMap, initForm } from './const.js'
 import { mergeByFirst } from '@/util/util'
 export default {
   mixins: [mixins],
-  components: { PageHeader, IepTable, OperationWrapper, OperationContainer, OperationSearch, MainDialog },
+  components: { MainDialog },
   data () {
     return {
       dictsMap: {},

@@ -49,13 +49,12 @@
 
 <script>
 import IepDialog from '@/components/IepDialog/'
-import OperationWrapper from '@/components/Operation/Wrapper'
 import { initVisitForm } from '../const/detail'
-import mixins from '../mixins'
+import mixins from '@/mixins/mixins'
 export default {
   name: 'visitLog',
   mixins: [ mixins ],
-  components: { OperationWrapper, IepDialog },
+  components: { IepDialog },
   data () {
     return {
       isLoadTable: false,

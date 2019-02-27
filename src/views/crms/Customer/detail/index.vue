@@ -40,7 +40,7 @@ import DetailDialog from './detailDialog'
 import ContactsDislog from './contactsDislog'
 import VisitLogDialog from './visitLogDialog'
 import ConsultationDialog from './consultationDialog'
-import mixins from '../mixins'
+import mixins from '@/mixins/mixins'
 export default {
   name: 'detail',
   mixins: [ mixins ],

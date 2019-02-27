@@ -78,8 +78,21 @@ export default {
       this.$refs['mainDialog'].formRequestFn = () => {}
       this.$refs['mainDialog'].dialogShow = true
     },
-    handleEdit () {},
-    handleDeleteById () {},
+    handleEdit () {
+      this.$refs['mainDialog'].methodName = '编辑'
+      this.$refs['mainDialog'].formRequestFn = () => {}
+      this.$refs['mainDialog'].dialogShow = true
+    },
+    handleDeleteById (row) {
+      let delFn = () => {
+        return {
+          then: () => {
+            this.$message.success('删除成功！')
+          },
+        }
+      }
+      this._handleGlobalDeleteById(row.id, delFn)
+    },
     selectionChange (val) {
       console.log('val: ', val)
     },

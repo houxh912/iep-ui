@@ -18,17 +18,44 @@
       </el-table-column>
     </el-table>
     <el-row class="add-visit">
-      <el-col class="right button"><i class="el-icon-plus"></i> 拜访日志</el-col>
-      <el-col class="left button"><i class="el-icon-plus"></i> 联系记录</el-col>
+      <el-col class="right button" :span=12>
+        <div @click="createdJournal"><i class="el-icon-plus"></i> 拜访日志</div>
+      </el-col>
+      <el-col class="left button" :span=12>
+        <div @click="createdRecord"><i class="el-icon-plus"></i> 联系记录</div>
+      </el-col>
     </el-row>
+
+    <iep-dialog :dialog-show="dialogShow" :title="`${methodName}拜访记录`" width="60%" @close="loadPage">
+      <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
+        <el-form-item label="主题：" prop="zhuti">
+          <el-input v-model="formData.zhuti"></el-input>
+        </el-form-item>
+        <el-form-item label="拜访时间：" prop="shijian">
+          <el-input v-model="formData.shijian"></el-input>
+        </el-form-item>
+        <el-form-item label="拜访记录：" prop="jilu">
+          <el-input type="textarea" v-model="formData.jilu"></el-input>
+        </el-form-item>
+      </el-form>
+      <template slot="footer">
+        <el-button type="primary" @click="submitForm('form')">{{methodName}}</el-button>
+        <el-button @click="loadPage">取消</el-button>
+      </template>
+    </iep-dialog>
+
   </div>
 </template>
 
 <script>
+import IepDialog from '@/components/IepDialog/'
 import OperationWrapper from '@/components/Operation/Wrapper'
+import { initVisitForm } from '../const/detail'
+import mixins from '../mixins'
 export default {
   name: 'visitLog',
-  components: { OperationWrapper },
+  mixins: [ mixins ],
+  components: { OperationWrapper, IepDialog },
   data () {
     return {
       isLoadTable: false,
@@ -42,10 +69,58 @@ export default {
         { label: '拜访时间', prop: 'zhiwu' },
         { label: '类型', prop: 'guanlian' },
       ],
+      formData: {},
+      rules: {},
+      methodName: '',
+      dialogShow: false,
+      dicData: [
+        { value: 1, label: '选项1' },
+        { value: 2, label: '选项2' },
+      ],
     }
   },
   methods: {
     getList () {
+    },
+    createdRecord () {
+      this.dialogShow = true
+      this.methodName = '新增'
+    },
+    createdJournal () {},
+    handleEdit () {
+      this.dialogShow = true
+      this.methodName = '编辑'
+    },
+    handleDeleteById (row) {
+      let delFn = () => {
+        return {
+          then: () => {
+            this.$message.success('删除成功！')
+          },
+        }
+      }
+      this._handleGlobalDeleteById(row.id, delFn)
+    },
+    loadPage () {
+      this.formData = initVisitForm()
+      this.dialogShow = false
+    },
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.formRequestFn(this.formData).then(() => {
+            this.$notify({
+              title: '成功',
+              message: `${this.methodName}成功`,
+              type: 'success',
+              duration: 2000,
+            })
+            this.loadPage()
+          })
+        } else {
+          return false
+        }
+      })
     },
   },
 }
@@ -61,7 +136,6 @@ export default {
     .button {
       cursor: pointer;
       padding: 5px;
-      margin: 0 20px;
     }
     .right {
       text-align: right;

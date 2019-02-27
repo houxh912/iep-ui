@@ -12,12 +12,31 @@
         </div>
       </div>
     </div>
+    <div class="add-consulta" @click="created"><i class="el-icon-plus"></i> 添加资讯</div>
+    
+    <iep-dialog :dialog-show="dialogShow" :title="`${methodName}资讯`" width="60%" @close="loadPage">
+      <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
+        <el-form-item label="标题：" prop="biaoti">
+          <el-input v-model="formData.biaoti"></el-input>
+        </el-form-item>
+        <el-form-item label="内容：" prop="neirong">
+          <el-input type="textarea" v-model="formData.neirong"></el-input>
+        </el-form-item>
+      </el-form>
+      <template slot="footer">
+        <el-button type="primary" @click="submitForm('form')">{{methodName}}</el-button>
+        <el-button @click="loadPage">取消</el-button>
+      </template>
+    </iep-dialog>
   </div>
 </template>
 
 <script>
+import IepDialog from '@/components/IepDialog/'
+import { initConsultaForm } from '../const/detail'
 export default {
   name: 'consultation',
+  components: { IepDialog },
   data () {
     return {
       list: [
@@ -35,7 +54,42 @@ export default {
           msg: '这是一段描述这是一段描述这是一段描述这是一段描述这是一段描述这是一段描述这是一段描述，这是一段描述这是一段描述这是一段描述，这是一段描述这是一段描述这是一段描述这是一段描述，这是一段描述这是一段描述这是一段描述',
         },
       ],
+      formData: {},
+      rules: {},
+      methodName: '',
+      dialogShow: false,
+      dicData: [
+        { value: 1, label: '选项1' },
+        { value: 2, label: '选项2' },
+      ],
     }
+  },
+  methods: {
+    created () {
+      this.dialogShow = true
+      this.methodName = '新增'
+    },
+    loadPage () {
+      this.formData = initConsultaForm()
+      this.dialogShow = false
+    },
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.formRequestFn(this.formData).then(() => {
+            this.$notify({
+              title: '成功',
+              message: `${this.methodName}成功`,
+              type: 'success',
+              duration: 2000,
+            })
+            this.loadPage()
+          })
+        } else {
+          return false
+        }
+      })
+    },
   },
 }
 </script>
@@ -64,6 +118,13 @@ export default {
         }
       }
     }
+  }
+  .add-consulta {
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #ececec;
+    cursor: pointer;
   }
 }
 </style>

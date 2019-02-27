@@ -6,20 +6,20 @@
       <p class="title">协作人：<span class="person">{{formData.xiezuoren}}</span></p>
     </div>
     <div class="head-button">
-      <el-tag class="tabs" type="danger">暂无需求</el-tag>
-      <el-tag class="tabs" type="danger">转移给他人</el-tag>
-      <el-tag class="tabs" type="danger">编辑</el-tag>
-      <el-tag class="tabs" type="danger">删除</el-tag>
+      <el-button class="tabs" type="danger" size="small">暂无需求</el-button>
+      <el-button class="tabs" type="danger" size="small" @click="transfer">转移给他人</el-button>
+      <el-button class="tabs" type="danger" size="small" @click="handleUpdate">编辑</el-button>
+      <el-button class="tabs" type="danger" size="small" @click="handleDelete">删除</el-button>
     </div>
     <el-tabs v-model="tabName" @tab-click="change">
       <el-tab-pane label="客户全景" name="detail">
-        <detail-dialog :formData="formData"></detail-dialog>
+        <detail-dialog :list="formData"></detail-dialog>
       </el-tab-pane>
       <el-tab-pane label="联系人" name="contacts">
-        <contacts-dislog :formData="formData"></contacts-dislog>
+        <contacts-dislog :list="formData"></contacts-dislog>
       </el-tab-pane>
       <el-tab-pane label="拜访日志" name="visitLog">
-        <visit-log-dialog :formData="formData"></visit-log-dialog>
+        <visit-log-dialog :list="formData"></visit-log-dialog>
       </el-tab-pane>
       <el-tab-pane label="方案" name="programme">
         方案
@@ -28,7 +28,7 @@
         合同
       </el-tab-pane>
       <el-tab-pane label="资讯" name="consultation">
-        <consultation-dialog :formData="formData"></consultation-dialog>
+        <consultation-dialog :list="formData"></consultation-dialog>
       </el-tab-pane>
     </el-tabs>
   </iep-dialog>
@@ -40,8 +40,10 @@ import DetailDialog from './detailDialog'
 import ContactsDislog from './contactsDislog'
 import VisitLogDialog from './visitLogDialog'
 import ConsultationDialog from './consultationDialog'
+import mixins from '../mixins'
 export default {
   name: 'detail',
+  mixins: [ mixins ],
   components: { IepDialog, DetailDialog, ContactsDislog, VisitLogDialog, ConsultationDialog },
   data () {
     return {
@@ -64,6 +66,25 @@ export default {
     change () {},
     closed () {
       this.dialogShow = false
+    },
+    // 转移
+    transfer () {
+      this.$message('转移给他人')
+    },
+    // 编辑
+    handleUpdate () {
+      this.$message('编辑')
+    },
+    // 删除
+    handleDelete (row) {
+      let delFn = () => {
+        return {
+          then: () => {
+            this.$message.success('删除成功！')
+          },
+        }
+      }
+      this._handleGlobalDeleteById(row.id, delFn)
     },
   },
 }
@@ -93,6 +114,7 @@ export default {
   .tabs {
     margin-right: 15px;
     background-color: #fff;
+    color: #f00;
   }
 }
 </style>

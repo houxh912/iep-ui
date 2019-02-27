@@ -21,7 +21,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="用户名" width="150px">
             <template slot-scope="scope">
@@ -96,9 +96,6 @@ export default {
       this.$refs['addDialogForm'].formRequestFn = putGoms
       this.$refs['addDialogForm'].dialogShow = true
     },
-    handleCurrentChange (val) {
-      this.mutipleSelection = val.map(m => m.id)
-    },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.userId, delGomsUser)
     },
@@ -160,6 +157,9 @@ export default {
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()
+    },
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.userId)
     },
     loadPage (param = this.paramForm) {
       this.loadTable(param, gomsUserPage)

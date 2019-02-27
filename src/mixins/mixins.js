@@ -21,7 +21,7 @@ export default {
   data () {
     return {
       pagedTable: [],
-      mutipleSelection: [],
+      multipleSelection: [],
       isLoadTable: true,
       pagination: pageOption(),
       pageOption: pageOption(),

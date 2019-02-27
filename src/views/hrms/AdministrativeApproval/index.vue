@@ -126,15 +126,7 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-.operation-container {
-  .el-button {
-    background: #fdf5f4;
-    border: 1px solid #e59a9e;
-    color: #e59a9e;
-  }
-}
+<style lang="scss" scoped>
 .el-table__column-filter-trigger {
   font-size: 20px;
 }

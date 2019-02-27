@@ -11,7 +11,7 @@
           <span slot="title" :class="{ 'el-menu--display': collapse && first }">{{ item[labelKey] }}</span>
         </template>
         <template v-for="(child, cindex) in item[childrenKey]">
-          <el-menu-item :index="'' + child[pathKey] + cindex" @click="open(child)" :class="{ 'is-active': vaildAvtive(child) }" v-if="validatenull(child[childrenKey])" :key="child[labelKey]">
+          <el-menu-item :index="'' + child[pathKey]" @click="open(child)" :class="{ 'is-active': vaildAvtive(child) }" v-if="validatenull(child[childrenKey])" :key="child[labelKey]">
             <i :class="child[iconKey]"></i>
             <span slot="title">{{ child[labelKey] }}</span>
           </el-menu-item>

@@ -168,6 +168,10 @@ const user = {
         logout()
           .then(() => {
             commit('SET_MENU', [])
+            commit('SET_MAINMENU', {})
+            commit('SET_OTHERMENUS', [])
+            commit('SET_MENUSMAP', {})
+            commit('SET_MENUPATHLIST', [])
             commit('SET_PERMISSIONS', [])
             commit('SET_USER_INFO', {})
             commit('SET_ACCESS_TOKEN', '')

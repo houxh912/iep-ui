@@ -81,7 +81,7 @@ export default {
       })
     },
     _handleGlobalAll (optFunction, opt = 'delete') {
-      let Ids = this.mutipleSelection
+      let Ids = this.multipleSelection
       const optName = optNameMap[opt]
       if (Ids === undefined || Ids.length === 0) {
         this.$message(`请先选择需要${optName}的选项`)

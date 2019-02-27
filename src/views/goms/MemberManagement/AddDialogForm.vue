@@ -1,9 +1,9 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}成员信息`" width="35%" @close="loadPage" @slot-mounted="load">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}成员信息`" width="25%" @close="loadPage" @slot-mounted="load">
+    <div class="avatar" style="text-align: center;margin-bottom:20px;">
+      <img :src="gomsForm.avatar" alt="" id="avatar" style="width:100px;border-radius:50%;">
+    </div>
     <el-form :model="gomsForm" ref="gomsForm" label-width="100px">
-      <el-form-item>
-        <img :src="gomsForm.avatar" alt="" id="avatar">
-      </el-form-item>
       <el-form-item label="用户名：" prop="username">
         <el-input v-model="gomsForm.username" disabled></el-input>
       </el-form-item>

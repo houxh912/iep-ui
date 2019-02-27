@@ -147,3 +147,9 @@ export function putGoms () {
     method: 'get',
   })
 }
+export function getGomsInfo (id) {
+  return request({
+    url: `/admin/org/${id}`,
+    method: 'get',
+  })
+}

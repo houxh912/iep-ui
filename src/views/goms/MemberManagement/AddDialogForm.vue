@@ -70,7 +70,7 @@ export default {
     updateForm () {
       updateGomsUser({
         userId: this.gomsForm.userId,
-        role: this.gomsForm.roleList,
+        roleIds: this.gomsForm.roleList,
       }).then(() => {
         this.loadPage()
       })

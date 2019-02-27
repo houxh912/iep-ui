@@ -59,11 +59,6 @@ import { dictsMap, columnsMap, initSearchForm, optionMap, initGomsForm } from '.
 import AddDialogForm from './AddDialogForm'
 import batchReviewConfirm from './BatchReviewConfirm'
 import { orgDetail, gomsUserPage, delGomsUser, usesLock, usesUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
-import IepTable from '@/components/IepTable/'
-import PageHeader from '@/components/Page/Header'
-import OperationContainer from '@/components/Operation/Container'
-import OperationSearch from '@/components/Operation/Search'
-import OperationWrapper from '@/components/Operation/Wrapper'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -83,11 +78,6 @@ export default {
     this.loadPage()
   },
   components: {
-    PageHeader,
-    OperationContainer,
-    OperationSearch,
-    OperationWrapper,
-    IepTable,
     AddDialogForm,
     batchReviewConfirm,
   },

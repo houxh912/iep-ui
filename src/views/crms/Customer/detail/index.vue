@@ -22,7 +22,7 @@
         <visit-log-dialog :list="formData"></visit-log-dialog>
       </el-tab-pane>
       <el-tab-pane label="方案" name="programme">
-        方案
+        <programme-dialog :list=formData></programme-dialog>
       </el-tab-pane>
       <el-tab-pane label="合同" name="contract">
         合同
@@ -40,11 +40,12 @@ import DetailDialog from './detailDialog'
 import ContactsDislog from './contactsDislog'
 import VisitLogDialog from './visitLogDialog'
 import ConsultationDialog from './consultationDialog'
+import ProgrammeDialog from './programmeDialog'
 import mixins from '@/mixins/mixins'
 export default {
   name: 'detail',
   mixins: [ mixins ],
-  components: { IepDialog, DetailDialog, ContactsDislog, VisitLogDialog, ConsultationDialog },
+  components: { IepDialog, DetailDialog, ContactsDislog, VisitLogDialog, ConsultationDialog, ProgrammeDialog },
   data () {
     return {
       dialogShow: false,

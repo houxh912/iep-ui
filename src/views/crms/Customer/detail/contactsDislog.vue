@@ -19,7 +19,7 @@
     </el-table>
     <div class="add-contacts" @click="created"><i class="el-icon-plus"></i> 添加联系人</div>
 
-    <iep-dialog :dialog-show="dialogShow" :title="`${methodName}联系人`" width="60%" @close="loadPage">
+    <iep-dialog :dialog-show="dialogShow" :title="`${methodName}联系人`" width="60%" @close="resetForm">
       <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
         <el-row>
           <el-col :span=12>
@@ -86,7 +86,7 @@
       </el-form>
       <template slot="footer">
         <el-button type="primary" @click="submitForm('form')">{{methodName}}</el-button>
-        <el-button @click="loadPage">取消</el-button>
+        <el-button @click="resetForm">取消</el-button>
       </template>
     </iep-dialog>
 
@@ -126,7 +126,7 @@ export default {
     }
   },
   methods: {
-    getList () {
+    loadPage () {
     },
     created () {
       this.dialogShow = true
@@ -146,7 +146,7 @@ export default {
       }
       this._handleGlobalDeleteById(row.id, delFn)
     },
-    loadPage () {
+    resetForm () {
       this.formData = initContactForm()
       this.dialogShow = false
     },

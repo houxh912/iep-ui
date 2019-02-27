@@ -14,7 +14,7 @@
     </div>
     <div class="add-consulta" @click="created"><i class="el-icon-plus"></i> 添加资讯</div>
     
-    <iep-dialog :dialog-show="dialogShow" :title="`${methodName}资讯`" width="60%" @close="loadPage">
+    <iep-dialog :dialog-show="dialogShow" :title="`${methodName}资讯`" width="60%" @close="resetForm">
       <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
         <el-form-item label="标题：" prop="biaoti">
           <el-input v-model="formData.biaoti"></el-input>
@@ -25,7 +25,7 @@
       </el-form>
       <template slot="footer">
         <el-button type="primary" @click="submitForm('form')">{{methodName}}</el-button>
-        <el-button @click="loadPage">取消</el-button>
+        <el-button @click="resetForm">取消</el-button>
       </template>
     </iep-dialog>
   </div>
@@ -65,11 +65,12 @@ export default {
     }
   },
   methods: {
+    loadPage () {},
     created () {
       this.dialogShow = true
       this.methodName = '新增'
     },
-    loadPage () {
+    resetForm () {
       this.formData = initConsultaForm()
       this.dialogShow = false
     },

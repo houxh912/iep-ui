@@ -26,7 +26,7 @@
       </el-col>
     </el-row>
 
-    <iep-dialog :dialog-show="dialogShow" :title="`${methodName}拜访记录`" width="60%" @close="loadPage">
+    <iep-dialog :dialog-show="dialogShow" :title="`${methodName}拜访记录`" width="60%" @close="resetForm">
       <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
         <el-form-item label="主题：" prop="zhuti">
           <el-input v-model="formData.zhuti"></el-input>
@@ -40,7 +40,7 @@
       </el-form>
       <template slot="footer">
         <el-button type="primary" @click="submitForm('form')">{{methodName}}</el-button>
-        <el-button @click="loadPage">取消</el-button>
+        <el-button @click="resetForm">取消</el-button>
       </template>
     </iep-dialog>
 
@@ -79,7 +79,7 @@ export default {
     }
   },
   methods: {
-    getList () {
+    loadPage () {
     },
     createdRecord () {
       this.dialogShow = true
@@ -100,7 +100,7 @@ export default {
       }
       this._handleGlobalDeleteById(row.id, delFn)
     },
-    loadPage () {
+    resetForm () {
       this.formData = initVisitForm()
       this.dialogShow = false
     },

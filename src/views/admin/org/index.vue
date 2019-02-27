@@ -60,13 +60,8 @@
   </div>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
-import OperationSearch from '@/components/Operation/Search'
-import IepTable from '@/components/IepTable/'
-import OperationWrapper from '@/components/Operation/Wrapper'
 import AddDialogForm from './AddDialogForm'
 import PersonDialogForm from './PersonDialogForm'
-import OperationContainer from '@/components/Operation/Container'
 import {
   addObj,
   putObj,
@@ -79,7 +74,7 @@ import { mergeByFirst } from '@/util/util'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
-  components: { PageHeader, IepTable, OperationWrapper, OperationContainer, OperationSearch, AddDialogForm, PersonDialogForm },
+  components: { AddDialogForm, PersonDialogForm },
   data () {
     return {
       dictsMap,

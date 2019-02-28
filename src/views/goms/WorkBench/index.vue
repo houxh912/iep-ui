@@ -11,21 +11,21 @@
         </div>
       </div>
       <div class="center">
-        <h4>组织动态</h4>
-        <div class="">
+        <h4><span>组织动态</span><span class="notes">新申请<i>11</i></span></h4>
+        <div class="con">
           <log-list :log-list="tenLogList"></log-list>
-          <el-button v-if="!isListMore && data.logList.length>15" @click="handleListMore" type="text">展开更多>>></el-button>
+          <el-button class="text-btn" v-if="!isListMore && data.logList.length>15" @click="handleListMore" type="text">展开更多>>></el-button>
         </div>
       </div>
     </div>
     <div class="right">
       <div class="right-top">
-        <div><img class="img" :src="data.logo" alt="" id="logo"></div>
+        <div class="logo-item"><img class="img" :src="data.logo" alt="" id="logo"></div>
         <div class="img-text">{{data.orgName}}</div>
       </div>
       <div class="information">
-        <div class="info-text">成员数量：{{data.memberNum}}人（{{data.applyUserNum}}人申请）</div>
-        <div class="info-text">部门数量：{{data.deptNum}}个</div>
+        <div class="info-text"><i class="el-icon-star-off"></i>成员数量：{{data.memberNum}}人（{{data.applyUserNum}}人申请）</div>
+        <div class="info-text"><i class="el-icon-tickets"></i>部门数量：{{data.deptNum}}个</div>
       </div>
       <div class="manager">
         <p>组织管理员</p>
@@ -145,9 +145,44 @@ export default {
       }
       .title {
         margin-bottom: 20px;
+        font-size: 18px;
       }
       .message {
         margin-right: 20px;
+      }
+    }
+  }
+  .center {
+    h4 {
+      margin-bottom:10px;
+      font-size: 16px;
+      font-weight: 400;
+      span{
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .notes {
+        margin: 0 10px;
+        border-radius: 10px;
+        padding: 2px 10px;
+        font-size: 12px;
+        color: #666;
+        background-color: #f4f4f5;
+        i {
+          margin-left:2px;
+          font-style: normal;
+          color: #bf051a;
+        }
+      }
+    }
+    .con {
+      font-size: 14px;
+      color: #666;
+      .text-btn {
+        color: #999;
+        &:hover,&:focus{
+          color: #ccc;
+        }
       }
     }
   }
@@ -164,14 +199,18 @@ export default {
       text-align: center;
       .img-text {
         margin-top: 15px;
+        font-size: 14px;
+        i {
+          color: #6c6c6c;
+        }
       }
-      .img {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto;
-        border-radius: 50%;
-        img {
+      .logo-item {
+        padding: 30px 40px;
+        border: 1px solid #d7d7d7;
+        background-color: #fff;
+        .img {
           width: 100%;
+          margin: 0 auto;
         }
       }
     }
@@ -183,6 +222,13 @@ export default {
       .info-text {
         margin-left: 20px;
         margin-top: 10px;
+        font-size: 14px;
+        color: #666;
+        i {
+          margin-right: 5px;
+          font-size: 18px;
+          color: #999;
+        }
       }
     }
     .manager {
@@ -192,15 +238,18 @@ export default {
       height: 180px;
       .manager-avatar {
         display: flex;
-        padding-left: 15px;
+        justify-content: space-between;
         .avatar {
+          margin-right:10px;
+          margin-bottom:10px;
           width: 50px;
           height: 50px;
-          margin-top: 25px;
-          margin-right: auto;
           text-align: center;
+          border-radius: 50%;
+          border: 1px solid #d7d7d7;
           .avatar-img {
-            width: 100%;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
           }
         }

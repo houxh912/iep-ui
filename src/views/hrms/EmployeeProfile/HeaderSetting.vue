@@ -6,12 +6,13 @@
       <el-checkbox v-for="column in columnsOptions" :label="column" :key="column">{{column}}</el-checkbox>
     </el-checkbox-group>
     <template slot="footer">
-      <el-button type="primary" @click="save()">保存</el-button>
+      <iep-button type="primary" @click="save()">保存</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
 import IepDialog from '@/components/IepDialog/'
+import IepButton from '@/components/IepCommon/Button'
 export default {
   props: {
     defaultColumnsLabel: {
@@ -19,7 +20,7 @@ export default {
       required: true,
     },
   },
-  components: { IepDialog },
+  components: { IepDialog, IepButton },
   data () {
     return {
       dialogShow: false,

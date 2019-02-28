@@ -24,18 +24,19 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <el-button @click="updateForm()">保存</el-button>
-      <el-button @click="loadPage">取消</el-button>
+      <iep-button @click="updateForm()">保存</iep-button>
+      <iep-button @click="loadPage">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
 import { handleImg } from '@/util/util'
 import IepDialog from '@/components/IepDialog/'
+import IepButton from '@/components/IepCommon/Button'
 import { initGomsForm } from './options'
 import { putGoms, updateGomsUser } from '@/api/admin/org'
 export default {
-  components: { IepDialog },
+  components: { IepDialog, IepButton },
   props: {
     loadImage: {
       type: String,

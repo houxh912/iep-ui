@@ -4,28 +4,38 @@
       <el-radio :label="3">审核通过</el-radio>
       <el-radio :label="4">审核不通过</el-radio>
     </el-radio-group>
-    <div class="button-group">
-      <el-button type="primary" size="small" @click="handleSubmit">提交</el-button>
-      <el-button size="small" @click="handleCancel">取消</el-button>
-    </div>
+    <el-input v-if="status === 4" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="content">
+    </el-input>
+    <template slot="footer">
+      <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+      <iep-button @click="handleCancel">取消</iep-button>
+    </template>
   </iep-dialog>
 </template>
 <script>
+import IepButton from '@/components/IepCommon/Button'
 import IepDialog from '@/components/IepDialog/'
 export default {
-  components: { IepDialog },
+  components: { IepDialog, IepButton },
   data () {
     return {
       dialogShow: false,
-      status,
+      status: 1, // 待审核
+      content: '',
     }
   },
   methods: {
+    loadPage () {
+      this.status = 1
+      this.content = ''
+      this.dialogShow = false
+      this.$emit('load-page')
+    },
     handleSubmit () {
-
+      this.loadPage()
     },
     handleCancel () {
-
+      this.loadPage()
     },
   },
 }

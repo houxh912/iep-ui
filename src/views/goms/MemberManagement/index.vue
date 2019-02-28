@@ -4,8 +4,7 @@
       <page-header :title="formData.orgName" :replaceText="replaceText" :data="data"></page-header>
       <operation-container>
         <template slot="left">
-          <el-button @click="handleAdd()" size="small">批量审核</el-button>
-          <el-button @click="handleDel()" size="small">删除</el-button>
+          <iep-button @click="handleReview()">批量审核</iep-button>
         </template>
         <template slot="right">
           <operation-search @search="searchPage" :paramForm="paramForm" advance-search>
@@ -14,8 +13,8 @@
                 <el-input v-model="paramForm.name"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="searchPage">搜索</el-button>
-                <el-button @click="clearSearchParam">清空</el-button>
+                <iep-button type="primary" @click="searchPage">搜索</iep-button>
+                <iep-button @click="clearSearchParam">清空</iep-button>
               </el-form-item>
             </el-form>
           </operation-search>
@@ -32,11 +31,11 @@
         <el-table-column prop="operation" label="操作" min-width="160">
           <template slot-scope="scope">
             <operation-wrapper>
-              <el-button v-if="!([1].includes(scope.row.status))" @click="handleEdit(scope.row)" size="small">编辑</el-button>
-              <el-button v-if="scope.row.status===0" @click="handleLocking(scope.row)" size="small">锁定</el-button>
-              <el-button v-else-if="scope.row.status===2" @click="handleLocking(scope.row)" size="small">解锁</el-button>
+              <iep-button v-if="!([1].includes(scope.row.status))" @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button v-if="scope.row.status===0" @click="handleLocking(scope.row)">锁定</iep-button>
+              <iep-button v-else-if="scope.row.status===2" @click="handleLocking(scope.row)">解锁</iep-button>
               <el-dropdown size="medium">
-                <el-button size="small" type="default">更多<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+                <iep-button type="default">更多<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item v-if="!([1].includes(scope.row.status))">查看</el-dropdown-item>
                   <el-dropdown-item v-if="!([1].includes(scope.row.status))" @click.native="handleDeleteById(scope.row)">删除</el-dropdown-item>
@@ -58,7 +57,7 @@ import { mergeByFirst } from '@/util/util'
 import { dictsMap, columnsMap, initSearchForm, optionMap, initGomsForm } from './options'
 import AddDialogForm from './AddDialogForm'
 import batchReviewConfirm from './BatchReviewConfirm'
-import { orgDetail, gomsUserPage, delGomsUser, usesLock, usesUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
+import { orgDetail, gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -71,7 +70,7 @@ export default {
       loadImage: '',
       paramForm: initSearchForm(),
       replaceText: (data) => ` 共${data[0]}个成员(其中${data[1]}个待审核)`,
-      formData: { 'orgName': '杜照鸿的组织', 'logo': 'image-cde6b6e3b38e4526b24f2bee00e7c15b.jpg', 'realName': '超级管理员', 'logList': [{ 'id': 2, 'userId': 8, 'targetUserId': 0, 'time': '2019-02-22 17:11:03', 'description': '$申请加入组织。,张超', 'orgId': 8 }], 'memberNum': 2, 'applyUserNum': 1, 'deptNum': 0, 'managerList': [{ 'userId': 10, 'username': 'duzhaohong', 'realName': '杜照鸿', 'password': '$2a$10$u6D83/lGaENUrMp7FgvDLezaeVSXHUJl3NwgYL/AI26FdYAcA5Ncq', 'safePassword': '', 'createTime': '2019-02-20 11:38:33', 'updateTime': '2019-02-23 16:19:48', 'delFlag': '0', 'lockFlag': '0', 'avatar': 'image-cde6b6e3b38e4526b24f2bee00e7c15b.jpg', 'phone': '11011011011', 'orgId': 8, 'deptId': 13, 'tenantId': 1, 'wxOpenid': null, 'qqOpenid': null }], 'isOpen': 0 },
+      formData: { 'orgName': '', 'logo': '', 'realName': '', 'logList': [], 'memberNum': 0, 'applyUserNum': 0, 'deptNum': 0, 'managerList': [], 'isOpen': 0 },
     }
   },
   created () {
@@ -82,7 +81,7 @@ export default {
     batchReviewConfirm,
   },
   methods: {
-    handleAdd () {
+    handleReview () {
       this.$refs['batchReviewForm'].methodName = '批量审核'
       this.$refs['batchReviewForm'].formRequestFn = ''
       this.$refs['batchReviewForm'].dialogShow = true
@@ -145,11 +144,11 @@ export default {
     },
     handleLocking (row) {
       if (row.status === 0) {
-        usesLock(row.userId).then(() => {
+        userLock(row.userId).then(() => {
           this.loadPage()
         })
       } else if (row.status === 2) {
-        usesUnLock(row.userId).then(() => {
+        userUnLock(row.userId).then(() => {
           this.loadPage()
         })
       }

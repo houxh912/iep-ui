@@ -1,29 +1,29 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="行政审批" :replaceText="replaceText" :data="[10 ,2, 3,5,2,3,2]"></page-header>
+      <page-header title="行政审批" :replaceText="replaceText" :data="[10,2,3,5,2,3,2]"></page-header>
       <operation-container>
         <template slot="left">
           <el-button @click="(scope.row)" size="small" class="share"><i class="el-icon-share"></i><span>分享</span></el-button>
         </template>
         <template slot="right">
-          <div>
-            <el-input placeholder="请输入内容" v-model="input5" class="input-with-select" size="small" prefix-icon="el-icon-search">
-              <template slot="append">
-                <span class="search" @click="searchPage">搜索</span>
-                <el-dropdown class="icon">
-                  <span class="el-dropdown-link">
-                    <i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
-                  <el-dropdown-menu slot="dropdown" width="300px">
-                    <template>
-                      <div class="searchMore"></div>
-                    </template>
-                  </el-dropdown-menu>
-                </el-dropdown>
-              </template>
-            </el-input>
-          </div>
+          <operation-search @search="searchPage" advance-search>
+            <el-form :model="paramForm" label-width="80px" size="mini">
+              <el-form-item label="员工姓名">
+                <el-input v-model="paramForm.name"></el-input>
+              </el-form-item>
+              <el-form-item label="性别">
+                <el-radio-group v-model="paramForm.sex">
+                  <el-radio label="男"></el-radio>
+                  <el-radio label="女"></el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="searchPage">搜索</el-button>
+                <el-button @click="clearSearchParam">清空</el-button>
+              </el-form-item>
+            </el-form>
+          </operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
@@ -48,7 +48,7 @@ export default {
   components: { PageHeader, OperationContainer, IepTable },
   data () {
     return {
-      input5: '',
+      paramForm: {},
       columnsMap: [
         {
           prop: '申请类型',
@@ -97,29 +97,4 @@ export default {
 }
 </script>
 <style scoped>
-.search {
-  cursor: pointer;
-  padding-right: 10px;
-}
-.search:after {
-  content: "";
-  width: 1px;
-  height: 100%;
-  background: #dcdfe6;
-  position: absolute;
-  top: 0;
-  margin-left: 10px;
-}
->>> .el-dropdown {
-  padding: 0 3px;
-}
-.searchMore {
-  width: 300px;
-  height: 300px;
-  background: #ccc;
-}
->>> .el-input-group__append,
-.el-input-group__prepend {
-  padding: 0 2px 0 10px;
-}
 </style>

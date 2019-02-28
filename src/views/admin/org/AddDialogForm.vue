@@ -12,16 +12,17 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <el-button type="primary" @click="submitForm('orgForm')">{{methodName}}</el-button>
-      <el-button @click="resetForm('orgForm')">初始值</el-button>
+      <iep-button type="primary" @click="submitForm('orgForm')">{{methodName}}</iep-button>
+      <iep-button @click="resetForm('orgForm')">初始值</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
 import IepDialog from '@/components/IepDialog/'
+import IepButton from '@/components/IepCommon/Button'
 import { initOrgForm } from './options'
 export default {
-  components: { IepDialog },
+  components: { IepDialog, IepButton },
   data () {
     return {
       dialogShow: false,

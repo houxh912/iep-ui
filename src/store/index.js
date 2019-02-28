@@ -5,6 +5,7 @@ import common from './modules/common'
 import tags from './modules/tags'
 import logs from './modules/logs'
 import getters from './getters'
+import hideAside from './modules/hideAside'
 
 Vue.use(Vuex)
 const store = new Vuex.Store({
@@ -13,6 +14,7 @@ const store = new Vuex.Store({
     common,
     logs,
     tags,
+    hideAside,
   },
   getters,
 })

@@ -59,14 +59,14 @@ export default {
 .avue-sidebar {
   width: 240px;
 }
-@media (min-width: 769px) and (max-width: 1026px) {
+@media (min-width: 1025px) and (max-width: 1270px) {
   .avue-sidebar {
-    width: 150px;
+    width: 180px;
   }
 }
-@media (min-width: 0px) and (max-width: 769px) {
+@media (min-width: 0px) and (max-width: 1024px) {
   .avue-sidebar {
-    width: 150px;
+    width: 180px;
   }
 }
 .sub-menu-wrapper {

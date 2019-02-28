@@ -38,10 +38,11 @@ export function delObj (id) {
   })
 }
 
-export function reviewById (id, command) {
+export function reviewById (obj) {
   return request({
-    url: `/admin/org/${command}/` + id,
+    url: '/admin/org/review/batch',
     method: 'post',
+    data: obj,
   })
 }
 

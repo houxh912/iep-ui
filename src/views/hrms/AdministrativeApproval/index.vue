@@ -41,7 +41,7 @@
 import PageHeader from '@/components/Page/Header'
 import OperationContainer from '@/components/Operation/Container'
 import IepTable from '@/components/IepTable/'
-import { getAdmniList } from '@/api/hrms/administrative_approval'
+import { getAdministrativeApprovalPage } from '@/api/hrms/administrative_approval'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -85,7 +85,7 @@ export default {
   methods: {
     // handleShare (row) { },
     loadPage (param) {
-      this.loadTable(param, getAdmniList)
+      this.loadTable(param, getAdministrativeApprovalPage)
     },
     handleCommandType () {
       // console.log(val)

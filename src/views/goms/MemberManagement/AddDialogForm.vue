@@ -32,11 +32,10 @@
 <script>
 import { handleImg } from '@/util/util'
 import IepDialog from '@/components/IepDialog/'
-import IepButton from '@/components/IepCommon/Button'
 import { initGomsForm } from './options'
 import { putGoms, updateGomsUser } from '@/api/admin/org'
 export default {
-  components: { IepDialog, IepButton },
+  components: { IepDialog },
   props: {
     loadImage: {
       type: String,

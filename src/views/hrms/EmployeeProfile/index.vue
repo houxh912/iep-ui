@@ -17,21 +17,7 @@
         </template>
         <template slot="right">
           <operation-search @search="searchPage" advance-search>
-            <el-form :model="paramForm" label-width="80px" size="mini">
-              <el-form-item label="员工姓名">
-                <el-input v-model="paramForm.name"></el-input>
-              </el-form-item>
-              <el-form-item label="性别">
-                <el-radio-group v-model="paramForm.sex">
-                  <el-radio label="男"></el-radio>
-                  <el-radio label="女"></el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item>
-                <iep-button type="primary" @click="searchPage">搜索</iep-button>
-                <iep-button @click="clearSearchParam">清空</iep-button>
-              </el-form-item>
-            </el-form>
+            <advance-search :form="paramForm" @search-page="searchPage" @clear-search-param="clearSearchParam"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -43,7 +29,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" min-width="160">
+        <el-table-column prop="operation" label="操作" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
               <el-dropdown size="medium">
@@ -62,7 +48,6 @@
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item>修改</el-dropdown-item>
-                  <el-dropdown-item>删除</el-dropdown-item>
                   <el-dropdown-item>分享</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -80,9 +65,10 @@ import mixins from '@/mixins/mixins'
 import keyBy from 'lodash/keyBy'
 import { columnsMap, initSearchForm } from './options'
 import HeaderSetting from './HeaderSetting'
+import AdvanceSearch from './AdvanceSearch'
 export default {
   mixins: [mixins],
-  components: { HeaderSetting },
+  components: { HeaderSetting, AdvanceSearch },
   data () {
     return {
       columnsMap,
@@ -118,8 +104,9 @@ export default {
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()
+      this.loadPage()
     },
-    loadPage (param) {
+    loadPage (param = this.paramForm) {
       this.loadTable(param, getEmployeeProfilePage)
     },
   },

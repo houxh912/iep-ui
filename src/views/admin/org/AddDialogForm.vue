@@ -19,10 +19,9 @@
 </template>
 <script>
 import IepDialog from '@/components/IepDialog/'
-import IepButton from '@/components/IepCommon/Button'
 import { initOrgForm } from './options'
 export default {
-  components: { IepDialog, IepButton },
+  components: { IepDialog },
   data () {
     return {
       dialogShow: false,

@@ -12,7 +12,6 @@
 </template>
 <script>
 import IepDialog from '@/components/IepDialog/'
-import IepButton from '@/components/IepCommon/Button'
 export default {
   props: {
     defaultColumnsLabel: {
@@ -20,7 +19,7 @@ export default {
       required: true,
     },
   },
-  components: { IepDialog, IepButton },
+  components: { IepDialog },
   data () {
     return {
       dialogShow: false,

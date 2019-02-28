@@ -1,8 +1,10 @@
 import request from '@/router/axios'
 
-export function getAdmniList (query) {
+const prefixUrl = '/hrms/administrative_approval'
+// @/api/hrms/administrative_approval
+export function getAdministrativeApprovalPage (query) {
   return request({
-    url: '/hrms/administrative_approval/page',
+    url: `${prefixUrl}/page`,
     method: 'get',
     params: query,
   })

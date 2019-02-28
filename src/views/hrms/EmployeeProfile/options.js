@@ -58,6 +58,14 @@ const initSearchForm = () => {
   return {
     name: '',
     sex: '',
+    organization: '',
+    department: '',
+    job_category: '',
+    job_name: '',
+    status: '',
+    position: '',
+    job_title: '',
+    entry_time: '',
   }
 }
 

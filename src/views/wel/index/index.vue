@@ -1,7 +1,10 @@
 <template>
   <div class="wel-wrapper">
-    <information class="wel-content" />
-    <about-me class="wel-aside"></about-me>
+    <span class="show" @click="show"><i class="el-icon-caret-right"></i>关于我</span>
+    <information class="wel-content" :style="{'padding-right':padding+'px'}" />
+    <transition name="move">
+      <about-me class="wel-aside" v-if="hide" :style="{height:asideHeight+'px'}"></about-me>
+    </transition>
   </div>
 </template>
 
@@ -21,10 +24,29 @@ export default {
       actor: '',
       count: 0,
       isText: false,
+      asideHeight: '',
+      clientHeight: '',
+      sss: '',
     }
+  },
+  created () {
+    this.asideHeight = document.body.clientHeight - 64
+    console.log(this.sss)
   },
   computed: {
     ...mapGetters(['website']),
+    hide () {
+      return this.$store.state.hideAside.hide
+    },
+    padding () {
+      return this.$store.state.hideAside.padding
+    },
+  },
+  watch: {
+    width () {
+    },
+    right () {
+    },
   },
   methods: {
     //我要创建添加按钮事件
@@ -77,39 +99,116 @@ export default {
         }
       }, timespeed)
     },
+    show () {
+      this.$store.commit('hideAside')
+    },
+  },
+  mounted () {
+    const that = this
+    window.onresize = function () {
+      console.log('22e1')
+      // that.clientHeight = `${document.documentElement.clientHeight}px`;
+      console.log(document.body.clientHeight)
+      that.sss = document.body.clientWidth
+      var width = document.body.clientWidth || document.documentElement.clientWidth
+      console.log(223123123)
+      if (1025 < width < 1270) {
+        console.log(2222)
+        this.$store.commit('response')
+      } else if (width < 1025) {
+        this.$store.state.hideAside.padding = 0
+      }
+    }
   },
 }
 </script>
 
 <style scoped="scoped" lang="scss">
+@keyframes animationIn {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+@keyframes animationOut {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(100%, 0);
+  }
+}
+
+.move-enter {
+  transform: translate(0, 0);
+}
+.move-enter-active {
+  animation: animationIn 1s;
+}
+.move-leave {
+  transform: translate(0, 0);
+}
+.move-leave-active {
+  animation: animationOut 1s;
+}
+
 .wel-wrapper {
   display: flex;
-  .wel-content {
-    display: block;
-    // width: 75%;
-  }
-  // .wel-container {
-  //   flex: 1;
-  // }
-  .wel-aside {
-    flex: 0 0 300px;
-  }
-}
-@media (min-width: 769px) and (max-width: 1026px) {
-  .wel-wrapper {
-    .wel-aside {
-      flex: 0 0 220px;
+  position: relative;
+  .show {
+    position: fixed;
+    display: inline-block;
+    width: auto;
+    height: 30px;
+    color: #bfbfbf;
+    background: #fafafa;
+    font-size: 16px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid #eee;
+    top: 70px;
+    right: 10px;
+    z-index: 101;
+    i {
+      transform: rotate(180deg);
     }
   }
+  .wel-content {
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 320px;
+  }
+  .wel-aside {
+    width: 300px;
+    position: fixed;
+    top: 64px;
+    right: 0;
+    z-index: 102;
+  }
 }
-@media (min-width: 0px) and (max-width: 769px) {
+@media (min-width: 1024px) and (max-width: 1270px) {
   .wel-wrapper {
     .wel-content {
-      display: block;
-      width: 100%;
+      padding-right: 240px;
     }
     .wel-aside {
-      flex: 0 0 0;
+      width: 220px;
+    }
+  }
+}
+@media (min-width: 0px) and (max-width: 1023px) {
+  .wel-wrapper {
+    .show {
+      display: none;
+    }
+    .wel-content {
+      width: 100%;
+      padding-right: 20px;
+    }
+    .wel-aside {
+      display: none;
     }
   }
 }

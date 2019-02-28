@@ -16,10 +16,6 @@ export default {
       type: String,
       default: '关键字',
     },
-    paramForm: {
-      type: Object,
-      default: () => { },
-    },
     prop: {
       type: String,
       default: 'name',
@@ -32,11 +28,12 @@ export default {
   data () {
     return {
       input: '',
+      form: {},
     }
   },
   methods: {
     handleSearch () {
-      this.$emit('search', this.paramForm[this.prop] = this.input)
+      this.$emit('search', this.form[this.prop] = this.input)
     },
   },
 }

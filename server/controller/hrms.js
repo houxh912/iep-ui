@@ -4,6 +4,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
     "code": 0, "msg": "success", "data": {
       "records": [
         {
+          id: 1,
           姓名: '李寅',
           性别: '女',
           部门: '国脉先锋队',
@@ -13,6 +14,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           身份证号码: '33090219960103761X'
         },
         {
+          id: 2,
           姓名: '李寅',
           性别: '女',
           部门: '国脉先锋队',
@@ -22,6 +24,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           身份证号码: '33090219960103761X'
         },
         {
+          id: 3,
           姓名: '李寅',
           性别: '女',
           部门: '国脉先锋队',
@@ -31,6 +34,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           身份证号码: '33090219960103761X'
         },
         {
+          id: 4,
           姓名: '李寅',
           性别: '女',
           部门: '国脉先锋队',
@@ -40,6 +44,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           身份证号码: '33090219960103761X'
         },
         {
+          id: 5,
           姓名: '李寅',
           性别: '女',
           部门: '国脉先锋队',
@@ -49,6 +54,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           身份证号码: '33090219960103761X'
         },
         {
+          id: 6,
           姓名: '李寅',
           性别: '女',
           部门: '国脉先锋队',
@@ -58,6 +64,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           身份证号码: '33090219960103761X'
         },
         {
+          id: 7,
           姓名: '李寅',
           性别: '女',
           部门: '国脉先锋队',

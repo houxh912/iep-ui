@@ -4,7 +4,7 @@
       <div class="navItem" v-if="showItem">
         <div class="inline" :class="classIndex==index?'active':''" v-for="(item,index) in navList" :key="index" @click="handelSelect(index)">{{item.name}}</div>
       </div>
-      <!-- <div class="showItem" @click="showItem=!showItem"><i class="el-icon-tickets"></i></div> -->
+      <div class="showItem" @click="showItem=!showItem"><i class="el-icon-tickets"></i></div>
       <div class="searchBar">
         <div class="search" @click="search"><i class="el-icon-search"></i></div>
         <el-select v-model="value8" filterable size="mini">
@@ -56,9 +56,16 @@ export default {
   },
   created () {
     this.$nextTick(() => {
-      if (this.screenWidth >= 769) {
+      if (this.screenWidth >= 1270) {
         this.showItem = true
-      } else {
+        this.$store.commit('show')
+      }
+      if (1025 < this.screenWidth && this.screenWidth < 1270) {
+        this.showItem = true
+        this.$store.commit('response')
+      }
+      if (this.screenWidth <= 1025) {
+        this.$store.commit('hide')
         this.showItem = false
       }
     })
@@ -74,9 +81,16 @@ export default {
   },
   watch: {
     screenWidth (val) {
-      if (this.screenWidth >= 769) {
+      if (this.screenWidth >= 1270) {
         this.showItem = true
-      } else {
+        this.$store.commit('show')
+      }
+      if (1025 < this.screenWidth && this.screenWidth < 1270) {
+        this.showItem = true
+        this.$store.commit('response')
+      }
+      if (this.screenWidth < 1025) {
+        this.$store.commit('hide')
         this.showItem = false
       }
       if (!this.timer) {
@@ -92,7 +106,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .nav {
   width: 100%;
   height: 100%;
@@ -108,11 +122,20 @@ export default {
       width: 100%;
       align-items: center;
       padding-right: 280px;
-      // padding: 0 10px;
       box-sizing: border-box;
       text-align: center;
       div {
         flex-grow: 1;
+      }
+      .inline {
+        display: inline-block;
+        padding: 5px 0;
+        margin: 0 15px;
+        border-radius: 15px;
+        cursor: pointer;
+        &:hover {
+          color: #cb3737;
+        }
       }
     }
     .searchBar {
@@ -124,38 +147,17 @@ export default {
       right: 0;
       top: 0;
     }
-    // .showItem {
-    //   width: 64px;
-    //   height: 64px;
-    //   background: #fafafa;
-    //   position: absolute;
-    //   top: -18px;
-    //   left: 0;
-    //   text-align: center;
-    //   display: none;
-    //   font-size: 20px;
-    //   line-height: 64px;
-    // }
-    .inline {
-      display: inline-block;
-      padding: 5px 0;
-      margin: 0 15px;
-      border-radius: 15px;
-      cursor: pointer;
-      &:hover {
-        color: #cb3737;
-      }
+    .showItem {
+      display: none;
     }
+
     .search {
-      // display: inline-block;
       padding: 0 20px;
       color: #444;
     }
     .el-select {
       width: 180px !important;
       padding: 0 20px;
-      // position: absolute;
-      // right: 0;
     }
   }
 
@@ -169,13 +171,19 @@ export default {
 .el-scrollbar__wrap {
   overflow: auto !important;
 }
-@media (min-width: 1024px) and (max-width: 1200px) {
+@media (min-width: 1024px) and (max-width: 1270px) {
   .nav {
-    font-size: 12px;
+    font-size: 14px;
     .navbar {
+      .navItem {
+        padding-right: 200px;
+        .inline {
+          margin: 0 5px;
+        }
+      }
       .searchBar {
         height: 100%;
-        width: 240px;
+        width: 200px;
         display: flex;
         align-items: center;
         position: absolute;
@@ -184,37 +192,53 @@ export default {
       }
       .el-select {
         width: 120px !important;
-        padding: 0 15px;
+        padding: 0 10px;
       }
     }
   }
 }
-@media (min-width: 767px) and (max-width: 1024px) {
+@media (min-width: 0px) and (max-width: 1023px) {
   .nav {
     padding: 0;
     .navbar {
-      display: inline-block;
       .showItem {
         display: inline-block;
+        position: absolute;
+        left: 0;
+        width: 55px;
+        height: 100%;
+        background: #fafafa;
+        text-align: center;
+        line-height: 64px;
+        font-size: 20px;
       }
       .navItem {
         position: absolute;
         width: 160px;
+        height: auto;
         background: #fff;
-        top: 47px;
+        top: 64px;
         left: -48px;
         box-shadow: 0 0 10px #eee;
-        padding: 10px;
+        padding: 5px 10px;
         border-radius: 5px;
+        display: block;
         .inline {
           display: block;
+          border-radius: 1px;
+          margin: 5px 0;
+          text-align: left;
+          padding: 5px 10px;
+          font-size: 14px;
         }
       }
-      .search {
-        display: inline-block;
-        margin-left: 64px;
-        padding: 0 10px;
-        color: #444;
+      .searchBar {
+        height: 100%;
+        width: 280px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin: 0 0 0 55px;
       }
       .el-select {
         width: 180px !important;
@@ -222,9 +246,6 @@ export default {
         position: relative;
       }
     }
-    // .right {
-    //   display: inline-block;
-    // }
   }
 }
 </style>

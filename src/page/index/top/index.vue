@@ -30,7 +30,7 @@
     </div>
     <div class="top-right">
       <div class="top-msg">
-        <div class="sss">
+        <div class="itemGroup">
           <div class="item">
             <span class="message"><i class="el-icon-star-off"></i></span>
             <span class="dot dot1" v-if="showDot1"></span>
@@ -178,6 +178,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+      font-size: 16px;
       .el-dropdown-link {
         color: #424242;
         padding-left: 5px;
@@ -190,10 +191,6 @@ export default {
         background-repeat: no-repeat;
         background-size: 100% 100%;
       }
-      .logo-text {
-        margin-left: 10px;
-        font-size: 18px;
-      }
     }
   }
   .center {
@@ -204,7 +201,6 @@ export default {
   .top-right {
     width: 300px;
     height: 100%;
-    // background: #444;
     position: absolute;
     right: 0;
     top: 0;
@@ -216,29 +212,37 @@ export default {
       > div {
         flex-grow: 1;
       }
-      .item {
-        display: inline-block;
-        padding: 0 10px;
-        font-size: 20px;
-        position: relative;
-        .dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 12px;
-          position: absolute;
-          top: 2px;
-          right: 0;
-        }
-        .dot1 {
-          background: #bf051a;
-        }
-        .dot2 {
-          background: #ff9d4c;
-        }
-        .dot3 {
-          background: #ffc34a;
+      .itemGroup {
+        height: 100%;
+        line-height: 64px;
+        .item {
+          display: inline-block;
+          padding: 0 10px;
+          font-size: 20px;
+          position: relative;
+          &:hover {
+            background: #fafafa;
+          }
+          .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 12px;
+            position: absolute;
+            top: 20px;
+            right: 0;
+          }
+          .dot1 {
+            background: #bf051a;
+          }
+          .dot2 {
+            background: #ff9d4c;
+          }
+          .dot3 {
+            background: #ffc34a;
+          }
         }
       }
+
       .el-dropdown-link {
         color: #6c6c6c;
       }
@@ -246,56 +250,69 @@ export default {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1200px) {
-  .top-left {
-    flex: 0 0 150px;
-    .logo-wrapper {
-      .logo {
-        cursor: pointer;
-        width: 45px;
-        height: 19px;
-        background-image: url("/img/logo.png");
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-      }
-      .logo-text {
+@media (min-width: 1024px) and (max-width: 1270px) {
+  .top {
+    .top-left {
+      width: 180px;
+      height: 100%;
+      .logo-wrapper {
+        margin: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-size: 14px;
+        .logo {
+          cursor: pointer;
+          width: 50px;
+          height: 22px;
+          background-image: url("/img/logo.png");
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+        }
       }
     }
-  }
-  .top-right {
-    .top-title {
+    .center {
+      margin: 0 220px 0 180px;
     }
-    .top-msg {
-      flex: 0 0 220px;
+    .top-right {
+      width: 220px;
+      .el-tooltip {
+        display: none;
+      }
     }
   }
 }
-@media screen and (max-width: 1024px) {
-  .top-left {
-    flex: 0 0 150px;
-    .logo-wrapper {
-      .logo {
-        width: 45px;
-        height: 19px;
-      }
-      .logo-text {
+@media (min-width: 0px) and (max-width: 1023px) {
+  .top {
+    .top-left {
+      width: 180px;
+      height: 100%;
+      .logo-wrapper {
+        margin: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-size: 14px;
+        .logo {
+          cursor: pointer;
+          width: 50px;
+          height: 22px;
+          background-image: url("/img/logo.png");
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+        }
       }
     }
-  }
-  .top-right {
-    display: block;
-    > div {
-      display: inline-block;
+    .center {
+      margin: 0 220px 0 180px;
     }
-    .top-title {
-      display: inline-block;
-      width: 300px;
-    }
-    .top-msg {
-      width: 250px;
-      float: right;
+    .top-right {
+      width: 220px;
+      .el-tooltip {
+        display: none;
+      }
     }
   }
 }

@@ -8,7 +8,7 @@ export default [
       {
         path: 'index',
         name: '展示首页',
-        component: () => import(/* webpackChunkName: "views" */ '@/views/app/index/'),
+        component: () => import('@/views/app/index/'),
       },
     ],
   },
@@ -20,7 +20,7 @@ export default [
       {
         path: 'index',
         name: '后台首页',
-        component: () => import(/* webpackChunkName: "views" */ '@/views/wel/index/'),
+        component: () => import('@/views/wel/index/'),
       },
     ],
   },
@@ -32,7 +32,7 @@ export default [
       {
         path: 'select',
         name: '选择组织',
-        component: () => import(/* webpackChunkName: "views" */ '@/page/org/select'),
+        component: () => import('@/page/org/select'),
       },
     ],
   },
@@ -44,8 +44,12 @@ export default [
       {
         path: 'index',
         name: '个人信息',
-        component: () =>
-          import(/* webpackChunkName: "page" */ '@/views/admin/user/info'),
+        component: () => import('@/views/admin/user/info'),
+      },
+      {
+        path: 'growth_file/:id',
+        name: '成长档案',
+        component: () => import('@/views/hrms/GrowthFile/index.vue'),
       },
     ],
   },
@@ -56,8 +60,7 @@ export default [
     children: [
       {
         path: 'detail/:id',
-        component: () =>
-          import(/* webpackChunkName: "views" */ '@/views/activiti/detail'),
+        component: () => import('@/views/activiti/detail'),
       },
     ],
   },

@@ -5,15 +5,7 @@
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="danger">添加组织</iep-button>
-          <!-- <el-dropdown size="medium">
-            <el-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></el-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>删除</el-dropdown-item>
-              <el-dropdown-item divided>导入</el-dropdown-item>
-              <el-dropdown-item>导出</el-dropdown-item>
-              <el-dropdown-item>分享</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown> -->
+          <iep-button @click="handleReviewDialog">批量审核</iep-button>
         </template>
         <template slot="right">
           <operation-search @search="searchPage" :paramForm="paramForm" advance-search>
@@ -29,7 +21,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-index>
         <template slot="before-columns">
           <el-table-column label="组织名称" width="150px">
             <template slot-scope="scope">
@@ -43,13 +35,7 @@
               <iep-button type="warning" @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
               <iep-button @click="handlePerson(scope.row, scope.index)">人员</iep-button>
-              <el-dropdown size="medium" @command="handleReview($event, scope.row.orgId)">
-                <iep-button type="default">审核<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="pass">通过</el-dropdown-item>
-                  <el-dropdown-item command="reject">驳回</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
+              <iep-button type="default" @click="handleReviewDialog(scope.row, scope.index)">审核</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -57,24 +43,20 @@
     </basic-container>
     <add-dialog-form ref="addDialogForm" @load-page="loadPage"></add-dialog-form>
     <person-dialog-form ref="personDialogForm" @load-page="loadPage"></person-dialog-form>
+    <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
   </div>
 </template>
 <script>
 import AddDialogForm from './AddDialogForm'
 import PersonDialogForm from './PersonDialogForm'
-import {
-  addObj,
-  putObj,
-  delObj,
-  fetchList,
-  reviewById,
-} from '@/api/admin/org'
+import { addObj, putObj, delObj, fetchList, reviewById } from '@/api/admin/org'
+import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 import { dictsMap, columnsMap, initOrgForm, initOrgSearchForm } from './options'
 import { mergeByFirst } from '@/util/util'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
-  components: { AddDialogForm, PersonDialogForm },
+  components: { AddDialogForm, PersonDialogForm, IepReviewConfirm },
   data () {
     return {
       dictsMap,
@@ -107,10 +89,17 @@ export default {
       this.$refs['addDialogForm'].formRequestFn = addObj
       this.$refs['addDialogForm'].dialogShow = true
     },
-    handleReview (id, command) {
-      reviewById(id, command).then(() => {
-        this.loadPage()
-      })
+    handleReviewDialog (row) {
+      if (row.orgId) {
+        this.$refs['iepReviewForm'].id = row.orgId
+      } else {
+        this.$refs['iepReviewForm'].ids = this.multipleSelection
+      }
+      this.$refs['iepReviewForm'].requestFn = reviewById
+      this.$refs['iepReviewForm'].dialogShow = true
+    },
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.orgId)
     },
     loadPage (param = this.paramForm) {
       this.loadTable(param, fetchList)

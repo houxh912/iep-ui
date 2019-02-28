@@ -1,8 +1,8 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`审核`" width="35%">
     <el-radio-group v-model="status" class="status">
-      <el-radio :label="3">审核通过</el-radio>
-      <el-radio :label="4">审核不通过</el-radio>
+      <el-radio :label="0">审核通过</el-radio>
+      <el-radio :label="2">审核不通过</el-radio>
     </el-radio-group>
     <el-input v-if="status === 4" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="content">
     </el-input>
@@ -19,10 +19,22 @@ export default {
   components: { IepDialog, IepButton },
   data () {
     return {
+      requestFn: () => { },
       dialogShow: false,
       status: 1, // 待审核
       content: '',
+      id: null,
+      ids: [],
     }
+  },
+  computed: {
+    currentIds () {
+      if (this.id) {
+        return [this.id]
+      } else {
+        return this.ids
+      }
+    },
   },
   methods: {
     loadPage () {
@@ -32,7 +44,18 @@ export default {
       this.$emit('load-page')
     },
     handleSubmit () {
-      this.loadPage()
+      this.requestFn({
+        'ids': this.currentIds,
+        'status': this.status, // 用来变更状态
+        'content': this.content,
+      }).then(({ data }) => {
+        if (data.data) {
+          console.log('true')
+        } else {
+          console.log('false')
+        }
+        this.loadPage()
+      })
     },
     handleCancel () {
       this.loadPage()

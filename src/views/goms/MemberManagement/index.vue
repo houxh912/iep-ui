@@ -49,14 +49,14 @@
       </iep-table>
     </basic-container>
     <add-dialog-form ref="addDialogForm" @load-page="loadPage"></add-dialog-form>
-    <batch-review-confirm ref="batchReviewForm" @load-page="loadPage"></batch-review-confirm>
+    <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
   </div>
 </template>
 <script>
 import { mergeByFirst } from '@/util/util'
 import { dictsMap, columnsMap, initSearchForm, optionMap, initGomsForm } from './options'
 import AddDialogForm from './AddDialogForm'
-import batchReviewConfirm from './BatchReviewConfirm'
+import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 import { orgDetail, gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
 import mixins from '@/mixins/mixins'
 export default {
@@ -78,13 +78,13 @@ export default {
   },
   components: {
     AddDialogForm,
-    batchReviewConfirm,
+    IepReviewConfirm,
   },
   methods: {
     handleReview () {
-      this.$refs['batchReviewForm'].methodName = '批量审核'
-      this.$refs['batchReviewForm'].formRequestFn = ''
-      this.$refs['batchReviewForm'].dialogShow = true
+      this.$refs['iepReviewForm'].methodName = '批量审核'
+      this.$refs['iepReviewForm'].formRequestFn = ''
+      this.$refs['iepReviewForm'].dialogShow = true
     },
     handleDel () {
       this._handleGlobalDeleteAll(delAllGomsUser)

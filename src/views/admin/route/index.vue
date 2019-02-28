@@ -84,8 +84,8 @@ export default {
       })
     },
     add () {
-      console.log(tempPath(this.form))
-      console.log(this.json, JSON.parse(tempPath(this.form)))
+      // console.log(tempPath(this.form))
+      // console.log(this.json, JSON.parse(tempPath(this.form)))
       const json = [...this.json, JSON.parse(tempPath(this.form))]
       putObj(json).then(() => {
         this.$notify({

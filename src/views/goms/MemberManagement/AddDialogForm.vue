@@ -65,9 +65,6 @@ export default {
       this.dialogShow = false
       this.$emit('load-page')
     },
-    roleSelect () {
-      console.log(this.roleList.roleId)
-    },
     updateForm () {
       updateGomsUser({
         userId: this.gomsForm.userId,

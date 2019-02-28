@@ -50,9 +50,9 @@ export default {
         'content': this.content,
       }).then(({ data }) => {
         if (data.data) {
-          console.log('true')
+          // console.log('true')
         } else {
-          console.log('false')
+          // console.log('false')
         }
         this.loadPage()
       })

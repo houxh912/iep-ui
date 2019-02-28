@@ -57,7 +57,7 @@
                   <el-dropdown-item>离职</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-              <iep-button @click="(scope.row)">成长档案</iep-button>
+              <iep-button @click="handleOpenGrowthFile(scope.row)">成长档案</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
@@ -109,6 +109,12 @@ export default {
     handleHeaderSetting () {
       this.$refs['HeaderSetting'].columnsMap = columnsMap
       this.$refs['HeaderSetting'].dialogShow = true
+    },
+    handleOpenGrowthFile (row) {
+      this.$router.push({
+        path: `/info/growth_file/${row.id}`,
+        query: { redirect: this.$route.fullPath },
+      })
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

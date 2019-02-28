@@ -38,16 +38,17 @@ export function delObj (id) {
   })
 }
 
-export function reviewById (id, command) {
+export function reviewById (obj) {
   return request({
-    url: `/admin/org/${command}/` + id,
+    url: '/admin/org/review/batch',
     method: 'post',
+    data: obj,
   })
 }
 
 export function applyObj (obj) {
   return request({
-    url: '/admin/org/applyJoin',
+    url: '/admin/org/apply/join',
     method: 'post',
     data: obj,
   })
@@ -65,5 +66,106 @@ export function passPerson (obj) {
     url: '/admin/org/pass/join',
     method: 'post',
     data: obj,
+  })
+}
+
+export function orgDetail () {
+  return request({
+    url: '/admin/org',
+    method: 'get',
+  })
+}
+
+export function gomsOpen () {
+  return request({
+    url: '/admin/org/update/open',
+    method: 'post',
+  })
+}
+
+export function gomsUserPage (query) {
+  return request({
+    url: '/admin/org/user/page',
+    method: 'get',
+    params: query,
+  })
+}
+export function gomsRolePage (query) {
+  return request({
+    url: '/admin/role/org/page',
+    method: 'get',
+    params: query,
+  })
+}
+
+export function userLock (id) {
+  return request({
+    url: `/admin/org/lock/${id}`,
+    method: 'post',
+    data: id,
+  })
+}
+
+export function unSetManager (id) {
+  return request({
+    url: `/admin/org/unset/manager/${id}`,
+    method: 'post',
+    data: id,
+  })
+}
+export function gomsPass (id) {
+  return request({
+    url: `/admin/org/pass/join/${id}`,
+    method: 'post',
+    data: id,
+  })
+}
+export function gomsReject (id) {
+  return request({
+    url: `/admin/org/reject/join/${id}`,
+    method: 'post',
+    data: id,
+  })
+}
+export function userUnLock (id) {
+  return request({
+    url: `/admin/org/unlock/${id}`,
+    method: 'post',
+    data: id,
+  })
+}
+export function delGomsUser (id) {
+  return request({
+    url: `/admin/org/fire/${id}`,
+    method: 'post',
+    data: id,
+  })
+}
+
+export function delAllGomsUser (ids) {
+  return request({
+    url: '/admin/org/fires',
+    method: 'post',
+    data: ids,
+  })
+}
+export function updateGomsUser (obj) {
+  return request({
+    url: '/admin/org/update/user/role',
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function putGoms () {
+  return request({
+    url: '/admin/role/org/list',
+    method: 'get',
+  })
+}
+export function getGomsInfo (id) {
+  return request({
+    url: `/admin/org/${id}`,
+    method: 'get',
   })
 }

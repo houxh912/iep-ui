@@ -58,15 +58,17 @@ router.beforeEach((to, from, next) => {
           })
         })
       } else {
-        const parentPath = to.matched[0].path
-        const isMatchedMenu = menuPathList.includes(parentPath)
-        const currentMenu = menu.find(m => m.path === parentPath)
-        if (isMatchedMenu && currentMenu) {
-          let Menus = [mainMenu, ...otherMenus]
-          Menus = orderBy(Menus, ['sort'], ['asc'])
-          const oMenus = Menus.filter(m => m.path !== currentMenu.path)
-          store.commit('SET_MAINMENU', currentMenu)
-          store.commit('SET_OTHERMENUS', oMenus)
+        if (to.matched.length) {
+          const parentPath = to.matched[0].path
+          const isMatchedMenu = menuPathList.includes(parentPath)
+          const currentMenu = menu.find(m => m.path === parentPath)
+          if (isMatchedMenu && currentMenu) {
+            let Menus = [mainMenu, ...otherMenus]
+            Menus = orderBy(Menus, ['sort'], ['asc'])
+            const oMenus = Menus.filter(m => m.path !== currentMenu.path)
+            store.commit('SET_MAINMENU', currentMenu)
+            store.commit('SET_OTHERMENUS', oMenus)
+          }
         }
         const value = to.query.src || to.fullPath
         const label = to.query.name || to.name

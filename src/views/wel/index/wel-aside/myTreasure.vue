@@ -55,8 +55,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .treasure {
-  width: 100%;
   box-sizing: border-box;
+  margin: 10px;
 }
 .title {
   display: flex;

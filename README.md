@@ -4,7 +4,7 @@
 
 凡是以这个模板开发的项目, 都需要从这个项目的 `master` 分支分发出去, 改动文件规则请看规则
 
-如果安装 `yarn` or `npm i` 缓慢, 请先更换为中国镜像.
+如果安装 `yarn` or `npm i` 缓慢, 请先更换为中国镜像. 这里推荐用自带 `CMD` or `PowerShell` 否则有权限问题
 ```
 npm set registry https://registry.npm.taobao.org
 npm set disturl https://npm.taobao.org/dist

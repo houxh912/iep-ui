@@ -34,7 +34,7 @@ export default {
       this.$store.commit('hideAside')
     },
     showAside () {
-      console.log(222)
+      // console.log(222)
       this.$store.commit('showAside')
     },
   },

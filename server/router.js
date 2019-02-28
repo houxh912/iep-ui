@@ -45,6 +45,7 @@ router.get('/admin/org/:id', orgController.getOrgDetail)
 
 router.get('/hrms/employee_profile/page', hrmsController.getEmployeeProfilePage)
 router.get("/hrms/administrative_approval/page", hrmsController.getAdministrativeApprovalPage)
+router.get("/hrms/talent_pool/page", hrmsController.getTalentPoolPage)
 
 
 exports = module.exports = router

@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="(scope.row)" type="danger">新增</iep-button>
+        <iep-button @click="(scope.row)" type="danger" icon="el-icon-plus">新增</iep-button>
         <el-dropdown size="medium">
           <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
@@ -41,27 +41,27 @@
           </template>
         </el-table-column>
       </template>
-      <el-table-column prop="operation" label="操作" min-width="160">
+      <el-table-column prop="operation" label="操作" width="220">
         <template slot-scope="scope">
           <operation-wrapper>
             <el-dropdown size="medium">
-              <iep-button size="small" type="default">
-                变更<i class="el-icon-arrow-down el-icon--right"></i>
+              <iep-button type="warning">
+                待处理<i class="el-icon-arrow-down el-icon--right"></i>
               </iep-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>入职</el-dropdown-item>
-                <el-dropdown-item>转正</el-dropdown-item>
-                <el-dropdown-item>调动</el-dropdown-item>
-                <el-dropdown-item>离职</el-dropdown-item>
+                <el-dropdown-item>已邀约</el-dropdown-item>
+                <el-dropdown-item>未面试</el-dropdown-item>
+                <el-dropdown-item>面试未录用</el-dropdown-item>
+                <el-dropdown-item>已录用</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <iep-button @click="(scope.row)">成长档案</iep-button>
+            <iep-button @click="(scope.row)">删除</iep-button>
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>修改</el-dropdown-item>
-                <el-dropdown-item>删除</el-dropdown-item>
-                <el-dropdown-item>分享</el-dropdown-item>
+                <el-dropdown-item>安排面试</el-dropdown-item>
+                <el-dropdown-item>录用</el-dropdown-item>
+                <el-dropdown-item>面试记录</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </operation-wrapper>
@@ -71,7 +71,7 @@
   </div>
 </template>
 <script>
-import { getEmployeeProfilePage } from '@/api/hrms/employee_profile'
+import { getTalentPoolPage } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from './options'
 export default {
@@ -89,8 +89,8 @@ export default {
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },
-    loadPage (param) {
-      this.loadTable(param, getEmployeeProfilePage)
+    loadPage (param = this.paramForm) {
+      this.loadTable(param, getTalentPoolPage)
     },
   },
 }

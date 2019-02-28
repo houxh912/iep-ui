@@ -57,7 +57,7 @@
                   <el-dropdown-item>离职</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-              <el-button @click="(scope.row)" size="small">成长档案</el-button>
+              <el-button @click="handleOpenGrowthFile(scope.row)" size="small">成长档案</el-button>
               <el-dropdown size="medium">
                 <el-button size="small" type="default"><i class="el-icon-more-outline"></i></el-button>
                 <el-dropdown-menu slot="dropdown">
@@ -90,6 +90,12 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleOpenGrowthFile (row) {
+      this.$router.push({
+        path: `/info/growth_file/${row.id}`,
+        query: { redirect: this.$route.fullPath },
+      })
+    },
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },

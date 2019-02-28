@@ -97,7 +97,7 @@ export function gomsRolePage (query) {
   })
 }
 
-export function usesLock (id) {
+export function userLock (id) {
   return request({
     url: `/admin/org/lock/${id}`,
     method: 'post',
@@ -126,7 +126,7 @@ export function gomsReject (id) {
     data: id,
   })
 }
-export function usesUnLock (id) {
+export function userUnLock (id) {
   return request({
     url: `/admin/org/unlock/${id}`,
     method: 'post',

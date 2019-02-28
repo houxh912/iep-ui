@@ -28,8 +28,8 @@ export default {
 </script>
 <style  lang="scss" scoped>
 .created {
-  width: 100%;
   box-sizing: border-box;
+    margin: 10px;
 }
 .created-content {
   display: grid;

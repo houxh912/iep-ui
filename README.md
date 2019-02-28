@@ -74,10 +74,11 @@ https://www.yuque.com/zsr/iep
 |--------|----------|------|----------|----------|------|----------|
 | 11000   | 权限管理 | 菜单 | Layout   | /upms    |      |          |
 | 12000   | 系统管理 | 菜单 | Layout   | /admin   |      |          |
-| 13000   | 系统监控 | 按钮 | Layout   | /daemon  |      |          |
-| 14000   | 协同管理 | 按钮 | Layout   | /activti |      |          |
-| 5000   | 人力(模块)     | 按钮 | Layout   | /hrms    |      |          |
-| 6000   | 客户(模块)     | 按钮 | Layout   | /crms    |      |          |
-| 10000   | 核心(模块)     | 按钮 | Layout   | /crms    |      |          |
+| 13000   | 系统监控 | 菜单 | Layout   | /daemon  |      |          |
+| 14000   | 协同管理 | 菜单 | Layout   | /activti |      |          |
+| 5000   | 人力(模块)     | 菜单 | Layout   | /hrms    |      |          |
+| 6000   | 客户(模块)     | 菜单 | Layout   | /crms    |      |          |
+| 7000   | 组织(模块)     | 菜单 | Layout   | /goms    |      |          |
+| 10000   | 核心(模块)     | 菜单 | Layout   | /crms    |      |          |
 
 ## 具体见 Wiki

@@ -47,7 +47,7 @@ export function reviewById (id, command) {
 
 export function applyObj (obj) {
   return request({
-    url: '/admin/org/applyJoin',
+    url: '/admin/org/apply/join',
     method: 'post',
     data: obj,
   })
@@ -100,6 +100,14 @@ export function gomsRolePage (query) {
 export function usesLock (id) {
   return request({
     url: `/admin/org/lock/${id}`,
+    method: 'post',
+    data: id,
+  })
+}
+
+export function unSetManager (id) {
+  return request({
+    url: `/admin/org/unset/manager/${id}`,
     method: 'post',
     data: id,
   })

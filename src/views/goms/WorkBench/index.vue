@@ -29,8 +29,10 @@
       </div>
       <div class="manager">
         <p>组织管理员</p>
-        <div class="manager-avatar">
-          <div class="avatar" v-for="(item,index) in managerList" :key="item.userId"><img class="avatar-img" :src="item.avatar" :id="`avatar${index}`" alt="">{{item.realName}}</div>
+        <div class="manager-avatar ">
+          <div class="avatar" v-for="(item,index) in managerList" :key="item.userId">
+            <img class="avatar-img" :src="item.avatar" :id="`avatar${index}`" alt="" @click="open2(item.userId)">{{item.realName}}
+          </div>
         </div>
       </div>
       <div class="function">
@@ -57,7 +59,7 @@
   </div>
 </template>
 <script>
-import { orgDetail, gomsOpen } from '@/api/admin/org'
+import { orgDetail, gomsOpen, unSetManager } from '@/api/admin/org'
 import { handleImg } from '@/util/util'
 import LogList from './LogList'
 import take from 'lodash/take'
@@ -70,6 +72,7 @@ export default {
       tenLogList: [],
       data: { 'orgName': '', 'logo': '', 'realName': '', 'logList': [], 'memberNum': 0, 'applyUserNum': 0, 'deptNum': 0, 'managerList': [], 'isOpen': 0 },
       managerList: [],
+      show: false,
     }
   },
   created () {
@@ -81,6 +84,33 @@ export default {
     },
   },
   methods: {
+    open2 (row) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        unSetManager(row).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `删除失败，${res.data.msg}`,
+            })
+          }
+          this.load()
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除',
+        })
+      })
+    },
     handleListMore () {
       this.isListMore = true
       this.tenLogList = this.data.logList

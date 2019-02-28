@@ -20,14 +20,10 @@
     </div>
     <div class="right">
       <div class="right-top">
-<<<<<<< HEAD
-        <div class="logo-item"><img class="img" :src="data.logo" alt="" id="logo"></div>
-=======
         <!-- <div><img class="img" :src="data.logo" alt="" id="logo"></div> -->
-        <div>
+        <div class="logo-item">
           <iep-img class="img" :src="data.logo"></iep-img>
         </div>
->>>>>>> 471fa22aeab36b1f45d6fc5ee9197949c72190c1
         <div class="img-text">{{data.orgName}}</div>
       </div>
       <div class="information">
@@ -157,10 +153,10 @@ export default {
   }
   .center {
     h4 {
-      margin-bottom:10px;
+      margin-bottom: 10px;
       font-size: 16px;
       font-weight: 400;
-      span{
+      span {
         display: inline-block;
         vertical-align: middle;
       }
@@ -172,7 +168,7 @@ export default {
         color: #666;
         background-color: #f4f4f5;
         i {
-          margin-left:2px;
+          margin-left: 2px;
           font-style: normal;
           color: #bf051a;
         }
@@ -183,7 +179,8 @@ export default {
       color: #666;
       .text-btn {
         color: #999;
-        &:hover,&:focus{
+        &:hover,
+        &:focus {
           color: #ccc;
         }
       }
@@ -243,8 +240,8 @@ export default {
         display: flex;
         justify-content: space-between;
         .avatar {
-          margin-right:10px;
-          margin-bottom:10px;
+          margin-right: 10px;
+          margin-bottom: 10px;
           width: 50px;
           height: 50px;
           text-align: center;

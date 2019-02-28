@@ -4,9 +4,9 @@
       <page-header title="员工" :replaceText="replaceText" :data="[10 ,5, 1]"></page-header>
       <operation-container>
         <template slot="left">
-          <el-button @click="(scope.row)" size="small">表头设置</el-button>
+          <iep-button @click="handleHeaderSetting">表头设置</iep-button>
           <el-dropdown size="medium">
-            <el-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></el-button>
+            <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>删除</el-dropdown-item>
               <el-dropdown-item divided>导入</el-dropdown-item>
@@ -28,14 +28,14 @@
                 </el-radio-group>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="searchPage">搜索</el-button>
-                <el-button @click="clearSearchParam">清空</el-button>
+                <iep-button type="primary" @click="searchPage">搜索</iep-button>
+                <iep-button @click="clearSearchParam">清空</iep-button>
               </el-form-item>
             </el-form>
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="currentColumnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="姓名" width="90px">
             <template slot-scope="scope">
@@ -47,9 +47,9 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <el-dropdown size="medium">
-                <el-button size="small" type="default">
+                <iep-button type="default">
                   变更<i class="el-icon-arrow-down el-icon--right"></i>
-                </el-button>
+                </iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item>入职</el-dropdown-item>
                   <el-dropdown-item>转正</el-dropdown-item>
@@ -57,9 +57,9 @@
                   <el-dropdown-item>离职</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-              <el-button @click="(scope.row)" size="small">成长档案</el-button>
+              <iep-button @click="(scope.row)">成长档案</iep-button>
               <el-dropdown size="medium">
-                <el-button size="small" type="default"><i class="el-icon-more-outline"></i></el-button>
+                <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item>修改</el-dropdown-item>
                   <el-dropdown-item>删除</el-dropdown-item>
@@ -71,25 +71,45 @@
         </el-table-column>
       </iep-table>
     </basic-container>
+    <header-setting ref="HeaderSetting" :default-columns-label="defaultColumnsLabel" @load-page="loadPage" @save="setHeaderSetting"></header-setting>
   </div>
 </template>
 <script>
 import { getEmployeeProfilePage } from '@/api/hrms/employee_profile'
 import mixins from '@/mixins/mixins'
+import keyBy from 'lodash/keyBy'
 import { columnsMap, initSearchForm } from './options'
+import HeaderSetting from './HeaderSetting'
 export default {
   mixins: [mixins],
+  components: { HeaderSetting },
   data () {
     return {
       columnsMap,
+      defaultColumnsLabel: columnsMap.filter(m => !m.hidden).map(m => m.label),
       paramForm: initSearchForm(),
       replaceText: (data) => `（本周新增${data[0]}位正式员工，新增${data[1]}位实习生，离职${data[2]}人）`,
     }
+  },
+  computed: {
+    currentColumnsMap () {
+      const keyByColumns = keyBy(columnsMap, 'label')
+      return this.defaultColumnsLabel.map(m => {
+        return keyByColumns[m]
+      })
+    },
   },
   created () {
     this.loadPage()
   },
   methods: {
+    setHeaderSetting (col) {
+      this.defaultColumnsLabel = col
+    },
+    handleHeaderSetting () {
+      this.$refs['HeaderSetting'].columnsMap = columnsMap
+      this.$refs['HeaderSetting'].dialogShow = true
+    },
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },

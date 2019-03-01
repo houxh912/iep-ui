@@ -20,7 +20,7 @@
 export default {
   data () {
     return {
-      findList: { title: '我要找', details: [{ icon: 'el-icon-picture-outline', subtitle: '方案' }, { icon: 'el-icon-share', subtitle: '模板' }, { icon: 'el-icon-rank', subtitle: '项目' }, { icon: 'el-icon-picture-outline', subtitle: '师傅' }] },
+      findList: { title: '我要找', details: [{ icon: 'icon-fangan', subtitle: '方案' }, { icon: 'icon-moban', subtitle: '模板' }, { icon: 'icon-xiangmu', subtitle: '项目' }, { icon: 'icon-shifu', subtitle: '师傅' }] },
     }
   },
   methods: {

@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="3" class="dotted">
           <div class="left">
-            <div class="img"><img src="./timg.jpg" alt="头像"></div>
+            <div class="img"><img id="information-avatar" alt="头像"></div>
             <div class="code-name">GM000117</div>
           </div>
         </el-col>
@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { handleImg } from '@/util/util'
 import aboutTask from './aboutTask'
 import project from './project'
 import customer from './customer'
@@ -68,7 +70,14 @@ export default {
       ],
     }
   },
-
+  created () {
+    handleImg(this.userInfo.avatar, 'information-avatar')
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
 }
 </script>
 

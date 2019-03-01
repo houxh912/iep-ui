@@ -61,5 +61,16 @@ export default {
   .page-desc {
     font-size: 14px;
   }
+  .el-button--default.is-plain:nth-child(1) {
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    border-color: #dcdfe6;
+    color: #606266;
+    &:hover {
+      border-color: #ea8d03;
+      background-color: #fff7ec;
+      color: #ea8d03;
+    }
+  }
 }
 </style>

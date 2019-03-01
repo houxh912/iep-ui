@@ -20,19 +20,14 @@
     </div>
     <div class="right">
       <div class="right-top">
-<<<<<<< HEAD
-        <div class="logo-item"><img class="img" :src="data.logo" alt="" id="logo"></div>
-=======
-        <!-- <div><img class="img" :src="data.logo" alt="" id="logo"></div> -->
-        <div>
+        <div class="logo-item">
           <iep-img class="img" :src="data.logo"></iep-img>
         </div>
->>>>>>> 471fa22aeab36b1f45d6fc5ee9197949c72190c1
         <div class="img-text">{{data.orgName}}</div>
       </div>
       <div class="information">
-        <div class="info-text"><i class="el-icon-star-off"></i>成员数量：{{data.memberNum}}人（{{data.applyUserNum}}人申请）</div>
-        <div class="info-text"><i class="el-icon-tickets"></i>部门数量：{{data.deptNum}}个</div>
+        <div class="info-text"><i class="icon-chengyuan"></i><span>成员数量：{{data.memberNum}}人（{{data.applyUserNum}}人申请）</span></div>
+        <div class="info-text"><i class="icon-zuzhi"></i><span>部门数量：{{data.deptNum}}个</span></div>
       </div>
       <div class="manager">
         <p>组织管理员</p>
@@ -57,9 +52,12 @@
           <span>开启管理员权限</span><br>
           <span class="span2-button">用户加入组织需通过管理员审核</span>
         </div>
-        <div class="button-switch">
-          <span>组织邀请码</span><br>
-          <span class="span2-button">下载二维码邀请用户加入</span>
+        <div class="button-switch clearfix">
+          <div class="switch-text">
+            <span>组织邀请码</span><br>
+            <span class="span2-button">下载二维码邀请用户加入</span>
+          </div>
+          <img class="code" src="" alt="">
         </div>
       </div>
     </div>
@@ -190,18 +188,16 @@ export default {
     }
   }
   .right {
+    padding: 20px 0;
     background-color: #fafafa;
     border-left: solid 1px #d8d4d4;
     flex: 0 0 240px;
     .right-top {
       border-bottom: solid 1px #d8d4d4;
-      margin-right: 10px;
-      margin-left: 10px;
-      margin-top: 40px;
-      height: 200px;
+      margin:0 20px 20px;
       text-align: center;
       .img-text {
-        margin-top: 15px;
+        margin: 15px 0;
         font-size: 14px;
         i {
           color: #6c6c6c;
@@ -212,7 +208,8 @@ export default {
         border: 1px solid #d7d7d7;
         background-color: #fff;
         .img {
-          width: 100%;
+          display: block;
+          height: 60px;
           margin: 0 auto;
         }
       }
@@ -223,14 +220,19 @@ export default {
       margin-right: 10px;
       margin-left: 10px;
       .info-text {
-        margin-left: 20px;
-        margin-top: 10px;
+        margin: 10px;
         font-size: 14px;
         color: #666;
         i {
+          display: inline-block;
           margin-right: 5px;
           font-size: 18px;
+          vertical-align: middle;
           color: #999;
+        }
+        span {
+          display: inline-block;
+          vertical-align: middle;
         }
       }
     }
@@ -239,14 +241,17 @@ export default {
       margin-right: 10px;
       margin-left: 10px;
       height: 180px;
+      overflow: hidden;
       .manager-avatar {
         display: flex;
-        justify-content: space-between;
+        flex-wrap: wrap;
+        justify-content: space-around;
         .avatar {
           margin-right:10px;
-          margin-bottom:10px;
+          margin-bottom:13px;
           width: 50px;
           height: 50px;
+          font-size: 14px;
           text-align: center;
           border-radius: 50%;
           border: 1px solid #d7d7d7;
@@ -259,10 +264,21 @@ export default {
       }
     }
     .function {
-      margin-left: 20px;
-      margin-bottom: 20px;
+      margin: 20px;
       .button-switch {
         margin-top: 15px;
+          span {
+            font-size: 14px;
+          }
+          .switch-text {
+            float: left;
+          }
+          .code {
+            float: right;
+            width: 30px;
+            height: 30px;
+          }
+        }
       }
       .span2-button {
         color: #beb4b4;
@@ -270,8 +286,6 @@ export default {
       }
       .switch {
         float: right;
-        margin-right: 20px;
-      }
     }
   }
 }

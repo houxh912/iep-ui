@@ -73,14 +73,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.modify {
-  &:hover,
-  &:focus {
-    border-color: #bf051a;
-    background-color: #bf051a;
-    color: #fff;
-  }
-}
 .organize-group {
   text-align: center;
   .el-button.is-circle {

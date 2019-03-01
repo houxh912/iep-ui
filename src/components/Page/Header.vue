@@ -33,7 +33,10 @@ export default {
 .title-wrapper {
   margin-bottom: 10px;
   .page-title {
-    font-size: 23px;
+    font-size: 20px;
+  }
+  .page-desc {
+    font-size: 14px;
   }
 }
 </style>

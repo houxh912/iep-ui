@@ -18,8 +18,8 @@ export default {
     }
   },
   methods: {
-    chanceDetail (index) {
-      console.log(index)
+    chanceDetail () {
+      // console.log(index)
     },
   },
 }

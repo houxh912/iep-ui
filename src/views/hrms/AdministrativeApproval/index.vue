@@ -10,7 +10,7 @@
           <div>
             <el-input placeholder="请输入内容" v-model="input5" class="input-with-select" size="small" prefix-icon="el-icon-search">
               <template slot="append">
-                <span class="search">搜索</span>
+                <span class="search" @click="searchPage">搜索</span>
                 <el-dropdown class="icon">
                   <span class="el-dropdown-link">
                     <i class="el-icon-arrow-down el-icon--right"></i>
@@ -27,42 +27,6 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
-        <template slot="before-columns">
-          <el-table-column prop="type" label="申请类型">
-            <template slot="header">
-              <el-dropdown trigger="click" @command="handleCommandType" size="small">
-                <span>
-                  申请类型<i class="el-icon-arrow-down el-icon--right"></i>
-                </span>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item v-for="(item,index) in typeList" :key="index" :command="item.label">
-                    {{item.label}}
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </template>
-            <template slot-scope="scope">
-              <span>{{scope.row.申请类型}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="user" label="申请人">
-            <template slot="header">
-              <el-dropdown trigger="click" @command="handleCommandUser" size="small">
-                <span>
-                  申请人<i class="el-icon-arrow-down el-icon--right"></i>
-                </span>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item v-for="(item,index) in userList" :key="index" :command="item.label">
-                    {{item.label}}
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </template>
-            <template slot-scope="scope">
-              <span>{{scope.row.申请人}}</span>
-            </template>
-          </el-table-column>
-        </template>
         <el-table-column label="操作">
           <template>
             <el-button size="small">分享</el-button>
@@ -77,8 +41,7 @@
 import PageHeader from '@/components/Page/Header'
 import OperationContainer from '@/components/Operation/Container'
 import IepTable from '@/components/IepTable/'
-import { getAdmniList } from '@/api/hrms/administrative_approval'
-// import data from '@/controller/hrms'
+import { getAdministrativeApprovalPage } from '@/api/hrms/administrative_approval'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -87,6 +50,13 @@ export default {
     return {
       input5: '',
       columnsMap: [
+        {
+          prop: '申请类型',
+          label: '申请类型',
+        }, {
+          prop: '申请人',
+          label: '申请人',
+        },
         {
           prop: '部门',
           label: '部门',
@@ -115,7 +85,7 @@ export default {
   methods: {
     // handleShare (row) { },
     loadPage (param) {
-      this.loadTable(param, getAdmniList)
+      this.loadTable(param, getAdministrativeApprovalPage)
     },
     handleCommandType () {
       // console.log(val)
@@ -126,34 +96,21 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.el-table__column-filter-trigger {
-  font-size: 20px;
-}
-.theme-white .el-dropdown {
-  color: black;
-  padding-left: 0;
-  i {
-    padding-left: 0;
-    margin: 0;
-  }
-}
-.el-table th div {
-  line-height: 0;
-}
+<style scoped>
 .search {
-  padding: 0 5px;
   cursor: pointer;
-  &:after {
-    content: "";
-    width: 1px;
-    height: 100%;
-    background: #dcdfe6;
-    position: absolute;
-    top: 0;
-  }
+  padding-right: 10px;
 }
-.el-dropdown {
+.search:after {
+  content: "";
+  width: 1px;
+  height: 100%;
+  background: #dcdfe6;
+  position: absolute;
+  top: 0;
+  margin-left: 10px;
+}
+>>> .el-dropdown {
   padding: 0 3px;
 }
 .searchMore {
@@ -161,10 +118,8 @@ export default {
   height: 300px;
   background: #ccc;
 }
-.el-dropdown-menu__item {
-  text-align: center;
-}
-.el-input-group__append {
-  padding: 0;
+>>> .el-input-group__append,
+.el-input-group__prepend {
+  padding: 0 2px 0 10px;
 }
 </style>

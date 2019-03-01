@@ -24,7 +24,7 @@ router.post('/auth/mobile/token/sms', authController.postMobileToken)
 router.get('/admin/user/info', adminController.getUserInfo)
 router.get('/admin/dept/user-tree', adminController.getDeptUserTree)
 router.get('/admin/user/page', adminController.getUserPage)
-router.get('/admin/file/image-cde6b6e3b38e4526b24f2bee00e7c15b.jpg', adminController.getAvatar)
+router.get('/admin/file/:filename', adminController.getAvatar)
 router.get('/admin/menu', adminController.getMenu)
 router.get('/admin/dept/tree', adminController.getDeptTree)
 router.get('/admin/user/details', adminController.getUserDetails)
@@ -45,6 +45,7 @@ router.get('/admin/org/:id', orgController.getOrgDetail)
 
 router.get('/hrms/employee_profile/page', hrmsController.getEmployeeProfilePage)
 router.get("/hrms/administrative_approval/page", hrmsController.getAdministrativeApprovalPage)
+router.get("/hrms/talent_pool/page", hrmsController.getTalentPoolPage)
 
 
 exports = module.exports = router

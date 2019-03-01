@@ -13,10 +13,9 @@
   </iep-dialog>
 </template>
 <script>
-import IepButton from '@/components/IepCommon/Button'
 import IepDialog from '@/components/IepDialog/'
 export default {
-  components: { IepDialog, IepButton },
+  components: { IepDialog },
   data () {
     return {
       requestFn: () => { },
@@ -50,9 +49,9 @@ export default {
         'content': this.content,
       }).then(({ data }) => {
         if (data.data) {
-          console.log('true')
+          // console.log('true')
         } else {
-          console.log('false')
+          // console.log('false')
         }
         this.loadPage()
       })

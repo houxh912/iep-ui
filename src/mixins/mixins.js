@@ -3,7 +3,6 @@ import PageHeader from '@/components/Page/Header'
 import OperationSearch from '@/components/Operation/Search'
 import IepTable from '@/components/IepTable/'
 import OperationWrapper from '@/components/Operation/Wrapper'
-import IepButton from '@/components/IepCommon/Button'
 
 const optNameMap = {
   delete: '删除',
@@ -16,7 +15,7 @@ function pageOption () {
 }
 export default {
   components: {
-    PageHeader, IepTable, OperationWrapper, OperationContainer, OperationSearch, IepButton,
+    PageHeader, IepTable, OperationWrapper, OperationContainer, OperationSearch,
   },
   data () {
     return {

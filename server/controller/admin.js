@@ -10,7 +10,7 @@ exports.getMenu = async function (ctx) {
 }
 
 exports.getAvatar = async function (ctx) {
-  const realPath = path.resolve(__dirname, '../resource/lengleng-oxjkuoy361p6x5snlogo.png')
+  const realPath = path.resolve(__dirname, `../resource/${ctx.params.filename}`)
   const res = await fileStream.readFile(realPath);
   // res 为 Buffer流
   if (res) {

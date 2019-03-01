@@ -4,7 +4,7 @@
       <page-header :title="formData.orgName" :replaceText="replaceText" :data="data"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleReview()">批量审核</iep-button>
+          <iep-button class="examine" @click="handleReview()">批量审核</iep-button>
         </template>
         <template slot="right">
           <operation-search @search="searchPage" :paramForm="paramForm" advance-search>

@@ -33,7 +33,7 @@ export default {
         return [part, <span style="color:#2558a9;">{m.nameList[i]}</span>] // JSX
       })
       result.pop()
-      return <p>{result}<span style="float:right;padding-right:20px;">{m.time}</span></p>
+      return <p>{result}<span style="float:right;padding-right:20px;font-size:13px;color:#999;">{m.time}</span></p>
     })
     return (
       <div>{log}</div>

@@ -11,21 +11,23 @@
         </div>
       </div>
       <div class="center">
-        <h4>组织动态</h4>
-        <div class="">
+        <h4><span>组织动态</span><span class="notes">新申请<i>11</i></span></h4>
+        <div class="con">
           <log-list :log-list="tenLogList"></log-list>
-          <el-button v-if="!isListMore && data.logList.length>15" @click="handleListMore" type="text">展开更多>>></el-button>
+          <el-button class="text-btn" v-if="!isListMore && data.logList.length>15" @click="handleListMore" type="text">展开更多>>></el-button>
         </div>
       </div>
     </div>
     <div class="right">
       <div class="right-top">
-        <div><img class="img" :src="data.logo" alt="" id="logo"></div>
+        <div class="logo-item">
+          <img class="img" :src="data.logo" alt="" id="logo"/>
+        </div>
         <div class="img-text">{{data.orgName}}</div>
       </div>
       <div class="information">
-        <div class="info-text">成员数量：{{data.memberNum}}人（{{data.applyUserNum}}人申请）</div>
-        <div class="info-text">部门数量：{{data.deptNum}}个</div>
+        <div class="info-text"><i class="icon-chengyuan"></i><span>成员数量：{{data.memberNum}}人（{{data.applyUserNum}}人申请）</span></div>
+        <div class="info-text"><i class="icon-zuzhi"></i><span>部门数量：{{data.deptNum}}个</span></div>
       </div>
       <div class="manager">
         <p>组织管理员</p>
@@ -50,9 +52,12 @@
           <span>开启管理员权限</span><br>
           <span class="span2-button">用户加入组织需通过管理员审核</span>
         </div>
-        <div class="button-switch">
-          <span>组织邀请码</span><br>
-          <span class="span2-button">下载二维码邀请用户加入</span>
+        <div class="button-switch clearfix">
+          <div class="switch-text">
+            <span>组织邀请码</span><br>
+            <span class="span2-button">下载二维码邀请用户加入</span>
+          </div>
+          <img class="code" src="" alt="">
         </div>
       </div>
     </div>
@@ -62,6 +67,7 @@
 import { orgDetail, gomsOpen, unSetManager } from '@/api/admin/org'
 import { handleImg } from '@/util/util'
 import LogList from './LogList'
+// import IepImg from './Img'
 import take from 'lodash/take'
 export default {
   components: { LogList },
@@ -145,33 +151,72 @@ export default {
       }
       .title {
         margin-bottom: 20px;
+        font-size: 18px;
       }
       .message {
         margin-right: 20px;
       }
     }
   }
+  .center {
+    h4 {
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-weight: 400;
+      span {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .notes {
+        margin: 0 10px;
+        border-radius: 10px;
+        padding: 2px 10px;
+        font-size: 12px;
+        color: #666;
+        background-color: #f4f4f5;
+        i {
+          margin-left: 2px;
+          font-style: normal;
+          color: #bf051a;
+        }
+      }
+    }
+    .con {
+      font-size: 14px;
+      color: #666;
+      .text-btn {
+        color: #999;
+        &:hover,
+        &:focus {
+          color: #ccc;
+        }
+      }
+    }
+  }
   .right {
+    padding: 20px 0;
     background-color: #fafafa;
     border-left: solid 1px #d8d4d4;
     flex: 0 0 240px;
     .right-top {
       border-bottom: solid 1px #d8d4d4;
-      margin-right: 10px;
-      margin-left: 10px;
-      margin-top: 40px;
-      height: 200px;
+      margin:0 20px 20px;
       text-align: center;
       .img-text {
-        margin-top: 15px;
+        margin: 15px 0;
+        font-size: 14px;
+        i {
+          color: #6c6c6c;
+        }
       }
-      .img {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto;
-        border-radius: 50%;
-        img {
-          width: 100%;
+      .logo-item {
+        padding: 30px 40px;
+        border: 1px solid #d7d7d7;
+        background-color: #fff;
+        .img {
+          display: block;
+          height: 60px;
+          margin: 0 auto;
         }
       }
     }
@@ -181,8 +226,20 @@ export default {
       margin-right: 10px;
       margin-left: 10px;
       .info-text {
-        margin-left: 20px;
-        margin-top: 10px;
+        margin: 10px;
+        font-size: 14px;
+        color: #666;
+        i {
+          display: inline-block;
+          margin-right: 5px;
+          font-size: 18px;
+          vertical-align: middle;
+          color: #999;
+        }
+        span {
+          display: inline-block;
+          vertical-align: middle;
+        }
       }
     }
     .manager {
@@ -190,27 +247,44 @@ export default {
       margin-right: 10px;
       margin-left: 10px;
       height: 180px;
+      overflow: hidden;
       .manager-avatar {
         display: flex;
-        padding-left: 15px;
+        flex-wrap: wrap;
+        justify-content: space-around;
         .avatar {
+          margin-right: 10px;
+          margin-bottom: 10px;
           width: 50px;
           height: 50px;
-          margin-top: 25px;
-          margin-right: auto;
+          font-size: 14px;
           text-align: center;
+          border-radius: 50%;
+          border: 1px solid #d7d7d7;
           .avatar-img {
-            width: 100%;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
           }
         }
       }
     }
     .function {
-      margin-left: 20px;
-      margin-bottom: 20px;
+      margin: 20px;
       .button-switch {
         margin-top: 15px;
+          span {
+            font-size: 14px;
+          }
+          .switch-text {
+            float: left;
+          }
+          .code {
+            float: right;
+            width: 30px;
+            height: 30px;
+          }
+        }
       }
       .span2-button {
         color: #beb4b4;
@@ -218,8 +292,6 @@ export default {
       }
       .switch {
         float: right;
-        margin-right: 20px;
-      }
     }
   }
 }

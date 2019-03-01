@@ -67,3 +67,85 @@
 .el-dropdown-menu__item--divided:before, .el-menu, .el-menu--horizontal > .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal > .el-menu-item:not(.is-disabled):hover, .el-menu--horizontal > .el-submenu .el-submenu__title:hover {
   background-color: transparent !important;
 }
+.el-input__inner {
+  &:focus,&:hover {     
+    border-color: #bf051a;
+    background-color: #fff2f4;
+    color: #bf051a;
+  }
+}
+.el-button--default.is-plain {
+  &:nth-child(1) {
+    border-color: #ea8d03;
+    background-color: #fff7ec;
+    color: #ea8d03;
+    &:hover {
+      background-color: #ea8d03;
+      color: #fff;
+    }
+  }
+  &:focus,&:hover {
+    border-color: #ea8d03;
+    background-color: #fff7ec;
+    color: #ea8d03;
+  }
+}
+.el-dropdown-menu--medium {
+  .el-dropdown-menu__item {
+    padding: 0 15px;
+  }
+}
+.el-dropdown-menu__item:not(.is-disabled):hover, .el-dropdown-menu__item:focus {
+  background-color: #fff7ec;
+  color: #ea8d03;
+}
+.el-checkbox__inner:hover,.el-checkbox__input.is-focus .el-checkbox__inner {
+    border-color: #a5a5a5;
+    color: #666;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner,.el-checkbox__input.is-indeterminate .el-checkbox__inner{
+    border-color: #a5a5a5;
+    background-color: #a5a5a5;
+    color: #666;
+}
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+  font-weight: 400;
+  border: 1px solid #dcdfe6;
+  background-color: #f9f9f9;
+  color: #606266;
+}
+.el-input-group__append, .el-input-group__prepend {
+  border-radius: 0;
+  background-color: #f9f9f9;
+}
+.el-dropdown {
+  .el-button.is-plain:nth-child(1) {
+    padding: 9px 10px;
+    width: 56px;
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    border-color: #dcdfe6;
+    color: #606266;
+    &:focus,&:hover {
+      border-color: #ea8d03;
+      background-color: #fff7ec;
+      color: #ea8d03;
+    }
+    .el-icon--right {
+      margin-left: 2px;
+    }
+  }
+}
+.el-button--primary.is-plain {
+  border-color: #bf051a;
+  background-color: #bf051a;
+  color: #fff;
+  &:hover {
+    border-color: #fb5966;
+    background-color: #fb5966;
+  }
+}
+
+.el-select .el-input.is-focus .el-input__inner {
+  border-color: #a5a5a5;
+}

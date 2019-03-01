@@ -39,6 +39,21 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 | Goms             | 组织(7000)        | Views          | 张超        |        |        |        |
 | App              | 游客展示页        | Views          | Undefined   |        |        |        |
 
+
+## 内网公用组件说明(公用组件以及路径、功能说明)
+
+| 组件               | 组件路径                              | 组件使用页面参考           | 功能说明    | 
+|--------------------|--------------------------------------|------------------------|-------------|
+| Button             | @/components/IepCommon/Button        | 批量审核弹窗页面          | 通用的按钮   |       
+| ReviewConfirm      | @/components/IepCommon/ReviewConfirm | 组织的成员管理页面        | 批量审核页面|       
+| Tabs               | @/components/IepCommon/Tabs          | 人力资源下的人才库        | tabs        |      
+| IepDialog          | @/components/IepDialog               | 成员管理的成员编辑弹窗页面 | 通用弹窗     |        
+| IepTable           | @/components/IepTable                | views\hrms\AdministrativeApproval\index.vue  | table |       
+| Container          | @/components/Operation/Container     | views\hrms\AdministrativeApproval\index.vue  | 头部按钮的操作框 |        
+| Search             | @/components/Operation/Search        | 组织的成员管理页面        | 头部右侧搜索栏      |        
+| Wrapper            | @/components/Operation/Wrapper       | 组织的成员管理页面        | 列表页操作栏        |       
+| Header             | @/components/Page/Header             | 组织的成员管理页面        | 头部标题栏        |      
+
 ## Element-ui 主题管理
 
 详见 package.json script

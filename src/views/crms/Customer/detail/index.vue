@@ -6,10 +6,10 @@
       <p class="title">协作人：<span class="person">{{formData.xiezuoren}}</span></p>
     </div>
     <div class="head-button">
-      <el-button class="tabs" type="danger" size="small">暂无需求</el-button>
-      <el-button class="tabs" type="danger" size="small" @click="transfer">转移给他人</el-button>
-      <el-button class="tabs" type="danger" size="small" @click="handleUpdate">编辑</el-button>
-      <el-button class="tabs" type="danger" size="small" @click="handleDelete">删除</el-button>
+      <iep-button class="tabs" type="danger" size="small">暂无需求</iep-button>
+      <iep-button class="tabs" type="danger" size="small" @click="transfer">转移给他人</iep-button>
+      <iep-button class="tabs" type="danger" size="small" @click="handleUpdate">编辑</iep-button>
+      <iep-button class="tabs" type="danger" size="small" @click="handleDelete">删除</iep-button>
     </div>
     <el-tabs v-model="tabName" @tab-click="change">
       <el-tab-pane label="客户全景" name="detail">

@@ -2,7 +2,7 @@
   <div class="contract">
     <operation-container>
       <template slot="left">
-        <el-button @click="handleAdd" size="small">新增</el-button>
+        <iep-button @click="handleAdd" size="small" type="danger">新增</iep-button>
       </template>
       <template slot="right">
         <operation-search @search="searchPage"></operation-search>
@@ -20,9 +20,9 @@
       <el-table-column prop="operation" label="操作" min-width="160">
         <template slot-scope="scope">
           <operation-wrapper>
-            <el-button @click="handleDetail(scope.row)" size="small">详情</el-button>
-            <el-button @click="handleEdit(scope.row)" size="small">编辑</el-button>
-            <el-button @click="handleDeleteById(scope.row)" size="small">删除</el-button>
+            <iep-button @click="handleDetail(scope.row)" size="small">详情</iep-button>
+            <iep-button @click="handleEdit(scope.row)" size="small">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>

@@ -90,7 +90,7 @@
       </el-form-item>
     </el-row>
     <el-form-item>
-      <el-button type="danger">查看项目具体明细</el-button>
+      <iep-button type="danger">查看项目具体明细</iep-button>
     </el-form-item>
   </el-row>
 </template>

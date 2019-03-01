@@ -49,6 +49,9 @@ export default {
       this.loadTable(param, fetchList)
     },
   },
+  created () {
+    this.loadPage()
+  },
 }
 </script>
 

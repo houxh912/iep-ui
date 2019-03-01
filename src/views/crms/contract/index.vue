@@ -1,14 +1,14 @@
 <template>
   <div class="contract">
     <page-header title="合同"></page-header>
-    <el-tabs v-model="tabName" @tab-click="change">
-      <el-tab-pane label="全部合同" name="allContract">
-        <all-contract-tab v-if="tabName=='allContract'" ref="allContract"></all-contract-tab>
-      </el-tab-pane>
-      <el-tab-pane label="我的合同" name="myContract">
-        <my-contract-tab v-if="tabName=='myContract'" ref="myContract"></my-contract-tab>
-      </el-tab-pane>
-    </el-tabs>
+    <iep-tabs v-model="tabName" :tab-list="tabList">
+      <template v-if="tabName ==='allContractTab'" v-slot:allContractTab>
+        <all-contract-tab></all-contract-tab>
+      </template>
+      <template v-if="tabName ==='myContractTab'" v-slot:myContractTab>
+        <my-contract-tab></my-contract-tab>
+      </template>
+    </iep-tabs>
   </div>
 </template>
 
@@ -16,13 +16,23 @@
 import mixins from '@/mixins/mixins'
 import allContractTab from './allContract'
 import myContractTab from './myContract'
+import IepTabs from '@/components/IepCommon/Tabs'
 export default {
   name: 'contract',
-  components: { allContractTab, myContractTab },
+  components: { allContractTab, myContractTab, IepTabs },
   mixins: [ mixins ],
   data () {
     return {
-      tabName: 'allContract',
+      tabName: 'allContractTab',
+      tabList: [
+        {
+          label: '全部合同',
+          value: 'allContractTab',
+        }, {
+          label: '我的合同',
+          value: 'myContractTab',
+        },
+      ],
     }
   },
   methods: {

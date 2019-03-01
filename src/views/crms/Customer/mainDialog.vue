@@ -84,12 +84,12 @@
         </el-select>
       </el-form-item>
       <el-form-item label="相关产品：" prop="chanpin">
-        <el-button size="small" @click="selectProduct"><i class="el-icon-plus"></i></el-button>
+        <iep-button size="small" @click="selectProduct"><i class="el-icon-plus"></i></iep-button>
         <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
         <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
       </el-form-item>
       <el-form-item label="相关方案：" prop="fangan">
-        <el-button size="small"><i class="el-icon-plus"></i></el-button>
+        <iep-button size="small"><i class="el-icon-plus"></i></iep-button>
         <el-col class="col-item">20180909建设银行智慧城市支持项目方案 <i class="el-icon-close"></i></el-col>
         <el-col class="col-item">20180909建设银行智慧城市支持项目方案 <i class="el-icon-close"></i></el-col>
         <el-col class="col-item">20180909建设银行智慧城市支持项目方案 <i class="el-icon-close"></i></el-col>
@@ -97,8 +97,8 @@
 
     </el-form>
     <template slot="footer">
-      <el-button type="primary" @click="submitForm('form')">{{methodName}}</el-button>
-      <el-button @click="resetForm('form')">取消</el-button>
+      <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
+      <iep-button @click="resetForm('form')">取消</iep-button>
     </template>
     <product-dialog ref="productDialog" @select-list="productSelect"></product-dialog>
   </iep-dialog>

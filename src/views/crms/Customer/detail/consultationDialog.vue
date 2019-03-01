@@ -24,8 +24,8 @@
         </el-form-item>
       </el-form>
       <template slot="footer">
-        <el-button type="primary" @click="submitForm('form')">{{methodName}}</el-button>
-        <el-button @click="resetForm">取消</el-button>
+        <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
+        <iep-button @click="resetForm">取消</iep-button>
       </template>
     </iep-dialog>
   </div>

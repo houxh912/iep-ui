@@ -1,25 +1,35 @@
 <template>
   <div class="count">
-    <el-tabs v-model="tabName" @tab-click="change">
-      <el-tab-pane label="我的客户" name="myCustom">
+    <iep-tabs v-model="tabName" :tab-list="tabList">
+      <template v-if="tabName ==='MyCustomTab'" v-slot:MyCustomTab>
         <my-custom-tab ref="myCustom"></my-custom-tab>
-      </el-tab-pane>
-      <el-tab-pane label="全部客户" name="allCustom">
+      </template>
+      <template v-if="tabName ==='AllCustomTab'" v-slot:AllCustomTab>
         <all-custom-tab ref="allCustom"></all-custom-tab>
-      </el-tab-pane>
-    </el-tabs>
+      </template>
+    </iep-tabs>
   </div>
 </template>
 
 <script>
+import IepTabs from '@/components/IepCommon/Tabs'
 import MyCustomTab from './myCustom'
 import AllCustomTab from './allCustom'
 export default {
   name: 'count',
-  components: { MyCustomTab, AllCustomTab },
+  components: { MyCustomTab, AllCustomTab, IepTabs },
   data () {
     return {
-      tabName: 'myCustom',
+      tabName: 'MyCustomTab',
+      tabList: [
+        {
+          label: '我的客户',
+          value: 'MyCustomTab',
+        }, {
+          label: '全部客户',
+          value: 'AllCustomTab',
+        },
+      ],
     }
   },
   methods: {

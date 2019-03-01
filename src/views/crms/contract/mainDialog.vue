@@ -108,7 +108,7 @@
                 :on-change="handleChange"
                 :file-list="formData.list"
                 :on-remove="onRemove">
-                <el-button size="small" type="primary">点击上传</el-button>
+                <iep-button size="small" type="primary">点击上传</iep-button>
               </el-upload>
             </el-form-item>
           </el-col>
@@ -121,8 +121,8 @@
 
     </el-form>
     <template slot="footer" v-if="!methodState">
-      <el-button type="primary" @click="submitForm('form')">{{methodName}}</el-button>
-      <el-button @click="resetForm('form')">取消</el-button>
+      <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
+      <iep-button @click="resetForm('form')">取消</iep-button>
     </template>
   </iep-dialog>
 </template>

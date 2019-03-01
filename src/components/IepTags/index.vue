@@ -82,11 +82,14 @@ export default {
 <style lang="scss" scoped>
 .tags {
   margin: 0;
+  .el-tag--info {
+    margin-right: 10px;
+  }
   .el-tag + .el-tag {
-    margin-left: 10px;
+    margin-right: 10px;
   }
   .button-new-tag {
-    margin-left: 10px;
+    margin: 0 10px 0 0;
     height: 32px;
     line-height: 30px;
     padding-top: 0;
@@ -94,7 +97,7 @@ export default {
   }
   .input-new-tag {
     width: 90px;
-    margin-left: 10px;
+    margin: 0 10px 0 0;
     vertical-align: bottom;
   }
 }

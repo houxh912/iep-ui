@@ -4,7 +4,7 @@
     <div v-for="(item, index) in infoList.tips" :key="index" class="tip" @mouseenter="tipsSelect=index" @mouseleave="tipsSelect=-1">
       <i class="icon-tongzhi"></i>
       <p>{{item.tips}}</p>
-      <el-button type="danger" size="mini" v-if="index==tipsSelect">忽略</el-button>
+      <iep-button type="danger" size="mini" v-if="index==tipsSelect">忽略</iep-button>
     </div>
   </el-row>
 </template>

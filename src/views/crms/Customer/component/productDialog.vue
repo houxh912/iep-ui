@@ -17,14 +17,14 @@
       <el-table-column prop="operation" label="操作" min-width="80">
         <template slot-scope="scope">
           <operation-wrapper>
-            <el-button @click="handleSelect(scope.row)" size="small">选择</el-button>
+            <iep-button @click="handleSelect(scope.row)" size="small">选择</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
     <template slot="footer">
-      <el-button type="primary" @click="submitForm">确认</el-button>
-      <el-button @click="closed">取消</el-button>
+      <iep-button type="primary" @click="submitForm">确认</iep-button>
+      <iep-button @click="closed">取消</iep-button>
     </template>
   </iep-dialog>
 </template>

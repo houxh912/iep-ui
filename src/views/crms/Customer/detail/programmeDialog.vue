@@ -12,8 +12,8 @@
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <el-button @click="handleEdit(scope.row)" size="small">编辑</el-button>
-            <el-button @click="handleDeleteById(scope.row)" size="small">删除</el-button>
+            <iep-button @click="handleEdit(scope.row)" size="small">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -37,13 +37,13 @@
         <el-form-item label="附件上传：" prop="downLoadUrl">
           <el-col class="upload-item">
             <el-input class="upload-input" v-model="formData.downLoadUrl" :disabled="true"/>
-            <el-button class="upload-button" size="small" plain><i class="el-icon-plus"></i> 点击上传</el-button>
+            <iep-button class="upload-button" size="small" plain><i class="el-icon-plus"></i> 点击上传</iep-button>
           </el-col>
         </el-form-item>
       </el-form>
       <template slot="footer">
-        <el-button type="primary" @click="submitForm('form')">{{methodName}}</el-button>
-        <el-button @click="resetForm">取消</el-button>
+        <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
+        <iep-button @click="resetForm">取消</iep-button>
       </template>
     </iep-dialog>
 

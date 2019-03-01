@@ -27,7 +27,7 @@
       <el-table-column prop="operation" label="操作" min-width="60" align="center">
         <template slot-scope="scope">
           <operation-wrapper>
-            <el-button @click="handleEdit(scope.row)" size="small">编辑</el-button>
+            <iep-button @click="handleEdit(scope.row)" size="small">编辑</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -63,6 +63,9 @@ export default {
       this.$refs['mainDialog'].formRequestFn = updateData
       this.$refs['mainDialog'].dialogShow = true
     },
+  },
+  created () {
+    this.loadPage()
   },
 }
 </script>

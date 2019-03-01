@@ -46,6 +46,12 @@ router.get('/admin/org/:id', orgController.getOrgDetail)
 router.get('/hrms/employee_profile/page', hrmsController.getEmployeeProfilePage)
 router.get("/hrms/administrative_approval/page", hrmsController.getAdministrativeApprovalPage)
 router.get("/hrms/talent_pool/page", hrmsController.getTalentPoolPage)
+router.get("/hrms/training_record/page", hrmsController.getTrainingRecordPage)
+router.get("/hrms/department_management/page", hrmsController.getDepartmentManagePage)
+router.get("/hrms/job_system/page", hrmsController.getJobSystemPage)
+router.get("/hrms/job_title_system/page", hrmsController.getJobTitleSystemPage)
+router.get("/hrms/post_library/page", hrmsController.getPostLibraryPage)
+router.get("/hrms/post_library1/page", hrmsController.getPostLibrary1Page)
 
 
 exports = module.exports = router

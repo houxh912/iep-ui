@@ -4,20 +4,12 @@
       <page-header title="组织管理"></page-header>
       <operation-container>
         <template slot="left">
-          <el-button @click="handleAdd" size="small">添加组织</el-button>
-          <!-- <el-dropdown size="medium">
-            <el-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></el-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>删除</el-dropdown-item>
-              <el-dropdown-item divided>导入</el-dropdown-item>
-              <el-dropdown-item>导出</el-dropdown-item>
-              <el-dropdown-item>分享</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown> -->
+          <iep-button @click="handleAdd" type="danger">添加组织</iep-button>
+          <iep-button @click="handleReviewDialog">批量审核</iep-button>
         </template>
         <template slot="right">
           <operation-search @search="searchPage" :paramForm="paramForm" advance-search>
-            <el-form :model="paramForm" label-width="80px" size="mini">
+            <el-form :model="paramForm" label-width="80px" size="small">
               <el-form-item label="组织名称">
                 <el-input v-model="paramForm.name"></el-input>
               </el-form-item>
@@ -29,7 +21,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-index>
         <template slot="before-columns">
           <el-table-column label="组织名称" width="150px">
             <template slot-scope="scope">
@@ -40,16 +32,10 @@
         <el-table-column prop="operation" label="操作" min-width="160">
           <template slot-scope="scope">
             <operation-wrapper>
-              <el-button @click="handleEdit(scope.row)" size="small">编辑</el-button>
-              <el-button @click="handleDeleteById(scope.row)" size="small">删除</el-button>
-              <el-button @click="handlePerson(scope.row, scope.index)" size="small">人员</el-button>
-              <el-dropdown size="medium" @command="handleReview($event, scope.row.orgId)">
-                <el-button size="small" type="default">审核<i class="el-icon-arrow-down el-icon--right"></i></el-button>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item command="pass">通过</el-dropdown-item>
-                  <el-dropdown-item command="reject">驳回</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
+              <iep-button type="warning" @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+              <iep-button @click="handlePerson(scope.row, scope.index)">人员</iep-button>
+              <iep-button type="default" @click="handleReviewDialog(scope.row, scope.index)">审核</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -57,24 +43,20 @@
     </basic-container>
     <add-dialog-form ref="addDialogForm" @load-page="loadPage"></add-dialog-form>
     <person-dialog-form ref="personDialogForm" @load-page="loadPage"></person-dialog-form>
+    <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
   </div>
 </template>
 <script>
 import AddDialogForm from './AddDialogForm'
 import PersonDialogForm from './PersonDialogForm'
-import {
-  addObj,
-  putObj,
-  delObj,
-  fetchList,
-  reviewById,
-} from '@/api/admin/org'
+import { addObj, putObj, delObj, fetchList, reviewById } from '@/api/admin/org'
+import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 import { dictsMap, columnsMap, initOrgForm, initOrgSearchForm } from './options'
 import { mergeByFirst } from '@/util/util'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
-  components: { AddDialogForm, PersonDialogForm },
+  components: { AddDialogForm, PersonDialogForm, IepReviewConfirm },
   data () {
     return {
       dictsMap,
@@ -92,7 +74,6 @@ export default {
     handlePerson (row) {
       this.$refs['personDialogForm'].orgId = row.orgId
       this.$refs['personDialogForm'].dialogShow = true
-      this.$refs['personDialogForm'].load()
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.id, delObj)
@@ -108,10 +89,17 @@ export default {
       this.$refs['addDialogForm'].formRequestFn = addObj
       this.$refs['addDialogForm'].dialogShow = true
     },
-    handleReview (id, command) {
-      reviewById(id, command).then(() => {
-        this.loadPage()
-      })
+    handleReviewDialog (row) {
+      if (row.orgId) {
+        this.$refs['iepReviewForm'].id = row.orgId
+      } else {
+        this.$refs['iepReviewForm'].ids = this.multipleSelection
+      }
+      this.$refs['iepReviewForm'].requestFn = reviewById
+      this.$refs['iepReviewForm'].dialogShow = true
+    },
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.orgId)
     },
     loadPage (param = this.paramForm) {
       this.loadTable(param, fetchList)

@@ -18,16 +18,16 @@ export default {
     }
   },
   methods: {
-    chanceDetail (index) {
-      console.log(index)
+    chanceDetail () {
+      // console.log(index)
     },
   },
 }
 </script>
 <style lang="scss" scoped>
 .chance {
-  width: 100%;
   box-sizing: border-box;
+  margin: 10px;
   .text {
     padding-bottom: 5px;
     color: #979797;

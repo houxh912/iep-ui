@@ -1,11 +1,11 @@
 <template>
   <div class="input-wrapper">
     <el-input placeholder="请输入内容" prefix-icon="el-icon-search" size="small" v-model="input">
-      <el-button slot="append" size="small" @click="handleSearch">搜索</el-button>
+      <el-button class="search-btn" slot="append" size="small" @click="handleSearch">搜索</el-button>
     </el-input>
     <el-popover v-if="advanceSearch" placement="bottom-end" width="350" trigger="click">
       <slot></slot>
-      <el-button slot="reference" size="small">高级搜索</el-button>
+      <el-button class="senior-btn el-icon-arrow-down" slot="reference" size="small"></el-button>
     </el-popover>
   </div>
 </template>
@@ -15,10 +15,6 @@ export default {
     placeHolder: {
       type: String,
       default: '关键字',
-    },
-    paramForm: {
-      type: Object,
-      default: () => { },
     },
     prop: {
       type: String,
@@ -32,11 +28,12 @@ export default {
   data () {
     return {
       input: '',
+      form: {},
     }
   },
   methods: {
     handleSearch () {
-      this.$emit('search', this.paramForm[this.prop] = this.input)
+      this.$emit('search', this.form[this.prop] = this.input)
     },
   },
 }
@@ -48,5 +45,23 @@ export default {
   & > * {
     margin-right: 5px;
   }
+  .senior-btn {
+    margin-left: -6px;
+    padding: 9px 5px;
+    border-radius: 0 3px 3px 0;
+    &:hover,
+    &:focus {
+      border-color: #bf051a;
+      background-color: #fff2f4;
+      color: #bf051a; 
+    }
+  }
 }
+.search-btn {
+  &:hover,
+  &:focus {
+   opacity: .8;
+  }
+}
+
 </style>

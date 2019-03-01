@@ -4,7 +4,7 @@
 
 凡是以这个模板开发的项目, 都需要从这个项目的 `master` 分支分发出去, 改动文件规则请看规则
 
-如果安装 `yarn` or `npm i` 缓慢, 请先更换为中国镜像.
+如果安装 `yarn` or `npm i` 缓慢, 请先更换为中国镜像. 这里推荐用自带 `CMD` or `PowerShell` 否则有权限问题
 ```
 npm set registry https://registry.npm.taobao.org
 npm set disturl https://npm.taobao.org/dist
@@ -33,10 +33,30 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 | SideBar/MainItem | 主菜单            | ELAside        | 张超        |        |        |        |
 | Wel/WelAside     | 工作台/右侧操作栏 | Wel            | 重庆-谭建林 |        |        |        |
 | Wel/WelConTent   | 工作台/中间赋能台 | Wel            | 重庆-谭建林 |        |        |        |
-| Hrms             | 人力              | Views          | 张超        |        |        |        |
-| Crms             | 客户              | Views          | 胡争伟      |        |        |        |
-| Core             | 核心              | Views          | 张超        |        |        |        |
+| Hrms             | 人力(5000)        | Views          | 张超        |        |        |        |
+| Crms             | 客户(6000)        | Views          | 胡争伟      |        |        |        |
+| Core             | 核心(10000)       | Views          | 张超        |        |        |        |
+| Goms             | 组织(7000)        | Views          | 张超        |        |        |        |
 | App              | 游客展示页        | Views          | Undefined   |        |        |        |
+
+
+## 内网公用组件说明(公用组件以及路径、功能说明)
+
+| 组件               | 组件路径                              | 组件使用页面参考           | 功能说明    | 
+|--------------------|--------------------------------------|------------------------|-------------|
+| Button             | @/components/IepCommon/Button        | 批量审核弹窗页面          | 通用的按钮   |       
+| ReviewConfirm      | @/components/IepCommon/ReviewConfirm | 组织的成员管理页面        | 批量审核页面|       
+| Tabs               | @/components/IepCommon/Tabs          | 人力资源下的人才库        | tabs        |      
+| IepDialog          | @/components/IepDialog               | 成员管理的成员编辑弹窗页面 | 通用弹窗     |        
+| IepTable           | @/components/IepTable                | views\hrms\AdministrativeApproval\index.vue  | table |       
+| Container          | @/components/Operation/Container     | views\hrms\AdministrativeApproval\index.vue  | 头部按钮的操作框 |        
+| Search             | @/components/Operation/Search        | 组织的成员管理页面        | 头部右侧搜索栏      |        
+| Wrapper            | @/components/Operation/Wrapper       | 组织的成员管理页面        | 列表页操作栏        |       
+| Header             | @/components/Page/Header             | 组织的成员管理页面        | 头部标题栏        |      
+
+## Element-ui 主题管理
+
+详见 package.json script
 
 ## Git 管理必读
 
@@ -69,10 +89,11 @@ https://www.yuque.com/zsr/iep
 |--------|----------|------|----------|----------|------|----------|
 | 11000   | 权限管理 | 菜单 | Layout   | /upms    |      |          |
 | 12000   | 系统管理 | 菜单 | Layout   | /admin   |      |          |
-| 13000   | 系统监控 | 按钮 | Layout   | /daemon  |      |          |
-| 14000   | 协同管理 | 按钮 | Layout   | /activti |      |          |
-| 5000   | 人力(模块)     | 按钮 | Layout   | /hrms    |      |          |
-| 6000   | 客户(模块)     | 按钮 | Layout   | /crms    |      |          |
-| 10000   | 核心(模块)     | 按钮 | Layout   | /crms    |      |          |
+| 13000   | 系统监控 | 菜单 | Layout   | /daemon  |      |          |
+| 14000   | 协同管理 | 菜单 | Layout   | /activti |      |          |
+| 5000   | 人力(模块)     | 菜单 | Layout   | /hrms    |      |          |
+| 6000   | 客户(模块)     | 菜单 | Layout   | /crms    |      |          |
+| 7000   | 组织(模块)     | 菜单 | Layout   | /goms    |      |          |
+| 10000   | 核心(模块)     | 菜单 | Layout   | /crms    |      |          |
 
 ## 具体见 Wiki

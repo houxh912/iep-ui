@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}组织`" width="50%" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}组织`" width="50%" @close="resetForm">
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
 
       <el-form-item label="联系人姓名" prop="name">
@@ -42,7 +42,7 @@
     </el-form>
     <template slot="footer">
       <el-button type="primary" @click="submitForm('form')">{{methodName}}</el-button>
-      <el-button @click="loadPage">取消</el-button>
+      <el-button @click="resetForm">取消</el-button>
     </template>
   </iep-dialog>
 </template>
@@ -70,9 +70,13 @@ export default {
     }
   },
   methods: {
-    loadPage () {
+    resetForm () {
+      // this.$refs[formName].resetFields()
       this.formData = initForm()
       this.dialogShow = false
+    },
+    loadPage () {
+      this.$emit('load-page')
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -85,14 +89,12 @@ export default {
               duration: 2000,
             })
             this.loadPage()
+            this.dialogShow = false
           })
         } else {
           return false
         }
       })
-    },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
     },
   },
 }

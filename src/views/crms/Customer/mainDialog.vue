@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}客户`" width="60%" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}客户`" width="60%" @close="resetForm('form')">
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
 
       <el-row>
@@ -84,7 +84,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="相关产品：" prop="chanpin">
-        <el-button size="small"><i class="el-icon-plus"></i></el-button>
+        <el-button size="small" @click="selectProduct"><i class="el-icon-plus"></i></el-button>
         <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
         <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
       </el-form-item>
@@ -98,15 +98,17 @@
     </el-form>
     <template slot="footer">
       <el-button type="primary" @click="submitForm('form')">{{methodName}}</el-button>
-      <el-button @click="loadPage">取消</el-button>
+      <el-button @click="resetForm('form')">取消</el-button>
     </template>
+    <product-dialog ref="productDialog" @select-list="productSelect"></product-dialog>
   </iep-dialog>
 </template>
 <script>
 import IepDialog from '@/components/IepDialog/'
 import { initFormData, rules } from './const/index'
+import ProductDialog from './component/productDialog'
 export default {
-  components: { IepDialog },
+  components: { IepDialog, ProductDialog },
   data () {
     return {
       dialogShow: false,
@@ -128,6 +130,10 @@ export default {
   },
   methods: {
     loadPage () {
+      this.$emit('load-page')
+    },
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
       this.formData = initFormData()
       this.dialogShow = false
     },
@@ -142,14 +148,19 @@ export default {
               duration: 2000,
             })
             this.loadPage()
+            this.dialogShow = false
           })
         } else {
           return false
         }
       })
     },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
+    // 选择相关产品
+    selectProduct () {
+      this.$refs['productDialog'].loadPage()
+    },
+    productSelect (val) {
+      console.log('选中的产品：', val)
     },
   },
 }

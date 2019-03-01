@@ -1,9 +1,11 @@
 <template>
-  <div class="contract">合同</div>
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: 'contract',
+  name: 'programme',
+  methods: {
+  },
 }
 </script>

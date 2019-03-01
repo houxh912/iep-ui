@@ -1,7 +1,7 @@
 <template>
   <div class="programme">
     <el-table
-     :data="tableData">
+     :data="pagedTable">
       <el-table-column
           :label="item.label"
           v-for="(item, index) in columnsMap"
@@ -22,9 +22,7 @@
     <pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :pagination-option="pagination"></pagination>
     <el-row class="recommend">
       <el-col class="title">为您推荐一下参考材料：</el-col>
-      <el-col class="item" :span=12>20180919建设银行政务服务中心方案</el-col>
-      <el-col class="item" :span=12>20180919建设银行政务服务中心方案</el-col>
-      <el-col class="item" :span=12>20180919建设银行政务服务中心方案</el-col>
+      <el-col class="item" :span=12 v-for="(item, index) in recommendList" :key="index">{{item.name}}</el-col>
     </el-row>
 
     <iep-dialog :dialog-show="dialogShow" :title="`${methodName}联系人`" width="60%" @close="resetForm">
@@ -36,9 +34,9 @@
         <el-form-item label="方案名称：" prop="name">
           <el-input v-model="formData.name"></el-input>
         </el-form-item>
-        <el-form-item label="附件上传：" prop="fujian">
+        <el-form-item label="附件上传：" prop="downLoadUrl">
           <el-col class="upload-item">
-            <el-input class="upload-input" v-model="formData.fujian" :disabled="true"/>
+            <el-input class="upload-input" v-model="formData.downLoadUrl" :disabled="true"/>
             <el-button class="upload-button" size="small" plain><i class="el-icon-plus"></i> 点击上传</el-button>
           </el-col>
         </el-form-item>
@@ -57,6 +55,7 @@ import IepDialog from '@/components/IepDialog/'
 import { initContactForm } from '../const/detail'
 import pagination from '@/components/IepTable/Pagination'
 import mixins from '@/mixins/mixins'
+import { fetchProgramme, createProgramme, updateProgramme, deleteProgramme } from '@/api/crms/custom'
 export default {
   name: 'contacts',
   mixins: [ mixins ],
@@ -64,14 +63,9 @@ export default {
   data () {
     return {
       isLoadTable: false,
-      tableData: [
-        { id:1, name: '20180909浙江省办公室项目方案0001号文件' },
-        { id:2, name: '20180909浙江省办公室项目方案0002号文件' },
-        { id:3, name: '20180909浙江省办公室项目方案0003号文件' },
-      ],
       columnsMap: [
         { label: '方案名称', prop: 'name' },
-        { label: '附件', prop: 'fujian', width: '200' },
+        { label: '附件', prop: 'downLoadUrl', width: '200' },
       ],
       formData: {},
       rules: {},
@@ -81,28 +75,35 @@ export default {
         { value: 1, label: '选项1' },
         { value: 2, label: '选项2' },
       ],
+      recommendList: [
+        {
+          name: '20180919建设银行政务服务中心方案1号',
+        }, {
+          name: '20180919建设银行政务服务中心方案2号',
+        }, {
+          name: '20180919建设银行政务服务中心方案3号',
+        },
+      ],
+      submitFn: () => {},
     }
   },
   methods: {
-    loadPage () {
+    loadPage (param) {
+      this.loadTable(param, fetchProgramme)
     },
     created () {
       this.dialogShow = true
       this.methodName = '新增'
+      this.submitFn = createProgramme
     },
-    handleEdit () {
+    handleEdit (row) {
+      this.formData = {...row}
       this.dialogShow = true
       this.methodName = '编辑'
+      this.submitFn = updateProgramme
     },
     handleDeleteById (row) {
-      let delFn = () => {
-        return {
-          then: () => {
-            this.$message.success('删除成功！')
-          },
-        }
-      }
-      this._handleGlobalDeleteById(row.id, delFn)
+      this._handleGlobalDeleteById(row.id, deleteProgramme)
     },
     resetForm () {
       this.formData = initContactForm()
@@ -111,7 +112,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.formData).then(() => {
+          this.submitFn(this.formData).then(() => {
             this.$notify({
               title: '成功',
               message: `${this.methodName}成功`,
@@ -119,12 +120,16 @@ export default {
               duration: 2000,
             })
             this.loadPage()
+            this.dialogShow = false
           })
         } else {
           return false
         }
       })
     },
+  },
+  created () {
+    this.loadPage()
   },
 }
 </script>

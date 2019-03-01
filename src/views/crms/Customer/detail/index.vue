@@ -16,19 +16,19 @@
         <detail-dialog :list="formData"></detail-dialog>
       </el-tab-pane>
       <el-tab-pane label="联系人" name="contacts">
-        <contacts-dislog :list="formData"></contacts-dislog>
+        <contacts-dislog :list="formData" v-if="tabName=='contacts'"></contacts-dislog>
       </el-tab-pane>
       <el-tab-pane label="拜访日志" name="visitLog">
-        <visit-log-dialog :list="formData"></visit-log-dialog>
+        <visit-log-dialog :list="formData" v-if="tabName=='visitLog'"></visit-log-dialog>
       </el-tab-pane>
       <el-tab-pane label="方案" name="programme">
-        <programme-dialog :list=formData></programme-dialog>
+        <programme-dialog :list=formData v-if="tabName=='programme'"></programme-dialog>
       </el-tab-pane>
       <el-tab-pane label="合同" name="contract">
-        合同
+        <contract-dialog :list="formData"></contract-dialog>
       </el-tab-pane>
       <el-tab-pane label="资讯" name="consultation">
-        <consultation-dialog :list="formData"></consultation-dialog>
+        <consultation-dialog :list="formData" v-if="tabName=='consultation'"></consultation-dialog>
       </el-tab-pane>
     </el-tabs>
   </iep-dialog>
@@ -39,13 +39,15 @@ import IepDialog from '@/components/IepDialog/'
 import DetailDialog from './detailDialog'
 import ContactsDislog from './contactsDislog'
 import VisitLogDialog from './visitLogDialog'
-import ConsultationDialog from './consultationDialog'
 import ProgrammeDialog from './programmeDialog'
+import ContractDialog from './contractDialog'
+import ConsultationDialog from './consultationDialog'
 import mixins from '@/mixins/mixins'
+import { deleteDataById } from '@/api/crms/custom'
 export default {
   name: 'detail',
   mixins: [ mixins ],
-  components: { IepDialog, DetailDialog, ContactsDislog, VisitLogDialog, ConsultationDialog, ProgrammeDialog },
+  components: { IepDialog, DetailDialog, ContactsDislog, VisitLogDialog, ConsultationDialog, ProgrammeDialog, ContractDialog },
   data () {
     return {
       dialogShow: false,
@@ -74,18 +76,11 @@ export default {
     },
     // 编辑
     handleUpdate () {
-      this.$message('编辑')
+      this.$emit('update-form', this.formData)
     },
     // 删除
     handleDelete (row) {
-      let delFn = () => {
-        return {
-          then: () => {
-            this.$message.success('删除成功！')
-          },
-        }
-      }
-      this._handleGlobalDeleteById(row.id, delFn)
+      this._handleGlobalDeleteById(row.id, deleteDataById)
     },
   },
 }

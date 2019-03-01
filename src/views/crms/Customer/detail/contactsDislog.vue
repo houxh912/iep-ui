@@ -1,7 +1,7 @@
 <template>
   <div class="contacts">
     <el-table
-     :data="tableData">
+     :data="pagedTable">
       <el-table-column
           :label="item.label"
           v-for="(item, index) in columnsMap"
@@ -96,6 +96,7 @@
 <script>
 import IepDialog from '@/components/IepDialog/'
 import { initContactForm } from '../const/detail'
+import { fetchList, createData, updateData, deleteDataById } from '@/api/crms/contact'
 import mixins from '@/mixins/mixins'
 export default {
   name: 'contacts',
@@ -104,11 +105,6 @@ export default {
   data () {
     return {
       isLoadTable: false,
-      tableData: [
-        { id:1, name: '马云' },
-        { id:2, name: '丁磊' },
-        { id:3, name: '马化腾' },
-      ],
       columnsMap: [
         { label: '联系人姓名', prop: 'name' },
         { label: '联系人职务', prop: 'zhiwu' },
@@ -123,28 +119,25 @@ export default {
         { value: 1, label: '选项1' },
         { value: 2, label: '选项2' },
       ],
+      submitFn: () => {},
     }
   },
   methods: {
-    loadPage () {
+    loadPage (param) {
+      this.loadTable(param, fetchList)
     },
     created () {
       this.dialogShow = true
       this.methodName = '新增'
+      this.submitFn = createData
     },
     handleEdit () {
       this.dialogShow = true
       this.methodName = '编辑'
+      this.submitFn = updateData
     },
     handleDeleteById (row) {
-      let delFn = () => {
-        return {
-          then: () => {
-            this.$message.success('删除成功！')
-          },
-        }
-      }
-      this._handleGlobalDeleteById(row.id, delFn)
+      this._handleGlobalDeleteById(row.id, deleteDataById)
     },
     resetForm () {
       this.formData = initContactForm()
@@ -153,7 +146,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.formData).then(() => {
+          this.submitFn(this.formData).then(() => {
             this.$notify({
               title: '成功',
               message: `${this.methodName}成功`,
@@ -161,12 +154,16 @@ export default {
               duration: 2000,
             })
             this.loadPage()
+            this.dialogShow = false
           })
         } else {
           return false
         }
       })
     },
+  },
+  created () {
+    this.loadPage()
   },
 }
 </script>

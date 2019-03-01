@@ -1,7 +1,7 @@
 <template>
   <div class="visitLog">
     <el-table
-     :data="tableData">
+     :data="pagedTable">
       <el-table-column
           :label="item.label"
           v-for="(item, index) in columnsMap"
@@ -50,6 +50,7 @@
 <script>
 import IepDialog from '@/components/IepDialog/'
 import { initVisitForm } from '../const/detail'
+import { createVisit, updateVisit, deleteVisit } from '@/api/crms/custom'
 import mixins from '@/mixins/mixins'
 export default {
   name: 'visitLog',
@@ -58,11 +59,7 @@ export default {
   data () {
     return {
       isLoadTable: false,
-      tableData: [
-        { id:1, name: '拜访日志1' },
-        { id:2, name: '拜访日志2' },
-        { id:3, name: '拜访日志3' },
-      ],
+      pagedTable: [],
       columnsMap: [
         { label: '主题', prop: 'name' },
         { label: '拜访时间', prop: 'zhiwu' },
@@ -76,29 +73,30 @@ export default {
         { value: 1, label: '选项1' },
         { value: 2, label: '选项2' },
       ],
+      submitFn: () => {},
     }
   },
   methods: {
     loadPage () {
+      this.pagedTable = [
+        { id:1, name: '拜访日志1' },
+        { id:2, name: '拜访日志2' },
+        { id:3, name: '拜访日志3' },
+      ]
     },
     createdRecord () {
       this.dialogShow = true
       this.methodName = '新增'
+      this.submitFn = createVisit
     },
     createdJournal () {},
     handleEdit () {
       this.dialogShow = true
       this.methodName = '编辑'
+      this.submitFn = updateVisit
     },
     handleDeleteById (row) {
-      let delFn = () => {
-        return {
-          then: () => {
-            this.$message.success('删除成功！')
-          },
-        }
-      }
-      this._handleGlobalDeleteById(row.id, delFn)
+      this._handleGlobalDeleteById(row.id, deleteVisit)
     },
     resetForm () {
       this.formData = initVisitForm()
@@ -107,7 +105,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.formData).then(() => {
+          this.submitFn(this.formData).then(() => {
             this.$notify({
               title: '成功',
               message: `${this.methodName}成功`,
@@ -115,12 +113,16 @@ export default {
               duration: 2000,
             })
             this.loadPage()
+            this.dialogShow = false
           })
         } else {
           return false
         }
       })
     },
+  },
+  created () {
+    this.loadPage()
   },
 }
 </script>

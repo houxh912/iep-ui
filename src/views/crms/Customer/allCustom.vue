@@ -15,27 +15,22 @@
       @current-change="handleCurrentChange"
       is-index>
       <template slot="before-columns">
-        <el-table-column label="客户名称" width="150px">
+        <el-table-column label="客户名称" width="300px">
           <template slot-scope="scope">
-            <span>{{scope.row.name}}</span>
+            <div class="custom-name">{{scope.row.name}}</div>
+            <el-col class="custom-tags">
+              <el-tag type="info" size="mini" v-for="(item, index) in scope.row.code" :key="index">{{item}}</el-tag>
+            </el-col>
           </template>
         </el-table-column>
       </template>
-      <el-table-column prop="operation" label="操作" min-width="160">
-        <template slot-scope="scope">
-          <operation-wrapper>
-            <el-button @click="handleEdit(scope.row)" size="small">编辑</el-button>
-            <el-button @click="handleDeleteById(scope.row)" size="small">删除</el-button>
-          </operation-wrapper>
-        </template>
-      </el-table-column>
     </iep-table>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
-import { allTableOption } from './const/index'
+import { allTableOption, dictsMap } from './const/index'
 import { fetchList } from '@/api/crms/custom'
 
 export default {
@@ -45,7 +40,7 @@ export default {
   computed: {},
   data () {
     return {
-      dictsMap: {},
+      dictsMap,
       columnsMap: allTableOption,
     }
   },
@@ -56,3 +51,19 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.custom-name {
+  cursor: pointer;
+  margin-bottom: 10px;
+  // text-decoration: underline;
+}
+.custom-tags {
+  margin: 0;
+  .el-tag {
+    margin-right: 5px;
+    height: 26px;
+    line-height: 26px;
+  }
+}
+</style>

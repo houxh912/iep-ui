@@ -46,5 +46,14 @@ router.get('/hrms/employee_profile/page', hrmsController.getEmployeeProfilePage)
 
 // crms
 router.get('/crms/custom/page', crmsController.fetchList)
+router.post('/crms/custom/create', crmsController.create)
+router.post('/crms/custom/update', crmsController.update)
+router.post('/crms/custom/delete', crmsController.delete)
+router.post('/crms/custom', crmsController.fetchDetail)
+router.get('/crms/custom/programme/page', crmsController.fetchProgramme)
+router.get('/crms/contact/page', crmsController.fetchContartList)
+router.post('/crms/contact/create', crmsController.createContact)
+router.post('/crms/contact/update', crmsController.updateContact)
+router.post('/crms/contact/delete', crmsController.deleteContact)
 
 exports = module.exports = router

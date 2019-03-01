@@ -34,12 +34,27 @@
 <script>
 import IepDialog from '@/components/IepDialog/'
 import { initConsultaForm } from '../const/detail'
+import { createConsultation } from '@/api/crms/custom'
 export default {
   name: 'consultation',
   components: { IepDialog },
   data () {
     return {
-      list: [
+      list: [],
+      formData: {},
+      rules: {},
+      methodName: '',
+      dialogShow: false,
+      dicData: [
+        { value: 1, label: '选项1' },
+        { value: 2, label: '选项2' },
+      ],
+      submitFn: () => {},
+    }
+  },
+  methods: {
+    loadPage () {
+      this.list = [
         {
           id: 1,
           title: '关于新项目的资讯',
@@ -53,22 +68,12 @@ export default {
           code: ['网站评测', '政务服务'],
           msg: '这是一段描述这是一段描述这是一段描述这是一段描述这是一段描述这是一段描述这是一段描述，这是一段描述这是一段描述这是一段描述，这是一段描述这是一段描述这是一段描述这是一段描述，这是一段描述这是一段描述这是一段描述',
         },
-      ],
-      formData: {},
-      rules: {},
-      methodName: '',
-      dialogShow: false,
-      dicData: [
-        { value: 1, label: '选项1' },
-        { value: 2, label: '选项2' },
-      ],
-    }
-  },
-  methods: {
-    loadPage () {},
+      ]
+    },
     created () {
       this.dialogShow = true
       this.methodName = '新增'
+      this.submitFn = createConsultation
     },
     resetForm () {
       this.formData = initConsultaForm()
@@ -77,7 +82,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.formData).then(() => {
+          this.submitFn(this.formData).then(() => {
             this.$notify({
               title: '成功',
               message: `${this.methodName}成功`,
@@ -85,12 +90,16 @@ export default {
               duration: 2000,
             })
             this.loadPage()
+            this.dialogShow = false
           })
         } else {
           return false
         }
       })
     },
+  },
+  created () {
+    this.loadPage()
   },
 }
 </script>

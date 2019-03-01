@@ -1,14 +1,14 @@
 export const columnsMap = [
   {
-    prop: 'intro',
+    prop: 'name',
     label: '联系人名称',
   },
   {
-    prop: 'isOpen',
+    prop: 'zhiwu',
     label: '联系人职务',
   },
   {
-    prop: 'status',
+    prop: 'duiying',
     label: '对应客户',
   },
 ]

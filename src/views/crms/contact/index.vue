@@ -36,7 +36,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import MainDialog from './mainDialog'
-import { addObj, putObj, delObj, fetchList, reviewById } from '@/api/admin/org'
+import { fetchList, createData, updateData, deleteDataById } from '@/api/crms/contact'
 import { columnsMap, initForm } from './const.js'
 import { mergeByFirst } from '@/util/util'
 export default {
@@ -53,23 +53,18 @@ export default {
   },
   methods: {
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.id, delObj)
+      this._handleGlobalDeleteById(row.id, deleteDataById)
     },
     handleEdit (row) {
-      this.$refs['addDialogForm'].orgForm = mergeByFirst(initForm(), row)
+      this.$refs['addDialogForm'].formData = mergeByFirst(initForm(), row)
       this.$refs['addDialogForm'].methodName = '修改'
-      this.$refs['addDialogForm'].formRequestFn = putObj
+      this.$refs['addDialogForm'].formRequestFn = updateData
       this.$refs['addDialogForm'].dialogShow = true
     },
     handleAdd () {
       this.$refs['addDialogForm'].methodName = '创建'
-      this.$refs['addDialogForm'].formRequestFn = addObj
+      this.$refs['addDialogForm'].formRequestFn = createData
       this.$refs['addDialogForm'].dialogShow = true
-    },
-    handleReview (id, command) {
-      reviewById(id, command).then(() => {
-        this.loadPage()
-      })
     },
     loadPage (param) {
       this.loadTable(param, fetchList)

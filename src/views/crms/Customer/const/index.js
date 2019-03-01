@@ -1,10 +1,37 @@
+export const dictsMap = {
+  type: {
+    1: '类型1',
+    2: '类型2',
+  },
+}
+
 export const allTableOption = [
   {
     label: '业务类型',
     prop: 'type',
+    type: 'dict',
   }, {
     label: '客户类型',
     prop: 'type',
+    type: 'dict',
+  },  {
+    label: '客户关系',
+    prop: 'guanxi',
+  }, {
+    label: '市场经理',
+    prop: 'jingli',
+  },
+]
+
+export const myTableOption = [
+  {
+    label: '业务类型',
+    prop: 'type',
+    type: 'dict',
+  }, {
+    label: '客户类型',
+    prop: 'type',
+    type: 'dict',
   },  {
     label: '客户关系',
     prop: 'guanxi',
@@ -14,6 +41,9 @@ export const allTableOption = [
   }, {
     label: '市场经理',
     prop: 'jingli',
+  }, {
+    label: '距离上次拜访',
+    prop: 'date',
   },
 ]
 

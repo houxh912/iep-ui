@@ -12,7 +12,7 @@
         </div>
         <div class="right">
           <div class="list">
-            部门：国脉集团、国脉先锋队
+            <span>部门：国脉集团、国脉先锋队</span>
           </div>
           <div class="list">
             <span>岗位：产品经理</span>
@@ -104,6 +104,7 @@ export default {
     border-left: 1px dashed #d7d7d7;
     .list {
       margin-bottom: 15px;
+      .list-right {margin-left: 30px;}
     }
   }
   .img-header {
@@ -128,9 +129,9 @@ export default {
       display: block;
       margin-top: 8px;
     }
-     .num {
+    .num {
       font-size: 14px;
-     }
+    }
   }
   .state {
     color: #999;
@@ -150,6 +151,9 @@ export default {
     }
     li {
       margin: 5px;
+      &:nth-child(1) {
+        margin-left: 0;
+      }
     }
     a {
       display: block;

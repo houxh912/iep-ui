@@ -7,7 +7,7 @@ const change = {
   },
   actions: {},
   mutations: {
-    hideAside (state) {
+    HIDEASIDE (state) {
       state.count++
       state.hide = !state.hide
       if (state.count % 2 == 1) {
@@ -33,13 +33,13 @@ const change = {
         }
       }
     },
-    show (state) {
+    SHOW (state) {
       state.padding = 320
     },
-    response (state) {
+    RESPONSE (state) {
       state.padding = 240
     },
-    hide (state) {
+    HIDE (state) {
       state.padding = 20
     },
   },

@@ -100,21 +100,16 @@ export default {
       }, timespeed)
     },
     show () {
-      this.$store.commit('hideAside')
+      this.$store.commit('HIDEASIDE')
     },
   },
   mounted () {
     const that = this
     window.onresize = function () {
-      // console.log('22e1')
-      // that.clientHeight = `${document.documentElement.clientHeight}px`;
-      // console.log(document.body.clientHeight)
       that.sss = document.body.clientWidth
       var width = document.body.clientWidth || document.documentElement.clientWidth
-      // console.log(223123123)
       if (1025 < width < 1270) {
-        // console.log(2222)
-        this.$store.commit('response')
+        this.$store.commit('RESPONSE')
       } else if (width < 1025) {
         this.$store.state.hideAside.padding = 0
       }

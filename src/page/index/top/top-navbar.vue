@@ -58,14 +58,14 @@ export default {
     this.$nextTick(() => {
       if (this.screenWidth >= 1270) {
         this.showItem = true
-        this.$store.commit('show')
+        this.$store.commit('SHOW')
       }
       if (1025 < this.screenWidth && this.screenWidth < 1270) {
         this.showItem = true
-        this.$store.commit('response')
+        this.$store.commit('RESPONSE')
       }
       if (this.screenWidth <= 1025) {
-        this.$store.commit('hide')
+        this.$store.commit('HIDE')
         this.showItem = false
       }
     })
@@ -83,14 +83,14 @@ export default {
     screenWidth (val) {
       if (this.screenWidth >= 1270) {
         this.showItem = true
-        this.$store.commit('show')
+        this.$store.commit('SHOW')
       }
       if (1025 < this.screenWidth && this.screenWidth < 1270) {
         this.showItem = true
-        this.$store.commit('response')
+        this.$store.commit('RESPONSE')
       }
       if (this.screenWidth < 1025) {
-        this.$store.commit('hide')
+        this.$store.commit('HIDE')
         this.showItem = false
       }
       if (!this.timer) {

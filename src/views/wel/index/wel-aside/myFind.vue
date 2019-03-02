@@ -31,11 +31,11 @@ export default {
       // console.log(index)
     },
     hideAside () {
-      this.$store.commit('hideAside')
+      this.$store.commit('HIDEASIDE')
     },
     showAside () {
       // console.log(222)
-      this.$store.commit('showAside')
+      this.$store.commit('SHOWASIDE')
     },
   },
   computed: {

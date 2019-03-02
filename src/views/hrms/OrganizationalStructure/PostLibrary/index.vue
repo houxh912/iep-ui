@@ -22,7 +22,7 @@ export default {
   components: { PageHeader, IepTabs, PostLibrary, JobClassification },
   data () {
     return {
-      replaceText: (data) => `（共有${data[0]}个岗位`,
+      replaceText: (data) => `（共有${data[0]}个岗位)`,
       tabList: [{
         label: '岗位库',
         value: 'PostLibrary',

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="职务体系" :replaceText="replaceText" :data="[20]"></page-header>
+      <page-header title="职务职称体系" :replaceText="replaceText" :data="[10,10]"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='JobSystem'" v-slot:JobSystem>
           <job-system v-loading="activeTab !=='JobSystem'"></job-system>
@@ -22,7 +22,7 @@ export default {
   components: { PageHeader, IepTabs, JobSystem, TitleSystem },
   data () {
     return {
-      replaceText: (data) => `（共有${data[0]}个岗位`,
+      replaceText: (data) => `（共有${data[0]}个职称，${data[0]}个职务）`,
       tabList: [{
         label: '职务体系',
         value: 'JobSystem',

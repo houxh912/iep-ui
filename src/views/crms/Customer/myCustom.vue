@@ -1,103 +1,121 @@
 <template>
   <div>
-    <gov-layout-header>
-      <gov-search-bar
-        :list-query="listQuery"
-        label-width="100px"
-        :form-props="searchOption"
-        :is-string="false"
-        :reset-ignore="['isAsc', 'limit', 'page']"
-        @handleFilter="handleFilter">
-      </gov-search-bar>
-      <gov-layout-button-group>
-        <gov-button type="add" @click="handleCreate"/>
-      </gov-layout-button-group>
-    </gov-layout-header>
-    <gov-layout-body>
-      <avue-crud
-        :data="mainTableData"
-        :option="mainTableOption"
-        :table-loading="tableLoading"
-        @size-change="sizeChange" 
-        @current-change="currentChange" 
-        :page="pagination"
-        @refresh-change="getList">
-        <template slot-scope="scope" slot="menu">
-          <div class="table-btn-group">
-            <gov-button type="text" @click="handleDetail(scope.row)" text="详情"></gov-button>
-            <gov-button type="text" @click="handleUpdate(scope.row)" text="编辑"></gov-button>
-            <gov-button type="text" @click="handleDelete(scope.row)" text="删除"></gov-button>
-          </div>
+    <operation-container>
+      <template slot="left">
+        <iep-button @click="handleAdd" size="small" type="danger">新增</iep-button>
+        <el-dropdown size="medium">
+          <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>导入</el-dropdown-item>
+            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item>转移</el-dropdown-item>
+            <el-dropdown-item divided>添加协作人</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </template>
+      <template slot="right">
+        <operation-search @search="searchPage"></operation-search>
+      </template>
+    </operation-container>
+    <iep-table 
+      :isLoadTable="isLoadTable"
+      :pagination="pagination"
+      :dictsMap="dictsMap"
+      :columnsMap="columnsMap"
+      :pagedTable="pagedTable"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      is-index
+      isMutipleSelection
+      @selection-change="selectionChange">
+      <template slot="before-columns">
+        <el-table-column label="客户名称" width="300px">
+          <template slot-scope="scope">
+            <div class="custom-name" @click="customDetail(scope.row)">{{scope.row.name}}</div>
+            <el-col class="custom-tags">
+              <el-tag type="info" size="mini" v-for="(item, index) in scope.row.code" :key="index">{{item}}</el-tag>
+            </el-col>
+          </template>
+        </el-table-column>
+      </template>
+      <el-table-column prop="operation" label="操作" min-width="160">
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <iep-button @click="handleEdit(scope.row)" size="small">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
+          </operation-wrapper>
         </template>
-      </avue-crud>
-    </gov-layout-body>
-    <main-dialog ref="mainDialog" :state="state" @successSubmit="getList"></main-dialog>
+      </el-table-column>
+    </iep-table>
+    <main-form-dialog ref="mainDialog" @load-page="loadPage"></main-form-dialog>
+    <custom-detail ref="detailDialog" @update-form="handleEdit"></custom-detail>
   </div>
 </template>
 
 <script>
-import { mainTableOption, searchOption } from './const/mycustom'
-import mainDialog from './dialog/mainDialog'
-import mixin from '@/mixins/mixin'
-// import _ from 'lodash'
+import mixins from '@/mixins/mixins'
+import { myTableOption, dictsMap } from './const/index'
+import { fetchList, createData, updateData, deleteDataById, fetchDetail } from '@/api/crms/custom'
+import mainFormDialog from './mainDialog'
+import CustomDetail from './detail/index'
 
 export default {
-  name: 'Demand',
-  mixins: [mixin],
-  components: { mainDialog },
-  computed: {
-    searchOption () {
-      return searchOption
-    },
-    mainTableOption () {
-      return mainTableOption
-    },
-  },
+  name: 'custom',
+  mixins: [mixins],
+  components: { mainFormDialog, CustomDetail },
+  computed: {},
   data () {
     return {
-      tableLoading: true,
-      mainTableData: [], // 主表数据
-      state: 'create',
-      deptList: [],
+      dictsMap,
+      columnsMap: myTableOption,
     }
   },
   methods: {
-    handleCreate () {
-      this.state = 'create'
-      this.$refs['mainDialog'].open({})
+    handleAdd () {
+      this.$refs['mainDialog'].methodName = '新增'
+      this.$refs['mainDialog'].formRequestFn = createData
+      this.$refs['mainDialog'].dialogShow = true
     },
-    handleUpdate () {
-      // getMatterData(row.id).then((res)=>{
-      //   this.state = 'update'
-      //   this.formData = _.cloneDeep(res.data.data)
-      //   this.$refs['mainDialog'].open(this.formData)
-      // })
+    handleEdit (row) {
+      this.$refs['mainDialog'].formData = row
+      this.$refs['mainDialog'].methodName = '编辑'
+      this.$refs['mainDialog'].formRequestFn = updateData
+      this.$refs['mainDialog'].dialogShow = true
     },
-    handleDetail () {
-      
+    handleDeleteById (row) {
+      this._handleGlobalDeleteById(row.id, deleteDataById)
     },
-    handleDelete () {
-      this.$confirm('确定要删除吗').then(() => {
-        // deleteData(id).then(() => {
-        //   this.$message('删除成功！')
-        //   this.getList()
-        // })
-      }).catch(() => {})
+    selectionChange (val) {
+      console.log('val: ', val)
     },
-    // 获取主表数据
-    getList () {
-      // getTableData(this.listQuery).then((res) => {
-      //   this.pagination.total = res.data.data.total
-      //   this.mainTableData = res.data.data.records
-      //   this.tableLoading = false
-      // })
-        this.pagination.total = 2
-        this.mainTableData = [{}, {}]
-        this.tableLoading = false
+    loadPage (param) {
+      this.loadTable(param, fetchList)
+    },
+    customDetail (row) {
+      fetchDetail(row.id).then((res) => {
+        console.log('res: ', res)
+        this.$refs.detailDialog.open(res)
+      })
     },
   },
   created () {
-    this.getList()
+    this.loadPage()
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.custom-name {
+  cursor: pointer;
+  margin-bottom: 10px;
+  // text-decoration: underline;
+}
+.custom-tags {
+  margin: 0;
+  .el-tag {
+    margin-right: 5px;
+    height: 26px;
+    line-height: 26px;
+  }
+}
+</style>

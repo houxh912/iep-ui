@@ -1,84 +1,87 @@
 <template>
   <div>
-    <gov-layout-header>
-      <gov-search-bar
-        :list-query="listQuery"
-        label-width="100px"
-        :form-props="searchOption"
-        :is-string="false"
-        :reset-ignore="['isAsc', 'limit', 'page']"
-        @handleFilter="handleFilter">
-      </gov-search-bar>
-    </gov-layout-header>
-    <gov-layout-body>
-      <avue-crud
-        :data="mainTableData"
-        :option="mainTableOption"
-        :table-loading="tableLoading"
-        @size-change="sizeChange" 
-        @current-change="currentChange" 
-        :page="pagination"
-        @refresh-change="getList">
-        <template slot-scope="scope" slot="menu">
-          <div class="table-btn-group">
-            <gov-button type="text" @click="handleDetail(scope.row)" text="详情"></gov-button>
-            <gov-button type="text" @click="handleUpdate(scope.row)" text="编辑"></gov-button>
-          </div>
+    <operation-container>
+      <template slot="right">
+        <operation-search @search="searchPage"></operation-search>
+      </template>
+    </operation-container>
+    <iep-table 
+      :isLoadTable="isLoadTable"
+      :pagination="pagination"
+      :dictsMap="dictsMap"
+      :columnsMap="columnsMap"
+      :pagedTable="pagedTable"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      is-index>
+      <template slot="before-columns">
+        <el-table-column label="客户名称" width="300px">
+          <template slot-scope="scope">
+            <div class="custom-name">{{scope.row.name}}</div>
+            <el-col class="custom-tags">
+              <el-tag type="info" size="mini" v-for="(item, index) in scope.row.code" :key="index">{{item}}</el-tag>
+            </el-col>
+          </template>
+        </el-table-column>
+      </template>
+      <el-table-column prop="operation" label="操作" min-width="60" align="center">
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <iep-button @click="handleEdit(scope.row)" size="small">编辑</iep-button>
+          </operation-wrapper>
         </template>
-      </avue-crud>
-    </gov-layout-body>
-    <main-dialog ref="mainDialog" :state="state" @successSubmit="getList" :dept-list="deptList"></main-dialog>
+      </el-table-column>
+    </iep-table>
+    <main-form-dialog ref="mainDialog" @load-page="loadPage"></main-form-dialog>
   </div>
 </template>
 
 <script>
-import { mainTableOption, searchOption } from './const/cooperation'
-import mainDialog from './dialog/mainDialog'
-import mixin from '@/mixins/mixin'
-import _ from 'lodash'
+import mixins from '@/mixins/mixins'
+import { myTableOption, dictsMap } from './const/index'
+import { fetchList, updateData } from '@/api/crms/custom'
+import mainFormDialog from './mainDialog'
 
 export default {
-  name: 'Demand',
-  mixins: [mixin],
-  components: { mainDialog },
-  computed: {
-    searchOption () {
-      return searchOption
-    },
-    mainTableOption () {
-      return mainTableOption
-    },
-  },
+  name: 'custom',
+  mixins: [mixins],
+  components: { mainFormDialog },
+  computed: {},
   data () {
     return {
-      tableLoading: true,
-      mainTableData: [], // 主表数据
-      state: 'create',
-      deptList: [],
+      dictsMap,
+      columnsMap: myTableOption,
     }
   },
   methods: {
-    handleUpdate (row) {
-      this.state = 'update'
-      this.$refs['mainDialog'].open(_.cloneDeep(row))
+    loadPage (param) {
+      this.loadTable(param, fetchList)
     },
-    handleDetail () {
-      
-    },
-    // 获取主表数据
-    getList () {
-      // getTableData(this.listQuery).then((res) => {
-      //   this.pagination.total = res.data.data.total
-      //   this.mainTableData = res.data.data.records
-      //   this.tableLoading = false
-      // })
-        this.pagination.total = 2
-        this.mainTableData = [{}, {}]
-        this.tableLoading = false
+    handleEdit (row) {
+      this.$refs['mainDialog'].formData = row
+      this.$refs['mainDialog'].methodName = '编辑'
+      this.$refs['mainDialog'].formRequestFn = updateData
+      this.$refs['mainDialog'].dialogShow = true
     },
   },
   created () {
-    this.getList()
+    this.loadPage()
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.custom-name {
+  cursor: pointer;
+  margin-bottom: 10px;
+  // text-decoration: underline;
+}
+.custom-tags {
+  margin: 0;
+  .el-tag {
+    margin-right: 5px;
+    height: 26px;
+    line-height: 26px;
+  }
+}
+</style>

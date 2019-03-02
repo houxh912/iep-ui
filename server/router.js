@@ -6,6 +6,7 @@ const dictController = require('./controller/dict')
 const mobileController = require('./controller/mobile')
 const orgController = require('./controller/org')
 const hrmsController = require('./controller/hrms')
+const crmsController = require('./controller/crms')
 const router = new Router()
 /**
  * 获取验证码
@@ -53,5 +54,17 @@ router.get("/hrms/job_title_system/page", hrmsController.getJobTitleSystemPage)
 router.get("/hrms/post_library/page", hrmsController.getPostLibraryPage)
 router.get("/hrms/post_library1/page", hrmsController.getPostLibrary1Page)
 
+
+// crms
+router.get('/crms/custom/page', crmsController.fetchList)
+router.post('/crms/custom/create', crmsController.create)
+router.post('/crms/custom/update', crmsController.update)
+router.post('/crms/custom/delete', crmsController.delete)
+router.post('/crms/custom', crmsController.fetchDetail)
+router.get('/crms/custom/programme/page', crmsController.fetchProgramme)
+router.get('/crms/contact/page', crmsController.fetchContartList)
+router.post('/crms/contact/create', crmsController.createContact)
+router.post('/crms/contact/update', crmsController.updateContact)
+router.post('/crms/contact/delete', crmsController.deleteContact)
 
 exports = module.exports = router

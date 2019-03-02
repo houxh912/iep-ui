@@ -1,12 +1,12 @@
 import Vue from 'vue'
+import VueRouter from 'vue-router'
+import ElementUI from 'element-ui'
 import axios from './router/axios'
 import VueAxios from 'vue-axios'
-import App from './App'
 import './permission' // 权限
 import './error' // 日志
 import router from './router/router'
-import 'avue-plugin-transfer/packages' // 引入avue-plugin-transfer插件
-// import 'avue-plugin-ueditor/packages' //引入avue-plugin-ueditor插件(如果要兼容ie自行换掉富文本编辑器，此款插件不兼容ie)
+import App from './App'
 import store from './store'
 import { loadStyle } from './util/util'
 import * as urls from '@/config/env'
@@ -17,8 +17,16 @@ import './styles/common.scss'
 import Avue from '@smallwei/avue/lib/index.js'
 // // 引入avue的样式文件
 import '@smallwei/avue/lib/theme-chalk/index.css'
-import basicContainer from './components/basic-container/main'
+
+import 'element-ui/lib/theme-chalk/index.css'
+
 import VueClipboard from 'vue-clipboard2'
+
+import basicContainer from './components/basic-container/main'
+
+import IepButton from '@/components/IepCommon/Button'
+
+import '@/config/index'
 // 插件 json 展示
 // import vueJsonTreeView from 'vue-json-tree-view'
 
@@ -28,7 +36,9 @@ Vue.prototype.validatenull = validatenull
 
 Vue.use(Avue, { menuType: 'text' })
 
-Vue.use(router)
+Vue.use(ElementUI)
+
+Vue.use(VueRouter)
 
 Vue.use(VueClipboard)
 
@@ -36,6 +46,7 @@ Vue.use(VueAxios, axios)
 
 // 注册全局容器
 Vue.component('basicContainer', basicContainer)
+Vue.component('IepButton', IepButton)
 
 // 加载相关url地址
 Object.keys(urls).forEach(key => {

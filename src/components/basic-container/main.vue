@@ -17,8 +17,7 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
+<style lang="scss" scoped>
 .basic-container {
   border-left: 1px solid #eee;
   border-radius: 10px;

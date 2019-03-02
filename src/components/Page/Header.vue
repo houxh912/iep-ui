@@ -1,7 +1,7 @@
 <template>
   <div class="title-wrapper">
     <div class="left">
-      <span class="page-title">{{title}}</span>
+      <span class="page-title" :style="{fontSize: `${titleSize}px`,fontWeight: titleWeight}">{{title}}</span>
       <span class="page-desc">{{desc}}</span>
     </div>
     <div class="right">
@@ -15,6 +15,14 @@ export default {
     title: {
       type: String,
       required: true,
+    },
+    titleSize: {
+      type: Number,
+      default: 20,
+    },
+    titleWeight: {
+      type: Number,
+      default: 400,
     },
     replaceText: {
       type: Function,

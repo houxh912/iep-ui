@@ -14,7 +14,7 @@
           <!-- 顶部标签卡 -->
           <tags />
           <!-- 主体视图层 -->
-          <el-scrollbar style="height:100%" id="view-wrapper">
+          <el-scrollbar style="height:100%">
             <keep-alive>
               <router-view class="avue-view" v-if="$route.meta.$keepAlive" />
             </keep-alive>
@@ -74,6 +74,7 @@ export default {
     'isLock',
     'isCollapse',
     'website',
+    'showPageDialog',
     // 'expires_in',
   ]),
   props: [],

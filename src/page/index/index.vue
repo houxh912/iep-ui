@@ -14,7 +14,7 @@
           <!-- 顶部标签卡 -->
           <tags />
           <!-- 主体视图层 -->
-          <el-scrollbar style="height:100%">
+          <el-scrollbar style="height:100%" id="view-wrapper">
             <keep-alive>
               <router-view class="avue-view" v-if="$route.meta.$keepAlive" />
             </keep-alive>
@@ -23,18 +23,6 @@
         </el-main>
       </el-container>
     </el-container>
-    <!-- <div class="avue-header">
-
-    </div>
-
-    <div class="avue-layout">
-      <div class="avue-left">
-
-      </div>
-      <div class="avue-main">
-
-      </div>
-    </div> -->
     <div class="avue-shade" @click="showCollapse"></div>
   </div>
 </template>

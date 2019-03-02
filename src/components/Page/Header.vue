@@ -43,8 +43,12 @@ export default {
   },
   methods: {
     handleBack () {
+      let path = '/'
+      if (this.backOption.backPath) {
+        path = this.backOption.backPath
+      }
       this.$router.push({
-        path: this.backOption.backPath,
+        path,
       })
     },
   },

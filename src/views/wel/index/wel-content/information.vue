@@ -86,7 +86,6 @@ export default {
   width: 100%;
   height: auto;
   background: white;
-  padding: 20px;
   font-size: 12px;
 }
 .information {

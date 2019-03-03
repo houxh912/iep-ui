@@ -9,6 +9,7 @@
       <my-treasure />
       <!-- 我的机会 -->
       <my-chance />
+      <iep-button class="toggle-button">Toggle</iep-button>
     </el-scrollbar>
   </div>
 </template>
@@ -32,7 +33,12 @@ export default {
   font-size: 12px;
   margin: 0;
   box-sizing: border-box;
+
   .el-scrollbar {
+    position: relative;
+    .toggle-button {
+      position: absolute;
+    }
     padding: 0;
     .el-scrollbar__view {
       > div {

@@ -74,7 +74,6 @@ export default {
     'isLock',
     'isCollapse',
     'website',
-    'showPageDialog',
     // 'expires_in',
   ]),
   props: [],
@@ -98,11 +97,9 @@ export default {
           name: 'access_token',
           debug: true,
         })
-
         if (validatenull(token)) {
           return
         }
-
         if (this.expires_in <= 1000 && !this.refreshLock) {
           this.refreshLock = true
           this.$store.dispatch('RefreshToken').catch(() => {

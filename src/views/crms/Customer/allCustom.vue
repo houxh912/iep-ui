@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mainTableOption, searchOption } from '../const/allcustom'
+import { mainTableOption, searchOption } from './const/allcustom'
 import mixin from '@/mixins/mixin'
 // import _ from 'lodash'
 

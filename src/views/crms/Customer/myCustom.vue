@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import { mainTableOption, searchOption } from '../const/mycustom'
-import mainDialog from '../dialog/mainDialog'
+import { mainTableOption, searchOption } from './const/mycustom'
+import mainDialog from './dialog/mainDialog'
 import mixin from '@/mixins/mixin'
 // import _ from 'lodash'
 
@@ -79,7 +79,7 @@ export default {
     handleDelete () {
       this.$confirm('确定要删除吗').then(() => {
         // deleteData(id).then(() => {
-        //   this.$message('删除成功！')
+        //   this.$resources('删除成功！')
         //   this.getList()
         // })
       }).catch(() => {})

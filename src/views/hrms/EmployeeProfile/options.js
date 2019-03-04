@@ -35,7 +35,7 @@ const columnsMap = [
     hidden: false,
   },
   {
-    prop: '岗位',
+    prop: 'position',
     label: '岗位',
     hidden: false,
   },

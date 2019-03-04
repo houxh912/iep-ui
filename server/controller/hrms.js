@@ -11,7 +11,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           部门: '国脉先锋队',
           employedDate: '2015-10-10',
           employeeStatus: 1,
-          岗位: '总经理',
+          position: '总经理',
           idCard: '33090219960103761X'
         },
         {
@@ -21,7 +21,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           部门: '国脉先锋队',
           employedDate: '2015-10-10',
           employeeStatus: 1,
-          岗位: '总经理',
+          position: '总经理',
           idCard: '33090219960103761X'
         },
         {
@@ -31,7 +31,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           部门: '国脉先锋队',
           employedDate: '2015-10-10',
           employeeStatus: 1,
-          岗位: '总经理',
+          position: '总经理',
           idCard: '33090219960103761X'
         },
         {
@@ -41,7 +41,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           部门: '国脉先锋队',
           employedDate: '2015-10-10',
           employeeStatus: 1,
-          岗位: '总经理',
+          position: '总经理',
           idCard: '33090219960103761X'
         },
         {
@@ -51,7 +51,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           部门: '国脉先锋队',
           employedDate: '2015-10-10',
           employeeStatus: 1,
-          岗位: '总经理',
+          position: '总经理',
           idCard: '33090219960103761X'
         },
         {
@@ -61,7 +61,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           部门: '国脉先锋队',
           employedDate: '2015-10-10',
           employeeStatus: 1,
-          岗位: '总经理',
+          position: '总经理',
           idCard: '33090219960103761X'
         },
         {
@@ -71,7 +71,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           部门: '国脉先锋队',
           employedDate: '2015-10-10',
           employeeStatus: 1,
-          岗位: '总经理',
+          position: '总经理',
           idCard: '33090219960103761X'
         }
       ],

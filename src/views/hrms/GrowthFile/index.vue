@@ -37,22 +37,10 @@
       </el-checkbox-group>
       <div class="block">
         <el-timeline>
-          <el-timeline-item timestamp="2018/4/12" placement="top">
+          <el-timeline-item v-for="item in timeLineList" :timestamp="item.date" placement="top" :key="item.id">
             <el-card>
-              <h4>更新 Github 模板</h4>
-              <p>王小虎 提交于 2018/4/12 20:46</p>
-            </el-card>
-          </el-timeline-item>
-          <el-timeline-item timestamp="2018/4/3" placement="top">
-            <el-card>
-              <h4>更新 Github 模板</h4>
-              <p>王小虎 提交于 2018/4/3 20:46</p>
-            </el-card>
-          </el-timeline-item>
-          <el-timeline-item timestamp="2018/4/2" placement="top">
-            <el-card>
-              <h4>更新 Github 模板</h4>
-              <p>王小虎 提交于 2018/4/2 20:46</p>
+              <h4>{{item.msg}}</h4>
+              <p>时间{{item.time}}</p>
             </el-card>
           </el-timeline-item>
         </el-timeline>
@@ -100,6 +88,32 @@ export default {
         {
           id: '8',
           label: '平台规划',
+        },
+      ],
+      timeLineList: [
+        {
+          id: 1,
+          time: '2018/4/3 20:46',
+          date: '2018/4/3',
+          msg: '职称由主力咨询师变更为初级咨询师',
+        },
+        {
+          id: 2,
+          time: '2018/4/2 20:46',
+          date: '2018/4/2',
+          msg: '部门由平台运维部变更为产品中心',
+        },
+        {
+          id: 3,
+          time: '2018/4/1 20:46',
+          date: '2018/4/1',
+          msg: '获得"专业员工"称号',
+        },
+        {
+          id: 4,
+          time: '2018/3/31 20:46',
+          date: '2018/3/31',
+          msg: '被同事评价为"热情敬业"',
         },
       ],
       backOption: {

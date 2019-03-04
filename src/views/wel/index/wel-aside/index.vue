@@ -41,7 +41,7 @@ export default {
   box-sizing: border-box;
   .popup-btn {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: -26px;
     margin-top: -15px;
     width: 25px;

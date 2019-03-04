@@ -40,7 +40,7 @@ const columnsMap = [
     hidden: false,
   },
   {
-    prop: '身份证号码',
+    prop: 'idCard',
     label: '身份证号码',
     minWidth: 120,
     hidden: false,

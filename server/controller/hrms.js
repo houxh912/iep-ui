@@ -12,7 +12,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           employedDate: '2015-10-10',
           employeeStatus: 1,
           岗位: '总经理',
-          身份证号码: '33090219960103761X'
+          idCard: '33090219960103761X'
         },
         {
           userId: 2,
@@ -22,7 +22,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           employedDate: '2015-10-10',
           employeeStatus: 1,
           岗位: '总经理',
-          身份证号码: '33090219960103761X'
+          idCard: '33090219960103761X'
         },
         {
           userId: 3,
@@ -32,7 +32,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           employedDate: '2015-10-10',
           employeeStatus: 1,
           岗位: '总经理',
-          身份证号码: '33090219960103761X'
+          idCard: '33090219960103761X'
         },
         {
           userId: 4,
@@ -42,7 +42,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           employedDate: '2015-10-10',
           employeeStatus: 1,
           岗位: '总经理',
-          身份证号码: '33090219960103761X'
+          idCard: '33090219960103761X'
         },
         {
           userId: 5,
@@ -52,7 +52,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           employedDate: '2015-10-10',
           employeeStatus: 1,
           岗位: '总经理',
-          身份证号码: '33090219960103761X'
+          idCard: '33090219960103761X'
         },
         {
           userId: 6,
@@ -62,7 +62,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           employedDate: '2015-10-10',
           employeeStatus: 1,
           岗位: '总经理',
-          身份证号码: '33090219960103761X'
+          idCard: '33090219960103761X'
         },
         {
           userId: 7,
@@ -72,7 +72,7 @@ exports.getEmployeeProfilePage = async function (ctx) {
           employedDate: '2015-10-10',
           employeeStatus: 1,
           岗位: '总经理',
-          身份证号码: '33090219960103761X'
+          idCard: '33090219960103761X'
         }
       ],
       total: 7,

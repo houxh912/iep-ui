@@ -18,16 +18,14 @@
 </template>
 
 <script>
-import { DEVICE_TYPE } from '@/util/device'
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import MainItem from './MainItem'
 import sidebarItem from './sidebarItem'
+import displayMixins from '@/mixins/displayMixins'
 export default {
+  mixins: [displayMixins],
   name: 'Sidebar',
   components: { sidebarItem, MainItem },
-  data () {
-    return {}
-  },
   created () {
     this.$store.dispatch('GetMenu').then(data => {
       if (data.length === 0) return
@@ -35,9 +33,6 @@ export default {
     })
   },
   computed: {
-    ...mapState({
-      device: state => state.app.device,
-    }),
     ...mapGetters(['website', 'menu', 'mainMenu', 'otherMenus', 'menusMap', 'screen']),
     nowTagValue: function () {
       return this.$router.$avueRouter.getValue(this.$route)
@@ -50,18 +45,8 @@ export default {
       }
     },
   },
-  mounted () { },
   methods: {
     ...mapMutations({ setMainMenu: 'SET_MAINMENU', setOtherMenus: 'SET_OTHERMENUS', setmenusMap: 'SET_menusMap' }),
-    isMobile () {
-      return this.device === DEVICE_TYPE.MOBILE
-    },
-    isDesktop () {
-      return this.device === DEVICE_TYPE.DESKTOP
-    },
-    isTablet () {
-      return this.device === DEVICE_TYPE.TABLET
-    },
     openModuleMenus (menu) {
       function findMenuChidrenPath (cMenu) {
         if (cMenu.children.length) {

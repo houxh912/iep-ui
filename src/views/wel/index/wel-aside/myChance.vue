@@ -37,13 +37,14 @@ export default {
   }
   .subtitle {
     padding: 5px 0;
+    font-size: 14px;
     &:hover {
       color: #cb132d;
     }
   }
 }
 .title {
-  padding: 10px 0;
+  padding: 0 0 10px;
   font-size: 16px;
   font-weight: 500;
 }

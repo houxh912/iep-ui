@@ -4,9 +4,9 @@
       <page-header title="员工成长档案" :backOption="backOption"></page-header>
       <div class="staff-headers">
         <div class="left">
-          <span class="img-header zoom"><img src="blob:http://127.0.0.1:8090/75f6d98a-d778-4f3f-903e-ffc602f595fc" alt="" /></span>
+          <span class="img-header zoom"><img :src="avatar" alt="" /></span>
           <div class="name-info">
-            <span class="name">李颖<a class="state" href="javescript:void(0);">（在职）</a></span>
+            <span class="name">李颖<a class="state" href="#">（在职）</a></span>
             <span class="num">GM1111111</span>
           </div>
         </div>
@@ -22,7 +22,7 @@
             <span>标签：</span>
             <ul>
               <li v-for="item in labellist" :key="item.id">
-                <a href="javescript:void(0);" target="_blank">{{ item.label }}</a>
+                <a href="#">{{ item.label }}</a>
               </li>
             </ul>
           </div>
@@ -62,10 +62,12 @@
 </template>
 <script>
 import PageHeader from '@/components/Page/Header'
+const avatar = require('./timg.jpg')
 export default {
   components: { PageHeader },
   data () {
     return {
+      avatar,
       checkList: ['人事变动', '评价记录', '考试情况', '奖惩信息', '培训记录'],
       labellist: [
         {

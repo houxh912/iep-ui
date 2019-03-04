@@ -62,6 +62,7 @@ export default {
   }
   .el-scrollbar {
     position: relative;
+    bottom: 64px;
     .toggle-button {
       position: absolute;
     }

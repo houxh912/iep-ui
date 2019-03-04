@@ -78,6 +78,9 @@ export default {
     line-height: 16px;
     cursor: pointer;
     position: relative;
+    &:hover {
+      color: #cb3737;
+    }
     span {
       position: absolute;
       right: -2px;

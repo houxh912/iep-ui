@@ -10,7 +10,6 @@
       <my-treasure />
       <!-- 我的机会 -->
       <my-chance />
-      <iep-button class="toggle-button">Toggle</iep-button>
     </el-scrollbar>
   </div>
 </template>
@@ -55,7 +54,8 @@ export default {
     background: #fafafa;
     z-index: 999;
     cursor: pointer;
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background-color: #eee;
       color: #fff;
     }

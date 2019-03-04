@@ -1,20 +1,18 @@
 <template>
-
-  <transition name="el-zoom-in-center">
-    <div class="aside">
-      <span class="popup-btn" @click="hideAside"><i class="el-icon-caret-right"></i></span>
-      <el-scrollbar v-show="showAside" style="width:300px;">
-        <!-- 我要创建 -->
-        <my-created />
-        <!-- 我要找 -->
-        <my-find />
-        <!-- 我的财富 -->
-        <my-treasure />
-        <!-- 我的机会 -->
-        <my-chance />
-      </el-scrollbar>
-    </div>
-  </transition>
+  <div class="aside">
+    <span class="popup-btn" @click="hideAside"><i class="el-icon-caret-right"></i></span>
+    <el-scrollbar>
+      <!-- 我要创建 -->
+      <my-created />
+      <!-- 我要找 -->
+      <my-find />
+      <!-- 我的财富 -->
+      <my-treasure />
+      <!-- 我的机会 -->
+      <my-chance />
+      <iep-button class="toggle-button">Toggle</iep-button>
+    </el-scrollbar>
+  </div>
 </template>
 <script>
 import myCreated from './myCreated'
@@ -25,13 +23,11 @@ export default {
   components: { myCreated, myFind, myTreasure, myChance },
   data () {
     return {
-      showAside: true,
     }
   },
   methods: {
     hideAside () {
-      this.showAside = !this.showAside
-      this.$emit('on-show')
+      this.$store.commit('HIDEASIDE')
     },
   },
 }
@@ -59,14 +55,14 @@ export default {
     background: #fafafa;
     z-index: 999;
     cursor: pointer;
-    &:hover,
-    &:focus {
+    &:hover, &:focus {
       background-color: #eee;
       color: #fff;
     }
   }
   .el-scrollbar {
     position: relative;
+    height: calc(100% - 64px);
     .toggle-button {
       position: absolute;
     }
@@ -78,6 +74,9 @@ export default {
       }
     }
   }
+}
+.wel-aside.rightAuto {
+  right: -300px;
 }
 </style>
 

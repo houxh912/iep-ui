@@ -7,8 +7,8 @@
       <div class="showItem" @click="showItem=!showItem"><i class="el-icon-tickets"></i></div>
       <div class="searchBar">
         <div class="search" @click="search"><i class="el-icon-search"></i></div>
-        <el-select v-model="value8" filterable size="mini">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        <el-select v-model="currentOrgId" size="mini">
+          <el-option v-for="item in orgs" :key="item.orgId" :label="item.orgName" :value="item.orgId">
           </el-option>
         </el-select>
       </div>
@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { setOrg } from '@/api/admin/user'
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -28,24 +30,14 @@ export default {
       timer: null,
       screenWidth: document.body.clientWidth,
       navList: [{ name: '首页' }, { name: '国脉人' }, { name: '要闻' }, { name: '资源' }, { name: '数据' }, { name: '财富' }, { name: '学院' }],
-      options: [{
-        value: '选项1',
-        label: '国脉集团海洋集团1',
-      }, {
-        value: '选项2',
-        label: '国脉集团海洋集团1',
-      }, {
-        value: '选项3',
-        label: '国脉集团海洋集团1',
-      }, {
-        value: '选项4',
-        label: '国脉集团海洋集团1',
-      }, {
-        value: '选项5',
-        label: '国脉集团海洋集团1',
-      }],
-      value8: '国脉集团海洋集团1',
+      currentOrgId: 0,
     }
+  },
+  computed: {
+    ...mapState({
+      orgs: state => state.user.orgs,
+      orgId: state => state.user.userInfo.orgId,
+    }),
   },
   methods: {
     handelSelect (index) {
@@ -55,6 +47,7 @@ export default {
     },
   },
   created () {
+    this.currentOrgId = this.orgId
     this.$nextTick(() => {
       if (this.screenWidth >= 1270) {
         this.showItem = true
@@ -80,6 +73,9 @@ export default {
     })
   },
   watch: {
+    currentOrgId (n) {
+      setOrg(n)
+    },
     screenWidth (val) {
       if (this.screenWidth >= 1270) {
         this.showItem = true

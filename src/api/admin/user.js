@@ -44,3 +44,9 @@ export function getDetails (obj) {
     method: 'get',
   })
 }
+export function setOrg (id) {
+  return request({
+    url: '/admin/user/set/org/' + id,
+    method: 'post',
+  })
+}

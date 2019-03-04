@@ -1,7 +1,7 @@
 <template>
   <div class="aside">
     <span class="popup-btn" @click="hideAside"><i class="el-icon-caret-right"></i></span>
-    <el-scrollbar style="height:100%">
+    <el-scrollbar>
       <!-- 我要创建 -->
       <my-created />
       <!-- 我要找 -->
@@ -62,6 +62,7 @@ export default {
   }
   .el-scrollbar {
     position: relative;
+    height: calc(100% - 64px);
     .toggle-button {
       position: absolute;
     }

@@ -107,6 +107,7 @@ export default {
     }
   }
   .wel-content {
+    margin-right: 300px;
     box-sizing: border-box;
   }
   .wel-aside {

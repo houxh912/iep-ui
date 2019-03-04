@@ -66,7 +66,7 @@ export default {
 .title-wrapper {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   .page-title {
     font-size: 20px;
   }

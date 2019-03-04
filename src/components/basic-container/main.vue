@@ -24,10 +24,8 @@ export default {
   box-sizing: border-box;
   .el-card {
     width: 100%;
+    border-radius: 0;
   }
-  // &:first-child {
-  //   padding-top: 0;
-  // }
   &--block {
     height: 100%;
     .el-card {

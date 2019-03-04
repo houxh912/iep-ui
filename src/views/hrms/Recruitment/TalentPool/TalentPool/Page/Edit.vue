@@ -153,7 +153,7 @@
       </el-form>
     </el-card>
     <!-- fixed footer toolbar -->
-    <footer-tool-bar :style="{ width: `calc(100% - 288px)`}">
+    <footer-tool-bar>
       <iep-button type="info" @click="handleGoBack">返回</iep-button>
       <iep-button type="primary">提交</iep-button>
     </footer-tool-bar>

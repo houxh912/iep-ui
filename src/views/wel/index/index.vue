@@ -8,9 +8,14 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { mapGetters } from 'vuex'
 import aboutMe from './wel-aside/index'
 import information from './wel-content/information'
+=======
+import aboutMe from './wel-aside/'
+import information from './wel-content/'
+>>>>>>> 42dcd70329af9716b505d517dc018d2aaeafc90b
 
 export default {
   name: 'Wel',
@@ -113,7 +118,6 @@ export default {
   .wel-aside {
     width: 300px;
     position: fixed;
-    top: 64px;
     right: 0;
     z-index: 102;
   }

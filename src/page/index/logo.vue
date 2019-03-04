@@ -20,7 +20,7 @@ export default {
   data () {
     return {}
   },
-  created () {},
+  created () { },
   computed: {
     ...mapGetters(['website', 'keyCollapse']),
   },
@@ -44,8 +44,8 @@ export default {
   top: 0;
   left: 0;
   width: 240px;
-  height: 64px;
-  line-height: 64px;
+  height: 60px;
+  line-height: 60px;
   background-color: #20222a;
   font-size: 20px;
   overflow: hidden;

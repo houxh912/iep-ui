@@ -7,8 +7,8 @@
       <div class="showItem" @click="showItem=!showItem"><i class="el-icon-tickets"></i></div>
       <div class="searchBar">
         <div class="search" @click="search"><i class="el-icon-search"></i></div>
-        <el-select v-model="value8" filterable size="mini">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        <el-select :value="orgId" size="mini" @change="handleChange">
+          <el-option v-for="item in orgs" :key="item.orgId" :label="item.orgName" :value="item.orgId">
           </el-option>
         </el-select>
       </div>
@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { setOrg } from '@/api/admin/user'
+import { mapState, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -28,26 +30,23 @@ export default {
       timer: null,
       screenWidth: document.body.clientWidth,
       navList: [{ name: '首页' }, { name: '国脉人' }, { name: '要闻' }, { name: '资源' }, { name: '数据' }, { name: '财富' }, { name: '学院' }],
-      options: [{
-        value: '选项1',
-        label: '国脉集团海洋集团1',
-      }, {
-        value: '选项2',
-        label: '国脉集团海洋集团1',
-      }, {
-        value: '选项3',
-        label: '国脉集团海洋集团1',
-      }, {
-        value: '选项4',
-        label: '国脉集团海洋集团1',
-      }, {
-        value: '选项5',
-        label: '国脉集团海洋集团1',
-      }],
-      value8: '国脉集团海洋集团1',
     }
   },
+  computed: {
+    ...mapState({
+      orgs: state => state.user.orgs,
+      orgId: state => state.user.userInfo.orgId,
+    }),
+  },
   methods: {
+    ...mapActions([
+      'GetUserInfo',
+    ]),
+    handleChange (id) {
+      setOrg(id).then(() => {
+        this.GetUserInfo()
+      })
+    },
     handelSelect (index) {
       this.classIndex = index
     },

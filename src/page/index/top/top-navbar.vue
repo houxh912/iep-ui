@@ -11,8 +11,8 @@
         <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id">{{item.name}}</el-menu-item>
       </el-menu>
       <div class="searchBar">
-        <el-select v-model="value8" filterable size="mini">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        <el-select :value="orgId" size="mini" @change="handleChange">
+          <el-option v-for="item in orgs" :key="item.orgId" :label="item.orgName" :value="item.orgId">
           </el-option>
         </el-select>
       </div>
@@ -22,6 +22,8 @@
 
 <script>
 import displayMixins from '@/mixins/displayMixins'
+import { setOrg } from '@/api/admin/user'
+import { mapState, mapActions } from 'vuex'
 export default {
   mixins: [displayMixins],
   data () {
@@ -80,8 +82,20 @@ export default {
         return true
       }
     },
+    ...mapState({
+      orgs: state => state.user.orgs,
+      orgId: state => state.user.userInfo.orgId,
+    }),
   },
   methods: {
+    ...mapActions([
+      'GetUserInfo',
+    ]),
+    handleChange (id) {
+      setOrg(id).then(() => {
+        this.GetUserInfo()
+      })
+    },
     handelSelect (index) {
       this.classIndex = index
     },

@@ -62,6 +62,7 @@
 </template>
 <script>
 import PageHeader from '@/components/Page/Header'
+import { getGrowthFile } from '@/api/hrms/employee_profile'
 const avatar = require('./timg.jpg')
 export default {
   components: { PageHeader },
@@ -110,7 +111,12 @@ export default {
     }
   },
   created () {
-    // console.log(this.$route)
+    this.load()
+  },
+  methods: {
+    load () {
+      getGrowthFile()
+    },
   },
 }
 </script>

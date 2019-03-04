@@ -75,7 +75,7 @@ export default {
     handleDelete () {
       this.$confirm('确定要删除吗').then(() => {
         // deleteData(id).then(() => {
-        //   this.$message('删除成功！')
+        //   this.$resources('删除成功！')
         //   this.getList()
         // })
       }).catch(() => {})

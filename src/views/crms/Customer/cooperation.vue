@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import { mainTableOption, searchOption } from '../const/cooperation'
-import mainDialog from '../dialog/mainDialog'
+import { mainTableOption, searchOption } from './const/cooperation'
+import mainDialog from './dialog/mainDialog'
 import mixin from '@/mixins/mixin'
 import _ from 'lodash'
 

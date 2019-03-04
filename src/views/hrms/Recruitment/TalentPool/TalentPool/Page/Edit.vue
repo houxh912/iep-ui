@@ -4,56 +4,150 @@
       <div slot="header" class="title">
         <span>新增简历</span>
       </div>
-      <el-form ref="form" :model="form" label-width="120px" size="small">
+      <el-form ref="form" :model="form" label-width="140px" size="small">
         <el-collapse v-model="activeNames">
           <el-collapse-item name="1">
             <template slot="title">
               <i class="header-icon el-icon-info"></i> 基础信息
             </template>
-            <el-form-item label="姓名" class="form-half">
+            <el-form-item label="姓名：" class="form-half">
               <el-input v-model="form.name"></el-input>
             </el-form-item>
-            <el-form-item label="性别" class="form-half">
+            <el-form-item label="性别：" class="form-half">
               <el-radio-group v-model="form.sex">
                 <el-radio label="男"></el-radio>
                 <el-radio label="女"></el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="头像" class="">
+            <el-form-item label="头像：" class="">
               <el-input v-model="form.avatar"></el-input>
             </el-form-item>
-            <el-form-item label="出生年月" class="form-half">
+            <el-form-item label="出生年月：" class="form-half">
               <el-input v-model="form.birthday"></el-input>
             </el-form-item>
-            <el-form-item label="活动形式">
-              <el-input type="textarea" v-model="form.desc"></el-input>
+            <el-form-item label="外部头衔：" class="form-half">
+              <el-input v-model="form.rank"></el-input>
+            </el-form-item>
+            <el-form-item label="联系手机：" class="form-half">
+              <el-input v-model="form.phone"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱：" class="form-half">
+              <el-input v-model="form.email"></el-input>
+            </el-form-item>
+            <el-form-item label="身高：" class="form-half">
+              <el-input v-model="form.height"></el-input>
+            </el-form-item>
+            <el-form-item label="体重：" class="form-half">
+              <el-input v-model="form.weight"></el-input>
+            </el-form-item>
+            <el-form-item label="民族：" class="form-half">
+              <el-input v-model="form.national"></el-input>
+            </el-form-item>
+            <el-form-item label="籍贯：" class="form-half">
+              <el-input v-model="form.palce"></el-input>
+            </el-form-item>
+            <el-form-item label="现住地址：">
+              <el-input v-model="form.address"></el-input>
+            </el-form-item>
+            <el-form-item label="政治面貌：" class="form-half">
+              <el-input v-model="form.face"></el-input>
+            </el-form-item>
+            <el-form-item label="健康状况：" class="form-half">
+              <el-select v-model="form.health">
+                <el-option label="良好" value="良好"></el-option>
+                <el-option label="一般" value="一般"></el-option>
+                <el-option label="不健康" value="不健康"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="婚姻状况：" class="form-half">
+              <el-select v-model="form.married">
+                <el-option label="未婚" value="未婚"></el-option>
+                <el-option label="已婚" value="已婚"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="生育状况：" class="form-half">
+              <el-select v-model="form.fertility">
+                <el-option label="良好" value="良好"></el-option>
+                <el-option label="一般" value="一般"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="毕业学校：" class="form-half">
+              <el-input v-model="form.school"></el-input>
+            </el-form-item>
+            <el-form-item label="最高学历：" class="form-half">
+              <el-select v-model="form.educational">
+                <el-option label="专科" value="专科"></el-option>
+                <el-option label="本科" value="本科"></el-option>
+                <el-option label="硕士" value="硕士"></el-option>
+                <el-option label="博士" value="博士"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="员工关系：" class="form-half">
+              <el-select v-model="form.relation">
+                <el-option label="1" value="1"></el-option>
+                <el-option label="2" value="22"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="推荐人：" class="form-half">
+              <el-input v-model="form.referees"></el-input>
+            </el-form-item>
+            <el-form-item label="应聘渠道：" class="form-half">
+              <el-select v-model="form.source">
+                <el-option label="1" value="1"></el-option>
+                <el-option label="2" value="22"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="来源类型：" class="form-half">
+              <el-select v-model="form.type">
+                <el-option label="1" value="1"></el-option>
+                <el-option label="2" value="22"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="兴趣爱好：" class="form-half">
+              <el-input v-model="form.interests"></el-input>
+            </el-form-item>
+            <el-form-item label="特长及优势：">
+              <el-input v-model="form.specialty"></el-input>
+            </el-form-item>
+            <el-form-item label="荣誉奖励：">
+              <el-input v-model="form.honor"></el-input>
+            </el-form-item>
+            <el-form-item label="其他成果：">
+              <el-input v-model="form.other"></el-input>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="求职意向" name="2">
-            <el-form-item label="应聘岗位" class="form-half">
+            <el-form-item label="应聘岗位：" class="form-half">
               <el-input v-model="form.name"></el-input>
             </el-form-item>
-            <el-form-item label="到岗时间" class="form-half">
+            <el-form-item label="到岗时间：" class="form-half">
               <el-input v-model="form.name"></el-input>
             </el-form-item>
-            <el-form-item label="应聘岗位" class="form-half">
+            <el-form-item label="应聘岗位：" class="form-half">
               <el-input v-model="form.name"></el-input>
             </el-form-item>
-            <el-form-item label="到岗时间" class="form-half">
+            <el-form-item label="到岗时间：" class="form-half">
               <el-input v-model="form.name"></el-input>
             </el-form-item>
           </el-collapse-item>
-          <el-collapse-item title="学习工作经理" name="3">
-            <div>简化流程：设计简洁直观的操作流程；</div>
-            <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-            <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
+          <el-collapse-item title="学习工作经历" name="3">
+            <el-form-item label="学习情况：">
+              <el-input type="textarea"></el-input>
+            </el-form-item>
+            <el-form-item label="工作经历：">
+              <el-input type="textarea"></el-input>
+            </el-form-item>
           </el-collapse-item>
-          <el-collapse-item title="培训工作情况" name="4">
-            <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
-            <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
+          <el-collapse-item title="培训证书情况" name="4">
+            <el-form-item label="培训情况：">
+              <el-input type="textarea"></el-input>
+            </el-form-item>
+            <el-form-item label="资质证书：">
+              <el-input type="textarea"></el-input>
+            </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="附件上传" name="5">
-            <iep-editor></iep-editor>
+            <el-input type="textarea"></el-input>
           </el-collapse-item>
         </el-collapse>
       </el-form>
@@ -67,9 +161,8 @@
 </template>
 <script>
 import FooterToolBar from '@/components/FooterToolbar'
-import IepEditor from '@/components/IepEditor/'
 export default {
-  components: { FooterToolBar, IepEditor },
+  components: { FooterToolBar },
   data () {
     return {
       activeNames: ['1', '2', '3', '4', '5'],

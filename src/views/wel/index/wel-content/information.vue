@@ -83,7 +83,6 @@ export default {
 
 <style lang="scss" scoped>
 .wel-content {
-  margin-right: 300px;
   width: 100%;
   height: auto;
   background: white;
@@ -183,11 +182,12 @@ export default {
             font-size: 14px;
             border-radius: 3px;
             .icon {
-              font-size: 20px!important;
+              font-size: 20px !important;
               color: #ffbc01;
             }
-            &:focus, &:hover{
-              opacity: .9;
+            &:focus,
+            &:hover {
+              opacity: 0.9;
               outline: none;
             }
           }
@@ -199,9 +199,10 @@ export default {
             color: #ba1928;
             margin-left: 10px;
             border: 1px solid #ba1928;
-            -webkit-transition: all .5s;
-            transition: all .5s;
-            &:focus, &:hover{
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+            &:focus,
+            &:hover {
               background-color: #ba1928;
               color: #fff;
               outline: none;
@@ -269,8 +270,8 @@ export default {
   .information {
     font-size: 14px;
     .dotted {
-      margin-left: 25px!important;
-      padding-right: 25px!important;
+      margin-left: 25px !important;
+      padding-right: 25px !important;
     }
     .el-col-3 {
       width: auto;

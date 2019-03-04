@@ -25,9 +25,6 @@ import sidebarItem from './sidebarItem'
 export default {
   name: 'Sidebar',
   components: { sidebarItem, MainItem },
-  data () {
-    return {}
-  },
   created () {
     this.$store.dispatch('GetMenu').then(data => {
       if (data.length === 0) return
@@ -50,7 +47,6 @@ export default {
       }
     },
   },
-  mounted () { },
   methods: {
     ...mapMutations({ setMainMenu: 'SET_MAINMENU', setOtherMenus: 'SET_OTHERMENUS', setmenusMap: 'SET_menusMap' }),
     isMobile () {

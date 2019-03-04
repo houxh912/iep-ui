@@ -76,6 +76,11 @@ export default {
   > div {
     flex-grow: 1;
     text-align: center;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    &:hover {
+      opacity: .6;
+    }
   }
   .icon {
     padding: 10px 0;

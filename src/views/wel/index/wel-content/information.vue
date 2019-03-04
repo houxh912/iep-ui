@@ -263,6 +263,9 @@ export default {
   }
   .el-icon-question {
     cursor: pointer;
+    &:hover {
+      opacity: .7;
+    }
   }
 }
 @media (min-width: 0px) and (max-width: 1025px) {

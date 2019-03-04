@@ -54,7 +54,9 @@ export default {
   .wel-aside {
     position: fixed;
     right: 0;
+    padding-bottom: 64px;
     z-index: 102;
+    overflow-x: hidden;
   }
 }
 @media (min-width: 1024px) and (max-width: 1199px) {

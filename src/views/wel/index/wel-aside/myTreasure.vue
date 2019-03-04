@@ -57,6 +57,11 @@ export default {
 .treasure {
   box-sizing: border-box;
   margin: 10px;
+  .el-icon-question {
+    &:hover {
+      opacity: .7;
+    }
+  }
 }
 .title {
   display: flex;

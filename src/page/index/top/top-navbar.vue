@@ -7,7 +7,7 @@
       <div class="showItem" @click="showItem=!showItem"><i class="el-icon-tickets"></i></div>
       <div class="searchBar">
         <div class="search" @click="search"><i class="el-icon-search"></i></div>
-        <el-select v-model="currentOrgId" size="mini">
+        <el-select :value="orgId" size="mini" @change="handleChange">
           <el-option v-for="item in orgs" :key="item.orgId" :label="item.orgName" :value="item.orgId">
           </el-option>
         </el-select>
@@ -18,7 +18,7 @@
 
 <script>
 import { setOrg } from '@/api/admin/user'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -30,7 +30,6 @@ export default {
       timer: null,
       screenWidth: document.body.clientWidth,
       navList: [{ name: '首页' }, { name: '国脉人' }, { name: '要闻' }, { name: '资源' }, { name: '数据' }, { name: '财富' }, { name: '学院' }],
-      currentOrgId: 0,
     }
   },
   computed: {
@@ -40,6 +39,14 @@ export default {
     }),
   },
   methods: {
+    ...mapActions([
+      'GetUserInfo',
+    ]),
+    handleChange (id) {
+      setOrg(id).then(() => {
+        this.GetUserInfo()
+      })
+    },
     handelSelect (index) {
       this.classIndex = index
     },
@@ -47,7 +54,6 @@ export default {
     },
   },
   created () {
-    this.currentOrgId = this.orgId
     this.$nextTick(() => {
       if (this.screenWidth >= 1270) {
         this.showItem = true
@@ -73,9 +79,6 @@ export default {
     })
   },
   watch: {
-    currentOrgId (n) {
-      setOrg(n)
-    },
     screenWidth (val) {
       if (this.screenWidth >= 1270) {
         this.showItem = true

@@ -3629,10 +3629,22 @@ element-theme@^2.0.1:
     ora "^0.3.0"
     run-sequence "^1.2.2"
 
-element-ui@^2.4.6, element-ui@^2.4.9, element-ui@^2.5.4:
+element-ui@^2.4.6, element-ui@^2.4.9:
   version "2.6.0"
   resolved "http://registry.npm.taobao.org/element-ui/download/element-ui-2.6.0.tgz#87ab7055f420ae5dc32a7af4d69ca5999651a096"
   integrity sha1-h6twVfQgrl3DKnr01pylmZZRoJY=
+  dependencies:
+    async-validator "~1.8.1"
+    babel-helper-vue-jsx-merge-props "^2.0.0"
+    deepmerge "^1.2.0"
+    normalize-wheel "^1.0.1"
+    resize-observer-polyfill "^1.5.0"
+    throttle-debounce "^1.0.1"
+
+element-ui@^2.5.4:
+  version "2.6.1"
+  resolved "http://registry.npm.taobao.org/element-ui/download/element-ui-2.6.1.tgz#86db79ff5de9b1bcc3187b65b3772b0c54074718"
+  integrity sha1-htt5/13psbzDGHtls3crDFQHRxg=
   dependencies:
     async-validator "~1.8.1"
     babel-helper-vue-jsx-merge-props "^2.0.0"
@@ -10609,10 +10621,18 @@ vue@^2.2.6, vue@^2.5.17, vue@^2.5.2, vue@^2.5.22:
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.6.8.tgz#f21cbc536bfc14f7d1d792a137bb12f69e60ea91"
   integrity sha1-8hy8U2v8FPfR15KhN7sS9p5g6pE=
 
-vuedraggable@^2.16.0, vuedraggable@^2.17.0:
+vuedraggable@^2.16.0:
   version "2.18.1"
   resolved "http://registry.npm.taobao.org/vuedraggable/download/vuedraggable-2.18.1.tgz#e896990bc6b478223e1a94802aa07bc2574caa4a"
   integrity sha1-6JaZC8a0eCI+GpSAKqB7wldMqko=
+  dependencies:
+    sortablejs "^1.8.3"
+    vue "^2.5.22"
+
+vuedraggable@^2.17.0:
+  version "2.19.0"
+  resolved "http://registry.npm.taobao.org/vuedraggable/download/vuedraggable-2.19.0.tgz#f9de67efa5e6ea0114297ba047dbc442138a31b4"
+  integrity sha1-+d5n76Xm6gEUKXugR9vEQhOKMbQ=
   dependencies:
     sortablejs "^1.8.3"
     vue "^2.5.22"

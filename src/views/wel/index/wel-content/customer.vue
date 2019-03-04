@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 .customer {
-  padding: 20px;
+  padding: 20px 30px;
   padding-bottom: 0;
   border-bottom: 1px solid #eee;
   color: #5f5f5f;
@@ -69,10 +69,11 @@ export default {
   }
   .customer-content {
     padding: 20px 0;
+    font-size: 14px;
     .start {
       padding-left: 5px;
       font-size: 14px;
-      color: #cea591;
+      color: #e4990f;
     }
   }
 }

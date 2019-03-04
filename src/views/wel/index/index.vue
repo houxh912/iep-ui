@@ -117,13 +117,14 @@ export default {
     z-index: 102;
   }
 }
-@media (min-width: 1024px) and (max-width: 1270px) {
+@media (min-width: 1024px) and (max-width: 1199px) {
   .wel-wrapper {
     .wel-content {
-      padding-right: 240px;
+      margin-right: 0;
+      width: 100%;
     }
     .wel-aside {
-      width: 220px;
+      right: -300px;
     }
   }
 }
@@ -134,10 +135,10 @@ export default {
     }
     .wel-content {
       width: 100%;
-      padding-right: 20px;
+      margin-right: 0;
     }
     .wel-aside {
-      display: none;
+      right: -300px;
     }
   }
 }

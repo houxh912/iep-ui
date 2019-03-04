@@ -37,8 +37,10 @@ export default {
   text-align: center;
   background: #ececec;
   grid-gap: 1px;
+  color: #666;
   div {
     padding: 10px 0;
+    font-size: 14px;
     background-color: #fafafa;
     cursor: pointer;
     &:hover {
@@ -47,7 +49,7 @@ export default {
   }
 }
 .title {
-  padding: 10px 0;
+  padding: 0 0 10px;
   font-size: 16px;
   font-weight: 500;
 }

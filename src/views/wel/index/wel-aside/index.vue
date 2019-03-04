@@ -1,5 +1,6 @@
 <template>
   <div class="aside">
+    <span class="popup-btn" @click="hideAside"><i class="el-icon-caret-right"></i></span>
     <el-scrollbar style="height:100%">
       <!-- 我要创建 -->
       <my-created />
@@ -24,6 +25,11 @@ export default {
     return {
     }
   },
+  methods: {
+    hideAside () {
+      this.$store.commit('HIDEASIDE')
+    },
+  },
 }
 </script>
 <style  lang="scss" scoped>
@@ -33,7 +39,27 @@ export default {
   font-size: 12px;
   margin: 0;
   box-sizing: border-box;
-
+  .popup-btn {
+    position: absolute;
+    top: 50%;
+    left: -26px;
+    margin-top: -15px;
+    width: 25px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid #eee;
+    border-radius: 3px 0 0 3px;
+    color: #bfbfbf;
+    background: #fafafa;
+    z-index: 999;
+    cursor: pointer;
+    &:hover, &:focus {
+      background-color: #eee;
+      color: #fff;
+    }
+  }
   .el-scrollbar {
     position: relative;
     .toggle-button {

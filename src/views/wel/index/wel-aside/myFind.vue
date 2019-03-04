@@ -1,6 +1,6 @@
 <template>
   <div class="find">
-    <span class="btn " @click="hideAside"><i class="el-icon-caret-right"></i></span>
+    <!-- <span class="btn " @click="hideAside"><i class="el-icon-caret-right"></i></span> -->
     <div class="title">
       <div class="inline">{{findList.title}}</div>
       <div class="more inline" @click="getMore">
@@ -29,9 +29,6 @@ export default {
     },
     hadelSelect () {
       // console.log(index)
-    },
-    hideAside () {
-      this.$store.commit('HIDEASIDE')
     },
     showAside () {
       // console.log(222)
@@ -82,6 +79,18 @@ export default {
   }
   .icon {
     padding: 10px 0;
+    .icon-fangan {
+      color: #5c79a5;
+    }
+    .icon-moban {
+      color: #c78a53;
+    }
+    .icon-xiangmu {
+      color: #47a1bb;
+    }
+    .icon-shifu {
+      color: #cc8082;
+    }
   }
 }
 .more {
@@ -98,7 +107,7 @@ export default {
   display: inline-block;
 }
 .title {
-  padding: 10px 0;
+  padding: 0 0 10px;
   font-size: 16px;
   font-weight: 500;
 }

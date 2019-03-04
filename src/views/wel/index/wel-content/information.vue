@@ -14,16 +14,16 @@
             <div class="user-info">
               <el-progress :percentage="80" color="#68C769"></el-progress>
               <span :class="item.type=='button'?'border':'color'" v-for="(item,index) in infoList" :key="index">{{item.label}}</span>
-              <span class="more">更多<i class="el-icon-d-arrow-right"></i></span>
+              <router-link class="more" to="">更多<i class="el-icon-d-arrow-right"></i></router-link>
             </div>
             <div class="user-data">
-              <div class="inline task">
-                <i class="el-icon-tickets padding"></i>
+              <router-link class="inline task" to="">
+                <i class="icon-weath1 icon padding"></i>
                 <span>每日任务，领积分<i class="el-icon-d-arrow-right"></i></span>
-              </div>
-              <div class="inline change">
+              </router-link>
+              <router-link class="inline change" to="">
                 切换至领导桌面
-              </div>
+              </router-link>
               <div class="inline data">
                 <div class="data-lab" :class="index==2?'hideLine':''" v-for="(item,index) in labList" :key="index">
                   <div class="count">{{item.data}}</div>
@@ -83,6 +83,7 @@ export default {
 
 <style lang="scss" scoped>
 .wel-content {
+  margin-right: 300px;
   width: 100%;
   height: auto;
   background: white;
@@ -97,9 +98,14 @@ export default {
   border-radius: 5px;
   overflow: hidden;
   .el-row {
+    margin: 20px;
     height: 100%;
     display: flex;
     align-items: center;
+    border-radius: 3px;
+    &:hover {
+      box-shadow: 0 0 1px 1px #eee;
+    }
     .el-col {
       height: 100%;
       display: flex;
@@ -143,8 +149,11 @@ export default {
             padding: 3px 12px;
             border-radius: 40px;
             border: 1px solid #eee;
+            font-size: 13px;
             text-align: center;
             vertical-align: middle;
+            background-color: #f5f7fa;
+            color: #333;
           }
           .color {
             color: #7a7a7a;
@@ -168,16 +177,33 @@ export default {
           .task {
             width: 160px;
             background: #f9eae7;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 3px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+            .icon {
+              font-size: 20px!important;
+              color: #ffbc01;
+            }
+            &:focus, &:hover{
+              opacity: .9;
+              outline: none;
+            }
           }
           .change {
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 14px;
             text-align: center;
             color: #ba1928;
             margin-left: 10px;
             border: 1px solid #ba1928;
+            -webkit-transition: all .5s;
+            transition: all .5s;
+            &:focus, &:hover{
+              background-color: #ba1928;
+              color: #fff;
+              outline: none;
+            }
           }
           .data {
             padding-left: 20px;
@@ -199,7 +225,7 @@ export default {
                 color: #484848;
               }
               .labTitle {
-                color: #d1d1d1;
+                color: #bbb;
                 .span {
                   padding-left: 5px;
                 }
@@ -223,6 +249,7 @@ export default {
     position: absolute;
     right: -30px;
     top: 50%;
+    display: none;
     background: #eee;
     margin-top: -25px;
     text-align: center;
@@ -231,6 +258,9 @@ export default {
     transform: rotate(-90deg);
     font-size: 20px;
     color: #c0c0c0;
+  }
+  .el-icon-question {
+    cursor: pointer;
   }
 }
 @media (min-width: 0px) and (max-width: 1025px) {

@@ -61,5 +61,10 @@ export default {
       color: #999;
     }
   }
+  .title {
+    &:hover {
+      color: #cb3737;
+    }
+  }
 }
 </style>

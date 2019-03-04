@@ -123,8 +123,9 @@ export default {
 .staff-headers {
   padding: 20px;
   background-color: #fff;
-  border-radius: 6px;
+  border-radius: 3px;
   margin-bottom: 10px;
+  box-shadow: 0 0 1px 1px #eee;
   .left {
     display: inline-flex;
     padding-right: 20px;
@@ -177,9 +178,6 @@ export default {
   }
   .state {
     color: #999;
-  }
-  &:hover {
-    box-shadow: 0 0 1px 1px #eee;
   }
   .label-item {
     span,

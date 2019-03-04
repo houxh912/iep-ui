@@ -76,5 +76,11 @@ export default {
       color: #e4990f;
     }
   }
+  .title {
+    cursor: pointer;
+    &:hover {
+      color: #cb3737;
+    }
+  }
 }
 </style>

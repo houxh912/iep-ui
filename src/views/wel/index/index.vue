@@ -124,6 +124,17 @@ export default {
       width: 100%;
     }
     .wel-aside {
+      right: 0;
+    }
+  }
+}
+@media (min-width: 0px) and (max-width: 1138px) {
+  .wel-wrapper {
+    .wel-content {
+      margin-right: 0;
+      width: 100%;
+    }
+    .wel-aside {
       right: -300px;
     }
   }

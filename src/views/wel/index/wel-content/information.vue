@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="3" class="dotted">
           <div class="left">
-            <div class="img"><img id="information-avatar" alt="头像"></div>
+            <div class="img zoom"><img id="information-avatar" alt="头像"></div>
             <div class="code-name">GM000117</div>
           </div>
         </el-col>
@@ -92,8 +92,6 @@ export default {
 .information {
   width: 100%;
   background: white;
-  border: 1px solid #eee;
-  box-shadow: 0 0 10px #eee;
   position: relative;
   border-radius: 5px;
   overflow: hidden;
@@ -103,9 +101,8 @@ export default {
     display: flex;
     align-items: center;
     border-radius: 3px;
-    &:hover {
-      box-shadow: 0 0 1px 1px #eee;
-    }
+    border: 1px solid #eee;
+    box-shadow: 0 0 1px 1px #eee;
     .el-col {
       height: 100%;
       display: flex;
@@ -116,9 +113,11 @@ export default {
         width: 100%;
         text-align: center;
         .img {
+          margin: 0 auto;
           width: 80px;
           height: 80px;
-          margin: 0 auto;
+          border-radius: 50%;
+          overflow: hidden;
           img {
             width: 100%;
             border-radius: 50%;
@@ -161,6 +160,9 @@ export default {
           .more {
             padding: 0 10px;
             color: #4692f5;
+            &:hover {
+              color: #1477f7;
+            }
           }
         }
         .user-data {
@@ -265,6 +267,20 @@ export default {
 }
 @media (min-width: 0px) and (max-width: 1025px) {
   .information {
+    font-size: 14px;
+    .dotted {
+      margin-left: 25px!important;
+      padding-right: 25px!important;
+    }
+    .el-col-3 {
+      width: auto;
+    }
+  }
+}
+@media (min-width: 769px) and (max-width: 1026px) {
+}
+@media (min-width: 0px) and (max-width: 769px) {
+  .information {
     font-size: 12px;
     .dotted {
       display: none !important;
@@ -273,14 +289,11 @@ export default {
       .el-col-21 {
         width: 100%;
         .right {
+          margin: 0 auto;
           padding: 5px;
         }
       }
     }
   }
-}
-@media (min-width: 769px) and (max-width: 1026px) {
-}
-@media (min-width: 0px) and (max-width: 769px) {
 }
 </style>

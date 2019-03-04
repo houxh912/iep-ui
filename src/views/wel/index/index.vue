@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import aboutMe from './wel-aside/index'
-import information from './wel-content/information'
+import aboutMe from './wel-aside/'
+import information from './wel-content/'
 
 export default {
   name: 'Wel',
@@ -53,7 +53,6 @@ export default {
   }
   .wel-aside {
     position: fixed;
-    top: 64px;
     right: 0;
     z-index: 102;
   }

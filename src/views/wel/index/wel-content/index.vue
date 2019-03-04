@@ -2,13 +2,13 @@
   <div class="wel-content">
     <div class="information">
       <el-row>
-        <el-col :span="3" class="dotted">
+        <el-col :span="4" class="dotted">
           <div class="left">
             <div class="img zoom"><img id="information-avatar" alt="头像"></div>
             <div class="code-name">GM000117</div>
           </div>
         </el-col>
-        <el-col :span="21">
+        <el-col :span="20">
           <div class="right">
             <div class="user-poster">早上好，国脉人，人人都要成为专家</div>
             <div class="user-info">

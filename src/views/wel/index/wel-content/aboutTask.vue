@@ -71,5 +71,12 @@ export default {
       padding-right: 20px;
     }
   }
+  .title {
+    font-size: 14px;
+    cursor: pointer;
+    &:hover {
+      color: #cb3737;
+    }
+  }
 }
 </style>

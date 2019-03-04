@@ -113,7 +113,8 @@ export default {
   },
   methods: {
     load () {
-      getGrowthFile()
+      console.log(this.$route.params.id)
+      getGrowthFile(this.$route.params.id)
     },
   },
 }

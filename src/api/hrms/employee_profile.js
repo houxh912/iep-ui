@@ -10,10 +10,9 @@ export function getEmployeeProfilePage (query) {
   })
 }
 
-export function getGrowthFile (query) {
+export function getGrowthFile (id) {
   return request({
-    url: `${prefixUrl}/growth_file`,
+    url: `${prefixUrl}/growth_file/${id}`,
     method: 'get',
-    params: query,
   })
 }

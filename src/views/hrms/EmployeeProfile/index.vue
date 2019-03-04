@@ -21,11 +21,11 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="currentColumnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="currentColumnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="姓名" width="90px">
             <template slot-scope="scope">
-              <span>{{scope.row.姓名}}</span>
+              <span>{{scope.row.name}}</span>
             </template>
           </el-table-column>
         </template>
@@ -63,7 +63,7 @@
 import { getEmployeeProfilePage } from '@/api/hrms/employee_profile'
 import mixins from '@/mixins/mixins'
 import keyBy from 'lodash/keyBy'
-import { columnsMap, initSearchForm } from './options'
+import { columnsMap, initSearchForm, dictsMap } from './options'
 import HeaderSetting from './HeaderSetting'
 import AdvanceSearch from './AdvanceSearch'
 export default {
@@ -71,6 +71,7 @@ export default {
   components: { HeaderSetting, AdvanceSearch },
   data () {
     return {
+      dictsMap,
       columnsMap,
       defaultColumnsLabel: columnsMap.filter(m => !m.hidden).map(m => m.label),
       paramForm: initSearchForm(),
@@ -98,7 +99,7 @@ export default {
     },
     handleOpenGrowthFile (row) {
       this.$router.push({
-        path: `/info/growth_file/${row.id}`,
+        path: `/info/growth_file/${row.userId}`,
         query: { redirect: this.$route.fullPath },
       })
     },

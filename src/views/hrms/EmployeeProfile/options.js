@@ -1,19 +1,19 @@
 // org config options
 const dictsMap = {
-  isOpen: {
-    0: '开',
-    1: '关',
-  },
-  status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
+  employeeStatus: {
+    0: '暂无',
+    1: '正式员工',
+    2: '试用期员工',
+    3: '实习期员工',
+    4: '兼职员工',
+    5: '其他',
+    6: '离职员工',
   },
 }
 
 const columnsMap = [
   {
-    prop: '性别',
+    prop: 'sex',
     label: '性别',
     width: 55,
     hidden: false,
@@ -21,16 +21,17 @@ const columnsMap = [
   {
     prop: '部门',
     label: '部门',
-    hidden: false,
+    hidden: true,
   },
   {
-    prop: '入职时间',
+    prop: 'employedDate',
     label: '入职时间',
     hidden: false,
   },
   {
-    prop: '员工状态',
+    prop: 'employeeStatus',
     label: '员工状态',
+    type: 'dict',
     hidden: false,
   },
   {
@@ -42,7 +43,7 @@ const columnsMap = [
     prop: '身份证号码',
     label: '身份证号码',
     minWidth: 120,
-    hidden: true,
+    hidden: false,
   },
 ]
 

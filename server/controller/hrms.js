@@ -1,76 +1,76 @@
-exports.getEmployeeProfilePage = async function(ctx) {
+exports.getEmployeeProfilePage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
     data: {
       records: [
         {
-          id: 1,
-          姓名: '李寅',
-          性别: '女',
+          userId: 1,
+          name: '李寅',
+          sex: '女',
           部门: '国脉先锋队',
-          入职时间: '2015-10-10',
-          员工状态: '正式',
+          employedDate: '2015-10-10',
+          employeeStatus: 1,
           岗位: '总经理',
           身份证号码: '33090219960103761X'
         },
         {
-          id: 2,
-          姓名: '李寅',
-          性别: '女',
+          userId: 2,
+          name: '李寅',
+          sex: '女',
           部门: '国脉先锋队',
-          入职时间: '2015-10-10',
-          员工状态: '正式',
+          employedDate: '2015-10-10',
+          employeeStatus: 1,
           岗位: '总经理',
           身份证号码: '33090219960103761X'
         },
         {
-          id: 3,
-          姓名: '李寅',
-          性别: '女',
+          userId: 3,
+          name: '李寅',
+          sex: '女',
           部门: '国脉先锋队',
-          入职时间: '2015-10-10',
-          员工状态: '正式',
+          employedDate: '2015-10-10',
+          employeeStatus: 1,
           岗位: '总经理',
           身份证号码: '33090219960103761X'
         },
         {
-          id: 4,
-          姓名: '李寅',
-          性别: '女',
+          userId: 4,
+          name: '李寅',
+          sex: '女',
           部门: '国脉先锋队',
-          入职时间: '2015-10-10',
-          员工状态: '正式',
+          employedDate: '2015-10-10',
+          employeeStatus: 1,
           岗位: '总经理',
           身份证号码: '33090219960103761X'
         },
         {
-          id: 5,
-          姓名: '李寅',
-          性别: '女',
+          userId: 5,
+          name: '李寅',
+          sex: '女',
           部门: '国脉先锋队',
-          入职时间: '2015-10-10',
-          员工状态: '正式',
+          employedDate: '2015-10-10',
+          employeeStatus: 1,
           岗位: '总经理',
           身份证号码: '33090219960103761X'
         },
         {
-          id: 6,
-          姓名: '李寅',
-          性别: '女',
+          userId: 6,
+          name: '李寅',
+          sex: '女',
           部门: '国脉先锋队',
-          入职时间: '2015-10-10',
-          员工状态: '正式',
+          employedDate: '2015-10-10',
+          employeeStatus: 1,
           岗位: '总经理',
           身份证号码: '33090219960103761X'
         },
         {
-          id: 7,
-          姓名: '李寅',
-          性别: '女',
+          userId: 7,
+          name: '李寅',
+          sex: '女',
           部门: '国脉先锋队',
-          入职时间: '2015-10-10',
-          员工状态: '正式',
+          employedDate: '2015-10-10',
+          employeeStatus: 1,
           岗位: '总经理',
           身份证号码: '33090219960103761X'
         }
@@ -85,7 +85,7 @@ exports.getEmployeeProfilePage = async function(ctx) {
   ctx.body = data
 }
 
-exports.getAdministrativeApprovalPage = async function(ctx) {
+exports.getAdministrativeApprovalPage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -198,7 +198,7 @@ exports.getAdministrativeApprovalPage = async function(ctx) {
   ctx.body = data
 }
 
-exports.getTalentPoolPage = async function(ctx) {
+exports.getTalentPoolPage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -259,7 +259,7 @@ exports.getTalentPoolPage = async function(ctx) {
   }
   ctx.body = data
 }
-exports.getTrainingRecordPage = async function(ctx) {
+exports.getTrainingRecordPage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -315,7 +315,7 @@ exports.getTrainingRecordPage = async function(ctx) {
   }
   ctx.body = data
 }
-exports.getDepartmentManagePage = async function(ctx) {
+exports.getDepartmentManagePage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -326,49 +326,49 @@ exports.getDepartmentManagePage = async function(ctx) {
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         },
         {
           id: 2,
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         },
         {
           id: 3,
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         },
         {
           id: 4,
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         },
         {
           id: 5,
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         },
         {
           id: 6,
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         },
         {
-          id:7,
+          id: 7,
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         }
       ],
       total: 6,
@@ -380,7 +380,7 @@ exports.getDepartmentManagePage = async function(ctx) {
   }
   ctx.body = data
 }
-exports.getJobSystemPage = async function(ctx) {
+exports.getJobSystemPage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -456,7 +456,7 @@ exports.getJobSystemPage = async function(ctx) {
   }
   ctx.body = data
 }
-exports.getJobTitleSystemPage = async function(ctx) {
+exports.getJobTitleSystemPage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -508,7 +508,7 @@ exports.getJobTitleSystemPage = async function(ctx) {
   }
   ctx.body = data
 }
-exports.getPostLibraryPage = async function(ctx) {
+exports.getPostLibraryPage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -560,7 +560,7 @@ exports.getPostLibraryPage = async function(ctx) {
   }
   ctx.body = data
 }
-exports.getPostLibrary1Page = async function(ctx) {
+exports.getPostLibrary1Page = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',

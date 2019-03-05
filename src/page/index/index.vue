@@ -1,7 +1,7 @@
 <template>
   <div class="avue-contail" :class="{ 'avue--collapse': isCollapse }">
     <el-container style="height: 100vh;">
-      <el-header style="height: 64px;padding: 0;z-index: 1000;">
+      <el-header style="height: 60px;padding: 0;z-index: 1000;">
         <!-- 顶部导航栏 -->
         <top />
       </el-header>
@@ -23,18 +23,6 @@
         </el-main>
       </el-container>
     </el-container>
-    <!-- <div class="avue-header">
-
-    </div>
-
-    <div class="avue-layout">
-      <div class="avue-left">
-
-      </div>
-      <div class="avue-main">
-
-      </div>
-    </div> -->
     <div class="avue-shade" @click="showCollapse"></div>
   </div>
 </template>
@@ -109,11 +97,9 @@ export default {
           name: 'access_token',
           debug: true,
         })
-
         if (validatenull(token)) {
           return
         }
-
         if (this.expires_in <= 1000 && !this.refreshLock) {
           this.refreshLock = true
           this.$store.dispatch('RefreshToken').catch(() => {

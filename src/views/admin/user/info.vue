@@ -2,7 +2,7 @@
   <div class="app-container calendar-list-container">
     <basic-container>
       <template>
-        <el-tabs @tab-click="switchTab">
+        <el-tabs v-model="switchStatus" @tab-click="switchTab">
           <el-tab-pane label="信息管理" name="userManager" />
           <el-tab-pane label="密码管理" name="passwordManager" />
         </el-tabs>
@@ -79,7 +79,7 @@ export default {
       }
     }
     return {
-      switchStatus: '',
+      switchStatus: 'userManager',
       avatarUrl: '',
       show: false,
       headers: {

@@ -1,6 +1,6 @@
 <template>
   <div class="find">
-    <span class="btn " @click="hideAside"><i class="el-icon-caret-right"></i></span>
+    <!-- <span class="btn " @click="hideAside"><i class="el-icon-caret-right"></i></span> -->
     <div class="title">
       <div class="inline">{{findList.title}}</div>
       <div class="more inline" @click="getMore">
@@ -20,7 +20,7 @@
 export default {
   data () {
     return {
-      findList: { title: '我要找', details: [{ icon: 'el-icon-picture-outline', subtitle: '方案' }, { icon: 'el-icon-share', subtitle: '模板' }, { icon: 'el-icon-rank', subtitle: '项目' }, { icon: 'el-icon-picture-outline', subtitle: '师傅' }] },
+      findList: { title: '我要找', details: [{ icon: 'icon-fangan', subtitle: '方案' }, { icon: 'icon-moban', subtitle: '模板' }, { icon: 'icon-xiangmu', subtitle: '项目' }, { icon: 'icon-shifu', subtitle: '师傅' }] },
     }
   },
   methods: {
@@ -30,12 +30,9 @@ export default {
     hadelSelect () {
       // console.log(index)
     },
-    hideAside () {
-      this.$store.commit('hideAside')
-    },
     showAside () {
       // console.log(222)
-      this.$store.commit('showAside')
+      this.$store.commit('SHOWASIDE')
     },
   },
   computed: {
@@ -79,9 +76,26 @@ export default {
   > div {
     flex-grow: 1;
     text-align: center;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    &:hover {
+      opacity: .6;
+    }
   }
   .icon {
     padding: 10px 0;
+    .icon-fangan {
+      color: #5c79a5;
+    }
+    .icon-moban {
+      color: #c78a53;
+    }
+    .icon-xiangmu {
+      color: #47a1bb;
+    }
+    .icon-shifu {
+      color: #cc8082;
+    }
   }
 }
 .more {
@@ -98,7 +112,7 @@ export default {
   display: inline-block;
 }
 .title {
-  padding: 10px 0;
+  padding: 0 0 10px;
   font-size: 16px;
   font-weight: 500;
 }

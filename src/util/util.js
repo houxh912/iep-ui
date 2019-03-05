@@ -341,7 +341,6 @@ export const openWindow = (url, title, w, h) => {
  * @returns {PromiseLike<T | never> | Promise<T | never>}
  */
 export function handleImg (fileName, id) {
-  console.log(fileName, id)
   return validatenull(fileName)
     ? null
     : request({

@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="(scope.row)" type="danger">新增</iep-button>
+        <iep-button @click="(scope.row)" type="danger" icon="el-icon-plus">新增</iep-button>
         <el-dropdown size="medium">
           <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
@@ -16,14 +16,20 @@
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
           <el-form :model="paramForm" label-width="80px" size="mini">
-            <el-form-item label="员工姓名">
-              <el-input v-model="paramForm.name"></el-input>
+            <el-form-item label="关键字">
+              <el-input v-model="paramForm.theme" placeholder="关键字"></el-input>
             </el-form-item>
-            <el-form-item label="性别">
-              <el-radio-group v-model="paramForm.sex">
-                <el-radio label="男"></el-radio>
-                <el-radio label="女"></el-radio>
-              </el-radio-group>
+            <el-form-item label="岗位类别">
+              <el-select v-model="paramForm.type" placeholder="请选择岗位类别">
+                <el-option label="岗位类别1" value="岗位类别1"></el-option>
+                <el-option label="岗位类别2" value="岗位类别2"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="岗位名称">
+              <el-select v-model="paramForm.type" placeholder="请选择岗位名称">
+                <el-option label="岗位名称1" value="岗位名称1"></el-option>
+                <el-option label="岗位名称2" value="岗位名称2"></el-option>
+              </el-select>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="searchPage">搜索</el-button>
@@ -34,34 +40,20 @@
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
-      <template slot="before-columns">
-        <el-table-column label="姓名" width="90px">
-          <template slot-scope="scope">
-            <span>{{scope.row.姓名}}</span>
-          </template>
-        </el-table-column>
-      </template>
-      <el-table-column prop="operation" label="操作" min-width="160">
+      <el-table-column prop="operation" label="操作" width="280">
         <template slot-scope="scope">
           <operation-wrapper>
+            <iep-button @click="edit(scope.row)" type="warning">编辑</iep-button>
+            <iep-button @click="(scope.row)">发起招聘</iep-button>
             <el-dropdown size="medium">
               <iep-button size="small" type="default">
-                变更<i class="el-icon-arrow-down el-icon--right"></i>
+                <i class="el-icon-more-outline"></i>
               </iep-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>入职</el-dropdown-item>
                 <el-dropdown-item>转正</el-dropdown-item>
                 <el-dropdown-item>调动</el-dropdown-item>
                 <el-dropdown-item>离职</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <iep-button @click="(scope.row)">成长档案</iep-button>
-            <el-dropdown size="medium">
-              <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>修改</el-dropdown-item>
-                <el-dropdown-item>删除</el-dropdown-item>
-                <el-dropdown-item>分享</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </operation-wrapper>
@@ -71,7 +63,7 @@
   </div>
 </template>
 <script>
-import { getEmployeeProfilePage } from '@/api/hrms/employee_profile'
+import { getPostLibraryPage } from '@/api/hrms/post_library'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from './options'
 export default {
@@ -90,7 +82,10 @@ export default {
       this.paramForm = initSearchForm()
     },
     loadPage (param) {
-      this.loadTable(param, getEmployeeProfilePage)
+      this.loadTable(param, getPostLibraryPage)
+    },
+    edit () {
+
     },
   },
 }

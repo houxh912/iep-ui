@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="(scope.row)" type="danger">新增</iep-button>
+        <iep-button @click="(scope.row)" type="danger" icon="el-icon-plus">新增</iep-button>
         <el-dropdown size="medium">
           <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
@@ -13,7 +13,7 @@
           </el-dropdown-menu>
         </el-dropdown>
       </template>
-      <template slot="right">
+      <!-- <template slot="right">
         <operation-search @search="searchPage" advance-search>
           <el-form :model="paramForm" label-width="80px" size="mini">
             <el-form-item label="员工姓名">
@@ -31,47 +31,37 @@
             </el-form-item>
           </el-form>
         </operation-search>
-      </template>
+      </template> -->
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
-      <template slot="before-columns">
-        <el-table-column label="姓名" width="90px">
-          <template slot-scope="scope">
-            <span>{{scope.row.姓名}}</span>
-          </template>
-        </el-table-column>
-      </template>
-      <el-table-column prop="operation" label="操作" min-width="160">
+    <el-table class="table" v-loading="isLoadTable" :data="pagedTable" style="width: 100%;" @selection-change="handleSelectionChange" :header-cell-style="getRowClass" v-bind="$attrs">
+      <el-table-column type="selection" width="55">
+      </el-table-column>
+      <el-table-column :label="item.label" :width="item.width" :min-width="item.minWidth" v-for="(item, idx) in columnsMap" :key="idx">
+        <template slot-scope="scope">
+          <div v-if="item.type==='dict'">
+            <span>{{dictsMap[item.prop][scope.row[item.prop]]}}</span>
+          </div>
+          <div v-else>
+            <span v-if="scope.row[item.prop] === 0">0</span>
+            <span v-if="scope.row[item.prop] === null">{{ '暂无' }}</span>
+            <span v-if="scope.row[item.prop]">{{scope.row[item.prop]}}</span>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="operation" label="操作" width="280">
         <template slot-scope="scope">
           <operation-wrapper>
-            <el-dropdown size="medium">
-              <iep-button size="small" type="default">
-                变更<i class="el-icon-arrow-down el-icon--right"></i>
-              </iep-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>入职</el-dropdown-item>
-                <el-dropdown-item>转正</el-dropdown-item>
-                <el-dropdown-item>调动</el-dropdown-item>
-                <el-dropdown-item>离职</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <iep-button @click="(scope.row)">成长档案</iep-button>
-            <el-dropdown size="medium">
-              <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>修改</el-dropdown-item>
-                <el-dropdown-item>删除</el-dropdown-item>
-                <el-dropdown-item>分享</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+            <iep-button size="small" type="warning">编辑</iep-button>
+            <iep-button @click="(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
-    </iep-table>
+    </el-table>
+    <div class="add"><span @click="add"><i class="el-icon-plus"></i>新增职称</span></div>
   </div>
 </template>
 <script>
-import { getEmployeeProfilePage } from '@/api/hrms/employee_profile'
+import { getJobSystemPage } from '@/api/hrms/job_system'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from './options'
 export default {
@@ -90,8 +80,45 @@ export default {
       this.paramForm = initSearchForm()
     },
     loadPage (param) {
-      this.loadTable(param, getEmployeeProfilePage)
+      this.loadTable(param, getJobSystemPage)
+    },
+    handleSizeChange (val) {
+      this.$emit('size-change', val)
+    },
+    handleCurrentChange (val) {
+      this.$emit('current-change', val)
+    },
+    handleSelectionChange (val) {
+      this.$emit('selection-change', val)
+    },
+    getRowClass ({ rowIndex }) {
+      if (rowIndex == 0) {
+        return 'background:#F2F4F5;color:#000'
+      } else {
+        return ''
+      }
+    },
+    add () {
+
     },
   },
 }
 </script>
+<style lang="scss">
+.add {
+  width: 100%;
+  border-bottom: 2px solid #ebeef5;
+  text-align: center;
+  padding: 20px 0;
+  color: #cb3737;
+  span {
+    cursor: pointer;
+  }
+  i {
+    padding: 0 5px;
+  }
+}
+</style>
+
+
+

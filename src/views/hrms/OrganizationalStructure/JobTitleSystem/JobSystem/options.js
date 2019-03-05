@@ -13,30 +13,18 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: '性别',
-    label: '性别',
-    width: 55,
+    prop: '职务名称',
+    label: '职务名称',
+    width: 280,
   },
   {
-    prop: '部门',
-    label: '部门',
+    prop: '职务说明',
+    label: '职务说明',
   },
   {
-    prop: '入职时间',
-    label: '入职时间',
-  },
-  {
-    prop: '员工状态',
-    label: '员工状态',
-  },
-  {
-    prop: '岗位',
-    label: '岗位',
-  },
-  {
-    prop: '身份证号码',
-    label: '身份证号码',
-    minWidth: 120,
+    prop: '优先级',
+    label: '优先级',
+    width: 280,
   },
 ]
 

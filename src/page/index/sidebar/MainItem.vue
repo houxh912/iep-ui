@@ -1,8 +1,13 @@
 <template>
-  <div class="main-item-wrapper">
-    <span class="main-link" @click="open">{{website.menu.firstMenu.name}}</span>
-    <span v-if="isSub">-</span>
-    <span v-if="isSub">{{mainMenu.label}}</span>
+  <div class="main-item-wrapper" @click="open">
+    <el-tooltip v-if="collapse" class="item" effect="dark" content="个人赋能台" placement="right">
+      <span><i :class="mainMenu.icon"></i></span>
+    </el-tooltip>
+    <div v-else>
+      <span class="main-link">{{website.menu.firstMenu.name}}</span>
+      <span v-if="isSub">-</span>
+      <span v-if="isSub">{{mainMenu.label}}</span>
+    </div>
   </div>
 </template>
 <script>
@@ -14,6 +19,10 @@ export default {
       type: Object,
       required: true,
       default: () => { },
+    },
+    collapse: {
+      type: Boolean,
+      required: true,
     },
   },
   data () {
@@ -42,6 +51,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .main-item-wrapper {
+  cursor: pointer;
   font-size: 20px;
   text-align: center;
   padding: 20px 20px;
@@ -49,7 +59,6 @@ export default {
   margin-bottom: 5px;
   color: #666;
   .main-link {
-    cursor: pointer;
     &:hover {
       color: #333;
       border-bottom: 1px solid #666;

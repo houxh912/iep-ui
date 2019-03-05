@@ -9,14 +9,32 @@
         <template slot="right">
           <operation-search @search="searchPage" advance-search>
             <el-form :model="paramForm" label-width="80px" size="mini">
-              <el-form-item label="员工姓名">
-                <el-input v-model="paramForm.name"></el-input>
+              <el-form-item label="申请人">
+                <el-input v-model="paramForm.theme" placeholder="请输入申请人姓名"></el-input>
               </el-form-item>
-              <el-form-item label="性别">
-                <el-radio-group v-model="paramForm.sex">
-                  <el-radio label="男"></el-radio>
-                  <el-radio label="女"></el-radio>
-                </el-radio-group>
+              <el-form-item label="申请类型">
+                <el-select v-model="paramForm.type" placeholder="选择申请类型">
+                  <el-option label="类型1" value="类型1"></el-option>
+                  <el-option label="类型1" value="类型1"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="选择部门">
+                <el-select v-model="paramForm.type" placeholder="选择部门">
+                  <el-option label="部门1" value="部门1"></el-option>
+                  <el-option label="部门1" value="部门1"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="审批结果">
+                <el-select v-model="paramForm.type" placeholder="审批结果">
+                  <el-option label="通过" value="通过"></el-option>
+                  <el-option label="未通过" value="未通过"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="培训时间">
+                <div class="block">
+                  <el-date-picker v-model="dateVal" type="daterange" align="left" unlink-panels range-separator="至" start-placeholder="2019-02-01" end-placeholder="2019-03-01" :picker-options="pickerOptions2">
+                  </el-date-picker>
+                </div>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="searchPage">搜索</el-button>
@@ -43,40 +61,43 @@ import OperationContainer from '@/components/Operation/Container'
 import IepTable from '@/components/IepTable/'
 import { getAdministrativeApprovalPage } from '@/api/hrms/administrative_approval'
 import mixins from '@/mixins/mixins'
+import { columnsMap, initSearchForm } from './options'
 export default {
   mixins: [mixins],
   components: { PageHeader, OperationContainer, IepTable },
   data () {
     return {
-      paramForm: {},
-      columnsMap: [
-        {
-          prop: '申请类型',
-          label: '申请类型',
-        }, {
-          prop: '申请人',
-          label: '申请人',
-        },
-        {
-          prop: '部门',
-          label: '部门',
-        },
-        {
-          prop: '申请时间',
-          label: '申请时间',
-        },
-        {
-          prop: '审批人',
-          label: '审批人',
-        },
-        {
-          prop: '状态',
-          label: '状态',
-        },
-      ],
-      typeList: [{ label: '请假申请', id: 1 }, { label: '出差申请', id: 2 }, { label: '转正申请', id: 3 }, { label: '加班申请', id: 4 }, { label: '离职申请', id: 5 }, { label: '调岗申请', id: 6 }, { label: '调部门申请', id: 7 }, { label: '招聘申请', id: 1 }],
-      userList: [{ label: '李百川', id: 1 }, { label: '李百川', id: 2 }, { label: '李百川', id: 3 }, { label: '李百川', id: 4 }, { label: '李百川', id: 5 }, { label: '李百川', id: 6 }, { label: '李百川', id: 7 }, { label: '李百川', id: 8 }],
+      columnsMap,
+      paramForm: initSearchForm(),
       replaceText: (data) => `（本周新增${data[0]}条请假申请，${data[1]}条转正申请，${data[2]}条出差申请，${data[3]}条离职申请，${data[4]}条调岗申请，${data[5]}条调部门申请，${data[6]}条招聘申请）`,
+      pickerOptions2: {
+        shortcuts: [{
+          text: '最近一周',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', [start, end])
+          },
+        }, {
+          text: '最近一个月',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            picker.$emit('pick', [start, end])
+          },
+        }, {
+          text: '最近三个月',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+            picker.$emit('pick', [start, end])
+          },
+        }],
+      },
+      dateVal: '',
     }
   },
   created () {
@@ -92,6 +113,10 @@ export default {
     },
     handleCommandUser () {
       // console.log(val)
+    },
+    clearSearchParam () {
+      this.paramForm = initSearchForm()
+      this.$emit('clear-search-param')
     },
   },
 }

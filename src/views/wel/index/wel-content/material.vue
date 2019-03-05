@@ -15,7 +15,7 @@
           <div class="grid-content bg-purple">{{item.author}}</div>
         </el-col>
         <el-col :span="2">
-          <div class="grid-content bg-purple text-right">{{item.date}}</div>
+          <div class="grid-content bg-purple text-right text-time">{{item.date}}</div>
         </el-col>
       </el-row>
     </div>
@@ -42,7 +42,7 @@ export default {
 
 <style lang="scss" scoped>
 .material {
-  padding: 20px;
+  padding: 20px 30px;
   padding-bottom: 0;
   border-bottom: 1px solid #eee;
   color: #5f5f5f;
@@ -53,8 +53,18 @@ export default {
   }
   .material-content {
     padding: 20px 0;
+    font-size: 14px;
     .text-right {
       text-align: right;
+    }
+    .text-time {
+      color: #999;
+    }
+  }
+  .title {
+    cursor: pointer;
+    &:hover {
+      color: #cb3737;
     }
   }
 }

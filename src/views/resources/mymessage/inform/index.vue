@@ -3,11 +3,11 @@
     <div class="leftBox">
       <p class="boxTitles">分类</p>
       <!-- <ul class="menus"> -->
-        <el-button @click="loadPage()" class="menus_option">纪要<span class="small_option"></span></el-button>
-        <el-button @click="loadPage()" class="menus_option">任务<span class="small_option">12</span></el-button>
-        <el-button @click="loadPage()" class="menus_option">财富<span class="small_option">11</span></el-button>
-        <el-button @click="loadPage()" class="menus_option">其他<span class="small_option">33</span></el-button>
-        <el-button @click="loadPage()" class="menus_option">重要<span class="small_option"></span></el-button>
+        <gov-button @click="loadPage()" class="menus_option">纪要<span class="small_option"></span></gov-button>
+        <gov-button @click="loadPage()" class="menus_option">任务<span class="small_option">12</span></gov-button>
+        <gov-button @click="loadPage()" class="menus_option">财富<span class="small_option">11</span></gov-button>
+        <gov-button @click="loadPage()" class="menus_option">其他<span class="small_option">33</span></gov-button>
+        <gov-button @click="loadPage()" class="menus_option">重要<span class="small_option"></span></gov-button>
       <!-- </ul> -->
     </div>
     <div class="rightBox">
@@ -16,9 +16,9 @@
         <operation-container>
           <template slot="left">
             <el-button-group class="btns">
-              <el-button plain class="el-icon-view" size="small"></el-button>
-              <el-button plain icon="el-icon-share" size="small"></el-button>
-              <el-button plain class="el-icon-delete" size="small"></el-button>
+              <gov-button plain class="el-icon-view" size="small"></gov-button>
+              <gov-button plain class="el-icon-share" size="small"></gov-button>
+              <gov-button plain class="el-icon-delete" size="small"></gov-button>
             </el-button-group>
           </template>
           <template slot="right">
@@ -47,15 +47,16 @@ export default {
       changes:false,
       columnsMap: [
         {
-          prop: '性别',
+          prop: '部门',
           label: '内容',
           hidden: false,
         },
         {
-          prop: '部门',
+          prop: '入职时间',
           label: '时间',
           hidden: false,
           fixed:'right',
+          width:250,
         },
       ],
     }
@@ -119,7 +120,7 @@ export default {
         color:#000;
         .small_option{
           float: right;
-          color: gray;
+          color: #ccc;
         }
       }
     }

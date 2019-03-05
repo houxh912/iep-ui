@@ -1,4 +1,4 @@
-exports.getEmployeeProfilePage = async function(ctx) {
+exports.getEmployeeProfilePage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -85,7 +85,7 @@ exports.getEmployeeProfilePage = async function(ctx) {
   ctx.body = data
 }
 
-exports.getAdministrativeApprovalPage = async function(ctx) {
+exports.getAdministrativeApprovalPage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -197,8 +197,68 @@ exports.getAdministrativeApprovalPage = async function(ctx) {
   }
   ctx.body = data
 }
-
-exports.getTalentPoolPage = async function(ctx) {
+exports.getPublishRecruitmentPage = async function (ctx) {
+  const data = {
+    code: 0,
+    msg: 'success',
+    data: {
+      records: [
+        {
+          id: 1,
+          岗位: 'java软件工程师',
+          招聘部门: '技术中心',
+          招聘人数: '3人',
+          工作类型: '全职',
+          招聘申请时间: '2019-01-20',
+          招聘状态: '待发布'
+        },
+        {
+          id: 2,
+          岗位: 'java软件工程师',
+          招聘部门: '技术中心',
+          招聘人数: '3人',
+          工作类型: '全职',
+          招聘申请时间: '2019-01-20',
+          招聘状态: '待发布'
+        },
+        {
+          id: 3,
+          岗位: 'java软件工程师',
+          招聘部门: '技术中心',
+          招聘人数: '3人',
+          工作类型: '全职',
+          招聘申请时间: '2019-01-20',
+          招聘状态: '待发布'
+        },
+        {
+          id: 4,
+          岗位: 'java软件工程师',
+          招聘部门: '技术中心',
+          招聘人数: '3人',
+          工作类型: '全职',
+          招聘申请时间: '2019-01-20',
+          招聘状态: '待发布'
+        },
+        {
+          id: 5,
+          岗位: 'java软件工程师',
+          招聘部门: '技术中心',
+          招聘人数: '3人',
+          工作类型: '全职',
+          招聘申请时间: '2019-01-20',
+          招聘状态: '待发布'
+        },
+      ],
+      total: 12,
+      size: 10,
+      current: 1,
+      searchCount: true,
+      pages: 1
+    }
+  }
+  ctx.body = data
+}
+exports.getTalentPoolPage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -259,7 +319,7 @@ exports.getTalentPoolPage = async function(ctx) {
   }
   ctx.body = data
 }
-exports.getTrainingRecordPage = async function(ctx) {
+exports.getTrainingRecordPage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -315,7 +375,7 @@ exports.getTrainingRecordPage = async function(ctx) {
   }
   ctx.body = data
 }
-exports.getDepartmentManagePage = async function(ctx) {
+exports.getDepartmentManagePage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -326,49 +386,49 @@ exports.getDepartmentManagePage = async function(ctx) {
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         },
         {
           id: 2,
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         },
         {
           id: 3,
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         },
         {
           id: 4,
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         },
         {
           id: 5,
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         },
         {
           id: 6,
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         },
         {
-          id:7,
+          id: 7,
           部门名称: '技术部',
           负责人: '111',
           部门人数: '1',
-          成立时间:'2019-03-01',
+          成立时间: '2019-03-01',
         }
       ],
       total: 6,
@@ -380,7 +440,7 @@ exports.getDepartmentManagePage = async function(ctx) {
   }
   ctx.body = data
 }
-exports.getJobSystemPage = async function(ctx) {
+exports.getJobSystemPage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -456,7 +516,7 @@ exports.getJobSystemPage = async function(ctx) {
   }
   ctx.body = data
 }
-exports.getJobTitleSystemPage = async function(ctx) {
+exports.getJobTitleSystemPage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -508,7 +568,7 @@ exports.getJobTitleSystemPage = async function(ctx) {
   }
   ctx.body = data
 }
-exports.getPostLibraryPage = async function(ctx) {
+exports.getPostLibraryPage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -560,7 +620,7 @@ exports.getPostLibraryPage = async function(ctx) {
   }
   ctx.body = data
 }
-exports.getPostLibrary1Page = async function(ctx) {
+exports.getPostLibrary1Page = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',

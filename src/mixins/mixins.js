@@ -34,6 +34,7 @@ export default {
     loadTable (param, requestFn, fn = (m) => m) {
       this.isLoadTable = true
       requestFn({ ...param, ...this.pageOption }).then(({ data }) => {
+        console.log(data)
         const { records, size, total, current } = data.data
         this.pagination = { current, size, total }
         this.pagedTable = records.map(fn)

@@ -25,7 +25,7 @@
         <template slot="before-columns">
           <el-table-column label="姓名" width="90px">
             <template slot-scope="scope">
-              <span>{{scope.row.name}}</span>
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
@@ -118,6 +118,10 @@ export default {
     },
     handleChange () {
       this.$emit('onEdit')
+    },
+    handleDetail (row) {
+      console.log(row)
+      this.$emit('onDetail')
     },
   },
 }

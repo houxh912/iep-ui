@@ -48,7 +48,7 @@
         <template slot="before-columns">
           <el-table-column label="申请人" width="90px">
             <template slot-scope="scope">
-              <iep-table-link @click="handleView(scope.row)">{{scope.row.申请人}}</iep-table-link>
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.申请人}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
@@ -107,9 +107,9 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleView (row) {
+    handleDetail (row) {
       console.log(row)
-      this.$emit('onView')
+      this.$emit('onDetail')
     },
     // handleShare (row) { },
     loadPage (param) {

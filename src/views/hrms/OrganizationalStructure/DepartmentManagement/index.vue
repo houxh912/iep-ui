@@ -50,9 +50,9 @@
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>安排面试</el-dropdown-item>
-                  <el-dropdown-item>录用</el-dropdown-item>
-                  <el-dropdown-item>面试记录</el-dropdown-item>
+                  <el-dropdown-item>移动</el-dropdown-item>
+                  <el-dropdown-item>合并</el-dropdown-item>
+                  <el-dropdown-item>删除</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>

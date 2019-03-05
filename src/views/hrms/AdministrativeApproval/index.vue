@@ -1,17 +1,17 @@
 <template>
-  <component @onView="handleView" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <component @onDetail="handleDetail" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
 </template>
 
 <script>
 // 动态切换组件
 import List from './Page/List'
-import View from './Page/View'
+import Detail from './Page/Detail'
 
 export default {
   name: 'TableListWrapper',
   components: {
     List,
-    View,
+    Detail,
   },
   data () {
     return {
@@ -23,9 +23,9 @@ export default {
 
   },
   methods: {
-    handleView (record) {
+    handleDetail (record) {
       this.record = record
-      this.currentComponet = 'View'
+      this.currentComponet = 'Detail'
     },
     handleGoBack () {
       this.record = ''

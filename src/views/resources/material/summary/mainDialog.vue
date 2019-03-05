@@ -1,29 +1,58 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}组织`" width="50%" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}会议纪要`" width="70%" @close="resetForm">
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
-      <el-form-item label="组织名称" prop="name">
-        <el-input v-model="formData.name"></el-input>
+
+      <el-form-item label="会议类型：" prop="type">
+        <el-radio-group v-model="formData.type">
+          <el-radio v-for="(item, value) in dictsMap.meetingType" :key="value" :label="value">{{item}}</el-radio>
+        </el-radio-group>
       </el-form-item>
-      <el-form-item label="允许加入" prop="isOpen">
-        <el-switch v-model="formData.isOpen" :active-value="0" :inactive-value="1"></el-switch>
+      <el-form-item label="会议主题：" prop="zhuti">
+        <el-input type="textarea" v-model="formData.zhuti"></el-input>
       </el-form-item>
-      <el-form-item label="组织描述" prop="intro">
-        <el-input type="textarea" v-model="formData.intro"></el-input>
+      <el-form-item label="会议总结：" prop="zongjie">
+        <el-input type="textarea" v-model="formData.zongjie"></el-input>
       </el-form-item>
+      <el-row>
+        <el-col :span=12>
+          <el-form-item label="会议时间" prop="riqi">
+            <el-date-picker v-model="formData.riqi" type="date" placeholder="选择日期"></el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span=12>
+          <el-form-item label="会议地点：" prop="didian">
+            <el-input v-model="formData.didian"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item label="会议标签：" prop="biaoqian">
+        <el-input v-model="formData.biaoqian"></el-input>
+      </el-form-item>
+      <el-form-item label="接收人" prop="jieshouren">
+        <el-input v-model="formData.jieshouren"></el-input>
+      </el-form-item>
+      <el-form-item label="关联报表" prop="baobiao">
+        <iep-button><i class="el-icon-plus"></i></iep-button>
+      </el-form-item>
+      <el-form-item label="关联项目" prop="xiangmu">
+        <iep-button><i class="el-icon-plus"></i></iep-button>
+      </el-form-item>
+      
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
-      <iep-button @click="resetForm('form')">初始值</iep-button>
+      <iep-button @click="resetForm('form')">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
 import IepDialog from '@/components/IepDialog/'
-import { initFormData } from './options'
+import { initFormData, dictsMap } from './options'
 export default {
   components: { IepDialog },
   data () {
     return {
+      dictsMap,
       dialogShow: false,
       formRequestFn: () => { },
       methodName: '创建',
@@ -46,7 +75,7 @@ export default {
               duration: 2000,
             })
             this.loadPage()
-            this.resetForm()
+            this.dialogShow = false
           })
         } else {
           return false

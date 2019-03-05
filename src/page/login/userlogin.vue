@@ -154,7 +154,7 @@ export default {
   display: block;
   margin: -15px auto 10px auto;
   width: 100%;
-  height: 48px;
+  height: 40px;
   font-size: 14px;
   text-align: center;
   border: 0px;
@@ -169,7 +169,7 @@ export default {
   display: block;
   margin: 20px auto 10px auto;
   width: 100%;
-  height: 48px;
+  height: 40px;
   font-size: 14px;
   text-align: center;
   border: 0px;
@@ -185,6 +185,12 @@ export default {
   .check-text {
     float: right;
     color: red;
+  }
+  .el-button--text {
+    color: #ba1b20;
+    &:hover {
+      color: #f56c6c;
+    }
   }
 }
 .login-form {

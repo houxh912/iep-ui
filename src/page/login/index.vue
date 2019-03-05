@@ -22,7 +22,6 @@
           <a href="#" @click.stop="activeName = 'third'">第三方登录</a>
         </div>
         <div class="login-bottom">
-          <hr>
           <div class="bottom-text">Copyright©GOVMADE 版权所有 2018-2020</div>
         </div>
       </div>
@@ -123,8 +122,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
-    margin-top: 50px;
+    margin-bottom: 25px;
+    margin-top: 40px;
     .top-image {
       width: 90px;
       border-right: 1px solid #eee;
@@ -142,7 +141,7 @@ export default {
   text-align: center;
   a {
     color: rgb(153, 153, 153);
-    font-size: 12px;
+    font-size: 14px;
     margin: 0px 8px;
     -webkit-transition: 0.1s;
     transition: 0.1s;
@@ -158,8 +157,8 @@ export default {
   text-align: center;
   .menu-line {
     display: inline-block;
-    width: 180px;
-    border-top: 1px solid #ccc;
+    width: 130px;
+    border-top: 1px solid #d7d7d7;
   }
   .menu-text {
     color: #686868;
@@ -171,15 +170,17 @@ export default {
 }
 .login-bottom {
   margin: 0 auto;
-  width: 80%;
+  width: 100%;
   box-sizing: border-box;
   color: rgb(153, 153, 153);
   position: absolute;
-  bottom: 20px;
-  margin-left: 50px;
+  bottom: 15px;
   margin-top: -50px;
   .bottom-text {
-    margin-top: 15px;
+    border-top: 1px solid #d7d7d7;
+    margin: 0 30px;
+    padding-top: 15px;
+    font-size: 13px;
     text-align: center;
   }
 }
@@ -196,24 +197,29 @@ export default {
       min-width: auto;
       .login-main {
         margin: 0;
-        padding: 30px;
+        padding: 30px 30px 0;
       }
     }
     .login-bottom {
-      position: inherit;
-      margin-top: 30px;
       margin-left: 0;
-      width: 100%;
+      max-width: 520px;
+      min-width: auto;
     }
   }
 }
 @media (max-width:992px){
+}
+@media(max-width:767px){
   .menu-p {
     .menu-line {
       width: 15%;
     }
   }
-}
-@media(max-width:767px){
+  .login-bottom {
+    width: 86%;
+    .bottom-text {
+      font-size: 12px;
+    }
+  }
 }
 </style>

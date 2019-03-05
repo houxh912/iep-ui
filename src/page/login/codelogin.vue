@@ -124,7 +124,7 @@ export default {
   display: block;
   margin: 0 auto 10px auto;
   width: 100%;
-  height: 48px;
+  height: 40px;
   font-size: 14px;
   text-align: center;
   border: 0px;

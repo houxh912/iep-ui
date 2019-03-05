@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <basic-container>
       <page-header title="****的转正申请" :backOption="backOption"></page-header>
-      <div class="baseMsg">
+      <div class="base-msg">
         <el-row>
           <el-col :span="3">
             <div class="grid-content bg-purple">
@@ -105,7 +105,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.baseMsg {
+.base-msg {
   width: 100%;
   color: #606266;
   box-sizing: border-box;
@@ -131,12 +131,14 @@ export default {
   padding: 20px;
   .title {
     padding: 15px 20px;
-    font-family: "黑体";
+    font-weight: 600;
   }
   .prompt {
     padding: 0 20px 10px 20px;
   }
-  .color{color:#ccc}
+  .color {
+    color: #ccc;
+  }
 }
 .el-form-item {
   margin: 0;

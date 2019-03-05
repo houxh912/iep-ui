@@ -109,7 +109,7 @@ export default {
   methods: {
     handleView (row) {
       console.log(row)
-      this.$emit('onEdit')
+      this.$emit('onView')
     },
     // handleShare (row) { },
     loadPage (param) {

@@ -154,7 +154,7 @@ export default {
   display: block;
   margin: -15px auto 10px auto;
   width: 100%;
-  height: 48px;
+  height: 40px;
   font-size: 14px;
   text-align: center;
   border: 0px;
@@ -169,7 +169,7 @@ export default {
   display: block;
   margin: 20px auto 10px auto;
   width: 100%;
-  height: 48px;
+  height: 40px;
   font-size: 14px;
   text-align: center;
   border: 0px;
@@ -178,13 +178,19 @@ export default {
 }
 .login-visiter:hover {
   background-color: #909399;
-  color: black;
+  color: #fff;
 }
 .login-text {
   color: red;
   .check-text {
     float: right;
     color: red;
+  }
+  .el-button--text {
+    color: #ba1b20;
+    &:hover {
+      color: #f56c6c;
+    }
   }
 }
 .login-form {
@@ -196,7 +202,7 @@ export default {
     width: 100%;
   }
   .el-form-item {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
   .el-input {
     .el-input__prefix {
@@ -214,8 +220,7 @@ export default {
   margin: 0 0 0 10px;
 }
 .login-code-img {
-  margin-top: 2px;
-  width: 100px;
+  width: 100%;
   height: 38px;
   background-color: #fdfdfd;
   border: 1px solid #f0f0f0;
@@ -227,5 +232,6 @@ export default {
   text-indent: 5px;
   text-align: center;
 }
+
 </style>
 

@@ -24,13 +24,13 @@
     </el-form-item>
     <el-form-item prop="code">
       <div class="code-wrapper">
-        <el-input @keyup.enter.native="handleLogin" maxlength="4" v-model="registerForm.code" auto-complete="off" placeholder="请输入验证码">
+        <el-input  @keyup.enter.native="handleLogin" maxlength="4" v-model="registerForm.code" auto-complete="off" placeholder="请输入验证码">
         </el-input>
         <el-button @click="handleSend" class="msg-text" :class="[{ display: msgKey }]">{{ msgText }}</el-button>
       </div>
     </el-form-item>
     <el-form-item>
-      <el-checkbox v-model="checked">同意并遵守 《用户守则》</el-checkbox>
+      <el-checkbox v-model="checked">同意并遵守<span class="agreement">《用户守则》</span></el-checkbox>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" size="small" @click.native.prevent="handleRegister" class="login-submit">注册</el-button>
@@ -204,7 +204,7 @@ export default {
   display: block;
   margin: -15px auto -10px auto;
   width: 100%;
-  height: 48px;
+  height: 40px;
   font-size: 14px;
   text-align: center;
   border: 0px;
@@ -227,7 +227,7 @@ export default {
     width: 100%;
   }
   .el-form-item {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
   .el-input {
     .el-input__prefix {
@@ -240,9 +240,16 @@ export default {
 }
 .msg-text {
   display: block;
+  margin-left: -1px;
   font-size: 12px;
   text-align: center;
   cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  &:hover, &:focus {
+    border-color: #dcdfe6;
+    background-color: #fff7ec;
+    color: #ea8d03;
+  }
 }
 .msg-text.display {
   color: #ccc;
@@ -266,5 +273,11 @@ export default {
   line-height: 38px;
   text-indent: 5px;
   text-align: center;
+}
+.agreement {
+  color: #999;
+  &:hover {
+    opacity: .7;
+  }
 }
 </style>

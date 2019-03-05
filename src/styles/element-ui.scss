@@ -76,6 +76,7 @@
     background-color: #fff7ec;
     color: #ea8d03;
     &:hover {
+      border-color: #ea8d03;
       background-color: #ea8d03;
       color: #fff;
     }
@@ -144,5 +145,37 @@
 .el-pagination__sizes .el-input .el-input__inner {
   &:hover {
     border-color: #bf051a;
+  }
+}
+.el-button.is-plain {
+  &:focus, &:hover {
+  border-color: #ea8d03;
+  background-color: #fff7ec;
+  color: #ea8d03;
+  }
+}
+
+.code-input ,.code-wrapper{
+  .el-input__inner {
+   border-radius: 4px 0 0 4px;
+  }
+}
+
+.el-checkbox, .login-form {
+  .el-checkbox__input.is-checked .el-checkbox__inner,
+  .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    border-color: #a5a5a5;
+    background-color: #a5a5a5;
+    color: #666;
+  }
+}
+.login-text, .login-form {
+  .el-checkbox__input.is-checked+.el-checkbox__label {
+    color: #666;
+  }
+  .el-checkbox__inner{
+    &:hover {
+      border-color: #a5a5a5;
+    }
   }
 }

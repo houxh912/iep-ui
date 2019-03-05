@@ -1,88 +1,10 @@
 exports.getEmployeeProfilePage = async function (ctx) {
-  const data = {
-    code: 0,
-    msg: 'success',
-    data: {
-      records: [
-        {
-          userId: 1,
-          name: '李寅',
-          sex: '女',
-          部门: '国脉先锋队',
-          employedDate: '2015-10-10',
-          employeeStatus: 1,
-          position: '总经理',
-          idCard: '33090219960103761X'
-        },
-        {
-          userId: 2,
-          name: '李寅',
-          sex: '女',
-          部门: '国脉先锋队',
-          employedDate: '2015-10-10',
-          employeeStatus: 1,
-          position: '总经理',
-          idCard: '33090219960103761X'
-        },
-        {
-          userId: 3,
-          name: '李寅',
-          sex: '女',
-          部门: '国脉先锋队',
-          employedDate: '2015-10-10',
-          employeeStatus: 1,
-          position: '总经理',
-          idCard: '33090219960103761X'
-        },
-        {
-          userId: 4,
-          name: '李寅',
-          sex: '女',
-          部门: '国脉先锋队',
-          employedDate: '2015-10-10',
-          employeeStatus: 1,
-          position: '总经理',
-          idCard: '33090219960103761X'
-        },
-        {
-          userId: 5,
-          name: '李寅',
-          sex: '女',
-          部门: '国脉先锋队',
-          employedDate: '2015-10-10',
-          employeeStatus: 1,
-          position: '总经理',
-          idCard: '33090219960103761X'
-        },
-        {
-          userId: 6,
-          name: '李寅',
-          sex: '女',
-          部门: '国脉先锋队',
-          employedDate: '2015-10-10',
-          employeeStatus: 1,
-          position: '总经理',
-          idCard: '33090219960103761X'
-        },
-        {
-          userId: 7,
-          name: '李寅',
-          sex: '女',
-          部门: '国脉先锋队',
-          employedDate: '2015-10-10',
-          employeeStatus: 1,
-          position: '总经理',
-          idCard: '33090219960103761X'
-        }
-      ],
-      total: 7,
-      size: 10,
-      current: 1,
-      searchCount: true,
-      pages: 1
-    }
-  }
-  ctx.body = data
+  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"userId":1,"orgId":8,"gender":1,"idCard":"330903198511263222","employedDate":"2019-02-27 09:08:43","positionId":1,"employeeStatus":1,"iepUserCert":[],"iepHrPosition":{"positionId":1,"orgId":0,"positionClsId":1,"positionName":"产品","priority":0,"createTime":"2019-02-27 10:35:52","updateTime":"2019-02-27 10:35:52","delFlag":0,"positionDuty":"string","positionRqmt":"string"},"sex":"男","position":"产品","name":"超级管理员","workExperience":[],"eduSituation":[],"trainingSituation":[],"laborContract":[],"employeeWelfare":[],"employeeTansfer":[],"dimissionInfo":[]},{"userId":4,"orgId":0,"gender":2,"idCard":"33090319861122","employedDate":"2019-02-27 09:08:45","positionId":2,"employeeStatus":2,"iepUserCert":[{"personalCertId":3,"certNo":"","certName":"","atch":"","issueOrg":""},{"personalCertId":6,"certNo":"","certName":"","atch":"","issueOrg":""},{"personalCertId":7,"certNo":"","certName":"","atch":"","issueOrg":""}],"iepHrPosition":{"positionId":2,"orgId":0,"positionClsId":2,"positionName":"研发","priority":0,"createTime":"2019-02-27 10:36:04","updateTime":"2019-02-27 10:36:04","delFlag":0,"positionDuty":"string","positionRqmt":"string"},"sex":"女","position":"研发","name":"string","workExperience":[{"id":1,"company":"awda","position":"wadawdw","startEndTime":"2019-02-23 16:26:57","workSpecification":"wadadw","leaveReasons":"wdwdwd"},{"id":2,"company":"microsoft","position":"string","startEndTime":"string","workSpecification":"string","leaveReasons":"string"},{"id":3,"company":"","position":"","startEndTime":"","workSpecification":"","leaveReasons":""}],"eduSituation":[{"id":5,"educational":"","startEndTime":"","learning":""},{"id":4,"educational":"","startEndTime":"","learning":""},{"id":2,"educational":"string","startEndTime":"string","learning":"string"}],"trainingSituation":[{"id":7,"startEndTime":"","Name":"","Unit":"","Mode":3},{"id":1,"startEndTime":"2002-09-09","Name":"ser","Unit":"ssa","Mode":0},{"id":8,"startEndTime":"","Name":"","Unit":"","Mode":3}],"laborContract":[{"laborContractId":1,"orgId":0,"userId":4,"signTime":"2019-02-27 22:05:59","expireTime":"2019-02-27 22:05:59","contractAtch":"struihjg","createTime":"2019-02-27 22:05:59","updateTime":"2019-02-28 21:52:18","operatorId":0,"delFlag":0,"contractType":0,"belongCompany":1},{"laborContractId":2,"orgId":0,"userId":4,"signTime":"2019-02-27 22:05:59","expireTime":"2019-02-27 22:05:59","contractAtch":"string","createTime":"2019-02-27 22:05:59","updateTime":"2019-02-28 21:52:23","operatorId":0,"delFlag":0,"contractType":0,"belongCompany":2}],"employeeWelfare":[{"id":1,"orgId":0,"userId":4,"welfareType":0,"signTime":"2019-02-28 11:18:01","expireTime":"2019-02-28 11:18:01","remark":"staasang","createTime":"2019-02-28 11:18:01","updateTime":"2019-02-28 11:18:01","delFlag":0},{"id":2,"orgId":0,"userId":4,"welfareType":0,"signTime":"2019-02-27 22:05:59","expireTime":"2019-02-27 22:05:59","remark":"ssssssssssssssssssssng","createTime":"2019-02-27 22:05:59","updateTime":"2019-02-27 22:05:59","delFlag":0,"belongCompany":0}],"employeeTansfer":[{"id":1,"userId":4,"orgId":1,"transferType":2,"changeContent":"","createTime":"2019-02-28 15:42:19","updateTime":"2019-03-04 09:58:31","operatorId":0,"delFlag":0,"transferTime":"2019-02-28 15:42:28"},{"id":2,"userId":4,"orgId":1,"transferType":0,"changeContent":"string","createTime":"2019-02-28 15:42:19","updateTime":"2019-03-04 09:58:29","operatorId":0,"delFlag":0,"transferTime":"2019-02-28 15:42:19"},{"id":3,"userId":4,"orgId":1,"transferType":0,"changeContent":"wwwwwwww","createTime":"2019-02-28 15:42:19","updateTime":"2019-02-28 15:42:19","operatorId":0,"delFlag":0,"transferTime":"2019-02-28 15:42:19"}],"dimissionInfo":[{"id":1,"userId":4,"orgId":0,"leaveTime":"2019-02-27 22:09:56","leaveReason":"string","createTime":"2019-02-27 22:09:56","updateTime":"2019-02-27 22:09:56","operatorId":0,"delFlag":0},{"id":2,"userId":4,"orgId":0,"leaveTime":"2019-02-24 21:36:59","leaveReason":"stwwwwwwring","createTime":"2019-02-24 21:36:59","updateTime":"2019-02-24 21:36:59","operatorId":0,"delFlag":0}]}],"total":2,"size":10,"current":1,"searchCount":true,"pages":1}}`
+}
+
+exports.getGrowthFileById = async function (ctx) {
+  ctx.response.type = 'json';
+  ctx.body = `{"code":0,"msg":"success","data":{"userId":4,"idCard":"33090319861122","positionId":2,"employeeStatus":2,"staffNo":"GH8768","position":"研发","job":"中级产品顾问","title":"经理咨询师","name":"string","timeLineList":[{"id":2,"type":1,"msg":"职称由主力咨询师变更为初级咨询师","time":"2019-03-04 22:11:28","date":"2019-03-05"},{"id":3,"type":2,"msg":"部门由平台运维部变更为产品中心","time":"2019-03-04 22:12:14","date":"2019-03-05"},{"id":4,"type":3,"msg":"获得专业员工称号","time":"2019-03-04 22:13:47","date":"2019-03-05"},{"id":5,"type":4,"msg":"被同事评价为热情敬业","time":"2019-03-04 22:14:56","date":"2019-03-05"},{"id":6,"type":5,"msg":"string","time":"2019-03-05 11:30:44","date":"2019-03-05"},{"id":7,"type":3,"msg":"string","time":"2019-03-05 14:09:07","date":"2019-03-05"},{"id":8,"type":4,"msg":"string","time":"2019-03-05 14:22:05","date":"2019-03-05"}]}}`
 }
 
 exports.getAdministrativeApprovalPage = async function (ctx) {

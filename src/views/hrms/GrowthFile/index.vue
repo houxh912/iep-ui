@@ -30,18 +30,14 @@
         </div>
       </div>
       <el-checkbox-group class="check-group" v-model="checkList">
-        <el-checkbox label="人事变动"></el-checkbox>
-        <el-checkbox label="评价记录"></el-checkbox>
-        <el-checkbox label="考试情况"></el-checkbox>
-        <el-checkbox label="奖惩信息"></el-checkbox>
-        <el-checkbox label="培训记录"></el-checkbox>
+        <el-checkbox v-for="(item) in recordType" :label="item.value" :key="item.value">{{item.label}}</el-checkbox>
       </el-checkbox-group>
       <div class="block">
         <el-timeline>
           <el-timeline-item v-for="item in timeLineList" :timestamp="item.date" placement="top" :key="item.id">
             <el-card>
               <h4>{{item.msg}}</h4>
-              <p>时间{{item.time}}</p>
+              <p>时间：{{item.time}}</p>
             </el-card>
           </el-timeline-item>
         </el-timeline>
@@ -50,7 +46,7 @@
   </div>
 </template>
 <script>
-import { simpleEmployeeStatus } from './options'
+import { simpleEmployeeStatus, recordType } from './options'
 import PageHeader from '@/components/Page/Header'
 import { getGrowthFile } from '@/api/hrms/employee_profile'
 const avatar = require('./timg.jpg')
@@ -59,6 +55,7 @@ export default {
   data () {
     return {
       avatar,
+      recordType,
       simpleEmployeeStatus,
       growthFileDetail: {
         userId: 1,
@@ -68,8 +65,9 @@ export default {
         position: '',
         title: '',
         staffNo: '',
+        iepUserRecords: [],
       },
-      checkList: ['人事变动', '评价记录', '考试情况', '奖惩信息', '培训记录'],
+      checkList: [1, 2, 3, 4, 5],
       labellist: [
         {
           id: '1',
@@ -104,44 +102,22 @@ export default {
           label: '平台规划',
         },
       ],
-      timeLineList: [
-        {
-          id: 1,
-          time: '2018/4/3 20:46',
-          date: '2018/4/3',
-          msg: '职称由主力咨询师变更为初级咨询师',
-        },
-        {
-          id: 2,
-          time: '2018/4/2 20:46',
-          date: '2018/4/2',
-          msg: '部门由平台运维部变更为产品中心',
-        },
-        {
-          id: 3,
-          time: '2018/4/1 20:46',
-          date: '2018/4/1',
-          msg: '获得"专业员工"称号',
-        },
-        {
-          id: 4,
-          time: '2018/3/31 20:46',
-          date: '2018/3/31',
-          msg: '被同事评价为"热情敬业"',
-        },
-      ],
       backOption: {
         isBack: true,
         backPath: this.$route.query.redirect,
       },
     }
   },
+  computed: {
+    timeLineList () {
+      return this.growthFileDetail.timeLineList.filter(m => this.checkList.includes(m.type))
+    },
+  },
   created () {
     this.load()
   },
   methods: {
     load () {
-      console.log(this.$route.params.id)
       getGrowthFile(this.$route.params.id).then(({ data }) => {
         this.growthFileDetail = data.data
       })

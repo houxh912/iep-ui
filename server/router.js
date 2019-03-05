@@ -46,6 +46,7 @@ router.get('/admin/org/:id', orgController.getOrgDetail)
 router.post('/admin/user/set/org/:id', orgController.postSetOrg)
 
 router.get('/hrms/employee_profile/page', hrmsController.getEmployeeProfilePage)
+router.get('/hrms/employee_profile/growth_file/:id', hrmsController.getGrowthFileById)
 router.get("/hrms/administrative_approval/page", hrmsController.getAdministrativeApprovalPage)
 router.get("/hrms/talent_pool/page", hrmsController.getTalentPoolPage)
 router.get("/hrms/publish_recruitment/page", hrmsController.getPublishRecruitmentPage)

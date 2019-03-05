@@ -40,6 +40,7 @@ export default {
         return {
           isBack: false,
           backPath: '',
+          backFunction: () => { },
         }
       },
     },
@@ -54,6 +55,10 @@ export default {
       let path = '/'
       if (this.backOption.backPath) {
         path = this.backOption.backPath
+      }
+      if (this.backOption.backPath === null) {
+        this.backOption.backFunction()
+        return
       }
       this.$router.push({
         path,

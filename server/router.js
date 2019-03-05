@@ -6,6 +6,7 @@ const dictController = require('./controller/dict')
 const mobileController = require('./controller/mobile')
 const orgController = require('./controller/org')
 const hrmsController = require('./controller/hrms')
+const mlmsController = require('./controller/mlms')
 const router = new Router()
 /**
  * 获取验证码
@@ -47,5 +48,9 @@ router.get('/hrms/employee_profile/page', hrmsController.getEmployeeProfilePage)
 router.get("/hrms/administrative_approval/page", hrmsController.getAdministrativeApprovalPage)
 router.get("/hrms/talent_pool/page", hrmsController.getTalentPoolPage)
 
+router.get("/mlms/page", mlmsController.getTableData)
+router.post("/mlms/create", mlmsController.postData)
+router.post("/mlms/update", mlmsController.postData)
+router.post("/mlms/delete/1", mlmsController.deleteById)
 
 exports = module.exports = router

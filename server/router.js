@@ -6,11 +6,8 @@ const dictController = require('./controller/dict')
 const mobileController = require('./controller/mobile')
 const orgController = require('./controller/org')
 const hrmsController = require('./controller/hrms')
-<<<<<<< HEAD
 const mlmsController = require('./controller/mlms')
-=======
 const crmsController = require('./controller/crms')
->>>>>>> develop
 const router = new Router()
 /**
  * 获取验证码

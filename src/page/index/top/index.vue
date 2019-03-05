@@ -67,19 +67,18 @@
         </el-dropdown>
       </div>
     </div>
+    <select-org-dialog ref="selectOrgDialog"></select-org-dialog>
   </div>
 </template>
 <script>
+import SelectOrgDialog from './SelectOrgDialog'
 import { mapGetters, mapState } from 'vuex'
 import { fullscreenToggel, listenfullscreen, handleImg } from '@/util/util'
-// import topMenu from './top-menu'
 import navbar from './top-navbar'
-// import topSearch from './top-search'
 export default {
   components: {
-    // topMenu,
     navbar,
-    // topSearch,
+    SelectOrgDialog,
   },
   name: 'Top',
   data () {
@@ -129,7 +128,7 @@ export default {
       if (type === 0) {
         this.$router.push({ name: '选择组织' })
       } else {
-        console.log('选择组织切换')
+        this.$refs['selectOrgDialog'].dialogShow = true
       }
     },
     handleScreen () {

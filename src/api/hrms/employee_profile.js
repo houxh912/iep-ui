@@ -9,3 +9,11 @@ export function getEmployeeProfilePage (query) {
     params: query,
   })
 }
+
+export function getGrowthFile (query) {
+  return request({
+    url: `${prefixUrl}/growth_file`,
+    method: 'get',
+    params: query,
+  })
+}

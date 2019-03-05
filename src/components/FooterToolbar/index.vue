@@ -1,5 +1,5 @@
 <template>
-  <div :class="prefixCls">
+  <div :class="prefixCls" :style="{ width: `calc(100% - 289px)`}">
     <div style="float: left">
       <slot name="extra">{{ extra }}</slot>
     </div>

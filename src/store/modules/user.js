@@ -55,6 +55,7 @@ const user = {
     userInfo: {},
     permissions: {},
     roles: [],
+    orgs: [],
     menu: getStore({ name: 'menu' }) || [],
     mainMenu: getStore({ name: 'main_menu' }) || {},
     otherMenus: getStore({ name: 'other_menus' }) || [],
@@ -138,6 +139,7 @@ const user = {
             commit('SET_USERIFNO', data.sysUser)
             commit('SET_ROLES', data.roles || [])
             commit('SET_PERMISSIONS', data.permissions || [])
+            commit('SET_ORGS', data.orgs || [])
             resolve(data)
           })
           .catch(() => {
@@ -173,6 +175,7 @@ const user = {
             commit('SET_MENUSMAP', {})
             commit('SET_MENUPATHLIST', [])
             commit('SET_PERMISSIONS', [])
+            commit('SET_ORGS', [])
             commit('SET_USER_INFO', {})
             commit('SET_ACCESS_TOKEN', '')
             commit('SET_REFRESH_TOKEN', '')
@@ -192,6 +195,7 @@ const user = {
       return new Promise(resolve => {
         commit('SET_MENU', [])
         commit('SET_PERMISSIONS', [])
+        commit('SET_ORGS', [])
         commit('SET_USER_INFO', {})
         commit('SET_ACCESS_TOKEN', '')
         commit('SET_REFRESH_TOKEN', '')
@@ -303,6 +307,9 @@ const user = {
         list[permissions[i]] = true
       }
       state.permissions = list
+    },
+    SET_ORGS: (state, orgs) => {
+      state.orgs = orgs
     },
   },
 }

@@ -160,3 +160,22 @@
    border-radius: 4px 0 0 4px;
   }
 }
+
+.el-checkbox, .login-form {
+  .el-checkbox__input.is-checked .el-checkbox__inner,
+  .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    border-color: #a5a5a5;
+    background-color: #a5a5a5;
+    color: #666;
+  }
+}
+.login-text, .login-form {
+  .el-checkbox__input.is-checked+.el-checkbox__label {
+    color: #666;
+  }
+  .el-checkbox__inner{
+    &:hover {
+      border-color: #a5a5a5;
+    }
+  }
+}

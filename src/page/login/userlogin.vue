@@ -178,7 +178,7 @@ export default {
 }
 .login-visiter:hover {
   background-color: #909399;
-  color: black;
+  color: #fff;
 }
 .login-text {
   color: red;

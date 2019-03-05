@@ -1,15 +1,17 @@
 <template>
-  <div class="avue-sidebar">
+  <div class="avue-sidebar" :style="{width: keyCollapse ? '' : '240px'}">
     <el-scrollbar style="height:100%">
-      <main-item :mainMenu="mainMenu"></main-item>
+      <main-item :mainMenu="mainMenu" :collapse="keyCollapse"></main-item>
       <el-menu unique-opened :default-active="nowTagValue" mode="vertical" :show-timeout="200" :collapse="keyCollapse">
         <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
       </el-menu>
       <div class="sub-menu-wrapper" v-if="mainMenu.path === '/wel'">
-        <li class="sub-menu" v-for="omenu in otherMenus" :key="omenu.path" @click="openModuleMenus(omenu)">
-          <i :class="omenu.icon"></i>
-          <span>{{omenu.label}}</span>
-        </li>
+        <el-menu default-active="-1" :collapse="keyCollapse">
+          <el-menu-item :index="omenu.path" v-for="omenu in otherMenus" :key="omenu.path" @click="openModuleMenus(omenu)">
+            <i :class="omenu.icon"></i>
+            <span slot="title">{{omenu.label}}</span>
+          </el-menu-item>
+        </el-menu>
       </div>
     </el-scrollbar>
   </div>
@@ -19,12 +21,11 @@
 import { mapGetters, mapMutations } from 'vuex'
 import MainItem from './MainItem'
 import sidebarItem from './sidebarItem'
+import displayMixins from '@/mixins/displayMixins'
 export default {
+  mixins: [displayMixins],
   name: 'Sidebar',
   components: { sidebarItem, MainItem },
-  data () {
-    return {}
-  },
   created () {
     this.$store.dispatch('GetMenu').then(data => {
       if (data.length === 0) return
@@ -32,12 +33,18 @@ export default {
     })
   },
   computed: {
-    ...mapGetters(['website', 'menu', 'mainMenu', 'otherMenus', 'menusMap', 'keyCollapse', 'screen']),
+    ...mapGetters(['website', 'menu', 'mainMenu', 'otherMenus', 'menusMap', 'screen']),
     nowTagValue: function () {
       return this.$router.$avueRouter.getValue(this.$route)
     },
+    keyCollapse () {
+      if (this.isDesktop()) {
+        return false
+      } else {
+        return true
+      }
+    },
   },
-  mounted () { },
   methods: {
     ...mapMutations({ setMainMenu: 'SET_MAINMENU', setOtherMenus: 'SET_OTHERMENUS', setmenusMap: 'SET_menusMap' }),
     openModuleMenus (menu) {
@@ -56,19 +63,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.avue-sidebar {
-  width: 240px;
-}
-@media (min-width: 1025px) and (max-width: 1270px) {
-  .avue-sidebar {
-    width: 180px;
-  }
-}
-@media (min-width: 0px) and (max-width: 1024px) {
-  .avue-sidebar {
-    width: 180px;
-  }
-}
 .sub-menu-wrapper {
   border-top: 2px solid #eee;
   .sub-menu {

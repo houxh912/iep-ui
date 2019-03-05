@@ -44,7 +44,7 @@
             <span class="dot  dot3" v-if="showDot3"></span>
           </div>
         </div>
-        <el-tooltip v-if="this.userInfo.avatar" effect="dark" content="用户头像" placement="bottom">
+        <el-tooltip v-if="userInfo.avatar" effect="dark" content="用户头像" placement="bottom">
           <img id="thumbnail" class="top-bar__img" />
         </el-tooltip>
         <el-dropdown>
@@ -162,7 +162,7 @@ export default {
   border-bottom: 1px solid #eee;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   color: rgba(0, 0, 0, 0.65);
-  height: 64px;
+  height: 60px;
   box-sizing: border-box;
   white-space: nowrap;
   position: relative;
@@ -214,7 +214,7 @@ export default {
       }
       .itemGroup {
         height: 100%;
-        line-height: 64px;
+        line-height: 60px;
         .item {
           display: inline-block;
           padding: 0 10px;

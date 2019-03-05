@@ -1,7 +1,7 @@
 <template>
   <div class="title-wrapper">
     <div class="left">
-      <span class="page-title">{{title}}</span>
+      <span class="page-title" :style="{fontSize: `${titleSize}px`,fontWeight: titleWeight}">{{title}}</span>
       <span class="page-desc">{{desc}}</span>
     </div>
     <div class="right">
@@ -15,6 +15,14 @@ export default {
     title: {
       type: String,
       required: true,
+    },
+    titleSize: {
+      type: Number,
+      default: 20,
+    },
+    titleWeight: {
+      type: Number,
+      default: 400,
     },
     replaceText: {
       type: Function,
@@ -43,8 +51,12 @@ export default {
   },
   methods: {
     handleBack () {
+      let path = '/'
+      if (this.backOption.backPath) {
+        path = this.backOption.backPath
+      }
       this.$router.push({
-        path: this.backOption.backPath,
+        path,
       })
     },
   },
@@ -54,12 +66,23 @@ export default {
 .title-wrapper {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   .page-title {
     font-size: 20px;
   }
   .page-desc {
     font-size: 14px;
+  }
+  .el-button--default.is-plain:nth-child(1) {
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    border-color: #dcdfe6;
+    color: #606266;
+    &:hover {
+      border-color: #ea8d03;
+      background-color: #fff7ec;
+      color: #ea8d03;
+    }
   }
 }
 </style>

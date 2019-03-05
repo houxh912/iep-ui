@@ -21,7 +21,7 @@
     <div class="right">
       <div class="right-top">
         <div class="logo-item">
-          <img class="img" :src="data.logo" alt="" id="logo"/>
+          <img class="img" :src="data.logo" alt="" id="logo" />
         </div>
         <div class="img-text">{{data.orgName}}</div>
       </div>
@@ -86,7 +86,9 @@ export default {
   },
   watch: {
     'data.isOpen' () {
-      gomsOpen()
+      gomsOpen().then(() => {
+        this.load()
+      })
     },
   },
   methods: {
@@ -200,7 +202,7 @@ export default {
     flex: 0 0 240px;
     .right-top {
       border-bottom: solid 1px #d8d4d4;
-      margin:0 20px 20px;
+      margin: 0 20px 20px;
       text-align: center;
       .img-text {
         margin: 15px 0;
@@ -273,25 +275,25 @@ export default {
       margin: 20px;
       .button-switch {
         margin-top: 15px;
-          span {
-            font-size: 14px;
-          }
-          .switch-text {
-            float: left;
-          }
-          .code {
-            float: right;
-            width: 30px;
-            height: 30px;
-          }
+        span {
+          font-size: 14px;
+        }
+        .switch-text {
+          float: left;
+        }
+        .code {
+          float: right;
+          width: 30px;
+          height: 30px;
         }
       }
-      .span2-button {
-        color: #beb4b4;
-        font-size: 12px;
-      }
-      .switch {
-        float: right;
+    }
+    .span2-button {
+      color: #beb4b4;
+      font-size: 12px;
+    }
+    .switch {
+      float: right;
     }
   }
 }

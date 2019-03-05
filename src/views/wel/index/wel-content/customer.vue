@@ -9,10 +9,10 @@
           <div class="grid-content bg-purple title">{{item.one.name}}<span class="start" v-if="item.one.start"><i class="el-icon-star-on"></i></span></div>
         </el-col>
         <el-col :span="8">
-          <div class="grid-content bg-purple">{{item.two.name}}<span class="start" v-if="item.two.start"><i class="el-icon-star-on"></i></span></div>
+          <div class="grid-content bg-purple title">{{item.two.name}}<span class="start" v-if="item.two.start"><i class="el-icon-star-on"></i></span></div>
         </el-col>
         <el-col :span="8">
-          <div class="grid-content bg-purple">{{item.three.name}}<span class="start" v-if="item.three.start"><i class="el-icon-star-on"></i></span></div>
+          <div class="grid-content bg-purple title">{{item.three.name}}<span class="start" v-if="item.three.start"><i class="el-icon-star-on"></i></span></div>
         </el-col>
       </el-row>
     </div>
@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 .customer {
-  padding: 20px;
+  padding: 20px 30px;
   padding-bottom: 0;
   border-bottom: 1px solid #eee;
   color: #5f5f5f;
@@ -69,10 +69,17 @@ export default {
   }
   .customer-content {
     padding: 20px 0;
+    font-size: 14px;
     .start {
       padding-left: 5px;
       font-size: 14px;
-      color: #cea591;
+      color: #e4990f;
+    }
+  }
+  .title {
+    cursor: pointer;
+    &:hover {
+      color: #cb3737;
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}成员信息`" width="25%" @close="loadPage" @slot-mounted="load">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}成员信息`" width="500px" @close="loadPage" @slot-mounted="load">
     <div class="avatar" style="text-align: center;margin-bottom:20px;">
       <img :src="gomsForm.avatar" alt="" id="avatar" style="width:100px;border-radius:50%;">
     </div>

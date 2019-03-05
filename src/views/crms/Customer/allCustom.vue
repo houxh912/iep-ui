@@ -1,68 +1,72 @@
 <template>
   <div>
-    <gov-layout-header>
-      <gov-search-bar
-        :list-query="listQuery"
-        label-width="100px"
-        :form-props="searchOption"
-        :is-string="false"
-        :reset-ignore="['isAsc', 'limit', 'page']"
-        @handleFilter="handleFilter">
-      </gov-search-bar>
-    </gov-layout-header>
-    <gov-layout-body>
-      <avue-crud
-        :data="mainTableData"
-        :option="mainTableOption"
-        :table-loading="tableLoading"
-        @size-change="sizeChange" 
-        @current-change="currentChange" 
-        :page="pagination"
-        @refresh-change="getList">
-      </avue-crud>
-    </gov-layout-body>
+    <operation-container>
+      <template slot="right">
+        <operation-search @search="searchPage"></operation-search>
+      </template>
+    </operation-container>
+    <iep-table 
+      :isLoadTable="isLoadTable"
+      :pagination="pagination"
+      :dictsMap="dictsMap"
+      :columnsMap="columnsMap"
+      :pagedTable="pagedTable"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      is-index>
+      <template slot="before-columns">
+        <el-table-column label="客户名称" width="300px">
+          <template slot-scope="scope">
+            <div class="custom-name">{{scope.row.name}}</div>
+            <el-col class="custom-tags">
+              <el-tag type="info" size="mini" v-for="(item, index) in scope.row.code" :key="index">{{item}}</el-tag>
+            </el-col>
+          </template>
+        </el-table-column>
+      </template>
+    </iep-table>
   </div>
 </template>
 
 <script>
-import { mainTableOption, searchOption } from './const/allcustom'
-import mixin from '@/mixins/mixin'
-// import _ from 'lodash'
+import mixins from '@/mixins/mixins'
+import { allTableOption, dictsMap } from './const/index'
+import { fetchList } from '@/api/crms/custom'
 
 export default {
-  name: 'Demand',
-  mixins: [mixin],
+  name: 'custom',
+  mixins: [mixins],
   components: {  },
-  computed: {
-    searchOption () {
-      return searchOption
-    },
-    mainTableOption () {
-      return mainTableOption
-    },
-  },
+  computed: {},
   data () {
     return {
-      tableLoading: true,
-      mainTableData: [], // 主表数据
-      deptList: [],
+      dictsMap,
+      columnsMap: allTableOption,
     }
   },
   methods: {
-    // 获取主表数据
-    getList () {
-      // getTableData(this.listQuery).then((res) => {
-      //   this.pagination.total = res.data.data.total
-      //   this.mainTableData = res.data.data.records
-      //   this.tableLoading = false
-      // })
-        this.pagination.total = 2
-        this.mainTableData = [{name: '111'}, {name: '222'}]
-        this.tableLoading = false
+    loadPage (param) {
+      this.loadTable(param, fetchList)
     },
   },
   created () {
-    this.getList()
+    this.loadPage()
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.custom-name {
+  cursor: pointer;
+  margin-bottom: 10px;
+  // text-decoration: underline;
+}
+.custom-tags {
+  margin: 0;
+  .el-tag {
+    margin-right: 5px;
+    height: 26px;
+    line-height: 26px;
+  }
+}
+</style>

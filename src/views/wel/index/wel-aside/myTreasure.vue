@@ -15,7 +15,7 @@
         <div class="littleTitle">今日变化</div>
         <div class="color">{{change}}</div>
       </div>
-      <span class="rightTop"><i class="el-icon-success"></i></span>
+      <span class="rightTop"><i class="el-icon-view"></i></span>
     </div>
     <div class="treasure-list">
       <div :class="showClass==index?'active':''" v-for="(item,index) in treasureData.dataList" :key="index" @click="tagList(index)">{{item.name}}</div>
@@ -57,6 +57,11 @@ export default {
 .treasure {
   box-sizing: border-box;
   margin: 10px;
+  .el-icon-question {
+    &:hover {
+      opacity: .7;
+    }
+  }
 }
 .title {
   display: flex;
@@ -78,11 +83,14 @@ export default {
     line-height: 16px;
     cursor: pointer;
     position: relative;
+    &:hover {
+      color: #cb3737;
+    }
     span {
       position: absolute;
       right: -2px;
       top: -3px;
-      color: #c9c9c9;
+      color: #bbb;
     }
   }
 }
@@ -107,6 +115,7 @@ export default {
     transform: rotate(225deg);
     i {
       transform: rotate(-225deg);
+      color: #999;
     }
   }
   > div {
@@ -140,6 +149,7 @@ export default {
   background: white;
   border-radius: 6px;
   display: flex;
+  font-size: 14px;
   border: 1px solid #e8e8e8;
   .active {
     color: #cb132d;

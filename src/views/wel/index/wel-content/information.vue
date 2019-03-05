@@ -4,7 +4,7 @@
       <el-row>
         <el-col :span="3" class="dotted">
           <div class="left">
-            <div class="img"><img src="./timg.jpg" alt="头像"></div>
+            <div class="img zoom"><img id="information-avatar" alt="头像"></div>
             <div class="code-name">GM000117</div>
           </div>
         </el-col>
@@ -14,16 +14,16 @@
             <div class="user-info">
               <el-progress :percentage="80" color="#68C769"></el-progress>
               <span :class="item.type=='button'?'border':'color'" v-for="(item,index) in infoList" :key="index">{{item.label}}</span>
-              <span class="more">更多<i class="el-icon-d-arrow-right"></i></span>
+              <router-link class="more" to="">更多<i class="el-icon-d-arrow-right"></i></router-link>
             </div>
             <div class="user-data">
-              <div class="inline task">
-                <i class="el-icon-tickets padding"></i>
+              <router-link class="inline task" to="">
+                <i class="icon-weath1 icon padding"></i>
                 <span>每日任务，领积分<i class="el-icon-d-arrow-right"></i></span>
-              </div>
-              <div class="inline change">
+              </router-link>
+              <router-link class="inline change" to="">
                 切换至领导桌面
-              </div>
+              </router-link>
               <div class="inline data">
                 <div class="data-lab" :class="index==2?'hideLine':''" v-for="(item,index) in labList" :key="index">
                   <div class="count">{{item.data}}</div>
@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { handleImg } from '@/util/util'
 import aboutTask from './aboutTask'
 import project from './project'
 import customer from './customer'
@@ -68,7 +70,14 @@ export default {
       ],
     }
   },
-
+  created () {
+    handleImg(this.userInfo.avatar, 'information-avatar')
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
 }
 </script>
 
@@ -77,21 +86,22 @@ export default {
   width: 100%;
   height: auto;
   background: white;
-  padding: 20px;
   font-size: 12px;
 }
 .information {
   width: 100%;
   background: white;
-  border: 1px solid #eee;
-  box-shadow: 0 0 10px #eee;
   position: relative;
   border-radius: 5px;
   overflow: hidden;
   .el-row {
+    margin: 20px;
     height: 100%;
     display: flex;
     align-items: center;
+    border-radius: 3px;
+    border: 1px solid #eee;
+    box-shadow: 0 0 1px 1px #eee;
     .el-col {
       height: 100%;
       display: flex;
@@ -102,9 +112,11 @@ export default {
         width: 100%;
         text-align: center;
         .img {
+          margin: 0 auto;
           width: 80px;
           height: 80px;
-          margin: 0 auto;
+          border-radius: 50%;
+          overflow: hidden;
           img {
             width: 100%;
             border-radius: 50%;
@@ -135,8 +147,11 @@ export default {
             padding: 3px 12px;
             border-radius: 40px;
             border: 1px solid #eee;
+            font-size: 13px;
             text-align: center;
             vertical-align: middle;
+            background-color: #f5f7fa;
+            color: #333;
           }
           .color {
             color: #7a7a7a;
@@ -144,6 +159,9 @@ export default {
           .more {
             padding: 0 10px;
             color: #4692f5;
+            &:hover {
+              color: #1477f7;
+            }
           }
         }
         .user-data {
@@ -160,16 +178,35 @@ export default {
           .task {
             width: 160px;
             background: #f9eae7;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 3px 10px;
+            font-size: 14px;
+            border-radius: 3px;
+            .icon {
+              font-size: 20px !important;
+              color: #ffbc01;
+            }
+            &:focus,
+            &:hover {
+              opacity: 0.9;
+              outline: none;
+            }
           }
           .change {
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 4px 10px;
+            border-radius: 3px;
+            font-size: 14px;
             text-align: center;
             color: #ba1928;
             margin-left: 10px;
             border: 1px solid #ba1928;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+            &:focus,
+            &:hover {
+              background-color: #ba1928;
+              color: #fff;
+              outline: none;
+            }
           }
           .data {
             padding-left: 20px;
@@ -191,7 +228,7 @@ export default {
                 color: #484848;
               }
               .labTitle {
-                color: #d1d1d1;
+                color: #bbb;
                 .span {
                   padding-left: 5px;
                 }
@@ -215,6 +252,7 @@ export default {
     position: absolute;
     right: -30px;
     top: 50%;
+    display: none;
     background: #eee;
     margin-top: -25px;
     text-align: center;
@@ -224,8 +262,28 @@ export default {
     font-size: 20px;
     color: #c0c0c0;
   }
+  .el-icon-question {
+    cursor: pointer;
+    &:hover {
+      opacity: .7;
+    }
+  }
 }
 @media (min-width: 0px) and (max-width: 1025px) {
+  .information {
+    font-size: 14px;
+    .dotted {
+      margin-left: 25px !important;
+      padding-right: 25px !important;
+    }
+    .el-col-3 {
+      width: auto;
+    }
+  }
+}
+@media (min-width: 769px) and (max-width: 1026px) {
+}
+@media (min-width: 0px) and (max-width: 769px) {
   .information {
     font-size: 12px;
     .dotted {
@@ -235,14 +293,11 @@ export default {
       .el-col-21 {
         width: 100%;
         .right {
+          margin: 0 auto;
           padding: 5px;
         }
       }
     }
   }
-}
-@media (min-width: 769px) and (max-width: 1026px) {
-}
-@media (min-width: 0px) and (max-width: 769px) {
 }
 </style>

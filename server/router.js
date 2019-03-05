@@ -43,6 +43,7 @@ router.get('/admin/org/list', orgController.getOrgList)
 router.get('/admin/org', orgController.getOrgPage)
 router.get('/admin/org/user/page', orgController.getOrgUserPage)
 router.get('/admin/org/:id', orgController.getOrgDetail)
+router.post('/admin/user/set/org/:id', orgController.postSetOrg)
 
 router.get('/hrms/employee_profile/page', hrmsController.getEmployeeProfilePage)
 router.get("/hrms/administrative_approval/page", hrmsController.getAdministrativeApprovalPage)

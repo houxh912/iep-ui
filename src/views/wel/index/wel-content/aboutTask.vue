@@ -60,7 +60,7 @@ export default {
 
 <style lang="scss" scoped>
 .about-task {
-  padding: 20px;
+  padding: 20px 30px;
   padding-bottom: 0;
   border-bottom: 1px solid #eee;
   .task-nav {
@@ -69,6 +69,13 @@ export default {
     .navTitle {
       font-size: 16px;
       padding-right: 20px;
+    }
+  }
+  .title {
+    font-size: 14px;
+    cursor: pointer;
+    &:hover {
+      color: #cb3737;
     }
   }
 }

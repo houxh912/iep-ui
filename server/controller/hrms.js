@@ -197,7 +197,67 @@ exports.getAdministrativeApprovalPage = async function (ctx) {
   }
   ctx.body = data
 }
-
+exports.getPublishRecruitmentPage = async function (ctx) {
+  const data = {
+    code: 0,
+    msg: 'success',
+    data: {
+      records: [
+        {
+          id: 1,
+          岗位: 'java软件工程师',
+          招聘部门: '技术中心',
+          招聘人数: '3人',
+          工作类型: '全职',
+          招聘申请时间: '2019-01-20',
+          招聘状态: '待发布'
+        },
+        {
+          id: 2,
+          岗位: 'java软件工程师',
+          招聘部门: '技术中心',
+          招聘人数: '3人',
+          工作类型: '全职',
+          招聘申请时间: '2019-01-20',
+          招聘状态: '待发布'
+        },
+        {
+          id: 3,
+          岗位: 'java软件工程师',
+          招聘部门: '技术中心',
+          招聘人数: '3人',
+          工作类型: '全职',
+          招聘申请时间: '2019-01-20',
+          招聘状态: '待发布'
+        },
+        {
+          id: 4,
+          岗位: 'java软件工程师',
+          招聘部门: '技术中心',
+          招聘人数: '3人',
+          工作类型: '全职',
+          招聘申请时间: '2019-01-20',
+          招聘状态: '待发布'
+        },
+        {
+          id: 5,
+          岗位: 'java软件工程师',
+          招聘部门: '技术中心',
+          招聘人数: '3人',
+          工作类型: '全职',
+          招聘申请时间: '2019-01-20',
+          招聘状态: '待发布'
+        },
+      ],
+      total: 12,
+      size: 10,
+      current: 1,
+      searchCount: true,
+      pages: 1
+    }
+  }
+  ctx.body = data
+}
 exports.getTalentPoolPage = async function (ctx) {
   const data = {
     code: 0,

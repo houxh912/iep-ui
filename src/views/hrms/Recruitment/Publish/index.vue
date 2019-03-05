@@ -1,3 +1,38 @@
 <template>
-  <div>demo</div>
+  <component @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
 </template>
+<script>
+import PageHeader from '@/components/Page/Header'
+import List from './Page/List'
+import Edit from './Page/Edit'
+
+export default {
+  name: 'TableListWrapper',
+  components: { PageHeader, List, Edit },
+  data () {
+    return {
+      currentComponet: 'List',
+      record: '',
+    }
+  },
+  created () {
+
+  },
+  methods: {
+    handleEdit (record) {
+      this.record = record
+      this.currentComponet = 'Edit'
+    },
+    handleGoBack () {
+      this.record = ''
+      this.currentComponet = 'List'
+    },
+  },
+  watch: {
+    '$route.path' () {
+      this.record = ''
+      this.currentComponet = 'List'
+    },
+  },
+}
+</script>

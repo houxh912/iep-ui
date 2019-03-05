@@ -62,7 +62,6 @@ Object.keys(filters).forEach(key => {
 iconfontVersion.forEach(ele => {
   loadStyle(iconfontUrl.replace('$key', ele))
 })
-
 Vue.config.productionTip = false
 
 new Vue({

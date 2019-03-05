@@ -15,9 +15,6 @@ const columnsMap = [
   {
     prop: '申请类型',
     label: '申请类型',
-  }, {
-    prop: '申请人',
-    label: '申请人',
   },
   {
     prop: '部门',

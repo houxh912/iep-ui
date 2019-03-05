@@ -1,125 +1,42 @@
 <template>
-  <div>
-    <basic-container>
-      <page-header title="行政审批" :replaceText="replaceText" :data="[10,2,3,5,2,3,2]"></page-header>
-      <operation-container>
-        <template slot="left">
-          <el-button @click="(scope.row)" size="small" class="share"><i class="el-icon-share"></i><span>分享</span></el-button>
-        </template>
-        <template slot="right">
-          <operation-search @search="searchPage" advance-search>
-            <el-form :model="paramForm" label-width="80px" size="mini">
-              <el-form-item label="申请人">
-                <el-input v-model="paramForm.theme" placeholder="请输入申请人姓名"></el-input>
-              </el-form-item>
-              <el-form-item label="申请类型">
-                <el-select v-model="paramForm.type" placeholder="选择申请类型">
-                  <el-option label="类型1" value="类型1"></el-option>
-                  <el-option label="类型1" value="类型1"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="选择部门">
-                <el-select v-model="paramForm.type" placeholder="选择部门">
-                  <el-option label="部门1" value="部门1"></el-option>
-                  <el-option label="部门1" value="部门1"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="审批结果">
-                <el-select v-model="paramForm.type" placeholder="审批结果">
-                  <el-option label="通过" value="通过"></el-option>
-                  <el-option label="未通过" value="未通过"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="培训时间">
-                <div class="block">
-                  <el-date-picker v-model="dateVal" type="daterange" align="left" unlink-panels range-separator="至" start-placeholder="2019-02-01" end-placeholder="2019-03-01" :picker-options="pickerOptions2">
-                  </el-date-picker>
-                </div>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="searchPage">搜索</el-button>
-                <el-button @click="clearSearchParam">清空</el-button>
-              </el-form-item>
-            </el-form>
-          </operation-search>
-        </template>
-      </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
-        <el-table-column label="操作">
-          <template>
-            <el-button size="small">分享</el-button>
-          </template>
-        </el-table-column>
-      </iep-table>
-    </basic-container>
-  </div>
+  <component @onView="handleView" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
 </template>
 
 <script>
-import PageHeader from '@/components/Page/Header'
-import OperationContainer from '@/components/Operation/Container'
-import IepTable from '@/components/IepTable/'
-import { getAdministrativeApprovalPage } from '@/api/hrms/administrative_approval'
-import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from './options'
+// 动态切换组件
+import List from './Page/List'
+import View from './Page/View'
+
 export default {
-  mixins: [mixins],
-  components: { PageHeader, OperationContainer, IepTable },
+  name: 'TableListWrapper',
+  components: {
+    List,
+    View,
+  },
   data () {
     return {
-      columnsMap,
-      paramForm: initSearchForm(),
-      replaceText: (data) => `（本周新增${data[0]}条请假申请，${data[1]}条转正申请，${data[2]}条出差申请，${data[3]}条离职申请，${data[4]}条调岗申请，${data[5]}条调部门申请，${data[6]}条招聘申请）`,
-      pickerOptions2: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', [start, end])
-          },
-        }, {
-          text: '最近一个月',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            picker.$emit('pick', [start, end])
-          },
-        }, {
-          text: '最近三个月',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            picker.$emit('pick', [start, end])
-          },
-        }],
-      },
-      dateVal: '',
+      currentComponet: 'List',
+      record: '',
     }
   },
   created () {
-    this.loadPage()
+
   },
   methods: {
-    // handleShare (row) { },
-    loadPage (param) {
-      this.loadTable(param, getAdministrativeApprovalPage)
+    handleView (record) {
+      this.record = record
+      this.currentComponet = 'View'
     },
-    handleCommandType () {
-      // console.log(val)
+    handleGoBack () {
+      this.record = ''
+      this.currentComponet = 'List'
     },
-    handleCommandUser () {
-      // console.log(val)
-    },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-      this.$emit('clear-search-param')
+  },
+  watch: {
+    '$route.path' () {
+      this.record = ''
+      this.currentComponet = 'List'
     },
   },
 }
 </script>
-<style scoped>
-</style>

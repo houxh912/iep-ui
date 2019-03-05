@@ -14,26 +14,21 @@
   </div>
 </template>
 <script>
-import myCreated from './myCreated'
-import myFind from './myFind'
-import myTreasure from './myTreasure'
-import myChance from './myChance'
+import MyCreated from './MyCreated'
+import MyFind from './MyFind'
+import MyTreasure from './MyTreasure'
+import MyChance from './MyChance'
 export default {
-  components: { myCreated, myFind, myTreasure, myChance },
-  data () {
-    return {
-    }
-  },
+  components: { MyCreated, MyFind, MyTreasure, MyChance },
   methods: {
     hideAside () {
-      this.$store.commit('HIDEASIDE')
+      this.$emit('aside-hide')
     },
   },
 }
 </script>
 <style  lang="scss" scoped>
 .aside {
-  height: 100%;
   background: #fafafa;
   font-size: 12px;
   margin: 0;
@@ -63,9 +58,6 @@ export default {
   .el-scrollbar {
     position: relative;
     height: calc(100% - 64px);
-    .toggle-button {
-      position: absolute;
-    }
     padding: 0;
     .el-scrollbar__view {
       > div {
@@ -74,9 +66,6 @@ export default {
       }
     }
   }
-}
-.wel-aside.rightAuto {
-  right: -300px;
 }
 </style>
 

@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import navTab from './navTab'
+import NavTab from './NavTab'
 export default {
-  components: { navTab },
+  components: { NavTab },
   data () {
     return {
       dataList: {},

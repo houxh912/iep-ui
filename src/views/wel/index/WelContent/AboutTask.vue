@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import navTab from './navTab'
-import navContent from './navContent'
+import NavTab from './NavTab'
+import NavContent from './NavContent'
 export default {
-  components: { navTab, navContent },
+  components: { NavTab, NavContent },
   data () {
     return {
       showClass: 0,

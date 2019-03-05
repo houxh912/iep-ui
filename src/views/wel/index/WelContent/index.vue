@@ -46,12 +46,12 @@
 <script>
 import { mapGetters } from 'vuex'
 import { handleImg } from '@/util/util'
-import aboutTask from './aboutTask'
-import project from './project'
-import customer from './customer'
-import material from './material'
+import AboutTask from './AboutTask'
+import Project from './Project'
+import Customer from './Customer'
+import Material from './Material'
 export default {
-  components: { aboutTask, project, customer, material },
+  components: { AboutTask, Project, Customer, Material },
   data () {
     return {
       infoList: [{
@@ -265,7 +265,7 @@ export default {
   .el-icon-question {
     cursor: pointer;
     &:hover {
-      opacity: .7;
+      opacity: 0.7;
     }
   }
 }

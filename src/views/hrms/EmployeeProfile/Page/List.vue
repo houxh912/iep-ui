@@ -63,7 +63,7 @@
 import { getEmployeeProfilePage } from '@/api/hrms/employee_profile'
 import mixins from '@/mixins/mixins'
 import keyBy from 'lodash/keyBy'
-import { columnsMap, initSearchForm, dictsMap } from './options'
+import { columnsMap, initSearchForm, dictsMap } from '../options'
 import HeaderSetting from './HeaderSetting'
 import AdvanceSearch from './AdvanceSearch'
 export default {

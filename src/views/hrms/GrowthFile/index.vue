@@ -6,8 +6,8 @@
         <div class="left">
           <span class="img-header zoom"><img :src="avatar" alt="" /></span>
           <div class="name-info">
-            <span class="name">李颖<a class="state" href="#">（在职）</a></span>
-            <span class="num">GM1111111</span>
+            <span class="name">{{growthFileDetail.name}}<a class="state" href="#">（{{simpleEmployeeStatus[growthFileDetail.employeeStatus]}}）</a></span>
+            <span class="num">{{growthFileDetail.staffNo}}</span>
           </div>
         </div>
         <div class="right">
@@ -15,8 +15,9 @@
             <span>部门：国脉集团、国脉先锋队</span>
           </div>
           <div class="list">
-            <span>岗位：产品经理</span>
-            <span>职务职称：经理助理、助理咨询师</span>
+            <span>岗位：{{growthFileDetail.position}}</span>
+            <span>职务：{{growthFileDetail.job}}</span>
+            <span>职称：{{growthFileDetail.title}}</span>
           </div>
           <div class="label-item">
             <span>标签：</span>
@@ -49,6 +50,7 @@
   </div>
 </template>
 <script>
+import { simpleEmployeeStatus } from './options'
 import PageHeader from '@/components/Page/Header'
 import { getGrowthFile } from '@/api/hrms/employee_profile'
 const avatar = require('./timg.jpg')
@@ -57,6 +59,16 @@ export default {
   data () {
     return {
       avatar,
+      simpleEmployeeStatus,
+      growthFileDetail: {
+        userId: 1,
+        employeeStatus: 1,
+        name: '',
+        job: '',
+        position: '',
+        title: '',
+        staffNo: '',
+      },
       checkList: ['人事变动', '评价记录', '考试情况', '奖惩信息', '培训记录'],
       labellist: [
         {
@@ -130,7 +142,9 @@ export default {
   methods: {
     load () {
       console.log(this.$route.params.id)
-      getGrowthFile(this.$route.params.id)
+      getGrowthFile(this.$route.params.id).then(({ data }) => {
+        this.growthFileDetail = data.data
+      })
     },
   },
 }
@@ -152,7 +166,7 @@ export default {
   .left {
     display: inline-flex;
     padding-right: 20px;
-    width: 17%;
+    width: 20%;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
@@ -167,6 +181,9 @@ export default {
     border-left: 1px dashed #d7d7d7;
     .list {
       margin-bottom: 15px;
+      span {
+        margin-right: 5px;
+      }
       .list-right {
         margin-left: 30px;
       }

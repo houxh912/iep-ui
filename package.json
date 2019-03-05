@@ -14,7 +14,7 @@
     "report": "vue-cli-service build --report",
     "mock": "node server/index",
     "cz": "git cz",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "eti": "et -i ./src/styles/theme/element-variables.scss",
     "etc": "et -c ./src/styles/theme/element-variables.scss -o ./src/theme/",
     "commitmsg": "validate-commit-msg"

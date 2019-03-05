@@ -51,6 +51,14 @@
             <operation-wrapper>
               <iep-button type="warning" @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+              <el-dropdown size="medium">
+                <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item>安排面试</el-dropdown-item>
+                  <el-dropdown-item>录用</el-dropdown-item>
+                  <el-dropdown-item>面试记录</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
             </operation-wrapper>
           </template>
         </el-table-column>

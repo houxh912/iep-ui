@@ -1,13 +1,13 @@
 <template>
   <div class="social-container">
     <div class="box" @click="handleClick('wechat')">
-      <span class="container" :style="{ backgroundColor: '#6ba2d6' }">
+      <span class="container" :style="{ backgroundColor: '#8dc349' }">
         <i icon-class="wechat" class="iconfont icon-weixin"></i>
       </span>
       <p class="title">微信</p>
     </div>
     <div class="box" @click="handleClick('tencent')">
-      <span class="container" :style="{ backgroundColor: '#8dc349' }">
+      <span class="container" :style="{ backgroundColor: '#6ba2d6' }">
         <i icon-class="qq" class="iconfont icon-qq"></i>
       </span>
       <p class="title">QQ</p>
@@ -50,7 +50,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .social-container {
-  margin: 20px 0;
+  margin: 20px 100px;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -68,11 +68,17 @@ export default {
     height: $height;
     line-height: $height;
     text-align: center;
-    border-radius: 4px;
+    border-radius: 50%;
     margin-bottom: 10px;
   }
   .title {
     text-align: center;
   }
 }
+@media (max-width:767px){
+  .social-container {
+    margin: 20px;
+  }
+}
+
 </style>

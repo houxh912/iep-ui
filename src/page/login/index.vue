@@ -123,17 +123,17 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 40px;
-    margin-top: 80px;
+    margin-bottom: 30px;
+    margin-top: 50px;
     .top-image {
-      width: 100px;
+      width: 90px;
       border-right: 1px solid #eee;
       padding: 2px 0;
       padding-right: 20px;
       margin-right: 20px;
     }
     .login-title {
-      font-size: 22px;
+      font-size: 18px;
     }
   }
 }
@@ -144,10 +144,16 @@ export default {
     color: rgb(153, 153, 153);
     font-size: 12px;
     margin: 0px 8px;
+    -webkit-transition: 0.1s;
+    transition: 0.1s;
+    &:hover, &:focus {
+      outline: none;
+      color: #b1b0b0;
+    }
   }
 }
 .menu-p {
-  height: 60px;
+  height: 40px;
   line-height: 10px;
   text-align: center;
   .menu-line {
@@ -169,12 +175,45 @@ export default {
   box-sizing: border-box;
   color: rgb(153, 153, 153);
   position: absolute;
-  bottom: 40px;
+  bottom: 20px;
   margin-left: 50px;
   margin-top: -50px;
   .bottom-text {
-    margin-top: 25px;
+    margin-top: 15px;
     text-align: center;
   }
+}
+@media (max-width:1169px){
+  .login-container {
+    position: inherit;
+    .login-border {
+      position: inherit;
+      top: inherit;
+      left: inherit;
+      right: inherit;
+      margin: 0 auto;
+      max-width: 520px;
+      min-width: auto;
+      .login-main {
+        margin: 0;
+        padding: 30px;
+      }
+    }
+    .login-bottom {
+      position: inherit;
+      margin-top: 30px;
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+}
+@media (max-width:992px){
+  .menu-p {
+    .menu-line {
+      width: 15%;
+    }
+  }
+}
+@media(max-width:767px){
 }
 </style>

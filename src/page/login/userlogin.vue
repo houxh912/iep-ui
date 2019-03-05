@@ -196,7 +196,7 @@ export default {
     width: 100%;
   }
   .el-form-item {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
   .el-input {
     .el-input__prefix {
@@ -214,8 +214,7 @@ export default {
   margin: 0 0 0 10px;
 }
 .login-code-img {
-  margin-top: 2px;
-  width: 100px;
+  width: 100%;
   height: 38px;
   background-color: #fdfdfd;
   border: 1px solid #f0f0f0;
@@ -227,5 +226,6 @@ export default {
   text-indent: 5px;
   text-align: center;
 }
+
 </style>
 

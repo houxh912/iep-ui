@@ -76,6 +76,7 @@
     background-color: #fff7ec;
     color: #ea8d03;
     &:hover {
+      border-color: #ea8d03;
       background-color: #ea8d03;
       color: #fff;
     }
@@ -144,5 +145,18 @@
 .el-pagination__sizes .el-input .el-input__inner {
   &:hover {
     border-color: #bf051a;
+  }
+}
+.el-button.is-plain {
+  &:focus, &:hover {
+  border-color: #ea8d03;
+  background-color: #fff7ec;
+  color: #ea8d03;
+  }
+}
+
+.code-input {
+  .el-input__inner {
+   border-radius: 4px 0 0 4px;
   }
 }

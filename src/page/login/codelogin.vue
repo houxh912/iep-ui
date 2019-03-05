@@ -1,20 +1,20 @@
 <template>
   <el-form class="login-form" status-icon :rules="loginRules" ref="loginForm" :model="loginForm" label-width="0">
     <el-form-item prop="mobile">
-      <el-input size="small" v-model="loginForm.mobile" auto-complete="off" placeholder="请输入手机号码">
+      <el-input v-model="loginForm.mobile" auto-complete="off" placeholder="请输入手机号码">
         <i slot="prefix" class="icon-shouji"></i>
       </el-input>
     </el-form-item>
     <el-form-item prop="code">
       <div class="code-wrapper">
-        <el-input size="small" @keyup.enter.native="handleLogin" maxlength="4" v-model="loginForm.code" auto-complete="off" placeholder="请输入验证码">
+        <el-input class="code-input" @keyup.enter.native="handleLogin" maxlength="4" v-model="loginForm.code" auto-complete="off" placeholder="请输入验证码">
           <i slot="prefix" class="icon-yanzhengma" style="margin-top:6px;"></i>
         </el-input>
         <el-button @click="handleSend" class="msg-text" :class="[{ display: msgKey }]">{{ msgText }}</el-button>
       </div>
     </el-form-item>
     <el-form-item>
-      <el-button size="small" type="primary" @click.native.prevent="handleLogin" class="login-submit">登录</el-button>
+      <el-button type="primary" @click.native.prevent="handleLogin" class="login-submit">登录</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -106,11 +106,29 @@ export default {
 }
 .msg-text {
   display: block;
+  margin-left: -1px;
   font-size: 12px;
   text-align: center;
   cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  &:hover,&:focus {
+    border-color: #dcdfe6;
+    background-color: #fff7ec;
+    color: #ea8d03;
+  }
 }
 .msg-text.display {
   color: #ccc;
+}
+.login-submit {
+  display: block;
+  margin: 0 auto 10px auto;
+  width: 100%;
+  height: 48px;
+  font-size: 14px;
+  text-align: center;
+  border: 0px;
+  background-color: #ba1b20;
+  color: white;
 }
 </style>

@@ -1,9 +1,7 @@
 <template>
   <div class="edit-wrapper">
-    <el-card class="edit-card" shadow="hover">
-      <div slot="header" class="title">
-        <span>发布招聘</span>
-      </div>
+    <basic-container>
+      <page-header title="发布招聘"></page-header>
       <el-form ref="form" :model="form" label-width="120px" size="small">
         <el-collapse v-model="activeNames">
           <el-form-item label="岗位名称" class="">
@@ -47,18 +45,19 @@
           </el-form-item>
         </el-collapse>
       </el-form>
-    </el-card>
-    <!-- fixed footer toolbar -->
-    <footer-tool-bar :style="{ width: `calc(100% - 288px)`}">
-      <iep-button type="info" @click="handleGoBack">返回</iep-button>
-      <iep-button type="primary">提交</iep-button>
-    </footer-tool-bar>
+      <!-- fixed footer toolbar -->
+      <footer-tool-bar>
+        <iep-button type="info" @click="handleGoBack">返回</iep-button>
+        <iep-button type="primary">提交</iep-button>
+      </footer-tool-bar>
+    </basic-container>
   </div>
 </template>
 <script>
+import PageHeader from '@/components/Page/Header'
 import FooterToolBar from '@/components/FooterToolbar'
 export default {
-  components: { FooterToolBar },
+  components: { FooterToolBar, PageHeader },
   data () {
     return {
       activeNames: ['1', '2', '3', '4', '5'],
@@ -96,7 +95,6 @@ export default {
 
 <style lang="scss" scoped>
 .edit-wrapper {
-  margin: 5px 5px 50px 5px;
   .form-half {
     width: 50%;
     display: inline-block;

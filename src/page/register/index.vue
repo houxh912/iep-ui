@@ -15,7 +15,6 @@
           <p>已有账号？<a href="#" @click.prevent="loadLoginPage">立即登录</a></p>
         </div>
         <div class="login-bottom">
-          <hr>
           <div class="bottom-text">Copyright©GOVMADE 版权所有 2018-2020</div>
         </div>
       </div>
@@ -117,41 +116,86 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 40px;
-    margin-top: 80px;
+    margin-bottom: 25px;
+    margin-top: 40px;
     .top-image {
-      width: 100px;
+      width: 90px;
       border-right: 1px solid #eee;
       padding: 2px 0;
       padding-right: 20px;
       margin-right: 20px;
     }
     .login-title {
-      font-size: 22px;
+      font-size: 18px;
+      font-weight: 400;
     }
   }
 }
 .login-menu {
   width: 100%;
   text-align: center;
-  a {
-    color: red;
+  p {
     font-size: 14px;
+  }
+  a {
+    color: #ba1b20;
     margin: 0px 8px;
+    &:hover {
+      color: #f56c6c;
+    }
   }
 }
 .login-bottom {
   margin: 0 auto;
-  width: 80%;
+  width: 100%;
   box-sizing: border-box;
   color: rgb(153, 153, 153);
   position: absolute;
-  bottom: 40px;
-  margin-left: 50px;
+  bottom: 15px;
   margin-top: -50px;
   .bottom-text {
-    margin-top: 25px;
+    border-top: 1px solid #d7d7d7;
+    margin: 0 30px;
+    padding-top: 15px;
+    font-size: 13px;
     text-align: center;
+  }
+}
+@media (max-width:1169px){
+  .login-container {
+    position: inherit;
+    .login-border {
+      position: inherit;
+      top: inherit;
+      left: inherit;
+      right: inherit;
+      margin: 0 auto;
+      max-width: 520px;
+      min-width: auto;
+      .login-main {
+        margin: 0;
+        padding: 30px 30px 0;
+      }
+    }
+    .login-bottom {
+      margin-left: 0;
+      max-width: 520px;
+    }
+  }
+}
+@media (max-width:992px){
+}
+@media(max-width:767px){
+  .menu-p {
+    .menu-line {
+      width: 15%;
+    }
+  }
+  .login-bottom {
+     width: 86%;
+    .bottom-text {
+      font-size: 12px;
+    }
   }
 }
 </style>

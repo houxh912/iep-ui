@@ -1,14 +1,15 @@
 <template>
-  <component @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <component @onDetail="handleDetail" @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
 </template>
 <script>
 import PageHeader from '@/components/Page/Header'
 import List from './Page/List'
 import Edit from './Page/Edit'
+import Detail from './Page/Detail'
 
 export default {
   name: 'TableListWrapper',
-  components: { PageHeader, List, Edit },
+  components: { PageHeader, List, Edit, Detail },
   data () {
     return {
       currentComponet: 'List',
@@ -26,6 +27,10 @@ export default {
     handleGoBack () {
       this.record = ''
       this.currentComponet = 'List'
+    },
+    handleDetail (record) {
+      this.record = record
+      this.currentComponet = 'Detail'
     },
   },
   watch: {

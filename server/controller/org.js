@@ -19,6 +19,9 @@ exports.getOrgPage = async function (ctx) {
 exports.getOrgUserPage = async function (ctx) {
   ctx.body = `{"code":0,"msg":"success","data":{"records":[{"userId":10,"orgId":8,"username":"luckydu","realName":"杜照鸿","avatar":"image-cde6b6e3b38e4526b24f2bee00e7c15b.jpg","phone":"11011011011","assetOrg":"杜照鸿的组织","type":1,"status":0,"createTime":"2019-02-28 14:56:37","orgNames":["杜照鸿的组织"],"roleList":[5]},{"userId":8,"orgId":8,"username":"root","realName":"张超","avatar":"files-05a1c46e8bd84e79b56b4d1966fb8658.jpg","phone":"18858395625","assetOrg":"杜照鸿的组织","type":0,"status":0,"createTime":"2019-02-27 16:07:24","orgNames":["string","杜照鸿的组织"],"roleList":[5]},{"userId":1,"orgId":8,"username":"admin","realName":"超级管理员","avatar":"files-8033f461524f4ee1b2c3d790efc64eae.JPG","phone":"18886665522","assetOrg":"杜照鸿的组织","type":1,"status":0,"createTime":"2019-02-26 14:36:38","orgNames":["测试新增组织并绑定所创大部门","杜照鸿的组织"],"roleList":[5]}],"total":3,"size":10,"current":1,"searchCount":true,"pages":1}}`
 }
+exports.postSetOrg = async function (ctx) {
+  ctx.body = `{"code":0,"msg":"success","data":true}`
+}
 exports.getOrgDetail = async function (ctx) {
   ctx.body = `{"code":0,"msg":"success","data":{"orgId":8,"logo":"image-cde6b6e3b38e4526b24f2bee00e7c15b.jpg","orgAbrName":"","establishTime":"2019-02-26 10:09:14","userId":10,"contactMethod":"","orgStructure":"","coreAdvantage":"","isNode":0,"delFlag":"0","createTime":"2019-02-23 16:42:28","updateTime":"2019-02-23 16:42:28","isOpen":0,"creator":"杜照鸿","name":"杜照鸿的组织","intro":"杜照鸿的组织"}}`
 }

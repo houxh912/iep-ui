@@ -1,13 +1,13 @@
 <template>
   <div class="social-container">
-    <div class="box" @click="handleClick('wechat')">
-      <span class="container" :style="{ backgroundColor: '#6ba2d6' }">
+    <div class="box wechat" @click="handleClick('wechat')">
+      <span class="container">
         <i icon-class="wechat" class="iconfont icon-weixin"></i>
       </span>
       <p class="title">微信</p>
     </div>
-    <div class="box" @click="handleClick('tencent')">
-      <span class="container" :style="{ backgroundColor: '#8dc349' }">
+    <div class="box qq" @click="handleClick('tencent')">
+      <span class="container">
         <i icon-class="qq" class="iconfont icon-qq"></i>
       </span>
       <p class="title">QQ</p>
@@ -50,12 +50,17 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .social-container {
-  margin: 20px 0;
+  margin: 20px 100px;
   display: flex;
   align-items: center;
   justify-content: space-around;
   .box {
     cursor: pointer;
+    &:hover, &:focus {
+      .title {
+        opacity: .8;
+      }
+    }
   }
   .iconfont {
     color: #fff;
@@ -68,11 +73,38 @@ export default {
     height: $height;
     line-height: $height;
     text-align: center;
-    border-radius: 4px;
+    border-radius: 50%;
     margin-bottom: 10px;
   }
+  .wechat{
+    .container {
+      background-color: #8bd430; 
+    }
+    &:hover, &:focus {
+      .container {
+        background-color: #a3e254;
+      }
+    }
+  }
+  .qq {
+    .container {
+      background-color: #03a9f4;
+    }
+    &:hover, &:focus {
+        .container {
+          background-color: #46c3fb;
+        }
+      }
+  }
   .title {
+    margin-top: 0;
     text-align: center;
   }
 }
+@media (max-width:767px){
+  .social-container {
+    margin: 20px;
+  }
+}
+
 </style>

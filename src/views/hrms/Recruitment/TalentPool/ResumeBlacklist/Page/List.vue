@@ -37,7 +37,7 @@
       <template slot="before-columns">
         <el-table-column label="姓名" width="90px">
           <template slot-scope="scope">
-            <span>{{scope.row.姓名}}</span>
+            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.姓名}}</iep-table-link>
           </template>
         </el-table-column>
       </template>
@@ -86,6 +86,10 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDetail (row) {
+      console.log(row)
+      this.$emit('onDetail')
+    },
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },

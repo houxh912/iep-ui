@@ -10,20 +10,12 @@
       <el-menu v-else :default-active="activeIndex" mode="horizontal">
         <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id">{{item.name}}</el-menu-item>
       </el-menu>
-      <div class="searchBar">
-        <el-select :value="orgId" size="mini" @change="handleChange">
-          <el-option v-for="item in orgs" :key="item.orgId" :label="item.orgName" :value="item.orgId">
-          </el-option>
-        </el-select>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
 import displayMixins from '@/mixins/displayMixins'
-import { setOrg } from '@/api/admin/user'
-import { mapState, mapActions } from 'vuex'
 export default {
   mixins: [displayMixins],
   data () {
@@ -55,23 +47,6 @@ export default {
           name: '学院',
         },
       ],
-      options: [{
-        value: '选项1',
-        label: '国脉集团海洋集团1',
-      }, {
-        value: '选项2',
-        label: '国脉集团海洋集团1',
-      }, {
-        value: '选项3',
-        label: '国脉集团海洋集团1',
-      }, {
-        value: '选项4',
-        label: '国脉集团海洋集团1',
-      }, {
-        value: '选项5',
-        label: '国脉集团海洋集团1',
-      }],
-      value8: '国脉集团海洋集团1',
     }
   },
   computed: {
@@ -81,25 +56,6 @@ export default {
       } else {
         return true
       }
-    },
-    ...mapState({
-      orgs: state => state.user.orgs,
-      orgId: state => state.user.userInfo.orgId,
-    }),
-  },
-  methods: {
-    ...mapActions([
-      'GetUserInfo',
-    ]),
-    handleChange (id) {
-      setOrg(id).then(() => {
-        this.GetUserInfo()
-      })
-    },
-    handelSelect (index) {
-      this.classIndex = index
-    },
-    search () {
     },
   },
 }

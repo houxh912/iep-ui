@@ -12,6 +12,7 @@
               <el-dropdown-item divided>导入</el-dropdown-item>
               <el-dropdown-item>导出</el-dropdown-item>
               <el-dropdown-item>分享</el-dropdown-item>
+              <el-dropdown-item>发送群面</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -19,16 +20,31 @@
           <operation-search @search="searchPage" advance-search>
             <el-form :model="paramForm" label-width="80px" size="mini">
               <el-form-item label="关键字">
-                <el-input v-model="paramForm.keyword"></el-input>
+                <el-input v-model="paramForm.keyword" placeholder="请输入关键字"></el-input>
               </el-form-item>
               <el-form-item label="部门">
-                <el-input v-model="paramForm.department"></el-input>
+                <el-select v-model="paramForm.department" placeholder="请选择部门">
+                  <el-option label="部门1" value="部门1">
+                  </el-option>
+                  <el-option label="部门1" value="部门1">
+                  </el-option>
+                </el-select>
               </el-form-item>
               <el-form-item label="岗位类别">
-                <el-input v-model="paramForm.category"></el-input>
+                <el-select v-model="paramForm.category" placeholder="请选择岗位类别">
+                  <el-option label="岗位类别1" value="岗位类别1">
+                  </el-option>
+                  <el-option label="岗位类别2" value="岗位类别2">
+                  </el-option>
+                </el-select>
               </el-form-item>
               <el-form-item label="岗位名称">
-                <el-input v-model="paramForm.name"></el-input>
+                <el-select v-model="paramForm.name" placeholder="请选择岗位名称">
+                  <el-option label="岗位名称1" value="岗位名称1">
+                  </el-option>
+                  <el-option label="岗位名称2" value="岗位名称2">
+                  </el-option>
+                </el-select>
               </el-form-item>
               <el-form-item label="性别">
                 <el-radio-group v-model="paramForm.sex">
@@ -37,7 +53,12 @@
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="招聘状态">
-                <el-input v-model="paramForm.status"></el-input>
+                <el-select v-model="paramForm.status" placeholder="请选择">
+                  <el-option label="招聘状态1" value="招聘状态1">
+                  </el-option>
+                  <el-option label="招聘状态2" value="招聘状态2">
+                  </el-option>
+                </el-select>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="searchPage">搜索</el-button>
@@ -51,7 +72,7 @@
         <template slot="before-columns">
           <el-table-column label="岗位" width="180px">
             <template slot-scope="scope">
-              <span>{{scope.row.岗位}}</span>
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.岗位}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
@@ -94,6 +115,10 @@ export default {
   methods: {
     handleAdd () {
       this.$emit('onEdit')
+    },
+    handleDetail (row) {
+      console.log(row)
+      this.$emit('onDetail')
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

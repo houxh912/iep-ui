@@ -10,6 +10,14 @@ npm set registry https://registry.npm.taobao.org
 npm set disturl https://npm.taobao.org/dist
 npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 ```
+ `Mac OS` 系统等 `Linux` 系统需要加 `sudo` 前缀以提高权限
+
+## 产品上手
+
+> 推荐使用 `PowerShell`, `Bash` 等本地命令行
+
+- `yarn mock` 运行预备好的假数据
+- `yarn serve-mock` 运行前端
 
 ## 上手开发
 
@@ -48,7 +56,10 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 | ReviewConfirm      | @/components/IepCommon/ReviewConfirm | 组织的成员管理页面        | 批量审核页面|       
 | Tabs               | @/components/IepCommon/Tabs          | 人力资源下的人才库        | tabs        |      
 | IepDialog          | @/components/IepDialog               | 成员管理的成员编辑弹窗页面 | 通用弹窗     |        
+| IepEditor          | @/components/IepEditor               | 详见各个编辑页            | 富文本     |        
 | IepTable           | @/components/IepTable                | views\hrms\AdministrativeApproval\index.vue  | table |       
+| IepTableLink       | @/components/IepTable/Link           | 详见各个表格页            | 用来点击详情 |       
+| FooterToolbar       | @/components/FooterToolbar/         | 详见各个编辑页            | 用来复杂表单提交按钮存放 |       
 | Container          | @/components/Operation/Container     | views\hrms\AdministrativeApproval\index.vue  | 头部按钮的操作框 |        
 | Search             | @/components/Operation/Search        | 组织的成员管理页面        | 头部右侧搜索栏      |        
 | Wrapper            | @/components/Operation/Wrapper       | 组织的成员管理页面        | 列表页操作栏        |       

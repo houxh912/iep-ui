@@ -1,84 +1,34 @@
 <template>
   <div class="wel-wrapper">
-    <information class="wel-content" />
-    <transition name="el-zoom-in-center">
-      <about-me class="wel-aside" v-if="showAside"></about-me>
-    </transition>
+    <wel-content class="wel-content" :style="{marginRight: isShow300px}"></wel-content>
+    <wel-aside class="wel-aside" :class="{inactive:!showAside }" @aside-hide="toggleShowAside"></wel-aside>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import aboutMe from './wel-aside/'
-import information from './wel-content/'
-
+import WelAside from './WelAside/'
+import WelContent from './WelContent/'
+import displayMixins from '@/mixins/displayMixins'
 export default {
   name: 'Wel',
-  components: { aboutMe, information },
+  mixins: [displayMixins],
+  components: { WelAside, WelContent },
   data () {
     return {
-      activeNames: ['1', '2', '3', '4'],
-      DATA: [],
-      text: '',
-      actor: '',
-      count: 0,
-      isText: false,
       showAside: true,
     }
   },
   computed: {
-    ...mapGetters(['website']),
+    isShow300px () {
+      if (this.isTablet()) {
+        return '0'
+      }
+      return this.showAside ? '300px' : '0'
+    },
   },
   methods: {
-    getData () {
-      if (this.count < this.DATA.length - 1) {
-        this.count++
-      } else {
-        this.count = 0
-      }
-      this.isText = true
-      this.actor = this.DATA[this.count]
-    },
-    setData () {
-      let num = 0
-      let count = 0
-      let active = false
-      let timeoutstart = 5000
-      let timeoutend = 1000
-      let timespeed = 10
-      setInterval(() => {
-        if (this.isText) {
-          if (count == this.actor.length) {
-            active = true
-          } else {
-            active = false
-          }
-          if (active) {
-            num--
-            this.text = this.actor.substr(0, num)
-            if (num == 0) {
-              this.isText = false
-              setTimeout(() => {
-                count = 0
-                this.getData()
-              }, timeoutend)
-            }
-          } else {
-            num++
-            this.text = this.actor.substr(0, num)
-            if (num == this.actor.length) {
-              this.isText = false
-              setTimeout(() => {
-                this.isText = true
-                count = this.actor.length
-              }, timeoutstart)
-            }
-          }
-        }
-      }, timespeed)
-    },
-    handleShowAside () {
-      this.showAside = true
+    toggleShowAside () {
+      this.showAside = !this.showAside
     },
   },
 }
@@ -88,69 +38,19 @@ export default {
 .wel-wrapper {
   display: flex;
   position: relative;
-  .show {
-    position: fixed;
-    display: inline-block;
-    width: auto;
-    height: 30px;
-    color: #bfbfbf;
-    background: #fafafa;
-    font-size: 16px;
-    text-align: center;
-    line-height: 30px;
-    border: 1px solid #eee;
-    top: 70px;
-    right: 10px;
-    z-index: 101;
-    i {
-      transform: rotate(180deg);
-    }
-  }
   .wel-content {
-    margin-right: 300px;
     box-sizing: border-box;
+    transition: 1000 all ease-in;
   }
   .wel-aside {
     width: 300px;
     position: fixed;
     right: 0;
     z-index: 102;
+    transition: left 0.5s cubic-bezier(0.82, 0.085, 0.395, 0.895);
   }
-}
-@media (min-width: 1024px) and (max-width: 1199px) {
-  .wel-wrapper {
-    .wel-content {
-      margin-right: 0;
-      width: 100%;
-    }
-    .wel-aside {
-      right: 0;
-    }
-  }
-}
-@media (min-width: 0px) and (max-width: 1138px) {
-  .wel-wrapper {
-    .wel-content {
-      margin-right: 0;
-      width: 100%;
-    }
-    .wel-aside {
-      right: -300px;
-    }
-  }
-}
-@media (min-width: 0px) and (max-width: 1023px) {
-  .wel-wrapper {
-    .show {
-      display: none;
-    }
-    .wel-content {
-      width: 100%;
-      margin-right: 0;
-    }
-    .wel-aside {
-      right: -300px;
-    }
+  .inactive {
+    right: -300px;
   }
 }
 </style>

@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 .count {
-  padding: 20px;
+  padding: 20px 0;
   background-color: #fff;
 }
 </style>

@@ -78,7 +78,24 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
+<style scoped>
+.el-dialog__header .el-dialog__headerbtn:focus .el-dialog__close,
+.el-dialog__header .el-dialog__headerbtn:hover .el-dialog__close {
+  color: #ccc;
+}
+.dialog-footer .is-plain:nth-child(1) {
+  border-color: #bf051a;
+  background-color: #bf051a;
+  color: #fff;
+}
+.dialog-footer .is-plain:nth-child(1):hover {
+  border-color: #fb5966;
+  background-color: #fb5966;
+  color: #fff;
+}
+</style>
+
+<style lang="scss" >
 .dialog-title {
   float: none;
   height: inherit;

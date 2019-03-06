@@ -10,7 +10,7 @@
         </el-col>
         <el-col :span="20">
           <div class="right">
-            <div class="user-poster">早上好，国脉人，人人都要成为专家</div>
+            <div class="user-poster"><span class="say">早上好，黄磊!</span><span class="gov">国脉人，人人都要成为专家</span></div>
             <div class="user-info">
               <el-progress :percentage="80" color="#68C769"></el-progress>
               <span :class="item.type=='button'?'border':'color'" v-for="(item,index) in infoList" :key="index">{{item.label}}</span>
@@ -18,7 +18,7 @@
             </div>
             <div class="user-data">
               <router-link class="inline task" to="">
-                <i class="icon-weath1 icon padding"></i>
+                <i class="icon-qian icon padding"></i>
                 <span>每日任务，领积分<i class="el-icon-d-arrow-right"></i></span>
               </router-link>
               <router-link class="inline change" to="">
@@ -83,10 +83,12 @@ export default {
 
 <style lang="scss" scoped>
 .wel-content {
+  margin: 0 300px -20px -20px;
   width: 100%;
   height: auto;
   background: white;
   font-size: 12px;
+  z-index: 1;
 }
 .information {
   width: 100%;
@@ -127,7 +129,7 @@ export default {
         }
       }
       .right {
-        padding-left: 30px;
+        padding-left: 20px;
         > div {
           padding: 5px 0;
         }
@@ -135,7 +137,19 @@ export default {
           width: 120px;
         }
         .user-poster {
-          font-size: 14px;
+          .say {
+            display: inline-block;
+            margin-top:3px;
+            font-size: 14px;
+          }
+          .gov {
+            display: inline-block;
+            margin-left: 20px;
+            max-width: 520px;
+            font-size: 16px;
+            color: #ba1928;
+            vertical-align: middle;
+          }
         }
         .user-info {
           display: flex;
@@ -145,22 +159,26 @@ export default {
           }
           .border {
             padding: 3px 12px;
+            min-width: 25px;
             border-radius: 40px;
             border: 1px solid #eee;
-            font-size: 13px;
+            font-size: 12px;
             text-align: center;
             vertical-align: middle;
             background-color: #f5f7fa;
             color: #333;
           }
           .color {
+            display: inline-block;
+            max-width: 222px;
             color: #7a7a7a;
           }
           .more {
+            min-width: 40px;
             padding: 0 10px;
-            color: #4692f5;
+            color: #2558a9;
             &:hover {
-              color: #1477f7;
+              color: #4689f3;
             }
           }
         }
@@ -187,14 +205,14 @@ export default {
             }
             &:focus,
             &:hover {
-              opacity: 0.9;
+              opacity: 0.6;
               outline: none;
             }
           }
           .change {
             padding: 4px 10px;
             border-radius: 3px;
-            font-size: 14px;
+            font-size: 12px;
             text-align: center;
             color: #ba1928;
             margin-left: 10px;
@@ -220,7 +238,7 @@ export default {
                 right: 0;
                 top: 0;
                 width: 1px;
-                background: #ccc;
+                background: #ececec;
                 height: 100%;
               }
               .count {
@@ -279,17 +297,30 @@ export default {
     .el-col-3 {
       width: auto;
     }
+    .el-row .el-col .right .user-info .more {
+      min-width: 50px;
+    }
+    .el-row .el-col .right .user-poster .gov {
+      max-width: 440px;
+    }
+    .el-row .el-col .right .user-data .data .data-lab {
+      min-width: 50px;
+    }
   }
 }
 @media (min-width: 769px) and (max-width: 1026px) {
 }
 @media (min-width: 0px) and (max-width: 769px) {
+  .el-col-20 {width: 100%;}
   .information {
     font-size: 12px;
     .dotted {
       display: none !important;
     }
     .el-row {
+      .el-col .right .user-poster .gov {
+        max-width: 310px;
+      }
       .el-col-21 {
         width: 100%;
         .right {

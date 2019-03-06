@@ -95,8 +95,67 @@ export default {
 }
 </script>
 <style scoped>
+.el-table >>> .el-checkbox__input.is-focus .el-checkbox__inner {
+  border-color: #a5a5a5;
+}
+.el-table >>> .el-checkbox__inner:hover,
+.el-table >>> .el-checkbox__inner:focus {
+  border-color: #a5a5a5;
+}
+/* .el-table >>> .el-button--default.is-plain:nth-child(1) {
+  border-color: #ea8d03;
+  background-color: #fff7ec;
+  color: #ea8d03;
+} */
+/* .el-table >>> .el-button--default.is-plain:nth-child(1):hover {
+  border-color: #ea8d03;
+  background-color: #ea8d03;
+  color: #fff;
+} */
+.el-table >>> .el-button--default.is-plain:focus,
+.el-table >>> .el-button--default.is-plain:hover {
+  border-color: #ea8d03;
+  background-color: #fff7ec;
+  color: #ea8d03;
+}
+.el-table >>> .el-dropdown .el-button.is-plain:nth-child(1) {
+  padding: 9px 10px;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  border-color: #dcdfe6;
+  color: #606266;
+}
+.el-table >>> .el-dropdown .el-button.is-plain:nth-child(1):focus,
+.el-table >>> .el-dropdown .el-button.is-plain:nth-child(1):hover {
+  border-color: #ea8d03;
+  background-color: #fff7ec;
+  color: #ea8d03;
+}
+.el-table >>> .cell .el-dropdown:nth-child(1) .el-button.is-plain:nth-child(1) {
+  padding: 9px 10px;
+  border-color: #ea8d03;
+  background-color: #fff7ec;
+  color: #ea8d03;
+}
+.el-table
+  >>> .cell
+  .el-dropdown:nth-child(1)
+  .el-button.is-plain:nth-child(1):focus,
+.el-table
+  >>> .cell
+  .el-dropdown:nth-child(1)
+  .el-button.is-plain:nth-child(1):hover {
+  border-color: #ea8d03;
+  background-color: #fff7ec;
+  color: #ea8d03;
+}
 .table >>> .th {
-  background: #ccc !important;
+  background: #ccc;
+}
+.el-table--fit .el-button--default:hover,
+.el-table--fit .el-button--default:focus {
+  border-color: #ea8d03;
+  background-color: #fff7ec;
+  color: #ea8d03;
 }
 </style>
-

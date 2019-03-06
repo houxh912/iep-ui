@@ -38,30 +38,33 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
+<style scoped>
 .input-wrapper {
   display: flex;
   max-width: 350px;
-  & > * {
-    margin-right: 5px;
-  }
-  .senior-btn {
-    margin-left: -6px;
-    padding: 9px 5px;
-    border-radius: 0 3px 3px 0;
-    &:hover,
-    &:focus {
-      border-color: #bf051a;
-      background-color: #fff2f4;
-      color: #bf051a; 
-    }
-  }
 }
-.search-btn {
-  &:hover,
-  &:focus {
-   opacity: .8;
-  }
+.input-wrapper > * {
+  margin-right: 5px;
 }
-
+.input-wrapper >>> .el-input.is-active .el-input__inner {
+  border-color: #c0c4cc;
+}
+.input-wrapper >>> .el-input__inner:focus {
+  border-color: #c0c4cc;
+}
+.input-wrapper >>> .senior-btn {
+  margin-left: -6px;
+  padding: 9px 5px;
+  border-radius: 0 3px 3px 0;
+}
+.input-wrapper >>> .senior-btn:hover,
+.input-wrapper >>> .senior-btn:focus {
+  border-color: #dcdfe6;
+  background-color: #fff2f4;
+  color: #bf051a;
+}
+.search-btn:hover,
+.search-btn:focus {
+  opacity: 0.8;
+}
 </style>

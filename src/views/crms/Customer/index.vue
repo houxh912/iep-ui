@@ -48,7 +48,7 @@ export default {
 
 <style lang="scss" scoped>
 .crms {
-  padding: 20px;
+  padding: 20px 0;
   background-color: #fff;
 }
 </style>

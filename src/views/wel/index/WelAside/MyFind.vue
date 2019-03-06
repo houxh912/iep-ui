@@ -103,7 +103,7 @@ export default {
   font-size: 12px;
   vertical-align: middle;
   cursor: pointer;
-  color: #7e7e7e;
+  color: #999;
   &:hover {
     color: #cb132d;
   }

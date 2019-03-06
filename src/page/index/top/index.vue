@@ -181,11 +181,13 @@ export default {
       .el-dropdown-link {
         color: #424242;
         padding-left: 5px;
+        cursor: pointer;
       }
       .logo {
         cursor: pointer;
-        width: 90px;
-        height: 38px;
+        margin-right: 5px;
+        width: 76px;
+        height: 32px;
         background-image: url("/img/logo.png");
         background-repeat: no-repeat;
         background-size: 100% 100%;
@@ -195,10 +197,10 @@ export default {
   .center {
     height: 100%;
     // background: #222;
-    margin: 0 300px 0 240px;
+    margin: 0 220px 0 240px;
   }
   .top-right {
-    width: 300px;
+    width: 220px;
     height: 100%;
     position: absolute;
     right: 0;
@@ -208,8 +210,16 @@ export default {
       height: 100%;
       display: flex;
       align-items: center;
+      cursor: pointer;
       > div {
-        flex-grow: 1;
+        margin-right: 15px;
+      }
+      .top-bar__img {
+        display:none;
+        margin-right: 10px;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
       }
       .itemGroup {
         height: 100%;

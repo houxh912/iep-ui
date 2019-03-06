@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import tags from './tags'
 import top from './top/'
 import sidebar from './sidebar/'
@@ -67,6 +67,7 @@ export default {
   },
   mounted () {
     this.init()
+    this.LoadAllDictMap()
     // this.initWebSocket()
   },
   computed: mapGetters([
@@ -78,6 +79,7 @@ export default {
   ]),
   props: [],
   methods: {
+    ...mapActions(['LoadAllDictMap']),
     showCollapse () {
       this.$store.commit('SET_COLLAPSE')
     },

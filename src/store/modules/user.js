@@ -7,9 +7,10 @@ import {
   loginByUsername,
   logout,
   refreshToken,
+  loadAllDictMap,
 } from '@/api/login'
 import keyBy from 'lodash/keyBy'
-import { deepClone, encryption } from '@/util/util'
+import { deepClone, encryption, pickDeep } from '@/util/util'
 import website from '@/const/website'
 import { GetMenu } from '@/api/admin/menu'
 
@@ -56,6 +57,7 @@ const user = {
     permissions: {},
     roles: [],
     orgs: [],
+    dictGroup: getStore({ name: 'dictGroup' }) || {},
     menu: getStore({ name: 'menu' }) || [],
     mainMenu: getStore({ name: 'main_menu' }) || {},
     otherMenus: getStore({ name: 'other_menus' }) || [],
@@ -75,6 +77,20 @@ const user = {
       }) || '',
   },
   actions: {
+    // 获取全部字典
+    LoadAllDictMap ({
+      commit,
+    }) {
+      return new Promise((resolve, reject) => {
+        loadAllDictMap().then(res => {
+          const { data } = res
+          commit('SET_DICT_ALL', data)
+          resolve()
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
     // 根据用户名登录
     LoginByUsername ({ commit }, userInfo) {
       const user = encryption({
@@ -228,6 +244,20 @@ const user = {
     },
   },
   mutations: {
+    SET_DICT_ALL: (state, dictGroup) => {
+      for (const key in dictGroup) {
+        if (dictGroup.hasOwnProperty(key)) {
+          const element = dictGroup[key]
+          dictGroup[key] = pickDeep(element)
+        }
+      }
+      state.dictGroup = dictGroup
+      setStore({
+        name: 'dictGroup',
+        content: state.dictGroup,
+        type: 'session',
+      })
+    },
     SET_ACCESS_TOKEN: (state, access_token) => {
       state.access_token = access_token
       setStore({

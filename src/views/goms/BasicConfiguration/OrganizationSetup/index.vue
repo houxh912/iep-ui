@@ -142,7 +142,7 @@ export default {
     }
     &:hover,
     &:focus {
-      box-shadow: 1px 1px 1px 3px #fafafa;
+      box-shadow: 0px 1px 1px 1px #eee;
     }
     .el-button--warning.is-plain {
       color: #bf051a;

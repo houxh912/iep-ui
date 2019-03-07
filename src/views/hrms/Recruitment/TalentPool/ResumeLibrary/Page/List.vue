@@ -71,7 +71,7 @@
   </div>
 </template>
 <script>
-import { getTalentPoolPage } from '@/api/hrms/talent_pool'
+import { getResumeLibraryPage } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
 export default {
@@ -96,7 +96,7 @@ export default {
       this.paramForm = initSearchForm()
     },
     loadPage (param = this.paramForm) {
-      this.loadTable(param, getTalentPoolPage)
+      this.loadTable(param, getResumeLibraryPage)
     },
   },
 }

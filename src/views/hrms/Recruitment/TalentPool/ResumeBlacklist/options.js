@@ -13,25 +13,29 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: '性别',
+    prop: 'sex',
     label: '性别',
     width: 55,
   },
   {
-    prop: '学历',
+    prop: 'education',
     label: '学历',
   },
   {
-    prop: '应聘岗位',
+    prop: 'birthday',
+    label: '出生年月',
+  },
+  {
+    prop: 'applyPosition',
     label: '应聘岗位',
   },
   {
-    prop: '简历接受时间',
-    label: '简历接受时间',
+    prop: 'blacklistArea',
+    label: '拉黑地区',
   },
   {
-    prop: '来源',
-    label: '来源',
+    prop: 'blacklistReason',
+    label: '拉黑原因',
   },
 ]
 

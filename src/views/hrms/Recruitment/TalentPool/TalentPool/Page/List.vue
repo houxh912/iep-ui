@@ -37,7 +37,7 @@
       <template slot="before-columns">
         <el-table-column label="姓名" width="90px">
           <template slot-scope="scope">
-            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.姓名}}</iep-table-link>
+            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
           </template>
         </el-table-column>
       </template>

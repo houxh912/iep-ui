@@ -129,65 +129,7 @@ exports.commonPublishRecruitment = async function (ctx) {
   ctx.body = `{"code":0,"msg":"success","data":true}`
 }
 exports.getTalentPoolPage = async function (ctx) {
-  const data = {
-    code: 0,
-    msg: 'success',
-    data: {
-      records: [
-        {
-          id: 1,
-          姓名: '李银',
-          性别: '女',
-          学历: '年龄',
-          应聘岗位: '网页设计',
-          简历接受时间: '2019-01-20',
-          来源: '官网'
-        },
-        {
-          id: 1,
-          姓名: '李银',
-          性别: '女',
-          学历: '年龄',
-          应聘岗位: '网页设计',
-          简历接受时间: '2019-01-20',
-          来源: '官网'
-        },
-        {
-          id: 1,
-          姓名: '李银',
-          性别: '女',
-          学历: '年龄',
-          应聘岗位: '网页设计',
-          简历接受时间: '2019-01-20',
-          来源: '官网'
-        },
-        {
-          id: 1,
-          姓名: '李银',
-          性别: '女',
-          学历: '年龄',
-          应聘岗位: '网页设计',
-          简历接受时间: '2019-01-20',
-          来源: '官网'
-        },
-        {
-          id: 1,
-          姓名: '李银',
-          性别: '女',
-          学历: '年龄',
-          应聘岗位: '网页设计',
-          简历接受时间: '2019-01-20',
-          来源: '官网'
-        }
-      ],
-      total: 12,
-      size: 10,
-      current: 1,
-      searchCount: true,
-      pages: 1
-    }
-  }
-  ctx.body = data
+  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"id":"1","name":"张超","sex":"男","education":"大学","age":"14","applyPosition":"14","receptionTime":"2019-01-01","source":"国脉官网","remarks":"驳回原因","birthday":"1985-06-04","blacklistArea":"1985-06-04","blacklistReason":"1985-06-04"},{"id":"1","name":"张超","sex":"男","education":"大学","age":"14","applyPosition":"14","receptionTime":"2019-01-01","source":"国脉官网","remarks":"驳回原因","birthday":"1985-06-04","blacklistArea":"1985-06-04","blacklistReason":"1985-06-04"}],"total":2,"size":10,"current":1,"searchCount":true,"pages":1}}`
 }
 exports.getTrainingRecordPage = async function (ctx) {
   const data = {

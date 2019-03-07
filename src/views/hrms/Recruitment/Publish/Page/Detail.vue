@@ -17,6 +17,18 @@
         </el-row>
         <el-row>
           <el-col :span="12">
+            <el-form-item label="招聘人数：">
+              <el-input-number v-model="form.recruitsCount"></el-input-number>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="目标人数：">
+              <el-input-number v-model="form.targetCount"></el-input-number>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
             <el-form-item label="学历要求：" class="form-half">
               <el-select v-model="form.academicId" placeholder="请选择">
                 <el-option v-for="item in dictGroup['hrms_highest_educational']" :key="item.value" :label="item.label" :value="item.value">
@@ -30,6 +42,18 @@
                 <el-option v-for="item in dictGroup['hrms_work_type']" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="工作年限：">
+              <el-input-number v-model="form.years"></el-input-number>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="专业要求：">
+              <el-input v-model="form.profession"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

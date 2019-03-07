@@ -105,6 +105,7 @@
         </el-form-item>
         <el-form-item label="">
           <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+          <iep-button @click="handlePublish">保存并发布</iep-button>
         </el-form-item>
       </el-form>
     </basic-container>
@@ -153,8 +154,11 @@ export default {
     }
   },
   methods: {
-    handleSubmit () {
-      this.formRequestFn(this.form).then(({ data }) => {
+    handlePublish () {
+      this.handleSubmit(true)
+    },
+    handleSubmit (publish = false) {
+      this.formRequestFn(this.form, publish).then(({ data }) => {
         console.log(data.data)
         this.$message({
           message: `招聘信息${this.methodName}成功`,

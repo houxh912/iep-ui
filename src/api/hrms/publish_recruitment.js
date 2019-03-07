@@ -17,18 +17,24 @@ export function getPublishRecruitmentById (id) {
   })
 }
 
-export function postPublishRecruitment (obj) {
+export function postPublishRecruitment (obj, publish) {
   return request({
     url: `${prefixUrl}/create`,
     method: 'post',
+    params: {
+      publish,
+    },
     data: obj,
   })
 }
 
-export function putPublishRecruitment (obj) {
+export function putPublishRecruitment (obj, publish) {
   return request({
     url: `${prefixUrl}/update`,
     method: 'post',
+    params: {
+      publish,
+    },
     data: obj,
   })
 }

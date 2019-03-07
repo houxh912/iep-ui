@@ -1,6 +1,6 @@
 // org config options
 const dictsMap = {
-  employeeStatus: {
+  status: {
     0: '暂无',
     1: '正式员工',
     2: '试用期员工',
@@ -10,51 +10,6 @@ const dictsMap = {
     6: '离职员工',
   },
 }
-// const pageColumnObj = {
-//   id: '', // 用户ID
-//   name: '', // 姓名
-//   userName: '', // 用户名
-//   roleName: '', // 角色
-//   staffId: '', // 工号
-//   position: '', // 岗位
-//   externalTitle: '', // 对外头衔
-//   job: '', // 职务
-//   title: '', // 职称
-//   entryTime: '', // 入职时间
-//   positiveTime: '', // 转正时间
-//   transferTime: '', // 调动时间
-//   status: '', // 员工状态
-//   dept: '', // 所属部门
-//   birthday: '', // 出生年月
-//   sex: '', // 性别
-//   nationality: '', // 民族
-//   politicalStatus: '', // 政治面貌
-//   maritalStatus: '', // 婚姻状况
-//   fertilityStatus: '', // 生育状况
-//   language: '', // 外语水平
-//   education: '', // 最高学历
-//   graduatedSchool: '', // 毕业学校
-//   profession: '', // 专业
-//   graduationTime: '', // 毕业时间
-//   referrer: '', // 推荐人
-//   certifications: '', // 资质证书名称
-//   accountTypes: '', // 户口类别
-//   accountLocation: '', // 户口所在地
-//   residenceAddress: '', // 户籍地址
-//   currentAddress: '', // 现住地址
-//   IDCard: '', // 身份证
-//   phone: '', // 联系手机
-//   weChat: '', // 微信
-//   qq: '', // QQ
-//   email: '', // 邮箱
-//   emergencyName: '', // 应急联系人
-//   emergencyPhone: '', // 应急联系方式
-//   signingTime: '', // 劳动合同签订时间
-//   expirationTime: '', // 劳动合同到期时间
-//   benefitsStartTime: '', // 社保福利起缴时间
-//   benefitsStopTime: '', // 社保福利停止时间
-//   separationTime: '', // 离职时间
-// }
 const columnsMap = [
   {
     prop: 'sex',
@@ -63,19 +18,8 @@ const columnsMap = [
     hidden: false,
   },
   {
-    prop: '部门',
-    label: '部门',
-    hidden: true,
-  },
-  {
-    prop: 'employedDate',
-    label: '入职时间',
-    hidden: false,
-  },
-  {
-    prop: 'employeeStatus',
-    label: '员工状态',
-    type: 'dict',
+    prop: 'userName',
+    label: '用户名',
     hidden: false,
   },
   {
@@ -84,9 +28,190 @@ const columnsMap = [
     hidden: false,
   },
   {
-    prop: 'idCard',
-    label: '身份证号码',
+    prop: 'staffId',
+    label: '工号',
     hidden: false,
+  },
+  {
+    prop: 'status',
+    label: '员工状态',
+    type: 'dict',
+    hidden: false,
+  },
+  {
+    prop: 'externalTitle',
+    label: '对外头衔',
+    hidden: true,
+  },
+  {
+    prop: 'job',
+    label: '职务',
+    hidden: true,
+  },
+  {
+    prop: 'title',
+    label: '职称',
+    hidden: true,
+  },
+  {
+    prop: 'entryTime',
+    label: '入职时间',
+    hidden: true,
+  },
+  {
+    prop: 'positiveTime',
+    label: '转正时间',
+    hidden: true,
+  },
+  {
+    prop: 'transferTime',
+    label: '调动时间',
+    hidden: true,
+  },
+  {
+    prop: 'birthday',
+    label: '出生年月',
+    hidden: true,
+  },
+  {
+    prop: 'nationality',
+    label: '民族',
+    hidden: true,
+  },
+  {
+    prop: 'politicalStatus',
+    label: '政治面貌',
+    hidden: true,
+  },
+  {
+    prop: 'maritalStatus',
+    label: '婚姻状况',
+    hidden: true,
+  },
+  {
+    prop: 'fertilityStatus',
+    label: '生育状况',
+    hidden: true,
+  },
+  {
+    prop: 'language',
+    label: '外语水平',
+    hidden: true,
+  },
+  {
+    prop: 'education',
+    label: '最高学历',
+    hidden: true,
+  },
+  {
+    prop: 'graduatedSchool',
+    label: '毕业学校',
+    hidden: true,
+  },
+  {
+    prop: 'profession',
+    label: '专业',
+    hidden: true,
+  },
+  {
+    prop: 'graduationTime',
+    label: '毕业时间',
+    hidden: true,
+  },
+  {
+    prop: 'referrer',
+    label: '推荐人',
+    hidden: true,
+  },
+  {
+    prop: 'certifications',
+    label: '资质证书名称',
+    hidden: true,
+  },
+  {
+    prop: 'accountTypes',
+    label: '户口类别',
+    hidden: true,
+  },
+  {
+    prop: 'accountLocation',
+    label: '户口所在地',
+    hidden: true,
+  },
+  {
+    prop: 'residenceAddress',
+    label: '户籍地址',
+    hidden: true,
+  },
+  {
+    prop: 'currentAddress',
+    label: '现住地址',
+    hidden: true,
+  },
+  {
+    prop: 'IDCard',
+    label: '身份证',
+    hidden: true,
+  },
+  {
+    prop: 'phone',
+    label: '联系手机',
+    hidden: true,
+  },
+  {
+    prop: 'weChat',
+    label: '微信',
+    hidden: true,
+  },
+  {
+    prop: 'qq',
+    label: 'QQ',
+    hidden: true,
+  },
+  {
+    prop: 'email',
+    label: '邮箱',
+    hidden: true,
+  },
+  {
+    prop: 'emergencyName',
+    label: '应急联系人',
+    hidden: true,
+  },
+  {
+    prop: 'emergencyPhone',
+    label: '应急联系方式',
+    hidden: true,
+  },
+  {
+    prop: 'signingTime',
+    label: '劳动合同签订时间',
+    hidden: true,
+  },
+  {
+    prop: 'expirationTime',
+    label: '劳动合同到期时间',
+    hidden: true,
+  },
+  {
+    prop: 'benefitsStartTime',
+    label: '社保福利起缴时间',
+    hidden: true,
+  },
+  {
+    prop: 'benefitsStopTime',
+    label: '社保福利停缴时间',
+    hidden: true,
+  },
+  {
+    prop: 'separationTime',
+    label: '离职时间',
+    hidden: true,
+  },
+  {
+    prop: 'dept',
+    label: '所属部门',
+    hidden: true,
   },
 ]
 

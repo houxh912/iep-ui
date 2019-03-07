@@ -40,5 +40,13 @@ const initSearchForm = () => {
     sex: '',
   }
 }
-
-export { dictsMap, columnsMap, initOrgForm, initSearchForm }
+const initeditForm = () => {
+  return {
+    positionName:'111',
+    positionType:'',
+    positionTask:'',
+    positionRequire:'',
+    
+  }
+}
+export { dictsMap, columnsMap, initOrgForm, initSearchForm ,initeditForm}

@@ -70,4 +70,39 @@ const initSearchForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initOrgForm, initSearchForm }
+
+
+const inittransferForm = () => {
+  return {
+    dept: '',
+    position: '',
+    job: '',
+    title: '',
+    transferTime: '',
+  }
+}
+const initdepartureForm = () => {
+  return {
+    title:'',
+    departureTime:'',
+    reason:'',
+  }
+}
+const initinductionForm = () => {
+  return {
+    name:'',
+    sex:'',
+    position:'',
+    idCard:'',
+    inductionTime:'',
+  }
+}
+const initpositiveForm = () => {
+  return {
+    name:'张三',
+    position:'产品',
+    psoitiveTime:'',
+    
+  }
+}
+export { dictsMap, columnsMap, initOrgForm, initSearchForm, inittransferForm,initdepartureForm,initinductionForm,initpositiveForm }

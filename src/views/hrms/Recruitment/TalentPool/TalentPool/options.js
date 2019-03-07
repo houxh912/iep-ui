@@ -49,5 +49,10 @@ const initSearchForm = () => {
     sex: '',
   }
 }
-
-export { dictsMap, columnsMap, initForm, initSearchForm }
+const initrejectedForm = () => {
+  return {
+    msg:'',
+    
+  }
+}
+export { dictsMap, columnsMap, initForm, initSearchForm,initrejectedForm }

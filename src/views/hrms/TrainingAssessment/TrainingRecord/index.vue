@@ -48,15 +48,14 @@
         <el-table-column prop="operation" label="操作" width="220">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning">
-                修改
-              </iep-button>
+              <iep-button type="warning" @click="handleEdit(scope.row)">修改</iep-button>
               <iep-button @click="(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
     </basic-container>
+    <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
   </div>
 </template>
 
@@ -64,8 +63,10 @@
 import { getTrainingRecordPage } from '@/api/hrms/training_record'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from './options'
+import EditDialog from './EditDialog'
 export default {
   mixins: [mixins],
+  components: { EditDialog },
   data () {
     return {
       columnsMap,
@@ -105,6 +106,10 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleEdit (row) {
+      console.log(row)
+      this.$refs['EditDialog'].dialogShow = true
+    },
     clearSearchParam () {
       this.paramForm = initSearchForm()
       this.$emit('clear-search-param')

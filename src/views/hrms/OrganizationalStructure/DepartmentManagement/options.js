@@ -44,5 +44,33 @@ const initSearchForm = () => {
     sex: '',
   }
 }
-
-export { dictsMap, columnsMap, initOrgForm, initSearchForm }
+const initmoveForm = () => {
+  return {
+    name: '',
+    sex: '',
+  }
+}
+const initaddForm = () => {
+  return {
+    superiorDepartment:'',
+    departmentNumber:'',
+    departmentName:'',
+    departmentHead:'',
+    creartedTime:'',
+  }
+}
+const initmergeForm = () => {
+  return {
+    name: '',
+    sex: '',
+  }
+}
+export {
+  dictsMap,
+  columnsMap,
+  initOrgForm,
+  initSearchForm,
+  initmoveForm,
+  initaddForm,
+  initmergeForm,
+}

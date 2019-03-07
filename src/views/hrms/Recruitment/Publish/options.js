@@ -1,44 +1,55 @@
 // org config options
 const dictsMap = {
-  isOpen: {
-    0: '开',
-    1: '关',
-  },
   status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
+    1: '待发布', 2: '招聘中', 3: '结束招聘',
   },
 }
 
 const columnsMap = [
   {
-    prop: '招聘部门',
+    prop: 'dept',
     label: '招聘部门',
   },
   {
-    prop: '招聘人数',
+    prop: 'recruitsCount',
     label: '招聘人数',
   },
   {
-    prop: '工作类型',
+    prop: 'jobType',
     label: '工作类型',
   },
   {
-    prop: '招聘申请时间',
-    label: '招聘申请时间',
+    prop: 'applicationTime',
+    label: '招聘发布时间',
   },
   {
-    prop: '招聘状态',
+    prop: 'status',
     label: '招聘状态',
+    type: 'dict',
   },
 ]
 
 const initForm = () => {
   return {
-    name: '',
-    isOpen: false,
-    intro: '',
+    id: '', // ID
+    positionId: '', // 岗位 positionName
+    positionName: '', // 岗位 positionName
+    deptId: '', // 所属部门 deptnName
+    deptName: '', // 所属部门 deptnName
+    recruitsCount: 0, // 招聘人数
+    targetCount: 0, // 目标人数
+    academicId: '', // 学历要求(dict) hrms_highest_educational
+    jobTypeId: '', // 工作类型(dict) hrms_work_type
+    years: 0, // 工作年限
+    profession: '', // 专业要求
+    place: '', // 工作地点
+    sex: 1, // 性别
+    treatment: '', // 工资待遇
+    language: '', // 外语要求
+    term: '', // 招聘期限
+    welfare: '', // 福利待遇
+    duties: '', // 岗位职责
+    claim: '', // 岗位要求
   }
 }
 

@@ -374,18 +374,18 @@ export function pickDeep (collection) {
         const subC = c.children.map(sc => {
           return {
             label: sc.label,
-            value: sc.value,
+            value: +sc.value,
           }
         })
         return {
           children: subC,
           label: c.label,
-          value: c.value,
+          value: +c.value,
         }
       } else {
         return {
           label: c.label,
-          value: c.value,
+          value: +c.value,
         }
       }
     })

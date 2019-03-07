@@ -35,6 +35,7 @@ router.delete('/admin/user', adminController.deleteUser)
 router.get('/admin/menu/tree', adminController.getMenuTree)
 router.get('/admin/role/page', adminController.getRolePage)
 router.get('/admin/dict/type/log_type', adminController.getDictTypeLogType)
+router.get('/admin/dict/all_map', adminController.getDictMap)
 router.get('/admin/log/page', adminController.getLogPage)
 router.get('/admin/dict/page', dictController.getDictPage)
 router.get('/admin/dict/child/1', dictController.getDictChildById)
@@ -47,9 +48,18 @@ router.post('/admin/user/set/org/:id', orgController.postSetOrg)
 
 router.get('/hrms/employee_profile/page', hrmsController.getEmployeeProfilePage)
 router.get('/hrms/employee_profile/growth_file/:id', hrmsController.getGrowthFileById)
+
 router.get("/hrms/administrative_approval/page", hrmsController.getAdministrativeApprovalPage)
+
 router.get("/hrms/talent_pool/page", hrmsController.getTalentPoolPage)
+
 router.get("/hrms/publish_recruitment/page", hrmsController.getPublishRecruitmentPage)
+router.get('/hrms/publish_recruitment/:id', hrmsController.getPublishRecruitmentById)
+router.post('/hrms/publish_recruitment/create', hrmsController.commonPublishRecruitment)
+router.post('/hrms/publish_recruitment/update', hrmsController.commonPublishRecruitment)
+router.post('/hrms/publish_recruitment/status/batch', hrmsController.commonPublishRecruitment)
+router.post('/hrms/publish_recruitment/remove/batch', hrmsController.commonPublishRecruitment)
+
 router.get("/hrms/training_record/page", hrmsController.getTrainingRecordPage)
 router.get("/hrms/department_management/page", hrmsController.getDepartmentManagePage)
 router.get("/hrms/job_system/page", hrmsController.getJobSystemPage)

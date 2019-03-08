@@ -1,8 +1,8 @@
 <template>
-  <div class="weekly">
+  <div class="monthly">
     <div class="head">
-      <div class="title">第八周个人工作周报<span class="date">（02-25 ~ 03-02）</span></div>
-      <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href">参考本周日报</a></div>
+      <div class="title">个人工作月报<span class="date">（2019年2月）</span></div>
+      <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href">参考本月周报</a></div>
       <div class="tips update" v-else @click="handleUpdate"><i class="el-icon-edit"></i></div>
     </div>
     <div class="content">
@@ -11,17 +11,21 @@
         <el-form-item prop="zhishi">
           <el-input type="textarea" v-model="formData.zhishi" rows=5 placeholder="此处填写领导指示"></el-input>
         </el-form-item>
-        <div class="title">本周工作总结</div>
+        <div class="title">本月工作总结</div>
         <el-form-item prop="benzhouzongjie">
-          <el-input type="textarea" v-model="formData.benzhouzongjie" rows=5 placeholder="此处填写本周工作总结"></el-input>
+          <el-input type="textarea" v-model="formData.benzhouzongjie" rows=5 placeholder="此处填写本月工作总结"></el-input>
         </el-form-item>
-        <div class="title">下周工作计划</div>
+        <div class="title">下月工作计划</div>
         <el-form-item prop="xiazhouzongjie">
-          <el-input type="textarea" v-model="formData.xiazhouzongjie" rows=5 placeholder="此处填写下周工作计划"></el-input>
+          <el-input type="textarea" v-model="formData.xiazhouzongjie" rows=5 placeholder="此处填写下月工作计划"></el-input>
         </el-form-item>
         <div class="title">总结与感悟</div>
         <el-form-item prop="ganwu">
           <el-input type="textarea" v-model="formData.ganwu" rows=5 placeholder="此处填写总结与感悟"></el-input>
+        </el-form-item>
+        <div class="title">添加关联</div>
+        <el-form-item prop="guanlian">
+          <el-input v-model="formData.guanlian"></el-input>
         </el-form-item>
         <el-form-item>
           <iep-button @click="submit" type="danger">保存</iep-button>
@@ -30,12 +34,14 @@
       <div v-else class="detail">
         <div class="title">领导指示</div>
         <pre>{{formData.zhishi}}</pre>
-        <div class="title">本周工作总结</div>
+        <div class="title">本月工作总结</div>
           <pre>{{formData.benzhouzongjie}}</pre>
-        <div class="title">下周工作计划</div>
+        <div class="title">下月工作计划</div>
           <pre>{{formData.xiazhouzongjie}}</pre>
         <div class="title">总结与感悟</div>
           <pre>{{formData.ganwu}}</pre>
+        <div class="title">关联内容</div>
+          <pre>{{formData.guanlian}}</pre>
       </div>
     </div>
   </div>
@@ -64,7 +70,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.weekly {
+.monthly {
   .head {
     margin-bottom: 20px;
     display: flex;

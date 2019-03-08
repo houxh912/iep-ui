@@ -23,6 +23,10 @@
         <el-form-item prop="ganwu">
           <el-input type="textarea" v-model="formData.ganwu" rows=5 placeholder="此处填写总结与感悟"></el-input>
         </el-form-item>
+        <div class="title">添加关联</div>
+        <el-form-item prop="guanlian">
+          <el-input v-model="formData.guanlian"></el-input>
+        </el-form-item>
         <el-form-item>
           <iep-button @click="submit" type="danger">保存</iep-button>
         </el-form-item>
@@ -36,6 +40,8 @@
           <pre>{{formData.xiazhouzongjie}}</pre>
         <div class="title">总结与感悟</div>
           <pre>{{formData.ganwu}}</pre>
+        <div class="title">关联内容</div>
+          <pre>{{formData.guanlian}}</pre>
       </div>
     </div>
   </div>
@@ -50,6 +56,7 @@ export default {
         benzhouzongjie: '',
         xiazhouzongjie: '',
         ganwu: '',
+        guanlian: '',
       },
       dislogState: 'create',
     }

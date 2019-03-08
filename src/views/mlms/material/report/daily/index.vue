@@ -68,7 +68,6 @@ export default {
         this.validate = true
         return
       }
-      console.log('this.formData: ', this.formData)
       this.validate = false
       this.list.push(
         { date: '15', title: '2019-02-15日报', content: this.formData }

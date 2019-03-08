@@ -5,7 +5,7 @@
         <template slot="left">
           <iep-button @click="handleAdd" size="small" type="danger">新增</iep-button>
           <el-dropdown size="medium">
-            <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+            <iep-button size="small" type="default">批量操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>导入</el-dropdown-item>
               <el-dropdown-item>删除</el-dropdown-item>
@@ -37,8 +37,8 @@
         <el-table-column prop="operation" label="操作" min-width="100" align="center">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleEdit(scope.row)" size="small">编辑</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
+              <iep-button @click="handleEdit(scope.row)" size="small">下载</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)" size="small">分享</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

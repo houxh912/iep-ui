@@ -1,7 +1,7 @@
 <template>
   <div class="monthly">
     <div class="head">
-      <div class="title">个人工作月报<span class="date">（2019年2月）</span></div>
+      <div class="title">组织工作月报<span class="date">（2019年2月）</span></div>
       <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href">参考本月周报</a></div>
       <div class="tips update" v-else @click="handleUpdate"><i class="el-icon-edit"></i></div>
     </div>
@@ -23,10 +23,30 @@
         <el-form-item prop="ganwu">
           <el-input type="textarea" v-model="formData.ganwu" rows=5 placeholder="此处填写总结与感悟"></el-input>
         </el-form-item>
-        <div class="title">添加关联</div>
-        <el-form-item prop="guanlian">
-          <el-input v-model="formData.guanlian"></el-input>
-        </el-form-item>
+        <div class="select-item">
+          <div class="label">市场拓展：</div>
+          <div class="item">
+            <iep-button class="col-button"><i class="el-icon-plus"></i></iep-button>
+            <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
+            <el-col class="col-item">数据基因新框架改造 <i class="el-icon-close"></i></el-col>
+          </div>
+        </div>
+        <div class="select-item">
+          <div class="label">相关产品：</div>
+          <div class="item">
+            <iep-button class="col-button"><i class="el-icon-plus"></i></iep-button>
+            <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
+            <el-col class="col-item">数据基因新框架改造 <i class="el-icon-close"></i></el-col>
+          </div>
+        </div>
+        <div class="select-item">
+          <div class="label">相关项目：</div>
+          <div class="item">
+            <iep-button class="col-button"><i class="el-icon-plus"></i></iep-button>
+            <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
+            <el-col class="col-item">数据基因新框架改造 <i class="el-icon-close"></i></el-col>
+          </div>
+        </div>
         <el-form-item>
           <iep-button @click="submit" type="danger">保存</iep-button>
         </el-form-item>
@@ -40,8 +60,22 @@
           <pre>{{formData.xiazhouzongjie}}</pre>
         <div class="title">总结与感悟</div>
           <pre>{{formData.ganwu}}</pre>
-        <div class="title">关联内容</div>
-          <pre>{{formData.guanlian}}</pre>
+        <div class="title">市场拓展</div>
+        <div class="item">
+          <el-tag type="info" class="tag">内网2.0改造项目</el-tag>
+          <el-tag type="info">数据基因新框架改造</el-tag>
+        </div>
+        <div class="title">相关产品</div>
+        <div class="item">
+          <el-tag type="info" class="tag">内网2.0改造项目</el-tag>
+          <el-tag type="info">数据基因新框架改造</el-tag>
+        </div>
+        <div class="title">相关项目</div>
+        <div class="item">
+          <el-tag type="info" class="tag">内网2.0改造项目</el-tag>
+          <el-tag type="info">数据基因新框架改造</el-tag>
+        </div>
+
       </div>
     </div>
   </div>
@@ -105,6 +139,25 @@ export default {
     .title {
       margin-bottom: 20px;
     }
+    .select-item {
+      display: flex;
+      margin-bottom: 15px;
+      .label {
+        width: 94px;
+      }
+      .item {
+        flex: 1;
+      }
+      .col-button {
+        margin-bottom: 15px;
+      }
+      .col-item {
+        height: 30px;
+        i {
+          cursor: pointer;
+        }
+      }
+    }
     .detail {
       pre {
         padding-left: 20px;
@@ -115,6 +168,12 @@ export default {
       .title {
         font-weight: 700;
         margin-top: 10px;
+      }
+      .item {
+        margin-left: 30px;
+        .tag {
+          margin-right: 20px;
+        }
       }
     }
   }

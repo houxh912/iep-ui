@@ -1,27 +1,33 @@
 <template>
-  <el-collapse v-model="activeName" accordion>
-    <el-collapse-item v-for="(item, index) in weeklyList" :key="index" :title="`${item.name}（${item.date}）`" :name="index">
-      <div class="content">
-        <div class="form">
-          <div class="title">客户需求</div>
-            <pre>{{item.xuqiu}}</pre>
-          <div class="title">本周工作总结</div>
-            <pre>{{item.benzhouzongjie}}</pre>
-          <div class="title">下周工作计划</div>
-            <pre>{{item.xiazhouzongjie}}</pre>
-          <div class="title">备注</div>
-            <pre>{{item.beizhu}}</pre>
+  <div>
+    <el-collapse v-model="activeName" accordion>
+      <el-collapse-item v-for="(item, index) in weeklyList" :key="index" :title="`${item.name}（${item.date}）`" :name="index">
+        <div class="content">
+          <div class="form">
+            <div class="title">客户需求</div>
+              <pre>{{item.xuqiu}}</pre>
+            <div class="title">本周工作总结</div>
+              <pre>{{item.benzhouzongjie}}</pre>
+            <div class="title">下周工作计划</div>
+              <pre>{{item.xiazhouzongjie}}</pre>
+            <div class="title">备注</div>
+              <pre>{{item.beizhu}}</pre>
+          </div>
+          <div class="edit">
+            <i class="el-icon-edit" @click="update"></i>
+          </div>
         </div>
-        <div class="edit">
-          <i class="el-icon-edit" @click="update"></i>
-        </div>
-      </div>
-    </el-collapse-item>
-  </el-collapse>
+      </el-collapse-item>
+    </el-collapse>
+    <iep-button type="danger" class="iep-button" @click="handleCreate"><i class="el-icon-plus"></i>创建项目周报</iep-button>
+    <create-dialog ref="createDialog"></create-dialog>
+  </div>
 </template>
 
 <script>
+  import CreateDialog from './createDialog'
   export default {
+    components: { CreateDialog },
     data () {
       return {
         activeName: '-1',
@@ -55,6 +61,9 @@
       update () {
         this.$emit('handleUpdate', true)
       },
+      handleCreate () {
+        this.$refs['createDialog'].dialogShow = true
+      },
     },
   }
 </script>
@@ -86,5 +95,8 @@
       cursor: pointer;
     }
   }
+}
+.iep-button {
+  margin-top: 20px;
 }
 </style>

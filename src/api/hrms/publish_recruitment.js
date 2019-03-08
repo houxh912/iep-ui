@@ -18,6 +18,7 @@ export function getPublishRecruitmentById (id) {
 }
 
 export function postPublishRecruitment (obj, publish) {
+  console.log(publish)
   return request({
     url: `${prefixUrl}/create`,
     method: 'post',
@@ -32,7 +33,9 @@ export function putPublishRecruitment (obj, publish) {
   return request({
     url: `${prefixUrl}/update`,
     method: 'post',
-    params: publish,
+    params: {
+      publish,
+    },
     data: obj,
   })
 }

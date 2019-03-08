@@ -31,7 +31,7 @@ const columnsMap = [
 
 const initForm = () => {
   return {
-    id: '啊实打实', // ID
+    id: '', // ID
     positionId: '', // 岗位 positionName
     positionName: '', // 岗位 positionName
     deptId: '', // 所属部门 deptnName

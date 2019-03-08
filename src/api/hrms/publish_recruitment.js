@@ -32,9 +32,7 @@ export function putPublishRecruitment (obj, publish) {
   return request({
     url: `${prefixUrl}/update`,
     method: 'post',
-    params: {
-      publish,
-    },
+    params: publish,
     data: obj,
   })
 }

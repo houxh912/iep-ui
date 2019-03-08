@@ -103,6 +103,7 @@
         <el-form-item label="岗位要求：">
           <el-input type="textarea" v-model="form.claim" :rows="4"></el-input>
         </el-form-item>
+        {{record}}
       </el-form>
     </basic-container>
   </div>

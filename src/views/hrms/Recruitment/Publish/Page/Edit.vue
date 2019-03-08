@@ -157,8 +157,8 @@ export default {
     handlePublish () {
       this.handleSubmit(true)
     },
-    handleSubmit (publish = false) {
-      this.formRequestFn(this.form, publish).then(({ data }) => {
+    handleSubmit () {
+      this.formRequestFn(this.form, { publish: false }).then(({ data }) => {
         console.log(data.data)
         this.$message({
           message: `招聘信息${this.methodName}成功`,

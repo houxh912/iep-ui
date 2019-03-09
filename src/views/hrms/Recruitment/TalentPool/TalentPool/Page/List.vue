@@ -72,7 +72,7 @@
   </div>
 </template>
 <script>
-import { getTalentPoolPage } from '@/api/hrms/talent_pool'
+import { getTalentPoolPage, postTalentPool } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
 import RejectedDialog from './RejectedDialog'
@@ -90,7 +90,11 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$emit('onEdit')
+      this.$emit('onEdit', {
+        formRequestFn: postTalentPool,
+        methodName: '新增',
+        id: false,
+      })
     },
     handleDetail () {
       this.$emit('onDetail')

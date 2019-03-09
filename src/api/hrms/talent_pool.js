@@ -25,3 +25,18 @@ function getPage (query, type) {
     },
   })
 }
+
+export function postTalentPool (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function getTalentPoolById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}

@@ -2,9 +2,9 @@
   <div class="edit-wrapper">
     <el-card class="edit-card" shadow="hover">
       <div slot="header" class="title">
-        <span>新增人才</span>
+        <span>{{methodName}}人才</span>
       </div>
-      <el-form ref="form" :model="form" label-width="140px" size="small">
+      <el-form ref="form" :model="form" label-width="120px" size="small">
         <el-collapse v-model="activeNames">
           <el-collapse-item name="1">
             <template slot="title">
@@ -15,18 +15,21 @@
             </el-form-item>
             <el-form-item label="性别：" class="form-half">
               <el-radio-group v-model="form.sex">
-                <el-radio label="男"></el-radio>
-                <el-radio label="女"></el-radio>
+                <el-radio :label="1">男</el-radio>
+                <el-radio :label="2">女</el-radio>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="头像：" class="">
               <el-input v-model="form.avatar"></el-input>
             </el-form-item>
             <el-form-item label="出生年月：" class="form-half">
-              <el-input v-model="form.birthday"></el-input>
+              <el-date-picker v-model="form.birthday" type="date" placeholder="选择日期"></el-date-picker>
+            </el-form-item>
+            <el-form-item label="年龄：" class="form-half">
+              <el-input v-model="form.age"></el-input>
             </el-form-item>
             <el-form-item label="外部头衔：" class="form-half">
-              <el-input v-model="form.rank"></el-input>
+              <el-input v-model="form.title"></el-input>
             </el-form-item>
             <el-form-item label="联系手机：" class="form-half">
               <el-input v-model="form.phone"></el-input>
@@ -41,79 +44,72 @@
               <el-input v-model="form.weight"></el-input>
             </el-form-item>
             <el-form-item label="民族：" class="form-half">
-              <el-input v-model="form.national"></el-input>
+              <el-input v-model="form.nation"></el-input>
             </el-form-item>
             <el-form-item label="籍贯：" class="form-half">
-              <el-input v-model="form.palce"></el-input>
+              <el-input v-model="form.cities"></el-input>
             </el-form-item>
             <el-form-item label="现住地址：">
               <el-input v-model="form.address"></el-input>
             </el-form-item>
             <el-form-item label="政治面貌：" class="form-half">
-              <el-input v-model="form.face"></el-input>
+              <el-input v-model="form.politic"></el-input>
             </el-form-item>
             <el-form-item label="健康状况：" class="form-half">
-              <el-select v-model="form.health">
-                <el-option label="良好" value="良好"></el-option>
-                <el-option label="一般" value="一般"></el-option>
-                <el-option label="不健康" value="不健康"></el-option>
-              </el-select>
+              <el-input v-model="form.health"></el-input>
             </el-form-item>
             <el-form-item label="婚姻状况：" class="form-half">
-              <el-select v-model="form.married">
-                <el-option label="未婚" value="未婚"></el-option>
-                <el-option label="已婚" value="已婚"></el-option>
+              <el-select v-model="form.marriage">
+                <el-option label="未婚" value="1"></el-option>
+                <el-option label="已婚" value="2"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="生育状况：" class="form-half">
-              <el-select v-model="form.fertility">
-                <el-option label="良好" value="良好"></el-option>
-                <el-option label="一般" value="一般"></el-option>
+              <el-select v-model="form.bear">
+                <el-option label="良好" value="1"></el-option>
+                <el-option label="一般" value="2"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="毕业学校：" class="form-half">
-              <el-input v-model="form.school"></el-input>
+              <el-input v-model="form.university"></el-input>
             </el-form-item>
             <el-form-item label="最高学历：" class="form-half">
-              <el-select v-model="form.educational">
-                <el-option label="专科" value="专科"></el-option>
-                <el-option label="本科" value="本科"></el-option>
-                <el-option label="硕士" value="硕士"></el-option>
-                <el-option label="博士" value="博士"></el-option>
+              <el-select v-model="form.education">
+                <el-option label="专科" value="1"></el-option>
+                <el-option label="本科" value="2"></el-option>
+                <el-option label="硕士" value="3"></el-option>
+                <el-option label="博士" value="4"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="员工关系：" class="form-half">
-              <el-select v-model="form.relation">
-                <el-option label="1" value="1"></el-option>
-                <el-option label="2" value="22"></el-option>
-              </el-select>
+              <el-input v-model="form.relation"></el-input>
             </el-form-item>
             <el-form-item label="推荐人：" class="form-half">
-              <el-input v-model="form.referees"></el-input>
+              <el-input v-model="form.referrer"></el-input>
             </el-form-item>
             <el-form-item label="应聘渠道：" class="form-half">
-              <el-select v-model="form.source">
+              <el-select v-model="form.appWay">
                 <el-option label="1" value="1"></el-option>
-                <el-option label="2" value="22"></el-option>
+                <el-option label="2" value="2"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="来源类型：" class="form-half">
-              <el-select v-model="form.type">
+              <el-select v-model="form.source">
                 <el-option label="1" value="1"></el-option>
-                <el-option label="2" value="22"></el-option>
+                <el-option label="2" value="2"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="兴趣爱好：" class="form-half">
-              <el-input v-model="form.interests"></el-input>
+              <el-input v-model="form.hobbies"></el-input>
             </el-form-item>
             <el-form-item label="特长及优势：">
-              <el-input v-model="form.specialty"></el-input>
+              <el-input v-model="form.advantage"></el-input>
             </el-form-item>
             <el-form-item label="荣誉奖励：">
               <el-input v-model="form.honor"></el-input>
             </el-form-item>
             <el-form-item label="其他成果：">
-              <el-input v-model="form.other"></el-input>
+              <el-input v-model="form.result"></el-input>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="求职意向" name="2">
@@ -155,26 +151,54 @@
     <!-- fixed footer toolbar -->
     <footer-tool-bar>
       <iep-button type="info" @click="handleGoBack">返回</iep-button>
-      <iep-button type="primary">提交</iep-button>
+      <iep-button type="primary" @click="handleSubmit">提交</iep-button>
     </footer-tool-bar>
   </div>
 </template>
 <script>
+import { getTalentPoolById } from '@/api/hrms/talent_pool'
 import FooterToolBar from '@/components/FooterToolbar'
+import { initForm } from '../options'
+import { mergeByFirst } from '@/util/util'
 export default {
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
   components: { FooterToolBar },
   data () {
     return {
-      activeNames: ['1', '2', '3', '4', '5'],
-      form: {
-        name: '',
-        sex: '',
-      },
+      activeNames: ['1'],
+      methodName: '新增',
+      form: initForm(),
+      formRequestFn: () => { },
+    }
+  },
+  created () {
+    this.methodName = this.record.methodName
+    this.formRequestFn = this.record.formRequestFn
+    this.id = this.record.id
+    if (this.id) {
+      getTalentPoolById(this.id).then(({ data }) => {
+        this.form = mergeByFirst(initForm(), data.data)
+      })
     }
   },
   methods: {
     handleGoBack () {
       this.$emit('onGoBack')
+    },
+    handleSubmit () {
+      this.formRequestFn(this.form).then(({ data }) => {
+        console.log(data.data)
+        this.$message({
+          message: `人才库${this.methodName}成功`,
+          type: 'success',
+        })
+        this.$emit('onGoBack')
+      })
     },
   },
 }

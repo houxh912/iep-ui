@@ -90,7 +90,7 @@ export default {
 <style lang="scss" scoped>
 .statistics-wrapper {
   padding: 20px;
-  /deep/ a:hover {
+  > a:hover {
     text-decoration: none;
   }
 }
@@ -100,7 +100,7 @@ export default {
 }
 .count-wrapper {
   background-color: #fff;
-  /deep/ .data-box .item-icon {
+  > .data-box .item-icon {
     line-height: 100px;
   }
 }

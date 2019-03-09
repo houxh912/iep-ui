@@ -50,10 +50,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getTagTypePage, deleteTagTypeById, putTagType, postTagType } from '@/api/tms/tag-type'
-import collapseForm from '@/components/collapse-form'
-import crudTreeTable from '@/components/crud-tree-table'
-import dialogMixins from '@/mixins/dialog_mixins'
-import paginationMixins from '@/mixins/pagination_mixins'
+import collapseForm from '@/components/deprecated/collapse-form'
+import crudTreeTable from '@/components/deprecated/crud-tree-table'
+import dialogMixins from '@/mixins/deprecated/dialog_mixins'
+import paginationMixins from '@/mixins/deprecated/pagination_mixins'
 function initFormTagType () {
   return {
     parentId: null,

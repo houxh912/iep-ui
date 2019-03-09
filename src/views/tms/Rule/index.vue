@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import dialogMixins from '@/mixins/dialog_mixins'
+import dialogMixins from '@/mixins/deprecated/dialog_mixins'
 export default {
   mixins: [dialogMixins],
   data () {

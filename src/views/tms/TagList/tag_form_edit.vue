@@ -103,11 +103,11 @@
 import { putTag } from '@/api/tms/tag'
 import { getTagTypeParents } from '@/api/tms/tag-type'
 import { getRecordMap, getRecordList } from '@/api/tms/record'
-import dialogMixins from '@/mixins/dialog_mixins'
+import dialogMixins from '@/mixins/deprecated/dialog_mixins'
 import { validTagName } from '@/api/tms/tag'
 import tagDesc from './tag_desc'
 import tagTypeList from './tag_type_list'
-import MutiplyTagSelect from '@/components/mutiply-tag-select'
+import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 export default {
   mixins: [dialogMixins],
   props: {

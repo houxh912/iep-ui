@@ -41,10 +41,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getTagLevelPage, postTagLevel, putTagLevel, deleteTagLevelById } from '@/api/tms/tag-level'
-import crudTable from '@/components/crud-table'
-import dialogMixins from '@/mixins/dialog_mixins'
-import collapseForm from '@/components/collapse-form'
-import paginationMixins from '@/mixins/pagination_mixins'
+import crudTable from '@/components/deprecated/crud-table'
+import dialogMixins from '@/mixins/deprecated/dialog_mixins'
+import collapseForm from '@/components/deprecated/collapse-form'
+import paginationMixins from '@/mixins/deprecated/pagination_mixins'
 // mockColumnMap
 const columnMap = [
   {

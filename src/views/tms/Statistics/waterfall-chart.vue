@@ -55,11 +55,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .water-fall-wrapper {
-  /deep/ .el-menu {
+  > .el-menu {
     display: flex;
     justify-content: center;
   }
-  /deep/ .el-menu--horizontal > .el-menu-item {
+  > .el-menu--horizontal > .el-menu-item {
     height: 40px;
     line-height: 40px;
   }

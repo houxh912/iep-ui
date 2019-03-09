@@ -55,7 +55,7 @@ export default {
   }
   .tag-wrapper {
     padding: 20px 20px;
-    /deep/ .el-tag {
+    > .el-tag {
       margin-right: 20px;
       margin-bottom: 10px;
     }

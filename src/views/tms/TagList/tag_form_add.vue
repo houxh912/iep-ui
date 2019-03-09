@@ -38,7 +38,7 @@ import tagTypeList from './tag_type_list'
 import { postTag } from '@/api/tms/tag'
 import { getTagTypeParents } from '@/api/tms/tag-type'
 import { validTagName } from '@/api/tms/tag'
-import MutiplyTagSelect from '@/components/mutiply-tag-select'
+import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 export default {
   props: {
     formData: {

@@ -9,8 +9,8 @@
 <script>
 import { getTagDescriptionPageByTagId, putTagDesc, deleteTagDescById } from '@/api/tms/description'
 // import crudTable from '@/components/crud-table'
-import dialogMixins from '@/mixins/dialog_mixins'
-import paginationMixins from '@/mixins/pagination_mixins'
+import dialogMixins from '@/mixins/deprecated/dialog_mixins'
+import paginationMixins from '@/mixins/deprecated/pagination_mixins'
 export default {
   mixins: [dialogMixins, paginationMixins],
   // components: { crudTable },

@@ -113,10 +113,10 @@ import { getTagPage, deleteTagById, getTagById, mergeTag, reviewTag, disableTag,
 import tagFormAdd from './tag_form_add'
 import tagFormEdit from './tag_form_edit'
 import tagImport from './tag_import'
-import crudTable from '@/components/crud-table'
-import collapseForm from '@/components/collapse-form'
-import dialogMixins from '@/mixins/dialog_mixins'
-import paginationMixins from '@/mixins/pagination_mixins'
+import crudTable from '@/components/deprecated/crud-table'
+import collapseForm from '@/components/deprecated/collapse-form'
+import dialogMixins from '@/mixins/deprecated/dialog_mixins'
+import paginationMixins from '@/mixins/deprecated/pagination_mixins'
 function initAddTagForm () {
   return {
     name: null,
@@ -394,7 +394,7 @@ export default {
     font-size: 14px;
     color: #606266;
   }
-  /deep/ .el-tag {
+  > .el-tag {
     margin-right: 5px;
   }
 }

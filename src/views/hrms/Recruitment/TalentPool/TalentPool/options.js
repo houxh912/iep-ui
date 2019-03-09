@@ -82,7 +82,7 @@ const initForm = () => {
     'userCert': [],
     'blacklistArea': '',
     'blacklistReasons': '',
-    'cities': '',
+    'cities': [],
   }
 }
 

@@ -23,7 +23,7 @@
               <el-input v-model="form.avatar"></el-input>
             </el-form-item>
             <el-form-item label="出生年月：" class="form-half">
-              <el-date-picker v-model="form.birthday" type="date" placeholder="选择日期"></el-date-picker>
+              <el-date-picker v-model="form.birthday" type="date" placeholder="选择日期" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
             </el-form-item>
             <el-form-item label="年龄：" class="form-half">
               <el-input v-model="form.age"></el-input>
@@ -47,7 +47,24 @@
               <el-input v-model="form.nation"></el-input>
             </el-form-item>
             <el-form-item label="籍贯：" class="form-half">
-              <el-input v-model="form.cities"></el-input>
+              <el-cascader :options="[{
+                  value: 'shejiyuanze',
+                  label: '设计原则',
+                  children: [{
+                    value: 'yizhi',
+                    label: '一致'
+                  }, {
+                    value: 'fankui',
+                    label: '反馈'
+                  }, {
+                    value: 'xiaolv',
+                    label: '效率'
+                  }, {
+                    value: 'kekong',
+                    label: '可控'
+                  }]
+                }]" v-model="form.cities">
+              </el-cascader>
             </el-form-item>
             <el-form-item label="现住地址：">
               <el-input v-model="form.address"></el-input>

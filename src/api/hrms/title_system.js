@@ -9,3 +9,17 @@ export function getTitlePage (query) {
     params: query,
   })
 }
+export function postTitle (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+export function putTitle (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}

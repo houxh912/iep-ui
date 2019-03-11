@@ -33,7 +33,7 @@ const columnsMap = [
   },
 ]
 
-const initOrgForm = () => {
+const initForm = () => {
   return {
     name: '',
     isOpen: false,
@@ -47,4 +47,4 @@ const initOrgSearchForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initOrgForm, initOrgSearchForm }
+export { dictsMap, columnsMap, initForm, initOrgSearchForm }

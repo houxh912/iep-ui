@@ -11,12 +11,12 @@ import { getCommonList } from '@/api/common'
 // }
 export default {
   props: {
-    prefix_url: {
+    prefixUrl: {
       type: String,
       required: true,
     },
     value: {
-      type: Number,
+      type: [String, Number],
       required: true,
     },
   },
@@ -27,7 +27,7 @@ export default {
     }
   },
   created () {
-    getCommonList(this.prefix_url).then(({ data }) => {
+    getCommonList(this.prefixUrl).then(({ data }) => {
       this.options = data.data
     })
   },

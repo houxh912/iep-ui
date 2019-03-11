@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="(scope.row)" type="danger" icon="el-icon-plus">新增</iep-button>
+        <iep-button @click="handleAdd" type="danger" icon="el-icon-plus">新增</iep-button>
         <el-dropdown size="medium">
           <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
@@ -60,17 +60,18 @@
         </template>
       </el-table-column>
     </iep-table>
-    <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
+    <add-dialog-form ref="AddDialogForm" @load-page="loadPage"></add-dialog-form>
   </div>
 </template>
 <script>
-import { getPostLibraryPage } from '@/api/hrms/post_library'
+import { getPostLibraryPage, putPostLibrary, postPostLibrary } from '@/api/hrms/post_library'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from './options'
-import EditDialog from './EditDialog'
+import { mergeByFirst } from '@/util/util'
+import { columnsMap, initSearchForm, initForm } from './options'
+import AddDialogForm from './AddDialogForm'
 export default {
   mixins: [mixins],
-  components: { EditDialog },
+  components: { AddDialogForm },
   data () {
     return {
       columnsMap,
@@ -81,9 +82,16 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleAdd () {
+      this.$refs['AddDialogForm'].methodName = '创建'
+      this.$refs['AddDialogForm'].formRequestFn = postPostLibrary
+      this.$refs['AddDialogForm'].dialogShow = true
+    },
     handleEdit (row) {
-      console.log(row)
-      this.$refs['EditDialog'].dialogShow = true
+      this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), row)
+      this.$refs['AddDialogForm'].methodName = '修改'
+      this.$refs['AddDialogForm'].formRequestFn = putPostLibrary
+      this.$refs['AddDialogForm'].dialogShow = true
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

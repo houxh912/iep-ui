@@ -24,7 +24,7 @@
         </template>
       </el-table-column>
     </iep-table>
-    <add-dialog-form ref="addDialogForm" @load-page="loadPage"></add-dialog-form>
+    <add-dialog-form ref="AddDialogForm" @load-page="loadPage"></add-dialog-form>
   </div>
 </template>
 <script>
@@ -47,15 +47,15 @@ export default {
   },
   methods: {
     handleEdit (row) {
-      this.$refs['addDialogForm'].form = mergeByFirst(initForm(), row)
-      this.$refs['addDialogForm'].methodName = '修改'
-      this.$refs['addDialogForm'].formRequestFn = putPostType
-      this.$refs['addDialogForm'].dialogShow = true
+      this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), row)
+      this.$refs['AddDialogForm'].methodName = '修改'
+      this.$refs['AddDialogForm'].formRequestFn = putPostType
+      this.$refs['AddDialogForm'].dialogShow = true
     },
     handleAdd () {
-      this.$refs['addDialogForm'].methodName = '创建'
-      this.$refs['addDialogForm'].formRequestFn = postPostType
-      this.$refs['addDialogForm'].dialogShow = true
+      this.$refs['AddDialogForm'].methodName = '创建'
+      this.$refs['AddDialogForm'].formRequestFn = postPostType
+      this.$refs['AddDialogForm'].dialogShow = true
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

@@ -13,16 +13,16 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'type',
-    label: 'type',
+    prop: 'name',
+    label: '岗位名称',
   },
   {
-    prop: 'name',
-    label: 'name',
+    prop: 'type',
+    label: '岗位分类',
   },
   {
     prop: 'count',
-    label: 'count',
+    label: '在职人数',
   },
 ]
 

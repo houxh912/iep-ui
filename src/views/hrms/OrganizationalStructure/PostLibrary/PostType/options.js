@@ -14,12 +14,12 @@ const dictsMap = {
 const columnsMap = [
   {
     prop: 'name',
-    label: 'name',
+    label: '岗位分类名称',
     width: 300,
   },
   {
     prop: 'description',
-    label: 'description',
+    label: '分类说明',
   },
 ]
 

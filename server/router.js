@@ -62,8 +62,8 @@ router.post('/hrms/publish_recruitment/remove/batch', hrmsController.commonPubli
 
 router.get("/hrms/training_record/page", hrmsController.getTrainingRecordPage)
 router.get("/hrms/department_management/page", hrmsController.getDepartmentManagePage)
-router.get("/hrms/job_system/page", hrmsController.getJobSystemPage)
-router.get("/hrms/job_title_system/page", hrmsController.getJobTitleSystemPage)
+router.get("/hrms/job_system/page", hrmsController.getJobPage)
+router.get("/hrms/title_system/page", hrmsController.getTitlePage)
 router.get("/hrms/post_library/page", hrmsController.getPostLibraryPage)
 router.get("/hrms/post_type/page", hrmsController.getPostTypePage)
 

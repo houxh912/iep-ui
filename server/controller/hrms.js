@@ -252,7 +252,7 @@ exports.getDepartmentManagePage = async function (ctx) {
   }
   ctx.body = data
 }
-exports.getJobSystemPage = async function (ctx) {
+exports.getJobPage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -260,64 +260,10 @@ exports.getJobSystemPage = async function (ctx) {
       records: [
         {
           id: 1,
-          职务名称: '专员',
-          职务说明: '职务说明',
-          优先级: '1'
+          name: '专员',
+          description: '职务说明',
+          priority: '1'
         },
-        {
-          id: 2,
-          职务名称: '专员',
-          职务说明: '职务说明',
-          优先级: '2'
-        },
-        {
-          id: 3,
-          职务名称: '专员',
-          职务说明: '职务说明',
-          优先级: '3'
-        },
-        {
-          id: 4,
-          职务名称: '专员',
-          职务说明: '职务说明',
-          优先级: '4'
-        },
-        {
-          id: 5,
-          职务名称: '初级主管',
-          职务说明: '职务说明',
-          优先级: '5'
-        },
-        {
-          id: 6,
-          职务名称: '初级主管',
-          职务说明: '职务说明',
-          优先级: '5'
-        },
-        {
-          id: 7,
-          职务名称: '初级主管',
-          职务说明: '职务说明',
-          优先级: '5'
-        },
-        {
-          id: 8,
-          职务名称: '初级主管',
-          职务说明: '职务说明',
-          优先级: '5'
-        },
-        {
-          id: 9,
-          职务名称: '初级主管',
-          职务说明: '职务说明',
-          优先级: '5'
-        },
-        {
-          id: 10,
-          职务名称: '初级主管',
-          职务说明: '职务说明',
-          优先级: '5'
-        }
       ],
       total: 10,
       size: 10,
@@ -328,7 +274,7 @@ exports.getJobSystemPage = async function (ctx) {
   }
   ctx.body = data
 }
-exports.getJobTitleSystemPage = async function (ctx) {
+exports.getTitlePage = async function (ctx) {
   const data = {
     code: 0,
     msg: 'success',
@@ -336,40 +282,10 @@ exports.getJobTitleSystemPage = async function (ctx) {
       records: [
         {
           id: 1,
-          职称名称: '专员',
-          职称说明: '职称说明',
-          优先级: '1'
+          name: '专员',
+          description: '职称说明',
+          priority: '1'
         },
-        {
-          id: 2,
-          职称名称: '专员',
-          职称说明: '职称说明',
-          优先级: '2'
-        },
-        {
-          id: 3,
-          职称名称: '专员',
-          职称说明: '职称说明',
-          优先级: '3'
-        },
-        {
-          id: 4,
-          职称名称: '专员',
-          职称说明: '职称说明',
-          优先级: '4'
-        },
-        {
-          id: 5,
-          职称名称: '初级主管',
-          职称说明: '职称说明',
-          优先级: '5'
-        },
-        {
-          id: 6,
-          职称名称: '初级主管',
-          职称说明: '职称说明',
-          优先级: '5'
-        }
       ],
       total: 6,
       size: 10,

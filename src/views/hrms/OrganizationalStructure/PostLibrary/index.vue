@@ -6,8 +6,8 @@
         <template v-if="activeTab ==='PostLibrary'" v-slot:PostLibrary>
           <post-library v-loading="activeTab !=='PostLibrary'"></post-library>
         </template>
-        <template v-if="activeTab ==='JobClassification'" v-slot:JobClassification>
-          <post-type v-loading="activeTab !=='JobClassification'"></post-type>
+        <template v-if="activeTab ==='PostType'" v-slot:PostType>
+          <post-type v-loading="activeTab !=='PostType'"></post-type>
         </template>
       </iep-tabs>
     </basic-container>

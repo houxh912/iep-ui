@@ -61,7 +61,7 @@
   </div>
 </template>
 <script>
-import { getPostLibrary1Page } from '@/api/hrms/post_library1'
+import { getPostLibrary1Page } from '@/api/hrms/post_type'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from './options'
 export default {

@@ -65,7 +65,7 @@ router.get("/hrms/department_management/page", hrmsController.getDepartmentManag
 router.get("/hrms/job_system/page", hrmsController.getJobSystemPage)
 router.get("/hrms/job_title_system/page", hrmsController.getJobTitleSystemPage)
 router.get("/hrms/post_library/page", hrmsController.getPostLibraryPage)
-router.get("/hrms/post_library1/page", hrmsController.getPostLibrary1Page)
+router.get("/hrms/post_type/page", hrmsController.getPostTypePage)
 
 
 // crms

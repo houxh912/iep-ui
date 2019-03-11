@@ -7,7 +7,7 @@
           <post-library v-loading="activeTab !=='PostLibrary'"></post-library>
         </template>
         <template v-if="activeTab ==='JobClassification'" v-slot:JobClassification>
-          <job-classification v-loading="activeTab !=='JobClassification'"></job-classification>
+          <post-type v-loading="activeTab !=='JobClassification'"></post-type>
         </template>
       </iep-tabs>
     </basic-container>
@@ -17,9 +17,9 @@
 import PageHeader from '@/components/Page/Header'
 import IepTabs from '@/components/IepCommon/Tabs'
 import PostLibrary from './PostLibrary/'
-import JobClassification from './JobClassification/'
+import PostType from './PostType/'
 export default {
-  components: { PageHeader, IepTabs, PostLibrary, JobClassification },
+  components: { PageHeader, IepTabs, PostLibrary, PostType },
   data () {
     return {
       replaceText: (data) => `（共有${data[0]}个岗位)`,
@@ -28,7 +28,7 @@ export default {
         value: 'PostLibrary',
       }, {
         label: '岗位分类',
-        value: 'JobClassification',
+        value: 'PostType',
       }],
       activeTab: 'PostLibrary',
     }

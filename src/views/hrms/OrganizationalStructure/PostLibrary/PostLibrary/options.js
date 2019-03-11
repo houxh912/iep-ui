@@ -13,16 +13,16 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: '岗位分类',
-    label: '岗位分类',
+    prop: 'type',
+    label: 'type',
   },
   {
-    prop: '岗位名称',
-    label: '岗位名称',
+    prop: 'name',
+    label: 'name',
   },
   {
-    prop: '在职人数',
-    label: '在职人数',
+    prop: 'count',
+    label: 'count',
   },
 ]
 
@@ -42,11 +42,11 @@ const initSearchForm = () => {
 }
 const initeditForm = () => {
   return {
-    positionName:'111',
-    positionType:'',
-    positionTask:'',
-    positionRequire:'',
-    
+    positionName: '111',
+    positionType: '',
+    positionTask: '',
+    positionRequire: '',
+
   }
 }
-export { dictsMap, columnsMap, initOrgForm, initSearchForm ,initeditForm}
+export { dictsMap, columnsMap, initOrgForm, initSearchForm, initeditForm }

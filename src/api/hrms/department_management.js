@@ -1,7 +1,7 @@
 import request from '@/router/axios'
 
-const prefixUrl = '/hrms/department_management'
-// @/api/hrms/training_record
+const prefixUrl = '/admin/dept'
+// @/api/hrms/department_management
 export function getDepartmentManagePage (query) {
   return request({
     url: `${prefixUrl}/page`,

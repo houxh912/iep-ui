@@ -9,3 +9,17 @@ export function getPostTypePage (query) {
     params: query,
   })
 }
+export function postPostType (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+export function putPostType (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}

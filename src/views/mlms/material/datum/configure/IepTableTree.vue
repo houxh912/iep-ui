@@ -16,7 +16,10 @@
             :key="index"
             :label="item.label"
             :prop="item.prop">
-            <slot v-if="item.slot" :name="item.prop"></slot>
+            <template slot-scope="scope">
+              <slot v-if="item.slot" :name="item.prop" :scope="scope.row"></slot>
+              <div v-else>{{scope.row[item.prop]}}</div>
+            </template>
           </el-table-column>
         </el-table>
       </template>
@@ -28,7 +31,10 @@
       :key="index"
       :label="item.label"
       :prop="item.prop">
-      <slot v-if="item.slot" :name="item.prop"></slot>
+      <template slot-scope="scope">
+        <slot v-if="item.slot" :name="item.prop" :scope="scope.row"></slot>
+        <div v-else>{{scope.row[item.prop]}}</div>
+      </template>
     </el-table-column>
   </el-table>
 </template>

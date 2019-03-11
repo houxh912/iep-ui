@@ -16,9 +16,8 @@
       </template>
     </operation-container>
     <iep-table-tree :data="tableData" :option="columnsMap">
-      <template slot="status" slot-scope="scope">
-        {{scope}}
-        <el-switch v-model="scope.status"></el-switch>
+      <template #date="scope">
+        {{scope.scope.date}}
       </template>
       <template slot="more">
         <div class="more-icon">
@@ -27,6 +26,9 @@
           <div class="more-icon-3"><i class="el-icon-download"></i></div>
           <div class="more-icon-4"><i class="el-icon-download"></i></div>
         </div>
+      </template>
+      <template #status="scope">
+        <el-switch v-model="scope.scope.status"></el-switch>
       </template>
       <template slot="menu">
         <iep-button>删除</iep-button>
@@ -74,13 +76,13 @@ export default {
     loadPage (param) {
       this.loadTable(param, fetchList)
       this.tableData = [
-        { id: 1, name: '制度文化', yidong: '↑ ↑ ↓ ↓', children: [
+        { id: 1, name: '制度文化', yidong: '↑ ↑ ↓ ↓', date: '2019-02-14', status: true, children: [
           { id: 11, name: '制度子级1号', yidong: '↑ ↑ ↓ ↓' },
           { id: 12, name: '制度子级2号', yidong: '↑ ↑ ↓ ↓' },
           { id: 13, name: '制度子级3号', yidong: '↑ ↑ ↓ ↓' },
           { id: 14, name: '制度子级4号', yidong: '↑ ↑ ↓ ↓' },
         ] }, {
-          id: 2, name: '政策文件', yidong: '↑ ↑ ↓ ↓', children: [
+          id: 2, name: '政策文件', yidong: '↑ ↑ ↓ ↓', date: '2019-02-11', status: false, children: [
             { id: 21, name: '董事会', yidong: '↑ ↑ ↓ ↓' },
           ],
         },

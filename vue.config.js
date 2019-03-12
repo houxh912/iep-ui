@@ -12,17 +12,17 @@ module.exports = {
       template: IS_PRODUCTION ? 'public/index.html' : 'public/index.dev.html',
     },
   },
-  configureWebpack: {
-    externals: IS_PRODUCTION
-      ? {
-        vue: 'Vue',
-        vuex: 'Vuex',
-        'vue-router': 'VueRouter',
-        'element-ui': 'ELEMENT',
-        '@smallwei/avue/lib/index.js': 'AVUE',
-      }
-      : undefined,
-  },
+  // configureWebpack: {
+  //   externals: IS_PRODUCTION
+  //     ? {
+  //       vue: 'Vue',
+  //       vuex: 'Vuex',
+  //       'vue-router': 'VueRouter',
+  //       'element-ui': 'ELEMENT',
+  //       '@smallwei/avue/lib/index.js': 'AVUE',
+  //     }
+  //     : undefined,
+  // },
   chainWebpack: config => {
     config.plugin('define').tap(definitions => {
       definitions[0] = Object.assign(definitions[0], {

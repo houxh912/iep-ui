@@ -43,4 +43,16 @@ export default {
 .content-footer >>> .btn-next {
   padding: 0 15px;
 }
+.content-footer >>> .el-pagination.is-background .el-pager li:not(.disabled).active {
+  font-weight: 400;
+  background-color: #eee;
+  color: #333;
+}
+.content-footer >>> .el-range-editor.is-active, 
+.content-footer >>> .el-range-editor.is-active:hover, 
+.content-footer >>> .el-select .el-input.is-focus .el-input__inner,
+.content-footer >>> .el-pagination__sizes .el-input .el-input__inner:hover,
+.content-footer >>> .el-form-item__content .el-input.is-active .el-input__inner {
+  border-color: #ccdfe6;
+}
 </style>

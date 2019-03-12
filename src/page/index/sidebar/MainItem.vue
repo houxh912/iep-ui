@@ -52,11 +52,11 @@ export default {
 <style lang="scss" scoped>
 .main-item-wrapper {
   cursor: pointer;
-  font-size: 20px;
-  text-align: center;
+  font-size: 16px;
+  text-align: left;
   padding: 20px 20px;
-  border-bottom: 2px solid #eee;
-  margin-bottom: 5px;
+  border-bottom: 1px solid #eee;
+  border-right: 1px solid #eee;
   color: #666;
   .main-link {
     &:hover {

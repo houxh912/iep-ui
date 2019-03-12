@@ -23,7 +23,7 @@
         <div class="logo-item">
           <img class="img" :src="data.logo" alt="" id="logo" />
         </div>
-        <div class="img-text">{{data.orgName}}</div>
+        <div class="img-text">{{data.orgName}}<i class="el-icon-arrow-down el-icon--right"></i></div>
       </div>
       <div class="information">
         <div class="info-text"><i class="icon-chengyuan"></i><span>成员数量：{{data.memberNum}}人（{{data.applyUserNum}}人申请）</span></div>
@@ -31,10 +31,14 @@
       </div>
       <div class="manager">
         <p>组织管理员</p>
-        <div class="manager-avatar ">
+        <div class="manager-avatar">
           <div class="avatar" v-for="(item,index) in managerList" :key="item.userId">
-            <img class="avatar-img" :src="item.avatar" :id="`avatar${index}`" alt="" @click="open2(item.userId)">{{item.realName}}
+            <div class="avater-mask"><i class="el-icon-close close"></i></div>
+            <img class="avatar-img" :src="item.avatar" :id="`avatar${index}`" alt="" @click="open2(item.userId)"><span class="avatar-name">{{item.realName}}</span>
           </div>
+          <router-link class="avatar avatar-add" to="">
+            <i class="el-icon-plus"></i>
+          </router-link>
         </div>
       </div>
       <div class="function">
@@ -144,7 +148,6 @@ export default {
   background-color: white;
   .left {
     flex: 1;
-    margin-left: 20px;
     .top {
       margin-top: 20px;
       margin-bottom: 20px;
@@ -207,6 +210,7 @@ export default {
       .img-text {
         margin: 15px 0;
         font-size: 14px;
+        cursor: pointer;
         i {
           color: #6c6c6c;
         }
@@ -248,25 +252,74 @@ export default {
       border-bottom: solid 1px #d8d4d4;
       margin-right: 10px;
       margin-left: 10px;
-      height: 180px;
       overflow: hidden;
       .manager-avatar {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
         .avatar {
+          position: relative;
           margin-right: 10px;
           margin-bottom: 10px;
           width: 50px;
-          height: 50px;
           font-size: 14px;
           text-align: center;
-          border-radius: 50%;
-          border: 1px solid #d7d7d7;
+          cursor: pointer;
+          &:hover {
+            .avatar-name {
+              opacity: .7;
+            }
+            .avater-mask {opacity: 1;}
+          }
+          .avatar-name {
+            display: block;
+            width: 100%;
+          }
           .avatar-img {
+            border: 1px solid #d7d7d7;
             width: 50px;
             height: 50px;
             border-radius: 50%;
+          }
+          .avater-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(0,0,0,.6);
+            opacity: 0;
+            .close {
+              position: absolute;
+              top: -3px;
+              right: -3px;
+              width: 15px;
+              height: 15px;
+              line-height: 15px;
+              border-radius: 50%;
+              background-color: #bf051a;
+              color: #fff;
+              font-size: 12px;
+              &:hover {
+                background-color: #fb5966;
+              }
+            }
+          }
+        }
+        .avatar-add {
+          height: 50px;
+          border: 1px solid #d7d7d7;
+          border-radius: 50%;
+          color: #999;
+          outline: none;
+          i {
+            font-size: 24px;
+            line-height: 50px;
+          }
+          &:hover {
+            background-color: #d7d7d7;
+            color: #666;
           }
         }
       }
@@ -275,9 +328,6 @@ export default {
       margin: 20px;
       .button-switch {
         margin-top: 15px;
-        span {
-          font-size: 14px;
-        }
         .switch-text {
           float: left;
         }
@@ -289,7 +339,7 @@ export default {
       }
     }
     .span2-button {
-      color: #beb4b4;
+      color: #999;
       font-size: 12px;
     }
     .switch {

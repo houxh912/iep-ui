@@ -3,23 +3,42 @@
     <div class="navbar">
       <el-menu v-if="keyCollapse" :default-active="activeIndex" mode="horizontal" menu-trigger="click">
         <el-submenu index="">
-          <template slot="title">DETAIL</template>
-          <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id">{{item.name}}</el-menu-item>
+          <template slot="title">导航</template>
+          <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id"><span class="sub-menu">{{item.name}}</span></el-menu-item>
         </el-submenu>
       </el-menu>
       <el-menu v-else :default-active="activeIndex" mode="horizontal">
-        <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id">{{item.name}}</el-menu-item>
+        <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id"><span class="sub-menu">{{item.name}}</span></el-menu-item>
       </el-menu>
+      <div class="search-con">
+        <top-search class="search-con-input" :style="{top: isTop}" :class="{inactive:!isShow }">
+          <el-input v-model="input" placeholder="请输入内容" size="small"></el-input>
+          <el-button type="primary" size="small" @click="handleInput">确定</el-button>
+        </top-search>
+        <i class="el-icon-search btn-search" @click="handleInput"></i>
+      </div>
+      <!-- <el-select v-model="value2" placeholder="国脉海洋信息发展有限公司" size="small">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+          :disabled="item.disabled">
+        </el-option>
+      </el-select> -->
     </div>
   </div>
 </template>
 
 <script>
+import topSearch from './top-search'
 import displayMixins from '@/mixins/displayMixins'
 export default {
   mixins: [displayMixins],
   data () {
     return {
+      isShow: false,
+      input: '',
       classIndex: 1,
       activeIndex: '0',
       screenWidth: document.body.clientWidth,
@@ -49,6 +68,12 @@ export default {
       ],
     }
   },
+  components: { topSearch },
+  methods: {
+    handleInput () {
+      this.isShow = !this.isShow
+    },
+  },
   computed: {
     keyCollapse () {
       if (this.isDesktop()) {
@@ -56,6 +81,12 @@ export default {
       } else {
         return true
       }
+    },
+    isTop () {
+      if (this.isTablet()) {
+        return '66px'
+      }
+      return this.isShow ? '66px' : '-66px'
     },
   },
 }
@@ -69,11 +100,54 @@ export default {
   color: #444;
   .navbar {
     display: flex;
-    .searchBar {
-      height: 100%;
-      width: 100px;
-      display: flex;
-      align-items: center;
+    height: 60px;
+    .el-menu--horizontal > .el-menu-item.is-active,
+    .el-menu--horizontal > .el-menu-item:hover {
+      border: 0;
+      .sub-menu {
+        border-radius: 20px;
+        background-color: #eee;
+      }
+    }
+    .el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
+    .el-menu--horizontal .el-menu-item:not(.is-disabled):hover,
+    .el-menu--horizontal > .el-menu-item {
+      padding: 0 10px;
+      border: 0;
+      .sub-menu {
+        padding: 4px 15px;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+      }
+    }
+    .el-select {
+      line-height: 60px;
+    }
+    .search-con {
+      position: relative;
+      margin-left: 10px;
+      .search-con-input {
+        position: absolute;
+        right: -150px;
+        width: 300px;
+        border-radius: 3px;
+        background-color: #fff;
+        box-shadow: 0px 0px 1px 2px #eee;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+      }
+      .btn-search {
+        margin-left: 10px;
+        font-size: 20px;
+        line-height: 60px;
+        cursor: pointer;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+        &:hover,
+        &:focus {
+          color: #999;
+        }
+      }
     }
     .showItem {
       display: none;
@@ -84,9 +158,35 @@ export default {
       color: #444;
     }
     .el-select {
-      width: 180px !important;
-      padding: 0 20px;
+      width: 260px !important;
+      padding: 0 20px 0 30px;
     }
   }
+}
+</style>
+<style lang="css" scoped>
+@media (min-width: 0px) and (max-width: 1025px) {
+  .nav >>> .el-submenu.is-active .el-submenu__title,
+  .nav >>> .el-menu--horizontal > .el-submenu.is-active .el-submenu__title,
+  .el-menu.el-menu--horizontal {
+    height: 59px;
+    border: 0 !important;
+  }
+}
+.nav >>> .el-select .el-input__suffix {
+  right: 15px !important;
+}
+.search-con >>> .el-input {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.navbar >>> .el-range-editor.is-active .el-input__inner,
+.navbar >>> .el-range-editor.is-active:hover .el-input__inner,
+.navbar >>> .el-range-editor:focus .el-input__inner,
+.navbar >>> .el-select .el-input.is-focus .el-input__inner,
+.navbar >>> .el-select .el-input__inner:focus,
+.navbar >>> .el-input__inner:hover,
+.navbar >>> .el-input__inner:focus {
+  border-color: #c0c4cc;
 }
 </style>

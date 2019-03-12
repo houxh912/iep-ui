@@ -1,35 +1,45 @@
 <template>
-  <el-form class="login-form" status-icon :rules="registerRule" ref="registerForm" :model="registerForm" label-width="0">
-    <el-form-item prop="username">
-      <el-input autocomplete="off" v-model="registerForm.username" auto-complete="off" placeholder="请输入用户名"></el-input>
-    </el-form-item>
-    <el-form-item prop="password">
-      <el-input autocomplete="off" :type="passwordType" v-model="registerForm.password" placeholder="请输入你的密码">
-        <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-      </el-input>
-    </el-form-item>
-    <el-form-item prop="cpassword">
-      <el-input autocomplete="off" :type="passwordType" v-model="registerForm.cpassword" placeholder="确认你的密码">
-        <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-      </el-input>
-    </el-form-item>
-    <el-form-item prop="phone">
-      <el-input v-model="registerForm.phone" auto-complete="off" placeholder="请输入手机号码"></el-input>
-    </el-form-item>
-    <el-form-item prop="code">
-      <div class="code-wrapper">
-        <el-input @keyup.enter.native="handleLogin" maxlength="4" v-model="registerForm.code" auto-complete="off" placeholder="请输入验证码">
+  <div class="retrieve-con">
+    <el-steps :active="active" finish-status="success">
+      <el-step description="输入账号"></el-step>
+      <el-step description="重置密码"></el-step>
+      <el-step description="完成"></el-step>
+    </el-steps>
+    <el-form v-if="active === 0" class="login-form" status-icon :rules="registerRule" ref="registerForm" :model="registerForm" label-width="0px">
+      <el-form-item prop="phone">
+        <el-input v-model="registerForm.phone" auto-complete="off" placeholder="请输入手机号码"></el-input>
+      </el-form-item>
+      <el-form-item class="input-last" prop="code">
+        <div class="code-wrapper">
+          <el-input @keyup.enter.native="handleLogin" maxlength="4" v-model="registerForm.code" auto-complete="off" placeholder="短信验证码">
+          </el-input>
+          <el-button @click="handleSend" class="msg-text" :class="[{ display: msgKey }]">{{ msgText }}</el-button>
+        </div>
+      </el-form-item>
+      <el-form-item>
+        <iep-button type="primary" class="login-submit" @click="active ++ ">下一步</iep-button>
+      </el-form-item>
+    </el-form>
+    <el-form v-if="active === 1" class="login-form" status-icon :rules="registerRule" ref="registerForm" :model="registerForm" label-width="0">
+      <el-form-item prop="password">
+        <el-input autocomplete="off" :type="passwordType" v-model="registerForm.password" placeholder="新密码">
+          <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
         </el-input>
-        <el-button @click="handleSend" class="msg-text" :class="[{ display: msgKey }]">{{ msgText }}</el-button>
-      </div>
-    </el-form-item>
-    <el-form-item>
-      <el-checkbox v-model="checked">同意并遵守<span class="agreement">《用户守则》</span></el-checkbox>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" size="small" @click.native.prevent="handleRegister" class="login-submit">注册</el-button>
-    </el-form-item>
-  </el-form>
+      </el-form-item>
+      <el-form-item class="input-last" prop="cpassword">
+        <el-input autocomplete="off" :type="passwordType" v-model="registerForm.cpassword" placeholder="再次输入密码">
+          <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
+        </el-input>
+      </el-form-item>
+      <el-form-item>
+        <iep-button type="primary" class="login-submit" @click="active ++ ">确定</iep-button>
+      </el-form-item>
+    </el-form>
+    <div v-if="active === 2" class="login-menu">
+      <div class="center-image"><img src="/img/finishLogin.jpg"></div>
+      <p>重置密码成功<a href="#" @click.prevent="handleLogin">立即登录</a></p>
+    </div>
+  </div>
 </template>
 <script>
 import { randomLenNum } from '@/util/util'
@@ -37,11 +47,10 @@ import { mapGetters } from 'vuex'
 import { getMobileCode } from '@/api/admin/mobile'
 import { registerUser, validRegisterUserName, validRegisterUserPhone } from '@/api/login'
 import { isvalidatemobile } from '@/util/validate'
-const MSGINIT = '发送验证码',
-  MSGSCUCCESS = '${time}秒后重发',
-  MSGTIME = 60
+const MSGINIT = '获取验证码',
+MSGSCUCCESS = '${time}秒后重发',
+MSGTIME = 60
 export default {
-  name: 'Userlogin',
   data () {
     const checkUserName = (rule, value, callback) => {
       if (!value) {
@@ -88,6 +97,7 @@ export default {
       }
     }
     return {
+      active: 0,
       msgText: MSGINIT,
       msgTime: MSGTIME,
       msgKey: false,
@@ -130,8 +140,10 @@ export default {
   computed: {
     ...mapGetters(['tagWel']),
   },
-  props: [],
   methods: {
+    handleLogin () {
+      this.$emit('tab-active', 'user')
+    },
     handleSend () {
       if (this.msgKey) return
       getMobileCode(this.registerForm.phone).then(response => {
@@ -192,10 +204,23 @@ export default {
   },
 }
 </script>
+
 <style lang="scss" scoped>
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  list-style-image: none;
+}
+.center-image {
+  text-align: center;
+  img {
+    max-width: 150px;
+  }
+}
 .login-submit {
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 10px auto;
   width: 100%;
   height: 40px;
   font-size: 14px;
@@ -204,85 +229,101 @@ export default {
   background-color: #ba1b20;
   color: white;
 }
+
+.login-menu {
+  width: 100%;
+  text-align: center;
+  p {
+    font-size: 14px;
+  }
+  a {
+    color: #ba1b20;
+    margin: 0px 8px;
+    &:hover {
+      color: #f56c6c;
+    }
+  }
+}
 .login-submit:hover {
-  background-color: #f56c6c;
-  color: white;
+  background-color: #f56c6c !important;
+  color: #fff !important;
+}
+.input-last {
+  margin-bottom: 34px;
 }
 .code-wrapper {
   display: flex;
-}
-.login-form {
-  margin: 10px 0;
-  i {
-    color: #999;
-  }
-  .el-form-item {
-    margin-bottom: 20px;
-    .el-form-item__content {
-      margin-left: 0 !important;
-      width: 100%;
-    }
-    .msg-text {
-      display: block;
-      margin-left: -1px;
-      font-size: 12px;
-      text-align: center;
-      cursor: pointer;
-      background-color: #ccc;
-      color: #fff;
-      border-radius: 0 4px 4px 0;
-      &:hover,
-      &:focus {
-        border-color: #999;
-        background-color: #999;
-        color: #fff;
-      }
-    }
-  }
   .el-input {
     padding: 0;
-    .el-input__prefix {
-      i {
-        padding: 0 5px;
-        font-size: 16px !important;
-      }
-    }
+  }
+}
+.msg-text {
+  display: block;
+  margin-left: -1px;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  &:hover,&:focus {
+    border-color: #dcdfe6;
+    background-color: #fff7ec;
+    color: #bf051a;
   }
 }
 .msg-text.display {
   color: #ccc;
 }
-.login-code {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin: 0 0 0 10px;
-}
-.login-code-img {
-  margin-top: 2px;
-  width: 100px;
-  height: 38px;
-  background-color: #fdfdfd;
-  border: 1px solid #f0f0f0;
-  color: #333;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 5px;
-  line-height: 38px;
-  text-indent: 5px;
-  text-align: center;
-}
-.agreement {
-  color: #999;
-  &:hover {
-    opacity: 0.7;
-  }
-}
-@media (max-width: 320px) {
-  .login-form {
-    .el-form-item {
-      margin-bottom: 10px;
+@media(max-width:320px){
+  .retrieve-con {
+    .el-steps--horizontal {
+      margin-bottom:10px;
     }
   }
+}
+</style>
+<style lang="css" scoped>
+.login-form >>> .el-input{
+  padding: 0;
+} 
+.code-wrapper >>> .el-input .el-input__inner {
+  border-radius: 4px 0 0 4px; 
+} 
+.retrieve-con >>> .el-step__head.is-process {
+  border: 0;
+  color: #666;
+}
+.retrieve-con >>> .el-step__line {
+  border-bottom: 1px dashed #c0c4cc;
+  background-color: #fff;
+}
+.retrieve-con >>> .el-step__icon {
+  width: 23px;
+  height: 23px;
+  border: 0;
+  background-color: #f0f0f0;
+}
+.retrieve-con >>> .is-process .el-step__icon {
+  background-color: #bf051a;
+  color: #fff;
+}
+.retrieve-con >>> .el-step__icon-inner {
+  font-weight: 400;
+}
+.retrieve-con >>> .el-step__main {
+  margin-top: 10px;
+}
+.retrieve-con >>> .el-steps--horizontal {
+  margin: 50px 50px 40px;
+}
+.retrieve-con >>> .el-step__icon-inner.is-status, .retrieve-con >>> .el-step__description.is-success {
+  color: #666;
+}
+.retrieve-con >>> .el-step__head.is-success {
+  border: 0;
+  color: #fff;
+}
+.retrieve-con >>> .el-step__head.is-success .el-step__line-inner {
+  border-style: dashed;
+  border-color: #fff;
 }
 </style>

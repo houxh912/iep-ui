@@ -28,7 +28,7 @@ const initForm = () => {
     number: '',
     userId: '',
     userName: '',
-    parentId: '',
+    parentId: 0,
     parentName: '无',
     establishedTime: '',
   }

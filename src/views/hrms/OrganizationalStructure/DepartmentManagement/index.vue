@@ -96,7 +96,7 @@ export default {
     },
     handleAdd (row) {
       this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), {
-        parentId: row.id || '',
+        parentId: row.id || 0,
         parentName: row.name || '无',
       })
       this.$refs['AddDialogForm'].methodName = '创建'

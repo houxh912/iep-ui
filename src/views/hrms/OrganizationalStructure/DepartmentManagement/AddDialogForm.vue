@@ -12,8 +12,7 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="负责人" prop="userId">
-        <el-input v-model="form.userName"></el-input>
-        <el-input v-show="false" v-model="form.userId"></el-input>
+        <iep-contact-select :user-id="form.userId" :user-name="form.userName" @change="fillUser"></iep-contact-select>
       </el-form-item>
       <el-form-item label="成立时间" prop="establishedTime">
         <iep-date-picker v-model="form.establishedTime" type="date" placeholder="选择日期">
@@ -27,10 +26,11 @@
   </iep-dialog>
 </template>
 <script>
+import IepContactSelect from '@/components/IepCommon/ContactSelect'
 import IepDialog from '@/components/IepDialog/'
 import { initForm } from './options'
 export default {
-  components: { IepDialog },
+  components: { IepDialog, IepContactSelect },
   data () {
     return {
       dialogShow: false,
@@ -51,6 +51,11 @@ export default {
     }
   },
   methods: {
+    fillUser (user) {
+      console.log(user)
+      this.form.userId = user.id
+      this.form.userName = user.name
+    },
     loadPage () {
       this.form = initForm()
       this.dialogShow = false

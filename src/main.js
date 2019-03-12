@@ -25,6 +25,7 @@ import VueClipboard from 'vue-clipboard2'
 import basicContainer from './components/basic-container/main'
 
 import IepButton from '@/components/IepCommon/Button'
+import IepDatePicker from '@/components/IepCommon/DatePicker'
 
 import '@/config/index'
 // 插件 json 展示
@@ -46,7 +47,9 @@ Vue.use(VueAxios, axios)
 
 // 注册全局容器
 Vue.component('basicContainer', basicContainer)
-Vue.component('IepButton', IepButton)
+// 注册全局组件
+Vue.component(IepButton.name, IepButton)
+Vue.component(IepDatePicker.name, IepDatePicker)
 
 // 加载相关url地址
 Object.keys(urls).forEach(key => {
@@ -62,6 +65,7 @@ Object.keys(filters).forEach(key => {
 iconfontVersion.forEach(ele => {
   loadStyle(iconfontUrl.replace('$key', ele))
 })
+
 Vue.config.productionTip = false
 
 new Vue({

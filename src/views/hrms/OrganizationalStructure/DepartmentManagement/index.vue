@@ -45,8 +45,8 @@
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" @click="handleAdd(scope.row)">添加子部门</iep-button>
-              <iep-button @click="add(scope.row)">编辑</iep-button>
+              <iep-button type="warning" @click="handleAdd(scope.row)" :disabled="scope.row._level>1">添加子部门</iep-button>
+              <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
@@ -67,10 +67,11 @@
 </template>
 
 <script>
-import { getDeptPage, postDept } from '@/api/hrms/department_management'
+import { getDeptPage, postDept, putDept } from '@/api/hrms/department_management'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from './options'
+import { columnsMap, initSearchForm, initForm } from './options'
 import AddDialogForm from './AddDialogForm'
+import { mergeByFirst } from '@/util/util'
 import MoveDialog from './MoveDialog'
 import MergeDialog from './MergeDialog'
 export default {
@@ -87,11 +88,20 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleAdd (row) {
-      console.log(row)
-      this.$refs['AddDialogForm'].methodName = '创建'
+    handleEdit (row) {
+      this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), row)
+      this.$refs['AddDialogForm'].methodName = '修改'
+      this.$refs['AddDialogForm'].formRequestFn = putDept
       this.$refs['AddDialogForm'].dialogShow = true
+    },
+    handleAdd (row) {
+      this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), {
+        parentId: row.id || '',
+        parentName: row.name || '无',
+      })
+      this.$refs['AddDialogForm'].methodName = '创建'
       this.$refs['AddDialogForm'].formRequestFn = postDept
+      this.$refs['AddDialogForm'].dialogShow = true
     },
     handleMove (row) {
       console.log(row)

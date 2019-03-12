@@ -6,7 +6,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="岗位名称：">
-              <el-input v-model="form.positionId"></el-input>
+              <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
             </el-form-item>
           </el-col>
           <el-col :span="12">

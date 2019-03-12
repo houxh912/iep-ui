@@ -7,12 +7,12 @@
       <el-form-item label="岗位类型" prop="type">
         <iep-select prefix-url="hrms/post_type" v-model="form.type"></iep-select>
       </el-form-item>
-      <!-- <el-form-item label="岗位职责" prop="positionTask">
-        <el-input v-model="form.positionTask" type="textarea"></el-input>
+      <el-form-item label="岗位职责" prop="duties">
+        <el-input v-model="form.duties" type="textarea"></el-input>
       </el-form-item>
-      <el-form-item label="岗位要求" prop="positionRequire">
-        <el-input v-model="form.positionRequire" type="textarea"></el-input>
-      </el-form-item> -->
+      <el-form-item label="岗位要求" prop="claim">
+        <el-input v-model="form.claim" type="textarea"></el-input>
+      </el-form-item>
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm('form')">提交</iep-button>

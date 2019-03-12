@@ -11,7 +11,7 @@
               <el-dropdown-item>修改</el-dropdown-item>
               <el-dropdown-item>删除</el-dropdown-item>
               <el-dropdown-item divided>收藏</el-dropdown-item>
-              <el-dropdown-item>分享</el-dropdown-item>
+              <el-dropdown-item><div @click="handleAllShare">分享</div></el-dropdown-item>
               <el-dropdown-item>下载为图片</el-dropdown-item>
               <el-dropdown-item>导出为文本</el-dropdown-item>
             </el-dropdown-menu>
@@ -60,13 +60,13 @@
         <el-table-column prop="operation" label="操作" min-width="100" align="center">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+              <iep-button type="warning" @click="handleCollection(scope.row)">收藏</iep-button>
+              <iep-button @click="handleShare(scope.row)">分享</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>修改</el-dropdown-item>
-                  <el-dropdown-item>删除</el-dropdown-item>
+                  <el-dropdown-item><div @click="handleEdit(scope.row)">修改</div></el-dropdown-item>
+                  <el-dropdown-item><div @click="handleDeleteById(scope.row)"></div>删除</el-dropdown-item>
                   <el-dropdown-item>复制</el-dropdown-item>
                   <el-dropdown-item>下载为图片</el-dropdown-item>
                   <el-dropdown-item>导出为文本</el-dropdown-item>
@@ -78,6 +78,8 @@
       </iep-table>
     </basic-container>
     <main-dialog ref="mainDialog"></main-dialog>
+    <share-dialog ref="share"></share-dialog>
+    <collection-dialog ref="collection"></collection-dialog>
   </div>
 </template>
 <script>
@@ -85,10 +87,12 @@ import { dictsMap, columnsMap, initSearchForm } from './options'
 import mixins from '@/mixins/mixins'
 import { getTableData, createData, updateData, deleteData } from '@/api/mlms/material/summary'
 import MainDialog from './mainDialog'
+import ShareDialog from './shareDialog'
+import CollectionDialog from './collectionDialog'
 
 export default {
   mixins: [mixins],
-  components: { MainDialog },
+  components: { MainDialog, ShareDialog, CollectionDialog },
   data () {
     return {
       dictsMap,
@@ -123,6 +127,16 @@ export default {
     loadPage (param = this.paramForm) {
       this.loadTable(param, getTableData)
     },
+    // 收藏
+    handleCollection () {
+      this.$refs['collection'].dialogShow = true
+    },
+    // 分享
+    handleShare () {
+      this.$refs['share'].dialogShow = true
+    },
+    // 批量分享
+    handleAllShare () {},
   },
 }
 </script>

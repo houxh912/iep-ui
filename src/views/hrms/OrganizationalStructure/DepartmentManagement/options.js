@@ -23,9 +23,12 @@ const columnsMap = [
 
 const initForm = () => {
   return {
+    id: '',
     name: '',
-    isOpen: false,
-    intro: '',
+    number: '',
+    userId: '',
+    userName: '',
+    establishedTime: '',
   }
 }
 

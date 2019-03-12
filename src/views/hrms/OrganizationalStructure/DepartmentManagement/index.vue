@@ -4,7 +4,7 @@
       <page-header title="部门管理" :replaceText="replaceText" :data="[10]"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="(scope.row)" type="danger" icon="el-icon-plus">新增</iep-button>
+          <iep-button @click="handleAdd" type="danger" icon="el-icon-plus">新增</iep-button>
           <el-dropdown size="medium">
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -60,22 +60,22 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <add-dialog ref="AddDialog" @load-page="loadPage"></add-dialog>
+    <add-dialog-form ref="AddDialogForm" @load-page="loadPage"></add-dialog-form>
     <merge-dialog ref="MoveDialog" @load-page="loadPage"></merge-dialog>
     <move-dialog ref="MergeDialog" @load-page="loadPage"></move-dialog>
   </div>
 </template>
 
 <script>
-import { getDepartmentManagePage } from '@/api/hrms/department_management'
+import { getDeptPage, postDept } from '@/api/hrms/department_management'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from './options'
-import AddDialog from './AddDialog'
+import AddDialogForm from './AddDialogForm'
 import MoveDialog from './MoveDialog'
 import MergeDialog from './MergeDialog'
 export default {
   mixins: [mixins],
-  components: { AddDialog, MoveDialog, MergeDialog },
+  components: { AddDialogForm, MoveDialog, MergeDialog },
   data () {
     return {
       columnsMap,
@@ -89,7 +89,9 @@ export default {
   methods: {
     handleAdd (row) {
       console.log(row)
-      this.$refs['AddDialog'].dialogShow = true
+      this.$refs['AddDialogForm'].methodName = '创建'
+      this.$refs['AddDialogForm'].dialogShow = true
+      this.$refs['AddDialogForm'].formRequestFn = postDept
     },
     handleMove (row) {
       console.log(row)
@@ -104,7 +106,7 @@ export default {
       this.$emit('clear-search-param')
     },
     loadPage (param) {
-      this.loadTable(param, getDepartmentManagePage)
+      this.loadTable(param, getDeptPage)
     },
     add () {
 

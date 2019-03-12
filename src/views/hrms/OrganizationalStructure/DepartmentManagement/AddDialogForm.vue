@@ -7,17 +7,17 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="部门编号" prop="departmentNumber">
-        <el-input v-model="addForm.departmentNumber"></el-input>
+      <el-form-item label="部门编号" prop="number">
+        <el-input v-model="addForm.number"></el-input>
       </el-form-item>
-      <el-form-item label="部门名称" prop="departmentName">
-        <el-input v-model="addForm.departmentName"></el-input>
+      <el-form-item label="部门名称" prop="name">
+        <el-input v-model="addForm.name"></el-input>
       </el-form-item>
-      <el-form-item label="负责人" prop="departmentHead">
-        <el-input v-model="addForm.departmentHead"></el-input>
+      <el-form-item label="负责人" prop="userName">
+        <el-input v-model="addForm.userName"></el-input>
       </el-form-item>
-      <el-form-item label="成立时间" prop="creartedTime">
-        <el-date-picker v-model="addForm.creartedTime" type="date" placeholder="选择日期">
+      <el-form-item label="成立时间" prop="establishedTime">
+        <el-date-picker v-model="addForm.establishedTime" type="date" placeholder="选择日期">
         </el-date-picker>
       </el-form-item>
     </el-form>

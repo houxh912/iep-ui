@@ -2,9 +2,7 @@
   <div class="avue-sidebar" :style="{width: keyCollapse ? '' : '200px'}">
     <el-scrollbar style="height:100%">
       <main-item :mainMenu="mainMenu" :collapse="keyCollapse"></main-item>
-      <el-menu unique-opened :default-active="nowTagValue" mode="vertical" :show-timeout="200" :collapse="keyCollapse">
-        <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
-      </el-menu>
+      <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
       <div class="sub-menu-wrapper" v-if="mainMenu.path === '/wel'">
         <el-menu default-active="-1" :collapse="keyCollapse">
           <el-menu-item :index="omenu.path" v-for="omenu in otherMenus" :key="omenu.path" @click="openModuleMenus(omenu)">
@@ -34,9 +32,6 @@ export default {
   },
   computed: {
     ...mapGetters(['website', 'menu', 'mainMenu', 'otherMenus', 'menusMap', 'screen']),
-    nowTagValue: function () {
-      return this.$router.$avueRouter.getValue(this.$route)
-    },
     keyCollapse () {
       if (this.isDesktop()) {
         return false
@@ -116,6 +111,7 @@ export default {
   border-left: 3px solid #fafafa;
 }
 .avue-sidebar >>> .el-submenu .el-submenu__title:focus,
+.avue-sidebar >>> .el-submenu.is-active .el-submenu__title,
 .avue-sidebar >>> .el-submenu .el-submenu__title:hover {
   margin-left: 0 !important;
   border-color: #cb3737;

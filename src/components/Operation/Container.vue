@@ -21,26 +21,26 @@
   }
   .el-button--default {
     &:hover, &:focus {
-      border-color: #bf051a;
+      border-color: #cb3737;
       background-color: #fff2f4;
-      color: #bf051a;
+      color: #cb3737;
     }
   }
   .modify {
     &:hover,
     &:focus {
-      border-color: #bf051a;
+      border-color: #cb3737;
       background-color: #fff2f4;
-      color: #bf051a; 
+      color: #cb3737; 
     }
   }
   .examine {
-    border-color: #bf051a;
+    border-color: #cb3737;
     background-color: #fff2f4;
-    color: #bf051a; 
+    color: #cb3737; 
     &:hover,
     &:focus {
-      background-color: #bf051a;
+      background-color: #cb3737;
       color: #fff;
     }
   }
@@ -60,12 +60,12 @@
   padding: 0;
 }
 .operation-container >>> div:nth-child(1) > .el-button {
-  border: 1px solid #bf051a;
+  border: 1px solid #cb3737;
   background-color: #f9eae7;
-  color: #bf051a;
+  color: #cb3737;
 }
 .operation-container >>> div:nth-child(1) > .el-button:hover {
-  background-color: #bf051a;
+  background-color: #cb3737;
   color: #fff;
 }
 </style>

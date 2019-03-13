@@ -182,7 +182,7 @@ export default {
         i {
           margin-left: 2px;
           font-style: normal;
-          color: #bf051a;
+          color: #cb3737;
         }
       }
     }
@@ -267,9 +267,11 @@ export default {
           cursor: pointer;
           &:hover {
             .avatar-name {
-              opacity: .7;
+              opacity: 0.7;
             }
-            .avater-mask {opacity: 1;}
+            .avater-mask {
+              opacity: 1;
+            }
           }
           .avatar-name {
             display: block;
@@ -288,7 +290,7 @@ export default {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background-color: rgba(0,0,0,.6);
+            background-color: rgba(0, 0, 0, 0.6);
             opacity: 0;
             .close {
               position: absolute;
@@ -298,7 +300,7 @@ export default {
               height: 15px;
               line-height: 15px;
               border-radius: 50%;
-              background-color: #bf051a;
+              background-color: #cb3737;
               color: #fff;
               font-size: 12px;
               &:hover {

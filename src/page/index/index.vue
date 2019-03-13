@@ -167,23 +167,27 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.el-aside {
+  overflow: hidden;
+  border-right: 1px solid #eee;
+  width: 200px !important;
+  background-color: #fafafa;
+}
+@media (min-width: 0px) and (max-width: 1025px) {
   .el-aside {
-    overflow: hidden;
-    border-right: 1px solid #eee;
-    width: 200px!important;
-    background-color: #fafafa;
+    width: 64px !important;
   }
-  @media (min-width: 0px) and (max-width: 1025px) {
-    .el-aside {
-      width: 64px!important;
-    }
-  }
+}
 </style>
 <style lang="css" scoped>
 .avue-contail >>> .el-main {
-  padding: 0 20px;
-}
-.avue-contail >>> .el-main .el-scrollbar .el-scrollbar__wrap{
+  padding: 0;
   overflow-x: hidden;
+}
+.avue-contail >>> .el-main .el-scrollbar .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+.avue-contail >>> .el-card__body {
+  padding: 20px;
 }
 </style>

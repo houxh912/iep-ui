@@ -249,9 +249,7 @@ span.ms-tree-space {
 .el-table >>> .el-button--text:hover {
   color: #666;
 }
-
-.el-table >>> .el-button:focus,
-.el-table >>> .el-button:hover {
+.table >>> .cell .el-button--default:hover {
   border-color: #ea8d03;
   background-color: #fff7ec;
   color: #ea8d03;

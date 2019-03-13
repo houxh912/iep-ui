@@ -49,7 +49,7 @@
                 待处理<i class="el-icon-arrow-down el-icon--right"></i>
               </iep-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>已邀约</el-dropdown-item>
+                <el-dropdown-item @click.native="handleRejected(scope.row)">驳回</el-dropdown-item>
                 <el-dropdown-item>未面试</el-dropdown-item>
                 <el-dropdown-item>面试未录用</el-dropdown-item>
                 <el-dropdown-item>已录用</el-dropdown-item>
@@ -68,14 +68,17 @@
         </template>
       </el-table-column>
     </iep-table>
+    <rejected-dialog ref="RejectedDialog" @load-page="loadPage"></rejected-dialog>
   </div>
 </template>
 <script>
 import { getTalentPoolPage } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
+import RejectedDialog from './RejectedDialog'
 export default {
   mixins: [mixins],
+  components: { RejectedDialog },
   data () {
     return {
       columnsMap,
@@ -91,6 +94,10 @@ export default {
     },
     handleDetail () {
       this.$emit('onDetail')
+    },
+    handleRejected (row) {
+      console.log(row)
+      this.$refs['RejectedDialog'].dialogShow = true
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

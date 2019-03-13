@@ -43,7 +43,7 @@ export default {
 
 <style lang="scss" scoped>
 .contract {
-  padding: 20px;
+  padding: 20px 0;
   background-color: #fff;
 }
 </style>

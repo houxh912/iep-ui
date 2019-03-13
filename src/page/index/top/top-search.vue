@@ -5,7 +5,7 @@
     v-model="value"
     :fetch-suggestions="querySearch"
     placeholder="请输入搜索内容"
-    @select="handleSelect"
+    @select="handleSelect"  size="small"
   >
     <template slot-scope="{ item }">
       <i :class="[item[iconKey], 'icon']"></i>
@@ -95,7 +95,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .my-autocomplete {
   li {
     line-height: normal;

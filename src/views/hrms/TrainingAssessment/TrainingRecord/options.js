@@ -51,5 +51,16 @@ const initSearchForm = () => {
     date: '',
   }
 }
-
-export { dictsMap, columnsMap, initForm, initSearchForm }
+const initeditForm = () => {
+  return {
+    teacher:'111',
+    theme:'222',
+    time:'',
+    type:'业务类',
+    method:'微信培训',
+    place:'',
+    material:'',
+    
+  }
+}
+export { dictsMap, columnsMap, initForm, initSearchForm ,initeditForm}

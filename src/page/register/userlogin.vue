@@ -1,30 +1,24 @@
 <template>
   <el-form class="login-form" status-icon :rules="registerRule" ref="registerForm" :model="registerForm" label-width="0">
     <el-form-item prop="username">
-      <el-input autocomplete="off" v-model="registerForm.username" auto-complete="off" placeholder="请输入用户名">
-
-      </el-input>
+      <el-input autocomplete="off" v-model="registerForm.username" auto-complete="off" placeholder="请输入用户名"></el-input>
     </el-form-item>
     <el-form-item prop="password">
       <el-input autocomplete="off" :type="passwordType" v-model="registerForm.password" placeholder="请输入你的密码">
         <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-
       </el-input>
     </el-form-item>
     <el-form-item prop="cpassword">
       <el-input autocomplete="off" :type="passwordType" v-model="registerForm.cpassword" placeholder="确认你的密码">
         <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-
       </el-input>
     </el-form-item>
     <el-form-item prop="phone">
-      <el-input v-model="registerForm.phone" auto-complete="off" placeholder="请输入手机号码">
-
-      </el-input>
+      <el-input v-model="registerForm.phone" auto-complete="off" placeholder="请输入手机号码"></el-input>
     </el-form-item>
     <el-form-item prop="code">
       <div class="code-wrapper">
-        <el-input  @keyup.enter.native="handleLogin" maxlength="4" v-model="registerForm.code" auto-complete="off" placeholder="请输入验证码">
+        <el-input @keyup.enter.native="handleLogin" maxlength="4" v-model="registerForm.code" auto-complete="off" placeholder="请输入验证码">
         </el-input>
         <el-button @click="handleSend" class="msg-text" :class="[{ display: msgKey }]">{{ msgText }}</el-button>
       </div>
@@ -37,7 +31,6 @@
     </el-form-item>
   </el-form>
 </template>
-
 <script>
 import { randomLenNum } from '@/util/util'
 import { mapGetters } from 'vuex'
@@ -202,7 +195,7 @@ export default {
 <style lang="scss" scoped>
 .login-submit {
   display: block;
-  margin: -15px auto -10px auto;
+  margin: 0 auto;
   width: 100%;
   height: 40px;
   font-size: 14px;
@@ -223,32 +216,37 @@ export default {
   i {
     color: #999;
   }
-  .el-form-item__content {
-    width: 100%;
-  }
   .el-form-item {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    .el-form-item__content {
+      margin-left: 0 !important;
+      width: 100%;
+    }
+    .msg-text {
+      display: block;
+      margin-left: -1px;
+      font-size: 12px;
+      text-align: center;
+      cursor: pointer;
+      background-color: #ccc;
+      color: #fff;
+      border-radius: 0 4px 4px 0;
+      &:hover,
+      &:focus {
+        border-color: #999;
+        background-color: #999;
+        color: #fff;
+      }
+    }
   }
   .el-input {
+    padding: 0;
     .el-input__prefix {
       i {
         padding: 0 5px;
         font-size: 16px !important;
       }
     }
-  }
-}
-.msg-text {
-  display: block;
-  margin-left: -1px;
-  font-size: 12px;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 0 4px 4px 0;
-  &:hover, &:focus {
-    border-color: #dcdfe6;
-    background-color: #fff7ec;
-    color: #ea8d03;
   }
 }
 .msg-text.display {
@@ -277,7 +275,14 @@ export default {
 .agreement {
   color: #999;
   &:hover {
-    opacity: .7;
+    opacity: 0.7;
+  }
+}
+@media (max-width: 320px) {
+  .login-form {
+    .el-form-item {
+      margin-bottom: 10px;
+    }
   }
 }
 </style>

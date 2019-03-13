@@ -43,7 +43,7 @@
       <el-table-column prop="operation" label="操作" width="280">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="edit(scope.row)" type="warning">编辑</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning">编辑</iep-button>
             <iep-button @click="(scope.row)">发起招聘</iep-button>
             <el-dropdown size="medium">
               <iep-button size="small" type="default">
@@ -60,14 +60,17 @@
         </template>
       </el-table-column>
     </iep-table>
+    <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
   </div>
 </template>
 <script>
 import { getPostLibraryPage } from '@/api/hrms/post_library'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from './options'
+import EditDialog from './EditDialog'
 export default {
   mixins: [mixins],
+  components: { EditDialog },
   data () {
     return {
       columnsMap,
@@ -78,6 +81,10 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleEdit (row) {
+      console.log(row)
+      this.$refs['EditDialog'].dialogShow = true
+    },
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },

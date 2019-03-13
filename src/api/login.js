@@ -93,3 +93,10 @@ export const logout = () => {
     method: 'delete',
   })
 }
+
+export const loadAllDictMap = () => {
+  return request({
+    url: '/admin/dict/all_map',
+    method: 'get',
+  })
+}

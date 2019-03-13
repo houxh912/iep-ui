@@ -101,3 +101,27 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.menu-wrapper {
+  .el-menu-item {
+    margin-left: 0!important;
+    height: 40px;
+    line-height: 40px;
+    border-left:3px solid #fafafa;
+    &:hover {
+      border-color: #cb3737;
+    }
+  }
+}
+.el-menu-item.is-active {
+  border-color: #cb3737;
+  background: #f9eae7;
+  color: #cb3737;
+}
+.el-menu-item {
+  &:hover, &:focus {
+    background-color: #f9eae7;
+    color: #cb3737;
+  }
+}
+</style>

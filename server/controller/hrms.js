@@ -120,65 +120,13 @@ exports.getAdministrativeApprovalPage = async function (ctx) {
   ctx.body = data
 }
 exports.getPublishRecruitmentPage = async function (ctx) {
-  const data = {
-    code: 0,
-    msg: 'success',
-    data: {
-      records: [
-        {
-          id: 1,
-          岗位: 'java软件工程师',
-          招聘部门: '技术中心',
-          招聘人数: '3人',
-          工作类型: '全职',
-          招聘申请时间: '2019-01-20',
-          招聘状态: '待发布'
-        },
-        {
-          id: 2,
-          岗位: 'java软件工程师',
-          招聘部门: '技术中心',
-          招聘人数: '3人',
-          工作类型: '全职',
-          招聘申请时间: '2019-01-20',
-          招聘状态: '待发布'
-        },
-        {
-          id: 3,
-          岗位: 'java软件工程师',
-          招聘部门: '技术中心',
-          招聘人数: '3人',
-          工作类型: '全职',
-          招聘申请时间: '2019-01-20',
-          招聘状态: '待发布'
-        },
-        {
-          id: 4,
-          岗位: 'java软件工程师',
-          招聘部门: '技术中心',
-          招聘人数: '3人',
-          工作类型: '全职',
-          招聘申请时间: '2019-01-20',
-          招聘状态: '待发布'
-        },
-        {
-          id: 5,
-          岗位: 'java软件工程师',
-          招聘部门: '技术中心',
-          招聘人数: '3人',
-          工作类型: '全职',
-          招聘申请时间: '2019-01-20',
-          招聘状态: '待发布'
-        },
-      ],
-      total: 12,
-      size: 10,
-      current: 1,
-      searchCount: true,
-      pages: 1
-    }
-  }
-  ctx.body = data
+  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"id":9,"position":"产品经理","dept":"山东农信","recruitsCount":2,"jobType":"全职","applicationTime":"2019-03-07 09:58:33","status":3},{"id":5,"position":"产品总监","dept":"院校农信2","recruitsCount":17,"jobType":"全职/兼职","applicationTime":"2019-03-07 09:58:33","status":3},{"id":1,"position":"数据元专员","dept":"院校农信1","recruitsCount":14,"jobType":"全职","applicationTime":"2019-03-07 10:02:12","status":2},{"id":2,"position":"产品经理","dept":"院校农信2","recruitsCount":15,"jobType":"兼职","applicationTime":"2019-03-06 14:14:22","status":2}],"total":4,"size":10,"current":1,"searchCount":true,"pages":1}}`
+}
+exports.getPublishRecruitmentById = async function (ctx) {
+  ctx.body = `{"code":0,"msg":"success","data":{"id":9,"positionId":2,"positionName":"产品经理","deptId":1,"deptName":"山东农信","language":"dsfdsf","recruitsCount":2,"targetCount":2,"academicId":1,"jobTypeId":1,"years":2,"profession":"sddsfsdf","place":"sdsfsdf","sex":2,"treatment":"sdfsdf","term":"2019-03-26T16:00:00.000Z","welfare":"sdfdsfds","claim":"sdfsdfdsfdsfsdfsdf","duties":"sdffsddfs"}}`
+}
+exports.commonPublishRecruitment = async function (ctx) {
+  ctx.body = `{"code":0,"msg":"success","data":true}`
 }
 exports.getTalentPoolPage = async function (ctx) {
   const data = {

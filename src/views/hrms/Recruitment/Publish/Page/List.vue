@@ -68,27 +68,21 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="岗位" width="180px">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.岗位}}</iep-table-link>
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.position}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
         <el-table-column prop="operation" label="操作" width="220">
-          <template>
+          <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button>编辑</iep-button>
-              <iep-button>上架</iep-button>
-              <el-dropdown size="medium">
-                <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>安排面试</el-dropdown-item>
-                  <el-dropdown-item>录用</el-dropdown-item>
-                  <el-dropdown-item>面试记录</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
+              <iep-button @click="handleEdit(scope.row)" :disabled="scope.row.status===3">编辑</iep-button>
+              <iep-button v-if="scope.row.status===1" @click="handleShelf(scope.row)">上架</iep-button>
+              <iep-button v-if="scope.row.status===2" @click="handleObtained(scope.row)">下架</iep-button>
+              <iep-button type="default" @click="handleDelete(scope.row)"><i class="el-icon-delete"></i></iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -97,13 +91,14 @@
   </div>
 </template>
 <script>
-import { getPublishRecruitmentPage } from '@/api/hrms/publish_recruitment'
+import { getPublishRecruitmentPage, postPublishRecruitment, putPublishRecruitment, shelfPublishRecruitmentById, deletePublishRecruitmentById, obtainedPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from '../options'
+import { columnsMap, initSearchForm, dictsMap } from '../options'
 export default {
   mixins: [mixins],
   data () {
     return {
+      dictsMap,
       columnsMap,
       replaceText: (data) => `（本周新增${data[0]}条招聘信息，收到${data[1]}份简历）`,
       paramForm: initSearchForm(),
@@ -113,12 +108,31 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deletePublishRecruitmentById)
+    },
+    handleShelf (row) {
+      this._handleComfirm(row.id, shelfPublishRecruitmentById, '上架')
+    },
+    handleObtained (row) {
+      this._handleComfirm(row.id, obtainedPublishRecruitmentById, '下架')
+    },
     handleAdd () {
-      this.$emit('onEdit')
+      this.$emit('onEdit', {
+        formRequestFn: postPublishRecruitment,
+        methodName: '发布',
+        id: false,
+      })
+    },
+    handleEdit (row) {
+      this.$emit('onEdit', {
+        formRequestFn: putPublishRecruitment,
+        methodName: '修改',
+        id: row.id,
+      })
     },
     handleDetail (row) {
-      console.log(row)
-      this.$emit('onDetail')
+      this.$emit('onDetail', row)
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

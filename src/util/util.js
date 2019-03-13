@@ -362,3 +362,34 @@ export function mergeByFirst (distObject, srcObject) {
   const propList = _.keys(distObject)
   return _.pick(srcObject, propList)
 }
+
+/**
+ *
+ * @param {array} collection
+ */
+export function pickDeep (collection) {
+  if (_.isArray(collection)) {
+    return collection.map(c => {
+      if (_.isArray(c.children) && c.children.length) {
+        const subC = c.children.map(sc => {
+          return {
+            label: sc.label,
+            value: +sc.value,
+          }
+        })
+        return {
+          children: subC,
+          label: c.label,
+          value: +c.value,
+        }
+      } else {
+        return {
+          label: c.label,
+          value: +c.value,
+        }
+      }
+    })
+  } else {
+    return []
+  }
+}

@@ -37,10 +37,10 @@
                   变更<i class="el-icon-arrow-down el-icon--right"></i>
                 </iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>入职</el-dropdown-item>
-                  <el-dropdown-item>转正</el-dropdown-item>
-                  <el-dropdown-item>调动</el-dropdown-item>
-                  <el-dropdown-item>离职</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleInduction(scope.row)">入职</el-dropdown-item>
+                  <el-dropdown-item @click.native="handelPositive(scope.row)">转正</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleTransfer(scope.row)">调动</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleDeparture(scope.row)">离职</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
               <iep-button @click="handleOpenGrowthFile(scope.row)">成长档案</iep-button>
@@ -57,6 +57,10 @@
       </iep-table>
     </basic-container>
     <header-setting ref="HeaderSetting" :default-columns-label="defaultColumnsLabel" @load-page="loadPage" @save="setHeaderSetting"></header-setting>
+    <transfer-dialog ref="TransferDialog" @load-page="loadPage"></transfer-dialog>
+    <departure-dialog ref="DepartureDialog" @load-page="loadPage"></departure-dialog>
+    <induction-dialog ref="InductionDialog" @load-page="loadPage"></induction-dialog>
+    <positive-dialog ref="PositiveDialog" @load-page="loadPage"></positive-dialog>
   </div>
 </template>
 <script>
@@ -66,9 +70,13 @@ import keyBy from 'lodash/keyBy'
 import { columnsMap, initSearchForm, dictsMap } from '../options'
 import HeaderSetting from './HeaderSetting'
 import AdvanceSearch from './AdvanceSearch'
+import TransferDialog from './TransferDialog'
+import DepartureDialog from './DepartureDialog'
+import InductionDialog from './InductionDialog'
+import PositiveDialog from './PositiveDialog'
 export default {
   mixins: [mixins],
-  components: { HeaderSetting, AdvanceSearch },
+  components: { HeaderSetting, AdvanceSearch, TransferDialog, DepartureDialog, InductionDialog, PositiveDialog },
   data () {
     return {
       dictsMap,
@@ -90,6 +98,22 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleTransfer (row) {
+      console.log(row)
+      this.$refs['TransferDialog'].dialogShow = true
+    },
+    handleDeparture (row) {
+      console.log(row)
+      this.$refs['DepartureDialog'].dialogShow = true
+    },
+    handleInduction (row) {
+      console.log(row)
+      this.$refs['InductionDialog'].dialogShow = true
+    },
+    handelPositive (row) {
+      console.log(row)
+      this.$refs['PositiveDialog'].dialogShow = true
+    },
     setHeaderSetting (col) {
       this.defaultColumnsLabel = col
     },

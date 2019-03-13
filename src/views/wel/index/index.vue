@@ -44,10 +44,14 @@ export default {
   }
   .wel-aside {
     width: 300px;
+    height: 100%;
     position: fixed;
     right: 0;
     z-index: 102;
     transition: left 0.5s cubic-bezier(0.82, 0.085, 0.395, 0.895);
+    box-shadow: -2px 0 8px rgba(0,0,0,.15);
+    -webkit-transition: all .5s;
+    transition: all .5s;
   }
   .inactive {
     right: -300px;

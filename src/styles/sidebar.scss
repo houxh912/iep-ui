@@ -28,6 +28,10 @@
         font-size: 14px;
         height: 40px;
         line-height: 40px;
+          &:focus, &:hover {
+            background-color: #f9eae7;
+            color: #cb3737;
+          }
     }
     .el-menu-item {
         span,i{

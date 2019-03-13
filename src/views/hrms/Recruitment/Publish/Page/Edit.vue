@@ -1,108 +1,153 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header title="发布招聘"></page-header>
+      <page-header :title="`${methodName}招聘`" :backOption="backOption"></page-header>
       <el-form ref="form" :model="form" label-width="120px" size="small">
-        <el-collapse v-model="activeNames">
-          <el-form-item label="岗位名称" class="">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="所属部门" class="">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="招聘人数" class="form-half">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="目标人数" class="form-half">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="学历要求" class="form-half">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="工作类型" class="form-half">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="工作年限" class="form-half">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="专业要求" class="form-half">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="工作地点" class="form-half">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="性别" class="form-half">
-            <el-radio-group v-model="form.sex">
-              <el-radio label="男"></el-radio>
-              <el-radio label="女"></el-radio>
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item label="岗位职责">
-            <el-input type="textarea" v-model="form.desc"></el-input>
-          </el-form-item>
-          <el-form-item label="岗位要示">
-            <el-input type="textarea" v-model="form.desc"></el-input>
-          </el-form-item>
-        </el-collapse>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="岗位名称：">
+              <el-input v-model="form.positionId"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="所属部门：">
+              <el-input v-model="form.deptId"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="学历要求：" class="form-half">
+              <el-select v-model="form.academicId" placeholder="请选择">
+                <el-option v-for="item in dictGroup['hrms_highest_educational']" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="工作类型：" class="form-half">
+              <el-select v-model="form.jobTypeId" placeholder="请选择">
+                <el-option v-for="item in dictGroup['hrms_work_type']" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="工作地点：" class="form-half">
+              <el-input v-model="form.place"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="性别：" class="form-half">
+              <el-radio-group v-model="form.sex">
+                <el-radio :label="1">男</el-radio>
+                <el-radio :label="2">女</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="工资待遇：" class="form-half">
+              <el-input v-model="form.treatment"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="外语要求：" class="form-half">
+              <el-input v-model="form.language"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="招聘期限：" class="form-half">
+              <el-date-picker v-model="form.term" type="date" placeholder="选择日期">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="福利待遇：" class="form-half">
+              <el-input v-model="form.welfare"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item label="岗位职责：">
+          <el-input type="textarea" v-model="form.duties" :rows="4"></el-input>
+        </el-form-item>
+        <el-form-item label="岗位要求：">
+          <el-input type="textarea" v-model="form.claim" :rows="4"></el-input>
+        </el-form-item>
+        <el-form-item label="">
+          <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+        </el-form-item>
       </el-form>
-      <!-- fixed footer toolbar -->
-      <footer-tool-bar>
-        <iep-button type="info" @click="handleGoBack">返回</iep-button>
-        <iep-button type="primary">提交</iep-button>
-      </footer-tool-bar>
     </basic-container>
   </div>
 </template>
 <script>
+import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
+import { mapState } from 'vuex'
 import PageHeader from '@/components/Page/Header'
-import FooterToolBar from '@/components/FooterToolbar'
+import { initForm } from '../options'
+import { mergeByFirst } from '@/util/util'
 export default {
-  components: { FooterToolBar, PageHeader },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
+  components: { PageHeader },
   data () {
     return {
-      activeNames: ['1', '2', '3', '4', '5'],
-      form: {
-        name: '',
-        sex: '',
+      id: false,
+      methodName: '发布',
+      formRequestFn: () => { },
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: () => { this.$emit('onGoBack') },
       },
+      form: initForm(),
+    }
+  },
+  computed: {
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
+  },
+  created () {
+    this.methodName = this.record.methodName
+    this.formRequestFn = this.record.formRequestFn
+    this.id = this.record.id
+    if (this.id) {
+      getPublishRecruitmentById(this.id).then(({ data }) => {
+        this.form = mergeByFirst(initForm(), data.data)
+      })
     }
   },
   methods: {
-    handleGoBack () {
-      this.$emit('onGoBack')
+    handleSubmit () {
+      this.formRequestFn(this.form).then(({ data }) => {
+        console.log(data.data)
+        this.$message({
+          message: `招聘信息${this.methodName}成功`,
+          type: 'success',
+        })
+        this.$emit('onGoBack')
+      })
     },
   },
 }
 </script>
 <style scoped>
-.edit-wrapper >>> .el-collapse-item__wrap {
-  padding: 30px 70px 0 70px;
-  border: none;
-}
-.edit-wrapper >>> .el-collapse {
-  border: none;
-}
-.edit-wrapper >>> .el-collapse-item__header {
-  background-color: #f8f8f8;
-  font-size: 15px;
-  font-weight: 700;
-  padding-left: 20px;
-  margin: 5px;
-  border-radius: 5px;
-  border: none;
+.edit-wrapper >>> .el-form {
+  margin-right: 20%;
+  margin-top: 50px;
 }
 </style>
 
 <style lang="scss" scoped>
-.edit-wrapper {
-  .form-half {
-    width: 50%;
-    display: inline-block;
-  }
-  .edit-card {
-    .title {
-      font-weight: 600;
-    }
-  }
-}
 </style>

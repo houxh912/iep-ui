@@ -45,13 +45,13 @@
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning">添加子部门</iep-button>
+              <iep-button type="warning" @click="handleAdd(scope.row)">添加子部门</iep-button>
               <iep-button @click="add(scope.row)">编辑</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>移动</el-dropdown-item>
-                  <el-dropdown-item>合并</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleMove(scope.row)">移动</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleMerge(scope.row)">合并</el-dropdown-item>
                   <el-dropdown-item>删除</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -60,6 +60,9 @@
         </el-table-column>
       </iep-table>
     </basic-container>
+    <add-dialog ref="AddDialog" @load-page="loadPage"></add-dialog>
+    <merge-dialog ref="MoveDialog" @load-page="loadPage"></merge-dialog>
+    <move-dialog ref="MergeDialog" @load-page="loadPage"></move-dialog>
   </div>
 </template>
 
@@ -67,8 +70,12 @@
 import { getDepartmentManagePage } from '@/api/hrms/department_management'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from './options'
+import AddDialog from './AddDialog'
+import MoveDialog from './MoveDialog'
+import MergeDialog from './MergeDialog'
 export default {
   mixins: [mixins],
+  components: { AddDialog, MoveDialog, MergeDialog },
   data () {
     return {
       columnsMap,
@@ -80,7 +87,18 @@ export default {
     this.loadPage()
   },
   methods: {
-
+    handleAdd (row) {
+      console.log(row)
+      this.$refs['AddDialog'].dialogShow = true
+    },
+    handleMove (row) {
+      console.log(row)
+      this.$refs['MoveDialog'].dialogShow = true
+    },
+    handleMerge (row) {
+      console.log(row)
+      this.$refs['MergeDialog'].dialogShow = true
+    },
     clearSearchParam () {
       this.paramForm = initSearchForm()
       this.$emit('clear-search-param')

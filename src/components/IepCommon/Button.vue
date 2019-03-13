@@ -29,7 +29,7 @@ export default {
   }
 }
 
-.el-button--primary.is-plain, {
+.el-button--primary {
   border-color: #bf051a;
   background-color: #bf051a;
   color: #fff;

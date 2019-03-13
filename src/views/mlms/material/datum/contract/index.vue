@@ -32,7 +32,7 @@
       <template slot="before-columns">
         <el-table-column label="合同名称">
           <template slot-scope="scope">
-            <div class="custom-name">{{scope.row.name}}</div>
+            <div class="custom-name">{{scope.row.contractName}}</div>
             <el-col class="custom-tags">
               <el-tag type="info" size="mini" v-for="(item, index) in scope.row.code" :key="index">{{item}}</el-tag>
             </el-col>
@@ -48,14 +48,14 @@
         </template>
       </el-table-column>
     </iep-table>
-    <main-dialog ref="mainDialog"></main-dialog>
+    <main-dialog ref="mainDialog" @load-page="loadPage"></main-dialog>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { fetchList, createData, updateData, deleteDataById } from '@/api/crms/custom'
+import { getTableData, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/contract'
 import MainDialog from './mainDialog'
 
 export default {
@@ -75,19 +75,21 @@ export default {
       this.$refs['mainDialog'].dialogShow = true
     },
     handleEdit (row) {
-      this.$refs['mainDialog'].formData = row
-      this.$refs['mainDialog'].methodName = '编辑'
-      this.$refs['mainDialog'].formRequestFn = updateData
-      this.$refs['mainDialog'].dialogShow = true
+      getDataById(row.id).then((res) => {
+        this.$refs['mainDialog'].formData = res.data.data
+        this.$refs['mainDialog'].methodName = '编辑'
+        this.$refs['mainDialog'].formRequestFn = updateData
+        this.$refs['mainDialog'].dialogShow = true
+      })
     },
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.id, deleteDataById)
+      this._handleGlobalDeleteById(row.id, deleteData)
     },
     selectionChange (val) {
       console.log('val: ', val)
     },
     loadPage (param) {
-      this.loadTable(param, fetchList)
+      this.loadTable(param, getTableData)
     },
   },
   created () {
@@ -101,6 +103,7 @@ export default {
   color: #666;
   padding: 8px 18px;
   border: 1px solid #ddd;
+  margin-bottom: 20px;
   i {
     color: #ccc;
     cursor: pointer;
@@ -109,6 +112,7 @@ export default {
 .custom-name {
   cursor: pointer;
   margin-bottom: 10px;
+  width: 100%;
   // text-decoration: underline;
 }
 .custom-tags {

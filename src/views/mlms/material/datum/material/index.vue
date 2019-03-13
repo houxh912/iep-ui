@@ -80,7 +80,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { getTableData, createData, updateData, deleteData } from '@/api/mlms/material/datum/material'
+import { getTableData, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/material'
 import LocalDialog from './localDialog'
 import NewlyDialog from './newlyDialog'
 
@@ -99,10 +99,12 @@ export default {
   },
   methods: {
     handleEdit (row) {
-      this.$refs['newly'].formData = {...row}
-      this.$refs['newly'].methodName = '编辑'
-      this.$refs['newly'].formRequestFn = updateData
-      this.$refs['newly'].dialogShow = true
+      getDataById(row.id).then((res) => {
+        this.$refs['newly'].formData = res.data.data
+        this.$refs['newly'].methodName = '编辑'
+        this.$refs['newly'].formRequestFn = updateData
+        this.$refs['newly'].dialogShow = true
+      })
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.id, deleteData)
@@ -129,6 +131,7 @@ export default {
 .custom-name {
   cursor: pointer;
   margin-bottom: 10px;
+  width: 100%;
   // text-decoration: underline;
 }
 .custom-tags {

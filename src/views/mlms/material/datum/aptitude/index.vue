@@ -54,7 +54,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { getTableData, createData, updateData, deleteData } from '@/api/mlms/material/datum/aptitude'
+import { getTableData, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/aptitude'
 import MainDialog from './mainDialog'
 
 export default {
@@ -74,10 +74,12 @@ export default {
       this.$refs['mainDialog'].dialogShow = true
     },
     handleEdit (row) {
-      this.$refs['mainDialog'].formData = row
-      this.$refs['mainDialog'].methodName = '编辑'
-      this.$refs['mainDialog'].formRequestFn = updateData
-      this.$refs['mainDialog'].dialogShow = true
+      getDataById(row.id).then((res) => {
+        this.$refs['mainDialog'].formData = res.data.data
+        this.$refs['mainDialog'].methodName = '编辑'
+        this.$refs['mainDialog'].formRequestFn = updateData
+        this.$refs['mainDialog'].dialogShow = true
+      })
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.id, deleteData)
@@ -99,6 +101,7 @@ export default {
 .custom-name {
   cursor: pointer;
   margin-bottom: 10px;
+  width: 100%;
   // text-decoration: underline;
 }
 .custom-tags {

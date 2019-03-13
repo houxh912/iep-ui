@@ -17,7 +17,7 @@
         <el-input v-model="formData.number"></el-input>
       </el-form-item>
       <el-form-item label="获得时间：" prop="acquireTime">
-        <el-date-picker v-model="formData.acquireTime" type="date" placeholder="选择日期" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+        <IepDatePicker v-model="formData.acquireTime"></IepDatePicker>
       </el-form-item>
       <el-form-item label="下载贝额：" prop="downloadCost">
         <el-select v-model="formData.downloadCost" placeholder="请选择">

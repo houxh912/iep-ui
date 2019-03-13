@@ -38,7 +38,7 @@ export const rules = {
     { required: true, message: '必填', trigger: 'blur' },
   ],
   type: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '必填', trigger: 'change' },
   ],
   number: [
     { required: true, message: '必填', trigger: 'blur' },
@@ -47,9 +47,9 @@ export const rules = {
     { required: true, message: '必填', trigger: 'blur' },
   ],
   downloadCost: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '必填', trigger: 'change' },
   ],
   tagKeyWords: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '必填', trigger: 'change' },
   ],
 }

@@ -5,32 +5,31 @@
       <el-form-item label="名称：" prop="name">
         <el-input v-model="formData.name"></el-input>
       </el-form-item>
-      <el-form-item label="介绍：">
-        <el-input v-model="formData.jieshao" rows="5"></el-input>
+      <el-form-item label="介绍：" prop="intro">
+        <el-input v-model="formData.intro" rows="5"></el-input>
       </el-form-item>
-      <el-form-item label="分类：" porp="fenlei">
-        <el-select v-model="formData.fenlei" placeholder="请选择">
+      <el-form-item label="分类：" prop="type">
+        <el-select v-model="formData.type" placeholder="请选择">
           <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="专利号/证书号：" prop="zhengshu">
-        <el-input v-model="formData.zhengshu"></el-input>
+      <el-form-item label="专利号/证书号：" prop="number">
+        <el-input v-model="formData.number"></el-input>
       </el-form-item>
-      <el-form-item label="获得时间：" prop="huodeshijian">
-        <el-date-picker v-model="formData.huodeshijian" type="date" placeholder="选择日期"></el-date-picker>
+      <el-form-item label="获得时间：" prop="acquireTime">
+        <el-date-picker v-model="formData.acquireTime" type="date" placeholder="选择日期" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
       </el-form-item>
-      <el-form-item label="下载贝额：" porp="beie">
-        <el-select v-model="formData.beie" placeholder="请选择">
+      <el-form-item label="下载贝额：" prop="downloadCost">
+        <el-select v-model="formData.downloadCost" placeholder="请选择">
           <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="标签：" prop="biaoqian">
-        <el-input v-model="formData.biaoqian"></el-input>
+      <el-form-item label="标签：" prop="tagKeyWords">
+        <iep-tags v-model="formData.tagKeyWords"></iep-tags>
       </el-form-item>
-      <el-form-item label="附件：" prop="fujian">
-        <el-input v-model="formData.fujian"></el-input>
+      <el-form-item label="附件：">
+        <el-input></el-input>
       </el-form-item>
-
 
     </el-form>
     <template slot="footer">
@@ -42,8 +41,9 @@
 <script>
 import { initFormData, rules } from './option'
 import IepDialog from '@/components/IepDialog/'
+import IepTags from '@/components/IepTags/input'
 export default {
-  components: { IepDialog },
+  components: { IepDialog, IepTags },
   data () {
     return {
       dialogShow: false,

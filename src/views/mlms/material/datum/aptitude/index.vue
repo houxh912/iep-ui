@@ -47,14 +47,14 @@
         </template>
       </el-table-column>
     </iep-table>
-    <main-dialog ref="mainDialog"></main-dialog>
+    <main-dialog ref="mainDialog" @load-page="loadPage"></main-dialog>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { fetchList, createData, updateData, deleteDataById } from '@/api/crms/custom'
+import { getTableData, createData, updateData, deleteData } from '@/api/mlms/material/datum/aptitude'
 import MainDialog from './mainDialog'
 
 export default {
@@ -80,13 +80,13 @@ export default {
       this.$refs['mainDialog'].dialogShow = true
     },
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.id, deleteDataById)
+      this._handleGlobalDeleteById(row.id, deleteData)
     },
     selectionChange (val) {
       console.log('val: ', val)
     },
     loadPage (param) {
-      this.loadTable(param, fetchList)
+      this.loadTable(param, getTableData)
     },
   },
   created () {

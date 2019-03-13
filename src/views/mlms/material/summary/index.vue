@@ -8,7 +8,6 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>修改</el-dropdown-item>
               <el-dropdown-item>删除</el-dropdown-item>
               <el-dropdown-item divided>收藏</el-dropdown-item>
               <el-dropdown-item><div @click="handleAllShare">分享</div></el-dropdown-item>

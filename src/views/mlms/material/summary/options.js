@@ -34,3 +34,15 @@ export const initSearchForm = () => {
     name: '',
   }
 }
+
+export const shareRules = {
+  zhuti: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
+  shoujianren: [
+    { required: true, message: '至少选择一个收件人', trigger: 'change' },
+  ],
+  zhengwen: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
+}

@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="纪要分享" width="50%" @close="resetForm">
-    <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
+    <el-form :model="formData" :rules="shareRules" ref="form" label-width="100px">
 
       <el-form-item label="主题：" prop="zhuti">
         <el-input v-model="formData.zhuti"></el-input>
@@ -26,7 +26,7 @@
 </template>
 <script>
 import IepDialog from '@/components/IepDialog/'
-import { initFormData, dictsMap } from './options'
+import { initFormData, dictsMap, shareRules } from './options'
 import IepTags from '@/components/IepTags/input'
 
 export default {
@@ -34,12 +34,12 @@ export default {
   data () {
     return {
       dictsMap,
+      shareRules,
       dialogShow: false,
       formRequestFn: () => { },
       methodName: '创建',
       formData: initFormData(),
       list: [{name: '20190201数据基因流程图'}, {name: '20190201数据基因流程图'}],
-      rules: {},
     }
   },
   methods: {
@@ -47,6 +47,7 @@ export default {
       this.$emit('load-page')
     },
     submitForm (formName) {
+      console.log('formData: ', this.formData)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn(this.formData).then(() => {

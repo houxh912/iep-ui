@@ -5,45 +5,43 @@
       <el-form-item label="名称：" prop="name">
         <el-input v-model="formData.name"></el-input>
       </el-form-item>
-      <el-form-item label="作者：" prop="zuozhe">
-        <el-input v-model="formData.zuozhe"></el-input>
+      <el-form-item label="作者：" prop="creator">
+        <el-input v-model="formData.creator"></el-input>
       </el-form-item>
-      <el-form-item label="介绍：">
-        <el-input v-model="formData.jieshao" rows="5"></el-input>
+      <el-form-item label="介绍：" prop="intro">
+        <el-input type="textarea" v-model="formData.intro" rows="5"></el-input>
       </el-form-item>
       <el-row>
         <el-col :span=12>
-          <el-form-item label="分类：" porp="fenlei1">
-            <el-select v-model="formData.fenlei1" placeholder="请选择">
+          <el-form-item label="分类：" prop="firstClass">
+            <el-select v-model="formData.firstClass" placeholder="请选择">
               <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
-          <el-form-item label="" porp="fenlei2" label-width="50px">
-            <el-select v-model="formData.fenlei2" placeholder="请选择">
+          <el-form-item label="" prop="secondClass" label-width="50px">
+            <el-select v-model="formData.secondClass" placeholder="请选择">
               <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="类型：" prop="leixing">
-        <el-select v-model="formData.fenlei1" placeholder="请选择">
+      <el-form-item label="类型：" prop="type">
+        <el-select v-model="formData.type" placeholder="请选择">
           <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="下载贝额：" prop="xiazai">
-        <el-select v-model="formData.xiazai" placeholder="请选择">
+      <el-form-item label="下载贝额：" prop="downloadCost">
+        <el-select v-model="formData.downloadCost" placeholder="请选择">
           <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="标签" prop="biaoqian">
-        <el-input v-model="formData.biaoqian">
-          <iep-button>添加</iep-button>
-        </el-input>
+      <el-form-item label="标签" prop="tagKeyWords">
+        <iep-tags v-model="formData.tagKeyWords"></iep-tags>
       </el-form-item>
-      <el-form-item label="附件" prop="fujian">
-        <el-input v-model="formData.fujian">
+      <el-form-item label="附件" prop="fileList">
+        <el-input v-model="formData.fileList">
           <iep-button>上传</iep-button>
         </el-input>
       </el-form-item>
@@ -58,8 +56,9 @@
 <script>
 import { initLocalForm, rules } from './option'
 import IepDialog from '@/components/IepDialog/'
+import IepTags from '@/components/IepTags/input'
 export default {
-  components: { IepDialog },
+  components: { IepDialog, IepTags },
   data () {
     return {
       dialogShow: false,

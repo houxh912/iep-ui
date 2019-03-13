@@ -21,7 +21,17 @@
         </el-dropdown>
       </template>
       <template slot="right">
-        <operation-search @search="searchPage"></operation-search>
+        <operation-search @search="searchPage" :paramForm="paramForm" advance-search>
+          <el-form :model="paramForm" label-width="80px" size="small">
+            <el-form-item label="材料名称">
+              <el-input v-model="paramForm.name"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="searchPage">搜索</el-button>
+              <el-button @click="clearSearchParam">清空</el-button>
+            </el-form-item>
+          </el-form>
+        </operation-search>
       </template>
     </operation-container>
     <iep-table 
@@ -47,21 +57,30 @@
       <el-table-column prop="operation" label="操作" width="300">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" size="small">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
+            <iep-button size="small">收藏</iep-button>
+            <iep-button size="small">分享</iep-button>
+            <el-dropdown size="medium">
+              <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item><div @click="handleEdit(scope.row)">修改</div></el-dropdown-item>
+                <el-dropdown-item><div @click="handleDeleteById(scope.row)"></div>删除</el-dropdown-item>
+                <el-dropdown-item>投稿</el-dropdown-item>
+                <el-dropdown-item>上传新版本</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
-    <local-dialog ref="local"></local-dialog>
-    <newly-dialog ref="newly"></newly-dialog>
+    <local-dialog ref="local" @load-page="loadPage"></local-dialog>
+    <newly-dialog ref="newly" @load-page="loadPage"></newly-dialog>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { fetchList, createData, updateData, deleteDataById } from '@/api/crms/custom'
+import { getTableData, createData, updateData, deleteData } from '@/api/mlms/material/datum/material'
 import LocalDialog from './localDialog'
 import NewlyDialog from './newlyDialog'
 
@@ -73,28 +92,32 @@ export default {
     return {
       dictsMap,
       columnsMap: tableOption,
+      paramForm: {
+        
+      },
     }
   },
   methods: {
     handleEdit (row) {
-      this.$refs['mainDialog'].formData = row
-      this.$refs['mainDialog'].methodName = '编辑'
-      this.$refs['mainDialog'].formRequestFn = updateData
-      this.$refs['mainDialog'].dialogShow = true
+      this.$refs['newly'].formData = {...row}
+      this.$refs['newly'].methodName = '编辑'
+      this.$refs['newly'].formRequestFn = updateData
+      this.$refs['newly'].dialogShow = true
     },
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.id, deleteDataById)
+      this._handleGlobalDeleteById(row.id, deleteData)
     },
     selectionChange (val) {
       console.log('val: ', val)
     },
     loadPage (param) {
-      this.loadTable(param, fetchList)
+      this.loadTable(param, getTableData)
     },
     handleCreat (val) {
       this.$refs[val].dialogShow = true
       this.$refs[val].formRequestFn = createData
     },
+    clearSearchParam () {},
   },
   created () {
     this.loadPage()

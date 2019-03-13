@@ -11,7 +11,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="所属部门：">
-              <el-input v-model="form.deptId"></el-input>
+              <iep-cascader v-model="form.dept" prefix-url="admin/dept"></iep-cascader>
             </el-form-item>
           </el-col>
         </el-row>

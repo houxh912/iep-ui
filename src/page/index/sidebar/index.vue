@@ -111,7 +111,7 @@ export default {
   border-left: 3px solid #fafafa;
 }
 .avue-sidebar >>> .el-submenu .el-submenu__title:focus,
-.avue-sidebar >>> .el-submenu.is-active .el-submenu__title,
+.avue-sidebar >>> .el-menu--collapse .el-submenu.is-active .el-submenu__title,
 .avue-sidebar >>> .el-submenu .el-submenu__title:hover {
   margin-left: 0 !important;
   border-color: #cb3737;

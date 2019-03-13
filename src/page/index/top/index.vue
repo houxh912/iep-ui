@@ -29,40 +29,33 @@
       <navbar></navbar>
     </div>
     <div class="top-right">
-      <div class="top-msg">
-        <div class="itemGroup">
-          <div class="item">
-            <span class="message"><i class="el-icon-star-off"></i></span>
-            <span class="dot dot1" v-if="showDot1"></span>
-          </div>
-          <div class="item">
-            <span class="message bell"><i class="el-icon-bell"></i></span>
-            <span class="dot dot2" v-if="showDot2"></span>
-          </div>
-          <div class="item">
-            <span class="message"><i class="el-icon-message"></i></span>
-            <span class="dot  dot3" v-if="showDot3"></span>
-          </div>
-        </div>
-        <el-dropdown>
-          <span class="el-dropdown-link">
-            {{ userInfo.realName }}
-            <i class="el-icon-arrow-down el-icon--right"></i>
-          </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>
-              <router-link to="/">首页</router-link>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <span @click="handleOrg(orgText.type)">{{orgText.tipText}}</span>
-            </el-dropdown-item>
-            <el-dropdown-item>
-              <router-link to="/info/index">个人信息</router-link>
-            </el-dropdown-item>
-            <el-dropdown-item @click.native="logout" divided>退出系统</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </div>
+      <el-badge :value="12" class="item">
+        <iep-button icon="el-icon-phone-outline" plain>通知</iep-button>
+      </el-badge>
+      <el-badge :value="12" class="item">
+        <iep-button icon="el-icon-bell" plain>消息</iep-button>
+      </el-badge>
+      <el-badge :value="12" class="item">
+        <iep-button icon="el-icon-message" plain>邮件</iep-button>
+      </el-badge>
+      <el-dropdown>
+        <span class="el-dropdown-link">
+          {{ userInfo.realName }}
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
+            <router-link to="/">首页</router-link>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <span @click="handleOrg(orgText.type)">{{orgText.tipText}}</span>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <router-link to="/info/index">个人信息</router-link>
+          </el-dropdown-item>
+          <el-dropdown-item @click.native="logout" divided>退出系统</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
     <select-org-dialog ref="selectOrgDialog"></select-org-dialog>
   </div>
@@ -147,6 +140,13 @@ export default {
   },
 }
 </script>
+<style scoped>
+.top-right >>> .el-dropdown {
+  color: #424242;
+  margin: 0 20px;
+  cursor: pointer;
+}
+</style>
 
 <style lang="scss" scoped>
 .logo {
@@ -175,61 +175,14 @@ export default {
       justify-content: center;
       align-items: center;
       font-size: 16px;
-      .el-dropdown-link {
-        color: #424242;
-        padding-left: 5px;
-        cursor: pointer;
-      }
     }
   }
   .top-right {
-    .top-msg {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      > div {
-        margin-right: 15px;
-      }
-      .top-bar__img {
-        display: none;
-        margin-right: 10px;
-        width: 25px;
-        height: 25px;
-        border-radius: 50%;
-      }
-      .itemGroup {
-        height: 100%;
-        line-height: 60px;
-        .item {
-          display: inline-block;
-          padding: 0 10px;
-          font-size: 20px;
-          position: relative;
-          &:hover {
-            background: #fafafa;
-          }
-          .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 12px;
-            position: absolute;
-            top: 20px;
-            right: 0;
-          }
-          .dot1 {
-            background: #bf051a;
-          }
-          .dot2 {
-            background: #ff9d4c;
-          }
-          .dot3 {
-            background: #ffc34a;
-          }
-        }
-      }
-      .el-dropdown-link {
-        color: #6c6c6c;
-      }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .item {
+      margin-right: 20px;
     }
   }
 }

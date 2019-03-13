@@ -28,6 +28,9 @@ export default {
     })
   },
   watch: {
+    value (n) {
+      this.localValue = n
+    },
     localValue (n) {
       this.$emit('input', n)
     },

@@ -104,7 +104,7 @@ export default {
 <style lang="scss" scoped>
 .menu-wrapper {
   .el-menu-item {
-    margin-left: 4px!important;
+    margin-left: 0!important;
     height: 40px;
     line-height: 40px;
     border-left:3px solid #fafafa;

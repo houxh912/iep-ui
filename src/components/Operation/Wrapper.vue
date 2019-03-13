@@ -16,7 +16,7 @@
 .operation-wrapper >>> .el-button + .el-button {
   margin-left: 0;
 }
-.operation-wrapper .el-button:nth-child(1) {
+.operation-wrapper .el-button.el-button--default:nth-child(1) {
   border-color: #ea8d03;
   background-color: #fff7ec;
   color: #ea8d03;
@@ -24,5 +24,12 @@
 .operation-wrapper .el-button:nth-child(1):hover {
 	background-color: #ea8d03;
 	color: #fff;
+}
+.operation-wrapper .el-button.is-disabled.is-plain,
+.operation-wrapper .el-button.is-disabled.is-plain:focus,
+.operation-wrapper .el-button.is-disabled.is-plain:hover {
+  background-color: #FFF;
+  border-color: #EBEEF5;
+  color: #C0C4CC;
 }
 </style>

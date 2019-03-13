@@ -66,7 +66,7 @@ export default {
 .sub-menu-wrapper {
   border-top: 2px solid #eee;
   .el-menu-item {
-    margin-left: 4px !important;
+    margin-left: 0 !important;
     height: 40px;
     line-height: 40px;
     border-left: 3px solid #fafafa;
@@ -115,9 +115,13 @@ export default {
   border-left: 3px solid #fafafa;
 }
 .avue-sidebar >>>.el-submenu .el-submenu__title:focus,.avue-sidebar >>>.el-submenu .el-submenu__title:hover{
-  margin-left: 4px !important;
+  margin-left: 0 !important;
   border-color: #cb3737;
   background-color: #f9eae7;
   color: #cb3737;
+}
+.avue-sidebar >>>.el-submenu .el-submenu__title,.avue-sidebar >>> .el-menu-item {
+  height: 40px;
+  line-height: 40px;
 }
 </style>

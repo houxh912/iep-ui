@@ -67,4 +67,8 @@ export default {
 .search-btn:focus {
   opacity: 0.8;
 }
+.input-wrapper >>> .el-popover .el-button--primary{
+  background-color: #bf051a;
+  color: #fff;
+}
 </style>

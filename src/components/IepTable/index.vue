@@ -137,6 +137,10 @@ export default {
   background-color: #fff7ec;
   color: #ea8d03;
 }
+.el-table >>> .cell .el-dropdown:nth-child(1) .el-button.is-plain:nth-child(1):hover {
+  background-color: #ea8d03 !important;
+  color: #fff !important;
+}
 .el-table
   >>> .cell
   .el-dropdown:nth-child(1)
@@ -154,6 +158,19 @@ export default {
 }
 .el-table--fit .el-button--default:hover,
 .el-table--fit .el-button--default:focus {
+  border-color: #ea8d03;
+  background-color: #fff7ec;
+  color: #ea8d03;
+}
+.el-table >>> .el-button--text {
+  color: #999;
+}
+.el-table >>> .el-button--text:hover {
+  color: #666;
+}
+
+.el-table >>> .el-button:focus,
+.el-table >>> .el-button:hover {
   border-color: #ea8d03;
   background-color: #fff7ec;
   color: #ea8d03;

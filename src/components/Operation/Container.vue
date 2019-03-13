@@ -59,4 +59,13 @@
 .operation-container >>> .input-wrapper > * {
   padding: 0;
 }
+.operation-container >>> div:nth-child(1) > .el-button {
+  border: 1px solid #bf051a;
+  background-color: #f9eae7;
+  color: #bf051a;
+}
+.operation-container >>> div:nth-child(1) > .el-button:hover {
+  background-color: #bf051a;
+  color: #fff;
+}
 </style>

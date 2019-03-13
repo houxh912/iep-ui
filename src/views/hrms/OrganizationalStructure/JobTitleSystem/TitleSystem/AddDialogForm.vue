@@ -1,14 +1,14 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}组织`" width="50%" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}组织`" width="500px" @close="loadPage">
     <el-form :model="form" :rules="rules" ref="form" size="small" label-width="100px">
-      <el-form-item label="组织名称" prop="name">
+      <el-form-item label="职务名称" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
-      <el-form-item label="允许加入" prop="isOpen">
-        <el-switch v-model="form.isOpen" :active-value="0" :inactive-value="1"></el-switch>
+      <el-form-item label="职务说明" prop="description">
+        <el-input type="textarea" v-model="form.description"></el-input>
       </el-form-item>
-      <el-form-item label="组织描述" prop="intro">
-        <el-input type="textarea" v-model="form.intro"></el-input>
+      <el-form-item label="优先级" prop="intro">
+        <el-input-number v-model="form.priority"></el-input-number>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -30,12 +30,11 @@ export default {
       form: initForm(),
       rules: {
         name: [
-          { required: true, message: '请输入组织名称', trigger: 'blur' },
-          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' },
+          { required: true, message: '请输入职务名称', trigger: 'change' },
+          { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'change' },
         ],
-        isOpen: [],
-        intro: [
-          { required: true, message: '请填写组织描述', trigger: 'blur' },
+        description: [
+          { required: true, message: '请填写职务描述', trigger: 'change' },
         ],
       },
     }

@@ -1,15 +1,12 @@
 const columnsMap = [
   {
     prop: 'name',
-    label: '岗位名称',
+    label: '岗位分类名称',
+    width: 300,
   },
   {
-    prop: 'typeName',
-    label: '岗位分类',
-  },
-  {
-    prop: 'count',
-    label: '在职人数',
+    prop: 'description',
+    label: '分类说明',
   },
 ]
 
@@ -17,18 +14,13 @@ const initForm = () => {
   return {
     id: '',
     name: '',
-    typeName: '',
-    typeId: null,
-    count: '',
-    duties: '',
-    claim: '',
+    description: '',
   }
 }
 
 const initSearchForm = () => {
   return {
     name: '',
-    sex: '',
   }
 }
 

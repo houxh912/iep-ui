@@ -1,40 +1,36 @@
 // org config options
 const dictsMap = {
-  isOpen: {
-    0: '开',
-    1: '关',
-  },
-  status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
-  },
 }
 
 const columnsMap = [
   {
-    prop: '部门名称',
+    prop: 'name',
     label: '部门名称',
   },
   {
-    prop: '负责人',
+    prop: 'userName',
     label: '负责人',
   },
   {
-    prop: '部门人数',
+    prop: 'people',
     label: '部门人数',
   },
   {
-    prop: '成立时间',
+    prop: 'establishedTime',
     label: '成立时间',
   },
 ]
 
-const initOrgForm = () => {
+const initForm = () => {
   return {
+    id: '',
     name: '',
-    isOpen: false,
-    intro: '',
+    number: '',
+    userId: '',
+    userName: '',
+    parentId: 0,
+    parentName: '无',
+    establishedTime: '',
   }
 }
 
@@ -52,11 +48,11 @@ const initmoveForm = () => {
 }
 const initaddForm = () => {
   return {
-    superiorDepartment:'',
-    departmentNumber:'',
-    departmentName:'',
-    departmentHead:'',
-    creartedTime:'',
+    superiorDepartment: '',
+    departmentNumber: '',
+    departmentName: '',
+    departmentHead: '',
+    creartedTime: '',
   }
 }
 const initmergeForm = () => {
@@ -68,7 +64,7 @@ const initmergeForm = () => {
 export {
   dictsMap,
   columnsMap,
-  initOrgForm,
+  initForm,
   initSearchForm,
   initmoveForm,
   initaddForm,

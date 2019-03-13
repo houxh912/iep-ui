@@ -13,33 +13,76 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: '性别',
+    prop: 'sex',
     label: '性别',
     width: 55,
   },
   {
-    prop: '学历',
+    prop: 'education',
     label: '学历',
   },
   {
-    prop: '应聘岗位',
+    prop: 'age',
+    label: '年龄',
+  },
+  {
+    prop: 'applyPosition',
     label: '应聘岗位',
   },
   {
-    prop: '简历接受时间',
+    prop: 'receptionTime',
     label: '简历接受时间',
   },
   {
-    prop: '来源',
+    prop: 'source',
     label: '来源',
   },
 ]
 
 const initForm = () => {
   return {
-    name: '',
-    isOpen: false,
-    intro: '',
+    'id': '',
+    'name': '',
+    'sex': 1,
+    'avatar': '',
+    'birthday': '',
+    'title': '',
+    'phone': '',
+    'age': '',
+    'email': '',
+    'height': '',
+    'weight': '',
+    'nation': '',
+    'cityCode': '',
+    'provinceCode': '',
+    'address': '',
+    'politic': '',
+    'health': '',
+    'marriage': '',
+    'bear': 1,
+    'university': '',
+    'education': 2,
+    'relation': '',
+    'recommender': '',
+    'appWay': 9,
+    'source': 4,
+    'hobbies': '',
+    'advantage': '',
+    'honor': '',
+    'result': '',
+    'positionId': 3,
+    'positionName': '',
+    'arrive': 1,
+    'salary': '',
+    'workPlace': '',
+    'attach': '',
+    'workExperience': [],
+    'trainingSituation': [],
+    'eduSituation': [],
+    'userCert': [],
+    'blacklistArea': '',
+    'blacklistReasons': '',
+    'cities': [],
   }
 }
 
@@ -51,8 +94,8 @@ const initSearchForm = () => {
 }
 const initrejectedForm = () => {
   return {
-    msg:'',
-    
+    msg: '',
+
   }
 }
-export { dictsMap, columnsMap, initForm, initSearchForm,initrejectedForm }
+export { dictsMap, columnsMap, initForm, initSearchForm, initrejectedForm }

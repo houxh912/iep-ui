@@ -37,7 +37,7 @@
       <template slot="before-columns">
         <el-table-column label="姓名" width="90px">
           <template slot-scope="scope">
-            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.姓名}}</iep-table-link>
+            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
           </template>
         </el-table-column>
       </template>
@@ -71,7 +71,7 @@
   </div>
 </template>
 <script>
-import { getTalentPoolPage } from '@/api/hrms/talent_pool'
+import { getResumeBlacklistPage } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
 export default {
@@ -94,7 +94,7 @@ export default {
       this.paramForm = initSearchForm()
     },
     loadPage (param = this.paramForm) {
-      this.loadTable(param, getTalentPoolPage)
+      this.loadTable(param, getResumeBlacklistPage)
     },
     handleAdd () {
       this.$emit('onEdit')

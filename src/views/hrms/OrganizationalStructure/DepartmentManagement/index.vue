@@ -4,18 +4,18 @@
       <page-header title="部门管理" :replaceText="replaceText" :data="[10]"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="(scope.row)" type="danger" icon="el-icon-plus">新增</iep-button>
+          <iep-button @click="handleAdd" type="danger" icon="el-icon-plus">新增</iep-button>
           <el-dropdown size="medium">
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
               <el-dropdown-item divided>导入</el-dropdown-item>
               <el-dropdown-item>导出</el-dropdown-item>
               <el-dropdown-item>分享</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
-        <template slot="right">
+        <!-- <template slot="right">
           <operation-search @search="searchPage" advance-search>
             <el-form :model="paramForm" label-width="80px" size="mini">
               <el-form-item label="关键字">
@@ -39,20 +39,20 @@
               </el-form-item>
             </el-form>
           </operation-search>
-        </template>
+        </template> -->
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-tree>
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" @click="handleAdd(scope.row)">添加子部门</iep-button>
-              <iep-button @click="add(scope.row)">编辑</iep-button>
+              <iep-button type="warning" @click="handleAdd(scope.row)" :disabled="scope.row._level>1">添加子部门</iep-button>
+              <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="handleMove(scope.row)">移动</el-dropdown-item>
                   <el-dropdown-item @click.native="handleMerge(scope.row)">合并</el-dropdown-item>
-                  <el-dropdown-item>删除</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
@@ -60,22 +60,23 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <add-dialog ref="AddDialog" @load-page="loadPage"></add-dialog>
+    <add-dialog-form ref="AddDialogForm" @load-page="loadPage"></add-dialog-form>
     <merge-dialog ref="MoveDialog" @load-page="loadPage"></merge-dialog>
     <move-dialog ref="MergeDialog" @load-page="loadPage"></move-dialog>
   </div>
 </template>
 
 <script>
-import { getDepartmentManagePage } from '@/api/hrms/department_management'
+import { getDeptPage, postDept, putDept, deleteDeptById, deleteDeptBatch } from '@/api/hrms/department_management'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from './options'
-import AddDialog from './AddDialog'
+import { columnsMap, initSearchForm, initForm } from './options'
+import AddDialogForm from './AddDialogForm'
+import { mergeByFirst } from '@/util/util'
 import MoveDialog from './MoveDialog'
 import MergeDialog from './MergeDialog'
 export default {
   mixins: [mixins],
-  components: { AddDialog, MoveDialog, MergeDialog },
+  components: { AddDialogForm, MoveDialog, MergeDialog },
   data () {
     return {
       columnsMap,
@@ -87,9 +88,29 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deleteDeptBatch)
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deleteDeptById)
+    },
+    handleEdit (row) {
+      this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), row)
+      this.$refs['AddDialogForm'].methodName = '修改'
+      this.$refs['AddDialogForm'].formRequestFn = putDept
+      this.$refs['AddDialogForm'].dialogShow = true
+    },
     handleAdd (row) {
-      console.log(row)
-      this.$refs['AddDialog'].dialogShow = true
+      this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), {
+        parentId: row.id || 0,
+        parentName: row.name || '无',
+      })
+      this.$refs['AddDialogForm'].methodName = '创建'
+      this.$refs['AddDialogForm'].formRequestFn = postDept
+      this.$refs['AddDialogForm'].dialogShow = true
     },
     handleMove (row) {
       console.log(row)
@@ -104,7 +125,7 @@ export default {
       this.$emit('clear-search-param')
     },
     loadPage (param) {
-      this.loadTable(param, getDepartmentManagePage)
+      this.loadTable(param, getDeptPage)
     },
     add () {
 

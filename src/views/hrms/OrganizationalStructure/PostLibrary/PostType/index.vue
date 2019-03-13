@@ -13,38 +13,12 @@
           </el-dropdown-menu>
         </el-dropdown>
       </template>
-      <template slot="right">
-        <operation-search @search="searchPage" advance-search>
-          <el-form :model="paramForm" label-width="80px" size="mini">
-            <el-form-item label="关键字">
-              <el-input v-model="paramForm.theme" placeholder="关键字"></el-input>
-            </el-form-item>
-            <el-form-item label="岗位类别">
-              <el-select v-model="paramForm.type" placeholder="请选择岗位类别">
-                <el-option label="岗位类别1" value="岗位类别1"></el-option>
-                <el-option label="岗位类别2" value="岗位类别2"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="岗位名称">
-              <el-select v-model="paramForm.type" placeholder="请选择岗位名称">
-                <el-option label="岗位名称1" value="岗位名称1"></el-option>
-                <el-option label="岗位名称2" value="岗位名称2"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="searchPage">搜索</el-button>
-              <el-button @click="clearSearchParam">清空</el-button>
-            </el-form-item>
-          </el-form>
-        </operation-search>
-      </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <el-table-column prop="operation" label="操作" width="280">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" type="warning">编辑</iep-button>
-            <iep-button @click="(scope.row)">发起招聘</iep-button>
+            <iep-button @click="handleEdit(scope.row)" size="small" type="warning">编辑</iep-button>
             <iep-button @click="handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
@@ -54,14 +28,14 @@
   </div>
 </template>
 <script>
-import { getPostLibraryPage, putPostLibrary, postPostLibrary, deletePostLibraryBatch, deletePostLibraryById } from '@/api/hrms/post_library'
+import AddDialogForm from './AddDialogForm'
+import { getPostTypePage, putPostType, postPostType, deletePostTypeBatch, deletePostTypeById } from '@/api/hrms/post_type'
 import mixins from '@/mixins/mixins'
 import { mergeByFirst } from '@/util/util'
 import { columnsMap, initSearchForm, initForm } from './options'
-import AddDialogForm from './AddDialogForm'
 export default {
-  mixins: [mixins],
   components: { AddDialogForm },
+  mixins: [mixins],
   data () {
     return {
       columnsMap,
@@ -76,31 +50,31 @@ export default {
       this.multipleSelection = val.map(m => m.id)
     },
     handleDeleteBatch () {
-      this._handleGlobalDeleteAll(deletePostLibraryBatch)
+      this._handleGlobalDeleteAll(deletePostTypeBatch)
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deletePostLibraryById)
+      this._handleGlobalDeleteById(row.id, deletePostTypeById)
     },
     handleEdit (row) {
       this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), row)
       this.$refs['AddDialogForm'].methodName = '修改'
-      this.$refs['AddDialogForm'].formRequestFn = putPostLibrary
+      this.$refs['AddDialogForm'].formRequestFn = putPostType
       this.$refs['AddDialogForm'].dialogShow = true
     },
     handleAdd () {
       this.$refs['AddDialogForm'].methodName = '创建'
-      this.$refs['AddDialogForm'].formRequestFn = postPostLibrary
+      this.$refs['AddDialogForm'].formRequestFn = postPostType
       this.$refs['AddDialogForm'].dialogShow = true
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },
     loadPage (param) {
-      this.loadTable(param, getPostLibraryPage)
-    },
-    edit () {
-
+      this.loadTable(param, getPostTypePage)
     },
   },
 }
 </script>
+
+
+

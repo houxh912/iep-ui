@@ -1,36 +1,36 @@
 import request from '@/router/axios'
 
-const prefixUrl = '/hrms/post_library'
-// @/api/hrms/post_library
-export function getPostLibraryPage (query) {
+const prefixUrl = '/hrms/title_system'
+// @/api/hrms/title_system
+export function getTitlePage (query) {
   return request({
     url: `${prefixUrl}/page`,
     method: 'get',
     params: query,
   })
 }
-export function postPostLibrary (obj) {
+export function postTitle (obj) {
   return request({
     url: `${prefixUrl}/create`,
     method: 'post',
     data: obj,
   })
 }
-export function putPostLibrary (obj) {
+export function putTitle (obj) {
   return request({
     url: `${prefixUrl}/update`,
     method: 'post',
     data: obj,
   })
 }
-export function deletePostLibraryById (id) {
+export function deleteTitleById (id) {
   return request({
     url: `${prefixUrl}/delete/batch`,
     method: 'post',
     data: [id],
   })
 }
-export function deletePostLibraryBatch (ids) {
+export function deleteTitleBatch (ids) {
   return request({
     url: `${prefixUrl}/delete/batch`,
     method: 'post',

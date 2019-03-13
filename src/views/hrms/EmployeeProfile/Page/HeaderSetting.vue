@@ -1,8 +1,8 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="表头设置" width="50%" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="表头设置" width="800px" @close="loadPage">
     <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
     <div style="margin: 15px 0;"></div>
-    <el-checkbox-group v-model="checkedHeader" @change="handleCheckedHeaderChange">
+    <el-checkbox-group class="grid-checkbox-wrapper" v-model="checkedHeader" @change="handleCheckedHeaderChange">
       <el-checkbox v-for="column in columnsOptions" :label="column" :key="column">{{column}}</el-checkbox>
     </el-checkbox-group>
     <template slot="footer">
@@ -55,3 +55,9 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.grid-checkbox-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+</style>

@@ -6,6 +6,7 @@
 <script>
 export default {
   name: 'IepButton',
+  inheritAttrs: false,
   props: {
     size: {
       type: String,
@@ -16,7 +17,6 @@ export default {
       default: true,
     },
   },
-  inheritAttrs: false,
 }
 </script>
 <style lang="scss" scoped>

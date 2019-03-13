@@ -360,7 +360,9 @@ export function handleImg (fileName, id) {
 
 export function mergeByFirst (distObject, srcObject) {
   const propList = _.keys(distObject)
-  return _.pick(srcObject, propList)
+  return {
+    ...distObject, ..._.pick(srcObject, propList),
+  }
 }
 
 /**

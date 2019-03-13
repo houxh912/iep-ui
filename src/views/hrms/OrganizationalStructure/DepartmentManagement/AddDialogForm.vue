@@ -52,7 +52,6 @@ export default {
   },
   methods: {
     fillUser (user) {
-      console.log(user)
       this.form.userId = user.id
       this.form.userName = user.name
     },

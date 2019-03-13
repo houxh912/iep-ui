@@ -89,7 +89,7 @@ export default {
     expandAll: {
       type: Boolean,
       required: false,
-      default: false,
+      default: true,
     },
   },
   components: {

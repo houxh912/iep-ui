@@ -5,7 +5,7 @@
     <el-popover placement="right" width="400" trigger="click">
       <el-tree :props="props" :load="loadNode" lazy :show-checkbox="showCheckbox" @node-click="selectUser">
       </el-tree>
-      <el-button slot="reference">添加</el-button>
+      <el-button slot="reference">选择</el-button>
     </el-popover>
   </div>
 </template>

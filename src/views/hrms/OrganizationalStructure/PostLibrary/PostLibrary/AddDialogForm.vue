@@ -5,7 +5,7 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="岗位类型" prop="type">
-        <iep-select prefix-url="hrms/post_type" v-model="form.type"></iep-select>
+        <iep-select prefix-url="hrms/post_type" v-model="form.typeId"></iep-select>
       </el-form-item>
       <el-form-item label="岗位职责" prop="duties">
         <el-input v-model="form.duties" type="textarea"></el-input>
@@ -36,7 +36,7 @@ export default {
         name: [
           { required: true, message: '请输入岗位名称', trigger: 'blur' },
         ],
-        type: [
+        typeId: [
           { required: true, message: '请选择岗位类型', trigger: 'blur' },
         ],
         duties: [

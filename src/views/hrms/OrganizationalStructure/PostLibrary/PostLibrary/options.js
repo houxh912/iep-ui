@@ -4,7 +4,7 @@ const columnsMap = [
     label: '岗位名称',
   },
   {
-    prop: 'type',
+    prop: 'typeName',
     label: '岗位分类',
   },
   {
@@ -17,7 +17,8 @@ const initForm = () => {
   return {
     id: '',
     name: '',
-    type: '',
+    typeName: '',
+    typeId: null,
     count: '',
     duties: '',
     claim: '',

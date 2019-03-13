@@ -8,7 +8,7 @@
           <el-dropdown size="medium">
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
               <el-dropdown-item divided>导入</el-dropdown-item>
               <el-dropdown-item>导出</el-dropdown-item>
               <el-dropdown-item>分享</el-dropdown-item>
@@ -41,7 +41,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-tree>
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -52,7 +52,7 @@
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="handleMove(scope.row)">移动</el-dropdown-item>
                   <el-dropdown-item @click.native="handleMerge(scope.row)">合并</el-dropdown-item>
-                  <el-dropdown-item>删除</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { getDeptPage, postDept, putDept } from '@/api/hrms/department_management'
+import { getDeptPage, postDept, putDept, deleteDeptById, deleteDeptBatch } from '@/api/hrms/department_management'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm, initForm } from './options'
 import AddDialogForm from './AddDialogForm'
@@ -88,6 +88,15 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deleteDeptBatch)
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deleteDeptById)
+    },
     handleEdit (row) {
       this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), row)
       this.$refs['AddDialogForm'].methodName = '修改'

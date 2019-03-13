@@ -61,14 +61,14 @@ export default {
 .input-wrapper >>> .senior-btn:focus {
   border-color: #dcdfe6;
   background-color: #fff2f4;
-  color: #bf051a;
+  color: #cb3737;
 }
 .search-btn:hover,
 .search-btn:focus {
   opacity: 0.8;
 }
-.input-wrapper >>> .el-popover .el-button--primary{
-  background-color: #bf051a;
+.input-wrapper >>> .el-popover .el-button--primary {
+  background-color: #cb3737;
   color: #fff;
 }
 </style>

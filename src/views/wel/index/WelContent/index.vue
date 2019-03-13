@@ -139,7 +139,7 @@ export default {
         .user-poster {
           .say {
             display: inline-block;
-            margin-top:3px;
+            margin-top: 3px;
             font-size: 14px;
           }
           .gov {
@@ -147,7 +147,7 @@ export default {
             margin-left: 20px;
             max-width: 520px;
             font-size: 16px;
-            color: #ba1928;
+            color: #cb3737;
             vertical-align: middle;
           }
         }
@@ -214,14 +214,14 @@ export default {
             border-radius: 3px;
             font-size: 12px;
             text-align: center;
-            color: #ba1928;
+            color: #cb3737;
             margin-left: 10px;
-            border: 1px solid #ba1928;
+            border: 1px solid #cb3737;
             -webkit-transition: all 0.5s;
             transition: all 0.5s;
             &:focus,
             &:hover {
-              background-color: #ba1928;
+              background-color: #cb3737;
               color: #fff;
               outline: none;
             }
@@ -311,7 +311,9 @@ export default {
 @media (min-width: 769px) and (max-width: 1026px) {
 }
 @media (min-width: 0px) and (max-width: 769px) {
-  .el-col-20 {width: 100%;}
+  .el-col-20 {
+    width: 100%;
+  }
   .information {
     font-size: 12px;
     .dotted {

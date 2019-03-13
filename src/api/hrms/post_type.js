@@ -23,3 +23,17 @@ export function putPostType (obj) {
     data: obj,
   })
 }
+export function deletePostTypeById (id) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: [id],
+  })
+}
+export function deletePostTypeBatch (ids) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: ids,
+  })
+}

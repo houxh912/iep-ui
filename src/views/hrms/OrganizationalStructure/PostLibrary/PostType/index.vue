@@ -6,7 +6,7 @@
         <el-dropdown size="medium">
           <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
             <el-dropdown-item divided>导入</el-dropdown-item>
             <el-dropdown-item>导出</el-dropdown-item>
             <el-dropdown-item>分享</el-dropdown-item>
@@ -14,12 +14,12 @@
         </el-dropdown>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <el-table-column prop="operation" label="操作" width="280">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button @click="handleEdit(scope.row)" size="small" type="warning">编辑</iep-button>
-            <iep-button @click="(scope.row)">删除</iep-button>
+            <iep-button @click="handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -29,7 +29,7 @@
 </template>
 <script>
 import AddDialogForm from './AddDialogForm'
-import { getPostTypePage, putPostType, postPostType } from '@/api/hrms/post_type'
+import { getPostTypePage, putPostType, postPostType, deletePostTypeBatch, deletePostTypeById } from '@/api/hrms/post_type'
 import mixins from '@/mixins/mixins'
 import { mergeByFirst } from '@/util/util'
 import { columnsMap, initSearchForm, initForm } from './options'
@@ -46,6 +46,15 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deletePostTypeBatch)
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deletePostTypeById)
+    },
     handleEdit (row) {
       this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), row)
       this.$refs['AddDialogForm'].methodName = '修改'

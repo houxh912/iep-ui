@@ -15,7 +15,7 @@
             </el-dropdown-menu>
           </el-dropdown>
         </template>
-        <template slot="right">
+        <!-- <template slot="right">
           <operation-search @search="searchPage" advance-search>
             <el-form :model="paramForm" label-width="80px" size="mini">
               <el-form-item label="关键字">
@@ -39,7 +39,7 @@
               </el-form-item>
             </el-form>
           </operation-search>
-        </template>
+        </template> -->
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-tree>
         <el-table-column prop="operation" label="操作">

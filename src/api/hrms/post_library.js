@@ -23,3 +23,17 @@ export function putPostLibrary (obj) {
     data: obj,
   })
 }
+export function deletePostLibraryById (id) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: [id],
+  })
+}
+export function deletePostLibraryBatch (ids) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: ids,
+  })
+}

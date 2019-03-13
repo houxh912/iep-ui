@@ -23,3 +23,17 @@ export function putJob (obj) {
     data: obj,
   })
 }
+export function deleteJobById (id) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: [id],
+  })
+}
+export function deleteJobBatch (ids) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: ids,
+  })
+}

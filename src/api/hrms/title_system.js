@@ -23,3 +23,17 @@ export function putTitle (obj) {
     data: obj,
   })
 }
+export function deleteTitleById (id) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: [id],
+  })
+}
+export function deleteTitleBatch (ids) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: ids,
+  })
+}

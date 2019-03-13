@@ -12,7 +12,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="所属部门：">
-              <el-input v-model="form.deptId"></el-input>
+              <iep-cascader v-model="form.dept" prefix-url="admin/dept" change-on-select></iep-cascader>
             </el-form-item>
           </el-col>
         </el-row>
@@ -116,7 +116,7 @@
 import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
 import { mapState } from 'vuex'
 import PageHeader from '@/components/Page/Header'
-import { initForm } from '../options'
+import { initForm, formToDto } from '../options'
 import { mergeByFirst } from '@/util/util'
 export default {
   props: {
@@ -160,7 +160,7 @@ export default {
     },
     handleSubmit (isPublish) {
       const publish = isPublish === true ? true : false
-      this.formRequestFn(this.form, publish).then(({ data }) => {
+      this.formRequestFn(formToDto(this.form), publish).then(({ data }) => {
         console.log(data.data)
         this.$message({
           message: `招聘信息${this.methodName}成功`,

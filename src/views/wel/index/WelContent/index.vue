@@ -83,7 +83,7 @@ export default {
 
 <style lang="scss" scoped>
 .wel-content {
-  margin: 0 300px -20px -20px;
+  // margin: 0 300px -20px -20px;
   width: 100%;
   height: auto;
   background: white;

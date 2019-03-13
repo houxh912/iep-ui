@@ -70,7 +70,8 @@ export default {
     height: 40px;
     line-height: 40px;
     border-left: 3px solid #fafafa;
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       border-color: #cb3737;
       background: #f9eae7;
       color: #cb3737;
@@ -111,16 +112,18 @@ export default {
 .avue-sidebar >>> .el-scrollbar .el-scrollbar__wrap {
   overflow-x: hidden;
 }
-.avue-sidebar >>>.el-submenu .el-submenu__title{
+.avue-sidebar >>> .el-submenu .el-submenu__title {
   border-left: 3px solid #fafafa;
 }
-.avue-sidebar >>>.el-submenu .el-submenu__title:focus,.avue-sidebar >>>.el-submenu .el-submenu__title:hover{
+.avue-sidebar >>> .el-submenu .el-submenu__title:focus,
+.avue-sidebar >>> .el-submenu .el-submenu__title:hover {
   margin-left: 0 !important;
   border-color: #cb3737;
   background-color: #f9eae7;
   color: #cb3737;
 }
-.avue-sidebar >>>.el-submenu .el-submenu__title,.avue-sidebar >>> .el-menu-item {
+.avue-sidebar >>> .el-submenu .el-submenu__title,
+.avue-sidebar >>> .el-menu-item {
   height: 40px;
   line-height: 40px;
 }

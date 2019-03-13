@@ -17,15 +17,6 @@
         </top-search>
         <i class="el-icon-search btn-search" @click="handleInput"></i>
       </div>
-      <!-- <el-select v-model="value2" placeholder="国脉海洋信息发展有限公司" size="small">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-          :disabled="item.disabled">
-        </el-option>
-      </el-select> -->
     </div>
   </div>
 </template>

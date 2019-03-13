@@ -44,12 +44,9 @@
             <span class="dot  dot3" v-if="showDot3"></span>
           </div>
         </div>
-        <el-tooltip v-if="userInfo.avatar" effect="dark" content="用户头像" placement="bottom">
-          <img id="thumbnail" class="top-bar__img" />
-        </el-tooltip>
         <el-dropdown>
           <span class="el-dropdown-link">
-            {{ userInfo.username }}
+            {{ userInfo.realName }}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -73,7 +70,7 @@
 <script>
 import SelectOrgDialog from './SelectOrgDialog'
 import { mapGetters, mapState } from 'vuex'
-import { fullscreenToggel, listenfullscreen, handleImg } from '@/util/util'
+import { fullscreenToggel, listenfullscreen } from '@/util/util'
 import navbar from './top-navbar'
 export default {
   components: {
@@ -87,10 +84,6 @@ export default {
       showDot2: true,
       showDot3: true,
     }
-  },
-  filters: {},
-  created () {
-    handleImg(this.userInfo.avatar, 'thumbnail')
   },
   mounted () {
     listenfullscreen(this.setScreen)
@@ -156,6 +149,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.logo {
+  cursor: pointer;
+  margin-right: 5px;
+  width: 76px;
+  height: 32px;
+  background-image: url("/img/logo.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
 .top {
   background-color: #fff;
   border-bottom: 1px solid #eee;
@@ -163,15 +165,10 @@ export default {
   color: rgba(0, 0, 0, 0.65);
   height: 60px;
   box-sizing: border-box;
-  white-space: nowrap;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
   .top-left {
-    width: 240px;
-    height: 100%;
-    // background: #ccc;
-    position: absolute;
-    left: 0;
-    top: 0;
+    margin-left: 20px;
     .logo-wrapper {
       margin: 13px 0;
       display: flex;
@@ -183,31 +180,10 @@ export default {
         padding-left: 5px;
         cursor: pointer;
       }
-      .logo {
-        cursor: pointer;
-        margin-right: 5px;
-        width: 76px;
-        height: 32px;
-        background-image: url("/img/logo.png");
-        background-repeat: no-repeat;
-        background-size: 100% 100%;
-      }
     }
   }
-  .center {
-    height: 100%;
-    // background: #222;
-    margin: 0 220px 0 240px;
-  }
   .top-right {
-    width: 220px;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
     .top-msg {
-      width: 100%;
-      height: 100%;
       display: flex;
       align-items: center;
       cursor: pointer;
@@ -215,7 +191,7 @@ export default {
         margin-right: 15px;
       }
       .top-bar__img {
-        display:none;
+        display: none;
         margin-right: 10px;
         width: 25px;
         height: 25px;
@@ -251,78 +227,19 @@ export default {
           }
         }
       }
-
       .el-dropdown-link {
         color: #6c6c6c;
       }
     }
   }
 }
-
-@media (min-width: 1024px) and (max-width: 1270px) {
-  .top {
-    .top-left {
-      width: 180px;
-      height: 100%;
-      .logo-wrapper {
-        margin: 0;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 14px;
-        .logo {
-          cursor: pointer;
-          width: 50px;
-          height: 22px;
-          background-image: url("/img/logo.png");
-          background-repeat: no-repeat;
-          background-size: 100% 100%;
-        }
-      }
-    }
-    .center {
-      margin: 0 220px 0 180px;
-    }
-    .top-right {
-      width: 220px;
-      .el-tooltip {
-        display: none;
-      }
-    }
+@media (min-width: 0px) and (max-width: 1270px) {
+  .logo {
+    width: 50px;
+    height: 22px;
   }
-}
-@media (min-width: 0px) and (max-width: 1023px) {
-  .top {
-    .top-left {
-      width: 180px;
-      height: 100%;
-      .logo-wrapper {
-        margin: 0;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 14px;
-        .logo {
-          cursor: pointer;
-          width: 50px;
-          height: 22px;
-          background-image: url("/img/logo.png");
-          background-repeat: no-repeat;
-          background-size: 100% 100%;
-        }
-      }
-    }
-    .center {
-      margin: 0 220px 0 180px;
-    }
-    .top-right {
-      width: 220px;
-      .el-tooltip {
-        display: none;
-      }
-    }
+  .top-left {
+    line-height: 34px;
   }
 }
 </style>

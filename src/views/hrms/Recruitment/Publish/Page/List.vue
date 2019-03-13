@@ -8,7 +8,7 @@
           <el-dropdown size="medium">
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
               <el-dropdown-item divided>导入</el-dropdown-item>
               <el-dropdown-item>导出</el-dropdown-item>
               <el-dropdown-item>分享</el-dropdown-item>
@@ -68,7 +68,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="岗位" width="180px">
             <template slot-scope="scope">
@@ -91,7 +91,7 @@
   </div>
 </template>
 <script>
-import { getPublishRecruitmentPage, postPublishRecruitment, putPublishRecruitment, shelfPublishRecruitmentById, deletePublishRecruitmentById, obtainedPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
+import { getPublishRecruitmentPage, postPublishRecruitment, putPublishRecruitment, shelfPublishRecruitmentById, deletePublishRecruitmentById, obtainedPublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/publish_recruitment'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm, dictsMap } from '../options'
 export default {
@@ -108,6 +108,12 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deletePublishRecruitment)
+    },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deletePublishRecruitmentById)
     },

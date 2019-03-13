@@ -42,9 +42,16 @@ export function putPublishRecruitment (obj, publish) {
 
 export function deletePublishRecruitmentById (id) {
   return request({
-    url: `${prefixUrl}/remove/batch`,
+    url: `${prefixUrl}/delete/batch`,
     method: 'post',
     data: [id],
+  })
+}
+export function deletePublishRecruitment (ids) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: ids,
   })
 }
 

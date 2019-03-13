@@ -15,7 +15,7 @@ export default {
   components: { WelAside, WelContent },
   data () {
     return {
-      showAside: true,
+      showAside: this.isTablet(),
     }
   },
   computed: {
@@ -49,9 +49,9 @@ export default {
     right: 0;
     z-index: 102;
     transition: left 0.5s cubic-bezier(0.82, 0.085, 0.395, 0.895);
-    box-shadow: -2px 0 8px rgba(0,0,0,.15);
-    -webkit-transition: all .5s;
-    transition: all .5s;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
   }
   .inactive {
     right: -300px;

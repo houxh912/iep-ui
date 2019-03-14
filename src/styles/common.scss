@@ -22,9 +22,13 @@
 @import './form-detail.scss';
 
 a {
-  text-decoration: none;
-  color:#333;
+	text-decoration: none;
+	color: #333;
 }
 * {
-  outline: none;
+	outline: none;
+}
+h4 {
+	margin: 0;
+	padding: 0;
 }

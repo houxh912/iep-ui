@@ -138,6 +138,7 @@ export default {
   background-color: #fff;
   border-radius: 3px;
   margin-bottom: 10px;
+  border: 1px solid #eee;
   box-shadow: 0 0 1px 1px #eee;
   .left {
     display: inline-flex;

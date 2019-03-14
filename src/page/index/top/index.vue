@@ -24,11 +24,10 @@
           </el-dropdown-menu>
         </el-dropdown>
       </div>
-    </div>
-    <div class="center">
       <top-navbar></top-navbar>
     </div>
     <div class="top-right">
+      <top-guide></top-guide>
       <top-message></top-message>
       <el-dropdown>
         <span class="el-dropdown-link">
@@ -58,10 +57,12 @@ import { mapGetters, mapState } from 'vuex'
 import { fullscreenToggel, listenfullscreen } from '@/util/util'
 import TopNavbar from './TopNavbar'
 import TopMessage from './TopMessage'
+import TopGuide from './TopGuide'
 export default {
   components: {
     TopNavbar,
     TopMessage,
+    TopGuide,
     SelectOrgDialog,
   },
   name: 'Top',
@@ -140,21 +141,16 @@ export default {
   margin: 0 20px;
   cursor: pointer;
 }
+.top-left >>> .el-dropdown {
+  color: #424242;
+  cursor: pointer;
+  width: 140px;
+}
 </style>
 
 <style lang="scss" scoped>
-.logo {
-  cursor: pointer;
-  margin-right: 5px;
-  width: 76px;
-  height: 32px;
-  background-image: url("/img/logo.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
 .top {
   background-color: #fff;
-  border-bottom: 1px solid #eee;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   color: rgba(0, 0, 0, 0.65);
   height: 60px;
@@ -162,6 +158,7 @@ export default {
   display: flex;
   justify-content: space-between;
   .top-left {
+    display: flex;
     margin-left: 20px;
     .logo-wrapper {
       margin: 13px 0;
@@ -169,6 +166,15 @@ export default {
       justify-content: center;
       align-items: center;
       font-size: 16px;
+      .logo {
+        cursor: pointer;
+        margin-right: 5px;
+        width: 76px;
+        height: 32px;
+        background-image: url("/img/logo.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
     }
   }
   .top-right {

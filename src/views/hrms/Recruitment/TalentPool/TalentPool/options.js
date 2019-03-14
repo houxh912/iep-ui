@@ -56,7 +56,7 @@ const initForm = () => {
     'cityCode': '',
     'provinceCode': '',
     'address': '',
-    'politic': '',
+    'politics': '',
     'health': '',
     'marriage': '',
     'bear': 1,

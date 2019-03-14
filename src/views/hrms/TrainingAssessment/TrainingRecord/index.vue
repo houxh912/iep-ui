@@ -4,7 +4,7 @@
       <page-header title="培训记录" :replaceText="replaceText" :data="[5 ,10]"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="(scope.row)" type="danger" icon="el-icon-plus">新增</iep-button>
+          <iep-button @click="(scope.row)" type="danger" icon="el-icon-plus" plain>新增</iep-button>
           <el-dropdown size="medium">
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -48,7 +48,7 @@
         <el-table-column prop="operation" label="操作" width="220">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleEdit(scope.row)" plain>修改</iep-button>
+              <iep-button @click="handleEdit(scope.row)" type="warning" plain>修改</iep-button>
               <iep-button @click="(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>

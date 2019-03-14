@@ -2,14 +2,13 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleAdd()" type="danger" icon="el-icon-plus">新增</iep-button>
+        <iep-button @click="handleAdd()" type="danger" icon="el-icon-plus" plain>新增</iep-button>
         <el-dropdown size="medium">
           <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>删除</el-dropdown-item>
             <el-dropdown-item divided>导入</el-dropdown-item>
             <el-dropdown-item>导出</el-dropdown-item>
-            <el-dropdown-item>分享</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </template>
@@ -45,7 +44,7 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <el-dropdown size="medium">
-              <iep-button plain>
+              <iep-button type="warning" plain>
                 待处理<i class="el-icon-arrow-down el-icon--right"></i>
               </iep-button>
               <el-dropdown-menu slot="dropdown">

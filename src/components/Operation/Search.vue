@@ -1,11 +1,11 @@
 <template>
   <div class="input-wrapper">
     <el-input placeholder="请输入内容" prefix-icon="el-icon-search" size="small" v-model="input">
-      <el-button class="search-btn" slot="append" size="small" @click="handleSearch">搜索</el-button>
+      <iep-button class="search-btn" slot="append" @click="handleSearch">搜索</iep-button>
     </el-input>
     <el-popover v-if="advanceSearch" placement="bottom-end" width="350" trigger="click">
       <slot></slot>
-      <el-button class="senior-btn el-icon-arrow-down" slot="reference" size="small"></el-button>
+      <iep-button class="senior-btn el-icon-arrow-down" slot="reference"></iep-button>
     </el-popover>
   </div>
 </template>
@@ -57,18 +57,8 @@ export default {
   padding: 9px 5px;
   border-radius: 0 3px 3px 0;
 }
-.input-wrapper >>> .senior-btn:hover,
-.input-wrapper >>> .senior-btn:focus {
-  border-color: #dcdfe6;
-  background-color: #fff2f4;
-  color: #cb3737;
-}
 .search-btn:hover,
 .search-btn:focus {
   opacity: 0.8;
-}
-.input-wrapper >>> .el-popover .el-button--primary {
-  background-color: #cb3737;
-  color: #fff;
 }
 </style>

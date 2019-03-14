@@ -4,7 +4,7 @@
       <page-header title="发布招聘" :replaceText="replaceText" :data="[10 ,5]"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd()" type="danger" icon="el-icon-plus">新增</iep-button>
+          <iep-button @click="handleAdd()" type="danger" icon="el-icon-plus" plain>新增</iep-button>
           <el-dropdown size="medium">
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -61,8 +61,8 @@
                 </el-select>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="searchPage">搜索</el-button>
-                <el-button @click="clearSearchParam">清空</el-button>
+                <iep-button type="danger" @click="searchPage">搜索</iep-button>
+                <iep-button @click="clearSearchParam">清空</iep-button>
               </el-form-item>
             </el-form>
           </operation-search>
@@ -79,7 +79,7 @@
         <el-table-column prop="operation" label="操作" width="220">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleEdit(scope.row)" :disabled="scope.row.status===3">编辑</iep-button>
+              <iep-button type="warning" plain @click="handleEdit(scope.row)" :disabled="scope.row.status===3">编辑</iep-button>
               <iep-button v-if="scope.row.status===1" @click="handleShelf(scope.row)">上架</iep-button>
               <iep-button v-if="scope.row.status===2" @click="handleObtained(scope.row)">下架</iep-button>
               <iep-button type="default" @click="handleDelete(scope.row)"><i class="el-icon-delete"></i></iep-button>

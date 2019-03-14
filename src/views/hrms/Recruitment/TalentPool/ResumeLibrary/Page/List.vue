@@ -2,16 +2,13 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleAdd" type="danger" icon="el-icon-plus">新增</iep-button>
-        <el-dropdown size="medium">
+        <iep-button @click="handleAdd" type="danger" icon="el-icon-plus" plain>放入人才库</iep-button>
+        <!-- <el-dropdown size="medium">
           <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>删除</el-dropdown-item>
-            <el-dropdown-item divided>导入</el-dropdown-item>
-            <el-dropdown-item>导出</el-dropdown-item>
-            <el-dropdown-item>分享</el-dropdown-item>
+            <el-dropdown-item>放入人才库</el-dropdown-item>
           </el-dropdown-menu>
-        </el-dropdown>
+        </el-dropdown> -->
       </template>
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
@@ -44,26 +41,8 @@
       <el-table-column prop="operation" label="操作" width="220">
         <template slot-scope="scope">
           <operation-wrapper>
-            <el-dropdown size="medium">
-              <iep-button plain>
-                待处理<i class="el-icon-arrow-down el-icon--right"></i>
-              </iep-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>已邀约</el-dropdown-item>
-                <el-dropdown-item>未面试</el-dropdown-item>
-                <el-dropdown-item>面试未录用</el-dropdown-item>
-                <el-dropdown-item>已录用</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+            <iep-button type="warning" plain @click="(scope.row)">放入人才库</iep-button>
             <iep-button @click="(scope.row)">删除</iep-button>
-            <el-dropdown size="medium">
-              <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>安排面试</el-dropdown-item>
-                <el-dropdown-item>录用</el-dropdown-item>
-                <el-dropdown-item>面试记录</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
           </operation-wrapper>
         </template>
       </el-table-column>

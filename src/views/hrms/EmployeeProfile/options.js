@@ -20,7 +20,7 @@ const columnsMap = [
   {
     prop: 'userName',
     label: '用户名',
-    hidden: false,
+    hidden: true,
   },
   {
     prop: 'position',
@@ -30,7 +30,7 @@ const columnsMap = [
   {
     prop: 'staffId',
     label: '工号',
-    hidden: false,
+    hidden: true,
   },
   {
     prop: 'status',
@@ -56,7 +56,7 @@ const columnsMap = [
   {
     prop: 'entryTime',
     label: '入职时间',
-    hidden: true,
+    hidden: false,
   },
   {
     prop: 'positiveTime',
@@ -146,7 +146,7 @@ const columnsMap = [
   {
     prop: 'IDCard',
     label: '身份证',
-    hidden: true,
+    hidden: false,
   },
   {
     prop: 'phone',

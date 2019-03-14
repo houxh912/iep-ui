@@ -45,7 +45,7 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <el-dropdown size="medium">
-              <iep-button type="warning">
+              <iep-button type="warning" plain>
                 待处理<i class="el-icon-arrow-down el-icon--right"></i>
               </iep-button>
               <el-dropdown-menu slot="dropdown">

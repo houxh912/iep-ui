@@ -20,10 +20,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.el-button.is-plain {
-  &:focus,
+.el-button {
   &:hover {
-    border-color: #bf051a;
+    // border-color: #bf051a;
     background-color: #fff2f4;
     color: #bf051a;
   }

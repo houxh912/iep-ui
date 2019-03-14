@@ -239,28 +239,24 @@ const inittransferForm = () => {
     transferTime: '',
   }
 }
-const initdepartureForm = () => {
+const initDepartureForm = () => {
   return {
-    title: '',
+    id: '',
     departureTime: '',
     reason: '',
   }
 }
-const initinductionForm = () => {
+const initInductionForm = () => {
   return {
-    name: '',
-    sex: '',
-    position: '',
-    idCard: '',
+    id: '',
+    status: 2,
     inductionTime: '',
   }
 }
-const initpositiveForm = () => {
+const initPositiveForm = () => {
   return {
-    name: '张三',
-    position: '产品',
-    psoitiveTime: '',
-
+    id: '',
+    positiveTime: '',
   }
 }
-export { dictsMap, columnsMap, initOrgForm, initSearchForm, inittransferForm, initdepartureForm, initinductionForm, initpositiveForm }
+export { dictsMap, columnsMap, initOrgForm, initSearchForm, inittransferForm, initDepartureForm, initInductionForm, initPositiveForm }

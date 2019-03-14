@@ -63,7 +63,7 @@
   </div>
 </template>
 <script>
-import { getEmployeeProfilePage } from '@/api/hrms/employee_profile'
+import { getEmployeeProfilePage, postInduction, postPositive, postDeparture } from '@/api/hrms/employee_profile'
 import mixins from '@/mixins/mixins'
 import keyBy from 'lodash/keyBy'
 import { columnsMap, initSearchForm, dictsMap } from '../options'
@@ -102,15 +102,18 @@ export default {
       this.$refs['TransferDialog'].dialogShow = true
     },
     handleDeparture (row) {
-      console.log(row)
+      this.$refs['DepartureDialog'].form.id = row.id
+      this.$refs['DepartureDialog'].formRequestFn = postDeparture
       this.$refs['DepartureDialog'].dialogShow = true
     },
     handleInduction (row) {
-      console.log(row)
+      this.$refs['InductionDialog'].form.id = row.id
+      this.$refs['InductionDialog'].formRequestFn = postInduction
       this.$refs['InductionDialog'].dialogShow = true
     },
     handelPositive (row) {
-      console.log(row)
+      this.$refs['PositiveDialog'].form.id = row.id
+      this.$refs['PositiveDialog'].formRequestFn = postPositive
       this.$refs['PositiveDialog'].dialogShow = true
     },
     setHeaderSetting (col) {

@@ -1,31 +1,30 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="离职" width="400px" @close="loadPage">
-    <el-form :model="departureForm" :rules="rules" size="small" ref="departureForm" label-width="100px">
+    <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="离职时间" prop="departureTime">
-        <el-date-picker v-model="departureForm.departureTime" type="date" placeholder="选择日期">
+        <el-date-picker v-model="form.departureTime" type="date" placeholder="选择日期">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="离职原因" prop="reason">
-        <el-input v-model="departureForm.reason" type="textarea"></el-input>
+        <el-input v-model="form.reason" type="textarea"></el-input>
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('departureForm')">提交</iep-button>
+      <iep-button type="primary" @click="submitForm('form')">提交</iep-button>
       <iep-button @click="loadPage">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
 import IepDialog from '@/components/IepDialog/'
-import { initdepartureForm } from '../options'
+import { initDepartureForm } from '../options'
 export default {
   components: { IepDialog },
   data () {
     return {
       dialogShow: false,
       formRequestFn: () => { },
-      methodName: '创建',
-      departureForm: initdepartureForm(),
+      form: initDepartureForm(),
       rules: {
         departureTime: [
           { required: true, message: '请选择离职时间', trigger: 'blur' },
@@ -38,14 +37,14 @@ export default {
   },
   methods: {
     loadPage () {
-      this.departureForm = initdepartureForm()
+      this.form = initDepartureForm()
       this.dialogShow = false
       this.$emit('load-page')
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.departureForm).then(() => {
+          this.formRequestFn(this.form).then(() => {
             this.$notify({
               title: '成功',
               message: '离职成功',

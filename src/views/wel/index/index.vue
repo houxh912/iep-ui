@@ -15,8 +15,11 @@ export default {
   components: { WelAside, WelContent },
   data () {
     return {
-      showAside: this.isTablet(),
+      showAside: true,
     }
+  },
+  created () {
+    this.showAside = this.isDesktop()
   },
   computed: {
     isShow300px () {

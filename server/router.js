@@ -45,7 +45,7 @@ router.get('/admin/org', orgController.getOrgPage)
 router.get('/admin/org/user/page', orgController.getOrgUserPage)
 router.get('/admin/org/:id', orgController.getOrgDetail)
 router.post('/admin/user/set/org/:id', orgController.postSetOrg)
-router.post('/admin/dept/list', adminController.getDeptList)
+router.get('/admin/dept/list', adminController.getDeptList)
 
 router.get('/hrms/employee_profile/page', hrmsController.getEmployeeProfilePage)
 router.get('/hrms/employee_profile/growth_file/:id', hrmsController.getGrowthFileById)

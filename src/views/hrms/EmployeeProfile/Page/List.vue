@@ -123,7 +123,7 @@ export default {
     },
     handleOpenGrowthFile (row) {
       this.$router.push({
-        path: `/info/growth_file/${row.userId}`,
+        path: `/info/growth_file/${row.id}`,
         query: { redirect: this.$route.fullPath },
       })
     },

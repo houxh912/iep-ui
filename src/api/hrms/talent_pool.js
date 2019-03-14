@@ -34,6 +34,14 @@ export function postTalentPool (obj) {
   })
 }
 
+export function putTalentPool (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}
+
 export function getTalentPoolById (id) {
   return request({
     url: `${prefixUrl}/${id}`,

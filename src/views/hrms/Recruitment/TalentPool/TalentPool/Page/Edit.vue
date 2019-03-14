@@ -134,16 +134,16 @@
               <el-input v-model="form.name"></el-input>
             </el-form-item>
             <el-form-item label="到岗时间：" class="form-half">
-              <el-input v-model="form.name"></el-input>
+              <iep-date-picker v-model="form.arrive" type="date" placeholder="选择日期"></iep-date-picker>
             </el-form-item>
-            <el-form-item label="应聘岗位：" class="form-half">
-              <el-input v-model="form.name"></el-input>
+            <el-form-item label="期望薪资：" class="form-half">
+              <el-input v-model="form.salary"></el-input>
             </el-form-item>
-            <el-form-item label="到岗时间：" class="form-half">
-              <el-input v-model="form.name"></el-input>
+            <el-form-item label="期望工作地：" class="form-half">
+              <el-input v-model="form.workPlace"></el-input>
             </el-form-item>
           </el-collapse-item>
-          <el-collapse-item title="学习工作经历" name="3">
+          <el-collapse-item v-if="methodName !=='新增'" title="学习工作经历" name="3">
             <el-form-item label="学习情况：">
               <el-input type="textarea"></el-input>
             </el-form-item>
@@ -151,7 +151,7 @@
               <el-input type="textarea"></el-input>
             </el-form-item>
           </el-collapse-item>
-          <el-collapse-item title="培训证书情况" name="4">
+          <el-collapse-item v-if="methodName !=='新增'" title="培训证书情况" name="4">
             <el-form-item label="培训情况：">
               <el-input type="textarea"></el-input>
             </el-form-item>
@@ -159,7 +159,7 @@
               <el-input type="textarea"></el-input>
             </el-form-item>
           </el-collapse-item>
-          <el-collapse-item title="附件上传" name="5">
+          <el-collapse-item v-if="methodName !=='新增'" title="附件上传" name="5">
             <el-input type="textarea"></el-input>
           </el-collapse-item>
         </el-collapse>

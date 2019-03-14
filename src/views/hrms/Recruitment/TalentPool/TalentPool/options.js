@@ -72,7 +72,7 @@ const initForm = () => {
     'result': '',
     'positionId': 3,
     'positionName': '',
-    'arrive': 1,
+    'arrive': '',
     'salary': '',
     'workPlace': '',
     'attach': '',

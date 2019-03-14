@@ -14,7 +14,7 @@ export default {
   name: 'IepDictDetail',
   props: {
     currentValue: {
-      type: [Array, Number],
+      type: [Array, Number, String],
       required: true,
     },
     dictName: {

@@ -55,11 +55,12 @@
                 <el-dropdown-item>已录用</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <iep-button @click="(scope.row)">删除</iep-button>
+            <iep-button @click="handleDelete(scope.row)">删除</iep-button>
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>安排面试</el-dropdown-item>
+                <el-dropdown-item @click.native="handleEdit(scope.row)">编辑</el-dropdown-item>
+                <el-dropdown-item divided>安排面试</el-dropdown-item>
                 <el-dropdown-item>录用</el-dropdown-item>
                 <el-dropdown-item>面试记录</el-dropdown-item>
               </el-dropdown-menu>
@@ -72,7 +73,7 @@
   </div>
 </template>
 <script>
-import { getTalentPoolPage, postTalentPool } from '@/api/hrms/talent_pool'
+import { getTalentPoolPage, postTalentPool, putTalentPool } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
 import RejectedDialog from './RejectedDialog'
@@ -89,6 +90,13 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleEdit (row) {
+      this.$emit('onEdit', {
+        formRequestFn: putTalentPool,
+        methodName: '编辑',
+        id: row.id,
+      })
+    },
     handleAdd () {
       this.$emit('onEdit', {
         formRequestFn: postTalentPool,

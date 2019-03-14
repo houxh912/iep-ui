@@ -7,7 +7,6 @@
           <el-col :span="12">
             <el-form-item label="岗位名称：">
               <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
-              <!-- <el-input v-model="form.positionId"></el-input> -->
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -88,8 +87,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="招聘期限：">
-              <el-date-picker v-model="form.term" type="date" placeholder="选择日期">
-              </el-date-picker>
+              <iep-date-picker v-model="form.term" type="date" placeholder="选择日期"></iep-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="12">

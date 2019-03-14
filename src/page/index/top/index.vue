@@ -26,18 +26,10 @@
       </div>
     </div>
     <div class="center">
-      <navbar></navbar>
+      <top-navbar></top-navbar>
     </div>
     <div class="top-right">
-      <el-badge :value="12" class="item">
-        <iep-button icon="el-icon-phone-outline" plain>通知</iep-button>
-      </el-badge>
-      <el-badge :value="12" class="item">
-        <iep-button icon="el-icon-bell" plain>消息</iep-button>
-      </el-badge>
-      <el-badge :value="12" class="item">
-        <iep-button icon="el-icon-message" plain>邮件</iep-button>
-      </el-badge>
+      <top-message></top-message>
       <el-dropdown>
         <span class="el-dropdown-link">
           {{ userInfo.realName }}
@@ -64,10 +56,12 @@
 import SelectOrgDialog from './SelectOrgDialog'
 import { mapGetters, mapState } from 'vuex'
 import { fullscreenToggel, listenfullscreen } from '@/util/util'
-import navbar from './top-navbar'
+import TopNavbar from './TopNavbar'
+import TopMessage from './TopMessage'
 export default {
   components: {
-    navbar,
+    TopNavbar,
+    TopMessage,
     SelectOrgDialog,
   },
   name: 'Top',
@@ -181,9 +175,6 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    .item {
-      margin-right: 20px;
-    }
   }
 }
 @media (min-width: 0px) and (max-width: 1270px) {

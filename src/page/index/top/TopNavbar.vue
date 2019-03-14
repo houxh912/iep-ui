@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import topSearch from './top-search'
+import TopSearch from './TopSearch'
 import displayMixins from '@/mixins/displayMixins'
 export default {
   mixins: [displayMixins],
@@ -59,7 +59,7 @@ export default {
       ],
     }
   },
-  components: { topSearch },
+  components: { TopSearch },
   methods: {
     handleInput () {
       this.isShow = !this.isShow

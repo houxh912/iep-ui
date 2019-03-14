@@ -36,8 +36,8 @@
                   变更<i class="el-icon-arrow-down el-icon--right"></i>
                 </iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleInduction(scope.row)">入职</el-dropdown-item>
-                  <el-dropdown-item @click.native="handelPositive(scope.row)">转正</el-dropdown-item>
+                  <el-dropdown-item v-if="scope.row.status !== 1" @click.native="handleInduction(scope.row)">入职</el-dropdown-item>
+                  <el-dropdown-item v-if="scope.row.status !== 1" @click.native="handelPositive(scope.row)">转正</el-dropdown-item>
                   <el-dropdown-item @click.native="handleTransfer(scope.row)">调动</el-dropdown-item>
                   <el-dropdown-item @click.native="handleDeparture(scope.row)">离职</el-dropdown-item>
                 </el-dropdown-menu>

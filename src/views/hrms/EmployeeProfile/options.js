@@ -124,11 +124,6 @@ const columnsMap = [
     hidden: true,
   },
   {
-    prop: 'certifications',
-    label: '资质证书名称',
-    hidden: true,
-  },
-  {
     prop: 'accountTypes',
     label: '户口类别',
     hidden: true,
@@ -186,11 +181,6 @@ const columnsMap = [
   {
     prop: 'signingTime',
     label: '劳动合同签订时间',
-    hidden: true,
-  },
-  {
-    prop: 'expirationTime',
-    label: '劳动合同到期时间',
     hidden: true,
   },
   {

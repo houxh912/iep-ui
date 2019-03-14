@@ -47,24 +47,7 @@
               <el-input v-model="form.nation"></el-input>
             </el-form-item>
             <el-form-item label="籍贯：" class="form-half">
-              <el-cascader :options="[{
-                  value: 'shejiyuanze',
-                  label: '设计原则',
-                  children: [{
-                    value: 'yizhi',
-                    label: '一致'
-                  }, {
-                    value: 'fankui',
-                    label: '反馈'
-                  }, {
-                    value: 'xiaolv',
-                    label: '效率'
-                  }, {
-                    value: 'kekong',
-                    label: '可控'
-                  }]
-                }]" v-model="form.cities">
-              </el-cascader>
+              <iep-cascader v-model="form.cities" prefix-url="admin/city"></iep-cascader>
             </el-form-item>
             <el-form-item label="现住地址：">
               <el-input v-model="form.address"></el-input>
@@ -132,7 +115,7 @@
           </el-collapse-item>
           <el-collapse-item title="求职意向" name="2">
             <el-form-item label="应聘岗位：" class="form-half">
-              <el-input v-model="form.name"></el-input>
+              <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
             </el-form-item>
             <el-form-item label="到岗时间：" class="form-half">
               <el-select v-model="form.arrive" placeholder="请选择">
@@ -180,7 +163,7 @@
 import { mapState } from 'vuex'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 import FooterToolBar from '@/components/FooterToolbar'
-import { initForm } from '../options'
+import { initForm, formToDto } from '../options'
 import { mergeByFirst } from '@/util/util'
 export default {
   props: {
@@ -218,7 +201,7 @@ export default {
       this.$emit('onGoBack')
     },
     handleSubmit () {
-      this.formRequestFn(this.form).then(({ data }) => {
+      this.formRequestFn(formToDto(this.form)).then(({ data }) => {
         console.log(data.data)
         this.$message({
           message: `人才库${this.methodName}成功`,

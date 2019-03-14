@@ -1,4 +1,4 @@
-// org config options
+import { mergeByFirst } from '@/util/util'
 const dictsMap = {
   isOpen: {
     0: '开',
@@ -53,8 +53,6 @@ const initForm = () => {
     'height': '',
     'weight': '',
     'nation': '',
-    'cityCode': '',
-    'provinceCode': '',
     'address': '',
     'politics': '',
     'health': '',
@@ -70,6 +68,7 @@ const initForm = () => {
     'advantage': '',
     'honor': '',
     'result': '',
+    'position': [],
     'positionId': 3,
     'positionName': '',
     'arrive': '',
@@ -86,6 +85,56 @@ const initForm = () => {
   }
 }
 
+const initDtoForm = () => {
+  return {
+    'id': '',
+    'name': '',
+    'sex': 1,
+    'avatar': '',
+    'birthday': '',
+    'title': '',
+    'phone': '',
+    'age': '',
+    'email': '',
+    'height': '',
+    'weight': '',
+    'nation': '',
+    'address': '',
+    'politics': '',
+    'health': '',
+    'marriage': '',
+    'bear': 1,
+    'university': '',
+    'education': 2,
+    'relation': '',
+    'recommender': '',
+    'appWay': 9,
+    'source': 4,
+    'hobbies': '',
+    'advantage': '',
+    'honor': '',
+    'result': '',
+    'positionId': 3,
+    'arrive': '',
+    'salary': '',
+    'workPlace': '',
+    'attach': '',
+    'workExperience': [],
+    'trainingSituation': [],
+    'eduSituation': [],
+    'userCert': [],
+    'blacklistArea': '',
+    'blacklistReasons': '',
+    'cities': [],
+  }
+}
+
+const formToDto = (form) => {
+  const newForm = mergeByFirst(initDtoForm(), form)
+  newForm.positionId = form.position[form.position.length - 1]
+  return newForm
+}
+
 const initSearchForm = () => {
   return {
     name: '',
@@ -98,4 +147,4 @@ const initrejectedForm = () => {
 
   }
 }
-export { dictsMap, columnsMap, initForm, initSearchForm, initrejectedForm }
+export { dictsMap, columnsMap, initForm, initSearchForm, initrejectedForm, formToDto }

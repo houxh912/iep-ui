@@ -45,7 +45,7 @@
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" @click="handleAdd(scope.row)" :disabled="scope.row._level>1" plain>添加子部门</iep-button>
+              <iep-button @click="handleAdd(scope.row)" :disabled="scope.row._level>1" plain>添加子部门</iep-button>
               <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>

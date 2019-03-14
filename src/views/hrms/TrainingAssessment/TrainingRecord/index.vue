@@ -48,7 +48,7 @@
         <el-table-column prop="operation" label="操作" width="220">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" @click="handleEdit(scope.row)" plain>修改</iep-button>
+              <iep-button @click="handleEdit(scope.row)" plain>修改</iep-button>
               <iep-button @click="(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>

@@ -33,7 +33,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <el-dropdown size="medium">
-                <iep-button type="default">
+                <iep-button plain>
                   变更<i class="el-icon-arrow-down el-icon--right"></i>
                 </iep-button>
                 <el-dropdown-menu slot="dropdown">

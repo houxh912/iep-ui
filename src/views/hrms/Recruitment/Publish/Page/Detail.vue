@@ -42,60 +42,56 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="工作年限：">
-              <el-input-number v-model="form.years"></el-input-number>
+              <label>{{form.years}}年</label>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="专业要求：">
-              <el-input v-model="form.profession"></el-input>
+              <label>{{form.profession}}</label>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="工作地点：" class="form-half">
-              <el-input v-model="form.place"></el-input>
+              <label>{{form.place}}</label>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="性别：" class="form-half">
-              <el-radio-group v-model="form.sex">
-                <el-radio :label="1">男</el-radio>
-                <el-radio :label="2">女</el-radio>
-              </el-radio-group>
+              <label>男</label>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="工资待遇：" class="form-half">
-              <el-input v-model="form.treatment"></el-input>
+              <label>{{form.treatment}}</label>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="外语要求：" class="form-half">
-              <el-input v-model="form.language"></el-input>
+              <label>{{form.language}}</label>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="招聘期限：" class="form-half">
-              <el-date-picker v-model="form.term" type="date" placeholder="选择日期">
-              </el-date-picker>
+              <label>{{form.term}}</label>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="福利待遇：" class="form-half">
-              <el-input v-model="form.welfare"></el-input>
+              <label>{{form.welfare}}</label>
             </el-form-item>
           </el-col>
         </el-row>
         <el-form-item label="岗位职责：">
-          <el-input type="textarea" v-model="form.duties" :rows="4"></el-input>
+          <label>{{form.duties}}</label>
         </el-form-item>
         <el-form-item label="岗位要求：">
-          <el-input type="textarea" v-model="form.claim" :rows="4"></el-input>
+          <label>{{form.claim}}</label>
         </el-form-item>
       </el-form>
     </basic-container>

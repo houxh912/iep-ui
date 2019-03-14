@@ -1,13 +1,15 @@
 <template>
-  <span>
-    <template v-for="(label, index) in currentLabels">
-      {{ label }}
-      <span v-if="index < currentLabels.length - 1" :key="index"> / </span>
-    </template>
-  </span>
+  <label>
+    <span>
+      <template v-for="(label, index) in currentLabels">
+        {{ label }}
+        <span v-if="index < currentLabels.length - 1" :key="index"> / </span>
+      </template>
+    </span>
+  </label>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name: 'IepDictDetail',
   props: {
@@ -28,7 +30,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['dictGroup']),
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
     itemTypes () {
       return this.dictGroup[this.dictName]
     },
@@ -37,7 +41,7 @@ export default {
       let labels = []
       let inputValue = []
       if (!this.currentValue.length) {
-        inputValue = ['' + this.currentValue]
+        inputValue = [this.currentValue]
       } else {
         inputValue = this.currentValue
       }

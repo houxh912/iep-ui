@@ -145,6 +145,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   display: flex;
+  margin-left: 20px;
   background-color: white;
   .left {
     flex: 1;

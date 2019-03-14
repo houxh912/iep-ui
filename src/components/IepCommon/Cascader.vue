@@ -1,11 +1,12 @@
 <template>
-  <el-cascader v-model="localValue" placeholder="请选择" :options="options">
+  <el-cascader v-model="localValue" :options="options" v-bind="$attrs" v-on="$listeners">
   </el-cascader>
 </template>
 <script>
 import { getCommonList } from '@/api/common'
 export default {
   name: 'IepCascader',
+  inheritAttrs: false,
   props: {
     prefixUrl: {
       type: String,

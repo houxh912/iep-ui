@@ -18,11 +18,13 @@
 // @import './media.scss';
 // //通用配置
 // @import './normalize.scss';
+// 表单展示也
+@import './form-detail.scss';
 
-a{
+a {
   text-decoration: none;
   color:#333;
 }
-*{
+* {
   outline: none;
 }

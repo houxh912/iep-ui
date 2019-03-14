@@ -19,7 +19,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .basic-container {
-  margin: 0 0 0 -20px;
   border-radius: 10px;
   box-sizing: border-box;
   .el-card {

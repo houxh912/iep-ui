@@ -1,17 +1,17 @@
 const utils = require('./config/utils')
 const devServer = require('./config/devServer')
-const IS_PRODUCTION = process.env.NODE_ENV === 'production'
+// const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 module.exports = {
   lintOnSave: true,
   productionSourceMap: false,
-  pages: {
-    index: {
-      // page 的入口
-      entry: IS_PRODUCTION ? 'src/main.js' : 'src/main.dev.js',
-      // 模板来源
-      template: IS_PRODUCTION ? 'public/index.html' : 'public/index.dev.html',
-    },
-  },
+  // pages: {
+  //   index: {
+  //     // page 的入口
+  //     entry: IS_PRODUCTION ? 'src/main.js' : 'src/main.dev.js',
+  //     // 模板来源
+  //     template: IS_PRODUCTION ? 'public/index.html' : 'public/index.dev.html',
+  //   },
+  // },
   // configureWebpack: {
   //   externals: IS_PRODUCTION
   //     ? {

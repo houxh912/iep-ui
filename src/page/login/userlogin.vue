@@ -221,6 +221,7 @@ export default {
 }
 .login-code {
   display: flex;
+  margin-left: -1px;
   width: 40%;
   align-items: center;
   justify-content: space-around;

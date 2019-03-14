@@ -38,6 +38,7 @@ export default {
 .wel-wrapper {
   display: flex;
   position: relative;
+  margin-right:-20px;
   .wel-content {
     box-sizing: border-box;
     transition: 1000 all ease-in;

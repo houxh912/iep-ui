@@ -1,13 +1,11 @@
 import { mergeByFirst } from '@/util/util'
 const dictsMap = {
-  isOpen: {
-    0: '开',
-    1: '关',
-  },
   status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
+    1: '待处理',
+    2: '已邀约',
+    3: '邀约未面试',
+    4: '面试未录用',
+    5: '已录用',
   },
 }
 
@@ -18,12 +16,13 @@ const columnsMap = [
     width: 55,
   },
   {
-    prop: 'education',
-    label: '学历',
-  },
-  {
     prop: 'age',
     label: '年龄',
+    width: 55,
+  },
+  {
+    prop: 'education',
+    label: '学历',
   },
   {
     prop: 'applyPosition',

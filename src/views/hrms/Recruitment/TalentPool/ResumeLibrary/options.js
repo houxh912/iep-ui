@@ -18,12 +18,13 @@ const columnsMap = [
     width: 55,
   },
   {
-    prop: 'education',
-    label: '学历',
-  },
-  {
     prop: 'age',
     label: '年龄',
+    width: 55,
+  },
+  {
+    prop: 'education',
+    label: '学历',
   },
   {
     prop: 'applyPosition',

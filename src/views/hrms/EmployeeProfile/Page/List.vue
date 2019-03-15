@@ -98,7 +98,6 @@ export default {
   },
   methods: {
     handleTransfer (row) {
-      console.log(row)
       this.$refs['TransferDialog'].form.id = row.id
       this.$refs['TransferDialog'].formRequestFn = postTransfer
       this.$refs['TransferDialog'].dialogShow = true

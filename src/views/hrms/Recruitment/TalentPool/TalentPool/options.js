@@ -141,10 +141,24 @@ const initSearchForm = () => {
     sex: '',
   }
 }
+const initToResumeForm = () => {
+  return {
+    ids: [],
+    reason: '',
+  }
+}
+const initToBlacklistForm = () => {
+  return {
+    ids: [],
+    area: '',
+    reason: '',
+  }
+}
+
 const initrejectedForm = () => {
   return {
     msg: '',
 
   }
 }
-export { dictsMap, columnsMap, initForm, initSearchForm, initrejectedForm, formToDto }
+export { dictsMap, columnsMap, initForm, initSearchForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm }

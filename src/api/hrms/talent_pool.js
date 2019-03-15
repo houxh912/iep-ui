@@ -48,3 +48,19 @@ export function getTalentPoolById (id) {
     method: 'get',
   })
 }
+
+export function postToResume (obj) {
+  return request({
+    url: `${prefixUrl}/to_resume`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function postToBlacklist (obj) {
+  return request({
+    url: `${prefixUrl}/to_blacklist`,
+    method: 'post',
+    data: obj,
+  })
+}

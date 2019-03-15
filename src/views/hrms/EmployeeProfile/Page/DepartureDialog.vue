@@ -2,8 +2,8 @@
   <iep-dialog :dialog-show="dialogShow" title="离职" width="400px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="离职时间" prop="departureTime">
-        <el-date-picker v-model="form.departureTime" type="date" placeholder="选择日期">
-        </el-date-picker>
+        <iep-date-picker v-model="form.departureTime" type="date" placeholder="选择日期">
+        </iep-date-picker>
       </el-form-item>
       <el-form-item label="离职原因" prop="reason">
         <el-input v-model="form.reason" type="textarea"></el-input>

@@ -4,34 +4,45 @@
       <page-header title="人才详情" :backOption="backOption"></page-header>
       <div class="base-msg">
         <el-row>
-          <el-col :span="3">
-            <div class="grid-content bg-purple">
+          <el-col :span="5">
+            <div class="grid-content bg-purple name-con">
               <div class="img zoom"><img id="information-avatar" alt="头像"></div>
+              <div class="name-info">
+                <span class="name">张三</span>
+                <span class="time">1992-02-10</span>
+              </div>
             </div>
           </el-col>
-          <el-col :span="21">
-            <div class="grid-content bg-purple">
+          <el-col :span="19">
+            <div class="grid-content bg-purple detail">
               <el-form ref="form" :model="form" label-width="100px">
-                <el-col :span="7">
-                  <el-form-item label="申请人：">
-                    <span>{{form.name}}</span>
+                <el-col :span="8">
+                  <el-form-item label="联系电话：">
+                    <span>{{form.phone}}</span>
                   </el-form-item>
-                  <el-form-item label="入职时间：">
-                    <span>{{form.time}}</span>
-                  </el-form-item>
-                  <el-form-item label="岗位：">
-                    <span>{{form.position}}</span>
+                  <el-form-item label="政治面貌：">
+                    <span>{{form.face}}</span>
                   </el-form-item>
                 </el-col>
-                <el-col :span="14">
-                  <el-form-item label="所属部门：">
-                    <span>{{form.department}}</span>
+                <el-col :span="8">
+                  <el-form-item label="电子邮箱：">
+                    <span>{{form.email}}</span>
                   </el-form-item>
-                  <el-form-item label="转正日期：">
-                    <span>{{form.date}}</span>
+                  <el-form-item label="毕业学校：">
+                    <span>{{form.school}}</span>
                   </el-form-item>
-                  <el-form-item label="薪资：">
-                    <span>{{form.salary}}</span>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item label="外部头衔：">
+                    <span>{{form.honor}}</span>
+                  </el-form-item>
+                  <el-form-item label="最高学历：">
+                    <span>{{form.education}}</span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="24">
+                  <el-form-item label="现住地址：">
+                    <span>{{form.address}}</span>
                   </el-form-item>
                 </el-col>
               </el-form>
@@ -39,20 +50,40 @@
           </el-col>
         </el-row>
       </div>
-      <div class="review">
-        <el-form ref="form" :model="form" label-width="280px">
+      <div class="review basic-info">
+        <el-form ref="form" :model="form" label-width="130px">
           <div class="title"> {{form.review.title}}</div>
-          <el-form-item :label="item.label+'：'" v-for="(item,index) in form.review.list" :key="index">
-            <span>{{item.value}}</span>
-          </el-form-item>
+          <div class="con">
+            <el-form-item :label="item.label+'：'" v-for="(item,index) in form.review.list" :key="index">
+              <span>{{item.value}}</span>
+            </el-form-item>
+          </div>
         </el-form>
       </div>
-      <div class="review">
-        <el-form ref="form" :model="form" label-width="280px">
+      <div class="review basic-info">
+        <el-form ref="form" :model="form" label-width="110px">
           <div class="title"> {{form.opinion.title}}</div>
-          <el-form-item :label="item.label+'：'" v-for="(item,index) in form.opinion.list" :key="index">
-            <span>{{item.value}}</span>
-          </el-form-item>
+          <div class="con">
+            <el-form-item :label="item.label+'：'" v-for="(item,index) in form.opinion.list" :key="index">
+              <span>{{item.value}}</span>
+            </el-form-item>
+          </div>
+        </el-form>
+      </div>
+      <div class="review basic-info">
+        <el-form ref="form" :model="form" label-width="110px">
+          <div class="title"> {{form.study.title}}</div>
+          <div class="sub-title"> {{form.study.subtitle}}</div>
+          <div class="con">
+            <el-table :data="tableData" style="width: 100%">
+              <el-table-column prop="unit" label="学习教育单位" width="180">
+              </el-table-column>
+              <el-table-column prop="time" label="起始日期" width="180">
+              </el-table-column>
+              <el-table-column prop="con" label="学习内容">
+              </el-table-column>
+            </el-table>
+          </div>
         </el-form>
       </div>
       <div class="review">
@@ -77,15 +108,31 @@ export default {
       },
       form: {
         name: '李颖',
-        sourceName: '黄磊',
-        time: '2019-01-20',
-        position: '产品助理',
-        department: '产品中心',
+        phone: '13666567728',
+        face: '党员',
+        address: '浙江省舟山市定海区临城街道邦泰城11幢1206室',
+        email: 'ahsffl111@163.com',
+        school: '浙江大学',
+        honor: '开发工程师',
+        education: '本科',
         date: '2019-06-20',
         salary: 3000,
-        review: { title: '自我评述', list: [{ label: '服从领导安排情况', value: '绝对服从领导安排' }, { label: '完成交办任务情况', value: '基本能完成领导交办的任务' }, { label: '工作态度表现情况', value: '工作努力认真' }, { label: '工作能力与技巧', value: '现在一般在不断的进步与提升中' }, { label: '自身有点与缺点', value: '工作认真负责，不善于表达' }, { label: '其他', value: '继续学习，以人为本，数据赋能' }] },
-        opinion: { title: '部门班长意见', list: [{ label: '优缺点评价', value: '绝对服从领导安排' }, { label: '试用期内工作完成情况以及存在的问题', value: '基本能完成领导交办的任务' }, { label: '下一步工作安排', value: '工作努力认真' }, { label: '转正职称考试题目以及完成情况', value: '现在一般在不断的进步与提升中' }, { label: '建议职务', value: '工作认真负责，不善于表达' }, { label: '建议职称', value: '继续学习，以人为本，数据赋能' }, { label: '审批人', value: '007' }, { label: '审批结果', value: '001' }] },
+        review: { title: '基础信息', list: [{ label: '身高', value: '160cm' }, { label: '体重', value: '基50kg' }, { label: '民族', value: '汉族' }, { label: '健康', value: '良好' }, { label: '婚姻状况', value: '已婚' }, { label: '生育状态', value: '已育' }, { label: '员工关系', value: '朋友' }, { label: '推荐人', value: '李四' }, { label: '应聘渠道', value: '在线应聘' }, { label: '来源', value: '官网' }, { label: '兴趣爱好', value: '音乐' }, { label: '个人特长及优势', value: '专研技术' }, { label: '荣誉奖励', value: '在线应聘' }, { label: '其他成果', value: '在线应聘' }] },
+        opinion: { title: '求职意向', list: [{ label: '应聘岗位', value: 'JAVA开发' }, { label: '期望薪资', value: '6000-10000元' }, { label: '期望工作地点', value: '舟山' }, { label: '到岗日期', value: '2019-05-02' }] },
+        study: { title: '学习工作经历', subtitle: '学习情况' },
       },
+      tableData: [
+        {
+          unit: '浙江大学',
+          time: '王小虎',
+          con: '计算机语言/计算机网络课程',
+        },
+        {
+          unit: '浙江工商学院',
+          time: '王二虎',
+          con: '计算机语言/计算机网络课程',
+        },
+      ],
     }
   },
   methods: {
@@ -113,10 +160,37 @@ export default {
   padding: 15px 0 7px 0;
   border: 1px solid #eee;
   box-shadow: 0 0 1px 1px #eee;
+  .el-row {
+    display: flex;
+    align-items: center;
+  }
+  .el-col-19 {
+    border-left: 1px dashed #eee;
+  }
+  .detail {
+    padding: 0 30px;
+  }
+  .name-con {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    .name-info {
+      .name {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 20px;
+      }
+      .time {
+        display: block;
+        font-size: 14px;
+        color: #999;
+      }
+    }
+  }
   .img {
-    margin: 0 auto;
-    width: 120px;
-    height: 120px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
     overflow: hidden;
     img {
@@ -127,6 +201,24 @@ export default {
 }
 .basic-container {
   border: none;
+}
+.basic-info {
+  .sub-title {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .con {
+    display: flex;
+    flex-wrap: wrap;
+    .el-form-item {
+      width: 25%;
+      &:nth-child(13),
+      &:nth-child(14) {
+        width: 100%;
+      }
+    }
+  }
 }
 .review {
   border-bottom: 1px solid #eee;
@@ -147,3 +239,16 @@ export default {
   margin: 0;
 }
 </style>
+<style scoped>
+.base-msg >>> .el-form-item .el-form-item__label {
+  text-align: left;
+}
+.basic-info >>> .con .el-table th {
+  background-color: #fafafa;
+}
+.basic-info >>> .el-table thead,
+.basic-info >>> .el-table tbody {
+  border: 1px solid #eee;
+}
+</style>
+

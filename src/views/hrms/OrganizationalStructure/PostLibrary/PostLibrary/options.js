@@ -18,7 +18,7 @@ const initForm = () => {
 		id: '',
 		name: '',
 		typeName: '',
-		typeId: null,
+		typeId: '',
 		count: '',
 		duties: '',
 		claim: '',

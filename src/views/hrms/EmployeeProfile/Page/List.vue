@@ -36,10 +36,10 @@
                   变更<i class="el-icon-arrow-down el-icon--right"></i>
                 </iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item v-if="scope.row.status !== 1" @click.native="handleInduction(scope.row)">入职</el-dropdown-item>
-                  <el-dropdown-item v-if="scope.row.status !== 1" @click.native="handelPositive(scope.row)">转正</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleTransfer(scope.row)">调动</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleDeparture(scope.row)">离职</el-dropdown-item>
+                  <el-dropdown-item v-if="[0,6].includes(scope.row.status)" @click.native="handleInduction(scope.row)">入职</el-dropdown-item>
+                  <el-dropdown-item v-if="[2,3,4,5].includes(scope.row.status)" @click.native="handelPositive(scope.row)">转正</el-dropdown-item>
+                  <el-dropdown-item v-if="[1,2,3,4,5].includes(scope.row.status)" @click.native="handleTransfer(scope.row)">调动</el-dropdown-item>
+                  <el-dropdown-item v-if="[1,2,3,4,5].includes(scope.row.status)" @click.native="handleDeparture(scope.row)">离职</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
               <iep-button @click="handleOpenGrowthFile(scope.row)">成长档案</iep-button>
@@ -63,7 +63,7 @@
   </div>
 </template>
 <script>
-import { getEmployeeProfilePage, postInduction, postPositive, postDeparture } from '@/api/hrms/employee_profile'
+import { getEmployeeProfilePage, postInduction, postPositive, postDeparture, postTransfer } from '@/api/hrms/employee_profile'
 import mixins from '@/mixins/mixins'
 import keyBy from 'lodash/keyBy'
 import { columnsMap, initSearchForm, dictsMap } from '../options'
@@ -98,7 +98,8 @@ export default {
   },
   methods: {
     handleTransfer (row) {
-      console.log(row)
+      this.$refs['TransferDialog'].form.id = row.id
+      this.$refs['TransferDialog'].formRequestFn = postTransfer
       this.$refs['TransferDialog'].dialogShow = true
     },
     handleDeparture (row) {

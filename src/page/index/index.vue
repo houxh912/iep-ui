@@ -188,6 +188,8 @@ export default {
 .avue-contail >>> .el-main {
   padding: 0;
   overflow-x: hidden;
+  overflow-y: scroll;
+  height: calc(100vh - 60px);
 }
 .avue-contail >>> .el-main .el-scrollbar .el-scrollbar__wrap {
   overflow-x: hidden;

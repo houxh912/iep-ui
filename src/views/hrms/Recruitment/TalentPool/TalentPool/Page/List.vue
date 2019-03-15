@@ -6,8 +6,8 @@
         <el-dropdown size="medium">
           <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>加入简历库</el-dropdown-item>
-            <el-dropdown-item>加入黑名单</el-dropdown-item>
+            <el-dropdown-item @click.native="handleToResumeBatch(scope.row)">放入简历库</el-dropdown-item>
+            <el-dropdown-item @click.native="handleToBlacklistBatch(scope.row)">放入黑名单</el-dropdown-item>
             <el-dropdown-item divided>导入</el-dropdown-item>
             <el-dropdown-item>分享</el-dropdown-item>
           </el-dropdown-menu>
@@ -33,7 +33,7 @@
         </operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <template slot="before-columns">
         <el-table-column label="姓名" width="90px">
           <template slot-scope="scope">
@@ -59,7 +59,8 @@
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="handleDelete(scope.row)">加入简历库</el-dropdown-item>
+                <el-dropdown-item @click.native="handleToResume([scope.row.id])">放入简历库</el-dropdown-item>
+                <el-dropdown-item @click.native="handleToBlacklist([scope.row.id])">放入黑名单</el-dropdown-item>
                 <el-dropdown-item divided>分享</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -68,16 +69,20 @@
       </el-table-column>
     </iep-table>
     <rejected-dialog ref="RejectedDialog" @load-page="loadPage"></rejected-dialog>
+    <to-resume-dialog ref="ToResumeDialog" @load-page="loadPage"></to-resume-dialog>
+    <to-blacklist-dialog ref="ToBlacklistDialog" @load-page="loadPage"></to-blacklist-dialog>
   </div>
 </template>
 <script>
-import { getTalentPoolPage, postTalentPool, putTalentPool } from '@/api/hrms/talent_pool'
+import { getTalentPoolPage, postTalentPool, putTalentPool, postToResume, postToBlacklist } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
 import RejectedDialog from './RejectedDialog'
+import ToResumeDialog from './ToResumeDialog'
+import ToBlacklistDialog from './ToBlacklistDialog'
 export default {
   mixins: [mixins],
-  components: { RejectedDialog },
+  components: { RejectedDialog, ToResumeDialog, ToBlacklistDialog },
   data () {
     return {
       columnsMap,
@@ -88,6 +93,27 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
+    handleToResumeBatch () {
+      // TODO: 多选框提醒
+      this.handleToResume(this.multipleSelection)
+    },
+    handleToBlacklistBatch () {
+      // TODO: 多选框提醒
+      this.handleToBlacklist(this.multipleSelection)
+    },
+    handleToResume (ids) {
+      this.$refs['ToResumeDialog'].form.ids = ids
+      this.$refs['ToResumeDialog'].formRequestFn = postToResume
+      this.$refs['ToResumeDialog'].dialogShow = true
+    },
+    handleToBlacklist (ids) {
+      this.$refs['ToBlacklistDialog'].form.ids = ids
+      this.$refs['ToBlacklistDialog'].formRequestFn = postToBlacklist
+      this.$refs['ToBlacklistDialog'].dialogShow = true
+    },
     handleEdit (row) {
       this.$emit('onEdit', {
         formRequestFn: putTalentPool,

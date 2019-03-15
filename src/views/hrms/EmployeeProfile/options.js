@@ -1,4 +1,4 @@
-// org config options
+import { mergeByFirst } from '@/util/util'
 const dictsMap = {
   status: {
     0: '暂无',
@@ -10,6 +10,10 @@ const dictsMap = {
     6: '离职员工',
   },
 }
+// 入职 0,6
+// 转正 2,3,4,5
+// 调动 1,2,3,4,5
+// 离职 1,2,3,4,5
 const columnsMap = [
   {
     prop: 'sex',
@@ -205,14 +209,6 @@ const columnsMap = [
   },
 ]
 
-const initOrgForm = () => {
-  return {
-    name: '',
-    isOpen: false,
-    intro: '',
-  }
-}
-
 const initSearchForm = () => {
   return {
     name: '',
@@ -230,15 +226,32 @@ const initSearchForm = () => {
 
 
 
-const inittransferForm = () => {
+const initTransferForm = () => {
   return {
-    dept: '',
-    position: '',
-    job: '',
-    title: '',
+    dept: [],
+    position: [],
+    jobId: '',
+    titleId: '',
     transferTime: '',
   }
 }
+const initDtoTransferForm = () => {
+  return {
+    deptId: '',
+    positionId: '',
+    jobId: '',
+    titleId: '',
+    transferTime: '',
+  }
+}
+
+const transferFormToDto = (form) => {
+  const newForm = mergeByFirst(initDtoTransferForm(), form)
+  newForm.positionId = form.position[form.position.length - 1]
+  newForm.deptId = form.dept[form.dept.length - 1]
+  return newForm
+}
+
 const initDepartureForm = () => {
   return {
     id: '',
@@ -259,4 +272,4 @@ const initPositiveForm = () => {
     positiveTime: '',
   }
 }
-export { dictsMap, columnsMap, initOrgForm, initSearchForm, inittransferForm, initDepartureForm, initInductionForm, initPositiveForm }
+export { dictsMap, columnsMap, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm }

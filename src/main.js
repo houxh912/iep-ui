@@ -10,7 +10,6 @@ import { loadStyle } from './util/util'
 import { iconfontUrl, iconfontVersion } from '@/config/env'
 import * as filters from './filters' // 全局filter
 import './styles/common.scss'
-import './theme/index.css'
 // // 引入avue的包
 import Avue from '@smallwei/avue/lib/index.js'
 // // 引入avue的样式文件

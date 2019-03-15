@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header title="****的转正申请" :backOption="backOption"></page-header>
+      <page-header title="人才详情" :backOption="backOption"></page-header>
       <div class="base-msg">
         <el-row>
           <el-col :span="3">

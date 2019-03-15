@@ -7,17 +7,17 @@
         <div class="con">
           <div class="left">
             <h4 class="name">
-              产品总监
+              {{form.positionName}}
             </h4>
-            <div class="address"><span>国脉研发中心</span>舟山</div>
+            <div class="address"><span>{{form.deptName}}</span>舟山</div>
           </div>
           <div class="right">
-            <div class="pay">5000-10000元/月</div>
+            <div class="pay">{{form.welfare}}元/月</div>
             <div class="info">
-              <span>本科</span>
-              <span>1-3年</span>
-              <span>招1人</span>
-              <span>目标10人</span>
+              <iep-dict-detail :current-value="form.academicId" dict-name="hrms_highest_educational"></iep-dict-detail>
+              <label>{{form.years}}年</label>
+              <span>招{{form.recruitsCount}}人</span>
+              <span>目标{{form.targetCount}}人</span>
             </div>
           </div>
         </div>
@@ -28,22 +28,22 @@
           <el-row>
             <el-col :span="6">
               <el-form-item label="专业要求：">
-                <label>计算机</label>
+                <label>{{form.profession}}</label>
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="工作类型：">
-                <label>全职</label>
+                <iep-dict-detail :current-value="form.jobTypeId" dict-name="hrms_work_type"></iep-dict-detail>
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="外语要求：">
-                <label>无</label>
+                <label>{{form.language}}</label>
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="性别要求：">
-                <label>不限</label>
+                <label>{{form.sexName}}</label>
               </el-form-item>
             </el-col>
           </el-row>

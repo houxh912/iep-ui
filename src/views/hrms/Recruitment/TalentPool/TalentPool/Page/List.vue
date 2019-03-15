@@ -134,13 +134,13 @@ export default {
         id: false,
       })
     },
-    handleDetail () {
-      this.$emit('onDetail')
+    handleDetail (row) {
+      this.$emit('onDetail', row)
     },
-    handleRejected (row) {
-      console.log(row)
-      this.$refs['RejectedDialog'].dialogShow = true
-    },
+    // handleRejected (row) {
+    //   console.log(row)
+    //   this.$refs['RejectedDialog'].dialogShow = true
+    // },
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },

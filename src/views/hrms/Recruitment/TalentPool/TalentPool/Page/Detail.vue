@@ -5,23 +5,23 @@
       <div class="base-msg">
         <el-row>
           <el-col :span="5">
-            <div class="grid-content bg-purple name-con">
-              <div class="img zoom"><img id="information-avatar" alt="头像"></div>
+            <div class="name-con">
+              <!-- <div class="img zoom"><img id="information-avatar" alt="头像"></div> -->
               <div class="name-info">
-                <span class="name">张三</span>
-                <span class="time">1992-02-10</span>
+                <span class="name">{{form.name}}</span>
+                <span class="time">{{form.birthday}}</span>
               </div>
             </div>
           </el-col>
           <el-col :span="19">
-            <div class="grid-content bg-purple detail">
+            <div class="detail">
               <el-form ref="form" :model="form" label-width="100px">
                 <el-col :span="8">
                   <el-form-item label="联系电话：">
                     <span>{{form.phone}}</span>
                   </el-form-item>
                   <el-form-item label="政治面貌：">
-                    <span>{{form.face}}</span>
+                    <iep-dict-detail :current-value="form.politics" dict-name="hrms_politics_face"></iep-dict-detail>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -29,15 +29,15 @@
                     <span>{{form.email}}</span>
                   </el-form-item>
                   <el-form-item label="毕业学校：">
-                    <span>{{form.school}}</span>
+                    <span>{{form.university}}</span>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="外部头衔：">
-                    <span>{{form.honor}}</span>
+                    <span>{{form.title}}</span>
                   </el-form-item>
                   <el-form-item label="最高学历：">
-                    <span>{{form.education}}</span>
+                    <iep-dict-detail :current-value="form.education" dict-name="hrms_highest_educational"></iep-dict-detail>
                   </el-form-item>
                 </el-col>
                 <el-col :span="24">
@@ -52,15 +52,54 @@
       </div>
       <div class="review basic-info">
         <el-form ref="form" :model="form" label-width="130px">
-          <div class="title"> {{form.review.title}}</div>
+          <div class="title">基础信息</div>
           <div class="con">
-            <el-form-item :label="item.label+'：'" v-for="(item,index) in form.review.list" :key="index">
-              <span>{{item.value}}</span>
+            <el-form-item label="身高：">
+              <span>{{form.height}}</span>
+            </el-form-item>
+            <el-form-item label="体重：">
+              <span>{{form.weight}}</span>
+            </el-form-item>
+            <el-form-item label="民族：">
+              <span>{{form.nation}}</span>
+            </el-form-item>
+            <el-form-item label="健康状况：">
+              <span>{{form.health}}</span>
+            </el-form-item>
+            <el-form-item label="婚姻状况：">
+              <iep-dict-detail :current-value="form.marriage" dict-name="hrms_marriage_status"></iep-dict-detail>
+            </el-form-item>
+            <el-form-item label="生育状况：">
+              <iep-dict-detail :current-value="form.bear" dict-name="hrms_birth_status"></iep-dict-detail>
+            </el-form-item>
+            <el-form-item label="员工关系：">
+              <span>{{form.relation}}</span>
+            </el-form-item>
+            <el-form-item label="推荐人：">
+              <span>{{form.referrer}}</span>
+            </el-form-item>
+            <el-form-item label="应聘渠道：">
+              <iep-dict-detail :current-value="form.appWay" dict-name="hrms_app_way"></iep-dict-detail>
+            </el-form-item>
+            <el-form-item label="来源类型：">
+              <iep-dict-detail :current-value="form.source" dict-name="hrms_resume_source"></iep-dict-detail>
+            </el-form-item>
+            <el-form-item label="兴趣爱好：">
+              <span>{{form.hobbies}}</span>
+            </el-form-item>
+            <el-form-item label="特长及优势：">
+              <span>{{form.advantage}}</span>
+            </el-form-item>
+            <el-form-item label="荣誉奖励：">
+              <span>{{form.honor}}</span>
+            </el-form-item>
+            <el-form-item label="其他成果：">
+              <span>{{form.result}}</span>
             </el-form-item>
           </div>
         </el-form>
       </div>
-      <div class="review basic-info">
+      <!-- <div class="review basic-info">
         <el-form ref="form" :model="form" label-width="110px">
           <div class="title"> {{form.opinion.title}}</div>
           <div class="con">
@@ -69,8 +108,8 @@
             </el-form-item>
           </div>
         </el-form>
-      </div>
-      <div class="review basic-info">
+      </div> -->
+      <!-- <div class="review basic-info">
         <el-form ref="form" :model="form" label-width="110px">
           <div class="title"> {{form.study.title}}</div>
           <div class="sub-title"> {{form.study.subtitle}}</div>
@@ -85,19 +124,27 @@
             </el-table>
           </div>
         </el-form>
-      </div>
-      <div class="review">
+      </div> -->
+      <!-- <div class="review">
         <div class="prompt"> 抄送人：{{form.sourceName}}</div>
         <div class="prompt color" readonly> 注：（审批通过后，通知抄送人）</div>
-      </div>
+      </div> -->
     </basic-container>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { handleImg } from '@/util/util'
+import { mergeByFirst } from '@/util/util'
+import { initForm } from '../options'
 import PageHeader from '@/components/Page/Header'
+import { getTalentPoolById } from '@/api/hrms/talent_pool'
 export default {
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
   components: { PageHeader },
   data () {
     return {
@@ -106,21 +153,7 @@ export default {
         backPath: null,
         backFunction: this.handleGoBack,
       },
-      form: {
-        name: '李颖',
-        phone: '13666567728',
-        face: '党员',
-        address: '浙江省舟山市定海区临城街道邦泰城11幢1206室',
-        email: 'ahsffl111@163.com',
-        school: '浙江大学',
-        honor: '开发工程师',
-        education: '本科',
-        date: '2019-06-20',
-        salary: 3000,
-        review: { title: '基础信息', list: [{ label: '身高', value: '160cm' }, { label: '体重', value: '基50kg' }, { label: '民族', value: '汉族' }, { label: '健康', value: '良好' }, { label: '婚姻状况', value: '已婚' }, { label: '生育状态', value: '已育' }, { label: '员工关系', value: '朋友' }, { label: '推荐人', value: '李四' }, { label: '应聘渠道', value: '在线应聘' }, { label: '来源', value: '官网' }, { label: '兴趣爱好', value: '音乐' }, { label: '个人特长及优势', value: '专研技术' }, { label: '荣誉奖励', value: '在线应聘' }, { label: '其他成果', value: '在线应聘' }] },
-        opinion: { title: '求职意向', list: [{ label: '应聘岗位', value: 'JAVA开发' }, { label: '期望薪资', value: '6000-10000元' }, { label: '期望工作地点', value: '舟山' }, { label: '到岗日期', value: '2019-05-02' }] },
-        study: { title: '学习工作经历', subtitle: '学习情况' },
-      },
+      form: initForm(),
       tableData: [
         {
           unit: '浙江大学',
@@ -139,9 +172,14 @@ export default {
     handleGoBack () {
       this.$emit('onGoBack')
     },
+    load () {
+      getTalentPoolById(this.record.id).then(({ data }) => {
+        this.form = mergeByFirst(initForm(), data.data)
+      })
+    },
   },
   created () {
-    handleImg(this.userInfo.avatar, 'information-avatar')
+    this.load()
   },
   computed: {
     ...mapGetters([

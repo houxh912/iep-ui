@@ -7,10 +7,10 @@
       <el-form-item label="岗位" prop="position">
         <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
       </el-form-item>
-      <el-form-item label="职务" prop="job">
+      <el-form-item label="职务" prop="jobId">
         <iep-select prefix-url="hrms/job_system" v-model="form.jobId"></iep-select>
       </el-form-item>
-      <el-form-item label="职称" prop="title">
+      <el-form-item label="职称" prop="titleId">
         <iep-select prefix-url="hrms/title_system" v-model="form.titleId"></iep-select>
       </el-form-item>
       <el-form-item label="调动时间" prop="transferTime">
@@ -41,10 +41,10 @@ export default {
         position: [
           { required: true, message: '请输入岗位', trigger: 'blur' },
         ],
-        job: [
+        jobId: [
           { required: true, message: '请输入职务', trigger: 'blur' },
         ],
-        title: [
+        titleId: [
           { required: true, message: '请输入职称', trigger: 'blur' },
         ],
         transferTime: [

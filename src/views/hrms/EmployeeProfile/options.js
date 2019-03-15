@@ -228,6 +228,7 @@ const initSearchForm = () => {
 
 const initTransferForm = () => {
   return {
+    id: '',
     dept: [],
     position: [],
     jobId: '',
@@ -237,6 +238,7 @@ const initTransferForm = () => {
 }
 const initDtoTransferForm = () => {
   return {
+    id: '',
     deptId: '',
     positionId: '',
     jobId: '',

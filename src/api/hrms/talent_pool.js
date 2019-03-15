@@ -64,3 +64,34 @@ export function postToBlacklist (obj) {
     data: obj,
   })
 }
+export function postToTalent (ids) {
+  return request({
+    url: `${prefixUrl}/to_talent`,
+    method: 'post',
+    data: ids,
+  })
+}
+export function deleteTalentPoolById (id) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: [id],
+  })
+}
+export function deleteTalentPoolBatch (ids) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: ids,
+  })
+}
+export function changeTalentPoolStatus (ids, status) {
+  return request({
+    url: `${prefixUrl}/status/batch`,
+    method: 'post',
+    data: {
+      ids,
+      status,
+    },
+  })
+}

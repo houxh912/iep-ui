@@ -4,13 +4,15 @@
       <el-row>
         <el-col :span="4" class="dotted">
           <div class="left">
-            <div class="img zoom"><img id="information-avatar" alt="头像"></div>
+            <div class="img zoom">
+              <iep-img :src="userInfo.avatar" alt="头像"></iep-img>
+            </div>
             <div class="code-name">GM000117</div>
           </div>
         </el-col>
         <el-col :span="20">
           <div class="right">
-            <div class="user-poster"><span class="say">早上好，黄磊!</span><span class="gov">国脉人，人人都要成为专家</span></div>
+            <div class="user-poster"><span class="say">早上好，{{userInfo.realName}}!</span><span class="gov">国脉人，人人都要成为专家</span></div>
             <div class="user-info">
               <el-progress :percentage="80" color="#68C769"></el-progress>
               <span :class="item.type=='button'?'border':'color'" v-for="(item,index) in infoList" :key="index">{{item.label}}</span>
@@ -45,7 +47,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { handleImg } from '@/util/util'
 import AboutTask from './AboutTask'
 import Project from './Project'
 import Customer from './Customer'
@@ -69,9 +70,6 @@ export default {
         { data: 23, name: '个人信用' },
       ],
     }
-  },
-  created () {
-    handleImg(this.userInfo.avatar, 'information-avatar')
   },
   computed: {
     ...mapGetters([

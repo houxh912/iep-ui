@@ -5,6 +5,7 @@
   </el-upload>
 </template>
 <script>
+import { imgUrl } from '@/config/env'
 import store from '@/store'
 export default {
   name: 'IepAvatar',
@@ -25,11 +26,11 @@ export default {
     avatarUrl: {
       // getter
       get: function () {
-        return '//cloud.govmade.com' + this.value
+        return imgUrl + this.value
       },
       // setter
       set: function (newValue) {
-        const url = newValue.replace('//cloud.govmade.com', '')
+        const url = newValue.replace(imgUrl, '')
         this.$emit('input', url)
       },
     },

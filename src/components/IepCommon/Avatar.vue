@@ -1,15 +1,15 @@
 <template>
-  <el-upload class="avatar-uploader" action="/api/admin/file/upload" :headers="headers" :show-file-list="false" :on-success="handleAvatarSuccess">
-    <img :id="className" v-if="avatar" :src="avatarUrl" class="avatar" />
+  <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :headers="headers" :show-file-list="false" :on-success="handleAvatarSuccess">
+    <img v-if="value" :src="avatarUrl" class="avatar" />
     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
   </el-upload>
 </template>
 <script>
 import store from '@/store'
-import { handleImg } from '@/util/util'
 export default {
+  name: 'IepAvatar',
   props: {
-    avatar: {
+    value: {
       type: String,
       required: true,
     },
@@ -19,27 +19,25 @@ export default {
       headers: {
         Authorization: 'Bearer ' + store.getters.access_token,
       },
-      avatarUrl: this.avatar,
-      className: this.generateName(this.avatar),
     }
   },
-  created () {
-    handleImg(this.avatar, 'avatar')
+  computed: {
+    avatarUrl: {
+      // getter
+      get: function () {
+        return '//cloud.govmade.com' + this.value
+      },
+      // setter
+      set: function (newValue) {
+        const url = newValue.replace('//cloud.govmade.com', '')
+        this.$emit('input', url)
+      },
+    },
   },
   methods: {
-    handleAvatarSuccess (res, file) {
-      this.avatarUrl = URL.createObjectURL(file.raw)
-      this.ruleForm2.avatar = res.data.bucketName + '-' + res.data.fileName
-    },
-    generateName (avatar) {
-      return avatar.split('.')[0].split('-')[1]
-    },
-  },
-  watch: {
-    avatarUrl (n) {
-      this.avatarUrl = n
-      this.className = this.generateName(n)
-      handleImg(this.avatarUrl, this.className)
+    handleAvatarSuccess (res) {
+      this.$emit('input', res.data.url)
+      // console.log(res.data.url, file)
     },
   },
 }

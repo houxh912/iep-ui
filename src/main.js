@@ -25,6 +25,7 @@ import IepSelect from '@/components/IepCommon/Select'
 import IepDatePicker from '@/components/IepCommon/DatePicker'
 import IepCascader from '@/components/IepCommon/Cascader'
 import IepDictDetail from '@/components/IepCommon/DictDetail'
+import IepAvatar from '@/components/IepCommon/Avatar'
 
 import '@/config/index'
 // 插件 json 展示
@@ -48,6 +49,7 @@ Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepSelect.name, IepSelect)
 Vue.component(IepCascader.name, IepCascader)
 Vue.component(IepDictDetail.name, IepDictDetail)
+Vue.component(IepAvatar.name, IepAvatar)
 
 //加载过滤器
 Object.keys(filters).forEach(key => {

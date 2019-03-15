@@ -40,3 +40,11 @@ export function postDeparture (obj) {
     data: obj,
   })
 }
+
+export function postTransfer (obj) {
+  return request({
+    url: `${prefixUrl}/transfer`,
+    method: 'post',
+    data: obj,
+  })
+}

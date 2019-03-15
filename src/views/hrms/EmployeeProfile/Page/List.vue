@@ -63,7 +63,7 @@
   </div>
 </template>
 <script>
-import { getEmployeeProfilePage, postInduction, postPositive, postDeparture } from '@/api/hrms/employee_profile'
+import { getEmployeeProfilePage, postInduction, postPositive, postDeparture, postTransfer } from '@/api/hrms/employee_profile'
 import mixins from '@/mixins/mixins'
 import keyBy from 'lodash/keyBy'
 import { columnsMap, initSearchForm, dictsMap } from '../options'
@@ -99,6 +99,8 @@ export default {
   methods: {
     handleTransfer (row) {
       console.log(row)
+      this.$refs['TransferDialog'].form.id = row.id
+      this.$refs['TransferDialog'].formRequestFn = postTransfer
       this.$refs['TransferDialog'].dialogShow = true
     },
     handleDeparture (row) {

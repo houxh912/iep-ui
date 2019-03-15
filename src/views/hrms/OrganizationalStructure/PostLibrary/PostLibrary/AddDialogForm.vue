@@ -4,7 +4,7 @@
       <el-form-item label="岗位名称" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
-      <el-form-item label="岗位类型" prop="type">
+      <el-form-item label="岗位类型" prop="typeId">
         <iep-select prefix-url="hrms/post_type" v-model="form.typeId"></iep-select>
       </el-form-item>
       <el-form-item label="岗位职责" prop="duties">

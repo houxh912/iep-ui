@@ -8,43 +8,40 @@
     <div class="content">
       <el-form ref="form" v-if="dislogState!=='detail'" :model="formData">
         <div class="title">领导指示</div>
-        <el-form-item prop="zhishi">
-          <el-input type="textarea" v-model="formData.zhishi" rows=5 placeholder="此处填写领导指示"></el-input>
+        <el-form-item>
+          <el-input type="textarea" v-model="formData.leaderIndication" rows=5 placeholder="此处填写领导指示"></el-input>
         </el-form-item>
         <div class="title">本月工作总结</div>
-        <el-form-item prop="benzhouzongjie">
-          <el-input type="textarea" v-model="formData.benzhouzongjie" rows=5 placeholder="此处填写本月工作总结"></el-input>
+        <el-form-item prop="workSummary">
+          <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本月工作总结"></el-input>
         </el-form-item>
         <div class="title">下月工作计划</div>
-        <el-form-item prop="xiazhouzongjie">
-          <el-input type="textarea" v-model="formData.xiazhouzongjie" rows=5 placeholder="此处填写下月工作计划"></el-input>
+        <el-form-item prop="workPlan">
+          <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下月工作计划"></el-input>
         </el-form-item>
         <div class="title">总结与感悟</div>
-        <el-form-item prop="ganwu">
-          <el-input type="textarea" v-model="formData.ganwu" rows=5 placeholder="此处填写总结与感悟"></el-input>
+        <el-form-item>
+          <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟"></el-input>
         </el-form-item>
         <div class="select-item">
           <div class="label">市场拓展：</div>
           <div class="item">
             <iep-button class="col-button"><i class="el-icon-plus"></i></iep-button>
-            <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
-            <el-col class="col-item">数据基因新框架改造 <i class="el-icon-close"></i></el-col>
+            <el-col class="col-item" v-for="(item, index) in formData.meetingSummary" :key="index">{{item.name}} <i class="el-icon-close"></i></el-col>
           </div>
         </div>
         <div class="select-item">
           <div class="label">相关产品：</div>
           <div class="item">
             <iep-button class="col-button"><i class="el-icon-plus"></i></iep-button>
-            <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
-            <el-col class="col-item">数据基因新框架改造 <i class="el-icon-close"></i></el-col>
+            <el-col class="col-item" v-for="(item, index) in formData.product" :key="index">{{item.name}} <i class="el-icon-close"></i></el-col>
           </div>
         </div>
         <div class="select-item">
           <div class="label">相关项目：</div>
           <div class="item">
             <iep-button class="col-button"><i class="el-icon-plus"></i></iep-button>
-            <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
-            <el-col class="col-item">数据基因新框架改造 <i class="el-icon-close"></i></el-col>
+            <el-col class="col-item" v-for="(item, index) in formData.project" :key="index">{{item.name}} <i class="el-icon-close"></i></el-col>
           </div>
         </div>
         <el-form-item>
@@ -53,27 +50,24 @@
       </el-form>
       <div v-else class="detail">
         <div class="title">领导指示</div>
-        <pre>{{formData.zhishi}}</pre>
+        <pre>{{formData.leaderIndication}}</pre>
         <div class="title">本月工作总结</div>
-          <pre>{{formData.benzhouzongjie}}</pre>
+          <pre>{{formData.workSummary}}</pre>
         <div class="title">下月工作计划</div>
-          <pre>{{formData.xiazhouzongjie}}</pre>
+          <pre>{{formData.workPlan}}</pre>
         <div class="title">总结与感悟</div>
-          <pre>{{formData.ganwu}}</pre>
+          <pre>{{formData.summarySentiment}}</pre>
         <div class="title">市场拓展</div>
         <div class="item">
-          <el-tag type="info" class="tag">内网2.0改造项目</el-tag>
-          <el-tag type="info">数据基因新框架改造</el-tag>
+          <el-tag type="info" class="tag" v-for="(item, index) in formData.meetingSummary" :key="index">{{item.name}}</el-tag>
         </div>
         <div class="title">相关产品</div>
         <div class="item">
-          <el-tag type="info" class="tag">内网2.0改造项目</el-tag>
-          <el-tag type="info">数据基因新框架改造</el-tag>
+          <el-tag type="info" class="tag" v-for="(item, index) in formData.product" :key="index">{{item.name}}</el-tag>
         </div>
         <div class="title">相关项目</div>
         <div class="item">
-          <el-tag type="info" class="tag">内网2.0改造项目</el-tag>
-          <el-tag type="info">数据基因新框架改造</el-tag>
+          <el-tag type="info" class="tag" v-for="(item, index) in formData.project" :key="index">{{item.name}}</el-tag>
         </div>
 
       </div>
@@ -197,6 +191,31 @@ export default {
       .title {
         font-weight: 700;
         margin-top: 10px;
+      }
+      .item {
+        padding-left: 20px;
+        .el-tag {
+          margin: 0 15px 15px 0;
+        }
+      }
+    }
+    .select-item {
+      display: flex;
+      margin-bottom: 10px;
+      .label {
+        width: 90px;
+      }
+      .item {
+        .col-button {
+          margin-bottom: 10px;
+        }
+        .col-item {
+          margin-bottom: 10px;
+          font-size: 16px;
+          i {
+            cursor: pointer;
+          }
+        }
       }
     }
   }

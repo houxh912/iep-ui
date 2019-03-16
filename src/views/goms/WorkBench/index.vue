@@ -34,7 +34,7 @@
         <div class="manager-avatar">
           <div class="avatar" v-for="(item) in managerList" :key="item.userId">
             <div class="avater-mask"><i class="el-icon-close close"></i></div>
-            <iep-img class="avatar-img" :src="item.avatar" @click="open2(item.userId)"></iep-img>
+            <iep-img class="avatar-img" :src="item.avatar || ''" @click="open2(item.userId)"></iep-img>
             <span class="avatar-name">{{item.realName}}</span>
           </div>
           <router-link class="avatar avatar-add" to="">
@@ -44,11 +44,7 @@
       </div>
       <div class="function">
         <div class="button-switch">
-          <!-- <el-form-item label="允许加入" prop="isOpen">
-            <el-switch class="switch" v-model="data.isOpen" :active-value="0" :inactive-value="1"></el-switch>
-          </el-form-item> -->
-          <el-switch class="switch" v-model="data.isOpen" :active-value="0" :inactive-value="1" active-color="#ba1b20">
-          </el-switch>
+          <el-switch class="switch" :value="data.isOpen" :active-value="0" :inactive-value="1" active-color="#ba1b20" @click.native="handleSwitch"></el-switch>
           <span>允许加入</span><br>
           <span class="span2-button">允许用户申请加入组织</span>
         </div>
@@ -88,14 +84,23 @@ export default {
   created () {
     this.load()
   },
-  watch: {
-    'data.isOpen' () {
-      gomsOpen().then(() => {
-        this.load()
+  methods: {
+    handleSwitch () {
+      gomsOpen().then(({ data }) => {
+        if (data.data) {
+          this.$message({
+            message: '修改成功',
+            type: 'success',
+          })
+          this.data.isOpen = 1 - this.data.isOpen
+        } else {
+          this.$message({
+            message: data.msg,
+            type: 'warning',
+          })
+        }
       })
     },
-  },
-  methods: {
     open2 (row) {
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',

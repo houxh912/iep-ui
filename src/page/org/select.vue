@@ -18,10 +18,7 @@
                 <el-input v-model="form.name"></el-input>
               </el-form-item>
               <el-form-item label="Logo" prop="logo">
-                <el-upload class="avatar-uploader" action="/api/admin/file/upload" :headers="headers" :show-file-list="false" :on-success="handleAvatarSuccess">
-                  <img id="avatar" v-if="form.logo" :src="logo" class="avatar" />
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
+                <iep-avatar v-model="form.logo"></iep-avatar>
               </el-form-item>
               <el-form-item label="组织简介" prop="intro">
                 <el-input type="textarea" v-model="form.intro"></el-input>

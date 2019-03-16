@@ -6,7 +6,7 @@
         <el-dropdown size="medium">
           <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
             <el-dropdown-item divided>导入</el-dropdown-item>
             <el-dropdown-item>导出</el-dropdown-item>
           </el-dropdown-menu>
@@ -32,7 +32,7 @@
         </operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <template slot="before-columns">
         <el-table-column label="姓名" width="90px">
           <template slot-scope="scope">
@@ -54,7 +54,7 @@
                 <el-dropdown-item>已录用</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
-            <iep-button @click="(scope.row)">删除</iep-button>
+            <iep-button @click="handleDelete(scope.row)">删除</iep-button>
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
@@ -70,7 +70,7 @@
   </div>
 </template>
 <script>
-import { getResumeBlacklistPage } from '@/api/hrms/talent_pool'
+import { getResumeBlacklistPage, deleteTalentPoolById, deleteTalentPoolBatch } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
 export default {
@@ -85,6 +85,15 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deleteTalentPoolBatch)
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deleteTalentPoolById)
+    },
     handleDetail (row) {
       console.log(row)
       this.$emit('onDetail')

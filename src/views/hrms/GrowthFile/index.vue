@@ -6,7 +6,7 @@
         <div class="left">
           <span class="img-header zoom"><img :src="avatar" alt="" /></span>
           <div class="name-info">
-            <span class="name">{{growthFileDetail.name}}<a class="state" href="#">（{{simpleEmployeeStatus[growthFileDetail.employeeStatus]}}）</a></span>
+            <span class="name">{{growthFileDetail.name}}<a class="state" href="#">（{{simpleEmployeeStatus[growthFileDetail.status]}}）</a></span>
             <span class="num">{{growthFileDetail.staffNo}}</span>
           </div>
         </div>
@@ -145,7 +145,7 @@ export default {
     padding-right: 20px;
     width: 20%;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     vertical-align: middle;
   }

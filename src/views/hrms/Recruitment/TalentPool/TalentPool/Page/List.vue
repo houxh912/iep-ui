@@ -46,13 +46,13 @@
           <operation-wrapper>
             <el-dropdown size="medium">
               <iep-button type="warning" plain>
-                待处理<i class="el-icon-arrow-down el-icon--right"></i>
+                {{dictsMap.status[scope.row.status]}}<i class="el-icon-arrow-down el-icon--right"></i>
               </iep-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="handleRejected(scope.row)">驳回</el-dropdown-item>
-                <el-dropdown-item>未面试</el-dropdown-item>
-                <el-dropdown-item>面试未录用</el-dropdown-item>
-                <el-dropdown-item>已录用</el-dropdown-item>
+                <!-- <el-dropdown-item @click.native="handleRejected(scope.row)">驳回</el-dropdown-item> -->
+                <!-- eslint-disable -->
+                <el-dropdown-item v-for="(s,i) in dictsMap.status" :key="i" v-if="+i !== scope.row.status" @click.native="handleChangeStatus([scope.row.id], i)">{{s}}</el-dropdown-item>
+                <!-- eslint-enable -->
               </el-dropdown-menu>
             </el-dropdown>
             <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
@@ -74,9 +74,9 @@
   </div>
 </template>
 <script>
-import { getTalentPoolPage, postTalentPool, putTalentPool, postToResume, postToBlacklist } from '@/api/hrms/talent_pool'
+import { getTalentPoolPage, postTalentPool, putTalentPool, postToResume, postToBlacklist, changeTalentPoolStatus } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from '../options'
+import { columnsMap, initSearchForm, dictsMap } from '../options'
 import RejectedDialog from './RejectedDialog'
 import ToResumeDialog from './ToResumeDialog'
 import ToBlacklistDialog from './ToBlacklistDialog'
@@ -85,6 +85,7 @@ export default {
   components: { RejectedDialog, ToResumeDialog, ToBlacklistDialog },
   data () {
     return {
+      dictsMap,
       columnsMap,
       paramForm: initSearchForm(),
     }
@@ -97,12 +98,17 @@ export default {
       this.multipleSelection = val.map(m => m.id)
     },
     handleToResumeBatch () {
-      // TODO: 多选框提醒
+      // TODO: 是否多选提醒
       this.handleToResume(this.multipleSelection)
     },
     handleToBlacklistBatch () {
-      // TODO: 多选框提醒
+      // TODO: 是否多选提醒
       this.handleToBlacklist(this.multipleSelection)
+    },
+    handleChangeStatus (ids, status) {
+      changeTalentPoolStatus(ids, status).then(() => {
+        this.loadPage()
+      })
     },
     handleToResume (ids) {
       this.$refs['ToResumeDialog'].form.ids = ids
@@ -128,13 +134,13 @@ export default {
         id: false,
       })
     },
-    handleDetail () {
-      this.$emit('onDetail')
+    handleDetail (row) {
+      this.$emit('onDetail', row)
     },
-    handleRejected (row) {
-      console.log(row)
-      this.$refs['RejectedDialog'].dialogShow = true
-    },
+    // handleRejected (row) {
+    //   console.log(row)
+    //   this.$refs['RejectedDialog'].dialogShow = true
+    // },
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },

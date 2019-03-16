@@ -10,7 +10,6 @@ import { loadStyle } from './util/util'
 import { iconfontUrl, iconfontVersion } from '@/config/env'
 import * as filters from './filters' // 全局filter
 import './styles/common.scss'
-import './theme/index.css'
 // // 引入avue的包
 import Avue from '@smallwei/avue/lib/index.js'
 // // 引入avue的样式文件
@@ -25,6 +24,8 @@ import IepSelect from '@/components/IepCommon/Select'
 import IepDatePicker from '@/components/IepCommon/DatePicker'
 import IepCascader from '@/components/IepCommon/Cascader'
 import IepDictDetail from '@/components/IepCommon/DictDetail'
+import IepAvatar from '@/components/IepCommon/Avatar'
+import IepImg from '@/components/IepCommon/Img'
 
 import '@/config/index'
 // 插件 json 展示
@@ -48,6 +49,8 @@ Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepSelect.name, IepSelect)
 Vue.component(IepCascader.name, IepCascader)
 Vue.component(IepDictDetail.name, IepDictDetail)
+Vue.component(IepAvatar.name, IepAvatar)
+Vue.component(IepImg.name, IepImg)
 
 //加载过滤器
 Object.keys(filters).forEach(key => {

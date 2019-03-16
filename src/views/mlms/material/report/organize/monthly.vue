@@ -30,7 +30,7 @@
             <el-col class="col-item" v-for="(item, index) in formData.meetingSummary" :key="index">{{item.name}} <i class="el-icon-close"></i></el-col>
           </div>
         </div>
-        <div class="select-item">
+        <!-- <div class="select-item">
           <div class="label">相关产品：</div>
           <div class="item">
             <iep-button class="col-button"><i class="el-icon-plus"></i></iep-button>
@@ -43,7 +43,7 @@
             <iep-button class="col-button"><i class="el-icon-plus"></i></iep-button>
             <el-col class="col-item" v-for="(item, index) in formData.project" :key="index">{{item.name}} <i class="el-icon-close"></i></el-col>
           </div>
-        </div>
+        </div> -->
         <el-form-item>
           <iep-button @click="submit" type="danger">保存</iep-button>
         </el-form-item>
@@ -62,13 +62,13 @@
           <el-tag type="info" class="tag" v-for="(item, index) in formData.meetingSummary" :key="index">{{item.name}}</el-tag>
         </div>
         <div class="title">相关产品</div>
-        <div class="item">
+        <!-- <div class="item">
           <el-tag type="info" class="tag" v-for="(item, index) in formData.product" :key="index">{{item.name}}</el-tag>
         </div>
         <div class="title">相关项目</div>
         <div class="item">
           <el-tag type="info" class="tag" v-for="(item, index) in formData.project" :key="index">{{item.name}}</el-tag>
-        </div>
+        </div> -->
 
       </div>
     </div>

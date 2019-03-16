@@ -47,55 +47,39 @@
               <el-input v-model="form.nation"></el-input>
             </el-form-item>
             <el-form-item label="籍贯：" class="form-half">
-              <el-cascader :options="[{
-                  value: 'shejiyuanze',
-                  label: '设计原则',
-                  children: [{
-                    value: 'yizhi',
-                    label: '一致'
-                  }, {
-                    value: 'fankui',
-                    label: '反馈'
-                  }, {
-                    value: 'xiaolv',
-                    label: '效率'
-                  }, {
-                    value: 'kekong',
-                    label: '可控'
-                  }]
-                }]" v-model="form.cities">
-              </el-cascader>
+              <iep-cascader v-model="form.cities" prefix-url="admin/city"></iep-cascader>
             </el-form-item>
             <el-form-item label="现住地址：">
               <el-input v-model="form.address"></el-input>
             </el-form-item>
             <el-form-item label="政治面貌：" class="form-half">
-              <el-input v-model="form.politic"></el-input>
+              <el-select v-model="form.politics" placeholder="请选择">
+                <el-option v-for="item in dictGroup['hrms_politics_face']" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
             <el-form-item label="健康状况：" class="form-half">
               <el-input v-model="form.health"></el-input>
             </el-form-item>
             <el-form-item label="婚姻状况：" class="form-half">
-              <el-select v-model="form.marriage">
-                <el-option label="未婚" value="1"></el-option>
-                <el-option label="已婚" value="2"></el-option>
+              <el-select v-model="form.marriage" placeholder="请选择">
+                <el-option v-for="item in dictGroup['hrms_marriage_status']" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="生育状况：" class="form-half">
-              <el-select v-model="form.bear">
-                <el-option label="良好" value="1"></el-option>
-                <el-option label="一般" value="2"></el-option>
+              <el-select v-model="form.bear" placeholder="请选择">
+                <el-option v-for="item in dictGroup['hrms_birth_status']" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="毕业学校：" class="form-half">
               <el-input v-model="form.university"></el-input>
             </el-form-item>
             <el-form-item label="最高学历：" class="form-half">
-              <el-select v-model="form.education">
-                <el-option label="专科" value="1"></el-option>
-                <el-option label="本科" value="2"></el-option>
-                <el-option label="硕士" value="3"></el-option>
-                <el-option label="博士" value="4"></el-option>
+              <el-select v-model="form.education" placeholder="请选择">
+                <el-option v-for="item in dictGroup['hrms_highest_educational']" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="员工关系：" class="form-half">
@@ -105,15 +89,15 @@
               <el-input v-model="form.referrer"></el-input>
             </el-form-item>
             <el-form-item label="应聘渠道：" class="form-half">
-              <el-select v-model="form.appWay">
-                <el-option label="1" value="1"></el-option>
-                <el-option label="2" value="2"></el-option>
+              <el-select v-model="form.appWay" placeholder="请选择">
+                <el-option v-for="item in dictGroup['hrms_app_way']" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="来源类型：" class="form-half">
-              <el-select v-model="form.source">
-                <el-option label="1" value="1"></el-option>
-                <el-option label="2" value="2"></el-option>
+              <el-select v-model="form.source" placeholder="请选择">
+                <el-option v-for="item in dictGroup['hrms_resume_source']" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="兴趣爱好：" class="form-half">
@@ -131,19 +115,22 @@
           </el-collapse-item>
           <el-collapse-item title="求职意向" name="2">
             <el-form-item label="应聘岗位：" class="form-half">
-              <el-input v-model="form.name"></el-input>
+              <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
             </el-form-item>
             <el-form-item label="到岗时间：" class="form-half">
-              <el-input v-model="form.name"></el-input>
+              <el-select v-model="form.arrive" placeholder="请选择">
+                <el-option v-for="item in dictGroup['hrms_arrive_time']" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
             </el-form-item>
-            <el-form-item label="应聘岗位：" class="form-half">
-              <el-input v-model="form.name"></el-input>
+            <el-form-item label="期望薪资：" class="form-half">
+              <el-input v-model="form.salary"></el-input>
             </el-form-item>
-            <el-form-item label="到岗时间：" class="form-half">
-              <el-input v-model="form.name"></el-input>
+            <el-form-item label="期望工作地：" class="form-half">
+              <el-input v-model="form.workPlace"></el-input>
             </el-form-item>
           </el-collapse-item>
-          <el-collapse-item title="学习工作经历" name="3">
+          <el-collapse-item v-if="methodName !=='新增'" title="学习工作经历" name="3">
             <el-form-item label="学习情况：">
               <el-input type="textarea"></el-input>
             </el-form-item>
@@ -151,7 +138,7 @@
               <el-input type="textarea"></el-input>
             </el-form-item>
           </el-collapse-item>
-          <el-collapse-item title="培训证书情况" name="4">
+          <el-collapse-item v-if="methodName !=='新增'" title="培训证书情况" name="4">
             <el-form-item label="培训情况：">
               <el-input type="textarea"></el-input>
             </el-form-item>
@@ -159,13 +146,12 @@
               <el-input type="textarea"></el-input>
             </el-form-item>
           </el-collapse-item>
-          <el-collapse-item title="附件上传" name="5">
+          <el-collapse-item v-if="methodName !=='新增'" title="附件上传" name="5">
             <el-input type="textarea"></el-input>
           </el-collapse-item>
         </el-collapse>
       </el-form>
     </el-card>
-    <!-- fixed footer toolbar -->
     <footer-tool-bar>
       <iep-button type="info" @click="handleGoBack">返回</iep-button>
       <iep-button type="primary" @click="handleSubmit">提交</iep-button>
@@ -173,9 +159,10 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 import FooterToolBar from '@/components/FooterToolbar'
-import { initForm } from '../options'
+import { initForm, formToDto } from '../options'
 import { mergeByFirst } from '@/util/util'
 export default {
   props: {
@@ -193,6 +180,11 @@ export default {
       formRequestFn: () => { },
     }
   },
+  computed: {
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
+  },
   created () {
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn
@@ -208,13 +200,14 @@ export default {
       this.$emit('onGoBack')
     },
     handleSubmit () {
-      this.formRequestFn(this.form).then(({ data }) => {
-        console.log(data.data)
-        this.$message({
-          message: `人才库${this.methodName}成功`,
-          type: 'success',
-        })
-        this.$emit('onGoBack')
+      this.formRequestFn(formToDto(this.form)).then(({ data }) => {
+        if (data.data) {
+          this.$message({
+            message: `人才库${this.methodName}成功`,
+            type: 'success',
+          })
+          this.$emit('onGoBack')
+        }
       })
     },
   },

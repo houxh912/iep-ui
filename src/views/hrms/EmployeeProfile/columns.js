@@ -25,7 +25,6 @@
 //   profession: '电子', // 专业
 //   graduationTime: '', // 毕业时间
 //   referrer: '张绍', // 推荐人
-//   certifications: '无', // 资质证书名称
 //   accountTypes: '舟山定海', // 户口类别
 //   accountLocation: '舟山定海', // 户口所在地
 //   residenceAddress: '舟山定海', // 户籍地址
@@ -38,7 +37,6 @@
 //   emergencyName: '公元', // 应急联系人
 //   emergencyPhone: '12321312', // 应急联系方式
 //   signingTime: '', // 劳动合同签订时间
-//   expirationTime: '', // 劳动合同到期时间
 //   benefitsStartTime: '', // 社保福利起缴时间
 //   benefitsStopTime: '', // 社保福利停缴时间
 //   separationTime: '', // 离职时间

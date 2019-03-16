@@ -34,9 +34,74 @@ export function postTalentPool (obj) {
   })
 }
 
+export function putTalentPool (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}
+export function postResumeBlacklist (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    params: {
+      isBlacklist: true,
+    },
+    data: obj,
+  })
+}
+
 export function getTalentPoolById (id) {
   return request({
     url: `${prefixUrl}/${id}`,
     method: 'get',
+  })
+}
+
+export function postToResume (obj) {
+  return request({
+    url: `${prefixUrl}/to_resume`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function postToBlacklist (obj) {
+  return request({
+    url: `${prefixUrl}/to_blacklist`,
+    method: 'post',
+    data: obj,
+  })
+}
+export function postToTalent (ids) {
+  return request({
+    url: `${prefixUrl}/to_talent`,
+    method: 'post',
+    data: ids,
+  })
+}
+export function deleteTalentPoolById (id) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: [id],
+  })
+}
+export function deleteTalentPoolBatch (ids) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: ids,
+  })
+}
+export function changeTalentPoolStatus (ids, status) {
+  return request({
+    url: `${prefixUrl}/status/batch`,
+    method: 'post',
+    data: {
+      ids,
+      status,
+    },
   })
 }

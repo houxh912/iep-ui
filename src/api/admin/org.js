@@ -48,7 +48,7 @@ export function reviewById (obj) {
 
 export function applyObj (obj) {
   return request({
-    url: '/admin/org/apply/join',
+    url: '/admin/org/apply',
     method: 'post',
     data: obj,
   })
@@ -110,9 +110,15 @@ export function unSetManager (id) {
   return request({
     url: `/admin/org/unset/manager/${id}`,
     method: 'post',
-    data: id,
   })
 }
+export function setManager (id) {
+  return request({
+    url: `/admin/org/set/manager/${id}`,
+    method: 'post',
+  })
+}
+
 export function gomsPass (id) {
   return request({
     url: `/admin/org/pass/join/${id}`,

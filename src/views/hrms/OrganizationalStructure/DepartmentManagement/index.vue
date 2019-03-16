@@ -4,7 +4,7 @@
       <page-header title="部门管理" :replaceText="replaceText" :data="[10]"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd" type="danger" icon="el-icon-plus">新增</iep-button>
+          <iep-button @click="handleAdd" type="danger" icon="el-icon-plus" plain>新增</iep-button>
           <el-dropdown size="medium">
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -45,7 +45,7 @@
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" @click="handleAdd(scope.row)" :disabled="scope.row._level>1">添加子部门</iep-button>
+              <iep-button @click="handleAdd(scope.row)" :disabled="scope.row._level>1" type="warning" plain>添加子部门</iep-button>
               <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>

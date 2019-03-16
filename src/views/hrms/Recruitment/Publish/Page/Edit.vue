@@ -7,12 +7,11 @@
           <el-col :span="12">
             <el-form-item label="岗位名称：">
               <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
-              <!-- <el-input v-model="form.positionId"></el-input> -->
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="所属部门：">
-              <el-input v-model="form.deptId"></el-input>
+              <iep-cascader v-model="form.dept" prefix-url="admin/dept" change-on-select></iep-cascader>
             </el-form-item>
           </el-col>
         </el-row>
@@ -88,8 +87,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="招聘期限：">
-              <el-date-picker v-model="form.term" type="date" placeholder="选择日期">
-              </el-date-picker>
+              <iep-date-picker v-model="form.term" type="date" placeholder="选择日期"></iep-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -116,7 +114,7 @@
 import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
 import { mapState } from 'vuex'
 import PageHeader from '@/components/Page/Header'
-import { initForm } from '../options'
+import { initForm, formToDto } from '../options'
 import { mergeByFirst } from '@/util/util'
 export default {
   props: {
@@ -160,7 +158,7 @@ export default {
     },
     handleSubmit (isPublish) {
       const publish = isPublish === true ? true : false
-      this.formRequestFn(this.form, publish).then(({ data }) => {
+      this.formRequestFn(formToDto(this.form), publish).then(({ data }) => {
         console.log(data.data)
         this.$message({
           message: `招聘信息${this.methodName}成功`,

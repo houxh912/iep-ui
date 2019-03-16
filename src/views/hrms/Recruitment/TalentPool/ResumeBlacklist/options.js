@@ -1,15 +1,4 @@
-// org config options
-const dictsMap = {
-  isOpen: {
-    0: '开',
-    1: '关',
-  },
-  status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
-  },
-}
+import { mergeByFirst } from '@/util/util'
 
 const columnsMap = [
   {
@@ -41,17 +30,104 @@ const columnsMap = [
 
 const initForm = () => {
   return {
-    name: '',
-    isOpen: false,
-    intro: '',
+    'id': '',
+    'name': '',
+    'sex': 1,
+    'avatar': '',
+    'birthday': '',
+    'title': '',
+    'phone': '',
+    'age': '',
+    'email': '',
+    'height': '',
+    'weight': '',
+    'nation': '',
+    'address': '',
+    'politics': '',
+    'health': '',
+    'marriage': '',
+    'bear': 1,
+    'university': '',
+    'education': 2,
+    'relation': '',
+    'referrer': '',
+    'appWay': 9,
+    'source': 4,
+    'hobbies': '',
+    'advantage': '',
+    'honor': '',
+    'result': '',
+    'position': [],
+    'positionId': 3,
+    'positionName': '',
+    'arrive': '',
+    'salary': '',
+    'workPlace': '',
+    'attach': '',
+    'workExperience': [],
+    'trainingSituation': [],
+    'eduSituation': [],
+    'userCert': [],
+    'blacklistArea': '',
+    'blacklistReasons': '',
+    'cities': [],
   }
+}
+
+const initDtoForm = () => {
+  return {
+    'id': '',
+    'name': '',
+    'sex': 1,
+    'avatar': '',
+    'birthday': '',
+    'title': '',
+    'phone': '',
+    'age': '',
+    'email': '',
+    'height': '',
+    'weight': '',
+    'nation': '',
+    'address': '',
+    'politics': '',
+    'health': '',
+    'marriage': '',
+    'bear': 1,
+    'university': '',
+    'education': 2,
+    'relation': '',
+    'referrer': '',
+    'appWay': 9,
+    'source': 4,
+    'hobbies': '',
+    'advantage': '',
+    'honor': '',
+    'result': '',
+    'positionId': 3,
+    'arrive': '',
+    'salary': '',
+    'workPlace': '',
+    'attach': '',
+    'workExperience': [],
+    'trainingSituation': [],
+    'eduSituation': [],
+    'userCert': [],
+    'blacklistArea': '',
+    'blacklistReasons': '',
+    'cities': [],
+  }
+}
+
+const formToDto = (form) => {
+  const newForm = mergeByFirst(initDtoForm(), form)
+  newForm.positionId = form.position[form.position.length - 1]
+  return newForm
 }
 
 const initSearchForm = () => {
   return {
     name: '',
-    sex: '',
   }
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm }
+export { formToDto, columnsMap, initForm, initSearchForm }

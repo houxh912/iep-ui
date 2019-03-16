@@ -1,4 +1,5 @@
-// org config options
+import { mergeByFirst } from '@/util/util'
+
 const dictsMap = {
   status: {
     1: '待发布', 2: '招聘中', 3: '结束招聘',
@@ -33,10 +34,39 @@ const initForm = () => {
   return {
     id: '', // ID
     position: [],
+    positionName: '',
+    dept: [],
     // positionId: '', // 岗位 positionName
-    positionName: '', // 岗位 positionName
-    deptId: '', // 所属部门 deptnName
+    // positionName: '', // 岗位 positionName
+    // deptId: '', // 所属部门 deptnName
     deptName: '', // 所属部门 deptnName
+    recruitsCount: 0, // 招聘人数
+    targetCount: 0, // 目标人数
+    academicId: '', // 学历要求(dict) hrms_highest_educational
+    jobTypeId: '', // 工作类型(dict) hrms_work_type
+    years: 0, // 工作年限
+    profession: '', // 专业要求
+    place: '', // 工作地点
+    sex: 1, // 性别
+    sexName: '', // 性别
+    treatment: '', // 工资待遇
+    language: '', // 外语要求
+    term: '', // 招聘期限
+    welfare: '', // 福利待遇
+    duties: '', // 岗位职责
+    claim: '', // 岗位要求
+  }
+}
+
+const initDtoForm = () => {
+  return {
+    id: '', // ID
+    // position: [],
+    // dept: [],
+    positionId: '', // 岗位 positionName
+    // positionName: '', // 岗位 positionName
+    deptId: '', // 所属部门 deptnName
+    // deptName: '', // 所属部门 deptnName
     recruitsCount: 0, // 招聘人数
     targetCount: 0, // 目标人数
     academicId: '', // 学历要求(dict) hrms_highest_educational
@@ -54,6 +84,13 @@ const initForm = () => {
   }
 }
 
+const formToDto = (form) => {
+  const newForm = mergeByFirst(initDtoForm(), form)
+  newForm.positionId = form.position[form.position.length - 1]
+  newForm.deptId = form.dept[form.dept.length - 1]
+  return newForm
+}
+
 const initSearchForm = () => {
   return {
     keyword: '',
@@ -65,4 +102,4 @@ const initSearchForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm }
+export { dictsMap, columnsMap, initForm, initSearchForm, formToDto }

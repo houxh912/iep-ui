@@ -19,32 +19,26 @@
       margin-right: 0;
     }
   }
-  .el-button--default {
-    &:hover, &:focus {
-      border-color: #bf051a;
-      background-color: #fff2f4;
-      color: #bf051a;
-    }
-  }
   .modify {
     &:hover,
     &:focus {
-      border-color: #bf051a;
+      border-color: #cb3737;
       background-color: #fff2f4;
-      color: #bf051a; 
+      color: #cb3737;
     }
   }
   .examine {
-    border-color: #bf051a;
+    border-color: #cb3737;
     background-color: #fff2f4;
-    color: #bf051a; 
+    color: #cb3737;
     &:hover,
     &:focus {
-      background-color: #bf051a;
+      background-color: #cb3737;
       color: #fff;
     }
   }
-  .el-input-group__append, .el-input-group__prepend {
+  .el-input-group__append,
+  .el-input-group__prepend {
     &:hover {
       color: ccc;
       background-color: #f0f0f0;
@@ -58,14 +52,5 @@
 }
 .operation-container >>> .input-wrapper > * {
   padding: 0;
-}
-.operation-container >>> div:nth-child(1) > .el-button {
-  border: 1px solid #bf051a;
-  background-color: #f9eae7;
-  color: #bf051a;
-}
-.operation-container >>> div:nth-child(1) > .el-button:hover {
-  background-color: #bf051a;
-  color: #fff;
 }
 </style>

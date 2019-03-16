@@ -1,7 +1,7 @@
 <template>
   <div class="nav">
     <div class="navbar">
-      <el-menu v-if="keyCollapse" :default-active="activeIndex" mode="horizontal" menu-trigger="click">
+      <el-menu v-if="keyCollapse" class="menu-collapse" :default-active="activeIndex" mode="horizontal" menu-trigger="click">
         <el-submenu index="">
           <template slot="title">导航</template>
           <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id"><span class="sub-menu">{{item.name}}</span></el-menu-item>
@@ -10,28 +10,19 @@
       <el-menu v-else :default-active="activeIndex" mode="horizontal">
         <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id"><span class="sub-menu">{{item.name}}</span></el-menu-item>
       </el-menu>
-      <div class="search-con">
+      <!-- <div class="search-con">
         <top-search class="search-con-input" :style="{top: isTop}" :class="{inactive:!isShow }">
           <el-input v-model="input" placeholder="请输入内容" size="small"></el-input>
           <el-button type="primary" size="small" @click="handleInput">确定</el-button>
         </top-search>
         <i class="el-icon-search btn-search" @click="handleInput"></i>
-      </div>
-      <!-- <el-select v-model="value2" placeholder="国脉海洋信息发展有限公司" size="small">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-          :disabled="item.disabled">
-        </el-option>
-      </el-select> -->
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import topSearch from './top-search'
+// import TopSearch from './TopSearch'
 import displayMixins from '@/mixins/displayMixins'
 export default {
   mixins: [displayMixins],
@@ -68,7 +59,7 @@ export default {
       ],
     }
   },
-  components: { topSearch },
+  // components: { TopSearch },
   methods: {
     handleInput () {
       this.isShow = !this.isShow
@@ -82,12 +73,12 @@ export default {
         return true
       }
     },
-    isTop () {
-      if (this.isTablet()) {
-        return '66px'
-      }
-      return this.isShow ? '66px' : '-66px'
-    },
+    // isTop () {
+    //   if (this.isTablet()) {
+    //     return '66px'
+    //   }
+    //   return this.isShow ? '66px' : '-66px'
+    // },
   },
 }
 </script>
@@ -101,6 +92,9 @@ export default {
   .navbar {
     display: flex;
     height: 60px;
+    .el-menu.el-menu--horizontal {
+      border-bottom: none;
+    }
     .el-menu--horizontal > .el-menu-item.is-active,
     .el-menu--horizontal > .el-menu-item:hover {
       border: 0;
@@ -165,16 +159,12 @@ export default {
 }
 </style>
 <style lang="css" scoped>
-@media (min-width: 0px) and (max-width: 1025px) {
-  .nav >>> .el-submenu.is-active .el-submenu__title,
-  .nav >>> .el-menu--horizontal > .el-submenu.is-active .el-submenu__title,
-  .el-menu.el-menu--horizontal {
-    height: 59px;
-    border: 0 !important;
-  }
+.nav >>> .el-submenu.is-active .el-submenu__title {
+  height: 59px;
+  border: none;
 }
 .nav >>> .el-select .el-input__suffix {
-  right: 15px !important;
+  right: 15px;
 }
 .search-con >>> .el-input {
   padding: 10px;

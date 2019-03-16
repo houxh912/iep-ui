@@ -1,55 +1,60 @@
 <template>
   <div>
     <basic-container>
-      <h3>组织基本信息</h3>
-      <el-form :model="gomsForm" ref="gomsForm" label-width="100px">
+      <page-header title="组织基本信息">
+        <template>
+          <el-button class="modify" size="small" @click="handleSubmit">保存</el-button>
+        </template>
+      </page-header>
+      <el-form :model="form" ref="form" label-width="120px">
         <el-form-item label="组织Logo：">
-          <img :src="formData.logo" alt="" id="logo" style="width:100px;" />
+          <iep-avatar v-model="form.logo"></iep-avatar>
         </el-form-item>
         <el-form-item label="组织名称：" prop="name">
-          <el-input type="text" v-model="formData.name" style="width:300px;"></el-input>
+          <el-input type="text" v-model="form.name" style="width:300px;"></el-input>
         </el-form-item>
         <el-form-item label="组织简称：" prop="orgAbrName">
-          <el-input style="width:300px;" v-model="formData.orgAbrName" placeholder="请输入组织简称"></el-input>
+          <el-input style="width:300px;" v-model="form.orgAbrName" placeholder="请输入组织简称"></el-input>
         </el-form-item>
         <el-form-item label="成立时间：" prop="establishTime">
-          <el-input style="width:300px;" v-model="formData.establishTime"></el-input>
+          <iep-date-picker type="date" v-model="form.establishTime"></iep-date-picker>
         </el-form-item>
         <el-form-item label="创建人：" prop="creator">
-          <el-input style="width:300px;" v-model="formData.creator" type="text" disabled></el-input>
+          <el-input style="width:300px;" v-model="form.creator" type="text" disabled></el-input>
         </el-form-item>
         <el-form-item label="联系方式：" prop="contactMethod">
-          <el-input v-model="formData.contactMethod" placeholder="请输入真实姓名"></el-input>
+          <el-input v-model="form.contactMethod" placeholder="请输入联系方式"></el-input>
         </el-form-item>
         <el-form-item label="组织简介：" prop="intro">
-          <el-input v-model="formData.intro" type="textarea" placeholder="验证码登录使用"></el-input>
+          <el-input v-model="form.intro" type="textarea" placeholder="验证码登录使用"></el-input>
         </el-form-item>
         <el-form-item label="组织架构：" prop="orgStructure">
-          <el-input v-model="formData.orgStructure" type="textarea"></el-input>
+          <el-input v-model="form.orgStructure" type="textarea"></el-input>
         </el-form-item>
         <el-form-item label="核心优势：" prop="coreAdvantage">
-          <el-input v-model="formData.coreAdvantage" type="textarea" placeholder="请输入核心优势"></el-input>
+          <el-input v-model="form.coreAdvantage" type="textarea" placeholder="请输入核心优势"></el-input>
         </el-form-item>
-        <el-form-item label="组织客服人员：" prop="phone">
+        <!-- <el-form-item label="组织客服人员：" prop="phone">
           <el-input></el-input>
         </el-form-item>
         <el-form-item label="系统联系人员：" prop="phone">
           <el-input></el-input>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
     </basic-container>
   </div>
 </template>
 <script>
+import PageHeader from '@/components/Page/Header'
 import { initGomsForm } from './options'
-import { getGomsInfo } from '@/api/admin/org'
+import { getGomsInfo, putObj } from '@/api/admin/org'
+import { mergeByFirst } from '@/util/util'
 import { mapState } from 'vuex'
-import { handleImg } from '@/util/util'
 export default {
+  components: { PageHeader },
   data () {
     return {
-      gomsForm: initGomsForm(),
-      formData: { 'orgId': 8, 'logo': 'image-cde6b6e3b38e4526b24f2bee00e7c15b.jpg', 'orgAbrName': '', 'establishTime': '2019-02-26 10:09:14', 'userId': 10, 'contactMethod': '', 'orgStructure': '', 'coreAdvantage': '', 'isNode': 0, 'delFlag': '0', 'createTime': '2019-02-23 16:42:28', 'updateTime': '2019-02-23 16:42:28', 'isOpen': 0, 'creator': '杜照鸿', 'name': '杜照鸿的组织', 'intro': '杜照鸿的组织' },
+      form: initGomsForm(),
     }
   },
   created () {
@@ -61,11 +66,14 @@ export default {
     }),
   },
   methods: {
+    handleSubmit () {
+      putObj(this.form).then(() => {
+        this.load()
+      })
+    },
     load () {
       getGomsInfo(this.orgId).then(({ data }) => {
-        this.formData = data.data
-        this.gomsForm = initGomsForm()
-        handleImg(this.formData.logo, 'logo')
+        this.form = mergeByFirst(initGomsForm(), data.data)
       })
     },
   },

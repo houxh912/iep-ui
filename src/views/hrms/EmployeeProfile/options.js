@@ -1,4 +1,4 @@
-// org config options
+import { mergeByFirst } from '@/util/util'
 const dictsMap = {
   status: {
     0: '暂无',
@@ -10,6 +10,10 @@ const dictsMap = {
     6: '离职员工',
   },
 }
+// 入职 0,6
+// 转正 2,3,4,5
+// 调动 1,2,3,4,5
+// 离职 1,2,3,4,5
 const columnsMap = [
   {
     prop: 'sex',
@@ -20,7 +24,7 @@ const columnsMap = [
   {
     prop: 'userName',
     label: '用户名',
-    hidden: false,
+    hidden: true,
   },
   {
     prop: 'position',
@@ -30,7 +34,7 @@ const columnsMap = [
   {
     prop: 'staffId',
     label: '工号',
-    hidden: false,
+    hidden: true,
   },
   {
     prop: 'status',
@@ -56,7 +60,7 @@ const columnsMap = [
   {
     prop: 'entryTime',
     label: '入职时间',
-    hidden: true,
+    hidden: false,
   },
   {
     prop: 'positiveTime',
@@ -124,11 +128,6 @@ const columnsMap = [
     hidden: true,
   },
   {
-    prop: 'certifications',
-    label: '资质证书名称',
-    hidden: true,
-  },
-  {
     prop: 'accountTypes',
     label: '户口类别',
     hidden: true,
@@ -151,7 +150,7 @@ const columnsMap = [
   {
     prop: 'IDCard',
     label: '身份证',
-    hidden: true,
+    hidden: false,
   },
   {
     prop: 'phone',
@@ -189,11 +188,6 @@ const columnsMap = [
     hidden: true,
   },
   {
-    prop: 'expirationTime',
-    label: '劳动合同到期时间',
-    hidden: true,
-  },
-  {
     prop: 'benefitsStartTime',
     label: '社保福利起缴时间',
     hidden: true,
@@ -215,14 +209,6 @@ const columnsMap = [
   },
 ]
 
-const initOrgForm = () => {
-  return {
-    name: '',
-    isOpen: false,
-    intro: '',
-  }
-}
-
 const initSearchForm = () => {
   return {
     name: '',
@@ -240,37 +226,52 @@ const initSearchForm = () => {
 
 
 
-const inittransferForm = () => {
+const initTransferForm = () => {
   return {
-    dept: '',
-    position: '',
-    job: '',
-    title: '',
+    id: '',
+    dept: [],
+    position: [],
+    jobId: '',
+    titleId: '',
     transferTime: '',
   }
 }
-const initdepartureForm = () => {
+const initDtoTransferForm = () => {
   return {
-    title: '',
+    id: '',
+    deptId: '',
+    positionId: '',
+    jobId: '',
+    titleId: '',
+    transferTime: '',
+  }
+}
+
+const transferFormToDto = (form) => {
+  const newForm = mergeByFirst(initDtoTransferForm(), form)
+  newForm.positionId = form.position[form.position.length - 1]
+  newForm.deptId = form.dept[form.dept.length - 1]
+  return newForm
+}
+
+const initDepartureForm = () => {
+  return {
+    id: '',
     departureTime: '',
     reason: '',
   }
 }
-const initinductionForm = () => {
+const initInductionForm = () => {
   return {
-    name: '',
-    sex: '',
-    position: '',
-    idCard: '',
+    id: '',
+    status: 2,
     inductionTime: '',
   }
 }
-const initpositiveForm = () => {
+const initPositiveForm = () => {
   return {
-    name: '张三',
-    position: '产品',
-    psoitiveTime: '',
-
+    id: '',
+    positiveTime: '',
   }
 }
-export { dictsMap, columnsMap, initOrgForm, initSearchForm, inittransferForm, initdepartureForm, initinductionForm, initpositiveForm }
+export { dictsMap, columnsMap, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm }

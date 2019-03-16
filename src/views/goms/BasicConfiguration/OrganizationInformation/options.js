@@ -38,13 +38,16 @@ const columnsMap = [
 
 const initGomsForm = () => {
   return {
-    userId: '',
-    username: '',
-    realName: '',
-    roleList: [],
-    phone: '',
-    orgNames: [],
-    avatar: '',
+    orgId: '',
+    logo: '',
+    name: '',
+    orgAbrName: '',
+    establishTime: '',
+    creator: '',
+    contactMethod: '',
+    intro: '',
+    orgStructure: '',
+    coreAdvantage: '',
   }
 }
 

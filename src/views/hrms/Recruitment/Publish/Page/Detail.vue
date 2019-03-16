@@ -1,107 +1,77 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header title="发布招聘" :backOption="backOption"></page-header>
-      <el-form ref="form" :model="form" label-width="120px" size="small" disabled>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="岗位名称：">
-              <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="所属部门：">
-              <el-input v-model="form.deptId"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="招聘人数：">
-              <el-input-number v-model="form.recruitsCount"></el-input-number>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="目标人数：">
-              <el-input-number v-model="form.targetCount"></el-input-number>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="学历要求：" class="form-half">
-              <el-select v-model="form.academicId" placeholder="请选择">
-                <el-option v-for="item in dictGroup['hrms_highest_educational']" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="工作类型：" class="form-half">
-              <el-select v-model="form.jobTypeId" placeholder="请选择">
-                <el-option v-for="item in dictGroup['hrms_work_type']" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="工作年限：">
-              <el-input-number v-model="form.years"></el-input-number>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="专业要求：">
-              <el-input v-model="form.profession"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="工作地点：" class="form-half">
-              <el-input v-model="form.place"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="性别：" class="form-half">
-              <el-radio-group v-model="form.sex">
-                <el-radio :label="1">男</el-radio>
-                <el-radio :label="2">女</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="工资待遇：" class="form-half">
-              <el-input v-model="form.treatment"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="外语要求：" class="form-half">
-              <el-input v-model="form.language"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="招聘期限：" class="form-half">
-              <el-date-picker v-model="form.term" type="date" placeholder="选择日期">
-              </el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="福利待遇：" class="form-half">
-              <el-input v-model="form.welfare"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-form-item label="岗位职责：">
-          <el-input type="textarea" v-model="form.duties" :rows="4"></el-input>
+      <page-header title="发布招聘" :backOption="backOption">
+        <iep-button type="danger">我要推荐</iep-button>
+      </page-header>
+      <div class="recruit-headers">
+        <span class="state"><i class="iconfont icon-shijian"></i><span>招聘中</span></span>
+        <div class="con">
+          <div class="left">
+            <h4 class="name">
+              {{form.positionName}}
+            </h4>
+            <div class="address"><span>{{form.deptName}}</span>{{form.place}}</div>
+          </div>
+          <div class="right">
+            <div class="pay">薪资：{{form.treatment}}</div>
+            <div class="info">
+              <label>学历要求：
+                <iep-dict-detail :current-value="form.academicId" dict-name="hrms_highest_educational"></iep-dict-detail>
+              </label>
+              <label>工作经验：{{form.years}}年</label>
+              <label>招{{form.recruitsCount}}人</label>
+              <label>目标{{form.targetCount}}人</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <el-form class="form-detail recruit-detail" ref="form" :model="form" label-width="120px" size="small" disabled>
+        <el-form-item>
+          <div class="sub-title">其他要求</div>
+          <el-row>
+            <el-col :span="4">
+              <el-form-item label="专业要求：">
+                <label>{{form.profession}}</label>
+              </el-form-item>
+            </el-col>
+            <el-col :span="4">
+              <el-form-item label="工作类型：">
+                <iep-dict-detail :current-value="form.jobTypeId" dict-name="hrms_work_type"></iep-dict-detail>
+              </el-form-item>
+            </el-col>
+            <el-col :span="4">
+              <el-form-item label="外语要求：">
+                <label>{{form.language}}</label>
+              </el-form-item>
+            </el-col>
+            <el-col :span="4">
+              <el-form-item label="性别要求：">
+                <label>{{form.sexName}}</label>
+              </el-form-item>
+            </el-col>
+            <el-col :span="4">
+              <el-form-item label="福利待遇：">
+                <label>{{form.welfare}}</label>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form-item>
-        <el-form-item label="岗位要求：">
-          <el-input type="textarea" v-model="form.claim" :rows="4"></el-input>
+        <el-form-item>
+          <div class="sub-title">岗位职责</div>
+          <el-row>
+            <el-col class="text" :span="24">
+              <pre>{{form.duties}}</pre>
+            </el-col>
+          </el-row>
+        </el-form-item>
+        <el-form-item>
+          <div class="sub-title">岗位要求</div>
+          <el-row>
+            <el-col class="text" :span="24">
+              <pre>{{form.claim}}</pre>
+            </el-col>
+          </el-row>
         </el-form-item>
       </el-form>
     </basic-container>
@@ -151,9 +121,89 @@ export default {
 <style scoped>
 .edit-wrapper >>> .el-form {
   margin-right: 20%;
-  margin-top: 50px;
+  margin-top: 20px;
+}
+.recruit-detail >>> .el-form-item__content {
+  margin-left: 0 !important;
 }
 </style>
 
 <style lang="scss" scoped>
+.recruit-headers {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+  box-shadow: 0 0 1px 1px #eee;
+  .con {
+    display: flex;
+    justify-content: space-between;
+  }
+  .state {
+    font-size: 14px;
+    i {
+      display: inline-block;
+      margin-right: 5px;
+      vertical-align: middle;
+      color: #999;
+    }
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .left {
+    margin: 10px 0;
+    .name {
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 32px;
+    }
+    .address {
+      font-size: 14px;
+      color: #999;
+      span {
+        margin-right: 10px;
+      }
+    }
+  }
+  .right {
+    display: flex;
+    flex-flow: column;
+    margin: 10px 0;
+    align-items: flex-end;
+    .pay {
+      margin-bottom: 20px;
+      font-size: 24px;
+      line-height: 32px;
+      color: #cb3737;
+    }
+    .info {
+      font-size: 14px;
+      color: #999;
+      label {
+        padding: 0 20px;
+        border-right: 1px solid #eee;
+        &:last-child {
+          padding-right: 0;
+          border: 0;
+        }
+      }
+    }
+  }
+}
+.recruit-detail {
+  .sub-title {
+    margin: 20px 35px;
+    font-size: 16px;
+  }
+  .text {
+    margin: 0 45px 15px;
+    font-size: 14px;
+    color: #606266;
+    word-wrap: break-word;
+  }
+}
 </style>

@@ -13,6 +13,9 @@
         <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
       </el-input>
     </el-form-item>
+    <el-form-item prop="realName">
+      <el-input v-model="registerForm.realName" auto-complete="off" placeholder="请输入真实姓名"></el-input>
+    </el-form-item>
     <el-form-item prop="phone">
       <el-input v-model="registerForm.phone" auto-complete="off" placeholder="请输入手机号码"></el-input>
     </el-form-item>

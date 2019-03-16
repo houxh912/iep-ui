@@ -1,5 +1,5 @@
 exports.getEmployeeProfilePage = async function (ctx) {
-  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"id":"1","name":"张超","userName":"zhangchao","roleName":"管理员","staffId":"GM23123","position":"程序人员","externalTitle":"内部人员","job":"不知道","title":"不知道","entryTime":"","positiveTime":"","transferTime":"","status":1,"dept":"开发","birthday":"","sex":"男","nationality":"汉族","politicalStatus":"群众","maritalStatus":"未婚","fertilityStatus":"无","language":"汉语","education":"大学","graduatedSchool":"北大","profession":"电子","graduationTime":"","referrer":"张绍","certifications":"无","accountTypes":"舟山定海","accountLocation":"舟山定海","residenceAddress":"舟山定海","currentAddress":"舟山定海","IDCard":"30303030303030303","phone":"1303030303","weChat":"lanseria","qq":"564265135","email":"123123@qq.com","emergencyName":"公元","emergencyPhone":"12321312","signingTime":"","expirationTime":"","benefitsStartTime":"","benefitsStopTime":"","separationTime":""},{"id":"1","name":"张超","userName":"zhangchao","roleName":"管理员","staffId":"GM23123","position":"程序人员","externalTitle":"内部人员","job":"不知道","title":"不知道","entryTime":"","positiveTime":"","transferTime":"","status":1,"dept":"开发","birthday":"","sex":"男","nationality":"汉族","politicalStatus":"群众","maritalStatus":"未婚","fertilityStatus":"无","language":"汉语","education":"大学","graduatedSchool":"北大","profession":"电子","graduationTime":"","referrer":"张绍","certifications":"无","accountTypes":"舟山定海","accountLocation":"舟山定海","residenceAddress":"舟山定海","currentAddress":"舟山定海","IDCard":"30303030303030303","phone":"1303030303","weChat":"lanseria","qq":"564265135","email":"123123@qq.com","emergencyName":"公元","emergencyPhone":"12321312","signingTime":"","expirationTime":"","benefitsStartTime":"","benefitsStopTime":"","separationTime":""}],"total":2,"size":10,"current":1,"searchCount":true,"pages":1}}`
+  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"userName":"admin","signName":null,"gender":1,"province":null,"city":null,"accountLocation":"string","positionId":2,"jobId":null,"professionalTitleId":null,"externalTitle":"string","education":0,"qq":"string","email":"string","careerPlan":null,"socialRela":null,"createTime":null,"updateTime":null,"isExpert":null,"iepHrJob":null,"iepHrPosition":null,"sex":"男","position":"产品经理","job":"初级产品顾问","title":"经理助理","id":2,"name":"admin","birthday":"2019-02-27 09:08:43","nationality":"string","politicalStatus":2,"maritalStatus":0,"fertilityStatus":0,"IDCard":"33090319920604","accountTypes":0,"residenceAddress":"string","currentAddress":"string","entryTime":"2019-03-14 12:46:26","positiveTime":"2019-02-21 09:08:45","graduatedSchool":"string","profession":"string","graduationTime":"2019-02-27 09:08:43","weChat":"string","emergencyName":"string","emergencyPhone":"string","status":1,"staffId":"GB3222","professional":null},{"userName":"xzyhhhh","signName":null,"gender":2,"province":null,"city":null,"accountLocation":"string","positionId":2,"jobId":null,"professionalTitleId":null,"externalTitle":"string","education":0,"qq":"string","email":"string","careerPlan":null,"socialRela":null,"createTime":null,"updateTime":null,"isExpert":null,"iepHrJob":null,"iepHrPosition":null,"sex":"女","position":"产品经理","job":null,"title":"职业助理","id":4,"name":"string","birthday":"2019-02-27 09:08:45","nationality":"string","politicalStatus":2,"maritalStatus":0,"fertilityStatus":0,"IDCard":"33090319910712","accountTypes":0,"residenceAddress":"string","currentAddress":"string","entryTime":"2019-02-27 09:08:45","positiveTime":"2019-02-27 09:08:45","graduatedSchool":"string","profession":"string","graduationTime":"2019-02-27 09:08:45","weChat":"string","emergencyName":"string","emergencyPhone":"string","status":2,"staffId":"GB3222","professional":null},{"userName":"root","signName":null,"gender":1,"province":null,"city":null,"accountLocation":"string","positionId":2,"jobId":null,"professionalTitleId":null,"externalTitle":"string","education":0,"qq":"string","email":"string","careerPlan":null,"socialRela":null,"createTime":null,"updateTime":null,"isExpert":null,"iepHrJob":null,"iepHrPosition":null,"sex":"男","position":"产品经理","job":"初级产品顾问","title":"经理助理","id":8,"name":"张超","birthday":"2019-02-27 09:08:43","nationality":"string","politicalStatus":2,"maritalStatus":0,"fertilityStatus":0,"IDCard":"33090319861109","accountTypes":0,"residenceAddress":"string","currentAddress":"string","entryTime":"2019-02-27 09:08:43","positiveTime":"2019-02-27 09:08:43","graduatedSchool":"string","profession":"string","graduationTime":"2019-02-27 09:08:43","weChat":"string","emergencyName":"string","emergencyPhone":"string","status":6,"staffId":"GB3222","professional":null},{"userName":"zsa11230","signName":null,"gender":2,"province":null,"city":null,"accountLocation":"string","positionId":2,"jobId":null,"professionalTitleId":null,"externalTitle":"string","education":0,"qq":"string","email":"string","careerPlan":null,"socialRela":null,"createTime":null,"updateTime":null,"isExpert":null,"iepHrJob":null,"iepHrPosition":null,"sex":"女","position":"产品经理","job":null,"title":"职业助理","id":3,"name":"阮晨光","birthday":"2019-02-27 09:08:45","nationality":"string","politicalStatus":2,"maritalStatus":0,"fertilityStatus":0,"IDCard":"33090319861123","accountTypes":0,"residenceAddress":"string","currentAddress":"string","entryTime":"2019-02-22 09:08:43","positiveTime":"2019-01-22 00:00:00","graduatedSchool":"string","profession":"string","graduationTime":"2019-02-27 09:08:45","weChat":"string","emergencyName":"string","emergencyPhone":"string","status":0,"staffId":"GB31234","professional":null}],"total":4,"size":10,"current":1,"searchCount":true,"pages":1}}`
 }
 
 exports.getGrowthFileById = async function (ctx) {
@@ -120,10 +120,10 @@ exports.getAdministrativeApprovalPage = async function (ctx) {
   ctx.body = data
 }
 exports.getPublishRecruitmentPage = async function (ctx) {
-  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"id":9,"position":"产品经理","dept":"山东农信","recruitsCount":2,"jobType":"全职","applicationTime":"2019-03-07 09:58:33","status":3},{"id":5,"position":"产品总监","dept":"院校农信2","recruitsCount":17,"jobType":"全职/兼职","applicationTime":"2019-03-07 09:58:33","status":3},{"id":1,"position":"数据元专员","dept":"院校农信1","recruitsCount":14,"jobType":"全职","applicationTime":"2019-03-07 10:02:12","status":2},{"id":2,"position":"产品经理","dept":"院校农信2","recruitsCount":15,"jobType":"兼职","applicationTime":"2019-03-06 14:14:22","status":2}],"total":4,"size":10,"current":1,"searchCount":true,"pages":1}}`
+  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"id":26,"position":"数据元专员","dept":"技术部分部1","recruitsCount":2,"jobType":"全职/兼职","applicationTime":"2019-03-14 15:20:44","status":1},{"id":25,"position":"产品经理","dept":"产品部","recruitsCount":5,"jobType":"全职/兼职","applicationTime":"2019-03-14 13:51:01","status":1},{"id":22,"position":"产品助理","dept":"技术部","recruitsCount":0,"jobType":"全职","applicationTime":"2019-03-12 15:56:56","status":1},{"id":19,"position":"产品总监","dept":"产品部","recruitsCount":1,"jobType":"兼职","applicationTime":"2019-03-14 13:56:39","status":2},{"id":15,"position":"产品总监","dept":"测试添加0311部门","recruitsCount":0,"jobType":"兼职","applicationTime":"2019-03-07 15:15:15","status":1},{"id":14,"position":"产品总监","dept":"测试新增组织并绑定所创大部门","recruitsCount":1,"jobType":"兼职","applicationTime":"2019-03-07 15:39:55","status":2},{"id":8,"position":"产品经理","dept":"sasasa","recruitsCount":35,"jobType":"全职","applicationTime":"2019-03-06 14:14:22","status":2},{"id":7,"position":"产品助理","dept":"测试新增组织并绑定所创大部门","recruitsCount":52,"jobType":"全职","applicationTime":"2019-03-06 14:14:22","status":3},{"id":1,"position":"数据元专员","dept":"杜照鸿的组织","recruitsCount":14,"jobType":"全职","applicationTime":"2019-03-07 10:02:12","status":3},{"id":2,"position":"产品经理","dept":"测试添加0311部门","recruitsCount":15,"jobType":"兼职","applicationTime":"2019-03-06 14:14:22","status":3}],"total":10,"size":10,"current":1,"searchCount":true,"pages":1}}`
 }
 exports.getPublishRecruitmentById = async function (ctx) {
-  ctx.body = `{"code":0,"msg":"success","data":{"id":9,"positionId":2,"positionName":"产品经理","deptId":1,"deptName":"山东农信","language":"dsfdsf","recruitsCount":2,"targetCount":2,"academicId":1,"jobTypeId":1,"years":2,"profession":"sddsfsdf","place":"sdsfsdf","sex":2,"treatment":"sdfsdf","term":"2019-03-26T16:00:00.000Z","welfare":"sdfdsfds","claim":"sdfsdfdsfdsfsdfsdf","duties":"sdffsddfs"}}`
+  ctx.body = `{"code":0,"msg":"success","data":{"id":25,"positionId":1,"deptId":19,"language":"三","positionClsId":1,"position":[1,1],"parentDept":0,"dept":[19],"recruitsCount":1,"targetCount":1,"academicId":2,"jobTypeId":1,"years":1,"profession":"要求","place":"科学城","sex":1,"treatment":"面议","term":"2019-03-14T16:00:00.000Z","welfare":"三","claim":"string","duties":"string"}}`
 }
 exports.commonPublishRecruitment = async function (ctx) {
   ctx.body = `{"code":0,"msg":"success","data":true}`
@@ -188,209 +188,20 @@ exports.getTrainingRecordPage = async function (ctx) {
   ctx.body = data
 }
 exports.getDepartmentManagePage = async function (ctx) {
-  const data = {
-    code: 0,
-    msg: 'success',
-    data: {
-      records: [
-        {
-          id: 1,
-          部门名称: '技术部',
-          负责人: '111',
-          部门人数: '1',
-          成立时间: '2019-03-01'
-        },
-        {
-          id: 2,
-          部门名称: '技术部',
-          负责人: '111',
-          部门人数: '1',
-          成立时间: '2019-03-01'
-        },
-        {
-          id: 3,
-          部门名称: '技术部',
-          负责人: '111',
-          部门人数: '1',
-          成立时间: '2019-03-01'
-        },
-        {
-          id: 4,
-          部门名称: '技术部',
-          负责人: '111',
-          部门人数: '1',
-          成立时间: '2019-03-01'
-        },
-        {
-          id: 5,
-          部门名称: '技术部',
-          负责人: '111',
-          部门人数: '1',
-          成立时间: '2019-03-01'
-        },
-        {
-          id: 6,
-          部门名称: '技术部',
-          负责人: '111',
-          部门人数: '1',
-          成立时间: '2019-03-01'
-        },
-        {
-          id: 7,
-          部门名称: '技术部',
-          负责人: '111',
-          部门人数: '1',
-          成立时间: '2019-03-01'
-        }
-      ],
-      total: 6,
-      size: 10,
-      current: 1,
-      searchCount: true,
-      pages: 1
-    }
-  }
-  ctx.body = data
+  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"id":33,"name":"产品部不","parentId":16,"number":"565656","userName":"杜照鸿","userId":10,"orgId":5,"people":0,"establishedTime":"2019-03-14 00:00:00","children":[]},{"id":32,"name":"产品部","parentId":16,"number":"1311","userName":"杜照鸿","userId":10,"orgId":5,"people":0,"establishedTime":"2019-03-13 00:00:00","children":[]},{"id":29,"name":"技术部","parentId":16,"number":"NO1127","userName":"杜照鸿","userId":10,"orgId":5,"people":0,"establishedTime":"2019-03-20 00:00:00","children":[{"id":35,"name":"技术部分部2","parentId":29,"parentName":"技术部","number":"NO11272","userName":"杜照鸿","userId":10,"orgId":5,"people":0,"establishedTime":"2019-03-14 00:00:00"},{"id":34,"name":"技术部分部1","parentId":29,"parentName":"技术部","number":"NO11271","userName":"超级管理员","userId":1,"orgId":5,"people":0,"establishedTime":"2019-03-14 00:00:00"}]}],"total":3,"size":10,"current":1,"searchCount":true,"pages":1}}`
 }
 exports.getJobPage = async function (ctx) {
-  const data = {
-    code: 0,
-    msg: 'success',
-    data: {
-      records: [
-        {
-          id: 1,
-          name: '专员',
-          description: '职务说明',
-          priority: '1'
-        },
-      ],
-      total: 10,
-      size: 10,
-      current: 1,
-      searchCount: true,
-      pages: 1
-    }
-  }
-  ctx.body = data
+  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"id":5,"name":"专员","priority":0,"description":"专员"},{"id":6,"name":"初级主管","priority":0,"description":"初级主管"},{"id":7,"name":"中级主管","priority":88,"description":"中级主管"},{"id":8,"name":"中级主管","priority":3,"description":"中级主管"},{"id":9,"name":"中级主管","priority":0,"description":"中级主管"},{"id":10,"name":"高级主管","priority":0,"description":"高级主管"},{"id":11,"name":"初级主管","priority":0,"description":"初级主管"},{"id":12,"name":"专员","priority":0,"description":"专员"},{"id":13,"name":"董事长","priority":0,"description":"董事长"},{"id":14,"name":"总经理","priority":0,"description":"总经理"}],"total":19,"size":10,"current":1,"searchCount":true,"pages":2}}`
 }
 exports.getTitlePage = async function (ctx) {
-  const data = {
-    code: 0,
-    msg: 'success',
-    data: {
-      records: [
-        {
-          id: 1,
-          name: '专员',
-          description: '职称说明',
-          priority: '1'
-        },
-      ],
-      total: 6,
-      size: 10,
-      current: 1,
-      searchCount: true,
-      pages: 1
-    }
-  }
-  ctx.body = data
+  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"id":1,"name":"经理助理","priority":6,"description":"助理经理"},{"id":2,"name":"职业助理","priority":9,"description":"职业助理"},{"id":10,"name":"首席咨询师","priority":0,"description":"首席咨询师"},{"id":11,"name":"资深咨询师","priority":0,"description":"资深咨询师"},{"id":12,"name":"战略咨询师","priority":0,"description":"战略咨询师"},{"id":13,"name":"高级咨询师","priority":0,"description":"高级咨询师"},{"id":14,"name":"中级咨询师","priority":0,"description":"中级咨询师"},{"id":15,"name":"初级咨询师","priority":0,"description":"初级咨询师"},{"id":16,"name":"助理咨询师","priority":0,"description":"助理咨询师"},{"id":17,"name":"数据分析员","priority":0,"description":"数据分析员"}],"total":11,"size":10,"current":1,"searchCount":true,"pages":2}}`
 }
 exports.getPostLibraryPage = async function (ctx) {
-  const data = {
-    code: 0,
-    msg: 'success',
-    data: {
-      records: [
-        {
-          id: 1,
-          type: '产品技术类',
-          name: '产品经理',
-          count: '1'
-        },
-        {
-          id: 2,
-          type: '产品技术类',
-          name: '产品经理',
-          count: '10'
-        },
-        {
-          id: 3,
-          type: '产品技术类',
-          name: '产品经理',
-          count: '100'
-        },
-        {
-          id: 4,
-          type: '产品技术类',
-          name: '产品经理',
-          count: '1000'
-        },
-        {
-          id: 5,
-          type: '产品技术类',
-          name: '产品经理',
-          count: '1'
-        },
-        {
-          id: 6,
-          type: '产品技术类',
-          name: '产品经理',
-          count: '1'
-        }
-      ],
-      total: 6,
-      size: 10,
-      current: 1,
-      searchCount: true,
-      pages: 1
-    }
-  }
-  ctx.body = data
+  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"count":0,"id":1,"typeId":1,"name":"产品总监","typeName":"产品技术类","duties":"做好产品","claim":"产品技术顶尖"},{"count":4,"id":2,"typeId":1,"name":"产品经理","typeName":"产品技术类","duties":"做好产品业务","claim":"协助产品总监"},{"count":0,"id":4,"typeId":1,"name":"产品助理","typeName":"产品技术类","duties":"帮助设计","claim":"能够帮助分担"},{"count":0,"id":5,"typeId":1,"name":"数据元专员","typeName":"产品技术类","duties":"整理数据111","claim":"整理好数据111"},{"count":0,"id":12,"typeId":8,"name":"产品经理","typeName":"研发技术类","duties":"负责产品技术","claim":"精通产品技术"}],"total":5,"size":10,"current":1,"searchCount":true,"pages":1}}`
 }
 exports.getPostTypePage = async function (ctx) {
-  const data = {
-    code: 0,
-    msg: 'success',
-    data: {
-      records: [
-        {
-          id: 1,
-          name: '产品技术类',
-          description: '产品技术类说明'
-        },
-        {
-          id: 2,
-          name: '产品技术类',
-          description: '产品技术类说明'
-        },
-        {
-          id: 3,
-          name: '产品技术类',
-          description: '产品技术类说明'
-        },
-        {
-          id: 4,
-          name: '产品技术类',
-          description: '产品技术类说明'
-        },
-        {
-          id: 5,
-          name: '产品技术类',
-          description: '产品技术类说明'
-        },
-        {
-          id: 6,
-          name: '产品技术类',
-          description: '产品技术类说明'
-        }
-      ],
-      total: 6,
-      size: 10,
-      current: 1,
-      searchCount: true,
-      pages: 1
-    }
-  }
-  ctx.body = data
+  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"id":1,"name":"产品技术类","description":"包括各种产品和技术类的工作1"},{"id":8,"name":"研发技术类","description":"包括研发微服务开发工具"},{"id":10,"name":"行政管理类","description":"行政管理类"}],"total":3,"size":10,"current":1,"searchCount":true,"pages":1}}`
+}
+exports.getPostTypeList = async function (ctx) {
+  ctx.body = `{"code":0,"msg":"success","data":[{"value":1,"label":"产品技术类","children":[{"value":1,"label":"产品总监","children":null},{"value":2,"label":"产品经理","children":null},{"value":4,"label":"产品助理","children":null},{"value":5,"label":"数据元专员","children":null}]},{"value":8,"label":"研发技术类","children":[{"value":12,"label":"产品经理","children":null}]},{"value":10,"label":"行政管理类","children":[]},{"value":13,"label":"string","children":[]},{"value":14,"label":"string","children":[]}]}`
 }

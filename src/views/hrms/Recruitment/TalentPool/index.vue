@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="才人库" :replaceText="replaceText" :data="[10 ,5]"></page-header>
+      <page-header title="人才库" :replaceText="replaceText" :data="[10 ,5]"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='TalentPool'" v-slot:TalentPool>
           <talent-pool v-loading="activeTab !=='TalentPool'"></talent-pool>

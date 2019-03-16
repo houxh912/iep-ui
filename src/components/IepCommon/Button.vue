@@ -14,29 +14,10 @@ export default {
     },
     plain: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
 }
 </script>
 <style lang="scss" scoped>
-  
-.el-button.is-plain {
-  &:focus, &:hover {
-  border-color: #bf051a;
-  background-color: #fff2f4;
-  color: #bf051a;
-  }
-}
-
-.el-button--primary {
-  border-color: #bf051a;
-  background-color: #bf051a;
-  color: #fff;
-  &:hover {
-    border-color: #fb5966;
-    background-color: #fb5966;
-    color: #fff;
-  }
-}
 </style>

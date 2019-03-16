@@ -4,13 +4,15 @@
       <el-row>
         <el-col :span="4" class="dotted">
           <div class="left">
-            <div class="img zoom"><img id="information-avatar" alt="头像"></div>
+            <div class="img zoom">
+              <iep-img :src="userInfo.avatar" alt="头像"></iep-img>
+            </div>
             <div class="code-name">GM000117</div>
           </div>
         </el-col>
         <el-col :span="20">
           <div class="right">
-            <div class="user-poster"><span class="say">早上好，黄磊!</span><span class="gov">国脉人，人人都要成为专家</span></div>
+            <div class="user-poster"><span class="say">早上好，{{userInfo.realName}}!</span><span class="gov">国脉人，人人都要成为专家</span></div>
             <div class="user-info">
               <el-progress :percentage="80" color="#68C769"></el-progress>
               <span :class="item.type=='button'?'border':'color'" v-for="(item,index) in infoList" :key="index">{{item.label}}</span>
@@ -45,7 +47,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { handleImg } from '@/util/util'
 import AboutTask from './AboutTask'
 import Project from './Project'
 import Customer from './Customer'
@@ -70,9 +71,6 @@ export default {
       ],
     }
   },
-  created () {
-    handleImg(this.userInfo.avatar, 'information-avatar')
-  },
   computed: {
     ...mapGetters([
       'userInfo',
@@ -83,7 +81,7 @@ export default {
 
 <style lang="scss" scoped>
 .wel-content {
-  margin: 0 300px -20px -20px;
+  // margin: 0 300px -20px -20px;
   width: 100%;
   height: auto;
   background: white;
@@ -139,7 +137,7 @@ export default {
         .user-poster {
           .say {
             display: inline-block;
-            margin-top:3px;
+            margin-top: 3px;
             font-size: 14px;
           }
           .gov {
@@ -147,7 +145,7 @@ export default {
             margin-left: 20px;
             max-width: 520px;
             font-size: 16px;
-            color: #ba1928;
+            color: #cb3737;
             vertical-align: middle;
           }
         }
@@ -214,14 +212,14 @@ export default {
             border-radius: 3px;
             font-size: 12px;
             text-align: center;
-            color: #ba1928;
+            color: #cb3737;
             margin-left: 10px;
-            border: 1px solid #ba1928;
+            border: 1px solid #cb3737;
             -webkit-transition: all 0.5s;
             transition: all 0.5s;
             &:focus,
             &:hover {
-              background-color: #ba1928;
+              background-color: #cb3737;
               color: #fff;
               outline: none;
             }
@@ -311,7 +309,9 @@ export default {
 @media (min-width: 769px) and (max-width: 1026px) {
 }
 @media (min-width: 0px) and (max-width: 769px) {
-  .el-col-20 {width: 100%;}
+  .el-col-20 {
+    width: 100%;
+  }
   .information {
     font-size: 12px;
     .dotted {

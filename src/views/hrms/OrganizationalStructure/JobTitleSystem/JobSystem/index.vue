@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleAdd" type="danger" icon="el-icon-plus">新增</iep-button>
+        <iep-button @click="handleAdd" type="danger" icon="el-icon-plus" plain>新增</iep-button>
         <el-dropdown size="medium">
           <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
@@ -15,16 +15,16 @@
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
-      <el-table-column prop="operation" label="操作" width="200">
+      <el-table-column prop="operation" label="操作" width="180">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" size="small" type="warning">编辑</iep-button>
+            <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain>编辑</iep-button>
             <iep-button @click="handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
-    <add-dialog-form ref="addDialogForm" @load-page="loadPage"></add-dialog-form>
+    <add-dialog-form ref="AddDialogForm" @load-page="loadPage"></add-dialog-form>
   </div>
 </template>
 <script>
@@ -56,15 +56,15 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteJobById)
     },
     handleEdit (row) {
-      this.$refs['addDialogForm'].form = mergeByFirst(initForm(), row)
-      this.$refs['addDialogForm'].methodName = '修改'
-      this.$refs['addDialogForm'].formRequestFn = putJob
-      this.$refs['addDialogForm'].dialogShow = true
+      this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), row)
+      this.$refs['AddDialogForm'].methodName = '修改'
+      this.$refs['AddDialogForm'].formRequestFn = putJob
+      this.$refs['AddDialogForm'].dialogShow = true
     },
     handleAdd () {
-      this.$refs['addDialogForm'].methodName = '创建'
-      this.$refs['addDialogForm'].formRequestFn = postJob
-      this.$refs['addDialogForm'].dialogShow = true
+      this.$refs['AddDialogForm'].methodName = '创建'
+      this.$refs['AddDialogForm'].formRequestFn = postJob
+      this.$refs['AddDialogForm'].dialogShow = true
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

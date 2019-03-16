@@ -48,8 +48,8 @@ import { getMobileCode } from '@/api/admin/mobile'
 import { registerUser, validRegisterUserName, validRegisterUserPhone } from '@/api/login'
 import { isvalidatemobile } from '@/util/validate'
 const MSGINIT = '获取验证码',
-MSGSCUCCESS = '${time}秒后重发',
-MSGTIME = 60
+  MSGSCUCCESS = '${time}秒后重发',
+  MSGTIME = 60
 export default {
   data () {
     const checkUserName = (rule, value, callback) => {
@@ -206,7 +206,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-ul, ol {
+ul,
+ol {
   margin: 0;
   padding: 0;
   list-style-type: none;
@@ -236,13 +237,6 @@ ul, ol {
   p {
     font-size: 14px;
   }
-  a {
-    color: #ba1b20;
-    margin: 0px 8px;
-    &:hover {
-      color: #f56c6c;
-    }
-  }
 }
 .login-submit:hover {
   background-color: #f56c6c !important;
@@ -264,7 +258,8 @@ ul, ol {
   text-align: center;
   cursor: pointer;
   border-radius: 0 4px 4px 0;
-  &:hover,&:focus {
+  &:hover,
+  &:focus {
     border-color: #dcdfe6;
     background-color: #fff7ec;
     color: #bf051a;
@@ -273,21 +268,21 @@ ul, ol {
 .msg-text.display {
   color: #ccc;
 }
-@media(max-width:320px){
+@media (max-width: 320px) {
   .retrieve-con {
     .el-steps--horizontal {
-      margin-bottom:10px;
+      margin-bottom: 10px;
     }
   }
 }
 </style>
 <style lang="css" scoped>
-.login-form >>> .el-input{
+.login-form >>> .el-input {
   padding: 0;
-} 
+}
 .code-wrapper >>> .el-input .el-input__inner {
-  border-radius: 4px 0 0 4px; 
-} 
+  border-radius: 4px 0 0 4px;
+}
 .retrieve-con >>> .el-step__head.is-process {
   border: 0;
   color: #666;
@@ -315,7 +310,8 @@ ul, ol {
 .retrieve-con >>> .el-steps--horizontal {
   margin: 50px 50px 40px;
 }
-.retrieve-con >>> .el-step__icon-inner.is-status, .retrieve-con >>> .el-step__description.is-success {
+.retrieve-con >>> .el-step__icon-inner.is-status,
+.retrieve-con >>> .el-step__description.is-success {
   color: #666;
 }
 .retrieve-con >>> .el-step__head.is-success {

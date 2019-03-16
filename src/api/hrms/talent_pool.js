@@ -41,6 +41,16 @@ export function putTalentPool (obj) {
     data: obj,
   })
 }
+export function postResumeBlacklist (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    params: {
+      isBlacklist: true,
+    },
+    data: obj,
+  })
+}
 
 export function getTalentPoolById (id) {
   return request({
@@ -62,5 +72,36 @@ export function postToBlacklist (obj) {
     url: `${prefixUrl}/to_blacklist`,
     method: 'post',
     data: obj,
+  })
+}
+export function postToTalent (ids) {
+  return request({
+    url: `${prefixUrl}/to_talent`,
+    method: 'post',
+    data: ids,
+  })
+}
+export function deleteTalentPoolById (id) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: [id],
+  })
+}
+export function deleteTalentPoolBatch (ids) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: ids,
+  })
+}
+export function changeTalentPoolStatus (ids, status) {
+  return request({
+    url: `${prefixUrl}/status/batch`,
+    method: 'post',
+    data: {
+      ids,
+      status,
+    },
   })
 }

@@ -34,11 +34,12 @@ const initForm = () => {
   return {
     id: '', // ID
     position: [],
+    positionName: '',
     dept: [],
     // positionId: '', // 岗位 positionName
     // positionName: '', // 岗位 positionName
     // deptId: '', // 所属部门 deptnName
-    // deptName: '', // 所属部门 deptnName
+    deptName: '', // 所属部门 deptnName
     recruitsCount: 0, // 招聘人数
     targetCount: 0, // 目标人数
     academicId: '', // 学历要求(dict) hrms_highest_educational
@@ -47,6 +48,7 @@ const initForm = () => {
     profession: '', // 专业要求
     place: '', // 工作地点
     sex: 1, // 性别
+    sexName: '', // 性别
     treatment: '', // 工资待遇
     language: '', // 外语要求
     term: '', // 招聘期限

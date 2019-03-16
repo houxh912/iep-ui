@@ -152,7 +152,6 @@
         </el-collapse>
       </el-form>
     </el-card>
-    <!-- fixed footer toolbar -->
     <footer-tool-bar>
       <iep-button type="info" @click="handleGoBack">返回</iep-button>
       <iep-button type="primary" @click="handleSubmit">提交</iep-button>
@@ -202,12 +201,13 @@ export default {
     },
     handleSubmit () {
       this.formRequestFn(formToDto(this.form)).then(({ data }) => {
-        console.log(data.data)
-        this.$message({
-          message: `人才库${this.methodName}成功`,
-          type: 'success',
-        })
-        this.$emit('onGoBack')
+        if (data.data) {
+          this.$message({
+            message: `人才库${this.methodName}成功`,
+            type: 'success',
+          })
+          this.$emit('onGoBack')
+        }
       })
     },
   },

@@ -5,6 +5,7 @@
       <span class="page-desc">{{desc}}</span>
     </div>
     <div class="right">
+      <slot></slot>
       <iep-button v-if="backOption.isBack" @click="handleBack">返回</iep-button>
     </div>
   </div>

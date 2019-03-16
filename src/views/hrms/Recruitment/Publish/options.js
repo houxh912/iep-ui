@@ -1,4 +1,5 @@
 import { mergeByFirst } from '@/util/util'
+import { initNow } from '@/util/date'
 
 const dictsMap = {
   status: {
@@ -51,7 +52,7 @@ const initForm = () => {
     sexName: '', // 性别
     treatment: '', // 工资待遇
     language: '', // 外语要求
-    term: '', // 招聘期限
+    term: initNow(), // 招聘期限
     welfare: '', // 福利待遇
     duties: '', // 岗位职责
     claim: '', // 岗位要求

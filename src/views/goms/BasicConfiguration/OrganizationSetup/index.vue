@@ -1,12 +1,11 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织设置"></page-header>
-      <operation-container>
-        <template slot="right">
+      <page-header title="组织设置">
+        <template>
           <el-button class="modify" size="small">组织变更记录</el-button>
         </template>
-      </operation-container>
+      </page-header>
       <div class="organize-group">
         <el-button circle><i class="icon-diannaodenglu"></i><span>创建组织</span></el-button>
         <el-button circle><i class="icon-organ"></i><span>创建联盟</span></el-button>
@@ -62,9 +61,9 @@
   </div>
 </template>
 <script>
-import mixins from '@/mixins/mixins'
+import PageHeader from '@/components/Page/Header'
 export default {
-  mixins: [mixins],
+  components: { PageHeader },
   data () {
     return {
 

@@ -21,7 +21,7 @@
     <div class="right">
       <div class="right-top">
         <div class="logo-item">
-          <img class="img" :src="data.logo" alt="" id="logo" />
+          <iep-img class="img" :src="data.logo"></iep-img>
         </div>
         <div class="img-text">{{data.orgName}}<i class="el-icon-arrow-down el-icon--right"></i></div>
       </div>
@@ -32,9 +32,10 @@
       <div class="manager">
         <p>组织管理员</p>
         <div class="manager-avatar">
-          <div class="avatar" v-for="(item,index) in managerList" :key="item.userId">
+          <div class="avatar" v-for="(item) in managerList" :key="item.userId">
             <div class="avater-mask"><i class="el-icon-close close"></i></div>
-            <img class="avatar-img" :src="item.avatar" :id="`avatar${index}`" alt="" @click="open2(item.userId)"><span class="avatar-name">{{item.realName}}</span>
+            <iep-img class="avatar-img" :src="item.avatar" @click="open2(item.userId)"></iep-img>
+            <span class="avatar-name">{{item.realName}}</span>
           </div>
           <router-link class="avatar avatar-add" to="">
             <i class="el-icon-plus"></i>
@@ -69,7 +70,6 @@
 </template>
 <script>
 import { orgDetail, gomsOpen, unSetManager } from '@/api/admin/org'
-import { handleImg } from '@/util/util'
 import LogList from './LogList'
 // import IepImg from './Img'
 import take from 'lodash/take'
@@ -132,10 +132,6 @@ export default {
         this.data = res.data.data
         this.tenLogList = take(res.data.data.logList, 15)
         this.managerList = this.data.managerList.filter(m => m)
-        this.managerList.forEach((m, i) => {
-          handleImg(m.avatar, 'avatar' + i)
-        })
-        handleImg(this.data.logo, 'logo')
       })
     },
   },

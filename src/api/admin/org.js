@@ -48,7 +48,7 @@ export function reviewById (obj) {
 
 export function applyObj (obj) {
   return request({
-    url: '/admin/org/apply/join',
+    url: '/admin/org/apply',
     method: 'post',
     data: obj,
   })

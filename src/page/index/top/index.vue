@@ -2,7 +2,7 @@
   <div class="top">
     <div class="top-left">
       <div class="logo-wrapper">
-        <div class="logo" @click="$router.push({name: '首页'})"></div>
+        <div class="logo" @click="open('/')"></div>
         <el-dropdown>
           <span class="el-dropdown-link">
             国脉智慧平台
@@ -10,16 +10,16 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
-              <router-link to="/">国脉智慧平台</router-link>
+              国脉智慧平台
             </el-dropdown-item>
             <el-dropdown-item>
-              <router-link to="/">国脉智慧平台</router-link>
+              国脉智慧平台
             </el-dropdown-item>
             <el-dropdown-item>
-              <router-link to="/info/index">国脉智慧平台</router-link>
+              国脉智慧平台
             </el-dropdown-item>
             <el-dropdown-item>
-              <router-link to="/info/index">国脉智慧平台</router-link>
+              国脉智慧平台
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -35,14 +35,14 @@
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>
-            <router-link to="/">首页</router-link>
+          <el-dropdown-item @click.native="open('/')">
+            首页
           </el-dropdown-item>
-          <el-dropdown-item>
-            <span @click="handleOrg(orgText.type)">{{orgText.tipText}}</span>
+          <el-dropdown-item @click.native="handleOrg(orgText.type)">
+            {{orgText.tipText}}
           </el-dropdown-item>
-          <el-dropdown-item>
-            <router-link to="/info/index">个人信息</router-link>
+          <el-dropdown-item @click.native="open('/info/index')">
+            个人信息
           </el-dropdown-item>
           <el-dropdown-item @click.native="logout" divided>退出系统</el-dropdown-item>
         </el-dropdown-menu>
@@ -105,6 +105,11 @@ export default {
     },
   },
   methods: {
+    open (path) {
+      this.$router.push({
+        path,
+      })
+    },
     handleOrg (type) {
       if (type === 0) {
         this.$router.push({ name: '选择组织' })

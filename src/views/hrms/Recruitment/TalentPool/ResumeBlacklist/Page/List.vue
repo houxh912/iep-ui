@@ -40,29 +40,11 @@
           </template>
         </el-table-column>
       </template>
-      <el-table-column prop="operation" label="操作" width="220">
+      <el-table-column prop="operation" label="操作" width="150">
         <template slot-scope="scope">
           <operation-wrapper>
-            <el-dropdown size="medium">
-              <iep-button type="warning" plain>
-                待处理<i class="el-icon-arrow-down el-icon--right"></i>
-              </iep-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>已邀约</el-dropdown-item>
-                <el-dropdown-item>未面试</el-dropdown-item>
-                <el-dropdown-item>面试未录用</el-dropdown-item>
-                <el-dropdown-item>已录用</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>
             <iep-button @click="handleDelete(scope.row)">删除</iep-button>
-            <el-dropdown size="medium">
-              <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>安排面试</el-dropdown-item>
-                <el-dropdown-item>录用</el-dropdown-item>
-                <el-dropdown-item>面试记录</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -70,7 +52,7 @@
   </div>
 </template>
 <script>
-import { getResumeBlacklistPage, deleteTalentPoolById, deleteTalentPoolBatch } from '@/api/hrms/talent_pool'
+import { getResumeBlacklistPage, postResumeBlacklist, putTalentPool, deleteTalentPoolById, deleteTalentPoolBatch } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
 export default {
@@ -95,17 +77,27 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteTalentPoolById)
     },
     handleDetail (row) {
-      console.log(row)
-      this.$emit('onDetail')
+      this.$emit('onDetail', row)
+    },
+    handleEdit (row) {
+      this.$emit('onEdit', {
+        formRequestFn: putTalentPool,
+        methodName: '编辑',
+        id: row.id,
+      })
+    },
+    handleAdd () {
+      this.$emit('onEdit', {
+        formRequestFn: postResumeBlacklist,
+        methodName: '新增',
+        id: false,
+      })
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },
     loadPage (param = this.paramForm) {
       this.loadTable(param, getResumeBlacklistPage)
-    },
-    handleAdd () {
-      this.$emit('onEdit')
     },
   },
 }

@@ -41,7 +41,7 @@
           </template>
         </el-table-column>
       </template>
-      <el-table-column prop="operation" label="操作" width="220">
+      <el-table-column prop="operation" label="操作" width="250">
         <template slot-scope="scope">
           <operation-wrapper>
             <el-dropdown size="medium">

@@ -41,6 +41,16 @@ export function putTalentPool (obj) {
     data: obj,
   })
 }
+export function postResumeBlacklist (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    params: {
+      isBlacklist: true,
+    },
+    data: obj,
+  })
+}
 
 export function getTalentPoolById (id) {
   return request({

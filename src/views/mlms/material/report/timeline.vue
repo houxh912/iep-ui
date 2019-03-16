@@ -1,24 +1,25 @@
 <template>
   <div class="time-line">
-    <div class="item" v-for="(item, index) in list" :key=index>
-      <div class="before" v-if="item.year">{{item.year}}</div>
+    <div class="item" v-for="(item, index) in option.list" :key=index>
+      <div class="before" v-if="item.year">{{item.year}}年</div>
       <div class="middle">
         <div class="tail"></div>
         <div class="date icon" v-if="item.year"><i class="icon-jiantouxiangyou"></i></div>
-        <div class="date" v-else @click="actively(index, 'month')" :class="active===index?'actively':''">{{item.date}}</div>
+        <div class="date" v-else @click="actively(index, 'month', item)" :class="active===index?'actively':''">{{item.date}}</div>
         <div class="content">
           <slot name="content" :row="item" :index="index"></slot>
         </div>
       </div>
+      <!-- 展开的子级 -->
       <div v-if="active===index">
         <div class="child" v-for="(child, i) in item.children" :key="i" :class="activeChild===i?'actively':''">
-          <div class="before" @click="actively(i, 'week')">
-            <div class="title">{{child.title}}</div>
-            <div class="sub-title">{{child.subTit}}</div>
+          <div class="before" @click="actively(i, 'week', child)">
+            <div class="title" v-text="`第${toChinesNum(child.index)}周`"></div>
+            <div class="sub-title">{{child.startTime}} ~ {{child.endTime}}</div>
           </div>
           <div class="middle">
             <div class="tail"></div>
-            <div class="date" @click="actively(i, 'week')"><i class="spot"></i></div>
+            <div class="date" @click="actively(i, 'week', child)"><i class="spot"></i></div>
             <div class="content"></div>
           </div>
         </div>
@@ -28,25 +29,56 @@
 </template>
 
 <script>
+import { toChinesNum } from './util'
+
 export default {
   name: 'timeline',
-  props: ['list'],
+  props: {
+    option: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  computed: {
+  },
   data () {
+    let active = this.option.active
+    let activeChild = this.option.activeChild
     return {
-      active: -1,
-      activeChild: -1,
+      active: active,
+      activeChild: activeChild,
     }
   },
   methods: {
-    actively (index, type) {
+    actively (index, type, item) {
+      // 点击时间轴首先判断是否到达时间，若为未来时，点击无效
+      if (item.timeStamp > (+new Date())) {
+        this.$message('未到时间')
+        return
+      }
       if (type === 'month') {
-        this.active = index
+        if (this.option.isParentClick) {
+          if (this.activeChild == -1 && this.active == index) {
+            this.active = -1
+          } else {
+            this.active = index
+          }
+        } else {
+          this.active = this.active == index ? -1 : index
+        }
         this.activeChild = -1
+        // 去获取数据
       } else {
         this.activeChild = index
       }
-      this.$emit('actively', index, type)
+      item.$index = index
+      this.$emit('actively', item, type)
     },
+    toChinesNum (index) {
+      return toChinesNum(index)
+    },
+  },
+  watch: {
   },
 }
 </script>

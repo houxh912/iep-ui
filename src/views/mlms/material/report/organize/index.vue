@@ -12,11 +12,11 @@
     </div>
     <div class="content">
       <div class="timeline">
-        <time-line :list="list" ref="timeline" @actively="actively"></time-line>
+        <time-line ref="timeline" @actively="actively" :option="timeLineOption"></time-line>
       </div>
       <div class="form">
-        <weekly-form ref="dislog" v-if="contentType==='week'"></weekly-form>
-        <monthly-form ref="dislog" v-else></monthly-form>
+        <weekly-form ref="dislog" v-if="contentType==='week'" :data="formData" @success-submit="successSubmit"></weekly-form>
+        <monthly-form ref="dislog" v-else :data="formData" @success-submit="successSubmit"></monthly-form>
       </div>
     </div>
       
@@ -24,40 +24,30 @@
 </template>
 
 <script>
-import TimeLine from './timeline'
+import TimeLine from '../timeline'
 import weeklyForm from './weekly'
 import monthlyForm from './monthly'
+import { createWeeks, getWeekOfYear, formatDig } from '../util'
+import { getTableData } from '@/api/mlms/material/report/organize'
+
 export default {
   name: 'organize',
   components: { TimeLine, weeklyForm, monthlyForm },
   data () {
     return {
       activeIndex: [],
-      list: [
-        { year: '2019年' },
-        { date: '1月',
-          children: [
-            { title: '第一周', subTit: '01-04 ~ 01-10', content: '个人周报' },
-            { title: '第二周', subTit: '01-11 ~ 01-17', content: '个人周报' },
-            { title: '第三周', subTit: '01-18 ~ 01-24', content: '个人周报' },
-            { title: '第四周', subTit: '01-25 ~ 02-02', content: '个人周报' },
-          ],
-        }, { date: '2月', 
-          children: [
-            { title: '第五周', subTit: '02-04 ~ 02-10', content: '个人周报' },
-            { title: '第六周', subTit: '02-11 ~ 02-17', content: '个人周报' },
-            { title: '第七周', subTit: '02-18 ~ 02-24', content: '个人周报' },
-            { title: '第八周', subTit: '02-25 ~ 03-02', content: '个人周报' },
-          ],
-        },
-      ],
-      formData: '',
+      timeLineOption: {
+        list: [],
+        isParentClick: true,
+      },
+      formData: {},
       validate: false,
       searchData: {
         date: '',
         title: '',
       },
-      contentType: 'weekly',
+      contentType: 'week',
+      params: '',
     }
   },
   methods: {
@@ -66,23 +56,92 @@ export default {
       this.$refs['timeline'].active = this.activeIndex[0]
     },
     submit () {
-      if (this.formData === '') {
-        this.validate = true
-        return
-      }
-      console.log('this.formData: ', this.formData)
-      this.validate = false
-      this.list.push(
-        { date: '15', title: '2019-02-15日报', content: this.formData }
-      )
+      
     },
     search () {},
-    actively (index, type) {
+    actively (item, type) {
       this.contentType = type
       this.$nextTick(() => {
         this.$refs['dislog'].dislogState = 'detail'
+        this.formData = item
+      })
+      // 点击月份进行数据的获取
+      if (type == 'month') {
+        this.params = new Date(item.timeStamp)
+        this.loadList(this.params)
+      }
+    },
+    loadList (date, type) {
+      let month = date.getMonth() + 1
+      getTableData({ yearMonthTime: `${date.getFullYear()}-${formatDig(month)}` }).then((res) => {
+        let obj = this.timeLineOption.list[month]
+        let resObj = {}
+        for (let index in obj.children) {
+          for (let t of res.data.data) {
+            let timeStamp = new Date(t.createTime) - obj.children[index].timeStamp
+            // 此条数据生成的时间在一周之内
+            if (timeStamp >= 0 && timeStamp < 7*24*60*60*1000 && t.reportType == 0) {
+              this.timeLineOption.list[month].children[index] = Object.assign({}, obj.children[index], t)
+            }
+            if (t.reportType == 1) {
+              resObj = t
+            }
+          }
+        }
+        obj = Object.assign({}, obj, resObj)
+        this.$set(this.timeLineOption.list, month, obj)
+        // 是否是初次
+        if (type) {
+          this.formData = this.timeLineOption.list[this.timeLineOption.active].children[this.timeLineOption.activeChild]
+        }
       })
     },
+    // 获取当前时间轴上面的月、周
+    getDate (row) {
+      let day = +new Date()
+      let month = new Date().getMonth() + 1
+      let week = -1
+      let list = row[month]
+      // 两种情况，首先上个月的周报，timeStamp 应该是小于这个月最小的周的时间戳
+      for (let item of list.children) {
+        if (day > item.timeStamp) {
+          week++
+        } else  {
+          if (week == -1) {
+            // 上个月的最后一周
+            if (month == 1) {
+              // 上个月是去年的12月
+              return { month: 12, week: list.children.length-1 }
+            } else {
+              month = month-1
+              return { month: month, week: list.children.length-1 }
+            }
+          } else {
+            return { month, week }
+          }
+        }
+      }
+    },
+    successSubmit () {
+      this.loadList(this.params)
+      this.$refs['dislog'].dislogState = 'detail'
+    },
+  },
+  created () {
+    // 获取当前的时间，默认显示当前年-当前月
+    let date = new Date()
+    if (getWeekOfYear() == 0) {
+      date = new Date(date.getFullYear() - 1, 11, 31)
+    }
+    // 初始化时间轴，获取到当前的周
+    let list = createWeeks(date.getFullYear())
+    let obj = this.getDate(list)
+    this.timeLineOption.active = obj.month
+    this.timeLineOption.activeChild = obj.week
+    // 赋值时间轴
+    this.timeLineOption.list = list
+    this.params = date
+    this.loadList(this.params, 'start')
   },
 }
 </script>

@@ -2,10 +2,10 @@
   <div class="daily">
 
     <div class="fillin">
-      <el-input type="textarea" rows=5 v-model="formData"></el-input>
+      <el-input type="textarea" rows=5 v-model="createData" placeholder="记录下今天的工作内容吧"></el-input>
       <div class="footer">
-        <iep-button type="danger" @click="submit">保存</iep-button>
-        <div class="error" v-if="validate">日报内容不能为空</div>
+        <iep-button type="danger" @click="submit('create')">保存</iep-button>
+        <div class="error" v-if="createValidate">日报内容不能为空</div>
       </div>
     </div>
 
@@ -20,11 +20,28 @@
         <iep-button @click="search">搜索</iep-button>
       </el-col>
       <el-col>
-        <time-line :list="list" ref="timeline">
+        <time-line :list="list" ref="timeline" @getMore="getMore">
           <template #content="{row, index}">
             <el-collapse v-model="activeIndex" @change="activeChange">
               <el-collapse-item :title="row.title" :name="index">
-                <pre>{{row.content}}</pre>
+                <template slot="title" v-if="row.code">
+                  <div class="writing" @click="writing(index)">{{row.title}}</div>
+                </template>
+                <div class="content" v-if="dailyState=='detail'">
+                  <div class="left">
+                    <pre>{{row.content}}</pre>
+                  </div>
+                  <div class="right">
+                    <i class="el-icon-edit" @click="update(index, row.content)" v-if="row.code==0"></i>
+                  </div>
+                </div>
+                <div class="content" v-else-if="updateIndex == index">
+                  <el-input type="textarea" rows=5 v-model="updateData" placeholder="记录下今天的工作内容吧"></el-input>
+                  <div class="footer">
+                    <iep-button type="danger" @click="submit(dailyState, row.createTime, index)">保存</iep-button>
+                    <div class="error" v-if="updateValidate">日报内容不能为空</div>
+                  </div>
+                </div>
               </el-collapse-item>
             </el-collapse>
           </template>
@@ -37,24 +54,31 @@
 
 <script>
 import TimeLine from './timeline'
+import { getTableData, createData, updateData } from '@/api/mlms/material/report/daily'
+import { getDays } from '../util'
+
 export default {
   name: 'daily',
   components: { TimeLine },
   data () {
     return {
       activeIndex: [],
-      list: [
-        { month: '2019年2月' },
-        { date: '27日', title: '2019-02-27日报', content: '1、资源平台前端开发' },
-        { date: '28日', title: '2019-02-28日报', content: '1、资源平台前端开发' },
-        { month: '2019年3月' },
-        { date: '1日', title: '2019-03-1日报', content: '1、资源平台前端开发' },
-      ],
-      formData: '',
-      validate: false,
+      list: [],
       searchData: {
         date: '',
         title: '',
+      },
+      createData: '',
+      updateData: '',
+      createValidate: false,
+      updateValidate: false,
+      startIndex: -1,
+      dailyState: 'detail',
+      updateIndex: -1,
+      stateList: {
+        create: { data: 'createData', validate: 'createValidate',  fn: createData, methodsName: '新增' },
+        update: { data: 'updateData', validate: 'updateValidate',  fn: updateData, methodsName: '修改' },
+        writing: { data: 'updateData', validate: 'updateValidate',  fn: createData, methodsName: '补写' },
       },
     }
   },
@@ -62,18 +86,128 @@ export default {
     activeChange (val) {
       this.activeIndex = [val[val.length-1]]
       this.$refs['timeline'].active = this.activeIndex[0]
+      this.dailyState = 'detail'
+      this.updateValidate = ''
     },
-    submit () {
-      if (this.formData === '') {
-        this.validate = true
+    submit (state, time, index) {
+      let data = this[this.stateList[state].data]
+      let validate = this.stateList[state].validate
+      let fn = this.stateList[state].fn
+      if (data === '') {
+        this[validate] = true
         return
       }
-      this.validate = false
-      this.list.push(
-        { date: '15', title: '2019-02-15日报', content: this.formData }
-      )
+      this[validate] = false
+      let formData = {
+        workContent: data,
+      }
+      // 若是补写的日报，则需要传一个当天的时间到后台
+      if (state === 'writing') {
+        formData.createTime = time
+      } else if (state === 'update') {
+        formData.createTime = time
+        console.log('update: ', index, this.list[index].id)
+        formData.id = this.list[index].id
+      }
+      fn(formData).then((res) => {
+        if (!res.data.data) {
+          this.$message.error(res.data.msg)
+          return
+        }
+        this.$notify({
+          title: '成功',
+          message: `${this.stateList[state].methodsName}成功`,
+          type: 'success',
+          duration: 2000,
+        })
+        this[this.stateList[state].data] = ''
+        this.dailyState = 'detail'
+        //////////////////////////////////////////////////////////  提交成功后要刷新
+        this.loadPage(0, 10)
+      })
     },
     search () {},
+    loadPage (startIndex, range) {
+      if (startIndex == 0) {
+        this.list = [{ month: getDays(0).year + '年' + getDays(0).month + '月' }]
+      }
+      // 首先获取时间轴
+      let dateList = []
+      for (let index = startIndex*range; index < (startIndex+1)*range; ++index) {
+        let getDay = getDays(-index)
+        let obj = {time: getDay.year + '-' + getDay.month + '-' + getDay.day}
+        obj.date = getDay.tDay + '日'
+        dateList.push(obj)
+        if (getDay.day == 1) {
+          // 若为1号，则插入一个月份
+          dateList.push({ month: getDays(-index-1).year + '年' + getDays(-index-1).month + '月' })
+        }
+      }
+      // 获取数据
+      getTableData({
+        startTime: dateList[9].time + ' 00:00:00',
+        endTime: dateList[0].time + ' 23:59:59',
+      }).then((res) => {
+        // 根据获取到的数据进行数据的匹配
+        let fn = (time, list) => {
+          let msg = {
+            id: '',
+            code: 1,
+            content: '',
+            title: '点击补写日报',
+            createTime: time + ' 00:00:00',
+          }
+          for (let work of list) {
+            if (work.createTime.indexOf(time) >= 0) {
+              msg = { code: 0, content: work.workContent, title: time+'日报', createTime: work.createTime, id: work.id }
+              break
+            }
+          }
+          return msg
+        }
+        for (let item of dateList) {
+          if (item.month) {
+            this.list.push(item)
+          } else {
+            let msg = fn(item.time, res.data.data)
+            // 根据日期匹配
+            this.list.push({
+              date: item.date,
+              title: msg.title,
+              content: msg.content,
+              code: msg.code,
+              createTime: msg.createTime,
+              id: msg.id,
+            })
+          }
+        }
+      })
+      this.startIndex = startIndex + 1
+    },
+    getMore () {
+      this.loadPage(this.startIndex, 10)
+    },
+    // 编辑
+    update (index, data) {
+      this.$nextTick(() => {
+        this.dailyState = 'update'
+        this.updateIndex = index
+        this.updateData = data
+      })
+    },
+    // 补写
+    writing (index) {
+      setTimeout(() => {
+        this.dailyState = 'writing'
+        this.updateIndex = index
+        this.$nextTick(() => {
+          this.activeIndex = [index]
+        })
+      })
+    },
+  },
+  created () {
+    this.loadPage(0, 10)
   },
 }
 </script>
@@ -101,6 +235,33 @@ export default {
         display: inline-block;
         width: 150px;
         margin-right: 15px;
+      }
+    }
+    .writing {
+      color: #e47e33;
+    }
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      .left {
+        flex: 1;
+      }
+      .right {
+        width: 22px;
+        i {
+          cursor: pointer;
+          font-size: 18px;
+        }
+      }
+      .footer {
+        width: 100%;
+        margin-top: 20px;
+        .error {
+          display: inline-block;
+          font-size: 12px;
+          color: red;
+          margin-left: 10px;
+        }
       }
     }
   }

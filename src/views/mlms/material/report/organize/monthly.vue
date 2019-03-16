@@ -1,7 +1,7 @@
 <template>
   <div class="monthly">
     <div class="head">
-      <div class="title">组织工作月报<span class="date">（2019年2月）</span></div>
+      <div class="title">组织工作月报<span class="date">{{getYearMonth(formData.timeStamp)}}</span></div>
       <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href">参考本月周报</a></div>
       <div class="tips update" v-else @click="handleUpdate"><i class="el-icon-edit"></i></div>
     </div>
@@ -82,22 +82,70 @@
 </template>
 
 <script>
+import { getDateStr } from '../util'
+import { updateData, createData } from '@/api/mlms/material/report/organize'
+
 export default {
+  props: {
+    data: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  computed: {
+  },
   data () {
     return {
-      formData: {
-        zhishi: '',
-        benzhouzongjie: '',
-        xiazhouzongjie: '',
-        ganwu: '',
+      formData: {},
+      dislogState: 'detail',
+      rules: {
+        workSummary: [{ required: true, message: '必填', trigger: 'blur' }],
+        workPlan: [{ required: true, message: '必填', trigger: 'blur' }],
       },
-      dislogState: 'create',
     }
   },
   methods: {
-    submit () {},
+    submit () {
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          // 判断这条数据是否在系统中已经生成
+          createData
+          let fn = ()=>{}
+          if (this.formData.createData) {
+            fn = updateData
+          } else {
+            fn = createData
+            this.formData.reportType = 1
+            this.formData.createTime = getDateStr(this.formData.timeStamp)
+          }
+          delete this.formData.updateTime
+          fn(this.formData).then(() => {
+            this.$notify({
+              title: '成功',
+              message: '编辑月报成功',
+              type: 'success',
+              duration: 2000,
+            })
+            this.$emit('success-submit', true)
+          })
+        } else {
+          return false
+        }
+      })
+    },
     handleUpdate () {
       this.dislogState = 'update'
+    },
+    getYearMonth (timeStamp) {
+      let msg = '（'
+      let date = new Date(timeStamp)
+      msg += date.getFullYear() + '年' + (date.getMonth() + 1) + '月）'
+      return msg
+    },
+  },
+  watch: {
+    data (newVal) {
+      this.formData = {...newVal}
     },
   },
 }
@@ -139,25 +187,6 @@ export default {
     .title {
       margin-bottom: 20px;
     }
-    .select-item {
-      display: flex;
-      margin-bottom: 15px;
-      .label {
-        width: 94px;
-      }
-      .item {
-        flex: 1;
-      }
-      .col-button {
-        margin-bottom: 15px;
-      }
-      .col-item {
-        height: 30px;
-        i {
-          cursor: pointer;
-        }
-      }
-    }
     .detail {
       pre {
         padding-left: 20px;
@@ -168,12 +197,6 @@ export default {
       .title {
         font-weight: 700;
         margin-top: 10px;
-      }
-      .item {
-        margin-left: 30px;
-        .tag {
-          margin-right: 20px;
-        }
       }
     }
   }

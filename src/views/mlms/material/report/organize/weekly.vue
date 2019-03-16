@@ -1,104 +1,107 @@
 <template>
   <div class="weekly">
     <div class="head">
-      <div class="title">第八周组织工作周报<span class="date">（02-25 ~ 03-02）</span></div>
+      <div class="title" v-text="`第${formatDig(formData.index)}周组织工作周报`"><span class="date">（02-25 ~ 03-02）</span></div>
       <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href">参考本周日报</a></div>
       <div class="tips update" v-else @click="handleUpdate"><i class="el-icon-edit"></i></div>
     </div>
     <div class="content">
-      <el-form ref="form" v-if="dislogState!=='detail'" :model="formData">
+      <el-form ref="form" v-if="dislogState!=='detail'" :rules="rules" :model="formData">
         <div class="title">领导指示</div>
-        <el-form-item prop="zhishi">
-          <el-input type="textarea" v-model="formData.zhishi" rows=5 placeholder="此处填写领导指示"></el-input>
+        <el-form-item>
+          <el-input type="textarea" v-model="formData.leaderIndication" rows=5 placeholder="此处填写领导指示"></el-input>
         </el-form-item>
         <div class="title">本周工作总结</div>
-        <el-form-item prop="benzhouzongjie">
-          <el-input type="textarea" v-model="formData.benzhouzongjie" rows=5 placeholder="此处填写本周工作总结"></el-input>
+        <el-form-item prop="workSummary">
+          <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本周工作总结"></el-input>
         </el-form-item>
         <div class="title">下周工作计划</div>
-        <el-form-item prop="xiazhouzongjie">
-          <el-input type="textarea" v-model="formData.xiazhouzongjie" rows=5 placeholder="此处填写下周工作计划"></el-input>
+        <el-form-item prop="workPlan">
+          <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下周工作计划"></el-input>
         </el-form-item>
         <div class="title">总结与感悟</div>
-        <el-form-item prop="ganwu">
-          <el-input type="textarea" v-model="formData.ganwu" rows=5 placeholder="此处填写总结与感悟"></el-input>
+        <el-form-item>
+          <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟"></el-input>
         </el-form-item>
-        <div class="select-item">
-          <div class="label">市场拓展：</div>
-          <div class="item">
-            <iep-button class="col-button"><i class="el-icon-plus"></i></iep-button>
-            <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
-            <el-col class="col-item">数据基因新框架改造 <i class="el-icon-close"></i></el-col>
-          </div>
-        </div>
-        <div class="select-item">
-          <div class="label">相关产品：</div>
-          <div class="item">
-            <iep-button class="col-button"><i class="el-icon-plus"></i></iep-button>
-            <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
-            <el-col class="col-item">数据基因新框架改造 <i class="el-icon-close"></i></el-col>
-          </div>
-        </div>
-        <div class="select-item">
-          <div class="label">相关项目：</div>
-          <div class="item">
-            <iep-button class="col-button"><i class="el-icon-plus"></i></iep-button>
-            <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
-            <el-col class="col-item">数据基因新框架改造 <i class="el-icon-close"></i></el-col>
-          </div>
-        </div>
         <el-form-item>
           <iep-button @click="submit" type="danger">保存</iep-button>
         </el-form-item>
       </el-form>
       <div v-else class="detail">
         <div class="title">领导指示</div>
-        <pre>{{formData.zhishi}}</pre>
+        <pre>{{formData.leaderIndication}}</pre>
         <div class="title">本周工作总结</div>
-          <pre>{{formData.benzhouzongjie}}</pre>
+          <pre>{{formData.workSummary}}</pre>
         <div class="title">下周工作计划</div>
-          <pre>{{formData.xiazhouzongjie}}</pre>
+          <pre>{{formData.workPlan}}</pre>
         <div class="title">总结与感悟</div>
-          <pre>{{formData.ganwu}}</pre>
-        <div class="title">市场拓展</div>
-        <div class="item">
-          <el-tag type="info" class="tag">内网2.0改造项目</el-tag>
-          <el-tag type="info">数据基因新框架改造</el-tag>
-        </div>
-        <div class="title">相关产品</div>
-        <div class="item">
-          <el-tag type="info" class="tag">内网2.0改造项目</el-tag>
-          <el-tag type="info">数据基因新框架改造</el-tag>
-        </div>
-        <div class="title">相关项目</div>
-        <div class="item">
-          <el-tag type="info" class="tag">内网2.0改造项目</el-tag>
-          <el-tag type="info">数据基因新框架改造</el-tag>
-        </div>
-            
+          <pre>{{formData.summarySentiment}}</pre>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { toChinesNum, getDateStr } from '../util'
+import { updateData, createData } from '@/api/mlms/material/report/organize'
+
 export default {
+  props: {
+    data: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  computed: {
+  },
   data () {
     return {
-      formData: {
-        zhishi: '',
-        benzhouzongjie: '',
-        xiazhouzongjie: '',
-        ganwu: '',
-        guanlian: '',
+      formData: {},
+      dislogState: 'detail',
+      rules: {
+        workSummary: [{ required: true, message: '必填', trigger: 'blur' }],
+        workPlan: [{ required: true, message: '必填', trigger: 'blur' }],
       },
-      dislogState: 'create',
     }
   },
   methods: {
-    submit () {},
+    submit () {
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          // 判断这条数据是否在系统中已经生成
+          let fn = ()=>{}
+          if (this.formData.createData) {
+            fn = updateData
+          } else {
+            fn = createData
+            this.formData.createTime = getDateStr(this.formData.timeStamp)
+          }
+          delete this.formData.updateTime
+          this.formData.title = `第${this.formatDig(this.formData.index)}周个人工作周报`
+          fn(this.formData).then(() => {
+            this.$notify({
+              title: '成功',
+              message: '编辑月报成功',
+              type: 'success',
+              duration: 2000,
+            })
+            this.$emit('success-submit', true)
+          })
+        } else {
+          return false
+        }
+      })
+    },
     handleUpdate () {
       this.dislogState = 'update'
+    },
+    formatDig (index) {
+      return toChinesNum(index)
+    },
+  },
+  watch: {
+    data (newVal) {
+      this.formData = {...newVal}
     },
   },
 }
@@ -140,25 +143,6 @@ export default {
     .title {
       margin-bottom: 20px;
     }
-    .select-item {
-      display: flex;
-      margin-bottom: 15px;
-      .label {
-        width: 94px;
-      }
-      .item {
-        flex: 1;
-      }
-      .col-button {
-        margin-bottom: 15px;
-      }
-      .col-item {
-        height: 30px;
-        i {
-          cursor: pointer;
-        }
-      }
-    }
     .detail {
       pre {
         padding-left: 20px;
@@ -169,12 +153,6 @@ export default {
       .title {
         font-weight: 700;
         margin-top: 10px;
-      }
-      .item {
-        margin-left: 30px;
-        .tag {
-          margin-right: 20px;
-        }
       }
     }
   }

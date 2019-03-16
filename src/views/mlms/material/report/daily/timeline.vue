@@ -16,6 +16,11 @@
         </div>
       </div>
     </div>
+    <div class="item">
+      <div class="button">
+        <el-button size="small" type="primary" plain @click="getMore">加载更多<i class="el-icon-arrow-down"></i></el-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -27,6 +32,11 @@ export default {
     return {
       active: -1,
     }
+  },
+  methods: {
+    getMore () {
+      this.$emit('getMore', true)
+    },
   },
 }
 </script>
@@ -106,6 +116,9 @@ export default {
       //   border-bottom: 9px solid transparent;
       //   border-top: 9px solid transparent; 
       // }
+    }
+    .button {
+      margin-left: 77px;
     }
   }
 }

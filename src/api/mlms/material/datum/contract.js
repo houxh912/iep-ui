@@ -1,5 +1,5 @@
 import request from '@/router/axios'
-const prefixUrl = '/mlms/iepcontract'
+const prefixUrl = '/mlms/contract'
 
 export function getTableData (params) {
   return request({

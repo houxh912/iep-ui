@@ -137,15 +137,18 @@ export default {
       })
     },
     submitForm () {
-      console.log('list: ', this.list)
+      console.log('list: ', this.selectList)
       let workSummary = ''
-      for (let item of this.list) {
-        workSummary += item.content
+      for (let item of this.selectList) {
+        workSummary += item.workContent
       }
       this.formData.workSummary = workSummary
+      this.selectList = []
+      this.pageState = true
+      this.dailyTableData = []
     },
     cancelPage () {
-      this.list = []
+      this.selectList = []
       this.pageState = true
       this.dailyTableData = []
     },

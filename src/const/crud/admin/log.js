@@ -18,16 +18,20 @@ export const tableOption = {
     value: 'value',
   },
   column: [
-    {
-      label: '类型',
-      prop: 'type',
-      type: 'select',
-      dicData: 'log_type',
-      search: true,
-    },
+    // {
+    //   label: '类型',
+    //   prop: 'type',
+    //   type: 'select',
+    //   dicData: 'log_type',
+    //   search: true,
+    // },
     {
       label: '标题',
       prop: 'title',
+    },
+    {
+      label: '操作人',
+      prop: 'createBy',
     },
     {
       label: 'IP地址',

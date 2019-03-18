@@ -136,22 +136,24 @@
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="学习工作经历" name="3">
             <el-form-item label="学习情况：">
-              <inline-form-table></inline-form-table>
+              <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="talent_pool" :rid="form.id"></inline-form-table>
             </el-form-item>
             <el-form-item label="工作经历：">
-              <el-input type="textarea"></el-input>
+              <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="talent_pool" :rid="form.id"></inline-form-table>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="培训证书情况" name="4">
             <el-form-item label="培训情况：">
-              <el-input type="textarea"></el-input>
+              <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="talent_pool" :rid="form.id"></inline-form-table>
             </el-form-item>
             <el-form-item label="资质证书：">
-              <el-input type="textarea"></el-input>
+              <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="talent_pool" :rid="form.id"></inline-form-table>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="附件上传" name="5">
-            <el-input type="textarea"></el-input>
+            <el-form-item label="附件上传：">
+              <el-input type="textarea"></el-input>
+            </el-form-item>
           </el-collapse-item>
         </el-collapse>
       </el-form>
@@ -166,8 +168,8 @@
 import { mapState } from 'vuex'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 import FooterToolBar from '@/components/FooterToolbar'
-import { initForm, formToDto } from '../options'
-import InlineFormTable from './InlineFormTable'
+import { initForm, formToDto, workExpColumns, studyColumns, trainingColumns, certificateColumns } from '../options'
+import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 import { mergeByFirst } from '@/util/util'
 export default {
   props: {
@@ -179,6 +181,10 @@ export default {
   components: { FooterToolBar, InlineFormTable },
   data () {
     return {
+      certificateColumns,
+      trainingColumns,
+      studyColumns,
+      workExpColumns,
       activeNames: ['1'],
       methodName: '新增',
       form: initForm(),

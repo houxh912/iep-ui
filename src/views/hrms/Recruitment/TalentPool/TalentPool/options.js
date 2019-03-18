@@ -157,7 +157,83 @@ const initToBlacklistForm = () => {
 const initrejectedForm = () => {
   return {
     msg: '',
-
   }
 }
-export { dictsMap, columnsMap, initForm, initSearchForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm }
+
+const studyColumns = [
+  {
+    prop: 'name',
+    label: '学习(教育)单位',
+  },
+  {
+    prop: 'startTime',
+    label: '起始时间',
+  },
+  {
+    prop: 'content',
+    label: '学习内容',
+  },
+]
+
+const workExpColumns = [
+  {
+    prop: 'name',
+    label: '公司',
+  },
+  {
+    prop: 'position',
+    label: '岗位',
+  },
+  {
+    prop: 'startTime',
+    label: '起始时间',
+  },
+  {
+    prop: 'description',
+    label: '工作描述',
+  },
+  {
+    prop: 'leavingReason',
+    label: '离职原因',
+  },
+]
+
+const trainingColumns = [
+  {
+    prop: 'name',
+    label: '培训名称',
+  },
+  {
+    prop: 'place',
+    label: '培训单位',
+  },
+  {
+    prop: 'method',
+    label: '培训方式',
+  },
+  {
+    prop: 'startTime',
+    label: '起始时间',
+  },
+]
+
+const certificateColumns = [
+  {
+    prop: 'name',
+    label: '培训名称',
+  },
+  {
+    prop: 'place',
+    label: '培训单位',
+  },
+  {
+    prop: 'method',
+    label: '培训方式',
+  },
+  {
+    prop: 'startTime',
+    label: '起始时间',
+  },
+]
+
+export { dictsMap, columnsMap, initForm, initSearchForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm, workExpColumns, studyColumns, trainingColumns, certificateColumns }

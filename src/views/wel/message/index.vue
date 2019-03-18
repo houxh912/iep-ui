@@ -70,7 +70,7 @@ export default {
   .line {
     position: absolute;
     top: 0;
-    left: 116px;
+    left: 199px;
     bottom: 0;
     width: 1px;
     background-color: #e4e7ed;
@@ -87,6 +87,8 @@ export default {
 }
 .messagecon >>> .el-tabs--left .el-tabs__item.is-left {
   border-right: 1px solid #fff;
+  min-width: 180px;
+  text-align: left;
 }
 .messagecon >>> .el-tabs__item.is-active {
   border-right: 1px solid #e4e7ed;

@@ -5,9 +5,9 @@
       <operation-container>
         <template slot="left">
           <el-button-group>
-            <el-button class="iconfont icon-yanjing" size="small"></el-button>
-            <el-button class="iconfont icon-biaoqian" size="small"></el-button>
-            <el-button class="iconfont icon-shanchu" size="small"></el-button>
+            <el-button class="iconfont icon-yanjing" size="mini"></el-button>
+            <el-button class="iconfont icon-biaoqian" size="mini"></el-button>
+            <el-button class="iconfont icon-shanchu" size="mini"></el-button>
           </el-button-group>
         </template>
         <template slot="right">

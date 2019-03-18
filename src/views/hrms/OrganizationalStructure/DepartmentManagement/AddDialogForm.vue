@@ -12,7 +12,7 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="负责人" prop="userId">
-        <iep-contact-select :user-id="form.userId" :user-name="form.userName" @change="fillUser"></iep-contact-select>
+        <iep-contact-select v-model="form.user"></iep-contact-select>
       </el-form-item>
       <el-form-item label="成立时间" prop="establishedTime">
         <iep-date-picker v-model="form.establishedTime" type="date" placeholder="选择日期">
@@ -26,9 +26,9 @@
   </iep-dialog>
 </template>
 <script>
-import IepContactSelect from '@/components/IepCommon/ContactSelect'
+import IepContactSelect from '@/components/IepContact/Select'
 import IepDialog from '@/components/IepDialog/'
-import { initForm } from './options'
+import { initForm, toDtoForm } from './options'
 export default {
   components: { IepDialog, IepContactSelect },
   data () {
@@ -51,10 +51,6 @@ export default {
     }
   },
   methods: {
-    fillUser (user) {
-      this.form.userId = user.id
-      this.form.userName = user.name
-    },
     loadPage () {
       this.form = initForm()
       this.dialogShow = false
@@ -63,7 +59,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.form).then(() => {
+          this.formRequestFn(toDtoForm(this.form)).then(() => {
             this.$message({
               message: `${this.methodName}成功`,
               type: 'success',

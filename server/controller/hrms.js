@@ -131,6 +131,9 @@ exports.commonPublishRecruitment = async function (ctx) {
 exports.getTalentPoolPage = async function (ctx) {
   ctx.body = `{"code":0,"msg":"success","data":{"records":[{"id":"1","name":"张超","sex":"男","education":"大学","age":"14","applyPosition":"14","receptionTime":"2019-01-01","source":"国脉官网","remarks":"驳回原因","birthday":"1985-06-04","blacklistArea":"1985-06-04","blacklistReason":"1985-06-04"},{"id":"1","name":"张超","sex":"男","education":"大学","age":"14","applyPosition":"14","receptionTime":"2019-01-01","source":"国脉官网","remarks":"驳回原因","birthday":"1985-06-04","blacklistArea":"1985-06-04","blacklistReason":"1985-06-04"}],"total":2,"size":10,"current":1,"searchCount":true,"pages":1}}`
 }
+exports.getAssessmentManagementPage = async function (ctx) {
+  ctx.body = `{"code":0,"msg":"success","data":{"records":[{"id":"1","name":"张超","assessName":"日常考核","assessTime":"2019-03-14 15:20:44","status":"1","assessScore":"80分"},{"id":"2","name":"张超","assessName":"日常考核","assessTime":"2019-03-14 15:20:44","status":"1","assessScore":"80分"},{"id":"3","name":"张超","assessName":"日常考核","assessTime":"2019-03-14 15:20:44","status":"1","assessScore":"80分"},{"id":"4","name":"张超","assessName":"日常考核","assessTime":"2019-03-14 15:20:44","status":"1","assessScore":"80分"}],"total":2,"size":10,"current":1,"searchCount":true,"pages":1}}`
+}
 exports.getTrainingRecordPage = async function (ctx) {
   const data = {
     code: 0,

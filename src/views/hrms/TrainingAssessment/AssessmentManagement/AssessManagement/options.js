@@ -1,41 +1,29 @@
 import { mergeByFirst } from '@/util/util'
 const dictsMap = {
-  isOpen: {
-    0: '开',
-    1: '关',
-  },
   status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
+    1: '考核中',
+    2: '考核完成',
+    3: '已过期',
   },
 }
 
 const columnsMap = [
   {
-    prop: 'sex',
-    label: '性别',
-    width: 55,
+    prop: 'assessName',
+    label: '考核名称',
   },
   {
-    prop: 'education',
-    label: '学历',
+    prop: 'assessTime',
+    label: '考核时间',
   },
   {
-    prop: 'age',
-    label: '年龄',
+    prop: 'status',
+    label: '考核状态',
+    type: 'dict',
   },
   {
-    prop: 'applyPosition',
-    label: '应聘岗位',
-  },
-  {
-    prop: 'receptionTime',
-    label: '简历接受时间',
-  },
-  {
-    prop: 'source',
-    label: '来源',
+    prop: 'assessScore',
+    label: '考核分值',
   },
 ]
 
@@ -138,7 +126,7 @@ const formToDto = (form) => {
 const initSearchForm = () => {
   return {
     name: '',
-    sex: '',
+    assessName: '',
   }
 }
 const initrejectedForm = () => {

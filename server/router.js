@@ -53,6 +53,7 @@ router.get('/hrms/employee_profile/growth_file/:id', hrmsController.getGrowthFil
 router.get("/hrms/administrative_approval/page", hrmsController.getAdministrativeApprovalPage)
 
 router.get("/hrms/talent_pool/page", hrmsController.getTalentPoolPage)
+router.get("/hrms/assessment_management/page", hrmsController.getAssessmentManagementPage)
 
 router.get("/hrms/publish_recruitment/page", hrmsController.getPublishRecruitmentPage)
 router.get('/hrms/publish_recruitment/:id', hrmsController.getPublishRecruitmentById)

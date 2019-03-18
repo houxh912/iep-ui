@@ -3,7 +3,7 @@
     <operation-container>
       <template slot="left">
         <iep-button @click="handleAdd()" type="danger" plain>发起考核</iep-button>
-        <iep-button type="default" plain>删除</iep-button>
+        <iep-button type="default" plain @click.native="handleDeleteBatch">删除</iep-button>
       </template>
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
@@ -25,7 +25,7 @@
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
       <template slot="before-columns">
-        <el-table-column label="姓名" width="90px">
+        <el-table-column label="被考核人" width="120px">
           <template slot-scope="scope">
             <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
           </template>
@@ -34,25 +34,7 @@
       <el-table-column prop="operation" label="操作" width="220">
         <template slot-scope="scope">
           <operation-wrapper>
-            <el-dropdown size="medium">
-              <iep-button type="warning" plain>
-                待处理<i class="el-icon-arrow-down el-icon--right"></i>
-              </iep-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="handleRejected(scope.row)">驳回</el-dropdown-item>
-                <el-dropdown-item>未面试</el-dropdown-item>
-                <el-dropdown-item>面试未录用</el-dropdown-item>
-                <el-dropdown-item>已录用</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-            <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
-            <el-dropdown size="medium">
-              <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="handleDelete(scope.row)">加入简历库</el-dropdown-item>
-                <el-dropdown-item divided>分享</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+            <iep-button type="default" @click="handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -61,7 +43,7 @@
   </div>
 </template>
 <script>
-import { getTalentPoolPage, postTalentPool, putTalentPool } from '@/api/hrms/talent_pool'
+import { getAssessmentManagementPage, postAssessmentManagement, deletePublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/assessment_management'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
 import RejectedDialog from './RejectedDialog'
@@ -79,22 +61,18 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleEdit (row) {
-      this.$emit('onEdit', {
-        formRequestFn: putTalentPool,
-        methodName: '编辑',
-        id: row.id,
-      })
-    },
     handleAdd () {
       this.$emit('onEdit', {
-        formRequestFn: postTalentPool,
+        formRequestFn: postAssessmentManagement,
         methodName: '新增',
         id: false,
       })
     },
-    handleDetail () {
-      this.$emit('onDetail')
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deletePublishRecruitment)
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deletePublishRecruitmentById)
     },
     handleRejected (row) {
       console.log(row)
@@ -104,7 +82,7 @@ export default {
       this.paramForm = initSearchForm()
     },
     loadPage (param = this.paramForm) {
-      this.loadTable(param, getTalentPoolPage)
+      this.loadTable(param, getAssessmentManagementPage)
     },
   },
 }

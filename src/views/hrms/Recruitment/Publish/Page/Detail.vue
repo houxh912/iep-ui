@@ -1,7 +1,9 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header title="发布招聘" :backOption="backOption"></page-header>
+      <page-header title="发布招聘" :backOption="backOption">
+        <iep-button type="danger">我要推荐</iep-button>
+      </page-header>
       <div class="recruit-headers">
         <span class="state"><i class="iconfont icon-shijian"></i><span>招聘中</span></span>
         <div class="con">
@@ -9,15 +11,17 @@
             <h4 class="name">
               {{form.positionName}}
             </h4>
-            <div class="address"><span>{{form.deptName}}</span>舟山</div>
+            <div class="address"><span>{{form.deptName}}</span>{{form.place}}</div>
           </div>
           <div class="right">
-            <div class="pay">{{form.welfare}}元/月</div>
+            <div class="pay">薪资：{{form.treatment}}</div>
             <div class="info">
-              <iep-dict-detail :current-value="form.academicId" dict-name="hrms_highest_educational"></iep-dict-detail>
-              <label>{{form.years}}年</label>
-              <span>招{{form.recruitsCount}}人</span>
-              <span>目标{{form.targetCount}}人</span>
+              <label>学历要求：
+                <iep-dict-detail :current-value="form.academicId" dict-name="hrms_highest_educational"></iep-dict-detail>
+              </label>
+              <label>工作经验：{{form.years}}年</label>
+              <label>招{{form.recruitsCount}}人</label>
+              <label>目标{{form.targetCount}}人</label>
             </div>
           </div>
         </div>
@@ -26,24 +30,29 @@
         <el-form-item>
           <div class="sub-title">其他要求</div>
           <el-row>
-            <el-col :span="6">
+            <el-col :span="4">
               <el-form-item label="专业要求：">
                 <label>{{form.profession}}</label>
               </el-form-item>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="4">
               <el-form-item label="工作类型：">
                 <iep-dict-detail :current-value="form.jobTypeId" dict-name="hrms_work_type"></iep-dict-detail>
               </el-form-item>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="4">
               <el-form-item label="外语要求：">
                 <label>{{form.language}}</label>
               </el-form-item>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="4">
               <el-form-item label="性别要求：">
                 <label>{{form.sexName}}</label>
+              </el-form-item>
+            </el-col>
+            <el-col :span="4">
+              <el-form-item label="福利待遇：">
+                <label>{{form.welfare}}</label>
               </el-form-item>
             </el-col>
           </el-row>
@@ -52,7 +61,7 @@
           <div class="sub-title">岗位职责</div>
           <el-row>
             <el-col class="text" :span="24">
-              {{form.duties}}
+              <pre>{{form.duties}}</pre>
             </el-col>
           </el-row>
         </el-form-item>
@@ -60,12 +69,9 @@
           <div class="sub-title">岗位要求</div>
           <el-row>
             <el-col class="text" :span="24">
-              {{form.claim}}
+              <pre>{{form.claim}}</pre>
             </el-col>
           </el-row>
-        </el-form-item>
-        <el-form-item class="btn-con">
-          <el-button type="primary">我要推荐</el-button>
         </el-form-item>
       </el-form>
     </basic-container>
@@ -177,11 +183,10 @@ export default {
     .info {
       font-size: 14px;
       color: #999;
-      span {
-        display: inline-block;
+      label {
         padding: 0 20px;
         border-right: 1px solid #eee;
-        &:nth-child(4) {
+        &:last-child {
           padding-right: 0;
           border: 0;
         }
@@ -199,20 +204,6 @@ export default {
     font-size: 14px;
     color: #606266;
     word-wrap: break-word;
-  }
-  .btn-con {
-    margin: 20px;
-    .el-button--primary {
-      border: 1px solid #cb3737;
-      background-color: #cb3737;
-      color: #fff;
-      cursor: pointer;
-      &:hover {
-        border-color: #fb5966;
-        background-color: #fb5966;
-        color: #fff;
-      }
-    }
   }
 }
 </style>

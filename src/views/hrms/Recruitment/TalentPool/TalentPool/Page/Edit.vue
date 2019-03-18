@@ -20,7 +20,7 @@
               </el-radio-group>
             </el-form-item>
             <el-form-item label="头像：" class="">
-              <el-input v-model="form.avatar"></el-input>
+              <iep-avatar v-model="form.avatar"></iep-avatar>
             </el-form-item>
             <el-form-item label="出生年月：" class="form-half">
               <el-date-picker v-model="form.birthday" type="date" placeholder="选择日期" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
@@ -38,19 +38,23 @@
               <el-input v-model="form.email"></el-input>
             </el-form-item>
             <el-form-item label="身高：" class="form-half">
-              <el-input v-model="form.height"></el-input>
+              <el-input v-model="form.height">
+                <template slot="append">cm</template>
+              </el-input>
             </el-form-item>
             <el-form-item label="体重：" class="form-half">
-              <el-input v-model="form.weight"></el-input>
+              <el-input v-model="form.weight">
+                <template slot="append">kg</template>
+              </el-input>
             </el-form-item>
             <el-form-item label="民族：" class="form-half">
               <el-input v-model="form.nation"></el-input>
             </el-form-item>
-            <el-form-item label="籍贯：" class="form-half">
-              <iep-cascader v-model="form.cities" prefix-url="admin/city"></iep-cascader>
-            </el-form-item>
             <el-form-item label="现住地址：">
-              <el-input v-model="form.address"></el-input>
+              <div style="display:flex;">
+                <iep-cascader style="flex:1;" v-model="form.cities" prefix-url="admin/city"></iep-cascader>
+                <el-input style="flex:3;" v-model="form.address"></el-input>
+              </div>
             </el-form-item>
             <el-form-item label="政治面貌：" class="form-half">
               <el-select v-model="form.politics" placeholder="请选择">
@@ -132,7 +136,7 @@
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="学习工作经历" name="3">
             <el-form-item label="学习情况：">
-              <el-input type="textarea"></el-input>
+              <inline-form-table></inline-form-table>
             </el-form-item>
             <el-form-item label="工作经历：">
               <el-input type="textarea"></el-input>
@@ -152,7 +156,6 @@
         </el-collapse>
       </el-form>
     </el-card>
-    <!-- fixed footer toolbar -->
     <footer-tool-bar>
       <iep-button type="info" @click="handleGoBack">返回</iep-button>
       <iep-button type="primary" @click="handleSubmit">提交</iep-button>
@@ -164,6 +167,7 @@ import { mapState } from 'vuex'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 import FooterToolBar from '@/components/FooterToolbar'
 import { initForm, formToDto } from '../options'
+import InlineFormTable from './InlineFormTable'
 import { mergeByFirst } from '@/util/util'
 export default {
   props: {
@@ -172,7 +176,7 @@ export default {
       default: () => { },
     },
   },
-  components: { FooterToolBar },
+  components: { FooterToolBar, InlineFormTable },
   data () {
     return {
       activeNames: ['1'],
@@ -202,12 +206,13 @@ export default {
     },
     handleSubmit () {
       this.formRequestFn(formToDto(this.form)).then(({ data }) => {
-        console.log(data.data)
-        this.$message({
-          message: `人才库${this.methodName}成功`,
-          type: 'success',
-        })
-        this.$emit('onGoBack')
+        if (data.data) {
+          this.$message({
+            message: `人才库${this.methodName}成功`,
+            type: 'success',
+          })
+          this.$emit('onGoBack')
+        }
       })
     },
   },

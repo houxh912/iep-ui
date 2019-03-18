@@ -1,4 +1,6 @@
 import { mergeByFirst } from '@/util/util'
+import { initNow } from '@/util/date'
+
 const dictsMap = {
   status: {
     0: '暂无',
@@ -40,6 +42,11 @@ const columnsMap = [
     prop: 'status',
     label: '员工状态',
     type: 'dict',
+    hidden: false,
+  },
+  {
+    prop: 'IDCard',
+    label: '身份证',
     hidden: false,
   },
   {
@@ -97,11 +104,11 @@ const columnsMap = [
     label: '生育状况',
     hidden: true,
   },
-  {
-    prop: 'language',
-    label: '外语水平',
-    hidden: true,
-  },
+  // {
+  //   prop: 'language',
+  //   label: '外语水平',
+  //   hidden: true,
+  // },
   {
     prop: 'education',
     label: '最高学历',
@@ -132,11 +139,11 @@ const columnsMap = [
     label: '户口类别',
     hidden: true,
   },
-  {
-    prop: 'accountLocation',
-    label: '户口所在地',
-    hidden: true,
-  },
+  // {
+  //   prop: 'accountLocation',
+  //   label: '户口所在地',
+  //   hidden: true,
+  // },
   {
     prop: 'residenceAddress',
     label: '户籍地址',
@@ -146,11 +153,6 @@ const columnsMap = [
     prop: 'currentAddress',
     label: '现住地址',
     hidden: true,
-  },
-  {
-    prop: 'IDCard',
-    label: '身份证',
-    hidden: false,
   },
   {
     prop: 'phone',
@@ -224,8 +226,6 @@ const initSearchForm = () => {
   }
 }
 
-
-
 const initTransferForm = () => {
   return {
     id: '',
@@ -233,7 +233,7 @@ const initTransferForm = () => {
     position: [],
     jobId: '',
     titleId: '',
-    transferTime: '',
+    transferTime: initNow(),
   }
 }
 const initDtoTransferForm = () => {
@@ -257,7 +257,7 @@ const transferFormToDto = (form) => {
 const initDepartureForm = () => {
   return {
     id: '',
-    departureTime: '',
+    departureTime: initNow(),
     reason: '',
   }
 }
@@ -265,13 +265,13 @@ const initInductionForm = () => {
   return {
     id: '',
     status: 2,
-    inductionTime: '',
+    inductionTime: initNow(),
   }
 }
 const initPositiveForm = () => {
   return {
     id: '',
-    positiveTime: '',
+    positiveTime: initNow(),
   }
 }
 export { dictsMap, columnsMap, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm }

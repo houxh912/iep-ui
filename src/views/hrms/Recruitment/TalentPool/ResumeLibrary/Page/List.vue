@@ -83,8 +83,8 @@ export default {
     handleAdd () {
       this.$emit('onEdit')
     },
-    handleDetail () {
-      this.$emit('onDetail')
+    handleDetail (row) {
+      this.$emit('onDetail', row)
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

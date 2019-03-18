@@ -4,14 +4,11 @@
       <page-header title="培训记录" :replaceText="replaceText" :data="[5 ,10]"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="(scope.row)" type="danger" icon="el-icon-plus" plain>新增</iep-button>
+          <iep-button @click="handleAdd" type="danger" icon="el-icon-plus" plain>新增</iep-button>
           <el-dropdown size="medium">
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>删除</el-dropdown-item>
-              <el-dropdown-item divided>导入</el-dropdown-item>
-              <el-dropdown-item>导出</el-dropdown-item>
-              <el-dropdown-item>分享</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -32,7 +29,7 @@
               </el-form-item>
               <el-form-item label="培训时间">
                 <div class="block">
-                  <el-date-picker v-model="dateVal" type="daterange" align="left" unlink-panels range-separator="至" start-placeholder="2019-02-01" end-placeholder="2019-03-01" :picker-options="pickerOptions2">
+                  <el-date-picker v-model="dateVal" type="daterange" align="left" unlink-panels range-separator="至" start-placeholder="2019-02-01" end-placeholder="2019-03-01" :picker-options="pickerOptions">
                   </el-date-picker>
                 </div>
               </el-form-item>
@@ -44,35 +41,36 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
-        <el-table-column prop="operation" label="操作" width="220">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+        <el-table-column prop="operation" label="操作" width="180">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)" type="warning" plain>修改</iep-button>
-              <iep-button @click="(scope.row)">删除</iep-button>
+              <iep-button @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
     </basic-container>
-    <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 
 <script>
-import { getTrainingRecordPage } from '@/api/hrms/training_record'
+import { getTrainingRecordPage, postTrainingRecord, putTrainingRecord, getTrainingRecordById, deleteTrainingRecordBatch, deleteTrainingRecordById } from '@/api/hrms/training_record'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from './options'
-import EditDialog from './EditDialog'
+import { columnsMap, initSearchForm, initForm } from './options'
+import DialogForm from './DialogForm'
+import { mergeByFirst } from '@/util/util'
 export default {
   mixins: [mixins],
-  components: { EditDialog },
+  components: { DialogForm },
   data () {
     return {
       columnsMap,
       paramForm: initSearchForm(),
       replaceText: (data) => `（本周有${data[0]}个培训记录，下周有${data[1]}个培训计划)`,
-      pickerOptions2: {
+      pickerOptions: {
         shortcuts: [{
           text: '最近一周',
           onClick (picker) {
@@ -106,9 +104,28 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deleteTrainingRecordBatch)
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deleteTrainingRecordById)
+    },
+    handleAdd () {
+      this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].methodName = '创建'
+      this.$refs['DialogForm'].formRequestFn = postTrainingRecord
+      this.$refs['DialogForm'].dialogShow = true
+    },
     handleEdit (row) {
-      console.log(row)
-      this.$refs['EditDialog'].dialogShow = true
+      getTrainingRecordById(row.id).then(({ data }) => {
+        this.$refs['DialogForm'].form = mergeByFirst(initForm(), data.data)
+        this.$refs['DialogForm'].methodName = '创建'
+        this.$refs['DialogForm'].formRequestFn = putTrainingRecord
+        this.$refs['DialogForm'].dialogShow = true
+      })
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()
@@ -116,9 +133,6 @@ export default {
     },
     loadPage (param = this.paramForm) {
       this.loadTable(param, getTrainingRecordPage)
-    },
-    searchPage () {
-      this.$emit('search-page', this.paramForm)
     },
   },
 }

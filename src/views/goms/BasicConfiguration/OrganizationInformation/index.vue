@@ -8,7 +8,7 @@
       </page-header>
       <el-form :model="form" ref="form" label-width="120px">
         <el-form-item label="组织Logo：">
-          <iep-avatar :src="form.logo"></iep-avatar>
+          <iep-avatar v-model="form.logo"></iep-avatar>
         </el-form-item>
         <el-form-item label="组织名称：" prop="name">
           <el-input type="text" v-model="form.name" style="width:300px;"></el-input>

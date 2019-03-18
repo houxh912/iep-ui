@@ -25,7 +25,8 @@ export default {
 
   },
   methods: {
-    handleDetail () {
+    handleDetail (record) {
+      this.record = record
       this.currentComponet = 'Detail'
     },
     handleEdit (record) {

@@ -38,7 +38,7 @@ const columnsMap = [
 
 const initGomsForm = () => {
   return {
-    id: '',
+    orgId: '',
     logo: '',
     name: '',
     orgAbrName: '',

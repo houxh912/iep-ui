@@ -110,9 +110,15 @@ export function unSetManager (id) {
   return request({
     url: `/admin/org/unset/manager/${id}`,
     method: 'post',
-    data: id,
   })
 }
+export function setManager (id) {
+  return request({
+    url: `/admin/org/set/manager/${id}`,
+    method: 'post',
+  })
+}
+
 export function gomsPass (id) {
   return request({
     url: `/admin/org/pass/join/${id}`,

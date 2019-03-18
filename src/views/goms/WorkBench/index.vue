@@ -33,22 +33,18 @@
         <p>组织管理员</p>
         <div class="manager-avatar">
           <div class="avatar" v-for="(item) in managerList" :key="item.userId">
-            <div class="avater-mask"><i class="el-icon-close close"></i></div>
-            <iep-img class="avatar-img" :src="item.avatar" @click="open2(item.userId)"></iep-img>
+            <div class="avater-mask" @click="handleUnsetAdmin(item.userId)"><i class="el-icon-close close"></i></div>
+            <iep-img class="avatar-img" :src="item.avatar || ''"></iep-img>
             <span class="avatar-name">{{item.realName}}</span>
           </div>
-          <router-link class="avatar avatar-add" to="">
+          <div class="avatar avatar-add" @click="handleAddAdminDialog">
             <i class="el-icon-plus"></i>
-          </router-link>
+          </div>
         </div>
       </div>
       <div class="function">
         <div class="button-switch">
-          <!-- <el-form-item label="允许加入" prop="isOpen">
-            <el-switch class="switch" v-model="data.isOpen" :active-value="0" :inactive-value="1"></el-switch>
-          </el-form-item> -->
-          <el-switch class="switch" v-model="data.isOpen" :active-value="0" :inactive-value="1" active-color="#ba1b20">
-          </el-switch>
+          <el-switch class="switch" :value="data.isOpen" :active-value="0" :inactive-value="1" active-color="#ba1b20" @click.native="handleSwitch"></el-switch>
           <span>允许加入</span><br>
           <span class="span2-button">允许用户申请加入组织</span>
         </div>
@@ -66,15 +62,16 @@
         </div>
       </div>
     </div>
+    <add-admin-dialog ref="AddAdminDialog" @load-page="loadPage"></add-admin-dialog>
   </div>
 </template>
 <script>
-import { orgDetail, gomsOpen, unSetManager } from '@/api/admin/org'
+import AddAdminDialog from './AddAdminDialog'
+import { orgDetail, gomsOpen, unSetManager, setManager } from '@/api/admin/org'
 import LogList from './LogList'
-// import IepImg from './Img'
 import take from 'lodash/take'
 export default {
-  components: { LogList },
+  components: { LogList, AddAdminDialog },
   data () {
     return {
       value2: true,
@@ -86,48 +83,50 @@ export default {
     }
   },
   created () {
-    this.load()
-  },
-  watch: {
-    'data.isOpen' () {
-      gomsOpen().then(() => {
-        this.load()
-      })
-    },
+    this.loadPage()
   },
   methods: {
-    open2 (row) {
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        unSetManager(row).then(res => {
-          if (res.data.data) {
-            this.$message({
-              type: 'success',
-              message: '删除成功!',
-            })
-          } else {
-            this.$message({
-              type: 'info',
-              message: `删除失败，${res.data.msg}`,
-            })
-          }
-          this.load()
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除',
-        })
+    handleAddAdminDialog () {
+      this.$refs['AddAdminDialog'].formRequestFn = setManager
+      this.$refs['AddAdminDialog'].dialogShow = true
+    },
+    handleSwitch () {
+      gomsOpen().then(({ data }) => {
+        if (data.data) {
+          this.$message({
+            message: '修改成功',
+            type: 'success',
+          })
+          this.data.isOpen = 1 - this.data.isOpen
+        } else {
+          this.$message({
+            message: data.msg,
+            type: 'warning',
+          })
+        }
+      })
+    },
+    handleUnsetAdmin (id) {
+      unSetManager(id).then(({ data }) => {
+        if (data.data) {
+          this.$message({
+            message: '删除成功',
+            type: 'success',
+          })
+          this.loadPage()
+        } else {
+          this.$message({
+            message: data.msg,
+            type: 'warning',
+          })
+        }
       })
     },
     handleListMore () {
       this.isListMore = true
       this.tenLogList = this.data.logList
     },
-    load () {
+    loadPage () {
       orgDetail().then((res) => {
         this.data = res.data.data
         this.tenLogList = take(res.data.data.logList, 15)

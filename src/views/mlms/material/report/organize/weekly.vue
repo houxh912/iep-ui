@@ -1,43 +1,46 @@
 <template>
   <div class="weekly">
-    <div class="head">
-      <div class="title" v-text="`第${formatDig(formData.index)}周组织工作周报`"><span class="date">（02-25 ~ 03-02）</span></div>
-      <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href">参考本周日报</a></div>
-      <div class="tips update" v-else @click="handleUpdate"><i class="el-icon-edit"></i></div>
-    </div>
-    <div class="content">
-      <el-form ref="form" v-if="dislogState!=='detail'" :rules="rules" :model="formData">
-        <div class="title">领导指示</div>
-        <el-form-item>
-          <el-input type="textarea" v-model="formData.leaderIndication" rows=5 placeholder="此处填写领导指示"></el-input>
-        </el-form-item>
-        <div class="title">本周工作总结</div>
-        <el-form-item prop="workSummary">
-          <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本周工作总结"></el-input>
-        </el-form-item>
-        <div class="title">下周工作计划</div>
-        <el-form-item prop="workPlan">
-          <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下周工作计划"></el-input>
-        </el-form-item>
-        <div class="title">总结与感悟</div>
-        <el-form-item>
-          <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <iep-button @click="submit" type="danger">保存</iep-button>
-        </el-form-item>
-      </el-form>
-      <div v-else class="detail">
-        <div class="title">领导指示</div>
-        <pre>{{formData.leaderIndication}}</pre>
-        <div class="title">本周工作总结</div>
-          <pre>{{formData.workSummary}}</pre>
-        <div class="title">下周工作计划</div>
-          <pre>{{formData.workPlan}}</pre>
-        <div class="title">总结与感悟</div>
-          <pre>{{formData.summarySentiment}}</pre>
+    <div class="update-page">
+      <div class="head">
+        <div class="title" v-text="`第${formatDig(formData.index)}周组织工作周报`"><span class="date">（02-25 ~ 03-02）</span></div>
+        <!-- <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href" @click="changePage">参考本周日报</a></div> -->
+        <div class="tips update" @click="handleUpdate"><i class="el-icon-edit"></i></div>
+      </div>
+      <div class="content">
+        <el-form ref="form" v-if="dislogState!=='detail'" :rules="rules" :model="formData">
+          <div class="title">领导指示</div>
+          <el-form-item>
+            <el-input type="textarea" v-model="formData.leaderIndication" rows=5 placeholder="此处填写领导指示"></el-input>
+          </el-form-item>
+          <div class="title">本周工作总结</div>
+          <el-form-item prop="workSummary">
+            <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本周工作总结"></el-input>
+          </el-form-item>
+          <div class="title">下周工作计划</div>
+          <el-form-item prop="workPlan">
+            <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下周工作计划"></el-input>
+          </el-form-item>
+          <div class="title">总结与感悟</div>
+          <el-form-item>
+            <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <iep-button @click="submit" type="danger">保存</iep-button>
+          </el-form-item>
+        </el-form>
+        <div v-else class="detail">
+          <div class="title">领导指示</div>
+          <pre>{{formData.leaderIndication}}</pre>
+          <div class="title">本周工作总结</div>
+            <pre>{{formData.workSummary}}</pre>
+          <div class="title">下周工作计划</div>
+            <pre>{{formData.workPlan}}</pre>
+          <div class="title">总结与感悟</div>
+            <pre>{{formData.summarySentiment}}</pre>
+        </div>
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -85,6 +88,7 @@ export default {
               type: 'success',
               duration: 2000,
             })
+            this.pageState = true
             this.$emit('success-submit', true)
           })
         } else {
@@ -98,10 +102,20 @@ export default {
     formatDig (index) {
       return toChinesNum(index)
     },
+    handleSelectionChange (val) {
+      this.selectList = val
+    },
   },
   watch: {
     data (newVal) {
-      this.formData = {...newVal}
+      this.pageState = true
+      this.formData = {
+        leaderIndication: '',
+        workSummary: '',
+        workPlan: '',
+        summarySentiment: '',
+      }
+      this.formData = Object.assign({}, this.formData, newVal)
     },
   },
 }
@@ -109,51 +123,58 @@ export default {
 
 <style lang="scss" scoped>
 .weekly {
-  .head {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #ddd;
-    padding: 20px 0;
-    font-size: 18px;
-    .title {
-      font-weight: 700;
-      .date {
-        font-size: 14px;
-        color: #999;
-        font-weight: 500;
+  .update-page {
+    .head {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #ddd;
+      padding: 20px 0;
+      font-size: 18px;
+      .title {
+        font-weight: 700;
+        .date {
+          font-size: 14px;
+          color: #999;
+          font-weight: 500;
+        }
       }
-    }
-    .tips {
-      font-size: 14px;
-      line-height: 24px;
-      margin-right: 3px;
-      color: #999;
-      .href {
-        color: #ba1b21;
+      .tips {
+        font-size: 14px;
+        line-height: 24px;
+        margin-right: 3px;
+        color: #999;
+        .href {
+          color: #ba1b21;
+          cursor: pointer;
+        }
+      }
+      .update {
+        font-size: 18px;
         cursor: pointer;
       }
     }
-    .update {
-      font-size: 18px;
-      cursor: pointer;
+    .content {
+      .title {
+        margin-bottom: 20px;
+      }
+      .detail {
+        pre {
+          padding-left: 20px;
+          line-height: 20px;
+          margin: 0;
+          min-height: 50px;
+        }
+        .title {
+          font-weight: 700;
+          margin-top: 10px;
+        }
+      }
     }
   }
-  .content {
-    .title {
-      margin-bottom: 20px;
-    }
-    .detail {
-      pre {
-        padding-left: 20px;
-        line-height: 20px;
-        margin: 0;
-        min-height: 50px;
-      }
-      .title {
-        font-weight: 700;
-        margin-top: 10px;
-      }
+  .detail-page {
+    .footer {
+      margin-top: 20px;
     }
   }
 }

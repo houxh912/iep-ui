@@ -2,7 +2,7 @@
   <div class="weekly">
     <div class="update-page" v-if="pageState">
       <div class="head">
-        <div class="title" v-text="`第${formatDig(formData.index)}周组织工作周报`"><span class="date">（02-25 ~ 03-02）</span></div>
+        <div class="title" v-text="`第${formatDig(formData.index)}周个人工作周报`"><span class="date">（02-25 ~ 03-02）</span></div>
         <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href" @click="changePage">参考本周日报</a></div>
         <div class="tips update" v-else @click="handleUpdate"><i class="el-icon-edit"></i></div>
       </div>
@@ -126,23 +126,22 @@ export default {
     handleSelectionChange (val) {
       this.selectList = val
     },
+    // 本周日报
     changePage () {
       this.pageState = false
       getTableData({
         startTime: getDateStr(this.formData.timeStamp),
         endTime: getDateStr(this.formData.timeStamp + 7*24*3600*1000 - 1),
       }).then(({data}) => {
-        console.log('data: ', data)
         this.dailyTableData = data.data
       })
     },
     submitForm () {
-      console.log('list: ', this.selectList)
       let workSummary = ''
       for (let item of this.selectList) {
         workSummary += item.workContent
       }
-      this.formData.workSummary = workSummary
+      this.formData.workSummary += workSummary
       this.selectList = []
       this.pageState = true
       this.dailyTableData = []
@@ -156,7 +155,13 @@ export default {
   watch: {
     data (newVal) {
       this.pageState = true
-      this.formData = {...newVal}
+      this.formData = {
+        leaderIndication: '',
+        workSummary: '',
+        workPlan: '',
+        summarySentiment: '',
+      }
+      this.formData = Object.assign({}, this.formData, newVal)
     },
   },
 }

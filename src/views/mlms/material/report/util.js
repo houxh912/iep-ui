@@ -64,10 +64,12 @@ function getMonth (month) {
   return y.getMonth()
 }
 
+// 月份日期前一位补0
 export function formatDig (num) {
   return num>9?''+num:'0'+num
 }
 
+// 根据传入的时间，返回 MM-DD
 function formatDate (mill){
   var y = new Date(mill)
   let raws = [
@@ -175,4 +177,16 @@ export function createWeeks (year){
   arr.push(mObj)
   index++
   return arr
+}
+
+// 根据传入的时间，获取到这个星期的起始时间和结束时间 MM-DD
+export function getWeekStartAndEnd (day) {
+  let date = new Date(day)
+  let today = date.getDay()
+  let firstDay = +new Date(+date - (today-1)*24*3600*1000)
+  let lastDay = firstDay + 6*24*3600*1000
+  return {
+    startTime: formatDate(firstDay),
+    endTime: formatDate(lastDay),
+  }
 }

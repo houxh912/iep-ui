@@ -9,6 +9,10 @@ const dictsMap = {
 
 const columnsMap = [
   {
+    prop: 'assessor',
+    label: '被考核人',
+  },
+  {
     prop: 'assessName',
     label: '考核名称',
   },

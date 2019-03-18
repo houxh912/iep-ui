@@ -13,33 +13,8 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'sex',
-    label: '性别',
-    width: 55,
-  },
-  {
-    prop: 'education',
-    label: '学历',
-  },
-  {
-    prop: 'age',
-    label: '年龄',
-  },
-  {
-    prop: 'applyPosition',
-    label: '应聘岗位',
-  },
-  {
-    prop: 'receptionTime',
-    label: '简历接受时间',
-  },
-  {
-    prop: 'source',
-    label: '来源',
-  },
-  {
-    prop: 'remarks',
-    label: '备注',
+    prop: 'assessScore',
+    label: '考核分值',
   },
 ]
 

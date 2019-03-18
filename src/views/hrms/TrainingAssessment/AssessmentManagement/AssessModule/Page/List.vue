@@ -2,13 +2,8 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleAdd" type="danger" icon="el-icon-plus" plain>放入人才库</iep-button>
-        <!-- <el-dropdown size="medium">
-          <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>放入人才库</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown> -->
+        <iep-button @click="handleAdd()" type="danger" icon="el-icon-plus" plain>新增</iep-button>
+        <iep-button type="default" plain @click.native="handleDeleteBatch">删除</iep-button>
       </template>
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
@@ -32,7 +27,7 @@
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
       <template slot="before-columns">
-        <el-table-column label="姓名" width="90px">
+        <el-table-column label="模板名称">
           <template slot-scope="scope">
             <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
           </template>
@@ -41,7 +36,7 @@
       <el-table-column prop="operation" label="操作" width="220">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button type="warning" plain @click="(scope.row)">放入人才库</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>
             <iep-button @click="(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
@@ -50,7 +45,7 @@
   </div>
 </template>
 <script>
-import { getResumeLibraryPage } from '@/api/hrms/talent_pool'
+import { getAssessmentManagementPage } from '@/api/hrms/assessment_management'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
 export default {
@@ -75,7 +70,7 @@ export default {
       this.paramForm = initSearchForm()
     },
     loadPage (param = this.paramForm) {
-      this.loadTable(param, getResumeLibraryPage)
+      this.loadTable(param, getAssessmentManagementPage)
     },
   },
 }

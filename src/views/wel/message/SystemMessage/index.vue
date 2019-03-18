@@ -1,3 +1,5 @@
 <template>
-  <div>系统消息</div>
+  <div>
+    index.vue
+  </div>
 </template>

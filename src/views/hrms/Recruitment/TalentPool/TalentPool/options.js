@@ -220,19 +220,19 @@ const trainingColumns = [
 const certificateColumns = [
   {
     prop: 'name',
-    label: '培训名称',
+    label: '证书名称',
   },
   {
-    prop: 'place',
-    label: '培训单位',
+    prop: 'number',
+    label: '证书编号',
   },
   {
-    prop: 'method',
-    label: '培训方式',
+    prop: 'issuedPlace',
+    label: '颁发单位',
   },
   {
-    prop: 'startTime',
-    label: '起始时间',
+    prop: 'annex',
+    label: '附件',
   },
 ]
 

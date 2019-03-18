@@ -136,7 +136,7 @@
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="学习工作经历" name="3">
             <el-form-item label="学习情况：">
-              <el-input type="textarea"></el-input>
+              <inline-form-table></inline-form-table>
             </el-form-item>
             <el-form-item label="工作经历：">
               <el-input type="textarea"></el-input>
@@ -167,6 +167,7 @@ import { mapState } from 'vuex'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 import FooterToolBar from '@/components/FooterToolbar'
 import { initForm, formToDto } from '../options'
+import InlineFormTable from './InlineFormTable'
 import { mergeByFirst } from '@/util/util'
 export default {
   props: {
@@ -175,7 +176,7 @@ export default {
       default: () => { },
     },
   },
-  components: { FooterToolBar },
+  components: { FooterToolBar, InlineFormTable },
   data () {
     return {
       activeNames: ['1'],

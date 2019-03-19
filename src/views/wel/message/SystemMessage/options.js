@@ -22,7 +22,20 @@ const columnsMap = [
     hidden: false,
   },
 ]
-
+const initSearchForm = () => {
+  return {
+    name: '',
+    sex: '',
+    organization: '',
+    department: '',
+    job_category: '',
+    job_name: '',
+    status: '',
+    position: '',
+    job_title: '',
+    entry_time: '',
+  }
+}
 const initTransferForm = () => {
   return {
     id: '',
@@ -71,4 +84,4 @@ const initPositiveForm = () => {
     positiveTime: '',
   }
 }
-export { dictsMap, columnsMap, transferFormToDto, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm }
+export { dictsMap, columnsMap, initSearchForm, transferFormToDto, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm }

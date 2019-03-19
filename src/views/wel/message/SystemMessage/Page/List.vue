@@ -32,7 +32,7 @@
 import { getEmployeeProfilePage } from '@/api/hrms/employee_profile'
 import mixins from '@/mixins/mixins'
 import keyBy from 'lodash/keyBy'
-import { columnsMap, dictsMap } from '../options'
+import { columnsMap, initSearchForm, dictsMap } from '../options'
 import AdvanceSearch from './AdvanceSearch'
 export default {
   mixins: [mixins],
@@ -42,6 +42,7 @@ export default {
       dictsMap,
       columnsMap,
       defaultColumnsLabel: columnsMap.filter(m => !m.hidden).map(m => m.label),
+      paramForm: initSearchForm(),
     }
   },
   computed: {
@@ -70,6 +71,10 @@ export default {
         path: `/info/information_management/${row.id}`,
         query: { redirect: this.$route.fullPath },
       })
+    },
+    clearSearchParam () {
+      this.paramForm = initSearchForm()
+      this.loadPage()
     },
     loadPage (param = this.paramForm) {
       this.loadTable(param, getEmployeeProfilePage)

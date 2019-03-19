@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleAdd()" type="danger" icon="el-icon-plus" plain>新增</iep-button>
+        <iep-button @click="handleAdd()" type="danger" plain>新建模版</iep-button>
         <iep-button type="default" plain @click.native="handleDeleteBatch">删除</iep-button>
       </template>
       <template slot="right">
@@ -36,19 +36,18 @@
         </template>
       </el-table-column>
     </iep-table>
-    <template-dialog ref="TemplateDialog" @load-page="loadPage"></template-dialog>
-    <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 <script>
 import { getAssessmentManagementPage, postAssessmentManagement, deletePublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/assessment_management'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from '../options'
-import TemplateDialog from './TemplateDialog'
-import EditDialog from './EditDialog'
+import { mergeByFirst } from '@/util/util'
+import { columnsMap, initSearchForm, initForm } from '../options'
+import DialogForm from './DialogForm'
 export default {
   mixins: [mixins],
-  components: { TemplateDialog, EditDialog },
+  components: { DialogForm },
   data () {
     return {
       columnsMap,
@@ -60,8 +59,8 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$refs['TemplateDialog'].formRequestFn = postAssessmentManagement
-      this.$refs['TemplateDialog'].dialogShow = true
+      this.$refs['DialogForm'].formRequestFn = postAssessmentManagement
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleDeleteBatch () {
       this._handleGlobalDeleteAll(deletePublishRecruitment)
@@ -70,9 +69,10 @@ export default {
       this._handleGlobalDeleteById(row.id, deletePublishRecruitmentById)
     },
     handleEdit (row) {
-      this.$refs['EditDialog'].form.id = row.id
-      this.$refs['EditDialog'].formRequestFn = postAssessmentManagement
-      this.$refs['EditDialog'].dialogShow = true
+      this.$refs['DialogForm'].form = mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].methodName = '修改'
+      this.$refs['DialogForm'].formRequestFn = postAssessmentManagement
+      this.$refs['DialogForm'].dialogShow = true
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

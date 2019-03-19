@@ -35,17 +35,17 @@
         </template>
       </el-table-column>
     </iep-table>
-    <assess-dialog ref="AssessDialog" @load-page="loadPage"></assess-dialog>
+    <add-dialog-form ref="AddDialogForm" @load-page="loadPage"></add-dialog-form>
   </div>
 </template>
 <script>
 import { getAssessmentManagementPage, postAssessmentManagement, deletePublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/assessment_management'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initSearchForm } from '../options'
-import AssessDialog from './AssessDialog'
+import AddDialogForm from './AddDialogForm'
 export default {
   mixins: [mixins],
-  components: { AssessDialog },
+  components: { AddDialogForm },
   data () {
     return {
       dictsMap,
@@ -58,8 +58,8 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$refs['AssessDialog'].formRequestFn = postAssessmentManagement
-      this.$refs['AssessDialog'].dialogShow = true
+      this.$refs['AddDialogForm'].formRequestFn = postAssessmentManagement
+      this.$refs['AddDialogForm'].dialogShow = true
     },
     handleDeleteBatch () {
       this._handleGlobalDeleteAll(deletePublishRecruitment)

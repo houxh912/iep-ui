@@ -1,27 +1,33 @@
 <template>
   <el-form :model="form" label-width="100px" size="mini">
     <el-form-item label="岗位名称：">
+      <el-input v-model="form.positionName" clearable></el-input>
+    </el-form-item>
+    <el-form-item label="岗位：">
       <iep-cascader v-model="form.position" prefix-url="hrms/post_type" clearable></iep-cascader>
     </el-form-item>
-    <el-form-item label="所属部门：">
-      <iep-cascader v-model="form.dept" prefix-url="admin/dept" change-on-select clearable></iep-cascader>
+    <el-form-item label="最高学历：">
+      <iep-dict-select v-model="form.educationId" dict-name="hrms_highest_educational" clearable></iep-dict-select>
     </el-form-item>
-    <el-form-item label="性别">
+    <el-form-item label="性别：">
       <el-radio-group v-model="form.sex">
         <el-radio :label="0">全部</el-radio>
         <el-radio :label="1">男</el-radio>
         <el-radio :label="2">女</el-radio>
       </el-radio-group>
     </el-form-item>
-    <el-form-item label="招聘状态：">
+    <el-form-item label="年龄：">
+      <el-slider v-model="form.rangeAge" range show-stops :max="100" :format-tooltip="(val) => val+'岁'"></el-slider>
+    </el-form-item>
+    <el-form-item label="接收时间：">
+      <iep-date-picker v-model="form.rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions">
+      </iep-date-picker>
+    </el-form-item>
+    <el-form-item label="简历状态：">
       <el-select v-model="form.status" placeholder="请选择" clearable>
         <el-option v-for="(v,k) in dictsMap.status" :key="k" :label="v" :value="+k">
         </el-option>
       </el-select>
-    </el-form-item>
-    <el-form-item label="时间段：">
-      <iep-date-picker v-model="form.rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions">
-      </iep-date-picker>
     </el-form-item>
     <el-form-item>
       <operation-wrapper>

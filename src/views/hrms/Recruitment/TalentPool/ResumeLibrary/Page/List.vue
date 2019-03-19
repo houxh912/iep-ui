@@ -11,22 +11,8 @@
         </el-dropdown>
       </template>
       <template slot="right">
-        <operation-search @search="searchPage" advance-search>
-          <el-form :model="paramForm" label-width="80px" size="mini">
-            <el-form-item label="员工姓名">
-              <el-input v-model="paramForm.name"></el-input>
-            </el-form-item>
-            <el-form-item label="性别">
-              <el-radio-group v-model="paramForm.sex">
-                <el-radio label="男"></el-radio>
-                <el-radio label="女"></el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="searchPage">搜索</el-button>
-              <el-button @click="clearSearchParam">清空</el-button>
-            </el-form-item>
-          </el-form>
+        <operation-search @search-page="searchPage" advance-search>
+          <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
     </operation-container>
@@ -52,13 +38,14 @@
 <script>
 import { getResumeLibraryPage, deleteTalentPoolById, deleteTalentPoolBatch, postToTalent } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from '../options'
+import AdvanceSearch from './AdvanceSearch'
+import { columnsMap } from '../options'
 export default {
+  components: { AdvanceSearch },
   mixins: [mixins],
   data () {
     return {
       columnsMap,
-      paramForm: initSearchForm(),
     }
   },
   created () {
@@ -86,10 +73,7 @@ export default {
     handleDetail (row) {
       this.$emit('onDetail', row)
     },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-    },
-    loadPage (param = this.paramForm) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getResumeLibraryPage)
     },
   },

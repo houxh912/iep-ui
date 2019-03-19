@@ -47,11 +47,9 @@
 </template>
 <script>
 import { simpleEmployeeStatus, recordType } from './options'
-import PageHeader from '@/components/Page/Header'
 import { getGrowthFile } from '@/api/hrms/employee_profile'
 const avatar = require('./timg.jpg')
 export default {
-  components: { PageHeader },
   data () {
     return {
       avatar,

@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header title="****的转正申请" :backOption="backOption"></page-header>
+      <page-header title="张超的转正申请" :backOption="backOption"></page-header>
       <div class="base-msg">
         <el-row>
           <el-col :span="3">
@@ -41,23 +41,26 @@
       </div>
       <div class="review">
         <el-form ref="form" :model="form" label-width="280px">
-          <div class="title"> {{form.review.title}}</div>
+          <div class="title">申请理由</div>
           <el-form-item :label="item.label+'：'" v-for="(item,index) in form.review.list" :key="index">
             <span>{{item.value}}</span>
           </el-form-item>
         </el-form>
       </div>
       <div class="review">
+        <div class="title">附件 某某某的附件</div>
+      </div>
+      <div class="review">
         <el-form ref="form" :model="form" label-width="280px">
-          <div class="title"> {{form.opinion.title}}</div>
+          <div class="title">申请流程</div>
           <el-form-item :label="item.label+'：'" v-for="(item,index) in form.opinion.list" :key="index">
             <span>{{item.value}}</span>
           </el-form-item>
         </el-form>
       </div>
       <div class="review">
-        <div class="prompt"> 抄送人：{{form.sourceName}}</div>
-        <div class="prompt color" readonly> 注：（审批通过后，通知抄送人）</div>
+        <div class="prompt">抄送人：{{form.sourceName}}</div>
+        <div class="prompt color" readonly>注：（审批通过后，通知抄送人）</div>
       </div>
     </basic-container>
   </div>

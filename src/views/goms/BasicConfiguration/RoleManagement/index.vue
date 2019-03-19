@@ -3,7 +3,7 @@
     <basic-container>
       <avue-crud :option="tableOption" :data="list" ref="crud" :page="page" v-model="form" :table-loading="listLoading" :before-open="handleOpenBefore" @on-load="getList" @search-change="handleFilter" @refresh-change="handleRefreshChange" @row-update="update" @row-save="create">
         <template slot="menuLeft">
-          <el-button v-if="roleManager_btn_add" class="filter-item" @click="handleCreate" size="small" type="primary" icon="el-icon-edit">添加
+          <el-button class="filter-item" @click="handleCreate" size="small" type="primary" icon="el-icon-edit">添加
           </el-button>
         </template>
         <template slot="dsScopeForm">
@@ -14,11 +14,11 @@
         </template>
 
         <template slot="menu" slot-scope="scope">
-          <el-button size="mini" type="text" icon="el-icon-edit" v-if="roleManager_btn_edit" @click="handleUpdate(scope.row, scope.index)">编辑
+          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row, scope.index)">编辑
           </el-button>
-          <el-button size="mini" type="text" icon="el-icon-delete" v-if="roleManager_btn_del" @click="handleDelete(scope.row, scope.index)">删除
+          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row, scope.index)">删除
           </el-button>
-          <el-button size="mini" type="text" icon="el-icon-plus" @click="handlePermission(scope.row, scope.index)" v-if="roleManager_btn_perm">权限
+          <el-button size="mini" type="text" icon="el-icon-plus" @click="handlePermission(scope.row, scope.index)">权限
           </el-button>
         </template>
       </avue-crud>
@@ -74,17 +74,7 @@ export default {
       roleCode: undefined,
       rolesOptions: undefined,
       dialogPermissionVisible: false,
-      roleManager_btn_add: false,
-      roleManager_btn_edit: false,
-      roleManager_btn_del: false,
-      roleManager_btn_perm: false,
     }
-  },
-  created () {
-    this.roleManager_btn_add = this.permissions['sys_role_add']
-    this.roleManager_btn_edit = this.permissions['sys_role_edit']
-    this.roleManager_btn_del = this.permissions['sys_role_del']
-    this.roleManager_btn_perm = this.permissions['sys_role_perm']
   },
   computed: {
     ...mapGetters(['elements', 'permissions']),

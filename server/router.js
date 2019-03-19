@@ -7,6 +7,7 @@ const mobileController = require('./controller/mobile')
 const orgController = require('./controller/org')
 const hrmsController = require('./controller/hrms')
 const crmsController = require('./controller/crms')
+const welController = require('./controller/wel')
 const router = new Router()
 /**
  * 获取验证码
@@ -85,5 +86,6 @@ router.post('/crms/contact/delete', crmsController.deleteContact)
 
 //wel
 router.get('/wel/approval/page', welController.getApprovalPage)
+router.get('/wel/approval/initiate', welController.getApprovalInitiate)
 
 exports = module.exports = router

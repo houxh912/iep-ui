@@ -188,13 +188,34 @@ export default {
 .avue-contail >>> .el-main {
   padding: 0;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
   height: calc(100vh - 60px);
 }
 .avue-contail >>> .el-main .el-scrollbar .el-scrollbar__wrap {
   overflow-x: hidden;
 }
 .avue-contail >>> .el-card__body {
+  padding: 0;
+}
+.avue-contail >>> .avue-view {
   padding: 20px;
+  /* height: 100%; */
+}
+.avue-contail >>> .container.avue-view {
+  margin-left: 0;
+  padding: 0;
+}
+.avue-contail >>> .container.avue-view .left {
+  padding-left: 20px;
+  height: 100%;
+}
+.avue-contail >>> .wel-wrapper.avue-view {
+  padding: 0;
+}
+.avue-contail >>> .el-scrollbar__view {
+  height: 100%;
+}
+.avue-contail >>> .info-container {
+  padding: 0 20px;
 }
 </style>

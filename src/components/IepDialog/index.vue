@@ -117,7 +117,7 @@ export default {
 }
 .dialog-content {
   max-height: 54vh;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 .text-icon {
   color: #333;
@@ -126,7 +126,7 @@ export default {
   text-align: initial;
   padding: 25px 25px 30px;
   max-height: 60vh !important;
-  overflow-y: scroll !important;
+  overflow-y: hidden !important;
 }
 .el-dialog__wrapper >>> .is-fullscreen .el-dialog__body {
   text-align: initial;

@@ -19,7 +19,7 @@ export default {
       navName: 'order',
       contentData: [],
       navList: {
-        title: '我的代办',
+        title: '我的待办',
         dataList: [{
           subtitle: '领导指示',
           type: 'order',

@@ -19,5 +19,8 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
+<style lang="css" scoped>
+.el-button + .el-button {
+  margin-left: 0;
+}
 </style>

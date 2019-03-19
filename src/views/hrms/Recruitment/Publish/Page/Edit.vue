@@ -18,12 +18,12 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="招聘人数：">
-              <el-input-number v-model="form.recruitsCount"></el-input-number>
+              <iep-input-number v-model="form.recruitsCount"></iep-input-number>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="目标人数：">
-              <el-input-number v-model="form.targetCount"></el-input-number>
+              <iep-input-number v-model="form.targetCount"></iep-input-number>
             </el-form-item>
           </el-col>
         </el-row>
@@ -48,7 +48,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="工作年限：">
-              <el-input-number v-model="form.years"></el-input-number>
+              <iep-input-number v-model="form.years"></iep-input-number>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -159,12 +159,13 @@ export default {
     handleSubmit (isPublish) {
       const publish = isPublish === true ? true : false
       this.formRequestFn(formToDto(this.form), publish).then(({ data }) => {
-        console.log(data.data)
-        this.$message({
-          message: `招聘信息${this.methodName}成功`,
-          type: 'success',
-        })
-        this.$emit('onGoBack')
+        if (data.data) {
+          this.$message({
+            message: `招聘信息${this.methodName}成功`,
+            type: 'success',
+          })
+          this.$emit('onGoBack')
+        }
       })
     },
   },

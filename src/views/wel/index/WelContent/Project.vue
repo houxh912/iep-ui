@@ -16,7 +16,7 @@ export default {
     return {
       contentData: '',
       navList: {
-        title: '我的代办',
+        title: '我的待办',
         dataList: [{
           subtitle: '执行项目',
           type: 'action',

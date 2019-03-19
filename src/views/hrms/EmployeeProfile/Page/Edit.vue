@@ -249,8 +249,8 @@
         </el-collapse>
       </el-form>
       <!-- fixed footer toolbar -->
-      <footer-tool-bar >
-        <iep-button type="info" @click="handleGoBack">返回</iep-button>
+      <footer-tool-bar>
+        <iep-button @click="handleGoBack">返回</iep-button>
         <iep-button type="primary">提交</iep-button>
       </footer-tool-bar>
     </basic-container>

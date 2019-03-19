@@ -3,7 +3,7 @@
     <div style="float: left">
       <slot name="extra">{{ extra }}</slot>
     </div>
-    <div style="float: right">
+    <div style="float: right" class="right-wrapper">
       <slot></slot>
     </div>
   </div>
@@ -24,6 +24,11 @@ export default {
   },
 }
 </script>
+<style scoped>
+.right-wrapper > * {
+  margin-right: 10px;
+}
+</style>
 
 <style lang="scss" scoped>
 .footer-toolbar {

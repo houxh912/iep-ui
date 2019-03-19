@@ -1,4 +1,10 @@
-export const calcDate = (date1, date2) => {
+import moment from 'moment'
+
+const initNow = () => {
+  return moment().format('YYYY-MM-DD HH:mm:ss')
+}
+
+const calcDate = (date1, date2) => {
   var date3 = date2 - date1
 
   var days = Math.floor(date3 / (24 * 3600 * 1000))
@@ -21,3 +27,5 @@ export const calcDate = (date1, date2) => {
     seconds: seconds,
   }
 }
+
+export { initNow, calcDate }

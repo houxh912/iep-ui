@@ -7,8 +7,8 @@
         </template>
       </page-header>
       <div class="organize-group">
-        <el-button circle><i class="icon-diannaodenglu"></i><span>创建组织</span></el-button>
-        <el-button circle><i class="icon-organ"></i><span>创建联盟</span></el-button>
+        <el-button circle @click="handleCreateOrg"><i class="icon-diannaodenglu"></i><span>创建组织</span></el-button>
+        <el-button circle @click="handleCreateLeague"><i class="icon-organ"></i><span>创建联盟</span></el-button>
         <el-button circle><i class="icon-chuangxinfuwu"></i><span>创建特殊组织</span></el-button>
       </div>
       <el-row class="row-bg">
@@ -58,16 +58,34 @@
         </el-col>
       </el-row>
     </basic-container>
+    <create-org-dialog-form ref="CreateOrgDialogForm" @load-page="loadPage"></create-org-dialog-form>
+    <create-league-dialog-form ref="CreateLeagueDialogForm" @load-page="loadPage"></create-league-dialog-form>
   </div>
 </template>
 <script>
+import { addObj } from '@/api/admin/org'
 import PageHeader from '@/components/Page/Header'
+import CreateOrgDialogForm from './CreateOrgDialogForm'
+import CreateLeagueDialogForm from './CreateLeagueDialogForm'
 export default {
-  components: { PageHeader },
+  components: { PageHeader, CreateOrgDialogForm, CreateLeagueDialogForm },
   data () {
     return {
 
     }
+  },
+  methods: {
+    handleCreateOrg () {
+      this.$refs['CreateOrgDialogForm'].formRequestFn = addObj
+      this.$refs['CreateOrgDialogForm'].dialogShow = true
+    },
+    handleCreateLeague () {
+      this.$refs['CreateLeagueDialogForm'].formRequestFn = addObj
+      this.$refs['CreateLeagueDialogForm'].dialogShow = true
+    },
+    loadPage () {
+
+    },
   },
 }
 </script>

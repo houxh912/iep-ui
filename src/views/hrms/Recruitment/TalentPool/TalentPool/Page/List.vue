@@ -14,22 +14,8 @@
         </el-dropdown>
       </template>
       <template slot="right">
-        <operation-search @search="searchPage" advance-search>
-          <el-form :model="paramForm" label-width="80px" size="mini">
-            <el-form-item label="员工姓名">
-              <el-input v-model="paramForm.name"></el-input>
-            </el-form-item>
-            <el-form-item label="性别">
-              <el-radio-group v-model="paramForm.sex">
-                <el-radio label="男"></el-radio>
-                <el-radio label="女"></el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="searchPage">搜索</el-button>
-              <el-button @click="clearSearchParam">清空</el-button>
-            </el-form-item>
-          </el-form>
+        <operation-search @search-page="searchPage" advance-search>
+          <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
     </operation-container>
@@ -76,18 +62,18 @@
 <script>
 import { getTalentPoolPage, postTalentPool, putTalentPool, postToResume, postToBlacklist, changeTalentPoolStatus } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm, dictsMap } from '../options'
+import AdvanceSearch from './AdvanceSearch'
+import { columnsMap, dictsMap } from '../options'
 import RejectedDialog from './RejectedDialog'
 import ToResumeDialog from './ToResumeDialog'
 import ToBlacklistDialog from './ToBlacklistDialog'
 export default {
   mixins: [mixins],
-  components: { RejectedDialog, ToResumeDialog, ToBlacklistDialog },
+  components: { AdvanceSearch, RejectedDialog, ToResumeDialog, ToBlacklistDialog },
   data () {
     return {
       dictsMap,
       columnsMap,
-      paramForm: initSearchForm(),
     }
   },
   created () {
@@ -141,10 +127,7 @@ export default {
     //   console.log(row)
     //   this.$refs['RejectedDialog'].dialogShow = true
     // },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-    },
-    loadPage (param = this.paramForm) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getTalentPoolPage)
     },
   },

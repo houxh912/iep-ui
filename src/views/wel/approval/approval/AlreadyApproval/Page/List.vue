@@ -10,6 +10,10 @@
             <el-form-item label="申请人">
               <el-input v-model="paramForm.name"></el-input>
             </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="searchPage">搜索</el-button>
+              <el-button @click="clearSearchParam">清空</el-button>
+            </el-form-item>
           </el-form>
         </operation-search>
       </template>

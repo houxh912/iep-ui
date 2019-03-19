@@ -10,11 +10,15 @@
             <el-form-item label="申请人">
               <el-input v-model="paramForm.name"></el-input>
             </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="searchPage">搜索</el-button>
+              <el-button @click="clearSearchParam">清空</el-button>
+            </el-form-item>
           </el-form>
         </operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <template slot="before-columns">
         <el-table-column label="申请人" width="90px">
           <template slot-scope="scope">
@@ -22,10 +26,19 @@
           </template>
         </el-table-column>
       </template>
-      <el-table-column prop="operation" label="操作" width="120">
-        <template slot-scope="scope">
+      <el-table-column prop="operation" label="操作" width="120" fixed="right">
+        <template>
           <operation-wrapper>
-            <iep-button @click="handleDelete(scope.row)">删除</iep-button>
+            <el-dropdown size="medium">
+              <iep-button type="warning" plain>
+                修改<i class="el-icon-arrow-down el-icon--right"></i>
+              </iep-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>同意</el-dropdown-item>
+                <el-dropdown-item>拒绝</el-dropdown-item>
+                <el-dropdown-item>转交</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -34,16 +47,15 @@
   </div>
 </template>
 <script>
-import { getAlreadyApprovalPage, postApproval, deleteApprovalById, deleteApprovalBatch } from '@/api/admin/approval'
+import { getAlreadyApprovalPage, postApproval } from '@/api/admin/approval'
 import mixins from '@/mixins/mixins'
-import { dictsMap, columnsMap, initSearchForm } from '../options'
+import { columnsMap, initSearchForm } from '../options'
 import DialogForm from './DialogForm'
 export default {
   mixins: [mixins],
   components: { DialogForm },
   data () {
     return {
-      dictsMap,
       columnsMap,
       paramForm: initSearchForm(),
     }
@@ -54,12 +66,6 @@ export default {
   methods: {
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)
-    },
-    handleDeleteBatch () {
-      this._handleGlobalDeleteAll(deleteApprovalBatch)
-    },
-    handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deleteApprovalById)
     },
     handleAdd () {
       this.$refs['DialogForm'].methodName = '创建'

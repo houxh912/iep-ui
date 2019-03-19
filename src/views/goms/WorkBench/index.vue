@@ -196,7 +196,7 @@ export default {
   }
   .right {
     padding: 20px 0;
-    height: 100%;
+    height: 100ch;
     background-color: #fafafa;
     border-left: solid 1px #d8d4d4;
     flex: 0 0 240px;

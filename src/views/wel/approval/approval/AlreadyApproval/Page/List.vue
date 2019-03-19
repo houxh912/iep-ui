@@ -2,29 +2,19 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleToTalentBatch" type="danger" icon="el-icon-plus" plain>发起申请</iep-button>
+        <iep-button @click="handleAdd" type="danger" icon="el-icon-plus" plain>发起申请</iep-button>
       </template>
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
           <el-form :model="paramForm" label-width="80px" size="mini">
-            <el-form-item label="员工姓名">
+            <el-form-item label="申请人">
               <el-input v-model="paramForm.name"></el-input>
-            </el-form-item>
-            <el-form-item label="性别">
-              <el-radio-group v-model="paramForm.sex">
-                <el-radio label="男"></el-radio>
-                <el-radio label="女"></el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="searchPage">搜索</el-button>
-              <el-button @click="clearSearchParam">清空</el-button>
             </el-form-item>
           </el-form>
         </operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <template slot="before-columns">
         <el-table-column label="申请人" width="90px">
           <template slot-scope="scope">
@@ -32,23 +22,18 @@
           </template>
         </el-table-column>
       </template>
-      <el-table-column prop="operation" label="操作" width="220">
-        <template slot-scope="scope">
-          <operation-wrapper>
-            <iep-button type="warning" plain @click="handleToTalent(scope.row)">放入人才库</iep-button>
-            <iep-button @click="handleDelete(scope.row)">删除</iep-button>
-          </operation-wrapper>
-        </template>
-      </el-table-column>
     </iep-table>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 <script>
-import { getAlreadyApprovalPage, deleteApprovalById, deleteApprovalBatch, postToTalent } from '@/api/admin/approval'
+import { getAlreadyApprovalPage, postApproval, deleteApprovalById, deleteApprovalBatch } from '@/api/admin/approval'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initSearchForm } from '../options'
+import DialogForm from './DialogForm'
 export default {
   mixins: [mixins],
+  components: { DialogForm },
   data () {
     return {
       dictsMap,
@@ -63,12 +48,6 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)
     },
-    handleToTalentBatch () {
-      this._handleComfirm(this.multipleSelection, postToTalent, '放入人才库')
-    },
-    handleToTalent (row) {
-      this._handleComfirm([row.id], postToTalent, '放入人才库')
-    },
     handleDeleteBatch () {
       this._handleGlobalDeleteAll(deleteApprovalBatch)
     },
@@ -76,7 +55,9 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteApprovalById)
     },
     handleAdd () {
-      this.$emit('onEdit')
+      this.$refs['DialogForm'].methodName = '创建'
+      this.$refs['DialogForm'].formRequestFn = postApproval
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleDetail (row) {
       this.$emit('onDetail', row)

@@ -80,7 +80,6 @@
 <script>
 import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
 import { mapState } from 'vuex'
-import PageHeader from '@/components/Page/Header'
 import { initForm } from '../options'
 import { mergeByFirst } from '@/util/util'
 export default {
@@ -90,7 +89,6 @@ export default {
       default: () => { },
     },
   },
-  components: { PageHeader },
   data () {
     return {
       backOption: {

@@ -96,20 +96,20 @@ const initSearchForm = () => {
     name: '', // 岗位名称
     position: [], // 岗位id
     dept: [], // 部门ID
-    sex: 1, // 性别id
-    status: 1, // 招聘状态id
-    rangeTime: [initNow(), initNow()], // 开始时间
+    sex: 0, // 性别id
+    status: null, // 招聘状态id
+    rangeTime: null, // 开始时间
   }
 }
 const initDtoSearchForm = () => {
   return {
     name: '', // 岗位名称
-    positionId: 1, // 岗位id
-    deptId: 1, // 部门ID
-    sex: 1, // 性别id
-    status: 1, // 招聘状态id
-    startTime: initNow(), // 开始时间
-    endTime: initNow(), // 结束时间
+    positionId: null, // 岗位id
+    deptId: null, // 部门ID
+    sex: 0, // 性别id
+    status: null, // 招聘状态id
+    startTime: null, // 开始时间
+    endTime: null, // 结束时间
   }
 }
 // name: '', // 岗位名称

@@ -93,7 +93,7 @@ export default {
     handleDetail (row) {
       this.$emit('onDetail', row)
     },
-    loadPage (param = this.paramForm) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getPublishRecruitmentPage)
     },
   },

@@ -29,9 +29,9 @@ export default {
     }
   },
   methods: {
-    searchPage () {
+    searchPage (param) {
       this.pageOption = pageOption()
-      this.loadPage()
+      this.loadPage(param)
     },
     loadTable (param, requestFn, fn = (m) => m) {
       this.isLoadTable = true

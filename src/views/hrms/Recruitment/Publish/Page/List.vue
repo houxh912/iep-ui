@@ -15,54 +15,8 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
-            <el-form :model="paramForm" label-width="80px" size="mini">
-              <el-form-item label="关键字">
-                <el-input v-model="paramForm.keyword" placeholder="请输入关键字"></el-input>
-              </el-form-item>
-              <el-form-item label="部门">
-                <el-select v-model="paramForm.department" placeholder="请选择部门">
-                  <el-option label="部门1" value="部门1">
-                  </el-option>
-                  <el-option label="部门1" value="部门1">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="岗位类别">
-                <el-select v-model="paramForm.category" placeholder="请选择岗位类别">
-                  <el-option label="岗位类别1" value="岗位类别1">
-                  </el-option>
-                  <el-option label="岗位类别2" value="岗位类别2">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="岗位名称">
-                <el-select v-model="paramForm.name" placeholder="请选择岗位名称">
-                  <el-option label="岗位名称1" value="岗位名称1">
-                  </el-option>
-                  <el-option label="岗位名称2" value="岗位名称2">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="性别">
-                <el-radio-group v-model="paramForm.sex">
-                  <el-radio label="男"></el-radio>
-                  <el-radio label="女"></el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item label="招聘状态">
-                <el-select v-model="paramForm.status" placeholder="请选择">
-                  <el-option label="招聘状态1" value="招聘状态1">
-                  </el-option>
-                  <el-option label="招聘状态2" value="招聘状态2">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item>
-                <iep-button type="danger" @click="searchPage">搜索</iep-button>
-                <iep-button @click="clearSearchParam">清空</iep-button>
-              </el-form-item>
-            </el-form>
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage" @clear-search-param="loadPage()"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -90,16 +44,17 @@
 </template>
 <script>
 import { getPublishRecruitmentPage, postPublishRecruitment, putPublishRecruitment, shelfPublishRecruitmentById, deletePublishRecruitmentById, obtainedPublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/publish_recruitment'
+import AdvanceSearch from './AdvanceSearch'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm, dictsMap } from '../options'
+import { columnsMap, dictsMap } from '../options'
 export default {
+  components: { AdvanceSearch },
   mixins: [mixins],
   data () {
     return {
       dictsMap,
       columnsMap,
       replaceText: (data) => `（本周新增${data[0]}条招聘信息，收到${data[1]}份简历）`,
-      paramForm: initSearchForm(),
     }
   },
   created () {
@@ -138,11 +93,8 @@ export default {
     handleDetail (row) {
       this.$emit('onDetail', row)
     },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-    },
     loadPage (param = this.paramForm) {
-      this.loadTable({ param }, getPublishRecruitmentPage)
+      this.loadTable(param, getPublishRecruitmentPage)
     },
   },
 }

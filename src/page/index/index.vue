@@ -215,4 +215,7 @@ export default {
 .avue-contail >>> .el-scrollbar__view {
   height: 100%;
 }
+.avue-contail >>> .info-container {
+  padding: 0 20px;
+}
 </style>

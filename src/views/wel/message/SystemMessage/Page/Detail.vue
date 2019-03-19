@@ -45,15 +45,15 @@ export default {
   components: { PageHeader },
   methods: {
     handleGoBack () {
-      this.record = ''
-      this.currentComponet = 'List'
+      this.$emit('onGoBack')
     },
   },
   data () {
     return {
       backOption: {
         isBack: true,
-        backPath: this.$route.query.redirect,
+        backPath: null,
+        backFunction: this.handleGoBack,
       },
       list: [
         {

@@ -1,38 +1,42 @@
 <template>
-  <div class="info-container">
-    <div class="sub-menu">
-      <h4>分类</h4>
-      <ul>
-        <li v-for="item in list" :key="item.id">
-          <el-button type="text">{{item.title}}<span class="num">{{item.num}}</span></el-button>
-        </li>
-      </ul>
-    </div>
+  <div>
     <basic-container>
-      <page-header title="系统消息" :replaceText="replaceText"></page-header>
-      <operation-container>
-        <template slot="left">
-          <el-button-group>
-            <el-button class="iconfont icon-yanjing" size="mini"></el-button>
-            <el-button class="iconfont icon-biaoqian" size="mini"></el-button>
-            <el-button class="iconfont icon-shanchu" size="mini"></el-button>
-          </el-button-group>
-        </template>
-        <template slot="right">
-          <operation-search @search="searchPage" advance-search>
-            <advance-search :form="paramForm" @search-page="searchPage" @clear-search-param="clearSearchParam"></advance-search>
-          </operation-search>
-        </template>
-      </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="currentColumnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
-        <template slot="before-columns">
-          <el-table-column label="主题">
-            <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+      <div class="info-container">
+        <div class="sub-menu">
+          <h4>分类</h4>
+          <ul>
+            <li v-for="item in list" :key="item.id">
+              <el-button type="text">{{item.title}}<span class="num">{{item.num}}</span></el-button>
+            </li>
+          </ul>
+        </div>
+        <basic-container>
+          <page-header title="系统消息" :replaceText="replaceText"></page-header>
+          <operation-container>
+            <template slot="left">
+              <el-button-group>
+                <el-button class="iconfont icon-yanjing" size="mini"></el-button>
+                <el-button class="iconfont icon-biaoqian" size="mini"></el-button>
+                <el-button class="iconfont icon-shanchu" size="mini"></el-button>
+              </el-button-group>
             </template>
-          </el-table-column>
-        </template>
-      </iep-table>
+            <template slot="right">
+              <operation-search @search="searchPage" advance-search>
+                <advance-search :form="paramForm" @search-page="searchPage" @clear-search-param="clearSearchParam"></advance-search>
+              </operation-search>
+            </template>
+          </operation-container>
+          <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="currentColumnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+            <template slot="before-columns">
+              <el-table-column label="主题">
+                <template slot-scope="scope">
+                  <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+                </template>
+              </el-table-column>
+            </template>
+          </iep-table>
+        </basic-container>
+      </div>
     </basic-container>
   </div>
 </template>
@@ -105,12 +109,11 @@ export default {
     loadPage (param = this.paramForm) {
       this.loadTable(param, getEmployeeProfilePage)
     },
-    handleChange () {
-      this.$emit('onEdit')
-    },
+    // handleChange () {
+    //   this.$emit('onEdit')
+    // },
     handleDetail (row) {
-      console.log(row)
-      this.$emit('onDetail')
+      this.$emit('onDetail', row)
     },
   },
 }

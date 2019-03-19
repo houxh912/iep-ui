@@ -199,7 +199,7 @@ export default {
 }
 .avue-contail >>> .avue-view {
   padding: 20px;
-  height: 100%;
+  /* height: 100%; */
 }
 .avue-contail >>> .container.avue-view {
   margin-left: 0;

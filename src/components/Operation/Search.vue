@@ -1,6 +1,6 @@
 <template>
   <div class="input-wrapper">
-    <el-input placeholder="请输入内容" prefix-icon="el-icon-search" size="small" v-model="input">
+    <el-input :placeholder="placeholder" prefix-icon="el-icon-search" size="small" v-model="input">
       <iep-button class="search-btn" slot="append" @click="handleSearch">搜索</iep-button>
     </el-input>
     <el-popover v-if="advanceSearch" placement="bottom-end" width="350" trigger="click">
@@ -13,9 +13,9 @@
 export default {
   name: 'OperationSearch',
   props: {
-    placeHolder: {
+    placeholder: {
       type: String,
-      default: '关键字',
+      default: '请输入关键字进行搜索',
     },
     prop: {
       type: String,

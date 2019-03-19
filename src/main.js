@@ -24,6 +24,7 @@ import IepSelect from '@/components/IepCommon/Select'
 import IepDatePicker from '@/components/IepCommon/DatePicker'
 import IepCascader from '@/components/IepCommon/Cascader'
 import IepDictDetail from '@/components/IepCommon/DictDetail'
+import IepDictSelect from '@/components/IepCommon/DictSelect'
 import IepAvatar from '@/components/IepCommon/Avatar'
 import IepImg from '@/components/IepCommon/Img'
 import IepInputNumber from '@/components/IepCommon/InputNumber'
@@ -62,6 +63,7 @@ Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepSelect.name, IepSelect)
 Vue.component(IepCascader.name, IepCascader)
 Vue.component(IepDictDetail.name, IepDictDetail)
+Vue.component(IepDictSelect.name, IepDictSelect)
 Vue.component(IepAvatar.name, IepAvatar)
 Vue.component(IepImg.name, IepImg)
 Vue.component(IepInputNumber.name, IepInputNumber)

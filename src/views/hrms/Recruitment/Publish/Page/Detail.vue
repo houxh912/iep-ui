@@ -79,7 +79,6 @@
 </template>
 <script>
 import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
-import { mapState } from 'vuex'
 import { initForm } from '../options'
 import { mergeByFirst } from '@/util/util'
 export default {
@@ -98,11 +97,6 @@ export default {
       },
       form: initForm(),
     }
-  },
-  computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
   },
   created () {
     this.load()

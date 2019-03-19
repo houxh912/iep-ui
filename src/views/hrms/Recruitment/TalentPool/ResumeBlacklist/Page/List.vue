@@ -13,23 +13,7 @@
         </el-dropdown>
       </template>
       <template slot="right">
-        <operation-search @search="searchPage" advance-search>
-          <el-form :model="paramForm" label-width="80px" size="mini">
-            <el-form-item label="员工姓名">
-              <el-input v-model="paramForm.name"></el-input>
-            </el-form-item>
-            <el-form-item label="性别">
-              <el-radio-group v-model="paramForm.sex">
-                <el-radio label="男"></el-radio>
-                <el-radio label="女"></el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="searchPage">搜索</el-button>
-              <el-button @click="clearSearchParam">清空</el-button>
-            </el-form-item>
-          </el-form>
-        </operation-search>
+        <operation-search @search-page="searchPage" placeholder="请输入姓名进行搜索"></operation-search>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
@@ -54,13 +38,12 @@
 <script>
 import { getResumeBlacklistPage, postResumeBlacklist, putTalentPool, deleteTalentPoolById, deleteTalentPoolBatch } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from '../options'
+import { columnsMap } from '../options'
 export default {
   mixins: [mixins],
   data () {
     return {
       columnsMap,
-      paramForm: initSearchForm(),
     }
   },
   created () {
@@ -93,10 +76,7 @@ export default {
         id: false,
       })
     },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-    },
-    loadPage (param = this.paramForm) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getResumeBlacklistPage)
     },
   },

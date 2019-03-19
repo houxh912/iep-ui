@@ -69,9 +69,8 @@
 <script>
 import { getDeptPage, postDept, putDept, deleteDeptById, deleteDeptBatch } from '@/api/hrms/department_management'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm, initForm } from './options'
+import { columnsMap, initSearchForm, toDeptForm, toNewParentForm } from './options'
 import AddDialogForm from './AddDialogForm'
-import { mergeByFirst } from '@/util/util'
 import MoveDialog from './MoveDialog'
 import MergeDialog from './MergeDialog'
 export default {
@@ -98,16 +97,13 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteDeptById)
     },
     handleEdit (row) {
-      this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), row)
+      this.$refs['AddDialogForm'].form = toDeptForm(row)
       this.$refs['AddDialogForm'].methodName = '修改'
       this.$refs['AddDialogForm'].formRequestFn = putDept
       this.$refs['AddDialogForm'].dialogShow = true
     },
     handleAdd (row) {
-      this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), {
-        parentId: row.id || 0,
-        parentName: row.name || '无',
-      })
+      this.$refs['AddDialogForm'].form = toNewParentForm(row)
       this.$refs['AddDialogForm'].methodName = '创建'
       this.$refs['AddDialogForm'].formRequestFn = postDept
       this.$refs['AddDialogForm'].dialogShow = true

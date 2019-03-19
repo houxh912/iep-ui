@@ -1,4 +1,5 @@
-// org config options
+import { mergeByFirst } from '@/util/util'
+import { initNow } from '@/util/date'
 const dictsMap = {
 }
 
@@ -30,8 +31,33 @@ const initForm = () => {
     userName: '',
     parentId: 0,
     parentName: '无',
-    establishedTime: '',
+    establishedTime: initNow(),
+    user: {
+      id: '',
+      name: '',
+    },
   }
+}
+
+const toDeptForm = (row) => {
+  const newForm = mergeByFirst(initForm(), row)
+  newForm.user.id = newForm.userId
+  newForm.user.name = newForm.userName
+  return newForm
+}
+
+const toNewParentForm = (row) => {
+  return mergeByFirst(initForm(), {
+    parentId: row.id || 0,
+    parentName: row.name || '无',
+  })
+}
+
+const toDtoForm = (row) => {
+  const newForm = mergeByFirst(initForm(), row)
+  newForm.userId = newForm.user.id
+  newForm.userName = newForm.user.name
+  return newForm
 }
 
 const initSearchForm = () => {
@@ -69,4 +95,7 @@ export {
   initmoveForm,
   initaddForm,
   initmergeForm,
+  toDeptForm,
+  toNewParentForm,
+  toDtoForm,
 }

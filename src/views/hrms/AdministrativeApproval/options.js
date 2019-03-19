@@ -5,32 +5,37 @@ const dictsMap = {
     1: '关',
   },
   status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
+    0: '未审核',
+    1: '通过',
+    2: '拒绝',
   },
 }
 
 const columnsMap = [
   {
-    prop: '申请类型',
+    prop: 'applyType',
     label: '申请类型',
   },
   {
-    prop: '部门',
+    prop: 'leavingType',
+    label: '请假类型',
+  },
+  {
+    prop: 'department',
     label: '部门',
   },
   {
-    prop: '申请时间',
-    label: '申请时间',
+    prop: 'applyStartTime',
+    label: '申请开始时间',
   },
   {
-    prop: '审批人',
-    label: '审批人',
+    prop: 'applyEndTime',
+    label: '申请结束时间',
   },
   {
-    prop: '状态',
+    prop: 'status',
     label: '状态',
+    type: 'dict',
   },
 ]
 

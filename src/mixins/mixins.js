@@ -26,12 +26,14 @@ export default {
       isLoadTable: true,
       pagination: pageOption(),
       pageOption: pageOption(),
+      searchForm: {},
     }
   },
   methods: {
-    searchPage () {
+    searchPage (param) {
       this.pageOption = pageOption()
-      this.loadPage()
+      this.searchForm = param
+      this.loadPage(param)
     },
     loadTable (param, requestFn, fn = (m) => m) {
       this.isLoadTable = true

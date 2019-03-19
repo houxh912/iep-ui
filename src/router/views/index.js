@@ -64,4 +64,15 @@ export default [
       },
     ],
   },
+  {
+    path: '/components',
+    component: Layout,
+    redirect: '/components/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/components/demo/index'),
+      },
+    ],
+  },
 ]

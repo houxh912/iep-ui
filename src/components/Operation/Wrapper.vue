@@ -3,6 +3,12 @@
     <slot></slot>
   </div>
 </template>
+<script>
+export default {
+  name: 'OperationWrapper',
+}
+</script>
+
 <style lang="scss" scoped>
 .operation-wrapper > * {
   margin-right: 5px;

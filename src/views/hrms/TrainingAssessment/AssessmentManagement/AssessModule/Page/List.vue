@@ -37,16 +37,18 @@
       </el-table-column>
     </iep-table>
     <template-dialog ref="TemplateDialog" @load-page="loadPage"></template-dialog>
+    <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
   </div>
 </template>
 <script>
-import { getAssessmentManagementPage, postAssessmentManagement, putTalentPool, deletePublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/assessment_management'
+import { getAssessmentManagementPage, postAssessmentManagement, deletePublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/assessment_management'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
 import TemplateDialog from './TemplateDialog'
+import EditDialog from './EditDialog'
 export default {
   mixins: [mixins],
-  components: { TemplateDialog },
+  components: { TemplateDialog, EditDialog },
   data () {
     return {
       columnsMap,
@@ -68,11 +70,9 @@ export default {
       this._handleGlobalDeleteById(row.id, deletePublishRecruitmentById)
     },
     handleEdit (row) {
-      this.$emit('onEdit', {
-        formRequestFn: putTalentPool,
-        methodName: '编辑',
-        id: row.id,
-      })
+      this.$refs['EditDialog'].form.id = row.id
+      this.$refs['EditDialog'].formRequestFn = postAssessmentManagement
+      this.$refs['EditDialog'].dialogShow = true
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

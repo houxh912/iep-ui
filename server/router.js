@@ -82,4 +82,8 @@ router.post('/crms/contact/create', crmsController.createContact)
 router.post('/crms/contact/update', crmsController.updateContact)
 router.post('/crms/contact/delete', crmsController.deleteContact)
 
+
+//wel
+router.get('/wel/approval/page', welController.getApprovalPage)
+
 exports = module.exports = router

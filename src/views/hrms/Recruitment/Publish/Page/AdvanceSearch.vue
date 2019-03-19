@@ -1,22 +1,23 @@
 <template>
   <el-form :model="form" label-width="100px" size="mini">
     <el-form-item label="岗位名称">
-      <el-input v-model="form.name"></el-input>
+      <el-input v-model="form.name" clearable></el-input>
     </el-form-item>
     <el-form-item label="岗位名称：">
-      <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
+      <iep-cascader v-model="form.position" prefix-url="hrms/post_type" clearable></iep-cascader>
     </el-form-item>
     <el-form-item label="所属部门：">
-      <iep-cascader v-model="form.dept" prefix-url="admin/dept" change-on-select></iep-cascader>
+      <iep-cascader v-model="form.dept" prefix-url="admin/dept" change-on-select clearable></iep-cascader>
     </el-form-item>
     <el-form-item label="性别">
       <el-radio-group v-model="form.sex">
+        <el-radio :label="0">全部</el-radio>
         <el-radio :label="1">男</el-radio>
         <el-radio :label="2">女</el-radio>
       </el-radio-group>
     </el-form-item>
     <el-form-item label="招聘状态：">
-      <el-select v-model="form.status" placeholder="请选择">
+      <el-select v-model="form.status" placeholder="请选择" clearable>
         <el-option v-for="(v,k) in dictsMap.status" :key="k" :label="v" :value="+k">
         </el-option>
       </el-select>

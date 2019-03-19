@@ -121,10 +121,13 @@ const initDtoSearchForm = () => {
 // endTime: initNow(), // 结束时间
 const toDtoSearchForm = (row) => {
   const newForm = mergeByFirst(initDtoSearchForm(), row)
-  newForm.positionId = row.position[row.position.length - 1]
-  newForm.deptId = row.dept[row.dept.length - 1]
-  newForm.startTime = row.rangeTime[0]
-  newForm.endTime = row.rangeTime[1]
+  newForm.sex = row.sex ? row.sex : null
+  newForm.positionId = row.position.length && row.position[row.position.length - 1]
+  newForm.deptId = row.dept && row.dept[row.dept.length - 1]
+  if (row.rangeTime) {
+    newForm.startTime = row.rangeTime[0]
+    newForm.endTime = row.rangeTime[1]
+  }
   return newForm
 }
 

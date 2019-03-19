@@ -9,7 +9,7 @@
       @close="handleClose(index)">
       {{tag}}
     </el-tag>
-    <el-input v-model="inputValue">
+    <el-input v-model="inputValue" class="input">
       <el-button slot="append" @click="handleCreate">添加</el-button>
     </el-input>
     <span class="error">{{errorMsg}}</span>
@@ -70,6 +70,10 @@ export default {
   .error {
     color: #f00;
     font-size: 12px;
+    margin-left: 10px;
+  }
+  .input {
+    max-width: 200px;
   }
 }
 </style>

@@ -1,9 +1,17 @@
 import request from '@/router/axios'
-const prefixUrl = '/mlms'
+const prefixUrl = '/mlms/meeting'
 
-export function getTableData () {
+export function getTableData (obj) {
   return request({
     url: `${prefixUrl}/page`,
+    method: 'get',
+    params: obj,
+  })
+}
+
+export function getDataById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
     method: 'get',
   })
 }
@@ -24,9 +32,14 @@ export function updateData (obj) {
   })
 }
 
-export function deleteData (id) {
+export function deleteData (ids) {
+  if (typeof ids == 'number') {
+    ids = [ids]
+  }
+  console.log('ids: ', ids)
   return request({
-    url: `${prefixUrl}/delete/${id}`,
+    url: `${prefixUrl}/delete/batch`,
     method: 'post',
+    data: ids,
   })
 }

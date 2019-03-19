@@ -39,7 +39,7 @@ export default {
       formRequestFn: () => { },
       methodName: '创建',
       formData: initFormData(),
-      list: [{name: '20190201数据基因流程图'}, {name: '20190201数据基因流程图'}],
+      list: [],
     }
   },
   methods: {

@@ -30,18 +30,12 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="学历要求：">
-              <el-select v-model="form.academicId" placeholder="请选择">
-                <el-option v-for="item in dictGroup['hrms_highest_educational']" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
+              <iep-dict-select v-model="form.academicId" dict-name="hrms_highest_educational"></iep-dict-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="工作类型：">
-              <el-select v-model="form.jobTypeId" placeholder="请选择">
-                <el-option v-for="item in dictGroup['hrms_work_type']" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
+              <iep-dict-select v-model="form.jobTypeId" dict-name="hrms_work_type"></iep-dict-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -103,8 +97,10 @@
           <el-input type="textarea" v-model="form.claim" :rows="4"></el-input>
         </el-form-item>
         <el-form-item label="">
-          <iep-button type="primary" @click="handleSubmit">提交</iep-button>
-          <iep-button @click="handlePublish">保存并发布</iep-button>
+          <operation-wrapper>
+            <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+            <iep-button @click="handlePublish">保存并发布</iep-button>
+          </operation-wrapper>
         </el-form-item>
       </el-form>
     </basic-container>
@@ -112,8 +108,6 @@
 </template>
 <script>
 import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
-import { mapState } from 'vuex'
-import PageHeader from '@/components/Page/Header'
 import { initForm, formToDto } from '../options'
 import { mergeByFirst } from '@/util/util'
 export default {
@@ -123,7 +117,6 @@ export default {
       default: () => { },
     },
   },
-  components: { PageHeader },
   data () {
     return {
       id: false,
@@ -136,11 +129,6 @@ export default {
       },
       form: initForm(),
     }
-  },
-  computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
   },
   created () {
     this.methodName = this.record.methodName

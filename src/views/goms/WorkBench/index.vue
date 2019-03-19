@@ -140,7 +140,6 @@ export default {
 <style lang="scss" scoped>
 .container {
   display: flex;
-  margin-left: 20px;
   background-color: white;
   .left {
     flex: 1;
@@ -160,6 +159,7 @@ export default {
     }
   }
   .center {
+    height: 100%;
     h4 {
       margin-bottom: 10px;
       font-size: 16px;
@@ -196,6 +196,7 @@ export default {
   }
   .right {
     padding: 20px 0;
+    height: 100ch;
     background-color: #fafafa;
     border-left: solid 1px #d8d4d4;
     flex: 0 0 240px;

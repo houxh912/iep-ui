@@ -14,12 +14,11 @@
   </div>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
 import IepTabs from '@/components/IepCommon/Tabs'
 import PostLibrary from './PostLibrary/'
 import PostType from './PostType/'
 export default {
-  components: { PageHeader, IepTabs, PostLibrary, PostType },
+  components: { IepTabs, PostLibrary, PostType },
   data () {
     return {
       replaceText: (data) => `（共有${data[0]}个岗位)`,

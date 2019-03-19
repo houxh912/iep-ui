@@ -98,7 +98,7 @@
       </el-form>
     </el-card>
     <footer-tool-bar>
-      <iep-button type="info" @click="handleGoBack">返回</iep-button>
+      <iep-button @click="handleGoBack">返回</iep-button>
       <iep-button type="primary" @click="handleSubmit">提交</iep-button>
     </footer-tool-bar>
   </div>

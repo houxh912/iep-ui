@@ -33,7 +33,8 @@ export default {
   },
   methods: {
     handleSearch () {
-      this.$emit('search', this.form[this.prop] = this.input)
+      this.form[this.prop] = this.input
+      this.$emit('search-page', this.form)
     },
   },
 }

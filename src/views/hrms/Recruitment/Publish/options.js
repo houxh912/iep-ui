@@ -85,22 +85,47 @@ const initDtoForm = () => {
   }
 }
 
-const formToDto = (form) => {
-  const newForm = mergeByFirst(initDtoForm(), form)
-  newForm.positionId = form.position[form.position.length - 1]
-  newForm.deptId = form.dept[form.dept.length - 1]
+const formToDto = (row) => {
+  const newForm = mergeByFirst(initDtoForm(), row)
+  newForm.positionId = row.position[row.position.length - 1]
+  newForm.deptId = row.dept[row.dept.length - 1]
+  return newForm
+}
+const initSearchForm = () => {
+  return {
+    position: [], // 岗位id
+    dept: [], // 部门ID
+    sex: 0, // 性别id
+    status: null, // 招聘状态id
+    rangeTime: null, // 开始时间
+  }
+}
+const initDtoSearchForm = () => {
+  return {
+    positionId: null, // 岗位id
+    deptId: null, // 部门ID
+    sex: 0, // 性别id
+    status: null, // 招聘状态id
+    startTime: null, // 开始时间
+    endTime: null, // 结束时间
+  }
+}
+// positionId: 1, // 岗位id
+// deptId: 1, // 部门ID
+// sex: 1, // 性别id
+// status: 1, // 招聘状态id
+// startTime: initNow(), // 开始时间
+// endTime: initNow(), // 结束时间
+const toDtoSearchForm = (row) => {
+  const newForm = mergeByFirst(initDtoSearchForm(), row)
+  newForm.sex = row.sex ? row.sex : null
+  newForm.positionId = row.position.length && row.position[row.position.length - 1]
+  newForm.deptId = row.dept && row.dept[row.dept.length - 1]
+  if (row.rangeTime) {
+    newForm.startTime = row.rangeTime[0]
+    newForm.endTime = row.rangeTime[1]
+  }
   return newForm
 }
 
-const initSearchForm = () => {
-  return {
-    keyword: '',
-    department: '',
-    category: '',
-    name: '',
-    sex: '',
-    status: '',
-  }
-}
-
-export { dictsMap, columnsMap, initForm, initSearchForm, formToDto }
+export { dictsMap, columnsMap, initForm, initSearchForm, formToDto, toDtoSearchForm }

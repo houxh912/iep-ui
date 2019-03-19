@@ -1,9 +1,9 @@
 <template>
   <div>
-    <el-table :data="data" style="width: 100%">
+    <el-table :data="data" style="width: 100%" border size="small">
       <el-table-column :label="item.label" :width="item.width" v-for="(item, idx) in columns" :key="idx">
         <template slot-scope="scope">
-          <el-input v-if="scope.row.editable" style="margin: -5px 0" v-model="scope.row[item.prop]" :placeholder="item.label"></el-input>
+          <el-input v-if="scope.row.editable" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label"></el-input>
           <template v-else>{{ scope.row[item.prop] }}</template>
         </template>
       </el-table-column>

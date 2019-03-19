@@ -3,10 +3,11 @@
     <page-header title="新增邮件"></page-header>
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px" class="form">
       <el-form-item label="收件人：" prop="name">
-        <el-input v-model="formData.name"></el-input>
+        <!-- <el-input v-model="formData.name"></el-input> -->
+        <iep-tag v-model="formData.receiverIds"></iep-tag>
       </el-form-item>
-      <el-form-item label="主题：" prop="zhuti">
-        <el-input v-model="formData.zhuti"></el-input>
+      <el-form-item label="主题：" prop="subject">
+        <el-input v-model="formData.subject"></el-input>
       </el-form-item>
       <el-form-item>
         <iep-button>添加附件</iep-button>
@@ -14,7 +15,7 @@
       </el-form-item>
       <el-form-item class="material">
         <ul class="list">
-          <li class="li" v-for="(item, index) in formData.materialList" :key="index">
+          <li class="li" v-for="(item, index) in formData.materialIds" :key="index">
             <i class="icon-fujian"></i> {{item.name}}
             <iep-button type='text'>删除</iep-button>
           </li>
@@ -37,10 +38,11 @@
         </div>
       </el-form-item>
       <el-form-item label="邮件标签：">
-        <el-input></el-input>
+        <iep-tag v-model="formData.tagKeyWords" plus @selectTags="selectTags"></iep-tag>
       </el-form-item>
       <el-form-item label="正文">
-        <iep-editor v-model="formData.zhengwen"></iep-editor>
+        <!-- <iep-editor v-model="formData.zhengwen"></iep-editor> -->
+        <el-input type="textarea" rows=5 v-model="formData.content"></el-input>
       </el-form-item>
       <el-form-item>
         <iep-button type="danger" @click="submitForm('form')">发送</iep-button>
@@ -54,38 +56,74 @@
 
 <script>
 import PageHeader from '@/components/Page/Header'
-import IepEditor from '@/components/IepEditor/'
+// import IepEditor from '@/components/IepEditor/'
 import MainDialog from './mainDialog'
+import IepTag from '@/components/IepTags/input'
+import { createEmail } from '@/api/mlms/email/index'
+
+const initFormData = {
+  attachmentIds: [],
+  content: '',
+  emailId: 0,
+  materialIds: [],
+  projectIds: [],
+  receiverIds: [],
+  reportIds: [],
+  status: 1,
+  subject: '',
+  summaryIds: [],
+  tagKeyWords: [],
+  type: 0,
+}
 
 export default {
-  components: { PageHeader, IepEditor, MainDialog },
+  components: { PageHeader, MainDialog, IepTag },
   data () {
     return {
-      formData: {
-        materialList: [
-          { id: 1, name: '资源平台0221.rp（3.50M）' },
-          { id: 2, name: '资源平台页面清单.xlsx（10.2K）' },
-          { id: 3, name: 'DIPS产品工作进度说明（17.4K）' },
-        ],
-      },
+      formData: initFormData,
       rules: {},
     }
   },
   methods: {
     resetForm (formName) {
       this.$refs[formName].resetFields()
-      // this.formData = initFormData()
+      this.formData = initFormData
     },
     submitForm (formName) {
-      console.log('formName: ', formName)
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          createEmail(this.formData).then(() => {
+            this.$notify({
+              title: '成功',
+              message: '新增邮件成功',
+              type: 'success',
+              duration: 2000,
+            })
+            this.formData = initFormData
+          })
+        } else {
+          return false
+        }
+      })
     },
-    submitDraft (formName) {
-      console.log('formName: ', formName)
+    submitDraft () {
+      this.formData.status = 0
+      createEmail(this.formData).then(() => {
+        this.$notify({
+          title: '成功',
+          message: '保存草稿成功',
+          type: 'success',
+          duration: 2000,
+        })
+        this.formData = initFormData
+      })
     },
     addRelation () {
       this.$refs['relation'].dialogShow = true
       this.$refs['relation'].loadData()
     },
+    // 选择标签
+    selectTags () {},
   },
 }
 </script>
@@ -98,23 +136,28 @@ export default {
     width: 80%;
     .material {
       .list {
-        border: 1px solid #ddd;
+        margin: 0;
+        border: 1px dashed #ddd;
         padding: 5px 10px;
         .li {
           height: 30px;
           line-height: 30px;
+          list-style: none;
         }
       }
     }
     .relation {
       .item {
-        border: 1px solid #ddd;
+        border: 1px dashed #ddd;
+        border-radius: 5px;
         .list {
+          margin: 0;
           padding: 5px 0 0;
           .li {
             height: 30px;
             line-height: 30px;
             color: #999;
+            list-style: none;
           }
         }
       }

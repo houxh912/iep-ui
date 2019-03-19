@@ -8,7 +8,7 @@ export const dictsMap = {
 export const tableOption = [
   {
     label: '发件人',
-    prop: 'name',
+    prop: 'sendRealName',
   },
 ]
 

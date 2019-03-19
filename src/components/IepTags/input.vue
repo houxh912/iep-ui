@@ -13,13 +13,24 @@
       <el-button slot="append" @click="handleCreate">添加</el-button>
     </el-input>
     <span class="error">{{errorMsg}}</span>
+    <el-button v-if="plus" @click="selectTags"><i class="el-icon-plus"></i></el-button>
   </div>
 </template>
 
 <script>
 export default {
   name: 'tags',
-  props: [ 'value' ],
+  // props: [ 'value', 'plus' ],
+  props: {
+    value: {
+      type: Array,
+      default: () => {},
+    },
+    plus: {
+      type: Boolean,
+      default: false,
+    },
+  },
   computed: {
     dynamicTags () {
       return this.value ? this.value : []
@@ -49,6 +60,9 @@ export default {
       }
       this.inputValue = ''
       this.$emit('input', this.dynamicTags)
+    },
+    selectTags () {
+      this.$emit('selectTags', true)
     },
   },
   watch: {

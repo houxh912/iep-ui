@@ -12,9 +12,9 @@
     @selection-change="selectionChange">
     <template slot="before-columns">
       <el-table-column label="">
-        <template>
+        <template slot-scope="scope">
           <div class="mail-icon">
-            <i class="icon-shoucang1 star"></i>
+            <i class="icon-shoucang1 star" :class="(scope.row.isStar===true || scope.row.isStar===null)?'select':''" @click="emailStar(scope.row)"></i>
             <i class="icon-youxiang mail"></i>
             <i class="icon-fujian fujian"></i>
           </div>
@@ -23,7 +23,7 @@
     </template>
     <el-table-column prop="name" label="主题" min-width="160">
       <template slot-scope="scope">
-        <div class="mail-name" @click="handleDetail(scope.row)">{{scope.row.name}}</div>
+        <div class="mail-name" @click="handleDetail(scope.row)">{{scope.row.subject}}</div>
         <el-col class="mail-tags">
           <el-tag type="info" size="mini" v-for="(item, index) in scope.row.code" :key="index">{{item}}</el-tag>
         </el-col>
@@ -31,7 +31,7 @@
     </el-table-column>
     <el-table-column prop="" label="发送时间">
       <template slot-scope="scope">
-        {{scope.row.name}}
+        {{scope.row.createTime}}
       </template>
     </el-table-column>
   </iep-table>
@@ -40,7 +40,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { fetchList, deleteDataById } from '@/api/crms/custom'
+import { deleteEmailById, emailStarById, isReadeById } from '@/api/mlms/email/index'
 
 export default {
   name: 'custom',
@@ -51,20 +51,28 @@ export default {
     return {
       dictsMap,
       columnsMap: tableOption,
+      requestFn: () => {},
     }
   },
   methods: {
     handleDetail (row) {
+      isReadeById(row.emailId).then(()=>{})
       this.$emit('switchDialog', row)
     },
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.id, deleteDataById)
+      this._handleGlobalDeleteById(row.id, deleteEmailById)
     },
     selectionChange (val) {
       console.log('val: ', val)
     },
     loadPage (param) {
-      this.loadTable(param, fetchList)
+      this.loadTable(param, this.requestFn)
+    },
+    // 星标
+    emailStar (row) {
+      emailStarById(row.emailId).then(() => {
+        this.loadPage()
+      })
     },
   },
 }
@@ -81,8 +89,12 @@ export default {
   i {
     cursor: pointer;
   }
+  i.select {
+    color: #df7b1b;
+  }
 }
 .mail-name {
+  width: 100%;
   cursor: pointer;
   margin-bottom: 10px;
 }

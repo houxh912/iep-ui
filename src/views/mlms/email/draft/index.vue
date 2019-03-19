@@ -21,6 +21,8 @@
 import mixins from '@/mixins/mixins'
 import TableDialog from '../tableTpl/table.vue'
 import mainFormDialog from '../tableTpl/mainDialog'
+import { getDraftList } from '@/api/mlms/email/index'
+
 export default {
   components: { mainFormDialog, TableDialog },
   mixins: [mixins],
@@ -30,8 +32,9 @@ export default {
     }
   },
   mounted () {
+    this.$refs['table'].requestFn = getDraftList
     this.$nextTick(() => {
-      this.$refs['table'].loadPage()
+      this.$refs['table'].loadPage({})
     })
   },
 }

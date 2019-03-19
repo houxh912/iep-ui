@@ -8,14 +8,8 @@
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
           <el-form :model="paramForm" label-width="80px" size="mini">
-            <el-form-item label="员工姓名">
-              <el-input v-model="paramForm.name"></el-input>
-            </el-form-item>
-            <el-form-item label="性别">
-              <el-radio-group v-model="paramForm.sex">
-                <el-radio label="男"></el-radio>
-                <el-radio label="女"></el-radio>
-              </el-radio-group>
+            <el-form-item label="模板名称">
+              <el-input v-model="paramForm.templateName"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="searchPage">搜索</el-button>
@@ -29,27 +23,30 @@
       <template slot="before-columns">
         <el-table-column label="模板名称">
           <template slot-scope="scope">
-            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.templateName}}</iep-table-link>
           </template>
         </el-table-column>
       </template>
       <el-table-column prop="operation" label="操作" width="220">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>
-            <iep-button @click="(scope.row)">删除</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain>修改</iep-button>
+            <iep-button @click="handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
+    <template-dialog ref="TemplateDialog" @load-page="loadPage"></template-dialog>
   </div>
 </template>
 <script>
-import { getAssessmentManagementPage } from '@/api/hrms/assessment_management'
+import { getAssessmentManagementPage, postAssessmentManagement, putTalentPool, deletePublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/assessment_management'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
+import TemplateDialog from './TemplateDialog'
 export default {
   mixins: [mixins],
+  components: { TemplateDialog },
   data () {
     return {
       columnsMap,
@@ -61,10 +58,21 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$emit('onEdit')
+      this.$refs['TemplateDialog'].formRequestFn = postAssessmentManagement
+      this.$refs['TemplateDialog'].dialogShow = true
     },
-    handleDetail () {
-      this.$emit('onDetail')
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deletePublishRecruitment)
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deletePublishRecruitmentById)
+    },
+    handleEdit (row) {
+      this.$emit('onEdit', {
+        formRequestFn: putTalentPool,
+        methodName: '编辑',
+        id: row.id,
+      })
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

@@ -1,8 +1,8 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="离职" width="400px" @close="loadPage">
-    <el-form :model="rejectedForm" :rules="rules" size="small" ref="rejectedForm" label-width="100px">
-      <el-form-item label="备注" prop="msg">
-        <el-input v-model="rejectedForm.msg" type="textarea"></el-input>
+  <iep-dialog :dialog-show="dialogShow" title="发起考核" width="400px" @close="loadPage">
+    <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
+      <el-form-item label="考核名称" prop="msg">
+        <el-input v-model="form.name"></el-input>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -13,7 +13,7 @@
 </template>
 <script>
 import IepDialog from '@/components/IepDialog/'
-import { initrejectedForm } from '../options'
+import { initForm } from '../options'
 export default {
   components: { IepDialog },
   data () {
@@ -21,7 +21,7 @@ export default {
       dialogShow: false,
       formRequestFn: () => { },
       methodName: '创建',
-      rejectedForm: initrejectedForm(),
+      form: initForm(),
       rules: {
         msg: [
           { required: true, message: '请输入备注', trigger: 'blur' },
@@ -31,14 +31,14 @@ export default {
   },
   methods: {
     loadPage () {
-      this.rejectedForm = initrejectedForm()
+      this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.rejectedForm).then(() => {
+          this.formRequestFn(this.form).then(() => {
             this.$notify({
               title: '成功',
               message: '备注',

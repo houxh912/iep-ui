@@ -20,6 +20,30 @@ const columnsMap = [
     prop: 'assessTime',
     label: '考核时间',
   },
+  // {
+  //   prop: 'assessModule',
+  //   label: '考核模板',
+  // },
+  // {
+  //   prop: 'assessePerson',
+  //   label: '考核人',
+  // },
+  // {
+  //   prop: 'assessedPerson',
+  //   label: '被考核人',
+  // },
+  // {
+  //   prop: 'selfWeight',
+  //   label: '员工自评权重',
+  // },
+  // {
+  //   prop: 'personWeight',
+  //   label: '考核人评分权重',
+  // },
+  // {
+  //   prop: 'personScoringMethod',
+  //   label: '考核人评分方式    ',
+  // },
   {
     prop: 'status',
     label: '考核状态',
@@ -33,47 +57,15 @@ const columnsMap = [
 
 const initForm = () => {
   return {
-    'id': '',
-    'name': '',
-    'sex': 1,
-    'avatar': '',
-    'birthday': '',
-    'title': '',
-    'phone': '',
-    'age': '',
-    'email': '',
-    'height': '',
-    'weight': '',
-    'nation': '',
-    'address': '',
-    'politics': '',
-    'health': '',
-    'marriage': '',
-    'bear': 1,
-    'university': '',
-    'education': 2,
-    'relation': '',
-    'referrer': '',
-    'appWay': 9,
-    'source': 4,
-    'hobbies': '',
-    'advantage': '',
-    'honor': '',
-    'result': '',
-    'position': [],
-    'positionId': 3,
-    'positionName': '',
-    'arrive': '',
-    'salary': '',
-    'workPlace': '',
-    'attach': '',
-    'workExperience': [],
-    'trainingSituation': [],
-    'eduSituation': [],
-    'userCert': [],
-    'blacklistArea': '',
-    'blacklistReasons': '',
-    'cities': [],
+    id: '',
+    assessmentName: '',
+    assessmentTime: '',
+    assessModule: '',
+    assessePerson: '',
+    assessedPerson: '',
+    selfWeight: '',
+    personWeight: '',
+    personScoringMethod: '',
   }
 }
 
@@ -133,10 +125,17 @@ const initSearchForm = () => {
     assessName: '',
   }
 }
+
+const initPositiveForm = () => {
+  return {
+    id: '',
+    assessName:'',
+  }
+}
 const initrejectedForm = () => {
   return {
     msg: '',
 
   }
 }
-export { dictsMap, columnsMap, initForm, initSearchForm, initrejectedForm, formToDto }
+export { dictsMap, columnsMap, initPositiveForm, initForm, initSearchForm, initrejectedForm, formToDto }

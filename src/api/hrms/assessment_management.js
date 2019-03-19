@@ -18,6 +18,14 @@ export function postAssessmentManagement (obj) {
     })
   }
   
+export function putTalentPool (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}
+  
 export function deletePublishRecruitmentById (id) {
   return request({
     url: `${prefixUrl}/delete/batch`,

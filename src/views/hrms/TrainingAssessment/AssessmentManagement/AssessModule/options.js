@@ -13,7 +13,7 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'assessScore',
+    prop: 'templateScore',
     label: '考核分值',
   },
 ]

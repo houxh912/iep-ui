@@ -2,19 +2,22 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleAdd()" type="danger" plain>发起考核</iep-button>
+        <iep-button @click="handleAdd" type="danger" plain>发起考核</iep-button>
         <iep-button type="default" plain @click.native="handleDeleteBatch">删除</iep-button>
       </template>
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
           <el-form :model="paramForm" label-width="80px" size="mini">
-            <el-form-item label="高级搜索">
-              <el-input v-model="paramForm.name"></el-input>
-            </el-form-item>
             <!-- <el-form-item label="考核时间">
               <el-date-picker v-model="value6" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
               </el-date-picker>
             </el-form-item> -->
+            <el-form-item label="被考核人">
+              <el-input v-model="paramForm.name"></el-input>
+            </el-form-item>
+            <el-form-item label="考核名称">
+              <el-input v-model="paramForm.name"></el-input>
+            </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="searchPage">搜索</el-button>
               <el-button @click="clearSearchParam">清空</el-button>
@@ -24,7 +27,7 @@
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :dictsMap="dictsMap" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
-      <el-table-column prop="operation" label="操作" width="220">
+      <el-table-column prop="operation" label="操作" width="120">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="default" @click="handleDelete(scope.row)">删除</iep-button>
@@ -32,17 +35,17 @@
         </template>
       </el-table-column>
     </iep-table>
-    <rejected-dialog ref="RejectedDialog" @load-page="loadPage"></rejected-dialog>
+    <assess-dialog ref="AssessDialog" @load-page="loadPage"></assess-dialog>
   </div>
 </template>
 <script>
 import { getAssessmentManagementPage, postAssessmentManagement, deletePublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/assessment_management'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initSearchForm } from '../options'
-import RejectedDialog from './RejectedDialog'
+import AssessDialog from './AssessDialog'
 export default {
   mixins: [mixins],
-  components: { RejectedDialog },
+  components: { AssessDialog },
   data () {
     return {
       dictsMap,
@@ -55,21 +58,14 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$emit('onEdit', {
-        formRequestFn: postAssessmentManagement,
-        methodName: '新增',
-        id: false,
-      })
+      this.$refs['AssessDialog'].formRequestFn = postAssessmentManagement
+      this.$refs['AssessDialog'].dialogShow = true
     },
     handleDeleteBatch () {
       this._handleGlobalDeleteAll(deletePublishRecruitment)
     },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deletePublishRecruitmentById)
-    },
-    handleRejected (row) {
-      console.log(row)
-      this.$refs['RejectedDialog'].dialogShow = true
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

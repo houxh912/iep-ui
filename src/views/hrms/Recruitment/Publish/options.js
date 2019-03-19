@@ -93,7 +93,6 @@ const formToDto = (row) => {
 }
 const initSearchForm = () => {
   return {
-    name: '', // 岗位名称
     position: [], // 岗位id
     dept: [], // 部门ID
     sex: 0, // 性别id
@@ -103,7 +102,6 @@ const initSearchForm = () => {
 }
 const initDtoSearchForm = () => {
   return {
-    name: '', // 岗位名称
     positionId: null, // 岗位id
     deptId: null, // 部门ID
     sex: 0, // 性别id
@@ -112,7 +110,6 @@ const initDtoSearchForm = () => {
     endTime: null, // 结束时间
   }
 }
-// name: '', // 岗位名称
 // positionId: 1, // 岗位id
 // deptId: 1, // 部门ID
 // sex: 1, // 性别id

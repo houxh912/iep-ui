@@ -1,8 +1,5 @@
 <template>
   <el-form :model="form" label-width="100px" size="mini">
-    <el-form-item label="岗位名称">
-      <el-input v-model="form.name" clearable></el-input>
-    </el-form-item>
     <el-form-item label="岗位名称：">
       <iep-cascader v-model="form.position" prefix-url="hrms/post_type" clearable></iep-cascader>
     </el-form-item>
@@ -74,7 +71,7 @@ export default {
     },
     clearSearchParam () {
       this.form = initSearchForm()
-      this.$emit('clear-search-param')
+      // this.$emit('clear-search-param')
     },
   },
 }

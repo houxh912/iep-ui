@@ -16,7 +16,7 @@
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search>
-            <advance-search @search-page="searchPage" @clear-search-param="loadPage()"></advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>

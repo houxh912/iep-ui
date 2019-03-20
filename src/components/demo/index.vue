@@ -5,7 +5,7 @@
         <iep-contact-select v-model="form.user"></iep-contact-select>
       </el-form-item>
       <el-form-item label="用户群:">
-        <iep-contact-multiple v-model="form.user"></iep-contact-multiple>
+        <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
       </el-form-item>
     </el-form>
   </div>
@@ -22,18 +22,15 @@ export default {
           id: 1,
           name: '哈哈',
         },
-        userList: [],
+        receivers: { // 比如接收人
+          unions: [],
+          orgs: [],
+          users: [],
+        },
       },
     }
   },
   methods: {
-    fillUser (user) {
-      this.form.userId = user.id
-      this.form.userName = user.name
-    },
-    fillUserList (userList) {
-      this.form.userList = userList
-    },
   },
 }
 </script>

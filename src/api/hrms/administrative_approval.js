@@ -9,3 +9,9 @@ export function getAdministrativeApprovalPage (query) {
     params: query,
   })
 }
+export function getAdministrativeApprovalById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}

@@ -15,37 +15,12 @@
             </el-dropdown-menu>
           </el-dropdown>
         </template>
-        <!-- <template slot="right">
-          <operation-search @search="searchPage" advance-search>
-            <el-form :model="paramForm" label-width="80px" size="mini">
-              <el-form-item label="关键字">
-                <el-input v-model="paramForm.theme" placeholder="关键字"></el-input>
-              </el-form-item>
-              <el-form-item label="岗位类别">
-                <el-select v-model="paramForm.type" placeholder="请选择岗位类别">
-                  <el-option label="岗位类别1" value="岗位类别1"></el-option>
-                  <el-option label="岗位类别2" value="岗位类别2"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="岗位名称">
-                <el-select v-model="paramForm.type" placeholder="请选择岗位名称">
-                  <el-option label="岗位名称1" value="岗位名称1"></el-option>
-                  <el-option label="岗位名称2" value="岗位名称2"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="searchPage">搜索</el-button>
-                <el-button @click="clearSearchParam">清空</el-button>
-              </el-form-item>
-            </el-form>
-          </operation-search>
-        </template> -->
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-tree>
+      <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-tree>
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleAdd(scope.row)" :disabled="scope.row._level>1" type="warning" plain>添加子部门</iep-button>
+              <iep-button v-if="scope.row._level===1" icon="el-icon-plus" @click="handleAdd(scope.row)" type="warning" plain>子部门</iep-button>
               <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
@@ -129,4 +104,3 @@ export default {
   },
 }
 </script>
-

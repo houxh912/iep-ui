@@ -197,6 +197,7 @@ export default {
             padding: 3px 10px;
             font-size: 14px;
             border-radius: 3px;
+            color: #666;
             .icon {
               font-size: 20px !important;
               color: #ffbc01;

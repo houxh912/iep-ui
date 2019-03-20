@@ -117,7 +117,7 @@ export default {
 }
 .dialog-content {
   max-height: 54vh;
-  overflow-y: hidden;
+  overflow-x: hidden;
 }
 .text-icon {
   color: #333;

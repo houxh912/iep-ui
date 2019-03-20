@@ -22,15 +22,15 @@
       </operation-container>
       <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="申请人" width="90px">
+          <el-table-column label="申请人" width="120px">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
         <el-table-column label="操作">
-          <template>
-            <el-button type="warning" plain size="small">查看</el-button>
+          <template slot-scope="scope">
+            <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">查看</el-button>
           </template>
         </el-table-column>
       </iep-table>

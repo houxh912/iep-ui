@@ -20,7 +20,7 @@
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <template slot="before-columns">
-        <el-table-column label="申请人" width="90px">
+        <el-table-column label="申请人" width="120px">
           <template slot-scope="scope">
             <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
           </template>

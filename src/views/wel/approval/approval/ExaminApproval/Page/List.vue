@@ -20,26 +20,17 @@
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <template slot="before-columns">
-        <el-table-column label="申请人" width="90px">
+        <el-table-column label="申请人" width="120px">
           <template slot-scope="scope">
             <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
           </template>
         </el-table-column>
       </template>
-      <el-table-column prop="operation" label="操作" width="120" fixed="right">
+      <el-table-column label="操作">
         <template>
-          <operation-wrapper>
-            <el-dropdown size="medium">
-              <iep-button type="warning" plain>
-                修改<i class="el-icon-arrow-down el-icon--right"></i>
-              </iep-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>同意</el-dropdown-item>
-                <el-dropdown-item>拒绝</el-dropdown-item>
-                <el-dropdown-item>转交</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-          </operation-wrapper>
+          <el-button size="small" type="warning" plain>同意</el-button>
+          <el-button size="small">拒绝</el-button>
+          <el-button size="small">转交</el-button>
         </template>
       </el-table-column>
     </iep-table>

@@ -8,15 +8,16 @@
               <iep-img :src="userInfo.avatar" alt="头像"></iep-img>
             </div>
             <div class="code-name">GM000117</div>
+            <el-progress :percentage="80" color="#68C769"></el-progress>
           </div>
         </el-col>
         <el-col :span="20">
           <div class="right">
-            <div class="user-poster"><span class="say">早上好，{{userInfo.realName}}!</span><span class="gov">国脉人，人人都要成为专家</span></div>
+            <div class="user-poster"><span class="say">早上好，{{userInfo.realName}}<span class="honor"><img src="" alt="" /></span></span><span class="gov">国脉人，人人都要成为专家</span></div>
             <div class="user-info">
-              <el-progress :percentage="80" color="#68C769"></el-progress>
               <span :class="item.type=='button'?'border':'color'" v-for="(item,index) in infoList" :key="index">{{item.label}}</span>
-              <router-link class="more" to="">更多<i class="el-icon-d-arrow-right"></i></router-link>
+              <!-- <router-link class="more" to="">更多<i class="el-icon-d-arrow-right"></i></router-link> -->
+              <span class="drop-down">产品技术委员会<i class="el-icon-arrow-down"></i></span>
             </div>
             <div class="user-data">
               <router-link class="inline task" to="">
@@ -24,7 +25,7 @@
                 <span>每日任务，领积分<i class="el-icon-d-arrow-right"></i></span>
               </router-link>
               <router-link class="inline change" to="">
-                切换至领导桌面
+                领导桌面
               </router-link>
               <div class="inline data">
                 <div class="data-lab" :class="index==2?'hideLine':''" v-for="(item,index) in labList" :key="index">
@@ -56,12 +57,6 @@ export default {
   data () {
     return {
       infoList: [{
-        label: '股东', type: 'button',
-      }, {
-        label: '资料达人', type: 'button',
-      }, {
-        label: '身份勋章', type: 'button',
-      }, {
         label: '国脉集团副总经理/国脉集团研发中心主任', type: '',
       }],
       labList: [
@@ -111,6 +106,10 @@ export default {
       .left {
         width: 100%;
         text-align: center;
+        .el-progress {
+          margin-top: 10px;
+          padding: 0 20px;
+        }
         .img {
           margin: 0 auto;
           width: 80px;
@@ -135,10 +134,21 @@ export default {
           width: 120px;
         }
         .user-poster {
+          display: flex;
+          justify-content: flex-start;
           .say {
             display: inline-block;
             margin-top: 3px;
             font-size: 14px;
+            .honor {
+              display: inline-block;
+              vertical-align: middle;
+              img {
+                display: block;
+                width: 20px;
+                height: 20px;
+              }
+            }
           }
           .gov {
             display: inline-block;
@@ -151,7 +161,22 @@ export default {
         }
         .user-info {
           display: flex;
+          justify-content: flex-start;
           align-items: center;
+          .drop-down {
+            padding: 2px 20px;
+            font-size: 14px;
+            border-radius: 20px;
+            background-color: #bbb;
+            color: #fff;
+            i {
+              margin-left: 5px;
+            }
+            cursor: pointer;
+            &:hover {
+              opacity: 0.7;
+            }
+          }
           span {
             margin: 0 4px;
           }
@@ -168,8 +193,13 @@ export default {
           }
           .color {
             display: inline-block;
+            margin: 0;
             max-width: 222px;
+            font-size: 14px;
             color: #7a7a7a;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
           .more {
             min-width: 40px;
@@ -211,7 +241,7 @@ export default {
           .change {
             padding: 4px 10px;
             border-radius: 3px;
-            font-size: 12px;
+            font-size: 14px;
             text-align: center;
             color: #cb3737;
             margin-left: 10px;

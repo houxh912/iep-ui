@@ -123,4 +123,7 @@ export default {
   height: 40px;
   line-height: 40px;
 }
+.avue-sidebar >>> .el-submenu .el-menu {
+  background-color: #fafafa;
+}
 </style>

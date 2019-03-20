@@ -1,6 +1,6 @@
 <template>
   <div class="aside">
-    <span class="popup-btn" @click="hideAside"><i class="el-icon-setting"></i></span>
+    <span class="popup-btn" @click="hideAside"><i class="el-icon-caret-right"></i></span>
     <el-scrollbar>
       <!-- 我要创建 -->
       <my-created />
@@ -53,7 +53,7 @@ export default {
     &:focus {
       background-color: #eee;
       color: #fff;
-      box-shadow: 0 1px 1px 1px #eee
+      box-shadow: 0 1px 1px 1px #eee;
     }
   }
   .el-scrollbar {

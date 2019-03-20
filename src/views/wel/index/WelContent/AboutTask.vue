@@ -60,7 +60,7 @@ export default {
 
 <style lang="scss" scoped>
 .about-task {
-  padding: 20px 30px;
+  padding: 15px 30px;
   padding-bottom: 0;
   border-bottom: 1px solid #eee;
   .task-nav {

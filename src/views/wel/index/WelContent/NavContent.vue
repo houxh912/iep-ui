@@ -33,7 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 .navContent {
-  padding: 20px 0;
+  padding: 10px 0;
   .el-row {
     padding: 5px 0;
     color: #5f5f5f;

@@ -1,10 +1,10 @@
 <template>
   <div class="new">
-    <page-header title="新增邮件"></page-header>
+    <page-header title="新增邮件" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px" class="form">
       <el-form-item label="收件人：" prop="name">
-        <!-- <el-input v-model="formData.name"></el-input> -->
-        <iep-tag v-model="formData.receiverIds"></iep-tag>
+        <!-- <iep-tag v-model="formData.receiverIds"></iep-tag> -->
+        <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
       </el-form-item>
       <el-form-item label="主题：" prop="subject">
         <el-input v-model="formData.subject"></el-input>
@@ -59,63 +59,97 @@ import PageHeader from '@/components/Page/Header'
 // import IepEditor from '@/components/IepEditor/'
 import MainDialog from './mainDialog'
 import IepTag from '@/components/IepTags/input'
-import { createEmail } from '@/api/mlms/email/index'
+import { createEmail, updateEmail } from '@/api/mlms/email/index'
+import IepContactMultiple from '@/components/IepContact/Multiple'
 
-const initFormData = {
-  attachmentIds: [],
-  content: '',
-  emailId: 0,
-  materialIds: [],
-  projectIds: [],
-  receiverIds: [],
-  reportIds: [],
-  status: 1,
-  subject: '',
-  summaryIds: [],
-  tagKeyWords: [],
-  type: 0,
+const initFormData = () => {
+  return {
+    attachmentIds: [],
+    content: '',
+    emailId: 0,
+    materialIds: [],
+    projectIds: [],
+    receiverIds: [],
+    receiverList: {
+      unions: [],
+      orgs: [],
+      users: [],
+    },
+    reportIds: [],
+    status: 1,
+    subject: '',
+    summaryIds: [],
+    tagKeyWords: [],
+    type: 0,
+    kind: 0,
+  }
 }
 
 export default {
-  components: { PageHeader, MainDialog, IepTag },
+  components: { PageHeader, MainDialog, IepTag, IepContactMultiple },
   data () {
     return {
-      formData: initFormData,
+      formData: initFormData(),
       rules: {},
+      pageState: 'new',
+      backOption: {
+        isBack: false,
+        backPath: null,
+        backFunction: () => {
+          this.$emit('load-page', false)
+        },
+      },
     }
   },
   methods: {
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
-      this.formData = initFormData
+    resetForm () {
+      this.$refs['form'].resetFields()
+      this.formData = initFormData()
     },
+    dealReceiverList () {
+      console.log('formData: ', this.formData.receiverList)
+      this.formData.receiverIds = this.formData.receiverList.users.map(m => m.id)
+    },
+    // 发送
     submitForm (formName) {
+      this.dealReceiverList()
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          createEmail(this.formData).then(() => {
+          this.formData.status = 1
+          let fn = this.pageState == 'draft' ? updateEmail : createEmail
+          fn(this.formData).then(() => {
             this.$notify({
               title: '成功',
-              message: '新增邮件成功',
+              message: '发送邮件成功',
               type: 'success',
               duration: 2000,
             })
-            this.formData = initFormData
+            this.formData = initFormData()
+            if (this.pageState !== 'new') {
+              this.$emit('load-page', true)
+            }
           })
         } else {
           return false
         }
       })
     },
+    // 保存草稿
     submitDraft () {
+      this.dealReceiverList()
       this.formData.status = 0
-      createEmail(this.formData).then(() => {
+      let fn = this.pageState == 'draft' ? updateEmail : createEmail
+      fn(this.formData).then(() => {
         this.$notify({
           title: '成功',
           message: '保存草稿成功',
           type: 'success',
           duration: 2000,
         })
-        this.formData = initFormData
+        this.formData = initFormData()
+        if (this.pageState !== 'new') {
+          this.$emit('load-page', true)
+        }
       })
     },
     addRelation () {
@@ -124,6 +158,9 @@ export default {
     },
     // 选择标签
     selectTags () {},
+  },
+  created () {
+    this.formData = initFormData()
   },
 }
 </script>

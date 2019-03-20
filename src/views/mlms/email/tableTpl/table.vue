@@ -15,8 +15,18 @@
         <template slot-scope="scope">
           <div class="mail-icon">
             <i class="icon-shoucang1 star" :class="(scope.row.isStar===true || scope.row.isStar===null)?'select':''" @click="emailStar(scope.row)"></i>
-            <i class="icon-youxiang mail"></i>
-            <i class="icon-fujian fujian"></i>
+            <!-- 普通的已读未读 -->
+            <span v-if="pageState==='ordinary'">
+              <i class="icon-yiduyoujian mail" v-if="(scope.row.isReade===1 || scope.row.isReade===null)"></i>
+              <i class="icon-youjian mail select" v-else></i>
+            </span>
+            <!-- 已发送状态下 kind-0普通，1是回复，2转发 -->
+            <span v-else>
+              <i class="icon-yiduyoujian mail" v-if="scope.row.kind===0"></i>
+              <i class="icon-huifu mail" v-if="scope.row.kind===1"></i>
+              <i class="icon-zhuanfa mail" v-if="scope.row.kind===2"></i>
+            </span>
+            <i class="icon-fujian fujian" :class="scope.row.hasFile ? 'select':''"></i>
           </div>
         </template>
       </el-table-column>
@@ -24,9 +34,6 @@
     <el-table-column prop="name" label="主题" min-width="160">
       <template slot-scope="scope">
         <div class="mail-name" @click="handleDetail(scope.row)">{{scope.row.subject}}</div>
-        <el-col class="mail-tags">
-          <el-tag type="info" size="mini" v-for="(item, index) in scope.row.code" :key="index">{{item}}</el-tag>
-        </el-col>
       </template>
     </el-table-column>
     <el-table-column prop="" label="发送时间">
@@ -40,13 +47,19 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { deleteEmailById, emailStarById, isReadeById } from '@/api/mlms/email/index'
+import { deleteEmailById, emailStarById, isReadeById, getEmailById } from '@/api/mlms/email/index'
 
 export default {
   name: 'custom',
   mixins: [mixins],
   components: {  },
   computed: {},
+  props: {
+    pageState: {
+      type: String,
+      default: 'ordinary',
+    },
+  },
   data () {
     return {
       dictsMap,
@@ -56,14 +69,19 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      isReadeById(row.emailId).then(()=>{})
-      this.$emit('switchDialog', row)
+      getEmailById(row.emailId).then(({data}) => {
+        this.$emit('switchDialog', data.data)
+      })
+      // 判断已读
+      if (row.isReade == 0) {
+        isReadeById(row.emailId).then(()=>{})
+      }
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.id, deleteEmailById)
     },
     selectionChange (val) {
-      console.log('val: ', val)
+      this.$emit('multipleSelection', val.map(m => m.emailId), val)
     },
     loadPage (param) {
       this.loadTable(param, this.requestFn)

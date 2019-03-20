@@ -37,6 +37,14 @@ export function getDraftList (params) {
   })
 }
 
+// 邮件详情
+export function getEmailById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}
+
 // 新建邮件
 export function createEmail (obj) {
   return request({
@@ -46,12 +54,29 @@ export function createEmail (obj) {
   })
 }
 
-// 删除邮件
-export function deleteEmailById (obj) {
+// 更新邮件
+export function updateEmail (obj) {
   return request({
-    url: `${prefixUrl}/create`,
+    url: `${prefixUrl}/update`,
     method: 'post',
     data: obj,
+  })
+}
+
+// 删除邮件
+export function deleteEmailById (id) {
+  return request({
+    url: `${prefixUrl}/delete/${id}`,
+    method: 'post',
+  })
+}
+
+// 批量删除邮件
+export function deleteEmailByIds (ids) {
+  return request({
+    url: `${prefixUrl}/delete`,
+    method: 'post',
+    data: ids,
   })
 }
 
@@ -71,7 +96,7 @@ export function isReadeById (id) {
   })
 }
 
-// 标记已读
+// 批量标记已读
 export function isReadeBatch (ids) {
   return request({
     url: '/mlms/email_receiver/is_reade',

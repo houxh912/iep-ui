@@ -1,36 +1,41 @@
 <template>
   <div class="send">
-    <div v-show="dialogShow">
+    <div v-show="dialogShow&&forwardShow&&replyShow">
       <page-header title="已发送" class="title"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button size="small">删除</iep-button>
-          <iep-button size="small">转发</iep-button>
+          <iep-button size="small" @click="allDelete">删除</iep-button>
+          <iep-button size="small" @click="forward">转发</iep-button>
         </template>
         <template slot="right">
           <operation-search @search="searchPage"></operation-search>
         </template>
       </operation-container>
-      <table-dialog ref="table" @switchDialog="dialogShow=false"></table-dialog>
+      <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect" pageState="sent"></table-dialog>
     </div>
-    <main-form-dialog ref="mainDialog" v-show="!dialogShow" @backWeb="dialogShow=true"></main-form-dialog>
+    <main-form-dialog ref="mainDialog" v-show="!dialogShow" @backWeb="backPage" @forward="detailForward" @reply="detailReply"></main-form-dialog>
+    <update-form-dialog ref="updateDialog" v-show="!forwardShow || !replyShow" @backWeb="backPage" @load-page="loadPage"></update-form-dialog>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
+import mixinTable from '../tableTpl/mixinTable'
 import TableDialog from '../tableTpl/table.vue'
 import mainFormDialog from '../tableTpl/mainDialog'
+import UpdateFormDialog from '../new/index'
 import { getSendList } from '@/api/mlms/email/index'
 
 export default {
-  components: { mainFormDialog, TableDialog },
-  mixins: [mixins],
+  components: { mainFormDialog, TableDialog, UpdateFormDialog },
+  mixins: [mixins,mixinTable],
   data () {
     return {
       dialogShow: true,
+      forwardShow: true,
     }
   },
+  methods: {},
   mounted () {
     this.$refs['table'].requestFn = getSendList
     this.$nextTick(() => {

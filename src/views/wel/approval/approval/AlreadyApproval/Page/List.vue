@@ -7,8 +7,23 @@
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
           <el-form :model="paramForm" label-width="80px" size="mini">
-            <el-form-item label="申请人">
-              <el-input v-model="paramForm.name"></el-input>
+            <el-form-item label="申请类型">
+              <el-select v-model="paramForm.type" placeholder="选择申请类型">
+                <el-option label="类型1" value="类型1"></el-option>
+                <el-option label="类型1" value="类型1"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="申请结果">
+              <el-select v-model="paramForm.type" placeholder="申请结果">
+                <el-option label="通过" value="通过"></el-option>
+                <el-option label="未通过" value="未通过"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="发起时间">
+              <div class="block">
+                <el-date-picker v-model="dateVal" type="daterange" align="left" unlink-panels>
+                </el-date-picker>
+              </div>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="searchPage">搜索</el-button>

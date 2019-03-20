@@ -52,8 +52,8 @@
           </template>
         </el-table-column>
       </iep-table>
-      <initiate-request ref="initiateRequest" @load-page="loadPage"></initiate-request>
-      <initiate-edit ref="initiateEdit" @load-page="loadPage"></initiate-edit>
+      <request-dialog ref="requestDialog" @load-page="loadPage"></request-dialog>
+      <edit-dialog ref="editDialog" @load-page="loadPage"></edit-dialog>
     </basic-container>
   </div>
 </template>
@@ -63,12 +63,12 @@ import { getAlreadyApprovalPage, postApproval } from '@/api/admin/approval'
 import mixins from '@/mixins/mixins'
 import { mergeByFirst } from '@/util/util'
 import { columnsMap, initSearchForm, initForm } from '../options'
-import initiateRequest from './initiate_request'
-import initiateEdit from './initiate_edit'
+import requestDialog from './requestDialog'
+import editDialog from './editDialog'
 export default {
   components: {
-    initiateRequest,
-    initiateEdit,
+    requestDialog,
+    editDialog,
   },
   mixins: [mixins],
   data () {
@@ -101,15 +101,15 @@ export default {
       this.$emit('clear-search-param')
     },
      handleEdit (row) {
-      this.$refs['initiateEdit'].form = mergeByFirst(initForm(), row)
-      this.$refs['initiateEdit'].methodName = '修改'
-      this.$refs['initiateEdit'].formRequestFn = postApproval
-      this.$refs['initiateEdit'].dialogShow = true
+      this.$refs['editDialog'].form = mergeByFirst(initForm(), row)
+      this.$refs['editDialog'].methodName = '修改'
+      this.$refs['editDialog'].formRequestFn = postApproval
+      this.$refs['editDialog'].dialogShow = true
     },
     handleAdd () {
-      this.$refs['initiateRequest'].methodName = '创建'
-      this.$refs['initiateRequest'].formRequestFn = postApproval
-      this.$refs['initiateRequest'].dialogShow = true
+      this.$refs['requestDialog'].methodName = '创建'
+      this.$refs['requestDialog'].formRequestFn = postApproval
+      this.$refs['requestDialog'].dialogShow = true
     },
   },
 }

@@ -64,11 +64,10 @@
 </template>
 <script>
 import { addObj } from '@/api/admin/org'
-import PageHeader from '@/components/Page/Header'
 import CreateOrgDialogForm from './CreateOrgDialogForm'
 import CreateLeagueDialogForm from './CreateLeagueDialogForm'
 export default {
-  components: { PageHeader, CreateOrgDialogForm, CreateLeagueDialogForm },
+  components: { CreateOrgDialogForm, CreateLeagueDialogForm },
   data () {
     return {
 

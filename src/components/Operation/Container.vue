@@ -8,6 +8,12 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  name: 'OperationContainer',
+}
+</script>
+
 <style lang="scss" scoped>
 .operation-container {
   display: flex;

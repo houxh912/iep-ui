@@ -45,13 +45,11 @@
   </div>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
 import { initGomsForm } from './options'
 import { getGomsInfo, putObj } from '@/api/admin/org'
 import { mergeByFirst } from '@/util/util'
 import { mapState } from 'vuex'
 export default {
-  components: { PageHeader },
   data () {
     return {
       form: initGomsForm(),

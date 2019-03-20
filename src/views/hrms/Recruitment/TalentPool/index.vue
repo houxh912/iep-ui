@@ -17,13 +17,12 @@
   </div>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
 import IepTabs from '@/components/IepCommon/Tabs'
 import TalentPool from './TalentPool/'
 import ResumeLibrary from './ResumeLibrary/'
 import ResumeBlacklist from './ResumeBlacklist/'
 export default {
-  components: { PageHeader, IepTabs, TalentPool, ResumeLibrary, ResumeBlacklist },
+  components: { IepTabs, TalentPool, ResumeLibrary, ResumeBlacklist },
   data () {
     return {
       replaceText: (data) => `（本周新增${data[0]}条招聘信息，收到${data[1]}份简历）`,

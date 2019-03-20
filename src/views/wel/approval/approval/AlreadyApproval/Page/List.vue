@@ -10,12 +10,6 @@
             <el-form-item label="员工姓名">
               <el-input v-model="paramForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="性别">
-              <el-radio-group v-model="paramForm.sex">
-                <el-radio label="男"></el-radio>
-                <el-radio label="女"></el-radio>
-              </el-radio-group>
-            </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="searchPage">搜索</el-button>
               <el-button @click="clearSearchParam">清空</el-button>
@@ -26,7 +20,7 @@
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <template slot="before-columns">
-        <el-table-column label="申请人" width="90px">
+        <el-table-column label="申请人" width="120px">
           <template slot-scope="scope">
             <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
           </template>

@@ -29,27 +29,37 @@ const columnsMap = [
   },
   {
     prop: 'approver',
-    laber: '审批人',
+    label: '审批人',
   },
   {
     prop: 'approveRes',
-    laber: '审批结果',
+    label: '审批结果',
   },
-  {
-    prop: 'status',
-    label: '状态',
-    type: 'dict',
-  },
+  // {
+  //   prop: 'status',
+  //   label: '状态',
+  // },
 ]
 
 const initForm = () => {
   return {
+    id: '',
     name: '',
-    isOpen: false,
-    intro: '',
+    typeId: '',
+    duties: '',
   }
 }
-
+const initEditForm = () => {
+  return {
+    id: '',
+    name: '',
+    applyType: '',
+    startTime: '',
+    markingTime: '',
+    approver: '',
+    approveRes: '',
+  }
+}
 const initSearchForm = () => {
   return {
     theme: '',
@@ -59,4 +69,4 @@ const initSearchForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm }
+export { dictsMap, columnsMap, initForm, initEditForm, initSearchForm }

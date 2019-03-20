@@ -11,7 +11,7 @@ export function getAlreadyApprovalPage (query) {
   return getPage(query, 2)
 }
 
-function getPage (query, type) {
+export function getPage (query, type) {
   return request({
     url: `${prefixUrl}/page`,
     method: 'get',
@@ -21,7 +21,6 @@ function getPage (query, type) {
     },
   })
 }
-
 export function postApproval (obj) {
   return request({
     url: `${prefixUrl}/create`,

@@ -9,7 +9,7 @@ const columnsMap = [
     label: '部门名称',
   },
   {
-    prop: 'userName',
+    prop: 'user.name',
     label: '负责人',
   },
   {
@@ -41,8 +41,6 @@ const initForm = () => {
 
 const toDeptForm = (row) => {
   const newForm = mergeByFirst(initForm(), row)
-  newForm.user.id = newForm.userId
-  newForm.user.name = newForm.userName
   return newForm
 }
 

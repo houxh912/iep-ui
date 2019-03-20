@@ -11,7 +11,7 @@
           </ul>
         </div>
         <basic-container>
-          <page-header title="系统消息" :replaceText="replaceText"></page-header>
+          <page-header title="系统消息"></page-header>
           <operation-container>
             <template slot="left">
               <el-button-group>
@@ -22,11 +22,11 @@
             </template>
             <template slot="right">
               <operation-search @search="searchPage" advance-search>
-                <advance-search :form="paramForm" @search-page="searchPage" @clear-search-param="clearSearchParam"></advance-search>
+                <advance-search @search-page="searchPage"></advance-search>
               </operation-search>
             </template>
           </operation-container>
-          <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="currentColumnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+          <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
             <template slot="before-columns">
               <el-table-column label="主题">
                 <template slot-scope="scope">
@@ -41,8 +41,7 @@
   </div>
 </template>
 <script>
-import { getEmployeeProfilePage }
-  from '@/api/hrms/employee_profile'
+// import { getEmployeeProfilePage } from '@/api/hrms/employee_profile'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm, dictsMap } from '../options'
 import AdvanceSearch from './AdvanceSearch'
@@ -53,7 +52,6 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      paramForm: initSearchForm(),
       list: [
         {
           id: '1',
@@ -99,18 +97,15 @@ export default {
     }
   },
   created () {
-    this.loadPage()
+    // this.loadPage()
   },
   methods: {
     clearSearchParam () {
       this.paramForm = initSearchForm()
       this.loadPage()
     },
-    loadPage (param = this.paramForm) {
-      this.loadTable(param, getEmployeeProfilePage)
-    },
-    // handleChange () {
-    //   this.$emit('onEdit')
+    // loadPage (param = this.paramForm) {
+    //   this.loadTable(param, getEmployeeProfilePage)
     // },
     handleDetail (row) {
       this.$emit('onDetail', row)

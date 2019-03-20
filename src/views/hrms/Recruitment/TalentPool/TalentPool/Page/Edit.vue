@@ -1,6 +1,6 @@
 <template>
   <div class="edit-wrapper">
-    <el-card class="edit-card" shadow="hover">
+    <el-card class="edit-card" shadow="never">
       <div slot="header" class="title">
         <span>{{methodName}}人才</span>
       </div>
@@ -57,34 +57,22 @@
               </div>
             </el-form-item>
             <el-form-item label="政治面貌：" class="form-half">
-              <el-select v-model="form.politics" placeholder="请选择">
-                <el-option v-for="item in dictGroup['hrms_politics_face']" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
+              <iep-dict-select v-model="form.politics" dict-name="hrms_politics_face"></iep-dict-select>
             </el-form-item>
             <el-form-item label="健康状况：" class="form-half">
               <el-input v-model="form.health"></el-input>
             </el-form-item>
             <el-form-item label="婚姻状况：" class="form-half">
-              <el-select v-model="form.marriage" placeholder="请选择">
-                <el-option v-for="item in dictGroup['hrms_marriage_status']" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
+              <iep-dict-select v-model="form.marriage" dict-name="hrms_marriage_status"></iep-dict-select>
             </el-form-item>
             <el-form-item label="生育状况：" class="form-half">
-              <el-select v-model="form.bear" placeholder="请选择">
-                <el-option v-for="item in dictGroup['hrms_birth_status']" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
+              <iep-dict-select v-model="form.bear" dict-name="hrms_birth_status"></iep-dict-select>
             </el-form-item>
             <el-form-item label="毕业学校：" class="form-half">
               <el-input v-model="form.university"></el-input>
             </el-form-item>
             <el-form-item label="最高学历：" class="form-half">
-              <el-select v-model="form.education" placeholder="请选择">
-                <el-option v-for="item in dictGroup['hrms_highest_educational']" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
+              <iep-dict-select v-model="form.education" dict-name="hrms_highest_educational"></iep-dict-select>
             </el-form-item>
             <el-form-item label="员工关系：" class="form-half">
               <el-input v-model="form.relation"></el-input>
@@ -93,16 +81,10 @@
               <el-input v-model="form.referrer"></el-input>
             </el-form-item>
             <el-form-item label="应聘渠道：" class="form-half">
-              <el-select v-model="form.appWay" placeholder="请选择">
-                <el-option v-for="item in dictGroup['hrms_app_way']" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
+              <iep-dict-select v-model="form.appWay" dict-name="hrms_app_way"></iep-dict-select>
             </el-form-item>
             <el-form-item label="来源类型：" class="form-half">
-              <el-select v-model="form.source" placeholder="请选择">
-                <el-option v-for="item in dictGroup['hrms_resume_source']" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
+              <iep-dict-select v-model="form.source" dict-name="hrms_resume_source"></iep-dict-select>
             </el-form-item>
             <el-form-item label="兴趣爱好：" class="form-half">
               <el-input v-model="form.hobbies"></el-input>
@@ -122,10 +104,7 @@
               <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
             </el-form-item>
             <el-form-item label="到岗时间：" class="form-half">
-              <el-select v-model="form.arrive" placeholder="请选择">
-                <el-option v-for="item in dictGroup['hrms_arrive_time']" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
+              <iep-dict-select v-model="form.arrive" dict-name="hrms_arrive_time"></iep-dict-select>
             </el-form-item>
             <el-form-item label="期望薪资：" class="form-half">
               <el-input v-model="form.salary"></el-input>
@@ -165,7 +144,6 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 import FooterToolBar from '@/components/FooterToolbar'
 import { initForm, formToDto, workExpColumns, studyColumns, trainingColumns, certificateColumns } from '../options'
@@ -190,11 +168,6 @@ export default {
       form: initForm(),
       formRequestFn: () => { },
     }
-  },
-  computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
   },
   created () {
     this.methodName = this.record.methodName

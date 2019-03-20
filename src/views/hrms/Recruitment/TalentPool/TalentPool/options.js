@@ -136,10 +136,51 @@ const formToDto = (form) => {
 
 const initSearchForm = () => {
   return {
-    name: '',
-    sex: '',
+    name: '', // 姓名
+    positionName: '', // 岗位名称
+    position: [], // 岗位id
+    educationId: null, // 最高学历字典ID
+    sex: 0, // 性别id
+    rangeTime: null, // 开始时间
+    status: null, // 简历状态id
+    rangeAge: null, // 年龄
   }
 }
+const initDtoSearchForm = () => {
+  return {
+    name: '', // 姓名
+    positionName: '', // 岗位名称
+    positionId: null, // 岗位id
+    educationId: null, // 最高学历字典ID
+    sex: 0, // 性别id
+    startTime: '2019-03-12 15:58:11', // 简历接收时间（开始时间）
+    endTime: '2019-03-12 15:58:11', // 简历接收时间（结束时间）
+    status: null, // 简历状态
+    minAge: null, // 最小年龄
+    maxAge: null, // 最大年龄
+  }
+}
+// positionId: 1, // 岗位id
+// deptId: 1, // 部门ID
+// sex: 1, // 性别id
+// status: 1, // 招聘状态id
+// startTime: initNow(), // 开始时间
+// endTime: initNow(), // 结束时间
+const toDtoSearchForm = (row) => {
+  const newForm = mergeByFirst(initDtoSearchForm(), row)
+  newForm.sex = row.sex ? row.sex : null
+  newForm.positionId = row.position.length && row.position[row.position.length - 1]
+  if (row.rangeTime) {
+    newForm.startTime = row.rangeTime[0]
+    newForm.endTime = row.rangeTime[1]
+  }
+  if (row.rangeAge) {
+    newForm.minAge = row.rangeAge[0]
+    newForm.maxAge = row.rangeAge[1]
+  }
+  return newForm
+}
+
 const initToResumeForm = () => {
   return {
     ids: [],
@@ -236,4 +277,4 @@ const certificateColumns = [
   },
 ]
 
-export { dictsMap, columnsMap, initForm, initSearchForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm, workExpColumns, studyColumns, trainingColumns, certificateColumns }
+export { dictsMap, columnsMap, initForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm, workExpColumns, studyColumns, trainingColumns, certificateColumns, initSearchForm, toDtoSearchForm }

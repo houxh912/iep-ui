@@ -257,10 +257,9 @@
   </div>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
 import FooterToolBar from '@/components/FooterToolbar'
 export default {
-  components: { PageHeader, FooterToolBar },
+  components: { FooterToolBar },
   data () {
     return {
       activeNames: ['1', '2', '3', '4', '5'],

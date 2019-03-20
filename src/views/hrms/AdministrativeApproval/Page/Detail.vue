@@ -65,9 +65,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { handleImg } from '@/util/util'
-import PageHeader from '@/components/Page/Header'
 export default {
-  components: { PageHeader },
   data () {
     return {
       backOption: {

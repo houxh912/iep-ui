@@ -157,8 +157,8 @@ const initDtoSearchForm = () => {
     positionId: null, // 岗位id
     educationId: null, // 最高学历字典ID
     sex: 0, // 性别id
-    startTime: '2019-03-12 15:58:11', // 简历接收时间（开始时间）
-    endTime: '2019-03-12 15:58:11', // 简历接收时间（结束时间）
+    startTime: null, // 简历接收时间（开始时间）
+    endTime: null, // 简历接收时间（结束时间）
     status: null, // 简历状态
     minAge: null, // 最小年龄
     maxAge: null, // 最大年龄

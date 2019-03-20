@@ -29,7 +29,7 @@
 <script>
 // import IepSelect from '@/components/IepCommon/Select'
 import IepDialog from '@/components/IepDialog/'
-import { initEditForm } from '../options'
+import { initForm } from '../options'
 export default {
   components: { IepDialog },
   data () {
@@ -37,7 +37,7 @@ export default {
       dialogShow: false,
       formRequestFn: () => { },
       methodName: '发起请求',
-      form: initEditForm(),
+      form: initForm(),
       rules: {
         name: [
           { required: true, message: '请输入岗位名称', trigger: 'blur' },
@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     loadPage () {
-      this.form = initEditForm()
+      this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },

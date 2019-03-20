@@ -5,17 +5,16 @@ const dictsMap = {
     1: '关',
   },
   status: {
-    0: '转正',
-    1: '提现',
-    2: '实习',
+    0: '审核通过',
+    1: '待审核',
+    2: '审核驳回',
   },
 }
 
 const columnsMap = [
   {
-    prop: 'type',
+    prop: 'applyType',
     label: '申请类型',
-    type: 'dict',
   },
   {
     prop: 'applyStartTime',
@@ -46,6 +45,7 @@ const initForm = () => {
 const initSearchForm = () => {
   return {
     name: '',
+    sex: '',
   }
 }
 

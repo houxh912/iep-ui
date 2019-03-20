@@ -5,13 +5,10 @@ const dictsMap = {
     1: '关',
   },
   status: {
-    0: '未审核',
-    1: '通过',
-    2: '拒绝',
+    0: '审核通过',
+    1: '待审核',
+    2: '审核驳回',
   },
-  // operate: {
-
-  // }
 }
 
 const columnsMap = [
@@ -20,53 +17,36 @@ const columnsMap = [
     label: '申请类型',
   },
   {
-    prop: 'startTime',
-    label: '开始时间',
+    prop: 'applyStartTime',
+    label: '发起时间',
   },
   {
-    prop: 'markingTime',
-    label: '批阅时间',
+    prop: 'applyEndTime',
+    label: '审批时间',
   },
   {
-    prop: 'approver',
-    label: '审批人',
+    prop: 'copyPerson',
+    label: '抄送人',
   },
   {
-    prop: 'approveRes',
+    prop: 'result',
     label: '审批结果',
   },
-  // {
-  //   prop: 'status',
-  //   label: '状态',
-  // },
 ]
 
 const initForm = () => {
   return {
-    id: '',
     name: '',
-    typeId: '',
-    duties: '',
-  }
-}
-const initEditForm = () => {
-  return {
-    id: '',
-    name: '',
-    applyType: '',
-    startTime: '',
-    markingTime: '',
-    approver: '',
-    approveRes: '',
-  }
-}
-const initSearchForm = () => {
-  return {
-    theme: '',
-    teacher: '',
-    type: '',
-    date: '',
+    isOpen: false,
+    intro: '',
   }
 }
 
-export { dictsMap, columnsMap, initForm, initEditForm, initSearchForm }
+const initSearchForm = () => {
+  return {
+    name: '',
+    sex: '',
+  }
+}
+
+export { dictsMap, columnsMap, initForm, initSearchForm }

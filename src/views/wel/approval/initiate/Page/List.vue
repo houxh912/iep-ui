@@ -3,8 +3,8 @@
     <basic-container>
       <page-header title="我发起的"></page-header>
       <operation-container>
-        <template slot="left" slot-scope="scope">
-          <iep-button @click="handleAdd(scope.row,scope.index)" type="danger" icon="el-icon-plus" plain>发起申请</iep-button>
+        <template slot="left">
+          <iep-button @click="handleAdd()" type="danger" icon="el-icon-plus" plain>发起申请</iep-button>
           <!-- <el-button @click="rowCell(scope.row,scope.index)">发起申请</el-button> -->
         </template>
         <template slot="right">
@@ -36,7 +36,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="申请人" width="120px">
             <template slot-scope="scope">
@@ -59,10 +59,10 @@
 </template>
 
 <script>
-import { getApprovalInitiate } from '@/api/wel/approval_initiate'
+import { getAlreadyApprovalPage, postApproval } from '@/api/admin/approval'
 import mixins from '@/mixins/mixins'
 import { mergeByFirst } from '@/util/util'
-import { dictsMap, columnsMap, initSearchForm,initEditForm, initForm} from '../options'
+import { columnsMap, initSearchForm, initForm } from '../options'
 import initiateRequest from './initiate_request'
 import initiateEdit from './initiate_edit'
 export default {
@@ -73,7 +73,6 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      dictsMap,
       columnsMap,
       paramForm: initSearchForm(),
       dateVal: '',
@@ -89,7 +88,7 @@ export default {
     },
     // handleShare (row) { },
     loadPage (param) {
-      this.loadTable(param, getApprovalInitiate)
+      this.loadTable(param, getAlreadyApprovalPage)
     },
     handleCommandType () {
       // console.log(val)
@@ -102,15 +101,14 @@ export default {
       this.$emit('clear-search-param')
     },
      handleEdit (row) {
-      this.$refs['initiateEdit'].form = mergeByFirst(initEditForm(), row)
+      this.$refs['initiateEdit'].form = mergeByFirst(initForm(), row)
       this.$refs['initiateEdit'].methodName = '修改'
-      // this.$refs['initiateEdit'].formRequestFn = putPostLibrary
+      this.$refs['initiateEdit'].formRequestFn = postApproval
       this.$refs['initiateEdit'].dialogShow = true
     },
-    handleAdd (row) {
-      this.$refs['initiateRequest'].form = mergeByFirst(initForm(), row)
+    handleAdd () {
       this.$refs['initiateRequest'].methodName = '创建'
-      // this.$refs['initiateRequest'].formRequestFn = postApprovalInitiate
+      this.$refs['initiateRequest'].formRequestFn = postApproval
       this.$refs['initiateRequest'].dialogShow = true
     },
   },

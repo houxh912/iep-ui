@@ -13,34 +13,24 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'sex',
-    label: '性别',
-    width: 55,
+    prop: 'applyType',
+    label: '申请类型',
   },
   {
-    prop: 'age',
-    label: '年龄',
-    width: 55,
+    prop: 'applyStartTime',
+    label: '发起时间',
   },
   {
-    prop: 'education',
-    label: '学历',
+    prop: 'applyEndTime',
+    label: '审批时间',
   },
   {
-    prop: 'applyPosition',
-    label: '应聘岗位',
+    prop: 'copyPerson',
+    label: '抄送人',
   },
   {
-    prop: 'receptionTime',
-    label: '简历接受时间',
-  },
-  {
-    prop: 'source',
-    label: '来源',
-  },
-  {
-    prop: 'remarks',
-    label: '备注',
+    prop: 'result',
+    label: '审批结果',
   },
 ]
 

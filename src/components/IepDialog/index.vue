@@ -6,9 +6,9 @@
         <i class="icon-huanyuan"></i>
       </el-button>
     </div>
-    <div v-if="dialogShow" class="dialog-content">
+    <el-scrollbar v-if="dialogShow" wrap-class="dialog-content">
       <slot></slot>
-    </div>
+    </el-scrollbar>
     <div slot="footer" class="dialog-footer">
       <slot name="footer"></slot>
     </div>
@@ -78,23 +78,6 @@ export default {
   },
 }
 </script>
-<style scoped>
-.el-dialog__header .el-dialog__headerbtn:focus .el-dialog__close,
-.el-dialog__header .el-dialog__headerbtn:hover .el-dialog__close {
-  color: #ccc;
-}
-.dialog-footer .is-plain:nth-child(1) {
-  border-color: #bf051a;
-  background-color: #bf051a;
-  color: #fff;
-}
-.dialog-footer .is-plain:nth-child(1):hover {
-  border-color: #fb5966;
-  background-color: #fb5966;
-  color: #fff;
-}
-</style>
-
 <style lang="scss" >
 .dialog-title {
   float: none;
@@ -117,7 +100,7 @@ export default {
 }
 .dialog-content {
   max-height: 54vh;
-  overflow-y: hidden;
+  overflow-x: hidden;
 }
 .text-icon {
   color: #333;

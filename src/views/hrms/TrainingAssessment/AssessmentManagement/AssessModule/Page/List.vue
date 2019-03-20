@@ -9,7 +9,7 @@
         <operation-search @search="searchPage" advance-search>
           <el-form :model="paramForm" label-width="80px" size="mini">
             <el-form-item label="模板名称">
-              <el-input v-model="paramForm.templateName"></el-input>
+              <el-input v-model="paramForm.assessName"></el-input>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="searchPage">搜索</el-button>
@@ -23,7 +23,7 @@
       <template slot="before-columns">
         <el-table-column label="模板名称">
           <template slot-scope="scope">
-            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.templateName}}</iep-table-link>
+            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.assessName}}</iep-table-link>
           </template>
         </el-table-column>
       </template>

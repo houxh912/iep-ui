@@ -1,12 +1,15 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="新增考核模版" width="400px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
-      <el-form-item label="模版名称" prop="msg">
-        <el-input v-model="form.name"></el-input>
+      <el-form-item label="模版名称" prop="assessName">
+        <el-input v-model="form.assessName"></el-input>
+      </el-form-item>
+      <el-form-item label="考核分值" prop="templateScore">
+        <el-input v-model="form.templateScore"></el-input>
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('departureForm')">提交</iep-button>
+      <iep-button type="primary" @click="submitForm('form')">提交</iep-button>
       <iep-button @click="loadPage">取消</iep-button>
     </template>
   </iep-dialog>
@@ -23,8 +26,11 @@ export default {
       methodName: '创建',
       form: initForm(),
       rules: {
-        msg: [
-          { required: true, message: '请输入备注', trigger: 'blur' },
+        assessName: [
+          { required: true, message: '请输入模版名称', trigger: 'blur' },
+        ],
+        templateScore: [
+          { required: true, message: '请输入考核分值', trigger: 'blur' },
         ],
       },
     }

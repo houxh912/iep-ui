@@ -6,40 +6,22 @@
       </template>
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
-          <el-form :model="paramForm" label-width="80px" size="mini">
-            <el-form-item label="申请人">
-              <el-input v-model="paramForm.name"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="searchPage">搜索</el-button>
-              <el-button @click="clearSearchParam">清空</el-button>
-            </el-form-item>
-          </el-form>
         </operation-search>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <template slot="before-columns">
-        <el-table-column label="申请人" width="90px">
+        <el-table-column label="申请人" width="120px">
           <template slot-scope="scope">
             <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
           </template>
         </el-table-column>
       </template>
-      <el-table-column prop="operation" label="操作" width="120" fixed="right">
+      <el-table-column label="操作" width="220px">
         <template>
-          <operation-wrapper>
-            <el-dropdown size="medium">
-              <iep-button type="warning" plain>
-                修改<i class="el-icon-arrow-down el-icon--right"></i>
-              </iep-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>同意</el-dropdown-item>
-                <el-dropdown-item>拒绝</el-dropdown-item>
-                <el-dropdown-item>转交</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-          </operation-wrapper>
+          <el-button size="small" type="warning" plain>同意</el-button>
+          <el-button size="small">拒绝</el-button>
+          <el-button size="small">转交</el-button>
         </template>
       </el-table-column>
     </iep-table>
@@ -49,7 +31,7 @@
 <script>
 import { getAlreadyApprovalPage, postApproval } from '@/api/admin/approval'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from '../options'
+import { columnsMap } from '../options'
 import DialogForm from './DialogForm'
 export default {
   mixins: [mixins],
@@ -57,7 +39,6 @@ export default {
   data () {
     return {
       columnsMap,
-      paramForm: initSearchForm(),
     }
   },
   created () {
@@ -75,10 +56,7 @@ export default {
     handleDetail (row) {
       this.$emit('onDetail', row)
     },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-    },
-    loadPage (param = this.paramForm) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getAlreadyApprovalPage)
     },
   },

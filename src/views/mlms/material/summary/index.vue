@@ -79,7 +79,7 @@
     <detail-page ref="detailPage" v-if="pageState==='detail'" @backPage="pageState = 'list'"></detail-page>
     <main-dialog ref="mainDialog" v-if="pageState==='form'" @load-page="loadPage"></main-dialog>
     <share-dialog ref="share"></share-dialog>
-    <collection-dialog ref="collection" @load-page="loadPage"></collection-dialog>
+    <collection-dialog ref="collection" @load-page="loadPage" type="meeting"></collection-dialog>
   </div>
 </template>
 <script>
@@ -89,7 +89,7 @@ import { mapState } from 'vuex'
 import { getTableData, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/summary'
 import MainDialog from './mainDialog'
 import ShareDialog from './shareDialog'
-import CollectionDialog from './collectionDialog'
+import CollectionDialog from '../components/collectionDialog'
 import DetailPage from './detail'
 
 export default {

@@ -33,6 +33,12 @@ import { collectList, createCollect } from '@/api/mlms/material/summary'
 
 export default {
   components: { IepDialog },
+  props: {
+    type: {
+      type: String,
+      defalut: 'meeting',
+    },
+  },
   data () {
     return {
       selectIndex: 0,
@@ -63,7 +69,7 @@ export default {
         list.push({
           id: item.id,
           name: item.title,
-          type: 'meeting',
+          type: this.type,
           targetId: this.selectItem,
         })
       }

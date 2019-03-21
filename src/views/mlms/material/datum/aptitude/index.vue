@@ -9,7 +9,7 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item><div @click="handleDeleteByIds">删除</div></el-dropdown-item>
               <el-dropdown-item divided>导出</el-dropdown-item>
-              <el-dropdown-item>收藏</el-dropdown-item>
+              <el-dropdown-item><div @click="handleCollectAll">收藏</div></el-dropdown-item>
               <el-dropdown-item>分享</el-dropdown-item>
               <el-dropdown-item>下载</el-dropdown-item>
             </el-dropdown-menu>
@@ -42,7 +42,7 @@
         <el-table-column prop="operation" label="操作" width="300">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button size="small">收藏</iep-button>
+              <iep-button size="small" @click="handleCollection(scope.row)">收藏</iep-button>
               <iep-button size="small">分享</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
@@ -59,6 +59,7 @@
       </iep-table>
     </div>
     <main-dialog ref="mainDialog" @load-page="loadPage" v-if="pageState=='dialog'"></main-dialog>
+    <collection-dialog ref="collection" @load-page="loadPage" type="honor"></collection-dialog>
   </div>
 </template>
 
@@ -67,13 +68,15 @@ import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
 import { getTableData, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/aptitude'
 import MainDialog from './mainDialog'
+import CollectionDialog from '../../components/collectionDialog'
 
 export default {
   mixins: [mixins],
-  components: { MainDialog },
+  components: { MainDialog, CollectionDialog },
   computed: {},
   data () {
     return {
+      selectList: [],
       pageState: 'list',
       dictsMap,
       columnsMap: tableOption,
@@ -103,11 +106,26 @@ export default {
       this._handleGlobalDeleteAll(deleteData)
     },
     selectionChange (val) {
+      this.selectList = val
       this.multipleSelection = val.map(m => m.id)
     },
     loadPage (param) {
       this.pageState = 'list'
       this.loadTable(param, getTableData)
+    },
+    // 收藏
+    handleCollection (row) {
+      row.title = row.name
+      this.$refs['collection'].dialogShow = true
+      this.$refs['collection'].loadCollectList([row])
+    },
+    // 批量收藏
+    handleCollectAll () {
+      for(let item of this.selectList) {
+        item.title = item.name
+      }
+      this.$refs['collection'].dialogShow = true
+      this.$refs['collection'].loadCollectList(this.selectList)
     },
   },
   created () {

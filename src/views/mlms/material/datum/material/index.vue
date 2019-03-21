@@ -15,7 +15,7 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item><div @click="handleDeleteByIds">删除</div></el-dropdown-item>
               <el-dropdown-item divided>导出</el-dropdown-item>
-              <el-dropdown-item>收藏</el-dropdown-item>
+              <el-dropdown-item><div @click="handleCollectAll">收藏</div></el-dropdown-item>
               <el-dropdown-item>分享</el-dropdown-item>
               <el-dropdown-item>下载</el-dropdown-item>
             </el-dropdown-menu>
@@ -58,7 +58,7 @@
         <el-table-column prop="operation" label="操作" width="300">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button size="small">收藏</iep-button>
+              <iep-button size="small" @click="handleCollection(scope.row)">收藏</iep-button>
               <iep-button size="small">分享</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
@@ -76,6 +76,7 @@
     </div>
     <local-dialog ref="local" @load-page="loadPage" v-if="pageState=='local'"></local-dialog>
     <newly-dialog ref="newly" @load-page="loadPage" v-if="pageState=='newly'"></newly-dialog>
+    <collection-dialog ref="collection" @load-page="loadPage" type="material"></collection-dialog>
   </div>
 </template>
 
@@ -85,19 +86,19 @@ import { tableOption, dictsMap } from './option'
 import { getTableData, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/material'
 import LocalDialog from './localDialog'
 import NewlyDialog from './newlyDialog'
+import CollectionDialog from '../../components/collectionDialog'
 
 export default {
   mixins: [mixins],
-  components: { LocalDialog, NewlyDialog },
+  components: { LocalDialog, NewlyDialog, CollectionDialog },
   computed: {},
   data () {
     return {
       pageState: 'list',
       dictsMap,
       columnsMap: tableOption,
-      paramForm: {
-        
-      },
+      paramForm: {},
+      selectList: [],
     }
   },
   methods: {
@@ -117,6 +118,7 @@ export default {
       this._handleGlobalDeleteAll(deleteData)
     },
     selectionChange (val) {
+      this.selectList = val
       this.multipleSelection = val.map(m => m.id)
     },
     loadPage (param) {
@@ -137,7 +139,22 @@ export default {
         this.$refs['newly'].formRequestFn = createData
       })
     },
+    // 清空搜索
     clearSearchParam () {},
+    // 收藏
+    handleCollection (row) {
+      row.title = row.name
+      this.$refs['collection'].dialogShow = true
+      this.$refs['collection'].loadCollectList([row])
+    },
+    // 批量收藏
+    handleCollectAll () {
+      for(let item of this.selectList) {
+        item.title = item.name
+      }
+      this.$refs['collection'].dialogShow = true
+      this.$refs['collection'].loadCollectList(this.selectList)
+    },
   },
   created () {
     this.loadPage()

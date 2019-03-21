@@ -7,6 +7,7 @@ const mobileController = require('./controller/mobile')
 const orgController = require('./controller/org')
 const hrmsController = require('./controller/hrms')
 const crmsController = require('./controller/crms')
+const welController = require('./controller/wel')
 const router = new Router()
 /**
  * 获取验证码
@@ -71,15 +72,21 @@ router.get("/hrms/post_type/list", hrmsController.getPostTypeList)
 
 
 // crms
-router.get('/crms/custom/page', crmsController.fetchList)
-router.post('/crms/custom/create', crmsController.create)
-router.post('/crms/custom/update', crmsController.update)
-router.post('/crms/custom/delete', crmsController.delete)
+router.get('/crms/customer/page', crmsController.getCustomerPage)
+router.get('/crms/customer/:id', crmsController.getCustomerById)
+router.post('/crms/customer/create', crmsController.create)
+router.post('/crms/customer/update', crmsController.update)
+router.post('/crms/customer/delete/batch', crmsController.delete)
 router.post('/crms/custom', crmsController.fetchDetail)
 router.get('/crms/custom/programme/page', crmsController.fetchProgramme)
 router.get('/crms/contact/page', crmsController.fetchContartList)
 router.post('/crms/contact/create', crmsController.createContact)
 router.post('/crms/contact/update', crmsController.updateContact)
 router.post('/crms/contact/delete', crmsController.deleteContact)
+router.post('/crms/custom/claim/1', crmsController.deleteContact)
+
+
+//wel
+router.get('/admin/approval/page', welController.getApprovalPage)
 
 exports = module.exports = router

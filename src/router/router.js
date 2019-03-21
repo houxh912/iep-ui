@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router'
 import PageRouter from './page/'
 import ViewsRouter from './views/'
+import DetailRouter from './detail/'
 import AvueRouter from './avue-router'
 import Store from '../store/'
 
@@ -22,5 +23,5 @@ const Router = new VueRouter({
 })
 AvueRouter.install(Router, Store)
 Router.$avueRouter.formatRoutes(Store.state.user.menu, true)
-Router.addRoutes([...PageRouter, ...ViewsRouter])
+Router.addRoutes([...PageRouter, ...ViewsRouter, ...DetailRouter])
 export default Router

@@ -33,7 +33,7 @@
 
 <script>
 import IepDialog from '@/components/IepDialog/'
-import { initConsultaForm } from '../const/detail'
+import { initConsultaForm } from '../options'
 import { createConsultation } from '@/api/crms/custom'
 export default {
   name: 'consultation',

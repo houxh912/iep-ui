@@ -46,11 +46,6 @@ export default [
         name: '个人信息',
         component: () => import('@/views/admin/user/info'),
       },
-      {
-        path: 'growth_file/:id',
-        name: '成长档案',
-        component: () => import('@/views/hrms/GrowthFile/index.vue'),
-      },
     ],
   },
   {

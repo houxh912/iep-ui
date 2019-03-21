@@ -4,15 +4,15 @@
       type="info"
       :key="tag"
       v-for="tag in dynamicTags"
-      closable
+      :closable="!disabled"
       :disable-transitions="true"
       @close="handleClose(tag)">
       {{tag}}
     </el-tag>
-    <el-button class="button-new-tag" size="small" @click="addTags()"><i class="el-icon-plus"></i></el-button>
+    <el-button class="button-new-tag" size="small" @click="addTags()" v-if="!disabled"><i class="el-icon-plus"></i></el-button>
     <el-input
       class="input-new-tag"
-      v-if="inputVisible"
+      v-if="inputVisible && !disabled"
       v-model="inputValue"
       ref="saveTagInput"
       size="small"
@@ -20,14 +20,14 @@
       @blur="handleInputConfirm"
     >
     </el-input>
-    <el-button v-else class="button-new-tag" size="small" @click="showInput">快速添加</el-button>
+    <el-button v-if="!inputVisible && !disabled" class="button-new-tag" size="small" @click="showInput">快速添加</el-button>
   </div>
 </template>
 
 <script>
 export default {
   name: 'tags',
-  props: [ 'value' ],
+  props: [ 'value', 'disabled' ],
   computed: {
     dynamicTags () {
       return this.value ? this.value : []

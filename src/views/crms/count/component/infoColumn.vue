@@ -8,7 +8,7 @@
         份 / 排名
         <span class="red">{{infoList.num}}</span>
         位
-        </div>
+      </div>
     </el-col>
     <el-col class="tab">
       <div class="head">

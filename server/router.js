@@ -8,6 +8,7 @@ const orgController = require('./controller/org')
 const hrmsController = require('./controller/hrms')
 const crmsController = require('./controller/crms')
 const welController = require('./controller/wel')
+const imsController = require('./controller/ims')
 const router = new Router()
 /**
  * 获取验证码
@@ -93,5 +94,9 @@ router.get('/admin/approval/page', welController.getApprovalPage)
 
 //wel
 router.get('/admin/approval/page', welController.getApprovalPage)
+
+// 系统消息
+
+router.get('/ims/system_message/page', imsController.getSystemMessagePage)
 
 exports = module.exports = router

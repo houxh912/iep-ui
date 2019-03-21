@@ -89,4 +89,8 @@ router.post('/crms/custom/claim/1', crmsController.deleteContact)
 //wel
 router.get('/admin/approval/page', welController.getApprovalPage)
 
+
+//wel
+router.get('/admin/approval/page', welController.getApprovalPage)
+
 exports = module.exports = router

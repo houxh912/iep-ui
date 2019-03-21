@@ -13,12 +13,12 @@
         </el-form-item>
         <el-form-item label="业务类型：" prop="businessType">
           <el-checkbox-group v-model="form.businessType">
-            <el-checkbox v-for="item in dicData.businessType" :key="item.value" :label="item.value">{{item.label}}</el-checkbox>
+            <el-checkbox v-for="item in dictGroup['crms_client_opportunity']" :key="item.value" :label="item.value">{{item.label}}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item label="意向程度：" prop="intentionLevel">
           <el-radio-group v-model="form.intentionLevel">
-            <el-radio v-for="item in dicData.intentionLevel" :key="item.value" :label="item.value">{{item.label}}</el-radio>
+            <el-radio v-for="item in dictGroup['crms_client_intention_level']" :key="item.value" :label="item.value">{{item.label}}</el-radio>
           </el-radio-group>
         </el-form-item>
         <!-- <el-form-item label="商机标签：" prop="tags">
@@ -28,7 +28,7 @@
           <el-input type="textarea" v-model="form.opportunityDes" placeholder="商机描述"></el-input>
         </el-form-item>
         <el-form-item label="发布者：">
-          <el-input v-model="publisher" disabled="true"></el-input>
+          <el-input v-model="publisher" :disabled="true"></el-input>
         </el-form-item>
       </el-form>
     </el-card>
@@ -44,6 +44,7 @@ import { initForm, rules } from '../options'
 // import iepTags from '@/components/IepTags'
 import FooterToolBar from '@/components/FooterToolbar'
 import { createData } from '@/api/crms/business'
+import { mapState } from 'vuex'
 export default {
   components: { FooterToolBar },
   props: {
@@ -77,6 +78,11 @@ export default {
   },
   created () {
     this.formRequestFn = this.record.formRequestFn
+  },
+  computed: {
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
   },
   methods: {
     handleGoBack () {

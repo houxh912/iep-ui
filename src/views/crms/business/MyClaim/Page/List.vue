@@ -22,7 +22,7 @@
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
-      <el-table-column prop="operation" label="操作" min-width="160">
+      <el-table-column prop="operation" label="操作" min-width="80">
         <template slot-scope="scope">
           <operation-wrapper>
             <!-- <iep-button @click="handleCustom(scope.row)" size="small">创建客户</iep-button> -->
@@ -86,7 +86,7 @@ export default {
       }).then(() => {
         let claim = {
           opportunityId: row.opportunityId,
-          status: row.status,
+          status: row.statusKey,
         }
         cancelClaim({ ...claim }).then(res => {
           if (res.status == 200) {

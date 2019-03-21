@@ -36,6 +36,13 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
+        <template slot="before-columns">
+          <el-table-column label="客户名称" width="250px">
+            <template slot-scope="scope">
+              <div class="custom-name" @click="contactDetail(scope.row)">{{scope.row.contactName}}</div>
+            </template>
+          </el-table-column>
+        </template>
         <el-table-column prop="operation" label="对应客户" width="460">
           <template slot-scope="scope">
             <span class="contactTag" v-for="(item,index) in scope.row.clientInfos" :key="index">{{item.clientName}}</span>
@@ -58,6 +65,7 @@ import mixins from '@/mixins/mixins'
 import { fetchList, deleteDataById, createData, editList } from '@/api/crms/contact'
 // import { myFetchList } from '@/api/crms/custom'
 import { columnsMap, initSearchForm } from '../options'
+
 export default {
   mixins: [mixins],
   data () {
@@ -102,6 +110,9 @@ export default {
     searchPage () {
       this.loadTable(this.paramForm, fetchList)
     },
+    contactDetail () {
+      console.log('ssss')
+    },
   },
 }
 </script>
@@ -113,6 +124,9 @@ export default {
   border-radius: 4px;
   background: #f3f2f2;
   font-size: 12px;
+}
+.custom-name {
+  cursor: pointer;
 }
 </style>
 

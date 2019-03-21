@@ -10,6 +10,7 @@ export function fetchList (query) {
     params: query,
   })
 }
+
 // 查看我的客户列表
 export function myFetchList (query) {
   return request({
@@ -167,3 +168,4 @@ export function createConsultation (obj) {
 //     data: obj,
 //   })
 // }
+

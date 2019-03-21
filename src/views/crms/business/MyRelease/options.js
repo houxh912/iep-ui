@@ -9,7 +9,7 @@ const dictsMap = {
     3: '低',
   },
 }
-
+// 新增传的表单数据
 const initForm = () => {
   return {
     id: '', // ID
@@ -53,8 +53,7 @@ const allTableOption = [
   { label: '客户名称', prop: 'clientName' },
   { label: '项目名称', prop: 'projectName' },
   { label: '业务类型', prop: 'businessTypeC' },
-  { label: '意向程度', prop: 'intentionLevel', type: 'dict' },
-  { label: '客户经理', prop: 'publisher' },
-  { label: '认领状态', prop: 'status', type: 'dict' },
+  { label: '意向程度', prop: 'intentionLevelValue' },
+  { label: '认领状态', prop: 'statusValue' },
 ]
 export { dictsMap, initForm, rules, allTableOption, initSearchForm }

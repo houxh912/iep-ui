@@ -1,45 +1,49 @@
 <template>
-  <component :record="record" :is="currentComponet" @onDetail="handleDetail" @onForm="handleForm" @onGoBack="handleGoBack"></component>
+  <div>
+    <basic-container>
+      <page-header title="客户"></page-header>
+      <iep-tabs v-model="tabName" :tab-list="tabList">
+        <template v-if="tabName ==='AllCustomerTab'" v-slot:AllCustomerTab>
+          <all-customer-tab></all-customer-tab>
+        </template>
+        <template v-if="tabName ==='MyCustomerTab'" v-slot:MyCustomerTab>
+          <my-customer-tab></my-customer-tab>
+        </template>
+        <template v-if="tabName ==='CooperationCustomerTab'" v-slot:CooperationCustomerTab>
+          <cooperation-customer-tab></cooperation-customer-tab>
+        </template>
+      </iep-tabs>
+    </basic-container>
+  </div>
 </template>
 
 <script>
-// 动态切换组件
-import List from './Page/List'
-import Edit from './Page/Edit'
-import Detail from './Page/Detail'
+import mixins from '@/mixins/mixins'
+import AllCustomerTab from './AllCustomer/'
+import MyCustomerTab from './MyCustomer/'
+import CooperationCustomerTab from './CooperationCustomer/'
+import IepTabs from '@/components/IepCommon/Tabs'
 
 export default {
-  name: 'TableListWrapper',
-  components: {
-    List,
-    Edit,
-    Detail,
-  },
+  name: 'Demand',
+  mixins: [mixins],
+  components: { AllCustomerTab, MyCustomerTab, CooperationCustomerTab, IepTabs },
   data () {
     return {
-      currentComponet: 'List',
-      record: '',
+      tabName: 'AllCustomerTab',
+      tabList: [
+        {
+          label: '全部客户',
+          value: 'AllCustomerTab',
+        }, {
+          label: '我的客户',
+          value: 'MyCustomerTab',
+        }, {
+          label: '协作客户',
+          value: 'CooperationCustomerTab',
+        },
+      ],
     }
-  },
-  methods: {
-    handleForm (record) {
-      this.record = record
-      this.currentComponet = 'Edit'
-    },
-    handleDetail (record) {
-      this.record = record
-      this.currentComponet = 'Detail'
-    },
-    handleGoBack () {
-      this.record = ''
-      this.currentComponet = 'List'
-    },
-  },
-  watch: {
-    '$route.path' () {
-      this.record = ''
-      this.currentComponet = 'List'
-    },
   },
 }
 </script>

@@ -24,7 +24,7 @@
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
-      <el-table-column prop="operation" label="操作" min-width="160">
+      <el-table-column prop="operation" label="操作" min-width="80">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button @click="handleEdit(scope.row)" size="small" type="warning">编辑</iep-button>
@@ -50,6 +50,8 @@ export default {
       paramForm: initSearchForm(),
     }
   },
+  computed: {
+  },
   methods: {
     loadPage (param) {
       this.loadTable(param, myBusinessList, m => {
@@ -70,7 +72,7 @@ export default {
     },
     // 编辑
     handleEdit (row) {
-      this.$emit('onEdit', { ...row })
+      this.$emit('onEdit', { id: row.opportunityId })
     },
     // 新增
     handleCreate () {

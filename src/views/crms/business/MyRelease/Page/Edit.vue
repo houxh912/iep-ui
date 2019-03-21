@@ -14,12 +14,12 @@
         </el-form-item>
         <el-form-item label="业务类型：" prop="businessType">
           <el-checkbox-group v-model="form.businessType">
-            <el-checkbox v-for="item in dicData.businessType" :key="item.value" :label="item.value">{{item.label}}</el-checkbox>
+            <el-checkbox v-for="item in dictGroup['crms_client_opportunity']" :key="item.value" :label="item.value">{{item.label}}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item label="意向程度：" prop="intentionLevel">
           <el-radio-group v-model="form.intentionLevel">
-            <el-radio v-for="item in dicData.intentionLevel" :key="item.value" :label="item.value">{{item.label}}</el-radio>
+            <el-radio v-for="item in dictGroup['crms_client_intention_level']" :key="item.value" :label="item.value">{{item.label}}</el-radio>
           </el-radio-group>
         </el-form-item>
         <!-- <el-form-item label="商机标签：" prop="tags">
@@ -44,7 +44,8 @@
 import { initForm, rules } from '../options'
 // import iepTags from '@/components/IepTags'
 import FooterToolBar from '@/components/FooterToolbar'
-import { createData, updateData } from '@/api/crms/business'
+import { createData, updateData, businessById } from '@/api/crms/business'
+import { mapState } from 'vuex'
 export default {
   components: { FooterToolBar },
   props: {
@@ -63,25 +64,17 @@ export default {
       rules,
       dialogShow: false,
       // formRequestFn: () => { },
-      dicData: {
-        businessType: [
-          { label: '咨询', value: 1 },
-          { label: '数据', value: 2 },
-          { label: '事项', value: 3 },
-          { label: '平台', value: 4 },
-          { label: '软件', value: 5 },
-        ],
-        intentionLevel: [
-          { label: '高', value: 1 },
-          { label: '中', value: 2 },
-          { label: '底', value: 3 },
-        ],
-      },
     }
   },
   created () {
     // this.formRequestFn = this.record.formRequestFn
     this.load()
+    console.log(this.dictGroup)
+  },
+  computed: {
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
   },
   methods: {
     handleGoBack () {
@@ -95,18 +88,21 @@ export default {
     },
     load () {
       if (this.isAdd == 'edit') {
-        this.record.businessType = this.record.businessType.map(m => parseInt(m.commonId))
-        this.form = {
-          opportunityId: this.record.opportunityId, // ID
-          clientName: this.record.clientName, // 客户名称 clientName
-          projectName: this.record.projectName, // 项目名称 projectName
-          businessType: this.record.businessType, // 业务类型 businessType
-          intentionLevel: this.record.intentionLevel, // 意向程度 intentionLevel
-          tags: this.record.tags, // 商机标签 businessTag
-          opportunityDes: this.record.opportunityDes, // 商机描述
-          publisher: this.record.publisher, //发布者
-        }
-        console.log(this.form)
+        businessById(this.record.id).then(res => {
+          let formData = res.data.data.data
+          this.form = {
+            opportunityId: formData.opportunityId, // ID
+            clientName: formData.clientName, // 客户名称 clientName
+            projectName: formData.projectName, // 项目名称 projectName
+            businessType: formData.businessType.map(m => parseInt(m.commonId)), // 业务类型 businessType
+            intentionLevel: formData.intentionLevelKey, // 意向程度 intentionLevel
+            tags: formData.tags.map(m => parseInt(m.commonId)), // 商机标签 businessTag
+            opportunityDes: formData.opportunityDes, // 商机描述
+            // publisher: formData.publisher, //发布者
+          }
+          console.log(this.form)
+        })
+
       }
     },
     submitForm (formName) {
@@ -121,7 +117,6 @@ export default {
               this.$emit('onGoBack')
             })
           } else {
-            console.log(this.form)
             updateData(this.form).then(() => {
               this.$message({
                 message: '商机修改成功',

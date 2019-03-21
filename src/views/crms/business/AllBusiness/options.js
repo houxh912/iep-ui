@@ -3,11 +3,6 @@ const dictsMap = {
     0: '待认领',
     1: '已认领',
   },
-  intentionLevel: {
-    1: '高',
-    2: '中',
-    3: '低',
-  },
 }
 
 const initForm = () => {
@@ -53,8 +48,8 @@ const allTableOption = [
   { label: '客户名称', prop: 'clientName' },
   { label: '项目名称', prop: 'projectName' },
   { label: '业务类型', prop: 'businessTypeC' },
-  { label: '意向程度', prop: 'intentionLevel', type: 'dict' },
-  { label: '客户经理', prop: 'publisher' },
-  { label: '认领状态', prop: 'status', type: 'dict' },
+  { label: '意向程度', prop: 'intentionLevelValue' },
+  { label: '发布人', prop: 'publisher' },
+  { label: '认领状态', prop: 'statusValue' },
 ]
 export { dictsMap, initForm, rules, allTableOption, initSearchForm }

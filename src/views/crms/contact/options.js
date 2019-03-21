@@ -1,8 +1,8 @@
 const columnsMap = [
-  {
-    prop: 'contactName',
-    label: '联系人名称',
-  },
+  // {
+  //   prop: 'contactName',
+  //   label: '联系人名称',
+  // },
   {
     prop: 'contactPosition',
     label: '联系人职务',

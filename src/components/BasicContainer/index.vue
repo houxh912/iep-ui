@@ -1,6 +1,6 @@
 <template>
   <div class="basic-container" :class="{ 'basic-container--block': block }">
-    <el-card shadow="never">
+    <el-card shadow="never" :body-style="bodyStyle">
       <slot></slot>
     </el-card>
   </div>
@@ -14,6 +14,13 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  data () {
+    return {
+      bodyStyle: {
+        padding: 0,
+      },
+    }
   },
 }
 </script>

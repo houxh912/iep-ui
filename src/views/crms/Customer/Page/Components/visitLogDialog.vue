@@ -1,0 +1,153 @@
+<template>
+  <div class="visitLog">
+    <el-table :data="pagedTable">
+      <el-table-column :label="item.label" v-for="(item, index) in columnsMap" :key="index" :prop="item.prop">
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <iep-button @click="handleEdit(scope.row)" size="small">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
+          </operation-wrapper>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-row class="add-visit">
+      <el-col class="right button" :span=12>
+        <div @click="createdJournal"><i class="el-icon-plus"></i> 拜访日志</div>
+      </el-col>
+      <el-col class="left button" :span=12>
+        <div @click="createdRecord"><i class="el-icon-plus"></i> 联系记录</div>
+      </el-col>
+    </el-row>
+
+    <iep-dialog :dialog-show="dialogShow" :title="`${methodName}拜访记录`" width="60%" @close="resetForm">
+      <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
+        <el-form-item label="主题：" prop="theme">
+          <el-input v-model="formData.theme"></el-input>
+        </el-form-item>
+        <el-form-item label="拜访时间：" prop="visitTime">
+          <iep-date-picker v-model="formData.visitTime" type="date" placeholder="选择日期"></iep-date-picker>
+        </el-form-item>
+        <el-form-item label="拜访记录：" prop="contactRecord">
+          <el-input type="textarea" v-model="formData.contactRecord"></el-input>
+        </el-form-item>
+      </el-form>
+      <template slot="footer">
+        <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
+        <iep-button @click="resetForm">取消</iep-button>
+      </template>
+    </iep-dialog>
+
+  </div>
+</template>
+
+<script>
+import IepDialog from '@/components/IepDialog/'
+// import { initVisitForm } from '../options'
+// import { createVisit, updateVisit, deleteVisit } from '@/api/crms/custom'
+import { fetchVisitList, updateVisit, createVisit, deleteVisit } from '@/api/crms/crm'
+import mixins from '@/mixins/mixins'
+export default {
+  name: 'visitLog',
+  mixins: [mixins],
+  components: { IepDialog },
+  data () {
+    return {
+      isLoadTable: false,
+      pagedTable: [],
+      columnsMap: [
+        { label: '主题', prop: 'theme' },
+        { label: '拜访时间', prop: 'visitTime' },
+        { label: '拜访记录', prop: 'contactRecord' },
+      ],
+      formData: {},
+      rules: {},
+      methodName: '',
+      dialogShow: false,
+      dicData: [
+        { value: 1, label: '选项1' },
+        { value: 2, label: '选项2' },
+      ],
+      submitFn: () => { },
+    }
+  },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
+  methods: {
+    loadPage (param) {
+      let id = this.record.clientId
+      this.loadTable({ ...param, clientId: id }, fetchVisitList)
+    },
+    createdRecord () {
+      this.dialogShow = true
+      this.methodName = '新增'
+      this.submitFn = createVisit
+    },
+    createdJournal () { },
+    handleEdit (row) {
+      this.formData = { ...row }
+      this.dialogShow = true
+      this.methodName = '编辑'
+      this.submitFn = updateVisit
+    },
+    handleDeleteById (row) {
+      this._handleGlobalDeleteById([row.contactId], deleteVisit)
+    },
+    resetForm () {
+      // this.formData = initVisitForm()
+      this.dialogShow = false
+    },
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.submitFn({ ...this.formData, clientId: this.record.clientId }).then(() => {
+            this.$notify({
+              title: '成功',
+              message: `${this.methodName}成功`,
+              type: 'success',
+              duration: 2000,
+            })
+            this.loadPage()
+            this.dialogShow = false
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    getTime (data) {
+      console.log(data)
+    },
+  },
+  created () {
+    this.loadPage()
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.visitLog {
+  .add-visit {
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #ececec;
+    .button {
+      cursor: pointer;
+      padding: 5px;
+    }
+    .right {
+      text-align: right;
+      color: #db7a7e;
+    }
+    .left {
+      text-align: left;
+    }
+  }
+}
+</style>

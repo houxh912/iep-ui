@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <el-card class="edit-card" shadow="never">
       <div slot="header" class="title">
-        <span>{{methodName}}人才</span>
+        <span>{{methodName}}黑名单简历</span>
       </div>
       <el-form ref="form" :model="form" label-width="120px" size="small">
         <el-collapse v-model="activeNames">
@@ -83,55 +83,11 @@
             <el-form-item label="应聘渠道：" class="form-half">
               <iep-dict-select v-model="form.appWay" dict-name="hrms_app_way"></iep-dict-select>
             </el-form-item>
-            <el-form-item label="来源类型：" class="form-half">
-              <iep-dict-select v-model="form.source" dict-name="hrms_resume_source"></iep-dict-select>
+            <el-form-item label="拉黑地区：" class="form-half">
+              <el-input v-model="form.blacklistArea"></el-input>
             </el-form-item>
-            <el-form-item label="兴趣爱好：" class="form-half">
-              <el-input v-model="form.hobbies"></el-input>
-            </el-form-item>
-            <el-form-item label="特长及优势：">
-              <el-input v-model="form.advantage"></el-input>
-            </el-form-item>
-            <el-form-item label="荣誉奖励：">
-              <el-input v-model="form.honor"></el-input>
-            </el-form-item>
-            <el-form-item label="其他成果：">
-              <el-input v-model="form.result"></el-input>
-            </el-form-item>
-          </el-collapse-item>
-          <el-collapse-item title="求职意向" name="2">
-            <el-form-item label="应聘岗位：" class="form-half">
-              <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
-            </el-form-item>
-            <el-form-item label="到岗时间：" class="form-half">
-              <iep-dict-select v-model="form.arrive" dict-name="hrms_arrive_time"></iep-dict-select>
-            </el-form-item>
-            <el-form-item label="期望薪资：" class="form-half">
-              <el-input v-model="form.salary"></el-input>
-            </el-form-item>
-            <el-form-item label="期望工作地：" class="form-half">
-              <el-input v-model="form.workPlace"></el-input>
-            </el-form-item>
-          </el-collapse-item>
-          <el-collapse-item v-if="methodName !=='新增'" title="学习工作经历" name="3">
-            <el-form-item label="学习情况：">
-              <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="talent_pool" :rid="form.id"></inline-form-table>
-            </el-form-item>
-            <el-form-item label="工作经历：">
-              <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="talent_pool" :rid="form.id"></inline-form-table>
-            </el-form-item>
-          </el-collapse-item>
-          <el-collapse-item v-if="methodName !=='新增'" title="培训证书情况" name="4">
-            <el-form-item label="培训情况：">
-              <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="talent_pool" :rid="form.id"></inline-form-table>
-            </el-form-item>
-            <el-form-item label="资质证书：">
-              <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="talent_pool" :rid="form.id"></inline-form-table>
-            </el-form-item>
-          </el-collapse-item>
-          <el-collapse-item v-if="methodName !=='新增'" title="附件上传" name="5">
-            <el-form-item label="附件上传：">
-              <el-input type="textarea"></el-input>
+            <el-form-item label="拉黑原因：">
+              <el-input v-model="form.blacklistReasons"></el-input>
             </el-form-item>
           </el-collapse-item>
         </el-collapse>
@@ -147,7 +103,6 @@
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 import FooterToolBar from '@/components/FooterToolbar'
 import { initForm, formToDto, workExpColumns, studyColumns, trainingColumns, certificateColumns } from '../options'
-import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 import { mergeByFirst } from '@/util/util'
 export default {
   props: {
@@ -156,13 +111,14 @@ export default {
       default: () => { },
     },
   },
-  components: { FooterToolBar, InlineFormTable },
+  components: { FooterToolBar },
   data () {
     return {
       certificateColumns,
       trainingColumns,
       studyColumns,
       workExpColumns,
+      id: null,
       activeNames: ['1'],
       methodName: '新增',
       form: initForm(),
@@ -174,12 +130,15 @@ export default {
     this.formRequestFn = this.record.formRequestFn
     this.id = this.record.id
     if (this.id) {
-      getTalentPoolById(this.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
-      })
+      this.loadPage()
     }
   },
   methods: {
+    loadPage () {
+      getTalentPoolById(this.id).then(({ data }) => {
+        this.form = mergeByFirst(initForm(), data.data)
+      })
+    },
     handleGoBack () {
       this.$emit('onGoBack')
     },
@@ -187,7 +146,7 @@ export default {
       this.formRequestFn(formToDto(this.form)).then(({ data }) => {
         if (data.data) {
           this.$message({
-            message: `人才库${this.methodName}成功`,
+            message: `黑名单${this.methodName}成功`,
             type: 'success',
           })
           this.$emit('onGoBack')

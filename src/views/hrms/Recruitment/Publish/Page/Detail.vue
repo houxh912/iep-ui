@@ -1,10 +1,10 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header title="发布招聘" :backOption="backOption">
+      <page-header title="查看招聘" :backOption="backOption">
         <iep-button type="danger">我要推荐</iep-button>
       </page-header>
-      <div class="recruit-headers">
+      <el-card class="recruit-headers" shadow="hover">
         <span class="state"><i class="iconfont icon-shijian"></i><span>招聘中</span></span>
         <div class="con">
           <div class="left">
@@ -25,7 +25,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </el-card>
       <el-form class="form-detail recruit-detail" ref="form" :model="form" label-width="120px" size="small" disabled>
         <el-form-item>
           <div class="sub-title">其他要求</div>
@@ -123,11 +123,7 @@ export default {
 <style lang="scss" scoped>
 .recruit-headers {
   padding: 20px;
-  background-color: #fff;
-  border-radius: 3px;
   margin-bottom: 10px;
-  border: 1px solid #eee;
-  box-shadow: 0 0 1px 1px #eee;
   .con {
     display: flex;
     justify-content: space-between;

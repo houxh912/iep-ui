@@ -3,7 +3,7 @@
     <el-popover popper-class="msg-popover" placement="bottom" width="336" trigger="click">
       <el-tabs class="msg-tabs" v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="通知 (4)" name="first">
-          <el-card class="box-card">
+          <el-card class="box-card" :body-style="bodyStyle">
             <div v-for="msg in msgList" :key="msg.id" class="text">
               <div class="list-item-icon">
                 <img :src="msg.img" alt="" />
@@ -60,6 +60,9 @@ export default {
   data () {
     return {
       visible: false,
+      bodyStyle: {
+        padding: 0,
+      },
       activeName: 'first',
       msgList: [
         {
@@ -155,9 +158,6 @@ export default {
 .msg-tabs >>> .el-tabs__active-bar {
   left: 40px;
   width: 70px !important;
-}
-.msg-tabs >>> .el-card__body {
-  padding: 0 !important;
 }
 .msg-tabs >>> .el-tabs__header {
   margin-bottom: 0;

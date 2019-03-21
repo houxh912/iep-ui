@@ -191,7 +191,7 @@ export default {
   overflow-y: hidden;
   height: calc(100vh - 60px);
 }
-.avue-contail >>> .el-main .el-scrollbar .el-scrollbar__wrap {
+.avue-contail >>> .el-scrollbar__wrap {
   overflow-x: hidden;
 }
 .avue-contail >>> .el-card__body {
@@ -214,8 +214,5 @@ export default {
 }
 .avue-contail >>> .el-scrollbar__view {
   height: 100%;
-}
-.avue-contail >>> .info-container {
-  padding: 0 20px;
 }
 </style>

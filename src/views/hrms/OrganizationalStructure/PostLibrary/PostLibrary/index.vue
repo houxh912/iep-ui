@@ -11,28 +11,8 @@
         </el-dropdown>
       </template>
       <template slot="right">
-        <operation-search @search="searchPage" advance-search>
-          <el-form :model="paramForm" label-width="80px" size="mini">
-            <el-form-item label="关键字">
-              <el-input v-model="paramForm.theme" placeholder="关键字"></el-input>
-            </el-form-item>
-            <el-form-item label="岗位类别">
-              <el-select v-model="paramForm.type" placeholder="请选择岗位类别">
-                <el-option label="岗位类别1" value="岗位类别1"></el-option>
-                <el-option label="岗位类别2" value="岗位类别2"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="岗位名称">
-              <el-select v-model="paramForm.type" placeholder="请选择岗位名称">
-                <el-option label="岗位名称1" value="岗位名称1"></el-option>
-                <el-option label="岗位名称2" value="岗位名称2"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="searchPage">搜索</el-button>
-              <el-button @click="clearSearchParam">清空</el-button>
-            </el-form-item>
-          </el-form>
+        <operation-search @search-page="searchPage" advance-search>
+          <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
     </operation-container>
@@ -52,17 +32,17 @@
 </template>
 <script>
 import { getPostLibraryPage, putPostLibrary, postPostLibrary, deletePostLibraryBatch, deletePostLibraryById } from '@/api/hrms/post_library'
+import AdvanceSearch from './AdvanceSearch'
+import AddDialogForm from './AddDialogForm'
 import mixins from '@/mixins/mixins'
 import { mergeByFirst } from '@/util/util'
-import { columnsMap, initSearchForm, initForm } from './options'
-import AddDialogForm from './AddDialogForm'
+import { columnsMap, initForm } from './options'
 export default {
   mixins: [mixins],
-  components: { AddDialogForm },
+  components: { AdvanceSearch, AddDialogForm },
   data () {
     return {
       columnsMap,
-      paramForm: initSearchForm(),
     }
   },
   created () {
@@ -89,14 +69,8 @@ export default {
       this.$refs['AddDialogForm'].formRequestFn = postPostLibrary
       this.$refs['AddDialogForm'].dialogShow = true
     },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-    },
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getPostLibraryPage)
-    },
-    edit () {
-
     },
   },
 }

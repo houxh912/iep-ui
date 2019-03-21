@@ -1,45 +1,38 @@
 <template>
-  <div class="user">
+  <div>
     <basic-container>
-      <el-row :span="24">
-        <el-col :xs="24" :sm="24" :md="5" class="user__tree">
-          <avue-tree :option="treeOption" :data="treeData" @node-click="nodeClick"></avue-tree>
-        </el-col>
-        <el-col :xs="24" :sm="24" :md="19" class="user__main">
-          <avue-crud :option="option" ref="crud" v-model="form" :page="page" @on-load="getList" :table-loading="listLoading" @search-change="handleFilter" @refresh-change="handleRefreshChange" @row-update="update" @row-save="create" :before-open="handleOpenBefore" :data="list">
-            <template slot="menuLeft">
-              <el-button v-if="sys_user_add" class="filter-item" @click="handleCreate" size="small" type="primary" icon="el-icon-edit">添加
-              </el-button>
-            </template>
-            <template slot="username" slot-scope="scope">
-              <span>{{ scope.row.username }}</span>
-            </template>
-            <template slot="role" slot-scope="scope">
-              <span v-for="(role, index) in scope.row.roleList" :key="index">
-                <el-tag>{{ role.roleName }} </el-tag>&nbsp;&nbsp;
-              </span>
-            </template>
-            <template slot="deptId" slot-scope="scope">
-              {{ scope.row.deptName }}
-            </template>
-            <template slot="lockFlag" slot-scope="scope">
-              <el-tag>{{ scope.label }}</el-tag>
-            </template>
-            <template slot="menu" slot-scope="scope">
-              <el-button v-if="sys_user_edit" size="small" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row, scope.index)">编辑
-              </el-button>
-              <el-button v-if="sys_user_del" size="small" type="text" icon="el-icon-delete" @click="deletes(scope.row, scope.index)">删除
-              </el-button>
-            </template>
-            <template slot="deptIdForm">
-              <avue-crud-input v-model="form.deptId" type="tree" placeholder="请选择所属部门" :node-click="getNodeData" :dic="treeDeptData" :props="defaultProps"></avue-crud-input>
-            </template>
-            <template slot="roleForm">
-              <avue-crud-select v-model="role" multiple placeholder="请选择角色" :dic="rolesOptions" :props="roleProps"></avue-crud-select>
-            </template>
-          </avue-crud>
-        </el-col>
-      </el-row>
+      <avue-crud :option="option" ref="crud" v-model="form" :page="page" @on-load="getList" :table-loading="listLoading" @search-change="handleFilter" @refresh-change="handleRefreshChange" @row-update="update" @row-save="create" :before-open="handleOpenBefore" :data="list">
+        <template slot="menuLeft">
+          <el-button v-if="sys_user_add" class="filter-item" @click="handleCreate" size="small" type="primary" icon="el-icon-edit">添加
+          </el-button>
+        </template>
+        <template slot="username" slot-scope="scope">
+          <span>{{ scope.row.username }}</span>
+        </template>
+        <template slot="role" slot-scope="scope">
+          <span v-for="(role, index) in scope.row.roleList" :key="index">
+            <el-tag>{{ role.roleName }} </el-tag>&nbsp;&nbsp;
+          </span>
+        </template>
+        <template slot="deptId" slot-scope="scope">
+          {{ scope.row.deptName }}
+        </template>
+        <template slot="lockFlag" slot-scope="scope">
+          <el-tag>{{ scope.label }}</el-tag>
+        </template>
+        <template slot="menu" slot-scope="scope">
+          <el-button v-if="sys_user_edit" size="small" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row, scope.index)">编辑
+          </el-button>
+          <el-button v-if="sys_user_del" size="small" type="text" icon="el-icon-delete" @click="deletes(scope.row, scope.index)">删除
+          </el-button>
+        </template>
+        <template slot="deptIdForm">
+          <avue-crud-input v-model="form.deptId" type="tree" placeholder="请选择所属部门" :node-click="getNodeData" :dic="treeDeptData" :props="defaultProps"></avue-crud-input>
+        </template>
+        <template slot="roleForm">
+          <avue-crud-select v-model="role" multiple placeholder="请选择角色" :dic="rolesOptions" :props="roleProps"></avue-crud-select>
+        </template>
+      </avue-crud>
     </basic-container>
   </div>
 </template>
@@ -50,23 +43,11 @@ import { deptRoleList } from '@/api/admin/role'
 import { fetchDeptTree, fetchTree } from '@/api/admin/dept'
 import { tableOption } from '@/const/crud/admin/user'
 import { mapGetters } from 'vuex'
-// import { constants } from 'fs'
-// import { connect } from 'tls'
 
 export default {
   name: 'TableUser',
   data () {
     return {
-      treeOption: {
-        nodeKey: 'id',
-        addBtn: false,
-        menu: false,
-        props: {
-          label: 'name',
-          value: 'id',
-        },
-      },
-      treeData: [],
       option: tableOption,
       treeDeptData: [],
       checkedKeys: [],
@@ -110,10 +91,6 @@ export default {
       fetchDeptTree().then(response => {
         this.treeData = response.data.data
       })
-    },
-    nodeClick (data) {
-      this.page.page = 1
-      this.getList(this.page, { deptId: data.id })
     },
     getList (page, params) {
       this.listLoading = true
@@ -236,19 +213,3 @@ export default {
   },
 }
 </script>
-<style lang="scss">
-.user {
-  height: 100%;
-
-  &__tree {
-    padding-top: 3px;
-    padding-right: 20px;
-  }
-
-  &__main {
-    .el-card__body {
-      padding-top: 0;
-    }
-  }
-}
-</style>

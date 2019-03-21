@@ -7,7 +7,7 @@
           <el-button @click="(scope.row)" size="small" class="share"><i class="el-icon-share"></i><span>分享</span></el-button>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
+          <operation-search @search-page="searchPage" advance-search>
             <el-form :model="paramForm" label-width="80px" size="mini">
               <el-form-item label="申请人">
                 <el-input v-model="paramForm.theme" placeholder="请输入申请人姓名"></el-input>

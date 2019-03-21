@@ -25,7 +25,7 @@
                 </el-col>
                 <el-col :span="14">
                   <el-form-item label="所属部门：">
-                    <span>{{form.dept.join('、')}}</span>
+                    <span>{{form.deptList.join('、')}}</span>
                   </el-form-item>
                   <el-form-item label="转正日期：">
                     <span>{{form.date}}</span>
@@ -39,7 +39,7 @@
           </el-col>
         </el-row>
       </div>
-      <div class="review">
+      <!-- <div class="review">
         <el-form ref="form" :model="form" label-width="280px">
           <div class="title">申请理由</div>
           <el-form-item :label="item.label+'：'" v-for="(item,index) in form.review.list" :key="index">
@@ -57,11 +57,11 @@
             <span>{{item.value}}</span>
           </el-form-item>
         </el-form>
-      </div>
-      <div class="review">
+      </div> -->
+      <!-- <div class="review">
         <div class="prompt">抄送人：{{form.sourceName}}</div>
         <div class="prompt color" readonly>注：（审批通过后，通知抄送人）</div>
-      </div>
+      </div> -->
     </basic-container>
   </div>
 </template>
@@ -85,8 +85,11 @@ export default {
       form: initForm(),
     }
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
-    load () {
+    loadPage () {
       getAdministrativeApprovalById(this.record.id).then(({ data }) => {
         this.form = data.data
       })

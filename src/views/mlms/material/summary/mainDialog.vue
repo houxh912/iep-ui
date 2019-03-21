@@ -1,6 +1,8 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}会议纪要`" width="70%" @close="resetForm">
-    <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
+  <div>
+    <page-header :title="`${methodName}纪要`" :backOption="backOption"></page-header>
+
+    <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
 
       <el-form-item label="会议类型：" prop="meetingType">
         <el-radio-group v-model="formData.meetingType">
@@ -33,8 +35,8 @@
           </el-form-item>
         </el-col>
         <el-col :span=12 v-if="formData.type == 0">
-          <el-form-item label="会议地点：" prop="meetinLocation">
-            <el-input v-model="formData.meetinLocation"></el-input>
+          <el-form-item label="会议地点：" prop="meetingLocation">
+            <el-input v-model="formData.meetingLocation"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -49,8 +51,9 @@
       <el-form-item label="会议标签：" prop="tagKeyWords">
         <iep-tags v-model="formData.tagKeyWords"></iep-tags>
       </el-form-item>
-      <el-form-item label="接收人" prop="receiverIds">
-        <iep-tags v-model="formData.receiverIds"></iep-tags>
+      <el-form-item label="接收人" prop="">
+        <!-- <iep-tags v-model="formData.receiverIds"></iep-tags> -->
+        <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
       </el-form-item>
       <!-- <el-form-item label="关联报表" prop="baobiao">
         <iep-button><i class="el-icon-plus"></i></iep-button>
@@ -60,19 +63,20 @@
       </el-form-item> -->
       
     </el-form>
-    <template slot="footer">
+    <footer-toolbar>
       <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
-    </template>
-  </iep-dialog>
+    </footer-toolbar>
+  </div>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { initFormData, dictsMap, rules } from './options'
 import IepTags from '@/components/IepTags/input'
+import FooterToolbar from '@/components/FooterToolbar/'
+import IepContactMultiple from '@/components/IepContact/Multiple'
 
 export default {
-  components: { IepDialog, IepTags },
+  components: { IepTags, FooterToolbar, IepContactMultiple },
   data () {
     return {
       dictsMap,
@@ -81,6 +85,13 @@ export default {
       methodName: '创建',
       formData: initFormData(),
       rules,
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: () => {
+          this.$emit('load-page', true)
+        },
+      },
     }
   },
   methods: {
@@ -89,8 +100,12 @@ export default {
     },
     submitForm (formName) {
       delete this.formData.createTime
+      delete this.formData.updateTime
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.formData.userIds = this.formData.receiverList.users.map(m => m.id)
+          this.formData.orgIds = this.formData.receiverList.orgs.map(m => m.id)
+          this.formData.unionIds = this.formData.receiverList.unions.map(m => m.id)
           this.formRequestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',
@@ -99,7 +114,6 @@ export default {
               duration: 2000,
             })
             this.loadPage()
-            this.dialogShow = false
           })
         } else {
           return false
@@ -109,6 +123,7 @@ export default {
     resetForm () {
       this.formData = initFormData()
       this.dialogShow = false
+      this.loadPage('load-page')
     },
     typeChange (val) {
       if (val == 6) {

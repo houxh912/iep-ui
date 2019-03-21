@@ -40,9 +40,17 @@ export const initFormData = () => {
     meetingCon: '',
     thoughtsProblem: '',
     meetingTime: '',
-    meetinLocation: '',
+    meetingLocation: '',
     tagKeyWords: [],
     receiverIds: [],
+    userIds: [],
+    orgIds: [],
+    unionIds: [],
+    receiverList: {
+      unions: [],
+      orgs: [],
+      users: [],
+    },
     remark: '',
     visitType: -1,
     visitingAddress: '',
@@ -75,7 +83,7 @@ export const rules = {
   meetingTime: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
-  meetinLocation: [
+  meetingLocation: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
   tagKeyWords: [

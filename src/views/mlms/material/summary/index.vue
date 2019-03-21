@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-container v-if="pageState">
+    <basic-container v-if="pageState==='list'">
       <page-header title="纪要" :replaceText="replaceText" :data="data"></page-header>
       <operation-container>
         <template slot="left">
@@ -9,7 +9,7 @@
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item><div @click="handleDeleteByIds">删除</div></el-dropdown-item>
-              <el-dropdown-item divided>收藏</el-dropdown-item>
+              <el-dropdown-item divided><div @click="handleCollectAll">收藏</div></el-dropdown-item>
               <el-dropdown-item><div @click="handleAllShare">分享</div></el-dropdown-item>
               <el-dropdown-item>下载为图片</el-dropdown-item>
               <el-dropdown-item>导出为文本</el-dropdown-item>
@@ -76,10 +76,10 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <detail-page ref="detailPage" v-else @backPage="pageState = true"></detail-page>
-    <main-dialog ref="mainDialog" @load-page="loadPage"></main-dialog>
+    <detail-page ref="detailPage" v-if="pageState==='detail'" @backPage="pageState = 'list'"></detail-page>
+    <main-dialog ref="mainDialog" v-if="pageState==='form'" @load-page="loadPage"></main-dialog>
     <share-dialog ref="share"></share-dialog>
-    <collection-dialog ref="collection"></collection-dialog>
+    <collection-dialog ref="collection" @load-page="loadPage"></collection-dialog>
   </div>
 </template>
 <script>
@@ -100,10 +100,9 @@ export default {
       data: [ 20, 3 ], // 头部
       dictsMap,
       columnsMap,
-      // dicData: this.dictGroup['hrms_highest_educational'],
       paramForm: initSearchForm(),
       selectList: [],
-      pageState: true,
+      pageState: 'list',
     }
   },
   computed: {
@@ -119,13 +118,21 @@ export default {
       this.paramForm = initSearchForm()
     },
     handleAdd () {
-      this.$refs['mainDialog'].methodName = '创建'
-      this.$refs['mainDialog'].formRequestFn = createData
-      this.$refs['mainDialog'].dialogShow = true
+      this.pageState = 'form'
+      this.$nextTick(() => {
+        this.$refs['mainDialog'].methodName = '创建'
+        this.$refs['mainDialog'].formRequestFn = createData
+        this.$refs['mainDialog'].dialogShow = true
+      })
     },
     handleEdit (row) {
+      this.pageState = 'form'
       getDataById(row.id).then(({data}) => {
-        console.log('data: ', data)
+        data.data.receiverList = {
+          unions: data.data.unions ? data.data.unions : [],
+          orgs: data.data.orgs ? data.data.orgs : [],
+          users: data.data.users ? data.data.users : [],
+        }
         this.$refs['mainDialog'].formData = {...data.data}
         this.$refs['mainDialog'].methodName = '修改'
         this.$refs['mainDialog'].formRequestFn = updateData
@@ -133,7 +140,7 @@ export default {
       })
     },
     handleDetail (row) {
-      this.pageState = false
+      this.pageState = 'detail'
       getDataById(row.id).then(({data}) => {
         this.$refs['detailPage'].formData = data.data
       })
@@ -151,11 +158,18 @@ export default {
       this.multipleSelection = val.map(m => m.id)
     },
     loadPage (param = this.paramForm) {
+      this.pageState = 'list'
       this.loadTable(param, getTableData)
     },
     // 收藏
-    handleCollection () {
+    handleCollection (row) {
       this.$refs['collection'].dialogShow = true
+      this.$refs['collection'].loadCollectList([row])
+    },
+    // 批量收藏
+    handleCollectAll () {
+      this.$refs['collection'].dialogShow = true
+      this.$refs['collection'].loadCollectList(this.selectList)
     },
     // 分享
     handleShare (row) {

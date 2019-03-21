@@ -35,7 +35,7 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <add-dialog-form ref="AddDialogForm" @load-page="loadPage"></add-dialog-form>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
     <merge-dialog ref="MoveDialog" @load-page="loadPage"></merge-dialog>
     <move-dialog ref="MergeDialog" @load-page="loadPage"></move-dialog>
   </div>
@@ -45,12 +45,12 @@
 import { getDeptPage, postDept, putDept, deleteDeptById, deleteDeptBatch } from '@/api/hrms/department_management'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm, toDeptForm, toNewParentForm } from './options'
-import AddDialogForm from './AddDialogForm'
+import DialogForm from './DialogForm'
 import MoveDialog from './MoveDialog'
 import MergeDialog from './MergeDialog'
 export default {
   mixins: [mixins],
-  components: { AddDialogForm, MoveDialog, MergeDialog },
+  components: { DialogForm, MoveDialog, MergeDialog },
   data () {
     return {
       columnsMap,
@@ -72,16 +72,16 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteDeptById)
     },
     handleEdit (row) {
-      this.$refs['AddDialogForm'].form = toDeptForm(row)
-      this.$refs['AddDialogForm'].methodName = '修改'
-      this.$refs['AddDialogForm'].formRequestFn = putDept
-      this.$refs['AddDialogForm'].dialogShow = true
+      this.$refs['DialogForm'].form = toDeptForm(row)
+      this.$refs['DialogForm'].methodName = '修改'
+      this.$refs['DialogForm'].formRequestFn = putDept
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleAdd (row) {
-      this.$refs['AddDialogForm'].form = toNewParentForm(row)
-      this.$refs['AddDialogForm'].methodName = '创建'
-      this.$refs['AddDialogForm'].formRequestFn = postDept
-      this.$refs['AddDialogForm'].dialogShow = true
+      this.$refs['DialogForm'].form = toNewParentForm(row)
+      this.$refs['DialogForm'].methodName = '创建'
+      this.$refs['DialogForm'].formRequestFn = postDept
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleMove (row) {
       console.log(row)

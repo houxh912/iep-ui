@@ -29,6 +29,7 @@ import AptitudeDialog from './aptitude/'
 import ContractDialog from './contract/'
 import ConfigureDialog from './configure/'
 import FileDialog from './file/'
+
 export default {
   name: 'datum',
   mixins: [ mixins ],
@@ -38,7 +39,7 @@ export default {
       tabName: 'materialDialog',
       tabList: [
         {
-          label: '资料',
+          label: '材料',
           value: 'materialDialog',
         }, {
           label: '荣誉资质',

@@ -1,6 +1,7 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="上传材料" width="40%" @close="resetForm('form')">
-    <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
+  <div>
+    <page-header title="新建文档" :backOption="backOption"></page-header>
+    <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
 
       <el-form-item label="名称：" prop="name">
         <el-input v-model="formData.name"></el-input>
@@ -47,18 +48,19 @@
       </el-form-item>
 
     </el-form>
-    <template slot="footer">
+    <footer-toolbar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
-    </template>
-  </iep-dialog>
+    </footer-toolbar>
+  </div>
 </template>
 <script>
 import { initLocalForm, rules } from './option'
-import IepDialog from '@/components/IepDialog/'
 import IepTags from '@/components/IepTags/input'
+import FooterToolbar from '@/components/FooterToolbar/'
+
 export default {
-  components: { IepDialog, IepTags },
+  components: { IepTags, FooterToolbar },
   data () {
     return {
       dialogShow: false,
@@ -74,6 +76,13 @@ export default {
           {value: 1, label: '部门1'},
           {value: 2, label: '部门2'},
         ],
+      },
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: () => {
+          this.$emit('load-page', true)
+        },
       },
     }
   },

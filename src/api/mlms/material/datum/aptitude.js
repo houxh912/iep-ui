@@ -26,9 +26,11 @@ export function updateData (obj) {
 }
 
 export function deleteData (id) {
+  let ids = typeof id === 'object' ? id : [id]
   return request({
-    url: `${prefixUrl}/delete/${id}`,
+    url: `${prefixUrl}/delete/batch`,
     method: 'post',
+    data: ids,
   })
 }
 

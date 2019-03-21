@@ -1,6 +1,7 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="上传材料" width="60%" @close="resetForm('form')">
-    <el-form :model="formData" :rules="rules" ref="form" label-width="130px">
+  <div>
+    <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
+    <el-form :model="formData" :rules="rules" ref="form" label-width="130px" style="margin-bottom: 50px;">
 
       <el-form-item label="合同名称：" prop="contractName">
         <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。"></el-input>
@@ -117,21 +118,23 @@
 
 
     </el-form>
-    <template slot="footer">
+    <footer-toolbar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
-    </template>
-  </iep-dialog>
+    </footer-toolbar>
+  </div>
 </template>
 <script>
 import { initFormData, rules, deptList } from './option'
-import IepDialog from '@/components/IepDialog/'
 import IepTags from '@/components/IepTags/input'
+import FooterToolbar from '@/components/FooterToolbar/'
+
 export default {
-  components: { IepDialog, IepTags },
+  components: { FooterToolbar, IepTags },
   data () {
     return {
       dialogShow: false,
+      methodName: '新增',
       formRequestFn: () => { },
       formData: initFormData(),
       rules: rules,
@@ -149,6 +152,13 @@ export default {
           {value: 1, label: '经理1号'},
           {value: 2, label: '经理2号'},
         ],
+      },
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: () => {
+          this.$emit('load-page', true)
+        },
       },
     }
   },
@@ -172,7 +182,6 @@ export default {
               duration: 2000,
             })
             this.loadPage()
-            this.dialogShow = false
           })
         } else {
           return false

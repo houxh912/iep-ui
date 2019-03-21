@@ -1,6 +1,7 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="上传材料" width="40%" @close="resetForm('form')">
-    <el-form :model="formData" :rules="rules" ref="form" label-width="130px">
+  <div>
+    <page-header :title="`${methodName}荣誉资质`" :backOption="backOption"></page-header>
+    <el-form :model="formData" :rules="rules" ref="form" label-width="130px" style="margin-bottom: 50px;">
 
       <el-form-item label="名称：" prop="name">
         <el-input v-model="formData.name"></el-input>
@@ -32,21 +33,22 @@
       </el-form-item>
 
     </el-form>
-    <template slot="footer">
+    <footer-toolbar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
-    </template>
-  </iep-dialog>
+    </footer-toolbar>
+  </div>
 </template>
 <script>
 import { initFormData, rules } from './option'
-import IepDialog from '@/components/IepDialog/'
 import IepTags from '@/components/IepTags/input'
+import FooterToolbar from '@/components/FooterToolbar/'
+
 export default {
-  components: { IepDialog, IepTags },
+  components: { FooterToolbar, IepTags },
   data () {
     return {
-      dialogShow: false,
+      methodName: '新增',
       formRequestFn: () => { },
       formData: initFormData(),
       rules: rules,
@@ -60,6 +62,13 @@ export default {
           {value: 2, label: '部门2'},
         ],
       },
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: () => {
+          this.$emit('load-page', true)
+        },
+      },
     }
   },
   methods: {
@@ -69,7 +78,6 @@ export default {
     resetForm (formName) {
       this.$refs[formName].resetFields()
       this.formData = initFormData()
-      this.dialogShow = false
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -82,7 +90,6 @@ export default {
               duration: 2000,
             })
             this.loadPage()
-            this.dialogShow = false
           })
         } else {
           return false

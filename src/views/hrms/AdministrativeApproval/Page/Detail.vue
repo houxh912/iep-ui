@@ -58,22 +58,10 @@
           <span>申请流程</span>
         </div>
         <el-timeline>
-          <el-timeline-item timestamp="2018/4/12" placement="top">
+          <el-timeline-item v-for="p in form.processList" :key="p.id" :timestamp="p.time" placement="top">
             <el-card>
-              <h4>更新 Github 模板</h4>
-              <p>王小虎 提交于 2018/4/12 20:46</p>
-            </el-card>
-          </el-timeline-item>
-          <el-timeline-item timestamp="2018/4/3" placement="top">
-            <el-card>
-              <h4>更新 Github 模板</h4>
-              <p>王小虎 提交于 2018/4/3 20:46</p>
-            </el-card>
-          </el-timeline-item>
-          <el-timeline-item timestamp="2018/4/2" placement="top">
-            <el-card>
-              <h4>更新 Github 模板</h4>
-              <p>王小虎 提交于 2018/4/2 20:46</p>
+              <h4>{{p.username}} {{p.status}}</h4>
+              <p>审批意见：{{p.msg}}</p>
             </el-card>
           </el-timeline-item>
         </el-timeline>

@@ -40,7 +40,6 @@ import '@/config/index'
 // import vueJsonTreeView from 'vue-json-tree-view'
 
 import { validatenull } from '@/util/validate'
-
 Vue.prototype.validatenull = validatenull
 
 Vue.use(Avue, { menuType: 'text' })
@@ -69,19 +68,19 @@ Vue.component(IepImg.name, IepImg)
 Vue.component(IepInputNumber.name, IepInputNumber)
 
 //加载过滤器
-Object.keys(filters).forEach(key => {
-  Vue.filter(key, filters[key])
+Object.keys(filters).forEach((key) => {
+	Vue.filter(key, filters[key])
 })
 
 // 动态加载阿里云字体库
-iconfontVersion.forEach(ele => {
-  loadStyle(iconfontUrl.replace('$key', ele))
+iconfontVersion.forEach((ele) => {
+	loadStyle(iconfontUrl.replace('$key', ele))
 })
 
 Vue.config.productionTip = false
 
 new Vue({
-  router,
-  store,
-  render: h => h(App),
+	router,
+	store,
+	render: (h) => h(App),
 }).$mount('#app')

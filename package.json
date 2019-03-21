@@ -20,6 +20,7 @@
     "commitmsg": "validate-commit-msg"
   },
   "dependencies": {
+    "@antv/g2": "^3.4.10",
     "@smallwei/avue": "^1.5.3",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",

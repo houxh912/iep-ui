@@ -1,48 +1,52 @@
 <template>
   <div class="wel-content">
     <div class="information">
-      <el-row>
-        <el-col :span="4" class="dotted">
-          <div class="left">
-            <div class="img zoom">
-              <iep-img :src="userInfo.avatar" alt="头像"></iep-img>
+      <el-card class="box-card" shadow="always">
+        <el-row>
+          <el-col :span="4" class="dotted">
+            <div class="left">
+              <div class="img zoom">
+                <iep-img :src="userInfo.avatar" alt="头像"></iep-img>
+              </div>
+              <div class="code-name">GM000117</div>
+              <el-progress :percentage="80" color="#68C769"></el-progress>
             </div>
-            <div class="code-name">GM000117</div>
-            <el-progress :percentage="80" color="#68C769"></el-progress>
-          </div>
-        </el-col>
-        <el-col :span="20">
-          <div class="right">
-            <div class="user-poster"><span class="say">早上好，{{userInfo.realName}}<span class="honor"><img src="" alt="" /></span></span><span class="gov">国脉人，人人都要成为专家</span></div>
-            <div class="user-info">
-              <span :class="item.type=='button'?'border':'color'" v-for="(item,index) in infoList" :key="index">{{item.label}}</span>
-              <!-- <router-link class="more" to="">更多<i class="el-icon-d-arrow-right"></i></router-link> -->
-              <span class="drop-down">产品技术委员会<i class="el-icon-arrow-down"></i></span>
-            </div>
-            <div class="user-data">
-              <router-link class="inline task" to="">
-                <i class="icon-qian icon padding"></i>
-                <span>每日任务，领积分<i class="el-icon-d-arrow-right"></i></span>
-              </router-link>
-              <router-link class="inline change" to="">
-                领导桌面
-              </router-link>
-              <div class="inline data">
-                <div class="data-lab" :class="index==2?'hideLine':''" v-for="(item,index) in labList" :key="index">
-                  <div class="count">{{item.data}}</div>
-                  <div class="labTitle"><span>{{item.name}}</span><span class="span"><i class="el-icon-question"></i></span></div>
+          </el-col>
+          <el-col :span="20">
+            <div class="right">
+              <div class="user-poster"><span class="say">早上好，{{userInfo.realName}}<span class="honor"><img src="" alt="" /></span></span><span class="gov">国脉人，人人都要成为专家</span></div>
+              <div class="user-info">
+                <span :class="item.type=='button'?'border':'color'" v-for="(item,index) in infoList" :key="index">{{item.label}}</span>
+                <!-- <router-link class="more" to="">更多<i class="el-icon-d-arrow-right"></i></router-link> -->
+                <span class="drop-down">产品技术委员会<i class="el-icon-arrow-down"></i></span>
+              </div>
+              <div class="user-data">
+                <router-link class="inline task" to="">
+                  <i class="icon-qian icon padding"></i>
+                  <span>每日任务，领积分<i class="el-icon-d-arrow-right"></i></span>
+                </router-link>
+                <router-link class="inline change" to="">
+                  领导桌面
+                </router-link>
+                <div class="inline data">
+                  <div class="data-lab" :class="index==2?'hideLine':''" v-for="(item,index) in labList" :key="index">
+                    <div class="count">{{item.data}}</div>
+                    <div class="labTitle"><span>{{item.name}}</span><span class="span"><i class="el-icon-question"></i></span></div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </el-col>
-      </el-row>
+          </el-col>
+        </el-row>
+      </el-card>
       <span class="shrinkage">...</span>
     </div>
     <about-task></about-task>
     <project></project>
     <customer></customer>
     <material></material>
+    <grades></grades>
+    <relationship></relationship>
   </div>
 </template>
 
@@ -52,8 +56,10 @@ import AboutTask from './AboutTask'
 import Project from './Project'
 import Customer from './Customer'
 import Material from './Material'
+import Grades from './Grades'
+import Relationship from './Relationship'
 export default {
-  components: { AboutTask, Project, Customer, Material },
+  components: { AboutTask, Project, Customer, Material, Grades, Relationship },
   data () {
     return {
       infoList: [{
@@ -89,14 +95,15 @@ export default {
   position: relative;
   border-radius: 5px;
   overflow: hidden;
-  .el-row {
+  .box-card {
     margin: 20px;
     height: 100%;
     display: flex;
     align-items: center;
     border-radius: 3px;
-    border: 1px solid #eee;
     box-shadow: 0 0 1px 1px #eee;
+  }
+  .el-row {
     .el-col {
       height: 100%;
       display: flex;
@@ -319,10 +326,6 @@ export default {
 @media (min-width: 0px) and (max-width: 1025px) {
   .information {
     font-size: 14px;
-    .dotted {
-      margin-left: 25px !important;
-      padding-right: 25px !important;
-    }
     .el-col-3 {
       width: auto;
     }
@@ -361,5 +364,15 @@ export default {
       }
     }
   }
+}
+</style>
+<style lang="css" scoped>
+.information >>> .el-card__body {
+  width: 100%;
+}
+.wel-content >>> .grid-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

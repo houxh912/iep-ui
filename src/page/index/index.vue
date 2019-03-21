@@ -193,6 +193,7 @@ export default {
 }
 .avue-contail >>> .el-scrollbar__wrap {
   overflow-x: hidden;
+  overflow-y: unset;
 }
 .avue-contail >>> .el-card__body {
   padding: 0;

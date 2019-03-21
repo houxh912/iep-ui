@@ -57,6 +57,47 @@
           </template>
         </el-table-column>
       </iep-table>
+      <!-- 详情弹窗 -->
+      <iep-dialog :dialog-show="dialogShow" title="详情" @close="close" width="50%">
+        <el-form :model="detailForm" :rules="rules" ref="formName" label-width="100px">
+          <el-form-item label="联系人姓名：" prop="contactName" class="form-half">
+            <span>{{detailForm.contactName}}</span>
+          </el-form-item>
+          <el-form-item label="联系人职务：" prop="contactPosition" class="form-half">
+            <span>{{detailForm.contactPosition}}</span>
+          </el-form-item>
+          <el-form-item label="电话：" prop="telephoneNo" class="form-half">
+            <span>{{detailForm.telephoneNo}}</span>
+          </el-form-item>
+          <el-form-item label="对应客户：" prop="clientName" class="form-half">
+            <span class="tags" v-for="(item,index) in detailForm.clientInfos" :key="index">{{item.clientName}}</span>
+          </el-form-item>
+          <el-form-item label="手机：" prop="cellphone" class="form-half">
+            <span>{{detailForm.cellphone}}</span>
+          </el-form-item>
+          <el-form-item label="传真：" prop="fax" class="form-half">
+            <span>{{detailForm.fax}}</span>
+          </el-form-item>
+          <el-form-item label="QQ：" prop="qq" class="form-half">
+            <span>{{detailForm.qq}}</span>
+          </el-form-item>
+          <el-form-item label="微信：" prop="wechat" class="form-half">
+            <span>{{detailForm.wechat}}</span>
+          </el-form-item>
+          <el-form-item label="邮箱：" prop="email" class="form-half">
+            <span>{{detailForm.email}}</span>
+          </el-form-item>
+          <el-form-item label="地址：" prop="address" class="form-half">
+            <span>{{detailForm.address}}</span>
+          </el-form-item>
+          <el-form-item label="客户关注：" prop="clientConcern" class="form-half">
+            <span>{{detailForm.clientConcern}}</span>
+          </el-form-item>
+          <el-form-item label="其他：" prop="other" class="form-half">
+            <span>{{detailForm.other}}</span>
+          </el-form-item>
+        </el-form>
+      </iep-dialog>
     </basic-container>
   </div>
 </template>
@@ -65,9 +106,10 @@ import mixins from '@/mixins/mixins'
 import { fetchList, deleteDataById, createData, editList } from '@/api/crms/contact'
 // import { myFetchList } from '@/api/crms/custom'
 import { columnsMap, initSearchForm } from '../options'
-
+import IepDialog from '@/components/IepDialog/'
 export default {
   mixins: [mixins],
+  components: { IepDialog },
   data () {
     return {
       dictsMap: {},
@@ -75,6 +117,8 @@ export default {
       dictData: [],
       paramForm: initSearchForm(),
       values: [],
+      dialogShow: false,
+      detailForm: {},
     }
   },
   created () {
@@ -110,8 +154,15 @@ export default {
     searchPage () {
       this.loadTable(this.paramForm, fetchList)
     },
-    contactDetail () {
-      console.log('ssss')
+    contactDetail (row) {
+      this.dialogShow = true
+      editList(row.clientContactId).then(res => {
+        console.log(res)
+        this.detailForm = res.data.data
+      })
+    },
+    close () {
+      this.dialogShow = false
     },
   },
 }
@@ -127,6 +178,13 @@ export default {
 }
 .custom-name {
   cursor: pointer;
+}
+.tags {
+  padding-right: 10px;
+}
+.form-half {
+  width: 50%;
+  display: inline-block;
 }
 </style>
 

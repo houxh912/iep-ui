@@ -13,12 +13,12 @@
         </el-form-item>
         <el-form-item label="业务类型：" prop="type">
           <el-checkbox-group v-model="formData.type">
-            <el-checkbox v-for="item in dicData.select" :key="item.value" :label="item.value">{{item.label}}</el-checkbox>
+            <el-checkbox v-for="item in dictGroup['crms_client_opportunity']" :key="item.value" :label="item.value">{{item.label}}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item label="意向程度：" prop="status">
           <el-checkbox-group v-model="formData.status">
-            <el-checkbox v-for="item in dicData.select" :key="item.value" :label="item.value">{{item.label}}</el-checkbox>
+            <el-checkbox v-for="item in dictGroup['crms_client_intention_level']" :key="item.value" :label="item.value">{{item.label}}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <!-- <el-form-item label="商机标签：" prop="biaoqian">
@@ -49,6 +49,7 @@
 import { initForm, rules } from '../options'
 // import iepTags from '@/components/IepTags'
 import FooterToolBar from '@/components/FooterToolbar'
+import { mapState } from 'vuex'
 export default {
   components: { FooterToolBar },
   data () {
@@ -76,6 +77,9 @@ export default {
     methodState () {
       return this.methodName === '详情'
     },
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
   },
   methods: {
     handleGoBack () {

@@ -51,6 +51,21 @@
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
+          <el-table-column label="申请类型">
+            <template slot-scope="scope">
+              {{scope.row.applyType}}
+            </template>
+          </el-table-column>
+          <el-table-column label="请假类型">
+            <template slot-scope="scope">
+              {{scope.row.leavingType}}
+            </template>
+          </el-table-column>
+          <el-table-column label="部门">
+            <template slot-scope="scope">
+              {{scope.row.deptList.join('、')}}
+            </template>
+          </el-table-column>
         </template>
         <el-table-column label="操作">
           <template>
@@ -109,8 +124,7 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      console.log(row)
-      this.$emit('onDetail')
+      this.$emit('onDetail', row)
     },
     // handleShare (row) { },
     loadPage (param) {

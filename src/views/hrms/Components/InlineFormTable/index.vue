@@ -92,7 +92,7 @@ export default {
         newObj[m.prop] = ''
       })
       this.data.push({
-        id: (parseInt(this.data[length - 1].id) + 1).toString(),
+        id: length ? (parseInt(this.data[length - 1].id) + 1).toString() : '0',
         ...newObj,
         editable: true,
         isNew: true,
@@ -106,6 +106,8 @@ export default {
             message: '添加成功',
             type: 'success',
           })
+          this.$emit('load-page')
+          console.log('load-page')
         })
       } else {
         put(target, this.requestName).then(() => {
@@ -113,6 +115,7 @@ export default {
             message: '修改成功',
             type: 'success',
           })
+          this.$emit('load-page')
         })
       }
       target.editable = false

@@ -13,23 +13,11 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'applyType',
-    label: '申请类型',
-  },
-  {
-    prop: 'leavingType',
-    label: '请假类型',
-  },
-  {
-    prop: 'department',
-    label: '部门',
-  },
-  {
-    prop: 'applyStartTime',
+    prop: 'startTime',
     label: '申请开始时间',
   },
   {
-    prop: 'applyEndTime',
+    prop: 'endTime',
     label: '申请结束时间',
   },
   {
@@ -41,9 +29,27 @@ const columnsMap = [
 
 const initForm = () => {
   return {
-    name: '',
-    isOpen: false,
-    intro: '',
+    'id': '1', // ID
+    'name': 'xxx', // 申请人
+    'type': 1, // 
+    'deptList': ['技术部'], // 所属部门
+    'createTime': '2015-10-10', // 创建时间
+    'startTime': '2015-10-10', // 开始时间(1:请假开始时间；2:出差开始时间;3:加班开始时间;4:入职时间;5:入职时间）
+    'endTime': '2015-10-10', // 结束时间(1:请假结束时间；2:出差结束时间;3:加班结束时间;4:转正时间;5:离职时间;6:调岗时间）
+    'job': '专员', // 职务
+    'title': '大佬', // 职称
+    'reason': '服务领导调配情况/n绝对服从', // 申请理由
+    'annex': 'xxx.jpg', // 附件
+    'processList': [
+      {
+        id: 1,
+        time: '2015-10-10',
+        username: '李杰',
+        status: '已转交',
+        msg: '同意',
+      },
+    ], // 申请流程
+    'cc': '1', // 抄送人
   }
 }
 

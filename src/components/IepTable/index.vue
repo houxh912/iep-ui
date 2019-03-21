@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table class="table" v-loading="isLoadTable" :data="formatData" style="width: 100%;" @selection-change="handleSelectionChange" :header-cell-style="getRowClass" :row-style="showRow" v-bind="$attrs">
+    <el-table class="table" v-loading="isLoadTable" :data="formatData" style="width: 100%;" @selection-change="handleSelectionChange" :header-cell-style="getRowClass" :cell-class-name="cellClassName" :row-style="showRow" v-bind="$attrs">
       <el-table-column v-if="isMutipleSelection" type="selection" width="55" :align="align">
       </el-table-column>
       <el-table-column v-if="isIndex" type="index" width="50" :align="align">
@@ -114,6 +114,18 @@ export default {
     },
   },
   methods: {
+    cellClassName ({ row }) {
+      const { _level } = row
+      if (_level === 1) {
+        return 'cell-master'
+      }
+      if (_level == 2) {
+        return 'cell-child'
+      }
+      if (_level == 3) {
+        return 'cell-sub'
+      }
+    },
     handleSizeChange (val) {
       this.$emit('size-change', val)
     },
@@ -166,6 +178,12 @@ export default {
 }
 .table >>> .cell {
   display: flex;
+}
+.table >>> .cell-master {
+  background-color: #fff;
+}
+.table >>> .cell-child {
+  background-color: #fafafa;
 }
 span.ms-tree-space {
   display: block;

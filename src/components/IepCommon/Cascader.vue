@@ -1,5 +1,5 @@
 <template>
-  <el-cascader v-model="localValue" :options="options" v-bind="$attrs" v-on="$listeners">
+  <el-cascader :placeholder="placeholder" :options="options" v-bind="$attrs" v-on="$listeners">
   </el-cascader>
 </template>
 <script>
@@ -8,18 +8,17 @@ export default {
   name: 'IepCascader',
   inheritAttrs: false,
   props: {
+    placeholder: {
+      type: String,
+      default: '请选择',
+    },
     prefixUrl: {
       type: String,
-      required: true,
-    },
-    value: {
-      type: Array,
       required: true,
     },
   },
   data () {
     return {
-      localValue: this.value,
       options: [],
     }
   },
@@ -27,14 +26,6 @@ export default {
     getCommonList(this.prefixUrl).then(({ data }) => {
       this.options = data.data
     })
-  },
-  watch: {
-    value (n) {
-      this.localValue = n
-    },
-    localValue (n) {
-      this.$emit('input', n)
-    },
   },
 }
 </script>

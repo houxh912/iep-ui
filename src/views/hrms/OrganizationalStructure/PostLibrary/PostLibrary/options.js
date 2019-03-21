@@ -27,8 +27,7 @@ const initForm = () => {
 
 const initSearchForm = () => {
   return {
-    name: '',
-    sex: '',
+    typeId: null,
   }
 }
 

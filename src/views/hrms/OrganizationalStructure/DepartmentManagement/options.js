@@ -27,8 +27,6 @@ const initForm = () => {
     id: '',
     name: '',
     number: '',
-    userId: '',
-    userName: '',
     parentId: 0,
     parentName: '无',
     establishedTime: initNow(),
@@ -39,10 +37,19 @@ const initForm = () => {
   }
 }
 
+const initDtoForm = () => {
+  return {
+    id: '',
+    name: '',
+    number: '',
+    userId: '',
+    parentId: 0,
+    establishedTime: initNow(),
+  }
+}
+
 const toDeptForm = (row) => {
   const newForm = mergeByFirst(initForm(), row)
-  newForm.user.id = newForm.userId
-  newForm.user.name = newForm.userName
   return newForm
 }
 
@@ -54,9 +61,8 @@ const toNewParentForm = (row) => {
 }
 
 const toDtoForm = (row) => {
-  const newForm = mergeByFirst(initForm(), row)
-  newForm.userId = newForm.user.id
-  newForm.userName = newForm.user.name
+  const newForm = mergeByFirst(initDtoForm(), row)
+  newForm.userId = row.user.id
   return newForm
 }
 

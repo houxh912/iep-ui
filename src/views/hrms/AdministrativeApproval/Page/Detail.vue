@@ -147,7 +147,7 @@ export default {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     .info-item {
-      label {
+      & > label {
         width: 120px;
         text-align: right;
         vertical-align: middle;

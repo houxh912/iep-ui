@@ -2,72 +2,97 @@
   <div class="edit-wrapper">
     <basic-container>
       <page-header :title="`${form.name}的转正申请`" :backOption="backOption"></page-header>
-      <div class="base-msg">
-        <el-row>
-          <el-col :span="3">
-            <div class="grid-content bg-purple">
-              <div class="img zoom"><img id="information-avatar" alt="头像"></div>
-            </div>
-          </el-col>
-          <el-col :span="21">
-            <div class="grid-content bg-purple">
-              <el-form ref="form" :model="form" label-width="100px">
-                <el-col :span="7">
-                  <el-form-item label="申请人：">
-                    <span>{{form.name}}</span>
-                  </el-form-item>
-                  <el-form-item label="入职时间：">
-                    <span>{{form.time}}</span>
-                  </el-form-item>
-                  <el-form-item label="岗位：">
-                    <span>{{form.position}}</span>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="14">
-                  <el-form-item label="所属部门：">
-                    <span>{{form.deptList.join('、')}}</span>
-                  </el-form-item>
-                  <el-form-item label="转正日期：">
-                    <span>{{form.date}}</span>
-                  </el-form-item>
-                  <el-form-item label="薪资：">
-                    <span>{{form.salary}}</span>
-                  </el-form-item>
-                </el-col>
-              </el-form>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
-      <!-- <div class="review">
-        <el-form ref="form" :model="form" label-width="280px">
-          <div class="title">申请理由</div>
-          <el-form-item :label="item.label+'：'" v-for="(item,index) in form.review.list" :key="index">
-            <span>{{item.value}}</span>
-          </el-form-item>
-        </el-form>
-      </div>
-      <div class="review">
-        <div class="title">附件 某某某的附件</div>
-      </div>
-      <div class="review">
-        <el-form ref="form" :model="form" label-width="280px">
-          <div class="title">申请流程</div>
-          <el-form-item :label="item.label+'：'" v-for="(item,index) in form.opinion.list" :key="index">
-            <span>{{item.value}}</span>
-          </el-form-item>
-        </el-form>
-      </div> -->
-      <!-- <div class="review">
-        <div class="prompt">抄送人：{{form.sourceName}}</div>
-        <div class="prompt color" readonly>注：（审批通过后，通知抄送人）</div>
-      </div> -->
+      <el-card class="top-card" :body-style="bodyStyle" shadow="hover">
+        <div class="avatar-wrapper">
+          <iep-img class="avatar" :src="form.avatar"></iep-img>
+        </div>
+        <div class="info">
+          <div class="info-item">
+            <label>申请人：</label>
+            <div class="content">{{form.name}}</div>
+          </div>
+          <div class="info-item">
+            <label>所属部门：</label>
+            <div class="content">{{form.deptList.join('、')}}</div>
+          </div>
+          <div class="info-item">
+            <label>创建时间：</label>
+            <div class="content">{{form.createTime}}</div>
+          </div>
+          <div class="info-item">
+            <label>{{startTimeLabel}}：</label>
+            <div class="content">{{form.startTime}}</div>
+          </div>
+          <div class="info-item">
+            <label>{{endTimeLabel}}：</label>
+            <div class="content">{{form.endTime}}</div>
+          </div>
+          <div class="info-item">
+            <label>职务：</label>
+            <div class="content">{{form.job}}</div>
+          </div>
+          <div class="info-item">
+            <label>职称：</label>
+            <div class="content">{{form.title}}</div>
+          </div>
+        </div>
+      </el-card>
+      <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
+        <div slot="header" class="clearfix">
+          <span>申请理由</span>
+        </div>
+        <pre>
+          {{form.reason}}
+        </pre>
+      </el-card>
+      <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
+        <div slot="header" class="clearfix">
+          <span>附件</span>
+        </div>
+        <pre>
+          {{form.annex}}
+        </pre>
+      </el-card>
+      <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
+        <div slot="header" class="clearfix">
+          <span>申请流程</span>
+        </div>
+        <el-timeline>
+          <el-timeline-item timestamp="2018/4/12" placement="top">
+            <el-card>
+              <h4>更新 Github 模板</h4>
+              <p>王小虎 提交于 2018/4/12 20:46</p>
+            </el-card>
+          </el-timeline-item>
+          <el-timeline-item timestamp="2018/4/3" placement="top">
+            <el-card>
+              <h4>更新 Github 模板</h4>
+              <p>王小虎 提交于 2018/4/3 20:46</p>
+            </el-card>
+          </el-timeline-item>
+          <el-timeline-item timestamp="2018/4/2" placement="top">
+            <el-card>
+              <h4>更新 Github 模板</h4>
+              <p>王小虎 提交于 2018/4/2 20:46</p>
+            </el-card>
+          </el-timeline-item>
+        </el-timeline>
+      </el-card>
+      <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
+        <div slot="header" class="clearfix">
+          <span>抄送人</span>
+        </div>
+        <pre>
+          {{form.cc}}
+        </pre>
+      </el-card>
     </basic-container>
   </div>
 </template>
 <script>
 import { getAdministrativeApprovalById } from '@/api/hrms/administrative_approval'
-import { initForm } from '../options'
+import { initForm, dictsMap } from '../options'
+import { mergeByFirst } from '@/util/util'
 export default {
   props: {
     record: {
@@ -82,8 +107,24 @@ export default {
         backPath: null,
         backFunction: this.handleGoBack,
       },
+      bodyStyle: {
+        display: 'flex',
+        padding: '20px',
+      },
+      middleBodyStyle: {
+        padding: '20px',
+        border: 0,
+      },
       form: initForm(),
     }
+  },
+  computed: {
+    startTimeLabel () {
+      return dictsMap.startTime[this.form.type]
+    },
+    endTimeLabel () {
+      return dictsMap.endTime[this.form.type]
+    },
   },
   created () {
     this.loadPage()
@@ -91,7 +132,7 @@ export default {
   methods: {
     loadPage () {
       getAdministrativeApprovalById(this.record.id).then(({ data }) => {
-        this.form = data.data
+        this.form = mergeByFirst(initForm(), data.data)
       })
     },
     handleGoBack () {
@@ -102,42 +143,43 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.base-msg {
-  width: 100%;
-  color: #606266;
-  box-sizing: border-box;
-  border-radius: 3px;
-  padding: 15px 0 7px 0;
-  border: 1px solid #eee;
-  box-shadow: 0 0 1px 1px #eee;
-  .img {
-    margin: 0 auto;
-    width: 120px;
-    height: 120px;
+.top-card {
+  .avatar-wrapper {
+    flex: 1;
+    text-align: center;
+  }
+  .avatar {
     border-radius: 50%;
-    overflow: hidden;
-    img {
-      width: 100%;
-      border-radius: 50%;
+    border: 1px solid #fff;
+    height: 100px;
+    width: 100px;
+  }
+  .info {
+    flex: 5;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    .info-item {
+      label {
+        width: 120px;
+        text-align: right;
+        vertical-align: middle;
+        float: left;
+        font-size: 14px;
+        color: #606266;
+        line-height: 40px;
+        padding: 0 12px 0 0;
+        box-sizing: border-box;
+      }
+      .content {
+        margin-left: 120px;
+        line-height: 40px;
+        position: relative;
+        font-size: 14px;
+      }
     }
   }
 }
-.review {
-  border-bottom: 1px solid #eee;
-  color: #606266;
-  padding: 20px;
-  .title {
-    padding: 15px 20px;
-    font-weight: 600;
-  }
-  .prompt {
-    padding: 0 20px 10px 20px;
-  }
-  .color {
-    color: #ccc;
-  }
-}
-.el-form-item {
-  margin: 0;
+.middle-card {
+  margin-top: 20px;
 }
 </style>

@@ -18,7 +18,6 @@ export function getPublishRecruitmentById (id) {
 }
 
 export function postPublishRecruitment (obj, publish) {
-  console.log(publish)
   return request({
     url: `${prefixUrl}/create`,
     method: 'post',

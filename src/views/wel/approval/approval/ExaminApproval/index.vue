@@ -27,6 +27,10 @@ export default {
       this.record = record
       this.currentComponet = 'Detail'
     },
+    // handleEdit (record) {
+    //   this.record = record
+    //   this.currentComponet = 'Edit'
+    // },
     handleGoBack () {
       this.record = ''
       this.currentComponet = 'List'

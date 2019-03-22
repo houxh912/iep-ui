@@ -1,9 +1,9 @@
 <script>
 export default {
-  name: 'LogList',
+  name: 'LogItem',
   props: {
-    logList: {
-      type: Array,
+    logItem: {
+      type: Object,
     },
   },
   methods: {
@@ -17,7 +17,7 @@ export default {
     },
   },
   render () {
-    const formatLogList = this.logList.map(m => {
+    const formatLogList = [this.logItem].map(m => {
       const templateArray = m.description.split(',')
       const template = templateArray.shift()
       const nameList = templateArray

@@ -2,6 +2,36 @@
   <div class="aside">
     <span class="popup-btn" @click="hideAside"><i class="el-icon-caret-right"></i></span>
     <el-scrollbar>
+      <Card class="avatar-card-box" :bordered="false" dis-hover>
+        <div style="text-align:center">
+          <iep-img style="width:100%" :src="orgDetail.logo"></iep-img>
+          <h3>{{orgDetail.orgName}}</h3>
+          <div class="num-box">
+            <h4>联盟所属：{{orgDetail.orgName}}</h4>
+            <h4>成员数量：{{orgDetail.memberNum}}</h4>
+            <h4>部门数量：{{orgDetail.deptNum}}</h4>
+          </div>
+        </div>
+      </Card>
+      <Card :bordered="false" dis-hover>
+        <p slot="title">组织管理员</p>
+        <div class="avatar-grid">
+          <Avatar size="large" style="background-color: #87d068" v-for="user in orgDetail.managerList" :key="user.id">{{user.name}}</Avatar>
+          <Avatar size="large">+</Avatar>
+        </div>
+      </Card>
+      <Card :bordered="false" dis-hover>
+        <CellGroup>
+          <Cell title="允许加入" label="允许用户申请加入组织">
+            <el-switch slot="extra" v-model="orgDetail.isOpen" :active-value="0" :inactive-value="1" active-color="#13ce66" inactive-color="#ff4949">
+            </el-switch>
+          </Cell>
+          <Cell title="开启管理员审核" label="用户加入组织需要管理员审核">
+            <el-switch slot="extra" v-model="isOpen" :active-value="0" :inactive-value="1" active-color="#13ce66" inactive-color="#ff4949">
+            </el-switch>
+          </Cell>
+        </CellGroup>
+      </Card>
     </el-scrollbar>
   </div>
 </template>
@@ -21,6 +51,9 @@ export default {
       return this.showAside ? '300px' : '0'
     },
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
     loadPage () {
       orgDetail().then((res) => {
@@ -34,6 +67,20 @@ export default {
 }
 </script>
 <style  lang="scss" scoped>
+.num-box {
+  margin-top: 20px;
+  margin-left: 20px;
+  text-align: left;
+}
+.avatar-grid {
+  margin: 0 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+}
+.avatar-card-box {
+  width: 100%;
+}
 .aside {
   background: #fafafa;
   font-size: 12px;

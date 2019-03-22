@@ -194,10 +194,6 @@ export default {
 .avue-contail >>> .el-scrollbar__wrap {
   overflow-x: hidden;
 }
-.avue-contail >>> .avue-view {
-  padding: 20px;
-  /* height: 100%; */
-}
 .avue-contail >>> .container.avue-view {
   margin-left: 0;
   padding: 0;

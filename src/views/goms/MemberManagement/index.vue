@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="formData.orgName" :replaceText="replaceText" :data="data"></page-header>
+      <page-header :title="userInfo.orgName" :replaceText="replaceText" :data="[4,2]"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button class="examine" @click="handleReview()">批量审核</iep-button>
@@ -53,11 +53,12 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import { mergeByFirst } from '@/util/util'
-import { dictsMap, columnsMap, initSearchForm, optionMap, initGomsForm } from './options'
+import { dictsMap, columnsMap, initSearchForm, initGomsForm } from './options'
 import AddDialogForm from './AddDialogForm'
 import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
-import { orgDetail, gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
+import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -65,13 +66,16 @@ export default {
     return {
       columnsMap,
       dictsMap,
-      optionMap,
-      data: [0, 0],
       loadImage: '',
       paramForm: initSearchForm(),
       replaceText: (data) => ` 共${data[0]}个成员(其中${data[1]}个待审核)`,
       formData: { 'orgName': '', 'logo': '', 'realName': '', 'logList': [], 'memberNum': 0, 'applyUserNum': 0, 'deptNum': 0, 'managerList': [], 'isOpen': 0 },
     }
+  },
+  computed: {
+    ...mapState({
+      userInfo: state => state.user.userInfo,
+    }),
   },
   created () {
     this.loadPage()
@@ -162,10 +166,6 @@ export default {
     },
     loadPage (param = this.paramForm) {
       this.loadTable(param, gomsUserPage)
-      orgDetail().then((res) => {
-        this.formData = res.data.data
-        this.data = [this.formData.memberNum, this.formData.applyUserNum]
-      })
     },
   },
 }

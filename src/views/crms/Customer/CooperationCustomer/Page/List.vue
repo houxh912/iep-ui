@@ -66,7 +66,7 @@ export default {
       this.paramForm = initSearchForm()
     },
     handleEdit (row) {
-      this.$emit('onEdit', row)
+      this.$emit('onEdit', { id: row.clientId })
     },
   },
   created () {

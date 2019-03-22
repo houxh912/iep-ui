@@ -1,25 +1,27 @@
 <template>
-  <div class="business">
-    <page-header title="商机"></page-header>
-    <iep-tabs v-model="tabName" :tab-list="tabList">
-      <template v-if="tabName ==='allBusinessTab'" v-slot:allBusinessTab>
-        <all-business-tab></all-business-tab>
-      </template>
-      <template v-if="tabName ==='myReleaseTab'" v-slot:myReleaseTab>
-        <my-release-tab></my-release-tab>
-      </template>
-      <template v-if="tabName ==='myClaimTab'" v-slot:myClaimTab>
-        <my-claim-tab></my-claim-tab>
-      </template>
-    </iep-tabs>
+  <div>
+    <basic-container>
+      <page-header title="商机"></page-header>
+      <iep-tabs v-model="tabName" :tab-list="tabList">
+        <template v-if="tabName ==='allBusinessTab'" v-slot:allBusinessTab>
+          <all-business-tab></all-business-tab>
+        </template>
+        <template v-if="tabName ==='myReleaseTab'" v-slot:myReleaseTab>
+          <my-release-tab></my-release-tab>
+        </template>
+        <template v-if="tabName ==='myClaimTab'" v-slot:myClaimTab>
+          <my-claim-tab></my-claim-tab>
+        </template>
+      </iep-tabs>
+    </basic-container>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
-import allBusinessTab from './allBusiness'
-import myReleaseTab from './myRelease'
-import myClaimTab from './myClaim'
+import allBusinessTab from './AllBusiness/'
+import myReleaseTab from './MyRelease/'
+import myClaimTab from './MyClaim/'
 import IepTabs from '@/components/IepCommon/Tabs'
 export default {
   name: 'business',

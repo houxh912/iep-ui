@@ -15,7 +15,7 @@
           </div>
           <div class="right">
             <div class="pay">薪资：{{form.treatment}}</div>
-            <div class="info">
+            <div class="info-detail">
               <label>学历要求：
                 <iep-dict-detail :current-value="form.academicId" dict-name="hrms_highest_educational"></iep-dict-detail>
               </label>
@@ -26,54 +26,47 @@
           </div>
         </div>
       </el-card>
-      <el-form class="form-detail recruit-detail" ref="form" :model="form" label-width="120px" size="small" disabled>
-        <el-form-item>
-          <div class="sub-title">其他要求</div>
-          <el-row>
-            <el-col :span="4">
-              <el-form-item label="专业要求：">
-                <label>{{form.profession}}</label>
-              </el-form-item>
-            </el-col>
-            <el-col :span="4">
-              <el-form-item label="工作类型：">
-                <iep-dict-detail :current-value="form.jobTypeId" dict-name="hrms_work_type"></iep-dict-detail>
-              </el-form-item>
-            </el-col>
-            <el-col :span="4">
-              <el-form-item label="外语要求：">
-                <label>{{form.language}}</label>
-              </el-form-item>
-            </el-col>
-            <el-col :span="4">
-              <el-form-item label="性别要求：">
-                <label>{{form.sexName}}</label>
-              </el-form-item>
-            </el-col>
-            <el-col :span="4">
-              <el-form-item label="福利待遇：">
-                <label>{{form.welfare}}</label>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item>
-          <div class="sub-title">岗位职责</div>
-          <el-row>
-            <el-col class="text" :span="24">
-              <pre>{{form.duties}}</pre>
-            </el-col>
-          </el-row>
-        </el-form-item>
-        <el-form-item>
-          <div class="sub-title">岗位要求</div>
-          <el-row>
-            <el-col class="text" :span="24">
-              <pre>{{form.claim}}</pre>
-            </el-col>
-          </el-row>
-        </el-form-item>
-      </el-form>
+      <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
+        <div slot="header" class="clearfix">
+          <span>其他要求</span>
+        </div>
+        <div class="info">
+          <div class="info-item">
+            <label>专业要求：</label>
+            <div class="content">{{form.profession}}</div>
+          </div>
+          <div class="info-item">
+            <label>工作类型：</label>
+            <div class="content">
+              <iep-dict-detail :current-value="form.jobTypeId" dict-name="hrms_work_type"></iep-dict-detail>
+            </div>
+          </div>
+          <div class="info-item">
+            <label>外语要求：</label>
+            <div class="content">{{form.language}}</div>
+          </div>
+          <div class="info-item">
+            <label>性别要求：</label>
+            <div class="content">{{form.sexName}}</div>
+          </div>
+          <div class="info-item">
+            <label>福利待遇：</label>
+            <div class="content">{{form.welfare}}</div>
+          </div>
+        </div>
+      </el-card>
+      <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
+        <div slot="header" class="clearfix">
+          <span>岗位职责</span>
+        </div>
+        <pre>{{form.duties}}</pre>
+      </el-card>
+      <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
+        <div slot="header" class="clearfix">
+          <span>岗位要求</span>
+        </div>
+        <pre>{{form.claim}}</pre>
+      </el-card>
     </basic-container>
   </div>
 </template>
@@ -95,6 +88,10 @@ export default {
         backPath: null,
         backFunction: () => { this.$emit('onGoBack') },
       },
+      middleBodyStyle: {
+        padding: '20px',
+        border: 0,
+      },
       form: initForm(),
     }
   },
@@ -110,15 +107,6 @@ export default {
   },
 }
 </script>
-<style scoped>
-.edit-wrapper >>> .el-form {
-  margin-right: 20%;
-  margin-top: 20px;
-}
-.recruit-detail >>> .el-form-item__content {
-  margin-left: 0 !important;
-}
-</style>
 
 <style lang="scss" scoped>
 .recruit-headers {
@@ -168,7 +156,7 @@ export default {
       line-height: 32px;
       color: #cb3737;
     }
-    .info {
+    .info-detail {
       font-size: 14px;
       color: #999;
       label {
@@ -182,16 +170,30 @@ export default {
     }
   }
 }
-.recruit-detail {
-  .sub-title {
-    margin: 20px 35px;
-    font-size: 16px;
-  }
-  .text {
-    margin: 0 45px 15px;
-    font-size: 14px;
-    color: #606266;
-    word-wrap: break-word;
+.middle-card {
+  margin-top: 20px;
+}
+.info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  .info-item {
+    & > label {
+      width: 120px;
+      text-align: right;
+      vertical-align: middle;
+      float: left;
+      font-size: 14px;
+      color: #606266;
+      line-height: 40px;
+      padding: 0 12px 0 0;
+      box-sizing: border-box;
+    }
+    .content {
+      margin-left: 120px;
+      line-height: 40px;
+      position: relative;
+      font-size: 14px;
+    }
   }
 }
 </style>

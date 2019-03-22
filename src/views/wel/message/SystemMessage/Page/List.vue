@@ -2,16 +2,38 @@
   <div>
     <basic-container>
       <div class="info-container">
-        <div class="sub-menu">
-          <h4>分类</h4>
-          <ul>
-            <li v-for="item in list" :key="item.id">
-              <el-button type="text">{{item.title}}<span class="num">{{item.num}}</span></el-button>
-            </li>
-          </ul>
+        <div style="padding: 10px;">
+          <Card title="分类" icon="ios-options" :padding="0" shadow style="width: 300px;">
+            <CellGroup>
+              <Cell title="提醒" selected>
+                <Badge :count="1" slot="extra" />
+              </Cell>
+              <Cell title="纪要">
+                <Badge :count="2" slot="extra" />
+              </Cell>
+              <Cell title="任务">
+                <Badge :count="3" slot="extra" />
+              </Cell>
+              <Cell title="审批">
+                <Badge :count="4" slot="extra" />
+              </Cell>
+              <Cell title="财富">
+                <Badge :count="12" slot="extra" />
+              </Cell>
+              <Cell title="其他">
+                <Badge :count="2" slot="extra" />
+              </Cell>
+              <Cell title="星标">
+                <Badge :count="5" slot="extra" />
+              </Cell>
+              <Cell title="系统消息">
+                <Badge :count="3" slot="extra" />
+              </Cell>
+            </CellGroup>
+          </Card>
         </div>
         <basic-container>
-          <page-header title="系统消息" :replaceText="replaceText"></page-header>
+          <page-header title="系统消息"></page-header>
           <operation-container>
             <template slot="left">
               <el-button-group>
@@ -22,11 +44,11 @@
             </template>
             <template slot="right">
               <operation-search @search="searchPage" advance-search>
-                <advance-search :form="paramForm" @search-page="searchPage" @clear-search-param="clearSearchParam"></advance-search>
+                <advance-search @search-page="searchPage"></advance-search>
               </operation-search>
             </template>
           </operation-container>
-          <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="currentColumnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+          <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
             <template slot="before-columns">
               <el-table-column label="主题">
                 <template slot-scope="scope">
@@ -41,10 +63,9 @@
   </div>
 </template>
 <script>
-import { getEmployeeProfilePage }
-  from '@/api/hrms/employee_profile'
+import { getSystemMessagePage } from '@/api/ims/system_message'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm, dictsMap } from '../options'
+import { columnsMap, dictsMap } from '../options'
 import AdvanceSearch from './AdvanceSearch'
 export default {
   mixins: [mixins],
@@ -53,65 +74,15 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      paramForm: initSearchForm(),
-      list: [
-        {
-          id: '1',
-          title: '提醒',
-          num: '5',
-        },
-        {
-          id: '2',
-          title: '纪要',
-          num: '5',
-        },
-        {
-          id: '3',
-          title: '任务',
-          num: '5',
-        },
-        {
-          id: '4',
-          title: '审批',
-          num: '10',
-        },
-        {
-          id: '5',
-          title: '财富',
-          num: '3',
-        },
-        {
-          id: '6',
-          title: '其他',
-          num: '5',
-        },
-        {
-          id: '7',
-          title: '星标',
-          num: '5',
-        },
-        {
-          id: '8',
-          title: '系统消息',
-          num: '8',
-        },
-      ],
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-      this.loadPage()
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getSystemMessagePage)
     },
-    loadPage (param = this.paramForm) {
-      this.loadTable(param, getEmployeeProfilePage)
-    },
-    // handleChange () {
-    //   this.$emit('onEdit')
-    // },
     handleDetail (row) {
       this.$emit('onDetail', row)
     },

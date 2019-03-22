@@ -1,6 +1,6 @@
 <template>
   <div class="aside">
-    <span class="popup-btn" @click="hideAside"><i class="el-icon-setting"></i></span>
+    <span class="popup-btn" @click="hideAside"><i class="el-icon-caret-right"></i></span>
     <el-scrollbar>
       <!-- 我要创建 -->
       <my-created />
@@ -10,6 +10,10 @@
       <my-treasure />
       <!-- 我的机会 -->
       <my-chance />
+      <!-- 收到评价 -->
+      <receive-evaluation />
+      <!-- 我的指數 -->
+      <my-data />
     </el-scrollbar>
   </div>
 </template>
@@ -18,11 +22,21 @@ import MyCreated from './MyCreated'
 import MyFind from './MyFind'
 import MyTreasure from './MyTreasure'
 import MyChance from './MyChance'
+import ReceiveEvaluation from './ReceiveEvaluation'
+import MyData from './MyData'
 export default {
-  components: { MyCreated, MyFind, MyTreasure, MyChance },
+  components: { MyCreated, MyFind, MyTreasure, MyChance, ReceiveEvaluation, MyData },
   methods: {
     hideAside () {
       this.$emit('aside-hide')
+    },
+  },
+  computed: {
+    isShow300px () {
+      if (this.isTablet()) {
+        return '0'
+      }
+      return this.showAside ? '300px' : '0'
     },
   },
 }
@@ -53,7 +67,7 @@ export default {
     &:focus {
       background-color: #eee;
       color: #fff;
-      box-shadow: 0 1px 1px 1px #eee
+      box-shadow: 0 1px 1px 1px #eee;
     }
   }
   .el-scrollbar {
@@ -69,5 +83,3 @@ export default {
   }
 }
 </style>
-
-

@@ -6,11 +6,11 @@
         <el-row>
           <el-col :span=12 class="item">
             <div class="label">单位网址：</div>
-            <div class="value">www.baidu.com</div>
+            <div class="value">{{formData.companyUrl}}</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">联系地址：</div>
-            <div class="value">浙江舟山海洋科学城A11-1206</div>
+            <div class="value">{{formData.contractAddress}}</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">业务类型：</div>
@@ -18,7 +18,7 @@
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">单位职能：</div>
-            <div class="value">这里是单位职能</div>
+            <div class="value">{{formData.companyFunction}}</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">区域类型：</div>
@@ -26,7 +26,7 @@
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">客户类型：</div>
-            <div class="value">战略合作伙伴</div>
+            <div class="value customer" v-for="(item,index) in formData.clientTypeKey" :key="index">{{item.commonName}}</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">客户关系：</div>
@@ -34,7 +34,7 @@
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">其他说明：</div>
-            <div class="value">这里是其他说明</div>
+            <div class="value">{{formData.otherDesc}}</div>
           </el-col>
         </el-row>
       </div>
@@ -42,12 +42,13 @@
         <div class="item">
           <div class="label">合作项目：</div>
           <div class="value">
-            <div class="dot" v-for="(item, index) in formData.xiangmu" :key="index">{{item.name}}<span>（合同金额：{{item.money}}）</span></div>
+            <div class="dot" v-for="(item, index) in xiangmu.xiangmu" :key="index">{{item.name}}<span>（合同金额：{{item.money}}）</span></div>
           </div>
         </div>
         <div class="item">
           <div class="label">客户标签：</div>
           <div class="value">
+            <el-tag type="info" class="tag-dot" v-for="(item,index) in formData.tags" :key="index">{{item.commonName}}</el-tag>
             <el-tag type="info" class="tag-dot">大数据</el-tag>
             <el-tag type="info" class="tag-dot">政务规划</el-tag>
             <el-tag type="info" class="tag-dot">人工智能</el-tag>
@@ -91,27 +92,27 @@
         <el-row>
           <el-col :span=12 class="item">
             <div class="label">发布人：</div>
-            <div class="value">雷军</div>
+            <div class="value">何益挺</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">负责部门：</div>
-            <div class="value">北方业务一部</div>
+            <div class="value">{{formData.respDept}}</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">前市场经理：</div>
-            <div class="value">王俊辉</div>
+            <div class="value">{{formData.preMarketManager}}</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">前所属部门：</div>
-            <div class="value">DIPS产品中心</div>
+            <div class="value">{{formData.preRespDept}}</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">创建时间：</div>
-            <div class="value">2019-01-01  09:00</div>
+            <div class="value">{{formData.createTime}}</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">更新于：</div>
-            <div class="value">2019-01-15  14:00</div>
+            <div class="value">{{formData.updateTime}}</div>
           </el-col>
         </el-row>
       </div>
@@ -124,14 +125,25 @@ export default {
   name: 'detail',
   data () {
     return {
-      formData: {
+      xiangmu: {
         xiangmu: [
-          { name: '浙江省重大项目建设项目', money: '20W'},
-          { name: '浙江省重大项目建设项目', money: '20W'},
-          { name: '浙江省重大项目建设项目', money: '20W'},
+          { name: '浙江省重大项目建设项目', money: '20W' },
+          { name: '浙江省重大项目建设项目', money: '20W' },
+          { name: '浙江省重大项目建设项目', money: '20W' },
         ],
       },
     }
+  },
+  props: {
+    formData: {
+      type: Object,
+      default: () => { },
+    },
+  },
+  created () {
+  },
+  methods: {
+
   },
 }
 </script>
@@ -170,5 +182,8 @@ export default {
       }
     }
   }
+}
+.customer {
+  margin-right: 10px;
 }
 </style>

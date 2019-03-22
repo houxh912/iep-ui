@@ -229,6 +229,7 @@ export default {
   .edit-card {
     .title {
       font-weight: 600;
+      font-size: 16px;
     }
   }
 }

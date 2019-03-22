@@ -1,19 +1,21 @@
 // import { mergeByFirst } from '@/util/util'
 const dictsMap = {
-  status: {
-    // 0: '暂无',
-    // 1: '正式员工',
-    // 2: '试用期员工',
-    // 3: '实习期员工',
-    // 4: '兼职员工',
-    // 5: '其他',
-    // 6: '离职员工',
+  messageType: {
+    0: '全部',
+    1: '纪要',
+    2: '任务',
+    3: '财富',
+    4: '审批',
+    5: '提醒',
+    6: '其他',
+    7: '星标',
   },
 }
 const columnsMap = [
   {
     prop: 'time',
     label: '时间',
+    width: '200',
   },
 ]
 const initSearchForm = () => {

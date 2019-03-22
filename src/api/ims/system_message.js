@@ -12,7 +12,7 @@ export function getSystemMessagePage (query) {
 
 export function getTypeList () {
   return request({
-    url: `${prefixUrl}/type_list`,
+    url: `${prefixUrl}/type_count_map`,
     method: 'get',
   })
 }

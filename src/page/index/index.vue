@@ -159,7 +159,7 @@ export default {
     //             title: '协同提醒',
     //             type: 'warning',
     //             dangerouslyUseHTMLString: true,
-    //             message: msg.body + '任务，请及时处理',
+    //             resources: msg.body + '任务，请及时处理',
     //             offset: 60,
     //           })
     //         }

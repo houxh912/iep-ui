@@ -1,5 +1,5 @@
 <template>
-  <div :class="prefixCls" :style="{ width: `calc(100% - 248px)`}">
+  <div :class="prefixCls" :style="styleOption">
     <div style="float: left">
       <slot name="extra">{{ extra }}</slot>
     </div>
@@ -10,8 +10,10 @@
 </template>
 
 <script>
+import displayMixins from '@/mixins/displayMixins'
 export default {
   name: 'FooterToolBar',
+  mixins: [displayMixins],
   props: {
     prefixCls: {
       type: String,
@@ -20,6 +22,14 @@ export default {
     extra: {
       type: [String, Object],
       default: '',
+    },
+  },
+  computed: {
+    styleOption () {
+      const menuWidth = this.isDesktop() ? '200px' : '64px'
+      return {
+        width: `calc(100% - ${menuWidth})`,
+      }
     },
   },
 }

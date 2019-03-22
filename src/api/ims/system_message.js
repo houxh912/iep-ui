@@ -9,3 +9,10 @@ export function getSystemMessagePage (query) {
     params: query,
   })
 }
+
+export function getTypeList () {
+  return request({
+    url: `${prefixUrl}/type_list`,
+    method: 'get',
+  })
+}

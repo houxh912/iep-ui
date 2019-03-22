@@ -2,8 +2,8 @@
   <div class="aside-main">
     <Card title="消息分类" icon="ios-options" :padding="0" class="type-card-box">
       <CellGroup>
-        <Cell :title="v" v-for="(v,k) in dictsMap.messageType" :key="k" :selected="selectType === k" @click.native="handleSelectType(k)">
-          <Badge :count="2" slot="extra" />
+        <Cell :title="item.label" v-for="item in imsMsgType" :key="item.value" :selected="selectType === item.value" @click.native="handleSelectType(item.value)">
+          <Badge :count="typeCountMap[item.value]" slot="extra" />
         </Cell>
       </CellGroup>
     </Card>
@@ -36,7 +36,8 @@
   </div>
 </template>
 <script>
-import { getSystemMessagePage } from '@/api/ims/system_message'
+import { mapState } from 'vuex'
+import { getSystemMessagePage, getTypeList } from '@/api/ims/system_message'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
 import AdvanceSearch from './AdvanceSearch'
@@ -47,10 +48,20 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      typeCount: {},
       selectType: '0',
     }
   },
+  computed: {
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
+    imsMsgType () {
+      return this.dictGroup['ims_msg_type']
+    },
+  },
   created () {
+    this.loadTypeList()
     this.loadPage()
   },
   methods: {
@@ -60,6 +71,11 @@ export default {
     },
     handleDetail (row) {
       this.$emit('onDetail', row)
+    },
+    loadTypeList () {
+      getTypeList().then(({ data }) => {
+        this.typeCountMap = data
+      })
     },
     loadPage (param = this.searchForm) {
       this.loadTable({ type: this.selectType, ...param }, getSystemMessagePage)

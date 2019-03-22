@@ -33,6 +33,7 @@ export default {
   margin-top: 15px;
   margin-bottom: 10px;
   padding: 10px 20px;
+  box-sizing: content-box;
 }
 .content-footer >>> .el-pagination {
   text-align: right;

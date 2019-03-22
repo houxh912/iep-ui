@@ -7,14 +7,18 @@
       <el-form-item label="用户群:">
         <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
       </el-form-item>
+      <el-form-item label="文件:">
+        <iep-upload v-model="form.fileList"></iep-upload>
+      </el-form-item>
     </el-form>
   </div>
 </template>
 <script>
 import IepContactSelect from '@/components/IepContact/Select'
 import IepContactMultiple from '@/components/IepContact/Multiple'
+import IepUpload from '@/components/IepCommon/Upload'
 export default {
-  components: { IepContactSelect, IepContactMultiple },
+  components: { IepContactSelect, IepContactMultiple, IepUpload },
   data () {
     return {
       form: {
@@ -27,6 +31,7 @@ export default {
           orgs: [],
           users: [],
         },
+        fileList: [],
       },
     }
   },

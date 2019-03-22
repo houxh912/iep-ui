@@ -1,7 +1,7 @@
 <template>
   <div class="wel-content">
     <div class="information">
-      <el-card class="box-card" shadow="always">
+      <el-card class="box-card" shadow="hover" :body-style="bodyStyle">
         <el-row>
           <el-col :span="4" class="dotted">
             <div class="left">
@@ -62,6 +62,9 @@ export default {
   components: { AboutTask, Project, Customer, Material, Grades, Relationship },
   data () {
     return {
+      bodyStyle: {
+        padding: 0,
+      },
       infoList: [{
         label: '国脉集团副总经理/国脉集团研发中心主任', type: '',
       }],
@@ -100,8 +103,6 @@ export default {
     height: 100%;
     display: flex;
     align-items: center;
-    border-radius: 3px;
-    box-shadow: 0 0 1px 1px #eee;
   }
   .el-row {
     .el-col {
@@ -119,8 +120,8 @@ export default {
         }
         .img {
           margin: 0 auto;
-          width: 80px;
-          height: 80px;
+          width: 90px;
+          height: 90px;
           border-radius: 50%;
           overflow: hidden;
           img {
@@ -201,7 +202,6 @@ export default {
           .color {
             display: inline-block;
             margin: 0;
-            max-width: 222px;
             font-size: 14px;
             color: #7a7a7a;
             overflow: hidden;
@@ -229,7 +229,6 @@ export default {
             }
           }
           .task {
-            width: 160px;
             background: #f9eae7;
             padding: 3px 10px;
             font-size: 14px;

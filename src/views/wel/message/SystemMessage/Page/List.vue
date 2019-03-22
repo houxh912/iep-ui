@@ -37,7 +37,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { getSystemMessagePage, getTypeList } from '@/api/ims/system_message'
+import { getSystemMessagePage, getTypeCountMap } from '@/api/ims/system_message'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
 import AdvanceSearch from './AdvanceSearch'
@@ -48,7 +48,7 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      typeCount: {},
+      typeCountMap: {},
       selectType: '0',
     }
   },
@@ -73,8 +73,8 @@ export default {
       this.$emit('onDetail', row)
     },
     loadTypeList () {
-      getTypeList().then(({ data }) => {
-        this.typeCountMap = data
+      getTypeCountMap().then(({ data }) => {
+        this.typeCountMap = data.data
       })
     },
     loadPage (param = this.searchForm) {

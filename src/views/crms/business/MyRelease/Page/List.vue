@@ -64,7 +64,7 @@ export default {
       this.$emit('clear-search-param')
     },
     searchPage () {
-      this.loadTable(this.paramForm, businessList)
+      this.loadTable({ ...this.paramForm, type: this.type }, businessList)
     },
     handleAdd () {
       this.$refs['mainDialog'].methodName = '新增'

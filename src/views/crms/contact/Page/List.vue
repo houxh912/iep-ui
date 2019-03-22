@@ -59,7 +59,7 @@
       </iep-table>
       <!-- 详情弹窗 -->
       <iep-dialog :dialog-show="dialogShow" title="详情" @close="close" width="50%">
-        <el-form :model="detailForm" :rules="rules" ref="formName" label-width="100px">
+        <el-form :model="detailForm" ref="formName" label-width="100px">
           <el-form-item label="联系人姓名：" prop="contactName" class="form-half">
             <span>{{detailForm.contactName}}</span>
           </el-form-item>

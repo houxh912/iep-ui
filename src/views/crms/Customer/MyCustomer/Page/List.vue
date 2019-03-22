@@ -53,7 +53,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { myTableOption, dictsMap, initSearchForm } from '../../options'
-import { myFetchList, deleteDataById } from '@/api/crms/custom'
+import { fetchList, deleteDataById } from '@/api/crms/custom'
 
 export default {
   name: 'custom',
@@ -94,13 +94,18 @@ export default {
       // })
       // this.ids = ids
     },
-    loadPage (param = this.paramForm) {
-      this.loadTable(param, myFetchList, m => {
+    loadPage (param = { ...this.paramForm, type: 2 }) {
+      this.loadTable(param, fetchList, m => {
         return Object.assign(m, { businessTypeC: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()
+    },
+    searchPage () {
+      this.loadTable({ ...this.paramForm, type: 2 }, fetchList, m => {
+        return Object.assign(m, { businessTypeC: m.businessTypeKey.map(m => m.commonName).join('，') })
+      })
     },
     customDetail (row) {
       // fertchInfo(row.clientId).then((res) => {

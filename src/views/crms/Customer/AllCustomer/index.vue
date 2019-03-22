@@ -80,13 +80,18 @@ export default {
     }
   },
   methods: {
-    loadPage (param = this.paramForm) {
+    loadPage (param = { ...this.paramForm, type: 1 }) {
       this.loadTable(param, fetchList, m => {
         return Object.assign(m, { businessTypeC: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
     },
     clearSearchParam () {
       this.paramForm = allSearchForm()
+    },
+    searchPage () {
+      this.loadTable({ ...this.paramForm, type: 1 }, fetchList, m => {
+        return Object.assign(m, { businessTypeC: m.businessTypeKey.map(m => m.commonName).join('，') })
+      })
     },
   },
   created () {

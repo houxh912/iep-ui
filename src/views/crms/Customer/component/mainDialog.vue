@@ -119,7 +119,7 @@ import { initFormData, rules } from '../options'
 import ProductDialog from './productDialog'
 import ProgrammeDialog from './programmeDialog'
 import FooterToolBar from '@/components/FooterToolbar'
-import { createData, updateData, queryInfo } from '@/api/crms/custom'
+import { createData, updateData, fertchInfo } from '@/api/crms/custom'
 import { mapState } from 'vuex'
 export default {
   components: { ProductDialog, ProgrammeDialog, FooterToolBar },
@@ -160,13 +160,13 @@ export default {
     },
     load () {
       if (this.isAdd == 'edit') {
-        queryInfo(this.record.id).then(res => {
+        fertchInfo(this.record.id).then(res => {
           let form = res.data.data
           this.formData = {
             clientName: form.clientName,
             clientId: form.clientId,
             phoneNumber: form.phoneNumber,
-            districtType: form.districtType,
+            districtType: form.districtTypeKey,
             marketManager: form.marketManager,
             respDept: form.respDept,
             companyUrl: form.companyUrl,
@@ -177,9 +177,9 @@ export default {
             businessTypeKey: form.businessTypeKey.map(m => parseInt(m.commonId)),
             // tags: this.record.tags,
             programs: [1, 2],
-            followUpStatus: form.followUpStatus,
+            followUpStatus: form.followUpStatusKey,
             specificBusinessType: form.specificBusinessType,
-            clientRela: form.clientRela,
+            clientRela: form.clientRelaKey,
             tags: [1],
           }
         })

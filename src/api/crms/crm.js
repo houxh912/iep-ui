@@ -1,7 +1,7 @@
 import request from '@/router/axios'
 
 const contactrecordUrl = '/crm/visitingRecord'
-const clientprograminfoUrl = '/crm/iepclientprograminfo'
+const clientprograminfoUrl = '/crm/program'
 
 // 拜访记录查询
 export function fetchVisitList (params) {
@@ -78,16 +78,16 @@ export function createProgramme (obj) {
 // 方案-编辑
 export function updateProgramme (obj) {
   return request({
-    url: `${clientprograminfoUrl}/put`,
+    url: `${clientprograminfoUrl}/update`,
     method: 'post',
     data: obj,
   })
 }
 
 // 方案-删除
-export function deleteProgramme (programIds) {
+export function deleteProgramme (ids) {
   return request({
-    url: `${clientprograminfoUrl}/delete/${programIds}`,
+    url: `${clientprograminfoUrl}/delete/batch/${ids}`,
     method: 'post',
   })
 }

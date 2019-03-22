@@ -1,6 +1,6 @@
 import request from '@/router/axios'
 
-const crmsUrl = '/crm/iepclientcontact'
+const crmsUrl = '/crm/contact'
 
 export function fetchList (query) {
   return request({
@@ -20,7 +20,7 @@ export function createData (obj) {
 
 export function updateData (obj) {
   return request({
-    url: `${crmsUrl}/put`,
+    url: `${crmsUrl}/update`,
     method: 'post',
     data: obj,
   })
@@ -28,7 +28,7 @@ export function updateData (obj) {
 
 export function deleteDataById (id) {
   return request({
-    url: `${crmsUrl}/delete/${id}`,
+    url: `${crmsUrl}/delete/batch/${id}`,
     method: 'post',
   })
 }

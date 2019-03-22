@@ -128,7 +128,7 @@ export default {
       this.dialogVisible = true
       this.loadPage()
     },
-    loadPage (param) {
+    loadPage (param = { type: 1 }) {
       this.loadTable(param, fetchList)
     },
     handleGoBack () {

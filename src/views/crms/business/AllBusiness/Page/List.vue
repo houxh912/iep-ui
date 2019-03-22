@@ -90,7 +90,7 @@ export default {
       this.$emit('onDetail', row)
     },
     searchPage () {
-      this.loadTable(this.paramForm, businessList)
+      this.loadTable({ ...this.paramForm, type: this.type }, businessList)
     },
   },
 

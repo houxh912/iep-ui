@@ -40,7 +40,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { collaborationTableOption, dictsMap, initSearchForm } from '../options'
-import { collaborationFetchList } from '@/api/crms/custom'
+import { fetchList } from '@/api/crms/custom'
 
 export default {
   name: 'custom',
@@ -57,8 +57,8 @@ export default {
     // loadPage (param) {
     //   this.loadTable(param, collaborationFetchList)
     // },
-    loadPage (param = this.paramForm) {
-      this.loadTable(param, collaborationFetchList, m => {
+    loadPage (param = { ...this.paramForm, type: 3 }) {
+      this.loadTable(param, fetchList, m => {
         return Object.assign(m, { businessTypeC: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
     },
@@ -67,6 +67,11 @@ export default {
     },
     handleEdit (row) {
       this.$emit('onEdit', { id: row.clientId })
+    },
+    searchPage () {
+      this.loadTable({ ...this.paramForm, type: 3 }, fetchList, m => {
+        return Object.assign(m, { businessTypeC: m.businessTypeKey.map(m => m.commonName).join('，') })
+      })
     },
   },
   created () {

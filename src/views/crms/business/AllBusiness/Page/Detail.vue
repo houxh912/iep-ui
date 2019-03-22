@@ -109,8 +109,8 @@ export default {
     },
     claimBusiness () {
       let claim = {
-        opportunityId: this.record.opportunityId,
-        status: this.record.statusKey,
+        opportunityId: this.formData.opportunityId,
+        status: this.formData.statusKey,
       }
       claimById({ ...claim }).then(res => {
         if (res.status == 200) {

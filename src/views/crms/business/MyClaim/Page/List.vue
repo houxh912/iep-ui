@@ -38,7 +38,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { allTableOption, dictsMap, initSearchForm } from '../options'
-import { myReceiveList, createData, deleteDataById, cancelClaim } from '@/api/crms/business'
+import { businessList, createData, deleteDataById, cancelClaim, businessById } from '@/api/crms/business'
 import mainFormDialog from '../../dialogs/mainDialog'
 export default {
   name: 'business',
@@ -49,14 +49,15 @@ export default {
       dictsMap,
       columnsMap: allTableOption,
       paramForm: initSearchForm(),
+      type: 3,
     }
   },
   methods: {
     // loadPage (param) {
     //   this.loadTable(param, myReceiveList)
     // },
-    loadPage (param) {
-      this.loadTable(param, myReceiveList, m => {
+    loadPage (param = { type: this.type }) {
+      this.loadTable(param, businessList, m => {
         return Object.assign(m, { businessTypeC: m.businessType.map(m => m.commonName).join('，') })
       })
     },
@@ -65,7 +66,7 @@ export default {
       this.$emit('clear-search-param')
     },
     searchPage () {
-      this.loadTable(this.paramForm, myReceiveList)
+      this.loadTable(this.paramForm, businessList)
     },
     handleAdd () {
       this.$refs['mainDialog'].methodName = '新增'
@@ -84,17 +85,22 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        let claim = {
-          opportunityId: row.opportunityId,
-          status: row.statusKey,
-        }
-        cancelClaim({ ...claim }).then(res => {
-          if (res.status == 200) {
-            this.$message.success('操作成功!')
-          } else {
-            this.$message.info(`操作失败，${res.data.msg}`)
+        businessById(row.opportunityId).then(res => {
+          console.log(res)
+          let state = res.data.data.data.statusKey
+          let id = res.data.data.data.opportunityId
+          let claim = {
+            opportunityId: id,
+            status: state,
           }
-          this.loadPage()
+          cancelClaim({ ...claim }).then(res => {
+            if (res.status == 200) {
+              this.$message.success('操作成功!')
+            } else {
+              this.$message.info(`操作失败，${res.data.msg}`)
+            }
+            this.loadPage()
+          })
         })
       })
     },

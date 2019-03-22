@@ -39,7 +39,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { allTableOption, dictsMap, initSearchForm } from '../options'
-import { myBusinessList, createData, deleteDataById, refuseClaim } from '@/api/crms/business'
+import { businessList, createData, deleteDataById, refuseClaim } from '@/api/crms/business'
 export default {
   name: 'business',
   mixins: [mixins],
@@ -48,13 +48,14 @@ export default {
       dictsMap,
       columnsMap: allTableOption,
       paramForm: initSearchForm(),
+      type: 2,
     }
   },
   computed: {
   },
   methods: {
-    loadPage (param) {
-      this.loadTable(param, myBusinessList, m => {
+    loadPage (param = { type: this.type }) {
+      this.loadTable(param, businessList, m => {
         return Object.assign(m, { businessTypeC: m.businessType.map(m => m.commonName).join('，') })
       })
     },
@@ -63,7 +64,7 @@ export default {
       this.$emit('clear-search-param')
     },
     searchPage () {
-      this.loadTable(this.paramForm, myBusinessList)
+      this.loadTable(this.paramForm, businessList)
     },
     handleAdd () {
       this.$refs['mainDialog'].methodName = '新增'

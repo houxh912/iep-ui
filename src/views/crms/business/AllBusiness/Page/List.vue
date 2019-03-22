@@ -64,6 +64,7 @@ export default {
       dictsMap,
       columnsMap: allTableOption,
       paramForm: initSearchForm(),
+      type: 1,
     }
   },
   created () {
@@ -74,7 +75,7 @@ export default {
       this.paramForm = initSearchForm()
       this.$emit('clear-search-param')
     },
-    loadPage (param) {
+    loadPage (param = { type: this.type }) {
       this.loadTable(param, businessList, m => {
         return Object.assign(m, { businessTypeC: m.businessType.map(m => m.commonName).join('，') })
       })

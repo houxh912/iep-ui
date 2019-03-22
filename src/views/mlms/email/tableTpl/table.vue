@@ -84,7 +84,15 @@ export default {
       this.$emit('multipleSelection', val.map(m => m.emailId), val)
     },
     loadPage (param) {
-      this.loadTable(param, this.requestFn)
+      // this.loadTable(param, this.requestFn)
+      this.isLoadTable = true
+      this.requestFn({ ...param, ...this.pageOption }).then(({ data }) => {
+        const { records, size, total, current, condition } = data.data
+        this.pagination = { current, size, total }
+        this.pagedTable = records.map(m => m)
+        this.isLoadTable = false
+        this.$emit('readList', [total, condition.unRead])
+      })
     },
     // 星标
     emailStar (row) {

@@ -11,7 +11,7 @@
           <operation-search @search="searchPage"></operation-search>
         </template>
       </operation-container>
-      <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect"></table-dialog>
+      <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect" pageState="draft"></table-dialog>
     </div>
     <!-- <main-form-dialog ref="mainDialog" v-show="!dialogShow" @backWeb="backPage"></main-form-dialog> -->
     <update-form-dialog ref="updateDialog" v-show="!dialogShow" @backWeb="backPage" @load-page="loadPage"></update-form-dialog>
@@ -88,7 +88,6 @@ export default {
   mounted () {
     this.$refs['table'].requestFn = getDraftList
     this.$nextTick(() => {
-      this.$refs['table'].pageState = 'draft'
       this.$refs['table'].loadPage({})
     })
   },

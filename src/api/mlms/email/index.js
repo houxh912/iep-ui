@@ -71,10 +71,19 @@ export function deleteEmailById (id) {
   })
 }
 
-// 批量删除邮件
+// 发件箱、草稿箱-批量删除邮件
 export function deleteEmailByIds (ids) {
   return request({
     url: `${prefixUrl}/delete`,
+    method: 'post',
+    data: ids,
+  })
+}
+
+// 收件箱删除
+export function deleteEmailReceiver (ids) {
+  return request({
+    url: '/mlms/email_receiver/delete',
     method: 'post',
     data: ids,
   })

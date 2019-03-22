@@ -52,16 +52,8 @@ export default {
         this.$message.error('请至少选择一个项目进行创建')
         return
       }
-      this.formRequestFn(this.formData).then(() => {
-        this.$notify({
-          title: '成功',
-          message: `${this.methodName}成功`,
-          type: 'success',
-          duration: 2000,
-        })
-        this.loadPage()
-        this.dialogShow = false
-      })
+      this.$emit('selectProject', this.selectId)
+      this.resetForm()
     },
   },
 }

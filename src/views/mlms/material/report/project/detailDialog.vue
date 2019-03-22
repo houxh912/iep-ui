@@ -1,17 +1,17 @@
 <template>
   <div>
     <el-collapse v-model="activeName" accordion>
-      <el-collapse-item v-for="(item, index) in weeklyList" :key="index" :title="`${item.name}（${item.date}）`" :name="index">
+      <el-collapse-item v-for="(item, index) in weeklyList" :key="index" :title="`${item.projectName} （${item.createTime}）`" :name="index">
         <div class="content">
           <div class="form">
             <div class="title">客户需求</div>
-              <pre>{{item.xuqiu}}</pre>
+              <pre>{{item.clientRqmt}}</pre>
             <div class="title">本周工作总结</div>
-              <pre>{{item.benzhouzongjie}}</pre>
+              <pre>{{item.workSummary}}</pre>
             <div class="title">下周工作计划</div>
-              <pre>{{item.xiazhouzongjie}}</pre>
+              <pre>{{item.workPlan}}</pre>
             <div class="title">备注</div>
-              <pre>{{item.beizhu}}</pre>
+              <pre>{{item.remark}}</pre>
           </div>
           <div class="edit">
             <i class="el-icon-edit" @click="update"></i>
@@ -20,41 +20,16 @@
       </el-collapse-item>
     </el-collapse>
     <iep-button type="danger" class="iep-button" @click="handleCreate"><i class="el-icon-plus"></i>创建项目周报</iep-button>
-    <create-dialog ref="createDialog"></create-dialog>
   </div>
 </template>
 
 <script>
-  import CreateDialog from './createDialog'
   export default {
-    components: { CreateDialog },
+    components: {  },
     data () {
       return {
         activeName: '-1',
-        weeklyList: [
-          {
-            name: '公共平台第七周周报',
-            date: '2019-02-25 09:00:22',
-            xuqiu: '客户需求',
-            benzhouzongjie: '本周工作总结',
-            xiazhouzongjie: '下周工作总结',
-            beizhu: '备注',
-          }, {
-            name: '内网第七周周报',
-            date: '2019-02-25 09:00:22',
-            xuqiu: '客户需求',
-            benzhouzongjie: '本周工作总结',
-            xiazhouzongjie: '下周工作总结',
-            beizhu: '备注',
-          }, {
-            name: '个人管理系统第七周周报',
-            date: '2019-02-25 09:00:22',
-            xuqiu: '客户需求',
-            benzhouzongjie: '本周工作总结',
-            xiazhouzongjie: '下周工作总结',
-            beizhu: '备注',
-          }, 
-        ],
+        weeklyList: [],
       }
     },
     methods: {
@@ -62,7 +37,7 @@
         this.$emit('handleUpdate', true)
       },
       handleCreate () {
-        this.$refs['createDialog'].dialogShow = true
+        this.$emit('handleCreate', true)
       },
     },
   }

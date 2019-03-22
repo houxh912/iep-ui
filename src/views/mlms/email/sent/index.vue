@@ -1,6 +1,6 @@
 <template>
   <div class="send">
-    <div v-show="dialogShow&&forwardShow&&replyShow">
+    <div v-show="pageState=='list'">
       <page-header title="已发送" class="title"></page-header>
       <operation-container>
         <template slot="left">
@@ -13,8 +13,8 @@
       </operation-container>
       <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect" pageState="sent"></table-dialog>
     </div>
-    <main-form-dialog ref="mainDialog" v-show="!dialogShow" @backWeb="backPage" @forward="detailForward" @reply="detailReply"></main-form-dialog>
-    <update-form-dialog ref="updateDialog" v-show="!forwardShow || !replyShow" @backWeb="backPage" @load-page="loadPage"></update-form-dialog>
+    <main-form-dialog ref="mainDialog" v-show="pageState=='detail'" @backWeb="backPage" @forward="detailForward" @reply="detailReply"></main-form-dialog>
+    <update-form-dialog ref="updateDialog" v-show="pageState=='form'" @backWeb="backPage" @load-page="loadPage"></update-form-dialog>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ import mixinTable from '../tableTpl/mixinTable'
 import TableDialog from '../tableTpl/table.vue'
 import mainFormDialog from '../tableTpl/mainDialog'
 import UpdateFormDialog from '../new/index'
-import { getSendList } from '@/api/mlms/email/index'
+import { getSendList, deleteEmailByIds } from '@/api/mlms/email/index'
 
 export default {
   components: { mainFormDialog, TableDialog, UpdateFormDialog },
@@ -35,7 +35,19 @@ export default {
       forwardShow: true,
     }
   },
-  methods: {},
+  methods: {
+    allDelete () {
+      deleteEmailByIds(this.multipleSelection).then(() => {
+        this.$notify({
+          title: '成功',
+          message: '删除成功！',
+          type: 'success',
+          duration: 2000,
+        })
+        this.$refs['table'].loadPage({})
+      })
+    },
+  },
   mounted () {
     this.$refs['table'].requestFn = getSendList
     this.$nextTick(() => {

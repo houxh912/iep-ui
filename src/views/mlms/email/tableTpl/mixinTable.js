@@ -3,20 +3,17 @@ import { isReadeBatch, deleteEmailByIds } from '@/api/mlms/email/index'
 export default {
   data () {
     return {
-      dialogShow: true,
-      forwardShow: true,
-      replyShow: true,
+      pageState: 'list',
+      selectList: [],
     }
   },
   methods: {
     handleDetail (row) {
-      this.dialogShow = false
+      this.pageState = 'detail'
       this.$refs['mainDialog'].formData = row
     },
     backPage (state) {
-      this.dialogShow = true
-      this.forwardShow = true
-      this.replyShow = true
+      this.pageState = 'list'
       if (state) {
         this.$refs['table'].loadPage({})
       }
@@ -50,9 +47,7 @@ export default {
       })
     },
     loadPage (state) {
-      this.dialogShow = true
-      this.forwardShow = true
-      this.replyShow = true
+      this.pageState = 'list'
       if (state) {
         this.$refs['table'].loadPage({})
       }
@@ -64,12 +59,12 @@ export default {
         this.$message.error('请选择且只能选择一条邮件进行转发！')
         return
       }
-      this.dialogShow = true
+      this.pageState = 'form'
       this.forwardFn(this.selectList[0])
     },
     // 查看详情的时候转发
     detailForward (row) {
-      this.dialogShow = true
+      this.pageState = 'form'
       this.forwardFn(row)
     },
     // 转发
@@ -83,8 +78,7 @@ export default {
     },
     // 回复
     detailReply (row) {
-      this.dialogShow = true
-      this.replyShow = false
+      this.pageState = 'form'
       this.$refs['updateDialog'].resetForm()
       this.$refs['updateDialog'].pageState = 'reply'
       this.$refs['updateDialog'].backOption.isBack = true

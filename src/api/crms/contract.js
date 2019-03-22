@@ -1,19 +1,17 @@
-
 import request from '@/router/axios'
+const prefixUrl = '/mlms/contract'
 
-const crmsUrl = '/crms/custom'
-
-export function fetchList (query) {
+export function fetchList (params) {
   return request({
-    url: `${crmsUrl}/page`,
+    url: `${prefixUrl}/page`,
     method: 'get',
-    params: query,
+    params: params,
   })
 }
 
 export function createData (obj) {
   return request({
-    url: `${crmsUrl}/create`,
+    url: `${prefixUrl}/create`,
     method: 'post',
     data: obj,
   })
@@ -21,7 +19,7 @@ export function createData (obj) {
 
 export function updateData (obj) {
   return request({
-    url: `${crmsUrl}/update`,
+    url: `${prefixUrl}/update`,
     method: 'post',
     data: obj,
   })
@@ -29,7 +27,14 @@ export function updateData (obj) {
 
 export function deleteDataById (id) {
   return request({
-    url: `${crmsUrl}/delete/${id}`,
+    url: `${prefixUrl}/delete/${id}`,
     method: 'post',
+  })
+}
+
+export function getDataById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
   })
 }

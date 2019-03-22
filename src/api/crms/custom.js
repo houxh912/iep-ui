@@ -2,34 +2,81 @@ import request from '@/router/axios'
 
 const crmsUrl = '/crms/custom'
 
+// 查看所有客户列表
 export function fetchList (query) {
   return request({
-    url: `${crmsUrl}/page`,
+    url: 'crm/crms/iepclientinfo/pageClient',
     method: 'get',
     params: query,
   })
 }
 
+// 查看我的客户列表
+export function myFetchList (query) {
+  return request({
+    url: 'crm/crms/iepclientinfo/page',
+    method: 'get',
+    params: query,
+  })
+}
+
+// 查看客户信息
+export function fertchInfo (id) {
+  return request({
+    url: `crm/crms/iepclientinfo/${id}`,
+    method: 'get',
+  })
+}
+
+// 客户新增
 export function createData (obj) {
   return request({
-    url: `${crmsUrl}/create`,
+    url: 'crm/crms/iepclientinfo/create',
     method: 'post',
     data: obj,
   })
 }
 
+// 修改客户
 export function updateData (obj) {
   return request({
-    url: `${crmsUrl}/update`,
+    url: 'crm/crms/iepclientinfo/update',
     method: 'post',
     data: obj,
   })
 }
 
+// 通过id查询客户信息
+export function queryInfo (id) {
+  return request({
+    url: `crm/crms/iepclientinfo/${id}`,
+    method: 'get',
+  })
+}
+
+// 删除客户信息
 export function deleteDataById (id) {
   return request({
-    url: `${crmsUrl}/delete/${id}`,
+    url: `crm/crms/iepclientinfo/delete/batch?clientIds=${id}`,
     method: 'post',
+  })
+}
+
+// 查看协作客户列表
+export function collaborationFetchList (query) {
+  return request({
+    url: 'crm/crms/iepclientinfo/page/collaboration',
+    method: 'get',
+    params: query,
+  })
+}
+
+// 添加协助人
+export function AddCollaborator (query) {
+  return request({
+    url: 'crm/crms/iepclientinfo/create/collaboration',
+    method: 'post',
+    data: query,
   })
 }
 
@@ -112,3 +159,13 @@ export function createConsultation (obj) {
     data: obj,
   })
 }
+
+// 添加协作人
+// export function AddCollaborator (obj) {
+//   return request({
+//     url: `${crmsUrl}/create`,
+//     method: 'post',
+//     data: obj,
+//   })
+// }
+

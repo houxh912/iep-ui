@@ -178,6 +178,7 @@ export default {
 }
 .table >>> .cell {
   display: flex;
+  flex-wrap: wrap;
 }
 .table >>> .cell-master {
   background-color: #fff;

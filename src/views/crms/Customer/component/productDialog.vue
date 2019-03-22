@@ -66,7 +66,7 @@ export default {
       // 首先判断是否已经存在此条数据
       for (let item of this.selectList) {
         if (item.id == row.id) {
-          this.$message.error('此条产品已经选中，请选择其他产品！')
+          this.$message.info('此条产品已经选中，请选择其他产品！')
           return
         }
       }

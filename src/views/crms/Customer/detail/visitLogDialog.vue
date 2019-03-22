@@ -1,12 +1,7 @@
 <template>
   <div class="visitLog">
-    <el-table
-     :data="pagedTable">
-      <el-table-column
-          :label="item.label"
-          v-for="(item, index) in columnsMap"
-          :key="index"
-          :prop="item.prop">
+    <el-table :data="pagedTable">
+      <el-table-column :label="item.label" v-for="(item, index) in columnsMap" :key="index" :prop="item.prop">
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
@@ -28,14 +23,14 @@
 
     <iep-dialog :dialog-show="dialogShow" :title="`${methodName}拜访记录`" width="60%" @close="resetForm">
       <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
-        <el-form-item label="主题：" prop="zhuti">
-          <el-input v-model="formData.zhuti"></el-input>
+        <el-form-item label="主题：" prop="theme">
+          <el-input v-model="formData.theme"></el-input>
         </el-form-item>
-        <el-form-item label="拜访时间：" prop="shijian">
-          <el-input v-model="formData.shijian"></el-input>
+        <el-form-item label="拜访时间：" prop="visitTime">
+          <iep-date-picker v-model="formData.visitTime" type="date" placeholder="选择日期"></iep-date-picker>
         </el-form-item>
-        <el-form-item label="拜访记录：" prop="jilu">
-          <el-input type="textarea" v-model="formData.jilu"></el-input>
+        <el-form-item label="拜访记录：" prop="contactRecord">
+          <el-input type="textarea" v-model="formData.contactRecord"></el-input>
         </el-form-item>
       </el-form>
       <template slot="footer">
@@ -49,21 +44,22 @@
 
 <script>
 import IepDialog from '@/components/IepDialog/'
-import { initVisitForm } from '../const/detail'
-import { createVisit, updateVisit, deleteVisit } from '@/api/crms/custom'
+import { initVisitForm } from '../options'
+// import { createVisit, updateVisit, deleteVisit } from '@/api/crms/custom'
+import { fetchVisitList, updateVisit, createVisit, deleteVisit } from '@/api/crms/crm'
 import mixins from '@/mixins/mixins'
 export default {
   name: 'visitLog',
-  mixins: [ mixins ],
+  mixins: [mixins],
   components: { IepDialog },
   data () {
     return {
       isLoadTable: false,
       pagedTable: [],
       columnsMap: [
-        { label: '主题', prop: 'name' },
-        { label: '拜访时间', prop: 'zhiwu' },
-        { label: '类型', prop: 'guanlian' },
+        { label: '主题', prop: 'theme' },
+        { label: '拜访时间', prop: 'visitTime' },
+        { label: '拜访记录', prop: 'contactRecord' },
       ],
       formData: {},
       rules: {},
@@ -73,30 +69,34 @@ export default {
         { value: 1, label: '选项1' },
         { value: 2, label: '选项2' },
       ],
-      submitFn: () => {},
+      submitFn: () => { },
     }
   },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
   methods: {
-    loadPage () {
-      this.pagedTable = [
-        { id:1, name: '拜访日志1' },
-        { id:2, name: '拜访日志2' },
-        { id:3, name: '拜访日志3' },
-      ]
+    loadPage (param) {
+      let id = this.record.clientId
+      this.loadTable({ ...param, clientId: id }, fetchVisitList)
     },
     createdRecord () {
       this.dialogShow = true
       this.methodName = '新增'
       this.submitFn = createVisit
     },
-    createdJournal () {},
-    handleEdit () {
+    createdJournal () { },
+    handleEdit (row) {
+      this.formData = { ...row }
       this.dialogShow = true
       this.methodName = '编辑'
       this.submitFn = updateVisit
     },
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.id, deleteVisit)
+      this._handleGlobalDeleteById([row.contactId], deleteVisit)
     },
     resetForm () {
       this.formData = initVisitForm()
@@ -105,7 +105,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.submitFn(this.formData).then(() => {
+          this.submitFn({ ...this.formData, clientId: this.record.clientId }).then(() => {
             this.$notify({
               title: '成功',
               message: `${this.methodName}成功`,
@@ -119,6 +119,9 @@ export default {
           return false
         }
       })
+    },
+    getTime (data) {
+      console.log(data)
     },
   },
   created () {

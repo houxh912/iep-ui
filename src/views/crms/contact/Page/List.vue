@@ -4,7 +4,7 @@
       <page-header title="联系人"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdvance" size="small" type="danger">新增</iep-button>
+          <iep-button @click="handleAdvance" icon="el-icon-plus" type="danger" plain>新增</iep-button>
           <!-- <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -51,8 +51,8 @@
         <el-table-column prop="operation" label="操作" width="160">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleEdit(scope.row)" size="small" type="warning">编辑</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
+              <iep-button @click="handleEdit(scope.row)" plain type="warning">编辑</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

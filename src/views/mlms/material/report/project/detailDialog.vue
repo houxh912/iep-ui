@@ -4,6 +4,15 @@
       <el-collapse-item v-for="(item, index) in weeklyList" :key="index" :title="`${item.projectName} （${item.createTime}）`" :name="index">
         <div class="content">
           <div class="form">
+            <div class="title">项目预计签订时间</div>
+              <pre>{{item.estimateSignTime}}</pre>
+            <div class="title">合同签订时间</div>
+              <pre>{{item.contractSignTime}}</pre>
+            <div class="title">合同签订时间</div>
+              <el-table :data="item.paymentRelations">
+                <el-table-column prop="projectPaymentTime" label="月份"></el-table-column>
+                <el-table-column prop="paymentAmount" label="回款金额"></el-table-column>
+              </el-table>
             <div class="title">客户需求</div>
               <pre>{{item.clientRqmt}}</pre>
             <div class="title">本周工作总结</div>
@@ -34,7 +43,7 @@
     },
     methods: {
       update () {
-        this.$emit('handleUpdate', true)
+        this.$emit('handleUpdate', this.weeklyList[this.activeName])
       },
       handleCreate () {
         this.$emit('handleCreate', true)

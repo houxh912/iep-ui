@@ -9,6 +9,14 @@ export function getTableData (params) {
   })
 }
 
+export function createData (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+
 export function updateData (obj) {
   return request({
     url: `${prefixUrl}/update`,

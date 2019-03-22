@@ -18,12 +18,31 @@
         </el-row>
       </el-form-item>
       <div class="title">预计回款时间</div>
-      <el-form-item>
-        <el-table :data="formData.paymentRelations" style="width: 100%" border>
-          <el-table-column prop="projectPaymentTime" label="月份"></el-table-column>
-          <el-table-column prop="paymentAmount" label="回款金额"></el-table-column>
-          <el-table-column prop="menu" label="操作"></el-table-column>
+      <el-form-item class="table">
+        <el-table :data="formData.paymentRelations" style="width: 100%">
+          <el-table-column prop="projectPaymentTime" label="月份">
+            <template slot-scope="scope">
+              <el-date-picker
+                v-model="formData.paymentRelations[scope.$index].projectPaymentTime"
+                type="month"
+                placeholder="选择时间"
+                format="yyyy-MM">
+              </el-date-picker>
+            </template>
+          </el-table-column>
+          <el-table-column prop="paymentAmount" label="回款金额">
+            <template slot-scope="scope">
+              <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="selectIndex=-1"></el-input>
+              <div v-else @click="selectIndex=scope.$index" style="min-height: 20px;">{{scope.row.paymentAmount}}</div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="menu" label="操作" width="200px">
+            <template slot-scope="scope">
+              <iep-button size="small" @click="handleDelete(scope.$index)">删除</iep-button>
+            </template>
+          </el-table-column>
         </el-table>
+        <div class="create" @click="handleCreate"><i class="el-icon-plus"></i> 新增</div>
       </el-form-item>
       <div class="title">客户需求</div>
       <el-form-item prop="clientRqmt">
@@ -66,11 +85,21 @@ export default {
   data () {
     return {
       formData: initFormData(),
+      selectIndex: -1,
     }
   },
   methods: {
     submit () {
       this.$emit('putFormData', this.formData)
+    },
+    handleDelete (index) {
+      this.formData.paymentRelations.splice(index, 1)
+    },
+    handleCreate () {
+      this.formData.paymentRelations.push({
+        projectPaymentTime: '',
+        paymentAmount: '',
+      })
     },
   },
 }
@@ -80,6 +109,14 @@ export default {
 .form-dialog {
   .title {
     margin-bottom: 20px;
+  }
+  .table {
+    border: 1px solid #eee;
+    .create {
+      text-align: center;
+      color: #ba1b21;
+      cursor: pointer;
+    }
   }
   .detail {
     pre {

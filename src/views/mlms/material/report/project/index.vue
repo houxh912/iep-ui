@@ -29,7 +29,7 @@ import TimeLine from '../timeline'
 import FormDialog from './formDialog'
 import DetailDialog from './detailDialog'
 import { createWeeks } from '../util'
-import { getTableData } from '@/api/mlms/material/report/project'
+import { getTableData, createData, updateData } from '@/api/mlms/material/report/project'
 import CreateDialog from './createDialog'
 
 export default {
@@ -45,7 +45,8 @@ export default {
         date: '',
         title: '',
       },
-      dialogState: 'create',
+      dialogState: 'detail',
+      requestFn: () => {},
     }
   },
   methods: {
@@ -61,26 +62,40 @@ export default {
           startTime: `${year}-${item.startTime} 00:00:00`,
           endTime: `${year}-${item.endTime} 00:00:00`,
         }).then(({data}) => {
-          console.log('data: ', data)
           this.$refs['detail'].weeklyList = data.data
+          this.$refs['detail'].activeName = -1
         })
       }
     },
     // 保存周报
     getFormData (data) {
       console.log('data: ', data)
+      this.requestFn(data).then(() => {
+        this.dialogState = 'detail'
+      })
     },
     // 编辑周报
-    handleUpdate () {
-      this.dialogState = 'create'
+    handleUpdate (row) {
+      console.log('row: ', row)
+      this.dialogState = 'update'
+      this.requestFn = updateData
+      this.$nextTick(() => {
+        row.paymentRelations = [
+          { projectPaymentTime: '2月', paymentAmount: '100000' },
+          { projectPaymentTime: '2月', paymentAmount: '100000' },
+          { projectPaymentTime: '2月', paymentAmount: '100000' },
+          { projectPaymentTime: '2月', paymentAmount: '100000' },
+        ]
+        this.$refs['form'].formData = row
+      })
     },
     handleCreate () {
       this.$refs['createDialog'].dialogShow = true
+      this.requestFn = createData
     },
     selectProject (projectId) {
       this.dialogState = 'create'
       this.$nextTick(() => {
-        console.log('detail: ', this.$refs['form'])
         this.$refs['form'].formData.projectId = projectId
       })
     },

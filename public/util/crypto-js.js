@@ -636,15 +636,15 @@
 	        },
 
 	        /**
-	         * Updates this hasher with a message.
+	         * Updates this hasher with a resources.
 	         *
-	         * @param {WordArray|string} messageUpdate The message to append.
+	         * @param {WordArray|string} messageUpdate The resources to append.
 	         *
 	         * @return {Hasher} This hasher.
 	         *
 	         * @example
 	         *
-	         *     hasher.update('message');
+	         *     hasher.update('resources');
 	         *     hasher.update(wordArray);
 	         */
 	        update: function (messageUpdate) {
@@ -662,18 +662,18 @@
 	         * Finalizes the hash computation.
 	         * Note that the finalize operation is effectively a destructive, read-once operation.
 	         *
-	         * @param {WordArray|string} messageUpdate (Optional) A final message update.
+	         * @param {WordArray|string} messageUpdate (Optional) A final resources update.
 	         *
 	         * @return {WordArray} The hash.
 	         *
 	         * @example
 	         *
 	         *     var hash = hasher.finalize();
-	         *     var hash = hasher.finalize('message');
+	         *     var hash = hasher.finalize('resources');
 	         *     var hash = hasher.finalize(wordArray);
 	         */
 	        finalize: function (messageUpdate) {
-	            // Final message update
+	            // Final resources update
 	            if (messageUpdate) {
 	                this._append(messageUpdate)
 	            }
@@ -1057,7 +1057,7 @@
 	    /**
 	     * Shortcut function to the hasher's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     *
 	     * @return {WordArray} The hash.
 	     *
@@ -1065,7 +1065,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hash = CryptoJS.MD5('message');
+	     *     var hash = CryptoJS.MD5('resources');
 	     *     var hash = CryptoJS.MD5(wordArray);
 	     */
 	    C.MD5 = Hasher._createHelper(MD5)
@@ -1073,7 +1073,7 @@
 	    /**
 	     * Shortcut function to the HMAC's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     * @param {WordArray|string} key The secret key.
 	     *
 	     * @return {WordArray} The HMAC.
@@ -1082,7 +1082,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hmac = CryptoJS.HmacMD5(message, key);
+	     *     var hmac = CryptoJS.HmacMD5(resources, key);
 	     */
 	    C.HmacMD5 = Hasher._createHmacHelper(MD5)
   }(Math));
@@ -1188,7 +1188,7 @@
 	    /**
 	     * Shortcut function to the hasher's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     *
 	     * @return {WordArray} The hash.
 	     *
@@ -1196,7 +1196,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hash = CryptoJS.SHA1('message');
+	     *     var hash = CryptoJS.SHA1('resources');
 	     *     var hash = CryptoJS.SHA1(wordArray);
 	     */
 	    C.SHA1 = Hasher._createHelper(SHA1)
@@ -1204,7 +1204,7 @@
 	    /**
 	     * Shortcut function to the HMAC's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     * @param {WordArray|string} key The secret key.
 	     *
 	     * @return {WordArray} The HMAC.
@@ -1213,7 +1213,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hmac = CryptoJS.HmacSHA1(message, key);
+	     *     var hmac = CryptoJS.HmacSHA1(resources, key);
 	     */
 	    C.HmacSHA1 = Hasher._createHmacHelper(SHA1)
   }());
@@ -1368,7 +1368,7 @@
 	    /**
 	     * Shortcut function to the hasher's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     *
 	     * @return {WordArray} The hash.
 	     *
@@ -1376,7 +1376,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hash = CryptoJS.SHA256('message');
+	     *     var hash = CryptoJS.SHA256('resources');
 	     *     var hash = CryptoJS.SHA256(wordArray);
 	     */
 	    C.SHA256 = Hasher._createHelper(SHA256)
@@ -1384,7 +1384,7 @@
 	    /**
 	     * Shortcut function to the HMAC's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     * @param {WordArray|string} key The secret key.
 	     *
 	     * @return {WordArray} The HMAC.
@@ -1393,7 +1393,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hmac = CryptoJS.HmacSHA256(message, key);
+	     *     var hmac = CryptoJS.HmacSHA256(resources, key);
 	     */
 	    C.HmacSHA256 = Hasher._createHmacHelper(SHA256)
   }(Math));
@@ -1798,7 +1798,7 @@
 	    /**
 	     * Shortcut function to the hasher's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     *
 	     * @return {WordArray} The hash.
 	     *
@@ -1806,7 +1806,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hash = CryptoJS.RIPEMD160('message');
+	     *     var hash = CryptoJS.RIPEMD160('resources');
 	     *     var hash = CryptoJS.RIPEMD160(wordArray);
 	     */
 	    C.RIPEMD160 = Hasher._createHelper(RIPEMD160)
@@ -1814,7 +1814,7 @@
 	    /**
 	     * Shortcut function to the HMAC's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     * @param {WordArray|string} key The secret key.
 	     *
 	     * @return {WordArray} The HMAC.
@@ -1823,7 +1823,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hmac = CryptoJS.HmacRIPEMD160(message, key);
+	     *     var hmac = CryptoJS.HmacRIPEMD160(resources, key);
 	     */
 	    C.HmacRIPEMD160 = Hasher._createHmacHelper(RIPEMD160)
   }(Math));
@@ -1908,15 +1908,15 @@
 	        },
 
 	        /**
-	         * Updates this HMAC with a message.
+	         * Updates this HMAC with a resources.
 	         *
-	         * @param {WordArray|string} messageUpdate The message to append.
+	         * @param {WordArray|string} messageUpdate The resources to append.
 	         *
 	         * @return {HMAC} This HMAC instance.
 	         *
 	         * @example
 	         *
-	         *     hmacHasher.update('message');
+	         *     hmacHasher.update('resources');
 	         *     hmacHasher.update(wordArray);
 	         */
 	        update: function (messageUpdate) {
@@ -1930,14 +1930,14 @@
 	         * Finalizes the HMAC computation.
 	         * Note that the finalize operation is effectively a destructive, read-once operation.
 	         *
-	         * @param {WordArray|string} messageUpdate (Optional) A final message update.
+	         * @param {WordArray|string} messageUpdate (Optional) A final resources update.
 	         *
 	         * @return {WordArray} The HMAC.
 	         *
 	         * @example
 	         *
 	         *     var hmac = hmacHasher.finalize();
-	         *     var hmac = hmacHasher.finalize('message');
+	         *     var hmac = hmacHasher.finalize('resources');
 	         *     var hmac = hmacHasher.finalize(wordArray);
 	         */
 	        finalize: function (messageUpdate) {
@@ -2224,7 +2224,7 @@
 	    /**
 	     * Shortcut function to the hasher's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     *
 	     * @return {WordArray} The hash.
 	     *
@@ -2232,7 +2232,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hash = CryptoJS.SHA224('message');
+	     *     var hash = CryptoJS.SHA224('resources');
 	     *     var hash = CryptoJS.SHA224(wordArray);
 	     */
 	    C.SHA224 = SHA256._createHelper(SHA224)
@@ -2240,7 +2240,7 @@
 	    /**
 	     * Shortcut function to the HMAC's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     * @param {WordArray|string} key The secret key.
 	     *
 	     * @return {WordArray} The HMAC.
@@ -2249,7 +2249,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hmac = CryptoJS.HmacSHA224(message, key);
+	     *     var hmac = CryptoJS.HmacSHA224(resources, key);
 	     */
 	    C.HmacSHA224 = SHA256._createHmacHelper(SHA224)
   }());
@@ -2657,7 +2657,7 @@
 	                    (((M2i1 << 24) | (M2i1 >>> 8)) & 0xff00ff00)
 	                )
 
-	                // Absorb message into state
+	                // Absorb resources into state
 	                var lane = state[i]
 	                lane.high ^= M2i1
 	                lane.low ^= M2i
@@ -2813,7 +2813,7 @@
 	    /**
 	     * Shortcut function to the hasher's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     *
 	     * @return {WordArray} The hash.
 	     *
@@ -2821,7 +2821,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hash = CryptoJS.SHA3('message');
+	     *     var hash = CryptoJS.SHA3('resources');
 	     *     var hash = CryptoJS.SHA3(wordArray);
 	     */
 	    C.SHA3 = Hasher._createHelper(SHA3)
@@ -2829,7 +2829,7 @@
 	    /**
 	     * Shortcut function to the HMAC's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     * @param {WordArray|string} key The secret key.
 	     *
 	     * @return {WordArray} The HMAC.
@@ -2838,7 +2838,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hmac = CryptoJS.HmacSHA3(message, key);
+	     *     var hmac = CryptoJS.HmacSHA3(resources, key);
 	     */
 	    C.HmacSHA3 = Hasher._createHmacHelper(SHA3)
   }(Math));
@@ -2975,7 +2975,7 @@
 	                // Shortcut
 	                var Wi = W[i]
 
-	                // Extend message
+	                // Extend resources
 	                if (i < 16) {
 	                    var Wih = Wi.high = M[offset + i * 2] | 0
 	                    var Wil = Wi.low = M[offset + i * 2 + 1] | 0
@@ -3117,7 +3117,7 @@
 	    /**
 	     * Shortcut function to the hasher's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     *
 	     * @return {WordArray} The hash.
 	     *
@@ -3125,7 +3125,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hash = CryptoJS.SHA512('message');
+	     *     var hash = CryptoJS.SHA512('resources');
 	     *     var hash = CryptoJS.SHA512(wordArray);
 	     */
 	    C.SHA512 = Hasher._createHelper(SHA512)
@@ -3133,7 +3133,7 @@
 	    /**
 	     * Shortcut function to the HMAC's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     * @param {WordArray|string} key The secret key.
 	     *
 	     * @return {WordArray} The HMAC.
@@ -3142,7 +3142,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hmac = CryptoJS.HmacSHA512(message, key);
+	     *     var hmac = CryptoJS.HmacSHA512(resources, key);
 	     */
 	    C.HmacSHA512 = Hasher._createHmacHelper(SHA512)
   }());
@@ -3181,7 +3181,7 @@
 	    /**
 	     * Shortcut function to the hasher's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     *
 	     * @return {WordArray} The hash.
 	     *
@@ -3189,7 +3189,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hash = CryptoJS.SHA384('message');
+	     *     var hash = CryptoJS.SHA384('resources');
 	     *     var hash = CryptoJS.SHA384(wordArray);
 	     */
 	    C.SHA384 = SHA512._createHelper(SHA384)
@@ -3197,7 +3197,7 @@
 	    /**
 	     * Shortcut function to the HMAC's object interface.
 	     *
-	     * @param {WordArray|string} message The message to hash.
+	     * @param {WordArray|string} resources The resources to hash.
 	     * @param {WordArray|string} key The secret key.
 	     *
 	     * @return {WordArray} The HMAC.
@@ -3206,7 +3206,7 @@
 	     *
 	     * @example
 	     *
-	     *     var hmac = CryptoJS.HmacSHA384(message, key);
+	     *     var hmac = CryptoJS.HmacSHA384(resources, key);
 	     */
 	    C.HmacSHA384 = SHA512._createHmacHelper(SHA384)
   }())
@@ -3842,10 +3842,10 @@
 	        }),
 
 	        /**
-	         * Encrypts a message.
+	         * Encrypts a resources.
 	         *
 	         * @param {Cipher} cipher The cipher algorithm to use.
-	         * @param {WordArray|string} message The message to encrypt.
+	         * @param {WordArray|string} message The resources to encrypt.
 	         * @param {WordArray} key The key.
 	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
 	         *
@@ -3855,9 +3855,9 @@
 	         *
 	         * @example
 	         *
-	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, message, key);
-	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, message, key, { iv: iv });
-	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, message, key, { iv: iv, format: CryptoJS.format.OpenSSL });
+	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, resources, key);
+	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, resources, key, { iv: iv });
+	         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, resources, key, { iv: iv, format: CryptoJS.format.OpenSSL });
 	         */
 	        encrypt: function (cipher, message, key, cfg) {
 	            // Apply config defaults
@@ -3996,10 +3996,10 @@
 	        }),
 
 	        /**
-	         * Encrypts a message using a password.
+	         * Encrypts a resources using a password.
 	         *
 	         * @param {Cipher} cipher The cipher algorithm to use.
-	         * @param {WordArray|string} message The message to encrypt.
+	         * @param {WordArray|string} message The resources to encrypt.
 	         * @param {string} password The password.
 	         * @param {Object} cfg (Optional) The configuration options to use for this operation.
 	         *
@@ -4009,8 +4009,8 @@
 	         *
 	         * @example
 	         *
-	         *     var ciphertextParams = CryptoJS.lib.PasswordBasedCipher.encrypt(CryptoJS.algo.AES, message, 'password');
-	         *     var ciphertextParams = CryptoJS.lib.PasswordBasedCipher.encrypt(CryptoJS.algo.AES, message, 'password', { format: CryptoJS.format.OpenSSL });
+	         *     var ciphertextParams = CryptoJS.lib.PasswordBasedCipher.encrypt(CryptoJS.algo.AES, resources, 'password');
+	         *     var ciphertextParams = CryptoJS.lib.PasswordBasedCipher.encrypt(CryptoJS.algo.AES, resources, 'password', { format: CryptoJS.format.OpenSSL });
 	         */
 	        encrypt: function (cipher, message, password, cfg) {
 	            // Apply config defaults
@@ -4520,7 +4520,7 @@
 	     *
 	     * @example
 	     *
-	     *     var ciphertext = CryptoJS.AES.encrypt(message, key, cfg);
+	     *     var ciphertext = CryptoJS.AES.encrypt(resources, key, cfg);
 	     *     var plaintext  = CryptoJS.AES.decrypt(ciphertext, key, cfg);
 	     */
 	    C.AES = BlockCipher._createHelper(AES)
@@ -5227,7 +5227,7 @@
 	     *
 	     * @example
 	     *
-	     *     var ciphertext = CryptoJS.DES.encrypt(message, key, cfg);
+	     *     var ciphertext = CryptoJS.DES.encrypt(resources, key, cfg);
 	     *     var plaintext  = CryptoJS.DES.decrypt(ciphertext, key, cfg);
 	     */
 	    C.DES = BlockCipher._createHelper(DES)
@@ -5271,7 +5271,7 @@
 	     *
 	     * @example
 	     *
-	     *     var ciphertext = CryptoJS.TripleDES.encrypt(message, key, cfg);
+	     *     var ciphertext = CryptoJS.TripleDES.encrypt(resources, key, cfg);
 	     *     var plaintext  = CryptoJS.TripleDES.decrypt(ciphertext, key, cfg);
 	     */
 	    C.TripleDES = BlockCipher._createHelper(TripleDES)
@@ -5358,7 +5358,7 @@
 	     *
 	     * @example
 	     *
-	     *     var ciphertext = CryptoJS.RC4.encrypt(message, key, cfg);
+	     *     var ciphertext = CryptoJS.RC4.encrypt(resources, key, cfg);
 	     *     var plaintext  = CryptoJS.RC4.decrypt(ciphertext, key, cfg);
 	     */
 	    C.RC4 = StreamCipher._createHelper(RC4)
@@ -5391,7 +5391,7 @@
 	     *
 	     * @example
 	     *
-	     *     var ciphertext = CryptoJS.RC4Drop.encrypt(message, key, cfg);
+	     *     var ciphertext = CryptoJS.RC4Drop.encrypt(resources, key, cfg);
 	     *     var plaintext  = CryptoJS.RC4Drop.decrypt(ciphertext, key, cfg);
 	     */
 	    C.RC4Drop = StreamCipher._createHelper(RC4Drop)
@@ -5646,7 +5646,7 @@
 	     *
 	     * @example
 	     *
-	     *     var ciphertext = CryptoJS.Rabbit.encrypt(message, key, cfg);
+	     *     var ciphertext = CryptoJS.Rabbit.encrypt(resources, key, cfg);
 	     *     var plaintext  = CryptoJS.Rabbit.decrypt(ciphertext, key, cfg);
 	     */
 	    C.Rabbit = StreamCipher._createHelper(Rabbit)
@@ -5856,7 +5856,7 @@
 	     *
 	     * @example
 	     *
-	     *     var ciphertext = CryptoJS.RabbitLegacy.encrypt(message, key, cfg);
+	     *     var ciphertext = CryptoJS.RabbitLegacy.encrypt(resources, key, cfg);
 	     *     var plaintext  = CryptoJS.RabbitLegacy.decrypt(ciphertext, key, cfg);
 	     */
 	    C.RabbitLegacy = StreamCipher._createHelper(RabbitLegacy)

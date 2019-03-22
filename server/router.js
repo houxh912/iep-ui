@@ -6,6 +6,7 @@ const dictController = require('./controller/dict')
 const mobileController = require('./controller/mobile')
 const orgController = require('./controller/org')
 const hrmsController = require('./controller/hrms')
+const mlmsController = require('./controller/mlms')
 const crmsController = require('./controller/crms')
 const welController = require('./controller/wel')
 const imsController = require('./controller/ims')
@@ -72,6 +73,10 @@ router.get("/hrms/post_library/page", hrmsController.getPostLibraryPage)
 router.get("/hrms/post_type/page", hrmsController.getPostTypePage)
 router.get("/hrms/post_type/list", hrmsController.getPostTypeList)
 
+router.get("/mlms/page", mlmsController.getTableData)
+router.post("/mlms/create", mlmsController.postData)
+router.post("/mlms/update", mlmsController.postData)
+router.post("/mlms/delete/1", mlmsController.deleteById)
 
 // crms
 router.get('/crms/customer/page', crmsController.getCustomerPage)

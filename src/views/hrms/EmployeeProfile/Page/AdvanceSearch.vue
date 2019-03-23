@@ -1,92 +1,82 @@
 <template>
-  <el-form :model="paramForm" label-width="80px" size="mini">
-    <el-form-item label="员工姓名">
-      <el-input v-model="paramForm.name"></el-input>
+  <el-form :model="form" label-width="100px" size="mini">
+    <el-form-item label="岗位名称：">
+      <iep-cascader v-model="form.position" prefix-url="hrms/post_type" clearable></iep-cascader>
     </el-form-item>
-    <el-form-item label="性别">
-      <el-radio-group v-model="paramForm.sex">
-        <el-radio label="男"></el-radio>
-        <el-radio label="女"></el-radio>
+    <el-form-item label="所属部门：">
+      <iep-cascader v-model="form.dept" prefix-url="admin/dept" change-on-select clearable></iep-cascader>
+    </el-form-item>
+    <el-form-item label="所在城市：">
+      <iep-cascader v-model="form.cities" prefix-url="admin/city"></iep-cascader>
+    </el-form-item>
+    <el-form-item label="性别：">
+      <el-radio-group v-model="form.sex">
+        <el-radio :label="0">全部</el-radio>
+        <el-radio :label="1">男</el-radio>
+        <el-radio :label="2">女</el-radio>
       </el-radio-group>
     </el-form-item>
-    <el-form-item label="所在组织">
-      <el-select v-model="paramForm.organization" placeholder="请选择组织">
-        <el-option label="区域一" value="shanghai"></el-option>
-        <el-option label="区域二" value="beijing"></el-option>
-      </el-select>
+    <el-form-item label="时间段：">
+      <iep-date-picker v-model="form.rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions">
+      </iep-date-picker>
     </el-form-item>
-    <el-form-item label="所在部门">
-      <el-select v-model="paramForm.department" placeholder="请选择部门">
-        <el-option label="区域一" value="shanghai"></el-option>
-        <el-option label="区域二" value="beijing"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="岗位类别">
-      <el-select v-model="paramForm.job_category" placeholder="请选择岗位类别">
-        <el-option label="区域一" value="shanghai"></el-option>
-        <el-option label="区域二" value="beijing"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="岗位名称">
-      <el-select v-model="paramForm.job_name" placeholder="请选择岗位名称">
-        <el-option label="区域一" value="shanghai"></el-option>
-        <el-option label="区域二" value="beijing"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="在职状态">
-      <el-select v-model="paramForm.status" placeholder="请选择在职状态">
-        <el-option label="区域一" value="shanghai"></el-option>
-        <el-option label="区域二" value="beijing"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="当前职位">
-      <el-select v-model="paramForm.position" placeholder="请选择当前职位">
-        <el-option label="区域一" value="shanghai"></el-option>
-        <el-option label="区域二" value="beijing"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="当前职称">
-      <el-select v-model="paramForm.job_title" placeholder="请选择当前职称">
-        <el-option label="区域一" value="shanghai"></el-option>
-        <el-option label="区域二" value="beijing"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="入职时间">
-      <el-select v-model="paramForm.entry_time" placeholder="请选择入职时间">
-        <el-option label="区域一" value="shanghai"></el-option>
-        <el-option label="区域二" value="beijing"></el-option>
+    <el-form-item label="员工状态：">
+      <el-select v-model="form.status" placeholder="请选择" clearable>
+        <el-option v-for="(v,k) in dictsMap.status" :key="k" :label="v" :value="+k">
+        </el-option>
       </el-select>
     </el-form-item>
     <el-form-item>
-      <iep-button type="primary" @click="searchPage">搜索</iep-button>
-      <iep-button @click="clearSearchParam">清空</iep-button>
+      <operation-wrapper>
+        <iep-button type="primary" @click="searchPage">搜索</iep-button>
+        <iep-button @click="clearSearchParam">清空</iep-button>
+      </operation-wrapper>
     </el-form-item>
   </el-form>
 </template>
 <script>
+import { dictsMap, initSearchForm, toDtoSearchForm } from '../options'
 export default {
-  props: {
-    form: {
-      type: Object,
-      required: true,
-    },
-  },
   data () {
     return {
-      paramForm: this.form,
+      dictsMap,
+      form: initSearchForm(),
+      pickerOptions: {
+        shortcuts: [{
+          text: '最近一周',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', [start, end])
+          },
+        }, {
+          text: '最近一个月',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+            picker.$emit('pick', [start, end])
+          },
+        }, {
+          text: '最近三个月',
+          onClick (picker) {
+            const end = new Date()
+            const start = new Date()
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+            picker.$emit('pick', [start, end])
+          },
+        }],
+      },
     }
   },
   methods: {
     searchPage () {
-      this.$emit('search-page', this.paramForm)
+      this.$emit('search-page', toDtoSearchForm(this.form))
     },
     clearSearchParam () {
-      this.$emit('clear-search-param')
-    },
-  },
-  watch: {
-    form (n) {
-      this.paramForm = n
+      this.form = initSearchForm()
+      // this.$emit('clear-search-param')
     },
   },
 }

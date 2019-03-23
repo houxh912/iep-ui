@@ -6,14 +6,10 @@ import router from './router/router'
 import App from './App'
 import store from './store'
 
-import './plugins/element.js'
-import './plugins/iview.js'
+import './plugins/element'
+import './plugins/ant-design'
 
 import './core/use'
-
-import { validatenull } from '@/util/validate'
-
-Vue.prototype.validatenull = validatenull
 
 Vue.use(VueRouter)
 

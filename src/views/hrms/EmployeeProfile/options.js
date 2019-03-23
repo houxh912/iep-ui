@@ -215,15 +215,39 @@ const initSearchForm = () => {
   return {
     name: '',
     sex: '',
-    organization: '',
-    department: '',
-    job_category: '',
-    job_name: '',
-    status: '',
-    position: '',
-    job_title: '',
-    entry_time: '',
+    dept: [],
+    position: [],
+    jobId: '',
+    titleId: '',
+    cities: [],
+    rangeTime: [],
+    status: [],
   }
+}
+const initDtoSearchForm = () => {
+  return {
+    name: '',
+    sex: '',
+    deptId: '',
+    positionId: '',
+    jobId: '',
+    titleId: '',
+    province: '',
+    city: '',
+    startTime: '',
+    endTime: '',
+    status: [],
+  }
+}
+const toDtoSearchForm = (row) => {
+  const newForm = mergeByFirst(initDtoSearchForm(), row)
+  newForm.startTime = row.rangeTime[0]
+  newForm.endTime = row.rangeTime[1]
+  newForm.province = row.cities[0]
+  newForm.city = row.cities[1]
+  newForm.positionId = row.position[row.position.length - 1]
+  newForm.deptId = row.dept[row.dept.length - 1]
+  return newForm
 }
 
 const initTransferForm = () => {
@@ -274,4 +298,4 @@ const initPositiveForm = () => {
     positiveTime: initNow(),
   }
 }
-export { dictsMap, columnsMap, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm }
+export { dictsMap, columnsMap, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm, toDtoSearchForm }

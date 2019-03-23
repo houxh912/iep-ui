@@ -1,69 +1,49 @@
 <template>
-  <div>
-    <basic-container>
-      <div class="info-container">
-        <div style="padding: 10px;">
-          <Card title="分类" icon="ios-options" :padding="0" shadow style="width: 300px;">
-            <CellGroup>
-              <Cell title="提醒" selected>
-                <Badge :count="1" slot="extra" />
-              </Cell>
-              <Cell title="纪要">
-                <Badge :count="2" slot="extra" />
-              </Cell>
-              <Cell title="任务">
-                <Badge :count="3" slot="extra" />
-              </Cell>
-              <Cell title="审批">
-                <Badge :count="4" slot="extra" />
-              </Cell>
-              <Cell title="财富">
-                <Badge :count="12" slot="extra" />
-              </Cell>
-              <Cell title="其他">
-                <Badge :count="2" slot="extra" />
-              </Cell>
-              <Cell title="星标">
-                <Badge :count="5" slot="extra" />
-              </Cell>
-              <Cell title="系统消息">
-                <Badge :count="3" slot="extra" />
-              </Cell>
-            </CellGroup>
-          </Card>
+  <el-row class="aside-main" :gutter="8">
+    <el-col :span="4">
+      <el-card shadow="never" :body-style="bodyStyle">
+        <div slot="header" class="clearfix">
+          <span>消息分类</span>
         </div>
-        <basic-container>
-          <page-header title="系统消息"></page-header>
-          <operation-container>
-            <template slot="left">
-              <el-button-group>
-                <el-button class="iconfont icon-yanjing" size="mini"></el-button>
-                <el-button class="iconfont icon-biaoqian" size="mini"></el-button>
-                <el-button class="iconfont icon-shanchu" size="mini"></el-button>
-              </el-button-group>
+        <el-menu :default-active="selectType" class="menu-vertical">
+          <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in imsMsgType" @click.native="handleSelectType(item.value+'')">
+            <span>{{item.label}}</span>
+            <el-badge class="mark" type="danger" :value="typeCountMap[item.value]" />
+          </el-menu-item>
+        </el-menu>
+      </el-card>
+    </el-col>
+    <el-col :span="20">
+      <page-header title="系统消息"></page-header>
+      <operation-container>
+        <template slot="left">
+          <el-button-group>
+            <el-button class="iconfont icon-yanjing" size="mini"></el-button>
+            <el-button class="iconfont icon-biaoqian" size="mini"></el-button>
+            <el-button class="iconfont icon-shanchu" size="mini"></el-button>
+          </el-button-group>
+        </template>
+        <template slot="right">
+          <operation-search @search="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
+          </operation-search>
+        </template>
+      </operation-container>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+        <template slot="before-columns">
+          <el-table-column label="主题">
+            <template slot-scope="scope">
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
-            <template slot="right">
-              <operation-search @search="searchPage" advance-search>
-                <advance-search @search-page="searchPage"></advance-search>
-              </operation-search>
-            </template>
-          </operation-container>
-          <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
-            <template slot="before-columns">
-              <el-table-column label="主题">
-                <template slot-scope="scope">
-                  <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
-                </template>
-              </el-table-column>
-            </template>
-          </iep-table>
-        </basic-container>
-      </div>
-    </basic-container>
-  </div>
+          </el-table-column>
+        </template>
+      </iep-table>
+    </el-col>
+  </el-row>
 </template>
 <script>
-import { getSystemMessagePage } from '@/api/ims/system_message'
+import { mapState } from 'vuex'
+import { getSystemMessagePage, getTypeCountMap } from '@/api/ims/system_message'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
 import AdvanceSearch from './AdvanceSearch'
@@ -74,64 +54,64 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      bodyStyle: {
+        padding: 0,
+      },
+      typeCountMap: {},
+      selectType: '0',
     }
   },
+  computed: {
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
+    imsMsgType () {
+      return this.dictGroup['ims_msg_type']
+    },
+  },
   created () {
+    this.loadTypeList()
     this.loadPage()
   },
   methods: {
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getSystemMessagePage)
+    handleSelectType (k) {
+      this.selectType = k
+      this.loadPage()
     },
     handleDetail (row) {
       this.$emit('onDetail', row)
+    },
+    loadTypeList () {
+      getTypeCountMap().then(({ data }) => {
+        this.typeCountMap = data.data
+      })
+    },
+    loadPage (param = this.searchForm) {
+      this.loadTable({ type: this.selectType, ...param }, getSystemMessagePage)
     },
   },
 }
 </script>
 <style lang="scss" scoped>
-.info-container {
+.aside-main {
   display: flex;
-  justify-content: space-between;
-  .sub-menu {
-    flex: 0 0 180px;
-    padding-top: 20px;
-    border-right: 1px solid #d7d7d7;
-    ul,
-    li,
-    ol {
-      margin: 0;
-      padding: 0;
-      list-style: none;
+  padding: 20px;
+  .menu-vertical {
+    border: none;
+  }
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    & > .mark {
+      margin-top: 5px;
     }
-    li {
-      padding: 0 15px;
-      text-align: left;
-      .num {
-        float: right;
-        width: auto;
-      }
-    }
-    h4 {
-      font-size: 16px;
-    }
+  }
+  .page-container {
+    margin-left: 20px;
+    width: 100%;
   }
 }
 </style>
-<style scoped>
-.info-container >>> .basic-container {
-  flex: 1;
-  padding-top: 20px;
-  padding-left: 20px;
-}
-.info-container >>> .sub-menu li span {
-  display: inline-block;
-  width: 100%;
-  text-align: left;
-}
-.info-container >>> .sub-menu .el-button--text {
-  width: 100%;
-}
-</style>
+
 
 

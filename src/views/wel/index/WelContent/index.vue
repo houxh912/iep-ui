@@ -21,13 +21,13 @@
                 <span class="drop-down">产品技术委员会<i class="el-icon-arrow-down"></i></span>
               </div>
               <div class="user-data">
-                <router-link class="inline task" to="">
+                <RouterLink class="inline task" to="">
                   <i class="icon-qian icon padding"></i>
                   <span>每日任务，领积分<i class="el-icon-d-arrow-right"></i></span>
-                </router-link>
-                <router-link class="inline change" to="">
+                </RouterLink>
+                <RouterLink class="inline change" to="">
                   领导桌面
-                </router-link>
+                </RouterLink>
                 <div class="inline data">
                   <div class="data-lab" :class="index==2?'hideLine':''" v-for="(item,index) in labList" :key="index">
                     <div class="count">{{item.data}}</div>
@@ -85,7 +85,6 @@ export default {
 
 <style lang="scss" scoped>
 .wel-content {
-  // margin: 0 300px -20px -20px;
   width: 100%;
   height: auto;
   background: white;

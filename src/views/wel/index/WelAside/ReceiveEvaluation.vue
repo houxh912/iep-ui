@@ -19,11 +19,12 @@ export default {
         content: '领导能力强',
       }, {
         content: '工作负责，执行力强',
-        color: '#cb3737',
       }, {
         content: '优秀的程序员',
       }, {
         content: '友好',
+      }, {
+        content: '友好友好',
       }],
     }
   },
@@ -41,6 +42,8 @@ export default {
   ul {
     margin: 0;
     padding: 0;
+    height: 120px;
+    overflow-x: hidden;
   }
 }
 .title {
@@ -54,6 +57,29 @@ export default {
 </style>
 
 <style lang="css" scoped>
+.evaluation >>> ::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 5px;
+  background-color: #fafafa;
+}
+.evaluation >>> ::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fafafa;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+}
+.evaluation >>> ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ddd;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+  display: none;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.evaluation >>> .block:hover ::-webkit-scrollbar-thumb {
+  display: block;
+}
 .evaluation >>> .el-timeline-item__node--normal {
   top: 4px;
   left: 1px;
@@ -73,6 +99,13 @@ export default {
 }
 .evaluation >>> .el-timeline-item {
   padding-bottom: 5px;
+}
+.evaluation >>> .el-timeline-item:hover .el-timeline-item__node {
+  border-color: #cb3737;
+  background-color: #cb3737;
+}
+.evaluation >>> .el-timeline-item:hover .el-timeline-item__content {
+  color: #cb3737;
 }
 .evaluation >>> .el-timeline-item:last-child {
   padding: 0;

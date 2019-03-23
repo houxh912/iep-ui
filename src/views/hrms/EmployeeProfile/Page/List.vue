@@ -15,8 +15,8 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
-            <advance-search :form="paramForm" @search-page="searchPage" @clear-search-param="clearSearchParam"></advance-search>
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -46,7 +46,7 @@
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>修改</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleEdit(scope.row)">修改</el-dropdown-item>
                   <el-dropdown-item>分享</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -130,25 +130,14 @@ export default {
         query: { redirect: this.$route.fullPath },
       })
     },
-    handleUpdate (row) {
-      this.$router.push({
-        path: `/info/information_management/${row.id}`,
-        query: { redirect: this.$route.fullPath },
-      })
-    },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-      this.loadPage()
-    },
-    loadPage (param = this.paramForm) {
-      this.loadTable(param, getEmployeeProfilePage)
-    },
-    handleChange () {
-      this.$emit('onEdit')
+    handleEdit (row) {
+      this.$emit('onEdit', row)
     },
     handleDetail (row) {
-      console.log(row)
-      this.$emit('onDetail')
+      this.$emit('onDetail', row)
+    },
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getEmployeeProfilePage)
     },
   },
 }

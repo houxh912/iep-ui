@@ -11,6 +11,7 @@
         <iep-upload v-model="form.fileList"></iep-upload>
       </el-form-item>
     </el-form>
+    <a-tag>Tag 1</a-tag>
   </div>
 </template>
 <script>

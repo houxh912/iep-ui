@@ -16,7 +16,7 @@
     "serve-mock": "vue-cli-service serve --mode=mock"
   },
   "dependencies": {
-    "@antv/g2": "^3.4.10",
+    "@antv/data-set": "^0.10.2",
     "@smallwei/avue": "^1.5.3",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
@@ -36,6 +36,7 @@
     "register-service-worker": "^1.5.2",
     "sockjs-client": "^1.3.0",
     "stompjs": "^2.3.3",
+    "viser-vue": "^2.4.5",
     "vue": "^2.5.22",
     "vue-neditor-wrap": "^1.0.4",
     "vue-router": "^3.0.1",

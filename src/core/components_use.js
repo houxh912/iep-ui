@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import BasicContainer from '@/components/BasicContainer/index'
+import BasicAsideContainer from '@/components/BasicAsideContainer/index'
 
 import IepButton from '@/components/IepCommon/Button'
 import IepTabs from '@/components/IepCommon/Tabs'
@@ -21,6 +22,7 @@ import OperationWrapper from '@/components/Operation/Wrapper'
 
 // 注册全局容器
 Vue.component(BasicContainer.name, BasicContainer)
+Vue.component(BasicAsideContainer.name, BasicAsideContainer)
 // 注册全局组件
 Vue.component(OperationContainer.name, OperationContainer)
 Vue.component(OperationSearch.name, OperationSearch)

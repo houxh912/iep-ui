@@ -36,7 +36,7 @@ const columnsMap = [
   },
 ]
 
-const initGomsForm = () => {
+const initMemberForm = () => {
   return {
     userId: '',
     username: '',
@@ -56,4 +56,4 @@ const initSearchForm = () => {
 }
 
 
-export { dictsMap, columnsMap, optionMap, initSearchForm, initGomsForm }
+export { dictsMap, columnsMap, optionMap, initSearchForm, initMemberForm }

@@ -9,10 +9,26 @@ export function getOrgBySelf () {
   })
 }
 
+export function getOrgById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}
+
 export function getOrgLogList () {
   return request({
     url: `${prefixUrl}/log_list`,
     method: 'get',
+  })
+}
+
+
+export function putOrg (obj) {
+  return request({
+    url: `${prefixUrl}`,
+    method: 'put',
+    data: obj,
   })
 }
 

@@ -1,0 +1,184 @@
+<template>
+  <a-card :bordered="false" class="aside-card">
+    <div class="account-center-avatarHolder">
+      <div class="avatar">
+        <iep-img style="width:100%" :src="orgDetail.logo"></iep-img>
+      </div>
+      <div class="username">{{orgDetail.orgName}}</div>
+      <div class="bio">海纳百川，有容乃大</div>
+    </div>
+    <div class="account-center-detail">
+      <p>
+        <i class="icon-huiyikaihuitaolun"></i>联盟所属：{{orgDetail.orgName}}
+      </p>
+      <p>
+        <i class="icon-rencai"></i>成员数量：{{orgDetail.memberNum}}
+      </p>
+      <p>
+        <i class="icon-bumen"></i>部门数量：{{orgDetail.deptNum}}
+      </p>
+    </div>
+    <a-divider :dashed="true" />
+
+    <div class="account-center-team">
+      <div class="teamTitle">
+        管理员
+      </div>
+      <a-spin :spinning="teamSpinning">
+        <div class="members">
+          <a-row>
+            <a-col :span="12" v-for="(item, index) in orgDetail.managerList" :key="index">
+              <div class="member">
+                <iep-img-avatar size="small" :src="item.avatar"></iep-img-avatar>
+                <span class="member-name">
+                  {{ item.realName }}
+                  <a-icon class="close" type="close" />
+                </span>
+              </div>
+            </a-col>
+            <a-col :span="12">
+              <div class="member">
+                <a-button type="dashed" size="small" icon="plus" block>管理员</a-button>
+              </div>
+            </a-col>
+          </a-row>
+        </div>
+      </a-spin>
+    </div>
+    <a-divider />
+    <a-list itemLayout="horizontal" :dataSource="data">
+      <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
+        <a-list-item-meta>
+          <a slot="title">{{ item.title }}</a>
+          <span slot="description">
+            <span class="security-list-description">{{ item.description }}</span>
+          </span>
+        </a-list-item-meta>
+        <template v-if="item.actions">
+          <a-switch slot="actions" defaultChecked @change='item.actions.callback' />
+        </template>
+
+      </a-list-item>
+    </a-list>
+  </a-card>
+</template>
+
+<script>
+import { orgDetail } from '@/api/admin/org'
+export default {
+  data () {
+    return {
+      teamSpinning: true,
+      orgDetail: {
+        logo: '',
+        orgName: '',
+        managerList: [],
+        memberNum: 0,
+        deptNum: 0,
+      },
+      data: [
+        {
+          title: '允许加入',
+          description: '允许用户申请加入组织',
+          actions: { callback: () => { this.$message.info('This is a normal message') } },
+        },
+        {
+          title: '开启审理员审核',
+          description: '用户加入组织需通过管理员审核',
+          actions: { callback: () => { this.$message.success('This is a message of success') } },
+        },
+        {
+          title: '组织邀请码',
+          description: '下载二维码邀请用户加入',
+          actions: { callback: () => { this.$message.error('This is a message of error') } },
+        },
+      ],
+    }
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    loadPage () {
+      orgDetail().then((res) => {
+        this.orgDetail = res.data.data
+        this.teamSpinning = false
+      })
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.aside-card {
+  background-color: #fafafa;
+}
+.teamTitle {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+  margin-bottom: 12px;
+}
+.account-center-avatarHolder {
+  text-align: center;
+  margin-bottom: 24px;
+
+  & > .avatar {
+    margin: 0 auto;
+    width: 104px;
+    height: 104px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .username {
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+}
+.account-center-detail {
+  p {
+    margin-bottom: 8px;
+    padding-left: 26px;
+    position: relative;
+    i {
+      margin-right: 5px;
+      font-size: 14px;
+    }
+  }
+}
+.account-center-team {
+  .members {
+    .member {
+      display: block;
+      margin: 12px 0;
+      // line-height: 24px;
+      // height: 24px;
+      .member-name {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.65);
+        // line-height: 24px;
+        max-width: 100px;
+        vertical-align: top;
+        margin-left: 12px;
+        transition: all 0.3s;
+        display: inline-block;
+        &:hover {
+          color: #1890ff;
+          .close {
+            cursor: pointer;
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}
+</style>

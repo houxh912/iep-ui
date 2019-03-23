@@ -1,55 +1,99 @@
 <template>
-  <div class="aside">
-    <span class="popup-btn" @click="hideAside"><i class="el-icon-caret-right"></i></span>
-    <el-scrollbar>
-      <Card class="avatar-card-box" :bordered="false" dis-hover>
-        <div style="text-align:center">
-          <iep-img style="width:100%" :src="orgDetail.logo"></iep-img>
-          <h3>{{orgDetail.orgName}}</h3>
-          <div class="num-box">
-            <h4>联盟所属：{{orgDetail.orgName}}</h4>
-            <h4>成员数量：{{orgDetail.memberNum}}</h4>
-            <h4>部门数量：{{orgDetail.deptNum}}</h4>
-          </div>
+  <a-card :bordered="false" class="aside-card">
+    <div class="account-center-avatarHolder">
+      <div class="avatar">
+        <iep-img style="width:100%" :src="orgDetail.logo"></iep-img>
+      </div>
+      <div class="username">{{orgDetail.orgName}}</div>
+      <div class="bio">海纳百川，有容乃大</div>
+    </div>
+    <div class="account-center-detail">
+      <p>
+        <i class="icon-huiyikaihuitaolun"></i>联盟所属：{{orgDetail.orgName}}
+      </p>
+      <p>
+        <i class="icon-rencai"></i>成员数量：{{orgDetail.memberNum}}
+      </p>
+      <p>
+        <i class="icon-bumen"></i>部门数量：{{orgDetail.deptNum}}
+      </p>
+    </div>
+    <a-divider :dashed="true" />
+
+    <div class="account-center-team">
+      <div class="teamTitle">
+        管理员
+      </div>
+      <a-spin :spinning="teamSpinning">
+        <div class="members">
+          <a-row>
+            <a-col :span="12" v-for="(item, index) in orgDetail.managerList" :key="index">
+              <div class="member">
+                <iep-img-avatar size="small" :src="item.avatar"></iep-img-avatar>
+                <span class="member-name">
+                  {{ item.realName }}
+                  <a-icon class="close" type="close" />
+                </span>
+              </div>
+            </a-col>
+            <a-col :span="12">
+              <div class="member">
+                <a-button type="dashed" size="small" icon="plus" block>管理员</a-button>
+              </div>
+            </a-col>
+          </a-row>
         </div>
-      </Card>
-      <Card :bordered="false" dis-hover>
-        <p slot="title">组织管理员</p>
-        <div class="avatar-grid">
-          <Avatar size="large" style="background-color: #87d068" v-for="user in orgDetail.managerList" :key="user.id">{{user.name}}</Avatar>
-          <Avatar size="large">+</Avatar>
-        </div>
-      </Card>
-      <Card :bordered="false" dis-hover>
-        <CellGroup>
-          <Cell title="允许加入" label="允许用户申请加入组织">
-            <el-switch slot="extra" v-model="orgDetail.isOpen" :active-value="0" :inactive-value="1" active-color="#13ce66" inactive-color="#ff4949">
-            </el-switch>
-          </Cell>
-          <Cell title="开启管理员审核" label="用户加入组织需要管理员审核">
-            <el-switch slot="extra" v-model="isOpen" :active-value="0" :inactive-value="1" active-color="#13ce66" inactive-color="#ff4949">
-            </el-switch>
-          </Cell>
-        </CellGroup>
-      </Card>
-    </el-scrollbar>
-  </div>
+      </a-spin>
+    </div>
+    <a-divider />
+    <a-list itemLayout="horizontal" :dataSource="data">
+      <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
+        <a-list-item-meta>
+          <a slot="title">{{ item.title }}</a>
+          <span slot="description">
+            <span class="security-list-description">{{ item.description }}</span>
+          </span>
+        </a-list-item-meta>
+        <template v-if="item.actions">
+          <a-switch slot="actions" defaultChecked @change='item.actions.callback' />
+        </template>
+
+      </a-list-item>
+    </a-list>
+  </a-card>
 </template>
+
 <script>
 import { orgDetail } from '@/api/admin/org'
 export default {
   data () {
     return {
-      orgDetail: {},
+      teamSpinning: true,
+      orgDetail: {
+        logo: '',
+        orgName: '',
+        managerList: [],
+        memberNum: 0,
+        deptNum: 0,
+      },
+      data: [
+        {
+          title: '允许加入',
+          description: '允许用户申请加入组织',
+          actions: { callback: () => { this.$message.info('This is a normal message') } },
+        },
+        {
+          title: '开启审理员审核',
+          description: '用户加入组织需通过管理员审核',
+          actions: { callback: () => { this.$message.success('This is a message of success') } },
+        },
+        {
+          title: '组织邀请码',
+          description: '下载二维码邀请用户加入',
+          actions: { callback: () => { this.$message.error('This is a message of error') } },
+        },
+      ],
     }
-  },
-  computed: {
-    isShow300px () {
-      if (this.isTablet()) {
-        return '0'
-      }
-      return this.showAside ? '300px' : '0'
-    },
   },
   created () {
     this.loadPage()
@@ -58,65 +102,81 @@ export default {
     loadPage () {
       orgDetail().then((res) => {
         this.orgDetail = res.data.data
+        this.teamSpinning = false
       })
-    },
-    hideAside () {
-      this.$emit('aside-hide')
     },
   },
 }
 </script>
-<style  lang="scss" scoped>
-.num-box {
-  margin-top: 20px;
-  margin-left: 20px;
-  text-align: left;
+
+<style lang="scss" scoped>
+.aside-card {
+  background-color: #fafafa;
 }
-.avatar-grid {
-  margin: 0 15px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+.teamTitle {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+  margin-bottom: 12px;
+}
+.account-center-avatarHolder {
   text-align: center;
-}
-.avatar-card-box {
-  width: 100%;
-}
-.aside {
-  background: #fafafa;
-  font-size: 12px;
-  margin: 0;
-  box-sizing: border-box;
-  .popup-btn {
-    position: absolute;
-    top: 40%;
-    left: -31px;
-    margin-top: -15px;
-    width: 30px;
-    height: 30px;
-    font-size: 20px;
-    text-align: center;
-    line-height: 30px;
-    border: 1px solid #eee;
-    border-right: 0;
-    border-radius: 3px 0 0 3px;
-    color: #bfbfbf;
-    background: #fafafa;
-    cursor: pointer;
-    &:hover,
-    &:focus {
-      background-color: #eee;
-      color: #fff;
-      box-shadow: 0 1px 1px 1px #eee;
+  margin-bottom: 24px;
+
+  & > .avatar {
+    margin: 0 auto;
+    width: 104px;
+    height: 104px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      height: 100%;
+      width: 100%;
     }
   }
-  .el-scrollbar {
+
+  .username {
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+}
+.account-center-detail {
+  p {
+    margin-bottom: 8px;
+    padding-left: 26px;
     position: relative;
-    height: calc(100% - 64px);
-    padding: 0;
-    .el-scrollbar__view {
-      > div {
-        padding: 10px 10px 20px 10px;
-        border-bottom: 1px solid #ececec;
+    i {
+      margin-right: 5px;
+      font-size: 14px;
+    }
+  }
+}
+.account-center-team {
+  .members {
+    .member {
+      display: block;
+      margin: 12px 0;
+      // line-height: 24px;
+      // height: 24px;
+      .member-name {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.65);
+        // line-height: 24px;
+        max-width: 100px;
+        vertical-align: top;
+        margin-left: 12px;
+        transition: all 0.3s;
+        display: inline-block;
+        &:hover {
+          color: #1890ff;
+          .close {
+            cursor: pointer;
+            color: red;
+          }
+        }
       }
     }
   }

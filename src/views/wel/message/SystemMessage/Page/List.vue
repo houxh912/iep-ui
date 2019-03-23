@@ -1,13 +1,19 @@
 <template>
-  <div class="aside-main">
-    <Card title="消息分类" icon="ios-options" :padding="0" class="type-card-box">
-      <CellGroup>
-        <Cell :title="item.label" v-for="item in imsMsgType" :key="item.value" :selected="selectType === item.value" @click.native="handleSelectType(item.value)">
-          <Badge :count="typeCountMap[item.value]" slot="extra" />
-        </Cell>
-      </CellGroup>
-    </Card>
-    <div class="page-container">
+  <el-row class="aside-main" :gutter="8">
+    <el-col :span="4">
+      <el-card shadow="never" :body-style="bodyStyle">
+        <div slot="header" class="clearfix">
+          <span>消息分类</span>
+        </div>
+        <el-menu :default-active="selectType" class="menu-vertical">
+          <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in imsMsgType" @click.native="handleSelectType(item.value+'')">
+            <span>{{item.label}}</span>
+            <el-badge class="mark" type="danger" :value="typeCountMap[item.value]" />
+          </el-menu-item>
+        </el-menu>
+      </el-card>
+    </el-col>
+    <el-col :span="20">
       <page-header title="系统消息"></page-header>
       <operation-container>
         <template slot="left">
@@ -32,8 +38,8 @@
           </el-table-column>
         </template>
       </iep-table>
-    </div>
-  </div>
+    </el-col>
+  </el-row>
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -48,6 +54,9 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      bodyStyle: {
+        padding: 0,
+      },
       typeCountMap: {},
       selectType: '0',
     }
@@ -86,8 +95,16 @@ export default {
 <style lang="scss" scoped>
 .aside-main {
   display: flex;
-  .type-card-box {
-    width: 200px;
+  padding: 20px;
+  .menu-vertical {
+    border: none;
+  }
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    & > .mark {
+      margin-top: 5px;
+    }
   }
   .page-container {
     margin-left: 20px;

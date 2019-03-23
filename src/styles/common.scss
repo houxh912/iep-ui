@@ -2,9 +2,10 @@
 @import '../theme/reset.css';
 // 表单展示
 @import './form-detail.scss';
-// * {
-// 	outline: none;
-// }
+* {
+	outline: none;
+	box-sizing: content-box;
+}
 button,
 input,
 select,

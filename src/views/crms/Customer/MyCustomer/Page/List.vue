@@ -27,7 +27,7 @@
         </operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index isMutipleSelection @selection-change="selectionChange">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index isMutipleSelection @selection-change="handleSelectionChange">
       <template slot="before-columns">
         <el-table-column label="客户名称" width="250px">
           <template slot-scope="scope">
@@ -92,7 +92,7 @@ export default {
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.clientId, deleteDataById)
     },
-    selectionChange (val) {
+    handleSelectionChange (val) {
       console.log(val)
       let id = val[0].clientId
       this.id = id

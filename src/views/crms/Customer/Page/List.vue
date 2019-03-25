@@ -18,51 +18,12 @@
           <el-radio-group v-model="type" size="small" @change="changeType">
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
           </el-radio-group>
-          <operation-search @search="searchPage" advance-search>
-            <el-form :model="paramForm" label-width="80px" size="mini">
-              <el-form-item label="客户名称">
-                <el-input v-model="paramForm.clientName" placeholder="请输入客户名称"></el-input>
-              </el-form-item>
-              <!-- <el-form-item label="业务类型">
-              <el-select v-model="paramForm.businessType" placeholder="选择业务类型">
-                <el-option label="类型1" value="0"></el-option>
-                <el-option label="类型2" value="1"></el-option>
-                <el-option label="类型3" value="2"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="区域类型">
-              <el-select v-model="paramForm.districtType" placeholder="选择区域类型">
-                <el-option label="类型1" value="0"></el-option>
-                <el-option label="类型2" value="1"></el-option>
-                <el-option label="类型3" value="2"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="客户关系">
-              <el-select v-model="paramForm.clientRela" placeholder="选择客户关系">
-                <el-option label="类型1" value="0"></el-option>
-                <el-option label="类型2" value="1"></el-option>
-                <el-option label="类型3" value="2"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="跟进状态">
-              <el-select v-model="paramForm.followUpStatus" placeholder="选择跟进状态">
-                <el-option label="类型1" value="0"></el-option>
-                <el-option label="类型2" value="1"></el-option>
-                <el-option label="类型3" value="2"></el-option>
-              </el-select>
-            </el-form-item> -->
-              <!-- <el-form-item label="市场经理">
-              <el-input v-model="paramForm.marketManager" placeholder="请输入市场经理"></el-input>
-            </el-form-item> -->
-              <el-form-item>
-                <el-button type="primary" @click="searchPage">搜索</el-button>
-                <el-button @click="clearSearchParam">清空</el-button>
-              </el-form-item>
-            </el-form>
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" :isMutipleSelection="showSelect?true:false" isIndex>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" isIndex>
         <template slot="before-columns">
           <el-table-column label="客户名称" width="250px">
             <template slot-scope="scope">
@@ -73,7 +34,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column v-if="+type !== 1" prop="operation" label="操作">
+        <el-table-column v-if="+type !== 1" prop="operation" label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleCooperation(scope.row)" v-if="+type===2">添加协作人</iep-button>
@@ -91,8 +52,10 @@ import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId } from '../columns'
 import { allSearchForm } from '../options'
 import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById } from '@/api/crms/customer'
+import AdvanceSearch from './AdvanceSearch'
 export default {
   name: 'list',
+  components: { AdvanceSearch },
   mixins: [mixins],
   data () {
     return {
@@ -159,13 +122,13 @@ export default {
     handleCooperation (row) {
       this.$emit('onCooper', { id: row.clientId })
     },
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.clientId)
+    },
     loadPage (param = { ...this.searchForm, type: this.type }) {
       this.loadTable(param, getCustomerPage, m => {
         return Object.assign(m, { businessType: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
-    },
-    clearSearchParam () {
-      this.paramForm = allSearchForm()
     },
     searchPage () {
       this.loadTable({ ...this.paramForm, type: 1 }, getCustomerPage, m => {

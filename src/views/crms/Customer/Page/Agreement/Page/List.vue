@@ -1,8 +1,8 @@
 <template>
   <div class="scheme">
-    <div class="head">
-      <iep-button type="danger" @click="handleAdd"><i class="el-icon-plus"></i> 新增</iep-button>
-    </div>
+    <operation-wrapper>
+      <iep-button type="danger" @click="handleAdd" plain><i class="el-icon-plus"></i> 新增</iep-button>
+    </operation-wrapper>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       <template slot="before-columns">
         <el-table-column label="客户名称">
@@ -74,11 +74,3 @@ export default {
 
 }
 </script>
-
-<style lang="scss" scoped>
-.scheme {
-  .head {
-    margin-bottom: 10px;
-  }
-}
-</style>

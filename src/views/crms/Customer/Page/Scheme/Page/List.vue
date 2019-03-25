@@ -1,8 +1,8 @@
 <template>
   <div class="programme">
-    <div class="head">
-      <iep-button class="btn" type="danger" plain size="mini" @click="handleAdd"><i class="el-icon-plus"></i> 添加方案</iep-button>
-    </div>
+    <operation-wrapper>
+      <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加方案</iep-button>
+    </operation-wrapper>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection>
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
@@ -95,12 +95,6 @@ export default {
       padding: 5px 15px;
       cursor: pointer;
     }
-  }
-}
-.head {
-  margin-bottom: 10px;
-  .btn {
-    margin-right: 10px;
   }
 }
 </style>

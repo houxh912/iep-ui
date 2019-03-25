@@ -1,9 +1,9 @@
 <template>
   <div class="record">
-    <div class="head">
-      <iep-button class="btn" type="danger" plain size="mini" @click="handleAdd"><i class="el-icon-plus"></i> 拜访日志</iep-button>
-      <iep-button class="btn" type="danger" plain size="mini" @click="handleAdd"><i class="el-icon-plus"></i> 联系记录</iep-button>
-    </div>
+    <operation-wrapper>
+      <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i> 拜访日志</iep-button>
+      <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i> 联系记录</iep-button>
+    </operation-wrapper>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection>
       <el-table-column prop="operation" label="操作" width="200px">
         <template slot-scope="scope">
@@ -66,14 +66,3 @@ export default {
 
 }
 </script>
-
-<style lang="scss" scoped>
-.record {
-  .head {
-    margin-bottom: 10px;
-    .btn {
-      margin-right: 10px;
-    }
-  }
-}
-</style>

@@ -18,4 +18,9 @@ const initForm = () => {
     other: '', //其他
   }
 }
-export { columnsMap, initForm }
+const initContactForm = () => {
+  return {
+    name: '',
+  }
+}
+export { columnsMap, initForm, initContactForm }

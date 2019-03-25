@@ -42,7 +42,7 @@
         <div class="item">
           <div class="label">合作项目：</div>
           <div class="value">
-            <div class="dot" v-for="(item, index) in formData.projects" :key="index">{{item.name}}<span>（合同金额：{{item.money}}）</span></div>
+            <div class="dot" v-for="(item, index) in formData.collaborations" :key="index">{{item.name}}<span>（合同金额：{{item.money}}）</span></div>
           </div>
         </div>
         <div class="item">
@@ -60,19 +60,19 @@
         <div class="item">
           <div class="label">相关方案：</div>
           <div class="value">
-            <div class="dot" v-for="(item,index) in formData.scheme" :key="index">{{item}}</div>
+            <div class="dot" v-for="(item,index) in formData.programs" :key="index">{{item.commonName}}</div>
           </div>
         </div>
         <div class="item">
           <div class="label">相似客户：</div>
           <div class="value">
-            <div class="dot" v-for="(item,index) in formData.similarCustomer" :key="index">{{item.name}}</div>
+            <div class="dot" v-for="(item,index) in formData.similarClient" :key="index">{{item}}</div>
           </div>
         </div>
         <div class="item">
           <div class="label">项目合作伙伴：</div>
           <div class="value">
-            <div class="dot" v-for="(item,index) in formData.cooperativePartner" :key="index">{{item.name}}<span>（市场经理：{{item.marketManager}}）</span></div>
+            <div class="dot" v-for="(item,index) in formData.partners" :key="index">{{item}}<span>（市场经理：{{item.marketManager}}）</span></div>
           </div>
         </div>
         <div class="item">

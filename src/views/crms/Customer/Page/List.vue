@@ -11,7 +11,6 @@
               <el-dropdown-item>导入</el-dropdown-item>
               <el-dropdown-item command="handleAllDelete">删除</el-dropdown-item>
               <el-dropdown-item>转移</el-dropdown-item>
-              <el-dropdown-item divided @click.native="handleCooperation(id)">添加协作人</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -63,7 +62,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" isIndex>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" :isMutipleSelection="showSelect?true:false" isIndex>
         <template slot="before-columns">
           <el-table-column label="客户名称" width="250px">
             <template slot-scope="scope">
@@ -74,9 +73,10 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column v-if="+type !== 1" prop="operation" label="操作" width="150">
+        <el-table-column v-if="+type !== 1" prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
+              <iep-button type="warning" plain @click="handleCooperation(scope.row)" v-if="+type===2">添加协作人</iep-button>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="+type === 2" @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
@@ -91,8 +91,8 @@ import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId } from '../columns'
 import { allSearchForm } from '../options'
 import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById } from '@/api/crms/customer'
-
 export default {
+  name: 'list',
   mixins: [mixins],
   data () {
     return {
@@ -127,11 +127,6 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleSelectionChange (val) {
-      this.multipleSelection = val.map(m => m.id)
-      let id = val[0].clientId
-      this.id = id
-    },
     changeType () {
       this.loadPage()
       if (this.type === '2') {
@@ -149,19 +144,20 @@ export default {
       this.$emit('onForm', {
         formRequestFn: putCustomer,
         methodName: '修改',
-        id: row.id,
+        id: row.clientId,
       })
     },
     handleDetail (row) {
-      console.log(222)
-      this.$emit('onDetail', { id: row.clientId })
+      if (this.type === '2') {
+        this.$emit('onDetail', { id: row.clientId })
+      }
+
     },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.clientId, deleteCustomerById)
     },
-    handleCooperation (id) {
-      console.log(id)
-      this.$emit('onCooper', { id: id })
+    handleCooperation (row) {
+      this.$emit('onCooper', { id: row.clientId })
     },
     loadPage (param = { ...this.searchForm, type: this.type }) {
       this.loadTable(param, getCustomerPage, m => {

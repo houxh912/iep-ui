@@ -1,6 +1,6 @@
 <template>
-  <keep-alive>
-    <component :record="record" :is="currentComponet" @onDetail="handleDetail" @onForm="handleForm" @onCooper="handleCooper" @onGoBack="handleGoBack"></component>
+  <keep-alive include="list">
+    <component @onDetail="handleDetail" @onForm="handleForm" @onCooper="handleCooper" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
   </keep-alive>
 </template>
 

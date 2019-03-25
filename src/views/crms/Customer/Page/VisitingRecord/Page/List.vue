@@ -14,16 +14,19 @@
         </template>
       </el-table-column>
     </iep-table>
+    <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMap } from '../options'
-import { getRecordPage } from '@/api/crms/visiting_record'
+import { fetchVisitList, deleteVisit, updateVisit, createVisit } from '@/api/crms/crm'
+import EditDialog from './EditDialog'
 export default {
   name: 'contract',
   mixins: [mixins],
+  components: { EditDialog },
   data () {
     return {
       columnsMap,
@@ -41,24 +44,23 @@ export default {
   },
   methods: {
     loadPage (param) {
-      this.loadTable(param, getRecordPage)
+      let id = this.record.clientId
+      this.loadTable({ ...param, clientId: id }, fetchVisitList)
     },
     handleAdd () {
-      // this.$emit('onEdit', {
-      //   formRequestFn: postContact,
-      //   methodName: '新增',
-      //   id: false,
-      // })
+      this.$refs['EditDialog'].dialogShow = true
+      this.$refs['EditDialog'].methodName = '新增'
+      this.$refs['EditDialog'].submitFn = createVisit
     },
-    handleEdit () {
-      // this.$emit('onEdit', {
-      //   formRequestFn: putContact,
-      //   methodName: '编辑',
-      //   id: row.id,
-      // })
-    },
-    handleDeleteById () {
+    handleEdit (row) {
+      this.$refs['EditDialog'].formData = { ...row }
+      this.$refs['EditDialog'].dialogShow = true
+      this.$refs['EditDialog'].methodName = '编辑'
+      this.$refs['EditDialog'].submitFn = updateVisit
 
+    },
+    handleDeleteById (row) {
+      this._handleGlobalDeleteById([row.contactId], deleteVisit)
     },
   },
 

@@ -1,3 +1,4 @@
+
 <template>
   <div class="consultation">
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
@@ -16,36 +17,41 @@
                 </div>
               </div>
             </div>
-
           </template>
         </el-table-column>
       </template>
     </iep-table>
+    <div class="add-consulta" @click="handleAdd"><i class="el-icon-plus"></i> 添加资讯</div>
+    <info-dialog ref="InfoDialog" @load-page="loadPage"></info-dialog>
   </div>
 </template>
 
 <script>
-import mixins from '@/mixins/mixins'
-import { getInfoPage } from '@/api/crms/information'
+import InfoDialog from './InfoDialog'
+import { createConsultation } from '@/api/crms/custom'
 export default {
-  mixins: [mixins],
+  name: 'consultation',
+  components: { InfoDialog },
   data () {
     return {
-
+      list: [],
+      formData: {},
+      rules: {},
+      methodName: '',
+      dialogShow: false,
     }
+  },
+  methods: {
+    handleAdd () {
+      this.$refs['InfoDialog'].dialogShow = true
+      this.$refs['InfoDialog'].methodName = '新增'
+      this.$refs['InfoDialog'].submitFn = createConsultation
+    },
+
   },
   created () {
     this.loadPage()
   },
-  methods: {
-    loadPage (param) {
-      this.loadTable(param, getInfoPage)
-    },
-    handleCreate () {
-
-    },
-  },
-
 }
 </script>
 
@@ -67,8 +73,9 @@ export default {
       background-color: #f3f3f3;
       padding: 20px;
       .code {
+        text-align: right;
         .code-item {
-          margin: 10px 15px 10px 0;
+          margin-left: 15px;
         }
       }
     }
@@ -82,3 +89,4 @@ export default {
   }
 }
 </style>
+

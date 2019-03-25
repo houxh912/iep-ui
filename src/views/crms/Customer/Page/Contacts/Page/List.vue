@@ -19,7 +19,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMap } from '../options'
-import { getContactPage, postContact, putContact } from '@/api/crms/customer_contacts'
+import { fetchList, deleteDataById, editList } from '@/api/crms/contact'
 export default {
   name: 'contract',
   mixins: [mixins],
@@ -40,24 +40,47 @@ export default {
   },
   methods: {
     loadPage (param) {
-      this.loadTable(param, getContactPage)
+      this.loadTable(param, fetchList)
     },
     handleAdd () {
       this.$emit('onEdit', {
-        formRequestFn: postContact,
+        formRequestFn: editList,
         methodName: '新增',
         id: false,
       })
     },
     handleEdit (row) {
       this.$emit('onEdit', {
-        formRequestFn: putContact,
-        methodName: '编辑',
-        id: row.id,
+        formRequestFn: editList,
+        methodName: '修改',
+        id: row.clientContactId,
       })
     },
-    handleDeleteById () {
-
+    handleDeleteById (row) {
+      this._handleGlobalDeleteById(row.clientContactId, deleteDataById)
+    },
+    resetForm () {
+      // this.formData = initContactForm()
+      this.dialogShow = false
+    },
+    submitForm (formName) {
+      this.formData.clientIds = [this.record.clientId]
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.submitFn(this.formData).then(() => {
+            this.$notify({
+              title: '成功',
+              message: `${this.methodName}成功`,
+              type: 'success',
+              duration: 2000,
+            })
+            this.loadPage()
+            this.dialogShow = false
+          })
+        } else {
+          return false
+        }
+      })
     },
   },
 

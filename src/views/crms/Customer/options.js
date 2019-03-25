@@ -96,25 +96,23 @@ const initFormData = () => {
 }
 const initForm = () => {
   return {
-    name: '', //客户名称
-    type: [], //客户类型
+    clientId: '',
+    clientName: '', //客户名称
+    clientTypeKey: [], //客户类型
     districtType: '', // 区域类型
-    businessType: [], // 业务类型
-    specificType: '', //具体业务类型
-    relation: '', //客户关系
-    status: '', // 跟进状态
+    businessTypeKey: [], // 业务类型
+    specificBusinessType: '', //具体业务类型
+    clientRela: '', //客户关系
+    followUpStatus: '', // 跟进状态
     marketManager: '', // 市场经理
     lastTime: '', // 距离上次拜访已有(全部客户没有但依然存着)
-    tags: [], //客户标签
-    phoneNum: '', //手机号码
+    phoneNumber: '', //手机号码
     respDept: '', //负责部门
-    url: '', //单位网址
-    function: '', //单位职能
-    address: '', //单位地址
+    companyUrl: '', //单位网址
+    companyFunction: '', //单位职能
+    contractAddress: '', //单位地址
     otherDesc: '', //其他说明
-    sex: '', //性别
-    products: '', // 相关产品
-    scheme: '', //方案
+    tags: [1, 2],
   }
 }
 // 我的客户搜索
@@ -141,7 +139,7 @@ const rules = {
     { required: true, message: '请输入手机号码', trigger: 'blur' },
     { min: 11, max: 11, message: '手机位数为11位', trigger: 'blur' },
   ],
-  districtType: [
+  districtTypeKey: [
     { required: true, message: '请选择区域类型', trigger: 'blur' },
   ],
   marketManager: [
@@ -165,8 +163,10 @@ const rules = {
   specificBusinessType: [
     { required: true, message: '请填写具体业务类型', trigger: 'blur' },
   ],
-  clientRela: [{ required: true, message: '请选择客户关系', trigger: 'blur' }],
-  followUpStatus: [
+  clientRelaKey: [
+    { required: true, message: '请选择客户关系', trigger: 'blur' },
+  ],
+  followUpStatusKey: [
     { required: true, message: '请选择跟进状态', trigger: 'blur' },
   ],
 }

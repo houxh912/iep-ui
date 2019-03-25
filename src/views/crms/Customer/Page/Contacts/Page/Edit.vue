@@ -1,6 +1,6 @@
 <template>
   <div>
-    <page-header title="添加联系人"></page-header>
+    <page-header :title="methodName+'联系人'"></page-header>
     <el-form :model="formData" :rules="rules" ref="formName" label-width="140px">
       <el-row>
         <el-col :span=12>
@@ -14,13 +14,13 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="电话：" prop="telephoneNo">
-        <el-input v-model="formData.telephoneNo"></el-input>
+      <el-form-item label="电话：" prop="cellphone">
+        <el-input v-model="formData.cellphone"></el-input>
       </el-form-item>
       <el-row>
         <el-col :span=12>
           <el-form-item label="手机：">
-            <el-input v-model="formData.cellphone"></el-input>
+            <el-input v-model="formData.telephoneNo"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span=12>
@@ -60,17 +60,17 @@
         <el-input type="textarea" v-model="formData.other"></el-input>
       </el-form-item>
       <el-form-item>
+        <iep-button class="btn" @click="cancel()">取消</iep-button>
         <iep-button type="danger" @click="submitForm('formName')">保存</iep-button>
       </el-form-item>
     </el-form>
-
   </div>
 </template>
 
 <script>
 import { initForm } from '../options'
 import { mergeByFirst } from '@/util/util'
-import { getContactById } from '@/api/crms/customer_contacts'
+import { createData } from '@/api/crms/contact'
 export default {
   props: {
     record: {
@@ -90,7 +90,7 @@ export default {
         contactPosition: [
           { required: true, message: '请输入联系人职务', trigger: 'blur' },
         ],
-        telephoneNo: [
+        cellphone: [
           { required: true, message: '请选择区域类型', trigger: 'blur' },
         ],
       },
@@ -101,18 +101,40 @@ export default {
     this.formRequestFn = this.record.formRequestFn
     this.id = this.record.id
     if (this.id) {
-      console.log(222)
-      getContactById(this.id).then(({ data }) => {
+      this.formRequestFn(this.id).then(({ data }) => {
         this.formData = mergeByFirst(initForm(), data.data)
       })
     }
   },
   methods: {
-
+    cancel () {
+      this.$emit('onGoBack')
+    },
+    submitForm (formName) {
+      this.formData.clientIds = [this.record.clientId]
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          createData(this.formData).then(() => {
+            this.$notify({
+              title: '成功',
+              message: `${this.methodName}成功`,
+              type: 'success',
+              duration: 2000,
+            })
+            this.$emit('onGoBack')
+          })
+        } else {
+          return false
+        }
+      })
+    },
   },
 }
 
 </script>
 
 <style>
+.btn {
+  margin-right: 10px;
+}
 </style>

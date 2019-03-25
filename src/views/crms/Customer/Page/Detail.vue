@@ -16,13 +16,13 @@
           <customer-panorama :formData="formData" v-loading="activeTab !=='CustomerPanorama'"></customer-panorama>
         </template>
         <template v-if="activeTab ==='Contacts'" v-slot:Contacts>
-          <contacts v-loading="activeTab !=='Contacts'"></contacts>
+          <contacts v-loading="activeTab !=='Contacts'" :record="record"></contacts>
         </template>
         <template v-if="activeTab ==='VisitingRecord'" v-slot:VisitingRecord>
-          <visiting-record v-loading="activeTab !=='VisitingRecord'"></visiting-record>
+          <visiting-record v-loading="activeTab !=='VisitingRecord'" :record="record"></visiting-record>
         </template>
         <template v-if="activeTab ==='Scheme'" v-slot:Scheme>
-          <scheme v-loading="activeTab !=='Scheme'"></scheme>
+          <scheme v-loading="activeTab !=='Scheme'" :record="record"></scheme>
         </template>
         <template v-if="activeTab ==='Agreement'" v-slot:Agreement>
           <agreement v-loading="activeTab !=='Agreement'"></agreement>
@@ -42,19 +42,18 @@ import VisitingRecord from './VisitingRecord/'
 import Scheme from './Scheme/'
 import Agreement from './Agreement/'
 import Information from './Information/'
-// import DetailDialog from './Components/detailDialog'
-// import ContactsDislog from './Components/contactsDislog'
-// import VisitLogDialog from './Components/visitLogDialog'
-// import ProgrammeDialog from './Components/programmeDialog'
-// import ContractDialog from './Components/contractDialog'
-// import ConsultationDialog from './Components/consultationDialog'
 import mixins from '@/mixins/mixins'
 import { fetchInfo } from '@/api/crms/customer_panorama'
 export default {
   name: 'detail',
   mixins: [mixins],
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
   components: { CustomerPanorama, Contacts, VisitingRecord, Scheme, Agreement, Information },
-  // components: { DetailDialog, ContactsDislog, VisitLogDialog, ConsultationDialog, ProgrammeDialog, ContractDialog },
   data () {
     return {
       formData: {},
@@ -78,62 +77,22 @@ export default {
         value: 'Information',
       }],
       activeTab: 'CustomerPanorama',
+      formRequestFn: () => { },
     }
   },
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
+
   created () {
+    console.log(222222)
     this.load()
   },
   methods: {
     load () {
-      console.log(this.record.id)
       fetchInfo(this.record.id).then(({ data }) => {
-        console.log(data.data)
         this.formData = data.data
       })
     },
     handleGoBack () {
       this.$emit('onGoBack')
-    },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.formRequestFn(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
-              message: `${this.methodName}成功`,
-              type: 'success',
-              duration: 2000,
-            })
-            this.loadPage()
-            this.dialogShow = false
-          })
-        } else {
-          return false
-        }
-      })
-    },
-
-    change () { },
-    closed () {
-      this.dialogShow = false
-    },
-    // 转移
-    transfer () {
-      this.$message('转移给他人')
-    },
-    // 编辑
-    handleUpdate () {
-      this.$emit('update-form', this.formData)
-    },
-    // 删除
-    handleDelete () {
-      // this._handleGlobalDeleteById(row.id, deleteDataById)
     },
   },
 }

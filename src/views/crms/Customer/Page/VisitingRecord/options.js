@@ -1,7 +1,7 @@
 const columnsMap = [
   { label: '主题', prop: 'theme' },
   { label: '拜访时间', prop: 'visitTime' },
-  { label: '类型', prop: 'type' },
+  { label: '拜访记录', prop: 'contactRecord' },
 ]
 const initForm = () => {
   return {
@@ -19,4 +19,9 @@ const initForm = () => {
     other: '', //其他
   }
 }
-export { columnsMap, initForm }
+const initVisitForm = () => {
+  return {
+    name: '',
+  }
+}
+export { columnsMap, initForm, initVisitForm }

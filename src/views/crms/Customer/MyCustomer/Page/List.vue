@@ -6,7 +6,7 @@
         <el-dropdown size="medium">
           <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>导入</el-dropdown-item>
+            <el-dropdown-item @click.native="handleImport">导入</el-dropdown-item>
             <el-dropdown-item command="handleAllDelete">删除</el-dropdown-item>
             <el-dropdown-item>转移</el-dropdown-item>
             <el-dropdown-item divided @click.native="handleCooperation(id)">添加协作人</el-dropdown-item>
@@ -47,6 +47,10 @@
         </template>
       </el-table-column>
     </iep-table>
+    <!-- 导入弹窗 -->
+    <iep-dialog :dialog-show="dialogShow" title="导入" @close="close">
+      <excel-import :urlName="url" @close="handleCloseImport"></excel-import>
+    </iep-dialog>
   </div>
 </template>
 
@@ -54,10 +58,12 @@
 import mixins from '@/mixins/mixins'
 import { myTableOption, dictsMap, initSearchForm } from '../../options'
 import { fetchList, deleteDataById } from '@/api/crms/custom'
-
+import IepDialog from '@/components/IepDialog/'
+import excelImport from '../../excelImport'
 export default {
   name: 'custom',
   mixins: [mixins],
+  components: { IepDialog, excelImport },
   computed: {},
   data () {
     return {
@@ -66,6 +72,8 @@ export default {
       ids: [],
       id: '',
       paramForm: initSearchForm(),
+      dialogShow: false,
+      url: '/api/crm/crms/iepclientinfoexcel/upload',
     }
   },
   created () {
@@ -123,6 +131,30 @@ export default {
     // 批量删除
     handleAllDelete () {
       console.log('ids: ', this.ids)
+    },
+    //导入
+    handleImport () {
+      this.dialogShow = true
+    },
+    close () {
+      this.dialogShow = false
+    },
+    handleCloseImport (res) {
+      this.dialogShow = false
+      this.loadPage()
+      if (res.data) {
+        this.$message({
+          message: `成功!${res.msg}`,
+          type: 'success',
+          duration: 15000,
+        })
+      } else {
+        this.$message({
+          message: `警告!${res.msg}`,
+          type: 'warning',
+          duration: 15000,
+        })
+      }
     },
   },
 }

@@ -105,6 +105,7 @@ const user = {
             commit('SET_ACCESS_TOKEN', data.access_token)
             commit('SET_REFRESH_TOKEN', data.refresh_token)
             commit('SET_EXPIRES_IN', data.expires_in)
+            commit('SET_MENU', [])
             commit('CLEAR_LOCK')
             resolve()
           })

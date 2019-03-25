@@ -5,7 +5,7 @@
         <iep-img style="width:100%" :src="orgDetail.logo"></iep-img>
       </div>
       <div class="username">{{orgDetail.orgName}}</div>
-      <div class="bio">海纳百川，有容乃大</div>
+      <div class="bio">{{orgDetail.orgAbrName}}</div>
     </div>
     <div class="account-center-detail">
       <p>

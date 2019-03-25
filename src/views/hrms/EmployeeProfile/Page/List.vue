@@ -63,7 +63,7 @@
   </div>
 </template>
 <script>
-import { getEmployeeProfilePage, postInduction, postPositive, postDeparture, postTransfer } from '@/api/hrms/employee_profile'
+import { getEmployeeProfilePage, putEmployeeProfile, postInduction, postPositive, postDeparture, postTransfer } from '@/api/hrms/employee_profile'
 import mixins from '@/mixins/mixins'
 import keyBy from 'lodash/keyBy'
 import { columnsMap, initSearchForm, dictsMap } from '../options'
@@ -131,7 +131,10 @@ export default {
       })
     },
     handleEdit (row) {
-      this.$emit('onEdit', row)
+      this.$emit('onEdit', {
+        formRequestFn: putEmployeeProfile,
+        id: row.id,
+      })
     },
     handleDetail (row) {
       this.$emit('onDetail', row)

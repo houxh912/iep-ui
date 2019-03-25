@@ -6,7 +6,6 @@
       </template>
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
-
           <el-form :model="paramForm" label-width="80px" size="mini">
             <el-form-item label="客户名称">
               <el-input v-model="paramForm.clientName" placeholder="关键字"></el-input>

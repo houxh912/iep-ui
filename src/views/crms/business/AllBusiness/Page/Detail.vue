@@ -20,9 +20,9 @@
         <el-form-item label="商机描述：" prop="miaoshu">
           <el-input type="textarea" v-model="formData.opportunityDes" placeholder="商机描述" :disabled="true"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="商机标签：">
+        <el-form-item label="商机标签：">
           <el-tag type="info" class="tagStyle" v-for="(item,idx) in formData.tags" :key="idx">{{item.commonName}}</el-tag>
-        </el-form-item> -->
+        </el-form-item>
         <el-form-item label="发布者：">
           <span>{{formData.publisher}} </span>
         </el-form-item>

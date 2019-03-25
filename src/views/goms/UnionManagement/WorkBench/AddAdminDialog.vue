@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" title="添加管理员" width="400px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="管理员" prop="userId">
-        <iep-select prefix-url="admin/org/no_admin_user" v-model="form.userId"></iep-select>
+        <iep-select prefix-url="admin/org/set/user/manager" v-model="form.userId"></iep-select>
       </el-form-item>
     </el-form>
     <template slot="footer">

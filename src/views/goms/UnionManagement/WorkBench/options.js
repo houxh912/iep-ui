@@ -1,6 +1,6 @@
 const initAddAdminForm = () => {
   return {
-    userId: null,
+    userId: '',
   }
 }
 export { initAddAdminForm }

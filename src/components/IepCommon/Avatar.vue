@@ -1,7 +1,10 @@
 <template>
   <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :headers="headers" :show-file-list="false" :on-success="handleAvatarSuccess">
-    <img v-if="value" :src="avatarUrl" class="avatar" />
-    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+    <div class="no-avatar-wrapper">
+      <a-avatar v-if="value" :size="64" :src="avatarUrl"></a-avatar>
+      <a-avatar v-else :size="64" icon="user"></a-avatar>
+      <div class="intro-text">建议尺寸：300px * 300px 的等比图片</div>
+    </div>
   </el-upload>
 </template>
 <script>
@@ -45,26 +48,19 @@ export default {
 </script>
 <style scoped>
 .avatar-uploader >>> .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
 }
-.avatar-uploader >>> .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px !important;
-  color: #8c939d !important;
-  width: 178px !important;
-  height: 178px !important;
-  line-height: 178px !important;
-  text-align: center !important;
-}
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
+</style>
+<style lang="scss" scoped>
+.no-avatar-wrapper {
+  display: flex;
+  align-items: center;
+  .intro-text {
+    margin-left: 20px;
+    font-size: 14px;
+    color: #606266;
+  }
 }
 </style>

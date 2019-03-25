@@ -1,41 +1,31 @@
 <template>
-  <keep-alive>
-    <component :record="record" :is="currentComponet" @onDetail="handleDetail" @onForm="handleForm" @onCooper="handleCooper" @onGoBack="handleGoBack"></component>
-  </keep-alive>
+  <component @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
 </template>
 
 <script>
 // 动态切换组件
 import List from './Page/List'
 import Edit from './Page/Edit'
-import Detail from './Page/Detail'
-import Collaborator from './Page/Collaborator/'
+
 export default {
   name: 'TableListWrapper',
   components: {
     List,
     Edit,
-    Detail,
-    Collaborator,
   },
   data () {
     return {
       currentComponet: 'List',
-      record: '',
+      record: {},
     }
   },
+  created () {
+
+  },
   methods: {
-    handleForm (record) {
+    handleEdit (record) {
       this.record = record
       this.currentComponet = 'Edit'
-    },
-    handleDetail (record) {
-      this.record = record
-      this.currentComponet = 'Detail'
-    },
-    handleCooper (record) {
-      this.record = record
-      this.currentComponet = 'Collaborator'
     },
     handleGoBack () {
       this.record = ''

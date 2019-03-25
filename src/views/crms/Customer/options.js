@@ -94,7 +94,29 @@ const initFormData = () => {
     clientName: '',
   }
 }
-
+const initForm = () => {
+  return {
+    name: '', //客户名称
+    type: [], //客户类型
+    districtType: '', // 区域类型
+    businessType: [], // 业务类型
+    specificType: '', //具体业务类型
+    relation: '', //客户关系
+    status: '', // 跟进状态
+    marketManager: '', // 市场经理
+    lastTime: '', // 距离上次拜访已有(全部客户没有但依然存着)
+    tags: [], //客户标签
+    phoneNum: '', //手机号码
+    respDept: '', //负责部门
+    url: '', //单位网址
+    function: '', //单位职能
+    address: '', //单位地址
+    otherDesc: '', //其他说明
+    sex: '', //性别
+    products: '', // 相关产品
+    scheme: '', //方案
+  }
+}
 // 我的客户搜索
 const initSearchForm = () => {
   return {
@@ -107,7 +129,6 @@ const allSearchForm = () => {
   return {
     clientName: '',
     businessType: '',
-
   }
 }
 
@@ -126,21 +147,15 @@ const rules = {
   marketManager: [
     { required: true, message: '请填写市场经理', trigger: 'blur' },
   ],
-  respDept: [
-    { required: true, message: '请选择负责部门', trigger: 'blur' },
-  ],
-  companyUrl: [
-    { required: true, message: '请填写单位网址', trigger: 'blur' },
-  ],
+  respDept: [{ required: true, message: '请选择负责部门', trigger: 'blur' }],
+  companyUrl: [{ required: true, message: '请填写单位网址', trigger: 'blur' }],
   companyFunction: [
     { required: true, message: '请填写单位职能', trigger: 'blur' },
   ],
   contractAddress: [
     { required: true, message: '请填写单位地址', trigger: 'blur' },
   ],
-  otherDesc: [
-    { required: true, message: '请填写其他说明', trigger: 'blur' },
-  ],
+  otherDesc: [{ required: true, message: '请填写其他说明', trigger: 'blur' }],
   clientTypeKey: [
     { required: true, message: '请选择客户类型', trigger: 'blur' },
   ],
@@ -150,9 +165,7 @@ const rules = {
   specificBusinessType: [
     { required: true, message: '请填写具体业务类型', trigger: 'blur' },
   ],
-  clientRela: [
-    { required: true, message: '请选择客户关系', trigger: 'blur' },
-  ],
+  clientRela: [{ required: true, message: '请选择客户关系', trigger: 'blur' }],
   followUpStatus: [
     { required: true, message: '请选择跟进状态', trigger: 'blur' },
   ],
@@ -186,4 +199,5 @@ export {
   initContactForm,
   initVisitForm,
   initConsultaForm,
+  initForm,
 }

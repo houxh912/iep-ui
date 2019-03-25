@@ -22,9 +22,9 @@
             <el-radio v-for="item in dictGroup['crms_client_intention_level']" :key="item.value" :label="item.value">{{item.label}}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <!-- <el-form-item label="商机标签：" prop="tags">
+        <el-form-item label="商机标签：" prop="tags">
           <iep-tags v-model="form.tags" @addTags="addTags"></iep-tags>
-        </el-form-item> -->
+        </el-form-item>
         <el-form-item label="商机描述：" prop="opportunityDes">
           <el-input type="textarea" v-model="form.opportunityDes" placeholder="商机描述"></el-input>
         </el-form-item>
@@ -42,12 +42,12 @@
 
 <script>
 import { initForm, rules } from '../options'
-// import iepTags from '@/components/IepTags'
+import iepTags from '@/components/IepTags'
 import FooterToolBar from '@/components/FooterToolbar'
 import { createData, updateData, businessById } from '@/api/crms/business'
 import { mapState } from 'vuex'
 export default {
-  components: { FooterToolBar },
+  components: { FooterToolBar, iepTags },
   props: {
     record: {
       type: Object,
@@ -96,7 +96,7 @@ export default {
             projectName: formData.projectName, // 项目名称 projectName
             businessType: formData.businessType.map(m => parseInt(m.commonId)), // 业务类型 businessType
             intentionLevel: formData.intentionLevelKey, // 意向程度 intentionLevel
-            tags: formData.tags.map(m => parseInt(m.commonId)), // 商机标签 businessTag
+            tags: formData.tags.map(m => m.commonName), // 商机标签 businessTag
             opportunityDes: formData.opportunityDes, // 商机描述
             // publisher: formData.publisher, //发布者
           }

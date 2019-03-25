@@ -19,6 +19,7 @@ export default {
     title: {
       type: String,
       required: true,
+      default: '标题',
     },
     titleSize: {
       type: Number,

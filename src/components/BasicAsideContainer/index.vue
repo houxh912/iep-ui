@@ -26,10 +26,7 @@ export default {
   },
   computed: {
     isShow300px () {
-      if (this.isTablet()) {
-        return '0'
-      }
-      return this.showAside ? '300px' : '0'
+      if (!this.isTablet()) { return this.showAside ? '300px' : '0' } else { return '0' }
     },
   },
   methods: {

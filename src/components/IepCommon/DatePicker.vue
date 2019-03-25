@@ -13,3 +13,8 @@ export default {
   },
 }
 </script>
+<style lang="css" scoped>
+.el-date-editor >>> span {
+  box-sizing: content-box;
+}
+</style>

@@ -11,6 +11,7 @@ import IepCascader from '@/components/IepCommon/Cascader'
 import IepDictDetail from '@/components/IepCommon/DictDetail'
 import IepDictSelect from '@/components/IepCommon/DictSelect'
 import IepAvatar from '@/components/IepCommon/Avatar'
+import IepImgAvatar from '@/components/IepCommon/ImgAvatar'
 import IepImg from '@/components/IepCommon/Img'
 import IepInputNumber from '@/components/IepCommon/InputNumber'
 import OperationContainer from '@/components/Operation/Container'
@@ -38,5 +39,6 @@ Vue.component(IepCascader.name, IepCascader)
 Vue.component(IepDictDetail.name, IepDictDetail)
 Vue.component(IepDictSelect.name, IepDictSelect)
 Vue.component(IepAvatar.name, IepAvatar)
+Vue.component(IepImgAvatar.name, IepImgAvatar)
 Vue.component(IepImg.name, IepImg)
 Vue.component(IepInputNumber.name, IepInputNumber)

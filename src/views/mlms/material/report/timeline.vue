@@ -175,8 +175,8 @@ export default {
           border: 2px solid #ddd;
           border-radius: 50%;
           background-color: #ddd;
-          top: 6px;
-          left: 17px;
+          top: 8px;
+          left: 18px;
         }
       }
     }

@@ -48,6 +48,7 @@ export default {
       },
       contentType: 'week',
       params: '',
+      today: new Date(),
     }
   },
   methods: {
@@ -98,13 +99,13 @@ export default {
     },
     // 获取当前时间轴上面的月、周
     getDate (row) {
-      let day = +new Date()
-      let month = new Date().getMonth() + 1
-      let week = -1
+      let day = +this.today
+      let month = this.today.getMonth() + 1
+      let week = 0
       let list = row[month]
       // 两种情况，首先上个月的周报，timeStamp 应该是小于这个月最小的周的时间戳
       for (let item of list.children) {
-        if (day > item.timeStamp) {
+        if (day > item.timeStamp+7*24*3600*1000) {
           week++
         } else  {
           if (week == -1) {
@@ -113,7 +114,7 @@ export default {
               // 上个月是去年的12月
               return { month: 12, week: list.children.length-1 }
             } else {
-              month = month-1
+              // month = month-1
               return { month: month, week: list.children.length-1 }
             }
           } else {
@@ -129,9 +130,10 @@ export default {
   },
   created () {
     // 获取当前的时间，默认显示当前年-当前月
-    let date = new Date()
+    let date = this.today
     if (getWeekOfYear() == 0) {
-      date = new Date(date.getFullYear() - 1, 11, 31)
+      this.today = new Date(date.getFullYear() - 1, 11, 31)
+      date = this.today
     }
     // 初始化时间轴，获取到当前的周
     let list = createWeeks(date.getFullYear())

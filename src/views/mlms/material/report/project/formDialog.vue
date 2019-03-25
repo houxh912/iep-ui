@@ -1,5 +1,9 @@
 <template>
   <div class="form-dialog">
+    <div class="head">
+      <div class="name">{{this.formData.projectName}}</div>
+      <div class="cancel"><iep-button @click="cancel" type="small">返回</iep-button></div>
+    </div>
     <el-form ref="form" :model="formData">
       <el-form-item>
         <el-row>
@@ -26,7 +30,8 @@
                 v-model="formData.paymentRelations[scope.$index].projectPaymentTime"
                 type="month"
                 placeholder="选择时间"
-                format="yyyy-MM">
+                format="yyyy-MM"
+                value-format="yyyy-MM">
               </el-date-picker>
             </template>
           </el-table-column>
@@ -71,6 +76,7 @@
 const initFormData = () => {
   return {
     projectId: 0,
+    projectName: '',
     estimateSignTime: '',
     contractSignTime: '',
     clientRqmt: '',
@@ -89,6 +95,13 @@ export default {
     }
   },
   methods: {
+    open (projectId, projectName, times) {
+      this.formData = initFormData()
+      this.formData.projectId = projectId
+      this.formData.projectName = projectName
+      this.formData.startTime = times.startTime
+      this.formData.endTime = times.endTime
+    },
     submit () {
       this.$emit('putFormData', this.formData)
     },
@@ -101,12 +114,26 @@ export default {
         paymentAmount: '',
       })
     },
+    cancel () {
+      this.$emit('load-page', false)
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .form-dialog {
+  .head {
+    display: flex;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    justify-content: space-between;
+    .name {
+      font-size: 16px;
+      flex: 1;
+    }
+  }
   .title {
     margin-bottom: 20px;
   }

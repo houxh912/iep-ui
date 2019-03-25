@@ -15,8 +15,8 @@
         <time-line ref="timeline" @actively="actively" :option="timeLineOption"></time-line>
       </div>
       <div class="form">
-        <form-dialog ref="form" @putFormData="getFormData" v-if="dialogState!=='detail'"></form-dialog>
-        <detail-dialog ref="detail" v-else @handleUpdate="handleUpdate" @handleCreate="handleCreate"></detail-dialog>
+        <form-dialog ref="form" @putFormData="getFormData" v-show="dialogState!=='detail'" @load-page="dialogState='detail'"></form-dialog>
+        <detail-dialog ref="detail" v-show="dialogState=='detail'" @handleUpdate="handleUpdate" @handleCreate="handleCreate"></detail-dialog>
       </div>
     </div>
     <create-dialog ref="createDialog" @selectProject="selectProject"></create-dialog>
@@ -28,7 +28,7 @@
 import TimeLine from '../timeline'
 import FormDialog from './formDialog'
 import DetailDialog from './detailDialog'
-import { createWeeks } from '../util'
+import { createWeeks, getWeekOfYear, getWeekStartAndEnd } from '../util'
 import { getTableData, createData, updateData } from '@/api/mlms/material/report/project'
 import CreateDialog from './createDialog'
 
@@ -47,6 +47,11 @@ export default {
       },
       dialogState: 'detail',
       requestFn: () => {},
+      currentDate: {
+        startTime: '',
+        endTime: '',
+      },
+      today: new Date(),
     }
   },
   methods: {
@@ -58,10 +63,11 @@ export default {
       if (type === 'week') {
         let year = new Date(item.timeStamp).getFullYear()
         this.dialogState = 'detail'
-        getTableData({
+        this.currentDate = {
           startTime: `${year}-${item.startTime} 00:00:00`,
           endTime: `${year}-${item.endTime} 00:00:00`,
-        }).then(({data}) => {
+        }
+        getTableData(this.currentDate).then(({data}) => {
           this.$refs['detail'].weeklyList = data.data
           this.$refs['detail'].activeName = -1
         })
@@ -69,40 +75,95 @@ export default {
     },
     // 保存周报
     getFormData (data) {
-      console.log('data: ', data)
-      this.requestFn(data).then(() => {
+      this.requestFn(data).then(({data}) => {
+        if (!data.data) {
+          this.$message.error(data.msg)
+        }
         this.dialogState = 'detail'
+        getTableData(this.currentDate).then(({data}) => {
+          this.$refs['detail'].weeklyList = data.data
+          this.$refs['detail'].activeName = -1
+        })
       })
     },
     // 编辑周报
     handleUpdate (row) {
-      console.log('row: ', row)
       this.dialogState = 'update'
       this.requestFn = updateData
       this.$nextTick(() => {
-        row.paymentRelations = [
-          { projectPaymentTime: '2月', paymentAmount: '100000' },
-          { projectPaymentTime: '2月', paymentAmount: '100000' },
-          { projectPaymentTime: '2月', paymentAmount: '100000' },
-          { projectPaymentTime: '2月', paymentAmount: '100000' },
-        ]
+        this.$refs['form'].formData.startTime = this.currentDate.startTime
+        this.$refs['form'].formData.endTime = this.currentDate.endTime
         this.$refs['form'].formData = row
       })
     },
     handleCreate () {
-      this.$refs['createDialog'].dialogShow = true
+      this.$refs['createDialog'].open()
       this.requestFn = createData
     },
-    selectProject (projectId) {
+    selectProject (projectId, projectName) {
       this.dialogState = 'create'
       this.$nextTick(() => {
-        this.$refs['form'].formData.projectId = projectId
+        let obj = this.timeLineOption
+        let list = obj.list
+        let dateObj = list[obj.active].children[obj.activeChild]
+        // this.$refs['form'].open(projectId, `${projectName} ${dateObj.title}项目周报 （${dateObj.startTime}~${dateObj.endTime}）`)
+        this.$refs['form'].open(projectId, `${projectName} ${dateObj.title}项目周报`, {
+          startTime: this.currentDate.startTime,
+          endTime: this.currentDate.endTime,
+        })
       })
+    },
+    // 获取当前时间轴上面的月、周
+    getDate (row) {
+      let day = +this.today
+      let month = this.today.getMonth() + 1
+      let week = 0
+      let list = row[month]
+      // 两种情况，首先上个月的周报，timeStamp 应该是小于这个月最小的周的时间戳
+      for (let item of list.children) {
+        // if (day > item.timeStamp && day < item.timeStamp+7*24*3600*1000) {
+        if (day > item.timeStamp+7*24*3600*1000) {
+          week++
+        } else  {
+          if (week == -1) {
+            // 上个月的最后一周
+            if (month == 1) {
+              // 上个月是去年的12月
+              return { month: 12, week: list.children.length-1 }
+            } else {
+              // month = month-1
+              return { month: month, week: list.children.length-1 }
+            }
+          } else {
+            return { month, week }
+          }
+        }
+      }
     },
   },
   created () {
     // 获取当前的时间，默认显示当前年-当前月
-    this.timeLineOption.list = createWeeks(2019)
+    let date = this.today
+    if (getWeekOfYear() == 0) {
+      this.today = new Date(date.getFullYear() - 1, 11, 31)
+      date = this.today
+    }
+    // 初始化时间轴，获取到当前的周
+    let list = createWeeks(date.getFullYear())
+    let obj = this.getDate(list)
+    this.timeLineOption.active = obj.month
+    this.timeLineOption.activeChild = obj.week
+    // 赋值时间轴
+    this.timeLineOption.list = list
+    let today = getWeekStartAndEnd(this.today)
+    this.currentDate = {
+      startTime: `${today.startYear} 00:00:00`,
+      endTime: `${today.endYear} 00:00:00`,
+    }
+    getTableData(this.currentDate).then(({data}) => {
+      this.$refs['detail'].weeklyList = data.data
+      this.$refs['detail'].activeName = -1
+    })
   },
 }
 </script>

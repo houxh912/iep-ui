@@ -1,3 +1,5 @@
+// let todayDate = '2019, 01, 01 00:00:01'
+
 // 根据距离当前日的天数获取年月日
 export function getDays (day) {
   let today = new Date()
@@ -79,6 +81,19 @@ function formatDate (mill){
       // y.getDay() || 7,
   ]
   let format = ['-','-']
+  return String.raw({raw:raws}, ...format)
+}
+
+// 根据传入的时间，返回YYYY-MM-DD
+function formatYear (mill){
+  var y = new Date(mill)
+  let raws = [
+      y.getFullYear(),
+      formatDig(y.getMonth() + 1),
+      formatDig(y.getDate()),
+      // y.getDay() || 7,
+  ]
+  let format = ['-','-','-']
   return String.raw({raw:raws}, ...format)
 }
 
@@ -188,5 +203,7 @@ export function getWeekStartAndEnd (day) {
   return {
     startTime: formatDate(firstDay),
     endTime: formatDate(lastDay),
+    startYear: formatYear(firstDay),
+    endYear: formatYear(lastDay),
   }
 }

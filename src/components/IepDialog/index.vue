@@ -10,7 +10,9 @@
       <slot></slot>
     </el-scrollbar>
     <div slot="footer" class="dialog-footer">
-      <slot name="footer"></slot>
+      <OperationWrapper>
+        <slot name="footer"></slot>
+      </OperationWrapper>
     </div>
   </el-dialog>
 </template>

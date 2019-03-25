@@ -93,7 +93,7 @@ export default {
       backOption: {
         isBack: true,
         backPath: null,
-        backFunction: this.handleGoBack,
+        backFunction: () => { this.$emit('onGoBack') },
       },
       bodyStyle: {
         display: 'flex',
@@ -122,9 +122,6 @@ export default {
       getAdministrativeApprovalById(this.record.id).then(({ data }) => {
         this.form = mergeByFirst(initForm(), data.data)
       })
-    },
-    handleGoBack () {
-      this.$emit('onGoBack')
     },
   },
 }

@@ -1,0 +1,123 @@
+<template>
+  <div class="evaluation">
+    <div class="title">{{evaluation.title}}</div>
+    <div class="block">
+      <el-timeline>
+        <el-timeline-item v-for="(activity, index) in activities" :key="index" :icon="activity.icon" :type="activity.type" :color="activity.color" :size="activity.size">
+          {{activity.content}}
+        </el-timeline-item>
+      </el-timeline>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data () {
+    return {
+      evaluation: { title: '收到评价' },
+      activities: [{
+        content: '领导能力强',
+      }, {
+        content: '工作负责，执行力强',
+      }, {
+        content: '优秀的程序员',
+      }, {
+        content: '友好',
+      }, {
+        content: '友好友好',
+      }],
+    }
+  },
+  methods: {
+    evaluationDetail () {
+      // console.log(index)
+    },
+  },
+}
+</script>
+<style lang="scss" scoped>
+.evaluation {
+  box-sizing: border-box;
+  margin: 10px;
+  ul {
+    margin: 0;
+    padding: 0;
+    height: 120px;
+    overflow-x: hidden;
+  }
+}
+.title {
+  padding: 0 0 10px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.cursor {
+  cursor: pointer;
+}
+</style>
+
+<style lang="css" scoped>
+.evaluation >>> ::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 5px;
+  background-color: #fafafa;
+}
+.evaluation >>> ::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fafafa;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+}
+.evaluation >>> ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ddd;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+  display: none;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.evaluation >>> .block:hover ::-webkit-scrollbar-thumb {
+  display: block;
+}
+.evaluation >>> .el-timeline-item__node--normal {
+  top: 4px;
+  left: 1px;
+  width: 8px;
+  height: 8px;
+}
+.evaluation >>> .el-timeline-item__tail {
+  left: 5px;
+}
+.evaluation >>> .el-timeline-item__content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.evaluation >>> .block {
+  padding: 5px 0;
+}
+.evaluation >>> .el-timeline-item {
+  padding-bottom: 5px;
+}
+.evaluation >>> .el-timeline-item:hover .el-timeline-item__node {
+  border-color: #cb3737;
+  background-color: #cb3737;
+}
+.evaluation >>> .el-timeline-item:hover .el-timeline-item__content {
+  color: #cb3737;
+}
+.evaluation >>> .el-timeline-item:last-child {
+  padding: 0;
+}
+.evaluation >>> .el-timeline-item__node {
+  background-color: #fff;
+  border: 1px solid #d7d7d7;
+}
+.evaluation
+  >>> .el-timeline
+  .el-timeline-item:last-child
+  .el-timeline-item__tail {
+  display: block;
+}
+</style>

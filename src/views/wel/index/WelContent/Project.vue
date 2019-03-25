@@ -16,7 +16,7 @@ export default {
     return {
       contentData: '',
       navList: {
-        title: '我的代办',
+        title: '我的待办',
         dataList: [{
           subtitle: '执行项目',
           type: 'action',
@@ -46,7 +46,7 @@ export default {
 
 <style lang="scss" scoped>
 .project {
-  padding: 20px 30px;
+  padding: 15px 30px;
   padding-bottom: 0;
   border-bottom: 1px solid #eee;
   .project-nav {

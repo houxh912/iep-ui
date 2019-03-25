@@ -1,13 +1,10 @@
 <template>
   <div class="programme">
-    <el-table
-     :data="pagedTable">
-      <el-table-column
-          :label="item.label"
-          v-for="(item, index) in columnsMap"
-          :key="index"
-          :prop="item.prop"
-          :width="item.width">
+    <el-table :data="pagedTable">
+      <el-table-column :label="'方案名称'" prop="programName">
+      </el-table-column>
+      <el-table-column :label="'附件'"  prop="downLoadUrl" width="200">
+        <el-button type="text">下载</el-button>
       </el-table-column>
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
@@ -31,12 +28,12 @@
           <el-col><i class="el-icon-warning"></i> 是否需要关联材料库？如需要，<span class="relation">请点击</span></el-col>
           <el-col>如不需要，请直接填写下方内容</el-col>
         </el-form-item>
-        <el-form-item label="方案名称：" prop="name">
-          <el-input v-model="formData.name"></el-input>
+        <el-form-item label="方案名称：" prop="programName">
+          <el-input v-model="formData.programName"></el-input>
         </el-form-item>
         <el-form-item label="附件上传：" prop="downLoadUrl">
           <el-col class="upload-item">
-            <el-input class="upload-input" v-model="formData.downLoadUrl" :disabled="true"/>
+            <el-input class="upload-input" v-model="formData.downLoadUrl" :disabled="true" />
             <iep-button class="upload-button" size="small" plain><i class="el-icon-plus"></i> 点击上传</iep-button>
           </el-col>
         </el-form-item>
@@ -52,19 +49,20 @@
 
 <script>
 import IepDialog from '@/components/IepDialog/'
-import { initContactForm } from '../const/detail'
+import { initContactForm } from '../options'
 import pagination from '@/components/IepTable/Pagination'
 import mixins from '@/mixins/mixins'
-import { fetchProgramme, createProgramme, updateProgramme, deleteProgramme } from '@/api/crms/custom'
+// import { fetchProgramme, createProgramme, updateProgramme, deleteProgramme } from '@/api/crms/custom'
+import { fetchProgrammeList, createProgramme, updateProgramme, deleteProgramme } from '@/api/crms/crm'
 export default {
   name: 'contacts',
-  mixins: [ mixins ],
+  mixins: [mixins],
   components: { IepDialog, pagination },
   data () {
     return {
       isLoadTable: false,
       columnsMap: [
-        { label: '方案名称', prop: 'name' },
+        { label: '方案名称', prop: 'programName' },
         { label: '附件', prop: 'downLoadUrl', width: '200' },
       ],
       formData: {},
@@ -84,12 +82,19 @@ export default {
           name: '20180919建设银行政务服务中心方案3号',
         },
       ],
-      submitFn: () => {},
+      submitFn: () => { },
     }
+  },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
   },
   methods: {
     loadPage (param) {
-      this.loadTable(param, fetchProgramme)
+      let id = this.record.clientId
+      this.loadTable({ ...param, clientId: id }, fetchProgrammeList)
     },
     created () {
       this.dialogShow = true
@@ -97,13 +102,13 @@ export default {
       this.submitFn = createProgramme
     },
     handleEdit (row) {
-      this.formData = {...row}
+      this.formData = { ...row }
       this.dialogShow = true
       this.methodName = '编辑'
       this.submitFn = updateProgramme
     },
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.id, deleteProgramme)
+      this._handleGlobalDeleteById(row.programId, deleteProgramme)
     },
     resetForm () {
       this.formData = initContactForm()
@@ -112,7 +117,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.submitFn(this.formData).then(() => {
+          this.submitFn({...this.formData,clientId:this.record.clientId}).then(() => {
             this.$notify({
               title: '成功',
               message: `${this.methodName}成功`,

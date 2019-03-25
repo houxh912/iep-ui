@@ -1,16 +1,17 @@
 <template>
-  <div class="aside">
-    <span class="popup-btn" @click="hideAside"><i class="el-icon-caret-right"></i></span>
-    <el-scrollbar>
-      <!-- 我要创建 -->
-      <my-created />
-      <!-- 我要找 -->
-      <my-find />
-      <!-- 我的财富 -->
-      <my-treasure />
-      <!-- 我的机会 -->
-      <my-chance />
-    </el-scrollbar>
+  <div class="wel-aside-wrapper">
+    <!-- 我要创建 -->
+    <my-created />
+    <!-- 我要找 -->
+    <my-find />
+    <!-- 我的财富 -->
+    <my-treasure />
+    <!-- 我的机会 -->
+    <my-chance />
+    <!-- 收到评价 -->
+    <receive-evaluation />
+    <!-- 我的指數 -->
+    <my-data />
   </div>
 </template>
 <script>
@@ -18,55 +19,17 @@ import MyCreated from './MyCreated'
 import MyFind from './MyFind'
 import MyTreasure from './MyTreasure'
 import MyChance from './MyChance'
+import ReceiveEvaluation from './ReceiveEvaluation'
+import MyData from './MyData'
 export default {
-  components: { MyCreated, MyFind, MyTreasure, MyChance },
-  methods: {
-    hideAside () {
-      this.$emit('aside-hide')
-    },
-  },
+  components: { MyCreated, MyFind, MyTreasure, MyChance, ReceiveEvaluation, MyData },
 }
 </script>
-<style  lang="scss" scoped>
-.aside {
-  background: #fafafa;
-  font-size: 12px;
-  margin: 0;
-  box-sizing: border-box;
-  .popup-btn {
-    position: absolute;
-    top: 40%;
-    left: -26px;
-    margin-top: -15px;
-    width: 25px;
-    height: 30px;
-    font-size: 20px;
-    text-align: center;
-    line-height: 30px;
-    border: 1px solid #eee;
-    border-radius: 3px 0 0 3px;
-    color: #bfbfbf;
-    background: #fafafa;
-    z-index: 999;
-    cursor: pointer;
-    &:hover,
-    &:focus {
-      background-color: #eee;
-      color: #fff;
-    }
-  }
-  .el-scrollbar {
-    position: relative;
-    height: calc(100% - 64px);
-    padding: 0;
-    .el-scrollbar__view {
-      > div {
-        padding: 10px 10px 20px 10px;
-        border-bottom: 1px solid #ececec;
-      }
-    }
+<style lang="scss" scoped>
+.wel-aside-wrapper {
+  & > div {
+    padding: 10px 10px 20px 10px;
+    border-bottom: 1px solid #ececec;
   }
 }
 </style>
-
-

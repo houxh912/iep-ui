@@ -6,7 +6,6 @@
   "editor.mouseWheelZoom": true,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.snippetSuggestions": "top",
-  "editor.formatOnSave": true,
   "editor.fontSize": 16,
   "editor.tabSize": 2,
   "editor.autoIndent": true,

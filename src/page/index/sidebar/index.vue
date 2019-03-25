@@ -1,10 +1,8 @@
 <template>
-  <div class="avue-sidebar" :style="{width: keyCollapse ? '' : '240px'}">
+  <div class="avue-sidebar" :style="{width: keyCollapse ? '' : '200px'}">
     <el-scrollbar style="height:100%">
       <main-item :mainMenu="mainMenu" :collapse="keyCollapse"></main-item>
-      <el-menu unique-opened :default-active="nowTagValue" mode="vertical" :show-timeout="200" :collapse="keyCollapse">
-        <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
-      </el-menu>
+      <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
       <div class="sub-menu-wrapper" v-if="mainMenu.path === '/wel'">
         <el-menu default-active="-1" :collapse="keyCollapse">
           <el-menu-item :index="omenu.path" v-for="omenu in otherMenus" :key="omenu.path" @click="openModuleMenus(omenu)">
@@ -34,9 +32,6 @@ export default {
   },
   computed: {
     ...mapGetters(['website', 'menu', 'mainMenu', 'otherMenus', 'menusMap', 'screen']),
-    nowTagValue: function () {
-      return this.$router.$avueRouter.getValue(this.$route)
-    },
     keyCollapse () {
       if (this.isDesktop()) {
         return false
@@ -65,6 +60,18 @@ export default {
 <style lang="scss" scoped>
 .sub-menu-wrapper {
   border-top: 2px solid #eee;
+  .el-menu-item {
+    margin-left: 0 !important;
+    height: 40px;
+    line-height: 40px;
+    border-left: 3px solid #fafafa;
+    &:hover,
+    &:focus {
+      border-color: #cb3737;
+      background: #f9eae7;
+      color: #cb3737;
+    }
+  }
   .sub-menu {
     font-size: 14px;
     height: 40px;
@@ -87,5 +94,33 @@ export default {
       margin-right: 5px;
     }
   }
+}
+.avue-sidebar {
+  height: 100%;
+  background-color: #fafafa;
+}
+.el-menu {
+  background-color: #fafafa;
+}
+</style>
+<style lang="css" scoped>
+.avue-sidebar >>> .el-scrollbar .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+.avue-sidebar >>> .el-submenu .el-submenu__title {
+  border-left: 3px solid #fafafa;
+}
+.avue-sidebar >>> .el-submenu .el-submenu__title:focus,
+.avue-sidebar >>> .el-menu--collapse .el-submenu.is-active .el-submenu__title,
+.avue-sidebar >>> .el-submenu .el-submenu__title:hover {
+  margin-left: 0 !important;
+  border-color: #cb3737;
+  background-color: #f9eae7;
+  color: #cb3737;
+}
+.avue-sidebar >>> .el-submenu .el-submenu__title,
+.avue-sidebar >>> .el-menu-item {
+  height: 40px;
+  line-height: 40px;
 }
 </style>

@@ -59,7 +59,7 @@ export default {
   margin: 10px;
   .el-icon-question {
     &:hover {
-      opacity: .7;
+      opacity: 0.7;
     }
   }
 }
@@ -87,9 +87,7 @@ export default {
       color: #cb3737;
     }
     span {
-      position: absolute;
-      right: -2px;
-      top: -3px;
+      margin-left: 5px;
       color: #bbb;
     }
   }

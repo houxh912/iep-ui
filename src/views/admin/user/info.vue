@@ -10,45 +10,42 @@
       <el-row>
         <el-col :span="12">
           <div class="grid-content bg-purple">
-            <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" v-if="switchStatus === 'userManager'" class="demo-ruleForm">
+            <el-form :model="form" :rules="rules" ref="form" label-width="100px" v-if="switchStatus === 'userManager'" class="demo-ruleForm">
               <el-form-item label="用户名" prop="username">
-                <el-input type="text" v-model="ruleForm2.username" disabled></el-input>
+                <el-input type="text" v-model="form.username" disabled></el-input>
               </el-form-item>
               <el-form-item label="真实姓名" prop="realName">
-                <el-input v-model="ruleForm2.realName" placeholder="请输入真实姓名"></el-input>
+                <el-input v-model="form.realName" placeholder="请输入真实姓名"></el-input>
               </el-form-item>
               <el-form-item label="手机号" prop="phone">
-                <el-input v-model="ruleForm2.phone" placeholder="验证码登录使用"></el-input>
+                <el-input v-model="form.phone" placeholder="验证码登录使用"></el-input>
               </el-form-item>
               <el-form-item label="头像">
-                <el-upload class="avatar-uploader" action="/api/admin/file/upload" :headers="headers" :show-file-list="false" :on-success="handleAvatarSuccess">
-                  <img id="avatar" v-if="ruleForm2.avatar" :src="avatarUrl" class="avatar" />
-                  <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
+                <iep-avatar v-model="form.avatar"></iep-avatar>
               </el-form-item>
               <el-form-item label="社交登录" prop="social">
                 <a href="#" style="color: blue" @click="handleClick('wechat')">绑定微信</a>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm2')">提交
+                <el-button type="primary" @click="submitForm('form')">提交
                 </el-button>
-                <el-button @click="resetForm('ruleForm2')">重置</el-button>
+                <el-button @click="resetForm('form')">重置</el-button>
               </el-form-item>
             </el-form>
-            <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" v-if="switchStatus === 'passwordManager'" class="demo-ruleForm">
+            <el-form :model="form" :rules="rules" ref="form" label-width="100px" v-if="switchStatus === 'passwordManager'" class="demo-ruleForm">
               <el-form-item label="原密码" prop="password">
-                <el-input type="password" v-model="ruleForm2.password" auto-complete="off"></el-input>
+                <el-input type="password" v-model="form.password" auto-complete="off"></el-input>
               </el-form-item>
               <el-form-item label="密码" prop="newpassword1">
-                <el-input type="password" v-model="ruleForm2.newpassword1" auto-complete="off"></el-input>
+                <el-input type="password" v-model="form.newpassword1" auto-complete="off"></el-input>
               </el-form-item>
               <el-form-item label="确认密码" prop="newpassword2">
-                <el-input type="password" v-model="ruleForm2.newpassword2" auto-complete="off"></el-input>
+                <el-input type="password" v-model="form.newpassword2" auto-complete="off"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm2')">提交
+                <el-button type="primary" @click="submitForm('form')">提交
                 </el-button>
-                <el-button @click="resetForm('ruleForm2')">重置</el-button>
+                <el-button @click="resetForm('form')">重置</el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -60,7 +57,7 @@
 
 <script>
 // import { handleDown } from '@/api/admin/user'
-import { handleImg, openWindow } from '@/util/util'
+import { openWindow } from '@/util/util'
 import { mapState, mapActions } from 'vuex'
 import store from '@/store'
 import request from '@/router/axios'
@@ -68,8 +65,8 @@ import request from '@/router/axios'
 export default {
   data () {
     var validatePass = (rule, value, callback) => {
-      if (this.ruleForm2.password !== '') {
-        if (value !== this.ruleForm2.newpassword1) {
+      if (this.form.password !== '') {
+        if (value !== this.form.newpassword1) {
           callback(new Error('两次输入密码不一致!'))
         } else {
           callback()
@@ -85,7 +82,7 @@ export default {
       headers: {
         Authorization: 'Bearer ' + store.getters.access_token,
       },
-      ruleForm2: {
+      form: {
         username: '',
         password: '',
         newpassword1: '',
@@ -94,7 +91,7 @@ export default {
         phone: '',
         realName: '',
       },
-      rules2: {
+      rules: {
         password: [
           {
             required: true,
@@ -113,12 +110,11 @@ export default {
     }
   },
   created () {
-    this.ruleForm2.username = this.userInfo.username
-    this.ruleForm2.phone = this.userInfo.phone
-    this.ruleForm2.avatar = this.userInfo.avatar
-    this.ruleForm2.realName = this.userInfo.realName
+    this.form.username = this.userInfo.username
+    this.form.phone = this.userInfo.phone
+    this.form.avatar = this.userInfo.avatar
+    this.form.realName = this.userInfo.realName
     this.switchStatus = 'userManager'
-    handleImg(this.userInfo.avatar, 'avatar')
   },
   computed: {
     ...mapState({
@@ -128,9 +124,6 @@ export default {
   methods: {
     ...mapActions(['GetUserInfo']),
     switchTab (tab) {
-      if (tab.name === 'userManager') {
-        handleImg(this.ruleForm2.avatar, 'avatar')
-      }
       this.switchStatus = tab.name
     },
     submitForm (formName) {
@@ -139,7 +132,7 @@ export default {
           request({
             url: '/admin/user/edit',
             method: 'put',
-            data: this.ruleForm2,
+            data: this.form,
           })
             .then(response => {
               if (response.data.data) {
@@ -207,10 +200,6 @@ export default {
           redirect_uri
       }
       openWindow(url, thirdpart, 540, 540)
-    },
-    handleAvatarSuccess (res, file) {
-      this.avatarUrl = URL.createObjectURL(file.raw)
-      this.ruleForm2.avatar = res.data.bucketName + '-' + res.data.fileName
     },
   },
 }

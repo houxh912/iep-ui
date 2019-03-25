@@ -1,7 +1,7 @@
 <template>
   <div class="material">
     <div class="material-nav">
-      <div class="title">推荐材料</div>
+      <div>推荐材料</div>
     </div>
     <div class="material-content">
       <el-row v-for="(item,index) in dataList" :key="index">
@@ -42,7 +42,7 @@ export default {
 
 <style lang="scss" scoped>
 .material {
-  padding: 20px 30px;
+  padding: 15px 30px;
   padding-bottom: 0;
   border-bottom: 1px solid #eee;
   color: #5f5f5f;
@@ -52,7 +52,7 @@ export default {
     font-size: 16px;
   }
   .material-content {
-    padding: 20px 0;
+    padding: 10px 0;
     font-size: 14px;
     .text-right {
       text-align: right;
@@ -62,6 +62,7 @@ export default {
     }
   }
   .title {
+    padding: 5px 0;
     cursor: pointer;
     &:hover {
       color: #cb3737;

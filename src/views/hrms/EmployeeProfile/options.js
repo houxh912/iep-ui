@@ -1,6 +1,8 @@
-// org config options
+import { mergeByFirst } from '@/util/util'
+import { initNow } from '@/util/date'
+
 const dictsMap = {
-  employeeStatus: {
+  status: {
     0: '暂无',
     1: '正式员工',
     2: '试用期员工',
@@ -10,7 +12,10 @@ const dictsMap = {
     6: '离职员工',
   },
 }
-
+// 入职 0,6
+// 转正 2,3,4,5
+// 调动 1,2,3,4,5
+// 离职 1,2,3,4,5
 const columnsMap = [
   {
     prop: 'sex',
@@ -19,20 +24,9 @@ const columnsMap = [
     hidden: false,
   },
   {
-    prop: '部门',
-    label: '部门',
+    prop: 'userName',
+    label: '用户名',
     hidden: true,
-  },
-  {
-    prop: 'employedDate',
-    label: '入职时间',
-    hidden: false,
-  },
-  {
-    prop: 'employeeStatus',
-    label: '员工状态',
-    type: 'dict',
-    hidden: false,
   },
   {
     prop: 'position',
@@ -40,69 +34,268 @@ const columnsMap = [
     hidden: false,
   },
   {
-    prop: 'idCard',
-    label: '身份证号码',
-    minWidth: 120,
+    prop: 'staffId',
+    label: '工号',
+    hidden: true,
+  },
+  {
+    prop: 'status',
+    label: '员工状态',
+    type: 'dict',
     hidden: false,
   },
+  {
+    prop: 'IDCard',
+    label: '身份证',
+    hidden: false,
+  },
+  {
+    prop: 'externalTitle',
+    label: '对外头衔',
+    hidden: true,
+  },
+  {
+    prop: 'job',
+    label: '职务',
+    hidden: true,
+  },
+  {
+    prop: 'title',
+    label: '职称',
+    hidden: true,
+  },
+  {
+    prop: 'entryTime',
+    label: '入职时间',
+    hidden: false,
+  },
+  {
+    prop: 'positiveTime',
+    label: '转正时间',
+    hidden: true,
+  },
+  {
+    prop: 'transferTime',
+    label: '调动时间',
+    hidden: true,
+  },
+  {
+    prop: 'birthday',
+    label: '出生年月',
+    hidden: true,
+  },
+  {
+    prop: 'nationality',
+    label: '民族',
+    hidden: true,
+  },
+  {
+    prop: 'politicalStatus',
+    label: '政治面貌',
+    hidden: true,
+  },
+  {
+    prop: 'maritalStatus',
+    label: '婚姻状况',
+    hidden: true,
+  },
+  {
+    prop: 'fertilityStatus',
+    label: '生育状况',
+    hidden: true,
+  },
+  // {
+  //   prop: 'language',
+  //   label: '外语水平',
+  //   hidden: true,
+  // },
+  {
+    prop: 'education',
+    label: '最高学历',
+    hidden: true,
+  },
+  {
+    prop: 'graduatedSchool',
+    label: '毕业学校',
+    hidden: true,
+  },
+  {
+    prop: 'profession',
+    label: '专业',
+    hidden: true,
+  },
+  {
+    prop: 'graduationTime',
+    label: '毕业时间',
+    hidden: true,
+  },
+  {
+    prop: 'referrer',
+    label: '推荐人',
+    hidden: true,
+  },
+  {
+    prop: 'accountTypes',
+    label: '户口类别',
+    hidden: true,
+  },
+  // {
+  //   prop: 'accountLocation',
+  //   label: '户口所在地',
+  //   hidden: true,
+  // },
+  {
+    prop: 'residenceAddress',
+    label: '户籍地址',
+    hidden: true,
+  },
+  {
+    prop: 'currentAddress',
+    label: '现住地址',
+    hidden: true,
+  },
+  {
+    prop: 'phone',
+    label: '联系手机',
+    hidden: true,
+  },
+  {
+    prop: 'weChat',
+    label: '微信',
+    hidden: true,
+  },
+  {
+    prop: 'qq',
+    label: 'QQ',
+    hidden: true,
+  },
+  {
+    prop: 'email',
+    label: '邮箱',
+    hidden: true,
+  },
+  {
+    prop: 'emergencyName',
+    label: '应急联系人',
+    hidden: true,
+  },
+  {
+    prop: 'emergencyPhone',
+    label: '应急联系方式',
+    hidden: true,
+  },
+  {
+    prop: 'signingTime',
+    label: '劳动合同签订时间',
+    hidden: true,
+  },
+  {
+    prop: 'benefitsStartTime',
+    label: '社保福利起缴时间',
+    hidden: true,
+  },
+  {
+    prop: 'benefitsStopTime',
+    label: '社保福利停缴时间',
+    hidden: true,
+  },
+  {
+    prop: 'separationTime',
+    label: '离职时间',
+    hidden: true,
+  },
+  {
+    prop: 'dept',
+    label: '所属部门',
+    hidden: true,
+  },
 ]
-
-const initOrgForm = () => {
-  return {
-    name: '',
-    isOpen: false,
-    intro: '',
-  }
-}
 
 const initSearchForm = () => {
   return {
     name: '',
     sex: '',
-    organization: '',
-    department: '',
-    job_category: '',
-    job_name: '',
-    status: '',
-    position: '',
-    job_title: '',
-    entry_time: '',
+    dept: [],
+    position: [],
+    jobId: '',
+    titleId: '',
+    cities: [],
+    rangeTime: [],
+    status: [],
   }
 }
-
-
-
-const inittransferForm = () => {
+const initDtoSearchForm = () => {
   return {
-    dept: '',
-    position: '',
-    job: '',
-    title: '',
+    name: '',
+    sex: '',
+    deptId: '',
+    positionId: '',
+    jobId: '',
+    titleId: '',
+    province: '',
+    city: '',
+    startTime: '',
+    endTime: '',
+    status: [],
+  }
+}
+const toDtoSearchForm = (row) => {
+  const newForm = mergeByFirst(initDtoSearchForm(), row)
+  newForm.startTime = row.rangeTime[0]
+  newForm.endTime = row.rangeTime[1]
+  newForm.province = row.cities[0]
+  newForm.city = row.cities[1]
+  newForm.positionId = row.position[row.position.length - 1]
+  newForm.deptId = row.dept[row.dept.length - 1]
+  return newForm
+}
+
+const initTransferForm = () => {
+  return {
+    id: '',
+    dept: [],
+    position: [],
+    jobId: '',
+    titleId: '',
+    transferTime: initNow(),
+  }
+}
+const initDtoTransferForm = () => {
+  return {
+    id: '',
+    deptId: '',
+    positionId: '',
+    jobId: '',
+    titleId: '',
     transferTime: '',
   }
 }
-const initdepartureForm = () => {
+
+const transferFormToDto = (form) => {
+  const newForm = mergeByFirst(initDtoTransferForm(), form)
+  newForm.positionId = form.position[form.position.length - 1]
+  newForm.deptId = form.dept[form.dept.length - 1]
+  return newForm
+}
+
+const initDepartureForm = () => {
   return {
-    title:'',
-    departureTime:'',
-    reason:'',
+    id: '',
+    departureTime: initNow(),
+    reason: '',
   }
 }
-const initinductionForm = () => {
+const initInductionForm = () => {
   return {
-    name:'',
-    sex:'',
-    position:'',
-    idCard:'',
-    inductionTime:'',
+    id: '',
+    status: 2,
+    inductionTime: initNow(),
   }
 }
-const initpositiveForm = () => {
+const initPositiveForm = () => {
   return {
-    name:'张三',
-    position:'产品',
-    psoitiveTime:'',
-    
+    id: '',
+    positiveTime: initNow(),
   }
 }
-export { dictsMap, columnsMap, initOrgForm, initSearchForm, inittransferForm,initdepartureForm,initinductionForm,initpositiveForm }
+export { dictsMap, columnsMap, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm, toDtoSearchForm }

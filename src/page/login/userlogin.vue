@@ -10,24 +10,20 @@
       </el-input>
     </el-form-item>
     <el-form-item prop="code">
-      <el-row :span="24">
-        <el-col :span="16">
-          <el-input @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="loginForm.code" auto-complete="false" placeholder="请输入验证码">
-          </el-input>
-        </el-col>
-        <el-col :span="8">
-          <div class="login-code">
-            <span class="login-code-img" @click="refreshCode" v-if="code.type == 'text'">{{ code.value }}</span>
-            <img :src="code.src" class="login-code-img" @click="refreshCode" v-else />
-          </div>
-        </el-col>
-      </el-row>
+      <div class="code-wrapper">
+        <el-input @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="loginForm.code" auto-complete="false" placeholder="请输入验证码">
+        </el-input>
+        <div class="login-code">
+          <span class="login-code-img" @click="refreshCode" v-if="code.type == 'text'">{{ code.value }}</span>
+          <img :src="code.src" class="login-code-img" @click="refreshCode" v-else />
+        </div>
+      </div>
     </el-form-item>
     <el-form-item>
       <div class="login-text">
         <el-checkbox v-model="checked">记住密码</el-checkbox>
         <div class="check-text">
-          <el-button type="text">忘记密码?</el-button>
+          <el-button type="text" @click.prevent="handleRetrieve">忘记密码?</el-button>
           <el-button type="text" @click.prevent="handleRegister">立即注册</el-button>
         </div>
       </div>
@@ -42,6 +38,7 @@
 </template>
 
 <script>
+import { codeUrl } from '@/config/env'
 import { randomLenNum } from '@/util/util'
 import { mapGetters } from 'vuex'
 import { validatenull } from '@/util/validate'
@@ -109,6 +106,9 @@ export default {
   },
   props: [],
   methods: {
+    handleRetrieve () {
+      this.$emit('tab-active', 'retrieve')
+    },
     handleRegister () {
       this.$router.push('/register')
     },
@@ -117,7 +117,7 @@ export default {
       this.loginForm.randomStr = randomLenNum(this.code.len, true)
       this.code.type === 'text'
         ? (this.code.value = randomLenNum(this.code.len))
-        : (this.code.src = `${this.codeUrl}?randomStr=${
+        : (this.code.src = `${codeUrl}?randomStr=${
           this.loginForm.randomStr
           }`)
     },
@@ -149,10 +149,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .login-submit {
   display: block;
-  margin: -15px auto 10px auto;
+  margin: 0 auto 10px auto;
   width: 100%;
   height: 40px;
   font-size: 14px;
@@ -162,8 +162,8 @@ export default {
   color: white;
 }
 .login-submit:hover {
-  background-color: #f56c6c;
-  color: white;
+  background-color: #f56c6c !important;
+  color: #fff !important;
 }
 .login-visiter {
   display: block;
@@ -177,61 +177,76 @@ export default {
   color: black;
 }
 .login-visiter:hover {
-  background-color: #909399;
-  color: #fff;
+  background-color: #909399 !important;
+  color: #fff !important;
 }
 .login-text {
   color: red;
-  .check-text {
-    float: right;
-    color: red;
-  }
-  .el-button--text {
-    color: #ba1b20;
-    &:hover {
-      color: #f56c6c;
-    }
-  }
+}
+.login-text .check-text {
+  float: right;
+  color: red;
+}
+.login-text >>> .el-button--text {
+  color: #ba1b20;
+}
+.login-text >>> .el-button--text:hover {
+  color: #f56c6c;
+}
+.login-text >>> .el-button--text:nth-child(1) {
+  color: #666;
+}
+.login-text >>> .el-button--text:nth-child(1):hover {
+  color: #999;
 }
 .login-form {
   margin: 10px 0;
-  i {
-    color: #999;
-  }
-  .el-form-item__content {
-    width: 100%;
-  }
-  .el-form-item {
-    margin-bottom: 15px;
-  }
-  .el-input {
-    .el-input__prefix {
-      i {
-        padding: 0 5px;
-        font-size: 16px !important;
-      }
-    }
-  }
+}
+.login-form i {
+  color: #999;
+}
+.login-form .el-form-item {
+  margin-bottom: 20px;
+}
+.login-form >>> .el-form-item .el-form-item__content {
+  margin-left: 0 !important;
+  width: 100%;
+}
+.login-form >>> .el-input {
+  padding: 0;
+}
+.login-form >>> .el-input .el-input__prefix i {
+  padding: 0 5px;
+  font-size: 16px !important;
 }
 .login-code {
   display: flex;
+  margin-left: -1px;
+  width: 40%;
   align-items: center;
   justify-content: space-around;
-  margin: 0 0 0 10px;
+  border: 1px solid #dcdfe6;
+  border-radius: 0 4px 4px 0;
 }
 .login-code-img {
   width: 100%;
   height: 38px;
   background-color: #fdfdfd;
-  border: 1px solid #f0f0f0;
   color: #333;
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 5px;
   line-height: 38px;
-  text-indent: 5px;
   text-align: center;
 }
 
+.code-wrapper {
+  display: flex;
+}
+.code-wrapper .el-input {
+  padding: 0;
+}
+.code-wrapper >>> .el-input .el-input__inner {
+  border-radius: 4px 0 0 4px;
+}
 </style>
-

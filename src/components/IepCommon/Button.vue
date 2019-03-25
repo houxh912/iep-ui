@@ -6,6 +6,7 @@
 <script>
 export default {
   name: 'IepButton',
+  inheritAttrs: false,
   props: {
     size: {
       type: String,
@@ -13,9 +14,13 @@ export default {
     },
     plain: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
-  inheritAttrs: false,
 }
 </script>
+<style lang="css" scoped>
+.el-button + .el-button {
+  margin-left: 0;
+}
+</style>

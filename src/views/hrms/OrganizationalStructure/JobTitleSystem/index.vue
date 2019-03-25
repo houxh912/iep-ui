@@ -14,12 +14,11 @@
   </div>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
 import IepTabs from '@/components/IepCommon/Tabs'
 import JobSystem from './JobSystem/'
 import TitleSystem from './TitleSystem/'
 export default {
-  components: { PageHeader, IepTabs, JobSystem, TitleSystem },
+  components: { IepTabs, JobSystem, TitleSystem },
   data () {
     return {
       replaceText: (data) => `（共有${data[0]}个职称，${data[0]}个职务）`,

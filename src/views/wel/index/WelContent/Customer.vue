@@ -68,7 +68,7 @@ export default {
     align-items: center;
   }
   .customer-content {
-    padding: 20px 0;
+    padding: 10px 0;
     font-size: 14px;
     .start {
       padding-left: 5px;
@@ -77,6 +77,7 @@ export default {
     }
   }
   .title {
+    padding: 5px 0;
     cursor: pointer;
     &:hover {
       color: #cb3737;

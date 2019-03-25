@@ -8,16 +8,15 @@
           <el-dropdown size="medium">
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>删除</el-dropdown-item>
-              <el-dropdown-item divided>导入</el-dropdown-item>
+              <el-dropdown-item>导入</el-dropdown-item>
               <el-dropdown-item>导出</el-dropdown-item>
               <el-dropdown-item>分享</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
-            <advance-search :form="paramForm" @search-page="searchPage" @clear-search-param="clearSearchParam"></advance-search>
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -29,25 +28,25 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="250">
+        <el-table-column prop="operation" label="操作" width="250" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
               <el-dropdown size="medium">
-                <iep-button type="default">
+                <iep-button type="warning" plain>
                   变更<i class="el-icon-arrow-down el-icon--right"></i>
                 </iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleInduction(scope.row)">入职</el-dropdown-item>
-                  <el-dropdown-item @click.native="handelPositive(scope.row)">转正</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleTransfer(scope.row)">调动</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleDeparture(scope.row)">离职</el-dropdown-item>
+                  <el-dropdown-item v-if="[0,6].includes(scope.row.status)" @click.native="handleInduction(scope.row)">入职</el-dropdown-item>
+                  <el-dropdown-item v-if="[2,3,4,5].includes(scope.row.status)" @click.native="handelPositive(scope.row)">转正</el-dropdown-item>
+                  <el-dropdown-item v-if="[1,2,3,4,5].includes(scope.row.status)" @click.native="handleTransfer(scope.row)">调动</el-dropdown-item>
+                  <el-dropdown-item v-if="[1,2,3,4,5].includes(scope.row.status)" @click.native="handleDeparture(scope.row)">离职</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
               <iep-button @click="handleOpenGrowthFile(scope.row)">成长档案</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item>修改</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleEdit(scope.row)">修改</el-dropdown-item>
                   <el-dropdown-item>分享</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -64,7 +63,7 @@
   </div>
 </template>
 <script>
-import { getEmployeeProfilePage } from '@/api/hrms/employee_profile'
+import { getEmployeeProfilePage, postInduction, postPositive, postDeparture, postTransfer } from '@/api/hrms/employee_profile'
 import mixins from '@/mixins/mixins'
 import keyBy from 'lodash/keyBy'
 import { columnsMap, initSearchForm, dictsMap } from '../options'
@@ -99,19 +98,23 @@ export default {
   },
   methods: {
     handleTransfer (row) {
-      console.log(row)
+      this.$refs['TransferDialog'].form.id = row.id
+      this.$refs['TransferDialog'].formRequestFn = postTransfer
       this.$refs['TransferDialog'].dialogShow = true
     },
     handleDeparture (row) {
-      console.log(row)
+      this.$refs['DepartureDialog'].form.id = row.id
+      this.$refs['DepartureDialog'].formRequestFn = postDeparture
       this.$refs['DepartureDialog'].dialogShow = true
     },
     handleInduction (row) {
-      console.log(row)
+      this.$refs['InductionDialog'].form.id = row.id
+      this.$refs['InductionDialog'].formRequestFn = postInduction
       this.$refs['InductionDialog'].dialogShow = true
     },
     handelPositive (row) {
-      console.log(row)
+      this.$refs['PositiveDialog'].form.id = row.id
+      this.$refs['PositiveDialog'].formRequestFn = postPositive
       this.$refs['PositiveDialog'].dialogShow = true
     },
     setHeaderSetting (col) {
@@ -123,29 +126,18 @@ export default {
     },
     handleOpenGrowthFile (row) {
       this.$router.push({
-        path: `/info/growth_file/${row.userId}`,
+        path: `/detail/growth_file/${row.id}`,
         query: { redirect: this.$route.fullPath },
       })
     },
-    handleUpdate (row) {
-      this.$router.push({
-        path: `/info/information_management/${row.id}`,
-        query: { redirect: this.$route.fullPath },
-      })
-    },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-      this.loadPage()
-    },
-    loadPage (param = this.paramForm) {
-      this.loadTable(param, getEmployeeProfilePage)
-    },
-    handleChange () {
-      this.$emit('onEdit')
+    handleEdit (row) {
+      this.$emit('onEdit', row)
     },
     handleDetail (row) {
-      console.log(row)
-      this.$emit('onDetail')
+      this.$emit('onDetail', row)
+    },
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getEmployeeProfilePage)
     },
   },
 }

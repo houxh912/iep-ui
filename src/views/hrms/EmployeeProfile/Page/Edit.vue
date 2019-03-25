@@ -249,18 +249,17 @@
         </el-collapse>
       </el-form>
       <!-- fixed footer toolbar -->
-      <footer-tool-bar >
-        <iep-button type="info" @click="handleGoBack">返回</iep-button>
+      <footer-tool-bar>
+        <iep-button @click="handleGoBack">返回</iep-button>
         <iep-button type="primary">提交</iep-button>
       </footer-tool-bar>
     </basic-container>
   </div>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
 import FooterToolBar from '@/components/FooterToolbar'
 export default {
-  components: { PageHeader, FooterToolBar },
+  components: { FooterToolBar },
   data () {
     return {
       activeNames: ['1', '2', '3', '4', '5'],
@@ -306,6 +305,7 @@ export default {
   .edit-card {
     .title {
       font-weight: 600;
+      font-size: 16px;
     }
   }
   .inlines {

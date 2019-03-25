@@ -1,92 +1,77 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header title="发布招聘" :backOption="backOption"></page-header>
-      <el-form ref="form" :model="form" label-width="120px" size="small" disabled>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="岗位名称：">
-              <el-input v-model="form.positionId"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="所属部门：">
-              <el-input v-model="form.deptId"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="学历要求：" class="form-half">
-              <el-select v-model="form.academicId" placeholder="请选择">
-                <el-option v-for="item in dictGroup['hrms_highest_educational']" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="工作类型：" class="form-half">
-              <el-select v-model="form.jobTypeId" placeholder="请选择">
-                <el-option v-for="item in dictGroup['hrms_work_type']" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="工作地点：" class="form-half">
-              <el-input v-model="form.place"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="性别：" class="form-half">
-              <el-radio-group v-model="form.sex">
-                <el-radio :label="1">男</el-radio>
-                <el-radio :label="2">女</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="工资待遇：" class="form-half">
-              <el-input v-model="form.treatment"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="外语要求：" class="form-half">
-              <el-input v-model="form.language"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="招聘期限：" class="form-half">
-              <el-date-picker v-model="form.term" type="date" placeholder="选择日期">
-              </el-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="福利待遇：" class="form-half">
-              <el-input v-model="form.welfare"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-form-item label="岗位职责：">
-          <el-input type="textarea" v-model="form.duties" :rows="4"></el-input>
-        </el-form-item>
-        <el-form-item label="岗位要求：">
-          <el-input type="textarea" v-model="form.claim" :rows="4"></el-input>
-        </el-form-item>
-      </el-form>
+      <page-header title="查看招聘" :backOption="backOption">
+        <iep-button type="danger">我要推荐</iep-button>
+      </page-header>
+      <el-card class="recruit-headers" shadow="hover">
+        <span class="state"><i class="iconfont icon-shijian"></i><span>招聘中</span></span>
+        <div class="con">
+          <div class="left">
+            <h4 class="name">
+              {{form.positionName}}
+            </h4>
+            <div class="address"><span>{{form.deptName}}</span>{{form.place}}</div>
+          </div>
+          <div class="right">
+            <div class="pay">薪资：{{form.treatment}}</div>
+            <div class="info-detail">
+              <label>学历要求：
+                <iep-dict-detail :current-value="form.academicId" dict-name="hrms_highest_educational"></iep-dict-detail>
+              </label>
+              <label>工作经验：{{form.years}}年</label>
+              <label>招{{form.recruitsCount}}人</label>
+              <label>目标{{form.targetCount}}人</label>
+            </div>
+          </div>
+        </div>
+      </el-card>
+      <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
+        <div slot="header" class="clearfix">
+          <span>其他要求</span>
+        </div>
+        <div class="info">
+          <div class="info-item">
+            <label>专业要求：</label>
+            <div class="content">{{form.profession}}</div>
+          </div>
+          <div class="info-item">
+            <label>工作类型：</label>
+            <div class="content">
+              <iep-dict-detail :current-value="form.jobTypeId" dict-name="hrms_work_type"></iep-dict-detail>
+            </div>
+          </div>
+          <div class="info-item">
+            <label>外语要求：</label>
+            <div class="content">{{form.language}}</div>
+          </div>
+          <div class="info-item">
+            <label>性别要求：</label>
+            <div class="content">{{form.sexName}}</div>
+          </div>
+          <div class="info-item">
+            <label>福利待遇：</label>
+            <div class="content">{{form.welfare}}</div>
+          </div>
+        </div>
+      </el-card>
+      <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
+        <div slot="header" class="clearfix">
+          <span>岗位职责</span>
+        </div>
+        <pre>{{form.duties}}</pre>
+      </el-card>
+      <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
+        <div slot="header" class="clearfix">
+          <span>岗位要求</span>
+        </div>
+        <pre>{{form.claim}}</pre>
+      </el-card>
     </basic-container>
   </div>
 </template>
 <script>
 import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
-import { mapState } from 'vuex'
-import PageHeader from '@/components/Page/Header'
 import { initForm } from '../options'
 import { mergeByFirst } from '@/util/util'
 export default {
@@ -96,7 +81,6 @@ export default {
       default: () => { },
     },
   },
-  components: { PageHeader },
   data () {
     return {
       backOption: {
@@ -104,13 +88,12 @@ export default {
         backPath: null,
         backFunction: () => { this.$emit('onGoBack') },
       },
+      middleBodyStyle: {
+        padding: '20px',
+        border: 0,
+      },
       form: initForm(),
     }
-  },
-  computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
   },
   created () {
     this.load()
@@ -124,12 +107,93 @@ export default {
   },
 }
 </script>
-<style scoped>
-.edit-wrapper >>> .el-form {
-  margin-right: 20%;
-  margin-top: 50px;
-}
-</style>
 
 <style lang="scss" scoped>
+.recruit-headers {
+  padding: 20px;
+  margin-bottom: 10px;
+  .con {
+    display: flex;
+    justify-content: space-between;
+  }
+  .state {
+    font-size: 14px;
+    i {
+      display: inline-block;
+      margin-right: 5px;
+      vertical-align: middle;
+      color: #999;
+    }
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .left {
+    margin: 10px 0;
+    .name {
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 32px;
+    }
+    .address {
+      font-size: 14px;
+      color: #999;
+      span {
+        margin-right: 10px;
+      }
+    }
+  }
+  .right {
+    display: flex;
+    flex-flow: column;
+    margin: 10px 0;
+    align-items: flex-end;
+    .pay {
+      margin-bottom: 20px;
+      font-size: 24px;
+      line-height: 32px;
+      color: #cb3737;
+    }
+    .info-detail {
+      font-size: 14px;
+      color: #999;
+      label {
+        padding: 0 20px;
+        border-right: 1px solid #eee;
+        &:last-child {
+          padding-right: 0;
+          border: 0;
+        }
+      }
+    }
+  }
+}
+.middle-card {
+  margin-top: 20px;
+}
+.info {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  .info-item {
+    & > label {
+      width: 120px;
+      text-align: right;
+      vertical-align: middle;
+      float: left;
+      font-size: 14px;
+      color: #606266;
+      line-height: 40px;
+      padding: 0 12px 0 0;
+      box-sizing: border-box;
+    }
+    .content {
+      margin-left: 120px;
+      line-height: 40px;
+      position: relative;
+      font-size: 14px;
+    }
+  }
+}
 </style>

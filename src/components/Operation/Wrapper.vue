@@ -3,6 +3,12 @@
     <slot></slot>
   </div>
 </template>
+<script>
+export default {
+  name: 'OperationWrapper',
+}
+</script>
+
 <style lang="scss" scoped>
 .operation-wrapper > * {
   margin-right: 5px;
@@ -10,10 +16,5 @@
   &:last-child {
     margin-right: 0;
   }
-}
-</style>
-<style scoped>
-.operation-wrapper >>> .el-button + .el-button {
-  margin-left: 0;
 }
 </style>

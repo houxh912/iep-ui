@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-wrapper">
+  <el-menu class="menu-wrapper" unique-opened :default-active="nowTagValue" mode="vertical" :show-timeout="200" :collapse="collapse">
     <template v-for="item in menu">
       <el-menu-item v-if="validatenull(item[childrenKey]) && vaildRoles(item)" :index="'' + item[pathKey]" @click="open(item)" :key="item[labelKey]" :class="{ 'is-active': vaildAvtive(item) }">
         <i :class="item[iconKey]"></i>
@@ -19,7 +19,7 @@
         </template>
       </el-submenu>
     </template>
-  </div>
+  </el-menu>
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -101,3 +101,29 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.menu-wrapper {
+  .el-menu-item {
+    margin-left: 0 !important;
+    height: 40px;
+    line-height: 40px;
+    border-left: 3px solid #fafafa;
+    &:hover {
+      border-color: #cb3737;
+    }
+  }
+}
+.el-menu-item.is-active {
+  border-color: #cb3737;
+  background: #f9eae7;
+  color: #cb3737;
+}
+
+.el-menu-item {
+  &:hover,
+  &:focus {
+    background-color: #f9eae7;
+    color: #cb3737;
+  }
+}
+</style>

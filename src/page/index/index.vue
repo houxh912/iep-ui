@@ -6,7 +6,7 @@
         <top />
       </el-header>
       <el-container>
-        <el-aside width="auto">
+        <el-aside :width="asideWidth">
           <!-- 左侧导航栏 -->
           <sidebar />
         </el-aside>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import displayMixins from '@/mixins/displayMixins'
 import { mapGetters, mapActions } from 'vuex'
 import tags from './tags'
 import top from './top/'
@@ -41,6 +42,7 @@ import { getStore } from '@/util/store.js'
 // import store from '@/store'
 
 export default {
+  mixins: [displayMixins],
   components: {
     top,
     tags,
@@ -70,13 +72,22 @@ export default {
     this.LoadAllDictMap()
     // this.initWebSocket()
   },
-  computed: mapGetters([
-    'userInfo',
-    'isLock',
-    'isCollapse',
-    'website',
-    // 'expires_in',
-  ]),
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'isLock',
+      'isCollapse',
+      'website',
+      // 'expires_in',
+    ]),
+    asideWidth () {
+      if (this.isDesktop()) {
+        return '200px'
+      } else {
+        return '64px'
+      }
+    },
+  },
   props: [],
   methods: {
     ...mapActions(['LoadAllDictMap']),
@@ -148,7 +159,7 @@ export default {
     //             title: '协同提醒',
     //             type: 'warning',
     //             dangerouslyUseHTMLString: true,
-    //             message: msg.body + '任务，请及时处理',
+    //             resources: msg.body + '任务，请及时处理',
     //             offset: 60,
     //           })
     //         }
@@ -166,4 +177,21 @@ export default {
   },
 }
 </script>
-
+<style lang="scss" scoped>
+.el-aside {
+  overflow: hidden;
+  border-right: 1px solid #eee;
+  background-color: #fafafa;
+}
+</style>
+<style lang="css" scoped>
+.avue-contail >>> .el-main {
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  height: calc(100vh - 60px);
+}
+.avue-contail >>> .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+</style>

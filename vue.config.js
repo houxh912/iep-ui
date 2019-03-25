@@ -1,28 +1,28 @@
 const utils = require('./config/utils')
 const devServer = require('./config/devServer')
-const IS_PRODUCTION = process.env.NODE_ENV === 'production'
+// const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 module.exports = {
   lintOnSave: true,
   productionSourceMap: false,
-  pages: {
-    index: {
-      // page 的入口
-      entry: IS_PRODUCTION ? 'src/main.js' : 'src/main.dev.js',
-      // 模板来源
-      template: IS_PRODUCTION ? 'public/index.html' : 'public/index.dev.html',
-    },
-  },
-  configureWebpack: {
-    externals: IS_PRODUCTION
-      ? {
-        vue: 'Vue',
-        vuex: 'Vuex',
-        'vue-router': 'VueRouter',
-        'element-ui': 'ELEMENT',
-        '@smallwei/avue/lib/index.js': 'AVUE',
-      }
-      : undefined,
-  },
+  // pages: {
+  //   index: {
+  //     // page 的入口
+  //     entry: IS_PRODUCTION ? 'src/main.js' : 'src/main.dev.js',
+  //     // 模板来源
+  //     template: IS_PRODUCTION ? 'public/index.html' : 'public/index.dev.html',
+  //   },
+  // },
+  // configureWebpack: {
+  //   externals: IS_PRODUCTION
+  //     ? {
+  //       vue: 'Vue',
+  //       vuex: 'Vuex',
+  //       'vue-router': 'VueRouter',
+  //       'element-ui': 'ELEMENT',
+  //       '@smallwei/avue/lib/index.js': 'AVUE',
+  //     }
+  //     : undefined,
+  // },
   chainWebpack: config => {
     config.plugin('define').tap(definitions => {
       definitions[0] = Object.assign(definitions[0], {
@@ -34,6 +34,23 @@ module.exports = {
       })
       return definitions
     })
+  },
+
+  css: {
+    loaderOptions: {
+      less: {
+        modifyVars: {
+          /* less 变量覆盖，用于自定义 ant design 主题 */
+
+          /*
+          'primary-color': '#F5222D',
+          'link-color': '#F5222D',
+          'border-radius-base': '4px',
+          */
+        },
+        javascriptEnabled: true
+      }
+    }
   },
   // 配置转发代理
   devServer: {

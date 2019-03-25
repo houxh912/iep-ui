@@ -114,7 +114,7 @@ export default {
   &:hover,&:focus {
     border-color: #dcdfe6;
     background-color: #fff7ec;
-    color: #ea8d03;
+    color: #bf051a;
   }
 }
 .msg-text.display {
@@ -130,5 +130,15 @@ export default {
   border: 0px;
   background-color: #ba1b20;
   color: white;
+}
+</style>
+<style lang="css" scoped>
+.login-form >>> .el-form-item  .el-input {
+  padding: 0;
+}
+@media(max-width:320px) {
+  .login-form {
+    margin-top: 20px;
+  }
 }
 </style>

@@ -7,7 +7,7 @@
           <el-button @click="(scope.row)" size="small" class="share"><i class="el-icon-share"></i><span>分享</span></el-button>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
+          <operation-search @search-page="searchPage" advance-search>
             <el-form :model="paramForm" label-width="80px" size="mini">
               <el-form-item label="申请人">
                 <el-input v-model="paramForm.theme" placeholder="请输入申请人姓名"></el-input>
@@ -44,11 +44,26 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="申请人" width="90px">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.申请人}}</iep-table-link>
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+            </template>
+          </el-table-column>
+          <el-table-column label="申请类型">
+            <template slot-scope="scope">
+              {{scope.row.applyType}}
+            </template>
+          </el-table-column>
+          <el-table-column label="请假类型">
+            <template slot-scope="scope">
+              {{scope.row.leavingType}}
+            </template>
+          </el-table-column>
+          <el-table-column label="部门">
+            <template slot-scope="scope">
+              {{scope.row.deptList.join('、')}}
             </template>
           </el-table-column>
         </template>
@@ -65,11 +80,12 @@
 <script>
 import { getAdministrativeApprovalPage } from '@/api/hrms/administrative_approval'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from '../options'
+import { dictsMap, columnsMap, initSearchForm } from '../options'
 export default {
   mixins: [mixins],
   data () {
     return {
+      dictsMap,
       columnsMap,
       paramForm: initSearchForm(),
       replaceText: (data) => `（本周新增${data[0]}条请假申请，${data[1]}条转正申请，${data[2]}条出差申请，${data[3]}条离职申请，${data[4]}条调岗申请，${data[5]}条调部门申请，${data[6]}条招聘申请）`,
@@ -108,8 +124,7 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      console.log(row)
-      this.$emit('onDetail')
+      this.$emit('onDetail', row)
     },
     // handleShare (row) { },
     loadPage (param) {

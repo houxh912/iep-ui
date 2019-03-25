@@ -1,10 +1,3 @@
-import OperationContainer from '@/components/Operation/Container'
-import PageHeader from '@/components/Page/Header'
-import OperationSearch from '@/components/Operation/Search'
-import IepTable from '@/components/IepTable/'
-import IepTableLink from '@/components/IepTable/Link'
-import OperationWrapper from '@/components/Operation/Wrapper'
-
 const optNameMap = {
   delete: '删除',
   shelf: '上架',
@@ -16,9 +9,6 @@ function pageOption () {
   }
 }
 export default {
-  components: {
-    PageHeader, IepTable, OperationWrapper, OperationContainer, OperationSearch, IepTableLink,
-  },
   data () {
     return {
       pagedTable: [],
@@ -26,12 +16,14 @@ export default {
       isLoadTable: true,
       pagination: pageOption(),
       pageOption: pageOption(),
+      searchForm: {},
     }
   },
   methods: {
-    searchPage () {
+    searchPage (param) {
       this.pageOption = pageOption()
-      this.loadPage()
+      this.searchForm = param
+      this.loadPage(param)
     },
     loadTable (param, requestFn, fn = (m) => m) {
       this.isLoadTable = true

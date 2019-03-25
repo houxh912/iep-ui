@@ -46,11 +46,6 @@ export default [
         name: '个人信息',
         component: () => import('@/views/admin/user/info'),
       },
-      {
-        path: 'growth_file/:id',
-        name: '成长档案',
-        component: () => import('@/views/hrms/GrowthFile/index.vue'),
-      },
     ],
   },
   {
@@ -61,6 +56,17 @@ export default [
       {
         path: 'detail/:id',
         component: () => import('@/views/activiti/detail'),
+      },
+    ],
+  },
+  {
+    path: '/components',
+    component: Layout,
+    redirect: '/components/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/components/demo/index'),
       },
     ],
   },

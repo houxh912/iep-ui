@@ -1,46 +1,33 @@
-// org config options
-const dictsMap = {
-  isOpen: {
-    0: '开',
-    1: '关',
-  },
-  status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
-  },
-}
-
 const columnsMap = [
   {
-    prop: '职称名称',
+    prop: 'name',
     label: '职称名称',
     width: 280,
   },
   {
-    prop: '职称说明',
+    prop: 'description',
     label: '职称说明',
   },
   {
-    prop: '优先级',
+    prop: 'priority',
     label: '优先级',
     width: 280,
   },
 ]
 
-const initOrgForm = () => {
+const initForm = () => {
   return {
+    id: '',
     name: '',
-    isOpen: false,
-    intro: '',
+    description: '',
+    priority: '',
   }
 }
 
 const initSearchForm = () => {
   return {
     name: '',
-    sex: '',
   }
 }
 
-export { dictsMap, columnsMap, initOrgForm, initSearchForm }
+export { columnsMap, initForm, initSearchForm }

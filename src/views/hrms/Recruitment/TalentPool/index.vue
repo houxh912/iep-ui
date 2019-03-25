@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="才人库" :replaceText="replaceText" :data="[10 ,5]"></page-header>
+      <page-header title="人才库" :replaceText="replaceText" :data="[10 ,5]"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='TalentPool'" v-slot:TalentPool>
           <talent-pool v-loading="activeTab !=='TalentPool'"></talent-pool>
@@ -17,13 +17,11 @@
   </div>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
-import IepTabs from '@/components/IepCommon/Tabs'
 import TalentPool from './TalentPool/'
 import ResumeLibrary from './ResumeLibrary/'
 import ResumeBlacklist from './ResumeBlacklist/'
 export default {
-  components: { PageHeader, IepTabs, TalentPool, ResumeLibrary, ResumeBlacklist },
+  components: { TalentPool, ResumeLibrary, ResumeBlacklist },
   data () {
     return {
       replaceText: (data) => `（本周新增${data[0]}条招聘信息，收到${data[1]}份简历）`,

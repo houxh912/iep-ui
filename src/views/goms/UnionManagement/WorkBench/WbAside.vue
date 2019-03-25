@@ -4,12 +4,12 @@
       <div class="avatar">
         <iep-img style="width:100%" :src="orgDetail.logo"></iep-img>
       </div>
-      <div class="username">{{orgDetail.orgName}}</div>
-      <div class="bio">{{orgDetail.orgAbrName}}</div>
+      <div class="username">{{orgDetail.name}}</div>
+      <!-- <div class="bio">{{orgDetail.abrName}}</div> -->
     </div>
     <div class="account-center-detail">
       <p>
-        <i class="icon-huiyikaihuitaolun"></i>联盟所属：{{orgDetail.orgName}}
+        <i class="icon-huiyikaihuitaolun"></i>联盟所属：{{orgDetail.name}}
       </p>
       <p>
         <i class="icon-rencai"></i>成员数量：{{orgDetail.memberNum}}
@@ -27,7 +27,7 @@
       <a-spin :spinning="pageLoading">
         <div class="members">
           <a-row>
-            <a-col :span="12" v-for="(item, index) in orgDetail.managerList" :key="index">
+            <a-col :span="12" v-for="(item, index) in orgDetail.adminList" :key="index">
               <div class="member">
                 <iep-img-avatar size="small" :src="item.avatar"></iep-img-avatar>
                 <span class="member-name">
@@ -76,7 +76,7 @@ export default {
       pageLoading: true,
       orgDetail: {
         logo: '',
-        orgName: '',
+        name: '',
         managerList: [],
         memberNum: 0,
         deptNum: 0,

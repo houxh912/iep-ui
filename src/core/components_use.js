@@ -12,6 +12,7 @@ import IepDictDetail from '@/components/IepCommon/DictDetail'
 import IepDictSelect from '@/components/IepCommon/DictSelect'
 import IepAvatar from '@/components/IepCommon/Avatar'
 import IepImg from '@/components/IepCommon/Img'
+import IepUpload from '@/components/IepCommon/Upload'
 import IepInputNumber from '@/components/IepCommon/InputNumber'
 import OperationContainer from '@/components/Operation/Container'
 import PageHeader from '@/components/Page/Header'
@@ -39,4 +40,5 @@ Vue.component(IepDictDetail.name, IepDictDetail)
 Vue.component(IepDictSelect.name, IepDictSelect)
 Vue.component(IepAvatar.name, IepAvatar)
 Vue.component(IepImg.name, IepImg)
+Vue.component(IepUpload.name, IepUpload)
 Vue.component(IepInputNumber.name, IepInputNumber)

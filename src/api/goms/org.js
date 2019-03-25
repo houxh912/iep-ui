@@ -32,3 +32,30 @@ export function putOrg (obj) {
   })
 }
 
+export function getOrgNoAdminUserList () {
+  return request({
+    url: `${prefixUrl}/no_admin_user/list`,
+    method: 'get',
+  })
+}
+
+export function unSetOrgAdmin (id) {
+  return request({
+    url: `${prefixUrl}/unset/admin/${id}`,
+    method: 'get',
+  })
+}
+
+export function setOrgAdmin (id) {
+  return request({
+    url: `${prefixUrl}/set/admin/${id}`,
+    method: 'get',
+  })
+}
+
+export function toggleOrgOpen () {
+  return request({
+    url: `${prefixUrl}/update/open`,
+    method: 'get',
+  })
+}

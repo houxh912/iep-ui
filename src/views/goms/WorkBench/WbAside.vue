@@ -24,21 +24,21 @@
       <div class="teamTitle">
         管理员
       </div>
-      <a-spin :spinning="teamSpinning">
+      <a-spin :spinning="pageLoading">
         <div class="members">
           <a-row>
             <a-col :span="12" v-for="(item, index) in orgDetail.managerList" :key="index">
               <div class="member">
                 <iep-img-avatar size="small" :src="item.avatar"></iep-img-avatar>
                 <span class="member-name">
-                  {{ item.realName }}
-                  <a-icon class="close" type="close" />
+                  {{ item.name }}
+                  <a-icon class="close" type="close" @click="handleUnsetAdmin(item.id)" />
                 </span>
               </div>
             </a-col>
             <a-col :span="12">
               <div class="member">
-                <a-button type="dashed" size="small" icon="plus" block>管理员</a-button>
+                <a-button type="dashed" size="small" icon="plus" @click="handleAddAdmin" block>管理员</a-button>
               </div>
             </a-col>
           </a-row>
@@ -55,40 +55,59 @@
           </span>
         </a-list-item-meta>
         <template v-if="item.actions">
-          <a-switch slot="actions" defaultChecked @change='item.actions.callback' />
+          <a-switch slot="actions" :loading="pageLoading" checkedChildren="开" unCheckedChildren="关" :checked="orgDetail[item.propName]" @change='item.actions.callback' />
         </template>
-
       </a-list-item>
     </a-list>
+    <add-admin-dialog ref="AddAdminDialog"></add-admin-dialog>
   </a-card>
 </template>
 
 <script>
-import { orgDetail } from '@/api/admin/org'
+import mixins from '@/mixins/mixins'
+import { getOrgBySelf, unSetOrgAdmin, setOrgAdmin, toggleOrgOpen } from '@/api/goms/org'
+import AddAdminDialog from './AddAdminDialog'
+import { initAddAdminForm } from './options'
 export default {
+  mixins: [mixins],
+  components: { AddAdminDialog },
   data () {
     return {
-      teamSpinning: true,
+      pageLoading: true,
       orgDetail: {
         logo: '',
         orgName: '',
         managerList: [],
         memberNum: 0,
         deptNum: 0,
+        isOpen: true,
+        isUserLocked: true,
       },
       data: [
         {
           title: '允许加入',
+          propName: 'isOpen',
           description: '允许用户申请加入组织',
-          actions: { callback: () => { this.$message.info('This is a normal message') } },
+          actions: {
+            callback: () => {
+              toggleOrgOpen().then(({ data }) => {
+                if (!data.data) {
+                  this.$message.success(data.msg)
+                }
+                this.loadPage()
+              })
+            },
+          },
         },
         {
           title: '开启审理员审核',
+          propName: 'isUserLocked',
           description: '用户加入组织需通过管理员审核',
           actions: { callback: () => { this.$message.success('This is a message of success') } },
         },
         {
           title: '组织邀请码',
+          propName: 'isUserLocked',
           description: '下载二维码邀请用户加入',
           actions: { callback: () => { this.$message.error('This is a message of error') } },
         },
@@ -99,10 +118,19 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleAddAdmin () {
+      this.$refs['AddAdminDialog'].dialogShow = true
+      this.$refs['AddAdminDialog'].formRequestFn = setOrgAdmin
+      this.$refs['AddAdminDialog'].form = initAddAdminForm()
+    },
+    handleUnsetAdmin (id) {
+      this._handleComfirm(id, unSetOrgAdmin, '撤销其管理员')
+    },
     loadPage () {
-      orgDetail().then((res) => {
+      this.pageLoading = true
+      getOrgBySelf().then((res) => {
         this.orgDetail = res.data.data
-        this.teamSpinning = false
+        this.pageLoading = false
       })
     },
   },

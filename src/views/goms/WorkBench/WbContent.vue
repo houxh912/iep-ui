@@ -9,14 +9,11 @@
             <log-item :logItem="item"></log-item>
           </a-timeline-item>
         </a-timeline>
-        <iep-button v-if="!isMore" style="margin-top: 16px" @click="handleViewMore">查看更多</iep-button>
+        <OperationWrapper>
+          <iep-button v-if="!isMore" @click="handleViewMore">查看更多</iep-button>
+          <iep-button @click="loadPage">刷新</iep-button>
+        </OperationWrapper>
       </div>
-      <!-- <Timeline :pending="!isMore">
-          <TimelineItem v-for="item in realLogList" :key="item.id">
-            <log-item :logItem="item"></log-item>
-          </TimelineItem>
-          <TimelineItem v-if="!isMore"><a href="#" @click.native="handleViewMore">查看更多</a></TimelineItem>
-        </Timeline> -->
     </basic-container>
   </div>
 </template>
@@ -45,7 +42,7 @@ export default {
       if (this.isMore) {
         return this.logList
       } else {
-        return take(this.logList, 15)
+        return take(this.logList, 10)
       }
     },
   },

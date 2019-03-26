@@ -24,3 +24,12 @@ export function updateData (obj) {
     data: obj,
   })
 }
+
+export function deleteDate (id) {
+  let ids = typeof id === 'object' ? id : [id]
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: ids,
+  })
+}

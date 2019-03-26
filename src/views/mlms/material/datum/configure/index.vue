@@ -6,7 +6,7 @@
         <el-dropdown size="medium">
           <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item><div @click="handleDeletetByIds">删除</div></el-dropdown-item>
             <el-dropdown-item divided>导出</el-dropdown-item>
             <el-dropdown-item>收藏</el-dropdown-item>
             <el-dropdown-item>分享</el-dropdown-item>
@@ -15,7 +15,7 @@
         </el-dropdown>
       </template>
     </operation-container>
-    <iep-table-tree :data="tableData" :option="columnsMap" @handleChild="handleChild">
+    <iep-table-tree :data="tableData" :option="columnsMap" @handleChild="handleChild" @selectChange="selectChange">
       <template #levelName="{scope, index}">
         <el-input v-model="formData.levelName" v-if="index===selectIndex"></el-input>
         <div v-else>{{scope.levelName}}</div>
@@ -32,7 +32,7 @@
           <iep-button v-if="index===selectIndex" @click="handleSubmit">保存</iep-button>
           <iep-button @click="handleEdit(scope, index)" v-else>编辑</iep-button>
           <iep-button v-if="index===selectIndex" @click="handleCancel(scope)">取消</iep-button>
-          <iep-button @click="handleEdit(scope, index)" v-else>删除</iep-button>
+          <iep-button @click="handleDeleteById(scope, index)" v-else>删除</iep-button>
         </div>
       </template>
     </iep-table-tree>
@@ -42,8 +42,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap, initFormData } from './option'
-import { deleteDataById } from '@/api/crms/custom'
-import { getTableData, createData, updateData } from '@/api/mlms/material/datum/configure'
+import { getTableData, createData, updateData, deleteDate } from '@/api/mlms/material/datum/configure'
 import IepTableTree from './IepTableTree'
 
 export default {
@@ -79,8 +78,12 @@ export default {
     // 取消
     handleCancel (row) {
       if (!row.id) {
-        console.log('selectIndex: ', this.selectIndex)
-        // this.tableData.splice(this.tableData.length-1, 1)
+        if (typeof this.selectIndex === 'number') {
+          this.tableData.splice(this.tableData.length-1, 1)
+        } else {
+          let index = this.selectIndex.indexOf('-')
+          this.tableData[this.selectIndex.slice(0, index)].childrens.splice(this.selectIndex.slice(index+1), 1)
+        }
       }
       this.selectIndex = -1
     },
@@ -109,20 +112,23 @@ export default {
       this.tableData[row.$index].childrens.push(this.formData)
       this.selectIndex = `${row.$index}-${this.tableData[row.$index].childrens.length-1}`
     },
+    // 删除
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.id, deleteDataById)
+      this._handleGlobalDeleteById(row.id, deleteDate)
     },
-    selectionChange (val) {
-      console.log('val: ', val)
+    // 批量删除
+    handleDeletetByIds () {
+      this._handleGlobalAll(deleteDate)
+    },
+    selectChange (val) {
+      this.multipleSelection = val
     },
     loadPage (param) {
       this.isLoadTable = true
       getTableData({ ...param, ...this.pageOption }).then(({ data }) => {
-        console.log('data: ', data)
         const { records, size, total, current } = data.data
         this.pagination = { current, size, total }
         this.tableData = records.map(m => m)
-        console.log('tableData: ', this.tableData)
         this.isLoadTable = false
       })
     },

@@ -3,7 +3,7 @@
     <!-- 子级-开始 -->
     <el-table-column type="expand">
       <template slot-scope="scope">
-        <el-table :data="scope.row.childrens" :show-header="false" :style="tableStyle" :row-style="rowStyle" v-if="scope.row.childrens.length>0">
+        <el-table :data="scope.row.childrens" :show-header="false" :style="tableStyle" :row-style="rowStyle" v-if="scope.row.childrens.length>0"  @selection-change="childSelectionChange">
           <el-table-column width="48"></el-table-column>
           <el-table-column type="selection" width="55" class-name="child-column"></el-table-column>
           <el-table-column
@@ -61,10 +61,19 @@ export default {
       tableStyle: {},
       rowStyle: {
       },
+      parentList: [],
+      childList: [],
     }
   },
   methods: {
-    handleSelectionChange () {},
+    handleSelectionChange (val) {
+      this.parentList = val.map(m => m.id)
+      this.$emit('selectChange', this.parentList.concat(this.childList))
+    },
+    childSelectionChange (val) {
+      this.childList = val.map(m => m.id)
+      this.$emit('selectChange', this.childList.concat(this.parentList))
+    },
     handleChild (row) {
       this.$emit('handleChild', row)
     },

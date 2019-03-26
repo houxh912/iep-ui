@@ -2,11 +2,11 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleAdd" size="small" type="danger">新增</iep-button>
+        <iep-button @click="handleAdd" icon="el-icon-plus" type="danger" plain>新增</iep-button>
         <el-dropdown size="medium">
           <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>导入</el-dropdown-item>
+            <el-dropdown-item @click.native="handleImport">导入</el-dropdown-item>
             <el-dropdown-item command="handleAllDelete">删除</el-dropdown-item>
             <el-dropdown-item>转移</el-dropdown-item>
             <el-dropdown-item divided @click.native="handleCooperation(id)">添加协作人</el-dropdown-item>
@@ -27,7 +27,7 @@
         </operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index isMutipleSelection @selection-change="selectionChange">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index isMutipleSelection @selection-change="handleSelectionChange">
       <template slot="before-columns">
         <el-table-column label="客户名称" width="250px">
           <template slot-scope="scope">
@@ -41,23 +41,29 @@
       <el-table-column prop="operation" label="操作" min-width="160">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" size="small" type="warning">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
+    <!-- 导入弹窗 -->
+    <iep-dialog :dialog-show="dialogShow" title="导入" @close="close">
+      <excel-import :urlName="url" @close="handleCloseImport"></excel-import>
+    </iep-dialog>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
 import { myTableOption, dictsMap, initSearchForm } from '../../options'
-import { myFetchList, deleteDataById } from '@/api/crms/custom'
-
+import { fetchList, deleteDataById } from '@/api/crms/custom'
+import IepDialog from '@/components/IepDialog/'
+import excelImport from '../../excelImport'
 export default {
   name: 'custom',
   mixins: [mixins],
+  components: { IepDialog, excelImport },
   computed: {},
   data () {
     return {
@@ -66,6 +72,8 @@ export default {
       ids: [],
       id: '',
       paramForm: initSearchForm(),
+      dialogShow: false,
+      url: '/api/crm/crms/iepclientinfoexcel/upload',
     }
   },
   created () {
@@ -84,7 +92,7 @@ export default {
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.clientId, deleteDataById)
     },
-    selectionChange (val) {
+    handleSelectionChange (val) {
       console.log(val)
       let id = val[0].clientId
       this.id = id
@@ -94,13 +102,18 @@ export default {
       // })
       // this.ids = ids
     },
-    loadPage (param = this.paramForm) {
-      this.loadTable(param, myFetchList, m => {
+    loadPage (param = { ...this.paramForm, type: 2 }) {
+      this.loadTable(param, fetchList, m => {
         return Object.assign(m, { businessTypeC: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()
+    },
+    searchPage () {
+      this.loadTable({ ...this.paramForm, type: 2 }, fetchList, m => {
+        return Object.assign(m, { businessTypeC: m.businessTypeKey.map(m => m.commonName).join('，') })
+      })
     },
     customDetail (row) {
       // fertchInfo(row.clientId).then((res) => {
@@ -118,6 +131,30 @@ export default {
     // 批量删除
     handleAllDelete () {
       console.log('ids: ', this.ids)
+    },
+    //导入
+    handleImport () {
+      this.dialogShow = true
+    },
+    close () {
+      this.dialogShow = false
+    },
+    handleCloseImport (res) {
+      this.dialogShow = false
+      this.loadPage()
+      if (res.data) {
+        this.$message({
+          message: `成功!${res.msg}`,
+          type: 'success',
+          duration: 15000,
+        })
+      } else {
+        this.$message({
+          message: `警告!${res.msg}`,
+          type: 'warning',
+          duration: 15000,
+        })
+      }
     },
   },
 }

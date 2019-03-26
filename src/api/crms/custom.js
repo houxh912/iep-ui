@@ -1,29 +1,29 @@
 import request from '@/router/axios'
 
-const crmsUrl = '/crms/custom'
+const crmsUrl = 'crm/customer'
 
 // 查看所有客户列表
 export function fetchList (query) {
   return request({
-    url: 'crm/crms/iepclientinfo/pageClient',
+    url: `${crmsUrl}/page`,
     method: 'get',
     params: query,
   })
 }
 
 // 查看我的客户列表
-export function myFetchList (query) {
-  return request({
-    url: 'crm/crms/iepclientinfo/page',
-    method: 'get',
-    params: query,
-  })
-}
+// export function myFetchList (query) {
+//   return request({
+//     url: 'crm/crms/iepclientinfo/page',
+//     method: 'get',
+//     params: query,
+//   })
+// }
 
 // 查看客户信息
 export function fertchInfo (id) {
   return request({
-    url: `crm/crms/iepclientinfo/${id}`,
+    url: `${crmsUrl}/${id}`,
     method: 'get',
   })
 }
@@ -31,7 +31,7 @@ export function fertchInfo (id) {
 // 客户新增
 export function createData (obj) {
   return request({
-    url: 'crm/crms/iepclientinfo/create',
+    url: `${crmsUrl}/create`,
     method: 'post',
     data: obj,
   })
@@ -40,45 +40,47 @@ export function createData (obj) {
 // 修改客户
 export function updateData (obj) {
   return request({
-    url: 'crm/crms/iepclientinfo/update',
+    url: `${crmsUrl}/update`,
     method: 'post',
     data: obj,
   })
 }
 
 // 通过id查询客户信息
-export function queryInfo (id) {
-  return request({
-    url: `crm/crms/iepclientinfo/${id}`,
-    method: 'get',
-  })
-}
+// export function queryInfo (id) {
+//   return request({
+//     // url: `crm/crms/iepclientinfo/${id}`,
+//     url: `${crmsUrl}/${id}`,
+//     method: 'get',
+//   })
+// }
 
 // 删除客户信息
-export function deleteDataById (id) {
+export function deleteDataById (ids) {
   return request({
-    url: `crm/crms/iepclientinfo/delete/batch?clientIds=${id}`,
+    url: `${crmsUrl}/delete/batch/${ids}`,
     method: 'post',
   })
 }
 
 // 查看协作客户列表
-export function collaborationFetchList (query) {
-  return request({
-    url: 'crm/crms/iepclientinfo/page/collaboration',
-    method: 'get',
-    params: query,
-  })
-}
+// export function collaborationFetchList (query) {
+//   return request({
+//     url: 'crm/crms/iepclientinfo/page/collaboration',
+//     method: 'get',
+//     params: query,
+//   })
+// }
 
 // 添加协助人
 export function AddCollaborator (query) {
   return request({
-    url: 'crm/crms/iepclientinfo/create/collaboration',
+    url: `${crmsUrl}/create/collaboration`,
     method: 'post',
     data: query,
   })
 }
+
 
 // 客户全景查询
 export function fetchDetail (id) {

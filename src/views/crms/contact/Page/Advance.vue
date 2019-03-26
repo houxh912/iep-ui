@@ -45,7 +45,7 @@
       </el-form>
     </el-card>
     <el-dialog title="添加对应客户" :visible.sync="dialogVisible" width="50%">
-      <avue-crud :data="pagedTable" :option="option" :page="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange">
+      <avue-crud :data="pagedTable" :option="option" :page="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange">
       </avue-crud>
       <div class="btn">
         <el-button @click="dialogVisible = false" size="mini">取 消</el-button>
@@ -128,7 +128,7 @@ export default {
       this.dialogVisible = true
       this.loadPage()
     },
-    loadPage (param) {
+    loadPage (param = { type: 1 }) {
       this.loadTable(param, fetchList)
     },
     handleGoBack () {
@@ -140,7 +140,7 @@ export default {
     resetForm () {
       this.formData = initForm()
     },
-    selectionChange (row) {
+    handleSelectionChange (row) {
       this.formData.clientIds = row.map(m => m.clientId)
       this.selectData = row
     },

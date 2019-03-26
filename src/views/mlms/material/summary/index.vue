@@ -59,7 +59,8 @@
         <el-table-column prop="operation" label="操作" width="250" align="center">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" @click="handleCollection(scope.row)">收藏</iep-button>
+              <iep-button type="warning" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
+              <iep-button type="warning" v-else>已收藏</iep-button>
               <iep-button @click="handleShare(scope.row)">分享</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>

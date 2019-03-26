@@ -1,6 +1,6 @@
 import request from '@/router/axios'
 
-const crmsUrl = '/crm/iepopportunityinput'
+const crmsUrl = '/crm//business'
 
 export function businessList (query) {
   return request({
@@ -13,7 +13,7 @@ export function businessList (query) {
 // 我的发布
 export function myBusinessList (query) {
   return request({
-    url: `${crmsUrl}/page/my`,
+    url: `${crmsUrl}/page/publish`,
     method: 'get',
     params: query,
   })
@@ -30,7 +30,7 @@ export function myReceiveList (query) {
 // 新增商机
 export function createData (obj) {
   return request({
-    url: `${crmsUrl}/add`,
+    url: `${crmsUrl}/create`,
     method: 'post',
     data: obj,
   })
@@ -52,11 +52,19 @@ export function updateData (obj) {
   })
 }
 // 删除
-export function deleteDataById (Array) {
+export function deleteDataById (id) {
   return request({
-    url: `${crmsUrl}/remove/batch`,
+    url: `${crmsUrl}/delete/batch/${id}`,
     method: 'post',
-    data: Array,
+    data: [id],
+  })
+}
+
+export function deleteData (ids) {
+  return request({
+    url: `${crmsUrl}/delete/batch/${ids}`,
+    method: 'post',
+    data: ids,
   })
 }
 
@@ -80,7 +88,7 @@ export function refuseClaim (id) {
 // 取消认领
 export function cancelClaim (obj) {
   return request({
-    url: `${crmsUrl}/update/NoReceive`,
+    url: `${crmsUrl}/update/cancelReceive`,
     method: 'post',
     data: obj,
   })

@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleAdd" size="small" type="danger">新增</iep-button>
+        <iep-button @click="handleAdd" icon="el-icon-plus" type="danger" plain>新增</iep-button>
       </template>
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
@@ -44,7 +44,7 @@
       <el-table-column prop="operation" label="操作" min-width="80" align="center">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleDetail(scope.row)" size="small">查看</iep-button>
+            <iep-button @click="handleDetail(scope.row)">查看</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -64,6 +64,7 @@ export default {
       dictsMap,
       columnsMap: allTableOption,
       paramForm: initSearchForm(),
+      type: 1,
     }
   },
   created () {
@@ -74,7 +75,7 @@ export default {
       this.paramForm = initSearchForm()
       this.$emit('clear-search-param')
     },
-    loadPage (param) {
+    loadPage (param = { type: this.type }) {
       this.loadTable(param, businessList, m => {
         return Object.assign(m, { businessTypeC: m.businessType.map(m => m.commonName).join('，') })
       })
@@ -89,7 +90,7 @@ export default {
       this.$emit('onDetail', row)
     },
     searchPage () {
-      this.loadTable(this.paramForm, businessList)
+      this.loadTable({ ...this.paramForm, type: this.type }, businessList)
     },
   },
 

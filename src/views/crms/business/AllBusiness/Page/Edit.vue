@@ -21,9 +21,9 @@
             <el-radio v-for="item in dictGroup['crms_client_intention_level']" :key="item.value" :label="item.value">{{item.label}}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <!-- <el-form-item label="商机标签：" prop="tags">
+        <el-form-item label="商机标签：" prop="tags">
           <iep-tags v-model="form.tags" @addTags="addTags"></iep-tags>
-        </el-form-item> -->
+        </el-form-item>
         <el-form-item label="商机描述：" prop="opportunityDes">
           <el-input type="textarea" v-model="form.opportunityDes" placeholder="商机描述"></el-input>
         </el-form-item>
@@ -41,12 +41,12 @@
 
 <script>
 import { initForm, rules } from '../options'
-// import iepTags from '@/components/IepTags'
+import iepTags from '@/components/IepTags'
 import FooterToolBar from '@/components/FooterToolbar'
 import { createData } from '@/api/crms/business'
 import { mapState } from 'vuex'
 export default {
-  components: { FooterToolBar },
+  components: { FooterToolBar,iepTags },
   props: {
     record: {
       type: Object,

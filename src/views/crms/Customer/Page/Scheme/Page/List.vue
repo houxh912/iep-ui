@@ -17,7 +17,7 @@
       <el-col class="title">为您推荐一下参考材料：</el-col>
       <el-col class="item" :span=12 v-for="(item, index) in recommendList" :key="index">{{item.name}}</el-col>
     </el-row>
-    <scheme-dialog ref="SchemeDialog" @load-page="loadPage"></scheme-dialog>
+    <create-drawer ref="SchemeDialog"></create-drawer>
   </div>
 </template>
 
@@ -25,12 +25,12 @@
 import mixins from '@/mixins/mixins'
 import { fetchProgrammeList, createProgramme, updateProgramme, deleteProgramme } from '@/api/crms/crm'
 import { columnsMap } from '../options'
-import SchemeDialog from './SchemeDialog'
+import CreateDrawer from './CreateDrawer'
 export default {
   name: 'contacts',
   mixins: [mixins],
   props: ['record'],
-  components: { SchemeDialog },
+  components: { CreateDrawer },
   data () {
     return {
       columnsMap,
@@ -60,13 +60,13 @@ export default {
       this.loadTable({ ...param, clientId: this.record.id }, fetchProgrammeList)
     },
     handleAdd () {
-      this.$refs['SchemeDialog'].dialogShow = true
+      this.$refs['SchemeDialog'].drawerShow = true
       this.$refs['SchemeDialog'].methodName = '新增'
       this.$refs['SchemeDialog'].submitFn = createProgramme
     },
     handleEdit (row) {
       this.$refs['EditDialog'].formData = { ...row }
-      this.$refs['EditDialog'].dialogShow = true
+      this.$refs['EditDialog'].drawerShow = true
       this.$refs['EditDialog'].methodName = '编辑'
       this.$refs['EditDialog'].submitFn = updateProgramme
     },

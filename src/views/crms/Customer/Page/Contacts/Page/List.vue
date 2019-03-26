@@ -20,7 +20,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMap } from '../options'
-import { fetchList, deleteDataById, editList } from '@/api/crms/contact'
+import { fetchList, deleteDataById, createData, updateData } from '@/api/crms/contact'
 import EditDrawer from './EditDrawer'
 export default {
   name: 'contract',
@@ -47,45 +47,17 @@ export default {
     },
     handleAdd () {
       this.$refs['EditDrawer'].methodName = '新增'
-      this.$refs['EditDrawer'].formRequestFn = editList
+      this.$refs['EditDrawer'].formRequestFn = createData
       this.$refs['EditDrawer'].drawerShow = true
     },
     handleEdit (row) {
       this.$refs['EditDrawer'].form = row
       this.$refs['EditDrawer'].methodName = '编辑'
-      this.$refs['EditDrawer'].formRequestFn = editList
+      this.$refs['EditDrawer'].formRequestFn = updateData
       this.$refs['EditDrawer'].drawerShow = true
-      // this.$emit('onEdit', {
-      //   formRequestFn: editList,
-      //   methodName: '修改',
-      //   id: row.clientContactId,
-      // })
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.clientContactId, deleteDataById)
-    },
-    resetForm () {
-      // this.formData = initContactForm()
-      this.dialogShow = false
-    },
-    submitForm (formName) {
-      this.formData.clientIds = [this.record.clientId]
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.submitFn(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
-              message: `${this.methodName}成功`,
-              type: 'success',
-              duration: 2000,
-            })
-            this.loadPage()
-            this.dialogShow = false
-          })
-        } else {
-          return false
-        }
-      })
     },
   },
 

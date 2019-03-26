@@ -8,7 +8,7 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>导入</el-dropdown-item>
+              <el-dropdown-item @click.native="excellImport">导入</el-dropdown-item>
               <el-dropdown-item command="handleAllDelete">删除</el-dropdown-item>
               <el-dropdown-item>转移</el-dropdown-item>
             </el-dropdown-menu>
@@ -44,6 +44,7 @@
           </template>
         </el-table-column>
       </iep-table>
+      <excell-import ref="ExcellImport" :urlName="url" @close="handleClose"></excell-import>
     </basic-container>
   </div>
 </template>
@@ -53,9 +54,10 @@ import { columnsMapByTypeId } from '../columns'
 import { allSearchForm } from '../options'
 import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById } from '@/api/crms/customer'
 import AdvanceSearch from './AdvanceSearch'
+import ExcellImport from './ExcellImport/'
 export default {
   name: 'list',
-  components: { AdvanceSearch },
+  components: { AdvanceSearch, ExcellImport },
   mixins: [mixins],
   data () {
     return {
@@ -79,6 +81,7 @@ export default {
       ],
       replaceText: (data) => `（本周新增${data[0]}位客户）`,
       tags: ['one', 'two', 'three'],
+      url: '/api/crm/crms/iepclientinfoexcel/upload',
     }
   },
   computed: {
@@ -90,6 +93,25 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleClose (res) {
+      this.$refs[''].ExcellImport = false
+      if (res.data) {
+        this.$message({
+          message: `成功!${res.msg}`,
+          type: 'success',
+          duration: 15000,
+        })
+      } else {
+        this.$message({
+          message: `警告!${res.msg}`,
+          type: 'warning',
+          duration: 15000,
+        })
+      }
+    },
+    excellImport () {
+      this.$refs['ExcellImport'].dialogShow = true
+    },
     changeType () {
       this.loadPage()
       if (this.type === '2') {

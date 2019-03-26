@@ -1,5 +1,6 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}合同`" width="60%" @close="resetForm">
+
+  <iep-drawer :drawer-show="drawerShow" type="drawer" :title="methodName+'联系人'" width="50%" @close="loadPage">
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px">
       <el-form-item>
         <el-col><i class="el-icon-warning"></i> 是否需要关联材料库？如需要，<span class="relation">请点击</span></el-col>
@@ -14,22 +15,19 @@
           <iep-button class="upload-button" size="small" plain><i class="el-icon-plus"></i> 点击上传</iep-button>
         </el-col>
       </el-form-item>
-
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
       <iep-button @click="resetForm">取消</iep-button>
     </template>
-  </iep-dialog>
+  </iep-drawer>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { initContactForm } from '../options'
 export default {
-  components: { IepDialog },
   data () {
     return {
-      dialogShow: false,
+      drawerShow: false,
       submitFn: () => { },
       methodName: '创建',
       formData: {},

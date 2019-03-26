@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button size="small" type="danger" @click="handleAdd"><i class="el-icon-plus"></i> 新增</iep-button>
+        <iep-button size="small" type="danger" @click="handleAdd"><i class="el-icon-plus"></i> 新增一级分类</iep-button>
         <el-dropdown size="medium">
           <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
@@ -15,23 +15,25 @@
         </el-dropdown>
       </template>
     </operation-container>
-    <iep-table-tree :data="tableData" :option="columnsMap">
-      <template #date="scope">
-        {{scope.scope.date}}
+    <iep-table-tree :data="tableData" :option="columnsMap" @handleChild="handleChild">
+      <template #levelName="{scope, index}">
+        <el-input v-model="formData.levelName" v-if="index===selectIndex"></el-input>
+        <div v-else>{{scope.levelName}}</div>
       </template>
-      <template slot="more">
-        <div class="more-icon">
-          <div class="more-icon-1"><i class="icon-shangyi"></i></div>
-          <div class="more-icon-2"><i class="icon-shangyi"></i></div>
-          <div class="more-icon-3"><i class="el-icon-download"></i></div>
-          <div class="more-icon-4"><i class="el-icon-download"></i></div>
+      <template #sort="{scope, index}">
+        <el-input v-model="formData.sort" v-if="index===selectIndex"></el-input>
+        <div v-else>{{scope.sort}}</div>
+      </template>
+      <template #createTime="scope">
+        {{scope.scope.createTime}}
+      </template>
+      <template #menu="{ scope, index }">
+        <div class="operation-wrapper">
+          <iep-button v-if="index===selectIndex" @click="handleSubmit">保存</iep-button>
+          <iep-button @click="handleEdit(scope, index)" v-else>编辑</iep-button>
+          <iep-button v-if="index===selectIndex" @click="handleCancel(scope)">取消</iep-button>
+          <iep-button @click="handleEdit(scope, index)" v-else>删除</iep-button>
         </div>
-      </template>
-      <template #status="scope">
-        <el-switch v-model="scope.scope.status"></el-switch>
-      </template>
-      <template slot="menu">
-        <iep-button>删除</iep-button>
       </template>
     </iep-table-tree>
   </div>
@@ -39,8 +41,9 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { tableOption, dictsMap } from './option'
-import { fetchList, createData, updateData, deleteDataById } from '@/api/crms/custom'
+import { tableOption, dictsMap, initFormData } from './option'
+import { deleteDataById } from '@/api/crms/custom'
+import { getTableData, createData, updateData } from '@/api/mlms/material/datum/configure'
 import IepTableTree from './IepTableTree'
 
 export default {
@@ -53,19 +56,58 @@ export default {
       tableData: [],
       columnsMap: tableOption,
       index: 1,
+      selectIndex: -1,
+      formData: initFormData(),
     }
   },
   methods: {
+    // 新增
     handleAdd () {
-      this.$refs['mainDialog'].methodName = '新增'
-      this.$refs['mainDialog'].formRequestFn = createData
-      this.$refs['mainDialog'].dialogShow = true
+      this.tableData.push({
+        levelName: '',
+        sort: '',
+        createTime: '',
+      })
+      this.selectIndex = this.tableData.length-1
+      this.formData = initFormData()
     },
-    handleEdit (row) {
-      this.$refs['mainDialog'].formData = row
-      this.$refs['mainDialog'].methodName = '编辑'
-      this.$refs['mainDialog'].formRequestFn = updateData
-      this.$refs['mainDialog'].dialogShow = true
+    // 编辑
+    handleEdit (row, index) {
+      this.selectIndex = index
+      this.formData = {...row}
+    },
+    // 取消
+    handleCancel (row) {
+      if (!row.id) {
+        console.log('selectIndex: ', this.selectIndex)
+        // this.tableData.splice(this.tableData.length-1, 1)
+      }
+      this.selectIndex = -1
+    },
+    // 保存
+    handleSubmit () {
+      let fn = this.formData.id ? updateData : createData
+      fn(this.formData).then(() => {
+        this.$notify({
+          title: '成功',
+          message: '保存成功',
+          type: 'success',
+          duration: 2000,
+        })
+        this.handleCancel({})
+        this.loadPage()
+      })
+    },
+    // 新增子级
+    handleChild (row) {
+      this.formData = {
+        parentId: row.row.id,
+        levelName: '',
+        sort: '',
+        createTime: '',
+      }
+      this.tableData[row.$index].childrens.push(this.formData)
+      this.selectIndex = `${row.$index}-${this.tableData[row.$index].childrens.length-1}`
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.id, deleteDataById)
@@ -74,19 +116,15 @@ export default {
       console.log('val: ', val)
     },
     loadPage (param) {
-      this.loadTable(param, fetchList)
-      this.tableData = [
-        { id: 1, name: '制度文化', yidong: '↑ ↑ ↓ ↓', date: '2019-02-14', status: true, children: [
-          { id: 11, name: '制度子级1号', yidong: '↑ ↑ ↓ ↓' },
-          { id: 12, name: '制度子级2号', yidong: '↑ ↑ ↓ ↓' },
-          { id: 13, name: '制度子级3号', yidong: '↑ ↑ ↓ ↓' },
-          { id: 14, name: '制度子级4号', yidong: '↑ ↑ ↓ ↓' },
-        ] }, {
-          id: 2, name: '政策文件', yidong: '↑ ↑ ↓ ↓', date: '2019-02-11', status: false, children: [
-            { id: 21, name: '董事会', yidong: '↑ ↑ ↓ ↓' },
-          ],
-        },
-      ]
+      this.isLoadTable = true
+      getTableData({ ...param, ...this.pageOption }).then(({ data }) => {
+        console.log('data: ', data)
+        const { records, size, total, current } = data.data
+        this.pagination = { current, size, total }
+        this.tableData = records.map(m => m)
+        console.log('tableData: ', this.tableData)
+        this.isLoadTable = false
+      })
     },
   },
   created () {
@@ -96,6 +134,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.operation-wrapper {
+  button {
+    margin-right: 5px;
+  }
+}
 .more-icon {
   display: flex;
   div {

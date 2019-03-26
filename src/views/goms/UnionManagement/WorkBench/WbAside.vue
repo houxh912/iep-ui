@@ -9,7 +9,7 @@
     </div>
     <div class="account-center-detail">
       <p>
-        <i class="icon-huiyikaihuitaolun"></i>联盟所属：{{form.name}}
+        <i class="icon-huiyikaihuitaolun"></i>创始人：{{form.creator.name}}
       </p>
       <p>
         <i class="icon-rencai"></i>成员数量：{{form.memberNum}}
@@ -152,10 +152,10 @@ export default {
 
   & > .avatar {
     margin: 0 auto;
-    width: 104px;
+    width: 200px;
     height: 104px;
     margin-bottom: 20px;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     overflow: hidden;
     img {
       height: 100%;

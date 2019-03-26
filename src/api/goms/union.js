@@ -9,13 +9,6 @@ export function getUnionBySelf () {
   })
 }
 
-// export function getUnionById (id) {
-//   return request({
-//     url: `${prefixUrl}/${id}`,
-//     method: 'get',
-//   })
-// }
-
 export function getUnionLogList (current) {
   return request({
     url: `${prefixUrl}/log_list`,
@@ -28,8 +21,8 @@ export function getUnionLogList (current) {
 
 export function putUnion (obj) {
   return request({
-    url: `${prefixUrl}`,
-    method: 'put',
+    url: `${prefixUrl}/update`,
+    method: 'post',
     data: obj,
   })
 }

@@ -152,10 +152,10 @@ export default {
 
   & > .avatar {
     margin: 0 auto;
-    width: 104px;
+    width: 200px;
     height: 104px;
     margin-bottom: 20px;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     overflow: hidden;
     img {
       height: 100%;

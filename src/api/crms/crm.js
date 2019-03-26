@@ -1,7 +1,7 @@
 import request from '@/router/axios'
 
 const contactrecordUrl = '/crm/visitingRecord'
-const clientprograminfoUrl = '/crm/program'
+
 
 // 拜访记录查询
 export function fetchVisitList (params) {
@@ -54,40 +54,5 @@ export function contactBatchById (ids) {
     url: `${contactrecordUrl}delete/batch/${ids}`,
     method: 'post',
     data: [ids],
-  })
-}
-
-// 方案-查询
-export function fetchProgrammeList (query) {
-  return request({
-    url: `${clientprograminfoUrl}/page`,
-    method: 'get',
-    params: query,
-  })
-}
-
-// 方案-新增
-export function createProgramme (obj) {
-  return request({
-    url: `${clientprograminfoUrl}/create`,
-    method: 'post',
-    data: obj,
-  })
-}
-
-// 方案-编辑
-export function updateProgramme (obj) {
-  return request({
-    url: `${clientprograminfoUrl}/update`,
-    method: 'post',
-    data: obj,
-  })
-}
-
-// 方案-删除
-export function deleteProgramme (ids) {
-  return request({
-    url: `${clientprograminfoUrl}/delete/batch/${ids}`,
-    method: 'post',
   })
 }

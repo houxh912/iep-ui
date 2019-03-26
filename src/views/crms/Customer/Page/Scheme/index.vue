@@ -1,42 +1,105 @@
 <template>
-  <component @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <div class="programme">
+    <operation-wrapper>
+      <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加方案</iep-button>
+    </operation-wrapper>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection>
+      <el-table-column label="操作" width="200px">
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <iep-button @click="handleEdit(scope.row)" size="small">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
+          </operation-wrapper>
+        </template>
+      </el-table-column>
+    </iep-table>
+    <el-row class="recommend">
+      <el-col class="title">为您推荐一下参考材料：</el-col>
+      <el-col class="item" :span=12 v-for="(item, index) in recommendList" :key="index">{{item.name}}</el-col>
+    </el-row>
+    <create-dialog ref="SchemeDialog" @load-page="loadPage"></create-dialog>
+  </div>
 </template>
 
 <script>
-// 动态切换组件
-import List from './Page/List'
-
+import mixins from '@/mixins/mixins'
+import { getSchemePage, createScheme, updateScheme, deleteSchemeById } from '@/api/crms/scheme'
+import { columnsMap } from './options'
+import CreateDialog from './CreateDialog'
 export default {
-  name: 'TableListWrapper',
+  name: 'contacts',
+  mixins: [mixins],
+  components: { CreateDialog },
   props: {
     record: {
       type: Object,
       default: () => { },
     },
   },
-  components: {
-    List,
-  },
   data () {
     return {
-      currentComponet: 'List',
+      columnsMap,
+      formData: {},
+      rules: {},
+      methodName: '',
+      dialogShow: false,
+      dicData: [
+        { value: 1, label: '选项1' },
+        { value: 2, label: '选项2' },
+      ],
+      recommendList: [
+        {
+          name: '20180919建设银行政务服务中心方案1号',
+        }, {
+          name: '20180919建设银行政务服务中心方案2号',
+        }, {
+          name: '20180919建设银行政务服务中心方案3号',
+        },
+      ],
+      submitFn: () => { },
     }
   },
-  created () {
+
+  methods: {
+    loadPage (param) {
+      this.loadTable({ ...param, clientId: this.record.id }, getSchemePage)
+    },
+    handleAdd () {
+      this.$refs['SchemeDialog'].dialogShow = true
+      this.$refs['SchemeDialog'].methodName = '新增'
+      this.$refs['SchemeDialog'].submitFn = createScheme
+    },
+    handleEdit (row) {
+      this.$refs['EditDialog'].formData = { ...row }
+      this.$refs['EditDialog'].drawerShow = true
+      this.$refs['EditDialog'].methodName = '编辑'
+      this.$refs['EditDialog'].submitFn = updateScheme
+    },
+    handleDeleteById (row) {
+      this._handleGlobalDeleteById(row.programId, deleteSchemeById)
+    },
 
   },
-  methods: {
-    handleGoBack () {
-      this.record = ''
-      this.currentComponet = 'List'
-    },
-  },
-  watch: {
-    '$route.path' () {
-      this.record = ''
-      this.currentComponet = 'List'
-    },
+  created () {
+    this.loadPage()
   },
 }
 </script>
 
+<style lang="scss" scoped>
+.programme {
+  .add-programme {
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #ececec;
+    cursor: pointer;
+  }
+  .recommend {
+    .item {
+      padding: 5px 15px;
+      cursor: pointer;
+    }
+  }
+}
+</style>

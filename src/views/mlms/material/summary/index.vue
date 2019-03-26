@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <basic-container v-if="pageState==='list'">
+  <basic-container>
+    <div v-if="pageState==='list'">
       <page-header title="纪要" :replaceText="replaceText" :data="data"></page-header>
       <operation-container>
         <template slot="left">
@@ -75,18 +75,18 @@
           </template>
         </el-table-column>
       </iep-table>
-    </basic-container>
+    </div>
     <detail-page ref="detailPage" v-if="pageState==='detail'" @backPage="pageState = 'list'"></detail-page>
     <main-dialog ref="mainDialog" v-if="pageState==='form'" @load-page="loadPage"></main-dialog>
     <share-dialog ref="share"></share-dialog>
-    <collection-dialog ref="collection" @load-page="loadPage" type="meeting"></collection-dialog>
-  </div>
+    <collection-dialog ref="collection" @load-page="loadPage" type="meeting" :requestFn="createCollect"></collection-dialog>
+  </basic-container>
 </template>
 <script>
 import { dictsMap, columnsMap, initSearchForm } from './options'
 import mixins from '@/mixins/mixins'
 import { mapState } from 'vuex'
-import { getTableData, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/summary'
+import { getTableData, createData, updateData, deleteData, getDataById, createCollect } from '@/api/mlms/material/summary'
 import MainDialog from './mainDialog'
 import ShareDialog from './shareDialog'
 import CollectionDialog from '../components/collectionDialog'
@@ -103,6 +103,7 @@ export default {
       paramForm: initSearchForm(),
       selectList: [],
       pageState: 'list',
+      createCollect,
     }
   },
   computed: {

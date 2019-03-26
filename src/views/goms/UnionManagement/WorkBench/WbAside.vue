@@ -65,7 +65,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { getUnionBySelf, unSetUnionAdmin, setUnionAdmin, toggleUnionOpen } from '@/api/goms/union'
+import { getUnionBySelf, unSetUnionAdmin, setUnionAdmin } from '@/api/goms/union'
 import AddAdminDialog from './AddAdminDialog'
 import { initAddAdminForm } from './options'
 export default {
@@ -83,35 +83,35 @@ export default {
         isOpen: true,
         isUserLocked: true,
       },
-      data: [
-        {
-          title: '允许加入',
-          propName: 'isOpen',
-          description: '允许用户申请加入组织',
-          actions: {
-            callback: () => {
-              toggleUnionOpen().then(({ data }) => {
-                if (!data.data) {
-                  this.$message.success(data.msg)
-                }
-                this.loadPage()
-              })
-            },
-          },
-        },
-        {
-          title: '开启审理员审核',
-          propName: 'isUserLocked',
-          description: '用户加入组织需通过管理员审核',
-          actions: { callback: () => { this.$message.success('This is a message of success') } },
-        },
-        {
-          title: '组织邀请码',
-          propName: 'isUserLocked',
-          description: '下载二维码邀请用户加入',
-          actions: { callback: () => { this.$message.error('This is a message of error') } },
-        },
-      ],
+      // data: [
+      //   {
+      //     title: '允许加入',
+      //     propName: 'isOpen',
+      //     description: '允许用户申请加入组织',
+      //     actions: {
+      //       callback: () => {
+      //         toggleUnionOpen().then(({ data }) => {
+      //           if (!data.data) {
+      //             this.$message.success(data.msg)
+      //           }
+      //           this.loadPage()
+      //         })
+      //       },
+      //     },
+      //   },
+      //   {
+      //     title: '开启审理员审核',
+      //     propName: 'isUserLocked',
+      //     description: '用户加入组织需通过管理员审核',
+      //     actions: { callback: () => { this.$message.success('This is a message of success') } },
+      //   },
+      //   {
+      //     title: '组织邀请码',
+      //     propName: 'isUserLocked',
+      //     description: '下载二维码邀请用户加入',
+      //     actions: { callback: () => { this.$message.error('This is a message of error') } },
+      //   },
+      // ],
     }
   },
   created () {

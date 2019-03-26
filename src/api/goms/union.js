@@ -19,18 +19,39 @@ export function getUnionLogList (current) {
   })
 }
 
+export function getUnionOrgList () {
+  return request({
+    url: `${prefixUrl}/org/list`,
+    method: 'get',
+  })
+}
+
+export function getUnionNoOrgList () {
+  return request({
+    url: `${prefixUrl}/no_union_org/list`,
+    method: 'get',
+  })
+}
+
+export function removeOrgById (id) {
+  return request({
+    url: `${prefixUrl}/org/remove/${id}`,
+    method: 'get',
+  })
+}
+
+export function addOrgById (id) {
+  return request({
+    url: `${prefixUrl}/org/add/${id}`,
+    method: 'get',
+  })
+}
+
 export function putUnion (obj) {
   return request({
     url: `${prefixUrl}/update`,
     method: 'post',
     data: obj,
-  })
-}
-
-export function getUnionNoAdminUserList () {
-  return request({
-    url: `${prefixUrl}/no_admin_user/list`,
-    method: 'get',
   })
 }
 
@@ -44,13 +65,6 @@ export function unSetUnionAdmin (id) {
 export function setUnionAdmin (id) {
   return request({
     url: `${prefixUrl}/set/admin/${id}`,
-    method: 'get',
-  })
-}
-
-export function toggleUnionOpen () {
-  return request({
-    url: `${prefixUrl}/update/open`,
     method: 'get',
   })
 }

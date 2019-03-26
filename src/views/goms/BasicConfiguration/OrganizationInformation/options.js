@@ -41,12 +41,12 @@ const initOrgForm = () => {
     orgId: '',
     logo: '',
     name: '',
-    orgAbrName: '',
+    abrName: '',
     establishTime: '',
-    creator: '',
+    creatorName: '',
     contactMethod: '',
     intro: '',
-    orgStructure: '',
+    structure: '',
     coreAdvantage: '',
   }
 }

@@ -2,20 +2,20 @@
   <a-card :bordered="false" class="aside-card">
     <div class="account-center-avatarHolder">
       <div class="avatar">
-        <iep-img style="width:100%" :src="orgDetail.logo"></iep-img>
+        <iep-img style="width:100%" :src="form.logo"></iep-img>
       </div>
-      <div class="username">{{orgDetail.name}}</div>
-      <div class="bio">{{orgDetail.abrName}}</div>
+      <div class="username">{{form.name}}</div>
+      <div class="bio">{{form.abrName}}</div>
     </div>
     <div class="account-center-detail">
       <p>
-        <i class="icon-huiyikaihuitaolun"></i>联盟所属：{{orgDetail.name}}
+        <i class="icon-huiyikaihuitaolun"></i>联盟所属：{{form.unionName}}
       </p>
       <p>
-        <i class="icon-rencai"></i>成员数量：{{orgDetail.memberNum}}
+        <i class="icon-rencai"></i>成员数量：{{form.memberNum}}
       </p>
       <p>
-        <i class="icon-bumen"></i>部门数量：{{orgDetail.deptNum}}
+        <i class="icon-bumen"></i>部门数量：{{form.deptNum}}
       </p>
     </div>
     <a-divider :dashed="true" />
@@ -27,7 +27,7 @@
       <a-spin :spinning="pageLoading">
         <div class="members">
           <a-row>
-            <a-col :span="12" v-for="(item, index) in orgDetail.adminList" :key="index">
+            <a-col :span="12" v-for="(item, index) in form.adminList" :key="index">
               <div class="member">
                 <iep-img-avatar size="small" :src="item.avatar"></iep-img-avatar>
                 <span class="member-name">
@@ -55,11 +55,11 @@
           </span>
         </a-list-item-meta>
         <template v-if="item.actions">
-          <a-switch slot="actions" :loading="pageLoading" checkedChildren="开" unCheckedChildren="关" :checked="orgDetail[item.propName]" @change='item.actions.callback' />
+          <a-switch slot="actions" :loading="pageLoading" checkedChildren="开" unCheckedChildren="关" :checked="form[item.propName]" @change='item.actions.callback' />
         </template>
       </a-list-item>
     </a-list>
-    <add-admin-dialog ref="AddAdminDialog"></add-admin-dialog>
+    <add-admin-dialog ref="AddAdminDialog" @load-page="loadPage"></add-admin-dialog>
   </a-card>
 </template>
 
@@ -74,7 +74,7 @@ export default {
   data () {
     return {
       pageLoading: true,
-      orgDetail: {
+      form: {
         logo: '',
         name: '',
         managerList: [],
@@ -129,7 +129,7 @@ export default {
     loadPage () {
       this.pageLoading = true
       getOrgBySelf().then((res) => {
-        this.orgDetail = res.data.data
+        this.form = res.data.data
         this.pageLoading = false
       })
     },

@@ -43,6 +43,7 @@ const initForm = () => {
     'id': '',
     'name': '',
     'sex': 1,
+    'sexName': '',
     'avatar': '',
     'birthday': '',
     'title': '',

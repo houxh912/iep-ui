@@ -17,6 +17,8 @@ import IepInputNumber from '@/components/IepCommon/InputNumber'
 import OperationContainer from '@/components/Operation/Container'
 import PageHeader from '@/components/Page/Header'
 import OperationSearch from '@/components/Operation/Search'
+import IepDialog from '@/components/IepDialog/'
+import IepDrawer from '@/components/IepDrawer/'
 import IepTable from '@/components/IepTable/'
 import IepTableLink from '@/components/IepTable/Link'
 import OperationWrapper from '@/components/Operation/Wrapper'
@@ -29,6 +31,8 @@ Vue.component(OperationContainer.name, OperationContainer)
 Vue.component(OperationSearch.name, OperationSearch)
 Vue.component(PageHeader.name, PageHeader)
 Vue.component(IepTable.name, IepTable)
+Vue.component(IepDialog.name, IepDialog)
+Vue.component(IepDrawer.name, IepDrawer)
 Vue.component(IepTableLink.name, IepTableLink)
 Vue.component(OperationWrapper.name, OperationWrapper)
 Vue.component(IepButton.name, IepButton)

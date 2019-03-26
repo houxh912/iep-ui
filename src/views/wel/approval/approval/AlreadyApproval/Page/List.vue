@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import { getAlreadyApprovalPage, postApproval, deleteApprovalById, deleteApprovalBatch } from '@/api/admin/approval'
+import { getAlreadyApprovalPage, postApproval, deleteApprovalById, deleteApprovalBatch } from '@/api/wel/administrative_approval'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from '../options'
 import DialogForm from './DialogForm'

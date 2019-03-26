@@ -5,7 +5,7 @@
         <iep-button @click="handleAdd" type="danger" icon="el-icon-plus" plain>发起申请</iep-button>
       </template>
       <template slot="right">
-        <operation-search @search="searchPage" advance-search>
+        <operation-search @search-page="searchPage">
         </operation-search>
       </template>
     </operation-container>
@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import { getAlreadyApprovalPage, postApproval } from '@/api/admin/approval'
+import { getExaminApprovalPage, postApproval } from '@/api/wel/administrative_approval'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from '../options'
 import DialogForm from './DialogForm'
@@ -57,7 +57,7 @@ export default {
       this.$emit('onDetail', row)
     },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getAlreadyApprovalPage)
+      this.loadTable(param, getExaminApprovalPage)
     },
   },
 }

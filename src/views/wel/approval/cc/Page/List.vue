@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { getAlreadyApprovalPage, postApproval } from '@/api/admin/approval'
+import { getCCPage, postApproval } from '@/api/wel/administrative_approval'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from '../options'
 import DialogForm from './DialogForm'
@@ -56,7 +56,7 @@ export default {
       this.$refs['DialogForm'].dialogShow = true
     },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getAlreadyApprovalPage)
+      this.loadTable(param, getCCPage)
     },
   },
 }

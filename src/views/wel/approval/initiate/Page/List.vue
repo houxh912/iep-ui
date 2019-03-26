@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { getAlreadyApprovalPage, postApproval } from '@/api/admin/approval'
+import { getInitiatePage, postApproval } from '@/api/wel/administrative_approval'
 import mixins from '@/mixins/mixins'
 import { mergeByFirst } from '@/util/util'
 import { columnsMap, initForm } from '../options'
@@ -77,7 +77,7 @@ export default {
       this.$emit('onDetail', row)
     },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getAlreadyApprovalPage)
+      this.loadTable(param, getInitiatePage)
     },
   },
 }

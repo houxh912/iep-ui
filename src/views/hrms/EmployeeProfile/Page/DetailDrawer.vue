@@ -1,5 +1,5 @@
 <template>
-  <iep-drawer :drawer-show="drawerShow" title="简历信息" width="50%" @close="closePage">
+  <iep-drawer :drawer-show="drawerShow" title="员工信息" width="50%" @close="closePage">
     <!-- <p :style="[pStyle, pStyle2]"></p> -->
     <p :style="pStyle">个人信息</p>
     <a-row>
@@ -123,24 +123,12 @@
       </a-col>
     </a-row>
 
-    <a-row>
-      <a-col :span="24">
-        <IepDescriptionItem title="拉黑地区：" :content="form.blacklistArea" />
-      </a-col>
-    </a-row>
-
-    <a-row>
-      <a-col :span="24">
-        <IepDescriptionItem title="拉黑原因：" :content="form.blacklistReasons" />
-      </a-col>
-    </a-row>
-
   </iep-drawer>
 </template>
 <script>
 import { mergeByFirst } from '@/util/util'
 import { initForm } from '../options'
-import { getTalentPoolById } from '@/api/hrms/talent_pool'
+import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 export default {
   data () {
     return {
@@ -162,7 +150,7 @@ export default {
   },
   methods: {
     loadPage () {
-      getTalentPoolById(this.id).then(({ data }) => {
+      getEmployeeProfileById(this.id).then(({ data }) => {
         this.form = mergeByFirst(initForm(), data.data)
       })
     },

@@ -16,7 +16,7 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage"></operation-search>
+          <operation-search @search-page="searchPage"></operation-search>
         </template>
       </operation-container>
       <iep-table 
@@ -42,7 +42,8 @@
         <el-table-column prop="operation" label="操作" width="300">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button size="small" @click="handleCollection(scope.row)">收藏</iep-button>
+              <iep-button type="warning" size="small" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
+              <iep-button type="warning" size="small" v-else>已收藏</iep-button>
               <iep-button size="small">分享</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
@@ -59,7 +60,7 @@
       </iep-table>
     </div>
     <main-dialog ref="mainDialog" @load-page="loadPage" v-if="pageState=='dialog'"></main-dialog>
-    <collection-dialog ref="collection" @load-page="loadPage" type="honor"></collection-dialog>
+    <collection-dialog ref="collection" @load-page="loadPage" type="honor" :requestFn="createCollect"></collection-dialog>
   </div>
 </template>
 
@@ -67,6 +68,7 @@
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
 import { getTableData, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/aptitude'
+import { createCollect } from '@/api/mlms/material/summary'
 import MainDialog from './mainDialog'
 import CollectionDialog from '../../components/collectionDialog'
 
@@ -80,6 +82,7 @@ export default {
       pageState: 'list',
       dictsMap,
       columnsMap: tableOption,
+      createCollect,
     }
   },
   methods: {

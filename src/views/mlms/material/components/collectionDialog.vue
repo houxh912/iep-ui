@@ -29,14 +29,18 @@
 
 <script>
 import IepDialog from '@/components/IepDialog/'
-import { collectList, createCollect } from '@/api/mlms/material/summary'
+import { collectList } from '@/api/mlms/material/summary'
 
 export default {
   components: { IepDialog },
   props: {
     type: {
       type: String,
-      defalut: 'meeting',
+      defalut: false,
+    },
+    requestFn: {
+      type: Function,
+      default: () => {},
     },
   },
   data () {
@@ -66,14 +70,19 @@ export default {
       // 处理数据
       let list = []
       for (let item of this.formData) {
-        list.push({
-          id: item.id,
-          name: item.title,
-          type: this.type,
-          targetId: this.selectItem,
-        })
+        let obj = {
+          name: item.title === undefined ? item.name : item.title,
+          type: this.type ? this.type : item.type,
+          targetId: item.targetId ? item.targetId : item.id,
+          collectionId: this.selectItem,
+        }
+        console.log('type: ', this.type)
+        if (this.type === undefined) {
+          obj.id = item.id
+        }
+        list.push(obj)
       }
-      createCollect(list).then(() => {
+      this.requestFn(list).then(() => {
         this.$notify({
           title: '成功',
           message: '收藏成功',

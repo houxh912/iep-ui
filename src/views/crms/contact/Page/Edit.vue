@@ -48,8 +48,8 @@
       <avue-crud :data="pagedTable" :option="option" :page="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange">
       </avue-crud>
       <div class="btn">
-        <el-button @click="dialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handlequery" size="small">添加</el-button>
+        <iep-button @click="dialogVisible = false">取 消</iep-button>
+        <iep-button type="primary" @click="handlequery">添加</iep-button>
       </div>
     </el-dialog>
     <footer-tool-bar>
@@ -171,6 +171,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.el-dialog {
+  .el-dialog__body {
+    padding: 0 20px !important;
+  }
+}
+
 .edit-wrapper {
   margin: 5px 5px 50px 5px;
   .form-half {
@@ -195,8 +201,5 @@ export default {
 .btn {
   margin-left: 20px;
   text-align: right;
-}
-.input {
-  width: 200px;
 }
 </style>

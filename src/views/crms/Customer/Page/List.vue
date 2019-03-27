@@ -45,7 +45,7 @@
         </el-table-column>
       </iep-table>
       <excell-import ref="ExcellImport" :urlName="url" @close="handleClose"></excell-import>
-      <collaborator ref="collaborator"></collaborator>
+      <collaborator ref="collaborator" @load-page="loadPage"></collaborator>
     </basic-container>
   </div>
 </template>
@@ -147,9 +147,7 @@ export default {
     },
     //搜索
     searchPage (form) {
-      this.loadTable({ ...form, type: this.type }, getCustomerPage, m => {
-        return Object.assign(m, { businessTypeC: m.businessTypeKey.map(m => m.commonName).join('，') })
-      })
+      this.loadTable({ ...form, type: this.type }, getCustomerPage)
     },
   },
 }

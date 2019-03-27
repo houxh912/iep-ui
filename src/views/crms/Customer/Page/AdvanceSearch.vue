@@ -31,8 +31,8 @@
       </el-date-picker>
     </el-form-item>
     <el-form-item>
-      <iep-button type="primary" @click="searchPage">搜索</iep-button>
-      <iep-button @click="clearSearchParam">清空</iep-button>
+      <iep-button type="primary" @click="searchPage" size="mini">搜索</iep-button>
+      <iep-button @click="clearSearchParam" size="mini">清空</iep-button>
     </el-form-item>
   </el-form>
 </template>

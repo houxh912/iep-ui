@@ -22,4 +22,18 @@ const columnsMapByTypeId = [
     { label: '发布人', prop: 'publisher' },
   ],
 ]
-export { columnsMapByTypeId }
+const tabList = [
+  {
+    label: '全部商机',
+    value: '1',
+  },
+  {
+    label: '我发布的',
+    value: '2',
+  },
+  {
+    label: '我认领的',
+    value: '3',
+  },
+]
+export { columnsMapByTypeId, tabList }

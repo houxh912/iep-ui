@@ -16,3 +16,10 @@ export function getTypeCountMap () {
     method: 'get',
   })
 }
+
+export function getSystemMessageById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}

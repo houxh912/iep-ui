@@ -4,11 +4,11 @@
       <page-header :title="userInfo.orgName" :replaceText="replaceText" :data="[4,2]"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleReview()">批量审核</iep-button>
+          <!-- <iep-button @click="handleReview()">批量审核</iep-button> -->
           <iep-button @click="handleDeleteBatch()">删除</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" :paramForm="paramForm" advance-search>
+          <operation-search @search-page="searchPage" :paramForm="paramForm" advance-search>
             <el-form :model="paramForm" label-width="80px" size="mini">
               <el-form-item label="真实姓名">
                 <el-input v-model="paramForm.name"></el-input>
@@ -58,10 +58,14 @@ import { mapState } from 'vuex'
 import { mergeByFirst } from '@/util/util'
 import { dictsMap, columnsMap, initSearchForm, initMemberForm } from './options'
 import DialogForm from './DialogForm'
-import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
+// import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
 import mixins from '@/mixins/mixins'
 export default {
+  components: {
+    DialogForm,
+    // IepReviewConfirm,
+  },
   mixins: [mixins],
   data () {
     return {
@@ -81,16 +85,12 @@ export default {
   created () {
     this.loadPage()
   },
-  components: {
-    DialogForm,
-    IepReviewConfirm,
-  },
   methods: {
-    handleReview () {
-      this.$refs['iepReviewForm'].methodName = '批量审核'
-      this.$refs['iepReviewForm'].formRequestFn = ''
-      this.$refs['iepReviewForm'].dialogShow = true
-    },
+    // handleReview () {
+    //   this.$refs['iepReviewForm'].title = '批量审核'
+    //   this.$refs['iepReviewForm'].formRequestFn = ''
+    //   this.$refs['iepReviewForm'].dialogShow = true
+    // },
     handleDel () {
       this._handleGlobalDeleteAll(delAllGomsUser)
     },

@@ -59,6 +59,7 @@
       </iep-table>
       <!-- 详情弹窗 -->
       <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
+      <edit-drawer ref="EditDrawer" @load-page="loadPage"></edit-drawer>
     </basic-container>
   </div>
 </template>
@@ -68,9 +69,10 @@ import { fetchList, deleteDataById, createData, getContactById } from '@/api/crm
 // import { myFetchList } from '@/api/crms/custom'
 import { columnsMap, initSearchForm } from '../options'
 import DetailDrawer from './DetailDrawer'
+import EditDrawer from './EditDrawer'
 export default {
   mixins: [mixins],
-  components: { DetailDrawer },
+  components: { DetailDrawer, EditDrawer },
   data () {
     return {
       dictsMap: {},
@@ -97,17 +99,16 @@ export default {
       this.paramForm = initSearchForm()
     },
     handleEdit (row) {
-      this.$emit('onEdit', {
-        formRequestFn: getContactById,
-        methodName: '编辑',
-        id: row.clientContactId,
-      })
+      this.$refs['EditDrawer'].methodName = '编辑'
+      this.$refs['EditDrawer'].drawerShow = true
+      this.$refs['EditDrawer'].id = row.clientContactId
+      this.$refs['EditDrawer'].formRequestFn = getContactById
     },
     handleAdvance () {
-      this.$emit('onEdit', {
-        formRequestFn: createData,
-        methodName: '新增',
-      })
+      this.$refs['EditDrawer'].methodName = '新增'
+      this.$refs['EditDrawer'].drawerShow = true
+      this.$refs['EditDrawer'].id = false
+      this.$refs['EditDrawer'].formRequestFn = createData
     },
     loadPage (param) {
       this.loadTable(param, fetchList)

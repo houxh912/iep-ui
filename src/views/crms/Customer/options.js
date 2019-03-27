@@ -76,7 +76,7 @@ const initForm = () => {
     companyFunction: '', //单位职能
     contractAddress: '', //单位地址
     otherDesc: '', //其他说明
-    tags: [1, 2],
+    tags: [1],
   }
 }
 // 全部客户搜索
@@ -134,9 +134,7 @@ const rules = {
   specificBusinessType: [
     { required: true, message: '请填写具体业务类型', trigger: 'blur' },
   ],
-  clientRela: [
-    { required: true, message: '请选择客户关系', trigger: 'blur' },
-  ],
+  clientRela: [{ required: true, message: '请选择客户关系', trigger: 'blur' }],
   followUpStatus: [
     { required: true, message: '请选择跟进状态', trigger: 'blur' },
   ],

@@ -84,8 +84,8 @@
             <el-col class="col-tips"><i class="el-icon-warning"></i> 其它客户：目前无意向客户</el-col>
           </el-form-item>
           <!-- <el-form-item label="客户标签：" prop="tags">
-          <el-input v-model="formData.tags" placeholder="添加标签，标签请用 , 或 ; 分开,标签填数字"></el-input>
-        </el-form-item> -->
+            <iep-tags v-model="formData.tags" @addTags="handleTag"></iep-tags>
+          </el-form-item> -->
           <el-form-item label="跟进状态：" prop="followUpStatus">
             <el-select v-model="formData.followUpStatus" placeholder="请选择">
               <el-option v-for="item in dictGroup['crms_follow_up_status']" :key="item.value" :label="item.label" :value="item.value"></el-option>
@@ -116,6 +116,7 @@ import { mapState } from 'vuex'
 import { mergeByFirst } from '@/util/util'
 import { initForm, rules } from '../options'
 import FooterToolBar from '@/components/FooterToolbar'
+// import iepTags from '@/components/IepTags'
 import { getCustomerById } from '@/api/crms/customer'
 
 export default {
@@ -148,6 +149,7 @@ export default {
         this.formData.districtType = data.data.districtTypeKey
         this.formData.followUpStatus = data.data.followUpStatusKey
         this.formData.clientRela = data.data.clientRelaKey
+        this.formData.tags = [1]
       })
     }
   },
@@ -157,6 +159,9 @@ export default {
     }),
   },
   methods: {
+    handleTag () {
+      this.$message('添加标签')
+    },
     handleGoBack () {
       this.$emit('onGoBack')
     },

@@ -56,4 +56,10 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.form-half {
+  width: 50%;
+  display: inline-block;
+}
+</style>
 

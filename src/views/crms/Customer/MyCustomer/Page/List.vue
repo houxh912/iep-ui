@@ -59,11 +59,10 @@ import mixins from '@/mixins/mixins'
 import { myTableOption, dictsMap, initSearchForm } from '../../options'
 import { fetchList, deleteDataById } from '@/api/crms/custom'
 import IepDialog from '@/components/IepDialog/'
-import excelImport from '../../excelImport'
 export default {
   name: 'custom',
   mixins: [mixins],
-  components: { IepDialog, excelImport },
+  components: { IepDialog },
   computed: {},
   data () {
     return {

@@ -5,7 +5,6 @@ const columnsMap = [
 ]
 const initForm = () => {
   return {
-    id: '', //新增无id
     contactName: '', //联系人姓名
     contactPosition: '', //联系人职务
     telephoneNo: '', //电话
@@ -17,6 +16,8 @@ const initForm = () => {
     address: '', //地址
     clientConcern: '', //客户关注
     other: '', //其他
+    clientContactId: '',
+    clientIds: [0],
   }
 }
 export { columnsMap, initForm }

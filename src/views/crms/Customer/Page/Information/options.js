@@ -10,9 +10,4 @@ const initForm = () => {
     tags: [],
   }
 }
-const initConsultaForm = () => {
-  return {
-    name: '',
-  }
-}
-export { columnsMap, initForm, initConsultaForm }
+export { columnsMap, initForm }

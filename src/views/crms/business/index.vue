@@ -1,55 +1,41 @@
 <template>
-  <div>
-    <basic-container>
-      <page-header title="商机"></page-header>
-      <iep-tabs v-model="tabName" :tab-list="tabList">
-        <template v-if="tabName ==='allBusinessTab'" v-slot:allBusinessTab>
-          <all-business-tab></all-business-tab>
-        </template>
-        <template v-if="tabName ==='myReleaseTab'" v-slot:myReleaseTab>
-          <my-release-tab></my-release-tab>
-        </template>
-        <template v-if="tabName ==='myClaimTab'" v-slot:myClaimTab>
-          <my-claim-tab></my-claim-tab>
-        </template>
-      </iep-tabs>
-    </basic-container>
-  </div>
+  <keep-alive include="List">
+    <component :record="record" :is="currentComponet" @onForm="handleForm" @onGoBack="handleGoBack"></component>
+  </keep-alive>
 </template>
 
 <script>
-import mixins from '@/mixins/mixins'
-import allBusinessTab from './AllBusiness/'
-import myReleaseTab from './MyRelease/'
-import myClaimTab from './MyClaim/'
-import IepTabs from '@/components/IepCommon/Tabs'
+// 动态切换组件
+import List from './Page/List'
+import Edit from './Page/Edit'
+
 export default {
-  name: 'business',
-  mixins: [mixins],
-  components: { allBusinessTab, myReleaseTab, myClaimTab, IepTabs },
+  name: 'TableListWrapper',
+  components: {
+    List,
+    Edit,
+  },
   data () {
     return {
-      tabName: 'allBusinessTab',
-      tabList: [
-        {
-          label: '全部商机',
-          value: 'allBusinessTab',
-        }, {
-          label: '我发布的',
-          value: 'myReleaseTab',
-        }, {
-          label: '我认领的',
-          value: 'myClaimTab',
-        },
-      ],
+      currentComponet: 'List',
+      record: '',
     }
+  },
+  methods: {
+    handleForm (record) {
+      this.record = record
+      this.currentComponet = 'Edit'
+    },
+    handleGoBack () {
+      this.record = ''
+      this.currentComponet = 'List'
+    },
+  },
+  watch: {
+    '$route.path' () {
+      this.record = ''
+      this.currentComponet = 'List'
+    },
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.business {
-  padding: 20px 0;
-  background-color: #fff;
-}
-</style>

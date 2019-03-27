@@ -3,6 +3,7 @@
     <basic-container>
       <div class="title">
         <div class="department">{{formData.respDept}}</div>
+
         <el-button class="back" @click="handleGoBack" size="mini">返回</el-button>
       </div>
       <!-- <div class="head-button">
@@ -16,13 +17,13 @@
           <customer-panorama :formData="formData" v-loading="activeTab !=='CustomerPanorama'"></customer-panorama>
         </template>
         <template v-if="activeTab ==='Contacts'" v-slot:Contacts>
-          <contacts v-loading="activeTab !=='Contacts'" :record="record"></contacts>
+          <contacts v-loading="activeTab !=='Contacts'"></contacts>
         </template>
         <template v-if="activeTab ==='VisitingRecord'" v-slot:VisitingRecord>
-          <visiting-record v-loading="activeTab !=='VisitingRecord'" :record="record"></visiting-record>
+          <visiting-record v-loading="activeTab !=='VisitingRecord'"></visiting-record>
         </template>
         <template v-if="activeTab ==='Scheme'" v-slot:Scheme>
-          <scheme v-loading="activeTab !=='Scheme'" :record="record"></scheme>
+          <scheme v-loading="activeTab !=='Scheme'"></scheme>
         </template>
         <template v-if="activeTab ==='Agreement'" v-slot:Agreement>
           <agreement v-loading="activeTab !=='Agreement'"></agreement>
@@ -36,24 +37,12 @@
 </template>
 
 <script>
-import CustomerPanorama from './CustomerPanorama/'
-import Contacts from './Contacts/'
-import VisitingRecord from './VisitingRecord/'
-import Scheme from './Scheme/'
-import Agreement from './Agreement/'
-import Information from './Information/'
+
 import mixins from '@/mixins/mixins'
 import { getCustomerById } from '@/api/crms/customer'
 export default {
   name: 'detail',
   mixins: [mixins],
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
-  components: { CustomerPanorama, Contacts, VisitingRecord, Scheme, Agreement, Information },
   data () {
     return {
       formData: {},
@@ -77,8 +66,13 @@ export default {
         value: 'Information',
       }],
       activeTab: 'CustomerPanorama',
-      formRequestFn: () => { },
     }
+  },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
   },
   created () {
     this.load()
@@ -91,6 +85,41 @@ export default {
     },
     handleGoBack () {
       this.$emit('onGoBack')
+    },
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.formRequestFn(this.formData).then(() => {
+            this.$notify({
+              title: '成功',
+              message: `${this.methodName}成功`,
+              type: 'success',
+              duration: 2000,
+            })
+            this.loadPage()
+            this.dialogShow = false
+          })
+        } else {
+          return false
+        }
+      })
+    },
+
+    change () { },
+    closed () {
+      this.dialogShow = false
+    },
+    // 转移
+    transfer () {
+      this.$message('转移给他人')
+    },
+    // 编辑
+    handleUpdate () {
+      this.$emit('update-form', this.formData)
+    },
+    // 删除
+    handleDelete () {
+      // this._handleGlobalDeleteById(row.id, deleteDataById)
     },
   },
 }
@@ -108,11 +137,23 @@ export default {
       font-weight: 600;
       font-size: 18px;
     }
+    .manager {
+      color: #ccc;
+    }
     .back {
       height: 30px;
       float: right;
       margin-left: auto;
     }
   }
+}
+.person {
+  font-size: 16px;
+  margin-left: 30px;
+  align-items: center;
+  line-height: 50px;
+}
+.assist {
+  margin-right: 10px;
 }
 </style>

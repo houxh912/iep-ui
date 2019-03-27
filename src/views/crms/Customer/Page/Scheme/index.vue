@@ -4,11 +4,16 @@
       <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加方案</iep-button>
     </operation-wrapper>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection>
+      <el-table-column label="附件">
+        <template slot-scope="scope">
+          <span @click="download(scope.row)">下载</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" size="small">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
+            <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -65,6 +70,7 @@ export default {
       this.loadTable({ ...param, clientId: this.record.id }, getSchemePage)
     },
     handleAdd () {
+      this.$refs['SchemeDialog'].record = this.record
       this.$refs['SchemeDialog'].dialogShow = true
       this.$refs['SchemeDialog'].methodName = '新增'
       this.$refs['SchemeDialog'].submitFn = createScheme
@@ -77,6 +83,9 @@ export default {
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.programId, deleteSchemeById)
+    },
+    download (row) {
+      console.log(row)
     },
 
   },

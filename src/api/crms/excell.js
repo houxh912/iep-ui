@@ -7,7 +7,6 @@ export function downloadModel () {
     responseType: 'arraybuffer',
   }).then(response => {
     // 处理返回的文件流
-    console.log(response)
     let filename = response.headers['content-disposition'].split(';')[1]
     filename = decodeURIComponent(filename.split('=')[1])
     // filename = decodeURIComponent(filename.split('"')[1])

@@ -1,7 +1,6 @@
 import request from '@/router/axios'
 const schemeUrl = '/crm/program'
 //方案列表
-// 方案-查询
 export function getSchemePage (query) {
   return request({
     url: `${schemeUrl}/page`,

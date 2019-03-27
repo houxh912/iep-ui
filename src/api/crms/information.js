@@ -1,10 +1,11 @@
 import request from '@/router/axios'
-const prefixUrl = '/crm/customer'
-//咨询列表
-export function getInfoPage (query) {
+
+const crmsUrl = 'crm/customer'
+// 资讯-新增
+export function createConsultation (obj) {
   return request({
-    url: `${prefixUrl}/information/page`,
-    method: 'get',
-    params: query,
+    url: `${crmsUrl}/create`,
+    method: 'post',
+    data: obj,
   })
 }

@@ -4,7 +4,7 @@
       <div slot="header" class="title">
         <span>编辑联系人</span>
       </div>
-      <el-form :model="formData" :rules="rules" ref="formName" label-width="100px">
+      <el-form :model="formData" :rules="rules" ref="formName" label-width="100px" size="small">
         <el-form-item label="联系人姓名" prop="contactName" class="form-half">
           <el-input v-model="formData.contactName"></el-input>
         </el-form-item>
@@ -178,7 +178,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .edit-wrapper {
-  margin: 5px 5px 50px 5px;
+  margin: 20px 20px 50px 20px;
   .form-half {
     width: 50%;
     display: inline-block;

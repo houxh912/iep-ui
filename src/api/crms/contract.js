@@ -1,7 +1,7 @@
 import request from '@/router/axios'
 const prefixUrl = '/mlms/contract'
 
-export function fetchList (params) {
+export function getContractPage (params) {
   return request({
     url: `${prefixUrl}/page`,
     method: 'get',
@@ -9,7 +9,7 @@ export function fetchList (params) {
   })
 }
 
-export function createData (obj) {
+export function postContract (obj) {
   return request({
     url: `${prefixUrl}/create`,
     method: 'post',
@@ -17,7 +17,7 @@ export function createData (obj) {
   })
 }
 
-export function updateData (obj) {
+export function putContract (obj) {
   return request({
     url: `${prefixUrl}/update`,
     method: 'post',
@@ -25,7 +25,7 @@ export function updateData (obj) {
   })
 }
 
-export function deleteDataById (id) {
+export function deleteContractById (id) {
   return request({
     url: `${prefixUrl}/delete/${id}`,
     method: 'post',

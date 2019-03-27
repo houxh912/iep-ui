@@ -2,7 +2,8 @@
   <div class="edit-wrapper">
     <el-card class="edit-card" shadow="hover">
       <div slot="header" class="title">
-        <span>新增商机</span>
+        <span v-if="isAdd=='add'">新增商机</span>
+        <span v-if="isAdd=='edit'">修改商机</span>
       </div>
       <el-form :model="form" :rules="rules" ref="formName" label-width="100px">
         <el-form-item label="客户名称：" prop="clientName">
@@ -27,8 +28,8 @@
         <el-form-item label="商机描述：" prop="opportunityDes">
           <el-input type="textarea" v-model="form.opportunityDes" placeholder="商机描述"></el-input>
         </el-form-item>
-        <el-form-item label="发布者：">
-          <el-input v-model="publisher" :disabled="true"></el-input>
+        <el-form-item label="发布者：" v-if="isAdd=='edit '">
+          <el-input v-model="form.publisher" disabled></el-input>
         </el-form-item>
       </el-form>
     </el-card>
@@ -43,14 +44,18 @@
 import { initForm, rules } from '../options'
 import iepTags from '@/components/IepTags'
 import FooterToolBar from '@/components/FooterToolbar'
-import { createData } from '@/api/crms/business'
+import { postBusiness, putBusiness, getBusinessById } from '@/api/crms/business'
 import { mapState } from 'vuex'
 export default {
-  components: { FooterToolBar,iepTags },
+  components: { FooterToolBar, iepTags },
   props: {
     record: {
       type: Object,
       default: () => { },
+    },
+    isAdd: {
+      type: String,
+      default: () => '',
     },
   },
   data () {
@@ -58,26 +63,13 @@ export default {
       form: initForm(),
       rules,
       dialogShow: false,
-      formRequestFn: () => { },
-      dicData: {
-        businessType: [
-          { label: '咨询', value: 4 },
-          { label: '数据', value: 5 },
-          { label: '事项', value: 6 },
-          { label: '平台', value: 7 },
-          { label: '软件', value: 8 },
-        ],
-        intentionLevel: [
-          { label: '高', value: 1 },
-          { label: '中', value: 2 },
-          { label: '底', value: 3 },
-        ],
-      },
-      publisher: '章培瑜',
+      // formRequestFn: () => { },
     }
   },
   created () {
-    this.formRequestFn = this.record.formRequestFn
+    // this.formRequestFn = this.record.formRequestFn
+    this.load()
+    console.log(this.dictGroup)
   },
   computed: {
     ...mapState({
@@ -94,25 +86,54 @@ export default {
     resetForm () {
       this.form = initForm()
     },
+    load () {
+      if (this.isAdd == 'edit') {
+        getBusinessById(this.record.id).then(res => {
+          let formData = res.data.data.data
+          this.form = {
+            opportunityId: formData.opportunityId, // ID
+            clientName: formData.clientName, // 客户名称 clientName
+            projectName: formData.projectName, // 项目名称 projectName
+            businessType: formData.businessType.map(m => parseInt(m.commonId)), // 业务类型 businessType
+            intentionLevel: formData.intentionLevelKey, // 意向程度 intentionLevel
+            tags: formData.tags.map(m => m.commonName), // 商机标签 businessTag
+            opportunityDes: formData.opportunityDes, // 商机描述
+            // publisher: formData.publisher, //发布者
+          }
+          console.log(this.form)
+        })
+
+      }
+    },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          createData(this.form).then(() => {
-            this.$message({
-              message: '商机新增成功',
-              type: 'success',
+          if (this.isAdd == 'add') {
+            postBusiness(this.form).then(() => {
+              this.$message({
+                message: '商机新增成功',
+                type: 'success',
+              })
+              this.$emit('onGoBack')
             })
-            this.$emit('onGoBack')
-          })
+          } else {
+            putBusiness(this.form).then(() => {
+              this.$message({
+                message: '商机修改成功',
+                type: 'success',
+              })
+              this.$emit('onGoBack')
+            })
+          }
         } else {
           this.$message.error('输入未完成')
-
           return false
         }
       })
 
     },
     addTags () {
+      console.log(this.form)
       this.$message('添加标签')
     },
     // claimBusiness (formName) {

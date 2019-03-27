@@ -1,33 +1,37 @@
 <template>
-  <div class="edit-wrapper">
-    <el-card class="edit-card" shadow="hover">
-      <div slot="header" class="title">
-        添加协作人:<span v-for="(item,index) in selectList" :key="index" class="marginLeft">{{item.name}}</span>
-      </div>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
-        <el-table-column prop="operation" label="操作" min-width="80">
-          <template slot-scope="scope">
-            <operation-wrapper>
-              <iep-button @click="handleSelect(scope.row)" size="small">选择</iep-button>
-            </operation-wrapper>
-          </template>
-        </el-table-column>
-      </iep-table>
-      <div>
-        <iep-button type="primary" @click="submitForm">确认</iep-button>
-        <iep-button @click="handleGoBack">取消</iep-button>
-      </div>
-    </el-card>
-  </div>
+  <iep-dialog :dialog-show="dialogShow" :title="`添加协作人`" width="60%" @close="close">
+    <div class="title">
+      添加协作人:<span v-for="(item,index) in selectList" :key="index">{{item.name}}</span>
+    </div>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
+      <el-table-column prop="operation" label="操作" min-width="80">
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <iep-button @click="handleSelect(scope.row)" size="small">请选择</iep-button>
+          </operation-wrapper>
+        </template>
+      </el-table-column>
+    </iep-table>
+    <template slot="footer">
+      <iep-button class="btn" @click="close">取消</iep-button>
+      <iep-button type="danger" @click="submitForm('form')">保存</iep-button>
+    </template>
+  </iep-dialog>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
-import { AddCollaborator } from '@/api/crms/custom'
+import { AddCollaborator } from '@/api/crms/customer'
 import { fetchList } from '@/api/admin/user'
 export default {
   name: 'collaborator',
   mixins: [mixins],
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
   data () {
     return {
       dialogShow: false,
@@ -36,7 +40,6 @@ export default {
         { label: '协作人', prop: 'realName' },
       ],
       selectList: [
-        // { id: 1, name: '协作人1号' },
       ],
       Contacts: {
         clientId: '',
@@ -47,27 +50,12 @@ export default {
   created () {
     this.loadPage()
   },
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
+
   methods: {
     loadPage (param) {
-      // this.dialogShow = true
-      // this.pagination = { current: 1, size: 10, total: 2 }
-      // this.pagedTable = [
-      //   { id: 1, name: '协作人1号' },
-      //   { id: 2, name: '协作人2号' },
-      // ]
-      // this.isLoadTable = false
       this.loadTable(param, fetchList)
+      this.drawerShow = false
     },
-    // closed () {
-    //   this.dialogShow = false
-    //   this.selectList = []
-    // },
     handleGoBack () {
       this.$emit('onGoBack')
     },
@@ -84,24 +72,19 @@ export default {
         name: row.realName,
       }
       this.selectList.push(data)
-      // let contacts = {
-      //   clientId: this.record.id,
-      //   userId: this.selectList.data.id,
-      // }
-      // this.contacts = contacts
-      // console.log(this.contacts)
       this.Contacts.clientId = this.record.id
       this.Contacts.userId = this.selectList.map(m => m.id)
     },
-    cancel (index) {
-      this.selectList.splice(index, 1)
+    close () {
+      // this.selectList.splice(index, 1)
+      this.selectList = []
+      this.dialogShow = false
     },
     submitForm () {
       AddCollaborator(this.Contacts).then(res => {
         if (res.data.data) {
           this.$message.success('添加协作人成功！')
-          // this.closed()
-          this.$emit('onGoBack')
+          this.drawerShow = false
         } else {
           this.$message.error(`操作失败，${res.data.msg}`)
         }
@@ -110,13 +93,16 @@ export default {
   },
 }
 </script>
-<style>
-.aaa {
-  display: flex;
-  justify-content: right;
+<style lang='scss' scoped>
+.title {
+  height: 30px !important;
+  span {
+    padding: 0 5px;
+  }
 }
-.marginLeft {
-  margin-left: 10px;
+.div {
+  height: 50px;
+  width: 100%;
 }
 </style>
 

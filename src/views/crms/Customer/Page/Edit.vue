@@ -112,13 +112,12 @@
   </div>
 </template>
 <script>
-import { initForm, rules } from '../options'
+import { mapState } from 'vuex'
 import { mergeByFirst } from '@/util/util'
-// import ProductDialog from './Components/ProductDialog'
-// import ProgramDialog from './Components/ProgramDialog'
+import { initForm, rules } from '../options'
 import FooterToolBar from '@/components/FooterToolbar'
 import { getCustomerById } from '@/api/crms/customer'
-import { mapState } from 'vuex'
+
 export default {
   name: 'edit',
   components: { FooterToolBar },
@@ -141,7 +140,6 @@ export default {
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn
     this.id = this.record.id
-    // console.log(this.dictGroup)
     if (this.id) {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = mergeByFirst(initForm(), data.data)
@@ -168,7 +166,6 @@ export default {
       })
     },
     submitForm (formName) {
-      // console.log(this.formData)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn((this.formData)).then(({ data }) => {
@@ -190,6 +187,9 @@ export default {
 </script>
 
 <style scoped>
+.edit-wrapper {
+  padding-bottom: 50px;
+}
 .edit-wrapper >>> .el-collapse-item__wrap {
   padding: 30px 70px 0 70px;
   border: none;
@@ -205,23 +205,5 @@ export default {
   margin: 5px;
   border-radius: 5px;
   border: none;
-}
-</style>
-
-<style lang="scss" scoped>
-.edit-wrapper {
-  margin: 5px 5px 50px 5px;
-  .form-half {
-    width: 50%;
-    display: inline-block;
-  }
-  .edit-card {
-    .title {
-      font-weight: 600;
-    }
-  }
-}
-.wrap {
-  padding: 20px 100px 20px 50px;
 }
 </style>

@@ -1,8 +1,7 @@
 <template>
-  <div class="record">
+  <div>
     <operation-wrapper>
-      <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i> 拜访日志</iep-button>
-      <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i> 联系记录</iep-button>
+      <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i>新增</iep-button>
     </operation-wrapper>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection>
       <el-table-column prop="operation" label="操作" width="200px">
@@ -20,24 +19,17 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMap } from '../options'
-import { fetchVisitList, deleteVisit, updateVisit, createVisit } from '@/api/crms/crm'
+import { fetchVisitList, deleteVisit, updateVisit, createVisit } from '@/api/crms/visiting_record'
+import { columnsMap } from './options'
 import EditDialog from './EditDialog'
 export default {
-  name: 'contract',
   mixins: [mixins],
+  props: ['record'],
   components: { EditDialog },
   data () {
     return {
       columnsMap,
-      formData: {},
     }
-  },
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
   },
   created () {
     this.loadPage()
@@ -63,6 +55,11 @@ export default {
       this._handleGlobalDeleteById([row.contactId], deleteVisit)
     },
   },
-
 }
 </script>
+
+<style lang="scss" scoped>
+.el-tabs__item {
+  height: 30px !important;
+}
+</style>

@@ -52,7 +52,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId, tabList } from '../columns'
-import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById } from '@/api/crms/customer'
+import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById, getCollaboratorPage } from '@/api/crms/customer'
 import AdvanceSearch from './AdvanceSearch'
 import ExcellImport from './ExcellImport/'
 import Collaborator from './Collaborator/'
@@ -79,7 +79,7 @@ export default {
   methods: {
     //导入弹框关闭
     handleClose (res) {
-      this.$refs[''].ExcellImport = false
+      this.$refs['ExcellImport'].dialogShow = false
       if (res.data) {
         this.$message({
           message: `成功!${res.msg}`,
@@ -135,6 +135,10 @@ export default {
     handleCooperation (row) {
       this.$refs['collaborator'].id = row.clientId
       this.$refs['collaborator'].dialogShow = true
+      getCollaboratorPage(row.clientId).then(res => {
+        this.$refs['collaborator'].data = res.data.data.records
+      })
+
     },
     //table多选
     selectionChange () {

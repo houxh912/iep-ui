@@ -54,3 +54,10 @@ export function AddCollaborator (query) {
     data: query,
   })
 }
+//获取协作人列表
+export function getCollaboratorPage (id) {
+  return request({
+    url: `${prefixUrl}/page/collaboration/${id}`,
+    method: 'get',
+  })
+}

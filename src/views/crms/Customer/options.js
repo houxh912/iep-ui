@@ -77,6 +77,7 @@ const initForm = () => {
     contractAddress: '', //单位地址
     otherDesc: '', //其他说明
     tags: [1],
+    collaborations: [],
   }
 }
 // 全部客户搜索

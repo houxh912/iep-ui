@@ -83,9 +83,14 @@
             <el-col class="col-tips"><i class="el-icon-warning"></i> 潜在客户：有意向的客户</el-col>
             <el-col class="col-tips"><i class="el-icon-warning"></i> 其它客户：目前无意向客户</el-col>
           </el-form-item>
-          <!-- <el-form-item label="客户标签：" prop="tags">
+          <el-form-item label="客户标签：" prop="tags">
             <iep-tags v-model="formData.tags" @addTags="handleTag"></iep-tags>
-          </el-form-item> -->
+          </el-form-item>
+          <el-form-item label="协助人：" prop="collaborationsKey" v-if="formData.collaborations.length != 0">
+            <el-tag :key="tag.commonId" v-for="tag in formData.collaborations" closable :disable-transitions="false" @close="handleClose(tag)">
+              {{tag.commonName}}
+            </el-tag>
+          </el-form-item>
           <el-form-item label="跟进状态：" prop="followUpStatus">
             <el-select v-model="formData.followUpStatus" placeholder="请选择">
               <el-option v-for="item in dictGroup['crms_follow_up_status']" :key="item.value" :label="item.label" :value="item.value"></el-option>
@@ -116,12 +121,12 @@ import { mapState } from 'vuex'
 import { mergeByFirst } from '@/util/util'
 import { initForm, rules } from '../options'
 import FooterToolBar from '@/components/FooterToolbar'
-// import iepTags from '@/components/IepTags'
+import iepTags from '@/components/IepTags'
 import { getCustomerById } from '@/api/crms/customer'
 
 export default {
   name: 'edit',
-  components: { FooterToolBar },
+  components: { FooterToolBar, iepTags },
   props: {
     record: {
       type: Object,
@@ -149,7 +154,9 @@ export default {
         this.formData.districtType = data.data.districtTypeKey
         this.formData.followUpStatus = data.data.followUpStatusKey
         this.formData.clientRela = data.data.clientRelaKey
-        this.formData.tags = [1]
+        this.formData.tags = data.data.tags.map(m => (m.commonName))
+        this.formData.collaborations = data.data.collaborations
+        // this.formData.collaborationsKey = data.data.collaborations.map(m => (m.commonName))
       })
     }
   },
@@ -171,6 +178,7 @@ export default {
       })
     },
     submitForm (formName) {
+      this.formData.collaborations = this.formData.collaborations.map(m => parseInt(m.commonId))
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn((this.formData)).then(({ data }) => {
@@ -186,6 +194,12 @@ export default {
           return false
         }
       })
+    },
+    handleClose (tag) {
+      console.log(tag)
+      this.formData.collaborations.splice(this.formData.collaborations.indexOf(tag), 1)
+      console.log(this.formData.collaborations)
+
     },
   },
 }

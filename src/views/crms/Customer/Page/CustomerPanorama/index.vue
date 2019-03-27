@@ -48,7 +48,7 @@
         <div class="item">
           <div class="label">客户标签：</div>
           <div class="value">
-            <el-tag type="info" class="tag-dot" v-for="(item,index) in formData.tags" :key="index">{{item}}</el-tag>
+            <el-tag type="info" class="tag-dot" v-for="(item,index) in formData.tags" :key="index">{{item.commonName}}</el-tag>
           </div>
         </div>
         <div class="item">

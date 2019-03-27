@@ -7,11 +7,11 @@
           <iep-button @click="handleAdd" type="danger" icon="el-icon-plus" plain>发起申请</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
+          <operation-search @search-page="searchPage" advance-search>
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="申请人" width="120px">
             <template slot-scope="scope">
@@ -31,15 +31,16 @@
 </template>
 
 <script>
-import { getAlreadyApprovalPage, postApproval } from '@/api/admin/approval'
+import { getCCPage, postApproval } from '@/api/wel/administrative_approval'
 import mixins from '@/mixins/mixins'
-import { columnsMap } from '../options'
+import { columnsMap, dictsMap } from '../options'
 import DialogForm from './DialogForm'
 export default {
   mixins: [mixins],
   components: { DialogForm },
   data () {
     return {
+      dictsMap,
       columnsMap,
     }
   },
@@ -56,7 +57,7 @@ export default {
       this.$refs['DialogForm'].dialogShow = true
     },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getAlreadyApprovalPage)
+      this.loadTable(param, getCCPage)
     },
   },
 }

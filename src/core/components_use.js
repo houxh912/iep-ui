@@ -10,6 +10,8 @@ import IepDatePicker from '@/components/IepCommon/DatePicker'
 import IepCascader from '@/components/IepCommon/Cascader'
 import IepDictDetail from '@/components/IepCommon/DictDetail'
 import IepDictSelect from '@/components/IepCommon/DictSelect'
+import IepContactSelect from '@/components/IepContact/Select'
+import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepAvatar from '@/components/IepCommon/Avatar'
 import IepImgAvatar from '@/components/IepCommon/ImgAvatar'
 import IepImg from '@/components/IepCommon/Img'
@@ -39,6 +41,8 @@ Vue.component(IepButton.name, IepButton)
 Vue.component(IepTabs.name, IepTabs)
 Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepSelect.name, IepSelect)
+Vue.component(IepContactSelect.name, IepContactSelect)
+Vue.component(IepContactMultiple.name, IepContactMultiple)
 Vue.component(IepCascader.name, IepCascader)
 Vue.component(IepDictDetail.name, IepDictDetail)
 Vue.component(IepDictSelect.name, IepDictSelect)

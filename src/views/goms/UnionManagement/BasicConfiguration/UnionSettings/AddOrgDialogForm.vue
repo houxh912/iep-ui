@@ -1,8 +1,8 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="添加管理员" width="400px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="添加组织" width="400px" @close="loadPage">
     <el-form :model="form" size="small" ref="form" label-width="100px">
-      <el-form-item label="管理员" prop="user">
-        <iep-contact-select v-model="form.user"></iep-contact-select>
+      <el-form-item label="组织" prop="orgId">
+        <iep-select v-model="form.orgId" prefix-url="admin/union/no_union_org"></iep-select>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -13,26 +13,26 @@
 </template>
 <script>
 import IepDialog from '@/components/IepDialog/'
-import { initAddAdminForm } from './options'
+import { initOrgForm } from './options'
 export default {
   components: { IepDialog },
   data () {
     return {
       dialogShow: false,
       formRequestFn: () => { },
-      form: initAddAdminForm(),
+      form: initOrgForm(),
     }
   },
   methods: {
     loadPage () {
-      this.form = initAddAdminForm()
+      this.form = initOrgForm()
       this.dialogShow = false
       this.$emit('load-page')
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.form.user.id).then(({ data }) => {
+          this.formRequestFn(this.form.orgId).then(({ data }) => {
             if (data.data) {
               this.$notify({
                 title: '成功',

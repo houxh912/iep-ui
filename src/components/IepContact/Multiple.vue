@@ -17,6 +17,7 @@
 //   }, 
 import { getUnionList, getOrgListById, getUserListById } from '@/api/admin/contacts'
 export default {
+  name: 'IepContactMultiple',
   props: {
     showCheckbox: {
       type: Boolean,

@@ -1,11 +1,14 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="创建联盟" width="60%" @close="loadPage">
-    <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
+    <el-form :model="form" size="small" ref="form" label-width="100px">
       <el-form-item label="联盟名称" prop="name">
         <el-input v-model="form.name" placeholder="请输入联盟名称"></el-input>
       </el-form-item>
       <el-form-item label="Logo" prop="logo">
         <iep-avatar v-model="form.logo"></iep-avatar>
+      </el-form-item>
+      <el-form-item label="选择组织" prop="orgIds">
+        <iep-select v-model="form.orgIds" multiple prefix-url="admin/union/no_union_org"></iep-select>
       </el-form-item>
       <el-form-item label="联盟简介" prop="intro">
         <el-input v-model="form.intro" type="textarea"></el-input>
@@ -29,11 +32,6 @@ export default {
       dialogShow: false,
       formRequestFn: () => { },
       form: initOrgForm(),
-      rules: {
-        name: [
-          { required: true, message: '请输入联盟名称', trigger: 'blur' },
-        ],
-      },
     }
   },
   methods: {
@@ -45,14 +43,23 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.form).then(() => {
-            this.$notify({
-              title: '成功',
-              message: '创建成功',
-              type: 'success',
-              duration: 2000,
-            })
-            this.loadPage()
+          this.formRequestFn(this.form).then(({ data }) => {
+            if (!data.data) {
+              this.$notify({
+                title: '失败',
+                message: data.msg,
+                type: 'error',
+                duration: 2000,
+              })
+            } else {
+              this.$notify({
+                title: '成功',
+                message: '创建成功',
+                type: 'success',
+                duration: 2000,
+              })
+              this.loadPage()
+            }
           })
         } else {
           return false
@@ -62,4 +69,15 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.members {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 20px 20px;
+  .member {
+    width: 100%;
+    text-align: center;
+  }
+}
+</style>
 

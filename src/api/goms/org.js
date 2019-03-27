@@ -26,11 +26,10 @@ export function getOrgLogList (current) {
   })
 }
 
-
 export function putOrg (obj) {
   return request({
-    url: `${prefixUrl}`,
-    method: 'put',
+    url: `${prefixUrl}/update`,
+    method: 'post',
     data: obj,
   })
 }

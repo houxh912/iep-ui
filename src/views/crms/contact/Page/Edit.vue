@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <el-card class="edit-card" shadow="hover">
       <div slot="header" class="title">
-        <span>编辑联系人</span>
+        <span>{{methodName}}联系人</span>
       </div>
       <el-form :model="formData" :rules="rules" ref="formName" label-width="100px" size="small">
         <el-form-item label="联系人姓名" prop="contactName" class="form-half">

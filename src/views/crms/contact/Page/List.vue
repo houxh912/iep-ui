@@ -4,7 +4,7 @@
       <page-header title="联系人"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdvance" icon="el-icon-plus" type="danger" plain>新增</iep-button>
+          <iep-button @click="handleAdd" icon="el-icon-plus" type="danger" plain>新增</iep-button>
           <!-- <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -97,7 +97,7 @@ export default {
         id: row.clientContactId,
       })
     },
-    handleAdvance () {
+    handleAdd () {
       this.$emit('onEdit', {
         formRequestFn: createData,
         methodName: '新增',

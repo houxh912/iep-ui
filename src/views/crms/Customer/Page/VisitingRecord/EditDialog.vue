@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`${methodName}组织`" width="40%" @close="loadPage">
-    <el-form :model="formData" :rules="rules" ref="formName" label-width="100px">
+    <el-form :model="formData" :rules="rules" ref="formName" size="small" label-width="100px">
       <el-form-item label="主题：" prop="theme">
         <el-input v-model="formData.theme"></el-input>
       </el-form-item>

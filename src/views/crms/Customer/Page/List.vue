@@ -23,7 +23,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" isIndex>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex>
         <template slot="before-columns">
           <el-table-column label="客户名称" width="250px">
             <template slot-scope="scope">
@@ -100,7 +100,7 @@ export default {
     },
     //tab切换菜单
     changeType () {
-      this.loadPage()
+      this.searchPage({ type: this.type })
       if (this.type === '2') {
         this.showSelect = true
       } else { this.showSelect = false }
@@ -138,20 +138,15 @@ export default {
       getCollaboratorPage(row.clientId).then(res => {
         this.$refs['collaborator'].data = res.data.data.records
       })
-
     },
     //table多选
-    selectionChange () {
+    handleSelectionChange () {
     },
     //加载
     loadPage (param = { ...this.searchForm, type: this.type }) {
       this.loadTable(param, getCustomerPage, m => {
         return Object.assign(m, { businessType: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
-    },
-    //搜索
-    searchPage (form) {
-      this.loadTable({ ...form, type: this.type }, getCustomerPage)
     },
   },
 }

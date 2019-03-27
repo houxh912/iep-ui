@@ -10,7 +10,7 @@ import List from './Page/List'
 import Edit from './Page/Edit'
 import Detail from './Page/Detail'
 export default {
-  name: 'edit',
+  name: 'CustomerDynamicComponents',
   components: {
     List,
     Edit,

@@ -10,11 +10,11 @@
       <el-form-item label="电话：" prop="telephoneNo" class="form-half">
         <span>{{detailForm.telephoneNo}}</span>
       </el-form-item>
-      <el-form-item label="对应客户：" prop="clientName" class="form-half">
-        <span class="tags" v-for="(item,index) in detailForm.clientInfos" :key="index">{{item.clientName}}</span>
-      </el-form-item>
       <el-form-item label="手机：" prop="cellphone" class="form-half">
         <span>{{detailForm.cellphone}}</span>
+      </el-form-item>
+      <el-form-item label="对应客户：" prop="clientName">
+        <span class="tags" v-for="(item,index) in detailForm.clientInfos" :key="index">{{item.clientName}}</span>
       </el-form-item>
       <el-form-item label="传真：" prop="fax" class="form-half">
         <span>{{detailForm.fax}}</span>

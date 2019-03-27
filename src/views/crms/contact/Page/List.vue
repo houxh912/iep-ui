@@ -39,7 +39,7 @@
         <template slot="before-columns">
           <el-table-column label="客户名称" width="250px">
             <template slot-scope="scope">
-              <div class="custom-name" @click="handleDetail(scope.row)">{{scope.row.contactName}}</div>
+              <div class="custom-name" @click="contactDetail(scope.row)">{{scope.row.contactName}}</div>
             </template>
           </el-table-column>
         </template>
@@ -57,22 +57,18 @@
           </template>
         </el-table-column>
       </iep-table>
-      <!-- 详情弹窗 -->
-      <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
-      <edit-drawer ref="EditDrawer" @load-page="loadPage"></edit-drawer>
     </basic-container>
+    <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
 import { fetchList, deleteDataById, createData, getContactById } from '@/api/crms/contact'
-// import { myFetchList } from '@/api/crms/custom'
 import { columnsMap, initSearchForm } from '../options'
 import DetailDrawer from './DetailDrawer'
-import EditDrawer from './EditDrawer'
 export default {
   mixins: [mixins],
-  components: { DetailDrawer, EditDrawer },
+  components: { DetailDrawer },
   data () {
     return {
       dictsMap: {},
@@ -99,16 +95,17 @@ export default {
       this.paramForm = initSearchForm()
     },
     handleEdit (row) {
-      this.$refs['EditDrawer'].methodName = '编辑'
-      this.$refs['EditDrawer'].drawerShow = true
-      this.$refs['EditDrawer'].id = row.clientContactId
-      this.$refs['EditDrawer'].formRequestFn = getContactById
+      this.$emit('onEdit', {
+        formRequestFn: getContactById,
+        methodName: '编辑',
+        id: row.clientContactId,
+      })
     },
     handleAdvance () {
-      this.$refs['EditDrawer'].methodName = '新增'
-      this.$refs['EditDrawer'].drawerShow = true
-      this.$refs['EditDrawer'].id = false
-      this.$refs['EditDrawer'].formRequestFn = createData
+      this.$emit('onEdit', {
+        formRequestFn: createData,
+        methodName: '新增',
+      })
     },
     loadPage (param) {
       this.loadTable(param, fetchList)
@@ -116,7 +113,7 @@ export default {
     searchPage () {
       this.loadTable(this.paramForm, fetchList)
     },
-    handleDetail (row) {
+    contactDetail (row) {
       this.$refs['DetailDrawer'].drawerShow = true
       getContactById(row.clientContactId).then(res => {
         this.$refs['DetailDrawer'].detailForm = res.data.data

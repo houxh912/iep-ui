@@ -55,7 +55,7 @@
 <script>
 import TimeLine from './timeline'
 import { getTableData, createData, updateData } from '@/api/mlms/material/report/daily'
-import { getDays } from '../util'
+import { getDays, formatYear } from '../util'
 
 export default {
   name: 'daily',
@@ -137,10 +137,15 @@ export default {
       this.list = []
       this.loadPage(index, 10)
     },
-    loadPage (distanceToday, range) {
+    loadPage (distanceToday, range, type) {
       // 若距离今天为0天，即时间轴重新开始
+      let firstDayObj = getDays(-distanceToday)
       if (this.list.length === 0) {
-        this.list = [{ month: getDays(-distanceToday).year + '年' + getDays(-distanceToday).month + '月' }]
+        this.list = [{ month: firstDayObj.year + '年' + firstDayObj.month + '月', date: `${firstDayObj.year}-${firstDayObj.month}` }]
+      }
+      // 若为向上加载，则需要判断第一个的月份是否正确
+      if (this.list[0].date !== `${firstDayObj.year}-${firstDayObj.month}`) {
+        this.list[0] = { month: firstDayObj.year + '年' + firstDayObj.month + '月', date: `${firstDayObj.year}-${firstDayObj.month}` }
       }
       // 首先获取时间轴
       let dateList = []
@@ -151,12 +156,16 @@ export default {
         dateList.push(obj)
         if (getDay.day == 1) {
           // 若为1号，则插入一个月份
-          dateList.push({ month: getDays(-index-1).year + '年' + getDays(-index-1).month + '月' })
+          dateList.push({
+            month: getDays(-index-distanceToday-1).year + '年' + getDays(-index-distanceToday-1).month + '月',
+            date: `${getDays(-index-distanceToday-1).year}-${getDays(-index-distanceToday-1).month}`,
+          })
         }
       }
       // 获取数据
+      let getListStartIndex = dateList[dateList.length-1].month ? 2 : 1
       getTableData({
-        startTime: dateList[dateList.length-1].time + ' 00:00:00',
+        startTime: dateList[dateList.length-getListStartIndex].time + ' 00:00:00',
         endTime: dateList[0].time + ' 23:59:59',
       }).then((res) => {
         // 根据获取到的数据进行数据的匹配
@@ -176,30 +185,54 @@ export default {
           }
           return msg
         }
-        for (let item of dateList) {
-          if (item.month) {
-            this.list.push(item)
-          } else {
-            let msg = fn(item.time, res.data.data)
+        // 遍历数据，完成时间轴数据的插入
+        for (let index in dateList) {
+          if (dateList[index].month) {
             // 根据日期匹配
-            this.list.push({
-              date: item.date,
+            if (type) {
+              this.list.splice(parseInt(index)+1, 0, dateList[index])
+            } else {
+              this.list.push(dateList[index])
+            }
+          } else {
+            let msg = fn(dateList[index].time, res.data.data)
+            let obj = {
+              date: dateList[index].date,
               title: msg.title,
               content: msg.content,
               code: msg.code,
               createTime: msg.createTime,
               id: msg.id,
-            })
+            }
+            // 根据日期匹配
+            if (type) {
+              this.list.splice(parseInt(index)+1, 0, obj)
+            } else {
+              this.list.push(obj)
+            }
           }
         }
       })
-      this.distanceToday = distanceToday + 10
+      if (!type) {
+        this.distanceToday = distanceToday + 10
+      }
     },
     getMore () {
       this.loadPage(this.distanceToday, 10)
     },
     getUpMore () {
       this.$message.success('more')
+      // 向上取十天，首先需要判断是否到达顶点
+      let firstDate = this.list[1].createTime
+      let timeDifference = (+new Date()) - (+new Date(formatYear(firstDate)))
+      let range = 10
+      let days = parseInt(timeDifference/(24*3600*1000))
+      let distanceToday = days-10
+      if (days < 10) {
+        range = days
+        distanceToday = 0
+      }
+      this.loadPage(distanceToday, range, 'up')
     },
     // 编辑
     update (index, data) {

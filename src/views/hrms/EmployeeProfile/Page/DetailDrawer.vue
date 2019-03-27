@@ -1,5 +1,5 @@
 <template>
-  <iep-drawer :drawer-show="drawerShow" title="员工信息" width="50%" @close="closePage">
+  <iep-drawer :drawer-show="drawerShow" title="员工信息" width="40%" @close="closePage">
     <!-- <p :style="[pStyle, pStyle2]"></p> -->
     <p :style="pStyle">个人信息</p>
     <a-row>

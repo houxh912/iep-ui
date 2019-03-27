@@ -63,7 +63,7 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { fetchList, deleteDataById, createData, getContactById } from '@/api/crms/contact'
+import { fetchList, deleteDataById, createData, updateData, getContactById } from '@/api/crms/contact'
 import { columnsMap, initSearchForm } from '../options'
 import DetailDrawer from './DetailDrawer'
 export default {
@@ -82,10 +82,6 @@ export default {
   },
   created () {
     this.loadPage()
-    // myFetchList().then((res) => {
-    //   this.dictData = res.data.data.records
-    //   console.log(this.dictData)
-    // })
   },
   methods: {
     handleDeleteById (row) {
@@ -96,7 +92,7 @@ export default {
     },
     handleEdit (row) {
       this.$emit('onEdit', {
-        formRequestFn: getContactById,
+        formRequestFn: updateData,
         methodName: '编辑',
         id: row.clientContactId,
       })

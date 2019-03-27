@@ -61,7 +61,7 @@
 <script>
 import { initForm, rules } from '../options'
 import FooterToolBar from '@/components/FooterToolbar'
-import { updateData } from '@/api/crms/contact'
+import { getContactById } from '@/api/crms/contact'
 import { fetchList } from '@/api/crms/custom'
 import { mergeByFirst } from '@/util/util'
 import mixins from '@/mixins/mixins'
@@ -87,7 +87,6 @@ export default {
       dialogVisible: false,
       option: {
         align: 'center',
-        // menuAlign: 'center',
         selection: true,
         header: false,
         menu: false,
@@ -100,12 +99,6 @@ export default {
             label: '市场经理',
             prop: 'marketManager',
           },
-          // {
-          //   label: '操作',
-          //   prop: 'menu',
-          //   solt: true,
-          //   align: 'center',
-          // },
         ],
       },
     }
@@ -124,7 +117,7 @@ export default {
     this.formRequestFn = this.record.formRequestFn
     this.id = this.record.id
     if (this.id) {
-      this.formRequestFn(this.id).then(({ data }) => {
+      getContactById(this.id).then(({ data }) => {
         this.formData = mergeByFirst(initForm(), data.data)
         this.formData.clientIds = this.formData.clientInfos.map(m => m.clientId)
       })
@@ -159,7 +152,7 @@ export default {
       this.formData.clientIds = this.formData.clientInfos.map(m => m.clientId)
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          updateData(this.formData).then(() => {
+          this.formRequestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',
               message: `${this.methodName}成功`,

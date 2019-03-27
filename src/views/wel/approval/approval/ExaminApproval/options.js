@@ -21,8 +21,8 @@ const columnsMap = [
     label: '审批时间',
   },
   {
-    prop: 'copyPerson',
-    label: '抄送人',
+    prop: 'approverName',
+    label: '审核人',
   },
   {
     prop: 'status',

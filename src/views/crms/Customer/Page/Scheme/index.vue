@@ -3,18 +3,16 @@
     <operation-wrapper>
       <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加方案</iep-button>
     </operation-wrapper>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection>
-      <el-table-column label="附件">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <el-table-column label="附件" width="250px">
         <template slot-scope="scope">
-          <span @click="download(scope.row)">下载</span>
+          <span @click="download(scope.row)" class="custom-name">下载</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="200px">
+      <el-table-column label="操作" width="250px">
         <template slot-scope="scope">
-          <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
-          </operation-wrapper>
+          <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
+          <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
         </template>
       </el-table-column>
     </iep-table>
@@ -31,6 +29,7 @@ import mixins from '@/mixins/mixins'
 import { getSchemePage, createScheme, updateScheme, deleteSchemeById } from '@/api/crms/scheme'
 import { columnsMap } from './options'
 import CreateDialog from './CreateDialog'
+import { downloadModel } from '@/api/crms/download'
 export default {
   name: 'contacts',
   mixins: [mixins],
@@ -76,18 +75,18 @@ export default {
       this.$refs['SchemeDialog'].submitFn = createScheme
     },
     handleEdit (row) {
-      this.$refs['EditDialog'].formData = { ...row }
-      this.$refs['EditDialog'].drawerShow = true
-      this.$refs['EditDialog'].methodName = '编辑'
-      this.$refs['EditDialog'].submitFn = updateScheme
+      this.$refs['SchemeDialog'].formData = { ...row }
+      this.$refs['SchemeDialog'].dialogShow = true
+      this.$refs['SchemeDialog'].methodName = '编辑'
+      this.$refs['SchemeDialog'].submitFn = updateScheme
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.programId, deleteSchemeById)
     },
     download (row) {
       console.log(row)
+      downloadModel(row.atchUpload)
     },
-
   },
   created () {
     this.loadPage()
@@ -110,5 +109,9 @@ export default {
       cursor: pointer;
     }
   }
+}
+.custom-name {
+  cursor: pointer;
+  color: #3864af;
 }
 </style>

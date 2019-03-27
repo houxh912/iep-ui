@@ -1,6 +1,6 @@
 <template>
   <iep-drawer :drawer-show="drawerShow" type="drawer" :title="methodName+'联系人'" width="50%" @close="loadPage">
-    <el-form :model="form" :rules="rules" ref="form" label-width="140px">
+    <el-form :model="form" :rules="rules" ref="formName" label-width="140px" size="samll">
       <el-row>
         <el-col :span=12>
           <el-form-item label="联系人姓名：" prop="contactName">
@@ -47,7 +47,7 @@
           </el-form-item>
         </el-col>
         <el-col :span=12>
-          <el-form-item label="地址：" prop="address">
+          <el-form-item label="地址：">
             <el-input v-model="form.address"></el-input>
           </el-form-item>
         </el-col>
@@ -61,13 +61,12 @@
     </el-form>
     <template slot="footer">
       <iep-button class="btn" @click="loadPage()">取消</iep-button>
-      <iep-button type="danger" @click="submitForm('form')">保存</iep-button>
+      <iep-button type="danger" @click="submitForm('formName')">提交</iep-button>
     </template>
   </iep-drawer>
 </template>
 <script>
-import { initForm } from '../options'
-// import {editList} from '@/api/crms/contact'
+import { initForm } from './options'
 export default {
   data () {
     return {
@@ -75,12 +74,16 @@ export default {
       methodName: '',
       formRequestFn: () => { },
       form: initForm(),
+      id: '',
       rules: {
-        departureTime: [
-          { required: true, message: '请选择离职时间', trigger: 'blur' },
+        contactName: [
+          { required: true, message: '联系人姓名不能为空', trigger: 'blur' },
         ],
-        reason: [
-          { required: true, message: '请输入离职原因', trigger: 'blur' },
+        contactPosition: [
+          { required: true, message: '联系人职务不能为空', trigger: 'blur' },
+        ],
+        cellphone: [
+          { required: true, message: '电话不能为空', trigger: 'blur' },
         ],
       },
     }
@@ -91,15 +94,14 @@ export default {
       this.drawerShow = false
       this.$emit('load-page')
     },
-    submitForm (form) {
-      this.$refs[form].validate((valid) => {
+    submitForm (formName) {
+      this.form.clientIds = [this.id]
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn(this.form).then(() => {
             this.$notify({
-              title: '成功',
-              message: '离职成功',
+              message: `${this.methodName}成功`,
               type: 'success',
-              duration: 2000,
             })
             this.loadPage()
           })

@@ -1,39 +1,3 @@
-const dictsMap = {
-  // 业务类型
-  // businessType: {
-  //   0: '咨询',
-  //   1: '数据',
-  //   2: '事项',
-  //   3: '平台',
-  //   4: '软件',
-  // },
-  // clientType: {
-  //   0: '客户类型1',
-  //   1: '客户类型2',
-  //   2: '客户类型3',
-  // },
-  // 客户关系
-  // clientRela: {
-  //   0: '核心客户',
-  //   1: '重要客户',
-  //   2: '一般客户',
-  //   3: '潜在客户',
-  //   4: '其他客户',
-  // },
-  // 区域类型
-  // districtType: {
-  //   0: '省级',
-  //   1: '市级',
-  //   2: '区级',
-  // },
-  // 跟进状态
-  // followUpStatus: {
-  //   0: '已合作',
-  //   1: '待合作',
-  //   2: '未合作',
-  // },
-}
-
 const allTableOption = [
   {
     label: '业务类型',
@@ -115,21 +79,28 @@ const initForm = () => {
     tags: [1, 2],
   }
 }
-// 我的客户搜索
-const initSearchForm = () => {
-  return {
-    clientName: '',
-  }
-}
-
 // 全部客户搜索
 const allSearchForm = () => {
   return {
     clientName: '',
-    businessType: '',
+    districtType: '',
+    clientRela: '',
+    followUpStatus: '',
+    businessTypeKey: [],
+    marketManager: '',
   }
 }
-
+// 我的客户/协作客户搜索
+const initSearchForm = () => {
+  return {
+    clientName: '',
+    districtType: '',
+    clientRela: '',
+    followUpStatus: '',
+    businessTypeKey: [],
+    lastTime: '',
+  }
+}
 const rules = {
   clientName: [
     { required: true, message: '客户名称', trigger: 'blur' },
@@ -139,7 +110,7 @@ const rules = {
     { required: true, message: '请输入手机号码', trigger: 'blur' },
     { min: 11, max: 11, message: '手机位数为11位', trigger: 'blur' },
   ],
-  districtTypeKey: [
+  districtType: [
     { required: true, message: '请选择区域类型', trigger: 'blur' },
   ],
   marketManager: [
@@ -163,41 +134,20 @@ const rules = {
   specificBusinessType: [
     { required: true, message: '请填写具体业务类型', trigger: 'blur' },
   ],
-  clientRelaKey: [
+  clientRela: [
     { required: true, message: '请选择客户关系', trigger: 'blur' },
   ],
-  followUpStatusKey: [
+  followUpStatus: [
     { required: true, message: '请选择跟进状态', trigger: 'blur' },
   ],
 }
 
-const initContactForm = () => {
-  return {
-    name: '',
-  }
-}
-
-const initVisitForm = () => {
-  return {
-    name: '',
-  }
-}
-
-const initConsultaForm = () => {
-  return {
-    name: '',
-  }
-}
 export {
-  dictsMap,
   allTableOption,
   myTableOption,
   initFormData,
   initSearchForm,
   allSearchForm,
   rules,
-  initContactForm,
-  initVisitForm,
-  initConsultaForm,
   initForm,
 }

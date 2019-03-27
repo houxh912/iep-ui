@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}组织`" width="60%" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}组织`" width="40%" @close="loadPage">
     <el-form :model="formData" :rules="rules" ref="formName" label-width="100px">
       <el-form-item label="主题：" prop="theme">
         <el-input v-model="formData.theme"></el-input>
@@ -19,7 +19,7 @@
 </template>
 <script>
 import IepDialog from '@/components/IepDialog/'
-import { initVisitForm } from '../options'
+import { initForm } from './options'
 export default {
   components: { IepDialog },
   data () {
@@ -43,18 +43,17 @@ export default {
   },
   methods: {
     loadPage () {
-      this.formData = initVisitForm()
+      this.formData = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },
     resetForm () {
-      this.formData = initVisitForm()
+      this.formData = initForm()
       this.dialogShow = false
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(22222)
           this.submitFn({ ...this.formData }).then(() => {
             this.$notify({
               title: '成功',

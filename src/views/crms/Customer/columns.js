@@ -72,4 +72,18 @@ const columnsMapByTypeId = [
     },
   ],
 ]
-export { columnsMapByTypeId }
+const tabList = [
+  {
+    label: '全部客户',
+    value: '1',
+  },
+  {
+    label: '我的客户',
+    value: '2',
+  },
+  {
+    label: '协作客户',
+    value: '3',
+  },
+]
+export { columnsMapByTypeId, tabList }

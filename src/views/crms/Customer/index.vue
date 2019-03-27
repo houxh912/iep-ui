@@ -1,6 +1,6 @@
 <template>
   <keep-alive include="list">
-    <component @onDetail="handleDetail" @onForm="handleForm" @onCooper="handleCooper" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+    <component @onDetail="handleDetail" @onEdit="handleEdit"  @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
   </keep-alive>
 </template>
 
@@ -9,14 +9,12 @@
 import List from './Page/List'
 import Edit from './Page/Edit'
 import Detail from './Page/Detail'
-import Collaborator from './Page/Collaborator/'
 export default {
-  name: 'TableListWrapper',
+  name: 'edit',
   components: {
     List,
     Edit,
     Detail,
-    Collaborator,
   },
   data () {
     return {
@@ -25,17 +23,13 @@ export default {
     }
   },
   methods: {
-    handleForm (record) {
+    handleEdit (record) {
       this.record = record
       this.currentComponet = 'Edit'
     },
     handleDetail (record) {
       this.record = record
       this.currentComponet = 'Detail'
-    },
-    handleCooper (record) {
-      this.record = record
-      this.currentComponet = 'Collaborator'
     },
     handleGoBack () {
       this.record = ''

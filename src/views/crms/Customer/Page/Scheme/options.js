@@ -3,9 +3,6 @@ const columnsMap = [
   // { label: '附件', prop: 'downLoadUrl' },
 ]
 const initForm = () => {
-  return {}
-}
-const initSchemeForm = () => {
   return {
     programName: '',
     downLoadUrl: '',
@@ -13,4 +10,4 @@ const initSchemeForm = () => {
     atchUpload: '',
   }
 }
-export { columnsMap, initForm, initSchemeForm }
+export { columnsMap, initForm }

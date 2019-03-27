@@ -7,22 +7,26 @@
       <el-table-column label="附件" width="250px">
         <template slot-scope="scope">
           <span @click="download(scope.row)" class="custom-name">下载</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" width="200px">
-        <template slot-scope="scope">
-          <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" size="small">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
-          </operation-wrapper>
-        </template>
-      </el-table-column>
-    </iep-table>
-    <el-row class="recommend">
-      <el-col class="title">为您推荐一下参考材料：</el-col>
-      <el-col class="item" :span=12 v-for="(item, index) in recommendList" :key="index">{{item.name}}</el-col>
-    </el-row>
-    <create-dialog ref="SchemeDialog" @load-page="loadPage"></create-dialog>
+          <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection>
+            <el-table-column label="附件">
+              <template slot-scope="scope">
+                <span @click="download(scope.row)">下载</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" width="200px">
+              <template slot-scope="scope">
+                <operation-wrapper>
+                  <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
+                  <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+                </operation-wrapper>
+              </template>
+            </el-table-column>
+          </iep-table>
+          <el-row class="recommend">
+            <el-col class="title">为您推荐一下参考材料：</el-col>
+            <el-col class="item" :span=12 v-for="(item, index) in recommendList" :key="index">{{item.name}}</el-col>
+          </el-row>
+          <create-dialog ref="SchemeDialog" @load-page="loadPage"></create-dialog>
   </div>
 </template>
 

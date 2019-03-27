@@ -11,7 +11,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { downloadModel } from '@/api/crms/excel'
+import { downloadModel } from '@/api/crms/excell'
 
 export default {
   props: {
@@ -33,7 +33,6 @@ export default {
     }),
   },
   created () {
-    console.log(this.access_token)
     this.actionUrl = this.urlName
     this.token.Authorization = 'Bearer ' + this.access_token
   },

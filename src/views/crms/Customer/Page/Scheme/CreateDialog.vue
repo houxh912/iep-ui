@@ -1,7 +1,7 @@
 <template>
 
   <iep-dialog :dialog-show="dialogShow" :title="`${methodName}方案`" width="60%" @close="loadPage">
-    <el-form :model="formData" :rules="rules" ref="formName" label-width="100px">
+    <el-form :model="formData" :rules="rules" ref="formName" label-width="100px" size="small">
       <el-form-item>
         <el-col><i class="el-icon-warning"></i> 是否需要关联材料库？如需要，<span class="relation">请点击</span></el-col>
         <el-col>如不需要，请直接填写下方内容</el-col>
@@ -24,7 +24,7 @@
   </iep-dialog>
 </template>
 <script>
-import { initSchemeForm } from './options'
+import { initForm } from './options'
 import UploadDialog from './UploadDialog'
 export default {
   components: { UploadDialog },
@@ -49,12 +49,12 @@ export default {
   },
   methods: {
     loadPage () {
-      this.formData = initSchemeForm()
+      this.formData = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },
     resetForm () {
-      this.formData = initSchemeForm()
+      this.formData = initForm()
       this.dialogShow = false
     },
     submitForm (formName) {

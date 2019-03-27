@@ -19,11 +19,11 @@
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
           </el-radio-group>
           <operation-search @search-page="searchPage" advance-search>
-            <advance-search @search-page="searchPage"></advance-search>
+            <advance-search @search-page="searchPage" :type="type"></advance-search>
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" isIndex>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" isIndex>
         <template slot="before-columns">
           <el-table-column label="客户名称" width="250px">
             <template slot-scope="scope">
@@ -45,42 +45,26 @@
         </el-table-column>
       </iep-table>
       <excell-import ref="ExcellImport" :urlName="url" @close="handleClose"></excell-import>
+      <collaborator ref="collaborator"></collaborator>
     </basic-container>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMapByTypeId } from '../columns'
-import { allSearchForm } from '../options'
+import { columnsMapByTypeId, tabList } from '../columns'
 import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById } from '@/api/crms/customer'
 import AdvanceSearch from './AdvanceSearch'
 import ExcellImport from './ExcellImport/'
+import Collaborator from './Collaborator/'
 export default {
   name: 'list',
-  components: { AdvanceSearch, ExcellImport },
+  components: { AdvanceSearch, ExcellImport, Collaborator },
   mixins: [mixins],
   data () {
     return {
       type: '1',
-      showSelect: false,
-      paramForm: allSearchForm(),
-      id: '',
-      tabList: [
-        {
-          label: '全部客户',
-          value: '1',
-        },
-        {
-          label: '我的客户',
-          value: '2',
-        },
-        {
-          label: '协作客户',
-          value: '3',
-        },
-      ],
+      tabList,
       replaceText: (data) => `（本周新增${data[0]}位客户）`,
-      tags: ['one', 'two', 'three'],
       url: '/api/crm/crms/iepclientinfoexcel/upload',
     }
   },
@@ -93,6 +77,7 @@ export default {
     this.loadPage()
   },
   methods: {
+    //导入弹框关闭
     handleClose (res) {
       this.$refs[''].ExcellImport = false
       if (res.data) {
@@ -109,51 +94,60 @@ export default {
         })
       }
     },
+    //导入按钮
     excellImport () {
       this.$refs['ExcellImport'].dialogShow = true
     },
+    //tab切换菜单
     changeType () {
       this.loadPage()
       if (this.type === '2') {
         this.showSelect = true
       } else { this.showSelect = false }
     },
+    //新增客户
     handleAdd () {
-      this.$emit('onForm', {
+      this.$emit('onEdit', {
         formRequestFn: postCustomer,
         methodName: '新增',
         id: false,
       })
     },
+    //编辑客户
     handleEdit (row) {
-      this.$emit('onForm', {
+      this.$emit('onEdit', {
         formRequestFn: putCustomer,
         methodName: '修改',
         id: row.clientId,
       })
     },
+    //客户详情
     handleDetail (row) {
       if (this.type === '2') {
         this.$emit('onDetail', { id: row.clientId })
-      }
-
+      } else { return false }
     },
+    //删除客户
     handleDelete (row) {
       this._handleGlobalDeleteById(row.clientId, deleteCustomerById)
     },
+    //添加协作人
     handleCooperation (row) {
-      this.$emit('onCooper', { id: row.clientId })
+      this.$refs['collaborator'].id = row.clientId
+      this.$refs['collaborator'].dialogShow = true
     },
-    handleSelectionChange (val) {
-      this.multipleSelection = val.map(m => m.clientId)
+    //table多选
+    selectionChange () {
     },
+    //加载
     loadPage (param = { ...this.searchForm, type: this.type }) {
       this.loadTable(param, getCustomerPage, m => {
         return Object.assign(m, { businessType: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
     },
-    searchPage () {
-      this.loadTable({ ...this.paramForm, type: 1 }, getCustomerPage, m => {
+    //搜索
+    searchPage (form) {
+      this.loadTable({ ...form, type: this.type }, getCustomerPage, m => {
         return Object.assign(m, { businessTypeC: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
     },

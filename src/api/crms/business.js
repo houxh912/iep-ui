@@ -2,7 +2,7 @@ import request from '@/router/axios'
 
 const crmsUrl = '/crm/business'
 
-export function businessList (query) {
+export function getBusinessList (query) {
   return request({
     url: `${crmsUrl}/page`,
     method: 'get',
@@ -62,7 +62,7 @@ export function refuseClaim (id) {
 // 取消认领
 export function cancelClaim (obj) {
   return request({
-    url: `${crmsUrl}/update/NoReceive`,
+    url: `${crmsUrl}/update/cancelReceive`,
     method: 'post',
     data: obj,
   })

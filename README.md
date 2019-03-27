@@ -39,13 +39,14 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 | Top/NavBar       | 顶部导航          | Top            | 张超        | 重庆-谭建林       |        |        |
 | Top/             | 顶部元素          | ElHeader       | 张超        |        |        |        |
 | SideBar/MainItem | 主菜单            | ELAside        | 张超        |        |        |        |
-| Wel/WelAside     | 工作台/右侧操作栏 | Wel            | 张超         |  重庆-谭建林   |        |        |
-| Wel/WelConTent   | 工作台/中间赋能台 | Wel            | 张超      |   重庆-谭建林   |        |        |
+| Wel/WelAside     | 工作台(4000)/右侧操作栏 | Wel            | 张超         |  重庆-谭建林   |        |        |
+| Wel/WelConTent   | 工作台(4000)/中间赋能台 | Wel            | 张超      |   重庆-谭建林   |        |        |
 | Hrms             | 人力(5000)        | Views          | 张超        |        |        |        |
 | Crms             | 客户(6000)        | Views          | 胡争伟      | 张渝松 |        |        |
 | Core             | 核心(10000)       | Views          | 张超        |        |        |        |
 | Goms             | 组织(7000)        | Views          | 张超        |        |        |        |
-| Mlms             | 资源(8000)        | Views          | 胡争伟      |        |        |        |
+| Mlms             | 资源(4000)        | Views          | 胡争伟      |        |        |        |
+| Fams             | 财务(8000)        | Views          | 张超      |        |        |        |
 | Gpms             | 项目(9000)        | Views          | 北京-马青杰  |        |        |        |
 | App              | 游客展示页        | Views          | Undefined   |        |        |        |
 

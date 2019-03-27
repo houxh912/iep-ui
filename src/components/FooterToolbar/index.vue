@@ -38,6 +38,10 @@ export default {
 .right-wrapper > * {
   margin-right: 10px;
 }
+* {
+  outline: none;
+  box-sizing: border-box;
+}
 </style>
 
 <style lang="scss" scoped>

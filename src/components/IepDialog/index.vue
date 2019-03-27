@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :width="width" :visible="dialogShow" :before-close="handleClose" @close="close" :fullscreen="fullscreen" append-to-body>
+  <el-dialog class="iep-dialog" :width="width" :visible="dialogShow" :before-close="handleClose" @close="close" :fullscreen="fullscreen" append-to-body v-bind="$attrs" v-on="$listeners">
     <div slot="title" class="dialog-title-box">
       <span class="dialog-title">{{title}}</span>
       <el-button v-if="isNeedRestore" class="text-icon" type="text" @click="toggleFullscreen">
@@ -10,13 +10,16 @@
       <slot></slot>
     </el-scrollbar>
     <div slot="footer" class="dialog-footer">
-      <slot name="footer"></slot>
+      <OperationWrapper>
+        <slot name="footer"></slot>
+      </OperationWrapper>
     </div>
   </el-dialog>
 </template>
 <script>
 export default {
   name: 'IepDialog',
+  inheritAttrs: false,
   props: {
     dialogShow: {
       default: false,
@@ -78,6 +81,18 @@ export default {
   },
 }
 </script>
+<style lang="css" scoped>
+.iep-dialog >>> .el-scrollbar__wrap {
+  overflow-x: hidden;
+}
+.iep-dialog >>> .el-dialog__body {
+  padding: 10px 25px;
+}
+.iep-dialog >>> .el-dialog__footer {
+  padding: 10px;
+}
+</style>
+
 <style lang="scss" >
 .dialog-title {
   float: none;
@@ -104,12 +119,6 @@ export default {
 }
 .text-icon {
   color: #333;
-}
-.el-dialog__wrapper >>> .el-dialog--center .el-dialog__body {
-  text-align: initial;
-  padding: 25px 25px 30px;
-  max-height: 60vh !important;
-  overflow-y: hidden !important;
 }
 .el-dialog__wrapper >>> .is-fullscreen .el-dialog__body {
   text-align: initial;

@@ -1,0 +1,78 @@
+<template>
+  <iep-drawer :drawer-show="drawerShow" type="drawer" :title="'商机'+methodName" width="30%" @close="loadPage">
+    <el-form :model="formData" label-width="100px" size="samll">
+      <el-form-item label="客户名称：">
+        <el-input v-model="formData.clientName" placeholder="客户名称" :disabled="true"></el-input>
+      </el-form-item>
+      <el-form-item label="项目名称：">
+        <el-input v-model="formData.projectName" placeholder="项目名称" :disabled="true"></el-input>
+      </el-form-item>
+      <el-form-item label="业务类型：">
+        <el-tag type="info" class="tag-style" v-for="(item,index) in formData.businessType" :key="index">{{item.commonName}}</el-tag>
+      </el-form-item>
+      <el-form-item label="意向程度：">
+        <a-tag type="info">{{formData.intentionLevelValue}}</a-tag>
+      </el-form-item>
+      <el-form-item label="商机描述：" prop="miaoshu">
+        <el-input type="textarea" v-model="formData.opportunityDes" placeholder="商机描述" :disabled="true"></el-input>
+      </el-form-item>
+      <el-form-item label="商机标签：">
+        <a-tag type="info" class="tag-style" v-for="(item,index) in formData.tags" :key="index">{{item.commonName}}</a-tag>
+      </el-form-item>
+      <el-form-item label="发布者：">
+        <span>{{formData.publisher}} </span>
+      </el-form-item>
+      <el-form-item label="发布日期：">
+        <span>{{formData.publishDate}}</span>
+      </el-form-item>
+      <el-form-item label="认领状态：">
+        <span>{{formData.statusValue}}</span>
+      </el-form-item>
+    </el-form>
+    <template slot="footer">
+      <iep-button class="btn" @click="handleCancel">取消</iep-button>
+      <iep-button type="primary" @click="claimBusiness" v-if="formData.statusKey!=1">认领</iep-button>
+    </template>
+  </iep-drawer>
+</template>
+
+<script>
+import { claimById } from '@/api/crms/business'
+export default {
+  data () {
+    return {
+      formData: {},
+      methodName: '',
+      drawerShow: false,
+    }
+  },
+  methods: {
+    handleCancel () {
+      this.drawerShow = false
+    },
+    loadPage () {
+      this.drawerShow = false
+      this.$emit('load-page')
+    },
+    claimBusiness () {
+      let claim = {
+        opportunityId: this.formData.opportunityId,
+        status: this.formData.statusKey,
+      }
+      claimById({ ...claim }).then(res => {
+        if (res.status == 200) {
+          this.$message.success('认领成功！')
+          this.drawerShow = false
+        } else {
+          this.$message.info(`认领失败，${res.data.msg}`)
+        }
+      })
+    },
+  },
+}
+</script>
+<style>
+.tag-style {
+  margin-right: 10px;
+}
+</style>

@@ -3,7 +3,7 @@
     <el-form :model="orgForm" ref="orgForm" label-width="100px">
       <el-form-item label="组织名称" prop="name">
         <el-select v-model="orgForm.orgId" placeholder="请选择">
-          <el-option v-for="item in orgList" :key="item.orgId" :label="item.orgName" :value="item.orgId">
+          <el-option v-for="item in orgList" :key="item.orgId" :label="item.name" :value="item.orgId">
           </el-option>
         </el-select>
       </el-form-item>

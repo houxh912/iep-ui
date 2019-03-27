@@ -1,13 +1,14 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="formData.orgName" :replaceText="replaceText" :data="data"></page-header>
+      <page-header :title="userInfo.orgName" :replaceText="replaceText" :data="[4,2]"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button class="examine" @click="handleReview()">批量审核</iep-button>
+          <!-- <iep-button @click="handleReview()">批量审核</iep-button> -->
+          <iep-button @click="handleDeleteBatch()">删除</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" :paramForm="paramForm" advance-search>
+          <operation-search @search-page="searchPage" :paramForm="paramForm" advance-search>
             <el-form :model="paramForm" label-width="80px" size="mini">
               <el-form-item label="真实姓名">
                 <el-input v-model="paramForm.name"></el-input>
@@ -31,11 +32,11 @@
         <el-table-column prop="operation" label="操作" width="220">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="!([1].includes(scope.row.status))" @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button v-if="!([1].includes(scope.row.status))" type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
               <iep-button v-if="scope.row.status===0" @click="handleLocking(scope.row)">锁定</iep-button>
               <iep-button v-else-if="scope.row.status===2" @click="handleLocking(scope.row)">解锁</iep-button>
               <el-dropdown size="medium">
-                <iep-button type="default">更多<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+                <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item v-if="!([1].includes(scope.row.status))">查看</el-dropdown-item>
                   <el-dropdown-item v-if="!([1].includes(scope.row.status))" @click.native="handleDeleteById(scope.row)">删除</el-dropdown-item>
@@ -48,52 +49,56 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <add-dialog-form ref="addDialogForm" @load-page="loadPage"></add-dialog-form>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
     <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import { mergeByFirst } from '@/util/util'
-import { dictsMap, columnsMap, initSearchForm, optionMap, initGomsForm } from './options'
-import AddDialogForm from './AddDialogForm'
-import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
-import { orgDetail, gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
+import { dictsMap, columnsMap, initSearchForm, initMemberForm } from './options'
+import DialogForm from './DialogForm'
+// import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
+import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
 import mixins from '@/mixins/mixins'
 export default {
+  components: {
+    DialogForm,
+    // IepReviewConfirm,
+  },
   mixins: [mixins],
   data () {
     return {
       columnsMap,
       dictsMap,
-      optionMap,
-      data: [0, 0],
       loadImage: '',
       paramForm: initSearchForm(),
       replaceText: (data) => ` 共${data[0]}个成员(其中${data[1]}个待审核)`,
       formData: { 'orgName': '', 'logo': '', 'realName': '', 'logList': [], 'memberNum': 0, 'applyUserNum': 0, 'deptNum': 0, 'managerList': [], 'isOpen': 0 },
     }
   },
+  computed: {
+    ...mapState({
+      userInfo: state => state.user.userInfo,
+    }),
+  },
   created () {
     this.loadPage()
   },
-  components: {
-    AddDialogForm,
-    IepReviewConfirm,
-  },
   methods: {
-    handleReview () {
-      this.$refs['iepReviewForm'].methodName = '批量审核'
-      this.$refs['iepReviewForm'].formRequestFn = ''
-      this.$refs['iepReviewForm'].dialogShow = true
-    },
+    // handleReview () {
+    //   this.$refs['iepReviewForm'].title = '批量审核'
+    //   this.$refs['iepReviewForm'].formRequestFn = ''
+    //   this.$refs['iepReviewForm'].dialogShow = true
+    // },
     handleDel () {
       this._handleGlobalDeleteAll(delAllGomsUser)
     },
     handleEdit (row) {
-      this.$refs['addDialogForm'].gomsForm = mergeByFirst(initGomsForm(), row)
-      this.$refs['addDialogForm'].methodName = '编辑'
-      this.$refs['addDialogForm'].formRequestFn = putGoms
-      this.$refs['addDialogForm'].dialogShow = true
+      this.$refs['DialogForm'].form = mergeByFirst(initMemberForm(), row)
+      this.$refs['DialogForm'].methodName = '编辑'
+      this.$refs['DialogForm'].formRequestFn = putGoms
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.userId, delGomsUser)
@@ -162,10 +167,6 @@ export default {
     },
     loadPage (param = this.paramForm) {
       this.loadTable(param, gomsUserPage)
-      orgDetail().then((res) => {
-        this.formData = res.data.data
-        this.data = [this.formData.memberNum, this.formData.applyUserNum]
-      })
     },
   },
 }

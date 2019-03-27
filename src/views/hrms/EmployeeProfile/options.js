@@ -12,6 +12,69 @@ const dictsMap = {
     6: '离职员工',
   },
 }
+
+const initForm = () => {
+  return {
+    id: null, // 用户ID 不可编辑
+    name: null, // 姓名 不可编辑
+    userName: null, // 用户名 不可编辑
+    orgName: null, // 组织名 不可编辑
+    staffId: null, // 工号
+    avatar: '', // 头像
+    roleName: null, // 角色
+    // orgName: '组织', // 资产所属公司 不可编辑
+    position: [], // 岗位
+    positionName: null, // 岗位
+    externalTitle: null, // 对外头衔
+    duties: null, // 岗位职责
+    job: null, // 职务
+    jobId: null, // 职务
+    title: null, // 职称
+    titleId: null, // 职称
+    inductionTime: null, // 入职时间
+    positiveTime: null, // 转正时间
+    transferTime: null, // 调动时间
+    status: null, // 员工状态
+    deptList: [], // 所属部门
+    deptIds: [], // 所属部门
+    birthday: null, // 出生年月
+    sex: null, // 性别
+    sexId: null, // 性别
+    nationality: null, // 民族
+    politics: null, // 政治面貌字典
+    marriage: null, // 婚姻状况
+    bear: null, // 生育状况
+    language: null, // 外语水平
+    education: null, // 最高学历
+    university: null, // 毕业学校
+    profession: null, // 专业
+    graduationTime: null, // 毕业时间
+    referrer: null, // 推荐人
+    accountTypes: null, // 户口类别
+    accountLocation: null, // 户口所在地
+    residenceAddress: null, // 户籍地址
+    currentAddress: null, // 现住地址
+    IDCard: null, // 身份证
+    phone: null, // 联系手机
+    weChat: null, // 微信
+    qq: null, // QQ
+    email: null, // 邮箱
+    emergencyName: null, // 应急联系人
+    emergencyPhone: null, // 应急联系方式
+    signingTime: null, // 劳动合同签订时间
+    benefitsStartTime: null, // 社保福利起缴时间
+    benefitsStopTime: null, // 社保福利停缴时间
+    separationTime: null, // 离职时间
+  }
+}
+
+const formToDto = (row) => {
+  const newForm = mergeByFirst(initForm(), row)
+  // newForm.province = row.cities[0]
+  // newForm.city = row.cities[1]
+  newForm.positionId = row.position[row.position.length - 1]
+  return newForm
+}
 // 入职 0,6
 // 转正 2,3,4,5
 // 调动 1,2,3,4,5
@@ -298,4 +361,4 @@ const initPositiveForm = () => {
     positiveTime: initNow(),
   }
 }
-export { dictsMap, columnsMap, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm, toDtoSearchForm }
+export { dictsMap, columnsMap, initForm, formToDto, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm, toDtoSearchForm }

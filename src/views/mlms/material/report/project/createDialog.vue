@@ -9,7 +9,7 @@
         <div class="title">请从列表中选择项目</div>
         <div class="select-ul">
           <div class="select-li" v-for="(item, index) in list" :key="index">
-            <el-radio v-model="selectId" :label="item.id">{{item.name}}</el-radio>
+            <el-radio v-model="selectId" :label="item.id" @change="changeVal(item.id, item.name)">{{item.name}}</el-radio>
           </div>
         </div>
       </div>
@@ -37,9 +37,15 @@ export default {
         {id: 3, name: '上海青浦项目'},
       ],
       selectId: '',
+      selectName: '',
     }
   },
   methods: {
+    open () {
+      this.dialogShow = true
+      this.selectId = ''
+      this.selectName = ''
+    },
     loadPage () {
       this.$emit('load-page')
     },
@@ -52,8 +58,12 @@ export default {
         this.$message.error('请至少选择一个项目进行创建')
         return
       }
-      this.$emit('selectProject', this.selectId)
+      this.$emit('selectProject', this.selectId, this.selectName)
       this.resetForm()
+    },
+    changeVal (id, name) {
+      this.selectId = id
+      this.selectName = name
     },
   },
 }

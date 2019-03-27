@@ -33,13 +33,16 @@
         </template>
       </el-table-column>
     </iep-table>
+    <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
   </div>
 </template>
 <script>
 import { getResumeBlacklistPage, postResumeBlacklist, putTalentPool, deleteTalentPoolById, deleteTalentPoolBatch } from '@/api/hrms/talent_pool'
+import DetailDrawer from './DetailDrawer'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from '../options'
 export default {
+  components: { DetailDrawer },
   mixins: [mixins],
   data () {
     return {
@@ -60,7 +63,9 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteTalentPoolById)
     },
     handleDetail (row) {
-      this.$emit('onDetail', row)
+      this.$refs['DetailDrawer'].id = row.id
+      this.$refs['DetailDrawer'].loadPage()
+      this.$refs['DetailDrawer'].drawerShow = true
     },
     handleEdit (row) {
       this.$emit('onEdit', {

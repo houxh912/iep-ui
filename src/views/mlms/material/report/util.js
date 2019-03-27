@@ -1,3 +1,5 @@
+// let todayDate = '2019, 01, 01 00:00:01'
+
 // 根据距离当前日的天数获取年月日
 export function getDays (day) {
   let today = new Date()
@@ -38,7 +40,27 @@ function doHandleMonth (month){
   return m
 }
 
-// 今天是第几周（从第一天开始算，加上去年的最后一周）
+// 今天是第几周 -- 月
+export function getWeekOfMonth (date) {
+  let today = ''
+  if (date) {
+    today = new Date(date)
+  } else {
+    today = new Date()
+  }
+  let firstDay = new Date(today.getFullYear(), today.getMonth(), 1)
+  let dayOfWeek = firstDay.getDay()
+  let spendDay = 1
+  if (dayOfWeek != 0) {
+    spendDay = 7 - dayOfWeek + 1
+  }
+  firstDay = new Date(today.getFullYear(), today.getMonth(), 1 + spendDay)
+  let d = Math.ceil((today.valueOf() - firstDay.valueOf()) / 86400000)
+  let result = Math.ceil(d / 7)
+  return result
+};
+
+// 今天是第几周 -- 年（从第一天开始算，加上去年的最后一周）
 export function getWeekOfYear (year, month, day) {
   let today = ''
   if (year) {
@@ -82,6 +104,19 @@ function formatDate (mill){
   return String.raw({raw:raws}, ...format)
 }
 
+// 根据传入的时间，返回YYYY-MM-DD
+export function formatYear (mill){
+  var y = new Date(mill)
+  let raws = [
+      y.getFullYear(),
+      formatDig(y.getMonth() + 1),
+      formatDig(y.getDate()),
+      // y.getDay() || 7,
+  ]
+  let format = ['-','-','-']
+  return String.raw({raw:raws}, ...format)
+}
+
 // 数字转中文
 export function toChinesNum (num ){
   let changeNum = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
@@ -109,13 +144,17 @@ export function createWeeks (year){
   // 首先计算第一个礼拜一的日期，从这一天开始计算星期
   var da = new Date(year, 0, 1)
   var n = 7 - (da.getDay() + 6) % 7
+  if (n == 7) {
+    n = 0
+  }
   let start = new Date(year, 0, 1+n),
       end = new Date(year, 11, 31)
-  let firstDay = start.getDay() || 7,
-      lastDay = end.getDay() || 7
+  let firstDay = start.getDay() || 7
+      // lastDay = end.getDay() || 7
   let startTime=+start,
       endTime = startTime + (7 - firstDay) * ONE_DAY,
-      _endTime = end - (7 - lastDay) * ONE_DAY
+      // _endTime = end - (7 - lastDay) * ONE_DAY
+      _endTime = end
   let mIndex = 0
   let obj = {
     index: index,
@@ -188,5 +227,18 @@ export function getWeekStartAndEnd (day) {
   return {
     startTime: formatDate(firstDay),
     endTime: formatDate(lastDay),
+    startYear: formatYear(firstDay),
+    endYear: formatYear(lastDay),
+  }
+}
+
+// 根据传入的时间获取周一
+export function getMonday (date) {
+  let today = new Date(date)
+  let index = today.getDay() - 1
+  let monday = new Date(+today - index*24*3600*1000)
+  return {
+    timeStamp: +monday,
+    time: formatYear(monday),
   }
 }

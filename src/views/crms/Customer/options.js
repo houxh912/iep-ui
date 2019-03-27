@@ -1,39 +1,3 @@
-const dictsMap = {
-  // 业务类型
-  // businessType: {
-  //   0: '咨询',
-  //   1: '数据',
-  //   2: '事项',
-  //   3: '平台',
-  //   4: '软件',
-  // },
-  // clientType: {
-  //   0: '客户类型1',
-  //   1: '客户类型2',
-  //   2: '客户类型3',
-  // },
-  // 客户关系
-  // clientRela: {
-  //   0: '核心客户',
-  //   1: '重要客户',
-  //   2: '一般客户',
-  //   3: '潜在客户',
-  //   4: '其他客户',
-  // },
-  // 区域类型
-  // districtType: {
-  //   0: '省级',
-  //   1: '市级',
-  //   2: '区级',
-  // },
-  // 跟进状态
-  // followUpStatus: {
-  //   0: '已合作',
-  //   1: '待合作',
-  //   2: '未合作',
-  // },
-}
-
 const allTableOption = [
   {
     label: '业务类型',
@@ -94,23 +58,50 @@ const initFormData = () => {
     clientName: '',
   }
 }
-
-// 我的客户搜索
-const initSearchForm = () => {
+const initForm = () => {
   return {
-    clientName: '',
+    clientId: '',
+    clientName: '', //客户名称
+    clientTypeKey: [], //客户类型
+    districtType: '', // 区域类型
+    businessTypeKey: [], // 业务类型
+    specificBusinessType: '', //具体业务类型
+    clientRela: '', //客户关系
+    followUpStatus: '', // 跟进状态
+    marketManager: '', // 市场经理
+    lastTime: '', // 距离上次拜访已有(全部客户没有但依然存着)
+    phoneNumber: '', //手机号码
+    respDept: '', //负责部门
+    companyUrl: '', //单位网址
+    companyFunction: '', //单位职能
+    contractAddress: '', //单位地址
+    otherDesc: '', //其他说明
+    tags: [1],
+    collaborations: [],
   }
 }
-
 // 全部客户搜索
 const allSearchForm = () => {
   return {
     clientName: '',
-    businessType: '',
-
+    districtType: '',
+    clientRela: '',
+    followUpStatus: '',
+    businessTypeKey: [],
+    marketManager: '',
   }
 }
-
+// 我的客户/协作客户搜索
+const initSearchForm = () => {
+  return {
+    clientName: '',
+    districtType: '',
+    clientRela: '',
+    followUpStatus: '',
+    businessTypeKey: [],
+    lastTime: '',
+  }
+}
 const rules = {
   clientName: [
     { required: true, message: '客户名称', trigger: 'blur' },
@@ -126,21 +117,15 @@ const rules = {
   marketManager: [
     { required: true, message: '请填写市场经理', trigger: 'blur' },
   ],
-  respDept: [
-    { required: true, message: '请选择负责部门', trigger: 'blur' },
-  ],
-  companyUrl: [
-    { required: true, message: '请填写单位网址', trigger: 'blur' },
-  ],
+  respDept: [{ required: true, message: '请选择负责部门', trigger: 'blur' }],
+  companyUrl: [{ required: true, message: '请填写单位网址', trigger: 'blur' }],
   companyFunction: [
     { required: true, message: '请填写单位职能', trigger: 'blur' },
   ],
   contractAddress: [
     { required: true, message: '请填写单位地址', trigger: 'blur' },
   ],
-  otherDesc: [
-    { required: true, message: '请填写其他说明', trigger: 'blur' },
-  ],
+  otherDesc: [{ required: true, message: '请填写其他说明', trigger: 'blur' }],
   clientTypeKey: [
     { required: true, message: '请选择客户类型', trigger: 'blur' },
   ],
@@ -150,40 +135,18 @@ const rules = {
   specificBusinessType: [
     { required: true, message: '请填写具体业务类型', trigger: 'blur' },
   ],
-  clientRela: [
-    { required: true, message: '请选择客户关系', trigger: 'blur' },
-  ],
+  clientRela: [{ required: true, message: '请选择客户关系', trigger: 'blur' }],
   followUpStatus: [
     { required: true, message: '请选择跟进状态', trigger: 'blur' },
   ],
 }
 
-const initContactForm = () => {
-  return {
-    name: '',
-  }
-}
-
-const initVisitForm = () => {
-  return {
-    name: '',
-  }
-}
-
-const initConsultaForm = () => {
-  return {
-    name: '',
-  }
-}
 export {
-  dictsMap,
   allTableOption,
   myTableOption,
   initFormData,
   initSearchForm,
   allSearchForm,
   rules,
-  initContactForm,
-  initVisitForm,
-  initConsultaForm,
+  initForm,
 }

@@ -12,8 +12,10 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')">提交</iep-button>
-      <iep-button @click="loadPage">取消</iep-button>
+      <operation-wrapper>
+        <iep-button type="primary" @click="submitForm('form')">提交</iep-button>
+        <iep-button @click="loadPage">取消</iep-button>
+      </operation-wrapper>
     </template>
   </iep-dialog>
 </template>

@@ -19,14 +19,6 @@ export default {
       this.isA = !this.isA
     },
   },
-  computed: {
-    isShow300px () {
-      if (this.isTablet()) {
-        return '0'
-      }
-      return this.showAside ? '300px' : '0'
-    },
-  },
 }
 </script>
 <style  lang="scss" scoped>
@@ -58,10 +50,6 @@ export default {
       box-shadow: 0 1px 1px 1px #eee;
     }
     i {
-      -webkit-transition: all 0.3s ease;
-      -moz-transition: all 0.3s ease;
-      -ms-transition: all 0.3s ease;
-      -o-transition: all 0.3s ease;
       transition: all 0.3s ease;
     }
   }

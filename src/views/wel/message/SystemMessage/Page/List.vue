@@ -8,7 +8,7 @@
         <el-menu :default-active="selectType" class="menu-vertical">
           <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in imsMsgType" @click.native="handleSelectType(item.value+'')">
             <span>{{item.label}}</span>
-            <el-badge class="mark" type="danger" :value="typeCountMap[item.value]" />
+            <el-badge v-if="typeCountMap[item.value]" class="mark" type="danger" :value="typeCountMap[item.value]" />
           </el-menu-item>
         </el-menu>
       </el-card>
@@ -87,7 +87,7 @@ export default {
       })
     },
     loadPage (param = this.searchForm) {
-      this.loadTable({ type: this.selectType, ...param }, getSystemMessagePage)
+      this.loadTable({ typeId: this.selectType, ...param }, getSystemMessagePage)
     },
   },
 }

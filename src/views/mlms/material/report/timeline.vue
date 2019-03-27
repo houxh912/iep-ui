@@ -1,10 +1,20 @@
 <template>
   <div class="time-line">
+    <div class="chosen-year">
+      <el-date-picker
+        v-model="selectYear"
+        type="year"
+        placeholder="选择年"
+        ref="selectYear"
+        @change="changeYear"
+        value-format="yyyy">
+      </el-date-picker>
+    </div>
     <div class="item" v-for="(item, index) in option.list" :key=index>
-      <div class="before" v-if="item.year">{{item.year}}年</div>
+      <div class="before year" v-if="item.year" @click="chosenYear(item.year)">{{item.year}}年</div>
       <div class="middle">
         <div class="tail"></div>
-        <div class="date icon" v-if="item.year"><i class="icon-jiantouxiangyou"></i></div>
+        <div class="date icon" v-if="item.year" @click="chosenYear(item.year)"><i class="icon-jiantouxiangyou"></i></div>
         <div class="date" v-else @click="actively(index, 'month', item)" :class="active===index?'actively':''">{{item.date}}</div>
         <div class="content">
           <slot name="content" :row="item" :index="index"></slot>
@@ -47,9 +57,11 @@ export default {
     return {
       active: active,
       activeChild: activeChild,
+      selectYear: '',
     }
   },
   methods: {
+    // 周月点击事件
     actively (index, type, item) {
       // 点击时间轴首先判断是否到达时间，若为未来时，点击无效
       if (item.timeStamp > (+new Date())) {
@@ -77,6 +89,13 @@ export default {
     toChinesNum (index) {
       return toChinesNum(index)
     },
+    // 年份点击事件
+    chosenYear () {
+      this.$refs['selectYear'].focus()
+    },
+    changeYear (val) {
+      this.$emit('changeYear', val)
+    },
   },
   watch: {
   },
@@ -96,6 +115,9 @@ export default {
       top: 0px;
       text-align: right;
     }
+    .year {
+      cursor: pointer;
+    }
     .middle {
       margin-left: 100px;
       position: relative;
@@ -103,8 +125,8 @@ export default {
       .tail {
         position: absolute;
         left: 27px;
-        top: 36px;
-        height: calc(100% - 36px);
+        top: 33px;
+        height: calc(100% - 33px);
         border-left: 1px solid #e4e7ed;
         :last-of-type {
           border: 0;
@@ -157,12 +179,12 @@ export default {
         }
       }
       .middle {
-        margin-left: 108px;
+        margin-left: 109px;
       }
       .tail {
-        left: 20px;
-        top: 21px;
-        height: calc(100% - 21px);
+        left: 18px;
+        top: 18px;
+        height: calc(100% - 18px);
       }
       .date {
         width: 18px;
@@ -175,7 +197,7 @@ export default {
           border: 2px solid #ddd;
           border-radius: 50%;
           background-color: #ddd;
-          top: 6px;
+          top: 7px;
           left: 17px;
         }
       }
@@ -193,6 +215,21 @@ export default {
         }
       }
     }
+  }
+}
+</style>
+
+<style lang="scss">
+.chosen-year {
+  width: 0;
+  height: 0;
+  input {
+    width: 0;
+    height: 0;
+    border: 0;
+  }
+  span {
+    display: none;
   }
 }
 </style>

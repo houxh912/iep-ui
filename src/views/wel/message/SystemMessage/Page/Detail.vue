@@ -1,6 +1,6 @@
 <template>
   <basic-container>
-    <page-header title="这里是系统消息的标题" :backOption="backOption"></page-header>
+    <page-header :title="form.name" :backOption="backOption"></page-header>
     <div class="detail-container">
       <div class="item-title">
         <ul>
@@ -40,10 +40,12 @@
   </basic-container>
 </template>
 <script>
+import { getSystemMessageById } from '@/api/ims/system_message'
 export default {
-  methods: {
-    handleGoBack () {
-      this.$emit('onGoBack')
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
     },
   },
   data () {
@@ -53,16 +55,23 @@ export default {
         backPath: null,
         backFunction: this.handleGoBack,
       },
-      list: [
-        {
-          id: '1',
-          img: '',
-          name: '张三',
-          con: '不错不错，又学到了',
-          time: '2019-03-09 15:08',
-        },
-      ],
+      form: {},
     }
+  },
+  created () {
+    this.loadPage()
+  },
+
+  methods: {
+    handleGoBack () {
+      this.$emit('onGoBack')
+    },
+    loadPage () {
+      getSystemMessageById(this.record.id).then(({ data }) => {
+        console.log(data.data)
+        this.form = data.data
+      })
+    },
   },
 }
 </script>

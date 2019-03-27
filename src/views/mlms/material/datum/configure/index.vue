@@ -8,7 +8,6 @@
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item><div @click="handleDeletetByIds">删除</div></el-dropdown-item>
             <el-dropdown-item divided>导出</el-dropdown-item>
-            <el-dropdown-item>收藏</el-dropdown-item>
             <el-dropdown-item>分享</el-dropdown-item>
             <el-dropdown-item>下载</el-dropdown-item>
           </el-dropdown-menu>

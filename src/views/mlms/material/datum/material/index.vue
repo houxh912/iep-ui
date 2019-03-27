@@ -22,7 +22,7 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" :paramForm="paramForm" advance-search>
+          <operation-search @search-page="searchPage" :paramForm="paramForm" advance-search>
             <el-form :model="paramForm" label-width="80px" size="small">
               <el-form-item label="材料名称">
                 <el-input v-model="paramForm.name"></el-input>

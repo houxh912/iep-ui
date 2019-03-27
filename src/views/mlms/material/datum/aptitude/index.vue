@@ -16,7 +16,7 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage"></operation-search>
+          <operation-search @search-page="searchPage"></operation-search>
         </template>
       </operation-container>
       <iep-table 

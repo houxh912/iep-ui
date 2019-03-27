@@ -1,5 +1,14 @@
 <template>
   <div class="time-line">
+    <div class="item" v-if="upLoad">
+      <div class="middle up-load">
+        <div class="tail"></div>
+        <div>
+          <el-button size="small" type="primary" plain @click="getupMore">加载更多<i class="el-icon-arrow-up"></i></el-button>
+          <div class="content"></div>
+        </div>
+      </div>
+    </div>
     <div class="item" v-for="(item, index) in list" :key=index>
       <div class="before" v-if="item.month">{{item.month}}</div>
       <div class="middle">
@@ -25,9 +34,25 @@
 </template>
 
 <script>
+import { formatYear } from '../util'
+
 export default {
   name: 'timeline',
-  props: ['list'],
+  props: {
+    list: {
+      type: Array,
+      default: () => {},
+    },
+  },
+  computed: {
+    upLoad () {
+      let state = false
+      if (this.list.length > 1) {
+        state = formatYear(this.list[1].createTime) !== formatYear(new Date())
+      }
+      return state
+    },
+  },
   data () {
     return {
       active: -1,
@@ -36,6 +61,9 @@ export default {
   methods: {
     getMore () {
       this.$emit('getMore', true)
+    },
+    getupMore () {
+      this.$emit('getUpMore', true)
     },
   },
 }
@@ -58,8 +86,8 @@ export default {
       .tail {
         position: absolute;
         left: 17px;
-        top: 36px;
-        height: calc(100% - 36px);
+        top: 34px;
+        height: calc(100% - 33px);
         border-left: 1px solid #e4e7ed;
         :last-of-type {
           border: 0;
@@ -116,6 +144,15 @@ export default {
       //   border-bottom: 9px solid transparent;
       //   border-top: 9px solid transparent; 
       // }
+    }
+    .up-load {
+      margin-left: 72px;
+      .tail {
+        left: 45px;
+      }
+      .content {
+        margin-left: 100px;
+      }
     }
     .button {
       margin-left: 77px;

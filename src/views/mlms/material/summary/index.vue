@@ -17,7 +17,7 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" :paramForm="paramForm" advance-search>
+          <operation-search @search-page="searchPage" :paramForm="paramForm" prop="title" advance-search>
             <el-form :model="paramForm" label-width="80px" size="small">
               <el-form-item label="会议标题">
                 <el-input v-model="paramForm.biaoti"></el-input>
@@ -128,17 +128,19 @@ export default {
       })
     },
     handleEdit (row) {
-      this.pageState = 'form'
       getDataById(row.id).then(({data}) => {
-        data.data.receiverList = {
-          unions: data.data.unions ? data.data.unions : [],
-          orgs: data.data.orgs ? data.data.orgs : [],
-          users: data.data.users ? data.data.users : [],
-        }
-        this.$refs['mainDialog'].formData = {...data.data}
-        this.$refs['mainDialog'].methodName = '修改'
-        this.$refs['mainDialog'].formRequestFn = updateData
-        this.$refs['mainDialog'].dialogShow = true
+        this.pageState = 'form'
+        this.$nextTick(() => {
+          data.data.receiverList = {
+            unions: data.data.unions ? data.data.unions : [],
+            orgs: data.data.orgs ? data.data.orgs : [],
+            users: data.data.users ? data.data.users : [],
+          }
+          this.$refs['mainDialog'].formData = {...data.data}
+          this.$refs['mainDialog'].methodName = '修改'
+          this.$refs['mainDialog'].formRequestFn = updateData
+          this.$refs['mainDialog'].dialogShow = true
+        })
       })
     },
     handleDetail (row) {

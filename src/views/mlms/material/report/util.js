@@ -85,7 +85,7 @@ function formatDate (mill){
 }
 
 // 根据传入的时间，返回YYYY-MM-DD
-function formatYear (mill){
+export function formatYear (mill){
   var y = new Date(mill)
   let raws = [
       y.getFullYear(),

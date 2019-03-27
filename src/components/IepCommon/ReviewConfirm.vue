@@ -1,7 +1,7 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="title" width="35%">
     <el-radio-group v-model="status" class="status">
-      <el-radio :label="0">审核通过</el-radio>
+      <el-radio :label="1">审核通过</el-radio>
       <el-radio :label="2">审核不通过</el-radio>
     </el-radio-group>
     <el-input v-if="status === 2" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="content">
@@ -21,7 +21,7 @@ export default {
       title: '',
       formRequestFn: () => { },
       dialogShow: false,
-      status: 1, // 待审核
+      status: 0, // 待审核
       content: '',
       id: null,
       ids: [],
@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     loadPage () {
-      this.status = 1
+      this.status = 0
       this.content = ''
       this.dialogShow = false
       this.$emit('load-page')

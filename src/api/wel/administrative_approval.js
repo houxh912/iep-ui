@@ -48,3 +48,26 @@ export function deleteApprovalBatch (ids) {
     data: ids,
   })
 }
+
+export function reviewApprovalById (id, status) {
+  return request({
+    url: `${prefixUrl}/status/batch`,
+    method: 'post',
+    data: {
+      ids: [id],
+      status,
+    },
+  })
+}
+
+export function reviewApprovaBatch (ids,status) {
+  return request({
+    url: `${prefixUrl}/status/batch`,
+    method: 'post',
+    data: {
+      ids: ids,
+      status,
+    },
+  })
+}
+

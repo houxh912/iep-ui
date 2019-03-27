@@ -9,7 +9,7 @@
         </operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <template slot="before-columns">
         <el-table-column label="申请人" width="120px">
           <template slot-scope="scope">
@@ -17,28 +17,30 @@
           </template>
         </el-table-column>
       </template>
-      <el-table-column label="操作" width="220px">
-        <template>
-          <el-button size="small" type="warning" plain>同意</el-button>
-          <el-button size="small">拒绝</el-button>
-          <el-button size="small">转交</el-button>
+      <el-table-column label="操作"  width="220px">
+        <template slot-scope="scope">
+          <el-button size="small" type="warning" @click="handleReview(scope.row)" plain>审核</el-button>
+          <el-button size="small"  @click="handleDeliver(scope.row)">转交</el-button>
         </template>
       </el-table-column>
     </iep-table>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+    <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
   </div>
 </template>
 <script>
-import { getExaminApprovalPage, postApproval } from '@/api/wel/administrative_approval'
+import { getExaminApprovalPage, postApproval, reviewApprovaBatch } from '@/api/wel/administrative_approval'
 import mixins from '@/mixins/mixins'
-import { columnsMap } from '../options'
+import { columnsMap , dictsMap } from '../options'
+import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 import DialogForm from './DialogForm'
 export default {
   mixins: [mixins],
-  components: { DialogForm },
+  components: { DialogForm , IepReviewConfirm},
   data () {
     return {
       columnsMap,
+      dictsMap,
     }
   },
   created () {
@@ -55,6 +57,15 @@ export default {
     },
     handleDetail (row) {
       this.$emit('onDetail', row)
+    },
+    handleReview (row) {
+      this.$refs['iepReviewForm'].title = '审核'
+      this.$refs['iepReviewForm'].id = row.id
+      this.$refs['iepReviewForm'].formRequestFn = reviewApprovaBatch
+      this.$refs['iepReviewForm'].dialogShow = true
+    },
+    handleDeliver (row) {
+      this._handleComfirm(row.id, postApproval, 'tsyi')
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getExaminApprovalPage)

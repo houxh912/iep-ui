@@ -1,13 +1,9 @@
 // org config options
 const dictsMap = {
-  isOpen: {
-    0: '开',
-    1: '关',
-  },
   status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
+    0: '待审核',
+    1: '审核通过',
+    2: '审核不通过',
   },
 }
 
@@ -29,8 +25,9 @@ const columnsMap = [
     label: '抄送人',
   },
   {
-    prop: 'result',
+    prop: 'status',
     label: '审批结果',
+    type: 'dict',
   },
 ]
 

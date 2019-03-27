@@ -8,16 +8,7 @@
           <iep-button @click="handleReviewDialog">批量审核</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" :paramForm="paramForm" advance-search>
-            <el-form :model="paramForm" label-width="80px" size="small">
-              <el-form-item label="组织名称">
-                <el-input v-model="paramForm.name"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="searchPage">搜索</el-button>
-                <el-button @click="clearSearchParam">清空</el-button>
-              </el-form-item>
-            </el-form>
+          <operation-search @search-page="searchPage" advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -101,7 +92,7 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.orgId)
     },
-    loadPage (param = this.paramForm) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, fetchList)
     },
   },

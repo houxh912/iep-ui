@@ -6,7 +6,7 @@
         <div class="member" v-for="(item, index) in orgList" :key="index">
           <a-button @click="handleRemoveOrg(item.value)" block>{{ item.label }}</a-button>
         </div>
-        <div class="member" @click="handleAddOrg">
+        <div class="member">
           <a-button type="dashed" @click="handleAddOrg" block>添加联盟成员</a-button>
         </div>
       </div>

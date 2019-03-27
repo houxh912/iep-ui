@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`审核`" width="35%">
+  <iep-dialog :dialog-show="dialogShow" :title="`审核`" width="35%" @close="handleCancel">
     <el-radio-group v-model="status" class="status">
       <el-radio :label="0">审核通过</el-radio>
       <el-radio :label="2">审核不通过</el-radio>

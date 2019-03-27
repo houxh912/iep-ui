@@ -59,14 +59,6 @@ export function deleteApprovalById (id) {
   })
 }
 
-export function deleteApprovalBatch (ids) {
-  return request({
-    url: `${prefixUrl}/delete/batch`,
-    method: 'post',
-    data: ids,
-  })
-}
-
 export function reviewApprovaBatch (obj) {
   return request({
     url: `${prefixUrl}/status/batch`,

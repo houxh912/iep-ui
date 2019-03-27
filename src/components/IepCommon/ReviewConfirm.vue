@@ -21,7 +21,7 @@ export default {
       title: '',
       formRequestFn: () => { },
       dialogShow: false,
-      status: 0, // 待审核
+      status: 1, // 待审核
       content: '',
       id: null,
       ids: [],

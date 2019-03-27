@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="`${methodName}招聘`" :backOption="backOption"></page-header>
+      <page-header :title="`${methodName}加班申请单`" :backOption="backOption"></page-header>
       <el-form ref="form" :model="form" label-width="120px" size="small">
         <el-row>
           <el-col :span="12">
@@ -12,6 +12,18 @@
           <el-col :span="12">
             <el-form-item label="发起时间：">
               {{form.applyStartTime}}
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="职务：">
+              {{form.job}}
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="职称：">
+              {{form.title}}
             </el-form-item>
           </el-col>
         </el-row>
@@ -29,19 +41,70 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="岗位名称：">
-              <el-input v-model="form.name"></el-input>
+            <el-form-item label="开始时间：">
+              <el-input v-model="form.startTime"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="结束时间：">
+              <el-input v-model="form.endTime"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="出差地点：">
+              <el-input v-model="form.businessPlace"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="出差时长：">
+              <el-input v-model="form.businessTime"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="请假类型：">
+              <el-input v-model="form.leavingType"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="请假时长：">
+              <el-input v-model="form.leavingTime"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="岗位名称：">
+              <el-input v-model="form.positionId"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="调岗时长：">
+              <el-input v-model="form.transferTime"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="岗位名称：">
+              <el-input v-model="form.positionId"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item label="加班时长：">
+          <el-input v-model="form.overtime"></el-input>
+        </el-form-item>
         <el-form-item label="附件：">
-          <el-input v-model="form.claim"></el-input>
+          <el-input v-model="form.annex"></el-input>
         </el-form-item>
         <el-form-item label="审批人：">
-          <el-input v-model="form.claim"></el-input>
+          <el-input v-model="form.approver"></el-input>
         </el-form-item>
         <el-form-item label="抄送人：">
-          <el-input v-model="form.claim"></el-input>
+          <el-input v-model="form.copyPerson"></el-input>
         </el-form-item>
         <el-form-item label="">
           <operation-wrapper>

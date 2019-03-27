@@ -1,9 +1,12 @@
 
 <template>
   <div class="consultation">
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+    <operation-wrapper>
+      <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加资讯</iep-button>
+    </operation-wrapper>
+    <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       <template slot="before-columns">
-        <el-table-column label="客户名称">
+        <el-table-column>
           <template slot-scope="scope">
             <div class="item">
               <div class="head">
@@ -21,16 +24,16 @@
         </el-table-column>
       </template>
     </iep-table>
-    <div class="add-consulta" @click="handleAdd"><i class="el-icon-plus"></i> 添加资讯</div>
     <info-dialog ref="InfoDialog" @load-page="loadPage"></info-dialog>
   </div>
 </template>
 
 <script>
+import mixins from '@/mixins/mixins'
 import InfoDialog from './InfoDialog'
-import { createConsultation } from '@/api/crms/custom'
+import { createConsultation } from '@/api/crms/information'
 export default {
-  name: 'consultation',
+  mixins: [mixins],
   components: { InfoDialog },
   data () {
     return {
@@ -39,6 +42,7 @@ export default {
       rules: {},
       methodName: '',
       dialogShow: false,
+      pagedTable: [{ title: 'dasd', date: 'sadasd', msg: 'dasdddddddddadsadasd', tags: ['one', 'two'] }],
     }
   },
   methods: {
@@ -47,7 +51,9 @@ export default {
       this.$refs['InfoDialog'].methodName = '新增'
       this.$refs['InfoDialog'].submitFn = createConsultation
     },
+    loadPage () {
 
+    },
   },
   created () {
     this.loadPage()
@@ -58,6 +64,7 @@ export default {
 <style lang="scss" scoped>
 .consultation {
   .item {
+    width: 100%;
     margin-bottom: 10px;
     .head {
       display: flex;
@@ -66,6 +73,7 @@ export default {
         font-weight: 700;
       }
       .date {
+        align-items: right;
         width: 80px;
       }
     }

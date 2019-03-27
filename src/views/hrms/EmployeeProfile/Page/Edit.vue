@@ -11,91 +11,73 @@
             <div class="baseMsg">
               <div class="littleTitle">基础信息</div>
               <el-form-item label="用户名：" class="form-half">
-                <span>admin</span>
+                <span>{{form.name}}</span>
               </el-form-item>
               <el-form-item label="姓名：" class="form-half">
-                <span>张三</span>
+                <span>{{form.userName}}</span>
               </el-form-item>
               <el-form-item label="所属组织：" class="form-half">
                 <span>舟山国脉海洋有限公司</span>
               </el-form-item>
               <el-form-item label="工号：" class="form-half">
-                <el-input v-model="form.number"></el-input>
+                <el-input v-model="form.staffId"></el-input>
               </el-form-item>
-              <el-form-item label="头像：">
-                <el-input v-model="form.avatar"></el-input>
+              <el-form-item label="头像：" class="">
+                <iep-avatar v-model="form.avatar"></iep-avatar>
               </el-form-item>
               <el-form-item label="角色：" class="form-half">
-                <span>行政人员</span>
+                <span>{{form.roleName}}</span>
               </el-form-item>
               <el-form-item label="资产所属公司：" class="form-half">
-                <span>浙江海洋信息技术有限公司</span>
+                <span>{{form.deptList.join('、')}}</span>
               </el-form-item>
               <el-form-item label="岗位：" class="form-half">
-                <el-select v-model="form.health">
-                  <el-option label="岗位1" value="岗位1"></el-option>
-                  <el-option label="岗位1" value="岗位1"></el-option>
-                </el-select>
+                <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
               </el-form-item>
-              <el-form-item label="对外头衔：" class="form-half">
-                <el-input v-model="form.actor"></el-input>
+              <el-form-item label="外部头衔：" class="form-half">
+                <el-input v-model="form.title"></el-input>
               </el-form-item>
               <el-form-item label="岗位职责：">
-                <el-input v-model="form.task"></el-input>
+                <el-input v-model="form.duties"></el-input>
               </el-form-item>
               <el-form-item label="职务：" class="form-half">
-                <el-select v-model="form.position">
-                  <el-option label="职务1" value="职务1"></el-option>
-                  <el-option label="职务1" value="职务1"></el-option>
-                </el-select>
+                <iep-select prefix-url="hrms/job_system" v-model="form.jobId"></iep-select>
               </el-form-item>
               <el-form-item label="职称：" class="form-half">
-                <el-select v-model="form.title">
-                  <el-option label="职称1" value="职称1"></el-option>
-                  <el-option label="职称1" value="职称1"></el-option>
-                </el-select>
+                <iep-select prefix-url="hrms/title_system" v-model="form.titleId"></iep-select>
               </el-form-item>
               <el-form-item label="入职时间：" class="form-half">
-                <el-input v-model="form.goTime"></el-input>
+                <el-input v-model="form.inductionTime"></el-input>
               </el-form-item>
               <el-form-item label="转正时间：" class="form-half">
-                <el-input v-model="form.time"></el-input>
+                <el-input v-model="form.positiveTime"></el-input>
               </el-form-item>
               <el-form-item label="员工状态：" class="form-half">
-                <el-input v-model="form.goTime"></el-input>
+                <el-input v-model="form.status"></el-input>
               </el-form-item>
               <el-form-item label="所属部门：" class="form-half">
-                <el-select v-model="form.title">
-                  <el-option label="所属部门1" value="所属部门1"></el-option>
-                  <el-option label="所属部门1" value="所属部门1"></el-option>
-                </el-select>
+                <iep-cascader v-model="form.deptList" prefix-url="admin/dept" change-on-select></iep-cascader>
               </el-form-item>
               <el-form-item label="出生年月：" class="form-half">
                 <el-input v-model="form.birthday"></el-input>
               </el-form-item>
               <el-form-item label="性别：" class="form-half">
-                <el-select v-model="form.sex">
-                  <el-option label="男" value="男"></el-option>
-                  <el-option label="女" value="女"></el-option>
-                </el-select>
+                <el-radio-group v-model="form.sex">
+                  <el-radio :label="1">男</el-radio>
+                  <el-radio :label="2">女</el-radio>
+                </el-radio-group>
               </el-form-item>
               <el-form-item label="民族：" class="form-half">
-                <el-input v-model="form.national"></el-input>
+                <el-input v-model="form.nation"></el-input>
               </el-form-item>
               <el-form-item label="政治面貌：" class="form-half">
-                <el-input v-model="form.face"></el-input>
+                <iep-dict-select v-model="form.politics" dict-name="hrms_politics_face"></iep-dict-select>
               </el-form-item>
               <el-form-item label="婚姻状况：" class="form-half">
-                <el-select v-model="form.married">
-                  <el-option label="未婚" value="未婚"></el-option>
-                  <el-option label="已婚" value="已婚"></el-option>
-                </el-select>
+                <iep-dict-select v-model="form.marriage" dict-name="hrms_marriage_status"></iep-dict-select>
               </el-form-item>
               <el-form-item label="生育状况：" class="form-half">
-                <el-select v-model="form.fertility">
-                  <el-option label="未生育" value="未生育"></el-option>
-                  <el-option label="生育" value="生育"></el-option>
-                </el-select>
+                <iep-dict-select v-model="form.bear" dict-name="hrms_birth_status"></iep-dict-select>
               </el-form-item>
               <el-form-item label="外语水平：" class="form-half">
                 <el-select v-model="form.english">
@@ -104,15 +86,10 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="最高学历：" class="form-half">
-                <el-select v-model="form.educational">
-                  <el-option label="专科" value="专科"></el-option>
-                  <el-option label="本科" value="本科"></el-option>
-                  <el-option label="硕士" value="硕士"></el-option>
-                  <el-option label="博士" value="博士"></el-option>
-                </el-select>
+                <iep-dict-select v-model="form.education" dict-name="hrms_highest_educational"></iep-dict-select>
               </el-form-item>
               <el-form-item label="毕业学校：" class="form-half">
-                <el-input v-model="form.school"></el-input>
+                <el-input v-model="form.university"></el-input>
               </el-form-item>
               <el-form-item label="专业：" class="form-half">
                 <el-input v-model="form.professional"></el-input>
@@ -121,7 +98,7 @@
                 <el-input v-model="form.professional"></el-input>
               </el-form-item>
               <el-form-item label="推荐人：" class="form-half">
-                <el-input v-model="form.people"></el-input>
+                <el-input v-model="form.referrer"></el-input>
               </el-form-item>
               <el-form-item label="外部头衔：" class="form-half">
                 <el-input v-model="form.people"></el-input>
@@ -229,9 +206,6 @@
               <el-form-item label="应急联系人电话：" class="form-half">
                 <el-input v-model="form.desc"></el-input>
               </el-form-item>
-              <el-form-item label="">
-                <el-button type="danger">保存</el-button>
-              </el-form-item>
             </div>
           </el-collapse-item>
           <el-collapse-item title="劳动合同" name="2">
@@ -251,27 +225,63 @@
       <!-- fixed footer toolbar -->
       <footer-tool-bar>
         <iep-button @click="handleGoBack">返回</iep-button>
-        <iep-button type="primary">提交</iep-button>
+        <iep-button type="primary" @click="handleSubmit">提交</iep-button>
       </footer-tool-bar>
     </basic-container>
   </div>
 </template>
 <script>
 import FooterToolBar from '@/components/FooterToolbar'
+import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
+import { mergeByFirst } from '@/util/util'
+import { initForm, formToDto } from '../options'
 export default {
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
   components: { FooterToolBar },
   data () {
     return {
       activeNames: ['1', '2', '3', '4', '5'],
-      form: {
-        name: '',
-        sex: '',
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: this.handleGoBack,
       },
+      form: initForm(),
+      formRequestFn: this.record.formRequestFn,
     }
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
+    handleSubmit () {
+      this.formRequestFn(formToDto(this.form)).then(({ data }) => {
+        if (data.data) {
+          this.$message({
+            message: '修改成功',
+            type: 'success',
+          })
+          this.handleGoBack()
+        } else {
+          this.$message({
+            message: '修改失败',
+            type: 'error',
+          })
+        }
+      })
+    },
     handleGoBack () {
       this.$emit('onGoBack')
+    },
+    loadPage () {
+      getEmployeeProfileById(this.record.id).then(({ data }) => {
+        this.form = mergeByFirst(initForm(), data.data)
+      })
     },
   },
 }

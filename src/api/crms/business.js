@@ -1,70 +1,44 @@
 import request from '@/router/axios'
 
-const crmsUrl = '/crm//business'
+const crmsUrl = '/crm/business'
 
-export function businessList (query) {
+export function getBusinessList (query) {
   return request({
     url: `${crmsUrl}/page`,
     method: 'get',
     params: query,
   })
 }
-
-// 我的发布
-export function myBusinessList (query) {
-  return request({
-    url: `${crmsUrl}/page/publish`,
-    method: 'get',
-    params: query,
-  })
-}
-
-// 我的认领
-export function myReceiveList (query) {
-  return request({
-    url: `${crmsUrl}/page/receive`,
-    method: 'get',
-    params: query,
-  })
-}
 // 新增商机
-export function createData (obj) {
+export function postBusiness (obj) {
   return request({
     url: `${crmsUrl}/create`,
     method: 'post',
     data: obj,
   })
 }
-// 通过id查询商机
-export function businessById (id) {
-  return request({
-    url: `${crmsUrl}/${id}`,
-    method: 'get',
-  })
-}
 
 // 修改商机
-export function updateData (obj) {
+export function putBusiness (obj) {
   return request({
     url: `${crmsUrl}/update`,
     method: 'post',
     data: obj,
   })
 }
+// 通过id查询商机
+export function getBusinessById (id) {
+  return request({
+    url: `${crmsUrl}/${id}`,
+    method: 'get',
+  })
+}
 // 删除
-export function deleteDataById (id) {
+export function deleteBusinessById (id) {
   return request({
     url: `${crmsUrl}/delete/batch/${id}`,
     method: 'post',
     data: [id],
-  })
-}
-
-export function deleteData (ids) {
-  return request({
-    url: `${crmsUrl}/delete/batch/${ids}`,
-    method: 'post',
-    data: ids,
   })
 }
 

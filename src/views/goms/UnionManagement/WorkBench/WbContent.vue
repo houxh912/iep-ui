@@ -4,28 +4,24 @@
       <page-header :title="`欢迎您，${userInfo.realName}`"></page-header>
       <el-alert title="模块更新" type="info" description="商机对接模块全新上线，请在模块设置中配置使用。" show-icon></el-alert>
       <div class="time-log-list-wrapper">
-        <a-timeline pending="Recording...">
-          <a-timeline-item v-for="item in realLogList" :key="item.id">
+        <a-timeline :pending="pendingText" :reverse="true">
+          <a-timeline-item v-for="item in logList" :key="item.id">
             <log-item :logItem="item"></log-item>
           </a-timeline-item>
         </a-timeline>
-        <iep-button v-if="!isMore" style="margin-top: 16px" @click="handleViewMore">查看更多</iep-button>
+        <OperationWrapper>
+          <iep-button v-if="isMore" @click="handleViewMore">查看更多</iep-button>
+          <iep-button @click="handleRefresh">刷新</iep-button>
+        </OperationWrapper>
       </div>
-      <!-- <Timeline :pending="!isMore">
-          <TimelineItem v-for="item in realLogList" :key="item.id">
-            <log-item :logItem="item"></log-item>
-          </TimelineItem>
-          <TimelineItem v-if="!isMore"><a href="#" @click.native="handleViewMore">查看更多</a></TimelineItem>
-        </Timeline> -->
     </basic-container>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { getOrgLogList } from '@/api/goms/org'
+import { getUnionLogList } from '@/api/goms/union'
 import LogItem from './LogItem'
-import take from 'lodash/take'
 export default {
   components: { LogItem },
   data () {
@@ -33,32 +29,54 @@ export default {
       bodyStyle: {
         padding: 0,
       },
+      pagination: {
+        current: 1,
+        size: 10,
+        total: 10,
+      },
       logList: [],
-      isMore: false,
+      pageLoading: true,
     }
   },
   computed: {
     ...mapState({
       userInfo: state => state.user.userInfo,
     }),
-    realLogList () {
-      if (this.isMore) {
-        return this.logList
+    pendingText () {
+      if (this.pageLoading) {
+        return '加载中'
       } else {
-        return take(this.logList, 15)
+        return false
       }
+    },
+    isMore () {
+      const { size, total, current } = this.pagination
+      return total > size * current
     },
   },
   created () {
     this.loadPage()
   },
   methods: {
-    handleViewMore () {
-      this.isMore = true
+    handleRefresh () {
+      this.pagination.current = 1
+      this.loadPage(true)
     },
-    loadPage () {
-      getOrgLogList().then(({ data }) => {
-        this.logList = data.data
+    handleViewMore () {
+      this.pagination.current++
+      this.loadPage()
+    },
+    loadPage (isRefresh = false) {
+      this.pageLoading = true
+      getUnionLogList(this.pagination.current).then(({ data }) => {
+        const { records, size, total, current } = data.data
+        if (!isRefresh) {
+          this.logList.push(...records)
+        } else {
+          this.logList = records
+        }
+        this.pagination = { current, size, total }
+        this.pageLoading = false
       })
     },
   },

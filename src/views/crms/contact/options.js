@@ -24,7 +24,6 @@ const initForm = () => {
     clientConcern: '', //客户关注
     other: '', //其他
     clientInfos: [],
-    clientNames: [],
     clientContactId: '',
   }
 }

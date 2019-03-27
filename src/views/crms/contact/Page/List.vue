@@ -4,7 +4,7 @@
       <page-header title="联系人"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdvance" icon="el-icon-plus" type="danger" plain>新增</iep-button>
+          <iep-button @click="handleAdd" icon="el-icon-plus" type="danger" plain>新增</iep-button>
           <!-- <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -57,59 +57,18 @@
           </template>
         </el-table-column>
       </iep-table>
-      <!-- 详情弹窗 -->
-      <iep-dialog :dialog-show="dialogShow" title="详情" @close="close" width="50%">
-        <el-form :model="detailForm" ref="formName" label-width="100px">
-          <el-form-item label="联系人姓名：" prop="contactName" class="form-half">
-            <span>{{detailForm.contactName}}</span>
-          </el-form-item>
-          <el-form-item label="联系人职务：" prop="contactPosition" class="form-half">
-            <span>{{detailForm.contactPosition}}</span>
-          </el-form-item>
-          <el-form-item label="电话：" prop="telephoneNo" class="form-half">
-            <span>{{detailForm.telephoneNo}}</span>
-          </el-form-item>
-          <el-form-item label="对应客户：" prop="clientName" class="form-half">
-            <span class="tags" v-for="(item,index) in detailForm.clientInfos" :key="index">{{item.clientName}}</span>
-          </el-form-item>
-          <el-form-item label="手机：" prop="cellphone" class="form-half">
-            <span>{{detailForm.cellphone}}</span>
-          </el-form-item>
-          <el-form-item label="传真：" prop="fax" class="form-half">
-            <span>{{detailForm.fax}}</span>
-          </el-form-item>
-          <el-form-item label="QQ：" prop="qq" class="form-half">
-            <span>{{detailForm.qq}}</span>
-          </el-form-item>
-          <el-form-item label="微信：" prop="wechat" class="form-half">
-            <span>{{detailForm.wechat}}</span>
-          </el-form-item>
-          <el-form-item label="邮箱：" prop="email" class="form-half">
-            <span>{{detailForm.email}}</span>
-          </el-form-item>
-          <el-form-item label="地址：" prop="address" class="form-half">
-            <span>{{detailForm.address}}</span>
-          </el-form-item>
-          <el-form-item label="客户关注：" prop="clientConcern" class="form-half">
-            <span>{{detailForm.clientConcern}}</span>
-          </el-form-item>
-          <el-form-item label="其他：" prop="other" class="form-half">
-            <span>{{detailForm.other}}</span>
-          </el-form-item>
-        </el-form>
-      </iep-dialog>
     </basic-container>
+    <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { fetchList, deleteDataById, createData, editList } from '@/api/crms/contact'
-// import { myFetchList } from '@/api/crms/custom'
+import { fetchList, deleteDataById, createData, updateData, getContactById } from '@/api/crms/contact'
 import { columnsMap, initSearchForm } from '../options'
-import IepDialog from '@/components/IepDialog/'
+import DetailDrawer from './DetailDrawer'
 export default {
   mixins: [mixins],
-  components: { IepDialog },
+  components: { DetailDrawer },
   data () {
     return {
       dictsMap: {},
@@ -123,10 +82,6 @@ export default {
   },
   created () {
     this.loadPage()
-    // myFetchList().then((res) => {
-    //   this.dictData = res.data.data.records
-    //   console.log(this.dictData)
-    // })
   },
   methods: {
     handleDeleteById (row) {
@@ -137,13 +92,13 @@ export default {
     },
     handleEdit (row) {
       this.$emit('onEdit', {
-        formRequestFn: editList,
+        formRequestFn: updateData,
         methodName: '编辑',
         id: row.clientContactId,
       })
     },
-    handleAdvance () {
-      this.$emit('onAdvance', {
+    handleAdd () {
+      this.$emit('onEdit', {
         formRequestFn: createData,
         methodName: '新增',
       })
@@ -155,10 +110,9 @@ export default {
       this.loadTable(this.paramForm, fetchList)
     },
     contactDetail (row) {
-      this.dialogShow = true
-      editList(row.clientContactId).then(res => {
-        console.log(res)
-        this.detailForm = res.data.data
+      this.$refs['DetailDrawer'].drawerShow = true
+      getContactById(row.clientContactId).then(res => {
+        this.$refs['DetailDrawer'].detailForm = res.data.data
       })
     },
     close () {

@@ -10,6 +10,21 @@ export function getEmployeeProfilePage (query) {
   })
 }
 
+export function getEmployeeProfileById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}
+
+export function putEmployeeProfile (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}
+
 export function getGrowthFile (id) {
   return request({
     url: `${prefixUrl}/growth_file/${id}`,

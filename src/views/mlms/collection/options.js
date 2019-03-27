@@ -1,17 +1,31 @@
 // import { mergeByFirst } from '@/util/util'
 const dictsMap = {
 }
+
+const rules = {
+  name: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
+}
+
+const initFormData = () => {
+  return {
+    name: '',
+  }
+}
+
 const columnsMap = [
   {
-    prop: 'time',
-    label: '时间',
-    width: '200',
+    prop: 'addFavouriteTime',
+    label: '收藏事件',
+    width: '250',
   },
 ]
+
 const initSearchForm = () => {
   return {
     name: '',
   }
 }
 
-export { dictsMap, columnsMap, initSearchForm }
+export { dictsMap, columnsMap, initSearchForm, rules, initFormData }

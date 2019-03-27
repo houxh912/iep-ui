@@ -51,10 +51,18 @@
       <el-form-item label="会议标签：" prop="tagKeyWords">
         <iep-tags v-model="formData.tagKeyWords"></iep-tags>
       </el-form-item>
-      <el-form-item label="接收人" prop="">
-        <!-- <iep-tags v-model="formData.receiverIds"></iep-tags> -->
+      <el-form-item label="主持人：" prop="">
+        <iep-contact-select v-model="formData.hostList"></iep-contact-select>
+      </el-form-item>
+      <el-form-item label="参会人：" prop="">
+        <iep-contact-multiple v-model="formData.attendeeList"></iep-contact-multiple>
+      </el-form-item>
+      <el-form-item label="抄送人：" prop="">
         <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
       </el-form-item>
+      <!-- <el-form-item label="接收人" prop="">
+        <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
+      </el-form-item> -->
       <!-- <el-form-item label="关联报表" prop="baobiao">
         <iep-button><i class="el-icon-plus"></i></iep-button>
       </el-form-item>
@@ -74,9 +82,10 @@ import { initFormData, dictsMap, rules } from './options'
 import IepTags from '@/components/IepTags/input'
 import FooterToolbar from '@/components/FooterToolbar/'
 import IepContactMultiple from '@/components/IepContact/Multiple'
+import IepContactSelect from '@/components/IepContact/Select'
 
 export default {
-  components: { IepTags, FooterToolbar, IepContactMultiple },
+  components: { IepTags, FooterToolbar, IepContactMultiple, IepContactSelect },
   data () {
     return {
       dictsMap,
@@ -103,9 +112,15 @@ export default {
       delete this.formData.updateTime
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formData.userIds = this.formData.receiverList.users.map(m => m.id)
-          this.formData.orgIds = this.formData.receiverList.orgs.map(m => m.id)
-          this.formData.unionIds = this.formData.receiverList.unions.map(m => m.id)
+          this.formData.hostId = this.formData.hostList.id
+          this.formData.attendee = {
+            orgIds: this.formData.attendeeList.orgs.map(m => m.id),
+            userIds: this.formData.attendeeList.users.map(m => m.id),
+          }
+          this.formData.receiver = {
+            orgIds: this.formData.receiverList.orgs.map(m => m.id),
+            userIds: this.formData.receiverList.users.map(m => m.id),
+          }
           this.formRequestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',

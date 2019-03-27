@@ -132,10 +132,14 @@ export default {
         this.pageState = 'form'
         this.$nextTick(() => {
           data.data.receiverList = {
-            unions: data.data.unions ? data.data.unions : [],
-            orgs: data.data.orgs ? data.data.orgs : [],
-            users: data.data.users ? data.data.users : [],
+            orgs: data.data.receiver.orgs ? data.data.receiver.orgs: [],
+            users: data.data.receiver.user ? data.data.receiver.user: [],
           }
+          data.data.attendeeList = {
+            orgs: data.data.attendee.orgs ? data.data.attendee.orgs: [],
+            users: data.data.attendee.user ? data.data.attendee.user: [],
+          }
+          data.data.hostList = data.data.host[0]
           this.$refs['mainDialog'].formData = {...data.data}
           this.$refs['mainDialog'].methodName = '修改'
           this.$refs['mainDialog'].formRequestFn = updateData

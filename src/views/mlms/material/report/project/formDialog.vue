@@ -100,6 +100,7 @@ export default {
       this.formData.projectId = projectId
       this.formData.projectName = projectName
       this.formData.startTime = times.startTime
+      this.formData.createTime = times.startTime
       this.formData.endTime = times.endTime
     },
     submit () {

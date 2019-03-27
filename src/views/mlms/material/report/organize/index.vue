@@ -5,14 +5,14 @@
       <div class="item">
         <el-date-picker v-model="searchData.date" type="date" placeholder="选择日期" size="small"></el-date-picker>
       </div>
-      <div class="item">
+      <!-- <div class="item">
         <el-input v-model="searchData.title" placeholder="请输入关键词" size="small"></el-input>
-      </div>
+      </div> -->
       <iep-button @click="search">搜索</iep-button>
     </div>
     <div class="content">
       <div class="timeline">
-        <time-line ref="timeline" @actively="actively" :option="timeLineOption"></time-line>
+        <time-line ref="timeline" @actively="actively" :option="timeLineOption" @changeYear="changeYear"></time-line>
       </div>
       <div class="form">
         <weekly-form ref="dislog" v-if="contentType==='week'" :data="formData" @success-submit="successSubmit"></weekly-form>
@@ -27,7 +27,7 @@
 import TimeLine from '../timeline'
 import weeklyForm from './weekly'
 import monthlyForm from './monthly'
-import { createWeeks, getWeekOfYear, formatDig } from '../util'
+import { createWeeks, getWeekOfYear, formatDig, getMonday, getWeekOfMonth } from '../util'
 import { getTableData } from '@/api/mlms/material/report/organize'
 
 export default {
@@ -59,7 +59,14 @@ export default {
     submit () {
       
     },
-    search () {},
+    search () {
+      let date = new Date(this.searchData.date)
+      // 获取到选中的时间，解析出来年月周
+      let monday = new Date(getMonday(date).timeStamp)
+      this.timeLineOption.active = monday.getMonth() + 1
+      this.timeLineOption.activeChild = getWeekOfMonth(monday)
+      this.loadPage(monday, 'search')
+    },
     actively (item, type) {
       this.contentType = type
       this.$nextTick(() => {
@@ -127,6 +134,29 @@ export default {
       this.loadList(this.params)
       this.$refs['dislog'].dislogState = 'detail'
     },
+    changeYear (year) {
+      this.loadPage(new Date(`${year}-01-01`), 'year')
+    },
+    loadPage (date, type) {
+      // 初始化时间轴，获取到当前的周
+      let list = createWeeks(date.getFullYear())
+      if (type === 'year') {
+        this.$refs['timeline'].active = this.timeLineOption.active = 1
+        this.$refs['timeline'].activeChild = this.timeLineOption.activeChild = 0
+        this.contentType = 'week'
+      } else if (type === 'search') {
+        this.$refs['timeline'].active = this.timeLineOption.active
+        this.$refs['timeline'].activeChild = this.timeLineOption.activeChild
+      } else {
+        let obj = this.getDate(list)
+        this.timeLineOption.active = obj.month
+        this.timeLineOption.activeChild = obj.week
+      }
+      // 赋值时间轴
+      this.timeLineOption.list = list
+      this.params = date
+      this.loadList(this.params, 'start')
+    },
   },
   created () {
     // 获取当前的时间，默认显示当前年-当前月
@@ -135,15 +165,7 @@ export default {
       this.today = new Date(date.getFullYear() - 1, 11, 31)
       date = this.today
     }
-    // 初始化时间轴，获取到当前的周
-    let list = createWeeks(date.getFullYear())
-    let obj = this.getDate(list)
-    this.timeLineOption.active = obj.month
-    this.timeLineOption.activeChild = obj.week
-    // 赋值时间轴
-    this.timeLineOption.list = list
-    this.params = date
-    this.loadList(this.params, 'start')
+    this.loadPage(date)
   },
 }
 </script>

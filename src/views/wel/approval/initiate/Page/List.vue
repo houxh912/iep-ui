@@ -12,7 +12,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="申请人" width="120px">
             <template slot-scope="scope">
@@ -29,26 +29,23 @@
         </el-table-column>
       </iep-table>
       <request-dialog ref="requestDialog" @load-page="loadPage"></request-dialog>
-      <edit-dialog ref="editDialog" @load-page="loadPage"></edit-dialog>
     </basic-container>
   </div>
 </template>
 
 <script>
-import { getInitiatePage, postApproval } from '@/api/wel/administrative_approval'
+import { getInitiatePage, postApproval , putApprovalInitiate } from '@/api/wel/administrative_approval'
 import mixins from '@/mixins/mixins'
-import { mergeByFirst } from '@/util/util'
-import { columnsMap, initForm } from '../options'
+import { columnsMap, dictsMap } from '../options'
 import requestDialog from './requestDialog'
-import editDialog from './editDialog'
 export default {
   components: {
     requestDialog,
-    editDialog,
   },
   mixins: [mixins],
   data () {
     return {
+      dictsMap,
       columnsMap,
     }
   },
@@ -63,10 +60,11 @@ export default {
       // console.log(val)
     },
     handleEdit (row) {
-      this.$refs['editDialog'].form = mergeByFirst(initForm(), row)
-      this.$refs['editDialog'].methodName = '修改'
-      this.$refs['editDialog'].formRequestFn = postApproval
-      this.$refs['editDialog'].dialogShow = true
+      this.$emit('onEdit', {
+        formRequestFn: putApprovalInitiate,
+        methodName: '修改',
+        id: row.id,
+      })
     },
     handleAdd () {
       this.$refs['requestDialog'].methodName = '创建'

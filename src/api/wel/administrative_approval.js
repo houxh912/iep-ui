@@ -25,10 +25,28 @@ export function getCCPage (query) {
   return getAdministrativeApprovalPage(query, 4)
 }
 
+export function getApprovalInitiateById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}
+
 export function postApproval (obj) {
   return request({
     url: `${prefixUrl}/create`,
     method: 'post',
+    data: obj,
+  })
+}
+
+export function putApprovalInitiate (obj, publish) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    params: {
+      publish,
+    },
     data: obj,
   })
 }
@@ -49,25 +67,11 @@ export function deleteApprovalBatch (ids) {
   })
 }
 
-export function reviewApprovalById (id, status) {
+export function reviewApprovaBatch (obj) {
   return request({
     url: `${prefixUrl}/status/batch`,
     method: 'post',
-    data: {
-      ids: [id],
-      status,
-    },
-  })
-}
-
-export function reviewApprovaBatch (ids,status) {
-  return request({
-    url: `${prefixUrl}/status/batch`,
-    method: 'post',
-    data: {
-      ids: ids,
-      status,
-    },
+    data: obj,
   })
 }
 

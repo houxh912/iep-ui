@@ -1,7 +1,7 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="发起请求" width="500px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
-      <el-form-item label="人事管理" prop="name">
+      <el-form-item label="人事sss管理" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="行政管理" prop="typeId">

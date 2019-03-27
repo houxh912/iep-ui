@@ -32,7 +32,7 @@ export function deleteDataById (id) {
     method: 'post',
   })
 }
-export function editList (id) {
+export function getContactById (id) {
   return request({
     url: `${crmsUrl}/${id}`,
     method: 'get',

@@ -57,6 +57,7 @@
     <rejected-dialog ref="RejectedDialog" @load-page="loadPage"></rejected-dialog>
     <to-resume-dialog ref="ToResumeDialog" @load-page="loadPage"></to-resume-dialog>
     <to-blacklist-dialog ref="ToBlacklistDialog" @load-page="loadPage"></to-blacklist-dialog>
+    <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
   </div>
 </template>
 <script>
@@ -67,9 +68,10 @@ import { columnsMap, dictsMap } from '../options'
 import RejectedDialog from './RejectedDialog'
 import ToResumeDialog from './ToResumeDialog'
 import ToBlacklistDialog from './ToBlacklistDialog'
+import DetailDrawer from './DetailDrawer'
 export default {
   mixins: [mixins],
-  components: { AdvanceSearch, RejectedDialog, ToResumeDialog, ToBlacklistDialog },
+  components: { AdvanceSearch, RejectedDialog, ToResumeDialog, ToBlacklistDialog, DetailDrawer },
   data () {
     return {
       dictsMap,
@@ -121,7 +123,9 @@ export default {
       })
     },
     handleDetail (row) {
-      this.$emit('onDetail', row)
+      this.$refs['DetailDrawer'].id = row.id
+      this.$refs['DetailDrawer'].loadPage()
+      this.$refs['DetailDrawer'].drawerShow = true
     },
     // handleRejected (row) {
     //   console.log(row)

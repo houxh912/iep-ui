@@ -1,51 +1,47 @@
 <template>
-  <div>
-    <basic-container>
-      <page-header title="合同"></page-header>
-      <iep-tabs v-model="tabName" :tab-list="tabList">
-        <template v-if="tabName ==='allContractTab'" v-slot:allContractTab>
-          <all-contract-tab></all-contract-tab>
-        </template>
-        <template v-if="tabName ==='myContractTab'" v-slot:myContractTab>
-          <my-contract-tab></my-contract-tab>
-        </template>
-      </iep-tabs>
-    </basic-container>
-  </div>
+  <keep-alive>
+    <component :record="record" :is="currentComponet" @onDetail="handleDetail" @onForm="handleForm" @onGoBack="handleGoBack"></component>
+  </keep-alive>
 </template>
 
 <script>
-import mixins from '@/mixins/mixins'
-import allContractTab from './AllContract/'
-import myContractTab from './MyContract/'
-import IepTabs from '@/components/IepCommon/Tabs'
+// 动态切换组件
+import List from './Page/List'
+import Edit from './Page/Edit'
+import Detail from './Page/Detail'
+
 export default {
-  name: 'contract',
-  components: { allContractTab, myContractTab, IepTabs },
-  mixins: [mixins],
+  name: 'TableListWrapper',
+  components: {
+    List,
+    Edit,
+    Detail,
+  },
   data () {
     return {
-      tabName: 'allContractTab',
-      tabList: [
-        {
-          label: '全部合同',
-          value: 'allContractTab',
-        }, {
-          label: '我的合同',
-          value: 'myContractTab',
-        },
-      ],
+      currentComponet: 'List',
+      record: '',
     }
   },
   methods: {
-    change () { },
+    handleForm (record) {
+      this.record = record
+      this.currentComponet = 'Edit'
+    },
+    handleDetail (record) {
+      this.record = record
+      this.currentComponet = 'Detail'
+    },
+    handleGoBack () {
+      this.record = ''
+      this.currentComponet = 'List'
+    },
+  },
+  watch: {
+    '$route.path' () {
+      this.record = ''
+      this.currentComponet = 'List'
+    },
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.contract {
-  padding: 20px 0;
-  background-color: #fff;
-}
-</style>

@@ -63,9 +63,16 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
-import { handleImg } from '@/util/util'
+import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
+import { mergeByFirst } from '@/util/util'
+import { initForm } from '../options'
 export default {
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
   data () {
     return {
       backOption: {
@@ -73,31 +80,22 @@ export default {
         backPath: null,
         backFunction: this.handleGoBack,
       },
-      form: {
-        name: '李颖',
-        sourceName: '黄磊',
-        time: '2019-01-20',
-        position: '产品助理',
-        department: '产品中心',
-        date: '2019-06-20',
-        salary: 3000,
-        review: { title: '自我评述', list: [{ label: '服从领导安排情况', value: '绝对服从领导安排' }, { label: '完成交办任务情况', value: '基本能完成领导交办的任务' }, { label: '工作态度表现情况', value: '工作努力认真' }, { label: '工作能力与技巧', value: '现在一般在不断的进步与提升中' }, { label: '自身有点与缺点', value: '工作认真负责，不善于表达' }, { label: '其他', value: '继续学习，以人为本，数据赋能' }] },
-        opinion: { title: '部门班长意见', list: [{ label: '优缺点评价', value: '绝对服从领导安排' }, { label: '试用期内工作完成情况以及存在的问题', value: '基本能完成领导交办的任务' }, { label: '下一步工作安排', value: '工作努力认真' }, { label: '转正职称考试题目以及完成情况', value: '现在一般在不断的进步与提升中' }, { label: '建议职务', value: '工作认真负责，不善于表达' }, { label: '建议职称', value: '继续学习，以人为本，数据赋能' }, { label: '审批人', value: '007' }, { label: '审批结果', value: '001' }] },
-      },
+      form: initForm(),
     }
+  },
+  created () {
+    this.loadPage()
+
   },
   methods: {
     handleGoBack () {
       this.$emit('onGoBack')
     },
-  },
-  created () {
-    handleImg(this.userInfo.avatar, 'information-avatar')
-  },
-  computed: {
-    ...mapGetters([
-      'userInfo',
-    ]),
+    loadPage () {
+      getEmployeeProfileById(this.record.id).then(({ data }) => {
+        this.form = mergeByFirst(initForm(), data.data)
+      })
+    },
   },
 }
 </script>

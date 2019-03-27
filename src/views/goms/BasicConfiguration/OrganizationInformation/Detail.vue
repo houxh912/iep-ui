@@ -13,11 +13,11 @@
               <iep-img :src="form.logo" slot="cover"></iep-img>
             </div>
             <div class="info-wrapper">
-              <div class="title">国脉互联</div>
+              <div class="title">{{form.name}}</div>
               <div class="col">
                 <div class="form-item-wrapper">
                   <label for="">创建人：</label>
-                  <span class="value">{{form.creator}}</span>
+                  <span class="value">{{form.creatorName}}</span>
                 </div>
                 <div class="form-item-wrapper">
                   <label for="">成立时间：</label>
@@ -28,14 +28,6 @@
                 <div class="form-item-wrapper">
                   <label for="">联系方式：</label>
                   <span class="value">{{form.contactMethod}}</span>
-                </div>
-                <div class="form-item-wrapper">
-                  <label for="">官网：</label>
-                  <span class="value">http://www.abidu.cim</span>
-                </div>
-                <div class="form-item-wrapper">
-                  <label for="">官微：</label>
-                  <span class="value">@国脉集团</span>
                 </div>
               </div>
             </div>
@@ -52,7 +44,7 @@
             <div class="title">
               组织架构
             </div>
-            <p>{{form.orgStructure}}</p>
+            <p>{{form.structure}}</p>
           </div>
           <a-divider dashed />
           <div class="bottom">
@@ -71,7 +63,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { getOrgById, putOrg } from '@/api/goms/org'
+import { getOrgBySelf, putOrg } from '@/api/goms/org'
 import { initOrgForm } from './options'
 import { mergeByFirst } from '@/util/util'
 export default {
@@ -96,7 +88,7 @@ export default {
       })
     },
     loadPage () {
-      getOrgById(this.orgId).then(({ data }) => {
+      getOrgBySelf(this.orgId).then(({ data }) => {
         this.form = mergeByFirst(initOrgForm(), data.data)
       })
     },

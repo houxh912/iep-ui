@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`${methodName}资讯`" width="60%" @close="resetForm">
-    <el-form :model="formData" :rules="rules" ref="formName" label-width="100px">
+    <el-form :model="formData" :rules="rules" ref="formName" label-width="100px" size="small">
       <el-form-item label="标题：" prop="title">
         <el-input v-model="formData.title"></el-input>
       </el-form-item>
@@ -16,7 +16,7 @@
 </template>
 <script>
 import IepDialog from '@/components/IepDialog/'
-import { initConsultaForm, initForm } from './options'
+import { initForm } from './options'
 export default {
   components: { IepDialog },
   data () {
@@ -37,12 +37,12 @@ export default {
   },
   methods: {
     loadPage () {
-      this.formData = initConsultaForm()
+      this.formData = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },
     resetForm () {
-      this.formData = initConsultaForm()
+      this.formData = initForm()
       this.dialogShow = false
     },
     submitForm (formName) {

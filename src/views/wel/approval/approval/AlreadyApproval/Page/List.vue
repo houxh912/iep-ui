@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import { getAlreadyApprovalPage, postApproval, deleteApprovalById, deleteApprovalBatch } from '@/api/admin/approval'
+import { getAlreadyApprovalPage, postApproval } from '@/api/wel/administrative_approval'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from '../options'
 import DialogForm from './DialogForm'
@@ -41,12 +41,6 @@ export default {
   methods: {
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)
-    },
-    handleDeleteBatch () {
-      this._handleGlobalDeleteAll(deleteApprovalBatch)
-    },
-    handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deleteApprovalById)
     },
     handleAdd () {
       this.$refs['DialogForm'].methodName = '创建'

@@ -36,17 +36,16 @@ const columnsMap = [
   },
 ]
 
-const initOrgForm = () => {
+const initForm = () => {
   return {
-    orgId: '',
+    unionId: '',
     logo: '',
     name: '',
-    orgAbrName: '',
     establishTime: '',
-    creator: '',
+    creator: {},
     contactMethod: '',
     intro: '',
-    orgStructure: '',
+    structure: '',
     coreAdvantage: '',
   }
 }
@@ -59,4 +58,4 @@ const initSearchForm = () => {
 }
 
 
-export { dictsMap, columnsMap, optionMap, initSearchForm, initOrgForm }
+export { dictsMap, columnsMap, optionMap, initSearchForm, initForm }

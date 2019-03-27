@@ -33,6 +33,7 @@
         </template>
       </el-table-column>
     </iep-table>
+    <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
   </div>
 </template>
 <script>
@@ -40,8 +41,9 @@ import { getResumeLibraryPage, deleteTalentPoolById, deleteTalentPoolBatch, post
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from './AdvanceSearch'
 import { columnsMap } from '../options'
+import DetailDrawer from './DetailDrawer'
 export default {
-  components: { AdvanceSearch },
+  components: { AdvanceSearch, DetailDrawer },
   mixins: [mixins],
   data () {
     return {
@@ -71,7 +73,9 @@ export default {
       this.$emit('onEdit')
     },
     handleDetail (row) {
-      this.$emit('onDetail', row)
+      this.$refs['DetailDrawer'].id = row.id
+      this.$refs['DetailDrawer'].loadPage()
+      this.$refs['DetailDrawer'].drawerShow = true
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getResumeLibraryPage)

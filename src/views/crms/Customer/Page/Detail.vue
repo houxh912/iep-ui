@@ -43,7 +43,7 @@ import Scheme from './Scheme/'
 import Agreement from './Agreement/'
 import Information from './Information/'
 import mixins from '@/mixins/mixins'
-import { fetchInfo } from '@/api/crms/customer_panorama'
+import { getCustomerById } from '@/api/crms/customer'
 export default {
   name: 'detail',
   mixins: [mixins],
@@ -80,14 +80,12 @@ export default {
       formRequestFn: () => { },
     }
   },
-
   created () {
-    console.log(222222)
     this.load()
   },
   methods: {
     load () {
-      fetchInfo(this.record.id).then(({ data }) => {
+      getCustomerById(this.record.id).then(({ data }) => {
         this.formData = data.data
       })
     },
@@ -110,23 +108,11 @@ export default {
       font-weight: 600;
       font-size: 18px;
     }
-    .manager {
-      color: #ccc;
-    }
     .back {
       height: 30px;
       float: right;
       margin-left: auto;
     }
   }
-}
-.person {
-  font-size: 16px;
-  margin-left: 30px;
-  align-items: center;
-  line-height: 50px;
-}
-.assist {
-  margin-right: 10px;
 }
 </style>

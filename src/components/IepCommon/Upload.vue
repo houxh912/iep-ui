@@ -8,6 +8,7 @@
 import store from '@/store'
 import { downloadFile } from '@/api/common'
 export default {
+  name: 'IepUpload',
   props: {
     value: {
       type: Array,

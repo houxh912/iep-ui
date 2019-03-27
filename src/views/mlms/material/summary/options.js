@@ -43,13 +43,17 @@ export const initFormData = () => {
     meetingLocation: '',
     tagKeyWords: [],
     receiverIds: [],
-    userIds: [],
-    orgIds: [],
-    unionIds: [],
     receiverList: {
-      unions: [],
       orgs: [],
       users: [],
+    },
+    attendeeList: {
+      orgs: [],
+      users: [],
+    },
+    hostList: {
+      id: '',
+      name: '',
     },
     remark: '',
     visitType: -1,

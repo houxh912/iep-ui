@@ -2,11 +2,10 @@
   <div class="contract">
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleCreate" size="small" type="danger">新增</iep-button>
+        <iep-button @click="handleCreate" icon="el-icon-plus" type="danger" plain>新增</iep-button>
       </template>
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
-
           <el-form :model="paramForm" label-width="80px" size="mini">
             <el-form-item label="客户名称">
               <el-input v-model="paramForm.clientName" placeholder="关键字"></el-input>
@@ -27,8 +26,8 @@
       <el-table-column prop="operation" label="操作" min-width="80">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" size="small" type="warning">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -39,7 +38,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { allTableOption, dictsMap, initSearchForm } from '../options'
-import { myBusinessList, createData, deleteDataById, refuseClaim } from '@/api/crms/business'
+import { businessList, createData, deleteDataById, refuseClaim } from '@/api/crms/business'
 export default {
   name: 'business',
   mixins: [mixins],
@@ -48,13 +47,14 @@ export default {
       dictsMap,
       columnsMap: allTableOption,
       paramForm: initSearchForm(),
+      type: 2,
     }
   },
   computed: {
   },
   methods: {
-    loadPage (param) {
-      this.loadTable(param, myBusinessList, m => {
+    loadPage (param = { type: this.type }) {
+      this.loadTable(param, businessList, m => {
         return Object.assign(m, { businessTypeC: m.businessType.map(m => m.commonName).join('，') })
       })
     },
@@ -63,7 +63,7 @@ export default {
       this.$emit('clear-search-param')
     },
     searchPage () {
-      this.loadTable(this.paramForm, myBusinessList)
+      this.loadTable({ ...this.paramForm, type: this.type }, businessList)
     },
     handleAdd () {
       this.$refs['mainDialog'].methodName = '新增'

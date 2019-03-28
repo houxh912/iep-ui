@@ -7,16 +7,16 @@
           <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="内容：">
-          <el-input type="textarea" v-model="form.desc"></el-input>
+          <el-input type="textarea" v-model="form.content"></el-input>
         </el-form-item>
         <el-form-item label="属性：">
-          <el-checkbox-group v-model="form.desc">
+          <el-checkbox-group v-model="form.prop">
             <el-checkbox label="不允许评论" name="type" checked></el-checkbox>
             <el-checkbox label="置顶" name="type"></el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item label="发布范围：">
-          <el-checkbox-group v-model="form.desc">
+          <el-checkbox-group v-model="form.area">
             <el-checkbox label="当前组织" name="type" checked></el-checkbox>
             <el-checkbox label="联盟组织" name="type"></el-checkbox>
           </el-checkbox-group>
@@ -32,9 +32,9 @@
   </div>
 </template>
 <script>
-// import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
+import { getAnnouncementById, postAnnouncement, putAnnouncement } from '@/api/ims/announcement'
 import { initForm, formToDto } from './options'
-// import { mergeByFirst } from '@/util/util'
+import { mergeByFirst } from '@/util/util'
 export default {
   props: {
     record: {
@@ -44,9 +44,7 @@ export default {
   },
   data () {
     return {
-      id: false,
-      methodName: '发布',
-      formRequestFn: () => { },
+      id: this.$route.query.id,
       backOption: {
         isBack: true,
         backPath: this.$route.query.redirect,
@@ -54,15 +52,28 @@ export default {
       form: initForm(),
     }
   },
+  computed: {
+    formRequestFn () {
+      if (this.id) {
+        return putAnnouncement
+      } else {
+        return postAnnouncement
+      }
+    },
+    methodName () {
+      if (this.id) {
+        return '修改'
+      } else {
+        return '发布'
+      }
+    },
+  },
   created () {
-    this.methodName = this.record.methodName
-    this.formRequestFn = this.record.formRequestFn
-    this.id = this.record.id
-    // if (this.id) {
-    //   getPublishRecruitmentById(this.id).then(({ data }) => {
-    //     this.form = mergeByFirst(initForm(), data.data)
-    //   })
-    // }
+    if (this.id) {
+      getAnnouncementById(this.id).then(({ data }) => {
+        this.form = mergeByFirst(initForm(), data.data)
+      })
+    }
   },
   methods: {
     handlePublish () {

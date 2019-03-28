@@ -16,3 +16,19 @@ export function getAnnouncementById (id) {
     method: 'get',
   })
 }
+
+export function postAnnouncement (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function putAnnouncement (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}

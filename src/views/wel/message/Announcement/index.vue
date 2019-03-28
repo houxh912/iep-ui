@@ -21,7 +21,7 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="发送人" width="90px">
+          <el-table-column label="主题">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
@@ -77,13 +77,19 @@ export default {
     handleAdd () {
       this.$router.push({
         path: '/detail/announcement',
-        query: { redirect: this.$route.fullPath },
+        query: {
+          id: 0,
+          redirect: this.$route.fullPath,
+        },
       })
     },
     handleEdit (row) {
       this.$router.push({
-        path: `/detail/announcement/${row.id}`,
-        query: { redirect: this.$route.fullPath },
+        path: '/detail/announcement',
+        query: {
+          id: row.id,
+          redirect: this.$route.fullPath,
+        },
       })
     },
     loadPage (param = this.searchForm) {

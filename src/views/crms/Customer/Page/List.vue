@@ -10,7 +10,7 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="excellImport">导入</el-dropdown-item>
               <el-dropdown-item command="handleAllDelete">删除</el-dropdown-item>
-              <el-dropdown-item>转移</el-dropdown-item>
+              <el-dropdown-item @click.native="Transfer">转移</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -23,7 +23,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex :isMutipleSelection="showSelect?true:false">
         <template slot="before-columns">
           <el-table-column label="客户名称" width="250px">
             <template slot-scope="scope">
@@ -46,6 +46,7 @@
       </iep-table>
       <excell-import ref="ExcellImport" :urlName="url" @close="handleClose"></excell-import>
       <collaborator ref="collaborator" @load-page="loadPage"></collaborator>
+      <transfer ref="transfer"></transfer>
     </basic-container>
   </div>
 </template>
@@ -56,9 +57,10 @@ import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById } from '
 import AdvanceSearch from './AdvanceSearch'
 import ExcellImport from './ExcellImport/'
 import Collaborator from './Collaborator/'
+import Transfer from './Transfer/'
 export default {
   name: 'list',
-  components: { AdvanceSearch, ExcellImport, Collaborator },
+  components: { AdvanceSearch, ExcellImport, Collaborator, Transfer },
   mixins: [mixins],
   data () {
     return {
@@ -66,6 +68,8 @@ export default {
       tabList,
       replaceText: (data) => `（本周新增${data[0]}位客户）`,
       url: '/api/crm/crms/iepclientinfoexcel/upload',
+      showSelect: false,
+      ids: [],
     }
   },
   computed: {
@@ -138,8 +142,19 @@ export default {
         // console.log(res)
       // })
     },
+    //转移
+    Transfer () {
+      this.$refs['transfer'].dialogShow = true
+      this.$refs['transfer'].id = this.ids
+    },
     //table多选
-    handleSelectionChange () {
+    handleSelectionChange (row) {
+      let ids = []
+      row.forEach((item) => {
+        ids.push(item.clientId)
+      })
+      this.ids = ids
+      console.log(this.ids)
     },
     //加载
     loadPage (param = { ...this.searchForm, type: this.type }) {

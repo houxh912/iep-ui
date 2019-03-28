@@ -14,16 +14,10 @@
         <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期"></iep-date-picker>
       </el-form-item>
       <el-form-item label="培训类型" prop="typeId">
-        <el-select v-model="form.typeId" placeholder="请选择">
-          <el-option v-for="item in dictGroup['hrms_training_type']" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
+        <iep-dict-select v-model="form.typeId" dict-name="hrms_training_type"></iep-dict-select>
       </el-form-item>
       <el-form-item label="培训方式" prop="methodId">
-        <el-select v-model="form.methodId" placeholder="请选择">
-          <el-option v-for="item in dictGroup['hrms_training_mode']" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
+        <iep-dict-select v-model="form.methodId" dict-name="hrms_training_mode"></iep-dict-select>
       </el-form-item>
       <el-form-item label="培训地点" prop="place">
         <el-input v-model="form.place"></el-input>
@@ -41,7 +35,6 @@
   </iep-dialog>
 </template>
 <script>
-import { mapState } from 'vuex'
 import IepDialog from '@/components/IepDialog/'
 import { initForm, rules } from './options'
 export default {
@@ -54,11 +47,6 @@ export default {
       form: initForm(),
       rules,
     }
-  },
-  computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
   },
   methods: {
     loadPage () {

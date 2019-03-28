@@ -28,7 +28,6 @@ export default {
       rules: {
         name: [
           { required: true, message: '请输入岗位分类名称', trigger: 'change' },
-          { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'change' },
         ],
         description: [
           { required: true, message: '请填写岗位分类描述', trigger: 'change' },

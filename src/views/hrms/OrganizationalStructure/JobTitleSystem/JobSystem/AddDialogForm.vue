@@ -31,7 +31,6 @@ export default {
       rules: {
         name: [
           { required: true, message: '请输入职务名称', trigger: 'change' },
-          { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'change' },
         ],
         description: [
           { required: true, message: '请填写职务描述', trigger: 'change' },

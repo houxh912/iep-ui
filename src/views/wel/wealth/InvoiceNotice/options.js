@@ -2,16 +2,16 @@ import { mergeByFirst } from '@/util/util'
 
 const columnsMap = [
 	{
-		prop: 'type',
-		label: '发票类型',
+		prop: 'buyer',
+		label: '购买方',
 	},
 	{
-		prop: 'rise',
-		label: '发票抬头',
+		prop: 'seller',
+		label: '销售方',
 	},
 	{
 		prop: 'sum',
-		label: '发票金额',
+		label: '开票金额',
 	},
 	{
 		prop: 'time',
@@ -20,9 +20,6 @@ const columnsMap = [
 	{
 		prop: 'state',
 		label: '状态',
-	},{
-		prop: 'usableSum',
-		label: '发票可用金额',
 	},{
 		prop: 'auditor',
 		label: '审核人',

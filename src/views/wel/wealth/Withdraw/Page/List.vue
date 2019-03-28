@@ -1,13 +1,8 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="发票"></page-header>
+      <page-header title="提现"></page-header>
       <operation-container>
-        <template slot="left">
-          <iep-button type="danger" icon="iconfont icon-send" size="mini">发送</iep-button>
-          <iep-button type="default" size="small">撤回</iep-button>
-          <iep-button type="default" size="small">删除</iep-button>
-        </template>
         <template slot="right">
           <operation-search @search="searchPage" advance-search>
             <el-form :model="paramForm" label-width="80px" size="mini">
@@ -26,7 +21,7 @@
                 <el-date-picker v-model="value1" type="date" placeholder="选择日期">
                 </el-date-picker>
               </el-form-item>
-              <el-form-item label="发票金额">
+              <el-form-item label="金额">
                 <el-col :span="11">
                   <el-input v-model="paramForm.sum" style="width: 100%;"></el-input>
                 </el-col>
@@ -35,21 +30,9 @@
                   <el-input v-model="paramForm.sum2" style="width: 100%;"></el-input>
                 </el-col>
               </el-form-item>
-              <el-form-item label="提交类型">
-                <el-select v-model="value" placeholder="请选择">
-                  <el-option v-for="item in classify" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </el-form-item>
               <el-form-item label="状态">
                 <el-select v-model="value" placeholder="请选择">
-                  <el-option v-for="item in state" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="发票抬头">
-                <el-select v-model="value" placeholder="请选择">
-                  <el-option v-for="item in invoiceRise" :key="item.value" :label="item.label" :value="item.value">
+                  <el-option v-for="item in classify" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -63,7 +46,7 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="发送人" width="90px">
+          <el-table-column label="流水号" width="90px">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
@@ -81,30 +64,24 @@ export default {
   mixins: [mixins],
   data () {
     return {
+      classify: [
+        {
+          value: '选项1',
+          label: '待审核',
+        },
+        {
+          value: '选项2',
+          label: '已审核',
+        },
+      ],
       form: {
         name: '',
       },
       columnsMap,
       paramForm: initSearchForm(),
-      classify: [
-        {
-          value: '选项1',
-          label: '所有',
-        },
-      ],
-      state: [
-        {
-          value: '选项1',
-          label: '待审核',
-        },
-      ],
-      invoiceRise: [
-        {
-          value: '选项1',
-          label: '浙江蟠桃会网络技术有限公司',
-        },
-      ],
       value: '',
+      value1: '',
+      replaceText: (data) => `（支出：${data[0]}笔${data[0]}贝，收入：${data[0]}笔${data[0]}贝）`,
     }
   },
   created () {
@@ -127,3 +104,8 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.line {
+  text-align: center;
+}
+</style>

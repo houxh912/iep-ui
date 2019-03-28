@@ -25,6 +25,7 @@ export default {
   // 配置菜单的属性
   menu: {
     props: {
+      name: 'name',
       label: 'label',
       path: 'path',
       icon: 'icon',

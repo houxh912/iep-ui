@@ -2,12 +2,36 @@ import { mergeByFirst } from '@/util/util'
 
 const columnsMap = [
 	{
-		prop: 'title',
-		label: '主题',
+		prop: 'type',
+		label: '发票类型',
 	},
 	{
-		prop: 'receptionTime',
-		label: '金额',
+		prop: 'rise',
+		label: '发票抬头',
+	},
+	{
+		prop: 'sum',
+		label: '发票金额',
+	},
+	{
+		prop: 'time',
+		label: '申请日期',
+	},
+	{
+		prop: 'state',
+		label: '状态',
+	},{
+		prop: 'usableSum',
+		label: '发票可用金额',
+	},{
+		prop: 'auditor',
+		label: '审核人',
+	},{
+		prop: 'auditDate',
+		label: '审核日期',
+	},{
+		prop: 'operate',
+		label: '操作',
 	},
 ]
 

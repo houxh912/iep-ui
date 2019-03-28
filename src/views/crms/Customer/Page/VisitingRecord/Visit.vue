@@ -1,7 +1,7 @@
 <template>
   <div>
     <operation-wrapper>
-      <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i>新增</iep-button>
+      <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i>新增拜访日志</iep-button>
     </operation-wrapper>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection>
       <el-table-column prop="operation" label="操作" width="200px">
@@ -14,21 +14,24 @@
       </el-table-column>
     </iep-table>
     <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
+    <visit-dialog ref="VisitDialog"></visit-dialog>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
 import { fetchVisitList, deleteVisit, updateVisit, createVisit } from '@/api/crms/visiting_record'
-import { columnsMap } from './options'
+import { visitColumnsMap } from './options'
 import EditDialog from './EditDialog'
+import VisitDialog from './VisitDialog'
 export default {
   mixins: [mixins],
   props: ['record'],
-  components: { EditDialog },
+  components: { EditDialog, VisitDialog },
   data () {
     return {
-      columnsMap,
+      columnsMap: visitColumnsMap,
+      dialogShow: false,
     }
   },
   created () {
@@ -40,15 +43,15 @@ export default {
       this.loadTable({ ...param, clientId: id }, fetchVisitList)
     },
     handleAdd () {
-      this.$refs['EditDialog'].dialogShow = true
-      this.$refs['EditDialog'].methodName = '新增'
-      this.$refs['EditDialog'].submitFn = createVisit
+      this.$refs['VisitDialog'].dialogShow = true
+      this.$refs['VisitDialog'].methodName = '新增'
+      this.$refs['VisitDialog'].submitFn = createVisit
     },
     handleEdit (row) {
-      this.$refs['EditDialog'].formData = { ...row }
-      this.$refs['EditDialog'].dialogShow = true
-      this.$refs['EditDialog'].methodName = '编辑'
-      this.$refs['EditDialog'].submitFn = updateVisit
+      this.$refs['VisitDialog'].formData = { ...row }
+      this.$refs['VisitDialog'].dialogShow = true
+      this.$refs['VisitDialog'].methodName = '编辑'
+      this.$refs['VisitDialog'].submitFn = updateVisit
 
     },
     handleDeleteById (row) {

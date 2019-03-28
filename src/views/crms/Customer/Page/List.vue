@@ -10,7 +10,7 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="excellImport">导入</el-dropdown-item>
               <el-dropdown-item command="handleAllDelete">删除</el-dropdown-item>
-              <el-dropdown-item>转移</el-dropdown-item>
+              <el-dropdown-item @click.native="Transfer">转移</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -46,6 +46,7 @@
       </iep-table>
       <excell-import ref="ExcellImport" :urlName="url" @close="handleClose"></excell-import>
       <collaborator ref="collaborator" @load-page="loadPage"></collaborator>
+      <transfer ref="transfer"></transfer>
     </basic-container>
   </div>
 </template>
@@ -56,9 +57,10 @@ import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById, getColl
 import AdvanceSearch from './AdvanceSearch'
 import ExcellImport from './ExcellImport/'
 import Collaborator from './Collaborator/'
+import Transfer from './Transfer/'
 export default {
   name: 'list',
-  components: { AdvanceSearch, ExcellImport, Collaborator },
+  components: { AdvanceSearch, ExcellImport, Collaborator, Transfer },
   mixins: [mixins],
   data () {
     return {
@@ -140,6 +142,11 @@ export default {
       getCollaboratorPage(row.clientId).then(res => {
         this.$refs['collaborator'].data = res.data.data.records
       })
+    },
+    //转移
+    Transfer () {
+      this.$refs['transfer'].dialogShow = true
+      this.$refs['transfer'].id = this.ids
     },
     //table多选
     handleSelectionChange (row) {

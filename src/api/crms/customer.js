@@ -61,3 +61,11 @@ export function getCollaboratorPage (id) {
     method: 'get',
   })
 }
+//转移客户
+export function TransferCustomers (query) {
+  return request({
+    url: `${prefixUrl}/transfer`,
+    method: 'post',
+    data: query,
+  })
+}

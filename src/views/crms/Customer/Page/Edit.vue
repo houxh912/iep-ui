@@ -178,7 +178,7 @@ export default {
       })
     },
     submitForm (formName) {
-      this.formData.collaborations = this.formData.collaborations.map(m => parseInt(m.commonId))
+      // this.formData.collaborations = this.formData.collaborations.map(m => parseInt(m.commonId))
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn((this.formData)).then(({ data }) => {

@@ -23,7 +23,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex :isMutipleSelection="showSelect?true:false">
         <template slot="before-columns">
           <el-table-column label="客户名称" width="250px">
             <template slot-scope="scope">
@@ -66,6 +66,8 @@ export default {
       tabList,
       replaceText: (data) => `（本周新增${data[0]}位客户）`,
       url: '/api/crm/crms/iepclientinfoexcel/upload',
+      showSelect: false,
+      ids: [],
     }
   },
   computed: {
@@ -140,7 +142,13 @@ export default {
       })
     },
     //table多选
-    handleSelectionChange () {
+    handleSelectionChange (row) {
+      let ids = []
+      row.forEach((item) => {
+        ids.push(item.clientId)
+      })
+      this.ids = ids
+      console.log(this.ids)
     },
     //加载
     loadPage (param = { ...this.searchForm, type: this.type }) {

@@ -382,12 +382,12 @@ export function pickDeep (collection) {
         return {
           children: subC,
           label: c.label,
-          value: +c.value,
+          value: c.value,
         }
       } else {
         return {
           label: c.label,
-          value: +c.value,
+          value: c.value,
         }
       }
     })

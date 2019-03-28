@@ -1,10 +1,11 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="发票"></page-header>
+      <page-header title="开票通知"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="danger" icon="iconfont icon-send" size="mini">发送</iep-button>
+          <iep-button @click="handleAdd()" type="danger" icon="el-icon-plus" size="small" plain>新增</iep-button>
+          <iep-button type="default" icon="iconfont icon-send" size="mini">发送</iep-button>
           <iep-button type="default" size="small">撤回</iep-button>
           <iep-button type="default" size="small">删除</iep-button>
         </template>
@@ -19,10 +20,6 @@
                 </el-date-picker>
               </el-form-item>
               <el-form-item label="审核时间">
-                <el-date-picker v-model="value1" type="date" placeholder="选择日期">
-                </el-date-picker>
-              </el-form-item>
-              <el-form-item label="发布时间">
                 <el-date-picker v-model="value1" type="date" placeholder="选择日期">
                 </el-date-picker>
               </el-form-item>
@@ -47,7 +44,7 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="发票抬头">
+              <el-form-item label="销售方">
                 <el-select v-model="value" placeholder="请选择">
                   <el-option v-for="item in invoiceRise" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
@@ -116,6 +113,12 @@ export default {
     },
     handleDetail (row) {
       this.$emit('onDetail', row)
+    },
+    handleAdd () {
+      this.$emit('onEdit', {
+        methodName: '新增',
+        id: false,
+      })
     },
     // handleRejected (row) {
     //   console.log(row)

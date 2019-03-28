@@ -143,8 +143,8 @@ export default {
     if (this.id) {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = mergeByFirst(initForm(), data.data)
-        this.formData.businessTypeKey = data.data.businessTypeKey.map(m => parseInt(m.commonId))
-        this.formData.clientTypeKey = data.data.clientTypeKey.map(m => parseInt(m.commonId))
+        this.formData.businessTypeKey = data.data.businessTypeKey.map(m => m.commonId)
+        this.formData.clientTypeKey = data.data.clientTypeKey.map(m => m.commonId)
         this.formData.districtType = data.data.districtTypeKey
         this.formData.followUpStatus = data.data.followUpStatusKey
         this.formData.clientRela = data.data.clientRelaKey

@@ -83,7 +83,7 @@ RouterPlugin.install = function (router, store) {
 
         const component = oMenu.component
 
-        const name = oMenu[propsDefault.label]
+        const name = oMenu[propsDefault.name]
 
         const icon = oMenu[propsDefault.icon]
 

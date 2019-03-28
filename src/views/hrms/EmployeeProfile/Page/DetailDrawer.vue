@@ -1,7 +1,7 @@
 <template>
   <iep-drawer :drawer-show="drawerShow" title="员工信息" width="40%" @close="closePage">
     <!-- <p :style="[pStyle, pStyle2]"></p> -->
-    <p :style="pStyle">个人信息</p>
+    <p :style="pStyle">基本信息</p>
     <a-row>
       <a-col :span="12">
         <IepDescriptionItem title="姓名：">
@@ -17,24 +17,42 @@
 
     <a-row>
       <a-col :span="12">
-        <IepDescriptionItem title="身高：" :content="form.height+'cm'" />
+        <IepDescriptionItem title="工号：" :content="form.IDCard" />
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="体重：" :content="form.weight+'kg'" />
+        <IepDescriptionItem title="员工状态：" :content="form.status" />
       </a-col>
     </a-row>
 
     <a-row>
       <a-col :span="12">
-        <IepDescriptionItem title="出生年月：" :content="form.birthday" />
+        <IepDescriptionItem title="岗位：" :content="form.positionName" />
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="民族：" :content="form.nation" />
+        <IepDescriptionItem title="职责：" :content="form.duties" />
+      </a-col>
+    </a-row>
+
+    <a-row>
+      <a-col :span="12">
+        <IepDescriptionItem title="职务：" :content="form.job" />
+      </a-col>
+      <a-col :span="12">
+        <IepDescriptionItem title="职称：" :content="form.title" />
       </a-col>
     </a-row>
 
     <a-divider />
     <p :style="pStyle">联系方式</p>
+
+    <a-row>
+      <a-col :span="12">
+        <IepDescriptionItem title="QQ：" :content="form.qq" />
+      </a-col>
+      <a-col :span="12">
+        <IepDescriptionItem title="微信：" :content="form.weChat" />
+      </a-col>
+    </a-row>
 
     <a-row>
       <a-col :span="12">
@@ -56,23 +74,19 @@
 
     <a-row>
       <a-col :span="12">
-        <IepDescriptionItem title="健康状况：" :content="form.health" />
+        <IepDescriptionItem title="入职时间：" :content="form.entryTime" />
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="员工关系：" :content="form.relation" />
+        <IepDescriptionItem title="转正时间：" :content="form.positiveTime" />
       </a-col>
     </a-row>
 
     <a-row>
       <a-col :span="12">
-        <IepDescriptionItem title="政治面貌：">
-          <iep-dict-detail slot="content" :current-value="form.politics" dict-name="hrms_politics_face"></iep-dict-detail>
-        </IepDescriptionItem>
+        <IepDescriptionItem title="出生年月：" :content="form.birthday" />
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="婚姻状况：">
-          <iep-dict-detail slot="content" :current-value="form.marriage" dict-name="hrms_marriage_status"></iep-dict-detail>
-        </IepDescriptionItem>
+        <IepDescriptionItem title="民族：" :content="form.nationality" />
       </a-col>
     </a-row>
 
@@ -93,15 +107,6 @@
       </a-col>
       <a-col :span="12">
         <IepDescriptionItem title="外部头衔：" :content="form.title" />
-      </a-col>
-    </a-row>
-
-    <a-row>
-      <a-col :span="12">
-        <IepDescriptionItem title="员工关系：" :content="form.relation" />
-      </a-col>
-      <a-col :span="12">
-        <IepDescriptionItem title="兴趣爱好：" :content="form.hobbies" />
       </a-col>
     </a-row>
 

@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     loadPage () {
-      this.status = 0
+      this.status = 1
       this.content = ''
       this.dialogShow = false
       this.$emit('load-page')

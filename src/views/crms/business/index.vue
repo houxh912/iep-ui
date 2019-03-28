@@ -19,7 +19,7 @@
         <el-table-column prop="operation" label="操作" width="150">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="type === '1'" plain @click="handleDetail(scope.row)">查看</iep-button>
+              <iep-button v-if="type === '1'" @click="handleDetail(scope.row)">查看</iep-button>
               <iep-button type="warning" v-if="type === '2'" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="type === '2'" @click="handleDelete(scope.row)">删除</iep-button>
               <iep-button v-if="type === '3'" @click="handleRefuse(scope.row)">取消认领</iep-button>
@@ -66,7 +66,7 @@ export default {
     handleSelectionChange () {
     },
     changeType () {
-      this.loadPage()
+      this.searchPage({ type: this.type })
     },
     handleAdd () {
       this.$refs['EditDrawer'].methodName = '新增'
@@ -108,10 +108,6 @@ export default {
         return Object.assign(m, { businessTypeKey: m.businessType.map(m => m.commonName).join('，') })
       })
     },
-    //搜索
-    searchPage (form) {
-      this.loadTable({ ...form, type: this.type }, getBusinessList)
-    },
     //取消认领
     handleRefuse (row) {
       this.$confirm('是否确定取消认领此数据？', '提示', {
@@ -120,7 +116,6 @@ export default {
         type: 'warning',
       }).then(() => {
         getBusinessById(row.opportunityId).then(res => {
-          console.log(res)
           let state = res.data.data.data.statusKey
           let id = res.data.data.data.opportunityId
           let claim = {
@@ -141,18 +136,4 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.custom-name {
-  cursor: pointer;
-  margin-bottom: 5px;
-}
-.custom-tags {
-  margin: 0;
-  .el-tag {
-    margin-right: 5px;
-    height: 26px;
-    line-height: 26px;
-  }
-}
-</style>
 

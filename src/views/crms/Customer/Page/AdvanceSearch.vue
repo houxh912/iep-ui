@@ -30,9 +30,9 @@
       <el-date-picker v-model="form.lastTime" align="right" type="date" placeholder="选择日期">
       </el-date-picker>
     </el-form-item>
-    <el-form-item>
-      <iep-button type="primary" @click="searchPage" size="mini">搜索</iep-button>
-      <iep-button @click="clearSearchParam" size="mini">清空</iep-button>
+    <el-form-item label="">
+      <el-button type="primary" @click="searchPage" size="mini">搜索</el-button>
+      <el-button @click="clearSearchParam" size="mini">清空</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     searchPage () {
-      this.$emit('search-page', this.form)
+      this.$emit('search-page', { type: this.type, ...this.form })
     },
     clearSearchParam () {
       if (this.type === '1') {

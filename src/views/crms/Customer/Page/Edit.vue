@@ -196,10 +196,7 @@ export default {
       })
     },
     handleClose (tag) {
-      console.log(tag)
       this.formData.collaborations.splice(this.formData.collaborations.indexOf(tag), 1)
-      console.log(this.formData.collaborations)
-
     },
   },
 }
@@ -208,21 +205,5 @@ export default {
 <style scoped>
 .edit-wrapper {
   padding-bottom: 50px;
-}
-.edit-wrapper >>> .el-collapse-item__wrap {
-  padding: 30px 70px 0 70px;
-  border: none;
-}
-.edit-wrapper >>> .el-collapse {
-  border: none;
-}
-.edit-wrapper >>> .el-collapse-item__header {
-  background-color: #f8f8f8;
-  font-size: 15px;
-  font-weight: 700;
-  padding-left: 20px;
-  margin: 5px;
-  border-radius: 5px;
-  border: none;
 }
 </style>

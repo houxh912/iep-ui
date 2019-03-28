@@ -34,7 +34,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column v-if="+type !== 1" prop="operation" label="操作" width="250px">
+        <el-table-column v-if="+type !== 1" prop="operation" label="操作" :width="type==='2'?'250px':'150px'">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleCooperation(scope.row)" v-if="+type===2">添加协作人</iep-button>
@@ -52,7 +52,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId, tabList } from '../columns'
-import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById, getCollaboratorPage } from '@/api/crms/customer'
+import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById } from '@/api/crms/customer'
 import AdvanceSearch from './AdvanceSearch'
 import ExcellImport from './ExcellImport/'
 import Collaborator from './Collaborator/'
@@ -101,9 +101,6 @@ export default {
     //tab切换菜单
     changeType () {
       this.searchPage({ type: this.type })
-      if (this.type === '2') {
-        this.showSelect = true
-      } else { this.showSelect = false }
     },
     //新增客户
     handleAdd () {
@@ -135,9 +132,11 @@ export default {
     handleCooperation (row) {
       this.$refs['collaborator'].id = row.clientId
       this.$refs['collaborator'].dialogShow = true
-      getCollaboratorPage(row.clientId).then(res => {
-        this.$refs['collaborator'].data = res.data.data.records
-      })
+      this.$refs['collaborator'].loadPage()
+      // getCollaboratorPage(row.clientId).then(res => {
+        // this.$refs['collaborator'].data = res.data.data.records
+        // console.log(res)
+      // })
     },
     //table多选
     handleSelectionChange () {

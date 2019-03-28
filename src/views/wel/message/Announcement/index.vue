@@ -76,7 +76,7 @@ export default {
     },
     handleAdd () {
       this.$router.push({
-        path: '/detail/announcement',
+        path: '/ims_spa/announcement',
         query: {
           id: 0,
           redirect: this.$route.fullPath,
@@ -85,7 +85,7 @@ export default {
     },
     handleEdit (row) {
       this.$router.push({
-        path: '/detail/announcement',
+        path: '/ims_spa/announcement',
         query: {
           id: row.id,
           redirect: this.$route.fullPath,

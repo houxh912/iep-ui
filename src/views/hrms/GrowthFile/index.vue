@@ -2,7 +2,7 @@
   <div>
     <basic-container>
       <page-header title="员工成长档案" :backOption="backOption"></page-header>
-      <div class="staff-headers">
+      <el-card class="staff-headers" shadow="hover">
         <div class="left">
           <span class="img-header zoom"><img :src="avatar" alt="" /></span>
           <div class="name-info">
@@ -21,14 +21,10 @@
           </div>
           <div class="label-item">
             <span>标签：</span>
-            <ul>
-              <li v-for="item in labellist" :key="item.id">
-                <a href="#">{{ item.label }}</a>
-              </li>
-            </ul>
+            <a-tag v-for="item in labellist" :key="item.id">{{ item.label }}</a-tag>
           </div>
         </div>
-      </div>
+      </el-card>
       <el-checkbox-group class="check-group" v-model="checkList">
         <el-checkbox v-for="(item) in recordType" :label="item.value" :key="item.value">{{item.label}}</el-checkbox>
       </el-checkbox-group>
@@ -132,12 +128,7 @@ export default {
   margin-top: 20px;
 }
 .staff-headers {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 3px;
-  margin-bottom: 10px;
-  border: 1px solid #eee;
-  box-shadow: 0 0 1px 1px #eee;
+  margin: 0 20px;
   .left {
     display: inline-flex;
     padding-right: 20px;
@@ -193,39 +184,6 @@ export default {
   }
   .state {
     color: #999;
-  }
-  .label-item {
-    span,
-    ul,
-    li {
-      display: inline-block;
-      vertical-align: middle;
-    }
-    ul {
-      width: 90%;
-      height: 40px;
-      overflow: hidden;
-    }
-    li {
-      margin: 5px;
-      &:nth-child(1) {
-        margin-left: 0;
-      }
-    }
-    a {
-      display: block;
-      padding: 5px 10px;
-      border-radius: 3px;
-      border: 1px solid #dcdfe6;
-      background-color: #f9f9f9;
-      -webkit-transition: 0.1s;
-      transition: 0.1s;
-      &:hover {
-        border-color: #ea8d03;
-        background-color: #fff7ec;
-        color: #ea8d03;
-      }
-    }
   }
 }
 </style>

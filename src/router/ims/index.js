@@ -1,15 +1,10 @@
 import Layout from '@/page/index/index'
 export default [
   {
-    path: '/detail',
+    path: '/ims_spa',
     component: Layout,
-    redirect: '/detail/growth_file/:id',
+    redirect: '/ims_spa/announcement',
     children: [
-      {
-        path: 'growth_file/:id',
-        name: '成长档案',
-        component: () => import('@/views/detail/hrms/GrowthFile/index.vue'),
-      },
       {
         path: 'announcement',
         name: '通知公告',

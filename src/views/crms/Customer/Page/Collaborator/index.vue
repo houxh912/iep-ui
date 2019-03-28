@@ -144,6 +144,5 @@ export default {
   width: 250px;
   padding: 15px 0;
 }
-
 </style>
 

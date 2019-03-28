@@ -4,24 +4,16 @@
       <el-input v-model="form.clientName" placeholder="请输入客户名称"></el-input>
     </el-form-item>
     <el-form-item label="区域类型">
-      <el-select v-model="form.districtType" placeholder="请选择区域类型">
-        <el-option v-for="item in dictGroup['crms_district_type']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-      </el-select>
+      <iep-dict-select v-model="form.districtType" dict-name="crms_district_type"></iep-dict-select>
     </el-form-item>
     <el-form-item label="客户关系">
-      <el-select v-model="form.clientRela" placeholder="请选择客户关系">
-        <el-option v-for="item in dictGroup['crms_client_relation']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-      </el-select>
+      <iep-dict-select v-model="form.clientRela" dict-name="crms_client_relation"></iep-dict-select>
     </el-form-item>
     <el-form-item label="跟进状态">
-      <el-select v-model="form.followUpStatus" placeholder="请选择跟进状态">
-        <el-option v-for="item in dictGroup['crms_follow_up_status']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-      </el-select>
+      <iep-dict-select v-model="form.followUpStatus" dict-name="crms_follow_up_status"></iep-dict-select>
     </el-form-item>
     <el-form-item label="业务类型">
-      <el-select v-model="form.businessTypeKey" multiple placeholder="请选择跟进状态">
-        <el-option v-for="item in dictGroup['crms_business_type']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-      </el-select>
+      <iep-dict-select v-model="form.businessTypeKey" dict-name="crms_business_type" multiple></iep-dict-select>
     </el-form-item>
     <el-form-item label="市场经理" v-if="type==='1'">
       <el-input v-model="form.marketManager" placeholder="请输入市场经理"></el-input>

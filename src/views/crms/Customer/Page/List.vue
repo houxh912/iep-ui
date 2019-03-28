@@ -105,6 +105,9 @@ export default {
     //tab切换菜单
     changeType () {
       this.searchPage({ type: this.type })
+      if (this.type === '2') {
+        this.showSelect = true
+      } else { this.showSelect = false }
     },
     //新增客户
     handleAdd () {
@@ -138,14 +141,20 @@ export default {
       this.$refs['collaborator'].dialogShow = true
       this.$refs['collaborator'].loadPage()
       // getCollaboratorPage(row.clientId).then(res => {
-        // this.$refs['collaborator'].data = res.data.data.records
-        // console.log(res)
+      // this.$refs['collaborator'].data = res.data.data.records
+      // console.log(res)
       // })
     },
     //转移
     Transfer () {
-      this.$refs['transfer'].dialogShow = true
-      this.$refs['transfer'].id = this.ids
+      if (this.ids.length === 0) {
+        this.$message.error('请勾选需要转移的客户')
+        return false      } else {
+        this.$refs['transfer'].dialogShow = true
+        this.$refs['transfer'].id = this.ids
+      }
+
+
     },
     //table多选
     handleSelectionChange (row) {

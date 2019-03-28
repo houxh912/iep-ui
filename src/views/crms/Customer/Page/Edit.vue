@@ -26,9 +26,7 @@
           <el-row>
             <el-col :span=10>
               <el-form-item label="区域类型：" prop="districtType">
-                <el-select v-model="formData.districtType" placeholder="请选择">
-                  <el-option v-for="item in dictGroup['crms_district_type']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                </el-select>
+                <iep-dict-select v-model="formData.followUpStatus" dict-name="crms_district_type"></iep-dict-select>
               </el-form-item>
             </el-col>
             <el-col :span=10 :offset="4">
@@ -74,9 +72,7 @@
             <el-col class="col-tips"><i class="el-icon-warning"></i> 软件：DNA、DIPS等</el-col>
           </el-form-item>
           <el-form-item label="客户关系：" prop="clientRela">
-            <el-select v-model="formData.clientRela" placeholder="请选择">
-              <el-option v-for="item in dictGroup['crms_client_relation']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
+            <iep-dict-select v-model="formData.clientRela" dict-name="crms_client_relation"></iep-dict-select>
             <el-col class="col-tips"><i class="el-icon-warning"></i> 核心客户：连续合作5年及以上、百万级项目、用软件/产品客户、数据服务客户、业务体系创新（标杆客户）</el-col>
             <el-col class="col-tips"><i class="el-icon-warning"></i> 重要客户：五十万以上项目、连续合作2年以上、每年有固定财政预算客户</el-col>
             <el-col class="col-tips"><i class="el-icon-warning"></i> 一般客户：有合作项目</el-col>
@@ -92,9 +88,7 @@
             </el-tag>
           </el-form-item>
           <el-form-item label="跟进状态：" prop="followUpStatus">
-            <el-select v-model="formData.followUpStatus" placeholder="请选择">
-              <el-option v-for="item in dictGroup['crms_follow_up_status']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
+            <iep-dict-select v-model="formData.followUpStatus" dict-name="crms_follow_up_status"></iep-dict-select>
           </el-form-item>
           <!-- <el-form-item label="相关产品：" prop="products">
           <iep-button size="small" @click="selectProduct"><i class="el-icon-plus"></i></iep-button>
@@ -149,8 +143,8 @@ export default {
     if (this.id) {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = mergeByFirst(initForm(), data.data)
-        this.formData.businessTypeKey = data.data.businessTypeKey.map(m => parseInt(m.commonId))
-        this.formData.clientTypeKey = data.data.clientTypeKey.map(m => parseInt(m.commonId))
+        this.formData.businessTypeKey = data.data.businessTypeKey.map(m => m.commonId)
+        this.formData.clientTypeKey = data.data.clientTypeKey.map(m => m.commonId)
         this.formData.districtType = data.data.districtTypeKey
         this.formData.followUpStatus = data.data.followUpStatusKey
         this.formData.clientRela = data.data.clientRelaKey
@@ -178,7 +172,7 @@ export default {
       })
     },
     submitForm (formName) {
-      this.formData.collaborations = this.formData.collaborations.map(m => parseInt(m.commonId))
+      // this.formData.collaborations = this.formData.collaborations.map(m => parseInt(m.commonId))
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn((this.formData)).then(({ data }) => {
@@ -196,10 +190,7 @@ export default {
       })
     },
     handleClose (tag) {
-      console.log(tag)
       this.formData.collaborations.splice(this.formData.collaborations.indexOf(tag), 1)
-      console.log(this.formData.collaborations)
-
     },
   },
 }
@@ -208,21 +199,5 @@ export default {
 <style scoped>
 .edit-wrapper {
   padding-bottom: 50px;
-}
-.edit-wrapper >>> .el-collapse-item__wrap {
-  padding: 30px 70px 0 70px;
-  border: none;
-}
-.edit-wrapper >>> .el-collapse {
-  border: none;
-}
-.edit-wrapper >>> .el-collapse-item__header {
-  background-color: #f8f8f8;
-  font-size: 15px;
-  font-weight: 700;
-  padding-left: 20px;
-  margin: 5px;
-  border-radius: 5px;
-  border: none;
 }
 </style>

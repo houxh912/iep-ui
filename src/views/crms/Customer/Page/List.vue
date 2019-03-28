@@ -10,7 +10,7 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="excellImport">导入</el-dropdown-item>
               <el-dropdown-item command="handleAllDelete">删除</el-dropdown-item>
-              <el-dropdown-item>转移</el-dropdown-item>
+              <el-dropdown-item @click.native="Transfer">转移</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -23,7 +23,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex :isMutipleSelection="showSelect?true:false">
         <template slot="before-columns">
           <el-table-column label="客户名称" width="250px">
             <template slot-scope="scope">
@@ -34,7 +34,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column v-if="+type !== 1" prop="operation" label="操作" width="250px">
+        <el-table-column v-if="+type !== 1" prop="operation" label="操作" :width="type==='2'?'250px':'150px'">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleCooperation(scope.row)" v-if="+type===2">添加协作人</iep-button>
@@ -46,19 +46,21 @@
       </iep-table>
       <excell-import ref="ExcellImport" :urlName="url" @close="handleClose"></excell-import>
       <collaborator ref="collaborator" @load-page="loadPage"></collaborator>
+      <transfer ref="transfer"></transfer>
     </basic-container>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId, tabList } from '../columns'
-import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById, getCollaboratorPage } from '@/api/crms/customer'
+import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById } from '@/api/crms/customer'
 import AdvanceSearch from './AdvanceSearch'
 import ExcellImport from './ExcellImport/'
 import Collaborator from './Collaborator/'
+import Transfer from './Transfer/'
 export default {
   name: 'list',
-  components: { AdvanceSearch, ExcellImport, Collaborator },
+  components: { AdvanceSearch, ExcellImport, Collaborator, Transfer },
   mixins: [mixins],
   data () {
     return {
@@ -66,6 +68,8 @@ export default {
       tabList,
       replaceText: (data) => `（本周新增${data[0]}位客户）`,
       url: '/api/crm/crms/iepclientinfoexcel/upload',
+      showSelect: false,
+      ids: [],
     }
   },
   computed: {
@@ -135,12 +139,31 @@ export default {
     handleCooperation (row) {
       this.$refs['collaborator'].id = row.clientId
       this.$refs['collaborator'].dialogShow = true
-      getCollaboratorPage(row.clientId).then(res => {
-        this.$refs['collaborator'].data = res.data.data.records
-      })
+      this.$refs['collaborator'].loadPage()
+      // getCollaboratorPage(row.clientId).then(res => {
+      // this.$refs['collaborator'].data = res.data.data.records
+      // console.log(res)
+      // })
+    },
+    //转移
+    Transfer () {
+      if (this.ids.length === 0) {
+        this.$message.error('请勾选需要转移的客户')
+        return false      } else {
+        this.$refs['transfer'].dialogShow = true
+        this.$refs['transfer'].id = this.ids
+      }
+
+
     },
     //table多选
-    handleSelectionChange () {
+    handleSelectionChange (row) {
+      let ids = []
+      row.forEach((item) => {
+        ids.push(item.clientId)
+      })
+      this.ids = ids
+      console.log(this.ids)
     },
     //加载
     loadPage (param = { ...this.searchForm, type: this.type }) {

@@ -55,9 +55,18 @@ export function AddCollaborator (query) {
   })
 }
 //获取协作人列表
-export function getCollaboratorPage (id) {
+export function getCollaboratorPage (id, query) {
   return request({
     url: `${prefixUrl}/page/collaboration/${id}`,
     method: 'get',
+    params: query,
+  })
+}
+//转移客户
+export function TransferCustomers (query) {
+  return request({
+    url: `${prefixUrl}/transfer`,
+    method: 'post',
+    data: query,
   })
 }

@@ -7,7 +7,7 @@
       <el-table-column prop="operation" label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain>编辑</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain size="small">编辑</iep-button>
             <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
           </operation-wrapper>
         </template>

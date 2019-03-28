@@ -10,6 +10,16 @@ export default [
         name: '成长档案详情',
         component: () => import('@/views/detail/hrms/GrowthFile/index.vue'),
       },
+      {
+        path: 'announcement',
+        name: '发布通知公告',
+        component: () => import('@/views/wel/message/Announcement/Form.vue'),
+      },
+      {
+        path: 'announcement/:id',
+        name: '发布通知公告',
+        component: () => import('@/views/wel/message/Announcement/Form.vue'),
+      },
     ],
   },
 ]

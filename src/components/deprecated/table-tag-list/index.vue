@@ -24,7 +24,7 @@
 export default {
   props: {
     listData: {
-      type: [Array, String],
+      type: [Array, String, Number],
       require: true,
       default: () => [],
     },

@@ -35,11 +35,6 @@ export default {
       type: String,
     },
   },
-  data () {
-    return {
-      fullscreen: false,
-    }
-  },
   methods: {
     close () {
       this.$emit('close', false)

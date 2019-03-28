@@ -2,9 +2,9 @@
   <div class="edit-wrapper">
     <el-card class="edit-card" shadow="hover">
       <div slot="header" class="title">
-        <span>编辑联系人</span>
+        <span>{{methodName}}联系人</span>
       </div>
-      <el-form :model="formData" :rules="rules" ref="formName" label-width="100px">
+      <el-form :model="formData" :rules="rules" ref="formName" label-width="100px" size="small">
         <el-form-item label="联系人姓名" prop="contactName" class="form-half">
           <el-input v-model="formData.contactName"></el-input>
         </el-form-item>
@@ -48,8 +48,8 @@
       <avue-crud :data="pagedTable" :option="option" :page="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange">
       </avue-crud>
       <div class="btn">
-        <el-button @click="dialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handlequery" size="small">确 定</el-button>
+        <iep-button @click="dialogVisible = false">取 消</iep-button>
+        <iep-button type="primary" @click="handlequery">添加</iep-button>
       </div>
     </el-dialog>
     <footer-tool-bar>
@@ -61,7 +61,7 @@
 <script>
 import { initForm, rules } from '../options'
 import FooterToolBar from '@/components/FooterToolbar'
-import { updateData } from '@/api/crms/contact'
+import { getContactById } from '@/api/crms/contact'
 import { fetchList } from '@/api/crms/custom'
 import { mergeByFirst } from '@/util/util'
 import mixins from '@/mixins/mixins'
@@ -87,7 +87,6 @@ export default {
       dialogVisible: false,
       option: {
         align: 'center',
-        // menuAlign: 'center',
         selection: true,
         header: false,
         menu: false,
@@ -100,12 +99,6 @@ export default {
             label: '市场经理',
             prop: 'marketManager',
           },
-          // {
-          //   label: '操作',
-          //   prop: 'menu',
-          //   solt: true,
-          //   align: 'center',
-          // },
         ],
       },
     }
@@ -124,8 +117,9 @@ export default {
     this.formRequestFn = this.record.formRequestFn
     this.id = this.record.id
     if (this.id) {
-      this.formRequestFn(this.id).then(({ data }) => {
+      getContactById(this.id).then(({ data }) => {
         this.formData = mergeByFirst(initForm(), data.data)
+        this.formData.clientIds = this.formData.clientInfos.map(m => m.clientId)
       })
     }
   },
@@ -158,7 +152,7 @@ export default {
       this.formData.clientIds = this.formData.clientInfos.map(m => m.clientId)
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          updateData(this.formData).then(() => {
+          this.formRequestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',
               message: `${this.methodName}成功`,
@@ -177,6 +171,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.el-dialog {
+  .el-dialog__body {
+    padding: 0 20px !important;
+  }
+}
+
 .edit-wrapper {
   margin: 5px 5px 50px 5px;
   .form-half {
@@ -201,8 +201,5 @@ export default {
 .btn {
   margin-left: 20px;
   text-align: right;
-}
-.input {
-  width: 200px;
 }
 </style>

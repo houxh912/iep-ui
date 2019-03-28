@@ -8,7 +8,7 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>导入</el-dropdown-item>
+              <el-dropdown-item @click.native="excellImport">导入</el-dropdown-item>
               <el-dropdown-item command="handleAllDelete">删除</el-dropdown-item>
               <el-dropdown-item>转移</el-dropdown-item>
             </el-dropdown-menu>
@@ -19,11 +19,11 @@
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
           </el-radio-group>
           <operation-search @search-page="searchPage" advance-search>
-            <advance-search @search-page="searchPage"></advance-search>
+            <advance-search @search-page="searchPage" :type="type"></advance-search>
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" isIndex>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex>
         <template slot="before-columns">
           <el-table-column label="客户名称" width="250px">
             <template slot-scope="scope">
@@ -44,41 +44,28 @@
           </template>
         </el-table-column>
       </iep-table>
+      <excell-import ref="ExcellImport" :urlName="url" @close="handleClose"></excell-import>
+      <collaborator ref="collaborator" @load-page="loadPage"></collaborator>
     </basic-container>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMapByTypeId } from '../columns'
-import { allSearchForm } from '../options'
-import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById } from '@/api/crms/customer'
+import { columnsMapByTypeId, tabList } from '../columns'
+import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById, getCollaboratorPage } from '@/api/crms/customer'
 import AdvanceSearch from './AdvanceSearch'
+import ExcellImport from './ExcellImport/'
+import Collaborator from './Collaborator/'
 export default {
   name: 'list',
-  components: { AdvanceSearch },
+  components: { AdvanceSearch, ExcellImport, Collaborator },
   mixins: [mixins],
   data () {
     return {
       type: '1',
-      showSelect: false,
-      paramForm: allSearchForm(),
-      id: '',
-      tabList: [
-        {
-          label: '全部客户',
-          value: '1',
-        },
-        {
-          label: '我的客户',
-          value: '2',
-        },
-        {
-          label: '协作客户',
-          value: '3',
-        },
-      ],
+      tabList,
       replaceText: (data) => `（本周新增${data[0]}位客户）`,
-      tags: ['one', 'two', 'three'],
+      url: '/api/crm/crms/iepclientinfoexcel/upload',
     }
   },
   computed: {
@@ -90,49 +77,75 @@ export default {
     this.loadPage()
   },
   methods: {
+    //导入弹框关闭
+    handleClose (res) {
+      this.$refs['ExcellImport'].dialogShow = false
+      if (res.data) {
+        this.$message({
+          message: `成功!${res.msg}`,
+          type: 'success',
+          duration: 15000,
+        })
+      } else {
+        this.$message({
+          message: `警告!${res.msg}`,
+          type: 'warning',
+          duration: 15000,
+        })
+      }
+    },
+    //导入按钮
+    excellImport () {
+      this.$refs['ExcellImport'].dialogShow = true
+    },
+    //tab切换菜单
     changeType () {
-      this.loadPage()
+      this.searchPage({ type: this.type })
       if (this.type === '2') {
         this.showSelect = true
       } else { this.showSelect = false }
     },
+    //新增客户
     handleAdd () {
-      this.$emit('onForm', {
+      this.$emit('onEdit', {
         formRequestFn: postCustomer,
         methodName: '新增',
         id: false,
       })
     },
+    //编辑客户
     handleEdit (row) {
-      this.$emit('onForm', {
+      this.$emit('onEdit', {
         formRequestFn: putCustomer,
         methodName: '修改',
         id: row.clientId,
       })
     },
+    //客户详情
     handleDetail (row) {
       if (this.type === '2') {
         this.$emit('onDetail', { id: row.clientId })
-      }
-
+      } else { return false }
     },
+    //删除客户
     handleDelete (row) {
       this._handleGlobalDeleteById(row.clientId, deleteCustomerById)
     },
+    //添加协作人
     handleCooperation (row) {
-      this.$emit('onCooper', { id: row.clientId })
+      this.$refs['collaborator'].id = row.clientId
+      this.$refs['collaborator'].dialogShow = true
+      getCollaboratorPage(row.clientId).then(res => {
+        this.$refs['collaborator'].data = res.data.data.records
+      })
     },
-    handleSelectionChange (val) {
-      this.multipleSelection = val.map(m => m.clientId)
+    //table多选
+    handleSelectionChange () {
     },
+    //加载
     loadPage (param = { ...this.searchForm, type: this.type }) {
       this.loadTable(param, getCustomerPage, m => {
         return Object.assign(m, { businessType: m.businessTypeKey.map(m => m.commonName).join('，') })
-      })
-    },
-    searchPage () {
-      this.loadTable({ ...this.paramForm, type: 1 }, getCustomerPage, m => {
-        return Object.assign(m, { businessTypeC: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
     },
   },

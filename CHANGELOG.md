@@ -1,3 +1,34 @@
+## [1.0.3](http://115.233.227.46:8066/root/iep-ui/compare/v1.0.2...v1.0.3) (2019-03-27)
+
+
+### Bug Fixes
+
+* **fix:** 菜单问题 ([c9c85a5](http://115.233.227.46:8066/root/iep-ui/commits/c9c85a5))
+* **材料:** 菜单与文件的修复 ([9cf7b0c](http://115.233.227.46:8066/root/iep-ui/commits/9cf7b0c))
+* **联盟:** fix菜单问题联盟完善接口 ([ffa7ab0](http://115.233.227.46:8066/root/iep-ui/commits/ffa7ab0))
+
+
+### Features
+
+* **/crms/customer:** 修改 ([93d11e9](http://115.233.227.46:8066/root/iep-ui/commits/93d11e9))
+* **/crms/customer/:** 修改客户 ([16bb146](http://115.233.227.46:8066/root/iep-ui/commits/16bb146))
+* **crms:** 商机标签 ([14b144b](http://115.233.227.46:8066/root/iep-ui/commits/14b144b))
+* **crms:** 客户导入下载 ([949d01e](http://115.233.227.46:8066/root/iep-ui/commits/949d01e))
+* **人员档案:** 添加高级搜索 ([93c793c](http://115.233.227.46:8066/root/iep-ui/commits/93c793c))
+* **客户:** 客户模块搜索与样式统一,添加了drawer组件 ([5d0462d](http://115.233.227.46:8066/root/iep-ui/commits/5d0462d))
+* **添加Viser图表:** 添加通过AsideContainer组件 ([f1e4e76](http://115.233.227.46:8066/root/iep-ui/commits/f1e4e76))
+* **系统消息:** 完成系统消息分类问题样式 ([35d63b5](http://115.233.227.46:8066/root/iep-ui/commits/35d63b5))
+* **组织工作台界面完善:** 即将大量使用antdesign组件 ([f79be1b](http://115.233.227.46:8066/root/iep-ui/commits/f79be1b))
+* **组织成员审核:** 移除批量功能 ([86a9e16](http://115.233.227.46:8066/root/iep-ui/commits/86a9e16))
+* **组织接口:** 重新对接 ([b6473ee](http://115.233.227.46:8066/root/iep-ui/commits/b6473ee))
+* **组织模块:** 成员管理完善 ([5cbe315](http://115.233.227.46:8066/root/iep-ui/commits/5cbe315))
+* **联盟与组织:** 完成其基本框架的搭建 ([ebbeee1](http://115.233.227.46:8066/root/iep-ui/commits/ebbeee1))
+* **菜单:** 添加个人财富 ([f786716](http://115.233.227.46:8066/root/iep-ui/commits/f786716))
+* **资源:** 迁移 ([4d9be75](http://115.233.227.46:8066/root/iep-ui/commits/4d9be75))
+* **项目模块:** 添加项目模块以及配置丰富 ([5ed76aa](http://115.233.227.46:8066/root/iep-ui/commits/5ed76aa))
+
+
+
 ## [1.0.2](http://115.233.227.46:8066/root/iep-ui/compare/v1.0.1...v1.0.2) (2019-03-23)
 
 

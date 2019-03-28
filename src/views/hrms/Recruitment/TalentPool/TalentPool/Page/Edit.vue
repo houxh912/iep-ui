@@ -131,7 +131,8 @@
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="附件上传" name="5">
             <el-form-item label="附件上传：">
-              <el-input type="textarea"></el-input>
+              待完成
+              <!-- <iep-upload v-model="form.attach"></iep-upload> -->
             </el-form-item>
           </el-collapse-item>
         </el-collapse>

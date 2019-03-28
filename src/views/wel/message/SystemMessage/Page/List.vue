@@ -87,7 +87,7 @@ export default {
       })
     },
     loadPage (param = this.searchForm) {
-      this.loadTable({ type: this.selectType, ...param }, getSystemMessagePage)
+      this.loadTable({ typeId: this.selectType, ...param }, getSystemMessagePage)
     },
   },
 }

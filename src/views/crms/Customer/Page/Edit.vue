@@ -83,9 +83,14 @@
             <el-col class="col-tips"><i class="el-icon-warning"></i> 潜在客户：有意向的客户</el-col>
             <el-col class="col-tips"><i class="el-icon-warning"></i> 其它客户：目前无意向客户</el-col>
           </el-form-item>
-          <!-- <el-form-item label="客户标签：" prop="tags">
-          <el-input v-model="formData.tags" placeholder="添加标签，标签请用 , 或 ; 分开,标签填数字"></el-input>
-        </el-form-item> -->
+          <el-form-item label="客户标签：" prop="tags">
+            <iep-tags v-model="formData.tags" @addTags="handleTag"></iep-tags>
+          </el-form-item>
+          <el-form-item label="协助人：" prop="collaborationsKey" v-if="formData.collaborations.length != 0">
+            <el-tag :key="tag.commonId" v-for="tag in formData.collaborations" closable :disable-transitions="false" @close="handleClose(tag)">
+              {{tag.commonName}}
+            </el-tag>
+          </el-form-item>
           <el-form-item label="跟进状态：" prop="followUpStatus">
             <el-select v-model="formData.followUpStatus" placeholder="请选择">
               <el-option v-for="item in dictGroup['crms_follow_up_status']" :key="item.value" :label="item.label" :value="item.value"></el-option>
@@ -112,16 +117,16 @@
   </div>
 </template>
 <script>
-import { initForm, rules } from '../options'
-import { mergeByFirst } from '@/util/util'
-// import ProductDialog from './Components/ProductDialog'
-// import ProgramDialog from './Components/ProgramDialog'
-import FooterToolBar from '@/components/FooterToolbar'
-import { getCustomerById } from '@/api/crms/customer'
 import { mapState } from 'vuex'
+import { mergeByFirst } from '@/util/util'
+import { initForm, rules } from '../options'
+import FooterToolBar from '@/components/FooterToolbar'
+import iepTags from '@/components/IepTags'
+import { getCustomerById } from '@/api/crms/customer'
+
 export default {
   name: 'edit',
-  components: { FooterToolBar },
+  components: { FooterToolBar, iepTags },
   props: {
     record: {
       type: Object,
@@ -141,7 +146,6 @@ export default {
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn
     this.id = this.record.id
-    // console.log(this.dictGroup)
     if (this.id) {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = mergeByFirst(initForm(), data.data)
@@ -150,6 +154,9 @@ export default {
         this.formData.districtType = data.data.districtTypeKey
         this.formData.followUpStatus = data.data.followUpStatusKey
         this.formData.clientRela = data.data.clientRelaKey
+        this.formData.tags = data.data.tags.map(m => (m.commonName))
+        this.formData.collaborations = data.data.collaborations
+        // this.formData.collaborationsKey = data.data.collaborations.map(m => (m.commonName))
       })
     }
   },
@@ -159,6 +166,9 @@ export default {
     }),
   },
   methods: {
+    handleTag () {
+      this.$message('添加标签')
+    },
     handleGoBack () {
       this.$emit('onGoBack')
     },
@@ -168,7 +178,7 @@ export default {
       })
     },
     submitForm (formName) {
-      // console.log(this.formData)
+      this.formData.collaborations = this.formData.collaborations.map(m => parseInt(m.commonId))
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn((this.formData)).then(({ data }) => {
@@ -185,11 +195,20 @@ export default {
         }
       })
     },
+    handleClose (tag) {
+      console.log(tag)
+      this.formData.collaborations.splice(this.formData.collaborations.indexOf(tag), 1)
+      console.log(this.formData.collaborations)
+
+    },
   },
 }
 </script>
 
 <style scoped>
+.edit-wrapper {
+  padding-bottom: 50px;
+}
 .edit-wrapper >>> .el-collapse-item__wrap {
   padding: 30px 70px 0 70px;
   border: none;
@@ -205,23 +224,5 @@ export default {
   margin: 5px;
   border-radius: 5px;
   border: none;
-}
-</style>
-
-<style lang="scss" scoped>
-.edit-wrapper {
-  margin: 5px 5px 50px 5px;
-  .form-half {
-    width: 50%;
-    display: inline-block;
-  }
-  .edit-card {
-    .title {
-      font-weight: 600;
-    }
-  }
-}
-.wrap {
-  padding: 20px 100px 20px 50px;
 }
 </style>

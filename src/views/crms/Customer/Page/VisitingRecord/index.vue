@@ -1,43 +1,42 @@
 <template>
-  <component @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <div>
+    <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+      <el-tab-pane label="拜访日志" name="visit">
+        <!--拜访日志-->
+        <visit :record="record"></visit>
+      </el-tab-pane>
+      <el-tab-pane label="联系记录" name="contact">
+        <!-- 联系记录 -->
+        <contact :record="record"></contact>
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
 <script>
-// 动态切换组件
-import List from './Page/List'
-
-
+import Visit from './Visit'
+import Contact from './Contact'
 export default {
-  name: 'TableListWrapper',
+  name: 'contract',
+  components: { Visit, Contact },
+  data () {
+    return {
+      activeName: 'visit',
+    }
+  },
   props: {
     record: {
       type: Object,
       default: () => { },
     },
   },
-  components: {
-    List,
-  },
-  data () {
-    return {
-      currentComponet: 'List',
-    }
-  },
   created () {
-
   },
   methods: {
+    handleClick (tab, event) {
+      console.log(tab, event)
+    },
+  },
 
-    handleGoBack () {
-      this.record = ''
-      this.currentComponet = 'List'
-    },
-  },
-  watch: {
-    '$route.path' () {
-      this.record = ''
-      this.currentComponet = 'List'
-    },
-  },
 }
 </script>

@@ -6,6 +6,26 @@
           <el-button class="modify" size="small">组织变更记录</el-button>
         </template>
       </page-header>
+      <div class="message-box" v-for="(item,i) in message" :key="i">
+        <template v-if="item.status===3">
+          <i class="el-icon-info"></i>
+          <span class="message-text">{{userInfo.orgName}} 现在属于 {{item.union.name}} 。</span>
+          <iep-button type="danger" plain>申请退出</iep-button>
+        </template>
+        <template v-if="item.status===2">
+          <i class="el-icon-info"></i>
+          <span class="message-text">{{item.user.name}} 邀请 {{userInfo.orgName}} 加入 {{item.union.name}} 。</span>
+          <operation-wrapper style="display:inline-block;">
+            <iep-button type="danger" @click="handleAgree(item.id)" plain>同意</iep-button>
+            <iep-button @click="handleRefuse(item.id)" plain>拒绝</iep-button>
+          </operation-wrapper>
+        </template>
+        <template v-if="item.status===1">
+          <i class="el-icon-info"></i>
+          <span class="message-text"> {{userInfo.orgName}} 现在无所属联盟 。</span>
+        </template>
+      </div>
+      <a-divider />
       <div class="organize-group">
         <el-button circle @click="handleCreateOrg"><i class="icon-diannaodenglu"></i><span>创建组织</span></el-button>
         <el-button circle @click="handleCreateLeague"><i class="icon-organ"></i><span>创建联盟</span></el-button>
@@ -59,36 +79,64 @@
       </el-row>
     </basic-container>
     <create-org-dialog-form ref="CreateOrgDialogForm" @load-page="loadPage"></create-org-dialog-form>
-    <create-league-dialog-form ref="CreateLeagueDialogForm" @load-page="loadPage"></create-league-dialog-form>
+    <create-union-dialog-form ref="CreateUnionDialogForm" @load-page="loadPage"></create-union-dialog-form>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import { addObj } from '@/api/admin/org'
+import mixins from '@/mixins/mixins'
+import { getOrgMessage, agreeOrgMessage, refuseOrgMessage, postUnion } from '@/api/goms/union'
 import CreateOrgDialogForm from './CreateOrgDialogForm'
-import CreateLeagueDialogForm from './CreateLeagueDialogForm'
+import CreateUnionDialogForm from './CreateUnionDialogForm'
 export default {
-  components: { CreateOrgDialogForm, CreateLeagueDialogForm },
+  components: { CreateOrgDialogForm, CreateUnionDialogForm },
+  mixins: [mixins],
   data () {
     return {
-
+      message: [],
     }
   },
+  computed: {
+    ...mapState({
+      userInfo: state => state.user.userInfo,
+    }),
+  },
+  created () {
+    this.loadPage()
+  },
   methods: {
+    handleAgree (id) {
+      this._handleComfirm(id, agreeOrgMessage, '同意加入该联盟')
+    },
+    handleRefuse (id) {
+      this._handleComfirm(id, refuseOrgMessage, '拒绝加入该联盟')
+    },
     handleCreateOrg () {
       this.$refs['CreateOrgDialogForm'].formRequestFn = addObj
       this.$refs['CreateOrgDialogForm'].dialogShow = true
     },
     handleCreateLeague () {
-      this.$refs['CreateLeagueDialogForm'].formRequestFn = addObj
-      this.$refs['CreateLeagueDialogForm'].dialogShow = true
+      this.$refs['CreateUnionDialogForm'].formRequestFn = postUnion
+      this.$refs['CreateUnionDialogForm'].dialogShow = true
     },
     loadPage () {
-
+      getOrgMessage().then(({ data }) => {
+        this.message = data.data
+        console.log(data.data)
+      })
     },
   },
 }
 </script>
 <style lang="scss" scoped>
+.message-box {
+  color: #909399;
+  padding: 0 20px;
+  .message-text {
+    padding: 0 10px;
+  }
+}
 .organize-group {
   text-align: center;
   .el-button.is-circle {

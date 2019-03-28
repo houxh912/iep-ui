@@ -9,6 +9,7 @@
 <script>
 import { getUnionList, getOrgListById, getUserListById } from '@/api/admin/contacts'
 export default {
+  name: 'IepContactSelect',
   props: {
     showCheckbox: {
       type: Boolean,

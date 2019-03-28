@@ -60,10 +60,11 @@
     <departure-dialog ref="DepartureDialog" @load-page="loadPage"></departure-dialog>
     <induction-dialog ref="InductionDialog" @load-page="loadPage"></induction-dialog>
     <positive-dialog ref="PositiveDialog" @load-page="loadPage"></positive-dialog>
+    <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
   </div>
 </template>
 <script>
-import { getEmployeeProfilePage, postInduction, postPositive, postDeparture, postTransfer } from '@/api/hrms/employee_profile'
+import { getEmployeeProfilePage, putEmployeeProfile, postInduction, postPositive, postDeparture, postTransfer } from '@/api/hrms/employee_profile'
 import mixins from '@/mixins/mixins'
 import keyBy from 'lodash/keyBy'
 import { columnsMap, initSearchForm, dictsMap } from '../options'
@@ -73,9 +74,10 @@ import TransferDialog from './TransferDialog'
 import DepartureDialog from './DepartureDialog'
 import InductionDialog from './InductionDialog'
 import PositiveDialog from './PositiveDialog'
+import DetailDrawer from './DetailDrawer'
 export default {
   mixins: [mixins],
-  components: { HeaderSetting, AdvanceSearch, TransferDialog, DepartureDialog, InductionDialog, PositiveDialog },
+  components: { HeaderSetting, AdvanceSearch, TransferDialog, DepartureDialog, InductionDialog, PositiveDialog, DetailDrawer },
   data () {
     return {
       dictsMap,
@@ -131,10 +133,15 @@ export default {
       })
     },
     handleEdit (row) {
-      this.$emit('onEdit', row)
+      this.$emit('onEdit', {
+        formRequestFn: putEmployeeProfile,
+        id: row.id,
+      })
     },
     handleDetail (row) {
-      this.$emit('onDetail', row)
+      this.$refs['DetailDrawer'].id = row.id
+      this.$refs['DetailDrawer'].loadPage()
+      this.$refs['DetailDrawer'].drawerShow = true
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getEmployeeProfilePage)

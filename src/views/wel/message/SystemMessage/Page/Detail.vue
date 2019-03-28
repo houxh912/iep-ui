@@ -4,9 +4,9 @@
     <div class="detail-container">
       <div class="item-title">
         <ul>
-          <li><span>发布人：</span><span>毛莹莹</span></li>
-          <li><span>接收人：</span><span>毛莹莹;毛莹莹;毛莹莹</span></li>
-          <li><span>时间：</span><span>2019-03-05 10:08</span></li>
+          <li><span>发布人：</span><span>{{form.senderName}}</span></li>
+          <li><span>接收人：</span><span>{{form.receiverName}}</span></li>
+          <li><span>时间：</span><span>{{form.time}}</span></li>
         </ul>
         <el-button-group>
           <el-button icon="iconfont icon-biaoqian" size="mini"></el-button>
@@ -15,26 +15,8 @@
       </div>
       <div class="item-con">
         <div class="paragraph">
-          段落内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容段落内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+          {{form.content}}
         </div>
-        <span class="sub-title">一、段落内容内容内容内容内容内容内容内</span>
-        <div class="paragraph">
-          段落内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
-        </div>
-      </div>
-      <div class="comment">
-        <ul>
-          <li class="con" v-for="item in list" :key="item.id">
-            <div class="img"><img :src="item.img" alt="张三"></div>
-            <div class="text">
-              <span class="name">{{item.name}}</span>
-              <div class="text-bottom">
-                <p>{{item.con}}</p>
-                <span class="time">{{item.time}}</span>
-              </div>
-            </div>
-          </li>
-        </ul>
       </div>
     </div>
   </basic-container>

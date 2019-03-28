@@ -22,7 +22,7 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" :paramForm="paramForm" advance-search>
+          <operation-search @search-page="searchPage" :paramForm="paramForm" advance-search>
             <el-form :model="paramForm" label-width="80px" size="small">
               <el-form-item label="材料名称">
                 <el-input v-model="paramForm.name"></el-input>
@@ -58,7 +58,8 @@
         <el-table-column prop="operation" label="操作" width="300">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button size="small" @click="handleCollection(scope.row)">收藏</iep-button>
+              <iep-button type="warning" size="small" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
+              <iep-button type="warning" size="small" v-else>已收藏</iep-button>
               <iep-button size="small">分享</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
@@ -76,7 +77,7 @@
     </div>
     <local-dialog ref="local" @load-page="loadPage" v-if="pageState=='local'"></local-dialog>
     <newly-dialog ref="newly" @load-page="loadPage" v-if="pageState=='newly'"></newly-dialog>
-    <collection-dialog ref="collection" @load-page="loadPage" type="material"></collection-dialog>
+    <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
   </div>
 </template>
 
@@ -84,6 +85,7 @@
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
 import { getTableData, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/material'
+import { createCollect } from '@/api/mlms/material/summary'
 import LocalDialog from './localDialog'
 import NewlyDialog from './newlyDialog'
 import CollectionDialog from '../../components/collectionDialog'
@@ -99,6 +101,7 @@ export default {
       columnsMap: tableOption,
       paramForm: {},
       selectList: [],
+      createCollect,
     }
   },
   methods: {

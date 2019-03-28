@@ -1,5 +1,7 @@
 import request from '@/router/axios'
-const prefixUrl = '/mlms/email'
+const prefixUrl = '/ims/email'
+const receiverUrl = '/ims/email_receiver'
+const starUrl = '/ims/email_star'
 
 // 收件箱
 export function getReceiverList (params) {
@@ -83,7 +85,7 @@ export function deleteEmailByIds (ids) {
 // 收件箱删除
 export function deleteEmailReceiver (ids) {
   return request({
-    url: '/mlms/email_receiver/delete',
+    url: `${receiverUrl}/delete`,
     method: 'post',
     data: ids,
   })
@@ -92,7 +94,7 @@ export function deleteEmailReceiver (ids) {
 // 星标功能
 export function emailStarById (id) {
   return request({
-    url: `/mlms/email_star/sign/${id}`,
+    url: `${starUrl}/sign/${id}`,
     method: 'post',
   })
 }
@@ -100,7 +102,7 @@ export function emailStarById (id) {
 // 标记已读
 export function isReadeById (id) {
   return request({
-    url: `/mlms/email_receiver/is_reade/${id}`,
+    url: `${receiverUrl}/is_reade/${id}`,
     method: 'post',
   })
 }
@@ -108,8 +110,8 @@ export function isReadeById (id) {
 // 批量标记已读
 export function isReadeBatch (ids) {
   return request({
-    url: '/mlms/email_receiver/is_reade',
-    method: 'post',
+    url: '/is_reade',
+    method: `${receiverUrl}/post`,
     data: ids,
   })
 }

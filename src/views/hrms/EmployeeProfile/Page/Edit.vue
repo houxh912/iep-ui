@@ -10,10 +10,10 @@
             </template>
             <div class="baseMsg">
               <div class="littleTitle">基础信息</div>
-              <el-form-item label="用户名：" class="form-half">
+              <el-form-item label="姓名：" class="form-half">
                 <span>{{form.name}}</span>
               </el-form-item>
-              <el-form-item label="姓名：" class="form-half">
+              <el-form-item label="用户名：" class="form-half">
                 <span>{{form.userName}}</span>
               </el-form-item>
               <el-form-item label="所属组织：" class="form-half">
@@ -41,13 +41,13 @@
                 <el-input v-model="form.duties"></el-input>
               </el-form-item>
               <el-form-item label="职务：" class="form-half">
-                <iep-select prefix-url="hrms/job_system" v-model="form.jobId"></iep-select>
+                <iep-select prefix-url="hrms/job_system" v-model="form.job"></iep-select>
               </el-form-item>
               <el-form-item label="职称：" class="form-half">
-                <iep-select prefix-url="hrms/title_system" v-model="form.titleId"></iep-select>
+                <iep-select prefix-url="hrms/title_system" v-model="form.title"></iep-select>
               </el-form-item>
               <el-form-item label="入职时间：" class="form-half">
-                <el-input v-model="form.inductionTime"></el-input>
+                <el-input v-model="form.entryTime"></el-input>
               </el-form-item>
               <el-form-item label="转正时间：" class="form-half">
                 <el-input v-model="form.positiveTime"></el-input>
@@ -68,7 +68,7 @@
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="民族：" class="form-half">
-                <el-input v-model="form.nation"></el-input>
+                <el-input v-model="form.nationality"></el-input>
               </el-form-item>
               <el-form-item label="政治面貌：" class="form-half">
                 <iep-dict-select v-model="form.politics" dict-name="hrms_politics_face"></iep-dict-select>
@@ -80,7 +80,7 @@
                 <iep-dict-select v-model="form.bear" dict-name="hrms_birth_status"></iep-dict-select>
               </el-form-item>
               <el-form-item label="外语水平：" class="form-half">
-                <el-select v-model="form.english">
+                <el-select v-model="form.language">
                   <el-option label="良好" value="良好"></el-option>
                   <el-option label="一般" value="一般"></el-option>
                 </el-select>
@@ -92,16 +92,16 @@
                 <el-input v-model="form.university"></el-input>
               </el-form-item>
               <el-form-item label="专业：" class="form-half">
-                <el-input v-model="form.professional"></el-input>
+                <el-input v-model="form.profession"></el-input>
               </el-form-item>
               <el-form-item label="毕业时间：" class="form-half">
-                <el-input v-model="form.professional"></el-input>
+                <el-input v-model="form.graduationTime"></el-input>
               </el-form-item>
               <el-form-item label="推荐人：" class="form-half">
                 <el-input v-model="form.referrer"></el-input>
               </el-form-item>
               <el-form-item label="外部头衔：" class="form-half">
-                <el-input v-model="form.people"></el-input>
+                <el-input v-model="form.externalTitle"></el-input>
               </el-form-item>
               <el-form-item label="添加师父：">
                 <el-input v-model="form.people"></el-input>
@@ -139,39 +139,29 @@
             <div class="connectMsg">
               <div class="littleTitle">联系信息</div>
               <el-form-item label="户口类型：" class="form-half">
-                <el-select v-model="form.type">
+                <el-select v-model="form.accountTypes">
                   <el-option label="城镇" value="城镇"></el-option>
                   <el-option label="农村" value="农村"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="户籍地址：">
-                <el-select v-model="form.type" class="inlines padding" placeholder="所在省">
-                  <el-option label="城镇" value="城镇"></el-option>
-                  <el-option label="农村" value="农村"></el-option>
-                </el-select>
-                <el-select v-model="form.type" class="inlines padding" placeholder="所在市">
-                  <el-option label="城镇" value="城镇"></el-option>
-                  <el-option label="农村" value="农村"></el-option>
-                </el-select>
-                <el-input v-model="form.desc" class="inlineblock" placeholder="请出入户籍详细地址"></el-input>
+                <div style="display:flex;">
+                  <iep-cascader style="flex:1;" v-model="form.cities" prefix-url="admin/city"></iep-cascader>
+                  <el-input style="flex:3;" v-model="form.address"></el-input>
+                </div>
               </el-form-item>
               <el-form-item label="现住地址：">
-                <el-select v-model="form.type" class="inlines padding" placeholder="所在省">
-                  <el-option label="城镇" value="城镇"></el-option>
-                  <el-option label="农村" value="农村"></el-option>
-                </el-select>
-                <el-select v-model="form.type" class="inlines padding" placeholder="所在市">
-                  <el-option label="城镇" value="城镇"></el-option>
-                  <el-option label="农村" value="农村"></el-option>
-                </el-select>
-                <el-input v-model="form.desc" class="inlineblock" placeholder="请输入住址详细地址"></el-input>
+                <div style="display:flex;">
+                  <iep-cascader style="flex:1;" v-model="form.cities" prefix-url="admin/city"></iep-cascader>
+                  <el-input style="flex:3;" v-model="form.address"></el-input>
+                </div>
               </el-form-item>
               <el-form-item label="身份证号码：" class="form-half">
-                <el-input v-model="form.desc"></el-input>
+                <el-input v-model="form.IDCard"></el-input>
               </el-form-item>
 
               <el-form-item label="联系电话：" class="form-half">
-                <el-select v-model="form.type">
+                <el-select v-model="form.phone">
                   <el-option label="111" value="111"></el-option>
                   <el-option label="222" value="222"></el-option>
                 </el-select>
@@ -189,7 +179,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="邮箱：" class="form-half">
-                <el-select v-model="form.emial">
+                <el-select v-model="form.email">
                   <el-option label="111" value="111"></el-option>
                   <el-option label="222" value="222"></el-option>
                 </el-select>
@@ -201,10 +191,10 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="应急联系人：" class="form-half">
-                <el-input v-model="form.desc"></el-input>
+                <el-input v-model="form.emergencyName"></el-input>
               </el-form-item>
               <el-form-item label="应急联系人电话：" class="form-half">
-                <el-input v-model="form.desc"></el-input>
+                <el-input v-model="form.emergencyPhone"></el-input>
               </el-form-item>
             </div>
           </el-collapse-item>

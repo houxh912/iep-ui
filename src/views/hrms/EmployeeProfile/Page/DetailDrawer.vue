@@ -50,7 +50,7 @@
         <IepDescriptionItem title="QQ：" :content="form.qq" />
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="微信：" :content="form.weChat" />
+        <IepDescriptionItem title="微信：" :content="form.wechat" />
       </a-col>
     </a-row>
 

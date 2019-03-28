@@ -1,5 +1,3 @@
-import { validatenull } from './validate'
-import request from '@/router/axios'
 import _ from 'lodash'
 import CryptoJS from 'crypto-js'
 // 表单序列化
@@ -91,12 +89,6 @@ export const toggleGrayMode = status => {
   } else {
     document.body.className = document.body.className.replace(' grayMode', '')
   }
-}
-/**
- * 设置主题
- */
-export const setTheme = name => {
-  document.body.className = name
 }
 
 /**
@@ -191,25 +183,6 @@ export const exitFullScreen = () => {
     document.mozCancelFullScreen()
   }
 }
-/**
- * 递归寻找子类的父类
- */
-
-export const findParent = (menu, id) => {
-  for (let i = 0; i < menu.length; i++) {
-    if (menu[i].children.length != 0) {
-      for (let j = 0; j < menu[i].children.length; j++) {
-        if (menu[i].children[j].id == id) {
-          return menu[i]
-        } else {
-          if (menu[i].children[j].children.length != 0) {
-            return findParent(menu[i].children[j].children, id)
-          }
-        }
-      }
-    }
-  }
-}
 
 /**
  * 动态插入css
@@ -222,66 +195,6 @@ export const loadStyle = url => {
   link.href = url
   const head = document.getElementsByTagName('head')[0]
   head.appendChild(link)
-}
-/**
- * 判断路由是否相等
- */
-export const isObjectValueEqual = (a, b) => {
-  let result = true
-  Object.keys(a).forEach(ele => {
-    const type = typeof a[ele]
-    if (type === 'string' && a[ele] !== b[ele]) result = false
-    else if (
-      type === 'object' &&
-      JSON.stringify(a[ele]) !== JSON.stringify(b[ele])
-    )
-      result = false
-  })
-  return result
-}
-/**
- * 根据字典的value显示label
- */
-export const findByvalue = (dic, value) => {
-  let result = ''
-  if (validatenull(dic)) return value
-  if (
-    typeof value === 'string' ||
-    typeof value === 'number' ||
-    typeof value === 'boolean'
-  ) {
-    let index = 0
-    index = findArray(dic, value)
-    if (index != -1) {
-      result = dic[index].label
-    } else {
-      result = value
-    }
-  } else if (value instanceof Array) {
-    result = []
-    let index = 0
-    value.forEach(ele => {
-      index = findArray(dic, ele)
-      if (index != -1) {
-        result.push(dic[index].label)
-      } else {
-        result.push(value)
-      }
-    })
-    result = result.toString()
-  }
-  return result
-}
-/**
- * 根据字典的value查找对应的index
- */
-export const findArray = (dic, value) => {
-  for (let i = 0; i < dic.length; i++) {
-    if (dic[i].value == value) {
-      return i
-    }
-  }
-  return -1
 }
 /**
  * 生成随机len位数字
@@ -340,23 +253,23 @@ export const openWindow = (url, title, w, h) => {
  *  <img> <a> src 处理
  * @returns {PromiseLike<T | never> | Promise<T | never>}
  */
-export function handleImg (fileName, id) {
-  return validatenull(fileName)
-    ? null
-    : request({
-      url: '/admin/file/' + fileName,
-      method: 'get',
-      responseType: 'blob',
-    }).then(response => {
-      // 处理返回的文件流
-      let blob = response.data
-      let img = document.getElementById(id)
-      img.src = URL.createObjectURL(blob)
-      window.setTimeout(function () {
-        window.URL.revokeObjectURL(blob)
-      }, 0)
-    })
-}
+// export function handleImg (fileName, id) {
+//   return validatenull(fileName)
+//     ? null
+//     : request({
+//       url: '/admin/file/' + fileName,
+//       method: 'get',
+//       responseType: 'blob',
+//     }).then(response => {
+//       // 处理返回的文件流
+//       let blob = response.data
+//       let img = document.getElementById(id)
+//       img.src = URL.createObjectURL(blob)
+//       window.setTimeout(function () {
+//         window.URL.revokeObjectURL(blob)
+//       }, 0)
+//     })
+// }
 
 export function mergeByFirst (distObject, srcObject) {
   const propList = _.keys(distObject)

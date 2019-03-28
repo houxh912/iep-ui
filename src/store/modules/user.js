@@ -17,6 +17,7 @@ import { GetMenu } from '@/api/admin/menu'
 function addPath (ele, first) {
   const propsConfig = website.menu.props
   const propsDefault = {
+    name: propsConfig.name || 'name',
     label: propsConfig.label || 'label',
     path: propsConfig.path || 'path',
     icon: propsConfig.icon || 'icon',
@@ -28,10 +29,9 @@ function addPath (ele, first) {
     return
   }
   ele[propsDefault.children].forEach(child => {
+    child[propsDefault.name] = `${ele[propsDefault.name]}-${child[propsDefault.name]}`
     if (!isURL(child[propsDefault.path])) {
-      child[propsDefault.path] = `${ele[propsDefault.path]}/${
-        child[propsDefault.path] ? child[propsDefault.path] : 'index'
-        }`
+      child[propsDefault.path] = `${ele[propsDefault.path]}/${child[propsDefault.path] ? child[propsDefault.path] : 'index'}`
     }
     addPath(child)
   })

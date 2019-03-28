@@ -5,12 +5,14 @@
 <script>
 // 动态切换组件
 import List from './Page/List'
+import Edit from './Page/Edit'
 import Detail from './Page/Detail'
 
 export default {
   name: 'TableListWrapper',
   components: {
     List,
+    Edit,
     Detail,
   },
   data () {
@@ -23,6 +25,10 @@ export default {
 
   },
   methods: {
+    handleEdit (record) {
+      this.record = record
+      this.currentComponet = 'Edit'
+    },
     handleGoBack () {
       this.record = ''
       this.currentComponet = 'List'

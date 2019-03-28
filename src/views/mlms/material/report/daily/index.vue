@@ -132,7 +132,7 @@ export default {
       })
     },
     search () {
-      let startTime = +new Date(this.searchData.date)
+      let startTime = this.searchData.date ? +new Date(this.searchData.date) : +new Date()
       let index = parseInt((new Date() - startTime) / (24*3600*1000))
       this.list = []
       this.loadPage(index, 10)

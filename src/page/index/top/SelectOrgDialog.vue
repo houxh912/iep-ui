@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="选择组织切换" width="50%" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="选择组织切换" width="520px" @close="loadPage">
     <el-form :model="orgForm" ref="orgForm" label-width="100px">
       <el-form-item label="组织名称" prop="name">
         <el-select v-model="orgForm.orgId" placeholder="请选择">

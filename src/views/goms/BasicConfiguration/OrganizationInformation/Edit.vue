@@ -45,14 +45,14 @@
   </div>
 </template>
 <script>
-import { initOrgForm } from './options'
+import { initForm } from './options'
 import { getOrgBySelf, putOrg } from '@/api/goms/org'
 import { mergeByFirst } from '@/util/util'
 import { mapState } from 'vuex'
 export default {
   data () {
     return {
-      form: initOrgForm(),
+      form: initForm(),
       backOption: {
         isBack: true,
         backPath: null,
@@ -76,7 +76,7 @@ export default {
     },
     load () {
       getOrgBySelf(this.orgId).then(({ data }) => {
-        this.form = mergeByFirst(initOrgForm(), data.data)
+        this.form = mergeByFirst(initForm(), data.data)
       })
     },
   },

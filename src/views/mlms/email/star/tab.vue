@@ -8,7 +8,7 @@
           <iep-button size="small" @click="forward">转发</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage"></operation-search>
+          <operation-search @search-page="search" :paramForm="searchForm" prop="subject"></operation-search>
         </template>
       </operation-container>
       <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect"></table-dialog>
@@ -38,11 +38,18 @@ export default {
   data () {
     return {
       subTitle: [120, 6],
+      searchForm: {
+        subject: '',
+      },
     }
   },
   methods: {
     subTitleFn (data) {
       return '（共有 ' + data[0] + ' 封邮件，其中未读邮件 ' + data[1] + ' 封）'
+    },
+    search (val) {
+      val.type = this.type
+      this.$refs['table'].loadPage(val)
     },
   },
   mounted () {

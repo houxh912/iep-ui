@@ -7,7 +7,7 @@
           <iep-button size="small" @click="forward">转发</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage"></operation-search>
+          <operation-search @search-page="search" :paramForm="searchForm" prop="subject"></operation-search>
         </template>
       </operation-container>
       <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect" pageState="sent"></table-dialog>
@@ -38,6 +38,9 @@ export default {
     return {
       dialogShow: true,
       forwardShow: true,
+      searchForm: {
+        subject: '',
+      },
     }
   },
   methods: {
@@ -51,6 +54,10 @@ export default {
         })
         this.$refs['table'].loadPage({})
       })
+    },
+    search (val) {
+      val.type = this.type
+      this.$refs['table'].loadPage(val)
     },
   },
   mounted () {

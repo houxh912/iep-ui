@@ -1,0 +1,65 @@
+<template>
+  <div class="star">
+    <div v-show="pageState=='list'">
+      <operation-container>
+        <template slot="left">
+          <iep-button size="small" type="danger" @click="allRead"><i class="icon-biaoji"></i> 标记已读</iep-button>
+          <!-- <iep-button size="small" @click="allDelete">删除</iep-button> -->
+          <iep-button size="small" @click="forward">转发</iep-button>
+        </template>
+        <template slot="right">
+          <operation-search @search="searchPage"></operation-search>
+        </template>
+      </operation-container>
+      <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect"></table-dialog>
+    </div>
+    <main-form-dialog ref="mainDialog" v-show="pageState=='detail'" @backWeb="backPage" @forward="detailForward" @reply="detailReply"></main-form-dialog>
+    <update-form-dialog ref="updateDialog" v-show="pageState=='form'" @backWeb="backPage" @load-page="loadPage"></update-form-dialog>
+  </div>
+</template>
+
+<script>
+import mixins from '@/mixins/mixins'
+import mixinTable from '../tableTpl/mixinTable'
+import TableDialog from '../tableTpl/table.vue'
+import mainFormDialog from '../tableTpl/mainDialog'
+import UpdateFormDialog from '../new/index'
+import { getStarList } from '@/api/mlms/email/index'
+
+export default {
+  components: { mainFormDialog, TableDialog, UpdateFormDialog },
+  mixins: [mixins,mixinTable],
+  props: {
+    type: {
+      type: String,
+      default: '',
+    },
+  },
+  data () {
+    return {
+      subTitle: [120, 6],
+    }
+  },
+  methods: {
+    subTitleFn (data) {
+      return '（共有 ' + data[0] + ' 封邮件，其中未读邮件 ' + data[1] + ' 封）'
+    },
+  },
+  mounted () {
+    this.$refs['table'].requestFn = getStarList
+    this.$nextTick(() => {
+      this.$refs['table'].loadPage({type: this.type})
+    })
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.star {
+  padding: 20px;
+  background-color: #fff;
+}
+.icon-biaoji {
+  font-size: 12px !important;
+}
+</style>

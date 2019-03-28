@@ -110,8 +110,8 @@ export function isReadeById (id) {
 // 批量标记已读
 export function isReadeBatch (ids) {
   return request({
-    url: '/is_reade',
-    method: `${receiverUrl}/post`,
+    url: `${receiverUrl}/is_reade`,
+    method: 'post',
     data: ids,
   })
 }

@@ -16,7 +16,7 @@
               <el-dropdown-item><div @click="handleDeleteByIds">删除</div></el-dropdown-item>
               <el-dropdown-item divided>导出</el-dropdown-item>
               <el-dropdown-item><div @click="handleCollectAll">收藏</div></el-dropdown-item>
-              <el-dropdown-item>分享</el-dropdown-item>
+              <el-dropdown-item @click.native="handleAllShare">分享</el-dropdown-item>
               <el-dropdown-item>下载</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -60,7 +60,7 @@
             <operation-wrapper>
               <iep-button type="warning" size="small" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
               <iep-button type="warning" size="small" v-else>已收藏</iep-button>
-              <iep-button size="small">分享</iep-button>
+              <iep-button size="small" @click="handleShare(scope.row)">分享</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
@@ -78,6 +78,7 @@
     <local-dialog ref="local" @load-page="loadPage" v-if="pageState=='local'"></local-dialog>
     <newly-dialog ref="newly" @load-page="loadPage" v-if="pageState=='newly'"></newly-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
+    <share-dialog ref="share" type="material"></share-dialog>
   </div>
 </template>
 
@@ -89,10 +90,11 @@ import { createCollect } from '@/api/mlms/material/summary'
 import LocalDialog from './localDialog'
 import NewlyDialog from './newlyDialog'
 import CollectionDialog from '../../components/collectionDialog'
+import ShareDialog from '../../summary/shareDialog'
 
 export default {
   mixins: [mixins],
-  components: { LocalDialog, NewlyDialog, CollectionDialog },
+  components: { LocalDialog, NewlyDialog, CollectionDialog, ShareDialog },
   computed: {},
   data () {
     return {
@@ -157,6 +159,14 @@ export default {
       }
       this.$refs['collection'].dialogShow = true
       this.$refs['collection'].loadCollectList(this.selectList)
+    },
+    // 分享
+    handleShare (row) {
+      this.$refs['share'].open([row])
+    },
+    // 批量分享
+    handleAllShare () {
+      this.$refs['share'].open(this.selectList)
     },
   },
   created () {

@@ -79,7 +79,7 @@
     </div>
     <detail-page ref="detailPage" v-if="pageState==='detail'" @backPage="pageState = 'list'"></detail-page>
     <main-dialog ref="mainDialog" v-if="pageState==='form'" @load-page="loadPage"></main-dialog>
-    <share-dialog ref="share"></share-dialog>
+    <share-dialog ref="share" type="summary"></share-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="meeting" :requestFn="createCollect"></collection-dialog>
   </basic-container>
 </template>
@@ -181,20 +181,11 @@ export default {
     },
     // 分享
     handleShare (row) {
-      this.$refs['share'].dialogShow = true
-      this.$refs['share'].list = [{ id: row.id, name: row.title }]
+      this.$refs['share'].open([row])
     },
     // 批量分享
     handleAllShare () {
-      this.$refs['share'].dialogShow = true
-      let list = []
-      for (let item of this.selectList) {
-        list.push({
-          id: item.id,
-          name: item.title,
-        })
-      }
-      this.$refs['share'].list = list
+      this.$refs['share'].open(this.selectList)
     },
     // 头部subTitle方法
     replaceText (arr) {

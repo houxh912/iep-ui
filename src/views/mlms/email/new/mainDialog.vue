@@ -18,7 +18,10 @@
       <div class="arrow"><i class="el-icon-d-arrow-right"></i></div>
       <div class="transfer box-list">
         <ul class="list">
-          <li class="item last-item" v-for="(item, index) in transferList.materialIds" :key="index">{{item.name}}<i class="el-icon-close" @click="cancel(index, 'materialIds')"></i></li>
+          <li class="item last-item" v-for="(item, index) in transferList.materialIds" :key="index">
+            <p>{{item.name}}</p>
+            <i class="el-icon-close" @click="cancel(index, 'materialIds')"></i>
+          </li>
         </ul>
       </div>
     </div>
@@ -66,6 +69,8 @@ export default {
     loadData () {},
     submitForm () {
       console.log('transferList: ', this.transferList)
+      this.dialogShow = false
+      this.$emit('relativeSubmit', this.transferList)
     },
     // 重置穿梭框
     resetForm () {
@@ -148,8 +153,8 @@ export default {
     .list {
       .item {
         list-style: none;
-        height: 30px;
         cursor: pointer;
+        margin-bottom: 10px;
       }
       .selectItem {
         color: #409EFF;
@@ -158,7 +163,13 @@ export default {
       .last-item {
         cursor: text;
         position: relative;
+        display: flex;
+        p {
+          width: calc(100% - 20px);
+          margin: 0;
+        }
         i {
+          width: 20px;
           text-align: right;
           cursor: pointer;
           position: absolute;

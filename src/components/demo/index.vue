@@ -8,7 +8,9 @@
         <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
       </el-form-item>
       <el-form-item label="文件:">
-        <iep-upload v-model="form.fileList"></iep-upload>
+        <iep-upload v-model="form.fileList">
+          点击进入<a href="http://77777">haahahahah</a>你好
+        </iep-upload>
       </el-form-item>
       <el-form-item label="标签:">
         <iep-tag v-model="form.tagList"></iep-tag>
@@ -34,7 +36,7 @@ export default {
           orgs: [],
           users: [],
         },
-        fileList: [{ 'name': 'AINY4Y0AL3.txt', 'url': '04cd8be68d2846c197432e51ee8888b5.txt' }],
+        fileList: [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],
         tagList: ['大数据', '人工智能'],
       },
     }

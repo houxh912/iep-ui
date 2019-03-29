@@ -1,7 +1,9 @@
 <template>
   <el-upload action="/api/admin/file/upload" :headers="headers" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :on-success="handleSuccess" multiple :limit="limit" :on-exceed="handleExceed" :file-list="fileList" v-bind="$attrs" v-on="$listeners">
     <el-button size="small" type="primary">点击上传</el-button>
-    <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+    <div slot="tip" class="el-upload__tip">
+      <slot></slot>
+    </div>
   </el-upload>
 </template>
 <script>

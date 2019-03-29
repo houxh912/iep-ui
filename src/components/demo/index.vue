@@ -8,7 +8,9 @@
         <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
       </el-form-item>
       <el-form-item label="文件:">
-        <iep-upload v-model="form.fileList"></iep-upload>
+        <iep-upload v-model="form.fileList">
+          点击进入<a href="http://77777">haahahahah</a>你好
+        </iep-upload>
       </el-form-item>
       <el-form-item label="标签:">
         <iep-tag v-model="form.tagList"></iep-tag>

@@ -150,7 +150,7 @@
               </el-form-item>
               <el-form-item label="户籍地址：">
                 <div style="display:flex;">
-                  <iep-cascader style="flex:1;" v-model="form.residenceCties" prefix-url="admin/city"></iep-cascader>
+                  <iep-cascader style="flex:1;" v-model="form.residenceCities" prefix-url="admin/city"></iep-cascader>
                   <el-input style="flex:3;" v-model="form.residenceAddress"></el-input>
                 </div>
               </el-form-item>
@@ -203,16 +203,24 @@
             </div>
           </el-collapse-item>
           <!-- <el-collapse-item title="劳动合同" name="2">
-            <el-input type="textarea"></el-input>
+            <el-form-item label="劳动合同：">
+              <inline-form-table :table-data="form.laborContract" :columns="laborColumns" requestName="labor" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+            </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="社保福利" name="3">
-            <el-input type="textarea"></el-input>
+            <el-form-item label="社保福利：">
+              <inline-form-table :table-data="form.socialContract" :columns="socialColumns" requestName="social" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+            </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="调动情况" name="4">
-            <el-input type="textarea"></el-input>
+            <el-form-item label="调动情况：">
+              <inline-form-table :table-data="form.transferContract" :columns="transferColumns" requestName="transfer" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+            </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="离职信息" name="5">
-            <el-input type="textarea"></el-input>
+            <el-form-item label="离职信息：">
+              <inline-form-table :table-data="form.quitContract" :columns="quitColumns" requestName="quit" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+            </el-form-item>
           </el-collapse-item> -->
         </el-collapse>
       </el-form>
@@ -228,7 +236,9 @@
 import FooterToolBar from '@/components/FooterToolbar'
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 import { mergeByFirst } from '@/util/util'
-import { initForm, formToDto } from '../options'
+import { initForm, formToDto  } from '../options'
+//import { laborColumns, socialColumns, transferColumns, quitColumns  } from '../options'
+//import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 export default {
   props: {
     record: {
@@ -247,6 +257,10 @@ export default {
       },
       form: initForm(),
       formRequestFn: this.record.formRequestFn,
+      // laborColumns,
+      // socialColumns,
+      // transferColumns,
+      // quitColumns,
     }
   },
   created () {

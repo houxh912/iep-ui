@@ -22,15 +22,18 @@
         </el-table-column>
       </iep-table>
     </basic-container>
+    <new-approval ref="NewApproval" @load-page="loadPage"></new-approval>
   </div>
 </template>
 
 <script>
-import { getInitiatePage, postApproval , deleteApprovalById, putApprovalInitiate } from '@/api/wel/administrative_approval'
+import { getInitiatePage, deleteApprovalById, putApprovalInitiate } from '@/api/wel/administrative_approval'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
+import NewApproval from '../../Components/NewApproval'
 export default {
   components: {
+    NewApproval,
   },
   mixins: [mixins],
   data () {
@@ -57,11 +60,7 @@ export default {
       })
     },
     handleAdd () {
-      this.$emit('onEdit', {
-        formRequestFn: postApproval,
-        methodName: '发起',
-        id: false,
-      })
+      this.$refs['NewApproval'].dialogShow = true
     },
     handleDelete (row) {
       this._handleComfirm(row.id, deleteApprovalById, '删除')

@@ -5,6 +5,7 @@ import BasicAsideContainer from '@/components/BasicAsideContainer/index'
 
 import IepButton from '@/components/IepCommon/Button'
 import IepTabs from '@/components/IepCommon/Tabs'
+import IepTag from '@/components/IepTag'
 import IepSelect from '@/components/IepCommon/Select'
 import IepDatePicker from '@/components/IepCommon/DatePicker'
 import IepCascader from '@/components/IepCommon/Cascader'
@@ -41,6 +42,7 @@ Vue.component(IepTableLink.name, IepTableLink)
 Vue.component(OperationWrapper.name, OperationWrapper)
 Vue.component(IepButton.name, IepButton)
 Vue.component(IepTabs.name, IepTabs)
+Vue.component(IepTag.name, IepTag)
 Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepSelect.name, IepSelect)
 Vue.component(IepContactSelect.name, IepContactSelect)

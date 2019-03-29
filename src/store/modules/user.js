@@ -29,7 +29,7 @@ function addPath (ele, first) {
     return
   }
   ele[propsDefault.children].forEach(child => {
-    child[propsDefault.name] = `${ele[propsDefault.name]}-${child[propsDefault.name]}`
+    child[propsDefault.name] = `${child[propsDefault.name]}-${ele[propsDefault.name]}`
     if (!isURL(child[propsDefault.path])) {
       child[propsDefault.path] = `${ele[propsDefault.path]}/${child[propsDefault.path] ? child[propsDefault.path] : 'index'}`
     }

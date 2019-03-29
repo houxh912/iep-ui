@@ -64,7 +64,6 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { handleImg } from '@/util/util'
 import PageHeader from '@/components/Page/Header'
 export default {
   components: { PageHeader },
@@ -94,7 +93,6 @@ export default {
     },
   },
   created () {
-    handleImg(this.userInfo.avatar, 'information-avatar')
   },
   computed: {
     ...mapGetters([

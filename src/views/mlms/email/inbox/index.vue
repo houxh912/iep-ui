@@ -1,37 +1,50 @@
 <template>
-  <div class="inbox">
-    <div v-show="pageState=='list'">
-      <page-header title="收件箱" class="title" :data="subTitle" :replaceText="subTitleFn"></page-header>
-      <operation-container>
-        <template slot="left">
-          <iep-button size="small" type="danger" @click="allRead"><i class="icon-biaoji"></i> 标记已读</iep-button>
-          <iep-button size="small" @click="allDelete">删除</iep-button>
-          <iep-button size="small" @click="forward">转发</iep-button>
-        </template>
-        <template slot="right">
-          <operation-search @search="searchPage"></operation-search>
-        </template>
-      </operation-container>
-      <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect" @readList="(val)=>{subTitle=val}"></table-dialog>
-    </div>
-    <main-form-dialog ref="mainDialog" v-show="pageState=='detail'" @backWeb="backPage" @forward="detailForward" @reply="detailReply"></main-form-dialog>
-    <update-form-dialog ref="updateDialog" v-show="pageState=='form'" @backWeb="backPage" @load-page="loadPage"></update-form-dialog>
-  </div>
+  <basic-container>
+    <page-header title="收件箱" class="title" :data="subTitle" :replaceText="subTitleFn"></page-header>
+    <iep-tabs v-model="tabName" :tab-list="tabList">
+      <template v-if="tabName ==='alltabTemplate'" v-slot:alltabTemplate>
+        <web-tab-tpl @readList="(val)=>{subTitle=val}"></web-tab-tpl>
+      </template>
+      <template v-if="tabName ==='InstrTabTemplate'" v-slot:InstrTabTemplate>
+        <web-tab-tpl type="1" @readList="(val)=>{subTitle=val}"></web-tab-tpl>
+      </template>
+      <template v-if="tabName ==='shareTabTemplate'" v-slot:shareTabTemplate>
+        <web-tab-tpl type="2" @readList="(val)=>{subTitle=val}"></web-tab-tpl>
+      </template>
+      <template v-if="tabName ==='wrongTabTemplate'" v-slot:wrongTabTemplate>
+        <web-tab-tpl type="3" @readList="(val)=>{subTitle=val}"></web-tab-tpl>
+      </template>
+    </iep-tabs>
+  </basic-container>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
-import mixinTable from '../tableTpl/mixinTable'
-import TableDialog from '../tableTpl/table.vue'
-import mainFormDialog from '../tableTpl/mainDialog'
-import UpdateFormDialog from '../new/index'
-import { getReceiverList, deleteEmailReceiver } from '@/api/mlms/email/index'
+import IepTabs from '@/components/IepCommon/Tabs'
+import WebTabTpl from './tab'
 
 export default {
-  components: { mainFormDialog, TableDialog, UpdateFormDialog },
-  mixins: [mixins,mixinTable],
+  name: 'inbox',
+  mixins: [ mixins ],
+  components: { IepTabs, WebTabTpl },
   data () {
     return {
+      tabName: 'alltabTemplate',
+      tabList: [
+        {
+          label: '全部',
+          value: 'alltabTemplate',
+        }, {
+          label: '批示',
+          value: 'InstrTabTemplate',
+        }, {
+          label: '分享',
+          value: 'shareTabTemplate',
+        }, {
+          label: '纠错',
+          value: 'wrongTabTemplate',
+        },
+      ],
       subTitle: [0, 0],
     }
   },
@@ -39,33 +52,13 @@ export default {
     subTitleFn (data) {
       return '（共有 ' + data[0] + ' 封邮件，其中未读邮件 ' + data[1] + ' 封）'
     },
-    allDelete () {
-      deleteEmailReceiver(this.multipleSelection).then(() => {
-        this.$notify({
-          title: '成功',
-          message: '删除成功！',
-          type: 'success',
-          duration: 2000,
-        })
-        this.$refs['table'].loadPage({})
-      })
-    },
-  },
-  mounted () {
-    this.$refs['table'].requestFn = getReceiverList
-    this.$nextTick(() => {
-      this.$refs['table'].loadPage({})
-    })
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.inbox {
+.datum {
   padding: 20px;
   background-color: #fff;
-}
-.icon-biaoji {
-  font-size: 12px !important;
 }
 </style>

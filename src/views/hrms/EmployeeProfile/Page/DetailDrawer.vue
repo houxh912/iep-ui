@@ -20,7 +20,7 @@
         <IepDescriptionItem title="工号：" :content="form.IDCard" />
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="员工状态：" :content="form.status" />
+        <IepDescriptionItem title="员工状态：" :content="status[form.status]" />
       </a-col>
     </a-row>
 
@@ -132,11 +132,12 @@
 </template>
 <script>
 import { mergeByFirst } from '@/util/util'
-import { initForm } from '../options'
+import { initForm, dictsMap } from '../options'
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 export default {
   data () {
     return {
+      status: dictsMap.status,
       drawerShow: false,
       id: null,
       methodName: '',

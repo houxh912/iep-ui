@@ -68,7 +68,7 @@ export default {
     // this.disconnect()
   },
   mounted () {
-    this.init()
+    // this.init()
     this.LoadAllDictMap()
     // this.initWebSocket()
   },

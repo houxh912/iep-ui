@@ -1,7 +1,9 @@
 import VueRouter from 'vue-router'
 import PageRouter from './page/'
 import ViewsRouter from './views/'
-import DetailRouter from './detail/'
+import hrmsRouter from './hrms/'
+import imsRouter from './ims/'
+import componentsRouter from './components/'
 import AvueRouter from './avue-router'
 import Store from '../store/'
 
@@ -23,5 +25,5 @@ const Router = new VueRouter({
 })
 AvueRouter.install(Router, Store)
 Router.$avueRouter.formatRoutes(Store.state.user.menu, true)
-Router.addRoutes([...PageRouter, ...ViewsRouter, ...DetailRouter])
+Router.addRoutes([...PageRouter, ...ViewsRouter, ...hrmsRouter, ...imsRouter, ...componentsRouter])
 export default Router

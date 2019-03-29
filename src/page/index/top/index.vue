@@ -85,13 +85,6 @@ export default {
     }),
     ...mapGetters([
       'userInfo',
-      'isFullScren',
-      'tagWel',
-      'tagList',
-      'isCollapse',
-      'tag',
-      'logsLen',
-      'logsFlag',
       'noOrg',
     ]),
     orgText () {

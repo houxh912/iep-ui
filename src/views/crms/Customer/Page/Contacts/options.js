@@ -20,4 +20,26 @@ const initForm = () => {
     clientIds: [0],
   }
 }
-export { columnsMap, initForm }
+const phone = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('手机号不可为空'))
+  } else {
+    if (value !== '') {
+      var reg = /^1[3456789]\d{9}$/
+      if (!reg.test(value)) {
+        callback(new Error('请输入有效的手机号码'))
+      }
+    }
+    callback()
+  }
+}
+const rules = {
+  contactName: [
+    { required: true, message: '联系人姓名不能为空', trigger: 'blur' },
+  ],
+  contactPosition: [
+    { required: true, message: '联系人职务不能为空', trigger: 'blur' },
+  ],
+  cellphone: [{ required: true, validator: phone, trigger: 'blur' }],
+}
+export { columnsMap, initForm, rules }

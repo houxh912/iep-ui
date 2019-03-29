@@ -1,6 +1,6 @@
 <template>
-  <iep-drawer :drawer-show="drawerShow" type="drawer" :title="'联系人详情'" width="50%" @close="loadPage">
-    <el-form :model="detailForm" ref="formName" label-width="100px" size="small">
+  <iep-drawer :drawer-show="drawerShow" type="drawer" :title="'联系人详情'" width="40%" @close="loadPage">
+    <el-form :model="detailForm"  label-width="100px" size="small">
       <el-form-item label="联系人姓名：" prop="contactName" class="form-half">
         <span>{{detailForm.contactName}}</span>
       </el-form-item>

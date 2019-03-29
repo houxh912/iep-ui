@@ -22,7 +22,7 @@ RouterPlugin.install = function (router, store) {
     safe: this,
     // 设置标题
     setTitle: function (title) {
-      title = title ? `${title}——${this.$defaultTitle}` : this.$defaultTitle
+      title = title ? `${title}-${this.$defaultTitle}` : this.$defaultTitle
       document.title = title
     },
     closeTag: value => {
@@ -63,6 +63,7 @@ RouterPlugin.install = function (router, store) {
       const aRouter = []
       const propsConfig = this.$website.menu.props
       const propsDefault = {
+        name: propsConfig.name || 'name',
         label: propsConfig.label || 'label',
         path: propsConfig.path || 'path',
         icon: propsConfig.icon || 'icon',

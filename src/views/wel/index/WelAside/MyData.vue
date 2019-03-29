@@ -17,16 +17,11 @@
 const DataSet = require('@antv/data-set')
 
 const sourceData = [
-  { item: 'Design', 去年: 70, 今年: 30 },
-  { item: 'Development', 去年: 60, 今年: 70 },
-  { item: 'Marketing', 去年: 50, 今年: 60 },
-  { item: 'Users', 去年: 40, 今年: 50 },
-  { item: 'Test', 去年: 60, 今年: 70 },
-  { item: 'Language', 去年: 70, 今年: 50 },
-  { item: 'Technology', 去年: 50, 今年: 40 },
-  { item: 'Support', 去年: 30, 今年: 40 },
-  { item: 'Sales', 去年: 60, 今年: 40 },
-  { item: 'UX', 去年: 50, 今年: 60 },
+  { item: '引用', 去年: 70, 今年: 30 },
+  { item: '热度', 去年: 60, 今年: 70 },
+  { item: '产量', 去年: 50, 今年: 60 },
+  { item: '贡献', 去年: 40, 今年: 50 },
+  { item: '口碑', 去年: 60, 今年: 70 },
 ]
 
 const dv = new DataSet.View().source(sourceData)

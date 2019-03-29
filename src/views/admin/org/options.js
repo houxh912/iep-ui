@@ -35,9 +35,16 @@ const columnsMap = [
 
 const initForm = () => {
   return {
+    orgId: '',
+    logo: '',
     name: '',
-    isOpen: false,
+    abrName: '',
+    establishTime: '',
+    creatorName: '',
+    contactMethod: '',
     intro: '',
+    structure: '',
+    coreAdvantage: '',
   }
 }
 

@@ -165,6 +165,3 @@ export default {
   margin-top: 50px;
 }
 </style>
-
-<style lang="scss" scoped>
-</style>

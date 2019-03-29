@@ -31,7 +31,7 @@ export default {
           orgs: [],
           users: [],
         },
-        fileList: [],
+        fileList: [{ 'name': 'AINY4Y0AL3.txt', 'url': '04cd8be68d2846c197432e51ee8888b5.txt' }],
       },
     }
   },

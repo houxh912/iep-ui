@@ -26,7 +26,9 @@
       <!-- 新增 -->
       <div class="addDia" v-show='!hidsadd'>
         <el-row type="flex" class="row-bg" justify="space-between">
-          <el-col class="cent" :span="9"><p class="addFont sixsix">新增</p></el-col>
+          <el-col class="cent" :span="9">
+            <p class="addFont sixsix">新增</p>
+          </el-col>
           <el-col :span="9" class="cent">
             <iep-button class="callbackAdd" @click='goindex'>返回</iep-button>
           </el-col>
@@ -83,7 +85,7 @@
         </el-row>
       </div>
     </basic-container>
-      
+
   </div>
 </template>
 
@@ -95,25 +97,24 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      dialogShow:false,
+      dialogShow: false,
       columnsMap,
       paramForm: initSearchForm(),
       replaceText: (data) => `（共${data[0]}项资源)`,
       dateVal: '',
-      hidsadd:true,
-      formLabelAlign:{
-        name:'',
-        explain:'',
-        whether:'',
-        objType:'',
-        type:'',
-        num:'',
-        links:'',
+      hidsadd: true,
+      formLabelAlign: {
+        name: '',
+        explain: '',
+        whether: '',
+        objType: '',
+        type: '',
+        num: '',
+        links: '',
       },
-      rules:{
-        name:[
+      rules: {
+        name: [
           { required: true, message: '请输入名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' },
         ],
         objType: [
           { required: true, message: '请选择项目类型', trigger: 'change' },
@@ -144,15 +145,15 @@ export default {
     searchPage () {
       this.$emit('search-page', this.paramForm)
     },
-    add (){
+    add () {
       this.hidsadd = false
     },
-    details (){
+    details () {
     },
-    update (row){
+    update (row) {
       console.log(row)
     },
-    deletes (row){
+    deletes (row) {
       console.log(row)
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -167,7 +168,7 @@ export default {
         this.$message({
           type: 'info',
           message: '已取消删除',
-        })       
+        })
       })
     },
     submitForm (formName) {
@@ -180,7 +181,7 @@ export default {
         }
       })
     },
-    goindex (){
+    goindex () {
       this.hidsadd = !this.hidsadd
       this.$refs['ruleForm'].resetFields()
     },
@@ -189,28 +190,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .addDia{
-    width: 100%;
-    background-color: #fff;
-  }
-  .row-bg{
-    padding: 0 20px;
-    border-bottom: 1px solid #f8f8f8;
-  }
-  .callbackAdd{
-    float: right;
-    margin-top: 15px;
-  }
-  .addFont{
-    font-weight: bold;
-    font-size: 18px;
-  }
-  .cent{
-    margin: 0;
-  }
-  .sixsix{
-    color: #666666;
-  }
+.addDia {
+  width: 100%;
+  background-color: #fff;
+}
+.row-bg {
+  padding: 0 20px;
+  border-bottom: 1px solid #f8f8f8;
+}
+.callbackAdd {
+  float: right;
+  margin-top: 15px;
+}
+.addFont {
+  font-weight: bold;
+  font-size: 18px;
+}
+.cent {
+  margin: 0;
+}
+.sixsix {
+  color: #666666;
+}
 </style>
 
 

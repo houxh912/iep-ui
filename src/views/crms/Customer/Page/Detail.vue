@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <basic-container>
       <div class="title">
-        <div class="department">{{formData.respDept}}</div>
+        <div class="department">{{formData.clientName}}</div>
         <el-button class="back" @click="handleGoBack" size="mini">返回</el-button>
       </div>
       <!-- <div class="head-button">

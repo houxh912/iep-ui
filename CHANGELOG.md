@@ -1,3 +1,44 @@
+## [1.0.4](http://115.233.227.46:8066/root/iep-ui/compare/v1.0.3...v1.0.4) (2019-03-28)
+
+
+### Bug Fixes
+
+* **fix:** fixMessageType ([8eb2fc3](http://115.233.227.46:8066/root/iep-ui/commits/8eb2fc3))
+* **fix:** style按钮 ([935a3b4](http://115.233.227.46:8066/root/iep-ui/commits/935a3b4))
+* **fix:** tms模块props问题 ([297627f](http://115.233.227.46:8066/root/iep-ui/commits/297627f))
+* **假数据:** 添加上我的财富菜单新增 ([2d53681](http://115.233.227.46:8066/root/iep-ui/commits/2d53681))
+* **培训:** 修改为统一组件 ([b58a39a](http://115.233.227.46:8066/root/iep-ui/commits/b58a39a))
+* **字典类型:** 字典值从int改为string ([8a6804f](http://115.233.227.46:8066/root/iep-ui/commits/8a6804f))
+* **菜单修复:** 修复菜单Dup重复提醒的问题 ([df00fa4](http://115.233.227.46:8066/root/iep-ui/commits/df00fa4))
+
+
+### Features
+
+* **mlms/email/:** 邮件的搜索 ([834b370](http://115.233.227.46:8066/root/iep-ui/commits/834b370))
+* **mlms/material/:** 报表搜索 ([e415c15](http://115.233.227.46:8066/root/iep-ui/commits/e415c15))
+* **mlms/material/email/:** 邮件分享 ([61d3506](http://115.233.227.46:8066/root/iep-ui/commits/61d3506))
+* **NPM包更新:** 修复cli工具的corejs报错问题与element-ui升级到2.7.0 ([df3de95](http://115.233.227.46:8066/root/iep-ui/commits/df3de95))
+* **ziduan:** ziduan ([249374a](http://115.233.227.46:8066/root/iep-ui/commits/249374a))
+* **个人财富:** 页面与菜单重新设计 ([ff556c4](http://115.233.227.46:8066/root/iep-ui/commits/ff556c4))
+* **取消协助人修改:** 取消协助人修改 ([853e01d](http://115.233.227.46:8066/root/iep-ui/commits/853e01d))
+* **客户:** 字典组件修改 ([4b56b97](http://115.233.227.46:8066/root/iep-ui/commits/4b56b97))
+* **客户，商机编辑:** 修改客户，商机编辑中多选字段为字符串 ([19f1f98](http://115.233.227.46:8066/root/iep-ui/commits/19f1f98))
+* **客户添加协作人:** 客户添加协重写table和分页 ([e18a3df](http://115.233.227.46:8066/root/iep-ui/commits/e18a3df))
+* **我的客户导入弹框:** 我的客户导入弹框，解决dialog中显示不全的问题 ([efda125](http://115.233.227.46:8066/root/iep-ui/commits/efda125))
+* **消息:** 完成消息模块基本对接 ([47255e5](http://115.233.227.46:8066/root/iep-ui/commits/47255e5))
+* **混合修改:** 移除了组织不必要的代码更新图标信息移除规则修改组织选择宽度 ([a47254e](http://115.233.227.46:8066/root/iep-ui/commits/a47254e))
+* **移除HandleImg:** 移除老旧图片加载功能 ([f5533d0](http://115.233.227.46:8066/root/iep-ui/commits/f5533d0))
+* **转移客户和拜访日志页面:** 转移客户和拜访日志页面 ([85b7af5](http://115.233.227.46:8066/root/iep-ui/commits/85b7af5))
+* **通知:** 初始化通知 ([6f2a907](http://115.233.227.46:8066/root/iep-ui/commits/6f2a907))
+* **问候语:** 添加问候语 ([e4cab5c](http://115.233.227.46:8066/root/iep-ui/commits/e4cab5c))
+
+
+### Reverts
+
+* **代码:** 复原 ([41ba887](http://115.233.227.46:8066/root/iep-ui/commits/41ba887))
+
+
+
 ## [1.0.3](http://115.233.227.46:8066/root/iep-ui/compare/v1.0.2...v1.0.3) (2019-03-27)
 
 

@@ -1,6 +1,6 @@
 <template>
-  <iep-drawer :drawer-show="drawerShow" type="drawer" :title="'商机'+methodName" width="30%" @close="loadPage">
-    <el-form :model="formData" label-width="100px" size="samll">
+  <iep-drawer :drawer-show="drawerShow" type="drawer" :title="'商机'+methodName" width="40%" @close="loadPage">
+    <el-form :model="formData" label-width="100px" size="small">
       <el-form-item label="客户名称：">
         <el-input v-model="formData.clientName" placeholder="客户名称" :disabled="true"></el-input>
       </el-form-item>
@@ -13,7 +13,7 @@
       <el-form-item label="意向程度：">
         <a-tag type="info">{{formData.intentionLevelValue}}</a-tag>
       </el-form-item>
-      <el-form-item label="商机描述：" prop="miaoshu">
+      <el-form-item label="商机描述：">
         <el-input type="textarea" v-model="formData.opportunityDes" placeholder="商机描述" :disabled="true"></el-input>
       </el-form-item>
       <el-form-item label="商机标签：">

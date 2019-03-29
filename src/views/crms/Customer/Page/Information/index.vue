@@ -1,10 +1,10 @@
 
 <template>
-  <div class="consultation">
+  <div class="information">
     <operation-wrapper>
       <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加资讯</iep-button>
     </operation-wrapper>
-    <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+    <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :show-header="false" :cell-style="{hover:'red'}">
       <template slot="before-columns">
         <el-table-column>
           <template slot-scope="scope">
@@ -42,7 +42,7 @@ export default {
       rules: {},
       methodName: '',
       dialogShow: false,
-      pagedTable: [{ title: 'dasd', date: 'sadasd', msg: 'dasdddddddddadsadasd', tags: ['one', 'two'] }],
+      pagedTable: [{ title: '关于客户的咨询', date: ' 2019-3-28 ', msg: '其实，我们行走于世间，每个人之寻求幸福，可真寻到么？可未寻到么？人人几成定律。但是，送你一枝幸福花的精神，却不断地延续了下来，并以超乎寻常之速度，为我们人类，在幸福的道路不断前行', tags: ['one', 'two'] }, { title: '关于客户的咨询', date: ' 2019-3-29 ', msg: '其实，我们行走于世间，每个人之寻求幸福，可真寻到么？可未寻到么？人人几成定律。但是，送你一枝幸福花的精神，却不断地延续了下来，并以超乎寻常之速度，为我们人类，在幸福的道路不断前行', tags: ['three', 'four'] }, { title: '关于客户的咨询', date: ' 2019-3-30 ', msg: '其实，我们行走于世间，每个人之寻求幸福，可真寻到么？可未寻到么？人人几成定律。但是，送你一枝幸福花的精神，却不断地延续了下来，并以超乎寻常之速度，为我们人类，在幸福的道路不断前行', tags: ['five', 'six'] }],
     }
   },
   methods: {
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.consultation {
+.information {
   .item {
     width: 100%;
     margin-bottom: 10px;
@@ -78,7 +78,9 @@ export default {
       }
     }
     .content {
-      background-color: #f3f3f3;
+      &:hover {
+        background-color: #f3f3f3;
+      }
       padding: 20px;
       .code {
         text-align: right;
@@ -88,13 +90,7 @@ export default {
       }
     }
   }
-  .add-consulta {
-    text-align: center;
-    height: 40px;
-    line-height: 40px;
-    border-bottom: 1px solid #ececec;
-    cursor: pointer;
-  }
 }
 </style>
+
 

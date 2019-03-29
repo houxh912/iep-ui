@@ -53,6 +53,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .upload-demo {
+  padding-bottom: 30px !important;
   text-align: center;
 }
 </style>

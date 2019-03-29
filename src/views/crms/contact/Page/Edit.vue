@@ -1,73 +1,108 @@
 <template>
   <div class="edit-wrapper">
-    <el-card class="edit-card" shadow="hover">
-      <div slot="header" class="title">
-        <span>{{methodName}}联系人</span>
-      </div>
+    <basic-container>
+      <page-header :title="`${methodName}联系人`"></page-header>
       <el-form :model="formData" :rules="rules" ref="formName" label-width="100px" size="small">
-        <el-form-item label="联系人姓名" prop="contactName" class="form-half">
-          <el-input v-model="formData.contactName"></el-input>
-        </el-form-item>
-        <el-form-item label="联系人职务" prop="contactPosition" class="form-half">
-          <el-input v-model="formData.contactPosition"></el-input>
-        </el-form-item>
-        <el-form-item label="电话" prop="telephoneNo" class="form-half">
-          <el-input v-model="formData.telephoneNo"></el-input>
-        </el-form-item>
-        <el-form-item label="对应客户" prop="clientName" class="form-half">
-          <span class="tags" v-for="(item,index) in formData.clientInfos" :key="index">{{item.clientName}}</span>
-          <el-button class="btn" size="small" @click="addContact" icon="el-icon-plus"></el-button>
-        </el-form-item>
-        <el-form-item label="手机" prop="cellphone" class="form-half">
-          <el-input v-model="formData.cellphone"></el-input>
-        </el-form-item>
-        <el-form-item label="传真" prop="fax" class="form-half">
-          <el-input v-model="formData.fax"></el-input>
-        </el-form-item>
-        <el-form-item label="QQ" prop="qq" class="form-half">
-          <el-input v-model="formData.qq"></el-input>
-        </el-form-item>
-        <el-form-item label="微信" prop="wechat" class="form-half">
-          <el-input v-model="formData.wechat"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱" prop="email" class="form-half">
-          <el-input v-model="formData.email"></el-input>
-        </el-form-item>
-        <el-form-item label="地址" prop="address" class="form-half">
-          <el-input v-model="formData.address"></el-input>
-        </el-form-item>
-        <el-form-item label="客户关注" prop="clientConcern" class="form-half">
-          <el-input v-model="formData.clientConcern"></el-input>
-        </el-form-item>
-        <el-form-item label="其他" prop="other" class="form-half">
-          <el-input v-model="formData.other"></el-input>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="联系人姓名" prop="contactName">
+              <el-input v-model="formData.contactName"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="联系人职务" prop="contactPosition">
+              <el-input v-model="formData.contactPosition"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="电话" prop="telephoneNo">
+              <el-input v-model="formData.telephoneNo"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="对应客户" prop="clientName">
+              <span class="tags" v-for="(item,index) in formData.clientInfos" :key="index">{{item.clientName}}</span>
+              <el-button size="small" @click="addContact" icon="el-icon-plus"></el-button>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="手机" prop="cellphone">
+              <el-input v-model="formData.cellphone"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="传真" prop="fax">
+              <el-input v-model="formData.fax"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="QQ" prop="qq">
+              <el-input v-model="formData.qq"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="微信" prop="wechat">
+              <el-input v-model="formData.wechat"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="邮箱" prop="email">
+              <el-input v-model="formData.email"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="地址" prop="address">
+              <el-input v-model="formData.address"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="客户关注" prop="clientConcern">
+              <el-input v-model="formData.clientConcern"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="其他" prop="other">
+              <el-input v-model="formData.other"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item label="">
+          <operation-wrapper>
+            <iep-button type="primary " @click="submitForm('formName')">提交</iep-button>
+            <iep-button @click="handleGoBack">返回</iep-button>
+          </operation-wrapper>
         </el-form-item>
       </el-form>
-    </el-card>
+    </basic-container>
     <el-dialog title="添加对应客户" :visible.sync="dialogVisible" width="50%">
       <avue-crud :data="pagedTable" :option="option" :page="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange">
       </avue-crud>
       <div class="btn">
-        <iep-button @click="dialogVisible = false">取 消</iep-button>
+        <iep-button class="cancel" @click="dialogVisible = false">取 消</iep-button>
         <iep-button type="primary" @click="handlequery">添加</iep-button>
       </div>
     </el-dialog>
-    <footer-tool-bar>
-      <iep-button type="info" @click="handleGoBack">返回</iep-button>
-      <iep-button type="primary " @click="submitForm('formName')">提交</iep-button>
-    </footer-tool-bar>
   </div>
 </template>
 <script>
-import { initForm, rules } from '../options'
-import FooterToolBar from '@/components/FooterToolbar'
-import { getContactById } from '@/api/crms/contact'
-import { fetchList } from '@/api/crms/custom'
 import { mergeByFirst } from '@/util/util'
 import mixins from '@/mixins/mixins'
+import { initForm, rules } from '../options'
+import { getContactById } from '@/api/crms/contact'
+import { fetchList } from '@/api/crms/custom'
+
 export default {
   mixins: [mixins],
-  components: { FooterToolBar },
   props: {
     record: {
       type: Object,
@@ -170,25 +205,12 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.el-dialog {
-  .el-dialog__body {
-    padding: 0 20px !important;
-  }
+<style scoped>
+.edit-wrapper >>> .el-form {
+  margin-right: 20%;
+  margin-top: 30px;
 }
 
-.edit-wrapper {
-  margin: 5px 5px 50px 5px;
-  .form-half {
-    width: 50%;
-    display: inline-block;
-  }
-  .edit-card {
-    .title {
-      font-weight: 600;
-    }
-  }
-}
 .tags {
   display: inline-block;
   line-height: 0;
@@ -199,7 +221,10 @@ export default {
   font-size: 12px;
 }
 .btn {
-  margin-left: 20px;
   text-align: right;
 }
+.btn .cancel {
+  margin-right: 10px;
+}
 </style>
+

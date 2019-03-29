@@ -14,7 +14,7 @@
           </el-col>
           <el-col :span="20">
             <div class="right">
-              <div class="user-poster"><span class="say">早上好，{{userInfo.realName}}<span class="honor"><img src="" alt="" /></span></span><span class="gov">国脉人，人人都要成为专家</span></div>
+              <div class="user-poster"><span class="say">{{timeFix}}，{{userInfo.realName}}, {{welcome}}</span></div>
               <div class="user-info">
                 <span :class="item.type=='button'?'border':'color'" v-for="(item,index) in infoList" :key="index">{{item.label}}</span>
                 <!-- <router-link class="more" to="">更多<i class="el-icon-d-arrow-right"></i></router-link> -->
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { timeFix, welcome } from '@/util/text'
 import { mapGetters } from 'vuex'
 import AboutTask from './AboutTask'
 import Project from './Project'
@@ -62,6 +63,8 @@ export default {
   components: { AboutTask, Project, Customer, Material, Grades, Relationship },
   data () {
     return {
+      timeFix: timeFix(),
+      welcome: welcome(),
       bodyStyle: {
         padding: 0,
       },
@@ -146,7 +149,7 @@ export default {
           .say {
             display: inline-block;
             margin-top: 3px;
-            font-size: 14px;
+            font-size: 15px;
             .honor {
               display: inline-block;
               vertical-align: middle;

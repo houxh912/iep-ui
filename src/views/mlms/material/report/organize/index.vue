@@ -60,7 +60,7 @@ export default {
       
     },
     search () {
-      let date = new Date(this.searchData.date)
+      let date = this.searchData.date ? new Date(this.searchData.date) : new Date()
       // 获取到选中的时间，解析出来年月周
       let monday = new Date(getMonday(date).timeStamp)
       this.timeLineOption.active = monday.getMonth() + 1

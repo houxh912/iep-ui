@@ -5,29 +5,23 @@
         <el-input v-model="form.clientName" placeholder="请输入客户名称"></el-input>
       </el-form-item>
       <el-form-item label="业务类型">
-        <el-select v-model="form.businessTypeKey" multiple placeholder="请选择业务类型">
-          <el-option v-for="item in dictGroup['crms_business_type']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
+        <iep-dict-select v-model="form.businessTypeKey" dict-name="crms_business_type" multiple></iep-dict-select>
       </el-form-item>
       <el-form-item label="意向程度">
-        <el-select v-model="form.intentionLevelValue" placeholder="请选择意向程度">
-          <el-option v-for="item in dictGroup['crms_client_intention_level']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
+        <iep-dict-select v-model="form.intentionLevelValue" dict-name="crms_client_intention_level"></iep-dict-select>
       </el-form-item>
       <el-form-item label="项目名称">
-        <el-input v-model="form.projectName" placeholder="关键字"></el-input>
+        <el-input v-model="form.projectName" placeholder="请输入项目名称"></el-input>
       </el-form-item>
       <el-form-item label="认领状态" v-if="type!=3">
-        <el-select v-model="form.statusValue" placeholder="请选择认领状态">
-          <el-option v-for="item in dictGroup['crms_client_opportunity_status']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
+        <iep-dict-select v-model="form.statusValue" dict-name="crms_client_opportunity_status" placeholder="请选择认领状态"></iep-dict-select>
       </el-form-item>
       <el-form-item label="发布者：" v-if="type==='3'">
-        <el-input v-model="form.publisher"></el-input>
+        <el-input v-model="form.publisher" placeholder="发布者"></el-input>
       </el-form-item>
-      <el-form-item>
-        <iep-button type="primary" @click="searchPage" size="mini">搜索</iep-button>
-        <iep-button @click="clearSearchParam" size="mini">清空</iep-button>
+      <el-form-item label="">
+        <el-button type="primary" @click="searchPage" size="mini">搜索</el-button>
+        <el-button @click="clearSearchParam" size="mini">清空</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -49,14 +43,16 @@ export default {
   },
   created () {
     if (this.type === '1' && this.type === '2') {
+      //全部商机和我的商机
       this.form = allSearchForm()
     } else {
+      //我认领的
       this.form = initSearchForm()
     }
   },
   methods: {
     searchPage () {
-      this.$emit('search-page', this.form)
+      this.$emit('search-page', { type: this.type, ...this.form })
     },
     clearSearchParam () {
       if (this.type === '1' && this.type === '2') {

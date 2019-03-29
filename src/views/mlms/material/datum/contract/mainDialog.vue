@@ -9,6 +9,11 @@
       <!-- <el-form-item label="关联项目：" prop="guanlian">
         <el-input v-model="formData.guanlian" placeholder="关联项目"></el-input>
       </el-form-item> -->
+      <el-form-item label="合同类型：" prop="contractType">
+        <el-select v-model="formData.contractType" placeholder="请选择" @change="typeChange">
+          <el-option v-for="item in dictsMap.contractType" :key="item.value" :label="item.label" :value="item.value"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="合同说明 / 收款方式：" prop="contractExpl">
         <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5></el-input>
       </el-form-item>
@@ -125,7 +130,7 @@
   </div>
 </template>
 <script>
-import { initFormData, rules, deptList } from './option'
+import { initFormData, rules, deptList, dictsMap } from './option'
 import IepTags from '@/components/IepTags/input'
 import FooterToolbar from '@/components/FooterToolbar/'
 
@@ -139,6 +144,7 @@ export default {
       formData: initFormData(),
       rules: rules,
       deptList,
+      dictsMap,
       dicData: {
         select: [
           {value: 1, label: '选项1'},
@@ -187,6 +193,9 @@ export default {
           return false
         }
       })
+    },
+    typeChange (val) {
+      console.log('val: ', val)
     },
   },
 }

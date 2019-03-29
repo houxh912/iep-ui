@@ -1,8 +1,8 @@
 export const dictsMap = {
-  type: {
-    1: '类型1',
-    2: '类型2',
-  },
+  contractType: [
+    { value: '0', label: '内部合同' },
+    { value: '1', label: '外部合同' },
+  ],
 }
 
 export const deptList = [

@@ -10,6 +10,9 @@
       <el-form-item label="文件:">
         <iep-upload v-model="form.fileList"></iep-upload>
       </el-form-item>
+      <el-form-item label="文件:">
+        <iep-tag v-model="form.tagList"></iep-tag>
+      </el-form-item>
     </el-form>
   </div>
 </template>
@@ -32,10 +35,15 @@ export default {
           users: [],
         },
         fileList: [{ 'name': 'AINY4Y0AL3.txt', 'url': '04cd8be68d2846c197432e51ee8888b5.txt' }],
+        tagList: [{
+          id: 1,
+          name: '大数据',
+        }, {
+          id: 2,
+          name: '人工智能',
+        }],
       },
     }
-  },
-  methods: {
   },
 }
 </script>

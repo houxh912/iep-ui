@@ -10,6 +10,11 @@ export default [
         name: '成长档案',
         component: () => import('@/views/hrms/GrowthFile/index.vue'),
       },
+      {
+        path: 'approval',
+        name: '新增审批',
+        component: () => import('@/views/wel/approval/Components/New/index.vue'),
+      },
     ],
   },
 ]

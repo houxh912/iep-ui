@@ -28,12 +28,11 @@
       </el-table-column>
       <slot></slot>
     </el-table>
-    <pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :pagination-option="pagination"></pagination>
+    <iep-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :pagination-option="pagination" :page-sizes="[10, 20, 30, 40]" layout="total, sizes, prev, pager, next" :pager-count="5" prev-text="上一页" next-text="下一页" background></iep-pagination>
   </div>
 </template>
 
 <script>
-import Pagination from './Pagination'
 import treeToArray from './eval'
 export default {
   name: 'IepTable',
@@ -95,9 +94,6 @@ export default {
       required: false,
       default: true,
     },
-  },
-  components: {
-    Pagination,
   },
   data () {
     return {

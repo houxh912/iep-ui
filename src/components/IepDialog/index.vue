@@ -115,6 +115,7 @@ export default {
 }
 .dialog-content {
   max-height: 54vh;
+  padding: 8px 0;
   overflow-x: hidden;
 }
 .text-icon {

@@ -11,6 +11,7 @@ import IepDatePicker from '@/components/IepCommon/DatePicker'
 import IepCascader from '@/components/IepCommon/Cascader'
 import IepDictDetail from '@/components/IepCommon/DictDetail'
 import IepDictSelect from '@/components/IepCommon/DictSelect'
+import IepPagination from '@/components/IepCommon/Pagination'
 import IepContactSelect from '@/components/IepContact/Select'
 import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepAvatar from '@/components/IepCommon/Avatar'
@@ -36,6 +37,7 @@ Vue.component(OperationContainer.name, OperationContainer)
 Vue.component(OperationSearch.name, OperationSearch)
 Vue.component(PageHeader.name, PageHeader)
 Vue.component(IepTable.name, IepTable)
+Vue.component(IepPagination.name, IepPagination)
 Vue.component(IepDialog.name, IepDialog)
 Vue.component(IepDrawer.name, IepDrawer)
 Vue.component(IepTableLink.name, IepTableLink)

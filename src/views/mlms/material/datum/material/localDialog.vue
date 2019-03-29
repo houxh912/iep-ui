@@ -1,13 +1,13 @@
 <template>
   <div>
-    <page-header title="新建文档" :backOption="backOption"></page-header>
+    <page-header title="本地上传" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
 
-      <el-form-item label="名称：" prop="name">
-        <el-input v-model="formData.name"></el-input>
+      <el-form-item label="名称：" prop="materialName">
+        <el-input v-model="formData.materialName"></el-input>
       </el-form-item>
-      <el-form-item label="作者：" prop="creator">
-        <el-input v-model="formData.creator"></el-input>
+      <el-form-item label="作者：" prop="uploader">
+        <el-input v-model="formData.uploader"></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
         <el-input type="textarea" v-model="formData.intro" rows="5"></el-input>
@@ -15,36 +15,32 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="分类：" prop="firstClass">
-            <el-select v-model="formData.firstClass" placeholder="请选择">
-              <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
+            <el-select v-model="formData.firstClass" placeholder="请选择" @change="firstClassChange">
+              <el-option v-for="item in firstClass" :key="item.id" :label="item.levelName" :value="''+item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="" prop="secondClass" label-width="50px">
             <el-select v-model="formData.secondClass" placeholder="请选择">
-              <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
+              <el-option v-for="item in secondClass" :key="item.id" :label="item.levelName" :value="''+item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="类型：" prop="type">
-        <el-select v-model="formData.type" placeholder="请选择">
+      <el-form-item label="类型：" prop="materialType">
+        <el-select v-model="formData.materialType" placeholder="请选择">
           <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="下载贝额：" prop="downloadCost">
-        <el-select v-model="formData.downloadCost" placeholder="请选择">
-          <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
+        <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select>
       </el-form-item>
       <el-form-item label="标签" prop="tagKeyWords">
         <iep-tags v-model="formData.tagKeyWords"></iep-tags>
       </el-form-item>
-      <el-form-item label="附件" prop="fileList">
-        <el-input v-model="formData.fileList">
-          <iep-button>上传</iep-button>
-        </el-input>
+      <el-form-item label="附件" prop="attachFileList">
+        <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload>
       </el-form-item>
 
     </el-form>
@@ -61,22 +57,30 @@ import FooterToolbar from '@/components/FooterToolbar/'
 
 export default {
   components: { IepTags, FooterToolbar },
+  props: {
+    firstClass: {
+      type: Array,
+      default: () => {},
+    },
+  },
   data () {
     return {
       dialogShow: false,
       formRequestFn: () => { },
       formData: initLocalForm(),
       rules: rules,
+      secondClass: [],
       dicData: {
         select: [
-          {value: 1, label: '选项1'},
-          {value: 2, label: '选项2'},
+          {value: '1', label: '选项1'},
+          {value: '2', label: '选项2'},
         ],
         dept: [
           {value: 1, label: '部门1'},
           {value: 2, label: '部门2'},
         ],
       },
+      limit: 1,
       backOption: {
         isBack: true,
         backPath: null,
@@ -96,8 +100,10 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
+      console.log('attachFileList: ', this.formData.attachFileList)
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.formData.attachFile = this.formData.attachFileList[0].url
           this.formRequestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',
@@ -112,6 +118,15 @@ export default {
           return false
         }
       })
+    },
+    // 分类配置
+    firstClassChange (val) {
+      for (let item of this.firstClass) {
+        if (item.id == val) {
+          this.secondClass = item.childrens
+          return
+        }
+      }
     },
   },
 }

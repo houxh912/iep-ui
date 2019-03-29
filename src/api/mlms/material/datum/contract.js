@@ -40,3 +40,20 @@ export function getDataById (id) {
     method: 'get',
   })
 }
+
+// 查看所有客户列表
+export function getCustomer (obj) {
+  return request({
+    url: '/crm/customer/page',
+    method: 'get',
+    params: obj,
+  })
+}
+
+// 根据客户id查询市场经理
+export function getManeger (id) {
+  return request({
+    url: `${prefixUrl}/getManeger/${id}`,
+    method: 'get',
+  })
+}

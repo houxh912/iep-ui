@@ -9,6 +9,13 @@ export function getTableData (params) {
   })
 }
 
+export function getConfigureTree () {
+  return request({
+    url: `${prefixUrl}/tree`,
+    method: 'get',
+  })
+}
+
 export function createData (obj) {
   return request({
     url: `${prefixUrl}/create`,

@@ -75,8 +75,8 @@
         </el-table-column>
       </iep-table>
     </div>
-    <local-dialog ref="local" @load-page="loadPage" v-if="pageState=='local'"></local-dialog>
-    <newly-dialog ref="newly" @load-page="loadPage" v-if="pageState=='newly'"></newly-dialog>
+    <local-dialog ref="local" @load-page="loadPage" v-if="pageState=='local'" :firstClass="firstClass"></local-dialog>
+    <newly-dialog ref="newly" @load-page="loadPage" v-if="pageState=='newly'" :firstClass="firstClass"></newly-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
     <share-dialog ref="share" type="material"></share-dialog>
   </div>
@@ -91,6 +91,7 @@ import LocalDialog from './localDialog'
 import NewlyDialog from './newlyDialog'
 import CollectionDialog from '../../components/collectionDialog'
 import ShareDialog from '../../summary/shareDialog'
+import { getConfigureTree } from '@/api/mlms/material/datum/configure'
 
 export default {
   mixins: [mixins],
@@ -104,15 +105,18 @@ export default {
       paramForm: {},
       selectList: [],
       createCollect,
+      firstClass: [],
     }
   },
   methods: {
     handleEdit (row) {
+      // 0是本地，1是新建
+      this.pageState = row.type === 0 ? 'local' : 'newly'
       getDataById(row.id).then((res) => {
-        this.$refs['newly'].formData = res.data.data
-        this.$refs['newly'].methodName = '编辑'
-        this.$refs['newly'].formRequestFn = updateData
-        this.$refs['newly'].dialogShow = true
+        this.$refs[this.pageState].firstClassChange(res.data.data.firstClass)
+        this.$refs[this.pageState].formData = res.data.data
+        this.$refs[this.pageState].methodName = '编辑'
+        this.$refs[this.pageState].formRequestFn = updateData
       })
     },
     handleDeleteById (row) {
@@ -171,6 +175,9 @@ export default {
   },
   created () {
     this.loadPage()
+    getConfigureTree().then(({data}) => {
+      this.firstClass = data.data
+    })
   },
 }
 </script>

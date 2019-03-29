@@ -1,7 +1,7 @@
 export const dictsMap = {
   type: {
-    1: '类型1',
-    2: '类型2',
+    '1': '类型1',
+    '2': '类型2',
   },
 }
 
@@ -19,36 +19,42 @@ export const tableOption = [
 
 export const initLocalForm = () => {
   return {
+    uploader: '',
+    type: 0,
     id: '',
-    name: '',
+    materialName: '',
     intro: '',
     content: '',
     firstClass: '',
     secondClass: '',
-    type: '',
+    materialType: '',
     tagKeyWords: [],
     isContri: '',
+    attachFileList: [],
+    attachFile: '',
   }
 }
 
 
 export const initFormData = () => {
   return {
+    uploader: '',
+    type: 1,
     id: '',
-    name: '',
+    materialName: '',
     intro: '',
     content: '',
     firstClass: '',
     secondClass: '',
-    type: '',
+    materialType: '',
     downloadCost: '',
     tagKeyWords: [],
-    fileList: [],
+    attachFileList: [],
   }
 }
 
 export const rules = {
-  name: [
+  materialName: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
   intro: [
@@ -63,7 +69,7 @@ export const rules = {
   secondClass: [
     { required: true, message: '必填', trigger: 'change' },
   ],
-  type: [
+  materialType: [
     { required: true, message: '必填', trigger: 'change' },
   ],
   tagKeyWords: [
@@ -75,7 +81,7 @@ export const rules = {
   downloadCost: [
     { required: true, message: '必填', trigger: 'change' },
   ],
-  creator: [
+  uploader: [
     { required: true, message: '必填', trigger: 'change' },
   ],
 }

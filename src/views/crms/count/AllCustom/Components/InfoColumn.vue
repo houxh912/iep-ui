@@ -1,44 +1,37 @@
 <template>
   <el-row class="info">
     <el-col :span=24 class="title">
-      <h2 class="user">hello，{{infoList.name}}！</h2>
-      <div class="msg">
-        您累计签订合同
-        <span class="red">{{infoList.num}}</span>
-        份 / 排名
-        <span class="red">{{infoList.num}}</span>
-        位
-      </div>
+      <h2 class="user">基本情况展示</h2>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>{{infoList.num}}</span> 客户
+        <span>{{infoList.num}}</span>
       </div>
-      <div class="content">超过了 {{infoList.cent}} 的同事</div>
+      <div class="content">客户</div>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>{{infoList.num}}</span> 联系人
+        <span>{{infoList.num}}</span>
       </div>
-      <div class="content">超过了 {{infoList.cent}} 的同事</div>
+      <div class="content">联系人</div>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>{{infoList.num}}</span> 合同
+        <span>{{infoList.num}}</span>
       </div>
-      <div class="content">超过了 {{infoList.cent}} 的同事</div>
+      <div class="content">合同</div>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>{{infoList.num}}</span> 合同金额
+        <span>￥1,000,000,000</span>
       </div>
-      <div class="content">超过了 {{infoList.cent}} 的同事</div>
+      <div class="content">合同金额</div>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>{{infoList.num}}</span> 软件
+        <span>12</span>
       </div>
-      <div class="content">超过了 {{infoList.cent}} 的同事</div>
+      <div class="content">软件</div>
     </el-col>
   </el-row>
 </template>
@@ -66,17 +59,11 @@ export default {
   .title {
     line-height: 40px;
     padding: 15px;
+    padding-bottom: 0;
     display: flex;
     .user {
       margin: 0 15px 0 0;
-      font-size: 22px;
-    }
-    .msg {
-      height: 40px;
-      line-height: 50px;
-      .red {
-        color: #f00;
-      }
+      font-size: 18px;
     }
   }
   .tab {

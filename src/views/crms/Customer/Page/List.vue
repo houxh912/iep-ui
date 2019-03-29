@@ -83,6 +83,7 @@ export default {
   methods: {
     //导入弹框关闭
     handleClose (res) {
+      this.loadPage()
       this.$refs['ExcellImport'].dialogShow = false
       if (res.data) {
         this.$message({

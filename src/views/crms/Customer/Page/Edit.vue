@@ -26,7 +26,7 @@
           <el-row>
             <el-col :span=10>
               <el-form-item label="区域类型：" prop="districtType">
-                <iep-dict-select v-model="formData.followUpStatus" dict-name="crms_district_type"></iep-dict-select>
+                <iep-dict-select v-model="formData.districtType" dict-name="crms_district_type"></iep-dict-select>
               </el-form-item>
             </el-col>
             <el-col :span=10 :offset="4">
@@ -80,7 +80,7 @@
             <el-col class="col-tips"><i class="el-icon-warning"></i> 其它客户：目前无意向客户</el-col>
           </el-form-item>
           <el-form-item label="客户标签：" prop="tags">
-            <iep-tags v-model="formData.tags" @addTags="handleTag"></iep-tags>
+            <iep-tag v-model="formData.tags"></iep-tag>
           </el-form-item>
           <el-form-item label="协助人：" prop="collaborationsKey" v-if="formData.collaborations.length != 0">
             <el-tag :key="tag.commonId" v-for="tag in formData.collaborations" closable :disable-transitions="false" @close="handleClose(tag)">
@@ -115,12 +115,12 @@ import { mapState } from 'vuex'
 import { mergeByFirst } from '@/util/util'
 import { initForm, rules } from '../options'
 import FooterToolBar from '@/components/FooterToolbar'
-import iepTags from '@/components/IepTags'
+// import iepTags from '@/components/IepTags'
 import { getCustomerById } from '@/api/crms/customer'
 
 export default {
   name: 'edit',
-  components: { FooterToolBar, iepTags },
+  components: { FooterToolBar },
   props: {
     record: {
       type: Object,
@@ -172,7 +172,6 @@ export default {
       })
     },
     submitForm (formName) {
-      // this.formData.collaborations = this.formData.collaborations.map(m => parseInt(m.commonId))
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn((this.formData)).then(({ data }) => {
@@ -181,6 +180,7 @@ export default {
                 message: `客户${this.methodName}成功`,
                 type: 'success',
               })
+              this.$emit('load-page')
               this.$emit('onGoBack')
             }
           })

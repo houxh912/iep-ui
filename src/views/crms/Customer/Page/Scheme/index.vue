@@ -11,8 +11,10 @@
       </el-table-column>
       <el-table-column label="操作" width="250px">
         <template slot-scope="scope">
-          <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
-          <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+          <operation-wrapper>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+          </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
@@ -84,7 +86,7 @@ export default {
       this._handleGlobalDeleteById(row.programId, deleteSchemeById)
     },
     download (row) {
-      downloadModel(row.atchUpload)
+      downloadModel(row.url)
     },
   },
   created () {

@@ -18,7 +18,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="商机标签：" prop="tags">
-        <iep-tags v-model="formData.tags" @addTags="addTags"></iep-tags>
+        <iep-tag v-model="formData.tags" @addTags="addTags"></iep-tag>
       </el-form-item>
       <el-form-item label="商机描述：" prop="opportunityDes">
         <el-input type="textarea" v-model="formData.opportunityDes" placeholder="商机描述"></el-input>
@@ -37,9 +37,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import { initForm, rules } from './options'
-import iepTags from '@/components/IepTags'
 export default {
-  components: { iepTags },
   data () {
     return {
       formData: initForm(),

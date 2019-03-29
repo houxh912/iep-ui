@@ -1,6 +1,6 @@
 <template>
   <keep-alive include="list">
-    <component @onDetail="handleDetail" @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+    <component @onDetail="handleDetail" @onEdit="handleEdit" @load-page="loadPage" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
   </keep-alive>
 </template>
 
@@ -34,6 +34,9 @@ export default {
     handleGoBack () {
       this.record = ''
       this.currentComponet = 'List'
+    },
+    loadPage () {
+      
     },
   },
   watch: {

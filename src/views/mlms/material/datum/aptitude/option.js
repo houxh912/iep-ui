@@ -27,6 +27,7 @@ export const initFormData = () => {
     downloadCost: '',
     tagKeyWords: [],
     fileList: [],
+    attachFile: '',
   }
 }
 

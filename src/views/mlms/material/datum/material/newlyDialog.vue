@@ -3,8 +3,8 @@
     <page-header title="新建文档" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
 
-      <el-form-item label="名称：" prop="name">
-        <el-input v-model="formData.name"></el-input>
+      <el-form-item label="名称：" prop="materialName">
+        <el-input v-model="formData.materialName"></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
         <el-input v-model="formData.intro" type="textarea" rows="5"></el-input>
@@ -17,20 +17,20 @@
         <el-col :span=12>
           <el-form-item label="分类：" prop="firstClass">
             <el-select v-model="formData.firstClass" placeholder="请选择" @change="firstClassChange">
-              <el-option v-for="item in dicData.firstClass" :key="item.id" :label="item.levelName" :value="item.id"></el-option>
+              <el-option v-for="item in firstClass" :key="item.id" :label="item.levelName" :value="''+item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="" prop="secondClass" label-width="50px">
             <el-select v-model="formData.secondClass" placeholder="请选择">
-              <el-option v-for="item in dicData.secondClass" :key="item.id" :label="item.levelName" :value="item.id"></el-option>
+              <el-option v-for="item in secondClass" :key="item.id" :label="item.levelName" :value="''+item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="类型：" prop="type">
-        <el-select v-model="formData.type" placeholder="请选择">
+      <el-form-item label="类型：" prop="materialType">
+        <el-select v-model="formData.materialType" placeholder="请选择">
           <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
@@ -38,7 +38,7 @@
         <iep-tags v-model="formData.tagKeyWords"></iep-tags>
       </el-form-item>
       <el-form-item label="是否投稿：" prop="isContri">
-        <el-switch v-model="formData.isContri" active-value=1 inactive-value=0></el-switch>
+        <el-switch v-model="formData.isContri" :active-value="dicData.isYes[1].value" :inactive-value="dicData.isYes[0].value"></el-switch>
       </el-form-item>
       <!-- <el-form-item label="标题：" prop="biaoti">
         <el-input v-model="formData.biaoti"></el-input>
@@ -65,22 +65,30 @@ import { initLocalForm, rules } from './option'
 // import IepEditor from '@/components/IepEditor/'
 import IepTags from '@/components/IepTags/input'
 import FooterToolbar from '@/components/FooterToolbar/'
-import { getConfigureTree } from '@/api/mlms/material/datum/configure'
 
 export default {
   components: { IepTags, FooterToolbar },
+  props: {
+    firstClass: {
+      type: Array,
+      default: () => {},
+    },
+  },
   data () {
     return {
       dialogShow: false,
       formRequestFn: () => { },
       formData: initLocalForm(),
       rules: rules,
+      secondClass: [],
       dicData: {
-        firstClass: [],
-        secondClass: [],
         select: [
-          {value: 1, label: '选项1'},
-          {value: 2, label: '选项2'},
+          {value: '1', label: '选项1'},
+          {value: '2', label: '选项2'},
+        ],
+        isYes: [
+          { value: 0, lable: '否' },
+          { value: 1, label: '是' },
         ],
       },
       backOption: {
@@ -122,19 +130,13 @@ export default {
     },
     // 分类配置
     firstClassChange (val) {
-      for (let item of this.dicData.firstClass) {
+      for (let item of this.firstClass) {
         if (item.id == val) {
-          this.dicData.secondClass = item.childrens
+          this.secondClass = item.childrens
           return
         }
       }
     },
-  },
-  created () {
-    // 获取分类配置
-    getConfigureTree().then(({data}) => {
-      this.dicData.firstClass = data.data
-    })
   },
 }
 </script>

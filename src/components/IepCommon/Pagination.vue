@@ -1,6 +1,6 @@
 <template>
   <div class="content-footer">
-    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="paginationOption.current" :page-sizes="[10, 20, 30, 40]" :page-size="paginationOption.size" layout="total, sizes, prev, pager, next" :total="paginationOption.total" :pager-count="5" prev-text="上一页" next-text="下一页" background>
+    <el-pagination :current-page="paginationOption.current" :page-size="paginationOption.size" :total="paginationOption.total" :pager-count="5" prev-text="上一页" next-text="下一页" v-bind="$attrs" v-on="$listeners">
     </el-pagination>
   </div>
 </template>
@@ -8,19 +8,12 @@
 <script>
 export default {
   name: 'IepPagination',
+  inheritAttrs: false,
   props: {
     paginationOption: {
       type: Object,
       require: true,
       default: () => { },
-    },
-  },
-  methods: {
-    handleCurrentChange (val) {
-      this.$emit('current-change', val)
-    },
-    handleSizeChange (val) {
-      this.$emit('size-change', val)
     },
   },
 }

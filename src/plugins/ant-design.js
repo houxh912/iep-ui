@@ -53,7 +53,7 @@ import {
 
 // Vue.use(LocaleProvider)
 // Vue.use(Layout)
-// Vue.use(Input)
+Vue.use(Input)
 // Vue.use(InputNumber)
 Vue.use(Button)
 Vue.use(Switch)

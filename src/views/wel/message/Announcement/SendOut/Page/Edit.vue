@@ -50,6 +50,11 @@ export default {
   components: { FooterToolBar },
   data () {
     return {
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: this.handleGoBack,
+      },
       certificateColumns,
       trainingColumns,
       studyColumns,
@@ -75,6 +80,11 @@ export default {
         this.form = mergeByFirst(initForm(), data.data)
       })
     }
+  },
+  methods: {
+    handleGoBack () {
+      this.$emit('onGoBack')
+    },
   },
 }
 </script>

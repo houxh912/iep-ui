@@ -3,6 +3,9 @@
     <basic-container>
       <page-header title="提现"></page-header>
       <operation-container>
+        <template slot="left">
+          <iep-button @click="handleAdd()" type="danger" icon="el-icon-plus" size="small" plain>提现申请</iep-button>
+        </template>
         <template slot="right">
           <operation-search @search="searchPage" advance-search>
             <el-form :model="paramForm" label-width="80px" size="mini">
@@ -100,6 +103,12 @@ export default {
     // },
     loadPage (param = this.paramForm) {
       this.loadTable(param, getTalentPoolPage)
+    },
+    handleAdd () {
+      this.$emit('onEdit', {
+        methodName: '提现申请',
+        id: false,
+      })
     },
   },
 }

@@ -113,6 +113,10 @@ ul {
       align-items: center;
       li {
         padding: 10px 15px;
+        cursor: pointer;
+        &:hover {
+          color: #cb3737;
+        }
       }
     }
   }

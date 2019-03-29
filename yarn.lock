@@ -4088,22 +4088,10 @@ element-theme@^2.0.1:
     ora "^0.3.0"
     run-sequence "^1.2.2"
 
-element-ui@^2.4.6, element-ui@^2.4.9:
+element-ui@2.6.3, element-ui@^2.4.6, element-ui@^2.4.9:
   version "2.6.3"
   resolved "http://registry.npm.taobao.org/element-ui/download/element-ui-2.6.3.tgz?cache=0&other_urls=http%3A%2F%2Fregistry.npm.taobao.org%2Felement-ui%2Fdownload%2Felement-ui-2.6.3.tgz#e5c87ca3cdc988586320c826872720a8cdc7db44"
   integrity sha1-5ch8o83JiFhjIMgmhycgqM3H20Q=
-  dependencies:
-    async-validator "~1.8.1"
-    babel-helper-vue-jsx-merge-props "^2.0.0"
-    deepmerge "^1.2.0"
-    normalize-wheel "^1.0.1"
-    resize-observer-polyfill "^1.5.0"
-    throttle-debounce "^1.0.1"
-
-element-ui@^2.5.4:
-  version "2.7.0"
-  resolved "http://registry.npm.taobao.org/element-ui/download/element-ui-2.7.0.tgz#6bfcdfa5c75bfc4cda835186f2a1f98b93cd5d14"
-  integrity sha1-a/zfpcdb/Ezag1GG8qH5i5PNXRQ=
   dependencies:
     async-validator "~1.8.1"
     babel-helper-vue-jsx-merge-props "^2.0.0"

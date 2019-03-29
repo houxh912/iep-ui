@@ -39,10 +39,9 @@ export default {
   },
   methods: {
     handleSuccess (res, rfile) {
-      console.log(rfile)
       const file = {
         name: rfile.name,
-        url: res.data.fileName,
+        url: res.data.bucketName + '-' + res.data.fileName,
       }
       this.fileList.push(file)
     },

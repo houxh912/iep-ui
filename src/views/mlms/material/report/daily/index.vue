@@ -128,6 +128,7 @@ export default {
         this[this.stateList[state].data] = ''
         this.dailyState = 'detail'
         //////////////////////////////////////////////////////////  提交成功后要刷新
+        this.list = []
         this.loadPage(0, 10)
       })
     },

@@ -3,16 +3,14 @@
     <page-header :title="`${methodName}荣誉资质`" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" ref="form" label-width="130px" style="margin-bottom: 50px;">
 
-      <el-form-item label="名称：" prop="name">
-        <el-input v-model="formData.name"></el-input>
+      <el-form-item label="名称：" prop="honorQualName">
+        <el-input v-model="formData.honorQualName"></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
         <el-input v-model="formData.intro" rows="5"></el-input>
       </el-form-item>
       <el-form-item label="分类：" prop="type">
-        <el-select v-model="formData.type" placeholder="请选择">
-          <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
+        <iep-dict-select v-model="formData.type" dict-name="mlms_honor_qual_type"></iep-dict-select>
       </el-form-item>
       <el-form-item label="专利号/证书号：" prop="number">
         <el-input v-model="formData.number"></el-input>
@@ -21,9 +19,7 @@
         <IepDatePicker v-model="formData.acquireTime"></IepDatePicker>
       </el-form-item>
       <el-form-item label="下载贝额：" prop="downloadCost">
-        <el-select v-model="formData.downloadCost" placeholder="请选择">
-          <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
+        <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">
         <iep-tags v-model="formData.tagKeyWords"></iep-tags>

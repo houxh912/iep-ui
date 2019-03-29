@@ -16,15 +16,15 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="分类：" prop="firstClass">
-            <el-select v-model="formData.firstClass" placeholder="请选择">
-              <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
+            <el-select v-model="formData.firstClass" placeholder="请选择" @change="firstClassChange">
+              <el-option v-for="item in dicData.firstClass" :key="item.id" :label="item.levelName" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="" prop="secondClass" label-width="50px">
             <el-select v-model="formData.secondClass" placeholder="请选择">
-              <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
+              <el-option v-for="item in dicData.secondClass" :key="item.id" :label="item.levelName" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -65,6 +65,7 @@ import { initLocalForm, rules } from './option'
 // import IepEditor from '@/components/IepEditor/'
 import IepTags from '@/components/IepTags/input'
 import FooterToolbar from '@/components/FooterToolbar/'
+import { getConfigureTree } from '@/api/mlms/material/datum/configure'
 
 export default {
   components: { IepTags, FooterToolbar },
@@ -75,13 +76,11 @@ export default {
       formData: initLocalForm(),
       rules: rules,
       dicData: {
+        firstClass: [],
+        secondClass: [],
         select: [
           {value: 1, label: '选项1'},
           {value: 2, label: '选项2'},
-        ],
-        dept: [
-          {value: 1, label: '部门1'},
-          {value: 2, label: '部门2'},
         ],
       },
       backOption: {
@@ -121,6 +120,21 @@ export default {
         }
       })
     },
+    // 分类配置
+    firstClassChange (val) {
+      for (let item of this.dicData.firstClass) {
+        if (item.id == val) {
+          this.dicData.secondClass = item.childrens
+          return
+        }
+      }
+    },
+  },
+  created () {
+    // 获取分类配置
+    getConfigureTree().then(({data}) => {
+      this.dicData.firstClass = data.data
+    })
   },
 }
 </script>

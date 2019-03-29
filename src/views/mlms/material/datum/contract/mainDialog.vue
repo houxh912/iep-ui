@@ -10,7 +10,7 @@
         <el-input v-model="formData.guanlian" placeholder="关联项目"></el-input>
       </el-form-item> -->
       <el-form-item label="合同类型：" prop="contractType">
-        <el-select v-model="formData.contractType" placeholder="请选择" @change="typeChange">
+        <el-select v-model="formData.contractType" placeholder="请选择">
           <el-option v-for="item in dictsMap.contractType" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
@@ -19,7 +19,7 @@
       </el-form-item>
       <el-form-item label="业务类型：" prop="businessType">
         <el-radio-group v-model="formData.businessType">
-          <el-radio v-for="item in dicData.select" :key="item.value" :label="item.value">{{item.label}}</el-radio>
+          <el-radio v-for="item in dictGroup.mlms_business_type" :key="item.value" :label="item.value">{{item.label}}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="合同标签：" prop="tagKeyWords">
@@ -37,18 +37,18 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row v-if="formData.contractType==1">
         <el-col :span=12>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <el-select v-model="formData.companyOrgId" placeholder="请选择">
-              <el-option v-for="item in deptList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+            <el-select v-model="formData.companyOrgId" placeholder="请选择" @change="clientChange">
+              <el-option v-for="item in clientList" :key="item.clientId" :label="item.clientName" :value="item.clientId"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
             <el-select v-model="formData.signCompanyOrgId" placeholder="请选择">
-              <el-option v-for="item in deptList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+              <el-option v-for="item in clientList" :key="item.clientId" :label="item.clientName" :value="item.clientId"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -56,25 +56,25 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="签署部门：" prop="signDeptOrgId">
-            <el-select v-model="formData.signDeptOrgId" placeholder="请选择">
-              <el-option v-for="item in deptList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+            <iep-cascader v-model="formData.signDeptOrgList" prefix-url="admin/dept" change-on-select></iep-cascader>
           </el-form-item>
         </el-col>
         <el-col :span=12>
-          <el-form-item label="承接部门：" prop="underTakeDeptId">
-            <el-select v-model="formData.underTakeDeptId" placeholder="请选择" multiple>
-              <el-option v-for="item in deptList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+          <el-form-item label="承接部门：" prop="underTakeDeptList">
+            <iep-cascader v-model="formData.underTakeDeptList" prefix-url="admin/dept" change-on-select></iep-cascader>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span=12>
+        <el-col :span=12 v-if="formData.contractType == 1">
           <el-form-item label="市场经理：" prop="directorId">
-            <el-select v-model="formData.directorId" placeholder="请选择">
-              <el-option v-for="item in dicData.jingli" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
+            <el-input v-model="formData.directorId" v-show="false"></el-input>
+            <el-input v-model="formData.directorName" disabled></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span=12 v-else>
+          <el-form-item label="市场经理：" prop="directorList">
+            <iep-contact-select v-model="formData.directorList"></iep-contact-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
@@ -86,16 +86,12 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="合同级别：" prop="contractLevel">
-            <el-select v-model="formData.contractLevel" placeholder="请选择">
-              <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
+            <iep-dict-select v-model="formData.contractLevel" dict-name="mlms_contract_level"></iep-dict-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="合同状态：" prop="contractStatus">
-            <el-select v-model="formData.contractStatus" placeholder="请选择">
-              <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
+            <iep-dict-select v-model="formData.contractStatus" dict-name="mlms_contract_status"></iep-dict-select>
           </el-form-item>
         </el-col>
       </el-row>
@@ -120,8 +116,6 @@
           </el-form-item>
         </el-col>
       </el-row> -->
-
-
     </el-form>
     <footer-toolbar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
@@ -130,12 +124,19 @@
   </div>
 </template>
 <script>
-import { initFormData, rules, deptList, dictsMap } from './option'
+import { initFormData, rules, dictsMap } from './option'
 import IepTags from '@/components/IepTags/input'
 import FooterToolbar from '@/components/FooterToolbar/'
+import { mapState } from 'vuex'
+import { getCustomer, getManeger } from '@/api/mlms/material/datum/contract'
 
 export default {
   components: { FooterToolbar, IepTags },
+  computed: {
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
+  },
   data () {
     return {
       dialogShow: false,
@@ -143,22 +144,9 @@ export default {
       formRequestFn: () => { },
       formData: initFormData(),
       rules: rules,
-      deptList,
+      clientList: [],
+      directorList: [],
       dictsMap,
-      dicData: {
-        select: [
-          {value: 1, label: '选项1'},
-          {value: 2, label: '选项2'},
-        ],
-        dept: [
-          {value: 1, label: '部门1'},
-          {value: 2, label: '部门2'},
-        ],
-        jingli: [
-          {value: 1, label: '经理1号'},
-          {value: 2, label: '经理2号'},
-        ],
-      },
       backOption: {
         isBack: true,
         backPath: null,
@@ -178,6 +166,15 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
+      let signDeptOrgList = this.formData.signDeptOrgList
+      this.formData.signDeptOrgId = signDeptOrgList[signDeptOrgList.length - 1] // 签署部门
+      let underTakeDeptList = this.formData.underTakeDeptList
+      this.formData.underTakeDeptId = [underTakeDeptList[underTakeDeptList.length - 1]] // 承接部门
+      // 提交前需要处理下数据
+      if (this.formData.contractType == 1) { // 外部合同
+      } else { // 内部合同
+        this.formData.directorId = this.formData.directorList.id
+      }
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn(this.formData).then(() => {
@@ -194,9 +191,23 @@ export default {
         }
       })
     },
-    typeChange (val) {
-      console.log('val: ', val)
+    // 根据委托单位查询市场经理
+    clientChange (val) {
+      getManeger(val).then(({data}) => {
+        if (data.data) {
+          this.formData.directorName = data.data.name
+          this.formData.directorId = data.data.id
+        } else {
+          this.formData.directorName = ''
+          this.formData.directorId = ''
+        }
+      })
     },
+  },
+  created () {
+    getCustomer({type: 1}).then(({data}) => {
+      this.clientList = data.data.records
+    })
   },
 }
 </script>

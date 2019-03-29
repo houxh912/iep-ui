@@ -103,26 +103,29 @@
               <el-form-item label="外部头衔：" class="form-half">
                 <el-input v-model="form.externalTitle"></el-input>
               </el-form-item>
-              <!-- <el-form-item label="添加师父：">
-                <el-input v-model="form.people"></el-input>
+              
+              <el-form-item label="添加师父：">
+                <iep-tag v-model="form.people"></iep-tag>
               </el-form-item>
               <el-form-item label="卓越标签：">
-                <el-input v-model="form.people"></el-input>
+               <iep-tag v-model="form.people"></iep-tag>
               </el-form-item>
               <el-form-item label="专业标签：">
-                <el-input v-model="form.people"></el-input>
+                <iep-tag v-model="form.people"></iep-tag>
               </el-form-item>
               <el-form-item label="进步标签：">
-                <el-input v-model="form.people"></el-input>
+                <iep-tag v-model="form.people"></iep-tag>
               </el-form-item>
-              <el-form-item label="" class="form-half">
+              <!-- <el-form-item label="" class="form-half">
                 <el-input placeholder="">
                   <template slot="append">添加</template>
                 </el-input>
               </el-form-item> -->
+
               <el-form-item label="职业规划：">
                 <el-input type="textarea" v-model="form.careerPlanning"></el-input>
               </el-form-item>
+
               <!-- <el-form-item label="工作经历：">
                 <el-input type="textarea" v-model="form.desc"></el-input>
               </el-form-item>
@@ -135,6 +138,7 @@
               <el-form-item label="资质证书：">
                 <el-input type="textarea" v-model="form.desc"></el-input>
               </el-form-item> -->
+
             </div>
             <div class="connectMsg">
               <div class="littleTitle">联系信息</div>

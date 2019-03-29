@@ -154,8 +154,6 @@ export default {
         this.$refs['transfer'].dialogShow = true
         this.$refs['transfer'].id = this.ids
       }
-
-
     },
     //table多选
     handleSelectionChange (row) {
@@ -164,7 +162,7 @@ export default {
         ids.push(item.clientId)
       })
       this.ids = ids
-      console.log(this.ids)
+      // console.log(this.ids)
     },
     //加载
     loadPage (param = { ...this.searchForm, type: this.type }) {

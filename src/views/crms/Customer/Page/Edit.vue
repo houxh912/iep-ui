@@ -180,7 +180,6 @@ export default {
                 message: `客户${this.methodName}成功`,
                 type: 'success',
               })
-              this.$emit('load-page')
               this.$emit('onGoBack')
             }
           })

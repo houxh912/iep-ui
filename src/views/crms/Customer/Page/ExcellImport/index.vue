@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`导入客户模板`" width="40%" @close="close">
+  <iep-dialog :dialog-show="dialogShow" :title="`导入客户模板`" width="520px" @close="close">
     <el-upload class="upload-demo" drag :headers="token" :action="actionUrl" accept=".xlsx, .xls" :limit="1" :multiple="false" :on-success="handleFileFinish">
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -53,7 +53,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .upload-demo {
-  padding-bottom: 30px !important;
   text-align: center;
 }
 </style>

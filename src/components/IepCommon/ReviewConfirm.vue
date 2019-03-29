@@ -23,7 +23,7 @@ export default {
       title: '',
       formRequestFn: () => { },
       dialogShow: false,
-      status: 1, // 待审核
+      status: 0, // 待审核
       content: '',
       id: null,
       ids: [],
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     loadPage () {
-      this.status = 0
+      this.status = 1
       this.content = ''
       this.dialogShow = false
       this.$emit('load-page')

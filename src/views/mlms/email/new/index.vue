@@ -13,13 +13,17 @@
         <iep-button>添加附件</iep-button>
         <iep-button @click="addRelation">添加关联</iep-button>
       </el-form-item>
-      <el-form-item class="material">
-        <ul class="list">
-          <li class="li" v-for="(item, index) in formData.materialIds" :key="index">
-            <i class="icon-fujian"></i> {{item.name}}
-            <iep-button type='text'>删除</iep-button>
-          </li>
-        </ul>
+      <el-form-item class="relation">
+        <div class="item">
+          <el-form-item label="附件列表：" label-width="90px">
+            <ul class="list">
+              <li class="li" v-for="(item, index) in formData.materialIds" :key="index">
+                <i class="icon-fujian"></i> {{item.name}}
+                <iep-button type='text'>删除</iep-button>
+              </li>
+            </ul>
+          </el-form-item>
+        </div>
       </el-form-item>
       <el-form-item class="relation">
         <div class="item">
@@ -31,8 +35,7 @@
           </el-form-item>
           <el-form-item label="关联报表：" label-width="90px">
             <ul class="list">
-              <li class="li">显示关联报表1号</li>
-              <li class="li">显示关联报表2号</li>
+              <li class="li" v-for="(item, index) in this.formData.transferList.materialIds" :key="index">{{item.name}}</li>
             </ul>
           </el-form-item>
         </div>
@@ -50,7 +53,7 @@
         <iep-button @click="resetForm('form')">取消</iep-button>
       </el-form-item>
     </el-form>
-    <main-dialog ref="relation"></main-dialog>
+    <main-dialog ref="relation" @relativeSubmit="relativeSubmit"></main-dialog>
   </div>
 </template>
 
@@ -74,6 +77,12 @@ const initFormData = () => {
       unions: [],
       orgs: [],
       users: [],
+    },
+    transferList: {
+      projectIds: [], // 项目
+      summaryIds: [], // 纪要
+      materialIds: [], // 材料
+      reportIds: [], // 报表
     },
     reportIds: [],
     status: 1,
@@ -158,6 +167,11 @@ export default {
     },
     // 选择标签
     selectTags () {},
+    // 关联项
+    relativeSubmit (val) {
+      this.formData.materialIds = val.materialIds.map(m => m.id)
+      this.formData.transferList = val
+    },
   },
   created () {
     this.formData = initFormData()

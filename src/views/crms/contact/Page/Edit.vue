@@ -78,8 +78,8 @@
         </el-row>
         <el-form-item label="">
           <operation-wrapper>
-            <iep-button type="info" @click="handleGoBack">返回</iep-button>
             <iep-button type="primary " @click="submitForm('formName')">提交</iep-button>
+            <iep-button @click="handleGoBack">返回</iep-button>
           </operation-wrapper>
         </el-form-item>
       </el-form>

@@ -1,5 +1,5 @@
 <template>
-  <el-upload class="avatar-uploader" action="/api/admin/file/upload" :headers="headers" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :on-success="handleSuccess" multiple :limit="limit" :on-exceed="handleExceed" :file-list="fileList">
+  <el-upload action="/api/admin/file/upload" :headers="headers" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :on-success="handleSuccess" multiple :limit="limit" :on-exceed="handleExceed" :file-list="fileList" v-bind="$attrs" v-on="$listeners">
     <el-button size="small" type="primary">点击上传</el-button>
     <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
   </el-upload>
@@ -9,6 +9,7 @@ import store from '@/store'
 import { downloadFile } from '@/api/common'
 export default {
   name: 'IepUpload',
+  inheritAttrs: false,
   props: {
     value: {
       type: Array,
@@ -38,6 +39,7 @@ export default {
   },
   methods: {
     handleSuccess (res, rfile) {
+      console.log(rfile)
       const file = {
         name: rfile.name,
         url: res.data.fileName,

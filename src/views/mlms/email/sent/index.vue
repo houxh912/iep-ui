@@ -1,64 +1,57 @@
 <template>
-  <div class="send">
-    <div v-show="pageState=='list'">
-      <page-header title="已发送" class="title"></page-header>
-      <operation-container>
-        <template slot="left">
-          <iep-button size="small" @click="allDelete">删除</iep-button>
-          <iep-button size="small" @click="forward">转发</iep-button>
-        </template>
-        <template slot="right">
-          <operation-search @search="searchPage"></operation-search>
-        </template>
-      </operation-container>
-      <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect" pageState="sent"></table-dialog>
-    </div>
-    <main-form-dialog ref="mainDialog" v-show="pageState=='detail'" @backWeb="backPage" @forward="detailForward" @reply="detailReply"></main-form-dialog>
-    <update-form-dialog ref="updateDialog" v-show="pageState=='form'" @backWeb="backPage" @load-page="loadPage"></update-form-dialog>
-  </div>
+  <basic-container>
+    <page-header title="已发送" class="title"></page-header>
+    <iep-tabs v-model="tabName" :tab-list="tabList">
+      <template v-if="tabName ==='alltabTemplate'" v-slot:alltabTemplate>
+        <web-tab-tpl></web-tab-tpl>
+      </template>
+      <template v-if="tabName ==='InstrTabTemplate'" v-slot:InstrTabTemplate>
+        <web-tab-tpl type="1"></web-tab-tpl>
+      </template>
+      <template v-if="tabName ==='shareTabTemplate'" v-slot:shareTabTemplate>
+        <web-tab-tpl type="2"></web-tab-tpl>
+      </template>
+      <template v-if="tabName ==='wrongTabTemplate'" v-slot:wrongTabTemplate>
+        <web-tab-tpl type="3"></web-tab-tpl>
+      </template>
+    </iep-tabs>
+  </basic-container>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
-import mixinTable from '../tableTpl/mixinTable'
-import TableDialog from '../tableTpl/table.vue'
-import mainFormDialog from '../tableTpl/mainDialog'
-import UpdateFormDialog from '../new/index'
-import { getSendList, deleteEmailByIds } from '@/api/mlms/email/index'
+import IepTabs from '@/components/IepCommon/Tabs'
+import WebTabTpl from './tab'
 
 export default {
-  components: { mainFormDialog, TableDialog, UpdateFormDialog },
-  mixins: [mixins,mixinTable],
+  name: 'inbox',
+  mixins: [ mixins ],
+  components: { IepTabs, WebTabTpl },
   data () {
     return {
-      dialogShow: true,
-      forwardShow: true,
+      tabName: 'alltabTemplate',
+      tabList: [
+        {
+          label: '全部',
+          value: 'alltabTemplate',
+        }, {
+          label: '批示',
+          value: 'InstrTabTemplate',
+        }, {
+          label: '分享',
+          value: 'shareTabTemplate',
+        }, {
+          label: '纠错',
+          value: 'wrongTabTemplate',
+        },
+      ],
     }
-  },
-  methods: {
-    allDelete () {
-      deleteEmailByIds(this.multipleSelection).then(() => {
-        this.$notify({
-          title: '成功',
-          message: '删除成功！',
-          type: 'success',
-          duration: 2000,
-        })
-        this.$refs['table'].loadPage({})
-      })
-    },
-  },
-  mounted () {
-    this.$refs['table'].requestFn = getSendList
-    this.$nextTick(() => {
-      this.$refs['table'].loadPage({})
-    })
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.send {
+.datum {
   padding: 20px;
   background-color: #fff;
 }

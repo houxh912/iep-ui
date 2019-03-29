@@ -32,7 +32,6 @@ export default {
       rules: {
         theme: [
           { required: true, message: '请输入主题', trigger: 'change' },
-          { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'change' },
         ],
         visitTime: [
           { required: true, message: '请选择时间', trigger: 'change' },

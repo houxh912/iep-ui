@@ -5,11 +5,13 @@ import BasicAsideContainer from '@/components/BasicAsideContainer/index'
 
 import IepButton from '@/components/IepCommon/Button'
 import IepTabs from '@/components/IepCommon/Tabs'
+import IepTag from '@/components/IepTag'
 import IepSelect from '@/components/IepCommon/Select'
 import IepDatePicker from '@/components/IepCommon/DatePicker'
 import IepCascader from '@/components/IepCommon/Cascader'
 import IepDictDetail from '@/components/IepCommon/DictDetail'
 import IepDictSelect from '@/components/IepCommon/DictSelect'
+import IepPagination from '@/components/IepCommon/Pagination'
 import IepContactSelect from '@/components/IepContact/Select'
 import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepAvatar from '@/components/IepCommon/Avatar'
@@ -35,12 +37,14 @@ Vue.component(OperationContainer.name, OperationContainer)
 Vue.component(OperationSearch.name, OperationSearch)
 Vue.component(PageHeader.name, PageHeader)
 Vue.component(IepTable.name, IepTable)
+Vue.component(IepPagination.name, IepPagination)
 Vue.component(IepDialog.name, IepDialog)
 Vue.component(IepDrawer.name, IepDrawer)
 Vue.component(IepTableLink.name, IepTableLink)
 Vue.component(OperationWrapper.name, OperationWrapper)
 Vue.component(IepButton.name, IepButton)
 Vue.component(IepTabs.name, IepTabs)
+Vue.component(IepTag.name, IepTag)
 Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepSelect.name, IepSelect)
 Vue.component(IepContactSelect.name, IepContactSelect)

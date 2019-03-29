@@ -44,7 +44,7 @@ function doHandleMonth (month){
 export function getWeekOfMonth (date) {
   let today = ''
   if (date) {
-    today = new Date(date)
+    today = new Date(`${formatYear(date)} 00:00:00`)
   } else {
     today = new Date()
   }
@@ -234,7 +234,7 @@ export function getWeekStartAndEnd (day) {
 
 // 根据传入的时间获取周一
 export function getMonday (date) {
-  let today = new Date(date)
+  let today = new Date(formatYear(date))
   let index = today.getDay() - 1
   let monday = new Date(+today - index*24*3600*1000)
   return {

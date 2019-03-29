@@ -7,6 +7,7 @@
 
 <script>
 export default {
+  name: 'IepPagination',
   props: {
     paginationOption: {
       type: Object,

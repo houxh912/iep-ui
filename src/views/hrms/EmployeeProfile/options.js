@@ -31,7 +31,7 @@ const initForm = () => {
     jobId: null, // 职务
     title: null, // 职称
     titleId: null, // 职称
-    inductionTime: null, // 入职时间
+    entryTime: null, // 入职时间
     positiveTime: null, // 转正时间
     transferTime: null, // 调动时间
     status: null, // 员工状态
@@ -39,7 +39,7 @@ const initForm = () => {
     deptIds: [], // 所属部门
     birthday: null, // 出生年月
     sex: null, // 性别
-    sexId: null, // 性别
+    sexName: null, // 性别
     nationality: null, // 民族
     politics: null, // 政治面貌字典
     marriage: null, // 婚姻状况
@@ -56,7 +56,7 @@ const initForm = () => {
     currentAddress: null, // 现住地址
     IDCard: null, // 身份证
     phone: null, // 联系手机
-    weChat: null, // 微信
+    wechat: null, // 微信
     qq: null, // QQ
     email: null, // 邮箱
     emergencyName: null, // 应急联系人

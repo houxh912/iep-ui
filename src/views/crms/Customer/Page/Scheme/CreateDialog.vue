@@ -34,7 +34,6 @@ export default {
       rules: {
         programName: [
           { required: true, message: '请填写方案名称', trigger: 'change' },
-          { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'change' },
         ],
       },
     }

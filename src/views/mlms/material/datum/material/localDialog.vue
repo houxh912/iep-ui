@@ -6,8 +6,8 @@
       <el-form-item label="名称：" prop="materialName">
         <el-input v-model="formData.materialName"></el-input>
       </el-form-item>
-      <el-form-item label="作者：" prop="creator">
-        <el-input v-model="formData.creator"></el-input>
+      <el-form-item label="作者：" prop="uploader">
+        <el-input v-model="formData.uploader"></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
         <el-input type="textarea" v-model="formData.intro" rows="5"></el-input>
@@ -39,8 +39,8 @@
       <el-form-item label="标签" prop="tagKeyWords">
         <iep-tags v-model="formData.tagKeyWords"></iep-tags>
       </el-form-item>
-      <el-form-item label="附件" prop="fileList">
-        <iep-upload v-model="formData.fileList" :limit="limit"></iep-upload>
+      <el-form-item label="附件" prop="attachFileList">
+        <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload>
       </el-form-item>
 
     </el-form>
@@ -100,9 +100,10 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
+      console.log('attachFileList: ', this.formData.attachFileList)
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formData.attachFile = this.formData.fileList[0].url
+          this.formData.attachFile = this.formData.attachFileList[0].url
           this.formRequestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',

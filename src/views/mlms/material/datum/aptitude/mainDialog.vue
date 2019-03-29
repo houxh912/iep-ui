@@ -24,8 +24,8 @@
       <el-form-item label="标签：" prop="tagKeyWords">
         <iep-tags v-model="formData.tagKeyWords"></iep-tags>
       </el-form-item>
-      <el-form-item label="附件：" prop="fileList">
-        <iep-upload v-model="formData.fileList" :limit="limit"></iep-upload>
+      <el-form-item label="附件：" prop="attachFileList">
+        <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload>
       </el-form-item>
 
     </el-form>
@@ -79,7 +79,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formData.attachFile = this.formData.fileList[0].url
+          this.formData.attachFile = this.formData.attachFileList[0].url
           this.formRequestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',

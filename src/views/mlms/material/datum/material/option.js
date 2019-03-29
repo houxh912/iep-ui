@@ -19,6 +19,7 @@ export const tableOption = [
 
 export const initLocalForm = () => {
   return {
+    uploader: '',
     type: 0,
     id: '',
     materialName: '',
@@ -29,7 +30,7 @@ export const initLocalForm = () => {
     materialType: '',
     tagKeyWords: [],
     isContri: '',
-    fileList: [],
+    attachFileList: [],
     attachFile: '',
   }
 }
@@ -37,6 +38,7 @@ export const initLocalForm = () => {
 
 export const initFormData = () => {
   return {
+    uploader: '',
     type: 1,
     id: '',
     materialName: '',
@@ -47,7 +49,7 @@ export const initFormData = () => {
     materialType: '',
     downloadCost: '',
     tagKeyWords: [],
-    fileList: [],
+    attachFileList: [],
   }
 }
 
@@ -79,7 +81,7 @@ export const rules = {
   downloadCost: [
     { required: true, message: '必填', trigger: 'change' },
   ],
-  creator: [
+  uploader: [
     { required: true, message: '必填', trigger: 'change' },
   ],
 }

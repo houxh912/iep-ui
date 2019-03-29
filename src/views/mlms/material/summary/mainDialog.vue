@@ -6,7 +6,7 @@
 
       <el-form-item label="会议类型：" prop="meetingType">
         <el-radio-group v-model="formData.meetingType">
-          <el-radio v-for="(item, value) in dictsMap.meetingType" :key="value" :label="+value" @change="typeChange">{{item}}</el-radio>
+          <el-radio v-for="(item, index) in dictGroup.mlms_meeting_type" :key="index" :label="item.value" @change="typeChange">{{item.label}}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="拜访对象：" prop="visitingUserId" v-if="formData.type == 1">
@@ -83,6 +83,7 @@ import IepTags from '@/components/IepTags/input'
 import FooterToolbar from '@/components/FooterToolbar/'
 import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepContactSelect from '@/components/IepContact/Select'
+import { mapState } from 'vuex'
 
 export default {
   components: { IepTags, FooterToolbar, IepContactMultiple, IepContactSelect },
@@ -102,6 +103,11 @@ export default {
         },
       },
     }
+  },
+  computed: {
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
   },
   methods: {
     loadPage () {

@@ -29,15 +29,19 @@ export default {
   data () {
     return {
       columnsMap,
+      id: this.record.id,
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
-    loadPage (param) {
-      let id = this.record.clientId
-      this.loadTable({ ...param, clientId: id }, fetchVisitList)
+    // loadPage (param) {
+    //   let id = this.record.clientId
+    //   this.loadTable({ ...param, clientId: id }, fetchVisitList)
+    // },
+    loadPage (param = { ...this.searchForm, id: this.id }) {
+      this.loadTable(param, fetchVisitList)
     },
     handleAdd () {
       this.$refs['EditDialog'].dialogShow = true

@@ -25,19 +25,19 @@
           </template>
         </el-table-column>
       </iep-table>
-      <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+      <new-approval ref="NewApproval" @load-page="loadPage"></new-approval>
     </basic-container>
   </div>
 </template>
 
 <script>
-import { getCCPage, postApproval } from '@/api/wel/administrative_approval'
+import { getCCPage } from '@/api/wel/administrative_approval'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
-import DialogForm from './DialogForm'
+import NewApproval from '../../Components/NewApproval'
 export default {
   mixins: [mixins],
-  components: { DialogForm },
+  components: { NewApproval },
   data () {
     return {
       dictsMap,
@@ -52,9 +52,7 @@ export default {
       this.$emit('onDetail', row)
     },
     handleAdd () {
-      this.$refs['DialogForm'].methodName = '创建'
-      this.$refs['DialogForm'].formRequestFn = postApproval
-      this.$refs['DialogForm'].dialogShow = true
+      this.$refs['NewApproval'].dialogShow = true
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getCCPage)

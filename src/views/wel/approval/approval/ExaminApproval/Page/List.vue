@@ -17,26 +17,26 @@
           </template>
         </el-table-column>
       </template>
-      <el-table-column label="操作"  width="220px">
+      <el-table-column label="操作" width="220px">
         <template slot-scope="scope">
           <el-button size="small" type="warning" @click="handleReview(scope.row)" plain>审核</el-button>
-          <el-button size="small"  @click="handleDeliver(scope.row)">转交</el-button>
+          <el-button size="small" @click="handleDeliver(scope.row)">转交</el-button>
         </template>
       </el-table-column>
     </iep-table>
-    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
     <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
+    <new-approval ref="NewApproval" @load-page="loadPage"></new-approval>
   </div>
 </template>
 <script>
 import { getExaminApprovalPage, postApproval, reviewApprovaBatch } from '@/api/wel/administrative_approval'
 import mixins from '@/mixins/mixins'
-import { columnsMap , dictsMap } from '../options'
+import { columnsMap, dictsMap } from '../options'
 import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
-import DialogForm from './DialogForm'
+import NewApproval from '../../../Components/NewApproval'
 export default {
   mixins: [mixins],
-  components: { DialogForm , IepReviewConfirm},
+  components: { NewApproval, IepReviewConfirm },
   data () {
     return {
       columnsMap,
@@ -51,9 +51,7 @@ export default {
       this.multipleSelection = val.map(m => m.id)
     },
     handleAdd () {
-      this.$refs['DialogForm'].methodName = '创建'
-      this.$refs['DialogForm'].formRequestFn = postApproval
-      this.$refs['DialogForm'].dialogShow = true
+      this.$refs['NewApproval'].dialogShow = true
     },
     handleDetail (row) {
       this.$emit('onDetail', row)

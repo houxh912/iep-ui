@@ -115,7 +115,7 @@ export default {
       })
     },
     search () {
-      console.log(this.commonName)
+      // console.log(this.commonName)
     },
   },
 }

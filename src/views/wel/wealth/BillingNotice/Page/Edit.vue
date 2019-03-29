@@ -206,10 +206,6 @@ export default {
   .el-form {
     margin-right: 20%;
   }
-  .form-half {
-    width: 50%;
-    display: inline-block;
-  }
   .edit-card {
     .title {
       font-weight: 600;
@@ -231,7 +227,7 @@ export default {
         text-align: center;
         background: none;
         border-radius: 50%;
-        -webkit-transition: all 0.8s ease-out;
+        transition: all 0.8s ease-out;
       }
     }
     .input-name {

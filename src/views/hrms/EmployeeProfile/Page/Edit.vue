@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <basic-container>
       <page-header title="员工信息管理"></page-header>
-      <el-form ref="form" :model="form" label-width="140px" size="small">
+      <el-form ref="form" class="form-detail" :model="form" label-width="140px" size="small">
         <el-collapse v-model="activeNames">
           <el-collapse-item name="1">
             <template slot="title">
@@ -56,7 +56,7 @@
                 <el-input v-model="form.status"></el-input>
               </el-form-item>
               <el-form-item label="所属部门：" class="form-half">
-                <iep-cascader v-model="form.deptList" prefix-url="admin/dept" change-on-select></iep-cascader>
+                <iep-cascader v-model="form.position" prefix-url="admin/dept" change-on-select></iep-cascader>
               </el-form-item>
               <el-form-item label="出生年月：" class="form-half">
                 <el-input v-model="form.birthday"></el-input>
@@ -103,27 +103,30 @@
               <el-form-item label="外部头衔：" class="form-half">
                 <el-input v-model="form.externalTitle"></el-input>
               </el-form-item>
+
               <el-form-item label="添加师父：">
-                <el-input v-model="form.people"></el-input>
+                <iep-tag v-model="form.people"></iep-tag>
               </el-form-item>
               <el-form-item label="卓越标签：">
-                <el-input v-model="form.people"></el-input>
+                <iep-tag v-model="form.people"></iep-tag>
               </el-form-item>
               <el-form-item label="专业标签：">
-                <el-input v-model="form.people"></el-input>
+                <iep-tag v-model="form.people"></iep-tag>
               </el-form-item>
               <el-form-item label="进步标签：">
-                <el-input v-model="form.people"></el-input>
+                <iep-tag v-model="form.people"></iep-tag>
               </el-form-item>
-              <el-form-item label="" class="form-half">
+              <!-- <el-form-item label="" class="form-half">
                 <el-input placeholder="">
                   <template slot="append">添加</template>
                 </el-input>
-              </el-form-item>
+              </el-form-item> -->
+
               <el-form-item label="职业规划：">
-                <el-input type="textarea" v-model="form.desc"></el-input>
+                <el-input type="textarea" v-model="form.careerPlanning"></el-input>
               </el-form-item>
-              <el-form-item label="工作经历：">
+
+              <!-- <el-form-item label="工作经历：">
                 <el-input type="textarea" v-model="form.desc"></el-input>
               </el-form-item>
               <el-form-item label="学习情况：">
@@ -134,7 +137,8 @@
               </el-form-item>
               <el-form-item label="资质证书：">
                 <el-input type="textarea" v-model="form.desc"></el-input>
-              </el-form-item>
+              </el-form-item> -->
+
             </div>
             <div class="connectMsg">
               <div class="littleTitle">联系信息</div>
@@ -146,14 +150,14 @@
               </el-form-item>
               <el-form-item label="户籍地址：">
                 <div style="display:flex;">
-                  <iep-cascader style="flex:1;" v-model="form.cities" prefix-url="admin/city"></iep-cascader>
-                  <el-input style="flex:3;" v-model="form.address"></el-input>
+                  <iep-cascader style="flex:1;" v-model="form.residenceCities" prefix-url="admin/city"></iep-cascader>
+                  <el-input style="flex:3;" v-model="form.residenceAddress"></el-input>
                 </div>
               </el-form-item>
               <el-form-item label="现住地址：">
                 <div style="display:flex;">
-                  <iep-cascader style="flex:1;" v-model="form.cities" prefix-url="admin/city"></iep-cascader>
-                  <el-input style="flex:3;" v-model="form.address"></el-input>
+                  <iep-cascader style="flex:1;" v-model="form.currentCities" prefix-url="admin/city"></iep-cascader>
+                  <el-input style="flex:3;" v-model="form.currentAddress"></el-input>
                 </div>
               </el-form-item>
               <el-form-item label="身份证号码：" class="form-half">
@@ -198,18 +202,26 @@
               </el-form-item>
             </div>
           </el-collapse-item>
-          <el-collapse-item title="劳动合同" name="2">
-            <el-input type="textarea"></el-input>
+          <!-- <el-collapse-item title="劳动合同" name="2">
+            <el-form-item label="劳动合同：">
+              <inline-form-table :table-data="form.laborContract" :columns="laborColumns" requestName="labor" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+            </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="社保福利" name="3">
-            <el-input type="textarea"></el-input>
+            <el-form-item label="社保福利：">
+              <inline-form-table :table-data="form.socialContract" :columns="socialColumns" requestName="social" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+            </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="调动情况" name="4">
-            <el-input type="textarea"></el-input>
+            <el-form-item label="调动情况：">
+              <inline-form-table :table-data="form.transferContract" :columns="transferColumns" requestName="transfer" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+            </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="离职信息" name="5">
-            <el-input type="textarea"></el-input>
-          </el-collapse-item>
+            <el-form-item label="离职信息：">
+              <inline-form-table :table-data="form.quitContract" :columns="quitColumns" requestName="quit" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+            </el-form-item>
+          </el-collapse-item> -->
         </el-collapse>
       </el-form>
       <!-- fixed footer toolbar -->
@@ -225,6 +237,8 @@ import FooterToolBar from '@/components/FooterToolbar'
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 import { mergeByFirst } from '@/util/util'
 import { initForm, formToDto } from '../options'
+//import { laborColumns, socialColumns, transferColumns, quitColumns  } from '../options'
+//import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 export default {
   props: {
     record: {
@@ -243,6 +257,10 @@ export default {
       },
       form: initForm(),
       formRequestFn: this.record.formRequestFn,
+      // laborColumns,
+      // socialColumns,
+      // transferColumns,
+      // quitColumns,
     }
   },
   created () {
@@ -297,11 +315,6 @@ export default {
 
 <style lang="scss" scoped>
 .edit-wrapper {
-  .form-half {
-    width: 50%;
-    display: inline-block;
-  }
-
   .edit-card {
     .title {
       font-weight: 600;

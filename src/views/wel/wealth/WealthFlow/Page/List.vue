@@ -3,8 +3,6 @@
     <basic-container>
       <page-header title="财富流水" :replaceText="replaceText" :data="[10 ,5,10,25]"></page-header>
       <operation-container>
-        <template slot="left">
-        </template>
         <template slot="right">
           <operation-search @search="searchPage" advance-search>
             <el-form :model="paramForm" label-width="80px" size="mini">

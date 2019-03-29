@@ -11329,11 +11329,6 @@ vue-cli-plugin-element@^1.0.1:
   resolved "http://registry.npm.taobao.org/vue-cli-plugin-element/download/vue-cli-plugin-element-1.0.1.tgz#34e58fb65b36cf59afaf14f503288e5e578b1554"
   integrity sha1-NOWPtls2z1mvrxT1AyiOXleLFVQ=
 
-vue-cli-plugin-iview@^1.0.6:
-  version "1.0.6"
-  resolved "http://registry.npm.taobao.org/vue-cli-plugin-iview/download/vue-cli-plugin-iview-1.0.6.tgz#2568618ad31cc525fb8209f15ebffce49ae641b3"
-  integrity sha1-JWhhitMcxSX7ggnxXr/85JrmQbM=
-
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
   resolved "http://registry.npm.taobao.org/vue-eslint-parser/download/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"

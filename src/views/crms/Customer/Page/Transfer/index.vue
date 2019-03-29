@@ -76,7 +76,7 @@ export default {
       this.$emit('onGoBack')
     },
     handleSelect (row) {
-      console.log(row)
+      // console.log(row)
       // 首先判断是否已经存在此条数据
       // for (let item of this.selectList) {
       //   if (item.id == row.commonId) {
@@ -91,7 +91,7 @@ export default {
       this.selectList = data
       this.Contacts.clientIds = this.id
       this.Contacts.creatorId = this.selectList.id
-      console.log(this.Contacts)
+      // console.log(this.Contacts)
     },
     close () {
       // this.selectList.splice(index, 1)

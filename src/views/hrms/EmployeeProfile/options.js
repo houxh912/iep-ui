@@ -26,6 +26,7 @@ const initForm = () => {
     position: [], // 岗位
     positionName: null, // 岗位
     externalTitle: null, // 对外头衔
+    people:[], // 标签名字
     duties: null, // 岗位职责
     job: null, // 职务
     jobId: null, // 职务
@@ -52,7 +53,9 @@ const initForm = () => {
     referrer: null, // 推荐人
     accountTypes: null, // 户口类别
     accountLocation: null, // 户口所在地
+    residenceCities:[],
     residenceAddress: null, // 户籍地址
+    currentCities:[],
     currentAddress: null, // 现住地址
     IDCard: null, // 身份证
     phone: null, // 联系手机
@@ -65,9 +68,86 @@ const initForm = () => {
     benefitsStartTime: null, // 社保福利起缴时间
     benefitsStopTime: null, // 社保福利停缴时间
     separationTime: null, // 离职时间
+    careerPlanning:null,//职业规划
+    laborContract:[],//劳动合同
+    socialContract:[],//社保福利
+    transferContract:[],//调动情况
+    quitContract:[],//离职信息
   }
 }
 
+const laborColumns = [
+  {
+    prop: 'type',
+    label: '合同类型',
+  },
+  {
+    prop: 'company',
+    label: '归属公司',
+  },
+  {
+    prop: 'startTime',
+    label: '开始日期',
+  },
+  {
+    prop: 'endTime',
+    label: '到期日期',
+  },
+  {
+    prop: 'annex',
+    label: '合同附件',
+  },
+]
+const socialColumns = [
+  {
+    prop: 'type',
+    label: '缴纳类型',
+  },
+  {
+    prop: 'company',
+    label: '归属公司',
+  },
+  {
+    prop: 'startTime',
+    label: '起缴时间',
+  },
+  {
+    prop: 'endTime',
+    label: '停缴时间',
+  },
+  {
+    prop: 'remarks',
+    label: '备注',
+  },
+]
+const transferColumns = [
+  {
+    prop: 'type',
+    label: '调动类型',
+  },
+  {
+    prop: 'date',
+    label: '调动日期',
+  },
+  {
+    prop: 'end',
+    label: '变更后',
+  },
+]
+const quitColumns = [
+  {
+    prop: 'time',
+    label: '离职时间',
+  },
+  {
+    prop: 'reason',
+    label: '离职原因',
+  },
+  {
+    prop: 'department',
+    label: '部门',
+  },
+]
 const formToDto = (row) => {
   const newForm = mergeByFirst(initForm(), row)
   // newForm.province = row.cities[0]
@@ -153,17 +233,17 @@ const columnsMap = [
     hidden: true,
   },
   {
-    prop: 'politicalStatus',
+    prop: 'politicsName',
     label: '政治面貌',
     hidden: true,
   },
   {
-    prop: 'maritalStatus',
+    prop: 'marriageName',
     label: '婚姻状况',
     hidden: true,
   },
   {
-    prop: 'fertilityStatus',
+    prop: 'bearName',
     label: '生育状况',
     hidden: true,
   },
@@ -178,7 +258,7 @@ const columnsMap = [
     hidden: true,
   },
   {
-    prop: 'graduatedSchool',
+    prop: 'university',
     label: '毕业学校',
     hidden: true,
   },
@@ -268,7 +348,7 @@ const columnsMap = [
     hidden: true,
   },
   {
-    prop: 'dept',
+    prop: 'deptList',
     label: '所属部门',
     hidden: true,
   },
@@ -361,4 +441,4 @@ const initPositiveForm = () => {
     positiveTime: initNow(),
   }
 }
-export { dictsMap, columnsMap, initForm, formToDto, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm, toDtoSearchForm }
+export { dictsMap, columnsMap, initForm, formToDto, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm, toDtoSearchForm, laborColumns, socialColumns, transferColumns, quitColumns }

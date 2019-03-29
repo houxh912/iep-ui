@@ -1,6 +1,6 @@
 <template>
   <div class="retrieve-con">
-    <el-steps :active="active" finish-status="success">
+    <el-steps :active="active" align-center>
       <el-step description="输入账号"></el-step>
       <el-step description="重置密码"></el-step>
       <el-step description="完成"></el-step>
@@ -321,5 +321,12 @@ ol {
 .retrieve-con >>> .el-step__head.is-success .el-step__line-inner {
   border-style: dashed;
   border-color: #fff;
+}
+.retrieve-con >>> .el-step__head.is-finish,
+.retrieve-con >>> .el-step__description.is-finish {
+  color: #666;
+}
+.retrieve-con >>> .el-step__line-inner {
+  border: 0;
 }
 </style>

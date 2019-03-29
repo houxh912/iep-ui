@@ -15,11 +15,18 @@
           <el-checkbox label="不允许评论" name="type" v-model="checked"></el-checkbox>
         </el-form-item>
         <el-form-item class="object-con" label="对象：" required>
-          <el-button class="object">杨冰之<i class="iconfont icon-shanchu1"></i></el-button>
+          <!-- <el-button class="object">杨冰之<i class="iconfont icon-shanchu1"></i></el-button>
           <el-button class="object">杨冰之<i class="iconfont icon-shanchu1"></i></el-button>
           <el-input class="input-name" placeholder="请输入名字" v-model="input4">
             <template slot="append">添加</template>
           </el-input>
+          <el-button class="add"><i class="iconfont icon-renwuzengjia"></i></el-button> -->
+          <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">
+            {{tag}}
+          </el-tag>
+          <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
+          </el-input>
+          <el-button v-else class="button-new-tag" size="small" @click="showInput">添加</el-button>
           <el-button class="add"><i class="iconfont icon-renwuzengjia"></i></el-button>
         </el-form-item>
         <el-form-item label="">
@@ -49,6 +56,11 @@ export default {
   components: { FooterToolBar },
   data () {
     return {
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: this.handleGoBack,
+      },
       certificateColumns,
       trainingColumns,
       studyColumns,
@@ -58,6 +70,9 @@ export default {
       form: initForm(),
       formRequestFn: () => { },
       checked: true,
+      dynamicTags: ['标签一', '标签二', '标签三'],
+      inputVisible: false,
+      inputValue: '',
     }
   },
   computed: {
@@ -74,6 +89,27 @@ export default {
         this.form = mergeByFirst(initForm(), data.data)
       })
     }
+  },
+  methods: {
+    handleGoBack () {
+      this.$emit('onGoBack')
+    },
+    handleClose (tag) {
+      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
+    },
+    showInput () {
+      this.inputVisible = true
+      this.$nextTick(
+        this.$refs.saveTagInput.$refs.input.focus())
+    },
+    handleInputConfirm () {
+      let inputValue = this.inputValue
+      if (inputValue) {
+        this.dynamicTags.push(inputValue)
+      }
+      this.inputVisible = false
+      this.inputValue = ''
+    },
   },
 }
 </script>
@@ -104,15 +140,27 @@ export default {
 .el-button + .el-button {
   margin-left: 10px;
 }
+.el-tag + .el-tag {
+  margin-left: 10px;
+}
+.button-new-tag,
+.add {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.input-new-tag {
+  width: 140px;
+  margin-left: 10px;
+  vertical-align: bottom;
+}
 .edit-wrapper {
   margin: 5px 5px 50px 5px;
   .el-form {
     margin-right: 20%;
     margin-top: 50px;
-  }
-  .form-half {
-    width: 50%;
-    display: inline-block;
   }
   .edit-card {
     .title {
@@ -135,7 +183,7 @@ export default {
         text-align: center;
         background: none;
         border-radius: 50%;
-        -webkit-transition: all 0.8s ease-out;
+        transition: all 0.8s ease-out;
       }
     }
     .input-name {
@@ -143,11 +191,9 @@ export default {
       max-width: 260px;
     }
     .add {
-      margin: 0 15px 10px 0;
       height: 32px;
       i {
         font-size: 20px;
-        line-height: 12px;
       }
     }
   }

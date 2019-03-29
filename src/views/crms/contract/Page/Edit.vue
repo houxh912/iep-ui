@@ -240,17 +240,10 @@ export default {
 <style lang="scss" scoped>
 .edit-wrapper {
   margin: 5px 5px 50px 5px;
-  .form-half {
-    width: 50%;
-    display: inline-block;
-  }
   .edit-card {
     .title {
       font-weight: 600;
     }
   }
-}
-.wrap {
-  padding: 20px 100px 20px 50px;
 }
 </style>

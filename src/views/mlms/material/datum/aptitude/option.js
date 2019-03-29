@@ -19,19 +19,20 @@ export const tableOption = [
 
 export const initFormData = () => {
   return {
-    name: '',
+    honorQualName: '',
     intro: '',
     type: '',
     number: '',
     acquireTime: '',
     downloadCost: '',
     tagKeyWords: [],
-    fileList: [],
+    attachFileList: [],
+    attachFile: '',
   }
 }
 
 export const rules = {
-  name: [
+  honorQualName: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
   intro: [

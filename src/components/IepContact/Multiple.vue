@@ -4,7 +4,16 @@
     <el-tag type="warning" closable v-for="tag in orgs" :key="tag.id" @close="handleClose(tag, 'orgs')">{{tag.name}}</el-tag>
     <el-tag type="success" closable v-for="tag in users" :key="tag.id" @close="handleClose(tag, 'users')">{{tag.name}}</el-tag>
     <el-popover placement="right" width="300" trigger="click" v-model="dialogShow">
-      <el-tree ref="tree" :props="props" :load="loadNode" lazy :show-checkbox="showCheckbox" @node-click="selectGroup" :expand-on-click-node="false" :filter-node-method="filterNodeMethod"></el-tree>
+      <el-tree ref="tree" :props="props" :load="loadNode" :show-checkbox="showCheckbox" :expand-on-click-node="true" :filter-node-method="filterNodeMethod" lazy>
+        <span class="custom-tree-node" slot-scope="{ node, data }">
+          <span>{{ node.label }}</span>
+          <span>
+            <el-button type="text" size="mini" @click.stop="() => selectGroup(data, node)">
+              选择
+            </el-button>
+          </span>
+        </span>
+      </el-tree>
       <iep-button slot="reference">选择</iep-button>
     </el-popover>
   </div>
@@ -114,17 +123,17 @@ export default {
     loadNode (node, resolve) {
       if (node.level === 0) {
         getUnionList().then(({ data }) => {
-          return resolve(data.data)
+          resolve(data.data)
         })
       }
       if (node.level === 1) {
         getOrgListById(node.data.value).then(({ data }) => {
-          return resolve(data.data)
+          resolve(data.data)
         })
       }
       if (node.level === 2) {
         getUserListById(node.data.value).then(({ data }) => {
-          return resolve(data.data)
+          resolve(data.data)
         })
       }
     },
@@ -134,5 +143,13 @@ export default {
 <style scoped>
 .multiple-box > .el-tag {
   margin-right: 5px;
+}
+.custom-tree-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 8px;
 }
 </style>

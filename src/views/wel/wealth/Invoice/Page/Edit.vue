@@ -30,6 +30,11 @@ export default {
   components: { PageHeader, IepTabs, FooterToolBar, Project, Daily, Other },
   data () {
     return {
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: this.handleGoBack,
+      },
       tabList: [
         {
           label: '项目管理类',
@@ -46,6 +51,11 @@ export default {
       ],
       activeTab: 'Project',
     }
+  },
+  methods: {
+    handleGoBack () {
+      this.$emit('onGoBack')
+    },
   },
 }
 </script>

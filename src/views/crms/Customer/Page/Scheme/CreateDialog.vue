@@ -11,7 +11,8 @@
       </el-form-item>
       <el-form-item label="附件上传：">
         <el-col class="upload-item">
-          <iep-upload v-model="formData.fileList" :limit="1"></iep-upload>
+          <iep-upload v-model="formData.fileList" :limit="1">
+          </iep-upload>
         </el-col>
       </el-form-item>
     </el-form>

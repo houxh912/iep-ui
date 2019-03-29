@@ -16,8 +16,9 @@ const initForm = () => {
     companyFunction: '', //单位职能
     contractAddress: '', //单位地址
     otherDesc: '', //其他说明
-    tags: [1],
+    tags: [],
     collaborations: [],
+    clientTagList: [],
   }
 }
 // 全部客户搜索

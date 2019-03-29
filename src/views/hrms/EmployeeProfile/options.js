@@ -52,7 +52,9 @@ const initForm = () => {
     referrer: null, // 推荐人
     accountTypes: null, // 户口类别
     accountLocation: null, // 户口所在地
+    residenceCities:[],
     residenceAddress: null, // 户籍地址
+    currentCities:[],
     currentAddress: null, // 现住地址
     IDCard: null, // 身份证
     phone: null, // 联系手机
@@ -65,6 +67,7 @@ const initForm = () => {
     benefitsStartTime: null, // 社保福利起缴时间
     benefitsStopTime: null, // 社保福利停缴时间
     separationTime: null, // 离职时间
+    careerPlanning:null,//职业规划
   }
 }
 

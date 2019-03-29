@@ -56,7 +56,7 @@
                 <el-input v-model="form.status"></el-input>
               </el-form-item>
               <el-form-item label="所属部门：" class="form-half">
-                <iep-cascader v-model="form.deptList" prefix-url="admin/dept" change-on-select></iep-cascader>
+                <iep-cascader v-model="form.position" prefix-url="admin/dept" change-on-select></iep-cascader>
               </el-form-item>
               <el-form-item label="出生年月：" class="form-half">
                 <el-input v-model="form.birthday"></el-input>
@@ -103,7 +103,7 @@
               <el-form-item label="外部头衔：" class="form-half">
                 <el-input v-model="form.externalTitle"></el-input>
               </el-form-item>
-              <el-form-item label="添加师父：">
+              <!-- <el-form-item label="添加师父：">
                 <el-input v-model="form.people"></el-input>
               </el-form-item>
               <el-form-item label="卓越标签：">
@@ -119,11 +119,11 @@
                 <el-input placeholder="">
                   <template slot="append">添加</template>
                 </el-input>
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item label="职业规划：">
-                <el-input type="textarea" v-model="form.desc"></el-input>
+                <el-input type="textarea" v-model="form.careerPlanning"></el-input>
               </el-form-item>
-              <el-form-item label="工作经历：">
+              <!-- <el-form-item label="工作经历：">
                 <el-input type="textarea" v-model="form.desc"></el-input>
               </el-form-item>
               <el-form-item label="学习情况：">
@@ -134,7 +134,7 @@
               </el-form-item>
               <el-form-item label="资质证书：">
                 <el-input type="textarea" v-model="form.desc"></el-input>
-              </el-form-item>
+              </el-form-item> -->
             </div>
             <div class="connectMsg">
               <div class="littleTitle">联系信息</div>
@@ -146,14 +146,14 @@
               </el-form-item>
               <el-form-item label="户籍地址：">
                 <div style="display:flex;">
-                  <iep-cascader style="flex:1;" v-model="form.cities" prefix-url="admin/city"></iep-cascader>
-                  <el-input style="flex:3;" v-model="form.address"></el-input>
+                  <iep-cascader style="flex:1;" v-model="form.residenceCties" prefix-url="admin/city"></iep-cascader>
+                  <el-input style="flex:3;" v-model="form.residenceAddress"></el-input>
                 </div>
               </el-form-item>
               <el-form-item label="现住地址：">
                 <div style="display:flex;">
-                  <iep-cascader style="flex:1;" v-model="form.cities" prefix-url="admin/city"></iep-cascader>
-                  <el-input style="flex:3;" v-model="form.address"></el-input>
+                  <iep-cascader style="flex:1;" v-model="form.currentCities" prefix-url="admin/city"></iep-cascader>
+                  <el-input style="flex:3;" v-model="form.currentAddress"></el-input>
                 </div>
               </el-form-item>
               <el-form-item label="身份证号码：" class="form-half">
@@ -198,7 +198,7 @@
               </el-form-item>
             </div>
           </el-collapse-item>
-          <el-collapse-item title="劳动合同" name="2">
+          <!-- <el-collapse-item title="劳动合同" name="2">
             <el-input type="textarea"></el-input>
           </el-collapse-item>
           <el-collapse-item title="社保福利" name="3">
@@ -209,7 +209,7 @@
           </el-collapse-item>
           <el-collapse-item title="离职信息" name="5">
             <el-input type="textarea"></el-input>
-          </el-collapse-item>
+          </el-collapse-item> -->
         </el-collapse>
       </el-form>
       <!-- fixed footer toolbar -->

@@ -123,7 +123,7 @@ ul {
     flex: 1;
     margin-right: 20px;
     li {
-      padding: 0 40px;
+      padding: 12px 40px;
       border-right: 1px solid #ebeef5;
       &:last-child {
         border: 0;

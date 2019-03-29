@@ -153,17 +153,17 @@ const columnsMap = [
     hidden: true,
   },
   {
-    prop: 'politicalStatus',
+    prop: 'politicsName',
     label: '政治面貌',
     hidden: true,
   },
   {
-    prop: 'maritalStatus',
+    prop: 'marriageName',
     label: '婚姻状况',
     hidden: true,
   },
   {
-    prop: 'fertilityStatus',
+    prop: 'bearName',
     label: '生育状况',
     hidden: true,
   },
@@ -178,7 +178,7 @@ const columnsMap = [
     hidden: true,
   },
   {
-    prop: 'graduatedSchool',
+    prop: 'university',
     label: '毕业学校',
     hidden: true,
   },
@@ -268,7 +268,7 @@ const columnsMap = [
     hidden: true,
   },
   {
-    prop: 'dept',
+    prop: 'deptList',
     label: '所属部门',
     hidden: true,
   },

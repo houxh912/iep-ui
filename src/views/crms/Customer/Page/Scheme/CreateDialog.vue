@@ -12,6 +12,7 @@
       <el-form-item label="附件上传：">
         <el-col class="upload-item">
           <iep-upload v-model="formData.fileList" :limit="1">
+            <slot name="tip"><span>文件类型为excel，每次上传数量不超过一个</span></slot>
           </iep-upload>
         </el-col>
       </el-form-item>
@@ -39,6 +40,8 @@ export default {
       },
     }
   },
+  created () {
+  },
   methods: {
     loadPage () {
       this.formData = initForm()
@@ -50,7 +53,6 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
-      console.log(this.formData)
       if (this.formData.fileList.length != 0) {
         this.formData.url = this.formData.fileList[0].url
       }

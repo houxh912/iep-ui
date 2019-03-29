@@ -49,7 +49,7 @@ export default {
 
 <style lang="scss" scoped>
 .remind {
-  height: 200px;
+  height: 260px;
   .head {
     font-weight: 700;
     background-color: #eee;

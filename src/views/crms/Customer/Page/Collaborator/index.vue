@@ -96,7 +96,7 @@ export default {
       AddCollaborator(this.Contacts).then(res => {
         if (res.data.data) {
           this.$message.success('添加协作人成功！')
-          this.drawerShow = false
+          this.dialogShow = false
         } else {
           this.$message.error(`操作失败，${res.data.msg}`)
         }

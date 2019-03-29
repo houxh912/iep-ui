@@ -1,9 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`转移客户`" width="60%" @close="close">
-    <div class="title">
-      协作人:<span>{{selectList.name}}</span>
-      <span></span>
-    </div>
+
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
       <el-table-column prop="operation" label="操作" min-width="80">
         <template slot-scope="scope">
@@ -25,6 +22,10 @@
       </el-table-column>
     </el-table> -->
     <template slot="footer">
+      <div class="list">
+        协作人:<span>{{selectList.name}}</span>
+        <span></span>
+      </div>
       <iep-button class="btn" @click="close">取消</iep-button>
       <iep-button type="danger" @click="submitForm('form')">保存</iep-button>
     </template>
@@ -101,7 +102,7 @@ export default {
       TransferCustomers(this.Contacts).then(res => {
         if (res.data.data) {
           this.$message.success('添加协作人成功！')
-          this.drawerShow = false
+          this.dialogShow = false
           this.$emit('load-page')
         } else {
           this.$message.error(`操作失败，${res.data.msg}`)
@@ -112,15 +113,17 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-.title {
-  height: 30px !important;
-  span {
-    padding: 0 5px;
-  }
+.list {
+  float: left;
+  padding-left: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 37px;
 }
-.div {
-  height: 50px;
-  width: 100%;
+.list span {
+  padding: 0 5px;
+  font-size: 12px;
+  font-weight: 500;
 }
 </style>
 

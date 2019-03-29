@@ -18,7 +18,6 @@ const initForm = () => {
     otherDesc: '', //其他说明
     tags: [],
     collaborations: [],
-    clientTagList: [],
   }
 }
 // 全部客户搜索
@@ -77,6 +76,7 @@ const rules = {
     { required: true, message: '请填写具体业务类型', trigger: 'blur' },
   ],
   clientRela: [{ required: true, message: '请选择客户关系', trigger: 'blur' }],
+  tags: [{ required: true, message: '请添加商机标签', trigger: 'blur' }],
   followUpStatus: [
     { required: true, message: '请选择跟进状态', trigger: 'blur' },
   ],

@@ -1,25 +1,29 @@
 <template>
   <div class="myCustom">
-    <info-column class="info-head"></info-column>
+    <el-row>
+      <info-column></info-column>
+    </el-row>
     <el-row class="info-middle">
-      <el-col class="info-left" :span=14>
-        <survey-column class="survey-column"></survey-column>
-        <remind-column class="remind-column"></remind-column>
+      <el-col :span=12>
+        <survey-column></survey-column>
+        <remind-column></remind-column>
       </el-col>
-      <el-col :span=10>
-        <contract-colmun class="contract-colmun"></contract-colmun>
+      <el-col :span=12>
+        <contract-colmun></contract-colmun>
       </el-col>
     </el-row>
-    <custom-column class="custom-column"></custom-column>
+    <el-row>
+      <custom-column></custom-column>
+    </el-row>
   </div>
 </template>
 
 <script>
-import InfoColumn from '../component/infoColumn'
-import SurveyColumn from '../component/surveyColumn'
-import RemindColumn from '../component/remindColumn'
-import ContractColmun from '../component/contractColumn'
-import CustomColumn from '../component/customColumn'
+import InfoColumn from './Components/InfoColumn'
+import SurveyColumn from './Components/SurveyColumn'
+import RemindColumn from './Components/RemindColumn'
+import ContractColmun from './Components/ContractColumn'
+import CustomColumn from './Components/CustomColumn'
 export default {
   name: 'myCustom',
   components: { InfoColumn, SurveyColumn, RemindColumn, ContractColmun, CustomColumn },
@@ -34,28 +38,9 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.myCustom {
-  .info-head {
-    margin-bottom: 25px;
-  }
-  .info-middle {
-    .info-left {
-      padding-right: 20px;
-    }
-    .survey-column {
-      height: 120px;
-    }
-    .remind-column {
-      height: 200px;
-    }
-    .contract-colmun {
-      height: 320px;
-    }
-  }
-  .custom-column {
-    height: 200px;
-  }
+<style scoped>
+.myCustom .el-row {
+  margin-bottom: 20px;
 }
 </style>
+

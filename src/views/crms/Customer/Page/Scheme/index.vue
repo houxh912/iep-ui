@@ -84,7 +84,7 @@ export default {
       this._handleGlobalDeleteById(row.programId, deleteSchemeById)
     },
     download (row) {
-      downloadModel(row.atchUpload)
+      downloadModel(row.url)
     },
   },
   created () {

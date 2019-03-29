@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     searchPage () {
+      console.log(this.form)
       this.$emit('search-page', { type: this.type, ...this.form })
     },
     clearSearchParam () {

@@ -34,7 +34,7 @@ export default {
           orgs: [],
           users: [],
         },
-        fileList: [{ 'name': 'AINY4Y0AL3.txt', 'url': '04cd8be68d2846c197432e51ee8888b5.txt' }],
+        fileList: [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],
         tagList: ['大数据', '人工智能'],
       },
     }

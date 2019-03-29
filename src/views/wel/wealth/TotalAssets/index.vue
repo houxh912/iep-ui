@@ -40,7 +40,7 @@
         </el-card>
       </div>
       <div class="content">
-        <div class="list">
+        <el-card class="box-card">
           <operation-container>
             <template slot="left">
               <page-header title="财富统计-类型" :replaceText="replaceText" :data="[10 ,5]"></page-header>
@@ -61,15 +61,39 @@
               </div>
             </template>
           </operation-container>
-        </div>
+          <a-divider />
+          <v-chart :forceFit="true" :height="height" :data="data" :scale="scale">
+            <v-tooltip />
+            <v-axis />
+            <v-bar position="dept*money" />
+          </v-chart>
+        </el-card>
+
       </div>
     </basic-container>
   </div>
 </template>
 <script>
+const data = [
+  { dept: '内网', money: 38 },
+  { dept: '部门', money: 52 },
+  { dept: '提现', money: 61 },
+  { dept: '批评', money: 145 },
+  { dept: '学习', money: 48 },
+  { dept: '打赏', money: 38 },
+  { dept: '离职', money: 38 },
+  { dept: '其他', money: 38 },
+]
+const scale = [{
+  dataKey: 'money',
+  tickInterval: 20,
+}]
 export default {
   data () {
     return {
+      data,
+      scale,
+      height: 400,
       replaceText: (data) => `（收入共计${data[0]}笔，共计${data[0]}贝）`,
       value6: '',
     }
@@ -91,6 +115,7 @@ ul {
 }
 .main-top {
   .title {
+    margin: 0;
     font-size: 16px;
     font-weight: 600;
   }
@@ -98,7 +123,7 @@ ul {
     flex: 1;
     margin-right: 20px;
     li {
-      padding: 10px 40px;
+      padding: 0 40px;
       border-right: 1px solid #ebeef5;
       &:last-child {
         border: 0;
@@ -112,7 +137,12 @@ ul {
       flex-wrap: wrap;
       align-items: center;
       li {
+        cursor: pointer;
         padding: 10px 15px;
+        cursor: pointer;
+        &:hover {
+          color: #cb3737;
+        }
       }
     }
   }
@@ -154,9 +184,5 @@ ul {
   .block {
     width: 40%;
   }
-}
-.operation-container {
-  border: 1px solid #ebeef5;
-  padding: 20px;
 }
 </style>

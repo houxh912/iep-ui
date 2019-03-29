@@ -1,5 +1,5 @@
 <template>
-  <el-upload action="/api/admin/file/upload" :headers="headers" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :on-success="handleSuccess" multiple :limit="limit" :on-exceed="handleExceed" :file-list="fileList" drag v-bind="$attrs" v-on="$listeners">
+  <el-upload action="/api/admin/file/upload" :headers="headers" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :on-success="handleSuccess" multiple :limit="limit" :on-exceed="handleExceed" :file-list="fileList" :drag="drag" v-bind="$attrs" v-on="$listeners">
     <el-button v-if="!drag" size="small" type="primary">点击上传</el-button>
     <template v-else>
       <i class="el-icon-upload"></i>

@@ -206,10 +206,6 @@ export default {
   .el-form {
     margin-right: 20%;
   }
-  .form-half {
-    width: 50%;
-    display: inline-block;
-  }
   .edit-card {
     .title {
       font-weight: 600;

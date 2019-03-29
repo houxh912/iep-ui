@@ -4,7 +4,7 @@
       <div slot="header" class="title">
         <span>{{methodName}}人才</span>
       </div>
-      <el-form ref="form" :model="form" label-width="120px" size="small">
+      <el-form ref="form" class="form-detail" :model="form" label-width="120px" size="small">
         <el-collapse v-model="activeNames">
           <el-collapse-item name="1">
             <template slot="title">
@@ -223,10 +223,6 @@ export default {
 <style lang="scss" scoped>
 .edit-wrapper {
   margin: 5px 5px 50px 5px;
-  .form-half {
-    width: 50%;
-    display: inline-block;
-  }
   .edit-card {
     .title {
       font-weight: 600;

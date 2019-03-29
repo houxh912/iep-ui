@@ -1,35 +1,35 @@
 <template>
   <div class="">
-    <el-form ref="form" :model="form" label-width="120px" size="small">
+    <el-form ref="form" class="form-detail" :model="form" label-width="120px" size="small">
       <el-form-item label="申请人：" class="form-half">
         <span>{{form.name}}</span>
       </el-form-item>
       <el-form-item label="发起时间：" class="form-half">
-        <span>{{form.createTime}}</span>
+        <span>{{form.nowTime}}</span>
+      </el-form-item>
+      <el-form-item label="职务：" class="form-half">
+        <span>{{form.job}}</span>
+      </el-form-item>
+      <el-form-item label="职称：" class="form-half">
+        <span>{{form.title}}</span>
       </el-form-item>
       <el-form-item label="入职时间：" class="form-half">
         <span>{{form.entryTime}}</span>
       </el-form-item>
-      <el-form-item label="离职时间：">
-        <iep-date-picker v-model="form.workerTime" type="date" placeholder="选择日期"></iep-date-picker>
-      </el-form-item>
-      <el-form-item label="岗位名称：">
-        <div style="display:flex;">
-          <iep-cascader style="flex:1;" v-model="form.ipostName" prefix-url=""></iep-cascader>
-          <el-input style="flex:3;" v-model="form.ipostName"></el-input>
-        </div>
+      <el-form-item label="转正时间：">
+        <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期"></iep-date-picker>
       </el-form-item>
       <el-form-item label="申请理由：">
         <el-input type="textarea" v-model="form.reason"></el-input>
       </el-form-item>
       <el-form-item label="附件：">
-        <iep-upload v-model="form.annex"></iep-upload>
+        <iep-upload v-model="form.annex">请上传附件</iep-upload>
       </el-form-item>
       <el-form-item label="审批人：">
-        <iep-contact-multiple v-model="form.approver"></iep-contact-multiple>
+        <iep-contact-multiple-user v-model="form.approver"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item label="抄送人：">
-        <iep-contact-multiple v-model="form.copyPerson"></iep-contact-multiple>
+        <iep-contact-multiple-user v-model="form.cc"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item label="">
         <operation-wrapper>
@@ -41,35 +41,37 @@
   </div>
 </template>
 <script>
-import IepContactMultiple from '@/components/IepContact/Multiple'
-import IepUpload from '@/components/IepCommon/Upload'
+import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
+import { initForm } from './options'
 export default {
-  components: { IepContactMultiple, IepUpload },
+  props: {
+    fn: {
+      type: Function,
+      required: true,
+    },
+  },
+  components: { IepContactMultipleUser },
   data () {
     return {
       backOption: {
         isBack: true,
         backPath: this.$route.query.redirect,
       },
-      form: {
-        approver: { // 比如接收人
-          unions: [],
-          orgs: [],
-          users: [],
-        },
-        copyPerson: { // 比如接收人
-          unions: [],
-          orgs: [],
-          users: [],
-        },
-        annex: [{ 'name': 'AINY4Y0AL3.txt', 'url': '04cd8be68d2846c197432e51ee8888b5.txt' }],
-      },
+      form: initForm(),
     }
   },
+  created () {
+    this.loadSelf()
+  },
   methods: {
-    handlePublish () {
+    loadSelf () {
+      this.fn().then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
+      })
     },
     handleSubmit () {
+    },
+    handlePublish () {
     },
   },
 }

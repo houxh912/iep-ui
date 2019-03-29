@@ -22,7 +22,7 @@
         </template>
         <el-table-column prop="operation" label="对应客户" width="460">
           <template slot-scope="scope">
-            <span class="contactTag" v-for="(item,index) in scope.row.clientInfos" :key="index">{{item.clientName}}</span>
+            <span class="contact-tag" v-for="(item,index) in scope.row.clientInfos" :key="index">{{item.clientName}}</span>
           </template>
         </el-table-column>
         <el-table-column prop="operation" label="操作" width="160">
@@ -97,7 +97,7 @@ export default {
 }
 </script>
 <style>
-.contactTag {
+.contact-tag {
   display: inline-block;
   margin: 5px 5px;
   padding: 5px 5px;
@@ -107,13 +107,6 @@ export default {
 }
 .contact-name {
   cursor: pointer;
-}
-.tags {
-  padding-right: 10px;
-}
-.form-half {
-  width: 50%;
-  display: inline-block;
 }
 </style>
 

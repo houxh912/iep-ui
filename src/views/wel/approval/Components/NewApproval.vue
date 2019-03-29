@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="发起审核" width="520px" @close="loadPage" center>
+  <iep-dialog :dialog-show="dialogShow" title="发起申请" width="520px" @close="loadPage" center>
     <el-form size="small" ref="form" label-width="100px">
       <el-form-item v-for="child in approvalTree" :key="child.id" :label="child.name">
         <a-checkable-tag v-for="item in child.children" :key="item.id" v-model="item.checked" @change="handleChange(item.name)">{{item.name}}</a-checkable-tag>

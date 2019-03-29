@@ -162,10 +162,6 @@ export default {
     margin-right: 20%;
     margin-top: 50px;
   }
-  .form-half {
-    width: 50%;
-    display: inline-block;
-  }
   .edit-card {
     .title {
       font-weight: 600;

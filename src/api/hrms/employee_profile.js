@@ -17,6 +17,13 @@ export function getEmployeeProfileById (id) {
   })
 }
 
+export function getEmployeeProfileSelf () {
+  return request({
+    url: `${prefixUrl}/self`,
+    method: 'get',
+  })
+}
+
 export function putEmployeeProfile (obj) {
   return request({
     url: `${prefixUrl}/update`,

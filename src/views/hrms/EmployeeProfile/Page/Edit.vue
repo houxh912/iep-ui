@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <basic-container>
       <page-header title="员工信息管理"></page-header>
-      <el-form ref="form" :model="form" label-width="140px" size="small">
+      <el-form ref="form" class="form-detail" :model="form" label-width="140px" size="small">
         <el-collapse v-model="activeNames">
           <el-collapse-item name="1">
             <template slot="title">
@@ -103,12 +103,12 @@
               <el-form-item label="外部头衔：" class="form-half">
                 <el-input v-model="form.externalTitle"></el-input>
               </el-form-item>
-              
+
               <el-form-item label="添加师父：">
                 <iep-tag v-model="form.people"></iep-tag>
               </el-form-item>
               <el-form-item label="卓越标签：">
-               <iep-tag v-model="form.people"></iep-tag>
+                <iep-tag v-model="form.people"></iep-tag>
               </el-form-item>
               <el-form-item label="专业标签：">
                 <iep-tag v-model="form.people"></iep-tag>
@@ -236,7 +236,7 @@
 import FooterToolBar from '@/components/FooterToolbar'
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 import { mergeByFirst } from '@/util/util'
-import { initForm, formToDto  } from '../options'
+import { initForm, formToDto } from '../options'
 //import { laborColumns, socialColumns, transferColumns, quitColumns  } from '../options'
 //import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 export default {
@@ -315,11 +315,6 @@ export default {
 
 <style lang="scss" scoped>
 .edit-wrapper {
-  .form-half {
-    width: 50%;
-    display: inline-block;
-  }
-
   .edit-card {
     .title {
       font-weight: 600;

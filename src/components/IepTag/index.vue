@@ -42,7 +42,15 @@ export default {
   },
   methods: {
     handleSelectTag (name) {
-      this.handleInputConfirm(name)
+      let tags = this.tags
+      if (name && tags.indexOf(name) === -1) {
+        tags = [...tags, name]
+      }
+      Object.assign(this, {
+        tags,
+        inputVisible: false,
+        inputValue: '',
+      })
     },
 
     loadPage () {
@@ -71,8 +79,8 @@ export default {
       this.inputValue = e.target.value
     },
 
-    handleInputConfirm (name) {
-      const inputValue = name || this.inputValue
+    handleInputConfirm () {
+      const inputValue = this.inputValue
       let tags = this.tags
       if (inputValue && tags.indexOf(inputValue) === -1) {
         tags = [...tags, inputValue]

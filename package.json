@@ -86,6 +86,8 @@
   ],
   "repository": {
     "type": "govmade-gitlab",
-    "url": "http://115.233.227.46:8066/root/iep-ui"
+    "url": "http://115.233.227.46:8066/root/iep-ui",
+    "changelogurl": "http://115.233.227.46:8066/root/iep-ui/blob/develop/CHANGELOG.md",
+    "description": "国脉内网2.0项目"
   }
 }

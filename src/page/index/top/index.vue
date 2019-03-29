@@ -44,11 +44,15 @@
           <el-dropdown-item @click.native="open('/info/index')">
             个人信息
           </el-dropdown-item>
+          <el-dropdown-item @click.native="handleAbout">
+            关于
+          </el-dropdown-item>
           <el-dropdown-item @click.native="logout" divided>退出系统</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
     <select-org-dialog ref="selectOrgDialog"></select-org-dialog>
+    <about-dialog ref="AboutDialog"></about-dialog>
   </div>
 </template>
 <script>
@@ -58,12 +62,14 @@ import { fullscreenToggel, listenfullscreen } from '@/util/util'
 import TopNavbar from './TopNavbar'
 import TopMessage from './TopMessage'
 import TopGuide from './TopGuide'
+import AboutDialog from './AboutDialog'
 export default {
   components: {
     TopNavbar,
     TopMessage,
     TopGuide,
     SelectOrgDialog,
+    AboutDialog,
   },
   name: 'Top',
   data () {
@@ -109,6 +115,9 @@ export default {
       } else {
         this.$refs['selectOrgDialog'].dialogShow = true
       }
+    },
+    handleAbout () {
+      this.$refs.AboutDialog.dialogShow = true
     },
     handleScreen () {
       fullscreenToggel()

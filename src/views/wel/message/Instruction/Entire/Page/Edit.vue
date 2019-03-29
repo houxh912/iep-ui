@@ -183,7 +183,7 @@ export default {
         text-align: center;
         background: none;
         border-radius: 50%;
-        -webkit-transition: all 0.8s ease-out;
+        transition: all 0.8s ease-out;
       }
     }
     .input-name {

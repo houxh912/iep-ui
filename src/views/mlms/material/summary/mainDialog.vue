@@ -94,7 +94,6 @@ export default {
   data () {
     return {
       dictsMap,
-      dialogShow: false,
       formRequestFn: () => { },
       methodName: '创建',
       formData: initFormData(),
@@ -148,7 +147,6 @@ export default {
     },
     resetForm () {
       this.formData = initFormData()
-      this.dialogShow = false
       this.loadPage('load-page')
     },
     typeChange (val) {

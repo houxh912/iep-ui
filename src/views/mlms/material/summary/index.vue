@@ -124,7 +124,6 @@ export default {
       this.$nextTick(() => {
         this.$refs['mainDialog'].methodName = '创建'
         this.$refs['mainDialog'].formRequestFn = createData
-        this.$refs['mainDialog'].dialogShow = true
       })
     },
     handleEdit (row) {
@@ -145,7 +144,6 @@ export default {
           this.$refs['mainDialog'].formData = {...data.data}
           this.$refs['mainDialog'].methodName = '修改'
           this.$refs['mainDialog'].formRequestFn = updateData
-          this.$refs['mainDialog'].dialogShow = true
         })
       })
     },

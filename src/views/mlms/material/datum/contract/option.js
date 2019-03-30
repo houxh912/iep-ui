@@ -55,8 +55,64 @@ export const initFormData = () => {
 }
 
 export const rules = {
-  name: [
-    { required: true, message: '请输入组织名称', trigger: 'blur' },
-    { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' },
+  contractName: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
+  contractExpl: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
+  contractType: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  businessType: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  tagKeyWords: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  signTime: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
+  finishTime: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
+  companyOrgId: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
+  signCompanyOrgId: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  signDeptOrgId: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  signDeptOrgList: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  underTakeDeptId: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  underTakeDeptList: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  directorId: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  directorName: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  directorList: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  contractAmount: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
+  contractLevel: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  contractStatus: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  deposit: [
+    { required: true, message: '必填', trigger: 'blur' },
   ],
 }

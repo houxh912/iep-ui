@@ -61,7 +61,8 @@
         </el-col>
         <el-col :span=12>
           <el-form-item label="承接部门：" prop="underTakeDeptList">
-            <iep-cascader v-model="formData.underTakeDeptList" prefix-url="admin/dept" change-on-select></iep-cascader>
+            <!-- <iep-cascader v-model="formData.underTakeDeptList" prefix-url="admin/dept" change-on-select></iep-cascader> -->
+            <iep-dept-multiple v-model="formData.underTakeDeptList"></iep-dept-multiple>
           </el-form-item>
         </el-col>
       </el-row>
@@ -166,11 +167,9 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
-      console.log('formData: ', this.formData)
       let signDeptOrgList = this.formData.signDeptOrgList
       this.formData.signDeptOrgId = signDeptOrgList[signDeptOrgList.length - 1] // 签署部门
-      let underTakeDeptList = this.formData.underTakeDeptList
-      this.formData.underTakeDeptId = [underTakeDeptList[underTakeDeptList.length - 1]] // 承接部门
+      this.formData.underTakeDeptId = this.formData.underTakeDeptList.map(m => m.id) // 承接部门
       // 提交前需要处理下数据
       if (this.formData.contractType == 1) { // 外部合同
       } else { // 内部合同

@@ -18,7 +18,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="合同标签：" prop="tagKeyWords">
-        <iep-tags v-model="formData.tagKeyWords"></iep-tags>
+        <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-row>
         <el-col :span=12>
@@ -35,41 +35,46 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <el-select v-model="formData.companyOrgId" placeholder="请选择">
+            <!-- <el-select v-model="formData.companyOrgId" placeholder="请选择">
               <el-option v-for="item in deptList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+            </el-select> -->
+            <iep-dept-select v-model="formData.companyOrgId"></iep-dept-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
-            <el-select v-model="formData.signCompanyOrgId" placeholder="请选择">
+            <!-- <el-select v-model="formData.signCompanyOrgId" placeholder="请选择">
               <el-option v-for="item in deptList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+            </el-select> -->
+            <iep-dept-select v-model="formData.signCompanyOrgId"></iep-dept-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span=12>
           <el-form-item label="签署部门：" prop="signDeptOrgId">
-            <el-select v-model="formData.signDeptOrgId" placeholder="请选择">
+            <!-- <el-select v-model="formData.signDeptOrgId" placeholder="请选择">
               <el-option v-for="item in deptList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+            </el-select> -->
+            <iep-dept-select v-model="formData.signDeptOrgId"></iep-dept-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="承接部门：" prop="underTakeDeptId">
-            <el-select v-model="formData.underTakeDeptId" placeholder="请选择" multiple>
+            <!-- <el-select v-model="formData.underTakeDeptId" placeholder="请选择" multiple>
               <el-option v-for="item in deptList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+            </el-select> -->
+            <iep-dept-select v-model="formData.underTakeDeptId"></iep-dept-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span=12>
           <el-form-item label="市场经理：" prop="directorId">
-            <el-select v-model="formData.directorId" placeholder="请选择">
+            <!-- <el-select v-model="formData.directorId" placeholder="请选择">
               <el-option v-for="item in dicData.jingli" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
+            </el-select> -->
+            <iep-contact-select v-model="formData.directorId"></iep-contact-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
@@ -204,11 +209,10 @@
 </template>
 <script>
 import { initFormData, rules, deptList } from './options'
-import IepTags from '@/components/IepTags/input'
 import FooterToolbar from '@/components/FooterToolbar/'
 import { mapState } from 'vuex'
 export default {
-  components: { FooterToolbar, IepTags },
+  components: { FooterToolbar },
   data () {
     return {
       dialogShow: false,

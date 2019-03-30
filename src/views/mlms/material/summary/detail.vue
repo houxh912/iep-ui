@@ -25,7 +25,7 @@
       <div class="comment">
         <div class="form">
           <h2 class="title">补充或评论</h2>
-          <el-input type="textarea" rows=5></el-input>
+          <el-input type="textarea" rows=5 v-model="comment"></el-input>
           <div class="button">
             <iep-button type="danger" @click="submit">发送</iep-button>
           </div>
@@ -56,6 +56,9 @@
             </div>
           </div>
         </div>
+        <div class="footer-button">
+          <iep-button type="danger" @click="Instructions">领导批示</iep-button>
+        </div>
       </div>
     </el-col>
 
@@ -74,12 +77,15 @@
       <h3 class="title">抄送人</h3>
       <p class="content" v-text="formData.receiverName"></p>
     </el-col>
+    <instr-dialog ref="instrDialog"></instr-dialog>
   </basic-container>
 </template>
 <script>
 import { getDataById } from '@/api/mlms/material/summary'
+import InstrDialog from './instrDialog'
 
 export default {
+  components: { InstrDialog },
   data () {
     return {
       formData: {
@@ -95,10 +101,15 @@ export default {
           this.$router.go(-1)
         },
       },
+      comment: '',
     }
   },
   methods: {
     submit () {},
+    // 领导批示
+    Instructions () {
+      this.$refs['instrDialog'].open()
+    },
   },
   created () {
     getDataById(this.$route.params.id).then(({data}) => {
@@ -106,14 +117,18 @@ export default {
       this.formData.hostName = this.formData.host[0].name
       // 参会人
       this.formData.attendeeName = ''
-      for (let item of this.formData.attendee.users) {
-        this.formData.attendeeName += item.name + '、'
+      for (let key in this.formData.attendee) {
+        for (let item of this.formData.attendee[key]) {
+          this.formData.attendeeName += item.name + '、'
+        }
       }
       this.formData.attendeeName = this.formData.attendeeName.slice(0, this.formData.attendeeName.length - 1)
       // 抄送人
       this.formData.receiverName = ''
-      for (let item of this.formData.receiver.users) {
-        this.formData.receiverName += item.name + '、'
+      for (let key in this.formData.receiver) {
+        for (let item of this.formData.receiver[key]) {
+          this.formData.receiverName += item.name + '、'
+        }
       }
       this.formData.receiverName = this.formData.receiverName.slice(0, this.formData.receiverName.length - 1)
     })
@@ -221,6 +236,10 @@ export default {
             margin-bottom: 10px;
           }
         }
+      }
+      .footer-button {
+        margin-top: 20px;
+        text-align: right;
       }
     }
   }

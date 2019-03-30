@@ -110,6 +110,15 @@ export const rules = {
   visitingUserId: [
     { required: true, message: '必填', trigger: 'change' },
   ],
+  hostList: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  attendeeList: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  receiverList: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
 }
 
 export const shareRules = {
@@ -159,4 +168,29 @@ export const shareType = {
     list: 'aptitudeList',
     name: '荣誉资质',
   },
+}
+
+// 批示
+export function initInstrForm () {
+  return {
+    attachmentIds: [],
+    content: '',
+    emailId: 0,
+    materialIds: [],
+    projectIds: [],
+    receiverIds: [],
+    receiverList: {
+      unions: [],
+      orgs: [],
+      users: [],
+    },
+    reportIds: [],
+    status: 1,
+    subject: '',
+    summaryIds: [],
+    summaryList: [],
+    tagKeyWords: [],
+    type: 1, // 类型为分享
+    kind: 0,
+  }
 }

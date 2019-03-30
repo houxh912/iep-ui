@@ -50,9 +50,6 @@ export default {
         }, {
           label: '分类配置',
           value: 'configureDialog',
-        }, {
-          label: '媒体文件',
-          value: 'fileDialog',
         },
       ],
     }

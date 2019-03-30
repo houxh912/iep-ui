@@ -49,9 +49,6 @@ export default {
         }, {
           label: '项目周报',
           value: 'projectTab',
-        }, {
-          label: '自定义报表',
-          value: 'customTab',
         },
       ],
     }

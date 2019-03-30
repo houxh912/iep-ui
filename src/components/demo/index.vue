@@ -10,6 +10,12 @@
       <el-form-item label="群发:">
         <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
       </el-form-item>
+      <el-form-item label="单部门:">
+        <iep-dept-select v-model="form.dept"></iep-dept-select>
+      </el-form-item>
+      <el-form-item label="多部门:">
+        <iep-dept-multiple v-model="form.deptList"></iep-dept-multiple>
+      </el-form-item>
       <el-form-item label="文件:">
         <iep-upload v-model="form.fileList" drag>
           点击进入<a href="http://77777">haahahahah</a>你好
@@ -22,11 +28,7 @@
   </div>
 </template>
 <script>
-import IepContactSelect from '@/components/IepContact/Select'
-import IepContactMultiple from '@/components/IepContact/Multiple'
-import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
 export default {
-  components: { IepContactSelect, IepContactMultiple, IepContactMultipleUser },
   data () {
     return {
       form: {
@@ -40,6 +42,14 @@ export default {
           users: [],
         },
         userList: [],
+        dept: {
+          id: 1,
+          name: '研发部',
+        },
+        deptList: [{
+          id: 1,
+          name: '研发部',
+        }],
         fileList: [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],
         tagList: ['大数据', '人工智能'],
       },

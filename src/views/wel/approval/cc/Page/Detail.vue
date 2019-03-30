@@ -64,9 +64,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import PageHeader from '@/components/Page/Header'
 export default {
-  components: { PageHeader },
   data () {
     return {
       backOption: {

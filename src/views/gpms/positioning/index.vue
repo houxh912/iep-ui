@@ -597,10 +597,8 @@
 </template>
 
 <script>
-import PageHeader from '@/components/Page/Header'
 import mixins from '@/mixins/mixins'
 export default {
-  components: { PageHeader },
   mixins: [mixins],
   data () {
     return {

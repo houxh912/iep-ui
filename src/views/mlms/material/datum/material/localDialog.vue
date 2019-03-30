@@ -101,10 +101,11 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
-      console.log('attachFileList: ', this.formData.attachFileList)
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formData.attachFile = this.formData.attachFileList[0].url
+          if (this.formData.attachFileList.length > 0) {
+            this.formData.attachFile = this.formData.attachFileList[0].url
+          }
           this.formRequestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',

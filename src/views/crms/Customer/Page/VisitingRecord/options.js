@@ -47,14 +47,16 @@ export const initFormData = () => {
     meetingLocation: '',
     tagKeyWords: [],
     receiverIds: [],
-    receiverList: {
-      orgs: [],
-      users: [],
-    },
-    attendeeList: {
-      orgs: [],
-      users: [],
-    },
+    // receiverList: {
+    //   orgs: [],
+    //   users: [],
+    // },
+    receiverList: [],
+    // attendeeList: {
+    //   orgs: [],
+    //   users: [],
+    // },
+    attendeeList: [],
     hostList: {
       id: '',
       name: '',

@@ -43,6 +43,7 @@
 <script>
 import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
 import { initForm } from './options'
+import mixins from '../mixins'
 export default {
   props: {
     fn: {
@@ -50,6 +51,7 @@ export default {
       required: true,
     },
   },
+  mixins: [mixins],
   components: { IepContactMultipleUser },
   data () {
     return {
@@ -68,8 +70,6 @@ export default {
       this.fn().then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
       })
-    },
-    handleSubmit () {
     },
     handlePublish () {
     },

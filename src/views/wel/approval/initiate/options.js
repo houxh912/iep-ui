@@ -14,9 +14,8 @@ const columnsMap = [
     label: '申请人',
   },
   {
-    prop: 'status',
+    prop: 'applyType',
     label: '申请类型',
-    type: 'dict',
   },
   {
     prop: 'applyStartTime',

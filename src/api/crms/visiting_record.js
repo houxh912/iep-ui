@@ -1,7 +1,9 @@
 import request from '@/router/axios'
 
 const visitUrl = '/crm/visitingRecord'
-// 拜访记录查询
+const visitLog = '/crm/meeting'
+
+// 联系记录查询
 export function fetchVisitList (params) {
   return request({
     url: `${visitUrl}/page`,
@@ -9,7 +11,7 @@ export function fetchVisitList (params) {
     params: params,
   })
 }
-// 拜访记录-编辑
+// 联系记录-编辑
 export function updateVisit (obj) {
   return request({
     url: `${visitUrl}/update`,
@@ -17,16 +19,15 @@ export function updateVisit (obj) {
     data: obj,
   })
 }
-// 拜访记录-新增
+// 联系记录-新增
 export function createVisit (obj) {
   return request({
-    url: `${visitUrl}/create
-    `,
+    url: `${visitUrl}/create`,
     method: 'post',
     data: obj,
   })
 }
-// 拜访记录-删除
+// 联系记录-删除
 export function deleteVisit (contactId) {
   return request({
     url: `${visitUrl}/delete/batch/${contactId}`,
@@ -34,7 +35,7 @@ export function deleteVisit (contactId) {
     data: contactId,
   })
 }
-//拜访记录通过id查询
+//联系记录通过id查询
 export function contactById (contactId) {
   return request({
     url: `${visitUrl}/delete/batch/${contactId}`,
@@ -42,6 +43,7 @@ export function contactById (contactId) {
     data: [contactId],
   })
 }
+// 删除
 export function contactBatchById (ids) {
   return request({
     url: `${visitUrl}delete/batch/${ids}`,
@@ -49,3 +51,40 @@ export function contactBatchById (ids) {
     data: [ids],
   })
 }
+// 拜访日志-查询
+export function fetchVisitLog (params) {
+  return request({
+    url: `${visitLog}/page`,
+    method: 'get',
+    params: params,
+  })
+}
+// 拜访日志-新增
+export function createVisitLog (obj) {
+  return request({
+    url: `${visitLog}/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+// 拜访日志-编辑
+export function updateVisitLog (obj) {
+  return request({
+    url: `${visitLog}/update`,
+    method: 'post',
+    data: obj,
+  })
+}
+//拜访日志-删除
+export function deleteVisitLog (contactId) {
+  return request({
+    url: `${visitLog}/delete/batch/${contactId}`,
+    method: 'post',
+    data: contactId,
+  })
+}
+
+
+
+
+

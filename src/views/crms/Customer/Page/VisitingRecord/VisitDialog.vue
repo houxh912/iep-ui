@@ -8,7 +8,7 @@
         </el-radio-group>
       </el-form-item> -->
       <el-form-item label="拜访对象：" prop="visitingUserId">
-        <iep-tags v-model="formData.visitingUserId"></iep-tags>
+        <iep-tag v-model="formData.visitingUserId"></iep-tag>
       </el-form-item>
       <el-form-item :label="`${formData.type == 0 ? '会议主题':'会议标题'}：`" prop="title">
         <el-input v-model="formData.title"></el-input>
@@ -43,11 +43,11 @@
           <el-radio v-for="(item, value) in dictsMap.visitType" :key="value" :label="+value">{{item}}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <!-- <el-form-item label="" prop="visitingAddress" v-if="formData.visitType == 0 && formData.type == 1">
+      <el-form-item label="" prop="visitingAddress" v-if="formData.visitType == 0 && formData.type == 1">
         <el-input v-model="formData.visitingAddress" placeholder="请输入面访具体地址"></el-input>
-      </el-form-item> -->
+      </el-form-item>
       <el-form-item label="会议标签：" prop="tagKeyWords">
-        <iep-tags v-model="formData.tagKeyWords"></iep-tags>
+        <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-form-item label="主持人：" prop="">
         <iep-contact-select v-model="formData.hostList"></iep-contact-select>
@@ -77,12 +77,12 @@
 </template>
 <script>
 import { initFormData, dictsMap, rules } from './options'
-import IepTags from '@/components/IepTags/input'
+// import IepTags from '@/components/IepTags/input'
 import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepContactSelect from '@/components/IepContact/Select'
 
 export default {
-  components: { IepTags, IepContactMultiple, IepContactSelect },
+  components: { IepContactMultiple, IepContactSelect },
   data () {
     return {
       dictsMap,
@@ -91,13 +91,13 @@ export default {
       methodName: '创建',
       formData: initFormData(),
       rules,
-      backOption: {
-        isBack: true,
-        backPath: null,
-        backFunction: () => {
-          this.$emit('load-page', true)
-        },
-      },
+      // backOption: {
+      //   isBack: true,
+      //   backPath: null,
+      //   backFunction: () => {
+      //     this.$emit('load-page', true)
+      //   },
+      // },
     }
   },
   methods: {
@@ -105,6 +105,7 @@ export default {
       this.$emit('load-page')
     },
     submitForm (formName) {
+
       delete this.formData.createTime
       delete this.formData.updateTime
       this.$refs[formName].validate((valid) => {
@@ -118,6 +119,7 @@ export default {
             orgIds: this.formData.receiverList.orgs.map(m => m.id),
             userIds: this.formData.receiverList.users.map(m => m.id),
           }
+          console.log('sss')
           this.formRequestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',
@@ -137,14 +139,14 @@ export default {
       this.dialogShow = false
       this.loadPage('load-page')
     },
-    typeChange (val) {
-      if (val == 6) {
-        this.$set(this.formData, 'type', 1)
-      } else {
-        this.$set(this.formData, 'type', 0)
-      }
-    },
-    visitTypeChange () { },
+    // typeChange (val) {
+    //   if (val == 6) {
+    //     this.$set(this.formData, 'type', 1)
+    //   } else {
+    //     this.$set(this.formData, 'type', 0)
+    //   }
+    // },
+    // visitTypeChange () { },
   },
 }
 </script>

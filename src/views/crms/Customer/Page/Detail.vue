@@ -25,7 +25,7 @@
           <scheme v-loading="activeTab !=='Scheme'" :record="record"></scheme>
         </template>
         <template v-if="activeTab ==='Agreement'" v-slot:Agreement>
-          <agreement v-loading="activeTab !=='Agreement'"></agreement>
+          <agreement v-loading="activeTab !=='Agreement'" :record="record"></agreement>
         </template>
         <template v-if="activeTab ==='Information'" v-slot:Information>
           <information v-loading="activeTab !=='Information'"></information>

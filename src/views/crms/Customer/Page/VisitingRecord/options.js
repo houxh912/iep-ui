@@ -37,8 +37,8 @@ export const dictsMap = {
 
 export const initFormData = () => {
   return {
-    type: 0, // 0 是会议纪要，1 是拜访记录
-    meetingType: -1,
+    type: 1, // 0 是会议纪要，1 是拜访记录
+    meetingType: 6,
     title: '',
     meetingContent: '',
     meetingCon: '',

@@ -21,7 +21,7 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="主题">
+          <el-table-column label="主题" min-width="400">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
@@ -42,21 +42,22 @@ export default {
       type: '1',
       tabList: [
         {
-          label: '全部',
-          value: '1',
-        },
-        {
-          label: '未读',
+          label: '我接收的',
           value: '2',
         },
+
         {
           label: '我发出的',
-          value: '3',
+          value: '1',
         },
-        {
-          label: '我标记的',
-          value: '4',
-        },
+        // {
+        //   label: '未读',
+        //   value: '3',
+        // },
+        // {
+        //   label: '我标记的',
+        //   value: '4',
+        // },
       ],
       columnsMap,
     }

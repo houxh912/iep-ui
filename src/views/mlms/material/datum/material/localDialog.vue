@@ -39,7 +39,7 @@
       <el-form-item label="标签" prop="tagKeyWords">
         <iep-tags v-model="formData.tagKeyWords"></iep-tags>
       </el-form-item>
-      <el-form-item label="附件" prop="attachFileList">
+      <el-form-item label="附件">
         <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload>
       </el-form-item>
 

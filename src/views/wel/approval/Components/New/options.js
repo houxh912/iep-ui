@@ -20,7 +20,7 @@ const initForm = () => {
 		reason: '',//申请理由
 		annex: '',//附件
 		approver: '',//审批人
-		copyPerson: '',//抄送人
+		cc: '',//抄送人
 	}
 }
 
@@ -42,6 +42,8 @@ const initSelfForm = () => {
 const formToDto = (row, type) => {
 	const newForm = { ...row, type }
 	newForm.annex = ''
+	newForm.approver = newForm.approver.map(m => m.id)
+	newForm.cc = newForm.cc.map(m => m.id)
 	return newForm
 }
 

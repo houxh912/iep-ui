@@ -81,7 +81,6 @@ export default {
     handleEdit (row) {
       this.pageState = 'dialog'
       getDataById(row.id).then(({data}) => {
-        data.data.signDeptOrgList = [data.data.signDeptOrgId] // 签署部门
         data.data.underTakeDeptList = data.data.underTakeDeptName // 承接部门
         if (data.data.contractType == 0) {
           data.data.directorList = {

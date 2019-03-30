@@ -38,7 +38,7 @@ export const initFormData = () => {
     companyOrgId: '',
     signCompanyOrgId: '',
     signDeptOrgId: '', // 签署部门
-    signDeptOrgList: [],
+    signDeptOrgName: {},
     underTakeDeptId: [], // 承接部门
     underTakeDeptList: [],
     directorId: '', // 市场经理-id
@@ -85,7 +85,7 @@ export const rules = {
   signDeptOrgId: [
     { required: true, message: '必填', trigger: 'change' },
   ],
-  signDeptOrgList: [
+  signDeptOrgName: [
     { required: true, message: '必填', trigger: 'change' },
   ],
   underTakeDeptId: [

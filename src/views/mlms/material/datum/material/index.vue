@@ -138,6 +138,7 @@ export default {
     localCreate () {
       this.pageState = 'local'
       this.$nextTick(() => {
+        this.$refs[this.pageState].methodName = '新建'
         this.$refs['local'].formRequestFn = createData
       })
     },
@@ -145,6 +146,7 @@ export default {
     newlyCreate () {
       this.pageState = 'newly'
       this.$nextTick(() => {
+        this.$refs[this.pageState].methodName = '新建'
         this.$refs['newly'].formRequestFn = createData
       })
     },

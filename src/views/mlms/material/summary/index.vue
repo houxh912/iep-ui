@@ -133,11 +133,13 @@ export default {
         this.$nextTick(() => {
           data.data.receiverList = {
             orgs: data.data.receiver.orgs ? data.data.receiver.orgs: [],
-            users: data.data.receiver.user ? data.data.receiver.user: [],
+            users: data.data.receiver.users ? data.data.receiver.users: [],
+            unions: [],
           }
           data.data.attendeeList = {
             orgs: data.data.attendee.orgs ? data.data.attendee.orgs: [],
-            users: data.data.attendee.user ? data.data.attendee.user: [],
+            users: data.data.attendee.users ? data.data.attendee.users: [],
+            unions: [],
           }
           data.data.hostList = data.data.host[0]
           this.$refs['mainDialog'].formData = {...data.data}
@@ -148,10 +150,12 @@ export default {
       })
     },
     handleDetail (row) {
-      this.pageState = 'detail'
-      getDataById(row.id).then(({data}) => {
-        this.$refs['detailPage'].formData = data.data
-      })
+      // this.pageState = 'detail'
+      // getDataById(row.id).then(({data}) => {
+      //   this.$refs['detailPage'].formData = data.data
+      // })
+      // 切换详情查看的方式，使用路由进入到页面中来
+      this.$router.push(`/mlms_spa/summary/${row.id}`)
     },
     // 批量删除
     handleDeleteByIds () {

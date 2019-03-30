@@ -46,10 +46,12 @@ export const initFormData = () => {
     receiverList: {
       orgs: [],
       users: [],
+      unions: [],
     },
     attendeeList: {
       orgs: [],
       users: [],
+      unions: [],
     },
     hostList: {
       id: '',

@@ -1,20 +1,6 @@
 <template>
-  <div class="detail-page">
-
-    <div class="head">
-      <div class="left">
-        <div class="title">
-          2019年一号工程启动会
-        </div>
-        <div class="tag">
-          <el-tag type="info" v-for="(item, index) in formData.list" :key="index">{{item.name}}</el-tag>
-        </div>
-      </div>
-      <div class="right">
-        <iep-button @click="back">返回</iep-button>
-      </div>
-    </div>
-
+  <basic-container class="detail-page">
+    <page-header :title="formData.title" :backOption="backOption"></page-header>
     <div class="detail">
       <div class="content">
         <h3 class="title">会议内容</h3>
@@ -65,10 +51,10 @@
         </div>
       </div>
     </div>
-
-  </div>
+  </basic-container>
 </template>
 <script>
+import { getDataById } from '@/api/mlms/material/summary'
 
 export default {
   data () {
@@ -79,43 +65,28 @@ export default {
           { id: 2, name: '营商环境' },
         ],
       },
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: () => {
+          this.$router.go(-1)
+        },
+      },
     }
   },
   methods: {
-    back () {
-      this.$emit('backPage', true)
-    },
     submit () {},
+  },
+  created () {
+    getDataById(this.$route.params.id).then(({data}) => {
+      this.formData = data.data
+    })
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .detail-page {
-  padding: 20px;
-  background-color: #fff;
-  .head {
-    display: flex;
-    margin-bottom: 30px;
-    .left {
-      flex: 1;
-      .title {
-        height: 40px;
-        line-height: 40px;
-        font-size: 20px;
-        font-weight: 700;
-        margin-bottom: 10px;
-      }
-      .tag {
-        .el-tag {
-          margin-right: 10px;
-        }
-      }
-    }
-    .right {
-      width: 50px;
-    }
-  }
   .detail {
     border-bottom: 1px solid #eee;
     margin-bottom: 30px;

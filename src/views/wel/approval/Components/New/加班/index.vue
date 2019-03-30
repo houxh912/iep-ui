@@ -14,8 +14,8 @@
         <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期"></iep-date-picker>
       </el-form-item>
       <el-form-item label="加班时长：" class="form-half">
-        <iep-input v-model="form.duration"></iep-input>
-        <iep-input-number v-model="form.duration"></iep-input-number>
+        <el-input v-model="form.duration"></el-input>
+        <!-- <iep-input-number v-model="form.duration"></iep-input-number> -->
       </el-form-item>
       <el-form-item label="申请理由：">
         <el-input type="textarea" v-model="form.reason"></el-input>

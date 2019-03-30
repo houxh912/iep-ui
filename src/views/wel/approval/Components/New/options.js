@@ -40,7 +40,7 @@ const initSelfForm = () => {
 }
 
 const formToDto = (row, type) => {
-	const newForm = { ...this.row, type }
+	const newForm = { ...row, type }
 	newForm.annex = ''
 	return newForm
 }

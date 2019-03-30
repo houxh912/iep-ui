@@ -17,7 +17,7 @@
         <el-input v-model="form.busTripDistrict"></el-input>
       </el-form-item>
       <el-form-item label="出差时长：" class="form-half">
-        <iep-input v-model="form.duration"></iep-input>
+        <el-input v-model="form.duration"></el-input>
         <!-- <iep-input-number v-model="form.duration"></iep-input-number> -->
       </el-form-item>
       <el-form-item label="申请理由：">

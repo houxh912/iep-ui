@@ -114,7 +114,6 @@ export default {
       for (i = 0; result == null && i < this.approvalTree.length; i++) {
         result = searchTree(this.approvalTree[i], name)
       }
-      console.log(result)
       result.checked = true
     },
     initSelect () {

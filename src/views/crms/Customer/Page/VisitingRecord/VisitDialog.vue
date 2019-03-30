@@ -53,10 +53,12 @@
         <iep-contact-select v-model="formData.hostList"></iep-contact-select>
       </el-form-item>
       <el-form-item label="参会人：" prop="">
-        <iep-contact-multiple v-model="formData.attendeeList"></iep-contact-multiple>
+        <!-- <iep-contact-multiple v-model="formData.attendeeList"></iep-contact-multiple> -->
+        <iep-contact-multiple-user v-model="formData.attendeeList"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item label="抄送人：" prop="">
-        <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
+        <!-- <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple> -->
+        <iep-contact-multiple-user v-model="formData.receiverList"></iep-contact-multiple-user>
       </el-form-item>
       <!-- <el-form-item label="接收人" prop="">
         <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
@@ -67,7 +69,6 @@
       <el-form-item label="关联项目" prop="xiangmu">
         <iep-button><i class="el-icon-plus"></i></iep-button>
       </el-form-item> -->
-
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
@@ -78,11 +79,10 @@
 <script>
 import { initFormData, dictsMap, rules } from './options'
 // import IepTags from '@/components/IepTags/input'
-import IepContactMultiple from '@/components/IepContact/Multiple'
+// import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepContactSelect from '@/components/IepContact/Select'
-
 export default {
-  components: { IepContactMultiple, IepContactSelect },
+  components: { IepContactSelect },
   data () {
     return {
       dictsMap,
@@ -105,20 +105,19 @@ export default {
       this.$emit('load-page')
     },
     submitForm (formName) {
-
       delete this.formData.createTime
       delete this.formData.updateTime
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formData.hostId = this.formData.hostList.id
-          this.formData.attendee = {
-            orgIds: this.formData.attendeeList.orgs.map(m => m.id),
-            userIds: this.formData.attendeeList.users.map(m => m.id),
-          }
-          this.formData.receiver = {
-            orgIds: this.formData.receiverList.orgs.map(m => m.id),
-            userIds: this.formData.receiverList.users.map(m => m.id),
-          }
+          // this.formData.hostId = this.formData.hostList.id
+          // this.formData.attendee = {
+          //   orgIds: this.formData.attendeeList.orgs.map(m => m.id),
+          //   userIds: this.formData.attendeeList.users.map(m => m.id),
+          // }
+          // this.formData.receiver = {
+          //   orgIds: this.formData.receiverList.orgs.map(m => m.id),
+          //   userIds: this.formData.receiverList.users.map(m => m.id),
+          // }
           console.log('sss')
           this.formRequestFn(this.formData).then(() => {
             this.$notify({

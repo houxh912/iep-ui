@@ -11,7 +11,8 @@
         <iep-dict-select v-model="form.leaveType" dict-name="hrms_levae_type"></iep-dict-select>
       </el-form-item>
       <el-form-item label="请假时长：" class="form-half">
-        <iep-input-number v-model="form.duration"></iep-input-number>
+        <!-- <iep-input-number v-model="form.duration"></iep-input-number> -->
+        <el-input v-model="form.duration"></el-input>
       </el-form-item>
       <el-form-item label="开始时间：" class="form-half">
         <iep-date-picker v-model="form.startTime" type="date" placeholder="选择日期"></iep-date-picker>

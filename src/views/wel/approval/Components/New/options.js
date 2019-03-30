@@ -1,4 +1,4 @@
-import { mergeByFirst } from '@/util/util'
+// import { mergeByFirst } from '@/util/util'
 
 const initForm = () => {
 	return {
@@ -39,8 +39,9 @@ const initSelfForm = () => {
 	}
 }
 
-const formToDto = (row) => {
-	const newForm = mergeByFirst(initForm(), row)
+const formToDto = (row, type) => {
+	const newForm = { ...this.row, type }
+	newForm.annex = ''
 	return newForm
 }
 

@@ -1,5 +1,6 @@
 
 import { postApproval } from '@/api/wel/administrative_approval'
+import { formToDto } from './options'
 export default {
   props: {
     type: {
@@ -8,7 +9,7 @@ export default {
   },
   methods: {
     handleSubmit () {
-      postApproval({ ...this.form, type: this.type }).then(() => {
+      postApproval(formToDto(this.form, this.type)).then(() => {
         this.$router.push({
           path: this.$route.query.redirect,
         })

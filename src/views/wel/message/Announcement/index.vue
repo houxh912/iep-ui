@@ -66,6 +66,15 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDetail (row) {
+      this.$router.push({
+        path: '/ims_spa/announcement_detail',
+        query: {
+          id: row.id,
+          redirect: this.$route.fullPath,
+        },
+      })
+    },
     //tab切换菜单
     changeType () {
       this.searchPage({ type: this.type })

@@ -14,12 +14,10 @@
   </div>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
-import IepTabs from '@/components/IepCommon/Tabs'
 import AssessManagement from './AssessManagement/'
 import AssessModule from './AssessModule/'
 export default {
-  components: { PageHeader, IepTabs, AssessManagement, AssessModule },
+  components: { AssessManagement, AssessModule },
   data () {
     return {
       replaceText: (data) => `（共有${data[0]}条绩效考核记录）`,

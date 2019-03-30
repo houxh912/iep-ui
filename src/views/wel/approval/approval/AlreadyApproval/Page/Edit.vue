@@ -160,9 +160,7 @@
   </div>
 </template>
 <script>
-import FooterToolBar from '@/components/FooterToolbar'
 export default {
-  components: { FooterToolBar },
   data () {
     return {
       activeNames: ['1', '2', '3', '4', '5'],

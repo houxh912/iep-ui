@@ -136,7 +136,6 @@
 import { mapGetters } from 'vuex'
 import { mergeByFirst } from '@/util/util'
 import { initForm } from '../options'
-import PageHeader from '@/components/Page/Header'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 export default {
   props: {
@@ -145,7 +144,6 @@ export default {
       default: () => { },
     },
   },
-  components: { PageHeader },
   data () {
     return {
       backOption: {

@@ -1,14 +1,19 @@
 <template>
   <div class="title-wrapper">
-    <div class="left">
-      <span class="page-title" :style="{fontSize: `${titleSize}px`,fontWeight: titleWeight}">{{title}}</span>
-      <span class="page-desc">{{desc}}</span>
+    <div class="title-col">
+      <div class="left">
+        <span class="page-title" :style="{fontSize: `${titleSize}px`,fontWeight: titleWeight}">{{title}}</span>
+        <span class="page-desc">{{desc}}</span>
+      </div>
+      <div class="right">
+        <operation-wrapper>
+          <slot></slot>
+          <iep-button v-if="backOption.isBack" @click="handleBack">返回</iep-button>
+        </operation-wrapper>
+      </div>
     </div>
-    <div class="right">
-      <operation-wrapper>
-        <slot></slot>
-        <iep-button v-if="backOption.isBack" @click="handleBack">返回</iep-button>
-      </operation-wrapper>
+    <div class="sub-col">
+      <slot name="sub"></slot>
     </div>
   </div>
 </template>
@@ -74,24 +79,27 @@ export default {
 </script>
 <style lang="scss" scoped>
 .title-wrapper {
-  display: flex;
-  justify-content: space-between;
   margin-bottom: 20px;
-  .page-title {
-    font-size: 20px;
-  }
-  .page-desc {
-    font-size: 14px;
-  }
-  .el-button--default.is-plain:nth-child(1) {
-    background: #fff;
-    border: 1px solid #dcdfe6;
-    border-color: #dcdfe6;
-    color: #606266;
-    &:hover {
-      border-color: #ea8d03;
-      background-color: #fff7ec;
-      color: #ea8d03;
+  .title-col {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    .page-title {
+      font-size: 20px;
+    }
+    .page-desc {
+      font-size: 14px;
+    }
+    .el-button--default.is-plain:nth-child(1) {
+      background: #fff;
+      border: 1px solid #dcdfe6;
+      border-color: #dcdfe6;
+      color: #606266;
+      &:hover {
+        border-color: #ea8d03;
+        background-color: #fff7ec;
+        color: #ea8d03;
+      }
     }
   }
 }

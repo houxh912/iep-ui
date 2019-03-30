@@ -69,7 +69,7 @@
         <el-col :span=12 v-if="formData.contractType == 1">
           <el-form-item label="市场经理：" prop="directorId">
             <el-input v-model="formData.directorId" v-show="false"></el-input>
-            <el-input v-model="formData.directorName" disabled></el-input>
+            <el-input v-model="formData.directorRealName" disabled></el-input>
           </el-form-item>
         </el-col>
         <el-col :span=12 v-else>
@@ -166,6 +166,7 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
+      console.log('formData: ', this.formData)
       let signDeptOrgList = this.formData.signDeptOrgList
       this.formData.signDeptOrgId = signDeptOrgList[signDeptOrgList.length - 1] // 签署部门
       let underTakeDeptList = this.formData.underTakeDeptList

@@ -15,7 +15,7 @@ export default {
     backPage (state) {
       this.pageState = 'list'
       if (state) {
-        this.$refs['table'].loadPage({})
+        this.$refs['table'].loadPage({type: this.type})
       }
     },
     multipleSelect (val, list) {

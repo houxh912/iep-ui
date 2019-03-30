@@ -169,3 +169,28 @@ export const shareType = {
     name: '荣誉资质',
   },
 }
+
+// 批示
+export function initInstrForm () {
+  return {
+    attachmentIds: [],
+    content: '',
+    emailId: 0,
+    materialIds: [],
+    projectIds: [],
+    receiverIds: [],
+    receiverList: {
+      unions: [],
+      orgs: [],
+      users: [],
+    },
+    reportIds: [],
+    status: 1,
+    subject: '',
+    summaryIds: [],
+    summaryList: [],
+    tagKeyWords: [],
+    type: 1, // 类型为分享
+    kind: 0,
+  }
+}

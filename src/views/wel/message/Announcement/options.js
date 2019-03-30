@@ -12,6 +12,7 @@ const columnsMap = [
 	{
 		prop: 'time',
 		label: '时间',
+		width: 200,
 	},
 ]
 

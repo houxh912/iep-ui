@@ -118,11 +118,9 @@ import { initForm, rules } from '../options'
 import { mergeByFirst } from '@/util/util'
 // import ProductDialog from './Components/ProductDialog'
 // import ProgramDialog from './Components/ProgramDialog'
-import FooterToolBar from '@/components/FooterToolbar'
 import { getCustomerById } from '@/api/crms/customer'
 
 export default {
-  components: { FooterToolBar },
   props: {
     record: {
       type: Object,

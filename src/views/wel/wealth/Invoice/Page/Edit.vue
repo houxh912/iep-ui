@@ -20,14 +20,11 @@
   </div>
 </template>
 <script>
-import FooterToolBar from '@/components/FooterToolbar'
-import PageHeader from '@/components/Page/Header'
-import IepTabs from '@/components/IepCommon/Tabs'
 import Project from './Project/'
 import Daily from './Daily/'
 import Other from './Other/'
 export default {
-  components: { PageHeader, IepTabs, FooterToolBar, Project, Daily, Other },
+  components: { Project, Daily, Other },
   data () {
     return {
       backOption: {

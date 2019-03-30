@@ -233,7 +233,6 @@
   </div>
 </template>
 <script>
-import FooterToolBar from '@/components/FooterToolbar'
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 import { mergeByFirst } from '@/util/util'
 import { initForm, formToDto } from '../options'
@@ -246,7 +245,6 @@ export default {
       default: () => { },
     },
   },
-  components: { FooterToolBar },
   data () {
     return {
       activeNames: ['1', '2', '3', '4', '5'],

@@ -114,13 +114,11 @@
 import { mapState } from 'vuex'
 import { mergeByFirst } from '@/util/util'
 import { initForm, rules } from '../options'
-import FooterToolBar from '@/components/FooterToolbar'
 // import iepTags from '@/components/IepTags'
 import { getCustomerById } from '@/api/crms/customer'
 
 export default {
   name: 'edit',
-  components: { FooterToolBar },
   props: {
     record: {
       type: Object,

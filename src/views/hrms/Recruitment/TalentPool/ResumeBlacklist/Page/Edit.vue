@@ -101,7 +101,6 @@
 </template>
 <script>
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
-import FooterToolBar from '@/components/FooterToolbar'
 import { initForm, formToDto, workExpColumns, studyColumns, trainingColumns, certificateColumns } from '../options'
 import { mergeByFirst } from '@/util/util'
 export default {
@@ -111,7 +110,6 @@ export default {
       default: () => { },
     },
   },
-  components: { FooterToolBar },
   data () {
     return {
       certificateColumns,

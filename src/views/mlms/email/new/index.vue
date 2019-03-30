@@ -58,8 +58,6 @@
 </template>
 
 <script>
-import PageHeader from '@/components/Page/Header'
-// import IepEditor from '@/components/IepEditor/'
 import MainDialog from './mainDialog'
 import IepTag from '@/components/IepTags/input'
 import { createEmail, updateEmail } from '@/api/mlms/email/index'
@@ -95,7 +93,7 @@ const initFormData = () => {
 }
 
 export default {
-  components: { PageHeader, MainDialog, IepTag, IepContactMultiple },
+  components: { MainDialog, IepTag, IepContactMultiple },
   data () {
     return {
       formData: initFormData(),
@@ -166,7 +164,7 @@ export default {
       this.$refs['relation'].loadData()
     },
     // 选择标签
-    selectTags () {},
+    selectTags () { },
     // 关联项
     relativeSubmit (val) {
       this.formData.materialIds = val.materialIds.map(m => m.id)

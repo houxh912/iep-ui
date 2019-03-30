@@ -40,9 +40,7 @@
   </basic-container>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
 export default {
-  components: { PageHeader },
   methods: {
     handleGoBack () {
       this.$emit('onGoBack')

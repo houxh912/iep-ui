@@ -1,6 +1,6 @@
 <template>
   <div class="multiple-box">
-    <el-tag type="success" closable v-for="tag in users" :key="tag.id" @close="handleClose(tag, 'users')">{{tag.name}}</el-tag>
+    <el-tag type="success" closable v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
     <el-popover placement="right" width="300" trigger="click" v-model="dialogShow">
       <el-tree ref="tree" :props="props" :load="loadNode" :show-checkbox="showCheckbox" :expand-on-click-node="true" :filter-node-method="filterNodeMethod" lazy>
         <span class="custom-tree-node" slot-scope="{ node, data }">
@@ -19,7 +19,7 @@
 <script>
 import { getUnionList, getOrgListById, getUserListById } from '@/api/admin/contacts'
 export default {
-  name: 'IepContactMultiple',
+  name: 'IepContactMultipleUser',
   props: {
     showCheckbox: {
       type: Boolean,
@@ -41,12 +41,12 @@ export default {
   computed: {
     users: {
       get: function () { return this.value },
-      set: function (value) { this.value = value },
+      set: function (value) { this.$emit('input', value) },
     },
     userIds: function () { return this.value.map(m => m.id) },
   },
   watch: {
-    group: {
+    users: {
       handler: function (newVal) {
         this.$refs.tree.filter(newVal)
       },
@@ -54,9 +54,9 @@ export default {
     },
   },
   methods: {
-    handleClose (tag, arr) {
-      const newData = this.group[arr].filter(item => item.id !== tag.id)
-      this.group[arr] = newData
+    handleClose (tag) {
+      const newData = this.users.filter(item => item.id !== tag.id)
+      this.users = newData
     },
     filterNodeMethod (value, data, node) {
       if (node.level === 3 && this.userIds.includes(data.value)) {

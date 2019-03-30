@@ -143,7 +143,7 @@ export default {
               message: `拒绝成功，${res.data.msg}`,
             })
           }
-          this.load()
+          this.loadPage()
         })
       })
     },

@@ -58,7 +58,9 @@ export default {
               message: '组织切换成功!',
               type: 'success',
             })
-            this.loadPage()
+            this.$router.push({
+              path: '/',
+            })
           }, 1000)
         })
       })

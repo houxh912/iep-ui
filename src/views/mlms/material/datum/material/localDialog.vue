@@ -66,6 +66,7 @@ export default {
   data () {
     return {
       dialogShow: false,
+      methodName: '新增',
       formRequestFn: () => { },
       formData: initLocalForm(),
       rules: rules,

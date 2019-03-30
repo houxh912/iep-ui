@@ -110,6 +110,15 @@ export const rules = {
   visitingUserId: [
     { required: true, message: '必填', trigger: 'change' },
   ],
+  hostList: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  attendeeList: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  receiverList: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
 }
 
 export const shareRules = {

@@ -10,7 +10,10 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="拜访对象：" prop="visitingUserId" v-if="formData.type == 1">
-        <iep-tags v-model="formData.visitingUserId"></iep-tags>
+        <!-- <iep-tags v-model="formData.visitingUserId"></iep-tags> -->
+        <el-select v-model="formData.visitingUserId" placeholder="请选择" multiple >
+          <el-option v-for="item in clientList" :key="item.clientId" :label="item.clientName" :value="item.clientId"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item :label="`${formData.type == 0 ? '会议主题':'会议标题'}：`" prop="title">
         <el-input v-model="formData.title"></el-input>
@@ -42,22 +45,22 @@
       </el-row>
       <el-form-item label="拜访形式：" prop="visitType" v-if="formData.type == 1">
         <el-radio-group v-model="formData.visitType">
-          <el-radio v-for="(item, value) in dictsMap.visitType" :key="value" :label="+value">{{item}}</el-radio>
+          <el-radio v-for="(item, index) in dictGroup.mlms_visit_type" :key="index" :label="''+item.value">{{item.label}}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="" prop="visitingAddress" v-if="formData.visitType == 0 && formData.type == 1">
+      <el-form-item label="" prop="visitingAddress" v-if="formData.visitType == '1' && formData.type == 1">
         <el-input v-model="formData.visitingAddress" placeholder="请输入面访具体地址"></el-input>
       </el-form-item>
       <el-form-item label="会议标签：" prop="tagKeyWords">
         <iep-tags v-model="formData.tagKeyWords"></iep-tags>
       </el-form-item>
-      <el-form-item label="主持人：" prop="">
+      <el-form-item label="主持人：" prop="hostList">
         <iep-contact-select v-model="formData.hostList"></iep-contact-select>
       </el-form-item>
-      <el-form-item label="参会人：" prop="">
+      <el-form-item label="参会人：" prop="attendeeList">
         <iep-contact-multiple v-model="formData.attendeeList"></iep-contact-multiple>
       </el-form-item>
-      <el-form-item label="抄送人：" prop="">
+      <el-form-item label="抄送人：" prop="receiverList">
         <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
       </el-form-item>
       <!-- <el-form-item label="接收人" prop="">
@@ -84,6 +87,7 @@ import FooterToolbar from '@/components/FooterToolbar/'
 import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepContactSelect from '@/components/IepContact/Select'
 import { mapState } from 'vuex'
+import { getCustomer } from '@/api/mlms/material/datum/contract'
 
 export default {
   components: { IepTags, FooterToolbar, IepContactMultiple, IepContactSelect },
@@ -95,6 +99,7 @@ export default {
       methodName: '创建',
       formData: initFormData(),
       rules,
+      clientList: [],
       backOption: {
         isBack: true,
         backPath: null,
@@ -154,6 +159,12 @@ export default {
       }
     },
     visitTypeChange () {},
+  },
+  created () {
+    // 获取客户的数据
+    getCustomer({type: 1}).then(({data}) => {
+      this.clientList = data.data.records
+    })
   },
 }
 </script>

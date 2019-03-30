@@ -38,15 +38,16 @@ export const initFormData = () => {
     tagKeyWords: [],
     signTime: '',
     finishTime: '',
-    companyOrgId: '',
-    signCompanyOrgId: '',
-    signDeptOrgId: '',
-    underTakeDeptId: '',
-    directorId: '',
+    companyOrgId: { id: '', name: '' },//委托单位
+    signCompanyOrgId: { id: '', name: '' },//签属单位
+    signDeptOrgId: { id: '', name: '' },//签属部门
+    underTakeDeptId: { id: '', name: '' },//承接部门
+    directorId: { id: '', name: '' },//市场经理
     contractAmount: '',
     contractLevel: '',
     contractStatus: '',
     deposit: '',
+    fileList: [],
   }
 }
 

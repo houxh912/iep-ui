@@ -8,7 +8,7 @@
         </el-radio-group>
       </el-form-item> -->
       <el-form-item label="拜访对象：" prop="visitingUserId">
-        <iep-tags v-model="formData.visitingUserId"></iep-tags>
+        <iep-tag v-model="formData.visitingUserId"></iep-tag>
       </el-form-item>
       <el-form-item :label="`${formData.type == 0 ? '会议主题':'会议标题'}：`" prop="title">
         <el-input v-model="formData.title"></el-input>
@@ -47,7 +47,7 @@
         <el-input v-model="formData.visitingAddress" placeholder="请输入面访具体地址"></el-input>
       </el-form-item>
       <el-form-item label="会议标签：" prop="tagKeyWords">
-        <iep-tags v-model="formData.tagKeyWords"></iep-tags>
+        <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-form-item label="主持人：" prop="">
         <iep-contact-select v-model="formData.hostList"></iep-contact-select>
@@ -77,12 +77,12 @@
 </template>
 <script>
 import { initFormData, dictsMap, rules } from './options'
-import IepTags from '@/components/IepTags/input'
+// import IepTags from '@/components/IepTags/input'
 import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepContactSelect from '@/components/IepContact/Select'
 
 export default {
-  components: { IepTags, IepContactMultiple, IepContactSelect },
+  components: { IepContactMultiple, IepContactSelect },
   data () {
     return {
       dictsMap,

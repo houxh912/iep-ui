@@ -146,7 +146,6 @@
 </template>
 <script>
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
-import FooterToolBar from '@/components/FooterToolbar'
 import { initForm, formToDto, workExpColumns, studyColumns, trainingColumns, certificateColumns } from '../options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 import { mergeByFirst } from '@/util/util'
@@ -157,7 +156,7 @@ export default {
       default: () => { },
     },
   },
-  components: { FooterToolBar, InlineFormTable },
+  components: { InlineFormTable },
   data () {
     return {
       certificateColumns,

@@ -33,11 +33,9 @@
 </template>
 <script>
 import { getAnnouncementPage } from '@/api/ims/announcement'
-import IepTabs from '@/components/IepCommon/Tabs'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options'
 export default {
-  components: { IepTabs },
   mixins: [mixins],
   data () {
     return {

@@ -74,7 +74,6 @@
 <script>
 import { mapState } from 'vuex'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
-import FooterToolBar from '@/components/FooterToolbar'
 import { initForm } from '../options'
 import { mergeByFirst } from '@/util/util'
 export default {
@@ -84,7 +83,6 @@ export default {
       default: () => { },
     },
   },
-  components: { FooterToolBar },
   data () {
     return {
       sum1: '50,000,00',

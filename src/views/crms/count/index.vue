@@ -15,12 +15,11 @@
 </template>
 
 <script>
-import IepTabs from '@/components/IepCommon/Tabs'
 import MyCustomTab from './MyCustom/'
 import AllCustomTab from './AllCustom/'
 export default {
   name: 'count',
-  components: { MyCustomTab, AllCustomTab, IepTabs },
+  components: { MyCustomTab, AllCustomTab },
   data () {
     return {
       tabName: 'MyCustomTab',

@@ -14,12 +14,10 @@
   </div>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
-import IepTabs from '@/components/IepCommon/Tabs'
 import ExaminApproval from './ExaminApproval/'
 import AlreadyApproval from './AlreadyApproval/'
 export default {
-  components: { PageHeader, IepTabs, ExaminApproval, AlreadyApproval },
+  components: { ExaminApproval, AlreadyApproval },
   data () {
     return {
       tabList: [{

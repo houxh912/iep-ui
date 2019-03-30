@@ -20,14 +20,12 @@
   </div>
 </template>
 <script>
-import PageHeader from '@/components/Page/Header'
-import IepTabs from '@/components/IepCommon/Tabs'
 import Entire from './Entire/'
 import Unread from './Unread/'
 import SendOut from './SendOut/'
 import MarkIt from './MarkIt/'
 export default {
-  components: { PageHeader, IepTabs, Entire, Unread, SendOut, MarkIt },
+  components: { Entire, Unread, SendOut, MarkIt },
   data () {
     return {
       tabList: [

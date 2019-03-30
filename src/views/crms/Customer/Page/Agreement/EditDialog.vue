@@ -124,7 +124,6 @@
 
         </el-col>
       </el-row>
-      <demo></demo>
     </el-form>
     <footer-toolbar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
@@ -136,9 +135,8 @@
 import { initFormData, rules, deptList } from './options'
 import FooterToolbar from '@/components/FooterToolbar/'
 import { mapState } from 'vuex'
-import Demo from '@/components/demo/'
 export default {
-  components: { FooterToolbar, Demo },
+  components: { FooterToolbar },
   data () {
     return {
       dialogShow: false,

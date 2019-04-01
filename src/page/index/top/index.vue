@@ -41,7 +41,7 @@
           <el-dropdown-item @click.native="handleOrg(orgText.type)">
             {{orgText.tipText}}
           </el-dropdown-item>
-          <el-dropdown-item @click.native="open('/info/index')">
+          <el-dropdown-item @click.native="open('/wel/info')">
             个人信息
           </el-dropdown-item>
           <el-dropdown-item @click.native="handleAbout">

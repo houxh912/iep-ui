@@ -270,7 +270,7 @@ export default {
           this.handleGoBack()
         } else {
           this.$message({
-            message: '修改失败',
+            message: data.msg,
             type: 'error',
           })
         }

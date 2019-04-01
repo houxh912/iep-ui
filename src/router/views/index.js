@@ -13,42 +13,6 @@ export default [
     ],
   },
   {
-    path: '/wel',
-    component: Layout,
-    redirect: '/wel/index',
-    children: [
-      {
-        path: 'index',
-        name: '后台首页',
-        component: () => import('@/views/wel/index/'),
-      },
-    ],
-  },
-  {
-    path: '/org',
-    component: Layout,
-    redirect: '/org/select',
-    children: [
-      {
-        path: 'select',
-        name: '选择组织',
-        component: () => import('@/page/org/select'),
-      },
-    ],
-  },
-  {
-    path: '/info',
-    component: Layout,
-    redirect: '/info/index',
-    children: [
-      {
-        path: 'index',
-        name: '个人信息',
-        component: () => import('@/views/admin/user/info'),
-      },
-    ],
-  },
-  {
     path: '/activti',
     component: Layout,
     redirect: '/activti/detail',

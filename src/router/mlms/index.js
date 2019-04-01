@@ -6,9 +6,14 @@ export default [
     redirect: '/mlms_spa/summary/:id',
     children: [
       {
-        path: 'summary/:id',
+        path: 'summary/detail/:id',
         name: '查看纪要',
         component: () => import('@/views/mlms/material/summary/detail.vue'),
+      },
+      {
+        path: 'summary/create',
+        name: '新增纪要',
+        component: () => import('@/views/mlms/material/summary/mainDialog.vue'),
       },
     ],
   },

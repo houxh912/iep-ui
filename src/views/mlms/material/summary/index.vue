@@ -1,6 +1,6 @@
 <template>
-  <basic-container>
-    <div v-if="pageState==='list'">
+    <div>
+    <basic-container v-if="pageState==='list'">
       <page-header title="纪要" :replaceText="replaceText" :data="data"></page-header>
       <operation-container>
         <template slot="left">
@@ -80,12 +80,12 @@
           </template>
         </el-table-column>
       </iep-table>
-    </div>
+    </basic-container>
     <detail-page ref="detailPage" v-if="pageState==='detail'" @backPage="pageState = 'list'"></detail-page>
     <main-dialog ref="mainDialog" v-if="pageState==='form'" @load-page="loadPage"></main-dialog>
     <share-dialog ref="share" type="summary"></share-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="meeting" :requestFn="createCollect"></collection-dialog>
-  </basic-container>
+  </div>
 </template>
 <script>
 import { dictsMap, columnsMap, initSearchForm } from './options'
@@ -157,7 +157,7 @@ export default {
       //   this.$refs['detailPage'].formData = data.data
       // })
       // 切换详情查看的方式，使用路由进入到页面中来
-      this.$router.push(`/mlms_spa/summary/${row.id}`)
+      this.$router.push(`/mlms_spa/summary/detail/${row.id}`)
     },
     // 批量删除
     handleDeleteByIds () {

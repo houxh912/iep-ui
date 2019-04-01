@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <basic-container>
     <page-header :title="`${methodName}纪要`" :backOption="backOption"></page-header>
 
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
@@ -79,7 +79,7 @@
       <iep-button type="primary" @click="saveForm('form')">{{methodName}}</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
     </footer-toolbar>
-  </div>
+  </basic-container>
 </template>
 <script>
 import { initFormData, dictsMap, rules } from './options'
@@ -89,13 +89,14 @@ import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepContactSelect from '@/components/IepContact/Select'
 import { mapState } from 'vuex'
 import { getCustomer } from '@/api/mlms/material/datum/contract'
+import { createData } from '@/api/mlms/material/summary'
 
 export default {
   components: { IepTags, FooterToolbar, IepContactMultiple, IepContactSelect },
   data () {
     return {
       dictsMap,
-      formRequestFn: () => { },
+      formRequestFn: createData,
       methodName: '创建',
       formData: initFormData(),
       rules,
@@ -161,10 +162,12 @@ export default {
         this.loadPage()
       })
     },
+    // 重置表单
     resetForm () {
       this.formData = initFormData()
       this.loadPage('load-page')
     },
+    // 纪要类型转换
     typeChange (val) {
       if (val == 6) {
         this.$set(this.formData, 'type', 1)
@@ -172,7 +175,6 @@ export default {
         this.$set(this.formData, 'type', 0)
       }
     },
-    visitTypeChange () {},
   },
   created () {
     // 获取客户的数据

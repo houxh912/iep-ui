@@ -8,8 +8,8 @@ export default {
   inheritAttrs: false,
   props: {
     src: {
-      type: String,
       required: true,
+      validator: prop => typeof prop === 'string' || prop === null,
     },
   },
   computed: {

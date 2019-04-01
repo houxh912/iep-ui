@@ -41,7 +41,7 @@
           <el-dropdown-item @click.native="handleOrg(orgText.type)">
             {{orgText.tipText}}
           </el-dropdown-item>
-          <el-dropdown-item @click.native="open('/info/index')">
+          <el-dropdown-item @click.native="open('','BaseSettings')">
             个人信息
           </el-dropdown-item>
           <el-dropdown-item @click.native="handleAbout">
@@ -104,10 +104,17 @@ export default {
     },
   },
   methods: {
-    open (path) {
-      this.$router.push({
-        path,
-      })
+    open (path, name) {
+      if (path) {
+        this.$router.push({
+          path,
+        })
+
+      } else {
+        this.$router.push({
+          name,
+        })
+      }
     },
     handleOrg (type) {
       if (type === 0) {

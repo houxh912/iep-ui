@@ -135,34 +135,6 @@ export default {
   },
 }
 </script>
-<style>
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-
-.avatar-uploader-icon {
-  font-size: 28px !important;
-  color: #8c939d !important;
-  width: 178px !important;
-  height: 178px !important;
-  line-height: 178px !important;
-  text-align: center !important;
-}
-
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
-}
-</style>
 <style scoped="scoped" lang="scss">
 .select-org-wrapper {
   padding: 10px 30px;

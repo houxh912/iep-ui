@@ -41,6 +41,13 @@
         <IepDescriptionItem title="职称：" :content="form.title" />
       </a-col>
     </a-row>
+    <a-row>
+      <a-col :span="24">
+        <IepDescriptionItem title="所属部门：">
+          <iep-detail-tag slot="content" :value="form.deptList"></iep-detail-tag>
+        </IepDescriptionItem>
+      </a-col>
+    </a-row>
 
     <a-divider />
     <p :style="pStyle">联系方式</p>
@@ -131,7 +138,6 @@
   </iep-drawer>
 </template>
 <script>
-import { mergeByFirst } from '@/util/util'
 import { initForm, dictsMap } from '../options'
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 export default {
@@ -157,7 +163,7 @@ export default {
   methods: {
     loadPage () {
       getEmployeeProfileById(this.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     },
     closePage () {

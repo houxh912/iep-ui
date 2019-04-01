@@ -19,6 +19,9 @@
           <div v-if="item.type==='dict'">
             <span>{{dictsMap[item.prop][scope.row[item.prop]]}}</span>
           </div>
+          <div v-else-if="item.type==='tag'">
+            <iep-detail-tag :value="scope.row[item.prop]"></iep-detail-tag>
+          </div>
           <div v-else>
             <span v-if="scope.row[item.prop] === 0">0</span>
             <span v-if="scope.row[item.prop] === null">{{ '暂无' }}</span>

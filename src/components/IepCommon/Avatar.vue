@@ -14,8 +14,8 @@ export default {
   name: 'IepAvatar',
   props: {
     value: {
-      type: String,
       required: true,
+      validator: prop => typeof prop === 'string' || prop === null,
     },
   },
   data () {

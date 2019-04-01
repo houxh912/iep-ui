@@ -8,8 +8,8 @@
             <template slot="title">
               <i class="header-icon el-icon-info"></i> 员工信息
             </template>
-            <div class="baseMsg">
-              <div class="littleTitle">基础信息</div>
+            <div>
+              <div class="little-title">基础信息</div>
               <el-form-item label="姓名：" class="form-half">
                 <span>{{form.name}}</span>
               </el-form-item>
@@ -26,7 +26,7 @@
                 <iep-avatar v-model="form.avatar"></iep-avatar>
               </el-form-item>
               <el-form-item label="角色：" class="form-half">
-                <span>{{form.roleName}}</span>
+                <iep-detail-tag :value="form.roleName"></iep-detail-tag>
               </el-form-item>
               <el-form-item label="资产所属公司：" class="form-half">
                 <span>{{form.deptList.join('、')}}</span>
@@ -104,9 +104,9 @@
                 <el-input v-model="form.externalTitle"></el-input>
               </el-form-item>
 
-              <el-form-item label="添加师父：">
+              <!-- <el-form-item label="添加师父：">
                 <iep-tag v-model="form.people"></iep-tag>
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item label="卓越标签：">
                 <iep-tag v-model="form.people"></iep-tag>
               </el-form-item>
@@ -126,22 +126,25 @@
                 <el-input type="textarea" v-model="form.careerPlanning"></el-input>
               </el-form-item>
 
-              <!-- <el-form-item label="工作经历：">
-                <el-input type="textarea" v-model="form.desc"></el-input>
+              <el-form-item label="工作经历：">
+                <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
               </el-form-item>
+
               <el-form-item label="学习情况：">
-                <el-input type="textarea" v-model="form.desc"></el-input>
+                <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
               </el-form-item>
+
               <el-form-item label="培训情况：">
-                <el-input type="textarea" v-model="form.desc"></el-input>
+                <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
               </el-form-item>
+
               <el-form-item label="资质证书：">
-                <el-input type="textarea" v-model="form.desc"></el-input>
-              </el-form-item> -->
+                <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              </el-form-item>
 
             </div>
-            <div class="connectMsg">
-              <div class="littleTitle">联系信息</div>
+            <div>
+              <div class="little-title">联系信息</div>
               <el-form-item label="户口类型：" class="form-half">
                 <el-select v-model="form.accountTypes">
                   <el-option label="城镇" value="城镇"></el-option>
@@ -165,34 +168,19 @@
               </el-form-item>
 
               <el-form-item label="联系电话：" class="form-half">
-                <el-select v-model="form.phone">
-                  <el-option label="111" value="111"></el-option>
-                  <el-option label="222" value="222"></el-option>
-                </el-select>
+                <el-input v-model="form.phone"></el-input>
               </el-form-item>
               <el-form-item label="微信：" class="form-half">
-                <el-select v-model="form.wechat">
-                  <el-option label="111" value="111"></el-option>
-                  <el-option label="222" value="222"></el-option>
-                </el-select>
+                <el-input v-model="form.wechat"></el-input>
               </el-form-item>
               <el-form-item label="QQ：" class="form-half">
-                <el-select v-model="form.qq">
-                  <el-option label="111" value="111"></el-option>
-                  <el-option label="222" value="222"></el-option>
-                </el-select>
+                <el-input v-model="form.qq"></el-input>
               </el-form-item>
               <el-form-item label="邮箱：" class="form-half">
-                <el-select v-model="form.email">
-                  <el-option label="111" value="111"></el-option>
-                  <el-option label="222" value="222"></el-option>
-                </el-select>
+                <el-input v-model="form.email"></el-input>
               </el-form-item>
               <el-form-item label="个人主页：" class="form-half">
-                <el-select v-model="form.home">
-                  <el-option label="111" value="111"></el-option>
-                  <el-option label="222" value="222"></el-option>
-                </el-select>
+                <el-input v-model="form.home"></el-input>
               </el-form-item>
               <el-form-item label="应急联系人：" class="form-half">
                 <el-input v-model="form.emergencyName"></el-input>
@@ -236,9 +224,12 @@
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 import { mergeByFirst } from '@/util/util'
 import { initForm, formToDto } from '../options'
+import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
+import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
 //import { laborColumns, socialColumns, transferColumns, quitColumns  } from '../options'
 //import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 export default {
+  components: { InlineFormTable },
   props: {
     record: {
       type: Object,
@@ -255,6 +246,10 @@ export default {
       },
       form: initForm(),
       formRequestFn: this.record.formRequestFn,
+      workExpColumns,
+      studyColumns,
+      trainingColumns,
+      certificateColumns,
       // laborColumns,
       // socialColumns,
       // transferColumns,
@@ -275,7 +270,7 @@ export default {
           this.handleGoBack()
         } else {
           this.$message({
-            message: '修改失败',
+            message: data.msg,
             type: 'error',
           })
         }
@@ -330,7 +325,7 @@ export default {
     width: 56%;
   }
 }
-.littleTitle {
+.little-title {
   font-size: 16px;
   font-family: "微软雅黑";
   padding-bottom: 20px;

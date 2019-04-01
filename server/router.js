@@ -10,6 +10,7 @@ const mlmsController = require('./controller/mlms')
 const crmsController = require('./controller/crms')
 const welController = require('./controller/wel')
 const imsController = require('./controller/ims')
+const famsController = require('./controller/fams')
 const router = new Router()
 /**
  * 获取验证码
@@ -97,9 +98,9 @@ router.post('/crms/custom/claim/1', crmsController.deleteContact)
 router.get('/admin/approval/page', welController.getApprovalPage)
 
 
-//wel
-router.get('/admin/approval/page', welController.getApprovalPage)
-
+//fams
+router.get('/fams/rule_configuration/page', famsController.getControllerPage)
+router.get('/fams/personal_account_management/page', famsController.getPersonalAccountManagementPage)
 // 系统消息
 
 router.get('/ims/system_message/page', imsController.getSystemMessagePage)

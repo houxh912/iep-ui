@@ -16,16 +16,45 @@
     </div>
     <div>
       <el-row>
-        <div class="echarts">图表1</div>
+        <div class="echarts">
+          <v-chart :forceFit="true" :height="height" :data="data" :scale="scale">
+            <v-tooltip />
+            <v-axis />
+            <v-legend />
+            <v-line position="week*value" />
+            <v-point position="week*value" shape="circle" />
+          </v-chart>
+        </div>
       </el-row>
     </div>
   </el-card>
 </template>
 
 <script>
+const data = [
+  { week: '周一', value: 10 },
+  { week: '周二', value: 8 },
+  { week: '周三', value: 0 },
+  { week: '周四', value: 8 },
+  { week: '周五', value: 2 },
+  { week: '周六', value: 8 },
+  { week: '周日', value: 0 },
+]
+
+const scale = [{
+  dataKey: 'value',
+  min: 0,
+}, {
+  dataKey: 'year',
+  min: 0,
+  max: 1,
+}]
 export default {
   data () {
     return {
+      data,
+      scale,
+      height: 300,
       type: '1',
       tabList: [{ label: '按周', value: '1' }, { label: '按月', value: '2' }, { label: '季度', value: '3' }, { label: '年度', value: '4' }],
     }
@@ -54,7 +83,7 @@ export default {
   }
 }
 .echarts {
-  height: 100px;
+  height: 300px;
   padding: 15px 10px;
   border: 1px solid #eee;
 }

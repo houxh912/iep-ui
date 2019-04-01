@@ -9,11 +9,15 @@
           <div class="top">
             <span>拜访数量</span>
           </div>
-          <div class="echarts odd">图表1</div>
+          <div class="echarts odd">
+            <visitNumber></visitNumber>
+          </div>
         </el-col>
         <el-col :span=12>
           <div class="top">客户出单拜访记录</div>
-          <div class="echarts">图表2</div>
+          <div class="echarts">
+            <record></record>
+          </div>
         </el-col>
       </el-row>
     </div>
@@ -21,7 +25,10 @@
 </template>
 
 <script>
+import visitNumber from './Components/VisitNumber'
+import Record from './Components/Record'
 export default {
+  components: { visitNumber, Record },
 }
 </script>
 
@@ -36,7 +43,7 @@ export default {
   padding: 10px;
 }
 .echarts {
-  height: 100px;
+  height: 300px;
   padding: 15px 10px;
   border: 1px solid #eee;
 }

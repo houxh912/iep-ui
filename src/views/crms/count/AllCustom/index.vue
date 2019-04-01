@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import InfoColumn from './Components/InfoColumn'
-import RegisterColumn from './Components/RegisterColumn'
-import VisitColumn from './Components/VisitColumn'
-import MoneyColumn from './Components/MoneyColumn'
-import AnalyseColumn from './Components/AnalyseColumn'
+import InfoColumn from './InfoColumn/'
+import RegisterColumn from './RegisterColumn/'
+import VisitColumn from './VisitColumn/'
+import MoneyColumn from './MoneyColumn/'
+import AnalyseColumn from './AnalyseColumn/'
 export default {
   name: 'allCustom',
   components: { InfoColumn, RegisterColumn, VisitColumn, MoneyColumn, AnalyseColumn },

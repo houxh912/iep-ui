@@ -119,7 +119,6 @@ export default {
       let fn = (obj) => {
         let msg = ''
         for (let key in obj) {
-          console.log('obj[key]: ', obj[key])
           if (obj[key] !== null) {
             for (let item of obj[key]) {
               msg += item.name + '、'

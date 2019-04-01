@@ -1,5 +1,5 @@
 <template>
-  <div class="datum">
+  <basic-container>
     <page-header title="报表"></page-header>
     <iep-tabs v-model="tabName" :tab-list="tabList">
       <template v-if="tabName ==='materialDialog'" v-slot:materialDialog>
@@ -18,7 +18,7 @@
         <file-dialog></file-dialog>
       </template>
     </iep-tabs>
-  </div>
+  </basic-container>
 </template>
 
 <script>
@@ -56,10 +56,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.datum {
-  padding: 20px;
-  background-color: #fff;
-}
-</style>

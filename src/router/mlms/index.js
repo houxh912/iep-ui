@@ -15,6 +15,11 @@ export default [
         name: '新增纪要',
         component: () => import('@/views/mlms/material/summary/mainDialog.vue'),
       },
+      {
+        path: 'material/create',
+        name: '新建文档',
+        component: () => import('@/views/mlms/material/datum/material/newlyDialog.vue'),
+      },
     ],
   },
 ]

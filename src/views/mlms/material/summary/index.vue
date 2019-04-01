@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <div>
     <basic-container v-if="pageState==='list'">
       <page-header title="纪要" :replaceText="replaceText" :data="data"></page-header>
       <operation-container>

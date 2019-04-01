@@ -33,6 +33,9 @@ export default {
         }, {
           id: 1,
           tips: '您已超过六个月未对三亚市政府服务中心客户进行拜访了',
+        }, {
+          id: 1,
+          tips: '您已超过六个月未对三亚市政府服务中心客户进行拜访了',
         }],
       },
       tipsSelect: -1,
@@ -49,7 +52,7 @@ export default {
 
 <style lang="scss" scoped>
 .remind {
-  height: 260px;
+  height: 220px;
   .head {
     font-weight: 700;
     background-color: #eee;
@@ -64,6 +67,9 @@ export default {
           display: inline-block;
           padding: 5px;
           border: 1px solid #9c9c9c;
+          &:hover {
+            border: 1px solid red;
+          }
         }
         &:hover {
           color: blue;

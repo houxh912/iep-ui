@@ -16,11 +16,15 @@
               <span class="border"><i class="el-icon-arrow-right"></i></span>
             </div>
           </div>
-          <div class="echarts odd">图表1</div>
+          <div class="echarts odd">
+            <count></count>
+          </div>
         </el-col>
         <el-col :span=12>
           <div class="top">市场经理</div>
-          <div class="echarts">图表2</div>
+          <div class="echarts">
+            <manager></manager>
+          </div>
         </el-col>
       </el-row>
       <el-row>
@@ -28,11 +32,15 @@
           <div class="top">
             <span>区域类型</span>
           </div>
-          <div class="echarts odd">图表3</div>
+          <div class="echarts odd">
+            <area-type> </area-type>
+          </div>
         </el-col>
         <el-col :span=12>
           <div class="top">客户增长统计</div>
-          <div class="echarts">图表4</div>
+          <div class="echarts">
+            <increase></increase>
+          </div>
         </el-col>
       </el-row>
     </div>
@@ -40,7 +48,16 @@
 </template>
 
 <script>
+import Manager from './Components/Manager'
+import Count from './Components/Count'
+import AreaType from './Components/AreaType'
+import Increase from './Components/Increase'
 export default {
+  components: { Manager, Count, AreaType, Increase },
+  data () {
+    return {
+    }
+  },
   methods: {
     searchPage () {
 
@@ -80,8 +97,8 @@ export default {
   }
 }
 .echarts {
-  height: 100px;
-  padding: 15px 10px;
+  height: 300px;
+  padding: 5px 5px;
   border: 1px solid #eee;
 }
 .odd {

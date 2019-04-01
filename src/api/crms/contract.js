@@ -3,7 +3,7 @@ const prefixUrl = '/mlms/contract'
 
 export function getContractPage (params) {
   return request({
-    url: `${prefixUrl}/page`,
+    url: `${prefixUrl}/page/outContract`,
     method: 'get',
     params: params,
   })

@@ -168,7 +168,7 @@ const columnsMap = [
     prop: 'sex',
     label: '性别',
     width: 55,
-    hidden: false,
+    sortable: true,
   },
   {
     prop: 'userName',

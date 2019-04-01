@@ -57,6 +57,7 @@ export const initFormData = () => {
     visitType: -1,
     visitingAddress: '',
     visitingUserId: [],
+    status: 0,
   }
 }
 

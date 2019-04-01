@@ -7,9 +7,8 @@
           <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item><div @click="handleDeletetByIds">删除</div></el-dropdown-item>
-            <el-dropdown-item divided>导出</el-dropdown-item>
-            <el-dropdown-item>分享</el-dropdown-item>
-            <el-dropdown-item>下载</el-dropdown-item>
+            <el-dropdown-item @click.native="handleExport">导出</el-dropdown-item>
+            <el-dropdown-item @click.native="handleDownloadAll">下载</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </template>
@@ -130,6 +129,14 @@ export default {
         this.tableData = records.map(m => m)
         this.isLoadTable = false
       })
+    },
+    // 批量导出
+    handleExport () {
+      this.$message.error('抱歉，此功能尚未开发')
+    },
+    // 批量下载
+    handleDownloadAll () {
+      this.$message.error('抱歉，此功能尚未开发')
     },
   },
   created () {

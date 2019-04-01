@@ -75,7 +75,8 @@
       
     </el-form>
     <footer-toolbar>
-      <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
+      <iep-button type="primary" @click="saveDraft('form')">保存草稿</iep-button>
+      <iep-button type="primary" @click="saveForm('form')">{{methodName}}</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
     </footer-toolbar>
   </div>
@@ -117,32 +118,47 @@ export default {
     loadPage () {
       this.$emit('load-page')
     },
-    submitForm (formName) {
+    // 保存
+    saveForm (formName) {
       delete this.formData.createTime
       delete this.formData.updateTime
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formData.hostId = this.formData.hostList.id
-          this.formData.attendee = {
-            orgIds: this.formData.attendeeList.orgs.map(m => m.id),
-            userIds: this.formData.attendeeList.users.map(m => m.id),
-          }
-          this.formData.receiver = {
-            orgIds: this.formData.receiverList.orgs.map(m => m.id),
-            userIds: this.formData.receiverList.users.map(m => m.id),
-          }
-          this.formRequestFn(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
-              message: `${this.methodName}成功`,
-              type: 'success',
-              duration: 2000,
-            })
-            this.loadPage()
-          })
+          this.formData.status = 0
+          this.submitForm()
         } else {
           return false
         }
+      })
+    },
+    // 保存草稿
+    saveDraft () {
+      if (this.formData.title == '') {
+        this.$message.error('请至少填写会议的标题！')
+        return
+      }
+      this.formData.status = 1 // 草稿状态为 1
+      this.submitForm()
+    },
+    // 提交数据
+    submitForm () {
+      this.formData.hostId = this.formData.hostList.id
+      this.formData.attendee = {
+        orgIds: this.formData.attendeeList.orgs.map(m => m.id),
+        userIds: this.formData.attendeeList.users.map(m => m.id),
+      }
+      this.formData.receiver = {
+        orgIds: this.formData.receiverList.orgs.map(m => m.id),
+        userIds: this.formData.receiverList.users.map(m => m.id),
+      }
+      this.formRequestFn(this.formData).then(() => {
+        this.$notify({
+          title: '成功',
+          message: `${this.methodName}成功`,
+          type: 'success',
+          duration: 2000,
+        })
+        this.loadPage()
       })
     },
     resetForm () {

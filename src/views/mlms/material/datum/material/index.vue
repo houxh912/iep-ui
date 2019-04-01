@@ -13,9 +13,9 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item><div @click="handleDeleteByIds">删除</div></el-dropdown-item>
-              <el-dropdown-item divided>导出</el-dropdown-item>
-              <el-dropdown-item><div @click="handleCollectAll">收藏</div></el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteByIds">删除</el-dropdown-item>
+              <el-dropdown-item divided @click.native="handleExport">导出</el-dropdown-item>
+              <el-dropdown-item @click.native="handleCollectAll">收藏</el-dropdown-item>
               <el-dropdown-item @click.native="handleAllShare">分享</el-dropdown-item>
               <el-dropdown-item>下载</el-dropdown-item>
             </el-dropdown-menu>
@@ -64,10 +64,10 @@
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item><div @click="handleEdit(scope.row)">修改</div></el-dropdown-item>
-                  <el-dropdown-item><div @click="handleDeleteById(scope.row)">删除</div></el-dropdown-item>
-                  <el-dropdown-item>投稿</el-dropdown-item>
-                  <el-dropdown-item>上传新版本</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleEdit(scope.row)">修改</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleDeleteById(scope.row)">删除</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleContribute(scope.row)">投稿</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleEdition(scope.row)">上传新版本</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
@@ -160,6 +160,10 @@ export default {
     },
     // 批量收藏
     handleCollectAll () {
+      if (this.selectList.length == 0) {
+        this.$message.info('请先选择需要收藏的选项')
+        return
+      }
       for(let item of this.selectList) {
         item.title = item.name
       }
@@ -172,7 +176,27 @@ export default {
     },
     // 批量分享
     handleAllShare () {
+      if (this.selectList.length == 0) {
+        this.$message.error('请先选择需要分享的选项')
+        return
+      }
       this.$refs['share'].open(this.selectList)
+    },
+    // 导出
+    handleExport () {
+      this.$message.error('抱歉，此功能尚未开发')
+    },
+    // 下载
+    handleDownload () {
+      this.$message.error('抱歉，此功能尚未开发')
+    },
+    // 投稿
+    handleContribute () {
+      this.$message.error('抱歉，此功能尚未开发')
+    },
+    // 上传新版本
+    handleEdition () {
+      this.$message.error('抱歉，此功能尚未开发')
     },
   },
   created () {

@@ -8,11 +8,11 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item><div @click="handleDeleteByIds">删除</div></el-dropdown-item>
-              <el-dropdown-item divided><div @click="handleCollectAll">收藏</div></el-dropdown-item>
-              <el-dropdown-item><div @click="handleAllShare">分享</div></el-dropdown-item>
-              <el-dropdown-item>下载为图片</el-dropdown-item>
-              <el-dropdown-item>导出为文本</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteByIds">删除</el-dropdown-item>
+              <el-dropdown-item divided @click.native="handleCollectAll">收藏</el-dropdown-item>
+              <el-dropdown-item @click.native="handleAllShare">分享</el-dropdown-item>
+              <el-dropdown-item @click.native="downloadPic">下载为图片</el-dropdown-item>
+              <el-dropdown-item @click.native="downloadPic">导出为文本</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -58,20 +58,24 @@
         </template>
         <el-table-column prop="operation" label="操作" width="250" align="center">
           <template slot-scope="scope">
-            <operation-wrapper>
+            <operation-wrapper v-if="scope.row.status===0">
               <iep-button type="warning" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
               <iep-button type="warning" v-else>已收藏</iep-button>
               <iep-button @click="handleShare(scope.row)">分享</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item><div @click="handleEdit(scope.row)">修改</div></el-dropdown-item>
-                  <el-dropdown-item><div @click="handleDeleteById(scope.row)">删除</div></el-dropdown-item>
-                  <el-dropdown-item>复制</el-dropdown-item>
-                  <el-dropdown-item>下载为图片</el-dropdown-item>
-                  <el-dropdown-item>导出为文本</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleEdit(scope.row)">修改</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleDeleteById(scope.row)">删除</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleCopy(scope.row)">复制</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleDownload(scope.row)">下载为图片</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleExport(scope.row)">导出为文本</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
+            </operation-wrapper>
+            <operation-wrapper v-else>
+              <iep-button type="warning" @click="handleEdit(scope.row)">修改草稿</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -87,7 +91,7 @@
 import { dictsMap, columnsMap, initSearchForm } from './options'
 import mixins from '@/mixins/mixins'
 import { mapState } from 'vuex'
-import { getTableData, createData, updateData, deleteData, getDataById, createCollect } from '@/api/mlms/material/summary'
+import { getTableData, createData, updateData, deleteData, getDataById, createCollect, copyData } from '@/api/mlms/material/summary'
 import MainDialog from './mainDialog'
 import ShareDialog from './shareDialog'
 import CollectionDialog from '../components/collectionDialog'
@@ -178,6 +182,10 @@ export default {
     },
     // 批量收藏
     handleCollectAll () {
+      if (this.selectList.length == 0) {
+        this.$message.info('请先选择需要收藏的选项')
+        return
+      }
       this.$refs['collection'].dialogShow = true
       this.$refs['collection'].loadCollectList(this.selectList)
     },
@@ -187,11 +195,34 @@ export default {
     },
     // 批量分享
     handleAllShare () {
+      if (this.selectList.length == 0) {
+        this.$message.info('请先选择需要收藏的选项')
+        return
+      }
       this.$refs['share'].open(this.selectList)
     },
     // 头部subTitle方法
     replaceText (arr) {
       return `（本周收到 ${arr[0]} 篇纪要，发布 ${arr[1]} 篇纪要）`
+    },
+    // 批量下载为图片
+    downloadPic () {
+      this.$message.error('抱歉，此功能尚未开发！')
+    },
+    // 下载为图片
+    handleDownload () {
+      this.$message.error('抱歉，此功能尚未开发！')
+    },
+    // 复制
+    handleCopy (row) {
+      copyData(row.id).then(() => {
+        this.$message.success('复制成功！')
+        this.loadPage()
+      })
+    },
+    // 导出为文本
+    handleExport () {
+      this.$message.error('抱歉，此功能尚未开发！')
     },
   },
 }

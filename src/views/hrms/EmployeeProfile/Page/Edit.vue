@@ -108,13 +108,13 @@
                 <iep-tag v-model="form.people"></iep-tag>
               </el-form-item> -->
               <el-form-item label="卓越标签：">
-                <iep-tag v-model="form.people"></iep-tag>
+                <iep-tag v-model="form.abilityTag"></iep-tag>
               </el-form-item>
               <el-form-item label="专业标签：">
-                <iep-tag v-model="form.people"></iep-tag>
+                <iep-tag v-model="form.projectTag"></iep-tag>
               </el-form-item>
               <el-form-item label="进步标签：">
-                <iep-tag v-model="form.people"></iep-tag>
+                <iep-tag v-model="form.learningTag"></iep-tag>
               </el-form-item>
               <!-- <el-form-item label="" class="form-half">
                 <el-input placeholder="">
@@ -146,7 +146,7 @@
             <div>
               <div class="little-title">联系信息</div>
               <el-form-item label="户口类型：" class="form-half">
-                <el-select v-model="form.accountTypes">
+                <el-select v-model="form.accountTypeId">
                   <el-option label="城镇" value="城镇"></el-option>
                   <el-option label="农村" value="农村"></el-option>
                 </el-select>

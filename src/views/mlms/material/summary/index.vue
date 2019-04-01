@@ -144,7 +144,7 @@ export default {
             users: data.data.attendee.users ? data.data.attendee.users: [],
             unions: [],
           }
-          data.data.hostList = data.data.host[0]
+          data.data.hostList = data.data.host.length > 0 ? data.data.host[0] : {id: '', name: ''}
           this.$refs['mainDialog'].formData = {...data.data}
           this.$refs['mainDialog'].methodName = '修改'
           this.$refs['mainDialog'].formRequestFn = updateData

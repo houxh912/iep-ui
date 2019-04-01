@@ -11,7 +11,7 @@
       </el-form-item> -->
       <el-form-item label="合同类型：" prop="contractType">
         <el-select v-model="formData.contractType" placeholder="请选择">
-          <el-option v-for="item in dictsMap.contractType" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-option v-for="(item, value) in dictsMap.contractType" :key="value" :label="item" :value="value"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="合同说明 / 收款方式：" prop="contractExpl">

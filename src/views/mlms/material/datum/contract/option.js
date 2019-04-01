@@ -1,8 +1,20 @@
+import { getStore } from '@/util/store'
+const dicData = getStore({ name: 'dictGroup' })
+let contractStatus = {}
+for (let item of dicData.mlms_contract_status) {
+  contractStatus[item.value] = item.label
+}
+
 export const dictsMap = {
-  contractType: [
-    { value: '0', label: '内部合同' },
-    { value: '1', label: '外部合同' },
-  ],
+  // contractType: [
+  //   { value: '0', label: '内部合同' },
+  //   { value: '1', label: '外部合同' },
+  // ],
+  contractType: {
+    '0': '内部合同',
+    '1': '外部合同',
+  },
+  contractStatus: contractStatus,
 }
 
 export const deptList = [
@@ -13,13 +25,15 @@ export const deptList = [
 export const tableOption = [
   {
     label: '合同类型',
-    prop: 'businessType',
+    prop: 'contractType',
+    type: 'dict',
   }, {
     label: '合同金额',
     prop: 'contractAmount',
   }, {
     label: '合同状态',
     prop: 'contractStatus',
+    type: 'dict',
   }, {
     label: '回款率',
     prop: '',

@@ -4,8 +4,16 @@
     <div class="detail-container">
       <div class="item-title">
         <ul>
-          <li><span>发布人：</span><span>{{form.senderName}}</span></li>
-          <!-- <li><span>接收人：</span><span>{{form.receivers.orgs}}</span></li> -->
+          <li><span>发布人：</span>
+            <iep-hover-card :obj="form.sender"></iep-hover-card>
+          </li>
+          <li>
+            <operation-wrapper>
+              <span>接收方：</span>
+              <iep-hover-card type="danger" v-for="item in form.receivers.orgs" :key="item.id" :obj="item"></iep-hover-card>
+              <iep-hover-card v-for="item in form.receivers.users" :key="item.id" :obj="item"></iep-hover-card>
+            </operation-wrapper>
+          </li>
           <li><span>时间：</span><span>{{form.time}}</span></li>
         </ul>
         <el-button-group>
@@ -38,7 +46,7 @@ export default {
         isBack: true,
         backPath: this.$route.query.redirect,
       },
-      form: {},
+      form: initForm(),
     }
   },
   created () {

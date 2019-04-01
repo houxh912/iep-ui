@@ -33,7 +33,7 @@ import { getExaminApprovalPage, postApproval, reviewApprovaBatch } from '@/api/w
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
 import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
-import NewApproval from '../../../Components/NewApproval'
+import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
 export default {
   mixins: [mixins],
   components: { NewApproval, IepReviewConfirm },

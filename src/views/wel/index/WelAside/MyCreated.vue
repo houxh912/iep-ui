@@ -1,17 +1,87 @@
 <template>
   <div class="created">
-    <div class="title">{{creatList.title}}</div>
+    <div class="title">我要创建</div>
     <div class="created-content">
-      <div class="handelCreate" v-for="(item,index) in creatList.details" :key="index">{{item}}</div>
-      <div class="add" @click="handelAdd"><i class="el-icon-plus"></i></div>
+      <div class="handelCreate" v-for="(item,index) in dataList" :key="index" @click="item.callback">{{item.title}}</div>
+      <div class="add"><i class="el-icon-plus"></i></div>
     </div>
+    <new-approval ref="NewApproval"></new-approval>
   </div>
 </template>
 <script>
+import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
 export default {
+  components: { NewApproval },
   data () {
     return {
-      creatList: { title: '我要创建', details: ['纪要', '报表', '材料', '任务', '审批', '建议', '感想', '邮件', '考试', '调研', '建模'] },
+      dataList: [
+        {
+          title: '纪要',
+          callback: () => {
+            this.$message.success('功能开发中')
+          },
+        },
+        {
+          title: '报表',
+          callback: () => {
+            this.$message.success('功能开发中')
+          },
+        },
+        {
+          title: '材料',
+          callback: () => {
+            this.$message.success('功能开发中')
+          },
+        },
+        {
+          title: '任务',
+          callback: () => {
+            this.$message.success('功能开发中')
+          },
+        },
+        {
+          title: '审批',
+          callback: () => {
+            this.$refs['NewApproval'].dialogShow = true
+          },
+        },
+        {
+          title: '建议',
+          callback: () => {
+            this.$message.success('功能开发中')
+          },
+        },
+        {
+          title: '感想',
+          callback: () => {
+            this.$message.success('功能开发中')
+          },
+        },
+        {
+          title: '邮件',
+          callback: () => {
+            this.$message.success('功能开发中')
+          },
+        },
+        {
+          title: '考试',
+          callback: () => {
+            this.$message.success('功能开发中')
+          },
+        },
+        {
+          title: '调研',
+          callback: () => {
+            this.$message.success('功能开发中')
+          },
+        },
+        {
+          title: '建模',
+          callback: () => {
+            this.$message.success('功能开发中')
+          },
+        },
+      ],
     }
   },
   methods: {
@@ -29,7 +99,7 @@ export default {
 <style  lang="scss" scoped>
 .created {
   box-sizing: border-box;
-    margin: 10px;
+  margin: 10px;
 }
 .created-content {
   display: grid;

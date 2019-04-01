@@ -25,7 +25,7 @@
 import { getAlreadyApprovalPage } from '@/api/wel/administrative_approval'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from '../options'
-import NewApproval from '../../../Components/NewApproval'
+import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
 export default {
   mixins: [mixins],
   components: { NewApproval },

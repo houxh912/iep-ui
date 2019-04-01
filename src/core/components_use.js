@@ -34,6 +34,7 @@ import IepUpload from '@/components/IepCommon/Upload'
 // 弹出层相关组件
 import IepDialog from '@/components/IepDialog/'
 import IepDrawer from '@/components/IepDrawer/'
+import IepHoverCard from '@/components/IepCommon/HoverCard'
 
 // 表格相关组件
 import IepTable from '@/components/IepTable/'
@@ -43,6 +44,7 @@ import IepTableLink from '@/components/IepTable/Link'
 import IepContactSelect from '@/components/IepContact/Select'
 import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
+
 // 部门组件Contact
 import IepDeptSelect from '@/components/IepDept/Select'
 import IepDeptMultiple from '@/components/IepDept/Multiple'
@@ -81,6 +83,7 @@ Vue.component(IepAvatar.name, IepAvatar)
 // 弹出层相关组件
 Vue.component(IepDialog.name, IepDialog)
 Vue.component(IepDrawer.name, IepDrawer)
+Vue.component(IepHoverCard.name, IepHoverCard)
 
 // 表格相关组件
 Vue.component(IepTable.name, IepTable)
@@ -93,5 +96,4 @@ Vue.component(IepContactMultipleUser.name, IepContactMultipleUser)
 
 // 部门组件Contact
 Vue.component(IepDeptSelect.name, IepDeptSelect)
-console.log(IepDeptSelect.name, IepDeptMultiple.name)
 Vue.component('IepDeptMultiple', IepDeptMultiple)

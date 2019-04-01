@@ -4,7 +4,6 @@
     <div class="detail-container">
       <div class="item-title">
         <ul>
-          <li><span>发布人：</span><span>{{form.senderName}}</span></li>
           <li><span>接收人：</span><span>{{form.receiverName}}</span></li>
           <li><span>时间：</span><span>{{form.time}}</span></li>
         </ul>

@@ -146,7 +146,8 @@
 </template>
 <script>
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
-import { initForm, formToDto, workExpColumns, studyColumns, trainingColumns, certificateColumns } from '../options'
+import { initForm, formToDto } from '../options'
+import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 import { mergeByFirst } from '@/util/util'
 export default {

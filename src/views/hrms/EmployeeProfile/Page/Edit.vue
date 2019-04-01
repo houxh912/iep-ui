@@ -127,19 +127,19 @@
               </el-form-item>
 
               <el-form-item label="工作经历：">
-                <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+                <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
               </el-form-item>
 
               <el-form-item label="学习情况：">
-                <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+                <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
               </el-form-item>
 
               <el-form-item label="培训情况：">
-                <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+                <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
               </el-form-item>
 
               <el-form-item label="资质证书：">
-                <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+                <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
               </el-form-item>
 
             </div>
@@ -225,6 +225,7 @@ import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 import { mergeByFirst } from '@/util/util'
 import { initForm, formToDto } from '../options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
+import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
 //import { laborColumns, socialColumns, transferColumns, quitColumns  } from '../options'
 //import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 export default {
@@ -245,6 +246,10 @@ export default {
       },
       form: initForm(),
       formRequestFn: this.record.formRequestFn,
+      workExpColumns,
+      studyColumns,
+      trainingColumns,
+      certificateColumns,
       // laborColumns,
       // socialColumns,
       // transferColumns,

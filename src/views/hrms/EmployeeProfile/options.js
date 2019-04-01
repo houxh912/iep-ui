@@ -15,7 +15,7 @@ const dictsMap = {
 
 const initForm = () => {
   return {
-    id: null, // 用户ID 不可编辑
+    id: 1, // 用户ID 不可编辑
     name: null, // 姓名 不可编辑
     userName: null, // 用户名 不可编辑
     orgName: null, // 组织名 不可编辑

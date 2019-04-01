@@ -2,9 +2,9 @@ import request from '@/router/axios'
 
 const prefixUrl = '/hrms/relation'
 // @/api/hrms/employee_profile
-export function post (obj, relatioName, type, rid) {
+export function post (obj, relationName, type, rid) {
   return request({
-    url: `${prefixUrl}/${relatioName}/create`,
+    url: `${prefixUrl}/${relationName}/create`,
     method: 'post',
     params: {
       type,
@@ -13,16 +13,16 @@ export function post (obj, relatioName, type, rid) {
     data: obj,
   })
 }
-export function put (obj, relatioName) {
+export function put (obj, relationName) {
   return request({
-    url: `${prefixUrl}/${relatioName}/update`,
+    url: `${prefixUrl}/${relationName}/update`,
     method: 'post',
     data: obj,
   })
 }
-export function del (id, relatioName) {
+export function del (id, relationName) {
   return request({
-    url: `${prefixUrl}/${relatioName}/delete/${id}`,
+    url: `${prefixUrl}/${relationName}/delete/${id}`,
     method: 'post',
   })
 }

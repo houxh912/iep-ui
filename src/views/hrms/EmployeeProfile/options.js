@@ -51,6 +51,10 @@ const initForm = () => {
     profession: null, // 专业
     graduationTime: null, // 毕业时间
     referrer: null, // 推荐人
+    workExperience: [],
+    trainingSituation: [],
+    eduSituation: [],
+    userCert: [],
     accountTypes: null, // 户口类别
     accountLocation: null, // 户口所在地
     residenceCities: [],

@@ -8,8 +8,8 @@
             <template slot="title">
               <i class="header-icon el-icon-info"></i> 员工信息
             </template>
-            <div class="baseMsg">
-              <div class="littleTitle">基础信息</div>
+            <div>
+              <div class="little-title">基础信息</div>
               <el-form-item label="姓名：" class="form-half">
                 <span>{{form.name}}</span>
               </el-form-item>
@@ -126,22 +126,25 @@
                 <el-input type="textarea" v-model="form.careerPlanning"></el-input>
               </el-form-item>
 
-              <!-- <el-form-item label="工作经历：">
-                <el-input type="textarea" v-model="form.desc"></el-input>
+              <el-form-item label="工作经历：">
+                <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
               </el-form-item>
+
               <el-form-item label="学习情况：">
-                <el-input type="textarea" v-model="form.desc"></el-input>
+                <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
               </el-form-item>
+
               <el-form-item label="培训情况：">
-                <el-input type="textarea" v-model="form.desc"></el-input>
+                <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
               </el-form-item>
+
               <el-form-item label="资质证书：">
-                <el-input type="textarea" v-model="form.desc"></el-input>
-              </el-form-item> -->
+                <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              </el-form-item>
 
             </div>
-            <div class="connectMsg">
-              <div class="littleTitle">联系信息</div>
+            <div>
+              <div class="little-title">联系信息</div>
               <el-form-item label="户口类型：" class="form-half">
                 <el-select v-model="form.accountTypes">
                   <el-option label="城镇" value="城镇"></el-option>
@@ -221,9 +224,11 @@
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 import { mergeByFirst } from '@/util/util'
 import { initForm, formToDto } from '../options'
+import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 //import { laborColumns, socialColumns, transferColumns, quitColumns  } from '../options'
 //import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 export default {
+  components: { InlineFormTable },
   props: {
     record: {
       type: Object,
@@ -315,7 +320,7 @@ export default {
     width: 56%;
   }
 }
-.littleTitle {
+.little-title {
   font-size: 16px;
   font-family: "微软雅黑";
   padding-bottom: 20px;

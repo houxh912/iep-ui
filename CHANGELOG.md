@@ -1,3 +1,31 @@
+## [1.1.1](http://115.233.227.46:8066/root/iep-ui/compare/v1.1.0...v1.1.1) (2019-04-01)
+
+
+### Bug Fixes
+
+* **人力员工档案:** 关联工作经历等关联 ([8d787ae](http://115.233.227.46:8066/root/iep-ui/commits/8d787ae))
+* **人力员工管理页面:** 头像组件未Null修复,DetailTag页面新增 ([6ab4344](http://115.233.227.46:8066/root/iep-ui/commits/6ab4344))
+
+
+### Features
+
+* **工作台:** 假数据添加 ([437eab6](http://115.233.227.46:8066/root/iep-ui/commits/437eab6))
+* **图表:** 添加图标信息 ([bc90a3a](http://115.233.227.46:8066/root/iep-ui/commits/bc90a3a))
+* **人力员工关联:** 工作情况学习等关联 ([4980b15](http://115.233.227.46:8066/root/iep-ui/commits/4980b15))
+* **使用指南:** 添加使用指南链接 ([6ea7cf8](http://115.233.227.46:8066/root/iep-ui/commits/6ea7cf8))
+* **修改密码与个人信息:** 完成重构样式代码 ([17ba3e3](http://115.233.227.46:8066/root/iep-ui/commits/17ba3e3))
+* **合同:** 合同表格的字典项修改 ([229e7cd](http://115.233.227.46:8066/root/iep-ui/commits/229e7cd))
+* **客户合同:** 列表接口新增接口及通过id查询接口对接 ([b5f17c1](http://115.233.227.46:8066/root/iep-ui/commits/b5f17c1))
+* **客户统计:** 客户统计可视化 ([88a8f88](http://115.233.227.46:8066/root/iep-ui/commits/88a8f88))
+* **工作台与组件:** 添加HoverDetail组件与工作台快捷审批按钮 ([53c39cb](http://115.233.227.46:8066/root/iep-ui/commits/53c39cb))
+* **我的材料:** 所有无效按钮的提示以及纪要的草稿功能 ([e710033](http://115.233.227.46:8066/root/iep-ui/commits/e710033))
+* **材料:** 建立新增入口 ([a5019db](http://115.233.227.46:8066/root/iep-ui/commits/a5019db))
+* **纪要:** 草稿功能完善 ([161f9b8](http://115.233.227.46:8066/root/iep-ui/commits/161f9b8))
+* **纪要:** 详情的展示 ([a1ee36a](http://115.233.227.46:8066/root/iep-ui/commits/a1ee36a))
+* **静态页分类:** 静态页细分 ([0cdcbe7](http://115.233.227.46:8066/root/iep-ui/commits/0cdcbe7))
+
+
+
 # [1.1.0](http://115.233.227.46:8066/root/iep-ui/compare/v1.0.5...v1.1.0) (2019-03-30)
 
 

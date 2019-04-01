@@ -14,7 +14,12 @@
 export default {
   data () {
     return {
-      chanceList: { title: '我的机会', details: [{ subtitle: '国策数据加工招募有偿志愿者', date: '2019-01-29', author: '王丽娜' }, { subtitle: '国策数据加工招募有偿志愿者', date: '2019-01-29', author: '王丽娜' }, { subtitle: '国策数据加工招募有偿志愿者', date: '2019-01-29', author: '王丽娜' }, { subtitle: '国策数据加工招募有偿志愿者', date: '2019-01-29', author: '王丽娜' }] },
+      chanceList: { title: '我的机会', details: [
+        { subtitle: '国策数据加工有偿招募志愿者', date: '2019-04-04', author: '王丽娜' }, 
+        { subtitle: '内网运维有偿招募志愿者', date: '2019-03-29', author: '缪巧巧' }, 
+        { subtitle: '数据基因模块有偿招募志愿者', date: '2019-03-27', author: '邵奇凯' }, 
+        { subtitle: '研发中心有偿招募技术人员', date: '2019-03-22', author: '潘超巧' },
+      ] },
     }
   },
   methods: {

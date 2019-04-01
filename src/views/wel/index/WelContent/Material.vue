@@ -27,11 +27,11 @@ export default {
   data () {
     return {
       dataList: [
-        { title: '2011央企绩效评估方案', type: '市场项目', author: '李兰', date: '02-19' },
-        { title: '2011央企绩效评估方案', type: '市场项目', author: '李兰', date: '02-19' },
-        { title: '2011央企绩效评估方案', type: '市场项目', author: '李兰', date: '02-19' },
-        { title: '2011央企绩效评估方案', type: '市场项目', author: '李兰', date: '02-19' },
-        { title: '2011央企绩效评估方案', type: '市场项目', author: '李兰', date: '02-19' },
+        { title: '2018年度文化和旅游部政府网站规划评测服务项目总结报告', type: '市场项目', author: '史晓梦', date: '04-01' },
+        { title: '中国电建网站群安全防护总体方案（精简版）', type: '市场项目', author: '张炳强', date: '04-01' },
+        { title: '浅析“互联网+”时代我国电子政务发展趋势', type: '外部材料', author: '周姣娜', date: '03-29' },
+        { title: '湖南省“十三五”信息化发展规划专题调研活动方案', type: '市场项目', author: '李童', date: '03-29' },
+        { title: '20190215青岛西海岸新区推行政务服务“一链办理”改革', type: '外部材料', author: '毛花', date: '03-28' },
       ],
     }
   },

@@ -27,11 +27,11 @@ export default {
   data () {
     return {
       dataList: [
-        { title: '2019内网职称一季度考试', score: '68分', situation: '超越了10%的人', date: '02-19' },
-        { title: '2019第三季度国脉职称考试', score: '73分', situation: '超越了70%的人', date: '10-09' },
-        { title: '2019第三季度国脉职称考试', score: '73分', situation: '超越了70%的人', date: '10-09' },
-        { title: '2019第三季度国脉职称考试', score: '73分', situation: '超越了70%的人', date: '10-09' },
-        { title: '2019第三季度国脉职称考试', score: '73分', situation: '超越了70%的人', date: '10-09' },
+        { title: '2018年会精神考试', score: '90分', situation: '超越了92%的人', date: '02-10' },
+        { title: '2019年第一季度内网能力测试', score: '86分', situation: '超越了88%的人', date: '02-09' },
+        { title: '2018第三季国脉内网能力考试', score: '92分', situation: '超越了95%的人', date: '12-31' },
+        { title: '2018第一期数据基因初级等级能力认证', score: '80分', situation: '超越了83%的人', date: '10-09' },
+        { title: '2018第一期公司文化考试', score: '78分', situation: '超越了80%的人', date: '10-08' },
       ],
     }
   },

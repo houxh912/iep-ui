@@ -26,7 +26,7 @@
                 <iep-avatar v-model="form.avatar"></iep-avatar>
               </el-form-item>
               <el-form-item label="角色：" class="form-half">
-                <span>{{form.roleName}}</span>
+                <iep-detail-tag :value="form.roleName"></iep-detail-tag>
               </el-form-item>
               <el-form-item label="资产所属公司：" class="form-half">
                 <span>{{form.deptList.join('、')}}</span>
@@ -104,9 +104,9 @@
                 <el-input v-model="form.externalTitle"></el-input>
               </el-form-item>
 
-              <el-form-item label="添加师父：">
+              <!-- <el-form-item label="添加师父：">
                 <iep-tag v-model="form.people"></iep-tag>
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item label="卓越标签：">
                 <iep-tag v-model="form.people"></iep-tag>
               </el-form-item>
@@ -165,34 +165,19 @@
               </el-form-item>
 
               <el-form-item label="联系电话：" class="form-half">
-                <el-select v-model="form.phone">
-                  <el-option label="111" value="111"></el-option>
-                  <el-option label="222" value="222"></el-option>
-                </el-select>
+                <el-input v-model="form.phone"></el-input>
               </el-form-item>
               <el-form-item label="微信：" class="form-half">
-                <el-select v-model="form.wechat">
-                  <el-option label="111" value="111"></el-option>
-                  <el-option label="222" value="222"></el-option>
-                </el-select>
+                <el-input v-model="form.wechat"></el-input>
               </el-form-item>
               <el-form-item label="QQ：" class="form-half">
-                <el-select v-model="form.qq">
-                  <el-option label="111" value="111"></el-option>
-                  <el-option label="222" value="222"></el-option>
-                </el-select>
+                <el-input v-model="form.qq"></el-input>
               </el-form-item>
               <el-form-item label="邮箱：" class="form-half">
-                <el-select v-model="form.email">
-                  <el-option label="111" value="111"></el-option>
-                  <el-option label="222" value="222"></el-option>
-                </el-select>
+                <el-input v-model="form.email"></el-input>
               </el-form-item>
               <el-form-item label="个人主页：" class="form-half">
-                <el-select v-model="form.home">
-                  <el-option label="111" value="111"></el-option>
-                  <el-option label="222" value="222"></el-option>
-                </el-select>
+                <el-input v-model="form.home"></el-input>
               </el-form-item>
               <el-form-item label="应急联系人：" class="form-half">
                 <el-input v-model="form.emergencyName"></el-input>

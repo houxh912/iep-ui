@@ -40,13 +40,14 @@ export default {
       let options = this.itemTypes
       let labels = []
       let inputValue = []
-      if (!this.currentValue.length) {
-        inputValue = [this.currentValue]
+      const currentValue = +this.currentValue
+      if (!currentValue.length) {
+        inputValue = [currentValue]
       } else {
-        inputValue = this.currentValue
+        inputValue = currentValue
       }
       inputValue.forEach(value => {
-        const targetOption = options && options.filter(option => option[this.valueKey] === value)[0]
+        const targetOption = options && options.filter(option => option[this.valueKey] === '' + value)[0]
         if (targetOption) {
           labels.push(targetOption[this.labelKey])
           options = targetOption[this.childrenKey]

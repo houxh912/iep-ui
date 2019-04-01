@@ -21,12 +21,12 @@ const initForm = () => {
     orgName: null, // 组织名 不可编辑
     staffId: null, // 工号
     avatar: '', // 头像
-    roleName: null, // 角色
+    roleName: [], // 角色
     // orgName: '组织', // 资产所属公司 不可编辑
     position: [], // 岗位
     positionName: null, // 岗位
     externalTitle: null, // 对外头衔
-    people:[], // 标签名字
+    people: [], // 标签名字
     duties: null, // 岗位职责
     job: null, // 职务
     jobId: null, // 职务
@@ -46,16 +46,16 @@ const initForm = () => {
     marriage: null, // 婚姻状况
     bear: null, // 生育状况
     language: null, // 外语水平
-    education: null, // 最高学历
+    education: '', // 最高学历
     university: null, // 毕业学校
     profession: null, // 专业
     graduationTime: null, // 毕业时间
     referrer: null, // 推荐人
     accountTypes: null, // 户口类别
     accountLocation: null, // 户口所在地
-    residenceCities:[],
+    residenceCities: [],
     residenceAddress: null, // 户籍地址
-    currentCities:[],
+    currentCities: [],
     currentAddress: null, // 现住地址
     IDCard: null, // 身份证
     phone: null, // 联系手机
@@ -68,11 +68,11 @@ const initForm = () => {
     benefitsStartTime: null, // 社保福利起缴时间
     benefitsStopTime: null, // 社保福利停缴时间
     separationTime: null, // 离职时间
-    careerPlanning:null,//职业规划
-    laborContract:[],//劳动合同
-    socialContract:[],//社保福利
-    transferContract:[],//调动情况
-    quitContract:[],//离职信息
+    careerPlanning: null,//职业规划
+    laborContract: [],//劳动合同
+    socialContract: [],//社保福利
+    transferContract: [],//调动情况
+    quitContract: [],//离职信息
   }
 }
 
@@ -351,6 +351,7 @@ const columnsMap = [
     prop: 'deptList',
     label: '所属部门',
     hidden: true,
+    type: 'tag',
   },
 ]
 

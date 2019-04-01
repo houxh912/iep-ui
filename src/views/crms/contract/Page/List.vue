@@ -3,7 +3,7 @@
     <basic-container>
       <page-header title="合同"></page-header>
       <operation-container>
-        <template v-if="+type !=1" slot="left">
+        <template v-if="+type !=0" slot="left">
           <iep-button type="danger" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
         </template>
         <template slot="right">
@@ -16,11 +16,11 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" isIndex>
 
-        <el-table-column v-if="+type !== 1" prop="operation" label="操作" width="150">
+        <el-table-column v-if="+type !== 0" prop="operation" label="操作" width="150">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button v-if="+type === 2" @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button v-if="+type === 1" @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -37,17 +37,17 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      type: '1',
+      type: '0',
       showSelect: false,
       paramForm: initSearchForm(),
       tabList: [
         {
           label: '全部合同',
-          value: '1',
+          value: '0',
         },
         {
           label: '我的合同',
-          value: '2',
+          value: '1',
         },
       ],
       replaceText: (data) => `（本周新增${data[0]}位客户）`,
@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     columnsMap () {
-      return columnsMapByTypeId[this.type - 1]
+      return columnsMapByTypeId
     },
   },
   created () {
@@ -67,7 +67,7 @@ export default {
     },
     changeType () {
       this.loadPage()
-      if (this.type === '2') {
+      if (this.type === '1') {
         this.showSelect = true
       } else { this.showSelect = false }
     },

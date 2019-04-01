@@ -77,6 +77,7 @@ export default {
       this.$refs['SchemeDialog'].submitFn = createScheme
     },
     handleEdit (row) {
+      console.log(row)
       this.$refs['SchemeDialog'].formData = { ...row }
       this.$refs['SchemeDialog'].dialogShow = true
       this.$refs['SchemeDialog'].methodName = '编辑'

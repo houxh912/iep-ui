@@ -5,10 +5,26 @@
     </el-row>
     <el-row>
       <el-col :span=10>
-        <div class="echarts odd">图表1</div>
+        <div class="echarts odd">
+          <v-chart :forceFit="true" height="300" :data="data" :scale="scale" :padding="[40,20,40,60]">
+            <v-tooltip :showTitle="false" dataKey="item*percent" />
+            <v-axis />
+            <v-legend dataKey="item" />
+            <v-pie position="percent" color="item" :v-style="pieStyle" :label="labelConfig" />
+            <v-coord type="theta" />
+          </v-chart>
+        </div>
       </el-col>
       <el-col :span=9>
-        <div class="echarts">图表2</div>
+        <div class="echarts">
+          <v-chart :forceFit="true" height="300" :data="data1" :scale="scale1" :padding="[40,20,40,60]">
+            <v-tooltip :showTitle="false" dataKey="item*percent" />
+            <v-axis />
+            <v-legend dataKey="item" />
+            <v-pie position="percent" color="item" :v-style="pieStyle" :label="labelConfig" />
+            <v-coord type="theta" />
+          </v-chart>
+        </div>
       </el-col>
       <el-col :span=5>
         <div class="echarts lines">
@@ -24,10 +40,25 @@
   </el-card>
 </template>
 <script>
+import { data, scale } from './chart1'
+import { data1, scale1 } from './chart2'
 export default {
   data () {
     return {
-
+      data,
+      scale,
+      data1,
+      scale1,
+      height: 400,
+      pieStyle: {
+        stroke: '#fff',
+        lineWidth: 1,
+      },
+      labelConfig: ['percent', {
+        formatter: (val, item) => {
+          return item.point.item + ': ' + val
+        },
+      }],
     }
   },
 }
@@ -48,7 +79,6 @@ export default {
   margin-top: 20px;
   margin-right: 20px;
   position: relative;
-  border: 1px solid #eee;
   .msg {
     padding: 5px 0;
   }

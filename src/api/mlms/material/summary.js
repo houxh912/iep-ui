@@ -70,3 +70,11 @@ export function createCollectList (obj) {
     data: obj,
   })
 }
+
+// 复制
+export function copyData (id) {
+  return request({
+    url: `${prefixUrl}/copy/${id}`,
+    method: 'get',
+  })
+}

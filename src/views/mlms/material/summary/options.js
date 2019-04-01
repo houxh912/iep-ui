@@ -1,20 +1,16 @@
+import { getStore } from '@/util/store'
+const dicData = getStore({ name: 'dictGroup' })
+function changeDict (list) {
+  let data = {}
+  for (let item of list) {
+    data[item.value] = item.label
+  }
+  return data
+}
+
 export const dictsMap = {
-  meetingType: {
-    '0': '管理会议',
-    '1': '市场会议',
-    '2': '项目会议',
-    '3': '产品会议',
-    '4': '培训会议',
-    '5': '日常例会',
-    '6': '拜访纪要',
-    '7': '其他',
-  },
-  visitType: {
-    '0': '当面拜访',
-    '1': '电话拜访',
-    '2': '聊天软件拜访',
-    '3': '其他',
-  },
+  meetingType: changeDict(dicData.mlms_meeting_type),
+  visitType: changeDict(dicData.mlms_visit_type),
 }
 
 export const columnsMap = [
@@ -61,6 +57,7 @@ export const initFormData = () => {
     visitType: -1,
     visitingAddress: '',
     visitingUserId: [],
+    status: 0,
   }
 }
 

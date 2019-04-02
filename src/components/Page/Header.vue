@@ -83,6 +83,7 @@ export default {
   .title-col {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
     .page-title {
       font-size: 20px;

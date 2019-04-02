@@ -1,5 +1,5 @@
 <template>
-  <component @onDetail="handleDetail" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <component @onDetail="handleDetail" @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
 </template>
 
 <script>
@@ -23,13 +23,17 @@ export default {
 
   },
   methods: {
-    handleGoBack () {
-      this.record = ''
-      this.currentComponet = 'List'
+    handleEdit (record) {
+      this.record = record
+      this.currentComponet = 'Edit'
     },
     handleDetail (record) {
       this.record = record
       this.currentComponet = 'Detail'
+    },
+    handleGoBack () {
+      this.record = ''
+      this.currentComponet = 'List'
     },
   },
   watch: {

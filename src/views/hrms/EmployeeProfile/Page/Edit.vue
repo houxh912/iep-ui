@@ -146,10 +146,7 @@
             <div>
               <div class="little-title">联系信息</div>
               <el-form-item label="户口类型：" class="form-half">
-                <el-select v-model="form.accountTypeId">
-                  <el-option label="城镇" value="城镇"></el-option>
-                  <el-option label="农村" value="农村"></el-option>
-                </el-select>
+                <iep-dict-select v-model="form.accountTypeId" dict-name="hrms_resident_type"></iep-dict-select>
               </el-form-item>
               <el-form-item label="户籍地址：">
                 <div style="display:flex;">

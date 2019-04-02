@@ -58,7 +58,8 @@ const initForm = () => {
     trainingSituation: [], // 培训情况
     eduSituation: [], // 学习情况
     userCert: [], // 资质证书
-    accountTypes: null, // 户口类别
+    accountTypeId: null, // 户口类别
+    accountTypeName: null, // 户口类别
     accountLocation: null, // 户口所在地
     residenceCities: [],
     residenceAddress: null, // 户籍地址

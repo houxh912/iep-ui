@@ -89,9 +89,9 @@ export default {
     selectionChange (val) {
       this.multipleSelection = val.map(m => m.id)
     },
-    handleDetail (){
+    handleDetail (row) {
       // this.$store.commit('SET_ACCESS_TOKEN',row)
-      // this.$router.push('/gpms/project/prooverview/overview')
+      this.$router.push(`/gpms_spa/project/detail/${row.id}`)
     },
     handleCreate () {
       this.$emit('toggle-show', 'create')

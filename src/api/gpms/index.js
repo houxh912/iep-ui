@@ -19,7 +19,7 @@ export function createData (obj) {
 
 export function updateData (obj) {
   return request({
-    url: `${prefixUrl}/update`,
+    url: `${prefixUrl}/edit`,
     method: 'post',
     data: obj,
   })

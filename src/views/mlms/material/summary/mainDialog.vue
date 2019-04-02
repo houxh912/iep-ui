@@ -55,7 +55,9 @@
         <iep-tags v-model="formData.tagKeyWords"></iep-tags>
       </el-form-item>
       <el-form-item label="主持人：" prop="hostList">
-        <iep-contact-select v-model="formData.hostList"></iep-contact-select>
+        <div style="width: 200px;">
+          <iep-contact-select v-model="formData.hostList"></iep-contact-select>
+        </div>
       </el-form-item>
       <el-form-item label="参会人：" prop="attendeeList">
         <iep-contact-multiple v-model="formData.attendeeList"></iep-contact-multiple>
@@ -88,7 +90,7 @@ import FooterToolbar from '@/components/FooterToolbar/'
 import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepContactSelect from '@/components/IepContact/Select'
 import { mapState } from 'vuex'
-import { getCustomer } from '@/api/mlms/material/datum/contract'
+import { getCustomerPage } from '@/api/crms/customer'
 import { createData, updateData, getDataById } from '@/api/mlms/material/summary'
 
 export default {
@@ -202,7 +204,7 @@ export default {
       })
     }
     // 获取客户的数据
-    getCustomer({type: 1}).then(({data}) => {
+    getCustomerPage({type: 1}).then(({data}) => {
       this.clientList = data.data.records
     })
   },

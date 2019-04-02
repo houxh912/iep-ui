@@ -22,8 +22,11 @@
       <el-form-item prop="businessTypeSec" v-if="formData.businessType === '7'">
         <el-input v-model="formData.businessTypeSec" placeholder="请填写具体业务类型"></el-input>
       </el-form-item>
-      <el-form-item label="相关客户：" prop="relatedClientList">
-        <iep-contact-select v-model="formData.relatedClientList"></iep-contact-select>
+      <el-form-item label="相关客户：" prop="relatedClient">
+        <!-- <iep-contact-select v-model="formData.relatedClientList"></iep-contact-select> -->
+        <el-select v-model="formData.relatedClient" placeholder="请选择">
+          <el-option v-for="item in clientList" :key="item.clientId" :label="item.clientName" :value="''+item.clientId"></el-option>
+        </el-select>
       </el-form-item> 
       <el-form-item label="项目预算：" prop="projectBudget">
         <el-input v-model="formData.projectBudget"></el-input>
@@ -39,21 +42,23 @@
       </el-form-item>
       <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
         <el-radio-group v-model="formData.isRelevanceProduct">
-          <el-radio label="0">否</el-radio>
-          <el-radio label="1">是</el-radio>
+          <el-radio v-for="item in dictMap.is_yes" :key="item.value" :label="item.value">{{item.label}}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="未关联产品理由：" prop="notRelevanceProductReason" v-if="formData.isRelevanceProduct === '0'">
+      <el-form-item label="未关联产品理由：" prop="notRelevanceProductReason" v-if="formData.isRelevanceProduct === 2">
         <el-input type="textarea" rows=5 v-model="formData.notRelevanceProductReason"></el-input>
       </el-form-item>
-      <el-form-item label="承接部门：" prop="inChargeDeptObj">
-        <iep-dept-select v-model="formData.inChargeDeptObj"></iep-dept-select>
+      <el-form-item label="承接部门：" prop="inChargeDeptList">
+        <iep-dept-select v-model="formData.inChargeDeptList"></iep-dept-select>
       </el-form-item>
-      <el-form-item label="合作部门：" prop="coopDeptObj">
-        <iep-dept-select v-model="formData.coopDeptObj"></iep-dept-select>
+      <el-form-item label="合作部门：" prop="coopDeptList">
+        <iep-dept-select v-model="formData.coopDeptList"></iep-dept-select>
       </el-form-item>
-      <el-form-item label="集团外部合作伙伴：" prop="groupExternalCooperatePartnerList">
-        <iep-contact-select v-model="formData.groupExternalCooperatePartnerList"></iep-contact-select>
+      <el-form-item label="集团外部合作伙伴：" prop="groupExternalCooperatePartner">
+        <!-- <iep-contact-select v-model="formData.groupExternalCooperatePartnerList"></iep-contact-select> -->
+        <el-select v-model="formData.groupExternalCooperatePartner" placeholder="请选择">
+          <el-option v-for="item in clientList" :key="item.clientId" :label="item.clientName" :value="''+item.clientId"></el-option>
+        </el-select>
       </el-form-item>
     </el-form>
 
@@ -68,7 +73,8 @@
 import IepTags from '@/components/IepTags/input'
 import { dictMap, rules, initFormData } from './Total/const.js'
 import FooterToolbar from '@/components/FooterToolbar/'
-  import { createData, updateData } from '@/api/gpms/index'
+import { createData, updateData } from '@/api/gpms/index'
+import { getCustomerPage } from '@/api/crms/customer'
 
 export default {
   name: 'add-dialog',
@@ -97,6 +103,7 @@ export default {
           name: '编辑',
         },
       },
+      clientList: [],
       typeOptions: dictMap.typeOptions, //项目类型菜单
       isRelevOptions: dictMap.isRelevOptions,//是否关联菜单
       workTypeOne: dictMap.workTypeOne,   //业务类型一级菜单
@@ -116,23 +123,17 @@ export default {
         if (valid) {
           // 进行数据的转换先
           let personList =  [{
-            name: 'relatedClient',
-            list: 'relatedClientList',
-          }, {
             name: 'mktManager',
             list: 'mktManagerList',
           }, {
             name: 'projectMentor',
             list: 'projectMentorList',
-          }, {
-            name: 'groupExternalCooperatePartner',
-            list: 'groupExternalCooperatePartnerList',
           }]
           for (let item of personList) {
             this.formData[item.name] = this.formData[item.list].id
           }
-          this.formData.inChargeDept = this.formData.inChargeDeptObj.id
-          this.formData.coopDept = this.formData.coopDeptObj.id
+          this.formData.inChargeDept = this.formData.inChargeDeptList.id
+          this.formData.coopDept = this.formData.coopDeptList.id
           this.typeObj[this.type].requestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',
@@ -151,6 +152,11 @@ export default {
     businessTypeChange (val) {
       console.log('val: ', val)
     },
+  },
+  created () {
+    getCustomerPage({type: 1}).then(({data}) => {
+      this.clientList = data.data.records
+    })
   },
 }
 </script>

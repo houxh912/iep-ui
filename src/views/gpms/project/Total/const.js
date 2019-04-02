@@ -1,4 +1,8 @@
 export const dictMap = {
+  is_yes: [
+    { value: 1, label: '是' },
+    { value: 2, label: '否' },
+  ],
   stageOptions: [],
   typeOptions: [
     { id: 1, value: '1', label: '类型一' },
@@ -44,7 +48,7 @@ export const rules = {
   businessType: [
     { required: true, message: '必填', trigger: 'change' },
   ],
-  relatedClientList: [
+  relatedClient: [
     { required: true, message: '必填', trigger: 'change' },
   ],
   projectBudget: [
@@ -65,13 +69,13 @@ export const rules = {
   notRelevanceProductReason: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
-  inChargeDeptObj: [
+  inChargeDeptList: [
     { required: true, message: '必填', trigger: 'change' },
   ],
-  coopDeptObj: [
+  coopDeptList: [
     { required: true, message: '必填', trigger: 'change' },
   ],
-  groupExternalCooperatePartnerList: [
+  groupExternalCooperatePartner: [
     { required: true, message: '必填', trigger: 'change' },
   ],
 }
@@ -110,10 +114,6 @@ export function initFormData () {
     businessType: '', // 业务类型
     businessTypeSec: '', // 其他
     relatedClient: '', // 相关客户
-    relatedClientList: {
-      id: 0,
-      name: '',
-    },
     projectBudget: '', // 项目预算
     mktManager: '', // 市场经理
     mktManagerList: {
@@ -129,14 +129,10 @@ export function initFormData () {
     isRelevanceProduct: '', // 是否关联产品
     notRelevanceProductReason: '', // 不关联理由
     inChargeDept: '', // 承接部门
-    inChargeDeptObj: {},
+    inChargeDeptList: {},
     coopDept: '', // 合作部门
-    coopDeptObj: {},
+    coopDeptList: {},
     groupExternalCooperatePartner: '', // 集团外部合作伙伴
-    groupExternalCooperatePartnerList: {
-      id: 0,
-      name: '',
-    },
   }
 }
 

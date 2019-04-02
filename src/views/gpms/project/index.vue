@@ -1,5 +1,5 @@
 <template>
-  <basic-container >
+  <basic-container>
     <div v-if="pageState === 'list'">
       <page-header title="我的项目" :replaceText="replaceText" :data="[16]"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">

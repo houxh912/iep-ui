@@ -89,7 +89,7 @@ import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepContactSelect from '@/components/IepContact/Select'
 import { mapState } from 'vuex'
 import { getCustomer } from '@/api/mlms/material/datum/contract'
-import { createData } from '@/api/mlms/material/summary'
+import { createData, updateData, getDataById } from '@/api/mlms/material/summary'
 
 export default {
   components: { IepTags, FooterToolbar, IepContactMultiple, IepContactSelect },
@@ -105,9 +105,10 @@ export default {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          this.$emit('load-page', true)
+          this.goBack()
         },
       },
+      backRouter: '/wel/material/summary',
     }
   },
   computed: {
@@ -116,9 +117,6 @@ export default {
     }),
   },
   methods: {
-    loadPage () {
-      this.$emit('load-page')
-    },
     // 保存
     saveForm (formName) {
       delete this.formData.createTime
@@ -159,13 +157,12 @@ export default {
           type: 'success',
           duration: 2000,
         })
-        this.loadPage()
+        this.goBack()
       })
     },
     // 重置表单
     resetForm () {
-      this.formData = initFormData()
-      this.loadPage('load-page')
+      this.goBack()
     },
     // 纪要类型转换
     typeChange (val) {
@@ -175,8 +172,35 @@ export default {
         this.$set(this.formData, 'type', 0)
       }
     },
+    goBack () {
+      this.$router.push(this.backRouter)
+    },
   },
   created () {
+    // 首先获取query
+    let query = this.$route.query
+    if (query.back) {
+      this.backRouter = query.back
+    }
+    // 若存在 id， 即为修改
+    if (query.id) {
+      getDataById(query.id).then(({data}) => {
+        data.data.receiverList = {
+          orgs: data.data.receiver.orgs ? data.data.receiver.orgs: [],
+          users: data.data.receiver.users ? data.data.receiver.users: [],
+          unions: [],
+        }
+        data.data.attendeeList = {
+          orgs: data.data.attendee.orgs ? data.data.attendee.orgs: [],
+          users: data.data.attendee.users ? data.data.attendee.users: [],
+          unions: [],
+        }
+        data.data.hostList = data.data.host.length > 0 ? data.data.host[0] : {id: '', name: ''}
+        this.formData = {...data.data}
+        this.methodName = '修改'
+        this.formRequestFn = updateData
+      })
+    }
     // 获取客户的数据
     getCustomer({type: 1}).then(({data}) => {
       this.clientList = data.data.records

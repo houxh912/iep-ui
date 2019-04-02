@@ -56,6 +56,7 @@
         <page-header title="财务流水"></page-header>
         <operation-container>
           <template slot="left">
+            <page-header class="data-title" :replaceText="replaceText" :data="[10 ,0, 1,300000,0,0]"></page-header>
           </template>
           <template slot="right">
             <operation-search @search="searchPage" advance-search>
@@ -76,7 +77,7 @@
         </operation-container>
         <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
           <template slot="before-columns">
-            <el-table-column label="银行户头" width="90px">
+            <el-table-column label="时间">
               <template slot-scope="scope">
                 <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
               </template>
@@ -98,6 +99,7 @@ export default {
       columnsMap,
       paramForm: initSearchForm(),
       value: '',
+      replaceText: (data) => `支出：${data[0]}笔，支出金额：￥${data[1]}元，收入${data[2]}笔，收入金额￥${data[3]}元，抵扣：${data[4]}笔，抵扣金额${data[5]}元`,
     }
   },
   created () {
@@ -210,5 +212,19 @@ ul {
 .set-containter >>> .title-col {
   padding-bottom: 15px;
   border-bottom: 1px solid #ebeef5;
+}
+.set-containter >>> .data-title {
+  margin-bottom: 0;
+}
+.set-containter >>> .data-title .page-title {
+  display: none;
+}
+.set-containter >>> .data-title .title-col {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.set-containter >>> .operation-container {
+  margin-top: 20px;
 }
 </style>

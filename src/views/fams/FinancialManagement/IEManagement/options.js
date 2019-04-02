@@ -2,16 +2,39 @@ import { mergeByFirst } from '@/util/util'
 
 const columnsMap = [
 	{
-		prop: 'corporate',
-		label: '公司名称',
+		prop: 'budget',
+		label: '收/支',
 	},
 	{
-		prop: 'time',
-		label: '操作时间',
+		prop: 'sum',
+		label: '金额',
 	},
 	{
-		prop: 'operate',
-		label: '操作',
+		prop: 'type',
+		label: '类型',
+	},
+	{
+		prop: 'organize',
+		label: '组织',
+	},
+	{
+		prop: 'company',
+		label: '线下公司',
+	},
+	{
+		prop: 'mode',
+		label: '收支方式',
+	},
+	{
+		prop: 'account',
+		label: '银行账户',
+	},{
+		prop: 'project',
+		label: '项目',
+	},
+	{
+		prop: 'remarks',
+		label: '备注',
 	},
 ]
 

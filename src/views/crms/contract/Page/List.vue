@@ -116,11 +116,11 @@ export default {
       if (this.deleteAll) {
         this._handleGlobalDeleteById(this.id, deleteContract)
         // deleteContract(this.id)
-        this.dialogVisible = false
+        // this.dialogVisible = false
       } else {
         this._handleGlobalDeleteById(this.id, deleteContractById)
         // deleteContractById(this.id)
-        this.dialogVisible = false
+        // this.dialogVisible = false
       }
     },
     loadPage (param = { ...this.searchForm, type: this.type }) {

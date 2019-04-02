@@ -1,6 +1,6 @@
 <template>
-  <keep-alive>
-    <component :record="record" :is="currentComponet" @onDetail="handleDetail" @onForm="handleForm" @onGoBack="handleGoBack"></component>
+  <keep-alive include="List">
+    <component ref="component" :record="record" :is="currentComponet" @onDetail="handleDetail" @onForm="handleForm" @onGoBack="handleGoBack"></component>
   </keep-alive>
 </template>
 
@@ -35,6 +35,9 @@ export default {
     handleGoBack () {
       this.record = ''
       this.currentComponet = 'List'
+      this.$nextTick(() => {
+        this.$refs['component'].loadPage()
+      })
     },
   },
   watch: {

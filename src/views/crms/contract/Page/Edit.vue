@@ -32,12 +32,14 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <iep-dept-select v-model="formData.companyOrgId"></iep-dept-select>
+            <!-- <iep-dept-select v-model="formData.companyOrgId"></iep-dept-select> -->
+            <iep-select prefix-url="" v-model="formData.companyOrgId"></iep-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
-            <iep-dept-select v-model="formData.signCompanyOrgId"></iep-dept-select>
+            <!-- <iep-dept-select v-model="formData.signCompanyOrgId"></iep-dept-select> -->
+            <iep-select prefix-url="" v-model="formData.signCompanyOrgId"></iep-select>
           </el-form-item>
         </el-col>
       </el-row>
@@ -57,7 +59,8 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="市场经理：" prop="directorId">
-            <iep-contact-select v-model="formData.directorId"></iep-contact-select>
+            <!-- <iep-contact-select v-model="formData.directorId"></iep-contact-select> -->
+            <el-input v-model="formData.directorId" disabled></el-input>
           </el-form-item>
         </el-col>
         <el-col :span=12>
@@ -90,14 +93,13 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span=12>
+        <!-- <el-col :span=12>
           <el-form-item label="合同附件：" prop="baozhengjin">
             <iep-upload v-model="formData.fileList" :limit="1">
               <slot name="tip"><span>文件类型为excel，每次上传数量不超过一个</span></slot>
             </iep-upload>
           </el-form-item>
-
-        </el-col>
+        </el-col> -->
       </el-row>
     </el-form>
     <footer-toolbar>
@@ -107,7 +109,7 @@
   </div>
 </template>
 <script>
-import { initFormData, rules, deptList } from '../options'
+import { initFormData, rules } from '../options'
 import FooterToolbar from '@/components/FooterToolbar/'
 import { mapState } from 'vuex'
 import { getDataById } from '@/api/crms/contract'
@@ -126,12 +128,13 @@ export default {
       formRequestFn: () => { },
       formData: initFormData(),
       rules: rules,
-      deptList,
+      id: '',
       backOption: {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          this.$emit('load-page', true)
+          // this.$emit('load-page', true)
+          this.$emit('onGoBack')
         },
       },
     }
@@ -142,6 +145,7 @@ export default {
     }),
   },
   created () {
+    console.log(this.id)
     console.log(this.dictGroup)
     this.formRequestFn = this.record.formRequestFn
     this.methodName = this.record.methodName
@@ -150,6 +154,11 @@ export default {
       getDataById(this.id).then(res => {
         console.log(res)
         this.formData = res.data.data
+        this.formData.signCompanyOrgId = res.data.data.signCompanyRealName
+        this.formData.underTakeDeptId = res.data.data.underTakeDeptName
+        this.formData.companyOrgId = res.data.data.companyName
+        this.formData.signDeptOrgId = res.data.data.signDeptOrgName
+        this.formData.directorId = res.data.data.directorRealName
       })
     }
   },
@@ -157,8 +166,7 @@ export default {
     loadPage () {
       this.$emit('load-page')
     },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
+    resetForm () {
       this.formData = initFormData()
       this.$emit('onGoBack')
     },

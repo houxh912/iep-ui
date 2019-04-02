@@ -66,7 +66,7 @@
 
 <script>
 import IepTags from '@/components/IepTags/input'
-import { workTypeOne, workTypeTwo, dictMap, rules, initFormData } from './Total/const.js'
+import { dictMap, rules, initFormData } from './Total/const.js'
 import FooterToolbar from '@/components/FooterToolbar/'
   import { createData, updateData } from '@/api/gpms/index'
 
@@ -97,13 +97,9 @@ export default {
           name: '编辑',
         },
       },
-
       typeOptions: dictMap.typeOptions, //项目类型菜单
       isRelevOptions: dictMap.isRelevOptions,//是否关联菜单
-      workTypeOne,   //业务类型一级菜单
-      workTypeTwo,   //业务类型二级菜单
-      workTypeTwoOK: [], //在页面展示的业务类型二级菜单
-      isElse: false,//业务类型中是不是 其他 选项
+      workTypeOne: dictMap.workTypeOne,   //业务类型一级菜单
     }
   },
   methods: {

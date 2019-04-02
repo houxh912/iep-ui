@@ -44,66 +44,72 @@
 </template>
 
 <script>
-  import mixins from '@/mixins/mixins'
-  import { dictMap, columnsMap, paramForm } from './const.js'
-  import { getTableData, deleteData } from '@/api/gpms/index'
-  // import searchForm from './searchForm'
+import mixins from '@/mixins/mixins'
+import { dictMap, columnsMap, paramForm } from './const.js'
+import { getTableData, deleteData } from '@/api/gpms/index'
+// import searchForm from './searchForm'
 
-  export default {
-    components: {  },
-    data () {
-      return {
-        addDialogShow: false,
-        isLoadTable: false,
-        dictMap,
-        columnsMap,
-        dialogIsShow: true,
-        paramForm: paramForm(),
-        value: '',
+export default {
+  components: {  },
+  props: {
+    tabType: {
+      type: String,
+      default: '',
+    },
+  },
+  data () {
+    return {
+      addDialogShow: false,
+      isLoadTable: false,
+      dictMap,
+      columnsMap,
+      dialogIsShow: true,
+      paramForm: paramForm(),
+      value: '',
+    }
+  },
+  mixins: [mixins],
+  methods: {
+    loadPage (param) {
+      this.loadTable(param, getTableData)
+    },
+    closeDialog () {
+      this.dialogIsShow = false
+      this.paramForm = paramForm()
+    },
+    searchPage (name) {
+      if (name) {
+        this.paramForm.name = name
       }
+      // console.log(this.paramForm)
+      // 搜索完成后
+      // this.paramForm.name = ''
     },
-    mixins: [mixins],
-    methods: {
-      loadPage (param) {
-        this.loadTable(param, getTableData)
-      },
-      closeDialog () {
-        this.dialogIsShow = false
-        this.paramForm = paramForm()
-      },
-      searchPage (name) {
-        if (name) {
-          this.paramForm.name = name
-        }
-        // console.log(this.paramForm)
-        // 搜索完成后
-        // this.paramForm.name = ''
-      },
-      //勾选行执行
-      selectionChange (val) {
-        this.multipleSelection = val.map(m => m.id)
-      },
-      handleDetail (){
-        // this.$store.commit('SET_ACCESS_TOKEN',row)
-        // this.$router.push('/gpms/project/prooverview/overview')
-      },
-      handleCreate () {
-        this.$emit('toggle-show', 'create')
-      },
-      handleUpdate (row) {
-        this.$emit('toggle-show', 'update', row)
-      },
-      handleDelete (val) {
-        this._handleGlobalById(val.id, deleteData)
-      },
-      handleDeleteAll () {
-        this._handleGlobalAll(deleteData)
-      },
+    //勾选行执行
+    selectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
     },
-    created () {
-      this.loadPage()
+    handleDetail (){
+      // this.$store.commit('SET_ACCESS_TOKEN',row)
+      // this.$router.push('/gpms/project/prooverview/overview')
     },
-  }
+    handleCreate () {
+      this.$emit('toggle-show', 'create')
+    },
+    handleUpdate (row) {
+      this.$emit('toggle-show', 'update', row)
+    },
+    handleDelete (val) {
+      this._handleGlobalById(val.id, deleteData)
+    },
+    handleDeleteAll () {
+      this._handleGlobalAll(deleteData)
+    },
+  },
+  mounted () {
+    this.loadPage({listType: this.tabType})
+  },
+}
 </script>
 
 <style scoped>

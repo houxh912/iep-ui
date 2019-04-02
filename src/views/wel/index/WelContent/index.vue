@@ -52,6 +52,7 @@
     <about-task></about-task>
     <project></project>
     <customer></customer>
+    <contract></contract>
     <material></material>
     <grades></grades>
     <relationship></relationship>
@@ -68,6 +69,7 @@ import Customer from './Customer'
 import Material from './Material'
 import Grades from './Grades'
 import Relationship from './Relationship'
+import Contract from './Contract'
 const initIndexForm = () => {
   return {
     name: '', //名字
@@ -80,7 +82,7 @@ const initIndexForm = () => {
   }
 }
 export default {
-  components: { AboutTask, Project, Customer, Material, Grades, Relationship },
+  components: { AboutTask, Project, Customer, Material, Grades, Relationship, Contract },
   data () {
     return {
       timeFix: timeFix(),

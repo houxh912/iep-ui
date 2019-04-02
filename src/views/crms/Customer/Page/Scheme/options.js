@@ -4,10 +4,9 @@ const columnsMap = [
 ]
 const initForm = () => {
   return {
-    id: '',
+    clientId: '',
     programName: '',
-    fileList: [],
-    url: '',
+    attachs: [],
   }
 }
 export { columnsMap, initForm }

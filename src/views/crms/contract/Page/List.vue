@@ -34,6 +34,7 @@ import { columnsMapByTypeId } from '../columns'
 import { getContractPage, postContract, putContract, deleteContractById } from '@/api/crms/contract'
 import { initSearchForm } from '../options'
 export default {
+  name: 'List',
   mixins: [mixins],
   data () {
     return {
@@ -82,7 +83,7 @@ export default {
       this.$emit('onForm', {
         formRequestFn: putContract,
         methodName: '修改',
-        id: row.id,
+        id: row.contractId,
       })
     },
     handleDetail (row) {

@@ -1,61 +1,74 @@
 <template>
-  <div>
-    <basic-container>
-      <page-header title="立项阶段" :backOption="backOption"></page-header>
-      <iep-tabs v-model="activeTab" :tab-list="tabList">
-        <template v-if="activeTab ==='ProApp'" v-slot:ProApp>
-          <pro-app v-loading="activeTab !=='ProApp'"></pro-app>
-        </template>
-        <template v-if="activeTab ==='Accredit'" v-slot:Accredit>
-          <accredit v-loading="activeTab !=='Accredit'" :isShow="addDialogShow" :detailShow="detailDialogShow" @detail-show="fn" @toggle-show="val => addDialogShow = val"></accredit>
-        </template>
-      </iep-tabs>
-      <transition name="fade">
-        <add-dialog :isShow="addDialogShow" @close="val => addDialogShow = val"></add-dialog>
-      </transition>
-      <transition name="fade">
-        <detail-dialog :detailShow="detailDialogShow" @close="val => detailDialogShow = val"></detail-dialog>
-      </transition>
-    </basic-container>
-  </div>
+  <basic-container>
+    <page-header title="详情" :backOption="backOption"></page-header>
+    <div class="content">
+      <div class="left">
+        <el-card class="box-card">
+          <div class="navigation" 
+            :class="selectNavigation===item.value?'selectNavigation':''" 
+            v-for="item in selectNavigatList" 
+            :key="item.value"
+            @click="navigationChosen(item)">{{item.name}}</div>
+        </el-card>
+      </div>
+      <div class="right">
+        <detailPage></detailPage>
+      </div>
+    </div>
+  </basic-container>
 </template>
+
 <script>
-import ProApp from './ProApp/'
-import Accredit from './Accredit/'
-import addDialog from './addDialog'
-import detailDialog from './detailDialog'
+import detailPage from './detail/index'
+
 export default {
-  components: { ProApp, Accredit, addDialog, detailDialog },
+  name: 'detail',
+  components: { detailPage },
   data () {
     return {
-      addDialogShow: false,
-      detailDialogShow: false,
       backOption: {
         isBack: true,
+        backPath: null,
+        backFunction: () => {
+          this.$router.go(-1)
+        },
       },
-      tabList: [{
-        label: '项目立项',
-        value: 'ProApp',
-      }, {
-        label: '项目经理授权',
-        value: 'Accredit',
-      }],
-      activeTab: 'ProApp',
+      selectNavigation: 0,
+      selectNavigatList: [
+        { name: '概况', value: 0 },
+        { name: '立项阶段', value: 1 },
+        { name: '项目材料', value: 2 },
+      ],
     }
   },
   methods: {
-    fn (v) {
-      this.detailDialogShow = v
+    close () {
+      
+    },
+    // 导航切换
+    navigationChosen (item) {
+      this.selectNavigation = item.value
     },
   },
 }
 </script>
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+
+<style lang="scss" scoped>
+.content {
+  display: flex;
+  .left {
+    width: 200px;
+    .navigation {
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+    .selectNavigation {
+      color: #cb3737
+    }
+  }
+  .right {
+    flex: 1;
+  }
 }
 </style>
+

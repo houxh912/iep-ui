@@ -128,7 +128,8 @@ import { initFormData, rules, dictsMap } from './option'
 import IepTags from '@/components/IepTags/input'
 import FooterToolbar from '@/components/FooterToolbar/'
 import { mapState } from 'vuex'
-import { getCustomer, getManeger } from '@/api/mlms/material/datum/contract'
+import { getManeger } from '@/api/mlms/material/datum/contract'
+import { getCustomerPage } from '@/api/crms/customer'
 
 export default {
   components: { FooterToolbar, IepTags },
@@ -203,7 +204,7 @@ export default {
     },
   },
   created () {
-    getCustomer({type: 1}).then(({data}) => {
+    getCustomerPage({type: 1}).then(({data}) => {
       this.clientList = data.data.records
     })
   },

@@ -43,32 +43,32 @@ export default {
   mixins:[mixins],
   data (){
     return{
-        msg:{
-            id:'GM20190001',
-            man:{
-                name:'殷亚增',
-                sex:'',
-                age:'27',
-            },
-            proName:'佛山市智慧城市顶层设计规划编制',
-            openTime:{
-                one:'2018',
-                two:'12',
-                three:'13',
-            },
-            accredit:'湖南国脉原道数据科技有限公司(衡阳办事处、长沙)',
-            closeTime:{
-                one:'2019',
-                two:'3',
-                three:'19',
-            },
-            Bname:'',
-            nowTime:'2018年12月10日',
-            idCard:'XXXXXXXXXXXXXXXXX',
-            aside:'XXXXXXXXX',
-            iphone:'XXXXXXXXXX',
-            emaill:'XXXXXXXXXXXX',
+      msg:{
+        id:'GM20190001',
+        man:{
+          name:'殷亚增',
+          sex:'',
+          age:'27',
         },
+        proName:'佛山市智慧城市顶层设计规划编制',
+        openTime:{
+          one:'2018',
+          two:'12',
+          three:'13',
+        },
+        accredit:'湖南国脉原道数据科技有限公司(衡阳办事处、长沙)',
+        closeTime:{
+          one:'2019',
+          two:'3',
+          three:'19',
+        },
+        Bname:'',
+        nowTime:'2018年12月10日',
+        idCard:'XXXXXXXXXXXXXXXXX',
+        aside:'XXXXXXXXX',
+        iphone:'XXXXXXXXXX',
+        emaill:'XXXXXXXXXXXX',
+      },
     }
   },
   props: {
@@ -81,76 +81,63 @@ export default {
 
 
 <style lang="scss" scoped>
-  .addDias{
+  .addDias {
     width: 100%;
     background-color: #fff;
-  }
-  .row-bg{
-    padding: 0 20px;
-    border-bottom: 1px solid gray;
-  }
-  .callbackAdd{
-    float: right;
-    margin-top: 15px;
-  }
-  .addFont{
-    font-weight: bold;
-    font-size: 18px;
-  }
-  .cent{
-    margin: 0;
-  }
-  .bods{
-    box-sizing: border-box;
-    padding: 10px 20px;
-  }
-  // 合同
-  .contractBox{
-    width: 750px;
-    border: 1px solid gray;
-    margin: 0 auto;
-    box-sizing: border-box;
-  }
-  .contractBox p{
-    line-height: 40px;
-  }
-  .contractBoxTop{
-    border-bottom: 1px solid gray;
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  .tits{
-    font-weight: bold;
-    text-align: center;
-    font-size: 30px;
-    margin: 0;
-  }
-  .number{
-    float: right;
-    margin-right: 10px;
-    font-size: 16px;
-    line-height: 45px;
-  }
-  .initstit{
-    font-size: 14px;
-  }
-  .prs{
-    padding-right: 50px;
-    border-bottom: 1px solid gray;
-  }
-  .pls{
-    padding-left: 35px;
-  }
-  .indents{
-    text-indent: 2em;
-  }
-  .texright{
-    text-align: right;
-    font-weight: bold;
-  }
-  .pasaml{
-    padding-left: 10px;
+    .bods {
+      box-sizing: border-box;
+      padding: 10px 20px;
+      // 合同
+      .contractBox {
+        width: 750px;
+        border: 1px solid #ddd;
+        margin: 0 auto;
+        box-sizing: border-box;
+        p {
+          line-height: 40px;
+        }
+        .pls{
+          padding-left: 35px;
+        }
+        .indents{
+          text-indent: 2em;
+        }
+        .texright{
+          text-align: right;
+          font-weight: bold;
+        }
+        .pasaml{
+          padding-left: 10px;
+        }
+        .contractBoxTop {
+          border-bottom: 1px solid #ddd;
+          width: 100%;
+          padding: 10px;
+          box-sizing: border-box;
+          .tits{
+            font-weight: bold;
+            text-align: center;
+            font-size: 30px;
+            margin: 0;
+            .number{
+              float: right;
+              margin-right: 10px;
+              font-size: 16px;
+              line-height: 45px;
+            }
+            .initstit{
+              font-size: 14px;
+            }
+          }
+          .prs{
+            padding: 0 25px;
+            text-align: center;
+            min-width: 100px;
+            border-bottom: 1px solid gray;
+          }
+        }
+      }
+    }
   }
 </style>
 <style>

@@ -2,27 +2,31 @@
   <div class="treasure">
     <div class="title">
       <div class="flex">我的财富</div>
-      <div class="flex samll">挖贝攻略<span><i class="el-icon-question"></i></span></div>
+      <div class="flex small" @click="handleOpen()">挖贝攻略<span><i class="el-icon-question"></i></span></div>
       <div class="line">|</div>
-      <div class="flex samll">投资宝典<span><i class="el-icon-question"></i></span></div>
+      <div class="flex small">投资宝典<span><i class="el-icon-question"></i></span></div>
     </div>
     <div class="treasure-data">
       <div class="total">
-        <div class="littleTitle">总资产</div>
-        <div class="color">{{total}}</div>
+        <div class="little-title">总资产</div>
+        <div class="color">0.00</div>
       </div>
       <div class="change">
-        <div class="littleTitle">今日变化</div>
-        <div class="color">{{change}}</div>
+        <div class="little-title">今日变化</div>
+        <div class="color">0.00</div>
       </div>
-      <span class="rightTop"><i class="el-icon-view"></i></span>
+      <span class="right-top"><i class="el-icon-view"></i></span>
     </div>
-    <div class="treasure-list">
-      <div :class="showClass==index?'active':''" v-for="(item,index) in treasureData.dataList" :key="index" @click="tagList(index)">{{item.name}}</div>
-    </div>
+    <el-button-group class="operation-btn-group">
+      <iep-button type="" plain>报销</iep-button>
+      <iep-button type="" plain>打赏</iep-button>
+      <iep-button type="" plain>投资</iep-button>
+      <iep-button type="" plain>互助基金</iep-button>
+    </el-button-group>
   </div>
 </template>
 <script>
+import { openWindow } from '@/util/util'
 export default {
   data () {
     return {
@@ -45,6 +49,9 @@ export default {
     this.change = this.treasureData.dataList[2].change
   },
   methods: {
+    handleOpen () {
+      openWindow('https://www.yuque.com/govmade/readings', '挖贝攻略', 800, 600)
+    },
     tagList (index) {
       this.showClass = index
       this.total = this.treasureData.dataList[index].totalMoney
@@ -55,6 +62,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .treasure {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
   margin: 10px;
   .el-icon-question {
@@ -70,13 +81,14 @@ export default {
   font-weight: 500;
   .flex {
     flex-grow: 1;
+    margin-right: 5px;
     width: auto;
   }
   .line {
     padding: 0 10px 0 2px;
     color: #e0e0e0;
   }
-  .samll {
+  .small {
     font-size: 13px;
     padding-top: 4px;
     color: #686868;
@@ -92,6 +104,9 @@ export default {
     }
   }
 }
+.operation-btn-group {
+  margin: 10px 0;
+}
 .treasure-data {
   padding: 15px 0;
   background: white;
@@ -100,8 +115,8 @@ export default {
   border: 1px solid #e8e8e8;
   position: relative;
   overflow: hidden;
-  z-index: 99;
-  .rightTop {
+  width: 100%;
+  .right-top {
     display: inline-block;
     width: 45px;
     height: 45px;
@@ -133,7 +148,7 @@ export default {
     background: #ccc;
     height: 100%;
   }
-  .littleTitle {
+  .little-title {
     padding-bottom: 10px;
     color: #959595;
   }
@@ -142,57 +157,8 @@ export default {
     font-size: 18px;
   }
 }
-.treasure-list {
-  margin-top: 10px;
-  background: white;
-  border-radius: 6px;
-  display: flex;
-  font-size: 14px;
-  border: 1px solid #e8e8e8;
-  .active {
-    color: #cb132d;
-  }
-  > div {
-    flex-grow: 1;
-    padding: 10px 0;
-    text-align: center;
-    position: relative;
-    color: #959595;
-    cursor: pointer;
-    &:after {
-      content: "";
-      width: 1px;
-      height: 100%;
-      background: #e8e8e8;
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-    &:last-child:after {
-      width: 0;
-    }
-    &:hover {
-      color: #cb132d;
-    }
-  }
-}
 .cursor {
   cursor: pointer;
-}
-@media (min-width: 769px) and (max-width: 1026px) {
-  .treasure {
-    .title {
-      font-size: 14px;
-      .line {
-        font-size: 10px;
-      }
-      .samll {
-        font-size: 10px;
-      }
-    }
-  }
-}
-@media screen and (max-width: 769px) {
 }
 </style>
 

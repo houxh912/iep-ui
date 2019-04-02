@@ -39,7 +39,6 @@
           </el-col>
         </el-row>
       </el-card>
-      <span class="shrinkage">...</span>
     </div>
     <about-task></about-task>
     <project></project>
@@ -300,22 +299,6 @@ export default {
   .dotted {
     border-right: 2px dotted #eee;
     box-sizing: border-box;
-  }
-  .shrinkage {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    right: -30px;
-    top: 50%;
-    display: none;
-    background: #eee;
-    margin-top: -25px;
-    text-align: center;
-    line-height: 10px;
-    border-radius: 50%;
-    transform: rotate(-90deg);
-    font-size: 20px;
-    color: #c0c0c0;
   }
   .el-icon-question {
     cursor: pointer;

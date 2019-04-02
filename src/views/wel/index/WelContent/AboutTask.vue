@@ -1,7 +1,7 @@
 <template>
   <div class="about-task">
     <div class="task-nav">
-      <span class="navTitle">{{navList.title}}（ 8 ）</span>
+      <span class="navTitle">{{navList.title}}</span>
       <nav-tab :nav-list="navList" @tab="tab"></nav-tab>
     </div>
     <nav-content :contentData="contentData"></nav-content>

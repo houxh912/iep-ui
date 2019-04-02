@@ -10,6 +10,7 @@ import AvueRouter from './avue-router'
 import Store from '../store/'
 
 const Router = new VueRouter({
+  mode: 'history',
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition

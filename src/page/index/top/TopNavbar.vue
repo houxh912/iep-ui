@@ -112,7 +112,7 @@ export default {
         padding: 4px 15px;
         -webkit-transition: all 0.5s;
         transition: all 0.5s;
-        font-size: 18px;
+        font-size: 16px;
       }
     }
     .el-select {

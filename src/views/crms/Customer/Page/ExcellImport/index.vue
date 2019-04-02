@@ -54,5 +54,6 @@ export default {
 <style lang="scss" scoped>
 .upload-demo {
   text-align: center;
+  padding-bottom: 10px;
 }
 </style>

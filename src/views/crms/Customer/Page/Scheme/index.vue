@@ -9,9 +9,11 @@
           <span @click="download(scope.row)" class="custom-name">下载</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="250px">
+      <el-table-column label="操作" width="300px">
         <template slot-scope="scope">
           <operation-wrapper>
+            <iep-button @click="handleSave(scope.row)" type="warning" plain v-if="!scope.row.status">保存至材料库</iep-button>
+            <iep-button v-if="scope.row.status" :disabled="true">已保存至材料库</iep-button>
             <iep-button @click="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>
             <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
           </operation-wrapper>
@@ -23,12 +25,21 @@
       <el-col class="item" :span=12 v-for="(item, index) in recommendList" :key="index">{{item.name}}</el-col>
     </el-row>
     <create-dialog ref="SchemeDialog" @load-page="loadPage"></create-dialog>
+    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+      <span>
+        <el-checkbox v-model="deleteAll">同时删除原件</el-checkbox>
+      </span>
+      <span slot="footer" class="dialog-footer">
+        <iep-button class="btn" @click="cancel">取 消</iep-button>
+        <iep-button type="primary" @click="sure">确 定</iep-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
-import { getSchemePage, createScheme, updateScheme, deleteSchemeById } from '@/api/crms/scheme'
+import { getSchemePage, createScheme, updateScheme, deleteSchemeById, saveScheme, getSchemeById } from '@/api/crms/scheme'
 import { columnsMap } from './options'
 import CreateDialog from './CreateDialog'
 import { downloadModel } from '@/api/crms/download'
@@ -49,6 +60,9 @@ export default {
       rules: {},
       methodName: '',
       dialogShow: false,
+      dialogVisible: false,
+      deleteAll: '',
+      id: '',
       dicData: [
         { value: 1, label: '选项1' },
         { value: 2, label: '选项2' },
@@ -65,34 +79,71 @@ export default {
       submitFn: () => { },
     }
   },
+  created () {
+    this.loadPage()
+  },
+  computed: {
 
+  },
   methods: {
     loadPage (param) {
       this.loadTable({ ...param, clientId: this.record.id }, getSchemePage)
     },
     handleAdd () {
-      this.$refs['SchemeDialog'].record = this.record
+      this.$refs['SchemeDialog'].formData.clientId = this.record.id
       this.$refs['SchemeDialog'].dialogShow = true
       this.$refs['SchemeDialog'].methodName = '新增'
       this.$refs['SchemeDialog'].submitFn = createScheme
     },
     handleEdit (row) {
-      console.log(row)
-      this.$refs['SchemeDialog'].formData = { ...row }
+      getSchemeById(row.programId).then((res) => {
+        this.$refs['SchemeDialog'].formData = res.data.data
+      })
       this.$refs['SchemeDialog'].dialogShow = true
       this.$refs['SchemeDialog'].methodName = '编辑'
       this.$refs['SchemeDialog'].submitFn = updateScheme
     },
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.programId, deleteSchemeById)
+      this.dialogVisible = true
+      this.id = row.programId
+      // this._handleGlobalDeleteById(row.programId, deleteSchemeById)
+    },
+    cancel () {
+      this.dialogVisible = false
+    },
+    sure () {
+      // this._handleGlobalDeleteById(this.id, deleteSchemeById)
+      deleteSchemeById(this.id).then(() => {
+        this.loadPage()
+        this.$notify({
+          title: '成功',
+          message: `${this.methodName}成功`,
+          type: 'success',
+          duration: 2000,
+        })
+      })
+      this.dialogVisible = false
+    },
+    handleClose () {
+      this.dialogVisible = false
     },
     download (row) {
-      downloadModel(row.url)
+      downloadModel(row.atchUpload)
+    },
+    handleSave (row) {
+      row.status = 1
+      saveScheme({ ...row }).then(() => {
+        this.$notify({
+          title: '成功',
+          message: `${this.methodName}成功`,
+          type: 'success',
+          duration: 2000,
+        })
+
+      })
     },
   },
-  created () {
-    this.loadPage()
-  },
+
 }
 </script>
 

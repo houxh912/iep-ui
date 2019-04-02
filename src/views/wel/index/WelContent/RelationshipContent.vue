@@ -45,7 +45,7 @@ li {
     display: inline-block;
     margin-bottom: 5px;
     padding: 5px 15px;
-    width: 60px;
+    width: 80px;
     font-size: 14px;
     text-align: center;
     background-color: #eee;
@@ -61,7 +61,7 @@ li {
     flex-wrap: wrap;
   }
   .name {
-    margin: 0 10px 10px;
+    margin: 0 10px 5px;
     font-size: 14px;
     cursor: pointer;
     &:hover {

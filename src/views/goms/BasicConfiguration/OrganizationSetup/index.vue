@@ -173,6 +173,7 @@ export default {
     text-align: center;
     span {
       display: block;
+      font-size: 18px;
       i {
         display: block;
         margin: 0 auto;

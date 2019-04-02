@@ -40,7 +40,7 @@
         </el-card>
       </div>
       <div class="content">
-        <el-card class="box-card">
+        <el-card class="box-card" shadow="hover">
           <operation-container>
             <template slot="left">
               <page-header title="财富统计-类型" :replaceText="replaceText" :data="[10 ,5]"></page-header>
@@ -116,8 +116,7 @@ ul {
 .main-top {
   .title {
     margin: 0;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 20px;
   }
   .left {
     flex: 1;
@@ -133,6 +132,7 @@ ul {
   .right {
     flex: 0 0 300px;
     ul {
+      display: flex;
       justify-content: flex-start;
       flex-wrap: wrap;
       align-items: center;

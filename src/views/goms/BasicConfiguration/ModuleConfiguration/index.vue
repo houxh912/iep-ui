@@ -198,7 +198,6 @@ export default {
     .close,
     .add {
       display: block;
-      padding: 1px;
       font-size: 12px;
       color: #888;
     }

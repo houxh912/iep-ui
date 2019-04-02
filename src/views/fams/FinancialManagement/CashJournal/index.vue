@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import { getFinancialManagementPage} from '@/api/fams/financial_management'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap, initSearchForm } from './options'
 export default {
@@ -63,31 +64,20 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      company: '',
+      cashAccount: '',
       paramForm: initSearchForm(),
       replaceText: (data) => `（所属公司：${data[0]}）`,
-      pagedTable:[
-          {ranking:1,name:'张超',departments:'提交',income:22.5,expenditure:6,balance:21.9,status:'1'},
-          {ranking:2,name:'张超',departments:'提交',income:84,expenditure:77,balance:22,status:'1'},
-          {ranking:3,name:'张超',departments:'提交',income:20.2,expenditure:88,balance:22.2,status:'1'},
-          {ranking:4,name:'张超',departments:'提交',income:53,expenditure:55,balance:52,status:'1'},
-          {ranking:5,name:'张超',departments:'提交',income:22.5,expenditure:6,balance:21.9,status:'1'},
-          {ranking:6,name:'张超',departments:'提交',income:84,expenditure:77,balance:22,status:'1'},
-          {ranking:7,name:'张超',departments:'提交',income:20.2,expenditure:88,balance:22.2,status:'1'},
-          {ranking:8,name:'张超',departments:'提交',income:53,expenditure:55,balance:52,status:'1'},
-          {ranking:9,name:'张超',departments:'提交',income:22.5,expenditure:6,balance:21.9,status:'1'},
-          {ranking:10,name:'张超',departments:'提交',income:84,expenditure:77,balance:22,status:'1'},
-          {ranking:11,name:'张超',departments:'提交',income:20.2,expenditure:88,balance:22.2,status:'1'},
-          {ranking:12,name:'张超',departments:'提交',income:53,expenditure:55,balance:52,status:'1'},
-        ],
+      
     }
   },
   created () {
-    //this.loadPage()
+    this.loadPage()
   },
   methods: {
-    // loadPage (param = this.paramForm) {
-    //   this.loadTable(param, getFinancialManagementPage)
-    // },
+    loadPage (param = this.paramForm) {
+      this.loadTable(param, getFinancialManagementPage)
+    },
     getSummaries (param) {
       const { columns, data } = param
       const sums = []

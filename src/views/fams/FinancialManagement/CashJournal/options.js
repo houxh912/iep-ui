@@ -68,7 +68,7 @@ const formToDto = (row) => {
 
 const initSearchForm = () => {
   return {
-    keyword: '',
+    applicant: '',
     company: '',
     cashAccount: '',
     date: '',

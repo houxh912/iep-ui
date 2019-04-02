@@ -77,84 +77,12 @@ const initForm = () => {
     separationTime: null, // 离职时间
     careerPlanning: null,//职业规划
     laborContract: [],//劳动合同
-    socialContract: [],//社保福利
-    transferContract: [],//调动情况
-    quitContract: [],//离职信息
+    welfare: [],//社保福利
+    transfer: [],//调动情况
+    dimission: [],//离职信息
   }
 }
 
-const laborColumns = [
-  {
-    prop: 'type',
-    label: '合同类型',
-  },
-  {
-    prop: 'company',
-    label: '归属公司',
-  },
-  {
-    prop: 'startTime',
-    label: '开始日期',
-  },
-  {
-    prop: 'endTime',
-    label: '到期日期',
-  },
-  {
-    prop: 'annex',
-    label: '合同附件',
-  },
-]
-const socialColumns = [
-  {
-    prop: 'type',
-    label: '缴纳类型',
-  },
-  {
-    prop: 'company',
-    label: '归属公司',
-  },
-  {
-    prop: 'startTime',
-    label: '起缴时间',
-  },
-  {
-    prop: 'endTime',
-    label: '停缴时间',
-  },
-  {
-    prop: 'remarks',
-    label: '备注',
-  },
-]
-const transferColumns = [
-  {
-    prop: 'type',
-    label: '调动类型',
-  },
-  {
-    prop: 'date',
-    label: '调动日期',
-  },
-  {
-    prop: 'end',
-    label: '变更后',
-  },
-]
-const quitColumns = [
-  {
-    prop: 'time',
-    label: '离职时间',
-  },
-  {
-    prop: 'reason',
-    label: '离职原因',
-  },
-  {
-    prop: 'department',
-    label: '部门',
-  },
-]
 const formToDto = (row) => {
   const newForm = mergeByFirst(initForm(), row)
   // newForm.province = row.cities[0]
@@ -449,4 +377,4 @@ const initPositiveForm = () => {
     positiveTime: initNow(),
   }
 }
-export { dictsMap, columnsMap, initForm, formToDto, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm, toDtoSearchForm, laborColumns, socialColumns, transferColumns, quitColumns }
+export { dictsMap, columnsMap, initForm, formToDto, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm, toDtoSearchForm }

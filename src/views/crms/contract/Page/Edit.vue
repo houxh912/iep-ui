@@ -32,34 +32,30 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <!-- <iep-dept-select v-model="formData.companyOrgId"></iep-dept-select> -->
-            <iep-select prefix-url="" v-model="formData.companyOrgId"></iep-select>
+            <iep-select prefix-url="crm/customer" v-model="formData.companyOrgId"></iep-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
-            <!-- <iep-dept-select v-model="formData.signCompanyOrgId"></iep-dept-select> -->
-            <iep-select prefix-url="" v-model="formData.signCompanyOrgId"></iep-select>
+            <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId"></iep-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span=12>
-          <el-form-item label="签署部门：" prop="signDeptOrgId">
-            <iep-dept-select v-model="formData.signDeptOrgId"></iep-dept-select>
+          <el-form-item label="签署部门：" prop="signDeptOrgName">
+            <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
-          <el-form-item label="承接部门：" prop="underTakeDeptId">
-            <!-- <iep-dept-select v-model="formData.underTakeDeptId"></iep-dept-select>  -->
-            <iep-dept-multiple v-model="formData.underTakeDeptId"></iep-dept-multiple>
+          <el-form-item label="承接部门：" prop="underTakeDeptName">
+            <iep-dept-multiple v-model="formData.underTakeDeptName"></iep-dept-multiple>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span=12>
           <el-form-item label="市场经理：" prop="directorId">
-            <!-- <iep-contact-select v-model="formData.directorId"></iep-contact-select> -->
             <el-input v-model="formData.directorId" disabled></el-input>
           </el-form-item>
         </el-col>
@@ -72,16 +68,12 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="合同级别：" prop="contractLevel">
-            <el-select v-model="formData.contractLevel" placeholder="请选择">
-              <el-option v-for="item in dictGroup['mlms_contract_level']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
+            <iep-dict-select dict-name="mlms_contract_level" v-model="formData.contractLevel"></iep-dict-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="合同状态：" prop="contractStatus">
-            <el-select v-model="formData.contractStatus" placeholder="请选择">
-              <el-option v-for="item in dictGroup['mlms_contract_status']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
+            <iep-dict-select dict-name="mlms_contract_status" v-model="formData.contractStatus"></iep-dict-select>
           </el-form-item>
         </el-col>
       </el-row>
@@ -145,20 +137,12 @@ export default {
     }),
   },
   created () {
-    console.log(this.id)
-    console.log(this.dictGroup)
     this.formRequestFn = this.record.formRequestFn
     this.methodName = this.record.methodName
     this.id = this.record.id
     if (this.id) {
       getDataById(this.id).then(res => {
-        console.log(res)
         this.formData = res.data.data
-        this.formData.signCompanyOrgId = res.data.data.signCompanyRealName
-        this.formData.underTakeDeptId = res.data.data.underTakeDeptName
-        this.formData.companyOrgId = res.data.data.companyName
-        this.formData.signDeptOrgId = res.data.data.signDeptOrgName
-        this.formData.directorId = res.data.data.directorRealName
       })
     }
   },
@@ -172,10 +156,8 @@ export default {
     },
     submitForm (formName) {
       let formData = Object.assign({}, this.formData)
-      formData.companyOrgId = this.formData.companyOrgId.id
-      formData.signCompanyOrgId = this.formData.signCompanyOrgId.id
-      formData.signDeptOrgId = this.formData.signDeptOrgId.id
-      formData.underTakeDeptId = this.formData.underTakeDeptId.map(m => m.id)
+      formData.signDeptOrgId = this.formData.signDeptOrgName.id
+      formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
       formData.directorId = this.formData.directorId.id
       this.$refs[formName].validate((valid) => {
         if (valid) {

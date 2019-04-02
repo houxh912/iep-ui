@@ -25,12 +25,24 @@ export function putContract (obj) {
   })
 }
 
+//只删除客户
 export function deleteContractById (id) {
   return request({
-    url: `${prefixUrl}/delete/${id}`,
+    url: `${prefixUrl}/deleteRelation/batch`,
     method: 'post',
+    data: [id],
   })
 }
+
+//删除全部
+export function deleteContract (id) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: [id],
+  })
+}
+
 
 export function getDataById (id) {
   return request({

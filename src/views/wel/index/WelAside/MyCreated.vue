@@ -60,7 +60,7 @@ export default {
         {
           title: '邮件',
           callback: () => {
-            this.$router.push('/wel/mail/new')
+            this.$router.push('/wel/mail/new?back=/wel/index')
           },
         },
         {

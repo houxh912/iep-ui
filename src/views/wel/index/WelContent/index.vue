@@ -1,53 +1,55 @@
 <template>
   <div class="wel-content">
     <div class="information">
-      <el-card class="box-card" shadow="hover" :body-style="bodyStyle">
-        <el-row>
-          <el-col :span="4" class="dotted">
-            <div class="left">
-              <div class="img zoom">
-                <iep-img :src="userInfo.avatar" alt="头像"></iep-img>
+      <a-spin :spinning="pageLoading">
+        <el-card class="box-card" shadow="hover" :body-style="bodyStyle">
+          <el-row>
+            <el-col :span="4" class="dotted">
+              <div class="left">
+                <div class="img zoom">
+                  <iep-img :src="userInfo.avatar" alt="头像"></iep-img>
+                </div>
+                <div class="code-name">{{indexData.staffId}}</div>
+                <el-progress :percentage="80" color="#68C769"></el-progress>
               </div>
-              <div class="code-name">{{indexData.staffId}}</div>
-              <el-progress :percentage="80" color="#68C769"></el-progress>
-            </div>
-          </el-col>
-          <el-col :span="20">
-            <div class="right">
-              <div class="user-poster"><span class="say">{{timeFix}}，{{indexData.name}}, {{welcome}}</span></div>
-              <div class="user-info">
-                <span class="color">{{indexData.title}}</span>
-                <span class="border">{{indexData.job}}</span>
-                <!-- <router-link class="more" to="">更多<i class="el-icon-d-arrow-right"></i></router-link> -->
-                <span class="drop-down">产品技术委员会<i class="el-icon-arrow-down"></i></span>
-              </div>
-              <div class="user-data">
-                <RouterLink class="inline task" to="">
-                  <i class="icon-qian icon padding"></i>
-                  <span>每日任务，领积分<i class="el-icon-d-arrow-right"></i></span>
-                </RouterLink>
-                <RouterLink class="inline change" to="">
-                  领导桌面
-                </RouterLink>
-                <div class="inline data">
-                  <div class="data-lab">
-                    <div class="count">{{indexData.tagNum}}</div>
-                    <div class="labTitle"><span>标签</span><span class="span"><i class="el-icon-question"></i></span></div>
-                  </div>
-                  <div class="data-lab">
-                    <div class="count">{{indexData.materialNum}}</div>
-                    <div class="labTitle"><span>材料</span><span class="span"><i class="el-icon-question"></i></span></div>
-                  </div>
-                  <div class="data-lab hideLine">
-                    <div class="count">{{indexData.credit}}</div>
-                    <div class="labTitle"><span>信用</span><span class="span"><i class="el-icon-question"></i></span></div>
+            </el-col>
+            <el-col :span="20">
+              <div class="right">
+                <div class="user-poster"><span class="say">{{timeFix}}，{{indexData.name}}, {{welcome}}</span></div>
+                <div class="user-info">
+                  <span class="color">{{indexData.title}}</span>
+                  <span class="border">{{indexData.job}}</span>
+                  <!-- <router-link class="more" to="">更多<i class="el-icon-d-arrow-right"></i></router-link> -->
+                  <span class="drop-down">产品技术委员会<i class="el-icon-arrow-down"></i></span>
+                </div>
+                <div class="user-data">
+                  <RouterLink class="inline task" to="">
+                    <i class="icon-qian icon padding"></i>
+                    <span>每日任务，领积分<i class="el-icon-d-arrow-right"></i></span>
+                  </RouterLink>
+                  <RouterLink class="inline change" to="">
+                    领导桌面
+                  </RouterLink>
+                  <div class="inline data">
+                    <div class="data-lab">
+                      <div class="count">{{indexData.tagNum}}</div>
+                      <div class="labTitle"><span>标签</span><span class="span"><i class="el-icon-question"></i></span></div>
+                    </div>
+                    <div class="data-lab">
+                      <div class="count">{{indexData.materialNum}}</div>
+                      <div class="labTitle"><span>材料</span><span class="span"><i class="el-icon-question"></i></span></div>
+                    </div>
+                    <div class="data-lab hideLine">
+                      <div class="count">{{indexData.credit}}</div>
+                      <div class="labTitle"><span>信用</span><span class="span"><i class="el-icon-question"></i></span></div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </el-col>
-        </el-row>
-      </el-card>
+            </el-col>
+          </el-row>
+        </el-card>
+      </a-spin>
     </div>
     <about-task></about-task>
     <project></project>
@@ -87,6 +89,7 @@ export default {
     return {
       timeFix: timeFix(),
       welcome: welcome(),
+      pageLoading: true,
       bodyStyle: {
         padding: 0,
       },
@@ -103,8 +106,10 @@ export default {
   },
   methods: {
     loadPage () {
+      this.pageLoading = true
       getIndex().then(({ data }) => {
         this.indexData = this.$mergeByFirst(initIndexForm(), data.data)
+        this.pageLoading = false
       })
     },
   },

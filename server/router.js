@@ -101,6 +101,7 @@ router.get('/admin/approval/page', welController.getApprovalPage)
 //fams
 router.get('/fams/rule_configuration/page', famsController.getControllerPage)
 router.get('/fams/personal_account_management/page', famsController.getPersonalAccountManagementPage)
+router.get('/fams/financial_management/page', famsController.getFinancialManagementPage)
 // 系统消息
 
 router.get('/ims/system_message/page', imsController.getSystemMessagePage)

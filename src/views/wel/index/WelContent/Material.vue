@@ -37,7 +37,6 @@ export default {
     loadPage () {
       getMaterials().then(({ data }) => {
         this.dataList = data.data
-        console.log(data.data)
       })
     },
   },

@@ -1,7 +1,7 @@
 <template>
   <div>
     <operation-wrapper>
-      <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i>新增</iep-button>
+      <iep-button class="btn" type="primary" plain @click="handleAdd"><i class="el-icon-plus"></i>新增</iep-button>
     </operation-wrapper>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection>
       <el-table-column prop="operation" label="操作" width="200px">

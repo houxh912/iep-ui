@@ -4,43 +4,56 @@
       <page-header title="合同"></page-header>
       <operation-container>
         <template v-if="+type !=0" slot="left">
-          <iep-button type="danger" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
+          <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
         </template>
         <template slot="right">
           <el-radio-group v-model="type" size="small" @change="changeType">
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
           </el-radio-group>
           <operation-search @search-page="searchPage" advance-search>
+            <!-- <advance-search @search-page="searchPage" :type="type"></advance-search> -->
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" isIndex>
-        <el-table-column v-if="+type !== 0" prop="operation" label="操作" width="150">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex>
+        <el-table-column v-if="+type !== 0" prop="operation" label="操作" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
+              <iep-button @click="handleDetail(scope.row)">详情</iep-button>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button v-if="+type === 1" @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button @click="OpenDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
+      <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+        <span>
+          <el-checkbox v-model="deleteAll">同时删除原件</el-checkbox>
+        </span>
+        <span slot="footer" class="dialog-footer">
+          <iep-button class="btn" @click="cancel">取 消</iep-button>
+          <iep-button type="primary" @click="handleDelete">确 定</iep-button>
+        </span>
+      </el-dialog>
+      <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
     </basic-container>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId } from '../columns'
-import { getContractPage, postContract, putContract, deleteContract } from '@/api/crms/contract'
-import { initSearchForm } from '../options'
+import { getContractPage, postContract, putContract, deleteContract, getDataById } from '@/api/crms/contract'
+import DetailDrawer from './DetailDrawer'
 export default {
   name: 'List',
   mixins: [mixins],
+  components: {
+    DetailDrawer,
+  },
   data () {
     return {
       type: '0',
-      showSelect: false,
       deleteAll: false,
-      paramForm: initSearchForm(),
       dialogVisible: false,
       tabList: [
         {
@@ -68,10 +81,6 @@ export default {
       this.multipleSelection = val.map(m => m.id)
     },
     changeType () {
-      this.loadPage()
-      if (this.type === '1') {
-        this.showSelect = true
-      } else { this.showSelect = false }
     },
     handleAdd () {
       this.$emit('onForm', {
@@ -88,7 +97,10 @@ export default {
       })
     },
     handleDetail (row) {
-      this.$emit('onDetail', { id: row.id })
+      this.$refs['DetailDrawer'].drawerShow = true
+      getDataById(row.contractId).then(res => {
+        this.$refs['DetailDrawer'].formData = res.data.data
+      })
     },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.contractId, deleteContract)

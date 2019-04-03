@@ -4,7 +4,7 @@
       <page-header title="银行户头设置"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="dialogFormVisible = true" type="danger" icon="el-icon-plus" size="small" plain>新增</iep-button>
+          <iep-button @click="dialogFormVisible = true" type="primary" icon="el-icon-plus" size="small" plain>新增</iep-button>
           <el-dialog title="新增" :visible.sync="dialogFormVisible">
             <el-form :model="form" size="small">
               <el-form-item label="银行户头名称" :label-width="formLabelWidth">

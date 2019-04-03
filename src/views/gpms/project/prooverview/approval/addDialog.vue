@@ -117,7 +117,7 @@
 
         <el-row>
             <el-col :span="4" :push="10">
-                <iep-button type="danger" @click="save">保存</iep-button>
+                <iep-button type="primary" @click="save">保存</iep-button>
                 <iep-button @click="close">返回</iep-button>
             </el-col>
         </el-row>

@@ -1,12 +1,20 @@
 <template>
-  <div class="programme">
+  <div>
     <operation-wrapper>
-      <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加方案</iep-button>
+      <iep-button class="btn" type="primary" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加方案</iep-button>
     </operation-wrapper>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <el-table-column label="方案名称">
+        <template slot-scope="scope">
+          <div class="program-name">{{scope.row.programName}}</div>
+          <el-col>
+            <a-tag v-for="(item, index) in tags" :key="index">{{item}}</a-tag>
+          </el-col>
+        </template>
+      </el-table-column>
       <el-table-column label="附件" width="250px">
         <template slot-scope="scope">
-          <span @click="download(scope.row)" class="custom-name">下载</span>
+          <span @click="download(scope.row)" class="download">下载<i class="icon-download1"></i></span>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="300px">
@@ -25,22 +33,12 @@
       <el-col class="item" :span=12 v-for="(item, index) in recommendList" :key="index">{{item.name}}</el-col>
     </el-row>
     <create-dialog ref="SchemeDialog" @load-page="loadPage"></create-dialog>
-    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
-      <span>
-        <el-checkbox v-model="deleteAll">同时删除原件</el-checkbox>
-      </span>
-      <span slot="footer" class="dialog-footer">
-        <iep-button class="btn" @click="cancel">取 消</iep-button>
-        <iep-button type="primary" @click="sure">确 定</iep-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
 import { getSchemePage, createScheme, updateScheme, deleteSchemeById, saveScheme, getSchemeById } from '@/api/crms/scheme'
-import { columnsMap } from './options'
 import CreateDialog from './CreateDialog'
 import { downloadModel } from '@/api/crms/download'
 export default {
@@ -55,7 +53,6 @@ export default {
   },
   data () {
     return {
-      columnsMap,
       formData: {},
       rules: {},
       methodName: '',
@@ -77,6 +74,7 @@ export default {
         },
       ],
       submitFn: () => { },
+      tags: ['政务网', '智慧城市'],
     }
   },
   created () {
@@ -104,25 +102,26 @@ export default {
       this.$refs['SchemeDialog'].submitFn = updateScheme
     },
     handleDeleteById (row) {
-      this.dialogVisible = true
-      this.id = row.programId
-      // this._handleGlobalDeleteById(row.programId, deleteSchemeById)
-    },
-    cancel () {
-      this.dialogVisible = false
-    },
-    sure () {
-      // this._handleGlobalDeleteById(this.id, deleteSchemeById)
-      deleteSchemeById(this.id).then(() => {
-        this.loadPage()
-        this.$notify({
-          title: '成功',
-          message: `${this.methodName}成功`,
-          type: 'success',
-          duration: 2000,
+      this.$confirm('此操作将同时删除原件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        deleteSchemeById(row.programId).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `删除失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
         })
       })
-      this.dialogVisible = false
     },
     handleClose () {
       this.dialogVisible = false
@@ -148,23 +147,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.programme {
-  .add-programme {
-    text-align: center;
-    height: 40px;
-    line-height: 40px;
-    border-bottom: 1px solid #ececec;
-    cursor: pointer;
-  }
-  .recommend {
-    .item {
-      padding: 5px 15px;
-      cursor: pointer;
-    }
+.program-name {
+  padding: 10px 0;
+}
+.download {
+  color: #409eff;
+  cursor: pointer;
+  i {
+    margin-left: 5px;
   }
 }
-.custom-name {
-  cursor: pointer;
-  color: #3864af;
+.icon-zhuyi {
+  color: #e6a23c;
+  margin-right: 10px;
 }
 </style>

@@ -4,7 +4,7 @@
       <page-header title="纪要" :replaceText="replaceText" :data="data"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd" type="danger">新增</iep-button>
+          <iep-button @click="handleAdd" type="primary">新增</iep-button>
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">

@@ -226,5 +226,6 @@ export default {
 .btn .cancel {
   margin-right: 10px;
 }
+.el-dialog {margin-top:20px;}
 </style>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="main-item-wrapper" @click="open">
+  <div class="main-item-wrapper" @click="$openPage(website.menu.firstMenu.path)">
     <div v-if="isNull">{{isNull}}</div>
     <div v-else>
       <el-tooltip v-if="collapse" class="item" effect="dark" content="个人赋能台" placement="right">
@@ -48,13 +48,6 @@ export default {
         }
       }
       return true
-    },
-  },
-  methods: {
-    open () {
-      this.$router.push({
-        path: website.menu.firstMenu.path,
-      })
     },
   },
 }

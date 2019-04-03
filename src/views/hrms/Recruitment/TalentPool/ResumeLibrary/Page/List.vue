@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleToTalentBatch" type="danger" icon="el-icon-plus" plain>放入人才库</iep-button>
+        <iep-button @click="handleToTalentBatch" type="primary" icon="el-icon-plus" plain>放入人才库</iep-button>
         <el-dropdown size="medium">
           <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">

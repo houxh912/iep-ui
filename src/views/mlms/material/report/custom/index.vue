@@ -3,7 +3,7 @@
     <div v-if="webState">
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd" size="small" type="danger">新增</iep-button>
+          <iep-button @click="handleAdd" size="small" type="primary">新增</iep-button>
           <el-dropdown size="medium">
             <iep-button size="small" type="default">批量操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">

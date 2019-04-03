@@ -27,7 +27,7 @@
           <h2 class="title">补充或评论</h2>
           <el-input type="textarea" rows=5 v-model="comment"></el-input>
           <div class="button">
-            <iep-button type="danger" @click="submit">发送</iep-button>
+            <iep-button type="primary" @click="submit">发送</iep-button>
           </div>
         </div>
         <div class="list">
@@ -57,7 +57,7 @@
           </div>
         </div>
         <div class="footer-button">
-          <iep-button type="danger" @click="Instructions">领导批示</iep-button>
+          <iep-button type="primary" @click="Instructions">领导批示</iep-button>
         </div>
       </div>
     </el-col>

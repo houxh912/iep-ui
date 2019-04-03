@@ -14,7 +14,7 @@
         <a-tag type="info">{{formData.intentionLevelValue}}</a-tag>
       </el-form-item>
       <el-form-item label="商机描述：">
-        <el-input type="textarea" v-model="formData.opportunityDes" placeholder="商机描述" :disabled="true"></el-input>
+        <el-input v-model="formData.opportunityDes" placeholder="商机描述" :disabled="true"></el-input>
       </el-form-item>
       <el-form-item label="商机标签：">
         <a-tag type="info" class="tag-style" v-for="(item,index) in formData.tags" :key="index">{{item.commonName}}</a-tag>
@@ -30,7 +30,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button class="btn" @click="handleCancel">取消</iep-button>
+      <iep-button @click="handleCancel">取消</iep-button>
       <iep-button type="primary" @click="claimBusiness" v-if="formData.statusKey!=1">认领</iep-button>
     </template>
   </iep-drawer>
@@ -63,6 +63,7 @@ export default {
         if (res.status == 200) {
           this.$message.success('认领成功！')
           this.drawerShow = false
+          this.$emit('load-page')
         } else {
           this.$message.info(`认领失败，${res.data.msg}`)
         }

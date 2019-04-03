@@ -62,7 +62,7 @@
     </el-form>
     <template slot="footer">
       <iep-button class="btn" @click="loadPage()">取消</iep-button>
-      <iep-button type="danger" @click="submitForm('formName')">提交</iep-button>
+      <iep-button type="primary" @click="submitForm('formName')">提交</iep-button>
     </template>
   </iep-drawer>
 </template>

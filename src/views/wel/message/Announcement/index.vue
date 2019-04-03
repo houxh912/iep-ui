@@ -5,7 +5,7 @@
       <iep-tabs v-model="type" :tab-list="tabList" @tab-click="changeType"></iep-tabs>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd" type="danger" icon="el-icon-plus" plain>发布公告</iep-button>
+          <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>发布公告</iep-button>
           <el-dropdown size="medium">
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -23,7 +23,7 @@
         <template slot="before-columns">
           <el-table-column label="主题" min-width="400">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+              <iep-table-link :is-read="scope.row.isRead" @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
         </template>

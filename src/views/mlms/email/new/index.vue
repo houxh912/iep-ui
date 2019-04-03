@@ -48,7 +48,7 @@
         <el-input type="textarea" rows=5 v-model="formData.content"></el-input>
       </el-form-item>
       <el-form-item>
-        <iep-button type="danger" @click="submitForm('form')">发送</iep-button>
+        <iep-button type="primary" @click="submitForm('form')">发送</iep-button>
         <iep-button @click="submitDraft('form')">保存为草稿</iep-button>
         <iep-button @click="resetForm('form')">取消</iep-button>
       </el-form-item>

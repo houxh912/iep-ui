@@ -54,13 +54,17 @@
 import { initLocalForm, rules } from './option'
 import IepTags from '@/components/IepTags/input'
 import FooterToolbar from '@/components/FooterToolbar/'
-
+import { saveScheme } from '@/api/crms/scheme'
 export default {
   components: { IepTags, FooterToolbar },
   props: {
     firstClass: {
       type: Array,
-      default: () => {},
+      default: () => { },
+    },
+    router: {
+      type: Boolean,
+      default: false,
     },
   },
   data () {
@@ -69,16 +73,17 @@ export default {
       methodName: '新增',
       formRequestFn: () => { },
       formData: initLocalForm(),
+      backId: '',
       rules: rules,
-      secondClass: [],
+      secondClass: ['one'],
       dicData: {
         select: [
-          {value: '1', label: '选项1'},
-          {value: '2', label: '选项2'},
+          { value: '1', label: '选项1' },
+          { value: '2', label: '选项2' },
         ],
         dept: [
-          {value: 1, label: '部门1'},
-          {value: 2, label: '部门2'},
+          { value: 1, label: '部门1' },
+          { value: 2, label: '部门2' },
         ],
       },
       limit: 1,
@@ -106,7 +111,8 @@ export default {
           if (this.formData.attachFileList.length > 0) {
             this.formData.attachFile = this.formData.attachFileList[0].url
           }
-          this.formRequestFn(this.formData).then(() => {
+          this.formRequestFn(this.formData).then((data) => {
+            this.backId = data.id
             this.$notify({
               title: '成功',
               message: `${this.methodName}成功`,
@@ -120,6 +126,23 @@ export default {
           return false
         }
       })
+      if (this.router) {
+        this.$router.push({
+          path: '/crms_spa/customer_detail',
+          query: {
+            routerBack: true,
+            redirect: this.$route.fullPath,
+          },
+        })
+        saveScheme(this.backId).then(() => {
+          this.$notify({
+            title: '成功',
+            message: '保存成功',
+            type: 'success',
+            duration: 2000,
+          })
+        })
+      }
     },
     // 分类配置
     firstClassChange (val) {

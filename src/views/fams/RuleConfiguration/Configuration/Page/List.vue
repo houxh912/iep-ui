@@ -4,7 +4,7 @@
       <page-header title="国脉贝配置"></page-header>
       <operation-container>
         <template slot="left">
-          <!-- <iep-button @click="handleAdd()" type="danger" icon="el-icon-plus" plain>发起申请</iep-button> -->
+          <!-- <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>发起申请</iep-button> -->
           <!-- <el-button @click="rowCell(scope.row,scope.index)">发起申请</el-button> -->
         </template>
         <template slot="right">

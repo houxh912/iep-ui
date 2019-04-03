@@ -25,7 +25,7 @@
             <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟"></el-input>
           </el-form-item>
           <el-form-item>
-            <iep-button @click="submit" type="danger">保存</iep-button>
+            <iep-button @click="submit" type="primary">保存</iep-button>
           </el-form-item>
         </el-form>
         <div v-else class="detail">

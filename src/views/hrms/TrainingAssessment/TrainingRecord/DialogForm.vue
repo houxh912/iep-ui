@@ -23,9 +23,7 @@
         <el-input v-model="form.place"></el-input>
       </el-form-item>
       <el-form-item label="培训材料" prop="material">
-        <el-input placeholder="请输入内容" v-model="form.material">
-          <template slot="append"><span>上传</span></template>
-        </el-input>
+        <iep-upload v-model="form.material"></iep-upload>
       </el-form-item>
     </el-form>
     <template slot="footer">

@@ -6,7 +6,7 @@
         <div>{{obj.name}}的详情信息</div>
         <a @click="hide">关闭</a>
       </div>
-      <iep-button :type="type">{{obj.name}}</iep-button>
+      <a-button :type="type">{{obj.name}}</a-button>
     </a-popover>
   </a-popover>
 </template>
@@ -16,7 +16,7 @@ export default {
   props: {
     type: {
       type: String,
-      default: '',
+      default: 'default',
     },
     obj: {
       type: Object,

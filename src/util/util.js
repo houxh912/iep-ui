@@ -278,6 +278,22 @@ export function mergeByFirst (distObject, srcObject) {
   }
 }
 
+export function openPage (value, type='path') {
+  if (type==='path') {
+    this.$router.push({
+      path: value,
+    })
+  }
+  if (type==='name') {
+    this.$router.push({
+      name: value,
+    })
+  }
+  if (type==='url') {
+    window.open(value, '_blank')
+  }
+}
+
 /**
  *
  * @param {array} collection
@@ -289,7 +305,7 @@ export function pickDeep (collection) {
         const subC = c.children.map(sc => {
           return {
             label: sc.label,
-            value: +sc.value,
+            value: sc.value,
           }
         })
         return {

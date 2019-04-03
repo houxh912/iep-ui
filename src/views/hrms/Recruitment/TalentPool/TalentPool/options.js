@@ -74,7 +74,7 @@ const initForm = () => {
     'arrive': '',
     'salary': '',
     'workPlace': '',
-    'attach': '',
+    'attach': [],
     'workExperience': [],
     'trainingSituation': [],
     'eduSituation': [],
@@ -130,8 +130,14 @@ const initDtoForm = () => {
 }
 
 const formToDto = (form) => {
-  const newForm = mergeByFirst(initDtoForm(), form)
+  const newForm = mergeByFirst(initForm(), form)
   newForm.positionId = form.position[form.position.length - 1]
+  newForm.attach = form.attach[0] || ''
+  return newForm
+}
+const formToVo = (form) => {
+  const newForm = mergeByFirst(initDtoForm(), form)
+  newForm.attach = [form.attach]
   return newForm
 }
 
@@ -202,4 +208,4 @@ const initrejectedForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm, initSearchForm, toDtoSearchForm }
+export { dictsMap, columnsMap, initForm, initrejectedForm, formToDto, formToVo, initToResumeForm, initToBlacklistForm, initSearchForm, toDtoSearchForm }

@@ -5,14 +5,10 @@
         <div class="account-settings-info-left">
           <a-menu :mode="device == 'mobile' ? 'horizontal' : 'inline'" :style="{ border: '0', width: device == 'mobile' ? '560px' : 'auto'}" :defaultSelectedKeys="defaultSelectedKeys" type="inner" @openChange="onOpenChange">
             <a-menu-item key="/wel/account-settings/base">
-              <router-link :to="{ name: 'BaseSettings' }">
-                基本设置
-              </router-link>
+              <a @click="$openPage('BaseSettings', 'name')">基本设置</a>
             </a-menu-item>
             <a-menu-item key="/wel/account-settings/security">
-              <router-link :to="{ name: 'SecuritySettings' }">
-                安全设置
-              </router-link>
+              <a @click="$openPage('SecuritySettings', 'name')">安全设置</a>
             </a-menu-item>
           </a-menu>
         </div>

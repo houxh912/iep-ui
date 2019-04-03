@@ -131,8 +131,7 @@
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="附件上传" name="5">
             <el-form-item label="附件上传：">
-              待完成
-              <!-- <iep-upload v-model="form.attach"></iep-upload> -->
+              <iep-upload v-model="form.attach"></iep-upload>
             </el-form-item>
           </el-collapse-item>
         </el-collapse>
@@ -146,10 +145,9 @@
 </template>
 <script>
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
-import { initForm, formToDto } from '../options'
+import { initForm, formToDto, formToVo } from '../options'
 import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
-import { mergeByFirst } from '@/util/util'
 export default {
   props: {
     record: {
@@ -181,7 +179,7 @@ export default {
   methods: {
     loadPage () {
       getTalentPoolById(this.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = formToVo(this.$mergeByFirst(initForm(), data.data))
       })
     },
     handleGoBack () {

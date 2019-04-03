@@ -40,13 +40,9 @@ module.exports = {
     loaderOptions: {
       less: {
         modifyVars: {
-          /* less 变量覆盖，用于自定义 ant design 主题 */
-
-          /*
-          'primary-color': '#F5222D',
-          'link-color': '#F5222D',
-          'border-radius-base': '4px',
-          */
+          'primary-color': '#BA1B21',
+          // 'link-color': '#1DA57A',
+          // 'border-radius-base': '2px',
         },
         javascriptEnabled: true
       }

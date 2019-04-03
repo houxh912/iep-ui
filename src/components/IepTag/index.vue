@@ -7,7 +7,7 @@
     <a-tag v-else @click="showInput" style="background: #fff; borderStyle: dashed;">
       <a-icon type="plus" /> 新建标签
     </a-tag>
-    <a-tag color="blue" @click.native="handleMore">更多</a-tag>
+    <a-tag color="orange" @click.native="handleMore">更多</a-tag>
     <tag-dialog ref="TagDialog" @load-page="loadPage" @select-one="handleSelectTag"></tag-dialog>
   </div>
 </template>

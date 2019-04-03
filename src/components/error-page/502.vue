@@ -1,7 +1,7 @@
 <template>
-  <div class="Error500">
-    <div class="Error500-body-con">
-        <div class="Error500-btn-con">
+  <div class="Error502">
+    <div class="Error502-body-con">
+        <div class="Error502-btn-con">
           <iep-button
             @click="goHome"
             size="large"
@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'Error500',
+  name: 'Error502',
   methods: {
     backPage () {
       this.$router.go(-1)
@@ -37,7 +37,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.Error500 {
+.Error502 {
   &-body-con {
     width: 700px;
     height: 500px;
@@ -45,7 +45,7 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: url(./images/500.png) no-repeat center;
+    background: url(./images/502.png) no-repeat center;
   }
   &-btn-con {
     text-align: center;

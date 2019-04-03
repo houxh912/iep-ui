@@ -12,29 +12,23 @@
           <template v-if="scope.row.editable">
             <span v-if="scope.row.isNew">
               <iep-button type="text" size="mini" @click="saveRow(scope.row.id)">添加</iep-button>
-              <el-popover title="是否要删除此行？">
-                <div style="text-align: right; margin: 0">
-                  <iep-button size="mini" type="text">取消</iep-button>
-                  <iep-button type="text" size="mini" @click="remove(scope.row.id)">确定</iep-button>
-                </div>
-                <iep-button type="text" size="mini" slot="reference">删除</iep-button>
-              </el-popover>
+              <a-divider type="vertical" />
+              <a-popconfirm title="是否要删除此行？" okText="确认" cancelText="取消" @confirm="remove(scope.row.id)">
+                <iep-button type="text" size="mini">删除</iep-button>
+              </a-popconfirm>
             </span>
             <span v-else>
-              <iep-button type="text" size="mini" @click="saveRow(scope.row.id)">添加</iep-button>
+              <iep-button type="text" size="mini" @click="saveRow(scope.row.id)">更新</iep-button>
+              <a-divider type="vertical" />
               <iep-button type="text" size="mini" @click="cancel(scope.row.id)">取消</iep-button>
             </span>
           </template>
           <span v-else>
             <iep-button type="text" size="mini" @click="toggle(scope.row.id)">编辑</iep-button>
-            <el-popover placement="top" width="160">
-              <p>是否要删除此行？</p>
-              <div style="text-align: right; margin: 0">
-                <iep-button size="mini" type="text">取消</iep-button>
-                <iep-button type="text" size="mini" @click="remove(scope.row.id)">确定</iep-button>
-              </div>
-              <iep-button type="text" size="mini" slot="reference">删除</iep-button>
-            </el-popover>
+            <a-divider type="vertical" />
+            <a-popconfirm title="是否要删除此行？" okText="确认" cancelText="取消" @confirm="remove(scope.row.id)">
+              <iep-button type="text" size="mini">删除</iep-button>
+            </a-popconfirm>
           </span>
         </template>
       </el-table-column>

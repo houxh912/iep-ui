@@ -10,11 +10,9 @@
         <el-input v-model="formData.programName"></el-input>
       </el-form-item>
       <el-form-item label="附件上传：">
-        <el-col class="upload-item">
-          <iep-upload v-model="formData.fileList" :limit="1">
-            <slot name="tip"><span>文件类型为excel，每次上传数量不超过一个</span></slot>
-          </iep-upload>
-        </el-col>
+        <iep-upload v-model="formData.attachs" :limit="1">
+          <span>文件类型为excel，每次上传数量不超过一个</span>
+        </iep-upload>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -53,15 +51,14 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
-      if (this.formData.fileList.length != 0) {
-        this.formData.url = this.formData.fileList[0].url
+      console.log(this.formData.attachs.length)
+      if (this.formData.attachs.length == 0) {
+        this.$message.error('请选择上传的文件')
+        return false
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.submitFn({ ...this.formData, clientId: this.record.id }).then(() => {
-            if (this.formData.url === '') {
-              this.$message.error('请选择上传的文件')
-              return false            }
+          this.submitFn(this.formData).then(() => {
             this.$notify({
               title: '成功',
               message: `${this.methodName}成功`,
@@ -75,9 +72,6 @@ export default {
           return false
         }
       })
-    },
-    handelclose (res) {
-      this.$set(this.formData, 'atchUpload', res.data.fileName)
     },
   },
 }

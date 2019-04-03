@@ -1,10 +1,10 @@
 <template>
   <div class="evaluation">
-    <div class="title">{{evaluation.title}}</div>
+    <div class="title">收到评价</div>
     <div class="block">
       <el-timeline>
-        <el-timeline-item v-for="(activity, index) in activities" :key="index" :icon="activity.icon" :type="activity.type" :color="activity.color" :size="activity.size">
-          {{activity.content}}
+        <el-timeline-item v-for="(item, index) in appraise" :key="index" :icon="item.icon" :type="item.type" :color="item.color" :size="item.size">
+          {{item}}
         </el-timeline-item>
       </el-timeline>
     </div>
@@ -12,25 +12,10 @@
 </template>
 <script>
 export default {
-  data () {
-    return {
-      evaluation: { title: '收到评价' },
-      activities: [{
-        content: '领导能力强',
-      }, {
-        content: '工作负责，执行力强',
-      }, {
-        content: '优秀的程序员',
-      }, {
-        content: '友好',
-      }, {
-        content: '友好友好',
-      }],
-    }
-  },
-  methods: {
-    evaluationDetail () {
-      // console.log(index)
+  props: {
+    appraise: {
+      type: Array,
+      required: true,
     },
   },
 }

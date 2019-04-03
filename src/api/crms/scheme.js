@@ -17,6 +17,21 @@ export function createScheme (obj) {
     data: obj,
   })
 }
+//编辑
+export function getSchemeById (id) {
+  return request({
+    url: `${schemeUrl}/${id}`,
+    method: 'get',
+  })
+}
+// 方案-保存大材料库
+export function saveScheme (obj) {
+  return request({
+    url: `${schemeUrl}/save`,
+    method: 'post',
+    data: obj,
+  })
+}
 
 // 方案-编辑
 export function updateScheme (obj) {

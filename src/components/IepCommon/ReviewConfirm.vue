@@ -17,6 +17,7 @@
 <script>
 import IepDialog from '@/components/IepDialog/'
 export default {
+  name: 'IepReviewConfirm',
   components: { IepDialog },
   data () {
     return {

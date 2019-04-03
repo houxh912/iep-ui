@@ -36,8 +36,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable"
-       @size-change="handleSizeChange" @current-change="handleCurrentChange" show-summary :summary-method="getSummaries">
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" show-summary :summary-method="getSummaries">
         <el-table-column label="金额">
           <el-table-column prop="income" label="收入">
           </el-table-column>
@@ -46,7 +45,7 @@
           <el-table-column prop="balance" label="本期余额">
           </el-table-column>
         </el-table-column>
-        <el-table-column prop="remarks" label="备注" >
+        <el-table-column prop="remarks" label="备注">
         </el-table-column>
       </iep-table>
     </basic-container>
@@ -55,6 +54,7 @@
 </template>
 
 <script>
+import { getFinancialManagementPage} from '@/api/fams/financial_management'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap, initSearchForm } from './options'
 export default {
@@ -63,31 +63,20 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      company: '',
+      cashAccount: '',
       paramForm: initSearchForm(),
       replaceText: (data) => `（所属公司：${data[0]}）`,
-      pagedTable:[
-          {ranking:1,name:'张超',departments:'提交',income:22.5,expenditure:6,balance:21.9,status:'1'},
-          {ranking:2,name:'张超',departments:'提交',income:84,expenditure:77,balance:22,status:'1'},
-          {ranking:3,name:'张超',departments:'提交',income:20.2,expenditure:88,balance:22.2,status:'1'},
-          {ranking:4,name:'张超',departments:'提交',income:53,expenditure:55,balance:52,status:'1'},
-          {ranking:5,name:'张超',departments:'提交',income:22.5,expenditure:6,balance:21.9,status:'1'},
-          {ranking:6,name:'张超',departments:'提交',income:84,expenditure:77,balance:22,status:'1'},
-          {ranking:7,name:'张超',departments:'提交',income:20.2,expenditure:88,balance:22.2,status:'1'},
-          {ranking:8,name:'张超',departments:'提交',income:53,expenditure:55,balance:52,status:'1'},
-          {ranking:9,name:'张超',departments:'提交',income:22.5,expenditure:6,balance:21.9,status:'1'},
-          {ranking:10,name:'张超',departments:'提交',income:84,expenditure:77,balance:22,status:'1'},
-          {ranking:11,name:'张超',departments:'提交',income:20.2,expenditure:88,balance:22.2,status:'1'},
-          {ranking:12,name:'张超',departments:'提交',income:53,expenditure:55,balance:52,status:'1'},
-        ],
+      
     }
   },
   created () {
-    //this.loadPage()
+    this.loadPage()
   },
   methods: {
-    // loadPage (param = this.paramForm) {
-    //   this.loadTable(param, getFinancialManagementPage)
-    // },
+    loadPage (param = this.paramForm) {
+      this.loadTable(param, getFinancialManagementPage)
+    },
     getSummaries (param) {
       const { columns, data } = param
       const sums = []

@@ -35,6 +35,7 @@ import IepUpload from '@/components/IepCommon/Upload'
 import IepDialog from '@/components/IepDialog/'
 import IepDrawer from '@/components/IepDrawer/'
 import IepHoverCard from '@/components/IepCommon/HoverCard'
+import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 
 // 表格相关组件
 import IepTable from '@/components/IepTable/'
@@ -84,6 +85,8 @@ Vue.component(IepAvatar.name, IepAvatar)
 Vue.component(IepDialog.name, IepDialog)
 Vue.component(IepDrawer.name, IepDrawer)
 Vue.component(IepHoverCard.name, IepHoverCard)
+Vue.component(IepReviewConfirm.name, IepReviewConfirm)
+
 
 // 表格相关组件
 Vue.component(IepTable.name, IepTable)

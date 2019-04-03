@@ -1,31 +1,29 @@
 <template>
-  <div>
-    <basic-container>
+  <basic-container>
+    <div v-if="pageState === 'list'">
       <page-header title="我的项目" :replaceText="replaceText" :data="[16]"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Total'" v-slot:Total>
-          <total v-loading="activeTab !=='Total'" :isShow="addDialogShow" @toggle-show="val => addDialogShow = val"></total>
+          <total ref="table" :isShow="addDialogShow" @toggle-show="dealForm"></total>
         </template>
         <template v-if="activeTab ==='Release'" v-slot:Release>
-          <release v-loading="activeTab !=='Release'"></release>
+          <total ref="table" :isShow="addDialogShow" @toggle-show="dealForm" :tabType="'1'"></total>
         </template>
         <template v-if="activeTab === 'TakePartIn'" v-slot:TakePartIn>
-          <take-part-in v-loading="activeTab !=='TakePartIn'"></take-part-in>
+          <total ref="table" :isShow="addDialogShow" @toggle-show="dealForm" :tabType="'2'"></total>
         </template>
       </iep-tabs>
-    </basic-container>
-    <transition name="fade">
-      <add-dialog :isShow="addDialogShow" @close="val => addDialogShow = val"></add-dialog>
-    </transition>
-  </div>
+    </div>
+    <add-dialog v-else @close="closeForm" ref="form"></add-dialog>
+  </basic-container>
 </template>
 <script>
 import Total from './Total/'
-import TakePartIn from './TakePartIn/'
-import Release from './Release/'
 import addDialog from './addDialog'
+import { getDataDetail } from '@/api/gpms/index'
+
 export default {
-  components: { Total, TakePartIn, Release, addDialog },
+  components: { Total, addDialog },
   data () {
     return {
       replaceText: (data) => `[共${data[0]}条数据]`,
@@ -41,7 +39,28 @@ export default {
         value: 'TakePartIn',
       }],
       activeTab: 'Total',
+      pageState: 'list',
     }
+  },
+  methods: {
+    dealForm (type, row) {
+      if (row) {
+        getDataDetail(row.id).then(({data}) => {
+          this.pageState = 'form'
+          this.$nextTick(() => {
+            this.$refs['form'].open(type, data.data)
+          })
+        })
+      } else {
+        this.pageState = 'form'
+        this.$nextTick(() => {
+          this.$refs['form'].open(type, false)
+        })
+      }
+    },
+    closeForm () {
+      this.pageState = 'list'
+    },
   },
 }
 </script>

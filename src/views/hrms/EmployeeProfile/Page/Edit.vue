@@ -108,13 +108,13 @@
                 <iep-tag v-model="form.people"></iep-tag>
               </el-form-item> -->
               <el-form-item label="卓越标签：">
-                <iep-tag v-model="form.people"></iep-tag>
+                <iep-tag v-model="form.abilityTag"></iep-tag>
               </el-form-item>
               <el-form-item label="专业标签：">
-                <iep-tag v-model="form.people"></iep-tag>
+                <iep-tag v-model="form.projectTag"></iep-tag>
               </el-form-item>
               <el-form-item label="进步标签：">
-                <iep-tag v-model="form.people"></iep-tag>
+                <iep-tag v-model="form.learningTag"></iep-tag>
               </el-form-item>
               <!-- <el-form-item label="" class="form-half">
                 <el-input placeholder="">
@@ -146,10 +146,7 @@
             <div>
               <div class="little-title">联系信息</div>
               <el-form-item label="户口类型：" class="form-half">
-                <el-select v-model="form.accountTypes">
-                  <el-option label="城镇" value="城镇"></el-option>
-                  <el-option label="农村" value="农村"></el-option>
-                </el-select>
+                <iep-dict-select v-model="form.accountTypeId" dict-name="hrms_resident_type"></iep-dict-select>
               </el-form-item>
               <el-form-item label="户籍地址：">
                 <div style="display:flex;">
@@ -190,26 +187,26 @@
               </el-form-item>
             </div>
           </el-collapse-item>
-          <!-- <el-collapse-item title="劳动合同" name="2">
+          <el-collapse-item title="劳动合同" name="2">
             <el-form-item label="劳动合同：">
-              <inline-form-table :table-data="form.laborContract" :columns="laborColumns" requestName="labor" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              <inline-form-table :table-data="form.laborContract" :columns="laborContractColumns" requestName="labor_contract" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="社保福利" name="3">
             <el-form-item label="社保福利：">
-              <inline-form-table :table-data="form.socialContract" :columns="socialColumns" requestName="social" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              <inline-form-table :table-data="form.welfare" :columns="welfareColumns" requestName="welfare" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="调动情况" name="4">
             <el-form-item label="调动情况：">
-              <inline-form-table :table-data="form.transferContract" :columns="transferColumns" requestName="transfer" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              <inline-form-table :table-data="form.transfer" :columns="transferColumns" requestName="transfer" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="离职信息" name="5">
             <el-form-item label="离职信息：">
-              <inline-form-table :table-data="form.quitContract" :columns="quitColumns" requestName="quit" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              <inline-form-table :table-data="form.dimission" :columns="dimissionColumns" requestName="dimission" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
             </el-form-item>
-          </el-collapse-item> -->
+          </el-collapse-item>
         </el-collapse>
       </el-form>
       <!-- fixed footer toolbar -->
@@ -225,7 +222,7 @@ import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 import { mergeByFirst } from '@/util/util'
 import { initForm, formToDto } from '../options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
-import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
+import { workExpColumns, studyColumns, trainingColumns, certificateColumns, laborContractColumns, welfareColumns, transferColumns, dimissionColumns } from '@/views/hrms/Components/options'
 //import { laborColumns, socialColumns, transferColumns, quitColumns  } from '../options'
 //import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 export default {
@@ -250,10 +247,10 @@ export default {
       studyColumns,
       trainingColumns,
       certificateColumns,
-      // laborColumns,
-      // socialColumns,
-      // transferColumns,
-      // quitColumns,
+      laborContractColumns,
+      welfareColumns,
+      transferColumns,
+      dimissionColumns,
     }
   },
   created () {

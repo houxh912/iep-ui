@@ -101,13 +101,13 @@
                 <iep-tag v-model="form.people"></iep-tag>
               </el-form-item> -->
           <el-form-item label="卓越标签：">
-            <iep-tag v-model="form.people"></iep-tag>
+            <iep-tag v-model="form.abilityTag"></iep-tag>
           </el-form-item>
           <el-form-item label="专业标签：">
-            <iep-tag v-model="form.people"></iep-tag>
+            <iep-tag v-model="form.projectTag"></iep-tag>
           </el-form-item>
           <el-form-item label="进步标签：">
-            <iep-tag v-model="form.people"></iep-tag>
+            <iep-tag v-model="form.learningTag"></iep-tag>
           </el-form-item>
 
           <el-form-item label="职业规划：">

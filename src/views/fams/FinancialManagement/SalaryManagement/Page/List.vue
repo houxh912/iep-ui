@@ -104,4 +104,7 @@ export default {
 .set-containter >>> .data-title {
   margin-bottom: 0;
 }
+.set-containter >>> .el-input-group__append {
+  padding: 0 15px;
+}
 </style>

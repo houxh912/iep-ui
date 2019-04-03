@@ -2,6 +2,11 @@
   <div>
     <basic-container>
       <page-header title="工资发放" :replaceText="replaceText" :data="[120]" :backOption="backOption"></page-header>
+      <div class="search-con">
+        <el-input placeholder="请输入姓名" v-model="input5" class="input-with-select" size="small">
+          <el-button slot="append">搜索</el-button>
+        </el-input>
+      </div>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='HasSent'" v-slot:HasSent>
           <has-sent v-loading="activeTab !=='HasSent'"></has-sent>
@@ -44,8 +49,19 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+.search-con {
+  position: absolute;
+  display: inline-block;
+  right: 0;
+  width: 280px;
+}
+</style>
 <style lang="css" scoped>
 .basic-container >>> .el-tabs__nav-wrap {
   border-bottom: 1px solid #ebeef5;
+}
+.basic-container >>> .el-card__body {
+  position: relative;
 }
 </style>

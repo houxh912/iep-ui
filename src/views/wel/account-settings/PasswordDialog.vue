@@ -23,16 +23,38 @@ import { initPasswordForm } from './options'
 import request from '@/router/axios'
 export default {
   data () {
+    var validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'))
+      } else {
+        if (this.form.checkPass !== '') {
+          this.$refs.form.validateField('checkPass')
+        }
+        callback()
+      }
+    }
+    var validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.form.newpassword1) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
     return {
       dialogShow: false,
       formRequestFn: () => { },
       form: initPasswordForm(),
       rules: {
-        departureTime: [
-          { required: true, message: '请选择离职时间', trigger: 'blur' },
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
         ],
-        reason: [
-          { required: true, message: '请输入离职原因', trigger: 'blur' },
+        newpassword1: [
+          { required: true, validator: validatePass, trigger: 'blur' },
+        ],
+        newpassword2: [
+          { required: true, validator: validatePass2, trigger: 'blur' },
         ],
       },
     }

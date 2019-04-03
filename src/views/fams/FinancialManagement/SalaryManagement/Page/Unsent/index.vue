@@ -1,20 +1,16 @@
 <template>
-  <component @onDetail="handleDetail" @onSend="handleSend" @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <component @onDetail="handleDetail" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
 </template>
 
 <script>
 // 动态切换组件
 import List from './Page/List'
-import Edit from './Page/Edit'
-import Send from './Page/Send'
 import Detail from './Page/Detail'
 
 export default {
   name: 'TableListWrapper',
   components: {
     List,
-    Edit,
-    Send,
     Detail,
   },
   data () {
@@ -27,21 +23,12 @@ export default {
 
   },
   methods: {
-    handleEdit (record) {
-      this.record = record
-      this.currentComponet = 'Edit'
-    },
-    handleSend (record) {
-      this.record = record
-      this.currentComponet = 'Send'
+    handleDetail () {
+      this.currentComponet = 'Detail'
     },
     handleGoBack () {
       this.record = ''
       this.currentComponet = 'List'
-    },
-    handleDetail (record) {
-      this.record = record
-      this.currentComponet = 'Detail'
     },
   },
   watch: {

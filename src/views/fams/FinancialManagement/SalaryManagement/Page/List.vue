@@ -73,6 +73,9 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)
     },
+    handleSend (row) {
+      this.$emit('onSend', row)
+    },
     handleDetail (row) {
       this.$emit('onDetail', row)
     },

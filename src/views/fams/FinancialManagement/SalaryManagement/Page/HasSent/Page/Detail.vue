@@ -16,7 +16,7 @@
       </el-table-column>
       <el-table-column prop="substitute" label="银行代发">
       </el-table-column>
-      <el-table-column prop="iep" label="内网发放">
+      <el-table-column prop="iep" label="内网发放" width="120">
       </el-table-column>
     </el-table>
     <el-table :data="tableData" style="width: 100%">
@@ -42,7 +42,7 @@
           </el-table-column>
           <el-table-column prop="full" label="全勤">
           </el-table-column>
-          <el-table-column prop="award" label="总经理特别奖" width="180">
+          <el-table-column prop="award" label="总经理特别奖" width="140">
           </el-table-column>
           <el-table-column prop="subtotal2" label="小计">
           </el-table-column>

@@ -1,7 +1,7 @@
 <template>
   <div class="Grades">
     <div class="Grades-nav">
-      <div>我的成績</div>
+      <div>我的成绩</div>
     </div>
     <div class="Grades-content">
       <el-row v-for="(item,index) in dataList" :key="index">

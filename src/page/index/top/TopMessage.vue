@@ -2,60 +2,55 @@
   <div class="nav-info">
     <el-popover popper-class="msg-popover" placement="bottom" width="336" trigger="click">
       <el-tabs class="msg-tabs" v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="通知 (4)" name="first">
+        <el-tab-pane :label="`通知 (${announcementNum})`" name="first">
           <el-card class="box-card" :body-style="bodyStyle">
-            <div v-for="msg in msgList" :key="msg.id" class="text">
-              <div class="list-item-icon">
-                <img :src="msg.img" alt="" />
-              </div>
+            <div v-for="item in announcementList" :key="item.id" class="text">
               <div class="list-item-content">
-                <h4 class="list-item-title">{{ msg.title }}</h4>
+                <h4 class="list-item-title">{{ item.name }}</h4>
                 <div class="list-item-description">
-                  <span class="time">{{ msg.time }}</span>
+                  <span class="time">{{ item.time }}</span>
                 </div>
               </div>
             </div>
-            <div class="list-loadMore">加载更多</div>
+            <div class="list-loadMore">更多</div>
           </el-card>
         </el-tab-pane>
-        <el-tab-pane label="消息 (5)" name="second">
-          <el-card class="box-card">
-            <div v-for="info in infoList" :key="info.id" class="text">
+        <el-tab-pane :label="`消息 (${systemMessageNum})`" name="second">
+          <el-card class="box-card" :body-style="bodyStyle">
+            <div v-for="item in systemMessageList" :key="item.id" class="text">
               <div class="list-item-content">
-                <h4 class="list-item-title">{{ info.title }}</h4>
+                <h4 class="list-item-title">{{ item.name }}</h4>
                 <div class="list-item-description">
-                  <span class="time">{{ info.time }}</span>
+                  <span class="time">{{ item.time }}</span>
                 </div>
               </div>
             </div>
-            <div class="list-loadMore">加载更多</div>
+            <div class="list-loadMore">更多</div>
           </el-card>
         </el-tab-pane>
-        <el-tab-pane label="邮件 (3)" name="third">
-          <el-card class="box-card">
-            <div v-for="mail in mailList" :key="mail.id" class="text">
-              <div class="list-item-icon">
-                <i class="iconfont icon-youxiang"></i>
-              </div>
+        <el-tab-pane :label="`邮件 (${emailNum})`" name="third">
+          <el-card class="box-card" :body-style="bodyStyle">
+            <div v-for="item in emailList" :key="item.id" class="text">
               <div class="list-item-content">
-                <h4 class="list-item-title">{{ mail.title }}</h4>
+                <h4 class="list-item-title">{{ item.name }}</h4>
                 <div class="list-item-description">
-                  <span class="time">{{ mail.time }}</span>
+                  <span class="time">{{ item.time }}</span>
                 </div>
               </div>
             </div>
-            <div class="list-loadMore">加载更多</div>
+            <div class="list-loadMore">更多</div>
           </el-card>
         </el-tab-pane>
       </el-tabs>
-      <div class="list-clear">清空 通知</div>
-      <el-badge :value="12" slot="reference" class="item">
+      <!-- <div class="list-clear">清空 通知</div> -->
+      <el-badge :value="totalNum" slot="reference" class="item">
         <iep-button><i class="el-icon-bell"></i></iep-button>
       </el-badge>
     </el-popover>
   </div>
 </template>
 <script>
+import { getImsWel } from '@/api/ims/email'
 export default {
   data () {
     return {
@@ -64,81 +59,40 @@ export default {
         padding: 0,
       },
       activeName: 'first',
-      msgList: [
-        {
-          id: '1',
-          img: '../img/icons/info.png',
-          title: '你收到了 14 份新周报',
-          time: '1天前',
-        },
-        {
-          id: '2',
-          img: '../img/icons/ms.png',
-          title: '你推荐的 张一山 已通过第三轮面试',
-          time: '1天前',
-        },
-        {
-          id: '3',
-          img: '../img/icons/jia.png',
-          title: '你推荐的 张一山 已通过第三轮面试',
-          time: '1天前',
-        },
-        {
-          id: '4',
-          img: '../img/icons/xing.png',
-          title: '你推荐的 张一山 已通过第三轮面试',
-          time: '1天前',
-        },
-      ],
-      infoList: [
-        {
-          id: '1',
-          title: '产品中心视效组20190310早会纪要分享',
-          time: '2019-3-10 08:40',
-        },
-        {
-          id: '2',
-          title: '产品中心视效组20190312早会纪要分享',
-          time: '2019-3-13 09:40',
-        },
-        {
-          id: '3',
-          title: '产品中心视效组20190302早会纪要分享',
-          time: '2019-3-02 10:20',
-        },
-        {
-          id: '4',
-          title: '产品中心视效组20190310早会纪要分享',
-          time: '2019-3-10 10:40',
-        },
-      ],
-      mailList: [
-        {
-          id: '1',
-          title: '关于加快熟悉全国数字政府建设工作情况的简报学习',
-          time: '2019-3-10 08:40',
-        },
-        {
-          id: '2',
-          title: '22关于加快熟悉全国数字政府建设工作情况的简报学习',
-          time: '2019-3-10 08:40',
-        },
-        {
-          id: '3',
-          title: '11关于加快熟悉全国数字政府建设工作情况的简报学习',
-          time: '2019-3-10 08:40',
-        },
-        {
-          id: '4',
-          title: '33关于加快熟悉全国数字政府建设工作情况的简报学习',
-          time: '2019-3-10 08:40',
-        },
-      ],
+      announcementList: [],
+      announcementNum: 0,
+      systemMessageList: [],
+      systemMessageNum: 0,
+      emailList: [],
+      emailNum: 0,
+      totalNum: 0,
+      // announcementList: [{id: 2, name: "集团研发中心关于进一步完善研发计划的通知", time: "2019-03-29 16:42:04"}]
+      // announcementNum: 1
+      // emailList: [{id: 46, name: "分享材料all", time: "2019-03-28 11:37:44"},…]
+      // emailNum: 3
+      // systemMessageList: [{id: 9, name: "11111", time: "2019-03-16 15:38:28"},…]
+      // systemMessageNum: 4
+      // totalNum: 8
     }
+  },
+  created () {
+    this.loadPage()
   },
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
+    },
+    loadPage () {
+      getImsWel().then(({ data }) => {
+        console.log(data)
+        this.totalNum = data.totalNum
+        this.announcementList = data.announcementList
+        this.announcementNum = data.announcementNum
+        this.emailList = data.emailList
+        this.emailNum = data.emailNum
+        this.systemMessageList = data.systemMessageList
+        this.systemMessageNum = data.systemMessageNum
+      })
     },
   },
 }
@@ -163,7 +117,6 @@ export default {
   margin-bottom: 0;
 }
 .msg-tabs >>> .el-card__body {
-  height: 360px;
   overflow: auto;
 }
 .msg-tabs >>> ::-webkit-scrollbar {
@@ -227,22 +180,23 @@ h4 {
     align-items: flex-start;
     padding: 20px;
     border-bottom: 1px solid #eceef5;
-    .list-item-icon {
-      margin-top: 5px;
-      margin-right: 16px;
-      width: 32px;
-      height: 32px;
-      img {
-        display: block;
-        width: 100%;
-      }
-      i {
-        font-size: 20px;
-      }
-    }
+    // .list-item-icon {
+    //   margin-top: 5px;
+    //   margin-right: 16px;
+    //   width: 32px;
+    //   height: 32px;
+    //   img {
+    //     display: block;
+    //     width: 100%;
+    //   }
+    //   i {
+    //     font-size: 20px;
+    //   }
+    // }
     .list-item-content {
       flex: 1 0;
       .list-item-title {
+        cursor: pointer;
         margin-bottom: 4px;
         color: rgba(0, 0, 0, 0.65);
         font-size: 14px;

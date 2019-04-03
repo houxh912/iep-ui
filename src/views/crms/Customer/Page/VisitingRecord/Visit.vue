@@ -14,7 +14,7 @@
       </el-table-column>
     </iep-table>
     <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
-    <visit-dialog ref="VisitDialog"></visit-dialog>
+    <visit-dialog ref="VisitDialog" @load-page="loadPage"></visit-dialog>
   </div>
 </template> 
 
@@ -49,6 +49,7 @@ export default {
       this.$refs['VisitDialog'].formData = { ...row }
       this.$refs['VisitDialog'].dialogShow = true
       this.$refs['VisitDialog'].methodName = '保存'
+      this.$refs['VisitDialog'].id = this.id
       this.$refs['VisitDialog'].formRequestFn = updateVisitLog
     },
     handleDeleteById (row) {

@@ -55,7 +55,7 @@ export function contactBatchById (ids) {
 // 拜访日志-查询
 export function fetchVisitLog (params) {
   return request({
-    url: '/mlms/meeting/page',
+    url: '/mlms/meeting/page/visitList',
     method: 'get',
     params: params,
   })
@@ -63,8 +63,9 @@ export function fetchVisitLog (params) {
 // 拜访日志-通过id查询
 export function fetchVisitLogById (id) {
   return request({
-    url: `${visitLog}/page/${id}`,
+    url: `${visitLog}/page/%7Bid%7D`,
     method: 'get',
+    params: id,
   })
 }
 // 拜访日志-新增

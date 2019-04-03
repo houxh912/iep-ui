@@ -17,6 +17,7 @@ export function createData (obj) {
   })
 }
 
+// 编辑 -- 立项申请
 export function updateData (obj) {
   return request({
     url: `${prefixUrl}/edit`,

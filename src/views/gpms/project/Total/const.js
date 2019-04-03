@@ -3,6 +3,19 @@ export const dictMap = {
     { value: 1, label: '是' },
     { value: 2, label: '否' },
   ],
+  status: [
+    { value: 1, label: '未提交' },
+    { value: 2, label: '待审核' },
+    { value: 3, label: '审核通过' },
+    { value: 4, label: '审核不通过' },
+  ],
+  projectStage: {
+    1: '立项阶段',
+    2: '实施阶段',
+    3: '收尾阶段',
+    4: '完结阶段',
+    5: '失败阶段',
+  },
   stageOptions: [],
   typeOptions: [
     { id: 1, value: '1', label: '类型一' },
@@ -21,19 +34,20 @@ export const columnsMap = [
     label: '项目预算',
   },
   {
-    prop: 'manay',
+    prop: 'contractAmount',
     label: '合同金额',
   },
   {
-    prop: 'stage',
+    prop: 'projectStage',
     label: '项目阶段',
+    type: 'dict',
   },
   {
-    prop: 'issue',
+    prop: 'publisher',
     label: '发布人',
   },
   {
-    prop: 'issuetime',
+    prop: 'publishTime',
     label: '发布时间',
   },
 ]
@@ -136,9 +150,3 @@ export function initFormData () {
   }
 }
 
-export const status = [
-  { value: 1, label: '未提交' },
-  { value: 2, label: '待审核' },
-  { value: 3, label: '审核通过' },
-  { value: 4, label: '审核不通过' },
-]

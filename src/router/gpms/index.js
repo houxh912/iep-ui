@@ -8,7 +8,7 @@ export default [
       {
         path: 'project/detail/:id',
         name: '查看纪要',
-        component: () => import('@/views/gpms/project/prooverview/approval/index.vue'),
+        component: () => import('@/views/gpms/project/approval/index.vue'),
       },
     ],
   },

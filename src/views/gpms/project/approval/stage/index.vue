@@ -1,10 +1,9 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="立项阶段" :backOption="backOption"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='ProApp'" v-slot:ProApp>
-          <pro-app v-loading="activeTab !=='ProApp'"></pro-app>
+          <pro-app v-loading="activeTab !=='ProApp'" :form="formData"></pro-app>
         </template>
         <template v-if="activeTab ==='Accredit'" v-slot:Accredit>
           <accredit v-loading="activeTab !=='Accredit'" :isShow="addDialogShow" :detailShow="detailDialogShow" @detail-show="fn" @toggle-show="val => addDialogShow = val"></accredit>
@@ -13,26 +12,33 @@
       <transition name="fade">
         <add-dialog :isShow="addDialogShow" @close="val => addDialogShow = val"></add-dialog>
       </transition>
-      <transition name="fade">
-        <detail-dialog :detailShow="detailDialogShow" @close="val => detailDialogShow = val"></detail-dialog>
-      </transition>
     </basic-container>
   </div>
 </template>
 <script>
-import ProApp from './ProApp/'
-import Accredit from './Accredit/'
+import ProApp from './ProApp/' // 项目立项
+import Accredit from './Accredit/' // 项目经理授权
 import addDialog from './addDialog'
-import detailDialog from './detail/index'
+
 export default {
-  components: { ProApp, Accredit, addDialog, detailDialog },
+  components: { ProApp, Accredit, addDialog },
+  props: {
+    form: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+    },
+  },
+  computed: {
+    formData () {
+      return this.form
+    },
+  },
   data () {
     return {
       addDialogShow: false,
       detailDialogShow: false,
-      backOption: {
-        isBack: true,
-      },
       tabList: [{
         label: '项目立项',
         value: 'ProApp',

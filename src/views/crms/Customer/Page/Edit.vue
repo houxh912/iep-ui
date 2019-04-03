@@ -83,9 +83,9 @@
             <iep-tag v-model="formData.tags"></iep-tag>
           </el-form-item>
           <el-form-item label="协助人：" prop="collaborationsKey" v-if="formData.collaborations.length != 0">
-            <el-tag :key="tag.commonId" v-for="tag in formData.collaborations" closable :disable-transitions="false" @close="handleClose(tag)">
+            <a-tag :key="tag.commonId" v-for="tag in formData.collaborations" closable :disable-transitions="false" @close="handleClose(tag)">
               {{tag.commonName}}
-            </el-tag>
+            </a-tag>
           </el-form-item>
           <el-form-item label="跟进状态：" prop="followUpStatus">
             <iep-dict-select v-model="formData.followUpStatus" dict-name="crms_follow_up_status"></iep-dict-select>
@@ -197,4 +197,5 @@ export default {
 .edit-wrapper {
   padding-bottom: 50px;
 }
+
 </style>

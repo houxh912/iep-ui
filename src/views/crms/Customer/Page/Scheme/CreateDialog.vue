@@ -51,7 +51,7 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
-      console.log(this.formData.attachs.length)
+      console.log(this.formData)
       if (this.formData.attachs.length == 0) {
         this.$message.error('请选择上传的文件')
         return false

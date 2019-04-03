@@ -1,11 +1,11 @@
 const columnsMap = [
   { label: '主题', prop: 'theme' },
-  { label: '时间', prop: 'visitTime' },
-  { label: '拜访记录', prop: 'contactRecord' },
+  { label: '联系时间', prop: 'visitTime' },
+  { label: '联系记录', prop: 'contactRecord' },
 ]
 const visitColumnsMap = [
   { label: '主题', prop: 'title', width: 400 },
-  { label: '拜访时间', prop: 'createTime' },
+  { label: '拜访时间', prop: 'meetingTime' },
   // { label: '类型', prop: 'contactRecord' },
 ]
 const initForm = () => {
@@ -13,6 +13,7 @@ const initForm = () => {
     theme: '',
     visitTime: '',
     contactRecord: '',
+    clientId: '',
   }
 }
 
@@ -37,35 +38,6 @@ export const dictsMap = {
 
 export const initFormData = () => {
   return {
-    // type: 1, // 0 是会议纪要，1 是拜访记录
-    // meetingType: 6,
-    // title: '',
-    // meetingContent: '',
-    // meetingCon: '',
-    // thoughtsProblem: '',
-    // meetingTime: '',
-    // meetingLocation: '',
-    // tagKeyWords: [],
-    // receiverIds: [],
-    // receiverList: {
-    //   orgs: [],
-    //   users: [],
-    // },
-    // // receiverList: [],
-    // attendeeList: {
-    //   orgs: [],
-    //   users: [],
-    // },
-    // // attendeeList: [],
-    // hostList: {
-    //   id: '',
-    //   name: '',
-    // },
-    // remark: '',
-    // visitType: -1,
-    // visitingAddress: '',
-    // visitingUserId: [],
-
     type: 1, // 0 是会议纪要，1 是拜访记录
     meetingType: '6',
     title: '',
@@ -76,25 +48,22 @@ export const initFormData = () => {
     meetingLocation: '',
     tagKeyWords: [],
     receiverIds: [],
-    receiverList: {
+    receiver: {
       orgs: [],
       users: [],
       unions: [],
     },
-    attendeeList: {
+    attendee: {
       orgs: [],
       users: [],
       unions: [],
     },
-    hostList: {
-      id: '',
-      name: '',
-    },
+    hostId: '',
     remark: '',
-    visitType: -1,
+    visitType: 1,
     visitingAddress: '',
     visitingUserId: [],
-    status: 0,
+    status: 1,
   }
 }
 

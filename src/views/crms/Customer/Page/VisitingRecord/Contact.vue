@@ -47,6 +47,7 @@ export default {
       this.$refs['EditDialog'].dialogShow = true
       this.$refs['EditDialog'].methodName = '新增'
       this.$refs['EditDialog'].submitFn = createVisit
+      this.$refs['EditDialog'].id = this.id
     },
     handleEdit (row) {
       this.$refs['EditDialog'].formData = { ...row }

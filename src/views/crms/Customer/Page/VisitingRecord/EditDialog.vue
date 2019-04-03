@@ -29,6 +29,7 @@ export default {
       methodName: '创建',
       formData: {},
       record: {},
+      id: '',
       rules: {
         theme: [
           { required: true, message: '请输入主题', trigger: 'change' },
@@ -51,6 +52,7 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
+      this.formData.clientId = this.id
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.submitFn({ ...this.formData }).then(() => {
@@ -61,6 +63,7 @@ export default {
               duration: 2000,
             })
             this.dialogShow = false
+            this.$emit('load-page')
           })
         } else {
           return false

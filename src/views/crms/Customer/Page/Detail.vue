@@ -76,13 +76,21 @@ export default {
         value: 'Information',
       }],
       activeTab: 'CustomerPanorama',
+      routerBack: false,
       formRequestFn: () => { },
     }
   },
   created () {
     this.loadPage()
+    this.getRouter()
+    if (this.routerBack) {
+      this.activeTab = 'Scheme'
+    }
   },
   methods: {
+    getRouter () {
+      this.routerBack = this.$route.query.routerBack
+    },
     loadPage () {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = data.data
@@ -91,6 +99,9 @@ export default {
     handleGoBack () {
       this.$emit('onGoBack')
     },
+  },
+  watch: {
+    '$route': 'getRouter',
   },
 }
 </script>

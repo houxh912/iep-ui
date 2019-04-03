@@ -21,8 +21,7 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button @click="handleSave(scope.row)" type="warning" plain v-if="!scope.row.status">保存至材料库</iep-button>
-            <iep-button v-if="scope.row.status" :disabled="true">已保存至材料库</iep-button>
-            <iep-button @click="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain v-if="!scope.row.status">编辑</iep-button>
             <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
@@ -38,7 +37,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { getSchemePage, createScheme, updateScheme, deleteSchemeById, saveScheme, getSchemeById } from '@/api/crms/scheme'
+import { getSchemePage, createScheme, updateScheme, deleteSchemeById, getSchemeById } from '@/api/crms/scheme'
 import CreateDialog from './CreateDialog'
 import { downloadModel } from '@/api/crms/download'
 export default {
@@ -130,16 +129,24 @@ export default {
       downloadModel(row.atchUpload)
     },
     handleSave (row) {
-      row.status = 1
-      saveScheme({ ...row }).then(() => {
-        this.$notify({
-          title: '成功',
-          message: `${this.methodName}成功`,
-          type: 'success',
-          duration: 2000,
-        })
-
+      this.$router.push({
+        path: '/wel/material/datum',
+        // name: 'mallList',
+        query: {
+          router: true,
+          data: row,
+        },
       })
+      // row.status = 1
+      // saveScheme({ ...row }).then(() => {
+      //   this.$notify({
+      //     title: '成功',
+      //     message: `${this.methodName}成功`,
+      //     type: 'success',
+      //     duration: 2000,
+      //   })
+
+      // })
     },
   },
 

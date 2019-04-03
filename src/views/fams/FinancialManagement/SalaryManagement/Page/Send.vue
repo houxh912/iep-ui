@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="工资发送" :replaceText="replaceText" :data="[120]" :backOption="backOption"></page-header>
+      <page-header title="工资发放" :replaceText="replaceText" :data="[120]" :backOption="backOption"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='HasSent'" v-slot:HasSent>
           <has-sent v-loading="activeTab !=='HasSent'"></has-sent>

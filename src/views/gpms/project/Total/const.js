@@ -124,7 +124,7 @@ export function paramForm () {
 export function initFormData () {
   return {
     projectName: '', // 项目名称
-    projectType: '', // 项目类行
+    projectType: '', // 项目类型
     businessType: '', // 业务类型
     businessTypeSec: '', // 其他
     relatedClient: '', // 相关客户

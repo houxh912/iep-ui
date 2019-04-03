@@ -25,26 +25,7 @@
 import mixins from '@/mixins/mixins'
 import IepDialog from '@/components/IepDialog/'
 import { updateData } from '@/api/gpms/index'
-
-function initFormData () {
-  return {
-    serialNo: '',
-    projectName: '',
-    yusuan: '',
-    approver: '',
-    approverObj: {
-      id: '',
-      name: '',
-    },
-    ccPersonList: [],
-    ccPersonLists: {
-      orgs: [],
-      users: [],
-      unions: [],
-    },
-    approvalStatus: 2,
-  }
-}
+import { initFormData } from './option'
 
 export default {
   name: 'index',

@@ -36,6 +36,11 @@ export default {
       },
     }
   },
+  methods: {
+    handleGoBack () {
+      this.$emit('onGoBack')
+    },
+  },
 }
 </script>
 

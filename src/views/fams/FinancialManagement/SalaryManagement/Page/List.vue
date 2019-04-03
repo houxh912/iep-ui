@@ -9,7 +9,7 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="月份" width="90px">
+          <el-table-column label="月份" width="150px">
             <template slot-scope="scope">
               <iep-table-link>{{scope.row.time}}</iep-table-link>
             </template>

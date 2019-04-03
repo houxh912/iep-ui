@@ -5,10 +5,6 @@ const columnsMap = [
     prop: 'time',
     label: '上传时间',
   },
-  {
-    prop: 'operate',
-    label: '操作',
-  },
 ]
 
 const initForm = () => {

@@ -57,13 +57,13 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="流水号" width="90px">
+          <el-table-column label="流水号" width="100px">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="250" fixed="right">
+        <el-table-column prop="operation" label="操作" width="200" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handlePass(scope.row)">通过</iep-button>

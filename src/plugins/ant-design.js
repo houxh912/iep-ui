@@ -88,7 +88,7 @@ Vue.use(Timeline)
 // Vue.use(Upload)
 // Vue.use(Progress)
 // Vue.use(Skeleton)
-// Vue.use(Popconfirm)
+Vue.use(Popconfirm)
 // Vue.use(VueCropper)
 // Vue.use(notification)
 

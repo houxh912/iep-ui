@@ -1,7 +1,6 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="项目材料" :backOption="backOption"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Normy'" v-slot:Normy>
           <normy v-loading="activeTab !=='Normy'"></normy>
@@ -15,19 +14,14 @@
 </template>
 
 <script>
-import Norm from './Norm/'
 import Normy from './Normy/'
+import Norm from './Norm/'
+
 export default {
   name: 'index',
-  components: {
-    Normy,
-    Norm,
-  },
+  components: { Normy, Norm },
   data () {
     return {
-      backOption: {
-        isBack: true,
-      },
       tabList: [{
         label: '纪要与周报',
         value: 'Normy',

@@ -21,19 +21,19 @@ export const columnsMap = [
     label: '项目预算',
   },
   {
-    prop: 'manay',
+    prop: 'contractAmount',
     label: '合同金额',
   },
   {
-    prop: 'stage',
+    prop: 'projectStage',
     label: '项目阶段',
   },
   {
-    prop: 'issue',
+    prop: 'publisher',
     label: '发布人',
   },
   {
-    prop: 'issuetime',
+    prop: 'publishTime',
     label: '发布时间',
   },
 ]

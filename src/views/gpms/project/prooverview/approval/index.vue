@@ -12,18 +12,23 @@
         </el-card>
       </div>
       <div class="right">
-        <detailPage></detailPage>
+        <detailPage v-if="selectNavigation===0" :form="formData"></detailPage>
+        <stagePage v-if="selectNavigation===1" :form="formData"></stagePage>
+        <materialPage v-if="selectNavigation===2"></materialPage>
       </div>
     </div>
   </basic-container>
 </template>
 
 <script>
-import detailPage from './detail/index'
+import detailPage from './detail/'
+import stagePage from './stage/'
+import materialPage from './material/'
+import { getDataDetail } from '@/api/gpms/index'
 
 export default {
   name: 'detail',
-  components: { detailPage },
+  components: { detailPage, stagePage, materialPage },
   data () {
     return {
       backOption: {
@@ -39,6 +44,7 @@ export default {
         { name: '立项阶段', value: 1 },
         { name: '项目材料', value: 2 },
       ],
+      formData: {},
     }
   },
   methods: {
@@ -49,6 +55,12 @@ export default {
     navigationChosen (item) {
       this.selectNavigation = item.value
     },
+  },
+  created () {
+    // 获取详情的数据，初步处理数据
+    getDataDetail(this.$route.params.id).then(({data}) => {
+      this.formData = data.data
+    })
   },
 }
 </script>

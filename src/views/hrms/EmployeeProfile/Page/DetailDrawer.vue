@@ -105,7 +105,7 @@
         </IepDescriptionItem>
       </a-col>
     </a-row>
-
+<!-- TODO -->
     <a-row>
       <a-col :span="12">
         <IepDescriptionItem title="户籍地址：" :content="form.residenceCities" />
@@ -123,7 +123,7 @@
         <IepDescriptionItem :content="form.currentAddress" />
       </a-col>
     </a-row>
-
+<!-- TODO -->
     <a-divider />
     <p :style="pStyle">详细信息</p>
 

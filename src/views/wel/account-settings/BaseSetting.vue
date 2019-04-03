@@ -13,24 +13,21 @@
             <iep-detail-tag :value="form.orgList"></iep-detail-tag>
           </el-form-item>
           <el-form-item label="工号：" class="form-half">
-            <el-input v-model="form.staffId"></el-input>
+            <span>{{form.staffId}}</span>
           </el-form-item>
           <el-form-item label="头像：" class="">
             <iep-avatar v-model="form.avatar"></iep-avatar>
           </el-form-item>
-          <el-form-item label="角色：" class="form-half">
+          <el-form-item label="角色：">
             <iep-detail-tag :value="form.roleName"></iep-detail-tag>
           </el-form-item>
           <el-form-item label="资产所属：" class="form-half">
-            <span>{{form.deptList.join('、')}}</span>
+            <iep-detail-tag :value="form.deptList"></iep-detail-tag>
           </el-form-item>
           <el-form-item label="岗位：" class="form-half">
             <span>{{form.positionName}}</span>
           </el-form-item>
-          <el-form-item label="外部头衔：" class="form-half">
-            <el-input v-model="form.externalTitle"></el-input>
-          </el-form-item>
-          <el-form-item label="岗位职责：">
+          <el-form-item label="岗位职责：" class="form-half">
             <span>{{form.duties}}</span>
           </el-form-item>
           <el-form-item label="职务：" class="form-half">

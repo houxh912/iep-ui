@@ -53,10 +53,13 @@
                 <el-input v-model="form.positiveTime"></el-input>
               </el-form-item>
               <el-form-item label="员工状态：" class="form-half">
-                <el-input v-model="form.status"></el-input>
+                <el-select v-model="form.status" placeholder="请选择" clearable>
+                  <el-option v-for="(v,k) in dictsMap.status" :key="k" :label="v" :value="+k">
+                  </el-option>
+                </el-select>
               </el-form-item>
               <el-form-item label="所属部门：" class="form-half">
-                <iep-cascader v-model="form.position" prefix-url="admin/dept" change-on-select></iep-cascader>
+                <iep-dept-multiple v-model="form.dept"></iep-dept-multiple>
               </el-form-item>
               <el-form-item label="出生年月：" class="form-half">
                 <el-input v-model="form.birthday"></el-input>
@@ -220,7 +223,7 @@
 <script>
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 import { mergeByFirst } from '@/util/util'
-import { initForm, formToDto } from '../options'
+import { initForm, formToDto, dictsMap } from '../options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 import { workExpColumns, studyColumns, trainingColumns, certificateColumns, laborContractColumns, welfareColumns, transferColumns, dimissionColumns } from '@/views/hrms/Components/options'
 //import { laborColumns, socialColumns, transferColumns, quitColumns  } from '../options'
@@ -241,6 +244,7 @@ export default {
         backPath: null,
         backFunction: this.handleGoBack,
       },
+      dictsMap,
       form: initForm(),
       formRequestFn: this.record.formRequestFn,
       workExpColumns,

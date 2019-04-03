@@ -2,43 +2,31 @@
   <iep-dialog :dialog-show="dialogShow" title="拜访日志" width="70%">
     <!-- <page-header :title="`${methodName}纪要`" :backOption="backOption"></page-header> -->
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
-      <!-- <el-form-item label="会议类型：" prop="meetingType">
-        <el-radio-group v-model="formData.meetingType">
-          <el-radio v-for="(item, value) in dictsMap.meetingType" :key="value" :label="+value" @change="typeChange">{{item}}</el-radio>
-        </el-radio-group>
+      <!-- <el-form-item label="拜访对象：" prop="visitingUserId">
+        <el-select v-model="formData.visitingUserId" placeholder="请选择" multiple>
+          <el-option v-for="item in clientList" :key="item.clientId" :label="item.clientName" :value="item.clientId"></el-option>
+        </el-select>
       </el-form-item> -->
-      <el-form-item label="拜访对象：" prop="visitingUserId">
-        <iep-tag v-model="formData.visitingUserId"></iep-tag>
-      </el-form-item>
       <el-form-item :label="`${formData.type == 0 ? '会议主题':'会议标题'}：`" prop="title">
         <el-input v-model="formData.title"></el-input>
+      </el-form-item>
+      <el-form-item label="会议时间" prop="meetingTime">
+        <IepDatePicker v-model="formData.meetingTime"></IepDatePicker>
       </el-form-item>
       <el-form-item label="会议内容：" prop="meetingContent">
         <el-input type="textarea" v-model="formData.meetingContent" rows=5></el-input>
       </el-form-item>
-      <el-form-item label="会议总结：" prop="meetingCon">
+      <!-- <el-form-item label="会议总结：" prop="meetingCon">
         <el-input type="textarea" v-model="formData.meetingCon" rows=5></el-input>
       </el-form-item>
       <el-form-item label="备注：" prop="thoughtsProblem" v-if="formData.type==1">
         <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <!-- <el-form-item label="感想与困惑：" prop="thoughtsProblem" v-if="formData.type==0">
         <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5></el-input>
       </el-form-item> -->
-      <el-row>
-        <el-col :span=12>
-          <el-form-item label="会议时间" prop="meetingTime">
-            <!-- <el-date-picker v-model="formData.meetingTime" type="date" placeholder="选择日期"></el-date-picker> -->
-            <IepDatePicker v-model="formData.meetingTime"></IepDatePicker>
-          </el-form-item>
-        </el-col>
-        <!-- <el-col :span=12 v-if="formData.type == 0">
-          <el-form-item label="会议地点：" prop="meetingLocation">
-            <el-input v-model="formData.meetingLocation"></el-input>
-          </el-form-item>
-        </el-col> -->
-      </el-row>
-      <el-form-item label="拜访形式：" prop="visitType">
+
+      <!-- <el-form-item label="拜访形式：" prop="visitType">
         <el-radio-group v-model="formData.visitType">
           <el-radio v-for="(item, value) in dictsMap.visitType" :key="value" :label="+value">{{item}}</el-radio>
         </el-radio-group>
@@ -51,15 +39,13 @@
       </el-form-item>
       <el-form-item label="主持人：" prop="">
         <iep-contact-select v-model="formData.hostList"></iep-contact-select>
-      </el-form-item>
-      <el-form-item label="参会人：" prop="">
-        <!-- <iep-contact-multiple v-model="formData.attendeeList"></iep-contact-multiple> -->
+      </el-form-item> -->
+      <!-- <el-form-item label="参会人：" prop="">
         <iep-contact-multiple-user v-model="formData.attendeeList"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item label="抄送人：" prop="">
-        <!-- <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple> -->
         <iep-contact-multiple-user v-model="formData.receiverList"></iep-contact-multiple-user>
-      </el-form-item>
+      </el-form-item> -->
       <!-- <el-form-item label="接收人" prop="">
         <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
       </el-form-item> -->
@@ -80,9 +66,11 @@
 import { initFormData, dictsMap, rules } from './options'
 // import IepTags from '@/components/IepTags/input'
 // import IepContactMultiple from '@/components/IepContact/Multiple'
-import IepContactSelect from '@/components/IepContact/Select'
+// import IepContactSelect from '@/components/IepContact/Select'
+import { getCustomerPage } from '@/api/crms/customer'
+import { mapState } from 'vuex'
 export default {
-  components: { IepContactSelect },
+  // components: { IepContactSelect },
   data () {
     return {
       dictsMap,
@@ -91,6 +79,8 @@ export default {
       methodName: '创建',
       formData: initFormData(),
       rules,
+      id: '',
+      clientList: [],
       // backOption: {
       //   isBack: true,
       //   backPath: null,
@@ -100,13 +90,24 @@ export default {
       // },
     }
   },
+  computed: {
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
+  },
+  created () {
+    // 获取客户的数据
+    getCustomerPage({ type: 1 }).then(({ data }) => {
+      this.clientList = data.data.records
+    })
+    console.log(this.dictGroup)
+  },
   methods: {
     loadPage () {
       this.$emit('load-page')
     },
     submitForm (formName) {
-      delete this.formData.createTime
-      delete this.formData.updateTime
+      this.formData.visitingUserId = [this.id]
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // this.formData.hostId = this.formData.hostList.id
@@ -118,7 +119,6 @@ export default {
           //   orgIds: this.formData.receiverList.orgs.map(m => m.id),
           //   userIds: this.formData.receiverList.users.map(m => m.id),
           // }
-          console.log('sss')
           this.formRequestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',

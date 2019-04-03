@@ -1,12 +1,12 @@
 const columnsMap = [
   { label: '主题', prop: 'theme' },
-  { label: '拜访时间', prop: 'visitTime' },
+  { label: '时间', prop: 'visitTime' },
   { label: '拜访记录', prop: 'contactRecord' },
 ]
 const visitColumnsMap = [
-  { label: '名称', prop: 'theme' },
-  { label: '创建时间', prop: 'visitTime' },
-  { label: '浏览次数', prop: 'contactRecord' },
+  { label: '主题', prop: 'title', width: 400 },
+  { label: '拜访时间', prop: 'createTime' },
+  // { label: '类型', prop: 'contactRecord' },
 ]
 const initForm = () => {
   return {
@@ -37,8 +37,37 @@ export const dictsMap = {
 
 export const initFormData = () => {
   return {
+    // type: 1, // 0 是会议纪要，1 是拜访记录
+    // meetingType: 6,
+    // title: '',
+    // meetingContent: '',
+    // meetingCon: '',
+    // thoughtsProblem: '',
+    // meetingTime: '',
+    // meetingLocation: '',
+    // tagKeyWords: [],
+    // receiverIds: [],
+    // receiverList: {
+    //   orgs: [],
+    //   users: [],
+    // },
+    // // receiverList: [],
+    // attendeeList: {
+    //   orgs: [],
+    //   users: [],
+    // },
+    // // attendeeList: [],
+    // hostList: {
+    //   id: '',
+    //   name: '',
+    // },
+    // remark: '',
+    // visitType: -1,
+    // visitingAddress: '',
+    // visitingUserId: [],
+
     type: 1, // 0 是会议纪要，1 是拜访记录
-    meetingType: 6,
+    meetingType: '6',
     title: '',
     meetingContent: '',
     meetingCon: '',
@@ -47,16 +76,16 @@ export const initFormData = () => {
     meetingLocation: '',
     tagKeyWords: [],
     receiverIds: [],
-    // receiverList: {
-    //   orgs: [],
-    //   users: [],
-    // },
-    receiverList: [],
-    // attendeeList: {
-    //   orgs: [],
-    //   users: [],
-    // },
-    attendeeList: [],
+    receiverList: {
+      orgs: [],
+      users: [],
+      unions: [],
+    },
+    attendeeList: {
+      orgs: [],
+      users: [],
+      unions: [],
+    },
     hostList: {
       id: '',
       name: '',
@@ -65,8 +94,10 @@ export const initFormData = () => {
     visitType: -1,
     visitingAddress: '',
     visitingUserId: [],
+    status: 0,
   }
 }
+
 
 export const initSearchForm = () => {
   return {

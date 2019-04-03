@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import { getApprovalInitiateById } from '@/api/wel/administrative_approval'
+import { getFinancialManagementById } from '@/api/fams/financial_management'
 import { initForm } from '../options'
 import { mergeByFirst } from '@/util/util'
 export default {
@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     load () {
-      getApprovalInitiateById(this.record.id).then(({ data }) => {
+      getFinancialManagementById(this.record.id).then(({ data }) => {
         this.form = mergeByFirst(initForm(), data.data)
       })
     },

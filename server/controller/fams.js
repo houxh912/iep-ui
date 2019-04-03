@@ -16,16 +16,16 @@ exports.getPersonalAccountManagementPage = async function (ctx) {
 exports.getFinancialManagementPage = async function (ctx) {
   ctx.body = `{"code":0,"msg":"success","data":{"records":[
     {"number":"1","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"22.5","expenditure":6,"balance":"21.9","status":"1"},
-    {"number":"2","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"84","expenditure":77,"balance":"22","status":"1"},
-    {"number":"3","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"20.2","expenditure":88,"balance":"22.2","status":"1"},
+    {"number":"2","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"84","expenditure":77,"balance":"22","status":"2"},
+    {"number":"3","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"20.2","expenditure":88,"balance":"22.2","status":"0"},
     {"number":"4","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"53","expenditure":55,"balance":"52","status":"1"},
-    {"number":"5","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"22.5","expenditure":6,"balance":"21.9","status":"1"},
-    {"number":"6","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"84","expenditure":77,"balance":"22","status":"1"},
+    {"number":"5","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"22.5","expenditure":6,"balance":"21.9","status":"2"},
+    {"number":"6","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"84","expenditure":77,"balance":"22","status":"2"},
     {"number":"7","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"20.2","expenditure":88,"balance":"22.2","status":"1"},
     {"number":"8","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"53","expenditure":55,"balance":"52","status":"1"},
-    {"number":"9","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"22.5","expenditure":6,"balance":"21.9","status":"1"},
-    {"number":"10","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"84","expenditure":77,"balance":"22","status":"1"},
-    {"number":"11","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"20.2","expenditure":88,"balance":"22.2","status":"1"},
+    {"number":"9","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"22.5","expenditure":6,"balance":"21.9","status":"0"},
+    {"number":"10","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"84","expenditure":77,"balance":"22","status":"0"},
+    {"number":"11","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"20.2","expenditure":88,"balance":"22.2","status":"2"},
     {"number":"12","date":"2014-11-01","abstract":"摘要","remarks":"备注","name":"张超","departments":"提交","income":"53","expenditure":55,"balance":"52","status":"1"}
   ],"total":12,"size":10,"current":1,"searchCount":true,"pages":1}}`
 }

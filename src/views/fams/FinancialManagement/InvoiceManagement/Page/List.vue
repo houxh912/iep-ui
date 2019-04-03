@@ -64,10 +64,12 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <el-table-column label="操作" width="220px">
+        <el-table-column label="操作" width="80px">
           <template slot-scope="scope">
-            <el-button size="small" type="warning" plain @click="handleDetail(scope.row)">查看</el-button>
-            <el-button size="small" type="warning" plain @click="handleReview(scope.row)">审核</el-button>
+            <operation-wrapper>
+              <iep-button type="warning" plain v-if="scope.row.status==1 || scope.row.status==2" @click="handleDetail(scope.row)">查看</iep-button>
+              <iep-button type="warning" plain v-if="scope.row.status==0" @click="handleReview(scope.row)">审核</iep-button>
+            </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>

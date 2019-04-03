@@ -3,6 +3,7 @@ import request from '@/router/axios'
 const visitUrl = '/crm/visitingRecord'
 const visitLog = '/crm/meeting'
 
+
 // 联系记录查询
 export function fetchVisitList (params) {
   return request({
@@ -54,9 +55,16 @@ export function contactBatchById (ids) {
 // 拜访日志-查询
 export function fetchVisitLog (params) {
   return request({
-    url: `${visitLog}/page`,
+    url: '/mlms/meeting/page',
     method: 'get',
     params: params,
+  })
+}
+// 拜访日志-通过id查询
+export function fetchVisitLogById (id) {
+  return request({
+    url: `${visitLog}/page/${id}`,
+    method: 'get',
   })
 }
 // 拜访日志-新增
@@ -76,11 +84,11 @@ export function updateVisitLog (obj) {
   })
 }
 //拜访日志-删除
-export function deleteVisitLog (contactId) {
+export function deleteVisitLog (id) {
   return request({
-    url: `${visitLog}/delete/batch/${contactId}`,
+    url: `${visitLog}/delete/batch`,
     method: 'post',
-    data: contactId,
+    data: [id],
   })
 }
 

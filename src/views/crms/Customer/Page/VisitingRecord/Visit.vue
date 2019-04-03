@@ -43,6 +43,7 @@ export default {
       this.$refs['VisitDialog'].dialogShow = true
       this.$refs['VisitDialog'].methodName = '保存'
       this.$refs['VisitDialog'].formRequestFn = createVisitLog
+      this.$refs['VisitDialog'].id = this.id
     },
     handleEdit (row) {
       this.$refs['VisitDialog'].formData = { ...row }
@@ -51,7 +52,7 @@ export default {
       this.$refs['VisitDialog'].formRequestFn = updateVisitLog
     },
     handleDeleteById (row) {
-      this._handleGlobalDeleteById([row.contactId], deleteVisitLog)
+      this._handleGlobalDeleteById(row.id, deleteVisitLog)
     },
     loadPage (param = { ...this.searchForm, id: this.id }) {
       this.loadTable(param, fetchVisitLog)

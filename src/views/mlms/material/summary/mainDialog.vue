@@ -11,7 +11,7 @@
       </el-form-item>
       <el-form-item label="拜访对象：" prop="visitingUserId" v-if="formData.type == 1">
         <!-- <iep-tags v-model="formData.visitingUserId"></iep-tags> -->
-        <el-select v-model="formData.visitingUserId" placeholder="请选择" multiple >
+        <el-select v-model="formData.visitingUserId" placeholder="请选择" multiple>
           <el-option v-for="item in clientList" :key="item.clientId" :label="item.clientName" :value="item.clientId"></el-option>
         </el-select>
       </el-form-item>
@@ -39,8 +39,8 @@
         </el-col>
         <el-col :span=12 v-if="formData.type == 0">
           <el-form-item label="会议地点：" prop="meetingLocation">
-            <el-input v-model="formData.meetingLocation"></el-input>
-          </el-form-item>
+            <el-input v-model="formData.meetingocation"></el-input>
+          </el-form-item>L
         </el-col>
       </el-row>
       <el-form-item label="拜访形式：" prop="visitType" v-if="formData.type == 1">
@@ -74,7 +74,7 @@
       <el-form-item label="关联项目" prop="xiangmu">
         <iep-button><i class="el-icon-plus"></i></iep-button>
       </el-form-item> -->
-      
+
     </el-form>
     <footer-toolbar>
       <iep-button type="primary" @click="saveDraft('form')">保存草稿</iep-button>
@@ -186,25 +186,25 @@ export default {
     }
     // 若存在 id， 即为修改
     if (query.id) {
-      getDataById(query.id).then(({data}) => {
+      getDataById(query.id).then(({ data }) => {
         data.data.receiverList = {
-          orgs: data.data.receiver.orgs ? data.data.receiver.orgs: [],
-          users: data.data.receiver.users ? data.data.receiver.users: [],
+          orgs: data.data.receiver.orgs ? data.data.receiver.orgs : [],
+          users: data.data.receiver.users ? data.data.receiver.users : [],
           unions: [],
         }
         data.data.attendeeList = {
-          orgs: data.data.attendee.orgs ? data.data.attendee.orgs: [],
-          users: data.data.attendee.users ? data.data.attendee.users: [],
+          orgs: data.data.attendee.orgs ? data.data.attendee.orgs : [],
+          users: data.data.attendee.users ? data.data.attendee.users : [],
           unions: [],
         }
-        data.data.hostList = data.data.host.length > 0 ? data.data.host[0] : {id: '', name: ''}
-        this.formData = {...data.data}
+        data.data.hostList = data.data.host.length > 0 ? data.data.host[0] : { id: '', name: '' }
+        this.formData = { ...data.data }
         this.methodName = '修改'
         this.formRequestFn = updateData
       })
     }
     // 获取客户的数据
-    getCustomerPage({type: 1}).then(({data}) => {
+    getCustomerPage({ type: 1 }).then(({ data }) => {
       this.clientList = data.data.records
     })
   },

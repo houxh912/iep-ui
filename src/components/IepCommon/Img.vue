@@ -10,7 +10,7 @@ export default {
   props: {
     src: {
       required: true,
-      validator: prop => typeof prop === 'string' || prop === null,
+      validator: prop => typeof prop === 'string' || prop === null || prop === undefined,
     },
   },
   computed: {

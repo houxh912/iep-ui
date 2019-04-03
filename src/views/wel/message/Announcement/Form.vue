@@ -78,7 +78,9 @@ export default {
             message: `招聘信息${this.methodName}成功`,
             type: 'success',
           })
-          this.$emit('onGoBack')
+          this.$router.push({
+            path: this.backOption.backPath,
+          })
         }
       })
     },

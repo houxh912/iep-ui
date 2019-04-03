@@ -9,29 +9,8 @@
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item @click.native="$openPage('http://www.echinagov.com/', 'url')">
-              国脉电子政务网
-            </el-dropdown-item>
-            <el-dropdown-item @click.native="$openPage('http://www.besticity.com/', 'url')">
-              国脉智慧城市网
-            </el-dropdown-item>
-            <el-dropdown-item @click.native="$openPage('http://www.im2m.com.cn/', 'url')">
-              国脉物联网
-            </el-dropdown-item>
-            <el-dropdown-item @click.native="$openPage('http://www.smartqian.com/', 'url')">
-              司马钱
-            </el-dropdown-item>
-            <el-dropdown-item @click.native="$openPage('http://www.databanker.cn/', 'url')">
-              数邦客
-            </el-dropdown-item>
-            <el-dropdown-item @click.native="$openPage('http://www.allship.cn/', 'url')">
-              中船通
-            </el-dropdown-item>
-            <el-dropdown-item @click.native="$openPage('http://www.51banhui.com/', 'url')">
-              蟠桃会
-            </el-dropdown-item>
-            <el-dropdown-item @click.native="$openPage('https://www.govmade.com/yingst/', 'url')">
-              营商通
+            <el-dropdown-item v-for="(v, i) in collectWebsite" :key="i" @click.native="$openPage(v.url, 'url')">
+              {{v.name}}
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -43,7 +22,7 @@
       <top-message></top-message>
       <el-dropdown>
         <span class="el-dropdown-link">
-          {{ userInfo.realName }}
+          {{ userInfo.realName || '游客' }}
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -68,6 +47,7 @@
   </div>
 </template>
 <script>
+import website from '@/const/website'
 import SelectOrgDialog from './SelectOrgDialog'
 import { mapGetters, mapState } from 'vuex'
 import { fullscreenToggel, listenfullscreen } from '@/util/util'
@@ -86,6 +66,7 @@ export default {
   name: 'Top',
   data () {
     return {
+      collectWebsite: website.collectWebsite,
       showDot1: true,
       showDot2: true,
       showDot3: true,

@@ -50,9 +50,11 @@ const initDtoForm = () => {
 }
 const formToDto = (row) => {
 	const newForm = mergeByFirst(initDtoForm(), row)
-	newForm.unionIds = row.receivers.unions.map(m => m.id)
-	newForm.orgIds = row.receivers.orgs.map(m => m.id)
-	newForm.userIds = row.receivers.users.map(m => m.id)
+	newForm.title = row.name
+	newForm.text = row.content
+	newForm.receivers.unionIds = row.receivers.unions.map(m => m.id)
+	newForm.receivers.orgIds = row.receivers.orgs.map(m => m.id)
+	newForm.receivers.userIds = row.receivers.users.map(m => m.id)
 	return newForm
 }
 

@@ -23,7 +23,7 @@
         <template slot="before-columns">
           <el-table-column label="主题" min-width="400">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+              <iep-table-link :is-read="scope.row.isRead" @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
         </template>

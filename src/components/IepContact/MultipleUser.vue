@@ -1,6 +1,6 @@
 <template>
   <div class="multiple-box">
-    <el-tag type="success" closable v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
+    <el-tag type="info" closable v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
     <el-popover placement="right" width="300" trigger="click" v-model="dialogShow">
       <el-tree ref="tree" :props="props" :load="loadNode" :show-checkbox="showCheckbox" :expand-on-click-node="true" :filter-node-method="filterNodeMethod" lazy>
         <span class="custom-tree-node" slot-scope="{ node, data }">

@@ -24,7 +24,7 @@
           </el-button-group>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
+          <operation-search @search-page="searchPage" advance-search>
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
@@ -33,7 +33,7 @@
         <template slot="before-columns">
           <el-table-column label="主题">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+              <iep-table-link :is-read="scope.row.isRead" @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
         </template>

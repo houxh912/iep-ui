@@ -6,10 +6,10 @@
         <el-button class="back" @click="handleGoBack" size="mini">返回</el-button>
       </div>
       <!-- <div class="head-button">
-        <iep-button class="tabs" type="danger" size="small">暂无需求</iep-button>
-        <iep-button class="tabs" type="danger" size="small" @click="transfer">转移给他人</iep-button>
-        <iep-button class="tabs" type="danger" size="small" @click="handleUpdate">编辑</iep-button>
-        <iep-button class="tabs" type="danger" size="small" @click="handleDelete">删除</iep-button>
+        <iep-button class="tabs" type="primary" size="small">暂无需求</iep-button>
+        <iep-button class="tabs" type="primary" size="small" @click="transfer">转移给他人</iep-button>
+        <iep-button class="tabs" type="primary" size="small" @click="handleUpdate">编辑</iep-button>
+        <iep-button class="tabs" type="primary" size="small" @click="handleDelete">删除</iep-button>
       </div> -->
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='CustomerPanorama'" v-slot:CustomerPanorama>

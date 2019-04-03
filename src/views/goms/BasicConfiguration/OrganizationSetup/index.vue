@@ -10,13 +10,13 @@
         <template v-if="item.status===3">
           <i class="el-icon-info"></i>
           <span class="message-text">{{userInfo.orgName}} 现在属于 {{item.union.name}} 。</span>
-          <iep-button type="danger" plain>申请退出</iep-button>
+          <iep-button type="primary" plain>申请退出</iep-button>
         </template>
         <template v-if="item.status===2">
           <i class="el-icon-info"></i>
           <span class="message-text">{{item.user.name}} 邀请 {{userInfo.orgName}} 加入 {{item.union.name}} 。</span>
           <operation-wrapper style="display:inline-block;">
-            <iep-button type="danger" @click="handleAgree(item.id)" plain>同意</iep-button>
+            <iep-button type="primary" @click="handleAgree(item.id)" plain>同意</iep-button>
             <iep-button @click="handleRefuse(item.id)" plain>拒绝</iep-button>
           </operation-wrapper>
         </template>

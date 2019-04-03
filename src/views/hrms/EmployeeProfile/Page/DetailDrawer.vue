@@ -60,7 +60,7 @@
     <a-row>
       <a-col :span="24">
         <IepDescriptionItem title="所属组织：">
-          <iep-detail-tag slot="content" :value="舟山国脉海洋有限公司"></iep-detail-tag>
+          <iep-detail-tag slot="content" value="舟山国脉海洋有限公司"></iep-detail-tag>
         </IepDescriptionItem>
       </a-col>
     </a-row>

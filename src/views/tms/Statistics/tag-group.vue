@@ -11,7 +11,7 @@
 <script>
 import { getTagWeekNew } from '@/api/tms/statistics'
 import noData from './no-data'
-const colorMap = ['primary', 'success', 'info', 'warning', 'danger']
+const colorMap = ['primary', 'success', 'info', 'warning', 'primary']
 export default {
   components: { noData },
   data () {

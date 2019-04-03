@@ -4,7 +4,7 @@
       <el-card shadow="never" :body-style="bodyStyle">
         <div slot="header" class="clearfix">
           <div class="title">收藏目录</div>
-          <iep-button type="danger" @click="catalogCreate(0)"><i class="el-icon-plus"></i> 新增目录</iep-button>
+          <iep-button type="primary" @click="catalogCreate(0)"><i class="el-icon-plus"></i> 新增目录</iep-button>
         </div>
         <el-menu :default-active="selectType" class="menu-vertical" @select="catalogSelect" @open="nemuOpen" unique-opened>
           <el-submenu :index="index+''" v-for="(item, index) in catalogList" :key="index">

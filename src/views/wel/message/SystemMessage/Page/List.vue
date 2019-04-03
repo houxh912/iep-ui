@@ -8,7 +8,7 @@
         <el-menu :default-active="selectType" class="menu-vertical">
           <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in imsMsgType" @click.native="handleSelectType(item.value+'')">
             <span>{{item.label}}</span>
-            <el-badge v-if="typeCountMap[item.value]" class="mark" type="danger" :value="typeCountMap[item.value]" />
+            <el-badge v-if="typeCountMap[item.value]" class="mark" type="primary" :value="typeCountMap[item.value]" />
           </el-menu-item>
         </el-menu>
       </el-card>
@@ -79,7 +79,13 @@ export default {
       this.loadPage()
     },
     handleDetail (row) {
-      this.$emit('onDetail', row)
+      this.$router.push({
+        path: '/ims_spa/system_message_detail',
+        query: {
+          id: row.id,
+          redirect: this.$route.fullPath,
+        },
+      })
     },
     loadTypeList () {
       getTypeCountMap().then(({ data }) => {

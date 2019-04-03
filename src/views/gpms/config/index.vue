@@ -5,7 +5,7 @@
         <page-header title="我的配置" :replaceText="replaceText" :data="[16]"></page-header>
         <operation-container>
           <template slot="left">
-            <iep-button @click="add()" type="danger" icon="el-icon-plus">新增</iep-button>
+            <iep-button @click="add()" type="primary" icon="el-icon-plus">新增</iep-button>
           </template>
           <template slot="right">
             <operation-search @search="searchPage"></operation-search>
@@ -75,7 +75,7 @@
               <el-form-item>
                 <el-row>
                   <el-col :span="6" :push="10">
-                    <el-button plain type="danger" @click="submitForm('ruleForm')">保存</el-button>
+                    <el-button plain type="primary" @click="submitForm('ruleForm')">保存</el-button>
                     <el-button @click='goindex'>返回</el-button>
                   </el-col>
                 </el-row>

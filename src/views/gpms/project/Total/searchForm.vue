@@ -109,7 +109,7 @@
     <!--按钮组-->
     <el-form-item>
       <el-button-group>
-        <el-button size="small" class="searchbot" type="danger" @click="searchPage">搜索</el-button>
+        <el-button size="small" class="searchbot" type="primary" @click="searchPage">搜索</el-button>
         <el-button size="small" @click="closeDialog">取消</el-button>
       </el-button-group>
     </el-form-item>

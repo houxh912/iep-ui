@@ -309,6 +309,7 @@ export default {
 
 <style lang="scss" scoped>
 .edit-wrapper {
+  margin-bottom: 60px;
   .edit-card {
     .title {
       font-weight: 600;

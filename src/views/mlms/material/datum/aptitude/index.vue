@@ -3,7 +3,7 @@
     <div v-if="pageState=='list'">
       <operation-container>
         <template slot="left">
-          <iep-button size="small" type="danger" @click="handleAdd"><i class="el-icon-plus"></i> 新增</iep-button>
+          <iep-button size="small" type="primary" @click="handleAdd"><i class="el-icon-plus"></i> 新增</iep-button>
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">

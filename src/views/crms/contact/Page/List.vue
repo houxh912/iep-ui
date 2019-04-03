@@ -4,7 +4,7 @@
       <page-header title="联系人" :replaceText="replaceText" :data="[10]"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd" icon="el-icon-plus" type="danger" plain>新增</iep-button>
+          <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增</iep-button>
         </template>
         <template slot="right">
           <operation-search @search="searchPage" advance-search>

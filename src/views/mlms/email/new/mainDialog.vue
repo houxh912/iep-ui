@@ -27,7 +27,7 @@
     </div>
 
     <template slot="footer">
-      <iep-button type="danger" @click="submitForm('form')">添加</iep-button>
+      <iep-button type="primary" @click="submitForm('form')">添加</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
     </template>
   </iep-dialog>

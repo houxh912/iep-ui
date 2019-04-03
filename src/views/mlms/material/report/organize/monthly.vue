@@ -46,7 +46,7 @@
           </div>
         </div> -->
         <el-form-item>
-          <iep-button @click="submit" type="danger">保存</iep-button>
+          <iep-button @click="submit" type="primary">保存</iep-button>
         </el-form-item>
       </el-form>
       <div v-else class="detail">

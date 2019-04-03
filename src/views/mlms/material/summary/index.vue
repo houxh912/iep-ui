@@ -82,7 +82,6 @@
       </iep-table>
     </basic-container>
     <detail-page ref="detailPage" v-if="pageState==='detail'" @backPage="pageState = 'list'"></detail-page>
-    <main-dialog ref="mainDialog" v-if="pageState==='form'" @load-page="loadPage"></main-dialog>
     <share-dialog ref="share" type="summary"></share-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="meeting" :requestFn="createCollect"></collection-dialog>
   </div>
@@ -91,15 +90,14 @@
 import { dictsMap, columnsMap, initSearchForm } from './options'
 import mixins from '@/mixins/mixins'
 import { mapState } from 'vuex'
-import { getTableData, createData, updateData, deleteData, getDataById, createCollect, copyData } from '@/api/mlms/material/summary'
-import MainDialog from './mainDialog'
+import { getTableData, deleteData, createCollect, copyData } from '@/api/mlms/material/summary'
 import ShareDialog from './shareDialog'
 import CollectionDialog from '../components/collectionDialog'
 import DetailPage from './detail'
 
 export default {
   mixins: [mixins],
-  components: { MainDialog, ShareDialog, CollectionDialog, DetailPage },
+  components: { ShareDialog, CollectionDialog, DetailPage },
   data () {
     return {
       data: [ 20, 3 ], // 头部
@@ -124,32 +122,10 @@ export default {
       this.paramForm = initSearchForm()
     },
     handleAdd () {
-      this.pageState = 'form'
-      this.$nextTick(() => {
-        this.$refs['mainDialog'].methodName = '创建'
-        this.$refs['mainDialog'].formRequestFn = createData
-      })
+      this.$router.push('/mlms_spa/summary/create?back=/wel/material/summary')
     },
     handleEdit (row) {
-      getDataById(row.id).then(({data}) => {
-        this.pageState = 'form'
-        this.$nextTick(() => {
-          data.data.receiverList = {
-            orgs: data.data.receiver.orgs ? data.data.receiver.orgs: [],
-            users: data.data.receiver.users ? data.data.receiver.users: [],
-            unions: [],
-          }
-          data.data.attendeeList = {
-            orgs: data.data.attendee.orgs ? data.data.attendee.orgs: [],
-            users: data.data.attendee.users ? data.data.attendee.users: [],
-            unions: [],
-          }
-          data.data.hostList = data.data.host.length > 0 ? data.data.host[0] : {id: '', name: ''}
-          this.$refs['mainDialog'].formData = {...data.data}
-          this.$refs['mainDialog'].methodName = '修改'
-          this.$refs['mainDialog'].formRequestFn = updateData
-        })
-      })
+      this.$router.push(`/mlms_spa/summary/create?back=/wel/material/summary&id=${row.id}`)
     },
     handleDetail (row) {
       // this.pageState = 'detail'

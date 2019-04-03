@@ -1,49 +1,60 @@
 <template>
   <div class="wel-content">
     <div class="information">
-      <el-card class="box-card" shadow="hover" :body-style="bodyStyle">
-        <el-row>
-          <el-col :span="4" class="dotted">
-            <div class="left">
-              <div class="img zoom">
-                <iep-img :src="userInfo.avatar" alt="头像"></iep-img>
+      <a-spin :spinning="pageLoading">
+        <el-card class="box-card" shadow="hover" :body-style="bodyStyle">
+          <el-row>
+            <el-col :span="4" class="dotted">
+              <div class="left">
+                <div class="img zoom">
+                  <iep-img :src="userInfo.avatar" alt="头像"></iep-img>
+                </div>
+                <div class="code-name">{{indexData.staffId}}</div>
+                <el-progress :percentage="80" color="#68C769"></el-progress>
               </div>
-              <div class="code-name">GM000117</div>
-              <el-progress :percentage="80" color="#68C769"></el-progress>
-            </div>
-          </el-col>
-          <el-col :span="20">
-            <div class="right">
-              <div class="user-poster"><span class="say">{{timeFix}}，{{userInfo.realName}}, {{welcome}}</span></div>
-              <div class="user-info">
-                <span :class="item.type=='button'?'border':'color'" v-for="(item,index) in infoList" :key="index">{{item.label}}</span>
-                <!-- <router-link class="more" to="">更多<i class="el-icon-d-arrow-right"></i></router-link> -->
-                <span class="drop-down">产品技术委员会<i class="el-icon-arrow-down"></i></span>
-              </div>
-              <div class="user-data">
-                <RouterLink class="inline task" to="">
-                  <i class="icon-qian icon padding"></i>
-                  <span>每日任务，领积分<i class="el-icon-d-arrow-right"></i></span>
-                </RouterLink>
-                <RouterLink class="inline change" to="">
-                  领导桌面
-                </RouterLink>
-                <div class="inline data">
-                  <div class="data-lab" :class="index==2?'hideLine':''" v-for="(item,index) in labList" :key="index">
-                    <div class="count">{{item.data}}</div>
-                    <div class="labTitle"><span>{{item.name}}</span><span class="span"><i class="el-icon-question"></i></span></div>
+            </el-col>
+            <el-col :span="20">
+              <div class="right">
+                <div class="user-poster"><span class="say">{{timeFix}}，{{indexData.name}}, {{welcome}}</span></div>
+                <div class="user-info">
+                  <span class="color">{{indexData.title}}</span>
+                  <span class="border">{{indexData.job}}</span>
+                  <!-- <router-link class="more" to="">更多<i class="el-icon-d-arrow-right"></i></router-link> -->
+                  <span class="drop-down">产品技术委员会<i class="el-icon-arrow-down"></i></span>
+                </div>
+                <div class="user-data">
+                  <RouterLink class="inline task" to="">
+                    <i class="icon-qian icon padding"></i>
+                    <span>每日任务，领积分<i class="el-icon-d-arrow-right"></i></span>
+                  </RouterLink>
+                  <RouterLink class="inline change" to="">
+                    领导桌面
+                  </RouterLink>
+                  <div class="inline data">
+                    <div class="data-lab">
+                      <div class="count">{{indexData.tagNum}}</div>
+                      <div class="labTitle"><span>标签</span><span class="span"><i class="el-icon-question"></i></span></div>
+                    </div>
+                    <div class="data-lab">
+                      <div class="count">{{indexData.materialNum}}</div>
+                      <div class="labTitle"><span>材料</span><span class="span"><i class="el-icon-question"></i></span></div>
+                    </div>
+                    <div class="data-lab hideLine">
+                      <div class="count">{{indexData.credit}}</div>
+                      <div class="labTitle"><span>信用</span><span class="span"><i class="el-icon-question"></i></span></div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </el-col>
-        </el-row>
-      </el-card>
-      <span class="shrinkage">...</span>
+            </el-col>
+          </el-row>
+        </el-card>
+      </a-spin>
     </div>
     <about-task></about-task>
     <project></project>
     <customer></customer>
+    <contract></contract>
     <material></material>
     <grades></grades>
     <relationship></relationship>
@@ -51,6 +62,7 @@
 </template>
 
 <script>
+import { getIndex } from '@/api/wel/index'
 import { timeFix, welcome } from '@/util/text'
 import { mapGetters } from 'vuex'
 import AboutTask from './AboutTask'
@@ -59,29 +71,47 @@ import Customer from './Customer'
 import Material from './Material'
 import Grades from './Grades'
 import Relationship from './Relationship'
+import Contract from './Contract'
+const initIndexForm = () => {
+  return {
+    name: '', //名字
+    staffId: '', //工号
+    job: '', //职位
+    title: '',//职称
+    tagNum: 10,//标签
+    materialNum: 10,//材料
+    credit: 10,//信用
+  }
+}
 export default {
-  components: { AboutTask, Project, Customer, Material, Grades, Relationship },
+  components: { AboutTask, Project, Customer, Material, Grades, Relationship, Contract },
   data () {
     return {
       timeFix: timeFix(),
       welcome: welcome(),
+      pageLoading: true,
       bodyStyle: {
         padding: 0,
       },
-      infoList: [{
-        label: '国脉集团副总经理/国脉集团研发中心主任', type: '',
-      }],
-      labList: [
-        { data: 25, name: '标签' },
-        { data: 1268, name: '材料' },
-        { data: 23, name: '个人信用' },
-      ],
+      indexData: initIndexForm(),
     }
   },
   computed: {
     ...mapGetters([
       'userInfo',
     ]),
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    loadPage () {
+      this.pageLoading = true
+      getIndex().then(({ data }) => {
+        this.indexData = this.$mergeByFirst(initIndexForm(), data.data)
+        this.pageLoading = false
+      })
+    },
   },
 }
 </script>
@@ -300,22 +330,6 @@ export default {
   .dotted {
     border-right: 2px dotted #eee;
     box-sizing: border-box;
-  }
-  .shrinkage {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    right: -30px;
-    top: 50%;
-    display: none;
-    background: #eee;
-    margin-top: -25px;
-    text-align: center;
-    line-height: 10px;
-    border-radius: 50%;
-    transform: rotate(-90deg);
-    font-size: 20px;
-    color: #c0c0c0;
   }
   .el-icon-question {
     cursor: pointer;

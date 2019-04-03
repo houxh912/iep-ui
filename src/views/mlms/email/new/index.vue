@@ -135,6 +135,9 @@ export default {
             if (this.pageState !== 'new') {
               this.$emit('load-page', true)
             }
+            if (this.$route.query.back) {
+              this.$router.push(this.$route.query.back)
+            }
           })
         } else {
           return false

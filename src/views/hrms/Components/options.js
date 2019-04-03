@@ -75,4 +75,77 @@ const certificateColumns = [
 ]
 
 
-export { workExpColumns, studyColumns, trainingColumns, certificateColumns }
+const laborContractColumns = [
+  {
+    prop: 'type',
+    label: '合同类型',
+  },
+  {
+    prop: 'company',
+    label: '归属公司',
+  },
+  {
+    prop: 'startTime',
+    label: '开始日期',
+  },
+  {
+    prop: 'endTime',
+    label: '到期日期',
+  },
+  {
+    prop: 'annex',
+    label: '合同附件',
+  },
+]
+const welfareColumns = [
+  {
+    prop: 'type',
+    label: '缴纳类型',
+  },
+  {
+    prop: 'company',
+    label: '归属公司',
+  },
+  {
+    prop: 'startTime',
+    label: '起缴时间',
+  },
+  {
+    prop: 'endTime',
+    label: '停缴时间',
+  },
+  {
+    prop: 'remark',
+    label: '备注',
+  },
+]
+const transferColumns = [
+  {
+    prop: 'type',
+    label: '调动类型',
+  },
+  {
+    prop: 'transferTime',
+    label: '调动日期',
+  },
+  {
+    prop: 'changeContent',
+    label: '变更后',
+  },
+]
+const dimissionColumns = [
+  {
+    prop: 'leaveTime',
+    label: '离职时间',
+  },
+  {
+    prop: 'reason',
+    label: '离职原因',
+  },
+  {
+    prop: 'dept',
+    label: '部门',
+  },
+]
+
+export { workExpColumns, studyColumns, trainingColumns, certificateColumns, laborContractColumns, welfareColumns, transferColumns, dimissionColumns }

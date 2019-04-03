@@ -36,8 +36,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable"
-       @size-change="handleSizeChange" @current-change="handleCurrentChange" show-summary :summary-method="getSummaries">
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" show-summary :summary-method="getSummaries">
         <el-table-column label="金额">
           <el-table-column prop="income" label="收入">
           </el-table-column>
@@ -46,7 +45,7 @@
           <el-table-column prop="balance" label="本期余额">
           </el-table-column>
         </el-table-column>
-        <el-table-column prop="remarks" label="备注" >
+        <el-table-column prop="remarks" label="备注">
         </el-table-column>
       </iep-table>
     </basic-container>
@@ -68,15 +67,37 @@ export default {
       cashAccount: '',
       paramForm: initSearchForm(),
       replaceText: (data) => `（所属公司：${data[0]}）`,
+<<<<<<< HEAD
       
+=======
+      pagedTable: [
+        { ranking: 1, name: '张超', departments: '提交', income: 22.5, expenditure: 6, balance: 21.9, status: '1' },
+        { ranking: 2, name: '张超', departments: '提交', income: 84, expenditure: 77, balance: 22, status: '1' },
+        { ranking: 3, name: '张超', departments: '提交', income: 20.2, expenditure: 88, balance: 22.2, status: '1' },
+        { ranking: 4, name: '张超', departments: '提交', income: 53, expenditure: 55, balance: 52, status: '1' },
+        { ranking: 5, name: '张超', departments: '提交', income: 22.5, expenditure: 6, balance: 21.9, status: '1' },
+        { ranking: 6, name: '张超', departments: '提交', income: 84, expenditure: 77, balance: 22, status: '1' },
+        { ranking: 7, name: '张超', departments: '提交', income: 20.2, expenditure: 88, balance: 22.2, status: '1' },
+        { ranking: 8, name: '张超', departments: '提交', income: 53, expenditure: 55, balance: 52, status: '1' },
+        { ranking: 9, name: '张超', departments: '提交', income: 22.5, expenditure: 6, balance: 21.9, status: '1' },
+        { ranking: 10, name: '张超', departments: '提交', income: 84, expenditure: 77, balance: 22, status: '1' },
+        { ranking: 11, name: '张超', departments: '提交', income: 20.2, expenditure: 88, balance: 22.2, status: '1' },
+        { ranking: 12, name: '张超', departments: '提交', income: 53, expenditure: 55, balance: 52, status: '1' },
+      ],
+>>>>>>> 649b5c8b4bceb82475250f4d1c2204ded4ca7416
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
+<<<<<<< HEAD
     loadPage (param = this.paramForm) {
       this.loadTable(param, getFinancialManagementPage)
+=======
+    loadPage (param = this.searchForm) {
+      this.loadTable(param)
+>>>>>>> 649b5c8b4bceb82475250f4d1c2204ded4ca7416
     },
     getSummaries (param) {
       const { columns, data } = param

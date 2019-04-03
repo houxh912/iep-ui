@@ -18,19 +18,19 @@ export default {
         {
           title: '纪要',
           callback: () => {
-            this.$message.success('功能开发中')
+            this.$router.push('/mlms_spa/summary/create?back=/wel/index')
           },
         },
         {
           title: '报表',
           callback: () => {
-            this.$message.success('功能开发中')
+            this.$router.push('/wel/material/report')
           },
         },
         {
           title: '材料',
           callback: () => {
-            this.$message.success('功能开发中')
+            this.$router.push('/wel/material/datum')
           },
         },
         {
@@ -60,7 +60,7 @@ export default {
         {
           title: '邮件',
           callback: () => {
-            this.$message.success('功能开发中')
+            this.$router.push('/wel/mail/new?back=/wel/index')
           },
         },
         {

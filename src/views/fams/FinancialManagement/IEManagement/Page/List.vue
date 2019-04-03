@@ -53,28 +53,22 @@
       </div>
 
       <el-card class="conent" shadow="hover">
-        <page-header title="财务流水"></page-header>
-        <operation-container>
-          <template slot="left">
-            <page-header class="data-title" :replaceText="replaceText" :data="[10 ,0, 1,300000,0,0]"></page-header>
-          </template>
-          <template slot="right">
-            <operation-search @search="searchPage" advance-search>
-              <el-form :model="paramForm" label-width="100px" size="mini">
-                <el-form-item label="线下公司：">
-                  <el-input v-model="paramForm.company"></el-input>
-                </el-form-item>
-                <el-form-item label="银行户头：">
-                  <el-input v-model="paramForm.account"></el-input>
-                </el-form-item>
-                <el-form-item>
-                  <el-button type="primary" @click="searchPage">搜索</el-button>
-                  <el-button>取消</el-button>
-                </el-form-item>
-              </el-form>
-            </operation-search>
-          </template>
-        </operation-container>
+        <page-header title="财务流水" :replaceText="replaceText" :data="[10 ,0, 1,300000,0,0]">
+          <operation-search @search="searchPage" advance-search>
+            <el-form :model="paramForm" label-width="100px" size="mini">
+              <el-form-item label="线下公司：">
+                <el-input v-model="paramForm.company"></el-input>
+              </el-form-item>
+              <el-form-item label="银行户头：">
+                <el-input v-model="paramForm.account"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="searchPage">搜索</el-button>
+                <el-button>取消</el-button>
+              </el-form-item>
+            </el-form>
+          </operation-search>
+        </page-header>
         <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
           <template slot="before-columns">
             <el-table-column label="时间">
@@ -99,7 +93,7 @@ export default {
       columnsMap,
       paramForm: initSearchForm(),
       value: '',
-      replaceText: (data) => `支出：${data[0]}笔，支出金额：￥${data[1]}元，收入${data[2]}笔，收入金额￥${data[3]}元，抵扣：${data[4]}笔，抵扣金额${data[5]}元`,
+      replaceText: (data) => `(支出：${data[0]}笔，支出金额：￥${data[1]}元，收入${data[2]}笔，收入金额￥${data[3]}元，抵扣：${data[4]}笔，抵扣金额${data[5]}元)`,
     }
   },
   created () {

@@ -15,31 +15,43 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" isIndex>
-
         <el-table-column v-if="+type !== 0" prop="operation" label="操作" width="150">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button v-if="+type === 1" @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button v-if="+type === 1" @click="OpenDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
+      <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+        <span>
+          <el-checkbox v-model="deleteAll">同时删除原件</el-checkbox>
+        </span>
+        <span slot="footer" class="dialog-footer">
+          <iep-button class="btn" @click="cancel">取 消</iep-button>
+          <iep-button type="primary" @click="handleDelete">确 定</iep-button>
+        </span>
+      </el-dialog>
     </basic-container>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId } from '../columns'
-import { getContractPage, postContract, putContract, deleteContractById } from '@/api/crms/contract'
+import { getContractPage, postContract, putContract, deleteContractById, deleteContract } from '@/api/crms/contract'
 import { initSearchForm } from '../options'
 export default {
+  name: 'List',
   mixins: [mixins],
   data () {
     return {
       type: '0',
       showSelect: false,
+      deleteAll: false,
       paramForm: initSearchForm(),
+      dialogVisible: false,
+      id: '',
       tabList: [
         {
           label: '全部合同',
@@ -82,18 +94,39 @@ export default {
       this.$emit('onForm', {
         formRequestFn: putContract,
         methodName: '修改',
-        id: row.id,
+        id: row.contractId,
       })
     },
     handleDetail (row) {
       this.$emit('onDetail', { id: row.id })
     },
-    handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deleteContractById)
+    cancel () {
+      this.dialogVisible = false
+    },
+    handleClose () {
+      this.dialogVisible = false
+
+    },
+    OpenDelete (row) {
+      this.dialogVisible = true
+      this.id = row.contractId
+      console.log(row)
+    },
+    handleDelete () {
+      if (this.deleteAll) {
+        this._handleGlobalDeleteById(this.id, deleteContract)
+        // deleteContract(this.id)
+        // this.dialogVisible = false
+      } else {
+        this._handleGlobalDeleteById(this.id, deleteContractById)
+        // deleteContractById(this.id)
+        // this.dialogVisible = false
+      }
     },
     loadPage (param = { ...this.searchForm, type: this.type }) {
       this.loadTable(param, getContractPage)
     },
+
   },
 }
 </script>

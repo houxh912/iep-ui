@@ -1,15 +1,15 @@
 const initSearchForm = () => {
   return {
-    clientName: '',
+    contractName: '',
+    signTime: '',
     businessType: '',
-    intentionLevel: '',
-    projectName: '',
-    publisher: '',
+    contractStatus: '',
+    contractLevel: '',
+    signDeptName: '',
+    directorId: '',
   }
 }
-const rules = {
-
-}
+const rules = {}
 
 export const initFormData = () => {
   return {
@@ -19,16 +19,16 @@ export const initFormData = () => {
     tagKeyWords: [],
     signTime: '',
     finishTime: '',
-    companyOrgId: null,//委托单位
+    companyOrgId: null, //委托单位
     signDeptOrgName: {
       id: null,
       name: null,
-    },//签属单位
-    signCompanyOrgId: null,//签属单位
-    signDeptOrgId: { id: '', name: '' },//签属部门
-    underTakeDeptName: [],//承接部门
-    underTakeDeptId: [],//承接部门
-    directorId: '',//市场经理
+    }, //签属单位
+    signCompanyOrgId: null, //签属单位
+    signDeptOrgId: { id: '', name: '' }, //签属部门
+    underTakeDeptName: [], //承接部门
+    underTakeDeptId: [], //承接部门
+    directorId: '', //市场经理
     contractAmount: '',
     contractLevel: '',
     contractStatus: '',

@@ -3,8 +3,8 @@
     <div slot="header" class="clearfix">
       <span class="title">签单金额</span>
       <div class="search">
-        <div class="inline">
-          <el-radio-group v-model="type" size="small" @change="changeType">
+        <div class="inline margin">
+          <el-radio-group v-model="type" size="mini" @change="changeType">
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
           </el-radio-group>
         </div>
@@ -78,6 +78,9 @@ export default {
 }
 .search {
   float: right;
+  .margin {
+    margin-right: 10px;
+  }
   .inline {
     display: inline-block;
   }

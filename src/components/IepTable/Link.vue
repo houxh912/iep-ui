@@ -16,9 +16,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .link-btn {
-  color: #333;
+  color: #606266;
   &:hover {
-    color: #666;
+    color: #999;
   }
 }
 .link-is-read {

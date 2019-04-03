@@ -1,10 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <div class="title">
-        <div class="department">{{formData.clientName}}</div>
-        <el-button class="back" @click="handleGoBack" size="mini">返回</el-button>
-      </div>
+      <page-header :title="formData.clientName" :backOption="backOption"></page-header>
       <!-- <div class="head-button">
         <iep-button class="tabs" type="primary" size="small">暂无需求</iep-button>
         <iep-button class="tabs" type="primary" size="small" @click="transfer">转移给他人</iep-button>
@@ -16,7 +13,7 @@
           <customer-panorama :formData="formData" v-loading="activeTab !=='CustomerPanorama'"></customer-panorama>
         </template>
         <template v-if="activeTab ==='Contacts'" v-slot:Contacts>
-          <contacts v-loading="activeTab !=='Contacts'" :record="record"></contacts>
+          <contacts v-loading="activeTab !=='Contacts'"></contacts>
         </template>
         <template v-if="activeTab ==='VisitingRecord'" v-slot:VisitingRecord>
           <visiting-record v-loading="activeTab !=='VisitingRecord'" :record="record"></visiting-record>
@@ -47,33 +44,35 @@ import { getCustomerById } from '@/api/crms/customer'
 export default {
   name: 'detail',
   mixins: [mixins],
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
   components: { CustomerPanorama, Contacts, VisitingRecord, Scheme, Agreement, Information },
   data () {
     return {
+      id: this.$route.query.id,
+      record: {
+        id: this.$route.query.id,
+      },
+      backOption: {
+        isBack: true,
+        backPath: this.$route.query.redirect,
+      },
       formData: {},
       tabList: [{
         label: '客户全景',
         value: 'CustomerPanorama',
       }, {
-        label: '联系人(10)',
+        label: '联系人',
         value: 'Contacts',
       }, {
-        label: '拜访记录(9)',
+        label: '拜访记录',
         value: 'VisitingRecord',
       }, {
-        label: '方案(8)',
+        label: '方案',
         value: 'Scheme',
       }, {
-        label: '合同(7)',
+        label: '合同',
         value: 'Agreement',
       }, {
-        label: '资讯(6)',
+        label: '资讯',
         value: 'Information',
       }],
       activeTab: 'CustomerPanorama',
@@ -81,11 +80,11 @@ export default {
     }
   },
   created () {
-    this.load()
+    this.loadPage()
   },
   methods: {
-    load () {
-      getCustomerById(this.record.id).then(({ data }) => {
+    loadPage () {
+      getCustomerById(this.id).then(({ data }) => {
         this.formData = data.data
       })
     },

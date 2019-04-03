@@ -1,5 +1,5 @@
 <template>
-  <basic-container>
+  <basic-container v-loading="pageLoading">
     <page-header :title="form.name" :backOption="backOption"></page-header>
     <div class="detail-container">
       <div class="item-title">
@@ -46,6 +46,7 @@ export default {
         isBack: true,
         backPath: this.$route.query.redirect,
       },
+      pageLoading: true,
       form: initForm(),
     }
   },
@@ -58,8 +59,10 @@ export default {
       this.$emit('onGoBack')
     },
     loadPage () {
+      this.pageLoading = true
       getAnnouncementById(this.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
+        this.pageLoading = false
       })
     },
   },

@@ -1,12 +1,12 @@
 <template>
   <div class="nav-info">
-    <el-popover popper-class="msg-popover" placement="bottom" width="336" trigger="click">
+    <el-popover popper-class="msg-popover" placement="bottom" width="336" v-model="visible" trigger="click">
       <el-tabs class="msg-tabs" v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="`通知 (${announcementNum})`" name="first">
           <el-card class="box-card" :body-style="bodyStyle">
             <div v-for="item in announcementList" :key="item.id" class="text">
               <div class="list-item-content">
-                <h4 class="list-item-title">{{ item.name }}</h4>
+                <h4 class="list-item-title" @click="handleAnnouncementDetail(item)">{{ item.name }}</h4>
                 <div class="list-item-description">
                   <span class="time">{{ item.time }}</span>
                 </div>
@@ -19,7 +19,7 @@
           <el-card class="box-card" :body-style="bodyStyle">
             <div v-for="item in systemMessageList" :key="item.id" class="text">
               <div class="list-item-content">
-                <h4 class="list-item-title">{{ item.name }}</h4>
+                <h4 class="list-item-title" @click="handleSystemMessageDetail(item)">{{ item.name }}</h4>
                 <div class="list-item-description">
                   <span class="time">{{ item.time }}</span>
                 </div>
@@ -66,25 +66,37 @@ export default {
       emailList: [],
       emailNum: 0,
       totalNum: 0,
-      // announcementList: [{id: 2, name: "集团研发中心关于进一步完善研发计划的通知", time: "2019-03-29 16:42:04"}]
-      // announcementNum: 1
-      // emailList: [{id: 46, name: "分享材料all", time: "2019-03-28 11:37:44"},…]
-      // emailNum: 3
-      // systemMessageList: [{id: 9, name: "11111", time: "2019-03-16 15:38:28"},…]
-      // systemMessageNum: 4
-      // totalNum: 8
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
-    handleClick (tab, event) {
-      console.log(tab, event)
+    handleAnnouncementDetail (row) {
+      this.$router.push({
+        path: '/ims_spa/announcement_detail',
+        query: {
+          id: row.id,
+          redirect: this.$route.fullPath,
+        },
+      })
+      this.visible = false
+    },
+    handleSystemMessageDetail (row) {
+      this.$router.push({
+        path: '/ims_spa/system_message_detail',
+        query: {
+          id: row.id,
+          redirect: this.$route.fullPath,
+        },
+      })
+      this.visible = false
+    },
+    handleClick () {
+      // console.log(tab, event)
     },
     loadPage () {
       getImsWel().then(({ data }) => {
-        console.log(data)
         this.totalNum = data.totalNum
         this.announcementList = data.announcementList
         this.announcementNum = data.announcementNum

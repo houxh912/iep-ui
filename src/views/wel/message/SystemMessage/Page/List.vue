@@ -79,7 +79,13 @@ export default {
       this.loadPage()
     },
     handleDetail (row) {
-      this.$emit('onDetail', row)
+      this.$router.push({
+        path: '/ims_spa/system_message_detail',
+        query: {
+          id: row.id,
+          redirect: this.$route.fullPath,
+        },
+      })
     },
     loadTypeList () {
       getTypeCountMap().then(({ data }) => {

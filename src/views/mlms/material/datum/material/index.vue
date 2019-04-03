@@ -4,10 +4,14 @@
       <operation-container>
         <template slot="left">
           <el-dropdown size="medium">
-            <iep-button size="small" type="primary"><i class="el-icon-plus"></i> 新增<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+            <iep-button size="small" type="primary"><i class="el-icon-plus"></i> 新增{{routerData}}<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item><div @click="localCreate">本地上传</div></el-dropdown-item>
-              <el-dropdown-item><div @click="newlyCreate">新建文档</div></el-dropdown-item>
+              <el-dropdown-item>
+                <div @click="localCreate">本地上传</div>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <div @click="newlyCreate">新建文档</div>
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
           <el-dropdown size="medium">
@@ -35,16 +39,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table 
-        :isLoadTable="isLoadTable"
-        :pagination="pagination"
-        :dictsMap="dictsMap"
-        :columnsMap="columnsMap"
-        :pagedTable="pagedTable"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        isMutipleSelection
-        @selection-change="selectionChange">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection @selection-change="selectionChange">
         <template slot="before-columns">
           <el-table-column label="名称">
             <template slot-scope="scope">
@@ -75,7 +70,7 @@
         </el-table-column>
       </iep-table>
     </div>
-    <local-dialog ref="local" @load-page="loadPage" v-if="pageState=='local'" :firstClass="firstClass"></local-dialog>
+    <local-dialog ref="local" @load-page="loadPage" v-if="pageState=='local'" :firstClass="firstClass" :router='router'></local-dialog>
     <newly-dialog ref="newly" @load-page="loadPage" v-if="pageState=='newly'" :firstClass="firstClass"></newly-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
     <share-dialog ref="share" type="material"></share-dialog>
@@ -106,9 +101,34 @@ export default {
       selectList: [],
       createCollect,
       firstClass: [],
+      routerData: {},
+      router: false,
     }
   },
+  created () {
+    this.loadPage()
+    this.getRouter()
+    this.pageState = 'local'
+    if (this.router) {
+      this.pageState = 'local'
+      let name = this.routerData.atchUpload
+      this.$nextTick(() => {
+        this.$refs[this.pageState].methodName = '新建'
+        this.$refs['local'].formRequestFn = createData
+        this.$refs['local'].formData.materialName = this.routerData.programName
+        this.$refs['local'].formData.attachFileList = [{ name: name }]
+
+      })
+    }
+    getConfigureTree().then(({ data }) => {
+      this.firstClass = data.data
+    })
+  },
   methods: {
+    getRouter () {
+      this.routerData = this.$route.query.data
+      this.router = this.$route.query.router
+    },
     handleEdit (row) {
       // 0是本地，1是新建
       this.pageState = row.type === 0 ? 'local' : 'newly'
@@ -151,7 +171,7 @@ export default {
       })
     },
     // 清空搜索
-    clearSearchParam () {},
+    clearSearchParam () { },
     // 收藏
     handleCollection (row) {
       row.title = row.name
@@ -164,7 +184,7 @@ export default {
         this.$message.info('请先选择需要收藏的选项')
         return
       }
-      for(let item of this.selectList) {
+      for (let item of this.selectList) {
         item.title = item.name
       }
       this.$refs['collection'].dialogShow = true
@@ -198,12 +218,10 @@ export default {
     handleEdition () {
       this.$message.error('抱歉，此功能尚未开发')
     },
+
   },
-  created () {
-    this.loadPage()
-    getConfigureTree().then(({data}) => {
-      this.firstClass = data.data
-    })
+  watch: {
+    '$route': 'getRouter',
   },
 }
 </script>

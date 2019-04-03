@@ -13,7 +13,9 @@
           </div>
           <div class="info-item">
             <label>所属部门：</label>
-            <div class="content">{{form.deptList.join('、')}}</div>
+            <div class="content">
+              <iep-detail-tag :value="form.deptList"></iep-detail-tag>
+            </div>
           </div>
           <div class="info-item">
             <label>创建时间：</label>
@@ -79,21 +81,14 @@
 </template>
 <script>
 import { getAdministrativeApprovalById } from '@/api/hrms/administrative_approval'
-import { initForm, dictsMap } from '../options'
-import { mergeByFirst } from '@/util/util'
+import { initForm, dictsMap } from './options'
 export default {
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
   data () {
     return {
+      id: this.$route.query.id,
       backOption: {
         isBack: true,
-        backPath: null,
-        backFunction: () => { this.$emit('onGoBack') },
+        backPath: this.$route.query.redirect,
       },
       bodyStyle: {
         display: 'flex',
@@ -103,6 +98,7 @@ export default {
         padding: '20px',
         border: 0,
       },
+      pageLoading: true,
       form: initForm(),
     }
   },
@@ -119,8 +115,10 @@ export default {
   },
   methods: {
     loadPage () {
-      getAdministrativeApprovalById(this.record.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+      this.pageLoading = true
+      getAdministrativeApprovalById(this.id).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
+        this.pageLoading = false
       })
     },
   },

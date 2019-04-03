@@ -46,7 +46,13 @@ export default {
       this.$refs['NewApproval'].dialogShow = true
     },
     handleDetail (row) {
-      this.$emit('onDetail', row)
+      this.$router.push({
+        path: '/hrms_spa/approval_detail',
+        query: {
+          id: row.id,
+          redirect: this.$route.fullPath,
+        },
+      })
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getAlreadyApprovalPage)

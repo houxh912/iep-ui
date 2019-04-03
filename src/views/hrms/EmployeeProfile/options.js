@@ -38,6 +38,7 @@ const initForm = () => {
     status: null, // 员工状态
     deptList: [], // 所属部门
     deptIds: [], // 所属部门
+    dept: [], // 所属部门
     birthday: null, // 出生年月
     sex: null, // 性别
     sexName: null, // 性别
@@ -89,6 +90,7 @@ const formToDto = (row) => {
   // newForm.province = row.cities[0]
   // newForm.city = row.cities[1]
   newForm.positionId = row.position[row.position.length - 1]
+  newForm.deptIds = row.dept.map(m => m.id)
   return newForm
 }
 // 入职 0,6

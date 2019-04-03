@@ -105,7 +105,7 @@
       </div>
       <footer-tool-bar>
         <iep-button @click="handleGoBack">返回</iep-button>
-        <iep-button type="danger" @click="submitForm('formName')">提交</iep-button>
+        <iep-button type="primary" @click="submitForm('formName')">提交</iep-button>
       </footer-tool-bar>
     </basic-container>
   </div>

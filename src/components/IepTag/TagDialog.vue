@@ -5,7 +5,7 @@
         <operation-search @search-page="searchPage"></operation-search>
       </template>
     </operation-container>
-    <div class="tag-list">
+    <div class="tag-list" v-loading="isLoadTable">
       <a-tag v-for="tag in pagedTable" :key="tag.tagId" color="blue" @click.native="handleSelect(tag.name)">{{tag.name}}</a-tag>
     </div>
     <iep-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :pagination-option="pagination" :page-sizes="[10, 20, 30, 40]" layout="prev, next" :pager-count="5" prev-text="上一页" next-text="下一页" background></iep-pagination>

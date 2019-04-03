@@ -2,24 +2,36 @@
   <div class="top">
     <div class="top-left">
       <div class="logo-wrapper">
-        <div class="logo" @click="open('/')"></div>
+        <div class="logo" @click="$openPage('/')"></div>
         <el-dropdown>
           <span class="el-dropdown-link">
             国脉智慧平台
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>
-              国脉智慧平台
+            <el-dropdown-item @click.native="$openPage('http://www.echinagov.com/', 'url')">
+              国脉电子政务网
             </el-dropdown-item>
-            <el-dropdown-item>
-              国脉智慧平台
+            <el-dropdown-item @click.native="$openPage('http://www.besticity.com/', 'url')">
+              国脉智慧城市网
             </el-dropdown-item>
-            <el-dropdown-item>
-              国脉智慧平台
+            <el-dropdown-item @click.native="$openPage('http://www.im2m.com.cn/', 'url')">
+              国脉物联网
             </el-dropdown-item>
-            <el-dropdown-item>
-              国脉智慧平台
+            <el-dropdown-item @click.native="$openPage('http://www.smartqian.com/', 'url')">
+              司马钱
+            </el-dropdown-item>
+            <el-dropdown-item @click.native="$openPage('http://www.databanker.cn/', 'url')">
+              数邦客
+            </el-dropdown-item>
+            <el-dropdown-item @click.native="$openPage('http://www.allship.cn/', 'url')">
+              中船通
+            </el-dropdown-item>
+            <el-dropdown-item @click.native="$openPage('http://www.51banhui.com/', 'url')">
+              蟠桃会
+            </el-dropdown-item>
+            <el-dropdown-item @click.native="$openPage('https://www.govmade.com/yingst/', 'url')">
+              营商通
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -35,13 +47,13 @@
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click.native="open('/')">
+          <el-dropdown-item @click.native="$openPage('/')">
             首页
           </el-dropdown-item>
           <el-dropdown-item @click.native="handleOrg(orgText.type)">
             {{orgText.tipText}}
           </el-dropdown-item>
-          <el-dropdown-item @click.native="open('','BaseSettings')">
+          <el-dropdown-item @click.native="$openPage('BaseSettings','name')">
             个人信息
           </el-dropdown-item>
           <el-dropdown-item @click.native="handleAbout">
@@ -104,18 +116,6 @@ export default {
     },
   },
   methods: {
-    open (path, name) {
-      if (path) {
-        this.$router.push({
-          path,
-        })
-
-      } else {
-        this.$router.push({
-          name,
-        })
-      }
-    },
     handleOrg (type) {
       if (type === 0) {
         this.$router.push({ name: '选择组织' })

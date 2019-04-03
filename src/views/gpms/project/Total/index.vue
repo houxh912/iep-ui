@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleCreate" class="add" type="danger">新增</iep-button>
+        <iep-button @click="handleCreate" class="add" type="primary">新增</iep-button>
         <iep-button @click="handleDeleteAll" class="add">批量删除</iep-button>
       </template>
       <template slot="right">

@@ -28,7 +28,7 @@
         </div>
       </el-collapse-item>
     </el-collapse>
-    <iep-button type="danger" class="iep-button" @click="handleCreate"><i class="el-icon-plus"></i>创建项目周报</iep-button>
+    <iep-button type="primary" class="iep-button" @click="handleCreate"><i class="el-icon-plus"></i>创建项目周报</iep-button>
   </div>
 </template>
 

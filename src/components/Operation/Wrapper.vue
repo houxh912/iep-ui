@@ -17,4 +17,11 @@ export default {
     margin-right: 0;
   }
 }
+.operation-wrapper > button {
+  margin-right: 5px;
+  margin-bottom: 5px;
+  &:last-child {
+    margin-right: 0;
+  }
+}
 </style>

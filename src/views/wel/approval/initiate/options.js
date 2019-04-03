@@ -10,10 +10,6 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'name',
-    label: '申请人',
-  },
-  {
     prop: 'applyType',
     label: '申请类型',
   },

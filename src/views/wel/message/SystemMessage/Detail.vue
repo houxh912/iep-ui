@@ -22,6 +22,7 @@
 </template>
 <script>
 import { getSystemMessageById } from '@/api/ims/system_message'
+import { initForm } from './options'
 export default {
   props: {
     record: {
@@ -31,12 +32,13 @@ export default {
   },
   data () {
     return {
+      id: this.$route.query.id,
       backOption: {
         isBack: true,
-        backPath: null,
-        backFunction: this.handleGoBack,
+        backPath: this.$route.query.redirect,
       },
-      form: {},
+      pageLoading: true,
+      form: initForm(),
     }
   },
   created () {
@@ -48,9 +50,10 @@ export default {
       this.$emit('onGoBack')
     },
     loadPage () {
-      getSystemMessageById(this.record.id).then(({ data }) => {
-        console.log(data.data)
-        this.form = data.data
+      this.pageLoading = true
+      getSystemMessageById(this.id).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
+        this.pageLoading = false
       })
     },
   },

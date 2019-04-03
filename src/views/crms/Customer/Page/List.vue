@@ -3,10 +3,10 @@
     <basic-container>
       <page-header title="客户" :replaceText="replaceText" :data="[10]"></page-header>
       <operation-container>
-        <template v-if="+type === 2" slot="left">
-          <iep-button type="danger" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
+        <template slot="left">
+          <iep-button type="primary" :disabled="type !== '2'" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
           <el-dropdown size="medium">
-            <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+            <iep-button size="small" :disabled="type !== '2'" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="excellImport">导入</el-dropdown-item>
               <el-dropdown-item command="handleAllDelete">删除</el-dropdown-item>
@@ -27,19 +27,19 @@
         <template slot="before-columns">
           <el-table-column label="客户名称" width="250px">
             <template slot-scope="scope">
-              <div class="custom-name" @click="handleDetail(scope.row)">{{scope.row.clientName}}</div>
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.clientName}}</iep-table-link>
               <el-col class="custom-tags">
                 <a-tag v-for="(item, index) in scope.row.tags" :key="index">{{item.commonName}}</a-tag>
               </el-col>
             </template>
           </el-table-column>
         </template>
-        <el-table-column v-if="+type !== 1" prop="operation" label="操作" :width="type==='2'?'250px':'150px'">
+        <el-table-column v-if="type !== '1'" prop="operation" label="操作" :width="type==='2'?'250px':'150px'">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" plain @click="handleCooperation(scope.row)" v-if="+type===2">添加协作人</iep-button>
+              <iep-button type="warning" plain @click="handleCooperation(scope.row)" v-if="type==='2'">添加协作人</iep-button>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button v-if="+type === 2" @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button v-if="type === '2'" @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -129,7 +129,13 @@ export default {
     //客户详情
     handleDetail (row) {
       if (this.type === '2') {
-        this.$emit('onDetail', { id: row.clientId })
+        this.$router.push({
+          path: '/crms_spa/customer_detail',
+          query: {
+            id: row.clientId,
+            redirect: this.$route.fullPath,
+          },
+        })
       } else { return false }
     },
     //删除客户

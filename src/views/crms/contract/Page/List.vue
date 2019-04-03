@@ -4,7 +4,7 @@
       <page-header title="合同"></page-header>
       <operation-container>
         <template v-if="+type !=0" slot="left">
-          <iep-button type="danger" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
+          <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
         </template>
         <template slot="right">
           <el-radio-group v-model="type" size="small" @change="changeType">
@@ -42,7 +42,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId } from '../columns'
-import { getContractPage, postContract, putContract, deleteContractById, deleteContract, getDataById } from '@/api/crms/contract'
+import { getContractPage, postContract, putContract, deleteContract, getDataById } from '@/api/crms/contract'
 import DetailDrawer from './DetailDrawer'
 export default {
   name: 'List',
@@ -55,7 +55,6 @@ export default {
       type: '0',
       deleteAll: false,
       dialogVisible: false,
-      id: '',
       tabList: [
         {
           label: '全部合同',
@@ -103,28 +102,8 @@ export default {
         this.$refs['DetailDrawer'].formData = res.data.data
       })
     },
-    cancel () {
-      this.dialogVisible = false
-    },
-    handleClose () {
-      this.dialogVisible = false
-
-    },
-    OpenDelete (row) {
-      this.dialogVisible = true
-      this.id = row.contractId
-      console.log(row)
-    },
-    handleDelete () {
-      if (this.deleteAll) {
-        this._handleGlobalDeleteById(this.id, deleteContract)
-        // deleteContract(this.id)
-        // this.dialogVisible = false
-      } else {
-        this._handleGlobalDeleteById(this.id, deleteContractById)
-        // deleteContractById(this.id)
-        // this.dialogVisible = false
-      }
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.contractId, deleteContract)
     },
     loadPage (param = { ...this.searchForm, type: this.type }) {
       this.loadTable(param, getContractPage)

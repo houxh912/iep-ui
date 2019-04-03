@@ -11,15 +11,12 @@
         </el-form-item>
         <el-form-item label="属性：">
           <el-checkbox-group v-model="form.prop">
-            <el-checkbox label="不允许评论" name="type" checked></el-checkbox>
-            <el-checkbox label="置顶" name="type"></el-checkbox>
+            <el-checkbox label="不允许评论" name="0"></el-checkbox>
+            <el-checkbox label="置顶" name="1"></el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item label="发布范围：">
-          <el-checkbox-group v-model="form.area">
-            <el-checkbox label="当前组织" name="type" checked></el-checkbox>
-            <el-checkbox label="联盟组织" name="type"></el-checkbox>
-          </el-checkbox-group>
+          <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
         </el-form-item>
         <el-form-item label="">
           <operation-wrapper>
@@ -38,7 +35,7 @@ import { mergeByFirst } from '@/util/util'
 export default {
   data () {
     return {
-      id: this.$route.query.id,
+      id: +this.$route.query.id,
       backOption: {
         isBack: true,
         backPath: this.$route.query.redirect,

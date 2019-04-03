@@ -8,7 +8,7 @@
         <el-menu :default-active="selectType" class="menu-vertical">
           <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in imsMsgType" @click.native="handleSelectType(item.value+'')">
             <span>{{item.label}}</span>
-            <el-badge v-if="typeCountMap[item.value]" class="mark" type="danger" :value="typeCountMap[item.value]" />
+            <el-badge v-if="typeCountMap[item.value]" class="mark" type="primary" :value="typeCountMap[item.value]" />
           </el-menu-item>
         </el-menu>
       </el-card>
@@ -24,7 +24,7 @@
           </el-button-group>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
+          <operation-search @search-page="searchPage" advance-search>
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
@@ -33,7 +33,7 @@
         <template slot="before-columns">
           <el-table-column label="主题">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+              <iep-table-link :is-read="scope.row.isRead" @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
@@ -79,7 +79,13 @@ export default {
       this.loadPage()
     },
     handleDetail (row) {
-      this.$emit('onDetail', row)
+      this.$router.push({
+        path: '/ims_spa/system_message_detail',
+        query: {
+          id: row.id,
+          redirect: this.$route.fullPath,
+        },
+      })
     },
     loadTypeList () {
       getTypeCountMap().then(({ data }) => {

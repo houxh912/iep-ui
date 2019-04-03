@@ -15,7 +15,7 @@
             </el-col>
             <el-col :span="20">
               <div class="right">
-                <div class="user-poster"><span class="say">{{timeFix}}，{{indexData.name}}, {{welcome}}</span></div>
+                <div class="user-poster"><span class="say">{{timeFix}}，{{indexData.name}}，{{welcome}}</span></div>
                 <div class="user-info">
                   <span class="color">{{indexData.title}}</span>
                   <span class="border">{{indexData.job}}</span>

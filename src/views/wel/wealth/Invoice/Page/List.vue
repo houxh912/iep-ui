@@ -4,7 +4,7 @@
       <page-header title="发票"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd()" type="danger" icon="el-icon-plus" size="small" plain>新增</iep-button>
+          <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" size="small" plain>新增</iep-button>
           <iep-button type="default" icon="iconfont icon-send" size="mini">发送</iep-button>
           <iep-button type="default" size="small">撤回</iep-button>
           <iep-button type="default" size="small">删除</iep-button>

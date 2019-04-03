@@ -4,7 +4,7 @@
       <page-header title="合同"></page-header>
       <operation-container>
         <template v-if="+type !=0" slot="left">
-          <iep-button type="danger" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
+          <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
         </template>
         <template slot="right">
           <el-radio-group v-model="type" size="small" @change="changeType">

@@ -4,7 +4,7 @@
       <page-header title="线下公司设置"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="dialogFormVisible = true" type="danger" icon="el-icon-plus" size="small" plain>新增</iep-button>
+          <iep-button @click="dialogFormVisible = true" type="primary" icon="el-icon-plus" size="small" plain>新增</iep-button>
           <el-dialog title="新增" :visible.sync="dialogFormVisible">
             <el-form :model="form" size="small">
               <el-form-item label="线下公司：" :label-width="formLabelWidth">

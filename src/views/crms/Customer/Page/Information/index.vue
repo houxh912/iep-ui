@@ -2,7 +2,7 @@
 <template>
   <div class="information">
     <operation-wrapper>
-      <iep-button class="btn" type="danger" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加资讯</iep-button>
+      <iep-button class="btn" type="primary" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加资讯</iep-button>
     </operation-wrapper>
     <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :show-header="false" :cell-style="{hover:'red'}">
       <template slot="before-columns">

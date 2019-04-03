@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="(scope.row)" class="add" type="danger">新增公告</iep-button>
+        <iep-button @click="(scope.row)" class="add" type="primary">新增公告</iep-button>
         <el-button-group class="btns">
           <el-button plain class="el-icon-view" size="small"></el-button>
           <el-button plain icon="el-icon-share" size="small"></el-button>

@@ -32,6 +32,13 @@ export function getApprovalInitiateById (id) {
   })
 }
 
+export function getApprovalList () {
+  return request({
+    url: `${prefixUrl}/list`,
+    method: 'get',
+  })
+}
+
 export function postApproval (obj) {
   return request({
     url: `${prefixUrl}/create`,

@@ -15,6 +15,11 @@ export default [
         name: '通知公告详情',
         component: () => import('@/views/wel/message/Announcement/Detail.vue'),
       },
+      {
+        path: 'system_message_detail',
+        name: '系统消息详情',
+        component: () => import('@/views/wel/message/SystemMessage/Detail.vue'),
+      },
     ],
   },
 ]

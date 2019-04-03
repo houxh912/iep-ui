@@ -4,7 +4,7 @@
       <page-header title="提现"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd()" type="danger" icon="el-icon-plus" size="small" plain>提现申请</iep-button>
+          <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" size="small" plain>提现申请</iep-button>
         </template>
         <template slot="right">
           <operation-search @search="searchPage" advance-search>

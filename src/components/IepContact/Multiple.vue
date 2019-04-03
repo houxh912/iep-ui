@@ -2,7 +2,7 @@
   <div class="multiple-box">
     <el-tag type="danger" closable v-for="tag in unions" :key="tag.id" @close="handleClose(tag, 'unions')">{{tag.name}}</el-tag>
     <el-tag type="warning" closable v-for="tag in orgs" :key="tag.id" @close="handleClose(tag, 'orgs')">{{tag.name}}</el-tag>
-    <el-tag type="success" closable v-for="tag in users" :key="tag.id" @close="handleClose(tag, 'users')">{{tag.name}}</el-tag>
+    <el-tag type="info" closable v-for="tag in users" :key="tag.id" @close="handleClose(tag, 'users')">{{tag.name}}</el-tag>
     <el-popover placement="right" width="300" trigger="click" v-model="dialogShow">
       <el-tree ref="tree" :props="props" :load="loadNode" :show-checkbox="showCheckbox" :expand-on-click-node="true" :filter-node-method="filterNodeMethod" lazy>
         <span class="custom-tree-node" slot-scope="{ node, data }">

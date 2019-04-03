@@ -4,7 +4,7 @@
       <page-header title="抄送我的"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd" type="danger" icon="el-icon-plus" plain>发起申请</iep-button>
+          <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>发起申请</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search>
@@ -49,7 +49,13 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      this.$emit('onDetail', row)
+      this.$router.push({
+        path: '/hrms_spa/approval_detail',
+        query: {
+          id: row.id,
+          redirect: this.$route.fullPath,
+        },
+      })
     },
     handleAdd () {
       this.$refs['NewApproval'].dialogShow = true

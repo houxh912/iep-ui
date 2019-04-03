@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="footer">
-      <iep-button type="danger" @click="back">返回</iep-button>
+      <iep-button type="primary" @click="back">返回</iep-button>
       <iep-button @click="reply">回复</iep-button>
       <iep-button @click="allReply">回复全部</iep-button>
       <iep-button @click="forward">转发</iep-button>

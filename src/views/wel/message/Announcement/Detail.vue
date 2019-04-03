@@ -1,5 +1,5 @@
 <template>
-  <basic-container>
+  <basic-container v-loading="pageLoading">
     <page-header :title="form.name" :backOption="backOption"></page-header>
     <div class="detail-container">
       <div class="item-title">
@@ -10,7 +10,7 @@
           <li>
             <operation-wrapper>
               <span>接收方：</span>
-              <iep-hover-card type="danger" v-for="item in form.receivers.orgs" :key="item.id" :obj="item"></iep-hover-card>
+              <iep-hover-card type="primary" v-for="item in form.receivers.orgs" :key="item.id" :obj="item"></iep-hover-card>
               <iep-hover-card v-for="item in form.receivers.users" :key="item.id" :obj="item"></iep-hover-card>
             </operation-wrapper>
           </li>
@@ -33,12 +33,6 @@
 import { getAnnouncementById } from '@/api/ims/announcement'
 import { initForm } from './options'
 export default {
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
   data () {
     return {
       id: this.$route.query.id,
@@ -46,6 +40,7 @@ export default {
         isBack: true,
         backPath: this.$route.query.redirect,
       },
+      pageLoading: true,
       form: initForm(),
     }
   },
@@ -58,8 +53,10 @@ export default {
       this.$emit('onGoBack')
     },
     loadPage () {
+      this.pageLoading = true
       getAnnouncementById(this.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
+        this.pageLoading = false
       })
     },
   },

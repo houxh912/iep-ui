@@ -272,24 +272,26 @@ export const openWindow = (url, title, w, h) => {
 // }
 
 export function mergeByFirst (distObject, srcObject) {
-  const propList = _.keys(distObject)
+  const distPropList = _.keys(distObject)
+  const srcPropList = _.keys(_.omitBy(srcObject, _.isNil))
+  const propList = _.intersection(distPropList, srcPropList)
   return {
     ...distObject, ..._.pick(srcObject, propList),
   }
 }
 
-export function openPage (value, type='path') {
-  if (type==='path') {
+export function openPage (value, type = 'path') {
+  if (type === 'path') {
     this.$router.push({
       path: value,
     })
   }
-  if (type==='name') {
+  if (type === 'name') {
     this.$router.push({
       name: value,
     })
   }
-  if (type==='url') {
+  if (type === 'url') {
     window.open(value, '_blank')
   }
 }

@@ -53,12 +53,13 @@ export default {
       this.$refs[formName].resetFields()
     },
     submitForm (formName) {
+      const newForm = this.$mergeByFirst(initPasswordForm(this.userInfo.username), { ...this.form })
       this.$refs[formName].validate(valid => {
         if (valid) {
           request({
             url: '/admin/user/edit',
             method: 'put',
-            data: this.form,
+            data: newForm,
           })
             .then(response => {
               if (response.data.data) {

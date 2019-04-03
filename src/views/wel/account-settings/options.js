@@ -69,8 +69,9 @@ const initForm = () => {
   }
 }
 
-const initPasswordForm = () => {
+const initPasswordForm = (username = null) => {
   return {
+    username,
     password: '',
     newpassword1: '',
     newpassword2: '',

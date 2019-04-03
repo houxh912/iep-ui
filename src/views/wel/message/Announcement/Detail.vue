@@ -33,12 +33,6 @@
 import { getAnnouncementById } from '@/api/ims/announcement'
 import { initForm } from './options'
 export default {
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
   data () {
     return {
       id: this.$route.query.id,

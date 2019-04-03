@@ -24,7 +24,16 @@
         </operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="selectionChange">
+    <iep-table 
+      :isLoadTable="isLoadTable" 
+      :pagination="pagination" 
+      :columnsMap="columnsMap" 
+      :pagedTable="pagedTable" 
+      @size-change="handleSizeChange" 
+      @current-change="handleCurrentChange" 
+      is-mutiple-selection 
+      @selection-change="selectionChange"
+      :dictsMap="dictMap">
       <el-table-column  label="项目名称" slot="before-columns" width="350px">
         <template slot-scope="scope">
           <div style="cursor: pointer;" @click="handleDetail(scope.row)">

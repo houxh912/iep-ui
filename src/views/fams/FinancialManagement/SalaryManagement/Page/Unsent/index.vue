@@ -23,13 +23,12 @@ export default {
 
   },
   methods: {
+    handleDetail () {
+      this.currentComponet = 'Detail'
+    },
     handleGoBack () {
       this.record = ''
       this.currentComponet = 'List'
-    },
-    handleDetail (record) {
-      this.record = record
-      this.currentComponet = 'Detail'
     },
   },
   watch: {

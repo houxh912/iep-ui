@@ -2,8 +2,8 @@ import { mergeByFirst } from '@/util/util'
 // org config options
 const dictsMap = {
   status: {
-    0: '审核通过',
-    1: '待审核',
+    0: '待审核',
+    1: '审核通过',
     2: '审核驳回',
   },
 }
@@ -34,8 +34,9 @@ const columnsMap = [
     label: '申请日期',
   },
   {
-    prop: 'state',
+    prop: 'status',
     label: '状态',
+    type: 'dict',
   },
   {
     prop: 'availableAmount',

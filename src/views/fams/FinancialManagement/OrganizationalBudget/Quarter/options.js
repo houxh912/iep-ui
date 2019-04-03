@@ -1,11 +1,5 @@
 import { mergeByFirst } from '@/util/util'
-const dictsMap = {
-  status: {
-    0: '待审核',
-    1: '审核通过',
-    2: '审核驳回',
-  },
-}
+
 const columnsMap = [
   {
     prop: 'purchaser',
@@ -26,7 +20,6 @@ const columnsMap = [
   {
     prop: 'status',
     label: '状态',
-    type: 'dict',
   },
   {
     prop: 'auditor',
@@ -92,4 +85,4 @@ const initrejectedForm = () => {
 }
 
 
-export { columnsMap, initForm, initSearchForm, initrejectedForm, formToDto, dictsMap, initToResumeForm, initToBlacklistForm}
+export { columnsMap, initForm, initSearchForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm}

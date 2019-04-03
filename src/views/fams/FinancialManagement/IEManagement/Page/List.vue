@@ -1,7 +1,7 @@
 <template>
   <div class="set-containter">
     <basic-container>
-      <div class="main-top">
+      <!-- <div class="main-top">
         <el-card class="left" shadow="hover">
           <h4 class="title">财务资产</h4>
           <ul>
@@ -50,17 +50,58 @@
             <li>打赏/扣减</li>
           </ul>
         </el-card>
-      </div>
-
-      <el-card class="conent" shadow="hover">
-        <page-header title="财务流水" :replaceText="replaceText" :data="[10 ,0, 1,300000,0,0]">
+      </div> -->
+      <page-header title="财务流水" class="data-title" :replaceText="replaceText" :data="[10 ,0, 1,300000,0,0]"></page-header>
+      <operation-container>
+        <template slot="left">
+          <iep-button @click="handleIncome()" type="danger" icon="el-icon-plus" plain>新建收入</iep-button>
+          <iep-button @click="handlePay()" icon="el-icon-minus" plain>新建支出</iep-button>
+        </template>
+        <template slot="right">
           <operation-search @search="searchPage" advance-search>
             <el-form :model="paramForm" label-width="100px" size="mini">
-              <el-form-item label="线下公司：">
-                <el-input v-model="paramForm.company"></el-input>
+              <el-form-item label="关键字：">
+                <el-input v-model="paramForm.key"></el-input>
               </el-form-item>
-              <el-form-item label="银行户头：">
-                <el-input v-model="paramForm.account"></el-input>
+              <el-form-item label="收支：">
+                <el-select v-model="value" placeholder="请选择">
+                  <el-option v-for="item in budget" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="类型：">
+                <el-select v-model="value" placeholder="请选择">
+                  <el-option v-for="item in classify" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="部门：">
+                <el-select v-model="value" placeholder="请选择">
+                  <el-option v-for="item in department" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="线下公司：">
+                <el-select v-model="value" placeholder="请选择">
+                  <el-option v-for="item in company" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="收支方式：">
+                <el-select v-model="value" placeholder="请选择">
+                  <el-option v-for="item in budgets" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="银行账号：">
+                <el-select v-model="value" placeholder="请选择">
+                  <el-option v-for="item in bankAccount" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="日期：">
+                <el-date-picker v-model="value1" type="date" placeholder="选择日期">
+                </el-date-picker>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="searchPage">搜索</el-button>
@@ -68,32 +109,91 @@
               </el-form-item>
             </el-form>
           </operation-search>
-        </page-header>
-        <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
-          <template slot="before-columns">
-            <el-table-column label="时间">
-              <template slot-scope="scope">
-                <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
-              </template>
-            </el-table-column>
-          </template>
-        </iep-table>
-      </el-card>
+        </template>
+      </operation-container>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+        <template slot="before-columns">
+          <el-table-column label="时间">
+            <template slot-scope="scope">
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+            </template>
+          </el-table-column>
+        </template>
+      </iep-table>
     </basic-container>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+    <dialog-form-in ref="dialogFormIn" @load-page="loadPage">
+    </dialog-form-in>
   </div>
 </template>
 <script>
 import { getTalentPoolPage } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
+import DialogForm from './DialogForm'
+import dialogFormIn from './dialogFormIn'
 export default {
   mixins: [mixins],
+  components: { DialogForm, dialogFormIn },
   data () {
     return {
       columnsMap,
       paramForm: initSearchForm(),
       value: '',
-      replaceText: (data) => `(支出：${data[0]}笔，支出金额：￥${data[1]}元，收入${data[2]}笔，收入金额￥${data[3]}元，抵扣：${data[4]}笔，抵扣金额${data[5]}元)`,
+      value1: '',
+      replaceText: (data) => `（支出：${data[0]}笔，支出金额：￥${data[1]}元，收入${data[2]}笔，收入金额￥${data[3]}元，抵扣：${data[4]}笔，抵扣金额${data[5]}元）`,
+      budget: [
+        {
+          value: '选项1',
+          label: '支出',
+        },
+        {
+          value: '选项2',
+          label: '收入',
+        },
+      ],
+      classify: [
+        {
+          value: '选项1',
+          label: '项目收入',
+        },
+        {
+          value: '选项2',
+          label: '其他收入',
+        },
+      ],
+      department: [
+        {
+          value: '选项1',
+          label: '全部',
+        },
+        {
+          value: '选项2',
+          label: '国脉海洋信息发展有限公司',
+        },
+      ],
+      company: [
+        {
+          value: '选项1',
+          label: '全部',
+        },
+        {
+          value: '选项1',
+          label: '国脉海洋信息发展有限公司',
+        },
+      ],
+      budgets: [
+        {
+          value: '选项1',
+          label: '全部',
+        },
+      ],
+      bankAccount: [
+        {
+          value: '选项1',
+          label: '支出',
+        },
+      ],
     }
   },
   created () {
@@ -112,6 +212,12 @@ export default {
     // },
     loadPage (param = this.paramForm) {
       this.loadTable(param, getTalentPoolPage)
+    },
+    handlePay () {
+      this.$refs['DialogForm'].dialogShow = true
+    },
+    handleIncome () {
+      this.$refs['dialogFormIn'].dialogShow = true
     },
   },
 }
@@ -209,9 +315,6 @@ ul {
 }
 .set-containter >>> .data-title {
   margin-bottom: 0;
-}
-.set-containter >>> .data-title .page-title {
-  display: none;
 }
 .set-containter >>> .data-title .title-col {
   margin-bottom: 0;

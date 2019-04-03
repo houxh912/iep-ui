@@ -18,3 +18,10 @@ export function getFinancialManagementPage (obj) {
       data: obj,
     })
   }
+
+  export function getFinancialManagementById (id) {
+    return request({
+      url: `${prefixUrl}/${id}`,
+      method: 'get',
+    })
+  }

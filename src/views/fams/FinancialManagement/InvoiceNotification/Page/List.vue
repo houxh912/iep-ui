@@ -35,7 +35,7 @@
               </el-form-item>
               <el-form-item label="状态">
                 <el-select v-model="paramForm.status" placeholder="请选择">
-                  <el-option v-for="item in classify" :key="item.value" :label="item.label" :value="item.value">
+                  <el-option v-for="item in classify" :key="item.value" :dictsMap="dictsMap" :label="item.label" :value="item.value">
                   </el-option>
                 </el-select>
               </el-form-item>
@@ -47,11 +47,11 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column label="操作" width="220px">
           <template slot-scope="scope">
-            <el-button size="small" type="warning" plain @click="handleDetail(scope.row)">查看</el-button>
-            <el-dropdown size="small">
+            <el-button size="small" type="warning" plain v-if="scope.row.status==1||scope.row.status==2" @click="handleDetail(scope.row)">查看</el-button>
+            <el-dropdown size="small" v-if="scope.row.status==0">
               <iep-button plain>
                 审核<i class="el-icon-arrow-down el-icon--right"></i>
               </iep-button>
@@ -72,19 +72,20 @@
 <script>
 // import { getInvoiceNotificationPage } from '@/api/fams/invoice_notification'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from '../options'
+import { columnsMap, initSearchForm, dictsMap } from '../options'
 export default {
   mixins: [mixins],
   data () {
     return {
       columnsMap,
+      dictsMap,
       paramForm: initSearchForm(),
       classify: '',
       pagedTable:[
-        {'id': 1,'purchaser': '','seller': '提交','money': 80,'applyData': 6,'status': '','auditor': 111,'auditDate': 11},
-        {'id': 2,'purchaser': '','seller': '提交','money': 80,'applyData': 77,'status': '','auditor': 111,'auditDate': 11},
-        {'id': 3,'purchaser': '','seller': '提交','money': 80,'applyData': 88,'status': '','auditor': 111,'auditDate': 11},
-        {'id': 4,'purchaser': '','seller': '提交','money': 80,'applyData': 99,'status': '','auditor': 111,'auditDate': 11}],
+        {'id': 1,'purchaser': '','seller': '提交','money': 80,'applyData': 6,'status': 1,'auditor': 111,'auditDate': 11},
+        {'id': 2,'purchaser': '','seller': '提交','money': 80,'applyData': 77,'status': 0,'auditor': 111,'auditDate': 11},
+        {'id': 3,'purchaser': '','seller': '提交','money': 80,'applyData': 88,'status': 2,'auditor': 111,'auditDate': 11},
+        {'id': 4,'purchaser': '','seller': '提交','money': 80,'applyData': 99,'status': 1,'auditor': 111,'auditDate': 11}],
     }
   },
   created () {
@@ -118,7 +119,4 @@ export default {
 }
 </script>
 <style scoped>
-.cell .el-dropdown{
-  margin-left: 8px;
-}
 </style>

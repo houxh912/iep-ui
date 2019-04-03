@@ -7,6 +7,7 @@ import gpmsRouter from './gpms/'
 import imsRouter from './ims/'
 import componentsRouter from './components/'
 import welRouter from './wel/'
+import crmsRouter from './crms/'
 import AvueRouter from './avue-router'
 import Store from '../store/'
 
@@ -29,5 +30,5 @@ const Router = new VueRouter({
 })
 AvueRouter.install(Router, Store)
 Router.$avueRouter.formatRoutes(Store.state.user.menu, true)
-Router.addRoutes([...PageRouter, ...ViewsRouter, ...hrmsRouter, ...imsRouter, ...componentsRouter, ...mlmsRouter, ...welRouter, ...gpmsRouter])
+Router.addRoutes([...PageRouter, ...ViewsRouter, ...hrmsRouter, ...imsRouter, ...componentsRouter, ...mlmsRouter, ...welRouter, ...gpmsRouter, ...crmsRouter])
 export default Router

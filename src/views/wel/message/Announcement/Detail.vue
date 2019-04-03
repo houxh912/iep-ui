@@ -10,7 +10,7 @@
           <li>
             <operation-wrapper>
               <span>接收方：</span>
-              <iep-hover-card type="danger" v-for="item in form.receivers.orgs" :key="item.id" :obj="item"></iep-hover-card>
+              <iep-hover-card type="primary" v-for="item in form.receivers.orgs" :key="item.id" :obj="item"></iep-hover-card>
               <iep-hover-card v-for="item in form.receivers.users" :key="item.id" :obj="item"></iep-hover-card>
             </operation-wrapper>
           </li>

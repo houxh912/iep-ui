@@ -4,7 +4,7 @@
     <div class="fillin">
       <el-input type="textarea" rows=5 v-model="createData" placeholder="记录下今天的工作内容吧"></el-input>
       <div class="footer">
-        <iep-button type="danger" @click="submit('create')">保存</iep-button>
+        <iep-button type="primary" @click="submit('create')">保存</iep-button>
         <div class="error" v-if="createValidate">日报内容不能为空</div>
       </div>
     </div>
@@ -38,7 +38,7 @@
                 <div class="content" v-else-if="updateIndex == index">
                   <el-input type="textarea" rows=5 v-model="updateData" placeholder="记录下今天的工作内容吧"></el-input>
                   <div class="footer">
-                    <iep-button type="danger" @click="submit(dailyState, row.createTime, index)">保存</iep-button>
+                    <iep-button type="primary" @click="submit(dailyState, row.createTime, index)">保存</iep-button>
                     <div class="error" v-if="updateValidate">日报内容不能为空</div>
                   </div>
                 </div>

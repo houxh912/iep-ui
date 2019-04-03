@@ -6,7 +6,7 @@
     </div>
     <operation-container>
       <template slot="left">
-          <iep-button @click="handleAdd" size="small" type="danger">添加数据</iep-button>
+          <iep-button @click="handleAdd" size="small" type="primary">添加数据</iep-button>
           <iep-button @click="handleSet" size="small">工作表设置</iep-button>
       </template>
       <template slot="right">

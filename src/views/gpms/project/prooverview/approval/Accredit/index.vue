@@ -2,7 +2,7 @@
     <div>
         <operation-container>
             <template slot="left">
-                <iep-button class="add" @click="addProject" type="danger">
+                <iep-button class="add" @click="addProject" type="primary">
                     新增
                 </iep-button>
                 <iep-button @click="deleteAll" class="add">

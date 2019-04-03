@@ -10,7 +10,7 @@
       <div v-for="(item, index) in infoList.tips" :key="index" class="tip" @mouseenter="tipsSelect=index" @mouseleave="tipsSelect=-1">
         <i class="icon-tongzhi"></i>
         <p>{{item.tips}}</p>
-        <iep-button type="danger" class="btn" size="mini" v-if="index==tipsSelect">忽略</iep-button>
+        <iep-button type="primary" class="btn" size="mini" v-if="index==tipsSelect">忽略</iep-button>
       </div>
     </el-row>
   </el-card>

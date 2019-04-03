@@ -27,7 +27,7 @@
         <span></span>
       </div>
       <iep-button class="btn" @click="close">取消</iep-button>
-      <iep-button type="danger" @click="submitForm('form')">保存</iep-button>
+      <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
     </template>
   </iep-dialog>
 </template>

@@ -11,11 +11,17 @@
   </div>
 </template>
 <script>
+import { getAside } from '@/api/wel/index'
 export default {
   props: {
     appraise: {
       type: Array,
       required: true,
+    },
+  },
+  methods: {
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getAside)
     },
   },
 }

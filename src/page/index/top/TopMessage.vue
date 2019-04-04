@@ -12,7 +12,9 @@
                 </div>
               </div>
             </div>
-            <div class="list-loadMore">更多</div>
+            <div class="msg-footer">
+              <iep-button type="text" @click="$openPage('/wel/message/announcement')">更多</iep-button>
+            </div>
           </el-card>
         </el-tab-pane>
         <el-tab-pane :label="`消息 (${systemMessageNum})`" name="second">
@@ -25,7 +27,9 @@
                 </div>
               </div>
             </div>
-            <div class="list-loadMore">更多</div>
+            <div class="msg-footer">
+              <iep-button type="text" @click="$openPage('/wel/message/system_message')">更多</iep-button>
+            </div>
           </el-card>
         </el-tab-pane>
         <el-tab-pane :label="`邮件 (${emailNum})`" name="third">
@@ -38,7 +42,9 @@
                 </div>
               </div>
             </div>
-            <div class="list-loadMore">更多</div>
+            <div class="msg-footer">
+              <iep-button type="text">更多</iep-button>
+            </div>
           </el-card>
         </el-tab-pane>
       </el-tabs>
@@ -122,7 +128,7 @@ export default {
   text-align: center;
 }
 .msg-tabs >>> .el-tabs__active-bar {
-  left: 40px;
+  left: 30px;
   width: 70px !important;
 }
 .msg-tabs >>> .el-tabs__header {
@@ -192,19 +198,6 @@ h4 {
     align-items: flex-start;
     padding: 20px;
     border-bottom: 1px solid #eceef5;
-    // .list-item-icon {
-    //   margin-top: 5px;
-    //   margin-right: 16px;
-    //   width: 32px;
-    //   height: 32px;
-    //   img {
-    //     display: block;
-    //     width: 100%;
-    //   }
-    //   i {
-    //     font-size: 20px;
-    //   }
-    // }
     .list-item-content {
       flex: 1 0;
       .list-item-title {
@@ -221,14 +214,8 @@ h4 {
       }
     }
   }
-  .list-loadMore {
-    padding: 8px 0;
-    color: #409eff;
-    text-align: center;
-    cursor: pointer;
-    &:hover {
-      color: #66b1ff;
-    }
-  }
+}
+.msg-footer {
+  text-align: center;
 }
 </style>

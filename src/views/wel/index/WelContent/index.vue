@@ -7,7 +7,7 @@
             <el-col :span="4" class="dotted">
               <div class="left">
                 <div class="img zoom">
-                  <iep-img :src="userInfo.avatar" alt="头像"></iep-img>
+                  <iep-img-avatar :size="90" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
                 </div>
                 <div class="code-name">{{indexData.staffId}}</div>
                 <el-progress :percentage="80" color="#68C769"></el-progress>

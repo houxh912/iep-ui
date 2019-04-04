@@ -9,7 +9,7 @@
             <iep-button size="small" :disabled="type !== '2'" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="excellImport">导入</el-dropdown-item>
-              <el-dropdown-item command="handleAllDelete">删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleAllDelete">删除</el-dropdown-item>
               <el-dropdown-item @click.native="Transfer">转移</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -18,7 +18,7 @@
           <el-radio-group v-model="type" size="small" @change="changeType">
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
           </el-radio-group>
-          <operation-search @search-page="searchPage" advance-search>
+          <operation-search @search-page="searchPage" advance-search :prop="'clientName'">
             <advance-search @search-page="searchPage" :type="type"></advance-search>
           </operation-search>
         </template>
@@ -46,14 +46,14 @@
       </iep-table>
       <excell-import ref="ExcellImport" :urlName="url" @close="handleClose"></excell-import>
       <collaborator ref="collaborator" @load-page="loadPage"></collaborator>
-      <transfer ref="transfer"></transfer>
+      <transfer ref="transfer" @load-page="loadPage"></transfer>
     </basic-container>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId, tabList } from '../columns'
-import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById } from '@/api/crms/customer'
+import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById, deleteCustomerBatch } from '@/api/crms/customer'
 import AdvanceSearch from './AdvanceSearch'
 import ExcellImport from './ExcellImport/'
 import Collaborator from './Collaborator/'
@@ -142,6 +142,9 @@ export default {
     handleDelete (row) {
       this._handleGlobalDeleteById(row.clientId, deleteCustomerById)
     },
+    handleAllDelete () {
+      this._handleGlobalDeleteAll(deleteCustomerBatch)
+    },
     //添加协作人
     handleCooperation (row) {
       this.$refs['collaborator'].id = row.clientId
@@ -162,13 +165,13 @@ export default {
       }
     },
     //table多选
-    handleSelectionChange (row) {
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.clientId)
       let ids = []
-      row.forEach((item) => {
+      val.forEach((item) => {
         ids.push(item.clientId)
       })
       this.ids = ids
-      // console.log(this.ids)
     },
     //加载
     loadPage (param = { ...this.searchForm, type: this.type }) {
@@ -177,6 +180,7 @@ export default {
       })
     },
   },
+
 }
 </script>
 <style lang="scss" scoped>

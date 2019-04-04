@@ -101,7 +101,7 @@ export default {
     submitForm () {
       TransferCustomers(this.Contacts).then(res => {
         if (res.data.data) {
-          this.$message.success('添加协作人成功！')
+          this.$message.success('转移客户成功！')
           this.dialogShow = false
           this.$emit('load-page')
         } else {

@@ -116,6 +116,10 @@ export default {
     },
     search () {
       // console.log(this.commonName)
+      getCollaboratorPage(this.id, { realName: this.commonName, currentPage: this.currentPage, size: this.pageSize }).then(res => {
+        this.total = res.data.data.total
+        this.data = res.data.data.records
+      })
     },
   },
 }

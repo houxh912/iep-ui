@@ -8,6 +8,14 @@ export function getSchemePage (query) {
     params: query,
   })
 }
+//推荐材料
+export function getMaterial (query) {
+  return request({
+    url: `${schemeUrl}/materialInfos`,
+    method: 'get',
+    params: query,
+  })
+}
 
 // 方案-新增
 export function createScheme (obj) {

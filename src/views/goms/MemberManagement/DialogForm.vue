@@ -12,7 +12,7 @@
       </el-form-item>
       <el-form-item label="配置角色：" prop="role">
         <el-select v-model="form.roleList" multiple placeholder="请选择">
-          <el-option v-for="role in roleList" :key="role.roleId" :label="role.roleName" :value="role.roleId">
+          <el-option v-for="item in roleList" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
           </el-option>
         </el-select>
       </el-form-item>
@@ -56,8 +56,19 @@ export default {
   },
   methods: {
     load () {
-      putGoms().then((res) => {
-        this.roleList = res.data.data
+      putGoms().then(({ data }) => {
+        const roleList = data.data.map(m => {
+          return {
+            label: m.roleName,
+            value: m.roleId,
+          }
+        })
+        this.roleList = [
+          { value: 1, label: '超级管理员', disabled: true },
+          { value: 2, label: '游客权限', disabled: true },
+          { value: 3, label: '组织成员', disabled: true },
+          ...roleList,
+        ]
       })
     },
     loadPage () {
@@ -76,5 +87,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-</style>

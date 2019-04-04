@@ -1,7 +1,7 @@
 <template>
   <div class="nav-info">
     <el-popover popper-class="msg-popover" placement="bottom" width="336" v-model="visible" trigger="click">
-      <el-tabs class="msg-tabs" v-model="activeName" @tab-click="handleClick">
+      <el-tabs class="msg-tabs" v-model="activeName">
         <el-tab-pane :label="`通知 (${announcementNum})`" name="first">
           <el-card class="box-card" :body-style="bodyStyle">
             <iep-no-data v-if="!announcementList.length" message="暂无通知"></iep-no-data>

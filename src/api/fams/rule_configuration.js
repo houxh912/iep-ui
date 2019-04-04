@@ -4,9 +4,9 @@ const prefixUrl = '/fams/rule_configuration'
 // @/api/fams/rule_configuration
 
 export function getConfigurationPage (obj) {
-    return request({
-        url: `${prefixUrl}/page`,
-        method: 'get',
-        data: obj,
-      })
-  }
+  return request({
+    url: `${prefixUrl}/page`,
+    method: 'get',
+    data: obj,
+  })
+}

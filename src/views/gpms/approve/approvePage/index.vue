@@ -4,8 +4,7 @@
     <!-- 立项信息 -->
     <div class="contianBox">
       <el-row class="title">
-        <el-col :span="20" class="data">立项信息</el-col>
-        <el-col class="edit"><i class="icon-bianji"></i></el-col>
+        <el-col class="data">立项信息</el-col>
       </el-row>
       <el-row class="topBot">
         <el-form label-width="150px">
@@ -26,8 +25,7 @@
     <!-- 立项信息 -->
     <div class="contianBox">
       <el-row class="title">
-        <el-col :span="20" class="data">立项信息</el-col>
-        <el-col class="edit"><i class="icon-bianji"></i></el-col>
+        <el-col class="data">立项信息</el-col>
       </el-row>
       <el-row class="topBot">
         <p class="summary">2019年的内网启动会GM12323纪要</p>

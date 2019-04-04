@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="不同意理由" width="50%" @close="resetForm">
+  <iep-dialog :dialog-show="dialogShow" title="不同意理由" width="50%" @close="resetForm(false)">
     <el-form :model="formData" :rules="rules" ref="form">
       <el-form-item label="" prop="approvalFailReason">
         <el-input type="textarea" placeholder="请输入不同意的理由" rows=5 v-model="formData.approvalFailReason"></el-input>
@@ -7,7 +7,7 @@
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm">确定</iep-button>
-      <iep-button @click="resetForm">取消</iep-button>
+      <iep-button @click="resetForm(false)">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
@@ -37,7 +37,7 @@ export default {
       },
     }
   },
-  methdos: {
+  methods: {
     submitForm () {
       this.$refs['form'].validate((valid) => {
         if (valid) {

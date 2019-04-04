@@ -18,7 +18,8 @@
         </template>
       </el-table-column>
     </iep-table>
-    
+    <!-- 转交 -->
+    <transferDialog ref="transfer" :form="formData" @load-page="loadPage()"></transferDialog>
   </div>
 </template>
 
@@ -26,10 +27,11 @@
 import mixins from '@/mixins/mixins'
 import { columnsMap, pagedTable } from './option.js'
 import { getApprovalList, updateData } from '@/api/gpms/index'
+import transferDialog from '../transfer/index'
 
 export default {
   mixins: [mixins],
-  components: {  },
+  components: { transferDialog },
   props: {
     status: {
       type: String,
@@ -51,8 +53,10 @@ export default {
       this.$emit('approve', row)
     },
     // 转交
-    handleMore () {},
-    // 审批不通过
+    handleMore (row) {
+      this.$refs['transfer'].open(row)
+    },
+    // 取消审批
     hanleNotApp (row) {
       updateData({
         id: row.id,

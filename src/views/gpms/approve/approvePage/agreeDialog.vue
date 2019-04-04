@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="指导建议" width="50%" @close="resetForm">
+  <iep-dialog :dialog-show="dialogShow" title="指导建议" width="50%" @close="resetForm(false)">
     <el-form :model="formData" :rules="rules" ref="form">
       <el-form-item label="" prop="guideSugges">
         <el-input type="textarea" placeholder="请输入指导建议" rows=5 v-model="formData.guideSugges"></el-input>
@@ -7,7 +7,7 @@
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm">确定</iep-button>
-      <iep-button @click="resetForm">取消</iep-button>
+      <iep-button @click="resetForm(false)">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
@@ -15,6 +15,7 @@
 <script>
 import IepDialog from '@/components/IepDialog/'
 import { updateData } from '@/api/gpms/index'
+
 function initFormData () {
   return {
     id: '',
@@ -37,7 +38,7 @@ export default {
       },
     }
   },
-  methdos: {
+  methods: {
     submitForm () {
       this.$refs['form'].validate((valid) => {
         if (valid) {

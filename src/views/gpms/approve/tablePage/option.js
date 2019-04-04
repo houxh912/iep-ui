@@ -1,3 +1,18 @@
+export const dictsMap = {
+  businessType: {
+    '1': '立项申请',
+    '2': '立项申请',
+    '3': '立项申请',
+    '4': '立项申请',
+  },
+  projectStage: {
+    '1': '未提交',
+    '2': '待审核',
+    '3': '审核通过',
+    '4': '审核不通过',
+  },
+}
+
 export const columnsMap = [
   {
     prop: 'projectName',
@@ -6,12 +21,14 @@ export const columnsMap = [
   }, {
     prop: 'businessType',
     label: '申请类别',
+    type: 'dict',
   }, {
     prop: 'serialNo',
     label: '编号',
   }, {
     prop: 'projectStage',
     label: '审批状态',
+    type: 'dict',
   }, {
     prop: 'applicant',
     label: '申请人',

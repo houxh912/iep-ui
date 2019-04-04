@@ -66,22 +66,6 @@ export default {
   computed: {
     setUpData () {
       let formData = this.form
-      let list = [
-        { name: 'applicantName', list: 'applicantList' },
-        { name: 'approverName', list: 'approverList' },
-        { name: 'inChargeDeptName', list: 'inChargeDeptList' },
-        { name: 'coopDeptName', list: 'coopDeptList' },
-        { name: 'publisherName', list: 'publisherList' },
-        { name: 'relatedClientName', list: 'relatedClientList' },
-        { name: 'groupExternalCooperatePartnerName', list: 'groupExternalCooperatePartnerList' },
-      ]
-      for (let item of list) {
-        if (formData[item.list]) {
-          formData[item.name] = formData[item.list].name
-        } else {
-          formData[item.name] = '无'
-        }
-      }
       return formData
     },
   },

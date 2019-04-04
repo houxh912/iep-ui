@@ -4,6 +4,7 @@
       :isLoadTable="isLoadTable" 
       :pagination="pagination" 
       :columnsMap="columnsMap" 
+      :dictsMap="dictsMap" 
       :pagedTable="pagedTable" 
       @size-change="handleSizeChange" 
       @current-change="handleCurrentChange" 
@@ -25,7 +26,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMap, pagedTable } from './option.js'
+import { columnsMap, pagedTable, dictsMap } from './option.js'
 import { getApprovalList, updateData } from '@/api/gpms/index'
 import transferDialog from '../transfer/index'
 
@@ -42,6 +43,7 @@ export default {
     return {
       isLoadTable: false,
       columnsMap,
+      dictsMap,
       pagedTable,
       pageState: 'list',
       formData: {},

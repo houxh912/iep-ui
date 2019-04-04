@@ -8,16 +8,7 @@
           <iep-button @click="handleDeleteBatch()">删除</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" :paramForm="paramForm" advance-search>
-            <el-form :model="paramForm" label-width="80px" size="mini">
-              <el-form-item label="真实姓名">
-                <el-input v-model="paramForm.name"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <iep-button type="primary" @click="searchPage">搜索</iep-button>
-                <iep-button @click="clearSearchParam">清空</iep-button>
-              </el-form-item>
-            </el-form>
+          <operation-search @search-page="searchPage">
           </operation-search>
         </template>
       </operation-container>

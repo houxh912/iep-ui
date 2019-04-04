@@ -6,7 +6,7 @@
     <div class="customer-content">
       <el-row>
         <el-col :span="6" v-for="(item,index) in tabList" :key="index">
-          <div class="title">{{item.name}}</div>
+          <div class="title" @click="handleDetail(item)">{{item.name}}</div>
         </el-col>
       </el-row>
     </div>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { getCustomerPage } from '@/api/wel/crms/customer'
+import { getCustomerList } from '@/api/wel/crms/customer'
 export default {
   data () {
     return {
@@ -23,13 +23,20 @@ export default {
     }
   },
   created () {
-    getCustomerPage().then((res) => {
+    getCustomerList().then((res) => {
       this.tabList = res.data.data
     })
   },
   methods: {
-
-
+    handleDetail (row) {
+      this.$router.push({
+        path: '/crms_spa/customer_detail',
+        query: {
+          id: row.id,
+          redirect: this.$route.fullPath,
+        },
+      })
+    },
   },
 }
 </script>

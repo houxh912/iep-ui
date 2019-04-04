@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { getContractPage } from '@/api/wel/crms/customer'
+import { getContractList } from '@/api/wel/crms/customer'
 export default {
   data () {
     return {
@@ -28,7 +28,7 @@ export default {
     }
   },
   created () {
-    getContractPage().then((res) => {
+    getContractList().then((res) => {
       this.dataList = res.data.data
     })
   },

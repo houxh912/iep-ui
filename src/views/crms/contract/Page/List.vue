@@ -21,20 +21,11 @@
             <operation-wrapper>
               <iep-button @click="handleDetail(scope.row)">详情</iep-button>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button @click="OpenDelete(scope.row)">删除</iep-button>
+              <iep-button @click="handeleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
-      <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
-        <span>
-          <el-checkbox v-model="deleteAll">同时删除原件</el-checkbox>
-        </span>
-        <span slot="footer" class="dialog-footer">
-          <iep-button class="btn" @click="cancel">取 消</iep-button>
-          <iep-button type="primary" @click="handleDelete">确 定</iep-button>
-        </span>
-      </el-dialog>
       <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
     </basic-container>
   </div>
@@ -102,8 +93,27 @@ export default {
         this.$refs['DetailDrawer'].formData = res.data.data
       })
     },
-    handleDelete (row) {
-      this._handleGlobalDeleteById(row.contractId, deleteContract)
+    handeleDelete (row) {
+      this.$confirm('此操作将同时删除原件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        deleteContract(row.contractId).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `删除失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      })
     },
     loadPage (param = { ...this.searchForm, type: this.type }) {
       this.loadTable(param, getContractPage)

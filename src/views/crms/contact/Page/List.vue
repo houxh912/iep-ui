@@ -7,7 +7,7 @@
           <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
+          <operation-search @search-page="searchPage" advance-search :prop="'contactName'">
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>

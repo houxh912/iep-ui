@@ -1,12 +1,11 @@
 import { mergeByFirst } from '@/util/util'
-
 const columnsMap = [
   {
-    prop: 'class',
+    prop: 'type',
     label: '分类',
   },
   {
-    prop: 'sum',
+    prop: 'amount',
     label: '金额',
   },
   {
@@ -14,207 +13,39 @@ const columnsMap = [
     label: '日期',
   },
   {
-    prop: 'remark',
+    prop: 'remarks',
     label: '备注',
   },
 ]
 
-const initForm = () => {
-  return {
-    'id': '',
-    'name': '',
-    'sex': 1,
-    'avatar': '',
-    'birthday': '',
-    'title': '',
-    'phone': '',
-    'age': '',
-    'email': '',
-    'height': '',
-    'weight': '',
-    'nation': '',
-    'address': '',
-    'politics': '',
-    'health': '',
-    'marriage': '',
-    'bear': 1,
-    'university': '',
-    'education': 2,
-    'relation': '',
-    'referrer': '',
-    'appWay': 9,
-    'source': 4,
-    'hobbies': '',
-    'advantage': '',
-    'honor': '',
-    'result': '',
-    'position': [],
-    'positionId': 3,
-    'positionName': '',
-    'arrive': '',
-    'salary': '',
-    'workPlace': '',
-    'attach': '',
-    'workExperience': [],
-    'trainingSituation': [],
-    'eduSituation': [],
-    'userCert': [],
-    'blacklistArea': '',
-    'blacklistReasons': '',
-    'cities': [],
-  }
-}
-
-const initDtoForm = () => {
-  return {
-    'id': '',
-    'name': '',
-    'sex': 1,
-    'avatar': '',
-    'birthday': '',
-    'title': '',
-    'phone': '',
-    'age': '',
-    'email': '',
-    'height': '',
-    'weight': '',
-    'nation': '',
-    'address': '',
-    'politics': '',
-    'health': '',
-    'marriage': '',
-    'bear': 1,
-    'university': '',
-    'education': 2,
-    'relation': '',
-    'referrer': '',
-    'appWay': 9,
-    'source': 4,
-    'hobbies': '',
-    'advantage': '',
-    'honor': '',
-    'result': '',
-    'positionId': 3,
-    'arrive': '',
-    'salary': '',
-    'workPlace': '',
-    'attach': '',
-    'workExperience': [],
-    'trainingSituation': [],
-    'eduSituation': [],
-    'userCert': [],
-    'blacklistArea': '',
-    'blacklistReasons': '',
-    'cities': [],
-  }
-}
-
-const formToDto = (form) => {
-  const newForm = mergeByFirst(initDtoForm(), form)
-  newForm.positionId = form.position[form.position.length - 1]
-  return newForm
-}
-
 const initSearchForm = () => {
   return {
-    name: '',
-    sex: '',
+    name: null, // 流水
+    type: null, // 分类ID
+    rangeTime: null, // 日期
+    rangeAmount: null, // 金额
   }
 }
-const initToResumeForm = () => {
+const initDtoSearchForm = () => {
   return {
-    ids: [],
-    reason: '',
+    name: '', // 流水
+    type: null, // 分类ID
+    startTime: null, // 日期
+    endTime: null, // 日期
+    minAmount: null, // 金额
+    maxAmount: null, // 金额
   }
 }
-const initToBlacklistForm = () => {
-  return {
-    ids: [],
-    area: '',
-    reason: '',
+const toDtoSearchForm = (row) => {
+  const newForm = mergeByFirst(initDtoSearchForm(), row)
+  if (row.rangeTime) {
+    newForm.startTime = row.rangeTime[0]
+    newForm.endTime = row.rangeTime[1]
   }
-}
-
-const initrejectedForm = () => {
-  return {
-    msg: '',
+  if (row.rangeAmount) {
+    newForm.minAmount = row.rangeAmount[0]
+    newForm.maxAmount = row.rangeAmount[1]
   }
+  return newForm
 }
-
-const studyColumns = [
-  {
-    prop: 'name',
-    label: '学习(教育)单位',
-  },
-  {
-    prop: 'startTime',
-    label: '起始时间',
-  },
-  {
-    prop: 'content',
-    label: '学习内容',
-  },
-]
-
-const workExpColumns = [
-  {
-    prop: 'name',
-    label: '公司',
-  },
-  {
-    prop: 'position',
-    label: '岗位',
-  },
-  {
-    prop: 'startTime',
-    label: '起始时间',
-  },
-  {
-    prop: 'description',
-    label: '工作描述',
-  },
-  {
-    prop: 'leavingReason',
-    label: '离职原因',
-  },
-]
-
-const trainingColumns = [
-  {
-    prop: 'name',
-    label: '培训名称',
-  },
-  {
-    prop: 'place',
-    label: '培训单位',
-  },
-  {
-    prop: 'method',
-    label: '培训方式',
-  },
-  {
-    prop: 'startTime',
-    label: '起始时间',
-  },
-]
-
-const certificateColumns = [
-  {
-    prop: 'name',
-    label: '证书名称',
-  },
-  {
-    prop: 'number',
-    label: '证书编号',
-  },
-  {
-    prop: 'issuedPlace',
-    label: '颁发单位',
-  },
-  {
-    prop: 'annex',
-    label: '附件',
-  },
-]
-
-export { columnsMap, initForm, initSearchForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm, workExpColumns, studyColumns, trainingColumns, certificateColumns }
+export { columnsMap, initSearchForm, initDtoSearchForm, toDtoSearchForm }

@@ -3,7 +3,7 @@
     <div class="avatar" style="text-align: center;margin-bottom:20px;">
       <iep-img-avatar :size="128" :src="form.avatar"></iep-img-avatar>
     </div>
-    <el-form :model="form" ref="form" size="small" label-width="100px">
+    <el-form :model="form" ref="form" size="small" label-width="100px" :disabled="disabled">
       <el-form-item label="用户名：" prop="username">
         <el-input v-model="form.username" disabled></el-input>
       </el-form-item>
@@ -45,6 +45,7 @@ export default {
   data () {
     return {
       dialogShow: false,
+      disabled: false,
       formRequestFn: () => { },
       methodName: '创建',
       form: initMemberForm(),

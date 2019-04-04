@@ -14,7 +14,7 @@
               </div>
             </div>
             <div class="msg-footer">
-              <iep-button type="text" @click="$openPage('/wel/message/announcement')">查看更多</iep-button>
+              <iep-button type="text" @click="handleOpen('/wel/message/announcement')">查看更多</iep-button>
             </div>
           </el-card>
         </el-tab-pane>
@@ -30,7 +30,7 @@
               </div>
             </div>
             <div class="msg-footer">
-              <iep-button type="text" @click="$openPage('/wel/message/system_message')">查看更多</iep-button>
+              <iep-button type="text" @click="handleOpen('/wel/message/system_message')">查看更多</iep-button>
             </div>
           </el-card>
         </el-tab-pane>
@@ -101,8 +101,9 @@ export default {
       })
       this.visible = false
     },
-    handleClick () {
-      // console.log(tab, event)
+    handleOpen (url) {
+      this.$openPage(url)
+      this.visible = false
     },
     loadPage () {
       getImsWel().then(({ data }) => {

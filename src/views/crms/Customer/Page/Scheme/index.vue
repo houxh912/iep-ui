@@ -29,7 +29,7 @@
     </iep-table>
     <el-row class="recommend">
       <el-col class="title">为您推荐一下参考材料：</el-col>
-      <el-col class="item" :span=12 v-for="(item, index) in recommendList" :key="index">{{item.name}}</el-col>
+      <el-col class="item" :span=6 v-for="(item, index) in recommendList" :key="index">{{item}}</el-col>
     </el-row>
     <create-dialog ref="SchemeDialog" @load-page="loadPage"></create-dialog>
   </div>
@@ -37,7 +37,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { getSchemePage, createScheme, updateScheme, deleteSchemeById, getSchemeById } from '@/api/crms/scheme'
+import { getSchemePage, createScheme, updateScheme, deleteSchemeById, getSchemeById, getMaterial } from '@/api/crms/scheme'
 import CreateDialog from './CreateDialog'
 import { downloadModel } from '@/api/crms/download'
 export default {
@@ -63,21 +63,16 @@ export default {
         { value: 1, label: '选项1' },
         { value: 2, label: '选项2' },
       ],
-      recommendList: [
-        {
-          name: '20180919建设银行政务服务中心方案1号',
-        }, {
-          name: '20180919建设银行政务服务中心方案2号',
-        }, {
-          name: '20180919建设银行政务服务中心方案3号',
-        },
-      ],
+      recommendList: [],
       submitFn: () => { },
       tags: ['政务网', '智慧城市'],
     }
   },
   created () {
     this.loadPage()
+    getMaterial({ clientId: this.record.id }).then((res) => {
+      this.recommendList = res.data.data
+    })
   },
   computed: {
 
@@ -128,15 +123,14 @@ export default {
     download (row) {
       downloadModel(row.atchUpload)
     },
-    handleSave (row) {
-      this.$router.push({
-        path: '/wel/material/datum',
-        // name: 'mallList',
-        query: {
-          router: true,
-          data: row,
-        },
-      })
+    handleSave () {
+      // this.$router.push({
+      //   path: '/mlms_spa/datum/create',
+      //   query: {
+      //     router: true,
+      //     data: row,
+      //   },
+      // })
       // row.status = 1
       // saveScheme({ ...row }).then(() => {
       //   this.$notify({
@@ -167,5 +161,8 @@ export default {
 .icon-zhuyi {
   color: #e6a23c;
   margin-right: 10px;
+}
+.item {
+  padding: 5px;
 }
 </style>

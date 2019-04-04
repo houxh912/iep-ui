@@ -4,7 +4,7 @@
       <operation-container>
         <template slot="left">
           <el-dropdown size="medium">
-            <iep-button size="small" type="primary"><i class="el-icon-plus"></i> 新增{{routerData}}<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+            <iep-button size="small" type="primary"><i class="el-icon-plus"></i> 新增<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
                 <div @click="localCreate">本地上传</div>
@@ -101,34 +101,15 @@ export default {
       selectList: [],
       createCollect,
       firstClass: [],
-      routerData: {},
-      router: false,
     }
   },
   created () {
     this.loadPage()
-    this.getRouter()
-    this.pageState = 'local'
-    if (this.router) {
-      this.pageState = 'local'
-      let name = this.routerData.atchUpload
-      this.$nextTick(() => {
-        this.$refs[this.pageState].methodName = '新建'
-        this.$refs['local'].formRequestFn = createData
-        this.$refs['local'].formData.materialName = this.routerData.programName
-        this.$refs['local'].formData.attachFileList = [{ name: name }]
-
-      })
-    }
     getConfigureTree().then(({ data }) => {
       this.firstClass = data.data
     })
   },
   methods: {
-    getRouter () {
-      this.routerData = this.$route.query.data
-      this.router = this.$route.query.router
-    },
     handleEdit (row) {
       // 0是本地，1是新建
       this.pageState = row.type === 0 ? 'local' : 'newly'
@@ -219,9 +200,6 @@ export default {
       this.$message.error('抱歉，此功能尚未开发')
     },
 
-  },
-  watch: {
-    '$route': 'getRouter',
   },
 }
 </script>

@@ -2,7 +2,6 @@
   <div class="wrap">
     <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" ref="form" label-width="130px" style="margin-bottom: 50px;">
-
       <el-form-item label="合同名称：" prop="contractName">
         <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。"></el-input>
       </el-form-item>

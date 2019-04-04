@@ -25,15 +25,15 @@
         </el-table-column>
       </iep-table>
     </div>
-    <edit-dialog ref="EditDialog" @load-page="loadPage" v-if="pageState=='dialog'" @dialog="isShow"></edit-dialog>
-    <detail-dialog ref="DetailDialog" v-if="pageState=='detail'" @detail="isShow"></detail-dialog>
+    <edit-dialog ref="EditDialog" @load-page="loadPage" v-if="pageState=='dialog'" @dialog="isShow" :record="record" :add="add"></edit-dialog>
+    <detail-dialog ref="DetailDialog" v-if="pageState=='detail'" @detail="isShow" :add="add"></detail-dialog>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options'
-import { getAgreementPage } from '@/api/crms/agreement'
+import { getAgreementPage, postAgreement, putAgreement, deleteAgreementById } from '@/api/crms/agreement'
 import EditDialog from './EditDialog'
 import DetailDialog from './DetailDialog'
 export default {
@@ -46,6 +46,7 @@ export default {
       formData: {},
       pageState: 'list',
       id: this.record.id,
+      add: {},
     }
   },
   props: {
@@ -58,45 +59,59 @@ export default {
     this.loadPage()
   },
   methods: {
-    // loadPage (param) {
-    //   this.loadTable(param, getAgreementPage)
-    // },
     loadPage (param = { ...this.searchForm, id: this.id }) {
       this.loadTable(param, getAgreementPage)
     },
     handleAdd () {
-      // this.$emit('onEdit', {
-      //   formRequestFn: postContact,
-      //   methodName: '新增',
-      //   id: false,
-      // })
+      this.add = {
+        formRequestFn: postAgreement,
+        methodName: '新增',
+        id: this.id,
+      }
       this.pageState = 'dialog'
-      //  this.$nextTick(() => {
-      //   this.$refs['mainDialog'].methodName = '新增'
-      //   this.$refs['mainDialog'].formRequestFn = createData
-      // })
     },
-    handleEdit () {
-      // this.$emit('onEdit', {
-      //   formRequestFn: putContact,
-      //   methodName: '编辑',
-      //   id: row.id,
-      // })
+    handleEdit (row) {
+      this.add = {
+        formRequestFn: putAgreement,
+        methodName: '编辑',
+        id: this.id,
+        contractId: row.contractId,
+      }
       this.pageState = 'dialog'
-      // getDataById(row.id).then((res) => {
-      //   this.$refs['mainDialog'].formData = res.data.data
-      //   this.$refs['mainDialog'].methodName = '编辑'
-      //   this.$refs['mainDialog'].formRequestFn = updateData
-      // })
     },
-    handleDetail () {
+    handleDetail (row) {
+      this.add = {
+        formRequestFn: putAgreement,
+        methodName: '详情',
+        id: this.id,
+        contractId: row.contractId,
+      }
       this.pageState = 'detail'
     },
     isShow () {
       this.pageState = 'list'
     },
-    handleDeleteById () {
-
+    handleDeleteById (row) {
+      this.$confirm('此操作将同时删除原件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        deleteAgreementById(row.contractId).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `删除失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      })
     },
   },
 

@@ -2,13 +2,9 @@
   <div>
     <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" ref="form" label-width="130px" style="margin-bottom: 50px;">
-
       <el-form-item label="合同名称：" prop="contractName">
         <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。"></el-input>
       </el-form-item>
-      <!-- <el-form-item label="关联项目：" prop="guanlian">
-        <el-input v-model="formData.guanlian" placeholder="关联项目"></el-input>
-      </el-form-item> -->
       <el-form-item label="合同说明 / 收款方式：" prop="contractExpl">
         <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5></el-input>
       </el-form-item>
@@ -35,94 +31,66 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <!-- <el-select v-model="formData.companyOrgId" placeholder="请选择">
-              <el-option v-for="item in deptList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select> -->
-            <iep-dept-select v-model="formData.companyOrgId"></iep-dept-select>
+            <iep-select prefix-url="crm/customer" v-model="formData.companyOrgId"></iep-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
-            <!-- <el-select v-model="formData.signCompanyOrgId" placeholder="请选择">
-              <el-option v-for="item in deptList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select> -->
-            <iep-dept-select v-model="formData.signCompanyOrgId"></iep-dept-select>
+            <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId"></iep-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span=12>
-          <el-form-item label="签署部门：" prop="signDeptOrgId">
-            <!-- <el-select v-model="formData.signDeptOrgId" placeholder="请选择">
-              <el-option v-for="item in deptList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select> -->
-            <iep-dept-select v-model="formData.signDeptOrgId"></iep-dept-select>
+          <el-form-item label="签署部门：" prop="signDeptOrgName">
+            <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
-          <el-form-item label="承接部门：" prop="underTakeDeptId">
-            <!-- <el-select v-model="formData.underTakeDeptId" placeholder="请选择" multiple>
-              <el-option v-for="item in deptList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select> -->
-            <iep-dept-select v-model="formData.underTakeDeptId"></iep-dept-select>
+          <el-form-item label="承接部门：" prop="underTakeDeptName">
+            <iep-dept-multiple v-model="formData.underTakeDeptName"></iep-dept-multiple>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span=12>
           <el-form-item label="市场经理：" prop="directorId">
-            <!-- <el-select v-model="formData.directorId" placeholder="请选择">
-              <el-option v-for="item in dicData.jingli" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select> -->
-            <iep-contact-select v-model="formData.directorId"></iep-contact-select>
+            <el-input v-model="formData.directorId" disabled></el-input>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="合同金额：" prop="contractAmount">
-            <el-input v-model="formData.contractAmount" placeholder="合同金额"></el-input>
+            <el-input v-model.number="formData.contractAmount" placeholder="合同金额"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span=12>
           <el-form-item label="合同级别：" prop="contractLevel">
-            <el-select v-model="formData.contractLevel" placeholder="请选择">
-              <el-option v-for="item in dictGroup['mlms_contract_level']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
+            <iep-dict-select dict-name="mlms_contract_level" v-model="formData.contractLevel"></iep-dict-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="合同状态：" prop="contractStatus">
-            <el-select v-model="formData.contractStatus" placeholder="请选择">
-              <el-option v-for="item in dictGroup['mlms_contract_status']" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
+            <iep-dict-select dict-name="mlms_contract_status" v-model="formData.contractStatus"></iep-dict-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span=12>
           <el-form-item label="保证金：" prop="deposit">
-            <el-input v-model="formData.deposit" placeholder="保证金"></el-input>
+            <el-input v-model.number="formData.deposit" placeholder="保证金"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span=12>
+        <!-- <el-col :span=12>
           <el-form-item label="合同附件：" prop="baozhengjin">
-            <!-- <el-upload
-              class="upload-demo"
-              action="11111"
-              :on-change="handleChange"
-              :file-list="formData.list"
-              :on-remove="onRemove">
-              <iep-button size="small" type="primary">点击上传</iep-button>
-            </el-upload> -->
             <iep-upload v-model="formData.fileList" :limit="1">
               <slot name="tip"><span>文件类型为excel，每次上传数量不超过一个</span></slot>
             </iep-upload>
           </el-form-item>
-
-        </el-col>
+        </el-col> -->
       </el-row>
     </el-form>
     <footer-toolbar>
@@ -132,9 +100,10 @@
   </div>
 </template>
 <script>
-import { initFormData, rules, deptList } from './options'
+import { initFormData, rules } from './options'
 import FooterToolbar from '@/components/FooterToolbar/'
 import { mapState } from 'vuex'
+import { agreementById } from '@/api/crms/agreement'
 export default {
   components: { FooterToolbar },
   data () {
@@ -142,23 +111,10 @@ export default {
       dialogShow: false,
       methodName: '新增',
       formRequestFn: () => { },
+      id: '',
+      contractId: '',
       formData: initFormData(),
       rules: rules,
-      deptList,
-      dicData: {
-        select: [
-          { value: 1, label: '选项1' },
-          { value: 2, label: '选项2' },
-        ],
-        dept: [
-          { value: 1, label: '部门1' },
-          { value: 2, label: '部门2' },
-        ],
-        jingli: [
-          { value: 1, label: '经理1号' },
-          { value: 2, label: '经理2号' },
-        ],
-      },
       backOption: {
         isBack: true,
         backPath: null,
@@ -168,13 +124,33 @@ export default {
       },
     }
   },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+    add: {
+      type: Object,
+      default: () => { },
+    },
+  },
   computed: {
     ...mapState({
       dictGroup: state => state.user.dictGroup,
     }),
   },
   created () {
-    console.log(this.dictGroup)
+    this.formRequestFn = this.add.formRequestFn
+    this.methodName = this.add.methodName
+    this.id = this.add.id
+    this.formData.companyOrgId = this.id
+    if (this.methodName == '编辑') {
+      this.contractId = this.add.contractId
+      agreementById(this.contractId).then(res => {
+        this.formData = res.data.data
+        this.formData.companyOrgId = this.id
+      })
+    }
   },
   methods: {
     loadPage () {
@@ -186,21 +162,27 @@ export default {
       this.$emit('dialog')
     },
     submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.formRequestFn(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
-              message: `${this.methodName}成功`,
-              type: 'success',
-              duration: 2000,
+      let formData = Object.assign({}, this.formData)
+      formData.signDeptOrgId = this.formData.signDeptOrgName.id
+      formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
+      formData.directorId = this.formData.directorId.id
+      formData.id = this.contractId,
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.formRequestFn(formData).then(() => {
+              this.$notify({
+                title: '成功',
+                message: `${this.methodName}成功`,
+                type: 'success',
+                duration: 2000,
+              })
+              this.$emit('dialog')
+              this.loadPage()
             })
-            this.loadPage()
-          })
-        } else {
-          return false
-        }
-      })
+          } else {
+            return false
+          }
+        })
     },
   },
 }

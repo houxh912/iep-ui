@@ -65,7 +65,7 @@ export default {
     handleAdd () {
       this.add = {
         formRequestFn: postAgreement,
-        methodName: '修改',
+        methodName: '新增',
         id: this.id,
       }
       this.pageState = 'dialog'

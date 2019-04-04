@@ -109,7 +109,7 @@ export default {
   data () {
     return {
       dialogShow: false,
-      methodName: '新增',
+      methodName: '详情',
       formRequestFn: () => { },
       id: '',
       contractId: '',

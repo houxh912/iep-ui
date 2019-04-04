@@ -166,7 +166,7 @@ export default {
       formData.signDeptOrgId = this.formData.signDeptOrgName.id
       formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
       formData.directorId = this.formData.directorId.id
-      formData.id = this.id,
+      formData.id = this.contractId,
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.formRequestFn(formData).then(() => {

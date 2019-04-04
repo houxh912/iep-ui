@@ -5,13 +5,11 @@
 <script>
 // 动态切换组件
 import List from './Page/List'
-import Detail from './Page/Detail'
 
 export default {
   name: 'TableListWrapper',
   components: {
     List,
-    Detail,
   },
   data () {
     return {

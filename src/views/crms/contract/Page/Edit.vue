@@ -60,7 +60,7 @@
         </el-col>
         <el-col :span=12>
           <el-form-item label="合同金额：" prop="contractAmount">
-            <el-input v-model="formData.contractAmount" placeholder="合同金额"></el-input>
+            <el-input v-model.number="formData.contractAmount" placeholder="合同金额"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -79,7 +79,7 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="保证金：" prop="deposit">
-            <el-input v-model="formData.deposit" placeholder="保证金"></el-input>
+            <el-input v-model.number="formData.deposit" placeholder="保证金"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

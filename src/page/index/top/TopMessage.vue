@@ -46,7 +46,7 @@
               </div>
             </div>
             <div class="msg-footer">
-              <iep-button type="text">查看更多</iep-button>
+              <iep-button type="text" @click="handleOpen('/wel/mail/inbox')">查看更多</iep-button>
             </div>
           </el-card>
         </el-tab-pane>

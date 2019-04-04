@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { getInitiatePage, deleteApprovalById, putApprovalInitiate } from '@/api/wel/administrative_approval'
+import { getInitiatePage, deleteApprovalById, putApprovalInitiate } from '@/api/hrms/wel'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
 import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'

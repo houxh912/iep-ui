@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import { getExaminApprovalPage, postApproval, reviewApprovaBatch } from '@/api/wel/administrative_approval'
+import { getExaminApprovalPage, postApproval, reviewApprovaBatch } from '@/api/hrms/wel'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
 import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'

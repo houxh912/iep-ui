@@ -1,5 +1,5 @@
 
-import { postApproval } from '@/api/wel/administrative_approval'
+import { postApproval } from '@/api/hrms/wel'
 import { formToDto } from './options'
 export default {
   props: {

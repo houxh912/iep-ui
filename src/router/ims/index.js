@@ -1,25 +1,38 @@
 import Layout from '@/page/index/index'
 export default [
   {
-    path: '/ims_spa',
+    path: '/wel',
     component: Layout,
-    redirect: '/ims_spa/announcement',
+    redirect: '/wel/message/announcement',
     children: [
+
       {
-        path: 'announcement',
+        path: 'message',
         name: '通知公告',
-        component: () => import('@/views/wel/message/Announcement/Form.vue'),
+        component: Layout,
+        children: [
+          {
+            path: 'announcement_detail',
+            name: '通知公告详情',
+            component: () => import('@/views/wel/message/Announcement/Form.vue'),
+          },
+        ],
       },
-      {
-        path: 'announcement_detail',
-        name: '通知公告详情',
-        component: () => import('@/views/wel/message/Announcement/Detail.vue'),
-      },
-      {
-        path: 'system_message_detail',
-        name: '系统消息详情',
-        component: () => import('@/views/wel/message/SystemMessage/Detail.vue'),
-      },
+      // {
+      //   path: 'announcement',
+      //   name: '通知公告',
+      //   component: () => import('@/views/wel/message/Announcement/Form.vue'),
+      // },
+      // {
+      //   path: 'announcement_detail',
+      //   name: '通知公告详情',
+      //   component: () => import('@/views/wel/message/Announcement/Detail.vue'),
+      // },
+      // {
+      //   path: 'system_message_detail',
+      //   name: '系统消息详情',
+      //   component: () => import('@/views/wel/message/SystemMessage/Detail.vue'),
+      // },
     ],
   },
 ]

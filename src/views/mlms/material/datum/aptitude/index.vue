@@ -3,7 +3,7 @@
     <div v-if="pageState=='list'">
       <operation-container>
         <template slot="left">
-          <iep-button size="small" type="primary" @click="handleAdd"><i class="el-icon-plus"></i> 新增</iep-button>
+          <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd">新增</iep-button>
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -19,16 +19,7 @@
           <operation-search @search-page="searchPage"></operation-search>
         </template>
       </operation-container>
-      <iep-table 
-        :isLoadTable="isLoadTable"
-        :pagination="pagination"
-        :dictsMap="dictsMap"
-        :columnsMap="columnsMap"
-        :pagedTable="pagedTable"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        isMutipleSelection
-        @selection-change="selectionChange">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection @selection-change="selectionChange">
         <template slot="before-columns">
           <el-table-column label="名称">
             <template slot-scope="scope">
@@ -42,8 +33,8 @@
         <el-table-column prop="operation" label="操作" width="300">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" size="small" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
-              <iep-button type="warning" size="small" v-else>已收藏</iep-button>
+              <iep-button type="warning" plain size="small" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
+              <iep-button type="warning" plain size="small" v-else>已收藏</iep-button>
               <iep-button size="small">分享</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
@@ -95,7 +86,7 @@ export default {
     },
     handleEdit (row) {
       this.pageState = 'dialog'
-      getDataById(row.id).then(({data}) => {
+      getDataById(row.id).then(({ data }) => {
         this.$refs['mainDialog'].formData = data.data
         this.$refs['mainDialog'].methodName = '编辑'
         this.$refs['mainDialog'].formRequestFn = updateData
@@ -128,7 +119,7 @@ export default {
         this.$message.info('请先选择需要收藏的选项')
         return
       }
-      for(let item of this.selectList) {
+      for (let item of this.selectList) {
         item.title = item.name
       }
       this.$refs['collection'].dialogShow = true

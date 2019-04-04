@@ -18,6 +18,7 @@ const initForm = () => {
     id: 1, // 用户ID 不可编辑
     name: null, // 姓名 不可编辑
     userName: null, // 用户名 不可编辑
+    orgId: null, // 组织ID 不可编辑
     orgName: null, // 组织名 不可编辑
     staffId: null, // 工号
     avatar: '', // 头像

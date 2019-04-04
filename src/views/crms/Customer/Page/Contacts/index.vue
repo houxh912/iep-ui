@@ -26,6 +26,12 @@ export default {
   name: 'contract',
   mixins: [mixins],
   components: { EditDrawer },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
   data () {
     return {
       columnsMap,
@@ -40,9 +46,11 @@ export default {
       this.loadTable(param, fetchList)
     },
     handleAdd () {
+      console.log(this.record.id)
       this.$refs['EditDrawer'].methodName = '新增'
       this.$refs['EditDrawer'].formRequestFn = createData
       this.$refs['EditDrawer'].drawerShow = true
+      this.$refs['EditDrawer'].id = this.record.id
     },
     handleEdit (row) {
       getContactById(row.clientContactId).then(({ data }) => {

@@ -2,11 +2,13 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button size="small" type="primary" @click="handleAdd"><i class="el-icon-plus"></i> 新增一级分类</iep-button>
+        <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd">新增一级分类</iep-button>
         <el-dropdown size="medium">
           <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item><div @click="handleDeletetByIds">删除</div></el-dropdown-item>
+            <el-dropdown-item>
+              <div @click="handleDeletetByIds">删除</div>
+            </el-dropdown-item>
             <el-dropdown-item @click.native="handleExport">导出</el-dropdown-item>
             <el-dropdown-item @click.native="handleDownloadAll">下载</el-dropdown-item>
           </el-dropdown-menu>
@@ -28,7 +30,7 @@
       <template #menu="{ scope, index }">
         <div class="operation-wrapper">
           <iep-button v-if="index===selectIndex" @click="handleSubmit">保存</iep-button>
-          <iep-button @click="handleEdit(scope, index)" v-else>编辑</iep-button>
+          <iep-button @click="handleEdit(scope, index)" v-else type="warning" plain>编辑</iep-button>
           <iep-button v-if="index===selectIndex" @click="handleCancel(scope)">取消</iep-button>
           <iep-button @click="handleDeleteById(scope, index)" v-else>删除</iep-button>
         </div>
@@ -46,7 +48,7 @@ import IepTableTree from './IepTableTree'
 export default {
   mixins: [mixins],
   components: { IepTableTree },
-  computed: {  },
+  computed: {},
   data () {
     return {
       dictsMap,
@@ -65,22 +67,22 @@ export default {
         sort: '',
         createTime: '',
       })
-      this.selectIndex = this.tableData.length-1
+      this.selectIndex = this.tableData.length - 1
       this.formData = initFormData()
     },
     // 编辑
     handleEdit (row, index) {
       this.selectIndex = index
-      this.formData = {...row}
+      this.formData = { ...row }
     },
     // 取消
     handleCancel (row) {
       if (!row.id) {
         if (typeof this.selectIndex === 'number') {
-          this.tableData.splice(this.tableData.length-1, 1)
+          this.tableData.splice(this.tableData.length - 1, 1)
         } else {
           let index = this.selectIndex.indexOf('-')
-          this.tableData[this.selectIndex.slice(0, index)].childrens.splice(this.selectIndex.slice(index+1), 1)
+          this.tableData[this.selectIndex.slice(0, index)].childrens.splice(this.selectIndex.slice(index + 1), 1)
         }
       }
       this.selectIndex = -1
@@ -108,7 +110,7 @@ export default {
         createTime: '',
       }
       this.tableData[row.$index].childrens.push(this.formData)
-      this.selectIndex = `${row.$index}-${this.tableData[row.$index].childrens.length-1}`
+      this.selectIndex = `${row.$index}-${this.tableData[row.$index].childrens.length - 1}`
     },
     // 删除
     handleDeleteById (row) {
@@ -164,14 +166,16 @@ export default {
   div:hover {
     background-color: #d6d6d6;
   }
-  .more-icon-3, .more-icon-4 {
+  .more-icon-3,
+  .more-icon-4 {
     font-size: 22px;
   }
-  .more-icon-2, .more-icon-3 {
+  .more-icon-2,
+  .more-icon-3 {
     transform: rotate(180deg);
-    -ms-transform: rotate(180deg);		/* IE 9 */
-    -webkit-transform: rotate(180deg);	/* Safari and Chrome */
-    -o-transform: rotate(180deg);		/* Opera */
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Safari and Chrome */
+    -o-transform: rotate(180deg); /* Opera */
     -moz-transform: rotate(180deg);
   }
 }

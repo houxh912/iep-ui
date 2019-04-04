@@ -4,7 +4,7 @@
       <operation-container>
         <template slot="left">
           <el-dropdown size="medium">
-            <iep-button size="small" type="primary"><i class="el-icon-plus"></i> 新增{{routerData}}<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+            <iep-button size="small" type="primary" icon="el-icon-plus" plain>新增{{routerData}}<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
                 <div @click="localCreate">本地上传</div>
@@ -53,8 +53,8 @@
         <el-table-column prop="operation" label="操作" width="300">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" size="small" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
-              <iep-button type="warning" size="small" v-else>已收藏</iep-button>
+              <iep-button type="warning" plain size="small" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
+              <iep-button type="warning" plain size="small" v-else>已收藏</iep-button>
               <iep-button size="small" @click="handleShare(scope.row)">分享</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>

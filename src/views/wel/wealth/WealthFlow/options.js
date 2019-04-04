@@ -9,12 +9,17 @@ const columnsMap = [
     label: '金额',
   },
   {
+    prop: 'currentAmount',
+    label: '当前金额',
+  },
+  {
     prop: 'time',
     label: '日期',
   },
   {
     prop: 'remarks',
     label: '备注',
+    minWidth: '400',
   },
 ]
 

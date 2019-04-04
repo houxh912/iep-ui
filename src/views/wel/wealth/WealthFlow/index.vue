@@ -4,12 +4,12 @@
       <page-header title="财富流水" :replaceText="replaceText" :data="[10 ,5,10,25]"></page-header>
       <operation-container>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
+          <operation-search @search-page="searchPage" advance-search>
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
         <template slot="before-columns">
           <el-table-column label="流水号" width="90px">
             <template slot-scope="scope">

@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="拜访日志" width="70%">
+  <iep-dialog :dialog-show="dialogShow" title="拜访日志" width="40%">
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
       <el-form-item :label="`${formData.type == 0 ? '会议主题':'会议标题'}：`" prop="title">
         <el-input v-model="formData.title"></el-input>
@@ -30,13 +30,6 @@ export default {
       rules,
       id: '',
       clientList: [],
-      // backOption: {
-      //   isBack: true,
-      //   backPath: null,
-      //   backFunction: () => {
-      //     this.$emit('load-page', true)
-      //   },
-      // },
     }
   },
   created () {

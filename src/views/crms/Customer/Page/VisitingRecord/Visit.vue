@@ -20,7 +20,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { fetchVisitLog, deleteVisitLog, updateVisitLog, createVisitLog } from '@/api/crms/visiting_record'
+import { fetchVisitLog, deleteVisitLog, updateVisitLog, createVisitLog, fetchVisitLogById } from '@/api/crms/visiting_record'
 import { visitColumnsMap } from './options'
 import EditDialog from './EditDialog'
 import VisitDialog from './VisitDialog'
@@ -33,6 +33,7 @@ export default {
       id: this.record.id,
       columnsMap: visitColumnsMap,
       dialogShow: false,
+      data: '',
     }
   },
   created () {
@@ -46,7 +47,11 @@ export default {
       this.$refs['VisitDialog'].id = this.id
     },
     handleEdit (row) {
+      fetchVisitLogById({ id: row.id }).then(res => {
+        this.data = res.data.data
+      })
       this.$refs['VisitDialog'].formData = { ...row }
+      this.$refs['VisitDialog'].formData.meetingContent = this.data.meetingContent
       this.$refs['VisitDialog'].dialogShow = true
       this.$refs['VisitDialog'].methodName = '保存'
       this.$refs['VisitDialog'].id = this.id

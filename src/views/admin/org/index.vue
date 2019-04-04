@@ -34,7 +34,7 @@
     </basic-container>
     <add-dialog-form ref="addDialogForm" @load-page="loadPage"></add-dialog-form>
     <person-dialog-form ref="personDialogForm" @load-page="loadPage"></person-dialog-form>
-    <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
+    <iep-review-confirm is-inverse ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
   </div>
 </template>
 <script>
@@ -86,7 +86,8 @@ export default {
       } else {
         this.$refs['iepReviewForm'].ids = this.multipleSelection
       }
-      this.$refs['iepReviewForm'].requestFn = reviewById
+      this.$refs['iepReviewForm'].title = '审核'
+      this.$refs['iepReviewForm'].formRequestFn = reviewById
       this.$refs['iepReviewForm'].dialogShow = true
     },
     handleSelectionChange (val) {

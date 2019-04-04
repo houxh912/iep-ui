@@ -1,9 +1,10 @@
 <template>
   <div class="nav-info">
     <el-popover popper-class="msg-popover" placement="bottom" width="336" v-model="visible" trigger="click">
-      <el-tabs class="msg-tabs" v-model="activeName" @tab-click="handleClick">
+      <el-tabs class="msg-tabs" v-model="activeName">
         <el-tab-pane :label="`通知 (${announcementNum})`" name="first">
           <el-card class="box-card" :body-style="bodyStyle">
+            <iep-no-data v-if="!announcementList.length" message="暂无通知"></iep-no-data>
             <div v-for="item in announcementList" :key="item.id" class="text">
               <div class="list-item-content">
                 <h4 class="list-item-title" @click="handleAnnouncementDetail(item)">{{ item.name }}</h4>
@@ -13,12 +14,13 @@
               </div>
             </div>
             <div class="msg-footer">
-              <iep-button type="text" @click="$openPage('/wel/message/announcement')">更多</iep-button>
+              <iep-button type="text" @click="handleOpen('/wel/message/announcement')">查看更多</iep-button>
             </div>
           </el-card>
         </el-tab-pane>
         <el-tab-pane :label="`消息 (${systemMessageNum})`" name="second">
           <el-card class="box-card" :body-style="bodyStyle">
+            <iep-no-data v-if="!systemMessageList.length" message="暂无消息"></iep-no-data>
             <div v-for="item in systemMessageList" :key="item.id" class="text">
               <div class="list-item-content">
                 <h4 class="list-item-title" @click="handleSystemMessageDetail(item)">{{ item.name }}</h4>
@@ -28,12 +30,13 @@
               </div>
             </div>
             <div class="msg-footer">
-              <iep-button type="text" @click="$openPage('/wel/message/system_message')">更多</iep-button>
+              <iep-button type="text" @click="handleOpen('/wel/message/system_message')">查看更多</iep-button>
             </div>
           </el-card>
         </el-tab-pane>
         <el-tab-pane :label="`邮件 (${emailNum})`" name="third">
           <el-card class="box-card" :body-style="bodyStyle">
+            <iep-no-data v-if="!emailList.length" message="暂无邮件"></iep-no-data>
             <div v-for="item in emailList" :key="item.id" class="text">
               <div class="list-item-content">
                 <h4 class="list-item-title">{{ item.name }}</h4>
@@ -43,7 +46,7 @@
               </div>
             </div>
             <div class="msg-footer">
-              <iep-button type="text">更多</iep-button>
+              <iep-button type="text">查看更多</iep-button>
             </div>
           </el-card>
         </el-tab-pane>
@@ -98,8 +101,9 @@ export default {
       })
       this.visible = false
     },
-    handleClick () {
-      // console.log(tab, event)
+    handleOpen (url) {
+      this.$openPage(url)
+      this.visible = false
     },
     loadPage () {
       getImsWel().then(({ data }) => {
@@ -197,7 +201,6 @@ h4 {
     flex: 1 1;
     align-items: flex-start;
     padding: 20px;
-    border-bottom: 1px solid #eceef5;
     .list-item-content {
       flex: 1 0;
       .list-item-title {
@@ -216,6 +219,7 @@ h4 {
   }
 }
 .msg-footer {
+  border-top: 1px solid #eceef5;
   text-align: center;
 }
 </style>

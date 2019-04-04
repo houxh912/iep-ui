@@ -6,14 +6,11 @@
         <el-form-item label="主题：">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
+        <el-form-item label="类型：">
+          <iep-dict-select v-model="form.type" dict-name="ims_notify_type"></iep-dict-select>
+        </el-form-item>
         <el-form-item label="内容：">
           <el-input type="textarea" v-model="form.content"></el-input>
-        </el-form-item>
-        <el-form-item label="属性：">
-          <el-checkbox-group v-model="form.prop">
-            <el-checkbox label="不允许评论" name="0"></el-checkbox>
-            <el-checkbox label="置顶" name="1"></el-checkbox>
-          </el-checkbox-group>
         </el-form-item>
         <el-form-item label="发布范围：">
           <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
@@ -21,7 +18,7 @@
         <el-form-item label="">
           <operation-wrapper>
             <iep-button type="primary" @click="handleSubmit">提交</iep-button>
-            <iep-button @click="handlePublish">保存并发布</iep-button>
+            <!-- <iep-button @click="handlePublish">保存并发布</iep-button> -->
           </operation-wrapper>
         </el-form-item>
       </el-form>

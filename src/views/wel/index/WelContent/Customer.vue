@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { getCustomerList } from '@/api/wel/crms/customer'
+import { getCustomerList } from '@/api/wel/index'
 export default {
   data () {
     return {

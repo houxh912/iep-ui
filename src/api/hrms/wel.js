@@ -1,7 +1,7 @@
 import request from '@/router/axios'
 
 const prefixUrl = '/hrms/administrative_approval'
-// @/api/wel/administrative_approval
+// @/api/hrms/wel
 function getAdministrativeApprovalPage (query, type) {
   return request({
     url: `${prefixUrl}/page`,

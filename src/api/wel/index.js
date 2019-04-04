@@ -22,3 +22,29 @@ export function getMaterials () {
     method: 'get',
   })
 }
+
+export function getPending (type) {
+  return request({
+    url: `${prefixUrl}/pending/list`,
+    method: 'get',
+    params: {
+      type,
+    },
+  })
+}
+
+export function getContractList (query) {
+  return request({
+    url: '/crm/cms/wel/contract/list',
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getCustomerList (query) {
+  return request({
+    url: '/crm/cms/wel/customer/list',
+    method: 'get',
+    params: query,
+  })
+}

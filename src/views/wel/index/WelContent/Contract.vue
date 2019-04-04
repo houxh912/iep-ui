@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { getContractList } from '@/api/wel/crms/customer'
+import { getContractList } from '@/api/wel/index'
 export default {
   data () {
     return {

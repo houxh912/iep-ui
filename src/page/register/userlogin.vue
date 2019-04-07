@@ -1,36 +1,45 @@
 <template>
-  <el-form class="login-form" status-icon :rules="registerRule" ref="registerForm" :model="registerForm" label-width="0">
+  <el-form class="login-form" status-icon :rules="rules" ref="form" :model="form" label-width="0">
     <el-form-item prop="username">
-      <el-input autocomplete="off" v-model="registerForm.username" auto-complete="off" placeholder="请输入用户名"></el-input>
+      <a-input ref="username" v-model="form.username" auto-complete="off" placeholder="请输入用户名" size="large">
+        <a-icon slot="prefix" type="user" />
+        <a-icon v-if="form.username" slot="suffix" type="close-circle" @click="emitEmpty('username')" />
+      </a-input>
     </el-form-item>
     <el-form-item prop="password">
-      <el-input autocomplete="off" :type="passwordType" v-model="registerForm.password" placeholder="请输入你的密码">
-        <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-      </el-input>
+      <a-input ref="password" :type="passwordType" v-model="form.password" auto-complete="false" placeholder="请输入密码" size="large">
+        <a-icon slot="prefix" type="key" />
+        <a-icon v-if="form.password" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
+      </a-input>
     </el-form-item>
     <el-form-item prop="cpassword">
-      <el-input autocomplete="off" :type="passwordType" v-model="registerForm.cpassword" placeholder="确认你的密码">
-        <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-      </el-input>
+      <a-input ref="cpassword" :type="passwordType" v-model="form.cpassword" auto-complete="false" placeholder="确认你的密码" size="large">
+        <a-icon slot="prefix" type="key" />
+        <a-icon v-if="form.cpassword" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
+      </a-input>
     </el-form-item>
     <el-form-item prop="realName">
-      <el-input v-model="registerForm.realName" auto-complete="off" placeholder="请输入真实姓名"></el-input>
+      <a-input ref="realName" v-model="form.realName" auto-complete="off" placeholder="请输入真实姓名" size="large">
+        <a-icon slot="prefix" type="user" />
+        <a-icon v-if="form.realName" slot="suffix" type="close-circle" @click="emitEmpty('realName')" />
+      </a-input>
     </el-form-item>
     <el-form-item prop="phone">
-      <el-input v-model="registerForm.phone" auto-complete="off" placeholder="请输入手机号码"></el-input>
+      <a-input ref="phone" v-model="form.phone" auto-complete="off" placeholder="请输入手机号码" size="large">
+        <a-icon slot="prefix" type="phone" />
+        <a-icon v-if="form.phone" slot="suffix" type="close-circle" @click="emitEmpty('phone')" />
+      </a-input>
     </el-form-item>
     <el-form-item prop="code">
-      <div class="code-wrapper">
-        <el-input @keyup.enter.native="handleLogin" maxlength="4" v-model="registerForm.code" auto-complete="off" placeholder="请输入验证码">
-        </el-input>
-        <el-button @click="handleSend" class="msg-text" :class="[{ display: msgKey }]">{{ msgText }}</el-button>
-      </div>
+      <a-input-search maxlength="4" v-model="form.code" auto-complete="off" placeholder="请输入验证码" @search="handleSend" size="large">
+        <a-button slot="enterButton" :class="[{ display: msgKey }]">{{ msgText }}</a-button>
+      </a-input-search>
     </el-form-item>
     <el-form-item>
       <el-checkbox v-model="checked">同意并遵守<span class="agreement">《用户守则》</span></el-checkbox>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" size="small" @click.native.prevent="handleRegister" class="login-submit">注册</el-button>
+      <a-button type="primary" size="large" @click="handleRegister" block>注册</a-button>
     </el-form-item>
   </el-form>
 </template>
@@ -75,8 +84,8 @@ export default {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
-        if (this.registerForm.cpassword !== '') {
-          this.$refs.registerForm.validateField('cpassword')
+        if (this.form.cpassword !== '') {
+          this.$refs.form.validateField('cpassword')
         }
         callback()
       }
@@ -84,7 +93,7 @@ export default {
     const validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'))
-      } else if (value !== this.registerForm.password) {
+      } else if (value !== this.form.password) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
@@ -94,7 +103,7 @@ export default {
       msgText: MSGINIT,
       msgTime: MSGTIME,
       msgKey: false,
-      registerForm: {
+      form: {
         username: '',
         password: '',
         cpassword: '',
@@ -109,7 +118,7 @@ export default {
         type: 'image',
       },
       checked: false,
-      registerRule: {
+      rules: {
         username: [
           { validator: checkUserName, trigger: 'blur' },
         ],
@@ -135,9 +144,13 @@ export default {
   },
   props: [],
   methods: {
+    emitEmpty (name) {
+      this.$refs[name].focus()
+      this.form[name] = ''
+    },
     handleSend () {
       if (this.msgKey) return
-      getMobileCode(this.registerForm.phone).then(response => {
+      getMobileCode(this.form.phone).then(response => {
         if (response.data.data) {
           this.$message.success('验证码发送成功')
         } else {
@@ -159,12 +172,12 @@ export default {
       }, 1000)
     },
     refreshCode () {
-      this.registerForm.code = ''
-      this.registerForm.randomStr = randomLenNum(this.code.length, true)
+      this.form.code = ''
+      this.form.randomStr = randomLenNum(this.code.length, true)
       this.code.type === 'text'
         ? (this.code.value = randomLenNum(this.code.len))
         : (this.code.src = `${this.codeUrl}?randomStr=${
-          this.registerForm.randomStr
+          this.form.randomStr
           }`)
     },
     showPassword () {
@@ -173,9 +186,9 @@ export default {
         : (this.passwordType = '')
     },
     handleRegister () {
-      this.$refs.registerForm.validate(valid => {
+      this.$refs.form.validate(valid => {
         if (valid) {
-          registerUser(this.registerForm).then(({ data }) => {
+          registerUser(this.form).then(({ data }) => {
             if (data.data) {
               this.$message({
                 message: '恭喜你，注册成功',
@@ -196,50 +209,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.login-submit {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-  height: 40px;
-  font-size: 14px;
-  text-align: center;
-  border: 0px;
-  background-color: #ba1b20;
-  color: white;
-}
-.login-submit:hover {
-  background-color: #f56c6c;
-  color: white;
-}
-.code-wrapper {
-  display: flex;
-}
 .login-form {
   margin: 10px 0;
-  i {
-    color: #999;
-  }
   .el-form-item {
     margin-bottom: 20px;
     .el-form-item__content {
       margin-left: 0 !important;
       width: 100%;
-    }
-    .msg-text {
-      display: block;
-      margin-left: -1px;
-      font-size: 12px;
-      text-align: center;
-      cursor: pointer;
-      background-color: #ccc;
-      color: #fff;
-      border-radius: 0 4px 4px 0;
-      &:hover,
-      &:focus {
-        border-color: #999;
-        background-color: #999;
-        color: #fff;
-      }
     }
   }
   .el-input {
@@ -251,29 +227,6 @@ export default {
       }
     }
   }
-}
-.msg-text.display {
-  color: #ccc;
-}
-.login-code {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin: 0 0 0 10px;
-}
-.login-code-img {
-  margin-top: 2px;
-  width: 100px;
-  height: 38px;
-  background-color: #fdfdfd;
-  border: 1px solid #f0f0f0;
-  color: #333;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 5px;
-  line-height: 38px;
-  text-indent: 5px;
-  text-align: center;
 }
 .agreement {
   color: #999;

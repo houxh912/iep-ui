@@ -1,6 +1,6 @@
 <template>
   <basic-container>
-      <page-header title="星标邮件" class="title"></page-header>
+    <page-header title="星标邮件" class="title"></page-header>
     <iep-tabs v-model="tabName" :tab-list="tabList">
       <template v-if="tabName ==='alltabTemplate'" v-slot:alltabTemplate>
         <web-tab-tpl></web-tab-tpl>
@@ -25,7 +25,7 @@ import WebTabTpl from './tab'
 
 export default {
   name: 'inbox',
-  mixins: [ mixins ],
+  mixins: [mixins],
   components: { IepTabs, WebTabTpl },
   data () {
     return {

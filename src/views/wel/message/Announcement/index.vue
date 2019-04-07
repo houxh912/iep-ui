@@ -70,7 +70,6 @@ export default {
         path: '/ims_spa/announcement_detail',
         query: {
           id: row.id,
-          redirect: this.$route.fullPath,
         },
       })
     },
@@ -86,7 +85,6 @@ export default {
         path: '/ims_spa/announcement',
         query: {
           id: 0,
-          redirect: this.$route.fullPath,
         },
       })
     },
@@ -95,7 +93,6 @@ export default {
         path: '/ims_spa/announcement',
         query: {
           id: row.id,
-          redirect: this.$route.fullPath,
         },
       })
     },

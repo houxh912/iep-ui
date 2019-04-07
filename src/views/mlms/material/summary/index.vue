@@ -113,10 +113,10 @@ export default {
       this.paramForm = initSearchForm()
     },
     handleAdd () {
-      this.$router.push('/mlms_spa/summary/create?back=/wel/material/summary')
+      this.$router.push('/mlms_spa/summary/create')
     },
     handleEdit (row) {
-      this.$router.push(`/mlms_spa/summary/create?back=/wel/material/summary&id=${row.id}`)
+      this.$router.push(`/mlms_spa/summary/create&id=${row.id}`)
     },
     handleDetail (row) {
       // this.pageState = 'detail'

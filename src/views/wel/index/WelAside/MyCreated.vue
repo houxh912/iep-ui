@@ -18,7 +18,7 @@ export default {
         {
           title: '纪要',
           callback: () => {
-            this.$router.push('/mlms_spa/summary/create?back=/wel/index')
+            this.$router.push('/mlms_spa/summary/create')
           },
         },
         {
@@ -60,7 +60,7 @@ export default {
         {
           title: '邮件',
           callback: () => {
-            this.$router.push('/wel/mail/new?back=/wel/index')
+            this.$router.push('/wel/mail/new')
           },
         },
         {

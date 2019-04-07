@@ -103,7 +103,6 @@ export default {
         path: '/hrms_spa/approval',
         query: {
           name: this.name,
-          redirect: this.$route.fullPath,
         },
       })
     },

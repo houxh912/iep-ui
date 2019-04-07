@@ -83,7 +83,6 @@ export default {
         path: '/ims_spa/system_message_detail',
         query: {
           id: row.id,
-          redirect: this.$route.fullPath,
         },
       })
     },

@@ -33,7 +33,6 @@ export default {
         path: '/crms_spa/customer_detail',
         query: {
           id: row.id,
-          redirect: this.$route.fullPath,
         },
       })
     },

@@ -6,12 +6,7 @@ import { imgUrl } from '@/config/env'
 export default {
   name: 'IepImgAvatar',
   inheritAttrs: false,
-  props: {
-    src: {
-      required: true,
-      validator: prop => typeof prop === 'string' || prop === null,
-    },
-  },
+  props: ['src'],
   computed: {
     realSrc () {
       if (!this.src) {

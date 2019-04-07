@@ -9,8 +9,6 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -w -r 0",
     "commitmsg": "validate-commit-msg",
     "cz": "git cz",
-    "etc": "et -c ./src/styles/theme/element-variables.scss -o ./src/theme/",
-    "eti": "et -i ./src/styles/theme/element-variables.scss",
     "mock": "node server/index",
     "report": "vue-cli-service build --report",
     "serve-mock": "vue-cli-service serve --mode=mock"
@@ -55,8 +53,6 @@
     "commitizen": "^3.0.7",
     "conventional-changelog-cli": "^2.0.12",
     "cz-conventional-changelog": "^2.1.0",
-    "element-theme": "^2.0.1",
-    "element-theme-chalk": "https://github.com/ElementUI/theme-chalk",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "fibers": "^3.1.1",

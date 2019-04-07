@@ -5,7 +5,6 @@
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>发起申请</iep-button>
-          <!-- <el-button @click="rowCell(scope.row,scope.index)">发起申请</el-button> -->
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search>
@@ -20,11 +19,11 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="操作" width="220px">
+        <el-table-column label="操作" width="150px">
           <template slot-scope="scope">
-            <el-button size="small" type="warning" plain @click="handleEdit(scope.row,scope.index)">修改</el-button>
-            <el-button size="small" @click="handleDelete(scope.row)">删除</el-button>
-            <el-button size="small">提交</el-button>
+            <el-button :disabled="scope.row.status!==1" size="small" type="warning" plain @click="handleCancel(scope.row)">撤销</el-button>
+            <!-- <el-button size="small" @click="handleDelete(scope.row)">删除</el-button>
+            <el-button size="small">撤销</el-button> -->
           </template>
         </el-table-column>
       </iep-table>
@@ -61,12 +60,6 @@ export default {
           redirect: this.$route.fullPath,
         },
       })
-    },
-    handleCommandType () {
-      // console.log(val)
-    },
-    handleCommandUser () {
-      // console.log(val)
     },
     handleEdit (row) {
       this.$emit('onEdit', {

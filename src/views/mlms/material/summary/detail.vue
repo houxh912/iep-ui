@@ -39,20 +39,7 @@
             <p>又学到啦，继续加油哦！</p>
             <div class="footer">
               <div class="time">2019-02-10 10:15:30</div>
-              <div class="button"><i class="icon-pinglun1"></i>回复（2）</div>
-            </div>
-            <div class="reply">
-              <div class="title">
-                <div class="img">
-                  <img src="/img/logo.png" alt="">
-                </div>
-                <span>李四弟</span>回复<span>张三哥</span>
-              </div>
-              <div class="info">共同学习，一起进步！</div>
-              <div class="footer">
-                <div class="time">2019-02-10 10:15:30</div>
-                <div class="button"><i class="icon-pinglun1"></i>回复（0）</div>
-              </div>
+              <!-- <div class="button"><i class="icon-pinglun1"></i>回复（2）</div> -->
             </div>
           </div>
         </div>

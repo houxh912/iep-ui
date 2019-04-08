@@ -2,16 +2,16 @@
   <div class="navContent">
     <el-row v-for="(item,index) in contentData" :key="index">
       <el-col :span="16">
-        <div class="grid-content title">{{item.title}}</div>
+        <div class="grid-content title">{{item.name}}</div>
       </el-col>
-      <el-col :span="6" v-if="item.author">
-        <div class="grid-content">{{item.author}}</div>
+      <el-col :span="6" v-if="item.subName">
+        <div class="grid-content">{{item.subName}}</div>
       </el-col>
       <el-col :span="6" v-if="item.process">
         <el-progress :percentage="item.process" color="#68C769"></el-progress>
       </el-col>
       <el-col :span="2">
-        <div class="grid-content text-right text-time">{{item.date}}</div>
+        <div class="grid-content text-right text-time">{{item.time | parseTime('{m}-{d}')}}</div>
       </el-col>
     </el-row>
   </div>

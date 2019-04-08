@@ -48,7 +48,7 @@ export function dateFormat (date) {
 
 export function timeAgo (time) {
   const newDate = parseDate(time)
-  const between = Date.now() - Number(newDate)
+  const between = (Date.now() - Number(newDate)) / 1000
   if (between < 3600) {
     return pluralize(~~(between / 60), '分钟前')
   } else if (between < 86400) {
@@ -99,11 +99,8 @@ export function parseTime (time, cFormat) {
 export function formatTime (time, option) {
   let newDate = parseDate(time)
   newDate = +newDate * 1000
-  const d = new Date(newDate)
-  const now = Date.now()
-
-  const diff = (now - d) / 1000
-
+  const now = Date.now() * 1000
+  const diff = (now - newDate) / 1000 / 1000
   if (diff < 30) {
     return '刚刚'
   } else if (diff < 3600) {
@@ -111,23 +108,13 @@ export function formatTime (time, option) {
     return Math.ceil(diff / 60) + '分钟前'
   } else if (diff < 3600 * 24) {
     return Math.ceil(diff / 3600) + '小时前'
-  } else if (diff < 3600 * 24 * 2) {
-    return '1天前'
+  } else if (diff < 3600 * 24 * 16) {
+    return Math.ceil(diff / 3600 / 24) + '天前'
   }
   if (option) {
-    return parseTime(newDate, option)
+    return parseTime(time, option)
   } else {
-    return (
-      d.getMonth() +
-      1 +
-      '月' +
-      d.getDate() +
-      '日' +
-      d.getHours() +
-      '时' +
-      d.getMinutes() +
-      '分'
-    )
+    return parseTime(time)
   }
 }
 

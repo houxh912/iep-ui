@@ -22,7 +22,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="对应客户" prop="clientName">
+            <el-form-item label="对应客户" prop="clientInfos">
               <span class="tags" v-for="(item,index) in formData.clientInfos" :key="index">{{item.clientName}}</span>
               <el-button size="small" @click="addContact" icon="el-icon-plus"></el-button>
             </el-form-item>
@@ -176,6 +176,7 @@ export default {
       this.formData = initForm()
     },
     handleSelectionChange (row) {
+      console.log(row)
       this.formData.clientIds = row.map(m => m.clientId)
       this.selectData = row
     },
@@ -226,6 +227,8 @@ export default {
 .btn .cancel {
   margin-right: 10px;
 }
-.el-dialog {margin-top:20px;}
+.el-dialog {
+  margin-top: 20px;
+}
 </style>
 

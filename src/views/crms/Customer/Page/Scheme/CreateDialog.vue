@@ -3,7 +3,7 @@
   <iep-dialog :dialog-show="dialogShow" :title="`${methodName}方案`" width="60%" @close="loadPage">
     <el-form :model="formData" :rules="rules" ref="formName" label-width="100px" size="small">
       <el-form-item>
-        <el-col><i class="el-icon-warning"></i> 是否需要关联材料库？如需要，<span class="relation">请点击</span></el-col>
+        <el-col><i class="el-icon-warning"></i> 是否需要关联材料库？如需要，<span class="relation" @click="relation">请点击此处</span></el-col>
         <el-col>如不需要，请直接填写下方内容</el-col>
       </el-form-item>
       <el-form-item label="方案名称：" prop="programName">
@@ -19,11 +19,18 @@
       <iep-button type="primary" @click="submitForm('formName')">{{methodName}}</iep-button>
       <iep-button @click="resetForm">取消</iep-button>
     </template>
+    <meterial-dialog ref="MeterialDialog" @load-page="loadPage" @add="add"></meterial-dialog>
   </iep-dialog>
+
 </template>
 <script>
 import { initForm } from './options'
+import MeterialDialog from './MeterialDialog'
+import { createData } from '@/api/mlms/material/datum/material'
 export default {
+  components: {
+    MeterialDialog,
+  },
   data () {
     return {
       dialogShow: false,
@@ -41,6 +48,16 @@ export default {
   created () {
   },
   methods: {
+    relation () {
+      this.$nextTick(() => {
+        this.$refs['MeterialDialog'].dialogShow = true
+        this.$refs['MeterialDialog'].formRequestFn = createData
+      })
+    },
+    add (val) {
+      this.formData.programName = val.materialName
+      this.formData.attachs = val.attachFileList
+    },
     loadPage () {
       this.formData = initForm()
       this.dialogShow = false
@@ -78,4 +95,11 @@ export default {
   },
 }
 </script>
+<style>
+.relation {
+  color: #be2c31;
+  cursor: pointer;
+}
+</style>
+
 

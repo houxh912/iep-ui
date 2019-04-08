@@ -40,6 +40,12 @@ export default {
           id: '/app/person',
           name: '国脉人',
         }, {
+          id: '/app/products',
+          name: '产品',
+        }, {
+          id: '/app/brand',
+          name: '品牌',
+        }, {
           id: '/app/news',
           name: '要闻',
         }, {
@@ -49,11 +55,14 @@ export default {
           id: '/app/data',
           name: '数据',
         }, {
-          id: '/app/wealth',
-          name: '财富',
-        }, {
+          //   id: '/app/wealth',
+          //   name: '财富',
+          // }, {
           id: '/app/college',
           name: '学院',
+        }, {
+          id: '/app/search',
+          name: '搜索',
         },
       ],
     }

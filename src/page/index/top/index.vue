@@ -2,7 +2,9 @@
   <div class="top">
     <div class="top-left">
       <div class="logo-wrapper">
-        <div class="logo" @click="$openPage('/')"></div>
+        <el-tooltip class="item" effect="dark" content="点击返回工作台" placement="bottom">
+          <div class="logo" @click="$openPage('/')"></div>
+        </el-tooltip>
         <el-dropdown>
           <span class="el-dropdown-link">
             国脉智慧平台

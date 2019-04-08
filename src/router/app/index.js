@@ -16,6 +16,16 @@ export default [
         component: () => import('@/views/app/person/'),
       },
       {
+        path: 'products',
+        name: '产品',
+        component: () => import('@/views/app/products/'),
+      },
+      {
+        path: 'brand',
+        name: '品牌',
+        component: () => import('@/views/app/brand/'),
+      },
+      {
         path: 'news',
         name: '要闻',
         component: () => import('@/views/app/news/'),
@@ -39,6 +49,11 @@ export default [
         path: 'college',
         name: '学院',
         component: () => import('@/views/app/college/'),
+      },
+      {
+        path: 'search',
+        name: '搜索',
+        component: () => import('@/views/app/search/'),
       },
     ],
   },

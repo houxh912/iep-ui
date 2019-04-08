@@ -60,7 +60,7 @@ export default {
           this.formRequestFn(this.form).then(() => {
             this.$notify({
               title: '成功',
-              message: '备注',
+              message: '岗位库修改成功',
               type: 'success',
               duration: 2000,
             })

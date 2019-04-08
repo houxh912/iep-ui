@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" :title="title" width="520px" @close="handleCancel" center>
     <div class="center-box">
       <el-radio-group v-model="status" class="status">
-        <el-radio :label="1">审核通过</el-radio>
+        <el-radio :label="isInverse ? 0 : 1">审核通过</el-radio>
         <el-radio :label="2">审核不通过</el-radio>
       </el-radio-group>
       <el-input v-if="status === 2" class="content" type="textarea" autosize placeholder="请输入内容" v-model="content">
@@ -18,13 +18,19 @@
 import IepDialog from '@/components/IepDialog/'
 export default {
   name: 'IepReviewConfirm',
+  props: {
+    isInverse: {
+      type: Boolean,
+      default: false,
+    },
+  },
   components: { IepDialog },
   data () {
     return {
       title: '',
       formRequestFn: () => { },
       dialogShow: false,
-      status: 0, // 待审核
+      status: this.isInverse ? 1 : 0, // 待审核
       content: '',
       id: null,
       ids: [],

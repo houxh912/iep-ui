@@ -9,9 +9,12 @@
           <el-button :type="`${tabsActive ? 'primary':'default'}`" size="mini" @click="tabsActive=1">创建组织</el-button>
         </div>
         <div class="bottom-wrapper">
-          <div v-if="tabsActive===0" class="select-org-container">
-            <el-button class="grid-item" v-for="(item,index) in orgList" :key="index" @click="handleApplyJoin(item)">{{item.name}}</el-button>
-          </div>
+          <template v-if="tabsActive===0">
+            <a-input-search class="search-box" placeholder="请输入组织名进行搜索" @search="onSearch" enterButton />
+            <div class="select-org-container">
+              <el-button class="grid-item" v-for="(item,index) in orgList" :key="index" @click="handleApplyJoin(item)">{{item.name}}</el-button>
+            </div>
+          </template>
           <div v-if="tabsActive===1" class="create-org-container">
             <el-form ref="form" :rules="rules" :model="form" label-width="80px">
               <el-form-item label="组织名称" prop="name">
@@ -112,8 +115,11 @@ export default {
       this.logo = URL.createObjectURL(file.raw)
       this.form.logo = res.data.bucketName + '-' + res.data.fileName
     },
-    loadOrg () {
-      getOrgList().then(({ data }) => {
+    onSearch (name) {
+      this.loadOrg(name)
+    },
+    loadOrg (name = '') {
+      getOrgList(name).then(({ data }) => {
         this.orgList = data.data
       })
     },
@@ -149,10 +155,15 @@ export default {
     }
   }
   .bottom-wrapper {
+    text-align: center;
     margin-top: 20px;
+    .search-box {
+      width: 50%;
+      margin: 10px 0;
+    }
     .select-org-container {
       display: grid;
-      grid-template-columns: auto auto auto auto;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       .grid-item {
         margin: 10px 20px;
       }

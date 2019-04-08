@@ -1,23 +1,21 @@
 <template>
-  <el-form class="login-form" status-icon :rules="loginRules" ref="loginForm" :model="loginForm" label-width="0">
+  <el-form class="login-form" status-icon :rules="rules" ref="form" :model="form" label-width="0">
     <el-form-item prop="username">
-      <el-input @keyup.enter.native="handleLogin" v-model="loginForm.username" auto-complete="off" placeholder="请输入用户名">
-      </el-input>
+      <a-input ref="username" @keyup.enter.native="handleLogin" v-model="form.username" auto-complete="off" placeholder="请输入用户名" size="large">
+        <a-icon slot="prefix" type="user" />
+        <a-icon v-if="form.username" slot="suffix" type="close-circle" @click="emitEmpty('username')" />
+      </a-input>
     </el-form-item>
     <el-form-item prop="password">
-      <el-input @keyup.enter.native="handleLogin" :type="passwordType" v-model="loginForm.password" auto-complete="false" placeholder="请输入密码">
-        <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-      </el-input>
+      <a-input ref="password" @keyup.enter.native="handleLogin" :type="passwordType" v-model="form.password" auto-complete="false" placeholder="请输入密码" size="large">
+        <a-icon slot="prefix" type="key" />
+        <a-icon v-if="form.password" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
+      </a-input>
     </el-form-item>
     <el-form-item prop="code">
-      <div class="code-wrapper">
-        <el-input @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="loginForm.code" auto-complete="false" placeholder="请输入验证码">
-        </el-input>
-        <div class="login-code">
-          <span class="login-code-img" @click="refreshCode" v-if="code.type == 'text'">{{ code.value }}</span>
-          <img :src="code.src" class="login-code-img" @click="refreshCode" v-else />
-        </div>
-      </div>
+      <a-input class="login-code" @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="form.code" auto-complete="false" placeholder="请输入验证码" @search="refreshCode" size="large">
+        <img slot="suffix" :src="code.src" class="login-code-img" />
+      </a-input>
     </el-form-item>
     <el-form-item>
       <div class="login-text">
@@ -29,10 +27,14 @@
       </div>
     </el-form-item>
     <el-form-item>
-      <div>
-        <el-button size="small" @click.native.prevent="handleLogin" class="login-submit">登录</el-button>
-      </div>
-      <el-button size="small" class="login-visiter">访客</el-button>
+      <a-row :gutter="8">
+        <a-col :span="12">
+          <a-button type="primary" size="large" @click="handleLogin" block>登录</a-button>
+        </a-col>
+        <a-col :span="12">
+          <a-button size="large" block>访客</a-button>
+        </a-col>
+      </a-row>
     </el-form-item>
   </el-form>
 </template>
@@ -50,7 +52,7 @@ export default {
         code: '',
         state: '',
       },
-      loginForm: {
+      form: {
         username: 'admin',
         password: '123456',
         code: '',
@@ -63,7 +65,7 @@ export default {
         len: 4,
         type: 'image',
       },
-      loginRules: {
+      rules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
         ],
@@ -106,6 +108,10 @@ export default {
   },
   props: [],
   methods: {
+    emitEmpty (name) {
+      this.$refs[name].focus()
+      this.form[name] = ''
+    },
     handleRetrieve () {
       this.$emit('tab-active', 'retrieve')
     },
@@ -113,12 +119,12 @@ export default {
       this.$router.push('/register')
     },
     refreshCode () {
-      this.loginForm.code = ''
-      this.loginForm.randomStr = randomLenNum(this.code.len, true)
+      this.form.code = ''
+      this.form.randomStr = randomLenNum(this.code.len, true)
       this.code.type === 'text'
         ? (this.code.value = randomLenNum(this.code.len))
         : (this.code.src = `${codeUrl}?randomStr=${
-          this.loginForm.randomStr
+          this.form.randomStr
           }`)
     },
     showPassword () {
@@ -132,10 +138,10 @@ export default {
       })
     },
     handleLogin () {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.form.validate(valid => {
         if (valid) {
           this.$store
-            .dispatch('LoginByUsername', this.loginForm)
+            .dispatch('LoginByUsername', this.form)
             .then(() => {
               this.$router.push({ path: this.tagWel.value })
             })
@@ -150,35 +156,14 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.login-submit {
-  display: block;
-  margin: 0 auto 10px auto;
-  width: 100%;
-  height: 40px;
-  font-size: 14px;
-  text-align: center;
-  border: 0px;
-  background-color: #ba1b20;
-  color: white;
+.login-code >>> .ant-input-suffix {
+  height: 100%;
+  margin-right: -11px;
 }
-.login-submit:hover {
-  background-color: #f56c6c !important;
-  color: #fff !important;
-}
-.login-visiter {
-  display: block;
-  margin: 20px auto 10px auto;
-  width: 100%;
-  height: 40px;
-  font-size: 14px;
-  text-align: center;
-  border: 0px;
-  background-color: #e4e4e4;
-  color: black;
-}
-.login-visiter:hover {
-  background-color: #909399 !important;
-  color: #fff !important;
+.login-code .login-code-img {
+  padding: 1px 0;
+  height: 100%;
+  box-sizing: border-box;
 }
 .login-text {
   color: red;
@@ -218,35 +203,5 @@ export default {
 .login-form >>> .el-input .el-input__prefix i {
   padding: 0 5px;
   font-size: 16px !important;
-}
-.login-code {
-  display: flex;
-  margin-left: -1px;
-  width: 40%;
-  align-items: center;
-  justify-content: space-around;
-  border: 1px solid #dcdfe6;
-  border-radius: 0 4px 4px 0;
-}
-.login-code-img {
-  width: 100%;
-  height: 38px;
-  background-color: #fdfdfd;
-  color: #333;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 5px;
-  line-height: 38px;
-  text-align: center;
-}
-
-.code-wrapper {
-  display: flex;
-}
-.code-wrapper .el-input {
-  padding: 0;
-}
-.code-wrapper >>> .el-input .el-input__inner {
-  border-radius: 4px 0 0 4px;
 }
 </style>

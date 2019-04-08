@@ -129,7 +129,6 @@ export default {
     handleOpenGrowthFile (row) {
       this.$router.push({
         path: `/hrms_spa/growth_file/${row.id}`,
-        query: { redirect: this.$route.fullPath },
       })
     },
     handleEdit (row) {

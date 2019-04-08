@@ -17,7 +17,6 @@ export default {
   name: 'Wel',
   components: { WelAside, WelContent },
   created () {
-    console.log(this.noOrg)
     if (this.noOrg) {
       this.$router.push({
         name: '选择组织',

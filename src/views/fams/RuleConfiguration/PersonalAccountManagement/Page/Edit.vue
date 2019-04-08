@@ -117,7 +117,7 @@
   </div>
 </template>
 <script>
-import { getApprovalInitiateById } from '@/api/wel/administrative_approval'
+import { getApprovalInitiateById } from '@/api/hrms/wel'
 import { initForm, formToDto } from '../options'
 import { mergeByFirst } from '@/util/util'
 export default {

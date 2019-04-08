@@ -2,28 +2,33 @@ function pluralize (time, label) {
   if (time === 1) {
     return time + label
   }
-  return time + label + 's'
+  return `${time} 多${label}`
+}
+
+function parseDate (date) {
+  return new Date(date)
 }
 
 /**
  * 日期格式化
  */
 export function dateFormat (date) {
+  const newDate = parseDate(date)
   let format = 'yyyy-MM-dd hh:mm:ss'
   if (date != 'Invalid Date') {
     var o = {
-      'M+': date.getMonth() + 1, // month
-      'd+': date.getDate(), // day
-      'h+': date.getHours(), // hour
-      'm+': date.getMinutes(), // minute
-      's+': date.getSeconds(), // second
-      'q+': Math.floor((date.getMonth() + 3) / 3), // quarter
-      S: date.getMilliseconds(), // millisecond
+      'M+': newDate.getMonth() + 1, // month
+      'd+': newDate.getDate(), // day
+      'h+': newDate.getHours(), // hour
+      'm+': newDate.getMinutes(), // minute
+      's+': newDate.getSeconds(), // second
+      'q+': Math.floor((newDate.getMonth() + 3) / 3), // quarter
+      S: newDate.getMilliseconds(), // millisecond
     }
     if (/(y+)/.test(format)) {
       format = format.replace(
         RegExp.$1,
-        (date.getFullYear() + '').substr(4 - RegExp.$1.length)
+        (newDate.getFullYear() + '').substr(4 - RegExp.$1.length)
       )
     }
     for (var k in o) {
@@ -42,31 +47,33 @@ export function dateFormat (date) {
 }
 
 export function timeAgo (time) {
-  const between = Date.now() / 1000 - Number(time)
+  const newDate = parseDate(time)
+  const between = Date.now() - Number(newDate)
   if (between < 3600) {
-    return pluralize(~~(between / 60), ' minute')
+    return pluralize(~~(between / 60), '分钟前')
   } else if (between < 86400) {
-    return pluralize(~~(between / 3600), ' hour')
+    return pluralize(~~(between / 3600), '小时前')
   } else {
-    return pluralize(~~(between / 86400), ' day')
+    return pluralize(~~(between / 86400), '天前')
   }
 }
 
 export function parseTime (time, cFormat) {
+  let newDate = parseDate(time)
   if (arguments.length === 0) {
     return null
   }
 
-  if ((time + '').length === 10) {
-    time = +time * 1000
+  if ((newDate + '').length === 10) {
+    newDate = +newDate * 1000
   }
 
   const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}'
   let date
-  if (typeof time === 'object') {
-    date = time
+  if (typeof newDate === 'object') {
+    date = newDate
   } else {
-    date = new Date(parseInt(time))
+    date = new Date(parseInt(newDate))
   }
   const formatObj = {
     y: date.getFullYear(),
@@ -90,8 +97,9 @@ export function parseTime (time, cFormat) {
 }
 
 export function formatTime (time, option) {
-  time = +time * 1000
-  const d = new Date(time)
+  let newDate = parseDate(time)
+  newDate = +newDate * 1000
+  const d = new Date(newDate)
   const now = Date.now()
 
   const diff = (now - d) / 1000
@@ -107,7 +115,7 @@ export function formatTime (time, option) {
     return '1天前'
   }
   if (option) {
-    return parseTime(time, option)
+    return parseTime(newDate, option)
   } else {
     return (
       d.getMonth() +

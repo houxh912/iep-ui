@@ -2,18 +2,18 @@
   <div class="abs">
     <div class="contianBox">
       <el-row class="topBot">
-        <el-col :span="4">审批状态：{{appMsg.status}}</el-col>
-        <el-col :span="5">申请人：{{appMsg.names}}</el-col>
-        <el-col :span="5">申请时间：{{appMsg.time}}</el-col>
-        <el-col :span="5">审批人：{{appMsg.appMan}}</el-col>
-        <el-col :span="5">审批时间：{{appMsg.appTime}}</el-col>
+        <el-col :span="4">审批状态：{{approvalStatus[form.approvalStatus]}}</el-col>
+        <el-col :span="5">申请人：{{form.applicantName}}</el-col>
+        <el-col :span="5">申请时间：{{form.applyTime}}</el-col>
+        <el-col :span="5">审批人：{{form.approverName}}</el-col>
+        <el-col :span="5">审批时间：{{form.approvalTime}}</el-col>
       </el-row>
       <el-row class="bot">
-        <el-col :span="12">审批不通过理由：{{appMsg.notThrough}}</el-col>
-        <el-col :span="12">指导建议：{{appMsg.through}}</el-col>
+        <el-col :span="12">审批不通过理由：{{form.approvalFailReason}}</el-col>
+        <el-col :span="12">指导建议：{{form.guideSugges}}</el-col>
       </el-row>
     </div>
-    <approval-contract :data="contractData"></approval-contract>
+    <approval-contract :data="contractData" :form=form></approval-contract>
   </div>
 </template>
 
@@ -21,30 +21,27 @@
   import ApprovalContract from './ApprovalContract'
   export default {
     name: 'detail-dialog',
-    data (){
-      return {
-        appMsg:{
-          status:'未提交',//状态
-          names : '殷亚增',//申请人
-          time : '2019-02-22',//申请时间
-          appMan : '张老三',//审批人
-          appTime : '2019-02-22',//审批时间
-          notThrough:'*******(审批不通过的理由内容)',
-          through:'********(指导建议的内容)',
-        },
-        contractData: {},
-      }
-    },
-    components:{ApprovalContract},
-    methods:{
-      close (){
-        this.$emit('close',false)
+    components: { ApprovalContract },
+    props: {
+      form: {
+        type: Object,
+        default: () => {},
       },
     },
-    props: {
-      detailShow: {
-        type: Boolean,
-        required: false,
+    data () {
+      return {
+        contractData: {},
+        approvalStatus: {
+          '1': '未提交',
+          '2': '待审核',
+          '3': '审核通过',
+          '4': '审核不通过',
+        },
+      }
+    },
+    methods: {
+      close () {
+        this.$emit('close',false)
       },
     },
   }

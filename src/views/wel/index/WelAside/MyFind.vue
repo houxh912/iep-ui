@@ -1,6 +1,5 @@
 <template>
   <div class="find">
-    <!-- <span class="btn " @click="hideAside"><i class="el-icon-caret-right"></i></span> -->
     <div class="title">
       <div class="inline">{{findList.title}}</div>
       <div class="more inline" @click="getMore">
@@ -25,14 +24,10 @@ export default {
   },
   methods: {
     getMore () {
-
+      this.$message.success('功能开发中')
     },
     hadelSelect () {
-      // console.log(index)
-    },
-    showAside () {
-      // console.log(222)
-      this.$store.commit('SHOWASIDE')
+      this.$message.success('功能开发中')
     },
   },
   computed: {
@@ -41,13 +36,6 @@ export default {
 }
 </script>
 <style  lang="scss" scoped>
-.sssss {
-  position: fixed;
-  top: 100px;
-  left: 500px;
-  background: #7e7e7e;
-  display: inline-block;
-}
 .find {
   box-sizing: border-box;
   position: relative;
@@ -79,7 +67,7 @@ export default {
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
     &:hover {
-      opacity: .6;
+      opacity: 0.6;
     }
   }
   .icon {

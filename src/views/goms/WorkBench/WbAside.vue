@@ -105,12 +105,12 @@ export default {
           description: '用户加入组织需通过管理员审核',
           actions: { callback: () => { this.$message.success('This is a message of success') } },
         },
-        {
-          title: '组织邀请码',
-          propName: 'isUserLocked',
-          description: '下载二维码邀请用户加入',
-          actions: { callback: () => { this.$message.error('This is a message of error') } },
-        },
+        // {
+        //   title: '组织邀请码',
+        //   propName: 'isUserLocked',
+        //   description: '下载二维码邀请用户加入',
+        //   actions: { callback: () => { this.$message.error('This is a message of error') } },
+        // },
       ],
     }
   },
@@ -199,7 +199,7 @@ export default {
         transition: all 0.3s;
         display: inline-block;
         &:hover {
-          color: #1890ff;
+          color: #999;
           .close {
             cursor: pointer;
             color: red;

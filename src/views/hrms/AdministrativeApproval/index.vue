@@ -128,7 +128,6 @@ export default {
         path: '/hrms_spa/approval_detail',
         query: {
           id: row.id,
-          redirect: this.$route.fullPath,
         },
       })
     },

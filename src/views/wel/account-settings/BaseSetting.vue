@@ -37,19 +37,19 @@
             <span>{{form.title}}</span>
           </el-form-item>
           <el-form-item label="入职时间：" class="form-half">
-            <el-input v-model="form.entryTime"></el-input>
+            <span>{{form.entryTime | parseTime('{y}-{m}-{d}')}}</span>
           </el-form-item>
           <el-form-item label="转正时间：" class="form-half">
-            <el-input v-model="form.positiveTime"></el-input>
+            <span>{{form.positiveTime | parseTime('{y}-{m}-{d}')}}</span>
           </el-form-item>
           <el-form-item label="员工状态：" class="form-half">
-            <el-input v-model="form.status"></el-input>
+            <span>{{dictsMap.status[form.status]}}</span>
           </el-form-item>
           <el-form-item label="所属部门：" class="form-half">
             <iep-detail-tag :value="form.deptList"></iep-detail-tag>
           </el-form-item>
           <el-form-item label="出生年月：" class="form-half">
-            <el-input v-model="form.birthday"></el-input>
+            <span>{{form.birthday | parseTime('{y}-{m}-{d}')}}</span>
           </el-form-item>
           <el-form-item label="性别：" class="form-half">
             <el-radio-group v-model="form.sex">
@@ -112,7 +112,7 @@
           </el-form-item>
 
           <el-form-item>
-            <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+            <a-button type="primary" @click="handleSubmit">提交</a-button>
           </el-form-item>
         </el-form>
 
@@ -123,11 +123,11 @@
 
 <script>
 import { getEmployeeProfileSelf, putEmployeeProfile } from '@/api/hrms/employee_profile'
-import { initForm } from './options'
+import { dictsMap, initForm } from './options'
 export default {
   data () {
     return {
-      // cropper
+      dictsMap,
       preview: {},
       form: initForm(),
     }
@@ -143,7 +143,7 @@ export default {
             message: '修改成功',
             type: 'success',
           })
-          this.handleGoBack()
+          this.loadSelf()
         } else {
           this.$message({
             message: data.msg,

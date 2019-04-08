@@ -131,7 +131,6 @@ export default {
           path: '/crms_spa/customer_detail',
           query: {
             routerBack: true,
-            redirect: this.$route.fullPath,
           },
         })
         saveScheme(this.backId).then(() => {

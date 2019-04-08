@@ -1,3 +1,15 @@
+const dictsMap = {
+  status: {
+    0: '暂无',
+    1: '正式员工',
+    2: '试用期员工',
+    3: '实习期员工',
+    4: '兼职员工',
+    5: '其他',
+    6: '离职员工',
+  },
+}
+
 const initForm = () => {
   return {
     id: 1, // 用户ID 不可编辑
@@ -78,4 +90,4 @@ const initPasswordForm = (username = null) => {
   }
 }
 
-export { initForm, initPasswordForm }
+export { dictsMap, initForm, initPasswordForm }

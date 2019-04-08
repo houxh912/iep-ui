@@ -17,7 +17,7 @@ export function createData (obj) {
   })
 }
 
-// 编辑 -- 立项申请
+// 编辑 -- 立项申请、审批
 export function updateData (obj) {
   return request({
     url: `${prefixUrl}/edit`,
@@ -40,5 +40,14 @@ export function deleteData (id) {
     url: `${prefixUrl}/delete/batch`,
     method: 'post',
     data: ids,
+  })
+}
+
+// 审批列表
+export function getApprovalList (obj) {
+  return request({
+    url: `${prefixUrl}/projectApproval`,
+    method: 'get',
+    params: obj,
   })
 }

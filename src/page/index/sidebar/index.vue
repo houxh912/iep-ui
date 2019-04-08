@@ -1,6 +1,6 @@
 <template>
   <div class="avue-sidebar" :style="{width: keyCollapse ? '' : '200px'}">
-    <el-scrollbar style="height:100%">
+    <el-scrollbar style="height:calc(100vh - 60px);">
       <main-item :mainMenu="mainMenu" :collapse="keyCollapse"></main-item>
       <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
       <div class="sub-menu-wrapper" v-if="mainMenu.path === '/wel'">

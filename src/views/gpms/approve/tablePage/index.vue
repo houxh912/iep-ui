@@ -1,0 +1,84 @@
+<template>
+  <div>
+    <iep-table 
+      :isLoadTable="isLoadTable" 
+      :pagination="pagination" 
+      :columnsMap="columnsMap" 
+      :dictsMap="dictsMap" 
+      :pagedTable="pagedTable" 
+      @size-change="handleSizeChange" 
+      @current-change="handleCurrentChange" 
+      is-mutiple-selection>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <iep-button size="small" type="danger" @click="handleApprove(scope.row)" v-if="scope.row.approvalStatus==2">审批</iep-button>
+            <iep-button size="small" @click="hanleNotApp(scope.row)" v-if="scope.row.approvalStatus==3">取消审批</iep-button>
+            <iep-button size="small" @click="handleMore(scope.row)" v-if="scope.row.approvalStatus==2">转交</iep-button>
+          </operation-wrapper>
+        </template>
+      </el-table-column>
+    </iep-table>
+    <!-- 转交 -->
+    <transferDialog ref="transfer" :form="formData" @load-page="loadPage()"></transferDialog>
+  </div>
+</template>
+
+<script>
+import mixins from '@/mixins/mixins'
+import { columnsMap, pagedTable, dictsMap } from './option.js'
+import { getApprovalList, updateData } from '@/api/gpms/index'
+import transferDialog from '../transfer/index'
+
+export default {
+  mixins: [mixins],
+  components: { transferDialog },
+  props: {
+    status: {
+      type: String,
+      default: '',
+    },
+  },
+  data () {
+    return {
+      isLoadTable: false,
+      columnsMap,
+      dictsMap,
+      pagedTable,
+      pageState: 'list',
+      formData: {},
+    }
+  },
+  methods: {
+    // 审批
+    handleApprove (row) {
+      this.$emit('approve', row)
+    },
+    // 转交
+    handleMore (row) {
+      this.$refs['transfer'].open(row)
+    },
+    // 取消审批
+    hanleNotApp (row) {
+      updateData({
+        id: row.id,
+        approvalStatus: 2,
+      }).then(() => {
+        this.$notify({
+          title: '成功',
+          message: '操作c成功',
+          type: 'success',
+          duration: 2000,
+        })
+        this.loadPage()
+      })
+    },
+    loadPage (param = {approvalStatus: this.status}) {
+      this.loadTable(param, getApprovalList)
+    },
+  },
+  mounted () {
+    this.loadPage()
+  },
+}
+</script>

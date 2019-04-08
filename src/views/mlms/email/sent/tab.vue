@@ -1,5 +1,5 @@
 <template>
-  <div class="send">
+  <div>
     <div v-show="pageState=='list'">
       <operation-container>
         <template slot="left">
@@ -27,7 +27,7 @@ import { getSendList, deleteEmailByIds } from '@/api/mlms/email/index'
 
 export default {
   components: { mainFormDialog, TableDialog, UpdateFormDialog },
-  mixins: [mixins,mixinTable],
+  mixins: [mixins, mixinTable],
   props: {
     type: {
       type: String,
@@ -63,15 +63,8 @@ export default {
   mounted () {
     this.$refs['table'].requestFn = getSendList
     this.$nextTick(() => {
-      this.$refs['table'].loadPage({type: this.type})
+      this.$refs['table'].loadPage({ type: this.type })
     })
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.send {
-  padding: 20px;
-  background-color: #fff;
-}
-</style>

@@ -5,34 +5,37 @@
       <el-step description="重置密码"></el-step>
       <el-step description="完成"></el-step>
     </el-steps>
-    <el-form v-if="active === 0" class="login-form" status-icon :rules="registerRule" ref="registerForm" :model="registerForm" label-width="0px">
+    <el-form v-if="active === 0" class="login-form" status-icon :rules="registerRule" ref="form" :model="form" label-width="0px">
       <el-form-item prop="phone">
-        <el-input v-model="registerForm.phone" auto-complete="off" placeholder="请输入手机号码"></el-input>
+        <a-input ref="phone" v-model="form.phone" auto-complete="off" placeholder="请输入手机号码" size="large">
+          <a-icon slot="prefix" type="phone" />
+          <a-icon v-if="form.phone" slot="suffix" type="close-circle" @click="emitEmpty('phone')" />
+        </a-input>
       </el-form-item>
       <el-form-item class="input-last" prop="code">
-        <div class="code-wrapper">
-          <el-input @keyup.enter.native="handleLogin" maxlength="4" v-model="registerForm.code" auto-complete="off" placeholder="短信验证码">
-          </el-input>
-          <el-button @click="handleSend" class="msg-text" :class="[{ display: msgKey }]">{{ msgText }}</el-button>
-        </div>
+        <a-input-search maxlength="4" v-model="form.code" auto-complete="off" placeholder="请输入验证码" @search="handleSend" size="large">
+          <a-button slot="enterButton" :class="[{ display: msgKey }]">{{ msgText }}</a-button>
+        </a-input-search>
       </el-form-item>
       <el-form-item>
-        <iep-button type="primary" class="login-submit" @click="active ++ ">下一步</iep-button>
+        <a-button type="primary" size="large" @click="active ++ " block>下一步</a-button>
       </el-form-item>
     </el-form>
-    <el-form v-if="active === 1" class="login-form" status-icon :rules="registerRule" ref="registerForm" :model="registerForm" label-width="0">
+    <el-form v-if="active === 1" class="login-form" status-icon :rules="registerRule" ref="form" :model="form" label-width="0">
       <el-form-item prop="password">
-        <el-input autocomplete="off" :type="passwordType" v-model="registerForm.password" placeholder="新密码">
-          <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-        </el-input>
+        <a-input ref="password" :type="passwordType" v-model="form.password" auto-complete="false" placeholder="请输入密码" size="large">
+          <a-icon slot="prefix" type="key" />
+          <a-icon v-if="form.password" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
+        </a-input>
       </el-form-item>
       <el-form-item class="input-last" prop="cpassword">
-        <el-input autocomplete="off" :type="passwordType" v-model="registerForm.cpassword" placeholder="再次输入密码">
-          <i class="el-icon-view el-input__icon" slot="suffix" @click="showPassword"></i>
-        </el-input>
+        <a-input ref="cpassword" :type="passwordType" v-model="form.cpassword" auto-complete="false" placeholder="确认你的密码" size="large">
+          <a-icon slot="prefix" type="key" />
+          <a-icon v-if="form.cpassword" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
+        </a-input>
       </el-form-item>
       <el-form-item>
-        <iep-button type="primary" class="login-submit" @click="active ++ ">确定</iep-button>
+        <a-button type="primary" size="large" @click="active ++ " block>确定</a-button>
       </el-form-item>
     </el-form>
     <div v-if="active === 2" class="login-menu">
@@ -81,8 +84,8 @@ export default {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
-        if (this.registerForm.cpassword !== '') {
-          this.$refs.registerForm.validateField('cpassword')
+        if (this.form.cpassword !== '') {
+          this.$refs.form.validateField('cpassword')
         }
         callback()
       }
@@ -90,7 +93,7 @@ export default {
     const validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'))
-      } else if (value !== this.registerForm.password) {
+      } else if (value !== this.form.password) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
@@ -101,7 +104,7 @@ export default {
       msgText: MSGINIT,
       msgTime: MSGTIME,
       msgKey: false,
-      registerForm: {
+      form: {
         username: '',
         password: '',
         cpassword: '',
@@ -141,12 +144,16 @@ export default {
     ...mapGetters(['tagWel']),
   },
   methods: {
+    emitEmpty (name) {
+      this.$refs[name].focus()
+      this.form[name] = ''
+    },
     handleLogin () {
       this.$emit('tab-active', 'user')
     },
     handleSend () {
       if (this.msgKey) return
-      getMobileCode(this.registerForm.phone).then(response => {
+      getMobileCode(this.form.phone).then(response => {
         if (response.data.data) {
           this.$message.success('验证码发送成功')
         } else {
@@ -168,12 +175,12 @@ export default {
       }, 1000)
     },
     refreshCode () {
-      this.registerForm.code = ''
-      this.registerForm.randomStr = randomLenNum(this.code.length, true)
+      this.form.code = ''
+      this.form.randomStr = randomLenNum(this.code.length, true)
       this.code.type === 'text'
         ? (this.code.value = randomLenNum(this.code.len))
         : (this.code.src = `${this.codeUrl}?randomStr=${
-          this.registerForm.randomStr
+          this.form.randomStr
           }`)
     },
     showPassword () {
@@ -182,9 +189,9 @@ export default {
         : (this.passwordType = '')
     },
     handleRegister () {
-      this.$refs.registerForm.validate(valid => {
+      this.$refs.form.validate(valid => {
         if (valid) {
-          registerUser(this.registerForm).then(({ data }) => {
+          registerUser(this.form).then(({ data }) => {
             if (data.data) {
               this.$message({
                 message: '恭喜你，注册成功',
@@ -219,17 +226,6 @@ ol {
     max-width: 150px;
   }
 }
-.login-submit {
-  display: block;
-  margin: 0 auto 10px auto;
-  width: 100%;
-  height: 40px;
-  font-size: 14px;
-  text-align: center;
-  border: 0px;
-  background-color: #ba1b20;
-  color: white;
-}
 
 .login-menu {
   width: 100%;
@@ -237,10 +233,6 @@ ol {
   p {
     font-size: 14px;
   }
-}
-.login-submit:hover {
-  background-color: #f56c6c !important;
-  color: #fff !important;
 }
 .input-last {
   margin-bottom: 34px;
@@ -250,23 +242,6 @@ ol {
   .el-input {
     padding: 0;
   }
-}
-.msg-text {
-  display: block;
-  margin-left: -1px;
-  font-size: 12px;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 0 4px 4px 0;
-  &:hover,
-  &:focus {
-    border-color: #dcdfe6;
-    background-color: #fff7ec;
-    color: #bf051a;
-  }
-}
-.msg-text.display {
-  color: #ccc;
 }
 @media (max-width: 320px) {
   .retrieve-con {

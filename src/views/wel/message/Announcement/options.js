@@ -27,8 +27,7 @@ const initForm = () => {
 			users: [],
 		}, // 接收人
 		content: '', // 发布人
-		typeId: '', // 邀请联盟,会议纪要
-		prop: '', // 邀请联盟,会议纪要
+		type: '', // 邀请联盟,会议纪要
 		isMark: '', // 是否标记
 	}
 }
@@ -43,8 +42,7 @@ const initDtoForm = () => {
 			userIds: [],
 		}, // 接收人
 		content: '', // 发布人
-		typeId: '', // 邀请联盟,会议纪要
-		prop: '', // 邀请联盟,会议纪要
+		type: '', // 邀请联盟,会议纪要
 		isMark: '', // 是否标记
 	}
 }

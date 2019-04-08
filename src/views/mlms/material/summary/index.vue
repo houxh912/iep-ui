@@ -4,7 +4,7 @@
       <page-header title="纪要" :replaceText="replaceText" :data="data"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd" type="primary">新增</iep-button>
+          <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -39,16 +39,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table 
-        :isLoadTable="isLoadTable" 
-        :pagination="pagination" 
-        :dictsMap="dictsMap" 
-        :columnsMap="columnsMap" 
-        :pagedTable="pagedTable" 
-        @size-change="handleSizeChange" 
-        @current-change="handleCurrentChange" 
-        @selection-change="handleSelectionChange" 
-        is-mutiple-selection is-index>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-index>
         <template slot="before-columns">
           <el-table-column label="会议标题">
             <template slot-scope="scope">
@@ -59,8 +50,8 @@
         <el-table-column prop="operation" label="操作" width="250" align="center">
           <template slot-scope="scope">
             <operation-wrapper v-if="scope.row.status===0">
-              <iep-button type="warning" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
-              <iep-button type="warning" v-else>已收藏</iep-button>
+              <iep-button type="warning" plain @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
+              <iep-button type="warning" plain v-else>已收藏</iep-button>
               <iep-button @click="handleShare(scope.row)">分享</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
@@ -74,7 +65,7 @@
               </el-dropdown>
             </operation-wrapper>
             <operation-wrapper v-else>
-              <iep-button type="warning" @click="handleEdit(scope.row)">修改草稿</iep-button>
+              <iep-button type="warning" plain @click="handleEdit(scope.row)">修改草稿</iep-button>
               <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
@@ -100,7 +91,7 @@ export default {
   components: { ShareDialog, CollectionDialog, DetailPage },
   data () {
     return {
-      data: [ 20, 3 ], // 头部
+      data: [20, 3], // 头部
       dictsMap,
       columnsMap,
       paramForm: initSearchForm(),
@@ -122,10 +113,10 @@ export default {
       this.paramForm = initSearchForm()
     },
     handleAdd () {
-      this.$router.push('/mlms_spa/summary/create?back=/wel/material/summary')
+      this.$router.push('/mlms_spa/summary/create')
     },
     handleEdit (row) {
-      this.$router.push(`/mlms_spa/summary/create?back=/wel/material/summary&id=${row.id}`)
+      this.$router.push(`/mlms_spa/summary/create&id=${row.id}`)
     },
     handleDetail (row) {
       // this.pageState = 'detail'

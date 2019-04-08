@@ -9,7 +9,10 @@
         <el-form label-width="150px">
           <el-row>
             <el-col :span="12" class="item" v-for="(item, index) in infoList" :key="index">
-              <el-form-item :label="item.label">{{setUpData[item.value]}}</el-form-item>
+              <el-form-item :label="item.label" v-if="item.type === 'dict'">
+                {{getDictMap(setUpData[item.value], dictMap[item.value])}}
+              </el-form-item>
+              <el-form-item :label="item.label" v-else>{{setUpData[item.value]}}</el-form-item>
             </el-col>
           </el-row>
         </el-form>
@@ -63,8 +66,6 @@ export default {
   computed: {
     setUpData () {
       let formData = this.form
-      formData.applicantName = formData.applicantList.name
-      formData.approverName = formData.approverList.name
       return formData
     },
   },
@@ -85,30 +86,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .contianBox {
-    .title {
-      background-color: #f5f5f5;
-      border-radius: 5px;
-      .data {
-        padding: 10px 15px;
-      }
-      .edit {
-        float: right;
-        right: 0;
-        width: 30px;
-        line-height: 40px;
-        cursor: pointer;
-      }
+.contianBox {
+  .title {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    .data {
+      padding: 10px 15px;
     }
-    .topBot {
-      margin: 20px 0 30px;
-    }
-    .item {
-      height: 30px;
-      margin-bottom: 10px;
-    }
-    .footer {
-      margin: 20px 0 0 60px;
+    .edit {
+      float: right;
+      right: 0;
+      width: 30px;
+      line-height: 40px;
+      cursor: pointer;
     }
   }
+  .topBot {
+    margin: 20px 0 30px;
+  }
+  .item {
+    height: 30px;
+    margin-bottom: 10px;
+  }
+  .footer {
+    margin: 20px 0 0 60px;
+  }
+}
 </style>

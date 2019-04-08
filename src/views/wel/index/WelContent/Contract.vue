@@ -5,14 +5,14 @@
     </div>
     <div class="contract-content">
       <el-row v-for="(item,index) in dataList" :key="index">
-        <el-col :span="10">
+        <el-col :span="15">
           <div class="title">{{item.name}}</div>
         </el-col>
         <el-col :span="6">
           <div>{{item.status}}</div>
         </el-col>
-        <el-col :span="8">
-          <div>{{item.time}}</div>
+        <el-col :span="3">
+          <div>{{item.time |parseTime('{y}-{m}-{d}')}}</div>
         </el-col>
       </el-row>
     </div>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { getContractPage } from '@/api/wel/crms/customer'
+import { getContractList } from '@/api/wel/index'
 export default {
   data () {
     return {
@@ -28,7 +28,7 @@ export default {
     }
   },
   created () {
-    getContractPage().then((res) => {
+    getContractList().then((res) => {
       this.dataList = res.data.data
     })
   },

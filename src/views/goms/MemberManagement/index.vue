@@ -8,16 +8,7 @@
           <iep-button @click="handleDeleteBatch()">删除</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" :paramForm="paramForm" advance-search>
-            <el-form :model="paramForm" label-width="80px" size="mini">
-              <el-form-item label="真实姓名">
-                <el-input v-model="paramForm.name"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <iep-button type="primary" @click="searchPage">搜索</iep-button>
-                <iep-button @click="clearSearchParam">清空</iep-button>
-              </el-form-item>
-            </el-form>
+          <operation-search @search-page="searchPage">
           </operation-search>
         </template>
       </operation-container>
@@ -25,7 +16,7 @@
         <template slot="before-columns">
           <el-table-column label="用户名" width="150px">
             <template slot-scope="scope">
-              <span>{{scope.row.username}}</span>
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.username}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
@@ -38,7 +29,6 @@
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item v-if="!([1].includes(scope.row.status))">查看</el-dropdown-item>
                   <el-dropdown-item v-if="!([1].includes(scope.row.status))" @click.native="handleDeleteById(scope.row)">删除</el-dropdown-item>
                   <el-dropdown-item v-if="([1].includes(scope.row.status))" @click.native="handlePassById(scope.row)">通过</el-dropdown-item>
                   <el-dropdown-item v-if="([1].includes(scope.row.status))" @click.native="handleRejectById(scope.row)">不通过</el-dropdown-item>
@@ -58,13 +48,11 @@ import { mapState } from 'vuex'
 import { mergeByFirst } from '@/util/util'
 import { dictsMap, columnsMap, initSearchForm, initMemberForm } from './options'
 import DialogForm from './DialogForm'
-// import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
 import mixins from '@/mixins/mixins'
 export default {
   components: {
     DialogForm,
-    // IepReviewConfirm,
   },
   mixins: [mixins],
   data () {
@@ -91,13 +79,20 @@ export default {
     //   this.$refs['iepReviewForm'].formRequestFn = ''
     //   this.$refs['iepReviewForm'].dialogShow = true
     // },
-    handleDel () {
+    handleDeleteBatch () {
       this._handleGlobalDeleteAll(delAllGomsUser)
+    },
+    handleDetail (row) {
+      this.$refs['DialogForm'].form = mergeByFirst(initMemberForm(), row)
+      this.$refs['DialogForm'].methodName = '查看'
+      this.$refs['DialogForm'].disabled = true
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleEdit (row) {
       this.$refs['DialogForm'].form = mergeByFirst(initMemberForm(), row)
       this.$refs['DialogForm'].methodName = '编辑'
       this.$refs['DialogForm'].formRequestFn = putGoms
+      this.$refs['DialogForm'].disabled = false
       this.$refs['DialogForm'].dialogShow = true
     },
     handleDeleteById (row) {

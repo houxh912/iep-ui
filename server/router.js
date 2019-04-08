@@ -50,6 +50,12 @@ router.get('/admin/org/user/page', orgController.getOrgUserPage)
 router.get('/admin/org/:id', orgController.getOrgDetail)
 router.post('/admin/user/set/org/:id', orgController.postSetOrg)
 router.get('/admin/dept/list', adminController.getDeptList)
+router.get('/admin/wel/index', adminController.getWelIndex)
+router.get('/admin/wel/aside', adminController.getAside)
+
+router.get('/mlms/material/wel/list', adminController.getMaterials)
+
+router.get('/ims/email/unread_list', adminController.getAnnouncementPage)
 
 router.get('/hrms/employee_profile/page', hrmsController.getEmployeeProfilePage)
 router.get('/hrms/employee_profile/growth_file/:id', hrmsController.getGrowthFileById)
@@ -93,6 +99,8 @@ router.post('/crms/contact/update', crmsController.updateContact)
 router.post('/crms/contact/delete', crmsController.deleteContact)
 router.post('/crms/custom/claim/1', crmsController.deleteContact)
 
+router.get('/crm/cms/wel/customer/list', adminController.getCustomerList)
+router.get('/crm/cms/wel/contract/list', adminController.getContractList)
 
 //wel
 router.get('/admin/approval/page', welController.getApprovalPage)

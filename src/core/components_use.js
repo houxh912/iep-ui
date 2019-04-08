@@ -13,6 +13,7 @@ import FooterToolBar from '@/components/FooterToolbar'
 import IepButton from '@/components/IepCommon/Button'
 import IepPagination from '@/components/IepCommon/Pagination'
 import IepTabs from '@/components/IepCommon/Tabs'
+import IepNoData from '@/components/IepCommon/NoData'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
@@ -63,6 +64,7 @@ Vue.component(FooterToolBar.name, FooterToolBar)
 Vue.component(IepButton.name, IepButton)
 Vue.component(IepPagination.name, IepPagination)
 Vue.component(IepTabs.name, IepTabs)
+Vue.component(IepNoData.name, IepNoData)
 
 // 表单组件
 Vue.component(IepTag.name, IepTag)

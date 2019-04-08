@@ -1,13 +1,13 @@
 <template>
   <div class="nav">
     <div class="navbar">
-      <el-menu v-if="keyCollapse" class="menu-collapse" :default-active="activeIndex" mode="horizontal" menu-trigger="click">
+      <el-menu v-if="keyCollapse" class="menu-collapse" :default-active="activeIndex" mode="horizontal" menu-trigger="click" router>
         <el-submenu index="">
           <template slot="title">导航</template>
           <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id"><span class="sub-menu">{{item.name}}</span></el-menu-item>
         </el-submenu>
       </el-menu>
-      <el-menu v-else :default-active="activeIndex" mode="horizontal">
+      <el-menu v-else :default-active="activeIndex" mode="horizontal" router>
         <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id"><span class="sub-menu">{{item.name}}</span></el-menu-item>
       </el-menu>
       <!-- <div class="search-con">
@@ -31,29 +31,28 @@ export default {
       isShow: false,
       input: '',
       classIndex: 1,
-      activeIndex: '0',
-      screenWidth: document.body.clientWidth,
+      activeIndex: this.$route.fullPath,
       navList: [
         {
-          id: '0',
+          id: '/app/index',
           name: '首页',
         }, {
-          id: '1',
+          id: '/app/person',
           name: '国脉人',
         }, {
-          id: '2',
+          id: '/app/news',
           name: '要闻',
         }, {
-          id: '3',
+          id: '/app/resource',
           name: '资源',
         }, {
-          id: '4',
+          id: '/app/data',
           name: '数据',
         }, {
-          id: '5',
+          id: '/app/wealth',
           name: '财富',
         }, {
-          id: '6',
+          id: '/app/college',
           name: '学院',
         },
       ],

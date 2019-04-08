@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import { getAlreadyApprovalPage } from '@/api/wel/administrative_approval'
+import { getAlreadyApprovalPage } from '@/api/hrms/wel'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from '../options'
 import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
@@ -50,7 +50,6 @@ export default {
         path: '/hrms_spa/approval_detail',
         query: {
           id: row.id,
-          redirect: this.$route.fullPath,
         },
       })
     },

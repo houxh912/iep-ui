@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import { getExaminApprovalPage, postApproval, reviewApprovaBatch } from '@/api/wel/administrative_approval'
+import { getExaminApprovalPage, postApproval, reviewApprovaBatch } from '@/api/hrms/wel'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
 import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
@@ -58,7 +58,6 @@ export default {
         path: '/hrms_spa/approval_detail',
         query: {
           id: row.id,
-          redirect: this.$route.fullPath,
         },
       })
     },

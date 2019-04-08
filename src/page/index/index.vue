@@ -81,6 +81,10 @@ export default {
       // 'expires_in',
     ]),
     asideWidth () {
+
+      if (this.$route.matched[0].path === '/app') {
+        return '0px'
+      }
       if (this.isDesktop()) {
         return '200px'
       } else {

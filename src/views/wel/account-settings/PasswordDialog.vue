@@ -87,17 +87,15 @@ export default {
               if (response.data.data) {
                 this.$notify({
                   title: '成功',
-                  message: '修改成功',
+                  message: '密码修改成功，请重新登陆',
                   type: 'success',
                   duration: 2000,
                 })
                 this.GetUserInfo()
                 // 修改密码之后强制重新登录
-                if (this.switchStatus === 'passwordManager') {
-                  this.$store.dispatch('LogOut').then(() => {
-                    location.reload() // 为了重新实例化vue-router对象 避免bug
-                  })
-                }
+                this.$store.dispatch('LogOut').then(() => {
+                  location.reload() // 为了重新实例化vue-router对象 避免bug
+                })
               } else {
                 this.$notify({
                   title: '失败',

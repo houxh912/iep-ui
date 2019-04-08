@@ -57,5 +57,6 @@ const rules = {
     },
   ],
   address: [{ required: true, message: '请填写地址', trigger: 'blur' }],
+  clientInfos: [{ required: true, message: '请选择对应客户', trigger: 'blur' }],
 }
 export { columnsMap, initForm, rules, initSearchForm }

@@ -33,14 +33,13 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="会议时间" prop="meetingTime">
-            <!-- <el-date-picker v-model="formData.meetingTime" type="date" placeholder="选择日期"></el-date-picker> -->
             <IepDatePicker v-model="formData.meetingTime"></IepDatePicker>
           </el-form-item>
         </el-col>
         <el-col :span=12 v-if="formData.type == 0">
           <el-form-item label="会议地点：" prop="meetingLocation">
-            <el-input v-model="formData.meetingocation"></el-input>
-          </el-form-item>L
+            <el-input v-model="formData.meetingLocation"></el-input>
+          </el-form-item>
         </el-col>
       </el-row>
       <el-form-item label="拜访形式：" prop="visitType" v-if="formData.type == 1">
@@ -175,15 +174,13 @@ export default {
       }
     },
     goBack () {
-      this.$router.push(this.backRouter)
+      // this.$router.push(this.backRouter)
+      this.$router.go(-1)
     },
   },
   created () {
     // 首先获取query
-    let query = this.$route.query
-    if (query.back) {
-      this.backRouter = query.back
-    }
+    let query = this.$route.params
     // 若存在 id， 即为修改
     if (query.id) {
       getDataById(query.id).then(({ data }) => {

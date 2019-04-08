@@ -222,7 +222,6 @@ export default {
       this.loadPage(this.distanceToday, 10)
     },
     getUpMore () {
-      this.$message.success('more')
       // 向上取十天，首先需要判断是否到达顶点
       let firstDate = this.list[1].createTime
       let timeDifference = (+new Date()) - (+new Date(formatYear(firstDate)))

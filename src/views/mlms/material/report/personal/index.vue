@@ -65,7 +65,6 @@ export default {
       let monday = new Date(getMonday(date).timeStamp)
       this.timeLineOption.active = monday.getMonth() + 1
       this.timeLineOption.activeChild = getWeekOfMonth(monday)
-      console.log('this.timeLineOption.activeChild: ', this.timeLineOption.activeChild)
       this.loadPage(monday, 'search')
     },
     actively (item, type) {

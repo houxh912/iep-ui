@@ -140,7 +140,6 @@ export default {
       this.selectList = val
     },
     submitForm () {
-      console.log('formData: ', this.selectList)
       let workSummary = ''
       for (let item of this.selectList) {
         workSummary += item.workSummary

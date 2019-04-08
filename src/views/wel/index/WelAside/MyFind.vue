@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="find-content">
-      <div class="cursor" v-for="(item,index) in findList.details" :key="index" @click="hadelSelect(index)">
+      <div class="cursor" v-for="(item,index) in findList.details" :key="index" @click="item.callback()">
         <div class="icon"><i :class="item.icon"></i></div>
         <div class="subtitle">{{item.subtitle}}</div>
       </div>
@@ -19,14 +19,19 @@
 export default {
   data () {
     return {
-      findList: { title: '我要找', details: [{ icon: 'icon-fangan', subtitle: '方案' }, { icon: 'icon-moban', subtitle: '模板' }, { icon: 'icon-xiangmu', subtitle: '项目' }, { icon: 'icon-shifu', subtitle: '师傅' }] },
+      findList: {
+        title: '我要找',
+        details: [
+          { icon: 'icon-fangan', subtitle: '方案', callback: () => { this.$openPage('/wel/material/datum') } },
+          { icon: 'icon-moban', subtitle: '模板', callback: () => { this.$message.success('功能开发中') } },
+          { icon: 'icon-xiangmu', subtitle: '项目', callback: () => { this.$openPage('/gpms/project') } },
+          { icon: 'icon-shifu', subtitle: '师傅', callback: () => { this.$message.success('功能开发中') } },
+        ],
+      },
     }
   },
   methods: {
     getMore () {
-      this.$message.success('功能开发中')
-    },
-    hadelSelect () {
       this.$message.success('功能开发中')
     },
   },

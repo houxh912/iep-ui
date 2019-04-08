@@ -160,13 +160,13 @@ export default {
     }
   },
   created () {
-    this.load()
+    this.loadPage()
   },
   methods: {
     handleGoBack () {
       this.$emit('onGoBack')
     },
-    load () {
+    loadPage () {
       getTalentPoolById(this.record.id).then(({ data }) => {
         this.form = mergeByFirst(initForm(), data.data)
       })

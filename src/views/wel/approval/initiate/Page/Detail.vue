@@ -73,10 +73,10 @@ export default {
     }
   },
   created () {
-    this.load()
+    this.loadPage()
   },
   methods: {
-    load () {
+    loadPage () {
       getApprovalInitiateById(this.record.id).then(({ data }) => {
         this.form = mergeByFirst(initForm(), data.data)
       })

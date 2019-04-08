@@ -108,10 +108,10 @@ export default {
     },
   },
   created () {
-    this.load()
+    this.loadPage()
   },
   methods: {
-    load () {
+    loadPage () {
       getGrowthFile(this.$route.params.id).then(({ data }) => {
         this.growthFileDetail = data.data
       })

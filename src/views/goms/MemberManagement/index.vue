@@ -116,7 +116,7 @@ export default {
               message: `审核失败，${res.data.msg}`,
             })
           }
-          this.load()
+          this.loadPage()
         })
       })
     },

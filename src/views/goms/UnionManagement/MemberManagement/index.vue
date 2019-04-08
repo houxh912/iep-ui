@@ -121,7 +121,7 @@ export default {
               message: `审核失败，${res.data.msg}`,
             })
           }
-          this.load()
+          this.loadPage()
         })
       })
     },
@@ -143,7 +143,7 @@ export default {
               message: `拒绝成功，${res.data.msg}`,
             })
           }
-          this.load()
+          this.loadPage()
         })
       })
     },

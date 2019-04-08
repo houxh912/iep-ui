@@ -43,7 +43,7 @@ export default {
         orgId: this.orgId,
         userId: row.userId,
       }).then(() => {
-        this.load()
+        this.loadPage()
       })
     },
     load () {

@@ -96,10 +96,10 @@ export default {
     }
   },
   created () {
-    this.load()
+    this.loadPage()
   },
   methods: {
-    load () {
+    loadPage () {
       getPublishRecruitmentById(this.record.id).then(({ data }) => {
         this.form = mergeByFirst(initForm(), data.data)
       })

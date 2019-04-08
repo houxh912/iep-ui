@@ -174,6 +174,9 @@ ol {
     padding: 25px 0;
     border-bottom: 1px solid #ddd;
     justify-content: space-between;
+    &:nth-child(1) {
+      padding-top: 10px;
+    }
     .sub-title {
       width: 100%;
       font-size: 18px;

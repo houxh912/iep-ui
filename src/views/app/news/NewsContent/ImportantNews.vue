@@ -57,6 +57,9 @@ ol {
     padding: 25px 0;
     border-bottom: 1px solid #ddd;
     justify-content: space-between;
+    &:nth-child(1) {
+      padding-top: 10px;
+    }
     .img {
       flex: 0 0 40%;
       img {

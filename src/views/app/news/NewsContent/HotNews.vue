@@ -69,6 +69,9 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    &:nth-child(1) {
+      padding-top: 10px;
+    }
     i {
       margin-right: 5px;
     }

@@ -8,9 +8,12 @@
     </el-tag>
   </el-card>
 </template>
-<style>
+<style lang="scss" scoped>
 .el-card {
   border: 0;
+  &:nth-child(1) {
+    padding-top: 10px;
+  }
 }
 .text {
   font-size: 14px;

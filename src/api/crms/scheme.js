@@ -11,7 +11,7 @@ export function getSchemePage (query) {
 //推荐材料
 export function getMaterial (query) {
   return request({
-    url: `${schemeUrl}/materialInfos`,
+    url: `${schemeUrl}/materialInfo`,
     method: 'get',
     params: query,
   })

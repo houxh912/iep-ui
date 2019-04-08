@@ -101,7 +101,6 @@ export function formatTime (time, option) {
   newDate = +newDate * 1000
   const now = Date.now() * 1000
   const diff = (now - newDate) / 1000 / 1000
-  console.log(diff)
   if (diff < 30) {
     return '刚刚'
   } else if (diff < 3600) {

@@ -6,7 +6,7 @@
           <el-row>
             <el-col :span="4" class="dotted">
               <div class="left">
-                <div class="img zoom">
+                <div class="img">
                   <iep-img-avatar :size="90" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
                 </div>
                 <div class="code-name">{{indexData.staffId}}</div>
@@ -156,10 +156,6 @@ export default {
           height: 90px;
           border-radius: 50%;
           overflow: hidden;
-          img {
-            width: 100%;
-            border-radius: 50%;
-          }
         }
         .code-name {
           padding-top: 10px;

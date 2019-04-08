@@ -176,6 +176,7 @@ export default {
       this.formData = initForm()
     },
     handleSelectionChange (row) {
+      console.log(row)
       this.formData.clientIds = row.map(m => m.clientId)
       this.selectData = row
     },

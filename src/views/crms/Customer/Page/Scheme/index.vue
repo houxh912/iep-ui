@@ -6,9 +6,14 @@
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       <el-table-column label="方案名称">
         <template slot-scope="scope">
-          <div class="program-name">{{scope.row.programName}}</div>
           <el-col>
-            <a-tag v-for="(item, index) in tags" :key="index">{{item}}</a-tag>
+            <div class="program-name">{{scope.row.programName}}</div>
+            <div class=' line'>
+              <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
+            </div>
+            <div class='create-name line'>
+              zhagpegyu
+            </div>
           </el-col>
         </template>
       </el-table-column>
@@ -32,6 +37,8 @@
       <el-col class="item" :span=6 v-for="(item, index) in recommendList" :key="index">{{item}}</el-col>
     </el-row>
     <create-dialog ref="SchemeDialog" @load-page="loadPage"></create-dialog>
+
+    <to-meterial-dialog ref="ToMeterialDialog" @load-page="loadPage"></to-meterial-dialog>
   </div>
 </template>
 
@@ -39,17 +46,21 @@
 import mixins from '@/mixins/mixins'
 import { getSchemePage, createScheme, updateScheme, deleteSchemeById, getSchemeById, getMaterial } from '@/api/crms/scheme'
 import CreateDialog from './CreateDialog'
+import { mapGetters } from 'vuex'
+import ToMeterialDialog from './ToMeterialDialog'
+
 import { downloadModel } from '@/api/crms/download'
 export default {
   name: 'contacts',
   mixins: [mixins],
-  components: { CreateDialog },
+  components: { CreateDialog, ToMeterialDialog },
   props: {
     record: {
       type: Object,
       default: () => { },
     },
   },
+
   data () {
     return {
       formData: {},
@@ -68,14 +79,16 @@ export default {
       tags: ['政务网', '智慧城市'],
     }
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
   created () {
     this.loadPage()
     getMaterial({ clientId: this.record.id }).then((res) => {
       this.recommendList = res.data.data
     })
-  },
-  computed: {
-
   },
   methods: {
     loadPage (param) {
@@ -158,11 +171,13 @@ export default {
     margin-left: 5px;
   }
 }
-.icon-zhuyi {
-  color: #e6a23c;
-  margin-right: 10px;
-}
 .item {
   padding: 5px;
+}
+.line {
+  display: inline-block;
+}
+.create-name {
+  padding-left: 10px;
 }
 </style>

@@ -128,7 +128,7 @@ export default {
     },
     //客户详情
     handleDetail (row) {
-      if (this.type === '2') {
+      if (this.type !='1') {
         this.$router.push({
           path: '/crms_spa/customer_detail',
           query: {
@@ -146,13 +146,8 @@ export default {
     },
     //添加协作人
     handleCooperation (row) {
-      this.$refs['collaborator'].id = row.clientId
+      this.$refs['collaborator'].data.clientId = row.clientId
       this.$refs['collaborator'].dialogShow = true
-      this.$refs['collaborator'].loadPage()
-      // getCollaboratorPage(row.clientId).then(res => {
-      // this.$refs['collaborator'].data = res.data.data.records
-      // console.log(res)
-      // })
     },
     //转移
     Transfer () {
@@ -165,6 +160,7 @@ export default {
     },
     //table多选
     handleSelectionChange (val) {
+      console.log(val)
       this.multipleSelection = val.map(m => m.clientId)
       let ids = []
       val.forEach((item) => {

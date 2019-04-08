@@ -2,7 +2,7 @@
   <div class="wrapper">
     <el-form ref="form" :model="form" size="small" label-width="80px">
       <el-form-item label="用户:">
-        <iep-contact-select v-model="form.user"></iep-contact-select>
+        <iep-contact-multiple-user v-model="form.user"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item label="用户群:">
         <iep-contact-multiple-user v-model="form.userList"></iep-contact-multiple-user>

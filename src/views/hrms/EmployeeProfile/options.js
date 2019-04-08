@@ -20,6 +20,7 @@ const initForm = () => {
     userName: null, // 用户名 不可编辑
     orgId: null, // 组织ID 不可编辑
     orgName: null, // 组织名 不可编辑
+    orgList: [], // 组织名 不可编辑
     staffId: null, // 工号
     avatar: '', // 头像
     roleName: [], // 角色
@@ -65,6 +66,8 @@ const initForm = () => {
     accountLocation: null, // 户口所在地
     residenceCities: [],
     residenceAddress: null, // 户籍地址
+    provinceName: null, // 户籍地址
+    cityName: null, // 户籍地址
     currentCities: [],
     currentAddress: null, // 现住地址
     IDCard: null, // 身份证

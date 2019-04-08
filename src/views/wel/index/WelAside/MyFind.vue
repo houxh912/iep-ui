@@ -22,10 +22,10 @@ export default {
       findList: {
         title: '我要找',
         details: [
-          { icon: 'icon-fangan', subtitle: '方案', callback: () => { this.$openPage('/wel/material/datum') } },
-          { icon: 'icon-moban', subtitle: '模板', callback: () => { this.$message.success('功能开发中') } },
-          { icon: 'icon-xiangmu', subtitle: '项目', callback: () => { this.$openPage('/gpms/project') } },
-          { icon: 'icon-shifu', subtitle: '师傅', callback: () => { this.$message.success('功能开发中') } },
+          { icon: 'icon-xiangmu', subtitle: '项目', callback: () => { this.$message.success('功能开发中') } },
+          { icon: 'icon-shangjifaxian', subtitle: '商机', callback: () => { this.$message.success('功能开发中') } },
+          { icon: 'icon-peixun', subtitle: '培训', callback: () => { this.$message.success('功能开发中') } },
+          { icon: 'icon-shifu', subtitle: '师父', callback: () => { this.$message.success('功能开发中') } },
         ],
       },
     }
@@ -80,10 +80,10 @@ export default {
     .icon-fangan {
       color: #5c79a5;
     }
-    .icon-moban {
+    .icon-shangjifaxian {
       color: #c78a53;
     }
-    .icon-xiangmu {
+    .icon-peixun {
       color: #47a1bb;
     }
     .icon-shifu {

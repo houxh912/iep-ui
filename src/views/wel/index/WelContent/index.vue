@@ -56,7 +56,7 @@
     <customer></customer>
     <contract></contract>
     <material></material>
-    <grades></grades>
+    <!-- <grades></grades> -->
     <relationship></relationship>
   </div>
 </template>
@@ -69,7 +69,7 @@ import Pending from './Pending'
 import Project from './Project'
 import Customer from './Customer'
 import Material from './Material'
-import Grades from './Grades'
+// import Grades from './Grades'
 import Relationship from './Relationship'
 import Contract from './Contract'
 const initIndexForm = () => {
@@ -84,7 +84,7 @@ const initIndexForm = () => {
   }
 }
 export default {
-  components: { Pending, Project, Customer, Material, Grades, Relationship, Contract },
+  components: { Pending, Project, Customer, Material, Relationship, Contract },
   data () {
     return {
       timeFix: timeFix(),

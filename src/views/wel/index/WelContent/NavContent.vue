@@ -1,6 +1,7 @@
 <template>
   <div class="navContent">
-    <el-row v-for="(item,index) in contentData" :key="index">
+    <iep-no-data v-if="!contentData.length" message="暂无内容"></iep-no-data>
+    <el-row v-else v-for="(item,index) in contentData" :key="index">
       <el-col :span="16">
         <div class="grid-content title">{{item.name}}</div>
       </el-col>

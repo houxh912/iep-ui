@@ -22,14 +22,14 @@
         <template slot="before-columns">
           <el-table-column label="合同名称">
             <template slot-scope="scope">
-              <div class="custom-name">{{scope.row.contractName}}</div>
+              <div class="custom-name" @click="handleDetail(scope.row)">{{scope.row.contractName}}</div>
               <el-col class="custom-tags">
                 <el-tag type="info" size="mini" v-for="(item, index) in scope.row.code" :key="index">{{item}}</el-tag>
               </el-col>
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="300">
+        <el-table-column prop="operation" label="操作" width="180">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain>编辑</iep-button>
@@ -83,6 +83,9 @@ export default {
         this.$refs['mainDialog'].methodName = '编辑'
         this.$refs['mainDialog'].formRequestFn = updateData
       })
+    },
+    handleDetail (row) {
+      this.$router.push(`/mlms_spa/contract/detail/${row.id}`)
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.id, deleteData)

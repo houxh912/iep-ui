@@ -11,7 +11,7 @@
         <el-progress :percentage="item.process" color="#68C769"></el-progress>
       </el-col>
       <el-col :span="2">
-        <div class="grid-content text-right text-time">{{item.time}}</div>
+        <div class="grid-content text-right text-time">{{item.time | parseTime('{m}-{d}')}}</div>
       </el-col>
     </el-row>
   </div>

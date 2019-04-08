@@ -37,10 +37,18 @@ export default {
       content: [],
     }
   },
+  created () {
+    this.tab(this.navName)
+  },
   methods: {
     tab (val) {
       getPending(val).then(({ data }) => {
-        this.contentData = data.data
+        this.contentData = data.data.map(m => {
+          return {
+            ...m,
+            type: val,
+          }
+        })
       })
     },
   },

@@ -51,7 +51,7 @@
         </el-card>
       </a-spin>
     </div>
-    <about-task></about-task>
+    <pending></pending>
     <project></project>
     <customer></customer>
     <contract></contract>
@@ -65,7 +65,7 @@
 import { getIndex } from '@/api/wel/index'
 import { timeFix, welcome } from '@/util/text'
 import { mapGetters } from 'vuex'
-import AboutTask from './AboutTask'
+import Pending from './Pending'
 import Project from './Project'
 import Customer from './Customer'
 import Material from './Material'
@@ -84,7 +84,7 @@ const initIndexForm = () => {
   }
 }
 export default {
-  components: { AboutTask, Project, Customer, Material, Grades, Relationship, Contract },
+  components: { Pending, Project, Customer, Material, Grades, Relationship, Contract },
   data () {
     return {
       timeFix: timeFix(),

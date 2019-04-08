@@ -17,12 +17,12 @@ export const columnsMap = [
   {
     prop: 'meetingTime',
     label: '会议时间',
-    width: '300px',
+    width: '180px',
   },
   {
     prop: 'meetingType',
     label: '会议类型',
-    width: '300px',
+    width: '150px',
     type: 'dict',
   },
 ]

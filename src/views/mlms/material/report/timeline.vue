@@ -65,7 +65,7 @@ export default {
     actively (index, type, item) {
       // 点击时间轴首先判断是否到达时间，若为未来时，点击无效
       if (item.timeStamp > (+new Date())) {
-        this.$message('未到时间')
+        // this.$message('未到时间')
         return
       }
       if (type === 'month') {

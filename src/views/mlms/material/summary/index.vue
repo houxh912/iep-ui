@@ -43,7 +43,7 @@
         <template slot="before-columns">
           <el-table-column label="会议标题">
             <template slot-scope="scope">
-              <span @click="handleDetail(scope.row)">{{scope.row.title}}</span>
+              <span @click="handleDetail(scope.row)" class="detail">{{scope.row.title}}</span>
             </template>
           </el-table-column>
         </template>
@@ -116,7 +116,7 @@ export default {
       this.$router.push('/mlms_spa/summary/create')
     },
     handleEdit (row) {
-      this.$router.push(`/mlms_spa/summary/create&id=${row.id}`)
+      this.$router.push(`/mlms_spa/summary/update/${row.id}`)
     },
     handleDetail (row) {
       // this.pageState = 'detail'
@@ -194,3 +194,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.detail {
+  cursor: pointer;
+}
+</style>

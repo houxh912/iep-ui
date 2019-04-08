@@ -55,6 +55,7 @@ import { initLocalForm, rules } from './option'
 import IepTags from '@/components/IepTags/input'
 import FooterToolbar from '@/components/FooterToolbar/'
 import { saveScheme } from '@/api/crms/scheme'
+
 export default {
   components: { IepTags, FooterToolbar },
   props: {
@@ -111,6 +112,7 @@ export default {
           if (this.formData.attachFileList.length > 0) {
             this.formData.attachFile = this.formData.attachFileList[0].url
           }
+          this.formData.type = 0
           this.formRequestFn(this.formData).then((data) => {
             this.backId = data.id
             this.$notify({

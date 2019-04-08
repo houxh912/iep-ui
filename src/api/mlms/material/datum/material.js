@@ -40,3 +40,20 @@ export function getDataById (id) {
     method: 'get',
   })
 }
+
+// 评论
+export function commentMaterial (obj) {
+  return request({
+    url: '/mlms/comment/create/review',
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function getCommentPage (obj) {
+  return request({
+    url: '/mlms/comment/page',
+    method: 'get',
+    params: obj,
+  })
+}

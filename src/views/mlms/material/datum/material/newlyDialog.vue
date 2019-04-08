@@ -110,9 +110,9 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
-      console.log('this.formData: ', this.formData)
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.formData.type = 1
           this.formRequestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',

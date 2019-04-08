@@ -41,10 +41,10 @@
                 <el-input v-model="form.duties"></el-input>
               </el-form-item>
               <el-form-item label="职务：" class="form-half">
-                <iep-select prefix-url="hrms/job_system" v-model="form.job"></iep-select>
+                <iep-select prefix-url="hrms/job_system" v-model="form.jobId"></iep-select>
               </el-form-item>
               <el-form-item label="职称：" class="form-half">
-                <iep-select prefix-url="hrms/title_system" v-model="form.title"></iep-select>
+                <iep-select prefix-url="hrms/title_system" v-model="form.titleId"></iep-select>
               </el-form-item>
               <el-form-item label="入职时间：" class="form-half">
                 <el-input v-model="form.entryTime"></el-input>

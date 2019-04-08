@@ -8,14 +8,14 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import Positive from './转正/'
-import Leaving from './请假/'
-import Transfer from './调岗/'
-import Leave from './离职/'
-import Overtime from './加班/'
-import BusinessTrip from './出差/'
-import ItemUse from './物品领用/'
-import Reimburse from './报销/'
+import Positive from './Positive/'
+import Leaving from './Leaving/'
+import Transfer from './Transfer/'
+import Leave from './Leave/'
+import Overtime from './Overtime/'
+import BusinessTrip from './BusinessTrip/'
+import ItemUse from './ItemUse/'
+import Reimburse from './Reimburse/'
 // hrms_applic_type
 import { getEmployeeProfileSelf } from '@/api/hrms/employee_profile'
 const componentMap = {

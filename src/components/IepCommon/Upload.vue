@@ -1,5 +1,5 @@
 <template>
-  <el-upload action="/api/admin/file/upload" :headers="headers" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :on-success="handleSuccess" multiple :limit="limit" :on-exceed="handleExceed" :file-list="fileList" :drag="drag" v-bind="$attrs" v-on="$listeners">
+  <el-upload action="/api/admin/file/upload" :headers="headers" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :on-success="handleSuccess" :on-error="handleError" multiple :limit="limit" :on-exceed="handleExceed" :file-list="fileList" :drag="drag" v-bind="$attrs" v-on="$listeners">
     <el-button v-if="!drag" size="small" type="primary">点击上传</el-button>
     <template v-else>
       <i class="el-icon-upload"></i>
@@ -48,12 +48,20 @@ export default {
     },
   },
   methods: {
-    handleSuccess (res, rfile) {
-      const file = {
-        name: rfile.name,
-        url: res.data.bucketName + '-' + res.data.fileName,
+    handleError () {
+      this.$message.error('错了哦，请检查文件服务器')
+    },
+    handleSuccess (res, file) {
+      if (res.code) {
+        this.$message.error('错了哦，请检查文件服务器')
+      } else {
+        const formatFile = {
+          name: file.name,
+          url: res.data.bucketName + '-' + res.data.fileName,
+        }
+        this.fileList.push(formatFile)
       }
-      this.fileList.push(file)
+      console.log(this.fileList)
     },
     handleRemove (file) {
       const newData = this.fileList.filter(item => item.url !== file.url)

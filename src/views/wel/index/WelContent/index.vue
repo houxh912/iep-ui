@@ -386,6 +386,7 @@ export default {
   width: 100%;
 }
 .wel-content >>> .grid-content {
+  margin:0 5px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

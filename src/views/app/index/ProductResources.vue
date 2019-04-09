@@ -2,8 +2,8 @@
   <div class="resources">
     <el-card class="index-card" shadow="never">
         <div slot="header" class="clearfix">
-            <span class="cardTitle">{{title}}</span>
-            <el-button style="float: right; padding: 3px 0; coloe:#999;" type="text">更多>></el-button>
+            <span class="cardTitle" style="font-size:18px;">{{title}}</span>
+            <el-button style="float: right; padding: 5px 0; color:#999;" type="text">更多>></el-button>
         </div>
         <div>
             <div class="resourcesList">
@@ -43,6 +43,7 @@ export default {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-row-gap: 40px;
     grid-column-gap: 20px;
+    padding: 20px 0 13px;
     .piece{
         width: 100%;
         text-align: center;

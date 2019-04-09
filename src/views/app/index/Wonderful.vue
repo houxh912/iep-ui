@@ -2,8 +2,8 @@
   <div class="wonderful">
     <el-card class="index-card" shadow="never">
         <div slot="header" class="clearfix">
-            <span class="cardTitle">{{title}}</span>
-            <el-button style="float: right; padding: 3px 0; coloe:#999;" type="text">更多>></el-button>
+            <span class="cardTitle" style="font-size:18px;">{{title}}</span>
+            <el-button style="float: right; padding: 5px 0; color:#999;" type="text">更多>></el-button>
         </div>
         <div>
             <el-carousel :interval="5000" class="index-card">

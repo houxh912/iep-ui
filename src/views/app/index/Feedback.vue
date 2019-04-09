@@ -2,8 +2,8 @@
   <div class="feedback">
     <el-card class="index-card" shadow="never">
         <div slot="header" class="clearfix">
-            <span class="cardTitle">{{title}}</span>
-            <el-button style="float: right; padding: 3px 0; coloe:#999;" type="text">我要发表</el-button>
+            <span class="cardTitle" style="font-size:18px;">{{title}}</span>
+            <el-button style="float: right; padding: 5px 0;" type="text">我要发表</el-button>
         </div>
         <div>
             <div class="feedbackList">
@@ -61,12 +61,19 @@ export default {
                 }
             }
             .feed{
+                cursor: pointer;
                 overflow : hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
+                &:hover{
+                    color: #ba1b21;
+                }
             }
+        }
+        &:last-child{
+            margin-bottom: 12px;
         }
     }
 }

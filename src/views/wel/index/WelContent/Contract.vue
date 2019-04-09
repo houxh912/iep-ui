@@ -3,6 +3,7 @@
     <div class="contract-nav">
       <div>我的合同</div>
     </div>
+    <iep-no-data v-if="!dataList.length" message="暂无内容"></iep-no-data>
     <div class="contract-content">
       <el-row v-for="(item,index) in dataList" :key="index">
         <el-col :span="15">

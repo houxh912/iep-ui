@@ -31,7 +31,7 @@ export default {
       dialogShow: false,
       data: {
         clientId: '',
-        userIds: [],
+        userId: [],
       },
     }
   },
@@ -43,7 +43,7 @@ export default {
     submitForm () {
       var that = this
       this.user.forEach(function (val) {
-        that.data.userIds.push(val.id)
+        that.data.userId.push(val.id)
       })
       AddCollaborator(this.data).then(res => {
         if (res.data.data) {

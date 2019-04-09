@@ -95,7 +95,7 @@
     </el-form>
     <footer-toolbar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
-      <iep-button @click="resetForm('form')">取消</iep-button>
+      <iep-button @click="resetForm">取消</iep-button>
     </footer-toolbar>
   </div>
 </template>
@@ -119,7 +119,7 @@ export default {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          this.$emit('load-page', true)
+          this.$emit('dialog')
         },
       },
     }
@@ -156,8 +156,7 @@ export default {
     loadPage () {
       this.$emit('load-page')
     },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
+    resetForm () {
       this.formData = initFormData()
       this.$emit('dialog')
     },

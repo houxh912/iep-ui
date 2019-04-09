@@ -68,7 +68,6 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
-
       if (this.formData.attachs.length == 0) {
         this.$message.error('请选择上传的文件')
         return false
@@ -80,7 +79,7 @@ export default {
           this.submitFn(this.formData).then(() => {
             this.$notify({
               title: '成功',
-              message: `${this.methodName}成功`,
+              message: `${this.methodName}方案成功`,
               type: 'success',
               duration: 2000,
             })

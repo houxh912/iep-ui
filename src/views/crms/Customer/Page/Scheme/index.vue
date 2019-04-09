@@ -8,18 +8,22 @@
         <template slot-scope="scope">
           <el-col>
             <div class="program-name">{{scope.row.programName}}</div>
-            <div class=' line'>
-              <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
-            </div>
-            <div class='create-name line'>
-              zhagpegyu
-            </div>
           </el-col>
         </template>
       </el-table-column>
       <el-table-column label="附件" width="250px">
         <template slot-scope="scope">
           <span @click="download(scope.row)" class="download">下载<i class="icon-download1"></i></span>
+        </template>
+      </el-table-column>
+      <el-table-column label="创建人" width="250px">
+        <template slot-scope="scope">
+          <div class=' line'>
+            <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
+          </div>
+          <div class='create-name line'>
+            {{scope.row.createName}}
+          </div>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="300px">
@@ -85,6 +89,7 @@ export default {
     ]),
   },
   created () {
+    this.formData.createName = this.userInfo.avatar
     this.loadPage()
     getMaterial({ clientId: this.record.id }).then((res) => {
       this.recommendList = res.data.data

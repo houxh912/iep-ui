@@ -31,8 +31,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.news-nav {
-  margin: 27px;
-}
-</style>

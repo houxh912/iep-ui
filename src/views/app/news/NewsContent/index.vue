@@ -1,11 +1,7 @@
 <template>
   <div class="news-content">
-    <el-col :span="16">
-      <news-left></news-left>
-    </el-col>
-    <el-col :span="8">
-      <news-right></news-right>
-    </el-col>
+    <news-left></news-left>
+    <news-right></news-right>
   </div>
 </template>
 <script>
@@ -17,7 +13,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 .news-content {
-  display: flex;
-  justify-content: flex-start;
+  display: grid;
+  margin: 0 auto;
+  padding-top: 25px;
+  width: 1280px;
+  grid-auto-flow: row dense;
+  grid-row-gap: 25px;
+  grid-column-gap: 25px;
+  grid-template-columns: minmax(100px, 55fr) minmax(100px, 28fr);
 }
 </style>

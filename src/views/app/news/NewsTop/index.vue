@@ -13,6 +13,8 @@
 </template>
 <style lang="scss" scoped>
 .news-top {
+  margin: 0 auto;
+  width: 1280px;
   background-color: #fafafa;
   .search-con {
     display: flex;

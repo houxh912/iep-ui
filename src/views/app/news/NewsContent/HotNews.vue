@@ -1,5 +1,5 @@
 <template>
-  <el-card class="box-card hot-news" shadow="never">
+  <el-card class="hot-news" shadow="never">
     <div slot="header" class="clearfix">
       <span class="sub-title">热点要闻</span>
     </div>

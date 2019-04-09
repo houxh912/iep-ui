@@ -1,19 +1,19 @@
 <template>
-  <el-card class="box-card" shadow="never">
+  <el-card shadow="never">
     <div slot="header" class="clearfix">
       <span class="sub-title">热门标签</span>
     </div>
     <el-tag v-for="o in 10" :key="o" class="text item">
-      {{'列表内容 ' + o }}
+      {{'标签内 ' + o }}
     </el-tag>
   </el-card>
 </template>
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .el-card {
   border: 0;
-  &:nth-child(1) {
-    padding-top: 10px;
-  }
+}
+.el-card >>> .el-card__header {
+  padding-top: 0;
 }
 .text {
   font-size: 14px;

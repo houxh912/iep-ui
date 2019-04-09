@@ -5,7 +5,7 @@
       <iep-button size="small" @click="back">返回</iep-button>
     </div>
     <div class="info">
-      <div class="title">关于近期国策数据库存量数据清洗的二期工作进度汇报</div>
+      <div class="title">{{formData.subject}}</div>
       <el-tag type="info" class="tags" v-for="(item, index) in formData.tagKeyWords" :key="index">{{item}}</el-tag>
       <div class="msg">发件人：{{formData.sendRealName}}</div>
       <div class="msg">收件人：<span v-for="(item, index) in formData.receivers" :key="index">{{item.receiverRealName}}{{index==formData.receivers.length-1?'':'；'}}</span></div>

@@ -51,7 +51,6 @@ export default {
       this.$emit('load-page')
     },
     submitForm (formName) {
-      this.formData.receiverIds = this.formData.receiverList.users.map(m => m.id)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           createEmail(this.formData).then(() => {

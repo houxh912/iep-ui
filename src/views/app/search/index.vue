@@ -40,7 +40,7 @@
       <el-col :span="8">
         <el-card :body-style="{ padding: '0px' }">
            <div slot="header" class="clearfix">
-            <span>集团要闻</span>
+            <span>集团喜讯</span>
             <el-button style="float: right; padding: 3px 0" type="text">更多></el-button>
           </div>
           <div style="padding:15px;display:inline-block; width:50%;" v-for="(item,index) in imgList" :key="index">

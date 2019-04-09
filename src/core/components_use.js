@@ -25,6 +25,7 @@ import IepDictSelect from '@/components/IepCommon/DictSelect'
 import IepDescriptionItem from '@/components/IepCommon/DescriptionItem'
 import IepDetailTag from '@/components/IepCommon/DetailTag'
 import IepInputNumber from '@/components/IepCommon/InputNumber'
+import IepEditor from '@/components/IepEditor'
 
 // 头像上传文件有关组件
 import IepAvatar from '@/components/IepCommon/Avatar'
@@ -44,8 +45,11 @@ import IepTableLink from '@/components/IepTable/Link'
 
 // 通讯录组件Contact
 import IepContactSelect from '@/components/IepContact/Select'
+import IepContactOneSelect from '@/components/IepContact/OneSelect'
 import IepContactMultiple from '@/components/IepContact/Multiple'
+import IepContactOneMultiple from '@/components/IepContact/OneMultiple'
 import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
+import IepContactOneMultipleUser from '@/components/IepContact/OneMultipleUser'
 
 // 部门组件Contact
 import IepDeptSelect from '@/components/IepDept/Select'
@@ -76,6 +80,7 @@ Vue.component(IepInputNumber.name, IepInputNumber)
 Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepDescriptionItem.name, IepDescriptionItem)
 Vue.component(IepDetailTag.name, IepDetailTag)
+Vue.component(IepEditor.name, IepEditor)
 
 // 头像上传文件有关组件
 Vue.component(IepImgAvatar.name, IepImgAvatar)
@@ -96,8 +101,11 @@ Vue.component(IepTableLink.name, IepTableLink)
 
 // 通讯录组件Contact
 Vue.component(IepContactSelect.name, IepContactSelect)
+Vue.component(IepContactOneSelect.name, IepContactOneSelect)
 Vue.component(IepContactMultiple.name, IepContactMultiple)
+Vue.component(IepContactOneMultiple.name, IepContactOneMultiple)
 Vue.component(IepContactMultipleUser.name, IepContactMultipleUser)
+Vue.component(IepContactOneMultipleUser.name, IepContactOneMultipleUser)
 
 // 部门组件Contact
 Vue.component(IepDeptSelect.name, IepDeptSelect)

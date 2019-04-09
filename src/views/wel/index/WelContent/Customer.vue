@@ -5,7 +5,8 @@
     </div>
     <div class="customer-content">
       <el-row>
-        <el-col :span="6" v-for="(item,index) in tabList" :key="index">
+        <iep-no-data v-if="!tabList.length" message="暂无客户"></iep-no-data>
+        <el-col v-else :span="6" v-for="(item,index) in tabList" :key="index">
           <div class="title" @click="handleDetail(item)">{{item.name}}</div>
         </el-col>
       </el-row>

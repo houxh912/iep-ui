@@ -7,8 +7,8 @@
       <el-table-column prop="operation" label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain :disabled="scope.row.creatorId !== userInfo.userId">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)" :disabled="scope.row.creatorId !== userInfo.userId">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -22,6 +22,7 @@ import mixins from '@/mixins/mixins'
 import { fetchVisitList, deleteVisit, updateVisit, createVisit } from '@/api/crms/visiting_record'
 import { columnsMap } from './options'
 import EditDialog from './EditDialog'
+import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
   props: ['record'],
@@ -30,16 +31,18 @@ export default {
     return {
       columnsMap,
       id: this.record.id,
+      userId: '',
     }
   },
   created () {
     this.loadPage()
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
   methods: {
-    // loadPage (param) {
-    //   let id = this.record.clientId
-    //   this.loadTable({ ...param, clientId: id }, fetchVisitList)
-    // },
     loadPage (param = { ...this.searchForm, id: this.id }) {
       this.loadTable(param, fetchVisitList)
     },

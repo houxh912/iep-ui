@@ -3,12 +3,26 @@
     <div class="customer-nav">
       <div>我的客户</div>
     </div>
-    <iep-no-data v-if="!tabList.length" message="暂无内容"></iep-no-data>
+    <iep-no-data v-if="!tableData.length" message="暂无内容"></iep-no-data>
     <div class="customer-content">
-      <el-row>
-        <iep-no-data v-if="!tabList.length" message="暂无客户"></iep-no-data>
-        <el-col v-else :span="6" v-for="(item,index) in tabList" :key="index">
+      <el-row class="item" v-for="(item,index) in tableData" :key="index">
+        <el-col :span="7">
           <div class="title" @click="handleDetail(item)">{{item.name}}</div>
+        </el-col>
+        <el-col :span="6">
+          <span v-for="(item,index) in dealData(item.businessType)" :key="index">{{item}}</span>
+        </el-col>
+        <el-col :span="3">
+          <div>{{item.districtType}}</div>
+        </el-col>
+        <el-col :span="3">
+          <div>{{item.clientRela}}</div>
+        </el-col>
+        <el-col :span="3">
+          <div>{{item.followUpStatus}}</div>
+        </el-col>
+        <el-col :span="2" class="time">
+          <div>{{item.time | parseTime('{y}-{m}-{d}')}}</div>
         </el-col>
       </el-row>
     </div>
@@ -21,12 +35,12 @@ export default {
   data () {
     return {
       type: '1',
-      tabList: [],
+      tableData: [],
     }
   },
   created () {
     getCustomerList().then((res) => {
-      this.tabList = res.data.data
+      this.tableData = res.data.data
     })
   },
   methods: {
@@ -37,6 +51,9 @@ export default {
           id: row.id,
         },
       })
+    },
+    dealData (val) {
+      return val.join('，')
     },
   },
 }
@@ -56,13 +73,29 @@ export default {
   .customer-content {
     padding: 10px 0;
     font-size: 14px;
+    .item {
+      padding: 5px 0;
+    }
+    .time div {
+      text-align: right;
+    }
   }
   .title {
-    padding: 5px 0;
     cursor: pointer;
     &:hover {
       color: #cb3737;
     }
+  }
+}
+.business {
+  padding: 0 5px;
+  &:after {
+    content: "，";
+    position: absolute;
+  }
+  &:last-child {
+    content: "222";
+    position: absolute;
   }
 }
 </style>

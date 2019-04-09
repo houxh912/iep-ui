@@ -63,11 +63,9 @@
 <script>
 import { initLocalForm, rules } from './option'
 // import IepEditor from '@/components/IepEditor/'
-import IepTags from '@/components/IepTag'
-import FooterToolbar from '@/components/FooterToolbar/'
 
 export default {
-  components: { IepTags, FooterToolbar },
+  components: {  },
   props: {
     firstClass: {
       type: Array,

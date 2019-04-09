@@ -34,7 +34,7 @@
           <el-tag v-for="(item, index) in formData.tagKeyWords" :key="index" type="info">{{item}}</el-tag>
         </div>
         <div class="footer-right">
-          <div class="wrong">
+          <div class="wrong" @click="handleWrong">
             <i class="icon-chakantiezigengduojubao"></i> 纠错
           </div>
         </div>
@@ -77,6 +77,7 @@
         <p>论互联网如何发展</p>
       </div>
     </el-col>
+    <wrongDialog ref="wrong"></wrongDialog>
   </basic-container>
 </template>
 
@@ -84,6 +85,7 @@
 import { getDataById, downloadCount } from '@/api/mlms/material/datum/material'
 import { commentMaterial, getCommentPage } from '@/api/mlms/index'
 import { downloadFile } from '@/api/common'
+import wrongDialog from './wrongDialog'
 
 function commentForm () {
   return {
@@ -95,7 +97,7 @@ function commentForm () {
 }
 
 export default {
-  components: {  },
+  components: { wrongDialog },
   data () {
     return {
       formData: {
@@ -142,6 +144,10 @@ export default {
       downloadFile(obj)
       // /getUpload/{id}
       downloadCount(this.formData.id)
+    },
+    // 纠错
+    handleWrong () {
+      this.$refs['wrong'].open(this.formData)
     },
   },
   created () {

@@ -85,3 +85,40 @@ export const rules = {
     { required: true, message: '必填', trigger: 'change' },
   ],
 }
+
+// 纠错
+export function initWrongForm () {
+  return {
+    attachmentIds: [],
+    content: '',
+    emailId: 0,
+    materialIds: [],
+    projectIds: [],
+    receiverIds: [],
+    receiverList: {
+      unions: [],
+      orgs: [],
+      users: [],
+    },
+    reportIds: [],
+    status: 1,
+    subject: '',
+    summaryIds: [],
+    summaryList: [],
+    tagKeyWords: [],
+    type: 3, // 类型为纠错
+    kind: 0,
+  }
+}
+
+export const wrongRules = {
+  subject: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
+  receiverIds: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
+  content: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
+}

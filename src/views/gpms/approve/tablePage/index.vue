@@ -26,8 +26,10 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMap, pagedTable, dictsMap } from './option.js'
-import { getApprovalList, updateData } from '@/api/gpms/index'
+import { columnsMap, pagedTable, dictsMap} from './option.js'
+import { 
+  // getApprovalList,
+   updateData } from '@/api/gpms/index'
 import transferDialog from '../transfer/index'
 
 export default {
@@ -73,12 +75,12 @@ export default {
         this.loadPage()
       })
     },
-    loadPage (param = {approvalStatus: this.status}) {
-      this.loadTable(param, getApprovalList)
-    },
+    // loadPage (param = {approvalStatus: this.status}) {
+    //   this.loadTable(param, getApprovalList)
+    // },
   },
   mounted () {
-    this.loadPage()
+    // this.loadPage()
   },
 }
 </script>

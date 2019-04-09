@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="`${form.name}的转正申请`" :backOption="backOption"></page-header>
+      <page-header :title="`${form.name}的申请`" :backOption="backOption"></page-header>
       <el-card class="top-card" :body-style="bodyStyle" shadow="hover">
         <div class="avatar-wrapper">
           <iep-img class="avatar" :src="form.avatar"></iep-img>

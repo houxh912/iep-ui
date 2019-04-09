@@ -100,12 +100,12 @@ Vue.component(IepTable.name, IepTable)
 Vue.component(IepTableLink.name, IepTableLink)
 
 // 通讯录组件Contact
-Vue.component(IepContactSelect.name, IepContactSelect)
-Vue.component(IepContactOneSelect.name, IepContactOneSelect)
-Vue.component(IepContactMultiple.name, IepContactMultiple)
-Vue.component(IepContactOneMultiple.name, IepContactOneMultiple)
-Vue.component(IepContactMultipleUser.name, IepContactMultipleUser)
-Vue.component(IepContactOneMultipleUser.name, IepContactOneMultipleUser)
+// Vue.component(IepContactSelect.name, IepContactSelect)
+Vue.component(IepContactSelect.name, IepContactOneSelect)
+// Vue.component(IepContactMultiple.name, IepContactMultiple)
+Vue.component(IepContactMultiple.name, IepContactOneMultiple)
+// Vue.component(IepContactMultipleUser.name, IepContactMultipleUser)
+Vue.component(IepContactMultipleUser.name, IepContactOneMultipleUser)
 
 // 部门组件Contact
 Vue.component(IepDeptSelect.name, IepDeptSelect)

@@ -1,6 +1,6 @@
 <template>
-  <basic-container class="news-top">
-    <page-header title="国脉要闻"></page-header>
+  <div class="news-top">
+    <h3>国脉要闻</h3>
     <template>
       <div class="search-con">
         <operation-search>
@@ -9,15 +9,21 @@
         <el-button>高级搜索</el-button>
       </div>
     </template>
-  </basic-container>
+  </div>
 </template>
 <style lang="scss" scoped>
 .news-top {
   margin: 0 auto;
-  width: 1280px;
-  background-color: #fafafa;
+  padding: 40px 20px;
+  text-align: center;
+  background: #fafafa url(./linebg.png) no-repeat;
+  h3 {
+    font-size: 24px;
+  }
   .search-con {
     display: flex;
+    margin: 0 auto;
+    width: 600px;
     justify-content: space-between;
   }
 }
@@ -33,5 +39,9 @@
 }
 .news-top >>> .el-card {
   background-color: #fafafa;
+}
+.news-top >>> .search-con .input-wrapper {
+  max-width: 510px;
+  width: 510px;
 }
 </style>

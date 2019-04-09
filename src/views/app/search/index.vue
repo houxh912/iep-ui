@@ -23,7 +23,7 @@
     </el-row> 
     <el-row :gutter="20">
       <el-col :offset="2" :span="12">
-        <el-card class="box-card">
+        <el-card class="box-card" shadow="never">
           <div slot="header" class="clearfix">
             <span>集团要闻</span>
             <el-button style="float: right; padding: 3px 0" type="text">更多></el-button>
@@ -38,7 +38,7 @@
         </el-card>
       </el-col>
       <el-col :span="8">
-        <el-card :body-style="{ padding: '0px' }">
+        <el-card :body-style="{ padding: '0px' }" shadow="never">
            <div slot="header" class="clearfix">
             <span>集团喜讯</span>
             <el-button style="float: right; padding: 3px 0" type="text">更多></el-button>
@@ -104,7 +104,7 @@ export default {
       margin: 0 10px;
     }
     .grid-border{
-      border:1px solid #cfcfcf;
+      border:1px solid #eee;
       border-radius: 5px;
       padding: 14px;
       span{

@@ -15,9 +15,9 @@
           <el-table-column prop="operation" label="操作" width="220">
             <template slot-scope="scope">
               <operation-wrapper>
-                <el-button type="text" @click="details(scope.row)" size="small">详情</el-button>
-                <el-button type="text" @click="update(scope.row)" size="small">编辑</el-button>
-                <el-button type="text" @click="deletes(scope.row)" size="small">删除</el-button>
+                <iep-button @click="details(scope.row)">详情</iep-button>
+                <iep-button @click="update(scope.row)">编辑</iep-button>
+                <iep-button @click="deletes(scope.row)">删除</iep-button>
               </operation-wrapper>
             </template>
           </el-table-column>
@@ -33,9 +33,9 @@
             <iep-button class="callbackAdd" @click='goindex'>返回</iep-button>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center">
-          <el-col :span="15">
-            <el-form :label-position="'top'" :model="formLabelAlign" :rules="rules" ref="ruleForm">
+        <el-row type="flex">
+          <el-col :span="15" :push="1">
+            <el-form :label-position="'right'" label-width="100px" :model="formLabelAlign" :rules="rules" ref="ruleForm">
               <el-form-item label="名称" prop='name'>
                 <el-input v-model="formLabelAlign.name" placeholder="请输入名称"></el-input>
               </el-form-item>
@@ -67,14 +67,14 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="排序值" prop='num'>
-                <el-input v-model="formLabelAlign.num" placeholder="请输入排序值（数字）"></el-input>
+                <el-input type="number" v-model="formLabelAlign.num" placeholder="请输入排序值（数字）"></el-input>
               </el-form-item>
               <el-form-item label="URL链接" prop='links'>
                 <el-input v-model="formLabelAlign.links" placeholder="请输入URL链接"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-row>
-                  <el-col :span="6" :push="10">
+                  <el-col :span="6">
                     <el-button plain type="primary" @click="submitForm('ruleForm')">保存</el-button>
                     <el-button @click='goindex'>返回</el-button>
                   </el-col>
@@ -197,20 +197,20 @@ export default {
 .row-bg {
   padding: 0 20px;
   border-bottom: 1px solid #f8f8f8;
+  margin-bottom: 10px;
 }
 .callbackAdd {
   float: right;
-  margin-top: 15px;
+  margin-bottom: 15px;
 }
 .addFont {
-  font-weight: bold;
   font-size: 18px;
 }
 .cent {
   margin: 0;
 }
 .sixsix {
-  color: #666666;
+  color: #303133;
 }
 </style>
 

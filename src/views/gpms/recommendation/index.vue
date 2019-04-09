@@ -11,24 +11,24 @@
           <el-col :span="24" class="padLeft">
             <el-radio-group v-model="radio1" class="groupBottom">
               <span>我的项目是哪种类型：</span>
-              <el-radio :label="1">不限</el-radio>
-              <el-radio :label="2">咨询类</el-radio>
-              <el-radio :label="3">产品类</el-radio>
-              <el-radio :label="4">数据类</el-radio>
-              <el-radio :label="5">外包类</el-radio>
-              <el-radio :label="6">会议培训类</el-radio>
-              <el-radio :label="7">平台类</el-radio>
-              <el-radio :label="8">技术服务类</el-radio>
-              <el-radio :label="9">其他类</el-radio>
+              <el-radio class="rads" :label="1">不限</el-radio>
+              <el-radio class="rads" :label="2">咨询类</el-radio>
+              <el-radio class="rads" :label="3">产品类</el-radio>
+              <el-radio class="rads" :label="4">数据类</el-radio>
+              <el-radio class="rads" :label="5">外包类</el-radio>
+              <el-radio class="rads" :label="6">会议培训类</el-radio>
+              <el-radio class="rads" :label="7">平台类</el-radio>
+              <el-radio class="rads" :label="8">技术服务类</el-radio>
+              <el-radio class="rads" :label="9">其他类</el-radio>
             </el-radio-group>
             <el-radio-group v-model="radio2" class="groupBottom">
               <span>我的项目有多少预算：</span>
-              <el-radio :label="1">不限</el-radio>
-              <el-radio :label="2">50万以下</el-radio>
-              <el-radio :label="3">50万（含）-100万（不含）以下</el-radio>
-              <el-radio :label="4">100万（含）-500万（不含）以下</el-radio>
-              <el-radio :label="5">500万（含）-1000万（不含）以下</el-radio>
-              <el-radio :label="6">1000万以上</el-radio>
+              <el-radio class="rads" :label="1">不限</el-radio>
+              <el-radio class="rads" :label="2">50万以下</el-radio>
+              <el-radio class="rads" :label="3">50万（含）-100万（不含）以下</el-radio>
+              <el-radio class="rads" :label="4">100万（含）-500万（不含）以下</el-radio>
+              <el-radio class="rads" :label="5">500万（含）-1000万（不含）以下</el-radio>
+              <el-radio class="rads" :label="6">1000万以上</el-radio>
             </el-radio-group>
             <!-- 标签组件 -->
             <el-col :span="24">
@@ -54,13 +54,13 @@
           </el-col>
         </el-row>
         <el-row class="Firsttable" :gutter="20" style="margin:10px 0 0;">
-          <el-col :span="12">
+          <el-col class="padclear" :span="12" style="padding:0;">
             <div class="firstbox">
-              <p class="borbom sixsix"><strong>推荐学习的部门</strong></p>
+              <p class="borbom sixsix">推荐学习的部门</p>
               <div class="Studys">
                 <el-row>
                   <el-col class="mbs">
-                    <p class="sixsix"><strong>上海国脉互联知政信息咨询有限公司</strong></p>
+                    <p class="sixsix">上海国脉互联知政信息咨询有限公司</p>
                     <el-col class="smallfont" :span='24'>
                       <el-col :span='4' class="mb">班长：张三</el-col>
                       <el-col :span='20'>
@@ -79,7 +79,7 @@
               <div class="Studys">
                 <el-row>
                   <el-col class="mbs">
-                    <p class="sixsix"><strong>上海国脉互联知政信息咨询有限公司</strong></p>
+                    <p class="sixsix">上海国脉互联知政信息咨询有限公司</p>
                     <el-col class="smallfont" :span='24'>
                       <el-col :span='4' class="mb">班长：张三</el-col>
                       <el-col :span='20'>
@@ -98,7 +98,7 @@
               <div class="Studys">
                 <el-row>
                   <el-col class="mbs">
-                    <p class="sixsix"><strong>上海国脉互联知政信息咨询有限公司</strong></p>
+                    <p class="sixsix">上海国脉互联知政信息咨询有限公司</p>
                     <el-col class="smallfont" :span='24'>
                       <el-col :span='4' class="mb">班长：张三</el-col>
                       <el-col :span='20'>
@@ -116,51 +116,51 @@
               </div>
             </div>
           </el-col>
-          <el-col :span="12">
+          <el-col class="padclear" :span="12" style="padding-right:0;">
             <div class="firstbox" style="padding-bottom:3px;">
-              <p class="borboms sixsix"><strong>推荐请教的国脉人</strong></p>
+              <p class="borboms sixsix">推荐请教的国脉人</p>
               <div class="Recommend">
                 <el-row :gutter="20">
                   <el-col :span="12" class="clemr">
                     <img class="imgs" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=622258600,2063348875&fm=26&gp=0.jpg" alt="未加载">
                     <div class="offdiv">
                       <p class="bigfon sixsix">张三</p>
-                      <p>上海国脉互联知政信息咨询有限公司</p>
+                      <p class="coles">上海国脉互联知政信息咨询有限公司</p>
                     </div>
                   </el-col>
                   <el-col :span="12" class="clemr">
                     <img class="imgs" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=622258600,2063348875&fm=26&gp=0.jpg" alt="未加载">
                     <div class="offdiv">
                       <p class="bigfon sixsix">张三</p>
-                      <p>上海国脉互联知政信息咨询有限公司</p>
+                      <p class="coles">上海国脉互联知政信息咨询有限公司</p>
                     </div>
                   </el-col>
                   <el-col :span="12" class="clemr">
                     <img class="imgs" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=622258600,2063348875&fm=26&gp=0.jpg" alt="未加载">
                     <div class="offdiv">
                       <p class="bigfon sixsix">张三</p>
-                      <p>上海国脉互联知政信息咨询有限公司</p>
+                      <p class="coles">上海国脉互联知政信息咨询有限公司</p>
                     </div>
                   </el-col>
                   <el-col :span="12" class="clemr">
                     <img class="imgs" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=622258600,2063348875&fm=26&gp=0.jpg" alt="未加载">
                     <div class="offdiv">
                       <p class="bigfon sixsix">张三</p>
-                      <p>上海国脉互联知政信息咨询有限公司</p>
+                      <p class="coles">上海国脉互联知政信息咨询有限公司</p>
                     </div>
                   </el-col>
                   <el-col :span="12" class="clemr">
                     <img class="imgs" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=622258600,2063348875&fm=26&gp=0.jpg" alt="未加载">
                     <div class="offdiv">
                       <p class="bigfon sixsix">张三</p>
-                      <p>上海国脉互联知政信息咨询有限公司</p>
+                      <p class="coles">上海国脉互联知政信息咨询有限公司</p>
                     </div>
                   </el-col>
                   <el-col :span="12" class="clemr">
                     <img class="imgs" src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=622258600,2063348875&fm=26&gp=0.jpg" alt="未加载">
                     <div class="offdiv">
                       <p class="bigfon sixsix">张三</p>
-                      <p>上海国脉互联知政信息咨询有限公司</p>
+                      <p class="coles">上海国脉互联知政信息咨询有限公司</p>
                     </div>
                   </el-col>
                 </el-row>
@@ -171,25 +171,11 @@
         <!-- 推荐参考项目 -->
         <el-row class="Secondtab">
           <el-col class="SecondtBox" :span="24">
-            <p class="borbomes sixsix"><strong>推荐参考的项目</strong></p>
+            <p class="borbomes">推荐参考的项目</p>
             <div class="Reference">
               <el-row>
                 <el-col class="Referencetit" :span="12">
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
-                  <el-col class="smallfonts" :span='24'>
-                    <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
-                    <el-col :span='19'>
-                      项目标签：
-                      <el-button class="btns">数据基因</el-button>
-                      <el-button class="btns">互联网+政务服务</el-button>
-                      <el-button class="btns">数据服务</el-button>
-                    </el-col>
-                  </el-col>
-                </el-col>
-
-
-                <el-col class="Referencetit" :span="12">
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
                     <el-col :span='19'>
@@ -201,7 +187,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetit" :span="12">
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
                     <el-col :span='19'>
@@ -213,7 +199,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetit" :span="12">
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
                     <el-col :span='19'>
@@ -225,7 +211,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetit" :span="12">
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
                     <el-col :span='19'>
@@ -237,7 +223,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetit" :span="12">
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
                     <el-col :span='19'>
@@ -249,7 +235,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetit" :span="12">
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
                     <el-col :span='19'>
@@ -261,7 +247,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetit" :span="12">
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
                     <el-col :span='19'>
@@ -273,7 +259,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetit" :span="12">
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
                     <el-col :span='19'>
@@ -285,7 +271,19 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetit" :span="12">
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
+                  <el-col class="smallfonts" :span='24'>
+                    <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
+                    <el-col :span='19'>
+                      项目标签：
+                      <el-button class="btns">数据基因</el-button>
+                      <el-button class="btns">互联网+政务服务</el-button>
+                      <el-button class="btns">数据服务</el-button>
+                    </el-col>
+                  </el-col>
+                </el-col>
+                <el-col class="Referencetit" :span="12">
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
                     <el-col :span='19'>
@@ -302,14 +300,19 @@
         </el-row>
         <el-row class="Secondtab">
           <el-col class="SecondtBox" :span='24'>
-            <p class="borbomes sixsix"><strong>推荐参考的材料</strong></p>
-            <el-row class="posbox">
-              <el-col :span='3'>
+            <p class="borbomes">
+              推荐参考的材料
+              <span class="padL sixsix">
+                <span class="postit" :class="{'grays':index==isgrays}" @click='handlebtnclick(index)' v-for="(item,index) in bt" :key='index'>{{item.name}}</span>
+              </span>
+            </p>
+            <el-row class="posbox" style="padding-top:0;">
+              <!-- <el-col :span='3'>
                 <el-button class="postit" :class="{'grays':index==isgrays}" @click='handlebtnclick(index)' v-for="(item,index) in bt" :key='index'>{{item.name}}</el-button>
-              </el-col>
-              <el-col class="posmenu" :span='21'>
+              </el-col> -->
+              <el-col class="posmenu" :span='23'>
                 <el-col class="Referencetits" :span='12'>
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfontss" :span='24'>
                     <el-col :span='5' class="mbss">上传者：张三</el-col>
                     <el-col :span='19'>
@@ -321,7 +324,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetits" :span='12'>
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfontss" :span='24'>
                     <el-col :span='5' class="mbss">上传者：张三</el-col>
                     <el-col :span='19'>
@@ -333,7 +336,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetits" :span='12'>
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfontss" :span='24'>
                     <el-col :span='5' class="mbss">上传者：张三</el-col>
                     <el-col :span='19'>
@@ -345,7 +348,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetits" :span='12'>
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfontss" :span='24'>
                     <el-col :span='5' class="mbss">上传者：张三</el-col>
                     <el-col :span='19'>
@@ -357,7 +360,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetits" :span='12'>
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfontss" :span='24'>
                     <el-col :span='5' class="mbss">上传者：张三</el-col>
                     <el-col :span='19'>
@@ -369,7 +372,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetits" :span='12'>
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfontss" :span='24'>
                     <el-col :span='5' class="mbss">上传者：张三</el-col>
                     <el-col :span='19'>
@@ -381,7 +384,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetits" :span='12'>
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfontss" :span='24'>
                     <el-col :span='5' class="mbss">上传者：张三</el-col>
                     <el-col :span='19'>
@@ -393,7 +396,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetits" :span='12'>
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfontss" :span='24'>
                     <el-col :span='5' class="mbss">上传者：张三</el-col>
                     <el-col :span='19'>
@@ -405,7 +408,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetits" :span='12'>
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfontss" :span='24'>
                     <el-col :span='5' class="mbss">上传者：张三</el-col>
                     <el-col :span='19'>
@@ -417,7 +420,7 @@
                   </el-col>
                 </el-col>
                 <el-col class="Referencetits" :span='12'>
-                  <p class="sixsix"><strong>2018年度无锡市年度网站群考核评测及调研项目</strong></p>
+                  <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfontss" :span='24'>
                     <el-col :span='5' class="mbss">上传者：张三</el-col>
                     <el-col :span='19'>
@@ -451,10 +454,10 @@ export default {
       inputValue: '',
       bt:[
         {name:'方案'},
-        {name:'报告/清单'},
-        {name:'制度/规范/领导讲话'},
-        {name:'说明书/白皮书/模板'},
-        {name:'招投标/专利/软著'},
+        {name:'报告 · 清单'},
+        {name:'制度 · 规范 · 领导讲话'},
+        {name:'说明书 · 白皮书 · 模板'},
+        {name:'招投标 · 专利 · 软著'},
         {name:'培训材料'},
       ],
       isgrays:0,
@@ -503,21 +506,23 @@ export default {
   .clearmagin {
     margin: auto 0;
     box-sizing: border-box;
-    padding: 0 20px;
+    padding: 0 10px;
     font-size: 14px;
     p {
       font-size: 18px;
-      font-weight: bold;
+      color: #404040;
     }
   }
   .padLeft {
     padding-left: 25px;
+    color: #717276;
   }
   .groupBottom {
     margin-bottom: 30px;
   }
   .groupBottom span {
     font-size: 14px;
+    
   }
 }
 // 标签组件
@@ -540,49 +545,39 @@ export default {
   padding: 0 15px 10px 15px;
   box-sizing: border-box;
   .firstbox{
-    border: 1px solid #ccc;
+    border: 1px solid #f6f6f6;
     padding: 0 0 5px 0;
     overflow: hidden;
+    height: 300px;
     .borbom{
-      padding: 15px;
-      margin: 0;
-      border-bottom: 1px solid #ccc;
+      padding: 13px;
+      margin: 0 auto;
+      border-bottom: 1px solid #f6f6f6;
       font-size: 16px;
       position: relative;
+      width: 92%;
+      padding-left: 0;
+      color: #444444;
     }
-    .borbom::after{
-      content: '';
-      height: 2px;
-      width: 105px;
-      background-color: gray;
-      position: absolute;
-      bottom: 0;
-      left: 3%;
-    }
+    
     .borboms{
-      padding: 15px;
-      margin: 0;
-      border-bottom: 1px solid #ccc;
+      padding: 13px;
+      margin: 0 auto;
+      border-bottom: 1px solid #f6f6f6;
       font-size: 16px;
       position: relative;
-    }
-    .borboms::after{
-      content: '';
-      height: 2px;
-      width: 120px;
-      background-color: gray;
-      position: absolute;
-      bottom: 0;
-      left: 3%;
+      width: 92%;
+      padding-left: 0;
+      color: #444444;
     }
     .Recommend{
       width: 100%;
-      padding: 14px 10px 0 10px;
+      padding: 14px 20px 0 20px;
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
       // background-color: yellow;
       .clemr{
-        margin-bottom: 10px;
+        margin-bottom: 18px;
       }
       p{
         margin: 0;
@@ -591,6 +586,7 @@ export default {
         width: 53px;
         height: 53px;
         display: inline-block;
+        border-radius: 30px;
       }
       .offdiv{
         display: inline-block;
@@ -601,14 +597,13 @@ export default {
         padding-top: 2px;
         .bigfon{
           font-size: 18px;
-          font-weight: bold;
         }
       }
     }
     .Studys{
       width: 100%;
       // background-color: yellow;
-      padding: 15px 10px 0 25px;
+      padding: 10px 10px 0 25px;
       box-sizing: border-box;
       .mbs{
         margin-bottom: 0;
@@ -620,6 +615,7 @@ export default {
         font-size: 12px;
         padding-top: 5px;
         margin-bottom: 0;
+        color: #B8B8B8;
         .mb{
           margin: 0;
           line-height: 23px;
@@ -629,27 +625,21 @@ export default {
   }
 }
 .Secondtab{
-  padding: 0 25px;
+  padding: 0 15px;
   box-sizing: border-box;
   position: relative;
   .SecondtBox{
-    border: 1px solid #ccc;
+    border: 1px solid #f6f6f6;
     position: relative;
+    padding-bottom: 10px; 
     .borbomes{
       padding: 15px;
-      margin: 0;
-      border-bottom: 1px solid #ccc;
+      margin: 0 auto;
+      border-bottom: 1px solid #f6f6f6;
       font-size: 16px;
       position: relative;
-    }
-    .borbomes::after{
-      content: "";
-      height: 2px;
-      width: 105px;
-      background-color: gray;
-      position: absolute;
-      bottom: 0;
-      left: 1.5%;
+      width: 96%;
+      padding-left: 0;
     }
     .Reference{
       width: 100%;
@@ -663,6 +653,7 @@ export default {
           font-size: 12px;
           padding-top: 5px;
           margin-bottom: 0;
+          color: #B8B8B8;
         }
         .mbs{
           margin: 0;
@@ -676,26 +667,24 @@ export default {
   padding: 5px;
   margin: 0 0 0 5px;
   font-size: 12px;
+  color: #B8B8B8;
 }
 .posbox{
   padding: 10px 10px 5px 10px;
 }
 .postit{
-  display: block;
-  border-radius: 0;
-  width: 100%;
-  margin: 0;
-  border-color: #ccc;
-  font-weight: bold;
-  color: gray;
+  cursor: pointer;
+}
+.postit::after{
+  content: ' / '
 }
 .posmenu{
-  border: 1px solid #ccc;
+  // border: 1px solid #ccc;
   height: 325px;
   overflow: hidden;
   overflow-y: auto;
   box-sizing: border-box;
-  padding-right: 15px;
+  // padding-right: 15px;
 }
 .mbss{
   margin: 0;
@@ -705,19 +694,30 @@ export default {
   font-size: 12px;
   padding-top: 5px;
   margin-bottom: 0;
+  color: #B8B8B8;
 }
 .Referencetits{
-  padding: 10px 0 0 25px;
+  padding: 10px 0 0 20px;
   box-sizing: border-box;
 }
 .Referencetits p{
   margin: 0;
 }
 .grays{
-  background-color: #E4E4E4;
+  // background-color: #E4E4E4;
+  color:#BA1B21;
 }
 .sixsix{
-  color: #666666;
+  color: #717276;
+}
+.padL{
+  padding-left: 30px;
+}
+.coles{
+  color: #B8B8B8;
+}
+.rads{
+  color: #717276;
 }
 </style>
 

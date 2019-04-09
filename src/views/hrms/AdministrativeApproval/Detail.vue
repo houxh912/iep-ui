@@ -51,7 +51,8 @@
         <div slot="header" class="clearfix">
           <span>附件</span>
         </div>
-        <pre>
+        <iep-no-data v-if="form.annex===''"></iep-no-data>
+        <pre v-else>
           {{form.annex}}
         </pre>
       </el-card>
@@ -59,7 +60,8 @@
         <div slot="header" class="clearfix">
           <span>申请流程</span>
         </div>
-        <el-timeline>
+        <iep-no-data v-if="!form.processList.length"></iep-no-data>
+        <el-timeline v-else>
           <el-timeline-item v-for="p in form.processList" :key="p.id" :timestamp="p.time" placement="top">
             <el-card>
               <h4>{{p.username}} {{p.status}}</h4>

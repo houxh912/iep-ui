@@ -22,10 +22,10 @@
         <el-table-column label="操作" width="230px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===0" type="warning" plain @click="handleCancel(scope.row)">撤销</iep-button>
-              <iep-button v-if="scope.row.status!==0" type="warning" plain @click="handleEdit(scope.row)">修改</iep-button>
-              <iep-button v-if="scope.row.statu!==0" plain @click="handleDelete(scope.row)">删除</iep-button>
-              <iep-button v-if="scope.row.status!==0" plain @click="handleSubmit(scope.row)">提交</iep-button>
+              <iep-button v-if="scope.row.approveResult===0" type="warning" plain @click="handleCancel(scope.row)">撤销</iep-button>
+              <iep-button v-if="scope.row.approveResult!==0" type="warning" plain @click="handleEdit(scope.row)">修改</iep-button>
+              <iep-button v-if="scope.row.approveResult!==0" plain @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button v-if="scope.row.approveResult!==0" plain @click="handleSubmit(scope.row)">提交</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

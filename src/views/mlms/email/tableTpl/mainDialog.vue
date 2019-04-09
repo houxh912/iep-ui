@@ -15,7 +15,7 @@
       <pre>{{formData.content}}</pre>
     </div>
     <div class="appendix">
-      <h3>附件（3）</h3>
+      <h3>附件</h3>
       <ul class="list">
         <li v-for="(item, index) in formData.attachmentRelatios" :key="index">
           <i class="icon-fujian"></i>{{item.relatiionName}} <iep-button type="text" @click="downloadFile(item)">下载</iep-button><!-- <iep-button type="text">转存</iep-button> -->
@@ -66,12 +66,11 @@
 
 <script>
 import { initFormData, reportTableOption } from './option'
-import PageHeader from '@/components/Page/Header'
 import { deleteEmailById } from '@/api/mlms/email/index'
 import { downloadFile } from '@/api/common'
 
 export default {
-  components: { PageHeader },
+  components: {  },
   data () {
     return {
       formData: initFormData(),

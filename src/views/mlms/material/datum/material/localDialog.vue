@@ -52,12 +52,9 @@
 </template>
 <script>
 import { initLocalForm, rules } from './option'
-import IepTags from '@/components/IepTag'
-import FooterToolbar from '@/components/FooterToolbar/'
 import { saveScheme } from '@/api/crms/scheme'
 
 export default {
-  components: { IepTags, FooterToolbar },
   props: {
     firstClass: {
       type: Array,

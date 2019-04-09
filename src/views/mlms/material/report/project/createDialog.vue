@@ -22,9 +22,8 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 export default {
-  components: { IepDialog },
+  components: {  },
   data () {
     return {
       dialogShow: false,

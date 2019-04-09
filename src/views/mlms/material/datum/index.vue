@@ -23,7 +23,6 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import IepTabs from '@/components/IepCommon/Tabs'
 import MaterialDialog from './material/'
 import AptitudeDialog from './aptitude/'
 import ContractDialog from './contract/'
@@ -33,7 +32,7 @@ import FileDialog from './file/'
 export default {
   name: 'datum',
   mixins: [ mixins ],
-  components: { IepTabs, MaterialDialog, AptitudeDialog, ContractDialog, ConfigureDialog, FileDialog },
+  components: { MaterialDialog, AptitudeDialog, ContractDialog, ConfigureDialog, FileDialog },
   data () {
     return {
       tabName: 'materialDialog',

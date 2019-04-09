@@ -10,10 +10,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="拜访对象：" prop="visitingUserId" v-if="formData.type == 1">
-        <!-- <iep-tags v-model="formData.visitingUserId"></iep-tags> -->
-        <el-select v-model="formData.visitingUserId" placeholder="请选择" multiple>
-          <el-option v-for="item in clientList" :key="item.clientId" :label="item.clientName" :value="item.clientId"></el-option>
-        </el-select>
+        <iep-select prefix-url="crm/customer" v-model="formData.visitingUserId" multiple></iep-select>
       </el-form-item>
       <el-form-item :label="`${formData.type == 0 ? '会议主题':'会议标题'}：`" prop="title">
         <el-input v-model="formData.title"></el-input>
@@ -84,16 +81,11 @@
 </template>
 <script>
 import { initFormData, dictsMap, rules } from './options'
-import IepTags from '@/components/IepTag'
-import FooterToolbar from '@/components/FooterToolbar/'
-import IepContactMultiple from '@/components/IepContact/Multiple'
-import IepContactSelect from '@/components/IepContact/Select'
 import { mapState } from 'vuex'
 import { getCustomerPage } from '@/api/crms/customer'
 import { createData, updateData, getDataById } from '@/api/mlms/material/summary'
 
 export default {
-  components: { IepTags, FooterToolbar, IepContactMultiple, IepContactSelect },
   data () {
     return {
       dictsMap,

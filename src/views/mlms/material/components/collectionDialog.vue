@@ -28,11 +28,10 @@
 </template>
 
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { collectList } from '@/api/mlms/material/summary'
 
 export default {
-  components: { IepDialog },
+  components: {  },
   props: {
     type: {
       type: String,

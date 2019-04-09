@@ -62,9 +62,7 @@
 
 <script>
 import MainDialog from './mainDialog'
-import IepTag from '@/components/IepTag'
 import { createEmail, updateEmail } from '@/api/mlms/email/index'
-import IepContactMultiple from '@/components/IepContact/Multiple'
 
 const initFormData = () => {
   return {
@@ -97,7 +95,7 @@ const initFormData = () => {
 }
 
 export default {
-  components: { MainDialog, IepTag, IepContactMultiple },
+  components: { MainDialog },
   data () {
     return {
       formData: initFormData(),

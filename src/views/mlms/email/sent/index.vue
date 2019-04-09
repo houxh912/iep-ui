@@ -20,13 +20,12 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import IepTabs from '@/components/IepCommon/Tabs'
 import WebTabTpl from './tab'
 
 export default {
   name: 'inbox',
   mixins: [ mixins ],
-  components: { IepTabs, WebTabTpl },
+  components: { WebTabTpl },
   data () {
     return {
       tabName: 'alltabTemplate',

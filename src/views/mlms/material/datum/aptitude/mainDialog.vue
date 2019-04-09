@@ -37,11 +37,9 @@
 </template>
 <script>
 import { initFormData, rules } from './option'
-import IepTags from '@/components/IepTag'
-import FooterToolbar from '@/components/FooterToolbar/'
 
 export default {
-  components: { FooterToolbar, IepTags },
+  components: {  },
   data () {
     return {
       methodName: '新增',

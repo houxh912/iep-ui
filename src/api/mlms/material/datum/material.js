@@ -48,3 +48,19 @@ export function downloadCount (id) {
     method: 'get',
   })
 }
+
+// 获取优秀材料
+export function getGreatMaterial (id) {
+  return request({
+    url: `${prefixUrl}/excellent/list/${id}`,
+    method: 'get',
+  })
+}
+
+// 获取材料的总数
+export function getMaterialTotal (id) {
+  return request({
+    url: `${prefixUrl}/total/${id}`,
+    method: 'get',
+  })
+}

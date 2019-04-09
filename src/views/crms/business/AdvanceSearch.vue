@@ -4,9 +4,9 @@
       <el-form-item label="客户名称">
         <el-input v-model="form.clientName" placeholder="请输入客户名称"></el-input>
       </el-form-item>
-      <el-form-item label="业务类型">
+      <!-- <el-form-item label="业务类型">
         <iep-dict-select v-model="form.businessTypeKey" dict-name="crms_business_type" multiple></iep-dict-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="意向程度">
         <iep-dict-select v-model="form.intentionLevel" dict-name="crms_client_intention_level"></iep-dict-select>
       </el-form-item>

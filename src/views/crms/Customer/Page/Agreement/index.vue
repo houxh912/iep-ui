@@ -15,11 +15,21 @@
             </template>
           </el-table-column>
         </template>
+        <el-table-column label="创建人" width="250px" v-if="record.type =='3'">
+          <template>
+            <div class=' line'>
+              <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
+            </div>
+            <div class='create-name line'>
+              {{userInfo.realName}}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column prop="operation" label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleEdit(scope.row)" plain size="small" type="warning">编辑</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
+              <iep-button @click="handleEdit(scope.row)" plain size="small" type="warning" :disabled="scope.row.userId !== userInfo.userId">编辑</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)" size="small" :disabled="scope.row.userId !== userInfo.userId">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -36,6 +46,7 @@ import { columnsMap } from './options'
 import { getAgreementPage, postAgreement, putAgreement, deleteAgreementById } from '@/api/crms/agreement'
 import Edit from './Edit'
 import Detail from './Detail'
+import { mapGetters } from 'vuex'
 export default {
   name: 'contract',
   components: { Edit, Detail },
@@ -57,6 +68,12 @@ export default {
   },
   created () {
     this.loadPage()
+    console.log(this.record)
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
   },
   methods: {
     loadPage (param = { ...this.searchForm, id: this.id }) {

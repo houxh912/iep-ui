@@ -36,6 +36,11 @@
             </template>
           </el-table-column>
         </template>
+        <el-table-column label="距离上次拜访已有" v-if="type!=='1'" min-width="100">
+          <template slot-scope="scope">
+            <div>{{scope.row.lastTime }} 天</div>
+          </template>
+        </el-table-column>
         <el-table-column v-if="type !== '1'" prop="operation" label="操作" :width="type==='2'?'250px':'150px'">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -160,7 +165,7 @@ export default {
     //转移
     Transfer () {
       if (this.ids.length === 0) {
-        this.$message.error('请勾选需要转移的客户')
+        this.$message('请勾选需要转移的客户')
         return false      } else {
         this.$refs['transfer'].dialogShow = true
         this.$refs['transfer'].id = this.ids

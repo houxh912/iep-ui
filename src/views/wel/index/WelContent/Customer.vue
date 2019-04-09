@@ -3,6 +3,7 @@
     <div class="customer-nav">
       <div>我的客户</div>
     </div>
+    <iep-no-data v-if="!tabList.length" message="暂无内容"></iep-no-data>
     <div class="customer-content">
       <el-row>
         <iep-no-data v-if="!tabList.length" message="暂无客户"></iep-no-data>

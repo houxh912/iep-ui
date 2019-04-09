@@ -38,11 +38,6 @@ const columnsMapByTypeId = [
       label: '跟进状态',
       prop: 'followUpStatusName',
     },
-    {
-      label: '距离上次拜访已有',
-      prop: 'lastTime',
-      minWidth: '100',
-    },
   ],
   [
     {
@@ -64,11 +59,6 @@ const columnsMapByTypeId = [
     {
       label: '市场经理',
       prop: 'marketManager',
-    },
-    {
-      label: '距离上次拜访已有',
-      prop: 'lastTime',
-      minWidth: '100',
     },
   ],
 ]

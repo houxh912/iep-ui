@@ -42,7 +42,7 @@ export default {
     this.loadPage()
   },
   methods: {
-    loadPage (param) {
+    loadPage (param = { ...this.searchForm, clientId: this.record.id }) {
       this.loadTable(param, fetchList)
     },
     handleAdd () {
@@ -59,6 +59,7 @@ export default {
       this.$refs['EditDrawer'].methodName = '编辑'
       this.$refs['EditDrawer'].formRequestFn = updateData
       this.$refs['EditDrawer'].drawerShow = true
+      this.$refs['EditDrawer'].clientContactId = row.clientContactId
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.clientContactId, deleteDataById)

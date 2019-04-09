@@ -18,15 +18,15 @@
         <el-table-column prop="operation" label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleEdit(scope.row)" size="small" type="warning">编辑</iep-button>
+              <iep-button @click="handleEdit(scope.row)" plain size="small" type="warning">编辑</iep-button>
               <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
     </div>
-    <edit-dialog ref="EditDialog" @load-page="loadPage" v-if="pageState=='dialog'" @dialog="isShow" :record="record" :add="add"></edit-dialog>
-    <detail-dialog ref="DetailDialog" v-if="pageState=='detail'" @detail="isShow" :add="add"></detail-dialog>
+    <edit ref="EditDialog" @load-page="loadPage" v-if="pageState=='dialog'" @dialog="isShow" :record="record" :add="add"></edit>
+    <detail ref="DetailDialog" v-if="pageState=='detail'" @detail="isShow" :add="add"></detail>
   </div>
 </template>
 
@@ -34,11 +34,11 @@
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options'
 import { getAgreementPage, postAgreement, putAgreement, deleteAgreementById } from '@/api/crms/agreement'
-import EditDialog from './EditDialog'
-import DetailDialog from './DetailDialog'
+import Edit from './Edit'
+import Detail from './Detail'
 export default {
   name: 'contract',
-  components: { EditDialog, DetailDialog },
+  components: { Edit, Detail },
   mixins: [mixins],
   data () {
     return {
@@ -60,6 +60,7 @@ export default {
   },
   methods: {
     loadPage (param = { ...this.searchForm, id: this.id }) {
+      this.pageState = 'list'
       this.loadTable(param, getAgreementPage)
     },
     handleAdd () {

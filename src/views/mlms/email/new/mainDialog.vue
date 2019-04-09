@@ -66,7 +66,9 @@ export default {
     }
   },
   methods: {
-    loadData () {},
+    loadData (list) {
+      this.transferList = list
+    },
     submitForm () {
       console.log('transferList: ', this.transferList)
       this.dialogShow = false

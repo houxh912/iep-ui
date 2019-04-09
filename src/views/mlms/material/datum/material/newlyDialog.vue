@@ -63,7 +63,7 @@
 <script>
 import { initLocalForm, rules } from './option'
 // import IepEditor from '@/components/IepEditor/'
-import IepTags from '@/components/IepTags/input'
+import IepTags from '@/components/IepTag'
 import FooterToolbar from '@/components/FooterToolbar/'
 
 export default {

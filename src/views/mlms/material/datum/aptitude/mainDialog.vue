@@ -37,7 +37,7 @@
 </template>
 <script>
 import { initFormData, rules } from './option'
-import IepTags from '@/components/IepTags/input'
+import IepTags from '@/components/IepTag'
 import FooterToolbar from '@/components/FooterToolbar/'
 
 export default {

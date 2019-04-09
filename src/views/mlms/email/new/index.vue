@@ -59,7 +59,7 @@
 
 <script>
 import MainDialog from './mainDialog'
-import IepTag from '@/components/IepTags/input'
+import IepTag from '@/components/IepTag'
 import { createEmail, updateEmail } from '@/api/mlms/email/index'
 import IepContactMultiple from '@/components/IepContact/Multiple'
 
@@ -164,7 +164,7 @@ export default {
     },
     addRelation () {
       this.$refs['relation'].dialogShow = true
-      this.$refs['relation'].loadData()
+      this.$refs['relation'].loadData(this.formData.transferList)
     },
     // 选择标签
     selectTags () { },

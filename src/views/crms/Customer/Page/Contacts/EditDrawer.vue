@@ -15,13 +15,13 @@
       </el-row>
       <el-row>
         <el-col :span=12>
-          <el-form-item label="电话：">
-            <el-input v-model="form.cellphone"></el-input>
+          <el-form-item label="电话：" prop="telephoneNo">
+            <el-input v-model="form.telephoneNo"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span=12>
-          <el-form-item label="手机：" prop="telephoneNo">
-            <el-input v-model="form.telephoneNo"></el-input>
+          <el-form-item label="手机：" prop="cellphone">
+            <el-input v-model="form.cellphone"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

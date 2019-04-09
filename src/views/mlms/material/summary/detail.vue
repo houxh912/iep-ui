@@ -25,34 +25,21 @@
       <div class="comment">
         <div class="form">
           <h2 class="title">补充或评论</h2>
-          <el-input type="textarea" rows=5 v-model="comment"></el-input>
+          <el-input type="textarea" rows=5 v-model="commentForm.commentContent"></el-input>
           <div class="button">
             <iep-button type="primary" @click="submit">发送</iep-button>
           </div>
         </div>
-        <div class="list">
+        <div class="list" v-for="(item, index) in commentList" :key="index">
           <div class="img">
             <img src="/img/logo.png" alt="">
           </div>
           <div class="info">
-            <div class="name">张三哥</div>
-            <p>又学到啦，继续加油哦！</p>
+            <div class="name">{{item.realName}}</div>
+            <p>{{item.commentContent}}</p>
             <div class="footer">
-              <div class="time">2019-02-10 10:15:30</div>
-              <div class="button"><i class="icon-pinglun1"></i>回复（2）</div>
-            </div>
-            <div class="reply">
-              <div class="title">
-                <div class="img">
-                  <img src="/img/logo.png" alt="">
-                </div>
-                <span>李四弟</span>回复<span>张三哥</span>
-              </div>
-              <div class="info">共同学习，一起进步！</div>
-              <div class="footer">
-                <div class="time">2019-02-10 10:15:30</div>
-                <div class="button"><i class="icon-pinglun1"></i>回复（0）</div>
-              </div>
+              <div class="time">{{item.createTime}}</div>
+              <!-- <div class="button"><i class="icon-pinglun1"></i>回复（2）</div> -->
             </div>
           </div>
         </div>
@@ -83,6 +70,15 @@
 <script>
 import { getDataById } from '@/api/mlms/material/summary'
 import InstrDialog from './instrDialog'
+import { commentMaterial, getCommentPage } from '@/api/mlms/index'
+function commentForm () {
+  return {
+    objectType: 2,
+    commentObjectId: 0,
+    commentContent: '',
+    score: 0,
+  }
+}
 
 export default {
   components: { InstrDialog },
@@ -101,11 +97,31 @@ export default {
           this.$router.go(-1)
         },
       },
-      comment: '',
+      commentForm: commentForm(),
+      commentList: [],
     }
   },
   methods: {
-    submit () {},
+    submit () {
+      if (this.commentForm.commentContent == '') {
+        this.$message.error('请填写评论的内容！')
+        return
+      }
+      this.commentForm.commentObjectId = this.formData.id
+      commentMaterial(this.commentForm).then(() => {
+        this.getComment(this.formData.id)
+        this.commentForm = commentForm()
+      })
+    },
+    // 获取评论列表
+    getComment (id) {
+      getCommentPage({
+        id: id,
+        objectType: 2,
+      }).then(({data}) => {
+        this.commentList = data.data.records
+      })
+    },
     // 领导批示
     Instructions () {
       this.$refs['instrDialog'].open()
@@ -114,6 +130,7 @@ export default {
   created () {
     getDataById(this.$route.params.id).then(({data}) => {
       this.formData = data.data
+      this.getComment(data.data.id)
       this.formData.hostName = this.formData.host.length > 0 ? this.formData.host[0].name : '无'
       // 获取人物
       let fn = (obj) => {

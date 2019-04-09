@@ -1,5 +1,5 @@
 <template>
-  <el-button class="link-btn" :class="{'link-is-read':!isRead}" type="text" v-bind="$attrs" v-on="$listeners">
+  <el-button class="link-btn" :class="{'link-is-read':isRead}" type="text" v-bind="$attrs" v-on="$listeners">
     <slot></slot>
   </el-button>
 </template>

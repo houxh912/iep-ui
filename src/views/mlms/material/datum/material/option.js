@@ -13,7 +13,7 @@ export const tableOption = [
   }, {
     label: '浏览次数',
     prop: 'views',
-    width: '200',
+    width: '150',
   },
 ]
 

@@ -2,7 +2,9 @@
   <div class="top">
     <div class="top-left">
       <div class="logo-wrapper">
-        <div class="logo" @click="$openPage('/')"></div>
+        <el-tooltip class="item" effect="dark" content="点击返回工作台" placement="bottom">
+          <div class="logo" @click="$openPage('/')"></div>
+        </el-tooltip>
         <el-dropdown>
           <span class="el-dropdown-link">
             国脉智慧平台
@@ -18,6 +20,7 @@
       <top-navbar></top-navbar>
     </div>
     <div class="top-right">
+      <top-search-icon></top-search-icon>
       <top-guide></top-guide>
       <top-message></top-message>
       <el-dropdown>
@@ -30,7 +33,8 @@
             首页
           </el-dropdown-item>
           <el-dropdown-item @click.native="handleOrg(orgText.type)">
-            {{orgText.tipText}}
+            {{orgText.tipText}}&nbsp;&nbsp;&nbsp;
+            <a-icon type="swap" />
           </el-dropdown-item>
           <el-dropdown-item @click.native="$openPage('BaseSettings','name')">
             个人信息
@@ -54,11 +58,13 @@ import { fullscreenToggel, listenfullscreen } from '@/util/util'
 import TopNavbar from './TopNavbar'
 import TopMessage from './TopMessage'
 import TopGuide from './TopGuide'
+import TopSearchIcon from './TopSearchIcon'
 import AboutDialog from './AboutDialog'
 export default {
   components: {
     TopNavbar,
     TopMessage,
+    TopSearchIcon,
     TopGuide,
     SelectOrgDialog,
     AboutDialog,
@@ -91,7 +97,7 @@ export default {
         tipText: '无组织(加入/创建)',
         type: 0,
       } : {
-          tipText: '切换组织',
+          tipText: `${this.userInfo.orgName}`,
           type: 1,
         }
     },

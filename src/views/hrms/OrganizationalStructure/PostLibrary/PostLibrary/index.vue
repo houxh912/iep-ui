@@ -27,19 +27,19 @@
         </template>
       </el-table-column>
     </iep-table>
-    <add-dialog-form ref="AddDialogForm" @load-page="loadPage"></add-dialog-form>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 <script>
 import { getPostLibraryPage, putPostLibrary, postPostLibrary, deletePostLibraryBatch, deletePostLibraryById } from '@/api/hrms/post_library'
 import AdvanceSearch from './AdvanceSearch'
-import AddDialogForm from './AddDialogForm'
+import DialogForm from './DialogForm'
 import mixins from '@/mixins/mixins'
 import { mergeByFirst } from '@/util/util'
 import { columnsMap, initForm } from './options'
 export default {
   mixins: [mixins],
-  components: { AdvanceSearch, AddDialogForm },
+  components: { AdvanceSearch, DialogForm },
   data () {
     return {
       columnsMap,
@@ -59,15 +59,15 @@ export default {
       this._handleGlobalDeleteById(row.id, deletePostLibraryById)
     },
     handleEdit (row) {
-      this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), row)
-      this.$refs['AddDialogForm'].methodName = '修改'
-      this.$refs['AddDialogForm'].formRequestFn = putPostLibrary
-      this.$refs['AddDialogForm'].dialogShow = true
+      this.$refs['DialogForm'].form = mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].methodName = '修改'
+      this.$refs['DialogForm'].formRequestFn = putPostLibrary
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleAdd () {
-      this.$refs['AddDialogForm'].methodName = '创建'
-      this.$refs['AddDialogForm'].formRequestFn = postPostLibrary
-      this.$refs['AddDialogForm'].dialogShow = true
+      this.$refs['DialogForm'].methodName = '创建'
+      this.$refs['DialogForm'].formRequestFn = postPostLibrary
+      this.$refs['DialogForm'].dialogShow = true
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getPostLibraryPage)

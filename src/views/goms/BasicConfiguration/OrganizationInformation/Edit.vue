@@ -61,7 +61,7 @@ export default {
     }
   },
   created () {
-    this.load()
+    this.loadPage()
   },
   computed: {
     ...mapState({
@@ -71,10 +71,14 @@ export default {
   methods: {
     handleSubmit () {
       putOrg(this.form).then(() => {
+        this.$message({
+          message: '组织修改信息成功',
+          type: 'success',
+        })
         this.$emit('onGoBack')
       })
     },
-    load () {
+    loadPage () {
       getOrgBySelf(this.orgId).then(({ data }) => {
         this.form = mergeByFirst(initForm(), data.data)
       })

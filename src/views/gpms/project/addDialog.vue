@@ -112,7 +112,12 @@ export default {
   methods: {
     open (type, data) {
       this.type = type
-      this.formData = !data ? initFormData() : data
+      if (!data) {
+        this.formData = initFormData()
+      } else {
+        this.formData = data
+        this.methodName = '修改'
+      }
     },
     close (state) {
       this.formData = initFormData()

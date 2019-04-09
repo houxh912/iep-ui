@@ -41,19 +41,10 @@ export function getDataById (id) {
   })
 }
 
-// 评论
-export function commentMaterial (obj) {
+// 文件下载浏览次数统计
+export function downloadCount (id) {
   return request({
-    url: '/mlms/comment/create/review',
-    method: 'post',
-    data: obj,
-  })
-}
-
-export function getCommentPage (obj) {
-  return request({
-    url: '/mlms/comment/page',
+    url: `${prefixUrl}/getUpload/${id}`,
     method: 'get',
-    params: obj,
   })
 }

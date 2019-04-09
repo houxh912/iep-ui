@@ -12,7 +12,7 @@
           <div>{{item.status}}</div>
         </el-col>
         <el-col :span="3">
-          <div>{{item.time |parseTime('{y}-{m}-{d}')}}</div>
+          <div>{{item.time | parseTime('{m}-{d}')}}</div>
         </el-col>
       </el-row>
     </div>

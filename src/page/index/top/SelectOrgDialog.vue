@@ -45,6 +45,7 @@ export default {
     submitForm () {
       setOrg(this.orgForm.orgId).then(() => {
         this.GetUserInfo().then(() => {
+          this.dialogShow = false
           const loading = this.$loading({
             lock: true,
             text: '组织切换中....',

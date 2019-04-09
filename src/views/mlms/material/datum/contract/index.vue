@@ -22,14 +22,14 @@
         <template slot="before-columns">
           <el-table-column label="合同名称">
             <template slot-scope="scope">
-              <div class="custom-name">{{scope.row.contractName}}</div>
+              <div class="custom-name" @click="handleDetail(scope.row)">{{scope.row.contractName}}</div>
               <el-col class="custom-tags">
                 <el-tag type="info" size="mini" v-for="(item, index) in scope.row.code" :key="index">{{item}}</el-tag>
               </el-col>
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="300">
+        <el-table-column prop="operation" label="操作" width="180">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain>编辑</iep-button>
@@ -40,6 +40,7 @@
       </iep-table>
     </div>
     <main-dialog ref="mainDialog" @load-page="loadPage" v-if="pageState=='dialog'"></main-dialog>
+    <detailDialog ref="detail" @load-page="pageState='list'" v-if="pageState == 'detail'"></detailDialog>
   </div>
 </template>
 
@@ -48,10 +49,11 @@ import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
 import { getTableData, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/contract'
 import MainDialog from './mainDialog'
+import detailDialog from './detail'
 
 export default {
   mixins: [mixins],
-  components: { MainDialog },
+  components: { MainDialog, detailDialog },
   computed: {},
   data () {
     return {
@@ -82,6 +84,13 @@ export default {
         this.$refs['mainDialog'].formData = data.data
         this.$refs['mainDialog'].methodName = '编辑'
         this.$refs['mainDialog'].formRequestFn = updateData
+      })
+    },
+    handleDetail (row) {
+      // this.$router.push(`/mlms_spa/contract/detail/${row.id}`)
+      this.pageState = 'detail'
+      this.$nextTick(() => {
+        this.$refs['detail'].open(row.id)
       })
     },
     handleDeleteById (row) {

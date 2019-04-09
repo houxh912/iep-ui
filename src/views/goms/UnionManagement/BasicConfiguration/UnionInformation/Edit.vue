@@ -58,7 +58,7 @@ export default {
     }
   },
   created () {
-    this.load()
+    this.loadPage()
   },
   computed: {
     ...mapState({
@@ -71,7 +71,7 @@ export default {
         this.$emit('onGoBack')
       })
     },
-    load () {
+    loadPage () {
       getUnionBySelf(this.orgId).then(({ data }) => {
         this.form = mergeByFirst(initForm(), data.data)
       })

@@ -41,16 +41,16 @@
                 <el-input v-model="form.duties"></el-input>
               </el-form-item>
               <el-form-item label="职务：" class="form-half">
-                <iep-select prefix-url="hrms/job_system" v-model="form.job"></iep-select>
+                <iep-select prefix-url="hrms/job_system" v-model="form.jobId"></iep-select>
               </el-form-item>
               <el-form-item label="职称：" class="form-half">
-                <iep-select prefix-url="hrms/title_system" v-model="form.title"></iep-select>
+                <iep-select prefix-url="hrms/title_system" v-model="form.titleId"></iep-select>
               </el-form-item>
               <el-form-item label="入职时间：" class="form-half">
-                <el-input v-model="form.entryTime"></el-input>
+                <IepDatePicker v-model="form.entryTime" type="date" placeholder="选择日期"></IepDatePicker>
               </el-form-item>
               <el-form-item label="转正时间：" class="form-half">
-                <el-input v-model="form.positiveTime"></el-input>
+                <IepDatePicker v-model="form.positiveTime" type="date" placeholder="选择日期"></IepDatePicker>
               </el-form-item>
               <el-form-item label="员工状态：" class="form-half">
                 <el-select v-model="form.status" placeholder="请选择" clearable>
@@ -62,7 +62,7 @@
                 <iep-dept-multiple v-model="form.dept"></iep-dept-multiple>
               </el-form-item>
               <el-form-item label="出生年月：" class="form-half">
-                <el-input v-model="form.birthday"></el-input>
+                <IepDatePicker v-model="form.birthday" type="date" placeholder="选择日期"></IepDatePicker>
               </el-form-item>
               <el-form-item label="性别：" class="form-half">
                 <el-radio-group v-model="form.sex">
@@ -98,7 +98,7 @@
                 <el-input v-model="form.profession"></el-input>
               </el-form-item>
               <el-form-item label="毕业时间：" class="form-half">
-                <el-input v-model="form.graduationTime"></el-input>
+                <IepDatePicker v-model="form.graduationTime" type="date" placeholder="选择日期"></IepDatePicker>
               </el-form-item>
               <el-form-item label="推荐人：" class="form-half">
                 <el-input v-model="form.referrer"></el-input>

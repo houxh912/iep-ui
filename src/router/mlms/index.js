@@ -30,6 +30,11 @@ export default [
         name: '查看文档',
         component: () => import('@/views/mlms/material/datum/material/detail.vue'),
       },
+      {
+        path: 'contract/detail/:id',
+        name: '查看合同',
+        component: () => import('@/views/mlms/material/datum/contract/detail.vue'),
+      },
     ],
   },
 ]

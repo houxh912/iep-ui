@@ -11,7 +11,9 @@
         </IepDescriptionItem>
       </a-col>
       <a-col :span="12">
-        <iep-detail-tag title="角色：" :value="form.roleName"></iep-detail-tag>
+        <IepDescriptionItem title="权限：">
+          <iep-detail-tag slot="content" :value="form.roleName"></iep-detail-tag>
+        </IepDescriptionItem>
       </a-col>
     </a-row>
 
@@ -60,7 +62,7 @@
     <a-row>
       <a-col :span="24">
         <IepDescriptionItem title="所属组织：">
-          <iep-detail-tag slot="content" value="舟山国脉海洋有限公司"></iep-detail-tag>
+          <iep-detail-tag slot="content" :value="form.orgList"></iep-detail-tag>
         </IepDescriptionItem>
       </a-col>
     </a-row>
@@ -105,25 +107,25 @@
         </IepDescriptionItem>
       </a-col>
     </a-row>
-<!-- TODO -->
-    <a-row>
+    <!-- TODO -->
+    <!-- <a-row>
       <a-col :span="12">
         <IepDescriptionItem title="户籍地址：" :content="form.residenceCities" />
       </a-col>
       <a-col :span="12">
         <IepDescriptionItem :content="form.residenceAddress" />
       </a-col>
-    </a-row>
+    </a-row> -->
 
     <a-row>
       <a-col :span="12">
-        <IepDescriptionItem title="现住地址：" :content="form.currentCities" />
+        <IepDescriptionItem title="现住地址：" :content="`${form.provinceName}/${form.cityName}`" />
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem :content="form.currentAddress" />
+        <IepDescriptionItem title="现住地址详情：" :content="form.currentAddress" />
       </a-col>
     </a-row>
-<!-- TODO -->
+    <!-- TODO -->
     <a-divider />
     <p :style="pStyle">详细信息</p>
 

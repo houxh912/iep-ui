@@ -5,17 +5,17 @@
     </div>
     <div class="material-content">
       <el-row class="item" v-for="(item) in dataList" :key="item.id">
-        <el-col :span="8">
+        <el-col :span="14">
           <div class="grid-content title">{{item.name}}</div>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="4">
           <div class="grid-content">{{item.type === 1 ? '外部材料' : '内部材料'}}</div>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="3">
           <div class="grid-content">{{item.creatorRealName}}</div>
         </el-col>
-        <el-col :span="4">
-          <div class="grid-content text-right text-time">{{item.createTime}}</div>
+        <el-col :span="3">
+          <div class="grid-content text-right text-time">{{item.createTime | parseTime('{m}-{d}')}}</div>
         </el-col>
       </el-row>
     </div>

@@ -114,6 +114,7 @@ const initDtoForm = () => {
     'advantage': '',
     'honor': '',
     'result': '',
+    'position': [],
     'positionId': 3,
     'arrive': '',
     'salary': '',
@@ -131,13 +132,14 @@ const initDtoForm = () => {
 
 const formToDto = (form) => {
   const newForm = mergeByFirst(initForm(), form)
+  console.log(form)
   newForm.positionId = form.position[form.position.length - 1]
   newForm.attach = form.attach[0] || ''
   return newForm
 }
 const formToVo = (form) => {
   const newForm = mergeByFirst(initDtoForm(), form)
-  newForm.attach = [form.attach]
+  newForm.attach = []
   return newForm
 }
 

@@ -21,6 +21,7 @@
         </template>
       </el-table-column>
     </el-table> -->
+    <input type="number" v-model="str">
     <template slot="footer">
       <div class="list">
         协作人:<span>{{selectList.name}}</span>
@@ -48,6 +49,7 @@ export default {
   data () {
     return {
       dialogShow: false,
+      str: '',
       data: [],
       id: '',
       dictsMap: {},
@@ -99,6 +101,8 @@ export default {
       this.dialogShow = false
     },
     submitForm () {
+      console.log(this.str)
+      console.log(typeof this.str)
       TransferCustomers(this.Contacts).then(res => {
         if (res.data.data) {
           this.$message.success('转移客户成功！')

@@ -1,6 +1,9 @@
 <template>
   <div class="wrapper">
     <el-form ref="form" :model="form" size="small" label-width="80px">
+      <el-form-item label="头像:">
+        <iep-avatar v-model="form.avatar"></iep-avatar>
+      </el-form-item>
       <el-form-item label="用户:">
         <iep-contact-select v-model="form.user"></iep-contact-select>
       </el-form-item>
@@ -32,6 +35,7 @@ export default {
   data () {
     return {
       form: {
+        avatar: '',
         user: {
           id: 1,
           name: '哈哈',

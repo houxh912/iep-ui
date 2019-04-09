@@ -64,28 +64,28 @@ function initTree () {
         },
       ],
     },
-    {
-      id: 2,
-      name: '行政管理',
-      children: [
-        {
-          id: 1,
-          name: '物品领用',
-          checked: false,
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: '费用管理',
-      children: [
-        {
-          id: 1,
-          name: '报销',
-          checked: false,
-        },
-      ],
-    },
+    // {
+    //   id: 2,
+    //   name: '行政管理',
+    //   children: [
+    //     {
+    //       id: 1,
+    //       name: '物品领用',
+    //       checked: false,
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: 3,
+    //   name: '费用管理',
+    //   children: [
+    //     {
+    //       id: 1,
+    //       name: '报销',
+    //       checked: false,
+    //     },
+    //   ],
+    // },
   ]
 }
 export default {

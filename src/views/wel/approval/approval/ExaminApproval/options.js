@@ -1,4 +1,5 @@
-// org config options
+import { mergeByFirst } from '@/util/util'
+
 const dictsMap = {
   status: {
     0: '待审核',
@@ -46,4 +47,26 @@ const initSearchForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm }
+const initDeliverForm = () => {
+  return {
+    ids: [],
+    user: {
+      id: null,
+      name: null,
+    },
+  }
+}
+const dtoDeliverForm = () => {
+  return {
+    ids: [],
+    userId: null,
+  }
+}
+
+const toDeliverForm = (row) => {
+  const newForm = mergeByFirst(dtoDeliverForm(), row)
+  newForm.userId = row.user.id
+  return newForm
+}
+
+export { dictsMap, columnsMap, initForm, initSearchForm, initDeliverForm, dtoDeliverForm, toDeliverForm }

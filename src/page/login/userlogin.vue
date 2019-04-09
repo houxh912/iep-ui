@@ -53,8 +53,8 @@ export default {
         state: '',
       },
       form: {
-        username: 'admin',
-        password: '123456',
+        username: '',
+        password: '',
         code: '',
         redomStr: '',
       },

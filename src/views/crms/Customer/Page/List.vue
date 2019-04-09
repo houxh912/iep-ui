@@ -25,11 +25,13 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex :isMutipleSelection="showSelect?true:false">
         <template slot="before-columns">
-          <el-table-column label="客户名称" width="250px">
+          <el-table-column label="客户名称" width="300px">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.clientName}}</iep-table-link>
               <el-col class="custom-tags">
-                <a-tag v-for="(item, index) in scope.row.tags" :key="index">{{item.commonName}}</a-tag>
+                <a-tag v-for="(item, index) in dealTag(scope.row.tags)" :key="index">{{item.commonName}}
+                </a-tag>
+                <span v-if="scope.row.tags.length>3">...</span>
               </el-col>
             </template>
           </el-table-column>
@@ -81,6 +83,12 @@ export default {
     this.loadPage()
   },
   methods: {
+    dealTag (data) {
+      if (data.length > 3) {
+        return data.slice(0, 3)
+      }
+      return data
+    },
     //导入弹框关闭
     handleClose (res) {
       this.loadPage()
@@ -128,7 +136,7 @@ export default {
     },
     //客户详情
     handleDetail (row) {
-      if (this.type === '2') {
+      if (this.type != '1') {
         this.$router.push({
           path: '/crms_spa/customer_detail',
           query: {
@@ -146,13 +154,8 @@ export default {
     },
     //添加协作人
     handleCooperation (row) {
-      this.$refs['collaborator'].id = row.clientId
+      this.$refs['collaborator'].data.clientId = row.clientId
       this.$refs['collaborator'].dialogShow = true
-      this.$refs['collaborator'].loadPage()
-      // getCollaboratorPage(row.clientId).then(res => {
-      // this.$refs['collaborator'].data = res.data.data.records
-      // console.log(res)
-      // })
     },
     //转移
     Transfer () {
@@ -165,6 +168,7 @@ export default {
     },
     //table多选
     handleSelectionChange (val) {
+      console.log(val)
       this.multipleSelection = val.map(m => m.clientId)
       let ids = []
       val.forEach((item) => {
@@ -188,6 +192,9 @@ export default {
   margin-bottom: 5px;
 }
 .custom-tags {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   margin: 0;
   .el-tag {
     margin-right: 5px;

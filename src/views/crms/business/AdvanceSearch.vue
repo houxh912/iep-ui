@@ -8,13 +8,13 @@
         <iep-dict-select v-model="form.businessTypeKey" dict-name="crms_business_type" multiple></iep-dict-select>
       </el-form-item>
       <el-form-item label="意向程度">
-        <iep-dict-select v-model="form.intentionLevelValue" dict-name="crms_client_intention_level"></iep-dict-select>
+        <iep-dict-select v-model="form.intentionLevel" dict-name="crms_client_intention_level"></iep-dict-select>
       </el-form-item>
       <el-form-item label="项目名称">
         <el-input v-model="form.projectName" placeholder="请输入项目名称"></el-input>
       </el-form-item>
       <el-form-item label="认领状态" v-if="type!=3">
-        <iep-dict-select v-model="form.statusValue" dict-name="crms_client_opportunity_status" placeholder="请选择认领状态"></iep-dict-select>
+        <iep-dict-select v-model="form.status" dict-name="crms_client_opportunity_status" placeholder="请选择认领状态"></iep-dict-select>
       </el-form-item>
       <el-form-item label="发布者：" v-if="type==='3'">
         <el-input v-model="form.publisher" placeholder="发布者"></el-input>

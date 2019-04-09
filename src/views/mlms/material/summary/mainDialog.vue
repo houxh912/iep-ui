@@ -19,10 +19,10 @@
         <el-input v-model="formData.title"></el-input>
       </el-form-item>
       <el-form-item label="会议内容：" prop="meetingContent">
-        <el-input type="textarea" v-model="formData.meetingContent" rows=5></el-input>
+        <el-input type="textarea" v-model="formData.meetingContent" rows=8></el-input>
       </el-form-item>
       <el-form-item label="会议总结：" prop="meetingCon">
-        <el-input type="textarea" v-model="formData.meetingCon" rows=5></el-input>
+        <el-input type="textarea" v-model="formData.meetingCon" rows=8></el-input>
       </el-form-item>
       <el-form-item label="备注：" prop="thoughtsProblem" v-if="formData.type==1">
         <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5></el-input>
@@ -84,7 +84,7 @@
 </template>
 <script>
 import { initFormData, dictsMap, rules } from './options'
-import IepTags from '@/components/IepTags/input'
+import IepTags from '@/components/IepTag'
 import FooterToolbar from '@/components/FooterToolbar/'
 import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepContactSelect from '@/components/IepContact/Select'

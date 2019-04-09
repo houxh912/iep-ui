@@ -3,14 +3,14 @@
     <el-popover popper-class="msg-popover" placement="bottom" width="336" v-model="visible" trigger="click">
       <a-spin :spinning="pageLoading">
         <el-tabs class="msg-tabs" v-model="activeName">
-          <el-tab-pane :label="`通知 (${announcementNum})`" name="first">
+          <el-tab-pane :label="`公告 (${announcementNum})`" name="first">
             <el-card class="box-card" :body-style="bodyStyle">
               <iep-no-data v-if="!announcementList.length" message="暂无通知"></iep-no-data>
               <div v-for="item in announcementList" :key="item.id" class="text">
                 <div class="list-item-content">
                   <h4 class="list-item-title" @click="handleAnnouncementDetail(item)">{{ item.name }}</h4>
                   <div class="list-item-description">
-                    <span class="time">{{ item.time | timeAgo }}</span>
+                    <span class="time">{{ item.time | formatTime }}</span>
                   </div>
                 </div>
               </div>
@@ -26,7 +26,7 @@
                 <div class="list-item-content">
                   <h4 class="list-item-title" @click="handleSystemMessageDetail(item)">{{ item.name }}</h4>
                   <div class="list-item-description">
-                    <span class="time">{{ item.time | timeAgo }}</span>
+                    <span class="time">{{ item.time | formatTime }}</span>
                   </div>
                 </div>
               </div>
@@ -42,7 +42,7 @@
                 <div class="list-item-content">
                   <h4 class="list-item-title">{{ item.name }}</h4>
                   <div class="list-item-description">
-                    <span class="time">{{ item.time | timeAgo }}</span>
+                    <span class="time">{{ item.time | formatTime }}</span>
                   </div>
                 </div>
               </div>

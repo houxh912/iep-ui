@@ -8,6 +8,7 @@
 import VueNeditorWrap from 'vue-neditor-wrap'
 
 export default {
+  name: 'IepEditor',
   components: {
     VueNeditorWrap,
   },

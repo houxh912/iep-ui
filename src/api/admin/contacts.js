@@ -22,3 +22,10 @@ export function getUserListById (id) {
     method: 'get',
   })
 }
+
+export function getUserListTree () {
+  return request({
+    url: `${prefixUrl}/all/user/list`,
+    method: 'get',
+  })
+}

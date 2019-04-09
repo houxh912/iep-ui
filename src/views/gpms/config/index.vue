@@ -67,7 +67,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="排序值" prop='num'>
-                <el-input type="number" v-model="formLabelAlign.num" placeholder="请输入排序值（数字）"></el-input>
+                <el-input type="number" v-model="formLabelAlign.num" placeholder="请输入排序值（数字）" style="width:300px;"></el-input>
               </el-form-item>
               <el-form-item label="URL链接" prop='links'>
                 <el-input v-model="formLabelAlign.links" placeholder="请输入URL链接"></el-input>

@@ -4,7 +4,7 @@
       <span class="navTitle">{{navList.title}}</span>
       <nav-tab :nav-list="navList" @tab="tab"></nav-tab>
     </div>
-    <nav-content :contentData="contentData"></nav-content>
+    <nav-content :contentData="contentData" @on-detail="handleDetail"></nav-content>
   </div>
 </template>
 
@@ -12,6 +12,9 @@
 import NavTab from './NavTab'
 import NavContent from './NavContent'
 import { getPending } from '@/api/wel/index'
+const detailUrlMap = {
+  approval: '/hrms_spa/approval_detail',
+}
 export default {
   components: { NavTab, NavContent },
   data () {
@@ -41,6 +44,15 @@ export default {
     this.tab(this.navName)
   },
   methods: {
+    handleDetail (row) {
+      console.log(row)
+      this.$router.push({
+        path: detailUrlMap[row.type],
+        query: {
+          id: row.id,
+        },
+      })
+    },
     tab (val) {
       getPending(val).then(({ data }) => {
         this.contentData = data.data.map(m => {

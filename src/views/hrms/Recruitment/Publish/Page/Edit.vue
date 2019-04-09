@@ -92,10 +92,10 @@
           </el-col>
         </el-row>
         <el-form-item label="岗位职责：">
-          <el-input type="textarea" v-model="form.duties" :rows="4"></el-input>
+          <iep-editor v-model="form.duties"></iep-editor>
         </el-form-item>
         <el-form-item label="岗位要求：">
-          <el-input type="textarea" v-model="form.claim" :rows="4"></el-input>
+          <iep-editor v-model="form.claim"></iep-editor>
         </el-form-item>
         <el-form-item label="">
           <operation-wrapper>

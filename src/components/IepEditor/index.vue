@@ -37,17 +37,18 @@ export default {
         // 关闭自动保存
         enableAutoSave: false,
       },
-      content: this.value,
     }
   },
-  methods: {
-    ready () {
-      // console.log(val)
-    },
-  },
-  watch: {
-    value (n) {
-      this.$emit('input', n)
+  computed: {
+    content: {
+      // getter
+      get: function () {
+        return this.value
+      },
+      // setter
+      set: function (value) {
+        this.$emit('input', value)
+      },
     },
   },
 }

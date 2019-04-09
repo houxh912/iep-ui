@@ -3,7 +3,7 @@
     <iep-no-data v-if="!contentData.length" message="暂无内容"></iep-no-data>
     <el-row v-else v-for="(item,index) in contentData" :key="index">
       <el-col :span="16">
-        <div class="grid-content title">{{item.name}}</div>
+        <div class="grid-content title" @click="handleDetail(item)">{{item.name}}</div>
       </el-col>
       <el-col :span="6" v-if="item.subName">
         <div class="grid-content">{{item.subName}}</div>
@@ -28,6 +28,11 @@ export default {
   },
   created () {
     // console.log(this.content)
+  },
+  methods: {
+    handleDetail (row) {
+      this.$emit('on-detail', row)
+    },
   },
 }
 </script>

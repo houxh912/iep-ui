@@ -49,7 +49,7 @@ const rules = {
   contactPosition: [
     { required: true, message: '请输入联系人职务', trigger: 'blur' },
   ],
-  telephoneNo: [
+  cellphone: [
     {
       required: true,
       validator: phone,

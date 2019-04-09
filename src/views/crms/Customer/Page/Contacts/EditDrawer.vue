@@ -15,12 +15,12 @@
       </el-row>
       <el-row>
         <el-col :span=12>
-          <el-form-item label="电话：" prop="cellphone">
+          <el-form-item label="电话：">
             <el-input v-model="form.cellphone"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span=12>
-          <el-form-item label="手机：">
+          <el-form-item label="手机：" prop="telephoneNo">
             <el-input v-model="form.telephoneNo"></el-input>
           </el-form-item>
         </el-col>
@@ -76,6 +76,7 @@ export default {
       formRequestFn: () => { },
       form: initForm(),
       id: '',
+      clientContactId: '',
       rules,
     }
   },
@@ -87,6 +88,7 @@ export default {
     },
     submitForm (formName) {
       this.form.clientIds = [this.id]
+      this.form.clientContactId = this.clientContactId
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn(this.form).then(() => {

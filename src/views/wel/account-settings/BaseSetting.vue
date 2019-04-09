@@ -27,9 +27,9 @@
           <el-form-item label="岗位：" class="form-half">
             <span>{{form.positionName}}</span>
           </el-form-item>
-          <el-form-item label="岗位职责：" class="form-half">
+          <!-- <el-form-item label="岗位职责：" class="form-half">
             <span>{{form.duties}}</span>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="职务：" class="form-half">
             <span>{{form.job}}</span>
           </el-form-item>

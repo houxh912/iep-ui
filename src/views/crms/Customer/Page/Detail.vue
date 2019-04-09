@@ -51,11 +51,13 @@ export default {
       record: {
         id: this.$route.query.id,
         type: this.$route.query.type,
+        collaborations: '',
       },
       backOption: {
         isBack: true,
         backPath: this.$route.query.redirect,
       },
+      count: [12, 42, 123, 12, 12],
       formData: {},
       tabList: [{
         label: '客户全景',
@@ -82,6 +84,7 @@ export default {
     }
   },
   created () {
+    this.total()
     this.loadPage()
     this.getRouter()
     if (this.routerBack) {
@@ -89,12 +92,20 @@ export default {
     }
   },
   methods: {
+    total () {
+      // var data = '222'
+      for (var i = 1; i < this.tabList.length; i++) {
+        this.tabList[i].label = this.tabList[i].label + '(' + this.count[i - 1] + ')'
+      }
+
+    },
     getRouter () {
       this.routerBack = this.$route.query.routerBack
     },
     loadPage () {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = data.data
+        this.record.collaborations = this.formData.collaborations
       })
     },
     handleGoBack () {

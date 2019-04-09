@@ -4,7 +4,7 @@
       <page-header title="客户" :replaceText="replaceText" :data="[10]"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="primary" :disabled="type !== '2'" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
+          <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
           <el-dropdown size="medium">
             <iep-button size="small" :disabled="type !== '2'" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -27,7 +27,7 @@
         <template slot="before-columns">
           <el-table-column label="客户名称" width="300px">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.clientName}}</iep-table-link>
+              <iep-table-link  @click="handleDetail(scope.row)">{{scope.row.clientName}}</iep-table-link>
               <el-col class="custom-tags">
                 <a-tag v-for="(item, index) in dealTag(scope.row.tags)" :key="index">{{item.commonName}}
                 </a-tag>
@@ -193,10 +193,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.custom-name {
-  cursor: pointer;
-  margin-bottom: 5px;
-}
 .custom-tags {
   overflow: hidden;
   white-space: nowrap;

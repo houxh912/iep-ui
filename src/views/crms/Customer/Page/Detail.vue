@@ -50,6 +50,7 @@ export default {
       id: this.$route.query.id,
       record: {
         id: this.$route.query.id,
+        type: this.$route.query.type,
       },
       backOption: {
         isBack: true,

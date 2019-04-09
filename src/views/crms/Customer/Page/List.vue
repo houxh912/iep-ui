@@ -146,6 +146,7 @@ export default {
           path: '/crms_spa/customer_detail',
           query: {
             id: row.clientId,
+            type: this.type,
           },
         })
       } else { return false }

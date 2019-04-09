@@ -2,7 +2,7 @@
   <el-card class="box-card">
     <div slot="header" class="clearfix">
       <span class="title">客户登记</span>
-      <span> (客户数量：222，联系人数量：3333，拜访次数：44421) </span>
+      <span> (客户数量：121，联系人数量：134，拜访次数：200) </span>
       <operation-search @search="searchPage" advance-search class="search">
       </operation-search>
     </div>
@@ -12,8 +12,8 @@
           <div class="top">
             <span>部门统计</span>
             <div class="more">
-              <span class="border"><i class="el-icon-arrow-left"></i></span>
-              <span class="border"><i class="el-icon-arrow-right"></i></span>
+              <span class="border" @click="left"><i class="el-icon-arrow-left"></i></span>
+              <span class="border" @click="right"><i class="el-icon-arrow-right"></i></span>
             </div>
           </div>
           <div class="echarts odd">
@@ -60,7 +60,13 @@ export default {
   },
   methods: {
     searchPage () {
-
+      this.$message.success('功能开发中')
+    },
+    left () {
+      this.$message.success('功能开发中')
+    },
+    right () {
+      this.$message.success('功能开发中')
     },
   },
 }

@@ -61,9 +61,10 @@ export default {
   },
   methods: {
     searchPage () {
-
+      this.$message.success('功能开发中')
     },
     changeType () {
+      this.$message.success('功能开发中')
 
     },
   },

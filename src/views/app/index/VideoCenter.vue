@@ -21,7 +21,7 @@ export default {
     return {
         title:'国脉视频',
         videoCenterList: [
-            {name:'数据基因宣传视频',img:'http://img1.xcarimg.com/bbs/1364/m_20120223112918835294.jpg'},
+            {name:'数据基因宣传视频',img: require('./img/video.jpg')},
         ],
     }
   },
@@ -33,6 +33,7 @@ export default {
         text-align: center;
         .img{
             width: 100%;
+            height: 165px;
         }
         .name{
             height: 30px;

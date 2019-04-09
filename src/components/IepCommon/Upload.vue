@@ -58,6 +58,7 @@ export default {
         const formatFile = {
           name: file.name,
           url: res.data.bucketName + '-' + res.data.fileName,
+          id: res.data.id,
         }
         this.fileList.push(formatFile)
       }

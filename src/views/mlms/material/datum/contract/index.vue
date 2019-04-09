@@ -40,6 +40,7 @@
       </iep-table>
     </div>
     <main-dialog ref="mainDialog" @load-page="loadPage" v-if="pageState=='dialog'"></main-dialog>
+    <detailDialog ref="detail" @load-page="pageState='list'" v-if="pageState == 'detail'"></detailDialog>
   </div>
 </template>
 
@@ -48,10 +49,11 @@ import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
 import { getTableData, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/contract'
 import MainDialog from './mainDialog'
+import detailDialog from './detail'
 
 export default {
   mixins: [mixins],
-  components: { MainDialog },
+  components: { MainDialog, detailDialog },
   computed: {},
   data () {
     return {
@@ -85,7 +87,11 @@ export default {
       })
     },
     handleDetail (row) {
-      this.$router.push(`/mlms_spa/contract/detail/${row.id}`)
+      // this.$router.push(`/mlms_spa/contract/detail/${row.id}`)
+      this.pageState = 'detail'
+      this.$nextTick(() => {
+        this.$refs['detail'].open(row.id)
+      })
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.id, deleteData)

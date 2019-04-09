@@ -64,10 +64,8 @@ export default {
     },
     handleEdit (row) {
       fetchVisitLogById({ id: row.id }).then(res => {
-        this.data = res.data.data
+        this.$refs['VisitDialog'].formData = res.data.data
       })
-      this.$refs['VisitDialog'].formData = { ...row }
-      this.$refs['VisitDialog'].formData.meetingContent = this.data.meetingContent
       this.$refs['VisitDialog'].dialogShow = true
       this.$refs['VisitDialog'].methodName = '保存'
       this.$refs['VisitDialog'].id = this.id

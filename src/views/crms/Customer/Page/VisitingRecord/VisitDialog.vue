@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="拜访日志" width="40%">
+  <iep-dialog :dialog-show="dialogShow" title="拜访日志" width="40%" @close="loadPage">
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
       <el-form-item :label="`${formData.type == 0 ? '会议主题':'会议标题'}：`" prop="title">
         <el-input v-model="formData.title"></el-input>
@@ -37,11 +37,13 @@ export default {
   },
   methods: {
     loadPage () {
+      this.formData = initFormData()
+      this.dialogShow = false
       this.$emit('load-page')
     },
-    submitForm (formName) {
+    submitForm (form) {
       this.formData.visitingUserId = [this.id]
-      this.$refs[formName].validate((valid) => {
+      this.$refs[form].validate((valid) => {
         if (valid) {
           this.formRequestFn(this.formData).then(() => {
             this.$notify({

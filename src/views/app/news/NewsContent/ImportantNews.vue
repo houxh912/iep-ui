@@ -1,17 +1,15 @@
 <template>
-  <el-card class="box-card" shadow="never">
+  <el-card class="box-card important-news" shadow="never">
     <div slot="header" class="clearfix">
       <span class="sub-title">推荐要闻</span>
     </div>
-    <ul class="important-list">
-      <li v-for="important in importantList" :key="important.id">
-        <div class="img"><img :src="important.img" alt=""></div>
-        <div class="text">
-          <p class="con">{{important.con}}</p>
-          <span class="time">{{important.time}}</span>
-        </div>
-      </li>
-    </ul>
+    <el-card class="important-list" v-for="important in importantList" :key="important.id" shadow="hover">
+      <div class="img"><img :src="important.img" alt=""></div>
+      <div class="text">
+        <p class="con">{{important.con}}</p>
+        <span class="time">{{important.time}}</span>
+      </div>
+    </el-card>
   </el-card>
 </template>
 <script>
@@ -44,40 +42,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-ul,
-li,
-ol {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
 .important-list {
-  li {
-    display: flex;
-    padding: 25px 0;
-    border-bottom: 1px solid #ddd;
-    justify-content: space-between;
-    &:nth-child(1) {
-      padding-top: 10px;
+  display: flex;
+  margin-bottom: 5px;
+  padding: 15px 0 10px;
+  border-bottom: 1px solid #ddd;
+  justify-content: space-between;
+  &:nth-child(1) {
+    padding-top: 20px;
+  }
+  .img {
+    flex: 0 0 40%;
+    img {
+      width: 100%;
+      height: 100%;
     }
-    .img {
-      flex: 0 0 40%;
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-    .text {
-      margin-left: 15px;
-      flex: 1;
+  }
+  .text {
+    margin-left: 15px;
+    flex: 1;
+    overflow: hidden;
+    .con {
       overflow: hidden;
-      .con {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-      }
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
   }
 }
@@ -104,5 +94,15 @@ ol {
 
 .box-card {
   width: 480px;
+}
+</style>
+<style scoped>
+.important-list >>> .el-card__body {
+  display: flex;
+  padding: 0;
+  justify-content: space-between;
+}
+.important-news >>> .el-card__body {
+  padding: 0;
 }
 </style>

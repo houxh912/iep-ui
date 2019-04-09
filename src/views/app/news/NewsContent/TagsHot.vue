@@ -22,6 +22,7 @@
 .item {
   margin-right: 15px;
   margin-bottom: 18px;
+  cursor: pointer;
 }
 
 .clearfix:before,

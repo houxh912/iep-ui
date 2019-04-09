@@ -1,9 +1,7 @@
 <template>
   <div class="news-content">
     <el-col :span="16">
-      <el-card shadow="never">
-        <news-left></news-left>
-      </el-card>
+      <news-left></news-left>
     </el-col>
     <el-col :span="8">
       <news-right></news-right>
@@ -21,8 +19,5 @@ export default {
 .news-content {
   display: flex;
   justify-content: flex-start;
-  .el-card {
-    border: 0;
-  }
 }
 </style>

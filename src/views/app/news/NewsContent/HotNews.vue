@@ -65,10 +65,14 @@ export default {
     color: #999;
   }
   .title-con {
-    margin-bottom: 18px;
+    margin-bottom: 5px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    cursor: pointer;
+    &:hover {
+      color: #cb3737;
+    }
     &:nth-child(1) {
       padding-top: 10px;
     }
@@ -86,7 +90,6 @@ export default {
 
 .item {
   margin-right: 15px;
-  margin-bottom: 18px;
 }
 
 .clearfix:before,
@@ -100,5 +103,10 @@ export default {
 
 .box-card {
   width: 480px;
+}
+</style>
+<style scoped>
+.hot-news >>> .el-card__body {
+  padding: 10px 0;
 }
 </style>

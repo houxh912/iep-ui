@@ -1,25 +1,23 @@
 <template>
   <div class="news-con">
-    <ul class="news-list">
-      <li v-for="news in newsList" :key="news.id">
-        <div class="text">
-          <h4 class="sub-title">
-            <el-tag class="classTag">{{news.class}}</el-tag>{{news.title}}
-          </h4>
-          <p class="list-content">{{news.content}}</p>
-          <div class="list-item-description">
-            <span class="time"><i class="iconfont icon-shijian"></i>{{news.time}}</span>
-            <span class="see"><i class="iconfont icon-yanjing"></i>{{news.browse}}</span>
-            <el-tag>{{news.tag1}}</el-tag>
-            <el-tag>{{news.tag2}}</el-tag>
-            <el-tag>{{news.tag3}}</el-tag>
-          </div>
+    <el-card class="news-list" v-for="news in newsList" :key="news.id" shadow="hover">
+      <div class="text">
+        <h4 class="sub-title">
+          <el-tag class="classTag">{{news.class}}</el-tag>{{news.title}}
+        </h4>
+        <p class="list-content">{{news.content}}</p>
+        <div class="list-item-description">
+          <span class="time"><i class="iconfont icon-shijian"></i>{{news.time}}</span>
+          <span class="see"><i class="iconfont icon-yanjing"></i>{{news.browse}}</span>
+          <el-tag>{{news.tag1}}</el-tag>
+          <el-tag>{{news.tag2}}</el-tag>
+          <el-tag>{{news.tag3}}</el-tag>
         </div>
-        <div class="img" v-show="isShow">
-          <img :src="news.img" alt="" />
-        </div>
-      </li>
-    </ul>
+      </div>
+      <div class="img" v-show="isShow">
+        <img :src="news.img" alt="" />
+      </div>
+    </el-card>
     <el-pagination background layout="prev, pager, next" :total="1000">
     </el-pagination>
   </div>
@@ -160,64 +158,56 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-ul,
-li,
-ol {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
 .news-list {
   text-align: left;
-  li {
+  margin-bottom: 5px;
+  padding: 25px 0 20px;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  &:nth-child(1) {
+    padding-top: 10px;
+  }
+  .sub-title {
+    width: 100%;
+    font-size: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .text {
+    flex: 1;
+    margin-right: 20px;
+    overflow: hidden;
+  }
+  .list-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .list-item-description {
     display: flex;
-    padding: 25px 0;
-    border-bottom: 1px solid #ddd;
-    justify-content: space-between;
-    &:nth-child(1) {
-      padding-top: 10px;
+    justify-content: flex-start;
+    .time,
+    .see {
+      margin-right: 30px;
     }
-    .sub-title {
-      width: 100%;
-      font-size: 18px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .text {
-      flex: 1;
-      margin-right: 20px;
-      overflow: hidden;
-    }
-    .list-content {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-    .list-item-description {
-      display: flex;
-      justify-content: flex-start;
-      .time,
-      .see {
-        margin-right: 30px;
-      }
-      .el-tag {
-        margin-right: 5px;
-      }
-    }
-    .classTag {
+    .el-tag {
       margin-right: 5px;
     }
-    .img {
-      flex: 0 0 22%;
-      height: 140px;
-      overflow: hidden;
-      img {
-        width: 100%;
-        height: 100%;
-      }
+  }
+  .classTag {
+    margin-right: 5px;
+  }
+  .img {
+    flex: 0 0 22%;
+    height: 140px;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
     }
   }
 }
@@ -226,5 +216,12 @@ ol {
   .el-pagination {
     margin: 25px 0;
   }
+}
+</style>
+<style scoped>
+.news-list >>> .el-card__body {
+  display: flex;
+  padding: 0 20px;
+  justify-content: space-between;
 }
 </style>

@@ -39,9 +39,9 @@ export default {
     loadPage () {
       this.$emit('load-page')
     },
-    submitForm (formName) {
+    submitForm (form) {
       this.formData.visitingUserId = [this.id]
-      this.$refs[formName].validate((valid) => {
+      this.$refs[form].validate((valid) => {
         if (valid) {
           this.formRequestFn(this.formData).then(() => {
             this.$notify({

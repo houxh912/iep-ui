@@ -49,10 +49,10 @@
         </div>
         <div class="list" v-for="(item, index) in this.commentList" :key="index">
           <div class="img">
-            <img src="/img/logo.png" alt="">
+            <img :src="`//cloud.govmade.com/${item.avatar}`" alt="">
           </div>
           <div class="comment-info">
-            <div class="name">{{item.realName}} <div class="rate"><el-rate v-model="item.score"></el-rate></div></div>
+            <div class="name">{{item.realName}} <div class="rate"><el-rate v-model="item.score" disabled></el-rate></div></div>
             <p>{{item.commentContent}}</p>
             <div class="footer">
               <div class="time">{{item.createTime}}</div>

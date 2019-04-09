@@ -35,7 +35,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">
-        <iep-tags v-model="formData.tagKeyWords"></iep-tags>
+        <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-form-item label="是否投稿：" prop="isContri">
         <el-switch v-model="formData.isContri" :active-value="dicData.isYes[1].value" :inactive-value="dicData.isYes[0].value"></el-switch>
@@ -53,10 +53,10 @@
 
     </el-form>
 
-    <footer-toolbar>
+    <footer-tool-bar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
-    </footer-toolbar>
+    </footer-tool-bar>
 
   </div>
 </template>

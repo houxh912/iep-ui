@@ -37,17 +37,17 @@
         <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select>
       </el-form-item>
       <el-form-item label="标签" prop="tagKeyWords">
-        <iep-tags v-model="formData.tagKeyWords"></iep-tags>
+        <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-form-item label="附件">
         <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload>
       </el-form-item>
 
     </el-form>
-    <footer-toolbar>
+    <footer-tool-bar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
-    </footer-toolbar>
+    </footer-tool-bar>
   </div>
 </template>
 <script>

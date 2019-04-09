@@ -2,8 +2,8 @@
   <div class="learningResources">
     <el-card class="index-card" shadow="never">
         <div slot="header" class="clearfix">
-            <span class="cardTitle">{{title}}</span>
-            <el-button style="float: right; padding: 3px 0; coloe:#999;" type="text">更多>></el-button>
+            <span class="cardTitle" style="font-size:18px;">{{title}}</span>
+            <el-button style="float: right; padding: 5px 0; color:#999;" type="text">更多>></el-button>
         </div>
         <div>
             <div class="learningResourcesList">
@@ -26,6 +26,8 @@ export default {
             '微服务设计入门',
             '微服务设计入门',
             '微服务设计入门',
+            '微服务设计入门',
+            '微服务设计入门',
             '微服务设计入门'],
     }
   },
@@ -34,21 +36,27 @@ export default {
 <style lang="scss" scoped>
 .learningResourcesList{
     .piece{
-        height: 35px;
-        line-height: 35px;
+        cursor: pointer;
+        height: 32px;
+        line-height: 32px;
         position: relative;
         margin-left: 15px;
+        &:hover {
+            color: #cb3737;
+            &:before{
+                background-color: #cb3737;
+            }
+        }
+        &:before{
+            content: "";
+            position: absolute;
+            left: -15px;
+            top: 14px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #999;
+        }
     }
-    .piece:before{
-        content: "";
-        position: absolute;
-        left: -15px;
-        top: 15px;
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background-color: #999;
-    }
-    
 }
 </style>

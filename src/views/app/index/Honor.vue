@@ -2,8 +2,8 @@
   <div class="honor">
     <el-card class="index-card" shadow="never">
         <div slot="header" class="clearfix">
-            <span class="cardTitle">{{title}}</span>
-            <el-button style="float: right; padding: 3px 0; coloe:#999;" type="text">更多>></el-button>
+            <span class="cardTitle" style="font-size:18px;">{{title}}</span>
+            <el-button style="float: right; padding: 5px 0; color:#999;" type="text">更多>></el-button>
         </div>
         <div>
             <div class="honorList">
@@ -20,7 +20,7 @@ export default {
   data () {
     return {
         title:'国脉荣誉',
-        honorList: ['高新企业认证','高新企业认证','高新企业认证','高新企业认证','高新企业认证','高新企业认证'],
+        honorList: ['高新企业认证','高新企业认证','高新企业认证','高新企业认证','高新企业认证','高新企业认证','高新企业认证','高新企业认证','高新企业认证','高新企业认证'],
     }
   },
 }
@@ -28,21 +28,27 @@ export default {
 <style lang="scss" scoped>
 .honorList{
     .piece{
-        height: 35px;
-        line-height: 35px;
+        cursor: pointer;
+        height: 30px;
+        line-height: 30px;
         position: relative;
         margin-left: 15px;
+        &:hover {
+            color: #cb3737;
+            &:before{
+                background-color: #cb3737;
+            }
+        }
+        &:before{
+            content: "";
+            position: absolute;
+            left: -15px;
+            top: 12px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #999;
+        }
     }
-    .piece:before{
-        content: "";
-        position: absolute;
-        left: -15px;
-        top: 15px;
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background-color: #999;
-    }
-    
 }
 </style>

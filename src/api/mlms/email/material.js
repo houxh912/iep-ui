@@ -9,3 +9,21 @@ export function getReceiverList (params) {
     params: params,
   })
 }
+
+// 项目-全部
+export function getProjectAll (params) {
+  return request({
+    url: '/prms/iepProjectInformation/getList',
+    method: 'get',
+    params: params,
+  })
+}
+
+// 项目-分页
+export function getProjectList (obj) {
+  return request({
+    url: '/prms/iepProjectInformation/page',
+    method: 'get',
+    params: obj,
+  })
+}

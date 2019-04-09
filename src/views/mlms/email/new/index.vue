@@ -9,31 +9,34 @@
       <el-form-item label="主题：" prop="subject">
         <el-input v-model="formData.subject"></el-input>
       </el-form-item>
-      <el-form-item>
-        <iep-button>添加附件</iep-button>
-        <iep-button @click="addRelation">添加关联</iep-button>
-      </el-form-item>
       <el-form-item class="relation">
         <div class="item">
           <el-form-item label="附件列表：" label-width="90px">
-            <ul class="list">
+            <iep-upload v-model="formData.attachmentList" :limit='limit'></iep-upload>
+            <!-- <ul class="list">
               <li class="li" v-for="(item, index) in formData.materialIds" :key="index">
                 <i class="icon-fujian"></i> {{item.name}}
                 <iep-button type='text'>删除</iep-button>
               </li>
-            </ul>
+            </ul> -->
           </el-form-item>
         </div>
       </el-form-item>
+      <el-form-item>
+        <iep-button @click="addRelation">添加关联</iep-button>
+      </el-form-item>
       <el-form-item class="relation">
         <div class="item">
-          <el-form-item label="关联任务：" label-width="90px">
+          <!-- <el-form-item label="关联任务：" label-width="90px">
             <ul class="list">
               <li class="li">显示关联任务1号</li>
               <li class="li">显示关联任务2号</li>
             </ul>
-          </el-form-item>
-          <el-form-item label="关联报表：" label-width="90px">
+          </el-form-item> -->
+          <el-form-item label="关联资源：" label-width="90px">
+            <ul class="list">
+              <li class="li" v-for="(item, index) in this.formData.transferList.projectIds" :key="index">{{item.name}}</li>
+            </ul>
             <ul class="list">
               <li class="li" v-for="(item, index) in this.formData.transferList.materialIds" :key="index">{{item.name}}</li>
             </ul>
@@ -65,7 +68,8 @@ import IepContactMultiple from '@/components/IepContact/Multiple'
 
 const initFormData = () => {
   return {
-    attachmentIds: [],
+    attachmentIds: [], // 附件
+    attachmentList: [],
     content: '',
     emailId: 0,
     materialIds: [],
@@ -106,6 +110,7 @@ export default {
           this.$emit('load-page', false)
         },
       },
+      limit: 99,
     }
   },
   methods: {
@@ -113,9 +118,10 @@ export default {
       this.$refs['form'].resetFields()
       this.formData = initFormData()
     },
+    // 处理数据
     dealReceiverList () {
-      console.log('formData: ', this.formData.receiverList)
-      this.formData.receiverIds = this.formData.receiverList.users.map(m => m.id)
+      this.formData.receiverIds = this.formData.receiverList.users.map(m => m.id) // 接收人
+      this.formData.attachmentIds = this.formData.attachmentList.map(m => m.id)
     },
     // 发送
     submitForm (formName) {
@@ -171,6 +177,7 @@ export default {
     // 关联项
     relativeSubmit (val) {
       this.formData.materialIds = val.materialIds.map(m => m.id)
+      this.formData.projectIds = val.projectIds.map(m => m.id)
       this.formData.transferList = val
     },
   },

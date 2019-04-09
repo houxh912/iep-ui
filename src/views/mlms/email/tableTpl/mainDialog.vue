@@ -66,7 +66,7 @@
 
 <script>
 import { initFormData, reportTableOption } from './option'
-import { deleteEmailById } from '@/api/mlms/email/index'
+import { deleteEmailById, getEmailById } from '@/api/mlms/email/index'
 import { downloadFile } from '@/api/common'
 
 export default {
@@ -82,7 +82,12 @@ export default {
   },
   methods: {
     back () {
-      this.$emit('backWeb', true)
+      let params = this.$route.params
+      if (params.id) {
+        this.$router.go(-1)
+      } else {
+        this.$emit('backWeb', true)
+      }
     },
     handleDelete () {
       deleteEmailById(this.formData.emailId).then(() => {
@@ -142,6 +147,15 @@ export default {
         this.downloadFile(item)
       }
     },
+  },
+  created () {
+    let params = this.$route.params
+    if (params.id) {
+      // 通过工作台进入
+      getEmailById(params.id).then(({data}) => {
+        this.formData = data.data
+      })
+    }
   },
 }
 </script>

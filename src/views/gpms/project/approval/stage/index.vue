@@ -6,7 +6,7 @@
           <pro-app v-loading="activeTab !=='ProApp'" :form="formData"></pro-app>
         </template>
         <template v-if="activeTab ==='Accredit'" v-slot:Accredit>
-          <accredit v-loading="activeTab !=='Accredit'" :isShow="addDialogShow" :detailShow="detailDialogShow" @detail-show="fn" @toggle-show="val => addDialogShow = val"></accredit>
+          <accredit v-loading="activeTab !=='Accredit'" :isShow="addDialogShow" :detailShow="detailDialogShow" @detail-show="fn" @toggle-show="handleCreate"></accredit>
         </template>
       </iep-tabs>
       <transition name="fade">
@@ -52,6 +52,9 @@ export default {
   methods: {
     fn (v) {
       this.detailDialogShow = v
+    },
+    handleCreate () {
+      this.addDialogShow = true
     },
   },
 }

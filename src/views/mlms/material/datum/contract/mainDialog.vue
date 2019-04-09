@@ -194,10 +194,10 @@ export default {
     clientChange (val) {
       getManeger(val).then(({data}) => {
         if (data.data) {
-          this.formData.directorName = data.data.name
+          this.formData.directorRealName = data.data.name
           this.formData.directorId = data.data.id
         } else {
-          this.formData.directorName = ''
+          this.formData.directorRealName = ''
           this.formData.directorId = ''
         }
       })

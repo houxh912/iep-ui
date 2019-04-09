@@ -9,7 +9,7 @@
     <!-- 我的机会 -->
     <my-chance :opportunity="opportunity" />
     <!-- 收到评价 -->
-    <receive-evaluation :appraise="appraise" />
+    <!-- <receive-evaluation :appraise="appraise" /> -->
     <!-- 我的指數 -->
     <my-data />
   </div>
@@ -20,10 +20,10 @@ import MyCreated from './MyCreated'
 import MyFind from './MyFind'
 import MyTreasure from './MyTreasure'
 import MyChance from './MyChance'
-import ReceiveEvaluation from './ReceiveEvaluation'
+// import ReceiveEvaluation from './ReceiveEvaluation'
 import MyData from './MyData'
 export default {
-  components: { MyCreated, MyFind, MyTreasure, MyChance, ReceiveEvaluation, MyData },
+  components: { MyCreated, MyFind, MyTreasure, MyChance, MyData },
   data () {
     return {
       opportunity: [],

@@ -4,6 +4,7 @@
       <div>推荐材料</div>
     </div>
     <div class="material-content">
+      <iep-no-data v-if="!dataList.length" message="暂无材料"></iep-no-data>
       <el-row class="item" v-for="(item) in dataList" :key="item.id">
         <el-col :span="14">
           <div class="grid-content title">{{item.name}}</div>

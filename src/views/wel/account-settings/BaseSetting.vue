@@ -85,7 +85,7 @@
             <el-input v-model="form.profession"></el-input>
           </el-form-item>
           <el-form-item label="毕业时间：" class="form-half">
-            <el-input v-model="form.graduationTime"></el-input>
+            <iep-date-picker v-model="form.graduationTime" type="date" placeholder="选择日期"></iep-date-picker>
           </el-form-item>
           <el-form-item label="推荐人：" class="form-half">
             <el-input v-model="form.referrer"></el-input>

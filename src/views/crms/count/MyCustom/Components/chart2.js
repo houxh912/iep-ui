@@ -1,11 +1,11 @@
 const DataSet = require('@antv/data-set')
 
 const sourceData = [
-  { item: '咨询', count: 20.0 },
-  { item: '数据', count: 21.0 },
-  { item: '软件', count: 30.0 },
-  { item: '平台', count: 9.0 },
-  { item: '事项', count: 20.0 },
+  { item: '咨询', count: 35.5 },
+  { item: '数据', count: 21.6 },
+  { item: '软件', count: 15.5 },
+  { item: '平台', count: 19.0 },
+  { item: '事项', count: 10.4 },
 ]
 
 const scale1 = [

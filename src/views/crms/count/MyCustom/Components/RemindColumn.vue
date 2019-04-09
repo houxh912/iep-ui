@@ -3,14 +3,14 @@
     <el-row class="remind">
       <el-col class="head" :span=24>预警提醒
         <div class="more">
-          <span class="border"><i class="el-icon-arrow-left"></i></span>
-          <span class="border"><i class="el-icon-arrow-right"></i></span>
+          <span class="border" @click="left"><i class="el-icon-arrow-left"></i></span>
+          <span class="border" @click="right"><i class="el-icon-arrow-right"></i></span>
         </div>
       </el-col>
       <div v-for="(item, index) in infoList.tips" :key="index" class="tip" @mouseenter="tipsSelect=index" @mouseleave="tipsSelect=-1">
         <i class="icon-tongzhi"></i>
         <p>{{item.tips}}</p>
-        <iep-button type="primary" class="btn" size="mini" v-if="index==tipsSelect">忽略</iep-button>
+        <iep-button type="primary" class="btn" size="mini" v-if="index==tipsSelect" @click="clear">忽略</iep-button>
       </div>
     </el-row>
   </el-card>
@@ -23,19 +23,13 @@ export default {
       infoList: {
         tips: [{
           id: 1,
-          tips: '您已超过六个月未对三亚市政府服务中心客户进行拜访了',
+          tips: '您已超过一个月未对三亚市政府服务中心客户进行拜访了',
         }, {
           id: 1,
-          tips: '您已超过六个月未对三亚市政府服务中心客户进行拜访了',
+          tips: '您已超过六个月未对海南省农业厅进行重要客户方案撰写了',
         }, {
           id: 1,
-          tips: '您已超过六个月未对三亚市政府服务中心客户进行拜访了',
-        }, {
-          id: 1,
-          tips: '您已超过六个月未对三亚市政府服务中心客户进行拜访了',
-        }, {
-          id: 1,
-          tips: '您已超过六个月未对三亚市政府服务中心客户进行拜访了',
+          tips: '您已超过一年未未与海南省林业局合作了，快去找找合作可能',
         }],
       },
       tipsSelect: -1,
@@ -46,6 +40,17 @@ export default {
 
     },
     tipsLeave () { },
+    clear () {
+      this.$message.success('功能开发中')
+    },
+    left () {
+      this.$message.success('功能开发中')
+
+    },
+    right () {
+      this.$message.success('功能开发中')
+
+    },
   },
 }
 </script>

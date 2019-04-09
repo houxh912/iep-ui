@@ -5,31 +5,31 @@
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>{{infoList.num}}</span>
+        <span>122</span>
       </div>
       <div class="content">客户</div>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>{{infoList.num}}</span>
+        <span>134</span>
       </div>
       <div class="content">联系人</div>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>{{infoList.num}}</span>
+        <span>66</span>
       </div>
       <div class="content">合同</div>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>￥1,000,000,000</span>
+        <span>￥350,050,000</span>
       </div>
       <div class="content">合同金额</div>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>12</span>
+        <span>25</span>
       </div>
       <div class="content">软件</div>
     </el-col>

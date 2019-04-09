@@ -40,13 +40,13 @@
                 <el-input v-model="formLabelAlign.name" placeholder="请输入名称"></el-input>
               </el-form-item>
               <el-form-item label="具体说明" prop='explain'>
-                <el-input v-model="formLabelAlign.explain" placeholder="请输入说明"></el-input>
+                <el-input type="textarea" v-model="formLabelAlign.explain" placeholder="请输入说明"></el-input>
               </el-form-item>
               <el-form-item label="是否必填" prop='whether'>
-                <el-select v-model="formLabelAlign.whether" placeholder="请选择是否必填">
-                  <el-option label="是" value="shi"></el-option>
-                  <el-option label="否" value="fou"></el-option>
-                </el-select>
+                <el-radio-group v-model="formLabelAlign.whether">
+                  <el-radio :label="3">是</el-radio>
+                  <el-radio :label="6">否</el-radio>
+                </el-radio-group>
               </el-form-item>
               <el-form-item label="项目类型" prop='objType'>
                 <el-select v-model="formLabelAlign.objType" placeholder="请选择项目类型">

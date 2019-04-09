@@ -78,3 +78,11 @@ export function copyData (id) {
     method: 'get',
   })
 }
+
+// 发送
+export function meetingSend (id) {
+  return request({
+    url: `${prefixUrl}/send/${id}`,
+    method: 'post',
+  })
+}

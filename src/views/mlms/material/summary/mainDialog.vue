@@ -81,16 +81,11 @@
 </template>
 <script>
 import { initFormData, dictsMap, rules } from './options'
-import IepTags from '@/components/IepTag'
-import FooterToolbar from '@/components/FooterToolbar/'
-import IepContactMultiple from '@/components/IepContact/Multiple'
-import IepContactSelect from '@/components/IepContact/Select'
 import { mapState } from 'vuex'
 import { getCustomerPage } from '@/api/crms/customer'
 import { createData, updateData, getDataById } from '@/api/mlms/material/summary'
 
 export default {
-  components: { IepTags, FooterToolbar, IepContactMultiple, IepContactSelect },
   data () {
     return {
       dictsMap,

@@ -11,7 +11,7 @@
             <operation-search @search="searchPage"></operation-search>
           </template>
         </operation-container>
-        <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+        <iep-table :isLoadTable="isLoadTable = false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
           <el-table-column prop="operation" label="操作" width="220">
             <template slot-scope="scope">
               <operation-wrapper>
@@ -90,9 +90,9 @@
 </template>
 
 <script>
-import { getTrainingRecordPage } from '@/api/hrms/training_record'
+// import { getTrainingRecordPage } from '@/api/hrms/training_record'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from './options'
+import { columnsMap, initSearchForm, pagedTable} from './options'
 export default {
   mixins: [mixins],
   data () {
@@ -103,6 +103,7 @@ export default {
       replaceText: (data) => `（共${data[0]}项资源)`,
       dateVal: '',
       hidsadd: true,
+      pagedTable,
       formLabelAlign: {
         name: '',
         explain: '',
@@ -132,16 +133,17 @@ export default {
     }
   },
   created () {
-    this.loadPage()
+    // this.loadPage()
+    this.paramForm = this.pagedTable
   },
   methods: {
     clearSearchParam () {
       this.paramForm = initSearchForm()
       this.$emit('clear-search-param')
     },
-    loadPage (param = this.paramForm) {
-      this.loadTable(param, getTrainingRecordPage)
-    },
+    // loadPage (param = this.paramForm) {
+    //   this.loadTable(param, getTrainingRecordPage)
+    // },
     searchPage () {
       this.$emit('search-page', this.paramForm)
     },

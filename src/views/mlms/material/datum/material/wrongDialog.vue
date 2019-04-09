@@ -1,12 +1,13 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="领导批示" width="50%" @close="resetForm">
-    <el-form :model="formData" :rules="shareRules" ref="form" label-width="100px">
+  <iep-dialog :dialog-show="dialogShow" title="材料纠错" width="50%" @close="resetForm">
+    <el-form :model="formData" :rules="wrongRules" ref="form" label-width="100px">
 
-      <el-form-item label="主题：" prop="subject">
-        <el-input v-model="formData.subject"></el-input>
+      <el-form-item label="主题：">
+        <el-input v-model="formData.subject" readonly />
       </el-form-item>
-      <el-form-item label="收件人：" prop="shoujianren">
-        <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
+      <el-form-item label="收件人：">
+        <!-- <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple> -->
+        <el-input type="text" v-model="formData.receiverName" readonly />
       </el-form-item>
       <el-form-item label="正文：" prop="content">
         <el-input type="textarea" rows=5 placeholder="请在此输入分享说明" v-model="formData.content"></el-input>
@@ -19,27 +20,37 @@
   </iep-dialog>
 </template>
 <script>
-import { initInstrForm, dictsMap, shareRules } from './options'
+import { initWrongForm, wrongRules } from './option'
 import { createEmail } from '@/api/mlms/email/index'
 
 export default {
-  components: {  },
+  props: {
+    type: {
+      type: String,
+      default: 'summary',
+    },
+  },
   data () {
     return {
-      dictsMap,
-      shareRules,
+      wrongRules,
       dialogShow: false,
       formRequestFn: () => { },
-      methodName: '创建',
-      formData: initInstrForm(),
+      methodName: '发送',
+      formData: initWrongForm(),
+      list: [],
     }
   },
   methods: {
-    open () {
+    open (row) {
       this.dialogShow = true
+      this.formData.subject = `纠错：${row.materialName}`
+      this.formData.receiverIds = [row.creator]
+      this.formData.receiverName = row.creatorRealName
+    },
+    loadPage () {
+      this.$emit('load-page')
     },
     submitForm (formName) {
-      this.formData.receiverIds = this.formData.receiverList.users.map(m => m.id)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           createEmail(this.formData).then(() => {
@@ -49,6 +60,7 @@ export default {
               type: 'success',
               duration: 2000,
             })
+            this.loadPage()
             this.dialogShow = false
           })
         } else {
@@ -57,7 +69,7 @@ export default {
       })
     },
     resetForm () {
-      this.formData = initInstrForm()
+      this.formData = initWrongForm()
       this.dialogShow = false
     },
   },

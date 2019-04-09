@@ -16,7 +16,7 @@
           <span @click="download(scope.row)" class="download">下载<i class="icon-download1"></i></span>
         </template>
       </el-table-column>
-      <el-table-column label="创建人" width="250px">
+      <el-table-column label="创建人" width="250px" v-if="record.collaborations.length !== 0">
         <template>
           <div class=' line'>
             <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
@@ -94,6 +94,7 @@ export default {
     getMaterial({ clientId: this.record.id }).then((res) => {
       this.recommendList = res.data.data
     })
+    console.log(this.record)
   },
   methods: {
     loadPage (param) {

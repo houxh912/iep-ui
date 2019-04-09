@@ -4,15 +4,18 @@
       <div>我的合同</div>
     </div>
     <div class="contract-content">
-      <el-row v-for="(item,index) in dataList" :key="index">
-        <el-col :span="15">
-          <div class="title">{{item.name}}</div>
+      <el-row class="item" v-for="(item,index) in dataList" :key="index">
+        <el-col :span="10">
+          <div>{{item.name}}</div>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
+          <div>{{item.name}}</div>
+        </el-col>
+        <el-col :span="4">
+          <div>{{item.name}}</div>
+        </el-col>
+        <el-col :span="2" class="text-right">
           <div>{{item.status}}</div>
-        </el-col>
-        <el-col :span="3">
-          <div>{{item.time | parseTime('{m}-{d}')}}</div>
         </el-col>
       </el-row>
     </div>
@@ -51,12 +54,11 @@ export default {
   .contract-content {
     padding: 10px 0;
     font-size: 14px;
-  }
-  .title {
-    padding: 5px 0;
-    cursor: pointer;
-    &:hover {
-      color: #cb3737;
+    .item {
+      padding: 5px 0;
+    }
+    .text-right {
+      text-align: right;
     }
   }
 }

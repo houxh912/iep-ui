@@ -3,25 +3,26 @@
     <div class="customer-nav">
       <div>我的客户</div>
     </div>
+    <iep-no-data v-if="!tableData.length" message="暂无内容"></iep-no-data>
     <div class="customer-content">
       <el-row class="item" v-for="(item,index) in tableData" :key="index">
+        <el-col :span="7">
+          <div class="title" @click="handleDetail(item)">{{item.name}}</div>
+        </el-col>
         <el-col :span="6">
-          <div class="title">{{item.customerName}}</div>
+          <span v-for="(item,index) in dealData(item.businessType)" :key="index">{{item}}</span>
         </el-col>
-        <el-col :span="4">
-          <div>{{item.businessType}}</div>
+        <el-col :span="3">
+          <div>{{item.districtType}}</div>
         </el-col>
-        <el-col :span="4">
-          <div>{{item.disType}}</div>
+        <el-col :span="3">
+          <div>{{item.clientRela}}</div>
         </el-col>
-        <el-col :span="4">
-          <div>{{item.relation}}</div>
-        </el-col>
-        <el-col :span="4">
-          <div>{{item.status}}</div>
+        <el-col :span="3">
+          <div>{{item.followUpStatus}}</div>
         </el-col>
         <el-col :span="2" class="time">
-          <div>{{item.createTime}}</div>
+          <div>{{item.time | parseTime('{y}-{m}-{d}')}}</div>
         </el-col>
       </el-row>
     </div>
@@ -29,43 +30,18 @@
 </template>
 
 <script>
-// import { getCustomerList } from '@/api/wel/index'
+import { getCustomerList } from '@/api/wel/index'
 export default {
   data () {
     return {
       type: '1',
-      tableData: [
-        {
-          customerName: '中国电信股份有限公司',
-          businessType: '软件',
-          disType: '市级',
-          relation: '重要客户',
-          status: '待合作',
-          createTime: '2019-3-25',
-        },
-        {
-          customerName: '中国电信股份有限公司',
-          businessType: '软件',
-          disType: '市级',
-          relation: '重要客户',
-          status: '待合作',
-          createTime: '2019-3-25',
-        },
-        {
-          customerName: '中国电信股份有限公司',
-          businessType: '软件',
-          disType: '市级',
-          relation: '重要客户',
-          status: '待合作',
-          createTime: '2019-3-25',
-        },
-      ],
+      tableData: [],
     }
   },
   created () {
-    // getCustomerList().then((res) => {
-    //   this.tabList = res.data.data
-    // })
+    getCustomerList().then((res) => {
+      this.tableData = res.data.data
+    })
   },
   methods: {
     handleDetail (row) {
@@ -75,6 +51,9 @@ export default {
           id: row.id,
         },
       })
+    },
+    dealData (val) {
+      return val.join('，')
     },
   },
 }
@@ -106,6 +85,17 @@ export default {
     &:hover {
       color: #cb3737;
     }
+  }
+}
+.business {
+  padding: 0 5px;
+  &:after {
+    content: "，";
+    position: absolute;
+  }
+  &:last-child {
+    content: "222";
+    position: absolute;
   }
 }
 </style>

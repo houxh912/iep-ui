@@ -3,16 +3,17 @@
     <div class="contract-nav">
       <div>我的合同</div>
     </div>
+    <iep-no-data v-if="!dataList.length" message="暂无内容"></iep-no-data>
     <div class="contract-content">
       <el-row class="item" v-for="(item,index) in dataList" :key="index">
         <el-col :span="10">
           <div>{{item.name}}</div>
         </el-col>
-        <el-col :span="8">
-          <div>{{item.name}}</div>
+        <el-col :span="6">
+          <div>{{item.businessContractType}}</div>
         </el-col>
-        <el-col :span="4">
-          <div>{{item.name}}</div>
+        <el-col :span="6">
+          <div>{{item.contractAmount}} w</div>
         </el-col>
         <el-col :span="2" class="text-right">
           <div>{{item.status}}</div>

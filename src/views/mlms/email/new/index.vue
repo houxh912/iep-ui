@@ -114,6 +114,36 @@ export default {
     }
   },
   methods: {
+    open (row) {
+      this.pageState = 'draft'
+      this.backOption.isBack = true
+      row.receiverIds = row.receivers.map(m => m.receiverId)
+      row.receiverList = {
+        unions: [],
+        orgs: [],
+        users: this.dealWithList(row.receivers, [{ O: 'id', X: 'receiverId' }, { O: 'name', X: 'receiverRealName'}]),
+      }
+      row.transferList = {
+        projectIds: this.dealWithList(row.projectRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName'}]),
+        summaryIds: [],
+        materialIds: this.dealWithList(row.materialRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName'}]),
+        reportIds: [],
+      }
+      row.attachmentList = this.dealWithList(row.materialRelatios, [{ O: 'url', X: 'attachmentUrl' }, { O: 'id', X: 'relatiionId'}, { O: 'name', X: 'relatiionName'}])
+      this.formData = row
+      this.relativeSubmit(row.transferList)
+    },
+    dealWithList (row, field) {
+      let list = []
+      for (let item of row) {
+        let obj = {}
+        for (let t of field) {
+          obj[t.O] = item[t.X]
+        }
+        list.push(obj)
+      }
+      return list
+    },
     resetForm () {
       this.$refs['form'].resetFields()
       this.formData = initFormData()

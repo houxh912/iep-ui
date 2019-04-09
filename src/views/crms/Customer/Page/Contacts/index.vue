@@ -11,6 +11,16 @@
           </template>
         </el-table-column>
       </template>
+      <el-table-column label="创建人" width="250px" v-if="record.type =='3'">
+        <template>
+          <div class=' line'>
+            <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
+          </div>
+          <div class='create-name line'>
+            {{userInfo.realName}}
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="operation" label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>

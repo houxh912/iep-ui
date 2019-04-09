@@ -50,6 +50,8 @@ export default {
       id: this.$route.query.id,
       record: {
         id: this.$route.query.id,
+        type: this.$route.query.type,
+        collaborations: '',
       },
       backOption: {
         isBack: true,
@@ -103,6 +105,7 @@ export default {
     loadPage () {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = data.data
+        this.record.collaborations = this.formData.collaborations
       })
     },
     handleGoBack () {

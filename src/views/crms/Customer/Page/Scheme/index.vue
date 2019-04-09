@@ -16,28 +16,28 @@
           <span @click="download(scope.row)" class="download">下载<i class="icon-download1"></i></span>
         </template>
       </el-table-column>
-      <el-table-column label="创建人" width="250px">
-        <template slot-scope="scope">
+      <el-table-column label="创建人" width="250px" v-if="record.collaborations.length !== 0">
+        <template>
           <div class=' line'>
             <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
           </div>
           <div class='create-name line'>
-            {{scope.row.createName}}
+            {{userInfo.realName}}
           </div>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="300px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleSave(scope.row)" type="warning" plain v-if="!scope.row.status">保存至材料库</iep-button>
-            <iep-button @click="handleEdit(scope.row)" type="warning" plain v-if="!scope.row.status">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+            <iep-button @click="handleSave(scope.row)" type="warning" plain v-if="!scope.row.status" :disabled="scope.row.creatorId !== userInfo.userId">保存至材料库</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain v-if="!scope.row.status" :disabled="scope.row.creatorId !== userInfo.userId">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)" :disabled="scope.row.creatorId !== userInfo.userId">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
     <el-row class="recommend">
-      <el-col class="title">为您推荐一下参考材料：</el-col>
+      <el-col class="title">为您推荐以下参考材料：</el-col>
       <el-col class="item" :span=6 v-for="(item, index) in recommendList" :key="index">{{item}}</el-col>
     </el-row>
     <create-dialog ref="SchemeDialog" @load-page="loadPage"></create-dialog>
@@ -94,6 +94,7 @@ export default {
     getMaterial({ clientId: this.record.id }).then((res) => {
       this.recommendList = res.data.data
     })
+    console.log(this.record)
   },
   methods: {
     loadPage (param) {

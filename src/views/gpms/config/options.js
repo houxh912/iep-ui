@@ -13,25 +13,70 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: '培训老师',
-    label: '培训老师',
+    prop: 'name',
+    label: '名称',
   },
   {
-    prop: '培训主题',
-    label: '培训主题',
+    prop: 'type',
+    label: '项目类别',
   },
   {
-    prop: '培训时间',
-    label: '培训时间',
+    prop: 'date',
+    label: '业务类型',
     width: 300,
   },
+]
+
+const pagedTable = [
   {
-    prop: '培训类型',
-    label: '培训类型',
+    name:'项目周报',
+    type:'内部项目',
+    date:'咨询',
   },
   {
-    prop: '培训方式',
-    label: '培训方式',
+    name:'会议纪要',
+    type:'内部项目',
+    date:'咨询',
+  },
+  {
+    name:'项目方案',
+    type:'内部项目',
+    date:'产品',
+  },
+  {
+    name:'最终成果文档',
+    type:'内部项目',
+    date:'产品',
+  },
+  {
+    name:'需求规格说明书',
+    type:'内部项目',
+    date:'数据',
+  },
+  {
+    name:'测试文档',
+    type:'外部项目',
+    date:'数据',
+  },
+  {
+    name:'项目合同',
+    type:'外部项目',
+    date:'咨询',
+  },
+  {
+    name:'汇报PPT',
+    type:'外部项目',
+    date:'产品',
+  },
+  {
+    name:'汇报PPT',
+    type:'外部项目',
+    date:'产品',
+  },
+  {
+    name:'投标文件',
+    type:'外部项目',
+    date:'产品',
   },
 ]
 
@@ -52,4 +97,4 @@ const initSearchForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm }
+export { dictsMap, columnsMap, initForm, initSearchForm, pagedTable}

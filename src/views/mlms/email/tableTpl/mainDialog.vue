@@ -17,23 +17,24 @@
     <div class="appendix">
       <h3>附件（3）</h3>
       <ul class="list">
-        <li>
-          <i class="icon-fujian"></i>DIPS产品工作进度说明（1）.xlsl <iep-button type="text">下载</iep-button><iep-button type="text">转存</iep-button>
-        </li>
-        <li>
-          <i class="icon-fujian"></i>DIPS产品工作进度说明（2）.xlsl <iep-button type="text">下载</iep-button><iep-button type="text">转存</iep-button>
+        <li v-for="(item, index) in formData.attachmentRelatios" :key="index">
+          <i class="icon-fujian"></i>{{item.relatiionName}} <iep-button type="text" @click="downloadFile(item)">下载</iep-button><!-- <iep-button type="text">转存</iep-button> -->
         </li>
       </ul>
-      <iep-button type="text"><i class="icon-download1"></i> 全部下载</iep-button>
+      <iep-button type="text" @click="downloadFileAll"><i class="icon-download1"></i> 全部下载</iep-button>
     </div>
     <div class="relation">
-      <h3>关联（3）</h3>
+      <h3>关联</h3>
       <div class="item">
-        <div class="title">关联纪要：</div>
-        <ul class="list">
-          <li>2019一号工程-内网  20190107启动会</li>
-          <li>2019一号工程-内网  20190107启动会</li>
-        </ul>
+        <div class="title">关联资源：</div>
+        <div>
+          <ul class="list">
+            <li v-for="(item, index) in formData.projectRelatios" :key="index">{{item.relatiionName}}</li>
+          </ul>
+          <ul class="list">
+            <li v-for="(item, index) in formData.materialRelatios" :key="index">{{item.relatiionName}}</li>
+          </ul>
+        </div>
       </div>
       <div class="item">
         <div class="title">关联报表：</div>
@@ -67,6 +68,7 @@
 import { initFormData, reportTableOption } from './option'
 import PageHeader from '@/components/Page/Header'
 import { deleteEmailById } from '@/api/mlms/email/index'
+import { downloadFile } from '@/api/common'
 
 export default {
   components: { PageHeader },
@@ -126,6 +128,20 @@ export default {
         })
       }
       this.$emit('reply', receiverList)
+    },
+    // 下载附件
+    downloadFile (obj) {
+      console.log('obj: ', obj)
+      downloadFile({
+        url: obj.attachmentUrl,
+        name: obj.relatiionName,
+      })
+    },
+    // 下载全部
+    downloadFileAll () {
+      for (let item of this.formData.attachmentRelatios) {
+        this.downloadFile(item)
+      }
     },
   },
 }

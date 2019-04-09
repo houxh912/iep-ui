@@ -13,8 +13,8 @@
           <div class="down"> 88</div> -->
         </div>
         <div class="operat">
-          <div class="button"><i class="icon-shoucang"></i> 收藏</div>
-          <div class="button"><i class="icon-youxiangshixin"></i> 分享</div>
+          <!-- <div class="button"><i class="icon-shoucang"></i> 收藏</div>
+          <div class="button"><i class="icon-youxiangshixin"></i> 分享</div> -->
         </div>
       </el-row>
       <el-row class="sub-title">
@@ -25,8 +25,8 @@
       </el-row>
       <el-row class="down-load">
         相关附件：
-        <div class="file">
-          <i class="icon-fujian"></i>内网2.0改造项目<span class="tip">（消耗5国脉贝下载）</span>
+        <div class="file" v-for="(item, index) in formData.attachFileList" :key="index">
+          <i class="icon-fujian"></i>{{item.name}}<span class="tip" @click="downLoad(item)">（消耗5国脉贝下载）</span>
         </div>
       </el-row>
       <el-row class="footer">
@@ -81,7 +81,10 @@
 </template>
 
 <script>
-import { getDataById, commentMaterial, getCommentPage } from '@/api/mlms/material/datum/material'
+import { getDataById, downloadCount } from '@/api/mlms/material/datum/material'
+import { commentMaterial, getCommentPage } from '@/api/mlms/index'
+import { downloadFile } from '@/api/common'
+
 function commentForm () {
   return {
     objectType: 1,
@@ -125,6 +128,7 @@ export default {
     Instructions () {
       this.$refs['instrDialog'].open()
     },
+    // 获取评论列表
     getComment (id) {
       getCommentPage({
         id: id,
@@ -132,6 +136,12 @@ export default {
       }).then(({data}) => {
         this.commentList = data.data.records
       })
+    },
+    // 附件下载
+    downLoad (obj) {
+      downloadFile(obj)
+      // /getUpload/{id}
+      downloadCount(this.formData.id)
     },
   },
   created () {

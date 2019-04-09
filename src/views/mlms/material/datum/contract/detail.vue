@@ -13,12 +13,12 @@
       </el-col>
       <el-col class="remark">合同说明/收款方式：</el-col>
       <el-col class="remark-content">{{formData.contractExpl}}</el-col>
-      <el-col class="item file">
+      <!-- <el-col class="item file">
         <label>合同附件：</label>
         <iep-button type="primary">附件下载</iep-button>
         <iep-button>复制下载链接</iep-button>
         <iep-button>预览</iep-button>
-      </el-col>
+      </el-col> -->
     </el-row>
       
     <el-row class="clause">
@@ -56,6 +56,27 @@
           <label>费率</label><span>6.34%</span>
         </el-col>
       </el-row>
+      <el-row class="list">
+        <el-col class="title">合同收款：</el-col>
+        <el-col class="content">
+          <el-table :data="contractMoney" stripe style="width: 100%" border>
+            <el-table-column prop="date" label="到账时间"> </el-table-column>
+            <el-table-column prop="money" label="到账金额"> </el-table-column>
+            <el-table-column prop="const" label="累计到账"> </el-table-column>
+            <el-table-column prop="icon" label="到账比例"> </el-table-column>
+          </el-table>
+        </el-col>
+      </el-row>
+      <el-row class="list">
+        <el-col class="title">项目主要支付：</el-col>
+        <el-col class="content">
+          <el-table :data="payList" stripe style="width: 100%" border>
+            <el-table-column prop="waibao" label="项目外包费用"> </el-table-column>
+            <el-table-column prop="pingshen" label="项目评审费用（专家费等）"> </el-table-column>
+            <el-table-column prop="fuwu" label="项目服务费用（中标费用、佣金等）"> </el-table-column>
+          </el-table>
+        </el-col>
+      </el-row>
     </el-row>
 
 
@@ -72,32 +93,48 @@ export default {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          this.$router.go(-1)
+          // this.$router.go(-1)
+          this.$emit('load-page', true)
         },
       },
       infoList: [
-        { name: '关联项目', value: 'guanlianxiangmu' },
+        // { name: '关联项目', value: 'guanlianxiangmu' },
         { name: '市场经理', value: 'directorRealName' },
         { name: '合同类型', value: 'contractType', type: 'dict' },
         { name: '业务类型', value: 'businessType', type: 'dict' },
         { name: '签订日期', value: 'signTime' },
         { name: '完结日期', value: 'finishTime' },
-        { name: '委托单位', value: 'companyOrgId', type: 'dict' },
-        { name: '签署单位', value: 'signCompanyOrgId', type: 'dict' },
-        { name: '签署部门', value: 'signDeptOrgName', type: 'dict' },
-        { name: '承接部门', value: 'underTakeDeptName', type :'dict' },
+        { name: '委托单位', value: 'companyName' },
+        { name: '签署单位', value: 'signCompanyRealName' },
+        { name: '签署部门', value: 'signDeptOrgNames' },
+        { name: '承接部门', value: 'underTakeDeptNames' },
         { name: '合同金额', value: 'contractAmount' },
         { name: '合同级别', value: 'contractLevel' },
         { name: '保证金', value: 'deposit' },
       ],
+      contractMoney: [
+        { date: '2019-03-22', money: '22,000', const: '22,000', icon: '9.0%' },
+      ],
+      payList: [
+        { waibao: '8000', pingshen: '20000', fuwu: '3000' },
+      ],
     }
   },
   methods: {
+    open (id) {
+      getDataById(id).then(({data}) => {
+        data.data.signDeptOrgNames = data.data.signDeptOrgName.name
+        let underTakeDeptNames = ''
+        for (let item of data.data.underTakeDeptName) {
+          underTakeDeptNames += item.name + '、'
+        }
+        data.data.underTakeDeptNames = underTakeDeptNames.slice(0, underTakeDeptNames.length-1)
+        this.formData = data.data
+      })
+    },
   },
   created () {
-    getDataById(this.$route.params.id).then(({data}) => {
-      this.formData = data.data
-    })
+    
   },
 }
 </script>
@@ -139,10 +176,10 @@ export default {
     margin-bottom: 30px;
   }
   .list {
+    margin-bottom: 15px;
     .title {
       width: 130px;
       text-align: right;
-      margin-bottom: 15px;
     }
     .content {
       width: calc(100% - 130px);

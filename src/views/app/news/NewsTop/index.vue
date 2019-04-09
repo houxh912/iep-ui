@@ -14,7 +14,7 @@
 <style lang="scss" scoped>
 .news-top {
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 30px 20px;
   text-align: center;
   background: #fafafa url(./linebg.png) no-repeat;
   h3 {
@@ -23,7 +23,7 @@
   .search-con {
     display: flex;
     margin: 0 auto;
-    width: 600px;
+    max-width: 600px;
     justify-content: space-between;
   }
 }

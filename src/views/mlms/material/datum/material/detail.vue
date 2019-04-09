@@ -66,7 +66,7 @@
     <el-col class="right">
       <div class="info">
         <div class="name">{{formData.creatorRealName}}</div>
-        <div class="num">共188篇材料</div>
+        <div class="num">共{{materialTotal}}篇材料</div>
         <div class="foot">
           <iep-button type="danger">订阅</iep-button>
           <iep-button type="danger">向他拜师</iep-button>
@@ -74,7 +74,7 @@
       </div>
       <div class="material">
         <h3>优秀材料</h3>
-        <p>论互联网如何发展</p>
+        <p v-for="(item, index) in greatMaterialList" :key="index">{{item.name}}</p>
       </div>
     </el-col>
     <wrongDialog ref="wrong"></wrongDialog>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { getDataById, downloadCount } from '@/api/mlms/material/datum/material'
+import { getDataById, downloadCount, getGreatMaterial, getMaterialTotal } from '@/api/mlms/material/datum/material'
 import { commentMaterial, getCommentPage } from '@/api/mlms/index'
 import { downloadFile } from '@/api/common'
 import wrongDialog from './wrongDialog'
@@ -112,6 +112,8 @@ export default {
       },
       comment: commentForm(),
       commentList: [],
+      materialTotal: 0,
+      greatMaterialList: [],
     }
   },
   methods: {
@@ -154,6 +156,13 @@ export default {
     getDataById(this.$route.params.id).then(({data}) => {
       this.formData = data.data
       this.getComment(data.data.id)
+      // 获取优秀材料
+      getGreatMaterial(data.data.creator).then(({data}) => {
+        this.greatMaterialList = data
+      })
+      getMaterialTotal(data.data.creator).then(({data}) => {
+        this.materialTotal = data.data
+      })
     })
   },
 }

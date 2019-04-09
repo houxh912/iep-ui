@@ -1,5 +1,4 @@
 const columnsMap = [
-  { label: '联系人姓名', prop: 'contactName' },
   { label: '联系人职务', prop: 'contactPosition' },
   { label: '电话', prop: 'cellphone' },
 ]

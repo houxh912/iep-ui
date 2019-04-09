@@ -142,6 +142,7 @@ export default {
       downloadModel(row.atchUpload)
     },
     handleSave () {
+      this.$message.success('功能开发中')
       // this.$router.push({
       //   path: '/mlms_spa/datum/create',
       //   query: {

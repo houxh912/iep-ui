@@ -2,7 +2,7 @@
   <div class="leaderBoard">
     <el-card class="index-card" shadow="never">
         <div slot="header" class="clearfix">
-            <span class="cardTitle">{{title}}</span>
+            <span class="cardTitle" style="font-size:18px;">{{title}}</span>
         </div>
         <div>
             <div class="leaderBoardList">
@@ -30,6 +30,8 @@ export default {
             {name:'张小燕',grade:'222',color:''},
             {name:'张小燕',grade:'222',color:''},
             {name:'张小燕',grade:'222',color:''},
+            {name:'张小燕',grade:'222',color:''},
+            {name:'张小燕',grade:'222',color:''},
         ],
     }
   },
@@ -38,6 +40,7 @@ export default {
 <style lang="scss" scoped>
 .leaderBoard{
     .piece{
+        cursor: pointer;
         .name{
             height: 30px;
             line-height: 30px;
@@ -58,6 +61,9 @@ export default {
         .grade{
             float: right;
             color: #bb1a20;
+        }
+        &:hover {
+            color: #cb3737;
         }
     }
 }

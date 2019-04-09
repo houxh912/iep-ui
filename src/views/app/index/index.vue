@@ -37,7 +37,7 @@ export default {
 <style lang="scss" scoped>
 .index {
   width: 1280px;
-  padding-top: 20px;
+  padding: 20px 0;
   margin: 0 auto;
   display: grid;
   grid-auto-flow: row dense;
@@ -47,7 +47,7 @@ export default {
   .index-card {
     font-size: 14px;
     border: 1px solid #f0f0f0;
-    //padding:0 20px;
+    padding:15px 20px;
     .clearfix:before,
     .clearfix:after {
       display: table;

@@ -2,8 +2,8 @@
   <div class="feedback">
     <el-card class="index-card" shadow="never">
         <div slot="header" class="clearfix">
-            <span class="cardTitle">{{title}}</span>
-            <el-button style="float: right; padding: 3px 0; coloe:#999;" type="text">我要发表</el-button>
+            <span class="cardTitle" style="font-size:18px;">{{title}}</span>
+            <el-button style="float: right; padding: 5px 0;" type="text">我要发表</el-button>
         </div>
         <div>
             <div class="feedbackList">
@@ -28,9 +28,9 @@ export default {
     return {
         title:'意见反馈',
         feedbackList: [
-            {photo:'http://img1.xcarimg.com/bbs/1364/m_20120223112918835294.jpg',name:'张三',time:'2019-04-08',feed:'有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题'},
-            {photo:'http://img1.xcarimg.com/bbs/1364/m_20120223112918835294.jpg',name:'张三',time:'2019-04-08',feed:'有问题有问题有问题有问题有问题有问题有问题有问题'},
-            {photo:'http://img1.xcarimg.com/bbs/1364/m_20120223112918835294.jpg',name:'张三',time:'2019-04-08',feed:'有问题有问题有问题有问题有问题有问题有问题有问题'},
+            {photo:require('./img/people1.png'),name:'张三',time:'2019-04-08',feed:'有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题'},
+            {photo:require('./img/people2.jpg'),name:'张三',time:'2019-04-08',feed:'有问题有问题有问题有问题有问题有问题有问题有问题'},
+            {photo:require('./img/people3.jpeg'),name:'张三',time:'2019-04-08',feed:'有问题有问题有问题有问题有问题有问题有问题有问题'},
         ],
     }
   },
@@ -46,6 +46,7 @@ export default {
             height: 68px;
             margin-right: 10px;
             float: left;
+            border:1px solid #eee;
         }
         .box{
             float: left;
@@ -61,12 +62,19 @@ export default {
                 }
             }
             .feed{
+                cursor: pointer;
                 overflow : hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
+                &:hover{
+                    color: #ba1b21;
+                }
             }
+        }
+        &:last-child{
+            margin-bottom: 12px;
         }
     }
 }

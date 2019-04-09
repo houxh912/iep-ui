@@ -40,12 +40,12 @@
       <el-col :span="8">
         <el-card :body-style="{ padding: '0px' }">
            <div slot="header" class="clearfix">
-            <span>集团要闻</span>
+            <span>集团喜讯</span>
             <el-button style="float: right; padding: 3px 0" type="text">更多></el-button>
           </div>
           <div style="padding:15px;display:inline-block; width:50%;" v-for="(item,index) in imgList" :key="index">
-            <img style="width:100%;" :src="item.imgSrc" class="image">
-            <p v-text="item.imgDes"></p>
+            <img style="width:100%;height:138px;" :src="item.imgSrc" class="image">
+            <p class="imgDes" v-text="item.imgDes"></p>
           </div>
         </el-card>
       </el-col>
@@ -68,10 +68,10 @@ export default {
       ],
       currentDate: new Date(),
       imgList:[
-        {imgSrc:'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',imgDes:'看上去很好吃呀'},
-        {imgSrc:'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',imgDes:'看上去很好吃呀'},
-        {imgSrc:'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',imgDes:'看上去很好吃呀'},
-        {imgSrc:'https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png',imgDes:'看上去很好吃呀'},
+        {imgSrc: require('./images/01.png'),imgDes:'热烈庆祝广州国脉公司乔迁开业'},
+        {imgSrc: require('./images/02.png'),imgDes:'国脉64名开发人员获“阿里巴巴编码规范证书”'},
+        {imgSrc: require('./images/03.png'),imgDes:'国脉海南项目获海南省十佳大数据应用案例'},
+        {imgSrc: require('./images/04.jpg'),imgDes:'国脉数据基因4.5版在京正式发布'},
       ],
     }
   },
@@ -121,5 +121,10 @@ export default {
     line-height: 1.7;
     color: #cb3737;
     font-size: 20px;
+  }
+  .imgDes{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
   }
 </style>

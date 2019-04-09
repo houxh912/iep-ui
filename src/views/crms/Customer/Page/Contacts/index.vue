@@ -7,8 +7,8 @@
       <el-table-column prop="operation" label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain :disabled="scope.row.creatorId !== userInfo.userId">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)" :disabled="scope.row.creatorId !== userInfo.userId">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -22,6 +22,7 @@ import mixins from '@/mixins/mixins'
 import { columnsMap } from './options'
 import { fetchList, deleteDataById, createData, updateData, getContactById } from '@/api/crms/contact'
 import EditDrawer from './EditDrawer'
+import { mapGetters } from 'vuex'
 export default {
   name: 'contract',
   mixins: [mixins],
@@ -40,6 +41,11 @@ export default {
   },
   created () {
     this.loadPage()
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
   },
   methods: {
     loadPage (param = { ...this.searchForm, clientId: this.record.id }) {

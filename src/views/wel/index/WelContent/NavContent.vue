@@ -26,9 +26,6 @@ export default {
       default: () => [],
     },
   },
-  created () {
-    // console.log(this.content)
-  },
   methods: {
     handleDetail (row) {
       this.$emit('on-detail', row)

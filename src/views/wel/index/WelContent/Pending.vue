@@ -45,7 +45,10 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      console.log(row)
+      const path = detailUrlMap[row.type] || false
+      if (!path) {
+        return
+      }
       this.$router.push({
         path: detailUrlMap[row.type],
         query: {

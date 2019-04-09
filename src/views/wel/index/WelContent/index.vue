@@ -25,7 +25,7 @@
                 <div class="user-data">
                   <RouterLink class="inline task" to="">
                     <i class="icon-qian icon padding"></i>
-                    <span>每日任务，领积分<i class="el-icon-d-arrow-right"></i></span>
+                    <span>完成每日工作，领国脉贝<i class="el-icon-d-arrow-right"></i></span>
                   </RouterLink>
                   <RouterLink class="inline change" to="">
                     领导桌面

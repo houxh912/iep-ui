@@ -45,7 +45,7 @@ li {
     display: inline-block;
     margin-bottom: 5px;
     padding: 5px 15px;
-    width: 80px;
+    width: 100px;
     font-size: 14px;
     text-align: center;
     background-color: #eee;
@@ -55,7 +55,7 @@ li {
   }
   ul {
     display: flex;
-    width: 88%;
+    width: 70%;
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;

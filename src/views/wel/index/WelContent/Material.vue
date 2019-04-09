@@ -6,17 +6,19 @@
     <div class="material-content">
       <iep-no-data v-if="!dataList.length" message="暂无材料"></iep-no-data>
       <el-row class="item" v-for="(item) in dataList" :key="item.id">
-        <el-col :span="14">
+        <el-col :span="9">
           <div class="grid-content title">{{item.name}}</div>
         </el-col>
+        <el-col :span="7">
+          <div>
+            <iep-detail-tag :value="item.tagKeyWords"></iep-detail-tag>
+          </div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content" style="text-align: right;">{{item.type === 1 ? '外部材料' : '内部材料'}}</div>
+        </el-col>
         <el-col :span="4">
-          <div class="grid-content">{{item.type === 1 ? '外部材料' : '内部材料'}}</div>
-        </el-col>
-        <el-col :span="3">
-          <div class="grid-content">{{item.creatorRealName}}</div>
-        </el-col>
-        <el-col :span="3">
-          <div class="grid-content text-right text-time">{{item.createTime | parseTime('{m}-{d}')}}</div>
+          <div class="grid-content" style="text-align: right;">{{item.creatorRealName}}</div>
         </el-col>
       </el-row>
     </div>

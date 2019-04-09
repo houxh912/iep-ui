@@ -7,11 +7,20 @@
       <el-form-item label="用户:">
         <iep-contact-select v-model="form.user"></iep-contact-select>
       </el-form-item>
+      <el-form-item label="用户O:">
+        <iep-contact-one-select v-model="form.user"></iep-contact-one-select>
+      </el-form-item>
       <el-form-item label="用户群:">
         <iep-contact-multiple-user v-model="form.userList"></iep-contact-multiple-user>
       </el-form-item>
+      <el-form-item label="用户群O:">
+        <iep-contact-one-multiple-user v-model="form.userList"></iep-contact-one-multiple-user>
+      </el-form-item>
       <el-form-item label="群发:">
         <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
+      </el-form-item>
+      <el-form-item label="群发O:">
+        <iep-contact-one-multiple v-model="form.receivers"></iep-contact-one-multiple>
       </el-form-item>
       <el-form-item label="单部门:">
         <iep-dept-select v-model="form.dept"></iep-dept-select>
@@ -26,6 +35,9 @@
       </el-form-item>
       <el-form-item label="标签:">
         <iep-tag v-model="form.tagList"></iep-tag>
+      </el-form-item>
+      <el-form-item label="标签:">
+        <iep-editor v-model="form.content"></iep-editor>
       </el-form-item>
     </el-form>
   </div>
@@ -56,6 +68,7 @@ export default {
         }],
         fileList: [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],
         tagList: ['大数据', '人工智能'],
+        content: '',
       },
     }
   },
@@ -64,8 +77,7 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
   padding: 20px;
-  margin: 10px 20px;
-  width: 600px;
+  width: 100%;
   border: 1px solid #eee;
 }
 </style>

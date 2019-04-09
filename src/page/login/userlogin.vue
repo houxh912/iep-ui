@@ -13,8 +13,8 @@
       </a-input>
     </el-form-item>
     <el-form-item prop="code">
-      <a-input class="login-code" @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="form.code" auto-complete="false" placeholder="请输入验证码" @search="refreshCode" size="large">
-        <img slot="suffix" :src="code.src" class="login-code-img" />
+      <a-input class="login-code" @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="form.code" auto-complete="false" placeholder="请输入验证码" size="large">
+        <img slot="suffix" :src="code.src" class="login-code-img" @click="refreshCode" />
       </a-input>
     </el-form-item>
     <el-form-item>

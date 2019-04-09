@@ -72,7 +72,7 @@ export default {
       this.formRequestFn(formToDto(this.form), publish).then(({ data }) => {
         if (data.data) {
           this.$message({
-            message: `招聘信息${this.methodName}成功`,
+            message: `通知公告${this.methodName}成功`,
             type: 'success',
           })
           this.$router.push({

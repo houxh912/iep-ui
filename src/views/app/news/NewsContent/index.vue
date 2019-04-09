@@ -15,11 +15,11 @@ export default {
 .news-content {
   display: grid;
   margin: 0 auto;
-  padding-top: 25px;
+  padding-top: 20px;
   width: 1280px;
   grid-auto-flow: row dense;
-  grid-row-gap: 25px;
-  grid-column-gap: 25px;
+  grid-row-gap: 40px;
+  grid-column-gap: 40px;
   grid-template-columns: minmax(100px, 55fr) minmax(100px, 28fr);
 }
 </style>

@@ -4,8 +4,11 @@
     <div class="detail-container">
       <div class="item-title">
         <ul>
-          <li><span>发布人：</span>
-            <iep-hover-card :obj="form.sender"></iep-hover-card>
+          <li>
+            <operation-wrapper>
+              <span>发布人：</span>
+              <iep-hover-card :obj="form.sender"></iep-hover-card>
+            </operation-wrapper>
           </li>
           <li>
             <operation-wrapper>

@@ -1,5 +1,5 @@
 <template>
-  <vue-neditor-wrap class="neditor" v-model="content" :config="myConfig" :destroy="false" @ready="ready">
+  <vue-neditor-wrap class="neditor" v-model="content" :config="myConfig" :destroy="false">
 
   </vue-neditor-wrap>
 </template>

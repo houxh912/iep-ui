@@ -26,6 +26,7 @@ import IepDescriptionItem from '@/components/IepCommon/DescriptionItem'
 import IepDetailTag from '@/components/IepCommon/DetailTag'
 import IepInputNumber from '@/components/IepCommon/InputNumber'
 import IepEditor from '@/components/IepEditor'
+import IepInputArea from '@/components/IepCommon/InputArea'
 
 // 头像上传文件有关组件
 import IepAvatar from '@/components/IepCommon/Avatar'
@@ -81,6 +82,7 @@ Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepDescriptionItem.name, IepDescriptionItem)
 Vue.component(IepDetailTag.name, IepDetailTag)
 Vue.component(IepEditor.name, IepEditor)
+Vue.component(IepInputArea.name, IepInputArea)
 
 // 头像上传文件有关组件
 Vue.component(IepImgAvatar.name, IepImgAvatar)

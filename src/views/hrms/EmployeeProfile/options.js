@@ -64,17 +64,22 @@ const initForm = () => {
     accountTypeId: null, // 户口类别
     accountTypeName: null, // 户口类别
     accountLocation: null, // 户口所在地
-    residenceCities: [],
+    residenceCities: [], // (户口)
     residenceAddress: null, // 户籍地址
     provinceName: null, // 户籍地址
     cityName: null, // 户籍地址
-    currentCities: [],
+    currentCities: [], // 现住
     currentAddress: null, // 现住地址
     IDCard: null, // 身份证
     phone: null, // 联系手机
     wechat: null, // 微信
     qq: null, // QQ
     email: null, // 邮箱
+    home: null, // 邮箱
+    birthplaceProvince: null, //所属省（户口）
+    birthplaceCity: null,//所属市（户口）
+    province: null, //所属省（现住）
+    city: null,  //所属市（现住）
     emergencyName: null, // 应急联系人
     emergencyPhone: null, // 应急联系方式
     signingTime: null, // 劳动合同签订时间
@@ -91,8 +96,10 @@ const initForm = () => {
 
 const formToDto = (row) => {
   const newForm = mergeByFirst(initForm(), row)
-  // newForm.province = row.cities[0]
-  // newForm.city = row.cities[1]
+  newForm.province = row.currentCities[0]
+  newForm.city = row.currentCities[1]
+  newForm.birthplaceProvince = row.residenceCities[0]
+  newForm.birthplaceCity = row.residenceCities[1]
   newForm.positionId = row.position[row.position.length - 1]
   newForm.deptIds = row.dept.map(m => m.id)
   return newForm

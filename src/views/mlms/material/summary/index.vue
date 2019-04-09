@@ -47,12 +47,17 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="250" align="center">
+        <el-table-column prop="operation" label="操作" width="280" align="center">
           <template slot-scope="scope">
-            <operation-wrapper v-if="scope.row.status===0">
+            <operation-wrapper v-if="scope.row.status===1">
+              <iep-button type="warning" plain @click="handleEdit(scope.row)">修改草稿</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+            </operation-wrapper>
+            <operation-wrapper v-else>
               <iep-button type="warning" plain @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
               <iep-button type="warning" plain v-else>已收藏</iep-button>
               <iep-button @click="handleShare(scope.row)">分享</iep-button>
+              <iep-button @click="handleSent(scope.row)" v-if="scope.row.status == 0">发送</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
@@ -63,10 +68,6 @@
                   <el-dropdown-item @click.native="handleExport(scope.row)">导出为文本</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-            </operation-wrapper>
-            <operation-wrapper v-else>
-              <iep-button type="warning" plain @click="handleEdit(scope.row)">修改草稿</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -81,7 +82,7 @@
 import { dictsMap, columnsMap, initSearchForm } from './options'
 import mixins from '@/mixins/mixins'
 import { mapState } from 'vuex'
-import { getTableData, deleteData, createCollect, copyData } from '@/api/mlms/material/summary'
+import { getTableData, deleteData, createCollect, copyData, meetingSend } from '@/api/mlms/material/summary'
 import ShareDialog from './shareDialog'
 import CollectionDialog from '../components/collectionDialog'
 import DetailPage from './detail'
@@ -190,6 +191,15 @@ export default {
     // 导出为文本
     handleExport () {
       this.$message.error('抱歉，此功能尚未开发！')
+    },
+    // 发送
+    handleSent (row) {
+      meetingSend(row.id).then(({data}) => {
+        this.$message.success(data.msg)
+        if (data.data) {
+          this.loadPage()
+        }
+      })
     },
   },
 }

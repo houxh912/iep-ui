@@ -76,6 +76,7 @@ export default {
         path: '/hrms_spa/approval',
         query: {
           id: row.id,
+          type: row.typeId,
         },
       })
     },

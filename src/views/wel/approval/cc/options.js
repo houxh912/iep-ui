@@ -1,9 +1,9 @@
 // org config options
 const dictsMap = {
-  status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
+  approveResult: {
+    0: '未审核',
+    1: '通过',
+    2: '拒绝',
   },
 }
 
@@ -25,7 +25,7 @@ const columnsMap = [
     label: '审核人',
   },
   {
-    prop: 'status',
+    prop: 'approveResult',
     label: '审批结果',
     type: 'dict',
   },

@@ -98,7 +98,7 @@ export default {
       })
     },
     loadPage (param = this.searchForm) {
-      this.loadTable({ ...param, type: this.type }, getAnnouncementPage)
+      this.loadTable({ ...param, classId: this.type }, getAnnouncementPage)
     },
   },
 }

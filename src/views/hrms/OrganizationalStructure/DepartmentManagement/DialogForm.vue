@@ -26,11 +26,8 @@
   </iep-dialog>
 </template>
 <script>
-import IepContactSelect from '@/components/IepContact/Select'
-import IepDialog from '@/components/IepDialog/'
 import { initForm, toDtoForm } from './options'
 export default {
-  components: { IepDialog, IepContactSelect },
   data () {
     return {
       dialogShow: false,

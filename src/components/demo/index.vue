@@ -7,21 +7,21 @@
       <el-form-item label="用户:">
         <iep-contact-select v-model="form.user"></iep-contact-select>
       </el-form-item>
-      <el-form-item label="用户O:">
+      <!-- <el-form-item label="用户O:">
         <iep-contact-one-select v-model="form.user"></iep-contact-one-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="用户群:">
         <iep-contact-multiple-user v-model="form.userList"></iep-contact-multiple-user>
       </el-form-item>
-      <el-form-item label="用户群O:">
+      <!-- <el-form-item label="用户群O:">
         <iep-contact-one-multiple-user v-model="form.userList"></iep-contact-one-multiple-user>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="群发:">
         <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
       </el-form-item>
-      <el-form-item label="群发O:">
+      <!-- <el-form-item label="群发O:">
         <iep-contact-one-multiple v-model="form.receivers"></iep-contact-one-multiple>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="单部门:">
         <iep-dept-select v-model="form.dept"></iep-dept-select>
       </el-form-item>

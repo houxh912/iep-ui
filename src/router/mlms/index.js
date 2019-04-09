@@ -36,7 +36,7 @@ export default [
         component: () => import('@/views/mlms/material/datum/contract/detail.vue'),
       },
       {
-        path: 'email/detail/:id',
+        path: 'email/detail',
         name: '查看邮件',
         component: () => import('@/views/mlms/email/tableTpl/mainDialog'),
       },

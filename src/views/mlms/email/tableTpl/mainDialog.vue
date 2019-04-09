@@ -1,66 +1,64 @@
 <template>
   <div class="inbox">
-    <div class="head">
-      <page-header title="收件箱" class="title"></page-header>
-      <iep-button size="small" @click="back">返回</iep-button>
-    </div>
-    <div class="info">
-      <div class="title">{{formData.subject}}</div>
-      <el-tag type="info" class="tags" v-for="(item, index) in formData.tagKeyWords" :key="index">{{item}}</el-tag>
-      <div class="msg">发件人：{{formData.sendRealName}}</div>
-      <div class="msg">收件人：<span v-for="(item, index) in formData.receivers" :key="index">{{item.receiverRealName}}{{index==formData.receivers.length-1?'':'；'}}</span></div>
-      <div class="msg">时<span style="width: 14px;display: inline-block;"></span>间：{{formData.createTime}}</div>
-    </div>
-    <div class="content">
-      <pre>{{formData.content}}</pre>
-    </div>
-    <div class="appendix" v-if="this.formData.type == 0">
-      <h3>附件</h3>
-      <ul class="list">
-        <li v-for="(item, index) in formData.attachmentRelatios" :key="index">
-          <i class="icon-fujian"></i>{{item.relatiionName}} <iep-button type="text" @click="downloadFile(item)">下载</iep-button><!-- <iep-button type="text">转存</iep-button> -->
-        </li>
-      </ul>
-      <iep-button type="text" @click="downloadFileAll"><i class="icon-download1"></i> 全部下载</iep-button>
-    </div>
-    <div class="relation" v-if="this.formData.type == 0 || this.formData.type == 2">
-      <h3>关联</h3>
-      <div class="item" v-if="this.formData.type == 0 || this.formData.type == 2">
-        <div class="title">关联资源：</div>
-        <div>
-          <ul class="list" v-if="formData.projectRelatios.length">
-            <li v-for="(item, index) in formData.projectRelatios" :key="index">{{item.relatiionName}}</li>
-          </ul>
-          <ul class="list" v-if="formData.materialRelatios.length">
-            <li v-for="(item, index) in formData.materialRelatios" :key="index">{{item.relatiionName}}</li>
+    <basic-container>
+      <div class="head">
+        <page-header title="收件箱" class="title" :backOption="backOption"></page-header>
+      </div>
+      <div class="info">
+        <div class="title">{{formData.subject}}</div>
+        <el-tag type="info" class="tags" v-for="(item, index) in formData.tagKeyWords" :key="index">{{item}}</el-tag>
+        <div class="msg">发件人：{{formData.sendRealName}}</div>
+        <div class="msg">收件人：<span v-for="(item, index) in formData.receivers" :key="index">{{item.receiverRealName}}{{index==formData.receivers.length-1?'':'；'}}</span></div>
+        <div class="msg">时<span style="width: 14px;display: inline-block;"></span>间：{{formData.createTime}}</div>
+      </div>
+      <div class="content">
+        <pre>{{formData.content}}</pre>
+      </div>
+      <div class="appendix" v-if="this.formData.type == 0">
+        <h3>附件</h3>
+        <ul class="list">
+          <li v-for="(item, index) in formData.attachmentRelatios" :key="index">
+            <i class="icon-fujian"></i>{{item.relatiionName}} <iep-button type="text" @click="downloadFile(item)">下载</iep-button><!-- <iep-button type="text">转存</iep-button> -->
+          </li>
+        </ul>
+        <iep-button type="text" @click="downloadFileAll"><i class="icon-download1"></i> 全部下载</iep-button>
+      </div>
+      <div class="relation" v-if="this.formData.type == 0 || this.formData.type == 2">
+        <h3>关联</h3>
+        <div class="item" v-if="this.formData.type == 0 || this.formData.type == 2">
+          <div class="title">关联资源：</div>
+          <div>
+            <ul class="list" v-if="formData.projectRelatios.length">
+              <li v-for="(item, index) in formData.projectRelatios" :key="index">{{item.relatiionName}}</li>
+            </ul>
+            <ul class="list" v-if="formData.materialRelatios.length">
+              <li v-for="(item, index) in formData.materialRelatios" :key="index">{{item.relatiionName}}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="item" v-if="this.formData.type == 0">
+          <div class="title">关联报表：</div>
+          <ul class="list">
+            <li>
+              <h5>报表1：研发中心项目进度表</h5>
+              <el-table :data="tableData" border style="width: 80%">
+                <el-table-column v-for="(item, index) in reportTableOption" :key="index" :prop="item.prop" :label="item.label">
+                </el-table-column>
+              </el-table>
+            </li>
           </ul>
         </div>
       </div>
-      <div class="item" v-if="this.formData.type == 0">
-        <div class="title">关联报表：</div>
-        <ul class="list">
-          <li>
-            <h5>报表1：研发中心项目进度表</h5>
-            <el-table :data="tableData" border style="width: 80%">
-              <el-table-column 
-                v-for="(item, index) in reportTableOption"
-                :key="index"
-                :prop="item.prop"
-                :label="item.label">
-              </el-table-column>
-            </el-table>
-          </li>
-        </ul>
+      <div class="footer">
+        <operation-wrapper>
+          <iep-button type="primary" @click="back">返回</iep-button>
+          <iep-button @click="reply">回复</iep-button>
+          <iep-button @click="allReply">回复全部</iep-button>
+          <iep-button @click="forward">转发</iep-button>
+          <iep-button @click="handleDelete">删除</iep-button>
+        </operation-wrapper>
       </div>
-    </div>
-    <div class="footer">
-      <iep-button type="primary" @click="back">返回</iep-button>
-      <iep-button @click="reply">回复</iep-button>
-      <iep-button @click="allReply">回复全部</iep-button>
-      <iep-button @click="forward">转发</iep-button>
-      <iep-button @click="handleDelete">删除</iep-button>
-    </div>
-    
+    </basic-container>
   </div>
 </template>
 
@@ -70,9 +68,12 @@ import { deleteEmailById, getEmailById } from '@/api/mlms/email/index'
 import { downloadFile } from '@/api/common'
 
 export default {
-  components: {  },
+  components: {},
   data () {
     return {
+      backOption: {
+        isBack: true,
+      },
       formData: initFormData(),
       reportTableOption,
       tableData: [
@@ -82,7 +83,7 @@ export default {
   },
   methods: {
     back () {
-      let params = this.$route.params
+      let params = this.$route.query
       if (params.id) {
         this.$router.go(-1)
       } else {
@@ -149,10 +150,10 @@ export default {
     },
   },
   created () {
-    let params = this.$route.params
+    let params = this.$route.query
     if (params.id) {
       // 通过工作台进入
-      getEmailById(params.id).then(({data}) => {
+      getEmailById(params.id).then(({ data }) => {
         this.formData = data.data
       })
     }
@@ -192,10 +193,10 @@ export default {
     border-bottom: 1px solid #eee;
     padding: 25px 30px;
     pre {
-      white-space: pre-wrap;           /* css-3 */
-      white-space: -moz-pre-wrap;      /* Mozilla, since 1999 */
-      white-space: -pre-wrap;          /* Opera 4-6 */
-      white-space: -o-pre-wrap;        /* Opera 7 */
+      white-space: pre-wrap; /* css-3 */
+      white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+      white-space: -pre-wrap; /* Opera 4-6 */
+      white-space: -o-pre-wrap; /* Opera 7 */
       word-wrap: break-word;
       font-size: 14px;
       color: #333;

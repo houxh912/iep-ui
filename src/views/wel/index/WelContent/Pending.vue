@@ -14,6 +14,7 @@ import NavContent from './NavContent'
 import { getPending } from '@/api/wel/index'
 const detailUrlMap = {
   approval: '/hrms_spa/approval_detail',
+  instruction: '/mlms_spa/email/detail',
 }
 export default {
   components: { NavTab, NavContent },

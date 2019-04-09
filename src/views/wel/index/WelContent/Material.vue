@@ -6,18 +6,18 @@
     <div class="material-content">
       <iep-no-data v-if="!dataList.length" message="暂无材料"></iep-no-data>
       <el-row class="item" v-for="(item) in dataList" :key="item.id">
-        <el-col :span="9">
-          <div class="grid-content title">{{item.name}}</div>
+        <el-col :span="12">
+          <div class="grid-content title" @click="handleDetail(item)">{{item.name}}</div>
         </el-col>
-        <el-col :span="7">
+        <el-col :span="8">
           <div>
             <iep-detail-tag :value="item.tagKeyWords"></iep-detail-tag>
           </div>
         </el-col>
-        <el-col :span="3">
+        <el-col :span="2">
           <div class="grid-content" style="text-align: right;">{{item.type === 1 ? '外部材料' : '内部材料'}}</div>
         </el-col>
-        <el-col :span="4">
+        <el-col :span="2">
           <div class="grid-content" style="text-align: right;">{{item.creatorRealName}}</div>
         </el-col>
       </el-row>
@@ -37,6 +37,11 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDetail (row) {
+      this.$router.push({
+        path: `/mlms_spa/material/detail/${row.id}`,
+      })
+    },
     loadPage () {
       getMaterials().then(({ data }) => {
         this.dataList = data.data

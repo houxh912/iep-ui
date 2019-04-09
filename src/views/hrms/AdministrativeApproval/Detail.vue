@@ -90,7 +90,6 @@ export default {
       id: this.$route.query.id,
       backOption: {
         isBack: true,
-        backPath: this.$route.query.redirect,
       },
       bodyStyle: {
         display: 'flex',

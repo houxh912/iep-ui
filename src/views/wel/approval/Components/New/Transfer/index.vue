@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="iep-page-form">
     <el-form ref="form" class="form-detail" :model="form" label-width="120px" size="small">
       <el-form-item label="申请人：" class="form-half">
         <span>{{form.name}}</span>

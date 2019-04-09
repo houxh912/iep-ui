@@ -1,8 +1,7 @@
 <template>
-  <div>
+  <div class="iep-page-form">
     <page-header :title="`${methodName}荣誉资质`" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" ref="form" label-width="130px" style="margin-bottom: 50px;">
-
+    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;">
       <el-form-item label="名称：" prop="honorQualName">
         <el-input v-model="formData.honorQualName"></el-input>
       </el-form-item>
@@ -31,7 +30,7 @@
     </el-form>
     <footer-tool-bar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
-      <iep-button @click="resetForm('form')">取消</iep-button>
+      <iep-button @click="resetForm('form')">重置</iep-button>
     </footer-tool-bar>
   </div>
 </template>
@@ -39,7 +38,7 @@
 import { initFormData, rules } from './option'
 
 export default {
-  components: {  },
+  components: {},
   data () {
     return {
       methodName: '新增',
@@ -48,12 +47,12 @@ export default {
       rules: rules,
       dicData: {
         select: [
-          {value: 1, label: '选项1'},
-          {value: 2, label: '选项2'},
+          { value: 1, label: '选项1' },
+          { value: 2, label: '选项2' },
         ],
         dept: [
-          {value: 1, label: '部门1'},
-          {value: 2, label: '部门2'},
+          { value: 1, label: '部门1' },
+          { value: 2, label: '部门2' },
         ],
       },
       backOption: {

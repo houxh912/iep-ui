@@ -1,83 +1,83 @@
 <template>
-  <basic-container>
-    <page-header :title="`${methodName}纪要`" :backOption="backOption"></page-header>
-
-    <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
-
-      <el-form-item label="会议类型：" prop="meetingType">
-        <el-radio-group v-model="formData.meetingType">
-          <el-radio v-for="(item, index) in dictGroup.mlms_meeting_type" :key="index" :label="item.value" @change="typeChange">{{item.label}}</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="拜访对象：" prop="visitingUserId" v-if="formData.type == 1">
-        <iep-select prefix-url="crm/customer" v-model="formData.visitingUserId" multiple></iep-select>
-      </el-form-item>
-      <el-form-item :label="`${formData.type == 0 ? '会议主题':'会议标题'}：`" prop="title">
-        <el-input v-model="formData.title"></el-input>
-      </el-form-item>
-      <el-form-item label="会议内容：" prop="meetingContent">
-        <el-input type="textarea" v-model="formData.meetingContent" rows=8></el-input>
-      </el-form-item>
-      <el-form-item label="会议总结：" prop="meetingCon">
-        <el-input type="textarea" v-model="formData.meetingCon" rows=8></el-input>
-      </el-form-item>
-      <el-form-item label="备注：" prop="thoughtsProblem" v-if="formData.type==1">
-        <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5></el-input>
-      </el-form-item>
-      <el-form-item label="感想与困惑：" prop="thoughtsProblem" v-if="formData.type==0">
-        <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5></el-input>
-      </el-form-item>
-      <el-row>
-        <el-col :span=12>
-          <el-form-item label="会议时间" prop="meetingTime">
-            <IepDatePicker v-model="formData.meetingTime"></IepDatePicker>
-          </el-form-item>
-        </el-col>
-        <el-col :span=12 v-if="formData.type == 0">
-          <el-form-item label="会议地点：" prop="meetingLocation">
-            <el-input v-model="formData.meetingLocation"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-form-item label="拜访形式：" prop="visitType" v-if="formData.type == 1">
-        <el-radio-group v-model="formData.visitType">
-          <el-radio v-for="(item, index) in dictGroup.mlms_visit_type" :key="index" :label="''+item.value">{{item.label}}</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="" prop="visitingAddress" v-if="formData.visitType == '1' && formData.type == 1">
-        <el-input v-model="formData.visitingAddress" placeholder="请输入面访具体地址"></el-input>
-      </el-form-item>
-      <el-form-item label="会议标签：" prop="tagKeyWords">
-        <iep-tag v-model="formData.tagKeyWords"></iep-tag>
-      </el-form-item>
-      <el-form-item label="主持人：" prop="hostList">
-        <div style="width: 200px;">
-          <iep-contact-select v-model="formData.hostList"></iep-contact-select>
-        </div>
-      </el-form-item>
-      <el-form-item label="参会人：" prop="attendeeList">
-        <iep-contact-multiple v-model="formData.attendeeList"></iep-contact-multiple>
-      </el-form-item>
-      <el-form-item label="抄送人：" prop="receiverList">
-        <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
-      </el-form-item>
-      <!-- <el-form-item label="接收人" prop="">
+  <div class="iep-page-form">
+    <basic-container>
+      <page-header :title="`${methodName}纪要`" :backOption="backOption"></page-header>
+      <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
+        <el-form-item label="会议类型：" prop="meetingType">
+          <el-radio-group v-model="formData.meetingType">
+            <el-radio v-for="(item, index) in dictGroup.mlms_meeting_type" :key="index" :label="item.value" @change="typeChange">{{item.label}}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="拜访对象：" prop="visitingUserId" v-if="formData.type == 1">
+          <iep-select prefix-url="crm/customer" v-model="formData.visitingUserId" multiple></iep-select>
+        </el-form-item>
+        <el-form-item :label="`${formData.type == 0 ? '会议主题':'会议标题'}：`" prop="title">
+          <el-input v-model="formData.title"></el-input>
+        </el-form-item>
+        <el-form-item label="会议内容：" prop="meetingContent">
+          <el-input type="textarea" v-model="formData.meetingContent" rows=8></el-input>
+        </el-form-item>
+        <el-form-item label="会议总结：" prop="meetingCon">
+          <el-input type="textarea" v-model="formData.meetingCon" rows=8></el-input>
+        </el-form-item>
+        <el-form-item label="备注：" prop="thoughtsProblem" v-if="formData.type==1">
+          <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5></el-input>
+        </el-form-item>
+        <el-form-item label="感想与困惑：" prop="thoughtsProblem" v-if="formData.type==0">
+          <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5></el-input>
+        </el-form-item>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="会议时间" prop="meetingTime">
+              <IepDatePicker v-model="formData.meetingTime"></IepDatePicker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12" v-if="formData.type == 0">
+            <el-form-item label="会议地点：" prop="meetingLocation">
+              <el-input v-model="formData.meetingLocation"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item label="拜访形式：" prop="visitType" v-if="formData.type == 1">
+          <el-radio-group v-model="formData.visitType">
+            <el-radio v-for="(item, index) in dictGroup.mlms_visit_type" :key="index" :label="''+item.value">{{item.label}}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="" prop="visitingAddress" v-if="formData.visitType == '1' && formData.type == 1">
+          <el-input v-model="formData.visitingAddress" placeholder="请输入面访具体地址"></el-input>
+        </el-form-item>
+        <el-form-item label="会议标签：" prop="tagKeyWords">
+          <iep-tag v-model="formData.tagKeyWords"></iep-tag>
+        </el-form-item>
+        <el-form-item label="主持人：" prop="hostList">
+          <div style="width: 200px;">
+            <iep-contact-select v-model="formData.hostList"></iep-contact-select>
+          </div>
+        </el-form-item>
+        <el-form-item label="参会人：" prop="attendeeList">
+          <iep-contact-multiple v-model="formData.attendeeList"></iep-contact-multiple>
+        </el-form-item>
+        <el-form-item label="抄送人：" prop="receiverList">
+          <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
+        </el-form-item>
+        <!-- <el-form-item label="接收人" prop="">
         <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
       </el-form-item> -->
-      <!-- <el-form-item label="关联报表" prop="baobiao">
+        <!-- <el-form-item label="关联报表" prop="baobiao">
         <iep-button><i class="el-icon-plus"></i></iep-button>
       </el-form-item>
       <el-form-item label="关联项目" prop="xiangmu">
         <iep-button><i class="el-icon-plus"></i></iep-button>
       </el-form-item> -->
 
-    </el-form>
-    <footer-tool-bar>
-      <iep-button type="primary" @click="saveDraft('form')">保存草稿</iep-button>
-      <iep-button type="primary" @click="saveForm('form')">{{methodName}}</iep-button>
-      <iep-button @click="resetForm('form')">取消</iep-button>
-    </footer-tool-bar>
-  </basic-container>
+      </el-form>
+      <footer-tool-bar>
+        <iep-button type="primary" @click="saveDraft('form')">保存草稿</iep-button>
+        <iep-button type="primary" @click="saveForm('form')">{{methodName}}</iep-button>
+        <iep-button @click="resetForm('form')">取消</iep-button>
+      </footer-tool-bar>
+    </basic-container>
+  </div>
 </template>
 <script>
 import { initFormData, dictsMap, rules } from './options'

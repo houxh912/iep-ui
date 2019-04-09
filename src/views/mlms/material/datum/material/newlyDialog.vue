@@ -1,8 +1,7 @@
 <template>
-  <div class="">
+  <div class="iep-page-form">
     <page-header title="新建文档" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
-
+    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
       <el-form-item label="名称：" prop="materialName">
         <el-input v-model="formData.materialName"></el-input>
       </el-form-item>
@@ -50,12 +49,11 @@
         <el-input v-model="formData.yonghu"></el-input>
       </el-form-item> -->
 
-
     </el-form>
 
     <footer-tool-bar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
-      <iep-button @click="resetForm('form')">取消</iep-button>
+      <iep-button @click="resetForm('form')">重置</iep-button>
     </footer-tool-bar>
 
   </div>
@@ -64,11 +62,11 @@
 import { initLocalForm, rules } from './option'
 
 export default {
-  components: {  },
+  components: {},
   props: {
     firstClass: {
       type: Array,
-      default: () => {},
+      default: () => { },
     },
   },
   data () {
@@ -80,8 +78,8 @@ export default {
       secondClass: [],
       dicData: {
         select: [
-          {value: '1', label: '选项1'},
-          {value: '2', label: '选项2'},
+          { value: '1', label: '选项1' },
+          { value: '2', label: '选项2' },
         ],
         isYes: [
           { value: 0, lable: '否' },

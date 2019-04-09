@@ -29,7 +29,6 @@ const initForm = () => {
     positionName: null, // 岗位
     externalTitle: null, // 对外头衔
     people: [], // 标签名字
-    duties: null, // 岗位职责
     job: null, // 职务
     jobId: null, // 职务
     title: null, // 职称

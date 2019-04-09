@@ -37,9 +37,6 @@
               <el-form-item label="外部头衔：" class="form-half">
                 <el-input v-model="form.title"></el-input>
               </el-form-item>
-              <el-form-item label="岗位职责：">
-                <el-input v-model="form.duties"></el-input>
-              </el-form-item>
               <el-form-item label="职务：" class="form-half">
                 <iep-select prefix-url="hrms/job_system" v-model="form.jobId"></iep-select>
               </el-form-item>

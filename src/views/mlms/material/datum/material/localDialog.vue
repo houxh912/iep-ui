@@ -1,8 +1,7 @@
 <template>
-  <div>
+  <div class="iep-page-form">
     <page-header title="本地上传" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
-
+    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
       <el-form-item label="名称：" prop="materialName">
         <el-input v-model="formData.materialName"></el-input>
       </el-form-item>
@@ -46,7 +45,7 @@
     </el-form>
     <footer-tool-bar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
-      <iep-button @click="resetForm('form')">取消</iep-button>
+      <iep-button @click="resetForm('form')">重置</iep-button>
     </footer-tool-bar>
   </div>
 </template>

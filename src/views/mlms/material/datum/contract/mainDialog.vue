@@ -1,8 +1,7 @@
 <template>
-  <div>
+  <div class="iep-page-form">
     <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" ref="form" label-width="130px" style="margin-bottom: 50px;">
-
+    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;">
       <el-form-item label="合同名称：" prop="contractName">
         <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。"></el-input>
       </el-form-item>
@@ -115,7 +114,7 @@
     </el-form>
     <footer-tool-bar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
-      <iep-button @click="resetForm('form')">取消</iep-button>
+      <iep-button @click="resetForm('form')">重置</iep-button>
     </footer-tool-bar>
   </div>
 </template>
@@ -126,7 +125,7 @@ import { getManeger } from '@/api/mlms/material/datum/contract'
 import { getCustomerPage } from '@/api/crms/customer'
 
 export default {
-  components: {  },
+  components: {},
   computed: {
     ...mapState({
       dictGroup: state => state.user.dictGroup,
@@ -186,7 +185,7 @@ export default {
     },
     // 根据委托单位查询市场经理
     clientChange (val) {
-      getManeger(val).then(({data}) => {
+      getManeger(val).then(({ data }) => {
         if (data.data) {
           this.formData.directorRealName = data.data.name
           this.formData.directorId = data.data.id
@@ -198,7 +197,7 @@ export default {
     },
   },
   created () {
-    getCustomerPage({type: 1}).then(({data}) => {
+    getCustomerPage({ type: 1 }).then(({ data }) => {
       this.clientList = data.data.records
     })
   },

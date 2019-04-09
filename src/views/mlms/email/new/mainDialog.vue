@@ -1,6 +1,5 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="添加关联" width="60%" @close="resetForm">
-
     <!-- transfer -->
     <div class="iep-transfer">
       <div class="transfer box-list">
@@ -44,7 +43,7 @@
 import { getReceiverList, getProjectList } from '@/api/mlms/email/material'
 
 export default {
-  components: {  },
+  components: {},
   data () {
     return {
       dialogShow: false,
@@ -84,8 +83,8 @@ export default {
     // 重置穿梭框
     resetForm () {
       this.secondList = [],
-      this.thirdList = [],
-      this.dialogShow = false
+        this.thirdList = [],
+        this.dialogShow = false
     },
     firstClick (item, index) {
       this.params = {
@@ -98,7 +97,7 @@ export default {
         return
       }
       this.activitIndex = index
-      item.requestFn(this.params).then(({data}) => {
+      item.requestFn(this.params).then(({ data }) => {
         console.log('data: ', data)
         if (item.name == '项目') {
           for (let t of data.data.records) {
@@ -117,7 +116,7 @@ export default {
     },
     // 判断是否已经选中
     selectFn (id) {
-      for(let item of this.transferList[this.firstList[this.activitIndex].type]) {
+      for (let item of this.transferList[this.firstList[this.activitIndex].type]) {
         if (item.id === id) {
           return true
         }
@@ -175,7 +174,7 @@ export default {
         margin-bottom: 10px;
       }
       .selectItem {
-        color: #409EFF;
+        color: #409eff;
         cursor: not-allowed;
       }
       .last-item {

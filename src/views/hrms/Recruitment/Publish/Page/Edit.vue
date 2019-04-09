@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-wrapper">
+  <div class="iep-page-form">
     <basic-container>
       <page-header :title="`${methodName}招聘`" :backOption="backOption"></page-header>
       <el-form ref="form" :model="form" label-width="120px" size="small">
@@ -160,9 +160,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-.edit-wrapper >>> .el-form {
-  margin-right: 20%;
-  margin-top: 50px;
-}
-</style>

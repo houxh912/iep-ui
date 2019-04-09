@@ -65,9 +65,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-.edit-wrapper >>> .el-form {
-  margin-right: 20%;
-  margin-top: 50px;
-}
-</style>

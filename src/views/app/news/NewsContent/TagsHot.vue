@@ -4,7 +4,7 @@
       <span class="sub-title">热门标签</span>
     </div>
     <el-tag v-for="o in 10" :key="o" class="text item">
-      {{'标签内 ' + o }}
+      {{'标签内容 ' + o }}
     </el-tag>
   </el-card>
 </template>
@@ -14,6 +14,9 @@
 }
 .el-card >>> .el-card__header {
   padding-top: 0;
+}
+.el-card >>> .el-card__body {
+  padding: 20px 0;
 }
 .text {
   font-size: 14px;

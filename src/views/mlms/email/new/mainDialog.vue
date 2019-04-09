@@ -41,11 +41,10 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { getReceiverList, getProjectList } from '@/api/mlms/email/material'
 
 export default {
-  components: { IepDialog },
+  components: {  },
   data () {
     return {
       dialogShow: false,

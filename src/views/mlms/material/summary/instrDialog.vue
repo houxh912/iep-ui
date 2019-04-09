@@ -19,13 +19,11 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { initInstrForm, dictsMap, shareRules } from './options'
-import IepContactMultiple from '@/components/IepContact/Multiple'
 import { createEmail } from '@/api/mlms/email/index'
 
 export default {
-  components: { IepDialog, IepContactMultiple },
+  components: {  },
   data () {
     return {
       dictsMap,

@@ -20,13 +20,11 @@
     </div>
 </template>
 <script>
-    import PageHeader from '@/components/Page/Header'
-    import IepTabs from '@/components/IepCommon/Tabs'
     import MeHave from './MeHave/'
     import TitleSystem from './TitleSystem/'
     import MySign from './MySign/'
     export default {
-        components: { PageHeader, IepTabs, MeHave, MySign, TitleSystem },
+        components: { MeHave, MySign, TitleSystem },
         data () {
             return {
                 tabList: [{

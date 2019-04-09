@@ -34,9 +34,9 @@
 </template>
 <script>
 import { initFormData, rules } from './option'
-import IepDialog from '@/components/IepDialog/'
+
 export default {
-  components: { IepDialog },
+  components: {  },
   data () {
     return {
       dialogShow: false,

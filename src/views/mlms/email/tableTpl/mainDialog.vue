@@ -66,12 +66,11 @@
 
 <script>
 import { initFormData, reportTableOption } from './option'
-import PageHeader from '@/components/Page/Header'
 import { deleteEmailById } from '@/api/mlms/email/index'
 import { downloadFile } from '@/api/common'
 
 export default {
-  components: { PageHeader },
+  components: {  },
   data () {
     return {
       formData: initFormData(),

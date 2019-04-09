@@ -121,14 +121,12 @@
 </template>
 <script>
 import { initFormData, rules, dictsMap } from './option'
-import IepTags from '@/components/IepTag'
-import FooterToolbar from '@/components/FooterToolbar/'
 import { mapState } from 'vuex'
 import { getManeger } from '@/api/mlms/material/datum/contract'
 import { getCustomerPage } from '@/api/crms/customer'
 
 export default {
-  components: { FooterToolbar, IepTags },
+  components: {  },
   computed: {
     ...mapState({
       dictGroup: state => state.user.dictGroup,

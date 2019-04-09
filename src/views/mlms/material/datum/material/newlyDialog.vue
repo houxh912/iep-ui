@@ -62,7 +62,6 @@
 </template>
 <script>
 import { initLocalForm, rules } from './option'
-// import IepEditor from '@/components/IepEditor/'
 
 export default {
   components: {  },

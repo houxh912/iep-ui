@@ -48,7 +48,7 @@
         <el-input v-model="formData.visitingAddress" placeholder="请输入面访具体地址"></el-input>
       </el-form-item>
       <el-form-item label="会议标签：" prop="tagKeyWords">
-        <iep-tags v-model="formData.tagKeyWords"></iep-tags>
+        <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-form-item label="主持人：" prop="hostList">
         <div style="width: 200px;">
@@ -72,11 +72,11 @@
       </el-form-item> -->
 
     </el-form>
-    <footer-toolbar>
+    <footer-tool-bar>
       <iep-button type="primary" @click="saveDraft('form')">保存草稿</iep-button>
       <iep-button type="primary" @click="saveForm('form')">{{methodName}}</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
-    </footer-toolbar>
+    </footer-tool-bar>
   </basic-container>
 </template>
 <script>

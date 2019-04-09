@@ -32,7 +32,7 @@
         </div>
         <div class="list" v-for="(item, index) in commentList" :key="index">
           <div class="img">
-            <img src="/img/logo.png" alt="">
+            <img :src="`//cloud.govmade.com/${item.avatar}`" alt="">
           </div>
           <div class="info">
             <div class="name">{{item.realName}}</div>

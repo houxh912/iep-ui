@@ -23,7 +23,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="合同标签：" prop="tagKeyWords">
-        <iep-tags v-model="formData.tagKeyWords"></iep-tags>
+        <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-row>
         <el-col :span='12'>
@@ -113,10 +113,10 @@
         </el-col>
       </el-row> -->
     </el-form>
-    <footer-toolbar>
+    <footer-tool-bar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
-    </footer-toolbar>
+    </footer-tool-bar>
   </div>
 </template>
 <script>

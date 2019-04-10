@@ -70,3 +70,11 @@ export function TransferCustomers (query) {
     data: query,
   })
 }
+//客户名称新增查重
+export function checkName (query) {
+  return request({
+    url: `${prefixUrl}/nameExists`,
+    method: 'get',
+    params: query,
+  })
+}

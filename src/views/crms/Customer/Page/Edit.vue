@@ -115,7 +115,7 @@ import { mapState } from 'vuex'
 import { initForm, rules } from '../options'
 // import iepTags from '@/components/IepTags'
 import { getCustomerById } from '@/api/crms/customer'
-
+import { createById } from '@/api/crms/business'
 export default {
   name: 'edit',
   props: {
@@ -144,7 +144,6 @@ export default {
       this.flag = this.record.flag
       this.data = this.record.data
     }
-    console.log(this.record)
     if (this.id) {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = this.$mergeByFirst(initForm(), data.data)
@@ -188,28 +187,29 @@ export default {
                 message: `客户${this.methodName}成功`,
                 type: 'success',
               })
-              this.$emit('onGoBack')
+
               if (this.flag) {
-                console.log(222222222)
                 this.$confirm('创建客户成功！', '提示', {
                   confirmButtonText: '返回商机',
-                  cancelButtonText: '留着客户',
+                  cancelButtonText: '留在客户',
                   type: 'success',
                 }).then(() => {
                   this.$router.push({
                     path: '/crms/business',
                     query: {
-                      falg:true,
+                      falg: true,
                       type: '3',
                     },
                   })
                 }).catch(() => {
+                  this.$emit('onGoBack')
                 })
               }
 
             }
           })
-
+          createById({ iepOpportunityInputId: this.record.data.opportunityId }).then(() => {
+          })
         } else {
           return false
         }

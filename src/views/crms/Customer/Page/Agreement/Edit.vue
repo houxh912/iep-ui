@@ -31,7 +31,7 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <iep-select prefix-url="crm/customer" v-model="formData.companyOrgId"></iep-select>
+            <iep-select prefix-url="crm/customer" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)"></iep-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
@@ -153,6 +153,9 @@ export default {
     }
   },
   methods: {
+    handleChange (val) {
+      console.log(val)
+    },
     loadPage () {
       this.$emit('load-page')
     },

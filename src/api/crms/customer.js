@@ -78,3 +78,11 @@ export function checkName (query) {
     params: query,
   })
 }
+//市场经理
+export function getMarket (query) {
+  return request({
+    url: `${prefixUrl}/clientMarket`,
+    method: 'get',
+    params: query,
+  })
+}

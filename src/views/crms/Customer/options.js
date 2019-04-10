@@ -49,8 +49,7 @@ var validateFun = (rule, value, callback) => {
     return callback(new Error('客户名称不能为空'))
   }
   checkName({ clientName: val }).then(res => {
-    console.log(res)
-    if (res.data) {
+    if (!res.data) {
       callback(new Error('您输入的客户名称已存在，请重新输入！'))
     } else {
       callback()

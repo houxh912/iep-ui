@@ -10,7 +10,7 @@
           <div class="title" @click="handleDetail(item)">{{item.name}}</div>
         </el-col>
         <el-col :span="6">
-          <span v-for="(item,index) in dealData(item.businessType)" :key="index">{{item}}</span>
+          <iep-detail-tag :value="item.businessType"></iep-detail-tag>
         </el-col>
         <el-col :span="3">
           <div>{{item.districtType}}</div>
@@ -22,7 +22,7 @@
           <div>{{item.followUpStatus}}</div>
         </el-col>
         <el-col :span="2" class="time">
-          <div>{{item.time | parseTime('{y}-{m}-{d}')}}</div>
+          <div>{{item.time | parseTime('{m}-{d}')}}</div>
         </el-col>
       </el-row>
     </div>

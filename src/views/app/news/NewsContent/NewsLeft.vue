@@ -31,3 +31,9 @@ export default {
   },
 }
 </script>
+<style scoped>
+.news-nav >>> .el-tabs__item {
+  font-size: 16px;
+}
+</style>
+

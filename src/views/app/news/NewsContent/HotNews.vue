@@ -4,7 +4,7 @@
       <span class="sub-title">热点要闻</span>
     </div>
     <div v-for="hot in hotData" :key="hot.id">
-      <div class="title-con"><i class="">·</i>{{hot.title}}</div>
+      <div class="title-con">{{hot.title}}</div>
     </div>
   </el-card>
 </template>
@@ -65,11 +65,23 @@ export default {
     color: #999;
   }
   .title-con {
+    position: relative;
     margin-bottom: 5px;
+    padding-left: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
+    &:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 20px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: #999;
+    }
     &:hover {
       color: #cb3737;
     }

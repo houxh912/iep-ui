@@ -10,8 +10,10 @@ const initForm = () => {
     followUpStatus: '', // 跟进状态
     marketManager: '', // 市场经理
     lastTime: '', // 距离上次拜访已有(全部客户没有但依然存着)
-    phoneNumber: '', //手机号码
-    respDept: '', //负责部门
+    iepClientRespDept: {
+      id: '',
+      name: '',
+    }, //负责部门
     companyUrl: '', //单位网址
     companyFunction: '', //单位职能
     contractAddress: '', //单位地址
@@ -57,7 +59,7 @@ const rules = {
   marketManager: [
     { required: true, message: '请填写市场经理', trigger: 'blur' },
   ],
-  respDept: [{ required: true, message: '请选择负责部门', trigger: 'blur' }],
+  iepClientRespDept: [{ required: true, message: '请选择负责部门', trigger: 'blur' }],
   companyUrl: [{ required: true, message: '请填写单位网址', trigger: 'blur' }],
   companyFunction: [
     { required: true, message: '请填写单位职能', trigger: 'blur' },

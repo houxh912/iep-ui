@@ -32,7 +32,6 @@
 <script>
 import { getFinancialManagementById } from '@/api/fams/financial_management'
 import { initForm } from '../options'
-import { mergeByFirst } from '@/util/util'
 export default {
   props: {
     record: {
@@ -60,7 +59,7 @@ export default {
   methods: {
     load () {
       getFinancialManagementById(this.record.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     },
   },

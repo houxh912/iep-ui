@@ -43,7 +43,6 @@ import PersonDialogForm from './PersonDialogForm'
 import { addObj, putObj, delObj, fetchList, reviewById } from '@/api/admin/org'
 import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 import { dictsMap, columnsMap, initForm, initOrgSearchForm } from './options'
-import { mergeByFirst } from '@/util/util'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -70,7 +69,7 @@ export default {
       this._handleGlobalDeleteById(row.id, delObj)
     },
     handleEdit (row) {
-      this.$refs['addDialogForm'].form = mergeByFirst(initForm(), row)
+      this.$refs['addDialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['addDialogForm'].methodName = '修改'
       this.$refs['addDialogForm'].formRequestFn = putObj
       this.$refs['addDialogForm'].dialogShow = true

@@ -36,13 +36,40 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import { initForm, rules } from './options'
+import { checkName } from '@/api/crms/business'
+import { initForm } from './options'
 export default {
   data () {
+    var validateFun = (rule, value, callback) => {
+      let val = value.replace(/(^\s*)|(\s*$)/g, '')
+      if (!val) {
+        return callback(new Error('客户名称不能为空'))
+      }
+      checkName({ name: val }, val).then(res => {
+        if (res.data === 0) {
+          callback(new Error('您输入的客户名称已存在，请重新输入！'))
+        } else {
+          callback()
+        }
+      })
+    }
     return {
       formData: initForm(),
       methodName: '',
-      rules,
+      rules: {
+        clientName: [{ required: true, validator: validateFun, trigger: 'blur' }],
+        projectName: [{ required: true, message: '请输入项目名称', trigger: 'blur' }],
+        businessType: [
+          { required: true, message: '请选择业务类型', trigger: 'blur' },
+        ],
+        intentionLevel: [
+          { required: true, message: '请选择意向程度', trigger: 'blur' },
+        ],
+        tags: [{ required: true, message: '请添加商机标签', trigger: 'blur' }],
+        opportunityDes: [
+          { required: true, message: '请输入商机描述', trigger: 'blur' },
+        ],
+      },
       drawerShow: false,
       formRequestFn: () => { },
     }
@@ -56,6 +83,9 @@ export default {
     ]),
   },
   methods: {
+    validateFun () {
+
+    },
     handleGoBack () {
       this.formData = initForm()
       this.drawerShow = false

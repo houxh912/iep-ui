@@ -35,7 +35,6 @@ import { getPostLibraryPage, putPostLibrary, postPostLibrary, deletePostLibraryB
 import AdvanceSearch from './AdvanceSearch'
 import DialogForm from './DialogForm'
 import mixins from '@/mixins/mixins'
-import { mergeByFirst } from '@/util/util'
 import { columnsMap, initForm } from './options'
 export default {
   mixins: [mixins],
@@ -59,7 +58,7 @@ export default {
       this._handleGlobalDeleteById(row.id, deletePostLibraryById)
     },
     handleEdit (row) {
-      this.$refs['DialogForm'].form = mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].methodName = '修改'
       this.$refs['DialogForm'].formRequestFn = putPostLibrary
       this.$refs['DialogForm'].dialogShow = true

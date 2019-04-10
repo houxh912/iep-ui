@@ -219,8 +219,7 @@
 </template>
 <script>
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
-import { mergeByFirst } from '@/util/util'
-import { initForm, formToDto, dictsMap } from '../options'
+import { initForm, formToDto, dictsMap } from '@/views/hrms/EmployeeProfile/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 import { workExpColumns, studyColumns, trainingColumns, certificateColumns, laborContractColumns, welfareColumns, transferColumns, dimissionColumns } from '@/views/hrms/Components/options'
 //import { laborColumns, socialColumns, transferColumns, quitColumns  } from '../options'
@@ -279,7 +278,7 @@ export default {
     },
     loadPage () {
       getEmployeeProfileById(this.record.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     },
   },

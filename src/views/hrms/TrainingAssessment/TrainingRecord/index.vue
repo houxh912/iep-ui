@@ -61,7 +61,7 @@ import { getTrainingRecordPage, postTrainingRecord, putTrainingRecord, getTraini
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm, initForm } from './options'
 import DialogForm from './DialogForm'
-import { mergeByFirst } from '@/util/util'
+
 export default {
   mixins: [mixins],
   components: { DialogForm },
@@ -121,7 +121,7 @@ export default {
     },
     handleEdit (row) {
       getTrainingRecordById(row.id).then(({ data }) => {
-        this.$refs['DialogForm'].form = mergeByFirst(initForm(), data.data)
+        this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), data.data)
         this.$refs['DialogForm'].methodName = '创建'
         this.$refs['DialogForm'].formRequestFn = putTrainingRecord
         this.$refs['DialogForm'].dialogShow = true

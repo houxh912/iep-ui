@@ -119,7 +119,7 @@
 <script>
 import { getApprovalInitiateById } from '@/api/hrms/wel'
 import { initForm, formToDto } from '../options'
-import { mergeByFirst } from '@/util/util'
+
 export default {
   props: {
     record: {
@@ -146,7 +146,7 @@ export default {
     this.id = this.record.id
     if (this.id) {
       getApprovalInitiateById(this.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     }
   },

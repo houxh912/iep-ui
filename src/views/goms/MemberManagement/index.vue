@@ -40,7 +40,6 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { mergeByFirst } from '@/util/util'
 import { dictsMap, columnsMap, initSearchForm, initMemberForm } from './options'
 import DialogForm from './DialogForm'
 import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
@@ -78,13 +77,13 @@ export default {
       this._handleGlobalDeleteAll(delAllGomsUser)
     },
     handleDetail (row) {
-      this.$refs['DialogForm'].form = mergeByFirst(initMemberForm(), row)
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initMemberForm(), row)
       this.$refs['DialogForm'].methodName = '查看'
       this.$refs['DialogForm'].disabled = true
       this.$refs['DialogForm'].dialogShow = true
     },
     handleEdit (row) {
-      this.$refs['DialogForm'].form = mergeByFirst(initMemberForm(), row)
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initMemberForm(), row)
       this.$refs['DialogForm'].methodName = '编辑'
       this.$refs['DialogForm'].formRequestFn = putGoms
       this.$refs['DialogForm'].disabled = false

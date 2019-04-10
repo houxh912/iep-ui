@@ -74,6 +74,7 @@ export default {
       this.multipleSelection = val.map(m => m.id)
     },
     changeType () {
+      this.searchPage({ type: this.type })
     },
     handleAdd () {
       this.$emit('onForm', {

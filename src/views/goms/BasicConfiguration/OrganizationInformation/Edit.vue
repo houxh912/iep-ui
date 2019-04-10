@@ -47,7 +47,6 @@
 <script>
 import { initForm } from './options'
 import { getOrgBySelf, putOrg } from '@/api/goms/org'
-import { mergeByFirst } from '@/util/util'
 import { mapState } from 'vuex'
 export default {
   data () {
@@ -80,7 +79,7 @@ export default {
     },
     loadPage () {
       getOrgBySelf(this.orgId).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     },
   },

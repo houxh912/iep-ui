@@ -139,7 +139,7 @@
   </div>
 </template>
 <script>
-import { mergeByFirst } from '@/util/util'
+
 import { initForm } from '../options'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 export default {
@@ -168,7 +168,7 @@ export default {
     },
     loadPage () {
       getTalentPoolById(this.record.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     },
   },

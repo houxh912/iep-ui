@@ -93,8 +93,12 @@ export default {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          // this.$router.go(-1)
-          this.$emit('load-page', true)
+          let params = this.$route.params
+          if (params.id) {
+            this.$router.go(-1)
+          } else {
+            this.$emit('load-page', true)
+          }
         },
       },
       infoList: [
@@ -134,7 +138,10 @@ export default {
     },
   },
   created () {
-    
+    let params = this.$route.params
+    if (params.id) {
+      this.open(params.id)
+    }
   },
 }
 </script>

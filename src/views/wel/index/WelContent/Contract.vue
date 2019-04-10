@@ -5,7 +5,7 @@
     </div>
     <div class="contract-content">
       <iep-no-data v-if="!dataList.length" message="暂无合同"></iep-no-data>
-      <el-row class="item" v-for="(item,index) in dataList" :key="index">
+      <el-row class="item" v-for="(item,index) in dataList" :key="index" @click.native="handleDetail(item)">
         <el-col :span="10">
           <div>{{item.name}}</div>
         </el-col>
@@ -37,6 +37,9 @@ export default {
     })
   },
   methods: {
+    handleDetail (row) {
+      this.$router.push(`/mlms_spa/contract/detail/${row.id}`)
+    },
   },
 }
 </script>
@@ -57,6 +60,7 @@ export default {
     font-size: 14px;
     .item {
       padding: 5px 0;
+      cursor: pointer;
     }
     .text-right {
       text-align: right;

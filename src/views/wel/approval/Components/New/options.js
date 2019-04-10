@@ -19,6 +19,7 @@ const initForm = () => {
 		endTime: initNow(), // 结束时间(1:请假结束时间；2:出差结束时间;3:加班结束时间;4:转正时间;5:离职时间;6:调岗时间）
 		reason: null, // 申请理由
 		attachFile: [], // 文件
+		annex: [], // 文件
 		approver: [], // 审批人
 		cc: [], // 抄送人
 		duration: null, //各种时长
@@ -55,6 +56,7 @@ const formToDto = (row, type) => {
 	const newForm = { ...row, type }
 	newForm.attachFileUrl = newForm.annex.map(m => m.url)[0]
 	newForm.approver = newForm.approver.map(m => m.id)
+	delete newForm.annex
 	newForm.cc = newForm.cc.map(m => m.id)
 	return newForm
 }

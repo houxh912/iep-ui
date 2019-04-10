@@ -53,7 +53,7 @@
         </div>
         <iep-no-data v-if="form.annex===''"></iep-no-data>
         <pre v-else>
-          {{form.annex}}
+          <iep-download :value="[form.attachFile]"></iep-download>
         </pre>
       </el-card>
       <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">

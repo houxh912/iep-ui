@@ -48,6 +48,7 @@ export default {
   padding: 15px 0 10px;
   border-bottom: 1px solid #ddd;
   justify-content: space-between;
+  cursor: pointer;
   &:nth-child(1) {
     padding-top: 20px;
   }

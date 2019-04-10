@@ -12,7 +12,7 @@
       </operation-container>
       <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect" pageState="sent"></table-dialog>
     </div>
-    <main-form-dialog ref="mainDialog" v-show="pageState=='detail'" @backWeb="backPage" @forward="detailForward" @reply="detailReply"></main-form-dialog>
+    <main-form-dialog ref="mainDialog" v-show="pageState=='detail'" @backWeb="backPage" @forward="detailForward" @reply="detailReply" emailType="send"></main-form-dialog>
     <update-form-dialog ref="updateDialog" v-show="pageState=='form'" @backWeb="backPage" @load-page="loadPage"></update-form-dialog>
   </div>
 </template>

@@ -64,7 +64,11 @@
 
 <script>
 import { initFormData, reportTableOption } from './option'
-import { deleteEmailById, getEmailById } from '@/api/mlms/email/index'
+import { 
+  deleteEmailById, // 发送-删除
+  deleteEmailReceiverById, // 收件-删除
+  emailStarById, // 星标-删除
+  getEmailById } from '@/api/mlms/email/index'
 import { downloadFile } from '@/api/common'
 
 export default {
@@ -83,7 +87,27 @@ export default {
       tableData: [
         { name: '任务A', shuoming: '内网2.0前端页面制作', jindu: '60%', fuzeren: '张超', beizhu: '以人为本，数据赋能' },
       ],
+      deleteList: {
+        inbox: {
+          name: '收件箱',
+          request: deleteEmailReceiverById,
+        },
+        send: {
+          name: '发送',
+          request: deleteEmailById,
+        },
+        star: {
+          name: '星标',
+          request: emailStarById,
+        },
+      },
     }
+  },
+  props: {
+    emailType: {
+      type: String,
+      default: 'inbox',
+    },
   },
   methods: {
     back () {
@@ -94,8 +118,9 @@ export default {
         this.$emit('backWeb', true)
       }
     },
+    // 删除
     handleDelete () {
-      deleteEmailById(this.formData.emailId).then(() => {
+      this.deleteList[this.emailType].request(this.formData.emailId).then(() => {
         this.$notify({
           title: '成功',
           message: '删除成功！',

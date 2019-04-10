@@ -13,9 +13,9 @@
       </operation-container>
       <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="名称">
+          <el-table-column label="名称" min-width="200px">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+              <IepTableLinkImgDesc :img="logo" :desc="scope.row.desc" :name="scope.row.name"></IepTableLinkImgDesc>
             </template>
           </el-table-column>
           <el-table-column label="负责人">
@@ -49,10 +49,12 @@
 
 <script>
 import mixins from '@/mixins/mixins'
+const logo = require('./img2.png')
 export default {
   mixins: [mixins],
   data () {
     return {
+      logo,
       pagedTable: [
         {
           id: 1,

@@ -14,6 +14,12 @@ export default {
   },
 }
 </script>
+<style scoped>
+.link-btn {
+  padding: 5px 0;
+}
+</style>
+
 <style lang="scss" scoped>
 .link-btn {
   color: #606266;

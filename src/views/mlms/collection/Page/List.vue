@@ -6,7 +6,7 @@
           <div class="title">收藏目录</div>
           <iep-button type="primary" @click="catalogCreate(0)"><i class="el-icon-plus"></i> 新增目录</iep-button>
         </div>
-        <el-menu :default-active="selectType" class="menu-vertical" @select="catalogSelect" @open="nemuOpen" unique-opened>
+        <el-menu :default-active="selectType" class="menu-vertical" @select="catalogSelect" @open="nemuOpen" @close="nemuColse" unique-opened>
           <el-submenu :index="index+''" v-for="(item, index) in catalogList" :key="index">
             <template slot="title">
               <!-- <span>{{item.name}}</span> -->
@@ -165,6 +165,10 @@ export default {
     },
     nemuOpen (index) {
       this.pageTitle = this.catalogList[index].name
+      this.catalogId = this.catalogList[index].id
+      this.loadPage()
+    },
+    nemuColse (index) {
       this.catalogId = this.catalogList[index].id
       this.loadPage()
     },

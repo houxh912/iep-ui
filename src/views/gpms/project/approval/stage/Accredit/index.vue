@@ -26,7 +26,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMap, pagedTable } from './const.js'
+import { columnsMap, pagedTable } from './option.js'
 
 export default {
   data () {

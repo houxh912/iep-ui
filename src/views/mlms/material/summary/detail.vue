@@ -124,7 +124,7 @@ export default {
     },
     // 领导批示
     Instructions () {
-      this.$refs['instrDialog'].open()
+      this.$refs['instrDialog'].open(this.formData)
     },
   },
   created () {

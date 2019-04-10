@@ -14,7 +14,7 @@
       <div class="content">
         <pre>{{formData.content}}</pre>
       </div>
-      <div class="appendix" v-if="this.formData.type == 0">
+      <div class="appendix" v-if="formData.attachmentRelatios.length">
         <h3>附件</h3>
         <ul class="list">
           <li v-for="(item, index) in formData.attachmentRelatios" :key="index">
@@ -23,9 +23,9 @@
         </ul>
         <iep-button type="text" @click="downloadFileAll"><i class="icon-download1"></i> 全部下载</iep-button>
       </div>
-      <div class="relation" v-if="this.formData.type == 0 || this.formData.type == 2">
+      <div class="relation" v-if="(formData.projectRelatios.length > 0 || formData.materialRelatios.length > 0) || formData.type == 0">
         <h3>关联</h3>
-        <div class="item" v-if="this.formData.type == 0 || this.formData.type == 2">
+        <div class="item" v-if="formData.projectRelatios.length > 0 || formData.materialRelatios.length > 0">
           <div class="title">关联资源：</div>
           <div>
             <ul class="list" v-if="formData.projectRelatios.length">
@@ -36,7 +36,7 @@
             </ul>
           </div>
         </div>
-        <div class="item" v-if="this.formData.type == 0">
+        <div class="item" v-if="formData.type == 0">
           <div class="title">关联报表：</div>
           <ul class="list">
             <li>
@@ -73,6 +73,10 @@ export default {
     return {
       backOption: {
         isBack: true,
+        backPath: null,
+        backFunction: () => {
+          this.back()
+        },
       },
       formData: initFormData(),
       reportTableOption,

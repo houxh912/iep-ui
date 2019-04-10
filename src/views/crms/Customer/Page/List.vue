@@ -174,7 +174,6 @@ export default {
     },
     //table多选
     handleSelectionChange (val) {
-      console.log(val)
       this.multipleSelection = val.map(m => m.clientId)
       let ids = []
       val.forEach((item) => {

@@ -55,7 +55,6 @@ export default {
       this.loadTable(param, getTableData)
     },
     select (row) {
-      console.log(row)
       this.$confirm('此操作将关联该材料至方案, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

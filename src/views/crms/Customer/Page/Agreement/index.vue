@@ -68,7 +68,6 @@ export default {
   },
   created () {
     this.loadPage()
-    console.log(this.record)
   },
   computed: {
     ...mapGetters([

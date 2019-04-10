@@ -27,7 +27,7 @@ export default {
         title: '我的待办',
         dataList: [
           {
-            subtitle: '领导指示',
+            subtitle: '领导批示',
             type: 'instruction',
             id: 0,
           },

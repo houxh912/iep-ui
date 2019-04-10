@@ -1,7 +1,7 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`${methodName}部门`" width="400px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
-      <el-form-item label="上级部门" prop="superiorDepartment">
+      <el-form-item v-show="form._level!==1" label="上级部门" prop="superiorDepartment">
         <el-input v-model="form.parentName" disabled></el-input>
         <el-input v-show="false" v-model="form.parentId"></el-input>
       </el-form-item>

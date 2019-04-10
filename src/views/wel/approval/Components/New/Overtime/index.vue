@@ -39,7 +39,6 @@
   </div>
 </template>
 <script>
-import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
 import { initForm } from './options'
 import mixins from '../mixins'
 export default {
@@ -50,7 +49,6 @@ export default {
     },
   },
   mixins: [mixins],
-  components: { IepContactMultipleUser },
   data () {
     return {
       backOption: {

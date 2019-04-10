@@ -65,7 +65,6 @@
 import { mapState } from 'vuex'
 import { getUnionBySelf, putUnion } from '@/api/goms/union'
 import { initForm } from './options'
-import { mergeByFirst } from '@/util/util'
 export default {
   data () {
     return {
@@ -89,7 +88,7 @@ export default {
     },
     loadPage () {
       getUnionBySelf().then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     },
   },

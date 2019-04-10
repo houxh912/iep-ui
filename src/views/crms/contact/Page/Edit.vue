@@ -95,7 +95,6 @@
   </div>
 </template>
 <script>
-import { mergeByFirst } from '@/util/util'
 import mixins from '@/mixins/mixins'
 import { initForm, rules } from '../options'
 import { getContactById } from '@/api/crms/contact'
@@ -153,7 +152,7 @@ export default {
     this.id = this.record.id
     if (this.id) {
       getContactById(this.id).then(({ data }) => {
-        this.formData = mergeByFirst(initForm(), data.data)
+        this.formData = this.$mergeByFirst(initForm(), data.data)
         this.formData.clientIds = this.formData.clientInfos.map(m => m.clientId)
       })
     }

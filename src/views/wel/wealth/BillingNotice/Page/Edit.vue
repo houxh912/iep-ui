@@ -112,7 +112,7 @@
 import { mapState } from 'vuex'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 import { initForm, workExpColumns, studyColumns, trainingColumns, certificateColumns } from '../options'
-import { mergeByFirst } from '@/util/util'
+
 export default {
   props: {
     record: {
@@ -145,7 +145,7 @@ export default {
     this.id = this.record.id
     if (this.id) {
       getTalentPoolById(this.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     }
   },

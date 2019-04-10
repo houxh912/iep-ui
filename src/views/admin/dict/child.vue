@@ -25,7 +25,6 @@ import {
   putChild,
   deleteChildById,
 } from '@/api/admin/dict'
-import { mergeByFirst } from '@/util/util'
 export default {
   props: {
     currentId: {
@@ -143,7 +142,7 @@ export default {
     },
     handleEdit (row, index, isChild) {
       if (row) {
-        this.row = mergeByFirst(this._initRow(), row)
+        this.row = this.$mergeByFirst(this._initRow(), row)
         this.title = '修改'
       } else {
         this.row = this._initRow()

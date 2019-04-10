@@ -6,17 +6,17 @@
     <div class="contract-content">
       <iep-no-data v-if="!dataList.length" message="暂无合同"></iep-no-data>
       <el-row class="item" v-for="(item,index) in dataList" :key="index">
-        <el-col :span="7">
+        <el-col :span="10">
           <div class="grid-content name" @click="handleDetail(item)">{{item.name}}</div>
         </el-col>
-        <el-col :span="7">
-          <div class="grid-content">{{item.businessContractType!=''?item.businessContractType:'无'}}</div>
+        <el-col :span="4">
+          <div class="grid-content" style="text-align: center;">{{item.businessContractType!=''?item.businessContractType:'无'}}</div>
         </el-col>
-        <el-col :span="5">
-          <div class="grid-content">{{item.contractAmount}} w</div>
+        <el-col :span="6">
+          <div class="grid-content" style="text-align: center;">{{item.contractAmount.toLocaleString('en-US')}}</div>
         </el-col>
-        <el-col :span="5">
-          <div class="grid-content">{{item.status}}</div>
+        <el-col :span="4">
+          <div class="grid-content" style="text-align: center;">{{item.status}}</div>
         </el-col>
       </el-row>
     </div>

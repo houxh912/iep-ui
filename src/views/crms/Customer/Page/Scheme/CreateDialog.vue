@@ -11,7 +11,7 @@
       </el-form-item>
       <el-form-item label="附件上传：">
         <iep-upload v-model="formData.attachs" :limit="1">
-          <span>文件类型为excel，每次上传数量不超过一个</span>
+          <span>可上传任意类型的文件，每次上传数量不超过一个</span>
         </iep-upload>
       </el-form-item>
     </el-form>

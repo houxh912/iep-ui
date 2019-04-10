@@ -1,5 +1,5 @@
 <template>
-  <div class="abs">
+  <div class="abs iep-page-form">
     <page-header :title="`${methodName}项目`" :backOption="backOption"></page-header>
 
     <el-form :model="formData" :rules="rules" ref="form" label-width="200px" class="form">
@@ -177,8 +177,5 @@ export default {
 <style scoped lang="scss">
 .abs {
   padding-bottom: 30px;
-  .form {
-    width: 80%;
-  }
 }
 </style>

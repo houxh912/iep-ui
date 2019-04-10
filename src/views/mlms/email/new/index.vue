@@ -3,6 +3,11 @@
     <basic-container>
       <page-header title="新增邮件" :backOption="backOption"></page-header>
       <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" class="form">
+        <el-form-item label="邮件类型：">
+          <el-radio-group v-model="formData.type">
+            <el-radio-button v-for="(item, index) in emailType" :key="index" :label="item.value">{{item.name}}</el-radio-button>
+          </el-radio-group>
+        </el-form-item>
         <el-form-item label="收件人：" prop="name">
           <!-- <iep-tag v-model="formData.receiverIds"></iep-tag> -->
           <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
@@ -113,6 +118,12 @@ export default {
         },
       },
       limit: 99,
+      emailType: [
+        { name: '普通', value: 0 },
+        { name: '批示', value: 1 },
+        { name: '分享', value: 2 },
+        { name: '纠错', value: 3 },
+      ],
     }
   },
   methods: {

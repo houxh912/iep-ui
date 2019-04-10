@@ -19,6 +19,15 @@ export function getListById (params) {
   })
 }
 
+// 获取全部
+export function getAllList (params) {
+  return request({
+    url: `${farelationUrl}/all/page`,
+    method: 'get',
+    params: params,
+  })
+}
+
 // 新增目录
 export function catalogCreate (obj) {
   return request({

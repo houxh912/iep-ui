@@ -108,7 +108,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { getList, getListById, catalogCreate, catalogUpdate, catalogDelete, farelationDelete, collectUpdate } from '@/api/mlms/collection/index'
+import { getList, getListById, getAllList, catalogCreate, catalogUpdate, catalogDelete, farelationDelete, collectUpdate } from '@/api/mlms/collection/index'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap, rules, initFormData } from '../options'
 import AdvanceSearch from './AdvanceSearch'
@@ -148,6 +148,7 @@ export default {
   },
   methods: {
     loadTypeList () {
+      this.loadTable(this.searchForm, getAllList)
       getList().then(({data}) => {
         this.catalogList = data.data
         this.pageTitle = data.data[0].name
@@ -164,6 +165,8 @@ export default {
     },
     nemuOpen (index) {
       this.pageTitle = this.catalogList[index].name
+      this.catalogId = this.catalogList[index].id
+      this.loadPage()
     },
     handleSelectionChange (val) {
       this.selectList = val

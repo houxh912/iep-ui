@@ -1,9 +1,13 @@
 <template>
   <div class="multiple-box">
-    <el-tag type="danger" closable v-for="tag in unions" :key="tag.id" @close="handleClose(tag, 'unions')">{{tag.name}}</el-tag>
-    <el-tag type="warning" closable v-for="tag in orgs" :key="tag.id" @close="handleClose(tag, 'orgs')">{{tag.name}}</el-tag>
-    <el-tag type="info" closable v-for="tag in users" :key="tag.id" @close="handleClose(tag, 'users')">{{tag.name}}</el-tag>
-    <el-popover placement="right" width="300" trigger="click" v-model="dialogShow">
+    <operation-wrapper>
+      <el-tag type="danger" closable v-for="tag in unions" :key="tag.id+tag.name" @close="handleClose(tag, 'unions')">{{tag.name}}</el-tag>
+      <el-tag type="warning" closable v-for="tag in orgs" :key="tag.id+tag.name" @close="handleClose(tag, 'orgs')">{{tag.name}}</el-tag>
+      <el-tag type="info" closable v-for="tag in users" :key="tag.id+tag.name" @close="handleClose(tag, 'users')">{{tag.name}}</el-tag>
+      <iep-button v-if="isClear" icon="el-icon-error" @click="clearAll"></iep-button>
+      <iep-button @click="dialogShow = true">选择</iep-button>
+    </operation-wrapper>
+    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="dialogShow = false">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
       <el-tree ref="tree" :props="props" :data="treeData" default-expand-all :show-checkbox="showCheckbox" :expand-on-click-node="true" :filter-node-method="filterNode">
         <span class="custom-tree-node" slot-scope="{ node, data }">
@@ -13,8 +17,7 @@
           </span>
         </span>
       </el-tree>
-      <iep-button slot="reference">选择</iep-button>
-    </el-popover>
+    </iep-drawer>
   </div>
 </template>
 <script>
@@ -61,6 +64,18 @@ export default {
       get: function () { return this.value },
       set: function (value) { this.$emit('input', value) },
     },
+    isClear () {
+      if (this.unionIds.length) {
+        return true
+      }
+      if (this.orgIds.length) {
+        return true
+      }
+      if (this.userIds.length) {
+        return true
+      }
+      return false
+    },
   },
   watch: {
     filterText (val) {
@@ -71,6 +86,11 @@ export default {
     this.loadNode()
   },
   methods: {
+    clearAll () {
+      this.unions = []
+      this.orgs = []
+      this.users = []
+    },
     filterNode (value, data) {
       if (!value) return true
       return data.label.indexOf(value) !== -1
@@ -99,7 +119,6 @@ export default {
             name: data.label,
           })
         }
-        this.dialogShow = false
       }
       if (node.level === 2) {
         if (!this.orgIds.includes(data.value)) {
@@ -108,7 +127,6 @@ export default {
             name: data.label,
           })
         }
-        this.dialogShow = false
       }
       if (node.level === 1) {
         if (!this.unionIds.includes(data.value)) {
@@ -117,7 +135,6 @@ export default {
             name: data.label,
           })
         }
-        this.dialogShow = false
       }
     },
     loadNode () {

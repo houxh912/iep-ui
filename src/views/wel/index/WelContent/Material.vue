@@ -15,10 +15,10 @@
           </div>
         </el-col>
         <el-col :span="2">
-          <div class="grid-content" style="text-align: right;">{{item.type === 1 ? '外部材料' : '内部材料'}}</div>
+          <div class="grid-content" style="text-align: center;">{{item.type === 1 ? '外部材料' : '内部材料'}}</div>
         </el-col>
         <el-col :span="2">
-          <div class="grid-content" style="text-align: right;">{{item.creatorRealName}}</div>
+          <div class="grid-content" style="text-align: center;">{{item.creatorRealName}}</div>
         </el-col>
       </el-row>
     </div>

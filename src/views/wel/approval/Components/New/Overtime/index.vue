@@ -39,36 +39,10 @@
   </div>
 </template>
 <script>
-import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
-import { initForm } from './options'
 import mixins from '../mixins'
 export default {
-  props: {
-    fn: {
-      type: Function,
-      required: true,
-    },
-  },
   mixins: [mixins],
-  components: { IepContactMultipleUser },
-  data () {
-    return {
-      backOption: {
-        isBack: true,
-        backPath: this.$route.query.redirect,
-      },
-      form: initForm(),
-    }
-  },
-  created () {
-    this.loadSelf()
-  },
   methods: {
-    loadSelf () {
-      this.fn().then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
-      })
-    },
     handlePublish () {
     },
   },

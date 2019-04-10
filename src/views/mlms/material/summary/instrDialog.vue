@@ -2,8 +2,8 @@
   <iep-dialog :dialog-show="dialogShow" title="领导批示" width="50%" @close="resetForm">
     <el-form :model="formData" :rules="shareRules" ref="form" label-width="100px">
 
-      <el-form-item label="主题：" prop="subject">
-        <el-input v-model="formData.subject"></el-input>
+      <el-form-item label="主题：">
+        <el-input v-model="formData.subject" readonly></el-input>
       </el-form-item>
       <el-form-item label="收件人：" prop="shoujianren">
         <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
@@ -35,8 +35,9 @@ export default {
     }
   },
   methods: {
-    open () {
+    open (row) {
       this.dialogShow = true
+      this.formData.subject = `对“${row.title}”的批示`
     },
     submitForm (formName) {
       this.formData.receiverIds = this.formData.receiverList.users.map(m => m.id)

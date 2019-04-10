@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="iep-page-form">
     <el-form ref="form" :model="form" size="small" label-width="80px">
       <el-form-item label="头像:">
         <iep-avatar v-model="form.avatar"></iep-avatar>

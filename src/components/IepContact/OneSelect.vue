@@ -1,11 +1,13 @@
 <template>
-  <el-input v-model="user.name" placeholder="请输入选择用户" readonly>
-    <el-popover slot="append" placement="right" width="300" trigger="click" v-model="dialogShow">
+  <div>
+    <el-input v-model="user.name" placeholder="请输入选择用户" @focus="dialogShow = true" readonly>
+      <iep-button slot="reference">选择</iep-button>
+    </el-input>
+    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="dialogShow = false">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
       <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" :show-checkbox="showCheckbox" default-expand-all @node-click="selectUser"></el-tree>
-      <iep-button slot="reference">选择</iep-button>
-    </el-popover>
-  </el-input>
+    </iep-drawer>
+  </div>
 </template>
 <script>
 import { getUserListTree } from '@/api/admin/contacts'

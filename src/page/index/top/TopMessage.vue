@@ -40,7 +40,7 @@
               <iep-no-data v-if="!emailList.length" message="暂无邮件"></iep-no-data>
               <div v-for="item in emailList" :key="item.id" class="text">
                 <div class="list-item-content">
-                  <h4 class="list-item-title">{{ item.name }}</h4>
+                  <h4 class="list-item-title" @click="handleEmailDetail(item)">{{ item.name }}</h4>
                   <div class="list-item-description">
                     <span class="time">{{ item.time | formatTime }}</span>
                   </div>
@@ -84,6 +84,15 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleEmailDetail (row) {
+      this.$router.push({
+        path: '/mlms_spa/email/detail',
+        query: {
+          id: row.id,
+        },
+      })
+      this.visible = false
+    },
     handleAnnouncementDetail (row) {
       this.$router.push({
         path: '/ims_spa/announcement_detail',

@@ -111,6 +111,22 @@
             <el-input type="textarea" v-model="form.careerPlanning"></el-input>
           </el-form-item>
 
+          <el-form-item label="工作经历：">
+            <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+          </el-form-item>
+
+          <el-form-item label="学习情况：">
+            <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+          </el-form-item>
+
+          <el-form-item label="培训情况：">
+            <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+          </el-form-item>
+
+          <el-form-item label="资质证书：">
+            <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+          </el-form-item>
+
           <el-form-item>
             <a-button type="primary" @click="handleSubmit">提交</a-button>
           </el-form-item>
@@ -123,17 +139,24 @@
 
 <script>
 import { getEmployeeProfileSelf, putEmployeeProfile } from '@/api/hrms/employee_profile'
-import { dictsMap, initForm } from './options'
+import { initForm, dictsMap } from '@/views/hrms/EmployeeProfile/options'
+import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
+import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
 export default {
+  components: { InlineFormTable },
   data () {
     return {
+      workExpColumns,
+      studyColumns,
+      trainingColumns,
+      certificateColumns,
       dictsMap,
       preview: {},
       form: initForm(),
     }
   },
   created () {
-    this.loadSelf()
+    this.loadPage()
   },
   methods: {
     handleSubmit () {
@@ -143,7 +166,7 @@ export default {
             message: '修改成功',
             type: 'success',
           })
-          this.loadSelf()
+          this.loadPage()
         } else {
           this.$message({
             message: data.msg,
@@ -152,7 +175,7 @@ export default {
         }
       })
     },
-    loadSelf () {
+    loadPage () {
       getEmployeeProfileSelf().then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
       })

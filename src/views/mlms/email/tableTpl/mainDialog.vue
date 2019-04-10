@@ -14,7 +14,7 @@
       <div class="content">
         <pre>{{formData.content}}</pre>
       </div>
-      <div class="appendix" v-if="this.formData.type == 0">
+      <div class="appendix" v-if="formData.attachmentRelatios.length">
         <h3>附件</h3>
         <ul class="list">
           <li v-for="(item, index) in formData.attachmentRelatios" :key="index">
@@ -23,9 +23,9 @@
         </ul>
         <iep-button type="text" @click="downloadFileAll"><i class="icon-download1"></i> 全部下载</iep-button>
       </div>
-      <div class="relation" v-if="this.formData.type == 0 || this.formData.type == 2">
+      <div class="relation" v-if="(formData.projectRelatios.length > 0 || formData.materialRelatios.length > 0) || formData.type == 0">
         <h3>关联</h3>
-        <div class="item" v-if="this.formData.type == 0 || this.formData.type == 2">
+        <div class="item" v-if="formData.projectRelatios.length > 0 || formData.materialRelatios.length > 0">
           <div class="title">关联资源：</div>
           <div>
             <ul class="list" v-if="formData.projectRelatios.length">
@@ -36,7 +36,7 @@
             </ul>
           </div>
         </div>
-        <div class="item" v-if="this.formData.type == 0">
+        <div class="item" v-if="formData.type == 0">
           <div class="title">关联报表：</div>
           <ul class="list">
             <li>
@@ -64,7 +64,11 @@
 
 <script>
 import { initFormData, reportTableOption } from './option'
-import { deleteEmailById, getEmailById } from '@/api/mlms/email/index'
+import { 
+  deleteEmailById, // 发送-删除
+  deleteEmailReceiverById, // 收件-删除
+  emailStarById, // 星标-删除
+  getEmailById } from '@/api/mlms/email/index'
 import { downloadFile } from '@/api/common'
 
 export default {
@@ -73,13 +77,37 @@ export default {
     return {
       backOption: {
         isBack: true,
+        backPath: null,
+        backFunction: () => {
+          this.back()
+        },
       },
       formData: initFormData(),
       reportTableOption,
       tableData: [
         { name: '任务A', shuoming: '内网2.0前端页面制作', jindu: '60%', fuzeren: '张超', beizhu: '以人为本，数据赋能' },
       ],
+      deleteList: {
+        inbox: {
+          name: '收件箱',
+          request: deleteEmailReceiverById,
+        },
+        send: {
+          name: '发送',
+          request: deleteEmailById,
+        },
+        star: {
+          name: '星标',
+          request: emailStarById,
+        },
+      },
     }
+  },
+  props: {
+    emailType: {
+      type: String,
+      default: 'inbox',
+    },
   },
   methods: {
     back () {
@@ -90,8 +118,9 @@ export default {
         this.$emit('backWeb', true)
       }
     },
+    // 删除
     handleDelete () {
-      deleteEmailById(this.formData.emailId).then(() => {
+      this.deleteList[this.emailType].request(this.formData.emailId).then(() => {
         this.$notify({
           title: '成功',
           message: '删除成功！',

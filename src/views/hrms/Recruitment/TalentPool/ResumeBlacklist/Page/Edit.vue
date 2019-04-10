@@ -102,7 +102,7 @@
 <script>
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 import { initForm, formToDto, workExpColumns, studyColumns, trainingColumns, certificateColumns } from '../options'
-import { mergeByFirst } from '@/util/util'
+
 export default {
   props: {
     record: {
@@ -134,7 +134,7 @@ export default {
   methods: {
     loadPage () {
       getTalentPoolById(this.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     },
     handleGoBack () {

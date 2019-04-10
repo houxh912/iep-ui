@@ -28,7 +28,7 @@
 <script>
 import { getAnnouncementById, postAnnouncement, putAnnouncement } from '@/api/ims/announcement'
 import { initForm, formToDto } from './options'
-import { mergeByFirst } from '@/util/util'
+
 export default {
   data () {
     return {
@@ -59,7 +59,7 @@ export default {
   created () {
     if (this.id) {
       getAnnouncementById(this.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     }
   },

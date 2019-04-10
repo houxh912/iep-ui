@@ -1,18 +1,18 @@
 <template>
-  <basic-container v-if="isShow" class="abs">
+  <basic-container v-if="isShow" class="abs iep-page-form">
     <page-header :title="methodName" :backOption="backOption"></page-header>
     
-    <el-form :model="formData" :rules="rules" ref="ruleForm" label-width="200px">
+    <el-form :model="formData" :rules="rules" ref="form" label-width="200px">
 
-      <el-row style="width: 80%">
+      <el-row>
         <el-col>
           <el-col :span='12'>
-            <el-form-item label="项目经理：" prop='jingli'>
+            <el-form-item label="项目经理：" prop='projectManagerObj'>
               <iep-contact-select v-model="formData.projectManagerObj"></iep-contact-select>
             </el-form-item>
           </el-col>
           <el-col :span='12'>
-            <el-form-item label="性别：" prop='jingli'>
+            <el-form-item label="性别：" prop='gender'>
               <el-radio-group v-model="formData.gender">
                 <!-- <el-radio v-for="(item, index) in dictGroup.mlms_meeting_type" :key="index" :label="item.value" @change="typeChange">{{item.label}}</el-radio> -->
                 <el-radio label="1">男</el-radio>
@@ -32,7 +32,7 @@
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="联系电话：" prop='jingli'>
+          <el-form-item label="联系电话：" prop='phone'>
             <el-input v-model="formData.phone" placeholder="请输入项目经理联系电话"></el-input>
           </el-form-item>
         </el-col>
@@ -47,22 +47,22 @@
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="任命开始日期：" prop='jingli'>
+          <el-form-item label="任命开始日期：" prop='appointStartTime'>
             <IepDatePicker v-model="formData.appointStartTime"></IepDatePicker>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="任命结束日期：" prop='jingli'>
+          <el-form-item label="任命结束日期：" prop='appointEndTime'>
             <IepDatePicker v-model="formData.appointEndTime"></IepDatePicker>
           </el-form-item>
         </el-col>
         <el-col :span='24'>
-          <el-form-item label="授权单位：" prop='jingli'>
+          <el-form-item label="授权单位：" prop='authCompany'>
             <iep-dept-select v-model="formData.authCompany"></iep-dept-select>
           </el-form-item>
         </el-col>
         <el-col :span='24'>
-          <el-form-item label="授权日期：" prop='jingli'>
+          <el-form-item label="授权日期：" prop='authDate'>
             <IepDatePicker v-model="formData.authDate"></IepDatePicker>
           </el-form-item>
         </el-col>
@@ -71,7 +71,7 @@
     </el-form>
     <footer-toolbar>
       <iep-button type="primary" @click="saveForm">{{methodName}}</iep-button>
-      <iep-button @click="resetForm(false)">取消</iep-button>
+      <iep-button @click="close(false)">取消</iep-button>
     </footer-toolbar>
 
   </basic-container>
@@ -92,22 +92,34 @@ export default {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          this.close()
+          this.close(false)
         },
       },
       methodName: '新增',
+      formRequestFn: () => {},
     }
   },
   methods: {
-    close () {
-      this.resetForm()
-      this.$emit('close',false)
-    },
-    resetForm () {
+    close (state) {
       this.formData = initFormData()
+      this.$emit('close', state)
     },
     saveForm () {
-      this.close()
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.formRequestFn(this.formData).then(() => {
+            this.$notify({
+              title: '成功',
+              message: `${this.methodName}成功`,
+              type: 'success',
+              duration: 2000,
+            })
+            this.close(true)
+          })
+        } else {
+          return false
+        }
+      })
     },
   },
   props: {

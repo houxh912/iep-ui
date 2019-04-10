@@ -82,12 +82,20 @@ export function deleteEmailByIds (ids) {
   })
 }
 
-// 收件箱删除
+// 收件箱批量删除
 export function deleteEmailReceiver (ids) {
   return request({
     url: `${receiverUrl}/delete`,
     method: 'post',
     data: ids,
+  })
+}
+
+// 收件箱单条删除
+export function deleteEmailReceiverById (id) {
+  return request({
+    url: `${receiverUrl}/delete/${id}`,
+    method: 'post',
   })
 }
 

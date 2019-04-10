@@ -15,10 +15,11 @@
     </basic-container>
   </div>
 </template>
+
 <script>
 import ProApp from './ProApp/' // 项目立项
 import Accredit from './Accredit/' // 项目经理授权
-import addDialog from './addDialog'
+import addDialog from './Accredit/addDialog'
 
 export default {
   components: { ProApp, Accredit, addDialog },

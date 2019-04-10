@@ -28,7 +28,6 @@
 import AddDialogForm from './AddDialogForm'
 import { getTitlePage, putTitle, postTitle, deleteTitleBatch, deleteTitleById } from '@/api/hrms/title_system'
 import mixins from '@/mixins/mixins'
-import { mergeByFirst } from '@/util/util'
 import { columnsMap, initSearchForm, initForm } from './options'
 export default {
   components: { AddDialogForm },
@@ -53,7 +52,7 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteTitleById)
     },
     handleEdit (row) {
-      this.$refs['AddDialogForm'].form = mergeByFirst(initForm(), row)
+      this.$refs['AddDialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['AddDialogForm'].methodName = '修改'
       this.$refs['AddDialogForm'].formRequestFn = putTitle
       this.$refs['AddDialogForm'].dialogShow = true

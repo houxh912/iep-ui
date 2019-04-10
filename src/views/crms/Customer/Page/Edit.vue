@@ -112,7 +112,6 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { mergeByFirst } from '@/util/util'
 import { initForm, rules } from '../options'
 // import iepTags from '@/components/IepTags'
 import { getCustomerById } from '@/api/crms/customer'
@@ -148,7 +147,7 @@ export default {
     console.log(this.record)
     if (this.id) {
       getCustomerById(this.id).then(({ data }) => {
-        this.formData = mergeByFirst(initForm(), data.data)
+        this.formData = this.$mergeByFirst(initForm(), data.data)
         this.formData.businessTypeKey = data.data.businessTypeKey.map(m => m.commonId)
         this.formData.clientTypeKey = data.data.clientTypeKey.map(m => m.commonId)
         this.formData.districtType = data.data.districtTypeKey
@@ -177,7 +176,7 @@ export default {
     },
     load () {
       getCustomerById(this.record.id).then(({ data }) => {
-        this.formData = mergeByFirst(initForm(), data.data)
+        this.formData = this.$mergeByFirst(initForm(), data.data)
       })
     },
     submitForm (formName) {

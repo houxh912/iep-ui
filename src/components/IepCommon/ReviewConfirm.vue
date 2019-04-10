@@ -5,8 +5,8 @@
         <el-radio :label="isInverse ? 0 : 1">审核通过</el-radio>
         <el-radio :label="2">审核不通过</el-radio>
       </el-radio-group>
-      <el-input v-if="status === 2" class="content" type="textarea" autosize placeholder="请输入内容" v-model="content">
-      </el-input>
+      <iep-input-area v-if="status === 2" class="content" v-model="content">
+      </iep-input-area>
     </div>
     <template slot="footer">
       <iep-button type="primary" @click="handleSubmit">提交</iep-button>

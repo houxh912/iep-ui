@@ -55,7 +55,6 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { mergeByFirst } from '@/util/util'
 import { dictsMap, columnsMap, initSearchForm, initMemberForm } from './options'
 import DialogForm from './DialogForm'
 import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
@@ -95,7 +94,7 @@ export default {
       this._handleGlobalDeleteAll(delAllGomsUser)
     },
     handleEdit (row) {
-      this.$refs['DialogForm'].form = mergeByFirst(initMemberForm(), row)
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initMemberForm(), row)
       this.$refs['DialogForm'].methodName = '编辑'
       this.$refs['DialogForm'].formRequestFn = putGoms
       this.$refs['DialogForm'].dialogShow = true

@@ -64,7 +64,6 @@
 </template>
 <script>
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
-import { mergeByFirst } from '@/util/util'
 import { initForm } from '../options'
 export default {
   props: {
@@ -93,7 +92,7 @@ export default {
     },
     loadPage () {
       getEmployeeProfileById(this.record.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     },
   },

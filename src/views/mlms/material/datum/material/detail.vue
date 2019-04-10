@@ -74,7 +74,7 @@
       </div>
       <div class="material">
         <h3>优秀材料</h3>
-        <p v-for="(item, index) in greatMaterialList" :key="index">{{item.name}}</p>
+        <p v-for="(item, index) in greatMaterialList" :key="index" @click="handleDetail(item)">{{item.name}}</p>
       </div>
     </el-col>
     <wrongDialog ref="wrong"></wrongDialog>
@@ -151,19 +151,29 @@ export default {
     handleWrong () {
       this.$refs['wrong'].open(this.formData)
     },
+    handleDetail (row) {
+      this.$router.push(`/mlms_spa/material/detail/${row.id}`)
+    },
+    getDataById (id) {
+      getDataById(id).then(({data}) => {
+        this.formData = data.data
+        this.getComment(data.data.id)
+        // 获取优秀材料
+        getGreatMaterial(data.data.creator).then(({data}) => {
+          this.greatMaterialList = data
+        })
+        getMaterialTotal(data.data.creator).then(({data}) => {
+          this.materialTotal = data.data
+        })
+      })
+    },
   },
   created () {
-    getDataById(this.$route.params.id).then(({data}) => {
-      this.formData = data.data
-      this.getComment(data.data.id)
-      // 获取优秀材料
-      getGreatMaterial(data.data.creator).then(({data}) => {
-        this.greatMaterialList = data
-      })
-      getMaterialTotal(data.data.creator).then(({data}) => {
-        this.materialTotal = data.data
-      })
-    })
+    this.getDataById(this.$route.params.id)
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.getDataById(to.params.id)
+    next()
   },
 }
 </script>
@@ -349,6 +359,9 @@ export default {
     padding: 20px 0;
     h3 {
       font-size: 18px;
+    }
+    p {
+      cursor: pointer;
     }
   }
 }

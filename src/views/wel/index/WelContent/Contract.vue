@@ -5,18 +5,18 @@
     </div>
     <div class="contract-content">
       <iep-no-data v-if="!dataList.length" message="暂无合同"></iep-no-data>
-      <el-row class="item" v-for="(item,index) in dataList" :key="index" @click.native="handleDetail(item)">
-        <el-col :span="10">
-          <div>{{item.name}}</div>
+      <el-row class="item" v-for="(item,index) in dataList" :key="index">
+        <el-col :span="7">
+          <div class="grid-content name" @click="handleDetail(item)">{{item.name}}</div>
         </el-col>
-        <el-col :span="6">
-          <div>{{item.businessContractType}}</div>
+        <el-col :span="7">
+          <div class="grid-content">{{item.businessContractType!=''?item.businessContractType:'无'}}</div>
         </el-col>
-        <el-col :span="6">
-          <div>{{item.contractAmount}} w</div>
+        <el-col :span="5">
+          <div class="grid-content">{{item.contractAmount}} w</div>
         </el-col>
-        <el-col :span="2" class="text-right">
-          <div>{{item.status}}</div>
+        <el-col :span="5">
+          <div class="grid-content">{{item.status}}</div>
         </el-col>
       </el-row>
     </div>
@@ -62,9 +62,12 @@ export default {
       padding: 5px 0;
       cursor: pointer;
     }
-    .text-right {
-      text-align: right;
-    }
   }
+}
+.grid-content {
+  min-height: 24px;
+}
+.el-row:hover .el-col .name {
+  color: #cb3737;
 }
 </style>

@@ -118,7 +118,7 @@ export default {
     },
     //tab切换菜单
     changeType () {
-      this.searchPage({ type: this.type })
+      this.loadPage()
       if (this.type === '2') {
         this.showSelect = true
       } else { this.showSelect = false }
@@ -174,7 +174,6 @@ export default {
     },
     //table多选
     handleSelectionChange (val) {
-      console.log(val)
       this.multipleSelection = val.map(m => m.clientId)
       let ids = []
       val.forEach((item) => {
@@ -183,8 +182,8 @@ export default {
       this.ids = ids
     },
     //加载
-    loadPage (param = { ...this.searchForm, type: this.type }) {
-      this.loadTable(param, getCustomerPage, m => {
+    loadPage (param) {
+      this.loadTable({ ...param, type: this.type }, getCustomerPage, m => {
         return Object.assign(m, { businessType: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
     },

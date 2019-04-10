@@ -31,7 +31,7 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <iep-select prefix-url="crm/customer" v-model="formData.companyOrgId"></iep-select>
+            <iep-select prefix-url="crm/customer/my" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)"></iep-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
@@ -104,6 +104,7 @@ import { initFormData, rules } from '../options'
 import FooterToolbar from '@/components/FooterToolbar/'
 import { mapState } from 'vuex'
 import { getDataById } from '@/api/crms/contract'
+import { getMarket } from '@/api/crms/customer'
 export default {
   components: { FooterToolbar },
   props: {
@@ -153,6 +154,11 @@ export default {
     resetForm () {
       this.formData = initFormData()
       this.$emit('onGoBack')
+    },
+    handleChange (val) {
+      getMarket({ clientId: val }).then((res) => {
+        this.formData.directorId = res.data.data
+      })
     },
     submitForm (formName) {
       let formData = Object.assign({}, this.formData)

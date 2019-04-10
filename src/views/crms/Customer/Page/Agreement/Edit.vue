@@ -31,7 +31,7 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <iep-select prefix-url="crm/customer" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)"></iep-select>
+            <iep-select prefix-url="crm/customer/my" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)"></iep-select>
           </el-form-item>
         </el-col>
         <el-col :span=12>
@@ -145,11 +145,18 @@ export default {
     this.methodName = this.add.methodName
     this.id = this.add.id
     this.formData.companyOrgId = this.id
+    this.formData.signCompanyOrgId = this.id
+    getMarket({ clientId: this.id }).then((res) => {
+      this.formData.directorId = res.data.data
+    })
     if (this.methodName == '编辑') {
       this.contractId = this.add.contractId
       agreementById(this.contractId).then(res => {
         this.formData = res.data.data
         this.formData.companyOrgId = this.id
+      })
+      getMarket({ clientId: this.id }).then((res) => {
+        this.formData.directorId = res.data.data
       })
     }
   },
@@ -158,6 +165,7 @@ export default {
       console.log(val)
       getMarket({ clientId: val }).then((res) => {
         this.formData.directorId = res.data.data
+        console.log(res)
       })
     },
     loadPage () {

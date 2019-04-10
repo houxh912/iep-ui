@@ -1,13 +1,12 @@
 <template>
-  <div class="honor">
+  <div class="institutionalDocument">
     <el-card class="index-card" shadow="never">
         <div slot="header" class="clearfix">
             <span class="cardTitle" style="font-size:18px;">{{title}}</span>
-            <el-button style="float: right; padding: 5px 0; color:#999;" type="text">更多>></el-button>
         </div>
         <div>
-            <div class="honorList">
-                <div v-for="(item,index) in honorList" :key="index" class="piece">
+            <div class="institutionalDocumentList">
+                <div v-for="(item,index) in institutionalDocumentList" :key="index" class="piece">
                     {{item}}
                 </div>
             </div>
@@ -19,18 +18,26 @@
 export default {
   data () {
     return {
-        title:'国脉荣誉',
-        honorList: ['高新企业认证','市场营销管理系统V1.0-软件著作权','数据基因软著','人才招聘系统V1.0-软件著作权','中船通客户关系管理软件V1.0-软件著','订单管理软件V1.0-软件著作权','船友互动圈软件V1.0-软件著作权','市场营销管理系统V1.0-软件著作权','营商通V1.0-软件著作权','内网V1.0-软件著作权'],
+        title:'制度文件',
+        institutionalDocumentList: [
+            '制度|数据基因白皮书V8.0',
+            '制度|数据基因白皮书V8.0',
+            '制度|数据基因白皮书V8.0',
+            '制度|数据基因白皮书V8.0',
+            '制度|数据基因白皮书V8.0',
+            '制度|数据基因白皮书V8.0',
+            '制度|数据基因白皮书V8.0',
+            '制度|数据基因白皮书V8.0'],
     }
   },
 }
 </script>
 <style lang="scss" scoped>
-.honorList{
+.institutionalDocumentList{
     .piece{
         cursor: pointer;
-        height: 30px;
-        line-height: 30px;
+        height: 32px;
+        line-height: 32px;
         position: relative;
         margin-left: 15px;
         &:hover {
@@ -43,7 +50,7 @@ export default {
             content: "";
             position: absolute;
             left: -15px;
-            top: 12px;
+            top: 14px;
             width: 5px;
             height: 5px;
             border-radius: 50%;

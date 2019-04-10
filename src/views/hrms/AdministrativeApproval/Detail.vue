@@ -51,7 +51,7 @@
         <div slot="header" class="clearfix">
           <span>附件</span>
         </div>
-        <iep-no-data v-if="form.annex===''"></iep-no-data>
+        <iep-no-data v-if="form.attachFile===''"></iep-no-data>
         <pre v-else>
           <iep-download :value="[form.attachFile]"></iep-download>
         </pre>

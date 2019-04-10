@@ -113,7 +113,7 @@
 <script>
 import { mapState } from 'vuex'
 import { mergeByFirst } from '@/util/util'
-import { initForm, rules } from '../options'
+import { initForm, rules } from './options'
 // import iepTags from '@/components/IepTags'
 import { getCustomerById } from '@/api/crms/customer'
 
@@ -129,23 +129,15 @@ export default {
     return {
       id: false,
       rules,
-      flag: '',
-      data: '',
       methodName: '',
       formRequestFn: () => { },
       formData: initForm(),
     }
   },
   created () {
-
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn
     this.id = this.record.id
-    if (this.record.flag) {
-      this.flag = this.record.flag
-      this.data = this.record.data
-    }
-    console.log(this.record)
     if (this.id) {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = mergeByFirst(initForm(), data.data)
@@ -156,11 +148,8 @@ export default {
         this.formData.clientRela = data.data.clientRelaKey
         this.formData.tags = data.data.tags.map(m => (m.commonName))
         this.formData.collaborations = data.data.collaborations
+        // this.formData.collaborationsKey = data.data.collaborations.map(m => (m.commonName))
       })
-    } else if (this.flag) {
-      this.formData.businessTypeKey = this.data.businessType.map(m => m.commonId)
-      this.formData.clientName = this.data.clientName
-      this.formData.tags = this.data.tags.map(m => (m.commonName))
     }
   },
   computed: {
@@ -190,27 +179,8 @@ export default {
                 type: 'success',
               })
               this.$emit('onGoBack')
-              if (this.flag) {
-                console.log(222222222)
-                this.$confirm('创建客户成功！', '提示', {
-                  confirmButtonText: '返回商机',
-                  cancelButtonText: '留着客户',
-                  type: 'success',
-                }).then(() => {
-                  this.$router.push({
-                    path: '/crms/business',
-                    query: {
-                      falg:true,
-                      type: '3',
-                    },
-                  })
-                }).catch(() => {
-                })
-              }
-
             }
           })
-
         } else {
           return false
         }
@@ -227,4 +197,5 @@ export default {
 .edit-wrapper {
   padding-bottom: 50px;
 }
+
 </style>

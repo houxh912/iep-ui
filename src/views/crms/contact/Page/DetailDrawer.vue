@@ -14,7 +14,7 @@
         <span>{{detailForm.cellphone}}</span>
       </el-form-item>
       <el-form-item label="对应客户：" prop="clientName">
-        <span class="tags" v-for="(item,index) in detailForm.clientInfos" :key="index">{{item.clientName}}</span>
+        <a-tag class="tags" v-for="(item,index) in detailForm.clientInfos" :key="index">{{item.clientName}}</a-tag>
       </el-form-item>
       <el-form-item label="传真：" prop="fax" class="form-half">
         <span>{{detailForm.fax}}</span>
@@ -56,3 +56,8 @@ export default {
   },
 }
 </script>
+<style scoped>
+.form-half span {
+  display: inline-block;
+}
+</style>

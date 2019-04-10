@@ -16,10 +16,16 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex>
+        <template slot="before-columns">
+          <el-table-column label="客户名称">
+            <template slot-scope="scope">
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.contractName}}</iep-table-link>
+            </template>
+          </el-table-column>
+        </template>
         <el-table-column v-if="+type !== 0" prop="operation" label="操作" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleDetail(scope.row)">详情</iep-button>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button @click="handeleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
@@ -118,8 +124,8 @@ export default {
         })
       })
     },
-    loadPage (param = { ...this.searchForm, type: this.type }) {
-      this.loadTable(param, getContractPage)
+    loadPage (param) {
+      this.loadTable({ ...param, type: this.type }, getContractPage)
     },
 
   },

@@ -46,5 +46,26 @@ const rules = {
     { required: true, message: '请输入商机描述', trigger: 'blur' },
   ],
 }
-
-export { initForm, allSearchForm, initSearchForm, rules }
+const initBusinessForm = () => {
+  return {
+    clientId: '',
+    clientName: '', //客户名称
+    clientTypeKey: [], //客户类型
+    districtType: '', // 区域类型
+    businessTypeKey: [], // 业务类型
+    specificBusinessType: '', //具体业务类型
+    clientRela: '', //客户关系
+    followUpStatus: '', // 跟进状态
+    marketManager: '', // 市场经理
+    lastTime: '', // 距离上次拜访已有(全部客户没有但依然存着)
+    phoneNumber: '', //手机号码
+    respDept: '', //负责部门
+    companyUrl: '', //单位网址
+    companyFunction: '', //单位职能
+    contractAddress: '', //单位地址
+    otherDesc: '', //其他说明
+    tags: [],
+    collaborations: [],
+  }
+}
+export { initForm, allSearchForm, initSearchForm, rules, initBusinessForm }

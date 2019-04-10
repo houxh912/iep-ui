@@ -136,6 +136,7 @@ export default {
     }),
   },
   created () {
+
     this.formRequestFn = this.record.formRequestFn
     this.methodName = this.record.methodName
     this.id = this.record.id

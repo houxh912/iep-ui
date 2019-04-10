@@ -94,7 +94,6 @@ export default {
     getMaterial({ clientId: this.record.id }).then((res) => {
       this.recommendList = res.data.data
     })
-    console.log(this.record)
   },
   methods: {
     loadPage (param) {

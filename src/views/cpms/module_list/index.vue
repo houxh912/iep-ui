@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="模块清单"></page-header>
+      <page-header title="模块清单" :replaceText="replaceText" :data="[1, 2, 4, 8]"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="(scope.row)" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -63,6 +63,7 @@ export default {
           version: 'v5.0',
         },
       ],
+      replaceText: (data) => `（共有${data[0]}个模块已上架，${data[1]}个模块研发中，${data[2]}个模块在测试，${data[3]}个模块在验收）`,
     }
   },
   created () {

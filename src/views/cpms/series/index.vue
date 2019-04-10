@@ -63,7 +63,7 @@ export default {
           version: 'v5.0',
         },
       ],
-      replaceText: (data) => `（共有${data[0]}份材料，${data[1]}个冗余资质，${data[2]}份合同）`,
+      replaceText: (data) => `（共有${data[0]}份材料，${data[1]}个荣誉资质，${data[2]}份合同）`,
     }
   },
   created () {

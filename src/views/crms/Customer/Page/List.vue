@@ -75,7 +75,7 @@ export default {
       tabList,
       replaceText: (data) => `（本周新增${data[0]}位客户）`,
       url: '/api/crm/crms/iepclientinfoexcel/upload',
-      showSelect: false,
+      showSelect: true,
       ids: [],
     }
   },

@@ -10,16 +10,9 @@
                 <el-input v-model="formData.clientName" placeholder="客户名称至少6个字"></el-input>
               </el-form-item>
             </el-col>
-            <!-- <el-col :span=12>
-            <el-form-item label="性别：" prop="sex">
-              <el-radio-group v-model="formData.sex">
-                <el-radio v-for="item in dicData.select" :key="item.value" :label="item.value">{{item.label}}</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col> -->
             <el-col :span=10 :offset="4">
-              <el-form-item label="手机号码：" prop="phoneNumber">
-                <el-input v-model="formData.phoneNumber" placeholder="手机号码11位"></el-input>
+              <el-form-item label="市场经理：" prop="marketManager">
+                <el-input v-model="formData.marketManager" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -30,17 +23,12 @@
               </el-form-item>
             </el-col>
             <el-col :span=10 :offset="4">
-              <el-form-item label="市场经理：" prop="marketManager">
-                <el-input v-model="formData.marketManager"></el-input>
+              <el-form-item label="负责部门：" prop="iepClientRespDept">
+                <!-- <el-input v-model="formData.respDept" placeholder="负责部门"></el-input> -->
+                <iep-dept-select v-model="formData.iepClientRespDept"></iep-dept-select>
               </el-form-item>
             </el-col>
           </el-row>
-          <el-form-item label="负责部门：" prop="respDept">
-            <!-- <el-select v-model="formData.respDept" placeholder="请选择">
-            <el-option v-for="item in dicData.dept" :key="item.value" :label="item.label" :value="item.value"></el-option>
-          </el-select> -->
-            <el-input v-model="formData.respDept" placeholder="负责部门"></el-input>
-          </el-form-item>
           <el-form-item label="客户描述：" prop="companyUrl">
             <el-input v-model="formData.companyUrl" placeholder="单位网址"></el-input>
           </el-form-item>
@@ -113,9 +101,9 @@
 <script>
 import { mapState } from 'vuex'
 import { initForm, rules } from '../options'
-// import iepTags from '@/components/IepTags'
 import { getCustomerById } from '@/api/crms/customer'
-
+import { mapGetters } from 'vuex'
+import { createById } from '@/api/crms/business'
 export default {
   name: 'edit',
   props: {
@@ -136,6 +124,7 @@ export default {
     }
   },
   created () {
+    this.formData.marketManager = this.userInfo.realName
 
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn
@@ -144,7 +133,6 @@ export default {
       this.flag = this.record.flag
       this.data = this.record.data
     }
-    console.log(this.record)
     if (this.id) {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = this.$mergeByFirst(initForm(), data.data)
@@ -166,6 +154,9 @@ export default {
     ...mapState({
       dictGroup: state => state.user.dictGroup,
     }),
+    ...mapGetters([
+      'userInfo',
+    ]),
   },
   methods: {
     handleTag () {
@@ -188,28 +179,29 @@ export default {
                 message: `客户${this.methodName}成功`,
                 type: 'success',
               })
-              this.$emit('onGoBack')
+
               if (this.flag) {
-                console.log(222222222)
                 this.$confirm('创建客户成功！', '提示', {
                   confirmButtonText: '返回商机',
-                  cancelButtonText: '留着客户',
+                  cancelButtonText: '留在客户',
                   type: 'success',
                 }).then(() => {
                   this.$router.push({
                     path: '/crms/business',
                     query: {
-                      falg:true,
+                      falg: true,
                       type: '3',
                     },
                   })
                 }).catch(() => {
+                  this.$emit('onGoBack')
                 })
               }
 
             }
           })
-
+          createById({ iepOpportunityInputId: this.record.data.opportunityId }).then(() => {
+          })
         } else {
           return false
         }

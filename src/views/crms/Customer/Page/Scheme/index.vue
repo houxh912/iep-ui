@@ -52,7 +52,6 @@ import { getSchemePage, createScheme, updateScheme, deleteSchemeById, getSchemeB
 import CreateDialog from './CreateDialog'
 import { mapGetters } from 'vuex'
 import ToMeterialDialog from './ToMeterialDialog'
-
 import { downloadModel } from '@/api/crms/download'
 export default {
   name: 'contacts',

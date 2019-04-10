@@ -70,3 +70,19 @@ export function TransferCustomers (query) {
     data: query,
   })
 }
+//客户名称新增查重
+export function checkName (query) {
+  return request({
+    url: `${prefixUrl}/nameExists`,
+    method: 'get',
+    params: query,
+  })
+}
+//市场经理
+export function getMarket (query) {
+  return request({
+    url: `${prefixUrl}/clientMarket`,
+    method: 'get',
+    params: query,
+  })
+}

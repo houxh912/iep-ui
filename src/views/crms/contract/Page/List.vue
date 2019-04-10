@@ -45,17 +45,17 @@ export default {
   },
   data () {
     return {
-      type: '0',
+      type: '1',
       deleteAll: false,
       dialogVisible: false,
       tabList: [
         {
-          label: '全部合同',
-          value: '0',
-        },
-        {
           label: '我的合同',
           value: '1',
+        },
+        {
+          label: '全部合同',
+          value: '0',
         },
       ],
       replaceText: (data) => `（本周新增${data[0]}位客户）`,

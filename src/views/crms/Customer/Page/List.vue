@@ -3,7 +3,7 @@
     <basic-container>
       <page-header title="客户" :replaceText="replaceText" :data="[10]"></page-header>
       <operation-container>
-        <template slot="left">
+        <template v-if="type==='2'" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
           <el-dropdown size="medium">
             <iep-button size="small" :disabled="type !== '2'" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
@@ -27,7 +27,7 @@
         <template slot="before-columns">
           <el-table-column label="客户名称" width="300px">
             <template slot-scope="scope">
-              <iep-table-link  @click="handleDetail(scope.row)">{{scope.row.clientName}}</iep-table-link>
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.clientName}}</iep-table-link>
               <el-col class="custom-tags">
                 <a-tag v-for="(item, index) in dealTag(scope.row.tags)" :key="index">{{item.commonName}}
                 </a-tag>
@@ -71,7 +71,7 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      type: '1',
+      type: '2',
       tabList,
       replaceText: (data) => `（本周新增${data[0]}位客户）`,
       url: '/api/crm/crms/iepclientinfoexcel/upload',

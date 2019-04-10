@@ -34,7 +34,6 @@ import { getCustomerList } from '@/api/wel/index'
 export default {
   data () {
     return {
-      type: '1',
       tableData: [],
     }
   },
@@ -51,9 +50,6 @@ export default {
           id: row.id,
         },
       })
-    },
-    dealData (val) {
-      return val.join('，')
     },
   },
 }
@@ -80,17 +76,6 @@ export default {
     .time div {
       text-align: right;
     }
-  }
-}
-.business {
-  padding: 0 5px;
-  &:after {
-    content: "，";
-    position: absolute;
-  }
-  &:last-child {
-    content: "222";
-    position: absolute;
   }
 }
 .el-row:hover .el-col .name {

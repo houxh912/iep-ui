@@ -10,9 +10,16 @@
                 <el-input v-model="formData.clientName" placeholder="客户名称至少6个字"></el-input>
               </el-form-item>
             </el-col>
+            <!-- <el-col :span=12>
+            <el-form-item label="性别：" prop="sex">
+              <el-radio-group v-model="formData.sex">
+                <el-radio v-for="item in dicData.select" :key="item.value" :label="item.value">{{item.label}}</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col> -->
             <el-col :span=10 :offset="4">
-              <el-form-item label="市场经理：" prop="marketManager">
-                <el-input v-model="formData.marketManager" :disabled="true"></el-input>
+              <el-form-item label="手机号码：" prop="phoneNumber">
+                <el-input v-model="formData.phoneNumber" placeholder="手机号码11位"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -23,12 +30,17 @@
               </el-form-item>
             </el-col>
             <el-col :span=10 :offset="4">
-              <el-form-item label="负责部门：" prop="iepClientRespDept">
-                <!-- <el-input v-model="formData.respDept" placeholder="负责部门"></el-input> -->
-                <iep-dept-select v-model="formData.iepClientRespDept"></iep-dept-select>
+              <el-form-item label="市场经理：" prop="marketManager">
+                <el-input v-model="formData.marketManager"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
+          <el-form-item label="负责部门：" prop="respDept">
+            <!-- <el-select v-model="formData.respDept" placeholder="请选择">
+            <el-option v-for="item in dicData.dept" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </el-select> -->
+            <el-input v-model="formData.respDept" placeholder="负责部门"></el-input>
+          </el-form-item>
           <el-form-item label="客户描述：" prop="companyUrl">
             <el-input v-model="formData.companyUrl" placeholder="单位网址"></el-input>
           </el-form-item>
@@ -100,10 +112,11 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { initForm, rules } from '../options'
+import { mergeByFirst } from '@/util/util'
+import { initForm, rules } from './options'
+// import iepTags from '@/components/IepTags'
 import { getCustomerById } from '@/api/crms/customer'
-import { mapGetters } from 'vuex'
-import { createById } from '@/api/crms/business'
+
 export default {
   name: 'edit',
   props: {
@@ -116,26 +129,18 @@ export default {
     return {
       id: false,
       rules,
-      flag: '',
-      data: '',
       methodName: '',
       formRequestFn: () => { },
       formData: initForm(),
     }
   },
   created () {
-    this.formData.marketManager = this.userInfo.realName
-
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn
     this.id = this.record.id
-    if (this.record.flag) {
-      this.flag = this.record.flag
-      this.data = this.record.data
-    }
     if (this.id) {
       getCustomerById(this.id).then(({ data }) => {
-        this.formData = this.$mergeByFirst(initForm(), data.data)
+        this.formData = mergeByFirst(initForm(), data.data)
         this.formData.businessTypeKey = data.data.businessTypeKey.map(m => m.commonId)
         this.formData.clientTypeKey = data.data.clientTypeKey.map(m => m.commonId)
         this.formData.districtType = data.data.districtTypeKey
@@ -143,20 +148,14 @@ export default {
         this.formData.clientRela = data.data.clientRelaKey
         this.formData.tags = data.data.tags.map(m => (m.commonName))
         this.formData.collaborations = data.data.collaborations
+        // this.formData.collaborationsKey = data.data.collaborations.map(m => (m.commonName))
       })
-    } else if (this.flag) {
-      this.formData.businessTypeKey = this.data.businessType.map(m => m.commonId)
-      this.formData.clientName = this.data.clientName
-      this.formData.tags = this.data.tags.map(m => (m.commonName))
     }
   },
   computed: {
     ...mapState({
       dictGroup: state => state.user.dictGroup,
     }),
-    ...mapGetters([
-      'userInfo',
-    ]),
   },
   methods: {
     handleTag () {
@@ -167,7 +166,7 @@ export default {
     },
     load () {
       getCustomerById(this.record.id).then(({ data }) => {
-        this.formData = this.$mergeByFirst(initForm(), data.data)
+        this.formData = mergeByFirst(initForm(), data.data)
       })
     },
     submitForm (formName) {
@@ -179,28 +178,8 @@ export default {
                 message: `客户${this.methodName}成功`,
                 type: 'success',
               })
-
-              if (this.flag) {
-                this.$confirm('创建客户成功！', '提示', {
-                  confirmButtonText: '返回商机',
-                  cancelButtonText: '留在客户',
-                  type: 'success',
-                }).then(() => {
-                  this.$router.push({
-                    path: '/crms/business',
-                    query: {
-                      falg: true,
-                      type: '3',
-                    },
-                  })
-                }).catch(() => {
-                  this.$emit('onGoBack')
-                })
-              }
-
+              this.$emit('onGoBack')
             }
-          })
-          createById({ iepOpportunityInputId: this.record.data.opportunityId }).then(() => {
           })
         } else {
           return false
@@ -218,4 +197,5 @@ export default {
 .edit-wrapper {
   padding-bottom: 50px;
 }
+
 </style>

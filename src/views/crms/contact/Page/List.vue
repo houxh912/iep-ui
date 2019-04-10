@@ -16,7 +16,7 @@
         <template slot="before-columns">
           <el-table-column label="联系人姓名" width="250px">
             <template slot-scope="scope">
-              <iep-table-link class="hover" @click="contactDetail(scope.row)">{{scope.row.contactName}}</iep-table-link>
+              <iep-table-link  @click="contactDetail(scope.row)">{{scope.row.contactName}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
@@ -104,9 +104,6 @@ export default {
   border-radius: 4px;
   background: #f3f2f2;
   font-size: 12px;
-}
-.hover:hover {
-  color: #cb3737;
 }
 </style>
 

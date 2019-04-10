@@ -1,6 +1,6 @@
 <template>
   <keep-alive include="List">
-    <component ref="component" :record="record" :is="currentComponet"  @onForm="handleForm" @onGoBack="handleGoBack"></component>
+    <component ref="component" :record="record" :is="currentComponet" @onForm="handleForm" @onGoBack="handleGoBack"></component>
   </keep-alive>
 </template>
 
@@ -21,6 +21,7 @@ export default {
       record: '',
     }
   },
+
   methods: {
     handleForm (record) {
       this.record = record

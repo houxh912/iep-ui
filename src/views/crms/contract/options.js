@@ -5,8 +5,6 @@ const initSearchForm = () => {
     businessType: '',
     contractStatus: '',
     contractLevel: '',
-    signDeptName: '',
-    directorId: '',
   }
 }
 const rules = {

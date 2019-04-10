@@ -25,7 +25,14 @@ export function postBusiness (obj) {
     data: obj,
   })
 }
-
+//创建客户
+export function createById (query) {
+  return request({
+    url: `${crmsUrl}/update/isCreate`,
+    method: 'post',
+    params: query,
+  })
+}
 // 修改商机
 export function putBusiness (obj) {
   return request({

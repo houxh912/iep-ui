@@ -16,19 +16,29 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex>
-        <el-table-column prop="operation" label="操作" width="150">
+        <template slot="before-columns">
+          <el-table-column label="客户名称">
+            <template slot-scope="scope">
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.clientName}}</iep-table-link>
+            </template>
+          </el-table-column>
+        </template>
+        <el-table-column prop="operation" label="操作" v-if="type!=='1'" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="type === '1'" @click="handleDetail(scope.row)">查看</iep-button>
-              <iep-button type="warning" v-if="type === '2'" plain @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button type="warning" v-if="type==='2'" plain @click=" handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="type === '2'" @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button type="warning" v-if="(type === '3') && scope.row.isCreate==0" plain @click=" handleCreate(scope.row)">创建客户</iep-button>
+              <iep-button v-if="(type === '3') && scope.row.isCreate==1" disabled>已创建客户</iep-button>
               <iep-button v-if="type === '3'" @click="handleRefuse(scope.row)">取消认领</iep-button>
+              <iep-button v-if="(type === '2') && scope.row.statusValue=='已认领'" @click="handleRefuse(scope.row)">拒绝认领</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
       <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
       <edit-drawer ref="EditDrawer" @load-page="loadPage"></edit-drawer>
+      <create v-if="showCreate"></create>
     </basic-container>
   </div>
 </template>
@@ -38,6 +48,7 @@ import { columnsMapByTypeId, tabList } from './columns'
 import DetailDrawer from './DetailDrawer'
 import EditDrawer from './EditDrawer'
 import AdvanceSearch from './AdvanceSearch'
+import Create from './Create'
 import { getBusinessList, postBusiness, putBusiness, deleteBusinessById, getBusinessById, cancelClaim } from '@/api/crms/business'
 export default {
   name: 'List',
@@ -46,11 +57,13 @@ export default {
     DetailDrawer,
     EditDrawer,
     AdvanceSearch,
+    Create,
   },
   data () {
     return {
       type: '1',
       tabList,
+      showCreate: false,
       replaceText: (data) => `（本周新增${data[0]}个商机）`,
     }
   },
@@ -61,6 +74,10 @@ export default {
   },
   created () {
     this.loadPage()
+    if (this.$route.query.flag) {
+      this.type = this.$route.query.type
+    }
+
   },
   methods: {
     handleSelectionChange () {
@@ -92,6 +109,15 @@ export default {
       this.$refs['EditDrawer'].id = row.opportunityId
 
     },
+    handleCreate (row) {
+      this.$router.push({
+        path: '/crms/customer',
+        query: {
+          router: true,
+          data: row,
+        },
+      })
+    },
     handleDetail (row) {
       getBusinessById(row.opportunityId).then((res) => {
         this.$refs['DetailDrawer'].formData = res.data.data.data
@@ -103,8 +129,8 @@ export default {
       let ids = [row.opportunityId]
       this._handleGlobalDeleteById(ids, deleteBusinessById)
     },
-    loadPage (param = { ...this.searchForm, type: this.type }) {
-      this.loadTable(param, getBusinessList, m => {
+    loadPage (param) {
+      this.loadTable({ ...param, type: this.type }, getBusinessList, m => {
         return Object.assign(m, { businessTypeKey: m.businessType.map(m => m.commonName).join('，') })
       })
     },

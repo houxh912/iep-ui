@@ -1,3 +1,4 @@
+import { checkName } from '@/api/crms/customer'
 const initForm = () => {
   return {
     clientId: '',
@@ -44,9 +45,22 @@ const initSearchForm = () => {
     lastTime: '',
   }
 }
+var validateFun = (rule, value, callback) => {
+  let val = value.replace(/(^\s*)|(\s*$)/g, '')
+  if (!val) {
+    return callback(new Error('客户名称不能为空'))
+  }
+  checkName({ clientName: val }).then(res => {
+    if (!res.data) {
+      callback(new Error('您输入的客户名称已存在，请重新输入！'))
+    } else {
+      callback()
+    }
+  })
+}
 const rules = {
   clientName: [
-    { required: true, message: '客户名称', trigger: 'blur' },
+    { required: true, validator: validateFun, trigger: 'blur' },
     { min: 6, max: 50, message: '至少6个字', trigger: 'blur' },
   ],
   phoneNumber: [

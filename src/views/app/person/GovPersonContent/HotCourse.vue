@@ -90,18 +90,27 @@ export default {
   }
   .conCourse {
     display: flex;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
     justify-content: space-between;
     .con {
       width: 48%;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+      }
     }
     .img {
+      margin-bottom: 5px;
       width: 100%;
       height: 90px;
       overflow: hidden;
       img {
         width: 100%;
         height: 100%;
+        transition: 0.5s;
+        &:hover {
+          transform: scale(1.1);
+        }
       }
     }
     .num {

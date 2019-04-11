@@ -157,6 +157,8 @@ export default {
   color: #fff;
 }
 .mutual-card >>> .el-card__body {
-  height: 118px;
+  display: flex;
+  align-items: center;
+  height: 133px;
 }
 </style>

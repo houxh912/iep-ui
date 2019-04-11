@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="search">
     <el-row :gutter="20" class="gov-search">
       <el-col :span="12" :offset="6">
         <div class="grid-content">
@@ -21,7 +21,7 @@
         </div>
       </el-col>
     </el-row> 
-    <el-row :gutter="20">
+    <el-row :gutter="20" class="gov-info">
       <el-col :offset="2" :span="12">
         <el-card class="box-card" shadow="never">
           <div slot="header" class="clearfix">
@@ -78,7 +78,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+  .bg-white, .gov-search, .gov-info{
+    width:100%;
+    margin-left:0;
+    margin-right:0;
+  }
   .el-row{
     margin-bottom: 20px;
   }

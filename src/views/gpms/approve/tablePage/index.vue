@@ -77,7 +77,7 @@ export default {
     },
   },
   created () {
-    this.loadPage()
+    this.loadPage({approvalStatus: this.status})
   },
 }
 </script>

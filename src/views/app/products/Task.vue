@@ -51,6 +51,7 @@ export default {
     height:30px;
     line-height: 30px;
     text-align: center;
+    overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;
     &:hover{
       color: #cb3737;
     }

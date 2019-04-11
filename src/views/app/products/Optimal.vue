@@ -45,10 +45,10 @@ export default {
         title1:'技术之星',
         title2:'上月最佳',
         technologyList: [
-            {img:'',name:'钟乙乔',department:'集团研发中心',label:'需求分析/原型设计/知识图谱'},
-            {img:'',name:'钟乙乔',department:'集团研发中心',label:'需求分析/原型设计/知识图谱'},
+            {img:require('./img/optimal1.jpg'),name:'钟乙乔',department:'集团研发中心',label:'需求分析/原型设计/知识图谱'},
+            {img:require('./img/optimal2.jpg'),name:'张灵',department:'国脉集团研发中心运维组',label:'DNA运维/环境配置/服务器部署'},
         ],
-        lastMonth:[{img:'',name:'丁斌',department:'集团研发中心',label:'需求分析/原型设计/知识图谱'}],
+        lastMonth:[{img:require('./img/optimal3.jpg'),name:'丁斌',department:'产品与技术委员会',label:'微服务/需求梳理/数据门户'}],
     }
   },
 }
@@ -73,9 +73,10 @@ export default {
             float: left;
             width: 50px;
             height: 50px;
+            margin-right:18px;
         }
         .text{
-            width: 85%;
+            width: 270px;
             height: 50px;
             float: left;
             .title{

@@ -20,13 +20,13 @@ export default {
     return {
         title:'新人必读',
         newcomersList: [
-            '数据基因白皮书V8.0',
-            '数据基因白皮书V8.0',
-            '数据基因白皮书V8.0',
-            '数据基因白皮书V8.0',
-            '数据基因白皮书V8.0',
-            '数据基因白皮书V8.0',
-            '数据基因白皮书V8.0',
+            '国脉集团新员工入职指南',
+            '国脉商务礼仪规范与工作守则',
+            '内网个人风采页完善指标项及信息填写规范',
+            '公司文化内容的最新修订稿pdf（新生必读）',
+            '山东省营商环境评估指标',
+            '智慧城市发展趋势（无锡会议）-杨冰之',
+            '2019年北京国脉互联开票通知单（模版）201904',
             '数据基因白皮书V8.0'],
     }
   },
@@ -36,10 +36,11 @@ export default {
 .newcomersList{
     .piece{
         cursor: pointer;
-        height: 32px;
-        line-height: 32px;
+        height: 30px;
+        line-height: 30px;
         position: relative;
         margin-left: 15px;
+        overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;
         &:hover {
             color: #cb3737;
             &:before{

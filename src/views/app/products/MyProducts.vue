@@ -11,11 +11,11 @@
         <div class="deletionBox">
             <div class="coduleDeletion">
                 分类：
-                <div v-for="(item,index) in coduleDeletion" :key="index" class="pieceDeletion">{{item}}</div>
+                <div v-for="(item,index) in coduleDeletion" :key="index" :class="showClass1==index?'color':''" class="pieceDeletion" @click="tab1(index)">{{item}}</div>
             </div>
             <div class="productsDeletion">
                 分类：
-                <div v-for="(item,index) in productsDeletion" :key="index" class="pieceDeletion">{{item}}</div>
+                <div v-for="(item,index) in productsDeletion" :key="index" :class="showClass2==index?'color':''" class="pieceDeletion" @click="tab2(index)">{{item}}</div>
             </div>
         </div>
         <div class="myProductsBox">
@@ -34,6 +34,8 @@
 export default {
     data () {
         return {
+            showClass1:0,
+            showClass2:0,
             num:[18],
             coduleDeletion: ['全部','基础','通用','业务','分类4'],            
             productsDeletion: ['全部','DMA','营商通','国策','智慧赋能平台'],    
@@ -48,6 +50,14 @@ export default {
                 {icon:'icon-tongji1',name:'资源统计模块',desc:'支持各单位应用系统的表结构导入本系统，通过配置可实现资源统计。',to:''},
             ],
         }
+    },
+    methods: {
+        tab1 (val) {
+            this.showClass1 = val
+        },
+        tab2 (val) {
+            this.showClass2 = val
+        },
     },
 }
 </script>
@@ -76,9 +86,22 @@ export default {
         margin:20px 0;
         .pieceDeletion{
             display: inline;
-            padding:2px 6px;
-            border-radius:6px;
+            padding:2px 10px;
+            border-radius:12px;
+            border:1px solid #ffffff;
             margin:0 10px;
+            cursor: pointer;
+            &:hover{
+                background-color: #fef6f4;
+                border:1px solid #dc8687;
+                color: #dc8687;
+            }
+            
+        }
+        .color{
+            background-color: #fef6f4;
+            border:1px solid #dc8687;
+            color: #dc8687;
         }
     }
     .myProductsBox{
@@ -90,6 +113,10 @@ export default {
         grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr);
         .moduleList{
             text-align: center;
+            cursor: pointer;
+            &:hover{
+                background-color: #fafafa;
+            }
             .iconfont{
                 font-size: 46px;
                 color: #999;

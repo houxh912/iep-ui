@@ -37,6 +37,9 @@ export default {
 .banner{
     width: 100%;
     background-color: #f8f8f8;
+    img{
+        width: 100%;
+    }
     .newDynamic{
         width: 1200px;
         height: 60px;
@@ -44,7 +47,8 @@ export default {
         margin: 0 auto;
         .newDynamicList{
             display: inline;
-            margin:  0 20px 0 100px;
+            margin:  0 150px 0 20px;
+            cursor: pointer;
             .dsec{
                 color: #333;
                 margin: 0 6px 0 8px;

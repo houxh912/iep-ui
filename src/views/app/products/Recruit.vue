@@ -32,12 +32,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 .recruitList{
+    padding-bottom: 8px;
     .piece{
         cursor: pointer;
         height: 32px;
         line-height: 32px;
         position: relative;
         margin-left: 15px;
+        overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;
         &:hover {
             color: #cb3737;
             &:before{

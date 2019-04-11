@@ -45,8 +45,10 @@ export default {
         grid-auto-flow: row dense;
         grid-template-columns: 1fr 1fr;
         .piece{
+            cursor: pointer;
             height: 32px;
             line-height: 32px;
+            overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;
         }
     }
 }

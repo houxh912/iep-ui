@@ -51,6 +51,7 @@ export default {
     justify-content: flex-start;
     margin-bottom: 20px;
     overflow: hidden;
+    cursor: pointer;
     .img-con {
       float: left;
       margin-right: 15px;

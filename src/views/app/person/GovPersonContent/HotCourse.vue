@@ -67,7 +67,9 @@ export default {
     }
     .num {
       float: right;
-      color: #666;
+      height: 30px;
+      line-height: 30px;
+      color: #999;
     }
     &:hover {
       color: #cb3737;

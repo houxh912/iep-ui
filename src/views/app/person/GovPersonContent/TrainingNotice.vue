@@ -50,6 +50,8 @@ export default {
     }
     .time {
       float: right;
+      height: 30px;
+      line-height: 30px;
       color: #666;
     }
     &:hover {

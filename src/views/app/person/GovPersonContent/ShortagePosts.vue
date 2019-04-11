@@ -81,6 +81,9 @@ export default {
 .leaderBoard >>> .el-table th {
   background-color: #fafafa;
 }
+.leaderBoard >>> .el-table tr {
+  cursor: pointer;
+}
 .leaderBoard >>> .el-card__body {
   height: 343px;
 }

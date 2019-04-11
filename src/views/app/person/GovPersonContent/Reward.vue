@@ -65,6 +65,8 @@ export default {
     }
     .money {
       float: right;
+      height: 30px;
+      line-height: 30px;
       color: #cb3737;
     }
     .bgc {

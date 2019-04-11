@@ -101,6 +101,10 @@ export default {
     width: 100%;
     height: 60px;
     overflow: hidden;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
     .img-con {
       width: 60px;
       height: 60px;

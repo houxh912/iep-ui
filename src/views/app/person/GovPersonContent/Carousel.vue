@@ -124,6 +124,10 @@ export default {
       overflow: hidden;
       height: 200px;
       text-align: center;
+      cursor: pointer;
+      &:hover .sub-title {
+        color: #cb3737;
+      }
       .img {
         width: 100%;
         height: 140px;

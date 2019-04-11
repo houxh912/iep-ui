@@ -116,7 +116,7 @@ export default {
     return {
       id: false,
       rules,
-      flag: '',
+      flag: false,
       data: '',
       methodName: '',
       formRequestFn: () => { },
@@ -181,6 +181,8 @@ export default {
               })
 
               if (this.flag) {
+                createById({ iepOpportunityInputId: this.record.data.opportunityId }).then(() => {
+                })
                 this.$confirm('创建客户成功！', '提示', {
                   confirmButtonText: '返回商机',
                   cancelButtonText: '留在客户',
@@ -197,11 +199,12 @@ export default {
                   this.$emit('onGoBack')
                 })
               }
-
+              if (!this.flag) {
+                this.$emit('onGoBack')
+              }
             }
           })
-          createById({ iepOpportunityInputId: this.record.data.opportunityId }).then(() => {
-          })
+
         } else {
           return false
         }

@@ -9,9 +9,9 @@
         <div class="list-item-description">
           <span class="time"><i class="iconfont icon-shijian"></i>{{news.time}}</span>
           <span class="see"><i class="iconfont icon-yanjing"></i>{{news.browse}}</span>
-          <el-tag>{{news.tag1}}</el-tag>
-          <el-tag>{{news.tag2}}</el-tag>
-          <el-tag>{{news.tag3}}</el-tag>
+          <el-tag type="white">{{news.tag1}}</el-tag>
+          <el-tag type="white">{{news.tag2}}</el-tag>
+          <el-tag type="white">{{news.tag3}}</el-tag>
         </div>
       </div>
       <div class="img" v-show="isShow">
@@ -38,11 +38,11 @@ export default {
           tag1: '创新创业',
           tag2: '浙江创业女杰',
           tag3: '浙商',
-          img: '../img/bg/star-squashed.jpg',
+          img: '../img/bg/news1.jpg',
         },
         {
           id: '2',
-          class: '要闻',
+          class: '通知',
           title: '111国脉总经理郑爱军荣获“浙江创业女杰”',
           content: '这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容',
           time: '2019-02-13',
@@ -50,11 +50,11 @@ export default {
           tag1: '创新创业',
           tag2: '浙江创业女杰',
           tag3: '浙商',
-          img: '../img/bg/star-squashed.jpg',
+          img: '../img/bg/news2.jpg',
         },
         {
           id: '3',
-          class: '要闻',
+          class: '团建',
           title: '国脉总经理郑爱军荣获“浙江创业女杰”',
           content: '这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容',
           time: '2019-02-13',
@@ -62,7 +62,7 @@ export default {
           tag1: '创新创业',
           tag2: '浙江创业女杰',
           tag3: '浙商',
-          img: '../img/bg/star-squashed.jpg',
+          img: '../img/bg/news2.jpg',
         },
         {
           id: '4',
@@ -74,7 +74,7 @@ export default {
           tag1: '创新创业',
           tag2: '浙江创业女杰',
           tag3: '浙商',
-          img: '../img/bg/star-squashed.jpg',
+          img: '../img/bg/news2.jpg',
         },
         {
           id: '5',
@@ -86,7 +86,7 @@ export default {
           tag1: '创新创业',
           tag2: '浙江创业女杰',
           tag3: '浙商',
-          img: '../img/bg/star-squashed.jpg',
+          img: '../img/bg/news1.jpg',
         },
         {
           id: '6',
@@ -98,7 +98,7 @@ export default {
           tag1: '创新创业',
           tag2: '浙江创业女杰',
           tag3: '浙商',
-          img: '../img/bg/star-squashed.jpg',
+          img: '../img/bg/news3.jpg',
         },
         {
           id: '7',
@@ -110,7 +110,7 @@ export default {
           tag1: '创新创业',
           tag2: '浙江创业女杰',
           tag3: '浙商',
-          img: '../img/bg/star-squashed.jpg',
+          img: '../img/bg/news1.jpg',
         },
         {
           id: '8',
@@ -122,7 +122,7 @@ export default {
           tag1: '创新创业',
           tag2: '浙江创业女杰',
           tag3: '浙商',
-          img: '../img/bg/star-squashed.jpg',
+          img: '../img/bg/news2.jpg',
         },
         {
           id: '9',
@@ -134,7 +134,7 @@ export default {
           tag1: '创新创业',
           tag2: '浙江创业女杰',
           tag3: '浙商',
-          img: '../img/bg/star-squashed.jpg',
+          img: '../img/bg/news2.jpg',
         },
         {
           id: '10',
@@ -146,7 +146,7 @@ export default {
           tag1: '创新创业',
           tag2: '浙江创业女杰',
           tag3: '浙商',
-          img: '../img/bg/star-squashed.jpg',
+          img: '../img/bg/news3.jpg',
         },
       ],
     }
@@ -165,6 +165,11 @@ export default {
   border: 0;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
+  .classTag {
+    padding: 0 6px;
+    height: 22px;
+    line-height: 20px;
+  }
   &:nth-child(1) {
     padding-top: 10px;
   }
@@ -221,7 +226,14 @@ export default {
 <style scoped>
 .news-list >>> .el-card__body {
   display: flex;
-  padding: 0 20px;
+  padding: 0 10px;
   justify-content: space-between;
+}
+.news-list >>> .el-tag--white {
+  border: 1px solid #dcdfe6;
+  height: 28px;
+  line-height: 26px;
+  background: #fff;
+  color: #606266;
 }
 </style>

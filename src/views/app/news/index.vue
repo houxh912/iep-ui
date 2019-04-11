@@ -1,12 +1,8 @@
 <template>
-  <basic-container>
-    <template>
-      <news-top></news-top>
-    </template>
-    <template>
-      <news-content></news-content>
-    </template>
-  </basic-container>
+  <div>
+    <news-top></news-top>
+    <news-content></news-content>
+  </div>
 </template>
 
 <script>

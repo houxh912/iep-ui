@@ -1,7 +1,7 @@
 <template>
   <el-card class="important-news" shadow="never">
     <div slot="header" class="clearfix">
-      <span class="sub-title">推荐要闻</span>
+      <span class="sub-title">{{title}}</span>
     </div>
     <el-card class="important-list" v-for="important in importantList" :key="important.id" shadow="hover">
       <div class="img"><img :src="important.img" alt=""></div>
@@ -16,22 +16,23 @@
 export default {
   data () {
     return {
+      title: '推荐要闻',
       importantList: [
         {
           id: '1',
-          img: '../img/bg/star-squashed.jpg',
+          img: '../img/bg/news3.jpg',
           con: '这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容',
           time: '2019-04-03',
         },
         {
           id: '2',
-          img: '../img/bg/star-squashed.jpg',
+          img: '../img/bg/news3.jpg',
           con: '1这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容',
           time: '2019-04-03',
         },
         {
           id: '3',
-          img: '../img/bg/star-squashed.jpg',
+          img: '../img/bg/news3.jpg',
           con: '2这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容',
           time: '2019-04-03',
         },
@@ -48,6 +49,7 @@ export default {
   padding: 15px 0 10px;
   border-bottom: 1px solid #ddd;
   justify-content: space-between;
+  cursor: pointer;
   &:nth-child(1) {
     padding-top: 20px;
   }

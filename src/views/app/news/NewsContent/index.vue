@@ -16,10 +16,10 @@ export default {
   display: grid;
   margin: 0 auto;
   padding-top: 20px;
-  width: 1280px;
+  width: 1200px;
   grid-auto-flow: row dense;
   grid-row-gap: 40px;
   grid-column-gap: 40px;
-  grid-template-columns: minmax(100px, 55fr) minmax(100px, 28fr);
+  grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
 }
 </style>

@@ -3,7 +3,7 @@
     <el-card class="index-card" shadow="never">
       <div slot="header" class="clearfix">
         <span class="cardTitle" style="font-size:18px;" >{{title}}</span>
-        <el-button style="float: right; padding: 5px 0; color:#999;" type="text">了解更多>></el-button>
+        <el-button style="float: right; padding: 5px 0; color:#999;" type="text">了解更多></el-button>
       </div>
       <div>
         <p class="about-text">国脉集团是中国领先的大数据治理和数据服务专业机构。创新提出“软件+咨询+平台+数据+创新...</p>

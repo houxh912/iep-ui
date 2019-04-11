@@ -26,10 +26,8 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMap, pagedTable, dictsMap} from './option.js'
-import { 
-  // getApprovalList,
-   updateData } from '@/api/gpms/index'
+import { columnsMap , dictsMap} from './option.js'
+import { getApprovalList, updateData } from '@/api/gpms/index'
 import transferDialog from '../transfer/index'
 
 export default {
@@ -46,12 +44,14 @@ export default {
       isLoadTable: false,
       columnsMap,
       dictsMap,
-      pagedTable,
       pageState: 'list',
       formData: {},
     }
   },
   methods: {
+    loadPage (param) {
+      this.loadTable(param, getApprovalList)
+    },
     // 审批
     handleApprove (row) {
       this.$emit('approve', row)
@@ -75,12 +75,9 @@ export default {
         this.loadPage()
       })
     },
-    // loadPage (param = {approvalStatus: this.status}) {
-    //   this.loadTable(param, getApprovalList)
-    // },
   },
-  mounted () {
-    // this.loadPage()
+  created () {
+    this.loadPage()
   },
 }
 </script>

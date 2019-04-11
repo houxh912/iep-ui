@@ -1,28 +1,22 @@
 <template>
-  <div>
-    <basic-container>
-      <iep-tabs v-model="activeTab" :tab-list="tabList">
-        <template v-if="activeTab ==='ProApp'" v-slot:ProApp>
-          <pro-app v-loading="activeTab !=='ProApp'" :form="formData"></pro-app>
-        </template>
-        <template v-if="activeTab ==='Accredit'" v-slot:Accredit>
-          <accredit v-loading="activeTab !=='Accredit'" :isShow="addDialogShow" :detailShow="detailDialogShow" @detail-show="fn" @toggle-show="handleCreate"></accredit>
-        </template>
-      </iep-tabs>
-      <transition name="fade">
-        <add-dialog :isShow="addDialogShow" @close="val => addDialogShow = val"></add-dialog>
-      </transition>
-    </basic-container>
-  </div>
+  <basic-container>
+    <iep-tabs v-model="activeTab" :tab-list="tabList">
+      <template v-if="activeTab ==='ProApp'" v-slot:ProApp>
+        <pro-app v-loading="activeTab !=='ProApp'" :form="formData"></pro-app>
+      </template>
+      <template v-if="activeTab ==='Accredit'" v-slot:Accredit>
+        <accredit v-loading="activeTab !=='Accredit'" @toggle-show="handleFormOpera" @toggle-detail="handleDetail"></accredit>
+      </template>
+    </iep-tabs>
+  </basic-container>
 </template>
 
 <script>
 import ProApp from './ProApp/' // 项目立项
 import Accredit from './Accredit/' // 项目经理授权
-import addDialog from './Accredit/addDialog'
 
 export default {
-  components: { ProApp, Accredit, addDialog },
+  components: { ProApp, Accredit },
   props: {
     form: {
       type: Object,
@@ -38,7 +32,6 @@ export default {
   },
   data () {
     return {
-      addDialogShow: false,
       detailDialogShow: false,
       tabList: [{
         label: '项目立项',
@@ -51,15 +44,23 @@ export default {
     }
   },
   methods: {
-    fn (v) {
-      this.detailDialogShow = v
+    changePage (name) {
+      this.activeTab = ''
+      this.$nextTick(() => {
+        console.log('name: ', name)
+        this.activeTab = name
+      })
     },
-    handleCreate () {
-      this.addDialogShow = true
+    handleDetail (row) {
+      this.$emit('author_detail', row, this.formData)
+    },
+    handleFormOpera (type, formData) {
+      this.$emit('author_opera', type, formData)
     },
   },
 }
 </script>
+
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {

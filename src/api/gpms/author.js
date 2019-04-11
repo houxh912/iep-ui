@@ -1,7 +1,7 @@
 import request from '@/router/axios'
-const prefixUrl = '/prms/iepProjectInformation'
+const prefixUrl = '/prms/iepProjectAuthorization'
 
-export function getTableData (obj) {
+export function getAuthorList (obj) {
   return request({
     url: `${prefixUrl}/page`,
     method: 'get',
@@ -17,7 +17,6 @@ export function createData (obj) {
   })
 }
 
-// 编辑 -- 立项申请、审批
 export function updateData (obj) {
   return request({
     url: `${prefixUrl}/edit`,
@@ -26,16 +25,8 @@ export function updateData (obj) {
   })
 }
 
-// 详情
-export function getDataDetail (id) {
-  return request({
-    url: `${prefixUrl}/${id}`,
-    method: 'get',
-  })
-}
-
-export function deleteData (id) {
-  let ids = typeof id === 'object' ? id : [id]
+export function deleteDate (id) {
+  let ids = typeof id == 'object' ? id : [id]
   return request({
     url: `${prefixUrl}/delete/batch`,
     method: 'post',
@@ -43,12 +34,9 @@ export function deleteData (id) {
   })
 }
 
-// 审批列表
-export function getApprovalList (obj) {
+export function getDetailById (id) {
   return request({
-    url: `${prefixUrl}/projectApproval`,
+    url: `${prefixUrl}/${id}`,
     method: 'get',
-    params: obj,
   })
 }
-

@@ -1,22 +1,26 @@
 <template>
   <basic-container>
-    <page-header title="详情" :backOption="backOption"></page-header>
-    <div class="content">
-      <div class="left">
-        <el-card class="box-card">
-          <div class="navigation" 
-            :class="selectNavigation===item.value?'selectNavigation':''" 
-            v-for="item in selectNavigatList" 
-            :key="item.value"
-            @click="navigationChosen(item)">{{item.name}}</div>
-        </el-card>
-      </div>
-      <div class="right">
-        <detailPage v-if="selectNavigation===0" :form="formData"></detailPage>
-        <stagePage v-if="selectNavigation===1" :form="formData"></stagePage>
-        <materialPage v-if="selectNavigation===2"></materialPage>
+    <div v-show="pageState == 'list'">
+      <page-header title="详情" :backOption="backOption"></page-header>
+      <div class="content">
+        <div class="left">
+          <el-card class="box-card">
+            <div class="navigation" 
+              :class="selectNavigation===item.value?'selectNavigation':''" 
+              v-for="item in selectNavigatList" 
+              :key="item.value"
+              @click="navigationChosen(item)">{{item.name}}</div>
+          </el-card>
+        </div>
+        <div class="right">
+          <detailPage v-if="selectNavigation===0" :form="formData"></detailPage>
+          <stagePage v-if="selectNavigation===1" ref="stage" :form="formData" @author_detail="authorDetail" @author_opera="authorOpera"></stagePage>
+          <materialPage v-if="selectNavigation===2"></materialPage>
+        </div>
       </div>
     </div>
+    <stageAuthorDetail ref="authorDetail" v-if="pageState == 'authorDetail'" @close="authorClose"></stageAuthorDetail>
+    <stageAuthorOpera ref="authorOpera" v-if="pageState == 'authorOpera'" @close="authorClose"></stageAuthorOpera>
   </basic-container>
 </template>
 
@@ -25,10 +29,12 @@ import detailPage from './detail/'
 import stagePage from './stage/'
 import materialPage from './material/'
 import { getDataDetail } from '@/api/gpms/index'
+import stageAuthorDetail from './stage/Accredit/detail/' // 立项阶段-项目经理详情
+import stageAuthorOpera from './stage/Accredit/addDialog' // 立项阶段-项目经理新增
 
 export default {
   name: 'detail',
-  components: { detailPage, stagePage, materialPage },
+  components: { detailPage, stagePage, materialPage, stageAuthorDetail, stageAuthorOpera },
   data () {
     return {
       backOption: {
@@ -38,6 +44,7 @@ export default {
           this.$router.go(-1)
         },
       },
+      pageState: 'list',
       selectNavigation: 0,
       selectNavigatList: [
         { name: '概况', value: 0 },
@@ -54,6 +61,27 @@ export default {
     // 导航切换
     navigationChosen (item) {
       this.selectNavigation = item.value
+    },
+    // 立项阶段-项目经理详情
+    authorDetail (author, project) {
+      this.pageState = 'authorDetail'
+      this.$nextTick(() => {
+        this.$refs['authorDetail'].open(author, project)
+      })
+    },
+    authorClose (state, name) {
+      this.pageState = 'list'
+      if (state === true) { // 即需要刷新页面
+      console.log('asd')
+        this.$refs['stage'].changePage(name)
+      }
+    },
+    // 立项阶段-项目经理新增
+    authorOpera (type, author) {
+      this.pageState = 'authorOpera'
+      this.$nextTick(() => {
+        this.$refs['authorOpera'].open(type, author, this.formData)
+      })
     },
   },
   created () {

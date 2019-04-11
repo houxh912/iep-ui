@@ -1,5 +1,5 @@
 <template>
-  <basic-container v-if="isShow" class="abs iep-page-form">
+  <basic-container class="iep-page-form">
     <page-header :title="methodName" :backOption="backOption"></page-header>
     
     <el-form :model="formData" :rules="rules" ref="form" label-width="200px">
@@ -7,16 +7,15 @@
       <el-row>
         <el-col>
           <el-col :span='12'>
-            <el-form-item label="项目经理：" prop='projectManagerObj'>
-              <iep-contact-select v-model="formData.projectManagerObj"></iep-contact-select>
+            <el-form-item label="项目经理：" prop='projectManagerList'>
+              <iep-contact-select v-model="formData.projectManagerList"></iep-contact-select>
             </el-form-item>
           </el-col>
           <el-col :span='12'>
             <el-form-item label="性别：" prop='gender'>
               <el-radio-group v-model="formData.gender">
                 <!-- <el-radio v-for="(item, index) in dictGroup.mlms_meeting_type" :key="index" :label="item.value" @change="typeChange">{{item.label}}</el-radio> -->
-                <el-radio label="1">男</el-radio>
-                <el-radio label="2">女</el-radio>
+                <el-radio v-for="(item, index) in sexDict" :key="index" :label="item.value">{{item.label}}</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -57,8 +56,8 @@
           </el-form-item>
         </el-col>
         <el-col :span='24'>
-          <el-form-item label="授权单位：" prop='authCompany'>
-            <iep-dept-select v-model="formData.authCompany"></iep-dept-select>
+          <el-form-item label="授权单位：" prop='authCompanyList'>
+            <iep-dept-select v-model="formData.authCompanyList"></iep-dept-select>
           </el-form-item>
         </el-col>
         <el-col :span='24'>
@@ -80,6 +79,7 @@
 <script>
 import { rules, initFormData } from './option'
 import FooterToolbar from '@/components/FooterToolbar/'
+import { createData, updateData } from '@/api/gpms/author'
 
 export default {
   name: 'add-dialog',
@@ -96,17 +96,36 @@ export default {
         },
       },
       methodName: '新增',
-      formRequestFn: () => {},
+      formRequestFn: createData,
+      requestList: {
+        create: { name: '新增', requestFn: createData },
+        update: { name: '修改', requestFn: updateData },
+      },
+      projectData: {},
+      sexDict: [
+        { label: '男', value: 1 },
+        { label: '女', value: 2 },
+      ],
     }
   },
   methods: {
+    open (type, row, form) {
+      this.formData = row ? row : initFormData()
+      this.formRequestFn = this.requestList[type].requestFn
+      this.methodName = this.requestList[type].name
+      this.projectData = form
+    },
     close (state) {
       this.formData = initFormData()
-      this.$emit('close', state)
+      this.$emit('close', state, 'Accredit')
     },
     saveForm () {
       this.$refs['form'].validate((valid) => {
         if (valid) {
+          this.formData.projectManager = this.formData.projectManagerList.id
+          this.formData.authCompany = this.formData.authCompanyList.id
+          this.formData.projectInfoId = this.projectData.id
+          this.formData.projectName = this.projectData.projectName
           this.formRequestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',
@@ -122,23 +141,5 @@ export default {
       })
     },
   },
-  props: {
-    isShow: {
-      type: Boolean,
-      required: false,
-    },
-  },
 }
 </script>
-
-<style scoped lang="scss">
-  .abs{
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 999;
-    background: #fff;
-  }
-</style>

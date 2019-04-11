@@ -99,7 +99,7 @@
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">负责部门：</div>
-            <div class="value">{{formData.respDept}}</div>
+            <div class="value">{{formData.iepClientRespDept.name}}</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">前市场经理：</div>

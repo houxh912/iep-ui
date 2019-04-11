@@ -55,8 +55,8 @@
       </el-row>
       <el-row>
         <el-col :span=12>
-          <el-form-item label="市场经理：" prop="directorId">
-            <el-input v-model="formData.directorId" disabled></el-input>
+          <el-form-item label="市场经理：" prop="Manager">
+            <el-input v-model="formData.Manager" disabled></el-input>
           </el-form-item>
         </el-col>
         <el-col :span=12>
@@ -104,6 +104,7 @@ import { initFormData, rules } from './options'
 import FooterToolbar from '@/components/FooterToolbar/'
 import { mapState } from 'vuex'
 import { agreementById } from '@/api/crms/agreement'
+import { getObj } from '@/api/admin/user'
 export default {
   components: { FooterToolbar },
   data () {
@@ -143,7 +144,9 @@ export default {
     this.contractId = this.add.contractId
     agreementById(this.contractId).then(res => {
       this.formData = res.data.data
-      this.formData.companyOrgId = this.id
+      getObj(this.formData.directorId).then(res => {
+        this.$set(this.formData, 'Manager', res.data.data.realName)
+      })
     })
   },
   methods: {

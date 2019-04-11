@@ -54,8 +54,8 @@
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="市场经理：" prop="directorId">
-            <el-input v-model="formData.directorId" disabled></el-input>
+          <el-form-item label="市场经理：" prop="Manager">
+            <el-input v-model="formData.Manager" disabled></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -105,6 +105,7 @@ import FooterToolbar from '@/components/FooterToolbar/'
 import { mapState } from 'vuex'
 import { agreementById } from '@/api/crms/agreement'
 import { getMarket } from '@/api/crms/customer'
+import { getObj } from '@/api/admin/user'
 export default {
   components: { FooterToolbar },
   data () {
@@ -147,7 +148,10 @@ export default {
     this.formData.companyOrgId = this.id
     this.formData.signCompanyOrgId = this.id
     getMarket({ clientId: this.id }).then((res) => {
-      this.formData.directorId = res.data.data
+      this.formData.directorId = res.data.data.id
+      getObj(this.formData.directorId).then(res => {
+        this.$set(this.formData, 'Manager', res.data.data.realName)
+      })
     })
     if (this.methodName == '编辑') {
       this.contractId = this.add.contractId
@@ -156,16 +160,19 @@ export default {
         this.formData.companyOrgId = this.id
       })
       getMarket({ clientId: this.id }).then((res) => {
-        this.formData.directorId = res.data.data
+        this.formData.directorId = res.data.data.id
+        getObj(this.formData.directorId).then(res => {
+          this.$set(this.formData, 'Manager', res.data.data.realName)
+        })
       })
+
     }
   },
   methods: {
     handleChange (val) {
-      console.log(val)
       getMarket({ clientId: val }).then((res) => {
-        this.formData.directorId = res.data.data
-        console.log(res)
+        this.formData.directorId = res.data.data.id
+        this.formData.Manager = res.data.data.name
       })
     },
     loadPage () {
@@ -179,7 +186,7 @@ export default {
       let formData = Object.assign({}, this.formData)
       formData.signDeptOrgId = this.formData.signDeptOrgName.id
       formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
-      formData.directorId = this.formData.directorId.id
+      formData.directorId = this.formData.directorId
       formData.id = this.contractId,
         this.$refs[formName].validate((valid) => {
           if (valid) {

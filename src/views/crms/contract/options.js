@@ -65,6 +65,7 @@ export const initFormData = () => {
     underTakeDeptName: [], //承接部门
     underTakeDeptId: [], //承接部门
     directorId: '', //市场经理
+    Manager: '',
     contractAmount: '',
     contractLevel: '',
     contractStatus: '',

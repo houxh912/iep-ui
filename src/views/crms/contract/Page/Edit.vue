@@ -54,8 +54,8 @@
       </el-row>
       <el-row>
         <el-col :span=12>
-          <el-form-item label="市场经理：" prop="directorId">
-            <el-input v-model="formData.directorId" disabled></el-input>
+          <el-form-item label="市场经理：" prop="Manager">
+            <el-input v-model="formData.Manager" disabled></el-input>
           </el-form-item>
         </el-col>
         <el-col :span=12>
@@ -105,6 +105,7 @@ import FooterToolbar from '@/components/FooterToolbar/'
 import { mapState } from 'vuex'
 import { getDataById } from '@/api/crms/contract'
 import { getMarket } from '@/api/crms/customer'
+import { getObj } from '@/api/admin/user'
 export default {
   components: { FooterToolbar },
   props: {
@@ -137,13 +138,15 @@ export default {
     }),
   },
   created () {
-
     this.formRequestFn = this.record.formRequestFn
     this.methodName = this.record.methodName
     this.id = this.record.id
     if (this.id) {
       getDataById(this.id).then(res => {
         this.formData = res.data.data
+        getObj(this.formData.directorId).then(res => {
+          this.$set(this.formData, 'Manager', res.data.data.realName)
+        })
       })
     }
   },
@@ -157,14 +160,15 @@ export default {
     },
     handleChange (val) {
       getMarket({ clientId: val }).then((res) => {
-        this.formData.directorId = res.data.data
+        this.formData.directorId = res.data.data.id
+        this.formData.Manager = res.data.data.name
       })
     },
     submitForm (formName) {
       let formData = Object.assign({}, this.formData)
       formData.signDeptOrgId = this.formData.signDeptOrgName.id
       formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
-      formData.directorId = this.formData.directorId.id
+      formData.directorId = this.formData.directorId
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn(formData).then(() => {

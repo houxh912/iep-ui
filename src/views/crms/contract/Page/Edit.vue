@@ -19,12 +19,12 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="签订日期：" prop="signTime">
-            <IepDatePicker v-model="formData.signTime"></IepDatePicker>
+            <IepDatePicker v-model="formData.signTime" @change="startChange(formData.signTime)"></IepDatePicker>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="完结日期：" prop="finishTime">
-            <IepDatePicker v-model="formData.finishTime"></IepDatePicker>
+            <IepDatePicker v-model="formData.finishTime" @change="endChange(formData.finishTime)"></IepDatePicker>
           </el-form-item>
         </el-col>
       </el-row>
@@ -54,8 +54,8 @@
       </el-row>
       <el-row>
         <el-col :span=12>
-          <el-form-item label="市场经理：" prop="directorId">
-            <el-input v-model="formData.directorId" disabled></el-input>
+          <el-form-item label="市场经理：" prop="Manager">
+            <el-input v-model="formData.Manager" disabled></el-input>
           </el-form-item>
         </el-col>
         <el-col :span=12>
@@ -105,6 +105,7 @@ import FooterToolbar from '@/components/FooterToolbar/'
 import { mapState } from 'vuex'
 import { getDataById } from '@/api/crms/contract'
 import { getMarket } from '@/api/crms/customer'
+import { getObj } from '@/api/admin/user'
 export default {
   components: { FooterToolbar },
   props: {
@@ -129,6 +130,9 @@ export default {
           this.$emit('onGoBack')
         },
       },
+      signTime: '',
+      finishTime: '',
+      isTime: true,
     }
   },
   computed: {
@@ -144,6 +148,12 @@ export default {
     if (this.id) {
       getDataById(this.id).then(res => {
         this.formData = res.data.data
+        this.signTime = res.data.data.signTime
+        this.finishTime = res.data.data.finishTime
+        getObj(this.formData.directorId).then(res => {
+          this.$set(this.formData, 'Manager', res.data.data.realName)
+
+        })
       })
     }
   },
@@ -157,30 +167,55 @@ export default {
     },
     handleChange (val) {
       getMarket({ clientId: val }).then((res) => {
-        this.formData.directorId = res.data.data
+        this.formData.directorId = res.data.data.id
+        this.formData.Manager = res.data.data.name
       })
     },
     submitForm (formName) {
       let formData = Object.assign({}, this.formData)
       formData.signDeptOrgId = this.formData.signDeptOrgName.id
       formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
-      formData.directorId = this.formData.directorId.id
+      formData.directorId = this.formData.directorId
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(formData).then(() => {
-            this.$notify({
-              title: '成功',
-              message: `${this.methodName}成功`,
-              type: 'success',
-              duration: 2000,
+          if (this.isTime) {
+            this.formRequestFn(formData).then(() => {
+              this.$notify({
+                title: '成功',
+                message: `${this.methodName}成功`,
+                type: 'success',
+                duration: 2000,
+              })
+              this.$emit('onGoBack')
+              this.loadPage()
             })
-            this.$emit('onGoBack')
-            this.loadPage()
-          })
+          } else {
+            this.$message.error('签订日期大于完结日期，不能保存！！！')
+          }
         } else {
           return false
         }
       })
+    },
+    dealTime (val1, val2) {
+      var str1 = val1.replace(/-/g, '/')
+      var time1 = Date.parse(new Date(str1))
+      var str2 = val2.replace(/-/g, '/')
+      var time2 = Date.parse(new Date(str2))
+      if (time2 < time1) {
+        this.$message.error('签订日期不能大于完结日期！！！')
+        this.isTime = false
+      } else {
+        this.isTime = true
+      }
+    },
+    startChange (val) {
+      this.signTime = val
+      this.dealTime(val, this.finishTime)
+    },
+    endChange (val) {
+      this.finishTime = val
+      this.dealTime(this.signTime, val)
     },
   },
 }

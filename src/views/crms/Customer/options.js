@@ -10,6 +10,7 @@ const initForm = () => {
     clientRela: '', //客户关系
     followUpStatus: '', // 跟进状态
     marketManager: '', // 市场经理
+    Manager: '',
     lastTime: '', // 距离上次拜访已有(全部客户没有但依然存着)
     iepClientRespDept: {
       id: '',

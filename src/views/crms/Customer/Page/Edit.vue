@@ -11,8 +11,8 @@
               </el-form-item>
             </el-col>
             <el-col :span=10 :offset="4">
-              <el-form-item label="市场经理：" prop="marketManager">
-                <el-input v-model="formData.marketManager" :disabled="true"></el-input>
+              <el-form-item label="市场经理：" prop="Manager">
+                <el-input v-model="formData.Manager" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -104,6 +104,7 @@ import { initForm, rules } from '../options'
 import { getCustomerById } from '@/api/crms/customer'
 import { mapGetters } from 'vuex'
 import { createById } from '@/api/crms/business'
+import { getObj } from '@/api/admin/user'
 export default {
   name: 'edit',
   props: {
@@ -124,8 +125,8 @@ export default {
     }
   },
   created () {
-    this.formData.marketManager = this.userInfo.realName
-
+    this.formData.marketManager = this.userInfo.userId
+    this.formData.Manager = this.userInfo.realName
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn
     this.id = this.record.id
@@ -143,6 +144,9 @@ export default {
         this.formData.clientRela = data.data.clientRelaKey
         this.formData.tags = data.data.tags.map(m => (m.commonName))
         this.formData.collaborations = data.data.collaborations
+        getObj(data.data.marketManager).then(res => {
+          this.formData.Manager = res.data.data.realName
+        })
       })
     } else if (this.flag) {
       this.formData.businessTypeKey = this.data.businessType.map(m => m.commonId)

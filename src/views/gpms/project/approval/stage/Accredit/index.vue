@@ -2,8 +2,8 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button class="add" @click="addProject" type="primary">新增</iep-button>
-        <iep-button @click="deleteAll" class="add">批量删除</iep-button>
+        <iep-button class="add" @click="handleCreate" type="primary">新增</iep-button>
+        <iep-button @click="handleDeleteAll" class="add">批量删除</iep-button>
       </template>
     </operation-container>
     <iep-table 
@@ -15,91 +15,76 @@
       @current-change="handleCurrentChange" 
       is-mutiple-selection 
       @selection-change="selectionChange">
-      <el-table-column label="操作" width="180px">
+      <el-table-column prop="operation" label="操作" width="280" align="center">
         <template slot-scope="scope">
-          <el-button v-for="(item, i) in scope.row.btns" :key="i" size="small" type="text" @click="btnEvents(scope.row, item.fn)">{{item.label}}</el-button>
+          <operation-wrapper>
+            <iep-button type="warning" plain @click="handleDetail(scope.row)">详情</iep-button>
+            <iep-button plain v-if="scope.row.approvalStatus == 1" @click="handleSubmit(scope.row)">提交</iep-button>
+            <el-dropdown size="medium">
+              <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item @click.native="handleUpdate(scope.row)">编辑</el-dropdown-item>
+                <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
+    <apply-dialog ref="apply" @load-page="loadPage"></apply-dialog>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMap, pagedTable } from './option.js'
+import { columnsMap } from './option.js'
+import { getAuthorList, deleteDate, getDetailById } from '@/api/gpms/author'
+import ApplyDialog from './apply/'
 
 export default {
   data () {
     return {
-      addDialogShow:false,
-      isLoadTable:false,
+      addDialogShow: false,
+      isLoadTable: false,
       columnsMap,
-      pagedTable,
       value: '',
     }
   },
-  mixins: [mixins],
-  components:{
-  },
+  components: { ApplyDialog },
+  mixins: [ mixins ],
   methods: {
-    btnEvents (row,filed) {
-      switch (filed){
-        case 'refer':this.refer(row);break
-        case 'detail':this.detail(row);break
-        case 'edit':this.edit(row);break
-        case 'deleteOne':this.deleteOne(row);break
-      }
+    loadPage (param) {
+      this.loadTable(param, getAuthorList)
     },
-    // 提交
-    refer (row) {
-      console.log(row, '提交')
-    },
-    //详情
-    detail (row) {
-      console.log(row, '详情')
-      this.detailDialog()
-    },
-    //编辑
-    edit (row) {
-      console.log(row, '编辑')
-    },
-    //勾选行执行
     selectionChange (val) {
-      this.multipleSelection = val
+      this.multipleSelection = val.map(m => m.id)
     },
-    //删除所有勾选行
-    deleteAll () {
-      this._handleGlobalAll()
+    handleDetail (row) {
+      this.$emit('toggle-detail', row)
     },
-    deleteOne (val) {
-      // console.log(val)
-      this._handleGlobalById(val.id)
-      console.log(val)
+    handleSubmit (row) {
+      this.$refs['apply'].open(row)
+    },
+    handleCreate () {
+      this.$emit('toggle-show', 'create')
+    },
+    handleUpdate (row) {
+      getDetailById(row.id).then(({data}) => {
+        this.$emit('toggle-show', 'update', data.data.data)
+      })
+    },
+    handleDeleteAll () {
+      this._handleGlobalAll(deleteDate)
+    },
+    handleDelete (val) {
+      this._handleGlobalById(val.id, deleteDate)
     },
     closeDialog () {
-      this.dialogIsShow = false
       this.paramForm = {}
-      console.log(this.dialogIsShow)
-    },
-    addProject () {
-      this.$emit('toggle-show',!this.isShow)
-    },
-    detailDialog () {
-      this.$emit('detail-show',!this.detailShow)
     },
   },
-  mounted (){
-    // console.log(this.isShow)
-  },
-  props:{
-    isShow:{
-      type: Boolean,
-      required: false,
-    },
-    detailShow:{
-      type: Boolean,
-      required: false,
-    },
+  created () {
+    this.loadPage()
   },
 }
 </script>

@@ -42,6 +42,7 @@ import { columnsMapByTypeId } from '../columns'
 import { getContractPage, postContract, putContract, deleteContract, getDataById } from '@/api/crms/contract'
 import DetailDrawer from './DetailDrawer'
 import AdvanceSearch from './AdvanceSearch'
+import { getObj } from '@/api/admin/user'
 export default {
   name: 'List',
   mixins: [mixins],
@@ -100,6 +101,9 @@ export default {
       this.$refs['DetailDrawer'].drawerShow = true
       getDataById(row.contractId).then(res => {
         this.$refs['DetailDrawer'].formData = res.data.data
+        getObj(res.data.data.directorId).then(res => {
+          this.$set(this.$refs['DetailDrawer'].formData, 'Manager', res.data.data.realName)
+        })
       })
     },
     handeleDelete (row) {

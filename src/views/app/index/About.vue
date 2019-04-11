@@ -48,6 +48,10 @@ export default {
     text-align: center;
     background-color: #f2f2f2;
     color:#333;
+    &:hover{
+      background-color: #cb3737;
+      color: #fff;
+    }
   }
 }
 </style>

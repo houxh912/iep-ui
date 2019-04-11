@@ -3,13 +3,14 @@
     <el-card class="index-card" shadow="never">
         <div slot="header" class="clearfix">
             <span class="cardTitle" style="font-size:18px;">{{title}}</span>
-            <el-button style="float: right; padding: 5px 0; color:#999;" type="text">更多>></el-button>
         </div>
         <div>
             <div class="learningResourcesList">
                 <div v-for="(item,index) in learningResourcesList" :key="index" class="piece">
                     {{item}}
                 </div>
+                <iep-button type="" plain class="lr-btn">JAVA规范认定</iep-button>
+                <iep-button type="" plain class="lr-btn">产品能力认证</iep-button>
             </div>
         </div>
     </el-card>
@@ -21,14 +22,12 @@ export default {
     return {
         title:'学习资源',
         learningResourcesList: [
-            '关于项目验收表格材料标准化模板',
-            '微服务设计入门',
-            '微服务-框架',
-            '微服务架构与SpringCloud',
-            '浙江省目录系统普查系统业务流程分享',
-            '如何使用Python语言来编码和解码',
-            '微服务架构起源、简介及设计',
-            '郑总微信语言培训《品牌活动和客户拜访》'],
+            '20190323北京市政务服务事项标准化和主题事项持续优化项目介绍',
+            '20190314研发中心测试组赵雨晨培训如何应用阿里云和腾讯云云测试工具进行性能测试',
+            '20190306研发中心俞泽益培训如何提高人员文档撰写能力及撰写规范',
+            '20190226陈振辉给佛山技术团队培训国脉GDS微服务开发框架',
+            '20190226区块链点对点技术实现电子现金系统技术培训',
+            '北京市政务服务（公共服务）事项规范填报说明培训'],
     }
   },
 }
@@ -41,11 +40,7 @@ export default {
         line-height: 32px;
         position: relative;
         margin-left: 15px;
-        overflow : hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
+        overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;
         &:hover {
             color: #cb3737;
             &:before{
@@ -62,6 +57,9 @@ export default {
             border-radius: 50%;
             background-color: #999;
         }
+    }
+    .lr-btn{
+        margin: 10px 30px 5px;
     }
 }
 </style>

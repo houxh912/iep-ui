@@ -6,7 +6,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="岗位名称：">
-              <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
+              <iep-cascader v-model="form.position" prefix-url="hrms/post_type" @change="handlePositionChange"></iep-cascader>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -110,7 +110,7 @@
 <script>
 import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
 import { initForm, formToDto } from '../options'
-
+import _ from 'lodash'
 export default {
   props: {
     record: {
@@ -142,6 +142,19 @@ export default {
     }
   },
   methods: {
+    handlePositionChange (item, options) {
+      const value = item[item.length - 1]
+      const position = _(options)
+        .thru(function (coll) {
+          return _.union(coll, _.map(coll, 'children'))
+        })
+        .flatten()
+        .find({ value })
+      if (position) {
+        this.form.duties = position.duty
+        this.form.claim = position.rqmt
+      }
+    },
     handlePublish () {
       this.handleSubmit(true)
     },

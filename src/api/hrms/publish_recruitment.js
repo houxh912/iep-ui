@@ -9,7 +9,14 @@ export function getPublishRecruitmentPage (query) {
     params: query,
   })
 }
-
+//新增招聘根据岗位名称查询岗位职责
+export function getDuty (query) {
+  return request({
+    url: 'hrms/post_type/list',
+    method: 'get',
+    params: query,
+  })
+}
 export function getPublishRecruitmentById (id) {
   return request({
     url: `${prefixUrl}/${id}`,

@@ -9,27 +9,39 @@
           <el-form-item label="用户名：" class="form-half">
             <span>{{form.userName}}</span>
           </el-form-item>
-          <el-form-item label="所属组织：" class="form-half">
-            <iep-detail-tag :value="form.orgList"></iep-detail-tag>
-          </el-form-item>
-          <el-form-item label="工号：" class="form-half">
-            <span>{{form.staffId}}</span>
-          </el-form-item>
           <el-form-item label="头像：" class="">
             <iep-avatar v-model="form.avatar"></iep-avatar>
           </el-form-item>
-          <el-form-item label="角色：">
-            <iep-detail-tag :value="form.roleName"></iep-detail-tag>
+          <el-form-item label="所属组织：">
+            <iep-detail-tag :value="form.orgList"></iep-detail-tag>
+          </el-form-item>
+          <el-form-item label="">
+            <div>
+              <span><i class="el-icon-warning"></i></span>
+              <span class="margin">我要</span>
+              <iep-button type="danger" class="margin">加入组织</iep-button>
+              <iep-button class="margin">创建组织</iep-button>
+            </div>
           </el-form-item>
           <el-form-item label="资产所属：" class="form-half">
             <iep-detail-tag :value="form.deptList"></iep-detail-tag>
           </el-form-item>
+          <el-form-item label="工号：" class="form-half">
+            <span>{{form.staffId}}</span>
+          </el-form-item>
+          <el-form-item label="角色：">
+            <iep-detail-tag :value="form.roleName"></iep-detail-tag>
+          </el-form-item>
+
           <el-form-item label="岗位：" class="form-half">
             <span>{{form.positionName}}</span>
           </el-form-item>
-          <!-- <el-form-item label="岗位职责：" class="form-half">
+          <el-form-item label="对外头衔：" class="form-half">
+            <span>{{form.positionName}}</span>
+          </el-form-item>
+          <el-form-item label="岗位职责：">
             <span>{{form.duties}}</span>
-          </el-form-item> -->
+          </el-form-item>
           <el-form-item label="职务：" class="form-half">
             <span>{{form.job}}</span>
           </el-form-item>
@@ -238,5 +250,11 @@ export default {
     border-radius: 50%;
     overflow: hidden;
   }
+}
+.el-form-item__content span {
+  display: inline-block;
+}
+.margin {
+  margin: 0 10px;
 }
 </style>

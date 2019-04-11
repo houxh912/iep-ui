@@ -6,7 +6,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="岗位名称：">
-              <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
+              <iep-cascader v-model="form.position" prefix-url="hrms/post_type" @change="choosePosition(form.position)"></iep-cascader>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -108,7 +108,7 @@
   </div>
 </template>
 <script>
-import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
+import { getPublishRecruitmentById, getDuty } from '@/api/hrms/publish_recruitment'
 import { initForm, formToDto } from '../options'
 
 export default {
@@ -144,6 +144,12 @@ export default {
   methods: {
     handlePublish () {
       this.handleSubmit(true)
+    },
+    choosePosition (val) {
+      console.log(val)
+      getDuty().then((res) => {
+        console.log(res)
+      })
     },
     handleSubmit (isPublish) {
       const publish = isPublish === true ? true : false

@@ -1,16 +1,25 @@
 <template>
-  <div class="govPerson-top">
-    <h3><span>国脉人，</span>人人都要成为专家</h3>
-    <template>
-      <div class="search-con">
-        <operation-search>
-          <advance-search @search-page="searchPage"></advance-search>
-        </operation-search>
-        <el-button type="danger" plain>高级搜索</el-button>
-      </div>
-    </template>
+  <div>
+    <div class="govPerson-top">
+      <h3><span>国脉人，</span>人人都要成为专家</h3>
+      <template>
+        <div class="search-con">
+          <operation-search>
+            <advance-search @search-page="searchPage"></advance-search>
+          </operation-search>
+          <el-button type="danger" plain>高级搜索</el-button>
+        </div>
+      </template>
+    </div>
+    <top-class></top-class>
   </div>
 </template>
+<script>
+import TopClass from './TopClass'
+export default {
+  components: { TopClass },
+}
+</script>
 <style lang="scss" scoped>
 .govPerson-top {
   margin: 0 auto;

@@ -2,8 +2,8 @@
   <div class="resources">
     <el-card class="index-card" shadow="never">
       <div slot="header" class="clearfix">
-        <span class="cardTitle" style="font-size:18px;">{{title}}</span>
-        <el-button class="charge" type="text">换一批</el-button>
+        <span class="cardTitle">{{title}}</span>
+        <el-button class="important" type="text">换一批</el-button>
       </div>
       <div>
         <div class="classify">
@@ -12,9 +12,11 @@
         </div>
         <div class="resourcesList">
           <div v-for="(item,index) in resourcesList" :key="index" class="piece">
-            <span :class="item.icon" class="icon"></span>
-            <span class="name">{{item.name}}</span>
-            <span class="number">{{item.number}}</span>
+            <div class="img-con"><img :src="item.img" class="img" alt=""></div>
+            <div class="text">
+              <span class="name">{{item.name}}</span>
+              <span class="department">{{item.department}}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -49,14 +51,15 @@ export default {
         },
       ],
       resourcesList: [
-        { icon: 'el-icon-question', name: '材料库', number: '222' },
-        { icon: 'el-icon-question', name: '材料库', number: '222' },
-        { icon: 'el-icon-question', name: '材料库', number: '222' },
-        { icon: 'el-icon-question', name: '材料库', number: '222' },
-        { icon: 'el-icon-question', name: '材料库', number: '222' },
-        { icon: 'el-icon-question', name: '材料库', number: '222' },
-        { icon: 'el-icon-question', name: '材料库', number: '222' },
-        { icon: 'el-icon-question', name: '材料库', number: '222' },
+        { img: '../img/person/p1.jpg', name: '江江', department: '北方区业务一部' },
+        { img: '../img/person/p2.jpg', name: '江江', department: '海南办事处' },
+        { img: '../img/person/p1.jpg', name: '江江', department: '国脉集团研发中心' },
+        { img: '../img/person/p1.jpg', name: '江江', department: '国脉先锋队' },
+        { img: '../img/person/p1.jpg', name: '江江', department: '国脉海洋信息发展有限公司' },
+        { img: '../img/person/p1.jpg', name: '江江', department: '国脉先锋队' },
+        { img: '../img/person/p1.jpg', name: '江江', department: '国脉先锋队' },
+        { img: '../img/person/p1.jpg', name: '江江', department: '国脉先锋队' },
+        { img: '../img/person/p2.jpg', name: '吴吴', department: '国脉先锋队' },
       ],
     }
   },
@@ -65,7 +68,7 @@ export default {
 <style lang="scss" scoped>
 .resources {
   .classify {
-    &:first .appellation {
+    .sub-title + .appellation {
       color: #cb3737;
       background: #fef0f0;
       border-color: #cb3737;
@@ -88,44 +91,42 @@ export default {
 .resourcesList {
   display: grid;
   grid-auto-flow: row dense;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-row-gap: 40px;
   grid-column-gap: 20px;
   padding: 20px 0 13px;
   .piece {
+    display: flex;
+    justify-content: flex-start;
     width: 100%;
-    text-align: center;
-    .icon {
-      width: 50%;
+    height: 60px;
+    overflow: hidden;
+    .img-con {
+      width: 60px;
+      height: 60px;
+      border: 1px solid #ebeef5;
+      overflow: hidden;
+    }
+    .img {
+      width: 100%;
       height: 100%;
-      font-size: 40px;
-      padding: 11px 0;
-      border-radius: 50%;
-      background-color: #f0f0f0;
-      text-align: center;
-      display: block;
-      margin: 0 auto;
+      transition: 0.5s;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+    .text {
+      margin-left: 20px;
     }
     .name,
-    .number {
-      width: 50%;
+    .department {
       display: block;
-      margin: 0 auto;
     }
     .name {
-      height: 30px;
-      line-height: 30px;
     }
-    .number {
+    .department {
       color: #999;
     }
   }
-}
-</style>
-<style scoped>
-.resources >>> .charge {
-  float: right;
-  padding: 5px 0;
-  color: #cb3737;
 }
 </style>

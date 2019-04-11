@@ -17,5 +17,20 @@ export default {
 .gov-person >>> .el-card {
   border-radius: 0;
 }
+.gov-person >>> .cardTitle {
+  font-size: 16px;
+}
+.GovPerson-content >>> .more:hover,
+.GovPerson-content >>> .more:focus {
+  color: #cb3737;
+}
+.GovPerson-content >>> .important {
+  float: right;
+  color: #cb3737;
+}
+.GovPerson-content >>> .important:hover,
+.GovPerson-content >>> .important:focus {
+  color: #f56c6c;
+}
 </style>
 

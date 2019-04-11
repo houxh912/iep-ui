@@ -1,7 +1,7 @@
 <template>
   <el-card class="hot-news" shadow="never">
     <div slot="header" class="clearfix">
-      <span class="sub-title">热点要闻</span>
+      <span class="sub-title">{{title}}</span>
     </div>
     <div v-for="hot in hotData" :key="hot.id">
       <div class="title-con">{{hot.title}}</div>
@@ -12,6 +12,7 @@
 export default {
   data () {
     return {
+      title: '热点要闻',
       hotData: [
         {
           id: '1',

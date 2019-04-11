@@ -1,7 +1,7 @@
 <template>
   <el-card class="important-news" shadow="never">
     <div slot="header" class="clearfix">
-      <span class="sub-title">推荐要闻</span>
+      <span class="sub-title">{{title}}</span>
     </div>
     <el-card class="important-list" v-for="important in importantList" :key="important.id" shadow="hover">
       <div class="img"><img :src="important.img" alt=""></div>
@@ -16,6 +16,7 @@
 export default {
   data () {
     return {
+      title: '推荐要闻',
       importantList: [
         {
           id: '1',

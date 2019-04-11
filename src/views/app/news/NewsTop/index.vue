@@ -1,6 +1,6 @@
 <template>
   <div class="news-top">
-    <h3>国脉要闻</h3>
+    <h3>{{title}}</h3>
     <template>
       <div class="search-con">
         <operation-search>
@@ -11,6 +11,16 @@
     </template>
   </div>
 </template>
+<script>
+export default {
+  data () {
+    return {
+      title: '国脉要闻',
+    }
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 .news-top {
   margin: 0 auto;

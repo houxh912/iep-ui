@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="never">
     <div slot="header" class="clearfix">
-      <span class="sub-title">热门标签</span>
+      <span class="sub-title">{{title}}</span>
     </div>
     <el-tag v-for="tag in tagList" :key="tag.id" class="item" type="white">
       {{tag.name}}
@@ -12,6 +12,7 @@
 export default {
   data () {
     return {
+      title: '热门标签',
       tagList: [
         {
           name: '产品设计',

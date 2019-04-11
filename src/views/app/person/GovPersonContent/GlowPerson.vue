@@ -90,6 +90,7 @@ export default {
 }
 .resourcesList {
   display: grid;
+  margin-top: 15px;
   grid-auto-flow: row dense;
   grid-template-columns: 1fr 1fr 1fr;
   grid-row-gap: 40px;

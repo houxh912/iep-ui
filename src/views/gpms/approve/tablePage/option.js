@@ -15,25 +15,24 @@ export const dictsMap = {
 
 export const columnsMap = [
   {
-    prop: 'name',
+    prop: 'projectName',
     label: '项目名称',
-    width:400,
   }, {
     prop: 'budget',
     label: '申请类别',
     // type: 'dict',
   }, {
-    prop: 'manay',
+    prop: 'serialNo',
     label: '编号',
   }, {
-    prop: 'stage',
+    prop: 'approvalStatus',
     label: '审批状态',
     // type: 'dict',
   }, {
-    prop: 'issuename',
+    prop: 'applicant',
     label: '申请人',
   }, {
-    prop: 'issue',
+    prop: 'approver',
     label: '审批人',
   },
 ]

@@ -19,7 +19,7 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="warning" plain @click="handleDetail(scope.row)">详情</iep-button>
-            <iep-button plain @click="handleSubmit(scope.row)">提交</iep-button>
+            <iep-button plain v-if="scope.row.approvalStatus == 1" @click="handleSubmit(scope.row)">提交</iep-button>
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
@@ -31,6 +31,7 @@
         </template>
       </el-table-column>
     </iep-table>
+    <apply-dialog ref="apply" @load-page="loadPage"></apply-dialog>
   </div>
 </template>
 
@@ -38,6 +39,7 @@
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './option.js'
 import { getAuthorList, deleteDate, getDetailById } from '@/api/gpms/author'
+import ApplyDialog from './apply/'
 
 export default {
   data () {
@@ -48,6 +50,7 @@ export default {
       value: '',
     }
   },
+  components: { ApplyDialog },
   mixins: [ mixins ],
   methods: {
     loadPage (param) {
@@ -59,7 +62,9 @@ export default {
     handleDetail (row) {
       this.$emit('toggle-detail', row)
     },
-    handleSubmit () {},
+    handleSubmit (row) {
+      this.$refs['apply'].open(row)
+    },
     handleCreate () {
       this.$emit('toggle-show', 'create')
     },

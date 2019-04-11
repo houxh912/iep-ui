@@ -12,28 +12,26 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
-        <template slot="before-columns">
-          <el-table-column label="名称">
-            <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
-            </template>
-          </el-table-column>
-          <el-table-column label="负责人">
-            <template slot-scope="scope">
-              <iep-detail-tag :value="scope.row.userList"></iep-detail-tag>
-            </template>
-          </el-table-column>
-          <el-table-column label="时间">
-            <template slot-scope="scope">
-              {{scope.row.time}}
-            </template>
-          </el-table-column>
-          <el-table-column label="当前版本">
-            <template slot-scope="scope">
-              {{scope.row.version}}
-            </template>
-          </el-table-column>
-        </template>
+        <el-table-column label="名称" min-width="200px">
+          <template slot-scope="scope">
+            <IepTableLinkImgDesc :img="logo" :desc="scope.row.desc" :name="scope.row.name"></IepTableLinkImgDesc>
+          </template>
+        </el-table-column>
+        <el-table-column label="负责人">
+          <template slot-scope="scope">
+            <iep-detail-tag :value="scope.row.userList"></iep-detail-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="时间">
+          <template slot-scope="scope">
+            {{scope.row.time}}
+          </template>
+        </el-table-column>
+        <el-table-column label="当前版本">
+          <template slot-scope="scope">
+            {{scope.row.version}}
+          </template>
+        </el-table-column>
         <el-table-column label="操作">
           <template>
             <operation-wrapper>

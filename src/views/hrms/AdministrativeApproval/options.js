@@ -50,6 +50,7 @@ const initForm = () => {
     'avatar': null, // 头像
     'type': 1, // 
     'deptList': [], // 所属部门
+    'attachFile': [], // 附件
     'createTime': null, // 创建时间
     'startTime': null, // 开始时间(1:请假开始时间；2:出差开始时间;3:加班开始时间;4:入职时间;5:入职时间）
     'endTime': null, // 结束时间(1:请假结束时间；2:出差结束时间;3:加班结束时间;4:转正时间;5:离职时间;6:调岗时间）

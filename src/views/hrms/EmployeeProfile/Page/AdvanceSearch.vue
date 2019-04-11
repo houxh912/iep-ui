@@ -16,7 +16,7 @@
         <el-radio :label="2">女</el-radio>
       </el-radio-group>
     </el-form-item>
-    <el-form-item label="时间段：">
+    <el-form-item label="入职时间：">
       <iep-date-picker v-model="form.rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions">
       </iep-date-picker>
     </el-form-item>

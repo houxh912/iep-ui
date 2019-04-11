@@ -21,6 +21,19 @@
             </template>
           </el-table-column>
         </template>
+        <el-table-column label="审核人">
+          <template slot-scope="scope">
+            <div>
+              <iep-detail-tag v-if="!scope.row.approveResult" :value="scope.row.approverNameList"></iep-detail-tag>
+              <span v-else>{{scope.row.approverName}}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column label="审批结果">
+          <template slot-scope="scope">
+            {{dictsMap.approveResult[scope.row.approveResult]}}
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="230px">
           <template slot-scope="scope">
             <operation-wrapper>

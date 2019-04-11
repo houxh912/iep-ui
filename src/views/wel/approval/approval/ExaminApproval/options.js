@@ -21,15 +21,6 @@ const columnsMap = [
     prop: 'applyEndTime',
     label: '审批时间',
   },
-  {
-    prop: 'approverName',
-    label: '审核人',
-  },
-  {
-    prop: 'status',
-    label: '审批结果',
-    type: 'dict',
-  },
 ]
 
 const initForm = () => {

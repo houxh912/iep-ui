@@ -4,34 +4,32 @@
         <div slot="header" class="clearfix">
             <span class="cardTitle" style="font-size:18px;">{{title1}}</span>
         </div>
-        <div>
-            <div class="technologyList">
-                <div v-for="(item,index) in technologyList" :key="index" class="piece">
-                    <img :src="item.img" alt="">
-                    <div class="text">
-                        <div class="title">
-                            <span class="name">{{item.name}}</span>
-                            <span class="department">{{item.department}}</span>
-                        </div>
-                        <span class="label">{{item.label}}</span>
+        <div class="technologyList">
+            <div v-for="(item,index) in technologyList" :key="index" class="piece">
+                <img :src="item.img" alt="">
+                <div class="text">
+                    <div class="title">
+                        <span class="name">{{item.name}}</span>
+                        <span class="department">{{item.department}}</span>
                     </div>
+                    <span class="label">{{item.label}}</span>
                 </div>
             </div>
         </div>
-        <div class="clearfix1">
-            <span class="cardTitle">{{title2}}</span>
+    </el-card>
+    <el-card class="last-card" shadow="never">
+        <div slot="header" class="clearfix">
+            <span class="cardTitle" style="font-size:18px;">{{title1}}</span>
         </div>
-        <div>
-            <div class="lastMonth">
-                <div v-for="(item,index) in lastMonth" :key="index" class="piece">
-                    <img :src="item.img" alt="">
-                    <div class="text">
-                        <div class="title">
-                            <span class="name">{{item.name}}</span>
-                            <span class="department">{{item.department}}</span>
-                        </div>
-                        <span class="label">{{item.label}}</span>
+        <div class="lastMonth">
+            <div v-for="(item,index) in lastMonth" :key="index" class="piece">
+                <img :src="item.img" alt="">
+                <div class="text">
+                    <div class="title">
+                        <span class="name">{{item.name}}</span>
+                        <span class="department">{{item.department}}</span>
                     </div>
+                    <span class="label">{{item.label}}</span>
                 </div>
             </div>
         </div>
@@ -54,16 +52,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.clearfix1{
-    width: 100%;
-    display: block;
-    clear: both;
-    padding: 18px 0;
-    border-bottom: 1px solid #EBEEF5;
-    .cardTitle{
-        font-size: 18px;
-    }
-}
 .technologyList,.lastMonth{
     .piece{
         width: 100%;
@@ -82,6 +70,10 @@ export default {
             .title{
                 height: 25px;
                 line-height: 25px;
+                .department{
+                    margin-left:4px;
+                    color: #999;
+                }
             }
             .label{
                 height: 25px;
@@ -90,10 +82,23 @@ export default {
         }
     }
 }
-.lastMonth{
-    .piece{
-        overflow: hidden;
-        margin-top: 20px;
+.last-card{
+    margin-top: -4px;
+    border-top-color: #fff;
+    .lastMonth{
+        .piece{
+            overflow: hidden;
+            margin-top: 20px;
+        }
     }
 }
+
+</style>
+<style scoped>
+ .last-card >>> .el-card__body{
+    padding-top:0;
+}
+ .last-card >>> .el-card__header{
+    padding-top:0;
+ }
 </style>

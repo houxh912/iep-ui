@@ -7,11 +7,8 @@
       <el-form-item label="培训老师" prop="teacher">
         <el-input v-model="form.teacher"></el-input>
       </el-form-item>
-      <el-form-item label="开始时间" prop="startTime">
+      <el-form-item label="培训时间" prop="startTime">
         <iep-date-picker v-model="form.startTime" type="date" placeholder="选择日期"></iep-date-picker>
-      </el-form-item>
-      <el-form-item label="结束时间" prop="endTime">
-        <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期"></iep-date-picker>
       </el-form-item>
       <el-form-item label="培训类型" prop="typeId">
         <iep-dict-select v-model="form.typeId" dict-name="hrms_training_type"></iep-dict-select>

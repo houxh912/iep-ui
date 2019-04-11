@@ -17,6 +17,13 @@
           </template>
         </el-table-column>
       </template>
+      <el-table-column label="审批时间">
+        <template slot-scope="scope">
+          <div v-if="scope.row.status!==0">
+            {{scope.row.applyEndTime}}
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column label="审核人">
         <template slot-scope="scope">
           <div>

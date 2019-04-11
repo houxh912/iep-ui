@@ -155,11 +155,7 @@ const columnsMap = [
     label: '职称',
     hidden: true,
   },
-  {
-    prop: 'entryTime',
-    label: '入职时间',
-    hidden: false,
-  },
+
   {
     prop: 'positiveTime',
     label: '转正时间',

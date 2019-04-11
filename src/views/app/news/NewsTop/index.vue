@@ -17,7 +17,7 @@ export default {
     return {
       title: '国脉要闻',
     }
-  }
+  },
 }
 </script>
 

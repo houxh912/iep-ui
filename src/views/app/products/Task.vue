@@ -58,3 +58,8 @@ export default {
   }
 }
 </style>
+<style scoped>
+.task >>> .el-table th {
+  background-color: #fafafa;
+}
+</style>

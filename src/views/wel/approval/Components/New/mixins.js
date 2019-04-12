@@ -1,22 +1,17 @@
 
 import { postApproval } from '@/api/hrms/wel'
 import { formToDto, initForm, formToVo } from './options'
+import { getEmployeeProfileSelf } from '@/api/hrms/employee_profile'
+import { getAdministrativeApprovalById } from '@/api/hrms/administrative_approval'
 export default {
   props: {
-    fn: {
-      type: Function,
-      required: true,
-    },
     type: {
       type: String,
+      default: '1',
     },
   },
   data () {
     return {
-      backOption: {
-        isBack: true,
-        backPath: this.$route.query.redirect,
-      },
       form: initForm(),
       rules: {
         reason: [
@@ -28,14 +23,25 @@ export default {
       },
     }
   },
+  computed: {
+    id () {
+      return this.$route.query.id
+    },
+  },
   created () {
     this.loadPage()
   },
   methods: {
     loadPage () {
-      this.fn().then(({ data }) => {
-        this.form = formToVo(data.data)
-      })
+      if (this.id) {
+        getAdministrativeApprovalById(this.id).then(({ data }) => {
+          this.form = formToVo(data.data)
+        })
+      } else {
+        getEmployeeProfileSelf().then(({ data }) => {
+          this.form = formToVo(data.data)
+        })
+      }
     },
     handleSubmit () {
       this.$refs['form'].validate((valid) => {

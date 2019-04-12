@@ -1,41 +1,60 @@
 <template>
-  <component @onDetail="handleDetail" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <div>
+    <operation-container>
+      <template slot="left">
+        <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>发起申请</iep-button>
+      </template>
+      <template slot="right">
+        <operation-search @search-page="searchPage" advance-search>
+        </operation-search>
+      </template>
+    </operation-container>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+      <template slot="before-columns">
+        <el-table-column label="申请人" width="120px">
+          <template slot-scope="scope">
+            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+          </template>
+        </el-table-column>
+      </template>
+    </iep-table>
+    <new-approval ref="NewApproval" @load-page="loadPage"></new-approval>
+  </div>
 </template>
-
 <script>
-// 动态切换组件
-import List from './Page/List'
-import Detail from './Page/Detail'
-
+import { getAlreadyApprovalPage } from '@/api/hrms/wel'
+import mixins from '@/mixins/mixins'
+import { dictsMap, columnsMap } from './options'
+import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
 export default {
-  name: 'TableListWrapper',
-  components: {
-    List,
-    Detail,
-  },
+  mixins: [mixins],
+  components: { NewApproval },
   data () {
     return {
-      currentComponet: 'List',
-      record: '',
+      dictsMap,
+      columnsMap,
     }
   },
   created () {
-
+    this.loadPage()
   },
   methods: {
-    handleDetail (record) {
-      this.record = record
-      this.currentComponet = 'Detail'
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
     },
-    handleGoBack () {
-      this.record = ''
-      this.currentComponet = 'List'
+    handleAdd () {
+      this.$refs['NewApproval'].dialogShow = true
     },
-  },
-  watch: {
-    '$route.path' () {
-      this.record = ''
-      this.currentComponet = 'List'
+    handleDetail (row) {
+      this.$router.push({
+        path: '/hrms_spa/approval_detail',
+        query: {
+          id: row.id,
+        },
+      })
+    },
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getAlreadyApprovalPage)
     },
   },
 }

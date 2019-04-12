@@ -34,6 +34,8 @@ const initForm = () => {
 const formToVo = (row) => {
 	const newForm = mergeByFirst(initForm(), row)
 	newForm.annex = row.attachFile ? [row.attachFile] : []
+	newForm.approver = row.approverList
+	newForm.cc = row.ccList
 	return newForm
 }
 

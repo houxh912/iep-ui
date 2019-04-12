@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <basic-container>
       <page-header :title="`${currentName}单`" :backOption="backOption"></page-header>
-      <component :is="currentLabel" :type="$route.query.type" :fn="fn"></component>
+      <component :is="currentLabel" :type="applicType"></component>
     </basic-container>
   </div>
 </template>
@@ -17,7 +17,6 @@ import BusinessTrip from './BusinessTrip/'
 import ItemUse from './ItemUse/'
 import Reimburse from './Reimburse/'
 // hrms_applic_type
-import { getEmployeeProfileSelf } from '@/api/hrms/employee_profile'
 const componentMap = {
   转正申请: 'Positive',
   请假申请: 'Leaving',
@@ -41,10 +40,8 @@ export default {
   },
   data () {
     return {
-      fn: getEmployeeProfileSelf,
       backOption: {
         isBack: true,
-        backPath: this.$route.query.redirect,
       },
     }
   },
@@ -52,9 +49,12 @@ export default {
     ...mapState({
       dictGroup: state => state.user.dictGroup,
     }),
+    applicType () {
+      return this.$route.query.type + ''
+    },
     currentName () {
       const hrms_applic_type = this.dictGroup['hrms_applic_type']
-      return hrms_applic_type.find(m => m.value == this.$route.query.type).label
+      return hrms_applic_type.find(m => m.value === this.applicType).label
     },
     currentLabel () {
       return componentMap[this.currentName]

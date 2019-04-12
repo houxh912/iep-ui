@@ -47,6 +47,14 @@ export function postApproval (obj) {
   })
 }
 
+export function putApproval (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}
+
 export function putApprovalInitiate (obj, publish) {
   return request({
     url: `${prefixUrl}/update`,

@@ -1,5 +1,5 @@
 
-import { postApproval } from '@/api/hrms/wel'
+import { postApproval, putApproval } from '@/api/hrms/wel'
 import { formToDto, initForm, formToVo } from './options'
 import { getEmployeeProfileSelf } from '@/api/hrms/employee_profile'
 import { getAdministrativeApprovalById } from '@/api/hrms/administrative_approval'
@@ -44,9 +44,10 @@ export default {
       }
     },
     handleSubmit () {
+      const submitFunction = this.id ? putApproval : postApproval
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          postApproval(formToDto(this.form, this.type)).then(() => {
+          submitFunction(formToDto(this.form, this.type)).then(() => {
             this.$openPage('/wel/approval/initiate')
           })
         }

@@ -34,8 +34,8 @@ const initForm = () => {
 const formToVo = (row) => {
 	const newForm = mergeByFirst(initForm(), row)
 	newForm.annex = row.attachFile ? [row.attachFile] : []
-	newForm.approver = row.approverList
-	newForm.cc = row.ccList
+	newForm.approver = row.approverList || []
+	newForm.cc = row.ccList || []
 	return newForm
 }
 
@@ -59,6 +59,7 @@ const formToDto = (row, type) => {
 	newForm.attachFileUrl = newForm.annex.map(m => m.url)[0]
 	newForm.approver = newForm.approver.map(m => m.id)
 	delete newForm.annex
+	delete newForm.attachFile
 	newForm.cc = newForm.cc.map(m => m.id)
 	return newForm
 }

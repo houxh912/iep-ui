@@ -5,8 +5,8 @@
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
-          <el-checkbox-group v-model="checkList">
-            <el-checkbox label="只看我登记的"></el-checkbox>
+          <el-checkbox-group v-model="checkList" @change="handleChangeMe">
+            <el-checkbox label="1">只看我登记的</el-checkbox>
           </el-checkbox-group>
         </template>
         <template slot="right">
@@ -14,7 +14,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column label="名称" min-width="200px">
           <template slot-scope="scope">
             <IepTableLinkImgDesc :img="logo" :desc="scope.row.desc" :name="scope.row.name" @click.native="handleDetail(scope.row)"></IepTableLinkImgDesc>
@@ -25,14 +25,9 @@
             <iep-detail-tag :value="scope.row.userList"></iep-detail-tag>
           </template>
         </el-table-column>
-        <el-table-column label="时间">
+        <el-table-column label="上线时间">
           <template slot-scope="scope">
             {{scope.row.time}}
-          </template>
-        </el-table-column>
-        <el-table-column label="当前版本">
-          <template slot-scope="scope">
-            {{scope.row.version}}
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -49,6 +44,7 @@
 </template>
 
 <script>
+import { getSeriesPage } from '@/api/cpms/series'
 import mixins from '@/mixins/mixins'
 const logo = require('../img2.png')
 export default {
@@ -57,6 +53,7 @@ export default {
     return {
       logo,
       checkList: [],
+      type: null,
       pagedTable: [
         {
           id: 1,
@@ -64,14 +61,13 @@ export default {
           desc: '对数据进行重新审核和校验, 并提供数据一致性.',
           userList: ['毛鑫明', '天成垸'],
           time: '2019-02-14 16:31:31',
-          version: 'v5.0',
         },
       ],
       replaceText: (data) => `（共有${data[0]}份材料，${data[1]}个荣誉资质，${data[2]}份合同）`,
     }
   },
   created () {
-    // this.loadPage()
+    this.loadPage()
   },
   methods: {
     handleAdd () {
@@ -91,9 +87,19 @@ export default {
     handleDetail () {
       this.$emit('onDetail')
     },
+    handleChangeMe (value) {
+      if (value.length) {
+        this.type = value[0]
+      } else {
+        this.type = undefined
+      }
+      this.loadPage()
+    },
     handleShare () {
-      // console.log(row)
       this.$message.success('功能开发中')
+    },
+    loadPage (param) {
+      this.loadTable({ ...param, type: this.type }, getSeriesPage)
     },
   },
 }

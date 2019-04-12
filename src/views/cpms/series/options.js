@@ -43,6 +43,15 @@ const columnsMap = [
   },
 ]
 
+const Column = {
+  id: '',
+  name: '', // 名字
+  imageUrl: '', // logo
+  synopsis: '', // 简介
+  userList: [], // 负责人
+  onlineTime: '', // 上线时间
+}
+
 const initForm = () => {
   return {
     'id': null, // ID
@@ -71,4 +80,4 @@ const initSearchForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm }
+export { dictsMap, columnsMap, Column, initForm, initSearchForm }

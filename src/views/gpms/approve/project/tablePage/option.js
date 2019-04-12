@@ -5,7 +5,7 @@ export const dictsMap = {
     '3': '立项申请',
     '4': '立项申请',
   },
-  projectStage: {
+  approvalStatus: {
     '1': '未提交',
     '2': '待审核',
     '3': '审核通过',
@@ -27,12 +27,12 @@ export const columnsMap = [
   }, {
     prop: 'approvalStatus',
     label: '审批状态',
-    // type: 'dict',
+    type: 'dict',
   }, {
-    prop: 'applicant',
+    prop: 'applicantName',
     label: '申请人',
   }, {
-    prop: 'approver',
+    prop: 'approverName',
     label: '审批人',
   },
 ]

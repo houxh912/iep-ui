@@ -1,9 +1,9 @@
 <template>
   <div class="multiple-box">
     <operation-wrapper>
-      <el-tag type="info" closable v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
-      <iep-button v-if="isClear" icon="el-icon-error" @click="clearAll"></iep-button>
-      <iep-button @click="dialogShow = true">选择</iep-button>
+      <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
+      <iep-button v-if="isClear && !disabled" icon="el-icon-error" @click="clearAll"></iep-button>
+      <iep-button v-if="!disabled" @click="dialogShow = true">选择</iep-button>
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="dialogShow = false">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
@@ -23,6 +23,10 @@ import { getUserListTree } from '@/api/admin/contacts'
 export default {
   name: 'IepContactOneMultipleUser',
   props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     showCheckbox: {
       type: Boolean,
       default: false,

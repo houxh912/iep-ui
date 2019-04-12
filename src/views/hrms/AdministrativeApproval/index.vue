@@ -38,7 +38,6 @@
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="searchPage">搜索</el-button>
-                <el-button @click="clearSearchParam">清空</el-button>
               </el-form-item>
             </el-form>
           </operation-search>
@@ -140,10 +139,6 @@ export default {
     },
     handleCommandUser () {
       // console.log(val)
-    },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-      this.$emit('clear-search-param')
     },
   },
 }

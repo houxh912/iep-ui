@@ -11,10 +11,10 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column label="名称" min-width="200px">
           <template slot-scope="scope">
-            <IepTableLinkImgDesc :img="logo" :desc="scope.row.desc" :name="scope.row.name"></IepTableLinkImgDesc>
+            <IepTableLinkImgDesc img="/upload/iep/201904/653a3f5a-8702-443e-8387-4c5a16b837d0_logo.png" :desc="scope.row.desc" :name="scope.row.name"></IepTableLinkImgDesc>
           </template>
         </el-table-column>
         <el-table-column label="负责人">
@@ -54,8 +54,8 @@ export default {
       pagedTable: [
         {
           id: 1,
-          name: '数据基因DNA',
-          desc: '对数据进行重新审核和校验, 并提供数据一致性.',
+          name: 'Ant Design',
+          desc: 'Ant Design是基于react开发的一个解放ui和前端的工具，它提供了一致的设计方便我们快速开发和减少不必要的设计与代码',
           userList: ['毛鑫明', '天成垸'],
           time: '2019-02-14 16:31:31',
           version: 'v5.0',

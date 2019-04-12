@@ -1,31 +1,26 @@
 <template>
   <div>
     <basic-container>
-      <div class="title-col">
-        <div class="left">
+      <iep-page-header is-advance :backOption="backOption">
+        <template slot="custom">
           <el-row>
             <el-col :span="4" class="img">
-              <img :src="logo" alt="">
+              <iep-img :src="form.imageUrl" alt=""></iep-img>
             </el-col>
             <el-col :span="14" class="title">
               <div>
-                <div class="tags"><span class="weight">数据基因DNA</span><span class="time">上线时间：2019.09.10</span></div>
+                <div class="tags"><span class="weight">{{form.name}}</span><span class="time">上线时间：{{form.onlineTime}}</span></div>
                 <div class="tags">
-                  <a-tag v-for="(item,index) in tags" :key="index">{{item}}</a-tag>
+                  <iep-detail-tag :value="form.tagKeywords"></iep-detail-tag>
                 </div>
               </div>
             </el-col>
           </el-row>
-        </div>
-        <div class="right">
-          <operation-wrapper>
-            <iep-button @click="handleBack">返回</iep-button>
-          </operation-wrapper>
-        </div>
-      </div>
+        </template>
+      </iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='BaseInfo'" v-slot:BaseInfo>
-          <base-info v-loading="activeTab !=='BaseInfo'"></base-info>
+          <base-info v-loading="activeTab !=='BaseInfo'" :form="form"></base-info>
         </template>
         <template v-if="activeTab ==='TeamInfo'" v-slot:TeamInfo>
           <team-info v-loading="activeTab !=='TeamInfo'"></team-info>
@@ -51,20 +46,18 @@ import TeamInfo from './TeamInfo/'
 import AllVersion from './AllVersion/'
 import Modules from './Modules/'
 import Materials from './Materials/'
-const logo = require('../img2.png')
+import { initForm } from '../options'
+import { getSeriesById } from '@/api/cpms/series'
 export default {
   name: 'detail',
   components: { BaseInfo, TeamInfo, AllVersion, Modules, Materials },
   mixins: [mixins],
   data () {
     return {
-      sss: 'sadsadsd',
-      logo,
       backOption: {
         isBack: true,
-        backPath: null,
-        backFunction: () => { this.$emit('onGoBack') },
       },
+      form: initForm(),
       tabList: [{
         label: '基本信息',
         value: 'BaseInfo',
@@ -82,8 +75,17 @@ export default {
         value: 'Materials',
       }],
       activeTab: 'BaseInfo',
-      tags: ['产品设计', '项目管理', '原型设计', '平台规划', '需求分析'],
     }
+  },
+  computed: {
+    id () {
+      return this.$route.query.id
+    },
+  },
+  created () {
+    getSeriesById(this.id).then(({ data }) => {
+      this.form = this.$mergeByFirst(initForm(), data.data)
+    })
   },
   methods: {
     handleBack () {
@@ -94,33 +96,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title-col {
-  display: flex;
-  margin-bottom: 10px;
-  .page-title {
-    font-size: 20px;
-  }
-  .page-desc {
-    font-size: 14px;
-  }
-  .el-button--default.is-plain:nth-child(1) {
-    background: #fff;
-    border: 1px solid #dcdfe6;
-    border-color: #dcdfe6;
-    color: #606266;
-    &:hover {
-      border-color: #ea8d03;
-      background-color: #fff7ec;
-      color: #ea8d03;
-    }
-  }
-}
-.left {
-  width: 100%;
-}
-.el-row {
-  width: 100%;
-}
 .img {
   width: 80px;
   padding: 5px;

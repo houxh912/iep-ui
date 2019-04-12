@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="img-wrapper">
-      <img :src="img" alt="">
+      <iep-img :src="img" alt=""></iep-img>
     </div>
     <div>
       <iep-table-link>{{name}}</iep-table-link>

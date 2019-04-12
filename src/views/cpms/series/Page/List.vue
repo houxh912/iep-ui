@@ -17,17 +17,17 @@
       <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column label="名称" min-width="200px">
           <template slot-scope="scope">
-            <IepTableLinkImgDesc :img="logo" :desc="scope.row.desc" :name="scope.row.name" @click.native="handleDetail(scope.row)"></IepTableLinkImgDesc>
+            <IepTableLinkImgDesc :img="scope.row.imageUrl" :desc="scope.row.synopsis" :name="scope.row.name" @click.native="handleDetail(scope.row)"></IepTableLinkImgDesc>
           </template>
         </el-table-column>
         <el-table-column label="负责人">
           <template slot-scope="scope">
-            <iep-detail-tag :value="scope.row.userList"></iep-detail-tag>
+            <iep-detail-tag :value="scope.row.chargeNames"></iep-detail-tag>
           </template>
         </el-table-column>
         <el-table-column label="上线时间">
           <template slot-scope="scope">
-            {{scope.row.time}}
+            {{scope.row.onlineTime}}
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -54,15 +54,6 @@ export default {
       logo,
       checkList: [],
       type: null,
-      pagedTable: [
-        {
-          id: 1,
-          name: '数据基因DNA',
-          desc: '对数据进行重新审核和校验, 并提供数据一致性.',
-          userList: ['毛鑫明', '天成垸'],
-          time: '2019-02-14 16:31:31',
-        },
-      ],
     }
   },
   created () {
@@ -83,8 +74,13 @@ export default {
         id: row.id,
       })
     },
-    handleDetail () {
-      this.$emit('onDetail')
+    handleDetail (row) {
+      this.$router.push({
+        path: '/cpms_spa/product_detail',
+        query: {
+          id: row.id,
+        },
+      })
     },
     handleChangeMe (value) {
       if (value.length) {

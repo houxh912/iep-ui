@@ -16,13 +16,13 @@
             <el-input v-model="form.name"></el-input>
           </el-form-item>
           <el-form-item label="网址：" class="form-half">
-            <el-input v-model="form.url"></el-input>
+            <el-input v-model="form.website"></el-input>
           </el-form-item>
-          <el-form-item label="分类选择：" class="form-half">
-            <iep-dict-select v-model="form.category" dict-name="crms_district_type"></iep-dict-select>
+          <el-form-item label="上线时间：" class="form-half">
+            <iep-date-picker v-model="form.onlineTime" type="date" placeholder="请输入时间"></iep-date-picker>
           </el-form-item>
           <el-form-item label="标签：">
-            <iep-tag v-model="form.tagList"></iep-tag>
+            <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
           <el-form-item label="是否带库：" class="form-half">
             <el-radio-group v-model="form.tapeLibrary">
@@ -46,114 +46,114 @@
         <div class="title">团队信息：</div>
         <el-row class="base">
           <el-form-item label="负责人：" class="form-half">
-            <iep-dept-select v-model="form.signDeptOrgName"></iep-dept-select>
+            <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="需求方：" class="form-half">
-            <iep-dept-select v-model="form.signDeptOrgName"></iep-dept-select>
+            <iep-contact-multiple-user v-model="form.userRelationDemands"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="技术经理：" class="form-half">
-            <iep-dept-select v-model="form.signDeptOrgName"></iep-dept-select>
+            <iep-contact-multiple-user v-model="form.userRelationTechnologys"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="产品经理：" class="form-half">
-            <iep-dept-select v-model="form.signDeptOrgName"></iep-dept-select>
+            <iep-contact-multiple-user v-model="form.userRelationProducts"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="团队成员：" class="form-half">
-            <iep-dept-select v-model="form.signDeptOrgName"></iep-dept-select>
-          </el-form-item>
-          <el-form-item label="上线时间：" class="form-half">
-            <IepDatePicker v-model="form.createTime"></IepDatePicker>
+            <iep-contact-multiple-user v-model="form.userRelationTeams"></iep-contact-multiple-user>
           </el-form-item>
         </el-row>
-        <div class="title">全新版本：</div>
-        <el-row class="base">
-          <operation-container>
-            <template slot="left">
-              <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
-            </template>
-          </operation-container>
-          <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-            <el-table-column label="版本号">
-              <template slot-scope="scope">
-                {{scope.row.version}}
+        <template v-if="isEdit">
+          <div class="title">全新版本：</div>
+          <el-row class="base">
+            <operation-container>
+              <template slot="left">
+                <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
               </template>
-            </el-table-column>
-            <el-table-column label="上线时间">
-              <template slot-scope="scope">
-                {{scope.row.time}}
+            </operation-container>
+            <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+              <el-table-column label="版本号">
+                <template slot-scope="scope">
+                  {{scope.row.version}}
+                </template>
+              </el-table-column>
+              <el-table-column label="上线时间">
+                <template slot-scope="scope">
+                  {{scope.row.time}}
+                </template>
+              </el-table-column>
+              <el-table-column label="更新内容">
+                <template slot-scope="scope">
+                  {{scope.row.context}}
+                </template>
+              </el-table-column>
+              <el-table-column label="操作" width="200">
+                <template slot-scope="scope">
+                  <operation-wrapper>
+                    <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
+                    <iep-button @click="handleDelete(scope.row)">删除</iep-button>
+                  </operation-wrapper>
+                </template>
+              </el-table-column>
+            </iep-table>
+          </el-row>
+          <div class="title">包含模块：</div>
+          <el-row class="base">
+            <operation-container>
+              <template slot="left">
+                <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增模块</iep-button>
               </template>
-            </el-table-column>
-            <el-table-column label="更新内容">
-              <template slot-scope="scope">
-                {{scope.row.context}}
-              </template>
-            </el-table-column>
-            <el-table-column label="操作" width="200">
-              <template slot-scope="scope">
-                <operation-wrapper>
-                  <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-                  <iep-button @click="handleDelete(scope.row)">删除</iep-button>
-                </operation-wrapper>
-              </template>
-            </el-table-column>
-          </iep-table>
-        </el-row>
-        <div class="title">包含模块：</div>
-        <el-row class="base">
-          <operation-container>
-            <template slot="left">
-              <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增模块</iep-button>
-            </template>
-          </operation-container>
-          <div class="module" v-for="(item,index) in 3" :key="index">
-            <span class="clear" @click="clear"><i class="icon-shanchu1"></i> </span>
-            <div class="img">
-              <img :src="logo" alt="">
+            </operation-container>
+            <div class="module" v-for="(item,index) in 3" :key="index">
+              <span class="clear" @click="clear"><i class="icon-shanchu1"></i> </span>
+              <div class="img">
+                <img :src="logo" alt="">
+              </div>
+              <div class="module-title">资源配置模块</div>
             </div>
-            <div class="module-title">资源配置模块</div>
-          </div>
-        </el-row>
-        <div class="title">相关材料：</div>
-        <el-row class="last base">
-          <operation-container>
-            <template slot="left">
-              <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增产品资料</iep-button>
-              <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增产品资质</iep-button>
-            </template>
-          </operation-container>
-          <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable1" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-            <el-table-column label="标题">
-              <template slot-scope="scope">
-                {{scope.row.title}}
+          </el-row>
+          <div class="title">相关材料：</div>
+          <el-row class="last base">
+            <operation-container>
+              <template slot="left">
+                <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增产品资料</iep-button>
+                <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增产品资质</iep-button>
               </template>
-            </el-table-column>
-            <el-table-column label="类别">
-              <template slot-scope="scope">
-                {{scope.row.type}}
-              </template>
-            </el-table-column>
-            <el-table-column label="操作" width="200">
-              <template slot-scope="scope">
-                <operation-wrapper>
-                  <iep-button plain @click="handleDelete(scope.row)">删除</iep-button>
-                </operation-wrapper>
-              </template>
-            </el-table-column>
-          </iep-table>
-        </el-row>
+            </operation-container>
+            <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable1" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+              <el-table-column label="标题">
+                <template slot-scope="scope">
+                  {{scope.row.title}}
+                </template>
+              </el-table-column>
+              <el-table-column label="类别">
+                <template slot-scope="scope">
+                  {{scope.row.type}}
+                </template>
+              </el-table-column>
+              <el-table-column label="操作" width="200">
+                <template slot-scope="scope">
+                  <operation-wrapper>
+                    <iep-button plain @click="handleDelete(scope.row)">删除</iep-button>
+                  </operation-wrapper>
+                </template>
+              </el-table-column>
+            </iep-table>
+          </el-row>
+        </template>
       </el-form>
       <footer-toolbar>
         <iep-button type="primary" @click="submitForm">提交</iep-button>
-        <iep-button @click="resetForm">取消</iep-button>
+        <iep-button @click="$emit('onGoBack')">取消</iep-button>
       </footer-toolbar>
     </basic-container>
   </div>
 </template>
 
 <script>
-const logo = require('../img2.png')
+import { getSeriesById } from '@/api/cpms/series'
 import mixins from '@/mixins/mixins'
 import FooterToolbar from '@/components/FooterToolbar/'
-import { initForm } from '../options'
+import { initForm, toDtoForm } from '../options'
+const logo = require('../img2.png')
 export default {
   name: 'edit',
   mixins: [mixins],
@@ -206,7 +206,6 @@ export default {
           type: '2019-02-14',
         },
       ],
-      id: '',
       methodName: '',
       formRequestFn: () => { },
       backOption: {
@@ -217,10 +216,22 @@ export default {
       form: initForm(),
     }
   },
+  computed: {
+    id () {
+      return this.record.id
+    },
+    isEdit () {
+      return this.id ? true : false
+    },
+  },
   created () {
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn
-    this.id = this.record.id
+    if (this.isEdit) {
+      getSeriesById(this.id).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
+      })
+    }
   },
   methods: {
     handleEdit () {
@@ -236,8 +247,8 @@ export default {
       this.$message.success('功能开发中')
     },
     submitForm () {
-      this.formRequestFn(this.form).then(({ data }) => {
-        console.log(data.data)
+      this.formRequestFn(toDtoForm(this.form)).then(() => {
+        this.$emit('onGoBack')
       })
     },
     clear () {

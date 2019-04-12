@@ -59,14 +59,31 @@ const initForm = () => {
     number: '', // 编号
     name: '', // 名称
     website: '', // 网址
-    category: '', // 分类
-    tagList: '', // 标签
+    onlineTime: '',//上线时间
+    tagKeywords: [], // 标签
     tapeLibrary: '', // 是否带库
     valuation: '', // 产品估值
     instructions: '', // 估值说明
     synopsis: '', // 产品简介
     description: '', // 产品介绍
+    userRelationCharges: [],//负责人ids
+    userRelationDemands: [],//需求方ids
+    userRelationTechnologys: [],//技术经理ids
+    userRelationProducts: [],//产品经理ids
+    userRelationTeams: [],//团队成员ids
+    modules: [],//关联模块ids
+    materials: [],//关联材料ids
   }
+}
+
+const toDtoForm = (row) => {
+  const newForm = { ...row }
+  newForm.userCharges = row.userRelationCharges.map(m => m.id)
+  newForm.userDemands = row.userRelationDemands.map(m => m.id)
+  newForm.userTechnologys = row.userRelationTechnologys.map(m => m.id)
+  newForm.userProducts = row.userRelationProducts.map(m => m.id)
+  newForm.userTeams = row.userRelationTeams.map(m => m.id)
+  return newForm
 }
 
 const initSearchForm = () => {
@@ -78,4 +95,4 @@ const initSearchForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, Column, initForm, initSearchForm }
+export { dictsMap, columnsMap, Column, initForm, toDtoForm, initSearchForm }

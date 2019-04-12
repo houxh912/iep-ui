@@ -7,6 +7,7 @@ import OperationWrapper from '@/components/Operation/Wrapper'
 import OperationSearch from '@/components/Operation/Search'
 import OperationContainer from '@/components/Operation/Container'
 import PageHeader from '@/components/Page/Header'
+import IepPageHeader from '@/components/IepCommon/PageHeader'
 import FooterToolBar from '@/components/FooterToolbar'
 
 // 公共组件
@@ -65,6 +66,7 @@ Vue.component(OperationWrapper.name, OperationWrapper)
 Vue.component(OperationContainer.name, OperationContainer)
 Vue.component(OperationSearch.name, OperationSearch)
 Vue.component(PageHeader.name, PageHeader)
+Vue.component(IepPageHeader.name, IepPageHeader)
 Vue.component(FooterToolBar.name, FooterToolBar)
 
 // 公共组件

@@ -2,8 +2,9 @@
   <div class="title-wrapper">
     <div class="title-col">
       <div class="left">
-        <span class="page-title" :style="{fontSize: `${titleSize}px`,fontWeight: titleWeight}">{{title}}</span>
-        <span class="page-desc">{{desc}}</span>
+        <span v-if="!isAdvance" class="page-title" :style="{fontSize: `${titleSize}px`,fontWeight: titleWeight}">{{title}}</span>
+        <span v-if="!isAdvance" class="page-desc">{{desc}}</span>
+        <slot v-if="isAdvance" name="custom"></slot>
       </div>
       <div class="right">
         <operation-wrapper>
@@ -19,11 +20,14 @@
 </template>
 <script>
 export default {
-  name: 'PageHeader',
+  name: 'IepPageHeader',
   props: {
+    isAdvance: {
+      type: Boolean,
+      default: false,
+    },
     title: {
       type: String,
-      required: true,
       default: '标题',
     },
     titleSize: {
@@ -36,12 +40,10 @@ export default {
     },
     replaceText: {
       type: Function,
-      required: false,
       default: () => { },
     },
     data: {
       type: Array,
-      required: false,
       default: () => [],
     },
     backOption: {
@@ -88,8 +90,11 @@ export default {
   .title-col {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 10px;
+    .left {
+      width: 100%;
+    }
     .page-title {
       font-size: 20px;
     }

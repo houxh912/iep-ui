@@ -11,10 +11,10 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column label="名称" min-width="200px">
           <template slot-scope="scope">
-            <IepTableLinkImgDesc :img="logo" :desc="scope.row.desc" :name="scope.row.name"></IepTableLinkImgDesc>
+            <IepTableLinkImgDesc img="/upload/iep/201904/3c8801b8-5377-498b-a60e-1560b0c465f9_logo.png" :desc="scope.row.desc" :name="scope.row.name"></IepTableLinkImgDesc>
           </template>
         </el-table-column>
         <el-table-column label="负责人">
@@ -54,8 +54,8 @@ export default {
       pagedTable: [
         {
           id: 1,
-          name: '数据基因DNA',
-          desc: '对数据进行重新审核和校验, 并提供数据一致性.',
+          name: '数据清洗',
+          desc: '在数据元池库中选取相关领域、相关发布机构发布的大量数据元作为标准基础。',
           userList: ['毛鑫明', '天成垸'],
           time: '2019-02-14 16:31:31',
           version: 'v5.0',

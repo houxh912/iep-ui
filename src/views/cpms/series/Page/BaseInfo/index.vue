@@ -7,12 +7,12 @@
           <el-row>
             <el-col :span='8'>
               <el-form-item label="产品编号：">
-                <div>0262623F</div>
+                <div>{{form.number}}</div>
               </el-form-item>
             </el-col>
             <el-col :span='8'>
               <el-form-item label="产品官网：">
-                <div>https://www.baidu.com</div>
+                <div>{{form.website}}</div>
               </el-form-item>
             </el-col>
             <el-col :span='8'>
@@ -21,27 +21,22 @@
               </el-form-item>
             </el-col>
             <el-col :span='8'>
-              <el-form-item label="版本号：">
-                <div>v.12.02</div>
-              </el-form-item>
-            </el-col>
-            <el-col :span='8'>
               <el-form-item label="产品估值：">
-                <div>1000w</div>
+                <div>{{form.valuation}}</div>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col>
               <el-form-item label="估值说明：">
-                <div>这里是对于估值说明的详情情况</div>
+                <div>{{form.instructions}}</div>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col>
               <el-form-item label="详细介绍：">
-                <div>这里是对于估值说明的详情情况这里是对于估值说明的详情情况这里是对于估值说明的详情情况这里是对于估值说明的详情情况这里是对于估值说明的详情情况这里是对于估值说明的详情情况这里是对于估值说明的详情情况</div>
+                <div>{{form.description}}</div>
               </el-form-item>
             </el-col>
           </el-row>
@@ -55,32 +50,27 @@
           <el-row>
             <el-col :span='8'>
               <el-form-item label="负责人：">
-                <div>毛阿敏，憨豆哦</div>
+                <iep-contact-multiple-user v-model="form.userRelationCharges" disabled></iep-contact-multiple-user>
               </el-form-item>
             </el-col>
             <el-col :span='8'>
               <el-form-item label="需求方：">
-                <div>北方业务一部</div>
+                <iep-contact-multiple-user v-model="form.userRelationDemands" disabled></iep-contact-multiple-user>
               </el-form-item>
             </el-col>
             <el-col :span='8'>
               <el-form-item label="技术经理：">
-                <div>无</div>
+                <iep-contact-multiple-user v-model="form.userRelationTechnologys" disabled></iep-contact-multiple-user>
               </el-form-item>
             </el-col>
             <el-col :span='8'>
               <el-form-item label="产品经理：">
-                <div>张佩瑜</div>
+                <iep-contact-multiple-user v-model="form.userRelationProducts" disabled></iep-contact-multiple-user>
               </el-form-item>
             </el-col>
             <el-col :span='8'>
               <el-form-item label="团队成员：">
-                <div>唐僧，孙悟空，猪八戒，沙僧</div>
-              </el-form-item>
-            </el-col>
-            <el-col :span='8'>
-              <el-form-item label="上线时间：">
-                <div>2019.09.10</div>
+                <iep-contact-multiple-user v-model="form.userRelationTeams" disabled></iep-contact-multiple-user>
               </el-form-item>
             </el-col>
           </el-row>
@@ -145,6 +135,12 @@ const logo = require('../../img2.png')
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
+  props: {
+    form: {
+      type: Object,
+      required: true,
+    },
+  },
   data () {
     return {
       logo,

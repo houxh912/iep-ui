@@ -2,7 +2,7 @@
   <div class="thoughts">
     <el-card class="index-card" shadow="never">
       <div slot="header" class="clearfix">
-        <span class="cardTitle">{{title}}</span>
+        <span class="title">{{title}}</span>
         <el-button class="charge" type="text">我要发表</el-button>
       </div>
       <div>
@@ -37,6 +37,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.title {
+  font-size: 18px;
+}
 .thoughtsList {
   .piece {
     display: flex;

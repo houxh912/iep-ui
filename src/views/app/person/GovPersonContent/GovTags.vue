@@ -1,19 +1,14 @@
 <template>
-  <div class="leaderBoard">
-    <el-card class="index-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="cardTitle" style="font-size:18px;">{{title}}</span>
-      </div>
-      <div>
-        <div class="leaderBoardList">
-          <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
-            <span class="count" :class="item.color">{{index+1}}</span>
-            <span class="name">{{item.name}}</span>
-            <span class="num">{{item.num}}</span>
-          </div>
+  <div>
+    <IepAppTabCard :title="title">
+      <div class="leaderBoardList">
+        <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
+          <span class="count" :class="item.color">{{index+1}}</span>
+          <span class="name">{{item.name}}</span>
+          <span class="num">{{item.num}}</span>
         </div>
       </div>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>
@@ -38,42 +33,40 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.leaderBoard {
-  .piece {
-    cursor: pointer;
-    .name {
-      display: inline-block;
-      width: 200px;
-      height: 30px;
-      line-height: 30px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      vertical-align: middle;
-    }
-    .count {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      line-height: 18px;
-      text-align: center;
-      margin-right: 20px;
-      background-color: #ccc;
-      color: #fff;
-      vertical-align: middle;
-    }
-    .red {
-      background-color: #cb3737;
-    }
-    .num {
-      float: right;
-      height: 30px;
-      line-height: 30px;
-      color: #666;
-    }
-    &:hover {
-      color: #cb3737;
-    }
+.piece {
+  cursor: pointer;
+  .name {
+    display: inline-block;
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  .count {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    margin-right: 20px;
+    background-color: #ccc;
+    color: #fff;
+    vertical-align: middle;
+  }
+  .red {
+    background-color: #cb3737;
+  }
+  .num {
+    float: right;
+    height: 30px;
+    line-height: 30px;
+    color: #666;
+  }
+  &:hover {
+    color: #cb3737;
   }
 }
 </style>

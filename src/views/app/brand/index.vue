@@ -21,6 +21,7 @@
       <hold-all></hold-all>
       <data-base></data-base>
     </div>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>

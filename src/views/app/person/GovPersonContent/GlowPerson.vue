@@ -3,7 +3,7 @@
     <el-card class="index-card" shadow="never">
       <div slot="header" class="clearfix">
         <span class="cardTitle">{{title}}</span>
-        <el-button class="important" type="text">换一批</el-button>
+        <el-button class="btn" type="text">换一批</el-button>
       </div>
       <div>
         <div class="classify">
@@ -68,6 +68,7 @@ export default {
 <style lang="scss" scoped>
 .resources {
   .classify {
+    padding: 9px 0;
     .sub-title + .appellation {
       color: #cb3737;
       background: #fef0f0;
@@ -123,15 +124,18 @@ export default {
     .text {
       margin-left: 20px;
     }
-    .name,
     .department {
       display: block;
-    }
-    .name {
-    }
-    .department {
       color: #999;
     }
   }
+}
+.btn {
+  float: right;
+  padding: 5px 0;
+  color: #cb3737;
+}
+.cardTitle {
+  font-size: 18px;
 }
 </style>

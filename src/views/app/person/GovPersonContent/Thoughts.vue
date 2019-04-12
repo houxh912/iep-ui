@@ -1,10 +1,6 @@
 <template>
   <div class="thoughts">
-    <el-card class="index-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="cardTitle">{{title}}</span>
-        <el-button class="more" type="text">更多></el-button>
-      </div>
+    <IepAppTabCard :title="title" :linkName="linkName" isMore>
       <div>
         <div class="thoughtsList">
           <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
@@ -19,7 +15,7 @@
           </div>
         </div>
       </div>
-    </el-card>
+    </IepAppTabCard>
     <el-card class="mutual-card" shadow="never">
       <div slot="header" class="clearfix">
         <span class="cardTitle">{{titleStar}}</span>
@@ -57,6 +53,7 @@ export default {
       starList: [
         { img: '../img/person/p1.jpg', name: '钟先生', job: '国脉集体研发中心' },
       ],
+      linkName: '',
     }
   },
 }

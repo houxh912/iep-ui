@@ -1,26 +1,20 @@
 <template>
   <div class="course-con">
-    <el-card class="index-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="cardTitle" style="font-size:18px;">{{title}}</span>
-        <el-button style="float: right; padding: 5px 0; color:#999;" type="text">更多></el-button>
-      </div>
-      <div>
-        <div class="hotCourse">
-          <div class="conCourse">
-            <div class="con" v-for="con in conCourse" :key="con.id">
-              <div class="img"><img :src="con.img" alt=""></div>
-              <span class="text">{{con.text}}</span>
-              <span class="num">{{con.num}}</span>
-            </div>
-          </div>
-          <div v-for="(item,index) in hotCourse" :key="index" class="piece">
-            <span class="name">{{item.name}}</span>
-            <span class="num">{{item.num}}</span>
+    <iepAppTabCard :title="title" :linkName="linkName" isMore>
+      <div class="hotCourse">
+        <div class="conCourse">
+          <div class="con" v-for="con in conCourse" :key="con.id">
+            <div class="img"><img :src="con.img" alt=""></div>
+            <span class="text">{{con.text}}</span>
+            <span class="num">{{con.num}}</span>
           </div>
         </div>
+        <div v-for="(item,index) in hotCourse" :key="index" class="piece">
+          <span class="name">{{item.name}}</span>
+          <span class="num">{{item.num}}</span>
+        </div>
       </div>
-    </el-card>
+    </iepAppTabCard>
   </div>
 </template>
 <script>
@@ -46,6 +40,7 @@ export default {
           num: '35人已学习',
         },
       ],
+      linkName: '',
     }
   },
 }

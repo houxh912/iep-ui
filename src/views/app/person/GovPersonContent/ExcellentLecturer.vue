@@ -1,33 +1,27 @@
 <template>
   <div class="thoughts">
-    <el-card class="index-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="cardTitle">{{title}}</span>
-        <el-button class="more" type="text">更多></el-button>
-      </div>
-      <div>
-        <div class="thoughtsList">
-          <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
-            <div class="img-con"><img :src="item.img" class="img"></div>
-            <div class="box">
-              <div class="pieceTitle">
-                <span class="name">{{item.name}}</span>
-                <span class="level">{{item.level}}</span>
-              </div>
-              <div class="feed">
-                <span>{{item.num}}</span>
-                <div class="tags">
-                  <span>{{item.tags1}}</span>
-                  <span>{{item.tags2}}</span>
-                  <span>{{item.tags3}}</span>
-                  <span>{{item.tags4}}</span>
-                </div>
+    <iepAppTabCard :title="title" :linkName="linkName" isMore>
+      <div class="thoughtsList">
+        <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
+          <div class="img-con"><img :src="item.img" class="img"></div>
+          <div class="box">
+            <div class="pieceTitle">
+              <span class="name">{{item.name}}</span>
+              <span class="level">{{item.level}}</span>
+            </div>
+            <div class="feed">
+              <span>{{item.num}}</span>
+              <div class="tags">
+                <span>{{item.tags1}}</span>
+                <span>{{item.tags2}}</span>
+                <span>{{item.tags3}}</span>
+                <span>{{item.tags4}}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </el-card>
+    </iepAppTabCard>
   </div>
 </template>
 <script>
@@ -40,6 +34,7 @@ export default {
         { img: '../img/person/p2.jpg', name: '张三', level: '中级讲师', num: '培训次数：300', tags1: '技术研发', tags2: '数据基因', tags3: '前端', tags4: 'Java' },
         { img: '../img/person/p2.jpg', name: '张三', level: '高级讲师', num: '培训次数：248', tags1: '组织管理', tags2: '智慧经济', tags3: '规划报告', tags4: '规划报告' },
       ],
+      linkName: '',
     }
   },
 }
@@ -120,21 +115,5 @@ export default {
       margin-bottom: 12px;
     }
   }
-}
-</style>
-<style scoped>
-.thoughts >>> .el-card__body {
-  padding: 15px;
-}
-.thoughts >>> .el-button {
-  float: right;
-  padding: 5px 0;
-  color: #999;
-}
-.mutual-card >>> .el-card__body {
-  height: 118px;
-}
-.thoughts >>> .el-card__body {
-  height: 280px;
 }
 </style>

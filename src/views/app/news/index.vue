@@ -2,6 +2,7 @@
   <div>
     <news-top></news-top>
     <news-content></news-content>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 

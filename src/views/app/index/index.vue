@@ -1,16 +1,19 @@
 <template>
-  <div class="index">
-    <about></about>
-    <baner></baner>
-    <dynamic></dynamic>
-    <honor></honor>
-    <product-resources></product-resources>
-    <leader-board></leader-board>
-    <wonderful></wonderful>
-    <video-center></video-center>
-    <cultural-system></cultural-system>
-    <feedback></feedback>
-    <learning-resources></learning-resources>
+  <div>
+    <div class="index">
+      <about></about>
+      <baner></baner>
+      <dynamic></dynamic>
+      <honor></honor>
+      <product-resources></product-resources>
+      <leader-board></leader-board>
+      <wonderful></wonderful>
+      <video-center></video-center>
+      <cultural-system></cultural-system>
+      <feedback></feedback>
+      <learning-resources></learning-resources>
+    </div>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>
@@ -18,9 +21,9 @@ import About from './About'
 import Baner from './Baner'
 import Dynamic from './Dynamic'
 import Honor from './Honor'
-import ProductResources from './ProductResources'
-import LeaderBoard from './LeaderBoard'
-import Wonderful from './Wonderful'
+import ProductResources from './ProductResources/'
+import LeaderBoard from './LeaderBoard/'
+import Wonderful from './Wonderful/'
 import VideoCenter from './VideoCenter'
 import CulturalSystem from './CulturalSystem'
 import Feedback from './Feedback'

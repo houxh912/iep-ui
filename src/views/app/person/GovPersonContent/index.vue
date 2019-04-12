@@ -17,8 +17,7 @@
       <excellent-lecturer></excellent-lecturer>
     </div>
     <div class="block">
-      <switch-tabs>
-      </switch-tabs>
+      <switch-tabs></switch-tabs>
     </div>
     <div class="copies">
       <interactive-zone></interactive-zone>
@@ -34,11 +33,11 @@ import GlowPerson from './GlowPerson'
 import Thoughts from './Thoughts'
 import ShortagePosts from './ShortagePosts'
 import GovTags from './GovTags'
-import Carousel from './Carousel'
+import Carousel from './Carousel/'
 import TrainingNotice from './TrainingNotice'
 import HotCourse from './HotCourse'
 import ExcellentLecturer from './ExcellentLecturer'
-import SwitchTabs from './SwitchTabs'
+import SwitchTabs from './SwitchTabs/'
 import InteractiveZone from './InteractiveZone'
 import Reward from './Reward'
 import Feedback from './Feedback'

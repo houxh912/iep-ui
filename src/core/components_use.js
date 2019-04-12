@@ -60,6 +60,7 @@ import IepDeptMultiple from '@/components/IepDept/Multiple'
 
 // 展示页公共组件
 import IepAppTabCard from '@/components/IepApp/TabCard'
+import IepAppTabsCard from '@/components/IepApp/TabsCard'
 import IepAppFooterBar from '@/components/IepApp/FooterBar'
 
 // 注册全局容器
@@ -103,7 +104,6 @@ Vue.component(IepDrawer.name, IepDrawer)
 Vue.component(IepHoverCard.name, IepHoverCard)
 Vue.component(IepReviewConfirm.name, IepReviewConfirm)
 
-
 // 表格相关组件
 Vue.component(IepTable.name, IepTable)
 Vue.component(IepTableLink.name, IepTableLink)
@@ -123,4 +123,5 @@ Vue.component(IepDeptMultiple.name, IepDeptMultiple)
 
 // 展示页公共组件
 Vue.component(IepAppTabCard.name, IepAppTabCard)
+Vue.component(IepAppTabsCard.name, IepAppTabsCard)
 Vue.component(IepAppFooterBar.name, IepAppFooterBar)

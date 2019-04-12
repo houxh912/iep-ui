@@ -2,6 +2,7 @@
   <div class="gov-person">
     <gov-person-top></gov-person-top>
     <gov-person-content></gov-person-content>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 

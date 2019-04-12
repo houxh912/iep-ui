@@ -1,20 +1,13 @@
 <template>
   <el-card class="index-card" shadow="never">
-    <div slot="header" class="clearfix">
-      <span class="title">{{title}}</span>
-      <el-button class="btn" type="text" v-if="isMore" @click="getMore">更多></el-button>
-    </div>
+    <el-button class="btn" type="text" v-if="isMore" @click="getMore">更多></el-button>
     <slot></slot>
   </el-card>
 </template>
 <script>
 export default {
-  name: 'IepAppTabCard',
+  name: 'IepAppTabsCard',
   props: {
-    title: {
-      type: String,
-      default: '标题',
-    },
     isMore: {
       type: Boolean,
       default: false,
@@ -26,7 +19,6 @@ export default {
   },
   data () {
     return {
-
     }
   },
   methods: {
@@ -38,13 +30,15 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.title {
-  font-size: 18px;
-  color: #303133;
+<style scoped>
+.el-card >>> .el-card__body {
+  position: relative;
+  padding: 0;
 }
 .btn {
-  float: right;
+  position: absolute;
+  right: 20px;
+  top: 33px;
   padding: 5px 0;
   color: #999;
 }

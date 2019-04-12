@@ -1,19 +1,13 @@
 <template>
   <div class="trainingCon">
-    <el-card class="index-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="cardTitle" style="font-size:18px;">{{title}}</span>
-        <el-button style="float: right; padding: 5px 0; color:#999;" type="text">更多></el-button>
-      </div>
-      <div>
-        <div class="trainingNotice">
-          <div v-for="(item,index) in trainingNotice" :key="index" class="piece">
-            <span class="name">{{item.name}}</span>
-            <span class="time">{{item.time}}</span>
-          </div>
+    <iepAppTabCard :title="title" :linkName="linkName" isMore>
+      <div class="trainingNotice">
+        <div v-for="(item,index) in trainingNotice" :key="index" class="piece">
+          <span class="name">{{item.name}}</span>
+          <span class="time">{{item.time}}</span>
         </div>
       </div>
-    </el-card>
+    </iepAppTabCard>
   </div>
 </template>
 <script>
@@ -29,6 +23,7 @@ export default {
         { name: '大数据数据基因', time: '2019-04-03' },
         { name: '规划与咨询数据基因', time: '2019-01-03' },
         { name: '项目管理数据基因', time: '2019-04-03' }],
+      linkName: '',
     }
   },
 }

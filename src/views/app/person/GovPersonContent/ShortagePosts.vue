@@ -2,7 +2,7 @@
   <div class="leaderBoard">
     <el-card class="index-card" shadow="never">
       <div slot="header" class="clearfix">
-        <span class="cardTitle">{{title}}</span>
+        <span class="title">{{title}}</span>
         <div class="important">
           <el-button type="text">争做伯乐</el-button>
           <el-button type="text">申请转岗</el-button>
@@ -70,6 +70,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.title {
+  font-size: 18px;
+}
 </style>
 <style scoped>
 .important >>> .el-button--text {

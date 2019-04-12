@@ -16,6 +16,7 @@
       <task></task>
       <suggest></suggest>
     </div>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>

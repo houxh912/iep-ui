@@ -72,7 +72,7 @@ export default {
           type: 'success',
           duration: 2000,
         })
-        this.loadPage()
+        this.loadPage({approvalStatus: this.status})
       })
     },
   },

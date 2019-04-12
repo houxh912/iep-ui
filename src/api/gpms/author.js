@@ -40,3 +40,12 @@ export function getDetailById (id) {
     method: 'get',
   })
 }
+
+// 审批列表
+export function getApproveList (obj) {
+  return request({
+    url: `${prefixUrl}/projectApproval`,
+    method: 'get',
+    params: obj,
+  })
+}

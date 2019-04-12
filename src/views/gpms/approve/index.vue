@@ -1,72 +1,79 @@
 <template>
-  <div>
-    <basic-container>
-      <div v-if="pageState == 'list'">
-        <page-header title="我的审批" :data="[16]"></page-header>
-        <iep-tabs v-model="tabName" :tab-list="tabList">
-          <template v-if="tabName ==='allTab'" v-slot:allTab>
-            <tablePage ref="page" :status="'0'" @approve="handleApprove"></tablePage>
-          </template>
-          <template v-if="tabName ==='PendingTab'" v-slot:PendingTab>
-            <tablePage ref="page" :status="'2'" @approve="handleApprove"></tablePage>
-          </template>
-          <template v-if="tabName ==='approvalTab'" v-slot:approvalTab>
-            <tablePage ref="page" :status="'3'"></tablePage>
-          </template>
-          <template v-if="tabName ==='failureTab'" v-slot:failureTab>
-            <tablePage ref="page" :status="'4'"></tablePage>
-          </template>
-        </iep-tabs>
+  <basic-container>
+    <div v-if="pageState == 'list'">
+      
+      <div class="head">
+        <div class="item" :class="selectIndex==1?'item-select':''" @click="changeItem(1)">项目审批</div>
+        <div class="middle"> / </div>
+        <div class="item" :class="selectIndex==2?'item-select':''" @click="changeItem(2)">项目经理审批</div>
       </div>
-      <div v-if="pageState == 'approve'">
-        <approvePage :form="formData" @close="pageState = 'list'"></approvePage>
-      </div>
-    </basic-container>
-  </div>
+
+      <project-page ref="project" @handleApprove="projectApprove" v-if="selectIndex==1"></project-page>
+      <author-page ref="author" @handleApprove="authorApprove" v-if="selectIndex==2"></author-page>
+
+    </div>
+    <div v-if="pageState == 'project'">
+      <projectApprove :form="formData" @close="pageState = 'list'"></projectApprove>
+    </div>
+    <div v-if="pageState == 'author'">
+      <authorApprove ref="authorApprove" @close="pageState = 'list'"></authorApprove>
+    </div>
+  </basic-container>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
-import tablePage from './tablePage/'
-import approvePage from './approvePage/'
+import projectApprove from './approve/project'
+import authorApprove from './approve/author'
 import { getDataDetail } from '@/api/gpms/index'
+import ProjectPage from './project/index'
+import AuthorPage from './author/index'
 
 export default {
   mixins: [mixins],
   name: 'index',
-  components: { tablePage, approvePage },
+  components: { projectApprove, ProjectPage, AuthorPage, authorApprove },
   data () {
     return {
-      tabName: 'allTab',
-      tabList: [
-        {
-          label: '全部',
-          value: 'allTab',
-        }, {
-          label: '待审批',
-          value: 'PendingTab',
-        }, {
-          label: '审批通过',
-          value: 'approvalTab',
-        }, {
-          label: '审批不通过',
-          value: 'failureTab',
-        },
-      ],
       pageState: 'list',
-      formData: {},
+      selectIndex: 1,
     }
   },
   methods: {
-    handleApprove (row) {
+    projectApprove (row) {
       getDataDetail(row.id).then(({data}) => {
         this.formData = data.data
-        this.pageState = 'approve'
+        this.pageState = 'project'
       })
+    },
+    authorApprove (row) {
+      this.pageState = 'author'
+      this.$nextTick(() => {
+        this.$refs['authorApprove'].open(row.id, row.projectInfoId)
+      })
+    },
+    changeItem (index) {
+      this.selectIndex = index
     },
   },
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.head {
+  margin-bottom: 20px;
+  display: flex;
+  .item {
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .item-select {
+    color: #ba1b21;
+  }
+  .middle {
+    width: 30px;
+    text-align: center;
+    font-size: 18px;
+  }
+}
 </style>

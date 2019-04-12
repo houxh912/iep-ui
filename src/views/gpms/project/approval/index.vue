@@ -66,7 +66,7 @@ export default {
     authorDetail (author, project) {
       this.pageState = 'authorDetail'
       this.$nextTick(() => {
-        this.$refs['authorDetail'].open(author, project)
+        this.$refs['authorDetail'].open(author.id, project.id)
       })
     },
     authorClose (state, name) {

@@ -38,8 +38,8 @@
       <iep-button type="primary" @click="handleAgree">同意</iep-button>
     </footer-toolbar>
 
-    <agreeDailog ref="agree" @close="closeDialog"></agreeDailog>
-    <notAgreeDialog ref="notAgree" @close="closeDialog"></notAgreeDialog>
+    <agreeDailog ref="agree" @close="closeDialog" @submitAgree="submitAgree"></agreeDailog>
+    <notAgreeDialog ref="notAgree" @close="closeDialog" @submitNotAgree="submitNotAgree"></notAgreeDialog>
   </div>
 </template>
 
@@ -47,6 +47,7 @@
 import FooterToolbar from '@/components/FooterToolbar/'
 import agreeDailog from './agreeDialog'
 import notAgreeDialog from './notAgreeDialog'
+import { updateData } from '@/api/gpms/index'
 const setUpList = [
   { label: '编号：', value: 'serialNo' },
   { label: '项目名称：', value: 'projectName' },
@@ -135,12 +136,10 @@ export default {
     // 同意
     handleAgree () {
       this.$refs['agree'].dialogShow = true
-      this.$refs['agree'].formData.id = this.setUpData.id
     },
     // 不同意
     handleNotAgree () {
       this.$refs['notAgree'].dialogShow = true
-      this.$refs['notAgree'].formData.id = this.setUpData.id
     },
     closeDialog (state) {
       if (state) {
@@ -153,6 +152,38 @@ export default {
           return item.label
         }
       }
+    },
+    submitAgree (guideSugges) {
+      let form = {
+        id: this.setUpData.id,
+        guideSugges: guideSugges,
+        approvalStatus: 3,
+      }
+      updateData(form).then(() => {
+        this.$notify({
+          title: '成功',
+          message: '操作成功',
+          type: 'success',
+          duration: 2000,
+        })
+        this.$emit('close', true)
+      })
+    },
+    submitNotAgree (approvalFailReason) {
+      let form = {
+        id: this.setUpData.id,
+        approvalFailReason: approvalFailReason,
+        approvalStatus: 4,
+      }
+      updateData(form).then(() => {
+        this.$notify({
+          title: '成功',
+          message: '操作成功',
+          type: 'success',
+          duration: 2000,
+        })
+        this.$emit('close', true)
+      })
     },
   },
 }

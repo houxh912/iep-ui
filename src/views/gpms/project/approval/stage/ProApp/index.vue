@@ -16,7 +16,7 @@
             </el-col>
           </el-row>
         </el-form>
-        <div class="footer">
+        <div class="footer" v-if="setUpData.approvalStatus == 1">
           <iep-button type="danger" @click="sumbit">提交</iep-button>
         </div>
       </el-row>
@@ -45,7 +45,7 @@
       </el-row>
     </div>
     <!-- 立项申请 -->
-    <transfer-dialog ref="form"></transfer-dialog>
+    <transfer-dialog ref="form" @close="submitSuccess"></transfer-dialog>
   </div>
 </template>
 
@@ -79,6 +79,9 @@ export default {
   methods:{
     sumbit () {
       this.$refs['form'].open(this.form)
+    },
+    submitSuccess () {
+      this.$emit('submitSuccess', true)
     },
     getDictMap,
   },

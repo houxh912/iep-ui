@@ -14,6 +14,7 @@
       @size-change="handleSizeChange" 
       @current-change="handleCurrentChange" 
       is-mutiple-selection 
+      :dictsMap="dictsMap" 
       @selection-change="selectionChange">
       <el-table-column prop="operation" label="操作" width="280" align="center">
         <template slot-scope="scope">
@@ -37,7 +38,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMap } from './option.js'
+import { columnsMap, dictsMap } from './option.js'
 import { getAuthorList, deleteDate, getDetailById } from '@/api/gpms/author'
 import ApplyDialog from './apply/'
 
@@ -48,6 +49,7 @@ export default {
       isLoadTable: false,
       columnsMap,
       value: '',
+      dictsMap,
     }
   },
   components: { ApplyDialog },

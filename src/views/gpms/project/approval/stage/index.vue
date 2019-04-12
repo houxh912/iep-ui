@@ -2,7 +2,7 @@
   <basic-container>
     <iep-tabs v-model="activeTab" :tab-list="tabList">
       <template v-if="activeTab ==='ProApp'" v-slot:ProApp>
-        <pro-app v-loading="activeTab !=='ProApp'" :form="formData"></pro-app>
+        <pro-app v-loading="activeTab !=='ProApp'" :form="formData" @submitSuccess="submitSuccess"></pro-app>
       </template>
       <template v-if="activeTab ==='Accredit'" v-slot:Accredit>
         <accredit v-loading="activeTab !=='Accredit'" @toggle-show="handleFormOpera" @toggle-detail="handleDetail"></accredit>
@@ -56,6 +56,9 @@ export default {
     },
     handleFormOpera (type, formData) {
       this.$emit('author_opera', type, formData)
+    },
+    submitSuccess () {
+      this.$emit('submitSuccess', true)
     },
   },
 }

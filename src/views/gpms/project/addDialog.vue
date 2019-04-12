@@ -8,27 +8,16 @@
         <el-input v-model="formData.projectName" placeholder="请输入项目名称"></el-input>
       </el-form-item>
       <el-form-item label="项目类型：" prop="projectType">
-        <!-- <el-select v-model="formData.projectType" placeholder="请选择项目类型">
-          <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select> -->
         <iep-dict-select v-model="formData.projectType" dict-name="prms_project_type"></iep-dict-select>
       </el-form-item>
       <el-form-item label="业务类型：" prop="businessType">
-        <!-- <el-select @change="businessTypeChange" v-model="formData.businessType" placeholder="请选择业务类型">
-          <el-option v-for="item in workTypeOne" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select> -->
         <iep-dict-select v-model="formData.businessType" dict-name="prms_business_type"></iep-dict-select>
       </el-form-item>
       <el-form-item prop="businessTypeSec" v-if="formData.businessType === '7'">
         <el-input v-model="formData.businessTypeSec" placeholder="请填写具体业务类型"></el-input>
       </el-form-item>
       <el-form-item label="相关客户：" prop="relatedClient">
-        <!-- <iep-contact-select v-model="formData.relatedClientList"></iep-contact-select> -->
-        <el-select v-model="formData.relatedClient" placeholder="请选择">
-          <el-option v-for="item in clientList" :key="item.clientId" :label="item.clientName" :value="''+item.clientId"></el-option>
-        </el-select>
+        <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select>
       </el-form-item> 
       <el-form-item label="项目预算：" prop="projectBudget">
         <el-input v-model="formData.projectBudget"></el-input>
@@ -57,10 +46,7 @@
         <iep-dept-select v-model="formData.coopDeptList"></iep-dept-select>
       </el-form-item>
       <el-form-item label="集团外部合作伙伴：" prop="groupExternalCooperatePartner">
-        <!-- <iep-contact-select v-model="formData.groupExternalCooperatePartnerList"></iep-contact-select> -->
-        <el-select v-model="formData.groupExternalCooperatePartner" placeholder="请选择">
-          <el-option v-for="item in clientList" :key="item.clientId" :label="item.clientName" :value="''+item.clientId"></el-option>
-        </el-select>
+        <iep-select prefix-url="crm/customer" v-model="formData.groupExternalCooperatePartner"></iep-select>
       </el-form-item>
     </el-form>
 
@@ -112,9 +98,9 @@ export default {
         },
       },
       clientList: [],
-      typeOptions: dictMap.typeOptions, //项目类型菜单
-      isRelevOptions: dictMap.isRelevOptions,//是否关联菜单
-      workTypeOne: dictMap.workTypeOne,   //业务类型一级菜单
+      typeOptions: dictMap.typeOptions, // 项目类型菜单
+      isRelevOptions: dictMap.isRelevOptions,// 是否关联菜单
+      workTypeOne: dictMap.workTypeOne,   // 业务类型一级菜单
     }
   },
   methods: {
@@ -123,6 +109,8 @@ export default {
       if (!data) {
         this.formData = initFormData()
       } else {
+        data.relatedClient = parseInt(data.relatedClient)
+        data.groupExternalCooperatePartner = parseInt(data.groupExternalCooperatePartner)
         this.formData = data
         this.methodName = '修改'
       }

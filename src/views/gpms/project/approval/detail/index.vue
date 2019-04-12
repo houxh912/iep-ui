@@ -1,63 +1,99 @@
 <template>
   <div class="abs">
-    <div class="contianBox">
-      <el-row class="topBot">
-        <el-col :span="4">审批状态：{{approvalStatus[form.approvalStatus]}}</el-col>
-        <el-col :span="5">申请人：{{form.applicantName}}</el-col>
-        <el-col :span="5">申请时间：{{form.applyTime}}</el-col>
-        <el-col :span="5">审批人：{{form.approverName}}</el-col>
-        <el-col :span="5">审批时间：{{form.approvalTime}}</el-col>
-      </el-row>
-      <el-row class="bot">
-        <el-col :span="12">审批不通过理由：{{form.approvalFailReason}}</el-col>
-        <el-col :span="12">指导建议：{{form.guideSugges}}</el-col>
-      </el-row>
+    
+    <div class="plate">
+      <div class="head">
+        <p class="title">基本信息</p>
+      </div>
+      <div class="content">
+        <el-form label-width="150px">
+          <el-row>
+            <el-col :span="12" class="item" v-for="(item, index) in formList" :key="index">
+              <el-form-item :label="item.label" v-if="item.type === 'dict'">
+                {{getDictMap(form[item.value], dictMap[item.value])}}
+              </el-form-item>
+              <el-form-item :label="item.label" v-else-if="item.type === 'tag'">
+                <el-tag type='info' v-for="(item, index) in form[item.value]" :key="index">{{item}}</el-tag>
+              </el-form-item>
+              <el-form-item :label="item.label" v-else>{{form[item.value]}}</el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+      </div>
     </div>
-    <approval-contract :data="contractData" :form=form></approval-contract>
+
+    <teamPage :form="form"></teamPage>
+
+    
   </div>
 </template>
 
 <script>
-  import ApprovalContract from './ApprovalContract'
-  export default {
-    name: 'detail-dialog',
-    components: { ApprovalContract },
-    props: {
-      form: {
-        type: Object,
-        default: () => {},
-      },
+import { normyList, formList, dictMap } from './option.js'
+import teamPage from './team'
+
+export default {
+  name: 'index',
+  components: { teamPage },
+  props: {
+    form: {
+      type: Object,
+      default: () => {},
     },
-    data () {
-      return {
-        contractData: {},
-        approvalStatus: {
-          '1': '未提交',
-          '2': '待审核',
-          '3': '审核通过',
-          '4': '审核不通过',
-        },
+  },
+  data (){
+    return {
+      summaryList: normyList,
+      list2: normyList,
+      formList,
+      dictMap,
+    }
+  },
+  methods :{
+    getDictMap (value, list) {
+      for (let item of list) {
+        if (item.value == value) {
+          return item.label
+        }
       }
     },
-    methods: {
-      close () {
-        this.$emit('close',false)
-      },
-    },
-  }
+  },
+}
 </script>
 
-<style scoped lang="scss">
-  .abs{
-    background: #fff;
-    .contianBox{
-      padding: 20px 25px;
-      font-size: 14px;
-      margin: 0 20px 15px;
-      background-color: #f9f9f9;
-      .topBot {
-        margin-bottom: 15px;
+<style lang="scss" scoped>
+.abs {
+  padding-left: 20px;
+}
+.plate {
+  border: 1px solid #eee;
+  padding: 20px 15px;
+  margin-bottom: 20px;
+  .head {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    justify-content: space-between;
+    height: 47px;
+    .title {
+      font-size: 18px;
+      margin: 0;
+    }
+    .button {
+      padding-bottom: 10px;
+      .el-button {
+        margin-right: 10px;
+      }
+      i {
+        font-size: 16px !important;
       }
     }
   }
+  .content {
+    padding: 15px 0;
+    .item {
+      height: 30px;
+      margin-bottom: 10px;
+    }
+  }
+}
 </style>

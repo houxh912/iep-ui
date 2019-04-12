@@ -3,66 +3,65 @@
   <div>
     <basic-container>
       <page-header :title="`${methodName}产品`" :backOption="backOption"></page-header>
-      <el-form :model="formData" size="small" label-width="150px" class="form-detail">
+      <el-form :model="form" size="small" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
           <el-form-item label="产品logo：">
-            <iep-avatar v-model="formData.logo"></iep-avatar>
+            <iep-avatar v-model="form.imageUrl"></iep-avatar>
           </el-form-item>
           <el-form-item label="产品编号：" class="form-half">
-            <el-input v-model="formData.number"></el-input>
+            <el-input v-model="form.number"></el-input>
           </el-form-item>
           <el-form-item label="产品名称：" class="form-half">
-            <el-input v-model="formData.name"></el-input>
+            <el-input v-model="form.name"></el-input>
           </el-form-item>
           <el-form-item label="网址：" class="form-half">
-            <el-input v-model="formData.url"></el-input>
+            <el-input v-model="form.url"></el-input>
           </el-form-item>
           <el-form-item label="分类选择：" class="form-half">
-            <iep-dict-select v-model="formData.districtType" dict-name="crms_district_type"></iep-dict-select>
-          </el-form-item>
-          <el-form-item label="等级：" class="form-half">
-            <iep-dict-select v-model="formData.grade" dict-name="crms_district_type"></iep-dict-select>
-          </el-form-item>
-          <el-form-item label="签署部门：" class="form-half">
-            <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
+            <iep-dict-select v-model="form.category" dict-name="crms_district_type"></iep-dict-select>
           </el-form-item>
           <el-form-item label="标签：">
-            <iep-tag v-model="formData.tags"></iep-tag>
+            <iep-tag v-model="form.tagList"></iep-tag>
           </el-form-item>
-          <el-form-item label="是否带库：">
-            <el-radio v-model="formData.radio" label="1">是</el-radio>
-            <el-radio v-model="formData.radio" label="0">否</el-radio>
+          <el-form-item label="是否带库：" class="form-half">
+            <el-radio-group v-model="form.tapeLibrary">
+              <el-radio label="1">是</el-radio>
+              <el-radio label="0">否</el-radio>
+            </el-radio-group>
           </el-form-item>
           <el-form-item label="产品估值：" class="form-half">
-            <el-input v-model="formData.value"></el-input>
+            <el-input v-model="form.valuation"></el-input>
           </el-form-item>
           <el-form-item label="估值说明：">
-            <el-input type="textarea" v-model="formData.explain"></el-input>
+            <iep-input-area v-model="form.instructions"></iep-input-area>
+          </el-form-item>
+          <el-form-item label="产品简介：">
+            <el-input v-model="form.synopsis"></el-input>
           </el-form-item>
           <el-form-item label="产品介绍：">
-            <el-input type="textarea" v-model="formData.desc"></el-input>
+            <iep-input-area v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
         <div class="title">团队信息：</div>
         <el-row class="base">
           <el-form-item label="负责人：" class="form-half">
-            <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
+            <iep-dept-select v-model="form.signDeptOrgName"></iep-dept-select>
           </el-form-item>
           <el-form-item label="需求方：" class="form-half">
-            <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
+            <iep-dept-select v-model="form.signDeptOrgName"></iep-dept-select>
           </el-form-item>
           <el-form-item label="技术经理：" class="form-half">
-            <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
+            <iep-dept-select v-model="form.signDeptOrgName"></iep-dept-select>
           </el-form-item>
           <el-form-item label="产品经理：" class="form-half">
-            <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
+            <iep-dept-select v-model="form.signDeptOrgName"></iep-dept-select>
           </el-form-item>
           <el-form-item label="团队成员：" class="form-half">
-            <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
+            <iep-dept-select v-model="form.signDeptOrgName"></iep-dept-select>
           </el-form-item>
           <el-form-item label="上线时间：" class="form-half">
-            <IepDatePicker v-model="formData.createTime"></IepDatePicker>
+            <IepDatePicker v-model="form.createTime"></IepDatePicker>
           </el-form-item>
         </el-row>
         <div class="title">全新版本：</div>
@@ -154,6 +153,7 @@
 const logo = require('../img2.png')
 import mixins from '@/mixins/mixins'
 import FooterToolbar from '@/components/FooterToolbar/'
+import { initForm } from '../options'
 export default {
   name: 'edit',
   mixins: [mixins],
@@ -214,20 +214,7 @@ export default {
         backPath: null,
         backFunction: () => { this.$emit('onGoBack') },
       },
-      formData: {
-        logo: '',
-        name: '',
-        url: '',
-        districtType: [],
-        grade: [],
-        signDeptOrgName: {},
-        tags: [],
-        radio: '',
-        value: '',
-        explain: '',
-        desc: '',
-        createTime: '',
-      },
+      form: initForm(),
     }
   },
   created () {
@@ -249,7 +236,9 @@ export default {
       this.$message.success('功能开发中')
     },
     submitForm () {
-      this.$message.success('功能开发中')
+      this.formRequestFn(this.form).then(({ data }) => {
+        console.log(data.data)
+      })
     },
     clear () {
       this.$message.success('功能开发中')

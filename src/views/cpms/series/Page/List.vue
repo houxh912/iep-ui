@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="产品系列" :replaceText="replaceText" :data="[120,20,30]"></page-header>
+      <page-header title="产品系列"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { getSeriesPage } from '@/api/cpms/series'
+import { getSeriesPage, postSeries, putSeries } from '@/api/cpms/series'
 import mixins from '@/mixins/mixins'
 const logo = require('../img2.png')
 export default {
@@ -63,7 +63,6 @@ export default {
           time: '2019-02-14 16:31:31',
         },
       ],
-      replaceText: (data) => `（共有${data[0]}份材料，${data[1]}个荣誉资质，${data[2]}份合同）`,
     }
   },
   created () {
@@ -72,14 +71,14 @@ export default {
   methods: {
     handleAdd () {
       this.$emit('onEdit', {
-        formRequestFn: '接口',
+        formRequestFn: postSeries,
         methodName: '新增',
         id: false,
       })
     },
     handleEdit (row) {
       this.$emit('onEdit', {
-        formRequestFn: '接口',
+        formRequestFn: putSeries,
         methodName: '修改',
         id: row.id,
       })
@@ -104,5 +103,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-</style>

@@ -1,8 +1,7 @@
 <template>
-  <div>
+  <div class="iep-page-form">
     <page-header title="本地上传" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
-
+    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
       <el-form-item label="名称：" prop="materialName">
         <el-input v-model="formData.materialName"></el-input>
       </el-form-item>
@@ -37,26 +36,24 @@
         <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select>
       </el-form-item>
       <el-form-item label="标签" prop="tagKeyWords">
-        <iep-tags v-model="formData.tagKeyWords"></iep-tags>
+        <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-form-item label="附件">
         <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload>
       </el-form-item>
 
     </el-form>
-    <footer-toolbar>
+    <footer-tool-bar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
-      <iep-button @click="resetForm('form')">取消</iep-button>
-    </footer-toolbar>
+      <iep-button @click="resetForm('form')">重置</iep-button>
+    </footer-tool-bar>
   </div>
 </template>
 <script>
 import { initLocalForm, rules } from './option'
-import IepTags from '@/components/IepTags/input'
-import FooterToolbar from '@/components/FooterToolbar/'
 import { saveScheme } from '@/api/crms/scheme'
+
 export default {
-  components: { IepTags, FooterToolbar },
   props: {
     firstClass: {
       type: Array,
@@ -111,6 +108,7 @@ export default {
           if (this.formData.attachFileList.length > 0) {
             this.formData.attachFile = this.formData.attachFileList[0].url
           }
+          this.formData.type = 0
           this.formRequestFn(this.formData).then((data) => {
             this.backId = data.id
             this.$notify({

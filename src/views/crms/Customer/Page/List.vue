@@ -3,8 +3,8 @@
     <basic-container>
       <page-header title="客户" :replaceText="replaceText" :data="[10]"></page-header>
       <operation-container>
-        <template slot="left">
-          <iep-button type="primary" :disabled="type !== '2'" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
+        <template v-if="type==='2'" slot="left">
+          <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
           <el-dropdown size="medium">
             <iep-button size="small" :disabled="type !== '2'" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -25,15 +25,22 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex :isMutipleSelection="showSelect?true:false">
         <template slot="before-columns">
-          <el-table-column label="客户名称" width="250px">
+          <el-table-column label="客户名称" width="300px">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.clientName}}</iep-table-link>
               <el-col class="custom-tags">
-                <a-tag v-for="(item, index) in scope.row.tags" :key="index">{{item.commonName}}</a-tag>
+                <a-tag v-for="(item, index) in dealTag(scope.row.tags)" :key="index">{{item.commonName}}
+                </a-tag>
+                <span v-if="scope.row.tags.length>3">...</span>
               </el-col>
             </template>
           </el-table-column>
         </template>
+        <el-table-column label="距离上次拜访已有" v-if="type!=='1'" min-width="100">
+          <template slot-scope="scope">
+            <div>{{scope.row.lastTime }} 天</div>
+          </template>
+        </el-table-column>
         <el-table-column v-if="type !== '1'" prop="operation" label="操作" :width="type==='2'?'250px':'150px'">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -64,11 +71,11 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      type: '1',
+      type: '2',
       tabList,
       replaceText: (data) => `（本周新增${data[0]}位客户）`,
       url: '/api/crm/crms/iepclientinfoexcel/upload',
-      showSelect: false,
+      showSelect: true,
       ids: [],
     }
   },
@@ -81,6 +88,12 @@ export default {
     this.loadPage()
   },
   methods: {
+    dealTag (data) {
+      if (data.length > 3) {
+        return data.slice(0, 3)
+      }
+      return data
+    },
     //导入弹框关闭
     handleClose (res) {
       this.loadPage()
@@ -105,7 +118,7 @@ export default {
     },
     //tab切换菜单
     changeType () {
-      this.searchPage({ type: this.type })
+      this.loadPage()
       if (this.type === '2') {
         this.showSelect = true
       } else { this.showSelect = false }
@@ -128,11 +141,12 @@ export default {
     },
     //客户详情
     handleDetail (row) {
-      if (this.type === '2') {
+      if (this.type != '1') {
         this.$router.push({
           path: '/crms_spa/customer_detail',
           query: {
             id: row.clientId,
+            type: this.type,
           },
         })
       } else { return false }
@@ -146,18 +160,13 @@ export default {
     },
     //添加协作人
     handleCooperation (row) {
-      this.$refs['collaborator'].id = row.clientId
+      this.$refs['collaborator'].data.clientId = row.clientId
       this.$refs['collaborator'].dialogShow = true
-      this.$refs['collaborator'].loadPage()
-      // getCollaboratorPage(row.clientId).then(res => {
-      // this.$refs['collaborator'].data = res.data.data.records
-      // console.log(res)
-      // })
     },
     //转移
     Transfer () {
       if (this.ids.length === 0) {
-        this.$message.error('请勾选需要转移的客户')
+        this.$message('请勾选需要转移的客户')
         return false      } else {
         this.$refs['transfer'].dialogShow = true
         this.$refs['transfer'].id = this.ids
@@ -173,8 +182,8 @@ export default {
       this.ids = ids
     },
     //加载
-    loadPage (param = { ...this.searchForm, type: this.type }) {
-      this.loadTable(param, getCustomerPage, m => {
+    loadPage (param) {
+      this.loadTable({ ...param, type: this.type }, getCustomerPage, m => {
         return Object.assign(m, { businessType: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
     },
@@ -183,11 +192,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.custom-name {
-  cursor: pointer;
-  margin-bottom: 5px;
-}
 .custom-tags {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   margin: 0;
   .el-tag {
     margin-right: 5px;

@@ -29,6 +29,7 @@ const initForm = () => {
     number: '',
     parentId: 0,
     parentName: '无',
+    _level: 1,
     establishedTime: initNow(),
     user: {
       id: '',
@@ -44,6 +45,7 @@ const initDtoForm = () => {
     number: '',
     userId: '',
     parentId: 0,
+    _level: 1,
     establishedTime: initNow(),
   }
 }

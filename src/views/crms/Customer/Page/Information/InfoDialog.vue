@@ -46,6 +46,7 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
+      this.$message.success('功能开发中')
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.submitFn(this.formData).then(() => {

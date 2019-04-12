@@ -17,12 +17,12 @@
       <el-form-item label="合同级别">
         <iep-dict-select v-model="form.contractLevel" dict-name="mlms_contract_level"></iep-dict-select>
       </el-form-item>
-      <el-form-item label="签署部门">
+      <!-- <el-form-item label="签署部门">
         <iep-dict-select v-model="form.signDeptName" dict-name="crms_client_opportunity_status" placeholder="请选择认领状态"></iep-dict-select>
       </el-form-item>
       <el-form-item label="市场经理">
         <el-input v-model="form.directorId" placeholder="请输入市场经理"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="">
         <el-button type="primary" @click="searchPage" size="mini">搜索</el-button>
         <el-button @click="clearSearchParam" size="mini">清空</el-button>

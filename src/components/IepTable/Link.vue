@@ -1,5 +1,5 @@
 <template>
-  <el-button class="link-btn" :class="{'link-is-read':!isRead}" type="text" v-bind="$attrs" v-on="$listeners">
+  <el-button class="link-btn" :class="{'link-is-read':isRead}" type="text" v-bind="$attrs" v-on="$listeners">
     <slot></slot>
   </el-button>
 </template>
@@ -14,6 +14,12 @@ export default {
   },
 }
 </script>
+<style scoped>
+.link-btn {
+  padding: 5px 0;
+}
+</style>
+
 <style lang="scss" scoped>
 .link-btn {
   color: #606266;

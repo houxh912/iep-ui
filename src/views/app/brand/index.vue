@@ -72,7 +72,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.gird-brand{
+.gird-brand {
   width: 1280px;
   padding: 20px 0;
   margin: 0 auto;
@@ -80,9 +80,12 @@ export default {
   grid-auto-flow: row dense;
   grid-row-gap: 20px;
   grid-column-gap: 20px;
-  grid-template-columns: minmax(100px, 28fr) minmax(100px, 55fr) minmax(100px, 28fr);
+  grid-template-columns: minmax(100px, 28fr) minmax(100px, 55fr) minmax(
+      100px,
+      28fr
+    );
 }
-.el-tabs__item{
+.el-tabs__item {
   line-height: inherit;
   font-size: 18px;
   color: #000;

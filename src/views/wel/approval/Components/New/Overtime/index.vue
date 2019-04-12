@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="iep-page-form">
     <el-form ref="form" class="form-detail" :model="form" label-width="120px" size="small">
       <el-form-item label="申请人：" class="form-half">
         <span>{{form.name}}</span>
@@ -39,44 +39,12 @@
   </div>
 </template>
 <script>
-import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
-import { initForm } from './options'
 import mixins from '../mixins'
 export default {
-  props: {
-    fn: {
-      type: Function,
-      required: true,
-    },
-  },
   mixins: [mixins],
-  components: { IepContactMultipleUser },
-  data () {
-    return {
-      backOption: {
-        isBack: true,
-        backPath: this.$route.query.redirect,
-      },
-      form: initForm(),
-    }
-  },
-  created () {
-    this.loadSelf()
-  },
   methods: {
-    loadSelf () {
-      this.fn().then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
-      })
-    },
     handlePublish () {
     },
   },
 }
 </script>
-<style scoped>
-.edit-wrapper >>> .el-form {
-  margin-right: 20%;
-  margin-top: 50px;
-}
-</style>

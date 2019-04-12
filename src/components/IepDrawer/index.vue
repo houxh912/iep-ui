@@ -1,5 +1,5 @@
 <template>
-  <a-drawer :title="title" :width="width" @close="close" :visible="drawerShow" :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}">
+  <a-drawer :title="title" :width="width" @close="close" :visible="drawerShow" :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}" :zIndex="3000">
     <el-scrollbar v-if="drawerShow" wrap-class="drawer-content">
       <slot></slot>
     </el-scrollbar>

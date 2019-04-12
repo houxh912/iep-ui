@@ -16,9 +16,29 @@ export default [
         component: () => import('@/views/mlms/material/summary/mainDialog.vue'),
       },
       {
+        path: 'summary/update/:id',
+        name: '修改纪要',
+        component: () => import('@/views/mlms/material/summary/mainDialog.vue'),
+      },
+      {
         path: 'material/create',
         name: '新建文档',
         component: () => import('@/views/mlms/material/datum/material/newlyDialog.vue'),
+      },
+      {
+        path: 'material/detail/:id',
+        name: '查看文档',
+        component: () => import('@/views/mlms/material/datum/material/detail.vue'),
+      },
+      {
+        path: 'contract/detail/:id',
+        name: '查看合同',
+        component: () => import('@/views/mlms/material/datum/contract/detail.vue'),
+      },
+      {
+        path: 'email/detail',
+        name: '查看邮件',
+        component: () => import('@/views/mlms/email/tableTpl/mainDialog'),
       },
     ],
   },

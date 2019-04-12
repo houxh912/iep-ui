@@ -15,15 +15,33 @@
         <template slot="before-columns">
           <el-table-column label="申请人" width="120px">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}
+                <a-tag v-if="scope.row.isDraft" color="orange">草稿</a-tag>
+              </iep-table-link>
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="操作" width="150px">
+        <el-table-column label="审核人">
           <template slot-scope="scope">
-            <el-button :disabled="scope.row.status!==1" size="small" type="warning" plain @click="handleCancel(scope.row)">撤销</el-button>
-            <!-- <el-button size="small" @click="handleDelete(scope.row)">删除</el-button>
-            <el-button size="small">撤销</el-button> -->
+            <div>
+              <iep-detail-tag v-if="!scope.row.approveResult" :value="scope.row.approverNameList"></iep-detail-tag>
+              <span v-else>{{scope.row.approverName}}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column label="审批结果">
+          <template slot-scope="scope">
+            {{dictsMap.approveResult[scope.row.approveResult]}}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="230px">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button v-if="scope.row.isDraft===0 && scope.row.approveResult===0" type="warning" plain @click="handleCancel(scope.row)">撤销</iep-button>
+              <iep-button v-if="scope.row.isDraft!==0" type="warning" plain @click="handleEdit(scope.row)">修改</iep-button>
+              <iep-button v-if="scope.row.isDraft!==0" plain @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button v-if="scope.row.isDraft!==0" plain @click="handleSubmit(scope.row)">提交</iep-button>
+            </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
@@ -33,7 +51,7 @@
 </template>
 
 <script>
-import { getInitiatePage, deleteApprovalById, putApprovalInitiate } from '@/api/hrms/wel'
+import { getInitiatePage, deleteApprovalById, submitApprovalById, cancelApprovalById } from '@/api/hrms/wel'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
 import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
@@ -52,6 +70,12 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleCancel (row) {
+      this._handleGlobalById(row.id, cancelApprovalById, 'cancel')
+    },
+    handleSubmit (row) {
+      this._handleGlobalById(row.id, submitApprovalById, 'submit')
+    },
     handleDetail (row) {
       this.$router.push({
         path: '/hrms_spa/approval_detail',
@@ -61,10 +85,12 @@ export default {
       })
     },
     handleEdit (row) {
-      this.$emit('onEdit', {
-        formRequestFn: putApprovalInitiate,
-        methodName: '修改',
-        id: row.id,
+      this.$router.push({
+        path: '/hrms_spa/approval',
+        query: {
+          id: row.id,
+          type: row.typeId,
+        },
       })
     },
     handleAdd () {

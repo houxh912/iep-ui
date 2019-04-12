@@ -9,7 +9,6 @@ export function getPublishRecruitmentPage (query) {
     params: query,
   })
 }
-
 export function getPublishRecruitmentById (id) {
   return request({
     url: `${prefixUrl}/${id}`,

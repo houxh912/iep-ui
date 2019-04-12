@@ -9,25 +9,37 @@
           <el-form-item label="用户名：" class="form-half">
             <span>{{form.userName}}</span>
           </el-form-item>
-          <el-form-item label="所属组织：" class="form-half">
-            <iep-detail-tag :value="form.orgList"></iep-detail-tag>
-          </el-form-item>
-          <el-form-item label="工号：" class="form-half">
-            <span>{{form.staffId}}</span>
-          </el-form-item>
           <el-form-item label="头像：" class="">
             <iep-avatar v-model="form.avatar"></iep-avatar>
           </el-form-item>
-          <el-form-item label="角色：">
-            <iep-detail-tag :value="form.roleName"></iep-detail-tag>
+          <el-form-item label="所属组织：">
+            <iep-detail-tag :value="form.orgList"></iep-detail-tag>
+          </el-form-item>
+          <el-form-item label="">
+            <div>
+              <span><i class="el-icon-warning"></i></span>
+              <span class="margin">我要</span>
+              <iep-button type="danger" class="margin">加入组织</iep-button>
+              <iep-button class="margin">创建组织</iep-button>
+            </div>
           </el-form-item>
           <el-form-item label="资产所属：" class="form-half">
             <iep-detail-tag :value="form.deptList"></iep-detail-tag>
           </el-form-item>
+          <el-form-item label="工号：" class="form-half">
+            <span>{{form.staffId}}</span>
+          </el-form-item>
+          <el-form-item label="角色：">
+            <iep-detail-tag :value="form.roleName"></iep-detail-tag>
+          </el-form-item>
+
           <el-form-item label="岗位：" class="form-half">
             <span>{{form.positionName}}</span>
           </el-form-item>
-          <el-form-item label="岗位职责：" class="form-half">
+          <el-form-item label="对外头衔：" class="form-half">
+            <span>{{form.positionName}}</span>
+          </el-form-item>
+          <el-form-item label="岗位职责：">
             <span>{{form.duties}}</span>
           </el-form-item>
           <el-form-item label="职务：" class="form-half">
@@ -85,7 +97,7 @@
             <el-input v-model="form.profession"></el-input>
           </el-form-item>
           <el-form-item label="毕业时间：" class="form-half">
-            <el-input v-model="form.graduationTime"></el-input>
+            <iep-date-picker v-model="form.graduationTime" type="date" placeholder="选择日期"></iep-date-picker>
           </el-form-item>
           <el-form-item label="推荐人：" class="form-half">
             <el-input v-model="form.referrer"></el-input>
@@ -111,6 +123,22 @@
             <el-input type="textarea" v-model="form.careerPlanning"></el-input>
           </el-form-item>
 
+          <el-form-item label="工作经历：">
+            <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+          </el-form-item>
+
+          <el-form-item label="学习情况：">
+            <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+          </el-form-item>
+
+          <el-form-item label="培训情况：">
+            <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+          </el-form-item>
+
+          <el-form-item label="资质证书：">
+            <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+          </el-form-item>
+
           <el-form-item>
             <a-button type="primary" @click="handleSubmit">提交</a-button>
           </el-form-item>
@@ -123,17 +151,24 @@
 
 <script>
 import { getEmployeeProfileSelf, putEmployeeProfile } from '@/api/hrms/employee_profile'
-import { dictsMap, initForm } from './options'
+import { initForm, dictsMap } from '@/views/hrms/EmployeeProfile/options'
+import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
+import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
 export default {
+  components: { InlineFormTable },
   data () {
     return {
+      workExpColumns,
+      studyColumns,
+      trainingColumns,
+      certificateColumns,
       dictsMap,
       preview: {},
       form: initForm(),
     }
   },
   created () {
-    this.loadSelf()
+    this.loadPage()
   },
   methods: {
     handleSubmit () {
@@ -143,7 +178,7 @@ export default {
             message: '修改成功',
             type: 'success',
           })
-          this.loadSelf()
+          this.loadPage()
         } else {
           this.$message({
             message: data.msg,
@@ -152,7 +187,7 @@ export default {
         }
       })
     },
-    loadSelf () {
+    loadPage () {
       getEmployeeProfileSelf().then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
       })
@@ -215,5 +250,11 @@ export default {
     border-radius: 50%;
     overflow: hidden;
   }
+}
+.el-form-item__content span {
+  display: inline-block;
+}
+.margin {
+  margin: 0 10px;
 }
 </style>

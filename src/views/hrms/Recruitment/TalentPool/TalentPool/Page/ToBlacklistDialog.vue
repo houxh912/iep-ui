@@ -48,8 +48,8 @@ export default {
           this.formRequestFn(this.form).then(() => {
             this.$notify({
               title: '成功',
-              message: '放入简历库成功',
-              type: 'success',
+              message: '放入黑名单成功',
+              type: 'warning',
               duration: 2000,
             })
             this.loadPage()

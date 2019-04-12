@@ -38,11 +38,6 @@ const columnsMapByTypeId = [
       label: '跟进状态',
       prop: 'followUpStatusName',
     },
-    {
-      label: '距离上次拜访已有',
-      prop: 'lastTime',
-      minWidth: '100',
-    },
   ],
   [
     {
@@ -65,18 +60,9 @@ const columnsMapByTypeId = [
       label: '市场经理',
       prop: 'marketManager',
     },
-    {
-      label: '距离上次拜访已有',
-      prop: 'lastTime',
-      minWidth: '100',
-    },
   ],
 ]
 const tabList = [
-  {
-    label: '全部客户',
-    value: '1',
-  },
   {
     label: '我的客户',
     value: '2',
@@ -84,6 +70,10 @@ const tabList = [
   {
     label: '协作客户',
     value: '3',
+  },
+  {
+    label: '全部客户',
+    value: '1',
   },
 ]
 export { columnsMapByTypeId, tabList }

@@ -23,7 +23,7 @@
               <iep-avatar v-model="form.avatar"></iep-avatar>
             </el-form-item>
             <el-form-item label="出生年月：" class="form-half">
-              <el-date-picker v-model="form.birthday" type="date" placeholder="选择日期" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
+              <IepDatePicker v-model="form.birthday" type="date" placeholder="选择日期"></IepDatePicker>
             </el-form-item>
             <el-form-item label="年龄：" class="form-half">
               <el-input v-model="form.age"></el-input>
@@ -102,7 +102,7 @@
 <script>
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 import { initForm, formToDto, workExpColumns, studyColumns, trainingColumns, certificateColumns } from '../options'
-import { mergeByFirst } from '@/util/util'
+
 export default {
   props: {
     record: {
@@ -134,7 +134,7 @@ export default {
   methods: {
     loadPage () {
       getTalentPoolById(this.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     },
     handleGoBack () {

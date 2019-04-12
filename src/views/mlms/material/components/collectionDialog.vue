@@ -7,7 +7,7 @@
     <div class="tree-box">
       <div class="left box-item">
         <ul class="list">
-          <li v-for="(item, index) in list" :key="index" @click="selectIndexFn(index)" :class="index==selectIndex?'select':''">{{item.name}}</li>
+          <li v-for="(item, index) in list" :key="index" @click="selectIndexFn(index, item)" :class="index==selectIndex?'select':''">{{item.name}}</li>
         </ul>
       </div>
       <div class="middle">
@@ -28,11 +28,10 @@
 </template>
 
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { collectList } from '@/api/mlms/material/summary'
 
 export default {
-  components: { IepDialog },
+  components: {  },
   props: {
     type: {
       type: String,
@@ -45,7 +44,8 @@ export default {
   },
   data () {
     return {
-      selectIndex: 0,
+      selectIndex: -1,
+      selectId: -1,
       selectItem: -1,
       dialogShow: false,
       list: [{childrens:[]}],
@@ -60,13 +60,15 @@ export default {
       this.formData = list
       collectList().then((res) => {
         this.list = res.data.data
+        this.selectIndex = 0
+        this.selectId = this.list[this.selectIndex].id
       })
     },
     submitForm () {
-      if (this.selectItem == -1) {
-        this.$message.error('请至少选择一项收藏项')
-        return
-      }
+      // if (this.selectItem == -1) {
+      //   this.$message.error('请至少选择一项收藏项')
+      //   return
+      // }
       // 处理数据
       let list = []
       for (let item of this.formData) {
@@ -74,7 +76,7 @@ export default {
           name: item.title === undefined ? item.name : item.title,
           type: this.type ? this.type : item.type,
           targetId: item.targetId ? item.targetId : item.id,
-          collectionId: this.selectItem,
+          collectionId: this.selectItem == -1 ? this.selectId : this.selectItem,
         }
         console.log('type: ', this.type)
         if (this.type === undefined) {
@@ -93,7 +95,8 @@ export default {
         this.dialogShow = false
       })
     },
-    selectIndexFn (index) {
+    selectIndexFn (index, item) {
+      this.selectId = item.id
       this.selectIndex = index
       this.selectItem = -1
     },

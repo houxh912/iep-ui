@@ -4,15 +4,19 @@
       <div>我的合同</div>
     </div>
     <div class="contract-content">
-      <el-row v-for="(item,index) in dataList" :key="index">
-        <el-col :span="15">
-          <div class="title">{{item.name}}</div>
+      <iep-no-data v-if="!dataList.length" message="暂无合同"></iep-no-data>
+      <el-row class="item" v-for="(item,index) in dataList" :key="index">
+        <el-col :span="10">
+          <div class="grid-content name" @click="handleDetail(item)">{{item.name}}</div>
+        </el-col>
+        <el-col :span="4">
+          <div class="grid-content" style="text-align: center;">{{item.businessContractType!=''?item.businessContractType:'无'}}</div>
         </el-col>
         <el-col :span="6">
-          <div>{{item.status}}</div>
+          <div class="grid-content" style="text-align: center;">{{item.contractAmount.toLocaleString('en-US')}}</div>
         </el-col>
-        <el-col :span="3">
-          <div>{{item.time |parseTime('{y}-{m}-{d}')}}</div>
+        <el-col :span="4">
+          <div class="grid-content" style="text-align: center;">{{item.status}}</div>
         </el-col>
       </el-row>
     </div>
@@ -33,6 +37,9 @@ export default {
     })
   },
   methods: {
+    handleDetail (row) {
+      this.$router.push(`/mlms_spa/contract/detail/${row.id}`)
+    },
   },
 }
 </script>
@@ -51,13 +58,16 @@ export default {
   .contract-content {
     padding: 10px 0;
     font-size: 14px;
-  }
-  .title {
-    padding: 5px 0;
-    cursor: pointer;
-    &:hover {
-      color: #cb3737;
+    .item {
+      padding: 5px 0;
+      cursor: pointer;
     }
   }
+}
+.grid-content {
+  min-height: 24px;
+}
+.el-row:hover .el-col .name {
+  color: #cb3737;
 }
 </style>

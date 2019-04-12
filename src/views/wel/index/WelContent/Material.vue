@@ -4,18 +4,21 @@
       <div>推荐材料</div>
     </div>
     <div class="material-content">
+      <iep-no-data v-if="!dataList.length" message="暂无材料"></iep-no-data>
       <el-row class="item" v-for="(item) in dataList" :key="item.id">
+        <el-col :span="12">
+          <div class="grid-content title" @click="handleDetail(item)">{{item.name}}</div>
+        </el-col>
         <el-col :span="8">
-          <div class="grid-content title">{{item.name}}</div>
+          <div>
+            <iep-detail-tag :value="item.tagKeyWords"></iep-detail-tag>
+          </div>
         </el-col>
-        <el-col :span="6">
-          <div class="grid-content">{{item.type === 1 ? '外部材料' : '内部材料'}}</div>
+        <el-col :span="2">
+          <div class="grid-content" style="text-align: center;">{{item.type === 1 ? '外部材料' : '内部材料'}}</div>
         </el-col>
-        <el-col :span="6">
-          <div class="grid-content">{{item.creatorRealName}}</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content text-right text-time">{{item.createTime}}</div>
+        <el-col :span="2">
+          <div class="grid-content" style="text-align: center;">{{item.creatorRealName}}</div>
         </el-col>
       </el-row>
     </div>
@@ -34,6 +37,11 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDetail (row) {
+      this.$router.push({
+        path: `/mlms_spa/material/detail/${row.id}`,
+      })
+    },
     loadPage () {
       getMaterials().then(({ data }) => {
         this.dataList = data.data

@@ -3477,7 +3477,7 @@ de-indent@^1.0.2:
   resolved "http://registry.npm.taobao.org/de-indent/download/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
   integrity sha1-sgOOhG3DO6pXlhKNCAS0VbjB4h0=
 
-debug@2.6.9, debug@^2.1.2, debug@^2.2.0, debug@^2.3.3:
+debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
   resolved "http://registry.npm.taobao.org/debug/download/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   integrity sha1-XRKFFd8TT/Mn6QpMk/Tgd6U2NB8=
@@ -5224,9 +5224,9 @@ html-webpack-plugin@^3.2.0:
     util.promisify "1.0.0"
 
 html2canvas@^1.0.0-alpha.12:
-  version "1.0.0-alpha.12"
-  resolved "http://registry.npm.taobao.org/html2canvas/download/html2canvas-1.0.0-alpha.12.tgz#3b1992e3c9b3f56063c35fd620494f37eba88513"
-  integrity sha1-OxmS48mz9WBjw1/WIElPN+uohRM=
+  version "1.0.0-rc.1"
+  resolved "http://registry.npm.taobao.org/html2canvas/download/html2canvas-1.0.0-rc.1.tgz#422222d21332d05ca55d86954e5f413e17fae6fb"
+  integrity sha1-QiIi0hMy0FylXYaVTl9BPhf65vs=
   dependencies:
     css-line-break "1.0.1"
 
@@ -6867,11 +6867,11 @@ natural-compare@^1.4.0:
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
 needle@^2.2.1:
-  version "2.2.4"
-  resolved "http://registry.npm.taobao.org/needle/download/needle-2.2.4.tgz#51931bff82533b1928b7d1d69e01f1b00ffd2a4e"
-  integrity sha1-UZMb/4JTOxkot9HWngHxsA/9Kk4=
+  version "2.3.0"
+  resolved "http://registry.npm.taobao.org/needle/download/needle-2.3.0.tgz#ce3fea21197267bacb310705a7bbe24f2a3a3492"
+  integrity sha1-zj/qIRlyZ7rLMQcFp7viTyo6NJI=
   dependencies:
-    debug "^2.1.2"
+    debug "^4.1.0"
     iconv-lite "^0.4.4"
     sax "^1.2.4"
 
@@ -8647,7 +8647,7 @@ safe-buffer@5.1.2, safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, s
 
 safe-regex@^1.1.0:
   version "1.1.0"
-  resolved "http://registry.npm.taobao.org/safe-regex/download/safe-regex-1.1.0.tgz#40a3669f3b077d1e943d44629e157dd48023bf2e"
+  resolved "http://registry.npm.taobao.org/safe-regex/download/safe-regex-1.1.0.tgz?cache=0&other_urls=http%3A%2F%2Fregistry.npm.taobao.org%2Fsafe-regex%2Fdownload%2Fsafe-regex-1.1.0.tgz#40a3669f3b077d1e943d44629e157dd48023bf2e"
   integrity sha1-QKNmnzsHfR6UPURinhV91IAjvy4=
   dependencies:
     ret "~0.1.10"
@@ -8670,9 +8670,9 @@ sass-loader@^7.1.0:
     semver "^5.5.0"
 
 sass@^1.16.0:
-  version "1.17.4"
-  resolved "http://registry.npm.taobao.org/sass/download/sass-1.17.4.tgz#b65b9d11f5cef9b96d6c44566ab91d6357210dbd"
-  integrity sha1-tludEfXO+bltbERWarkdY1chDb0=
+  version "1.18.0"
+  resolved "http://registry.npm.taobao.org/sass/download/sass-1.18.0.tgz#f34371c31e268e555c2ac8e43d2b64d194e7d090"
+  integrity sha1-80Nxwx4mjlVcKsjkPStk0ZTn0JA=
   dependencies:
     chokidar "^2.0.0"
 
@@ -9836,7 +9836,7 @@ unset-value@^1.0.0:
 
 upath@^1.1.1:
   version "1.1.2"
-  resolved "http://registry.npm.taobao.org/upath/download/upath-1.1.2.tgz#3db658600edaeeccbe6db5e684d67ee8c2acd068"
+  resolved "http://registry.npm.taobao.org/upath/download/upath-1.1.2.tgz?cache=0&other_urls=http%3A%2F%2Fregistry.npm.taobao.org%2Fupath%2Fdownload%2Fupath-1.1.2.tgz#3db658600edaeeccbe6db5e684d67ee8c2acd068"
   integrity sha1-PbZYYA7a7sy+bbXmhNZ+6MKs0Gg=
 
 upper-case@^1.1.1:
@@ -10085,9 +10085,9 @@ vue-ref@^1.0.4:
   integrity sha1-ubPX0OKQ7i/T1Q1de9rFIIBssmU=
 
 vue-router@^3.0.1:
-  version "3.0.2"
-  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-3.0.2.tgz#dedc67afe6c4e2bc25682c8b1c2a8c0d7c7e56be"
-  integrity sha1-3txnr+bE4rwlaCyLHCqMDXx+Vr4=
+  version "3.0.3"
+  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-3.0.3.tgz#370ca607475c45a1cfab2d9d2ac846feab1c534c"
+  integrity sha1-NwymB0dcRaHPqy2dKshG/qscU0w=
 
 vue-style-loader@^4.1.0:
   version "4.1.2"

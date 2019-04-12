@@ -1,31 +1,15 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="发起申请" width="550px" @close="loadPage" center>
     <el-form size="small" ref="form" label-width="100px">
-      <el-form-item v-for="child in approvalTree" :key="child.id" :label="`${child.name}：`">
+      <el-form-item v-for="child in applicTypeTree" :key="child.id" :label="`${child.name}：`">
         <!-- <a-checkable-tag class="tag-item" v-for="item in child.children" :key="item.id" v-model="item.checked" @change="handleChange(item.name)">{{item.name}}</a-checkable-tag> -->
-        <iep-button class="tag-item" type="warning" size="mini" v-for="item in child.children" :key="item.id" :plain="!item.checked" @click="handleChange(item.name)">{{item.name}}</iep-button>
+        <iep-button :disabled="item.value==='7'" class="tag-item" type="warning" size="mini" v-for="item in child.children" :key="item.value" :plain="!item.checked" @click="handleChange(item)">{{item.label}}</iep-button>
       </el-form-item>
     </el-form>
-    <template slot="footer">
-      <iep-button type="primary" @click="submitForm">确定</iep-button>
-      <iep-button @click="loadPage">取消</iep-button>
-    </template>
   </iep-dialog>
 </template>
 <script>
-function searchTree (element, matchingName) {
-  if (element.name == matchingName) {
-    return element
-  } else if (element.children != null) {
-    var i
-    var result = null
-    for (i = 0; result == null && i < element.children.length; i++) {
-      result = searchTree(element.children[i], matchingName)
-    }
-    return result
-  }
-  return null
-}
+import { mapState } from 'vuex'
 function initTree () {
   return [
     {
@@ -64,28 +48,28 @@ function initTree () {
         },
       ],
     },
-    {
-      id: 2,
-      name: '行政管理',
-      children: [
-        {
-          id: 1,
-          name: '物品领用',
-          checked: false,
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: '费用管理',
-      children: [
-        {
-          id: 1,
-          name: '报销',
-          checked: false,
-        },
-      ],
-    },
+    // {
+    //   id: 2,
+    //   name: '行政管理',
+    //   children: [
+    //     {
+    //       id: 1,
+    //       name: '物品领用',
+    //       checked: false,
+    //     },
+    //   ],
+    // },
+    // {
+    //   id: 3,
+    //   name: '费用管理',
+    //   children: [
+    //     {
+    //       id: 1,
+    //       name: '报销',
+    //       checked: false,
+    //     },
+    //   ],
+    // },
   ]
 }
 export default {
@@ -97,27 +81,29 @@ export default {
       formRequestFn: () => { },
     }
   },
+  computed: {
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
+    applicTypeTree () {
+      const hrms_applic_type = this.dictGroup['hrms_applic_type']
+      return [
+        {
+          id: 1,
+          name: '人事管理',
+          children: hrms_applic_type,
+        },
+      ]
+    },
+  },
   methods: {
-    submitForm () {
+    handleChange (row) {
       this.$router.push({
         path: '/hrms_spa/approval',
         query: {
-          name: this.name,
+          type: row.value,
         },
       })
-    },
-    handleChange (name) {
-      this.initSelect()
-      this.name = name
-      var i
-      var result = null
-      for (i = 0; result == null && i < this.approvalTree.length; i++) {
-        result = searchTree(this.approvalTree[i], name)
-      }
-      result.checked = true
-    },
-    initSelect () {
-      this.approvalTree = initTree()
     },
     loadPage () {
       this.dialogShow = false

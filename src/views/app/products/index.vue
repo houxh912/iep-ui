@@ -41,7 +41,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .products {
-  .content{
+  .content {
     width: 1200px;
     padding: 20px 0;
     margin: 0 auto;
@@ -49,18 +49,21 @@ export default {
     grid-auto-flow: row dense;
     grid-row-gap: 30px;
     grid-column-gap: 30px;
-    grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr);
+    grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) minmax(
+        100px,
+        1fr
+      );
     .index-card {
       font-size: 14px;
       border: 1px solid #f0f0f0;
-      padding:15px 20px;
+      padding: 15px 20px;
       .clearfix:before,
       .clearfix:after {
         display: table;
         content: "";
       }
       .clearfix:after {
-        clear: both
+        clear: both;
       }
     }
   }

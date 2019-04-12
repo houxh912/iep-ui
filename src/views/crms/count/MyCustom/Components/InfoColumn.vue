@@ -5,39 +5,39 @@
         <h2 class="user">hello，{{infoList.name}}！</h2>
         <div class="msg">
           您累计签订合同
-          <span class="red">{{infoList.num}}</span>
+          <span class="red">12</span>
           份 / 排名
-          <span class="red">{{infoList.num}}</span>
+          <span class="red">3</span>
           位
         </div>
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>{{infoList.num}}</span> 客户
+          <span>33</span> 客户
         </div>
-        <div class="content">超过了 {{infoList.cent}} 的同事</div>
+        <div class="content">超过了 60% 的同事</div>
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>{{infoList.num}}</span> 联系人
+          <span>6</span> 联系人
         </div>
-        <div class="content">超过了 {{infoList.cent}} 的同事</div>
+        <div class="content">超过了 30% 的同事</div>
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>{{infoList.num}}</span> 合同
+          <span>5</span> 合同
         </div>
-        <div class="content">超过了 {{infoList.cent}} 的同事</div>
+        <div class="content">超过了 55% 的同事</div>
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>{{infoList.num}}</span> 合同金额
+          <span>65w</span> 合同金额
         </div>
-        <div class="content">超过了 {{infoList.cent}} 的同事</div>
+        <div class="content">超过了 91% 的同事</div>
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>{{infoList.num}}</span> 软件
+          <span>5</span> 软件
         </div>
         <div class="content">超过了 {{infoList.cent}} 的同事</div>
       </el-col>

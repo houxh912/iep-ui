@@ -4,11 +4,21 @@
       <iep-button class="btn" type="primary" plain @click="handleAdd"><i class="el-icon-plus"></i>新增</iep-button>
     </operation-wrapper>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection>
+      <el-table-column label="创建人" width="250px" v-if="record.type =='3'">
+        <template>
+          <div class=' line'>
+            <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
+          </div>
+          <div class='create-name line'>
+            {{userInfo.realName}}
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="operation" label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain :disabled="scope.row.creatorId !== userInfo.userId">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)" :disabled="scope.row.creatorId !== userInfo.userId">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -22,6 +32,7 @@ import mixins from '@/mixins/mixins'
 import { fetchVisitList, deleteVisit, updateVisit, createVisit } from '@/api/crms/visiting_record'
 import { columnsMap } from './options'
 import EditDialog from './EditDialog'
+import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
   props: ['record'],
@@ -30,16 +41,18 @@ export default {
     return {
       columnsMap,
       id: this.record.id,
+      userId: '',
     }
   },
   created () {
     this.loadPage()
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
   methods: {
-    // loadPage (param) {
-    //   let id = this.record.clientId
-    //   this.loadTable({ ...param, clientId: id }, fetchVisitList)
-    // },
     loadPage (param = { ...this.searchForm, id: this.id }) {
       this.loadTable(param, fetchVisitList)
     },

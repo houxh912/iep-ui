@@ -16,10 +16,16 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex>
+        <template slot="before-columns">
+          <el-table-column label="客户名称">
+            <template slot-scope="scope">
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.contractName}}</iep-table-link>
+            </template>
+          </el-table-column>
+        </template>
         <el-table-column v-if="+type !== 0" prop="operation" label="操作" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleDetail(scope.row)">详情</iep-button>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button @click="handeleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
@@ -36,6 +42,7 @@ import { columnsMapByTypeId } from '../columns'
 import { getContractPage, postContract, putContract, deleteContract, getDataById } from '@/api/crms/contract'
 import DetailDrawer from './DetailDrawer'
 import AdvanceSearch from './AdvanceSearch'
+import { getObj } from '@/api/admin/user'
 export default {
   name: 'List',
   mixins: [mixins],
@@ -45,17 +52,17 @@ export default {
   },
   data () {
     return {
-      type: '0',
+      type: '1',
       deleteAll: false,
       dialogVisible: false,
       tabList: [
         {
-          label: '全部合同',
-          value: '0',
-        },
-        {
           label: '我的合同',
           value: '1',
+        },
+        {
+          label: '全部合同',
+          value: '0',
         },
       ],
       replaceText: (data) => `（本周新增${data[0]}位客户）`,
@@ -74,6 +81,7 @@ export default {
       this.multipleSelection = val.map(m => m.id)
     },
     changeType () {
+      this.searchPage({ type: this.type })
     },
     handleAdd () {
       this.$emit('onForm', {
@@ -93,6 +101,9 @@ export default {
       this.$refs['DetailDrawer'].drawerShow = true
       getDataById(row.contractId).then(res => {
         this.$refs['DetailDrawer'].formData = res.data.data
+        getObj(res.data.data.directorId).then(res => {
+          this.$set(this.$refs['DetailDrawer'].formData, 'Manager', res.data.data.realName)
+        })
       })
     },
     handeleDelete (row) {
@@ -117,8 +128,8 @@ export default {
         })
       })
     },
-    loadPage (param = { ...this.searchForm, type: this.type }) {
-      this.loadTable(param, getContractPage)
+    loadPage (param) {
+      this.loadTable({ ...param, type: this.type }, getContractPage)
     },
 
   },

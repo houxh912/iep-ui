@@ -44,7 +44,6 @@
 <script>
 import { initForm } from './options'
 import { getUnionBySelf, putUnion } from '@/api/goms/union'
-import { mergeByFirst } from '@/util/util'
 import { mapState } from 'vuex'
 export default {
   data () {
@@ -58,7 +57,7 @@ export default {
     }
   },
   created () {
-    this.load()
+    this.loadPage()
   },
   computed: {
     ...mapState({
@@ -71,9 +70,9 @@ export default {
         this.$emit('onGoBack')
       })
     },
-    load () {
+    loadPage () {
       getUnionBySelf(this.orgId).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     },
   },

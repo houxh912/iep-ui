@@ -1,5 +1,5 @@
 <template>
-  <el-cascader :placeholder="placeholder" :options="options" v-bind="$attrs" v-on="$listeners">
+  <el-cascader :placeholder="placeholder" :options="options" @change="handleChange" v-bind="$attrs" v-on="$listeners">
   </el-cascader>
 </template>
 <script>
@@ -26,6 +26,11 @@ export default {
     getCommonList(this.prefixUrl).then(({ data }) => {
       this.options = data.data
     })
+  },
+  methods: {
+    handleChange (item) {
+      this.$emit('change', item, this.options)
+    },
   },
 }
 </script>

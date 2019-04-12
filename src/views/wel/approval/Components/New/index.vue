@@ -1,8 +1,8 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="`${$route.query.name}申请单`" :backOption="backOption"></page-header>
-      <component :is="name" :type="current.value" :fn="fn"></component>
+      <page-header :title="`${currentName}单`" :backOption="backOption"></page-header>
+      <component :is="currentLabel" :type="$route.query.type" :fn="fn"></component>
     </basic-container>
   </div>
 </template>
@@ -19,14 +19,14 @@ import Reimburse from './Reimburse/'
 // hrms_applic_type
 import { getEmployeeProfileSelf } from '@/api/hrms/employee_profile'
 const componentMap = {
-  转正: 'Positive',
-  请假: 'Leaving',
-  调岗: 'Transfer',
-  离职: 'Leave',
-  加班: 'Overtime',
-  出差: 'BusinessTrip',
-  物品领用: 'ItemUse',
-  报销: 'Reimburse',
+  转正申请: 'Positive',
+  请假申请: 'Leaving',
+  调岗申请: 'Transfer',
+  离职申请: 'Leave',
+  加班申请: 'Overtime',
+  出差申请: 'BusinessTrip',
+  物品领用申请: 'ItemUse',
+  报销申请: 'Reimburse',
 }
 export default {
   components: {
@@ -41,7 +41,6 @@ export default {
   },
   data () {
     return {
-      name: componentMap[this.$route.query.name],
       fn: getEmployeeProfileSelf,
       backOption: {
         isBack: true,
@@ -53,21 +52,13 @@ export default {
     ...mapState({
       dictGroup: state => state.user.dictGroup,
     }),
-    hrms_applic_type () {
-      return this.dictGroup['hrms_applic_type']
+    currentName () {
+      const hrms_applic_type = this.dictGroup['hrms_applic_type']
+      return hrms_applic_type.find(m => m.value == this.$route.query.type).label
     },
-    current () {
-      const current = this.hrms_applic_type.find(m => {
-        return m.label.startsWith(this.$route.query.name)
-      })
-      return current
+    currentLabel () {
+      return componentMap[this.currentName]
     },
   },
 }
 </script>
-<style scoped>
-.edit-wrapper >>> .el-form {
-  margin-right: 20%;
-  margin-top: 50px;
-}
-</style>

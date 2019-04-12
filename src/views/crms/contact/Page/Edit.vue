@@ -22,7 +22,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="对应客户" prop="clientName">
+            <el-form-item label="对应客户" prop="clientInfos">
               <span class="tags" v-for="(item,index) in formData.clientInfos" :key="index">{{item.clientName}}</span>
               <el-button size="small" @click="addContact" icon="el-icon-plus"></el-button>
             </el-form-item>
@@ -95,7 +95,6 @@
   </div>
 </template>
 <script>
-import { mergeByFirst } from '@/util/util'
 import mixins from '@/mixins/mixins'
 import { initForm, rules } from '../options'
 import { getContactById } from '@/api/crms/contact'
@@ -153,7 +152,7 @@ export default {
     this.id = this.record.id
     if (this.id) {
       getContactById(this.id).then(({ data }) => {
-        this.formData = mergeByFirst(initForm(), data.data)
+        this.formData = this.$mergeByFirst(initForm(), data.data)
         this.formData.clientIds = this.formData.clientInfos.map(m => m.clientId)
       })
     }
@@ -226,6 +225,8 @@ export default {
 .btn .cancel {
   margin-right: 10px;
 }
-.el-dialog {margin-top:20px;}
+.el-dialog {
+  margin-top: 20px;
+}
 </style>
 

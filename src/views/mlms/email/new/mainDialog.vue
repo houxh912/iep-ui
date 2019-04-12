@@ -1,6 +1,5 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="添加关联" width="60%" @close="resetForm">
-
     <!-- transfer -->
     <div class="iep-transfer">
       <div class="transfer box-list">
@@ -10,7 +9,7 @@
       </div>
       <div class="arrow"><i class="el-icon-d-arrow-right"></i></div>
       <div class="transfer box-list">
-        <el-input class="search" placeholder="请输入关键字" prefix-icon="el-icon-search" v-model="searchVal"></el-input>
+        <!-- <el-input class="search" placeholder="请输入关键字" prefix-icon="el-icon-search" v-model="searchVal"></el-input> -->
         <ul class="list">
           <li class="item" :class="selectFn(item.id) ? 'selectItem' : ''" v-for="(item, index) in secondList" :key="index" @click="secondClick(item)">{{item.name}}</li>
         </ul>
@@ -18,6 +17,14 @@
       <div class="arrow"><i class="el-icon-d-arrow-right"></i></div>
       <div class="transfer box-list">
         <ul class="list">
+          <h3 class="item-title">关联项目：</h3>
+          <li class="item last-item" v-for="(item, index) in transferList.projectIds" :key="index">
+            <p>{{item.name}}</p>
+            <i class="el-icon-close" @click="cancel(index, 'projectIds')"></i>
+          </li>
+        </ul>
+        <ul class="list">
+          <h3 class="item-title">关联材料：</h3>
           <li class="item last-item" v-for="(item, index) in transferList.materialIds" :key="index">
             <p>{{item.name}}</p>
             <i class="el-icon-close" @click="cancel(index, 'materialIds')"></i>
@@ -33,17 +40,16 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
-import { getReceiverList } from '@/api/mlms/email/material'
+import { getReceiverList, getProjectList } from '@/api/mlms/email/material'
 
 export default {
-  components: { IepDialog },
+  components: {},
   data () {
     return {
       dialogShow: false,
       firstList: [
         { id: 1, name: '报表', requestFn: '' },
-        { id: 2, name: '项目', requestFn: '' },
+        { id: 2, name: '项目', requestFn: getProjectList, type: 'projectIds' },
         { id: 3, name: '材料', requestFn: getReceiverList, type: 'materialIds' },
         { id: 4, name: '日程', requestFn: '' },
         { id: 5, name: '可关联的事项分类', requestFn: '' },
@@ -66,7 +72,9 @@ export default {
     }
   },
   methods: {
-    loadData () {},
+    loadData (list) {
+      this.transferList = list
+    },
     submitForm () {
       console.log('transferList: ', this.transferList)
       this.dialogShow = false
@@ -75,8 +83,8 @@ export default {
     // 重置穿梭框
     resetForm () {
       this.secondList = [],
-      this.thirdList = [],
-      this.dialogShow = false
+        this.thirdList = [],
+        this.dialogShow = false
     },
     firstClick (item, index) {
       this.params = {
@@ -89,8 +97,13 @@ export default {
         return
       }
       this.activitIndex = index
-      item.requestFn(this.params).then(({data}) => {
+      item.requestFn(this.params).then(({ data }) => {
         console.log('data: ', data)
+        if (item.name == '项目') {
+          for (let t of data.data.records) {
+            t.name = t.projectName
+          }
+        }
         this.secondList = data.data.records
       })
     },
@@ -103,7 +116,7 @@ export default {
     },
     // 判断是否已经选中
     selectFn (id) {
-      for(let item of this.transferList[this.firstList[this.activitIndex].type]) {
+      for (let item of this.transferList[this.firstList[this.activitIndex].type]) {
         if (item.id === id) {
           return true
         }
@@ -151,13 +164,17 @@ export default {
     border: 1px solid #ddd;
     padding: 15px 20px;
     .list {
+      .item-title {
+        position: relative;
+        left: -20px;
+      }
       .item {
         list-style: none;
         cursor: pointer;
         margin-bottom: 10px;
       }
       .selectItem {
-        color: #409EFF;
+        color: #409eff;
         cursor: not-allowed;
       }
       .last-item {

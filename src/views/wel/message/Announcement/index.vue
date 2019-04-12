@@ -37,6 +37,7 @@ import { columnsMap } from './options'
 export default {
   mixins: [mixins],
   data () {
+    console.log(this.$route)
     return {
       type: '1',
       tabList: [
@@ -75,7 +76,7 @@ export default {
     },
     //tab切换菜单
     changeType () {
-      this.searchPage({ type: this.type })
+      this.loadPage()
     },
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)
@@ -97,7 +98,7 @@ export default {
       })
     },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getAnnouncementPage)
+      this.loadTable({ ...param, classId: this.type }, getAnnouncementPage)
     },
   },
 }

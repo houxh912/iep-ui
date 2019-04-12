@@ -19,8 +19,10 @@
       <el-input v-model="form.marketManager" placeholder="请输入市场经理"></el-input>
     </el-form-item>
     <el-form-item label="距离上次拜访" v-if="type!='1'">
-      <el-date-picker v-model="form.lastTime" align="right" type="date" placeholder="选择日期">
-      </el-date-picker>
+      <el-select v-model="form.lastTime" placeholder="请选择">
+        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
     </el-form-item>
     <el-form-item label="">
       <el-button type="primary" @click="searchPage" size="mini">搜索</el-button>
@@ -36,6 +38,19 @@ export default {
   data () {
     return {
       form: {},
+      options: [{
+        value: '1',
+        label: '一周内',
+      }, {
+        value: '2',
+        label: '一个月内',
+      }, {
+        value: '3',
+        label: '两个月内',
+      }, {
+        value: '4',
+        label: '两个月以上',
+      }],
     }
   },
   computed: {

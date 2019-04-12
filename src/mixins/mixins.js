@@ -1,6 +1,8 @@
 const optNameMap = {
   delete: '删除',
   shelf: '上架',
+  submit: '提交',
+  cancel: '撤销',
 }
 function pageOption () {
   return {

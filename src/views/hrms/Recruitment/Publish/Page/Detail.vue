@@ -73,7 +73,6 @@
 <script>
 import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
 import { initForm } from '../options'
-import { mergeByFirst } from '@/util/util'
 export default {
   props: {
     record: {
@@ -96,12 +95,12 @@ export default {
     }
   },
   created () {
-    this.load()
+    this.loadPage()
   },
   methods: {
-    load () {
+    loadPage () {
       getPublishRecruitmentById(this.record.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     },
   },

@@ -17,26 +17,48 @@
           </template>
         </el-table-column>
       </template>
+      <el-table-column label="审批时间">
+        <template slot-scope="scope">
+          <div v-if="scope.row.status!==0">
+            {{scope.row.applyEndTime}}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="审核人">
+        <template slot-scope="scope">
+          <div>
+            <iep-detail-tag v-if="!scope.row.status" :value="scope.row.approverNameList"></iep-detail-tag>
+            <span v-else>{{scope.row.approverName}}</span>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="审批结果">
+        <template slot-scope="scope">
+          {{dictsMap.status[scope.row.status]}}
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="220px">
         <template slot-scope="scope">
           <el-button size="small" type="warning" @click="handleReview(scope.row)" plain>审核</el-button>
-          <el-button size="small" @click="handleDeliver(scope.row)">转交</el-button>
+          <el-button :disabled="scope.row.status===3" size="small" @click="handleDeliver(scope.row)">转交</el-button>
         </template>
       </el-table-column>
     </iep-table>
     <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
     <new-approval ref="NewApproval" @load-page="loadPage"></new-approval>
+    <deliver-dialog ref="DeliverDialog" @load-page="loadPage"></deliver-dialog>
   </div>
 </template>
 <script>
-import { getExaminApprovalPage, postApproval, reviewApprovaBatch } from '@/api/hrms/wel'
+import { getExaminApprovalPage, deliverApprovaBatch, reviewApprovaBatch } from '@/api/hrms/wel'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
 import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
+import DeliverDialog from './DeliverDialog'
 export default {
   mixins: [mixins],
-  components: { NewApproval, IepReviewConfirm },
+  components: { NewApproval, IepReviewConfirm, DeliverDialog },
   data () {
     return {
       columnsMap,
@@ -68,7 +90,9 @@ export default {
       this.$refs['iepReviewForm'].dialogShow = true
     },
     handleDeliver (row) {
-      this._handleComfirm(row.id, postApproval, 'tsyi')
+      this.$refs['DeliverDialog'].form.ids = [row.id]
+      this.$refs['DeliverDialog'].formRequestFn = deliverApprovaBatch
+      this.$refs['DeliverDialog'].dialogShow = true
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getExaminApprovalPage)

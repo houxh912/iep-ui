@@ -28,6 +28,9 @@
       <el-form-item label="认领状态：">
         <span>{{formData.statusValue}}</span>
       </el-form-item>
+      <el-form-item label="认领人：" v-if="formData.statusKey == 1">
+        <span>{{formData.reciver}}</span>
+      </el-form-item>
     </el-form>
     <template slot="footer">
       <iep-button @click="handleCancel">取消</iep-button>

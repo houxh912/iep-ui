@@ -16,7 +16,7 @@
         <template slot="before-columns">
           <el-table-column label="联系人姓名" width="250px">
             <template slot-scope="scope">
-              <div class="contact-name" @click="contactDetail(scope.row)">{{scope.row.contactName}}</div>
+              <iep-table-link  @click="contactDetail(scope.row)">{{scope.row.contactName}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
@@ -96,7 +96,7 @@ export default {
   },
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .contact-tag {
   display: inline-block;
   margin: 5px 5px;
@@ -104,9 +104,6 @@ export default {
   border-radius: 4px;
   background: #f3f2f2;
   font-size: 12px;
-}
-.contact-name {
-  cursor: pointer;
 }
 </style>
 

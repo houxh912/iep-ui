@@ -3,10 +3,26 @@
     <div class="customer-nav">
       <div>我的客户</div>
     </div>
+    <iep-no-data v-if="!tableData.length" message="暂无客户"></iep-no-data>
     <div class="customer-content">
-      <el-row>
-        <el-col :span="6" v-for="(item,index) in tabList" :key="index">
-          <div class="title" @click="handleDetail(item)">{{item.name}}</div>
+      <el-row class="item" v-for="(item,index) in tableData" :key="index">
+        <el-col :span="7">
+          <div class="name grid-content" @click="handleDetail(item)">{{item.name}}</div>
+        </el-col>
+        <el-col :span="7">
+          <iep-detail-tag :value="item.businessType" class="grid-content"></iep-detail-tag>
+        </el-col>
+        <el-col :span="2">
+          <div class="grid-content">{{item.districtType}}</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content">{{item.clientRela}}</div>
+        </el-col>
+        <el-col :span="3">
+          <div class="grid-content">{{item.followUpStatus}}</div>
+        </el-col>
+        <el-col :span="2" class="time">
+          <div class="grid-content">{{item.time | parseTime('{m}-{d}')}}</div>
         </el-col>
       </el-row>
     </div>
@@ -18,13 +34,12 @@ import { getCustomerList } from '@/api/wel/index'
 export default {
   data () {
     return {
-      type: '1',
-      tabList: [],
+      tableData: [],
     }
   },
   created () {
     getCustomerList().then((res) => {
-      this.tabList = res.data.data
+      this.tableData = res.data.data
     })
   },
   methods: {
@@ -54,13 +69,20 @@ export default {
   .customer-content {
     padding: 10px 0;
     font-size: 14px;
-  }
-  .title {
-    padding: 5px 0;
-    cursor: pointer;
-    &:hover {
-      color: #cb3737;
+    .item {
+      cursor: pointer;
+      padding: 5px 0;
+    }
+    .time div {
+      text-align: right;
     }
   }
+}
+.el-row:hover .el-col .name {
+  cursor: pointer;
+  color: #cb3737;
+}
+.grid-content {
+  min-height: 24px;
 }
 </style>

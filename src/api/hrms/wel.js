@@ -66,9 +66,49 @@ export function deleteApprovalById (id) {
   })
 }
 
+export function submitApprovalBatch (ids) {
+  return request({
+    url: `${prefixUrl}/submit/batch`,
+    method: 'post',
+    data: ids,
+  })
+}
+
+export function submitApprovalById (id) {
+  return request({
+    url: `${prefixUrl}/submit/batch`,
+    method: 'post',
+    data: [id],
+  })
+}
+export function cancelApprovalBatch (ids) {
+  return request({
+    url: `${prefixUrl}/cancel/batch`,
+    method: 'post',
+    data: ids,
+  })
+}
+
+export function cancelApprovalById (id) {
+  return request({
+    url: `${prefixUrl}/cancel/batch`,
+    method: 'post',
+    data: [id],
+  })
+}
+
 export function reviewApprovaBatch (obj) {
   return request({
     url: `${prefixUrl}/status/batch`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+
+export function deliverApprovaBatch (obj) {
+  return request({
+    url: `${prefixUrl}/deliver/batch`,
     method: 'post',
     data: obj,
   })

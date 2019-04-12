@@ -37,11 +37,9 @@ export default {
   methods: {
     handleDetail (row) {
       this.dialogShow = false
-      // 处理数据，转为了编辑数据
-      row.receiverIds = row.receivers.map(m => m.receiverId)
-      this.$refs['updateDialog'].backOption.isBack = true
-      this.$refs['updateDialog'].formData = row
-      this.$refs['updateDialog'].pageState = 'draft'
+      this.$nextTick(() => {
+        this.$refs['updateDialog'].open(row)
+      })
     },
     backPage (state) {
       this.dialogShow = true

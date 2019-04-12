@@ -1,5 +1,5 @@
 <template>
-  <vue-neditor-wrap class="neditor" v-model="content" :config="myConfig" :destroy="false" @ready="ready">
+  <vue-neditor-wrap class="neditor" v-model="content" :config="myConfig" :destroy="false">
 
   </vue-neditor-wrap>
 </template>
@@ -8,6 +8,7 @@
 import VueNeditorWrap from 'vue-neditor-wrap'
 
 export default {
+  name: 'IepEditor',
   components: {
     VueNeditorWrap,
   },
@@ -36,17 +37,18 @@ export default {
         // 关闭自动保存
         enableAutoSave: false,
       },
-      content: this.value,
     }
   },
-  methods: {
-    ready () {
-      // console.log(val)
-    },
-  },
-  watch: {
-    value (n) {
-      this.$emit('input', n)
+  computed: {
+    content: {
+      // getter
+      get: function () {
+        return this.value
+      },
+      // setter
+      set: function (value) {
+        this.$emit('input', value)
+      },
     },
   },
 }

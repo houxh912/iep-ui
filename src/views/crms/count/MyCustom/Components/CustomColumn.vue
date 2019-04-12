@@ -33,7 +33,7 @@
           <div class="msg">园区级，平台类客户居多</div>
           <div class="msg">平均拜访次数：<span class="color">3</span></div>
           <div class="msg">平均方案上传：<span class="color">4</span></div>
-          <div class="suggest">建议多寻找省级客户，建议多寻找省级客户，建议多寻找省级客户，建议多寻找省级客户。</div>
+          <div class="suggest">建议多寻找省级客户。</div>
         </div>
       </el-col>
     </el-row>

@@ -43,14 +43,14 @@
         <template slot="before-columns">
           <el-table-column label="名称">
             <template slot-scope="scope">
-              <div class="custom-name">{{scope.row.name}}</div>
+              <div class="custom-name" @click="handleDetail(scope.row)">{{scope.row.name}}</div>
               <el-col class="custom-tags">
                 <el-tag type="info" size="mini" v-for="(item, index) in scope.row.code" :key="index">{{item}}</el-tag>
               </el-col>
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="300">
+        <el-table-column prop="operation" label="操作" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain size="small" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
@@ -70,7 +70,7 @@
         </el-table-column>
       </iep-table>
     </div>
-    <local-dialog ref="local" @load-page="loadPage" v-if="pageState=='local'" :firstClass="firstClass" :router='router'></local-dialog>
+    <local-dialog ref="local" @load-page="loadPage" v-if="pageState=='local'" :firstClass="firstClass"></local-dialog>
     <newly-dialog ref="newly" @load-page="loadPage" v-if="pageState=='newly'" :firstClass="firstClass"></newly-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
     <share-dialog ref="share" type="material"></share-dialog>
@@ -150,6 +150,9 @@ export default {
         this.$refs[this.pageState].methodName = '新建'
         this.$refs['newly'].formRequestFn = createData
       })
+    },
+    handleDetail (row) {
+      this.$router.push(`/mlms_spa/material/detail/${row.id}`)
     },
     // 清空搜索
     clearSearchParam () { },

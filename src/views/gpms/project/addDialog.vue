@@ -1,5 +1,5 @@
 <template>
-  <div class="abs">
+  <div class="abs iep-page-form">
     <page-header :title="`${methodName}项目`" :backOption="backOption"></page-header>
 
     <el-form :model="formData" :rules="rules" ref="form" label-width="200px" class="form">
@@ -8,16 +8,18 @@
         <el-input v-model="formData.projectName" placeholder="请输入项目名称"></el-input>
       </el-form-item>
       <el-form-item label="项目类型：" prop="projectType">
-        <el-select v-model="formData.projectType" placeholder="请选择项目类型">
+        <!-- <el-select v-model="formData.projectType" placeholder="请选择项目类型">
           <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
-        </el-select>
+        </el-select> -->
+        <iep-dict-select v-model="formData.projectType" dict-name="prms_project_type"></iep-dict-select>
       </el-form-item>
       <el-form-item label="业务类型：" prop="businessType">
-        <el-select @change="businessTypeChange" v-model="formData.businessType" placeholder="请选择业务类型">
+        <!-- <el-select @change="businessTypeChange" v-model="formData.businessType" placeholder="请选择业务类型">
           <el-option v-for="item in workTypeOne" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
-        </el-select>
+        </el-select> -->
+        <iep-dict-select v-model="formData.businessType" dict-name="prms_business_type"></iep-dict-select>
       </el-form-item>
       <el-form-item prop="businessTypeSec" v-if="formData.businessType === '7'">
         <el-input v-model="formData.businessTypeSec" placeholder="请填写具体业务类型"></el-input>
@@ -75,10 +77,16 @@ import { dictMap, rules, initFormData } from './Total/const.js'
 import FooterToolbar from '@/components/FooterToolbar/'
 import { createData, updateData } from '@/api/gpms/index'
 import { getCustomerPage } from '@/api/crms/customer'
+import { mapState } from 'vuex'
 
 export default {
   name: 'add-dialog',
   components: { IepTags, FooterToolbar },
+  computed: {
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
+  },
   data () {
     return {
       methodName: '新增',
@@ -112,7 +120,12 @@ export default {
   methods: {
     open (type, data) {
       this.type = type
-      this.formData = !data ? initFormData() : data
+      if (!data) {
+        this.formData = initFormData()
+      } else {
+        this.formData = data
+        this.methodName = '修改'
+      }
     },
     close (state) {
       this.formData = initFormData()
@@ -164,8 +177,5 @@ export default {
 <style scoped lang="scss">
 .abs {
   padding-bottom: 30px;
-  .form {
-    width: 80%;
-  }
 }
 </style>

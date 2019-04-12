@@ -47,7 +47,6 @@
 <script>
 import { initForm } from './options'
 import { getOrgBySelf, putOrg } from '@/api/goms/org'
-import { mergeByFirst } from '@/util/util'
 import { mapState } from 'vuex'
 export default {
   data () {
@@ -61,7 +60,7 @@ export default {
     }
   },
   created () {
-    this.load()
+    this.loadPage()
   },
   computed: {
     ...mapState({
@@ -71,12 +70,16 @@ export default {
   methods: {
     handleSubmit () {
       putOrg(this.form).then(() => {
+        this.$message({
+          message: '组织修改信息成功',
+          type: 'success',
+        })
         this.$emit('onGoBack')
       })
     },
-    load () {
+    loadPage () {
       getOrgBySelf(this.orgId).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     },
   },

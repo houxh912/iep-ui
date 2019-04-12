@@ -6,9 +6,8 @@
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       <el-table-column label="方案名称">
         <template slot-scope="scope">
-          <div class="program-name">{{scope.row.programName}}</div>
           <el-col>
-            <a-tag v-for="(item, index) in tags" :key="index">{{item}}</a-tag>
+            <div class="program-name">{{scope.row.programName}}</div>
           </el-col>
         </template>
       </el-table-column>
@@ -17,21 +16,33 @@
           <span @click="download(scope.row)" class="download">下载<i class="icon-download1"></i></span>
         </template>
       </el-table-column>
+      <el-table-column label="创建人" width="250px" v-if="record.collaborations.length !== 0">
+        <template>
+          <div class=' line'>
+            <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
+          </div>
+          <div class='create-name line'>
+            {{userInfo.realName}}
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="300px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleSave(scope.row)" type="warning" plain v-if="!scope.row.status">保存至材料库</iep-button>
-            <iep-button @click="handleEdit(scope.row)" type="warning" plain v-if="!scope.row.status">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+            <iep-button @click="handleSave(scope.row)" type="warning" plain v-if="!scope.row.status" :disabled="scope.row.creatorId !== userInfo.userId">保存至材料库</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain v-if="!scope.row.status" :disabled="scope.row.creatorId !== userInfo.userId">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)" :disabled="scope.row.creatorId !== userInfo.userId">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
     <el-row class="recommend">
-      <el-col class="title">为您推荐一下参考材料：</el-col>
+      <el-col class="title">为您推荐以下参考材料：</el-col>
       <el-col class="item" :span=6 v-for="(item, index) in recommendList" :key="index">{{item}}</el-col>
     </el-row>
     <create-dialog ref="SchemeDialog" @load-page="loadPage"></create-dialog>
+
+    <to-meterial-dialog ref="ToMeterialDialog" @load-page="loadPage"></to-meterial-dialog>
   </div>
 </template>
 
@@ -39,17 +50,20 @@
 import mixins from '@/mixins/mixins'
 import { getSchemePage, createScheme, updateScheme, deleteSchemeById, getSchemeById, getMaterial } from '@/api/crms/scheme'
 import CreateDialog from './CreateDialog'
+import { mapGetters } from 'vuex'
+import ToMeterialDialog from './ToMeterialDialog'
 import { downloadModel } from '@/api/crms/download'
 export default {
   name: 'contacts',
   mixins: [mixins],
-  components: { CreateDialog },
+  components: { CreateDialog, ToMeterialDialog },
   props: {
     record: {
       type: Object,
       default: () => { },
     },
   },
+
   data () {
     return {
       formData: {},
@@ -68,14 +82,17 @@ export default {
       tags: ['政务网', '智慧城市'],
     }
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
   created () {
+    this.formData.createName = this.userInfo.avatar
     this.loadPage()
     getMaterial({ clientId: this.record.id }).then((res) => {
       this.recommendList = res.data.data
     })
-  },
-  computed: {
-
   },
   methods: {
     loadPage (param) {
@@ -124,6 +141,7 @@ export default {
       downloadModel(row.atchUpload)
     },
     handleSave () {
+      this.$message.success('功能开发中')
       // this.$router.push({
       //   path: '/mlms_spa/datum/create',
       //   query: {
@@ -158,11 +176,13 @@ export default {
     margin-left: 5px;
   }
 }
-.icon-zhuyi {
-  color: #e6a23c;
-  margin-right: 10px;
-}
 .item {
   padding: 5px;
+}
+.line {
+  display: inline-block;
+}
+.create-name {
+  padding-left: 10px;
 }
 </style>

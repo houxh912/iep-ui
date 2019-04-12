@@ -4,7 +4,7 @@
     <div class="treasure-content" v-for="item in opportunity" :key="item.id">
       <div class="subtitle cursor" @click="chanceDetail(item.id)">{{item.name}}</div>
       <div class="text">
-        <span class="date">{{item.time | timeAgo}}</span>
+        <span class="date">{{item.time | formatTime}}</span>
         <span class="author">{{item.author}}</span>
       </div>
     </div>

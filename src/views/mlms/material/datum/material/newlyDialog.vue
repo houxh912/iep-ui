@@ -1,8 +1,7 @@
 <template>
-  <div class="">
+  <div class="iep-page-form">
     <page-header title="新建文档" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
-
+    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
       <el-form-item label="名称：" prop="materialName">
         <el-input v-model="formData.materialName"></el-input>
       </el-form-item>
@@ -35,7 +34,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">
-        <iep-tags v-model="formData.tagKeyWords"></iep-tags>
+        <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-form-item label="是否投稿：" prop="isContri">
         <el-switch v-model="formData.isContri" :active-value="dicData.isYes[1].value" :inactive-value="dicData.isYes[0].value"></el-switch>
@@ -50,28 +49,24 @@
         <el-input v-model="formData.yonghu"></el-input>
       </el-form-item> -->
 
-
     </el-form>
 
-    <footer-toolbar>
+    <footer-tool-bar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
-      <iep-button @click="resetForm('form')">取消</iep-button>
-    </footer-toolbar>
+      <iep-button @click="resetForm('form')">重置</iep-button>
+    </footer-tool-bar>
 
   </div>
 </template>
 <script>
 import { initLocalForm, rules } from './option'
-// import IepEditor from '@/components/IepEditor/'
-import IepTags from '@/components/IepTags/input'
-import FooterToolbar from '@/components/FooterToolbar/'
 
 export default {
-  components: { IepTags, FooterToolbar },
+  components: {},
   props: {
     firstClass: {
       type: Array,
-      default: () => {},
+      default: () => { },
     },
   },
   data () {
@@ -83,8 +78,8 @@ export default {
       secondClass: [],
       dicData: {
         select: [
-          {value: '1', label: '选项1'},
-          {value: '2', label: '选项2'},
+          { value: '1', label: '选项1' },
+          { value: '2', label: '选项2' },
         ],
         isYes: [
           { value: 0, lable: '否' },
@@ -110,9 +105,9 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
-      console.log('this.formData: ', this.formData)
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.formData.type = 1
           this.formRequestFn(this.formData).then(() => {
             this.$notify({
               title: '成功',

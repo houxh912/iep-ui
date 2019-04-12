@@ -94,8 +94,8 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(() => {
-  const { tag } = store.getters
+  // const { tag } = store.getters
   NProgress.done()
-  const title = tag.label
-  router.$avueRouter.setTitle(title)
+  // const title = tag.label
+  // router.$avueRouter.setTitle(title)
 })

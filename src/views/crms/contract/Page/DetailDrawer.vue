@@ -1,6 +1,6 @@
 <template>
   <iep-drawer :drawer-show="drawerShow" type="drawer" :title="'合同详情'" width="50%" @close="loadPage">
-    <el-form :model="formData" label-width="150px"  disabled>
+    <el-form :model="formData" label-width="150px" disabled>
       <el-form-item label="合同名称：">
         <el-input v-model="formData.contractName"></el-input>
       </el-form-item>
@@ -54,7 +54,7 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="市场经理：">
-            <el-input v-model="formData.directorId"></el-input>
+            <el-input v-model="formData.Manager"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span=12>

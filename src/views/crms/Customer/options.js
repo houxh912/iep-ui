@@ -1,3 +1,4 @@
+import { checkName } from '@/api/crms/customer'
 const initForm = () => {
   return {
     clientId: '',
@@ -9,9 +10,12 @@ const initForm = () => {
     clientRela: '', //客户关系
     followUpStatus: '', // 跟进状态
     marketManager: '', // 市场经理
+    Manager: '',
     lastTime: '', // 距离上次拜访已有(全部客户没有但依然存着)
-    phoneNumber: '', //手机号码
-    respDept: '', //负责部门
+    iepClientRespDept: {
+      id: '',
+      name: '',
+    }, //负责部门
     companyUrl: '', //单位网址
     companyFunction: '', //单位职能
     contractAddress: '', //单位地址
@@ -42,9 +46,22 @@ const initSearchForm = () => {
     lastTime: '',
   }
 }
+var validateFun = (rule, value, callback) => {
+  let val = value.replace(/(^\s*)|(\s*$)/g, '')
+  if (!val) {
+    return callback(new Error('客户名称不能为空'))
+  }
+  checkName({ clientName: val }).then(res => {
+    if (!res.data) {
+      callback(new Error('您输入的客户名称已存在，请重新输入！'))
+    } else {
+      callback()
+    }
+  })
+}
 const rules = {
   clientName: [
-    { required: true, message: '客户名称', trigger: 'blur' },
+    { required: true, validator: validateFun, trigger: 'blur' },
     { min: 6, max: 50, message: '至少6个字', trigger: 'blur' },
   ],
   phoneNumber: [
@@ -57,7 +74,7 @@ const rules = {
   marketManager: [
     { required: true, message: '请填写市场经理', trigger: 'blur' },
   ],
-  respDept: [{ required: true, message: '请选择负责部门', trigger: 'blur' }],
+  iepClientRespDept: [{ required: true, message: '请选择负责部门', trigger: 'blur' }],
   companyUrl: [{ required: true, message: '请填写单位网址', trigger: 'blur' }],
   companyFunction: [
     { required: true, message: '请填写单位职能', trigger: 'blur' },

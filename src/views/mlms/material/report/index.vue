@@ -23,7 +23,6 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import IepTabs from '@/components/IepCommon/Tabs'
 import DailyDialog from './daily/'
 import PersonalDialog from './personal/'
 import OrganizeDialog from './organize/'
@@ -32,7 +31,7 @@ import CustomDialog from './custom/'
 export default {
   name: 'report',
   mixins: [ mixins ],
-  components: { IepTabs, DailyDialog, PersonalDialog, OrganizeDialog, ProjectDialog, CustomDialog },
+  components: { DailyDialog, PersonalDialog, OrganizeDialog, ProjectDialog, CustomDialog },
   data () {
     return {
       tabName: 'dailyTab',

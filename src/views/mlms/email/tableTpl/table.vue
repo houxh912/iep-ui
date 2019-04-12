@@ -17,7 +17,7 @@
             <i class="icon-shoucang1 star" :class="(scope.row.isStar===true || scope.row.isStar===null)?'select':''" @click="emailStar(scope.row)"></i>
             <!-- 普通的已读未读 -->
             <span v-if="pageState==='ordinary'">
-              <i class="icon-yiduyoujian mail" v-if="(scope.row.isReade===1 || scope.row.isReade===null)"></i>
+              <i class="icon-yiduyoujian mail" v-if="(scope.row.isReade===1 || scope.row.isReade==null)"></i>
               <i class="icon-youjian mail select" v-else></i>
             </span>
             <!-- 已发送状态下 kind-0普通，1是回复，2转发 -->

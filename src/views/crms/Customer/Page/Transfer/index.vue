@@ -1,6 +1,12 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`转移客户`" width="60%" @close="close">
-
+    <div class="search">
+      <el-input placeholder="请输入内容" v-model="materialName" maxlength="100" size="small">
+        <template slot="append">
+          <el-button @click="search" size="mini">搜索</el-button>
+        </template>
+      </el-input>
+    </div>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
       <el-table-column prop="operation" label="操作" min-width="80">
         <template slot-scope="scope">
@@ -10,17 +16,6 @@
         </template>
       </el-table-column>
     </iep-table>
-    <!-- <el-table :data="data" style="width: 100%" height="250">
-      <el-table-column fixed prop="commonName" label="协作人">
-      </el-table-column>
-      <el-table-column fixed="right" label="操作">
-        <template slot-scope="scope">
-          <el-button @click.native="handleSelect(scope.row)" type="text" size="small">
-            选择
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table> -->
     <template slot="footer">
       <div class="list">
         协作人:<span>{{selectList.name}}</span>
@@ -50,6 +45,7 @@ export default {
       dialogShow: false,
       data: [],
       id: '',
+      materialName: '',
       dictsMap: {},
       columnsMap: [
         { label: '协作人', prop: 'realName' },
@@ -64,13 +60,15 @@ export default {
   },
   created () {
     this.loadPage()
-    console.log(this.id)
   },
 
   methods: {
     loadPage (param) {
       this.loadTable(param, fetchList)
       this.drawerShow = false
+    },
+    search () {
+      this.loadTable({ materialName: this.materialName }, fetchList)
     },
     handleGoBack () {
       this.$emit('onGoBack')
@@ -99,6 +97,8 @@ export default {
       this.dialogShow = false
     },
     submitForm () {
+      console.log(this.str)
+      console.log(typeof this.str)
       TransferCustomers(this.Contacts).then(res => {
         if (res.data.data) {
           this.$message.success('转移客户成功！')
@@ -124,6 +124,9 @@ export default {
   padding: 0 5px;
   font-size: 12px;
   font-weight: 500;
+}
+.search {
+  margin-bottom: 10px;
 }
 </style>
 

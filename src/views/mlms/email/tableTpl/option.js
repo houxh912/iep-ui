@@ -33,7 +33,8 @@ export const reportTableOption = [
 
 export const initFormData = () => {
   return {
-    id: '',
-    name: '',
+    attachmentRelatios: [],
+    projectRelatios: [],
+    materialRelatios: [],
   }
 }

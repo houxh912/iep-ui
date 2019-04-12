@@ -15,18 +15,28 @@
             </template>
           </el-table-column>
         </template>
+        <el-table-column label="创建人" width="250px" v-if="record.type =='3'">
+          <template>
+            <div class=' line'>
+              <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
+            </div>
+            <div class='create-name line'>
+              {{userInfo.realName}}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column prop="operation" label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleEdit(scope.row)" size="small" type="warning">编辑</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
+              <iep-button @click="handleEdit(scope.row)" plain size="small" type="warning" :disabled="scope.row.userId !== userInfo.userId">编辑</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)" size="small" :disabled="scope.row.userId !== userInfo.userId">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
     </div>
-    <edit-dialog ref="EditDialog" @load-page="loadPage" v-if="pageState=='dialog'" @dialog="isShow" :record="record" :add="add"></edit-dialog>
-    <detail-dialog ref="DetailDialog" v-if="pageState=='detail'" @detail="isShow" :add="add"></detail-dialog>
+    <edit ref="EditDialog" @load-page="loadPage" v-if="pageState=='dialog'" @dialog="isShow" :record="record" :add="add"></edit>
+    <detail ref="DetailDialog" v-if="pageState=='detail'" @detail="isShow" :add="add"></detail>
   </div>
 </template>
 
@@ -34,11 +44,12 @@
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options'
 import { getAgreementPage, postAgreement, putAgreement, deleteAgreementById } from '@/api/crms/agreement'
-import EditDialog from './EditDialog'
-import DetailDialog from './DetailDialog'
+import Edit from './Edit'
+import Detail from './Detail'
+import { mapGetters } from 'vuex'
 export default {
   name: 'contract',
-  components: { EditDialog, DetailDialog },
+  components: { Edit, Detail },
   mixins: [mixins],
   data () {
     return {
@@ -58,8 +69,14 @@ export default {
   created () {
     this.loadPage()
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
   methods: {
     loadPage (param = { ...this.searchForm, id: this.id }) {
+      this.pageState = 'list'
       this.loadTable(param, getAgreementPage)
     },
     handleAdd () {

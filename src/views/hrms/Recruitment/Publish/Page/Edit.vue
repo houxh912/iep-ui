@@ -1,12 +1,12 @@
 <template>
-  <div class="edit-wrapper">
+  <div class="iep-page-form">
     <basic-container>
       <page-header :title="`${methodName}招聘`" :backOption="backOption"></page-header>
       <el-form ref="form" :model="form" label-width="120px" size="small">
         <el-row>
           <el-col :span="12">
             <el-form-item label="岗位名称：">
-              <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
+              <iep-cascader v-model="form.position" prefix-url="hrms/post_type" @change="handlePositionChange"></iep-cascader>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -62,6 +62,7 @@
               <el-radio-group v-model="form.sex">
                 <el-radio :label="1">男</el-radio>
                 <el-radio :label="2">女</el-radio>
+                <el-radio :label="3">不限</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -91,10 +92,10 @@
           </el-col>
         </el-row>
         <el-form-item label="岗位职责：">
-          <el-input type="textarea" v-model="form.duties" :rows="4"></el-input>
+          <iep-input-area v-model="form.duties"></iep-input-area>
         </el-form-item>
         <el-form-item label="岗位要求：">
-          <el-input type="textarea" v-model="form.claim" :rows="4"></el-input>
+          <iep-input-area v-model="form.claim"></iep-input-area>
         </el-form-item>
         <el-form-item label="">
           <operation-wrapper>
@@ -109,7 +110,7 @@
 <script>
 import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
 import { initForm, formToDto } from '../options'
-import { mergeByFirst } from '@/util/util'
+import _ from 'lodash'
 export default {
   props: {
     record: {
@@ -136,11 +137,24 @@ export default {
     this.id = this.record.id
     if (this.id) {
       getPublishRecruitmentById(this.id).then(({ data }) => {
-        this.form = mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     }
   },
   methods: {
+    handlePositionChange (item, options) {
+      const value = item[item.length - 1]
+      const position = _(options)
+        .thru(function (coll) {
+          return _.union(coll, _.map(coll, 'children'))
+        })
+        .flatten()
+        .find({ value })
+      if (position) {
+        this.form.duties = position.duty
+        this.form.claim = position.rqmt
+      }
+    },
     handlePublish () {
       this.handleSubmit(true)
     },
@@ -159,9 +173,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-.edit-wrapper >>> .el-form {
-  margin-right: 20%;
-  margin-top: 50px;
-}
-</style>

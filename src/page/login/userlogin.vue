@@ -13,8 +13,8 @@
       </a-input>
     </el-form-item>
     <el-form-item prop="code">
-      <a-input class="login-code" @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="form.code" auto-complete="false" placeholder="请输入验证码" @search="refreshCode" size="large">
-        <img slot="suffix" :src="code.src" class="login-code-img" />
+      <a-input class="login-code" @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="form.code" auto-complete="false" placeholder="请输入验证码" size="large">
+        <img slot="addonAfter" :src="code.src" class="login-code-img" @click="refreshCode" />
       </a-input>
     </el-form-item>
     <el-form-item>
@@ -53,8 +53,8 @@ export default {
         state: '',
       },
       form: {
-        username: 'admin',
-        password: '123456',
+        username: '',
+        password: '',
         code: '',
         redomStr: '',
       },
@@ -156,9 +156,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.login-code >>> .ant-input-suffix {
-  height: 100%;
-  margin-right: -11px;
+.login-code >>> .ant-input-group-addon {
+  padding: 0;
+  height: 40px;
 }
 .login-code .login-code-img {
   padding: 1px 0;

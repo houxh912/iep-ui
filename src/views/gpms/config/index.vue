@@ -11,13 +11,13 @@
             <operation-search @search="searchPage"></operation-search>
           </template>
         </operation-container>
-        <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+        <iep-table :isLoadTable="isLoadTable = false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
           <el-table-column prop="operation" label="操作" width="220">
             <template slot-scope="scope">
               <operation-wrapper>
-                <el-button type="text" @click="details(scope.row)" size="small">详情</el-button>
-                <el-button type="text" @click="update(scope.row)" size="small">编辑</el-button>
-                <el-button type="text" @click="deletes(scope.row)" size="small">删除</el-button>
+                <iep-button @click="details(scope.row)">详情</iep-button>
+                <iep-button @click="update(scope.row)">编辑</iep-button>
+                <iep-button @click="deletes(scope.row)">删除</iep-button>
               </operation-wrapper>
             </template>
           </el-table-column>
@@ -33,20 +33,20 @@
             <iep-button class="callbackAdd" @click='goindex'>返回</iep-button>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="center">
-          <el-col :span="15">
-            <el-form :label-position="'top'" :model="formLabelAlign" :rules="rules" ref="ruleForm">
+        <el-row type="flex">
+          <el-col :span="15" :push="1">
+            <el-form :label-position="'right'" label-width="100px" :model="formLabelAlign" :rules="rules" ref="ruleForm">
               <el-form-item label="名称" prop='name'>
                 <el-input v-model="formLabelAlign.name" placeholder="请输入名称"></el-input>
               </el-form-item>
               <el-form-item label="具体说明" prop='explain'>
-                <el-input v-model="formLabelAlign.explain" placeholder="请输入说明"></el-input>
+                <el-input type="textarea" v-model="formLabelAlign.explain" placeholder="请输入说明"></el-input>
               </el-form-item>
               <el-form-item label="是否必填" prop='whether'>
-                <el-select v-model="formLabelAlign.whether" placeholder="请选择是否必填">
-                  <el-option label="是" value="shi"></el-option>
-                  <el-option label="否" value="fou"></el-option>
-                </el-select>
+                <el-radio-group v-model="formLabelAlign.whether">
+                  <el-radio :label="3">是</el-radio>
+                  <el-radio :label="6">否</el-radio>
+                </el-radio-group>
               </el-form-item>
               <el-form-item label="项目类型" prop='objType'>
                 <el-select v-model="formLabelAlign.objType" placeholder="请选择项目类型">
@@ -67,14 +67,14 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="排序值" prop='num'>
-                <el-input v-model="formLabelAlign.num" placeholder="请输入排序值（数字）"></el-input>
+                <el-input type="number" v-model="formLabelAlign.num" placeholder="请输入排序值（数字）" style="width:300px;"></el-input>
               </el-form-item>
               <el-form-item label="URL链接" prop='links'>
                 <el-input v-model="formLabelAlign.links" placeholder="请输入URL链接"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-row>
-                  <el-col :span="6" :push="10">
+                  <el-col :span="6">
                     <el-button plain type="primary" @click="submitForm('ruleForm')">保存</el-button>
                     <el-button @click='goindex'>返回</el-button>
                   </el-col>
@@ -90,9 +90,9 @@
 </template>
 
 <script>
-import { getTrainingRecordPage } from '@/api/hrms/training_record'
+// import { getTrainingRecordPage } from '@/api/hrms/training_record'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from './options'
+import { columnsMap, initSearchForm, pagedTable} from './options'
 export default {
   mixins: [mixins],
   data () {
@@ -103,6 +103,7 @@ export default {
       replaceText: (data) => `（共${data[0]}项资源)`,
       dateVal: '',
       hidsadd: true,
+      pagedTable,
       formLabelAlign: {
         name: '',
         explain: '',
@@ -132,16 +133,17 @@ export default {
     }
   },
   created () {
-    this.loadPage()
+    // this.loadPage()
+    this.paramForm = this.pagedTable
   },
   methods: {
     clearSearchParam () {
       this.paramForm = initSearchForm()
       this.$emit('clear-search-param')
     },
-    loadPage (param = this.paramForm) {
-      this.loadTable(param, getTrainingRecordPage)
-    },
+    // loadPage (param = this.paramForm) {
+    //   this.loadTable(param, getTrainingRecordPage)
+    // },
     searchPage () {
       this.$emit('search-page', this.paramForm)
     },
@@ -197,20 +199,20 @@ export default {
 .row-bg {
   padding: 0 20px;
   border-bottom: 1px solid #f8f8f8;
+  margin-bottom: 10px;
 }
 .callbackAdd {
   float: right;
-  margin-top: 15px;
+  margin-bottom: 15px;
 }
 .addFont {
-  font-weight: bold;
   font-size: 18px;
 }
 .cent {
   margin: 0;
 }
 .sixsix {
-  color: #666666;
+  color: #303133;
 }
 </style>
 

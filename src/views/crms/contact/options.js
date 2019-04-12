@@ -56,22 +56,7 @@ const rules = {
       trigger: 'blur',
     },
   ],
-  clientConcern: [
-    { required: true, message: '请输入客户关注', trigger: 'blur' },
-  ],
-  cellphone: [{ required: true, message: '请填写电话', trigger: 'blur' }],
-  fax: [{ required: true, message: '请填写传真', trigger: 'blur' }],
-  qq: [{ required: true, message: '请填写组织QQ', trigger: 'blur' }],
-  wechat: [{ required: true, message: '请填写微信', trigger: 'blur' }],
-  email: [
-    { required: true, message: '请填写邮箱', trigger: 'blur' },
-    {
-      type: 'email',
-      message: '请输入正确的邮箱地址',
-      trigger: ['blur', 'change'],
-    },
-  ],
   address: [{ required: true, message: '请填写地址', trigger: 'blur' }],
-  clientId: [{ required: true, message: '请选择对应客户', trigger: 'blur' }],
+  clientInfos: [{ required: true, message: '请选择对应客户', trigger: 'blur' }],
 }
 export { columnsMap, initForm, rules, initSearchForm }

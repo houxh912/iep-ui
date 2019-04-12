@@ -1,5 +1,4 @@
 const columnsMap = [
-  { label: '联系人姓名', prop: 'contactName' },
   { label: '联系人职务', prop: 'contactPosition' },
   { label: '电话', prop: 'cellphone' },
 ]
@@ -40,6 +39,6 @@ const rules = {
   contactPosition: [
     { required: true, message: '联系人职务不能为空', trigger: 'blur' },
   ],
-  cellphone: [{ required: true, validator: phone, trigger: 'blur' }],
+  telephoneNo: [{ required: true, validator: phone, trigger: 'blur' }],
 }
 export { columnsMap, initForm, rules }

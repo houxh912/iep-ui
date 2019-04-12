@@ -4,7 +4,7 @@
       <page-header :title="`欢迎您，${userInfo.realName}`"></page-header>
       <el-alert title="模块更新" type="info" description="商机对接模块全新上线，请在模块设置中配置使用。" show-icon></el-alert>
       <div class="time-log-list-wrapper">
-        <a-timeline :pending="pendingText" :reverse="true">
+        <a-timeline :pending="pendingText" :reverse="false">
           <a-timeline-item v-for="item in logList" :key="item.id">
             <log-item :logItem="item"></log-item>
           </a-timeline-item>

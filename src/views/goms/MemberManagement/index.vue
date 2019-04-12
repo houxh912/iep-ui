@@ -26,14 +26,9 @@
               <iep-button v-if="!([1].includes(scope.row.status))" type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
               <iep-button v-if="scope.row.status===0" @click="handleLocking(scope.row)">锁定</iep-button>
               <iep-button v-else-if="scope.row.status===2" @click="handleLocking(scope.row)">解锁</iep-button>
-              <el-dropdown size="medium">
-                <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item v-if="!([1].includes(scope.row.status))" @click.native="handleDeleteById(scope.row)">删除</el-dropdown-item>
-                  <el-dropdown-item v-if="([1].includes(scope.row.status))" @click.native="handlePassById(scope.row)">通过</el-dropdown-item>
-                  <el-dropdown-item v-if="([1].includes(scope.row.status))" @click.native="handleRejectById(scope.row)">不通过</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
+              <iep-button v-if="([1].includes(scope.row.status))" @click="handlePassById(scope.row)">通过</iep-button>
+              <iep-button v-if="([1].includes(scope.row.status))" @click="handleRejectById(scope.row)">不通过</iep-button>
+              <iep-button v-if="!([1].includes(scope.row.status))" icon="el-icon-delete" @click="handleDeleteById(scope.row)"></iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -45,7 +40,6 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { mergeByFirst } from '@/util/util'
 import { dictsMap, columnsMap, initSearchForm, initMemberForm } from './options'
 import DialogForm from './DialogForm'
 import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
@@ -83,13 +77,13 @@ export default {
       this._handleGlobalDeleteAll(delAllGomsUser)
     },
     handleDetail (row) {
-      this.$refs['DialogForm'].form = mergeByFirst(initMemberForm(), row)
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initMemberForm(), row)
       this.$refs['DialogForm'].methodName = '查看'
       this.$refs['DialogForm'].disabled = true
       this.$refs['DialogForm'].dialogShow = true
     },
     handleEdit (row) {
-      this.$refs['DialogForm'].form = mergeByFirst(initMemberForm(), row)
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initMemberForm(), row)
       this.$refs['DialogForm'].methodName = '编辑'
       this.$refs['DialogForm'].formRequestFn = putGoms
       this.$refs['DialogForm'].disabled = false
@@ -116,7 +110,7 @@ export default {
               message: `审核失败，${res.data.msg}`,
             })
           }
-          this.load()
+          this.loadPage()
         })
       })
     },

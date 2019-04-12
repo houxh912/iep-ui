@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="`${form.name}的转正申请`" :backOption="backOption"></page-header>
+      <page-header :title="`${form.name}的申请`" :backOption="backOption"></page-header>
       <el-card class="top-card" :body-style="bodyStyle" shadow="hover">
         <div class="avatar-wrapper">
           <iep-img class="avatar" :src="form.avatar"></iep-img>
@@ -51,15 +51,17 @@
         <div slot="header" class="clearfix">
           <span>附件</span>
         </div>
-        <pre>
-          {{form.annex}}
+        <iep-no-data v-if="!form.attachFile.length"></iep-no-data>
+        <pre v-else>
+          <iep-download :value="form.attachFile"></iep-download>
         </pre>
       </el-card>
       <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
         <div slot="header" class="clearfix">
           <span>申请流程</span>
         </div>
-        <el-timeline>
+        <iep-no-data v-if="!form.processList.length"></iep-no-data>
+        <el-timeline v-else>
           <el-timeline-item v-for="p in form.processList" :key="p.id" :timestamp="p.time" placement="top">
             <el-card>
               <h4>{{p.username}} {{p.status}}</h4>
@@ -88,7 +90,6 @@ export default {
       id: this.$route.query.id,
       backOption: {
         isBack: true,
-        backPath: this.$route.query.redirect,
       },
       bodyStyle: {
         display: 'flex',

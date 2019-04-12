@@ -9,6 +9,14 @@ export function getBusinessList (query) {
     params: query,
   })
 }
+//商机新增查重
+export function checkName (query, name) {
+  return request({
+    url: `${crmsUrl}/page/${name}`,
+    method: 'get',
+    params: query,
+  })
+}
 // 新增商机
 export function postBusiness (obj) {
   return request({
@@ -17,7 +25,14 @@ export function postBusiness (obj) {
     data: obj,
   })
 }
-
+//创建客户
+export function createById (query) {
+  return request({
+    url: `${crmsUrl}/update/isCreate`,
+    method: 'post',
+    params: query,
+  })
+}
 // 修改商机
 export function putBusiness (obj) {
   return request({

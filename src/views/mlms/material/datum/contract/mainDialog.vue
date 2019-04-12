@@ -1,8 +1,7 @@
 <template>
-  <div>
+  <div class="iep-page-form">
     <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" ref="form" label-width="130px" style="margin-bottom: 50px;">
-
+    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;">
       <el-form-item label="合同名称：" prop="contractName">
         <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。"></el-input>
       </el-form-item>
@@ -23,80 +22,76 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="合同标签：" prop="tagKeyWords">
-        <iep-tags v-model="formData.tagKeyWords"></iep-tags>
+        <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-row>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="签订日期：" prop="signTime">
             <IepDatePicker v-model="formData.signTime"></IepDatePicker>
           </el-form-item>
         </el-col>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="完结日期：" prop="finishTime">
             <IepDatePicker v-model="formData.finishTime"></IepDatePicker>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row v-if="formData.contractType==1">
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <el-select v-model="formData.companyOrgId" placeholder="请选择" @change="clientChange">
-              <el-option v-for="item in clientList" :key="item.clientId" :label="item.clientName" :value="item.clientId"></el-option>
-            </el-select>
+            <iep-select prefix-url="crm/customer" v-model="formData.companyOrgId" @change="clientChange"></iep-select>
           </el-form-item>
         </el-col>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
-            <el-select v-model="formData.signCompanyOrgId" placeholder="请选择">
-              <el-option v-for="item in clientList" :key="item.clientId" :label="item.clientName" :value="item.clientId"></el-option>
-            </el-select>
+            <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId"></iep-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="签署部门：" prop="signDeptOrgName">
             <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
           </el-form-item>
         </el-col>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="承接部门：" prop="underTakeDeptList">
             <iep-dept-multiple v-model="formData.underTakeDeptList"></iep-dept-multiple>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span=12 v-if="formData.contractType == 1">
+        <el-col :span='12' v-if="formData.contractType == 1">
           <el-form-item label="市场经理：" prop="directorId">
             <el-input v-model="formData.directorId" v-show="false"></el-input>
             <el-input v-model="formData.directorRealName" disabled></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span=12 v-else>
+        <el-col :span='12' v-else>
           <el-form-item label="市场经理：" prop="directorList">
             <iep-contact-select v-model="formData.directorList"></iep-contact-select>
           </el-form-item>
         </el-col>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="合同金额：" prop="contractAmount">
             <el-input v-model="formData.contractAmount" placeholder="合同金额"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="合同级别：" prop="contractLevel">
             <iep-dict-select v-model="formData.contractLevel" dict-name="mlms_contract_level"></iep-dict-select>
           </el-form-item>
         </el-col>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="合同状态：" prop="contractStatus">
             <iep-dict-select v-model="formData.contractStatus" dict-name="mlms_contract_status"></iep-dict-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="保证金：" prop="deposit">
             <el-input v-model="formData.deposit" placeholder="保证金"></el-input>
           </el-form-item>
@@ -117,22 +112,20 @@
         </el-col>
       </el-row> -->
     </el-form>
-    <footer-toolbar>
+    <footer-tool-bar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
-      <iep-button @click="resetForm('form')">取消</iep-button>
-    </footer-toolbar>
+      <iep-button @click="resetForm('form')">重置</iep-button>
+    </footer-tool-bar>
   </div>
 </template>
 <script>
 import { initFormData, rules, dictsMap } from './option'
-import IepTags from '@/components/IepTags/input'
-import FooterToolbar from '@/components/FooterToolbar/'
 import { mapState } from 'vuex'
 import { getManeger } from '@/api/mlms/material/datum/contract'
 import { getCustomerPage } from '@/api/crms/customer'
 
 export default {
-  components: { FooterToolbar, IepTags },
+  components: {},
   computed: {
     ...mapState({
       dictGroup: state => state.user.dictGroup,
@@ -192,19 +185,19 @@ export default {
     },
     // 根据委托单位查询市场经理
     clientChange (val) {
-      getManeger(val).then(({data}) => {
+      getManeger(val).then(({ data }) => {
         if (data.data) {
-          this.formData.directorName = data.data.name
+          this.formData.directorRealName = data.data.name
           this.formData.directorId = data.data.id
         } else {
-          this.formData.directorName = ''
+          this.formData.directorRealName = ''
           this.formData.directorId = ''
         }
       })
     },
   },
   created () {
-    getCustomerPage({type: 1}).then(({data}) => {
+    getCustomerPage({ type: 1 }).then(({ data }) => {
       this.clientList = data.data.records
     })
   },

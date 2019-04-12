@@ -42,7 +42,7 @@
 <script>
 import { getAssessmentManagementPage, postAssessmentManagement, deletePublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/assessment_management'
 import mixins from '@/mixins/mixins'
-import { mergeByFirst } from '@/util/util'
+
 import { columnsMap, initSearchForm, initForm } from '../options'
 import DialogForm from './DialogForm'
 export default {
@@ -69,7 +69,7 @@ export default {
       this._handleGlobalDeleteById(row.id, deletePublishRecruitmentById)
     },
     handleEdit (row) {
-      this.$refs['DialogForm'].form = mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].methodName = '修改'
       this.$refs['DialogForm'].formRequestFn = postAssessmentManagement
       this.$refs['DialogForm'].dialogShow = true

@@ -51,6 +51,10 @@ import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
 import IepDeptSelect from '@/components/IepDept/Select'
 import IepDeptMultiple from '@/components/IepDept/Multiple'
 
+// 展示页公共组件
+import IepAppTabCard from '@/components/IepApp/TabCard'
+import IepAppFooterBar from '@/components/IepApp/FooterBar'
+
 // 注册全局容器
 Vue.component(BasicContainer.name, BasicContainer)
 Vue.component(BasicAsideContainer.name, BasicAsideContainer)
@@ -101,4 +105,8 @@ Vue.component(IepContactMultipleUser.name, IepContactMultipleUser)
 
 // 部门组件Contact
 Vue.component(IepDeptSelect.name, IepDeptSelect)
-Vue.component('IepDeptMultiple', IepDeptMultiple)
+Vue.component(IepDeptMultiple.name, IepDeptMultiple)
+
+// 展示页公共组件
+Vue.component(IepAppTabCard.name, IepAppTabCard)
+Vue.component(IepAppFooterBar.name, IepAppFooterBar)

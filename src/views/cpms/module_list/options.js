@@ -48,7 +48,7 @@ const Column = {
   name: '', // 名字
   imageUrl: '', // logo
   synopsis: '', // 简介
-  userList: [], // 负责人
+  userRelationCharges: [], // 负责人s
   onlineTime: '', // 上线时间
 }
 
@@ -58,22 +58,23 @@ const initForm = () => {
     imageUrl: '', // logo
     number: '', // 编号
     name: '', // 名称
-    website: '', // 网址
+    type: '', // 类别
+    guidePrice: '', // 模块指导价
+    preferentialPrice: '', // 模块优惠价
+    synopsis: '', // 简介
+    description: '', // 介绍
+    schedule: '',//研发进度（1-立项，2-研发中，3-测试，4-验收中，5-已上架）
     onlineTime: '',//上线时间
-    tagKeywords: [], // 标签
-    tapeLibrary: '', // 是否带库
-    valuation: '', // 产品估值
-    instructions: '', // 估值说明
-    synopsis: '', // 产品简介
-    description: '', // 产品介绍
-    userRelationCharges: [],//负责人ids
-    userRelationDemands: [],//需求方ids
-    userRelationTechnologys: [],//技术经理ids
-    userRelationProducts: [],//产品经理ids
-    userRelationTeams: [],//团队成员ids
-    versions: [],//关联模块ids
-    modules: [],//关联模块ids
-    materials: [],//关联材料ids
+    versions: [],//版本集合
+    productRelations: [],//产品关联集合
+    technologyRelations: [],//技术关联集合
+    materialRelations: [],//材料关联集合
+    userRelationCharges: [],//负责人集合
+    userRelationDemands: [],//需求方集合
+    userRelationTechnologys: [],//技术经理集合
+    userRelationProducts: [],//产品经理集合
+    userRelationTeams: [],//团队成员集合
+    tagKeywords: [],//关联标签
   }
 }
 

@@ -11,7 +11,7 @@
         <span>{{form.positionName}}</span>
       </el-form-item>
       <el-form-item label="调入部门：" class="form-half">
-        <iep-cascader v-model="form.transferDept" prefix-url="admin/dept" change-on-select clearable></iep-cascader>
+        <iep-dept-select v-model="form.transferDept"></iep-dept-select>
       </el-form-item>
       <el-form-item label="调入岗位：" class="form-half">
         <iep-cascader v-model="form.transferPositionList" prefix-url="hrms/post_type"></iep-cascader>

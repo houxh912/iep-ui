@@ -2,33 +2,24 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${methodName}产品`" :backOption="backOption"></page-header>
+      <page-header :title="`${methodName}模块`" :backOption="backOption"></page-header>
       <el-form :model="form" size="small" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
-          <el-form-item label="产品logo：">
+          <el-form-item label="模块logo：">
             <iep-avatar v-model="form.imageUrl"></iep-avatar>
           </el-form-item>
-          <el-form-item label="产品编号：" class="form-half">
+          <el-form-item label="模块编号：" class="form-half">
             <el-input v-model="form.number"></el-input>
           </el-form-item>
-          <el-form-item label="产品名称：" class="form-half">
+          <el-form-item label="模块名称：" class="form-half">
             <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="网址：" class="form-half">
-            <el-input v-model="form.website"></el-input>
           </el-form-item>
           <el-form-item label="上线时间：" class="form-half">
             <iep-date-picker v-model="form.onlineTime" type="date" placeholder="请输入时间"></iep-date-picker>
           </el-form-item>
           <el-form-item label="标签：">
             <iep-tag v-model="form.tagKeywords"></iep-tag>
-          </el-form-item>
-          <el-form-item label="是否带库：" class="form-half">
-            <el-radio-group v-model="form.tapeLibrary">
-              <el-radio label="1">是</el-radio>
-              <el-radio label="0">否</el-radio>
-            </el-radio-group>
           </el-form-item>
           <el-form-item label="产品估值：" class="form-half">
             <el-input v-model="form.valuation"></el-input>

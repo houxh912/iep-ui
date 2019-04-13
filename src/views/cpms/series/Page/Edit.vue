@@ -124,7 +124,7 @@ import { getSeriesById } from '@/api/cpms/series'
 import mixins from '@/mixins/mixins'
 import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
 import { initForm, toDtoForm } from '../options'
-const logo = require('../img2.png')
+const logo = require('../logo.png')
 export default {
   name: 'edit',
   mixins: [mixins],

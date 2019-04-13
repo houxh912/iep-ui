@@ -14,6 +14,7 @@ import FooterToolBar from '@/components/FooterToolbar'
 import IepButton from '@/components/IepCommon/Button'
 import IepPagination from '@/components/IepCommon/Pagination'
 import IepTabs from '@/components/IepCommon/Tabs'
+import IepTabScroll from '@/components/IepTabScroll/'
 import IepNoData from '@/components/IepCommon/NoData'
 
 // 表单组件
@@ -73,6 +74,7 @@ Vue.component(FooterToolBar.name, FooterToolBar)
 Vue.component(IepButton.name, IepButton)
 Vue.component(IepPagination.name, IepPagination)
 Vue.component(IepTabs.name, IepTabs)
+Vue.component(IepTabScroll.name, IepTabScroll)
 Vue.component(IepNoData.name, IepNoData)
 
 // 表单组件

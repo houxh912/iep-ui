@@ -31,3 +31,10 @@ export function getModuleById (id) {
     method: 'get',
   })
 }
+
+export function deleteModuleById (id) {
+  return request({
+    url: `${prefixUrl}/delete/${id}`,
+    method: 'post',
+  })
+}

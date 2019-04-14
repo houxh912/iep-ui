@@ -15,22 +15,22 @@
           <el-form-item label="模块名称：" class="form-half">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="上线时间：" class="form-half">
-            <iep-date-picker v-model="form.onlineTime" type="date" placeholder="请输入时间"></iep-date-picker>
+          <el-form-item label="模块分类：" class="form-half">
+            <el-input v-model="form.type"></el-input>
+          </el-form-item>
+          <el-form-item label="模块指导价：" class="form-half">
+            <el-input v-model="form.guidePrice"></el-input>
+          </el-form-item>
+          <el-form-item label="模块优惠价：" class="form-half">
+            <el-input v-model="form.preferentialPrice"></el-input>
           </el-form-item>
           <el-form-item label="标签：">
             <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
-          <el-form-item label="产品估值：" class="form-half">
-            <el-input v-model="form.valuation"></el-input>
-          </el-form-item>
-          <el-form-item label="估值说明：">
-            <iep-input-area v-model="form.instructions"></iep-input-area>
-          </el-form-item>
-          <el-form-item label="产品简介：">
+          <el-form-item label="模块简介：">
             <el-input v-model="form.synopsis"></el-input>
           </el-form-item>
-          <el-form-item label="产品介绍：">
+          <el-form-item label="模块介绍：">
             <iep-input-area v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
@@ -50,6 +50,18 @@
           </el-form-item>
           <el-form-item label="团队成员：" class="form-half">
             <iep-contact-multiple-user v-model="form.userRelationTeams"></iep-contact-multiple-user>
+          </el-form-item>
+        </el-row>
+        <div class="title">研发进度：</div>
+        <el-row class="base">
+          <div class="schedule-wrapper">
+            <el-slider class="slider-wrapper" v-model="form.schedule" :step="1" :min="1" :max="5" :format-tooltip="formatTooltip"></el-slider>
+            <div class="schedule-text-wrapper">
+              <div v-for="(v, k) in dictsMap.schedule" :key="k">{{v}}</div>
+            </div>
+          </div>
+          <el-form-item v-if="form.schedule===5" label="上线时间：" class="form-half">
+            <iep-date-picker v-model="form.onlineTime" type="date" placeholder="请输入时间"></iep-date-picker>
           </el-form-item>
         </el-row>
         <template v-if="isEdit">
@@ -111,11 +123,11 @@
 </template>
 
 <script>
-import { getSeriesById } from '@/api/cpms/series'
+import { getModuleById } from '@/api/cpms/module'
 import mixins from '@/mixins/mixins'
 import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
-import { initForm, toDtoForm } from '../options'
-const logo = require('../img2.png')
+import { dictsMap, initForm, toDtoForm } from '../options'
+const logo = require('../logo.png')
 export default {
   name: 'edit',
   mixins: [mixins],
@@ -131,6 +143,7 @@ export default {
   data () {
     return {
       logo,
+      dictsMap,
       pagedTable: [
         {
           id: 1,
@@ -190,11 +203,14 @@ export default {
     this.loadPage()
   },
   methods: {
+    formatTooltip (val) {
+      return this.dictsMap.schedule[val]
+    },
     loadPage () {
       this.methodName = this.record.methodName
       this.formRequestFn = this.record.formRequestFn
       if (this.isEdit) {
-        getSeriesById(this.id).then(({ data }) => {
+        getModuleById(this.id).then(({ data }) => {
           this.form = this.$mergeByFirst(initForm(), data.data)
         })
       }
@@ -273,6 +289,17 @@ export default {
 }
 .last {
   padding-bottom: 20px;
+}
+.schedule-wrapper {
+  margin-left: 100px;
+  margin-bottom: 18px;
+}
+.slider-wrapper {
+  margin: 0 20px;
+}
+.schedule-text-wrapper {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
 

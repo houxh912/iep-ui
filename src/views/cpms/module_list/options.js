@@ -1,46 +1,15 @@
 // org config options
 const dictsMap = {
-  startTime: {
-    1: '请假开始时间',
-    2: '出差开始时间',
-    3: '加班开始时间',
-    4: '入职时间',
-    5: '入职时间',
-    6: '调岗前时间',
-  },
-  endTime: {
-    1: '请假结束时间',
-    2: '出差结束时间',
-    3: '加班结束时间',
-    4: '转正时间',
-    5: '离职时间',
-    6: '调岗时间',
-  },
-  isOpen: {
-    0: '开',
-    1: '关',
-  },
-  status: {
-    0: '未审核',
-    1: '通过',
-    2: '拒绝',
+  schedule: {
+    1: '立项',
+    2: '研发中',
+    3: '测试',
+    4: '验收中',
+    5: '已上架',
   },
 }
 
 const columnsMap = [
-  {
-    prop: 'startTime',
-    label: '申请开始时间',
-  },
-  {
-    prop: 'endTime',
-    label: '申请结束时间',
-  },
-  {
-    prop: 'status',
-    label: '状态',
-    type: 'dict',
-  },
 ]
 
 const Column = {
@@ -63,7 +32,7 @@ const initForm = () => {
     preferentialPrice: '', // 模块优惠价
     synopsis: '', // 简介
     description: '', // 介绍
-    schedule: '',//研发进度（1-立项，2-研发中，3-测试，4-验收中，5-已上架）
+    schedule: 1,//研发进度（1-立项，2-研发中，3-测试，4-验收中，5-已上架）
     onlineTime: '',//上线时间
     versions: [],//版本集合
     productRelations: [],//产品关联集合

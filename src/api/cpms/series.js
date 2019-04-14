@@ -31,3 +31,10 @@ export function getSeriesById (id) {
     method: 'get',
   })
 }
+
+export function deleteSeriesById (id) {
+  return request({
+    url: `${prefixUrl}/delete/${id}`,
+    method: 'post',
+  })
+}

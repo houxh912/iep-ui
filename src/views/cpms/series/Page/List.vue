@@ -34,7 +34,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button @click="handleShare(scope.row)">分享</iep-button>
+              <iep-button @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -44,14 +44,12 @@
 </template>
 
 <script>
-import { getSeriesPage, postSeries, putSeries } from '@/api/cpms/series'
+import { getSeriesPage, postSeries, putSeries, deleteSeriesById } from '@/api/cpms/series'
 import mixins from '@/mixins/mixins'
-const logo = require('../img2.png')
 export default {
   mixins: [mixins],
   data () {
     return {
-      logo,
       checkList: [],
       type: null,
     }
@@ -79,6 +77,7 @@ export default {
         path: '/cpms_spa/product_detail',
         query: {
           id: row.id,
+          redirect: this.$route.fullPath,
         },
       })
     },
@@ -90,8 +89,8 @@ export default {
       }
       this.loadPage()
     },
-    handleShare () {
-      this.$message.success('功能开发中')
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deleteSeriesById)
     },
     loadPage (param) {
       this.loadTable({ ...param, type: this.type }, getSeriesPage)

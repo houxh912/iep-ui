@@ -24,6 +24,10 @@ const initForm = () => {
 		cc: [], // 抄送人
 		duration: '', //各种时长
 		leaveType: '', // 请假类型
+		transferDeptObj: {
+			id: '',
+			name: '',
+		}, // 部门
 		transferDept: '', // 部门ID
 		transferPosition: '', // 岗位ID
 		busTripDistrict: '',
@@ -32,7 +36,7 @@ const initForm = () => {
 
 const formToVo = (row) => {
 	const newForm = mergeByFirst(initForm(), row)
-	newForm.annex = row.attachFile
+	newForm.annex = row.attachFile || []
 	newForm.approver = row.approverList || []
 	newForm.cc = row.ccList || []
 	return newForm
@@ -56,7 +60,7 @@ const initSelfForm = () => {
 const formToDto = (row, type) => {
 	const newForm = { ...row, type }
 	newForm.attachFileUrl = row.annex.map(m => m.url)[0]
-	newForm.transferDept = row.transferDept
+	newForm.transferDept = row.transferDeptObj.id
 	newForm.transferPosition = row.transferPositionList[row.transferPositionList.length - 1]
 	newForm.approver = row.approver.map(m => m.id)
 	newForm.cc = row.cc.map(m => m.id)

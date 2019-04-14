@@ -47,7 +47,7 @@ import AllVersion from './AllVersion/'
 import Modules from './Modules/'
 import Materials from './Materials/'
 import { initForm } from '../options'
-import { getSeriesById } from '@/api/cpms/series'
+import { getModuleById } from '@/api/cpms/module'
 export default {
   name: 'detail',
   components: { BaseInfo, TeamInfo, AllVersion, Modules, Materials },
@@ -83,7 +83,7 @@ export default {
     },
   },
   created () {
-    getSeriesById(this.id).then(({ data }) => {
+    getModuleById(this.id).then(({ data }) => {
       this.form = this.$mergeByFirst(initForm(), data.data)
     })
   },

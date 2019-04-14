@@ -6,36 +6,31 @@
         <el-form size="small" label-width="100px">
           <el-row>
             <el-col :span='8'>
-              <el-form-item label="产品编号：">
+              <el-form-item label="模块编号：">
                 <div>{{form.number}}</div>
               </el-form-item>
             </el-col>
             <el-col :span='8'>
-              <el-form-item label="产品官网：">
-                <div>{{form.website}}</div>
+              <el-form-item label="模块指导价：">
+                <div>{{form.guidePrice}}</div>
               </el-form-item>
             </el-col>
             <el-col :span='8'>
-              <el-form-item label="是否带库：">
-                <div>否</div>
-              </el-form-item>
-            </el-col>
-            <el-col :span='8'>
-              <el-form-item label="产品估值：">
-                <div>{{form.valuation}}</div>
+              <el-form-item label="模块优惠价：">
+                <div>{{form.preferentialPrice}}</div>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col>
-              <el-form-item label="估值说明：">
-                <div>{{form.instructions}}</div>
+              <el-form-item label="简介：">
+                <div>{{form.synopsis}}</div>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col>
-              <el-form-item label="详细介绍：">
+              <el-form-item label="介绍：">
                 <div>{{form.description}}</div>
               </el-form-item>
             </el-col>

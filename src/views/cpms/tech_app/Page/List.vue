@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="产品系列"></page-header>
+      <page-header title="技术应用"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { getSeriesPage, postSeries, putSeries } from '@/api/cpms/series'
+import { getTechnologyPage, postTechnology, putTechnology } from '@/api/cpms/technology'
 import mixins from '@/mixins/mixins'
 const logo = require('../img2.png')
 export default {
@@ -62,14 +62,14 @@ export default {
   methods: {
     handleAdd () {
       this.$emit('onEdit', {
-        formRequestFn: postSeries,
+        formRequestFn: postTechnology,
         methodName: '新增',
         id: false,
       })
     },
     handleEdit (row) {
       this.$emit('onEdit', {
-        formRequestFn: putSeries,
+        formRequestFn: putTechnology,
         methodName: '修改',
         id: row.id,
       })
@@ -94,7 +94,7 @@ export default {
       this.$message.success('功能开发中')
     },
     loadPage (param) {
-      this.loadTable({ ...param, type: this.type }, getSeriesPage)
+      this.loadTable({ ...param, type: this.type }, getTechnologyPage)
     },
   },
 }

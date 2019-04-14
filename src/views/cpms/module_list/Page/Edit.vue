@@ -15,22 +15,22 @@
           <el-form-item label="模块名称：" class="form-half">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
+          <el-form-item label="模块指导价：" class="form-half">
+            <el-input v-model="form.guidePrice"></el-input>
+          </el-form-item>
+          <el-form-item label="模块优惠价：" class="form-half">
+            <el-input v-model="form.preferentialPrice"></el-input>
+          </el-form-item>
           <el-form-item label="上线时间：" class="form-half">
             <iep-date-picker v-model="form.onlineTime" type="date" placeholder="请输入时间"></iep-date-picker>
           </el-form-item>
           <el-form-item label="标签：">
             <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
-          <el-form-item label="产品估值：" class="form-half">
-            <el-input v-model="form.valuation"></el-input>
-          </el-form-item>
-          <el-form-item label="估值说明：">
-            <iep-input-area v-model="form.instructions"></iep-input-area>
-          </el-form-item>
-          <el-form-item label="产品简介：">
+          <el-form-item label="模块简介：">
             <el-input v-model="form.synopsis"></el-input>
           </el-form-item>
-          <el-form-item label="产品介绍：">
+          <el-form-item label="模块介绍：">
             <iep-input-area v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import { getSeriesById } from '@/api/cpms/series'
+import { getModuleById } from '@/api/cpms/module'
 import mixins from '@/mixins/mixins'
 import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
 import { initForm, toDtoForm } from '../options'
@@ -194,7 +194,7 @@ export default {
       this.methodName = this.record.methodName
       this.formRequestFn = this.record.formRequestFn
       if (this.isEdit) {
-        getSeriesById(this.id).then(({ data }) => {
+        getModuleById(this.id).then(({ data }) => {
           this.form = this.$mergeByFirst(initForm(), data.data)
         })
       }

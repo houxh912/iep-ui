@@ -1,55 +1,15 @@
 // org config options
 const dictsMap = {
-  startTime: {
-    1: '请假开始时间',
-    2: '出差开始时间',
-    3: '加班开始时间',
-    4: '入职时间',
-    5: '入职时间',
-    6: '调岗前时间',
-  },
-  endTime: {
-    1: '请假结束时间',
-    2: '出差结束时间',
-    3: '加班结束时间',
-    4: '转正时间',
-    5: '离职时间',
-    6: '调岗时间',
-  },
-  isOpen: {
-    0: '开',
-    1: '关',
-  },
-  status: {
-    0: '未审核',
-    1: '通过',
-    2: '拒绝',
-  },
 }
 
-const columnsMap = [
-  {
-    prop: 'startTime',
-    label: '申请开始时间',
-  },
-  {
-    prop: 'endTime',
-    label: '申请结束时间',
-  },
-  {
-    prop: 'status',
-    label: '状态',
-    type: 'dict',
-  },
-]
+const columnsMap = []
 
 const Column = {
   id: '',
   name: '', // 名字
   imageUrl: '', // logo
   synopsis: '', // 简介
-  userList: [], // 负责人
-  onlineTime: '', // 上线时间
+  userRelationCharges: [], // 负责人s
 }
 
 const initForm = () => {
@@ -58,32 +18,25 @@ const initForm = () => {
     imageUrl: '', // logo
     number: '', // 编号
     name: '', // 名称
-    website: '', // 网址
-    onlineTime: '',//上线时间
-    tagKeywords: [], // 标签
-    tapeLibrary: '', // 是否带库
-    valuation: '', // 产品估值
-    instructions: '', // 估值说明
-    synopsis: '', // 产品简介
-    description: '', // 产品介绍
-    userRelationCharges: [],//负责人ids
-    userRelationDemands: [],//需求方ids
-    userRelationTechnologys: [],//技术经理ids
-    userRelationProducts: [],//产品经理ids
-    userRelationTeams: [],//团队成员ids
-    versions: [],//关联模块ids
-    modules: [],//关联模块ids
-    materials: [],//关联材料ids
+    englishName: '', // 英文名称
+    status: '', // 状态（0-待开发，1-开发中，2-已完成）
+    type: '', // 类别
+    synopsis: '', // 简介
+    description: '', // 介绍
+    moduleRelations: [],//模块关联集合
+    materialRelations: [],//材料关联集合
+    technologyRelations: [],//技术关联集合
+    userRelationCharges: [],//负责人集合
+    tagKeywords: [],//关联标签
   }
 }
 
 const toDtoForm = (row) => {
   const newForm = { ...row }
   newForm.userCharges = row.userRelationCharges.map(m => m.id)
-  newForm.userDemands = row.userRelationDemands.map(m => m.id)
-  newForm.userTechnologys = row.userRelationTechnologys.map(m => m.id)
-  newForm.userProducts = row.userRelationProducts.map(m => m.id)
-  newForm.userTeams = row.userRelationTeams.map(m => m.id)
+  newForm.technologys = row.technologyRelations.map(m => m.id)
+  newForm.materials = row.materialRelations.map(m => m.id)
+  newForm.modules = row.moduleRelations.map(m => m.id)
   return newForm
 }
 

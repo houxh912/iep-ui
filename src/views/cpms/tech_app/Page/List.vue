@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="产品系列"></page-header>
+      <page-header title="技术应用"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -25,16 +25,11 @@
             <iep-detail-tag :value="scope.row.chargeNames"></iep-detail-tag>
           </template>
         </el-table-column>
-        <el-table-column label="上线时间">
-          <template slot-scope="scope">
-            {{scope.row.onlineTime}}
-          </template>
-        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button @click="handleShare(scope.row)">分享</iep-button>
+              <iep-button @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -44,9 +39,9 @@
 </template>
 
 <script>
-import { getSeriesPage, postSeries, putSeries } from '@/api/cpms/series'
+import { getTechnologyPage, postTechnology, putTechnology, deleteTechnologyById } from '@/api/cpms/technology'
 import mixins from '@/mixins/mixins'
-const logo = require('../img2.png')
+const logo = require('../logo.png')
 export default {
   mixins: [mixins],
   data () {
@@ -62,14 +57,14 @@ export default {
   methods: {
     handleAdd () {
       this.$emit('onEdit', {
-        formRequestFn: postSeries,
+        formRequestFn: postTechnology,
         methodName: '新增',
         id: false,
       })
     },
     handleEdit (row) {
       this.$emit('onEdit', {
-        formRequestFn: putSeries,
+        formRequestFn: putTechnology,
         methodName: '修改',
         id: row.id,
       })
@@ -79,6 +74,7 @@ export default {
         path: '/cpms_spa/product_detail',
         query: {
           id: row.id,
+          redirect: this.$route.fullPath,
         },
       })
     },
@@ -90,11 +86,11 @@ export default {
       }
       this.loadPage()
     },
-    handleShare () {
-      this.$message.success('功能开发中')
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deleteTechnologyById)
     },
     loadPage (param) {
-      this.loadTable({ ...param, type: this.type }, getSeriesPage)
+      this.loadTable({ ...param, type: this.type }, getTechnologyPage)
     },
   },
 }

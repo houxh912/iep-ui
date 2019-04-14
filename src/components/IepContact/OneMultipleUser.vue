@@ -1,6 +1,7 @@
 <template>
   <div class="multiple-box">
     <operation-wrapper>
+      <el-tag v-if="!users.length" type="info">无</el-tag>
       <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
       <iep-button v-if="isClear && !disabled" icon="el-icon-error" @click="clearAll"></iep-button>
       <iep-button v-if="!disabled" @click="dialogShow = true">选择</iep-button>

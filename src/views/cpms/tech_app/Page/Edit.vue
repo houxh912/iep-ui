@@ -2,71 +2,37 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${methodName}产品`" :backOption="backOption"></page-header>
+      <page-header :title="`${methodName}技术`" :backOption="backOption"></page-header>
       <el-form :model="form" size="small" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
-          <el-form-item label="产品logo：">
+          <el-form-item label="技术logo：">
             <iep-avatar v-model="form.imageUrl"></iep-avatar>
           </el-form-item>
-          <el-form-item label="产品编号：" class="form-half">
+          <el-form-item label="技术编号：" class="form-half">
             <el-input v-model="form.number"></el-input>
           </el-form-item>
-          <el-form-item label="产品名称：" class="form-half">
+          <el-form-item label="技术名称：" class="form-half">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="网址：" class="form-half">
+          <el-form-item label="英文名称：" class="form-half">
             <el-input v-model="form.website"></el-input>
           </el-form-item>
-          <el-form-item label="上线时间：" class="form-half">
-            <iep-date-picker v-model="form.onlineTime" type="date" placeholder="请输入时间"></iep-date-picker>
+          <el-form-item label="负责人：" class="form-half">
+            <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="标签：">
             <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
-          <el-form-item label="是否带库：" class="form-half">
-            <el-radio-group v-model="form.tapeLibrary">
-              <el-radio label="1">是</el-radio>
-              <el-radio label="0">否</el-radio>
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item label="产品估值：" class="form-half">
-            <el-input v-model="form.valuation"></el-input>
-          </el-form-item>
-          <el-form-item label="估值说明：">
-            <iep-input-area v-model="form.instructions"></iep-input-area>
-          </el-form-item>
-          <el-form-item label="产品简介：">
+          <el-form-item label="技术简介：">
             <el-input v-model="form.synopsis"></el-input>
           </el-form-item>
-          <el-form-item label="产品介绍：">
+          <el-form-item label="技术介绍：">
             <iep-input-area v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
-        <div class="title">团队信息：</div>
-        <el-row class="base">
-          <el-form-item label="负责人：" class="form-half">
-            <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
-          </el-form-item>
-          <el-form-item label="需求方：" class="form-half">
-            <iep-contact-multiple-user v-model="form.userRelationDemands"></iep-contact-multiple-user>
-          </el-form-item>
-          <el-form-item label="技术经理：" class="form-half">
-            <iep-contact-multiple-user v-model="form.userRelationTechnologys"></iep-contact-multiple-user>
-          </el-form-item>
-          <el-form-item label="产品经理：" class="form-half">
-            <iep-contact-multiple-user v-model="form.userRelationProducts"></iep-contact-multiple-user>
-          </el-form-item>
-          <el-form-item label="团队成员：" class="form-half">
-            <iep-contact-multiple-user v-model="form.userRelationTeams"></iep-contact-multiple-user>
-          </el-form-item>
-        </el-row>
         <template v-if="isEdit">
-          <div class="title">全新版本：</div>
-          <el-row class="base">
-            <iep-cpms-version-table :table-data="form.versions" :productId="form.id" @load-page="loadPage"></iep-cpms-version-table>
-          </el-row>
-          <div class="title">包含模块：</div>
+          <div class="title">应用模块：</div>
           <el-row class="base">
             <operation-container>
               <template slot="left">
@@ -120,17 +86,13 @@
 </template>
 
 <script>
-import { getSeriesById } from '@/api/cpms/series'
+import { getTechnologyById } from '@/api/cpms/technology'
 import mixins from '@/mixins/mixins'
-import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
 import { initForm, toDtoForm } from '../options'
-const logo = require('../img2.png')
+const logo = require('../logo.png')
 export default {
   name: 'edit',
   mixins: [mixins],
-  components: {
-    IepCpmsVersionTable,
-  },
   props: {
     record: {
       type: Object,
@@ -203,7 +165,7 @@ export default {
       this.methodName = this.record.methodName
       this.formRequestFn = this.record.formRequestFn
       if (this.isEdit) {
-        getSeriesById(this.id).then(({ data }) => {
+        getTechnologyById(this.id).then(({ data }) => {
           this.form = this.$mergeByFirst(initForm(), data.data)
         })
       }

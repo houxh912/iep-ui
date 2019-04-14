@@ -9,7 +9,11 @@
             </el-col>
             <el-col :span="14" class="title">
               <div>
-                <div class="tags"><span class="weight">{{form.name}}</span><span class="time">上线时间：{{form.onlineTime}}</span></div>
+                <div class="tags">
+                  <span class="weight">{{form.name}}</span>
+                  <el-tag type="info">{{dictsMap.schedule[form.schedule]}}</el-tag>
+                  <span class="time">上线时间：{{form.onlineTime}}</span>
+                </div>
                 <div class="tags">
                   <iep-detail-tag :value="form.tagKeywords"></iep-detail-tag>
                 </div>
@@ -39,7 +43,7 @@ import TeamInfo from './TeamInfo'
 import Versions from './Versions'
 import Modules from './Modules'
 import Materials from './Materials'
-import { initForm } from '../options'
+import { initForm, dictsMap } from '../options'
 import { getModuleById } from '@/api/cpms/module'
 export default {
   name: 'detail',
@@ -47,6 +51,7 @@ export default {
   mixins: [mixins],
   data () {
     return {
+      dictsMap,
       backOption: {
         isBack: true,
         backFunction: () => {

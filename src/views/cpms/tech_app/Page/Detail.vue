@@ -9,7 +9,11 @@
             </el-col>
             <el-col :span="14" class="title">
               <div>
-                <div class="tags"><span class="weight">{{form.name}}</span><span class="time">上线时间：{{form.onlineTime}}</span></div>
+                <div class="tags">
+                  <span class="weight">{{form.name}}</span>
+                  <el-tag type="info">{{dictsMap.schedule[form.schedule]}}</el-tag>
+                  <span class="time">上线时间：{{form.onlineTime}}</span>
+                </div>
                 <div class="tags">
                   <iep-detail-tag :value="form.tagKeywords"></iep-detail-tag>
                 </div>
@@ -18,44 +22,41 @@
           </el-row>
         </template>
       </iep-page-header>
-      <iep-tabs v-model="activeTab" :tab-list="tabList">
-        <template v-if="activeTab ==='BaseInfo'" v-slot:BaseInfo>
-          <base-info v-loading="activeTab !=='BaseInfo'" :form="form"></base-info>
-        </template>
-        <template v-if="activeTab ==='TeamInfo'" v-slot:TeamInfo>
-          <team-info v-loading="activeTab !=='TeamInfo'"></team-info>
-        </template>
-        <template v-if="activeTab ==='AllVersion'" v-slot:AllVersion>
-          <all-version v-loading="activeTab !=='AllVersion'"></all-version>
-        </template>
-        <template v-if="activeTab ==='Modules'" v-slot:Modules>
-          <modules v-loading="activeTab !=='Modules'"></modules>
-        </template>
-        <template v-if="activeTab ==='Materials'" v-slot:Materials>
-          <materials v-loading="activeTab !=='Materials'"></materials>
-        </template>
-      </iep-tabs>
+      <iep-tab-scroll :tab-list="tabList" :height="270">
+        <div class="iep-page-form">
+          <div class="base" :id="item.value" v-for="item in tabList" :key="item.value">
+            <div class="title">{{item.label}}</div>
+            <div class="context">
+              <component :form="form" :is="item.value"></component>
+            </div>
+          </div>
+        </div>
+      </iep-tab-scroll>
     </basic-container>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
-import BaseInfo from './BaseInfo/'
-import TeamInfo from './TeamInfo/'
-import AllVersion from './AllVersion/'
-import Modules from './Modules/'
-import Materials from './Materials/'
-import { initForm } from '../options'
-import { getSeriesById } from '@/api/cpms/series'
+import BaseInfo from './BaseInfo'
+import TeamInfo from './TeamInfo'
+import Versions from './Versions'
+import Modules from './Modules'
+import Materials from './Materials'
+import { initForm, dictsMap } from '../options'
+import { getTechnologyById } from '@/api/cpms/technology'
 export default {
   name: 'detail',
-  components: { BaseInfo, TeamInfo, AllVersion, Modules, Materials },
+  components: { BaseInfo, TeamInfo, Versions, Modules, Materials },
   mixins: [mixins],
   data () {
     return {
+      dictsMap,
       backOption: {
         isBack: true,
+        backFunction: () => {
+          this.$openPage(this.$route.query.redirect)
+        },
       },
       form: initForm(),
       tabList: [{
@@ -66,7 +67,7 @@ export default {
         value: 'TeamInfo',
       }, {
         label: '全新版本',
-        value: 'AllVersion',
+        value: 'Versions',
       }, {
         label: '包含模块',
         value: 'Modules',
@@ -74,7 +75,6 @@ export default {
         label: '相关材料',
         value: 'Materials',
       }],
-      activeTab: 'BaseInfo',
     }
   },
   computed: {
@@ -83,7 +83,7 @@ export default {
     },
   },
   created () {
-    getSeriesById(this.id).then(({ data }) => {
+    getTechnologyById(this.id).then(({ data }) => {
       this.form = this.$mergeByFirst(initForm(), data.data)
     })
   },
@@ -118,5 +118,23 @@ export default {
   .tags {
     margin: 10px 0;
   }
+}
+
+.base {
+  border-bottom: 1px solid #eee;
+  .title {
+    padding: 20px 20px 0 20px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .context {
+    padding: 20px 40px;
+  }
+}
+.el-form {
+  margin: 0;
+}
+.el-form-item {
+  margin-bottom: 10px;
 }
 </style>

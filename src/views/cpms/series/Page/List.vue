@@ -93,7 +93,7 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteProductById)
     },
     loadPage (param) {
-      this.loadTable({ ...param, type: this.type }, getProductPage)
+      this.loadTable({ ...param, isMine: this.type }, getProductPage)
     },
   },
 }

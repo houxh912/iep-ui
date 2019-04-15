@@ -64,7 +64,7 @@
         <template v-if="isEdit">
           <div class="title">全新版本：</div>
           <el-row class="base">
-            <iep-cpms-version-table :table-data="form.versions" :productId="form.id" @load-page="loadPage"></iep-cpms-version-table>
+            <iep-cpms-version-table :table-data="form.versions" :moduleId="form.id" @load-page="loadPage"></iep-cpms-version-table>
           </el-row>
         </template>
         <div class="title">应用产品：</div>

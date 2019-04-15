@@ -11,10 +11,10 @@
         <span>{{form.positionName}}</span>
       </el-form-item>
       <el-form-item label="调入部门：" class="form-half">
-        <iep-dept-select v-model="form.transferDeptObj"></iep-dept-select>
+        <iep-dept-select v-model="form.transferDeptList"></iep-dept-select>
       </el-form-item>
       <el-form-item label="调入岗位：" class="form-half">
-        <iep-cascader v-model="form.transferPositionList" prefix-url="hrms/post_type"></iep-cascader>
+        <iep-cascader v-model="form.transferPosition" prefix-url="hrms/post_type"></iep-cascader>
       </el-form-item>
       <el-form-item label="调岗时间：" class="form-half">
         <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期"></iep-date-picker>

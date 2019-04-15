@@ -24,7 +24,7 @@ const initForm = () => {
 		cc: [], // 抄送人
 		duration: '', //各种时长
 		leaveType: '', // 请假类型
-		transferDeptObj: {
+		transferDeptList: {
 			id: '',
 			name: '',
 		}, // 部门
@@ -60,13 +60,12 @@ const initSelfForm = () => {
 const formToDto = (row, type) => {
 	const newForm = { ...row, type }
 	newForm.attachFileUrl = row.annex.map(m => m.url)[0]
-	newForm.transferDept = row.transferDeptObj.id
-	newForm.transferPosition = row.transferPositionList[row.transferPositionList.length - 1]
+	newForm.transferDept = row.transferDeptList.id
+	newForm.transferPosition = row.transferPosition[row.transferPosition.length - 1]
 	newForm.approver = row.approver.map(m => m.id)
 	newForm.cc = row.cc.map(m => m.id)
 	delete newForm.annex
 	delete newForm.attachFile
-	delete newForm.transferPositionList
 	newForm.cc = newForm.cc.map(m => m.id)
 	return newForm
 }

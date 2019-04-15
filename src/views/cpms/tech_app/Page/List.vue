@@ -10,7 +10,8 @@
           </el-checkbox-group>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -40,9 +41,11 @@
 
 <script>
 import { getTechnologyPage, postTechnology, putTechnology, deleteTechnologyById } from '@/api/cpms/technology'
+import AdvanceSearch from './AdvanceSearch'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
+  components: { AdvanceSearch },
   data () {
     return {
       checkList: [],
@@ -88,7 +91,7 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteTechnologyById)
     },
     loadPage (param) {
-      this.loadTable({ ...param, type: this.type }, getTechnologyPage)
+      this.loadTable({ ...param, isMine: this.type }, getTechnologyPage)
     },
   },
 }

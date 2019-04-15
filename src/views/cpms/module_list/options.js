@@ -71,10 +71,8 @@ const toDtoForm = (row) => {
 
 const initSearchForm = () => {
   return {
-    theme: '',
-    teacher: '',
     type: '',
-    date: '',
+    schedule: '',
   }
 }
 

@@ -21,7 +21,7 @@
           <el-form-item label="技术类型" class="form-half">
             <iep-dict-select v-model="form.type" dict-name="cpms_technology_type"></iep-dict-select>
           </el-form-item>
-          <el-form-item label="技术类型" class="form-half">
+          <el-form-item label="技术状态" class="form-half">
             <el-select v-model="form.status" placeholder="请选择" clearable>
               <el-option v-for="(v,k) in dictsMap.status" :key="k" :label="v" :value="+k">
               </el-option>

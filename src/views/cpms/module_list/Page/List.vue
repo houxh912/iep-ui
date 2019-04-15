@@ -10,7 +10,8 @@
           </el-checkbox-group>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -46,9 +47,11 @@
 <script>
 import { getModulePage, postModule, putModule, deleteModuleById } from '@/api/cpms/module'
 import mixins from '@/mixins/mixins'
+import AdvanceSearch from './AdvanceSearch'
 import { dictsMap } from '../options'
 export default {
   mixins: [mixins],
+  components: { AdvanceSearch },
   data () {
     return {
       dictsMap,
@@ -95,7 +98,7 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteModuleById)
     },
     loadPage (param) {
-      this.loadTable({ ...param, type: this.type }, getModulePage)
+      this.loadTable({ ...param, isMine: this.type }, getModulePage)
     },
   },
 }

@@ -29,7 +29,7 @@ const initForm = () => {
 			name: '',
 		}, // 部门
 		transferDept: '', // 部门ID
-		transferPosition: '', // 岗位ID
+		transferPosition: [], // 岗位ID
 		busTripDistrict: '',
 	}
 }
@@ -57,8 +57,8 @@ const initSelfForm = () => {
 	}
 }
 
-const formToDto = (row, type) => {
-	const newForm = { ...row, type }
+const formToDto = (row, type, userId) => {
+	const newForm = { ...row, type, userId }
 	newForm.attachFileUrl = row.annex.map(m => m.url)[0]
 	newForm.transferDept = row.transferDeptList.id
 	newForm.transferPosition = row.transferPosition[row.transferPosition.length - 1]

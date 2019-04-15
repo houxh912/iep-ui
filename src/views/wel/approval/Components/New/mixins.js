@@ -1,4 +1,5 @@
 
+import { mapGetters } from 'vuex'
 import { postApproval, putApproval } from '@/api/hrms/wel'
 import { formToDto, initForm, formToVo } from './options'
 import { getEmployeeProfileSelf } from '@/api/hrms/employee_profile'
@@ -24,6 +25,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
     id () {
       return this.$route.query.id
     },
@@ -47,7 +51,7 @@ export default {
       const submitFunction = this.id ? putApproval : postApproval
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          submitFunction(formToDto(this.form, this.type)).then(() => {
+          submitFunction(formToDto(this.form, this.type, this.userInfo.userId)).then(() => {
             this.$openPage('/wel/approval/initiate')
           })
         }

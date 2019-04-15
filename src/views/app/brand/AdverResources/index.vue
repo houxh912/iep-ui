@@ -1,81 +1,45 @@
 <template>
-  <div class="grid-content">
-    <el-card class="box-card">
-      <div class="news-nav">
-        <el-tabs v-model="activeName">
-          <el-tab-pane label="广告资源" name="first">
-            <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
-              <span class="count" :class="item.color">{{item.status}}</span>
-              <span class="name">{{item.name}}</span>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane label="媒体资源" name="second">媒体资源</el-tab-pane>
-        </el-tabs>
-      </div>
-    </el-card>
+  <div class="leaderBoard">
+    <IepAppTabsCard>
+      <iep-tabs v-model="activeTab" :tab-list="tabList">
+        <template v-if="activeTab ==='Advert'" v-slot:Advert>
+          <advert v-loading="activeTab !=='Advert'"></advert>
+        </template>
+        <template v-if="activeTab ==='Media'" v-slot:Media>
+          <media v-loading="activeTab !=='Media'"></media>
+        </template>
+      </iep-tabs>
+    </IepAppTabsCard>
   </div>
 </template>
 <script>
+import Advert from './Advert'
+import Media from './Media'
 export default {
-     data () {
-        return {
-            activeName: 'first',
-            leaderBoardList: [
-                {name:'蟠桃会首页“本月会议”广告',color:'red',status:'空余'},
-                {name:'首届长三角营商环境论坛在沪召开的',color:'red',status:'空余'},
-                {name:'首届长三角营商环境论坛在沪召开的',color:'gray',status:'排满'},
-                {name:'首届长三角营商环境论坛在沪召开的',color:'red',status:'空余'},
-            ],
-        }
-    },
+  components: {
+    Advert,
+    Media,
+  },
+  data () {
+    return {
+      tabList: [{
+        label: '广告资源',
+        value: 'Advert',
+      }, {
+        label: '媒体资源',
+        value: 'Media',
+      }],
+      activeTab: 'Advert',
+    }
+  },
 }
 </script>
-<style lang="scss" scoped>
-.piece{
-        overflow:hidden;
-        text-overflow:ellipsis;
-        white-space: nowrap;
-        margin-bottom: 8px;
-        height: 30px;
-        cursor: pointer;
-        .name{
-            height: 30px;
-            line-height: 30px;
-            overflow:hidden;
-            text-overflow:ellipsis;
-            white-space: nowrap;
-        }
-        .count{
-            width: 36px;
-            height: 18px;
-            line-height: 18px;
-            text-align: center;
-            margin-right: 20px;
-            background-color: #fff;
-            color:#bb1a20;
-            border: 1px solid #bb1a20;
-            border-radius: 5px;
-            display: inline-block;
-        }
-        .red{
-            background-color:#fff; 
-        }
-        .gray{
-           color:gray; 
-           border: 1px solid gray;
-        }
-        .grade{
-            float: right;
-            color: #bb1a20;
-        }
-        &:hover {
-            color: #cb3737;
-        }
-    }
-    .todyInfo{
-        overflow:hidden;
-        text-overflow:ellipsis;
-        white-space: nowrap;
-        background-color: #eee;
-    }
+<style scoped>
+.iep-tabs >>> .el-tabs__nav-scroll {
+  padding: 24px 20px 0 20px;
+}
+.iep-tabs >>> .el-tabs__content {
+  padding: 0 20px 20px 20px;
+}
 </style>
+

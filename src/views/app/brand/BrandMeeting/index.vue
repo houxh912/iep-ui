@@ -1,40 +1,56 @@
 <template>
-    <div class="grid-content">
-        <el-card class="box-card">
-        <div class="news-nav">
-            <el-tabs v-model="activeName">
-            <el-tab-pane label="品牌会议" name="first">
-                <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
-                <span class="name">{{item.name}}</span>
-                </div>
-            </el-tab-pane>
-            <el-tab-pane label="估评活动" name="second">估评活动</el-tab-pane>
-            <el-tab-pane label="培训库" name="third">培训库</el-tab-pane>
-            </el-tabs>
-        </div>
-        </el-card>
-    </div>
+  <div class="leaderBoard">
+    <IepAppTabsCard>
+      <iep-tabs v-model="activeTab" :tab-list="tabList">
+        <template v-if="activeTab ==='Metting'" v-slot:Metting>
+          <metting v-loading="activeTab !=='Metting'"></metting>
+        </template>
+        <template v-if="activeTab ==='Library'" v-slot:Library>
+          <library v-loading="activeTab !=='Library'"></library>
+        </template>
+        <template v-if="activeTab ==='Activity'" v-slot:Activity>
+          <activity v-loading="activeTab !=='Activity'"></activity>
+        </template>
+      </iep-tabs>
+    </IepAppTabsCard>
+  </div>
 </template>
 <script>
+import Metting from './Metting'
+import Library from './Library'
+import Activity from './Activity'
 export default {
-    data () {
-        return {
-            activeName: 'first',
-            leaderBoardList: [
-                {name:'2019首届长三角地区营商环境论坛'},
-                {name:'2019珠三角营商环境与数字政府理论与实践'},
-                {name:'全球敏捷运维峰会'},
-                {name:'2019首届长三角地区营商环境专题论坛'},
-                {name:'2019首届长三角地区营商环境论坛'},
-                {name:'2019珠三角营商环境与数字政府理论与实践'},
-                {name:'全球敏捷运维峰会'},
-            ],
-        }
-    },
+  components: {
+    Metting,
+    Library,
+    Activity,
+  },
+  data () {
+    return {
+      tabList: [{
+        label: '品牌会议',
+        value: 'Metting',
+      }, {
+        label: '估值活动',
+        value: 'Activity',
+      }, {
+        label: '培训库',
+        value: 'Library',
+      }],
+      activeTab: 'Metting',
+    }
+  },
 }
 </script>
-<style scoped lang='scss'>
-    .piece{
-        margin-bottom: 10px;
-    }
+<style scoped>
+.iep-tabs >>> .el-tabs__nav-scroll {
+  padding: 24px 20px 0 20px;
+}
+.iep-tabs >>> .el-tabs__content {
+  padding: 0 20px 20px 20px;
+}
+.iep-tabs {
+  height: 340px;
+}
 </style>
+

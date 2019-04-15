@@ -1,68 +1,114 @@
 <template>
-    <div class="grid-content">
-        <el-card class="box-card">
-        <div class="brandCertificates">
-            <el-tabs v-model="activeName">
-                <el-tab-pane label="光影见证" name="first">
-                    <i class="el-icon-arrow-left"></i>
-                    <div class="pic" v-for="(item,index) in img" :key="index">
-                       <img :src="item.imgSrc" alt="">
-                        <p>{{item.des}}</p>
-                    </div>
-                    <i class="el-icon-arrow-right"></i>
-                </el-tab-pane>
-                <el-tab-pane label="领导关怀" name="second">领导关怀</el-tab-pane>
-                <el-tab-pane label="会场直击" name="third">会场直击</el-tab-pane>
-                <el-tab-pane label="荣誉资质" name="fourth">荣誉资质</el-tab-pane>
-            </el-tabs>
-        </div>
-        </el-card>
-    </div>
+  <div class="leaderBoard">
+    <IepAppTabsCard>
+      <iep-tabs v-model="activeTab" :tab-list="tabList">
+        <template v-if="activeTab ==='Shadow'" v-slot:Shadow>
+          <shadows v-loading="activeTab !=='Shadow'"></shadows>
+        </template>
+        <template v-if="activeTab ==='Leader'" v-slot:Leader>
+          <leader v-loading="activeTab !=='Leader'"></leader>
+        </template>
+        <template v-if="activeTab ==='Metting'" v-slot:Metting>
+          <metting v-loading="activeTab !=='Metting'"></metting>
+        </template>
+        <template v-if="activeTab ==='Honour'" v-slot:Honour>
+          <honour v-loading="activeTab !=='Honour'"></honour>
+        </template>
+      </iep-tabs>
+    </IepAppTabsCard>
+  </div>
 </template>
 <script>
+import Shadows from './Shadow'
+import Leader from './Leader'
+import Metting from './Metting'
+import Honour from './Honour'
 export default {
-    data () {
-        return {
-            activeName: 'first',
-             img:[
-                {imgSrc:require('../images/cert1.jpg'),des:'cert1'},
-                {imgSrc:require('../images/cert2.jpg'),des:'cert2'},
-                {imgSrc:require('../images/cert3.png'),des:'cert3'},
-                {imgSrc:require('../images/cert4.jpg'),des:'cert4'},
-            ],
-        }
-    },
+  components: {
+    Shadows,
+    Leader,
+    Metting,
+    Honour,
+  },
+  data () {
+    return {
+      tabList: [{
+        label: '光影见证',
+        value: 'Shadow',
+      }, {
+        label: '领导关怀',
+        value: 'Leader',
+      }, {
+        label: '会场直击',
+        value: 'Metting',
+      }, {
+        label: '荣誉资质',
+        value: 'Honour',
+      }],
+      activeTab: 'Shadow',
+    }
+  },
 }
 </script>
-<style scoped lang='scss'>
-    .grid-content{
-        grid-column-start: 1;
-        grid-column-end: 4;
+<style scoped>
+.iep-tabs >>> .el-tabs__nav-scroll {
+  padding: 24px 20px 0 20px;
+}
+.leaderBoard {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+</style>
+<style lang="scss">
+.el-carousel {
+  overflow: hidden;
+}
+.department-con {
+  margin: 18px 0;
+  padding: 0 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  .department-list {
+    display: inline-block;
+    margin: 0 15px;
+    width: 22%;
+    overflow: hidden;
+    height: 200px;
+    text-align: center;
+    cursor: pointer;
+    &:hover .sub-title {
+      color: #cb3737;
     }
-    .piece{
-        margin-bottom: 10px;
+    .img {
+      width: 100%;
+      height: 140px;
+      border: 1px solid #ebeef5;
+      overflow: hidden;
     }
-    .brandCertificates{
-        i{
-            display: inline-block;
-            font-size: 32px;
-            color:#ccc;
-            vertical-align: 60px;
-        }
-        .pic{
-            display: inline-block;
-            width: 21%;
-            margin: 15px 15px 0;
-           img{
-                display: inline-block;
-                width: 100%;
-                height:120px;
-                background-color: #ccc;
-            }
-            p{
-                text-align: center;
-            }
-        }
-    
+    img {
+      width: 100%;
+      height: 100%;
+      transition: 0.5s;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+    .sub-title {
+      display: block;
+      margin: 10px 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 18px;
+  opacity: 0.75;
+  margin: 0;
+}
+.el-carousel__container {
+  height: 200px;
 }
 </style>

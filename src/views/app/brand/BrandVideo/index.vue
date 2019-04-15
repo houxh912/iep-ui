@@ -1,68 +1,114 @@
 <template>
-    <div class="grid-content">
-        <el-card class="box-card">
-        <div class="brandVideo">
-            <el-tabs v-model="activeName">
-                <el-tab-pane label="视说国脉" name="first">
-                    <i class="el-icon-arrow-left"></i>
-                    <div class="video" v-for="(item,index) in img" :key="index">
-                        <img :src="item.imgSrc" alt="">
-                        <p>{{item.des}}</p>
-                    </div>
-                    <i class="el-icon-arrow-right"></i>
-                </el-tab-pane>
-                <el-tab-pane label="企业风采" name="second">企业风采</el-tab-pane>
-                <el-tab-pane label="产品亮相" name="third">产品亮相</el-tab-pane>
-                <el-tab-pane label="活动视频" name="fourth">活动视频</el-tab-pane>
-            </el-tabs>
-        </div>
-        </el-card>
-    </div>
+  <div class="leaderBoard">
+    <IepAppTabsCard>
+      <iep-tabs v-model="activeTab" :tab-list="tabList">
+        <template v-if="activeTab ==='Govmade'" v-slot:Govmade>
+          <govmade v-loading="activeTab !=='Govmade'"></govmade>
+        </template>
+        <template v-if="activeTab ==='Componey'" v-slot:Componey>
+          <componey v-loading="activeTab !=='Componey'"></componey>
+        </template>
+        <template v-if="activeTab ==='Products'" v-slot:Products>
+          <products v-loading="activeTab !=='Products'"></products>
+        </template>
+        <template v-if="activeTab ==='ActivityVideo'" v-slot:ActivityVideo>
+          <activity-video v-loading="activeTab !=='ActivityVideo'"></activity-video>
+        </template>
+      </iep-tabs>
+    </IepAppTabsCard>
+  </div>
 </template>
 <script>
+import Govmade from './Govmade'
+import Componey from './Componey'
+import Products from './Products'
+import ActivityVideo from './ActivityVideo'
 export default {
-    data () {
-        return {
-            activeName: 'first',
-            img:[
-                {imgSrc:require('../images/video1.jpg'),des:'宣传片1'},
-                {imgSrc:require('../images/video2.jpg'),des:'宣传片2'},
-                {imgSrc:require('../images/video3.jpg'),des:'宣传片3'},
-                {imgSrc:require('../images/video4.jpg'),des:'宣传片4'},
-            ],
-        }
-    },
+  components: {
+    Govmade,
+    Componey,
+    Products,
+    ActivityVideo,
+  },
+  data () {
+    return {
+      tabList: [{
+        label: '视说国脉',
+        value: 'Govmade',
+      }, {
+        label: '企业风采',
+        value: 'Componey',
+      }, {
+        label: '产品亮相',
+        value: 'Products',
+      }, {
+        label: '活动视频',
+        value: 'ActivityVideo',
+      }],
+      activeTab: 'Govmade',
+    }
+  },
 }
 </script>
-<style scoped lang='scss'>
-    .grid-content{
-        grid-column-start: 1;
-        grid-column-end: 4;
+<style scoped>
+.iep-tabs >>> .el-tabs__nav-scroll {
+  padding: 24px 20px 0 20px;
+}
+.leaderBoard {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+</style>
+<style lang="scss">
+.el-carousel {
+  overflow: hidden;
+}
+.department-con {
+  margin: 18px 0;
+  padding: 0 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  .department-list {
+    display: inline-block;
+    margin: 0 15px;
+    width: 22%;
+    overflow: hidden;
+    height: 200px;
+    text-align: center;
+    cursor: pointer;
+    &:hover .sub-title {
+      color: #cb3737;
     }
-    .piece{
-        margin-bottom: 10px;
+    .img {
+      width: 100%;
+      height: 140px;
+      border: 1px solid #ebeef5;
+      overflow: hidden;
     }
-    .brandVideo{
-        i{
-            display: inline-block;
-            font-size: 32px;
-            color:#ccc;
-            vertical-align: 60px;
-        }
-        .video{
-            display: inline-block;
-            width: 21%;
-            margin: 15px 15px 0;
-           img{
-                display: inline-block;
-                width: 100%;
-                height:120px;
-                background-color: #ccc;
-            }
-            p{
-                text-align: center;
-            }
-        }
-    
+    img {
+      width: 100%;
+      height: 100%;
+      transition: 0.5s;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+    .sub-title {
+      display: block;
+      margin: 10px 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 18px;
+  opacity: 0.75;
+  margin: 0;
+}
+.el-carousel__container {
+  height: 200px;
 }
 </style>

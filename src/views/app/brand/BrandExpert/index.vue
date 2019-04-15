@@ -1,60 +1,45 @@
 <template>
-  <div class="grid-content">
-    <el-card class="box-card">
-      <div class="news-nav">
-        <el-tabs v-model="activeName">
-          <el-tab-pane label="内部专家" name="first">
-            <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
-              <img :src="item.imgSrc" alt="">
-              <div class="expert">
-                <p class="name">{{item.name}}</p>
-                <p class="des">{{item.des}}</p>
-              </div>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane label="外部专家" name="second">外部专家</el-tab-pane>
-        </el-tabs>
-      </div>
-    </el-card>
+  <div class="leaderBoard">
+    <IepAppTabsCard>
+      <iep-tabs v-model="activeTab" :tab-list="tabList">
+        <template v-if="activeTab ==='Inner'" v-slot:Inner>
+          <inner v-loading="activeTab !=='Inner'"></inner>
+        </template>
+        <template v-if="activeTab ==='Outer'" v-slot:Outer>
+          <outer v-loading="activeTab !=='Outer'"></outer>
+        </template>
+      </iep-tabs>
+    </IepAppTabsCard>
   </div>
 </template>
 <script>
+import Inner from './Inner'
+import Outer from './Outer'
 export default {
-     data () {
-        return {
-            activeName: 'first',
-            leaderBoardList: [
-                {imgSrc:require('../images/expert1.jpg'),name:'杨冰之（文章576）',des:'国脉集团董事长'},
-                {imgSrc:require('../images/expert2.png'),name:'郑爱军',des:'国脉集团董事长'},
-                {imgSrc:require('../images/expert3.png'),name:'王路燕',des:'国脉集团总助'},
-                {imgSrc:require('../images/expert4.png'),name:'刘林英',des:'智慧城市咨询研究专家'},
-                {imgSrc:require('../images/expert5.jpg'),name:'谢海艳',des:'信息化研究专家'},
-                {imgSrc:require('../images/expert6.jpg'),name:'陈飞娜',des:'互联网+船舶规划咨询师'},
-            ],
-        }
-    },
+  components: {
+    Inner,
+    Outer,
+  },
+  data () {
+    return {
+      tabList: [{
+        label: '内部专家',
+        value: 'Inner',
+      }, {
+        label: '外部专家',
+        value: 'Outer',
+      }],
+      activeTab: 'Inner',
+    }
+  },
 }
 </script>
-<style lang="scss" scoped>
-.piece{
-  display: inline-block;
-  width: 50%;
-  margin-bottom: 10px;
-  img{
-    width: 55px;
-    height: 60px;
-    vertical-align: top;
-    margin-right: 10px;
-  }
-  .expert{
-    display: inline-block;
-    p:nth-child(1){
-      margin-bottom: 0;
-    }
-  }
-  .des{
-    font-size: 14px;
-    color: #aaa;
-  }
+<style scoped>
+.iep-tabs >>> .el-tabs__nav-scroll {
+  padding: 24px 20px 0 20px;
+}
+.iep-tabs >>> .el-tabs__content {
+  padding: 0 20px 20px 20px;
 }
 </style>
+

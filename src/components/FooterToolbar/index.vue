@@ -56,7 +56,7 @@ export default {
   background: #fff;
   border-top: 1px solid #e8e8e8;
   padding: 0 24px;
-  z-index: 9;
+  z-index: 1111;
 
   &:after {
     content: "";

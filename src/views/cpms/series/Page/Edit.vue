@@ -57,7 +57,7 @@
           <el-form-item label="产品经理：" class="form-half">
             <iep-contact-multiple-user v-model="form.userRelationProducts"></iep-contact-multiple-user>
           </el-form-item>
-          <el-form-item label="团队成员：" class="form-half">
+          <el-form-item label="团队成员：">
             <iep-contact-multiple-user v-model="form.userRelationTeams"></iep-contact-multiple-user>
           </el-form-item>
         </el-row>
@@ -68,46 +68,11 @@
           </el-row>
           <div class="title">包含模块：</div>
           <el-row class="base">
-            <operation-container>
-              <template slot="left">
-                <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增模块</iep-button>
-              </template>
-            </operation-container>
-            <div class="module" v-for="(item,index) in 3" :key="index">
-              <span class="clear" @click="clear"><i class="icon-shanchu1"></i> </span>
-              <div class="img">
-                <img :src="logo" alt="">
-              </div>
-              <div class="module-title">资源配置模块</div>
-            </div>
+            <iep-cpms-module-table v-model="form.moduleRelations"></iep-cpms-module-table>
           </el-row>
           <div class="title">相关材料：</div>
           <el-row class="last base">
-            <operation-container>
-              <template slot="left">
-                <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增产品资料</iep-button>
-                <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增产品资质</iep-button>
-              </template>
-            </operation-container>
-            <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable1" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-              <el-table-column label="标题">
-                <template slot-scope="scope">
-                  {{scope.row.title}}
-                </template>
-              </el-table-column>
-              <el-table-column label="类别">
-                <template slot-scope="scope">
-                  {{scope.row.type}}
-                </template>
-              </el-table-column>
-              <el-table-column label="操作" width="200">
-                <template slot-scope="scope">
-                  <operation-wrapper>
-                    <iep-button plain @click="handleDelete(scope.row)">删除</iep-button>
-                  </operation-wrapper>
-                </template>
-              </el-table-column>
-            </iep-table>
+            <iep-cpms-material-table v-model="form.materialRelations"></iep-cpms-material-table>
           </el-row>
         </template>
       </el-form>
@@ -123,13 +88,16 @@
 import { getSeriesById } from '@/api/cpms/series'
 import mixins from '@/mixins/mixins'
 import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
+import IepCpmsModuleTable from '@/views/cpms/Components/ModuleTable'
+import IepCpmsMaterialTable from '@/views/cpms/Components/MaterialTable'
 import { initForm, toDtoForm } from '../options'
-const logo = require('../logo.png')
 export default {
   name: 'edit',
   mixins: [mixins],
   components: {
     IepCpmsVersionTable,
+    IepCpmsModuleTable,
+    IepCpmsMaterialTable,
   },
   props: {
     record: {
@@ -139,7 +107,6 @@ export default {
   },
   data () {
     return {
-      logo,
       pagedTable: [
         {
           id: 1,
@@ -214,12 +181,6 @@ export default {
     handleDelete () {
       this.$message.success('功能开发中')
     },
-    handleAdd () {
-      this.$message.success('功能开发中')
-    },
-    resetForm () {
-      this.$message.success('功能开发中')
-    },
     submitForm () {
       this.formRequestFn(toDtoForm(this.form)).then(() => {
         this.$emit('onGoBack')
@@ -242,40 +203,6 @@ export default {
   padding-left: 20px;
   padding-right: 20%;
   margin-bottom: 30px;
-  .module {
-    width: 150px;
-    height: 150px;
-    margin-right: 40px;
-    display: inline-block;
-    padding: 10px 25px;
-    border: 1px solid #ccc;
-    position: relative;
-    .clear {
-      position: absolute;
-      right: 10px;
-      .icon-shanchu1 {
-        font-size: 12px !important;
-        padding: 4px;
-        border: 1px solid #ccc;
-        border-radius: 50%;
-      }
-    }
-    .img {
-      padding: 5px;
-      img {
-        width: 100%;
-        padding: 0;
-        margin: 0;
-        display: block;
-        box-sizing: border-box;
-      }
-    }
-    .module-title {
-      width: 100%;
-      padding-top: 10px;
-      text-align: center;
-    }
-  }
 }
 .el-form {
   margin: 0;

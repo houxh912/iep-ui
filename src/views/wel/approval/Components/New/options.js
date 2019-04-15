@@ -9,7 +9,6 @@ const initForm = () => {
 		positionName: '',
 		job: '',
 		title: '',
-		entryTime: '',
 		nowTime: initNow(),
 		positiveTime: '',
 		transferTime: '',
@@ -37,6 +36,15 @@ const initForm = () => {
 const formToVo = (row) => {
 	const newForm = mergeByFirst(initForm(), row)
 	newForm.annex = row.attachFile || []
+	newForm.approver = row.approverList || []
+	newForm.cc = row.ccList || []
+	return newForm
+}
+
+const selfToVo = (row) => {
+	const newForm = mergeByFirst(initForm(), row)
+	newForm.annex = row.attachFile || []
+	newForm.startTime = row.entryTime || ''
 	newForm.approver = row.approverList || []
 	newForm.cc = row.ccList || []
 	return newForm
@@ -75,4 +83,5 @@ export {
 	initForm,
 	formToDto,
 	formToVo,
+	selfToVo,
 }

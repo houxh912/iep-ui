@@ -18,11 +18,14 @@
           <el-form-item label="英文名称：" class="form-half">
             <el-input v-model="form.englishName"></el-input>
           </el-form-item>
-          <el-form-item label="负责人：" class="form-half">
-            <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
+          <el-form-item label="技术类型" class="form-half">
+            <iep-dict-select v-model="form.type" dict-name="cpms_technology_type"></iep-dict-select>
           </el-form-item>
           <el-form-item label="标签：">
             <iep-tag v-model="form.tagKeywords"></iep-tag>
+          </el-form-item>
+          <el-form-item label="负责人：">
+            <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="技术简介：">
             <el-input v-model="form.synopsis"></el-input>

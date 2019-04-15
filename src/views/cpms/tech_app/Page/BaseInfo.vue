@@ -2,23 +2,30 @@
   <el-form size="small" label-width="100px">
     <el-row>
       <el-col :span='8'>
-        <el-form-item label="模块编号：">
+        <el-form-item label="技术编号：">
           <div>{{form.number}}</div>
         </el-form-item>
       </el-col>
       <el-col :span='8'>
-        <el-form-item label="模块分类：">
+        <el-form-item label="技术分类：">
           <div>{{form.type}}</div>
         </el-form-item>
       </el-col>
       <el-col :span='8'>
-        <el-form-item label="模块指导价：">
-          <div>{{form.guidePrice}}</div>
+        <el-form-item label="英文名称：">
+          <div>{{form.englishName}}</div>
         </el-form-item>
       </el-col>
       <el-col :span='8'>
-        <el-form-item label="模块优惠价：">
-          <div>{{form.preferentialPrice}}</div>
+        <el-form-item label="状态：">
+          <div>{{form.status}}</div>
+        </el-form-item>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        <el-form-item label="简单介绍：">
+          <div>{{form.synopsis}}</div>
         </el-form-item>
       </el-col>
     </el-row>

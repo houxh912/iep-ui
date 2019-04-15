@@ -27,14 +27,14 @@ const initForm = () => {
     instructions: '', // 估值说明
     synopsis: '', // 产品简介
     description: '', // 产品介绍
-    userRelationCharges: [],//负责人ids
-    userRelationDemands: [],//需求方ids
-    userRelationTechnologys: [],//技术经理ids
-    userRelationProducts: [],//产品经理ids
-    userRelationTeams: [],//团队成员ids
-    versions: [],//关联模块ids
-    modules: [],//关联模块ids
-    materials: [],//关联材料ids
+    versions: [],//版本集合
+    moduleRelations: [],//模块关联集合
+    materialRelations: [],//材料关联集合
+    userRelationCharges: [],//负责人集合
+    userRelationDemands: [],//需求方集合
+    userRelationTechnologys: [],//技术经理集合
+    userRelationProducts: [],//产品经理集合
+    userRelationTeams: [],//团队成员集合
   }
 }
 

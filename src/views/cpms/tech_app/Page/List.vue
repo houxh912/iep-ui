@@ -71,7 +71,7 @@ export default {
     },
     handleDetail (row) {
       this.$router.push({
-        path: '/cpms_spa/product_detail',
+        path: '/cpms_spa/technology_detail',
         query: {
           id: row.id,
           redirect: this.$route.fullPath,

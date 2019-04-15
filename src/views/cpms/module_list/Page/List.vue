@@ -25,9 +25,9 @@
             <iep-detail-tag :value="scope.row.chargeNames"></iep-detail-tag>
           </template>
         </el-table-column>
-        <el-table-column label="上线时间">
+        <el-table-column label="研发进度">
           <template slot-scope="scope">
-            {{scope.row.onlineTime}}
+            {{dictsMap.schedule[scope.row.schedule]}}
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -46,10 +46,12 @@
 <script>
 import { getModulePage, postModule, putModule, deleteModuleById } from '@/api/cpms/module'
 import mixins from '@/mixins/mixins'
+import { dictsMap } from '../options'
 export default {
   mixins: [mixins],
   data () {
     return {
+      dictsMap,
       checkList: [],
       type: null,
     }

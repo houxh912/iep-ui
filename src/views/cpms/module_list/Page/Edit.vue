@@ -16,7 +16,7 @@
             <el-input v-model="form.name"></el-input>
           </el-form-item>
           <el-form-item label="模块分类：" class="form-half">
-            <el-input v-model="form.type"></el-input>
+            <iep-dict-select v-model="form.type" dict-name="cpms_module_type"></iep-dict-select>
           </el-form-item>
           <el-form-item label="模块指导价：" class="form-half">
             <el-input v-model="form.guidePrice"></el-input>
@@ -60,9 +60,6 @@
               <div v-for="(v, k) in dictsMap.schedule" :key="k">{{v}}</div>
             </div>
           </div>
-          <el-form-item v-if="form.schedule===5" label="上线时间：" class="form-half">
-            <iep-date-picker v-model="form.onlineTime" type="date" placeholder="请输入时间"></iep-date-picker>
-          </el-form-item>
         </el-row>
         <template v-if="isEdit">
           <div class="title">全新版本：</div>

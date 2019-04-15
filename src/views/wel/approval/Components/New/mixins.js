@@ -1,7 +1,7 @@
 
 import { mapGetters } from 'vuex'
 import { postApproval, putApproval } from '@/api/hrms/wel'
-import { formToDto, initForm, formToVo } from './options'
+import { formToDto, initForm, formToVo, selfToVo } from './options'
 import { getEmployeeProfileSelf } from '@/api/hrms/employee_profile'
 import { getAdministrativeApprovalById } from '@/api/hrms/administrative_approval'
 export default {
@@ -43,7 +43,7 @@ export default {
         })
       } else {
         getEmployeeProfileSelf().then(({ data }) => {
-          this.form = formToVo(data.data)
+          this.form = selfToVo(data.data)
         })
       }
     },

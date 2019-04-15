@@ -11,8 +11,6 @@
               <div>
                 <div class="tags">
                   <span class="weight">{{form.name}}</span>
-                  <el-tag type="info">{{dictsMap.schedule[form.schedule]}}</el-tag>
-                  <span class="time">上线时间：{{form.onlineTime}}</span>
                 </div>
                 <div class="tags">
                   <iep-detail-tag :value="form.tagKeywords"></iep-detail-tag>

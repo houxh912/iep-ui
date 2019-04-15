@@ -41,12 +41,10 @@
 <script>
 import { getTechnologyPage, postTechnology, putTechnology, deleteTechnologyById } from '@/api/cpms/technology'
 import mixins from '@/mixins/mixins'
-const logo = require('../logo.png')
 export default {
   mixins: [mixins],
   data () {
     return {
-      logo,
       checkList: [],
       type: null,
     }

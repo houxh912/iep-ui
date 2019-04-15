@@ -41,13 +41,14 @@ import mixins from '@/mixins/mixins'
 import BaseInfo from './BaseInfo'
 import TeamInfo from './TeamInfo'
 import Versions from '@/views/cpms/Components/Versions'
-import Modules from '@/views/cpms/Components/Modules'
+import Products from '@/views/cpms/Components/Products'
+import Technologys from '@/views/cpms/Components/Technologys'
 import Materials from '@/views/cpms/Components/Materials'
 import { initForm, dictsMap } from '../options'
 import { getModuleById } from '@/api/cpms/module'
 export default {
   name: 'detail',
-  components: { BaseInfo, TeamInfo, Versions, Modules, Materials },
+  components: { BaseInfo, TeamInfo, Versions, Products, Technologys, Materials },
   mixins: [mixins],
   data () {
     return {
@@ -69,8 +70,11 @@ export default {
         label: '全新版本',
         value: 'Versions',
       }, {
-        label: '包含模块',
-        value: 'Modules',
+        label: '应用产品',
+        value: 'Products',
+      }, {
+        label: '应用技术',
+        value: 'Technologys',
       }, {
         label: '相关材料',
         value: 'Materials',

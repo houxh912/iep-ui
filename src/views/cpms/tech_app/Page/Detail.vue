@@ -40,12 +40,13 @@ import BaseInfo from './BaseInfo'
 import TeamInfo from './TeamInfo'
 import Versions from '@/views/cpms/Components/Versions'
 import Modules from '@/views/cpms/Components/Modules'
+import Technologys from '@/views/cpms/Components/Technologys'
 import Materials from '@/views/cpms/Components/Materials'
 import { initForm, dictsMap } from '../options'
 import { getTechnologyById } from '@/api/cpms/technology'
 export default {
   name: 'detail',
-  components: { BaseInfo, TeamInfo, Versions, Modules, Materials },
+  components: { BaseInfo, TeamInfo, Versions, Modules, Technologys, Materials },
   mixins: [mixins],
   data () {
     return {
@@ -69,6 +70,9 @@ export default {
       }, {
         label: '包含模块',
         value: 'Modules',
+      }, {
+        label: '相关技术',
+        value: 'Technologys',
       }, {
         label: '相关材料',
         value: 'Materials',

@@ -8,7 +8,7 @@
       </el-col>
       <el-col :span='8'>
         <el-form-item label="技术分类：">
-          <div>{{form.type}}</div>
+          <iep-dict-detail :current-value="form.type" dict-name="cpms_technology_type"></iep-dict-detail>
         </el-form-item>
       </el-col>
       <el-col :span='8'>
@@ -18,7 +18,7 @@
       </el-col>
       <el-col :span='8'>
         <el-form-item label="状态：">
-          <div>{{form.status}}</div>
+          <div>{{dictsMap.status[form.status]}}</div>
         </el-form-item>
       </el-col>
     </el-row>
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { dictsMap } from '../options'
 export default {
   props: {
     form: {
@@ -49,6 +50,7 @@ export default {
   },
   data () {
     return {
+      dictsMap,
     }
   },
 }

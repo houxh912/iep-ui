@@ -21,6 +21,12 @@
           <el-form-item label="技术类型" class="form-half">
             <iep-dict-select v-model="form.type" dict-name="cpms_technology_type"></iep-dict-select>
           </el-form-item>
+          <el-form-item label="技术类型" class="form-half">
+            <el-select v-model="form.status" placeholder="请选择" clearable>
+              <el-option v-for="(v,k) in dictsMap.status" :key="k" :label="v" :value="+k">
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="标签：">
             <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
@@ -58,11 +64,10 @@
 <script>
 import { getTechnologyById } from '@/api/cpms/technology'
 import mixins from '@/mixins/mixins'
-import { initForm, toDtoForm } from '../options'
+import { dictsMap, initForm, toDtoForm } from '../options'
 import IepCpmsModuleTable from '@/views/cpms/Components/ModuleTable'
 import IepCpmsMaterialTable from '@/views/cpms/Components/MaterialTable'
 import IepCpmsTechnologyTable from '@/views/cpms/Components/TechnologyTable'
-const logo = require('../logo.png')
 export default {
   components: {
     IepCpmsModuleTable,
@@ -78,7 +83,7 @@ export default {
   },
   data () {
     return {
-      logo,
+      dictsMap,
       pagedTable: [
         {
           id: 1,

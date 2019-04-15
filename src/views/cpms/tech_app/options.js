@@ -1,5 +1,8 @@
 // org config options
 const dictsMap = {
+  status: {
+    0: '待开发', 1: '开发中', 2: '已完成',
+  },
 }
 
 const columnsMap = []

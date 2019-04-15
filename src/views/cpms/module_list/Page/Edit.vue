@@ -96,7 +96,6 @@ import IepCpmsProductTable from '@/views/cpms/Components/ProductTable'
 import IepCpmsTechnologyTable from '@/views/cpms/Components/TechnologyTable'
 import IepCpmsMaterialTable from '@/views/cpms/Components/MaterialTable'
 import { dictsMap, initForm, toDtoForm } from '../options'
-const logo = require('../logo.png')
 export default {
   name: 'edit',
   mixins: [mixins],
@@ -114,7 +113,6 @@ export default {
   },
   data () {
     return {
-      logo,
       dictsMap,
       pagedTable: [
         {

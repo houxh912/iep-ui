@@ -5,7 +5,7 @@
         <pro-app v-loading="activeTab !=='ProApp'" :form="formData" @submitSuccess="submitSuccess"></pro-app>
       </template>
       <template v-if="activeTab ==='Accredit'" v-slot:Accredit>
-        <accredit v-loading="activeTab !=='Accredit'" @toggle-show="handleFormOpera" @toggle-detail="handleDetail"></accredit>
+        <accredit v-loading="activeTab !=='Accredit'" :projectInfoId="form.id" @toggle-show="handleFormOpera" @toggle-detail="handleDetail"></accredit>
       </template>
     </iep-tabs>
   </basic-container>

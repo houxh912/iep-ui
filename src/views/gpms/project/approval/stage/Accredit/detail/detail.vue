@@ -71,6 +71,7 @@ export default {
         let res = data.data.data
         res.projectManagerName = res.projectManagerList.name
         res.authCompanyName = res.authCompanyList.name
+        res.projectManagerName = res.projectManagerList.name
         this.authorData = res
       })
     },

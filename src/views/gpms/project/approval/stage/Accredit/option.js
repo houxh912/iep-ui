@@ -13,7 +13,7 @@ export const  columnsMap = [
     label:'项目名称',
   },
   {
-    prop: 'projectManager',
+    prop: 'projectManagerName',
     label: '项目经理',
   },
   {

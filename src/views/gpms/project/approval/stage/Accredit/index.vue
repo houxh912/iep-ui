@@ -52,10 +52,16 @@ export default {
       dictsMap,
     }
   },
+  props: {
+    projectInfoId: {
+      type: Number,
+      default: 0,
+    },
+  },
   components: { ApplyDialog },
   mixins: [ mixins ],
   methods: {
-    loadPage (param) {
+    loadPage (param = {projectInfoId: this.projectInfoId}) {
       this.loadTable(param, getAuthorList)
     },
     selectionChange (val) {

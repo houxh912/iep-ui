@@ -121,8 +121,6 @@ export default {
       emailType: [
         { name: '普通', value: 0 },
         { name: '批示', value: 1 },
-        { name: '分享', value: 2 },
-        { name: '纠错', value: 3 },
       ],
     }
   },

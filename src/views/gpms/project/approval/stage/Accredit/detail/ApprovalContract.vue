@@ -4,7 +4,7 @@
       <div class="contractBox">
         <div class="contractBoxTop">
           <p class="tits">项目经理授权书 <span class="number">编号：<span class="initstit">{{form.serialNo}}</span></span></p>
-          <p class="pls"><span class="prs">{{form.applicantName}}</span><strong>先生/女士：</strong></p>
+          <p class="pls"><span class="prs">{{author.projectManagerName}}</span><strong>先生/女士：</strong></p>
           <p class="indents">现任命你为 <span class="prs">{{form.projectName}}</span>项目的项目经理，全权负责该项目的项目管理工作，同时授子相关的签字和审批权限。你的工作职责包括:</p>
           <p class="pls">1、管理客户关系和管控项目实施全过程，获取客户的满意和信任；</p>
           <p class="pls">2、管理项目团队，使之高效而又愉快地工作，并获得最满意的工作体验；</p>

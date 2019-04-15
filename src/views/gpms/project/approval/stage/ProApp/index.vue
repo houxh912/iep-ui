@@ -106,6 +106,9 @@ export default {
   }
   .topBot {
     margin: 20px 0 30px;
+    .el-tag {
+      margin-right: 10px;
+    }
   }
   .item {
     height: 30px;

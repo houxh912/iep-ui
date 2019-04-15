@@ -13,9 +13,11 @@
           <div class="select-content">
             <div class="title">请从列表中选择项目</div>
             <div class="select-ul">
-              <div class="select-li" v-for="(item, index) in list" :key="index">
-                <el-radio v-model="selectId" :label="item.id" @change="changeVal(item.id, item.projectName)">{{item.projectName}}</el-radio>
-              </div>
+              <el-checkbox-group v-model="checkList">
+                <div class="select-li" v-for="(item, index) in list" :key="index">
+                  <el-checkbox :label="item">{{item.projectName}}</el-checkbox>
+                </div>
+              </el-checkbox-group>
             </div>
           </div>
         </div>
@@ -41,17 +43,15 @@ export default {
       formRequestFn: () => { },
       methodName: '确定',
       list: [],
-      selectId: '',
-      selectName: '',
       projectState: 0,
       params: { current: 1, size: 10, projectName: '' },
+      checkList: [],
     }
   },
   methods: {
     open () {
       this.dialogShow = true
-      this.selectId = ''
-      this.selectName = ''
+      this.checkList = [],
       this.list = []
       this.params = { current: 1, size: 10, projectName: '' }
       this.loadProject()
@@ -63,16 +63,12 @@ export default {
       this.dialogShow = false
     },
     submitForm () {
-      if (this.selectId == '') {
-        this.$message.error('请至少选择一个项目进行创建')
+      if (this.checkList.length == 0) {
+        this.$message.error('请至少选择一个项目')
         return
       }
-      this.$emit('selectProject', this.selectId, this.selectName)
+      this.$emit('selectProject', this.checkList)
       this.resetForm()
-    },
-    changeVal (id, name) {
-      this.selectId = id
-      this.selectName = name
     },
     // 获取项目列表
     loadProject () {

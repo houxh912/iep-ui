@@ -58,6 +58,8 @@ export const initFormData = () => {
     visitingAddress: '',
     visitingUserId: [],
     status: 0,
+    projectIds: [],
+    projectList: [],
   }
 }
 

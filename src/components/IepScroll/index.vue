@@ -6,16 +6,6 @@
 </template>
 
 <script>
-/*
-  * 刷新中：1
-  * 松开刷新：2
-  * 刷新完成：3
-  * 加载中：4
-  * 加载完成：5
-  * 下拉刷新：6
-  * 没有更多：7
-  */
-
 export default {
   props: {
     loadData: {

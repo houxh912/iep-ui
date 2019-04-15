@@ -34,7 +34,6 @@ const columnsMap = [
 ]
 
 const checkboxInit = (row) => {
-  console.log(row)
   if (row.status === 0)
     return 0 //不可勾选
   else

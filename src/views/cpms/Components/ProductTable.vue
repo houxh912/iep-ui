@@ -6,15 +6,9 @@
       </template>
     </operation-container>
     <iep-no-data v-if="!tableData.length" message="暂无关联产品"></iep-no-data>
-    <div v-else class="module" v-for="(item) in tableData" :key="item.id">
-      <span class="clear" @click="handleDelete(item)"><i class="icon-shanchu1"></i> </span>
-      <div class="img">
-        <iep-img :src="item.imageUrl" alt=""></iep-img>
-      </div>
-      <div class="module-title">{{item.name}}</div>
-    </div>
+    <block-module :value="tableData" @delete="handleDelete(item)"></block-module>
     <iep-dialog :dialog-show="dialogShow" title="添加关联产品" width="50%" @close="dialogShow=false">
-      <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="handleSelectionChange">
+      <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="handleSelectionChange" :checkbox-init="checkboxInit">
         <el-table-column label="名称" min-width="200px">
           <template slot-scope="scope">
             <IepTableLinkImgDesc :img="scope.row.imageUrl" :desc="scope.row.synopsis" :name="scope.row.name"></IepTableLinkImgDesc>
@@ -34,9 +28,11 @@
 </template>
 <script>
 import { getProductPage } from '@/api/cpms/product'
+import BlockModule from './BlockModule'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
+  components: { BlockModule },
   name: 'IepCpmsProductTable',
   props: {
     value: {
@@ -60,6 +56,13 @@ export default {
     },
   },
   methods: {
+    checkboxInit (row) {
+      const isIncludes = this.tableData.map(m => m.id).includes(row.id)
+      if (isIncludes)
+        return 0 //不可勾选
+      else
+        return 1 //可勾选
+    },
     handleAdd () {
       this.dialogShow = true
       this.loadPage()
@@ -70,7 +73,9 @@ export default {
     },
     handleSelect () {
       const selectData = this.pagedTable.filter(m => this.multipleSelection.includes(m.id))
-      this.tableData.push(...selectData)
+      let tableData = this.tableData
+      tableData = [...tableData, ...selectData]
+      this.$set(this, 'tableData', tableData)
       this.dialogShow = false
     },
     handleSelectionChange (val) {
@@ -82,39 +87,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.module {
-  width: 150px;
-  height: 150px;
-  margin-right: 40px;
-  display: inline-block;
-  padding: 10px 25px;
-  border: 1px solid #ccc;
-  position: relative;
-  .clear {
-    position: absolute;
-    right: 10px;
-    .icon-shanchu1 {
-      font-size: 12px !important;
-      padding: 4px;
-      border: 1px solid #ccc;
-      border-radius: 50%;
-    }
-  }
-  .img {
-    padding: 5px;
-    img {
-      width: 100%;
-      padding: 0;
-      margin: 0;
-      display: block;
-      box-sizing: border-box;
-    }
-  }
-  .module-title {
-    width: 100%;
-    padding-top: 10px;
-    text-align: center;
-  }
-}
-</style>

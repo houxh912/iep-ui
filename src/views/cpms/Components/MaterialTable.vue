@@ -31,7 +31,7 @@
       </el-table-column>
     </el-table>
     <iep-dialog :dialog-show="dialogShow" title="添加关联材料" width="70%" @close="dialogShow=false">
-      <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="handleSelectionChange">
+      <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="handleSelectionChange" :checkbox-init="checkboxInit">
         <el-table-column label="名称" min-width="200px">
           <template slot-scope="scope">
             <iep-table-link>{{scope.row.name}}</iep-table-link>
@@ -82,6 +82,13 @@ export default {
     },
   },
   methods: {
+    checkboxInit (row) {
+      const isIncludes = this.tableData.map(m => m.id).includes(row.id)
+      if (isIncludes)
+        return 0 //不可勾选
+      else
+        return 1 //可勾选
+    },
     handleAdd () {
       this.dialogShow = true
       this.loadPage()

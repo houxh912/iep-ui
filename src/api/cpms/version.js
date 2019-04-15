@@ -15,3 +15,9 @@ export function putVersion (obj) {
     data: obj,
   })
 }
+export function deleteVersionById (id) {
+  return request({
+    url: `${prefixUrl}/delete/${id}`,
+    method: 'post',
+  })
+}

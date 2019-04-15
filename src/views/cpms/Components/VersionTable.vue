@@ -49,8 +49,10 @@
   </div>
 </template>
 <script>
-import { postVersion, putVersion } from '@/api/cpms/version'
+import { postVersion, putVersion, deleteVersionById } from '@/api/cpms/version'
+import mixins from '@/mixins/mixins'
 export default {
+  mixins: [mixins],
   name: 'IepCpmsVersionTable',
   props: {
     tableData: {
@@ -103,6 +105,10 @@ export default {
     loadPage () {
       this.dialogShow = false
       this.$emit('load-page')
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deleteVersionById)
+      this.loadPage()
     },
     handleAdd () {
       this.title = '添加'

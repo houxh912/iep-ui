@@ -29,7 +29,7 @@
         <iep-contact-select v-model="formData.projectMentorList"></iep-contact-select>
       </el-form-item>
       <el-form-item label="项目标签：" prop="projectTagList">
-        <iep-tags v-model="formData.projectTagList"></iep-tags>
+        <iep-tag v-model="formData.projectTagList"></iep-tag>
       </el-form-item>
       <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
         <el-radio-group v-model="formData.isRelevanceProduct">
@@ -50,24 +50,22 @@
       </el-form-item>
     </el-form>
 
-    <footer-toolbar>
+    <footer-tool-bar>
       <iep-button type="primary" @click="save">保存</iep-button>
       <iep-button @click="close">取消</iep-button>
-    </footer-toolbar>
+    </footer-tool-bar>
   </div>
 </template>
 
 <script>
-import IepTags from '@/components/IepTags/input'
 import { dictMap, rules, initFormData } from './Total/const.js'
-import FooterToolbar from '@/components/FooterToolbar/'
 import { createData, updateData } from '@/api/gpms/index'
 import { getCustomerPage } from '@/api/crms/customer'
 import { mapState } from 'vuex'
 
 export default {
   name: 'add-dialog',
-  components: { IepTags, FooterToolbar },
+  components: {  },
   computed: {
     ...mapState({
       dictGroup: state => state.user.dictGroup,

@@ -1,14 +1,16 @@
-// org config options
+import { getStore } from '@/util/store'
+const dicData = getStore({ name: 'dictGroup' })
+let businessType = {}
+for (let item of dicData.prms_business_type) {
+  businessType[item.value] = item.label
+}
+
 const dictsMap = {
-  isOpen: {
-    0: '开',
-    1: '关',
+  projectType: {
+    '0': '内部项目',
+    '1': '外部项目',
   },
-  status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
-  },
+  businessType: businessType,
 }
 
 const columnsMap = [
@@ -17,68 +19,53 @@ const columnsMap = [
     label: '名称',
   },
   {
-    prop: 'type',
+    prop: 'projectType',
     label: '项目类别',
+    type: 'dict',
   },
   {
-    prop: 'date',
+    prop: 'businessType',
     label: '业务类型',
     width: 300,
+    type: 'dict',
   },
 ]
 
-const pagedTable = [
-  {
-    name:'项目周报',
-    type:'内部项目',
-    date:'咨询',
-  },
-  {
-    name:'会议纪要',
-    type:'内部项目',
-    date:'咨询',
-  },
-  {
-    name:'项目方案',
-    type:'内部项目',
-    date:'产品',
-  },
-  {
-    name:'最终成果文档',
-    type:'内部项目',
-    date:'产品',
-  },
-  {
-    name:'需求规格说明书',
-    type:'内部项目',
-    date:'数据',
-  },
-  {
-    name:'测试文档',
-    type:'外部项目',
-    date:'数据',
-  },
-  {
-    name:'项目合同',
-    type:'外部项目',
-    date:'咨询',
-  },
-  {
-    name:'汇报PPT',
-    type:'外部项目',
-    date:'产品',
-  },
-  {
-    name:'汇报PPT',
-    type:'外部项目',
-    date:'产品',
-  },
-  {
-    name:'投标文件',
-    type:'外部项目',
-    date:'产品',
-  },
-]
+export const rules = {
+  name: [
+    { required: true, message: '请输入名称', trigger: 'blur' },
+  ],
+  detailedDescri: [
+    { required: true, message: '请选择项目类型', trigger: 'blur' },
+  ],
+  isRequired: [
+    { required: true, message: '请选择项目类型', trigger: 'change' },
+  ],
+  projectType: [
+    { required: true, message: '请选择项目类型', trigger: 'change' },
+  ],
+  businessType: [
+    { required: true, message: '请选择业务类型', trigger: 'change' },
+  ],
+  sortValue: [
+    { required: true, message: '请输入排序值', trigger: 'blur' },
+  ],
+  url: [
+    { required: true, message: '请输入URL', trigger: 'blur' },
+  ],
+}
+
+export function initFormData () {
+  return {
+    name: '',
+    detailedDescri: '',
+    isRequired: '',
+    projectType: '',
+    businessType: '',
+    sortValue: '',
+    url: '',
+  }
+}
 
 const initForm = () => {
   return {
@@ -97,4 +84,4 @@ const initSearchForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm, pagedTable}
+export { dictsMap, columnsMap, initForm, initSearchForm }

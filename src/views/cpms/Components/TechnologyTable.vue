@@ -6,7 +6,7 @@
       </template>
     </operation-container>
     <iep-no-data v-if="!tableData.length" message="暂无关联技术"></iep-no-data>
-    <block-module :value="tableData" @delete="handleDelete(item)"></block-module>
+    <block-module :value="tableData" @delete="handleDelete"></block-module>
     <iep-dialog :dialog-show="dialogShow" title="添加关联技术" width="50%" @close="dialogShow=false">
       <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="handleSelectionChange" :checkbox-init="checkboxInit">
         <el-table-column label="名称" min-width="200px">

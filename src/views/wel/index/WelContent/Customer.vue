@@ -7,22 +7,22 @@
     <div class="customer-content">
       <el-row class="item" v-for="(item,index) in tableData" :key="index">
         <el-col :span="7">
-          <div class="name grid-content" @click="handleDetail(item)">{{item.name}}</div>
+          <div class="name iep-ellipsis" @click="handleDetail(item)">{{item.name}}</div>
         </el-col>
         <el-col :span="7">
-          <iep-detail-tag :value="item.businessType" class="grid-content"></iep-detail-tag>
+          <iep-detail-tag :value="item.businessType" class="iep-ellipsis"></iep-detail-tag>
         </el-col>
         <el-col :span="2">
-          <div class="grid-content">{{item.districtType}}</div>
+          <div class="iep-ellipsis">{{item.districtType}}</div>
         </el-col>
         <el-col :span="3">
-          <div class="grid-content">{{item.clientRela}}</div>
+          <div class="iep-ellipsis">{{item.clientRela}}</div>
         </el-col>
         <el-col :span="3">
-          <div class="grid-content">{{item.followUpStatus}}</div>
+          <div class="iep-ellipsis">{{item.followUpStatus}}</div>
         </el-col>
         <el-col :span="2" class="time">
-          <div class="grid-content">{{item.time | parseTime('{m}-{d}')}}</div>
+          <div class="iep-ellipsis">{{item.time | parseTime('{m}-{d}')}}</div>
         </el-col>
       </el-row>
     </div>
@@ -81,8 +81,5 @@ export default {
 .el-row:hover .el-col .name {
   cursor: pointer;
   color: #cb3737;
-}
-.grid-content {
-  min-height: 24px;
 }
 </style>

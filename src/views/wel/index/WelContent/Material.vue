@@ -7,18 +7,16 @@
       <iep-no-data v-if="!dataList.length" message="暂无材料"></iep-no-data>
       <el-row class="item" v-for="(item) in dataList" :key="item.id">
         <el-col :span="12">
-          <div class="grid-content title" @click="handleDetail(item)">{{item.name}}</div>
+          <div class="iep-ellipsis title" @click="handleDetail(item)">{{item.name}}</div>
         </el-col>
         <el-col :span="8">
-          <div>
-            <iep-detail-tag :value="item.tagKeyWords"></iep-detail-tag>
-          </div>
+          <iep-detail-tag :value="item.tagKeyWords"></iep-detail-tag>
         </el-col>
         <el-col :span="2">
-          <div class="grid-content" style="text-align: center;">{{item.type === 1 ? '外部材料' : '内部材料'}}</div>
+          <iep-dict-detail :currentValue="item.materialType" dict-name="mlms_material_type" style="text-align: center;"></iep-dict-detail>
         </el-col>
         <el-col :span="2">
-          <div class="grid-content" style="text-align: center;">{{item.creatorRealName}}</div>
+          <div style="text-align: center;">{{item.creatorRealName}}</div>
         </el-col>
       </el-row>
     </div>

@@ -163,7 +163,6 @@
               <el-form-item label="身份证号码：" class="form-half">
                 <el-input v-model="form.IDCard"></el-input>
               </el-form-item>
-
               <el-form-item label="联系电话：" class="form-half">
                 <el-input v-model="form.phone"></el-input>
               </el-form-item>

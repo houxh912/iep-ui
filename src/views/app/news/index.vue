@@ -1,21 +1,16 @@
 <template>
-  <img :src="fackerImg" />
+  <div>
+    <news-top></news-top>
+    <news-content></news-content>
+    <IepAppFooterBar></IepAppFooterBar>
+  </div>
 </template>
+
 <script>
-const fackerImg = require('./facker.png')
+import NewsContent from './NewsContent/'
+import NewsTop from './NewsTop/'
 export default {
-  data () {
-    return {
-      fackerImg,
-    }
-  },
+  name: 'News',
+  components: { NewsContent, NewsTop },
 }
 </script>
-<style scoped>
-img {
-  margin: 0 auto;
-  margin-top: -60px;
-  width: 1280px;
-  display: block;
-}
-</style>

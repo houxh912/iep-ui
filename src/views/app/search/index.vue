@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="search">
     <el-row :gutter="20" class="gov-search">
       <el-col :span="12" :offset="6">
         <div class="grid-content">
@@ -21,9 +21,9 @@
         </div>
       </el-col>
     </el-row>
-    <el-row :gutter="20">
+    <el-row :gutter="20" class="gov-info">
       <el-col :offset="2" :span="12">
-        <el-card class="box-card" shadow="hover">
+        <el-card class="box-card" shadow="never">
           <div slot="header" class="clearfix">
             <span>集团要闻</span>
             <el-button style="float: right; padding: 3px 0" type="text">更多></el-button>
@@ -38,7 +38,7 @@
         </el-card>
       </el-col>
       <el-col :span="8">
-        <el-card :body-style="{ padding: '0px' }" shadow="hover">
+        <el-card :body-style="{ padding: '0px' }" shadow="never">
           <div slot="header" class="clearfix">
             <span>集团喜讯</span>
             <el-button style="float: right; padding: 3px 0" type="text">更多></el-button>
@@ -77,12 +77,19 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
+
+<style scoped lang="scss">
+.bg-white,
+.gov-search,
+.gov-info {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
 .el-row {
   margin-bottom: 20px;
 }
 .el-row.gov-search {
-  margin: 0;
   padding-top: 25px;
   padding-bottom: 25px;
   background-color: #f6f7f8;
@@ -104,7 +111,7 @@ export default {
     margin: 0 10px;
   }
   .grid-border {
-    border: 1px solid #cfcfcf;
+    border: 1px solid #eee;
     border-radius: 5px;
     padding: 14px;
     span {

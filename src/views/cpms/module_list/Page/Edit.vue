@@ -66,19 +66,19 @@
           <el-row class="base">
             <iep-cpms-version-table :table-data="form.versions" :productId="form.id" @load-page="loadPage"></iep-cpms-version-table>
           </el-row>
-          <div class="title">应用产品：</div>
-          <el-row class="base">
-            <iep-cpms-product-table v-model="form.productRelations"></iep-cpms-product-table>
-          </el-row>
-          <div class="title">应用技术：</div>
-          <el-row class="base">
-            <iep-cpms-technology-table v-model="form.technologyRelations"></iep-cpms-technology-table>
-          </el-row>
-          <div class="title">相关材料：</div>
-          <el-row class="last base">
-            <iep-cpms-material-table v-model="form.materialRelations"></iep-cpms-material-table>
-          </el-row>
         </template>
+        <div class="title">应用产品：</div>
+        <el-row class="base">
+          <iep-cpms-product-table v-model="form.productRelations"></iep-cpms-product-table>
+        </el-row>
+        <div class="title">应用技术：</div>
+        <el-row class="base">
+          <iep-cpms-technology-table v-model="form.technologyRelations"></iep-cpms-technology-table>
+        </el-row>
+        <div class="title">相关材料：</div>
+        <el-row class="last base">
+          <iep-cpms-material-table v-model="form.materialRelations"></iep-cpms-material-table>
+        </el-row>
       </el-form>
       <FooterToolBar>
         <iep-button type="primary" @click="submitForm">提交</iep-button>

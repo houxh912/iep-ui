@@ -45,6 +45,17 @@ const toDtoForm = (row) => {
   newForm.userTechnologys = row.userRelationTechnologys.map(m => m.id)
   newForm.userProducts = row.userRelationProducts.map(m => m.id)
   newForm.userTeams = row.userRelationTeams.map(m => m.id)
+  newForm.modules = row.moduleRelations.map(m => m.id)
+  newForm.materials = row.materialRelations.map(m => m.id)
+
+  delete newForm.userRelationCharges
+  delete newForm.userRelationDemands
+  delete newForm.userRelationTechnologys
+  delete newForm.userRelationProducts
+  delete newForm.userRelationTeams
+  delete newForm.moduleRelations
+  delete newForm.materialRelations
+
   return newForm
 }
 

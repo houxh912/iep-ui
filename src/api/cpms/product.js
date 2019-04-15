@@ -1,7 +1,7 @@
 import request from '@/router/axios'
 const prefixUrl = '/cpms/product'
 
-export function getSeriesPage (params) {
+export function getProductPage (params) {
   return request({
     url: `${prefixUrl}/page`,
     method: 'get',
@@ -9,7 +9,7 @@ export function getSeriesPage (params) {
   })
 }
 
-export function postSeries (obj) {
+export function postProduct (obj) {
   return request({
     url: `${prefixUrl}/create`,
     method: 'post',
@@ -17,7 +17,7 @@ export function postSeries (obj) {
   })
 }
 
-export function putSeries (obj) {
+export function putProduct (obj) {
   return request({
     url: `${prefixUrl}/update`,
     method: 'post',
@@ -25,14 +25,14 @@ export function putSeries (obj) {
   })
 }
 
-export function getSeriesById (id) {
+export function getProductById (id) {
   return request({
     url: `${prefixUrl}/${id}`,
     method: 'get',
   })
 }
 
-export function deleteSeriesById (id) {
+export function deleteProductById (id) {
   return request({
     url: `${prefixUrl}/delete/${id}`,
     method: 'post',

@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { getSeriesPage, postSeries, putSeries, deleteSeriesById } from '@/api/cpms/series'
+import { getProductPage, postProduct, putProduct, deleteProductById } from '@/api/cpms/product'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -60,14 +60,14 @@ export default {
   methods: {
     handleAdd () {
       this.$emit('onEdit', {
-        formRequestFn: postSeries,
+        formRequestFn: postProduct,
         methodName: '新增',
         id: false,
       })
     },
     handleEdit (row) {
       this.$emit('onEdit', {
-        formRequestFn: putSeries,
+        formRequestFn: putProduct,
         methodName: '修改',
         id: row.id,
       })
@@ -90,10 +90,10 @@ export default {
       this.loadPage()
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deleteSeriesById)
+      this._handleGlobalDeleteById(row.id, deleteProductById)
     },
     loadPage (param) {
-      this.loadTable({ ...param, type: this.type }, getSeriesPage)
+      this.loadTable({ ...param, type: this.type }, getProductPage)
     },
   },
 }

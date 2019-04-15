@@ -2,10 +2,10 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增模块</iep-button>
+        <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增产品关联</iep-button>
       </template>
     </operation-container>
-    <iep-no-data v-if="!tableData.length" message="暂无关联模块"></iep-no-data>
+    <iep-no-data v-if="!tableData.length" message="暂无关联产品"></iep-no-data>
     <div v-else class="module" v-for="(item) in tableData" :key="item.id">
       <span class="clear" @click="handleDelete(item)"><i class="icon-shanchu1"></i> </span>
       <div class="img">
@@ -13,7 +13,7 @@
       </div>
       <div class="module-title">{{item.name}}</div>
     </div>
-    <iep-dialog :dialog-show="dialogShow" title="添加关联模块" width="50%" @close="dialogShow=false">
+    <iep-dialog :dialog-show="dialogShow" title="添加关联产品" width="50%" @close="dialogShow=false">
       <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="handleSelectionChange">
         <el-table-column label="名称" min-width="200px">
           <template slot-scope="scope">
@@ -33,11 +33,11 @@
   </div>
 </template>
 <script>
-import { getModulePage } from '@/api/cpms/module'
+import { getProductPage } from '@/api/cpms/product'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
-  name: 'IepCpmsModuleTable',
+  name: 'IepCpmsProductTable',
   props: {
     value: {
       type: Array,
@@ -77,7 +77,7 @@ export default {
       this.multipleSelection = val.map(m => m.id)
     },
     loadPage (param) {
-      this.loadTable({ ...param }, getModulePage)
+      this.loadTable({ ...param }, getProductPage)
     },
   },
 }

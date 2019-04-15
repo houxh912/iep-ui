@@ -34,51 +34,18 @@
             <iep-input-area v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
-        <template v-if="isEdit">
-          <div class="title">应用模块：</div>
-          <el-row class="base">
-            <operation-container>
-              <template slot="left">
-                <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增模块</iep-button>
-              </template>
-            </operation-container>
-            <div class="module" v-for="(item,index) in 3" :key="index">
-              <span class="clear" @click="clear"><i class="icon-shanchu1"></i> </span>
-              <div class="img">
-                <img :src="logo" alt="">
-              </div>
-              <div class="module-title">资源配置模块</div>
-            </div>
-          </el-row>
-          <div class="title">相关材料：</div>
-          <el-row class="last base">
-            <operation-container>
-              <template slot="left">
-                <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增产品资料</iep-button>
-                <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增产品资质</iep-button>
-              </template>
-            </operation-container>
-            <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable1" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-              <el-table-column label="标题">
-                <template slot-scope="scope">
-                  {{scope.row.title}}
-                </template>
-              </el-table-column>
-              <el-table-column label="类别">
-                <template slot-scope="scope">
-                  {{scope.row.type}}
-                </template>
-              </el-table-column>
-              <el-table-column label="操作" width="200">
-                <template slot-scope="scope">
-                  <operation-wrapper>
-                    <iep-button plain @click="handleDelete(scope.row)">删除</iep-button>
-                  </operation-wrapper>
-                </template>
-              </el-table-column>
-            </iep-table>
-          </el-row>
-        </template>
+        <div class="title">应用模块：</div>
+        <el-row class="base">
+          <iep-cpms-module-table v-model="form.moduleRelations"></iep-cpms-module-table>
+        </el-row>
+        <div class="title">相关技术：</div>
+        <el-row class="base">
+          <iep-cpms-technology-table v-model="form.technologyRelations"></iep-cpms-technology-table>
+        </el-row>
+        <div class="title">相关材料：</div>
+        <el-row class="last base">
+          <iep-cpms-material-table v-model="form.materialRelations"></iep-cpms-material-table>
+        </el-row>
       </el-form>
       <FooterToolBar>
         <iep-button type="primary" @click="submitForm">提交</iep-button>
@@ -92,9 +59,16 @@
 import { getTechnologyById } from '@/api/cpms/technology'
 import mixins from '@/mixins/mixins'
 import { initForm, toDtoForm } from '../options'
+import IepCpmsModuleTable from '@/views/cpms/Components/ModuleTable'
+import IepCpmsMaterialTable from '@/views/cpms/Components/MaterialTable'
+import IepCpmsTechnologyTable from '@/views/cpms/Components/TechnologyTable'
 const logo = require('../logo.png')
 export default {
-  name: 'edit',
+  components: {
+    IepCpmsModuleTable,
+    IepCpmsMaterialTable,
+    IepCpmsTechnologyTable,
+  },
   mixins: [mixins],
   props: {
     record: {

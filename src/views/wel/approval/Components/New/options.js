@@ -74,7 +74,6 @@ const formToDto = (row, type, userId) => {
 	newForm.cc = row.cc.map(m => m.id)
 	delete newForm.annex
 	delete newForm.attachFile
-	newForm.cc = newForm.cc.map(m => m.id)
 	return newForm
 }
 

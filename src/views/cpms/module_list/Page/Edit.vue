@@ -66,48 +66,17 @@
           <el-row class="base">
             <iep-cpms-version-table :table-data="form.versions" :productId="form.id" @load-page="loadPage"></iep-cpms-version-table>
           </el-row>
-          <div class="title">包含模块：</div>
+          <div class="title">应用产品：</div>
           <el-row class="base">
-            <operation-container>
-              <template slot="left">
-                <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增模块</iep-button>
-              </template>
-            </operation-container>
-            <div class="module" v-for="(item,index) in 3" :key="index">
-              <span class="clear" @click="clear"><i class="icon-shanchu1"></i> </span>
-              <div class="img">
-                <img :src="logo" alt="">
-              </div>
-              <div class="module-title">资源配置模块</div>
-            </div>
+            <iep-cpms-product-table v-model="form.productRelations"></iep-cpms-product-table>
+          </el-row>
+          <div class="title">应用技术：</div>
+          <el-row class="base">
+            <iep-cpms-technology-table v-model="form.technologyRelations"></iep-cpms-technology-table>
           </el-row>
           <div class="title">相关材料：</div>
           <el-row class="last base">
-            <operation-container>
-              <template slot="left">
-                <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增产品资料</iep-button>
-                <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增产品资质</iep-button>
-              </template>
-            </operation-container>
-            <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable1" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-              <el-table-column label="标题">
-                <template slot-scope="scope">
-                  {{scope.row.title}}
-                </template>
-              </el-table-column>
-              <el-table-column label="类别">
-                <template slot-scope="scope">
-                  {{scope.row.type}}
-                </template>
-              </el-table-column>
-              <el-table-column label="操作" width="200">
-                <template slot-scope="scope">
-                  <operation-wrapper>
-                    <iep-button plain @click="handleDelete(scope.row)">删除</iep-button>
-                  </operation-wrapper>
-                </template>
-              </el-table-column>
-            </iep-table>
+            <iep-cpms-material-table v-model="form.materialRelations"></iep-cpms-material-table>
           </el-row>
         </template>
       </el-form>
@@ -123,6 +92,9 @@
 import { getModuleById } from '@/api/cpms/module'
 import mixins from '@/mixins/mixins'
 import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
+import IepCpmsProductTable from '@/views/cpms/Components/ProductTable'
+import IepCpmsTechnologyTable from '@/views/cpms/Components/TechnologyTable'
+import IepCpmsMaterialTable from '@/views/cpms/Components/MaterialTable'
 import { dictsMap, initForm, toDtoForm } from '../options'
 const logo = require('../logo.png')
 export default {
@@ -130,6 +102,9 @@ export default {
   mixins: [mixins],
   components: {
     IepCpmsVersionTable,
+    IepCpmsProductTable,
+    IepCpmsTechnologyTable,
+    IepCpmsMaterialTable,
   },
   props: {
     record: {

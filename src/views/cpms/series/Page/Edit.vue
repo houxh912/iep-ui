@@ -66,15 +66,15 @@
           <el-row class="base">
             <iep-cpms-version-table :table-data="form.versions" :productId="form.id" @load-page="loadPage"></iep-cpms-version-table>
           </el-row>
-          <div class="title">包含模块：</div>
-          <el-row class="base">
-            <iep-cpms-module-table v-model="form.moduleRelations"></iep-cpms-module-table>
-          </el-row>
-          <div class="title">相关材料：</div>
-          <el-row class="last base">
-            <iep-cpms-material-table v-model="form.materialRelations"></iep-cpms-material-table>
-          </el-row>
         </template>
+        <div class="title">包含模块：</div>
+        <el-row class="base">
+          <iep-cpms-module-table v-model="form.moduleRelations"></iep-cpms-module-table>
+        </el-row>
+        <div class="title">相关材料：</div>
+        <el-row class="last base">
+          <iep-cpms-material-table v-model="form.materialRelations"></iep-cpms-material-table>
+        </el-row>
       </el-form>
       <FooterToolBar>
         <iep-button type="primary" @click="submitForm">提交</iep-button>
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { getSeriesById } from '@/api/cpms/series'
+import { getProductById } from '@/api/cpms/product'
 import mixins from '@/mixins/mixins'
 import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
 import IepCpmsModuleTable from '@/views/cpms/Components/ModuleTable'
@@ -107,43 +107,6 @@ export default {
   },
   data () {
     return {
-      pagedTable: [
-        {
-          id: 1,
-          context: '对数据进行重新审核和校验, 并提供数据一致性.',
-          time: '2019-02-14',
-          version: 'v5.0',
-        },
-        {
-          id: 2,
-          context: '对数据进行重新审核和校验, 并提供数据一致性.',
-          time: '2019-02-14',
-          version: 'v5.0',
-        },
-        {
-          id: 3,
-          context: '对数据进行重新审核和校验, 并提供数据一致性.',
-          time: '2019-02-14',
-          version: 'v5.0',
-        },
-      ],
-      pagedTable1: [
-        {
-          id: 1,
-          title: '对数据进行重新审核和校验, 并提供数据一致性.',
-          type: '2019-02-14',
-        },
-        {
-          id: 2,
-          title: '对数据进行重新审核和校验, 并提供数据一致性.',
-          type: '2019-02-14',
-        },
-        {
-          id: 3,
-          title: '对数据进行重新审核和校验, 并提供数据一致性.',
-          type: '2019-02-14',
-        },
-      ],
       methodName: '',
       formRequestFn: () => { },
       backOption: {
@@ -170,7 +133,7 @@ export default {
       this.methodName = this.record.methodName
       this.formRequestFn = this.record.formRequestFn
       if (this.isEdit) {
-        getSeriesById(this.id).then(({ data }) => {
+        getProductById(this.id).then(({ data }) => {
           this.form = this.$mergeByFirst(initForm(), data.data)
         })
       }

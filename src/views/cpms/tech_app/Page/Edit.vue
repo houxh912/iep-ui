@@ -16,7 +16,7 @@
             <el-input v-model="form.name"></el-input>
           </el-form-item>
           <el-form-item label="英文名称：" class="form-half">
-            <el-input v-model="form.website"></el-input>
+            <el-input v-model="form.englishName"></el-input>
           </el-form-item>
           <el-form-item label="负责人：" class="form-half">
             <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>

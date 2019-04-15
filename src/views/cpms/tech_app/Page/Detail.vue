@@ -38,9 +38,9 @@
 import mixins from '@/mixins/mixins'
 import BaseInfo from './BaseInfo'
 import TeamInfo from './TeamInfo'
-import Versions from './Versions'
-import Modules from './Modules'
-import Materials from './Materials'
+import Versions from '@/views/cpms/Components/Versions'
+import Modules from '@/views/cpms/Components/Modules'
+import Materials from '@/views/cpms/Components/Materials'
 import { initForm, dictsMap } from '../options'
 import { getTechnologyById } from '@/api/cpms/technology'
 export default {

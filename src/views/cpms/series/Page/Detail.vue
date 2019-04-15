@@ -36,9 +36,9 @@
 import mixins from '@/mixins/mixins'
 import BaseInfo from './BaseInfo'
 import TeamInfo from './TeamInfo'
-import Versions from './Versions'
-import Modules from './Modules'
-import Materials from './Materials'
+import Versions from '@/views/cpms/Components/Versions'
+import Modules from '@/views/cpms/Components/Modules'
+import Materials from '@/views/cpms/Components/Materials'
 import { initForm } from '../options'
 import { getProductById } from '@/api/cpms/product'
 export default {

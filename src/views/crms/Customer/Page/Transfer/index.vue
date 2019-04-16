@@ -1,26 +1,10 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`转移客户`" width="60%" @close="close">
-    <div class="search">
-      <el-input placeholder="请输入内容" v-model="materialName" maxlength="100" size="small">
-        <template slot="append">
-          <el-button @click="search" size="mini">搜索</el-button>
-        </template>
-      </el-input>
+  <iep-dialog :dialog-show="dialogShow" :title="`转移客户`" width="25%" @close="close">
+    <div class="user">
+      <span>新负责人：</span>
+      <iep-contact-select v-model="form.user"></iep-contact-select>
     </div>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
-      <el-table-column prop="operation" label="操作" min-width="80">
-        <template slot-scope="scope">
-          <operation-wrapper>
-            <iep-button @click="handleSelect(scope.row)" size="small">请选择</iep-button>
-          </operation-wrapper>
-        </template>
-      </el-table-column>
-    </iep-table>
     <template slot="footer">
-      <div class="list">
-        协作人:<span>{{selectList.name}}</span>
-        <span></span>
-      </div>
       <iep-button class="btn" @click="close">取消</iep-button>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
     </template>
@@ -34,12 +18,6 @@ import { fetchList } from '@/api/admin/user'
 export default {
   name: 'collaborator',
   mixins: [mixins],
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
   data () {
     return {
       dialogShow: false,
@@ -47,14 +25,12 @@ export default {
       id: '',
       materialName: '',
       dictsMap: {},
-      columnsMap: [
-        { label: '协作人', prop: 'realName' },
-      ],
-      selectList: [
-      ],
       Contacts: {
         clientIds: '',
         creatorId: [],
+      },
+      form: {
+        user: {},
       },
     }
   },
@@ -73,32 +49,12 @@ export default {
     handleGoBack () {
       this.$emit('onGoBack')
     },
-    handleSelect (row) {
-      // console.log(row)
-      // 首先判断是否已经存在此条数据
-      // for (let item of this.selectList) {
-      //   if (item.id == row.commonId) {
-      //     this.$message.info('此位协作人已经选中，请选择其他协作人！')
-      //     return
-      //   }
-      // }
-      let data = {
-        id: row.userId,
-        name: row.realName,
-      }
-      this.selectList = data
-      this.Contacts.clientIds = this.id
-      this.Contacts.creatorId = this.selectList.id
-      // console.log(this.Contacts)
-    },
     close () {
-      // this.selectList.splice(index, 1)
-      this.selectList = []
       this.dialogShow = false
     },
     submitForm () {
-      console.log(this.str)
-      console.log(typeof this.str)
+      this.Contacts.clientIds = this.id
+      this.Contacts.creatorId = this.form.user.id
       TransferCustomers(this.Contacts).then(res => {
         if (res.data.data) {
           this.$message.success('转移客户成功！')
@@ -124,9 +80,15 @@ export default {
   padding: 0 5px;
   font-size: 12px;
   font-weight: 500;
+  line-height: 38px;
 }
 .search {
   margin-bottom: 10px;
+}
+.user {
+  padding: 20px 0;
+  display: flex;
+  align-items: baseline;
 }
 </style>
 

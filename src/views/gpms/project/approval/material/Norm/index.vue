@@ -5,8 +5,6 @@
       <div class="head">
         <p class="title">材料说明</p>
         <div class="button">
-          <!-- <iep-button size="small" type="primary"><i class="el-icon-plus"></i> 新增</iep-button>
-          <iep-button size="small"><i class="icon-guanlian"></i> 关联</iep-button> -->
           <i class="icon-bianji" style="cursor: pointer;"></i>
         </div>
       </div>
@@ -25,9 +23,12 @@
         </div>
       </div>
       <div class="content">
-        <div class="item" v-for="(t, i) in item.list" :key="i">
-          <i class="icon-guanlian"></i>{{t.content}} <i class="close el-icon-close"></i>
+        <div v-if="item.materials.length">
+          <div class="item" v-for="(t, i) in item.materials" :key="i">
+            <i class="icon-guanlian"></i>{{t.materialName}} <i class="close el-icon-close"></i>
+          </div>
         </div>
+        <div v-else style="color: #999;">暂无数据</div>
       </div>
     </div>
 
@@ -35,25 +36,32 @@
 </template>
 
 <script>
-  import { normyList, normyList2 } from '../const.js'
-  export default {
-    name: 'index',
-    data (){
-      return {
-        programmeList: normyList,
-        list: [
-          { name: '项目方案', type: 'programme', list: normyList },
-          { name: '最终文档成果', type: 'harvest', list: normyList2 },
-          { name: '需求规格说明书', type: 'Instructions', list: normyList },
-          { name: '测试文档', type: 'test', list: normyList },
-          { name: '项目合同', type: 'contract', list: normyList2 },
-        ],
-      }
-    },
-    methods :{
-    },
+import { getMaterialList } from '@/api/gpms/material'
 
-  }
+export default {
+  name: 'index',
+  props: {
+    projectId: {
+      type: Number,
+      default: 0,
+    },
+  },
+  data () {
+    return {
+      list: [],
+    }
+  },
+  methods :{
+    loadList () {
+      getMaterialList({id: this.projectId}).then(({data}) => {
+        this.list = data.data
+      })
+    },
+  },
+  mounted () {
+    this.loadList()
+  },
+}
 </script>
 
 <style lang="scss" scoped>

@@ -156,6 +156,10 @@ export default {
     },
     getDataById (id) {
       getDataById(id).then(({data}) => {
+        if (data.data == null) {
+          this.$message.error(data.msg)
+          return
+        }
         this.formData = data.data
         this.getComment(data.data.id)
         // 获取优秀材料

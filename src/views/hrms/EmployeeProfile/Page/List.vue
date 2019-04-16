@@ -9,7 +9,7 @@
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>导入</el-dropdown-item>
-              <el-dropdown-item>导出</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDownload">导出</el-dropdown-item>
               <el-dropdown-item>分享</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -70,6 +70,7 @@
 </template>
 <script>
 import { getEmployeeProfilePage, putEmployeeProfile, postInduction, postPositive, postDeparture, postTransfer } from '@/api/hrms/employee_profile'
+import { postExcelExport } from '@/api/hrms/excel'
 import mixins from '@/mixins/mixins'
 import keyBy from 'lodash/keyBy'
 import { columnsMap, initSearchForm, dictsMap } from '../options'
@@ -104,6 +105,10 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDownload () {
+      const fileds = this.currentColumnsMap.map(m => m.prop)
+      postExcelExport(fileds)
+    },
     handleTransfer (row) {
       this.$refs['TransferDialog'].form.id = row.id
       this.$refs['TransferDialog'].formRequestFn = postTransfer

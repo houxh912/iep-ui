@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="iep-page-form">
     <basic-container>
       <div class="select-org-wrapper">
         <div class="top-wrapper">
           <i class="el-icon-warning"></i>
-          <span class="remind-text">您尚未加入任何组织，请选择</span>
+          <span v-if="noOrg" class="remind-text">您尚未加入任何组织，请选择</span>
+          <span v-else class="remind-text">您已在 {{userInfo.orgName}} 的组织</span>
           <el-button :type="`${tabsActive ? 'default':'primary'}`" size="mini" @click="tabsActive=0">加入组织</el-button>
           <el-button :type="`${tabsActive ? 'primary':'default'}`" size="mini" @click="tabsActive=1">创建组织</el-button>
         </div>
@@ -16,7 +17,7 @@
             </div>
           </template>
           <div v-if="tabsActive===1" class="create-org-container">
-            <el-form ref="form" :rules="rules" :model="form" label-width="80px">
+            <el-form ref="form" :rules="rules" size="small" :model="form" label-width="80px">
               <el-form-item label="组织名称" prop="name">
                 <el-input v-model="form.name"></el-input>
               </el-form-item>
@@ -24,7 +25,7 @@
                 <iep-avatar v-model="form.logo"></iep-avatar>
               </el-form-item>
               <el-form-item label="组织简介" prop="intro">
-                <el-input type="textarea" v-model="form.intro"></el-input>
+                <iep-input-area v-model="form.intro"></iep-input-area>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="onSubmit('form')">立即创建</el-button>
@@ -36,7 +37,7 @@
       </div>
     </basic-container>
     <el-dialog title="申请" :visible.sync="dialogVisible" width="30%">
-      <el-form ref="applyForm" :model="applyForm" label-width="80px">
+      <el-form ref="applyForm" :model="applyForm" size="small" label-width="80px">
         <el-form-item label="组织名称">
           <el-input v-model="applyForm.name" disabled></el-input>
         </el-form-item>
@@ -53,8 +54,8 @@
 </template>
 
 <script>
-// import { mapGetters } from 'vuex'
-import store from '@/store'
+import { mapGetters } from 'vuex'
+import { initForm } from './options'
 import { getOrgList, addObj, applyObj } from '@/api/admin/org'
 export default {
   name: 'org',
@@ -69,14 +70,7 @@ export default {
         message: '',
       },
       dialogVisible: false,
-      headers: {
-        Authorization: 'Bearer ' + store.getters.access_token,
-      },
-      form: {
-        name: '',
-        logo: '',
-        intro: '',
-      },
+      form: initForm(),
       rules: {
         name: [
           { required: true, message: '请输入组织名称', trigger: 'blur' },
@@ -87,6 +81,12 @@ export default {
         ],
       },
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'noOrg',
+    ]),
   },
   created () {
     this.loadOrg()
@@ -130,10 +130,19 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           addObj(this.form).then(({ data }) => {
-            this.$message({
-              message: data.msg,
-              type: 'success',
-            })
+            if (data.data) {
+              this.$message({
+                message: '创建成功，等待审核',
+                type: 'success',
+              })
+              this.tabsActive = 0
+              this.form = initForm()
+            } else {
+              this.$message({
+                message: data.msg,
+                type: 'warning',
+              })
+            }
           })
         }
       })
@@ -170,6 +179,7 @@ export default {
     }
     .create-org-container {
       padding: 0 20px;
+      text-align: left;
     }
   }
 }

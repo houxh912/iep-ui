@@ -59,6 +59,9 @@ export default {
       if (!value) {
         return callback(new Error('用户名不能为空'))
       }
+      if (!/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/.test(value)) {
+        return callback(new Error('4个字符以上，15个字符一下，不能以数字或符号开头'))
+      }
       validRegisterUserName(value).then(({ data }) => {
         if (!data.data) {
           callback(new Error('该用户名已存在，无需新增。'))
@@ -120,7 +123,7 @@ export default {
       checked: false,
       rules: {
         username: [
-          { validator: checkUserName, trigger: 'blur' },
+          { validator: checkUserName, trigger: 'change' },
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur', validator: validatePass },

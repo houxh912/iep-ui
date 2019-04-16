@@ -30,7 +30,7 @@ export default {
       title: '',
       formRequestFn: () => { },
       dialogShow: false,
-      status: this.isInverse ? 1 : 0, // 待审核
+      status: this.isInverse ? 0 : 1, // 待审核
       content: '',
       id: null,
       ids: [],
@@ -59,9 +59,15 @@ export default {
         content: this.content,
       }).then(({ data }) => {
         if (data.data) {
-          // console.log('true')
+          this.$message({
+            message: '审核成功',
+            type: 'success',
+          })
         } else {
-          // console.log('false')
+          this.$message({
+            message: '已驳回',
+            type: 'warning',
+          })
         }
         this.loadPage()
       })

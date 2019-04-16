@@ -8,7 +8,7 @@
         <span>{{form.nowTime}}</span>
       </el-form-item>
       <el-form-item label="入职时间：" class="form-half">
-        <span>{{form.entryTime}}</span>
+        <span>{{form.startTime}}</span>
       </el-form-item>
       <el-form-item label="岗位名称：" class="form-half">
         <span>{{form.positionName}}</span>

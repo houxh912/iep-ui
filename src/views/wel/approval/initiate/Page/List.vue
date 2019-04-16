@@ -13,7 +13,7 @@
       </operation-container>
       <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="申请人" width="120px">
+          <el-table-column label="申请人">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}
                 <a-tag v-if="scope.row.isDraft" color="orange">草稿</a-tag>

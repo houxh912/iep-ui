@@ -14,7 +14,7 @@
         </div>
         <div class="right">
           <detailPage v-if="selectNavigation===0" :form="formData"></detailPage>
-          <stagePage v-if="selectNavigation===1" ref="stage" :form="formData" @author_detail="authorDetail" @author_opera="authorOpera"></stagePage>
+          <stagePage v-if="selectNavigation===1" ref="stage" :form="formData" @author_detail="authorDetail" @author_opera="authorOpera" @submitSuccess="submitSuccess"></stagePage>
           <materialPage v-if="selectNavigation===2"></materialPage>
         </div>
       </div>
@@ -66,7 +66,7 @@ export default {
     authorDetail (author, project) {
       this.pageState = 'authorDetail'
       this.$nextTick(() => {
-        this.$refs['authorDetail'].open(author, project)
+        this.$refs['authorDetail'].open(author.id, project.id)
       })
     },
     authorClose (state, name) {
@@ -83,28 +83,35 @@ export default {
         this.$refs['authorOpera'].open(type, author, this.formData)
       })
     },
+    // 获取详情的数据，初步处理数据
+    getDetailData () {
+      getDataDetail(this.$route.params.id).then(({data}) => {
+        let list = [
+          { name: 'applicantName', list: 'applicantList' },
+          { name: 'approverName', list: 'approverList' },
+          { name: 'inChargeDeptName', list: 'inChargeDeptList' },
+          { name: 'coopDeptName', list: 'coopDeptList' },
+          { name: 'publisherName', list: 'publisherList' },
+          { name: 'relatedClientName', list: 'relatedClientList' },
+          { name: 'groupExternalCooperatePartnerName', list: 'groupExternalCooperatePartnerList' },
+        ]
+        for (let item of list) {
+          if (data.data[item.list]) {
+            data.data[item.name] = data.data[item.list].name
+          } else {
+            data.data[item.name] = '无'
+          }
+        }
+        this.formData = data.data
+      })
+    },
+    // 提交项目完成后回调
+    submitSuccess () {
+      this.getDetailData()
+    },
   },
   created () {
-    // 获取详情的数据，初步处理数据
-    getDataDetail(this.$route.params.id).then(({data}) => {
-      let list = [
-        { name: 'applicantName', list: 'applicantList' },
-        { name: 'approverName', list: 'approverList' },
-        { name: 'inChargeDeptName', list: 'inChargeDeptList' },
-        { name: 'coopDeptName', list: 'coopDeptList' },
-        { name: 'publisherName', list: 'publisherList' },
-        { name: 'relatedClientName', list: 'relatedClientList' },
-        { name: 'groupExternalCooperatePartnerName', list: 'groupExternalCooperatePartnerList' },
-      ]
-      for (let item of list) {
-        if (data.data[item.list]) {
-          data.data[item.name] = data.data[item.list].name
-        } else {
-          data.data[item.name] = '无'
-        }
-      }
-      this.formData = data.data
-    })
+    this.getDetailData()
   },
 }
 </script>

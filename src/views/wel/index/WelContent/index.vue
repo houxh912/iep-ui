@@ -381,9 +381,4 @@ export default {
 .information >>> .el-card__body {
   width: 100%;
 }
-.wel-content >>> .grid-content {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 </style>

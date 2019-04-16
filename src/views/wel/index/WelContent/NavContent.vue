@@ -3,16 +3,16 @@
     <iep-no-data v-if="!contentData.length" message="暂无内容"></iep-no-data>
     <el-row v-else v-for="(item,index) in contentData" :key="index">
       <el-col :span="16">
-        <div class="grid-content title" @click="handleDetail(item)">{{item.name}}</div>
+        <div class="iep-ellipsis title" @click="handleDetail(item)">{{item.name}}</div>
       </el-col>
       <el-col :span="6" v-if="item.subName">
-        <div class="grid-content">{{item.subName}}</div>
+        <div class="iep-ellipsis">{{item.subName}}</div>
       </el-col>
       <el-col :span="6" v-if="item.process">
         <el-progress :percentage="item.process" color="#68C769"></el-progress>
       </el-col>
       <el-col :span="2">
-        <div class="grid-content text-right text-time">{{item.time | parseTime('{m}-{d}')}}</div>
+        <div class="iep-ellipsis text-right text-time">{{item.time | parseTime('{m}-{d}')}}</div>
       </el-col>
     </el-row>
   </div>
@@ -46,9 +46,6 @@ export default {
       &:hover {
         color: #cb3737;
       }
-    }
-    .grid-content {
-      font-size: 14px;
     }
     .el-progress {
       width: 120px;

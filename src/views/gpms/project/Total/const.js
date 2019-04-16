@@ -43,7 +43,7 @@ export const columnsMap = [
     type: 'dict',
   },
   {
-    prop: 'publisher',
+    prop: 'publisherName',
     label: '发布人',
   },
   {

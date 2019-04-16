@@ -1,22 +1,18 @@
 
-import { postApproval } from '@/api/hrms/wel'
-import { formToDto, initForm, formToVo } from './options'
+import { mapGetters } from 'vuex'
+import { postApproval, putApproval } from '@/api/hrms/wel'
+import { formToDto, initForm, formToVo, selfToVo } from './options'
+import { getEmployeeProfileSelf } from '@/api/hrms/employee_profile'
+import { getAdministrativeApprovalById } from '@/api/hrms/administrative_approval'
 export default {
   props: {
-    fn: {
-      type: Function,
-      required: true,
-    },
     type: {
       type: String,
+      default: '1',
     },
   },
   data () {
     return {
-      backOption: {
-        isBack: true,
-        backPath: this.$route.query.redirect,
-      },
       form: initForm(),
       rules: {
         reason: [
@@ -28,19 +24,34 @@ export default {
       },
     }
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+    id () {
+      return this.$route.query.id
+    },
+  },
   created () {
     this.loadPage()
   },
   methods: {
     loadPage () {
-      this.fn().then(({ data }) => {
-        this.form = formToVo(data.data)
-      })
+      if (this.id) {
+        getAdministrativeApprovalById(this.id).then(({ data }) => {
+          this.form = formToVo(data.data)
+        })
+      } else {
+        getEmployeeProfileSelf().then(({ data }) => {
+          this.form = selfToVo(data.data)
+        })
+      }
     },
     handleSubmit () {
+      const submitFunction = this.id ? putApproval : postApproval
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          postApproval(formToDto(this.form, this.type)).then(() => {
+          submitFunction(formToDto(this.form, this.type, this.userInfo.userId)).then(() => {
             this.$openPage('/wel/approval/initiate')
           })
         }

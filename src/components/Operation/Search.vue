@@ -59,6 +59,9 @@ export default {
   padding: 9px 5px;
   border-radius: 0 3px 3px 0;
 }
+.input-wrapper >>> .el-input-group {
+  width: inherit;
+}
 .search-btn:hover,
 .search-btn:focus {
   opacity: 0.8;

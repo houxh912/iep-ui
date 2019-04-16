@@ -14,14 +14,7 @@
           </el-form-item>
           <el-form-item label="所属组织：">
             <iep-detail-tag :value="form.orgList"></iep-detail-tag>
-          </el-form-item>
-          <el-form-item label="">
-            <div>
-              <span><i class="el-icon-warning"></i></span>
-              <span class="margin">我要</span>
-              <iep-button type="danger" class="margin">加入组织</iep-button>
-              <iep-button class="margin">创建组织</iep-button>
-            </div>
+            <a-tag color="orange" @click="$openPage('/wel/org')">加入或创建组织</a-tag>
           </el-form-item>
           <el-form-item label="资产所属：" class="form-half">
             <iep-detail-tag :value="form.deptList"></iep-detail-tag>
@@ -32,15 +25,11 @@
           <el-form-item label="角色：">
             <iep-detail-tag :value="form.roleName"></iep-detail-tag>
           </el-form-item>
-
           <el-form-item label="岗位：" class="form-half">
             <span>{{form.positionName}}</span>
           </el-form-item>
           <el-form-item label="对外头衔：" class="form-half">
             <span>{{form.positionName}}</span>
-          </el-form-item>
-          <el-form-item label="岗位职责：">
-            <span>{{form.duties}}</span>
           </el-form-item>
           <el-form-item label="职务：" class="form-half">
             <span>{{form.job}}</span>
@@ -105,7 +94,30 @@
           <el-form-item label="外部头衔：" class="form-half">
             <el-input v-model="form.externalTitle"></el-input>
           </el-form-item>
-
+          <el-form-item label="身份证号码：" class="form-half">
+            <el-input v-model="form.IDCard"></el-input>
+          </el-form-item>
+          <el-form-item label="联系电话：" class="form-half">
+            <el-input v-model="form.phone"></el-input>
+          </el-form-item>
+          <el-form-item label="微信：" class="form-half">
+            <el-input v-model="form.wechat"></el-input>
+          </el-form-item>
+          <el-form-item label="QQ：" class="form-half">
+            <el-input v-model="form.qq"></el-input>
+          </el-form-item>
+          <el-form-item label="邮箱：" class="form-half">
+            <el-input v-model="form.email"></el-input>
+          </el-form-item>
+          <el-form-item label="个人主页：" class="form-half">
+            <el-input v-model="form.home"></el-input>
+          </el-form-item>
+          <el-form-item label="应急联系人：" class="form-half">
+            <el-input v-model="form.emergencyName"></el-input>
+          </el-form-item>
+          <el-form-item label="应急联系人电话：" class="form-half">
+            <el-input v-model="form.emergencyPhone"></el-input>
+          </el-form-item>
           <!-- <el-form-item label="添加师父：">
                 <iep-tag v-model="form.people"></iep-tag>
               </el-form-item> -->

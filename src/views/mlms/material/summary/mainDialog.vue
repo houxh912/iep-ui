@@ -65,10 +65,11 @@
       </el-form-item> -->
         <!-- <el-form-item label="关联报表" prop="baobiao">
         <iep-button><i class="el-icon-plus"></i></iep-button>
-      </el-form-item>
-      <el-form-item label="关联项目" prop="xiangmu">
-        <iep-button><i class="el-icon-plus"></i></iep-button>
       </el-form-item> -->
+      <el-form-item label="关联项目" prop="projectList">
+        <el-tag type="info" v-for="(item, index) in formData.projectList" :key="index">{{item.projectName}}</el-tag>
+        <iep-button @click="selectProject"><i class="el-icon-plus"></i></iep-button>
+      </el-form-item>
 
       </el-form>
       <footer-tool-bar>
@@ -77,6 +78,7 @@
         <iep-button @click="resetForm('form')">取消</iep-button>
       </footer-tool-bar>
     </basic-container>
+    <projectDialog ref="project" @selectProject="submitProject"></projectDialog>
   </div>
 </template>
 <script>
@@ -84,8 +86,10 @@ import { initFormData, dictsMap, rules } from './options'
 import { mapState } from 'vuex'
 import { getCustomerPage } from '@/api/crms/customer'
 import { createData, updateData, getDataById } from '@/api/mlms/material/summary'
+import projectDialog from './projectDialog'
 
 export default {
+  components: { projectDialog },
   data () {
     return {
       dictsMap,
@@ -143,6 +147,7 @@ export default {
         orgIds: this.formData.receiverList.orgs.map(m => m.id),
         userIds: this.formData.receiverList.users.map(m => m.id),
       }
+      this.formData.projectIds = this.formData.projectList.map(m => m.id)
       this.formRequestFn(this.formData).then(() => {
         this.$notify({
           title: '成功',
@@ -168,6 +173,13 @@ export default {
     goBack () {
       // this.$router.push(this.backRouter)
       this.$router.go(-1)
+    },
+    // 项目获取
+    selectProject () {
+      this.$refs['project'].open()
+    },
+    submitProject (data) {
+      this.formData.projectList = data
     },
   },
   created () {
@@ -199,3 +211,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.el-tag {
+  margin-right: 10px;
+}
+</style>

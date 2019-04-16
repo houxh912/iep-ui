@@ -1,21 +1,37 @@
 <template>
-  <img :src="fackerImg" />
+  <div class="gov-person">
+    <gov-person-top></gov-person-top>
+    <gov-person-content></gov-person-content>
+    <IepAppFooterBar></IepAppFooterBar>
+  </div>
 </template>
+
 <script>
-const fackerImg = require('./facker.png')
+import GovPersonContent from './GovPersonContent/'
+import GovPersonTop from './GovPersonTop/'
 export default {
-  data () {
-    return {
-      fackerImg,
-    }
-  },
+  name: 'govPerson',
+  components: { GovPersonContent, GovPersonTop },
 }
 </script>
 <style scoped>
-img {
-  margin: 0 auto;
-  margin-top: -60px;
-  width: 1280px;
-  display: block;
+.gov-person >>> .el-card {
+  border-radius: 0;
+}
+.gov-person >>> .cardTitle {
+  font-size: 16px;
+}
+.GovPerson-content >>> .more:hover,
+.GovPerson-content >>> .more:focus {
+  color: #cb3737;
+}
+.GovPerson-content >>> .important {
+  float: right;
+  color: #cb3737;
+}
+.GovPerson-content >>> .important:hover,
+.GovPerson-content >>> .important:focus {
+  color: #f56c6c;
 }
 </style>
+

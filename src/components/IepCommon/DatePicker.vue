@@ -1,5 +1,5 @@
 <template>
-  <el-date-picker :valueFormat="valueFormat" v-bind="$attrs" v-on="$listeners">
+  <el-date-picker :valueFormat="valueFormat" :editable="false" v-bind="$attrs" v-on="$listeners">
   </el-date-picker>
 </template>
 <script>

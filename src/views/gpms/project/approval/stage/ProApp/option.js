@@ -1,13 +1,8 @@
-// import { getStore } from '@/util/store'
-// const getDict = getStore({ name: 'dictGroup' })
+import { getStore } from '@/util/store'
 
 export const dictMap = {
-  projectType: [
-    { value: 1, label: '项目类型一' },
-  ],
-  businessType: [
-    { value: 1, label: '业务类型一' },
-  ],
+  projectType: getStore({ name: 'dictGroup' }).prms_project_type,
+  businessType: getStore({ name: 'dictGroup' }).prms_business_type,
   isRelevanceProduct: [
     { value: 1, label: '是' },
     { value: 2, label: '否' },

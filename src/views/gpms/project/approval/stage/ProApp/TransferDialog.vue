@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="立项申请" width="60%" @close="resetForm">
+  <iep-dialog :dialog-show="dialogShow" title="立项申请" width="60%" @close="resetForm(false)">
     
     <p class="tipes"><i class="el-icon-warning"></i> 项目预算大于100万的项目由项目执行与质量委员会审批。</p>
     <el-form :model="formData" ref="form" label-width="150px">
@@ -16,7 +16,7 @@
 
     <template slot="footer">
       <iep-button type="danger" @click="submitForm">提交</iep-button>
-      <iep-button @click="resetForm">取消</iep-button>
+      <iep-button @click="resetForm(false)">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
@@ -50,9 +50,12 @@ export default {
       this.formData.projectName = data.projectName
       this.formData.projectBudget = data.projectBudget
     },
-    resetForm () {
+    resetForm (state) {
       this.formData = initFormData()
       this.dialogShow = false
+      if (state === true) {
+        this.$emit('close', true)
+      }
     },
     submitForm () {
       this.$refs['form'].validate((valid) => {
@@ -64,7 +67,7 @@ export default {
           updateData(this.formData).then(() => {
             this.$notify({
               title: '成功',
-              message: '申请成功',
+              message: '提交成功',
               type: 'success',
               duration: 2000,
             })

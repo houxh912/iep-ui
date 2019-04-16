@@ -17,7 +17,7 @@ const initFormData = () => {
 const columnsMap = [
   {
     prop: 'addFavouriteTime',
-    label: '收藏事件',
+    label: '收藏时间',
     width: '250',
   },
 ]

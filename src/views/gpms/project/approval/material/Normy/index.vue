@@ -34,19 +34,34 @@
 </template>
 
 <script>
-  import { normyList, normyList2 } from '../const.js'
-  export default {
-    name: 'index',
-    data (){
-      return {
-        summaryList: normyList,
-        list2: normyList2,
-      }
-    },
-    methods :{
-    },
+import { normyList, normyList2 } from '../const.js'
+import { getMeetingList } from '@/api/gpms/material'
 
-  }
+export default {
+  name: 'index',
+  props: {
+    projectId: {
+      type: Number,
+      default: 0,
+    },
+  },
+  data (){
+    return {
+      summaryList: normyList,
+      list2: normyList2,
+    }
+  },
+  methods: {
+  },
+  created () {
+    getMeetingList({
+      projectId: this.projectId,
+      materialType: 2,
+    }).then(({data}) => {
+      console.log('data: ', data)
+    })
+  },
+}
 </script>
 
 <style lang="scss" scoped>

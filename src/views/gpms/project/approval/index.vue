@@ -15,7 +15,7 @@
         <div class="right">
           <detailPage v-if="selectNavigation===0" :form="formData"></detailPage>
           <stagePage v-if="selectNavigation===1" ref="stage" :form="formData" @author_detail="authorDetail" @author_opera="authorOpera" @submitSuccess="submitSuccess"></stagePage>
-          <materialPage v-if="selectNavigation===2"></materialPage>
+          <materialPage v-if="selectNavigation===2" :form="formData"></materialPage>
         </div>
       </div>
     </div>

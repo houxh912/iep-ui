@@ -9,9 +9,7 @@
         </div>
       </div>
       <div class="content">
-        <div class="item" v-for="(item, index) in programmeList" :key="index">
-          <i class="icon-guanlian"></i>{{item.content}} <i class="close el-icon-close"></i>
-        </div>
+        
       </div>
     </div>
     <div class="plate" v-for="(item, index) in list" :key="index">

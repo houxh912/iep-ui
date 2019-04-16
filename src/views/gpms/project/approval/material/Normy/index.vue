@@ -5,8 +5,8 @@
       <div class="head">
         <p class="title">会议纪要</p>
         <div class="button">
-          <iep-button size="small" type="primary"><i class="el-icon-plus"></i> 新增</iep-button>
-          <iep-button size="small"><i class="icon-guanlian"></i> 关联</iep-button>
+          <iep-button size="small" type="primary" @click="createSummary"><i class="el-icon-plus"></i> 新增</iep-button>
+          <iep-button size="small" @click="relateSummary"><i class="icon-guanlian"></i> 关联</iep-button>
         </div>
       </div>
       <div class="content">
@@ -52,14 +52,33 @@ export default {
     }
   },
   methods: {
+    // 新增会议纪要
+    createSummary () {
+      this.$emit('createSummary')
+    },
+    getsummaryList () {
+      getMeetingList({
+        projectId: this.projectId,
+        materialType: 1,
+      }).then(({data}) => {
+        console.log('getsummaryList: ', data)
+      })
+    },
+    relateSummary () {
+      
+    },
+    getPorjectWeekList () {
+      getMeetingList({
+        projectId: this.projectId,
+        materialType: 2,
+      }).then(({data}) => {
+        console.log('getPorjectWeekList: ', data)
+      })
+    },
   },
   created () {
-    getMeetingList({
-      projectId: this.projectId,
-      materialType: 2,
-    }).then(({data}) => {
-      console.log('data: ', data)
-    })
+    this.getsummaryList()
+    this.getPorjectWeekList()
   },
 }
 </script>

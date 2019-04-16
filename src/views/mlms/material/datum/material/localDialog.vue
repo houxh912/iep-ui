@@ -35,13 +35,18 @@
       <el-form-item label="下载贝额：" prop="downloadCost">
         <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select>
       </el-form-item>
-      <el-form-item label="标签" prop="tagKeyWords">
+      <el-form-item label="标签：" prop="tagKeyWords">
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
-      <el-form-item label="附件">
+      <el-form-item label="是否开放：" prop="isOpen">
+        <el-switch v-model="formData.isOpen" :active-value="dictsMap.isOpen[0].value" :inactive-value="dictsMap.isOpen[1].value"></el-switch>
+      </el-form-item>
+      <el-form-item label="是否保密：" prop="secrecyLevel">
+        <el-switch v-model="formData.secrecyLevel" :active-value="dictsMap.secrecyLevel[1].value" :inactive-value="dictsMap.secrecyLevel[0].value"></el-switch>
+      </el-form-item>
+      <el-form-item label="附件：">
         <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload>
       </el-form-item>
-
     </el-form>
     <footer-tool-bar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
@@ -50,7 +55,7 @@
   </div>
 </template>
 <script>
-import { initLocalForm, rules } from './option'
+import { initLocalForm, rules, dictsMap } from './option'
 import { saveScheme } from '@/api/crms/scheme'
 
 export default {
@@ -73,6 +78,7 @@ export default {
       backId: '',
       rules: rules,
       secondClass: ['one'],
+      dictsMap,
       dicData: {
         select: [
           { value: '1', label: '选项1' },

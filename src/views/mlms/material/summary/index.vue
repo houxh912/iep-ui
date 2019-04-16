@@ -15,6 +15,7 @@
               <el-dropdown-item @click.native="downloadPic">导出为文本</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
+          <el-checkbox @change="changeGetWay">只看我的</el-checkbox>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" :paramForm="paramForm" prop="title" advance-search>
@@ -82,7 +83,7 @@
 import { dictsMap, columnsMap, initSearchForm } from './options'
 import mixins from '@/mixins/mixins'
 import { mapState } from 'vuex'
-import { getTableData, deleteData, createCollect, copyData, meetingSend } from '@/api/mlms/material/summary'
+import { getTableData, getTableDataOnlyMe, deleteData, createCollect, copyData, meetingSend } from '@/api/mlms/material/summary'
 import ShareDialog from './shareDialog'
 import CollectionDialog from '../components/collectionDialog'
 import DetailPage from './detail'
@@ -99,6 +100,7 @@ export default {
       selectList: [],
       pageState: 'list',
       createCollect,
+      getTableDataFn: getTableData,
     }
   },
   computed: {
@@ -141,7 +143,7 @@ export default {
     },
     loadPage (param = this.paramForm) {
       this.pageState = 'list'
-      this.loadTable(param, getTableData)
+      this.loadTable(param, this.getTableDataFn)
     },
     // 收藏
     handleCollection (row) {
@@ -200,6 +202,11 @@ export default {
           this.loadPage()
         }
       })
+    },
+    // 只看我的
+    changeGetWay (val) {
+      this.getTableDataFn = val ? getTableDataOnlyMe : getTableData
+      this.loadPage()
     },
   },
 }

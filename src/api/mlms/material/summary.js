@@ -10,6 +10,14 @@ export function getTableData (obj) {
   })
 }
 
+export function getTableDataOnlyMe (obj) {
+  return request({
+    url: `${prefixUrl}/page/personal`,
+    method: 'get',
+    params: obj,
+  })
+}
+
 export function getDataById (id) {
   return request({
     url: `${prefixUrl}/${id}`,

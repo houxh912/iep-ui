@@ -156,8 +156,12 @@ export default {
       })
     },
     loadPage () {
-      this.searchForm.collectionId = this.catalogId
-      this.loadTable(this.searchForm, getListById)
+      if (this.catalogId == 0) {
+        this.loadTypeList()
+      } else {
+        this.searchForm.collectionId = this.catalogId
+        this.loadTable(this.searchForm, getListById)
+      }
     },
     catalogSelect (id) {
       this.catalogId = id

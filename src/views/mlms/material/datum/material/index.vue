@@ -24,6 +24,7 @@
               <el-dropdown-item>下载</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
+          <el-checkbox @change="changeGetWay">只看我的</el-checkbox>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" :paramForm="paramForm" advance-search>
@@ -80,7 +81,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { getTableData, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/material'
+import { getTableData, getTableDataOnlyMe, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/material'
 import { createCollect } from '@/api/mlms/material/summary'
 import LocalDialog from './localDialog'
 import NewlyDialog from './newlyDialog'
@@ -101,6 +102,7 @@ export default {
       selectList: [],
       createCollect,
       firstClass: [],
+      getTableDataFn: getTableData,
     }
   },
   created () {
@@ -133,7 +135,7 @@ export default {
     },
     loadPage (param) {
       this.pageState = 'list'
-      this.loadTable(param, getTableData)
+      this.loadTable(param, this.getTableDataFn)
     },
     // 本地上传
     localCreate () {
@@ -202,7 +204,11 @@ export default {
     handleEdition () {
       this.$message.error('抱歉，此功能尚未开发')
     },
-
+    // 只看我的
+    changeGetWay (val) {
+      this.getTableDataFn = val ? getTableDataOnlyMe : getTableData
+      this.loadPage()
+    },
   },
 }
 </script>

@@ -15,7 +15,7 @@
             <div class="select-ul">
               <el-checkbox-group v-model="checkList">
                 <div class="select-li" v-for="(item, index) in list" :key="index">
-                  <el-checkbox :label="item">{{item.projectName}}</el-checkbox>
+                  <el-checkbox :label="item" :checked="isChecked(item.id)">{{item.projectName}}</el-checkbox>
                 </div>
               </el-checkbox-group>
             </div>
@@ -46,12 +46,14 @@ export default {
       projectState: 0,
       params: { current: 1, size: 10, projectName: '' },
       checkList: [],
+      isCheckList: [],
     }
   },
   methods: {
-    open () {
+    open (list) {
       this.dialogShow = true
-      this.checkList = [],
+      this.checkList = []
+      this.isCheckList = list
       this.list = []
       this.params = { current: 1, size: 10, projectName: '' }
       this.loadProject()
@@ -88,6 +90,14 @@ export default {
       this.list = []
       this.params.current = 1
       this.loadProject()
+    },
+    isChecked (id) {
+      for (let item of this.isCheckList) {
+        if (item.id == id) {
+          return true
+        }
+      }
+      return false
     },
   },
 }

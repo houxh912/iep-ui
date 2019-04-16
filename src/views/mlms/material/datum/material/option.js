@@ -3,6 +3,18 @@ export const dictsMap = {
     '1': '类型1',
     '2': '类型2',
   },
+  isYes: [
+    { value: 0, lable: '否' },
+    { value: 1, label: '是' },
+  ],
+  isOpen: [
+    { value: 0, lable: '开放' },
+    { value: 1, label: '关闭' },
+  ],
+  secrecyLevel: [
+    { value: 0, lable: '不保密' },
+    { value: 1, label: '保密' },
+  ],
 }
 
 export const tableOption = [
@@ -17,6 +29,7 @@ export const tableOption = [
   },
 ]
 
+// 本地上传
 export const initLocalForm = () => {
   return {
     uploader: '',
@@ -32,10 +45,12 @@ export const initLocalForm = () => {
     isContri: '',
     attachFileList: [],
     attachFile: '',
+    isOpen: 0,
+    secrecyLevel: 0,
   }
 }
 
-
+// 新建文档
 export const initFormData = () => {
   return {
     uploader: '',
@@ -50,6 +65,8 @@ export const initFormData = () => {
     downloadCost: '',
     tagKeyWords: [],
     attachFileList: [],
+    isOpen: 0,
+    secrecyLevel: 0,
   }
 }
 
@@ -82,6 +99,12 @@ export const rules = {
     { required: true, message: '必填', trigger: 'change' },
   ],
   uploader: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  isOpen: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
+  secrecyLevel: [
     { required: true, message: '必填', trigger: 'change' },
   ],
 }

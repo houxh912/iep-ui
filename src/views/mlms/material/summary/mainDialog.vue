@@ -67,7 +67,7 @@
         <iep-button><i class="el-icon-plus"></i></iep-button>
       </el-form-item> -->
       <el-form-item label="关联项目" prop="projectList">
-        <el-tag type="info" v-for="(item, index) in formData.projectList" :key="index">{{item.projectName}}</el-tag>
+        <el-tag type="info" v-for="(item, index) in formData.projectList" :key="index">{{item.name}}</el-tag>
         <iep-button @click="selectProject"><i class="el-icon-plus"></i></iep-button>
       </el-form-item>
 
@@ -176,10 +176,13 @@ export default {
     },
     // 项目获取
     selectProject () {
-      this.$refs['project'].open()
+      this.$refs['project'].open(this.formData.projectList)
     },
     submitProject (data) {
-      this.formData.projectList = data
+      let fn = (obj) => {
+        return { id: obj.id, name: obj.projectName }
+      }
+      this.formData.projectList = data.map(fn)
     },
   },
   created () {

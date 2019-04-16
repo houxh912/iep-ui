@@ -13,6 +13,7 @@
               <el-dropdown-item @click.native="handleDownloadAll">下载</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
+          <el-checkbox @change="changeGetWay">只看我的</el-checkbox>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="contractName"></operation-search>
@@ -47,7 +48,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { getTableData, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/contract'
+import { getTableData, getTableDataOnlyMe, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/contract'
 import MainDialog from './mainDialog'
 import detailDialog from './detail'
 
@@ -60,6 +61,7 @@ export default {
       pageState: 'list',
       dictsMap,
       columnsMap: tableOption,
+      getTableDataFn: getTableData,
     }
   },
   methods: {
@@ -105,7 +107,7 @@ export default {
     },
     loadPage (param) {
       this.pageState = 'list'
-      this.loadTable(param, getTableData)
+      this.loadTable(param, this.getTableDataFn)
     },
     // 批量导出
     handleExport () {
@@ -114,6 +116,11 @@ export default {
     // 批量下载
     handleDownloadAll () {
       this.$message.error('抱歉，此功能尚未开发')
+    },
+    // 只看我的
+    changeGetWay (val) {
+      this.getTableDataFn = val ? getTableDataOnlyMe : getTableData
+      this.loadPage()
     },
   },
   created () {

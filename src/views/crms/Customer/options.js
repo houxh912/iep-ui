@@ -52,7 +52,7 @@ var validateFun = (rule, value, callback) => {
     return callback(new Error('客户名称不能为空'))
   }
   checkName({ clientName: val }).then(res => {
-    if (!res.data) {
+    if (!res.data.data) {
       callback(new Error('您输入的客户名称已存在，请重新输入！'))
     } else {
       callback()
@@ -74,7 +74,9 @@ const rules = {
   marketManager: [
     { required: true, message: '请填写市场经理', trigger: 'blur' },
   ],
-  iepClientRespDept: [{ required: true, message: '请选择负责部门', trigger: 'blur' }],
+  iepClientRespDept: [
+    { required: true, message: '请选择负责部门', trigger: 'blur' },
+  ],
   companyUrl: [{ required: true, message: '请填写单位网址', trigger: 'blur' }],
   companyFunction: [
     { required: true, message: '请填写单位职能', trigger: 'blur' },

@@ -14,7 +14,15 @@
       <v-chart :forceFit="true" height="280" :data="data" :scale="scale" :padding="[40,20,40,60]">
         <v-tooltip />
         <v-axis />
-        <v-bar position="date*count" shape='interval ' color="#D56368" size="15" label='count' />
+        <v-bar position="date*count" color="#D56368" label='count' />
+        <v-interval position="date*count" color="#752136" shape="borderRadius" tooltip="count" :opacity="0.6" />
+        <v-interval position="date*count" tooltip="count" :shape="['date*count', function(date, val) {
+          if (val === 0) {
+            return;
+          } else {
+            return 'borderRadius';
+          }
+        }]" />
       </v-chart>
     </div>
   </el-card>

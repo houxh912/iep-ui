@@ -4,7 +4,7 @@
       <el-col class="head">客户分析</el-col>
     </el-row>
     <el-row>
-      <el-col :span=10>
+      <el-col :span="10">
         <div class="echarts odd">
           <v-chart :forceFit="true" height="300" :data="data" :scale="scale" :padding="[40,20,40,60]">
             <v-tooltip :showTitle="false" dataKey="item*percent" />
@@ -15,7 +15,7 @@
           </v-chart>
         </div>
       </el-col>
-      <el-col :span=9>
+      <el-col :span="9">
         <div class="echarts">
           <v-chart :forceFit="true" height="300" :data="data1" :scale="scale1" :padding="[40,20,40,60]">
             <v-tooltip :showTitle="false" dataKey="item*percent" />
@@ -23,10 +23,17 @@
             <v-legend dataKey="item" />
             <v-pie position="percent" color="item" :v-style="pieStyle" :label="labelConfig" />
             <v-coord type="theta" />
+            <v-interval position="item*count" tooltip="actual" :shape="['date*actual', function(date, val) {
+          if (val === 0) {
+            return;
+          } else {
+            return 'borderRadius';
+          }
+        }]" />
           </v-chart>
         </div>
       </el-col>
-      <el-col :span=5>
+      <el-col :span="5">
         <div class="echarts lines">
           <div class="line"></div>
           <div class="msg">您的客户中：</div>
@@ -42,6 +49,7 @@
 <script>
 import { data, scale } from './chart1'
 import { data1, scale1 } from './chart2'
+import { getMybusiness } from '@/api/crms/statistics'
 export default {
   data () {
     return {
@@ -60,6 +68,27 @@ export default {
         },
       }],
     }
+  },
+  created () {
+    this.load()
+  },
+  methods: {
+    load () {
+      getMybusiness().then(res => {
+      console.log(res)
+      // this.$set('this.data1[0]', 'percent', 'res.data.data.consulting')
+      // this.$set('this.data1[1]', 'percent', 'res.data.data.information')
+      // this.$set('this.data1[2]', 'percent', 'res.data.data.matters')
+      // this.$set('this.data1[3]', 'percent', 'res.data.data.platform')
+      // this.$set('this.data1[4]', 'percent', 'res.data.data.softwareNumber')
+
+        this.data1[0].percent = res.data.data.consulting / 100
+        this.data1[1].percent = res.data.data.information / 100
+        this.data1[2].percent = res.data.data.matters / 100
+        this.data1[3].percent = res.data.data.platform / 100
+        this.data1[4].percent = res.data.data.softwareNumber / 100
+      })
+    },
   },
 }
 </script>

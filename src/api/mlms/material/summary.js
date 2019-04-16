@@ -10,6 +10,33 @@ export function getTableData (obj) {
   })
 }
 
+// 我发布的
+export function getTablePersonal (obj) {
+  return request({
+    url: `${prefixUrl}/page/personal`,
+    method: 'get',
+    params: obj,
+  })
+}
+
+// 我参与的
+export function getTableMyInvolved (obj) {
+  return request({
+    url: '/mlms/meeting/MyInvolved/page',
+    method: 'get',
+    params: obj,
+  })
+}
+
+// 我收到的
+export function getTableMyReceived (obj) {
+  return request({
+    url: '/mlms/meeting/MyReceived/page',
+    method: 'get',
+    params: obj,
+  })
+}
+
 export function getDataById (id) {
   return request({
     url: `${prefixUrl}/${id}`,

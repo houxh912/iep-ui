@@ -8,15 +8,20 @@
           <iep-button @click="handleReviewDialog">批量审核</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
+          <operation-search @search-page="searchPage">
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-index>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="组织名称" width="150px">
             <template slot-scope="scope">
               <span>{{scope.row.name}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="组织描述" width="150px">
+            <template slot-scope="scope">
+              <div class="iep-ellipsis" :title="scope.row.intro">{{scope.row.intro}}</div>
             </template>
           </el-table-column>
         </template>
@@ -25,7 +30,7 @@
             <operation-wrapper>
               <iep-button type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
               <!-- <iep-button @click="handlePerson(scope.row, scope.index)">人员</iep-button> -->
-              <iep-button type="default" @click="handleReviewDialog(scope.row, scope.index)">审核</iep-button>
+              <iep-button v-if="scope.row.status === 1" type="default" @click="handleReviewDialog(scope.row, scope.index)">审核</iep-button>
               <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>

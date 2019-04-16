@@ -13,10 +13,6 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'intro',
-    label: '组织描述',
-  },
-  {
     prop: 'isOpen',
     label: '允许加入',
     type: 'dict',

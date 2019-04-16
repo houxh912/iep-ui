@@ -15,12 +15,13 @@
         <div class="right">
           <detailPage v-if="selectNavigation===0" :form="formData"></detailPage>
           <stagePage v-if="selectNavigation===1" ref="stage" :form="formData" @author_detail="authorDetail" @author_opera="authorOpera" @submitSuccess="submitSuccess"></stagePage>
-          <materialPage v-if="selectNavigation===2"></materialPage>
+          <materialPage v-if="selectNavigation===2" :form="formData" @createSummary="materialCreateSummary"></materialPage>
         </div>
       </div>
     </div>
     <stageAuthorDetail ref="authorDetail" v-if="pageState == 'authorDetail'" @close="authorClose"></stageAuthorDetail>
     <stageAuthorOpera ref="authorOpera" v-if="pageState == 'authorOpera'" @close="authorClose"></stageAuthorOpera>
+    <materialSummaryCreate ref="summaryCreate" v-if="pageState == 'summaryCreate'" @close="summaryClose"></materialSummaryCreate>
   </basic-container>
 </template>
 
@@ -31,10 +32,11 @@ import materialPage from './material/'
 import { getDataDetail } from '@/api/gpms/index'
 import stageAuthorDetail from './stage/Accredit/detail/' // 立项阶段-项目经理详情
 import stageAuthorOpera from './stage/Accredit/addDialog' // 立项阶段-项目经理新增
+import materialSummaryCreate from '@/views/mlms/material/summary/mainDialog'
 
 export default {
   name: 'detail',
-  components: { detailPage, stagePage, materialPage, stageAuthorDetail, stageAuthorOpera },
+  components: { detailPage, stagePage, materialPage, stageAuthorDetail, stageAuthorOpera, materialSummaryCreate },
   data () {
     return {
       backOption: {
@@ -108,6 +110,16 @@ export default {
     // 提交项目完成后回调
     submitSuccess () {
       this.getDetailData()
+    },
+    // 新建会议纪要
+    materialCreateSummary (obj) {
+      this.pageState = 'summaryCreate'
+      this.$nextTick(() => {
+        this.$refs['summaryCreate'].projectOpen(obj)
+      })
+    },
+    summaryClose () {
+      this.pageState = 'list'
     },
   },
   created () {

@@ -23,12 +23,12 @@
         <el-table-column prop="operation" label="操作" width="220">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="!([1].includes(scope.row.status))" type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
-              <iep-button v-if="scope.row.status===0" @click="handleLocking(scope.row)">锁定</iep-button>
-              <iep-button v-else-if="scope.row.status===2" @click="handleLocking(scope.row)">解锁</iep-button>
-              <iep-button v-if="([1].includes(scope.row.status))" @click="handlePassById(scope.row)">通过</iep-button>
-              <iep-button v-if="([1].includes(scope.row.status))" @click="handleRejectById(scope.row)">不通过</iep-button>
-              <iep-button v-if="!([1].includes(scope.row.status))" icon="el-icon-delete" @click="handleDeleteById(scope.row)"></iep-button>
+              <iep-button :disabled="isMine(scope.row)" v-if="!([1].includes(scope.row.status))" type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
+              <iep-button :disabled="isMine(scope.row)"  v-if="scope.row.status===0" @click="handleLocking(scope.row)">锁定</iep-button>
+              <iep-button :disabled="isMine(scope.row)"  v-else-if="scope.row.status===2" @click="handleLocking(scope.row)">解锁</iep-button>
+              <iep-button :disabled="isMine(scope.row)"  v-if="([1].includes(scope.row.status))" @click="handlePassById(scope.row)">通过</iep-button>
+              <iep-button :disabled="isMine(scope.row)"  v-if="([1].includes(scope.row.status))" @click="handleRejectById(scope.row)">不通过</iep-button>
+              <iep-button :disabled="isMine(scope.row)"  v-if="!([1].includes(scope.row.status))" icon="el-icon-delete" @click="handleDeleteById(scope.row)"></iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -68,11 +68,9 @@ export default {
     this.loadPage()
   },
   methods: {
-    // handleReview () {
-    //   this.$refs['iepReviewForm'].title = '批量审核'
-    //   this.$refs['iepReviewForm'].formRequestFn = ''
-    //   this.$refs['iepReviewForm'].dialogShow = true
-    // },
+    isMine (row) {
+      return row.userId === this.userInfo.userId
+    },
     handleDeleteBatch () {
       this._handleGlobalDeleteAll(delAllGomsUser)
     },
@@ -139,10 +137,18 @@ export default {
     handleLocking (row) {
       if (row.status === 0) {
         userLock(row.userId).then(() => {
+          this.$message({
+            type: 'success',
+            message: '锁定成功!',
+          })
           this.loadPage()
         })
       } else if (row.status === 2) {
         userUnLock(row.userId).then(() => {
+          this.$message({
+            type: 'success',
+            message: '解锁成功!',
+          })
           this.loadPage()
         })
       }

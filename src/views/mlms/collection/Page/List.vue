@@ -31,8 +31,6 @@
                   <i class="el-icon-setting"></i>
                   <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item><div @click="catalogUpdate(child.id)">重命名</div></el-dropdown-item>
-                    <!-- <el-dropdown-item>上移</el-dropdown-item>
-                    <el-dropdown-item>下移</el-dropdown-item> -->
                     <el-dropdown-item><div @click="catalogDelete(child.id)">删除目录</div></el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
@@ -127,7 +125,7 @@ export default {
       },
       selectType: '0',
       catalogList: [],
-      pageTitle: '',
+      pageTitle: '我的收藏',
       settingIndex: -1,
       methodName: '新增',
       dialogVisible: false,
@@ -151,13 +149,16 @@ export default {
       this.loadTable(this.searchForm, getAllList)
       getList().then(({data}) => {
         this.catalogList = data.data
-        this.pageTitle = data.data[0].name
         this.isLoadTable = false
       })
     },
     loadPage () {
-      this.searchForm.collectionId = this.catalogId
-      this.loadTable(this.searchForm, getListById)
+      if (this.catalogId == 0) {
+        this.loadTypeList()
+      } else {
+        this.searchForm.collectionId = this.catalogId
+        this.loadTable(this.searchForm, getListById)
+      }
     },
     catalogSelect (id) {
       this.catalogId = id

@@ -9,6 +9,14 @@ export function getTableData (params) {
   })
 }
 
+export function getTableDataOnlyMe (params) {
+  return request({
+    url: `${prefixUrl}/page/personal`,
+    method: 'get',
+    params: params,
+  })
+}
+
 export function createData (obj) {
   return request({
     url: `${prefixUrl}/create`,

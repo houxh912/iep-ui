@@ -37,17 +37,20 @@
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-form-item label="是否投稿：" prop="isContri">
-        <el-switch v-model="formData.isContri" :active-value="dicData.isYes[1].value" :inactive-value="dicData.isYes[0].value"></el-switch>
+        <el-switch v-model="formData.isContri" :active-value="dictsMap.isYes[1].value" :inactive-value="dictsMap.isYes[0].value"></el-switch>
       </el-form-item>
-      <!-- <el-form-item label="标题：" prop="biaoti">
-        <el-input v-model="formData.biaoti"></el-input>
+      <el-form-item label="是否开放：" prop="isOpen">
+        <el-switch v-model="formData.isOpen" :active-value="dictsMap.isOpen[0].value" :inactive-value="dictsMap.isOpen[1].value"></el-switch>
+        <!-- <el-radio-group v-model="formData.isOpen">
+          <el-radio v-for="(item, index) in dictsMap.isOpen" :key="index" :label="index">{{item}}</el-radio>
+        </el-radio-group> -->
       </el-form-item>
-      <el-form-item label="标题图：" prop="biaotitu">
-        <el-input v-model="formData.biaotitu"></el-input>
+      <el-form-item label="是否保密：" prop="secrecyLevel">
+        <el-switch v-model="formData.secrecyLevel" :active-value="dictsMap.secrecyLevel[1].value" :inactive-value="dictsMap.secrecyLevel[0].value"></el-switch>
+        <!-- <el-radio-group v-model="formData.secrecyLevel">
+          <el-radio v-for="(item, index) in dictsMap.secrecyLevel" :key="index" :label="index">{{item}}</el-radio>
+        </el-radio-group> -->
       </el-form-item>
-      <el-form-item label="相关用户：" prop="yonghu">
-        <el-input v-model="formData.yonghu"></el-input>
-      </el-form-item> -->
 
     </el-form>
 
@@ -59,7 +62,7 @@
   </div>
 </template>
 <script>
-import { initLocalForm, rules } from './option'
+import { initLocalForm, rules, dictsMap } from './option'
 
 export default {
   components: {},
@@ -76,14 +79,11 @@ export default {
       formData: initLocalForm(),
       rules: rules,
       secondClass: [],
+      dictsMap,
       dicData: {
         select: [
           { value: '1', label: '选项1' },
           { value: '2', label: '选项2' },
-        ],
-        isYes: [
-          { value: 0, lable: '否' },
-          { value: 1, label: '是' },
         ],
       },
       backOption: {

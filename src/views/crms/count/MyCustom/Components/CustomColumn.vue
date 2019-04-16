@@ -23,6 +23,13 @@
             <v-legend dataKey="item" />
             <v-pie position="percent" color="item" :v-style="pieStyle" :label="labelConfig" />
             <v-coord type="theta" />
+            <v-interval position="item*count" tooltip="actual" :shape="['date*actual', function(date, val) {
+          if (val === 0) {
+            return;
+          } else {
+            return 'borderRadius';
+          }
+        }]" />
           </v-chart>
         </div>
       </el-col>

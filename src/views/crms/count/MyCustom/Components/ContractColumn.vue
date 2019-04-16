@@ -1,98 +1,135 @@
 <template>
   <el-card shadow="hover">
     <el-row class="contract">
-      <el-col class="head" :span=24>合同概况<span class="sub">（本月已签订合同金额共￥260,000）</span>
+      <el-col class="head">合同概况<span class="sub">（本月已签订合同金额共￥260,000）</span>
         <span class="dropdown">
-          <el-select v-model="value" @change="change">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+          <el-select v-model="value" @change="change()">
+            <el-option v-for="item in options" :key="item.label" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </span>
       </el-col>
     </el-row>
-    <div class="echarts">
-      <v-chart :forceFit="true" height="280" :data="data" :scale="scale" :padding="[40,20,40,60]">
-        <v-tooltip />
-        <v-axis />
-        <v-bar position="date*count" color="#D56368" label='count' />
-        <v-interval position="date*count" color="#752136" shape="borderRadius" tooltip="count" :opacity="0.6" />
-        <v-interval position="date*count" tooltip="count" :shape="['date*count', function(date, val) {
-          if (val === 0) {
-            return;
-          } else {
-            return 'borderRadius';
-          }
-        }]" />
-      </v-chart>
+    <div class="echarts over">
+      <div id="contract" :style="{width: '100%', height: '300px'}"></div>
     </div>
   </el-card>
 </template>
 <script>
-const scale = [{
-  dataKey: '数量',
-  tickInterval: 10000,
-  position: 'top',
-  line: {
-    stroke: 'red',
-  },
-}]
-
+// import { getMyDistrict } from '@/api/crms/count'
+let echarts = require('echarts/lib/echarts')
+require('echarts/lib/chart/bar')
+require('echarts/lib/chart/line')
+require('echarts/lib/chart/pie')
+require('echarts/lib/component/tooltip')
+require('echarts/lib/component/title')
+require('echarts/lib/component/grid')
 export default {
   data () {
     return {
-      scale,
-      infoList: {
-        num: 12,
-      },
       value: 1,
-      data: [
-        { date: '01.01', count: 10000 },
-        { date: '01.02', count: 30000 },
-        { date: '01.03', count: 25000 },
-        { date: '01.04', count: 30000 },
-        { date: '01.05', count: 35000 },
-        { date: '01.06', count: 20000 },
-        { date: '01.07', count: 45000 },
-        { date: '01.08', count: 35000 }],
       options: [
         {
-          label: '1月', value: 1,
+          label: '本月', value: 1,
         },
         {
-          label: '2月', value: 2,
+          label: '上月', value: 2,
         },
         {
-          label: '3月', value: 4,
+          label: '本季度', value: 3,
         },
         {
-          label: '5月', value: 5,
+          label: '上季度', value: 4,
         },
         {
-          label: '6月', value: 6,
+          label: '今年', value: 5,
         },
         {
-          label: '7月', value: 7,
-        },
-        {
-          label: '8月', value: 8,
-        },
-        {
-          label: '9月', value: 9,
-        },
-        {
-          label: '10月', value: 10,
-        },
-        {
-          label: '11月', value: 11,
-        },
-        {
-          label: '12月', value: 12,
+          label: '去年', value: 6,
         },
       ],
     }
   },
+  created () {
+    // this.load()
+  },
+  mounted () {
+    this.draw()
+  },
   methods: {
+    draw () {
+      let myChart = echarts.init(document.getElementById('contract'))
+      myChart.setOption({
+        title: {
+          show: false,
+        },
+        color: '#87888B',
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow',        // 默认为直线，可选为：'line' | 'shadow'
+          },
+        },
+        grid: {
+          left: '0',
+          right: '0',
+          bottom: '0',
+          top: '10',
+          borderColor: '#f00',
+          containLabel: true,
+        },
+        xAxis: [
+          {
+            type: 'category',
+            data: ['01.02', '01.03', '01.04', '01.05', '01.06', '01.07', '01.07', '01.07', '01.07', '01.07', '01.07', '01.07', '01.07'],
+            axisTick: {
+              alignWithLabel: true,
+            },
+          },
+        ],
+        yAxis: {
+          type: 'value',
+          axisLine: {
+            show: false,
+            onZero: false,
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            lineStyle: {
+              type: 'dotted',
+            },
+          },
+        },
+        series: [
+          {
+            name: '金额',
+            type: 'bar',
+            barWidth: '15',
+            data: [10000, 32050, 20400, 33424, 39420, 35330, 45620, 45620, 45620, 45620, 45620, 45620, 45620, 45620, 45620, 45620],
+            itemStyle: {
+              color: '#D56368',
+              barBorderRadius: 10,
+            },
+            label: {
+              show: true,
+              position: ['-50%', -20],
+              color: '#000',
+              formatter: function (params) {
+                if (params.value) {
+                  return '￥ ' + params.value.toLocaleString()
+                } else {
+                  return ''
+                }
+              },
+            },
+          },
+        ],
+      })
+    },
     change () {
+
       this.$message.success('功能开发中')
     },
   },
@@ -122,6 +159,10 @@ export default {
   padding: 10px 0;
   margin-top: 20px;
 }
+.over {
+  width: 100%;
+  overflow: x;
+}
 .dropdown {
   float: right;
 }
@@ -129,3 +170,9 @@ export default {
   width: 120px !important;
 }
 </style>
+<style>
+.el-card >>> .el-card__body {
+  overflow: auto;
+}
+</style>
+

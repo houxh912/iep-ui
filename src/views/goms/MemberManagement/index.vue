@@ -137,10 +137,18 @@ export default {
     handleLocking (row) {
       if (row.status === 0) {
         userLock(row.userId).then(() => {
+          this.$message({
+            type: 'success',
+            message: '锁定成功!',
+          })
           this.loadPage()
         })
       } else if (row.status === 2) {
         userUnLock(row.userId).then(() => {
+          this.$message({
+            type: 'success',
+            message: '解锁成功!',
+          })
           this.loadPage()
         })
       }

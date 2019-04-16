@@ -14,7 +14,7 @@
         <i class="el-icon-d-arrow-right"></i>
       </div>
       <div class="right box-item">
-        <ul class="list">
+        <ul class="list" v-if="list[selectIndex]">
           <li v-for="(item, index) in list[selectIndex].childrens" :key="index" @click="()=>{selectItem=item.id}" :class="item.id==selectItem?'select':''">{{item.name}}</li>
         </ul>
       </div>
@@ -44,7 +44,7 @@ export default {
   },
   data () {
     return {
-      selectIndex: -1,
+      selectIndex: 0,
       selectId: -1,
       selectItem: -1,
       dialogShow: false,
@@ -78,7 +78,6 @@ export default {
           targetId: item.targetId ? item.targetId : item.id,
           collectionId: this.selectItem == -1 ? this.selectId : this.selectItem,
         }
-        console.log('type: ', this.type)
         if (this.type === undefined) {
           obj.id = item.id
         }

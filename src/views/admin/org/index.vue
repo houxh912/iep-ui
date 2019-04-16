@@ -8,7 +8,7 @@
           <iep-button @click="handleReviewDialog">批量审核</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
+          <operation-search @search-page="searchPage">
           </operation-search>
         </template>
       </operation-container>

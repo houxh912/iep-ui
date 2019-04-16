@@ -16,6 +16,7 @@ import IepPagination from '@/components/IepCommon/Pagination'
 import IepTabs from '@/components/IepCommon/Tabs'
 import IepTabScroll from '@/components/IepTabScroll/'
 import IepNoData from '@/components/IepCommon/NoData'
+import IepToDev from '@/components/IepToDev/'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
@@ -81,6 +82,7 @@ Vue.component(IepPagination.name, IepPagination)
 Vue.component(IepTabs.name, IepTabs)
 Vue.component(IepTabScroll.name, IepTabScroll)
 Vue.component(IepNoData.name, IepNoData)
+Vue.component(IepToDev.name, IepToDev)
 
 // 表单组件
 Vue.component(IepTag.name, IepTag)

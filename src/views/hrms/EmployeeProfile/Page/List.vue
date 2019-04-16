@@ -106,7 +106,7 @@ export default {
   },
   methods: {
     handleDownload () {
-      const fileds = this.currentColumnsMap.map(m => m.prop)
+      const fileds = this.currentColumnsMap.map(m => m.key)
       postExcelExport(fileds)
     },
     handleTransfer (row) {

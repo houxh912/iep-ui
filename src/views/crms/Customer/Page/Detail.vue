@@ -57,7 +57,7 @@ export default {
         isBack: true,
         backPath: this.$route.query.redirect,
       },
-      count: [12, 42, 123, 12, 12],
+      count: [],
       formData: {},
       tabList: [{
         label: '客户全景',
@@ -84,8 +84,9 @@ export default {
     }
   },
   created () {
-    this.total()
+
     this.loadPage()
+    // this.total()
     this.getRouter()
     if (this.routerBack) {
       this.activeTab = 'Scheme'
@@ -106,6 +107,10 @@ export default {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = data.data
         this.record.collaborations = this.formData.collaborations
+        this.count.push(data.data.contactNumber, data.data.contactRecordNumber, data.data.programNumber, data.data.contractNumber, data.data.informationNumber)
+        for (var i = 1; i < this.tabList.length; i++) {
+          this.tabList[i].label = this.tabList[i].label + '(' + this.count[i - 1] + ')'
+        }
       })
     },
     handleGoBack () {

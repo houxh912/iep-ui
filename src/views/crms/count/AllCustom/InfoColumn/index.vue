@@ -1,29 +1,29 @@
 <template>
   <el-row class="info">
-    <el-col :span=24 class="title">
+    <el-col class="title">
       <h2 class="user">基本情况展示</h2>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>122</span>
+        <span>{{data.client}}</span>
       </div>
       <div class="content">客户</div>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>134</span>
+        <span>{{data.contact}}</span>
       </div>
       <div class="content">联系人</div>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>66</span>
+        <span>{{data.contract}}</span>
       </div>
       <div class="content">合同</div>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>￥350,050,000</span>
+        <span>{{data.contractAmount}}</span>
       </div>
       <div class="content">合同金额</div>
     </el-col>
@@ -37,15 +37,19 @@
 </template>
 
 <script>
+import { getAllClientNum } from '@/api/crms/count'
 export default {
   data () {
     return {
-      infoList: {
-        name: '某某某',
-        num: 12,
-        cent: '30%',
-      },
+      data: {},
     }
+  },
+  created () {
+    getAllClientNum().then((res) => {
+      res.data.data.contractAmount = '￥ ' + parseFloat(res.data.data.contractAmount.toFixed(2)).toLocaleString()
+      this.data = res.data.data
+
+    })
   },
 }
 </script>

@@ -106,6 +106,7 @@ export default {
         },
       },
       backRouter: '/wel/material/summary',
+      pageState: 'summary',
     }
   },
   computed: {
@@ -155,7 +156,7 @@ export default {
           type: 'success',
           duration: 2000,
         })
-        this.goBack()
+        this.goBack(true)
       })
     },
     // 重置表单
@@ -170,9 +171,13 @@ export default {
         this.$set(this.formData, 'type', 0)
       }
     },
-    goBack () {
+    goBack (state) {
       // this.$router.push(this.backRouter)
-      this.$router.go(-1)
+      if (this.pageState == 'summary') {
+        this.$router.go(-1)
+      } else if (this.pageState == 'project') {
+        this.$emit('close', state === true ? true : false)
+      }
     },
     // 项目获取
     selectProject () {
@@ -184,12 +189,18 @@ export default {
       }
       this.formData.projectList = data.map(fn)
     },
+    // 项目关联材料新增入口 -- 为解决路由式新增返回时tab错乱等问题
+    projectOpen (obj) {
+      this.formData = initFormData()
+      this.formData.projectList = [obj]
+      this.pageState = 'project'
+    },
   },
   created () {
     // 首先获取query
     let query = this.$route.params
     // 若存在 id， 即为修改
-    if (query.id) {
+    if (query.id && this.$route.name == '修改纪要') { // 可能是从别的项目进来新增的
       getDataById(query.id).then(({ data }) => {
         data.data.receiverList = {
           orgs: data.data.receiver.orgs ? data.data.receiver.orgs : [],

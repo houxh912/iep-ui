@@ -10,7 +10,8 @@
       <div class="detail">
         <div class="content">
           <h3 class="title">会议内容</h3>
-          <pre>{{formData.meetingContent}}</pre>
+          <!-- <pre>{{formData.meetingContent}}</pre> -->
+          <iep-html v-model="formData.meetingContent"></iep-html>
         </div>
         <div class="content">
           <h3 class="title">会议总结</h3>
@@ -85,6 +86,7 @@ export default {
   data () {
     return {
       formData: {
+        meetingContent: '',
         list: [
           { id: 1, name: '项目管理' },
           { id: 2, name: '营商环境' },

@@ -14,7 +14,7 @@ const initForm = () => {
     id: 0,  // 通知公告id
     name: '',  // 通知公告Title
     time: '', // 通知公告时间
-    pathType: '1', // 通知公告字典类型
+    pathType: '3', // 通知公告字典类型
     pathId: '', // 通知公告路径ID
     receiverName: '', // 接收人
     content: '', // 发布内容

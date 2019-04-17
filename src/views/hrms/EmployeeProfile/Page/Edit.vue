@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <basic-container>
       <page-header title="员工信息管理"></page-header>
-      <el-form ref="form" class="form-detail" :model="form" label-width="140px" size="small">
+      <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="140px" size="small">
         <el-collapse v-model="activeNames">
           <el-collapse-item name="1">
             <template slot="title">
@@ -19,7 +19,7 @@
               <el-form-item label="所属组织：" class="form-half">
                 <span>舟山国脉海洋有限公司</span>
               </el-form-item>
-              <el-form-item label="工号：" class="form-half">
+              <el-form-item label="工号：" prop="staffId" class="form-half">
                 <el-input v-model="form.staffId"></el-input>
               </el-form-item>
               <el-form-item label="头像：" class="">
@@ -218,11 +218,9 @@
 </template>
 <script>
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
-import { initForm, formToDto, dictsMap } from '@/views/hrms/EmployeeProfile/options'
+import { initForm, formToDto, dictsMap, rules } from '@/views/hrms/EmployeeProfile/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 import { workExpColumns, studyColumns, trainingColumns, certificateColumns, laborContractColumns, welfareColumns, transferColumns, dimissionColumns } from '@/views/hrms/Components/options'
-//import { laborColumns, socialColumns, transferColumns, quitColumns  } from '../options'
-//import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 export default {
   components: { InlineFormTable },
   props: {
@@ -239,6 +237,7 @@ export default {
         backPath: null,
         backFunction: this.handleGoBack,
       },
+      rules,
       dictsMap,
       form: initForm(),
       formRequestFn: this.record.formRequestFn,
@@ -257,18 +256,24 @@ export default {
   },
   methods: {
     handleSubmit () {
-      this.formRequestFn(formToDto(this.form)).then(({ data }) => {
-        if (data.data) {
-          this.$message({
-            message: '修改成功',
-            type: 'success',
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.formRequestFn(formToDto(this.form)).then(({ data }) => {
+            if (data.data) {
+              this.$message({
+                message: '修改成功',
+                type: 'success',
+              })
+              this.handleGoBack()
+            } else {
+              this.$message({
+                message: data.msg,
+                type: 'error',
+              })
+            }
           })
-          this.handleGoBack()
         } else {
-          this.$message({
-            message: data.msg,
-            type: 'error',
-          })
+          return false
         }
       })
     },

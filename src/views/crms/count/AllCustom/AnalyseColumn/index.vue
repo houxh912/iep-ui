@@ -10,29 +10,13 @@
       <el-row>
         <div class="echarts">
           <el-row>
-            <el-col :span=10>
-              <div class="echarts odd">
-                <v-chart :forceFit="true" height="300" :data="data" :scale="scale" :padding="[40,20,40,60]">
-                  <v-tooltip :showTitle="false" dataKey="item*percent" />
-                  <v-axis />
-                  <v-legend dataKey="item" />
-                  <v-pie position="percent" color="item" :v-style="pieStyle" :label="labelConfig" />
-                  <v-coord type="theta" />
-                </v-chart>
-              </div>
+            <el-col :span="10">
+              <district></district>
             </el-col>
-            <el-col :span=9>
-              <div class="echarts">
-                <v-chart :forceFit="true" height="300" :data="data1" :scale="scale1" :padding="[40,20,40,60]">
-                  <v-tooltip :showTitle="false" dataKey="item*percent" />
-                  <v-axis />
-                  <v-legend dataKey="item" />
-                  <v-pie position="percent" color="item" :v-style="pieStyle" :label="labelConfig" />
-                  <v-coord type="theta" />
-                </v-chart>
-              </div>
+            <el-col :span="9">
+              <business></business>
             </el-col>
-            <el-col :span=5>
+            <el-col :span="5">
               <div class="echarts lines">
                 <div class="line"></div>
                 <div class="percent">
@@ -53,28 +37,14 @@
 </template>
 
 <script>
-import { data, scale } from './chart1'
-import { data1, scale1 } from './chart2'
+import Business from './Business'
+import District from './District'
 import AdvanceSearch from './AdvanceSearch'
 export default {
-  components: { AdvanceSearch },
+  components: { Business, District, AdvanceSearch },
   data () {
     return {
-      data,
-      scale,
-      data1,
-      scale1,
-      height: 400,
-      pieStyle: {
-        stroke: '#fff',
-        lineWidth: 1,
-      },
       percent: 70,
-      labelConfig: ['percent', {
-        formatter: (val, item) => {
-          return item.point.item + ': ' + val
-        },
-      }],
     }
   },
   methods: {

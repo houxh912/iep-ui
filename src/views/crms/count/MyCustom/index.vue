@@ -4,11 +4,11 @@
       <info-column></info-column>
     </el-row>
     <el-row class="info-middle">
-      <el-col :span='12'>
+      <el-col :span="12">
         <survey-column></survey-column>
         <remind-column></remind-column>
       </el-col>
-      <el-col :span='12'>
+      <el-col :span="12">
         <contract-colmun></contract-colmun>
       </el-col>
     </el-row>

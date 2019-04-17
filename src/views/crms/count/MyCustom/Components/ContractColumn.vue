@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="hover">
     <el-row class="contract">
-      <el-col class="head">合同概况<span class="sub">（本月已签订合同金额共￥260,000）</span>
+      <el-col class="head">合同概况<span class="sub">（本月已签订合同金额共￥{{getData.totalMoney}}）</span>
         <span class="dropdown">
           <el-select v-model="value" @change="change()">
             <el-option v-for="item in options" :key="item.label" :label="item.label" :value="item.value">
@@ -11,12 +11,13 @@
       </el-col>
     </el-row>
     <div class="echarts over">
-      <div id="contract" :style="{width: '100%', height: '300px'}"></div>
+      <div id="contract" :style="{width: width, height: '320px'}"></div>
     </div>
   </el-card>
 </template>
 <script>
-// import { getMyDistrict } from '@/api/crms/count'
+import { getMySituation } from '@/api/crms/count'
+import _ from 'lodash'
 let echarts = require('echarts/lib/echarts')
 require('echarts/lib/chart/bar')
 require('echarts/lib/chart/line')
@@ -48,15 +49,45 @@ export default {
           label: '去年', value: 6,
         },
       ],
+      interval: '1',
+      width: '100%',
+      getData: {
+        totalMoney: '',
+        xList: [],
+        mainList: [],
+      },
     }
   },
   created () {
-    // this.load()
+    this.load()
+
   },
   mounted () {
     this.draw()
   },
   methods: {
+    load () {
+      getMySituation({ interval: this.interval }).then((res) => {
+        this.getData.totalMoney = res.data.data.contractAmount.toLocaleString()
+        this.getData.xList = _.map(res.data.data.contractSituations, 'timeInterval')
+        this.getData.mainList = _.map(res.data.data.contractSituations, 'contractAmount')
+        if (this.interval == 1 || this.interval == 2) {
+          for (var item in this.getData.xList) {
+            this.getData.xList[item] = this.getData.xList[item].substr(5, 2) + '.' + this.getData.xList[item].substr(7, 2)
+          }
+        } else {
+          for (var index in this.getData.xList) {
+            this.getData.xList[index] = this.getData.xList[index].substr(6, 1) + ' 月'
+          }
+        }
+        if (12 < this.getData.mainList.length < 20) {
+          this.width = '600px'
+        } else if (20 <= this.getData.mainList.length) {
+          this.width = '900px'
+        }
+        this.draw()
+      })
+    },
     draw () {
       let myChart = echarts.init(document.getElementById('contract'))
       myChart.setOption({
@@ -73,17 +104,19 @@ export default {
         grid: {
           left: '0',
           right: '0',
-          bottom: '0',
-          top: '10',
-          borderColor: '#f00',
+          bottom: '50',
+          top: '40',
           containLabel: true,
         },
         xAxis: [
           {
             type: 'category',
-            data: ['01.02', '01.03', '01.04', '01.05', '01.06', '01.07', '01.07', '01.07', '01.07', '01.07', '01.07', '01.07', '01.07'],
+            data: this.getData.xList,
             axisTick: {
               alignWithLabel: true,
+            },
+            splitArea: {
+              interval: 10,
             },
           },
         ],
@@ -107,14 +140,14 @@ export default {
             name: '金额',
             type: 'bar',
             barWidth: '15',
-            data: [10000, 32050, 20400, 33424, 39420, 35330, 45620, 45620, 45620, 45620, 45620, 45620, 45620, 45620, 45620, 45620],
+            data: this.getData.mainList,
             itemStyle: {
               color: '#D56368',
               barBorderRadius: 10,
             },
             label: {
               show: true,
-              position: ['-50%', -20],
+              position: [-20, -20],
               color: '#000',
               formatter: function (params) {
                 if (params.value) {
@@ -129,9 +162,10 @@ export default {
       })
     },
     change () {
-
-      this.$message.success('功能开发中')
+      this.interval = this.value
+      this.load()
     },
+
   },
 }
 </script>
@@ -154,25 +188,32 @@ export default {
   }
 }
 .echarts {
-  height: 300px;
-  width: 100%;
-  padding: 10px 0;
-  margin-top: 20px;
+  height: 320px;
+  padding-top: 20px;
 }
 .over {
   width: 100%;
-  overflow: x;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.over::-webkit-scrollbar {
+  height: 10px;
+}
+.over::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #e5e5e5;
+}
+.over::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: transparent;
 }
 .dropdown {
   float: right;
 }
 .el-select {
   width: 120px !important;
-}
-</style>
-<style>
-.el-card >>> .el-card__body {
-  overflow: auto;
 }
 </style>
 

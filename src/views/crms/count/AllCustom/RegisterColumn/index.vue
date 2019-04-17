@@ -3,7 +3,8 @@
     <div slot="header" class="clearfix">
       <span class="title">客户登记</span>
       <span> (客户数量：121，联系人数量：134，拜访次数：200) </span>
-      <operation-search @search="searchPage" advance-search class="search">
+      <operation-search @search-page="searchPage" advance-search class="search">
+        <advance-search @search-page="searchPage"></advance-search>
       </operation-search>
     </div>
     <div>
@@ -52,8 +53,9 @@ import Manager from './Components/Manager'
 import Count from './Components/Count'
 import AreaType from './Components/AreaType'
 import Increase from './Components/Increase'
+import AdvanceSearch from './AdvanceSearch'
 export default {
-  components: { Manager, Count, AreaType, Increase },
+  components: { Manager, Count, AreaType, Increase, AdvanceSearch },
   data () {
     return {
     }

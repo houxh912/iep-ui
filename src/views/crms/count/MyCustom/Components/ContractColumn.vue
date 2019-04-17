@@ -24,7 +24,6 @@ require('echarts/lib/chart/line')
 require('echarts/lib/chart/pie')
 require('echarts/lib/component/tooltip')
 require('echarts/lib/component/title')
-require('echarts/lib/component/grid')
 export default {
   data () {
     return {
@@ -112,7 +111,7 @@ export default {
           left: '0',
           right: '0',
           bottom: '50',
-          top: '40',
+          top: '80',
           containLabel: true,
         },
         xAxis: [

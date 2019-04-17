@@ -63,3 +63,19 @@ export function getAllClientNum (params) {
     params: params,
   })
 }
+//全部客户联系人数量
+export function getAllRejister (params) {
+  return request({
+    url: '/crm/statistical/all/clientContact',
+    method: 'get',
+    params: params,
+  })
+}
+//全部客户市场经理
+export function getAllManager (params) {
+  return request({
+    url: '/crm/statistical/all/marketManager',
+    method: 'get',
+    params: params,
+  })
+}

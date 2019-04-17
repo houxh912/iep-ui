@@ -1,9 +1,13 @@
 <template>
-  <div id="Manager">
+  <div class="warp">
+    <div id="Manager" :style="{width:'100%',height:'280px'}">
+    </div>
   </div>
+
 </template>
 
 <script>
+import { getAllManager } from '@/api/crms/count'
 let echarts = require('echarts/lib/echarts')
 require('echarts/lib/chart/bar')
 require('echarts/lib/component/tooltip')
@@ -14,11 +18,20 @@ export default {
     return {
     }
   },
+  created () {
+    this.load()
+  },
   mounted () {
-    this.drawLine()
+    this.draw()
   },
   methods: {
-    drawLine () {
+    load () {
+      getAllManager().then((res) => {
+        console.log(res)
+        this.draw()
+      })
+    },
+    draw () {
       // 基于准备好的dom，初始化echarts实例
       let myChart = echarts.init(document.getElementById('Manager'))
       // 绘制图表
@@ -34,10 +47,10 @@ export default {
           bottom: 0,
         },
         grid: {
-          left: '1%',
-          right: '2%',
-          bottom: '10%',
-          top: '2%',
+          left: '20px',
+          right: '40px',
+          bottom: '20px',
+          top: '20px',
           containLabel: true,
         },
         xAxis: {
@@ -77,8 +90,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#Manager {
-  width: "auto";
-  height: 290px;
+.warp {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.warp::-webkit-scrollbar {
+  height: 6px;
+}
+.warp::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #e5e5e5;
+}
+.warp::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: transparent;
 }
 </style>

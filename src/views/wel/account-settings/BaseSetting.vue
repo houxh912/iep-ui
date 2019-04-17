@@ -2,14 +2,14 @@
   <div class="account-settings-info-view">
     <a-row :gutter="16">
       <a-col :md="24" :lg="20">
-        <el-form ref="form" class="form-detail" :model="form" label-width="100px" size="small">
+        <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="150px" size="small">
           <el-form-item label="姓名：" class="form-half">
             <span>{{form.name}}</span>
           </el-form-item>
           <el-form-item label="用户名：" class="form-half">
             <span>{{form.userName}}</span>
           </el-form-item>
-          <el-form-item label="头像：" class="">
+          <el-form-item label="头像：" prop="avatar">
             <iep-avatar v-model="form.avatar"></iep-avatar>
           </el-form-item>
           <el-form-item label="所属组织：">
@@ -52,101 +52,98 @@
           <el-form-item label="出生年月：" class="form-half">
             <span>{{form.birthday | parseTime('{y}-{m}-{d}')}}</span>
           </el-form-item>
-          <el-form-item label="性别：" class="form-half">
+          <el-form-item label="性别：" prop="sex" class="form-half">
             <el-radio-group v-model="form.sex">
               <el-radio :label="1">男</el-radio>
               <el-radio :label="2">女</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="民族：" class="form-half">
+          <el-form-item label="民族：" prop="nationality" class="form-half">
             <el-input v-model="form.nationality"></el-input>
           </el-form-item>
-          <el-form-item label="政治面貌：" class="form-half">
+          <el-form-item label="政治面貌：" prop="politics" class="form-half">
             <iep-dict-select v-model="form.politics" dict-name="hrms_politics_face"></iep-dict-select>
           </el-form-item>
-          <el-form-item label="婚姻状况：" class="form-half">
+          <el-form-item label="婚姻状况：" prop="marriage" class="form-half">
             <iep-dict-select v-model="form.marriage" dict-name="hrms_marriage_status"></iep-dict-select>
           </el-form-item>
-          <el-form-item label="生育状况：" class="form-half">
+          <el-form-item label="生育状况：" prop="bear" class="form-half">
             <iep-dict-select v-model="form.bear" dict-name="hrms_birth_status"></iep-dict-select>
           </el-form-item>
-          <el-form-item label="外语水平：" class="form-half">
-            <el-select v-model="form.language">
-              <el-option label="良好" value="良好"></el-option>
-              <el-option label="一般" value="一般"></el-option>
-            </el-select>
+          <el-form-item label="外语水平：" prop="language" class="form-half">
+            <el-input v-model="form.language"></el-input>
           </el-form-item>
-          <el-form-item label="最高学历：" class="form-half">
+          <el-form-item label="最高学历：" prop="education" class="form-half">
             <iep-dict-select v-model="form.education" dict-name="hrms_highest_educational"></iep-dict-select>
           </el-form-item>
-          <el-form-item label="毕业学校：" class="form-half">
+          <el-form-item label="毕业学校：" prop="university" class="form-half">
             <el-input v-model="form.university"></el-input>
           </el-form-item>
-          <el-form-item label="专业：" class="form-half">
+          <el-form-item label="专业：" prop="profession" class="form-half">
             <el-input v-model="form.profession"></el-input>
           </el-form-item>
-          <el-form-item label="毕业时间：" class="form-half">
+          <el-form-item label="毕业时间：" prop="graduationTime" class="form-half">
             <iep-date-picker v-model="form.graduationTime" type="date" placeholder="选择日期"></iep-date-picker>
           </el-form-item>
-          <el-form-item label="推荐人：" class="form-half">
+          <el-form-item label="推荐人：" prop="referrer" class="form-half">
             <el-input v-model="form.referrer"></el-input>
           </el-form-item>
-          <el-form-item label="外部头衔：" class="form-half">
+          <el-form-item label="外部头衔：" prop="externalTitle" class="form-half">
             <el-input v-model="form.externalTitle"></el-input>
           </el-form-item>
-          <el-form-item label="户口类型：" class="form-half">
+          <el-form-item label="户口类型：" prop="accountTypeId" class="form-half">
             <iep-dict-select v-model="form.accountTypeId" dict-name="hrms_resident_type"></iep-dict-select>
           </el-form-item>
-          <el-form-item label="户籍地址：">
+          <el-form-item label="户籍地址：" prop="residenceCities">
             <div style="display:flex;">
               <iep-cascader style="flex:1;" v-model="form.residenceCities" prefix-url="admin/city"></iep-cascader>
               <el-input style="flex:3;" v-model="form.residenceAddress"></el-input>
             </div>
           </el-form-item>
-          <el-form-item label="现住地址：">
+          <el-form-item label="现住地址：" prop="currentCities">
             <div style="display:flex;">
               <iep-cascader style="flex:1;" v-model="form.currentCities" prefix-url="admin/city"></iep-cascader>
               <el-input style="flex:3;" v-model="form.currentAddress"></el-input>
             </div>
           </el-form-item>
-          <el-form-item label="身份证号码：" class="form-half">
+          <el-form-item label="身份证号码：" prop="IDCard" class="form-half">
             <el-input v-model="form.IDCard"></el-input>
           </el-form-item>
-          <el-form-item label="联系电话：" class="form-half">
+          <el-form-item label="联系电话：" prop="phone" class="form-half">
             <el-input v-model="form.phone"></el-input>
           </el-form-item>
-          <el-form-item label="微信：" class="form-half">
+          <el-form-item label="微信：" prop="wechat" class="form-half">
             <el-input v-model="form.wechat"></el-input>
           </el-form-item>
-          <el-form-item label="QQ：" class="form-half">
+          <el-form-item label="QQ：" prop="qq" class="form-half">
             <el-input v-model="form.qq"></el-input>
           </el-form-item>
-          <el-form-item label="邮箱：" class="form-half">
+          <el-form-item label="邮箱：" prop="email" class="form-half">
             <el-input v-model="form.email"></el-input>
           </el-form-item>
-          <el-form-item label="个人主页：" class="form-half">
+          <el-form-item label="个人主页：" prop="home" class="form-half">
             <el-input v-model="form.home"></el-input>
           </el-form-item>
-          <el-form-item label="应急联系人：" class="form-half">
+          <el-form-item label="应急联系人：" prop="emergencyName" class="form-half">
             <el-input v-model="form.emergencyName"></el-input>
           </el-form-item>
-          <el-form-item label="应急联系人电话：" class="form-half">
+          <el-form-item label="应急联系人电话：" prop="emergencyPhone" class="form-half">
             <el-input v-model="form.emergencyPhone"></el-input>
           </el-form-item>
           <!-- <el-form-item label="添加师父：">
                 <iep-tag v-model="form.people"></iep-tag>
               </el-form-item> -->
-          <el-form-item label="卓越标签：">
+          <el-form-item label="卓越标签：" prop="abilityTag">
             <iep-tag v-model="form.abilityTag"></iep-tag>
           </el-form-item>
-          <el-form-item label="专业标签：">
+          <el-form-item label="专业标签：" prop="projectTag">
             <iep-tag v-model="form.projectTag"></iep-tag>
           </el-form-item>
-          <el-form-item label="进步标签：">
+          <el-form-item label="进步标签：" prop="learningTag">
             <iep-tag v-model="form.learningTag"></iep-tag>
           </el-form-item>
 
-          <el-form-item label="职业规划：">
+          <el-form-item label="职业规划：" prop="careerPlanning">
             <el-input type="textarea" v-model="form.careerPlanning"></el-input>
           </el-form-item>
 
@@ -178,7 +175,7 @@
 
 <script>
 import { getEmployeeProfileSelf, putEmployeeProfile } from '@/api/hrms/employee_profile'
-import { initForm, dictsMap } from '@/views/hrms/EmployeeProfile/options'
+import { initForm, dictsMap, rules } from '@/views/hrms/EmployeeProfile/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
 export default {
@@ -190,6 +187,7 @@ export default {
       trainingColumns,
       certificateColumns,
       dictsMap,
+      rules,
       preview: {},
       form: initForm(),
     }
@@ -199,18 +197,24 @@ export default {
   },
   methods: {
     handleSubmit () {
-      putEmployeeProfile(this.form).then(({ data }) => {
-        if (data.data) {
-          this.$message({
-            message: '修改成功',
-            type: 'success',
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          putEmployeeProfile(this.form).then(({ data }) => {
+            if (data.data) {
+              this.$message({
+                message: '修改成功',
+                type: 'success',
+              })
+              this.loadPage()
+            } else {
+              this.$message({
+                message: data.msg,
+                type: 'error',
+              })
+            }
           })
-          this.loadPage()
         } else {
-          this.$message({
-            message: data.msg,
-            type: 'error',
-          })
+          return false
         }
       })
     },

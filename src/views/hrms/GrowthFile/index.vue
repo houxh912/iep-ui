@@ -4,10 +4,12 @@
       <page-header title="员工成长档案" :backOption="backOption"></page-header>
       <el-card class="staff-headers" shadow="hover">
         <div class="left">
-          <span class="img-header zoom"><img :src="avatar" alt="" /></span>
+          <span class="img-header zoom">
+            <iep-img :src="form.avatar" alt=""></iep-img>
+          </span>
           <div class="name-info">
-            <span class="name">{{growthFileDetail.name}}<a class="state" href="#">（{{simpleEmployeeStatus[growthFileDetail.status]}}）</a></span>
-            <span class="num">{{growthFileDetail.staffNo}}</span>
+            <span class="name">{{form.name}}<a class="state" href="#">（{{simpleEmployeeStatus[form.status]}}）</a></span>
+            <span class="num">{{form.staffNo}}</span>
           </div>
         </div>
         <div class="right">
@@ -15,9 +17,9 @@
             <span>部门：国脉集团、国脉先锋队</span>
           </div>
           <div class="list">
-            <span>岗位：{{growthFileDetail.position}}</span>
-            <span>职务：{{growthFileDetail.job}}</span>
-            <span>职称：{{growthFileDetail.title}}</span>
+            <span>岗位：{{form.position}}</span>
+            <span>职务：{{form.job}}</span>
+            <span>职称：{{form.title}}</span>
           </div>
           <div class="label-item">
             <span>标签：</span>
@@ -25,7 +27,8 @@
           </div>
         </div>
       </el-card>
-      <el-checkbox-group class="check-group" v-model="checkList">
+      <iep-no-data v-if="!timeLineList.length" message="暂无成长时间线数据"></iep-no-data>
+      <el-checkbox-group v-if="timeLineList.length" class="check-group" v-model="checkList">
         <el-checkbox v-for="(item) in recordType" :label="item.value" :key="item.value">{{item.label}}</el-checkbox>
       </el-checkbox-group>
       <div class="block">
@@ -42,7 +45,7 @@
   </div>
 </template>
 <script>
-import { simpleEmployeeStatus, recordType } from './options'
+import { simpleEmployeeStatus, recordType, initForm } from './options'
 import { getGrowthFile } from '@/api/hrms/employee_profile'
 const avatar = require('./timg.jpg')
 export default {
@@ -51,16 +54,7 @@ export default {
       avatar,
       recordType,
       simpleEmployeeStatus,
-      growthFileDetail: {
-        userId: 1,
-        employeeStatus: 1,
-        name: '',
-        job: '',
-        position: '',
-        title: '',
-        staffNo: '',
-        iepUserRecords: [],
-      },
+      form: initForm(),
       checkList: [1, 2, 3, 4, 5],
       labellist: [
         {
@@ -104,7 +98,7 @@ export default {
   },
   computed: {
     timeLineList () {
-      return this.growthFileDetail.timeLineList.filter(m => this.checkList.includes(m.type))
+      return this.form.timeLineList.filter(m => this.checkList.includes(m.type))
     },
   },
   created () {
@@ -113,7 +107,7 @@ export default {
   methods: {
     loadPage () {
       getGrowthFile(this.$route.params.id).then(({ data }) => {
-        this.growthFileDetail = data.data
+        this.form = data.data
       })
     },
   },

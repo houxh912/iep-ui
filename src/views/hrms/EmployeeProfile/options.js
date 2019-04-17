@@ -423,23 +423,6 @@ const initPositiveForm = () => {
 }
 
 const rules = {
-  name: [
-    { required: true, message: '请输入活动名称', trigger: 'blur' },
-    { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' },
-  ],
-  region: [
-    { required: true, message: '请选择活动区域', trigger: 'change' },
-  ],
-  date: [
-    { type: 'date', required: true, message: '请选择日期', trigger: 'change' },
-  ],
-
-  desc: [
-    { required: true, message: '请填写活动形式', trigger: 'blur' },
-  ],
-  type: [
-    { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' },
-  ],
   staffId: [
     { required: true, message: '请填写员工编号', trigger: 'blur' },
   ],
@@ -507,16 +490,22 @@ const rules = {
     { required: true, message: '请填写推荐人', trigger: 'blur' },
   ],
   externalTitle: [
-    { required: true, message: '请填写外部头衔', trigger: 'blur' },
+    { min: 2, message: '外部头衔至少 2 个字符以上', trigger: 'blur' },
+    { max: 20, message: '外部头衔不得超过 20 个字符', trigger: 'blur' },
   ],
   abilityTag: [
-    { required: true, message: '请填写卓越标签', trigger: 'blur' },
+    { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
   ],
   projectTag: [
-    { required: true, message: '请填写专业标签', trigger: 'blur' },
+    { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
+    { type: 'array', required: true, message: '请填写专业标签', trigger: 'change' },
   ],
   learningTag: [
-    { required: true, message: '请填写进步标签', trigger: 'blur' },
+    { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
+    { type: 'array', required: true, message: '请填写进步标签', trigger: 'change' },
+  ],
+  careerPlanning: [
+    { max: 2000, message: '字符不得超过 2000 个', trigger: 'change' },
   ],
   accountTypeId: [
     { required: true, message: '请填写户口类型', trigger: 'blur' },
@@ -543,7 +532,7 @@ const rules = {
     { required: true, message: '请填写邮箱', trigger: 'blur' },
   ],
   home: [
-    { required: true, message: '请填写个人主页', trigger: 'blur' },
+    { max: 2000, message: '字符不得超过 2000 个', trigger: 'change' },
   ],
   emergencyName: [
     { required: true, message: '请填写应急联系人', trigger: 'blur' },

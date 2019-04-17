@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <basic-container>
       <page-header title="员工信息管理"></page-header>
-      <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="140px" size="small">
+      <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="150px" size="small">
         <el-collapse v-model="activeNames">
           <el-collapse-item name="1">
             <template slot="title">
@@ -34,7 +34,7 @@
               <el-form-item label="岗位：" prop="position" class="form-half">
                 <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
               </el-form-item>
-              <el-form-item label="外部头衔："  prop="title" class="form-half">
+              <el-form-item label="外部头衔：" prop="title" class="form-half">
                 <el-input v-model="form.title"></el-input>
               </el-form-item>
               <el-form-item label="职务：" prop="jobId" class="form-half">
@@ -80,10 +80,7 @@
                 <iep-dict-select v-model="form.bear" dict-name="hrms_birth_status"></iep-dict-select>
               </el-form-item>
               <el-form-item label="外语水平：" prop="language" class="form-half">
-                <el-select v-model="form.language">
-                  <el-option label="良好" value="良好"></el-option>
-                  <el-option label="一般" value="一般"></el-option>
-                </el-select>
+                <el-input v-model="form.language"></el-input>
               </el-form-item>
               <el-form-item label="最高学历：" prop="education" class="form-half">
                 <iep-dict-select v-model="form.education" dict-name="hrms_highest_educational"></iep-dict-select>
@@ -94,13 +91,13 @@
               <el-form-item label="专业：" prop="profession" class="form-half">
                 <el-input v-model="form.profession"></el-input>
               </el-form-item>
-              <el-form-item label="毕业时间："  prop="graduationTime" class="form-half">
+              <el-form-item label="毕业时间：" prop="graduationTime" class="form-half">
                 <IepDatePicker v-model="form.graduationTime" type="date" placeholder="选择日期"></IepDatePicker>
               </el-form-item>
               <el-form-item label="推荐人：" prop="referrer" class="form-half">
                 <el-input v-model="form.referrer"></el-input>
               </el-form-item>
-              <el-form-item label="外部头衔：" prop="externalTitle"  class="form-half">
+              <el-form-item label="外部头衔：" prop="externalTitle" class="form-half">
                 <el-input v-model="form.externalTitle"></el-input>
               </el-form-item>
 
@@ -122,8 +119,8 @@
                 </el-input>
               </el-form-item> -->
 
-              <el-form-item label="职业规划：">
-                <el-input type="textarea" v-model="form.careerPlanning"></el-input>
+              <el-form-item label="职业规划：" prop="careerPlanning">
+                <iep-input-area v-model="form.careerPlanning"></iep-input-area>
               </el-form-item>
 
               <el-form-item label="工作经历：">

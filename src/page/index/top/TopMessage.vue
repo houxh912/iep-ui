@@ -86,10 +86,7 @@ export default {
   methods: {
     handleEmailDetail (row) {
       this.$router.push({
-        path: '/mlms_spa/email/detail',
-        query: {
-          id: row.id,
-        },
+        path: `/mlms_spa/email/detail/${row.id}`,
       })
       this.visible = false
     },

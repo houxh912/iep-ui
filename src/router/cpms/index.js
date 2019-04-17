@@ -8,17 +8,17 @@ export default [
       {
         path: 'product_detail/:id',
         name: '产品详情',
-        component: () => import('@/views/cpms/series/Page/Detail.vue'),
+        component: () => import('@/views/cpms/products/Page/Detail.vue'),
       },
       {
         path: 'module_detail/:id',
         name: '模块详情',
-        component: () => import('@/views/cpms/module_list/Page/Detail.vue'),
+        component: () => import('@/views/cpms/modules/Page/Detail.vue'),
       },
       {
         path: 'technology_detail/:id',
         name: '技术详情',
-        component: () => import('@/views/cpms/tech_app/Page/Detail.vue'),
+        component: () => import('@/views/cpms/technologys/Page/Detail.vue'),
       },
     ],
   },

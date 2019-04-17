@@ -45,7 +45,7 @@ export default {
   methods: {
     handleDetail (row) {
       this.$router.push({
-        path: `/crms_spa/customer_detail/${row.clientId}`,
+        path: `/crms_spa/customer_detail/${row.id}`,
       })
     },
   },

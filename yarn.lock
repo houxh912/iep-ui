@@ -5965,12 +5965,7 @@ joi@^14.3.0:
     isemail "3.x.x"
     topo "3.x.x"
 
-jquery@>=1.11.0:
-  version "3.4.0"
-  resolved "http://registry.npm.taobao.org/jquery/download/jquery-3.4.0.tgz#8de513fa0fa4b2c7d2e48a530e26f0596936efdf"
-  integrity sha1-jeUT+g+kssfS5IpTDibwWWk2798=
-
-jquery@^3.4.0:
+jquery@>=1.11.0, jquery@^3.4.0:
   version "3.4.0"
   resolved "http://registry.npm.taobao.org/jquery/download/jquery-3.4.0.tgz?cache=0&other_urls=http%3A%2F%2Fregistry.npm.taobao.org%2Fjquery%2Fdownload%2Fjquery-3.4.0.tgz#8de513fa0fa4b2c7d2e48a530e26f0596936efdf"
   integrity sha1-jeUT+g+kssfS5IpTDibwWWk2798=
@@ -10194,9 +10189,9 @@ vue-ref@^1.0.4:
   integrity sha1-ubPX0OKQ7i/T1Q1de9rFIIBssmU=
 
 vue-router@^3.0.1:
-  version "3.0.5"
-  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-3.0.5.tgz#24636923c7f1a62da3a577cf75a058f9fa328581"
-  integrity sha1-JGNpI8fxpi2jpXfPdaBY+foyhYE=
+  version "3.0.6"
+  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-3.0.6.tgz#2e4f0f9cbb0b96d0205ab2690cfe588935136ac3"
+  integrity sha1-Lk8PnLsLltAgWrJpDP5YiTUTasM=
 
 vue-style-loader@^4.1.0:
   version "4.1.2"

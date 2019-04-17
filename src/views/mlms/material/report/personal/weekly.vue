@@ -2,7 +2,7 @@
   <div class="weekly">
     <div class="update-page" v-if="pageState">
       <div class="head">
-        <div class="title" v-text="`第${formatDig(formData.index)}周个人工作周报`"><span class="date">（02-25 ~ 03-02）</span></div>
+        <div class="title" v-show="formData.index">{{`第${formatDig(formData.index)}周个人工作周报`}}<span class="date">（{{`${formData.startTime} ~ ${formData.endTime}`}}）</span></div>
         <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href" @click="changePage">参考本周日报</a></div>
         <div class="tips update" v-else @click="handleUpdate"><i class="el-icon-edit"></i></div>
       </div>
@@ -10,19 +10,19 @@
         <el-form ref="form" v-if="dislogState!=='detail'" :rules="rules" :model="formData">
           <div class="title">领导指示</div>
           <el-form-item>
-            <el-input type="textarea" v-model="formData.leaderIndication" rows=5 placeholder="此处填写领导指示"></el-input>
+            <el-input type="textarea" v-model="formData.leaderIndication" rows=5 placeholder="此处填写领导指示" maxlength="500"></el-input>
           </el-form-item>
           <div class="title">本周工作总结</div>
           <el-form-item prop="workSummary">
-            <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本周工作总结"></el-input>
+            <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本周工作总结" maxlength="1000"></el-input>
           </el-form-item>
           <div class="title">下周工作计划</div>
           <el-form-item prop="workPlan">
-            <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下周工作计划"></el-input>
+            <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下周工作计划" maxlength="1000"></el-input>
           </el-form-item>
           <div class="title">总结与感悟</div>
           <el-form-item>
-            <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟"></el-input>
+            <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟" maxlength="1000"></el-input>
           </el-form-item>
           <el-form-item>
             <iep-button @click="submit" type="primary">保存</iep-button>
@@ -168,6 +168,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+[v-cloak] {
+  display: none;
+}
 .weekly {
   .update-page {
     .head {

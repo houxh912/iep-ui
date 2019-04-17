@@ -38,10 +38,9 @@ import { initForm } from './options'
 export default {
   data () {
     return {
-      id: this.$route.query.id,
+      id: this.$route.params.id,
       backOption: {
         isBack: true,
-        backPath: this.$route.query.redirect,
       },
       pageLoading: true,
       form: initForm(),

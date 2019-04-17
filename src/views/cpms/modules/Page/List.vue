@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="技术应用"></page-header>
+      <page-header title="模块清单"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -26,6 +26,11 @@
             <iep-detail-tag :value="scope.row.chargeNames"></iep-detail-tag>
           </template>
         </el-table-column>
+        <el-table-column label="研发进度">
+          <template slot-scope="scope">
+            {{dictsMap.schedule[scope.row.schedule]}}
+          </template>
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -40,14 +45,16 @@
 </template>
 
 <script>
-import { getTechnologyPage, postTechnology, putTechnology, deleteTechnologyById } from '@/api/cpms/technology'
-import AdvanceSearch from './AdvanceSearch'
+import { getModulePage, postModule, putModule, deleteModuleById } from '@/api/cpms/module'
 import mixins from '@/mixins/mixins'
+import AdvanceSearch from './AdvanceSearch'
+import { dictsMap } from '../options'
 export default {
   mixins: [mixins],
   components: { AdvanceSearch },
   data () {
     return {
+      dictsMap,
       checkList: [],
       type: null,
     }
@@ -58,23 +65,22 @@ export default {
   methods: {
     handleAdd () {
       this.$emit('onEdit', {
-        formRequestFn: postTechnology,
+        formRequestFn: postModule,
         methodName: '新增',
         id: false,
       })
     },
     handleEdit (row) {
       this.$emit('onEdit', {
-        formRequestFn: putTechnology,
+        formRequestFn: putModule,
         methodName: '修改',
         id: row.id,
       })
     },
     handleDetail (row) {
       this.$router.push({
-        path: '/cpms_spa/technology_detail',
+        path: `/cpms_spa/module_detail/${row.id}`,
         query: {
-          id: row.id,
           redirect: this.$route.fullPath,
         },
       })
@@ -88,10 +94,10 @@ export default {
       this.loadPage()
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deleteTechnologyById)
+      this._handleGlobalDeleteById(row.id, deleteModuleById)
     },
     loadPage (param) {
-      this.loadTable({ ...param, isMine: this.type }, getTechnologyPage)
+      this.loadTable({ ...param, isMine: this.type }, getModulePage)
     },
   },
 }

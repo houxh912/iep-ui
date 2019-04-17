@@ -9,7 +9,9 @@
             </el-col>
             <el-col :span="14" class="title">
               <div>
-                <div class="tags"><span class="weight">{{form.name}}</span><span class="time">上线时间：{{form.onlineTime}}</span></div>
+                <div class="tags">
+                  <span class="weight">{{form.name}}</span>
+                </div>
                 <div class="tags">
                   <iep-detail-tag :value="form.tagKeywords"></iep-detail-tag>
                 </div>
@@ -38,15 +40,17 @@ import BaseInfo from './BaseInfo'
 import TeamInfo from './TeamInfo'
 import Versions from '@/views/cpms/Components/Versions'
 import Modules from '@/views/cpms/Components/Modules'
+import Technologys from '@/views/cpms/Components/Technologys'
 import Materials from '@/views/cpms/Components/Materials'
-import { initForm } from '../options'
-import { getProductById } from '@/api/cpms/product'
+import { initForm, dictsMap } from '../options'
+import { getTechnologyById } from '@/api/cpms/technology'
 export default {
   name: 'detail',
-  components: { BaseInfo, TeamInfo, Versions, Modules, Materials },
+  components: { BaseInfo, TeamInfo, Versions, Modules, Technologys, Materials },
   mixins: [mixins],
   data () {
     return {
+      dictsMap,
       backOption: {
         isBack: true,
         backFunction: () => {
@@ -67,6 +71,9 @@ export default {
         label: '包含模块',
         value: 'Modules',
       }, {
+        label: '相关技术',
+        value: 'Technologys',
+      }, {
         label: '相关材料',
         value: 'Materials',
       }],
@@ -74,11 +81,11 @@ export default {
   },
   computed: {
     id () {
-      return this.$route.query.id
+      return this.$route.params.id
     },
   },
   created () {
-    getProductById(this.id).then(({ data }) => {
+    getTechnologyById(this.id).then(({ data }) => {
       this.form = this.$mergeByFirst(initForm(), data.data)
     })
   },

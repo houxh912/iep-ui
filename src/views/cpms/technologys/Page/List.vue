@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="产品系列"></page-header>
+      <page-header title="技术应用"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -10,7 +10,8 @@
           </el-checkbox-group>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -23,11 +24,6 @@
         <el-table-column label="负责人">
           <template slot-scope="scope">
             <iep-detail-tag :value="scope.row.chargeNames"></iep-detail-tag>
-          </template>
-        </el-table-column>
-        <el-table-column label="上线时间">
-          <template slot-scope="scope">
-            {{scope.row.onlineTime}}
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -44,10 +40,12 @@
 </template>
 
 <script>
-import { getProductPage, postProduct, putProduct, deleteProductById } from '@/api/cpms/product'
+import { getTechnologyPage, postTechnology, putTechnology, deleteTechnologyById } from '@/api/cpms/technology'
+import AdvanceSearch from './AdvanceSearch'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
+  components: { AdvanceSearch },
   data () {
     return {
       checkList: [],
@@ -60,23 +58,22 @@ export default {
   methods: {
     handleAdd () {
       this.$emit('onEdit', {
-        formRequestFn: postProduct,
+        formRequestFn: postTechnology,
         methodName: '新增',
         id: false,
       })
     },
     handleEdit (row) {
       this.$emit('onEdit', {
-        formRequestFn: putProduct,
+        formRequestFn: putTechnology,
         methodName: '修改',
         id: row.id,
       })
     },
     handleDetail (row) {
       this.$router.push({
-        path: '/cpms_spa/product_detail',
+        path: `/cpms_spa/technology_detail/${row.id}`,
         query: {
-          id: row.id,
           redirect: this.$route.fullPath,
         },
       })
@@ -90,10 +87,10 @@ export default {
       this.loadPage()
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deleteProductById)
+      this._handleGlobalDeleteById(row.id, deleteTechnologyById)
     },
     loadPage (param) {
-      this.loadTable({ ...param, isMine: this.type }, getProductPage)
+      this.loadTable({ ...param, isMine: this.type }, getTechnologyPage)
     },
   },
 }

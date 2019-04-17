@@ -94,6 +94,21 @@
           <el-form-item label="外部头衔：" class="form-half">
             <el-input v-model="form.externalTitle"></el-input>
           </el-form-item>
+          <el-form-item label="户口类型：" class="form-half">
+            <iep-dict-select v-model="form.accountTypeId" dict-name="hrms_resident_type"></iep-dict-select>
+          </el-form-item>
+          <el-form-item label="户籍地址：">
+            <div style="display:flex;">
+              <iep-cascader style="flex:1;" v-model="form.residenceCities" prefix-url="admin/city"></iep-cascader>
+              <el-input style="flex:3;" v-model="form.residenceAddress"></el-input>
+            </div>
+          </el-form-item>
+          <el-form-item label="现住地址：">
+            <div style="display:flex;">
+              <iep-cascader style="flex:1;" v-model="form.currentCities" prefix-url="admin/city"></iep-cascader>
+              <el-input style="flex:3;" v-model="form.currentAddress"></el-input>
+            </div>
+          </el-form-item>
           <el-form-item label="身份证号码：" class="form-half">
             <el-input v-model="form.IDCard"></el-input>
           </el-form-item>

@@ -102,8 +102,10 @@ export default {
     }),
   },
   methods: {
-    loadPage () {
-      this.$refs['tableTpl'].loadPage()
+    loadPage (params = {}) {
+      let obj = { current: 1, size: 10 }
+      obj = Object.assign({}, obj, params) 
+      this.$refs['tableTpl'].loadPage(obj)
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()
@@ -151,10 +153,6 @@ export default {
     },
     // 批量下载为图片
     downloadPic () {
-      this.$message.error('抱歉，此功能尚未开发！')
-    },
-    // 导出为文本
-    handleExport () {
       this.$message.error('抱歉，此功能尚未开发！')
     },
     tabClick () {

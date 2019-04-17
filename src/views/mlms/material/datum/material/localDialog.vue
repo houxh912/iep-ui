@@ -3,13 +3,13 @@
     <page-header title="本地上传" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
       <el-form-item label="名称：" prop="materialName">
-        <el-input v-model="formData.materialName"></el-input>
+        <el-input v-model="formData.materialName" maxlength="50"></el-input>
       </el-form-item>
       <el-form-item label="作者：" prop="uploader">
-        <el-input v-model="formData.uploader"></el-input>
+        <el-input v-model="formData.uploader" maxlength="10"></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
-        <el-input type="textarea" v-model="formData.intro" rows="5"></el-input>
+        <el-input type="textarea" v-model="formData.intro" rows="5" maxlength="200"></el-input>
       </el-form-item>
       <el-row>
         <el-col :span=12>

@@ -99,7 +99,7 @@ export default {
   methods: {
     handleChange (row) {
       this.$router.push({
-        path: '/hrms_spa/approval',
+        path: '/hrms_spa/approval/0',
         query: {
           type: row.value,
         },

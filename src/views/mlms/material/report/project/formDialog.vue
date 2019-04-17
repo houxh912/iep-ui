@@ -37,7 +37,7 @@
           </el-table-column>
           <el-table-column prop="paymentAmount" label="回款金额">
             <template slot-scope="scope">
-              <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="selectIndex=-1"></el-input>
+              <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="selectIndex=-1" maxlength="10"></el-input>
               <div v-else @click="selectIndex=scope.$index" style="min-height: 20px;">{{scope.row.paymentAmount}}</div>
             </template>
           </el-table-column>
@@ -51,19 +51,19 @@
       </el-form-item>
       <div class="title">客户需求</div>
       <el-form-item prop="clientRqmt">
-        <el-input type="textarea" v-model="formData.clientRqmt" rows=5 placeholder="此处填写领导指示"></el-input>
+        <el-input type="textarea" v-model="formData.clientRqmt" rows=5 placeholder="此处填写客户需求" maxlength="1000"></el-input>
       </el-form-item>
       <div class="title">本周工作总结</div>
       <el-form-item prop="workSummary">
-        <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本周工作总结"></el-input>
+        <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本周工作总结" maxlength="1000"></el-input>
       </el-form-item>
       <div class="title">下周工作计划</div>
       <el-form-item prop="workPlan">
-        <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下周工作计划"></el-input>
+        <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下周工作计划" maxlength="1000"></el-input>
       </el-form-item>
       <div class="title">备注</div>
       <el-form-item prop="remark">
-        <el-input type="textarea" v-model="formData.remark" rows=5 placeholder="此处填写总结与感悟"></el-input>
+        <el-input type="textarea" v-model="formData.remark" rows=5 placeholder="此处填写备注" maxlength="1000"></el-input>
       </el-form-item>
       <el-form-item>
         <iep-button @click="submit" type="primary">保存</iep-button>

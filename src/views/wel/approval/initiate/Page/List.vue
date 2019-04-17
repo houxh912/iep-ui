@@ -78,17 +78,13 @@ export default {
     },
     handleDetail (row) {
       this.$router.push({
-        path: '/hrms_spa/approval_detail',
-        query: {
-          id: row.id,
-        },
+        path: `/hrms_spa/approval_detail/${row.id}`,
       })
     },
     handleEdit (row) {
       this.$router.push({
-        path: '/hrms_spa/approval',
+        path: `/hrms_spa/approval/${row.id}`,
         query: {
-          id: row.id,
           type: row.typeId,
         },
       })

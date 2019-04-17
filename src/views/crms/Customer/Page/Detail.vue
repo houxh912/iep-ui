@@ -47,9 +47,9 @@ export default {
   components: { CustomerPanorama, Contacts, VisitingRecord, Scheme, Agreement, Information },
   data () {
     return {
-      id: this.$route.query.id,
+      id: this.$route.params.id,
       record: {
-        id: this.$route.query.id,
+        id: this.$route.params.id,
         type: this.$route.query.type,
         collaborations: '',
       },

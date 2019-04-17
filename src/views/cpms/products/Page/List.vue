@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="模块清单"></page-header>
+      <page-header title="产品系列"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -10,8 +10,7 @@
           </el-checkbox-group>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
-            <advance-search @search-page="searchPage"></advance-search>
+          <operation-search @search-page="searchPage">
           </operation-search>
         </template>
       </operation-container>
@@ -26,9 +25,9 @@
             <iep-detail-tag :value="scope.row.chargeNames"></iep-detail-tag>
           </template>
         </el-table-column>
-        <el-table-column label="研发进度">
+        <el-table-column label="上线时间">
           <template slot-scope="scope">
-            {{dictsMap.schedule[scope.row.schedule]}}
+            {{scope.row.onlineTime}}
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -45,16 +44,12 @@
 </template>
 
 <script>
-import { getModulePage, postModule, putModule, deleteModuleById } from '@/api/cpms/module'
+import { getProductPage, postProduct, putProduct, deleteProductById } from '@/api/cpms/product'
 import mixins from '@/mixins/mixins'
-import AdvanceSearch from './AdvanceSearch'
-import { dictsMap } from '../options'
 export default {
   mixins: [mixins],
-  components: { AdvanceSearch },
   data () {
     return {
-      dictsMap,
       checkList: [],
       type: null,
     }
@@ -65,23 +60,22 @@ export default {
   methods: {
     handleAdd () {
       this.$emit('onEdit', {
-        formRequestFn: postModule,
+        formRequestFn: postProduct,
         methodName: '新增',
         id: false,
       })
     },
     handleEdit (row) {
       this.$emit('onEdit', {
-        formRequestFn: putModule,
+        formRequestFn: putProduct,
         methodName: '修改',
         id: row.id,
       })
     },
     handleDetail (row) {
       this.$router.push({
-        path: '/cpms_spa/module_detail',
+        path: `/cpms_spa/product_detail/${row.id}`,
         query: {
-          id: row.id,
           redirect: this.$route.fullPath,
         },
       })
@@ -95,10 +89,10 @@ export default {
       this.loadPage()
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deleteModuleById)
+      this._handleGlobalDeleteById(row.id, deleteProductById)
     },
     loadPage (param) {
-      this.loadTable({ ...param, isMine: this.type }, getModulePage)
+      this.loadTable({ ...param, isMine: this.type }, getProductPage)
     },
   },
 }

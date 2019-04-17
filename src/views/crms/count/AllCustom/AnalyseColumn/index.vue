@@ -2,7 +2,8 @@
   <el-card class="box-card">
     <div slot="header" class="clearfix">
       <span class="title">出单分析</span>
-      <operation-search @search="searchPage" advance-search class="search">
+      <operation-search @search-page="searchPage" advance-search class="search">
+        <advance-search @search-page="searchPage"></advance-search>
       </operation-search>
     </div>
     <div>
@@ -54,7 +55,9 @@
 <script>
 import { data, scale } from './chart1'
 import { data1, scale1 } from './chart2'
+import AdvanceSearch from './AdvanceSearch'
 export default {
+  components: { AdvanceSearch },
   data () {
     return {
       data,

@@ -9,7 +9,8 @@
           </el-radio-group>
         </div>
         <div class="inline">
-          <operation-search @search="searchPage" advance-search>
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </div>
       </div>
@@ -31,6 +32,7 @@
 </template>
 
 <script>
+import AdvanceSearch from './AdvanceSearch'
 const data = [
   { week: '周一', value: 10 },
   { week: '周二', value: 8 },
@@ -50,6 +52,7 @@ const scale = [{
   max: 1,
 }]
 export default {
+  components: { AdvanceSearch },
   data () {
     return {
       data,

@@ -167,7 +167,17 @@ export default {
       this.$message('添加标签')
     },
     handleGoBack () {
-      this.$emit('onGoBack')
+      if (this.flag) {
+        this.$router.push({
+          path: '/crms/business',
+          query: {
+            flag: true,
+            type: '3',
+          },
+        })
+      } else {
+        this.$emit('onGoBack')
+      }
     },
     load () {
       getCustomerById(this.record.id).then(({ data }) => {
@@ -195,7 +205,7 @@ export default {
                   this.$router.push({
                     path: '/crms/business',
                     query: {
-                      falg: true,
+                      flag: true,
                       type: '3',
                     },
                   })

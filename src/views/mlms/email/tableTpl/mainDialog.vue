@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     back () {
-      let params = this.$route.query
+      let params = this.$route.params
       if (params.id) {
         this.$router.go(-1)
       } else {

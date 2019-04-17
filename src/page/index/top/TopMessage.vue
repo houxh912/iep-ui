@@ -95,19 +95,13 @@ export default {
     },
     handleAnnouncementDetail (row) {
       this.$router.push({
-        path: '/ims_spa/announcement_detail',
-        query: {
-          id: row.id,
-        },
+        path: `/ims_spa/announcement_detail/${row.id}`,
       })
       this.visible = false
     },
     handleSystemMessageDetail (row) {
       this.$router.push({
-        path: '/ims_spa/system_message_detail',
-        query: {
-          id: row.id,
-        },
+        path: `/ims_spa/system_message_detail/${row.id}`,
       })
       this.visible = false
     },

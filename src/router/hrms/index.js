@@ -11,12 +11,12 @@ export default [
         component: () => import('@/views/hrms/GrowthFile/index.vue'),
       },
       {
-        path: 'approval',
+        path: 'approval/:id',
         name: '新增审批',
         component: () => import('@/views/wel/approval/Components/New/index.vue'),
       },
       {
-        path: 'approval_detail',
+        path: 'approval_detail/:id',
         name: '审批详情',
         component: () => import('@/views/hrms/AdministrativeApproval/Detail.vue'),
       },

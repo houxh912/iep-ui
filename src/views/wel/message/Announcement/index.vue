@@ -68,10 +68,7 @@ export default {
   methods: {
     handleDetail (row) {
       this.$router.push({
-        path: '/ims_spa/announcement_detail',
-        query: {
-          id: row.id,
-        },
+        path: `/ims_spa/announcement_detail/${row.id}`,
       })
     },
     //tab切换菜单
@@ -83,7 +80,7 @@ export default {
     },
     handleAdd () {
       this.$router.push({
-        path: '/ims_spa/announcement',
+        path: '/ims_spa/announcement_edit/0',
         query: {
           id: 0,
         },
@@ -91,10 +88,7 @@ export default {
     },
     handleEdit (row) {
       this.$router.push({
-        path: '/ims_spa/announcement',
-        query: {
-          id: row.id,
-        },
+        path: `/ims_spa/announcement_edit/${row.id}`,
       })
     },
     loadPage (param = this.searchForm) {

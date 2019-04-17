@@ -124,10 +124,7 @@ export default {
   methods: {
     handleDetail (row) {
       this.$router.push({
-        path: '/hrms_spa/approval_detail',
-        query: {
-          id: row.id,
-        },
+        path: `/hrms_spa/approval_detail/${row.id}`,
       })
     },
     // handleShare (row) { },

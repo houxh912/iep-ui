@@ -80,10 +80,7 @@ export default {
     },
     handleDetail (row) {
       this.$router.push({
-        path: '/ims_spa/system_message_detail',
-        query: {
-          id: row.id,
-        },
+        path: `/ims_spa/system_message_detail/${row.id}`,
       })
     },
     loadTypeList () {

@@ -143,9 +143,8 @@ export default {
     handleDetail (row) {
       if (this.type != '1') {
         this.$router.push({
-          path: '/crms_spa/customer_detail',
+          path: `/crms_spa/customer_detail/${row.clientId}`,
           query: {
-            id: row.clientId,
             type: this.type,
           },
         })

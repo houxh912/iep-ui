@@ -17,11 +17,11 @@
     </operation-container>
     <iep-table-tree :data="tableData" :option="columnsMap" @handleChild="handleChild" @selectChange="selectChange">
       <template #levelName="{scope, index}">
-        <el-input v-model="formData.levelName" v-if="index===selectIndex"></el-input>
+        <el-input v-model="formData.levelName" v-if="index===selectIndex" maxlength="10"></el-input>
         <div v-else>{{scope.levelName}}</div>
       </template>
       <template #sort="{scope, index}">
-        <el-input v-model="formData.sort" v-if="index===selectIndex"></el-input>
+        <el-input v-model="formData.sort" v-if="index===selectIndex" maxlength="3"></el-input>
         <div v-else>{{scope.sort}}</div>
       </template>
       <template #createTime="scope">

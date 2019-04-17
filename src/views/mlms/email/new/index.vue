@@ -13,7 +13,7 @@
           <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
         </el-form-item>
         <el-form-item label="主题：" prop="subject">
-          <el-input v-model="formData.subject"></el-input>
+          <el-input v-model="formData.subject" maxlength="50"></el-input>
         </el-form-item>
         <el-form-item class="relation">
           <div class="item">
@@ -54,7 +54,7 @@
         </el-form-item>
         <el-form-item label="正文">
           <!-- <iep-editor v-model="formData.zhengwen"></iep-editor> -->
-          <el-input type="textarea" rows=5 v-model="formData.content"></el-input>
+          <el-input type="textarea" rows=5 v-model="formData.content" maxlength="2000"></el-input>
         </el-form-item>
         <el-form-item>
           <operation-wrapper>

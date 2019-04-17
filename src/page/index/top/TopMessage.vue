@@ -86,28 +86,19 @@ export default {
   methods: {
     handleEmailDetail (row) {
       this.$router.push({
-        path: '/mlms_spa/email/detail',
-        query: {
-          id: row.id,
-        },
+        path: `/mlms_spa/email/detail/${row.id}`,
       })
       this.visible = false
     },
     handleAnnouncementDetail (row) {
       this.$router.push({
-        path: '/ims_spa/announcement_detail',
-        query: {
-          id: row.id,
-        },
+        path: `/ims_spa/announcement_detail/${row.id}`,
       })
       this.visible = false
     },
     handleSystemMessageDetail (row) {
       this.$router.push({
-        path: '/ims_spa/system_message_detail',
-        query: {
-          id: row.id,
-        },
+        path: `/ims_spa/system_message_detail/${row.id}`,
       })
       this.visible = false
     },

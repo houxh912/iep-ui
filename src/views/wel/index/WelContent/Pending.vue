@@ -51,10 +51,7 @@ export default {
         return
       }
       this.$router.push({
-        path: detailUrlMap[row.type],
-        query: {
-          id: row.id,
-        },
+        path: `${detailUrlMap[row.type]}/${row.id}`,
       })
     },
     tab (val) {

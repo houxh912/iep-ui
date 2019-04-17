@@ -14,7 +14,7 @@
       </div>
       <div class="item-con">
         <div class="paragraph">
-          {{form.content}}
+          <msg-link :link="form" :ims-path-type="imsPathType"></msg-link>
         </div>
       </div>
     </div>
@@ -22,7 +22,10 @@
 </template>
 <script>
 import { getSystemMessageById } from '@/api/ims/system_message'
+import keyBy from 'lodash/keyBy'
 import { initForm } from './options'
+import MsgLink from './MsgLink'
+import { mapState } from 'vuex'
 export default {
   props: {
     record: {
@@ -30,21 +33,30 @@ export default {
       default: () => { },
     },
   },
+  components: { MsgLink },
   data () {
     return {
-      id: this.$route.query.id,
+      id: this.$route.params.id,
       backOption: {
         isBack: true,
-        backPath: this.$route.query.redirect,
       },
       pageLoading: true,
       form: initForm(),
     }
   },
+  computed: {
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
+
+    imsPathType () {
+      const imsPathType = this.dictGroup['ims_path_type']
+      return keyBy(imsPathType, 'value')[this.form.pathType]
+    },
+  },
   created () {
     this.loadPage()
   },
-
   methods: {
     handleGoBack () {
       this.$emit('onGoBack')

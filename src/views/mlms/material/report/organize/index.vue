@@ -187,7 +187,8 @@ export default {
       width: 180px;
     }
     .form {
-      flex: 1;
+      // flex: 1;
+      width: calc(100% - 180px);
     }
   }
 }

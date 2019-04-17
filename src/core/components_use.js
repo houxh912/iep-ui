@@ -10,6 +10,11 @@ import PageHeader from '@/components/Page/Header'
 import IepPageHeader from '@/components/IepCommon/PageHeader'
 import FooterToolBar from '@/components/FooterToolbar'
 
+// 富文本
+import IepEditor from '@/components/IepEditor/'
+import IepFroalaEditor from '@/components/IepFroalaEditor/'
+import IepHtml from '@/components/IepHtml/'
+
 // 公共组件
 import IepButton from '@/components/IepCommon/Button'
 import IepPagination from '@/components/IepCommon/Pagination'
@@ -28,7 +33,6 @@ import IepDictSelect from '@/components/IepCommon/DictSelect'
 import IepDescriptionItem from '@/components/IepCommon/DescriptionItem'
 import IepDetailTag from '@/components/IepCommon/DetailTag'
 import IepInputNumber from '@/components/IepCommon/InputNumber'
-import IepEditor from '@/components/IepEditor'
 import IepInputArea from '@/components/IepCommon/InputArea'
 
 // 头像上传文件有关组件
@@ -76,6 +80,11 @@ Vue.component(PageHeader.name, PageHeader)
 Vue.component(IepPageHeader.name, IepPageHeader)
 Vue.component(FooterToolBar.name, FooterToolBar)
 
+//富文本
+Vue.component(IepEditor.name, IepEditor)
+Vue.component(IepFroalaEditor.name, IepFroalaEditor)
+Vue.component(IepHtml.name, IepHtml)
+
 // 公共组件
 Vue.component(IepButton.name, IepButton)
 Vue.component(IepPagination.name, IepPagination)
@@ -94,7 +103,6 @@ Vue.component(IepInputNumber.name, IepInputNumber)
 Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepDescriptionItem.name, IepDescriptionItem)
 Vue.component(IepDetailTag.name, IepDetailTag)
-Vue.component(IepEditor.name, IepEditor)
 Vue.component(IepInputArea.name, IepInputArea)
 
 // 头像上传文件有关组件

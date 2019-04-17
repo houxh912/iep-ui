@@ -47,10 +47,7 @@ export default {
     },
     handleDetail (row) {
       this.$router.push({
-        path: '/hrms_spa/approval_detail',
-        query: {
-          id: row.id,
-        },
+        path: `/hrms_spa/approval_detail/${row.id}`,
       })
     },
     loadPage (param = this.searchForm) {

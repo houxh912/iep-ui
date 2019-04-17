@@ -87,7 +87,7 @@ import { initForm, dictsMap } from './options'
 export default {
   data () {
     return {
-      id: this.$route.query.id,
+      id: this.$route.params.id,
       backOption: {
         isBack: true,
       },

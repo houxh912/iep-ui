@@ -15,15 +15,9 @@
       </div>
     </div>
     <div>
+      <div class="money">签单金额：8000000</div>
       <el-row>
-        <div class="echarts">
-          <v-chart :forceFit="true" :height="height" :data="data" :scale="scale">
-            <v-tooltip />
-            <v-axis />
-            <v-legend />
-            <v-line position="week*value" />
-            <v-point position="week*value" shape="circle" />
-          </v-chart>
+        <div id="moneyColumn">
         </div>
       </el-row>
     </div>
@@ -31,35 +25,57 @@
 </template>
 
 <script>
-const data = [
-  { week: '周一', value: 10 },
-  { week: '周二', value: 8 },
-  { week: '周三', value: 0 },
-  { week: '周四', value: 8 },
-  { week: '周五', value: 2 },
-  { week: '周六', value: 8 },
-  { week: '周日', value: 0 },
-]
-
-const scale = [{
-  dataKey: 'value',
-  min: 0,
-}, {
-  dataKey: 'year',
-  min: 0,
-  max: 1,
-}]
+let echarts = require('echarts/lib/echarts')
+require('echarts/lib/chart/line')
+require('echarts/lib/component/tooltip')
+require('echarts/lib/component/title')
+require('echarts/lib/component/legend')
 export default {
   data () {
     return {
-      data,
-      scale,
-      height: 300,
       type: '1',
       tabList: [{ label: '按周', value: '1' }, { label: '按月', value: '2' }, { label: '季度', value: '3' }, { label: '年度', value: '4' }],
     }
   },
+  mounted () {
+    this.drawLine()
+  },
   methods: {
+    drawLine () {
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = echarts.init(document.getElementById('moneyColumn'))
+      // 绘制图表
+      myChart.setOption({
+        xAxis: {
+          type: 'category',
+          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+        },
+        yAxis: {
+          type: 'value',
+        },
+        legend: {
+          data: ['客户'],
+          bottom: 0,
+        },
+        grid: {
+          left: '1%',
+          right: '2%',
+          bottom: '10%',
+          top: '3%',
+          containLabel: true,
+        },
+        series: [
+          {
+            name: '客户',
+            data: [10, 8, 0, 8, 2, 0, 0],
+            type: 'line',
+            itemStyle: {
+              color: '#D56368',
+            },
+          },
+        ],
+      })
+    },
     searchPage () {
       this.$message.success('功能开发中')
     },
@@ -86,9 +102,11 @@ export default {
     display: inline-block;
   }
 }
-.echarts {
+#moneyColumn {
+  width: "auto";
   height: 300px;
-  padding: 15px 10px;
-  border: 1px solid #eee;
+}
+.money {
+  padding-left: 50px;
 }
 </style>

@@ -36,9 +36,16 @@
       <el-form-item label="标签:">
         <iep-tag v-model="form.tagList"></iep-tag>
       </el-form-item>
-      <el-form-item label="标签:">
-        <iep-editor v-model="form.content"></iep-editor>
+      <el-form-item label="富文本:">
+        <iep-editor v-model="form.content1"></iep-editor>
       </el-form-item>
+      <el-form-item label="froala富文本:">
+        <iep-froala-editor v-model="form.content"></iep-froala-editor>
+      </el-form-item>
+      <el-form-item label="froala展示:">
+        <iep-html v-model="form.content"></iep-html>
+      </el-form-item>
+      <div class="fack-div"></div>
     </el-form>
   </div>
 </template>
@@ -69,6 +76,7 @@ export default {
         fileList: [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],
         tagList: ['大数据', '人工智能'],
         content: '',
+        content1: '',
       },
     }
   },
@@ -79,5 +87,9 @@ export default {
   padding: 20px;
   width: 100%;
   border: 1px solid #eee;
+}
+.fack-div {
+  height: 500px;
+  width: 500px;
 }
 </style>

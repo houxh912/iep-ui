@@ -24,7 +24,6 @@ require('echarts/lib/chart/line')
 require('echarts/lib/chart/pie')
 require('echarts/lib/component/tooltip')
 require('echarts/lib/component/title')
-require('echarts/lib/component/grid')
 export default {
   data () {
     return {
@@ -68,9 +67,16 @@ export default {
   methods: {
     load () {
       getMySituation({ interval: this.interval }).then((res) => {
-        this.getData.totalMoney = res.data.data.contractAmount.toLocaleString()
-        this.getData.xList = _.map(res.data.data.contractSituations, 'timeInterval')
-        this.getData.mainList = _.map(res.data.data.contractSituations, 'contractAmount')
+        if (res.data.data.contractSituations.length == 0) {
+          this.getData.totalMoney = 0
+          this.getData.xList = ['暂无']
+          this.getData.mainList = [0]
+        } else {
+          this.getData.totalMoney = res.data.data.contractAmount.toLocaleString()
+          this.getData.xList = _.map(res.data.data.contractSituations, 'timeInterval')
+          this.getData.mainList = _.map(res.data.data.contractSituations, 'contractAmount')
+        }
+
         if (this.interval == 1 || this.interval == 2) {
           for (var item in this.getData.xList) {
             this.getData.xList[item] = this.getData.xList[item].substr(5, 2) + '.' + this.getData.xList[item].substr(7, 2)
@@ -105,7 +111,7 @@ export default {
           left: '0',
           right: '0',
           bottom: '50',
-          top: '40',
+          top: '80',
           containLabel: true,
         },
         xAxis: [

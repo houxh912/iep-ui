@@ -57,24 +57,30 @@ export default {
   },
 }
 </script>
-// <style lang="scss" scoped>
-// .app {
-//   height: 500px !important;
-// }
-//
+<style lang="scss" scoped>
+.app {
+  border: 1px solid #dcdfe6;
+}
 </style>
 
-<style>
-.fr-wrapper > div[style*="z-index: 9999"] {
+<style scoped>
+.app >>> .fr-wrapper > div[style*="z-index: 9999"] {
   position: absolute;
   top: -10000px;
   opacity: 0;
 }
-.fr-element.fr-view {
+.app >>> .fr-element.fr-view {
   position: absolute;
   top: 0;
 }
-.fr-placeholder {
+.app >>> .fr-placeholder {
   margin-top: 0 !important;
+}
+.app >>> .fr-toolbar {
+  border-top: 5px solid #666 !important;
+}
+.app >>> .fr-toolbar .fr-command.fr-btn,
+.fr-popup .fr-command.fr-btn {
+  color: #666 !important;
 }
 </style>

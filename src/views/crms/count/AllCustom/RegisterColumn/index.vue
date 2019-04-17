@@ -2,7 +2,7 @@
   <el-card class="box-card">
     <div slot="header" class="clearfix">
       <span class="title">客户登记</span>
-      <span> (客户数量：121，联系人数量：134，拜访次数：200) </span>
+      <span> (客户数量：{{number.clientQuantity}}，联系人数量：{{number.contactQuantity}}，拜访次数：{{number.visitTheNumber}}) </span>
       <operation-search @search-page="searchPage" advance-search class="search">
         <advance-search @search-page="searchPage"></advance-search>
       </operation-search>
@@ -54,11 +54,18 @@ import Count from './Components/Count'
 import AreaType from './Components/AreaType'
 import Increase from './Components/Increase'
 import AdvanceSearch from './AdvanceSearch'
+import { getAllRejister } from '@/api/crms/count'
 export default {
   components: { Manager, Count, AreaType, Increase, AdvanceSearch },
   data () {
     return {
+      number: '',
     }
+  },
+  created () {
+    getAllRejister().then((res) => {
+      this.number = res.data.data
+    })
   },
   methods: {
     searchPage () {

@@ -2,14 +2,14 @@
   <iep-dialog :dialog-show="dialogShow" title="领导批示" width="50%" @close="resetForm">
     <el-form :model="formData" :rules="shareRules" ref="form" label-width="100px">
 
-      <el-form-item label="主题：">
-        <el-input v-model="formData.subject" readonly></el-input>
+      <el-form-item label="主题：" prop="subject">
+        <el-input v-model="formData.subject" readonly maxlength="50"></el-input>
       </el-form-item>
-      <el-form-item label="收件人：" prop="shoujianren">
+      <el-form-item label="收件人：" prop="receiverList">
         <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
       </el-form-item>
       <el-form-item label="正文：" prop="content">
-        <el-input type="textarea" rows=5 placeholder="请在此输入分享说明" v-model="formData.content"></el-input>
+        <el-input type="textarea" rows=5 placeholder="请在此输入分享说明" v-model="formData.content" maxlength="2000"></el-input>
       </el-form-item>
     </el-form>
     <template slot="footer">

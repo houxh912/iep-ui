@@ -3,14 +3,14 @@
     <page-header title="新建文档" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
       <el-form-item label="名称：" prop="materialName">
-        <el-input v-model="formData.materialName"></el-input>
+        <el-input v-model="formData.materialName" maxlength="50"></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
-        <el-input v-model="formData.intro" type="textarea" rows="5"></el-input>
+        <el-input v-model="formData.intro" type="textarea" rows="5" maxlength="200"></el-input>
       </el-form-item>
       <el-form-item label="正文：" prop="content">
         <!-- <iep-editor v-model="formData.content"></iep-editor> -->
-        <el-input type="textarea" v-model="formData.content" rows=5></el-input>
+        <el-input type="textarea" v-model="formData.content" rows=5 maxlength="3000"></el-input>
       </el-form-item>
       <el-row>
         <el-col :span=12>

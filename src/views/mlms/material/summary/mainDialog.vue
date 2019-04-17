@@ -2,7 +2,7 @@
   <div class="iep-page-form">
     <basic-container>
       <page-header :title="`${methodName}纪要`" :backOption="backOption"></page-header>
-      <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
+      <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;">
         <el-form-item label="会议类型：" prop="meetingType">
           <el-radio-group v-model="formData.meetingType">
             <el-radio v-for="(item, index) in dictGroup.mlms_meeting_type" :key="index" :label="item.value" @change="typeChange">{{item.label}}</el-radio>
@@ -12,19 +12,19 @@
           <iep-select prefix-url="crm/customer" v-model="formData.visitingUserId" multiple></iep-select>
         </el-form-item>
         <el-form-item :label="`${formData.type == 0 ? '会议主题':'会议标题'}：`" prop="title">
-          <el-input v-model="formData.title"></el-input>
+          <el-input v-model="formData.title" maxlength="50"></el-input>
         </el-form-item>
         <el-form-item label="会议内容：" prop="meetingContent">
-          <el-input type="textarea" v-model="formData.meetingContent" rows=8></el-input>
+          <el-input type="textarea" v-model="formData.meetingContent" rows=8 maxlength="3000"></el-input>
         </el-form-item>
         <el-form-item label="会议总结：" prop="meetingCon">
-          <el-input type="textarea" v-model="formData.meetingCon" rows=8></el-input>
+          <el-input type="textarea" v-model="formData.meetingCon" rows=8 maxlength="1000"></el-input>
         </el-form-item>
         <el-form-item label="备注：" prop="thoughtsProblem" v-if="formData.type==1">
-          <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5></el-input>
+          <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000"></el-input>
         </el-form-item>
         <el-form-item label="感想与困惑：" prop="thoughtsProblem" v-if="formData.type==0">
-          <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5></el-input>
+          <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000"></el-input>
         </el-form-item>
         <el-row>
           <el-col :span="12">
@@ -34,7 +34,7 @@
           </el-col>
           <el-col :span="12" v-if="formData.type == 0">
             <el-form-item label="会议地点：" prop="meetingLocation">
-              <el-input v-model="formData.meetingLocation"></el-input>
+              <el-input v-model="formData.meetingLocation" maxlength="20"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -148,7 +148,12 @@ export default {
         orgIds: this.formData.receiverList.orgs.map(m => m.id),
         userIds: this.formData.receiverList.users.map(m => m.id),
       }
-      this.formData.projectIds = this.formData.projectList.map(m => m.id)
+      if (this.formData.projectList.length > 0) {
+        this.formData.projectIds = this.formData.projectList.map(m => m.id)
+      } else {
+        this.formData.projectIds = []
+      }
+      
       this.formRequestFn(this.formData).then(() => {
         this.$notify({
           title: '成功',
@@ -165,11 +170,8 @@ export default {
     },
     // 纪要类型转换
     typeChange (val) {
-      if (val == 6) {
-        this.$set(this.formData, 'type', 1)
-      } else {
-        this.$set(this.formData, 'type', 0)
-      }
+      let type = val == 6 ? 1 : 0
+      this.$set(this.formData, 'type', type)
     },
     goBack (state) {
       // this.$router.push(this.backRouter)

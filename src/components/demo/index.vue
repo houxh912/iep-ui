@@ -36,9 +36,6 @@
       <el-form-item label="标签:">
         <iep-tag v-model="form.tagList"></iep-tag>
       </el-form-item>
-      <el-form-item label="富文本:">
-        <iep-editor v-model="form.content1"></iep-editor>
-      </el-form-item>
       <el-form-item label="froala富文本:">
         <iep-froala-editor v-model="form.content"></iep-froala-editor>
       </el-form-item>
@@ -76,7 +73,6 @@ export default {
         fileList: [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],
         tagList: ['大数据', '人工智能'],
         content: '',
-        content1: '',
       },
     }
   },

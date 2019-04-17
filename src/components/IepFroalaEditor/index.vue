@@ -23,8 +23,8 @@ export default {
       //More -> https://www.froala.com/wysiwyg-editor/docs/options
       froalaConfig: {
         height: '300',
-        toolbarButtons: ['undo', 'redo', 'clearFormatting', '|', 'bold', 'italic', 'underline', 'strikeThrough', '|', 'fontFamily', 'fontSize', 'color', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'quote', '-', 'insertLink', 'insertImage', 'embedly', 'insertTable', '|', 'insertHR', 'selectAll', '|', 'print', 'spellChecker', 'help', '|', 'fullscreen'],//['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],//显示可操作项
-        // theme: "dark",//主题
+        toolbarButtons: ['undo', 'redo', 'selectAll', '|', 'bold', 'italic', 'underline', 'strikeThrough', '|', 'fontFamily', 'fontSize', 'color', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', '|', 'insertLink', 'insertImage', 'insertFile', 'embedly', 'insertTable', '|', 'insertHR', 'clearFormatting', '|', 'print', 'spellChecker', '|', 'fullscreen'],//['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],//显示可操作项
+        theme: 'gray',//主题
         placeholder: '请填写内容',
         language: 'zh_cn',//国际化
         imageUploadURL: '/api/admin/file/wysiwyg/upload',//上传url
@@ -59,7 +59,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .app {
-  border: 1px solid #dcdfe6;
+  padding: 1px !important;
+  // border: 1px solid #dcdfe6;
 }
 </style>
 
@@ -77,10 +78,10 @@ export default {
   margin-top: 0 !important;
 }
 .app >>> .fr-toolbar {
-  border-top: 5px solid #666 !important;
+  /* border-top: 2px solid #666 !important; */
 }
 .app >>> .fr-toolbar .fr-command.fr-btn,
 .fr-popup .fr-command.fr-btn {
-  color: #666 !important;
+  /* color: #666 !important; */
 }
 </style>

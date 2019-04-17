@@ -32,7 +32,7 @@
           <a-button type="primary" size="large" @click="handleLogin" block>登录</a-button>
         </a-col>
         <a-col :span="12">
-          <a-button size="large" block>访客</a-button>
+          <a-button size="large" @click="$message.success('功能开发中')" block>访客</a-button>
         </a-col>
       </a-row>
     </el-form-item>

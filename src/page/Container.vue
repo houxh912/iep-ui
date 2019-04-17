@@ -40,7 +40,7 @@ export default {
 .login-weaper {
   width: 100%;
   height: 100%;
-  background-image: url("/img/bg/bg.jpg") no-repeat;
+  background: url("/img/bg/bg.jpg") no-repeat;
   background-size: cover;
 }
 .login-container::before {
@@ -51,7 +51,7 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  background-image: url("/img/bg/bg.jpg") no-repeat;
+  background: url("/img/bg/bg.jpg") no-repeat;
   background-size: cover;
 }
 .login-border {

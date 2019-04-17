@@ -24,6 +24,20 @@ module.exports = {
   //     : undefined,
   // },
   chainWebpack: config => {
+    config.resolve.symlinks(true)
+    config.plugin('preload').tap(options => {
+      options[0] = {
+        rel: 'preload',
+        as (entry) {
+          if (/\.css$/.test(entry)) return 'style'
+          if (/\.(woff||ttf))$/.test(entry)) return 'font'
+          if (/\.png)$/.test(entry)) return 'image'
+          return 'script'
+        },
+        include: 'allAssets',
+        fileBlacklist: [/\.map$/, /hot-update\.js$/],
+      }
+    })
     config.plugin('provide').use(require('webpack').ProvidePlugin, [{
       $: 'jquery',
       jQuery: 'jquery',
@@ -38,6 +52,7 @@ module.exports = {
       })
       return definitions
     })
+    return config
   },
 
   css: {
@@ -63,4 +78,15 @@ module.exports = {
       errors: true,
     },
   },
+  pwa: {
+    name: 'govmade-iep-2.0',
+    themeColor: '#BA1B21',
+    msTileColor: '#000000',
+    appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: 'black',
+    workboxOptions: {
+      skipWaiting: true,
+      clientsClaim: true,
+    },
+  }
 }

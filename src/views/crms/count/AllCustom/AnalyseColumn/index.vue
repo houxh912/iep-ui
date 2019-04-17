@@ -2,7 +2,8 @@
   <el-card class="box-card">
     <div slot="header" class="clearfix">
       <span class="title">出单分析</span>
-      <operation-search @search="searchPage" advance-search class="search">
+      <operation-search @search-page="searchPage" advance-search class="search">
+        <advance-search @search-page="searchPage"></advance-search>
       </operation-search>
     </div>
     <div>
@@ -38,8 +39,9 @@
 <script>
 import Business from './Business'
 import District from './District'
+import AdvanceSearch from './AdvanceSearch'
 export default {
-  components: { Business, District },
+  components: { Business, District, AdvanceSearch },
   data () {
     return {
       percent: 70,

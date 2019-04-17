@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="always">
     <el-row class="remind">
-      <el-col class="head" :span=24>预警提醒
+      <el-col class="head" :span='24'>预警提醒
         <div class="more">
           <span class="border" @click="left"><i class="el-icon-arrow-left"></i></span>
           <span class="border" @click="right"><i class="el-icon-arrow-right"></i></span>

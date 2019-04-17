@@ -23,6 +23,22 @@ export function getMyClientNum (params) {
     params: params,
   })
 }
+//我的客户本周根据情况
+export function getWeekList (params) {
+  return request({
+    url: '/crm/statistical/my/weekprogress',
+    method: 'get',
+    params: params,
+  })
+}
+//我的客户合同概况
+export function getMySituation (params) {
+  return request({
+    url: '/crm/statistical/my/contractsituation',
+    method: 'get',
+    params: params,
+  })
+}
 //全部客户区域类型
 export function getAllDistrict (params) {
   return request({

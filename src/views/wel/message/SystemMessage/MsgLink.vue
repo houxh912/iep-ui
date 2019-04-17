@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     isCommon () {
-      return this.link.pathType ? `${this.imsPathType.label}/${this.link.pathId}` : undefined
+      return this.link.pathType !== '3' ? `${this.imsPathType.label}/${this.link.pathId}` : undefined
     },
   },
   methods: {

@@ -15,7 +15,8 @@
           <el-input v-model="formData.title" maxlength="50"></el-input>
         </el-form-item>
         <el-form-item label="会议内容：" prop="meetingContent">
-          <el-input type="textarea" v-model="formData.meetingContent" rows=8 maxlength="3000"></el-input>
+          <!-- <el-input type="textarea" v-model="formData.meetingContent" rows=8 maxlength="3000"></el-input> -->
+          <iep-froala-editor v-model="formData.meetingContent"></iep-froala-editor>
         </el-form-item>
         <el-form-item label="会议总结：" prop="meetingCon">
           <el-input type="textarea" v-model="formData.meetingCon" rows=8 maxlength="1000"></el-input>

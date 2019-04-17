@@ -9,7 +9,8 @@
           </el-radio-group>
         </div>
         <div class="inline">
-          <operation-search @search="searchPage" advance-search>
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </div>
       </div>
@@ -30,7 +31,9 @@ require('echarts/lib/chart/line')
 require('echarts/lib/component/tooltip')
 require('echarts/lib/component/title')
 require('echarts/lib/component/legend')
+import AdvanceSearch from './AdvanceSearch'
 export default {
+  components: { AdvanceSearch },
   data () {
     return {
       type: '1',

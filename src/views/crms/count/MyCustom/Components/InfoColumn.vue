@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="always" :body-style="{padding:'15px'}">
     <el-row class="info">
-      <el-col :span=24 class="title">
+      <el-col :span='24' class="title">
         <h2 class="user">hello，{{infoList.name}}！</h2>
         <div class="msg">
           您累计签订合同

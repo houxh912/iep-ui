@@ -443,6 +443,114 @@ const rules = {
   staffId: [
     { required: true, message: '请填写员工编号', trigger: 'blur' },
   ],
+  avatar: [
+    { required: true, message: '请上传头像', trigger: 'blur' },
+  ],
+  position: [
+    { required: true, message: '请填写岗位', trigger: 'blur' },
+  ],
+  title: [
+    { required: true, message: '请填写外部头衔', trigger: 'blur' },
+  ],
+  jobId: [
+    { required: true, message: '请填写职务', trigger: 'blur' },
+  ],
+  titleId: [
+    { required: true, message: '请填写职称', trigger: 'blur' },
+  ],
+  entryTime: [
+    { required: true, message: '请填写入职时间', trigger: 'blur' },
+  ],
+  positiveTime: [
+    { required: true, message: '请填写转正时间', trigger: 'blur' },
+  ],
+  status: [
+    { required: true, message: '请填写员工状态', trigger: 'blur' },
+  ],
+  dept: [
+    { required: true, message: '请填写所属部门', trigger: 'blur' },
+  ],
+  birthday: [
+    { required: true, message: '请填写出生年月', trigger: 'blur' },
+  ],
+  sex: [
+    { required: true, message: '请填写性别', trigger: 'blur' },
+  ],
+  nationality: [
+    { required: true, message: '请填写民族', trigger: 'blur' },
+  ],
+  politics: [
+    { required: true, message: '请填写政治面貌', trigger: 'blur' },
+  ],
+  marriage: [
+    { required: true, message: '请填写婚姻状况', trigger: 'blur' },
+  ],
+  bear: [
+    { required: true, message: '请填写生育状况', trigger: 'blur' },
+  ],
+  language: [
+    { required: true, message: '请填写外语水平', trigger: 'blur' },
+  ],
+  education: [
+    { required: true, message: '请填写最高学历', trigger: 'blur' },
+  ],
+  university: [
+    { required: true, message: '请填写毕业学校', trigger: 'blur' },
+  ],
+  profession: [
+    { required: true, message: '请填写专业', trigger: 'blur' },
+  ],
+  graduationTime: [
+    { required: true, message: '请填写毕业时间', trigger: 'blur' },
+  ],
+  referrer: [
+    { required: true, message: '请填写推荐人', trigger: 'blur' },
+  ],
+  externalTitle: [
+    { required: true, message: '请填写外部头衔', trigger: 'blur' },
+  ],
+  abilityTag: [
+    { required: true, message: '请填写卓越标签', trigger: 'blur' },
+  ],
+  projectTag: [
+    { required: true, message: '请填写专业标签', trigger: 'blur' },
+  ],
+  learningTag: [
+    { required: true, message: '请填写进步标签', trigger: 'blur' },
+  ],
+  accountTypeId: [
+    { required: true, message: '请填写户口类型', trigger: 'blur' },
+  ],
+  residenceAddress: [
+    { required: true, message: '请填写户籍地址', trigger: 'blur' },
+  ],
+  currentAddress: [
+    { required: true, message: '请填写现住地址', trigger: 'blur' },
+  ],
+  IDCard: [
+    { required: true, message: '请填写身份证号码', trigger: 'blur' },
+  ],
+  phone: [
+    { required: true, message: '请填写联系电话', trigger: 'blur' },
+  ],
+  wechat: [
+    { required: true, message: '请填写微信', trigger: 'blur' },
+  ],
+  qq: [
+    { required: true, message: '请填写qq', trigger: 'blur' },
+  ],
+  email: [
+    { required: true, message: '请填写邮箱', trigger: 'blur' },
+  ],
+  home: [
+    { required: true, message: '请填写个人主页', trigger: 'blur' },
+  ],
+  emergencyName: [
+    { required: true, message: '请填写应急联系人', trigger: 'blur' },
+  ],
+  emergencyPhone: [
+    { required: true, message: '请填写应急联系人电话', trigger: 'blur' },
+  ],
 }
 
 export { dictsMap, columnsMap, initForm, formToDto, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm, toDtoSearchForm, rules }

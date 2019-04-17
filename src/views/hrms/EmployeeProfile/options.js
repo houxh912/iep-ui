@@ -113,7 +113,7 @@ const columnsMap = [
     label: '性别',
     width: 55,
     sortable: true,
-    key: 'gender',
+    key: 'sex',
   },
   {
     prop: 'userName',
@@ -138,7 +138,7 @@ const columnsMap = [
     label: '员工状态',
     type: 'dict',
     hidden: false,
-    key: 'employeeStatus',
+    key: 'userStatus',
   },
   {
     prop: 'IDCard',

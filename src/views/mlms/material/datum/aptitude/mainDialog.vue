@@ -3,16 +3,16 @@
     <page-header :title="`${methodName}荣誉资质`" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;">
       <el-form-item label="名称：" prop="honorQualName">
-        <el-input v-model="formData.honorQualName"></el-input>
+        <el-input v-model="formData.honorQualName" maxlength="50"></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
-        <el-input v-model="formData.intro" rows="5"></el-input>
+        <el-input v-model="formData.intro" rows="5" maxlength="200"></el-input>
       </el-form-item>
       <el-form-item label="分类：" prop="type">
         <iep-dict-select v-model="formData.type" dict-name="mlms_honor_qual_type"></iep-dict-select>
       </el-form-item>
       <el-form-item label="专利号/证书号：" prop="number">
-        <el-input v-model="formData.number"></el-input>
+        <el-input v-model="formData.number" maxlength="20"></el-input>
       </el-form-item>
       <el-form-item label="获得时间：" prop="acquireTime">
         <IepDatePicker v-model="formData.acquireTime"></IepDatePicker>

@@ -56,7 +56,7 @@ export default {
     },
   },
   methods: {
-    loadPage (param = this.paramForm) {
+    loadPage (param) {
       this.pageState = 'list'
       this.loadTable(param, this.getTableData)
     },
@@ -100,6 +100,10 @@ export default {
           this.loadPage()
         }
       })
+    },
+    // 导出为文本
+    handleExport () {
+      this.$message.error('抱歉，此功能尚未开发！')
     },
   },
   created () {

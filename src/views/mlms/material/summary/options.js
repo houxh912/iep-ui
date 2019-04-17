@@ -120,8 +120,21 @@ export const rules = {
   ],
 }
 
+var receiverValidate = (rule, value, callback) => {
+  if (value.orgs.length == 0 && value.users.length == 0) {
+    callback(new Error())
+  } else {
+    callback()
+  }
+}
 export const shareRules = {
-  meetingType: [
+  subject: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
+  receiverList: [
+    { validator: receiverValidate, message: '必填', trigger: 'change' },
+  ],
+  content: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
 }

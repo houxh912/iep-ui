@@ -5,10 +5,10 @@
         <div class="content">
           <div class="form">
             <div class="title">项目预计签订时间</div>
-              <pre>{{item.estimateSignTime}}</pre>
+              <pre>{{formatYear(item.estimateSignTime)}}</pre>
             <div class="title">合同签订时间</div>
-              <pre>{{item.contractSignTime}}</pre>
-            <div class="title">合同签订时间</div>
+              <pre>{{formatYear(item.contractSignTime)}}</pre>
+            <div class="title">预计回款时间</div>
               <el-table :data="item.paymentRelations">
                 <el-table-column prop="projectPaymentTime" label="月份"></el-table-column>
                 <el-table-column prop="paymentAmount" label="回款金额"></el-table-column>
@@ -33,30 +33,33 @@
 </template>
 
 <script>
-  export default {
-    components: {  },
-    data () {
-      return {
-        activeName: '-1',
-        weeklyList: [],
-      }
+import { formatYear } from '../util'
+
+export default {
+  components: {  },
+  data () {
+    return {
+      activeName: '-1',
+      weeklyList: [],
+      formatYear,
+    }
+  },
+  methods: {
+    update () {
+      this.$emit('handleUpdate', this.weeklyList[this.activeName])
     },
-    methods: {
-      update () {
-        this.$emit('handleUpdate', this.weeklyList[this.activeName])
-      },
-      handleCreate () {
-        this.$emit('handleCreate', true)
-      },
+    handleCreate () {
+      this.$emit('handleCreate', true)
     },
-  }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
 .content {
   display: flex;
   .form {
-    flex: 1;
+    width: calc(100% - 30px);
     .title {
       margin-bottom: 20px;
     }

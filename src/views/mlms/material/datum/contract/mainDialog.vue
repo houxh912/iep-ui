@@ -3,7 +3,7 @@
     <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;">
       <el-form-item label="合同名称：" prop="contractName">
-        <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。"></el-input>
+        <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。" maxlength="50"></el-input>
       </el-form-item>
       <!-- <el-form-item label="关联项目：" prop="guanlian">
         <el-input v-model="formData.guanlian" placeholder="关联项目"></el-input>
@@ -14,7 +14,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="合同说明 / 收款方式：" prop="contractExpl">
-        <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5></el-input>
+        <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5 maxlength="200"></el-input>
       </el-form-item>
       <el-form-item label="业务类型：" prop="businessType">
         <el-radio-group v-model="formData.businessType">
@@ -74,7 +74,7 @@
         </el-col>
         <el-col :span='12'>
           <el-form-item label="合同金额：" prop="contractAmount">
-            <el-input v-model="formData.contractAmount" placeholder="合同金额"></el-input>
+            <el-input v-model="formData.contractAmount" placeholder="合同金额" maxlength="10"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -93,7 +93,7 @@
       <el-row>
         <el-col :span='12'>
           <el-form-item label="保证金：" prop="deposit">
-            <el-input v-model="formData.deposit" placeholder="保证金"></el-input>
+            <el-input v-model="formData.deposit" placeholder="保证金" maxlength="10"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

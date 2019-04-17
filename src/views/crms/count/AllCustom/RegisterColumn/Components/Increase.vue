@@ -1,51 +1,71 @@
 <template>
-  <div>
-    <v-chart :force-fit="true" :height="height" :data="data" :scale="scale">
-      <v-tooltip />
-      <v-axis />
-      <v-legend />
-      <v-line position="month*temperature" color="city" />
-      <v-point position="month*temperature" color="city" :size="4" :v-style="style" :shape="'circle'" />
-    </v-chart>
+  <div id="increase">
   </div>
 </template>
 
 <script>
-const DataSet = require('@antv/data-set')
-
-const sourceData = [
-  { month: '周一', 客户: 7.0, 联系人: 3.9 },
-  { month: '周二', 客户: 6.9, 联系人: 4.2 },
-  { month: '周三', 客户: 9.5, 联系人: 5.7 },
-  { month: '周四', 客户: 14.5, 联系人: 8.5 },
-  { month: '周五', 客户: 13.0, 联系人: 11.9 },
-  { month: '周六', 客户: 8.9, 联系人: 5.6 },
-  { month: '周日', 客户: 2.3, 联系人: 2.3 },
-]
-
-const dv = new DataSet.View().source(sourceData)
-dv.transform({
-  type: 'fold',
-  fields: ['客户', '联系人'],
-  key: 'city',
-  value: 'temperature',
-})
-const data = dv.rows
-
-const scale = [{
-  dataKey: 'month',
-  min: 0,
-  max: 1,
-}]
-
+let echarts = require('echarts/lib/echarts')
+require('echarts/lib/chart/line')
+require('echarts/lib/component/tooltip')
+require('echarts/lib/component/title')
+require('echarts/lib/component/legend')
 export default {
   data () {
     return {
-      data,
-      scale,
-      height: 300,
-      style: { stroke: '#fff', lineWidth: 1 },
     }
+  },
+  mounted () {
+    this.drawLine()
+  },
+  methods: {
+    drawLine () {
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = echarts.init(document.getElementById('increase'))
+      // 绘制图表
+      myChart.setOption({
+        xAxis: {
+          type: 'category',
+          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+        },
+        yAxis: {
+          type: 'value',
+        },
+        legend: {
+          data: ['客户', '联系人'],
+          bottom: 0,
+        },
+        grid: {
+          left: '1%',
+          right: '2%',
+          bottom: '10%',
+          top: '2%',
+          containLabel: true,
+        },
+        series: [
+          {
+            name: '客户',
+            data: [4, 6, 4, 7, 2, 4, 5],
+            type: 'line',
+            itemStyle: {
+              color: '#D56368',
+            },
+          }, {
+            name: '联系人',
+            data: [2, 3, 1, 4, 8, 9, 10],
+            type: 'line',
+            itemStyle: {
+              color: '#DDDDDD',
+            },
+          },
+        ],
+      })
+    },
   },
 }
 </script>
+<style lang="scss" scoped>
+#increase {
+  width: "auto";
+  height: 290px;
+}
+</style>

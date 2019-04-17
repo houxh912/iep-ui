@@ -29,6 +29,9 @@ export default {
         },
         yAxis: {
           type: 'value',
+          axisTick: {
+            length: 0,
+          },
         },
         legend: {
           data: ['核心客户', '重要客户', '一般客户', '潜在客户', '其他客户'],
@@ -91,7 +94,7 @@ export default {
 
 <style lang="scss" scoped>
 #visitNumber {
-  width: "auto";
+  width: auto;
   height: 280px;
 }
 </style>

@@ -47,6 +47,9 @@ export default {
         yAxis: {
           type: 'category',
           data: ['张佩瑜', '中艺桥', '何依婷', '王俊辉', '毛莹莹'],
+          axisTick: {
+            length: 0,
+          },
         },
         series: [
           {

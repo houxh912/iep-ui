@@ -29,6 +29,9 @@ export default {
         },
         yAxis: {
           type: 'value',
+          axisTick: {
+            length: 0,
+          },
         },
         legend: {
           data: ['客户', '联系人'],

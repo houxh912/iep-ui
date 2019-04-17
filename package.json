@@ -36,6 +36,7 @@
     "stompjs": "^2.3.3",
     "viser-vue": "^2.4.5",
     "vue": "^2.5.22",
+    "vue-froala-wysiwyg": "^2.9.5",
     "vue-neditor-wrap": "^1.0.4",
     "vue-router": "^3.0.1",
     "vuedraggable": "^2.17.0",

@@ -72,6 +72,10 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 
 详见 package.json script
 
+## v-charts 图表组件
+
+详见 https://v-charts.js.org/#/data
+
 ## Git 管理必读
 
 https://juejin.im/post/5aa7e8a6f265da239f070d82

@@ -10,6 +10,11 @@ export default [
         name: '组件库演示',
         component: () => import('@/components/demo/index'),
       },
+      {
+        path: 'charts',
+        name: '图标库演示',
+        component: () => import('@/components/demo/charts'),
+      },
     ],
   },
 ]

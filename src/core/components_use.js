@@ -11,7 +11,7 @@ import IepPageHeader from '@/components/IepCommon/PageHeader'
 import FooterToolBar from '@/components/FooterToolbar'
 
 // 富文本
-import IepEditor from '@/components/IepEditor/'
+// import IepEditor from '@/components/IepEditor/'
 import IepFroalaEditor from '@/components/IepFroalaEditor/'
 import IepHtml from '@/components/IepHtml/'
 
@@ -81,7 +81,7 @@ Vue.component(IepPageHeader.name, IepPageHeader)
 Vue.component(FooterToolBar.name, FooterToolBar)
 
 //富文本
-Vue.component(IepEditor.name, IepEditor)
+// Vue.component(IepEditor.name, IepEditor)
 Vue.component(IepFroalaEditor.name, IepFroalaEditor)
 Vue.component(IepHtml.name, IepHtml)
 

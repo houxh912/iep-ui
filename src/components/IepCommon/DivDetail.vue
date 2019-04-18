@@ -1,5 +1,9 @@
 <template>
-  <div>{{content}}</div>
+  <div>
+    <slot name="prefix"></slot>
+    <span>{{content}}</span>
+    <slot></slot>
+  </div>
 </template>
 <script>
 import { validatenull } from '@/util/validate'

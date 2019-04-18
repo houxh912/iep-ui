@@ -29,11 +29,6 @@ const columnsMap = [
     prop: 'assetOrg',
     label: '资产所属',
   },
-  {
-    prop: 'status',
-    label: '员工状态',
-    type: 'dict',
-  },
 ]
 
 const initMemberForm = () => {

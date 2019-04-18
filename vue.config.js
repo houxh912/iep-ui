@@ -38,10 +38,6 @@ module.exports = {
         fileBlacklist: [/\.map$/, /hot-update\.js$/],
       }
     })
-    config.plugin('provide').use(require('webpack').ProvidePlugin, [{
-      $: 'jquery',
-      jQuery: 'jquery',
-    }])
     config.plugin('define').tap(definitions => {
       definitions[0] = Object.assign(definitions[0], {
         BUILD_TIME: Date.parse(new Date()),

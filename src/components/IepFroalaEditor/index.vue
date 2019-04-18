@@ -23,6 +23,7 @@ export default {
       //More -> https://www.froala.com/wysiwyg-editor/docs/options
       froalaConfig: {
         height: '300',
+        fontSize: ['12', '14', '18', '24', '30', '36', '48', '60', '72', '96'],
         toolbarButtons: ['undo', 'redo', 'selectAll', '|', 'bold', 'italic', 'underline', 'strikeThrough', '|', 'fontFamily', 'fontSize', 'color', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', '|', 'insertLink', 'insertImage', 'insertFile', 'embedly', 'insertTable', '|', 'insertHR', 'clearFormatting', '|', 'print', 'spellChecker', '|', 'fullscreen'],//['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],//显示可操作项
         theme: 'gray',//主题
         placeholder: '请填写内容',
@@ -30,11 +31,11 @@ export default {
         imageUploadURL: '/api/admin/file/wysiwyg/upload',//上传url
         fileUploadURL: '/api/admin/file/wysiwyg/upload',//上传url 更多上传介绍 请访问https://www.froala.com/wysiwyg-editor/docs/options
         quickInsertButtons: ['image', 'table', 'ul', 'ol', 'hr'],//快速插入项
-        toolbarVisibleWithoutSelection: true,//是否开启 不选中模式
+        toolbarVisibleWithoutSelection: false,//是否开启 不选中模式
         // disableRightClick: true,//是否屏蔽右击
         imageDefaultWidth: 500,
         colorsHEXInput: false,//关闭16进制色值
-        toolbarSticky: true,//操作栏是否自动吸顶
+        toolbarSticky: false,//操作栏是否自动吸顶
         zIndex: 500,
         requestHeaders: { Authorization: 'Bearer ' + store.getters.access_token },
         events: {
@@ -70,18 +71,14 @@ export default {
   top: -10000px;
   opacity: 0;
 }
-.app >>> .fr-element.fr-view {
+.app >>> .fr-box.fr-basic .fr-element {
+  /* margin-top: -30px; */
+}
+/* .app >>> .fr-element.fr-view {
   position: absolute;
   top: 0;
 }
 .app >>> .fr-placeholder {
   margin-top: 0 !important;
-}
-.app >>> .fr-toolbar {
-  /* border-top: 2px solid #666 !important; */
-}
-.app >>> .fr-toolbar .fr-command.fr-btn,
-.fr-popup .fr-command.fr-btn {
-  /* color: #666 !important; */
-}
+} */
 </style>

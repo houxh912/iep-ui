@@ -26,7 +26,7 @@
                 <iep-avatar v-model="form.logo"></iep-avatar>
               </el-form-item>
               <el-form-item label="组织简介" prop="intro">
-                <iep-input-area v-model="form.intro"></iep-input-area>
+                <iep-input-area v-model="form.intro" :maxlength="2010"></iep-input-area>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="onSubmit('form')">立即创建</el-button>
@@ -37,30 +37,43 @@
         </div>
       </div>
     </basic-container>
-    <el-dialog title="申请" :visible.sync="dialogVisible" width="30%">
+    <iep-dialog title="申请" :dialog-show="dialogVisible" width="520" @close="loadPage()">
       <el-form ref="applyForm" :model="applyForm" size="small" label-width="80px">
         <el-form-item label="组织名称">
           <el-input v-model="applyForm.name" disabled></el-input>
         </el-form-item>
         <el-form-item label="申请理由">
-          <el-input type="textarea" :rows="4" placeholder="请输入申请理由" v-model="applyForm.message"></el-input>
+          <iep-input-area placeholder="请输入申请理由" v-model="applyForm.message"></iep-input-area>
         </el-form-item>
       </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleSubmitApply">申 请</el-button>
-      </span>
-    </el-dialog>
+      <template slot="footer">
+        <iep-button type="primary" @click="handleSubmitApply">申 请</iep-button>
+        <iep-button @click="dialogVisible = false">取 消</iep-button>
+      </template>
+    </iep-dialog>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { initForm } from './options'
-import { getOrgList, addObj, applyObj } from '@/api/admin/org'
+import { getOrgList, addObj, applyObj, validOrgName } from '@/api/goms/org'
 export default {
   name: 'org',
   data () {
+    const validateOrgName = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('组织名不能为空'))
+      } else {
+        validOrgName(value).then(({ data }) => {
+          if (!data.data) {
+            callback(new Error('该组织名已存在。'))
+          } else {
+            callback()
+          }
+        })
+      }
+    }
     return {
       tabsActive: 0,
       orgList: [],
@@ -74,11 +87,14 @@ export default {
       form: initForm(),
       rules: {
         name: [
-          { required: true, message: '请输入组织名称', trigger: 'blur' },
-        ], logo: [
+          { required: true, validator: validateOrgName, trigger: 'blur' },
+        ],
+        logo: [
           { required: true, message: '请输入LOGO', trigger: 'blur' },
-        ], intro: [
+        ],
+        intro: [
           { required: true, message: '请输入组织简介', trigger: 'blur' },
+          { min: 3, max: 5, message: '组织简介必须超过 3 个字符，但不得超过 2000 个字符', trigger: 'blur' },
         ],
       },
     }
@@ -90,18 +106,26 @@ export default {
     ]),
   },
   created () {
-    this.loadOrg()
+    this.loadPage()
   },
   methods: {
     handleSubmitApply () {
-      applyObj(this.applyForm).then(({ data }) => {
-        if (data.data) {
-          this.dialogVisible = false
-          this.loadOrg()
-        } else {
-          this.$message({
-            message: data.msg,
-            type: 'warning',
+      this.$refs['applyForm'].validate((valid) => {
+        if (valid) {
+          applyObj(this.applyForm).then(({ data }) => {
+            if (data.data) {
+              this.$message({
+                message: '申请提交成功，请等待审核通过',
+                type: 'success',
+              })
+              this.dialogVisible = false
+              this.loadPage()
+            } else {
+              this.$message({
+                message: data.msg,
+                type: 'warning',
+              })
+            }
           })
         }
       })
@@ -117,9 +141,10 @@ export default {
       this.form.logo = res.data.bucketName + '-' + res.data.fileName
     },
     onSearch (name) {
-      this.loadOrg(name)
+      this.loadPage(name)
     },
-    loadOrg (name = '') {
+    loadPage (name = null) {
+      this.dialogVisible = false
       getOrgList(name).then(({ data }) => {
         this.orgList = data.data
       })

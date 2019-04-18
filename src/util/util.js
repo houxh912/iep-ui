@@ -326,3 +326,16 @@ export function pickDeep (collection) {
     return []
   }
 }
+export function fillStatisticsArray (oldData, newData) {
+  const newStatistics = []
+  for (let i = 0; i < oldData.length; i++) {
+    const element = oldData[i]
+    const newElement = newData[i]
+    if (newElement) {
+      newStatistics.push(newElement)
+    } else {
+      newStatistics.push(element)
+    }
+  }
+  return newStatistics
+}

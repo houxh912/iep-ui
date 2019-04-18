@@ -31,7 +31,8 @@ import IepCascader from '@/components/IepCommon/Cascader'
 import IepDictDetail from '@/components/IepCommon/DictDetail'
 import IepDictSelect from '@/components/IepCommon/DictSelect'
 import IepDescriptionItem from '@/components/IepCommon/DescriptionItem'
-import IepDetailTag from '@/components/IepCommon/DetailTag'
+import IepTagDetail from '@/components/IepCommon/TagDetail'
+import IepDivDetail from '@/components/IepCommon/DivDetail'
 import IepInputNumber from '@/components/IepCommon/InputNumber'
 import IepInputArea from '@/components/IepCommon/InputArea'
 
@@ -102,7 +103,8 @@ Vue.component(IepDictSelect.name, IepDictSelect)
 Vue.component(IepInputNumber.name, IepInputNumber)
 Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepDescriptionItem.name, IepDescriptionItem)
-Vue.component(IepDetailTag.name, IepDetailTag)
+Vue.component(IepTagDetail.name, IepTagDetail)
+Vue.component(IepDivDetail.name, IepDivDetail)
 Vue.component(IepInputArea.name, IepInputArea)
 
 // 头像上传文件有关组件

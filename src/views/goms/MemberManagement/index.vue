@@ -20,6 +20,15 @@
             </template>
           </el-table-column>
         </template>
+        <el-table-column label="状态" width="150px">
+          <template slot-scope="scope">
+            <iep-div-detail :value="dictsMap.status[scope.row.status]">
+              <el-tooltip v-if="scope.row.status===1" class="item" effect="light" :content="scope.row.message" placement="right">
+                <i class="el-icon-info"></i>
+              </el-tooltip>
+            </iep-div-detail>
+          </template>
+        </el-table-column>
         <el-table-column prop="operation" label="操作" width="220">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -163,7 +172,7 @@ export default {
     },
     async loadPage (param = this.paramForm) {
       const data = await this.loadTable(param, gomsUserPage)
-      this.statistics = data.statistics
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

@@ -61,3 +61,36 @@ export function toggleOrgOpen () {
     method: 'get',
   })
 }
+
+export function validOrgName (name) {
+  return request({
+    url: `${prefixUrl}/repeat/${name}`,
+    method: 'get',
+  })
+}
+
+export function getOrgList (name) {
+  return request({
+    url: `${prefixUrl}/list`,
+    method: 'get',
+    params: {
+      name,
+    },
+  })
+}
+
+export function addObj (obj) {
+  return request({
+    url: '/admin/org/create',
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function applyObj (obj) {
+  return request({
+    url: '/admin/org/apply',
+    method: 'post',
+    data: obj,
+  })
+}

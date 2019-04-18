@@ -13,7 +13,7 @@
                   <span class="weight">{{form.name}}</span>
                 </div>
                 <div class="tags">
-                  <iep-detail-tag :value="form.tagKeywords"></iep-detail-tag>
+                  <iep-tag-detail :value="form.tagKeywords"></iep-tag-detail>
                 </div>
               </div>
             </el-col>

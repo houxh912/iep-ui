@@ -10,7 +10,7 @@
 </template>
 <script>
 export default {
-  name: 'IepDetailTag',
+  name: 'IepTagDetail',
   props: {
     value: {
       type: Array,

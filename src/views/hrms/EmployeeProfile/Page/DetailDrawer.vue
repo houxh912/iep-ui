@@ -12,7 +12,7 @@
       </a-col>
       <a-col :span="12">
         <IepDescriptionItem title="权限：">
-          <iep-detail-tag slot="content" :value="form.roleName"></iep-detail-tag>
+          <iep-tag-detail slot="content" :value="form.roleName"></iep-tag-detail>
         </IepDescriptionItem>
       </a-col>
     </a-row>
@@ -55,14 +55,14 @@
     <a-row>
       <a-col :span="24">
         <IepDescriptionItem title="所属部门：">
-          <iep-detail-tag slot="content" :value="form.deptList"></iep-detail-tag>
+          <iep-tag-detail slot="content" :value="form.deptList"></iep-tag-detail>
         </IepDescriptionItem>
       </a-col>
     </a-row>
     <a-row>
       <a-col :span="24">
         <IepDescriptionItem title="所属组织：">
-          <iep-detail-tag slot="content" :value="form.orgList"></iep-detail-tag>
+          <iep-tag-detail slot="content" :value="form.orgList"></iep-tag-detail>
         </IepDescriptionItem>
       </a-col>
     </a-row>

@@ -10,7 +10,7 @@
           <div class="iep-ellipsis title" @click="handleDetail(item)">{{item.name}}</div>
         </el-col>
         <el-col :span="5">
-          <iep-detail-tag :value="item.tagKeyWords"></iep-detail-tag>
+          <iep-tag-detail :value="item.tagKeyWords"></iep-tag-detail>
         </el-col>
         <el-col :span="5">
           <iep-dict-detail :currentValue="item.materialType" dict-name="mlms_material_type" style="text-align: center;"></iep-dict-detail>

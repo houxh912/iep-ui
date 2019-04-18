@@ -10,7 +10,7 @@
           <div class="name iep-ellipsis" @click="handleDetail(item)">{{item.name}}</div>
         </el-col>
         <el-col :span="7">
-          <iep-detail-tag :value="item.businessType" class="iep-ellipsis"></iep-detail-tag>
+          <iep-tag-detail :value="item.businessType" class="iep-ellipsis"></iep-tag-detail>
         </el-col>
         <el-col :span="2">
           <div class="iep-ellipsis">{{item.districtType}}</div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="userInfo.orgName" :replaceText="replaceText" :data="[4,2]"></page-header>
+      <page-header :title="userInfo.orgName" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="left">
           <!-- <iep-button @click="handleReview()">批量审核</iep-button> -->
@@ -24,11 +24,11 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button :disabled="isMine(scope.row)" v-if="!([1].includes(scope.row.status))" type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
-              <iep-button :disabled="isMine(scope.row)"  v-if="scope.row.status===0" @click="handleLocking(scope.row)">锁定</iep-button>
-              <iep-button :disabled="isMine(scope.row)"  v-else-if="scope.row.status===2" @click="handleLocking(scope.row)">解锁</iep-button>
-              <iep-button :disabled="isMine(scope.row)"  v-if="([1].includes(scope.row.status))" @click="handlePassById(scope.row)">通过</iep-button>
-              <iep-button :disabled="isMine(scope.row)"  v-if="([1].includes(scope.row.status))" @click="handleRejectById(scope.row)">不通过</iep-button>
-              <iep-button :disabled="isMine(scope.row)"  v-if="!([1].includes(scope.row.status))" icon="el-icon-delete" @click="handleDeleteById(scope.row)"></iep-button>
+              <iep-button :disabled="isMine(scope.row)" v-if="scope.row.status===0" @click="handleLocking(scope.row)">锁定</iep-button>
+              <iep-button :disabled="isMine(scope.row)" v-else-if="scope.row.status===2" @click="handleLocking(scope.row)">解锁</iep-button>
+              <iep-button :disabled="isMine(scope.row)" v-if="([1].includes(scope.row.status))" @click="handlePassById(scope.row)">通过</iep-button>
+              <iep-button :disabled="isMine(scope.row)" v-if="([1].includes(scope.row.status))" @click="handleRejectById(scope.row)">不通过</iep-button>
+              <iep-button :disabled="isMine(scope.row)" v-if="!([1].includes(scope.row.status))" icon="el-icon-delete" @click="handleDeleteById(scope.row)"></iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -56,6 +56,7 @@ export default {
       loadImage: '',
       paramForm: initSearchForm(),
       replaceText: (data) => ` 共${data[0]}个成员(其中${data[1]}个待审核)`,
+      statistics: [0, 0],
       formData: { 'orgName': '', 'logo': '', 'realName': '', 'logList': [], 'memberNum': 0, 'applyUserNum': 0, 'deptNum': 0, 'managerList': [], 'isOpen': 0 },
     }
   },
@@ -160,8 +161,9 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.userId)
     },
-    loadPage (param = this.paramForm) {
-      this.loadTable(param, gomsUserPage)
+    async loadPage (param = this.paramForm) {
+      const data = await this.loadTable(param, gomsUserPage)
+      this.statistics = data.statistics
     },
   },
 }

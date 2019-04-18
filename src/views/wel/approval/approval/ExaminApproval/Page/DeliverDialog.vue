@@ -34,7 +34,7 @@ export default {
         if (valid) {
           this.formRequestFn(toDeliverForm(this.form)).then(() => {
             this.$message({
-              message: '离职成功',
+              message: '转交成功',
               type: 'success',
             })
             this.loadPage()

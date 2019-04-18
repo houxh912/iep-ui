@@ -14,7 +14,7 @@
         <span>{{form.title}}</span>
       </el-form-item>
       <el-form-item label="入职时间：" class="form-half">
-        <span>{{form.entryTime}}</span>
+        <span>{{form.startTime}}</span>
       </el-form-item>
       <el-form-item label="转正时间：">
         <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期"></iep-date-picker>

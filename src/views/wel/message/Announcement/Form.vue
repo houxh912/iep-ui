@@ -74,9 +74,7 @@ export default {
             message: `通知公告${this.methodName}成功`,
             type: 'success',
           })
-          this.$router.push({
-            path: this.backOption.backPath,
-          })
+          this.$router.history.go(-1)
         }
       })
     },

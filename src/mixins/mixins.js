@@ -31,7 +31,12 @@ export default {
       this.isLoadTable = true
       return await requestFn({ ...param, ...this.pageOption }).then(({ data }) => {
         const { records, size, total, current } = data.data
-        this.pagination = { current, size, total }
+        const isBug = total / size + 1 === current
+        if (isBug) {
+          this.searchPage() // 防止分页为空页的情况
+        } else {
+          this.pagination = { current, size, total }
+        }
         this.pagedTable = records.map(fn)
         this.isLoadTable = false
         return data.data

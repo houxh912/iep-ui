@@ -29,11 +29,6 @@ export default {
   components: { InfoColumn, SurveyColumn, RemindColumn, ContractColmun, CustomColumn },
   data () {
     return {
-      infoList: {
-        name: '某某某',
-        num: 12,
-        cent: '30%',
-      },
     }
   },
 }

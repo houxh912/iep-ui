@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="hover">
     <el-row class="contract">
-      <el-col class="head">合同概况<span class="sub">（本月已签订合同金额共￥{{getData.totalMoney}}）</span>
+      <el-col class="head">合同概况<span class="sub">（本月已签订合同金额共￥{{totalMoney}}）</span>
         <span class="dropdown">
           <el-select v-model="value" @change="change()">
             <el-option v-for="item in options" :key="item.label" :label="item.label" :value="item.value">
@@ -11,22 +11,76 @@
       </el-col>
     </el-row>
     <div class="echarts over">
-      <div id="contract" :style="{width: width, height: '320px'}"></div>
+      <ve-histogram :data="chartData" :settings="chartSetting" :legend-visible="false" :extend="chartExtend" height="300px" :loading="loading"></ve-histogram>
     </div>
   </el-card>
 </template>
 <script>
 import { getMySituation } from '@/api/crms/count'
-import _ from 'lodash'
-let echarts = require('echarts/lib/echarts')
-require('echarts/lib/chart/bar')
-require('echarts/lib/chart/line')
-require('echarts/lib/chart/pie')
-require('echarts/lib/component/tooltip')
-require('echarts/lib/component/title')
+import 'v-charts/lib/style.css'
 export default {
   data () {
+    this.chartSetting = {
+
+    }
+    this.chartExtend = {
+      tooltip: {
+        trigger: 'item',
+        formatter: '{b}：{c}%',
+      },
+      label: {
+        show: true,
+        position: [-20, -20],
+        color: '#000',
+        formatter: function (params) {
+          if (params.value) {
+            return '￥ ' + params.value.toLocaleString()
+          } else {
+            return ''
+          }
+        },
+      },
+      barWidth: '10',
+      itemStyle: {
+        color: '#D56368',
+        barBorderRadius: 10,
+      },
+      series: {
+        center: ['50%', '50%'],
+      },
+      xAxis: {
+        type: 'category',
+        axisLine: {
+          show: true,
+          onZero: false,
+        },
+        axisTick: {
+          show: true,
+          alignWithLabel: true,
+        },
+        splitArea: {
+          interval: 10,
+        },
+      },
+      yAxis: {
+        type: 'value',
+        axisLine: {
+          show: false,
+          onZero: false,
+        },
+        axisTick: {
+          show: false,
+        },
+        splitLine: {
+          lineStyle: {
+            type: 'dotted',
+          },
+        },
+      },
+
+    }
     return {
+      loading: true,
       value: 1,
       options: [
         {
@@ -48,123 +102,37 @@ export default {
           label: '去年', value: 6,
         },
       ],
+      totalMoney: '',
       interval: '1',
-      width: '100%',
-      getData: {
-        totalMoney: '',
-        xList: [],
-        mainList: [],
+      chartData: {
+        columns: ['timeInterval', 'contractAmount'],
+        rows: [],
       },
     }
   },
   created () {
     this.load()
-
-  },
-  mounted () {
-    this.draw()
   },
   methods: {
     load () {
       getMySituation({ interval: this.interval }).then((res) => {
-        if (res.data.data.contractSituations.length == 0) {
-          this.getData.totalMoney = 0
-          this.getData.xList = ['暂无']
-          this.getData.mainList = [0]
-        } else {
-          this.getData.totalMoney = res.data.data.contractAmount.toLocaleString()
-          this.getData.xList = _.map(res.data.data.contractSituations, 'timeInterval')
-          this.getData.mainList = _.map(res.data.data.contractSituations, 'contractAmount')
+        if (res.data.data) {
+          this.loading = false
         }
-
-        if (this.interval == 1 || this.interval == 2) {
-          for (var item in this.getData.xList) {
-            this.getData.xList[item] = this.getData.xList[item].substr(5, 2) + '.' + this.getData.xList[item].substr(7, 2)
+        var sourceData = res.data.data.contractSituations
+        if (sourceData.length != 0) {
+          this.totalMoney = res.data.data.contractAmount.toLocaleString()
+          for (var i in sourceData) {
+            if (this.interval == 1 || this.interval == 2) {
+              sourceData[i].timeInterval = sourceData[i].timeInterval.substr(5, 2) + '.' + sourceData[i].timeInterval.substr(7, 2)
+            } else {
+              sourceData[i].timeInterval = sourceData[i].timeInterval.substr(6, 1) + '月'
+            }
           }
+          this.chartData.rows = sourceData
         } else {
-          for (var index in this.getData.xList) {
-            this.getData.xList[index] = this.getData.xList[index].substr(6, 1) + ' 月'
-          }
+          this.chartData.rows = [{ timeInterval: '暂无', contractAmount: 0 }]
         }
-        if (12 < this.getData.mainList.length < 20) {
-          this.width = '600px'
-        } else if (20 <= this.getData.mainList.length) {
-          this.width = '900px'
-        }
-        this.draw()
-      })
-    },
-    draw () {
-      let myChart = echarts.init(document.getElementById('contract'))
-      myChart.setOption({
-        title: {
-          show: false,
-        },
-        color: '#87888B',
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow',        // 默认为直线，可选为：'line' | 'shadow'
-          },
-        },
-        grid: {
-          left: '0',
-          right: '0',
-          bottom: '50',
-          top: '80',
-          containLabel: true,
-        },
-        xAxis: [
-          {
-            type: 'category',
-            data: this.getData.xList,
-            axisTick: {
-              alignWithLabel: true,
-            },
-            splitArea: {
-              interval: 10,
-            },
-          },
-        ],
-        yAxis: {
-          type: 'value',
-          axisLine: {
-            show: false,
-            onZero: false,
-          },
-          axisTick: {
-            show: false,
-          },
-          splitLine: {
-            lineStyle: {
-              type: 'dotted',
-            },
-          },
-        },
-        series: [
-          {
-            name: '金额',
-            type: 'bar',
-            barWidth: '15',
-            data: this.getData.mainList,
-            itemStyle: {
-              color: '#D56368',
-              barBorderRadius: 10,
-            },
-            label: {
-              show: true,
-              position: [-20, -20],
-              color: '#000',
-              formatter: function (params) {
-                if (params.value) {
-                  return '￥ ' + params.value.toLocaleString()
-                } else {
-                  return ''
-                }
-              },
-            },
-          },
-        ],
       })
     },
     change () {

@@ -46,11 +46,9 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn(this.form).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: '放入黑名单成功',
-              type: 'warning',
-              duration: 2000,
+              type: 'success',
             })
             this.loadPage()
           })

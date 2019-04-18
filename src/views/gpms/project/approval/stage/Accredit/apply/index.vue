@@ -78,11 +78,9 @@ export default {
           this.formData.approver = this.formData.approverList.id
           this.formData.ccPersonList = this.formData.ccPersonList.users.map(m => m.id)
           updateData(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: '提交成功',
               type: 'success',
-              duration: 2000,
             })
             this.loadPage()
           })

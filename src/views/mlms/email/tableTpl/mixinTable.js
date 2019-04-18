@@ -15,7 +15,7 @@ export default {
     backPage (state) {
       this.pageState = 'list'
       if (state) {
-        this.$refs['table'].loadPage({type: this.type})
+        this.$refs['table'].loadPage({ type: this.type })
       }
     },
     multipleSelect (val, list) {
@@ -25,11 +25,9 @@ export default {
     // 批量标记已读
     allRead () {
       isReadeBatch(this.multipleSelection).then(() => {
-        this.$notify({
-          title: '成功',
-          message: '操作成功！',
+        this.$message({
+          message: '操作成功',
           type: 'success',
-          duration: 2000,
         })
         this.$refs['table'].loadPage({})
       })
@@ -37,11 +35,9 @@ export default {
     // 批量删除
     allDelete () {
       deleteEmailByIds(this.multipleSelection).then(() => {
-        this.$notify({
-          title: '成功',
-          message: '操作成功！',
+        this.$message({
+          message: '操作成功',
           type: 'success',
-          duration: 2000,
         })
         this.$refs['table'].loadPage({})
       })

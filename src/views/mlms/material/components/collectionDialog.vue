@@ -84,11 +84,9 @@ export default {
         list.push(obj)
       }
       this.requestFn(list).then(() => {
-        this.$notify({
-          title: '成功',
+        this.$message({
           message: '收藏成功',
           type: 'success',
-          duration: 2000,
         })
         this.$emit('load-page')
         this.dialogShow = false

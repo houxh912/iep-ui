@@ -45,18 +45,14 @@ export default {
         if (valid) {
           this.formRequestFn(this.form).then(({ data }) => {
             if (!data.data) {
-              this.$notify({
-                title: '失败',
-                message: data.msg,
+              this.$message({
+                message: '创建失败',
                 type: 'error',
-                duration: 2000,
               })
             } else {
-              this.$notify({
-                title: '成功',
+              this.$message({
                 message: '创建成功',
                 type: 'success',
-                duration: 2000,
               })
               this.loadPage()
             }

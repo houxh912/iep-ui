@@ -8,7 +8,7 @@
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="dialogShow = false">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
-      <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" default-expand-all :show-checkbox="showCheckbox" :expand-on-click-node="true">
+      <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" default-expand-all :expand-on-click-node="true">
         <span class="custom-tree-node" slot-scope="{ node, data }">
           <span :class="{level1:node.level===1,level2:node.level===2,level3:node.level===3}">{{ node.label }}</span>
           <span v-if="node.level===3">
@@ -28,9 +28,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    showCheckbox: {
-      type: Boolean,
-      default: false,
+    filterUserList: {
+      type: Array,
+      default: () => [],
     },
     value: {
       type: Array,
@@ -70,7 +70,7 @@ export default {
       this.users = []
     },
     isDisabled (data, node) {
-      if (node.level === 3 && this.userIds.includes(data.value)) {
+      if (node.level === 3 && (this.userIds.includes(data.value) || this.filterUserList.includes(data.value))) {
         return true
       }
       return false

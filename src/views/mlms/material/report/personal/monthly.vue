@@ -32,20 +32,16 @@
           <div class="title">领导指示</div>
           <pre>{{formData.leaderIndication}}</pre>
           <div class="title">本月工作总结</div>
-            <pre>{{formData.workSummary}}</pre>
+          <pre>{{formData.workSummary}}</pre>
           <div class="title">下月工作计划</div>
-            <pre>{{formData.workPlan}}</pre>
+          <pre>{{formData.workPlan}}</pre>
           <div class="title">总结与感悟</div>
-            <pre>{{formData.summarySentiment}}</pre>
+          <pre>{{formData.summarySentiment}}</pre>
         </div>
       </div>
     </div>
     <div class="detail-page" v-else>
-      <el-table
-        ref="dailyTable"
-        :data="weeklyTableData"
-        style="width: 100%"
-        @selection-change="handleSelectionChange">
+      <el-table ref="dailyTable" :data="weeklyTableData" style="width: 100%" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column label="开始周期" width="150">
           <template slot-scope="scope">{{ getWeekStartAndEnd(scope.row.createTime).startTime }}</template>
@@ -72,7 +68,7 @@ export default {
   props: {
     data: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   computed: {
@@ -95,7 +91,7 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           // 判断这条数据是否在系统中已经生成
-          let fn = ()=>{}
+          let fn = () => { }
           if (this.formData.createData) {
             fn = updateData
           } else {
@@ -105,11 +101,9 @@ export default {
           }
           delete this.formData.updateTime
           fn(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: '编辑月报成功',
               type: 'success',
-              duration: 2000,
             })
             this.pageState = true
             this.$emit('success-submit', true)
@@ -132,7 +126,7 @@ export default {
       this.pageState = false
       getTableData({
         yearMonthTime: this.formData.time,
-      }).then(({data}) => {
+      }).then(({ data }) => {
         this.weeklyTableData = data.data
       })
     },

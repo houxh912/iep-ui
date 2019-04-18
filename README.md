@@ -68,9 +68,15 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 | Wrapper            | @/components/Operation/Wrapper       | 组织的成员管理页面        | 列表页操作栏        |       
 | Header             | @/components/Page/Header             | 组织的成员管理页面        | 头部标题栏        |      
 
-## Element-ui 主题管理
+## 样式 ZIndex 层次管理
 
-详见 package.json script
+| 顶部TOP                                                    | 550         |
+|------------------------------------------------------------|-------------|
+| Footer                                                     | 500         |
+| BasicAsideContainer                                        | 102         |
+| D:\code\iep-ui\src\views\wel\index\WelAside\MyTreasure.vue | z-index: 98 |
+| iep-drawer                                                 | 600         |
+| iep-dialog                                                 | 2000+       |
 
 ## v-charts 图表组件
 

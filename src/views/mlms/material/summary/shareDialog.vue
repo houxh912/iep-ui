@@ -33,7 +33,7 @@ import { initShareForm, dictsMap, shareRules, shareType } from './options'
 import { createEmail } from '@/api/mlms/email/index'
 
 export default {
-  components: {  },
+  components: {},
   props: {
     type: {
       type: String,
@@ -65,11 +65,9 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           createEmail(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: '分享成功',
               type: 'success',
-              duration: 2000,
             })
             this.loadPage()
             this.dialogShow = false

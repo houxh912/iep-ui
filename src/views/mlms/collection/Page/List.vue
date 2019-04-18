@@ -15,11 +15,17 @@
                 <el-dropdown size="medium" v-show="settingIndex===item.id" slot="reference">
                   <i class="el-icon-setting"></i>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item><div @click="catalogCreate(item.id)">添加子目录</div></el-dropdown-item>
-                    <el-dropdown-item><div @click="catalogUpdate(item.id)">重命名</div></el-dropdown-item>
+                    <el-dropdown-item>
+                      <div @click="catalogCreate(item.id)">添加子目录</div>
+                    </el-dropdown-item>
+                    <el-dropdown-item>
+                      <div @click="catalogUpdate(item.id)">重命名</div>
+                    </el-dropdown-item>
                     <!-- <el-dropdown-item>上移</el-dropdown-item>
                     <el-dropdown-item>下移</el-dropdown-item> -->
-                    <el-dropdown-item><div @click="catalogDelete(item.id)">删除目录</div></el-dropdown-item>
+                    <el-dropdown-item>
+                      <div @click="catalogDelete(item.id)">删除目录</div>
+                    </el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
               </div>
@@ -30,8 +36,12 @@
                 <el-dropdown size="medium" v-show="settingIndex===child.id" slot="reference">
                   <i class="el-icon-setting"></i>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item><div @click="catalogUpdate(child.id)">重命名</div></el-dropdown-item>
-                    <el-dropdown-item><div @click="catalogDelete(child.id)">删除目录</div></el-dropdown-item>
+                    <el-dropdown-item>
+                      <div @click="catalogUpdate(child.id)">重命名</div>
+                    </el-dropdown-item>
+                    <el-dropdown-item>
+                      <div @click="catalogDelete(child.id)">删除目录</div>
+                    </el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
               </div>
@@ -47,9 +57,15 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item><div>分享</div></el-dropdown-item>
-              <el-dropdown-item><div @click="handleMoreAll">移动</div></el-dropdown-item>
-              <el-dropdown-item><div @click="handleNotCollectAll">取消收藏</div></el-dropdown-item>
+              <el-dropdown-item>
+                <div>分享</div>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <div @click="handleMoreAll">移动</div>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <div @click="handleNotCollectAll">取消收藏</div>
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -59,16 +75,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table 
-        :isLoadTable="isLoadTable" 
-        :pagination="pagination" 
-        :dictsMap="dictsMap" 
-        :columnsMap="columnsMap" 
-        :pagedTable="pagedTable" 
-        @size-change="handleSizeChange" 
-        @current-change="handleCurrentChange" 
-        @selection-change="handleSelectionChange" 
-        is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="主题">
             <template slot-scope="scope">
@@ -87,10 +94,7 @@
         </el-table-column>
       </iep-table>
     </el-col>
-    <el-dialog
-      :title="`${methodName}目录`"
-      :visible.sync="dialogVisible"
-      width="30%">
+    <el-dialog :title="`${methodName}目录`" :visible.sync="dialogVisible" width="30%">
       <el-form :model="formData" :rules="rules" label-width="100px" ref="form">
         <el-form-item label="目录名称" prop="name">
           <el-input v-model="formData.name"></el-input>
@@ -130,7 +134,7 @@ export default {
       methodName: '新增',
       dialogVisible: false,
       formData: initFormData(),
-      requsetFn: () => {},
+      requsetFn: () => { },
       catalogId: 0,
       collectUpdate,
       selectList: [],
@@ -147,7 +151,7 @@ export default {
   methods: {
     loadTypeList () {
       this.loadTable(this.searchForm, getAllList)
-      getList().then(({data}) => {
+      getList().then(({ data }) => {
         this.catalogList = data.data
         this.isLoadTable = false
       })
@@ -201,11 +205,9 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           this.requsetFn(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: `${this.methodName}成功`,
               type: 'success',
-              duration: 2000,
             })
             this.catalogCancel()
             this.loadTypeList()
@@ -242,7 +244,7 @@ export default {
       this.$emit('onDetail', row)
     },
     // 分享
-    handleShare () {},
+    handleShare () { },
     // 移动
     handleMore (row) {
       this.$refs['collection'].dialogShow = true

@@ -26,7 +26,7 @@
       <div class="comment">
         <div class="form">
           <h2 class="title">补充或评论</h2>
-          <el-input type="textarea" rows=5 v-model="commentForm.commentContent"></el-input>
+          <el-input type="textarea" rows=5 v-model="commentForm.commentContent" maxlength="500"></el-input>
           <div class="button">
             <iep-button type="primary" @click="submit">发送</iep-button>
           </div>
@@ -120,7 +120,7 @@ export default {
       getCommentPage({
         id: id,
         objectType: 2,
-      }).then(({data}) => {
+      }).then(({ data }) => {
         this.commentList = data.data.records
       })
     },
@@ -130,7 +130,7 @@ export default {
     },
   },
   created () {
-    getDataById(this.$route.params.id).then(({data}) => {
+    getDataById(this.$route.params.id).then(({ data }) => {
       this.formData = data.data
       this.getComment(data.data.id)
       this.formData.hostName = this.formData.host.length > 0 ? this.formData.host[0].name : '无'
@@ -147,7 +147,7 @@ export default {
         if (msg === '') {
           return '无'
         } else {
-          return msg.slice(0, msg.length-1)
+          return msg.slice(0, msg.length - 1)
         }
       }
       this.formData.attendeeName = fn(this.formData.attendee) // 参会人
@@ -178,11 +178,11 @@ export default {
       pre {
         line-height: 25px;
         color: #666;
-        white-space:pre-wrap; /* css3.0 */ 
-        white-space:-moz-pre-wrap; /* Firefox */ 
-        white-space:-pre-wrap; /* Opera 4-6 */ 
-        white-space:-o-pre-wrap; /* Opera 7 */ 
-        word-wrap:break-word; /* Internet Explorer 5.5+ */ 
+        white-space: pre-wrap; /* css3.0 */
+        white-space: -moz-pre-wrap; /* Firefox */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
       }
     }
   }
@@ -210,6 +210,7 @@ export default {
         }
         p {
           margin: 0 0 10px 0;
+          word-break: break-all;
         }
         .footer {
           display: flex;

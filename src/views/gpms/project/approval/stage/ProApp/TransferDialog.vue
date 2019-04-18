@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="立项申请" width="60%" @close="resetForm(false)">
-    
+
     <p class="tipes"><i class="el-icon-warning"></i> 项目预算大于100万的项目由项目执行与质量委员会审批。</p>
     <el-form :model="formData" ref="form" label-width="150px">
       <el-form-item label='编号'>{{formData.serialNo}}</el-form-item>
@@ -35,14 +35,14 @@ export default {
     return {
       dialogShow: false,
       formData: initFormData(),
-      rules:{
-        issuename:[
+      rules: {
+        issuename: [
           { required: true, message: '请选择活动区域', trigger: 'change' },
         ],
       },
     }
   },
-  methods:{
+  methods: {
     open (data) {
       this.dialogShow = true
       this.formData.id = data.id
@@ -62,14 +62,12 @@ export default {
         if (valid) {
           this.formData.approver = this.formData.approverObj.id
           this.formData.orgIds = this.formData.ccPersonLists.orgs.map(m => m.id),
-          this.formData.userIds = this.formData.ccPersonLists.users.map(m => m.id),
-          this.formData.ccPersonList = this.formData.userIds
+            this.formData.userIds = this.formData.ccPersonLists.users.map(m => m.id),
+            this.formData.ccPersonList = this.formData.userIds
           updateData(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: '提交成功',
               type: 'success',
-              duration: 2000,
             })
             this.resetForm(true)
           })
@@ -83,12 +81,12 @@ export default {
 </script>
 
 <style lang="scss">
-.tipes{
+.tipes {
   font-size: 14px;
   padding: 10px;
-  margin:0 20px 15px 20px;
-  background-color: #EBF5FF;
-  border-radius:4px;
+  margin: 0 20px 15px 20px;
+  background-color: #ebf5ff;
+  border-radius: 4px;
   line-height: 30px;
 }
 </style>

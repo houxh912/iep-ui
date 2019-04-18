@@ -64,11 +64,11 @@
 
 <script>
 import { initFormData, reportTableOption } from './option'
-import { 
+import {
   deleteEmailById, // 发送-删除
   deleteEmailReceiverById, // 收件-删除
   emailStarById, // 星标-删除
-  getEmailById } from '@/api/mlms/email/index'
+  getEmailById} from '@/api/mlms/email/index'
 import { downloadFile } from '@/api/common'
 
 export default {
@@ -121,11 +121,9 @@ export default {
     // 删除
     handleDelete () {
       this.deleteList[this.emailType].request(this.formData.emailId).then(() => {
-        this.$notify({
-          title: '成功',
-          message: '删除成功！',
+        this.$message({
+          message: '删除成功',
           type: 'success',
-          duration: 2000,
         })
         this.$emit('backWeb', true)
       })

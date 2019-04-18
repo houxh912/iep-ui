@@ -46,9 +46,8 @@ export default {
   },
   created () {
     getAllClientNum().then((res) => {
-      res.data.data.contractAmount = '￥ ' + parseFloat(res.data.data.contractAmount.toFixed(2)).toLocaleString()
+      res.data.data.contractAmount = '￥ ' + parseFloat(res.data.data.contractAmount).toLocaleString()
       this.data = res.data.data
-
     })
   },
 }

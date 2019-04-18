@@ -1,100 +1,84 @@
 <template>
-  <div id="visitNumber">
-  </div>
+  <ve-line :data="chartData" :settings="chartSetting" :extend="chartExtend" height="300px" :loading="loading"></ve-line>
 </template>
 
 <script>
-let echarts = require('echarts/lib/echarts')
-require('echarts/lib/chart/line')
-require('echarts/lib/component/tooltip')
-require('echarts/lib/component/title')
-require('echarts/lib/component/legend')
+import 'v-charts/lib/style.css'
 export default {
   data () {
+    this.chartSetting = {
+      legendName: ['核心客户', '重要客户', '潜在客户', '一般客户', '其他'],
+    }
+    this.chartExtend = {
+      color: ['#D97075', '#F0F0A9', '#A9CCF0', '#8A94AF', '#FBB781'],
+      legend: {
+        show: 'true',
+        bottom: 0,
+      },
+      xAxis: {
+        min: '周一',
+        type: 'category',
+        boundaryGap: false,
+        axisLine: {
+          show: true,
+        },
+        axisTick: {
+          show: true,
+          alignWithLabel: true,
+        },
+      },
+      yAxis: {
+        type: 'value',
+        position: 'left',
+        axisLine: {
+          show: true,
+        },
+        axisTick: {
+          show: false,
+        },
+
+      },
+      grid: {
+        left: '1%',
+        right: '2%',
+        bottom: '40',
+        top: '5%',
+        containLabel: true,
+      },
+      series: {
+        type: 'line',
+        smooth: false,
+        lineStyle: {
+        },
+
+      },
+    }
     return {
+      loading: false,
+      type: '1',
+
+      chartData: {
+        columns: ['日期', '核心客户', '重要客户', '潜在客户', '一般客户', '其他'],
+        rows: [
+          { '日期': '周一', '核心客户': 100, '重要客户': 22, '潜在客户': 1, '一般客户': 55, '其他': 33 },
+          { '日期': '周二', '核心客户': 35, '重要客户': 22, '潜在客户': 33, '一般客户': 42, '其他': 22 },
+          { '日期': '周三', '核心客户': 56, '重要客户': 3, '潜在客户': 12, '一般客户': 54, '其他': 11 },
+          { '日期': '周四', '核心客户': 22, '重要客户': 32, '潜在客户': 33, '一般客户': 55, '其他': 0 },
+          { '日期': '周五', '核心客户': 11, '重要客户': 22, '潜在客户': 33, '一般客户': 12, '其他': 22 },
+          { '日期': '周六', '核心客户': 0, '重要客户': 12, '潜在客户': 33, '一般客户': 32, '其他': 44 },
+          { '日期': '周日', '核心客户': 55, '重要客户': 55, '潜在客户': 33, '一般客户': 25, '其他': 88 },
+        ],
+      },
     }
   },
-  mounted () {
-    this.drawLine()
-  },
   methods: {
-    drawLine () {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById('visitNumber'))
-      // 绘制图表
-      myChart.setOption({
-        xAxis: {
-          type: 'category',
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-        },
-        yAxis: {
-          type: 'value',
-          axisTick: {
-            length: 0,
-          },
-        },
-        legend: {
-          data: ['核心客户', '重要客户', '一般客户', '潜在客户', '其他客户'],
-          bottom: 0,
-        },
-        grid: {
-          left: '1%',
-          right: '2%',
-          bottom: '10%',
-          top: '2%',
-          containLabel: true,
-        },
-        series: [
-          {
-            name: '核心客户',
-            data: [5, 5, 5, 0, 0, 0, 0],
-            type: 'line',
-            itemStyle: {
-              color: '#D56368',
-            },
-          },
-          {
-            name: '重要客户',
-            data: [8, 8, 8, 9, 10, 15, 20],
-            type: 'line',
-            itemStyle: {
-              color: '#F3F3BC',
-            },
-          },
-          {
-            name: '一般客户',
-            data: [10, 10, 10, 10, 5, 4, 3],
-            type: 'line',
-            itemStyle: {
-              color: '#A9CCF0',
-            },
-          },
-          {
-            name: '潜在客户',
-            data: [20, 10, 2, 17, 30, 21, 12],
-            type: 'line',
-            itemStyle: {
-              color: '#B7BFCF',
-            },
-          },
-          {
-            name: '其他客户',
-            data: [15, 18, 20, 20, 20, 17, 15],
-            type: 'line',
-            itemStyle: {
-              color: '#FFB880',
-            },
-          },
-        ],
-      })
+    searchPage () {
+      this.$message.success('功能开发中')
+    },
+    changeType () {
+      this.$message.success('功能开发中')
+
     },
   },
 }
 </script>
-
-<style lang="scss" scoped>
-#visitNumber {
-  width: auto;
-  height: 280px;
-}
-</style>

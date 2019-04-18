@@ -24,6 +24,13 @@ export default {
 
     }
     this.chartExtend = {
+      grid: {
+        left: '1%',
+        right: '2%',
+        bottom: '0',
+        top: '5%',
+        containLabel: true,
+      },
       tooltip: {
         trigger: 'item',
         formatter: '{b}：{c}%',

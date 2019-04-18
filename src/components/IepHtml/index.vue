@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="fr-view">
     <div v-html="value"></div>
   </div>
 </template>
@@ -14,8 +14,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-.app >>> p[data-f-id="pbf"] {
-  display: none !important;
-}
-</style>

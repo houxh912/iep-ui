@@ -56,11 +56,8 @@ import IepTableLinkImgDesc from '@/components/IepTable/LinkImgDesc'
 
 // 通讯录组件Contact
 import IepContactSelect from '@/components/IepContact/Select'
-import IepContactOneSelect from '@/components/IepContact/OneSelect'
 import IepContactMultiple from '@/components/IepContact/Multiple'
-import IepContactOneMultiple from '@/components/IepContact/OneMultiple'
 import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
-import IepContactOneMultipleUser from '@/components/IepContact/OneMultipleUser'
 
 // 部门组件Contact
 import IepDeptSelect from '@/components/IepDept/Select'
@@ -126,12 +123,9 @@ Vue.component(IepTableLink.name, IepTableLink)
 Vue.component(IepTableLinkImgDesc.name, IepTableLinkImgDesc)
 
 // 通讯录组件Contact
-// Vue.component(IepContactSelect.name, IepContactSelect)
-Vue.component(IepContactSelect.name, IepContactOneSelect)
-// Vue.component(IepContactMultiple.name, IepContactMultiple)
-Vue.component(IepContactMultiple.name, IepContactOneMultiple)
-// Vue.component(IepContactMultipleUser.name, IepContactMultipleUser)
-Vue.component(IepContactMultipleUser.name, IepContactOneMultipleUser)
+Vue.component(IepContactSelect.name, IepContactSelect)
+Vue.component(IepContactMultiple.name, IepContactMultiple)
+Vue.component(IepContactMultipleUser.name, IepContactMultipleUser)
 
 // 部门组件Contact
 Vue.component(IepDeptSelect.name, IepDeptSelect)

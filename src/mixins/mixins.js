@@ -32,7 +32,7 @@ export default {
       return await requestFn({ ...param, ...this.pageOption }).then(({ data }) => {
         const { records, size, total, current } = data.data
         const isBug = total / size + 1 === current
-        if (isBug) {
+        if (isBug && total !== 0) {
           this.searchPage() // 防止分页为空页的情况
         } else {
           this.pagination = { current, size, total }

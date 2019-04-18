@@ -1,5 +1,5 @@
 <template>
-  <a-drawer :title="title" :width="width" @close="close" :visible="drawerShow" :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}" :zIndex="600">
+  <a-drawer :title="title" :width="width" @close="close" :visible="drawerShow" :wrapStyle="{height: 'calc(100% - 108px)',overflow: 'auto',paddingBottom: '108px'}" :zIndex="zIndex">
     <el-scrollbar v-if="drawerShow" wrap-class="drawer-content">
       <slot></slot>
     </el-scrollbar>
@@ -33,6 +33,10 @@ export default {
     width: {
       default: '500',
       type: String,
+    },
+    zIndex: {
+      type: Number,
+      default: 500,
     },
   },
   methods: {

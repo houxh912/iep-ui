@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="行政审批" :replaceText="replaceText" :data="[10,2,3,5,2,3,2]"></page-header>
+      <page-header title="行政审批" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="left">
           <el-button @click="(scope.row)" size="small" class="share"><i class="el-icon-share"></i><span>分享</span></el-button>
@@ -62,7 +62,7 @@
           </el-table-column>
           <el-table-column label="部门">
             <template slot-scope="scope">
-              <iep-detail-tag :value="scope.row.deptList"></iep-detail-tag>
+              <iep-tag-detail :value="scope.row.deptList"></iep-tag-detail>
             </template>
           </el-table-column>
         </template>
@@ -87,7 +87,8 @@ export default {
       dictsMap,
       columnsMap,
       paramForm: initSearchForm(),
-      replaceText: (data) => `（本周新增${data[0]}条请假申请，${data[1]}条转正申请，${data[2]}条出差申请，${data[3]}条离职申请，${data[4]}条调岗申请，${data[5]}条调部门申请，${data[6]}条招聘申请）`,
+      statistics: [0, 0, 0, 0, 0, 0],
+      replaceText: (data) => `（本周新增${data[0]}条请假申请，${data[1]}条出差申请，${data[2]}条转正申请，${data[3]}条加班申请，${data[4]}条调岗申请，${data[5]}条调离职申请）`,
       pickerOptions2: {
         shortcuts: [{
           text: '最近一周',
@@ -128,8 +129,9 @@ export default {
       })
     },
     // handleShare (row) { },
-    loadPage (param) {
-      this.loadTable(param, getAdministrativeApprovalPage)
+    async loadPage (param) {
+      const data = await this.loadTable(param, getAdministrativeApprovalPage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
     handleCommandType () {
       // console.log(val)

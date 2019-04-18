@@ -16,7 +16,7 @@
         </el-table-column>
         <el-table-column label="负责人">
           <template slot-scope="scope">
-            <iep-detail-tag :value="scope.row.chargeNames"></iep-detail-tag>
+            <iep-tag-detail :value="scope.row.chargeNames"></iep-tag-detail>
           </template>
         </el-table-column>
       </iep-table>

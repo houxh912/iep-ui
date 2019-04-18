@@ -26,7 +26,7 @@
                 <iep-avatar v-model="form.avatar"></iep-avatar>
               </el-form-item>
               <el-form-item label="角色：" class="form-half">
-                <iep-detail-tag :value="form.roleName"></iep-detail-tag>
+                <iep-tag-detail :value="form.roleName"></iep-tag-detail>
               </el-form-item>
               <el-form-item label="资产所属公司：" class="form-half">
                 <span>{{form.deptList.join('、')}}</span>

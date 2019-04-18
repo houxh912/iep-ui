@@ -4,38 +4,38 @@
       <a-col :md="24" :lg="20">
         <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="150px" size="small">
           <el-form-item label="姓名：" class="form-half">
-            <span>{{form.name}}</span>
+            <iep-div-detail :value="form.name"></iep-div-detail>
           </el-form-item>
           <el-form-item label="用户名：" class="form-half">
-            <span>{{form.userName}}</span>
+            <iep-div-detail :value="form.userName"></iep-div-detail>
           </el-form-item>
           <el-form-item label="头像：" prop="avatar">
             <iep-avatar v-model="form.avatar"></iep-avatar>
           </el-form-item>
           <el-form-item label="所属组织：">
-            <iep-detail-tag :value="form.orgList"></iep-detail-tag>
+            <iep-tag-detail :value="form.orgList"></iep-tag-detail>
             <a-tag color="orange" @click="$openPage('/wel/org')">加入或创建组织</a-tag>
           </el-form-item>
           <el-form-item label="资产所属：" class="form-half">
-            <iep-detail-tag :value="form.deptList"></iep-detail-tag>
+            <iep-tag-detail :value="form.deptList"></iep-tag-detail>
           </el-form-item>
           <el-form-item label="工号：" class="form-half">
-            <span>{{form.staffId}}</span>
+            <iep-div-detail :value="form.staffId"></iep-div-detail>
           </el-form-item>
           <el-form-item label="角色：">
-            <iep-detail-tag :value="form.roleName"></iep-detail-tag>
+            <iep-tag-detail :value="form.roleName"></iep-tag-detail>
           </el-form-item>
           <el-form-item label="岗位：" class="form-half">
-            <span>{{form.positionName}}</span>
+            <iep-div-detail :value="form.positionName"></iep-div-detail>
           </el-form-item>
           <el-form-item label="对外头衔：" class="form-half">
-            <span>{{form.positionName}}</span>
+            <iep-div-detail :value="form.externalTitle"></iep-div-detail>
           </el-form-item>
           <el-form-item label="职务：" class="form-half">
-            <span>{{form.job}}</span>
+            <iep-div-detail :value="form.job"></iep-div-detail>
           </el-form-item>
           <el-form-item label="职称：" class="form-half">
-            <span>{{form.title}}</span>
+            <iep-div-detail :value="form.title"></iep-div-detail>
           </el-form-item>
           <el-form-item label="入职时间：" class="form-half">
             <span>{{form.entryTime | parseTime('{y}-{m}-{d}')}}</span>
@@ -47,7 +47,7 @@
             <span>{{dictsMap.status[form.status]}}</span>
           </el-form-item>
           <el-form-item label="所属部门：" class="form-half">
-            <iep-detail-tag :value="form.deptList"></iep-detail-tag>
+            <iep-tag-detail :value="form.deptList"></iep-tag-detail>
           </el-form-item>
           <el-form-item label="出生年月：" class="form-half">
             <span>{{form.birthday | parseTime('{y}-{m}-{d}')}}</span>

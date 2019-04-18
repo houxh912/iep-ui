@@ -20,7 +20,7 @@
             <span>{{dictsMap[item.prop][scope.row[item.prop]]}}</span>
           </div>
           <div v-else-if="item.type==='tag'">
-            <iep-detail-tag :value="scope.row[item.prop]"></iep-detail-tag>
+            <iep-tag-detail :value="scope.row[item.prop]"></iep-tag-detail>
           </div>
           <div v-else>
             <span v-if="scope.row[item.prop] === 0">0</span>

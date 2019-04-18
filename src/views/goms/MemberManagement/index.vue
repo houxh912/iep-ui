@@ -163,7 +163,7 @@ export default {
     },
     async loadPage (param = this.paramForm) {
       const data = await this.loadTable(param, gomsUserPage)
-      this.statistics = data.statistics
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

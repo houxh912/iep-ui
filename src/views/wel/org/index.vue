@@ -57,10 +57,23 @@
 <script>
 import { mapGetters } from 'vuex'
 import { initForm } from './options'
-import { getOrgList, addObj, applyObj } from '@/api/admin/org'
+import { getOrgList, addObj, applyObj, validOrgName } from '@/api/goms/org'
 export default {
   name: 'org',
   data () {
+    const validateOrgName = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('组织名不能为空'))
+      } else {
+        validOrgName(value).then(({ data }) => {
+          if (!data.data) {
+            callback(new Error('该组织名已存在。'))
+          } else {
+            callback()
+          }
+        })
+      }
+    }
     return {
       tabsActive: 0,
       orgList: [],
@@ -74,7 +87,7 @@ export default {
       form: initForm(),
       rules: {
         name: [
-          { required: true, message: '请输入组织名称', trigger: 'blur' },
+          { required: true, validator: validateOrgName, trigger: 'blur' },
         ], logo: [
           { required: true, message: '请输入LOGO', trigger: 'blur' },
         ], intro: [

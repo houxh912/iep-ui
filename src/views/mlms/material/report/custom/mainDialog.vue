@@ -34,7 +34,7 @@
 import { initFormData, rules } from './option'
 
 export default {
-  components: {  },
+  components: {},
   data () {
     return {
       dialogShow: false,
@@ -44,12 +44,12 @@ export default {
       rules: rules,
       dicData: {
         select: [
-          {value: 1, label: '选项1'},
-          {value: 2, label: '选项2'},
+          { value: 1, label: '选项1' },
+          { value: 2, label: '选项2' },
         ],
         dept: [
-          {value: 1, label: '部门1'},
-          {value: 2, label: '部门2'},
+          { value: 1, label: '部门1' },
+          { value: 2, label: '部门2' },
         ],
       },
     }
@@ -67,11 +67,9 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: `${this.methodName}成功`,
               type: 'success',
-              duration: 2000,
             })
             this.loadPage()
             this.dialogShow = false

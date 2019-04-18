@@ -172,11 +172,9 @@ export default {
           this.formData.status = 1
           let fn = this.pageState == 'draft' ? updateEmail : createEmail
           fn(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: '发送邮件成功',
               type: 'success',
-              duration: 2000,
             })
             this.formData = initFormData()
             if (this.pageState !== 'new') {
@@ -197,11 +195,9 @@ export default {
       this.formData.status = 0
       let fn = this.pageState == 'draft' ? updateEmail : createEmail
       fn(this.formData).then(() => {
-        this.$notify({
-          title: '成功',
+        this.$message({
           message: '保存草稿成功',
           type: 'success',
-          duration: 2000,
         })
         this.formData = initFormData()
         if (this.pageState !== 'new') {

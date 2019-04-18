@@ -1,7 +1,7 @@
 <template>
   <basic-container class="iep-page-form">
     <page-header :title="methodName" :backOption="backOption"></page-header>
-    
+
     <el-form :model="formData" :rules="rules" ref="form" label-width="200px">
 
       <el-row>
@@ -127,11 +127,9 @@ export default {
           this.formData.projectInfoId = this.projectData.id
           this.formData.projectName = this.projectData.projectName
           this.formRequestFn(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: `${this.methodName}成功`,
               type: 'success',
-              duration: 2000,
             })
             this.close(true)
           })

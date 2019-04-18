@@ -2,7 +2,7 @@
   <div class="weekly">
     <div class="update-page">
       <div class="head">
-        <div class="title"  v-show="formData.index">{{`第${formatDig(formData.index)}周组织工作周报`}}<span class="date">（{{`${formData.startTime} ~ ${formData.endTime}`}}）</span></div>
+        <div class="title" v-show="formData.index">{{`第${formatDig(formData.index)}周组织工作周报`}}<span class="date">（{{`${formData.startTime} ~ ${formData.endTime}`}}）</span></div>
         <!-- <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href" @click="changePage">参考本周日报</a></div> -->
         <div class="tips update" @click="handleUpdate"><i class="el-icon-edit"></i></div>
       </div>
@@ -32,15 +32,15 @@
           <div class="title">领导指示</div>
           <pre>{{formData.leaderIndication}}</pre>
           <div class="title">本周工作总结</div>
-            <pre>{{formData.workSummary}}</pre>
+          <pre>{{formData.workSummary}}</pre>
           <div class="title">下周工作计划</div>
-            <pre>{{formData.workPlan}}</pre>
+          <pre>{{formData.workPlan}}</pre>
           <div class="title">总结与感悟</div>
-            <pre>{{formData.summarySentiment}}</pre>
+          <pre>{{formData.summarySentiment}}</pre>
         </div>
       </div>
     </div>
-    
+
   </div>
 </template>
 
@@ -52,7 +52,7 @@ export default {
   props: {
     data: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   computed: {
@@ -72,7 +72,7 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           // 判断这条数据是否在系统中已经生成
-          let fn = ()=>{}
+          let fn = () => { }
           if (this.formData.createData) {
             fn = updateData
           } else {
@@ -82,11 +82,9 @@ export default {
           delete this.formData.updateTime
           this.formData.title = `第${this.formatDig(this.formData.index)}周个人工作周报`
           fn(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: '编辑月报成功',
               type: 'success',
-              duration: 2000,
             })
             this.pageState = true
             this.$emit('success-submit', true)

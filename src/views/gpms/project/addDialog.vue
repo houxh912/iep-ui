@@ -3,7 +3,7 @@
     <page-header :title="`${methodName}项目`" :backOption="backOption"></page-header>
 
     <el-form :model="formData" :rules="rules" ref="form" label-width="200px" class="form">
-      
+
       <el-form-item label="项目名称：" prop="projectName">
         <el-input v-model="formData.projectName" placeholder="请输入项目名称"></el-input>
       </el-form-item>
@@ -18,7 +18,7 @@
       </el-form-item>
       <el-form-item label="相关客户：" prop="relatedClient">
         <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select>
-      </el-form-item> 
+      </el-form-item>
       <el-form-item label="项目预算：" prop="projectBudget">
         <el-input v-model="formData.projectBudget"></el-input>
       </el-form-item>
@@ -65,7 +65,7 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'add-dialog',
-  components: {  },
+  components: {},
   computed: {
     ...mapState({
       dictGroup: state => state.user.dictGroup,
@@ -121,7 +121,7 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           // 进行数据的转换先
-          let personList =  [{
+          let personList = [{
             name: 'mktManager',
             list: 'mktManagerList',
           }, {
@@ -134,11 +134,9 @@ export default {
           this.formData.inChargeDept = this.formData.inChargeDeptList.id
           this.formData.coopDept = this.formData.coopDeptList.id
           this.typeObj[this.type].requestFn(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: `${this.methodName}成功`,
               type: 'success',
-              duration: 2000,
             })
             this.close(true)
           })
@@ -153,7 +151,7 @@ export default {
     },
   },
   created () {
-    getCustomerPage({type: 1}).then(({data}) => {
+    getCustomerPage({ type: 1 }).then(({ data }) => {
       this.clientList = data.data.records
     })
   },

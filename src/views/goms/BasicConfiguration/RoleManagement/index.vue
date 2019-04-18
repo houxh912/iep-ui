@@ -199,11 +199,9 @@ export default {
         .then(() => {
           this.getList(this.page)
           done()
-          this.$notify({
-            title: '成功',
+          this.$message({
             message: '创建成功',
             type: 'success',
-            duration: 2000,
           })
         })
         .catch(() => {
@@ -218,11 +216,9 @@ export default {
         .then(() => {
           this.getList(this.page)
           done()
-          this.$notify({
-            title: '成功',
+          this.$message({
             message: '修改成功',
             type: 'success',
-            duration: 2000,
           })
         })
         .catch(() => {
@@ -245,11 +241,9 @@ export default {
           })
           .then(response => {
             this.checkedKeys = response.data
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: '修改成功',
               type: 'success',
-              duration: 2000,
             })
           })
       })

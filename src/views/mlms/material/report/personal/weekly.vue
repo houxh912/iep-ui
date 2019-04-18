@@ -32,20 +32,16 @@
           <div class="title">领导指示</div>
           <pre>{{formData.leaderIndication}}</pre>
           <div class="title">本周工作总结</div>
-            <pre>{{formData.workSummary}}</pre>
+          <pre>{{formData.workSummary}}</pre>
           <div class="title">下周工作计划</div>
-            <pre>{{formData.workPlan}}</pre>
+          <pre>{{formData.workPlan}}</pre>
           <div class="title">总结与感悟</div>
-            <pre>{{formData.summarySentiment}}</pre>
+          <pre>{{formData.summarySentiment}}</pre>
         </div>
       </div>
     </div>
     <div class="detail-page" v-else>
-      <el-table
-        ref="dailyTable"
-        :data="dailyTableData"
-        style="width: 100%"
-        @selection-change="handleSelectionChange">
+      <el-table ref="dailyTable" :data="dailyTableData" style="width: 100%" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column label="工作日期" width="300">
           <template slot-scope="scope">{{ scope.row.createTime.slice(0, 10) }}</template>
@@ -57,7 +53,7 @@
         <iep-button @click="cancelPage">返回</iep-button>
       </div>
     </div>
-    
+
   </div>
 </template>
 
@@ -70,7 +66,7 @@ export default {
   props: {
     data: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   computed: {
@@ -93,7 +89,7 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           // 判断这条数据是否在系统中已经生成
-          let fn = ()=>{}
+          let fn = () => { }
           if (this.formData.createData) {
             fn = updateData
           } else {
@@ -103,11 +99,9 @@ export default {
           delete this.formData.updateTime
           this.formData.title = `第${this.formatDig(this.formData.index)}周个人工作周报`
           fn(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: '编辑月报成功',
               type: 'success',
-              duration: 2000,
             })
             this.pageState = true
             this.$emit('success-submit', true)
@@ -131,8 +125,8 @@ export default {
       this.pageState = false
       getTableData({
         startTime: getDateStr(this.formData.timeStamp),
-        endTime: getDateStr(this.formData.timeStamp + 7*24*3600*1000 - 1),
-      }).then(({data}) => {
+        endTime: getDateStr(this.formData.timeStamp + 7 * 24 * 3600 * 1000 - 1),
+      }).then(({ data }) => {
         this.dailyTableData = data.data
       })
     },

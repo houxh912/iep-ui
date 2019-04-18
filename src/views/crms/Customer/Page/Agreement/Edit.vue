@@ -197,11 +197,9 @@ export default {
           if (valid) {
             if (this.isTime) {
               this.formRequestFn(formData).then(() => {
-                this.$notify({
-                  title: '成功',
+                this.$message({
                   message: `${this.methodName}成功`,
                   type: 'success',
-                  duration: 2000,
                 })
                 this.$emit('dialog')
                 this.loadPage()

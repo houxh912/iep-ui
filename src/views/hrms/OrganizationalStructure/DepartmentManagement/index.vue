@@ -84,10 +84,14 @@ export default {
       this.$refs['DialogForm'].dialogShow = true
     },
     handleMove (row) {
+      return
+      // eslint-disable-next-line no-unreachable
       console.log(row)
       this.$refs['MoveDialog'].dialogShow = true
     },
     handleMerge (row) {
+      return
+      // eslint-disable-next-line no-unreachable
       console.log(row)
       this.$refs['MergeDialog'].dialogShow = true
     },

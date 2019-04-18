@@ -92,7 +92,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn(this.form).then(() => {
-            this.$notify({
+            this.$message({
               message: `${this.methodName}成功`,
               type: 'success',
             })

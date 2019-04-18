@@ -67,18 +67,12 @@ export default {
 
 <style scoped>
 .app >>> .fr-wrapper > div[style*="z-index: 9999"] {
-  position: absolute;
-  top: -10000px;
-  opacity: 0;
-}
-.app >>> .fr-box.fr-basic .fr-element {
-  /* margin-top: -30px; */
-}
-/* .app >>> .fr-element.fr-view {
-  position: absolute;
-  top: 0;
+  /*position: absolute;
+    top: -10000px;
+    opacity: 0;*/
+  display: none;
 }
 .app >>> .fr-placeholder {
   margin-top: 0 !important;
-} */
+}
 </style>

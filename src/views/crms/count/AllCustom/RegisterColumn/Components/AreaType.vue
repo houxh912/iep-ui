@@ -16,24 +16,31 @@ export default {
   data () {
     this.chartSettings = {
       level: [
-        ['第一季度', '第二季度', '第三季度', '第四季度'],
+        ['一季度', '二季度', '三季度', '四季度'],
         ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
       ],
       legendLimit: 0,
+        radius:110,
     },
       this.chartExtend = {
-        series: [{
+        series: {
           center: ['50%', '50%'],
-        }],
+        },
+        color:['#F5BA89','#B7DBF9','#EF878C','#FCDD81','#F9D5B7','#F9D5B7','#F9D5B7','#D7EBFC','#D7EBFC','#D7EBFC','#F2B9BC','#F2B9BC','#F2B9BC','#FFEBB0','#FFEBB0','#FFEBB0'],
+        label:{
+          formatter:'{b}\n{d}%',
+          color:'#000',
+        },
+        
       }
     return {
       chartData: {
         columns: ['time', 'value'],
         rows: [
-          { 'time': '第一季度', 'value': 1393 },
-          { 'time': '第二季度', 'value': 3530 },
-          { 'time': '第三季度', 'value': 2923 },
-          { 'time': '第四季度', 'value': 1723 },
+          { 'time': '一季度', 'value': 1393 },
+          { 'time': '二季度', 'value': 3530 },
+          { 'time': '三季度', 'value': 2923 },
+          { 'time': '四季度', 'value': 1723 },
           { 'time': '1月', 'value': 3792 },
           { 'time': '2月', 'value': 4593 },
           { 'time': '3月', 'value': 4593 },

@@ -67,6 +67,7 @@
             <v-axis />
             <v-bar position="dept*money" color="#CB3737"/>
           </v-chart>
+          <ve-histogram :data="chartData" :settings="chartSettings" :extend="chartExtend" :colors="colors"></ve-histogram>
         </el-card>
 
       </div>
@@ -74,26 +75,42 @@
   </div>
 </template>
 <script>
-const data = [
-  { dept: '在职员工', money: 18 },
-  { dept: '部门', money: 7 },
-  { dept: '离职员工', money: 11 },
-  { dept: '员工提现', money: 4 },
-  { dept: '系统回收', money: 8 },
-  { dept: '内部往来账', money: 2 },
-  { dept: '集团账户余额', money: 2 },
-]
-const scale = [{
-  dataKey: 'money',
-  tickInterval: 5,
-}]
 export default {
   data () {
+    this.colors = [
+      (paramsA) => {
+        var colorList1 = ['#d66368', '#d97276', '#dd8184', '#e7a6aa', '#e6a1a4','#e9b1b2','#e9b1b2','#edc2c3','#f2d0d1']
+        return colorList1[paramsA.dataIndex] 
+      },
+    ]
+    this.chartSettings = {
+      metrics: ['金额'],
+      dimension: ['dept'],
+      lineStyle: {
+        color: '#fff',
+      },
+      
+    }
+    this.chartExtend = {
+      barWidth: '26',
+      itemStyle: {
+        barBorderRadius: 13,
+      },
+    }
     return {
-      data,
-      scale,
-      height: 400,
       value6: '',
+      chartData: {
+        columns: ['dept', '金额'],
+        rows: [
+          { dept: '在职员工', 金额: 18 },
+          { dept: '部门', 金额: 7 },
+          { dept: '离职员工', 金额: 11 },
+          { dept: '员工提现', 金额: 4 },
+          { dept: '系统回收', 金额: 8 },
+          { dept: '内部往来账', 金额: 2 },
+          { dept: '集团账户余额', 金额: 2 },
+        ],
+      },
     }
   },
 }

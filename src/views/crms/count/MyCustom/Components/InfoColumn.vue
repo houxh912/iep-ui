@@ -2,59 +2,67 @@
   <el-card shadow="always" :body-style="{padding:'15px'}">
     <el-row class="info">
       <el-col :span='24' class="title">
-        <h2 class="user">hello，{{infoList.name}}！</h2>
+        <h2 class="user">hello，{{userInfo.realName}}！</h2>
         <div class="msg">
           您累计签订合同
-          <span class="red">12</span>
+          <span class="red">{{data.contractQuantity}}</span>
           份 / 排名
-          <span class="red">3</span>
+          <span class="red">{{data.contractQuantitySort}}</span>
           位
         </div>
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>33</span> 客户
+          <span>{{data.clientQuantity}}</span> 客户
         </div>
-        <div class="content">超过了 60% 的同事</div>
+        <div class="content">超过了 {{data.clientBeyond}}% 的同事</div>
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>6</span> 联系人
+          <span>{{data.contactQuantity}}</span> 联系人
         </div>
-        <div class="content">超过了 30% 的同事</div>
+        <div class="content">超过了 {{data.contactBeyond}}% 的同事</div>
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>5</span> 合同
+          <span>{{data.contractQuantity}}</span> 合同
         </div>
-        <div class="content">超过了 55% 的同事</div>
+        <div class="content">超过了 {{data.contractBeyond}}% 的同事</div>
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>65w</span> 合同金额
+          <span>{{data.contractAmount}}w</span> 合同金额
         </div>
-        <div class="content">超过了 91% 的同事</div>
+        <div class="content">超过了 {{data.contractAmountBeyond}}% 的同事</div>
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>5</span> 软件
+          <span>{{data.contractAmount}}</span> 软件
         </div>
-        <div class="content">超过了 {{infoList.cent}} 的同事</div>
+        <div class="content">超过了{{data.contractAmountBeyond}}% 的同事</div>
       </el-col>
     </el-row>
   </el-card>
 </template>
 
 <script>
+import { getMyClientNum } from '@/api/crms/count'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      infoList: {
-        name: '超级管理员',
-        num: 12,
-        cent: '30%',
-      },
+      data: '',
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
+  created () {
+    getMyClientNum().then((res) => {
+      this.data = res.data.data
+    })
   },
 }
 </script>

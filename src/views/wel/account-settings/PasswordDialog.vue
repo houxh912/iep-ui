@@ -85,11 +85,9 @@ export default {
           })
             .then(response => {
               if (response.data.data) {
-                this.$notify({
-                  title: '成功',
+                this.$message({
                   message: '密码修改成功，请重新登陆',
                   type: 'success',
-                  duration: 2000,
                 })
                 this.GetUserInfo()
                 // 修改密码之后强制重新登录
@@ -97,20 +95,16 @@ export default {
                   location.reload() // 为了重新实例化vue-router对象 避免bug
                 })
               } else {
-                this.$notify({
-                  title: '失败',
+                this.$message({
                   message: response.data.msg,
                   type: 'error',
-                  duration: 2000,
                 })
               }
             })
             .catch(() => {
-              this.$notify({
-                title: '失败',
+              this.$message({
                 message: '修改失败',
                 type: 'error',
-                duration: 2000,
               })
             })
         } else {

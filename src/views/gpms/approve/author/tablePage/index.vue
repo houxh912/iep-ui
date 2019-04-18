@@ -1,14 +1,6 @@
 <template>
   <div>
-    <iep-table 
-      :isLoadTable="isLoadTable" 
-      :pagination="pagination" 
-      :columnsMap="columnsMap" 
-      :dictsMap="dictsMap" 
-      :pagedTable="pagedTable" 
-      @size-change="handleSizeChange" 
-      @current-change="handleCurrentChange" 
-      is-mutiple-selection>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <operation-wrapper>
@@ -24,12 +16,12 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMap , dictsMap} from './option.js'
+import { columnsMap, dictsMap } from './option.js'
 import { getApproveList, updateData } from '@/api/gpms/author'
 
 export default {
   mixins: [mixins],
-  components: {  },
+  components: {},
   props: {
     status: {
       type: String,
@@ -59,18 +51,16 @@ export default {
         id: row.id,
         approvalStatus: 2,
       }).then(() => {
-        this.$notify({
-          title: '成功',
-          message: '操作c成功',
+        this.$message({
+          message: '操作成功',
           type: 'success',
-          duration: 2000,
         })
         this.loadPage()
       })
     },
   },
   created () {
-    this.loadPage({approvalStatus: this.status})
+    this.loadPage({ approvalStatus: this.status })
   },
 }
 </script>

@@ -22,7 +22,7 @@ import mixins from '@/mixins/mixins'
 import { updateData } from '@/api/gpms/index'
 
 export default {
-  mixins:[mixins],
+  mixins: [mixins],
   components: { IepDialog },
   data () {
     var validate = (rule, value, callback) => {
@@ -65,11 +65,9 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           updateData(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: '操作成功',
               type: 'success',
-              duration: 2000,
             })
             this.resetForm(true)
           })
@@ -88,23 +86,23 @@ export default {
   font-weight: bold;
   padding-top: 17px;
 }
-.dial .el-dialog__body{
+.dial .el-dialog__body {
   padding: 0;
 }
 </style>
 <style lang="scss" scoped>
-.tipes{
-  font-size:12px;
-  padding:10px;
-  margin:0 20px 15px 20px;
-  background-color: #EBF5FF;
-  border-radius:4px;
+.tipes {
+  font-size: 12px;
+  padding: 10px;
+  margin: 0 20px 15px 20px;
+  background-color: #ebf5ff;
+  border-radius: 4px;
   line-height: 20px;
 }
-.RIGH{
+.RIGH {
   text-align: right;
 }
-.padl{
-  padding-left:9px;
+.padl {
+  padding-left: 9px;
 }
 </style>

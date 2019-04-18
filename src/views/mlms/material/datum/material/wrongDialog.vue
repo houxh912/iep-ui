@@ -54,11 +54,9 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           createEmail(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: `${this.methodName}成功`,
               type: 'success',
-              duration: 2000,
             })
             this.loadPage()
             this.dialogShow = false

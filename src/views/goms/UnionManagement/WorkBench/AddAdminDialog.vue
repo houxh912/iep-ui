@@ -34,18 +34,14 @@ export default {
         if (valid) {
           this.formRequestFn(this.form.user.id).then(({ data }) => {
             if (data.data) {
-              this.$notify({
-                title: '成功',
+              this.$message({
                 message: '添加成功',
                 type: 'success',
-                duration: 2000,
               })
             } else {
-              this.$notify({
-                title: '失败',
+              this.$message({
                 message: data.msg,
                 type: 'error',
-                duration: 2000,
               })
             }
             this.loadPage()

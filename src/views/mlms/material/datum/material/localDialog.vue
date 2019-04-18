@@ -117,11 +117,9 @@ export default {
           this.formData.type = 0
           this.formRequestFn(this.formData).then((data) => {
             this.backId = data.id
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: `${this.methodName}成功`,
               type: 'success',
-              duration: 2000,
             })
             this.loadPage()
             this.dialogShow = false
@@ -138,11 +136,9 @@ export default {
           },
         })
         saveScheme(this.backId).then(() => {
-          this.$notify({
-            title: '成功',
+          this.$message({
             message: '保存成功',
             type: 'success',
-            duration: 2000,
           })
         })
       }

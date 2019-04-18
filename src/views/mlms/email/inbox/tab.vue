@@ -45,11 +45,9 @@ export default {
   methods: {
     allDelete () {
       deleteEmailReceiver(this.multipleSelection).then(() => {
-        this.$notify({
-          title: '成功',
-          message: '删除成功！',
+        this.$message({
+          message: '操作成功',
           type: 'success',
-          duration: 2000,
         })
         this.$refs['table'].loadPage({})
       })

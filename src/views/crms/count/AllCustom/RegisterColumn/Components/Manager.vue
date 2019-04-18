@@ -1,6 +1,6 @@
 <template>
   <div class="warp">
-    <div id="Manager" :style="{width:'100%',height:'280px'}">
+    <div id="Manager" :style="{width:'100%',height:height}">
     </div>
   </div>
 
@@ -16,6 +16,10 @@ require('echarts/lib/component/legend')
 export default {
   data () {
     return {
+      marketManager: [],//市场经理
+      clientQuantity: [],//客户
+      contactQuantity: [],//联系人
+      height: '560px',
     }
   },
   created () {
@@ -27,7 +31,18 @@ export default {
   methods: {
     load () {
       getAllManager().then((res) => {
-        console.log(res)
+        let arr = res.data.data
+        this.height = 280 * Math.ceil(arr.length / 5) + 'px'
+        console.log(this.height)
+        console.log(typeof this.height)
+        for (var index in arr) {
+          if (!arr[index].hasOwnProperty('contactQuantity')) {
+            arr[index].contactQuantity = 0
+          }
+        }
+        this.marketManager = arr.map(m => m.marketManager)
+        this.clientQuantity = arr.map(m => m.clientQuantity)
+        this.contactQuantity = arr.map(m => m.contactQuantity)
         this.draw()
       })
     },
@@ -59,7 +74,8 @@ export default {
         },
         yAxis: {
           type: 'category',
-          data: ['张佩瑜', '中艺桥', '何依婷', '王俊辉', '毛莹莹'],
+          // data: ['张佩瑜', '中艺桥', '何依婷', '王俊辉', '毛莹莹'],
+          data: this.marketManager,
           axisTick: {
             length: 0,
           },
@@ -68,7 +84,8 @@ export default {
           {
             name: '客户',
             type: 'bar',
-            data: [150, 58, 123, 78, 170],
+            // data: [150, 58, 123, 78, 170],
+            data: this.clientQuantity,
             itemStyle: {
               color: '#D56368',
               barBorderRadius: 50,
@@ -78,7 +95,8 @@ export default {
           {
             name: '联系人',
             type: 'bar',
-            data: [80, 23, 22, 120, 100],
+            // data: [80, 23, 22, 120, 100],
+            data: this.contactQuantity,
             barWidth: 10,
             itemStyle: {
               color: '#DDDDDD',

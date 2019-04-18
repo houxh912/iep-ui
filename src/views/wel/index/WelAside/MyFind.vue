@@ -46,21 +46,6 @@ export default {
   position: relative;
   margin: 10px;
   border-bottom: 1px solid #ccc;
-  .btn {
-    position: absolute;
-    display: inline-block;
-    width: 25px;
-    height: 30px;
-    color: #bfbfbf;
-    background: #fafafa;
-    font-size: 20px;
-    text-align: center;
-    line-height: 30px;
-    border: 1px solid #eee;
-    bottom: -15px;
-    left: -10px;
-    z-index: 999;
-  }
 }
 .find-content {
   content: "";

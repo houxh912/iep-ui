@@ -18,70 +18,83 @@
     <div>
       <div class="money">签单金额：8000000</div>
       <el-row>
-        <div id="moneyColumn">
-        </div>
+        <ve-line :data="chartData" :extend="chartExtend" height="300px" :loading="loading"></ve-line>
       </el-row>
     </div>
   </el-card>
 </template>
 
 <script>
-let echarts = require('echarts/lib/echarts')
-require('echarts/lib/chart/line')
-require('echarts/lib/component/tooltip')
-require('echarts/lib/component/title')
-require('echarts/lib/component/legend')
+import 'v-charts/lib/style.css'
 import AdvanceSearch from './AdvanceSearch'
 export default {
   components: { AdvanceSearch },
   data () {
+    this.chartExtend = {
+      legend: {
+        show: 'true',
+        data: ['金额'],
+        bottom: 0,
+      },
+      xAxis: {
+        min: '周一',
+        type: 'category',
+        boundaryGap: false,
+        axisLine: {
+          show: true,
+        },
+        axisTick: {
+          show: true,
+          alignWithLabel: true,
+        },
+      },
+      yAxis: {
+        type: 'value',
+        position: 'left',
+        axisLine: {
+          show: true,
+        },
+        axisTick: {
+          show: false,
+        },
+
+      },
+      grid: {
+        left: '1%',
+        right: '2%',
+        bottom: '40',
+        top: '5%',
+        containLabel: true,
+      },
+      series: {
+        name: '金额',
+        type: 'line',
+        smooth: false,
+        lineStyle: {
+          color: '#D56368',
+        },
+
+      },
+    }
     return {
+      loading: false,
       type: '1',
       tabList: [{ label: '按周', value: '1' }, { label: '按月', value: '2' }, { label: '季度', value: '3' }, { label: '年度', value: '4' }],
+      chartData: {
+        columns: ['日期', '访问用户'],
+        rows: [
+          { '日期': '周一', '访问用户': 90000 },
+          { '日期': '周二', '访问用户': 35000 },
+          { '日期': '周三', '访问用户': 65000 },
+          { '日期': '周四', '访问用户': 30000 },
+          { '日期': '周五', '访问用户': 21000 },
+          { '日期': '周六', '访问用户': 0 },
+          { '日期': '周日', '访问用户': 56312 },
+        ],
+      },
     }
   },
-  mounted () {
-    this.drawLine()
-  },
   methods: {
-    drawLine () {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById('moneyColumn'))
-      // 绘制图表
-      myChart.setOption({
-        xAxis: {
-          type: 'category',
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-        },
-        yAxis: {
-          type: 'value',
-          axisTick: {
-            length: 0,
-          },
-        },
-        legend: {
-          data: ['客户'],
-          bottom: 0,
-        },
-        grid: {
-          left: '1%',
-          right: '2%',
-          bottom: '10%',
-          top: '3%',
-          containLabel: true,
-        },
-        series: [
-          {
-            name: '客户',
-            data: [10, 8, 0, 8, 2, 0, 0],
-            type: 'line',
-            itemStyle: {
-              color: '#D56368',
-            },
-          },
-        ],
-      })
-    },
     searchPage () {
       this.$message.success('功能开发中')
     },
@@ -113,6 +126,6 @@ export default {
   height: 300px;
 }
 .money {
-  padding-left: 50px;
+  padding: 10px 0 10px 55px;
 }
 </style>

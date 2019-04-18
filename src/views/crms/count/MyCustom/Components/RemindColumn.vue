@@ -7,9 +7,9 @@
           <span class="border" @click="right"><i class="el-icon-arrow-right"></i></span>
         </div>
       </el-col>
-      <div v-for="(item, index) in infoList.tips" :key="index" class="tip" @mouseenter="tipsSelect=index" @mouseleave="tipsSelect=-1">
+      <div v-for="(item, index) in infoList" :key="index" class="tip" @mouseenter="tipsSelect=index" @mouseleave="tipsSelect=-1">
         <i class="icon-tongzhi"></i>
-        <p>{{item.tips}}</p>
+        <span>功能开发中功能开发中功能开发中功能开发中功能开发中功能开发中功能开发中功能开发中功能开发中功能开发中</span>
         <iep-button type="primary" class="btn" size="mini" v-if="index==tipsSelect" @click="clear">忽略</iep-button>
       </div>
     </el-row>
@@ -17,38 +17,50 @@
 </template>
 
 <script>
+import mixins from '@/mixins/mixins'
+import { getMyWarning } from '@/api/crms/count'
 export default {
+  mixins: [mixins],
   data () {
     return {
-      infoList: {
-        tips: [{
-          id: 1,
-          tips: '您已超过一个月未对三亚市政府服务中心客户进行拜访了',
-        }, {
-          id: 1,
-          tips: '您已超过六个月未对海南省农业厅进行重要客户方案撰写了',
-        }, {
-          id: 1,
-          tips: '您已超过一年未未与海南省林业局合作了，快去找找合作可能',
-        }],
-      },
+      infoList: '',
       tipsSelect: -1,
+      current: 1,
+      total: '',
     }
   },
+  created () {
+    this.load()
+  },
   methods: {
-    tipsEnter () {
-
+    load () {
+      getMyWarning({ current: this.current, size: 5 }).then((res) => {
+        this.infoList = res.data.data.records
+        this.total = res.data.data.total
+      })
     },
-    tipsLeave () { },
     clear () {
       this.$message.success('功能开发中')
     },
     left () {
-      this.$message.success('功能开发中')
+      if (this.current > 1) {
+        this.current -= 1
+        this.load()
+      } else {
+        this.$message.warning('大兄弟！不能再往前了！！！')
+        return false
+      }
 
     },
     right () {
-      this.$message.success('功能开发中')
+      var flag = Math.ceil(this.total / 5) - 1
+      if (this.current > flag) {
+        this.$message.warning('大兄弟！后面没有了！！！')
+        return false
+      } else {
+        this.current += 1
+        this.load()
+      }
 
     },
   },
@@ -73,7 +85,7 @@ export default {
           padding: 5px;
           border: 1px solid #9c9c9c;
           &:hover {
-            border: 1px solid red;
+            border: 1px solid #d56368;
           }
         }
         &:hover {
@@ -83,11 +95,18 @@ export default {
     }
   }
   .tip {
-    line-height: 28px;
-    padding-top: 10px;
+    line-height: 24px;
+    margin-top: 10px;
     cursor: pointer;
-    p {
-      display: inline;
+    i {
+      float: left;
+    }
+    span {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 80%;
       flex: 1;
       margin: 0;
       padding-left: 10px;

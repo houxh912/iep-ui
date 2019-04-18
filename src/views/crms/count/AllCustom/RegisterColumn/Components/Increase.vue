@@ -1,74 +1,84 @@
 <template>
-  <div id="increase">
-  </div>
+  <ve-line :data="chartData" :settings="chartSetting" :extend="chartExtend" height="300px" :loading="loading"></ve-line>
 </template>
 
 <script>
-let echarts = require('echarts/lib/echarts')
-require('echarts/lib/chart/line')
-require('echarts/lib/component/tooltip')
-require('echarts/lib/component/title')
-require('echarts/lib/component/legend')
+import 'v-charts/lib/style.css'
 export default {
   data () {
+    this.chartSetting = {
+      legendName: ['客户', '联系人'],
+    }
+    this.chartExtend = {
+      color: ['#D56368', '#DDDDDD'],
+      legend: {
+        show: 'true',
+        bottom: 0,
+      },
+      xAxis: {
+        min: '周一',
+        type: 'category',
+        boundaryGap: false,
+        axisLine: {
+          show: true,
+        },
+        axisTick: {
+          show: true,
+          alignWithLabel: true,
+        },
+      },
+      yAxis: {
+        type: 'value',
+        position: 'left',
+        axisLine: {
+          show: true,
+        },
+        axisTick: {
+          show: false,
+        },
+
+      },
+      grid: {
+        left: '1%',
+        right: '2%',
+        bottom: '40',
+        top: '5%',
+        containLabel: true,
+      },
+      series: {
+        type: 'line',
+        smooth: false,
+        lineStyle: {
+        },
+
+      },
+    }
     return {
+      loading: false,
+      type: '1',
+
+      chartData: {
+        columns: ['日期', '客户', '联系人'],
+        rows: [
+          { '日期': '周一', '客户': 100, '联系人': 22 },
+          { '日期': '周二', '客户': 35, '联系人': 22 },
+          { '日期': '周三', '客户': 56, '联系人': 3 },
+          { '日期': '周四', '客户': 22, '联系人': 32 },
+          { '日期': '周五', '客户': 11, '联系人': 22 },
+          { '日期': '周六', '客户': 0, '联系人': 12 },
+          { '日期': '周日', '客户': 55, '联系人': 55 },
+        ],
+      },
     }
   },
-  mounted () {
-    this.drawLine()
-  },
   methods: {
-    drawLine () {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById('increase'))
-      // 绘制图表
-      myChart.setOption({
-        xAxis: {
-          type: 'category',
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-        },
-        yAxis: {
-          type: 'value',
-          axisTick: {
-            length: 0,
-          },
-        },
-        legend: {
-          data: ['客户', '联系人'],
-          bottom: 0,
-        },
-        grid: {
-          left: '1%',
-          right: '2%',
-          bottom: '10%',
-          top: '2%',
-          containLabel: true,
-        },
-        series: [
-          {
-            name: '客户',
-            data: [4, 6, 4, 7, 2, 4, 5],
-            type: 'line',
-            itemStyle: {
-              color: '#D56368',
-            },
-          }, {
-            name: '联系人',
-            data: [2, 3, 1, 4, 8, 9, 10],
-            type: 'line',
-            itemStyle: {
-              color: '#DDDDDD',
-            },
-          },
-        ],
-      })
+    searchPage () {
+      this.$message.success('功能开发中')
+    },
+    changeType () {
+      this.$message.success('功能开发中')
+
     },
   },
 }
 </script>
-<style lang="scss" scoped>
-#increase {
-  width: "auto";
-  height: 290px;
-}
-</style>

@@ -26,18 +26,21 @@
           </el-dropdown>
           <el-checkbox @change="changeGetWay">只看我的</el-checkbox>
         </template>
-        <template slot="right">
+        <!-- <template slot="right">
           <operation-search @search-page="searchPage" :paramForm="paramForm" advance-search>
             <el-form :model="paramForm" label-width="80px" size="small">
               <el-form-item label="材料名称">
                 <el-input v-model="paramForm.name"></el-input>
               </el-form-item>
-              <el-form-item>
+               <el-form-item>
                 <el-button type="primary" @click="searchPage">搜索</el-button>
                 <el-button @click="clearSearchParam">清空</el-button>
               </el-form-item>
-            </el-form>
-          </operation-search>
+        </el-form>
+        </operation-search>
+</template> -->
+        <template slot="right">
+          <operation-search @search-page="searchPage" prop="name"></operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection @selection-change="selectionChange">

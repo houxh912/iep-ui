@@ -6,7 +6,7 @@
         <el-input v-model="formData.materialName" maxlength="50"></el-input>
       </el-form-item>
       <el-form-item label="作者：" prop="uploader">
-        <el-input v-model="formData.uploader" maxlength="10"></el-input>
+        <el-input v-model="formData.uploader" maxlength="40"></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
         <el-input type="textarea" v-model="formData.intro" rows="5" maxlength="200"></el-input>
@@ -28,9 +28,7 @@
         </el-col>
       </el-row>
       <el-form-item label="类型：" prop="materialType">
-        <el-select v-model="formData.materialType" placeholder="请选择">
-          <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
+        <iep-dict-select v-model="formData.materialType" dict-name="mlms_material_type"></iep-dict-select>
       </el-form-item>
       <el-form-item label="下载贝额：" prop="downloadCost">
         <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select>

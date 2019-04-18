@@ -175,7 +175,7 @@
 
 <script>
 import { getEmployeeProfileSelf, putEmployeeProfile } from '@/api/hrms/employee_profile'
-import { initForm, dictsMap, rules } from '@/views/hrms/EmployeeProfile/options'
+import { initForm, dictsMap, rules, formToDto } from '@/views/hrms/EmployeeProfile/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
 export default {
@@ -199,7 +199,7 @@ export default {
     handleSubmit () {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          putEmployeeProfile(this.form).then(({ data }) => {
+          putEmployeeProfile(formToDto(this.form)).then(({ data }) => {
             if (data.data) {
               this.$message({
                 message: '修改成功',

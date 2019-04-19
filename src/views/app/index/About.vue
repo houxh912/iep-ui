@@ -16,7 +16,7 @@
 export default {
   data () {
     return {
-      title: '我的待办',
+      title: '关于国脉',
       dataList: ['集团概况', '企业文化', '组织机构', '专家团队', '发展历程', '业务领域'],
       // 更多的跳转地址
       linkName: '',

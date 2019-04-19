@@ -28,12 +28,15 @@ export default {
 
 <style lang="scss" scoped>
 .products{
-  height: 340px;
+  height: 325px;
   overflow-y: scroll;
   padding-left: 15px;
   .piece{
     overflow: hidden;
     margin-bottom: 15px;
+    &:hover{
+      cursor: pointer;
+    }
   }
   .img{
     width: 140px;
@@ -52,7 +55,7 @@ export default {
     }
   }
   .box{
-    width: 300px;
+    width: 370px;
     height: 80px;
     float: left;
     .name{

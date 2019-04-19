@@ -134,17 +134,16 @@ const initDtoForm = () => {
   }
 }
 
-const formToDto = (form) => {
-  const newForm = mergeByFirst(initDtoForm(), form)
-  newForm.positionId = form.position[form.position.length - 1]
+const formToDto = (row) => {
+  const newForm = mergeByFirst(initDtoForm(), row)
+  newForm.attachFileUrl = row.attach.map(m => m.url)[0]
+  newForm.positionId = row.position[row.position.length - 1]
   return newForm
 }
 
 const formToVo = (row) => {
   const newForm = mergeByFirst(initDtoForm(), row)
-  newForm.attachFileUrl = row.attach.map(m => m.url)[0]
-  delete newForm.attach
-  delete newForm.attachFile
+  newForm.attach = row.attachFile || []
   return newForm
 }
 

@@ -50,10 +50,10 @@ export default {
     margin-bottom: 15px;
     img {
       display: inline-block;
-      margin: 10px;
+      margin: 8px;
       border-radius: 50%;
-      width: 80px;
-      height: 80px;
+      width: 75px;
+      height: 75px;
       background-color: #ccc;
     }
   }

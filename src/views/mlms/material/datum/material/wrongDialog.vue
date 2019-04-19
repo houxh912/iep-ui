@@ -10,7 +10,7 @@
         <el-input type="text" v-model="formData.receiverName" readonly />
       </el-form-item>
       <el-form-item label="正文：" prop="content">
-        <el-input type="textarea" rows=5 placeholder="请在此输入分享说明" v-model="formData.content"></el-input>
+        <el-input type="textarea" rows=5 placeholder="请在此输入纠错说明" v-model="formData.content" maxlength="2000"></el-input>
       </el-form-item>
     </el-form>
     <template slot="footer">

@@ -18,7 +18,7 @@
             <!-- 普通的已读未读 -->
             <span v-if="pageState==='ordinary'">
               <i class="icon-yiduyoujian mail" v-if="(scope.row.isReade===1 || scope.row.isReade==null)"></i>
-              <i class="icon-youjian mail select" v-else></i>
+              <i class="icon-youjian mail select" v-else @click="handleIsRead(scope.row)"></i>
             </span>
             <!-- 已发送状态下 kind-0普通，1是回复，2转发 -->
             <span v-else>
@@ -76,10 +76,11 @@ export default {
       getEmailById(row.emailId).then(({data}) => {
         this.$emit('switchDialog', data.data)
       })
-      // 判断已读
-      if (row.isReade == 0) {
-        isReadeById(row.emailId).then(()=>{})
-      }
+    },
+    // 已读
+    handleIsRead (row) {
+      isReadeById(row.emailId).then(()=>{})
+      this.loadPage(this.pageOption)
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.id, deleteEmailById)

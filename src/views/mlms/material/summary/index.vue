@@ -17,7 +17,8 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" :paramForm="paramForm" prop="title" advance-search>
+          <operation-search @search-page="searchPage" :paramForm="paramForm" prop="title">
+          <!-- <operation-search @search-page="searchPage" :paramForm="paramForm" prop="title" advance-search> -->
             <el-form :model="paramForm" label-width="80px" size="small">
               <el-form-item label="会议标题">
                 <el-input v-model="paramForm.biaoti"></el-input>

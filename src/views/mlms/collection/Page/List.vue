@@ -64,7 +64,8 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
+          <operation-search @search-page="searchPage">
+          <!-- <operation-search @search-page="searchPage" advance-search> -->
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>

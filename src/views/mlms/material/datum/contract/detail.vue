@@ -1,6 +1,6 @@
 <template>
   <basic-container>
-    <page-header :title="formData.title" :backOption="backOption">
+    <page-header :title="formData.contractName" :backOption="backOption">
       <div slot="sub" class="tags">
         <el-tag type="info" v-for="(item, index) in formData.tagKeyWords" :key="index">{{item}}</el-tag>
       </div>
@@ -12,8 +12,10 @@
         <span v-if="item.type">{{dictsMap[item.value][formData[item.value]]}}</span>
         <span v-else>{{formData[item.value]}}</span>
       </el-col>
-      <el-col class="remark">合同说明/收款方式：</el-col>
-      <el-col class="remark-content">{{formData.contractExpl}}</el-col>
+      <el-col class="remark">
+        <div class="remark-title">合同说明/收款方式：</div>
+        <div class="remark-content">{{formData.contractExpl}}</div>
+      </el-col>
       <!-- <el-col class="item file">
         <label>合同附件：</label>
         <iep-button type="primary">附件下载</iep-button>
@@ -161,7 +163,7 @@ export default {
   .item {
     margin-bottom: 10px;
     label {
-      width: 130px;
+      width: 150px;
       text-align: right;
       display: inline-block;
     }
@@ -170,12 +172,14 @@ export default {
     }
   }
   .remark {
-    padding-left: 20px;
-    margin-bottom: 10px;
-  }
-  .remark-content {
-    padding-left: 40px;
-    margin-bottom: 15px;
+    display: flex;
+    .remark-title {
+      width: 150px;
+      text-align: right;
+    }
+    .remark-content {
+      width: calc(100% - 150px);
+    }
   }
 }
 .clause {

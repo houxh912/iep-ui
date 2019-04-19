@@ -42,7 +42,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap, initFormData } from './option'
-import { getTableData, createData, updateData, deleteDate } from '@/api/mlms/material/datum/configure'
+import { getTableData, createData, updateData, deleteDate, validateName } from '@/api/mlms/material/datum/configure'
 import IepTableTree from './IepTableTree'
 
 export default {
@@ -57,11 +57,18 @@ export default {
       index: 1,
       selectIndex: -1,
       formData: initFormData(),
+      validateResult: {data: true},
+      formState: false,
     }
   },
   methods: {
     // 新增
     handleAdd () {
+      if (this.formState) {
+        this.$message.error('请先添加完上一条数据')
+        return
+      }
+      this.formState = true
       this.tableData.push({
         levelName: '',
         sort: '',
@@ -70,8 +77,29 @@ export default {
       this.selectIndex = this.tableData.length - 1
       this.formData = initFormData()
     },
+    // 新增子级
+    handleChild (row) {
+      // 防止没填写完就新增别的，首先将未填写完的删掉 - 目前可能没办法实现，给个提示好了
+      if (this.formState) {
+        this.$message.error('请先添加完上一条数据')
+        return
+      }
+      this.formState = true
+      this.formData = {
+        parentId: row.row.id,
+        levelName: '',
+        sort: '',
+        createTime: '',
+      }
+      this.tableData[row.$index].childrens.push(this.formData)
+      this.selectIndex = `${row.$index}-${this.tableData[row.$index].childrens.length - 1}`
+    },
     // 编辑
     handleEdit (row, index) {
+      if (this.formState) {
+        this.$message.error('请先添加完上一条数据')
+        return
+      }
       this.selectIndex = index
       this.formData = { ...row }
     },
@@ -85,30 +113,35 @@ export default {
           this.tableData[this.selectIndex.slice(0, index)].childrens.splice(this.selectIndex.slice(index + 1), 1)
         }
       }
+      this.validateResult = {data: true}
       this.selectIndex = -1
+      this.formState = false
     },
     // 保存
     handleSubmit () {
-      let fn = this.formData.id ? updateData : createData
-      fn(this.formData).then(() => {
-        this.$message({
-          message: '保存成功',
-          type: 'success',
-        })
-        this.handleCancel({})
-        this.loadPage()
-      })
-    },
-    // 新增子级
-    handleChild (row) {
-      this.formData = {
-        parentId: row.row.id,
-        levelName: '',
-        sort: '',
-        createTime: '',
+      // 重名
+      if (!this.validateResult.data) {
+        this.$message.error(this.validateResult.msg)
+        return
       }
-      this.tableData[row.$index].childrens.push(this.formData)
-      this.selectIndex = `${row.$index}-${this.tableData[row.$index].childrens.length - 1}`
+      // 非空
+      if (this.formData.levelName == '' || this.formData.sort == '') {
+        this.$message.error('请完整填写！')
+        return
+      }
+      let fn = this.formData.id ? updateData : createData
+      fn(this.formData).then(({data}) => {
+        if (data.data) {
+          this.$message({
+          message: '保存成功',
+            type: 'success',
+          })
+          this.handleCancel({})
+          this.loadPage()
+        } else {
+          this.$message.error(data.msg)
+        }
+      })
     },
     // 删除
     handleDeleteById (row) {
@@ -128,6 +161,7 @@ export default {
         this.pagination = { current, size, total }
         this.tableData = records.map(m => m)
         this.isLoadTable = false
+        this.formState = false
       })
     },
     // 批量导出
@@ -137,6 +171,18 @@ export default {
     // 批量下载
     handleDownloadAll () {
       this.$message.error('抱歉，此功能尚未开发')
+    },
+    // 重名验证
+    validateName () {
+      if (this.formData.levelName == '') {
+        return
+      }
+      validateName(this.formData.levelName).then(({data}) => {
+        this.validateResult = data
+        if (!data.data) {
+          this.$message.error(data.msg)
+        }
+      })
     },
   },
   created () {

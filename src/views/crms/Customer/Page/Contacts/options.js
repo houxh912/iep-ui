@@ -19,7 +19,7 @@ const initForm = () => {
     clientIds: [0],
   }
 }
-const phone = (rule, value, callback) => {
+const cellPhone = (rules, value, callback) => {
   if (value === '') {
     callback(new Error('手机号不可为空'))
   } else {
@@ -32,13 +32,29 @@ const phone = (rule, value, callback) => {
     callback()
   }
 }
+const telPhone = (rules, value, callback) => {
+  if (value === '') {
+    callback(new Error('电话不可为空'))
+  } else {
+    if (value !== '') {
+      var reg = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/
+      if (!reg.test(value)) {
+        callback(new Error('请输入有效的电话号码'))
+      }
+    }
+    callback()
+  }
+}
 const rules = {
   contactName: [
     { required: true, message: '联系人姓名不能为空', trigger: 'blur' },
+    { min: 2, max: 5, message: '长度在 2 到 10 个字符', trigger: 'blur' },
   ],
   contactPosition: [
     { required: true, message: '联系人职务不能为空', trigger: 'blur' },
+    { max: 255, message: '不能超过255个字符', trigger: 'blur' },
   ],
-  telephoneNo: [{ required: true, validator: phone, trigger: 'blur' }],
+  telephoneNo: [{ required: true, validator: telPhone, trigger: 'blur' }],
+  cellphone: [{ required: true, validator: cellPhone, trigger: 'blur' }],
 }
 export { columnsMap, initForm, rules }

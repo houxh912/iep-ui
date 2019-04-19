@@ -12,11 +12,11 @@
           <el-form-item>
             <el-input type="textarea" v-model="formData.leaderIndication" rows=5 placeholder="此处填写领导指示" maxlength="500"></el-input>
           </el-form-item>
-          <div class="title">本月工作总结</div>
+          <div class="title validate">本月工作总结</div>
           <el-form-item prop="workSummary">
             <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本月工作总结" maxlength="1000"></el-input>
           </el-form-item>
-          <div class="title">下月工作计划</div>
+          <div class="title validate">下月工作计划</div>
           <el-form-item prop="workPlan">
             <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下月工作计划" maxlength="1000"></el-input>
           </el-form-item>
@@ -222,5 +222,10 @@ export default {
       margin-top: 20px;
     }
   }
+}
+.validate::before {
+  content: "*";
+  color: #F56C6C;
+  margin-right: 4px;
 }
 </style>

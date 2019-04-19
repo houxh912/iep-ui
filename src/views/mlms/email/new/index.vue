@@ -60,7 +60,7 @@
           <operation-wrapper>
             <iep-button type="primary" @click="submitForm('form')">发送</iep-button>
             <iep-button @click="submitDraft('form')">保存为草稿</iep-button>
-            <iep-button @click="resetForm('form')">取消</iep-button>
+            <iep-button @click="resetForm('form')">重置表单</iep-button>
           </operation-wrapper>
         </el-form-item>
       </el-form>

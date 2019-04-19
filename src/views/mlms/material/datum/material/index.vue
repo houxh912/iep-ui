@@ -181,7 +181,7 @@ export default {
     },
     // 分享
     handleShare (row) {
-      this.$refs['share'].open([row])
+      this.$refs['share'].open([row], `对“${row.materialName}”的分享`)
     },
     // 批量分享
     handleAllShare () {

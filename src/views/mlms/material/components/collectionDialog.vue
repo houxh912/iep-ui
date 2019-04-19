@@ -104,6 +104,7 @@ export default {
 <style lang="scss" scoped>
 .tree-box {
   display: flex;
+  margin-bottom: 25px;
   .left {
     margin: 0 10px 0 20px;
   }

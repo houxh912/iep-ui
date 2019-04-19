@@ -94,7 +94,6 @@ export default {
   },
   methods: {
     total () {
-      // var data = '222'
       for (var i = 1; i < this.tabList.length; i++) {
         this.tabList[i].label = this.tabList[i].label + '(' + this.count[i - 1] + ')'
       }

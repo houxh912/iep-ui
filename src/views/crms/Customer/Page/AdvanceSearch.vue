@@ -19,7 +19,7 @@
       <el-input v-model="form.marketManager" placeholder="请输入市场经理"></el-input>
     </el-form-item>
     <el-form-item label="距离上次拜访" v-if="type!='1'">
-      <el-select v-model="form.lastTime" placeholder="请选择">
+      <el-select v-model="form.timeSerach" placeholder="请选择">
         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
       </el-select>

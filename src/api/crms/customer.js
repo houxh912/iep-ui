@@ -5,7 +5,7 @@ const prefixUrl = '/crm/customer'
 export function getCustomerPage (obj) {
   return request({
     url: `${prefixUrl}/page`,
-    method: 'get',
+    method: 'post',
     data: obj,
   })
 }

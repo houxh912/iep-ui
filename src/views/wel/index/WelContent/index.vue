@@ -1,5 +1,5 @@
 <template>
-  <div class="wel-content">
+  <div class="wel-content" v-once>
     <div class="information">
       <a-spin :spinning="pageLoading">
         <el-card class="box-card" shadow="hover" :body-style="bodyStyle">

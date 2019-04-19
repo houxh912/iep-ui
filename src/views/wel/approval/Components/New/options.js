@@ -83,4 +83,5 @@ export {
 	formToDto,
 	formToVo,
 	selfToVo,
+	initNow,
 }

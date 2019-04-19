@@ -43,9 +43,16 @@
 </template>
 <script>
 import mixins from '../mixins'
+import { initNow } from '../options'
 export default {
   mixins: [mixins],
   methods: {
+    loadSelf () {
+      this.fnSelf().then(({ data }) => {
+        this.form = this.selfToVo(data.data)
+        this.form.startTime = initNow()
+      })
+    },
     handlePublish () {
     },
   },

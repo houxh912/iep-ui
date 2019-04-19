@@ -43,6 +43,7 @@
 </template>
 <script>
 import mixins from '../mixins'
+import { initNow } from '../options'
 export default {
   mixins: [mixins],
   data () {
@@ -52,28 +53,13 @@ export default {
     }
   },
   methods: {
+    loadSelf () {
+      this.fnSelf().then(({ data }) => {
+        this.form = this.selfToVo(data.data)
+        this.form.startTime = initNow()
+      })
+    },
     handlePublish () {
-    },
-    dealTime (val1, val2) {
-      var str1 = val1.replace(/-/g, '/')
-      var time1 = Date.parse(new Date(str1))
-      var str2 = val2.replace(/-/g, '/')
-      var time2 = Date.parse(new Date(str2))
-      var duration = Math.floor((time2 - time1) / 60000)
-      var hours = Math.floor(duration / 60)
-      var minutes = duration - hours * 60
-      this.form.duration = hours + '小时' + minutes + '分钟'
-      if (time2 < time1) {
-        this.$message.error('开始时间不能大于结束时间！！！')
-      }
-    },
-    startChange (val) {
-      this.startTime = val
-      this.dealTime(val, this.endTime)
-    },
-    endChange (val) {
-      this.endTime = val
-      this.dealTime(this.startTime, val)
     },
   },
 }

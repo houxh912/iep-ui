@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <el-card class="edit-card" shadow="never">
       <div slot="header" class="title">
-        <span>{{methodName}}人才</span>
+        <span>{{methodName}}简历</span>
       </div>
       <el-form ref="form" class="form-detail" :model="form" label-width="120px" size="small">
         <el-collapse v-model="activeNames">

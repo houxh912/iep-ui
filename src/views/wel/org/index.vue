@@ -14,7 +14,7 @@
             <a-input-search class="search-box" placeholder="请输入组织名进行搜索" @search="onSearch" enterButton />
             <iep-no-data v-if="!orgList.length" message="无相关组织"></iep-no-data>
             <div class="select-org-container">
-              <el-button class="grid-item" v-for="(item,index) in orgList" :key="index" @click="handleApplyJoin(item)">{{item.name}}</el-button>
+              <el-button :disabled="!!item.isApplyed" class="grid-item" v-for="(item,index) in orgList" :key="index" @click="handleApplyJoin(item)">{{item.name}}</el-button>
             </div>
           </template>
           <div v-if="tabsActive===1" class="create-org-container">
@@ -94,7 +94,7 @@ export default {
         ],
         intro: [
           { required: true, message: '请输入组织简介', trigger: 'blur' },
-          { min: 3, max: 5, message: '组织简介必须超过 3 个字符，但不得超过 2000 个字符', trigger: 'blur' },
+          { min: 3, max: 2000, message: '组织简介必须超过 3 个字符，但不得超过 2000 个字符', trigger: 'blur' },
         ],
       },
     }

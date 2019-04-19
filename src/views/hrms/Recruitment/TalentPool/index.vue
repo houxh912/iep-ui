@@ -26,16 +26,16 @@ export default {
     return {
       replaceText: (data) => `（本周新增${data[0]}条招聘信息，收到${data[1]}份简历）`,
       tabList: [{
+        label: '简历池',
+        value: 'ResumeLibrary',
+      }, {
         label: '人才库',
         value: 'TalentPool',
       }, {
-        label: '简历库',
-        value: 'ResumeLibrary',
-      }, {
-        label: '简历黑名单',
+        label: '黑名单',
         value: 'ResumeBlacklist',
       }],
-      activeTab: 'TalentPool',
+      activeTab: 'ResumeLibrary',
     }
   },
 }

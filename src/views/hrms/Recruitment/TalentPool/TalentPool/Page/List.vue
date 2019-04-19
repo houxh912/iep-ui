@@ -2,14 +2,13 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>新增</iep-button>
         <el-dropdown size="medium">
           <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item @click.native="handleToResumeBatch(scope.row)">放入简历库</el-dropdown-item>
-            <el-dropdown-item @click.native="handleToBlacklistBatch(scope.row)">放入黑名单</el-dropdown-item>
-            <el-dropdown-item divided>导入</el-dropdown-item>
-            <el-dropdown-item>分享</el-dropdown-item>
+            <!-- <el-dropdown-item @click.native="handleToResumeBatch()">放入简历库</el-dropdown-item> -->
+            <el-dropdown-item @click.native="handleToBlacklistBatch()">拉黑</el-dropdown-item>
+            <!-- <el-dropdown-item divided>导入</el-dropdown-item> -->
+            <!-- <el-dropdown-item>分享</el-dropdown-item> -->
           </el-dropdown-menu>
         </el-dropdown>
       </template>
@@ -41,13 +40,13 @@
                 <!-- eslint-enable -->
               </el-dropdown-menu>
             </el-dropdown>
-            <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
+            <!-- <iep-button @click="handleEdit(scope.row)">编辑</iep-button> -->
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="handleToResume([scope.row.id])">放入简历库</el-dropdown-item>
-                <el-dropdown-item @click.native="handleToBlacklist([scope.row.id])">放入黑名单</el-dropdown-item>
-                <el-dropdown-item divided>分享</el-dropdown-item>
+                <!-- <el-dropdown-item @click.native="handleToResume([scope.row.id])">放入简历库</el-dropdown-item> -->
+                <el-dropdown-item @click.native="handleToBlacklist([scope.row.id])">拉黑</el-dropdown-item>
+                <!-- <el-dropdown-item divided>分享</el-dropdown-item> -->
               </el-dropdown-menu>
             </el-dropdown>
           </operation-wrapper>
@@ -61,7 +60,7 @@
   </div>
 </template>
 <script>
-import { getTalentPoolPage, postTalentPool, putTalentPool, postToResume, postToBlacklist, changeTalentPoolStatus } from '@/api/hrms/talent_pool'
+import { getTalentPoolPage, postToResume, postToBlacklist, changeTalentPoolStatus } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from './AdvanceSearch'
 import { columnsMap, dictsMap } from '../options'
@@ -87,10 +86,18 @@ export default {
     },
     handleToResumeBatch () {
       // TODO: 是否多选提醒
+      if (!this.multipleSelection.length) {
+        this.$message('请先选择需要的选项')
+        return
+      }
       this.handleToResume(this.multipleSelection)
     },
     handleToBlacklistBatch () {
       // TODO: 是否多选提醒
+      if (!this.multipleSelection.length) {
+        this.$message('请先选择需要的选项')
+        return
+      }
       this.handleToBlacklist(this.multipleSelection)
     },
     handleChangeStatus (ids, status) {
@@ -108,20 +115,20 @@ export default {
       this.$refs['ToBlacklistDialog'].formRequestFn = postToBlacklist
       this.$refs['ToBlacklistDialog'].dialogShow = true
     },
-    handleEdit (row) {
-      this.$emit('onEdit', {
-        formRequestFn: putTalentPool,
-        methodName: '编辑',
-        id: row.id,
-      })
-    },
-    handleAdd () {
-      this.$emit('onEdit', {
-        formRequestFn: postTalentPool,
-        methodName: '新增',
-        id: false,
-      })
-    },
+    // handleEdit (row) {
+    //   this.$emit('onEdit', {
+    //     formRequestFn: putTalentPool,
+    //     methodName: '编辑',
+    //     id: row.id,
+    //   })
+    // },
+    // handleAdd () {
+    //   this.$emit('onEdit', {
+    //     formRequestFn: postTalentPool,
+    //     methodName: '新增',
+    //     id: false,
+    //   })
+    // },
     handleDetail (row) {
       this.$refs['DetailDrawer'].id = row.id
       this.$refs['DetailDrawer'].loadPage()

@@ -184,24 +184,16 @@
             </div>
           </el-collapse-item>
           <el-collapse-item title="劳动合同" name="2">
-            <el-form-item label="劳动合同：">
-              <inline-form-table :table-data="form.laborContract" :columns="laborContractColumns" requestName="labor_contract" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
-            </el-form-item>
+            <inline-form-table :table-data="form.laborContract" :columns="laborContractColumns" requestName="labor_contract" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
           </el-collapse-item>
           <el-collapse-item title="社保福利" name="3">
-            <el-form-item label="社保福利：">
-              <inline-form-table :table-data="form.welfare" :columns="welfareColumns" requestName="welfare" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
-            </el-form-item>
+            <inline-form-table :table-data="form.welfare" :columns="welfareColumns" requestName="welfare" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
           </el-collapse-item>
           <el-collapse-item title="调动情况" name="4">
-            <el-form-item label="调动情况：">
-              <inline-form-table :table-data="form.transfer" :columns="transferColumns" requestName="transfer" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
-            </el-form-item>
+            <inline-form-table :table-data="form.transfer" :columns="transferColumns" requestName="transfer" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
           </el-collapse-item>
           <el-collapse-item title="离职信息" name="5">
-            <el-form-item label="离职信息：">
-              <inline-form-table :table-data="form.dimission" :columns="dimissionColumns" requestName="dimission" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
-            </el-form-item>
+            <inline-form-table :table-data="form.dimission" :columns="dimissionColumns" requestName="dimission" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
           </el-collapse-item>
         </el-collapse>
       </el-form>

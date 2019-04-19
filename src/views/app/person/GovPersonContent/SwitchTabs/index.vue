@@ -69,7 +69,7 @@ export default {
 }
 </style>
 
-<style lang="scss"  scoped>
+<style lang="scss">
 .learning-list,
 .read-list,
 .document-list,

@@ -50,7 +50,7 @@ export default {
   display: grid;
 }
 </style>
-<style lang="scss" scoped>
+<style lang="scss">
 .Organization,
 .specialist,
 .Empolyee {

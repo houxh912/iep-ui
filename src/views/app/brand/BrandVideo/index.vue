@@ -59,7 +59,7 @@ export default {
   grid-column-end: 4;
 }
 </style>
-<style lang="scss" scoped>
+<style lang="scss">
 .el-carousel {
   overflow: hidden;
 }

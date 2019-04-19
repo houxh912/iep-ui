@@ -27,10 +27,10 @@
           </div>
         </div>
       </el-card>
-      <iep-no-data v-if="!timeLineList.length" message="暂无成长时间线数据"></iep-no-data>
-      <el-checkbox-group v-if="timeLineList.length" class="check-group" v-model="checkList">
+      <el-checkbox-group class="check-group" v-model="checkList">
         <el-checkbox v-for="(item) in recordType" :label="item.value" :key="item.value">{{item.label}}</el-checkbox>
       </el-checkbox-group>
+      <iep-no-data v-if="!timeLineList.length" message="暂无成长时间线数据"></iep-no-data>
       <div class="block">
         <el-timeline>
           <el-timeline-item v-for="item in timeLineList" :timestamp="item.date" placement="top" :key="item.id">
@@ -47,11 +47,9 @@
 <script>
 import { simpleEmployeeStatus, recordType, initForm } from './options'
 import { getGrowthFile } from '@/api/hrms/employee_profile'
-const avatar = require('./timg.jpg')
 export default {
   data () {
     return {
-      avatar,
       recordType,
       simpleEmployeeStatus,
       form: initForm(),

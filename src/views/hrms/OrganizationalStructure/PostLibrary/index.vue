@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="岗位库" :replaceText="replaceText" :data="[20]"></page-header>
+      <page-header title="岗位库"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='PostLibrary'" v-slot:PostLibrary>
           <post-library v-loading="activeTab !=='PostLibrary'"></post-library>
@@ -20,7 +20,6 @@ export default {
   components: { PostLibrary, PostType },
   data () {
     return {
-      replaceText: (data) => `（共有${data[0]}个岗位)`,
       tabList: [{
         label: '岗位库',
         value: 'PostLibrary',

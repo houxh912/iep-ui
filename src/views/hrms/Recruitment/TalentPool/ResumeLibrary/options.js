@@ -77,7 +77,8 @@ const initForm = () => {
     'arrive': '',
     'salary': '',
     'workPlace': '',
-    'attach': '',
+    attach: [],
+    attachFile: [], // 文件
     'workExperience': [],
     'trainingSituation': [],
     'eduSituation': [],
@@ -121,7 +122,8 @@ const initDtoForm = () => {
     'arrive': '',
     'salary': '',
     'workPlace': '',
-    'attach': '',
+    attach: [],
+    attachFile: [], // 文件
     'workExperience': [],
     'trainingSituation': [],
     'eduSituation': [],
@@ -138,9 +140,11 @@ const formToDto = (form) => {
   return newForm
 }
 
-const formToVo = (form) => {
-  const newForm = mergeByFirst(initDtoForm(), form)
-  newForm.attach = []
+const formToVo = (row) => {
+  const newForm = mergeByFirst(initDtoForm(), row)
+  newForm.attachFileUrl = row.attach.map(m => m.url)[0]
+  delete newForm.attach
+  delete newForm.attachFile
   return newForm
 }
 

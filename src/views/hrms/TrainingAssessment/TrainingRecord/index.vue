@@ -59,7 +59,7 @@
 <script>
 import { getTrainingRecordPage, postTrainingRecord, putTrainingRecord, getTrainingRecordById, deleteTrainingRecordBatch, deleteTrainingRecordById } from '@/api/hrms/training_record'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm, initForm } from './options'
+import { columnsMap, initSearchForm, initForm, formToVo } from './options'
 import DialogForm from './DialogForm'
 
 export default {
@@ -122,7 +122,7 @@ export default {
     },
     handleEdit (row) {
       getTrainingRecordById(row.id).then(({ data }) => {
-        this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), data.data)
+        this.$refs['DialogForm'].form = formToVo(data.data)
         this.$refs['DialogForm'].methodName = '创建'
         this.$refs['DialogForm'].formRequestFn = putTrainingRecord
         this.$refs['DialogForm'].dialogShow = true

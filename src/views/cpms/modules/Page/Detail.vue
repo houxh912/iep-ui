@@ -15,7 +15,7 @@
                   <span class="time">上线时间：{{form.onlineTime}}</span>
                 </div>
                 <div class="tags">
-                  <iep-detail-tag :value="form.tagKeywords"></iep-detail-tag>
+                  <iep-tag-detail :value="form.tagKeywords"></iep-tag-detail>
                 </div>
               </div>
             </el-col>

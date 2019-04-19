@@ -27,13 +27,19 @@ export default {
       this.searchForm = param
       this.loadPage(param)
     },
-    loadTable (param, requestFn, fn = (m) => m) {
+    async loadTable (param, requestFn, fn = (m) => m) {
       this.isLoadTable = true
-      requestFn({ ...param, ...this.pageOption }).then(({ data }) => {
+      return await requestFn({ ...param, ...this.pageOption }).then(({ data }) => {
         const { records, size, total, current } = data.data
-        this.pagination = { current, size, total }
+        const isBug = total / size + 1 === current
+        if (isBug && total !== 0) {
+          this.searchPage() // 防止分页为空页的情况
+        } else {
+          this.pagination = { current, size, total }
+        }
         this.pagedTable = records.map(fn)
         this.isLoadTable = false
+        return data.data
       })
     },
     handleSizeChange (val) {

@@ -73,11 +73,18 @@ export default {
     },
   },
   created () {
-    this.loadPage()
+
     if (this.$route.query.flag) {
       this.type = this.$route.query.type
+    } else {
+      this.loadPage()
     }
 
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.loadPage()
+    })
   },
   methods: {
     handleSelectionChange () {

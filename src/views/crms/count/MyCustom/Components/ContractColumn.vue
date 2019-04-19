@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="hover">
     <el-row class="contract">
-      <el-col class="head">合同概况<span class="sub">（本月已签订合同金额共￥260,000）</span>
+      <el-col class="head">合同概况<span class="sub">（本月已签订合同金额共￥{{totalMoney}}）</span>
         <span class="dropdown">
           <el-select v-model="value" @change="change()">
             <el-option v-for="item in options" :key="item.label" :label="item.label" :value="item.value">
@@ -11,22 +11,83 @@
       </el-col>
     </el-row>
     <div class="echarts over">
-      <div id="contract" :style="{width: '100%', height: '300px'}"></div>
+      <ve-histogram :data="chartData" :settings="chartSetting" :legend-visible="false" :extend="chartExtend" height="300px" :loading="loading"></ve-histogram>
     </div>
   </el-card>
 </template>
 <script>
-// import { getMyDistrict } from '@/api/crms/count'
-let echarts = require('echarts/lib/echarts')
-require('echarts/lib/chart/bar')
-require('echarts/lib/chart/line')
-require('echarts/lib/chart/pie')
-require('echarts/lib/component/tooltip')
-require('echarts/lib/component/title')
-require('echarts/lib/component/grid')
+import { getMySituation } from '@/api/crms/count'
+import 'v-charts/lib/style.css'
 export default {
   data () {
+    this.chartSetting = {
+
+    }
+    this.chartExtend = {
+      grid: {
+        left: '1%',
+        right: '2%',
+        bottom: '0',
+        top: '5%',
+        containLabel: true,
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: '{b}：{c}%',
+      },
+      label: {
+        show: true,
+        position: [-20, -20],
+        color: '#000',
+        formatter: function (params) {
+          if (params.value) {
+            return '￥ ' + params.value.toLocaleString()
+          } else {
+            return ''
+          }
+        },
+      },
+      barWidth: '10',
+      itemStyle: {
+        color: '#D56368',
+        barBorderRadius: 10,
+      },
+      series: {
+        center: ['50%', '50%'],
+      },
+      xAxis: {
+        type: 'category',
+        axisLine: {
+          show: true,
+          onZero: false,
+        },
+        axisTick: {
+          show: true,
+          alignWithLabel: true,
+        },
+        splitArea: {
+          interval: 10,
+        },
+      },
+      yAxis: {
+        type: 'value',
+        axisLine: {
+          show: false,
+          onZero: false,
+        },
+        axisTick: {
+          show: false,
+        },
+        splitLine: {
+          lineStyle: {
+            type: 'dotted',
+          },
+        },
+      },
+
+    }
     return {
+      loading: true,
       value: 1,
       options: [
         {
@@ -48,90 +109,44 @@ export default {
           label: '去年', value: 6,
         },
       ],
+      totalMoney: '',
+      interval: '1',
+      chartData: {
+        columns: ['timeInterval', 'contractAmount'],
+        rows: [],
+      },
     }
   },
   created () {
-    // this.load()
-  },
-  mounted () {
-    this.draw()
+    this.load()
   },
   methods: {
-    draw () {
-      let myChart = echarts.init(document.getElementById('contract'))
-      myChart.setOption({
-        title: {
-          show: false,
-        },
-        color: '#87888B',
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow',        // 默认为直线，可选为：'line' | 'shadow'
-          },
-        },
-        grid: {
-          left: '0',
-          right: '0',
-          bottom: '0',
-          top: '10',
-          borderColor: '#f00',
-          containLabel: true,
-        },
-        xAxis: [
-          {
-            type: 'category',
-            data: ['01.02', '01.03', '01.04', '01.05', '01.06', '01.07', '01.07', '01.07', '01.07', '01.07', '01.07', '01.07', '01.07'],
-            axisTick: {
-              alignWithLabel: true,
-            },
-          },
-        ],
-        yAxis: {
-          type: 'value',
-          axisLine: {
-            show: false,
-            onZero: false,
-          },
-          axisTick: {
-            show: false,
-          },
-          splitLine: {
-            lineStyle: {
-              type: 'dotted',
-            },
-          },
-        },
-        series: [
-          {
-            name: '金额',
-            type: 'bar',
-            barWidth: '15',
-            data: [10000, 32050, 20400, 33424, 39420, 35330, 45620, 45620, 45620, 45620, 45620, 45620, 45620, 45620, 45620, 45620],
-            itemStyle: {
-              color: '#D56368',
-              barBorderRadius: 10,
-            },
-            label: {
-              show: true,
-              position: ['-50%', -20],
-              color: '#000',
-              formatter: function (params) {
-                if (params.value) {
-                  return '￥ ' + params.value.toLocaleString()
-                } else {
-                  return ''
-                }
-              },
-            },
-          },
-        ],
+    load () {
+      getMySituation({ interval: this.interval }).then((res) => {
+        if (res.data.data) {
+          this.loading = false
+        }
+        var sourceData = res.data.data.contractSituations
+        if (sourceData.length != 0) {
+          this.totalMoney = res.data.data.contractAmount.toLocaleString()
+          for (var i in sourceData) {
+            if (this.interval == 1 || this.interval == 2) {
+              sourceData[i].timeInterval = sourceData[i].timeInterval.substr(5, 2) + '.' + sourceData[i].timeInterval.substr(7, 2)
+            } else {
+              sourceData[i].timeInterval = sourceData[i].timeInterval.substr(6, 1) + '月'
+            }
+          }
+          this.chartData.rows = sourceData
+        } else {
+          this.chartData.rows = [{ timeInterval: '暂无', contractAmount: 0 }]
+        }
       })
     },
     change () {
-
-      this.$message.success('功能开发中')
+      this.interval = this.value
+      this.load()
     },
+
   },
 }
 </script>
@@ -154,25 +169,32 @@ export default {
   }
 }
 .echarts {
-  height: 300px;
-  width: 100%;
-  padding: 10px 0;
-  margin-top: 20px;
+  height: 320px;
+  padding-top: 20px;
 }
 .over {
   width: 100%;
-  overflow: x;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.over::-webkit-scrollbar {
+  height: 10px;
+}
+.over::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #e5e5e5;
+}
+.over::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: transparent;
 }
 .dropdown {
   float: right;
 }
 .el-select {
   width: 120px !important;
-}
-</style>
-<style>
-.el-card >>> .el-card__body {
-  overflow: auto;
 }
 </style>
 

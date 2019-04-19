@@ -54,11 +54,9 @@ export default {
     // 批量删除
     allDelete () {
       deleteEmailByIds(this.multipleSelection).then(() => {
-        this.$notify({
-          title: '成功',
-          message: '操作成功！',
+        this.$message({
+          message: '操作成功',
           type: 'success',
-          duration: 2000,
         })
         this.$refs['table'].loadPage({})
       })

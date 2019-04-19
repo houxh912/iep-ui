@@ -39,7 +39,7 @@
           </operation-search>
         </template>
       </operation-container>
-      
+
       <iep-tabs v-model="tabName" :tab-list="tabList" @tab-click="tabClick">
         <template v-if="tabName ==='personal'" v-slot:personal>
           <tableTemplate ref="tableTpl" :getTableData="getTablePersonal" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection"></tableTemplate>
@@ -111,7 +111,7 @@ export default {
   methods: {
     loadPage (params = {}) {
       let obj = { current: 1, size: 10 }
-      obj = Object.assign({}, obj, params) 
+      obj = Object.assign({}, obj, params)
       this.$refs['tableTpl'].loadPage(obj)
     },
     clearSearchParam () {

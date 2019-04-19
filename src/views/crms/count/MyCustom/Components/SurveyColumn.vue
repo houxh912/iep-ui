@@ -2,30 +2,34 @@
   <el-card shadow="hover" :body-style="{padding:'20px 20px 0 20px'}">
     <el-row class="survey">
       <el-col class="head">本周跟进情况<span class="sub">（新增）</span></el-col>
-      <el-col :span=6 class="tab">
-        <span class="num">3</span> 客户
+      <el-col :span='6' class="tab">
+        <span class="num">{{data.increasedClient}}</span> 客户
       </el-col>
-      <el-col :span=6 class="tab">
-        <span class="num">1</span> 联系人
+      <el-col :span='6' class="tab">
+        <span class="num">{{data.increasedContact}}</span> 联系人
       </el-col>
-      <el-col :span=6 class="tab">
-        <span class="num">4</span> 拜访日志
+      <el-col :span='6' class="tab">
+        <span class="num">{{data.increasedVisitTheLog}}</span> 拜访日志
       </el-col>
-      <el-col :span=6 class="tab">
-        <span class="num">2</span> 商机
+      <el-col :span='6' class="tab">
+        <span class="num">{{data.increasedOpportunity}}</span> 商机
       </el-col>
     </el-row>
   </el-card>
 </template>
 
 <script>
+import { getWeekList } from '@/api/crms/count'
 export default {
   data () {
     return {
-      infoList: {
-        num: 12,
-      },
+      data: '',
     }
+  },
+  created () {
+    getWeekList().then((res) => {
+      this.data = res.data.data
+    })
   },
 }
 </script>

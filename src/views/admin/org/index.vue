@@ -71,7 +71,7 @@ export default {
       this.$refs['personDialogForm'].dialogShow = true
     },
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.id, delObj)
+      this._handleGlobalDeleteById(row.orgId, delObj)
     },
     handleEdit (row) {
       this.$refs['addDialogForm'].form = this.$mergeByFirst(initForm(), row)

@@ -14,7 +14,7 @@
           <div class="info-item">
             <label>所属部门：</label>
             <div class="content">
-              <iep-detail-tag :value="form.deptList"></iep-detail-tag>
+              <iep-tag-detail :value="form.deptList"></iep-tag-detail>
             </div>
           </div>
           <div class="info-item">

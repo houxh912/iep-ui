@@ -122,7 +122,6 @@ export default {
   height: auto;
   background: white;
   font-size: 12px;
-  z-index: 1;
 }
 .information {
   width: 100%;

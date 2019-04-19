@@ -37,7 +37,6 @@ import { columnsMap } from './options'
 export default {
   mixins: [mixins],
   data () {
-    console.log(this.$route)
     return {
       type: '1',
       tabList: [

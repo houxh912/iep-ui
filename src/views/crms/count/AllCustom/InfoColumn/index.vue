@@ -5,19 +5,19 @@
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>{{data.client}}</span>
+        <span>{{data.clientQuantity}}</span>
       </div>
       <div class="content">客户</div>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>{{data.contact}}</span>
+        <span>{{data.contactQuantity}}</span>
       </div>
       <div class="content">联系人</div>
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>{{data.contract}}</span>
+        <span>{{data.contractQuantity}}</span>
       </div>
       <div class="content">合同</div>
     </el-col>
@@ -46,9 +46,8 @@ export default {
   },
   created () {
     getAllClientNum().then((res) => {
-      res.data.data.contractAmount = '￥ ' + parseFloat(res.data.data.contractAmount.toFixed(2)).toLocaleString()
+      res.data.data.contractAmount = '￥ ' + parseFloat(res.data.data.contractAmount).toLocaleString()
       this.data = res.data.data
-
     })
   },
 }

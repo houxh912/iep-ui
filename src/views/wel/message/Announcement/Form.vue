@@ -1,18 +1,18 @@
 <template>
-  <div class="edit-wrapper">
+  <div class="iep-page-form">
     <basic-container>
       <page-header :title="`${methodName}公告`" :backOption="backOption"></page-header>
-      <el-form ref="form" :model="form" label-width="120px" size="small">
-        <el-form-item label="主题：">
+      <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="small">
+        <el-form-item label="主题：" prop="name">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="类型：">
+        <el-form-item label="类型：" prop="type">
           <iep-dict-select v-model="form.type" dict-name="ims_notify_type"></iep-dict-select>
         </el-form-item>
-        <el-form-item label="内容：">
-          <el-input type="textarea" v-model="form.content"></el-input>
+        <el-form-item label="内容：" prop="content">
+          <iep-input-area type="textarea" v-model="form.content"></iep-input-area>
         </el-form-item>
-        <el-form-item label="发布范围：">
+        <el-form-item label="发布范围：" prop="receivers">
           <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
         </el-form-item>
         <el-form-item label="">
@@ -37,6 +37,21 @@ export default {
         isBack: true,
       },
       form: initForm(),
+      rules: {
+        name: [
+          { required: true, message: '请输入主题', trigger: 'blur' },
+        ],
+        type: [
+          { required: true, message: '请选择类型', trigger: 'blur' },
+        ],
+        content: [
+          { required: true, message: '请输入内容', trigger: 'blur' },
+          { min: 3, max: 5, message: '内容必须超过 3 个字符，但不得超过 2000 个字符', trigger: 'blur' },
+        ],
+        receivers: [
+          { required: true, message: '请选择发布范围', trigger: 'blur' },
+        ],
+      },
     }
   },
   computed: {
@@ -67,15 +82,17 @@ export default {
       this.handleSubmit(true)
     },
     handleSubmit (isPublish) {
-      const publish = isPublish === true ? true : false
-      this.formRequestFn(formToDto(this.form), publish).then(({ data }) => {
-        if (data.data) {
-          this.$message({
-            message: `通知公告${this.methodName}成功`,
-            type: 'success',
-          })
-          this.$router.push({
-            path: this.backOption.backPath,
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          const publish = isPublish === true ? true : false
+          this.formRequestFn(formToDto(this.form), publish).then(({ data }) => {
+            if (data.data) {
+              this.$message({
+                message: `通知公告${this.methodName}成功`,
+                type: 'success',
+              })
+              this.$router.history.go(-1)
+            }
           })
         }
       })
@@ -83,9 +100,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-.edit-wrapper >>> .el-form {
-  margin-right: 20%;
-  margin-top: 50px;
-}
-</style>

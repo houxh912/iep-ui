@@ -48,7 +48,7 @@
         </time-line>
       </el-col>
     </div>
-      
+
   </div>
 </template>
 
@@ -77,9 +77,9 @@ export default {
       dailyState: 'detail',
       updateIndex: -1,
       stateList: {
-        create: { data: 'createData', validate: 'createValidate',  fn: createData, methodsName: '新增' },
-        update: { data: 'updateData', validate: 'updateValidate',  fn: updateData, methodsName: '修改' },
-        writing: { data: 'updateData', validate: 'updateValidate',  fn: createData, methodsName: '补写' },
+        create: { data: 'createData', validate: 'createValidate', fn: createData, methodsName: '新增' },
+        update: { data: 'updateData', validate: 'updateValidate', fn: updateData, methodsName: '修改' },
+        writing: { data: 'updateData', validate: 'updateValidate', fn: createData, methodsName: '补写' },
       },
       pickerOptions: {
         disabledDate (time) {
@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     activeChange (val) {
-      this.activeIndex = [val[val.length-1]]
+      this.activeIndex = [val[val.length - 1]]
       this.$refs['timeline'].active = this.activeIndex[0]
       this.dailyState = 'detail'
       this.updateValidate = ''
@@ -119,11 +119,9 @@ export default {
           this.$message.error(res.data.msg)
           return
         }
-        this.$notify({
-          title: '成功',
+        this.$message({
           message: `${this.stateList[state].methodsName}成功`,
           type: 'success',
-          duration: 2000,
         })
         this[this.stateList[state].data] = ''
         this.dailyState = 'detail'
@@ -134,7 +132,7 @@ export default {
     },
     search () {
       let startTime = this.searchData.date ? +new Date(this.searchData.date) : +new Date()
-      let index = parseInt((new Date() - startTime) / (24*3600*1000))
+      let index = parseInt((new Date() - startTime) / (24 * 3600 * 1000))
       this.list = []
       this.loadPage(index, 10)
     },
@@ -152,21 +150,21 @@ export default {
       let dateList = []
       for (let index = 0; index < range; ++index) {
         let getDay = getDays(-distanceToday - index)
-        let obj = {time: getDay.year + '-' + getDay.month + '-' + getDay.day}
+        let obj = { time: getDay.year + '-' + getDay.month + '-' + getDay.day }
         obj.date = getDay.tDay + '日'
         dateList.push(obj)
         if (getDay.day == 1) {
           // 若为1号，则插入一个月份
           dateList.push({
-            month: getDays(-index-distanceToday-1).year + '年' + getDays(-index-distanceToday-1).month + '月',
-            date: `${getDays(-index-distanceToday-1).year}-${getDays(-index-distanceToday-1).month}`,
+            month: getDays(-index - distanceToday - 1).year + '年' + getDays(-index - distanceToday - 1).month + '月',
+            date: `${getDays(-index - distanceToday - 1).year}-${getDays(-index - distanceToday - 1).month}`,
           })
         }
       }
       // 获取数据
-      let getListStartIndex = dateList[dateList.length-1].month ? 2 : 1
+      let getListStartIndex = dateList[dateList.length - 1].month ? 2 : 1
       getTableData({
-        startTime: dateList[dateList.length-getListStartIndex].time + ' 00:00:00',
+        startTime: dateList[dateList.length - getListStartIndex].time + ' 00:00:00',
         endTime: dateList[0].time + ' 23:59:59',
       }).then((res) => {
         // 根据获取到的数据进行数据的匹配
@@ -180,7 +178,7 @@ export default {
           }
           for (let work of list) {
             if (work.createTime.indexOf(time) >= 0) {
-              msg = { code: 0, content: work.workContent, title: time+'日报', createTime: work.createTime, id: work.id }
+              msg = { code: 0, content: work.workContent, title: time + '日报', createTime: work.createTime, id: work.id }
               break
             }
           }
@@ -191,7 +189,7 @@ export default {
           if (dateList[index].month) {
             // 根据日期匹配
             if (type) {
-              this.list.splice(parseInt(index)+1, 0, dateList[index])
+              this.list.splice(parseInt(index) + 1, 0, dateList[index])
             } else {
               this.list.push(dateList[index])
             }
@@ -207,7 +205,7 @@ export default {
             }
             // 根据日期匹配
             if (type) {
-              this.list.splice(parseInt(index)+1, 0, obj)
+              this.list.splice(parseInt(index) + 1, 0, obj)
             } else {
               this.list.push(obj)
             }
@@ -226,8 +224,8 @@ export default {
       let firstDate = this.list[1].createTime
       let timeDifference = (+new Date()) - (+new Date(formatYear(firstDate)))
       let range = 10
-      let days = parseInt(timeDifference/(24*3600*1000))
-      let distanceToday = days-10
+      let days = parseInt(timeDifference / (24 * 3600 * 1000))
+      let distanceToday = days - 10
       if (days < 10) {
         range = days
         distanceToday = 0

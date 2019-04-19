@@ -9,54 +9,89 @@
           </el-radio-group>
         </div>
         <div class="inline">
-          <operation-search @search="searchPage" advance-search>
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </div>
       </div>
     </div>
     <div>
+      <div class="money">签单金额：8000000</div>
       <el-row>
-        <div class="echarts">
-          <v-chart :forceFit="true" :height="height" :data="data" :scale="scale">
-            <v-tooltip />
-            <v-axis />
-            <v-legend />
-            <v-line position="week*value" />
-            <v-point position="week*value" shape="circle" />
-          </v-chart>
-        </div>
+        <ve-line :data="chartData" :extend="chartExtend" height="300px" :loading="loading"></ve-line>
       </el-row>
     </div>
   </el-card>
 </template>
 
 <script>
-const data = [
-  { week: '周一', value: 10 },
-  { week: '周二', value: 8 },
-  { week: '周三', value: 0 },
-  { week: '周四', value: 8 },
-  { week: '周五', value: 2 },
-  { week: '周六', value: 8 },
-  { week: '周日', value: 0 },
-]
-
-const scale = [{
-  dataKey: 'value',
-  min: 0,
-}, {
-  dataKey: 'year',
-  min: 0,
-  max: 1,
-}]
+import 'v-charts/lib/style.css'
+import AdvanceSearch from './AdvanceSearch'
 export default {
+  components: { AdvanceSearch },
   data () {
+    this.chartExtend = {
+      legend: {
+        show: 'true',
+        data: ['金额'],
+        bottom: 0,
+      },
+      xAxis: {
+        min: '周一',
+        type: 'category',
+        boundaryGap: false,
+        axisLine: {
+          show: true,
+        },
+        axisTick: {
+          show: true,
+          alignWithLabel: true,
+        },
+      },
+      yAxis: {
+        type: 'value',
+        position: 'left',
+        axisLine: {
+          show: true,
+        },
+        axisTick: {
+          show: false,
+        },
+
+      },
+      grid: {
+        left: '1%',
+        right: '2%',
+        bottom: '40',
+        top: '5%',
+        containLabel: true,
+      },
+      series: {
+        name: '金额',
+        type: 'line',
+        smooth: false,
+        lineStyle: {
+          color: '#D56368',
+        },
+
+      },
+    }
     return {
-      data,
-      scale,
-      height: 300,
+      loading: false,
       type: '1',
       tabList: [{ label: '按周', value: '1' }, { label: '按月', value: '2' }, { label: '季度', value: '3' }, { label: '年度', value: '4' }],
+      chartData: {
+        columns: ['日期', '访问用户'],
+        rows: [
+          { '日期': '周一', '访问用户': 90000 },
+          { '日期': '周二', '访问用户': 35000 },
+          { '日期': '周三', '访问用户': 65000 },
+          { '日期': '周四', '访问用户': 30000 },
+          { '日期': '周五', '访问用户': 21000 },
+          { '日期': '周六', '访问用户': 0 },
+          { '日期': '周日', '访问用户': 56312 },
+        ],
+      },
     }
   },
   methods: {
@@ -86,9 +121,11 @@ export default {
     display: inline-block;
   }
 }
-.echarts {
+#moneyColumn {
+  width: "auto";
   height: 300px;
-  padding: 15px 10px;
-  border: 1px solid #eee;
+}
+.money {
+  padding: 10px 0 10px 55px;
 }
 </style>

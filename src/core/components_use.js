@@ -11,7 +11,7 @@ import IepPageHeader from '@/components/IepCommon/PageHeader'
 import FooterToolBar from '@/components/FooterToolbar'
 
 // 富文本
-import IepEditor from '@/components/IepEditor/'
+// import IepEditor from '@/components/IepEditor/'
 import IepFroalaEditor from '@/components/IepFroalaEditor/'
 import IepHtml from '@/components/IepHtml/'
 
@@ -31,7 +31,8 @@ import IepCascader from '@/components/IepCommon/Cascader'
 import IepDictDetail from '@/components/IepCommon/DictDetail'
 import IepDictSelect from '@/components/IepCommon/DictSelect'
 import IepDescriptionItem from '@/components/IepCommon/DescriptionItem'
-import IepDetailTag from '@/components/IepCommon/DetailTag'
+import IepTagDetail from '@/components/IepCommon/TagDetail'
+import IepDivDetail from '@/components/IepCommon/DivDetail'
 import IepInputNumber from '@/components/IepCommon/InputNumber'
 import IepInputArea from '@/components/IepCommon/InputArea'
 
@@ -55,11 +56,8 @@ import IepTableLinkImgDesc from '@/components/IepTable/LinkImgDesc'
 
 // 通讯录组件Contact
 import IepContactSelect from '@/components/IepContact/Select'
-import IepContactOneSelect from '@/components/IepContact/OneSelect'
 import IepContactMultiple from '@/components/IepContact/Multiple'
-import IepContactOneMultiple from '@/components/IepContact/OneMultiple'
 import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
-import IepContactOneMultipleUser from '@/components/IepContact/OneMultipleUser'
 
 // 部门组件Contact
 import IepDeptSelect from '@/components/IepDept/Select'
@@ -81,7 +79,7 @@ Vue.component(IepPageHeader.name, IepPageHeader)
 Vue.component(FooterToolBar.name, FooterToolBar)
 
 //富文本
-Vue.component(IepEditor.name, IepEditor)
+// Vue.component(IepEditor.name, IepEditor)
 Vue.component(IepFroalaEditor.name, IepFroalaEditor)
 Vue.component(IepHtml.name, IepHtml)
 
@@ -102,7 +100,8 @@ Vue.component(IepDictSelect.name, IepDictSelect)
 Vue.component(IepInputNumber.name, IepInputNumber)
 Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepDescriptionItem.name, IepDescriptionItem)
-Vue.component(IepDetailTag.name, IepDetailTag)
+Vue.component(IepTagDetail.name, IepTagDetail)
+Vue.component(IepDivDetail.name, IepDivDetail)
 Vue.component(IepInputArea.name, IepInputArea)
 
 // 头像上传文件有关组件
@@ -124,12 +123,9 @@ Vue.component(IepTableLink.name, IepTableLink)
 Vue.component(IepTableLinkImgDesc.name, IepTableLinkImgDesc)
 
 // 通讯录组件Contact
-// Vue.component(IepContactSelect.name, IepContactSelect)
-Vue.component(IepContactSelect.name, IepContactOneSelect)
-// Vue.component(IepContactMultiple.name, IepContactMultiple)
-Vue.component(IepContactMultiple.name, IepContactOneMultiple)
-// Vue.component(IepContactMultipleUser.name, IepContactMultipleUser)
-Vue.component(IepContactMultipleUser.name, IepContactOneMultipleUser)
+Vue.component(IepContactSelect.name, IepContactSelect)
+Vue.component(IepContactMultiple.name, IepContactMultiple)
+Vue.component(IepContactMultipleUser.name, IepContactMultipleUser)
 
 // 部门组件Contact
 Vue.component(IepDeptSelect.name, IepDeptSelect)

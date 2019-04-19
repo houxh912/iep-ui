@@ -3,135 +3,54 @@
     <basic-container>
       <div class="filter-container">
         <el-button-group>
-          <el-button
-            type="primary"
-            v-if="menuManager_btn_add"
-            icon="plus"
-            @click="handlerAdd"
-            >添加
+          <el-button type="primary" v-if="menuManager_btn_add" icon="plus" @click="handlerAdd">添加
           </el-button>
-          <el-button
-            type="primary"
-            v-if="menuManager_btn_edit"
-            icon="edit"
-            @click="handlerEdit"
-            >编辑
+          <el-button type="primary" v-if="menuManager_btn_edit" icon="edit" @click="handlerEdit">编辑
           </el-button>
-          <el-button
-            type="primary"
-            v-if="menuManager_btn_del"
-            icon="delete"
-            @click="handleDelete"
-            >删除
+          <el-button type="primary" v-if="menuManager_btn_del" icon="delete" @click="handleDelete">删除
           </el-button>
         </el-button-group>
       </div>
 
       <el-row>
         <el-col :span="8" style="margin-top:15px;">
-          <el-tree
-            class="filter-tree"
-            node-key="id"
-            highlight-current
-            :data="treeData"
-            :default-expanded-keys="aExpandedKeys"
-            :filter-node-method="filterNode"
-            :props="defaultProps"
-            @node-click="getNodeData"
-            @node-expand="nodeExpand"
-            @node-collapse="nodeCollapse"
-          >
+          <el-tree class="filter-tree" node-key="id" highlight-current :data="treeData" :default-expanded-keys="aExpandedKeys" :filter-node-method="filterNode" :props="defaultProps" @node-click="getNodeData" @node-expand="nodeExpand" @node-collapse="nodeCollapse">
           </el-tree>
         </el-col>
         <el-col :span="16" style="margin-top:15px;">
           <el-card class="box-card">
-            <el-form
-              :label-position="labelPosition"
-              label-width="80px"
-              :model="form"
-              ref="form"
-            >
+            <el-form :label-position="labelPosition" label-width="80px" :model="form" ref="form">
               <el-form-item label="父级节点" prop="parentId">
-                <el-input
-                  v-model="form.parentId"
-                  :disabled="true"
-                  placeholder="请输入父级节点"
-                ></el-input>
+                <el-input v-model="form.parentId" :disabled="true" placeholder="请输入父级节点"></el-input>
               </el-form-item>
               <el-form-item label="节点ID" prop="menuId">
-                <el-input
-                  v-model="form.menuId"
-                  :disabled="formEdit"
-                  placeholder="请输入节点ID"
-                ></el-input>
+                <el-input v-model="form.menuId" :disabled="formEdit" placeholder="请输入节点ID"></el-input>
               </el-form-item>
               <el-form-item label="标题" prop="name">
-                <el-input
-                  v-model="form.name"
-                  :disabled="formEdit"
-                  placeholder="请输入标题"
-                ></el-input>
+                <el-input v-model="form.name" :disabled="formEdit" placeholder="请输入标题"></el-input>
               </el-form-item>
               <el-form-item label="权限标识" prop="permission">
-                <el-input
-                  v-model="form.permission"
-                  :disabled="formEdit"
-                  placeholder="请输入权限标识"
-                ></el-input>
+                <el-input v-model="form.permission" :disabled="formEdit" placeholder="请输入权限标识"></el-input>
               </el-form-item>
               <el-form-item label="图标" prop="icon">
-                <el-input
-                  v-model="form.icon"
-                  :disabled="formEdit"
-                  placeholder="请输入图标"
-                ></el-input>
+                <el-input v-model="form.icon" :disabled="formEdit" placeholder="请输入图标"></el-input>
               </el-form-item>
               <el-form-item label="类型" prop="type">
-                <el-select
-                  class="filter-item"
-                  v-model="form.type"
-                  :disabled="formEdit"
-                  placeholder="请输入资源请求类型"
-                >
-                  <el-option
-                    v-for="item in typeOptions"
-                    :key="item"
-                    :label="item | typeFilter"
-                    :value="item"
-                  ></el-option>
+                <el-select class="filter-item" v-model="form.type" :disabled="formEdit" placeholder="请输入资源请求类型">
+                  <el-option v-for="item in typeOptions" :key="item" :label="item | typeFilter" :value="item"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="排序" prop="sort">
-                <el-input
-                  type="number"
-                  v-model="form.sort"
-                  :disabled="formEdit"
-                  placeholder="请输入排序"
-                ></el-input>
+                <el-input type="number" v-model="form.sort" :disabled="formEdit" placeholder="请输入排序"></el-input>
               </el-form-item>
               <el-form-item label="前端组件" prop="component">
-                <el-input
-                  v-model="form.component"
-                  :disabled="formEdit"
-                  placeholder="请输入描述"
-                ></el-input>
+                <el-input v-model="form.component" :disabled="formEdit" placeholder="请输入描述"></el-input>
               </el-form-item>
               <el-form-item label="前端地址" prop="component">
-                <el-input
-                  v-model="form.path"
-                  :disabled="formEdit"
-                  placeholder="iframe嵌套地址"
-                ></el-input>
+                <el-input v-model="form.path" :disabled="formEdit" placeholder="iframe嵌套地址"></el-input>
               </el-form-item>
               <el-form-item label="路由缓冲" prop="component">
-                <el-switch
-                  v-model="form.keepAlive"
-                  :disabled="formEdit"
-                  active-color="#13ce66"
-                  inactive-color="#ff4949"
-                  :active-value="'1'"
-                  :inactive-value="'0'"
-                >
+                <el-switch v-model="form.keepAlive" :disabled="formEdit" active-color="#13ce66" inactive-color="#ff4949" :active-value="'1'" :inactive-value="'0'">
                 </el-switch>
               </el-form-item>
               <el-form-item v-if="formStatus == 'update'">
@@ -170,7 +89,7 @@ export default {
       formAdd: true,
       formStatus: '',
       showElement: false,
-      typeOptions: ['0', '1'],
+      typeOptions: ['0', '1', '2'],
       methodOptions: ['GET', 'POST', 'PUT', 'DELETE'],
       listQuery: {
         name: undefined,
@@ -211,6 +130,7 @@ export default {
       const typeMap = {
         0: '菜单',
         1: '按钮',
+        2: '隐藏菜单',
       }
       return typeMap[type]
     },

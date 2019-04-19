@@ -1,5 +1,5 @@
 <template>
-  
+
   <div class="iep-page-form">
     <page-header :title="`${methodName}配置`" :backOption="backOption"></page-header>
 
@@ -78,11 +78,9 @@ export default {
     },
     submitForm () {
       this.requestFn(this.formData).then(() => {
-        this.$notify({
-          title: '成功',
+        this.$message({
           message: `${this.methodName}成功`,
           type: 'success',
-          duration: 2000,
         })
         this.resetForm()
       })

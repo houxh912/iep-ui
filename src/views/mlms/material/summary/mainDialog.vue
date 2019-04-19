@@ -67,10 +67,10 @@
         <!-- <el-form-item label="关联报表" prop="baobiao">
         <iep-button><i class="el-icon-plus"></i></iep-button>
       </el-form-item> -->
-      <el-form-item label="关联项目" prop="projectList">
-        <el-tag type="info" v-for="(item, index) in formData.projectList" :key="index">{{item.name}}</el-tag>
-        <iep-button @click="selectProject"><i class="el-icon-plus"></i></iep-button>
-      </el-form-item>
+        <el-form-item label="关联项目" prop="projectList">
+          <el-tag type="info" v-for="(item, index) in formData.projectList" :key="index">{{item.name}}</el-tag>
+          <iep-button @click="selectProject"><i class="el-icon-plus"></i></iep-button>
+        </el-form-item>
 
       </el-form>
       <footer-tool-bar>
@@ -154,13 +154,11 @@ export default {
       } else {
         this.formData.projectIds = []
       }
-      
+
       this.formRequestFn(this.formData).then(() => {
-        this.$notify({
-          title: '成功',
+        this.$message({
           message: `${this.methodName}成功`,
           type: 'success',
-          duration: 2000,
         })
         this.goBack(true)
       })

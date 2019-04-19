@@ -2,6 +2,7 @@ import Vue from 'vue'
 
 import '@/core/components_use'
 import '@/core/editor_use'
+import '@/core/charts_use'
 
 import '@/styles/common.scss'
 
@@ -11,12 +12,13 @@ import Avue from '@smallwei/avue/lib/index.js'
 import '@smallwei/avue/lib/theme-chalk/index.css'
 import Viser from 'viser-vue'
 
-import { loadStyle, mergeByFirst, openPage } from '@/util/util'
+import { loadStyle, mergeByFirst, openPage, fillStatisticsArray } from '@/util/util'
 import { iconfontUrl, iconfontVersion } from '@/config/env'
 import * as filters from '@/filters/' // 全局filter
 
 Vue.prototype.$mergeByFirst = mergeByFirst
 Vue.prototype.$openPage = openPage
+Vue.prototype.$fillStatisticsArray = fillStatisticsArray
 
 Vue.use(Avue, { menuType: 'text' })
 Vue.use(Viser)

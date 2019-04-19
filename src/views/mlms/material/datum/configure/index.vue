@@ -91,11 +91,9 @@ export default {
     handleSubmit () {
       let fn = this.formData.id ? updateData : createData
       fn(this.formData).then(() => {
-        this.$notify({
-          title: '成功',
+        this.$message({
           message: '保存成功',
           type: 'success',
-          duration: 2000,
         })
         this.handleCancel({})
         this.loadPage()

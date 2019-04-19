@@ -14,7 +14,7 @@
 <script>
 import { getTagDistributed } from '@/api/tms/statistics'
 import noData from './no-data'
-const DataSet = require('@antv/data-set')
+import { View } from '@antv/data-set'
 
 const scale = [{
   dataKey: 'percent',
@@ -46,7 +46,7 @@ export default {
   methods: {
     loadDistributed () {
       getTagDistributed().then(res => {
-        const dv = new DataSet.View().source(res.data)
+        const dv = new View().source(res.data)
         dv.transform({
           type: 'percent',
           field: 'count',

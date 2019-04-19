@@ -29,4 +29,27 @@ const recordType = [
     value: 5,
   },
 ]
-export { simpleEmployeeStatus, recordType }
+
+const initForm = () => {
+  return {
+    avatar: '',
+    createTime: '',
+    id: '',
+    idCard: '',
+    isExpert: '',
+    job: '',
+    jobId: '',
+    name: '',
+    position: '',
+    positionId: '',
+    professionalTitleId: '',
+    sex: '',
+    staffNo: '',
+    status: '',
+    timeLineList: [],
+    title: '',
+    updateTime: '',
+  }
+}
+
+export { simpleEmployeeStatus, recordType, initForm }

@@ -6,32 +6,32 @@
         <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href" @click="changePage">参考本月周报</a></div>
         <div class="tips update" v-else @click="handleUpdate"><i class="el-icon-edit"></i></div>
       </div>
-    <div class="content">
-      <el-form ref="form" v-if="dislogState!=='detail'" :model="formData">
-        <div class="title">领导指示</div>
-        <el-form-item>
-          <el-input type="textarea" v-model="formData.leaderIndication" rows=5 placeholder="此处填写领导指示" maxlength="500"></el-input>
-        </el-form-item>
-        <div class="title">本月工作总结</div>
-        <el-form-item prop="workSummary">
-          <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本月工作总结" maxlength="1000"></el-input>
-        </el-form-item>
-        <div class="title">下月工作计划</div>
-        <el-form-item prop="workPlan">
-          <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下月工作计划" maxlength="1000"></el-input>
-        </el-form-item>
-        <div class="title">总结与感悟</div>
-        <el-form-item>
-          <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟" maxlength="1000"></el-input>
-        </el-form-item>
-        <div class="select-item">
-          <div class="label">市场拓展：</div>
-          <div class="item">
-            <iep-button class="col-button" @click="addRelation"><i class="el-icon-plus"></i></iep-button>
-            <el-col class="col-item" v-for="(item, index) in formData.meetingSummary" :key="index">{{item.name}} <i class="el-icon-close"></i></el-col>
+      <div class="content">
+        <el-form ref="form" v-if="dislogState!=='detail'" :model="formData">
+          <div class="title">领导指示</div>
+          <el-form-item>
+            <el-input type="textarea" v-model="formData.leaderIndication" rows=5 placeholder="此处填写领导指示" maxlength="500"></el-input>
+          </el-form-item>
+          <div class="title">本月工作总结</div>
+          <el-form-item prop="workSummary">
+            <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本月工作总结" maxlength="1000"></el-input>
+          </el-form-item>
+          <div class="title">下月工作计划</div>
+          <el-form-item prop="workPlan">
+            <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下月工作计划" maxlength="1000"></el-input>
+          </el-form-item>
+          <div class="title">总结与感悟</div>
+          <el-form-item>
+            <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟" maxlength="1000"></el-input>
+          </el-form-item>
+          <div class="select-item">
+            <div class="label">市场拓展：</div>
+            <div class="item">
+              <iep-button class="col-button" @click="addRelation"><i class="el-icon-plus"></i></iep-button>
+              <el-col class="col-item" v-for="(item, index) in formData.meetingSummary" :key="index">{{item.name}} <i class="el-icon-close"></i></el-col>
+            </div>
           </div>
-        </div>
-        <!-- <div class="select-item">
+          <!-- <div class="select-item">
           <div class="label">相关产品：</div>
           <div class="item">
             <iep-button class="col-button"><i class="el-icon-plus"></i></iep-button>
@@ -45,24 +45,24 @@
             <el-col class="col-item" v-for="(item, index) in formData.project" :key="index">{{item.name}} <i class="el-icon-close"></i></el-col>
           </div>
         </div> -->
-        <el-form-item>
-          <iep-button @click="submit" type="primary">保存</iep-button>
-        </el-form-item>
-      </el-form>
-      <div v-else class="detail">
-        <div class="title">领导指示</div>
-        <pre>{{formData.leaderIndication}}</pre>
-        <div class="title">本月工作总结</div>
+          <el-form-item>
+            <iep-button @click="submit" type="primary">保存</iep-button>
+          </el-form-item>
+        </el-form>
+        <div v-else class="detail">
+          <div class="title">领导指示</div>
+          <pre>{{formData.leaderIndication}}</pre>
+          <div class="title">本月工作总结</div>
           <pre>{{formData.workSummary}}</pre>
-        <div class="title">下月工作计划</div>
+          <div class="title">下月工作计划</div>
           <pre>{{formData.workPlan}}</pre>
-        <div class="title">总结与感悟</div>
+          <div class="title">总结与感悟</div>
           <pre>{{formData.summarySentiment}}</pre>
-        <div class="title">市场拓展</div>
-        <div class="item">
-          <el-tag type="info" class="tag" v-for="(item, index) in formData.meetingSummary" :key="index">{{item.name}}</el-tag>
-        </div>
-        <!-- <div class="title">相关产品</div>
+          <div class="title">市场拓展</div>
+          <div class="item">
+            <el-tag type="info" class="tag" v-for="(item, index) in formData.meetingSummary" :key="index">{{item.name}}</el-tag>
+          </div>
+          <!-- <div class="title">相关产品</div>
         <div class="item">
           <el-tag type="info" class="tag" v-for="(item, index) in formData.product" :key="index">{{item.name}}</el-tag>
         </div>
@@ -70,15 +70,11 @@
         <div class="item">
           <el-tag type="info" class="tag" v-for="(item, index) in formData.project" :key="index">{{item.name}}</el-tag>
         </div> -->
+        </div>
       </div>
     </div>
-    </div>
     <div class="detail-page" v-else>
-      <el-table
-        ref="dailyTable"
-        :data="weeklyTableData"
-        style="width: 100%"
-        @selection-change="handleSelectionChange">
+      <el-table ref="dailyTable" :data="weeklyTableData" style="width: 100%" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column label="开始周期" width="150">
           <template slot-scope="scope">{{ getWeekStartAndEnd(scope.row.createTime).startTime }}</template>
@@ -105,7 +101,7 @@ export default {
   props: {
     data: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   computed: {
@@ -128,7 +124,7 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           // 判断这条数据是否在系统中已经生成
-          let fn = ()=>{}
+          let fn = () => { }
           if (this.formData.createData) {
             fn = updateData
           } else {
@@ -138,11 +134,9 @@ export default {
           }
           delete this.formData.updateTime
           fn(this.formData).then(() => {
-            this.$notify({
-              title: '成功',
+            this.$message({
               message: '编辑月报成功',
               type: 'success',
-              duration: 2000,
             })
             this.pageState = true
             this.$emit('success-submit', true)
@@ -165,7 +159,7 @@ export default {
       this.pageState = false
       getTableData({
         yearMonthTime: this.formData.time,
-      }).then(({data}) => {
+      }).then(({ data }) => {
         this.weeklyTableData = data.data
       })
     },
@@ -192,7 +186,7 @@ export default {
       return getWeekStartAndEnd(day)
     },
     // 市场拓展
-    addRelation () {},
+    addRelation () { },
   },
   watch: {
     data (newVal) {

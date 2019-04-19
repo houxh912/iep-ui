@@ -41,8 +41,11 @@
       </el-row>
       <el-row class="comment">
         <div class="form">
-          <h2 class="title">评价评论 <div class="rate"><el-rate v-model="comment.score"></el-rate></div></h2>
-          <el-input type="textarea" rows=5 v-model="comment.commentContent"></el-input>
+          <h2 class="title">评价评论 <div class="rate">
+              <el-rate v-model="comment.score"></el-rate>
+            </div>
+          </h2>
+          <el-input type="textarea" rows=5 v-model="comment.commentContent" maxlength="500"></el-input>
           <div class="button">
             <iep-button type="primary" @click="submit">发送</iep-button>
           </div>
@@ -52,7 +55,10 @@
             <img :src="`//cloud.govmade.com/${item.avatar}`" alt="">
           </div>
           <div class="comment-info">
-            <div class="name">{{item.realName}} <div class="rate"><el-rate v-model="item.score" disabled></el-rate></div></div>
+            <div class="name">{{item.realName}} <div class="rate">
+                <el-rate v-model="item.score" disabled></el-rate>
+              </div>
+            </div>
             <p>{{item.commentContent}}</p>
             <div class="footer">
               <div class="time">{{item.createTime}}</div>
@@ -137,7 +143,7 @@ export default {
       getCommentPage({
         id: id,
         objectType: 1,
-      }).then(({data}) => {
+      }).then(({ data }) => {
         this.commentList = data.data.records
       })
     },
@@ -155,7 +161,7 @@ export default {
       this.$router.push(`/mlms_spa/material/detail/${row.id}`)
     },
     getDataById (id) {
-      getDataById(id).then(({data}) => {
+      getDataById(id).then(({ data }) => {
         if (data.data == null) {
           this.$message.error(data.msg)
           return
@@ -163,10 +169,10 @@ export default {
         this.formData = data.data
         this.getComment(data.data.id)
         // 获取优秀材料
-        getGreatMaterial(data.data.creator).then(({data}) => {
+        getGreatMaterial(data.data.creator).then(({ data }) => {
           this.greatMaterialList = data
         })
-        getMaterialTotal(data.data.creator).then(({data}) => {
+        getMaterialTotal(data.data.creator).then(({ data }) => {
           this.materialTotal = data.data
         })
       })
@@ -287,6 +293,7 @@ export default {
         }
         p {
           margin: 0 0 10px 0;
+          word-break: break-all;
         }
         .footer {
           display: flex;
@@ -370,11 +377,11 @@ export default {
   }
 }
 pre {
-  white-space:pre-wrap; /* css3.0 */ 
-  white-space:-moz-pre-wrap; /* Firefox */ 
-  white-space:-pre-wrap; /* Opera 4-6 */ 
-  white-space:-o-pre-wrap; /* Opera 7 */ 
-  word-wrap:break-word; /* Internet Explorer 5.5+ */ 
+  white-space: pre-wrap; /* css3.0 */
+  white-space: -moz-pre-wrap; /* Firefox */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 .rate {
   width: 160px;

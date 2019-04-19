@@ -24,7 +24,7 @@
         <el-table-column label="审核人">
           <template slot-scope="scope">
             <div>
-              <iep-detail-tag v-if="!scope.row.approveResult" :value="scope.row.approverNameList"></iep-detail-tag>
+              <iep-tag-detail v-if="!scope.row.approveResult" :value="scope.row.approverNameList"></iep-tag-detail>
               <span v-else>{{scope.row.approverName}}</span>
             </div>
           </template>

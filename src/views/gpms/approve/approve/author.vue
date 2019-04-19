@@ -63,11 +63,9 @@ export default {
         approvalStatus: 3,
       }
       updateData(form).then(() => {
-        this.$notify({
-          title: '成功',
+        this.$message({
           message: '操作成功',
           type: 'success',
-          duration: 2000,
         })
         this.$emit('close', true)
       })
@@ -79,11 +77,9 @@ export default {
         approvalStatus: 4,
       }
       updateData(form).then(() => {
-        this.$notify({
-          title: '成功',
+        this.$message({
           message: '操作成功',
           type: 'success',
-          duration: 2000,
         })
         this.$emit('close', true)
       })
@@ -123,5 +119,4 @@ export default {
     }
   }
 }
-
 </style>

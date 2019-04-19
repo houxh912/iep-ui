@@ -39,7 +39,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .index {
-  width: 1280px;
+  width: 1200px;
   padding: 20px 0;
   margin: 0 auto;
   display: grid;

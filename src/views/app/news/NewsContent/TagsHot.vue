@@ -69,8 +69,14 @@ export default {
   margin-bottom: 18px;
   font-size: 14px;
   cursor: pointer;
+  transition: 0.5s;
 }
 
+.item:hover {
+  color: #cb3737;
+  background: #fef0f0;
+  border-color: #cb3737;
+}
 .clearfix:before,
 .clearfix:after {
   display: table;

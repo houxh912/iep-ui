@@ -126,6 +126,7 @@ export default {
     }
     .department {
       display: block;
+      margin-top: 5px;
       color: #999;
     }
   }

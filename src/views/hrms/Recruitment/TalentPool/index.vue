@@ -24,7 +24,7 @@ export default {
   components: { TalentPool, ResumeLibrary, ResumeBlacklist },
   data () {
     return {
-      replaceText: (data) => `（本周新增${data[0]}条招聘信息，收到${data[1]}份简历）`,
+      // replaceText: (data) => `（本周新增${data[0]}条招聘信息，收到${data[1]}份简历）`,
       tabList: [{
         label: '简历池',
         value: 'ResumeLibrary',

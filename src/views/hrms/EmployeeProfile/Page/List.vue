@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="员工" :replaceText="replaceText" :data="[10 ,5, 1]"></page-header>
+      <page-header title="员工" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleHeaderSetting">表头设置</iep-button>
@@ -90,6 +90,7 @@ export default {
       columnsMap,
       defaultColumnsLabel: columnsMap.filter(m => !m.hidden).map(m => m.label),
       paramForm: initSearchForm(),
+      statistics: [0, 0, 0],
       replaceText: (data) => `（本周新增${data[0]}位正式员工，新增${data[1]}位实习生，离职${data[2]}人）`,
     }
   },
@@ -111,6 +112,7 @@ export default {
     },
     handleTransfer (row) {
       this.$refs['TransferDialog'].form.id = row.id
+      this.$refs['TransferDialog'].loadData()
       this.$refs['TransferDialog'].formRequestFn = postTransfer
       this.$refs['TransferDialog'].dialogShow = true
     },
@@ -152,8 +154,9 @@ export default {
       this.$refs['DetailDrawer'].loadPage()
       this.$refs['DetailDrawer'].drawerShow = true
     },
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getEmployeeProfilePage)
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable(param, getEmployeeProfilePage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

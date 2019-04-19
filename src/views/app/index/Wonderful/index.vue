@@ -29,13 +29,13 @@ export default {
   data () {
     return {
       tabList: [{
-        label: '组织风采',
+        label: '组织风采(35)',
         value: 'Organization',
       }, {
-        label: '员工风采',
+        label: '员工风采(519)',
         value: 'Empolyee',
       }, {
-        label: '专家风采',
+        label: '专家风采(75)',
         value: 'Specialist',
       }],
       activeTab: 'Organization',
@@ -82,6 +82,17 @@ export default {
       margin: 0 10px 0 15px;
     }
   }
+}
+</style>
+<style scoped>
+.iep-tabs >>> .el-tabs__nav-scroll {
+  padding: 10px 20px 1px;
+}
+.iep-tabs >>> .el-tabs__nav{
+  line-height:53px;
+}
+.iep-tabs >>> .el-tabs__item{
+  font-size: 18px;
 }
 </style>
 

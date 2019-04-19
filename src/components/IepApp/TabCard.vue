@@ -56,14 +56,8 @@ export default {
   font-size: 16px;
   color: #999;
 }
+
 </style>
-<style scoped>
-.iep-tabs >>> .el-tabs__nav {
-  line-height: 53px;
-}
-.iep-tabs >>> .el-tabs__item {
-  font-size: 18px;
-}
-</style>
+
 
 

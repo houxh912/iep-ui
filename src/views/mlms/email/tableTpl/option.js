@@ -36,5 +36,6 @@ export const initFormData = () => {
     attachmentRelatios: [],
     projectRelatios: [],
     materialRelatios: [],
+    summaryRelatios: [],
   }
 }

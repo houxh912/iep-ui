@@ -74,6 +74,22 @@ export const initFormData = () => {
   }
 }
 
+let intValidate = (rule, value, callback) => {
+  if (/^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/.test(value)) {
+    callback()
+  } else {
+    callback(new Error())
+  }
+}
+
+let xsValidate = (rule, value, callback) => {
+  if (/^\d+(\.\d{1,2})?$/.test(value)) {
+    callback()
+  } else {
+    callback(new Error())
+  }
+}
+
 export const rules = {
   contractName: [
     { required: true, message: '必填', trigger: 'blur' },
@@ -125,6 +141,8 @@ export const rules = {
   ],
   contractAmount: [
     { required: true, message: '必填', trigger: 'blur' },
+    { validator: intValidate, message: '请输入正数', trigger: 'blur' },
+    { validator: xsValidate, message: '小数位最多为2位', trigger: 'blur' },
   ],
   contractLevel: [
     { required: true, message: '必填', trigger: 'change' },
@@ -134,5 +152,7 @@ export const rules = {
   ],
   deposit: [
     { required: true, message: '必填', trigger: 'blur' },
+    { validator: intValidate, message: '请输入正数', trigger: 'blur' },
+    { validator: xsValidate, message: '小数位最多为2位', trigger: 'blur' },
   ],
 }

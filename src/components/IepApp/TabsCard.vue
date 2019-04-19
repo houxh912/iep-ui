@@ -35,12 +35,17 @@ export default {
   position: relative;
   padding: 0;
 }
+.iep-tabs >>> .el-tabs__nav-scroll {
+  padding: 10px 20px 1px;
+}
 .btn {
+  line-height:53px;
   position: absolute;
   right: 20px;
-  top: 33px;
+  top: 0px;
   padding: 5px 0;
   color: #999;
+  z-index: 3;
 }
 </style>
 

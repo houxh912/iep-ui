@@ -44,7 +44,6 @@ export default {
     color: #bb1a20;
     border: 1px solid #bb1a20;
     border-radius: 3px;
-    display: inline-block;
     font-size: 14px;
   }
   .red {

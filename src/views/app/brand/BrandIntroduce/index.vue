@@ -1,6 +1,6 @@
 <template>
   <div class="grid-content">
-    <iepAppTabCard :title="title">
+    <iepAppTabCard :title="title" :isMore="isMore" :linkName="linkName">
       <div class="introduce">
         <span v-text="introduce"></span>
         <span class="red" style="display:inline-block;margin-bottom:15px;">【详细】</span>
@@ -22,6 +22,8 @@ export default {
   data () {
     return {
       title: '品牌、平台与研究委员会介绍',
+      isMore:true,
+      linkName: '',
       img: [
         { imgSrc: require('../images/expert1.jpg') },
         { imgSrc: require('../images/expert2.png') },
@@ -36,7 +38,6 @@ export default {
 </script>
 <style lang='scss' scoped>
 .title {
-  font-size: 18px;
   color: #000;
 }
 .introduce {
@@ -50,10 +51,10 @@ export default {
     margin-bottom: 15px;
     img {
       display: inline-block;
-      margin: 10px;
+      margin: 8px;
       border-radius: 50%;
-      width: 80px;
-      height: 80px;
+      width: 75px;
+      height: 75px;
       background-color: #ccc;
     }
   }

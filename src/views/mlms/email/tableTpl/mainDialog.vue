@@ -190,7 +190,7 @@ export default {
     },
   },
   created () {
-    let params = this.$route.query
+    let params = this.$route.params
     if (params.id) {
       // 通过工作台进入
       getEmailById(params.id).then(({ data }) => {

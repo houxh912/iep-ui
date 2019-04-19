@@ -44,7 +44,13 @@ export default {
 </script>
 <style scoped>
 .iep-tabs >>> .el-tabs__nav-scroll {
-  padding: 24px 20px 0 20px;
+  padding: 10px 20px 1px;
+}
+.iep-tabs >>> .el-tabs__nav{
+  line-height:53px;
+}
+.iep-tabs >>> .el-tabs__item{
+  font-size: 18px;
 }
 </style>
 

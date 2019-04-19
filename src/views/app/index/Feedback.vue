@@ -50,7 +50,7 @@ export default {
         }
         .box{
             float: left;
-            width: 490px;
+            width: 450px;
             height: 68px;
             .pieceTitle{
                 .name{

@@ -38,7 +38,7 @@ export default {
             showClass2:0,
             num:[18],
             coduleDeletion: ['全部','基础','通用','业务','分类4'],            
-            productsDeletion: ['全部','DMA','营商通','国策','智慧赋能平台'],    
+            productsDeletion: ['全部','DNA','营商通','国策','智慧赋能平台'],    
             Module: [
                 {icon:'icon-tongyongleiziyuanpeizhi',name:'资源配置模块',desc:'支持各单位应用系统的表结构导入本系统，通过配置可实现数据元配置。',to:''},
                 {icon:'icon-qingdan',name:'清单管理模块',desc:'提供数据元的频率分析、同义词分析提供数据资源管理部门对彰据元、倍关联分析等功能',to:''},

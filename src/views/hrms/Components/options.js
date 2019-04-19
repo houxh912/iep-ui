@@ -6,6 +6,7 @@ const studyColumns = [
   {
     prop: 'startTime',
     label: '起始时间',
+    type: 'date',
   },
   {
     prop: 'content',
@@ -25,6 +26,7 @@ const workExpColumns = [
   {
     prop: 'startTime',
     label: '起始时间',
+    type: 'date',
   },
   {
     prop: 'description',
@@ -52,6 +54,7 @@ const trainingColumns = [
   {
     prop: 'startTime',
     label: '起始时间',
+    type: 'date',
   },
 ]
 
@@ -87,10 +90,12 @@ const laborContractColumns = [
   {
     prop: 'startTime',
     label: '开始日期',
+    type: 'date',
   },
   {
     prop: 'endTime',
     label: '到期日期',
+    type: 'date',
   },
   {
     prop: 'annex',
@@ -109,10 +114,12 @@ const welfareColumns = [
   {
     prop: 'startTime',
     label: '起缴时间',
+    type: 'date',
   },
   {
     prop: 'endTime',
     label: '停缴时间',
+    type: 'date',
   },
   {
     prop: 'remark',
@@ -127,6 +134,7 @@ const transferColumns = [
   {
     prop: 'transferTime',
     label: '调动日期',
+    type: 'date',
   },
   {
     prop: 'changeContent',
@@ -137,6 +145,7 @@ const dimissionColumns = [
   {
     prop: 'leaveTime',
     label: '离职时间',
+    type: 'date',
   },
   {
     prop: 'reason',

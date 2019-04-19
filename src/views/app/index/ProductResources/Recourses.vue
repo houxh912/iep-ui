@@ -46,7 +46,7 @@ export default {
     width: 100%;
     text-align: center;
     .iconfont {
-      width: 50%;
+      width: 55%;
       height: 100%;
       font-size: 30px;
       padding: 10px 0;

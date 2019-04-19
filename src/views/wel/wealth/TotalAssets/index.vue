@@ -62,40 +62,57 @@
             </template>
           </operation-container>
           <a-divider />
-          <v-chart :forceFit="true" :height="height" :data="data" :scale="scale">
-            <v-tooltip />
-            <v-axis />
-            <v-bar position="dept*money" />
-          </v-chart>
+          <ve-histogram :data="chartData" :settings="chartSettings" :extend="chartExtend" :colors="colors"></ve-histogram>
         </el-card>
-
       </div>
     </basic-container>
   </div>
 </template>
 <script>
-const data = [
-  { dept: '内网', money: 38 },
-  { dept: '部门', money: 52 },
-  { dept: '提现', money: 61 },
-  { dept: '批评', money: 145 },
-  { dept: '学习', money: 48 },
-  { dept: '打赏', money: 38 },
-  { dept: '离职', money: 38 },
-  { dept: '其他', money: 38 },
-]
-const scale = [{
-  dataKey: 'money',
-  tickInterval: 20,
-}]
+
 export default {
   data () {
+    this.colors = [
+      (paramsA) => {
+        var colorList1 = ['#d66368', '#d97276', '#dd8184', '#da8a8d', '#e09c9e', '#e8adaf', '#f7c6c8', '#ffdfe0']
+        return colorList1[paramsA.dataIndex]
+      },
+      (paramsB) => {
+        var colorList2 = ['#f58f44', '#f79349', '#f79a55', '#f9a261', '#f7af78', '#f9b37f', '#fdc296', '#fdd1b0']
+        return colorList2[paramsB.dataIndex]
+      },
+    ]
+    this.chartSettings = {
+      metrics: ['收入', '支出'],
+      dimension: ['dept'],
+      lineStyle: {
+        color: '#fff',
+      },
+
+    }
+    this.chartExtend = {
+      barWidth: '26',
+      itemStyle: {
+        barBorderRadius: 13,
+      },
+
+    }
     return {
-      data,
-      scale,
-      height: 400,
       replaceText: (data) => `（收入共计${data[0]}笔，共计${data[0]}贝）`,
       value6: '',
+      chartData: {
+        columns: ['dept', '收入', '支出'],
+        rows: [
+          { 'dept': '内网', '收入': 38, '支出': 22 },
+          { 'dept': '部门', '收入': 52, '支出': 22 },
+          { 'dept': '提现', '收入': 61, '支出': 22 },
+          { 'dept': '批评', '收入': 145, '支出': 22 },
+          { 'dept': '学习', '收入': 48, '支出': 22 },
+          { 'dept': '打赏', '收入': 38, '支出': 22 },
+          { 'dept': '离职', '收入': 38, '支出': 22 },
+          { 'dept': '其他', '收入': 38, '支出': 22 },
+        ],
+      },
     }
   },
 }

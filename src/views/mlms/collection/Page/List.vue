@@ -57,15 +57,9 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
-                <div>分享</div>
-              </el-dropdown-item>
-              <el-dropdown-item>
-                <div @click="handleMoreAll">移动</div>
-              </el-dropdown-item>
-              <el-dropdown-item>
-                <div @click="handleNotCollectAll">取消收藏</div>
-              </el-dropdown-item>
+              <el-dropdown-item @click.native="handleAllShare">分享</el-dropdown-item>
+              <el-dropdown-item @click.native="handleMoreAll">移动</el-dropdown-item>
+              <el-dropdown-item @click.native="handleNotCollectAll">取消收藏</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -106,6 +100,7 @@
       </span>
     </el-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" :requestFn="collectUpdate"></collection-dialog>
+    <share-dialog ref="share" type="collection"></share-dialog>
   </el-row>
 </template>
 <script>
@@ -115,10 +110,11 @@ import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap, rules, initFormData } from '../options'
 import AdvanceSearch from './AdvanceSearch'
 import CollectionDialog from '../../material/components/collectionDialog'
+import ShareDialog from './shareDialog'
 
 export default {
   mixins: [mixins],
-  components: { AdvanceSearch, CollectionDialog },
+  components: { AdvanceSearch, CollectionDialog, ShareDialog },
   data () {
     return {
       rules,
@@ -219,7 +215,7 @@ export default {
     },
     // 删除目录
     catalogDelete (id) {
-      this.$confirm('此操作将删除该目录, 是否继续?', '提示', {
+      this.$confirm('收藏在该目录下的材料都将被取消收藏，请确认是否删除该目录?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
@@ -243,8 +239,6 @@ export default {
     handleDetail (row) {
       this.$emit('onDetail', row)
     },
-    // 分享
-    handleShare () { },
     // 移动
     handleMore (row) {
       this.$refs['collection'].dialogShow = true
@@ -274,6 +268,18 @@ export default {
       farelationDelete(this.multipleSelection).then(() => {
         this.loadPage()
       })
+    },
+    // 批量分享
+    handleAllShare () {
+      if (this.selectList.length == 0) {
+        this.$message.info('请先选择需要收藏的选项')
+        return
+      }
+      this.$refs['share'].open(this.selectList)
+    },
+    // 分享
+    handleShare (row) {
+      this.$refs['share'].open([row], `对“${row.name}”的分享`)
     },
   },
 }

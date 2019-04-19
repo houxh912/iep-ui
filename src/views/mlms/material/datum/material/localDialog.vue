@@ -115,6 +115,10 @@ export default {
           this.formData.type = 0
           this.formRequestFn(this.formData).then((data) => {
             this.backId = data.id
+            if (data.data && data.data.data === false) {
+              this.$message.error(data.data.msg)
+              return
+            }
             this.$message({
               message: `${this.methodName}成功`,
               type: 'success',

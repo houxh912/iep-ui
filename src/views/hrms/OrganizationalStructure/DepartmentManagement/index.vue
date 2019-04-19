@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="部门管理" :replaceText="replaceText" :data="[10]"></page-header>
+      <page-header title="部门管理"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -44,7 +44,7 @@
 <script>
 import { getDeptPage, postDept, putDept, deleteDeptById, deleteDeptBatch } from '@/api/hrms/department_management'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm, toDeptForm, toNewParentForm } from './options'
+import { columnsMap, toDeptForm, toNewParentForm } from './options'
 import DialogForm from './DialogForm'
 import MoveDialog from './MoveDialog'
 import MergeDialog from './MergeDialog'
@@ -54,8 +54,6 @@ export default {
   data () {
     return {
       columnsMap,
-      paramForm: initSearchForm(),
-      replaceText: (data) => `（共有${data[0]}个部门)`,
     }
   },
   created () {
@@ -94,10 +92,6 @@ export default {
       // eslint-disable-next-line no-unreachable
       console.log(row)
       this.$refs['MergeDialog'].dialogShow = true
-    },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-      this.$emit('clear-search-param')
     },
     loadPage (param) {
       this.loadTable(param, getDeptPage)

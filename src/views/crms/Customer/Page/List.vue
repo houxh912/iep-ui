@@ -60,7 +60,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId, tabList } from '../columns'
-import { getCustomerPage, postCustomer, putCustomer, deleteCustomerById, deleteCustomerBatch } from '@/api/crms/customer'
+import { getCustomerPage, postCustomer, putCustomer, deleteCustomerBatch } from '@/api/crms/customer'
 import AdvanceSearch from './AdvanceSearch'
 import ExcellImport from './ExcellImport/'
 import Collaborator from './Collaborator/'
@@ -152,10 +152,12 @@ export default {
     },
     //删除客户
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.clientId, deleteCustomerById)
+      this.ids = []
+      this.ids.push(row.clientId)
+      this._handleGlobalDeleteById(this.ids, deleteCustomerBatch)
     },
     handleAllDelete () {
-      this._handleGlobalDeleteAll(deleteCustomerBatch)
+      this._handleGlobalDeleteById(this.ids, deleteCustomerBatch)
     },
     //添加协作人
     handleCooperation (row) {

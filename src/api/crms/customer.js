@@ -2,11 +2,11 @@ import request from '@/router/axios'
 
 const prefixUrl = '/crm/customer'
 //客户page
-export function getCustomerPage (query) {
+export function getCustomerPage (obj) {
   return request({
     url: `${prefixUrl}/page`,
     method: 'get',
-    params: query,
+    params: obj,
   })
 }
 //客户详情
@@ -33,12 +33,6 @@ export function putCustomer (obj) {
   })
 }
 //删除客户
-export function deleteCustomerById (id) {
-  return request({
-    url: `${prefixUrl}/delete/batch/${id}`,
-    method: 'post',
-  })
-}
 export function deleteCustomerBatch (ids) {
   return request({
     url: `${prefixUrl}/delete/batch`,

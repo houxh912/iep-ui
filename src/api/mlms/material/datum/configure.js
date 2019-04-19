@@ -40,3 +40,11 @@ export function deleteDate (id) {
     data: ids,
   })
 }
+
+// 重名验证
+export function validateName (name) {
+  return request({
+    url: `${prefixUrl}/get/name/${name}`,
+    method: 'post',
+  })
+}

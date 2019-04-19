@@ -1,9 +1,13 @@
 import { getStore } from '@/util/store'
 const dicData = getStore({ name: 'dictGroup' })
-let contractStatus = {}
-for (let item of dicData.mlms_contract_status) {
-  contractStatus[item.value] = item.label
+let changeDictFn = (name) => {
+  let obj = {}
+  for (let item of dicData[name]) {
+    obj[item.value] = item.label
+  }
+  return obj
 }
+
 
 export const dictsMap = {
   // contractType: [
@@ -14,7 +18,9 @@ export const dictsMap = {
     '0': '内部合同',
     '1': '外部合同',
   },
-  contractStatus: contractStatus,
+  businessType: changeDictFn('mlms_business_type'),
+  contractStatus: changeDictFn('mlms_contract_status'),
+  contractLevel: changeDictFn('mlms_contract_level'),
 }
 
 export const deptList = [

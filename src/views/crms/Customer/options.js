@@ -43,7 +43,7 @@ const initSearchForm = () => {
     clientRela: '',
     followUpStatus: '',
     businessTypeKey: [],
-    lastTime: '',
+    timeSerach: '',
   }
 }
 var validateFun = (rule, value, callback) => {

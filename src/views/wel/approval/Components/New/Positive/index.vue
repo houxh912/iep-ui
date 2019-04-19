@@ -45,6 +45,11 @@ import mixins from '../mixins'
 export default {
   mixins: [mixins],
   methods: {
+    loadSelf () {
+      this.fnSelf().then(({ data }) => {
+        this.form = this.selfToVo(data.data)
+      })
+    },
     handlePublish () {
     },
   },

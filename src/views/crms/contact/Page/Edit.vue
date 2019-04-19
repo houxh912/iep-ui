@@ -85,6 +85,13 @@
       </el-form>
     </basic-container>
     <el-dialog title="添加对应客户" :visible.sync="dialogVisible" width="50%">
+      <el-input placeholder="请输入客户姓名" v-model="clientName" size="mini">
+        <template slot="append">
+          <div class="search" @click="search">
+            搜索
+          </div>
+        </template>
+      </el-input>
       <avue-crud :data="pagedTable" :option="option" :page="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange">
       </avue-crud>
       <div class="btn">
@@ -98,7 +105,7 @@
 import mixins from '@/mixins/mixins'
 import { initForm, rules } from '../options'
 import { getContactById } from '@/api/crms/contact'
-import { fetchList } from '@/api/crms/custom'
+import { getCustomerPage } from '@/api/crms/customer'
 
 export default {
   mixins: [mixins],
@@ -110,6 +117,7 @@ export default {
   },
   data () {
     return {
+      clientName: '',
       dialogShow: false,
       formRequestFn: () => { },
       methodName: '创建',
@@ -159,11 +167,12 @@ export default {
   },
   methods: {
     addContact () {
+      this.clientName = ''
       this.dialogVisible = true
       this.loadPage()
     },
-    loadPage (param = { type: 1 }) {
-      this.loadTable(param, fetchList)
+    loadPage () {
+      this.loadTable({ type: 1, clientName: this.clientName }, getCustomerPage)
     },
     handleGoBack () {
       this.$emit('onGoBack')
@@ -181,6 +190,9 @@ export default {
     handlequery () {
       this.dialogVisible = false
       this.formData.clientInfos = this.selectData
+    },
+    search () {
+      this.loadPage()
     },
     submitForm (formName) {
       this.formData.clientIds = this.formData.clientInfos.map(m => m.clientId)
@@ -224,7 +236,10 @@ export default {
   margin-right: 10px;
 }
 .el-dialog {
-  margin-top: 20px;
+  margin-top: 0;
+}
+.search {
+  cursor: pointer;
 }
 </style>
 

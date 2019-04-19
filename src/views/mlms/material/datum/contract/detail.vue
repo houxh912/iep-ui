@@ -9,7 +9,8 @@
     <el-row class="info">
       <el-col class="item" :span='12' v-for="(item, index) in infoList" :key="index">
         <label>{{item.name}}：</label>
-        <span>{{formData[item.value]}}</span>
+        <span v-if="item.type">{{dictsMap[item.value][formData[item.value]]}}</span>
+        <span v-else>{{formData[item.value]}}</span>
       </el-col>
       <el-col class="remark">合同说明/收款方式：</el-col>
       <el-col class="remark-content">{{formData.contractExpl}}</el-col>
@@ -84,11 +85,13 @@
 </template>
 <script>
 import { getDataById } from '@/api/mlms/material/datum/contract'
+import { dictsMap } from './option'
 
 export default {
   data () {
     return {
       formData: {},
+      dictsMap,
       backOption: {
         isBack: true,
         backPath: null,
@@ -113,7 +116,7 @@ export default {
         { name: '签署部门', value: 'signDeptOrgNames' },
         { name: '承接部门', value: 'underTakeDeptNames' },
         { name: '合同金额', value: 'contractAmount' },
-        { name: '合同级别', value: 'contractLevel' },
+        { name: '合同级别', value: 'contractLevel', type: 'dict' },
         { name: '保证金', value: 'deposit' },
       ],
       contractMoney: [

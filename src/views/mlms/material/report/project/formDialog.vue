@@ -8,13 +8,13 @@
       <el-form-item>
         <el-row>
           <el-col :span=12>
-            <div class="title">项目预计签订时间</div>
+            <div class="title validate">项目预计签订时间</div>
             <el-col :span=20>
               <IepDatePicker v-model="formData.estimateSignTime"></IepDatePicker>
             </el-col>
           </el-col>
           <el-col :span=12>
-            <div class="title">合同签订时间</div>
+            <div class="title validate">合同签订时间</div>
             <el-col :span=24>
               <IepDatePicker v-model="formData.contractSignTime"></IepDatePicker>
             </el-col>
@@ -38,7 +38,9 @@
           <el-table-column prop="paymentAmount" label="回款金额">
             <template slot-scope="scope">
               <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="selectIndex=-1" maxlength="10"></el-input>
-              <div v-else @click="selectIndex=scope.$index" style="min-height: 20px;">{{scope.row.paymentAmount}}</div>
+              <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
+              <!-- <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="selectIndex=-1" maxlength="10"></el-input>
+              <div v-else @click="selectIndex=scope.$index" style="min-height: 20px;">{{scope.row.paymentAmount}}</div> -->
             </template>
           </el-table-column>
           <el-table-column prop="menu" label="操作" width="200px">
@@ -53,11 +55,11 @@
       <el-form-item prop="clientRqmt">
         <el-input type="textarea" v-model="formData.clientRqmt" rows=5 placeholder="此处填写客户需求" maxlength="1000"></el-input>
       </el-form-item>
-      <div class="title">本周工作总结</div>
+      <div class="title validate">本周工作总结</div>
       <el-form-item prop="workSummary">
         <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本周工作总结" maxlength="1000"></el-input>
       </el-form-item>
-      <div class="title">下周工作计划</div>
+      <div class="title validate">下周工作计划</div>
       <el-form-item prop="workPlan">
         <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下周工作计划" maxlength="1000"></el-input>
       </el-form-item>
@@ -158,5 +160,10 @@ export default {
       margin-top: 10px;
     }
   }
+}
+.validate::before {
+  content: "*";
+  color: #F56C6C;
+  margin-right: 4px;
 }
 </style>

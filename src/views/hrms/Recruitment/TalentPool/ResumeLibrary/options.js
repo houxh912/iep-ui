@@ -60,19 +60,19 @@ const initForm = () => {
     'politics': '',
     'health': '',
     'marriage': '',
-    'bear': 1,
+    'bear': '',
     'university': '',
-    'education': 2,
+    'education': '',
     'relation': '',
     'referrer': '',
-    'appWay': 9,
-    'source': 4,
+    'appWay': '',
+    'source': '',
     'hobbies': '',
     'advantage': '',
     'honor': '',
     'result': '',
     'position': [],
-    'positionId': 3,
+    'positionId': '',
     'positionName': '',
     'arrive': '',
     'salary': '',
@@ -106,18 +106,18 @@ const initDtoForm = () => {
     'politics': '',
     'health': '',
     'marriage': '',
-    'bear': 1,
+    'bear': '',
     'university': '',
-    'education': 2,
+    'education': '',
     'relation': '',
     'referrer': '',
-    'appWay': 9,
-    'source': 4,
+    'appWay': '',
+    'source': '',
     'hobbies': '',
     'advantage': '',
     'honor': '',
     'result': '',
-    'positionId': 3,
+    'positionId': '',
     'arrive': '',
     'salary': '',
     'workPlace': '',
@@ -135,6 +135,12 @@ const initDtoForm = () => {
 const formToDto = (form) => {
   const newForm = mergeByFirst(initDtoForm(), form)
   newForm.positionId = form.position[form.position.length - 1]
+  return newForm
+}
+
+const formToVo = (form) => {
+  const newForm = mergeByFirst(initDtoForm(), form)
+  newForm.attach = []
   return newForm
 }
 
@@ -281,4 +287,4 @@ const certificateColumns = [
   },
 ]
 
-export { dictsMap, columnsMap, initForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm, workExpColumns, studyColumns, trainingColumns, certificateColumns, initSearchForm, toDtoSearchForm }
+export { dictsMap, columnsMap, initForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm, workExpColumns, studyColumns, trainingColumns, certificateColumns, initSearchForm, toDtoSearchForm, formToVo }

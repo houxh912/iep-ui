@@ -1,109 +1,59 @@
 <template>
   <div class="warp">
-    <div id="Manager" :style="{width:'100%',height:height}">
-    </div>
+    <ve-bar :data="chartData" :settings="chartSettings" :extend="chartExtend" :height="height"></ve-bar>
   </div>
 
 </template>
 
 <script>
 import { getAllManager } from '@/api/crms/count'
-let echarts = require('echarts/lib/echarts')
-require('echarts/lib/chart/bar')
-require('echarts/lib/component/tooltip')
-require('echarts/lib/component/title')
-require('echarts/lib/component/legend')
 export default {
   data () {
-    return {
-      marketManager: [],//市场经理
-      clientQuantity: [],//客户
-      contactQuantity: [],//联系人
-      height: '560px',
+    this.chartSettings={
+         labelMap: {
+          'clientQuantity': '客户',
+          'contactQuantity':'联系人',
+        },
+        itemStyle:{
+          barBorderRadius: 30,
+        },
     }
-  },
-  created () {
-    this.load()
-  },
-  mounted () {
-    this.draw()
-  },
-  methods: {
-    load () {
-      getAllManager().then((res) => {
-        let arr = res.data.data
-        this.height = 280 * Math.ceil(arr.length / 5) + 'px'
-        console.log(this.height)
-        console.log(typeof this.height)
-        for (var index in arr) {
-          if (!arr[index].hasOwnProperty('contactQuantity')) {
-            arr[index].contactQuantity = 0
-          }
-        }
-        this.marketManager = arr.map(m => m.marketManager)
-        this.clientQuantity = arr.map(m => m.clientQuantity)
-        this.contactQuantity = arr.map(m => m.contactQuantity)
-        this.draw()
-      })
-    },
-    draw () {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById('Manager'))
-      // 绘制图表
-      myChart.setOption({
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'shadow',
-          },
-        },
-        legend: {
-          data: ['客户', '联系人'],
-          bottom: 0,
-        },
-        grid: {
+    this.chartExtend={
+      color:['#D56368','#DDDDDD'],
+      barWidth:10,
+      grid: {
           left: '20px',
           right: '40px',
           bottom: '20px',
           top: '20px',
           containLabel: true,
         },
-        xAxis: {
-          type: 'value',
-          boundaryGap: [0, 0.01],
+         legend: {
+          bottom: 0,
         },
-        yAxis: {
-          type: 'category',
-          // data: ['张佩瑜', '中艺桥', '何依婷', '王俊辉', '毛莹莹'],
-          data: this.marketManager,
-          axisTick: {
-            length: 0,
-          },
+    }
+    return {
+       chartData: {
+          columns: [ 'marketManager', 'clientQuantity', 'contactQuantity'],
+          rows: [],
         },
-        series: [
-          {
-            name: '客户',
-            type: 'bar',
-            // data: [150, 58, 123, 78, 170],
-            data: this.clientQuantity,
-            itemStyle: {
-              color: '#D56368',
-              barBorderRadius: 50,
-            },
-            barWidth: 10,
-          },
-          {
-            name: '联系人',
-            type: 'bar',
-            // data: [80, 23, 22, 120, 100],
-            data: this.contactQuantity,
-            barWidth: 10,
-            itemStyle: {
-              color: '#DDDDDD',
-              barBorderRadius: 50,
-            },
-          },
-        ],
+        height:'',
+    }
+  },
+  created () {
+    this.load()
+  },
+  methods: {
+    load () {
+      getAllManager().then((res) => {
+        let arr = res.data.data
+        this.height = 200 * Math.ceil(arr.length / 5) + 'px'
+        for (var index in arr) {
+          if (!arr[index].hasOwnProperty('contactQuantity')) {
+            arr[index].contactQuantity = 0
+          }
+        }
+        this.chartData.rows = arr
       })
     },
   },

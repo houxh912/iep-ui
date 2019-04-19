@@ -1,3 +1,3 @@
 <template>
-  <div>学堂</div>
+  <div>数据</div>
 </template>

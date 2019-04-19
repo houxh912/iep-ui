@@ -1,7 +1,7 @@
 <template>
   <div class="Organization">
     <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
-      <img :src="item.img" class="img">
+      <div class="img"><img :src="item.img" class="img"></div>
       <span class="name">{{item.name}}</span>
     </div>
   </div>
@@ -21,27 +21,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.Organization {
-  padding: 15px 20px;
-  .piece {
-    text-align: center;
-    width: 270px;
-    float: left;
-    margin: 0 10px;
-    .img {
-      width: 100%;
-      height: 165px;
-    }
-    .name {
-      line-height: 40px;
-    }
-    &:first-child {
-      margin: 0 25px 0 10px;
-    }
-    &:last-child {
-      margin: 0 10px 0 25px;
-    }
-  }
-}
-</style>
+

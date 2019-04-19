@@ -8,7 +8,7 @@
             <el-radio-button v-for="(item, index) in emailType" :key="index" :label="item.value">{{item.name}}</el-radio-button>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="收件人：" prop="name">
+        <el-form-item label="收件人：" prop="receiverList" class="validate">
           <!-- <iep-tag v-model="formData.receiverIds"></iep-tag> -->
           <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
         </el-form-item>
@@ -49,10 +49,10 @@
             </el-form-item>
           </div>
         </el-form-item>
-        <el-form-item label="邮件标签：">
+        <el-form-item label="邮件标签：" prop="tagKeyWords">
           <iep-tag v-model="formData.tagKeyWords" plus @selectTags="selectTags"></iep-tag>
         </el-form-item>
-        <el-form-item label="正文">
+        <el-form-item label="正文" prop="content">
           <!-- <iep-editor v-model="formData.zhengwen"></iep-editor> -->
           <el-input type="textarea" rows=5 v-model="formData.content" maxlength="2000"></el-input>
         </el-form-item>
@@ -72,43 +72,14 @@
 <script>
 import MainDialog from './mainDialog'
 import { createEmail, updateEmail } from '@/api/mlms/email/index'
-
-const initFormData = () => {
-  return {
-    attachmentIds: [], // 附件
-    attachmentList: [],
-    content: '',
-    emailId: 0,
-    materialIds: [],
-    projectIds: [],
-    receiverIds: [],
-    receiverList: {
-      unions: [],
-      orgs: [],
-      users: [],
-    },
-    transferList: {
-      projectIds: [], // 项目
-      summaryIds: [], // 纪要
-      materialIds: [], // 材料
-      reportIds: [], // 报表
-    },
-    reportIds: [],
-    status: 1,
-    subject: '',
-    summaryIds: [],
-    tagKeyWords: [],
-    type: 0,
-    kind: 0,
-  }
-}
+import { initFormData, rules } from './option'
 
 export default {
   components: { MainDialog },
   data () {
     return {
       formData: initFormData(),
-      rules: {},
+      rules,
       pageState: 'new',
       backOption: {
         isBack: false,
@@ -179,6 +150,8 @@ export default {
             this.formData = initFormData()
             if (this.pageState !== 'new') {
               this.$emit('load-page', true)
+            } else {
+              this.$router.push('/wel/mail/sent')
             }
             if (this.$route.query.back) {
               this.$router.push(this.$route.query.back)
@@ -202,6 +175,8 @@ export default {
         this.formData = initFormData()
         if (this.pageState !== 'new') {
           this.$emit('load-page', true)
+        } else {
+          this.$router.push('/wel/mail/draft')
         }
       })
     },
@@ -257,3 +232,11 @@ export default {
   }
 }
 </style>
+<style>
+.validate label::before {
+  content: "*";
+  color: #F56C6C;
+  margin-right: 4px;
+}
+</style>
+

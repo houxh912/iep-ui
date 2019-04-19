@@ -8,38 +8,7 @@
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search>
-            <el-form :model="paramForm" label-width="80px" size="mini">
-              <el-form-item label="申请人">
-                <el-input v-model="paramForm.theme" placeholder="请输入申请人姓名"></el-input>
-              </el-form-item>
-              <el-form-item label="申请类型">
-                <el-select v-model="paramForm.type" placeholder="选择申请类型">
-                  <el-option label="类型1" value="类型1"></el-option>
-                  <el-option label="类型1" value="类型1"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="选择部门">
-                <el-select v-model="paramForm.type" placeholder="选择部门">
-                  <el-option label="部门1" value="部门1"></el-option>
-                  <el-option label="部门1" value="部门1"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="审批结果">
-                <el-select v-model="paramForm.type" placeholder="审批结果">
-                  <el-option label="通过" value="通过"></el-option>
-                  <el-option label="未通过" value="未通过"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="培训时间">
-                <div class="block">
-                  <el-date-picker v-model="dateVal" type="daterange" align="left" unlink-panels range-separator="至" start-placeholder="2019-02-01" end-placeholder="2019-03-01" :picker-options="pickerOptions2">
-                  </el-date-picker>
-                </div>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="searchPage">搜索</el-button>
-              </el-form-item>
-            </el-form>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -79,14 +48,17 @@
 <script>
 import { getAdministrativeApprovalPage } from '@/api/hrms/administrative_approval'
 import mixins from '@/mixins/mixins'
-import { dictsMap, columnsMap, initSearchForm } from './options'
+import AdvanceSearch from './AdvanceSearch'
+import { dictsMap, columnsMap } from './options'
 export default {
+  components: {
+    AdvanceSearch,
+  },
   mixins: [mixins],
   data () {
     return {
       dictsMap,
       columnsMap,
-      paramForm: initSearchForm(),
       statistics: [0, 0, 0, 0, 0, 0],
       replaceText: (data) => `（本周新增${data[0]}条请假申请，${data[1]}条出差申请，${data[2]}条转正申请，${data[3]}条加班申请，${data[4]}条调岗申请，${data[5]}条调离职申请）`,
       pickerOptions2: {

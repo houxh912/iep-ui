@@ -65,10 +65,9 @@ const initForm = () => {
 
 const initSearchForm = () => {
   return {
-    theme: '',
-    teacher: '',
+    name: '',
     type: '',
-    date: '',
+    status: '',
   }
 }
 

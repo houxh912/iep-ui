@@ -5,7 +5,7 @@
         <el-radio :label="isInverse ? 0 : 1">审核通过</el-radio>
         <el-radio :label="2">审核不通过</el-radio>
       </el-radio-group>
-      <iep-input-area v-if="status === 2" class="content" v-model="content">
+      <iep-input-area v-if="status === 2" class="content" :maxlength="2010" v-model="content">
       </iep-input-area>
     </div>
     <template slot="footer">
@@ -15,7 +15,6 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 export default {
   name: 'IepReviewConfirm',
   props: {
@@ -24,7 +23,6 @@ export default {
       default: false,
     },
   },
-  components: { IepDialog },
   data () {
     return {
       title: '',
@@ -53,6 +51,10 @@ export default {
       this.$emit('load-page')
     },
     handleSubmit () {
+      if (this.content.length > 2000) {
+        this.$message('字数不得超过 2000 !')
+        return
+      }
       this.formRequestFn({
         ids: this.currentIds,
         status: this.status, // 用来变更状态

@@ -2,11 +2,11 @@ import request from '@/router/axios'
 
 const prefixUrl = '/crm/customer'
 //客户page
-export function getCustomerPage (objs) {
+export function getCustomerPage (obj) {
   return request({
     url: `${prefixUrl}/page`,
     method: 'get',
-    params: objs,
+    params: obj,
   })
 }
 //客户详情

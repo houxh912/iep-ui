@@ -9,7 +9,7 @@
       </el-col>
       <div v-for="(item, index) in infoList" :key="index" class="tip" @mouseenter="tipsSelect=index" @mouseleave="tipsSelect=-1">
         <i class="icon-tongzhi"></i>
-        <span>功能开发中功能开发中功能开发中功能开发中功能开发中功能开发中功能开发中功能开发中功能开发中功能开发中</span>
+        <span>{{item.qarningMessage}}</span>
         <iep-button type="primary" class="btn" size="mini" v-if="index==tipsSelect" @click="clear">忽略</iep-button>
       </div>
     </el-row>
@@ -47,7 +47,7 @@ export default {
         this.current -= 1
         this.load()
       } else {
-        this.$message.warning('大兄弟！不能再往前了！！！')
+        this.$message('当前已是第一页')
         return false
       }
 
@@ -55,7 +55,7 @@ export default {
     right () {
       var flag = Math.ceil(this.total / 5) - 1
       if (this.current > flag) {
-        this.$message.warning('大兄弟！后面没有了！！！')
+        this.$message('当前已是最后一页')
         return false
       } else {
         this.current += 1

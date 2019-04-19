@@ -59,6 +59,10 @@ export default {
       type: String,
       default: 'ordinary',
     },
+    type: {
+      type: String,
+      default: '',
+    },
   },
   data () {
     return {
@@ -83,9 +87,9 @@ export default {
     selectionChange (val) {
       this.$emit('multipleSelection', val.map(m => m.emailId), val)
     },
-    loadPage (param) {
-      // this.loadTable(param, this.requestFn)
+    loadPage (param = {}) {
       this.isLoadTable = true
+      param.type = this.type
       this.requestFn({ ...param, ...this.pageOption }).then(({ data }) => {
         const { records, size, total, current, condition } = data.data
         this.pagination = { current, size, total }

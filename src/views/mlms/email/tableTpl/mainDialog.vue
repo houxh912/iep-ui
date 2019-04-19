@@ -23,20 +23,33 @@
         </ul>
         <iep-button type="text" @click="downloadFileAll"><i class="icon-download1"></i> 全部下载</iep-button>
       </div>
-      <div class="relation" v-if="(formData.projectRelatios.length > 0 || formData.materialRelatios.length > 0) || formData.type == 0">
+      <div class="relation" v-if="(formData.projectRelatios.length > 0 || formData.materialRelatios.length > 0 || formData.summaryRelatios.length > 0)">
         <h3>关联</h3>
-        <div class="item" v-if="formData.projectRelatios.length > 0 || formData.materialRelatios.length > 0">
-          <div class="title">关联资源：</div>
+        <div class="item" v-if="formData.projectRelatios.length > 0">
+          <div class="title">关联项目：</div>
           <div>
-            <ul class="list" v-if="formData.projectRelatios.length">
+            <ul class="list">
               <li v-for="(item, index) in formData.projectRelatios" :key="index">{{item.relatiionName}}</li>
             </ul>
-            <ul class="list" v-if="formData.materialRelatios.length">
+          </div>
+        </div>
+        <div class="item" v-if="formData.summaryRelatios.length > 0">
+          <div class="title">关联纪要：</div>
+          <div>
+            <ul class="list">
+              <li v-for="(item, index) in formData.summaryRelatios" :key="index">{{item.relatiionName}}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="item" v-if="formData.materialRelatios.length > 0">
+          <div class="title">关联材料：</div>
+          <div>
+            <ul class="list">
               <li v-for="(item, index) in formData.materialRelatios" :key="index">{{item.relatiionName}}</li>
             </ul>
           </div>
         </div>
-        <div class="item" v-if="formData.type == 0">
+        <!-- <div class="item" v-if="formData.type == 0">
           <div class="title">关联报表：</div>
           <ul class="list">
             <li>
@@ -47,7 +60,7 @@
               </el-table>
             </li>
           </ul>
-        </div>
+        </div> -->
       </div>
       <div class="footer">
         <operation-wrapper>

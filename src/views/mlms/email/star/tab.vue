@@ -11,7 +11,7 @@
           <operation-search @search-page="search" :paramForm="searchForm" prop="subject"></operation-search>
         </template>
       </operation-container>
-      <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect"></table-dialog>
+      <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect" :type="type"></table-dialog>
     </div>
     <main-form-dialog ref="mainDialog" v-show="pageState=='detail'" @backWeb="backPage" @forward="detailForward" @reply="detailReply" emailType="star"></main-form-dialog>
     <update-form-dialog ref="updateDialog" v-show="pageState=='form'" @backWeb="backPage" @load-page="loadPage"></update-form-dialog>
@@ -55,7 +55,7 @@ export default {
   mounted () {
     this.$refs['table'].requestFn = getStarList
     this.$nextTick(() => {
-      this.$refs['table'].loadPage({ type: this.type })
+      this.$refs['table'].loadPage()
     })
   },
 }

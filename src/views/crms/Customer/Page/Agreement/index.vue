@@ -4,11 +4,11 @@
       <operation-wrapper>
         <iep-button type="primary" @click="handleAdd" plain><i class="el-icon-plus"></i> 新增</iep-button>
       </operation-wrapper>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail">
         <template slot="before-columns">
           <el-table-column label="合同名称">
             <template slot-scope="scope">
-              <div class="custom-name" @click="handleDetail(scope.row)">{{scope.row.contractName}}</div>
+              <div class="custom-name">{{scope.row.contractName}}</div>
               <el-col class="custom-tags">
                 <Tag v-for="(item, index) in scope.row.tags" :key="index">{{item}}</Tag>
               </el-col>

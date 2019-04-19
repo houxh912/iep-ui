@@ -1,4 +1,5 @@
 const columnsMap = [
+  { label: '联系人姓名', prop: 'contactName', width: '250' },
   {
     prop: 'contactPosition',
     label: '联系人职务',

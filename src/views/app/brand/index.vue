@@ -74,7 +74,7 @@ export default {
 </script>
 <style lang="scss">
 .gird-brand {
-  width: 1280px;
+  width: 1200px;
   padding: 20px 0;
   margin: 0 auto;
   display: grid;
@@ -87,8 +87,8 @@ export default {
     );
 }
 .el-tabs__item {
-  line-height: inherit;
-  font-size: 18px;
+  padding: 0 15px;
+  line-height: 18px;
   color: #000;
 }
 </style>

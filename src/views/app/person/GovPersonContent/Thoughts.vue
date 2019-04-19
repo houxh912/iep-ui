@@ -85,7 +85,7 @@ export default {
     .box {
       float: left;
       width: 224px;
-      height: 62px;
+      height: 64px;
       .pieceTitle {
         .name {
           font-size: 16px;

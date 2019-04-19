@@ -1,3 +1,3 @@
 <template>
-  <div>学院</div>
+  <div>学堂</div>
 </template>

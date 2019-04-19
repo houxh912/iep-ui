@@ -19,7 +19,7 @@
     <div class="block">
       <switch-tabs></switch-tabs>
     </div>
-    <div class="copies">
+    <div class="copies copies2">
       <interactive-zone></interactive-zone>
       <reward></reward>
       <feedback></feedback>
@@ -43,12 +43,16 @@ import Reward from './Reward'
 import Feedback from './Feedback'
 export default {
   components: { GovPersonImg, GovPersonNotice, GlowPerson, Thoughts, ShortagePosts, GovTags, Carousel, TrainingNotice, HotCourse, ExcellentLecturer, SwitchTabs, InteractiveZone, Reward, Feedback },
+  data () {
+    return {
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>
 .GovPerson-content {
   margin: 0 auto;
-  padding-top: 20px;
+  padding-top: 30px;
   width: 1200px;
   .top-content {
     display: grid;
@@ -64,7 +68,6 @@ export default {
   .copies {
     display: grid;
     margin-top: 30px;
-    margin-bottom: 60px;
     grid-auto-flow: row dense;
     grid-row-gap: 30px;
     grid-column-gap: 30px;
@@ -72,6 +75,9 @@ export default {
         100px,
         2fr
       );
+  }
+  .copies2 {
+    margin-bottom: 60px;
   }
 }
 </style>

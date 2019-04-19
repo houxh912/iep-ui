@@ -2,7 +2,7 @@
   <div class="thoughts">
     <el-card class="index-card" shadow="never">
       <div slot="header" class="clearfix">
-        <span class="title">{{title}}</span>
+        <span class="title">{{title}}<span class="datas">{{data}}</span></span>
         <el-button class="charge" type="text">我要发表</el-button>
       </div>
       <div>
@@ -27,6 +27,7 @@ export default {
   data () {
     return {
       title: '意见反馈',
+      data: '（58次）',
       thoughtsList: [
         { img: '../img/person/p1.jpg', name: '张三', time: '2019-04-08', feed: '有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题' },
         { img: '../img/person/p2.jpg', name: '张三', time: '2019-04-08', feed: '有问题有问题有问题有问题有问题有问题有问题有问题' },
@@ -39,6 +40,10 @@ export default {
 <style lang="scss" scoped>
 .title {
   font-size: 18px;
+}
+.datas {
+  font-size: 16px;
+  color: #999;
 }
 .thoughtsList {
   .piece {

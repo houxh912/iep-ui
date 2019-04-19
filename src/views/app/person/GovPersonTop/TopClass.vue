@@ -49,7 +49,9 @@ export default {
 <style lang="scss" scoped>
 .top-class {
   display: flex;
-  padding: 20px 200px;
+  margin: 0 auto;
+  width: 1200px;
+  padding: 20px 100px;
   border-bottom: 1px solid #ebeef5;
   justify-content: space-between;
   text-align: center;

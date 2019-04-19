@@ -21,6 +21,11 @@ export default [
         component: () => import('@/views/app/products/'),
       },
       {
+        path: 'project',
+        name: '项目频道',
+        component: () => import('@/views/app/project/'),
+      },
+      {
         path: 'brand',
         name: '品牌频道',
         component: () => import('@/views/app/brand/'),

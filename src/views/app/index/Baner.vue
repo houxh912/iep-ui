@@ -22,6 +22,12 @@ export default {
   },
 }
 </script>
+<style>
+.el-carousel >>> .el-carousel__container{
+  height: 310px;
+}
+</style>
+
 <style lang="scss" scoped>
 .index-card{
   height: 310px;

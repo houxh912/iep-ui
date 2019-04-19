@@ -4,7 +4,7 @@
     <template>
       <div class="search-con">
         <operation-search>
-          <advance-search @search-page="searchPage"></advance-search>
+          <advance-search></advance-search>
         </operation-search>
         <el-button type="danger" plain>高级搜索</el-button>
       </div>
@@ -35,6 +35,10 @@ export default {
     margin: 0 auto;
     max-width: 600px;
     justify-content: space-between;
+    .right-search {
+      margin-left: 5px;
+      font-size: 14px;
+    }
   }
 }
 </style>

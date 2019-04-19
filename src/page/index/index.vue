@@ -191,6 +191,7 @@ export default {
 <style lang="css" scoped>
 .avue-contail >>> .el-main {
   padding: 0;
+  margin-left: -17px;
   overflow-x: hidden;
   overflow-y: hidden;
   height: calc(100vh - 60px);

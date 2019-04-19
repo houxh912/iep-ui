@@ -1,6 +1,6 @@
 <template>
   <div class="thoughts">
-    <iepAppTabCard :title="title" :linkName="linkName" isMore>
+    <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
       <div class="thoughtsList">
         <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
           <div class="img-con"><img :src="item.img" class="img"></div>
@@ -29,6 +29,7 @@ export default {
   data () {
     return {
       title: '优秀讲师',
+      data: '（53位）',
       thoughtsList: [
         { img: '../img/person/p1.jpg', name: '张三', level: '中级讲师', num: '培训次数：200', tags1: '组织管理', tags2: '智慧经济', tags3: '规划报告', tags4: '规划报告' },
         { img: '../img/person/p2.jpg', name: '张三', level: '中级讲师', num: '培训次数：300', tags1: '技术研发', tags2: '数据基因', tags3: '前端', tags4: 'Java' },

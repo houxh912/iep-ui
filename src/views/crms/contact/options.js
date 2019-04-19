@@ -29,14 +29,14 @@ const initSearchForm = () => {
     clientName: '',
   }
 }
-const phone = (rule, value, callback) => {
+const telPhone = (rules, value, callback) => {
   if (value === '') {
-    callback(new Error('手机号不可为空'))
+    callback(new Error('电话不可为空'))
   } else {
     if (value !== '') {
-      var reg = /^1[3456789]\d{9}$/
+      var reg = /(^1[0-9]{10}$)|(^0\d{2,3}-?\d{7,8}$)/
       if (!reg.test(value)) {
-        callback(new Error('请输入有效的手机号码'))
+        callback(new Error('请输入有效的电话号码'))
       }
     }
     callback()
@@ -45,14 +45,16 @@ const phone = (rule, value, callback) => {
 const rules = {
   contactName: [
     { required: true, message: '请输入联系人姓名', trigger: 'blur' },
+    { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' },
   ],
   contactPosition: [
     { required: true, message: '请输入联系人职务', trigger: 'blur' },
+    { max: 50, message: '长度不可超过50个字符', trigger: 'blur' },
   ],
   telephoneNo: [
     {
       required: true,
-      validator: phone,
+      validator: telPhone,
       trigger: 'blur',
     },
   ],

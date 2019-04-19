@@ -29,7 +29,7 @@ export default {
       'userInfo',
     ]),
     id () {
-      return this.$route.params.id === '0' && undefined
+      return +this.$route.params.id
     },
   },
   created () {

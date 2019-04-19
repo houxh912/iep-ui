@@ -48,8 +48,6 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      startTime: '',
-      endTime: '',
     }
   },
   methods: {

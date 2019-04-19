@@ -1,9 +1,9 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="调动" width="400px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
-      <el-form-item label="选择部门" prop="dept">
+      <!-- <el-form-item label="选择部门" prop="dept">
         <iep-cascader v-model="form.dept" prefix-url="admin/dept" change-on-select></iep-cascader>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="岗位" prop="position">
         <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
       </el-form-item>
@@ -25,19 +25,18 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
+import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 import { initTransferForm, transferFormToDto } from '../options'
 export default {
-  components: { IepDialog },
   data () {
     return {
       dialogShow: false,
       formRequestFn: () => { },
       form: initTransferForm(),
       rules: {
-        dept: [
-          { required: true, message: '请输入部门', trigger: 'blur' },
-        ],
+        // dept: [
+        //   { required: true, message: '请输入部门', trigger: 'blur' },
+        // ],
         position: [
           { required: true, message: '请输入岗位', trigger: 'blur' },
         ],
@@ -54,6 +53,15 @@ export default {
     }
   },
   methods: {
+    loadData () {
+      getEmployeeProfileById(this.form.id).then(({ data }) => {
+        const row = data.data
+        // this.form.dept = row.dept
+        this.form.position = row.position
+        this.form.jobId = row.jobId
+        this.form.titleId = row.titleId
+      })
+    },
     loadPage () {
       this.form = initTransferForm()
       this.dialogShow = false

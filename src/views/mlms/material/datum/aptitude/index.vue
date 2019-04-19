@@ -36,7 +36,7 @@
             <operation-wrapper>
               <iep-button type="warning" plain size="small" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
               <iep-button type="warning" plain size="small" v-else>已收藏</iep-button>
-              <iep-button size="small">分享</iep-button>
+              <!-- <iep-button size="small">分享</iep-button> -->
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">

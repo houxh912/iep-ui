@@ -11,7 +11,7 @@
           <operation-search @search-page="search" :paramForm="searchForm" prop="subject"></operation-search>
         </template>
       </operation-container>
-      <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect" @readList="readList"></table-dialog>
+      <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect" @readList="readList" :type="type"></table-dialog>
     </div>
     <main-form-dialog ref="mainDialog" v-show="pageState=='detail'" @backWeb="backPage" @forward="detailForward" @reply="detailReply"></main-form-dialog>
     <update-form-dialog ref="updateDialog" v-show="pageState=='form'" @backWeb="backPage" @load-page="loadPage"></update-form-dialog>
@@ -44,6 +44,10 @@ export default {
   },
   methods: {
     allDelete () {
+      if (this.multipleSelection.length == 0) {
+        this.$message.error('请至少全部一项数据')
+        return
+      }
       deleteEmailReceiver(this.multipleSelection).then(() => {
         this.$message({
           message: '操作成功',
@@ -63,7 +67,7 @@ export default {
   mounted () {
     this.$refs['table'].requestFn = getReceiverList
     this.$nextTick(() => {
-      this.$refs['table'].loadPage({ type: this.type })
+      this.$refs['table'].loadPage()
     })
   },
 }

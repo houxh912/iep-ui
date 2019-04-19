@@ -30,7 +30,8 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="会议时间" prop="meetingTime">
-              <IepDatePicker v-model="formData.meetingTime"></IepDatePicker>
+              <!-- <IepDatePicker v-model="formData.meetingTime"></IepDatePicker> -->
+              <el-date-picker v-model="formData.meetingTime" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期时间"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="12" v-if="formData.type == 0">

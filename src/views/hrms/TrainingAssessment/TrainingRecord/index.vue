@@ -13,7 +13,7 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
+          <operation-search @search-page="searchPage" advance-search>
             <el-form :model="paramForm" label-width="80px" size="mini">
               <el-form-item label="培训主题">
                 <el-input v-model="paramForm.theme" placeholder="请输入培训主题"></el-input>
@@ -69,6 +69,7 @@ export default {
     return {
       columnsMap,
       paramForm: initSearchForm(),
+      statistics: [0, 0],
       replaceText: (data) => `（本周有${data[0]}个培训记录，下周有${data[1]}个培训计划)`,
       pickerOptions: {
         shortcuts: [{
@@ -131,8 +132,9 @@ export default {
       this.paramForm = initSearchForm()
       this.$emit('clear-search-param')
     },
-    loadPage (param = this.paramForm) {
-      this.loadTable(param, getTrainingRecordPage)
+    async loadPage (param = this.paramForm) {
+      const data = await this.loadTable(param, getTrainingRecordPage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

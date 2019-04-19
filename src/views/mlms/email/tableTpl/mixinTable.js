@@ -70,6 +70,12 @@ export default {
       this.$refs['updateDialog'].pageState = 'forward'
       this.$refs['updateDialog'].backOption.isBack = true
       this.$refs['updateDialog'].formData.content = row.content
+      this.$refs['updateDialog'].formData.transferList = {
+        projectIds: this.dealWithTransferList(row.projectRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }]),
+        summaryIds: [],
+        materialIds: this.dealWithTransferList(row.materialRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }]),
+        reportIds: [],
+      }
       this.$refs['updateDialog'].formData.kind = 2
     },
     // 回复
@@ -80,6 +86,17 @@ export default {
       this.$refs['updateDialog'].backOption.isBack = true
       this.$refs['updateDialog'].formData.receiverList = row
       this.$refs['updateDialog'].formData.kind = 1
+    },
+    dealWithTransferList (row, field) {
+      let list = []
+      for (let item of row) {
+        let obj = {}
+        for (let t of field) {
+          obj[t.O] = item[t.X]
+        }
+        list.push(obj)
+      }
+      return list
     },
   },
 }

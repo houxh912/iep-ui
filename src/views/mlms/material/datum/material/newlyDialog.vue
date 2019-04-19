@@ -108,7 +108,11 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formData.type = 1
-          this.formRequestFn(this.formData).then(() => {
+          this.formRequestFn(this.formData).then(({data}) => {
+            if (data.data === false) {
+              this.$message.error(data.msg)
+              return
+            }
             this.$message({
               message: `${this.methodName}成功`,
               type: 'success',

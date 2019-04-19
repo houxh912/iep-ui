@@ -47,6 +47,10 @@ export default {
       }
       checkName({ name: val }, val).then(res => {
         if (res.data === 0) {
+          if (this.flag == this.formData.clientName) {
+            callback()
+            return false
+          }
           callback(new Error('您输入的客户名称已存在，请重新输入！'))
         } else {
           callback()
@@ -56,8 +60,12 @@ export default {
     return {
       formData: initForm(),
       methodName: '',
+      flag: '',
       rules: {
-        clientName: [{ required: true, validator: validateFun, trigger: 'blur' }],
+        clientName: [
+          { required: true, validator: validateFun, trigger: 'blur' },
+          { min: 2, max: 25, message: '长度在 2 到 25 个字符', trigger: 'blur' },
+        ],
         projectName: [{ required: true, message: '请输入项目名称', trigger: 'blur' }],
         businessType: [
           { required: true, message: '请选择业务类型', trigger: 'blur' },

@@ -15,14 +15,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex>
-        <template slot="before-columns">
-          <el-table-column label="客户名称">
-            <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.clientName}}</iep-table-link>
-            </template>
-          </el-table-column>
-        </template>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex @row-click="handleDetail">
         <el-table-column prop="operation" label="操作" v-if="type!=='1'" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -109,6 +102,7 @@ export default {
           tags: formData.tags.map(m => m.commonName), // 商机标签 businessTag
           opportunityDes: formData.opportunityDes, // 商机描述
         }
+        this.$refs['EditDrawer'].flag = formData.clientName
       })
       this.$refs['EditDrawer'].methodName = '修改'
       this.$refs['EditDrawer'].drawerShow = true

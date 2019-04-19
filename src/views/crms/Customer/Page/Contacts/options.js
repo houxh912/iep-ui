@@ -37,7 +37,7 @@ const telPhone = (rules, value, callback) => {
     callback(new Error('电话不可为空'))
   } else {
     if (value !== '') {
-      var reg = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/
+      var reg = /(^1[0-9]{10}$)|(^0\d{2,3}-?\d{7,8}$)/
       if (!reg.test(value)) {
         callback(new Error('请输入有效的电话号码'))
       }
@@ -48,7 +48,7 @@ const telPhone = (rules, value, callback) => {
 const rules = {
   contactName: [
     { required: true, message: '联系人姓名不能为空', trigger: 'blur' },
-    { min: 2, max: 5, message: '长度在 2 到 10 个字符', trigger: 'blur' },
+    { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' },
   ],
   contactPosition: [
     { required: true, message: '联系人职务不能为空', trigger: 'blur' },

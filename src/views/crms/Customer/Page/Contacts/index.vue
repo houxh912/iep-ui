@@ -3,11 +3,11 @@
     <div class="head">
       <iep-button type="primary" @click="handleAdd" plain><i class="el-icon-plus"></i> 新增</iep-button>
     </div>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail">
       <template slot="before-columns">
         <el-table-column prop="operation" label="联系人姓名">
           <template slot-scope="scope">
-            <iep-table-link  @click="handleDetail(scope.row)">{{scope.row.contactName}}</iep-table-link>
+            <iep-table-link>{{scope.row.contactName}}</iep-table-link>
           </template>
         </el-table-column>
       </template>
@@ -106,5 +106,4 @@ export default {
     margin-bottom: 10px;
   }
 }
-
 </style>

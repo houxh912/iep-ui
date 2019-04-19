@@ -11,13 +11,13 @@
             <div>
               <div class="little-title">基础信息</div>
               <el-form-item label="姓名：" class="form-half">
-                <span>{{form.name}}</span>
+                <iep-div-detail :value="form.name"></iep-div-detail>
               </el-form-item>
               <el-form-item label="用户名：" class="form-half">
-                <span>{{form.userName}}</span>
+                <iep-div-detail :value="form.userName"></iep-div-detail>
               </el-form-item>
               <el-form-item label="所属组织：" class="form-half">
-                <span>舟山国脉海洋有限公司</span>
+                <iep-tag-detail :value="form.orgList"></iep-tag-detail>
               </el-form-item>
               <el-form-item label="工号：" prop="staffId" class="form-half">
                 <el-input v-model="form.staffId"></el-input>
@@ -29,7 +29,7 @@
                 <iep-tag-detail :value="form.roleName"></iep-tag-detail>
               </el-form-item>
               <el-form-item label="资产所属公司：" class="form-half">
-                <span>{{form.deptList.join('、')}}</span>
+                <iep-tag-detail :value="form.deptList"></iep-tag-detail>
               </el-form-item>
               <el-form-item label="岗位：" prop="position" class="form-half">
                 <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>

@@ -23,11 +23,11 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex :isMutipleSelection="showSelect?true:false">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex :isMutipleSelection="showSelect?true:false" @row-click="handleDetail">
         <template slot="before-columns">
           <el-table-column label="客户名称" width="300px">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.clientName}}</iep-table-link>
+              <iep-table-link>{{scope.row.clientName}}</iep-table-link>
               <el-col class="custom-tags">
                 <a-tag v-for="(item, index) in dealTag(scope.row.tags)" :key="index">{{item.commonName}}
                 </a-tag>
@@ -192,7 +192,7 @@ export default {
 
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .custom-tags {
   overflow: hidden;
   white-space: nowrap;
@@ -205,4 +205,5 @@ export default {
   }
 }
 </style>
+
 

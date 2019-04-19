@@ -1,6 +1,6 @@
 <template>
   <div class="leaderBoard">
-    <IepAppTabsCard>
+    <IepAppTabsCard :isMore="isMore" :linkName="linkName">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Inner'" v-slot:Inner>
           <inner v-loading="activeTab !=='Inner'"></inner>
@@ -22,6 +22,8 @@ export default {
   },
   data () {
     return {
+      isMore:true,
+      linkName: '',
       tabList: [{
         label: '内部专家',
         value: 'Inner',

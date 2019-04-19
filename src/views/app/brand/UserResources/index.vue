@@ -1,6 +1,6 @@
 <template>
   <div class="grid-content">
-    <IepAppTabsCard>
+    <IepAppTabsCard :isMore="isMore" :linkName="linkName">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='User'" v-slot:User>
           <user v-loading="activeTab !=='User'"></user>
@@ -22,6 +22,8 @@ export default {
   },
   data () {
     return {
+      isMore:true,
+      linkName: '',
       tabList: [{
         label: '用户资源',
         value: 'User',

@@ -86,9 +86,4 @@ export default {
       28fr
     );
 }
-.el-tabs__item {
-  line-height: inherit;
-  font-size: 18px;
-  color: #000;
-}
 </style>

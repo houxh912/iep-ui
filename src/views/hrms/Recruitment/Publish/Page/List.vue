@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="发布招聘" :replaceText="replaceText" :data="[10 ,5]"></page-header>
+      <page-header title="发布招聘" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -54,6 +54,7 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      statistics: [0, 0],
       replaceText: (data) => `（本周新增${data[0]}条招聘信息，收到${data[1]}份简历）`,
     }
   },
@@ -93,8 +94,9 @@ export default {
     handleDetail (row) {
       this.$emit('onDetail', row)
     },
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getPublishRecruitmentPage)
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable(param, getPublishRecruitmentPage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

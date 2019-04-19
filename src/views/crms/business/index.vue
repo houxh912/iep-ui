@@ -109,6 +109,7 @@ export default {
           tags: formData.tags.map(m => m.commonName), // 商机标签 businessTag
           opportunityDes: formData.opportunityDes, // 商机描述
         }
+        this.$refs['EditDrawer'].flag = formData.clientName
       })
       this.$refs['EditDrawer'].methodName = '修改'
       this.$refs['EditDrawer'].drawerShow = true

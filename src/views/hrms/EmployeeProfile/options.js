@@ -376,7 +376,7 @@ const toDtoSearchForm = (row) => {
 const initTransferForm = () => {
   return {
     id: '',
-    dept: [],
+    // dept: [],
     position: [],
     jobId: '',
     titleId: '',
@@ -386,7 +386,7 @@ const initTransferForm = () => {
 const initDtoTransferForm = () => {
   return {
     id: '',
-    deptId: '',
+    // deptId: '',
     positionId: '',
     jobId: '',
     titleId: '',
@@ -397,7 +397,7 @@ const initDtoTransferForm = () => {
 const transferFormToDto = (form) => {
   const newForm = mergeByFirst(initDtoTransferForm(), form)
   newForm.positionId = form.position[form.position.length - 1]
-  newForm.deptId = form.dept[form.dept.length - 1]
+  // newForm.deptId = form.dept[form.dept.length - 1]
   return newForm
 }
 

@@ -74,12 +74,12 @@ export default {
   data () {
     this.colors = [
       (paramsA) => {
-        var colorList1 = ['#d66368', '#d97276', '#dd8184', '#e7a6aa', '#e6a1a4','#e9b1b2','#e9b1b2','#edc2c3','#f2d0d1']
-        return colorList1[paramsA.dataIndex] 
+        var colorList1 = ['#d66368', '#d97276', '#dd8184', '#da8a8d', '#e09c9e', '#e8adaf', '#f7c6c8', '#ffdfe0']
+        return colorList1[paramsA.dataIndex]
       },
       (paramsB) => {
-        var colorList2 = ['#f58f44', '#f79349', '#f79a55', '#f9a261', '#f5a76c','#f7af78','#f5b380','#f5b88a','#f5bd93']
-        return colorList2[paramsB.dataIndex] 
+        var colorList2 = ['#f58f44', '#f79349', '#f79a55', '#f9a261', '#f7af78', '#f9b37f', '#fdc296', '#fdd1b0']
+        return colorList2[paramsB.dataIndex]
       },
     ]
     this.chartSettings = {
@@ -88,14 +88,14 @@ export default {
       lineStyle: {
         color: '#fff',
       },
-      
+
     }
     this.chartExtend = {
       barWidth: '26',
       itemStyle: {
         barBorderRadius: 13,
       },
-      
+
     }
     return {
       replaceText: (data) => `（收入共计${data[0]}笔，共计${data[0]}贝）`,
@@ -103,14 +103,14 @@ export default {
       chartData: {
         columns: ['dept', '收入', '支出'],
         rows: [
-          { 'dept': '内网', '收入': 38, '支出':22 },
-          { 'dept': '部门', '收入': 52, '支出':22 },
-          { 'dept': '提现', '收入': 61, '支出':22 },
-          { 'dept': '批评', '收入': 145, '支出':22 },
-          { 'dept': '学习', '收入': 48, '支出':22 },
-          { 'dept': '打赏', '收入': 38, '支出':22 },
-          { 'dept': '离职', '收入': 38, '支出':22 },
-          { 'dept': '其他', '收入': 38, '支出':22 },
+          { 'dept': '内网', '收入': 38, '支出': 22 },
+          { 'dept': '部门', '收入': 52, '支出': 22 },
+          { 'dept': '提现', '收入': 61, '支出': 22 },
+          { 'dept': '批评', '收入': 145, '支出': 22 },
+          { 'dept': '学习', '收入': 48, '支出': 22 },
+          { 'dept': '打赏', '收入': 38, '支出': 22 },
+          { 'dept': '离职', '收入': 38, '支出': 22 },
+          { 'dept': '其他', '收入': 38, '支出': 22 },
         ],
       },
     }

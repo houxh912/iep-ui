@@ -1,7 +1,7 @@
 <template>
   <el-card class="index-card" shadow="never">
     <div slot="header" class="clearfix">
-      <span class="title">{{title}}</span>
+      <span class="title">{{title}}<span class="datas">{{data}}</span></span>
       <el-button class="btn" type="text" v-if="isMore" @click="getMore">更多></el-button>
     </div>
     <slot></slot>
@@ -22,6 +22,10 @@ export default {
     linkName: {
       type: String,
       default: '/app/index',
+    },
+    data: {
+      type: String,
+      default: '',
     },
   },
   data () {
@@ -48,5 +52,18 @@ export default {
   padding: 5px 0;
   color: #999;
 }
+.datas {
+  font-size: 16px;
+  color: #999;
+}
 </style>
+<style scoped>
+.iep-tabs >>> .el-tabs__nav {
+  line-height: 53px;
+}
+.iep-tabs >>> .el-tabs__item {
+  font-size: 18px;
+}
+</style>
+
 

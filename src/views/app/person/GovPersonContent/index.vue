@@ -43,6 +43,10 @@ import Reward from './Reward'
 import Feedback from './Feedback'
 export default {
   components: { GovPersonImg, GovPersonNotice, GlowPerson, Thoughts, ShortagePosts, GovTags, Carousel, TrainingNotice, HotCourse, ExcellentLecturer, SwitchTabs, InteractiveZone, Reward, Feedback },
+  data () {
+    return {
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>

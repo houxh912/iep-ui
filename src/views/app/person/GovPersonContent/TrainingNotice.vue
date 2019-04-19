@@ -1,6 +1,6 @@
 <template>
   <div class="trainingCon">
-    <iepAppTabCard :title="title" :linkName="linkName" isMore>
+    <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
       <div class="trainingNotice">
         <div v-for="(item,index) in trainingNotice" :key="index" class="piece">
           <span class="name">{{item.name}}</span>
@@ -15,6 +15,7 @@ export default {
   data () {
     return {
       title: '培训预告',
+      data: '（10条）',
       trainingNotice: [
         { name: '数据基因产品培训服务', time: '2019-04-03' },
         { name: '服务数据基因', time: '2019-03-03' },

@@ -18,6 +18,10 @@
 import TopClass from './TopClass'
 export default {
   components: { TopClass },
+  data () {
+    return {
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>

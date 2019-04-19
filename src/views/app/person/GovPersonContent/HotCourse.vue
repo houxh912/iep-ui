@@ -1,6 +1,6 @@
 <template>
   <div class="course-con">
-    <iepAppTabCard :title="title" :linkName="linkName" isMore>
+    <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
       <div class="hotCourse">
         <div class="conCourse">
           <div class="con" v-for="con in conCourse" :key="con.id">
@@ -22,6 +22,7 @@ export default {
   data () {
     return {
       title: '热门课程',
+      data: '（37节）',
       hotCourse: [
         { name: '数据基因产品培训服务', num: '123人已学习' },
         { name: '服务数据基因', num: '23人已学习' },

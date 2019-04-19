@@ -2,7 +2,7 @@
   <div class="resources">
     <el-card class="index-card" shadow="never">
       <div slot="header" class="clearfix">
-        <span class="cardTitle">{{title}}</span>
+        <span class="cardTitle">{{title}}<span class="datas">{{data}}</span></span>
         <el-button class="btn" type="text">换一批</el-button>
       </div>
       <div>
@@ -28,6 +28,7 @@ export default {
   data () {
     return {
       title: '光彩国脉人',
+      data: '（135人）',
       nameList: [
         {
           id: '1',
@@ -135,8 +136,14 @@ export default {
   float: right;
   padding: 5px 0;
   color: #cb3737;
+  &:hover {
+    color: #f56c6c;
+  }
 }
 .cardTitle {
   font-size: 18px;
+  .datas {
+    color: #999;
+  }
 }
 </style>

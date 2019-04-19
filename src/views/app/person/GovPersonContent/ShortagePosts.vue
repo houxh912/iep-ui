@@ -2,7 +2,7 @@
   <div class="leaderBoard">
     <el-card class="index-card" shadow="never">
       <div slot="header" class="clearfix">
-        <span class="title">{{title}}</span>
+        <span class="title">{{title}}<span class="datas">{{data}}</span></span>
         <div class="important">
           <el-button type="text">争做伯乐</el-button>
           <el-button type="text">申请转岗</el-button>
@@ -28,6 +28,7 @@ export default {
   data () {
     return {
       title: '紧缺岗位',
+      data: '（53个）',
       tableData: [
         {
           name: 'java工程师',
@@ -72,6 +73,9 @@ export default {
 <style lang="scss" scoped>
 .title {
   font-size: 18px;
+  .datas {
+    color: #999;
+  }
 }
 </style>
 <style scoped>

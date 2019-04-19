@@ -12,6 +12,10 @@ import GovPersonTop from './GovPersonTop/'
 export default {
   name: 'govPerson',
   components: { GovPersonContent, GovPersonTop },
+  data () {
+    return {
+    }
+  },
 }
 </script>
 <style scoped>

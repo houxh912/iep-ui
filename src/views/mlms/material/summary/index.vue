@@ -61,7 +61,7 @@
 <script>
 import { initSearchForm } from './options'
 import mixins from '@/mixins/mixins'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import { getTablePersonal, getTableMyInvolved, getTableMyReceived, deleteData, createCollect } from '@/api/mlms/material/summary'
 import ShareDialog from './shareDialog'
 import CollectionDialog from '../components/collectionDialog'
@@ -94,12 +94,19 @@ export default {
       getTablePersonal,
       getTableMyInvolved,
       getTableMyReceived,
+      permission_edit: false,
+      permission_delete: false,
     }
   },
   computed: {
     ...mapState({
       dictGroup: state => state.user.dictGroup,
     }),
+    ...mapGetters(['permissions']),
+  },
+  created () {
+    this.permission_edit = this.permissions['mlms_summary_edit']
+    this.permission_delete = this.permissions['mlms_summary_delete']
   },
   methods: {
     loadPage (params = {}) {

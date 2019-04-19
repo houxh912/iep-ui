@@ -16,3 +16,21 @@ export function getMeetingList (obj) {
     params: obj,
   })
 }
+
+// 删除关联-纪要、周报
+export function deleteSummarys (obj) {
+  return request({
+    url: `${prefixUrl}/deleteSummarys`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+// 关联纪要、周报
+export function relationSummarys (obj) {
+  return request({
+    url: `${prefixUrl}/relationSummarys`,
+    method: 'post',
+    data: obj,
+  })
+}

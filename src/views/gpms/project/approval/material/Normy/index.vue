@@ -11,7 +11,7 @@
       </div>
       <div class="content">
         <div class="item" v-for="(item, index) in summaryList" :key="index">
-          <i class="icon-guanlian"></i>{{item.content}} <i class="close el-icon-close"></i>
+          <i class="icon-guanlian"></i>{{item.content}} <i class="close el-icon-close" @click="deleteRelations(item, 1)"></i>
         </div>
       </div>
     </div>
@@ -25,7 +25,7 @@
       </div>
       <div class="content">
         <div class="item" v-for="(item, index) in summaryList" :key="index">
-          <i class="icon-guanlian"></i>{{item.content}} <i class="close el-icon-close"></i>
+          <i class="icon-guanlian"></i>{{item.content}} <i class="close el-icon-close" @click="deleteRelations(item, 2)"></i>
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
 
 <script>
 import { normyList, normyList2 } from '../const.js'
-import { getMeetingList } from '@/api/gpms/material'
+import { getMeetingList, deleteSummarys } from '@/api/gpms/material'
 
 export default {
   name: 'index',
@@ -65,7 +65,7 @@ export default {
       })
     },
     relateSummary () {
-      
+      this.$emit('relateSummary', this.projectId)
     },
     getPorjectWeekList () {
       getMeetingList({
@@ -73,6 +73,16 @@ export default {
         materialType: 2,
       }).then(({data}) => {
         console.log('getPorjectWeekList: ', data)
+      })
+    },
+    // 删除关联
+    deleteRelations (item, type) {
+      deleteSummarys({
+        materialChartId: item.id,
+        materialType: type,
+        projectId: this.form.id,
+      }).then(({data}) => {
+        console.log('data: ', data)
       })
     },
   },

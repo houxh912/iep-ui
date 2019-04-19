@@ -16,7 +16,7 @@ export default {
     return {
       leaderBoardList: [
         { imgSrc: require('../images/expert1.jpg'), name: '杨冰之（文章576）', des: '国脉集团董事长' },
-        { imgSrc: require('../images/expert2.png'), name: '郑爱军', des: '国脉集团董事长' },
+        { imgSrc: require('../images/expert2.png'), name: '郑爱军', des: '国脉集团总经理' },
         { imgSrc: require('../images/expert3.png'), name: '王路燕', des: '国脉集团总助' },
         { imgSrc: require('../images/expert4.png'), name: '刘林英', des: '智慧城市咨询研究专家' },
         { imgSrc: require('../images/expert5.jpg'), name: '谢海艳', des: '信息化研究专家' },

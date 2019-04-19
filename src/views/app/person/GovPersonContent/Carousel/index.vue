@@ -61,7 +61,7 @@ export default {
   font-size: 18px;
 }
 </style>
-<style lang="scss">
+<style lang="scss" scoped>
 .el-carousel {
   overflow: hidden;
 }

@@ -50,8 +50,10 @@ export default {
   display: grid;
 }
 </style>
-<style lang="scss" >
-.Organization ,.specialist,.Empolyee{
+<style lang="scss" scoped>
+.Organization,
+.specialist,
+.Empolyee {
   padding: 15px 20px;
   .piece {
     text-align: center;
@@ -88,10 +90,10 @@ export default {
 .iep-tabs >>> .el-tabs__nav-scroll {
   padding: 10px 20px 1px;
 }
-.iep-tabs >>> .el-tabs__nav{
-  line-height:53px;
+.iep-tabs >>> .el-tabs__nav {
+  line-height: 53px;
 }
-.iep-tabs >>> .el-tabs__item{
+.iep-tabs >>> .el-tabs__item {
   font-size: 18px;
 }
 </style>

@@ -35,6 +35,10 @@ export default {
     margin: 0 auto;
     max-width: 600px;
     justify-content: space-between;
+    .right-search {
+      margin-left: 5px;
+      font-size: 14px;
+    }
   }
 }
 </style>

@@ -90,7 +90,10 @@ export default {
         id: row.contractId,
       })
     },
-    handleDetail (row) {
+    handleDetail (row, column) {
+      if (column.label == '操作') {
+        return false
+      }
       this.$refs['DetailDrawer'].drawerShow = true
       getDataById(row.contractId).then(res => {
         this.$refs['DetailDrawer'].formData = res.data.data

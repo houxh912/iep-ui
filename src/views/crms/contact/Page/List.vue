@@ -77,7 +77,10 @@ export default {
     loadPage (param = this.searchForm) {
       this.loadTable(param, fetchList)
     },
-    contactDetail (row) {
+    contactDetail (row, column) {
+      if (column.label == '操作') {
+        return false
+      }
       this.$refs['DetailDrawer'].drawerShow = true
       getContactById(row.clientContactId).then(res => {
         this.$refs['DetailDrawer'].detailForm = res.data.data

@@ -96,6 +96,7 @@ export default {
               message: `${this.methodName}成功`,
               type: 'success',
             })
+            this.$emit('async')
             this.loadPage()
           })
         } else {

@@ -4,11 +4,11 @@
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
         <el-tab-pane label="拜访日志" name="visit">
           <!--拜访日志-->
-          <visit :record="record"></visit>
+          <visit :record="record" @async="async"></visit>
         </el-tab-pane>
         <el-tab-pane label="联系记录" name="contact">
           <!-- 联系记录 -->
-          <contact :record="record"></contact>
+          <contact :record="record" @async="async"></contact>
         </el-tab-pane>
       </el-tabs>
     </keep-alive>
@@ -35,6 +35,9 @@ export default {
   created () {
   },
   methods: {
+    async () {
+      this.$emit('load-page')
+    },
     handleClick (tab, event) {
       console.log(tab, event)
     },

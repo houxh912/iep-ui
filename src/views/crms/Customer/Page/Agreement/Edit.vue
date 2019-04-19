@@ -202,6 +202,7 @@ export default {
                   type: 'success',
                 })
                 this.$emit('dialog')
+                this.$emit('async')
                 this.loadPage()
               })
             } else {

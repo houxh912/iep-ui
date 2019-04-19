@@ -35,7 +35,7 @@
         </el-table-column>
       </iep-table>
     </div>
-    <edit ref="EditDialog" @load-page="loadPage" v-if="pageState=='dialog'" @dialog="isShow" :record="record" :add="add"></edit>
+    <edit ref="EditDialog" @load-page="loadPage" v-if="pageState=='dialog'" @dialog="isShow" @async="async" :record="record" :add="add"></edit>
     <detail ref="DetailDialog" v-if="pageState=='detail'" @detail="isShow" :add="add"></detail>
   </div>
 </template>
@@ -75,6 +75,9 @@ export default {
     ]),
   },
   methods: {
+    async () {
+      this.$emit('load-page')
+    },
     loadPage (param = { ...this.searchForm, id: this.id }) {
       this.pageState = 'list'
       this.loadTable(param, getAgreementPage)
@@ -96,7 +99,10 @@ export default {
       }
       this.pageState = 'dialog'
     },
-    handleDetail (row) {
+    handleDetail (row, column) {
+      if (column.label == '操作') {
+        return false
+      }
       this.add = {
         formRequestFn: putAgreement,
         methodName: '详情',
@@ -120,6 +126,7 @@ export default {
               type: 'success',
               message: '删除成功!',
             })
+            this.$emit('load-page')
           } else {
             this.$message({
               type: 'info',

@@ -119,7 +119,10 @@ export default {
         },
       })
     },
-    handleDetail (row) {
+    handleDetail (row, column) {
+      if (column.label == '操作') {
+        return false
+      }
       getBusinessById(row.opportunityId).then((res) => {
         this.$refs['DetailDrawer'].formData = res.data.data.data
       })

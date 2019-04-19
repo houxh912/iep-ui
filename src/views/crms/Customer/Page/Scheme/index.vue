@@ -96,6 +96,7 @@ export default {
   },
   methods: {
     loadPage (param) {
+      this.$emit('load-page')
       this.loadTable({ ...param, clientId: this.record.id }, getSchemePage)
     },
     handleAdd () {
@@ -124,6 +125,7 @@ export default {
               type: 'success',
               message: '删除成功!',
             })
+            this.$emit('load-page')
           } else {
             this.$message({
               type: 'info',

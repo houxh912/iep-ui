@@ -30,7 +30,7 @@
         </template>
       </el-table-column>
     </iep-table>
-    <edit-drawer ref="EditDrawer" @load-page="loadPage"></edit-drawer>
+    <edit-drawer ref="EditDrawer" @load-page="loadPage" @async="async"></edit-drawer>
     <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
   </div>
 </template>
@@ -67,6 +67,9 @@ export default {
     ]),
   },
   methods: {
+    async () {
+      this.$emit('load-page')
+    },
     loadPage (param = { ...this.searchForm, clientId: this.record.id }) {
       this.loadTable(param, fetchList)
     },
@@ -85,7 +88,10 @@ export default {
       this.$refs['EditDrawer'].drawerShow = true
       this.$refs['EditDrawer'].clientContactId = row.clientContactId
     },
-    handleDetail (row) {
+    handleDetail (row, column) {
+      if (column.label == '操作') {
+        return false
+      }
       getContactById(row.clientContactId).then(({ data }) => {
         this.$refs['DetailDrawer'].form = data.data
       })
@@ -93,7 +99,27 @@ export default {
       this.$refs['DetailDrawer'].drawerShow = true
     },
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.clientContactId, deleteDataById)
+      this.$confirm('此操作将删除该数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        deleteDataById(row.clientContactId).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!',
+            })
+            this.$emit('load-page')
+          } else {
+            this.$message({
+              type: 'info',
+              message: `删除失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      })
     },
   },
 

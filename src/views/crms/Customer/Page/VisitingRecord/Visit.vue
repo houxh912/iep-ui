@@ -72,9 +72,30 @@ export default {
       this.$refs['VisitDialog'].formRequestFn = updateVisitLog
     },
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.id, deleteVisitLog)
+      this.$confirm('此操作将同时删除原件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        deleteVisitLog(row.id).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!',
+            })
+            this.$emit('async')
+          } else {
+            this.$message({
+              type: 'info',
+              message: `删除失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      })
     },
     loadPage (param = { ...this.searchForm, id: this.id }) {
+      this.$emit('async')
       this.loadTable(param, fetchVisitLog)
     },
   },

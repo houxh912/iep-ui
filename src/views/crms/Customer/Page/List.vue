@@ -140,7 +140,10 @@ export default {
       })
     },
     //客户详情
-    handleDetail (row) {
+    handleDetail (row, column) {
+      if (column.label == '操作') {
+        return false
+      }
       if (this.type != '1') {
         this.$router.push({
           path: `/crms_spa/customer_detail/${row.clientId}`,

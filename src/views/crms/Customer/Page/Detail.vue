@@ -84,21 +84,13 @@ export default {
     }
   },
   created () {
-
     this.loadPage()
-    // this.total()
     this.getRouter()
     if (this.routerBack) {
       this.activeTab = 'Scheme'
     }
   },
   methods: {
-    total () {
-      for (var i = 1; i < this.tabList.length; i++) {
-        this.tabList[i].label = this.tabList[i].label + '(' + this.count[i - 1] + ')'
-      }
-
-    },
     getRouter () {
       this.routerBack = this.$route.query.routerBack
     },
@@ -106,7 +98,7 @@ export default {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = data.data
         this.record.collaborations = this.formData.collaborations
-        this.count.push(data.data.contactNumber, data.data.contactRecordNumber, data.data.programNumber, data.data.contractNumber, data.data.informationNumber)
+        this.count.push(data.data.contactNumber, data.data.contactRecordNumber, data.data.programNumber, data.data.contractNumber, 1)
         for (var i = 1; i < this.tabList.length; i++) {
           this.tabList[i].label = this.tabList[i].label + '(' + this.count[i - 1] + ')'
         }

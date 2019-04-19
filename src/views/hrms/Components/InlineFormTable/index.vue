@@ -3,7 +3,10 @@
     <el-table :data="data" style="width: 100%" border size="small">
       <el-table-column :label="item.label" :width="item.width" v-for="(item, idx) in columns" :key="idx">
         <template slot-scope="scope">
-          <el-input v-if="scope.row.editable" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label"></el-input>
+          <template v-if="scope.row.editable">
+            <iep-date-picker v-if="item.type === 'date'" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label"></iep-date-picker>
+            <el-input v-else size="mini" v-model="scope.row[item.prop]" :placeholder="item.label"></el-input>
+          </template>
           <template v-else>{{ scope.row[item.prop] }}</template>
         </template>
       </el-table-column>

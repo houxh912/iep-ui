@@ -1,3 +1,4 @@
+import { mergeByFirst } from '@/util/util'
 const columnsMap = [
   {
     prop: 'name',
@@ -54,16 +55,31 @@ const rules = {
 
 const initForm = () => {
   return {
-    'id': null, // ID
-    'name': '', // 培训主题
-    'teacher': '', // 培训老师
-    'startTime': '', // 培训开始时间
-    'endTime': '', // 培训结束时间
-    'typeId': null, // 培训类型
-    'methodId': '', // 培训方式
-    'place': '', // 培训地点
-    'material': '', // 培训材料(暂时无, 以后考虑)
+    id: null, // ID
+    name: '', // 培训主题
+    teacher: '', // 培训老师
+    startTime: '', // 培训开始时间
+    endTime: '', // 培训结束时间
+    typeId: null, // 培训类型
+    methodId: '', // 培训方式
+    place: '', // 培训地点
+    material: [], // 培训材料(暂时无, 以后考虑)
+    attachFile: [], // 文件
   }
+}
+
+const formToVo = (row) => {
+  const newForm = mergeByFirst(initForm(), row)
+  newForm.material = row.attachFile || []
+  return newForm
+}
+
+const formToDto = (row) => {
+  const newForm = { ...row }
+  newForm.attachFileUrl = row.material.map(m => m.url)[0]
+  delete newForm.material
+  delete newForm.attachFile
+  return newForm
 }
 
 const initSearchForm = () => {
@@ -74,4 +90,4 @@ const initSearchForm = () => {
     date: '',
   }
 }
-export { columnsMap, initForm, initSearchForm, rules }
+export { columnsMap, initForm, initSearchForm, rules, formToVo, formToDto }

@@ -2,25 +2,25 @@
   <iep-dialog :dialog-show="dialogShow" title="培训信息" width="400px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="培训主题" prop="name">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.name" placeholder="请填入培训主题"></el-input>
       </el-form-item>
       <el-form-item label="培训老师" prop="teacher">
-        <el-input v-model="form.teacher"></el-input>
+        <el-input v-model="form.teacher" placeholder="请填入培训老师"></el-input>
       </el-form-item>
       <el-form-item label="培训时间" prop="startTime">
         <iep-date-picker v-model="form.startTime" type="date" placeholder="选择日期"></iep-date-picker>
       </el-form-item>
       <el-form-item label="培训类型" prop="typeId">
-        <iep-dict-select v-model="form.typeId" dict-name="hrms_training_type"></iep-dict-select>
+        <iep-dict-select v-model="form.typeId" dict-name="hrms_training_type" placeholder="选择类型"></iep-dict-select>
       </el-form-item>
       <el-form-item label="培训方式" prop="methodId">
-        <iep-dict-select v-model="form.methodId" dict-name="hrms_training_mode"></iep-dict-select>
+        <iep-dict-select v-model="form.methodId" dict-name="hrms_training_mode" placeholder="选择方式"></iep-dict-select>
       </el-form-item>
       <el-form-item label="培训地点" prop="place">
-        <el-input v-model="form.place"></el-input>
+        <el-input v-model="form.place" placeholder="请填入培训地点"></el-input>
       </el-form-item>
       <el-form-item label="培训材料" prop="material">
-        <iep-upload v-model="form.material"></iep-upload>
+        <iep-upload v-model="form.material">请上传培训材料</iep-upload>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -31,7 +31,7 @@
 </template>
 <script>
 import IepDialog from '@/components/IepDialog/'
-import { initForm, rules } from './options'
+import { initForm, rules, formToDto } from './options'
 export default {
   components: { IepDialog },
   data () {
@@ -52,7 +52,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.form).then(() => {
+          this.formRequestFn(formToDto(this.form)).then(() => {
             this.$message({
               message: `${this.methodName}成功`,
               type: 'success',

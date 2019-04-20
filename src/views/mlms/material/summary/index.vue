@@ -43,13 +43,31 @@
 
       <iep-tabs v-model="tabName" :tab-list="tabList" @tab-click="tabClick">
         <template v-if="tabName ==='personal'" v-slot:personal>
-          <tableTemplate ref="tableTpl" :getTableData="getTablePersonal" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection"></tableTemplate>
+          <tableTemplate ref="tableTpl" 
+            :getTableData="getTablePersonal" 
+            @handleShare="handleShare" 
+            @selectionChange="handleSelectionChange" 
+            @handleCollection="handleCollection" 
+            :permissionEdit="permission_edit" 
+            :permissionDelete="permission_delete"></tableTemplate>
         </template>
         <template v-if="tabName ==='involved'" v-slot:involved>
-          <tableTemplate ref="tableTpl" :getTableData="getTableMyInvolved" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection"></tableTemplate>
+          <tableTemplate ref="tableTpl" 
+            :getTableData="getTableMyInvolved" 
+            @handleShare="handleShare" 
+            @selectionChange="handleSelectionChange" 
+            @handleCollection="handleCollection"
+            :permissionEdit="permission_edit" 
+            :permissionDelete="permission_delete"></tableTemplate>
         </template>
         <template v-if="tabName ==='received'" v-slot:received>
-          <tableTemplate ref="tableTpl" :getTableData="getTableMyReceived" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection"></tableTemplate>
+          <tableTemplate ref="tableTpl" 
+            :getTableData="getTableMyReceived" 
+            @handleShare="handleShare" 
+            @selectionChange="handleSelectionChange" 
+            @handleCollection="handleCollection"
+            :permissionEdit="permission_edit" 
+            :permissionDelete="permission_delete"></tableTemplate>
         </template>
       </iep-tabs>
 

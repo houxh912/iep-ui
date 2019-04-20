@@ -23,9 +23,12 @@ export default {
       this.record = ''
       this.currentComponet = 'List'
     },
-    handleDetail (record) {
-      this.record = record
-      this.currentComponet = 'Detail'
+    handleDetail (row) {
+      if (row.type == 'material') {
+        this.$router.push(`/mlms_spa/material/detail/${row.targetId}`)
+      } else if (row.type == 'meeting') {
+        this.$router.push(`/mlms_spa/summary/detail/${row.targetId}`)
+      }
     },
   },
   watch: {

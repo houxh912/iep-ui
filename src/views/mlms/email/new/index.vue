@@ -85,7 +85,7 @@ export default {
         isBack: false,
         backPath: null,
         backFunction: () => {
-          this.$emit('load-page', false)
+          this.$emit('load-page', this.backType == 'list' ? false : true)
         },
       },
       limit: 99,
@@ -93,6 +93,7 @@ export default {
         { name: '普通', value: 0 },
         { name: '批示', value: 1 },
       ],
+      backType: 'list',
     }
   },
   methods: {

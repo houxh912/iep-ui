@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd">新增一级分类</iep-button>
+        <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd" v-if="permission_add">新增一级分类</iep-button>
         <el-dropdown size="medium">
           <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
           <el-dropdown-menu slot="dropdown">
@@ -15,7 +15,7 @@
         </el-dropdown>
       </template>
     </operation-container>
-    <iep-table-tree :data="tableData" :option="columnsMap" @handleChild="handleChild" @selectChange="selectChange">
+    <iep-table-tree :data="tableData" :option="columnsMap" @handleChild="handleChild" @selectChange="selectChange" :permissionAdd="permission_add">
       <template #levelName="{scope, index}">
         <el-input v-model="formData.levelName" v-if="index===selectIndex" maxlength="10"></el-input>
         <div v-else>{{scope.levelName}}</div>
@@ -29,10 +29,15 @@
       </template>
       <template #menu="{ scope, index }">
         <div class="operation-wrapper">
-          <iep-button v-if="index===selectIndex" @click="handleSubmit">保存</iep-button>
-          <iep-button @click="handleEdit(scope, index)" v-else type="warning" plain>编辑</iep-button>
-          <iep-button v-if="index===selectIndex" @click="handleCancel(scope)">取消</iep-button>
-          <iep-button @click="handleDeleteById(scope, index)" v-else>删除</iep-button>
+          <div v-if="index===selectIndex">
+            <iep-button @click="handleSubmit" type="warning" plain>保存</iep-button>
+            <iep-button @click="handleCancel(scope)">取消</iep-button>
+          </div>
+          <div v-else>
+            <iep-button @click="handleEdit(scope, index)" type="warning" plain v-if="permission_edit">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope, index)" v-if="permission_delete">删除</iep-button>
+          </div>
+          
         </div>
       </template>
     </iep-table-tree>
@@ -44,11 +49,14 @@ import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap, initFormData } from './option'
 import { getTableData, createData, updateData, deleteDate, validateName } from '@/api/mlms/material/datum/configure'
 import IepTableTree from './IepTableTree'
+import { mapGetters } from 'vuex'
 
 export default {
   mixins: [mixins],
   components: { IepTableTree },
-  computed: {},
+  computed: {
+    ...mapGetters(['permissions']),
+  },
   data () {
     return {
       dictsMap,
@@ -59,6 +67,9 @@ export default {
       formData: initFormData(),
       validateResult: {data: true},
       formState: false,
+      permission_add: false,
+      permission_edit: false,
+      permission_delete: false,
     }
   },
   methods: {
@@ -187,6 +198,9 @@ export default {
   },
   created () {
     this.loadPage()
+    this.permission_add = this.permissions['mlms_datum_add']
+    this.permission_edit = this.permissions['mlms_datum_edit']
+    this.permission_delete = this.permissions['mlms_datum_delete']
   },
 }
 </script>

@@ -13,8 +13,8 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
-            <el-form :model="paramForm" label-width="80px" size="mini">
+          <operation-search @search-page="searchPage">
+            <!-- <el-form :model="paramForm" label-width="80px" size="mini">
               <el-form-item label="培训主题">
                 <el-input v-model="paramForm.theme" placeholder="请输入培训主题"></el-input>
               </el-form-item>
@@ -37,7 +37,7 @@
                 <el-button type="primary" @click="searchPage">搜索</el-button>
                 <el-button @click="clearSearchParam">清空</el-button>
               </el-form-item>
-            </el-form>
+            </el-form> -->
           </operation-search>
         </template>
       </operation-container>
@@ -59,7 +59,7 @@
 <script>
 import { getTrainingRecordPage, postTrainingRecord, putTrainingRecord, getTrainingRecordById, deleteTrainingRecordBatch, deleteTrainingRecordById } from '@/api/hrms/training_record'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm, initForm, formToVo } from './options'
+import { columnsMap, initForm, formToVo } from './options'
 import DialogForm from './DialogForm'
 
 export default {
@@ -68,37 +68,8 @@ export default {
   data () {
     return {
       columnsMap,
-      paramForm: initSearchForm(),
       statistics: [0, 0],
       replaceText: (data) => `（本周有${data[0]}个培训记录，下周有${data[1]}个培训计划)`,
-      pickerOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', [start, end])
-          },
-        }, {
-          text: '最近一个月',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            picker.$emit('pick', [start, end])
-          },
-        }, {
-          text: '最近三个月',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            picker.$emit('pick', [start, end])
-          },
-        }],
-      },
-      dateVal: '',
     }
   },
   created () {
@@ -127,10 +98,6 @@ export default {
         this.$refs['DialogForm'].formRequestFn = putTrainingRecord
         this.$refs['DialogForm'].dialogShow = true
       })
-    },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-      this.$emit('clear-search-param')
     },
     async loadPage (param = this.paramForm) {
       const data = await this.loadTable(param, getTrainingRecordPage)

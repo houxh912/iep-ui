@@ -124,19 +124,19 @@
               </el-form-item>
 
               <el-form-item label="工作经历：">
-                <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+                <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
               </el-form-item>
 
               <el-form-item label="学习情况：">
-                <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+                <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
               </el-form-item>
 
               <el-form-item label="培训情况：">
-                <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+                <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
               </el-form-item>
 
               <el-form-item label="资质证书：">
-                <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+                <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
               </el-form-item>
 
             </div>
@@ -184,16 +184,16 @@
             </div>
           </el-collapse-item>
           <el-collapse-item title="劳动合同" name="2">
-            <inline-form-table :table-data="form.laborContract" :columns="laborContractColumns" requestName="labor_contract" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+            <inline-form-table :table-data="form.laborContract" :columns="laborContractColumns" requestName="labor_contract" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
           </el-collapse-item>
           <el-collapse-item title="社保福利" name="3">
-            <inline-form-table :table-data="form.welfare" :columns="welfareColumns" requestName="welfare" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+            <inline-form-table :table-data="form.welfare" :columns="welfareColumns" requestName="welfare" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
           </el-collapse-item>
           <el-collapse-item title="调动情况" name="4">
-            <inline-form-table :table-data="form.transfer" :columns="transferColumns" requestName="transfer" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+            <inline-form-table :table-data="form.transfer" :columns="transferColumns" requestName="transfer" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
           </el-collapse-item>
           <el-collapse-item title="离职信息" name="5">
-            <inline-form-table :table-data="form.dimission" :columns="dimissionColumns" requestName="dimission" type="employee_profile" :rid="form.id" @load-page="loadPage"></inline-form-table>
+            <inline-form-table :table-data="form.dimission" :columns="dimissionColumns" requestName="dimission" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
           </el-collapse-item>
         </el-collapse>
       </el-form>

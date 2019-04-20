@@ -57,7 +57,7 @@ export function timeAgo (time) {
     return pluralize(~~(between / 86400), '天前')
   }
 }
-
+window.parseTime = parseTime
 export function parseTime (time, cFormat) {
   let newDate = parseDate(time)
   if (arguments.length === 0) {

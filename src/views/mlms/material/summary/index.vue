@@ -191,7 +191,7 @@ export default {
     handleDetail (row) {
       this.pageState = 'detail'
       this.$nextTick(() => {
-        this.$refs['detailPage'].open(row)
+        this.$refs['detailPage'].open(row.id)
       })
     },
   },

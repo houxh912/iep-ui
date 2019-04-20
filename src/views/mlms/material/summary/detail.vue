@@ -83,6 +83,12 @@ function commentForm () {
 
 export default {
   components: { InstrDialog },
+  props: {
+    detailState: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return {
       formData: {
@@ -96,7 +102,11 @@ export default {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          this.$router.go(-1)
+          if (this.detailState) {
+            this.$emit('backPage', false)
+          } else {
+            this.$router.go(-1)
+          }
         },
       },
       commentForm: commentForm(),
@@ -128,31 +138,40 @@ export default {
     Instructions () {
       this.$refs['instrDialog'].open(this.formData)
     },
-  },
-  created () {
-    getDataById(this.$route.params.id).then(({ data }) => {
-      this.formData = data.data
-      this.getComment(data.data.id)
-      this.formData.hostName = this.formData.host.length > 0 ? this.formData.host[0].name : '无'
-      // 获取人物
-      let fn = (obj) => {
-        let msg = ''
-        for (let key in obj) {
-          if (obj[key] !== null) {
-            for (let item of obj[key]) {
-              msg += item.name + '、'
+    open (id) {
+      this.loadDetail(id)
+    },
+    loadDetail (id) {
+      getDataById(id).then(({ data }) => {
+        this.formData = data.data
+        this.getComment(data.data.id)
+        this.formData.hostName = this.formData.host.length > 0 ? this.formData.host[0].name : '无'
+        // 获取人物
+        let fn = (obj) => {
+          let msg = ''
+          for (let key in obj) {
+            if (obj[key] !== null) {
+              for (let item of obj[key]) {
+                msg += item.name + '、'
+              }
             }
           }
+          if (msg === '') {
+            return '无'
+          } else {
+            return msg.slice(0, msg.length - 1)
+          }
         }
-        if (msg === '') {
-          return '无'
-        } else {
-          return msg.slice(0, msg.length - 1)
-        }
-      }
-      this.formData.attendeeName = fn(this.formData.attendee) // 参会人
-      this.formData.receiverName = fn(this.formData.receiver) // 参会人
-    })
+        this.formData.attendeeName = fn(this.formData.attendee) // 参会人
+        this.formData.receiverName = fn(this.formData.receiver) // 参会人
+      })
+    },
+  },
+  created () {
+    let params = this.$route.params
+    if (params.id) {
+      this.loadDetail(params.id)
+    }
   },
 }
 </script>

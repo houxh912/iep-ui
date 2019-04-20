@@ -5,7 +5,7 @@
         <el-input v-model="formData.title"></el-input>
       </el-form-item>
       <el-form-item label="拜访时间：" prop="meetingTime">
-        <IepDatePicker v-model="formData.meetingTime"></IepDatePicker>
+        <time-selector v-model="formData.meetingTime"></time-selector>
       </el-form-item>
       <el-form-item label="拜访内容：" prop="meetingContent">
         <el-input type="textarea" v-model="formData.meetingContent" rows=5></el-input>
@@ -19,7 +19,9 @@
 </template>
 <script>
 import { initFormData, dictsMap, rules } from './options'
+import TimeSelector from '@/views/crms/components/TimeSelector/'
 export default {
+  components: { TimeSelector },
   data () {
     return {
       dictsMap,

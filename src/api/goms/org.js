@@ -94,3 +94,11 @@ export function applyObj (obj) {
     data: obj,
   })
 }
+
+export function pullUser (ids) {
+  return request({
+    url: '/admin/org/pull',
+    method: 'post',
+    data: ids,
+  })
+}

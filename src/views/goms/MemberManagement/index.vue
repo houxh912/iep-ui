@@ -4,7 +4,7 @@
       <page-header :title="userInfo.orgName" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="left">
-          <!-- <iep-button @click="handleReview()">批量审核</iep-button> -->
+          <iep-button type="primary" @click="handleAddUsers()" icon="el-icon-plus" plain>批量添加成员</iep-button>
           <iep-button @click="handleDeleteBatch()">删除</iep-button>
         </template>
         <template slot="right">
@@ -46,18 +46,20 @@
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+    <add-user-dialog-form ref="AddUserDialogForm" @load-page="loadPage"></add-user-dialog-form>
     <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
-import { dictsMap, columnsMap, initSearchForm, initMemberForm } from './options'
-import DialogForm from './DialogForm'
-import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
 import mixins from '@/mixins/mixins'
+import DialogForm from './DialogForm'
+import AddUserDialogForm from './AddUserDialogForm'
+import { dictsMap, columnsMap, initSearchForm, initMemberForm } from './options'
+import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
 export default {
   components: {
-    DialogForm,
+    DialogForm, AddUserDialogForm,
   },
   mixins: [mixins],
   data () {
@@ -80,6 +82,10 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleAddUsers () {
+      this.$refs['AddUserDialogForm'].loadPage()
+      this.$refs['AddUserDialogForm'].dialogShow = true
+    },
     isMine (row) {
       return row.userId === this.userInfo.userId
     },
@@ -164,15 +170,11 @@ export default {
           this.loadPage()
         })
       }
-
-    },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
     },
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.userId)
     },
-    async loadPage (param = this.paramForm) {
+    async loadPage (param = this.searchForm) {
       const data = await this.loadTable(param, gomsUserPage)
       this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },

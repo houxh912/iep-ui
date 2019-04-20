@@ -8,6 +8,14 @@ export function fetchList (query) {
   })
 }
 
+export function gomsNoJoinUserPage (query) {
+  return request({
+    url: '/admin/user/no_join/page',
+    method: 'get',
+    params: query,
+  })
+}
+
 export function addObj (obj) {
   return request({
     url: '/admin/user',

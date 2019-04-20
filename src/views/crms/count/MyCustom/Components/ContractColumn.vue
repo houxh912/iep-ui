@@ -138,6 +138,7 @@ export default {
           }
           this.chartData.rows = sourceData
         } else {
+          this.totalMoney = 0
           this.chartData.rows = [{ timeInterval: '暂无', contractAmount: 0 }]
         }
       })

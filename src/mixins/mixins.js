@@ -43,13 +43,11 @@ export default {
       })
     },
     handleSizeChange (val) {
-      this.pageOption.current = this.pagination.current
       this.pageOption.size = val
       this.loadPage()
     },
     handleCurrentChange (val) {
       this.pageOption.current = val
-      this.pageOption.size = this.pagination.size
       this.loadPage()
     },
     _handleGlobalDeleteById (id, delFunction) {

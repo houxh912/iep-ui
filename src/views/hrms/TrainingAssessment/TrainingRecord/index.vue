@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="培训记录" :replaceText="replaceText" :data="[5 ,10]"></page-header>
+      <page-header title="培训记录" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -94,7 +94,7 @@ export default {
     handleEdit (row) {
       getTrainingRecordById(row.id).then(({ data }) => {
         this.$refs['DialogForm'].form = formToVo(data.data)
-        this.$refs['DialogForm'].methodName = '创建'
+        this.$refs['DialogForm'].methodName = '编辑'
         this.$refs['DialogForm'].formRequestFn = putTrainingRecord
         this.$refs['DialogForm'].dialogShow = true
       })

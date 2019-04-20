@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      Config
+      <page-header title="系统配置"></page-header>
     </basic-container>
   </div>
 </template>

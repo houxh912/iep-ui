@@ -148,8 +148,8 @@ export default {
     this.formRequestFn = this.add.formRequestFn
     this.methodName = this.add.methodName
     this.id = this.add.id
-    this.formData.companyOrgId = this.id
-    this.formData.signCompanyOrgId = this.id
+    this.formData.companyOrgId = this.record.clientName
+    this.formData.signCompanyOrgId = this.record.clientName
     getMarket({ clientId: this.id }).then((res) => {
       this.formData.directorId = res.data.data.id
       getObj(this.formData.directorId).then(res => {
@@ -162,15 +162,13 @@ export default {
         this.formData = res.data.data
         this.signTime = res.data.data.signTime
         this.finishTime = res.data.data.finishTime
-        this.formData.companyOrgId = this.id
-      })
-      getMarket({ clientId: this.id }).then((res) => {
-        this.formData.directorId = res.data.data.id
-        getObj(this.formData.directorId).then(res => {
-          this.$set(this.formData, 'Manager', res.data.data.realName)
+        getMarket({ clientId: this.id }).then((res) => {
+          this.formData.directorId = res.data.data.id
+          getObj(this.formData.directorId).then(res => {
+            this.$set(this.formData, 'Manager', res.data.data.realName)
+          })
         })
       })
-
     }
   },
   methods: {
@@ -188,11 +186,17 @@ export default {
       this.$emit('dialog')
     },
     submitForm (formName) {
+      if (this.methodName == '新增') {
+        this.formData.companyOrgId = this.id
+        this.formData.signCompanyOrgId = this.id
+      }
       let formData = Object.assign({}, this.formData)
       formData.signDeptOrgId = this.formData.signDeptOrgName.id
       formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
       formData.directorId = this.formData.directorId
       formData.id = this.contractId,
+      formData.companyOrgId = this.formData.companyOrgId
+      formData.signCompanyOrgId = this.formData.signCompanyOrgId
         this.$refs[formName].validate((valid) => {
           if (valid) {
             if (this.isTime) {

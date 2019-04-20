@@ -123,6 +123,7 @@ export default {
         }],
           this.formData = data.data
         this.record.collaborations = this.formData.collaborations
+        this.record.clientName = this.formData.clientName
         this.count.push(data.data.contactNumber, data.data.contactRecordNumber, data.data.programNumber, data.data.contractNumber, 1)
         for (var i = 1; i < this.tabList.length; i++) {
           this.tabList[i].label = this.tabList[i].label + '(' + this.count[i - 1] + ')'

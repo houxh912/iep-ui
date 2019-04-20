@@ -37,7 +37,14 @@
           </el-table-column>
           <el-table-column prop="paymentAmount" label="回款金额">
             <template slot-scope="scope">
-              <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="selectIndex=-1" maxlength="10"></el-input>
+              <el-input 
+                v-if="selectIndex==scope.$index" 
+                v-model="formData.paymentRelations[scope.$index].paymentAmount" 
+                @blur="()=>{changeNumber(scope.$index);selectIndex=-1}" 
+                maxlength="10" 
+                type="number" 
+                min=0
+                placeholder="请输入正确的数额"></el-input>
               <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
               <!-- <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="selectIndex=-1" maxlength="10"></el-input>
               <div v-else @click="selectIndex=scope.$index" style="min-height: 20px;">{{scope.row.paymentAmount}}</div> -->
@@ -106,6 +113,14 @@ export default {
       this.formData.endTime = times.endTime
     },
     submit () {
+      // 遍历判断 预计回款时间 内的数据是否填写完整
+      for (let item of this.formData.paymentRelations) {
+        console.log('item: ', item)
+        if (item.paymentAmount == '' || item.projectPaymentTime == '') {
+          this.$message.error('请完整填写预计回款时间')
+          return
+        }
+      }
       this.$emit('putFormData', this.formData)
     },
     handleDelete (index) {
@@ -119,6 +134,13 @@ export default {
     },
     cancel () {
       this.$emit('load-page', false)
+    },
+    changeNumber (index) {
+      this.$nextTick(() => {
+        if (this.formData.paymentRelations[index].paymentAmount < 0) {
+          this.formData.paymentRelations[index].paymentAmount = 0
+        }
+      })
     },
   },
 }

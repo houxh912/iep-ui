@@ -40,8 +40,8 @@
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleEdit(scope.row)">修改</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleDeleteById(scope.row)">删除</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleEdit(scope.row)" v-if="permission_edit">修改</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleDeleteById(scope.row)" v-if="permission_delete">删除</el-dropdown-item>
                   <el-dropdown-item @click.native="handleContribute(scope.row)">投稿</el-dropdown-item>
                   <el-dropdown-item @click.native="handleEdition(scope.row)">上传新版本</el-dropdown-item>
                 </el-dropdown-menu>
@@ -63,11 +63,14 @@ import { getTableData, getTableDataOnlyMe, createData, updateData, deleteData, g
 import { createCollect } from '@/api/mlms/material/summary'
 import MainDialog from './mainDialog'
 import CollectionDialog from '../../components/collectionDialog'
+import { mapGetters } from 'vuex'
 
 export default {
   mixins: [mixins],
   components: { MainDialog, CollectionDialog },
-  computed: {},
+  computed: {
+    ...mapGetters(['permissions']),
+  },
   data () {
     return {
       selectList: [],
@@ -76,6 +79,8 @@ export default {
       columnsMap: tableOption,
       createCollect,
       getTableDataFn: getTableData,
+      permission_edit: false,
+      permission_delete: false,
     }
   },
   methods: {
@@ -155,6 +160,8 @@ export default {
   },
   created () {
     this.loadPage()
+    this.permission_edit = this.permissions['mlms_datum_edit']
+    this.permission_delete = this.permissions['mlms_datum_delete']
   },
 }
 </script>

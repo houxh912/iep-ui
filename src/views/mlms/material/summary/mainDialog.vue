@@ -57,10 +57,10 @@
           </div>
         </el-form-item>
         <el-form-item label="参会人：" prop="attendeeList">
-          <iep-contact-multiple v-model="formData.attendeeList"></iep-contact-multiple>
+          <iep-contact-multiple v-model="formData.attendeeList" :filterUserList="attendeeUserList"></iep-contact-multiple>
         </el-form-item>
         <el-form-item label="抄送人：" prop="receiverList">
-          <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
+          <iep-contact-multiple v-model="formData.receiverList" :filterUserList="receiverUserList"></iep-contact-multiple>
         </el-form-item>
         <!-- <el-form-item label="接收人" prop="">
         <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
@@ -115,6 +115,32 @@ export default {
     ...mapState({
       dictGroup: state => state.user.dictGroup,
     }),
+    attendeeUserList () {
+      let list = []
+      if (this.formData.hostList.id) {
+        list.push(this.formData.hostList.id)
+      }
+      for (let item of this.formData.receiverList.orgs) {
+        list.push(item.id)
+      }
+      for (let item of this.formData.receiverList.users) {
+        list.push(item.id)
+      }
+      return list
+    },
+    receiverUserList () {
+      let list = []
+      if (this.formData.hostList.id) {
+        list.push(this.formData.hostList.id)
+      }
+      for (let item of this.formData.attendeeList.orgs) {
+        list.push(item.id)
+      }
+      for (let item of this.formData.attendeeList.users) {
+        list.push(item.id)
+      }
+      return list
+    },
   },
   methods: {
     // 保存

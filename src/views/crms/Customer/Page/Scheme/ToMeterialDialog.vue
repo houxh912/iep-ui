@@ -13,14 +13,14 @@
         <el-input type="textarea" v-model="formData.intro" rows="5"></el-input>
       </el-form-item>
       <el-row>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="分类：" prop="firstClass">
             <el-select v-model="formData.firstClass" placeholder="请选择" @change="firstClassChange">
               <el-option v-for="item in firstClass" :key="item.id" :label="item.levelName" :value="''+item.id"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="" prop="secondClass" label-width="50px">
             <el-select v-model="formData.secondClass" placeholder="请选择">
               <el-option v-for="item in secondClass" :key="item.id" :label="item.levelName" :value="''+item.id"></el-option>

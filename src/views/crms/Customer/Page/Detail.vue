@@ -96,7 +96,7 @@ export default {
       this.routerBack = this.$route.query.routerBack
     },
     dealNum () {
-      console.log(this.count)
+      // console.log(this.count)
 
     },
     loadPage () {

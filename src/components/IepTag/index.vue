@@ -1,9 +1,14 @@
 <template>
   <div>
-    <a-tag v-for="(tag, index) in tags" :key="tag" :closable="index !== -1" :afterClose="() => handleClose(tag)">
-      {{`${tag.slice(0, 20)}...`}}
-    </a-tag>
-    <a-input v-if="inputVisible" ref="input" type="text" size="small" :style="{ width: '78px', marginRight: '9px' }" :value="inputValue" @change="handleInputChange" @blur="handleInputConfirm" @keyup.enter="handleInputConfirm" />
+    <a-tooltip v-for="(tag, index) in tags" :key="tag" placement="top">
+      <template v-if="tag.length > 20" slot="title">
+        <span>{{tag}}</span>
+      </template>
+      <a-tag :closable="index !== -1" :afterClose="() => handleClose(tag)">
+        {{`${tag.slice(0, 20)}${tag.length > 20 ? '...' : ''}`}}
+      </a-tag>
+    </a-tooltip>
+    <a-input v-if="inputVisible" ref="input" maxlength="100" type="text" size="small" :style="{ width: '78px', marginRight: '9px' }" :value="inputValue" @change="handleInputChange" @blur="handleInputConfirm" @keyup.enter="handleInputConfirm" />
     <a-tag v-else @click="showInput" style="background: #fff; borderStyle: dashed;">
       <a-icon type="plus" /> 新建标签
     </a-tag>

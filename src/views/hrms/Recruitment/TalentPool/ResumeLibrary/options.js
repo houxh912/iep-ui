@@ -89,60 +89,15 @@ const initForm = () => {
   }
 }
 
-const initDtoForm = () => {
-  return {
-    'id': '',
-    'name': '',
-    'sex': 1,
-    'avatar': '',
-    'birthday': '',
-    'title': '',
-    'phone': '',
-    'age': '',
-    'email': '',
-    'height': '',
-    'weight': '',
-    'nation': '',
-    'address': '',
-    'politics': '',
-    'health': '',
-    'marriage': '',
-    'bear': '',
-    'university': '',
-    'education': '',
-    'relation': '',
-    'referrer': '',
-    'appWay': '',
-    'source': '',
-    'hobbies': '',
-    'advantage': '',
-    'honor': '',
-    'result': '',
-    'positionId': '',
-    'arrive': '',
-    'salary': '',
-    'workPlace': '',
-    attach: [],
-    attachFile: [], // 文件
-    'workExperience': [],
-    'trainingSituation': [],
-    'eduSituation': [],
-    'userCert': [],
-    'blacklistArea': '',
-    'blacklistReasons': '',
-    'cities': [],
-  }
-}
-
 const formToDto = (row) => {
-  const newForm = mergeByFirst(initDtoForm(), row)
+  const newForm = mergeByFirst(initForm(), row)
   newForm.attachFileUrl = row.attach.map(m => m.url)[0]
   newForm.positionId = row.position[row.position.length - 1]
   return newForm
 }
 
 const formToVo = (row) => {
-  const newForm = mergeByFirst(initDtoForm(), row)
+  const newForm = mergeByFirst(initForm(), row)
   newForm.attach = row.attachFile || []
   return newForm
 }

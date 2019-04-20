@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="添加关联材料" width="50%" @close="close">
+  <iep-dialog :dialog-show="dialogShow" title="添加关联材料" width="60%" @close="close">
     <div class="search">
       <el-input placeholder="请输入内容" v-model="materialName" maxlength="100" size="small">
         <template slot="append">

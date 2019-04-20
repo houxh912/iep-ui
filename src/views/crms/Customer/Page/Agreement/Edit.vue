@@ -60,7 +60,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="合同金额：" prop="contractAmount">
-            <el-input v-model.number="formData.contractAmount" placeholder="合同金额"></el-input>
+            <el-input v-model="formData.contractAmount" placeholder="合同金额"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -79,7 +79,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="保证金：" prop="deposit">
-            <el-input v-model.number="formData.deposit" placeholder="保证金"></el-input>
+            <el-input v-model="formData.deposit" placeholder="保证金"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -195,27 +195,27 @@ export default {
       formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
       formData.directorId = this.formData.directorId
       formData.id = this.contractId,
-      formData.companyOrgId = this.formData.companyOrgId
+        formData.companyOrgId = this.formData.companyOrgId
       formData.signCompanyOrgId = this.formData.signCompanyOrgId
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            if (this.isTime) {
-              this.formRequestFn(formData).then(() => {
-                this.$message({
-                  message: `${this.methodName}成功`,
-                  type: 'success',
-                })
-                this.$emit('dialog')
-                this.$emit('async')
-                this.loadPage()
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          if (this.isTime) {
+            this.formRequestFn(formData).then(() => {
+              this.$message({
+                message: `${this.methodName}成功`,
+                type: 'success',
               })
-            } else {
-              this.$message.error('签订日期大于完结日期，不能保存！！！')
-            }
+              this.$emit('dialog')
+              this.$emit('async')
+              this.loadPage()
+            })
           } else {
-            return false
+            this.$message.error('签订日期大于完结日期，不能保存！！！')
           }
-        })
+        } else {
+          return false
+        }
+      })
     },
     dealTime (val1, val2) {
       var str1 = val1.replace(/-/g, '/')

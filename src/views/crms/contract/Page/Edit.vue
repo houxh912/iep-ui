@@ -17,74 +17,74 @@
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-row>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="签订日期：" prop="signTime">
             <IepDatePicker v-model="formData.signTime" @change="startChange(formData.signTime)"></IepDatePicker>
           </el-form-item>
         </el-col>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="完结日期：" prop="finishTime">
             <IepDatePicker v-model="formData.finishTime" @change="endChange(formData.finishTime)"></IepDatePicker>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="委托单位：" prop="companyOrgId">
             <iep-select prefix-url="crm/customer/my" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)"></iep-select>
           </el-form-item>
         </el-col>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
             <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId"></iep-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="签署部门：" prop="signDeptOrgName">
             <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
           </el-form-item>
         </el-col>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="承接部门：" prop="underTakeDeptName">
             <iep-dept-multiple v-model="formData.underTakeDeptName"></iep-dept-multiple>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="市场经理：" prop="Manager">
             <el-input v-model="formData.Manager" disabled></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="合同金额：" prop="contractAmount">
-            <el-input v-model.number="formData.contractAmount" placeholder="合同金额"></el-input>
+            <el-input v-model="formData.contractAmount" placeholder="合同金额"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="合同级别：" prop="contractLevel">
             <iep-dict-select dict-name="mlms_contract_level" v-model="formData.contractLevel"></iep-dict-select>
           </el-form-item>
         </el-col>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="合同状态：" prop="contractStatus">
             <iep-dict-select dict-name="mlms_contract_status" v-model="formData.contractStatus"></iep-dict-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span=12>
+        <el-col :span='12'>
           <el-form-item label="保证金：" prop="deposit">
-            <el-input v-model.number="formData.deposit" placeholder="保证金"></el-input>
+            <el-input v-model="formData.deposit" placeholder="保证金"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <!-- <el-col :span=12>
+        <!-- <el-col :span='12'>
           <el-form-item label="合同附件：" prop="baozhengjin">
             <iep-upload v-model="formData.fileList" :limit="1">
               <slot name="tip"><span>文件类型为excel，每次上传数量不超过一个</span></slot>

@@ -138,8 +138,8 @@ export default {
     Instructions () {
       this.$refs['instrDialog'].open(this.formData)
     },
-    open (row) {
-      this.loadDetail(row.id)
+    open (id) {
+      this.loadDetail(id)
     },
     loadDetail (id) {
       getDataById(id).then(({ data }) => {

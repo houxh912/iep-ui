@@ -1,6 +1,6 @@
 <template>
   <basic-container>
-    <div v-if="pageState == 'list'">
+    <div v-show="pageState == 'list'">
       <page-header title="收件箱" class="title" :data="subTitle" :replaceText="subTitleFn"></page-header>
       <iep-tabs v-model="tabName" :tab-list="tabList">
         <template v-if="tabName ==='alltabTemplate'" v-slot:alltabTemplate>

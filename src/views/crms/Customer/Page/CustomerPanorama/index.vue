@@ -78,7 +78,7 @@
         <div class="item">
           <div class="label">市场经理：</div>
           <div class="value">
-            <div class="dot">{{formData.marketManager}}</div>
+            <div class="dot">{{formData.marketManagerName}}</div>
           </div>
         </div>
         <div class="item">
@@ -103,11 +103,11 @@
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">前市场经理：</div>
-            <div class="value">{{formData.preMarketManager}}</div>
+            <div class="value">{{formData.preMarketManagerName}}</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">前所属部门：</div>
-            <div class="value">{{formData.preRespDept}}</div>
+            <div class="value">{{formData.preDeptName}}</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">创建时间：</div>

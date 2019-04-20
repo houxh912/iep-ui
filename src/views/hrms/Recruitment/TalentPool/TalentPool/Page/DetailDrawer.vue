@@ -1,35 +1,57 @@
 <template>
   <iep-drawer :drawer-show="drawerShow" title="简历信息" width="40%" @close="closePage">
-    <!-- <p :style="[pStyle, pStyle2]"></p> -->
     <p :style="pStyle">个人信息</p>
     <a-row>
       <a-col :span="12">
-        <IepDescriptionItem title="姓名：">
+        <iep-description-item title="姓名：">
           <span slot="content">{{form.name}}
             <iep-img-avatar size="small" :src="form.avatar"></iep-img-avatar>
           </span>
-        </IepDescriptionItem>
+        </iep-description-item>
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="性别：" :content="form.sexName" />
-      </a-col>
-    </a-row>
-
-    <a-row>
-      <a-col :span="12">
-        <IepDescriptionItem title="身高：" :content="form.height+'cm'" />
-      </a-col>
-      <a-col :span="12">
-        <IepDescriptionItem title="体重：" :content="form.weight+'kg'" />
+        <iep-description-item title="性别：" :content="form.sexName" />
       </a-col>
     </a-row>
 
     <a-row>
       <a-col :span="12">
-        <IepDescriptionItem title="出生年月：" :content="form.birthday" />
+        <iep-description-item title="身高：" :content="form.height+'cm'" />
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="民族：" :content="form.nation" />
+        <iep-description-item title="体重：" :content="form.weight+'kg'" />
+      </a-col>
+    </a-row>
+
+    <a-row>
+      <a-col :span="12">
+        <iep-description-item title="出生年月：" :content="form.birthday" />
+      </a-col>
+      <a-col :span="12">
+        <iep-description-item title="民族：" :content="form.nation" />
+      </a-col>
+    </a-row>
+
+    <a-divider />
+    <p :style="pStyle">求职意向</p>
+
+    <a-row>
+      <a-col :span="12">
+        <iep-description-item title="应聘职位：" :content="form.positionName" />
+      </a-col>
+      <a-col :span="12">
+        <iep-description-item title="到岗时间：">
+          <iep-dict-detail slot="content" dict-name="hrms_arrive_time" :currentValue="form.arrive"></iep-dict-detail>
+        </iep-description-item>
+      </a-col>
+    </a-row>
+
+    <a-row>
+      <a-col :span="12">
+        <iep-description-item title="期望薪资：" :content="form.salary" />
+      </a-col>
+      <a-col :span="12">
+        <iep-description-item title="期望工作地：" :content="form.workPlace"></iep-description-item>
       </a-col>
     </a-row>
 
@@ -38,16 +60,16 @@
 
     <a-row>
       <a-col :span="12">
-        <IepDescriptionItem title="电子邮箱：" :content="form.email" />
+        <iep-description-item title="电子邮箱：" :content="form.email" />
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="联系电话：" :content="form.phone" />
+        <iep-description-item title="联系电话：" :content="form.phone" />
       </a-col>
     </a-row>
 
     <a-row>
       <a-col :span="24">
-        <IepDescriptionItem title="现住地址：" :content="form.address" />
+        <iep-description-item title="现住地址：" :content="form.address" />
       </a-col>
     </a-row>
 
@@ -56,70 +78,70 @@
 
     <a-row>
       <a-col :span="12">
-        <IepDescriptionItem title="健康状况：" :content="form.health" />
+        <iep-description-item title="健康状况：" :content="form.health" />
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="员工关系：" :content="form.relation" />
+        <iep-description-item title="员工关系：" :content="form.relation" />
       </a-col>
     </a-row>
 
     <a-row>
       <a-col :span="12">
-        <IepDescriptionItem title="政治面貌：">
+        <iep-description-item title="政治面貌：">
           <iep-dict-detail slot="content" :current-value="form.politics" dict-name="hrms_politics_face"></iep-dict-detail>
-        </IepDescriptionItem>
+        </iep-description-item>
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="婚姻状况：">
+        <iep-description-item title="婚姻状况：">
           <iep-dict-detail slot="content" :current-value="form.marriage" dict-name="hrms_marriage_status"></iep-dict-detail>
-        </IepDescriptionItem>
+        </iep-description-item>
       </a-col>
     </a-row>
 
     <a-row>
       <a-col :span="12">
-        <IepDescriptionItem title="最高学历：">
+        <iep-description-item title="最高学历：">
           <iep-dict-detail slot="content" :current-value="form.education" dict-name="hrms_highest_educational"></iep-dict-detail>
-        </IepDescriptionItem>
+        </iep-description-item>
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="毕业学校：" :content="form.university" />
+        <iep-description-item title="毕业学校：" :content="form.university" />
       </a-col>
     </a-row>
 
     <a-row>
       <a-col :span="12">
-        <IepDescriptionItem title="推荐人：" :content="form.referrer" />
+        <iep-description-item title="推荐人：" :content="form.referrer" />
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="外部头衔：" :content="form.title" />
+        <iep-description-item title="外部头衔：" :content="form.title" />
       </a-col>
     </a-row>
 
     <a-row>
       <a-col :span="12">
-        <IepDescriptionItem title="员工关系：" :content="form.relation" />
+        <iep-description-item title="员工关系：" :content="form.relation" />
       </a-col>
       <a-col :span="12">
-        <IepDescriptionItem title="兴趣爱好：" :content="form.hobbies" />
-      </a-col>
-    </a-row>
-
-    <a-row>
-      <a-col :span="24">
-        <IepDescriptionItem title="特长及优势：" :content="form.advantage" />
+        <iep-description-item title="兴趣爱好：" :content="form.hobbies" />
       </a-col>
     </a-row>
 
     <a-row>
       <a-col :span="24">
-        <IepDescriptionItem title="荣誉奖励：" :content="form.honor" />
+        <iep-description-item title="特长及优势：" :content="form.advantage" />
       </a-col>
     </a-row>
 
     <a-row>
       <a-col :span="24">
-        <IepDescriptionItem title="其他成果：" :content="form.result" />
+        <iep-description-item title="荣誉奖励：" :content="form.honor" />
+      </a-col>
+    </a-row>
+
+    <a-row>
+      <a-col :span="24">
+        <iep-description-item title="其他成果：" :content="form.result" />
       </a-col>
     </a-row>
 
@@ -142,9 +164,6 @@ export default {
         lineHeight: '24px',
         display: 'block',
         marginBottom: '16px',
-      },
-      pStyle2: {
-        marginBottom: '24px',
       },
     }
   },

@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <iep-to-dev></iep-to-dev>
+  <!-- <div>
     <basic-container>
       <page-header title="绩效考核" :replaceText="replaceText" :data="[120]"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
@@ -11,13 +12,13 @@
         </template>
       </iep-tabs>
     </basic-container>
-  </div>
+  </div> -->
 </template>
 <script>
-import AssessManagement from './AssessManagement/'
-import AssessModule from './AssessModule/'
+// import AssessManagement from './AssessManagement/'
+// import AssessModule from './AssessModule/'
 export default {
-  components: { AssessManagement, AssessModule },
+  // components: { AssessManagement, AssessModule },
   data () {
     return {
       replaceText: (data) => `（共有${data[0]}条绩效考核记录）`,

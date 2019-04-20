@@ -36,7 +36,7 @@ export default {
     },
     zIndex: {
       type: Number,
-      default: 500,
+      default: 600,
     },
   },
   methods: {

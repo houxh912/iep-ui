@@ -53,6 +53,9 @@ export default {
           options = targetOption[this.childrenKey]
         }
       })
+      if (!labels.length) {
+        return '无'
+      }
       return labels
     },
   },

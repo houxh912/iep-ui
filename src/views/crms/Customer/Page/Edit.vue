@@ -5,24 +5,24 @@
       <div class="edit-wrapper">
         <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="100px" class="wrap">
           <el-row>
-            <el-col :span=10>
+            <el-col :span='10'>
               <el-form-item label="客户名称：" prop="clientName" class="">
                 <el-input v-model="formData.clientName" placeholder="客户名称至少6个字"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span=10 :offset="4">
+            <el-col :span='10' :offset="4">
               <el-form-item label="市场经理：" prop="Manager">
                 <el-input v-model="formData.Manager" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span=10>
+            <el-col :span='10'>
               <el-form-item label="区域类型：" prop="districtType">
                 <iep-dict-select v-model="formData.districtType" dict-name="crms_district_type"></iep-dict-select>
               </el-form-item>
             </el-col>
-            <el-col :span=10 :offset="4">
+            <el-col :span='10' :offset="4">
               <el-form-item label="负责部门：" prop="iepClientRespDept">
                 <!-- <el-input v-model="formData.respDept" placeholder="负责部门"></el-input> -->
                 <iep-dept-select v-model="formData.iepClientRespDept"></iep-dept-select>
@@ -30,7 +30,7 @@
             </el-col>
           </el-row>
           <el-form-item label="客户描述：" prop="companyUrl">
-            <el-input v-model="formData.companyUrl" placeholder="单位网址"></el-input>
+            <el-input v-model="formData.companyUrl" placeholder="单位网址（请以http/https开头）"></el-input>
           </el-form-item>
           <el-form-item label="" prop="companyFunction">
             <el-input type="textarea" v-model="formData.companyFunction" placeholder="单位职能"></el-input>

@@ -13,7 +13,7 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="title">
+          <operation-search @search-page="searchPage" prop="trainingTheme">
             <!-- <el-form :model="paramForm" label-width="80px" size="mini">
               <el-form-item label="培训主题">
                 <el-input v-model="paramForm.theme" placeholder="请输入培训主题"></el-input>

@@ -72,7 +72,8 @@ export default {
       this.$router.push(`/mlms_spa/summary/update/${row.id}`)
     },
     handleDetail (row) {
-      this.$router.push(`/mlms_spa/summary/detail/${row.id}`)
+      // this.$router.push(`/mlms_spa/summary/detail/${row.id}`)
+      this.$emit('handleDetail', row)
     },
     // id删除
     handleDeleteById (row) {

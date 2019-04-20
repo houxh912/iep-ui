@@ -2,7 +2,7 @@
   <a-avatar icon="user" :src="realSrc" v-bind="$attrs" v-on="$listeners">USER</a-avatar>
 </template>
 <script>
-import { imgUrl } from '@/config/env'
+import { imgUrl, base64Url } from '@/config/env'
 export default {
   name: 'IepImgAvatar',
   inheritAttrs: false,
@@ -10,7 +10,7 @@ export default {
   computed: {
     realSrc () {
       if (!this.src) {
-        return 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'
+        return base64Url
       }
       return imgUrl + this.src
     },

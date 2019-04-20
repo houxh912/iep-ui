@@ -37,7 +37,7 @@
           <div class="title">关联纪要：</div>
           <div>
             <ul class="list">
-              <li v-for="(item, index) in formData.summaryRelatios" :key="index">{{item.relatiionName}}</li>
+              <li v-for="(item, index) in formData.summaryRelatios" :key="index" @click="handleMaterialDetail(item, 'summary')">{{item.relatiionName}}</li>
             </ul>
           </div>
         </div>
@@ -45,7 +45,7 @@
           <div class="title">关联材料：</div>
           <div>
             <ul class="list">
-              <li v-for="(item, index) in formData.materialRelatios" :key="index">{{item.relatiionName}}</li>
+              <li v-for="(item, index) in formData.materialRelatios" :key="index" @click="handleMaterialDetail(item, 'material')">{{item.relatiionName}}</li>
             </ul>
           </div>
         </div>
@@ -188,6 +188,9 @@ export default {
         this.downloadFile(item)
       }
     },
+    handleMaterialDetail (row, type) {
+      this.$emit('materialDetail', row, type)
+    },
   },
   created () {
     let params = this.$route.params
@@ -281,6 +284,7 @@ export default {
         li {
           list-style: none;
           line-height: 22px;
+          cursor: pointer;
           h5 {
             margin: 0 0 5px;
             font-weight: 500;

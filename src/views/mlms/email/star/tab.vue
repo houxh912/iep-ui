@@ -13,7 +13,7 @@
       </operation-container>
       <table-dialog ref="table" @switchDialog="handleDetail" @multipleSelection="multipleSelect" :type="type"></table-dialog>
     </div>
-    <main-form-dialog ref="mainDialog" v-show="pageState=='detail'" @backWeb="backPage" @forward="detailForward" @reply="detailReply" emailType="star"></main-form-dialog>
+    <main-form-dialog ref="mainDialog" v-show="pageState=='detail'" @backWeb="backPage" @forward="detailForward" @reply="detailReply" emailType="star" @materialDetail="materialDetail"></main-form-dialog>
     <update-form-dialog ref="updateDialog" v-show="pageState=='form'" @backWeb="backPage" @load-page="loadPage"></update-form-dialog>
   </div>
 </template>
@@ -50,6 +50,9 @@ export default {
     search (val) {
       val.type = this.type
       this.$refs['table'].loadPage(val)
+    },
+    materialDetail (row, type) {
+      this.$emit('materialDetail', row, type)
     },
   },
   mounted () {

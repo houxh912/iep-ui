@@ -10,6 +10,7 @@
           </template>
           <template v-else>
             <iep-dict-detail v-if="item.type === 'dict'" size="mini" :currentValue="scope.row[item.prop]" :dict-name="item.dictName"></iep-dict-detail>
+            <iep-div-detail v-else-if="item.type === 'date'" :value="scope.row[item.prop] | parseTime('{y}-{m}-{d}')"></iep-div-detail>
             <iep-div-detail v-else :value="scope.row[item.prop]"></iep-div-detail>
           </template>
         </template>
@@ -108,7 +109,6 @@ export default {
             type: 'success',
           })
           this.$emit('load-page')
-          console.log('load-page')
         })
       } else {
         put(target, this.requestName).then(() => {

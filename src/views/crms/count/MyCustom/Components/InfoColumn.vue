@@ -13,19 +13,19 @@
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>{{data.clientQuantity}}</span> 客户
+          <span>{{data.clientQuantity}}</span> 名客户
         </div>
         <div class="content">超过了 {{data.clientBeyond}}% 的同事</div>
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>{{data.contactQuantity}}</span> 联系人
+          <span>{{data.contactQuantity}}</span> 位联系人
         </div>
         <div class="content">超过了 {{data.contactBeyond}}% 的同事</div>
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>{{data.contractQuantity}}</span> 合同
+          <span>{{data.contractQuantity}}</span> 份合同
         </div>
         <div class="content">超过了 {{data.contractBeyond}}% 的同事</div>
       </el-col>
@@ -37,7 +37,7 @@
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>{{data.contractAmount}}</span> 软件
+          <span>{{data.contractAmount}}</span> 个软件
         </div>
         <div class="content">超过了{{data.contractAmountBeyond}}% 的同事</div>
       </el-col>

@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog class="dialog-con" :dialog-show="dialogShow" :title="`${methodName}成员信息`" width="500px" @close="loadPage" @slot-mounted="load">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}成员信息`" width="500px" @close="loadPage" @slot-mounted="load">
     <div class="avatar" style="text-align: center;margin-bottom:20px;">
       <iep-img-avatar :size="128" :src="form.avatar"></iep-img-avatar>
     </div>
@@ -32,11 +32,9 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { initMemberForm } from './options'
 import { putGoms, updateGomsUser } from '@/api/admin/org'
 export default {
-  components: { IepDialog },
   props: {
     loadImage: {
       type: String,

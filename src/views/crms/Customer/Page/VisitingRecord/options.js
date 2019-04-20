@@ -1,10 +1,10 @@
 const columnsMap = [
-  { label: '主题', prop: 'theme' },
+  { label: '联系主题', prop: 'theme' },
   { label: '联系时间', prop: 'visitTime' },
   { label: '联系记录', prop: 'contactRecord' },
 ]
 const visitColumnsMap = [
-  { label: '主题', prop: 'title', width: 400 },
+  { label: '拜访主题', prop: 'title', width: 400 },
   { label: '拜访时间', prop: 'meetingTime' },
   // { label: '类型', prop: 'contactRecord' },
 ]

@@ -1,13 +1,13 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="拜访日志" width="40%" @close="loadPage">
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-bottom: 50px;">
-      <el-form-item :label="`${formData.type == 0 ? '会议主题':'会议标题'}：`" prop="title">
+      <el-form-item label="拜访主题：" prop="title">
         <el-input v-model="formData.title"></el-input>
       </el-form-item>
-      <el-form-item label="会议时间" prop="meetingTime">
+      <el-form-item label="拜访时间：" prop="meetingTime">
         <IepDatePicker v-model="formData.meetingTime"></IepDatePicker>
       </el-form-item>
-      <el-form-item label="会议内容：" prop="meetingContent">
+      <el-form-item label="拜访内容：" prop="meetingContent">
         <el-input type="textarea" v-model="formData.meetingContent" rows=5></el-input>
       </el-form-item>
     </el-form>

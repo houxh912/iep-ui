@@ -21,8 +21,8 @@
           <el-tag>{{ scope.label }}</el-tag>
         </template>
         <template slot="menu" slot-scope="scope">
-          <el-button v-if="sys_user_edit" size="small" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row, scope.index)">编辑
-          </el-button>
+          <!-- <el-button v-if="sys_user_edit" size="small" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row, scope.index)">编辑
+          </el-button> -->
           <el-button v-if="sys_user_del" size="small" type="text" icon="el-icon-delete" @click="deletes(scope.row, scope.index)">删除
           </el-button>
         </template>

@@ -82,6 +82,8 @@ const laborContractColumns = [
   {
     prop: 'type',
     label: '合同类型',
+    dictName: 'hrms_labor_contract_type',
+    type: 'dict',
   },
   {
     prop: 'company',
@@ -106,6 +108,8 @@ const welfareColumns = [
   {
     prop: 'type',
     label: '缴纳类型',
+    dictName: 'hrms_welfare_type',
+    type: 'dict',
   },
   {
     prop: 'company',
@@ -130,6 +134,8 @@ const transferColumns = [
   {
     prop: 'type',
     label: '调动类型',
+    dictName: 'hrms_transfer_type',
+    type: 'dict',
   },
   {
     prop: 'transferTime',

@@ -30,7 +30,7 @@
             </el-col>
           </el-row>
           <el-form-item label="客户描述：" prop="companyUrl">
-            <el-input v-model="formData.companyUrl" placeholder="单位网址"></el-input>
+            <el-input v-model="formData.companyUrl" placeholder="单位网址（请以http/https开头）"></el-input>
           </el-form-item>
           <el-form-item label="" prop="companyFunction">
             <el-input type="textarea" v-model="formData.companyFunction" placeholder="单位职能"></el-input>

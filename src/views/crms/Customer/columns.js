@@ -18,7 +18,7 @@ const columnsMapByTypeId = [
     },
     {
       label: '市场经理',
-      prop: 'marketManager',
+      prop: 'marketManagerName',
     },
   ],
   [
@@ -58,7 +58,7 @@ const columnsMapByTypeId = [
     },
     {
       label: '市场经理',
-      prop: 'marketManager',
+      prop: 'marketManagerName',
     },
   ],
 ]

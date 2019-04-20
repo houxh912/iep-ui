@@ -59,10 +59,23 @@ var validateFun = (rule, value, callback) => {
     }
   })
 }
+const url = (rules, value, callback) => {
+  if (value === '') {
+    callback(new Error('网址不可为空'))
+  } else {
+    if (value !== '') {
+      var reg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~/])+$/
+      if (!reg.test(value)) {
+        callback(new Error('请输入有效的网址'))
+      }
+    }
+    callback()
+  }
+}
 const rules = {
   clientName: [
     { required: true, validator: validateFun, trigger: 'blur' },
-    { min: 6, max: 50, message: '至少6个字', trigger: 'blur' },
+    { min: 6, max: 20, message: '长度为6-20个字符', trigger: 'blur' },
   ],
   phoneNumber: [
     { required: true, message: '请输入手机号码', trigger: 'blur' },
@@ -77,14 +90,18 @@ const rules = {
   iepClientRespDept: [
     { required: true, message: '请选择负责部门', trigger: 'blur' },
   ],
-  companyUrl: [{ required: true, message: '请填写单位网址', trigger: 'blur' }],
+  companyUrl: [{ required: true, validator: url, trigger: 'blur' }],
   companyFunction: [
     { required: true, message: '请填写单位职能', trigger: 'blur' },
+    { max: 25, message: '长度不超过25个字符', trigger: 'blur' },
   ],
   contractAddress: [
     { required: true, message: '请填写单位地址', trigger: 'blur' },
   ],
-  otherDesc: [{ required: true, message: '请填写其他说明', trigger: 'blur' }],
+  otherDesc: [
+    { required: true, message: '请填写其他说明', trigger: 'blur' },
+    { max: 255, message: '长度不超过255个字符', trigger: 'blur' },
+  ],
   clientTypeKey: [
     { required: true, message: '请选择客户类型', trigger: 'blur' },
   ],
@@ -93,6 +110,7 @@ const rules = {
   ],
   specificBusinessType: [
     { required: true, message: '请填写具体业务类型', trigger: 'blur' },
+    { max: 50, message: '长度不超过50个字符', trigger: 'blur' },
   ],
   clientRela: [{ required: true, message: '请选择客户关系', trigger: 'blur' }],
   tags: [{ required: true, message: '请添加商机标签', trigger: 'blur' }],

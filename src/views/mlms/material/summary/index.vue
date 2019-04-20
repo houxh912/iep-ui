@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-container v-if="pageState==='list'">
+    <basic-container v-show="pageState==='list'">
       <page-header title="纪要" :replaceText="replaceText" :data="data"></page-header>
       <operation-container>
         <template slot="left">
@@ -49,7 +49,8 @@
             @selectionChange="handleSelectionChange" 
             @handleCollection="handleCollection" 
             :permissionEdit="permission_edit" 
-            :permissionDelete="permission_delete"></tableTemplate>
+            :permissionDelete="permission_delete" 
+            @handleDetail="handleDetail"></tableTemplate>
         </template>
         <template v-if="tabName ==='involved'" v-slot:involved>
           <tableTemplate ref="tableTpl" 
@@ -58,7 +59,8 @@
             @selectionChange="handleSelectionChange" 
             @handleCollection="handleCollection"
             :permissionEdit="permission_edit" 
-            :permissionDelete="permission_delete"></tableTemplate>
+            :permissionDelete="permission_delete" 
+            @handleDetail="handleDetail"></tableTemplate>
         </template>
         <template v-if="tabName ==='received'" v-slot:received>
           <tableTemplate ref="tableTpl" 
@@ -67,12 +69,13 @@
             @selectionChange="handleSelectionChange" 
             @handleCollection="handleCollection"
             :permissionEdit="permission_edit" 
-            :permissionDelete="permission_delete"></tableTemplate>
+            :permissionDelete="permission_delete" 
+            @handleDetail="handleDetail"></tableTemplate>
         </template>
       </iep-tabs>
 
     </basic-container>
-    <!-- <detail-page ref="detailPage" v-if="pageState==='detail'" @backPage="pageState = 'list'"></detail-page> -->
+    <detail-page ref="detailPage" v-if="pageState==='detail'" @backPage="pageState = 'list'" :detailState=true></detail-page>
     <share-dialog ref="share" type="summary"></share-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="meeting" :requestFn="createCollect"></collection-dialog>
   </div>
@@ -84,12 +87,12 @@ import { mapState, mapGetters } from 'vuex'
 import { getTablePersonal, getTableMyInvolved, getTableMyReceived, deleteData, createCollect } from '@/api/mlms/material/summary'
 import ShareDialog from './shareDialog'
 import CollectionDialog from '../components/collectionDialog'
-// import DetailPage from './detail'
+import DetailPage from './detail'
 import tableTemplate from './tableTpl'
 
 export default {
   mixins: [mixins],
-  components: { ShareDialog, tableTemplate, CollectionDialog },
+  components: { ShareDialog, tableTemplate, CollectionDialog, DetailPage },
   data () {
     return {
       createCollect,
@@ -184,6 +187,12 @@ export default {
     tabClick () {
       this.selectList = []
       this.multipleSelection = []
+    },
+    handleDetail (row) {
+      this.pageState = 'detail'
+      this.$nextTick(() => {
+        this.$refs['detailPage'].open(row)
+      })
     },
   },
 }

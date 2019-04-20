@@ -104,6 +104,12 @@ function commentForm () {
 
 export default {
   components: { wrongDialog },
+  props: {
+    detailState: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data () {
     return {
       formData: {
@@ -113,7 +119,11 @@ export default {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          this.$router.go(-1)
+          if (this.detailState) {
+            this.$emit('backPage', false)
+          } else {
+            this.$router.go(-1)
+          }
         },
       },
       comment: commentForm(),
@@ -177,9 +187,15 @@ export default {
         })
       })
     },
+    open (id) {
+      this.getDataById(id)
+    },
   },
   created () {
-    this.getDataById(this.$route.params.id)
+    let params = this.$route.params
+    if (params.id) {
+      this.getDataById(params.id)
+    }
   },
   beforeRouteUpdate (to, from, next) {
     this.getDataById(to.params.id)

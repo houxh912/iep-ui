@@ -67,7 +67,6 @@ export const initFormData = () => {
   }
 }
 
-
 export const initSearchForm = () => {
   return {
     name: '',
@@ -75,44 +74,16 @@ export const initSearchForm = () => {
 }
 
 export const rules = {
-  meetingType: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
   title: [
     { required: true, message: '必填', trigger: 'blur' },
+    { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
   ],
   meetingContent: [
     { required: true, message: '必填', trigger: 'blur' },
-  ],
-  meetingCon: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
-  thoughtsProblem: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
   ],
   meetingTime: [
     { required: true, message: '必填', trigger: 'blur' },
-  ],
-  meetingLocation: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
-  tagKeyWords: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  receiverIds: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  remark: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
-  visitType: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  visitingAddress: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
-  visitingUserId: [
-    { required: true, message: '必填', trigger: 'change' },
   ],
 }
 export { columnsMap, initForm, visitColumnsMap }

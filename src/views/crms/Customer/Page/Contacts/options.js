@@ -45,6 +45,15 @@ const telPhone = (rules, value, callback) => {
     callback()
   }
 }
+const fax = (rules, value, callback) => {
+  if (value !== '') {
+    var reg = /^(\d{3,4}-)?\d{7,8}$/
+    if (!reg.test(value)) {
+      callback(new Error('请输入有效的传真'))
+    }
+  }
+  callback()
+}
 const rules = {
   contactName: [
     { required: true, message: '联系人姓名不能为空', trigger: 'blur' },
@@ -52,9 +61,28 @@ const rules = {
   ],
   contactPosition: [
     { required: true, message: '联系人职务不能为空', trigger: 'blur' },
-    { max: 255, message: '不能超过255个字符', trigger: 'blur' },
+    { max: 20, message: '不能超过20个字符', trigger: 'blur' },
   ],
   telephoneNo: [{ required: true, validator: telPhone, trigger: 'blur' }],
   cellphone: [{ required: true, validator: cellPhone, trigger: 'blur' }],
+  address: [
+    { message: '请填写地址', trigger: 'blur' },
+    { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
+  ],
+  fax: [{ validator: fax, trigger: 'blur' }],
+  qq: [{ max: 11, message: '昵称，电话或者qq号', trigger: 'blur' }],
+  wechat: [{ max: 10, message: '长度不可超过10个字符', trigger: 'blur' }],
+  email: [
+    { message: '请输入邮箱地址', trigger: 'blur' },
+    {
+      type: 'email',
+      message: '请输入正确的邮箱地址',
+      trigger: ['blur', 'change'],
+    },
+  ],
+  clientConcern: [
+    { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
+  ],
+  other: [{ max: 255, message: '长度不可超过255个字符', trigger: 'blur' }],
 }
 export { columnsMap, initForm, rules }

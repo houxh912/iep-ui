@@ -100,11 +100,12 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { initForm, rules } from '../options'
+import { initForm } from '../options'
 import { getCustomerById } from '@/api/crms/customer'
 import { mapGetters } from 'vuex'
 import { createById } from '@/api/crms/business'
 import { getObj } from '@/api/admin/user'
+import { checkName } from '@/api/crms/customer'
 export default {
   name: 'edit',
   props: {
@@ -114,18 +115,97 @@ export default {
     },
   },
   data () {
+    var validateFun = (rule, value, callback) => {
+      let val = value.replace(/(^\s*)|(\s*$)/g, '')
+      if (!val) {
+        return callback(new Error('客户名称不能为空'))
+      }
+      checkName({ clientName: val }).then(res => {
+        if (!res.data.data) {
+          if (this.flagName == this.formData.clientName) {
+            callback()
+            return false
+          }
+          callback(new Error('您输入的客户名称已存在，请重新输入！'))
+        } else {
+          callback()
+        }
+      })
+    }
+    const url = (rules, value, callback) => {
+      if (value === '') {
+        callback(new Error('网址不可为空'))
+      } else {
+        if (value !== '') {
+          var reg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~/])+$/
+          if (!reg.test(value)) {
+            callback(new Error('请输入有效的网址'))
+          }
+        }
+        callback()
+      }
+    }
+
     return {
       id: false,
-      rules,
+      rules: {
+        clientName: [
+          { required: true, validator: validateFun, trigger: 'blur' },
+          { min: 6, max: 20, message: '长度为6-20个字符', trigger: 'blur' },
+        ],
+        phoneNumber: [
+          { required: true, message: '请输入手机号码', trigger: 'blur' },
+          { min: 11, max: 11, message: '手机位数为11位', trigger: 'blur' },
+        ],
+        districtType: [
+          { required: true, message: '请选择区域类型', trigger: 'blur' },
+        ],
+        marketManager: [
+          { required: true, message: '请填写市场经理', trigger: 'blur' },
+        ],
+        iepClientRespDept: [
+          { required: true, message: '请选择负责部门', trigger: 'blur' },
+        ],
+        companyUrl: [{ required: true, validator: url, trigger: 'blur' }],
+        companyFunction: [
+          { required: true, message: '请填写单位职能', trigger: 'blur' },
+          { max: 25, message: '长度不超过25个字符', trigger: 'blur' },
+        ],
+        contractAddress: [
+          { required: true, message: '请填写单位地址', trigger: 'blur' },
+        ],
+        otherDesc: [
+          { required: true, message: '请填写其他说明', trigger: 'blur' },
+          { max: 255, message: '长度不超过255个字符', trigger: 'blur' },
+        ],
+        clientTypeKey: [
+          { required: true, message: '请选择客户类型', trigger: 'blur' },
+        ],
+        businessTypeKey: [
+          { required: true, message: '请选择业务类型', trigger: 'blur' },
+        ],
+        specificBusinessType: [
+          { required: true, message: '请填写具体业务类型', trigger: 'blur' },
+          { max: 50, message: '长度不超过50个字符', trigger: 'blur' },
+        ],
+        clientRela: [{ required: true, message: '请选择客户关系', trigger: 'blur' }],
+        tags: [{ required: true, message: '请添加商机标签', trigger: 'blur' }],
+        followUpStatus: [
+          { required: true, message: '请选择跟进状态', trigger: 'blur' },
+        ],
+      },
       flag: false,
       data: '',
+      flagName: '',
       methodName: '',
       formRequestFn: () => { },
       formData: initForm(),
+
     }
   },
   created () {
     this.formData.marketManager = this.userInfo.userId
+    this.flagName = this.record.flagName
     this.formData.Manager = this.userInfo.realName
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn

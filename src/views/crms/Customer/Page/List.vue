@@ -137,6 +137,7 @@ export default {
         formRequestFn: putCustomer,
         methodName: '修改',
         id: row.clientId,
+        flagName: row.clientName,
       })
     },
     //客户详情

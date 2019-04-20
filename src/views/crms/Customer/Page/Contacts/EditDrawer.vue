@@ -28,35 +28,35 @@
 
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="传真：">
+          <el-form-item label="传真：" prop="fax">
             <el-input v-model="form.fax"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="QQ：">
-            <el-input v-model="form.qq"></el-input>
+          <el-form-item label="QQ：" prop="qq">
+            <el-input v-model="form.qq" placeholder="昵称，电话或者qq号"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="微信：">
+          <el-form-item label="微信：" prop="wechat">
             <el-input v-model="form.wechat"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="邮箱：">
+          <el-form-item label="邮箱：" prop="email">
             <el-input v-model="form.email"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="地址：">
+      <el-form-item label="地址：" prop="address">
         <el-input v-model="form.address"></el-input>
       </el-form-item>
-      <el-form-item label="客户关注：">
+      <el-form-item label="客户关注：" prop="clientConcern">
         <el-input type="textarea" v-model="form.clientConcern"></el-input>
       </el-form-item>
-      <el-form-item label="其他：">
+      <el-form-item label="其他：" prop="other">
         <el-input type="textarea" v-model="form.other"></el-input>
       </el-form-item>
     </el-form>

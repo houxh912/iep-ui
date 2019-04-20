@@ -31,7 +31,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="手机" prop="cellphone">
-              <el-input v-model="formData.cellphone" ></el-input>
+              <el-input v-model="formData.cellphone"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -189,7 +189,9 @@ export default {
     },
     handlequery () {
       this.dialogVisible = false
-      this.formData.clientInfos = this.selectData
+      for (var i = 0; i < this.selectData.length; i++) {
+        this.formData.clientInfos.push(this.selectData[i])
+      }
     },
     search () {
       this.loadPage()

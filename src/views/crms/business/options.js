@@ -33,8 +33,14 @@ const initSearchForm = () => {
   }
 }
 const rules = {
-  clientName: [{ required: true, message: '请输入客户名称', trigger: 'blur' }],
-  projectName: [{ required: true, message: '请输入项目名称', trigger: 'blur' }],
+  clientName: [
+    { required: true, message: '请输入客户名称', trigger: 'blur' },
+    { max: 20, message: '长度不超过20个字符', trigger: 'blur' },
+  ],
+  projectName: [
+    { required: true, message: '请输入项目名称', trigger: 'blur' },
+    { max: 20, message: '长度不超过20个字符', trigger: 'blur' },
+  ],
   businessType: [
     { required: true, message: '请选择业务类型', trigger: 'blur' },
   ],

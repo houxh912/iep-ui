@@ -1,7 +1,7 @@
 import { mergeByFirst } from '@/util/util'
 const columnsMap = [
   {
-    prop: 'name',
+    prop: 'trainingTheme',
     label: '培训主题',
   },
   {
@@ -27,7 +27,7 @@ const columnsMap = [
 ]
 
 const rules = {
-  name: [
+  trainingTheme: [
     { required: true, message: '请输入主题', trigger: 'blur' },
   ],
   teacher: [
@@ -56,7 +56,7 @@ const rules = {
 const initForm = () => {
   return {
     id: null, // ID
-    name: '', // 培训主题
+    trainingTheme: '', // 培训主题
     teacher: '', // 培训老师
     startTime: '', // 培训开始时间
     endTime: '', // 培训结束时间
@@ -84,7 +84,7 @@ const formToDto = (row) => {
 
 const initSearchForm = () => {
   return {
-    name: '',
+    trainingTheme: '',
     teacher: '',
     type: '',
     date: '',

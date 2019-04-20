@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="编辑" width="500px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}岗位`" width="500px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="岗位名称" prop="name">
         <el-input v-model="form.name"></el-input>

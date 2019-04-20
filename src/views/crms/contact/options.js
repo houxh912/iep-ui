@@ -43,6 +43,15 @@ const telPhone = (rules, value, callback) => {
     callback()
   }
 }
+const cellPhone = (rules, value, callback) => {
+    if (value !== '') {
+      var reg = /(^1[0-9]{10}$)|(^0\d{2,3}-?\d{7,8}$)/
+      if (!reg.test(value)) {
+        callback(new Error('请输入有效的电话号码'))
+      }
+    }
+    callback()
+}
 const rules = {
   contactName: [
     { required: true, message: '请输入联系人姓名', trigger: 'blur' },
@@ -62,7 +71,7 @@ const rules = {
   address: [{ required: true, message: '请填写地址', trigger: 'blur' },{ max: 255, message: '长度不可超过255个字符', trigger: 'blur' }],
   clientInfos: [{ required: true, message: '请选择对应客户', trigger: 'blur' }],
   cellphone:[{
-    validator: telPhone,
+    validator: cellPhone,
     trigger: 'blur',
   }],
   fax:[

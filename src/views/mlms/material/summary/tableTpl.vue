@@ -22,8 +22,8 @@
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="handleEdit(scope.row)">修改</el-dropdown-item>
-                <el-dropdown-item @click.native="handleDeleteById(scope.row)">删除</el-dropdown-item>
+                <el-dropdown-item @click.native="handleEdit(scope.row)" v-if="permissionEdit">修改</el-dropdown-item>
+                <el-dropdown-item @click.native="handleDeleteById(scope.row)" v-if="permissionDelete">删除</el-dropdown-item>
                 <el-dropdown-item @click.native="handleCopy(scope.row)">复制</el-dropdown-item>
                 <el-dropdown-item @click.native="handleDownload(scope.row)">下载为图片</el-dropdown-item>
                 <el-dropdown-item @click.native="handleExport(scope.row)">导出为文本</el-dropdown-item>
@@ -53,6 +53,14 @@ export default {
   props: {
     getTableData: {
       type: Function,
+    },
+    permissionEdit: {
+      type: Boolean,
+      default: false,
+    },
+    permissionDelete: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {

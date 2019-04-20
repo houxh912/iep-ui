@@ -92,7 +92,7 @@
     <el-dialog :title="`${methodName}目录`" :visible.sync="dialogVisible" width="30%">
       <el-form :model="formData" :rules="rules" label-width="100px" ref="form">
         <el-form-item label="目录名称" prop="name">
-          <el-input v-model="formData.name"></el-input>
+          <el-input v-model="formData.name" maxlength="10"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">

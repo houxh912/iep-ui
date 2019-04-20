@@ -61,16 +61,18 @@ export default {
     // 查看详情的时候转发
     detailForward (row) {
       this.pageState = 'form'
-      this.forwardFn(row)
+      this.forwardFn(row, 'detail')
     },
     // 转发
-    forwardFn (row) {
+    forwardFn (row, type) {
       this.forwardShow = false
       this.$refs['updateDialog'].resetForm()
       this.$refs['updateDialog'].pageState = 'forward'
       this.$refs['updateDialog'].backOption.isBack = true
+      this.$refs['updateDialog'].backType = type
       this.$refs['updateDialog'].formData.content = row.content
-      this.$refs['updateDialog'].formData.transferList = {
+      this.$refs['updateDialog'].formData.subject = row.subject
+      this.$refs['updateDialog'].formData.transferList = { // 所有的关联
         projectIds: this.dealWithTransferList(row.projectRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }]),
         summaryIds: [],
         materialIds: this.dealWithTransferList(row.materialRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }]),

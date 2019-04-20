@@ -9,7 +9,8 @@
     <el-row class="info">
       <el-col class="item" :span='12' v-for="(item, index) in infoList" :key="index">
         <label>{{item.name}}：</label>
-        <span v-if="item.type">{{dictsMap[item.value][formData[item.value]]}}</span>
+        <span v-if="item.type == 'dict'">{{dictsMap[item.value][formData[item.value]]}}</span>
+        <span v-else-if="item.type == 'date'">{{formatYear(formData[item.value])}}</span>
         <span v-else>{{formData[item.value]}}</span>
       </el-col>
       <el-col class="remark">
@@ -89,6 +90,21 @@
 import { getDataById } from '@/api/mlms/material/datum/contract'
 import { dictsMap } from './option'
 
+function formatDig (num) {
+  return num>9?''+num:'0'+num
+}
+
+function formatYear (mill){
+  var y = new Date(mill)
+  let raws = [
+      y.getFullYear(),
+      formatDig(y.getMonth() + 1),
+      formatDig(y.getDate()),
+  ]
+  let format = ['-','-','-']
+  return String.raw({raw:raws}, ...format)
+}
+
 export default {
   data () {
     return {
@@ -111,8 +127,8 @@ export default {
         { name: '市场经理', value: 'directorRealName' },
         { name: '合同类型', value: 'contractType', type: 'dict' },
         { name: '业务类型', value: 'businessType', type: 'dict' },
-        { name: '签订日期', value: 'signTime' },
-        { name: '完结日期', value: 'finishTime' },
+        { name: '签订日期', value: 'signTime', type: 'date' },
+        { name: '完结日期', value: 'finishTime', type: 'date' },
         { name: '委托单位', value: 'companyName' },
         { name: '签署单位', value: 'signCompanyRealName' },
         { name: '签署部门', value: 'signDeptOrgNames' },
@@ -127,6 +143,7 @@ export default {
       payList: [
         { waibao: '8000', pingshen: '20000', fuwu: '3000' },
       ],
+      formatYear,
     }
   },
   methods: {

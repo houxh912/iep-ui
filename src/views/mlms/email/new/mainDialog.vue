@@ -2,19 +2,22 @@
   <iep-dialog :dialog-show="dialogShow" title="添加关联" width="60%" @close="resetForm">
     <!-- transfer -->
     <div class="iep-transfer">
+      <!-- 第一栏 -->
       <div class="transfer box-list">
         <ul class="list">
           <li class="item" :class="activitIndex === index ? 'selectItem' : ''" v-for="(item, index) in firstList" :key="index" @click="firstClick(item, index)">{{item.name}}</li>
         </ul>
       </div>
       <div class="arrow"><i class="el-icon-d-arrow-right"></i></div>
+      <!-- 第二栏 -->
       <div class="transfer box-list">
         <!-- <el-input class="search" placeholder="请输入关键字" prefix-icon="el-icon-search" v-model="searchVal"></el-input> -->
         <ul class="list">
-          <li class="item" :class="selectFn(item.id) ? 'selectItem' : ''" v-for="(item, index) in secondList" :key="index" @click="secondClick(item)">{{item.name}}</li>
+          <li class="item" :class="selectFn(item.id) ? 'selectItem' : ''" v-for="(item, index) in secondList" :key="index" @click="selectFn(item.id) ? '' : secondClick(item)">{{item.name}}</li>
         </ul>
       </div>
       <div class="arrow"><i class="el-icon-d-arrow-right"></i></div>
+      <!-- 第三栏 -->
       <div class="transfer box-list">
         <ul class="list">
           <h3 class="item-title">关联项目：</h3>
@@ -133,6 +136,7 @@ export default {
 
 <style lang="scss" scoped>
 .iep-transfer {
+  margin-bottom: 25px;
   display: flex;
   .box-list::-webkit-scrollbar {
     border-radius: 10px;

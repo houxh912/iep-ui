@@ -26,7 +26,7 @@
             </template>
           </el-table-column>
         </el-table>
-        <div class="add-child" @click="handleChild(scope)">新增子分类</div>
+        <div class="add-child" @click="handleChild(scope)" v-if="permissionAdd">新增子分类</div>
       </template>
     </el-table-column>
     <!-- 子级-结束 -->
@@ -54,6 +54,10 @@ export default {
     option: {
       type: Object,
       default: () => {},
+    },
+    permissionAdd: {
+      type: Boolean,
+      default: false,
     },
   },
   data () {

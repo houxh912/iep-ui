@@ -33,8 +33,8 @@
         <el-table-column prop="operation" label="操作" width="180">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain>编辑</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
+              <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain v-if="permission_edit">编辑</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)" size="small" v-if="permission_delete">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -51,17 +51,22 @@ import { tableOption, dictsMap } from './option'
 import { getTableData, getTableDataOnlyMe, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/contract'
 import MainDialog from './mainDialog'
 import detailDialog from './detail'
+import { mapGetters } from 'vuex'
 
 export default {
   mixins: [mixins],
   components: { MainDialog, detailDialog },
-  computed: {},
+  computed: {
+    ...mapGetters(['permissions']),
+  },
   data () {
     return {
       pageState: 'list',
       dictsMap,
       columnsMap: tableOption,
       getTableDataFn: getTableData,
+      permission_edit: false,
+      permission_delete: false,
     }
   },
   methods: {
@@ -125,6 +130,8 @@ export default {
   },
   created () {
     this.loadPage()
+    this.permission_edit = this.permissions['mlms_datum_edit']
+    this.permission_delete = this.permissions['mlms_datum_delete']
   },
 }
 </script>

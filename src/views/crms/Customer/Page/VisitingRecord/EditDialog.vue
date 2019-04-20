@@ -1,14 +1,14 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}组织`" width="40%" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="联系记录" width="40%" @close="loadPage">
     <el-form :model="formData" :rules="rules" ref="formName" size="small" label-width="100px">
-      <el-form-item label="主题：" prop="theme">
+      <el-form-item label="联系主题：" prop="theme">
         <el-input v-model="formData.theme"></el-input>
       </el-form-item>
-      <el-form-item label="拜访时间：" prop="visitTime">
+      <el-form-item label="联系时间：" prop="visitTime">
         <iep-date-picker v-model="formData.visitTime" type="date" placeholder="选择日期"></iep-date-picker>
       </el-form-item>
-      <el-form-item label="拜访记录：" prop="contactRecord">
-        <el-input type="textarea" v-model="formData.contactRecord"></el-input>
+      <el-form-item label="联系记录：" prop="contactRecord">
+        <el-input type="textarea" v-model="formData.contactRecord" rows=5></el-input>
       </el-form-item>
     </el-form>
     <template slot="footer">

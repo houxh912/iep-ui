@@ -29,7 +29,7 @@
         <iep-dept-multiple v-model="form.deptList"></iep-dept-multiple>
       </el-form-item>
       <el-form-item label="文件:">
-        <iep-upload v-model="form.fileList" drag>
+        <iep-upload v-model="form.fileList" drag :limit="2">
           点击进入<a href="http://77777">haahahahah</a>你好
         </iep-upload>
       </el-form-item>

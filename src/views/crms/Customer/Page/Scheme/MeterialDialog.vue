@@ -65,7 +65,7 @@ export default {
       })
     },
     search () {
-      this.loadTable({ materialName: this.materialName }, getTableData)
+      this.loadTable({ name: this.materialName }, getTableData)
     },
   },
 }

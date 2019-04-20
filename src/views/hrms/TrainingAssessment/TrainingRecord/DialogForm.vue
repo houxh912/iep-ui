@@ -1,8 +1,8 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="培训信息" width="400px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
-      <el-form-item label="培训主题" prop="name">
-        <el-input v-model="form.name" placeholder="请填入培训主题"></el-input>
+      <el-form-item label="培训主题" prop="trainingTheme">
+        <el-input v-model="form.trainingTheme" placeholder="请填入培训主题"></el-input>
       </el-form-item>
       <el-form-item label="培训老师" prop="teacher">
         <el-input v-model="form.teacher" placeholder="请填入培训老师"></el-input>

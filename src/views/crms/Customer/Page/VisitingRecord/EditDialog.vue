@@ -34,11 +34,14 @@ export default {
       rules: {
         theme: [
           { required: true, message: '请输入主题', trigger: 'change' },
+          { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
         ],
         visitTime: [
           { required: true, message: '请选择时间', trigger: 'change' },
         ],
-        contactRecord: [{ required: true, message: '请填写拜访记录', trigger: 'change' }],
+        contactRecord: [{ required: true, message: '请填写拜访记录', trigger: 'change' },
+        { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
+        ],
       },
     }
   },

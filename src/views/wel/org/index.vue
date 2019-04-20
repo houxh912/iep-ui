@@ -20,7 +20,7 @@
           <div v-if="tabsActive===1" class="create-org-container">
             <el-form ref="form" :rules="rules" size="small" :model="form" label-width="80px">
               <el-form-item label="组织名称" prop="name">
-                <el-input v-model="form.name"></el-input>
+                <el-input v-model="form.name" :maxlength="110"></el-input>
               </el-form-item>
               <el-form-item label="Logo" prop="logo">
                 <iep-avatar v-model="form.logo"></iep-avatar>
@@ -88,6 +88,7 @@ export default {
       rules: {
         name: [
           { required: true, validator: validateOrgName, trigger: 'blur' },
+          { min: 3, max: 100, message: '组织名称必须超过 3 个字符，但不得超过 100 个字符', trigger: 'blur' },
         ],
         logo: [
           { required: true, message: '请输入LOGO', trigger: 'blur' },

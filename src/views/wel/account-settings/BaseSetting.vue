@@ -50,7 +50,7 @@
             <iep-tag-detail :value="form.deptList"></iep-tag-detail>
           </el-form-item>
           <el-form-item label="出生年月：" class="form-half">
-            <span>{{form.birthday | parseTime('{y}-{m}-{d}')}}</span>
+            <iep-date-picker v-model="form.birthday" type="date" placeholder="请选择出生年月"></iep-date-picker>
           </el-form-item>
           <el-form-item label="性别：" prop="sex" class="form-half">
             <el-radio-group v-model="form.sex">

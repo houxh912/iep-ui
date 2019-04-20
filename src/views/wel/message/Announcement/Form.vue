@@ -46,7 +46,7 @@ export default {
         ],
         content: [
           { required: true, message: '请输入内容', trigger: 'blur' },
-          { min: 3, max: 5, message: '内容必须超过 3 个字符，但不得超过 2000 个字符', trigger: 'blur' },
+          { min: 3, max: 2000, message: '内容必须超过 3 个字符，但不得超过 2000 个字符', trigger: 'blur' },
         ],
         receivers: [
           { required: true, message: '请选择发布范围', trigger: 'blur' },

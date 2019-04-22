@@ -6,6 +6,7 @@ import errorCode from '@/const/errorCode'
 import { Message } from 'element-ui'
 import 'nprogress/nprogress.css'
 import store from '@/store' // progress bar style
+import router from '@/router/router'
 
 axios.defaults.timeout = 30000
 axios.defaults.baseURL = '/api'
@@ -54,19 +55,22 @@ axios.interceptors.response.use(
     const message = res.data.msg || errorCode[status] || errorCode['default']
     if (status === 401 || res.data.code === 401) {
       store.dispatch('FedLogOut').then(() => {
+        router.push({ path: '/login' })
       })
       return
-    }
-
-    if (status !== 200 || res.data.code === 1) {
+    } else if (status === 403 || res.data.code === 403) {
+      router.push({ path: '/403' })
+      return
+    } else if (status !== 200 || res.data.code === 1) {
       Message({
         message: message,
         type: 'error',
       })
       return Promise.reject(new Error(message))
+    } else {
+      return res
     }
 
-    return res
   },
   error => {
     NProgress.done()

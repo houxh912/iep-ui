@@ -22,7 +22,7 @@ export default {
     return {
         title:'荣誉资质',
         replaceText:[24,3,5],
-        firstImg:require('./img/软著.jpg'),
+        firstImg:require('./img/copyright.jpg'),
         HonorList: ['软著|数据基因软著','软著|数据基因软著','软著|数据基因软著','软著|数据基因软著','软著|数据基因软著','软著|数据基因软著','软著|数据基因软著','软著|数据基因软著','软著|数据基因软著','软著|数据基因软著','软著|数据基因软著','软著|数据基因软著'],
     }
   },

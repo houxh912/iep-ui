@@ -16,9 +16,9 @@ export default {
   data () {
     return {
       wonderfulList: [
-        { name: '国脉先锋队', img: require('../img/国脉先锋队.jpg') },
-        { name: '国脉集团研发中心', img: require('../img/国脉集团研发中心.jpg') },
-        { name: '佛山司马钱信息技术有限公司', img: require('../img/佛山司马钱信息技术有限公司.jpg') },
+        { name: '国脉先锋队', img: require('../img/organization1.jpg') },
+        { name: '国脉集团研发中心', img: require('../img/organization2.jpg') },
+        { name: '佛山司马钱信息技术有限公司', img: require('../img/organization3.jpg') },
       ],
     }
   },

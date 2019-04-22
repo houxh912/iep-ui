@@ -6,10 +6,10 @@
                 <div class="name">{{item.name}}<i class="iconfont icon-wenhao"></i></div>
                 <div class="data">{{item.data}}</div>
                 <div class="chart">
-                    <ve-histogram v-if="index == 0" :extend="chartExtend3" :colors="colors[0]" width="240px" height="60px"></ve-histogram>
-                    <ve-line v-if="index == 1" :extend="chartExtend2" :colors="colors[1]" width="240px" height="60px"></ve-line>
-                    <ve-histogram v-if="index == 2" :extend="chartExtend3" :colors="colors[2]" width="240px" height="60px"></ve-histogram>
-                    <ve-histogram v-if="index == 3" :extend="chartExtend3" :colors="colors[3]" width="240px" height="60px"></ve-histogram>
+                    <ve-histogram v-if="index == 0" :extend="chartExtend3" :colors="colors1" width="240px" height="60px"></ve-histogram>
+                    <ve-line v-if="index == 1" :extend="chartExtend2" :colors="colors2" width="240px" height="60px"></ve-line>
+                    <ve-histogram v-if="index == 2" :extend="chartExtend3" :colors="colors3" width="240px" height="60px"></ve-histogram>
+                    <ve-histogram v-if="index == 3" :extend="chartExtend3" :colors="colors4" width="240px" height="60px"></ve-histogram>
                 </div>
            </div>
         </div>
@@ -18,7 +18,10 @@
 <script>
 export default {
     data (){
-        this.colors = ['#db474f','#deab8c','#3aa1fe','#8cc48d']
+        this.colors1 = ['#db474f']
+        this.colors2 = ['#deab8c']
+        this.colors3 = ['#3aa1fe']
+        this.colors4 = ['#8cc48d']
         this.chartExtend2 = {
             xAxis: {
                 show: false,
@@ -74,17 +77,6 @@ export default {
                 { name: '荣誉资质', data: '59项' },
                 { name: '技术能力', data: '159项' },
             ],
-            // chartData: {
-            //     columns: ['日期', '访问用户'],
-            //     rows: [
-            //         { '日期': '1/1', '访问用户': 1393 },
-            //         { '日期': '1/2', '访问用户': 3530 },
-            //         { '日期': '1/3', '访问用户': 2923 },
-            //         { '日期': '1/4', '访问用户': 1723 },
-            //         { '日期': '1/5', '访问用户': 3792 },
-            //         { '日期': '1/6', '访问用户': 4593 },
-            //     ],
-            // },
         }
     },
 }

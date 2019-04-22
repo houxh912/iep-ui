@@ -49,7 +49,13 @@
           <el-form-item label="所属部门：" class="form-half">
             <iep-tag-detail :value="form.deptList"></iep-tag-detail>
           </el-form-item>
-          <el-form-item label="出生年月：" class="form-half">
+          <el-form-item class="form-half">
+            <div slot="label">
+              出生年月
+              <iep-tip content="请务必填写身份证上的年月">
+              </iep-tip>
+              ：
+            </div>
             <iep-date-picker v-model="form.birthday" type="date" placeholder="请选择出生年月"></iep-date-picker>
           </el-form-item>
           <el-form-item label="性别：" prop="sex" class="form-half">

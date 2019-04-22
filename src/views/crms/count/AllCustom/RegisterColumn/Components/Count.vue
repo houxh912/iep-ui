@@ -25,8 +25,8 @@ export default {
   data () {
     return {
       tableData: [],
-      current:1,
-      total:'',
+      current: 1,
+      total: '',
       pageOption: {
         current: 1,
         size: 5,
@@ -34,13 +34,13 @@ export default {
     }
   },
   created () {
-    this.load ()
+    this.load()
   },
   methods: {
     load () {
       getAllDept(this.pageOption).then(res => {
         this.tableData = res.data.records
-        this.total= res.data.total/5
+        this.total = res.data.total / 5
       })
     },
     left () {
@@ -66,15 +66,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title{
+.title {
   width: 100%;
-  height:50px;
+  height: 50px;
   display: flex;
   justify-content: space-between;
-  padding:10px;
+  padding: 10px;
 }
 .border {
-  cursor:pointer;
+  cursor: pointer;
   margin-left: 10px;
   i {
     display: inline-block;

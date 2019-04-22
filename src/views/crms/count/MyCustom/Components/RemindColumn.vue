@@ -3,8 +3,12 @@
     <el-row class="remind">
       <el-col class="head" :span='24'>预警提醒
         <div class="more">
-          <span class="border" @click="left"><i class="el-icon-arrow-left"></i></span>
-          <span class="border" @click="right"><i class="el-icon-arrow-right"></i></span>
+          <span class="border">
+            <iep-button plain size="small" @click="left" :disabled="leftDisabled"><i class="el-icon-arrow-left"></i></iep-button>
+          </span>
+          <span class="border">
+            <iep-button plain size="small" @click="right" :disabled="rightDisabled"><i class="el-icon-arrow-right"></i></iep-button>
+          </span>
         </div>
       </el-col>
       <div v-for="(item, index) in infoList" :key="index" class="tip" @mouseenter="tipsSelect=index" @mouseleave="tipsSelect=-1">
@@ -27,6 +31,8 @@ export default {
       tipsSelect: -1,
       current: 1,
       total: '',
+      leftDisabled: false,
+      rightDisabled: false,
     }
   },
   created () {
@@ -44,10 +50,12 @@ export default {
     },
     left () {
       if (this.current > 1) {
+        this.leftDisabled = false
         this.current -= 1
         this.load()
       } else {
-        this.$message('当前已是第一页')
+        this.leftDisabled = true
+        this.$message.info('当前已是第一页')
         return false
       }
 
@@ -55,9 +63,11 @@ export default {
     right () {
       var flag = Math.ceil(this.total / 5) - 1
       if (this.current > flag) {
-        this.$message('当前已是最后一页')
+        this.rightDisabled = true
+        this.$message.info('当前已是最后一页')
         return false
       } else {
+        this.rightDisabled = false
         this.current += 1
         this.load()
       }
@@ -80,16 +90,12 @@ export default {
       float: right;
       .border {
         margin-left: 10px;
+        .el-button {
+          padding: 0;
+        }
         i {
           display: inline-block;
           padding: 5px;
-          border: 1px solid #9c9c9c;
-          &:hover {
-            border: 1px solid #d56368;
-          }
-        }
-        &:hover {
-          color: blue;
         }
       }
     }

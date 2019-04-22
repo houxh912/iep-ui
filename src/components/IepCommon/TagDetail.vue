@@ -1,12 +1,12 @@
 <template>
-  <span>
+  <div>
     <span v-if="!value.length">
       <a-tag>无</a-tag>
     </span>
     <span v-else v-for="(item,index) in value" :key="index">
       <a-tag>{{item}}</a-tag>
     </span>
-  </span>
+  </div>
 </template>
 <script>
 export default {

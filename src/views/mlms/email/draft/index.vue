@@ -53,6 +53,10 @@ export default {
     },
     // 批量删除
     allDelete () {
+      if (this.multipleSelection.length == 0) {
+        this.$message.error('请至少选择一条数据！')
+        return
+      }
       deleteEmailByIds(this.multipleSelection).then(() => {
         this.$message({
           message: '操作成功',

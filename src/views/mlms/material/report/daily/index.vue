@@ -2,7 +2,7 @@
   <div class="daily">
 
     <div class="fillin">
-      <el-input type="textarea" rows=5 v-model="createData" placeholder="记录下今天的工作内容吧" maxlength="300"></el-input>
+      <el-input type="textarea" rows=5 v-model="createData" placeholder="请按照规范要求，重点记录今日工作，如有感悟更好。" maxlength="300"></el-input>
       <div class="footer">
         <iep-button type="primary" @click="submit('create')">保存</iep-button>
         <div class="error" v-if="createValidate">日报内容不能为空</div>
@@ -36,7 +36,7 @@
                   </div>
                 </div>
                 <div class="content" v-else-if="updateIndex == index">
-                  <el-input type="textarea" rows=5 v-model="updateData" placeholder="记录下今天的工作内容吧" maxlength="300"></el-input>
+                  <el-input type="textarea" rows=5 v-model="updateData" placeholder="请按照规范要求，重点记录今日工作，如有感悟更好。" maxlength="300"></el-input>
                   <div class="footer">
                     <iep-button type="primary" @click="submit(dailyState, row.createTime, index)">保存</iep-button>
                     <div class="error" v-if="updateValidate">日报内容不能为空</div>
@@ -62,6 +62,7 @@ export default {
   components: { TimeLine },
   data () {
     return {
+        tipContent:'请按照规范要求，重点记录今日工作，如有感悟更好。',
       activeIndex: [],
       list: [],
       searchData: {
@@ -242,6 +243,7 @@ export default {
     },
     // 补写
     writing (index) {
+      this.updateData = ''
       setTimeout(() => {
         this.dailyState = 'writing'
         this.updateIndex = index

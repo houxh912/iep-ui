@@ -5,38 +5,65 @@
       <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;">
         <el-form-item label="会议类型：" prop="meetingType">
           <el-radio-group v-model="formData.meetingType">
-            <el-radio v-for="(item, index) in dictGroup.mlms_meeting_type" :key="index" :label="item.value" @change="typeChange">{{item.label}}</el-radio>
+            <el-radio v-for="(item, index) in dictGroup.mlms_meeting_type" :key="index" :label="item.value" @change="typeChange">
+                {{item.label}}
+                  <iep-tip :content="tipContent.meetingType[index]"></iep-tip>
+            </el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="拜访对象：" prop="visitingUserId" v-if="formData.type == 1">
           <iep-select prefix-url="crm/customer" v-model="formData.visitingUserId" multiple></iep-select>
         </el-form-item>
-        <el-form-item :label="`${formData.type == 0 ? '会议主题':'会议标题'}：`" prop="title">
+        <el-form-item :label="`${formData.type == 0 ? '会议主题 ':'会议标题'}：`" prop="title">
+            <span slot="label">
+                {{formData.type == 0 ? '会议主题 ':'会议标题'}}
+                <iep-tip content="会议部门（简称）+会议日期（八位数字）+关于会议内容/会议类型（日例会/周例会/讨论会）+纪要，如北方一部20190415日例会纪要"></iep-tip>：
+            </span>
           <el-input v-model="formData.title" maxlength="50"></el-input>
         </el-form-item>
         <el-form-item label="会议内容：" prop="meetingContent">
           <!-- <el-input type="textarea" v-model="formData.meetingContent" rows=8 maxlength="3000"></el-input> -->
+            <span slot="label">
+                会议内容
+                <iep-tip :content="tipContent.meetingContent"></iep-tip>：
+            </span>
           <iep-froala-editor v-model="formData.meetingContent"></iep-froala-editor>
         </el-form-item>
         <el-form-item label="会议总结：" prop="meetingCon">
+            <span slot="label">
+                会议总结
+                <iep-tip :content="tipContent.meetingCon"></iep-tip>：
+            </span>
           <el-input type="textarea" v-model="formData.meetingCon" rows=8 maxlength="1000"></el-input>
         </el-form-item>
         <el-form-item label="备注：" prop="thoughtsProblem" v-if="formData.type==1">
           <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000"></el-input>
         </el-form-item>
         <el-form-item label="感想与困惑：" prop="thoughtsProblem" v-if="formData.type==0">
+            <span slot="label">
+                感想与困惑
+                <iep-tip :content="tipContent.thoughtsProblem"></iep-tip>：
+            </span>
           <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000"></el-input>
         </el-form-item>
         <el-row>
           <el-col :span="12">
             <el-form-item label="会议时间" prop="meetingTime">
               <!-- <IepDatePicker v-model="formData.meetingTime"></IepDatePicker> -->
+                <span slot="label">
+                会议时间
+                <iep-tip :content="tipContent.meetingTime"></iep-tip>：
+            </span>
               <el-date-picker v-model="formData.meetingTime" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期时间"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="12" v-if="formData.type == 0">
             <el-form-item label="会议地点：" prop="meetingLocation">
-              <el-input v-model="formData.meetingLocation" maxlength="20"></el-input>
+              <span slot="label">
+                会议地点
+                <iep-tip :content="tipContent.meetingLocation"></iep-tip>：
+            </span>
+                <el-input v-model="formData.meetingLocation" maxlength="20"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -49,17 +76,33 @@
           <el-input v-model="formData.visitingAddress" placeholder="请输入面访具体地址"></el-input>
         </el-form-item>
         <el-form-item label="会议标签：" prop="tagKeyWords">
+            <span slot="label">
+                会议标签
+                <iep-tip :content="tipContent.tagKeyWords"></iep-tip>：
+            </span>
           <iep-tag v-model="formData.tagKeyWords"></iep-tag>
         </el-form-item>
         <el-form-item label="主持人：" prop="hostList">
+            <span slot="label">
+                主持人
+                <iep-tip :content="tipContent.hostList"></iep-tip>：
+            </span>
           <div style="width: 200px;">
             <iep-contact-select v-model="formData.hostList"></iep-contact-select>
           </div>
         </el-form-item>
         <el-form-item label="参会人：" prop="attendeeList">
+             <span slot="label">
+                参会人
+                <iep-tip :content="tipContent.attendeeList"></iep-tip>：
+            </span>
           <iep-contact-multiple v-model="formData.attendeeList" :filterUserList="attendeeUserList"></iep-contact-multiple>
         </el-form-item>
         <el-form-item label="抄送人：" prop="receiverList">
+            <span slot="label">
+                抄送人
+                <iep-tip :content="tipContent.receiverList"></iep-tip>：
+            </span>
           <iep-contact-multiple v-model="formData.receiverList" :filterUserList="receiverUserList"></iep-contact-multiple>
         </el-form-item>
         <!-- <el-form-item label="接收人" prop="">
@@ -75,8 +118,8 @@
 
       </el-form>
       <footer-tool-bar>
-        <iep-button type="primary" @click="saveDraft('form')">保存草稿</iep-button>
-        <iep-button type="primary" @click="saveForm('form')">{{methodName}}</iep-button>
+        <iep-button type="primary" @click="saveDraft('form')" v-if="formData.status == 1 || methodName == '创建'">保存草稿</iep-button>
+        <iep-button type="primary" @click="saveForm('form')">{{formData.status == 1 ? '保存' : methodName}}</iep-button>
         <iep-button @click="resetForm('form')">取消</iep-button>
       </footer-tool-bar>
     </basic-container>
@@ -84,7 +127,7 @@
   </div>
 </template>
 <script>
-import { initFormData, dictsMap, rules } from './options'
+import { initFormData, dictsMap, rules, tipContent } from './options'
 import { mapState } from 'vuex'
 import { getCustomerPage } from '@/api/crms/customer'
 import { createData, updateData, getDataById } from '@/api/mlms/material/summary'
@@ -95,6 +138,7 @@ export default {
   data () {
     return {
       dictsMap,
+        tipContent,
       formRequestFn: createData,
       methodName: '创建',
       formData: initFormData(),
@@ -257,5 +301,10 @@ export default {
 <style lang="scss" scoped>
 .el-tag {
   margin-right: 10px;
+}
+.tooltip{
+    position: absolute;
+    left: -19px;
+    width: 17px;
 }
 </style>

@@ -3,7 +3,6 @@
     <img :src="fackerImg" />
     <IepAppFooterBar></IepAppFooterBar>
   </div>
-
 </template>
 <script>
 const fackerImg = require('./facker.png')

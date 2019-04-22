@@ -54,6 +54,7 @@ const initForm = () => {
     language: '', // 外语要求
     term: initNow(), // 招聘期限
     welfare: '', // 福利待遇
+    status: '', // 状态
     duties: '', // 岗位职责
     claim: '', // 岗位要求
   }
@@ -128,4 +129,55 @@ const toDtoSearchForm = (row) => {
   return newForm
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm, formToDto, toDtoSearchForm }
+const rules = {
+  position: [
+    { required: true, type: 'array', message: '请填写岗位', trigger: 'blur' },
+  ],
+  dept: [
+    { required: true, message: '请填写部门', trigger: 'blur' },
+  ],
+  recruitsCount: [
+    { required: true, message: '请填写招聘人数', trigger: 'blur' },
+  ],
+  targetCount: [
+    { required: true, message: '请填写目标人数', trigger: 'blur' },
+  ],
+  academicId: [
+    { required: true, message: '请填写学历要求', trigger: 'blur' },
+  ],
+  jobTypeId: [
+    { required: true, message: '请填写工作类型', trigger: 'blur' },
+  ],
+  years: [
+    { required: true, message: '请填写工作年限', trigger: 'blur' },
+  ],
+  profession: [
+    { required: true, message: '请填写专业要求', trigger: 'blur' },
+  ],
+  place: [
+    { required: true, message: '请填写工作地点', trigger: 'blur' },
+  ],
+  sex: [
+    { required: true, message: '请填写性别', trigger: 'blur' },
+  ],
+  treatment: [
+    { required: true, message: '请填写工资待遇', trigger: 'blur' },
+  ],
+  language: [
+    { required: true, message: '请填写外语要求', trigger: 'blur' },
+  ],
+  term: [
+    { required: true, message: '请填写招聘期限', trigger: 'blur' },
+  ],
+  welfare: [
+    { required: true, message: '请填写福利待遇', trigger: 'blur' },
+  ],
+  duties: [
+    { required: true, message: '请填写岗位职责', trigger: 'blur' },
+  ],
+  claim: [
+    { required: true, message: '请填写岗位要求', trigger: 'blur' },
+  ],
+}
+
+export { dictsMap, columnsMap, initForm, initSearchForm, formToDto, toDtoSearchForm, rules }

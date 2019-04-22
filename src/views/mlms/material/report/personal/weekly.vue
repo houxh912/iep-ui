@@ -8,19 +8,31 @@
       </div>
       <div class="content">
         <el-form ref="form" v-if="dislogState!=='detail'" :rules="rules" :model="formData">
-          <div class="title">领导指示</div>
+          <div class="title">
+              领导指示
+              <iep-tip :content="tipContent.leaderIndication"></iep-tip>
+          </div>
           <el-form-item>
             <el-input type="textarea" v-model="formData.leaderIndication" rows=5 placeholder="此处填写领导指示" maxlength="500"></el-input>
           </el-form-item>
-          <div class="title validate">本周工作总结</div>
+          <div class="title validate">
+              本周工作总结
+              <iep-tip :content="tipContent.workSummary"></iep-tip>
+          </div>
           <el-form-item prop="workSummary">
             <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本周工作总结" maxlength="1000"></el-input>
           </el-form-item>
-          <div class="title validate">下周工作计划</div>
+          <div class="title validate">
+              下周工作计划
+              <iep-tip :content="tipContent.workPlan"></iep-tip>
+          </div>
           <el-form-item prop="workPlan">
             <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下周工作计划" maxlength="1000"></el-input>
           </el-form-item>
-          <div class="title">总结与感悟</div>
+          <div class="title">
+              总结与感悟
+              <iep-tip :content="tipContent.summarySentiment"></iep-tip>
+          </div>
           <el-form-item>
             <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟" maxlength="1000"></el-input>
           </el-form-item>
@@ -59,6 +71,7 @@
 
 <script>
 import { toChinesNum, getDateStr } from '../util'
+import { tipContent } from './option'
 import { updateData, createData } from '@/api/mlms/material/report/personal'
 import { getTableData } from '@/api/mlms/material/report/daily'
 
@@ -73,6 +86,7 @@ export default {
   },
   data () {
     return {
+        tipContent,
       pageState: true,
       dailyTableData: [],
       formData: {},

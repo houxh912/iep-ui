@@ -60,6 +60,13 @@ export default {
   },
   created () {
     this.loadPage()
+
+  },
+  mounted () {
+    if (this.record.flag) {
+      this.$refs['EditDrawer'].drawerShow = true
+      this.record.flag = false
+    }
   },
   computed: {
     ...mapGetters([
@@ -86,10 +93,11 @@ export default {
       this.$refs['EditDrawer'].methodName = '编辑'
       this.$refs['EditDrawer'].formRequestFn = updateData
       this.$refs['EditDrawer'].drawerShow = true
+      this.$refs['EditDrawer'].id = this.record.id
       this.$refs['EditDrawer'].clientContactId = row.clientContactId
     },
     handleDetail (row, column) {
-      if (column.label == '操作') {
+      if (column.label == '操作' || column.type == 'selection' || column.type == 'index') {
         return false
       }
       getContactById(row.clientContactId).then(({ data }) => {

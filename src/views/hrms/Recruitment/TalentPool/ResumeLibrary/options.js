@@ -245,4 +245,22 @@ const certificateColumns = [
   },
 ]
 
-export { dictsMap, columnsMap, initForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm, workExpColumns, studyColumns, trainingColumns, certificateColumns, initSearchForm, toDtoSearchForm, formToVo }
+const rules = {
+  name: [
+    { required: true, message: '请填写姓名', trigger: 'blur' },
+  ],
+  phone: [
+    { required: true, message: '请填写联系电话', trigger: 'blur' },
+  ],
+  education: [
+    { required: true, message: '请填写最高学历', trigger: 'blur' },
+  ],
+  position: [
+    { required: true, type: 'array', message: '请填写应聘岗位', trigger: 'blur' },
+  ],
+  workPlace: [
+    { required: true, message: '请填写期望工作地', trigger: 'blur' },
+  ],
+}
+
+export { dictsMap, columnsMap, initForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm, workExpColumns, studyColumns, trainingColumns, certificateColumns, initSearchForm, toDtoSearchForm, formToVo, rules }

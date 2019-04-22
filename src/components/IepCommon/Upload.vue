@@ -1,6 +1,6 @@
 <template>
   <el-upload action="/api/admin/file/upload" :headers="headers" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :on-success="handleSuccess" :on-error="handleError" :limit="limit" :on-exceed="handleExceed" :file-list="fileList" :drag="drag" v-bind="$attrs" v-on="$listeners">
-    <iep-button v-if="!drag" type="primary">点击上传</iep-button>
+    <iep-button v-if="!drag" type="primary" plain>点击上传</iep-button>
     <template v-else>
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>

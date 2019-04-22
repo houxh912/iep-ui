@@ -8,7 +8,7 @@
         </template>
         <template slot="dsScopeForm">
           <div v-if="form.dsType == 1">
-            <el-tree class="filter-tree" :data="dsScopeData" :check-strictly="true" node-key="id" highlight-current :props="defaultProps" ref="scopeTree" :default-checked-keys="checkedDsScope" show-checkbox>
+            <el-tree class="filter-tree" :data="dsScopeData" check-strictly node-key="id" highlight-current :props="defaultProps" ref="scopeTree" :default-checked-keys="checkedDsScope" show-checkbox>
             </el-tree>
           </div>
         </template>

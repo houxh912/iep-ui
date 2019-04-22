@@ -1,18 +1,38 @@
 <template>
   <iep-drawer :drawer-show="drawerShow" type="drawer" :title="methodName+'商机'" width="40%" @close="loadPage">
-    <el-form :model="formData" :rules="rules" ref="formName" label-width="100px" size="small">
-      <el-form-item label="客户名称：" prop="clientName">
+    <el-form :model="formData" :rules="rules" ref="formName" label-width="120px" size="small">
+      <el-form-item prop="clientName">
+        <span slot="label">
+          客户名称
+          <iep-tip :content="tipContent.clientName"></iep-tip>
+          :
+        </span>
         <el-input v-model="formData.clientName" placeholder="客户名称"></el-input>
       </el-form-item>
-      <el-form-item label="项目名称：" prop="projectName">
+      <el-form-item prop="projectName">
+        <span slot="label">
+          项目名称
+          <iep-tip :content="tipContent.projectName"></iep-tip>
+          :
+        </span>
         <el-input v-model="formData.projectName" placeholder="项目名称"></el-input>
       </el-form-item>
-      <el-form-item label="业务类型：" prop="businessType">
+      <el-form-item prop="businessType">
+        <span slot="label">
+          业务类型
+          <iep-tip :content="tipContent.businessType"></iep-tip>
+          :
+        </span>
         <el-checkbox-group v-model="formData.businessType">
           <el-checkbox v-for="item in dictGroup['crms_client_opportunity']" :key="item.value" :label="item.value">{{item.label}}</el-checkbox>
         </el-checkbox-group>
       </el-form-item>
-      <el-form-item label="意向程度：" prop="intentionLevel">
+      <el-form-item prop="intentionLevel">
+        <span slot="label">
+          意向程度
+          <iep-tip :content="tipContent.intentionLevel"></iep-tip>
+          :
+        </span>
         <el-radio-group v-model="formData.intentionLevel">
           <el-radio v-for="item in dictGroup['crms_client_intention_level']" :key="item.value" :label="item.value">{{item.label}}</el-radio>
         </el-radio-group>
@@ -20,7 +40,12 @@
       <el-form-item label="商机标签：" prop="tags">
         <iep-tag v-model="formData.tags" @addTags="addTags"></iep-tag>
       </el-form-item>
-      <el-form-item label="商机描述：" prop="opportunityDes">
+      <el-form-item prop="opportunityDes">
+        <span slot="label">
+          商机描述
+          <iep-tip :content="tipContent.opportunityDes"></iep-tip>
+          :
+        </span>
         <el-input type="textarea" v-model="formData.opportunityDes" placeholder="商机描述"></el-input>
       </el-form-item>
       <el-form-item label="发布者：">
@@ -38,6 +63,13 @@
 import { mapState, mapGetters } from 'vuex'
 import { checkName } from '@/api/crms/business'
 import { initForm } from './options'
+const tipContent = {
+  clientName: '客户名称精确到局办且为全称， 如：“北京市行政服务中心”',
+  projectName: '请准确填写该商机对接的项目信息，发布日期+部委/省级名称+项目内容，如“20190406农业部信息中心互联网+政务规划设计需求”。',
+  businessType: '咨询：规划/行动计划/工作方案/课题研究/标准规范/管理制度/整体解决方案/评测;<br>产品：DNA/DIPS/营商通/咨询服务产品化;<br>数据：数据采集/普查/编目/标准化/开放共享/应用服务/主题库、基础库建设/事项材料梳理/主题清单规范优化、再造;<br>外包：软件/平台/服务;<br>会议培训：研讨会/招商合作/培训会;<br>平台：平台新建/平台升级技术服务：网站/平台/软件;<br>其他：自定义填写',
+  intentionLevel: '客户对推进此项目的意愿程度选择',
+  opportunityDes: '请尽可能将获取的客户需求及相关信息有条理的描述清楚，如有建议更好',
+}
 export default {
   data () {
     var validateFun = (rule, value, callback) => {
@@ -58,6 +90,7 @@ export default {
       })
     }
     return {
+      tipContent,
       formData: initForm(),
       methodName: '',
       flag: '',

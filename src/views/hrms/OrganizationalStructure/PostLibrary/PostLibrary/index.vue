@@ -21,7 +21,7 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button @click="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>
-            <iep-button @click="(scope.row)">发起招聘</iep-button>
+            <iep-button @click="handlePublish(scope.row)">发起招聘</iep-button>
             <iep-button @click="handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
@@ -56,6 +56,14 @@ export default {
     },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deletePostLibraryById)
+    },
+    handlePublish (row) {
+      this.$router.push({
+        path: '/hrms_spa/recruitment_publish/0',
+        query: {
+          position: [row.typeId, row.id],
+        },
+      })
     },
     handleEdit (row) {
       this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)

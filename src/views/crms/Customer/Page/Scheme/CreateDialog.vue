@@ -55,7 +55,8 @@ export default {
       })
     },
     add (val) {
-      this.formData.programName = val.materialName
+      this.dialogShow = false
+      this.formData.programName = val.name
       this.formData.attachs = [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],
         this.submitFn(this.formData).then(() => {
           this.$message({
@@ -63,7 +64,7 @@ export default {
             type: 'success',
           })
           this.loadPage()
-          this.dialogShow = false
+
         })
     },
     loadPage () {

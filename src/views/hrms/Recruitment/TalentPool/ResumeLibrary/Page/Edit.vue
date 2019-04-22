@@ -4,13 +4,18 @@
       <div slot="header" class="title">
         <span>{{methodName}}简历</span>
       </div>
-      <el-form ref="form" class="form-detail" :model="form" label-width="120px" size="small">
+      <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="120px" size="small">
         <el-collapse v-model="activeNames">
           <el-collapse-item name="1">
             <template slot="title">
               <i class="header-icon el-icon-info"></i> 基础信息
             </template>
-            <el-form-item label="姓名：" class="form-half">
+            <el-form-item prop="name" class="form-half">
+              <span slot="label">
+                姓名
+                <iep-tip content="请务必根据本人身份证上的姓名全称填写"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.name"></el-input>
             </el-form-item>
             <el-form-item label="性别：" class="form-half">
@@ -19,38 +24,88 @@
                 <el-radio :label="2">女</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="头像：" class="">
+            <el-form-item class="">
+              <div slot="label">
+                头像
+                <iep-tip content="请务必根据以下说明上传头像：<br/>1. 照片必须为本人真实、正面、静态、采用蓝、白、灰底1年内的证件照；<br/>2. 上传尺寸为宽300像素*高300像素"></iep-tip>
+                ：
+              </div>
               <iep-avatar v-model="form.avatar"></iep-avatar>
             </el-form-item>
-            <el-form-item label="出生年月：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                出生年月
+                <iep-tip content="请务必填写身份证上的年月"></iep-tip>
+                ：
+              </span>
               <IepDatePicker v-model="form.birthday" type="date" placeholder="选择日期"></IepDatePicker>
             </el-form-item>
-            <el-form-item label="年龄：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                年龄
+                <iep-tip content="此处请填写您的实际周岁年龄"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.age"></el-input>
             </el-form-item>
-            <el-form-item label="外部头衔：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                外部头衔
+                <iep-tip content="此处填写您在外部获得的头衔，如电子商务协会副会长"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.title"></el-input>
             </el-form-item>
-            <el-form-item label="联系手机：" class="form-half">
+            <el-form-item prop="phone" class="form-half">
+              <span slot="label">
+                联系手机
+                <iep-tip content="请务必填写可联系上的手机号码"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.phone"></el-input>
             </el-form-item>
-            <el-form-item label="邮箱：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                邮箱
+                <iep-tip content="请务必填写本人常用的邮箱账号"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.email"></el-input>
             </el-form-item>
-            <el-form-item label="身高：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                身高
+                <iep-tip content="请务必填写准确的身高，以cm结尾"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.height">
                 <template slot="append">cm</template>
               </el-input>
             </el-form-item>
-            <el-form-item label="体重：" class="form-half">
+            <el-form-item label="身高：" class="form-half">
+              <span slot="label">
+                体重
+                <iep-tip content="请务必填写当前体重，以kg结尾"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.weight">
                 <template slot="append">kg</template>
               </el-input>
             </el-form-item>
-            <el-form-item label="民族：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                民族
+                <iep-tip content="请务必准确填写，后缀含“族”，即汉族、满族、维吾尔族等"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.nation"></el-input>
             </el-form-item>
-            <el-form-item label="现住地址：">
+            <el-form-item>
+              <span slot="label">
+                现住地址
+                <iep-tip content="请务必精确到区/县+乡镇/街道+村/社区+小区/街+幢/弄号"></iep-tip>
+                ：
+              </span>
               <div style="display:flex;">
                 <iep-cascader style="flex:1;" v-model="form.cities" prefix-url="admin/city"></iep-cascader>
                 <el-input style="flex:3;" v-model="form.address"></el-input>
@@ -59,25 +114,58 @@
             <el-form-item label="政治面貌：" class="form-half">
               <iep-dict-select v-model="form.politics" dict-name="hrms_politics_face"></iep-dict-select>
             </el-form-item>
-            <el-form-item label="健康状况：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                健康状况
+                <iep-tip content="根据自身情况准确选择"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.health"></el-input>
             </el-form-item>
-            <el-form-item label="婚姻状况：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                婚姻状况
+                <iep-tip content="请务必根据实际情况选择"></iep-tip>
+                ：
+              </span>
               <iep-dict-select v-model="form.marriage" dict-name="hrms_marriage_status"></iep-dict-select>
             </el-form-item>
-            <el-form-item label="生育状况：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                生育状况
+                <iep-tip content="请务必根据实际情况选择"></iep-tip>
+                ：
+              </span>
               <iep-dict-select v-model="form.bear" dict-name="hrms_birth_status"></iep-dict-select>
             </el-form-item>
-            <el-form-item label="毕业学校：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                毕业学校
+                ：
+              </span>
               <el-input v-model="form.university"></el-input>
             </el-form-item>
-            <el-form-item label="最高学历：" class="form-half">
+            <el-form-item prop="education" class="form-half">
+              <span slot="label">
+                最高学历
+                ：
+              </span>
               <iep-dict-select v-model="form.education" dict-name="hrms_highest_educational"></iep-dict-select>
             </el-form-item>
-            <el-form-item label="员工关系：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                员工关系
+                <iep-tip content="请准确填写与本集团员工有无亲朋关系（姓名+关系，张三+朋友），如无则无需填写"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.relation"></el-input>
             </el-form-item>
-            <el-form-item label="推荐人：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                推荐人
+                <iep-tip content="请务必准确填写推荐人真实姓名"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.referrer"></el-input>
             </el-form-item>
             <el-form-item label="应聘渠道：" class="form-half">
@@ -86,13 +174,28 @@
             <el-form-item label="来源类型：" class="form-half">
               <iep-dict-select v-model="form.source" dict-name="hrms_resume_source"></iep-dict-select>
             </el-form-item>
-            <el-form-item label="兴趣爱好：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                兴趣爱好
+                <iep-tip content="请务必准确填写，如唱歌，钢琴"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.hobbies"></el-input>
             </el-form-item>
-            <el-form-item label="特长及优势：">
+            <el-form-item>
+              <span slot="label">
+                特长及优势
+                <iep-tip content="请务必以序列形式清晰描述个人真实特长和优势内容，如1、2、3"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.advantage"></el-input>
             </el-form-item>
-            <el-form-item label="荣誉奖励：">
+            <el-form-item>
+              <span slot="label">
+                荣誉奖励
+                <iep-tip content="请务必以序列形式描述获得的荣誉奖励，包括荣获年月，发奖单位，荣誉名称，如2019年4月 国脉集团 内网最佳贡献奖 "></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.honor"></el-input>
             </el-form-item>
             <el-form-item label="其他成果：">
@@ -100,33 +203,38 @@
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="求职意向" name="2">
-            <el-form-item label="应聘岗位：" class="form-half">
+            <el-form-item label="应聘岗位：" prop="position" class="form-half">
               <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
             </el-form-item>
             <el-form-item label="到岗时间：" class="form-half">
               <iep-dict-select v-model="form.arrive" dict-name="hrms_arrive_time"></iep-dict-select>
             </el-form-item>
-            <el-form-item label="期望薪资：" class="form-half">
+            <el-form-item class="form-half">
+              <span slot="label">
+                期望薪资
+                <iep-tip content="请务必以年薪方式填写，如5-6万/年"></iep-tip>
+                ：
+              </span>
               <el-input v-model="form.salary"></el-input>
             </el-form-item>
-            <el-form-item label="期望工作地：" class="form-half">
+            <el-form-item label="期望工作地：" prop="workPlace" class="form-half">
               <el-input v-model="form.workPlace"></el-input>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="学习工作经历" name="3">
             <el-form-item label="学习情况：">
-              <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="talent_pool" :rid="form.id" @load-page="handleSave"></inline-form-table>
             </el-form-item>
             <el-form-item label="工作经历：">
-              <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="talent_pool" :rid="form.id" @load-page="handleSave"></inline-form-table>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="培训证书情况" name="4">
             <el-form-item label="培训情况：">
-              <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="talent_pool" :rid="form.id" @load-page="handleSave"></inline-form-table>
             </el-form-item>
             <el-form-item label="资质证书：">
-              <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="talent_pool" :rid="form.id" @load-page="handleSave"></inline-form-table>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="附件上传" name="5">
@@ -145,7 +253,7 @@
 </template>
 <script>
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
-import { initForm, formToDto, formToVo } from '../options'
+import { initForm, formToDto, formToVo, rules } from '../options'
 import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 export default {
@@ -158,6 +266,7 @@ export default {
   components: { InlineFormTable },
   data () {
     return {
+      rules,
       certificateColumns,
       trainingColumns,
       studyColumns,
@@ -185,16 +294,23 @@ export default {
     handleGoBack () {
       this.$emit('onGoBack')
     },
-    handleSubmit () {
-      this.formRequestFn(formToDto(this.form)).then(({ data }) => {
-        if (data.data) {
-          this.$message({
-            message: `人才库${this.methodName}成功`,
-            type: 'success',
+    async handleSave (methodName = '更新') {
+      await this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.formRequestFn(formToDto(this.form)).then(({ data }) => {
+            if (data.data) {
+              this.$message({
+                message: `${methodName}成功`,
+                type: 'success',
+              })
+            }
           })
-          this.$emit('onGoBack')
         }
       })
+    },
+    async handleSubmit () {
+      await this.handleSave(this.methodName)
+      this.$emit('onGoBack')
     },
   },
 }

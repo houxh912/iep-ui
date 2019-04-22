@@ -10,13 +10,6 @@
     <div>
       <el-row>
         <el-col :span='12'>
-          <div class="top flag">
-            <span>部门统计</span>
-            <div class="more">
-              <span class="border" @click="left"><i class="el-icon-arrow-left"></i></span>
-              <span class="border" @click="right"><i class="el-icon-arrow-right"></i></span>
-            </div>
-          </div>
           <div class="echarts odd">
             <count></count>
           </div>
@@ -69,6 +62,7 @@ export default {
       number: '',
       type: '1',
       tabList: [{ label: '按周', value: '1' }, { label: '按月', value: '2' }, { label: '季度', value: '3' }, { label: '年度', value: '4' }],
+      current: 1,
     }
   },
   created () {
@@ -79,14 +73,9 @@ export default {
   methods: {
     changeType () {
       this.$message.success('功能开发中')
+
     },
     searchPage () {
-      this.$message.success('功能开发中')
-    },
-    left () {
-      this.$message.success('功能开发中')
-    },
-    right () {
       this.$message.success('功能开发中')
     },
   },

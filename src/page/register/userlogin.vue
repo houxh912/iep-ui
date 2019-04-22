@@ -60,7 +60,7 @@ export default {
         return callback(new Error('用户名不能为空'))
       }
       if (!/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/.test(value)) {
-        return callback(new Error('4个字符以上，15个字符一下，不能以数字或符号开头'))
+        return callback(new Error('4个字符以上，15个字符以下，不能以数字或符号和开头，不含中文'))
       }
       validRegisterUserName(value).then(({ data }) => {
         if (!data.data) {

@@ -20,6 +20,11 @@ export default [
         name: '审批详情',
         component: () => import('@/views/hrms/AdministrativeApproval/Detail.vue'),
       },
+      {
+        path: 'recruitment_publish/:id',
+        name: '发布招聘表单',
+        component: () => import('@/views/hrms/Recruitment/Publish/Page/Edit.vue'),
+      },
     ],
   },
 ]

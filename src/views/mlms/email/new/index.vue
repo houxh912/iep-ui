@@ -9,15 +9,27 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="收件人：" prop="receiverList" class="validate">
+            <span slot="label">
+              收件人
+              <iep-tip :content="tipContent.receiverList"></iep-tip>：
+            </span>
           <!-- <iep-tag v-model="formData.receiverIds"></iep-tag> -->
           <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
         </el-form-item>
         <el-form-item label="主题：" prop="subject">
+            <span slot="label">
+              主题
+              <iep-tip :content="tipContent.subject"></iep-tip>：
+            </span>
           <el-input v-model="formData.subject" maxlength="50"></el-input>
         </el-form-item>
         <el-form-item class="relation">
           <div class="item">
             <el-form-item label="附件列表：" label-width="90px">
+                <span slot="label">
+                  附件列表
+                  <iep-tip :content="tipContent.attachmentList"></iep-tip>
+                </span>
               <iep-upload v-model="formData.attachmentList" :limit='limit'></iep-upload>
               <!-- <ul class="list">
               <li class="li" v-for="(item, index) in formData.materialIds" :key="index">
@@ -40,6 +52,10 @@
             </ul>
           </el-form-item> -->
             <el-form-item label="关联资源：" label-width="90px">
+                <span slot="label">
+                  关联资源
+                  <iep-tip :content="tipContent.transferList"></iep-tip>
+                </span>
               <ul class="list">
                 <li class="li" v-for="(item, index) in this.formData.transferList.projectIds" :key="index">{{item.name}}</li>
               </ul>
@@ -50,9 +66,17 @@
           </div>
         </el-form-item>
         <el-form-item label="邮件标签：" prop="tagKeyWords">
+            <span slot="label">
+                  邮件标签
+                  <iep-tip :content="tipContent.tagKeyWords"></iep-tip>：
+                </span>
           <iep-tag v-model="formData.tagKeyWords" plus @selectTags="selectTags"></iep-tag>
         </el-form-item>
         <el-form-item label="正文" prop="content">
+            <span slot="label">
+                  正文
+                  <iep-tip :content="tipContent.content"></iep-tip>：
+                </span>
           <!-- <iep-editor v-model="formData.zhengwen"></iep-editor> -->
           <el-input type="textarea" rows=5 v-model="formData.content" maxlength="2000"></el-input>
         </el-form-item>
@@ -72,13 +96,14 @@
 <script>
 import MainDialog from './mainDialog'
 import { createEmail, updateEmail } from '@/api/mlms/email/index'
-import { initFormData, rules } from './option'
+import { initFormData, rules, tipContent } from './option'
 
 export default {
   components: { MainDialog },
   data () {
     return {
       formData: initFormData(),
+        tipContent,
       rules,
       pageState: 'new',
       backOption: {
@@ -134,6 +159,7 @@ export default {
     // 处理数据
     dealReceiverList () {
       this.formData.receiverIds = this.formData.receiverList.users.map(m => m.id) // 接收人
+      this.formData.orgIds = this.formData.receiverList.orgs.map(m => m.id) // 组织
       this.formData.attachmentIds = this.formData.attachmentList.map(m => m.id)
     },
     // 发送

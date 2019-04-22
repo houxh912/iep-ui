@@ -2,10 +2,10 @@
   <div class="edit-wrapper">
     <basic-container>
       <page-header title="查看招聘" :backOption="backOption">
-        <iep-button type="primary">我要推荐</iep-button>
+        <!-- <iep-button type="primary">我要推荐</iep-button> -->
       </page-header>
       <el-card class="recruit-headers" shadow="hover">
-        <span class="state"><i class="iconfont icon-shijian"></i><span>招聘中</span></span>
+        <span class="state"><i class="iconfont icon-shijian"></i><span>{{dictsMap.status[form.status]}}</span></span>
         <div class="con">
           <div class="left">
             <h4 class="name">
@@ -53,6 +53,10 @@
             <label>福利待遇：</label>
             <div class="content">{{form.welfare}}</div>
           </div>
+          <div class="info-item">
+            <label>招聘期限：</label>
+            <div class="content">{{form.term}}</div>
+          </div>
         </div>
       </el-card>
       <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
@@ -72,7 +76,7 @@
 </template>
 <script>
 import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
-import { initForm } from '../options'
+import { initForm, dictsMap } from '../options'
 export default {
   props: {
     record: {
@@ -87,6 +91,7 @@ export default {
         backPath: null,
         backFunction: () => { this.$emit('onGoBack') },
       },
+      dictsMap,
       middleBodyStyle: {
         padding: '20px',
         border: 0,

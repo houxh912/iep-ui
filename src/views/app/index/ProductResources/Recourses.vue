@@ -1,5 +1,5 @@
 <template>
-  <div class="resourcesList">
+  <div class="resources">
     <div v-for="(item,index) in resourcesList" :key="index" class="piece">
       <i :class="item.icon" class="iconfont"></i>
       <span class="name">{{item.name}}</span>
@@ -35,7 +35,7 @@ export default {
     transform: rotate(360deg);
   }
 }
-.resourcesList {
+.resources {
   display: grid;
   grid-auto-flow: row dense;
   grid-template-columns: 1fr 1fr 1fr 1fr;

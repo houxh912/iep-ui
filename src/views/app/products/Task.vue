@@ -6,7 +6,7 @@
         <el-button style="float: right; padding: 5px 0; color:#cb3737;" type="text">产品与技术委员会></el-button>
       </div>
       <div>
-        <div class="taskList">
+        <div class="task-list">
             <el-table :data="tableData" style="width: 100%" size=medium  >
                 <el-table-column prop="name" label="任务名称"></el-table-column>
                 <el-table-column prop="process" label="进度" width="180">
@@ -45,7 +45,7 @@ export default {
     grid-column-start: 1;
     grid-column-end: 3; 
 }
-.taskList{
+.task-list{
   .piece{
     cursor: pointer;
     height:30px;

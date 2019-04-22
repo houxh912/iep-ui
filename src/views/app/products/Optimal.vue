@@ -1,7 +1,7 @@
 <template>
   <div class="optimal">
     <iepAppTabCard :title="title1">
-      <div class="technologyList">
+      <div class="technology-list">
         <div v-for="(item,index) in technologyList" :key="index" class="piece">
           <img :src="item.img" alt="">
           <div class="text">
@@ -18,7 +18,7 @@
       <div slot="header" class="clearfix">
         <span class="cardTitle" style="font-size:18px;">{{title1}}</span>
       </div>
-      <div class="lastMonth">
+      <div class="last-month">
         <div v-for="(item,index) in lastMonth" :key="index" class="piece">
           <img :src="item.img" alt="">
           <div class="text">
@@ -49,8 +49,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.technologyList,
-.lastMonth {
+.technology-list,
+.last-month {
   .piece {
     width: 100%;
     margin-bottom: 12px;
@@ -83,7 +83,7 @@ export default {
 .last-card {
   margin-top: -4px;
   border-top-color: #fff;
-  .lastMonth {
+  .last-month {
     .piece {
       overflow: hidden;
       margin-top: 20px;

@@ -1,7 +1,7 @@
 <template>
   <div class="baner">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <div class="dynamicList">
+      <div class="dynamic-list">
         <div v-for="(item,index) in dynamicList" :key="index" class="piece">
           {{item}}
         </div>
@@ -28,7 +28,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.dynamicList {
+.dynamic-list {
   .piece {
     cursor: pointer;
     height: 34px;

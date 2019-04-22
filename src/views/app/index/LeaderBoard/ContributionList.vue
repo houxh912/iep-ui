@@ -1,5 +1,5 @@
 <template>
-  <div class="leaderBoard">
+  <div class="leader-board">
     <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
       <span class="count" :class="item.color">{{index+1}}</span>
       <span class="name">{{item.name}}</span>
@@ -30,8 +30,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.leaderBoard {
-  padding: 15px 20px;
+.leader-board {
+  padding: 10px 20px 15px;
   .piece {
     cursor: pointer;
     .name {

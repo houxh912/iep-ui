@@ -2,12 +2,12 @@
     <div class="banner">
         <el-carousel :interval="5000">
             <el-carousel-item v-for="(item,index) in banerImg" :key="index">
-                <img :src="item" class="banerImg">
+                <img :src="item" class="baner-img">
             </el-carousel-item>
         </el-carousel>
-        <div class="newDynamic">
+        <div class="new-dynamic">
             最新动态：
-            <div v-for="(item,index) in newDynamic" :key="index" class="newDynamicList">
+            <div v-for="(item,index) in newDynamic" :key="index" class="newDynamic-list">
                 <span class="time">{{item.time}}</span>
                 <span class="dsec">{{item.dsec}}</span>
                 <i class="iconfont icon-dingyue"></i>
@@ -40,12 +40,12 @@ export default {
     img{
         width: 100%;
     }
-    .newDynamic{
+    .new-dynamic{
         width: 1200px;
         height: 60px;
         line-height: 60px;
         margin: 0 auto;
-        .newDynamicList{
+        .new-dynamic-list{
             display: inline;
             margin:  0 150px 0 20px;
             cursor: pointer;

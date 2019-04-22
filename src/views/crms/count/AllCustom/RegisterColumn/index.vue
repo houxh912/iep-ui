@@ -18,7 +18,7 @@
             </div>
           </div>
           <div class="echarts odd">
-            <count></count>
+            <count :current="current"></count>
           </div>
         </el-col>
         <el-col :span='12'>
@@ -69,6 +69,7 @@ export default {
       number: '',
       type: '1',
       tabList: [{ label: '按周', value: '1' }, { label: '按月', value: '2' }, { label: '季度', value: '3' }, { label: '年度', value: '4' }],
+      current: 1,
     }
   },
   created () {
@@ -79,15 +80,28 @@ export default {
   methods: {
     changeType () {
       this.$message.success('功能开发中')
+
     },
     searchPage () {
       this.$message.success('功能开发中')
     },
     left () {
-      this.$message.success('功能开发中')
+      // this.$message.success('功能开发中')
+      if (this.current > 1) {
+        this.current--
+      } else {
+        this.$message.success('已到首页')
+      }
+      console.log(this.current)
     },
     right () {
-      this.$message.success('功能开发中')
+      // this.$message.success('功能开发中')
+      if (this.current < 2) {
+        this.current++
+      } else {
+        this.$message.success('已到尾页')
+      }
+      console.log(this.current)
     },
   },
 }

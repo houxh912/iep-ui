@@ -4,15 +4,31 @@
       <page-header :title="`${methodName}公告`" :backOption="backOption"></page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="small">
         <el-form-item label="主题：" prop="name">
+            <span slot="label">
+                主题
+                <iep-tip :content="tipContent.name"></iep-tip>：
+            </span>
           <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="类型：" prop="type">
+            <span slot="label">
+                类型
+                <iep-tip :content="tipContent.type"></iep-tip>：
+            </span>
           <iep-dict-select v-model="form.type" dict-name="ims_notify_type"></iep-dict-select>
         </el-form-item>
         <el-form-item label="内容：" prop="content">
+            <span slot="label">
+                内容
+                <iep-tip :content="tipContent.content"></iep-tip>：
+            </span>
           <iep-input-area type="textarea" v-model="form.content"></iep-input-area>
         </el-form-item>
         <el-form-item label="发布范围：" prop="receivers">
+            <span slot="label">
+                发布范围
+                <iep-tip :content="tipContent.receivers"></iep-tip>：
+            </span>
           <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
         </el-form-item>
         <el-form-item label="">
@@ -27,12 +43,13 @@
 </template>
 <script>
 import { getAnnouncementById, postAnnouncement, putAnnouncement } from '@/api/ims/announcement'
-import { initForm, formToDto } from './options'
+import { initForm, formToDto, tipContent } from './options'
 
 export default {
   data () {
     return {
       id: +this.$route.params.id,
+        tipContent,
       backOption: {
         isBack: true,
       },

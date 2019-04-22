@@ -8,20 +8,29 @@
       <el-form-item>
         <el-row>
           <el-col :span=12>
-            <div class="title validate">项目预计签订时间</div>
+            <div class="title validate">
+                项目预计签订时间
+                <iep-tip :content="tipContent.estimateSignTime"></iep-tip>
+            </div>
             <el-col :span=20>
               <IepDatePicker v-model="formData.estimateSignTime"></IepDatePicker>
             </el-col>
           </el-col>
           <el-col :span=12>
-            <div class="title validate">合同签订时间</div>
+            <div class="title validate">
+                合同签订时间
+                <iep-tip :content="tipContent.contractSignTime"></iep-tip>
+            </div>
             <el-col :span=24>
               <IepDatePicker v-model="formData.contractSignTime"></IepDatePicker>
             </el-col>
           </el-col>
         </el-row>
       </el-form-item>
-      <div class="title">预计回款时间</div>
+      <div class="title">
+          预计回款时间
+          <iep-tip :content="tipContent.paymentRelations"></iep-tip>
+      </div>
       <el-form-item class="table">
         <el-table :data="formData.paymentRelations" style="width: 100%">
           <el-table-column prop="projectPaymentTime" label="月份">
@@ -58,15 +67,24 @@
         </el-table>
         <div class="create" @click="handleCreate"><i class="el-icon-plus"></i> 新增</div>
       </el-form-item>
-      <div class="title">客户需求</div>
+      <div class="title">
+          客户需求
+          <iep-tip :content="tipContent.clientRqmt"></iep-tip>
+      </div>
       <el-form-item prop="clientRqmt">
         <el-input type="textarea" v-model="formData.clientRqmt" rows=5 placeholder="此处填写客户需求" maxlength="1000"></el-input>
       </el-form-item>
-      <div class="title validate">本周工作总结</div>
+      <div class="title validate">
+          本周工作总结
+          <iep-tip :content="tipContent.workSummary"></iep-tip>
+      </div>
       <el-form-item prop="workSummary">
         <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本周工作总结" maxlength="1000"></el-input>
       </el-form-item>
-      <div class="title validate">下周工作计划</div>
+      <div class="title validate">
+          下周工作计划
+          <iep-tip :content="tipContent.workPlan"></iep-tip>
+      </div>
       <el-form-item prop="workPlan">
         <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下周工作计划" maxlength="1000"></el-input>
       </el-form-item>
@@ -95,11 +113,12 @@ const initFormData = () => {
     paymentRelations: [],
   }
 }
-
+import { tipContent } from './option'
 export default {
   data () {
     return {
       formData: initFormData(),
+        tipContent,
       selectIndex: -1,
     }
   },

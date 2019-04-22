@@ -70,6 +70,10 @@
             </el-col>
           </el-form-item>
           <el-form-item label="客户关系：" prop="clientRela">
+              <span slot="label">
+                  客户关系
+                  <iep-tip :content="tipContent.clientRela"></iep-tip>
+                </span>
             <iep-dict-select v-model="formData.clientRela" dict-name="crms_client_relation"></iep-dict-select>
             <el-col class="col-tips" v-for="(item,index) in clientRela" :key="index">
               <IepTip :content="item.name">
@@ -78,6 +82,10 @@
             </el-col>
           </el-form-item>
           <el-form-item label="客户标签：" prop="tags">
+              <span slot="label">
+                 客户标签
+                  <iep-tip :content="tipContent.tags"></iep-tip>
+                </span>
             <iep-tag v-model="formData.tags"></iep-tag>
           </el-form-item>
           <el-form-item label="协助人：" prop="collaborationsKey" v-if="formData.collaborations.length != 0">
@@ -86,6 +94,10 @@
             </a-tag>
           </el-form-item>
           <el-form-item label="跟进状态：" prop="followUpStatus">
+              <span slot="label">
+                 跟进状态
+                  <iep-tip :content="tipContent.followUpStatus"></iep-tip>
+                </span>
             <iep-dict-select v-model="formData.followUpStatus" dict-name="crms_follow_up_status"></iep-dict-select>
           </el-form-item>
           <!-- <el-form-item label="相关产品：" prop="products">
@@ -116,6 +128,15 @@ import { mapGetters } from 'vuex'
 import { createById } from '@/api/crms/business'
 import { getObj } from '@/api/admin/user'
 import { checkName } from '@/api/crms/customer'
+const tipContent = {
+    clientRela:'核心客户：连续合作5年及以上、百万级项目、用软件/产品客户、数据服务客户、业务体系创新（标杆客户） <br/>' +
+    '重要客户：五十万以上项目、连续合作2年以上、每年有固定财政预算客户 <br/>' +
+    '一般客户：有合作项目 <br/>' +
+    '潜在客户：有意向的客户 <br/>' +
+    '其它客户：目前无意向客户',
+    tags:'客户所处行业，合作项目简称，合作产品，客户简称等作为标签',
+    followUpStatus:'无需备注',
+}
 export default {
   name: 'edit',
   props: {
@@ -157,6 +178,7 @@ export default {
     }
 
     return {
+      tipContent,
       id: '',
       backOption: {
         isBack: true,

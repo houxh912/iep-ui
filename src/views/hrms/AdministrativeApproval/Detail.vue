@@ -74,9 +74,7 @@
         <div slot="header" class="clearfix">
           <span>抄送人</span>
         </div>
-        <pre>
-          {{form.cc}}
-        </pre>
+        <iep-tag-detail :value="form.ccList"></iep-tag-detail>
       </el-card>
     </basic-container>
   </div>

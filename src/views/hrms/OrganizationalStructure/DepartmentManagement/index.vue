@@ -25,8 +25,8 @@
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleMove(scope.row)">移动</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleMerge(scope.row)">合并</el-dropdown-item>
+                  <!-- <el-dropdown-item @click.native="handleMove(scope.row)">移动</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleMerge(scope.row)">合并</el-dropdown-item> -->
                   <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>

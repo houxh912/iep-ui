@@ -9,24 +9,24 @@
       <slot name="before-columns"></slot>
       <el-table-column :label="item.label" :width="item.width" :min-width="item.minWidth" v-for="(item, idx) in columnsMap" :key="idx" :align="align">
         <template slot-scope="scope">
-          <!-- eslint-disable -->
-          <span v-if="isTree && idx === 0" v-for="space in scope.row._level" class="ms-tree-space" :key="space"></span>
-          <!-- eslint-enable -->
-          <span class="tree-ctrl" v-if="isTree && iconShow(idx,scope.row)" @click="toggleExpanded(scope)">
-            <i v-if="!scope.row._expanded" class="el-icon-caret-right"></i>
-            <i v-else class="el-icon-caret-bottom"></i>
-          </span>
-          <div v-if="item.type==='dict'">
-            <span>{{dictsMap[item.prop][scope.row[item.prop]]}}</span>
-          </div>
-          <div v-else-if="item.type==='tag'">
+          <template v-if="isTree && idx === 0">
+            <span v-for="space in scope.row._level" class="ms-tree-space" :key="space"></span>
+          </template>
+          <template v-if="isTree && iconShow(idx,scope.row)">
+            <span class="tree-ctrl" @click="toggleExpanded(scope)">
+              <i v-if="!scope.row._expanded" class="el-icon-caret-right"></i>
+              <i v-else class="el-icon-caret-bottom"></i>
+            </span>
+          </template>
+          <template v-if="item.type==='dict'">
+            <div>{{dictsMap[item.prop][scope.row[item.prop]]}}</div>
+          </template>
+          <template v-else-if="item.type==='tag'">
             <iep-tag-detail :value="scope.row[item.prop]"></iep-tag-detail>
-          </div>
-          <div v-else>
-            <span v-if="scope.row[item.prop] === 0">0</span>
-            <span v-if="scope.row[item.prop] === null">{{ '暂无' }}</span>
-            <span v-if="scope.row[item.prop]">{{scope.row[item.prop]}}</span>
-          </div>
+          </template>
+          <template v-else>
+            <iep-table-detail :value="scope.row[item.prop]"></iep-table-detail>
+          </template>
         </template>
       </el-table-column>
       <slot></slot>

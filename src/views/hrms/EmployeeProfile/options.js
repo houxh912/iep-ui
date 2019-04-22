@@ -329,6 +329,7 @@ const columnsMap = [
     prop: 'deptList',
     label: '所属部门',
     hidden: true,
+    width: 100,
     type: 'tag',
     key: 'deptList',
   },

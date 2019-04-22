@@ -52,6 +52,7 @@ import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 // 表格相关组件
 import IepTable from '@/components/IepTable/'
 import IepTableLink from '@/components/IepTable/Link'
+import IepTableDetail from '@/components/IepTable/Detail'
 import IepTableLinkImgDesc from '@/components/IepTable/LinkImgDesc'
 
 // 通讯录组件Contact
@@ -120,6 +121,7 @@ Vue.component(IepReviewConfirm.name, IepReviewConfirm)
 // 表格相关组件
 Vue.component(IepTable.name, IepTable)
 Vue.component(IepTableLink.name, IepTableLink)
+Vue.component(IepTableDetail.name, IepTableDetail)
 Vue.component(IepTableLinkImgDesc.name, IepTableLinkImgDesc)
 
 // 通讯录组件Contact

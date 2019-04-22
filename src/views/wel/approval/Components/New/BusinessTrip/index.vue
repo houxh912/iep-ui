@@ -7,11 +7,21 @@
       <el-form-item label="发起时间：" class="form-half">
         <span>{{form.nowTime}}</span>
       </el-form-item>
-      <el-form-item label="开始时间：" class="form-half">
-        <iep-date-picker v-model="form.startTime" type="date" placeholder="选择日期" @change="startChange(form.startTime)"></iep-date-picker>
+      <el-form-item class="form-half">
+        <div slot="label">
+          开始时间
+          <iep-tip message="( TA 没有填写申请理由)" content="请务必精确到几点几分"></iep-tip>
+          ：
+        </div>
+        <iep-date-picker v-model="form.startTime" type="datetime" placeholder="选择日期" @change="startChange(form.startTime)"></iep-date-picker>
       </el-form-item>
-      <el-form-item label="结束时间：" class="form-half">
-        <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期" @change="endChange(form.endTime)"></iep-date-picker>
+      <el-form-item class="form-half">
+        <div slot="label">
+          结束时间
+          <iep-tip message="( TA 没有填写申请理由)" content="请务必精确到几点几分"></iep-tip>
+          ：
+        </div>
+        <iep-date-picker v-model="form.endTime" type="datetime" placeholder="选择日期" @change="endChange(form.endTime)"></iep-date-picker>
       </el-form-item>
       <el-form-item label="出差地点：" class="form-half">
         <el-input v-model="form.busTripDistrict"></el-input>

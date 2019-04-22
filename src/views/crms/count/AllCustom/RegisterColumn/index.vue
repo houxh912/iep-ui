@@ -10,15 +10,8 @@
     <div>
       <el-row>
         <el-col :span='12'>
-          <div class="top flag">
-            <span>部门统计</span>
-            <div class="more">
-              <span class="border" @click="left"><i class="el-icon-arrow-left"></i></span>
-              <span class="border" @click="right"><i class="el-icon-arrow-right"></i></span>
-            </div>
-          </div>
           <div class="echarts odd">
-            <count :current="current"></count>
+            <count></count>
           </div>
         </el-col>
         <el-col :span='12'>
@@ -84,24 +77,6 @@ export default {
     },
     searchPage () {
       this.$message.success('功能开发中')
-    },
-    left () {
-      // this.$message.success('功能开发中')
-      if (this.current > 1) {
-        this.current--
-      } else {
-        this.$message.success('已到首页')
-      }
-      console.log(this.current)
-    },
-    right () {
-      // this.$message.success('功能开发中')
-      if (this.current < 2) {
-        this.current++
-      } else {
-        this.$message.success('已到尾页')
-      }
-      console.log(this.current)
     },
   },
 }

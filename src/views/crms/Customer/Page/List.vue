@@ -11,6 +11,7 @@
               <el-dropdown-item @click.native="excellImport">导入</el-dropdown-item>
               <el-dropdown-item @click.native="handleAllDelete">删除</el-dropdown-item>
               <el-dropdown-item @click.native="Transfer">转移</el-dropdown-item>
+              <el-dropdown-item @click.native="handleCooperation">添加协作人</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -38,13 +39,13 @@
         </template>
         <el-table-column label="距离上次拜访已有" v-if="type!=='1'" min-width="100">
           <template slot-scope="scope">
-            <div>{{scope.row.lastTime }} 天</div>
+            <div v-if="scope.row.hasOwnProperty('lastTime')">{{scope.row.lastTime }} 天</div>
+            <div v-else>无</div>
           </template>
         </el-table-column>
         <el-table-column v-if="type !== '1'" prop="operation" label="操作" :width="type==='2'?'250px':'150px'">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" plain @click="handleCooperation(scope.row)" v-if="type==='2'">添加协作人</iep-button>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="type === '2'" @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
@@ -143,7 +144,7 @@ export default {
     },
     //客户详情
     handleDetail (row, column) {
-      if (column.label == '操作') {
+      if (column.label == '操作' || column.type == 'selection' || column.type == 'index') {
         return false
       }
       if (this.type != '1') {
@@ -170,9 +171,13 @@ export default {
 
     },
     //添加协作人
-    handleCooperation (row) {
-      this.$refs['collaborator'].data.clientId = row.clientId
-      this.$refs['collaborator'].dialogShow = true
+    handleCooperation () {
+      if (this.ids.length == 1) {
+        this.$refs['collaborator'].data.clientId = this.ids[0]
+        this.$refs['collaborator'].dialogShow = true
+      } else {
+        this.$message('一次只能添加一名协作人')
+      }
     },
     //转移
     Transfer () {

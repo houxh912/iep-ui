@@ -6,7 +6,7 @@
           <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
             <div class="img-con"><img :src="item.img" class="img"></div>
             <div class="box">
-              <div class="pieceTitle">
+              <div class="piece-title">
                 <span class="name">{{item.name}}</span>
                 <span class="time">{{item.time}}</span>
               </div>
@@ -26,7 +26,7 @@
           <div v-for="(item,index) in starList" :key="index" class="piece">
             <div class="img-con"><img :src="item.img" class="img"></div>
             <div class="box">
-              <div class="pieceTitle">
+              <div class="piece-title">
                 <span class="name">{{item.name}}</span>
               </div>
               <p class="job">{{item.job}}</p>
@@ -86,7 +86,7 @@ export default {
       float: left;
       width: 224px;
       height: 64px;
-      .pieceTitle {
+      .piece-title {
         .name {
           font-size: 16px;
           margin-right: 8px;
@@ -115,7 +115,7 @@ export default {
     }
   }
 }
-.starList {
+.star-list {
   .piece {
     .box {
       width: 150px;
@@ -142,13 +142,13 @@ export default {
   padding: 5px 0;
   color: #999;
 }
-.starList >>> .el-button {
+.star-list >>> .el-button {
   padding: 5px 15px;
   font-size: 12px;
   color: #cb3737;
 }
-.starList >>> .el-button:hover,
-.starList >>> .el-button:focus {
+.star-list >>> .el-button:hover,
+.star-list >>> .el-button:focus {
   background: #cb3737;
   border-color: #ba1b21;
   color: #fff;

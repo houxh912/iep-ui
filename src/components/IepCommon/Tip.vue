@@ -24,3 +24,8 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.el-icon-info {
+  color: #777;
+}
+</style>

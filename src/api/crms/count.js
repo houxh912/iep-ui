@@ -89,3 +89,11 @@ export function getAllManager (params) {
     params: params,
   })
 }
+//全部客户统计部门
+export function getAllDept (params) {
+  return request({
+    url: `${allUrl}/dept`,
+    method: 'get',
+    params: params,
+  })
+}

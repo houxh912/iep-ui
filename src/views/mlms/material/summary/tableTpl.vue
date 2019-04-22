@@ -19,7 +19,7 @@
             <iep-button type="warning" plain v-else>已收藏</iep-button>
             <iep-button @click="handleShare(scope.row)">分享</iep-button>
             <iep-button @click="handleSent(scope.row)" v-if="scope.row.isSend == 1">发送</iep-button>
-            <el-dropdown size="medium">
+            <el-dropdown size="medium" v-if="permissionOpera">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="handleEdit(scope.row)" v-if="permissionEdit">修改</el-dropdown-item>
@@ -59,6 +59,10 @@ export default {
       default: false,
     },
     permissionDelete: {
+      type: Boolean,
+      default: false,
+    },
+    permissionOpera: {
       type: Boolean,
       default: false,
     },

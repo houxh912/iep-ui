@@ -7,14 +7,13 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handleDeleteByIds">删除</el-dropdown-item>
-              <el-dropdown-item divided @click.native="handleExportAll">导出</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteByIds" v-if="lookByMeOnly">删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleExportAll">导出</el-dropdown-item>
               <el-dropdown-item @click.native="handleCollectAll">收藏</el-dropdown-item>
               <el-dropdown-item @click.native="handleShareAll">分享</el-dropdown-item>
-              <el-dropdown-item @click.native="handleDownload">下载</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <el-checkbox @change="changeGetWay">只看我的</el-checkbox>
+          <el-checkbox v-model="lookByMeOnly" @change="changeGetWay">只看我的</el-checkbox>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage"></operation-search>
@@ -37,7 +36,7 @@
               <iep-button type="warning" plain size="small" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
               <iep-button type="warning" plain size="small" v-else>已收藏</iep-button>
               <!-- <iep-button size="small">分享</iep-button> -->
-              <el-dropdown size="medium">
+              <el-dropdown size="medium" v-if="lookByMeOnly">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="handleEdit(scope.row)" v-if="permission_edit">修改</el-dropdown-item>
@@ -81,6 +80,7 @@ export default {
       getTableDataFn: getTableData,
       permission_edit: false,
       permission_delete: false,
+      lookByMeOnly: false,
     }
   },
   methods: {
@@ -138,10 +138,6 @@ export default {
     },
     // 批量分享
     handleShareAll () {
-      this.$message.error('抱歉，此功能尚未开发')
-    },
-    // 批量下载
-    handleDownload () {
       this.$message.error('抱歉，此功能尚未开发')
     },
     // 投稿

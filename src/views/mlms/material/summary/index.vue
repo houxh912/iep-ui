@@ -8,8 +8,8 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handleDeleteByIds">删除</el-dropdown-item>
-              <el-dropdown-item divided @click.native="handleCollectAll">收藏</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteByIds" v-if="tabName ==='personal'">删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleCollectAll">收藏</el-dropdown-item>
               <el-dropdown-item @click.native="handleAllShare">分享</el-dropdown-item>
               <el-dropdown-item @click.native="downloadPic">下载为图片</el-dropdown-item>
               <el-dropdown-item @click.native="downloadPic">导出为文本</el-dropdown-item>
@@ -50,7 +50,8 @@
             @handleCollection="handleCollection" 
             :permissionEdit="permission_edit" 
             :permissionDelete="permission_delete" 
-            @handleDetail="handleDetail"></tableTemplate>
+            @handleDetail="handleDetail"
+            :permissionOpera=true></tableTemplate>
         </template>
         <template v-if="tabName ==='involved'" v-slot:involved>
           <tableTemplate ref="tableTpl" 
@@ -81,10 +82,10 @@
   </div>
 </template>
 <script>
-import { initSearchForm } from './options'
+import { initSearchForm, getWeekStartAndEnd } from './options'
 import mixins from '@/mixins/mixins'
 import { mapState, mapGetters } from 'vuex'
-import { getTablePersonal, getTableMyInvolved, getTableMyReceived, deleteData, createCollect } from '@/api/mlms/material/summary'
+import { getTablePersonal, getTableMyInvolved, getTableMyReceived, deleteData, createCollect, getCount } from '@/api/mlms/material/summary'
 import ShareDialog from './shareDialog'
 import CollectionDialog from '../components/collectionDialog'
 import DetailPage from './detail'
@@ -96,7 +97,7 @@ export default {
   data () {
     return {
       createCollect,
-      data: [20, 3], // 头部
+      data: [0, 0], // 头部
       paramForm: initSearchForm(),
       selectList: [],
       pageState: 'list',
@@ -129,6 +130,7 @@ export default {
   created () {
     this.permission_edit = this.permissions['mlms_summary_edit']
     this.permission_delete = this.permissions['mlms_summary_delete']
+    this.getCount()
   },
   methods: {
     loadPage (params = {}) {
@@ -192,6 +194,11 @@ export default {
       this.pageState = 'detail'
       this.$nextTick(() => {
         this.$refs['detailPage'].open(row.id)
+      })
+    },
+    getCount () {
+      getCount(getWeekStartAndEnd()).then(({data}) => {
+        this.data = [data.data.receivedCount, data.data.sendCount]
       })
     },
   },

@@ -31,6 +31,11 @@
         </template>
       </el-table-column>
     </template>
+    <el-table-column prop="name" label="发件人">
+      <template slot-scope="scope">
+        <div class="mail-name" @click="handleDetail(scope.row)">{{scope.row.sendRealName}}</div>
+      </template>
+    </el-table-column>
     <el-table-column prop="name" label="主题" min-width="160">
       <template slot-scope="scope">
         <div class="mail-name" @click="handleDetail(scope.row)">{{scope.row.subject}}</div>
@@ -38,7 +43,7 @@
     </el-table-column>
     <el-table-column prop="" label="发送时间">
       <template slot-scope="scope">
-        {{scope.row.createTime}}
+        <div class="mail-name" @click="handleDetail(scope.row)">{{scope.row.createTime}}</div>
       </template>
     </el-table-column>
   </iep-table>
@@ -127,7 +132,7 @@ export default {
 .mail-name {
   width: 100%;
   cursor: pointer;
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 .mail-tags {
   margin: 0;

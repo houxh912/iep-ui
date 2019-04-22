@@ -242,6 +242,7 @@ export default {
     },
     // 补写
     writing (index) {
+      this.updateData = ''
       setTimeout(() => {
         this.dailyState = 'writing'
         this.updateIndex = index

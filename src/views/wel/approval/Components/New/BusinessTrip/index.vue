@@ -21,7 +21,7 @@
           <iep-tip content="请务必精确到几点几分"></iep-tip>
           ：
         </div>
-        <iep-date-picker v-model="form.endTime" type="datetime" placeholder="选择日期" @change="endChange(form.endTime)"></iep-date-picker>
+        <iep-date-picker v-model="form.endTime" type="datetime" placeholder="选择日期" @change="endChange(form.endTime)" :picker-options="pickerOptions"></iep-date-picker>
       </el-form-item>
       <el-form-item class="form-half">
         <div slot="label">
@@ -41,7 +41,7 @@
           <iep-tip content="请务必说明出差对象+出差类型，如北京政务服务中心商务洽谈。"></iep-tip>
           ：
         </span>
-        <el-input type="textarea" v-model="form.reason"></el-input>
+        <iep-input-area v-model="form.reason"></iep-input-area>
       </el-form-item>
       <el-form-item label="附件：">
         <iep-upload v-model="form.annex">请上传附件</iep-upload>

@@ -19,7 +19,7 @@
           <iep-tip content="请根据劳动法规定填写：离职时间为提出申请的一个月后，谢谢！"></iep-tip>
           ：
         </div>
-        <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期"></iep-date-picker>
+        <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期" :picker-options="pickerOptions"></iep-date-picker>
       </el-form-item>
       <el-form-item prop="reason">
         <span slot="label">
@@ -27,7 +27,7 @@
           <iep-tip content="请说明离职的原因，同事的合作情况，对公司的意见建议等内容"></iep-tip>
           ：
         </span>
-        <el-input type="textarea" v-model="form.reason"></el-input>
+        <iep-input-area v-model="form.reason"></iep-input-area>
       </el-form-item>
       <el-form-item>
         <div slot="label">

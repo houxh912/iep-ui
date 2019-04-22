@@ -32,7 +32,7 @@
           <iep-tip content="请选择想要调岗的时间"></iep-tip>
           ：
         </div>
-        <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期"></iep-date-picker>
+        <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期" :picker-options="pickerOptions"></iep-date-picker>
       </el-form-item>
       <el-form-item prop="reason">
         <span slot="label">
@@ -40,7 +40,7 @@
           <iep-tip content="请详细说明申请调岗的原因和理由。"></iep-tip>
           ：
         </span>
-        <el-input type="textarea" v-model="form.reason"></el-input>
+        <iep-input-area v-model="form.reason"></iep-input-area>
       </el-form-item>
       <el-form-item label="附件：">
         <iep-upload v-model="form.annex">请上传附件</iep-upload>

@@ -17,7 +17,7 @@
         <span>{{form.startTime}}</span>
       </el-form-item>
       <el-form-item label="转正时间：">
-        <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期"></iep-date-picker>
+        <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期" :picker-options="pickerOptions"></iep-date-picker>
       </el-form-item>
       <el-form-item prop="reason">
         <span slot="label">
@@ -25,7 +25,7 @@
           <iep-tip content="建议从工作业绩结果描述，价值观，工作态度和技能，个人优势和不足等几方面描述"></iep-tip>
           ：
         </span>
-        <el-input type="textarea" v-model="form.reason"></el-input>
+        <iep-input-area v-model="form.reason"></iep-input-area>
       </el-form-item>
       <el-form-item>
         <div slot="label">

@@ -3,10 +3,15 @@
     <basic-container>
       <page-header :title="`${methodName}客户`" :backOption="backOption"></page-header>
       <div class="edit-wrapper">
-        <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="100px" class="wrap">
+        <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="120px" class="wrap">
           <el-row>
             <el-col :span='10'>
-              <el-form-item label="客户名称：" prop="clientName" class="">
+              <el-form-item prop="clientName" class="">
+                <span slot="label">
+                  开始时间
+                  <iep-tip content="客户名称精确到局办且为全称， 如：“北京市行政服务中心”"></iep-tip>
+                  :
+                </span>
                 <el-input v-model="formData.clientName" placeholder="客户名称至少6个字"></el-input>
               </el-form-item>
             </el-col>
@@ -52,8 +57,11 @@
             </el-checkbox-group>
           </el-form-item>
           <el-form-item label="" prop="specificBusinessType">
-            <el-input v-model="formData.specificBusinessType" placeholder="请填写具体业务类型"></el-input>
-            <el-col class="col-tips"><i class="el-icon-warning"></i> 咨询：研究、规划、评测、整体解决方案等</el-col>
+            <el-input v-model="formData.specificBusinessType" placeholder="请务必结合客户需求准确填写业务类型"></el-input>
+            <iep-tip :content="'asdsad'">
+              <div slot="content">多行信息<br />第二行信息</div>
+            </iep-tip>
+            <el-col class="col-tips"><i class="el-icon-warning"></i> </el-col>
             <el-col class="col-tips"><i class="el-icon-warning"></i> 数据：数据资产采集、普查、编目、标签、画像、主题库基础库建设类、政务数据服务应用创新类等</el-col>
             <el-col class="col-tips"><i class="el-icon-warning"></i> 事项：事项材料梳理标准化、优化改造、营商环境、百项堵点、一网通办、全流程网办等各种主题事项梳理</el-col>
             <el-col class="col-tips"><i class="el-icon-warning"></i> 平台：外包、培训、专题等</el-col>

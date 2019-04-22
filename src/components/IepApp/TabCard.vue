@@ -56,7 +56,11 @@ export default {
   font-size: 16px;
   color: #999;
 }
-
+</style>
+<style scoped>
+.index-card >>> .el-card__header {
+  padding: 18px 20px;
+}
 </style>
 
 

@@ -53,6 +53,10 @@
             <label>福利待遇：</label>
             <div class="content">{{form.welfare}}</div>
           </div>
+          <div class="info-item">
+            <label>招聘期限：</label>
+            <div class="content">{{form.term}}</div>
+          </div>
         </div>
       </el-card>
       <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">

@@ -55,6 +55,7 @@ export default {
           id: data.value,
           name: data.label,
         }
+        this.filterText = ''
         this.dialogShow = false
       }
     },

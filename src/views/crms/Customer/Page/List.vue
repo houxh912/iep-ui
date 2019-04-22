@@ -129,6 +129,7 @@ export default {
         formRequestFn: postCustomer,
         methodName: '新增',
         id: false,
+        type: this.type,
       })
     },
     //编辑客户
@@ -161,7 +162,12 @@ export default {
       this._handleGlobalDeleteById(this.ids, deleteCustomerBatch)
     },
     handleAllDelete () {
-      this._handleGlobalDeleteById(this.ids, deleteCustomerBatch)
+      if (this.ids.length == 0) {
+        this.$message.info('请勾选需要删除的客户')
+      } else {
+        this._handleGlobalDeleteById(this.ids, deleteCustomerBatch)
+      }
+
     },
     //添加协作人
     handleCooperation (row) {

@@ -5,8 +5,7 @@
         <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>发起申请</iep-button>
       </template>
       <template slot="right">
-        <operation-search @search-page="searchPage" advance-search>
-        </operation-search>
+        <operation-search @search-page="searchPage"></operation-search>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>

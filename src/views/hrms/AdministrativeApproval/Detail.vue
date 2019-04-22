@@ -65,7 +65,7 @@
           <el-timeline-item v-for="p in form.processList" :key="p.id" :timestamp="p.time" placement="top">
             <el-card>
               <h4>{{p.username}} {{p.status}}</h4>
-              <p>审批意见：{{p.msg}}</p>
+              <p v-if="p.msg.length">审批意见：{{p.msg}}</p>
             </el-card>
           </el-timeline-item>
         </el-timeline>
@@ -74,9 +74,7 @@
         <div slot="header" class="clearfix">
           <span>抄送人</span>
         </div>
-        <pre>
-          {{form.cc}}
-        </pre>
+        <iep-tag-detail :value="form.ccList.map(m => m.name)"></iep-tag-detail>
       </el-card>
     </basic-container>
   </div>

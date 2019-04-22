@@ -31,7 +31,7 @@
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>￥{{data.contractAmount}}</span> 合同金额
+          <span>{{data.contractAmount}}w</span> 合同金额
         </div>
         <div class="content">超过了 {{data.contractAmountBeyond}}% 的同事</div>
       </el-col>
@@ -61,8 +61,12 @@ export default {
   },
   created () {
     getMyClientNum().then((res) => {
-      res.data.data.contractAmount = res.data.data.contractAmount.toLocaleString()
-      this.data = res.data.data
+      if (res.data.data.contractAmount !== 0) {
+        var num = 10000
+        res.data.data.contractAmount = (res.data.data.contractAmount / num).toFixed(2)
+        this.data = res.data.data
+      }
+
     })
   },
 }

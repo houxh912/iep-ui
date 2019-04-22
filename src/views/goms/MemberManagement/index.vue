@@ -5,7 +5,8 @@
       <operation-container>
         <template slot="left">
           <iep-button type="primary" @click="handleAddUsers()" icon="el-icon-plus" plain>批量添加成员</iep-button>
-          <iep-button @click="handleDeleteBatch()">删除</iep-button>
+          <iep-button @click="handleReviewBatch()">批量审核</iep-button>
+          <iep-button @click="handleDeleteBatch()">批量删除</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
@@ -43,7 +44,7 @@
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
     <add-user-dialog-form ref="AddUserDialogForm" @load-page="loadPage"></add-user-dialog-form>
-    <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
+    <iep-review-confirm ref="IepReviewForm" @load-page="loadPage"></iep-review-confirm>
   </div>
 </template>
 <script>
@@ -84,6 +85,11 @@ export default {
     },
     isMine (row) {
       return row.userId === this.userInfo.userId
+    },
+    handleReviewBatch () {
+      this.$refs['IepReviewForm'].ids = this.multipleSelection
+      this.$refs['IepReviewForm'].title = '批量审核'
+      this.$refs['IepReviewForm'].dialogShow = true
     },
     handleDeleteBatch () {
       this._handleGlobalDeleteAll(delAllGomsUser)

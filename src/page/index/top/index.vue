@@ -30,7 +30,7 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item @click.native="$openPage('/')">
-            首页
+            工作台
           </el-dropdown-item>
           <el-dropdown-item @click.native="handleOrg(orgText.type)">
             {{orgText.tipText}}&nbsp;&nbsp;&nbsp;

@@ -43,7 +43,7 @@
   </div>
 </template>
 <script>
-import { getPublishRecruitmentPage, postPublishRecruitment, putPublishRecruitment, shelfPublishRecruitmentById, deletePublishRecruitmentById, obtainedPublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/publish_recruitment'
+import { getPublishRecruitmentPage, shelfPublishRecruitmentById, deletePublishRecruitmentById, obtainedPublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/publish_recruitment'
 import AdvanceSearch from './AdvanceSearch'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
@@ -78,17 +78,13 @@ export default {
       this._handleComfirm(row.id, obtainedPublishRecruitmentById, '下架')
     },
     handleAdd () {
-      this.$emit('onEdit', {
-        formRequestFn: postPublishRecruitment,
-        methodName: '发布',
-        id: false,
+      this.$router.push({
+        path: '/hrms_spa/recruitment_publish/0',
       })
     },
     handleEdit (row) {
-      this.$emit('onEdit', {
-        formRequestFn: putPublishRecruitment,
-        methodName: '修改',
-        id: row.id,
+      this.$router.push({
+        path: `/hrms_spa/recruitment_publish/${row.id}`,
       })
     },
     handleDetail (row) {

@@ -9,6 +9,15 @@ export function getTableData (obj) {
   })
 }
 
+// 供给邮件关联使用，与上面的链接一模一样
+export function getProjectList (obj) {
+  return request({
+    url: `${prefixUrl}/page`,
+    method: 'get',
+    params: obj,
+  })
+}
+
 export function createData (obj) {
   return request({
     url: `${prefixUrl}`,

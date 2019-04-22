@@ -12,9 +12,14 @@
       <!-- 第二栏 -->
       <div class="transfer box-list">
         <!-- <el-input class="search" placeholder="请输入关键字" prefix-icon="el-icon-search" v-model="searchVal"></el-input> -->
-        <ul class="list">
+        <!-- <ul class="list">
           <li class="item" :class="selectFn(item.id) ? 'selectItem' : ''" v-for="(item, index) in secondList" :key="index" @click="selectFn(item.id) ? '' : secondClick(item)">{{item.name}}</li>
-        </ul>
+        </ul> -->
+        <iep-scroll :load="projectState" @load-page="loadProject">
+          <ul class="list">
+            <li class="item" :class="selectFn(item.id) ? 'selectItem' : ''" v-for="(item, index) in secondList" :key="index" @click="selectFn(item.id) ? '' : secondClick(item)">{{item.name}}</li>
+          </ul>
+        </iep-scroll>
       </div>
       <div class="arrow"><i class="el-icon-d-arrow-right"></i></div>
       <!-- 第三栏 -->
@@ -43,17 +48,19 @@
   </iep-dialog>
 </template>
 <script>
-import { getReceiverList, getProjectList } from '@/api/mlms/email/material'
+import { getMaterialList } from '@/api/mlms/material/datum/material'
+import { getProjectList } from '@/api/gpms/index'
+import IepScroll from '@/components/IepScroll/index'
 
 export default {
-  components: {},
+  components: { IepScroll },
   data () {
     return {
       dialogShow: false,
       firstList: [
         { id: 1, name: '报表', requestFn: '' },
         { id: 2, name: '项目', requestFn: getProjectList, type: 'projectIds' },
-        { id: 3, name: '材料', requestFn: getReceiverList, type: 'materialIds' },
+        { id: 3, name: '材料', requestFn: getMaterialList, type: 'materialIds' },
         { id: 4, name: '日程', requestFn: '' },
         { id: 5, name: '可关联的事项分类', requestFn: '' },
       ],
@@ -72,6 +79,7 @@ export default {
         size: 10,
         name: '',
       },
+      projectState: 0,
     }
   },
   methods: {
@@ -89,6 +97,7 @@ export default {
         this.thirdList = [],
         this.dialogShow = false
     },
+    // 选择关联的类型
     firstClick (item, index) {
       this.params = {
         current: 1,
@@ -100,14 +109,23 @@ export default {
         return
       }
       this.activitIndex = index
+      this.secondList = []
+      this.getListFn()
+    },
+    getListFn () {
+      let item = this.firstList[this.activitIndex]
       item.requestFn(this.params).then(({ data }) => {
-        console.log('data: ', data)
-        if (item.name == '项目') {
-          for (let t of data.data.records) {
-            t.name = t.projectName
+        if (data.data.records.length > 0) {
+          this.projectState = 0
+          if (item.name == '项目') {
+            for (let t of data.data.records) {
+              t.name = t.projectName
+            }
           }
+          this.secondList = this.secondList.concat(data.data.records)
+        } else {
+          this.projectState = 7
         }
-        this.secondList = data.data.records
       })
     },
     secondClick (item) {
@@ -129,6 +147,12 @@ export default {
     // 删除第三个框选中的数据
     cancel (index, type) {
       this.transferList[type].splice(index, 1)
+    },
+    // 加载更多
+    loadProject () {
+      this.projectState = 4
+      ++this.params.current
+      this.getListFn()
     },
   },
 }
@@ -209,5 +233,28 @@ export default {
     line-height: 300px;
     font-size: 20px;
   }
+}
+::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 6px;
+  background-color: #fff;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ddd;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+  display: none;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+:hover ::-webkit-scrollbar-thumb {
+  display: block;
 }
 </style>

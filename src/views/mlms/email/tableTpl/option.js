@@ -6,10 +6,10 @@ export const dictsMap = {
 }
 
 export const tableOption = [
-  {
-    label: '发件人',
-    prop: 'sendRealName',
-  },
+  // {
+  //   label: '发件人',
+  //   prop: 'sendRealName',
+  // },
 ]
 
 export const reportTableOption = [

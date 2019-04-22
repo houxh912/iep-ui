@@ -3,7 +3,7 @@
     
     
     <div class="search">
-      <el-input placeholder="请输入内容" v-model="params.projectName" class="input-with-select">
+      <el-input placeholder="请输入内容" v-model="params.projectName" class="input-with-select" maxlength="20">
         <el-button slot="append" icon="el-icon-search" @click="searchProject"></el-button>
       </el-input>
     </div>

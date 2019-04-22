@@ -8,7 +8,7 @@
       <div>
         <div class="classify">
           <span class="sub-title">分类：</span>
-          <span class="appellation" v-for="name in nameList" :key="name.id">{{name.name}}<span class="data-con">{{name.data}}</span></span>
+          <span class="pieceDeletion" v-for="(name,index) in nameList" :key="index" :class="showClass1==index?'color':''" @click="tab1(index)">{{name.name}}<span class="data-con">{{name.data}}</span></span>
         </div>
         <div class="resourcesList">
           <div v-for="(item,index) in resourcesList" :key="index" class="piece">
@@ -27,30 +27,26 @@
 export default {
   data () {
     return {
+      showClass1: 0,
       title: '光彩国脉人',
       nameList: [
         {
-          id: '1',
           name: '技术之星',
           data: '(2人)',
         },
         {
-          id: '2',
           name: '品牌达人',
           data: '(11人)',
         },
         {
-          id: '3',
           name: '销售达人',
           data: '(56人)',
         },
         {
-          id: '4',
           name: '材料达人',
           data: '(34人)',
         },
         {
-          id: '5',
           name: '贡献达人',
           data: '(13人)',
         },
@@ -68,6 +64,11 @@ export default {
       ],
     }
   },
+  methods: {
+    tab1 (val) {
+      this.showClass1 = val
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -83,18 +84,24 @@ export default {
       border-color: #cb3737;
     }
   }
-  .appellation {
+  .pieceDeletion {
+    display: inline;
+    padding: 2px 10px;
+    border-radius: 12px;
+    border: 1px solid #ffffff;
     margin: 0 10px;
-    padding: 5px 15px;
-    border-radius: 20px;
-    border: 1px solid #fff;
     cursor: pointer;
-    &:hover,
-    &:focus {
-      color: #cb3737;
-      background: #fef0f0;
-      border-color: #cb3737;
+    transition: all 0.5s;
+    &:hover {
+      background-color: #fef6f4;
+      border: 1px solid #dc8687;
+      color: #dc8687;
     }
+  }
+  .color {
+    background-color: #fef6f4;
+    border: 1px solid #dc8687;
+    color: #dc8687;
   }
 }
 .resourcesList {

@@ -27,7 +27,7 @@
             <el-form-item class="">
               <div slot="label">
                 头像
-                <iep-tip content="请务必根据以下说明上传头像：</br>1. 照片必须为本人真实、正面、静态、采用蓝、白、灰底1年内的证件照；</br>2. 上传尺寸为宽300像素*高300像素"></iep-tip>
+                <iep-tip content="请务必根据以下说明上传头像：<br/>1. 照片必须为本人真实、正面、静态、采用蓝、白、灰底1年内的证件照；<br/>2. 上传尺寸为宽300像素*高300像素"></iep-tip>
                 ：
               </div>
               <iep-avatar v-model="form.avatar"></iep-avatar>

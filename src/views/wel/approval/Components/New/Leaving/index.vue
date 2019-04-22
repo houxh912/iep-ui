@@ -49,7 +49,7 @@
       <el-form-item prop="approver">
         <span slot="label">
           审批人
-          <iep-tip content="1、一天以内由直属领导审批（含1天）；</br>2、二天以内由部门班长审批（含2天）；</br>3、三天及以上总经理（郑总）审批（含3天）。"></iep-tip>
+          <iep-tip content="1、一天以内由直属领导审批（含1天）；<br/>2、二天以内由部门班长审批（含2天）；<br/>3、三天及以上总经理（郑总）审批（含3天）。"></iep-tip>
           ：
         </span>
         <iep-contact-multiple-user v-model="form.approver"></iep-contact-multiple-user>

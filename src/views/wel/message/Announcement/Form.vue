@@ -14,7 +14,7 @@
         <el-form-item prop="type">
           <span slot="label">
             类型
-            <iep-tip content="日常公告：关于学习、传达会议精神/要求、放假等日常的通知；</br>公司制度：制度规范类征集意见或实施等公布的通知；</br>培训通知：关于培训而发布的通知；</br>人事调动：关于人事任免而发布的通知；</br>其他通知：除上述提到的以外的通知。"></iep-tip>
+            <iep-tip content="日常公告：关于学习、传达会议精神/要求、放假等日常的通知；<br/>公司制度：制度规范类征集意见或实施等公布的通知；<br/>培训通知：关于培训而发布的通知；<br/>人事调动：关于人事任免而发布的通知；<br/>其他通知：除上述提到的以外的通知。"></iep-tip>
             ：
           </span>
           <iep-dict-select v-model="form.type" dict-name="ims_notify_type"></iep-dict-select>
@@ -22,7 +22,7 @@
         <el-form-item prop="content">
           <span slot="label">
             内容
-            <iep-tip content="1、包含称呼、通知缘由、事项、要求和发文单位等内容；</br>2、分段陈述，默认字体与字号，带格式的文字粘贴请使用“格式清除”工具；"></iep-tip>
+            <iep-tip content="1、包含称呼、通知缘由、事项、要求和发文单位等内容；<br/>2、分段陈述，默认字体与字号，带格式的文字粘贴请使用“格式清除”工具；"></iep-tip>
             ：
           </span>
           <iep-input-area type="textarea" v-model="form.content"></iep-input-area>

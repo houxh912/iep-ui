@@ -57,14 +57,14 @@
                 <iep-tip content="多项内容时使用“/”分开，如无要求则填“无”"></iep-tip>
                 ：
               </span>
-              <el-input v-model="form.profession"></el-input>
+              <el-input v-model="form.profession" maxlength="2010"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="工作地点：" prop="place">
-              <el-input v-model="form.place"></el-input>
+              <el-input v-model="form.place" maxlength="2010"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -85,7 +85,7 @@
                 <iep-tip content="请务必以区间形式体现且标明年薪还是月薪，如3000-5000元/月，5-6万/年"></iep-tip>
                 ：
               </span>
-              <el-input v-model="form.treatment"></el-input>
+              <el-input v-model="form.treatment" maxlength="2010"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -95,7 +95,7 @@
                 <iep-tip content="此处填写语种+等级，如大学英语四级，日语二级"></iep-tip>
                 ：
               </span>
-              <el-input v-model="form.language"></el-input>
+              <el-input v-model="form.language" maxlength="2010"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -117,25 +117,25 @@
                 <iep-tip content="此处如需填写多项内容时，请用“/”分开"></iep-tip>
                 ：
               </span>
-              <el-input v-model="form.welfare"></el-input>
+              <el-input v-model="form.welfare" maxlength="2010"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-form-item prop="duties">
           <span slot="label">
             岗位职责
-            <iep-tip content="请务必准确规范填写且不少于6条：</br>1、内容要有条理性，次序性，以1、2、3、4.....序列的形式描述；</br>2、岗位职责清晰，语言简练，忌口语化描述；</br>3、岗位职责为该岗位的工作方向，而非具体内容的操作方法；"></iep-tip>
+            <iep-tip content="请务必准确规范填写且不少于6条：<br />1、内容要有条理性，次序性，以1、2、3、4.....序列的形式描述；<br />2、岗位职责清晰，语言简练，忌口语化描述；<br />3、岗位职责为该岗位的工作方向，而非具体内容的操作方法；"></iep-tip>
             ：
           </span>
-          <iep-input-area v-model="form.duties"></iep-input-area>
+          <iep-input-area v-model="form.duties" maxlength="2010"></iep-input-area>
         </el-form-item>
         <el-form-item prop="claim">
           <span slot="label">
             岗位要求
-            <iep-tip content="请务必准确规范填写：</br>1、内容要有条理性，次序性，以1、2、3、4.....序列的形式描述；</br>2、岗位要求具体内容与岗位职责描述相匹配，切记不搭边。"></iep-tip>
+            <iep-tip content="请务必准确规范填写：<br/>1、内容要有条理性，次序性，以1、2、3、4.....序列的形式描述；<br/>2、岗位要求具体内容与岗位职责描述相匹配，切记不搭边。"></iep-tip>
             ：
           </span>
-          <iep-input-area v-model="form.claim"></iep-input-area>
+          <iep-input-area v-model="form.claim" maxlength="2010"></iep-input-area>
         </el-form-item>
         <el-form-item label="">
           <operation-wrapper>

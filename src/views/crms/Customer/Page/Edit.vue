@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${methodName}客户`"></page-header>
+      <page-header :title="`${methodName}客户`" :backOption="backOption"></page-header>
       <div class="edit-wrapper">
         <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="100px" class="wrap">
           <el-row>
@@ -92,8 +92,8 @@
         </el-form>
       </div>
       <footer-tool-bar>
-        <iep-button @click="handleGoBack">返回</iep-button>
         <iep-button type="primary" @click="submitForm('formName')">提交</iep-button>
+        <iep-button type="primary" @click="handleGoContact('formName')">保存并新增联系人</iep-button>
       </footer-tool-bar>
     </basic-container>
   </div>
@@ -147,7 +147,24 @@ export default {
     }
 
     return {
-      id: false,
+      id: '',
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: () => {
+          if (this.flag) {
+            this.$router.push({
+              path: '/crms/business',
+              query: {
+                flag: true,
+                type: '3',
+              },
+            })
+          } else {
+            this.$emit('onGoBack')
+          }
+        },
+      },
       rules: {
         clientName: [
           { required: true, validator: validateFun, trigger: 'blur' },
@@ -200,12 +217,15 @@ export default {
       methodName: '',
       formRequestFn: () => { },
       formData: initForm(),
+      clientId: '',
+      type: '',
 
     }
   },
   created () {
     this.formData.marketManager = this.userInfo.userId
     this.flagName = this.record.flagName
+    this.type = this.record.type
     this.formData.Manager = this.userInfo.realName
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn
@@ -246,18 +266,31 @@ export default {
     handleTag () {
       this.$message('添加标签')
     },
-    handleGoBack () {
-      if (this.flag) {
-        this.$router.push({
-          path: '/crms/business',
-          query: {
-            flag: true,
-            type: '3',
-          },
-        })
-      } else {
-        this.$emit('onGoBack')
-      }
+    handleGoContact (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.formRequestFn((this.formData)).then(({ data }) => {
+            if (data.data) {
+              this.$message({
+                message: `客户${this.methodName}成功`,
+                type: 'success',
+              })
+              this.$router.push({
+                path: `/crms_spa/customer_detail/${data.data}`,
+                query: {
+                  type: this.type,
+                  flag: true,
+                },
+              })
+            }
+          })
+
+        } else {
+          return false
+        }
+      })
+
+
     },
     load () {
       getCustomerById(this.record.id).then(({ data }) => {
@@ -269,11 +302,14 @@ export default {
         if (valid) {
           this.formRequestFn((this.formData)).then(({ data }) => {
             if (data.data) {
+              console.log(data.data)
+              this.clientId = data.data
+              console.log(this.clientId)
+              this.$set(this.clientId)
               this.$message({
                 message: `客户${this.methodName}成功`,
                 type: 'success',
               })
-
               if (this.flag) {
                 createById({ iepOpportunityInputId: this.record.data.opportunityId }).then(() => {
                 })

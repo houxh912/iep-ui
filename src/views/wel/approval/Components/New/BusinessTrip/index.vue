@@ -10,7 +10,7 @@
       <el-form-item class="form-half">
         <div slot="label">
           开始时间
-          <iep-tip message="( TA 没有填写申请理由)" content="请务必精确到几点几分"></iep-tip>
+          <iep-tip content="请务必精确到几点几分"></iep-tip>
           ：
         </div>
         <iep-date-picker v-model="form.startTime" type="datetime" placeholder="选择日期" @change="startChange(form.startTime)"></iep-date-picker>
@@ -18,19 +18,29 @@
       <el-form-item class="form-half">
         <div slot="label">
           结束时间
-          <iep-tip message="( TA 没有填写申请理由)" content="请务必精确到几点几分"></iep-tip>
+          <iep-tip content="请务必精确到几点几分"></iep-tip>
           ：
         </div>
         <iep-date-picker v-model="form.endTime" type="datetime" placeholder="选择日期" @change="endChange(form.endTime)"></iep-date-picker>
       </el-form-item>
-      <el-form-item label="出差地点：" class="form-half">
+      <el-form-item class="form-half">
+        <div slot="label">
+          出差地点
+          <iep-tip content="请务必精确市区，如舟山市定海区"></iep-tip>
+          ：
+        </div>
         <el-input v-model="form.busTripDistrict"></el-input>
       </el-form-item>
       <el-form-item label="出差时长：" class="form-half">
         <el-input v-model="form.duration" disabled></el-input>
         <!-- <iep-input-number v-model="form.duration"></iep-input-number> -->
       </el-form-item>
-      <el-form-item label="申请理由：" prop="reason">
+      <el-form-item prop="reason">
+        <div slot="label">
+          申请理由
+          <iep-tip content="请务必说明出差对象+出差类型，如北京政务服务中心商务洽谈。"></iep-tip>
+          ：
+        </div>
         <el-input type="textarea" v-model="form.reason"></el-input>
       </el-form-item>
       <el-form-item label="附件：">
@@ -39,12 +49,17 @@
       <el-form-item prop="approver">
         <div slot="label">
           审批人
-          <iep-tip content="1、一天以内由直属领导审批（含1天）；<br/>2、二天以内由部门班长审批（含2天）；<br/>3、三天及以上总经理（郑总）审批（含3天）。"></iep-tip>
+          <iep-tip content="请务必选择所属部门（组织）班长审批，谢谢！"></iep-tip>
           ：
         </div>
         <iep-contact-multiple-user v-model="form.approver"></iep-contact-multiple-user>
       </el-form-item>
-      <el-form-item label="抄送人：">
+      <el-form-item>
+        <div slot="label">
+          抄送人
+          <iep-tip content="请务必抄送所属部门人力和财务，谢谢！"></iep-tip>
+          ：
+        </div>
         <iep-contact-multiple-user v-model="form.cc"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item label="">

@@ -3,7 +3,12 @@
     <basic-container>
       <page-header :title="`${methodName}公告`" :backOption="backOption"></page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="small">
-        <el-form-item label="主题：" prop="name">
+        <el-form-item prop="name">
+          <div slot="label">
+            主题
+            <iep-tip content="主题请务必包含关于+事由+通知类型，如关于学习内网2.0相关功能操作的通知。"></iep-tip>
+            ：
+          </div>
           <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="类型：" prop="type">

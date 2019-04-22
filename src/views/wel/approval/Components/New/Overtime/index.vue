@@ -7,26 +7,56 @@
       <el-form-item label="发起时间：" class="form-half">
         <span>{{form.nowTime}}</span>
       </el-form-item>
-      <el-form-item label="开始时间：" class="form-half">
+      <el-form-item class="form-half">
+        <div slot="label">
+          开始时间
+          <iep-tip content="请精确到分钟"></iep-tip>
+          ：
+        </div>
         <iep-date-picker v-model="form.startTime" type="date" placeholder="选择日期" @change="startChange(form.startTime)"></iep-date-picker>
       </el-form-item>
-      <el-form-item label="结束时间：" class="form-half">
+      <el-form-item class="form-half">
+        <div slot="label">
+          结束时间
+          <iep-tip content="请精确到分钟"></iep-tip>
+          ：
+        </div>
         <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期" @change="endChange(form.endTime)"></iep-date-picker>
       </el-form-item>
-      <el-form-item label="加班时长：" class="form-half">
+      <el-form-item class="form-half">
+        <div slot="label">
+          加班时长
+          <iep-tip content="单位为小时"></iep-tip>
+          ：
+        </div>
         <el-input v-model="form.duration" disabled></el-input>
         <!-- <iep-input-number v-model="form.duration"></iep-input-number> -->
       </el-form-item>
-      <el-form-item label="申请理由：" prop="reason">
+      <el-form-item prop="reason">
+        <div slot="label">
+          申请理由
+          <iep-tip content="请说明加班地点+加班事项"></iep-tip>
+          ：
+        </div>
         <el-input type="textarea" v-model="form.reason"></el-input>
       </el-form-item>
       <el-form-item label="附件：">
         <iep-upload v-model="form.annex">请上传附件</iep-upload>
       </el-form-item>
-      <el-form-item label="审批人：" prop="approver">
+      <el-form-item prop="approver">
+        <div slot="label">
+          审批人
+          <iep-tip content="请务必选择所属部门（组织）班长审批，谢谢！"></iep-tip>
+          ：
+        </div>
         <iep-contact-multiple-user v-model="form.approver"></iep-contact-multiple-user>
       </el-form-item>
-      <el-form-item label="抄送人：">
+      <el-form-item>
+        <div slot="label">
+          抄送人
+          <iep-tip content="请务必抄送所属部门人力，谢谢！"></iep-tip>
+          ：
+        </div>
         <iep-contact-multiple-user v-model="form.cc"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item label="">

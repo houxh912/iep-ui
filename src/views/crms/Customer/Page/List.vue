@@ -143,7 +143,7 @@ export default {
     },
     //客户详情
     handleDetail (row, column) {
-      if (column.label == '操作') {
+      if (column.label == '操作' || column.type == 'selection' || column.type == 'index') {
         return false
       }
       if (this.type != '1') {

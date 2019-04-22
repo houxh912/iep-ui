@@ -6,7 +6,7 @@
         <el-button style="float: right; padding: 3px 0" type="text">查看详情></el-button>
       </div>
       <ul class="grid-report">
-        <li v-for="(item,index) in gridReport" :key="index">{{item}}</li>
+        <span v-for="(item,index) in gridReport" :key="index">{{item}}</span>
       </ul>
     </el-card>
   </div>
@@ -28,11 +28,21 @@ export default {
 .grid-report {
   padding-left: 15px;
 }
-.grid-report li {
-  font-size: 14px;
-  color: #000;
-  text-align: left;
-  margin-bottom: 13px;
+.grid-report span {
+  display: inline-block;
+    margin: 5px 0;
+    position: relative;
+    padding-left: 10px;
+  &:before {
+      content: "";
+      position: absolute;
+      left: -8px;
+      top: 7px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: #999;
+    }
 }
 </style>
 

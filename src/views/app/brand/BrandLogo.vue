@@ -13,12 +13,12 @@ export default {
   data () {
     return {
         info:[
-            {logoSrc:require('../images/logo1.png'),pv:`PV：${6}次`,day:`日环比：${6}%`,week:`周环比：${8}%`},
-            {logoSrc:require('../images/logo2.png'),pv:`PV：${6}次`,day:`日环比：${6}%`,week:`周环比：${8}%`},
-            {logoSrc:require('../images/logo3.png'),pv:`PV：${6}次`,day:`日环比：${6}%`,week:`周环比：${8}%`},
-            {logoSrc:require('../images/logo4.png'),pv:`PV：${6}次`,day:`日环比：${6}%`,week:`周环比：${8}%`},
-            {logoSrc:require('../images/logo5.jpg'),pv:`PV：${6}次`,day:`日环比：${6}%`,week:`周环比：${8}%`},
-            {logoSrc:require('../images/logo6.png'),pv:`PV：${6}次`,day:`日环比：${6}%`,week:`周环比：${8}%`},
+            {logoSrc:require('./images/logo1.png'),pv:`PV：${6}次`,day:`日环比：${6}%`,week:`周环比：${8}%`},
+            {logoSrc:require('./images/logo2.png'),pv:`PV：${6}次`,day:`日环比：${6}%`,week:`周环比：${8}%`},
+            {logoSrc:require('./images/logo3.png'),pv:`PV：${6}次`,day:`日环比：${6}%`,week:`周环比：${8}%`},
+            {logoSrc:require('./images/logo4.png'),pv:`PV：${6}次`,day:`日环比：${6}%`,week:`周环比：${8}%`},
+            {logoSrc:require('./images/logo5.jpg'),pv:`PV：${6}次`,day:`日环比：${6}%`,week:`周环比：${8}%`},
+            {logoSrc:require('./images/logo6.png'),pv:`PV：${6}次`,day:`日环比：${6}%`,week:`周环比：${8}%`},
         ],
     }
   },
@@ -32,13 +32,15 @@ export default {
     grid-column-end: 4;
     border: 1px solid #eee;
        .logo-container {
+           text-align: center;
             padding:15px;
             width:20%;
             min-height: 36px;
             border-right: 1px solid #eee;
             img{
-                width: 100%;
-                height: 50px;
+                width: 60%;
+                height: 30px;
+                margin-bottom: 15px;
             }
             p{
                 text-align: center;

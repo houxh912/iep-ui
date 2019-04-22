@@ -1,9 +1,9 @@
 <template>
-
   <div>
     <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
       <span class="count" :class="item.color">{{index+1}}</span>
       <span class="name">{{item.name}}</span>
+      <img v-if="item.isShow" :src="item.imgSrc" alt="">
     </div>
     <div class="todyInfo">
       <span>今日公告：</span>
@@ -17,10 +17,10 @@ export default {
   data () {
     return {
       leaderBoardList: [
-        { name: '首届长三角营商环境论坛在沪召开的', color: 'red' },
-        { name: '首届长三角营商环境论坛在沪召开的', color: '' },
-        { name: '首届长三角营商环境论坛在沪召开的', color: '' },
-        { name: '首届长三角营商环境论坛在沪召开的', color: '' },
+        { name: '首届长三角营商环境论坛在沪召开的', color: 'red',isShow:true,imgSrc:require('../images/banner1.png') },
+        { name: '首届长三角营商环境论坛在沪召开的', color: '',isShow:false },
+        { name: '首届长三角营商环境论坛在沪召开的', color: '',isShow:false },
+        { name: '首届长三角营商环境论坛在沪召开的', color: '' ,isShow:false},
       ],
     }
   },
@@ -60,11 +60,25 @@ export default {
   &:hover {
     color: #cb3737;
   }
+  img{
+    display:block;
+    margin-top: 10px;
+    width:100%;
+    height:120px;
+  }
+}
+.el-tabs__content{
+  position:relative;
 }
 .todyInfo {
+  position:absolute;
+  width:100%;
+  left: 0;
+  bottom: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   background-color: #eee;
+  padding:5px 20px;
 }
 </style>

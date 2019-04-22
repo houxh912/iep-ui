@@ -25,11 +25,11 @@ export default {
       isMore:true,
       linkName: '',
       img: [
-        { imgSrc: require('../images/expert1.jpg') },
-        { imgSrc: require('../images/expert2.png') },
-        { imgSrc: require('../images/expert3.png') },
-        { imgSrc: require('../images/expert4.png') },
-        { imgSrc: require('../images/expert5.jpg') },
+        { imgSrc: require('./images/expert1.jpg') },
+        { imgSrc: require('./images/expert2.png') },
+        { imgSrc: require('./images/expert3.png') },
+        { imgSrc: require('./images/expert4.png') },
+        { imgSrc: require('./images/expert5.jpg') },
       ],
       introduce: '委员会做出的决策都是经过集体讨论并通过的，因而它有利于避免权力过分集中，防止一个人独断专行。委员会做出的决策都是经过集体讨论并通过的，因而它有利于避免权力过分集中，防止一个人独断专行委员会做出的决策都是经过集体讨论并通过的，因而它有利于避免权力过分集中，防止一个人独断专行',
     }

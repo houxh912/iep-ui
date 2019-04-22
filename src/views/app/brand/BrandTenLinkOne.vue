@@ -36,10 +36,12 @@ export default {
   grid-column-end: 3;
   .tenLinkOne {
     width: 20%;
+    height: 120px;
     display: inline-block;
+    margin: 15px 0;
     text-align: center;
     i {
-      font-size: 20px;
+      font-size: 38px;
     }
     p {
       font-size: 14px;

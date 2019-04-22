@@ -1,8 +1,8 @@
 <template>
   <div>
     <brand-header></brand-header>
+    <brand-info></brand-info>
     <div class="gird-brand">
-      <brand-info></brand-info>
       <brand-banner></brand-banner>
       <brand-ten></brand-ten>
       <focus-news></focus-news>
@@ -43,7 +43,7 @@ import BrandResult from './BrandResult'
 import BrandVideo from './BrandVideo'
 import BrandCertificates from './BrandCertificates'
 import HoldAll from './HoldAll'
-import DataBase from './DataBase'
+import DataBase from './DataBase/index'
 export default {
   components: {
     BrandHeader,

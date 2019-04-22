@@ -59,7 +59,7 @@ export default {
         if (valid) {
           this.formRequestFn(this.form).then(() => {
             this.$message({
-              message: '岗位库修改成功',
+              message: `岗位库${this.methodName}成功`,
               type: 'success',
             })
             this.loadPage()

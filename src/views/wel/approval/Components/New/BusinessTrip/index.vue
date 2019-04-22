@@ -36,7 +36,12 @@
       <el-form-item label="附件：">
         <iep-upload v-model="form.annex">请上传附件</iep-upload>
       </el-form-item>
-      <el-form-item label="审批人：" prop="approver">
+      <el-form-item prop="approver">
+        <div slot="label">
+          审批人
+          <iep-tip content="1、一天以内由直属领导审批（含1天）；<br/>2、二天以内由部门班长审批（含2天）；<br/>3、三天及以上总经理（郑总）审批（含3天）。"></iep-tip>
+          ：
+        </div>
         <iep-contact-multiple-user v-model="form.approver"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item label="抄送人：">

@@ -39,7 +39,7 @@ export default {
   padding: 10px 20px 1px;
 }
 .btn {
-  line-height:53px;
+  line-height: 53px;
   position: absolute;
   right: 20px;
   top: 0px;
@@ -48,4 +48,14 @@ export default {
   z-index: 3;
 }
 </style>
-
+<style scoped>
+.index-card >>> .el-tabs__nav-scroll {
+  padding: 10px 20px 1px;
+}
+.index-card >>> .el-tabs__nav {
+  line-height: 53px;
+}
+.index-card >>> .el-tabs__item {
+  font-size: 18px;
+}
+</style>

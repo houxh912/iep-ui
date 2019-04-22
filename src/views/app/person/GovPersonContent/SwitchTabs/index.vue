@@ -53,15 +53,6 @@ export default {
 </script>
 
 <style scoped>
-.iep-tabs >>> .el-tabs__nav-scroll {
-  padding: 10px 20px 1px;
-}
-.iep-tabs >>> .el-tabs__nav {
-  line-height: 53px;
-}
-.iep-tabs >>> .el-tabs__item {
-  font-size: 18px;
-}
 .switch {
   grid-column-start: 1;
   grid-column-end: 3;

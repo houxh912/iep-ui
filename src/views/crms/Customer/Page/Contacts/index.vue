@@ -86,6 +86,7 @@ export default {
       this.$refs['EditDrawer'].methodName = '编辑'
       this.$refs['EditDrawer'].formRequestFn = updateData
       this.$refs['EditDrawer'].drawerShow = true
+      this.$refs['EditDrawer'].id = this.record.id
       this.$refs['EditDrawer'].clientContactId = row.clientContactId
     },
     handleDetail (row, column) {

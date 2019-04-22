@@ -1,7 +1,7 @@
 <template>
   <div class="honor">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <div class="honorList">
+      <div class="honor-list">
         <div v-for="(item,index) in honorList" :key="index" class="piece">
           {{item}}
         </div>
@@ -29,7 +29,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.honorList {
+.honor-list {
   .piece {
     cursor: pointer;
     height: 32px;

@@ -1,25 +1,25 @@
 <template>
-    <div class="myProducts">
+    <div class="my-products">
         <div class="title">我的产品<span>（{{num[0]}}）</span></div>
-        <div class="productsBtn">
+        <div class="products-btn">
             <el-button size="small">产品官网</el-button>
             <el-button size="small">代理政策</el-button>
             <el-button size="small">我要代理</el-button>
             <el-button size="small">申请技术服务</el-button>
             <el-button size="small">联合开发</el-button>
         </div>
-        <div class="deletionBox">
-            <div class="coduleDeletion">
+        <div class="deletion-box">
+            <div class="codule-deletion">
                 分类：
-                <div v-for="(item,index) in coduleDeletion" :key="index" :class="showClass1==index?'color':''" class="pieceDeletion" @click="tab1(index)">{{item}}</div>
+                <div v-for="(item,index) in coduleDeletion" :key="index" :class="showClass1==index?'color':''" class="piece-deletion" @click="tab1(index)">{{item}}</div>
             </div>
-            <div class="productsDeletion">
+            <div class="products-deletion">
                 分类：
-                <div v-for="(item,index) in productsDeletion" :key="index" :class="showClass2==index?'color':''" class="pieceDeletion" @click="tab2(index)">{{item}}</div>
+                <div v-for="(item,index) in productsDeletion" :key="index" :class="showClass2==index?'color':''" class="piece-deletion" @click="tab2(index)">{{item}}</div>
             </div>
         </div>
-        <div class="myProductsBox">
-            <el-card shadow="never"  v-for="(item,index) in Module" :key="index" class="moduleList">
+        <div class="my-products-box">
+            <el-card shadow="never"  v-for="(item,index) in Module" :key="index" class="module-list">
                 <i class="iconfont" :class="item.icon"></i>
                 <hr>
                 <span class="name">{{item.name}}</span>
@@ -62,7 +62,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.myProducts{
+.my-products{
     grid-column-start: 1;
     grid-column-end: 4; 
     text-align: center;
@@ -76,15 +76,15 @@ export default {
             color: #999;
         }
     }
-    .productsBtn{
+    .products-btn{
         width: 100%;
     }
-    .coduleDeletion,.productsDeletion{
+    .codule-deletion,.products-deletion{
         width: 50%;
         float: left;
         text-align: left;
         margin:20px 0;
-        .pieceDeletion{
+        .piece-deletion{
             display: inline;
             padding:2px 10px;
             border-radius:12px;
@@ -104,14 +104,14 @@ export default {
             color: #dc8687;
         }
     }
-    .myProductsBox{
+    .my-products-box{
         width: 100%;
         display: grid;
         grid-auto-flow: row dense;
         grid-row-gap: 10px;
         grid-column-gap: 10px;
         grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr);
-        .moduleList{
+        .module-list{
             text-align: center;
             cursor: pointer;
             &:hover{
@@ -131,6 +131,8 @@ export default {
                 line-height: 55px;
             }
             .desc{
+                line-height: 22px;
+                height: 44px;
                 color: #999;
                 overflow : hidden;
                 text-overflow: ellipsis;

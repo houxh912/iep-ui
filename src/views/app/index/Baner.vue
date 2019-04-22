@@ -1,7 +1,7 @@
 <template>
   <div class="baner">
     <el-carousel :interval="5000" class="index-card">
-        <el-carousel-item v-for="(item,index) in img" :key="index" class="banerBox">
+        <el-carousel-item v-for="(item,index) in img" :key="index" class="baner-box">
             <img :src="item" class="img">
         </el-carousel-item>
     </el-carousel>
@@ -31,7 +31,7 @@ export default {
 <style lang="scss" scoped>
 .index-card{
   height: 310px;
-  .banerBox{
+  .baner-box{
     height: 310px;
     .img{
       width: 100%;

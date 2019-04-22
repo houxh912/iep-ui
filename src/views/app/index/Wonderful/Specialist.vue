@@ -20,3 +20,37 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.specialist {
+  padding: 15px 20px;
+  .piece {
+    text-align: center;
+    width: 260px;
+    float: left;
+    margin: 0 5px;
+    .img {
+      width: 100%;
+      height: 165px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 165px;
+        transition: 0.5s;
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.1);
+        }
+      }
+    }
+    .name {
+      line-height: 40px;
+    }
+    &:first-child {
+      margin: 0 15px 0 10px;
+    }
+    &:last-child {
+      margin: 0 10px 0 15px;
+    }
+  }
+}
+</style>

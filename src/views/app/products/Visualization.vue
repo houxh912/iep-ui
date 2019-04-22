@@ -1,7 +1,7 @@
 <template>
     <div class="visualization">
         <img :src="img">
-        <div class="visualizationList">
+        <div class="visualization-list">
             <div v-for="(item,index) in visualizationList" :key="index" class="piece">
                 <div class="name">{{item.name}}<i class="iconfont icon-wenhao"></i></div>
                 <div class="data">{{item.data}}</div>
@@ -101,7 +101,7 @@ export default {
         left: 0;
         z-index: -1;
     }
-    .visualizationList{
+    .visualization-list{
         width: 1200px;
         margin: 0 auto;
         padding: 30px 15px;

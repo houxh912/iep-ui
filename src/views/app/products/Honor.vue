@@ -1,13 +1,13 @@
 <template>
-  <div class="Honor">
+  <div class="honor">
     <el-card class="index-card" shadow="never">
         <div slot="header" class="clearfix">
-            <span class="cardTitle" style="font-size:18px;">{{title}}</span>
+            <span class="card-title" style="font-size:18px;">{{title}}</span>
             <span>（{{replaceText[0]}}个软件著作权，{{replaceText[1]}}个A级企业认证，{{replaceText[2]}}个行业贡献企业奖）</span>
         </div>
         <div>
             <img :src="firstImg" alt="" class="img">
-            <div class="HonorList">
+            <div class="honor-list">
                 <div v-for="(item,index) in HonorList" :key="index" class="piece">
                     {{item}}
                 </div>
@@ -29,7 +29,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.Honor{
+.honor{
     grid-column-start: 1;
     grid-column-end: 3; 
     .img{
@@ -38,7 +38,7 @@ export default {
         float: left;
         margin:0 25px 20px 0;
     }
-    .HonorList{
+    .honor-list{
         width: 540px;
         float: left;
         display: grid;

@@ -1,7 +1,7 @@
 <template>
   <div>
     <iepAppTabCard :title="title">
-      <div class="learningResourcesList">
+      <div class="learning-resources-list">
         <div v-for="(item,index) in learningResourcesList" :key="index" class="piece">
           {{item}}
         </div>
@@ -28,7 +28,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.learningResourcesList {
+.learning-resources-list {
   .piece {
     cursor: pointer;
     height: 32px;

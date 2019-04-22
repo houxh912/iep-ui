@@ -6,11 +6,11 @@
             <el-button style="float: right; padding: 5px 0;" type="text">我要发表</el-button>
         </div>
         <div>
-            <div class="suggestList">
+            <div class="suggest-list">
                 <div v-for="(item,index) in suggestList" :key="index" class="piece">
                     <img :src="item.photo" class="photo">
                     <div class="box">
-                        <div class="pieceTitle">
+                        <div class="piece-title">
                             <span class="name">{{item.name}}</span>
                             <span class="time">{{item.time}}</span>
                         </div>
@@ -39,7 +39,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.suggestList{
+.suggest-list{
     .piece{
         margin-bottom: 20px;
         overflow: hidden;
@@ -54,7 +54,7 @@ export default {
             float: left;
             width: 260px;
             height: 68px;
-            .pieceTitle{
+            .piece-title{
                 .name{
                     font-size: 16px;
                     margin-right: 8px;

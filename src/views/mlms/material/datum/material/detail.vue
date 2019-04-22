@@ -26,7 +26,7 @@
       <el-row class="down-load">
         相关附件：
         <div class="file" v-for="(item, index) in formData.attachFileList" :key="index">
-          <i class="icon-fujian"></i>{{item.name}}<span class="tip" @click="downLoad(item)">（消耗5国脉贝下载）</span>
+          <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗5国脉贝下载）</span></div>
         </div>
       </el-row>
       <el-row class="footer">

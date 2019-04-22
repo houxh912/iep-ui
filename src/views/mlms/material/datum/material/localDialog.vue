@@ -42,7 +42,7 @@
       <el-form-item label="是否保密：" prop="secrecyLevel">
         <el-switch v-model="formData.secrecyLevel" :active-value="dictsMap.secrecyLevel[1].value" :inactive-value="dictsMap.secrecyLevel[0].value"></el-switch>
       </el-form-item>
-      <el-form-item label="附件：">
+      <el-form-item label="附件：" prop="attachFileList">
         <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload>
       </el-form-item>
     </el-form>

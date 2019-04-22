@@ -8,12 +8,11 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handleDeleteByIds">删除</el-dropdown-item>
-              <el-dropdown-item divided @click.native="handleExport">导出</el-dropdown-item>
-              <el-dropdown-item @click.native="handleDownloadAll">下载</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteByIds" v-if="lookByMeOnly">删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleExport">导出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <el-checkbox @change="changeGetWay">只看我的</el-checkbox>
+          <el-checkbox v-model="lookByMeOnly" @change="changeGetWay">只看我的</el-checkbox>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="contractName"></operation-search>
@@ -30,7 +29,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="180">
+        <el-table-column prop="operation" label="操作" width="180" v-if="lookByMeOnly">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain v-if="permission_edit">编辑</iep-button>
@@ -67,6 +66,7 @@ export default {
       getTableDataFn: getTableData,
       permission_edit: false,
       permission_delete: false,
+      lookByMeOnly: false,
     }
   },
   methods: {
@@ -116,10 +116,6 @@ export default {
     },
     // 批量导出
     handleExport () {
-      this.$message.error('抱歉，此功能尚未开发')
-    },
-    // 批量下载
-    handleDownloadAll () {
       this.$message.error('抱歉，此功能尚未开发')
     },
     // 只看我的

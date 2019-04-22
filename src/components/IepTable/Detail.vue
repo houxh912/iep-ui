@@ -1,14 +1,12 @@
 <template>
-  <div class="iep-ellipsis">
-    <slot name="prefix"></slot>
-    <span class="iep-ellipsis">{{content}}</span>
-    <slot></slot>
+  <div class="iep-ellipsis" :title="content">
+    {{content}}
   </div>
 </template>
 <script>
 import { validatenull } from '@/util/validate'
 export default {
-  name: 'IepDivDetail',
+  name: 'IepTableDetail',
   props: ['value'],
   computed: {
     content () {

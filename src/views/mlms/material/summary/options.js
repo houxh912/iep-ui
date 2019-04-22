@@ -206,3 +206,26 @@ export function initInstrForm () {
     kind: 0,
   }
 }
+
+
+function formatDig (num) {
+  return num>9?''+num:'0'+num
+}
+
+function formatYear (day){
+  var y = new Date(day)
+  let raws = [ y.getFullYear(), formatDig(y.getMonth() + 1), formatDig(y.getDate()) ]
+  let format = ['-','-','-']
+  return String.raw({raw:raws}, ...format)
+}
+
+export function getWeekStartAndEnd () {
+  let date = new Date()
+  let today = date.getDay()
+  let firstDay = +new Date(+date - (today-1)*24*3600*1000)
+  let lastDay = firstDay + 6*24*3600*1000
+  return {
+    startTime: formatYear(firstDay),
+    endTime: formatYear(lastDay),
+  }
+}

@@ -8,12 +8,11 @@
         <el-input type="textarea" v-model="form.description"></el-input>
       </el-form-item>
       <el-form-item label="优先级" prop="intro">
-        <el-input-number v-model="form.priority"></el-input-number>
+        <iep-input-number v-model="form.priority"></iep-input-number>
       </el-form-item>
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
-      <iep-button @click="resetForm('form')">初始值</iep-button>
     </template>
   </iep-dialog>
 </template>

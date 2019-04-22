@@ -22,6 +22,7 @@ import IepTabs from '@/components/IepCommon/Tabs'
 import IepTabScroll from '@/components/IepTabScroll/'
 import IepNoData from '@/components/IepCommon/NoData'
 import IepToDev from '@/components/IepToDev/'
+import IepTip from '@/components/IepCommon/Tip'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
@@ -52,6 +53,7 @@ import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 // 表格相关组件
 import IepTable from '@/components/IepTable/'
 import IepTableLink from '@/components/IepTable/Link'
+import IepTableDetail from '@/components/IepTable/Detail'
 import IepTableLinkImgDesc from '@/components/IepTable/LinkImgDesc'
 
 // 通讯录组件Contact
@@ -90,6 +92,7 @@ Vue.component(IepTabs.name, IepTabs)
 Vue.component(IepTabScroll.name, IepTabScroll)
 Vue.component(IepNoData.name, IepNoData)
 Vue.component(IepToDev.name, IepToDev)
+Vue.component(IepTip.name, IepTip)
 
 // 表单组件
 Vue.component(IepTag.name, IepTag)
@@ -120,6 +123,7 @@ Vue.component(IepReviewConfirm.name, IepReviewConfirm)
 // 表格相关组件
 Vue.component(IepTable.name, IepTable)
 Vue.component(IepTableLink.name, IepTableLink)
+Vue.component(IepTableDetail.name, IepTableDetail)
 Vue.component(IepTableLinkImgDesc.name, IepTableLinkImgDesc)
 
 // 通讯录组件Contact

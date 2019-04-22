@@ -107,6 +107,9 @@ export const rules = {
   secrecyLevel: [
     { required: true, message: '必填', trigger: 'change' },
   ],
+  attachFileList: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
 }
 
 // 纠错

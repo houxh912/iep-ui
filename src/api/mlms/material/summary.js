@@ -113,3 +113,12 @@ export function meetingSend (id) {
     method: 'post',
   })
 }
+
+// 获取本周统计数据
+export function getCount (obj) {
+  return request({
+    url: `${prefixUrl}/getCount`,
+    method: 'post',
+    data: obj,
+  })
+}

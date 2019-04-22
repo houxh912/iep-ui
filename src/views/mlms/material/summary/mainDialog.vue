@@ -75,8 +75,8 @@
 
       </el-form>
       <footer-tool-bar>
-        <iep-button type="primary" @click="saveDraft('form')">保存草稿</iep-button>
-        <iep-button type="primary" @click="saveForm('form')">{{methodName}}</iep-button>
+        <iep-button type="primary" @click="saveDraft('form')" v-if="formData.status == 1 || methodName == '创建'">保存草稿</iep-button>
+        <iep-button type="primary" @click="saveForm('form')">{{formData.status == 1 ? '保存' : methodName}}</iep-button>
         <iep-button @click="resetForm('form')">取消</iep-button>
       </footer-tool-bar>
     </basic-container>

@@ -2,27 +2,42 @@
   <div class="edit-wrapper">
     <basic-container>
       <page-header :title="`${methodName}联系人`"></page-header>
-      <el-form :model="formData" :rules="rules" ref="formName" label-width="100px" size="small">
+      <el-form :model="formData" :rules="rules" ref="formName" label-width="130px" size="small">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="联系人姓名" prop="contactName">
+            <el-form-item prop="contactName">
+              <span slot="label">
+                联系人姓名
+                <iep-tip :content="tipContent.contactName"></iep-tip>
+                :
+              </span>
               <el-input v-model="formData.contactName"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="联系人职务" prop="contactPosition">
+            <el-form-item prop="contactPosition">
+              <span slot="label">
+                联系人职务
+                <iep-tip :content="tipContent.contactPosition"></iep-tip>
+                :
+              </span>
               <el-input v-model="formData.contactPosition"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="电话" prop="telephoneNo">
-              <el-input v-model="formData.telephoneNo"></el-input>
+            <el-form-item label="电话：" prop="telephoneNo">
+              <el-input v-model="formData.telephoneNo" placeholder="座机（区号+号码）"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="对应客户" prop="clientInfos">
+            <el-form-item prop="clientInfos">
+              <span slot="label">
+                对应客户
+                <iep-tip :content="tipContent.clientInfos"></iep-tip>
+                :
+              </span>
               <span class="tags" v-for="(item,index) in formData.clientInfos" :key="index">{{item.clientName}}</span>
               <el-button size="small" @click="addContact" icon="el-icon-plus"></el-button>
             </el-form-item>
@@ -30,48 +45,53 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="手机" prop="cellphone">
-              <el-input v-model="formData.cellphone"></el-input>
+            <el-form-item label="手机：" prop="cellphone">
+              <el-input v-model="formData.cellphone" placeholder="手机号"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="传真" prop="fax">
-              <el-input v-model="formData.fax"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="QQ" prop="qq">
-              <el-input v-model="formData.qq"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="微信" prop="wechat">
-              <el-input v-model="formData.wechat"></el-input>
+            <el-form-item label="传真：" prop="fax">
+              <el-input v-model="formData.fax" placeholder="区号+号码"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="邮箱" prop="email">
-              <el-input v-model="formData.email"></el-input>
+            <el-form-item label="QQ：" prop="qq">
+              <el-input v-model="formData.qq" placeholder="QQ号码"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="地址" prop="address">
-              <el-input v-model="formData.address"></el-input>
+            <el-form-item label="微信：" prop="wechat">
+              <el-input v-model="formData.wechat" placeholder="微信"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="客户关注" prop="clientConcern">
+            <el-form-item label="邮箱：" prop="email">
+              <el-input v-model="formData.email" placeholder="常用邮箱"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="地址：" prop="address">
+              <el-input v-model="formData.address" placeholder="详细地址"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item prop="clientConcern">
+              <span slot="label">
+                客户关注
+                <iep-tip :content="tipContent.clientConcern"></iep-tip>
+                :
+              </span>
               <el-input v-model="formData.clientConcern"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="其他" prop="other">
+            <el-form-item label="其他：" prop="other">
               <el-input v-model="formData.other"></el-input>
             </el-form-item>
           </el-col>
@@ -106,7 +126,12 @@ import mixins from '@/mixins/mixins'
 import { initForm, rules } from '../options'
 import { getContactById } from '@/api/crms/contact'
 import { getCustomerPage } from '@/api/crms/customer'
-
+const tipContent = {
+  contactName: '请务必填写真实联系人姓名，与⾝份证信息⼀致，切记出现张主任等',
+  clientInfos: '请务必准确关联该联系人对应的单位/企业',
+  contactPosition: '请务必准确填写该联系人在其单位/企业所担任的职务',
+  clientConcern: '请简明扼要说明该联系人对合作中所关注的方面，如项目进度管理',
+}
 export default {
   mixins: [mixins],
   props: {
@@ -117,6 +142,7 @@ export default {
   },
   data () {
     return {
+      tipContent,
       clientName: '',
       dialogShow: false,
       formRequestFn: () => { },

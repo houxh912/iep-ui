@@ -1,42 +1,62 @@
 <template>
   <div class="wrap">
     <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" ref="form" label-width="130px" style="margin-bottom: 50px;">
-      <el-form-item label="合同名称：" prop="contractName">
+    <el-form :model="formData" :rules="rules" ref="form" label-width="170px" style="margin-bottom: 50px;">
+      <el-form-item prop="contractName">
+        <span slot="label">
+          合同名称
+          <iep-tip :content="tipContent.contractName"></iep-tip>
+          :
+        </span>
         <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。"></el-input>
       </el-form-item>
-      <el-form-item label="合同说明 / 收款方式：" prop="contractExpl">
+      <el-form-item prop="contractExpl">
+        <span slot="label">
+          合同说明 / 收款方式
+          <iep-tip :content="tipContent.contractExpl"></iep-tip>
+          :
+        </span>
         <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5></el-input>
       </el-form-item>
-      <el-form-item label="业务类型：" prop="businessType">
+      <el-form-item prop="businessType">
+        <span slot="label">
+          业务类型
+          <iep-tip :content="tipContent.businessType"></iep-tip>
+          :
+        </span>
         <el-radio-group v-model="formData.businessType">
           <el-radio v-for="item in dictGroup['mlms_business_type']" :key="item.value" :label="item.value">{{item.label}}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="合同标签：" prop="tagKeyWords">
+      <el-form-item prop="tagKeyWords">
+        <span slot="label">
+          合同标签
+          <iep-tip :content="tipContent.tagKeyWords"></iep-tip>
+          :
+        </span>
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-row>
         <el-col :span='12'>
           <el-form-item label="签订日期：" prop="signTime">
-            <IepDatePicker v-model="formData.signTime" @change="startChange(formData.signTime)"></IepDatePicker>
+            <IepDatePicker v-model="formData.signTime" @change="startChange(formData.signTime)" placeholder="请选择实际签订合同日期"></IepDatePicker>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
           <el-form-item label="完结日期：" prop="finishTime">
-            <IepDatePicker v-model="formData.finishTime" @change="endChange(formData.finishTime)"></IepDatePicker>
+            <IepDatePicker v-model="formData.finishTime" @change="endChange(formData.finishTime)" placeholder="请选择合同中签订的完结时间"></IepDatePicker>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span='12'>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <iep-select prefix-url="crm/customer/my" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)"></iep-select>
+            <iep-select prefix-url="crm/customer/my" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)" placeholder="请选择该项目实际服务对象"></iep-select>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
-            <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId"></iep-select>
+            <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId" placeholder="请选择实际与我司签订合同的单位"></iep-select>
           </el-form-item>
         </el-col>
       </el-row>
@@ -60,7 +80,7 @@
         </el-col>
         <el-col :span='12'>
           <el-form-item label="合同金额：" prop="contractAmount">
-            <el-input v-model="formData.contractAmount" placeholder="合同金额"></el-input>
+            <el-input v-model="formData.contractAmount" placeholder="请填写合同约定的金额，以“元”为单位"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -79,7 +99,7 @@
       <el-row>
         <el-col :span='12'>
           <el-form-item label="保证金：" prop="deposit">
-            <el-input v-model="formData.deposit" placeholder="保证金"></el-input>
+            <el-input v-model="formData.deposit" placeholder="请根据缴纳保证金额填写，如未缴纳则填“无”"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -106,6 +126,13 @@ import { mapState } from 'vuex'
 import { getDataById } from '@/api/crms/contract'
 import { getMarket } from '@/api/crms/customer'
 import { getObj } from '@/api/admin/user'
+const tipContent = {
+  contractName: '合同签订日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”',
+  contractExpl: '1、合同说明：请详细说明签订合同时承诺客户或需要注意的地方；<br>2、收款方式：付款周期+付款方式，如三期付款+对公;<br>3、开票资料信息。',
+  businessType: '咨询：规划/行动计划/工作方案/课题研究/标准规范/管理制度/整体解决方案/评测;<br>产品：DNA/DIPS/营商通/咨询服务产品化;<br>数据：数据采集/普查/编目/标准化/开放共享/应用服务/主题库、基础库建设/事项材料梳理/主题清单规范优化、再造;<br>外包：软件/平台/服务;<br>会议培训：研讨会/招商合作/培训会;<br>平台：平台新建/平台升级;<br>技术服务：网站/平台/软件;<br>其他：自定义填写',
+  tagKeyWords: '1、合同标签要与合作项目/产品关联，其中合作项目简称，合作产品，客户简称等必须作为标签；<br>2、标签次序按照重要性排序；<br>3、标签数量必须3个以上。',
+
+}
 export default {
   components: { FooterToolbar },
   props: {
@@ -116,6 +143,7 @@ export default {
   },
   data () {
     return {
+      tipContent,
       dialogShow: false,
       methodName: '',
       formRequestFn: () => { },

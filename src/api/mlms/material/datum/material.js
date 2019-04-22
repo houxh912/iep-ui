@@ -9,6 +9,15 @@ export function getTableData (params) {
   })
 }
 
+// 供给邮件关联使用，与上面的链接一模一样
+export function getMaterialList (params) {
+  return request({
+    url: `${prefixUrl}/page`,
+    method: 'get',
+    params: params,
+  })
+}
+
 export function getTableDataOnlyMe (params) {
   return request({
     url: `${prefixUrl}/page/personal`,

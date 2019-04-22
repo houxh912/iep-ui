@@ -60,6 +60,13 @@ export default {
   },
   created () {
     this.loadPage()
+
+  },
+  mounted () {
+    if (this.record.flag) {
+      this.$refs['EditDrawer'].drawerShow = true
+      this.record.flag = false
+    }
   },
   computed: {
     ...mapGetters([

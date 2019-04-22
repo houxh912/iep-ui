@@ -1,22 +1,10 @@
 <template>
   <div class="Error502">
     <div class="Error502-body-con">
-        <div class="Error502-btn-con">
-          <iep-button
-            @click="goHome"
-            size="large"
-            style="width: 200px;"
-            type="default"
-            >返回首页</iep-button
-          >
-          <iep-button
-            @click="backPage"
-            size="large"
-            style="width: 200px;margin-left: 40px;"
-            type="primary"
-            >返回上一页</iep-button
-          >
-        </div>
+      <div class="Error502-btn-con">
+        <iep-button @click="goHome" size="large" style="width: 200px;" type="default">返回首页</iep-button>
+        <iep-button @click="backPage" size="large" style="width: 200px;margin-left: 40px;" type="primary">返回上一页</iep-button>
+      </div>
     </div>
   </div>
 </template>

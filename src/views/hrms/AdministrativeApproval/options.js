@@ -6,7 +6,7 @@ const dictsMap = {
     3: '加班开始时间',
     4: '入职时间',
     5: '入职时间',
-    6: '调岗前时间',
+    6: '入职时间',
   },
   endTime: {
     1: '请假结束时间',
@@ -60,6 +60,7 @@ const initForm = () => {
     'annex': null, // 附件
     'processList': [], // 申请流程
     'cc': null, // 抄送人
+    'ccList': [], // 抄送人
   }
 }
 

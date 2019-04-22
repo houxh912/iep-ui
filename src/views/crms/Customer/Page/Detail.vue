@@ -51,12 +51,14 @@ export default {
       record: {
         id: this.$route.params.id,
         type: this.$route.query.type,
+        flag: this.$route.query.flag,
         collaborations: '',
       },
       backOption: {
         isBack: true,
         backPath: this.$route.query.redirect,
       },
+      flag: false,
       count: [],
       formData: {},
       tabList: [{
@@ -87,6 +89,10 @@ export default {
     this.loadPage()
     this.dealNum()
     this.getRouter()
+    this.flag = this.$route.query.flag
+    if (this.flag) {
+      this.activeTab = 'Contacts'
+    }
     if (this.routerBack) {
       this.activeTab = 'Scheme'
     }

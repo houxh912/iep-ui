@@ -6,7 +6,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="岗位名称：">
-              <iep-cascader v-model="form.position" prefix-url="hrms/post_type" @change="handlePositionChange"></iep-cascader>
+              <iep-cascader ref="IepCascader" v-model="form.position" prefix-url="hrms/post_type" @change="handlePositionChange"></iep-cascader>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -108,40 +108,46 @@
   </div>
 </template>
 <script>
-import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
+import { getPublishRecruitmentById, postPublishRecruitment, putPublishRecruitment } from '@/api/hrms/publish_recruitment'
 import { initForm, formToDto } from '../options'
 import _ from 'lodash'
 export default {
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
   data () {
     return {
-      id: false,
-      methodName: '发布',
-      formRequestFn: () => { },
       backOption: {
         isBack: true,
         backPath: null,
-        backFunction: () => { this.$emit('onGoBack') },
+        backFunction: () => { this.onGoBack() },
       },
       form: initForm(),
     }
   },
+  computed: {
+    id () {
+      return +this.$route.params.id
+    },
+    methodName () {
+      return this.id ? '编辑' : '发布'
+    },
+  },
   created () {
-    this.methodName = this.record.methodName
-    this.formRequestFn = this.record.formRequestFn
-    this.id = this.record.id
     if (this.id) {
       getPublishRecruitmentById(this.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
       })
     }
   },
+  mounted () {
+    const position = this.$route.query.position.map(m => +m) || []
+    this.form.position = position || []
+    setTimeout(() => {
+      this.$refs['IepCascader'].handleChange(position)
+    }, 2000)
+  },
   methods: {
+    onGoBack () {
+      this.$router.history.go(-1)
+    },
     handlePositionChange (item, options) {
       const value = item[item.length - 1]
       const position = _(options)
@@ -159,14 +165,15 @@ export default {
       this.handleSubmit(true)
     },
     handleSubmit (isPublish) {
+      const submitFunction = this.id ? putPublishRecruitment : postPublishRecruitment
       const publish = isPublish === true ? true : false
-      this.formRequestFn(formToDto(this.form), publish).then(({ data }) => {
+      submitFunction(formToDto(this.form), publish).then(({ data }) => {
         if (data.data) {
           this.$message({
             message: `招聘信息${this.methodName}成功`,
             type: 'success',
           })
-          this.$emit('onGoBack')
+          this.onGoBack()
         }
       })
     },

@@ -60,8 +60,8 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        this.dialogShow = false
         this.$emit('add', row)
+        this.dialogShow = false
       })
     },
     search () {

@@ -2,7 +2,7 @@
   <div class="thoughts">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
       <div>
-        <div class="thoughtsList">
+        <div class="thoughts-list">
           <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
             <div class="img-con"><img :src="item.img" class="img"></div>
             <div class="box">
@@ -22,7 +22,7 @@
         <el-button class="important" type="text">申请互助基金</el-button>
       </div>
       <div>
-        <div class="starList">
+        <div class="star-list">
           <div v-for="(item,index) in starList" :key="index" class="piece">
             <div class="img-con"><img :src="item.img" class="img"></div>
             <div class="box">
@@ -59,8 +59,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.thoughtsList,
-.starList {
+.thoughts-list,
+.star-list {
   .piece {
     display: flex;
     justify-content: flex-start;

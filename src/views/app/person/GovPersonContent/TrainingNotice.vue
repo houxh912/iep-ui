@@ -1,7 +1,7 @@
 <template>
-  <div class="trainingCon">
+  <div class="training-con">
     <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
-      <div class="trainingNotice">
+      <div class="training-notice">
         <div v-for="(item,index) in trainingNotice" :key="index" class="piece">
           <span class="name">{{item.name}}</span>
           <span class="time">{{item.time}}</span>
@@ -30,7 +30,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.trainingNotice {
+.training-notice {
   .piece {
     cursor: pointer;
     position: relative;
@@ -70,7 +70,7 @@ export default {
 }
 </style>
 <style scoped>
-.trainingCon >>> .el-card__body {
+.training-con >>> .el-card__body {
   height: 280px;
 }
 </style>

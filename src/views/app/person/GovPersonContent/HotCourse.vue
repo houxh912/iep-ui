@@ -1,8 +1,8 @@
 <template>
   <div class="course-con">
     <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
-      <div class="hotCourse">
-        <div class="conCourse">
+      <div class="hot-course">
+        <div class="con-course">
           <div class="con" v-for="con in conCourse" :key="con.id">
             <div class="img"><img :src="con.img" alt=""></div>
             <span class="text">{{con.text}}</span>
@@ -47,7 +47,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.hotCourse {
+.hot-course {
   .piece {
     cursor: pointer;
     position: relative;
@@ -84,7 +84,7 @@ export default {
       background-color: #999;
     }
   }
-  .conCourse {
+  .con-course {
     display: flex;
     margin-bottom: 10px;
     justify-content: space-between;

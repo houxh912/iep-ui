@@ -1,5 +1,5 @@
 <template>
-  <div class="GovPerson-content">
+  <div class="gov-person-content">
     <div class="top-content">
       <gov-person-img></gov-person-img>
       <gov-person-notice></gov-person-notice>
@@ -50,7 +50,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.GovPerson-content {
+.gov-person-content {
   margin: 0 auto;
   padding-top: 30px;
   width: 1200px;

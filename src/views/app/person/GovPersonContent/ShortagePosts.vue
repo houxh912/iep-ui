@@ -1,5 +1,5 @@
 <template>
-  <div class="leaderBoard">
+  <div class="leader-board">
     <el-card class="index-card" shadow="never">
       <div slot="header" class="clearfix">
         <span class="title">{{title}}<span class="datas">{{data}}</span></span>
@@ -86,13 +86,13 @@ export default {
 .important >>> .el-button--text:hover {
   color: #f56c6c;
 }
-.leaderBoard >>> .el-table th {
+.leader-board >>> .el-table th {
   background-color: #fafafa;
 }
-.leaderBoard >>> .el-table tr {
+.leader-board >>> .el-table tr {
   cursor: pointer;
 }
-.leaderBoard >>> .el-card__body {
+.leader-board >>> .el-card__body {
   height: 343px;
 }
 </style>

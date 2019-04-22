@@ -1,17 +1,15 @@
 <template>
   <div class="thoughts">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <div>
-        <div class="thoughts-list">
-          <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
-            <div class="img-con"><img :src="item.img" class="img"></div>
-            <div class="box">
-              <div class="piece-title">
-                <span class="name">{{item.name}}</span>
-                <span class="time">{{item.time}}</span>
-              </div>
-              <p class="feed">{{item.feed}}</p>
+      <div class="thoughts-list">
+        <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
+          <div class="img-con"><img :src="item.img" class="img"></div>
+          <div class="box">
+            <div class="piece-title">
+              <span class="name">{{item.name}}</span>
+              <span class="time">{{item.time}}</span>
             </div>
+            <p class="feed">{{item.feed}}</p>
           </div>
         </div>
       </div>
@@ -21,19 +19,17 @@
         <span class="cardTitle">{{titleStar}}</span>
         <el-button class="important" type="text">申请互助基金</el-button>
       </div>
-      <div>
-        <div class="star-list">
-          <div v-for="(item,index) in starList" :key="index" class="piece">
-            <div class="img-con"><img :src="item.img" class="img"></div>
-            <div class="box">
-              <div class="piece-title">
-                <span class="name">{{item.name}}</span>
-              </div>
-              <p class="job">{{item.job}}</p>
+      <div class="star-list">
+        <div v-for="(item,index) in starList" :key="index" class="piece">
+          <div class="img-con"><img :src="item.img" class="img"></div>
+          <div class="box">
+            <div class="piece-title">
+              <span class="name">{{item.name}}</span>
             </div>
-            <div class="btn">
-              <el-button type="danger" plain>送上祝福</el-button>
-            </div>
+            <p class="job">{{item.job}}</p>
+          </div>
+          <div class="btn">
+            <el-button type="danger" plain>送上祝福</el-button>
           </div>
         </div>
       </div>
@@ -119,6 +115,9 @@ export default {
   .piece {
     .box {
       width: 150px;
+    }
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 }

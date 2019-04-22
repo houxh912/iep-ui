@@ -74,6 +74,7 @@ export default {
 .title {
   font-size: 18px;
   .datas {
+    font-size: 16px;
     color: #999;
   }
 }

@@ -4,13 +4,13 @@
       <div slot="header" class="title">
         <span>{{methodName}}简历</span>
       </div>
-      <el-form ref="form" class="form-detail" :model="form" label-width="120px" size="small">
+      <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="120px" size="small">
         <el-collapse v-model="activeNames">
           <el-collapse-item name="1">
             <template slot="title">
               <i class="header-icon el-icon-info"></i> 基础信息
             </template>
-            <el-form-item class="form-half">
+            <el-form-item prop="name" class="form-half">
               <span slot="label">
                 姓名
                 <iep-tip content="请务必根据本人身份证上的姓名全称填写"></iep-tip>
@@ -56,7 +56,7 @@
               </span>
               <el-input v-model="form.title"></el-input>
             </el-form-item>
-            <el-form-item class="form-half">
+            <el-form-item prop="phone" class="form-half">
               <span slot="label">
                 联系手机
                 <iep-tip content="请务必填写可联系上的手机号码"></iep-tip>
@@ -145,7 +145,7 @@
               </span>
               <el-input v-model="form.university"></el-input>
             </el-form-item>
-            <el-form-item class="form-half">
+            <el-form-item prop="education" class="form-half">
               <span slot="label">
                 最高学历
                 ：
@@ -203,7 +203,7 @@
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item title="求职意向" name="2">
-            <el-form-item label="应聘岗位：" class="form-half">
+            <el-form-item label="应聘岗位：" prop="position" class="form-half">
               <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
             </el-form-item>
             <el-form-item label="到岗时间：" class="form-half">
@@ -217,24 +217,24 @@
               </span>
               <el-input v-model="form.salary"></el-input>
             </el-form-item>
-            <el-form-item label="期望工作地：" class="form-half">
+            <el-form-item label="期望工作地：" prop="workPlace" class="form-half">
               <el-input v-model="form.workPlace"></el-input>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="学习工作经历" name="3">
             <el-form-item label="学习情况：">
-              <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="talent_pool" :rid="form.id" @load-page="handleSave"></inline-form-table>
             </el-form-item>
             <el-form-item label="工作经历：">
-              <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="talent_pool" :rid="form.id" @load-page="handleSave"></inline-form-table>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="培训证书情况" name="4">
             <el-form-item label="培训情况：">
-              <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="talent_pool" :rid="form.id" @load-page="handleSave"></inline-form-table>
             </el-form-item>
             <el-form-item label="资质证书：">
-              <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="talent_pool" :rid="form.id" @load-page="loadPage"></inline-form-table>
+              <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="talent_pool" :rid="form.id" @load-page="handleSave"></inline-form-table>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="附件上传" name="5">
@@ -253,7 +253,7 @@
 </template>
 <script>
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
-import { initForm, formToDto, formToVo } from '../options'
+import { initForm, formToDto, formToVo, rules } from '../options'
 import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 export default {
@@ -266,6 +266,7 @@ export default {
   components: { InlineFormTable },
   data () {
     return {
+      rules,
       certificateColumns,
       trainingColumns,
       studyColumns,
@@ -293,16 +294,23 @@ export default {
     handleGoBack () {
       this.$emit('onGoBack')
     },
-    handleSubmit () {
-      this.formRequestFn(formToDto(this.form)).then(({ data }) => {
-        if (data.data) {
-          this.$message({
-            message: `人才库${this.methodName}成功`,
-            type: 'success',
+    async handleSave (methodName = '更新') {
+      await this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.formRequestFn(formToDto(this.form)).then(({ data }) => {
+            if (data.data) {
+              this.$message({
+                message: `${methodName}成功`,
+                type: 'success',
+              })
+            }
           })
-          this.$emit('onGoBack')
         }
       })
+    },
+    async handleSubmit () {
+      await this.handleSave(this.methodName)
+      this.$emit('onGoBack')
     },
   },
 }

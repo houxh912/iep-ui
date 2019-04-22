@@ -265,4 +265,16 @@ const certificateColumns = [
   },
 ]
 
-export { columnsMap, initForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm, workExpColumns, studyColumns, trainingColumns, certificateColumns, initSearchForm, toDtoSearchForm }
+const rules = {
+  name: [
+    { required: true, message: '请填写姓名', trigger: 'blur' },
+  ],
+  phone: [
+    { required: true, message: '请填写联系电话', trigger: 'blur' },
+  ],
+  education: [
+    { required: true, message: '请填写最高学历', trigger: 'blur' },
+  ],
+}
+
+export { columnsMap, initForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm, workExpColumns, studyColumns, trainingColumns, certificateColumns, initSearchForm, toDtoSearchForm, rules }

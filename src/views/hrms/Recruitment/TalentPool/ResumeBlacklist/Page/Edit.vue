@@ -4,13 +4,13 @@
       <div slot="header" class="title">
         <span>{{methodName}}黑名单简历</span>
       </div>
-      <el-form ref="form" class="form-detail" :model="form" label-width="120px" size="small">
+      <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="120px" size="small">
         <el-collapse v-model="activeNames">
           <el-collapse-item name="1">
             <template slot="title">
               <i class="header-icon el-icon-info"></i> 基础信息
             </template>
-            <el-form-item label="姓名：" class="form-half">
+            <el-form-item label="姓名：" prop="name" class="form-half">
               <el-input v-model="form.name"></el-input>
             </el-form-item>
             <el-form-item label="性别：" class="form-half">
@@ -31,7 +31,7 @@
             <el-form-item label="外部头衔：" class="form-half">
               <el-input v-model="form.title"></el-input>
             </el-form-item>
-            <el-form-item label="联系手机：" class="form-half">
+            <el-form-item label="联系手机：" prop="phone" class="form-half">
               <el-input v-model="form.phone"></el-input>
             </el-form-item>
             <el-form-item label="邮箱：" class="form-half">
@@ -71,7 +71,7 @@
             <el-form-item label="毕业学校：" class="form-half">
               <el-input v-model="form.university"></el-input>
             </el-form-item>
-            <el-form-item label="最高学历：" class="form-half">
+            <el-form-item label="最高学历：" prop="education" class="form-half">
               <iep-dict-select v-model="form.education" dict-name="hrms_highest_educational"></iep-dict-select>
             </el-form-item>
             <el-form-item label="员工关系：" class="form-half">
@@ -101,7 +101,7 @@
 </template>
 <script>
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
-import { initForm, formToDto, workExpColumns, studyColumns, trainingColumns, certificateColumns } from '../options'
+import { initForm, formToDto, workExpColumns, studyColumns, trainingColumns, certificateColumns, rules } from '../options'
 
 export default {
   props: {
@@ -117,6 +117,7 @@ export default {
       studyColumns,
       workExpColumns,
       id: null,
+      rules,
       activeNames: ['1'],
       methodName: '新增',
       form: initForm(),
@@ -141,13 +142,17 @@ export default {
       this.$emit('onGoBack')
     },
     handleSubmit () {
-      this.formRequestFn(formToDto(this.form)).then(({ data }) => {
-        if (data.data) {
-          this.$message({
-            message: `黑名单${this.methodName}成功`,
-            type: 'success',
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.formRequestFn(formToDto(this.form)).then(({ data }) => {
+            if (data.data) {
+              this.$message({
+                message: `黑名单${this.methodName}成功`,
+                type: 'success',
+              })
+              this.$emit('onGoBack')
+            }
           })
-          this.$emit('onGoBack')
         }
       })
     },

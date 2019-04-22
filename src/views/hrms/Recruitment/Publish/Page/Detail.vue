@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <basic-container>
       <page-header title="查看招聘" :backOption="backOption">
-        <iep-button type="primary">我要推荐</iep-button>
+        <!-- <iep-button type="primary">我要推荐</iep-button> -->
       </page-header>
       <el-card class="recruit-headers" shadow="hover">
         <span class="state"><i class="iconfont icon-shijian"></i><span>{{dictsMap.status[form.status]}}</span></span>

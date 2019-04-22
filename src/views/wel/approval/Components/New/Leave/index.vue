@@ -31,7 +31,6 @@
       <el-form-item label="">
         <operation-wrapper>
           <iep-button type="primary" @click="handleSubmit">提交</iep-button>
-          <iep-button @click="handlePublish">撤销</iep-button>
         </operation-wrapper>
       </el-form-item>
     </el-form>

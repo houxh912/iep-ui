@@ -3,18 +3,34 @@
     <page-header title="新建文档" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
       <el-form-item label="名称：" prop="materialName">
+          <span slot="label">
+             名称
+              <iep-tip :content="tipContent2.materialName"></iep-tip>：
+            </span>
         <el-input v-model="formData.materialName" maxlength="50"></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
+          <span slot="label">
+             介绍
+              <iep-tip :content="tipContent2.intro"></iep-tip>：
+            </span>
         <el-input v-model="formData.intro" type="textarea" rows="5" maxlength="200"></el-input>
       </el-form-item>
       <el-form-item label="正文：" prop="content">
+          <span slot="label">
+             正文
+              <iep-tip :content="tipContent2.content"></iep-tip>：
+            </span>
         <!-- <iep-editor v-model="formData.content"></iep-editor> -->
         <el-input type="textarea" v-model="formData.content" rows=5 maxlength="3000"></el-input>
       </el-form-item>
       <el-row>
         <el-col :span=12>
           <el-form-item label="分类：" prop="firstClass">
+               <span slot="label">
+             分类
+              <iep-tip :content="tipContent2.firstClass"></iep-tip>：
+            </span>
             <el-select v-model="formData.firstClass" placeholder="请选择" @change="firstClassChange">
               <el-option v-for="item in firstClass" :key="item.id" :label="item.levelName" :value="''+item.id"></el-option>
             </el-select>
@@ -29,11 +45,19 @@
         </el-col>
       </el-row>
       <el-form-item label="类型：" prop="materialType">
+          <span slot="label">
+             类型
+              <iep-tip :content="tipContent2.materialType"></iep-tip>：
+            </span>
         <el-select v-model="formData.materialType" placeholder="请选择">
           <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">
+          <span slot="label">
+             标签
+              <iep-tip :content="tipContent2.tagKeyWords"></iep-tip>：
+            </span>
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-form-item label="是否投稿：" prop="isContri">
@@ -62,7 +86,7 @@
   </div>
 </template>
 <script>
-import { initLocalForm, rules, dictsMap } from './option'
+import { initLocalForm, rules, dictsMap, tipContent2 } from './option'
 
 export default {
   components: {},
@@ -74,6 +98,7 @@ export default {
   },
   data () {
     return {
+        tipContent2,
       dialogShow: false,
       formRequestFn: () => { },
       formData: initLocalForm(),

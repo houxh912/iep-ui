@@ -95,7 +95,7 @@
         <el-row>
           <el-col :span=12 class="item">
             <div class="label">发布人：</div>
-            <div class="value">何益挺</div>
+            <div class="value">{{formData.creatorName}}</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">负责部门：</div>

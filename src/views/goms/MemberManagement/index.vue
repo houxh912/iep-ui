@@ -23,11 +23,7 @@
         <el-table-column label="状态" width="150px">
           <template slot-scope="scope">
             <iep-div-detail :value="dictsMap.status[scope.row.status]">
-              <el-tooltip v-if="scope.row.status===1 " class="item" effect="light" :content="scope.row.message" placement="right">
-                <div v-if="scope.row.message!==''" slot="content">{{scope.row.message}}</div>
-                <div v-if="scope.row.message===''" slot="content">( TA 没有填写申请理由)</div>
-                <i class="el-icon-info"></i>
-              </el-tooltip>
+              <iep-tip v-if="scope.row.status===1 " message="( TA 没有填写申请理由)" :content="scope.row.message"></iep-tip>
             </iep-div-detail>
           </template>
         </el-table-column>

@@ -20,11 +20,11 @@
         <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期"></iep-date-picker>
       </el-form-item>
       <el-form-item prop="reason">
-        <div slot="label">
+        <span slot="label">
           申请理由
           <iep-tip content="建议从工作业绩结果描述，价值观，工作态度和技能，个人优势和不足等几方面描述"></iep-tip>
           ：
-        </div>
+        </span>
         <el-input type="textarea" v-model="form.reason"></el-input>
       </el-form-item>
       <el-form-item>
@@ -36,11 +36,11 @@
         <iep-upload v-model="form.annex">请上传附件</iep-upload>
       </el-form-item>
       <el-form-item prop="approver">
-        <div slot="label">
+        <span slot="label">
           审批人
           <iep-tip content="请务必选择所属部门（组织）班长审批，谢谢！"></iep-tip>
           ：
-        </div>
+        </span>
         <iep-contact-multiple-user v-model="form.approver"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item>

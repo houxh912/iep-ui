@@ -33,22 +33,22 @@
         <!-- <iep-input-number v-model="form.duration"></iep-input-number> -->
       </el-form-item>
       <el-form-item prop="reason">
-        <div slot="label">
+        <span slot="label">
           申请理由
           <iep-tip content="请说明加班地点+加班事项"></iep-tip>
           ：
-        </div>
+        </span>
         <el-input type="textarea" v-model="form.reason"></el-input>
       </el-form-item>
       <el-form-item label="附件：">
         <iep-upload v-model="form.annex">请上传附件</iep-upload>
       </el-form-item>
       <el-form-item prop="approver">
-        <div slot="label">
+        <span slot="label">
           审批人
           <iep-tip content="请务必选择所属部门（组织）班长审批，谢谢！"></iep-tip>
           ：
-        </div>
+        </span>
         <iep-contact-multiple-user v-model="form.approver"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item>

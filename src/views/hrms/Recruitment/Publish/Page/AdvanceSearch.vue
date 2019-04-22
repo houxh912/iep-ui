@@ -3,7 +3,12 @@
     <el-form-item label="岗位名称：">
       <iep-cascader v-model="form.position" prefix-url="hrms/post_type" clearable></iep-cascader>
     </el-form-item>
-    <el-form-item label="所属部门：">
+    <el-form-item>
+      <span slot="label">
+        所属部门
+        <iep-tip content="请准确选择人才需求部门"></iep-tip>
+        ：
+      </span>
       <iep-cascader v-model="form.dept" prefix-url="admin/dept" change-on-select clearable></iep-cascader>
     </el-form-item>
     <el-form-item label="性别">

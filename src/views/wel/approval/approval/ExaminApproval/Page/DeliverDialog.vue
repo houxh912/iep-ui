@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" title="转交" width="400px" @close="loadPage">
     <el-form :model="form" size="small" ref="form" label-width="80px">
       <el-form-item label="转交人" prop="departureTime">
-        <iep-contact-select v-model="form.user">
+        <iep-contact-select v-model="form.user" :filter-user-list="filterUserList">
         </iep-contact-select>
       </el-form-item>
     </el-form>
@@ -13,15 +13,25 @@
   </iep-dialog>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { initDeliverForm, toDeliverForm } from '../options'
 export default {
   data () {
     return {
-      id: null,
+      id: '',
+      userId: '', // 申请人ID
       dialogShow: false,
       formRequestFn: () => { },
       form: initDeliverForm(),
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+    filterUserList () {
+      return [this.userInfo.userId, this.userId]
+    },
   },
   methods: {
     loadPage () {

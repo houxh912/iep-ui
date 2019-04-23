@@ -59,8 +59,12 @@ export default {
       const submitFunction = this.id ? putApproval : postApproval
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          submitFunction(formToDto(this.form, this.type, this.userInfo.userId)).then(() => {
-            this.$openPage('/wel/approval/initiate')
+          submitFunction(formToDto(this.form, this.type, this.userInfo.userId)).then(({ data }) => {
+            if (!data.data) {
+              this.$message(data.msg)
+            } else {
+              this.$router.history.go(-1)
+            }
           })
         }
       })

@@ -1,0 +1,36 @@
+<template>
+  <div class="most">
+    <IepAppTabsCard>
+      <iep-tabs v-model="activeTab" :tab-list="tabList">
+        <template v-if="activeTab ==='Hottest'" v-slot:Hottest>
+          <hottest v-loading="activeTab !=='Hottest'"></hottest>
+        </template>
+        <template v-if="activeTab ==='Download'" v-slot:Download>
+          <download v-loading="activeTab !=='Download'"></download>
+        </template>
+      </iep-tabs>
+    </IepAppTabsCard>
+  </div>
+</template>
+<script>
+import Hottest from './Hottest'
+import Download from './Download'
+export default {
+  components: {
+    Hottest,
+    Download,
+  },
+  data () {
+    return {
+      tabList: [{
+        label: '本周最热',
+        value: 'Hottest',
+      }, {
+        label: '下载最多',
+        value: 'Download',
+      }],
+      activeTab: 'Hottest',
+    }
+  },
+}
+</script>

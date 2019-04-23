@@ -77,9 +77,33 @@ const initSearchForm = () => {
 }
 
 const rules = {
+  imageUrl: [
+    { required: true, message: '请上传图片', trigger: 'blur' },
+  ],
+  number: [
+    { required: true, message: '请填写模块编号', trigger: 'blur' },
+  ],
+  name: [
+    { required: true, message: '请填写模块名称', trigger: 'blur' },
+  ],
+  type: [
+    { required: true, message: '请选择模块分类', trigger: 'blur' },
+  ],
+  guidePrice: [
+    { required: true, message: '请填写模块指导价', trigger: 'blur' },
+  ],
+  preferentialPrice: [
+    { required: true, message: '请填写模块优惠价', trigger: 'blur' },
+  ],
   tagKeywords: [
     { type: 'array', min: 3, message: '标签至少 3 个', trigger: 'change' },
     { type: 'array', required: true, message: '请填写标签', trigger: 'change' },
+  ],
+  synopsis: [
+    { required: true, message: '请填写模块简介', trigger: 'blur' },
+  ],
+  description: [
+    { required: true, message: '请填写模块介绍', trigger: 'blur' },
   ],
 }
 

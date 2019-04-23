@@ -8,7 +8,7 @@
       </el-table-column>
       <el-table-column label="上线日期">
         <template slot-scope="scope">
-          <div>{{scope.row.onlineTime}}</div>
+          <div>{{scope.row.onlineTime | parseTime('{y}-{m}-{d}')}}</div>
         </template>
       </el-table-column>
       <el-table-column label="更新说明">

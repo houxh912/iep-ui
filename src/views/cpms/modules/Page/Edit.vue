@@ -6,32 +6,32 @@
       <el-form ref="form" :model="form" size="small" :rules="rules" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
-          <el-form-item label="模块logo：">
+          <el-form-item label="模块logo：" prop="imageUrl">
             <iep-avatar v-model="form.imageUrl"></iep-avatar>
           </el-form-item>
-          <el-form-item label="模块编号：" class="form-half">
-            <el-input v-model="form.number"></el-input>
+          <el-form-item label="模块编号：" prop="number" class="form-half">
+            <el-input maxlength="110" v-model="form.number"></el-input>
           </el-form-item>
-          <el-form-item label="模块名称：" class="form-half">
-            <el-input v-model="form.name"></el-input>
+          <el-form-item label="模块名称：" prop="name" class="form-half">
+            <el-input maxlength="110" v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="模块分类：" class="form-half">
+          <el-form-item label="模块分类：" prop="type" class="form-half">
             <iep-dict-select v-model="form.type" dict-name="cpms_module_type"></iep-dict-select>
           </el-form-item>
-          <el-form-item label="模块指导价：" class="form-half">
-            <el-input v-model="form.guidePrice"></el-input>
+          <el-form-item label="模块指导价：" prop="guidePrice" class="form-half">
+            <iep-input-number v-model="form.guidePrice"></iep-input-number>
           </el-form-item>
-          <el-form-item label="模块优惠价：" class="form-half">
-            <el-input v-model="form.preferentialPrice"></el-input>
+          <el-form-item label="模块优惠价：" prop="preferentialPrice" class="form-half">
+            <iep-input-number v-model="form.preferentialPrice"></iep-input-number>
           </el-form-item>
-          <el-form-item label="标签：">
+          <el-form-item label="标签：" prop="tagKeywords">
             <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
-          <el-form-item label="模块简介：">
-            <el-input v-model="form.synopsis"></el-input>
+          <el-form-item label="模块简介：" prop="synopsis">
+            <el-input maxlength="2010" v-model="form.synopsis"></el-input>
           </el-form-item>
-          <el-form-item label="模块介绍：">
-            <iep-input-area v-model="form.description"></iep-input-area>
+          <el-form-item label="模块介绍：" prop="description">
+            <iep-input-area maxlength="2010" v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
         <div class="title">团队信息：</div>
@@ -161,10 +161,20 @@ export default {
     resetForm () {
       this.$message.success('功能开发中')
     },
-    submitForm () {
-      this.formRequestFn(toDtoForm(this.form)).then(() => {
-        this.$emit('onGoBack')
-      })
+    async submitForm () {
+      try {
+        const valid = await this.$refs['form'].validate()
+        if (valid) {
+          const { data } = await this.formRequestFn(toDtoForm(this.form))
+          if (data.data) {
+            this.$emit('onGoBack')
+          } else {
+            this.$message(data.msg)
+          }
+        }
+      } catch (error) {
+        console.log(error)
+      }
     },
     clear () {
       this.$message.success('功能开发中')

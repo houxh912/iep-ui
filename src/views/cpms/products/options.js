@@ -69,9 +69,36 @@ const initSearchForm = () => {
 }
 
 const rules = {
+  imageUrl: [
+    { required: true, message: '请上传图片', trigger: 'blur' },
+  ],
+  number: [
+    { required: true, message: '请填写产品编号', trigger: 'blur' },
+  ],
+  name: [
+    { required: true, message: '请填写产品名称', trigger: 'blur' },
+  ],
+  website: [
+    { required: true, message: '请填写产品网址', trigger: 'blur' },
+  ],
+  onlineTime: [
+    { required: true, message: '请填写上线时间', trigger: 'blur' },
+  ],
   tagKeywords: [
     { type: 'array', min: 3, message: '标签至少 3 个', trigger: 'change' },
     { type: 'array', required: true, message: '请填写标签', trigger: 'change' },
+  ],
+  valuation: [
+    { required: true, message: '请填写产品估值', trigger: 'blur' },
+  ],
+  instructions: [
+    { required: true, message: '请填写估值说明', trigger: 'blur' },
+  ],
+  synopsis: [
+    { required: true, message: '请填写产品简介', trigger: 'blur' },
+  ],
+  description: [
+    { required: true, message: '请填写产品介绍', trigger: 'blur' },
   ],
 }
 

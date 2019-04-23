@@ -4,7 +4,7 @@
       <template slot="before-columns">
         <el-table-column label="会议标题">
           <template slot-scope="scope">
-            <span @click="handleDetail(scope.row)" class="detail">{{scope.row.title}}</span>
+            <div @click="handleDetail(scope.row)" class="detail">{{scope.row.title}}</div>
           </template>
         </el-table-column>
       </template>
@@ -127,6 +127,7 @@ export default {
 
 <style lang="scss" scoped>
 .detail {
+  width: 100%;
   cursor: pointer;
 }
 </style>

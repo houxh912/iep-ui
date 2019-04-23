@@ -43,7 +43,7 @@
             <div v-else>无</div>
           </template>
         </el-table-column>
-        <el-table-column v-if="type !== '1'" prop="operation" label="操作" :width="type==='2'?'250px':'150px'">
+        <el-table-column v-if="type !== '1'" prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>

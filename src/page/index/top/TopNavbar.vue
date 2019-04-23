@@ -64,6 +64,24 @@ export default {
         //   id: '/app/wealth',
         //   name: '财富',
         // }, {
+        }, {
+          id: '/app/material',
+          name: '材料',
+        }, {
+          id: '/app/training',
+          name: '培训',
+        }, {
+          id: '/app/client',
+          name: '客户',
+        }, {
+          id: '/app/qualification',
+          name: '资质',
+        }, {
+          id: '/app/business',
+          name: '商机',
+        }, {
+          id: '/app/expert',
+          name: '专家',
         },
       ],
     }

@@ -53,7 +53,7 @@
                 maxlength="10" 
                 type="number" 
                 min=0
-                placeholder="请输入正确的数额"></el-input>
+                placeholder="请正确输入非负回款金额"></el-input>
               <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
               <!-- <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="selectIndex=-1" maxlength="10"></el-input>
               <div v-else @click="selectIndex=scope.$index" style="min-height: 20px;">{{scope.row.paymentAmount}}</div> -->

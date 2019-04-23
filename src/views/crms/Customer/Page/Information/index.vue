@@ -1,6 +1,6 @@
 
 <template>
-  <div class="information">
+  <!-- <div class="information">
     <operation-wrapper>
       <iep-button class="btn" type="primary" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加资讯</iep-button>
     </operation-wrapper>
@@ -25,16 +25,20 @@
       </template>
     </iep-table>
     <info-dialog ref="InfoDialog" @load-page="loadPage"></info-dialog>
+  </div> -->
+  <div>
+    <iep-to-dev></iep-to-dev>
   </div>
+
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
-import InfoDialog from './InfoDialog'
+// import InfoDialog from './InfoDialog'
 import { createConsultation } from '@/api/crms/information'
 export default {
   mixins: [mixins],
-  components: { InfoDialog },
+  // components: { InfoDialog },
   data () {
     return {
       list: [],

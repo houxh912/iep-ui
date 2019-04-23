@@ -74,8 +74,8 @@
         <div class="name">{{formData.creatorRealName}}</div>
         <div class="num">共{{materialTotal}}篇材料</div>
         <div class="foot">
-          <iep-button type="danger">订阅</iep-button>
-          <iep-button type="danger">向他拜师</iep-button>
+          <iep-button type="danger" @click="subscribe">订阅</iep-button>
+          <iep-button type="danger" @click="apprentice">向他拜师</iep-button>
         </div>
       </div>
       <div class="material">
@@ -189,6 +189,14 @@ export default {
     },
     open (id) {
       this.getDataById(id)
+    },
+    // 订阅
+    subscribe () {
+      this.$message.info('抱歉，此功能正在开发中')
+    },
+    // 拜师
+    apprentice () {
+      this.$message.info('抱歉，此功能正在开发中')
     },
   },
   created () {

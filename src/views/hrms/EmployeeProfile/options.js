@@ -488,7 +488,7 @@ const rules = {
     { required: true, message: '请填写毕业时间', trigger: 'blur' },
   ],
   referrer: [
-    { required: true, message: '请填写推荐人', trigger: 'blur' },
+    { required: false, message: '请填写推荐人', trigger: 'blur' },
   ],
   externalTitle: [
     { min: 2, message: '外部头衔至少 2 个字符以上', trigger: 'blur' },

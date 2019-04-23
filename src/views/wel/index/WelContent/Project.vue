@@ -52,6 +52,18 @@ export default {
   .project-nav {
     display: flex;
     align-items: center;
+    .title {
+      color: #000;
+    }
   }
 }
 </style>
+<style scoped>
+.project-nav >>> .title {
+  color: #000;
+}
+.project-nav >>> .tabList .color {
+  color: #cb3737;
+}
+</style>
+

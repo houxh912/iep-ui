@@ -55,6 +55,7 @@ export default {
       })
     },
     add (val) {
+      console.log(val)
       this.dialogShow = false
       this.formData.programName = val.name
       this.formData.attachs = [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],

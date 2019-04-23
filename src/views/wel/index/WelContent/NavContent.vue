@@ -54,6 +54,7 @@ export default {
       text-align: right;
     }
     .text-time {
+      font-size: 14px;
       color: #999;
     }
   }

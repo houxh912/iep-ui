@@ -139,7 +139,7 @@
         </el-form-item>
         <el-form-item label="">
           <operation-wrapper>
-            <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+            <iep-button type="primary" @click="handleSubmit">保存</iep-button>
             <iep-button @click="handlePublish">保存并发布</iep-button>
           </operation-wrapper>
         </el-form-item>

@@ -28,6 +28,9 @@
           <el-form-item label="岗位：" class="form-half">
             <iep-div-detail :value="form.positionName"></iep-div-detail>
           </el-form-item>
+          <el-form-item label="对外头衔：" class="form-half">
+            <iep-div-detail :value="form.title"></iep-div-detail>
+          </el-form-item>
           <el-form-item label="职务：" class="form-half">
             <iep-div-detail :value="form.job"></iep-div-detail>
           </el-form-item>

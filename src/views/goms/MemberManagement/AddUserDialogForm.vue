@@ -9,7 +9,13 @@
       </el-col>
       <el-col :span="18">
         <el-scrollbar style="height:400px;">
-          <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+          <operation-container>
+            <template slot="right">
+              <operation-search @search-page="searchPage">
+              </operation-search>
+            </template>
+          </operation-container>
+          <iep-table :isLoadTable="isLoadTable" size="mini" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
             <template slot="before-columns">
               <el-table-column label="姓名">
                 <template slot-scope="scope">

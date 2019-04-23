@@ -67,13 +67,15 @@ export default {
     display: flex;
     align-items: center;
     .navTitle {
-      font-size: 16px;
       padding-right: 20px;
+      font-size: 16px;
+      color: #000;
     }
   }
   .title {
     font-size: 14px;
     cursor: pointer;
+    color: #666;
     &:hover {
       color: #cb3737;
     }

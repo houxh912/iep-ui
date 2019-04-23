@@ -52,7 +52,7 @@
           <iep-tip content="1、一天以内由直属领导审批（含1天）；<br/>2、二天以内由部门班长审批（含2天）；<br/>3、三天及以上总经理（郑总）审批（含3天）。"></iep-tip>
           ：
         </span>
-        <iep-contact-multiple-user v-model="form.approver"></iep-contact-multiple-user>
+        <iep-contact-multiple-user v-model="form.approver" :filter-user-list="filterUserList"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item>
         <div slot="label">
@@ -60,7 +60,7 @@
           <iep-tip content="请务必抄送所属部门人力和财务，谢谢！"></iep-tip>
           ：
         </div>
-        <iep-contact-multiple-user v-model="form.cc"></iep-contact-multiple-user>
+        <iep-contact-multiple-user v-model="form.cc" :filter-user-list="filterUserList"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item label="">
         <operation-wrapper>

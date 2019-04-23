@@ -13,10 +13,10 @@
           <iep-tag-detail :value="item.tagKeyWords"></iep-tag-detail>
         </el-col>
         <el-col :span="5">
-          <iep-dict-detail :currentValue="item.materialType" dict-name="mlms_material_type" style="text-align: center;"></iep-dict-detail>
+          <iep-dict-detail :currentValue="item.materialType" dict-name="mlms_material_type" style="text-align: right;"></iep-dict-detail>
         </el-col>
         <el-col :span="2">
-          <div style="text-align: center;">{{item.creatorRealName}}</div>
+          <div style="text-align: right;">{{item.creatorRealName}}</div>
         </el-col>
       </el-row>
     </div>
@@ -62,6 +62,7 @@ export default {
     display: flex;
     align-items: center;
     font-size: 16px;
+    color: #000;
   }
   .material-content {
     padding: 10px 0;

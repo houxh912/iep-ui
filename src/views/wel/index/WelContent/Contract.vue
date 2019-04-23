@@ -10,13 +10,13 @@
           <div class="iep-ellipsis name" @click="handleDetail(item)">{{item.name}}</div>
         </el-col>
         <el-col :span="4">
-          <div class="iep-ellipsis" style="text-align: center;">{{item.businessContractType!=''?item.businessContractType:'无'}}</div>
+          <div class="iep-ellipsis" style="text-align: left;">{{item.businessContractType!=''?item.businessContractType:'无'}}</div>
         </el-col>
         <el-col :span="6">
-          <div class="iep-ellipsis" style="text-align: center;">{{item.contractAmount.toLocaleString('en-US')}}</div>
+          <div class="iep-ellipsis" style="text-align: right;">{{item.contractAmount.toLocaleString('en-US')}}</div>
         </el-col>
         <el-col :span="4">
-          <div class="iep-ellipsis" style="text-align: center;">{{item.status}}</div>
+          <div class="iep-ellipsis" style="text-align: right;">{{item.status}}</div>
         </el-col>
       </el-row>
     </div>
@@ -54,6 +54,7 @@ export default {
     display: flex;
     align-items: center;
     font-size: 16px;
+    color: #000;
   }
   .contract-content {
     padding: 10px 0;

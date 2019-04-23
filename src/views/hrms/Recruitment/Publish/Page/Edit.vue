@@ -64,7 +64,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="工作地点：" prop="place">
-              <el-input v-model="form.place" maxlength="2010"></el-input>
+              <iep-dict-select v-model="form.place" dict-name="hrms_work_place"></iep-dict-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">

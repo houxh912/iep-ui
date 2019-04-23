@@ -11,6 +11,10 @@ const dictsMap = {
     5: '其他',
     6: '离职员工',
   },
+  lockFlag: {
+    0: '正常',
+    1: '锁定',
+  },
 }
 
 const initForm = () => {

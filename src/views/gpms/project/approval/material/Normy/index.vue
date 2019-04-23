@@ -10,8 +10,11 @@
         </div>
       </div>
       <div class="content">
-        <div class="item" v-for="(item, index) in summaryList" :key="index">
-          <i class="icon-guanlian"></i>{{item.content}} <i class="close el-icon-close" @click="deleteRelations(item, 1)"></i>
+        <div v-if="summaryList.length == 0" style="color: #999;">暂无数据</div>
+        <div v-else>
+          <div class="item" v-for="(item, index) in summaryList" :key="index">
+            <i class="icon-guanlian"></i>{{item.name}} <i class="close el-icon-close" @click="deleteRelations(item, 1)"></i>
+          </div>
         </div>
       </div>
     </div>
@@ -24,8 +27,11 @@
         </div>
       </div>
       <div class="content">
-        <div class="item" v-for="(item, index) in summaryList" :key="index">
-          <i class="icon-guanlian"></i>{{item.content}} <i class="close el-icon-close" @click="deleteRelations(item, 2)"></i>
+        <div v-if="weeklyList.length == 0" style="color: #999;">暂无数据</div>
+        <div v-else>
+          <div class="item" v-for="(item, index) in weeklyList" :key="index">
+            <i class="icon-guanlian"></i>{{item.name}} <i class="close el-icon-close" @click="deleteRelations(item, 2)"></i>
+          </div>
         </div>
       </div>
     </div>
@@ -34,7 +40,6 @@
 </template>
 
 <script>
-import { normyList, normyList2 } from '../const.js'
 import { getMeetingList, deleteSummarys } from '@/api/gpms/material'
 
 export default {
@@ -47,8 +52,8 @@ export default {
   },
   data (){
     return {
-      summaryList: normyList,
-      list2: normyList2,
+      summaryList: [],
+      weeklyList: [],
     }
   },
   methods: {
@@ -61,7 +66,7 @@ export default {
         projectId: this.projectId,
         materialType: 1,
       }).then(({data}) => {
-        console.log('getsummaryList: ', data)
+        this.summaryList = data.data
       })
     },
     relateSummary () {
@@ -72,7 +77,7 @@ export default {
         projectId: this.projectId,
         materialType: 2,
       }).then(({data}) => {
-        console.log('getPorjectWeekList: ', data)
+        this.weeklyList = data.data
       })
     },
     // 删除关联
@@ -80,7 +85,7 @@ export default {
       deleteSummarys({
         materialChartId: item.id,
         materialType: type,
-        projectId: this.form.id,
+        projectId: this.projectId,
       }).then(({data}) => {
         console.log('data: ', data)
       })

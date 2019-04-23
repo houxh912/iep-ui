@@ -46,7 +46,7 @@
               <el-form-item label="岗位：" prop="position" class="form-half">
                 <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
               </el-form-item>
-              <el-form-item label="外部头衔：" prop="title" class="form-half">
+              <el-form-item label="对外头衔：" prop="title" class="form-half">
                 <el-input v-model="form.title"></el-input>
               </el-form-item>
               <el-form-item label="职务：" prop="jobId" class="form-half">

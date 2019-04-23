@@ -14,3 +14,8 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.fr-view {
+  word-break: break-all;
+}
+</style>

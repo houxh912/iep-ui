@@ -184,8 +184,8 @@ export default {
             callback(new Error('请输入有效的网址'))
           }
         }
-        callback()
       }
+      callback()
     }
     const RespDept = (rules, value, callback) => {
       if (value.name == '') {
@@ -231,16 +231,16 @@ export default {
         iepClientRespDept: [
           { required: true, validator: RespDept, trigger: 'blur' },
         ],
-        companyUrl: [{ required: true, validator: url, trigger: 'blur' }],
+        companyUrl: [{ validator: url, trigger: 'blur' }],
         companyFunction: [
-          { required: true, message: '请填写单位职能', trigger: 'blur' },
+          { message: '请填写单位职能', trigger: 'blur' },
           { max: 25, message: '长度不超过25个字符', trigger: 'blur' },
         ],
         contractAddress: [
-          { required: true, message: '请填写单位地址', trigger: 'blur' },
+          { message: '请填写单位地址', trigger: 'blur' },
         ],
         otherDesc: [
-          { required: true, message: '请填写其他说明', trigger: 'blur' },
+          { message: '请填写其他说明', trigger: 'blur' },
           { max: 255, message: '长度不超过255个字符', trigger: 'blur' },
         ],
         clientTypeKey: [

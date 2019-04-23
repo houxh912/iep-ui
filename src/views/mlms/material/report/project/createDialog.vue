@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" title="选择项目" width="40%" @close="resetForm('form')">
     
     
-    <div class="search">
+    <div class="search" style="margin-right: 10px;">
       <el-input placeholder="请输入内容" v-model="params.projectName" class="input-with-select" maxlength="20">
         <el-button slot="append" icon="el-icon-search" @click="searchProject"></el-button>
       </el-input>

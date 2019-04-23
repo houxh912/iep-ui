@@ -115,7 +115,7 @@ export default {
       formData: initLocalForm(),
       backId: '',
       rules: rules,
-      secondClass: ['one'],
+      secondClass: [],
       dictsMap,
       dicData: {
         select: [
@@ -190,6 +190,7 @@ export default {
       for (let item of this.firstClass) {
         if (item.id == val) {
           this.secondClass = item.childrens
+          this.formData.secondClass = ''
           return
         }
       }

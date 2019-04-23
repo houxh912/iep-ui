@@ -73,6 +73,7 @@
     <local-dialog ref="local" @load-page="loadPage" v-if="pageState=='local'" :firstClass="firstClass"></local-dialog>
     <newly-dialog ref="newly" @load-page="loadPage" v-if="pageState=='newly'" :firstClass="firstClass"></newly-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
+    <upload-file ref="uploadFile" @upload-success="uploadSuccess"></upload-file>
     <share-dialog ref="share" type="material"></share-dialog>
     <detail-dialog ref="detailPage" @backPage="pageState = 'list'" v-if="pageState=='detail'" :detailState=true></detail-dialog>
   </div>
@@ -83,6 +84,7 @@ import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
 import { getTableData, getTableDataOnlyMe, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/material'
 import { createCollect } from '@/api/mlms/material/summary'
+import UploadFile from './uploadFile'
 import LocalDialog from './localDialog'
 import NewlyDialog from './newlyDialog'
 import CollectionDialog from '../../components/collectionDialog'
@@ -93,9 +95,9 @@ import { mapGetters } from 'vuex'
 
 export default {
   mixins: [mixins],
-  components: { LocalDialog, NewlyDialog, CollectionDialog, ShareDialog, DetailDialog },
+  components: { LocalDialog, NewlyDialog, CollectionDialog, ShareDialog, DetailDialog, UploadFile },
   computed: {
-    ...mapGetters(['permissions']),
+    ...mapGetters(['permissions', 'userInfo']),
   },
   data () {
     return {
@@ -146,12 +148,25 @@ export default {
       this.pageState = 'list'
       this.loadTable(param, this.getTableDataFn)
     },
-    // 本地上传
+    // 本地上传文件成功
+    uploadSuccess (row) {
+      this.localCreateForm(row)
+    },
     localCreate () {
+      this.$refs['uploadFile'].open()
+    },
+    // 本地上传
+    localCreateForm (row) {
       this.pageState = 'local'
       this.$nextTick(() => {
         this.$refs[this.pageState].methodName = '新建'
         this.$refs['local'].formRequestFn = createData
+        let obj = {
+          materialName: row[0].name,
+          uploader: this.userInfo.realName,
+          attachFileList: row,
+        }
+        this.$refs['local'].formData = Object.assign({}, this.$refs['local'].formData, obj)
       })
     },
     // 新建文档

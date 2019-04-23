@@ -97,3 +97,10 @@ export function getAllDept (params) {
     params: params,
   })
 }
+export function getAllRecord (params) {
+  return request({
+    url: `${allUrl}/single`,
+    method: 'get',
+    params: params,
+  })
+}

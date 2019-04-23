@@ -87,11 +87,6 @@ export default {
   },
   created () {
     this.loadPage()
-    var year = 2011, month = 6, date = 23// month=6表示7月
-    var dt = new Date(year, month, date), dt2 = new Date()
-    var weekDay = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
-    alert(weekDay[dt.getDay()] + '\r\n' + weekDay[dt2.getDay()])
-
   },
   methods: {
     dealTag (data) {

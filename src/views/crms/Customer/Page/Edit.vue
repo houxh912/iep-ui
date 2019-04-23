@@ -170,17 +170,13 @@ export default {
       })
     }
     const url = (rules, value, callback) => {
-      if (value === '') {
-        callback(new Error('网址不可为空'))
-      } else {
-        if (value !== '') {
-          var reg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~/])+$/
-          if (!reg.test(value)) {
-            callback(new Error('请输入有效的网址'))
-          }
+      if (value !== '') {
+        var reg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~/])+$/
+        if (!reg.test(value)) {
+          callback(new Error('请输入有效的网址'))
         }
-        callback()
       }
+      callback()
     }
 
     return {
@@ -221,16 +217,16 @@ export default {
         iepClientRespDept: [
           { required: true, message: '请选择负责部门', trigger: 'blur' },
         ],
-        companyUrl: [{ required: true, validator: url, trigger: 'blur' }],
+        companyUrl: [{ validator: url, trigger: 'blur' }],
         companyFunction: [
-          { required: true, message: '请填写单位职能', trigger: 'blur' },
+          { message: '请填写单位职能', trigger: 'blur' },
           { max: 25, message: '长度不超过25个字符', trigger: 'blur' },
         ],
         contractAddress: [
-          { required: true, message: '请填写单位地址', trigger: 'blur' },
+          { message: '请填写单位地址', trigger: 'blur' },
         ],
         otherDesc: [
-          { required: true, message: '请填写其他说明', trigger: 'blur' },
+          { message: '请填写其他说明', trigger: 'blur' },
           { max: 255, message: '长度不超过255个字符', trigger: 'blur' },
         ],
         clientTypeKey: [

@@ -87,7 +87,7 @@ export default {
             name: data.data.directorRealName,
           }
         }
-        console.log('data: ', data)
+        data.data.contractFile = data.data.contractFileList
         this.$refs['mainDialog'].formData = data.data
         this.$refs['mainDialog'].methodName = '编辑'
         this.$refs['mainDialog'].formRequestFn = updateData

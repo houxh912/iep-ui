@@ -24,7 +24,7 @@ const amount = (rules, value, callback) => {
 }
 const RespDept = (rules, value, callback) => {
   if (value.name == '' || value.name == null) {
-    callback(new Error('负责部门不能为空'))
+    callback(new Error('签署部门不能为空'))
   } else {
     callback()
   }

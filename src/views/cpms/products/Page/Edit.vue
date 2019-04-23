@@ -3,7 +3,7 @@
   <div>
     <basic-container>
       <page-header :title="`${methodName}产品`" :backOption="backOption"></page-header>
-      <el-form :model="form" size="small" label-width="150px" class="form-detail">
+      <el-form ref="form" :model="form" size="small" :rules="rules" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
           <el-form-item label="产品logo：">
@@ -21,7 +21,7 @@
           <el-form-item label="上线时间：" class="form-half">
             <iep-date-picker v-model="form.onlineTime" type="date" placeholder="请输入时间"></iep-date-picker>
           </el-form-item>
-          <el-form-item label="标签：">
+          <el-form-item label="标签：" prop="tagKeywords">
             <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
           <el-form-item label="是否带库：" class="form-half">
@@ -90,7 +90,7 @@ import mixins from '@/mixins/mixins'
 import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
 import IepCpmsModuleTable from '@/views/cpms/Components/ModuleTable'
 import IepCpmsMaterialTable from '@/views/cpms/Components/MaterialTable'
-import { initForm, toDtoForm } from '../options'
+import { initForm, toDtoForm, rules } from '../options'
 export default {
   name: 'edit',
   mixins: [mixins],
@@ -114,6 +114,7 @@ export default {
         backPath: null,
         backFunction: () => { this.$emit('onGoBack') },
       },
+      rules,
       form: initForm(),
     }
   },
@@ -145,8 +146,12 @@ export default {
       this.$message.success('功能开发中')
     },
     submitForm () {
-      this.formRequestFn(toDtoForm(this.form)).then(() => {
-        this.$emit('onGoBack')
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.formRequestFn(toDtoForm(this.form)).then(() => {
+            this.$emit('onGoBack')
+          })
+        }
       })
     },
     clear () {

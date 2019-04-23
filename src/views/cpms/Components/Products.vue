@@ -42,7 +42,8 @@ export default {
   .img {
     padding: 5px;
     img {
-      width: 100%;
+      width: 88px;
+      height: 88px;
       padding: 0;
       margin: 0;
       display: block;

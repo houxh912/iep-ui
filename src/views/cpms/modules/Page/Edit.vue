@@ -3,7 +3,7 @@
   <div>
     <basic-container>
       <page-header :title="`${methodName}模块`" :backOption="backOption"></page-header>
-      <el-form :model="form" size="small" label-width="150px" class="form-detail">
+      <el-form ref="form" :model="form" size="small" :rules="rules" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
           <el-form-item label="模块logo：">
@@ -95,7 +95,7 @@ import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
 import IepCpmsProductTable from '@/views/cpms/Components/ProductTable'
 import IepCpmsTechnologyTable from '@/views/cpms/Components/TechnologyTable'
 import IepCpmsMaterialTable from '@/views/cpms/Components/MaterialTable'
-import { dictsMap, initForm, toDtoForm } from '../options'
+import { dictsMap, initForm, toDtoForm, rules } from '../options'
 export default {
   name: 'edit',
   mixins: [mixins],
@@ -114,43 +114,7 @@ export default {
   data () {
     return {
       dictsMap,
-      pagedTable: [
-        {
-          id: 1,
-          context: '对数据进行重新审核和校验, 并提供数据一致性.',
-          time: '2019-02-14',
-          version: 'v5.0',
-        },
-        {
-          id: 2,
-          context: '对数据进行重新审核和校验, 并提供数据一致性.',
-          time: '2019-02-14',
-          version: 'v5.0',
-        },
-        {
-          id: 3,
-          context: '对数据进行重新审核和校验, 并提供数据一致性.',
-          time: '2019-02-14',
-          version: 'v5.0',
-        },
-      ],
-      pagedTable1: [
-        {
-          id: 1,
-          title: '对数据进行重新审核和校验, 并提供数据一致性.',
-          type: '2019-02-14',
-        },
-        {
-          id: 2,
-          title: '对数据进行重新审核和校验, 并提供数据一致性.',
-          type: '2019-02-14',
-        },
-        {
-          id: 3,
-          title: '对数据进行重新审核和校验, 并提供数据一致性.',
-          type: '2019-02-14',
-        },
-      ],
+      rules,
       methodName: '',
       formRequestFn: () => { },
       backOption: {

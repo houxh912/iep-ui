@@ -46,8 +46,8 @@
               <el-form-item label="岗位：" prop="position" class="form-half">
                 <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
               </el-form-item>
-              <el-form-item label="对外头衔：" prop="title" class="form-half">
-                <el-input v-model="form.title"></el-input>
+              <el-form-item label="对外头衔：" prop="socialRela" class="form-half">
+                <el-input v-model="form.socialRela"></el-input>
               </el-form-item>
               <el-form-item label="职务：" prop="jobId" class="form-half">
                 <iep-select prefix-url="hrms/job_system" v-model="form.jobId"></iep-select>
@@ -365,9 +365,9 @@ export default {
   },
   methods: {
     async handleSave () {
-      await this.$refs['form'].validate((valid) => {
+      return await this.$refs['form'].validate((valid) => {
         if (valid) {
-          this.formRequestFn(formToDto(this.form)).then(({ data }) => {
+          return this.formRequestFn(formToDto(this.form)).then(({ data }) => {
             if (data.data) {
               this.$message({
                 message: '修改成功',
@@ -388,7 +388,7 @@ export default {
       })
     },
     async handleSubmit () {
-      const isTrue = await this.handleSave(this.methodName)
+      const isTrue = await this.handleSave()
       if (isTrue) {
         this.handleGoBack()
       }

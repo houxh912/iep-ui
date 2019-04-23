@@ -28,9 +28,6 @@
           <el-form-item label="岗位：" class="form-half">
             <iep-div-detail :value="form.positionName"></iep-div-detail>
           </el-form-item>
-          <el-form-item label="对外头衔：" class="form-half">
-            <iep-div-detail :value="form.externalTitle"></iep-div-detail>
-          </el-form-item>
           <el-form-item label="职务：" class="form-half">
             <iep-div-detail :value="form.job"></iep-div-detail>
           </el-form-item>
@@ -42,9 +39,6 @@
           </el-form-item>
           <el-form-item label="转正时间：" class="form-half">
             <span>{{form.positiveTime | parseTime('{y}-{m}-{d}')}}</span>
-          </el-form-item>
-          <el-form-item label="员工状态：" class="form-half">
-            <span>{{dictsMap.status[form.status]}}</span>
           </el-form-item>
           <el-form-item label="所属部门：" class="form-half">
             <iep-tag-detail :value="form.deptList"></iep-tag-detail>

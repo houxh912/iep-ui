@@ -61,6 +61,12 @@ axios.interceptors.response.use(
     } else if (status === 403 || res.data.code === 403) {
       router.push({ path: '/403' })
       return
+    } else if (status === 404 || res.data.code === 404) {
+      router.push({ path: '/404' })
+      return
+    } else if (status === 500 || res.data.code === 500) {
+      router.push({ path: '/500' })
+      return
     } else if (status !== 200 || res.data.code === 1) {
       Message({
         message: message,

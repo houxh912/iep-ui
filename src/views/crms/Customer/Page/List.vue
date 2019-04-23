@@ -43,7 +43,7 @@
             <div v-else>无</div>
           </template>
         </el-table-column>
-        <el-table-column v-if="type !== '1'" prop="operation" label="操作" :width="type==='2'?'250px':'150px'">
+        <el-table-column v-if="type !== '1'" prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
@@ -87,6 +87,11 @@ export default {
   },
   created () {
     this.loadPage()
+    var year = 2011, month = 6, date = 23// month=6表示7月
+    var dt = new Date(year, month, date), dt2 = new Date()
+    var weekDay = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+    alert(weekDay[dt.getDay()] + '\r\n' + weekDay[dt2.getDay()])
+
   },
   methods: {
     dealTag (data) {

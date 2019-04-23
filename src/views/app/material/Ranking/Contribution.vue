@@ -1,5 +1,5 @@
 <template>
-  <div class="leader-board">
+  <div class="contribution">
     <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
   </div>
 </template>

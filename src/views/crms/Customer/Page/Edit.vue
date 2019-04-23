@@ -181,11 +181,9 @@ export default {
     }
     const url = (rules, value, callback) => {
       if (value !== '') {
-        if (value !== '') {
-          var reg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~/])+$/
-          if (!reg.test(value)) {
-            callback(new Error('请输入有效的网址'))
-          }
+        var reg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~/])+$/
+        if (!reg.test(value)) {
+          callback(new Error('请输入有效的网址'))
         }
       }
       callback()

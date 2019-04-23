@@ -44,7 +44,7 @@
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
     <add-user-dialog-form ref="AddUserDialogForm" @load-page="loadPage"></add-user-dialog-form>
-    <iep-review-confirm ref="IepReviewForm" @load-page="loadPage"></iep-review-confirm>
+    <iep-review-confirm ref="IepReviewForm" @load-page="loadPage" :is-content="false"></iep-review-confirm>
   </div>
 </template>
 <script>
@@ -54,6 +54,7 @@ import DialogForm from './DialogForm'
 import AddUserDialogForm from './AddUserDialogForm'
 import { dictsMap, columnsMap, initSearchForm, initMemberForm } from './options'
 import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
+import { passJoins } from '@/api/goms/org'
 export default {
   components: {
     DialogForm, AddUserDialogForm,
@@ -67,7 +68,7 @@ export default {
       paramForm: initSearchForm(),
       replaceText: (data) => ` 共${data[0]}个成员(其中${data[1]}个待审核)`,
       statistics: [0, 0],
-      formData: { 'orgName': '', 'logo': '', 'realName': '', 'logList': [], 'memberNum': 0, 'applyUserNum': 0, 'deptNum': 0, 'managerList': [], 'isOpen': 0 },
+      formData: { orgName: '', logo: '', realName: '', logList: [], memberNum: 0, applyUserNum: 0, deptNum: 0, managerList: [], isOpen: 0 },
     }
   },
   computed: {
@@ -87,8 +88,14 @@ export default {
       return row.userId === this.userInfo.userId
     },
     handleReviewBatch () {
+      // TODO: 是否多选提醒
+      if (!this.multipleSelection.length) {
+        this.$message('请先选择需要的选项')
+        return
+      }
       this.$refs['IepReviewForm'].ids = this.multipleSelection
       this.$refs['IepReviewForm'].title = '批量审核'
+      this.$refs['IepReviewForm'].formRequestFn = passJoins
       this.$refs['IepReviewForm'].dialogShow = true
     },
     handleDeleteBatch () {

@@ -26,6 +26,12 @@
         </el-option>
       </el-select>
     </el-form-item>
+    <el-form-item label="锁定状态：">
+      <el-select v-model="form.lockFlag" placeholder="请选择" clearable>
+        <el-option v-for="(v,k) in dictsMap.lockFlag" :key="k" :label="v" :value="+k">
+        </el-option>
+      </el-select>
+    </el-form-item>
     <el-form-item>
       <operation-wrapper>
         <iep-button type="primary" @click="searchPage">搜索</iep-button>

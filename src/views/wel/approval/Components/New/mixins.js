@@ -55,19 +55,22 @@ export default {
         this.loadSelf()
       }
     },
-    handleSubmit () {
+    async handleSubmit () {
       const submitFunction = this.id ? putApproval : postApproval
-      this.$refs['form'].validate((valid) => {
+      try {
+        const valid = await this.$refs['form'].validate()
         if (valid) {
-          submitFunction(formToDto(this.form, this.type, this.userInfo.userId)).then(({ data }) => {
-            if (!data.data) {
-              this.$message(data.msg)
-            } else {
-              this.$router.history.go(-1)
-            }
-          })
+          const { data } = await submitFunction(formToDto(this.form, this.type, this.userInfo.userId))
+          console.log(data)
+          if (!data.data) {
+            this.$message(data.msg)
+          } else {
+            this.$router.history.go(-1)
+          }
         }
-      })
+      } catch (error) {
+        console.log(error)
+      }
     },
     // 处理时间段
     dealTime (val1, val2) {

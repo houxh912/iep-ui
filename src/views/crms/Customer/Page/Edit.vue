@@ -39,7 +39,12 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-form-item label="客户描述:" prop="companyUrl">
+          <el-form-item prop="companyUrl">
+            <span slot='label'>
+              客户描述
+              <iep-tip :content="tipContent.companyUrl"></iep-tip>
+              :
+            </span>
             <el-input v-model="formData.companyUrl" placeholder="请务必准确填写客户单位网址，如http://www.123456.com"></el-input>
           </el-form-item>
           <el-form-item label="" prop="companyFunction">
@@ -133,15 +138,16 @@ import { getObj } from '@/api/admin/user'
 import { checkName } from '@/api/crms/customer'
 const tipContent = {
   clientName: '客户名称精确到局办且为全称， 如：“北京市行政服务中心”',
-  districtType: '部委：指中华人民共和国国务院下属的各部和各委员会，如发改委，国家信访局;<br>省级：省级国家机构所创立/ 负责管理或直属省政府领导和管理的行政单位, 如省发展改革委员会;<br>市级：市级国家机构负责管理或直属市政府领导和管理的行政单位, 如舟山市委组织;部;<br>区级：属于市辖区下行政区单位，如舟山市定海区组织部；<br>园区：<br>企业：以营利为目的，实行自主经营，自负盈亏，独立核算的法人或其他社会组织，如阿里巴巴；<br>其他：行业协会等',
-  clientRela: '核心客户：连续合作5年及以上、百万级项目、用软件/产品客户、数据服务客户、业务体系创新（标杆客户） <br/>' +
-    '重要客户：五十万以上项目、连续合作2年以上、每年有固定财政预算客户 <br/>' +
-    '一般客户：有合作项目 <br/>' +
-    '潜在客户：有意向的客户 <br/>' +
-    '其它客户：目前无意向客户',
-  businessTypeKey: '咨询：规划/行动计划/工作方案/课题研究/标准规范/管理制度/整体解决方案/评测;<br>产品：DNA/DIPS/营商通/咨询服务产品化;<br>数据：数据采集/普查/编目/标准化/开放共享/应用服务/主题库、基础库建设/事项材料梳理/主题清单规范优化、再造;<br>外包：软件/平台/服务;<br>会议培训：研讨会/招商合作/培训会;<br>平台：平台新建/平台升级;<br>技术服务：网站/平台/软件;<br>其他：自定义填写',
-  tags: '1、客户标签要与客户所处行业，合作项目/产品关联，其中合作项目简称，合作产品，客户简称等必须作为标签；<br>2、标签次序按照重要性排序。',
-  clientTypeKey: '客户：与我司有合作可能或已合作单位/机构/企业;<br>战略合作伙伴：为已签订战略合同的客户',
+  districtType: '部委：指中华人民共和国国务院下属的各部和各委员会，如发改委，国家信访局;<br>省级：省级国家机构所创立/ 负责管理或直属省政府领导和管理的行政单位, 如省发展改革委员会;<br>市级：市级国家机构负责管理或直属市政府领导和管理的行政单位, 如舟山市委组织部;<br>区级：属于市辖区下行政区单位，如舟山市定海区组织部；<br>园区：<br>企业：以营利为目的，实行自主经营，自负盈亏，独立核算的法人或其他社会组织，如阿里巴巴；<br>其他：行业协会等。',
+  clientRela: '核心客户：连续合作5年及以上、百万级项目、用软件/产品客户、数据服务客户、业务体系创新（标杆客户） <br/>;' +
+    '重要客户：五十万以上项目、连续合作2年以上、每年有固定财政预算客户; <br/>' +
+    '一般客户：有合作项目; <br/>' +
+    '潜在客户：有意向的客户; <br/>' +
+    '其它客户：目前无意向客户;',
+  businessTypeKey: '咨询：规划/行动计划/工作方案/课题研究/标准规范/管理制度/整体解决方案/评测;<br>产品：DNA/DIPS/营商通/咨询服务产品化;<br>数据：数据采集/普查/编目/标准化/开放共享/应用服务/主题库、基础库建设/事项材料梳理/主题清单规范优化、再造;<br>外包：软件/平台/服务;<br>会议培训：研讨会/招商合作/培训会;<br>平台：平台新建/平台升级;<br>技术服务：网站/平台/软件;<br>其他：自定义填写;',
+  tags: '1、客户标签要与客户所处行业，合作项目/产品关联，其中合作项目简称，合作产品，客户简称等必须作为标签;<br>2、标签次序按照重要性排序。',
+  companyUrl: '1、单位网址：请务必准确填写客户单位网址，如http://www.123456.com;<br>2、单位职能：请务必分行简明扼要罗列单位各项职能;<br>3、联系地址：请务必详细填写客户联系地址，精确到XX路XX号XX室;<br>4、其他说明：如有客户内部管理/关系问题等可做简要说明。',
+  clientTypeKey: '客户：与我公司有合作可能或已合作单位/机构/企业;<br>战略合作伙伴：为已签订战略合同的客户。',
 }
 export default {
   name: 'edit',
@@ -174,15 +180,10 @@ export default {
       })
     }
     const url = (rules, value, callback) => {
-      console.log(value)
-      if (value === '') {
-        callback(new Error('网址不可为空'))
-      } else {
-        if (value !== '') {
-          var reg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~/])+$/
-          if (!reg.test(value)) {
-            callback(new Error('请输入有效的网址'))
-          }
+      if (value !== '') {
+        var reg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~/])+$/
+        if (!reg.test(value)) {
+          callback(new Error('请输入有效的网址'))
         }
       }
       callback()
@@ -254,7 +255,7 @@ export default {
           { max: 50, message: '长度不超过50个字符', trigger: 'blur' },
         ],
         clientRela: [{ required: true, message: '请选择客户关系', trigger: 'blur' }],
-        tags: [{ required: true, message: '请添加商机标签', trigger: 'blur' }],
+        tags: [{ required: true, message: '请添加客户标签', trigger: 'blur' }],
         followUpStatus: [
           { required: true, message: '请选择跟进状态', trigger: 'blur' },
         ],
@@ -343,7 +344,11 @@ export default {
                     flag: true,
                   },
                 })
-              } else {
+              }
+            })
+          } else {
+            this.formRequestFn((this.formData)).then(({ data }) => {
+              if (data.data) {
                 this.$message({
                   message: `客户${this.methodName}成功`,
                   type: 'success',
@@ -358,14 +363,10 @@ export default {
               }
             })
           }
-
-
         } else {
           return false
         }
       })
-
-
     },
     load () {
       getCustomerById(this.record.id).then(({ data }) => {

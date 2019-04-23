@@ -4,11 +4,12 @@
   </el-tooltip>
 </template>
 <script>
-import { openWindow } from '@/util/util'
+// import { openWindow } from '@/util/util'
 export default {
   methods: {
     handleOpen () {
-      openWindow('https://www.yuque.com/govmade/lq2610', '国脉内网使用指南', 800, 600)
+      this.$message.success('暂无内容')
+      // openWindow('https://www.yuque.com/govmade/lq2610', '国脉内网使用指南', 800, 600)
     },
   },
 }

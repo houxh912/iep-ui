@@ -87,7 +87,8 @@ export default {
             name: data.data.directorRealName,
           }
         }
-        console.log('data: ', data)
+        data.data.projectId = data.data.projectRelation.id
+        data.data.projectName = data.data.projectRelation.name
         this.$refs['mainDialog'].formData = data.data
         this.$refs['mainDialog'].methodName = '编辑'
         this.$refs['mainDialog'].formRequestFn = updateData

@@ -8,7 +8,7 @@
       </el-col>
       <el-col :span='8'>
         <el-form-item label="产品官网：">
-          <div>{{form.website}}</div>
+          <iep-div-detail :value="form.website"></iep-div-detail>
         </el-form-item>
       </el-col>
       <el-col :span='8'>

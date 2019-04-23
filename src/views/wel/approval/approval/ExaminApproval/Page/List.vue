@@ -88,6 +88,7 @@ export default {
     },
     handleDeliver (row) {
       this.$refs['DeliverDialog'].form.ids = [row.id]
+      this.$refs['DeliverDialog'].userId = row.userId
       this.$refs['DeliverDialog'].formRequestFn = deliverApprovaBatch
       this.$refs['DeliverDialog'].dialogShow = true
     },

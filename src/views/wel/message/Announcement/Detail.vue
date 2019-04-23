@@ -26,7 +26,7 @@
       </div>
       <div class="item-con">
         <div class="paragraph">
-          {{form.content}}
+          <iep-html v-model="form.content"></iep-html>
         </div>
       </div>
     </div>

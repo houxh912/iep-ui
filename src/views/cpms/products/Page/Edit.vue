@@ -3,25 +3,25 @@
   <div>
     <basic-container>
       <page-header :title="`${methodName}产品`" :backOption="backOption"></page-header>
-      <el-form :model="form" size="small" label-width="150px" class="form-detail">
+      <el-form ref="form" :model="form" size="small" :rules="rules" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
-          <el-form-item label="产品logo：">
+          <el-form-item label="产品logo：" prop="imageUrl">
             <iep-avatar v-model="form.imageUrl"></iep-avatar>
           </el-form-item>
-          <el-form-item label="产品编号：" class="form-half">
-            <el-input v-model="form.number"></el-input>
+          <el-form-item label="产品编号：" prop="number" class="form-half">
+            <el-input maxlength="110" v-model="form.number"></el-input>
           </el-form-item>
-          <el-form-item label="产品名称：" class="form-half">
-            <el-input v-model="form.name"></el-input>
+          <el-form-item label="产品名称：" prop="name" class="form-half">
+            <el-input maxlength="110" v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="网址：" class="form-half">
-            <el-input v-model="form.website"></el-input>
+          <el-form-item label="产品网址：" prop="website" class="form-half">
+            <el-input maxlength="2010" v-model="form.website"></el-input>
           </el-form-item>
-          <el-form-item label="上线时间：" class="form-half">
+          <el-form-item label="上线时间：" prop="onlineTime" class="form-half">
             <iep-date-picker v-model="form.onlineTime" type="date" placeholder="请输入时间"></iep-date-picker>
           </el-form-item>
-          <el-form-item label="标签：">
+          <el-form-item label="标签：" prop="tagKeywords">
             <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
           <el-form-item label="是否带库：" class="form-half">
@@ -30,17 +30,17 @@
               <el-radio label="0">否</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="产品估值：" class="form-half">
-            <el-input v-model="form.valuation"></el-input>
+          <el-form-item label="产品估值：" prop="valuation" class="form-half">
+            <iep-input-number v-model="form.valuation"></iep-input-number>
           </el-form-item>
-          <el-form-item label="估值说明：">
-            <iep-input-area v-model="form.instructions"></iep-input-area>
+          <el-form-item label="估值说明：" prop="instructions">
+            <iep-input-area maxlength="2010" v-model="form.instructions"></iep-input-area>
           </el-form-item>
-          <el-form-item label="产品简介：">
-            <el-input v-model="form.synopsis"></el-input>
+          <el-form-item label="产品简介：" prop="synopsis">
+            <el-input maxlength="2010" v-model="form.synopsis"></el-input>
           </el-form-item>
-          <el-form-item label="产品介绍：">
-            <iep-input-area v-model="form.description"></iep-input-area>
+          <el-form-item label="产品介绍：" prop="description">
+            <iep-input-area maxlength="2010" v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
         <div class="title">团队信息：</div>
@@ -90,7 +90,7 @@ import mixins from '@/mixins/mixins'
 import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
 import IepCpmsModuleTable from '@/views/cpms/Components/ModuleTable'
 import IepCpmsMaterialTable from '@/views/cpms/Components/MaterialTable'
-import { initForm, toDtoForm } from '../options'
+import { initForm, toDtoForm, rules } from '../options'
 export default {
   name: 'edit',
   mixins: [mixins],
@@ -114,6 +114,7 @@ export default {
         backPath: null,
         backFunction: () => { this.$emit('onGoBack') },
       },
+      rules,
       form: initForm(),
     }
   },
@@ -144,10 +145,20 @@ export default {
     handleDelete () {
       this.$message.success('功能开发中')
     },
-    submitForm () {
-      this.formRequestFn(toDtoForm(this.form)).then(() => {
-        this.$emit('onGoBack')
-      })
+    async submitForm () {
+      try {
+        const valid = await this.$refs['form'].validate()
+        if (valid) {
+          const { data } = await this.formRequestFn(toDtoForm(this.form))
+          if (data.data) {
+            this.$emit('onGoBack')
+          } else {
+            this.$message(data.msg)
+          }
+        }
+      } catch (error) {
+        console.log(error)
+      }
     },
     clear () {
       this.$message.success('功能开发中')

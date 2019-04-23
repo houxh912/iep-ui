@@ -71,6 +71,10 @@ export const initFormData = () => {
     contractLevel: '',
     contractStatus: '',
     deposit: '',
+    projectName: '',
+    projectId: '',
+    contractFile: [],
+    contractFileList: [],
   }
 }
 
@@ -155,4 +159,20 @@ export const rules = {
     { validator: intValidate, message: '请输入正数', trigger: 'blur' },
     { validator: xsValidate, message: '小数位最多为2位', trigger: 'blur' },
   ],
+  projectId: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
 }
+
+export const projecTableOption = [
+  {
+    label: '项目名称',
+    prop: 'projectName',
+  }, {
+    label: '项目预算',
+    prop: 'projectBudget',
+  }, {
+    label: '发布人',
+    prop: 'publisherName',
+  },
+]

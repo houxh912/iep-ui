@@ -174,15 +174,10 @@ export default {
       })
     }
     const url = (rules, value, callback) => {
-      console.log(value)
-      if (value === '') {
-        callback(new Error('网址不可为空'))
-      } else {
-        if (value !== '') {
-          var reg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~/])+$/
-          if (!reg.test(value)) {
-            callback(new Error('请输入有效的网址'))
-          }
+      if (value !== '') {
+        var reg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~/])+$/
+        if (!reg.test(value)) {
+          callback(new Error('请输入有效的网址'))
         }
       }
       callback()

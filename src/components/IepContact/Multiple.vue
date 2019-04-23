@@ -100,6 +100,7 @@ export default {
       return data.label.indexOf(value) !== -1
     },
     isDisabled (data, node) {
+      if (data.value === 0) return true
       if (node.level === 1 && this.unionIds.includes(data.value)) {
         return true
       }

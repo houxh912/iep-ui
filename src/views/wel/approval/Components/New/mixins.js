@@ -29,7 +29,6 @@ export default {
           return time.getTime() < Date.now()
         },
       },
-      filterUserList: [],
     }
   },
   computed: {
@@ -40,7 +39,7 @@ export default {
       return +this.$route.params.id
     },
     filterUserList () {
-      return [this.userInfo.userId]
+      return [this.userInfo.userId, ...this.form.cc.map(m => m.id), ...this.form.approver.map(m => m.id)]
     },
   },
   created () {

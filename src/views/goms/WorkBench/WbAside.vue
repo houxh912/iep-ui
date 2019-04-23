@@ -99,12 +99,12 @@ export default {
             },
           },
         },
-        {
-          title: '开启审理员审核',
-          propName: 'isUserLocked',
-          description: '用户加入组织需通过管理员审核',
-          actions: { callback: () => { this.$message.success('This is a message of success') } },
-        },
+        // {
+        //   title: '开启审理员审核',
+        //   propName: 'isUserLocked',
+        //   description: '用户加入组织需通过管理员审核',
+        //   actions: { callback: () => { this.$message.success('This is a message of success') } },
+        // },
         // {
         //   title: '组织邀请码',
         //   propName: 'isUserLocked',

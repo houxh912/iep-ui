@@ -93,11 +93,13 @@ export default {
 <style lang="scss" scoped>
 .img {
   width: 80px;
+  height: 80px;
   padding: 5px;
   border: 1px solid #eee;
   margin: 5px;
   img {
     width: 100%;
+    height: 100%;
   }
 }
 .title {

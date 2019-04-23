@@ -68,4 +68,11 @@ const initSearchForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, Column, initForm, toDtoForm, initSearchForm }
+const rules = {
+  tagKeywords: [
+    { type: 'array', min: 3, message: '标签至少 3 个', trigger: 'change' },
+    { type: 'array', required: true, message: '请填写标签', trigger: 'change' },
+  ],
+}
+
+export { dictsMap, columnsMap, Column, initForm, toDtoForm, initSearchForm, rules }

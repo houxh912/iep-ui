@@ -29,7 +29,7 @@
             <iep-div-detail :value="form.positionName"></iep-div-detail>
           </el-form-item>
           <el-form-item label="对外头衔：" class="form-half">
-            <iep-div-detail :value="form.title"></iep-div-detail>
+            <iep-div-detail :value="form.socialRela"></iep-div-detail>
           </el-form-item>
           <el-form-item label="职务：" class="form-half">
             <iep-div-detail :value="form.job"></iep-div-detail>
@@ -368,9 +368,9 @@ export default {
   },
   methods: {
     async handleSave () {
-      await this.$refs['form'].validate((valid) => {
+      return await this.$refs['form'].validate((valid) => {
         if (valid) {
-          putEmployeeProfile(formToDto(this.form)).then(({ data }) => {
+          return putEmployeeProfile(formToDto(this.form)).then(({ data }) => {
             if (data.data) {
               this.$message({
                 message: '修改成功',

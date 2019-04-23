@@ -5,7 +5,7 @@
         <el-radio :label="isInverse ? 0 : 1">审核通过</el-radio>
         <el-radio :label="2">审核不通过</el-radio>
       </el-radio-group>
-      <iep-input-area v-if="status === 2" class="content" :maxlength="2010" v-model="content">
+      <iep-input-area v-if="status === 2 && isContent" class="content" :maxlength="2010" v-model="content">
       </iep-input-area>
     </div>
     <template slot="footer">
@@ -21,6 +21,10 @@ export default {
     isInverse: {
       type: Boolean,
       default: false,
+    },
+    isContent: {
+      type: Boolean,
+      default: true,
     },
   },
   data () {

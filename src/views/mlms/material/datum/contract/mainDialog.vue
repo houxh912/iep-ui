@@ -1,17 +1,19 @@
 <template>
-  <div class="iep-page-form">
+  <div class="iep-page-form project-relation">
     <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;">
       <el-form-item label="合同名称：" prop="contractName">
         <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。" maxlength="50"></el-input>
       </el-form-item>
-      <!-- <el-form-item label="关联项目：" prop="guanlian">
-        <el-input v-model="formData.guanlian" placeholder="关联项目"></el-input>
-      </el-form-item> -->
       <el-form-item label="合同类型：" prop="contractType">
         <el-select v-model="formData.contractType" placeholder="请选择">
           <el-option v-for="(item, value) in dictsMap.contractType" :key="value" :label="item" :value="value"></el-option>
         </el-select>
+      </el-form-item>
+      <el-form-item label="关联项目：" prop="projectId">
+        <el-input v-show="false" v-model="formData.projectId"></el-input>
+        <el-tag type="info" v-if="formData.projectName != ''">{{formData.projectName}}</el-tag>
+        <iep-button @click="relationProject"><i class="el-icon-plus"></i></iep-button>
       </el-form-item>
       <el-form-item label="合同说明 / 收款方式：" prop="contractExpl">
         <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5 maxlength="200"></el-input>
@@ -97,25 +99,15 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <!-- <el-row>
-        <el-col :span=20>
-          <el-form-item label="合同上传：" prop="baozhengjin">
-            <el-upload
-              class="upload-demo"
-              action="11111"
-              :on-change="handleChange"
-              :file-list="formData.list"
-              :on-remove="onRemove">
-              <iep-button size="small" type="primary">点击上传</iep-button>
-            </el-upload>
-          </el-form-item>
-        </el-col>
-      </el-row> -->
+      <el-form-item label="合同附件上传：" prop="contractFileList">
+        <iep-upload v-model="formData.contractFileList" :limit="limit"></iep-upload>
+      </el-form-item>
     </el-form>
     <footer-tool-bar>
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
       <iep-button @click="resetForm('form')">重置</iep-button>
     </footer-tool-bar>
+    <projectDialog ref="project" @project-success="projectSuccess" :form="formData"></projectDialog>
   </div>
 </template>
 <script>
@@ -123,9 +115,10 @@ import { initFormData, rules, dictsMap } from './option'
 import { mapState } from 'vuex'
 import { getManeger } from '@/api/mlms/material/datum/contract'
 import { getCustomerPage } from '@/api/crms/customer'
+import projectDialog from './projectRelation'
 
 export default {
-  components: {},
+  components: { projectDialog },
   computed: {
     ...mapState({
       dictGroup: state => state.user.dictGroup,
@@ -148,6 +141,7 @@ export default {
           this.$emit('load-page', true)
         },
       },
+      limit: 1,
     }
   },
   methods: {
@@ -162,6 +156,7 @@ export default {
     submitForm (formName) {
       this.formData.signDeptOrgId = this.formData.signDeptOrgName.id // 签署部门
       this.formData.underTakeDeptId = this.formData.underTakeDeptList.map(m => m.id) // 承接部门
+      this.formData.contractFile = this.formData.contractFileList[0].url
       // 提交前需要处理下数据
       if (this.formData.contractType == 1) { // 外部合同
       } else { // 内部合同
@@ -193,6 +188,15 @@ export default {
         }
       })
     },
+    // 关联项目
+    relationProject () {
+      this.$refs['project'].open(this.formData.projectId, this.formData.projectName)
+    },
+    projectSuccess (id, name) {
+      this.formData.projectId = id
+      // this.formData.projectName = name
+      this.$set(this.formData, 'projectName', name)
+    },
   },
   created () {
     getCustomerPage({ type: 1 }).then(({ data }) => {
@@ -201,3 +205,11 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.project-relation {
+  .el-tag {
+    margin-right: 10px;
+  }
+}
+</style>

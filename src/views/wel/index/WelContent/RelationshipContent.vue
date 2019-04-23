@@ -1,5 +1,6 @@
 <template>
   <div class="relationshipContent">
+    <iep-no-data v-if="!contentData.length" message="暂无内容"></iep-no-data>
     <div class="relationship-item" v-for="(item,index) in contentData" :key="index">
       <div><span class="title">{{item.title}}{{item.data}}</span></div>
       <ul>

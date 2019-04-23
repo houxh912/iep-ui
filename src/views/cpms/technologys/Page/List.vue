@@ -43,14 +43,20 @@
 import { getTechnologyPage, postTechnology, putTechnology, deleteTechnologyById } from '@/api/cpms/technology'
 import AdvanceSearch from './AdvanceSearch'
 import mixins from '@/mixins/mixins'
+import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
   components: { AdvanceSearch },
   data () {
     return {
       checkList: [],
-      type: null,
+      creatorId: null,
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
   },
   created () {
     this.loadPage()
@@ -80,9 +86,9 @@ export default {
     },
     handleChangeMe (value) {
       if (value.length) {
-        this.type = value[0]
+        this.creatorId = this.userInfo.userId
       } else {
-        this.type = undefined
+        this.creatorId = undefined
       }
       this.loadPage()
     },
@@ -90,7 +96,7 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteTechnologyById)
     },
     loadPage (param) {
-      this.loadTable({ ...param, isMine: this.type }, getTechnologyPage)
+      this.loadTable({ ...param, creatorId: this.creatorId }, getTechnologyPage)
     },
   },
 }

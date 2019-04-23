@@ -24,7 +24,7 @@
       <top-guide></top-guide>
       <top-message></top-message>
       <el-dropdown>
-        <span class="el-dropdown-link">
+        <span class="el-dropdown-link iep-ellipsis">
           {{ userInfo.realName || '游客' }}
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
@@ -141,6 +141,7 @@ export default {
   color: #424242;
   margin: 0 20px;
   cursor: pointer;
+  width: 90px;
 }
 .top-left >>> .el-dropdown {
   color: #424242;

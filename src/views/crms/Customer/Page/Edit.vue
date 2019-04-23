@@ -163,6 +163,10 @@ export default {
             callback()
             return false
           }
+          if (value.length < 6 || value.length > 20) {
+            callback(new Error('长度为6-20个字符'))
+            return false
+          }
           callback(new Error('您输入的客户名称已存在，请重新输入！'))
         } else {
           callback()
@@ -170,6 +174,7 @@ export default {
       })
     }
     const url = (rules, value, callback) => {
+      console.log(value)
       if (value === '') {
         callback(new Error('网址不可为空'))
       } else {
@@ -179,10 +184,16 @@ export default {
             callback(new Error('请输入有效的网址'))
           }
         }
+      }
+      callback()
+    }
+    const RespDept = (rules, value, callback) => {
+      if (value.name == '') {
+        callback(new Error('负责部门不能为空'))
+      } else {
         callback()
       }
     }
-
     return {
       tipContent,
       id: '',
@@ -206,7 +217,6 @@ export default {
       rules: {
         clientName: [
           { required: true, validator: validateFun, trigger: 'blur' },
-          { min: 6, max: 20, message: '长度为6-20个字符', trigger: 'blur' },
         ],
         phoneNumber: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },
@@ -219,18 +229,18 @@ export default {
           { required: true, message: '请填写市场经理', trigger: 'blur' },
         ],
         iepClientRespDept: [
-          { required: true, message: '请选择负责部门', trigger: 'blur' },
+          { required: true, validator: RespDept, trigger: 'blur' },
         ],
-        companyUrl: [{ required: true, validator: url, trigger: 'blur' }],
+        companyUrl: [{ validator: url, trigger: 'blur' }],
         companyFunction: [
-          { required: true, message: '请填写单位职能', trigger: 'blur' },
+          { message: '请填写单位职能', trigger: 'blur' },
           { max: 25, message: '长度不超过25个字符', trigger: 'blur' },
         ],
         contractAddress: [
-          { required: true, message: '请填写单位地址', trigger: 'blur' },
+          { message: '请填写单位地址', trigger: 'blur' },
         ],
         otherDesc: [
-          { required: true, message: '请填写其他说明', trigger: 'blur' },
+          { message: '请填写其他说明', trigger: 'blur' },
           { max: 255, message: '长度不超过255个字符', trigger: 'blur' },
         ],
         clientTypeKey: [
@@ -273,6 +283,7 @@ export default {
     }
   },
   created () {
+    console.log(this.dictGroup)
     this.formData.marketManager = this.userInfo.userId
     this.flagName = this.record.flagName
     this.type = this.record.type
@@ -367,10 +378,6 @@ export default {
         if (valid) {
           this.formRequestFn((this.formData)).then(({ data }) => {
             if (data.data) {
-              console.log(data.data)
-              this.clientId = data.data
-              console.log(this.clientId)
-              this.$set(this.clientId)
               this.$message({
                 message: `客户${this.methodName}成功`,
                 type: 'success',

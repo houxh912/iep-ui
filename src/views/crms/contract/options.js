@@ -8,7 +8,7 @@ const initSearchForm = () => {
   }
 }
 const amount = (rules, value, callback) => {
-  if (value == '') {
+  if (value === '') {
     callback(new Error('金额不能为空'))
   } else if (value.length > 9) {
     callback(new Error('金额长度不能超过9'))
@@ -21,6 +21,13 @@ const amount = (rules, value, callback) => {
     }
   }
   callback()
+}
+const RespDept = (rules, value, callback) => {
+  if (value.name == '' || value.name == null) {
+    callback(new Error('签署部门不能为空'))
+  } else {
+    callback()
+  }
 }
 export const rules = {
   contractName: [
@@ -45,9 +52,7 @@ export const rules = {
   finishTime: [
     { required: true, message: '请选择完结日期', trigger: 'change' },
   ],
-  signDeptOrgName: [
-    { required: true, message: '请选择签属部门', trigger: 'change' },
-  ],
+  signDeptOrgName: [{ required: true, validator: RespDept, trigger: 'blur' }],
   underTakeDeptName: [
     { required: true, message: '请选择承接部门', trigger: 'change' },
   ],

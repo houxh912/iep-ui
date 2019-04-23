@@ -36,6 +36,7 @@ export default {
   font-size: 16px;
   .title {
     cursor: pointer;
+    color: #666;
 
     &:hover {
       color: #cb3737;

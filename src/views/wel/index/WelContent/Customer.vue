@@ -62,6 +62,7 @@ export default {
     display: flex;
     align-items: center;
     font-size: 16px;
+    color: #000;
   }
   .customer-content {
     padding: 10px 0;
@@ -72,6 +73,7 @@ export default {
     }
     .time div {
       text-align: right;
+      color: #999;
     }
   }
 }

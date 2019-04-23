@@ -13,16 +13,21 @@
         <span v-else-if="item.type == 'date'">{{formatYear(formData[item.value])}}</span>
         <span v-else>{{formData[item.value]}}</span>
       </el-col>
-      <el-col class="remark">
+      <el-col class="item remark">
         <div class="remark-title">合同说明/收款方式：</div>
         <div class="remark-content">{{formData.contractExpl}}</div>
       </el-col>
-      <!-- <el-col class="item file">
-        <label>合同附件：</label>
-        <iep-button type="primary">附件下载</iep-button>
+      <el-col class="item file">
+        <el-col class="item" :span='12'>
+          <label>合同附件：</label>
+          <span v-for="(item, index) in formData.contractFileList" :key="index">
+            <i class="icon-fujian"></i>{{item.name}} <iep-button type="text" @click="downloadFile(item)">下载</iep-button>
+          </span>
+        </el-col>
+        <!-- <iep-button type="primary">附件下载</iep-button>
         <iep-button>复制下载链接</iep-button>
-        <iep-button>预览</iep-button>
-      </el-col> -->
+        <iep-button>预览</iep-button> -->
+      </el-col>
     </el-row>
       
     <el-row class="clause">
@@ -89,6 +94,7 @@
 <script>
 import { getDataById } from '@/api/mlms/material/datum/contract'
 import { dictsMap } from './option'
+import { downloadFile } from '@/api/common'
 
 function formatDig (num) {
   return num>9?''+num:'0'+num
@@ -123,7 +129,7 @@ export default {
         },
       },
       infoList: [
-        // { name: '关联项目', value: 'guanlianxiangmu' },
+        { name: '关联项目', value: 'projectName' },
         { name: '市场经理', value: 'directorRealName' },
         { name: '合同类型', value: 'contractType', type: 'dict' },
         { name: '业务类型', value: 'businessType', type: 'dict' },
@@ -155,7 +161,15 @@ export default {
           underTakeDeptNames += item.name + '、'
         }
         data.data.underTakeDeptNames = underTakeDeptNames.slice(0, underTakeDeptNames.length-1)
+        data.data.projectName = data.data.projectRelation ? data.data.projectRelation.name : '无'
         this.formData = data.data
+      })
+    },
+    // 下载附件
+    downloadFile (obj) {
+      downloadFile({
+        url: obj.url,
+        name: obj.name,
       })
     },
   },

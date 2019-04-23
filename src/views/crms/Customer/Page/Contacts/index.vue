@@ -64,7 +64,10 @@ export default {
   },
   mounted () {
     if (this.record.flag) {
+      this.$refs['EditDrawer'].methodName = '新增'
+      this.$refs['EditDrawer'].formRequestFn = createData
       this.$refs['EditDrawer'].drawerShow = true
+      this.$refs['EditDrawer'].id = this.record.id
       this.record.flag = false
     }
   },

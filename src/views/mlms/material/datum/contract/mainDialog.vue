@@ -99,8 +99,8 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="合同附件上传：" prop="contractFile">
-        <iep-upload v-model="formData.contractFile" :limit="limit"></iep-upload>
+      <el-form-item label="合同附件上传：" prop="contractFileList">
+        <iep-upload v-model="formData.contractFileList" :limit="limit"></iep-upload>
       </el-form-item>
     </el-form>
     <footer-tool-bar>
@@ -156,6 +156,7 @@ export default {
     submitForm (formName) {
       this.formData.signDeptOrgId = this.formData.signDeptOrgName.id // 签署部门
       this.formData.underTakeDeptId = this.formData.underTakeDeptList.map(m => m.id) // 承接部门
+      this.formData.contractFile = this.formData.contractFileList[0].url
       // 提交前需要处理下数据
       if (this.formData.contractType == 1) { // 外部合同
       } else { // 内部合同

@@ -30,7 +30,7 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button @click="handleSave(scope.row)" type="warning" plain v-if="!scope.row.status" :disabled="scope.row.creatorId !== userInfo.userId">保存至材料库</iep-button>
-            <iep-button @click="handleEdit(scope.row)" type="warning" plain v-if="!scope.row.status" :disabled="scope.row.creatorId !== userInfo.userId">编辑</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain :disabled="scope.row.creatorId !== userInfo.userId">编辑</iep-button>
             <iep-button @click="handleDeleteById(scope.row)" :disabled="scope.row.creatorId !== userInfo.userId">删除</iep-button>
           </operation-wrapper>
         </template>

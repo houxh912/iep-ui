@@ -24,20 +24,20 @@ module.exports = {
   //     : undefined,
   // },
   chainWebpack: config => {
-    config.resolve.symlinks(true)
-    config.plugin('preload').tap(options => {
-      options[0] = {
-        rel: 'preload',
-        as (entry) {
-          if (/\.css$/.test(entry)) return 'style'
-          if (/\.(woff||ttf))$/.test(entry)) return 'font'
-          if (/\.png)$/.test(entry)) return 'image'
-          return 'script'
-        },
-        include: 'allAssets',
-        fileBlacklist: [/\.map$/, /hot-update\.js$/],
-      }
-    })
+    // config.resolve.symlinks(true)
+    // config.plugin('preload').tap(options => {
+    //   options[0] = {
+    //     rel: 'preload',
+    //     as (entry) {
+    //       if (/\.css$/.test(entry)) return 'style'
+    //       if (/\.(woff||ttf))$/.test(entry)) return 'font'
+    //       if (/\.png)$/.test(entry)) return 'image'
+    //       return 'script'
+    //     },
+    //     include: 'allAssets',
+    //     fileBlacklist: [/\.map$/, /hot-update\.js$/],
+    //   }
+    // })
     config.plugin('define').tap(definitions => {
       definitions[0] = Object.assign(definitions[0], {
         BUILD_TIME: Date.parse(new Date()),

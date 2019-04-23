@@ -49,6 +49,7 @@ import { getModulePage, postModule, putModule, deleteModuleById } from '@/api/cp
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from './AdvanceSearch'
 import { dictsMap } from '../options'
+import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
   components: { AdvanceSearch },
@@ -56,8 +57,13 @@ export default {
     return {
       dictsMap,
       checkList: [],
-      type: null,
+      creatorId: null,
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
   },
   created () {
     this.loadPage()
@@ -87,9 +93,9 @@ export default {
     },
     handleChangeMe (value) {
       if (value.length) {
-        this.type = value[0]
+        this.creatorId = this.userInfo.userId
       } else {
-        this.type = undefined
+        this.creatorId = undefined
       }
       this.loadPage()
     },
@@ -97,7 +103,7 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteModuleById)
     },
     loadPage (param) {
-      this.loadTable({ ...param, isMine: this.type }, getModulePage)
+      this.loadTable({ ...param, creatorId: this.creatorId }, getModulePage)
     },
   },
 }

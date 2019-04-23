@@ -283,7 +283,6 @@ export default {
     }
   },
   created () {
-    console.log(this.dictGroup)
     this.formData.marketManager = this.userInfo.userId
     this.flagName = this.record.flagName
     this.type = this.record.type

@@ -46,6 +46,9 @@ export default {
   position: relative;
   margin: 10px;
   border-bottom: 1px solid #ccc;
+  .subtitle {
+    font-size: 14px;
+  }
 }
 .find-content {
   content: "";

@@ -79,11 +79,13 @@ export default {
     .navTitle {
       font-size: 16px;
       padding-right: 20px;
+      color: #000;
     }
   }
   .title {
     font-size: 14px;
     cursor: pointer;
+    color: #666;
     &:hover {
       color: #cb3737;
     }

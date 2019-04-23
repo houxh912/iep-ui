@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">我的指数</div>
-    <ve-radar :data="chartData" :settings="chartSettings"></ve-radar>
+    <ve-radar :data="chartData" :settings="chartSettings" :legendVisible="isTrue"></ve-radar>
     <h4 style="text-align:center;">内网综合指数：1112</h4>
   </div>
 </template>
@@ -40,6 +40,7 @@ export default {
         },
       },
     }
+    this.isTrue = false
     return {
       chartData: {
         columns: ['date', 'creative', 'work', 'study', 'admin', 'xz', 'weath'],

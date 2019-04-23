@@ -88,6 +88,11 @@ export default {
       return row.userId === this.userInfo.userId
     },
     handleReviewBatch () {
+      // TODO: 是否多选提醒
+      if (!this.multipleSelection.length) {
+        this.$message('请先选择需要的选项')
+        return
+      }
       this.$refs['IepReviewForm'].ids = this.multipleSelection
       this.$refs['IepReviewForm'].title = '批量审核'
       this.$refs['IepReviewForm'].formRequestFn = passJoins

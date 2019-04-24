@@ -69,6 +69,7 @@ import ExcellImport from './ExcellImport/'
 import Collaborator from './Collaborator/'
 import Transfer from './Transfer/'
 import EditDrawer from './EditDrawer'
+import { mapGetters } from 'vuex'
 export default {
   name: 'list',
   components: { AdvanceSearch, ExcellImport, Collaborator, Transfer, EditDrawer },
@@ -87,6 +88,9 @@ export default {
     columnsMap () {
       return columnsMapByTypeId[this.type - 1]
     },
+    ...mapGetters([
+      'userInfo',
+    ]),
   },
   created () {
     this.loadPage()
@@ -165,7 +169,18 @@ export default {
             type: this.type,
           },
         })
-      } else { return false }
+      } else {
+        if (this.userInfo.userId == row.marketManager) {
+          this.$router.push({
+            path: `/crms_spa/customer_detail/${row.clientId}`,
+            query: {
+              type: this.type,
+            },
+          })
+        } else {
+          return false
+        }
+      }
     },
     //删除客户
     handleDelete (row) {

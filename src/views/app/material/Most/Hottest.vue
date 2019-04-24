@@ -14,9 +14,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.hottest{
-  padding: 0 20px 20px 20px;
-}
 </style>
 
 

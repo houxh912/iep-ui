@@ -1,7 +1,7 @@
 <template>
   <div class="librarys-header">
     <div class="left">
-      <div :label="title" name="first">{{title}}<span>{{data}}</span></div>
+      <div :label="title" name="first">{{title}}</div><span class="data">{{data}}</span>
     </div>
     <div class="right">
       <operation-search @search-page="searchPage">
@@ -26,16 +26,21 @@ export default {
 </script>
 <style lang="scss" scoped>
 .librarys-header{
-  height: 52px;
-  padding-top: 8px;
+  height: 64px;
+  padding-top: 12px;
   border-bottom: solid 1px #e6e6e6;
   .left{
     float: left;
     > div{
+      display: inline-block;
       font-size: 18px;
-      line-height: 42px;
+      line-height: 50px;
       padding:0 10px;
       border-bottom: 2px solid #ba1b21;
+    }
+    .data{
+      font-size: 16px;
+      color: #9b9b9b;
     }
   }
   .right{

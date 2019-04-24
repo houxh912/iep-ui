@@ -29,7 +29,7 @@ export default {
     return {
       labelTitle: '推荐主题',
       listTitle: '猜你想找',
-      labelList: ['营商通','营商环境','数据基因','数据政府'],
+      labelList: ['营商通','营商环境','数据基因','数据政府','电子政务','数字经济','微服务','dips','知识图谱'],
       listList: ['国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案'],
     }
   },
@@ -42,10 +42,15 @@ export default {
   margin: 0 auto;
   display: grid;
   grid-auto-flow: row dense;
-  grid-row-gap: 20px;
-  grid-column-gap: 20px;
   grid-template-columns: minmax(100px, 220px) minmax(100px, 680px) minmax(100px, 300px);
 }
 .piece{
+}
+.el-card{
+  border:0;
+}
+.library{
+  padding: 0 20px;
+  border-right: 1px solid #EBEEF5;
 }
 </style>

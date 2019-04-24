@@ -30,7 +30,7 @@ export default {
 
 <style lang="scss" scoped>
 .products{
-  height: 325px;
+  height: 304px;
   padding-left: 15px;
   .piece{
     overflow: hidden;
@@ -56,7 +56,7 @@ export default {
     }
   }
   .box{
-    width: 370px;
+    width: 360px;
     height: 80px;
     float: left;
     .name{

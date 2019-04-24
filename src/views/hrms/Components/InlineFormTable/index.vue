@@ -4,18 +4,24 @@
       <el-table-column :label="item.label" :width="item.width" v-for="(item, idx) in columns" :key="idx">
         <template slot-scope="scope">
           <template v-if="scope.row.editable">
-            <iep-date-picker v-if="item.type === 'date'" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label"></iep-date-picker>
+            <iep-date-picker v-if="item.type === 'date'" type="date" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label"></iep-date-picker>
+            <!-- <iep-date-picker v-else-if="item.type === 'daterange'" type="daterange" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label"></iep-date-picker>
+            TODO: daterange
+             -->
             <iep-dict-select v-else-if="item.type === 'dict'" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label" :dict-name="item.dictName"></iep-dict-select>
             <el-input v-else maxlength="100" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label"></el-input>
           </template>
           <template v-else>
             <iep-dict-detail v-if="item.type === 'dict'" size="mini" :currentValue="scope.row[item.prop]" :dict-name="item.dictName"></iep-dict-detail>
+            <!-- <iep-date-range-detail v-else-if="item.type === 'daterange'" :value="scope.row[item.prop]"></iep-date-range-detail> 
+            TODO: daterange
+            -->
             <iep-div-detail v-else-if="item.type === 'date'" :value="scope.row[item.prop] | parseTime('{y}-{m}-{d}')"></iep-div-detail>
             <iep-div-detail v-else :value="scope.row[item.prop]"></iep-div-detail>
           </template>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="100">
         <template slot-scope="scope">
           <template v-if="scope.row.editable">
             <span v-if="scope.row.isNew">
@@ -104,18 +110,10 @@ export default {
       const target = this.data.filter(item => item.id === id)[0]
       if (target.isNew) {
         post(target, this.requestName, this.type, this.rid).then(() => {
-          // this.$message({
-          //   message: '添加成功',
-          //   type: 'success',
-          // })
           this.$emit('load-page')
         })
       } else {
         put(target, this.requestName).then(() => {
-          // this.$message({
-          //   message: '修改成功',
-          //   type: 'success',
-          // })
           this.$emit('load-page')
         })
       }

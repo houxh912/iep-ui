@@ -6,8 +6,8 @@
     <el-form-item label="所属部门：">
       <iep-cascader v-model="form.dept" prefix-url="admin/dept" change-on-select clearable></iep-cascader>
     </el-form-item>
-    <el-form-item label="所在城市：">
-      <iep-cascader v-model="form.cities" prefix-url="admin/city"></iep-cascader>
+    <el-form-item label="现住城市：">
+      <iep-cascader v-model="form.cities" prefix-url="admin/city" clearable></iep-cascader>
     </el-form-item>
     <el-form-item label="性别：">
       <el-radio-group v-model="form.sex">

@@ -17,7 +17,7 @@
             <a-tag color="orange" @click="$openPage('/wel/org')">加入或创建新组织</a-tag>
           </el-form-item>
           <el-form-item label="资产所属：" class="form-half">
-            <iep-tag-detail :value="form.deptList"></iep-tag-detail>
+            <iep-div-detail :value="form.deptQm"></iep-div-detail>
           </el-form-item>
           <el-form-item label="工号：" class="form-half">
             <iep-div-detail :value="form.staffId"></iep-div-detail>
@@ -246,7 +246,7 @@
           </el-form-item>
           <el-form-item prop="emergencyPhone" class="form-half">
             <span slot="label">
-              应急联系人电话
+              应急联系电话
               <iep-tip content="请务必填写可联系上的应急人手机号码">
               </iep-tip>
               ：

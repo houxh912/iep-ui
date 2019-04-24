@@ -36,12 +36,14 @@ import IepTagDetail from '@/components/IepCommon/TagDetail'
 import IepDivDetail from '@/components/IepCommon/DivDetail'
 import IepInputNumber from '@/components/IepCommon/InputNumber'
 import IepInputArea from '@/components/IepCommon/InputArea'
+import IepDateRangeDetail from '@/components/IepCommon/DateRangeDetail'
 
 // 头像上传文件有关组件
 import IepAvatar from '@/components/IepCommon/Avatar'
 import IepImgAvatar from '@/components/IepCommon/ImgAvatar'
 import IepImg from '@/components/IepCommon/Img'
 import IepUpload from '@/components/IepCommon/Upload'
+import IepSimpleUpload from '@/components/IepCommon/SimpleUpload'
 import IepDownload from '@/components/IepCommon/Download'
 
 // 弹出层相关组件
@@ -106,11 +108,13 @@ Vue.component(IepDescriptionItem.name, IepDescriptionItem)
 Vue.component(IepTagDetail.name, IepTagDetail)
 Vue.component(IepDivDetail.name, IepDivDetail)
 Vue.component(IepInputArea.name, IepInputArea)
+Vue.component(IepDateRangeDetail.name, IepDateRangeDetail)
 
 // 头像上传文件有关组件
 Vue.component(IepImgAvatar.name, IepImgAvatar)
 Vue.component(IepImg.name, IepImg)
 Vue.component(IepUpload.name, IepUpload)
+Vue.component(IepSimpleUpload.name, IepSimpleUpload)
 Vue.component(IepAvatar.name, IepAvatar)
 Vue.component(IepDownload.name, IepDownload)
 

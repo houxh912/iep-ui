@@ -1,5 +1,5 @@
 <template>
-  <container title="用户登陆">
+  <container title="用户登录">
     <template v-slot:tab-panel>
       <user-login v-if="activeName === 'user'" @tab-active="handleActive"></user-login>
       <code-login v-if="activeName === 'code'"></code-login>

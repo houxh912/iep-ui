@@ -71,6 +71,6 @@ export default {
 </style>
 <style scoped>
 .training-con >>> .el-card__body {
-  height: 280px;
+  height: 270px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="notice">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
       <div class="dynamicList">
         <div v-for="(item,index) in dynamicList" :key="index" class="piece">
@@ -49,5 +49,10 @@ export default {
       opacity: 1;
     }
   }
+}
+</style>
+<style scoped>
+.notice >>> .el-card {
+  height: 350px;
 }
 </style>

@@ -60,6 +60,7 @@ export const initFormData = () => {
     status: 0,
     projectIds: [],
     projectList: [],
+    isSend: 1,
   }
 }
 

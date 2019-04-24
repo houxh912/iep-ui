@@ -16,7 +16,7 @@ export default {
       title: '国脉一统十',
       tenLinksOne: [
         { icon: 'icon-xuexishuben', 'title': '宣传册5个', des: '内涵非常广泛' },
-        { icon: 'icon-PPT', 'title': 'ppt4个', des: '内涵非常广泛' },
+        { icon: 'icon-wendang', 'title': 'ppt4个', des: '内涵非常广泛' },
         { icon: 'icon-vi', 'title': 'VI体系13个', des: '内涵非常广泛' },
         { icon: 'icon-qiyejianjie', 'title': '简介14个', des: '内涵非常广泛' },
         { icon: 'icon-shipin', 'title': '宣传片13个', des: '内涵非常广泛' },

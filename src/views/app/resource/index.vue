@@ -1,15 +1,17 @@
 <template>
   <div>
-    <img :src="fackerImg" />
-    <IepAppFooterBar></IepAppFooterBar>
+    <div v-for="item in resourceRoute" :key="item.path">
+      {{item.name}}
+    </div>
+    <router-view></router-view>
   </div>
 </template>
 <script>
-const fackerImg = require('./facker.png')
+import resourceRoute from '@/router/app/resource'
 export default {
   data () {
     return {
-      fackerImg,
+      resourceRoute,
     }
   },
 }

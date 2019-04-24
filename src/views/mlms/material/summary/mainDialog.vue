@@ -111,7 +111,7 @@
         <!-- <el-form-item label="关联报表" prop="baobiao">
         <iep-button><i class="el-icon-plus"></i></iep-button>
       </el-form-item> -->
-        <el-form-item label="关联项目" prop="projectList">
+        <el-form-item label="关联项目：" prop="projectList">
           <el-tag type="info" v-for="(item, index) in formData.projectList" :key="index">{{item.name}}</el-tag>
           <iep-button @click="selectProject"><i class="el-icon-plus"></i></iep-button>
         </el-form-item>
@@ -119,7 +119,7 @@
       </el-form>
       <footer-tool-bar>
         <iep-button type="primary" @click="saveDraft('form')" v-if="formData.status == 1 || methodName == '创建'">保存草稿</iep-button>
-        <iep-button type="primary" @click="saveForm('form')">{{formData.status == 1 ? '保存' : methodName}}</iep-button>
+        <iep-button type="primary" @click="saveForm('form')">{{formData.isSend == 0 ? '保存' : '保存并发送'}}</iep-button>
         <iep-button @click="resetForm('form')">取消</iep-button>
       </footer-tool-bar>
     </basic-container>
@@ -130,7 +130,7 @@
 import { initFormData, dictsMap, rules, tipContent } from './options'
 import { mapState } from 'vuex'
 import { getCustomerPage } from '@/api/crms/customer'
-import { createData, updateData, getDataById } from '@/api/mlms/material/summary'
+import { createData, updateData, getDataById, meetingSend } from '@/api/mlms/material/summary'
 import projectDialog from './projectDialog'
 
 export default {
@@ -141,6 +141,7 @@ export default {
         tipContent,
       formRequestFn: createData,
       methodName: '创建',
+      methodType: 'create',
       formData: initFormData(),
       rules,
       clientList: [],
@@ -225,13 +226,25 @@ export default {
       } else {
         this.formData.projectIds = []
       }
-
-      this.formRequestFn(this.formData).then(() => {
-        this.$message({
-          message: `${this.methodName}成功`,
-          type: 'success',
-        })
-        this.goBack(true)
+      this.formRequestFn(this.formData).then(({data}) => {
+        // 新建纪要及修改草稿，自动发送
+        let id = this.methodType == 'create' ? data.data : this.formData.id
+        if (this.formData.status == 0 && this.formData.isSend == 1) {
+          meetingSend(id).then(({data}) => {
+            if (data.data) {
+              this.$message.success(data.msg)
+              this.goBack(true)
+            } else {
+              this.$message.error(data.msg)
+            }
+          })
+        } else {
+          this.$message({
+            message: `${this.methodName}成功`,
+            type: 'success',
+          })
+          this.goBack(true)
+        }
       })
     },
     // 重置表单
@@ -273,6 +286,7 @@ export default {
     let query = this.$route.params
     // 若存在 id， 即为修改
     if (query.id && this.$route.name == '修改纪要') { // 可能是从别的项目进来新增的
+      this.methodType = 'update'
       getDataById(query.id).then(({ data }) => {
         data.data.receiverList = {
           orgs: data.data.receiver.orgs ? data.data.receiver.orgs : [],

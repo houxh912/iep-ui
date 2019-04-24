@@ -15,7 +15,7 @@
         <el-tag type="info" v-if="formData.projectName != ''">{{formData.projectName}}</el-tag>
         <iep-button @click="relationProject"><i class="el-icon-plus"></i></iep-button>
       </el-form-item>
-      <el-form-item label="合同说明 / 收款方式：" prop="contractExpl">
+      <el-form-item label="合同说明 / 收款方式：">
         <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5 maxlength="200"></el-input>
       </el-form-item>
       <el-form-item label="业务类型：" prop="businessType">

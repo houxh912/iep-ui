@@ -5,7 +5,7 @@
       <div class="img">
         <iep-img :src="item.imageUrl" alt=""></iep-img>
       </div>
-      <div class="module-title">{{item.name}}</div>
+      <div class="module-title iep-ellipsis">{{item.name}}</div>
     </div>
   </div>
 </template>
@@ -42,7 +42,8 @@ export default {
   .img {
     padding: 5px;
     img {
-      width: 100%;
+      width: 88px;
+      height: 88px;
       padding: 0;
       margin: 0;
       display: block;

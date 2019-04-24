@@ -218,7 +218,7 @@
               <el-input v-model="form.salary"></el-input>
             </el-form-item>
             <el-form-item label="期望工作地：" prop="workPlace" class="form-half">
-              <el-input v-model="form.workPlace"></el-input>
+              <iep-dict-select v-model="form.workPlace" dict-name="hrms_work_place"></iep-dict-select>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="学习工作经历" name="3">
@@ -271,7 +271,7 @@ export default {
       trainingColumns,
       studyColumns,
       workExpColumns,
-      activeNames: ['1'],
+      activeNames: ['1', '2', '3', '4', '5'],
       methodName: '新增',
       form: initForm(),
       formRequestFn: () => { },
@@ -295,22 +295,33 @@ export default {
       this.$emit('onGoBack')
     },
     async handleSave (methodName = '更新') {
-      await this.$refs['form'].validate((valid) => {
+      try {
+        const valid = await this.$refs['form'].validate()
         if (valid) {
-          this.formRequestFn(formToDto(this.form)).then(({ data }) => {
-            if (data.data) {
-              this.$message({
-                message: `${methodName}成功`,
-                type: 'success',
-              })
-            }
-          })
+          const { data } = await this.formRequestFn(formToDto(this.form))
+          if (data.data) {
+            this.$message({
+              message: `${methodName}成功`,
+              type: 'success',
+            })
+            return true
+          } else {
+            this.$message({
+              message: data.msg,
+              type: 'warning',
+            })
+            return false
+          }
         }
-      })
+      } catch (error) {
+        return false
+      }
     },
     async handleSubmit () {
-      await this.handleSave(this.methodName)
-      this.$emit('onGoBack')
+      const res = await this.handleSave(this.methodName)
+      if (res) {
+        this.$emit('onGoBack')
+      }
     },
   },
 }

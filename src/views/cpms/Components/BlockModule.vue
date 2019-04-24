@@ -3,7 +3,7 @@
     <el-card class="card" v-for="(item) in value" :key="item.id" :body-style="{ padding: '0px', width: '150px' }" shadow="hover">
       <iep-img :src="item.imageUrl" alt=""></iep-img>
       <div style="padding: 14px;">
-        <span>{{item.name}}</span>
+        <iep-div-detail :value="item.name"></iep-div-detail>
         <div class="bottom clearfix">
           <el-button type="text" class="button" @click="handleDelete(item)">删除</el-button>
         </div>

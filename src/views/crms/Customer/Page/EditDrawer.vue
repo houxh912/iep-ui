@@ -1,5 +1,5 @@
 <template>
-  <iep-drawer :drawer-show="drawerShow" type="drawer" :title="methodName+'联系人'" width="40%" @close="loadPage">
+  <iep-drawer :drawer-show="drawerShow" type="drawer" title="新增联系人" width="40%" @close="loadPage">
     <el-form :model="form" :rules="rules" ref="formName" label-width="130px" size="small">
       <el-row>
         <el-col :span='12'>
@@ -82,7 +82,8 @@
   </iep-drawer>
 </template>
 <script>
-import { initForm, rules } from './options'
+import { initForm, rules } from './Contacts/options'
+import { createData } from '@/api/crms/contact'
 const tipContent = {
   contactName: '请务必填写真实联系人姓名，与⾝份证信息⼀致，切记出现张主任等',
   contactPosition: '请务必准确填写该联系人在其单位/企业所担任的职务',
@@ -93,11 +94,7 @@ export default {
     return {
       tipContent,
       drawerShow: false,
-      methodName: '',
-      formRequestFn: () => { },
       form: initForm(),
-      id: '',
-      clientContactId: '',
       rules,
     }
   },
@@ -105,19 +102,15 @@ export default {
     loadPage () {
       this.form = initForm()
       this.drawerShow = false
-      this.$emit('load-page')
     },
     submitForm (formName) {
-      this.form.clientIds = [this.id]
-      this.form.clientContactId = this.clientContactId
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.form).then(() => {
+          createData(this.form).then(() => {
             this.$message({
-              message: `${this.methodName}成功`,
+              message: '新增联系人成功',
               type: 'success',
             })
-            this.$emit('async')
             this.loadPage()
           })
         } else {

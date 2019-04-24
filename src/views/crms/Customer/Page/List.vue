@@ -43,15 +43,17 @@
             <div v-else>无</div>
           </template>
         </el-table-column>
-        <el-table-column v-if="type !== '1'" prop="operation" label="操作">
+        <el-table-column v-if="type !== '1'" prop="operation" label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
+              <iep-button type="warning" plain @click="addContact(scope.row)">添加联系人</iep-button>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="type === '2'" @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
+      <edit-drawer ref="EditDrawer" @load-page="loadPage" @showDrawer="showDrawer"></edit-drawer>
       <excell-import ref="ExcellImport" :urlName="url" @close="handleClose"></excell-import>
       <collaborator ref="collaborator" @load-page="loadPage"></collaborator>
       <transfer ref="transfer" @load-page="loadPage"></transfer>
@@ -66,9 +68,10 @@ import AdvanceSearch from './AdvanceSearch'
 import ExcellImport from './ExcellImport/'
 import Collaborator from './Collaborator/'
 import Transfer from './Transfer/'
+import EditDrawer from './EditDrawer'
 export default {
   name: 'list',
-  components: { AdvanceSearch, ExcellImport, Collaborator, Transfer },
+  components: { AdvanceSearch, ExcellImport, Collaborator, Transfer, EditDrawer },
   mixins: [mixins],
   data () {
     return {
@@ -89,6 +92,14 @@ export default {
     this.loadPage()
   },
   methods: {
+    showDrawer (val) {
+      this.$refs.EditDrawer.drawerShow = true
+      this.$refs.EditDrawer.form.clientIds = [val]
+    },
+    addContact (row) {
+      this.$refs.EditDrawer.drawerShow = true
+      this.$refs.EditDrawer.form.clientIds = [row.clientId]
+    },
     dealTag (data) {
       if (data.length > 3) {
         return data.slice(0, 3)
@@ -172,7 +183,9 @@ export default {
     },
     //添加协作人
     handleCooperation () {
-      if (this.ids.length == 1) {
+      if (this.ids.length == 0) {
+        this.$message('请勾选需要添加协作人的客户')
+      } else if (this.ids.length == 1) {
         this.$refs['collaborator'].data.clientId = this.ids[0]
         this.$refs['collaborator'].dialogShow = true
       } else {

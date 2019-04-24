@@ -20,6 +20,8 @@ const allSearchForm = () => {
     projectName: '',
     statusValue: '',
     businessTypeKey: [],
+    publisher: '',
+    isCreate: '',
   }
 }
 // 我的客户/协作客户搜索
@@ -30,6 +32,7 @@ const initSearchForm = () => {
     projectName: '',
     businessTypeKey: [],
     publisher: '',
+    isCreate: '',
   }
 }
 const rules = {

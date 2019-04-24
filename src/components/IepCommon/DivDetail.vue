@@ -1,5 +1,5 @@
 <template>
-  <div class="iep-ellipsis">
+  <div class="iep-ellipsis" :title="content">
     <slot name="prefix"></slot>
     <span class="iep-ellipsis">{{content}}</span>
     <slot></slot>

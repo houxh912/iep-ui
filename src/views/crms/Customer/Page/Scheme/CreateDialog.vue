@@ -27,11 +27,26 @@
 import { initForm } from './options'
 import MeterialDialog from './MeterialDialog'
 import { createData } from '@/api/mlms/material/datum/material'
+import { checkName } from '@/api/crms/scheme'
 export default {
   components: {
     MeterialDialog,
   },
   data () {
+    const check = (rules, value, callback) => {
+      if (value == '') {
+        callback(new Error('方案名称不能为空'))
+      } else {
+        checkName(value).then(res => {
+          if (res.data.data) {
+            callback()
+            return false
+          }
+          callback(new Error('您输入的方案名称已存在，请重新输入！'))
+        })
+
+      }
+    }
     return {
       dialogShow: false,
       submitFn: () => { },
@@ -40,7 +55,7 @@ export default {
       record: {},
       rules: {
         programName: [
-          { required: true, message: '请填写方案名称', trigger: 'change' },
+          { required: true, validator: check, trigger: 'blur' },
         ],
       },
     }
@@ -58,6 +73,7 @@ export default {
       console.log(val)
       this.dialogShow = false
       this.formData.programName = val.name
+      this.formData.materialId = val.id
       this.formData.attachs = [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],
         this.submitFn(this.formData).then(() => {
           this.$message({

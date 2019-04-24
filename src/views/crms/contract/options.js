@@ -10,21 +10,28 @@ const initSearchForm = () => {
 const amount = (rules, value, callback) => {
   if (value === '') {
     callback(new Error('金额不能为空'))
-  } else if (value.length > 9) {
-    callback(new Error('金额长度不能超过9'))
   } else {
-    var reg = new RegExp('^[0-9]*$')
+    var reg = /^\d{0,8}\.{0,1}(\d{1,2})?$/
     if (!reg.test(value)) {
-      callback(new Error('金额为数字类型'))
+      callback(new Error('金额为数字类型且小数点后最多两位'))
     } else {
       callback()
     }
   }
   callback()
 }
+const amount1 = (rules, value, callback) => {
+  var reg = /^\d{0,8}\.{0,1}(\d{1,2})?$/
+  if (!reg.test(value)) {
+    callback(new Error('金额为数字类型且小数点后最多两位'))
+  } else {
+    callback()
+  }
+  callback()
+}
 const RespDept = (rules, value, callback) => {
   if (value.name == '' || value.name == null) {
-    callback(new Error('签署部门不能为空'))
+    callback(new Error('签署组织不能为空'))
   } else {
     callback()
   }
@@ -53,16 +60,13 @@ export const rules = {
     { required: true, message: '请选择完结日期', trigger: 'change' },
   ],
   signDeptOrgName: [{ required: true, validator: RespDept, trigger: 'blur' }],
-  underTakeDeptName: [
-    { required: true, message: '请选择承接部门', trigger: 'change' },
-  ],
   contractLevel: [
     { required: true, message: '请选择合同级别', trigger: 'change' },
   ],
   contractStatus: [
     { required: true, message: '请选择合同级别', trigger: 'change' },
   ],
-  deposit: [{ required: false, validator: amount, trigger: 'change' }],
+  deposit: [{ validator: amount1, trigger: 'change' }],
 }
 export const initFormData = () => {
   return {

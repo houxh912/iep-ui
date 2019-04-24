@@ -4,7 +4,7 @@
       <page-header title="组织管理"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd" type="primary" plain>添加组织</iep-button>
+          <!-- <iep-button @click="handleAdd" type="primary" plain>添加组织</iep-button> -->
           <iep-button @click="handleReviewDialog">批量审核</iep-button>
         </template>
         <template slot="right">

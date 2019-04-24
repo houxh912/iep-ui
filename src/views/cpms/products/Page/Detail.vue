@@ -9,7 +9,7 @@
             </el-col>
             <el-col :span="14" class="title">
               <div>
-                <div class="tags"><span class="weight">{{form.name}}</span><span class="time">上线时间：{{form.onlineTime}}</span></div>
+                <div class="tags"><span class="weight">{{form.name}}</span><span class="time">上线时间：{{form.onlineTime | parseTime('{y}-{m}-{d}')}}</span></div>
                 <div class="tags">
                   <iep-tag-detail :value="form.tagKeywords"></iep-tag-detail>
                 </div>
@@ -93,11 +93,13 @@ export default {
 <style lang="scss" scoped>
 .img {
   width: 80px;
+  height: 80px;
   padding: 5px;
   border: 1px solid #eee;
   margin: 5px;
   img {
     width: 100%;
+    height: 100%;
   }
 }
 .title {

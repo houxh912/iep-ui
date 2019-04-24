@@ -3,41 +3,41 @@
   <div>
     <basic-container>
       <page-header :title="`${methodName}技术`" :backOption="backOption"></page-header>
-      <el-form :model="form" size="small" label-width="150px" class="form-detail">
+      <el-form ref="form" :model="form" size="small" :rules="rules" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
-          <el-form-item label="技术logo：">
+          <el-form-item label="技术logo：" prop="imageUrl">
             <iep-avatar v-model="form.imageUrl"></iep-avatar>
           </el-form-item>
-          <el-form-item label="技术编号：" class="form-half">
-            <el-input v-model="form.number"></el-input>
+          <el-form-item label="技术编号：" prop="number" class="form-half">
+            <el-input maxlength="110" v-model="form.number"></el-input>
           </el-form-item>
-          <el-form-item label="技术名称：" class="form-half">
-            <el-input v-model="form.name"></el-input>
+          <el-form-item label="技术名称：" prop="name" class="form-half">
+            <el-input maxlength="110" v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="英文名称：" class="form-half">
-            <el-input v-model="form.englishName"></el-input>
+          <el-form-item label="英文名称：" prop="englishName" class="form-half">
+            <el-input maxlength="110" v-model="form.englishName"></el-input>
           </el-form-item>
-          <el-form-item label="技术类型" class="form-half">
+          <el-form-item label="技术类型：" prop="type" class="form-half">
             <iep-dict-select v-model="form.type" dict-name="cpms_technology_type"></iep-dict-select>
           </el-form-item>
-          <el-form-item label="技术状态" class="form-half">
-            <el-select v-model="form.status" placeholder="请选择" clearable>
+          <el-form-item label="技术状态：" prop="status" class="form-half">
+            <el-select v-model="form.status" placeholder="请选择技术状态" clearable>
               <el-option v-for="(v,k) in dictsMap.status" :key="k" :label="v" :value="+k">
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="标签：">
+          <el-form-item label="标签：" prop="tagKeywords">
             <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
-          <el-form-item label="负责人：">
+          <el-form-item label="负责人：" prop="userRelationCharges">
             <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
           </el-form-item>
-          <el-form-item label="技术简介：">
-            <el-input v-model="form.synopsis"></el-input>
+          <el-form-item label="技术简介：" prop="synopsis">
+            <el-input maxlength="2010" v-model="form.synopsis"></el-input>
           </el-form-item>
-          <el-form-item label="技术介绍：">
-            <iep-input-area v-model="form.description"></iep-input-area>
+          <el-form-item label="技术介绍：" prop="description">
+            <iep-input-area maxlength="2010" v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
         <div class="title">应用模块：</div>
@@ -64,7 +64,7 @@
 <script>
 import { getTechnologyById } from '@/api/cpms/technology'
 import mixins from '@/mixins/mixins'
-import { dictsMap, initForm, toDtoForm } from '../options'
+import { dictsMap, initForm, toDtoForm, rules } from '../options'
 import IepCpmsModuleTable from '@/views/cpms/Components/ModuleTable'
 import IepCpmsMaterialTable from '@/views/cpms/Components/MaterialTable'
 import IepCpmsTechnologyTable from '@/views/cpms/Components/TechnologyTable'
@@ -84,43 +84,7 @@ export default {
   data () {
     return {
       dictsMap,
-      pagedTable: [
-        {
-          id: 1,
-          context: '对数据进行重新审核和校验, 并提供数据一致性.',
-          time: '2019-02-14',
-          version: 'v5.0',
-        },
-        {
-          id: 2,
-          context: '对数据进行重新审核和校验, 并提供数据一致性.',
-          time: '2019-02-14',
-          version: 'v5.0',
-        },
-        {
-          id: 3,
-          context: '对数据进行重新审核和校验, 并提供数据一致性.',
-          time: '2019-02-14',
-          version: 'v5.0',
-        },
-      ],
-      pagedTable1: [
-        {
-          id: 1,
-          title: '对数据进行重新审核和校验, 并提供数据一致性.',
-          type: '2019-02-14',
-        },
-        {
-          id: 2,
-          title: '对数据进行重新审核和校验, 并提供数据一致性.',
-          type: '2019-02-14',
-        },
-        {
-          id: 3,
-          title: '对数据进行重新审核和校验, 并提供数据一致性.',
-          type: '2019-02-14',
-        },
-      ],
+      rules,
       methodName: '',
       formRequestFn: () => { },
       backOption: {
@@ -164,10 +128,20 @@ export default {
     resetForm () {
       this.$message.success('功能开发中')
     },
-    submitForm () {
-      this.formRequestFn(toDtoForm(this.form)).then(() => {
-        this.$emit('onGoBack')
-      })
+    async submitForm () {
+      try {
+        const valid = await this.$refs['form'].validate()
+        if (valid) {
+          const { data } = await this.formRequestFn(toDtoForm(this.form))
+          if (data.data) {
+            this.$emit('onGoBack')
+          } else {
+            this.$message(data.msg)
+          }
+        }
+      } catch (error) {
+        console.log(error)
+      }
     },
     clear () {
       this.$message.success('功能开发中')

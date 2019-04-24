@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="联系人" :replaceText="replaceText" :data="[10]"></page-header>
+      <page-header title="我的联系人" :replaceText="replaceText" :data="[10]"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增</iep-button>

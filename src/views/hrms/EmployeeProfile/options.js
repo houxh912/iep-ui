@@ -11,6 +11,10 @@ const dictsMap = {
     5: '其他',
     6: '离职员工',
   },
+  lockFlag: {
+    0: '正常',
+    1: '锁定',
+  },
 }
 
 const initForm = () => {
@@ -27,7 +31,8 @@ const initForm = () => {
     // orgName: '组织', // 资产所属公司 不可编辑
     position: [], // 岗位
     positionName: null, // 岗位
-    externalTitle: null, // 对外头衔
+    externalTitle: null, // 外部头衔
+    socialRela: null, // 对外头衔
     people: [], // 标签名字
     job: null, // 职务
     jobId: null, // 职务
@@ -433,7 +438,7 @@ const rules = {
   position: [
     { required: true, message: '请填写岗位', trigger: 'blur' },
   ],
-  title: [
+  socialRela: [
     { required: true, message: '请填写外部头衔', trigger: 'blur' },
   ],
   jobId: [

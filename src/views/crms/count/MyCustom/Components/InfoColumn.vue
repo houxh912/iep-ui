@@ -51,7 +51,17 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      data: '',
+      data: {
+        contractQuantity: 0,
+        contractQuantitySort: 0,
+        clientQuantity: 0,
+        clientBeyond: 0,
+        contactQuantity: 0,
+        contactBeyond: 0,
+        contractBeyond: 0,
+        contractAmount: 0,
+        contractAmountBeyond: 0,
+      },
     }
   },
   computed: {

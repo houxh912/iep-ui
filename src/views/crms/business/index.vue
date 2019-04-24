@@ -23,8 +23,8 @@
               <iep-button v-if="type === '2'" @click="handleDelete(scope.row)">删除</iep-button>
               <iep-button type="warning" v-if="(type === '3') && scope.row.isCreate==0" plain @click=" handleCreate(scope.row)">创建客户</iep-button>
               <iep-button v-if="(type === '3') && scope.row.isCreate==1" disabled>已创建客户</iep-button>
-              <iep-button v-if="type === '3'" @click="handleRefuse(scope.row)">取消认领</iep-button>
-              <iep-button v-if="(type === '2') && scope.row.statusValue=='已认领'" @click="handleRefuse(scope.row)">取消认领</iep-button>
+              <iep-button v-if="type === '3'" @click="handleCancel(scope.row)">取消认领</iep-button>
+              <iep-button v-if="(type === '2') && scope.row.statusValue=='已认领'" @click="handleRefuse(scope.row)">拒绝认领</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -138,8 +138,34 @@ export default {
         return Object.assign(m, { businessTypeKey: m.businessType.map(m => m.commonName).join('，') })
       })
     },
-    //取消认领
+    //拒绝认领
     handleRefuse (row) {
+      getBusinessById(row.opportunityId).then(res => {
+        this.$confirm(`该商机已被 ${res.data.data.data.reciver} 认领！确认拒绝后，该商机将被重新释放到商机池！`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          let state = res.data.data.data.statusKey
+          let id = res.data.data.data.opportunityId
+          let claim = {
+            opportunityId: id,
+            status: state,
+          }
+          cancelClaim({ ...claim }).then(res => {
+            if (res.status == 200) {
+              this.$message.success('操作成功!')
+            } else {
+              this.$message.info(`操作失败，${res.data.msg}`)
+            }
+            this.loadPage()
+          })
+        })
+      })
+
+    },
+    //取消认领
+    handleCancel (row) {
       this.$confirm('是否确定取消认领此数据？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

@@ -40,7 +40,7 @@ export default {
   data () {
     return {
       form: {},
-      options: [{ label: '已创建', value: 1 }, { label: '未创建', value: 0 }],
+      options: [{ label: '已创建', value: 0 }, { label: '未创建', value: 1 }],
     }
   },
   computed: {

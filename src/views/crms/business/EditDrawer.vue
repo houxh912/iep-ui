@@ -61,7 +61,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import { checkName } from '@/api/crms/business'
+import { checkName } from '@/api/crms/customer'
 import { initForm } from './options'
 const tipContent = {
   clientName: '客户名称精确到局办且为全称， 如：“北京市行政服务中心”',
@@ -77,8 +77,8 @@ export default {
       if (!val) {
         return callback(new Error('客户名称不能为空'))
       }
-      checkName({ name: val }, val).then(res => {
-        if (res.data === 0) {
+      checkName({ clientName: val }).then(res => {
+        if (!res.data.data) {
           if (this.flag == this.formData.clientName) {
             callback()
             return false

@@ -1,10 +1,7 @@
 <template>
   <div class="suggest">
-    <el-card class="index-card" shadow="never">
-        <div slot="header" class="clearfix">
-            <span class="cardTitle" style="font-size:18px;">{{title}}</span>
-            <el-button style="float: right; padding: 5px 0;" type="text">我要发表</el-button>
-        </div>
+    <IepAppTabCard :title="title" :linkName="linkName">
+        <el-button style="float: right; padding: 5px 0;" type="text" slot="right">我要发表</el-button>
         <div>
             <div class="suggest-list">
                 <div v-for="(item,index) in suggestList" :key="index" class="piece">
@@ -19,7 +16,7 @@
                 </div>
             </div>
         </div>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>

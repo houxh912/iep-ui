@@ -2,7 +2,9 @@
   <el-card class="index-card" shadow="never">
     <div slot="header" class="clearfix">
       <span class="title">{{title}}<span class="datas">{{data}}</span></span>
+      <slot name="statistics"></slot>
       <el-button class="btn" type="text" v-if="isMore" @click="getMore">更多></el-button>
+      <slot name="right"></slot>
     </div>
     <slot></slot>
   </el-card>

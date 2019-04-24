@@ -14,10 +14,7 @@
         </div>
       </div>
     </iepAppTabCard>
-    <el-card class="last-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="cardTitle" style="font-size:18px;">{{title1}}</span>
-      </div>
+    <IepAppTabCard :title="title2" :linkName="linkName" class="last-card">
       <div class="last-month">
         <div v-for="(item,index) in lastMonth" :key="index" class="piece">
           <img :src="item.img" alt="">
@@ -30,7 +27,7 @@
           </div>
         </div>
       </div>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>

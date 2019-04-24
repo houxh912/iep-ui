@@ -1,12 +1,9 @@
 <template>
   <div class="leader-board">
-    <el-card class="index-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="title">{{title}}<span class="datas">{{data}}</span></span>
-        <div class="important">
-          <el-button type="text">争做伯乐</el-button>
-          <el-button type="text">申请转岗</el-button>
-        </div>
+    <IepAppTabCard :title="title" :linkName="linkName">
+      <div class="important" slot="right">
+        <el-button type="text">争做伯乐</el-button>
+        <el-button type="text">申请转岗</el-button>
       </div>
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="name" label="岗位名称" width="180">
@@ -20,7 +17,7 @@
         <el-table-column prop="demandDepartment" label="需求部门">
         </el-table-column>
       </el-table>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>

@@ -1,10 +1,7 @@
 <template>
   <div class="resources">
-    <el-card class="index-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="cardTitle">{{title}}</span>
-        <el-button class="btn" type="text">换一批</el-button>
-      </div>
+    <IepAppTabCard :title="title" :linkName="linkName">
+      <el-button class="btn" type="text" slot="right">换一批</el-button>
       <div>
         <div class="classify">
           <span class="sub-title">分类：</span>
@@ -20,7 +17,7 @@
           </div>
         </div>
       </div>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>

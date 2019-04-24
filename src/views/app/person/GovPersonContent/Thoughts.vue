@@ -14,11 +14,8 @@
         </div>
       </div>
     </IepAppTabCard>
-    <el-card class="mutual-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="cardTitle">{{titleStar}}</span>
-        <el-button class="important" type="text">申请互助基金</el-button>
-      </div>
+    <IepAppTabCard :title="title" :linkName="linkName" class="mutual-card">
+      <el-button class="important" type="text" slot="right">申请互助基金</el-button>
       <div class="star-list">
         <div v-for="(item,index) in starList" :key="index" class="piece">
           <div class="img-con"><img :src="item.img" class="img"></div>
@@ -33,7 +30,7 @@
           </div>
         </div>
       </div>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>
@@ -133,9 +130,6 @@ export default {
 }
 </style>
 <style scoped>
-.thoughts >>> .el-card__body {
-  padding: 15px;
-}
 .thoughts >>> .el-button {
   float: right;
   padding: 5px 0;

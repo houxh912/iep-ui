@@ -2,6 +2,7 @@
   <div>
     <basic-container>
       <page-header title="合同"></page-header>
+      <div class="info">回款总金额：123,000,000，待收款 <i class="el-icon-question"></i> ：3，000，000，回款率：89%</div>
       <operation-container>
         <template v-if="+type !=0" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
@@ -15,7 +16,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex @row-click="handleDetail">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :cell-style="cell" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex @row-click="handleDetail">
         <el-table-column v-if="+type !== 0" prop="operation" label="操作" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -142,6 +143,16 @@ export default {
     margin-right: 5px;
     height: 26px;
     line-height: 26px;
+  }
+}
+.info {
+  color: #666;
+  padding: 8px 18px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  i {
+    color: #ccc;
+    cursor: pointer;
   }
 }
 </style>

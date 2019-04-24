@@ -27,7 +27,7 @@
         </el-table-column>
         <el-table-column label="上线时间">
           <template slot-scope="scope">
-            {{scope.row.onlineTime}}
+            {{scope.row.onlineTime | parseTime('{y}-{m}-{d}')}}
           </template>
         </el-table-column>
         <el-table-column label="操作">

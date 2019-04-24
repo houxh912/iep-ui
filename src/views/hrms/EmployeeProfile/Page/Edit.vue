@@ -46,8 +46,8 @@
               <el-form-item label="岗位：" prop="position" class="form-half">
                 <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
               </el-form-item>
-              <el-form-item label="对外头衔：" prop="title" class="form-half">
-                <el-input v-model="form.title"></el-input>
+              <el-form-item label="对外头衔：" prop="socialRela" class="form-half">
+                <el-input v-model="form.socialRela"></el-input>
               </el-form-item>
               <el-form-item label="职务：" prop="jobId" class="form-half">
                 <iep-select prefix-url="hrms/job_system" v-model="form.jobId"></iep-select>
@@ -226,7 +226,7 @@
                   </iep-tip>
                   ：
                 </span>
-                <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
+                <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
               </el-form-item>
 
               <el-form-item>
@@ -236,7 +236,7 @@
                   </iep-tip>
                   ：
                 </span>
-                <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
+                <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
               </el-form-item>
 
               <el-form-item>
@@ -246,7 +246,7 @@
                   </iep-tip>
                   ：
                 </span>
-                <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
+                <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
               </el-form-item>
 
               <el-form-item label="：">
@@ -256,7 +256,7 @@
                   </iep-tip>
                   ：
                 </span>
-                <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
+                <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
               </el-form-item>
 
             </div>
@@ -304,16 +304,16 @@
             </div>
           </el-collapse-item>
           <el-collapse-item title="劳动合同" name="2">
-            <inline-form-table :table-data="form.laborContract" :columns="laborContractColumns" requestName="labor_contract" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
+            <inline-form-table :table-data="form.laborContract" :columns="laborContractColumns" requestName="labor_contract" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
           </el-collapse-item>
           <el-collapse-item title="社保福利" name="3">
-            <inline-form-table :table-data="form.welfare" :columns="welfareColumns" requestName="welfare" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
+            <inline-form-table :table-data="form.welfare" :columns="welfareColumns" requestName="welfare" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
           </el-collapse-item>
           <el-collapse-item title="调动情况" name="4">
-            <inline-form-table :table-data="form.transfer" :columns="transferColumns" requestName="transfer" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
+            <inline-form-table :table-data="form.transfer" :columns="transferColumns" requestName="transfer" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
           </el-collapse-item>
           <el-collapse-item title="离职信息" name="5">
-            <inline-form-table :table-data="form.dimission" :columns="dimissionColumns" requestName="dimission" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
+            <inline-form-table :table-data="form.dimission" :columns="dimissionColumns" requestName="dimission" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
           </el-collapse-item>
         </el-collapse>
       </el-form>
@@ -364,27 +364,34 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleSubmit () {
-      this.$refs['form'].validate((valid) => {
+    async handleSave () {
+      return await this.$refs['form'].validate((valid) => {
         if (valid) {
-          this.formRequestFn(formToDto(this.form)).then(({ data }) => {
+          return this.formRequestFn(formToDto(this.form)).then(({ data }) => {
             if (data.data) {
               this.$message({
                 message: '修改成功',
                 type: 'success',
               })
-              this.handleGoBack()
+              return true
             } else {
               this.$message({
                 message: data.msg,
                 type: 'error',
               })
+              return false
             }
           })
         } else {
           return false
         }
       })
+    },
+    async handleSubmit () {
+      const isTrue = await this.handleSave()
+      if (isTrue) {
+        this.handleGoBack()
+      }
     },
     handleGoBack () {
       this.$emit('onGoBack')

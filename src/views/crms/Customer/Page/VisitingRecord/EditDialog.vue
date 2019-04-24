@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="联系记录" width="40%" @close="loadPage">
-    <el-form :model="formData" :rules="rules" ref="formName" size="small" label-width="100px">
+    <el-form :model="formData" :rules="rules" ref="formName" size="small" label-width="100px" class="contract">
       <el-form-item label="联系主题：" prop="theme">
         <el-input v-model="formData.theme"></el-input>
       </el-form-item>
@@ -22,7 +22,7 @@ import IepDialog from '@/components/IepDialog/'
 import { initForm } from './options'
 import TimeSelector from '@/views/crms/components/TimeSelector/'
 export default {
-  components: { IepDialog,TimeSelector },
+  components: { IepDialog, TimeSelector },
   data () {
     return {
       dialogShow: false,
@@ -78,6 +78,9 @@ export default {
 <style>
 .btn {
   margin-right: 10px;
+}
+.contract {
+  padding-bottom: 10px;
 }
 </style>
 

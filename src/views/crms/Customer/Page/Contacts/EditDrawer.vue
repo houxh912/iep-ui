@@ -26,7 +26,7 @@
       <el-row>
         <el-col :span='12'>
           <el-form-item label="电话:" prop="telephoneNo">
-            <el-input v-model="form.telephoneNo" placeholder="座机（区号+号码"></el-input>
+            <el-input v-model="form.telephoneNo" placeholder="座机（区号+号码）"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>

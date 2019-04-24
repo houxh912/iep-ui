@@ -3,35 +3,35 @@
   <div>
     <basic-container>
       <page-header :title="`${methodName}模块`" :backOption="backOption"></page-header>
-      <el-form :model="form" size="small" label-width="150px" class="form-detail">
+      <el-form ref="form" :model="form" size="small" :rules="rules" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
-          <el-form-item label="模块logo：">
+          <el-form-item label="模块logo：" prop="imageUrl">
             <iep-avatar v-model="form.imageUrl"></iep-avatar>
           </el-form-item>
-          <el-form-item label="模块编号：" class="form-half">
-            <el-input v-model="form.number"></el-input>
+          <el-form-item label="模块编号：" prop="number" class="form-half">
+            <el-input maxlength="110" v-model="form.number"></el-input>
           </el-form-item>
-          <el-form-item label="模块名称：" class="form-half">
-            <el-input v-model="form.name"></el-input>
+          <el-form-item label="模块名称：" prop="name" class="form-half">
+            <el-input maxlength="110" v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="模块分类：" class="form-half">
+          <el-form-item label="模块分类：" prop="type" class="form-half">
             <iep-dict-select v-model="form.type" dict-name="cpms_module_type"></iep-dict-select>
           </el-form-item>
-          <el-form-item label="模块指导价：" class="form-half">
-            <el-input v-model="form.guidePrice"></el-input>
+          <el-form-item label="模块指导价：" prop="guidePrice" class="form-half">
+            <iep-input-number v-model="form.guidePrice"></iep-input-number>
           </el-form-item>
-          <el-form-item label="模块优惠价：" class="form-half">
-            <el-input v-model="form.preferentialPrice"></el-input>
+          <el-form-item label="模块优惠价：" prop="preferentialPrice" class="form-half">
+            <iep-input-number v-model="form.preferentialPrice"></iep-input-number>
           </el-form-item>
-          <el-form-item label="标签：">
+          <el-form-item label="标签：" prop="tagKeywords">
             <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
-          <el-form-item label="模块简介：">
-            <el-input v-model="form.synopsis"></el-input>
+          <el-form-item label="模块简介：" prop="synopsis">
+            <el-input maxlength="2010" v-model="form.synopsis"></el-input>
           </el-form-item>
-          <el-form-item label="模块介绍：">
-            <iep-input-area v-model="form.description"></iep-input-area>
+          <el-form-item label="模块介绍：" prop="description">
+            <iep-input-area maxlength="2010" v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
         <div class="title">团队信息：</div>
@@ -95,7 +95,7 @@ import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
 import IepCpmsProductTable from '@/views/cpms/Components/ProductTable'
 import IepCpmsTechnologyTable from '@/views/cpms/Components/TechnologyTable'
 import IepCpmsMaterialTable from '@/views/cpms/Components/MaterialTable'
-import { dictsMap, initForm, toDtoForm } from '../options'
+import { dictsMap, initForm, toDtoForm, rules } from '../options'
 export default {
   name: 'edit',
   mixins: [mixins],
@@ -114,43 +114,7 @@ export default {
   data () {
     return {
       dictsMap,
-      pagedTable: [
-        {
-          id: 1,
-          context: '对数据进行重新审核和校验, 并提供数据一致性.',
-          time: '2019-02-14',
-          version: 'v5.0',
-        },
-        {
-          id: 2,
-          context: '对数据进行重新审核和校验, 并提供数据一致性.',
-          time: '2019-02-14',
-          version: 'v5.0',
-        },
-        {
-          id: 3,
-          context: '对数据进行重新审核和校验, 并提供数据一致性.',
-          time: '2019-02-14',
-          version: 'v5.0',
-        },
-      ],
-      pagedTable1: [
-        {
-          id: 1,
-          title: '对数据进行重新审核和校验, 并提供数据一致性.',
-          type: '2019-02-14',
-        },
-        {
-          id: 2,
-          title: '对数据进行重新审核和校验, 并提供数据一致性.',
-          type: '2019-02-14',
-        },
-        {
-          id: 3,
-          title: '对数据进行重新审核和校验, 并提供数据一致性.',
-          type: '2019-02-14',
-        },
-      ],
+      rules,
       methodName: '',
       formRequestFn: () => { },
       backOption: {
@@ -197,10 +161,20 @@ export default {
     resetForm () {
       this.$message.success('功能开发中')
     },
-    submitForm () {
-      this.formRequestFn(toDtoForm(this.form)).then(() => {
-        this.$emit('onGoBack')
-      })
+    async submitForm () {
+      try {
+        const valid = await this.$refs['form'].validate()
+        if (valid) {
+          const { data } = await this.formRequestFn(toDtoForm(this.form))
+          if (data.data) {
+            this.$emit('onGoBack')
+          } else {
+            this.$message(data.msg)
+          }
+        }
+      } catch (error) {
+        console.log(error)
+      }
     },
     clear () {
       this.$message.success('功能开发中')

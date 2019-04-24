@@ -13,16 +13,31 @@
 </template>
 <script>
 import { getTagPage } from '@/api/tms/tag'
-import mixins from '@/mixins/mixins'
+function pageOption () {
+  return {
+    page: 1,
+    limit: 10,
+  }
+}
 export default {
-  mixins: [mixins],
   data () {
     return {
       dialogShow: false,
       selectedTags: [],
+      pagedTable: [],
+      multipleSelection: [],
+      isLoadTable: true,
+      pagination: pageOption(),
+      pageOption: pageOption(),
+      searchForm: {},
     }
   },
   methods: {
+    searchPage (param) {
+      this.pageOption = pageOption()
+      this.searchForm = param
+      this.loadPage(param)
+    },
     handleSelect (name) {
       this.dialogShow = false
       this.$emit('select-one', name)
@@ -33,13 +48,21 @@ export default {
     loadTable (param, requestFn) {
       this.isLoadTable = true
       requestFn({ ...param, ...this.pageOption }).then(({ data }) => {
-        const { records, size, total, current } = data
-        this.pagination = { current, size, total }
+        const { records, limit, total, page } = data
+        this.pagination = { page, limit, total }
         this.pagedTable = records.filter(m => {
           return !this.selectedTags.includes(m.name)
         })
         this.isLoadTable = false
       })
+    },
+    handleSizeChange (val) {
+      this.pageOption.limit = val
+      this.loadPage()
+    },
+    handleCurrentChange (val) {
+      this.pageOption.page = val
+      this.loadPage()
     },
     cancel () {
       this.dialogShow = false

@@ -31,7 +31,7 @@
       </el-table-column>
       <slot></slot>
     </el-table>
-    <iep-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :pagination-option="pagination" :page-sizes="[10, 20, 30, 40]" layout="total, sizes, prev, pager, next" prev-text="上一页" next-text="下一页" background></iep-pagination>
+    <iep-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :pagination-option="pagination" :page-sizes="initPageSize" layout="total, sizes, prev, pager, next" prev-text="上一页" next-text="下一页" background></iep-pagination>
   </div>
 </template>
 
@@ -97,12 +97,20 @@ export default {
       required: false,
       default: true,
     },
+    pageOptionSize: {
+      type: Number,
+      default: 10,
+    },
   },
   data () {
     return {
     }
   },
   computed: {
+    initPageSize () {
+      const { pageOptionSize } = this
+      return [pageOptionSize, pageOptionSize * 2, pageOptionSize * 3, pageOptionSize * 4]
+    },
     // 格式化数据源
     formatData () {
       let tmp

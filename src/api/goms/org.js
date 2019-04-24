@@ -81,7 +81,7 @@ export function getOrgList (name) {
 
 export function addObj (obj) {
   return request({
-    url: '/admin/org/create',
+    url: `${prefixUrl}/create`,
     method: 'post',
     data: obj,
   })
@@ -89,7 +89,7 @@ export function addObj (obj) {
 
 export function applyObj (obj) {
   return request({
-    url: '/admin/org/apply',
+    url: `${prefixUrl}/apply`,
     method: 'post',
     data: obj,
   })
@@ -97,8 +97,16 @@ export function applyObj (obj) {
 
 export function pullUser (ids) {
   return request({
-    url: '/admin/org/pull',
+    url: `${prefixUrl}/pull`,
     method: 'post',
     data: ids,
+  })
+}
+
+export function passJoins (obj) {
+  return request({
+    url: `${prefixUrl}/pass/joins`,
+    method: 'post',
+    data: obj,
   })
 }

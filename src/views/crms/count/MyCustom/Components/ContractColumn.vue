@@ -133,7 +133,8 @@ export default {
             if (this.interval == 1 || this.interval == 2) {
               sourceData[i].timeInterval = sourceData[i].timeInterval.substr(5, 2) + '.' + sourceData[i].timeInterval.substr(7, 2)
             } else {
-              sourceData[i].timeInterval = sourceData[i].timeInterval.substr(6, 1) + '月'
+              console.log()
+              sourceData[i].timeInterval = parseInt(sourceData[i].timeInterval.substr(5, 2)) + '月'
             }
           }
           this.chartData.rows = sourceData

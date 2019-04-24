@@ -20,7 +20,10 @@
         <el-input v-model="form.phone" disabled></el-input>
       </el-form-item>
       <el-form-item label="所属组织：" prop="orgNames">
-        <li v-for="item in form.orgNames" :key="item">{{item}}</li>
+        <li v-for="item in form.orgNames" :class="{isAsset: item.id === form.assetOrgId}" :key="item.id">{{item.name}}
+          <a-tag v-if="item.id === form.assetOrgId" @click="handleCancelAsset()">取消</a-tag>
+          <a-tag v-if="form.assetOrgId===0 && userInfo.orgId===item.id" @click="handleSetAsset(item)">设置为资产所属</a-tag>
+        </li>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -32,6 +35,7 @@
   </iep-dialog>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { initMemberForm } from './options'
 import { putGoms, updateGomsUser } from '@/api/admin/org'
 export default {
@@ -52,7 +56,19 @@ export default {
       roleList: [],
     }
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
   methods: {
+    handleCancelAsset () {
+      this.form.assetOrgId = 0
+    },
+    handleSetAsset (row) {
+      this.form.assetOrgId = row.id
+      console.log(row.id)
+    },
     load () {
       putGoms().then(({ data }) => {
         const roleList = data.data.map(m => {
@@ -78,6 +94,7 @@ export default {
       updateGomsUser({
         userId: this.form.userId,
         role: this.form.roleList,
+        assetOrg: this.form.assetOrgId,
       }).then(() => {
         this.loadPage()
       })
@@ -85,3 +102,8 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.isAsset {
+  color: red;
+}
+</style>

@@ -5,7 +5,7 @@ const studyColumns = [
   },
   {
     prop: 'startTime',
-    label: '起始时间',
+    label: '起止时间',
     type: 'date',
   },
   {
@@ -18,23 +18,21 @@ const workExpColumns = [
   {
     prop: 'name',
     label: '公司',
+    width: '200',
   },
   {
     prop: 'position',
     label: '岗位',
+    width: '150',
   },
   {
     prop: 'startTime',
-    label: '起始时间',
+    label: '起止时间',
     type: 'date',
   },
   {
     prop: 'description',
     label: '工作描述',
-  },
-  {
-    prop: 'leavingReason',
-    label: '离职原因',
   },
 ]
 
@@ -50,10 +48,12 @@ const trainingColumns = [
   {
     prop: 'method',
     label: '培训方式',
+    dictName: 'hrms_training_type',
+    type: 'dict',
   },
   {
     prop: 'startTime',
-    label: '起始时间',
+    label: '起止时间',
     type: 'date',
   },
 ]

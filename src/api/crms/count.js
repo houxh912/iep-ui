@@ -104,3 +104,18 @@ export function getAllRecord (params) {
     params: params,
   })
 }
+//全部客户增长统计
+export function getAllIncrease (params) {
+  return request({
+    url: `${allUrl}/increase`,
+    method: 'get',
+    params: params,
+  })
+}
+export function getAllContactincrease (params) {
+  return request({
+    url: `${allUrl}/contactincrease`,
+    method: 'get',
+    params: params,
+  })
+}

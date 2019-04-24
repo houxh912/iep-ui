@@ -20,6 +20,8 @@ const allSearchForm = () => {
     projectName: '',
     statusValue: '',
     businessTypeKey: [],
+    publisherName: '',
+    isCreate: '',
   }
 }
 // 我的客户/协作客户搜索
@@ -29,7 +31,8 @@ const initSearchForm = () => {
     intentionLevel: '',
     projectName: '',
     businessTypeKey: [],
-    publisher: '',
+    publisherName: '',
+    isCreate: '',
   }
 }
 const rules = {

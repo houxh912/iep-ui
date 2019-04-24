@@ -25,8 +25,8 @@
               <el-form-item label="所属组织：" class="form-half">
                 <iep-tag-detail :value="form.orgList"></iep-tag-detail>
               </el-form-item>
-              <el-form-item label="工号：" prop="staffId" class="form-half">
-                <el-input v-model="form.staffId"></el-input>
+              <el-form-item label="资产所属公司：" class="form-half">
+                <iep-div-detail :value="form.deptQm"></iep-div-detail>
               </el-form-item>
               <el-form-item prop="avatar" class="">
                 <span slot="label">
@@ -37,11 +37,11 @@
                 </span>
                 <iep-avatar v-model="form.avatar"></iep-avatar>
               </el-form-item>
-              <el-form-item label="角色：" class="form-half">
+              <el-form-item label="角色：">
                 <iep-tag-detail :value="form.roleName"></iep-tag-detail>
               </el-form-item>
-              <el-form-item label="资产所属公司：" class="form-half">
-                <iep-tag-detail :value="form.deptList"></iep-tag-detail>
+              <el-form-item label="工号：" prop="staffId" class="form-half">
+                <el-input v-model="form.staffId"></el-input>
               </el-form-item>
               <el-form-item label="岗位：" prop="position" class="form-half">
                 <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>

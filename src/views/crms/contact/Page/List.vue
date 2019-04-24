@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="联系人" :replaceText="replaceText" :data="[10]"></page-header>
+      <page-header title="我的联系人" :replaceText="replaceText" :data="[10]"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增</iep-button>
@@ -12,7 +12,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index @row-click="contactDetail">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :cell-style="cell" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index @row-click="contactDetail">
         <el-table-column prop="operation" label="对应客户" width="460">
           <template slot-scope="scope">
             <span class="contact-tag" v-for="(item,index) in scope.row.clientInfos" :key="index">{{item.clientName}}</span>

@@ -106,7 +106,7 @@ export default {
         if (valid) {
           // 判断这条数据是否在系统中已经生成
           let fn = () => { }
-          if (this.formData.createData) {
+          if (this.formData.createTime) {
             fn = updateData
           } else {
             fn = createData

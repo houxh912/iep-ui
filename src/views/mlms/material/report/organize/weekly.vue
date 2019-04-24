@@ -24,6 +24,33 @@
           <el-form-item>
             <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟" maxlength="1000"></el-input>
           </el-form-item>
+          <div class="relation-item">
+            <div class="relation-head">市场拓展：</div>
+            <div class="relation-list">
+              <iep-button @click="getRelation('summary')"><i class="el-icon-plus"></i></iep-button>
+              <ul>
+                <li v-for="(item, index) in formData.meetingSummary" :key="index">{{item.name}} <i class="el-icon-close" style="cursor: pointer;" @click="formData.meetingSummary.splice(index, 1)"></i></li>
+              </ul>
+            </div>
+          </div>
+          <div class="relation-item">
+            <div class="relation-head">相关产品：</div>
+            <div class="relation-list">
+              <iep-button @click="getRelation('product')"><i class="el-icon-plus"></i></iep-button>
+              <ul>
+                <li v-for="(item, index) in formData.productList" :key="index">{{item.name}} <i class="el-icon-close" style="cursor: pointer;" @click="formData.productList.splice(index, 1)"></i></li>
+              </ul>
+            </div>
+          </div>
+          <div class="relation-item">
+            <div class="relation-head">相关项目：</div>
+            <div class="relation-list">
+              <iep-button @click="getRelation('project')"><i class="el-icon-plus"></i></iep-button>
+              <ul>
+                <li v-for="(item, index) in formData.projectList" :key="index">{{item.name}} <i class="el-icon-close" style="cursor: pointer;" @click="formData.projectList.splice(index, 1)"></i></li>
+              </ul>
+            </div>
+          </div>
           <el-form-item>
             <iep-button @click="submit" type="primary">保存</iep-button>
           </el-form-item>
@@ -37,9 +64,17 @@
           <pre>{{formData.workPlan}}</pre>
           <div class="title">总结与感悟</div>
           <pre>{{formData.summarySentiment}}</pre>
+          <div class="title">市场拓展</div>
+          <pre><el-tag v-for="(item, index) in formData.meetingSummary" :key="index" type="info">{{item.name}}</el-tag></pre>
+          <div class="title">相关产品</div>
+          <pre><el-tag v-for="(item, index) in formData.productList" :key="index" type="info">{{item.name}}</el-tag></pre>
+          <div class="title">相关项目</div>
+          <pre><el-tag v-for="(item, index) in formData.projectList" :key="index" type="info">{{item.name}}</el-tag></pre>
         </div>
       </div>
     </div>
+
+    <relation-dialog ref="relation" :type="relationType" @submit-success="relationSuccess"></relation-dialog>
 
   </div>
 </template>
@@ -47,6 +82,7 @@
 <script>
 import { toChinesNum, getDateStr } from '../util'
 import { updateData, createData } from '@/api/mlms/material/report/organize'
+import RelationDialog from './relationDialog'
 
 export default {
   props: {
@@ -55,8 +91,7 @@ export default {
       default: () => { },
     },
   },
-  computed: {
-  },
+  components: { RelationDialog },
   data () {
     return {
       formData: {},
@@ -64,6 +99,12 @@ export default {
       rules: {
         workSummary: [{ required: true, message: '必填', trigger: 'blur' }],
         workPlan: [{ required: true, message: '必填', trigger: 'blur' }],
+      },
+      relationType: 'summary',
+      relationObj: {
+        summary: 'meetingSummary',
+        project: 'projectList',
+        product: 'productList',
       },
     }
   },
@@ -73,7 +114,7 @@ export default {
         if (valid) {
           // 判断这条数据是否在系统中已经生成
           let fn = () => { }
-          if (this.formData.createData) {
+          if (this.formData.createTime) {
             fn = updateData
           } else {
             fn = createData
@@ -81,6 +122,9 @@ export default {
           }
           delete this.formData.updateTime
           this.formData.title = `第${this.formatDig(this.formData.index)}周个人工作周报`
+          this.formData.meetingSummaryId = this.formData.meetingSummary.map(m => m.id)
+          this.formData.projectIds = this.formData.projectList.map(m => m.id)
+          this.formData.productIds = this.formData.productList.map(m => m.id)
           fn(this.formData).then(() => {
             this.$message({
               message: '编辑周报成功',
@@ -103,6 +147,16 @@ export default {
     handleSelectionChange (val) {
       this.selectList = val
     },
+    getRelation (type) {
+      this.relationType = type
+      this.$nextTick(() => {
+        this.$refs['relation'].open(this.formData[this.relationObj[type]])
+      })
+    },
+    // 提交关联
+    relationSuccess (list, type) {
+      this.formData[this.relationObj[type]] = list
+    },
   },
   watch: {
     data (newVal) {
@@ -112,6 +166,12 @@ export default {
         workSummary: '',
         workPlan: '',
         summarySentiment: '',
+        meetingSummaryId: [],
+        meetingSummary: [],
+        projectIds: [],
+        projectList: [],
+        productIds: [],
+        productList: [],
       }
       this.formData = Object.assign({}, this.formData, newVal)
     },
@@ -162,10 +222,31 @@ export default {
           line-height: 20px;
           margin: 0;
           min-height: 50px;
+          .el-tag {
+            margin: 0 10px 10px 0;
+          }
         }
         .title {
           font-weight: 700;
           margin-top: 10px;
+        }
+      }
+      .relation-item {
+        display: flex;
+        .relation-head {
+          width: 80px;
+        }
+        .relation-list {
+          ul {
+            padding: 15px 0 0;
+            li {
+              list-style: none;
+              margin-bottom: 15px;
+              i {
+                cursor: pointer;
+              }
+            }
+          }
         }
       }
     }

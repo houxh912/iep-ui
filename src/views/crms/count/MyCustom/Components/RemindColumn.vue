@@ -31,24 +31,28 @@ export default {
       tipsSelect: -1,
       current: 1,
       total: '',
+      flag: '',
       leftDisabled: false,
       rightDisabled: false,
     }
   },
   created () {
     this.load()
+
   },
   methods: {
     load () {
       getMyWarning({ current: this.current, size: 5 }).then((res) => {
         this.infoList = res.data.data.records
         this.total = res.data.data.total
+        this.flag = Math.ceil(this.total / 5) - 1
       })
     },
     clear () {
       this.$message.success('功能开发中')
     },
     left () {
+      this.rightDisabled = false
       if (this.current > 1) {
         this.leftDisabled = false
         this.current -= 1
@@ -61,12 +65,13 @@ export default {
 
     },
     right () {
-      var flag = Math.ceil(this.total / 5) - 1
-      if (this.current > flag) {
+      this.leftDisabled = false
+      if (this.current > this.flag) {
         this.rightDisabled = true
         this.$message.info('当前已是最后一页')
         return false
       } else {
+
         this.rightDisabled = false
         this.current += 1
         this.load()

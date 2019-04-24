@@ -10,7 +10,7 @@
                   <iep-img-avatar :size="90" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
                 </div>
                 <div class="code-name">{{form.staffId}}</div>
-                <el-progress :percentage="80" color="#68C769"></el-progress>
+                <el-progress :percentage="form.integrity" color="#68C769"></el-progress>
               </div>
             </el-col>
             <el-col :span="20">
@@ -81,6 +81,7 @@ const initIndexForm = () => {
     tagNum: 10,//标签
     materialNum: 10,//材料
     credit: 10,//信用
+    integrity: 0, // 资料完善度
   }
 }
 export default {

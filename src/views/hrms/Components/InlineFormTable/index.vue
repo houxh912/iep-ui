@@ -38,7 +38,7 @@
             </span>
           </template>
           <span v-else>
-            <iep-button type="text" size="mini" @click="toggle(scope.row.id)">编辑</iep-button>
+            <iep-button v-if="!(onlyLastCanEdit && columns.length-1 === idx)" type="text" size="mini" @click="toggle(scope.row.id)">编辑</iep-button>
             <a-divider type="vertical" />
             <a-popconfirm title="是否要删除此行？" okText="确认" cancelText="取消" @confirm="remove(scope.row.id)">
               <iep-button type="text" size="mini">删除</iep-button>
@@ -47,7 +47,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <iep-button style="width: 100%; margin-top: 5px; margin-bottom: 8px" icon="el-icon-plus" @click="newMember" plain>新增</iep-button>
+    <iep-button v-if="!onlyLastCanEdit" style="width: 100%; margin-top: 5px; margin-bottom: 8px" icon="el-icon-plus" @click="newMember" plain>新增</iep-button>
   </div>
 </template>
 <script>
@@ -73,6 +73,10 @@ export default {
     rid: {
       type: [Number, String],
       required: true,
+    },
+    onlyLastCanEdit: {
+      type: Boolean,
+      default: false,
     },
   },
   data () {

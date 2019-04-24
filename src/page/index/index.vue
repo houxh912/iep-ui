@@ -184,14 +184,13 @@ export default {
 <style lang="scss" scoped>
 .el-aside {
   overflow: hidden;
-  border-right: 1px solid #eee;
+  // border-right: 1px solid #eee;
   background-color: #fafafa;
 }
 </style>
 <style lang="css" scoped>
 .avue-contail >>> .el-main {
   padding: 0;
-  margin-left: -17px;
   overflow-x: hidden;
   overflow-y: hidden;
   height: calc(100vh - 60px);

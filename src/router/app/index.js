@@ -108,6 +108,11 @@ export default [
         name: '专家库',
         component: () => import('@/views/app/expert/'),
       },
+      {
+        path: 'productKu',
+        name: '产品库',
+        component: () => import('@/views/app/productKu/'),
+      },
     ],
   },
 ]

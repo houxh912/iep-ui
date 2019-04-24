@@ -2,7 +2,7 @@
   <div>
     <search></search>
     <div class="person">
-      <span class="person-item" v-for="(item,index) in personList" :key="index">
+      <div class="person-item" v-for="(item,index) in personList" :key="index">
         <div class="img"><img :src="item.imgSrc" alt=""></div>
         <div class="text">
           <span class="name">{{item.name}}<span class="dn show1" :class="item.show1">V</span><span class="dn show2" :class="item.show2">内</span></span>
@@ -13,7 +13,7 @@
             <span>{{item.sign3}}</span>
           </span>
         </div>
-      </span>
+      </div>
     </div>
     <div class="page">
       <el-pagination background layout="prev, pager, next" :total="1000">
@@ -57,12 +57,16 @@ export default {
 
 <style scoped lang="scss">
 .person {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-auto-flow: row dense;
+  grid-row-gap: 30px;
+  grid-column-gap: 30px;
+  grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(
+      100px,
+      3fr
+    );
   .person-item {
     display: flex;
-    width: 32%;
-    margin-right: 15px;
     .img {
       margin-right: 15px;
       margin-bottom: 30px;

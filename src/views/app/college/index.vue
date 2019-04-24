@@ -1,3 +1,3 @@
 <template>
-  <div>学堂</div>
+  <iep-to-dev></iep-to-dev>
 </template>

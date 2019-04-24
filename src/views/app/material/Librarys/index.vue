@@ -15,8 +15,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.library{
-  width: 100%;
-}
-</style>

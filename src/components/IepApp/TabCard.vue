@@ -46,6 +46,7 @@ export default {
 .title {
   font-size: 18px;
   color: #303133;
+  margin: 0 4px;
 }
 .btn {
   float: right;
@@ -59,7 +60,13 @@ export default {
 </style>
 <style scoped>
 .index-card >>> .el-card__header {
-  padding: 18px 20px;
+  padding: 18px 0;
+}
+.index-card >>> .el-card__body {
+  padding: 16px 0;
+}
+.el-card{
+  padding: 0 20px;
 }
 </style>
 

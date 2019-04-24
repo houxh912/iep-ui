@@ -21,9 +21,17 @@
             <span>职务：{{form.job}}</span>
             <span>职称：{{form.title}}</span>
           </div>
-          <div class="label-item">
-            <span>标签：</span>
-            <a-tag v-for="item in labellist" :key="item.id">{{ item.label }}</a-tag>
+          <div class="list">
+            <span>卓越标签：</span>
+            <iep-tag-detail style="display: inline;" :value="form.tagKeywords"></iep-tag-detail>
+          </div>
+          <div class="list">
+            <span>专业标签：</span>
+            <iep-tag-detail style="display: inline;" :value="form.projectTag"></iep-tag-detail>
+          </div>
+          <div class="list">
+            <span>进步标签：</span>
+            <iep-tag-detail style="display: inline;" :value="form.learningTag"></iep-tag-detail>
           </div>
         </div>
       </el-card>

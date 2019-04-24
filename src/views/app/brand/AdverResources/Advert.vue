@@ -17,6 +17,10 @@ export default {
         { name: '首届长三角营商环境论坛在沪召开的', color: 'red', status: '空余' },
         { name: '首届长三角营商环境论坛在沪召开的', color: 'gray', status: '排满' },
         { name: '首届长三角营商环境论坛在沪召开的', color: 'red', status: '空余' },
+        { name: '蟠桃会首页“本月会议”广告', color: 'red', status: '空余' },
+        { name: '首届长三角营商环境论坛在沪召开的', color: 'red', status: '空余' },
+        { name: '首届长三角营商环境论坛在沪召开的', color: 'gray', status: '排满' },
+        { name: '首届长三角营商环境论坛在沪召开的', color: 'red', status: '空余' },
       ],
     }
   },
@@ -38,9 +42,8 @@ export default {
     white-space: nowrap;
   }
   .count {
-    width: 36px;
-    height: 18px;
-    line-height: 18px;
+    padding: 3px 5px;
+    line-height: 13px;
     text-align: center;
     margin-right: 20px;
     background-color: #fff;

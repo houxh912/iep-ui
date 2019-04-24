@@ -81,9 +81,9 @@ export default {
   grid-auto-flow: row dense;
   grid-row-gap: 20px;
   grid-column-gap: 20px;
-  grid-template-columns: minmax(100px, 28fr) minmax(100px, 55fr) minmax(
+  grid-template-columns: minmax(100px, 32fr) minmax(100px, 55fr) minmax(
       100px,
-      28fr
+      32fr
     );
 }
 .el-tabs__item {

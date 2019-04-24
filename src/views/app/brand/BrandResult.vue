@@ -41,12 +41,12 @@ export default {
     width: 50%;
     border-bottom: 1px solid #eee;
     .num {
-      margin-top: 8px;
+      margin-top: 14px;
       margin-bottom: 0;
       text-align: center;
     }
     .name {
-      margin-bottom: 8px;
+      margin-bottom: 15px;
       text-align: center;
     }
   }

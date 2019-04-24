@@ -31,7 +31,7 @@ export default {
 .piece {
   display: inline-block;
   width: 50%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   img {
     width: 55px;
     height: 60px;

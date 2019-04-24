@@ -119,6 +119,34 @@ export default {
       }
       .sign {
         color: #aaa;
+        span {
+          position: relative;
+          display: inline-block;
+          padding: 0 10px;
+          cursor: pointer;
+          &:hover {
+            color: #ba1b21;
+          }
+          &:nth-child(1) {
+            padding-left: 0;
+          }
+          &::before {
+            position: absolute;
+            content: "";
+            top: 15px;
+            right: -7px;
+            width: 15px;
+            height: 1px;
+            background-color: #aaa;
+            transform: rotate(125deg);
+            -o-transform: rotate(125deg);
+            -moz-transform: rotate(125deg);
+            -webkit-transform: rotate(125deg);
+          }
+          &:last-child::before {
+            background-color: #fff;
+          }
+        }
       }
       .name,
       .job,

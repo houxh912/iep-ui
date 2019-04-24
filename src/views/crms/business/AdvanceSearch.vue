@@ -23,7 +23,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="发布者" v-if="type==='3' || type==='1'">
-        <el-input v-model="form.publisher" placeholder="发布者"></el-input>
+        <el-input v-model="form.publisherName" placeholder="发布者"></el-input>
       </el-form-item>
       <el-form-item label="">
         <el-button type="primary" @click="searchPage" size="mini">搜索</el-button>

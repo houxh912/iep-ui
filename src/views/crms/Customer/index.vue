@@ -1,6 +1,6 @@
 <template>
   <keep-alive include="list">
-    <component ref="component" @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+    <component ref="component" @onEdit="handleEdit" @onGoBack="handleGoBack" @showDrawer="showDarwer" :record="record" :is="currentComponet"></component>
   </keep-alive>
 </template>
 
@@ -43,6 +43,11 @@ export default {
       this.currentComponet = 'List'
       this.$nextTick(() => {
         this.$refs['component'].loadPage()
+      })
+    },
+    showDarwer (val) {
+      this.$nextTick(() => {
+        this.$refs['component'].showDrawer(val)
       })
     },
   },

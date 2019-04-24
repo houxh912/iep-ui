@@ -63,7 +63,6 @@ export default {
 .gird-product >>> .el-tabs__nav-scroll {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
 }
 .gird-product >>> .el-tabs__item {
   font-size: 18px;

@@ -35,7 +35,7 @@
 export default {
   data () {
     return {
-      img: '../img/training/zz.jpg',
+      img: require('../img/zz.jpg'),
       tag1: '数据政府',
       tag2: '培训班',
       tag3: '政务大数据',

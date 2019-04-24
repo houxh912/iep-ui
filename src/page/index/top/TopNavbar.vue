@@ -55,36 +55,14 @@ export default {
           id: '/app/brand',
           name: '品牌',
         }, {
-        //   id: '/app/news',
-        //   name: '要闻',
-        // }, {
+          //   id: '/app/news',
+          //   name: '要闻',
+          // }, {
           id: '/app/data',
           name: '数据',
         }, {
-        //   id: '/app/wealth',
-        //   name: '财富',
-        // }, {
-        }, {
-          id: '/app/material',
-          name: '材料',
-        }, {
-          id: '/app/training',
-          name: '培训',
-        }, {
-          id: '/app/client',
-          name: '客户',
-        }, {
-          id: '/app/qualification',
-          name: '资质',
-        }, {
-          id: '/app/business',
-          name: '商机',
-        }, {
-          id: '/app/expert',
-          name: '专家',
-        }, {
-          id: '/app/productKu',
-          name: '产品库',
+          //   id: '/app/wealth',
+          //   name: '财富',
         },
       ],
     }

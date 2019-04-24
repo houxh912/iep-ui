@@ -52,6 +52,7 @@ export default [
         name: '资源频道',
         component: () => import('@/views/app/resource/'),
         meta: noAuth,
+        redirect: '/app/resource/material',
         children: resourceRoute,
       },
       {
@@ -77,41 +78,6 @@ export default [
         name: '搜索频道',
         component: () => import('@/views/app/search/'),
         meta: noAuth,
-      },
-      {
-        path: 'material',
-        name: '材料库',
-        component: () => import('@/views/app/material/'),
-      },
-      {
-        path: 'training',
-        name: '培训库',
-        component: () => import('@/views/app/training/'),
-      },
-      {
-        path: 'client',
-        name: '客户库',
-        component: () => import('@/views/app/client/'),
-      },
-      {
-        path: 'qualification',
-        name: '资质库',
-        component: () => import('@/views/app/qualification/'),
-      },
-      {
-        path: 'business',
-        name: '商机库',
-        component: () => import('@/views/app/business/'),
-      },
-      {
-        path: 'expert',
-        name: '专家库',
-        component: () => import('@/views/app/expert/'),
-      },
-      {
-        path: 'productKu',
-        name: '产品库',
-        component: () => import('@/views/app/productKu/'),
       },
     ],
   },

@@ -71,5 +71,8 @@ export default {
 .gird-expert >>> .el-tabs__item {
   font-size: 24px;
 }
+.gird-expert >>> .el-tabs__header {
+  margin-bottom: 30px;
+}
 </style>
 

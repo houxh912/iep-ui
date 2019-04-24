@@ -3,16 +3,7 @@
     <div class="material">
       <menus></menus>
       <div class="library">
-        <div class="heard">
-          <div class="left">
-            <div label="材料库" name="first">材料库<span>{{title}}</span></div>
-          </div>
-          <div class="right">
-            <operation-search @search-page="searchPage" advance-search>
-              <advance-search @search-page="searchPage"></advance-search>
-            </operation-search>
-          </div>
-        </div>
+        <librarys></librarys>
       </div>
       <div class="piece">
         <IepAppTabCard :title="labelTitle">
@@ -29,10 +20,11 @@
 </template>
 <script>
 import Menus from './Menus'
+import Librarys from './Librarys/'
 import Ranking from './Ranking/'
 import Most from './Most/'
 export default {
-  components: { Menus, Ranking, Most },
+  components: { Menus, Librarys, Ranking, Most },
   data () {
     return {
       labelTitle: '推荐主题',
@@ -50,28 +42,9 @@ export default {
   margin: 0 auto;
   display: grid;
   grid-auto-flow: row dense;
+  grid-row-gap: 20px;
+  grid-column-gap: 20px;
   grid-template-columns: minmax(100px, 220px) minmax(100px, 680px) minmax(100px, 300px);
-}
-.library{
-  width: 100%;
-  padding:0 20px;
-  .heard{
-    height: 52px;
-    padding-top: 8px;
-    border-bottom: solid 1px #e6e6e6;
-    .left{
-      float: left;
-      > div{
-        font-size: 18px;
-        line-height: 42px;
-        padding:0 10px;
-        border-bottom: 2px solid #ba1b21;
-      }
-    }
-    .right{
-      float: right;
-    }
-  }
 }
 .piece{
 }

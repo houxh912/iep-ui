@@ -44,6 +44,14 @@ export default {
       data: ['(86)','(16)','(25)','(25)','(80)','(58)','(36)','(126)','(96)'],
     }
   },
+  methods: {
+    handleOpen () {
+
+    },
+    handleClose () {
+
+    },
+  },
 }
 </script>
 

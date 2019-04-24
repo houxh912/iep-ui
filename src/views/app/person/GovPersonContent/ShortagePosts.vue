@@ -90,6 +90,6 @@ export default {
   cursor: pointer;
 }
 .leader-board >>> .el-card__body {
-  height: 343px;
+  height: 332px;
 }
 </style>

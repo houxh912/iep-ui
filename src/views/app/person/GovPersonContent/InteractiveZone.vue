@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="zone">
     <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
       <div class="dynamic-list">
         <div v-for="(item,index) in dynamicList" :key="index" class="piece">
@@ -39,3 +39,8 @@ export default {
 }
 </style>
 
+<style scoped>
+.zone >>> .el-card__body {
+  height: 270px;
+}
+</style>

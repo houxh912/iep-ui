@@ -76,7 +76,7 @@ export default {
   .banner-list:nth-child(3) {
     grid-column: 6 / 8;
     height: 170px;
-    grid-row: 5/ 9;
+    grid-row: 6/ 9;
   }
 }
 </style>

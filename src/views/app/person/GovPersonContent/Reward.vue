@@ -78,6 +78,6 @@ export default {
 </style>
 <style scoped>
 .reward-con >>> .el-card__body {
-  height: 267px;
+  height: 270px;
 }
 </style>

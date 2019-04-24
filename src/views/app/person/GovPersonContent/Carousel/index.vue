@@ -54,10 +54,10 @@ export default {
 .el-carousel {
   overflow: hidden;
   .el-carousel__arrow--left {
-    left: 10px;
+    left: 0;
   }
   .el-carousel__arrow--right {
-    right: 10px;
+    right: 0;
   }
 }
 .department-con {

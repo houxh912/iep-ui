@@ -149,6 +149,6 @@ export default {
 .mutual-card >>> .el-card__body {
   display: flex;
   align-items: center;
-  height: 133px;
+  height: 122px;
 }
 </style>

@@ -58,7 +58,6 @@ export default {
         isBack: true,
         backPath: this.$route.query.redirect,
       },
-      flag: false,
       count: [],
       formData: {},
       tabList: [{
@@ -89,10 +88,6 @@ export default {
     this.loadPage()
     this.dealNum()
     this.getRouter()
-    this.flag = this.$route.query.flag
-    if (this.flag) {
-      this.activeTab = 'Contacts'
-    }
     if (this.routerBack) {
       this.activeTab = 'Scheme'
     }
@@ -130,6 +125,15 @@ export default {
           this.formData = data.data
         this.record.collaborations = this.formData.collaborations
         this.record.clientName = this.formData.clientName
+        if (this.formData.preMarketManagerName == '' || this.formData.preDeptName == '') {
+          this.formData.preMarketManagerName = '暂无'
+          this.formData.preDeptName = '暂无'
+        } else {
+          if (!this.formData.hasOwnProperty('preMarketManagerName') || !this.formData.hasOwnProperty('preDeptName')) {
+            this.formData.preMarketManagerName = '暂无'
+            this.formData.preDeptName = '暂无'
+          }
+        }
         this.count.push(data.data.contactNumber, data.data.contactRecordNumber, data.data.programNumber, data.data.contractNumber, 0)
         for (var i = 1; i < this.tabList.length; i++) {
           this.tabList[i].label = this.tabList[i].label + '(' + this.count[i - 1] + ')'

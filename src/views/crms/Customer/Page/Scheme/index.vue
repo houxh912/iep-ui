@@ -37,26 +37,25 @@
       </el-table-column>
     </iep-table>
     <el-row class="recommend">
-      <el-col class="title">为您推荐以下参考材料：</el-col>
-      <el-col class="item" :span=6 v-for="(item, index) in recommendList" :key="index">{{item}}</el-col>
+      <el-col class="title">为您推荐以下参考材料： <span v-if="recommendList.length==0">无</span></el-col>
+      <div class="meterial">
+        <span class="item" v-for="(item, index) in recommendList" :key="index" @click="toDetail">{{item}}</span>
+      </div>
     </el-row>
-    <create-dialog ref="SchemeDialog" @load-page="loadPage"></create-dialog>
-
-    <to-meterial-dialog ref="ToMeterialDialog" @load-page="loadPage"></to-meterial-dialog>
+    <add-drawer ref="AddDrawer" @load-page="loadPage" @add="add"></add-drawer>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
 import { getSchemePage, createScheme, updateScheme, deleteSchemeById, getSchemeById, getMaterial } from '@/api/crms/scheme'
-import CreateDialog from './CreateDialog'
 import { mapGetters } from 'vuex'
-import ToMeterialDialog from './ToMeterialDialog'
+import AddDrawer from './AddDrawer'
 import { downloadModel } from '@/api/crms/download'
 export default {
   name: 'contacts',
   mixins: [mixins],
-  components: { CreateDialog, ToMeterialDialog },
+  components: { AddDrawer },
   props: {
     record: {
       type: Object,
@@ -100,18 +99,28 @@ export default {
       this.loadTable({ ...param, clientId: this.record.id }, getSchemePage)
     },
     handleAdd () {
-      this.$refs['SchemeDialog'].formData.clientId = this.record.id
-      this.$refs['SchemeDialog'].dialogShow = true
-      this.$refs['SchemeDialog'].methodName = '新增'
-      this.$refs['SchemeDialog'].submitFn = createScheme
+      this.$refs['AddDrawer'].formData.clientId = this.record.id
+      this.$refs['AddDrawer'].drawerShow = true
+      this.$refs['AddDrawer'].methodName = '新增'
+      this.$refs['AddDrawer'].submitFn = createScheme
+      this.$refs['AddDrawer'].tabList = [{
+        label: '关联材料库',
+        value: 'Meterials',
+      }, {
+        label: '方案上传',
+        value: 'upload',
+      }]
+      this.$refs['AddDrawer'].activeTab = 'Meterials'
     },
     handleEdit (row) {
       getSchemeById(row.programId).then((res) => {
-        this.$refs['SchemeDialog'].formData = res.data.data
+        this.$refs['AddDrawer'].formData = res.data.data
       })
-      this.$refs['SchemeDialog'].dialogShow = true
-      this.$refs['SchemeDialog'].methodName = '编辑'
-      this.$refs['SchemeDialog'].submitFn = updateScheme
+      this.$refs['AddDrawer'].drawerShow = true
+      this.$refs['AddDrawer'].methodName = '编辑'
+      this.$refs['AddDrawer'].submitFn = updateScheme
+      this.$refs['AddDrawer'].tabList = [{ label: '方案上传', value: 'upload' }]
+      this.$refs['AddDrawer'].activeTab = 'upload'
     },
     handleDeleteById (row) {
       this.$confirm('此操作将同时删除原件, 是否继续?', '提示', {
@@ -136,11 +145,23 @@ export default {
         })
       })
     },
-    handleClose () {
-      this.dialogVisible = false
-    },
     download (row) {
       downloadModel(row.atchUpload)
+    },
+    add (val) {
+      this.formData.programName = val.name
+      this.formData.materialId = val.id
+      this.formData.attachs = [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],
+        createScheme(this.formData).then(() => {
+          this.$message({
+            message: '添加方案成功',
+            type: 'success',
+          })
+          this.loadPage()
+        })
+    },
+    toDetail () {
+      this.$message.success('功能开发中')
     },
     handleSave () {
       this.$message.success('功能开发中')
@@ -179,7 +200,16 @@ export default {
   }
 }
 .item {
-  padding: 5px;
+  display: inline-block;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #d4d4d4;
+  padding: 3px 10px;
+  margin-right: 10px;
+  &:hover {
+    color: #ba1b21;
+    border: 1px solid #ba1b21;
+  }
 }
 .line {
   display: inline-block;

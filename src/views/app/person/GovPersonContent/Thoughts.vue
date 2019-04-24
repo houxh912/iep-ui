@@ -43,11 +43,11 @@ export default {
       title: '员工感想',
       titleStar: '今日寿星',
       thoughtsList: [
-        { img: '../img/person/p1.jpg', name: '张三', time: '2019-04-08', feed: '有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题' },
-        { img: '../img/person/p2.jpg', name: '张三', time: '2019-04-08', feed: '有问题有问题有问题有问题有问题有问题有问题有问题' },
+        { img: '../img/person/p010.jpg', name: '奎永秀', time: '2019-02-25 15:30', feed: '认认真真做事，踏踏实实做人！' },
+        { img: '../img/person/p011.jpg', name: '谢海艳', time: '2019-04-08', feed: '项目有困难，我们更要有激情，有压力不要压抑，有危机感不要有焦虑感' },
       ],
       starList: [
-        { img: '../img/person/p1.jpg', name: '钟先生', job: '国脉集体研发中心' },
+        { img: '../img/person/p012.jpg', name: '钟乙乔', job: '国脉基因研发中心' },
       ],
       linkName: '',
     }

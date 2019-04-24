@@ -24,9 +24,9 @@ export default {
       title: '热门课程',
       data: '（37节）',
       hotCourse: [
-        { name: '数据基因产品培训服务', num: '123人已学习' },
-        { name: '服务数据基因', num: '23人已学习' },
-        { name: 'DIPS数据基因', num: '123人已学习' }],
+        { name: '数据基因产品培训服务', num: '113人已学习' },
+        { name: 'JAVA高级开发架构师课程', num: '78人已学习' },
+        { name: 'H5前端基础入门教程', num: '145人已学习' }],
       conCourse: [
         {
           id: 1,

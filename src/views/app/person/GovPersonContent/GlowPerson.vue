@@ -52,15 +52,15 @@ export default {
         },
       ],
       resourcesList: [
-        { img: '../img/person/p1.jpg', name: '江江', department: '北方区业务一部' },
-        { img: '../img/person/p2.jpg', name: '江江', department: '海南办事处' },
-        { img: '../img/person/p1.jpg', name: '江江', department: '国脉集团研发中心' },
-        { img: '../img/person/p1.jpg', name: '江江', department: '国脉先锋队' },
-        { img: '../img/person/p1.jpg', name: '江江', department: '国脉海洋信息发展有限公司' },
-        { img: '../img/person/p1.jpg', name: '江江', department: '国脉先锋队' },
-        { img: '../img/person/p1.jpg', name: '江江', department: '国脉先锋队' },
-        { img: '../img/person/p1.jpg', name: '江江', department: '国脉先锋队' },
-        { img: '../img/person/p2.jpg', name: '吴吴', department: '国脉先锋队' },
+        { img: '../img/person/p01.jpg', name: '李凯', department: '北方区业务一部' },
+        { img: '../img/person/p02.jpg', name: '符恩祖', department: '海南办事处' },
+        { img: '../img/person/p03.jpg', name: '张小燕', department: '北方业务一部' },
+        { img: '../img/person/p04.jpg', name: '洪琼', department: '湖南国脉原道数据科技有限公司（衡阳办事处、长沙）' },
+        { img: '../img/person/p05.jpg', name: '阮晨光', department: '国脉集团研发中心' },
+        { img: '../img/person/p06.jpg', name: '杜照鸿', department: '国脉集团研发中心' },
+        { img: '../img/person/p07.jpg', name: '张兵', department: '国脉集团研发中心' },
+        { img: '../img/person/p08.jpg', name: '何舟杰', department: '国脉先锋队' },
+        { img: '../img/person/p09.jpg', name: '潘超巧', department: '国脉先锋队' },
       ],
     }
   },
@@ -117,7 +117,6 @@ export default {
     justify-content: flex-start;
     width: 100%;
     height: 60px;
-    overflow: hidden;
     cursor: pointer;
     &:hover {
       opacity: 0.7;
@@ -138,6 +137,7 @@ export default {
     }
     .text {
       margin-left: 20px;
+      width: 70%;
     }
     .department {
       display: block;

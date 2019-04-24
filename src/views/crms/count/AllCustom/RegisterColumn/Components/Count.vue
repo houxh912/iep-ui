@@ -3,8 +3,12 @@
     <div class="title">
       <span>部门统计</span>
       <div>
-        <span class="border" @click="left"><i class="el-icon-arrow-left"></i></span>
-        <span class="border" @click="right"><i class="el-icon-arrow-right"></i></span>
+        <span class="border">
+          <iep-button plain size="small" @click="left" :disabled="leftDisabled"><i class="el-icon-arrow-left"></i></iep-button>
+        </span>
+        <span class="border">
+          <iep-button plain size="small" @click="right" :disabled="rightDisabled"><i class="el-icon-arrow-right"></i></iep-button>
+        </span>
       </div>
     </div>
     <el-table :data="tableData" stripe style="width: 100%">
@@ -27,6 +31,8 @@ export default {
       tableData: [],
       current: 1,
       total: '',
+      leftDisabled: false,
+      rightDisabled: false,
       pageOption: {
         current: 1,
         size: 5,
@@ -47,18 +53,22 @@ export default {
       if (this.current > 1) {
         this.current--
         this.pageOption.current = this.current
+        this.rightDisabled = false
         this.load()
       } else {
-        this.$message.success('已到首页')
+        this.$message.info('当前已是第一页')
+        this.leftDisabled = true
       }
     },
     right () {
       if (this.current < this.total) {
         this.current++
         this.pageOption.current = this.current
+        this.leftDisabled = false
         this.load()
       } else {
-        this.$message.success('已到尾页')
+        this.$message.info('当前已是最后一页')
+        this.rightDisabled = true
       }
     },
   },
@@ -76,13 +86,16 @@ export default {
 .border {
   cursor: pointer;
   margin-left: 10px;
-  i {
-    display: inline-block;
-    padding: 5px;
-    border: 1px solid #9c9c9c;
-  }
-  &:hover {
-    color: blue;
+  .el-button {
+    padding: 0;
+    i {
+      display: inline-block;
+      padding: 5px;
+      border: 1px solid #9c9c9c;
+    }
+    // &:hover {
+    //   color: blue;
+    // }
   }
 }
 </style>

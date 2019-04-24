@@ -43,7 +43,7 @@ export default {
         },
         {
           img: require('./logo/iepLogo.png'),
-          title: '资源配置模块',
+          title: 'IEP智慧赋能平台',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
           price: '90000',
         },
@@ -61,7 +61,7 @@ export default {
         },
         {
           img: require('./logo/iepLogo.png'),
-          title: '资源配置模块',
+          title: 'IEP智慧赋能平台',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
           price: '90000',
         },
@@ -79,7 +79,7 @@ export default {
         },
         {
           img: require('./logo/iepLogo.png'),
-          title: '资源配置模块',
+          title: 'IEP智慧赋能平台',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
           price: '90000',
         },
@@ -97,7 +97,7 @@ export default {
         },
         {
           img: require('./logo/iepLogo.png'),
-          title: '资源配置模块',
+          title: 'IEP智慧赋能平台',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
           price: '90000',
         },

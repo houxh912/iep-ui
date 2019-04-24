@@ -271,7 +271,7 @@ export default {
       trainingColumns,
       studyColumns,
       workExpColumns,
-      activeNames: ['1'],
+      activeNames: ['1', '2', '3', '4', '5'],
       methodName: '新增',
       form: initForm(),
       formRequestFn: () => { },
@@ -295,22 +295,33 @@ export default {
       this.$emit('onGoBack')
     },
     async handleSave (methodName = '更新') {
-      await this.$refs['form'].validate((valid) => {
+      try {
+        const valid = await this.$refs['form'].validate()
         if (valid) {
-          this.formRequestFn(formToDto(this.form)).then(({ data }) => {
-            if (data.data) {
-              this.$message({
-                message: `${methodName}成功`,
-                type: 'success',
-              })
-            }
-          })
+          const { data } = await this.formRequestFn(formToDto(this.form))
+          if (data.data) {
+            this.$message({
+              message: `${methodName}成功`,
+              type: 'success',
+            })
+            return true
+          } else {
+            this.$message({
+              message: data.msg,
+              type: 'warning',
+            })
+            return false
+          }
         }
-      })
+      } catch (error) {
+        return false
+      }
     },
     async handleSubmit () {
-      await this.handleSave(this.methodName)
-      this.$emit('onGoBack')
+      const res = await this.handleSave(this.methodName)
+      if (res) {
+        this.$emit('onGoBack')
+      }
     },
   },
 }

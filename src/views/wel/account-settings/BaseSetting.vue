@@ -368,31 +368,34 @@ export default {
   },
   methods: {
     async handleSave () {
-      return await this.$refs['form'].validate((valid) => {
+      try {
+        const valid = await this.$refs['form'].validate()
         if (valid) {
-          return putEmployeeProfile(formToDto(this.form)).then(({ data }) => {
-            if (data.data) {
-              this.$message({
-                message: '修改成功',
-                type: 'success',
-              })
-              return true
-            } else {
-              this.$message({
-                message: data.msg,
-                type: 'error',
-              })
-              return false
-            }
-          })
+          const { data } = await putEmployeeProfile(formToDto(this.form))
+          if (data.data) {
+            this.$message({
+              message: '修改成功',
+              type: 'success',
+            })
+            return true
+          } else {
+            this.$message({
+              message: data.msg,
+              type: 'error',
+            })
+            return false
+          }
         } else {
           return false
         }
-      })
+      } catch (error) {
+        console.log(error)
+        return false
+      }
     },
     async handleSubmit () {
-      const isTrue = await this.handleSave()
-      if (isTrue) {
+      const res = await this.handleSave()
+      if (res) {
         this.loadPage()
       }
     },

@@ -5,7 +5,7 @@
       <div class="img">
         <iep-img :src="item.imageUrl" alt=""></iep-img>
       </div>
-      <div class="module-title">{{item.name}}</div>
+      <div class="module-title iep-ellipsis">{{item.name}}</div>
     </div>
   </div>
 </template>

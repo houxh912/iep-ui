@@ -214,7 +214,6 @@ const user = {
     // 注销session
     FedLogOut ({ commit }) {
       return new Promise(resolve => {
-        commit('SET_MENU', [])
         commit('SET_PERMISSIONS', [])
         commit('SET_ORGS', [])
         commit('SET_USER_INFO', {})
@@ -223,11 +222,22 @@ const user = {
         commit('SET_ROLES', [])
         commit('DEL_ALL_TAG')
         commit('CLEAR_LOCK')
+
+        commit('SET_MENU', [])
+        commit('SET_MAINMENU', {})
+        commit('SET_OTHERMENUS', [])
+        commit('SET_MENUSMAP', {})
+        commit('SET_MENUPATHLIST', [])
         resolve()
       })
     },
     // 获取系统菜单
     GetMenu ({ commit, state }) {
+      commit('SET_MENU', [])
+      commit('SET_MAINMENU', {})
+      commit('SET_OTHERMENUS', [])
+      commit('SET_MENUSMAP', {})
+      commit('SET_MENUPATHLIST', [])
       return new Promise(resolve => {
         GetMenu().then(res => {
           const data = res.data.data

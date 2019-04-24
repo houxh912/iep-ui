@@ -1,7 +1,7 @@
 <template>
   <div class="librarys-header">
     <div class="left">
-      <div :label="title" name="first">{{title}}<span>{{data}}</span></div>
+      <div :label="title" name="first">{{title}}</div>
     </div>
     <div class="right">
       <operation-search @search-page="searchPage">
@@ -15,6 +15,11 @@ export default {
     return {
       title: '客户库',
     }
+  },
+  methods: {
+    searchPage () {
+
+    },
   },
 }
 </script>

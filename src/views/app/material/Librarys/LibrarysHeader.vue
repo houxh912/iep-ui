@@ -4,8 +4,7 @@
       <div :label="title" name="first">{{title}}<span>{{data}}</span></div>
     </div>
     <div class="right">
-      <operation-search @search-page="searchPage" advance-search>
-        <advance-search @search-page="searchPage"></advance-search>
+      <operation-search @search-page="searchPage">
       </operation-search>
     </div>
   </div>
@@ -15,7 +14,13 @@ export default {
   data () {
     return {
       title: '材料库',
+      data: '（今日上传39篇）',
     }
+  },
+  methods: {
+    searchPage () {
+
+    },
   },
 }
 </script>

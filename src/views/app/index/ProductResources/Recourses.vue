@@ -41,7 +41,7 @@ export default {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-row-gap: 40px;
   grid-column-gap: 20px;
-  padding: 15px 20px 36px 20px;
+  padding: 15px 0;
   .piece {
     width: 100%;
     text-align: center;

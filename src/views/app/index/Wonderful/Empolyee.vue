@@ -1,9 +1,13 @@
 <template>
   <div class="empolyee">
-    <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
-      <div class="img"><img :src="item.img" class="img"></div>
-      <span class="name">{{item.name}}</span>
-    </div>
+    <el-carousel height="200px" :interval="5000" indicator-position="none" arrow="always">
+      <el-carousel-item v-for="item in 4" :key="item">
+        <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
+          <div class="img"><img :src="item.img" class="img"></div>
+          <span class="name">{{item.name}}</span>
+        </div>
+      </el-carousel-item>
+    </el-carousel>
   </div>
 </template>
 
@@ -22,7 +26,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .empolyee {
-  padding: 15px 20px;
+  padding-top: 15px;
   .piece {
     text-align: center;
     width: 260px;

@@ -1,7 +1,7 @@
 <template>
   <div class="librarys-header">
     <div class="left">
-      <div :label="title" name="first">{{title}}</div>
+      <div :label="title" name="first">{{title}}</div><span class="data">{{data}}</span>
     </div>
     <div class="right">
       <operation-search @search-page="searchPage">
@@ -13,7 +13,8 @@
 export default {
   data () {
     return {
-      title: '客户库',
+      title: '商机库',
+      data: '（今日上传139个）',
     }
   },
   methods: {

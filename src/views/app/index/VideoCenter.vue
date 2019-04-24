@@ -25,7 +25,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .videoCenter-list {
-  padding-top: 10px;
+  padding: 10px 0 6px;
   .piece {
     text-align: center;
     .img {

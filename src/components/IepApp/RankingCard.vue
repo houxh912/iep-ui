@@ -21,7 +21,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .ranking {
-  padding: 10px 20px 15px;
+  padding: 2px 0;
   .piece {
     cursor: pointer;
     .name {
@@ -51,3 +51,4 @@ export default {
   }
 }
 </style>
+

@@ -7,7 +7,7 @@
         </el-carousel>
         <div class="new-dynamic">
             最新动态：
-            <div v-for="(item,index) in newDynamic" :key="index" class="newDynamic-list">
+            <div v-for="(item,index) in newDynamic" :key="index" class="new-dynamic-list">
                 <span class="time">{{item.time}}</span>
                 <span class="dsec">{{item.dsec}}</span>
                 <i class="iconfont icon-dingyue"></i>

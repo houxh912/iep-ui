@@ -198,10 +198,14 @@ export default {
 }
 .past-training-list >>> .el-tag--white {
   border: 1px solid #dcdfe6;
+  max-width: 70px;
   height: 28px;
   line-height: 26px;
   background: #fff;
   color: #606266;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .past-training-list >>> .el-col {
   display: grid;

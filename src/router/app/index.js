@@ -1,4 +1,5 @@
 import Layout from '@/page/index/index'
+import resourceRoute from './resource'
 const noAuth = {
   keepAlive: false,
   // isTab: false,
@@ -51,6 +52,7 @@ export default [
         name: '资源频道',
         component: () => import('@/views/app/resource/'),
         meta: noAuth,
+        children: resourceRoute,
       },
       {
         path: 'data',

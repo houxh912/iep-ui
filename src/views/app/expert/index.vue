@@ -1,18 +1,18 @@
 <template>
-    <div class="gird-expert">
-        <div class="leaderBoard">
-            <IepAppTabsCard :linkName="linkName">
-              <iep-tabs v-model="activeTab" :tab-list="tabList">
-                  <template v-if="activeTab ==='Person'" v-slot:Person>
-                    <person v-loading="activeTab !=='Person'"></person>
-                  </template>
-                  <template v-if="activeTab ==='Expert'" v-slot:Expert>
-                    <expert v-loading="activeTab !=='Expert'"></expert>
-                  </template>
-              </iep-tabs>
-            </IepAppTabsCard>
-        </div>
+  <div class="gird-expert">
+    <div class="leaderBoard">
+      <IepAppTabsCard :linkName="linkName">
+        <iep-tabs v-model="activeTab" :tab-list="tabList">
+          <template v-if="activeTab ==='Person'" v-slot:Person>
+            <person v-loading="activeTab !=='Person'"></person>
+          </template>
+          <template v-if="activeTab ==='Expert'" v-slot:Expert>
+            <expert v-loading="activeTab !=='Expert'"></expert>
+          </template>
+        </iep-tabs>
+      </IepAppTabsCard>
     </div>
+  </div>
 </template>
 <script>
 import Person from './Person'
@@ -53,10 +53,23 @@ export default {
       100px,
       28fr
     );
-    .leaderBoard{
-      grid-column-start: 1;
-      grid-column-end: 4;
-    }
+  .leaderBoard {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+}
+</style>
+<style scoped>
+.gird-expert >>> .el-card {
+  border: 0;
+}
+.gird-expert >>> .el-tabs__nav-scroll {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.gird-expert >>> .el-tabs__item {
+  font-size: 24px;
 }
 </style>
 

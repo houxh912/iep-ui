@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-input v-model="user.name" placeholder="请输入选择用户" @focus="dialogShow = true" readonly>
+    <el-input v-model="user.name" placeholder="请选择用户" @focus="dialogShow = true" readonly>
       <iep-button slot="reference">选择</iep-button>
     </el-input>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="dialogShow = false" :z-index="3000">

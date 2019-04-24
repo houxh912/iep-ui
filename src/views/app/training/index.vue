@@ -9,7 +9,7 @@
 </template>
 <script>
 import TrainingTop from './TrainingTop/'
-import TrainingContent from './TrainingContent/'
+import TrainingContent from './TrainingContent'
 export default {
   name: '培训',
   components: { TrainingTop, TrainingContent },

@@ -123,8 +123,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .past-training {
-  margin: 0 auto;
-  width: 1200px;
   .classTag {
     .el-tag {
       margin-right: 5px;

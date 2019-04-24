@@ -25,7 +25,7 @@
             <iep-tip content="1、包含称呼、通知缘由、事项、要求和发文单位等内容；<br/>2、分段陈述，默认字体与字号，带格式的文字粘贴请使用“格式清除”工具；"></iep-tip>
             ：
           </span>
-          <iep-input-area type="textarea" v-model="form.content"></iep-input-area>
+          <iep-froala-editor v-model="form.content"></iep-froala-editor>
         </el-form-item>
         <el-form-item prop="receivers">
           <span slot="label">
@@ -67,7 +67,7 @@ export default {
         ],
         content: [
           { required: true, message: '请输入内容', trigger: 'blur' },
-          { min: 3, max: 2000, message: '内容必须超过 3 个字符，但不得超过 2000 个字符', trigger: 'blur' },
+          { min: 3, max: 2000000, message: '内容必须超过 3 个字符，但不得超过 2000000 个字符', trigger: 'blur' },
         ],
         receivers: [
           { required: true, message: '请选择发布范围', trigger: 'blur' },

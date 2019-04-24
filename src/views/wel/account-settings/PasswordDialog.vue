@@ -4,7 +4,7 @@
       <el-form-item label="原密码" prop="password">
         <el-input type="password" v-model="form.password" auto-complete="off"></el-input>
       </el-form-item>
-      <el-form-item label="密码" prop="newpassword1">
+      <el-form-item label="新密码" prop="newpassword1">
         <el-input type="password" v-model="form.newpassword1" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="确认密码" prop="newpassword2">

@@ -39,6 +39,7 @@ const initMemberForm = () => {
     roleList: [],
     phone: '',
     orgNames: [],
+    assetOrgId: '',
     avatar: '',
   }
 }

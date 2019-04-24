@@ -1,9 +1,10 @@
 const initForm = () => {
   return {
-    createName:'',
+    createName: '',
     clientId: '',
     programName: '',
     attachs: [],
+    materialId: '',
   }
 }
 const tableOption = [
@@ -19,36 +20,16 @@ const tableOption = [
   },
 ]
 const rules = {
-  materialName: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
-  intro: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
-  content: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
-  firstClass: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  secondClass: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  materialType: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  tagKeyWords: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  isContri: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  downloadCost: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  uploader: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
+  materialName: [{ required: true, message: '必填', trigger: 'blur' }],
+  intro: [{ required: true, message: '必填', trigger: 'blur' }],
+  content: [{ required: true, message: '必填', trigger: 'blur' }],
+  firstClass: [{ required: true, message: '必填', trigger: 'change' }],
+  secondClass: [{ required: true, message: '必填', trigger: 'change' }],
+  materialType: [{ required: true, message: '必填', trigger: 'change' }],
+  tagKeyWords: [{ required: true, message: '必填', trigger: 'change' }],
+  isContri: [{ required: true, message: '必填', trigger: 'change' }],
+  downloadCost: [{ required: true, message: '必填', trigger: 'change' }],
+  uploader: [{ required: true, message: '必填', trigger: 'change' }],
 }
 const initLocalForm = () => {
   return {
@@ -67,4 +48,4 @@ const initLocalForm = () => {
     attachFile: '',
   }
 }
-export { initForm, tableOption,rules,initLocalForm }
+export { initForm, tableOption, rules, initLocalForm }

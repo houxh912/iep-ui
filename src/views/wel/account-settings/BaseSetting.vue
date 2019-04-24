@@ -14,7 +14,7 @@
           </el-form-item>
           <el-form-item label="所属组织：">
             <iep-tag-detail :value="form.orgList"></iep-tag-detail>
-            <a-tag color="orange" @click="$openPage('/wel/org')">加入或创建组织</a-tag>
+            <a-tag color="orange" @click="$openPage('/wel/org')">加入或创建新组织</a-tag>
           </el-form-item>
           <el-form-item label="资产所属：" class="form-half">
             <iep-tag-detail :value="form.deptList"></iep-tag-detail>
@@ -29,7 +29,7 @@
             <iep-div-detail :value="form.positionName"></iep-div-detail>
           </el-form-item>
           <el-form-item label="对外头衔：" class="form-half">
-            <iep-div-detail :value="form.title"></iep-div-detail>
+            <iep-div-detail :value="form.socialRela"></iep-div-detail>
           </el-form-item>
           <el-form-item label="职务：" class="form-half">
             <iep-div-detail :value="form.job"></iep-div-detail>
@@ -100,7 +100,7 @@
           <el-form-item prop="language" class="form-half">
             <span slot="label">
               外语水平
-              <iep-tip content="单选项：英语、韩语、日语、法语、德语等">
+              <iep-tip content="语种+等级">
               </iep-tip>
               ：
             </span>
@@ -301,7 +301,7 @@
               </iep-tip>
               ：
             </span>
-            <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
+            <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
           </el-form-item>
 
           <el-form-item>
@@ -311,7 +311,7 @@
               </iep-tip>
               ：
             </span>
-            <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
+            <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
           </el-form-item>
 
           <el-form-item>
@@ -321,7 +321,7 @@
               </iep-tip>
               ：
             </span>
-            <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
+            <inline-form-table :table-data="form.trainingSituation" :columns="trainingColumns" requestName="training" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
           </el-form-item>
 
           <el-form-item>
@@ -331,7 +331,7 @@
               </iep-tip>
               ：
             </span>
-            <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="employee_profile" :rid="form.id" @load-page="handleSubmit"></inline-form-table>
+            <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
           </el-form-item>
 
           <el-form-item>
@@ -367,27 +367,34 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleSubmit () {
-      this.$refs['form'].validate((valid) => {
+    async handleSave () {
+      return await this.$refs['form'].validate((valid) => {
         if (valid) {
-          putEmployeeProfile(formToDto(this.form)).then(({ data }) => {
+          return putEmployeeProfile(formToDto(this.form)).then(({ data }) => {
             if (data.data) {
               this.$message({
                 message: '修改成功',
                 type: 'success',
               })
-              this.loadPage()
+              return true
             } else {
               this.$message({
                 message: data.msg,
                 type: 'error',
               })
+              return false
             }
           })
         } else {
           return false
         }
       })
+    },
+    async handleSubmit () {
+      const isTrue = await this.handleSave()
+      if (isTrue) {
+        this.loadPage()
+      }
     },
     loadPage () {
       getEmployeeProfileSelf().then(({ data }) => {

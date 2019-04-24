@@ -172,7 +172,9 @@ export default {
     },
     //添加协作人
     handleCooperation () {
-      if (this.ids.length == 1) {
+      if (this.ids.length == 0) {
+        this.$message('请勾选需要添加协作人的客户')
+      } else if (this.ids.length == 1) {
         this.$refs['collaborator'].data.clientId = this.ids[0]
         this.$refs['collaborator'].dialogShow = true
       } else {

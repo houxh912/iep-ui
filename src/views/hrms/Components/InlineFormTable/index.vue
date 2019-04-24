@@ -41,7 +41,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <iep-button style="width: 100%; margin-top: 16px; margin-bottom: 8px" icon="el-icon-plus" @click="newMember" plain>新增</iep-button>
+    <iep-button style="width: 100%; margin-top: 5px; margin-bottom: 8px" icon="el-icon-plus" @click="newMember" plain>新增</iep-button>
   </div>
 </template>
 <script>
@@ -104,18 +104,18 @@ export default {
       const target = this.data.filter(item => item.id === id)[0]
       if (target.isNew) {
         post(target, this.requestName, this.type, this.rid).then(() => {
-          this.$message({
-            message: '添加成功',
-            type: 'success',
-          })
+          // this.$message({
+          //   message: '添加成功',
+          //   type: 'success',
+          // })
           this.$emit('load-page')
         })
       } else {
         put(target, this.requestName).then(() => {
-          this.$message({
-            message: '修改成功',
-            type: 'success',
-          })
+          // this.$message({
+          //   message: '修改成功',
+          //   type: 'success',
+          // })
           this.$emit('load-page')
         })
       }

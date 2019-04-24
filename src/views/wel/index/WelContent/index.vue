@@ -9,38 +9,38 @@
                 <div class="img">
                   <iep-img-avatar :size="90" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
                 </div>
-                <div class="code-name">{{indexData.staffId}}</div>
+                <div class="code-name">{{form.staffId}}</div>
                 <el-progress :percentage="80" color="#68C769"></el-progress>
               </div>
             </el-col>
             <el-col :span="20">
               <div class="right">
-                <div class="user-poster"><span class="say">{{timeFix}}，{{indexData.name}}，{{welcome}}</span></div>
+                <div class="user-poster"><span class="say">{{timeFix}}，{{form.name}}，{{welcome}}</span></div>
                 <div class="user-info">
-                  <span class="color">{{indexData.title}}</span>
-                  <span class="border">{{indexData.job}}</span>
+                  <span v-if="form.title" class="color">{{form.title}}</span>
+                  <span v-if="form.job" class="border">{{form.job}}</span>
                   <!-- <router-link class="more" to="">更多<i class="el-icon-d-arrow-right"></i></router-link> -->
-                  <span class="drop-down">产品技术委员会<i class="el-icon-arrow-down"></i></span>
+                  <!-- <span class="drop-down">产品技术委员会<i class="el-icon-arrow-down"></i></span> -->
                 </div>
                 <div class="user-data">
-                  <RouterLink class="inline task" to="">
+                  <a class="inline task" @click="handleSome1()">
                     <i class="icon-qian icon padding"></i>
                     <span>完成每日工作，领国脉贝<i class="el-icon-d-arrow-right"></i></span>
-                  </RouterLink>
-                  <RouterLink class="inline change" to="">
+                  </a>
+                  <a class="inline change" @click="handleSome2()">
                     领导桌面
-                  </RouterLink>
+                  </a>
                   <div class="inline data">
                     <div class="data-lab">
-                      <div class="count">{{indexData.tagNum}}</div>
+                      <div class="count" @click="handleSome3()">{{form.tagNum}}</div>
                       <div class="labTitle"><span>标签</span><span class="span"><i class="el-icon-question"></i></span></div>
                     </div>
                     <div class="data-lab">
-                      <div class="count">{{indexData.materialNum}}</div>
+                      <div class="count" @click="handleSome4()">{{form.materialNum}}</div>
                       <div class="labTitle"><span>材料</span><span class="span"><i class="el-icon-question"></i></span></div>
                     </div>
                     <div class="data-lab hideLine">
-                      <div class="count">{{indexData.credit}}</div>
+                      <div class="count" @click="handleSome5()">{{form.credit}}</div>
                       <div class="labTitle"><span>信用</span><span class="span"><i class="el-icon-question"></i></span></div>
                     </div>
                   </div>
@@ -93,7 +93,7 @@ export default {
       bodyStyle: {
         padding: 0,
       },
-      indexData: initIndexForm(),
+      form: initIndexForm(),
     }
   },
   computed: {
@@ -105,10 +105,25 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleSome1 () {
+      this.$message.success('页面建设中')
+    },
+    handleSome2 () {
+      this.$message.success('功能开发中')
+    },
+    handleSome3 () {
+      this.$message.success('我创建的标签, 功能开发中')
+    },
+    handleSome4 () {
+      this.$message.success('我上传材料, 功能开发中')
+    },
+    handleSome5 () {
+      this.$message.success('个人信用评分, 功能开发中')
+    },
     loadPage () {
       this.pageLoading = true
       getIndex().then(({ data }) => {
-        this.indexData = this.$mergeByFirst(initIndexForm(), data.data)
+        this.form = this.$mergeByFirst(initIndexForm(), data.data)
         this.pageLoading = false
       })
     },
@@ -304,8 +319,12 @@ export default {
                 height: 100%;
               }
               .count {
+                cursor: pointer;
                 font-size: 24px;
                 color: #484848;
+                &:hover {
+                  color: rgb(172, 172, 172);
+                }
               }
               .labTitle {
                 color: #bbb;

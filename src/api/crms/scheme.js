@@ -40,7 +40,13 @@ export function saveScheme (obj) {
     data: obj,
   })
 }
-
+// 方案查重
+export function checkName (name) {
+  return request({
+    url: `${schemeUrl}/get/${name}`,
+    method: 'get',
+  })
+}
 // 方案-编辑
 export function updateScheme (obj) {
   return request({

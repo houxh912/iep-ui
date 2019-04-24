@@ -18,6 +18,6 @@ exports.getProjectDesc = function () {
   // if (process.env.NODE_ENV === 'production') {
   //   return `此项目为${package.repository.description}`.toString().trim()
   // }
-  const desc = `此项目为${package.repository.description}<br/>${package.repository.type}<br/>仓库地址为<a href="${package.repository.url}">${package.repository.url}</a><br/>更新日志为<a href="${package.repository.changelogurl}">${package.repository.changelogurl}</a>`
+  const desc = `此项目为${package.repository.description}(${package.repository.team})<br/>仓库地址为<a href="${package.repository.url}">${package.repository.url}</a><br/>更新日志为<a href="${package.repository.changelogurl}">${package.repository.changelogurl}</a>`
   return desc.toString().trim()
 }

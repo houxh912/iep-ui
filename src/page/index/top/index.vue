@@ -141,7 +141,6 @@ export default {
   color: #424242;
   margin: 0 20px;
   cursor: pointer;
-  width: 90px;
 }
 .top-left >>> .el-dropdown {
   color: #424242;

@@ -38,9 +38,9 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button v-if="scope.row.isDraft===0 && scope.row.approveResult===0" type="warning" plain @click="handleCancel(scope.row)">撤销</iep-button>
-              <iep-button v-if="scope.row.isDraft!==0" type="warning" plain @click="handleEdit(scope.row)">修改</iep-button>
-              <iep-button v-if="scope.row.isDraft!==0" plain @click="handleDelete(scope.row)">删除</iep-button>
-              <iep-button v-if="scope.row.isDraft!==0" plain @click="handleSubmit(scope.row)">提交</iep-button>
+              <iep-button :disabled="scope.row.isDraft===0" type="warning" plain @click="handleEdit(scope.row)">修改</iep-button>
+              <iep-button :disabled="scope.row.isDraft===0" plain @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button :disabled="scope.row.isDraft===0" plain @click="handleSubmit(scope.row)">提交</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

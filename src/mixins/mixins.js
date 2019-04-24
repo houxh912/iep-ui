@@ -4,26 +4,24 @@ const optNameMap = {
   submit: '提交',
   cancel: '撤销',
 }
-function pageOption () {
-  return {
-    current: 1,
-    size: 10,
-  }
-}
+import { pageOption } from '@/const/pageConfig'
 export default {
   data () {
     return {
       pagedTable: [],
       multipleSelection: [],
       isLoadTable: true,
-      pagination: pageOption(),
-      pageOption: pageOption(),
+      pagination: this._pageOption(),
+      pageOption: this._pageOption(),
       searchForm: {},
     }
   },
   methods: {
+    _pageOption () {
+      return pageOption()
+    },
     searchPage (param) {
-      this.pageOption = pageOption()
+      this.pageOption = this._pageOption()
       this.searchForm = param
       this.loadPage(param)
     },
@@ -97,7 +95,7 @@ export default {
               type: 'success',
               message: `${optName}成功!`,
             })
-            this.pageOption = pageOption()
+            this.pageOption = this._pageOption()
           } else {
             this.$message({
               type: 'info',

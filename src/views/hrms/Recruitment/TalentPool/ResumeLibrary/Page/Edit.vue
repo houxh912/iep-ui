@@ -218,7 +218,7 @@
               <el-input v-model="form.salary"></el-input>
             </el-form-item>
             <el-form-item label="期望工作地：" prop="workPlace" class="form-half">
-              <el-input v-model="form.workPlace"></el-input>
+              <iep-dict-select v-model="form.workPlace" dict-name="hrms_work_place"></iep-dict-select>
             </el-form-item>
           </el-collapse-item>
           <el-collapse-item v-if="methodName !=='新增'" title="学习工作经历" name="3">

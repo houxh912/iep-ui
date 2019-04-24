@@ -44,7 +44,7 @@ export default {
 </script>
 <style scoped>
 .iep-tabs >>> .el-tabs__content {
-  padding: 0 20px 20px 20px;
+  padding-bottom:33px;
 }
 </style>
 

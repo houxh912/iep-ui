@@ -1,22 +1,17 @@
 <template>
   <div class="task">
-    <el-card class="index-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="cardTitle" style="font-size:18px;" >{{title}}</span>
-        <el-button style="float: right; padding: 5px 0; color:#cb3737;" type="text">产品与技术委员会></el-button>
+    <IepAppTabCard :title="title" :linkName="linkName">
+      <el-button style="float: right; padding: 5px 0; color:#cb3737;" type="text" slot="right">产品与技术委员会></el-button>
+      <div class="task-list">
+        <el-table :data="tableData" style="width: 100%" size=medium  >
+          <el-table-column prop="name" label="任务名称"></el-table-column>
+            <el-table-column prop="process" label="进度" width="180">
+                <el-progress :percentage="20" color="#68C769"></el-progress>
+            </el-table-column>
+          <el-table-column prop="principal" label="负责人" width="80"></el-table-column>
+        </el-table>
       </div>
-      <div>
-        <div class="task-list">
-            <el-table :data="tableData" style="width: 100%" size=medium  >
-                <el-table-column prop="name" label="任务名称"></el-table-column>
-                <el-table-column prop="process" label="进度" width="180">
-                    <el-progress :percentage="20" color="#68C769"></el-progress>
-                </el-table-column>
-                <el-table-column prop="principal" label="负责人" width="80"></el-table-column>
-            </el-table>
-        </div>
-      </div>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>

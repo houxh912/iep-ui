@@ -12,9 +12,9 @@ export default {
   data () {
     return {
       header:[
-        {imgSrc:require('./images/header1.png')},
-        {imgSrc:require('./images/header1.png')},
-        {imgSrc:require('./images/header1.png')},
+        {imgSrc:require('./images/header1.jpg')},
+        {imgSrc:require('./images/header1.jpg')},
+        {imgSrc:require('./images/header1.jpg')},
       ],
     }
   },

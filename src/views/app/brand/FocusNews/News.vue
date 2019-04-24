@@ -34,8 +34,8 @@ export default {
   margin-bottom: 10px;
   cursor: pointer;
   .name {
-    height: 30px;
-    line-height: 30px;
+    height: 24px;
+    line-height: 24px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -66,9 +66,6 @@ export default {
     width:100%;
     height:120px;
   }
-}
-.el-tabs__content{
-  position:relative;
 }
 .todyInfo {
   position:absolute;

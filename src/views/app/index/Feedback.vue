@@ -1,25 +1,20 @@
 <template>
   <div class="feedback">
-    <el-card class="index-card" shadow="never">
-        <div slot="header" class="clearfix">
-            <span class="cardTitle" style="font-size:18px;">{{title}}</span>
-            <el-button style="float: right; padding: 5px 0;" type="text">我要发表</el-button>
-        </div>
-        <div>
-            <div class="feedback-list">
-                <div v-for="(item,index) in feedbackList" :key="index" class="piece">
-                    <img :src="item.photo" class="photo">
-                    <div class="box">
-                        <div class="piece-title">
-                            <span class="name">{{item.name}}</span>
-                            <span class="time">{{item.time}}</span>
-                        </div>
-                        <p class="feed">{{item.feed}}</p>
+    <IepAppTabCard :title="title" :linkName="linkName">
+        <el-button style="float: right; padding: 5px 0;" type="text" slot="right">我要发表</el-button>
+        <div class="feedback-list">
+            <div v-for="(item,index) in feedbackList" :key="index" class="piece">
+                <img :src="item.photo" class="photo">
+                <div class="box">
+                    <div class="piece-title">
+                        <span class="name">{{item.name}}</span>
+                        <span class="time">{{item.time}}</span>
                     </div>
+                    <p class="feed">{{item.feed}}</p>
                 </div>
             </div>
         </div>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>

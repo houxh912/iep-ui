@@ -2,7 +2,7 @@
   <div>
     <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
       <span class="name">{{item.name}}</span>
-      <span class="num">{{item.num}}</span>
+      <span class="num fr">{{item.num}}</span>
     </div>
   </div>
 </template>
@@ -12,8 +12,12 @@ export default {
   data () {
     return {
       leaderBoardList: [
-        { name: '赵某某', num: 88 },
-        { name: '首谋', num: 88 },
+        { name: '赵某某', num: 67 },
+        { name: '首谋', num: 66 },
+        { name: '赵某某', num: 8568 },
+        { name: '首谋', num: 6 },
+        { name: '楼晓燕', num: 8658 },
+        { name: '红某某', num: 88 },
         { name: '楼晓燕', num: 88 },
         { name: '红某某', num: 88 },
       ],
@@ -38,6 +42,9 @@ export default {
   }
   .num {
     vertical-align: 5px;
+  }
+  .fr{
+    float:right;
   }
   &:hover {
     color: #cb3737;

@@ -7,7 +7,11 @@
       </div>
       <div class="aboutGov">
         <p v-text="aboutGov"></p>
-        <el-tag size="medium" type="info" v-for="(item,index) in sign" :key="index">{{item}}</el-tag>
+        <div class="about-list">
+          <div v-for="item in dataList" :key="item" class="piece">
+            {{item}}
+          </div>
+        </div>
       </div>
     </el-card>
   </div>
@@ -17,7 +21,7 @@ export default {
   data () {
     return {
       aboutGov: '长期以来，公司始终把打造国脉科技专业、诚信服务品牌位核心。长期以来，公司始终把打造国脉科技专业、诚信的服务品牌作为核心。长期以来，公司始终把打造国脉科技专业诚信的服务品牌作为核心',
-      sign: ['国脉优势', '发展历程', '专家团队', '大事记'],
+      dataList: ['国脉优势', '发展历程', '专家团队', '大事记'],
     }
   },
 }
@@ -42,6 +46,25 @@ export default {
   padding: 0 20px;
   margin-right: 20px;
   margin-bottom: 10px;
+}
+.about-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-flow: row dense;
+  grid-row-gap: 20px;
+  grid-column-gap: 20px;
+  .piece {
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: #f2f2f2;
+    color: #333;
+    &:hover {
+      background-color: #cb3737;
+      color: #fff;
+    }
+  }
 }
 </style>
 

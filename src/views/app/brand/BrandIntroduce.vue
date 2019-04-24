@@ -6,12 +6,15 @@
         <span class="red" style="display:inline-block;margin-bottom:15px;">【详细】</span>
         <div class="task">
           <i class="el-icon-arrow-left"></i>
-          <img :src="item.imgSrc" v-for="(item,index) in img" :key="index">
+          <div class="img-list" v-for="(item,index) in img" :key="index"> 
+            <img :src="item.imgSrc">
+            <span>{{item.name}}</span>
+          </div>
           <i class="el-icon-arrow-right"></i>
         </div>
         <div class="feedback">
-          <span>意见与建议（24）</span>
-          <span class="fr">投诉与举报（12）</span>
+          <span> <i class="icon-custom"></i> 意见与建议（24）</span>
+          <span class="fr"> <i class="icon-tousu"></i> 投诉与举报（12）</span>
         </div>
       </div>
     </iepAppTabCard>
@@ -25,13 +28,13 @@ export default {
       isMore:true,
       linkName: '',
       img: [
-        { imgSrc: require('./images/expert1.jpg') },
-        { imgSrc: require('./images/expert2.png') },
-        { imgSrc: require('./images/expert3.png') },
-        { imgSrc: require('./images/expert4.png') },
-        { imgSrc: require('./images/expert5.jpg') },
+        { imgSrc: require('./images/expert1.jpg'),name:'杨冰之' },
+        { imgSrc: require('./images/expert2.png'),name:'郑爱军'},
+        { imgSrc: require('./images/expert3.png'),name:'王路燕'},
+        { imgSrc: require('./images/expert4.png'),name:'刘林英'},
+        { imgSrc: require('./images/expert5.jpg'),name:'谢海艳'},
       ],
-      introduce: '委员会做出的决策都是经过集体讨论并通过的，因而它有利于避免权力过分集中，防止一个人独断专行。委员会做出的决策都是经过集体讨论并通过的，因而它有利于避免权力过分集中，防止一个人独断专行委员会做出的决策都是经过集体讨论并通过的，因而它有利于避免权力过分集中，防止一个人独断专行',
+      introduce: '委员会做出的决策都是经过集体讨论并通过的，因而它有利于避免权力过分集中，防止一个人独断专行。委员会做出的决策都是经过集体讨论并通过的因而它有利于避免权力过分集中',
     }
   },
 }
@@ -41,35 +44,54 @@ export default {
   color: #000;
 }
 .introduce {
-  i {
-    display: inline-block;
-    font-size: 32px;
-    color: #ccc;
-    vertical-align: middle;
+  &>span{
+    line-height: 25px;
   }
   .task {
     margin-bottom: 15px;
+    i {
+      display: inline-block;
+      font-size: 26px;
+      color: #ccc;
+      vertical-align: 44px;
+    }
+    .img-list{
+      display:inline-block;
+      margin: 0 3px;
+      span{
+        display:block;
+        text-align: center;
+      }
+    }
     img {
       display: inline-block;
       margin: 8px;
       border-radius: 50%;
-      width: 75px;
-      height: 75px;
+      width: 66px;
+      height: 66px;
       background-color: #ccc;
     }
   }
 }
 .feedback {
+  display: flex;
+  justify-content: space-between;
   span {
-    padding: 5px 20px;
-    background-color: #eee;
-    text-align: left;
+    display:inline-block;
+    padding-left:20px;
+    width:45%;
+    background-color: #f2f2f2;
+    line-height:35px;
+    cursor: pointer;
+    i{
+      margin-right:15px;
+      font-size: 28px!important;
+      color:#aaa;
+      vertical-align: -4px;
+    }
   }
 }
 .red {
   color: #bb1a20;
-}
-.fr {
-  float: right;
 }
 </style>

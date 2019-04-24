@@ -1,25 +1,20 @@
 <template>
   <div class="thoughts">
-    <el-card class="index-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="title">{{title}}<span class="datas">{{data}}</span></span>
-        <el-button class="charge" type="text">我要发表</el-button>
-      </div>
-      <div>
-        <div class="thoughtsList">
-          <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
-            <div class="img-con"><img :src="item.img" class="img"></div>
-            <div class="box">
-              <div class="pieceTitle">
-                <span class="name">{{item.name}}</span>
-                <span class="time">{{item.time}}</span>
-              </div>
-              <p class="feed">{{item.feed}}</p>
+    <IepAppTabCard :title="title" :linkName="linkName">
+      <el-button class="charge" type="text" slot="right">我要发表</el-button>
+      <div class="thoughtsList">
+        <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
+          <div class="img-con"><img :src="item.img" class="img"></div>
+          <div class="box">
+            <div class="pieceTitle">
+              <span class="name">{{item.name}}</span>
+              <span class="time">{{item.time}}</span>
             </div>
+            <p class="feed">{{item.feed}}</p>
           </div>
         </div>
       </div>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>
@@ -102,9 +97,6 @@ export default {
 }
 </style>
 <style scoped>
-.thoughts >>> .el-card__body {
-  padding: 15px;
-}
 .thoughts >>> .el-button {
   float: right;
   padding: 5px 0;

@@ -34,3 +34,8 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.el-card{
+  border:0;
+}
+</style>

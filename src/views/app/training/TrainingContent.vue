@@ -37,7 +37,7 @@ export default {
       title: '往期培训',
       pastTrainingList: [
         {
-          img: '../img/person/p1.jpg',
+          img: require('./img/p1.jpg'),
           tag1: '标签管理',
           tag2: '标签规范',
           tag3: '内网标签',
@@ -46,7 +46,7 @@ export default {
           see: '112人浏览',
         },
         {
-          img: '../img/person/p2.jpg',
+          img: require('./img/p2.jpg'),
           tag1: '数据基因部署',
           tag2: '数据基因培训',
           tag3: '数据基因',
@@ -55,7 +55,8 @@ export default {
           see: '156人浏览',
         },
         {
-          img: '../img/person/p3.jpg', tag1: '互联网',
+          img: require('./img/p3.jpg'),
+          tag1: '互联网',
           tag2: '政务服务',
           tag3: '一门一网',
           title: '佛山市互联网+政务服务内容分享',
@@ -63,7 +64,7 @@ export default {
           see: '112人浏览',
         },
         {
-          img: '../img/person/p4.jpg',
+          img: require('./img/p4.jpg'),
           tag1: '事项基因',
           tag2: '事项基因系统',
           tag3: '行政务服务',
@@ -72,7 +73,7 @@ export default {
           see: '112人浏览',
         },
         {
-          img: '../img/person/p5.jpg',
+          img: require('./img/p5.jpg'),
           tag1: '内网考试',
           tag2: '分工认责',
           tag3: '内网各版块',
@@ -81,7 +82,7 @@ export default {
           see: '87人浏览',
         },
         {
-          img: '../img/person/p6.jpg',
+          img: require('./img/p6.jpg'),
           tag1: '陈振辉',
           tag2: '佛山技术团队',
           tag3: '国脉GDS微服务',
@@ -90,7 +91,7 @@ export default {
           see: '94人浏览',
         },
         {
-          img: '../img/person/p7.jpg',
+          img: require('./img/p7.jpg'),
           tag1: '营商环境',
           tag2: '政务大数据',
           tag3: '软件企业',
@@ -99,7 +100,7 @@ export default {
           see: '65人浏览',
         },
         {
-          img: '../img/person/p8.jpg',
+          img: require('./img/p8.jpg'),
           tag1: '项目开发实战',
           tag2: '线上和线下',
           tag3: '在线学习',
@@ -108,7 +109,7 @@ export default {
           see: '123人浏览',
         },
         {
-          img: '../img/person/p9.jpg',
+          img: require('./img//p9.jpg'),
           tag1: '目录系统',
           tag2: '业务流程',
           tag3: '相关政策',

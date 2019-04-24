@@ -52,6 +52,9 @@ export default {
     padding: 20px;
   }
   .img {
+    display: inline-block;
+    width: 340px;
+    height: 350px;
   }
   .text {
     margin-left: 20px;

@@ -5,10 +5,6 @@
       <span class="name">{{item.name}}</span>
       <img v-if="item.isShow" :src="item.imgSrc" alt="">
     </div>
-    <div class="todyInfo">
-      <span>今日公告：</span>
-      <span>2019第十三届湖南连锁加盟</span>
-    </div>
   </div>
 </template>
 
@@ -28,7 +24,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .piece {
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-bottom: 10px;
@@ -45,7 +40,7 @@ export default {
     height: 18px;
     line-height: 18px;
     text-align: center;
-    margin-right: 20px;
+    margin-right: 15px;
     background-color: #ccc;
     color: #fff;
     display: inline-block;
@@ -66,16 +61,5 @@ export default {
     width:100%;
     height:120px;
   }
-}
-.todyInfo {
-  position:absolute;
-  width:100%;
-  left: 0;
-  bottom: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background-color: #eee;
-  padding:5px 20px;
 }
 </style>

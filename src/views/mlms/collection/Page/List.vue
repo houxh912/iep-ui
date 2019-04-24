@@ -7,6 +7,9 @@
           <iep-button type="primary" @click="catalogCreate(0)"><i class="el-icon-plus"></i> 新增目录</iep-button>
         </div>
         <el-menu :default-active="selectType" class="menu-vertical" @select="catalogSelect" @open="nemuOpen" @close="nemuColse" unique-opened>
+          <el-menu-item index="-1">
+            <span slot="title">全部收藏</span>
+          </el-menu-item>
           <el-submenu :index="index+''" v-for="(item, index) in catalogList" :key="index">
             <template slot="title">
               <!-- <span>{{item.name}}</span> -->
@@ -162,8 +165,13 @@ export default {
       }
     },
     catalogSelect (id) {
-      this.catalogId = id
-      this.loadPage()
+      if (id == -1) {
+        // 获取全部
+        this.loadTypeList()
+      } else {
+        this.catalogId = id
+        this.loadPage()
+      }
     },
     nemuOpen (index) {
       this.pageTitle = this.catalogList[index].name

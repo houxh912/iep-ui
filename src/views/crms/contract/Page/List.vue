@@ -2,6 +2,7 @@
   <div>
     <basic-container>
       <page-header title="合同"></page-header>
+      <div class="info">回款总金额：123,000,000，待收款 <i class="el-icon-question"></i> ：3，000，000，回款率：89%</div>
       <operation-container>
         <template v-if="+type !=0" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
@@ -142,6 +143,16 @@ export default {
     margin-right: 5px;
     height: 26px;
     line-height: 26px;
+  }
+}
+.info {
+  color: #666;
+  padding: 8px 18px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  i {
+    color: #ccc;
+    cursor: pointer;
   }
 }
 </style>

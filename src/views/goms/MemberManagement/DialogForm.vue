@@ -21,7 +21,7 @@
       </el-form-item>
       <el-form-item label="所属组织：" prop="orgNames">
         <li v-for="item in form.orgNames" :class="{isAsset: item.id === form.assetOrgId}" :key="item.id">{{item.name}}
-          <a-tag v-if="item.id === form.assetOrgId" @click="handleCancelAsset()">取消</a-tag>
+          <a-tag v-if="item.id === form.assetOrgId && userInfo.orgId===item.id" @click="handleCancelAsset()">取消</a-tag>
           <a-tag v-if="form.assetOrgId===0 && userInfo.orgId===item.id" @click="handleSetAsset(item)">设置为资产所属</a-tag>
         </li>
       </el-form-item>

@@ -28,10 +28,10 @@ export default {
       form: initToBlacklistForm(),
       rules: {
         area: [
-          { required: true, message: '请输入原因', trigger: 'blur' },
+          { required: true, message: '请输入拉黑地区', trigger: 'blur' },
         ],
         reason: [
-          { required: true, message: '请输入原因', trigger: 'blur' },
+          { required: true, message: '请输入拉黑原因', trigger: 'blur' },
         ],
       },
     }

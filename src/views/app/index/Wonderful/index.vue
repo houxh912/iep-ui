@@ -43,7 +43,7 @@ export default {
   },
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .wonderful {
   grid-column-start: 1;
   grid-column-end: 3;

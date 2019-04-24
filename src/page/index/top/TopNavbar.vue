@@ -82,6 +82,9 @@ export default {
         }, {
           id: '/app/expert',
           name: '专家',
+        }, {
+          id: '/app/productKu',
+          name: '产品库',
         },
       ],
     }

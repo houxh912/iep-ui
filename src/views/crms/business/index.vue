@@ -15,7 +15,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex @row-click="handleDetail">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :cell-style="cell" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex @row-click="handleDetail">
         <el-table-column prop="operation" label="操作" v-if="type!=='1'" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -80,6 +80,7 @@ export default {
     })
   },
   methods: {
+
     handleSelectionChange () {
     },
     changeType () {

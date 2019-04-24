@@ -20,7 +20,7 @@ const allSearchForm = () => {
     projectName: '',
     statusValue: '',
     businessTypeKey: [],
-    publisher: '',
+    publisherName: '',
     isCreate: '',
   }
 }
@@ -31,7 +31,7 @@ const initSearchForm = () => {
     intentionLevel: '',
     projectName: '',
     businessTypeKey: [],
-    publisher: '',
+    publisherName: '',
     isCreate: '',
   }
 }

@@ -65,7 +65,7 @@ export default {
 .read-list,
 .document-list,
 .avtivity-list {
-  padding: 0 20px 20px 20px;
+  padding: 0 0 20px 0;
   display: grid;
   grid-auto-flow: row dense;
   grid-row-gap: 0;

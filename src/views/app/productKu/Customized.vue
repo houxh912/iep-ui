@@ -167,6 +167,7 @@ export default {
         font-size: 15px;
       }
       .con {
+        height: 47px;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;

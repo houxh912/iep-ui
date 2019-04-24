@@ -58,6 +58,7 @@ export default {
   }
   .text {
     margin-left: 20px;
+    flex: 1;
     .sub-title {
       margin-bottom: 18px;
       font-size: 18px;

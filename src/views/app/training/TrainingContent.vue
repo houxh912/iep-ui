@@ -161,9 +161,11 @@ export default {
       white-space: nowrap;
     }
     .content {
+      overflow: hidden;
+      height: 50px;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 4;
+      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       color: #999;
     }

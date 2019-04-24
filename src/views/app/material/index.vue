@@ -24,7 +24,7 @@ import Librarys from './Librarys/'
 import Ranking from './Ranking/'
 import Most from './Most/'
 export default {
-  components: { Menus, Librarys, Ranking, Most },
+  components: { Menus, Librarys, Ranking, Most},
   data () {
     return {
       labelTitle: '推荐主题',

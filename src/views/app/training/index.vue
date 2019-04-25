@@ -11,7 +11,7 @@
 import TrainingTop from './TrainingTop/'
 import TrainingContent from './TrainingContent'
 export default {
-  name: '培训',
+  name: 'AppTraining',
   components: { TrainingTop, TrainingContent },
   data () {
     return {

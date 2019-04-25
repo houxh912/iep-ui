@@ -8,7 +8,7 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handleDeleteByIds" v-if="lookByMeOnly">删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteByIds" v-if="lookByMeOnly || permission_delete">删除</el-dropdown-item>
               <el-dropdown-item @click.native="handleExport">导出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -29,11 +29,11 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="180" v-if="lookByMeOnly">
+        <el-table-column prop="operation" label="操作" width="180" v-if="lookByMeOnly || (permission_edit || permission_delete)">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain v-if="permission_edit">编辑</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)" size="small" v-if="permission_delete">删除</iep-button>
+              <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain v-if="lookByMeOnly || permission_edit">编辑</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)" size="small" v-if="lookByMeOnly || permission_delete">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

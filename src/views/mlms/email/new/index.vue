@@ -77,8 +77,8 @@
                   正文
                   <iep-tip :content="tipContent.content"></iep-tip>：
                 </span>
-          <!-- <iep-editor v-model="formData.zhengwen"></iep-editor> -->
-          <el-input type="textarea" rows=5 v-model="formData.content" maxlength="2000"></el-input>
+          <!-- <el-input type="textarea" rows=5 v-model="formData.content" maxlength="2000"></el-input> -->
+          <iep-froala-editor v-model="formData.content"></iep-froala-editor>
         </el-form-item>
         <el-form-item>
           <operation-wrapper>

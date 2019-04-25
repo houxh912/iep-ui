@@ -12,7 +12,8 @@
         <div class="msg">时<span style="width: 14px;display: inline-block;"></span>间：{{formData.createTime}}</div>
       </div>
       <div class="content">
-        <pre>{{formData.content}}</pre>
+        <!-- <pre>{{formData.content}}</pre> -->
+          <iep-html v-model="formData.content"></iep-html>
       </div>
       <div class="appendix" v-if="formData.attachmentRelatios.length">
         <h3>附件</h3>

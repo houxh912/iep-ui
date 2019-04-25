@@ -12,7 +12,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button class="btn" type="primary" @click="submitForm('formName')">{{methodName}}</iep-button>
+      <iep-button class="btn" type="primary" @click="submitForm('formName')">保存</iep-button>
       <iep-button @click="resetForm">取消</iep-button>
     </template>
   </iep-dialog>

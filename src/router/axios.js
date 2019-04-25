@@ -37,15 +37,13 @@ axios.interceptors.request.use(
       config.headers['TENANT_ID'] = TENANT_ID // 租户ID
     }
     // headers中配置serialize为true开启序列化
-    if (config.methods === 'post' && config.headers.serialize) {
+    if (config.method === 'post' && config.headers.serialize) {
       config.data = serialize(config.data)
       delete config.data.serialize
     }
-    if (config.methods === 'get') {
+    if (config.method === 'get') {
       config.paramsSerializer = function (params) {
-        return qs.stringify(params, {
-          arrayFormat: 'brackets',
-        })
+        return qs.stringify(params, { arrayFormat: 'brackets' })
       }
     }
     return config

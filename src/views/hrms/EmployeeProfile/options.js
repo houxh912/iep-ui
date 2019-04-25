@@ -151,7 +151,7 @@ const columnsMap = [
     prop: 'lockOrg',
     label: '锁定状态',
     type: 'dict',
-    hidden: false,
+    hidden: true,
     key: 'lockOrg',
   },
   {

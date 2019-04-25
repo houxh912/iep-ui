@@ -1,25 +1,23 @@
 <template>
-  <div class="nav-info">
-    <el-popover popper-class="msg-popover" placement="bottom" width="336" v-model="visible" trigger="click">
-      <a-spin :spinning="pageLoading">
-        <el-tabs class="msg-tabs" v-model="activeName">
-          <el-tab-pane :label="`公告 (${announcementNum})`" name="first">
-            <iep-top-message-box :message-list="announcementList" :type="0" @visible="visible=false"></iep-top-message-box>
-          </el-tab-pane>
-          <el-tab-pane :label="`消息 (${systemMessageNum})`" name="second">
-            <iep-top-message-box :message-list="systemMessageList" :type="1" @visible="visible=false"></iep-top-message-box>
-          </el-tab-pane>
-          <el-tab-pane :label="`邮件 (${emailNum})`" name="third">
-            <iep-top-message-box :message-list="emailList" :type="2" @visible="visible=false"></iep-top-message-box>
-          </el-tab-pane>
-        </el-tabs>
-      </a-spin>
-      <!-- <div class="list-clear">清空 通知</div> -->
-      <el-badge :hidden="!totalNum" :value="totalNum" slot="reference" class="item">
-        <iep-button><i class="el-icon-bell"></i></iep-button>
-      </el-badge>
-    </el-popover>
-  </div>
+  <el-popover popper-class="msg-popover" placement="bottom" width="336" v-model="visible" trigger="click">
+    <a-spin :spinning="pageLoading">
+      <el-tabs class="msg-tabs" v-model="activeName">
+        <el-tab-pane :label="`公告 (${announcementNum})`" name="first">
+          <iep-top-message-box :message-list="announcementList" :type="0" @visible="visible=false"></iep-top-message-box>
+        </el-tab-pane>
+        <el-tab-pane :label="`消息 (${systemMessageNum})`" name="second">
+          <iep-top-message-box :message-list="systemMessageList" :type="1" @visible="visible=false"></iep-top-message-box>
+        </el-tab-pane>
+        <el-tab-pane :label="`邮件 (${emailNum})`" name="third">
+          <iep-top-message-box :message-list="emailList" :type="2" @visible="visible=false"></iep-top-message-box>
+        </el-tab-pane>
+      </el-tabs>
+    </a-spin>
+    <!-- <div class="list-clear">清空 通知</div> -->
+    <el-badge :hidden="!totalNum" :value="totalNum" slot="reference" class="item">
+      <iep-button><i class="el-icon-bell"></i></iep-button>
+    </el-badge>
+  </el-popover>
 </template>
 <script>
 import { getImsWel } from '@/api/ims/email'

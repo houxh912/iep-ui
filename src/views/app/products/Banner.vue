@@ -39,6 +39,7 @@ export default {
     background-color: #f8f8f8;
     img{
         width: 100%;
+        height: 100%;
     }
     .new-dynamic{
         width: 1200px;
@@ -55,5 +56,10 @@ export default {
             }
         }
     }
+}
+</style>
+<style scoped>
+.el-carousel >>> .el-carousel__container{
+  height: 400px;
 }
 </style>

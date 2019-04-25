@@ -50,7 +50,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .el-carousel {
   overflow: hidden;
   .el-carousel__arrow--left {

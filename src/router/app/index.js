@@ -80,7 +80,7 @@ export default [
         meta: noAuth,
       },
       {
-        path: 'organizationStyle',
+        path: 'organization_style',
         name: '组织风采',
         component: () => import('@/views/app/organizationStyle/'),
         meta: noAuth,

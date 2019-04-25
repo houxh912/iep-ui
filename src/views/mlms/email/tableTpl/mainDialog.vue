@@ -148,7 +148,7 @@ export default {
     },
     // 回复
     reply () {
-      let receiverList = {
+      this.formData.receiverList = {
         unions: [],
         orgs: [],
         users: [{
@@ -156,7 +156,7 @@ export default {
           name: this.formData.sendRealName,
         }],
       }
-      this.$emit('reply', receiverList)
+      this.$emit('reply', this.formData)
     },
     allReply () {
       let receiverList = {
@@ -173,7 +173,8 @@ export default {
           name: item.receiverRealName,
         })
       }
-      this.$emit('reply', receiverList)
+      this.formData.receiverList = receiverList
+      this.$emit('reply', this.formData)
     },
     // 下载附件
     downloadFile (obj) {

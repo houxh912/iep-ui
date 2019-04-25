@@ -110,7 +110,7 @@ export default {
         isBack: false,
         backPath: null,
         backFunction: () => {
-          this.$emit('load-page', this.backType == 'list' ? false : true)
+          this.$emit('load-page', this.backType)
         },
       },
       limit: 99,
@@ -176,7 +176,7 @@ export default {
             })
             this.formData = initFormData()
             if (this.pageState !== 'new') {
-              this.$emit('load-page', true)
+              this.$emit('load-page', 'list')
             } else {
               this.$router.push('/wel/mail/sent')
             }
@@ -201,7 +201,7 @@ export default {
         })
         this.formData = initFormData()
         if (this.pageState !== 'new') {
-          this.$emit('load-page', true)
+          this.$emit('load-page', 'list')
         } else {
           this.$router.push('/wel/mail/draft')
         }

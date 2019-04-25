@@ -4,11 +4,13 @@
       <el-col :span="12" :offset="6">
         <div class="grid-content">
           <h2 class="title">以奋斗者为本，做智慧国脉系!</h2>
-          <div style="margin-top: 15px;">
-            <el-input placeholder="请输入内容">
-              <el-button slot="append">搜索</el-button>
-            </el-input>
-          </div>
+          <template>
+            <div class="search-con">
+              <operation-search>
+                <advance-search></advance-search>
+              </operation-search>
+            </div>
+          </template>
         </div>
       </el-col>
     </el-row>
@@ -50,6 +52,7 @@
         </el-card>
       </el-col>
     </el-row>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 
@@ -133,5 +136,14 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.search-con {
+  display: flex;
+  margin: 0 auto;
+  max-width: 600px;
+  justify-content: space-between;
+}
+.input-wrapper{
+  width: 100%;
 }
 </style>

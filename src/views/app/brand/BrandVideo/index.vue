@@ -105,7 +105,4 @@ export default {
   opacity: 0.75;
   margin: 0;
 }
-.el-carousel__container {
-  height: 200px;
-}
 </style>

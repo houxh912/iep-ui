@@ -7,7 +7,7 @@
           <ul>
             <li>
               <span class="num">6233.5</span>
-              <span class="sub-title">账户余额</span>
+              <span class="sub-title">国脉贝</span>
             </li>
             <li>
               <span class="num">8000</span>
@@ -15,15 +15,15 @@
             </li>
             <li>
               <span class="num">2000</span>
-              <span class="sub-title">冻结金额</span>
+              <span class="sub-title">现金</span>
             </li>
             <li>
               <span class="num">3000</span>
-              <span class="sub-title">已提现</span>
+              <span class="sub-title">股权</span>
             </li>
             <li>
               <span class="num">6233.5</span>
-              <span class="sub-title">今日国脉贝</span>
+              <span class="sub-title">其他</span>
             </li>
           </ul>
         </el-card>
@@ -109,7 +109,6 @@ export default {
           { 'dept': '批评', '收入': 145, '支出': 22 },
           { 'dept': '学习', '收入': 48, '支出': 22 },
           { 'dept': '打赏', '收入': 38, '支出': 22 },
-          { 'dept': '离职', '收入': 38, '支出': 22 },
           { 'dept': '其他', '收入': 38, '支出': 22 },
         ],
       },

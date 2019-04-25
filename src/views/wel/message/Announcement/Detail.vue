@@ -38,7 +38,6 @@ import { initForm } from './options'
 export default {
   data () {
     return {
-      id: this.$route.params.id,
       backOption: {
         isBack: true,
       },
@@ -56,10 +55,15 @@ export default {
     },
     loadPage () {
       this.pageLoading = true
-      getAnnouncementById(this.id).then(({ data }) => {
+      getAnnouncementById(this.$route.params.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
         this.pageLoading = false
       })
+    },
+  },
+  watch: {
+    '$route.params.id': function () {
+      this.loadPage()
     },
   },
 }

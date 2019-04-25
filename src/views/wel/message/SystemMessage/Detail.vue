@@ -36,7 +36,6 @@ export default {
   components: { MsgLink },
   data () {
     return {
-      id: this.$route.params.id,
       backOption: {
         isBack: true,
       },
@@ -63,10 +62,15 @@ export default {
     },
     loadPage () {
       this.pageLoading = true
-      getSystemMessageById(this.id).then(({ data }) => {
+      getSystemMessageById(this.$route.params.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
         this.pageLoading = false
       })
+    },
+  },
+  watch: {
+    '$route.params.id': function () {
+      this.loadPage()
     },
   },
 }

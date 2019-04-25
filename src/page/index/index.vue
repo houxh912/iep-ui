@@ -18,7 +18,7 @@
             <keep-alive>
               <router-view class="avue-view" v-if="$route.meta.$keepAlive" />
             </keep-alive>
-            <router-view class="avue-view" v-if="!$route.meta.$keepAlive" />
+            <router-view class="avue-view" />
           </el-scrollbar>
         </el-main>
       </el-container>

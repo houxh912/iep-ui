@@ -1,4 +1,4 @@
-import { isReadeBatch, deleteEmailByIds } from '@/api/mlms/email/index'
+import { isReadeBatch, deleteEmailByIds, getEmailById } from '@/api/mlms/email/index'
 
 export default {
   data () {
@@ -43,9 +43,11 @@ export default {
       })
     },
     loadPage (state) {
-      this.pageState = 'list'
-      if (state) {
+      if (state === 'list') {
+        this.pageState = 'list'
         this.$refs['table'].loadPage({})
+      } else {
+        this.pageState = 'detail'
       }
     },
     // 转发
@@ -56,7 +58,9 @@ export default {
         return
       }
       this.pageState = 'form'
-      this.forwardFn(this.selectList[0])
+      getEmailById(this.selectList[0].emailId).then(({data}) => {
+        this.forwardFn(data.data, 'list')
+      })
     },
     // 查看详情的时候转发
     detailForward (row) {
@@ -81,12 +85,30 @@ export default {
       this.$refs['updateDialog'].formData.kind = 2
     },
     // 回复
+    // detailReply (row) {
+    //   this.pageState = 'form'
+    //   this.$refs['updateDialog'].resetForm()
+    //   this.$refs['updateDialog'].pageState = 'reply'
+    //   this.$refs['updateDialog'].backOption.isBack = true
+    //   this.$refs['updateDialog'].formData.receiverList = row
+    //   this.$refs['updateDialog'].formData.kind = 1
+    // },
+    // 回复
     detailReply (row) {
       this.pageState = 'form'
       this.$refs['updateDialog'].resetForm()
       this.$refs['updateDialog'].pageState = 'reply'
       this.$refs['updateDialog'].backOption.isBack = true
-      this.$refs['updateDialog'].formData.receiverList = row
+      this.$refs['updateDialog'].backType = 'detail'
+      this.$refs['updateDialog'].formData.receiverList = row.receiverList
+      this.$refs['updateDialog'].formData.content = row.content
+      this.$refs['updateDialog'].formData.subject = row.subject
+      this.$refs['updateDialog'].formData.transferList = { // 所有的关联
+        projectIds: this.dealWithTransferList(row.projectRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }]),
+        summaryIds: [],
+        materialIds: this.dealWithTransferList(row.materialRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }]),
+        reportIds: [],
+      }
       this.$refs['updateDialog'].formData.kind = 1
     },
     dealWithTransferList (row, field) {

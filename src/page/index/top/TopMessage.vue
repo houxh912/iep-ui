@@ -4,52 +4,13 @@
       <a-spin :spinning="pageLoading">
         <el-tabs class="msg-tabs" v-model="activeName">
           <el-tab-pane :label="`公告 (${announcementNum})`" name="first">
-            <el-card class="box-card" :body-style="bodyStyle">
-              <iep-no-data v-if="!announcementList.length" message="暂无通知"></iep-no-data>
-              <div v-for="item in announcementList" :key="item.id" class="text">
-                <div class="list-item-content">
-                  <h4 class="list-item-title" @click="handleAnnouncementDetail(item)">{{ item.name }}</h4>
-                  <div class="list-item-description">
-                    <span class="time">{{ item.time | formatTime }}</span>
-                  </div>
-                </div>
-              </div>
-              <div class="msg-footer">
-                <iep-button type="text" @click="handleOpen('/wel/message/announcement')">查看更多</iep-button>
-              </div>
-            </el-card>
+            <iep-top-message-box :message-list="announcementList" :type="0" @visible="visible=false"></iep-top-message-box>
           </el-tab-pane>
           <el-tab-pane :label="`消息 (${systemMessageNum})`" name="second">
-            <el-card class="box-card" :body-style="bodyStyle">
-              <iep-no-data v-if="!systemMessageList.length" message="暂无消息"></iep-no-data>
-              <div v-for="item in systemMessageList" :key="item.id" class="text">
-                <div class="list-item-content">
-                  <h4 class="list-item-title" @click="handleSystemMessageDetail(item)">{{ item.name }}</h4>
-                  <div class="list-item-description">
-                    <span class="time">{{ item.time | formatTime }}</span>
-                  </div>
-                </div>
-              </div>
-              <div class="msg-footer">
-                <iep-button type="text" @click="handleOpen('/wel/message/system_message')">查看更多</iep-button>
-              </div>
-            </el-card>
+            <iep-top-message-box :message-list="systemMessageList" :type="1" @visible="visible=false"></iep-top-message-box>
           </el-tab-pane>
           <el-tab-pane :label="`邮件 (${emailNum})`" name="third">
-            <el-card class="box-card" :body-style="bodyStyle">
-              <iep-no-data v-if="!emailList.length" message="暂无邮件"></iep-no-data>
-              <div v-for="item in emailList" :key="item.id" class="text">
-                <div class="list-item-content">
-                  <h4 class="list-item-title" @click="handleEmailDetail(item)">{{ item.name }}</h4>
-                  <div class="list-item-description">
-                    <span class="time">{{ item.time | formatTime }}</span>
-                  </div>
-                </div>
-              </div>
-              <div class="msg-footer">
-                <iep-button type="text" @click="handleOpen('/wel/mail/inbox')">查看更多</iep-button>
-              </div>
-            </el-card>
+            <iep-top-message-box :message-list="emailList" :type="2" @visible="visible=false"></iep-top-message-box>
           </el-tab-pane>
         </el-tabs>
       </a-spin>
@@ -62,14 +23,13 @@
 </template>
 <script>
 import { getImsWel } from '@/api/ims/email'
+import IepTopMessageBox from './Components/MessageBox'
 export default {
+  components: { IepTopMessageBox },
   data () {
     return {
       pageLoading: true,
       visible: false,
-      bodyStyle: {
-        padding: 0,
-      },
       activeName: 'first',
       announcementList: [],
       announcementNum: 0,
@@ -84,28 +44,6 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleEmailDetail (row) {
-      this.$router.push({
-        path: `/mlms_spa/email/detail/${row.id}`,
-      })
-      this.visible = false
-    },
-    handleAnnouncementDetail (row) {
-      this.$router.push({
-        path: `/ims_spa/announcement_detail/${row.id}`,
-      })
-      this.visible = false
-    },
-    handleSystemMessageDetail (row) {
-      this.$router.push({
-        path: `/ims_spa/system_message_detail/${row.id}`,
-      })
-      this.visible = false
-    },
-    handleOpen (url) {
-      this.$openPage(url)
-      this.visible = false
-    },
     loadPage () {
       this.pageLoading = true
       getImsWel().then(({ data }) => {
@@ -170,11 +108,6 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
-h4 {
-  margin: 0;
-  padding: 0;
-  font-weight: 400;
-}
 .item {
   position: relative;
   margin-right: 20px;
@@ -203,33 +136,5 @@ h4 {
   &:hover {
     color: #666;
   }
-}
-.box-card {
-  border: 0;
-  .text {
-    display: flex;
-    flex: 1 1;
-    align-items: flex-start;
-    padding: 20px;
-    .list-item-content {
-      flex: 1 0;
-      .list-item-title {
-        cursor: pointer;
-        margin-bottom: 4px;
-        color: rgba(0, 0, 0, 0.65);
-        font-size: 14px;
-        line-height: 22px;
-      }
-      .list-item-description {
-        color: #999;
-        font-size: 12px;
-        line-height: 22px;
-      }
-    }
-  }
-}
-.msg-footer {
-  border-top: 1px solid #eceef5;
-  text-align: center;
 }
 </style>

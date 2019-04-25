@@ -1,12 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iframe
-        v-if="$route.query.src"
-        :src="$route.query.src"
-        class="iframe"
-        ref="iframe"
-      ></iframe>
+      <iframe v-if="$route.query.src" :src="$route.query.src" class="iframe" ref="iframe"></iframe>
       <iframe v-else :src="urlPath" class="iframe" ref="iframe"></iframe>
     </basic-container>
   </div>
@@ -75,11 +70,11 @@ export default {
       if (flag) {
         this.$route.query.src = `${this.$route.query.src}${
           list.length > 0 ? '&list' : ''
-        }`
+          }`
       } else {
         this.$route.query.src = `${this.$route.query.src}${
           list.length > 0 ? '?list' : ''
-        }`
+          }`
       }
       //超时5s自动隐藏等待框，加强用户体验
       let time = 5
@@ -118,7 +113,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .iframe {
   width: 100%;
   height: 100%;

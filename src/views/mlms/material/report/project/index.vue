@@ -28,7 +28,7 @@
 import TimeLine from '../timeline'
 import FormDialog from './formDialog'
 import DetailDialog from './detailDialog'
-import { createWeeks, getWeekOfYear, getWeekStartAndEnd, getWeekOfMonth, getMonday } from '../util'
+import { createWeeks, getWeekOfYear, getWeekStartAndEnd, getMonday, getDateObj, getWeekOfMonth } from '../util'
 import { getTableData, createData, updateData } from '@/api/mlms/material/report/project'
 import CreateDialog from './createDialog'
 
@@ -64,7 +64,7 @@ export default {
       let year = monday.getFullYear()
       let month = monday.getMonth()
       let week = getWeekOfMonth(monday)
-      this.loadList(year, month+1, week, 'search')
+      this.loadList(year, month+1, week, 'search', monday)
     },
     // 切换周报
     actively (item, type) {
@@ -121,37 +121,10 @@ export default {
         })
       })
     },
-    // 获取当前时间轴上面的月、周
-    getDate (row) {
-      let day = +this.today
-      let month = this.today.getMonth() + 1
-      let week = 0
-      let list = row[month]
-      // 两种情况，首先上个月的周报，timeStamp 应该是小于这个月最小的周的时间戳
-      for (let item of list.children) {
-        // if (day > item.timeStamp && day < item.timeStamp+7*24*3600*1000) {
-        if (day > item.timeStamp+7*24*3600*1000) {
-          week++
-        } else  {
-          if (week == -1) {
-            // 上个月的最后一周
-            if (month == 1) {
-              // 上个月是去年的12月
-              return { month: 12, week: list.children.length-1 }
-            } else {
-              // month = month-1
-              return { month: month, week: list.children.length-1 }
-            }
-          } else {
-            return { month, week }
-          }
-        }
-      }
-    },
     changeYear (year) {
       this.loadList(year, 1, 0, 'year')
     },
-    loadList (year, month, week, type) {
+    loadList (year, month, week, type, monday) {
       let list = createWeeks(year)
       this.timeLineOption.list = list
       let today = {}
@@ -160,11 +133,12 @@ export default {
         this.$refs['timeline'].activeChild = week
         today = getWeekStartAndEnd(list[1].children[0].timeStamp)
       } else if (type === 'search') { // 具体时间搜索
-        this.$refs['timeline'].active = month
-        this.$refs['timeline'].activeChild = week
-        today = getWeekStartAndEnd(list[month].children[week].timeStamp)
+        let obj = getDateObj(list, monday)
+        this.$refs['timeline'].active = obj.month
+        this.$refs['timeline'].activeChild = obj.week
+        today = getWeekStartAndEnd(list[obj.month].children[obj.week].timeStamp)
       } else { // 默认加载
-        let obj = this.getDate(list)
+        let obj = getDateObj(list, this.today)
         this.timeLineOption.active = obj.month
         this.timeLineOption.activeChild = obj.week
         today = getWeekStartAndEnd(this.today)

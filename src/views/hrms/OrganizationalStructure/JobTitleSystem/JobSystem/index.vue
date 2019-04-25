@@ -21,16 +21,16 @@
         </template>
       </el-table-column>
     </iep-table>
-    <add-dialog-form ref="AddDialogForm" @load-page="loadPage"></add-dialog-form>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 <script>
-import AddDialogForm from './AddDialogForm'
+import DialogForm from './DialogForm'
 import { getJobPage, postJob, putJob, deleteJobBatch, deleteJobById } from '@/api/hrms/job_system'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm, initForm } from './options'
 export default {
-  components: { AddDialogForm },
+  components: { DialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -52,15 +52,15 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteJobById)
     },
     handleEdit (row) {
-      this.$refs['AddDialogForm'].form = this.$mergeByFirst(initForm(), row)
-      this.$refs['AddDialogForm'].methodName = '修改'
-      this.$refs['AddDialogForm'].formRequestFn = putJob
-      this.$refs['AddDialogForm'].dialogShow = true
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].methodName = '修改'
+      this.$refs['DialogForm'].formRequestFn = putJob
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleAdd () {
-      this.$refs['AddDialogForm'].methodName = '创建'
-      this.$refs['AddDialogForm'].formRequestFn = postJob
-      this.$refs['AddDialogForm'].dialogShow = true
+      this.$refs['DialogForm'].methodName = '创建'
+      this.$refs['DialogForm'].formRequestFn = postJob
+      this.$refs['DialogForm'].dialogShow = true
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

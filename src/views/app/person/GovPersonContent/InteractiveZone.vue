@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="zone">
     <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
-      <div class="dynamicList">
+      <div class="dynamic-list">
         <div v-for="(item,index) in dynamicList" :key="index" class="piece">
           <span>{{item.tip}}</span><span>{{item.text}}</span>
         </div>
@@ -15,14 +15,14 @@ export default {
     return {
       title: '互动专区',
       data: '（15次）',
-      dynamicList: [{ tip: '【评选】', text: '国脉海洋获质量管理系认证' }, { tip: '【评选】', text: '舟山国脉考察' }, { tip: '【评选】', text: '中国建设银行总行首席经济学家黄志凌一行莅临舟山国脉考察' }, { tip: '【调研】', text: '热烈庆祝广州国脉公司乔迁开业' }, { tip: '【调研】', text: '国脉总经理郑爱军荣获“浙江创业女杰' }, { tip: '【调研】', text: '国脉物联网两大研究中心简介' }, { tip: '【调研】', text: '国脉物联网3.0版上线公告' }],
+      dynamicList: [{ tip: '【评选】', text: '2018年度国脉精彩瞬间评选' }, { tip: '【评选】', text: '优秀员工评选' }, { tip: '【评选】', text: '最美国脉人活动评选' }, { tip: '【调研】', text: '关于财富动态分配的调查问卷' }, { tip: '【调研】', text: '关于公司产品模块化开发的意见征集' }, { tip: '【调研】', text: '国脉物联网两大研究中心' }, { tip: '【调研】', text: '国脉物联网3.0版上线' }],
       linkName: '',
     }
   },
 }
 </script>
 <style lang="scss" scoped>
-.dynamicList {
+.dynamic-list {
   .piece {
     cursor: pointer;
     height: 32.5px;
@@ -39,3 +39,8 @@ export default {
 }
 </style>
 
+<style scoped>
+.zone >>> .el-card__body {
+  height: 270px;
+}
+</style>

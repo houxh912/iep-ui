@@ -26,7 +26,7 @@
                 <iep-avatar v-model="form.logo"></iep-avatar>
               </el-form-item>
               <el-form-item label="组织简介" prop="intro">
-                <iep-input-area v-model="form.intro" :maxlength="2010"></iep-input-area>
+                <iep-input-area v-model="form.intro"></iep-input-area>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="onSubmit('form')">立即创建</el-button>

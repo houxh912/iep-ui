@@ -223,15 +223,30 @@
         <iep-description-item title="其他成果：" :content="form.result" />
       </a-col>
     </a-row>
+    
+    <a-divider />
+    <p :style="pStyle">相关信息</p>
+    <div>学习情况：</div>
+    <inline-form-table-detail :data="form.eduSituation" :columns="studyColumns"></inline-form-table-detail>
+    <div>工作经历：</div>
+    <inline-form-table-detail :data="form.workExperience" :columns="workExpColumns"></inline-form-table-detail>
+    <div>培训情况：</div>
+    <inline-form-table-detail :data="form.trainingSituation" :columns="trainingColumns"></inline-form-table-detail>
+    <div>资质证书：</div>
+    <inline-form-table-detail :data="form.userCert" :columns="certificateColumns"></inline-form-table-detail>
 
   </iep-drawer>
 </template>
 <script>
 import { initForm, dictsMap } from '../options'
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
+import InlineFormTableDetail from '@/views/hrms/Components/InlineFormTable/detail'
+import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
 export default {
+  components: { InlineFormTableDetail },
   data () {
     return {
+      workExpColumns, studyColumns, trainingColumns, certificateColumns,
       status: dictsMap.status,
       drawerShow: false,
       id: null,

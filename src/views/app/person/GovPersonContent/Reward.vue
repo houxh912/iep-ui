@@ -17,13 +17,13 @@ export default {
       title: '悬赏任务',
       data: '（23件）',
       reward: [
-        { name: '数据基因产品培训服务', money: '2000贝' },
-        { name: '服务数据基因', money: '已结束', bg: 'bgc' },
-        { name: 'DIPS数据基因', money: '2000贝' },
-        { name: '数据基因数据基因', money: '2000贝' },
-        { name: '大数据数据基因', money: '2000贝' },
-        { name: '大数据数据基因', money: '2000贝' },
-        { name: '规划与咨询数据基因', money: '已结束', bg: 'bgc' }],
+        { name: '关于项目验收表格材料标准化模版', money: '2000贝' },
+        { name: '微服务设计入门', money: '已结束', bg: 'bgc' },
+        { name: '微服务-框架', money: '2000贝' },
+        { name: '微服务架构与SpringCloud', money: '2000贝' },
+        { name: '浙江省目录系统普查系统业务流程分享', money: '2000贝' },
+        { name: '如何使用 Python 语言来编码和解码 ', money: '2000贝' },
+        { name: '关于项目验收表格材料标准化模版', money: '已结束', bg: 'bgc' }],
       linkName: '',
     }
   },
@@ -78,6 +78,6 @@ export default {
 </style>
 <style scoped>
 .reward-con >>> .el-card__body {
-  height: 267px;
+  height: 270px;
 }
 </style>

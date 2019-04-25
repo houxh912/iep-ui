@@ -1,11 +1,7 @@
 <template>
-  <div class="learningResources">
+  <div class="learning-resources">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <div class="learningResourcesList">
-        <div v-for="(item,index) in learningResourcesList" :key="index" class="piece">
-          {{item}}
-        </div>
-      </div>
+      <IepAppListCard :dataList="dataList"></IepAppListCard>
     </IepAppTabCard>
   </div>
 </template>
@@ -14,7 +10,7 @@ export default {
   data () {
     return {
       title: '学习资源',
-      learningResourcesList: [
+      dataList: [
         '关于项目验收表格材料标准化模板',
         '微服务设计入门',
         '微服务-框架',
@@ -28,35 +24,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.learningResourcesList {
-  .piece {
-    cursor: pointer;
-    height: 32px;
-    line-height: 32px;
-    position: relative;
-    padding-left: 15px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    &:hover {
-      color: #cb3737;
-      &:before {
-        background-color: #cb3737;
-      }
-    }
-    &:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 14px;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background-color: #999;
-    }
-  }
-}
-</style>

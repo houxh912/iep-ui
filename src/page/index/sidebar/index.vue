@@ -24,12 +24,12 @@ export default {
   mixins: [displayMixins],
   name: 'Sidebar',
   components: { sidebarItem, MainItem },
-  created () {
-    this.$store.dispatch('GetMenu').then(data => {
-      if (data.length === 0) return
-      this.$router.$avueRouter.formatRoutes(data, true)
-    })
-  },
+  // created () {
+  //   this.$store.dispatch('GetMenu').then(data => {
+  //     if (data.length === 0) return
+  //     this.$router.$avueRouter.formatRoutes(data, true)
+  //   })
+  // },
   computed: {
     ...mapGetters(['website', 'menu', 'mainMenu', 'otherMenus', 'menusMap', 'screen']),
     keyCollapse () {
@@ -59,9 +59,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .sub-menu-wrapper {
-  margin: 10px 0;
-  padding: 10px 0;
-  border-top: 2px solid #eee;
+  border-top: 1px solid #eee;
   .el-menu-item {
     margin-left: 0 !important;
     height: 40px;

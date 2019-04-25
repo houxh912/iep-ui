@@ -1,25 +1,20 @@
 <template>
   <div class="feedback">
-    <el-card class="index-card" shadow="never">
-        <div slot="header" class="clearfix">
-            <span class="cardTitle" style="font-size:18px;">{{title}}</span>
-            <el-button style="float: right; padding: 5px 0;" type="text">我要发表</el-button>
-        </div>
-        <div>
-            <div class="feedbackList">
-                <div v-for="(item,index) in feedbackList" :key="index" class="piece">
-                    <img :src="item.photo" class="photo">
-                    <div class="box">
-                        <div class="pieceTitle">
-                            <span class="name">{{item.name}}</span>
-                            <span class="time">{{item.time}}</span>
-                        </div>
-                        <p class="feed">{{item.feed}}</p>
+    <IepAppTabCard :title="title" :linkName="linkName">
+        <el-button style="float: right; padding: 5px 0;" type="text" slot="right">我要发表</el-button>
+        <div class="feedback-list">
+            <div v-for="(item,index) in feedbackList" :key="index" class="piece">
+                <img :src="item.photo" class="photo">
+                <div class="box">
+                    <div class="piece-title">
+                        <span class="name">{{item.name}}</span>
+                        <span class="time">{{item.time}}</span>
                     </div>
+                    <p class="feed">{{item.feed}}</p>
                 </div>
             </div>
         </div>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>
@@ -27,6 +22,7 @@ export default {
   data () {
     return {
         title:'意见反馈',
+        linkName:'',
         feedbackList: [
             {photo:require('./img/people1.png'),name:'姚静',time:'2019-04-08',feed:'版权所有应该改为“2004-2019”'},
             {photo:require('./img/people2.jpg'),name:'邵佳欢',time:'2019-04-03',feed:'内网的内部材料库，选择按上传者姓名搜索，搜索结果是空白的；选择按条件搜索，也是不全面的。比如选择人力学习类型，出来的列表是不全面的，有很多都没有，有时搜索结果是从2018年开始的列表。'},
@@ -37,7 +33,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.feedbackList{
+.feedback-list{
     .piece{
         margin-bottom: 20px;
         overflow: hidden;
@@ -52,7 +48,7 @@ export default {
             float: left;
             width: 450px;
             height: 68px;
-            .pieceTitle{
+            .piece-title{
                 .name{
                     font-size: 16px;
                     margin-right: 8px;
@@ -77,5 +73,16 @@ export default {
             margin-bottom: 12px;
         }
     }
+}
+</style>
+<style scoped>
+.index-card >>> .el-card__header {
+  padding: 18px 0;
+}
+.index-card >>> .el-card__body{
+  padding: 16px 0 0;
+}
+.el-card{
+  padding: 0 20px;
 }
 </style>

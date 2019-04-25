@@ -1,43 +1,36 @@
 <template>
   <div class="thoughts">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <div>
-        <div class="thoughtsList">
-          <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
-            <div class="img-con"><img :src="item.img" class="img"></div>
-            <div class="box">
-              <div class="pieceTitle">
-                <span class="name">{{item.name}}</span>
-                <span class="time">{{item.time}}</span>
-              </div>
-              <p class="feed">{{item.feed}}</p>
+      <div class="thoughts-list">
+        <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
+          <div class="img-con"><img :src="item.img" class="img"></div>
+          <div class="box">
+            <div class="piece-title">
+              <span class="name">{{item.name}}</span>
+              <span class="time">{{item.time}}</span>
             </div>
+            <p class="feed">{{item.feed}}</p>
           </div>
         </div>
       </div>
     </IepAppTabCard>
-    <el-card class="mutual-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="cardTitle">{{titleStar}}</span>
-        <el-button class="important" type="text">申请互助基金</el-button>
-      </div>
-      <div>
-        <div class="starList">
-          <div v-for="(item,index) in starList" :key="index" class="piece">
-            <div class="img-con"><img :src="item.img" class="img"></div>
-            <div class="box">
-              <div class="pieceTitle">
-                <span class="name">{{item.name}}</span>
-              </div>
-              <p class="job">{{item.job}}</p>
+    <IepAppTabCard :title="title" :linkName="linkName" class="mutual-card">
+      <el-button class="important" type="text" slot="right">申请互助基金</el-button>
+      <div class="star-list">
+        <div v-for="(item,index) in starList" :key="index" class="piece">
+          <div class="img-con"><img :src="item.img" class="img"></div>
+          <div class="box">
+            <div class="piece-title">
+              <span class="name">{{item.name}}</span>
             </div>
-            <div class="btn">
-              <el-button type="danger" plain>送上祝福</el-button>
-            </div>
+            <p class="job">{{item.job}}</p>
+          </div>
+          <div class="btn">
+            <el-button type="danger" plain>送上祝福</el-button>
           </div>
         </div>
       </div>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>
@@ -47,11 +40,11 @@ export default {
       title: '员工感想',
       titleStar: '今日寿星',
       thoughtsList: [
-        { img: '../img/person/p1.jpg', name: '张三', time: '2019-04-08', feed: '有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题有问题' },
-        { img: '../img/person/p2.jpg', name: '张三', time: '2019-04-08', feed: '有问题有问题有问题有问题有问题有问题有问题有问题' },
+        { img: '../img/person/p010.jpg', name: '奎永秀', time: '2019-02-25 15:30', feed: '认认真真做事，踏踏实实做人！' },
+        { img: '../img/person/p011.jpg', name: '谢海艳', time: '2019-04-08', feed: '项目有困难，我们更要有激情，有压力不要压抑，有危机感不要有焦虑感' },
       ],
       starList: [
-        { img: '../img/person/p1.jpg', name: '钟先生', job: '国脉集体研发中心' },
+        { img: '../img/person/p012.jpg', name: '钟乙乔', job: '国脉基因研发中心' },
       ],
       linkName: '',
     }
@@ -59,8 +52,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.thoughtsList,
-.starList {
+.thoughts-list,
+.star-list {
   .piece {
     display: flex;
     justify-content: flex-start;
@@ -86,7 +79,7 @@ export default {
       float: left;
       width: 224px;
       height: 64px;
-      .pieceTitle {
+      .piece-title {
         .name {
           font-size: 16px;
           margin-right: 8px;
@@ -115,10 +108,13 @@ export default {
     }
   }
 }
-.starList {
+.star-list {
   .piece {
     .box {
       width: 150px;
+    }
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 }
@@ -134,21 +130,18 @@ export default {
 }
 </style>
 <style scoped>
-.thoughts >>> .el-card__body {
-  padding: 15px;
-}
 .thoughts >>> .el-button {
   float: right;
   padding: 5px 0;
   color: #999;
 }
-.starList >>> .el-button {
+.star-list >>> .el-button {
   padding: 5px 15px;
   font-size: 12px;
   color: #cb3737;
 }
-.starList >>> .el-button:hover,
-.starList >>> .el-button:focus {
+.star-list >>> .el-button:hover,
+.star-list >>> .el-button:focus {
   background: #cb3737;
   border-color: #ba1b21;
   color: #fff;
@@ -156,6 +149,6 @@ export default {
 .mutual-card >>> .el-card__body {
   display: flex;
   align-items: center;
-  height: 133px;
+  height: 122px;
 }
 </style>

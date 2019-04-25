@@ -1,13 +1,9 @@
 <template>
-
   <div>
     <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
       <span class="count" :class="item.color">{{index+1}}</span>
       <span class="name">{{item.name}}</span>
-    </div>
-    <div class="todyInfo">
-      <span>今日公告：</span>
-      <span>2019第十三届湖南连锁加盟</span>
+      <img v-if="item.isShow" :src="item.imgSrc" alt="">
     </div>
   </div>
 </template>
@@ -17,10 +13,10 @@ export default {
   data () {
     return {
       leaderBoardList: [
-        { name: '首届长三角营商环境论坛在沪召开的', color: 'red' },
-        { name: '首届长三角营商环境论坛在沪召开的', color: '' },
-        { name: '首届长三角营商环境论坛在沪召开的', color: '' },
-        { name: '首届长三角营商环境论坛在沪召开的', color: '' },
+        { name: '首届长三角营商环境论坛在沪召开的', color: 'red',isShow:true,imgSrc:require('../images/banner1.png') },
+        { name: '首届长三角营商环境论坛在沪召开的', color: '',isShow:false },
+        { name: '首届长三角营商环境论坛在沪召开的', color: '',isShow:false },
+        { name: '首届长三角营商环境论坛在沪召开的', color: '' ,isShow:false},
       ],
     }
   },
@@ -28,14 +24,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 .piece {
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-bottom: 10px;
   cursor: pointer;
   .name {
-    height: 30px;
-    line-height: 30px;
+    height: 26px;
+    line-height: 26px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -45,7 +40,7 @@ export default {
     height: 18px;
     line-height: 18px;
     text-align: center;
-    margin-right: 20px;
+    margin-right: 15px;
     background-color: #ccc;
     color: #fff;
     display: inline-block;
@@ -60,11 +55,11 @@ export default {
   &:hover {
     color: #cb3737;
   }
-}
-.todyInfo {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background-color: #eee;
+  img{
+    display:block;
+    margin-top: 10px;
+    width:100%;
+    height:120px;
+  }
 }
 </style>

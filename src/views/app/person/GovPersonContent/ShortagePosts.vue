@@ -1,12 +1,9 @@
 <template>
-  <div class="leaderBoard">
-    <el-card class="index-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="title">{{title}}<span class="datas">{{data}}</span></span>
-        <div class="important">
-          <el-button type="text">争做伯乐</el-button>
-          <el-button type="text">申请转岗</el-button>
-        </div>
+  <div class="leader-board">
+    <IepAppTabCard :title="title" :linkName="linkName">
+      <div class="important" slot="right">
+        <el-button type="text">争做伯乐</el-button>
+        <el-button type="text">申请转岗</el-button>
       </div>
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="name" label="岗位名称" width="180">
@@ -20,7 +17,7 @@
         <el-table-column prop="demandDepartment" label="需求部门">
         </el-table-column>
       </el-table>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>
@@ -29,6 +26,7 @@ export default {
     return {
       title: '紧缺岗位',
       data: '（53个）',
+      linkName: '',
       tableData: [
         {
           name: 'java工程师',
@@ -74,6 +72,7 @@ export default {
 .title {
   font-size: 18px;
   .datas {
+    font-size: 16px;
     color: #999;
   }
 }
@@ -85,13 +84,13 @@ export default {
 .important >>> .el-button--text:hover {
   color: #f56c6c;
 }
-.leaderBoard >>> .el-table th {
+.leader-board >>> .el-table th {
   background-color: #fafafa;
 }
-.leaderBoard >>> .el-table tr {
+.leader-board >>> .el-table tr {
   cursor: pointer;
 }
-.leaderBoard >>> .el-card__body {
-  height: 343px;
+.leader-board >>> .el-card__body {
+  height: 332px;
 }
 </style>

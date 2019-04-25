@@ -12,6 +12,11 @@
         </el-form-item>
       </el-col>
       <el-col :span='8'>
+        <el-form-item label="测试地址：">
+          <div>{{form.website}}</div>
+        </el-form-item>
+      </el-col>
+      <el-col :span='8'>
         <el-form-item label="模块指导价：">
           <div>{{form.guidePrice}}</div>
         </el-form-item>

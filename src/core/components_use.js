@@ -70,6 +70,9 @@ import IepDeptMultiple from '@/components/IepDept/Multiple'
 import IepAppTabCard from '@/components/IepApp/TabCard'
 import IepAppTabsCard from '@/components/IepApp/TabsCard'
 import IepAppFooterBar from '@/components/IepApp/FooterBar'
+import IepAppListCard from '@/components/IepApp/ListCard'
+import IepAppRankingCard from '@/components/IepApp/RankingCard'
+import IepAppLabelCard from '@/components/IepApp/LabelCard'
 
 // 注册全局容器
 Vue.component(BasicContainer.name, BasicContainer)
@@ -141,3 +144,6 @@ Vue.component(IepDeptMultiple.name, IepDeptMultiple)
 Vue.component(IepAppTabCard.name, IepAppTabCard)
 Vue.component(IepAppTabsCard.name, IepAppTabsCard)
 Vue.component(IepAppFooterBar.name, IepAppFooterBar)
+Vue.component(IepAppListCard.name, IepAppListCard)
+Vue.component(IepAppRankingCard.name, IepAppRankingCard)
+Vue.component(IepAppLabelCard.name, IepAppLabelCard)

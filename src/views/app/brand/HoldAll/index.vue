@@ -39,11 +39,5 @@ export default {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-.iep-tabs >>> .el-tabs__nav-scroll {
-  padding: 24px 20px 0 20px;
-}
-.iep-tabs >>> .el-tabs__content {
-  padding: 0 20px 16px 20px;
-}
 </style>
 

@@ -51,9 +51,6 @@ export default {
 }
 </script>
 <style scoped>
-.iep-tabs >>> .el-tabs__nav-scroll {
-  padding: 24px 20px 0 20px;
-}
 .leaderBoard {
   grid-column-start: 1;
   grid-column-end: 4;

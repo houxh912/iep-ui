@@ -1,16 +1,13 @@
 <template>
   <div class="suggest">
-    <el-card class="index-card" shadow="never">
-        <div slot="header" class="clearfix">
-            <span class="cardTitle" style="font-size:18px;">{{title}}</span>
-            <el-button style="float: right; padding: 5px 0;" type="text">我要发表</el-button>
-        </div>
+    <IepAppTabCard :title="title" :linkName="linkName">
+        <el-button style="float: right; padding: 5px 0;" type="text" slot="right">我要发表</el-button>
         <div>
-            <div class="suggestList">
+            <div class="suggest-list">
                 <div v-for="(item,index) in suggestList" :key="index" class="piece">
                     <img :src="item.photo" class="photo">
                     <div class="box">
-                        <div class="pieceTitle">
+                        <div class="piece-title">
                             <span class="name">{{item.name}}</span>
                             <span class="time">{{item.time}}</span>
                         </div>
@@ -19,7 +16,7 @@
                 </div>
             </div>
         </div>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>
@@ -27,6 +24,7 @@ export default {
   data () {
     return {
         title:'意见反馈',
+        linkName: '',
         suggestList: [
             {photo:require('./img/suggest1.jpg'),name:'刘丹',time:'2019-04-08',feed:'版权所有应该改为“2004-2019”'},
             {photo:require('./img/suggest2.jpg'),name:'陈一萍',time:'2019-04-03',feed:'内网的内部材料库，选择按上传者姓名搜索，搜索结果是空白的；选择按条件搜索，也是不全面的。比如选择人力学习类型，出来的列表是不全面的，有很多都没有，有时搜索结果是从2018年开始的列表。'},
@@ -39,7 +37,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.suggestList{
+.suggest-list{
     .piece{
         margin-bottom: 20px;
         overflow: hidden;
@@ -54,7 +52,7 @@ export default {
             float: left;
             width: 260px;
             height: 68px;
-            .pieceTitle{
+            .piece-title{
                 .name{
                     font-size: 16px;
                     margin-right: 8px;

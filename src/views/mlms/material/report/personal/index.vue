@@ -27,7 +27,7 @@
 import TimeLine from '../timeline'
 import weeklyForm from './weekly'
 import monthlyForm from './monthly'
-import { createWeeks, getWeekOfYear, formatDig, getMonday, getWeekOfMonth } from '../util'
+import { createWeeks, getWeekOfYear, formatDig, getMonday, getDateObj } from '../util'
 import { getTableData } from '@/api/mlms/material/report/personal'
 
 export default {
@@ -63,8 +63,8 @@ export default {
       let date = this.searchData.date ? new Date(this.searchData.date) : new Date()
       // 获取到选中的时间，解析出来年月周
       let monday = new Date(getMonday(date).timeStamp)
-      this.timeLineOption.active = monday.getMonth() + 1
-      this.timeLineOption.activeChild = getWeekOfMonth(monday)
+      // this.timeLineOption.active = monday.getMonth() + 1
+      // this.timeLineOption.activeChild = getWeekOfMonth(monday)
       this.loadPage(monday, 'search')
     },
     actively (item, type) {
@@ -76,12 +76,13 @@ export default {
       // 点击月份进行数据的获取
       if (type == 'month') {
         this.params = new Date(item.timeStamp)
-        this.loadList(this.params)
+        this.loadList(this.params, '', true)
       }
     },
-    loadList (date, type) {
-      let month = date.getMonth() + 1
-      getTableData({ yearMonthTime: `${date.getFullYear()}-${formatDig(month)}` }).then((res) => {
+    loadList (date, type, isMonth) {
+      // let month = date.getMonth() + 1
+      let month = getDateObj(this.timeLineOption.list, date).month
+      getTableData({ yearMonthTime: `${date.getFullYear()}-${formatDig(13 - month)}` }).then((res) => {
         let obj = this.timeLineOption.list[month]
         let resObj = {}
         for (let index in obj.children) {
@@ -91,45 +92,21 @@ export default {
             if (timeStamp >= 0 && timeStamp < 7*24*60*60*1000 && t.reportType == 0) {
               this.timeLineOption.list[month].children[index] = Object.assign({}, obj.children[index], t)
             }
-            if (t.reportType == 1) {
+            if (t.reportType == 1) { // 月报
               resObj = t
             }
           }
         }
         obj = Object.assign({}, obj, resObj)
+        if (isMonth) {
+          this.formData = obj
+        }
         this.$set(this.timeLineOption.list, month, obj)
         // 是否是初次或者搜索
         if (type) {
           this.formData = this.timeLineOption.list[this.timeLineOption.active].children[this.timeLineOption.activeChild]
         }
       })
-    },
-    // 获取当前时间轴上面的月、周
-    getDate (row) {
-      let day = +this.today
-      let month = this.today.getMonth() + 1
-      let week = 0
-      let list = row[month]
-      // 两种情况，首先上个月的周报，timeStamp 应该是小于这个月最小的周的时间戳
-      for (let item of list.children) {
-        // 判断现在的时候距离这个礼拜的周一相差在一周之内
-        if (day > item.timeStamp+7*24*3600*1000) {
-          week++
-        } else  {
-          if (week == -1) {
-            // 上个月的最后一周
-            if (month == 1) {
-              // 上个月是去年的12月
-              return { month: 12, week: list.children.length-1 }
-            } else {
-              // month = month-1
-              return { month: month, week: list.children.length-1 }
-            }
-          } else {
-            return { month, week }
-          }
-        }
-      }
     },
     successSubmit () {
       this.loadList(this.params)
@@ -146,10 +123,13 @@ export default {
         this.$refs['timeline'].activeChild = this.timeLineOption.activeChild = 0
         this.contentType = 'week'
       } else if (type === 'search') {
-        this.$refs['timeline'].active = this.timeLineOption.active
-        this.$refs['timeline'].activeChild = this.timeLineOption.activeChild
+        let obj = getDateObj(list, date)
+        this.$refs['timeline'].active = this.timeLineOption.active = obj.month
+        this.$refs['timeline'].activeChild = this.timeLineOption.activeChild = obj.week
+        // this.$refs['timeline'].active = this.timeLineOption.active
+        // this.$refs['timeline'].activeChild = this.timeLineOption.activeChild
       } else {
-        let obj = this.getDate(list)
+        let obj = getDateObj(list, this.today)
         this.timeLineOption.active = obj.month
         this.timeLineOption.activeChild = obj.week
       }

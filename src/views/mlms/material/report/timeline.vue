@@ -10,27 +10,31 @@
         value-format="yyyy">
       </el-date-picker>
     </div>
-    <div class="item" v-for="(item, index) in option.list" :key=index>
-      <div class="before year" v-if="item.year" @click="chosenYear(item.year)">{{item.year}}年</div>
-      <div class="middle">
-        <div class="tail"></div>
-        <div class="date icon" v-if="item.year" @click="chosenYear(item.year)"><i class="icon-jiantouxiangyou"></i></div>
-        <div class="date" v-else @click="actively(index, 'month', item)" :class="active===index?'actively':''">{{item.date}}</div>
-        <div class="content">
-          <slot name="content" :row="item" :index="index"></slot>
-        </div>
-      </div>
-      <!-- 展开的子级 -->
-      <div v-if="active===index">
-        <div class="child" v-for="(child, i) in item.children" :key="i" :class="activeChild===i?'actively':''">
-          <div class="before" @click="actively(i, 'week', child)">
-            <div class="title" v-text="`第${toChinesNum(child.index)}周`"></div>
-            <div class="sub-title">{{child.startTime}} ~ {{child.endTime}}</div>
+    <div v-for="(item, index) in option.list" :key=index>
+      <div class="item" v-if="todayTime.timeStamp > item.timeStamp">
+        <div class="before year" v-if="item.year" @click="chosenYear(item.year)">{{item.year}}年</div>
+        <div class="middle">
+          <div class="tail"></div>
+          <div class="date icon" v-if="item.year" @click="chosenYear(item.year)"><i class="icon-jiantouxiangyou"></i></div>
+          <div class="date" v-else @click="actively(index, 'month', item)" :class="active===index?'actively':''">{{item.date}}</div>
+          <div class="content">
+            <slot name="content" :row="item" :index="index"></slot>
           </div>
-          <div class="middle">
-            <div class="tail"></div>
-            <div class="date" @click="actively(i, 'week', child)"><i class="spot"></i></div>
-            <div class="content"></div>
+        </div>
+        <!-- 展开的子级 -->
+        <div v-if="active===index">
+          <div v-for="(child, i) in item.children" :key="i">
+            <div class="child" :class="activeChild===i?'actively':''" v-if="todayTime.timeStamp > child.timeStamp">
+              <div class="before" @click="actively(i, 'week', child)">
+                <div class="title" v-text="`第${toChinesNum(child.index)}周`"></div>
+                <div class="sub-title">{{child.startTime}} ~ {{child.endTime}}</div>
+              </div>
+              <div class="middle">
+                <div class="tail"></div>
+                <div class="date" @click="actively(i, 'week', child)"><i class="spot"></i></div>
+                <div class="content"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -39,7 +43,7 @@
 </template>
 
 <script>
-import { toChinesNum } from './util'
+import { toChinesNum, getMonday } from './util'
 
 export default {
   name: 'timeline',
@@ -58,6 +62,7 @@ export default {
       active: active,
       activeChild: activeChild,
       selectYear: '',
+      todayTime: getMonday(new Date()),
     }
   },
   methods: {

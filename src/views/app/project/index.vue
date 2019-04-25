@@ -1,3 +1,3 @@
 <template>
-  <div>数据</div>
+  <iep-to-dev></iep-to-dev>
 </template>

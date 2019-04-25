@@ -31,9 +31,9 @@ export default {
       title: '优秀讲师',
       data: '（53位）',
       thoughtsList: [
-        { img: '../img/person/p1.jpg', name: '张三', level: '中级讲师', num: '培训次数：200', tags1: '组织管理', tags2: '智慧经济', tags3: '规划报告', tags4: '规划报告' },
-        { img: '../img/person/p2.jpg', name: '张三', level: '中级讲师', num: '培训次数：300', tags1: '技术研发', tags2: '数据基因', tags3: '前端', tags4: 'Java' },
-        { img: '../img/person/p2.jpg', name: '张三', level: '高级讲师', num: '培训次数：248', tags1: '组织管理', tags2: '智慧经济', tags3: '规划报告', tags4: '规划报告' },
+        { img: '../img/person/p013.jpg', name: '杨冰之', level: '顶级讲师', num: '培训次数：365', tags1: '组织管理', tags2: '智慧经济', tags3: '规划报告', tags4: '规划报告' },
+        { img: '../img/person/p8.jpg', name: '邵琦凯', level: '中级讲师', num: '培训次数：53', tags1: '技术研发', tags2: '数据基因', tags3: '前端', tags4: 'Java' },
+        { img: '../img/person/p014.jpg', name: '江作敏', level: '高级讲师', num: '培训次数：248', tags1: '微服务', tags2: '需求梳理', tags3: '数据基因', tags4: '咨询服务' },
       ],
       linkName: '',
     }

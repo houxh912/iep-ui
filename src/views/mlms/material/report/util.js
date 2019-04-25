@@ -138,7 +138,8 @@ export function toChinesNum (num) {
 
 // 获取全年的周数
 export function createWeeks (year){
-  let arr = [{ year: `${year}` }]
+  // let arr = [{ year: `${year}` }]
+  let arr = []
   let index = 1
   const ONE_DAY = 24 * 3600 * 1000
   // 首先计算第一个礼拜一的日期，从这一天开始计算星期
@@ -170,7 +171,7 @@ export function createWeeks (year){
     timeStamp: (+new Date(year, mIndex, 1)),
     children: [],
   }
-  mObj.children.push(obj)
+  mObj.children.unshift(obj)
   index++
   startTime = endTime + ONE_DAY
   endTime = endTime + 7 * ONE_DAY
@@ -185,7 +186,7 @@ export function createWeeks (year){
     }
     // 若月份变大，首先将原有的月份对象放入数组中，再重新生成新月份
     if (mIndex < obj.month) {
-      arr.push(mObj)
+      arr.unshift(mObj)
       ++mIndex
       mObj = {
         date: `${mIndex+1}月`,
@@ -194,18 +195,18 @@ export function createWeeks (year){
         children: [],
       }
     }
-    mObj.children.push(obj)
+    mObj.children.unshift(obj)
     index++
     startTime = endTime + ONE_DAY
     endTime = endTime + 7 * ONE_DAY
   }
   // 最后一个月，需要计算最后一天是哪一天，进行补全
-  let lastN = 6 - (da.getDay() + 6) % 7
+  let lastN = 6 - ((new Date(startTime)).getDay() + 6) % 7
   if (lastN > 0) {
     // 若为0，则不需要补全，不为0年份加一，月份为0
     end = new Date(year+1, 0, lastN)
   }
-  mObj.children.push({
+  mObj.children.unshift({
     index: index,
     month: getMonth(startTime),
     startTime: formatDate(startTime),
@@ -213,7 +214,8 @@ export function createWeeks (year){
     title: '第'+toChinesNum(index)+'周',
     timeStamp: +startTime,
   })
-  arr.push(mObj)
+  arr.unshift(mObj)
+  arr.unshift({ year: `${year}` })
   index++
   return arr
 }
@@ -235,10 +237,42 @@ export function getWeekStartAndEnd (day) {
 // 根据传入的时间获取周一
 export function getMonday (date) {
   let today = new Date(formatYear(date))
-  let index = today.getDay() - 1
+  // let index = today.getDay() - 1
+  let index = today.getDay() == 0 ? 6 : today.getDay() - 1
   let monday = new Date(+today - index*24*3600*1000)
   return {
     timeStamp: +monday,
     time: formatYear(monday),
   }
+}
+
+// 返回当前月和周的排序 - 倒叙
+export function getDateObj (row, date) {
+  let day = +date
+  let month = date.getMonth() + 1
+  let week = 0
+  let list = row[13 - month]
+  // 两种情况，首先上个月的周报，timeStamp 应该是小于这个月最小的周的时间戳
+  for (let item of list.children) {
+    // 判断现在的时候距离这个礼拜的周一相差在一周之内
+    // if (day > item.timeStamp+7*24*3600*1000) {
+    // 因为是倒叙获取的，所以判断的应该是比第一天小
+    if (day < item.timeStamp) {
+      week++
+    } else {
+      if (week == -1) {
+        // 上个月的最后一周
+        if (month == 1) {
+          // 上个月是去年的12月
+          return { month: (13 - 12), week: list.children.length-1 }
+        } else {
+          // month = month-1
+          return { month: (13 - month), week: list.children.length-1 }
+        }
+      } else {
+        return { month: (13 - month), week }
+      }
+    }
+  }
+  return { month: (13 - month), week }
 }

@@ -11,9 +11,10 @@ const dictsMap = {
     5: '其他',
     6: '离职员工',
   },
-  lockFlag: {
+  lockOrg: {
     0: '正常',
-    9: '锁定',
+    1: '审核中',
+    2: '锁定',
   },
 }
 
@@ -147,11 +148,11 @@ const columnsMap = [
     key: 'userStatus',
   },
   {
-    prop: 'lockFlag',
+    prop: 'lockOrg',
     label: '锁定状态',
     type: 'dict',
     hidden: false,
-    key: 'lockFlag',
+    key: 'lockOrg',
   },
   {
     prop: 'IDCard',

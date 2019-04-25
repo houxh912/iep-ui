@@ -233,15 +233,10 @@ const user = {
     },
     // 获取系统菜单
     GetMenu ({ commit, state }) {
-      commit('SET_MENU', [])
-      commit('SET_MAINMENU', {})
-      commit('SET_OTHERMENUS', [])
-      commit('SET_MENUSMAP', {})
       commit('SET_MENUPATHLIST', [])
       return new Promise(resolve => {
-        GetMenu().then(res => {
-          const data = res.data.data
-          let menu = deepClone(data)
+        GetMenu().then(({ data }) => {
+          let menu = deepClone(data.data)
           menu.forEach(ele => {
             addPath(ele)
           })

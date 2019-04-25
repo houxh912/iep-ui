@@ -1,17 +1,14 @@
 <template>
   <div class="resources">
-    <el-card class="index-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="cardTitle">{{title}}</span>
-        <el-button class="btn" type="text">换一批</el-button>
-      </div>
+    <IepAppTabCard :title="title" :linkName="linkName">
+      <el-button class="btn" type="text" slot="right">换一批</el-button>
       <div>
         <div class="classify">
           <span class="sub-title">分类：</span>
-          <span class="appellation" v-for="name in nameList" :key="name.id">{{name.name}}<span class="data-con">{{name.data}}</span></span>
+          <span class="pieceDeletion" v-for="(name,index) in nameList" :key="index" :class="showClass1==index?'color':''" @click="tab1(index)">{{name.name}}<span class="data-con">{{name.data}}</span></span>
         </div>
         <div class="resourcesList">
-          <div v-for="(item,index) in resourcesList" :key="index" class="piece">
+          <div v-for="(item,index) in resourcesList" :key="index" class="piece"  @click="handleOpen()">
             <div class="img-con"><img :src="item.img" class="img" alt=""></div>
             <div class="text">
               <span class="name">{{item.name}}</span>
@@ -20,53 +17,60 @@
           </div>
         </div>
       </div>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>
 export default {
   data () {
     return {
+      showClass1: 0,
       title: '光彩国脉人',
+      linkName:'',
       nameList: [
         {
-          id: '1',
           name: '技术之星',
           data: '(2人)',
         },
         {
-          id: '2',
           name: '品牌达人',
           data: '(11人)',
         },
         {
-          id: '3',
           name: '销售达人',
           data: '(56人)',
         },
         {
-          id: '4',
           name: '材料达人',
           data: '(34人)',
         },
         {
-          id: '5',
           name: '贡献达人',
           data: '(13人)',
         },
       ],
       resourcesList: [
-        { img: '../img/person/p1.jpg', name: '江江', department: '北方区业务一部' },
-        { img: '../img/person/p2.jpg', name: '江江', department: '海南办事处' },
-        { img: '../img/person/p1.jpg', name: '江江', department: '国脉集团研发中心' },
-        { img: '../img/person/p1.jpg', name: '江江', department: '国脉先锋队' },
-        { img: '../img/person/p1.jpg', name: '江江', department: '国脉海洋信息发展有限公司' },
-        { img: '../img/person/p1.jpg', name: '江江', department: '国脉先锋队' },
-        { img: '../img/person/p1.jpg', name: '江江', department: '国脉先锋队' },
-        { img: '../img/person/p1.jpg', name: '江江', department: '国脉先锋队' },
-        { img: '../img/person/p2.jpg', name: '吴吴', department: '国脉先锋队' },
+        { img: '../img/person/p01.jpg', name: '李凯', department: '北方区业务一部' },
+        { img: '../img/person/p02.jpg', name: '符恩祖', department: '海南办事处' },
+        { img: '../img/person/p03.jpg', name: '张小燕', department: '北方业务一部' },
+        { img: '../img/person/p04.jpg', name: '洪琼', department: '湖南国脉原道数据科技有限公司（衡阳办事处、长沙）' },
+        { img: '../img/person/p05.jpg', name: '阮晨光', department: '国脉集团研发中心' },
+        { img: '../img/person/p06.jpg', name: '杜照鸿', department: '国脉集团研发中心' },
+        { img: '../img/person/p07.jpg', name: '张兵', department: '国脉集团研发中心' },
+        { img: '../img/person/p08.jpg', name: '何舟杰', department: '国脉先锋队' },
+        { img: '../img/person/p09.jpg', name: '潘超巧', department: '国脉先锋队' },
       ],
     }
+  },
+  methods: {
+    tab1 (val) {
+      this.showClass1 = val
+    },
+    handleOpen () {
+      this.$router.push({
+        path: '/app/personal_style',
+      })
+    },
   },
 }
 </script>
@@ -83,18 +87,24 @@ export default {
       border-color: #cb3737;
     }
   }
-  .appellation {
+  .pieceDeletion {
+    display: inline;
+    padding: 2px 10px;
+    border-radius: 12px;
+    border: 1px solid #ffffff;
     margin: 0 10px;
-    padding: 5px 15px;
-    border-radius: 20px;
-    border: 1px solid #fff;
     cursor: pointer;
-    &:hover,
-    &:focus {
-      color: #cb3737;
-      background: #fef0f0;
-      border-color: #cb3737;
+    transition: all 0.5s;
+    &:hover {
+      background-color: #fef6f4;
+      border: 1px solid #dc8687;
+      color: #dc8687;
     }
+  }
+  .color {
+    background-color: #fef6f4;
+    border: 1px solid #dc8687;
+    color: #dc8687;
   }
 }
 .resourcesList {
@@ -110,7 +120,6 @@ export default {
     justify-content: flex-start;
     width: 100%;
     height: 60px;
-    overflow: hidden;
     cursor: pointer;
     &:hover {
       opacity: 0.7;
@@ -131,6 +140,7 @@ export default {
     }
     .text {
       margin-left: 20px;
+      width: 70%;
     }
     .department {
       display: block;

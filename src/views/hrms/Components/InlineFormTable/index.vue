@@ -8,6 +8,7 @@
             <!-- <iep-date-picker v-else-if="item.type === 'daterange'" type="daterange" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label"></iep-date-picker>
             TODO: daterange
              -->
+            <iep-upload-select v-else-if="item.type === 'file'" size="mini" v-model="scope.row[item.prop]"></iep-upload-select>
             <iep-dict-select v-else-if="item.type === 'dict'" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label" :dict-name="item.dictName"></iep-dict-select>
             <el-input v-else maxlength="100" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label"></el-input>
           </template>
@@ -16,6 +17,7 @@
             <!-- <iep-date-range-detail v-else-if="item.type === 'daterange'" :value="scope.row[item.prop]"></iep-date-range-detail> 
             TODO: daterange
             -->
+            <iep-upload-select v-else-if="item.type === 'file'" size="mini" v-model="scope.row[item.prop]" disabled></iep-upload-select>
             <iep-div-detail v-else-if="item.type === 'date'" :value="scope.row[item.prop] | parseTime('{y}-{m}-{d}')"></iep-div-detail>
             <iep-div-detail v-else :value="scope.row[item.prop]"></iep-div-detail>
           </template>

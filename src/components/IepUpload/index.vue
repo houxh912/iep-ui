@@ -61,6 +61,7 @@ export default {
           id: res.data.id,
         }
         this.fileList.push(formatFile)
+        this.$emit('on-finish', this.fileList)
       }
     },
     handleRemove (file) {

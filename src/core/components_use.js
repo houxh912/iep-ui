@@ -46,6 +46,7 @@ import IepImgAvatar from '@/components/IepImg/ImgAvatar'
 import IepImg from '@/components/IepImg/index'
 import IepUpload from '@/components/IepUpload/index'
 import IepDownload from '@/components/IepUpload/Download'
+import IepUploadSelect from '@/components/IepUpload/Select'
 
 // 弹出层相关组件
 import IepDialog from '@/components/IepDialog/'
@@ -120,6 +121,7 @@ Vue.component(IepImg.name, IepImg)
 Vue.component(IepUpload.name, IepUpload)
 Vue.component(IepAvatar.name, IepAvatar)
 Vue.component(IepDownload.name, IepDownload)
+Vue.component(IepUploadSelect.name, IepUploadSelect)
 
 // 弹出层相关组件
 Vue.component(IepDialog.name, IepDialog)

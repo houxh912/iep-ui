@@ -93,7 +93,7 @@ export default {
     //   this.multipleSelection = val.map(m => m.id)
     // },
     loadPage (param) {
-      this.loadTable(param, gomsNoJoinUserPage)
+      this.loadTable({...param,...this.searchForm}, gomsNoJoinUserPage)
     },
     close () {
       this.selectUserList = []

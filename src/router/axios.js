@@ -1,6 +1,7 @@
 import { serialize } from '@/util/util'
 import { getStore } from '../util/store'
 import axios from 'axios'
+import qs from 'qs'
 import NProgress from 'nprogress' // progress bar
 import errorCode from '@/const/errorCode'
 import { Message } from 'element-ui'
@@ -40,6 +41,13 @@ axios.interceptors.request.use(
       config.data = serialize(config.data)
       delete config.data.serialize
     }
+    if (config.methods === 'get') {
+      config.paramsSerializer = function (params) {
+        return qs.stringify(params, {
+          arrayFormat: 'brackets',
+        })
+      }
+    }
     return config
   },
   error => {
@@ -68,10 +76,12 @@ axios.interceptors.response.use(
       //   router.push({ path: '/500' })
       //   return
     } else if (status !== 200 || res.data.code === 1) {
-      Message({
-        message: message,
-        type: 'error',
-      })
+      if (process.env.NODE_ENV === 'development') {
+        Message({
+          message: message,
+          type: 'error',
+        })
+      }
       return Promise.reject(new Error(message))
     } else {
       return res

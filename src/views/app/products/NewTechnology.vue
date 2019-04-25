@@ -1,11 +1,11 @@
 <template>
-  <div class="newTehnology">
+  <div class="new-tehnology">
     <iepAppTabCard :title="title">
-      <div class="newTehnologyTab">
+      <div class="new-tehnology-tab">
         分类：
-        <div v-for="(item,index) in newTehnologyTab" :key="index" class="pieceTab" :class="showClass==index?'color':''" @click="tab(index)">{{item}}</div>
+        <div v-for="(item,index) in newTehnologyTab" :key="index" class="piece-tab" :class="showClass==index?'color':''" @click="tab(index)">{{item}}</div>
       </div>
-      <div class="newTehnologyContent">
+      <div class="new-tehnology-content">
         <div v-for="(item,index) in newTehnologyContent" :key="index" class="piece">
           <img :src="item.img" alt="">
           <div class="text">
@@ -44,13 +44,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.newTehnology {
+.new-tehnology {
   grid-column-start: 1;
   grid-column-end: 3;
-  .newTehnologyTab {
+  .new-tehnology-tab {
     width: 100%;
     height: 40px;
-    .pieceTab {
+    .piece-tab {
       display: inline;
       padding: 2px 10px;
       border-radius: 12px;
@@ -69,7 +69,7 @@ export default {
       color: #dc8687;
     }
   }
-  .newTehnologyContent {
+  .new-tehnology-content {
     display: grid;
     grid-auto-flow: row dense;
     grid-row-gap: 10px;

@@ -11,9 +11,10 @@ const dictsMap = {
     5: '其他',
     6: '离职员工',
   },
-  lockFlag: {
+  lockOrg: {
     0: '正常',
-    1: '锁定',
+    1: '审核中',
+    2: '锁定',
   },
 }
 
@@ -45,6 +46,7 @@ const initForm = () => {
     deptList: [], // 所属部门
     deptIds: [], // 所属部门
     dept: [], // 所属部门
+    deptQm: '', // 资产所属组织
     birthday: null, // 出生年月
     sex: null, // 性别
     sexName: null, // 性别
@@ -144,6 +146,13 @@ const columnsMap = [
     type: 'dict',
     hidden: false,
     key: 'userStatus',
+  },
+  {
+    prop: 'lockOrg',
+    label: '锁定状态',
+    type: 'dict',
+    hidden: false,
+    key: 'lockOrg',
   },
   {
     prop: 'IDCard',
@@ -365,7 +374,8 @@ const initDtoSearchForm = () => {
     city: '',
     startTime: '',
     endTime: '',
-    status: [],
+    status: '',
+    lockFlag: '',
   }
 }
 const toDtoSearchForm = (row) => {
@@ -478,7 +488,7 @@ const rules = {
     { required: true, message: '请填写生育状况', trigger: 'blur' },
   ],
   language: [
-    { required: true, message: '请填写外语水平', trigger: 'blur' },
+    { required: false, message: '请填写外语水平', trigger: 'blur' },
   ],
   education: [
     { required: true, message: '请填写最高学历', trigger: 'blur' },

@@ -31,14 +31,6 @@
           </div>
         </el-col>
         <el-col :span='12'>
-          <div class="top">
-            <span>客户增长统计</span>
-            <div class="inline">
-              <el-radio-group v-model="type" size="mini" @change="changeType">
-                <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
-              </el-radio-group>
-            </div>
-          </div>
           <div class="echarts">
             <increase></increase>
           </div>
@@ -61,7 +53,6 @@ export default {
     return {
       number: '',
       type: '1',
-      tabList: [{ label: '按周', value: '1' }, { label: '按月', value: '2' }, { label: '季度', value: '3' }, { label: '年度', value: '4' }],
       current: 1,
     }
   },
@@ -71,10 +62,6 @@ export default {
     })
   },
   methods: {
-    changeType () {
-      this.$message.success('功能开发中')
-
-    },
     searchPage () {
       this.$message.success('功能开发中')
     },

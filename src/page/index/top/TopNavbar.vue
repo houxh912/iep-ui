@@ -55,15 +55,14 @@ export default {
           id: '/app/brand',
           name: '品牌',
         }, {
-        //   id: '/app/news',
-        //   name: '要闻',
-        // }, {
+          //   id: '/app/news',
+          //   name: '要闻',
+          // }, {
           id: '/app/data',
           name: '数据',
-        }, {
-        //   id: '/app/wealth',
-        //   name: '财富',
-        // }, {
+          // }, {
+          //   id: '/app/wealth',
+          //   name: '财富',
         },
       ],
     }

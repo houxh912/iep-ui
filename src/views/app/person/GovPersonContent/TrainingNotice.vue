@@ -1,7 +1,7 @@
 <template>
-  <div class="trainingCon">
+  <div class="training-con">
     <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
-      <div class="trainingNotice">
+      <div class="training-notice">
         <div v-for="(item,index) in trainingNotice" :key="index" class="piece">
           <span class="name">{{item.name}}</span>
           <span class="time">{{item.time}}</span>
@@ -18,19 +18,19 @@ export default {
       data: '（10条）',
       trainingNotice: [
         { name: '数据基因产品培训服务', time: '2019-04-03' },
-        { name: '服务数据基因', time: '2019-03-03' },
-        { name: 'DIPS数据基因', time: '2019-04-03' },
-        { name: '数据基因数据基因', time: '2019-04-03' },
-        { name: '大数据数据基因', time: '2019-04-03' },
-        { name: '规划与咨询数据基因', time: '2019-01-03' },
-        { name: '项目管理数据基因', time: '2019-04-03' }],
+        { name: 'JAVA高级开发架构师课程', time: '2019-03-03' },
+        { name: 'H5前端基础入门教程', time: '2019-04-03' },
+        { name: '营商通培训', time: '2019-04-03' },
+        { name: '数据基因微服务部署', time: '2019-04-03' },
+        { name: '性能测试培训', time: '2019-01-03' },
+        { name: '网络安全培训', time: '2019-04-03' }],
       linkName: '',
     }
   },
 }
 </script>
 <style lang="scss" scoped>
-.trainingNotice {
+.training-notice {
   .piece {
     cursor: pointer;
     position: relative;
@@ -70,7 +70,7 @@ export default {
 }
 </style>
 <style scoped>
-.trainingCon >>> .el-card__body {
-  height: 280px;
+.training-con >>> .el-card__body {
+  height: 270px;
 }
 </style>

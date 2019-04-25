@@ -1,16 +1,14 @@
 <template>
   <div>
     <keep-alive>
-      <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-        <el-tab-pane label="拜访日志" name="visit">
-          <!--拜访日志-->
-          <visit :record="record" @async="async"></visit>
-        </el-tab-pane>
-        <el-tab-pane label="联系记录" name="contact">
-          <!-- 联系记录 -->
-          <contact :record="record" @async="async"></contact>
-        </el-tab-pane>
-      </el-tabs>
+      <iep-tabs v-model="activeTab" :tab-list="tabList">
+        <template v-if="activeTab ==='visit'" v-slot:visit>
+          <visit :record="record" v-loading="activeTab !=='visit'" @async="async"></visit>
+        </template>
+        <template v-if="activeTab ==='contact'" v-slot:contact>
+          <contact :record="record" v-loading="activeTab !=='contact'" @async="async"></contact>
+        </template>
+      </iep-tabs>
     </keep-alive>
   </div>
 </template>
@@ -23,7 +21,14 @@ export default {
   components: { Visit, Contact },
   data () {
     return {
-      activeName: 'visit',
+      activeTab: 'visit',
+      tabList: [{
+        label: '拜访日志',
+        value: 'visit',
+      }, {
+        label: '联系记录',
+        value: 'contact',
+      }],
     }
   },
   props: {

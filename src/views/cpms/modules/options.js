@@ -27,6 +27,7 @@ const initForm = () => {
     number: '', // 编号
     name: '', // 名称
     type: '', // 类别
+    website: '', // 测试地址
     guidePrice: '', // 模块指导价
     preferentialPrice: '', // 模块优惠价
     synopsis: '', // 简介
@@ -88,6 +89,9 @@ const rules = {
   ],
   type: [
     { required: true, message: '请选择模块分类', trigger: 'blur' },
+  ],
+  website: [
+    { required: true, message: '请选择测试地址', trigger: 'blur' },
   ],
   guidePrice: [
     { required: true, message: '请填写模块指导价', trigger: 'blur' },

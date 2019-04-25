@@ -27,20 +27,17 @@ export default {
     },
     async loadTable (param, requestFn, fn = m => m) {
       this.isLoadTable = true
-      return await requestFn({ ...param, ...this.pageOption }).then(
-        ({ data }) => {
-          const { records, size, total, current } = data.data
-          const isBug = total / size + 1 === current
-          if (isBug && total !== 0) {
-            this.searchPage() // 防止分页为空页的情况
-          } else {
-            this.pagination = { current, size, total }
-          }
-          this.pagedTable = records.map(fn)
-          this.isLoadTable = false
-          return data.data
-        }
-      )
+      const { data } = await requestFn({ ...param, ...this.pageOption })
+      const { records, size, total, current } = data.data
+      const isBug = total / size + 1 === current
+      if (isBug && total !== 0) {
+        this.searchPage() // 防止分页为空页的情况
+      } else {
+        this.pagination = { current, size, total }
+      }
+      this.pagedTable = records.map(fn)
+      this.isLoadTable = false
+      return data.data
     },
     handleSizeChange (val) {
       this.pageOption.size = val
@@ -79,7 +76,7 @@ export default {
         })
       })
     },
-    _handleGlobalAll (optFunction, opt = 'delete') {
+    async _handleGlobalAll (optFunction, opt = 'delete') {
       let Ids = this.multipleSelection
       const optName = optNameMap[opt]
       if (Ids === undefined || Ids.length === 0) {
@@ -90,22 +87,21 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
-      }).then(() => {
-        optFunction(Ids).then(res => {
-          if (res.data.data) {
-            this.$message({
-              type: 'success',
-              message: `${optName}成功!`,
-            })
-            this.pageOption = this._pageOption()
-          } else {
-            this.$message({
-              type: 'info',
-              message: `${optName}失败，${res.data.msg}`,
-            })
-          }
-          this.loadPage()
-        })
+      }).then(async () => {
+        const { data } = await optFunction(Ids)
+        if (data.data) {
+          this.$message({
+            type: 'success',
+            message: `${optName}成功!`,
+          })
+          this.pageOption = this._pageOption()
+        } else {
+          this.$message({
+            type: 'info',
+            message: `${optName}失败，${data.msg}`,
+          })
+        }
+        this.loadPage()
       })
     },
     _handleComfirm (id, optFunction, msg, detailMsg, feelbackMsg) {
@@ -113,30 +109,26 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
-      })
-        .then(() => {
-          optFunction(id).then(res => {
-            const { data } = res
-            if (data.data) {
-              this.$message({
-                type: 'success',
-                message: feelbackMsg || `${msg}成功!`,
-              })
-            } else {
-              this.$message({
-                type: 'info',
-                message: `${data.msg}`,
-              })
-            }
-            this.loadPage()
+      }).then(async () => {
+        const { data } = await optFunction(id)
+        if (data.data) {
+          this.$message({
+            type: 'success',
+            message: feelbackMsg || `${msg}成功!`,
           })
-        })
-        .catch(() => {
+        } else {
           this.$message({
             type: 'info',
-            message: `已取消${msg}`,
+            message: `${data.msg}`,
           })
+        }
+        this.loadPage()
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: `已取消${msg}`,
         })
+      })
     },
     cell ({ column }) {
       if (

@@ -35,11 +35,5 @@ export default {
 }
 </script>
 <style scoped>
-.iep-tabs >>> .el-tabs__nav-scroll {
-  padding: 24px 20px 0 20px;
-}
-.iep-tabs >>> .el-tabs__content {
-  padding: 0 20px 20px 20px;
-}
 </style>
 

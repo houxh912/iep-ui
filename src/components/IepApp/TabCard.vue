@@ -2,7 +2,9 @@
   <el-card class="index-card" shadow="never">
     <div slot="header" class="clearfix">
       <span class="title">{{title}}<span class="datas">{{data}}</span></span>
+      <slot name="statistics"></slot>
       <el-button class="btn" type="text" v-if="isMore" @click="getMore">更多></el-button>
+      <slot name="right"></slot>
     </div>
     <slot></slot>
   </el-card>
@@ -46,6 +48,7 @@ export default {
 .title {
   font-size: 18px;
   color: #303133;
+  margin: 0 4px;
 }
 .btn {
   float: right;
@@ -56,7 +59,17 @@ export default {
   font-size: 16px;
   color: #999;
 }
-
+</style>
+<style scoped>
+.index-card >>> .el-card__header {
+  padding: 18px 0;
+}
+.index-card >>> .el-card__body {
+  padding: 16px 0;
+}
+.el-card{
+  padding: 0 20px;
+}
 </style>
 
 

@@ -1,8 +1,8 @@
 <template>
   <div>
     <brand-header></brand-header>
+    <brand-info></brand-info>
     <div class="gird-brand">
-      <brand-info></brand-info>
       <brand-banner></brand-banner>
       <brand-ten></brand-ten>
       <focus-news></focus-news>
@@ -43,7 +43,7 @@ import BrandResult from './BrandResult'
 import BrandVideo from './BrandVideo'
 import BrandCertificates from './BrandCertificates'
 import HoldAll from './HoldAll'
-import DataBase from './DataBase'
+import DataBase from './DataBase/index'
 export default {
   components: {
     BrandHeader,
@@ -81,9 +81,9 @@ export default {
   grid-auto-flow: row dense;
   grid-row-gap: 20px;
   grid-column-gap: 20px;
-  grid-template-columns: minmax(100px, 28fr) minmax(100px, 55fr) minmax(
+  grid-template-columns: minmax(100px, 32fr) minmax(100px, 55fr) minmax(
       100px,
-      28fr
+      32fr
     );
 }
 .el-tabs__item {

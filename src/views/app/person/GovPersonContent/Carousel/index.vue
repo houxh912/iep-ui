@@ -50,29 +50,24 @@ export default {
   },
 }
 </script>
-<style scoped>
-.iep-tabs >>> .el-tabs__nav-scroll {
-  padding: 10px 20px 1px;
-}
-.iep-tabs >>> .el-tabs__nav {
-  line-height: 53px;
-}
-.iep-tabs >>> .el-tabs__item {
-  font-size: 18px;
-}
-</style>
 <style lang="scss">
 .el-carousel {
   overflow: hidden;
+  .el-carousel__arrow--left {
+    left: 0;
+  }
+  .el-carousel__arrow--right {
+    right: 0;
+  }
 }
 .department-con {
   margin: 18px 0;
-  padding: 0 80px;
+  padding: 0 40px;
   white-space: nowrap;
   overflow: hidden;
   .department-list {
     display: inline-block;
-    margin: 0 15px;
+    margin: 0 16px;
     width: 22%;
     overflow: hidden;
     height: 200px;

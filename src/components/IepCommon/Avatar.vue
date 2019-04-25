@@ -1,14 +1,13 @@
 <template>
   <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :headers="headers" :show-file-list="false" :on-success="handleAvatarSuccess">
     <div class="no-avatar-wrapper">
-      <a-avatar v-if="value" :size="64" :src="avatarUrl"></a-avatar>
-      <a-avatar v-else :size="64" icon="user"></a-avatar>
+      <a-avatar v-if="isShow" :size="64" shape="square" :src="value"></a-avatar>
+      <a-avatar v-if="!isShow" shape="square" :size="64" icon="user"></a-avatar>
       <div class="intro-text">建议尺寸：300px * 300px 的等比图片</div>
     </div>
   </el-upload>
 </template>
 <script>
-import { imgUrl } from '@/config/env'
 import store from '@/store'
 export default {
   name: 'IepAvatar',
@@ -26,16 +25,9 @@ export default {
     }
   },
   computed: {
-    avatarUrl: {
-      // getter
-      get: function () {
-        return imgUrl + this.value
-      },
-      // setter
-      set: function (newValue) {
-        const url = newValue.replace(imgUrl, '')
-        this.$emit('input', url)
-      },
+    isShow () {
+      if (this.value.startsWith('//')) return true
+      else return false
     },
   },
   methods: {

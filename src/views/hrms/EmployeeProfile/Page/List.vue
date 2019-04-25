@@ -52,7 +52,7 @@
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="handleEdit(scope.row)">修改</el-dropdown-item>
-                  <el-dropdown-item>分享</el-dropdown-item>
+                  <!-- <el-dropdown-item>分享</el-dropdown-item> -->
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>

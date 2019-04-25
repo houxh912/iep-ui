@@ -35,11 +35,8 @@ export default {
   position: relative;
   padding: 0;
 }
-.iep-tabs >>> .el-tabs__nav-scroll {
-  padding: 10px 20px 1px;
-}
 .btn {
-  line-height:53px;
+  line-height: 53px;
   position: absolute;
   right: 20px;
   top: 0px;
@@ -47,5 +44,16 @@ export default {
   color: #999;
   z-index: 3;
 }
+.index-card >>> .el-tabs__nav {
+  line-height: 53px;
+}
+.index-card >>> .el-tabs__item {
+  font-size: 18px;
+}
+.index-card >>> .el-card__body {
+  padding: 10px 0 15px;
+}
+.el-card{
+  padding: 0 20px;
+}
 </style>
-

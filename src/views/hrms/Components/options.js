@@ -73,6 +73,7 @@ const certificateColumns = [
   {
     prop: 'annex',
     label: '附件',
+    type: 'file',
   },
 ]
 

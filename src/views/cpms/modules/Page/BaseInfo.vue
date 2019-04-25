@@ -29,7 +29,7 @@
     </el-row>
     <el-row>
       <el-col>
-        <el-form-item label="详细介绍：">
+        <el-form-item label="模块介绍：">
           <div>{{form.description}}</div>
         </el-form-item>
       </el-col>

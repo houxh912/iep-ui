@@ -36,6 +36,7 @@ export default {
     return {
       title1: '技术之星',
       title2: '上月最佳',
+      linkName: '',
       technologyList: [
         { img: require('./img/optimal1.jpg'), name: '钟乙乔', department: '集团研发中心', label: '需求分析/原型设计/知识图谱' },
         { img: require('./img/optimal2.jpg'), name: '张灵', department: '国脉集团研发中心运维组', label: 'DNA运维/环境配置/服务器部署' },

@@ -26,6 +26,7 @@ export default {
     return {
       showClass1: 0,
       title: '光彩国脉人',
+      linkName:'',
       nameList: [
         {
           name: '技术之星',

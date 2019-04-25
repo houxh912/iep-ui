@@ -1,7 +1,7 @@
 <template>
   <div class="videoCenter">
     <IepAppTabCard :title="title" :linkName="linkName">
-      <div class="videoCenterList">
+      <div class="videoCenter-list">
         <div v-for="(item,index) in videoCenterList" :key="index" class="piece">
           <img :src="item.img" class="img">
           <span class="name">{{item.name}}</span>
@@ -24,8 +24,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.videoCenterList {
-  padding-top: 10px;
+.videoCenter-list {
+  padding: 10px 0 6px;
   .piece {
     text-align: center;
     .img {

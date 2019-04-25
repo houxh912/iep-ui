@@ -1,7 +1,7 @@
 <template>
   <div class="optimal">
     <iepAppTabCard :title="title1">
-      <div class="technologyList">
+      <div class="technology-list">
         <div v-for="(item,index) in technologyList" :key="index" class="piece">
           <img :src="item.img" alt="">
           <div class="text">
@@ -14,11 +14,8 @@
         </div>
       </div>
     </iepAppTabCard>
-    <el-card class="last-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span class="cardTitle" style="font-size:18px;">{{title1}}</span>
-      </div>
-      <div class="lastMonth">
+    <IepAppTabCard :title="title2" :linkName="linkName" class="last-card">
+      <div class="last-month">
         <div v-for="(item,index) in lastMonth" :key="index" class="piece">
           <img :src="item.img" alt="">
           <div class="text">
@@ -30,7 +27,7 @@
           </div>
         </div>
       </div>
-    </el-card>
+    </IepAppTabCard>
   </div>
 </template>
 <script>
@@ -39,6 +36,7 @@ export default {
     return {
       title1: '技术之星',
       title2: '上月最佳',
+      linkName: '',
       technologyList: [
         { img: require('./img/optimal1.jpg'), name: '钟乙乔', department: '集团研发中心', label: '需求分析/原型设计/知识图谱' },
         { img: require('./img/optimal2.jpg'), name: '张灵', department: '国脉集团研发中心运维组', label: 'DNA运维/环境配置/服务器部署' },
@@ -49,8 +47,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.technologyList,
-.lastMonth {
+.technology-list,
+.last-month {
   .piece {
     width: 100%;
     margin-bottom: 12px;
@@ -83,7 +81,7 @@ export default {
 .last-card {
   margin-top: -4px;
   border-top-color: #fff;
-  .lastMonth {
+  .last-month {
     .piece {
       overflow: hidden;
       margin-top: 20px;

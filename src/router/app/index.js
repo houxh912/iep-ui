@@ -1,4 +1,5 @@
 import Layout from '@/page/index/index'
+import resourceRoute from './resource'
 const noAuth = {
   keepAlive: false,
   // isTab: false,
@@ -51,6 +52,8 @@ export default [
         name: '资源频道',
         component: () => import('@/views/app/resource/'),
         meta: noAuth,
+        redirect: '/app/resource/material',
+        children: resourceRoute,
       },
       {
         path: 'data',
@@ -74,6 +77,18 @@ export default [
         path: 'search',
         name: '搜索频道',
         component: () => import('@/views/app/search/'),
+        meta: noAuth,
+      },
+      {
+        path: 'organizationStyle',
+        name: '组织风采',
+        component: () => import('@/views/app/organizationStyle/'),
+        meta: noAuth,
+      },
+      {
+        path: 'personal_style',
+        name: '个人风采',
+        component: () => import('@/views/app/personalStyle/'),
         meta: noAuth,
       },
     ],

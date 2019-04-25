@@ -3,7 +3,7 @@
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
       <div>
         <p class="about-text">国脉集团是中国领先的大数据治理和数据服务专业机构。创新提出“软件+咨询+平台+数据+创新...</p>
-        <div class="aboutList">
+        <div class="about-list">
           <div v-for="item in dataList" :key="item" class="piece">
             {{item}}
           </div>
@@ -33,7 +33,7 @@ export default {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
-.aboutList {
+.about-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-flow: row dense;

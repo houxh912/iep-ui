@@ -1,8 +1,8 @@
 <template>
   <div class="course-con">
     <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
-      <div class="hotCourse">
-        <div class="conCourse">
+      <div class="hot-course">
+        <div class="con-course">
           <div class="con" v-for="con in conCourse" :key="con.id">
             <div class="img"><img :src="con.img" alt=""></div>
             <span class="text">{{con.text}}</span>
@@ -24,9 +24,9 @@ export default {
       title: '热门课程',
       data: '（37节）',
       hotCourse: [
-        { name: '数据基因产品培训服务', num: '123人已学习' },
-        { name: '服务数据基因', num: '23人已学习' },
-        { name: 'DIPS数据基因', num: '123人已学习' }],
+        { name: '数据基因产品培训服务', num: '113人已学习' },
+        { name: 'JAVA高级开发架构师课程', num: '78人已学习' },
+        { name: 'H5前端基础入门教程', num: '145人已学习' }],
       conCourse: [
         {
           id: 1,
@@ -47,7 +47,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.hotCourse {
+.hot-course {
   .piece {
     cursor: pointer;
     position: relative;
@@ -84,7 +84,7 @@ export default {
       background-color: #999;
     }
   }
-  .conCourse {
+  .con-course {
     display: flex;
     margin-bottom: 10px;
     justify-content: space-between;
@@ -123,6 +123,6 @@ export default {
 </style>
 <style scoped>
 .course-con >>> .el-card__body {
-  height: 280px;
+  height: 270px;
 }
 </style>

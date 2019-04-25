@@ -1,7 +1,7 @@
 <template>
   <div>
     <IepAppTabCard :title="title" :data="data">
-      <div class="leaderBoardList">
+      <div class="leader-board-list">
         <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
           <span class="count" :class="item.color">{{index+1}}</span>
           <span class="name">{{item.name}}</span>

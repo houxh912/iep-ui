@@ -59,9 +59,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .sub-menu-wrapper {
-  margin: 10px 0;
-  padding: 10px 0;
-  border-top: 2px solid #eee;
+  border-top: 1px solid #eee;
   .el-menu-item {
     margin-left: 0 !important;
     height: 40px;

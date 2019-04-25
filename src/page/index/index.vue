@@ -184,7 +184,7 @@ export default {
 <style lang="scss" scoped>
 .el-aside {
   overflow: hidden;
-  border-right: 1px solid #eee;
+  // border-right: 1px solid #eee;
   background-color: #fafafa;
 }
 </style>

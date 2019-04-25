@@ -20,12 +20,12 @@ export default {
           {
             id: '1',
             img: '../../img/department/d3.jpg',
-            subtitle: '集团平台运营中心',
+            subtitle: '国脉海洋信息发展有限公司',
           },
           {
             id: '2',
             img: '../../img/department/d2.jpg',
-            subtitle: '集团平台运营中心',
+            subtitle: '国脉湖南子公司',
           },
           {
             id: '3',
@@ -35,7 +35,7 @@ export default {
           {
             id: '4',
             img: '../../img/department/d4.jpg',
-            subtitle: '集团平台运营中心',
+            subtitle: '集团研发中心',
           }],
       },
       {
@@ -43,7 +43,7 @@ export default {
           {
             id: '5',
             img: '../../img/department/d2.jpg',
-            subtitle: '集团平台运营中心',
+            subtitle: '国脉湖南子公司',
           },
           {
             id: '6',
@@ -53,12 +53,12 @@ export default {
           {
             id: '7',
             img: '../../img/department/d1.jpg',
-            subtitle: '集团平台运营中心',
+            subtitle: '北京国脉互联顾问有限公司',
           },
           {
             id: '8',
             img: '../../img/department/d4.jpg',
-            subtitle: '集团平台运营中心',
+            subtitle: '集团研发中心',
           },
         ],
       }],

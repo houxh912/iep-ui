@@ -5,7 +5,7 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="分类说明" prop="description">
-        <el-input type="textarea" v-model="form.description"></el-input>
+        <iep-input-area type="textarea" v-model="form.description"></iep-input-area>
       </el-form-item>
     </el-form>
     <template slot="footer">

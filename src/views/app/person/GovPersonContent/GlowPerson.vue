@@ -8,7 +8,7 @@
           <span class="pieceDeletion" v-for="(name,index) in nameList" :key="index" :class="showClass1==index?'color':''" @click="tab1(index)">{{name.name}}<span class="data-con">{{name.data}}</span></span>
         </div>
         <div class="resourcesList">
-          <div v-for="(item,index) in resourcesList" :key="index" class="piece">
+          <div v-for="(item,index) in resourcesList" :key="index" class="piece"  @click="handleOpen()">
             <div class="img-con"><img :src="item.img" class="img" alt=""></div>
             <div class="text">
               <span class="name">{{item.name}}</span>
@@ -64,6 +64,11 @@ export default {
   methods: {
     tab1 (val) {
       this.showClass1 = val
+    },
+    handleOpen () {
+      this.$router.push({
+        path: '/app/personal_style',
+      })
     },
   },
 }

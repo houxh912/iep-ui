@@ -85,6 +85,12 @@ export default [
         component: () => import('@/views/app/organizationStyle/'),
         meta: noAuth,
       },
+      {
+        path: 'personal_style',
+        name: '个人风采',
+        component: () => import('@/views/app/personalStyle/'),
+        meta: noAuth,
+      },
     ],
   },
 ]

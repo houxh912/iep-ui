@@ -189,6 +189,10 @@ export default {
         : (this.passwordType = '')
     },
     handleRegister () {
+      if (!this.checked) {
+        this.$message('请先同意用户守则')
+        return
+      }
       this.$refs.form.validate(valid => {
         if (valid) {
           registerUser(this.form).then(({ data }) => {

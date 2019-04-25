@@ -105,7 +105,8 @@ export default {
     }
   },
   created () {
-    this.loadPage()
+    // this.loadPage()
+    this.isLoadTable = false
   },
   methods: {
     handleSelectionChange (val) {

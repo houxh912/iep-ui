@@ -1,3 +1,3 @@
 <template>
-  <div></div>
+  <iep-to-dev></iep-to-dev>
 </template>

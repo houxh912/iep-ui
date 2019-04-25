@@ -11,7 +11,7 @@
       </el-date-picker>
     </div>
     <div v-for="(item, index) in option.list" :key=index>
-      <div class="item" v-if="todayTime.timeStamp > item.timeStamp">
+      <div class="item" v-if="todayTime.timeStamp > item.timeStamp || item.year">
         <div class="before year" v-if="item.year" @click="chosenYear(item.year)">{{item.year}}年</div>
         <div class="middle">
           <div class="tail"></div>

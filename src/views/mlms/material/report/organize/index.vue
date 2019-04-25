@@ -118,8 +118,16 @@ export default {
       // 初始化时间轴，获取到当前的周
       let list = createWeeks(date.getFullYear())
       if (type === 'year') {
-        this.$refs['timeline'].active = this.timeLineOption.active = 1
-        this.$refs['timeline'].activeChild = this.timeLineOption.activeChild = 0
+        // 需要判断是否是当前年，若不是，显示第一个月，若是，显示现在时
+        let obj = {}
+        if (date.getFullYear() == this.today.getFullYear()) {
+          obj = getDateObj(list, this.today)
+          date = new Date(`${date.getFullYear()}-${13-obj.month}-01`)
+        } else {
+          obj = { month: 1, week: 0 }
+        }
+        this.$refs['timeline'].active = this.timeLineOption.active = obj.month
+        this.$refs['timeline'].activeChild = this.timeLineOption.activeChild = obj.week
         this.contentType = 'week'
       } else if (type === 'search') {
         let obj = getDateObj(list, date)

@@ -129,9 +129,15 @@ export default {
       this.timeLineOption.list = list
       let today = {}
       if (type === 'year') { // 年份翻页
-        this.$refs['timeline'].active = month
-        this.$refs['timeline'].activeChild = week
-        today = getWeekStartAndEnd(list[1].children[0].timeStamp)
+        let obj = {}
+        if (year == this.today.getFullYear()) {
+          obj = getDateObj(list, this.today)
+        } else {
+          obj = { month: 1, week: 0 }
+        }
+        this.$refs['timeline'].active = obj.month
+        this.$refs['timeline'].activeChild = obj.week
+        today = getWeekStartAndEnd(list[obj.month].children[obj.week].timeStamp)
       } else if (type === 'search') { // 具体时间搜索
         let obj = getDateObj(list, monday)
         this.$refs['timeline'].active = obj.month

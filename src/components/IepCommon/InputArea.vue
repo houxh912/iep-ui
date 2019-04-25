@@ -1,5 +1,5 @@
 <template>
-  <el-input type="textarea" :autosize="autosize" :placeholder="placeholder" v-bind="$attrs" v-on="$listeners">
+  <el-input type="textarea" :autosize="autosize" :placeholder="placeholder" :maxlength="maxlength" v-bind="$attrs" v-on="$listeners">
   </el-input>
 </template>
 <script>
@@ -18,6 +18,10 @@ export default {
     placeholder: {
       type: String,
       default: '请输入内容',
+    },
+    maxlength: {
+      type: Number,
+      default: 2010,
     },
   },
 }

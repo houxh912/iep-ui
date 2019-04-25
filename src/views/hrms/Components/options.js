@@ -18,7 +18,6 @@ const workExpColumns = [
   {
     prop: 'name',
     label: '公司',
-    width: '200',
   },
   {
     prop: 'position',

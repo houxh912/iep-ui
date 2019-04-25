@@ -8,10 +8,10 @@
         <iep-select prefix-url="hrms/post_type" v-model="form.typeId"></iep-select>
       </el-form-item>
       <el-form-item label="岗位职责" prop="duties">
-        <el-input v-model="form.duties" type="textarea"></el-input>
+        <iep-input-area v-model="form.duties"></iep-input-area>
       </el-form-item>
       <el-form-item label="岗位要求" prop="claim">
-        <el-input v-model="form.claim" type="textarea"></el-input>
+        <iep-input-area v-model="form.claim"></iep-input-area>
       </el-form-item>
     </el-form>
     <template slot="footer">

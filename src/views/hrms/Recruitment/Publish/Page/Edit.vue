@@ -127,7 +127,7 @@
             <iep-tip content="请务必准确规范填写且不少于6条：<br />1、内容要有条理性，次序性，以1、2、3、4.....序列的形式描述；<br />2、岗位职责清晰，语言简练，忌口语化描述；<br />3、岗位职责为该岗位的工作方向，而非具体内容的操作方法；"></iep-tip>
             ：
           </span>
-          <iep-input-area v-model="form.duties" maxlength="2010"></iep-input-area>
+          <iep-input-area v-model="form.duties"></iep-input-area>
         </el-form-item>
         <el-form-item prop="claim">
           <span slot="label">
@@ -135,7 +135,7 @@
             <iep-tip content="请务必准确规范填写：<br/>1、内容要有条理性，次序性，以1、2、3、4.....序列的形式描述；<br/>2、岗位要求具体内容与岗位职责描述相匹配，切记不搭边。"></iep-tip>
             ：
           </span>
-          <iep-input-area v-model="form.claim" maxlength="2010"></iep-input-area>
+          <iep-input-area v-model="form.claim"></iep-input-area>
         </el-form-item>
         <el-form-item label="">
           <operation-wrapper>

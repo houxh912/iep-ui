@@ -36,10 +36,10 @@
             <el-input v-model="formData.programName"></el-input>
           </el-form-item>
           <el-form-item label="附件上传：" prop="attach">
-            <el-input v-model="formData.attach" v-show="false"></el-input>
             <iep-upload v-model="formData.attachs" :limit="1">
-              <span>可上传任意类型的文件，每次上传数量不超过一个</span>
+              <span>可上传任意类型的文件，每次上传数量不超过一个{{formData.attachs}}</span>
             </iep-upload>
+            <el-input v-model="formData.attach" v-show="false" class="msg"></el-input>
           </el-form-item>
         </el-form>
       </template>
@@ -112,9 +112,12 @@ export default {
       this.drawerShow = false
     },
     submitForm (formName) {
+      console.log(this.formData.attachs.length)
       if (this.formData.attachs.length !== 0) {
-        this.formData.attach = '已上传文件'
+        this.$set(this.formData, 0, { attach: '已上传文件' })
         this.formData.atchUpload = this.formData.attachs[0].url
+      } else {
+        this.$set(this.formData, 'attach', '已上传文件')
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -154,6 +157,9 @@ export default {
 </script>
 
 <style scoped>
+.msg {
+  margin-top: 10px;
+}
 .custom-name {
   overflow: hidden;
   white-space: nowrap;

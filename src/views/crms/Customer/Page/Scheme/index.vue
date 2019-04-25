@@ -152,15 +152,21 @@ export default {
     },
     add (val) {
       this.formData.programName = val.name
+      this.formData.clientId = this.record.id
       this.formData.materialId = val.id
-      this.formData.attachs = [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],
-        createScheme(this.formData).then(() => {
-          this.$message({
-            message: '添加方案成功',
-            type: 'success',
-          })
-          this.loadPage()
+      if (val.attachFile == '') {
+        this.$message.error('该材料无附件，无法关联')
+        return false
+      } else {
+        this.formData.attachs = val.attachFile
+      }
+      createScheme(this.formData).then(() => {
+        this.$message({
+          message: '添加方案成功',
+          type: 'success',
         })
+        this.loadPage()
+      })
     },
     toDetail () {
       this.$message.success('功能开发中')

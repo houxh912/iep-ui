@@ -57,6 +57,14 @@ export function getAllDistrict (params) {
     params: params,
   })
 }
+//全部客户出单分析区域类型
+export function getDistrict (params) {
+  return request({
+    url: `${allUrl}/districtType`,
+    method: 'get',
+    params: params,
+  })
+}
 //全部客户业务类型
 export function getAllBusiness (params) {
   return request({

@@ -85,39 +85,6 @@ export default {
     }
     .text {
       width: 60%;
-      .name {
-        font-size: 16px;
-        color: #333;
-        .dn {
-          opacity: 0;
-        }
-        .show {
-          opacity: 1;
-        }
-        .show1 {
-          display: inline-block;
-          margin: 0 5px;
-          border-radius: 50%;
-          width: 15px;
-          height: 15px;
-          font-size: 12px;
-          line-height: 15px;
-          text-align: center;
-          background-color: #cb3737;
-          color: #fff;
-        }
-        .show2 {
-          display: inline-block;
-          border-radius: 2px;
-          width: 15px;
-          height: 15px;
-          line-height: 12px;
-          font-size: 12px;
-          text-align: center;
-          border: 1px solid #cb3737;
-          color: #cb3737;
-        }
-      }
       .job {
         color: #888;
       }
@@ -163,6 +130,39 @@ export default {
         line-height: 30px;
         font-size: 14px;
         margin-bottom: 0;
+      }
+      .name {
+        font-size: 16px;
+        color: #333;
+        .dn {
+          opacity: 0;
+        }
+        .show {
+          opacity: 1;
+        }
+        .show1 {
+          display: inline-block;
+          margin: 0 5px;
+          border-radius: 50%;
+          width: 15px;
+          height: 15px;
+          font-size: 12px;
+          line-height: 15px;
+          text-align: center;
+          background-color: #cb3737;
+          color: #fff;
+        }
+        .show2 {
+          display: inline-block;
+          border-radius: 2px;
+          width: 15px;
+          height: 15px;
+          line-height: 12px;
+          font-size: 12px;
+          text-align: center;
+          border: 1px solid #cb3737;
+          color: #cb3737;
+        }
       }
     }
   }

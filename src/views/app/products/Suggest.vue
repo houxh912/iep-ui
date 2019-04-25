@@ -1,7 +1,7 @@
 <template>
   <div class="suggest">
     <IepAppTabCard :title="title" :linkName="linkName">
-        <el-button style="float: right; padding: 5px 0;" type="text" slot="right">我要发表</el-button>
+        <el-button style="float: right; padding: 5px 0;" type="text" slot="right">产品有奖建议</el-button>
         <div>
             <div class="suggest-list">
                 <div v-for="(item,index) in suggestList" :key="index" class="piece">
@@ -75,7 +75,7 @@ export default {
             }
         }
         &:last-child{
-            margin-bottom: 12px;
+            margin-bottom: 5px;
         }
     }
 }

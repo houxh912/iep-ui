@@ -13,12 +13,12 @@ export default {
   data () {
     return {
       resourcesList: [
-        { icon: 'icon-dangan', name: '材料库', number: '9850' },
-        { icon: 'icon-renwu', name: '项目库', number: '420' },
-        { icon: 'icon-gongzuotai', name: '产品库', number: '20' },
-        { icon: 'icon-kehu', name: '客户库', number: '1520' },
-        { icon: 'icon-peixun', name: '培训库', number: '48' },
-        { icon: 'icon-shangjifaxian', name: '商机库', number: '18' },
+        { icon: 'icon-dangan', name: '材料库', number: '10306' },
+        { icon: 'icon-renwu', name: '项目库', number: '1075' },
+        { icon: 'icon-gongzuotai', name: '产品库', number: '33' },
+        { icon: 'icon-kehu', name: '客户库', number: '6043' },
+        { icon: 'icon-peixun', name: '培训库', number: '101' },
+        { icon: 'icon-shangjifaxian', name: '商机库', number: '214' },
         { icon: 'icon-hetongliebiao', name: '资质库', number: '67' },
         { icon: 'icon-dingwei', name: '招标库', number: '88' },
       ],

@@ -1,13 +1,14 @@
 <template>
   <div class="iep-ellipsis" :title="content">
     <slot name="prefix"></slot>
-    <span class="iep-ellipsis">{{content}}</span>
+    <span>{{content}}</span>
     <slot></slot>
   </div>
 </template>
 <script>
 import { validatenull } from '@/util/validate'
 export default {
+  //TODO: iep-ellipsis 副作用
   name: 'IepDivDetail',
   props: ['value'],
   computed: {

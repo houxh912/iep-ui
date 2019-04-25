@@ -4,6 +4,7 @@ const initForm = () => {
     clientId: '',
     programName: '',
     attachs: [],
+    attach: '',
     materialId: '',
   }
 }
@@ -11,12 +12,11 @@ const tableOption = [
   {
     label: '创建时间',
     prop: 'createTime',
-    width: '250',
   },
   {
     label: '浏览次数',
     prop: 'views',
-    width: '200',
+    width: '100',
   },
 ]
 const rules = {

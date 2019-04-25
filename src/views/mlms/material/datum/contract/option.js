@@ -155,7 +155,6 @@ export const rules = {
     { required: true, message: '必填', trigger: 'change' },
   ],
   deposit: [
-    { required: true, message: '必填', trigger: 'blur' },
     { validator: intValidate, message: '请输入正数', trigger: 'blur' },
     { validator: xsValidate, message: '小数位最多为2位', trigger: 'blur' },
   ],

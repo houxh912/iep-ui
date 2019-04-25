@@ -33,7 +33,7 @@
               </el-form-item>
             </el-col>
             <el-col :span='10' :offset="4">
-              <el-form-item label="负责部门:" prop="iepClientRespDept">
+              <el-form-item label="负责部门:">
                 <!-- <el-input v-model="formData.respDept" placeholder="负责部门"></el-input> -->
                 <iep-dept-select v-model="formData.iepClientRespDept"></iep-dept-select>
               </el-form-item>
@@ -122,8 +122,9 @@
         </el-form>
       </div>
       <footer-tool-bar>
-        <iep-button type="primary" @click="submitForm('formName')">提交</iep-button>
-        <iep-button type="primary" @click="handleGoContact('formName')">保存并新增联系人</iep-button>
+        <iep-button type="primary" @click="submitForm('formName')">保存</iep-button>
+        <iep-button plain @click="close" v-if="id">取消</iep-button>
+        <iep-button plain @click="handleGoContact('formName')" v-if="id==''">保存并新增联系人</iep-button>
       </footer-tool-bar>
     </basic-container>
   </div>
@@ -188,13 +189,6 @@ export default {
       }
       callback()
     }
-    const RespDept = (rules, value, callback) => {
-      if (value.name == '') {
-        callback(new Error('负责部门不能为空'))
-      } else {
-        callback()
-      }
-    }
     return {
       tipContent,
       id: '',
@@ -228,9 +222,6 @@ export default {
         ],
         marketManager: [
           { required: true, message: '请填写市场经理', trigger: 'blur' },
-        ],
-        iepClientRespDept: [
-          { required: true, validator: RespDept, trigger: 'blur' },
         ],
         companyUrl: [{ validator: url, trigger: 'blur' }],
         companyFunction: [
@@ -330,39 +321,16 @@ export default {
     handleGoContact (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (this.id) {
-            this.formRequestFn((this.formData)).then(({ data }) => {
-              if (data.data) {
-                this.$message({
-                  message: `客户${this.methodName}成功`,
-                  type: 'success',
-                })
-                this.$router.push({
-                  path: `/crms_spa/customer_detail/${this.id}`,
-                  query: {
-                    type: this.type,
-                    flag: true,
-                  },
-                })
-              }
-            })
-          } else {
-            this.formRequestFn((this.formData)).then(({ data }) => {
-              if (data.data) {
-                this.$message({
-                  message: `客户${this.methodName}成功`,
-                  type: 'success',
-                })
-                this.$router.push({
-                  path: `/crms_spa/customer_detail/${data.data}`,
-                  query: {
-                    type: this.type,
-                    flag: true,
-                  },
-                })
-              }
-            })
-          }
+          this.formRequestFn((this.formData)).then(({ data }) => {
+            if (data.data) {
+              this.$message({
+                message: `客户${this.methodName}成功`,
+                type: 'success',
+              })
+              this.$emit('onGoBack')
+              this.$emit('showDrawer', data.data)
+            }
+          })
         } else {
           return false
         }
@@ -414,6 +382,10 @@ export default {
     },
     handleClose (tag) {
       this.formData.collaborations.splice(this.formData.collaborations.indexOf(tag), 1)
+    },
+    close () {
+      this.formData = initForm()
+      this.$emit('onGoBack')
     },
   },
 }

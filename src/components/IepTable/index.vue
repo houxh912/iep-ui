@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table class="table" v-loading="isLoadTable" :data="formatData" style="width: 100%;" @selection-change="handleSelectionChange" :header-cell-style="getRowClass" :cell-class-name="cellClassName" :row-style="showRow" v-bind="$attrs" @row-click="rowClick">
+    <el-table ref="table" class="table" v-loading="isLoadTable" :data="formatData" style="width: 100%;" @selection-change="handleSelectionChange" :header-cell-style="getRowClass" :cell-class-name="cellClassName" :row-style="showRow" v-bind="$attrs" @row-click="rowClick" @select="selectLine" @select-all="selectAll">
       <el-table-column v-if="isMutipleSelection" type="selection" :selectable="checkboxInit" width="55" :align="align">
       </el-table-column>
       <el-table-column v-if="isIndex" type="index" width="50" :align="align">
@@ -174,6 +174,18 @@ export default {
     // 整行点击事件
     rowClick (row, column, event) {
       this.$emit('row-click', row, column, event)
+    },
+    // 选择单行回调事件
+    selectLine (selection, row) {
+      this.$emit('select', selection, row)
+    },
+    // 全选回调事件
+    selectAll (selection) {
+      this.$emit('select-all', selection)
+    },
+    // 切换某一行的选中状态
+    toggleRowSelection (row, selected) {
+      this.$refs['table'].toggleRowSelection(row, selected)
     },
   },
 }

@@ -62,12 +62,12 @@
       </el-row>
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="签署部门：" prop="signDeptOrgName">
+          <el-form-item label="签署组织：" prop="signDeptOrgName">
             <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="承接部门：" prop="underTakeDeptName">
+          <el-form-item label="承接部门：">
             <iep-dept-multiple v-model="formData.underTakeDeptName"></iep-dept-multiple>
           </el-form-item>
         </el-col>
@@ -216,7 +216,7 @@ export default {
               this.loadPage()
             })
           } else {
-            this.$message.error('签订日期大于完结日期，不能保存！！！')
+            this.$message.error('签订日期不能晚于完结日期')
           }
         } else {
           return false
@@ -229,7 +229,7 @@ export default {
       var str2 = val2.replace(/-/g, '/')
       var time2 = Date.parse(new Date(str2))
       if (time2 < time1) {
-        this.$message.error('签订日期不能大于完结日期！！！')
+        this.$message.error('签订日期不能晚于完结日期')
         this.isTime = false
       } else {
         this.isTime = true

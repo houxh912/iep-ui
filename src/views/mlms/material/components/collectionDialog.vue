@@ -6,7 +6,8 @@
     </el-radio-group> -->
     <div class="tree-box">
       <div class="left box-item">
-        <ul class="list">
+        <div v-if="list.length == 0" style="color: #999; margin: 10px;">暂无收藏夹，系统将默认创建收藏列表</div>
+        <ul class="list" v-else>
           <li v-for="(item, index) in list" :key="index" @click="selectIndexFn(index, item)" :class="index==selectIndex?'select':''">{{item.name}}</li>
         </ul>
       </div>

@@ -141,6 +141,12 @@ export default {
       padding: 5px 8px;
       border-radius: 3px;
       color:#999;
+      &:hover{
+        background-color: #fef6f4;
+        border: 1px solid #dc8687;
+        color: #dc8687;
+        cursor: pointer;
+      }
     }
   }
 }

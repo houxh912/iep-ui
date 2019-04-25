@@ -24,7 +24,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" isIndex :isMutipleSelection="showSelect?true:false" @row-click="handleDetail">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="cell" @selection-change="handleSelectionChange" isIndex :isMutipleSelection="showSelect?true:false" @row-click="handleDetail">
         <template slot="before-columns">
           <el-table-column label="客户名称" width="300px">
             <template slot-scope="scope">
@@ -43,15 +43,17 @@
             <div v-else>无</div>
           </template>
         </el-table-column>
-        <el-table-column v-if="type !== '1'" prop="operation" label="操作">
+        <el-table-column v-if="type !== '1'" prop="operation" label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
+              <iep-button type="warning" plain @click="addContact(scope.row)">添加联系人</iep-button>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="type === '2'" @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
+      <edit-drawer ref="EditDrawer" @load-page="loadPage" @showDrawer="showDrawer"></edit-drawer>
       <excell-import ref="ExcellImport" :urlName="url" @close="handleClose"></excell-import>
       <collaborator ref="collaborator" @load-page="loadPage"></collaborator>
       <transfer ref="transfer" @load-page="loadPage"></transfer>
@@ -66,9 +68,11 @@ import AdvanceSearch from './AdvanceSearch'
 import ExcellImport from './ExcellImport/'
 import Collaborator from './Collaborator/'
 import Transfer from './Transfer/'
+import EditDrawer from './EditDrawer'
+import { mapGetters } from 'vuex'
 export default {
   name: 'list',
-  components: { AdvanceSearch, ExcellImport, Collaborator, Transfer },
+  components: { AdvanceSearch, ExcellImport, Collaborator, Transfer, EditDrawer },
   mixins: [mixins],
   data () {
     return {
@@ -84,11 +88,22 @@ export default {
     columnsMap () {
       return columnsMapByTypeId[this.type - 1]
     },
+    ...mapGetters([
+      'userInfo',
+    ]),
   },
   created () {
     this.loadPage()
   },
   methods: {
+    showDrawer (val) {
+      this.$refs.EditDrawer.drawerShow = true
+      this.$refs.EditDrawer.form.clientIds = [val]
+    },
+    addContact (row) {
+      this.$refs.EditDrawer.drawerShow = true
+      this.$refs.EditDrawer.form.clientIds = [row.clientId]
+    },
     dealTag (data) {
       if (data.length > 3) {
         return data.slice(0, 3)
@@ -154,7 +169,18 @@ export default {
             type: this.type,
           },
         })
-      } else { return false }
+      } else {
+        if (this.userInfo.userId == row.marketManager) {
+          this.$router.push({
+            path: `/crms_spa/customer_detail/${row.clientId}`,
+            query: {
+              type: this.type,
+            },
+          })
+        } else {
+          return false
+        }
+      }
     },
     //删除客户
     handleDelete (row) {

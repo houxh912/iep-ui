@@ -30,8 +30,8 @@ export default {
   margin-bottom: 10px;
   cursor: pointer;
   .name {
-    height: 24px;
-    line-height: 24px;
+    height: 26px;
+    line-height: 26px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

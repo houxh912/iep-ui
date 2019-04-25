@@ -38,7 +38,10 @@
                 <iep-tip :content="tipContent.clientInfos"></iep-tip>
                 :
               </span>
-              <span class="tags" v-for="(item,index) in formData.clientInfos" :key="index">{{item.clientName}}</span>
+              <el-tag v-for="(item,index) in formData.clientInfos" :key="index" closable @close="handleClose(item)">
+                {{item.clientName}}
+              </el-tag>
+              <!-- <span class="tags" v-for="(item,index) in formData.clientInfos" :key="index">{{item.clientName}}</span> -->
               <el-button size="small" @click="addContact" icon="el-icon-plus"></el-button>
             </el-form-item>
           </el-col>
@@ -192,6 +195,9 @@ export default {
     }
   },
   methods: {
+    handleClose (val) {
+      this.formData.clientInfos.splice(this.formData.clientInfos.indexOf(val), 1)
+    },
     addContact () {
       this.clientName = ''
       this.dialogVisible = true

@@ -24,3 +24,21 @@ export function updateData (obj) {
     data: obj,
   })
 }
+
+// 关联纪要
+export function getSummaryList (obj) {
+  return request({
+    url: '/mlms/meeting/summary/list',
+    method: 'get',
+    params: obj,
+  })
+}
+
+// 关联产品
+export function getProductList (obj) {
+  return request({
+    url: '/cpms/product/page',
+    method: 'get',
+    params: obj,
+  })
+}

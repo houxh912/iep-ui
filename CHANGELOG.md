@@ -1,3 +1,33 @@
+## [1.2.6](http://115.233.227.46:8066/root/iep-ui/compare/v1.2.5...v1.2.6) (2019-04-24)
+
+
+### Bug Fixes
+
+* **fix:** 组件问题 ([53f79fc](http://115.233.227.46:8066/root/iep-ui/commits/53f79fc))
+* **产品:** 样式修复与一些bug修复 ([710c75d](http://115.233.227.46:8066/root/iep-ui/commits/710c75d))
+* **人力:** 成长档案 ([c4c81b2](http://115.233.227.46:8066/root/iep-ui/commits/c4c81b2))
+* **优化mixin:** 文件与移除分享 ([a1dd0af](http://115.233.227.46:8066/root/iep-ui/commits/a1dd0af))
+* **修复:** 一些问题 ([b49ba4b](http://115.233.227.46:8066/root/iep-ui/commits/b49ba4b))
+* **成员:** 完善度添加 ([12fa47d](http://115.233.227.46:8066/root/iep-ui/commits/12fa47d))
+* **菜单:** 缓存 ([58e864e](http://115.233.227.46:8066/root/iep-ui/commits/58e864e))
+
+
+### Features
+
+* **activeIndex:** 审批雷迅 ([afa32fd](http://115.233.227.46:8066/root/iep-ui/commits/afa32fd))
+* **mixins添加单元格回调函数cell:** mixins添加单元格回调函数cell ([62620a8](http://115.233.227.46:8066/root/iep-ui/commits/62620a8))
+* **修改客户，商机，合同:** 客户添加新增联系人，商机的拒绝认领，合同细节修改 ([9101349](http://115.233.227.46:8066/root/iep-ui/commits/9101349))
+* **合同:** 合同回款添加 ([2a94ded](http://115.233.227.46:8066/root/iep-ui/commits/2a94ded))
+* **客户|全部客户:** 全部客户市场经理为自己的可以进入详情 ([43d99a0](http://115.233.227.46:8066/root/iep-ui/commits/43d99a0))
+* **客户统计|全部客户:** 客户增长统计对接完成 ([1b8c8b7](http://115.233.227.46:8066/root/iep-ui/commits/1b8c8b7))
+* **客户统计|部门统计:** 点击按钮优化、提示框优化 ([69905b5](http://115.233.227.46:8066/root/iep-ui/commits/69905b5))
+* **收藏:** 添加默认收藏夹 ([6219034](http://115.233.227.46:8066/root/iep-ui/commits/6219034))
+* **方案原型图修改，拜访记录tab切换修改:** 方案原型图修改，拜访记录tab切换修改 ([17e0c78](http://115.233.227.46:8066/root/iep-ui/commits/17e0c78))
+* **纪要:** 操作按钮修改 ([8c055c5](http://115.233.227.46:8066/root/iep-ui/commits/8c055c5))
+* **组织周报:** 关联项 ([50d2982](http://115.233.227.46:8066/root/iep-ui/commits/50d2982))
+
+
+
 ## [1.2.5](http://115.233.227.46:8066/root/iep-ui/compare/v1.2.4...v1.2.5) (2019-04-23)
 
 
@@ -32,6 +62,7 @@
 * **删除多余代码:** 删除多余代码 ([37df4a0](http://115.233.227.46:8066/root/iep-ui/commits/37df4a0))
 * **合同:** 关联项目 ([cbd41b3](http://115.233.227.46:8066/root/iep-ui/commits/cbd41b3))
 * **合同:** 关联项目 附件上传 ([34327a5](http://115.233.227.46:8066/root/iep-ui/commits/34327a5))
+* **合同:** 合同的附件 ([151d3fd](http://115.233.227.46:8066/root/iep-ui/commits/151d3fd))
 * **名字修改:** 名字修改 ([39dcd0f](http://115.233.227.46:8066/root/iep-ui/commits/39dcd0f))
 * **客户|联系记录:** 联系记录验证显示不全修改 ([08a0a8c](http://115.233.227.46:8066/root/iep-ui/commits/08a0a8c))
 * **客户|验证修改:** 客户描述为非必填 ([ee0cc65](http://115.233.227.46:8066/root/iep-ui/commits/ee0cc65))

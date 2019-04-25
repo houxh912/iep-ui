@@ -31,7 +31,7 @@
 </template>
 <script>
 export default {
-  name: '往期培训',
+  name: 'AppPastTraining',
   data () {
     return {
       title: '往期培训',

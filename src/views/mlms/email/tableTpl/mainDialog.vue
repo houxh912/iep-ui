@@ -12,7 +12,8 @@
         <div class="msg">时<span style="width: 14px;display: inline-block;"></span>间：{{formData.createTime}}</div>
       </div>
       <div class="content">
-        <pre>{{formData.content}}</pre>
+        <!-- <pre>{{formData.content}}</pre> -->
+          <iep-html v-model="formData.content"></iep-html>
       </div>
       <div class="appendix" v-if="formData.attachmentRelatios.length">
         <h3>附件</h3>
@@ -147,7 +148,7 @@ export default {
     },
     // 回复
     reply () {
-      let receiverList = {
+      this.formData.receiverList = {
         unions: [],
         orgs: [],
         users: [{
@@ -155,7 +156,7 @@ export default {
           name: this.formData.sendRealName,
         }],
       }
-      this.$emit('reply', receiverList)
+      this.$emit('reply', this.formData)
     },
     allReply () {
       let receiverList = {
@@ -172,7 +173,8 @@ export default {
           name: item.receiverRealName,
         })
       }
-      this.$emit('reply', receiverList)
+      this.formData.receiverList = receiverList
+      this.$emit('reply', this.formData)
     },
     // 下载附件
     downloadFile (obj) {
@@ -200,6 +202,13 @@ export default {
         this.formData = data.data
       })
     }
+  },
+  watch: {
+    '$route.params.id': function (v) {
+      getEmailById(v).then(({ data }) => {
+        this.formData = data.data
+      })
+    },
   },
 }
 </script>

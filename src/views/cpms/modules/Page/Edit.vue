@@ -34,7 +34,7 @@
             <el-input maxlength="2010" v-model="form.synopsis"></el-input>
           </el-form-item>
           <el-form-item label="模块介绍：" prop="description">
-            <iep-input-area maxlength="2010" v-model="form.description"></iep-input-area>
+            <iep-input-area v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
         <div class="title">团队信息：</div>

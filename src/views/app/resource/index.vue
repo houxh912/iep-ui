@@ -24,10 +24,12 @@ export default {
   data () {
     return {
       resourceRoute,
-      router: this.$router,
-      route: this.$route,
-      routerMatch: this.$router.currentRoute.matched,
     }
+  },
+  computed: {
+    routerMatch () {
+      return this.$router.currentRoute.matched
+    },
   },
   methods: {
     handleOpen (item) {

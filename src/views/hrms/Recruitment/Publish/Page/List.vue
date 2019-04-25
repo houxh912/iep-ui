@@ -9,8 +9,8 @@
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
-              <el-dropdown-item divided>分享</el-dropdown-item>
-              <el-dropdown-item>发送群面</el-dropdown-item>
+              <!-- <el-dropdown-item divided>分享</el-dropdown-item>
+              <el-dropdown-item>发送群面</el-dropdown-item> -->
             </el-dropdown-menu>
           </el-dropdown>
         </template>

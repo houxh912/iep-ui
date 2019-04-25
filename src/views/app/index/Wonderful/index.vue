@@ -1,7 +1,7 @@
 <template>
   <div class="wonderful">
     <IepAppTabsCard isMore>
-      <iep-tabs v-model="activeTab" :tab-list="tabList" >
+      <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Organization'" v-slot:Organization>
           <organization v-loading="activeTab !=='Organization'"></organization>
         </template>

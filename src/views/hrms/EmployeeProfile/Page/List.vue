@@ -65,7 +65,7 @@
     <departure-dialog ref="DepartureDialog" @load-page="loadPage"></departure-dialog>
     <induction-dialog ref="InductionDialog" @load-page="loadPage"></induction-dialog>
     <positive-dialog ref="PositiveDialog" @load-page="loadPage"></positive-dialog>
-    <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
+    <detail-drawer ref="DetailDrawer"></detail-drawer>
   </div>
 </template>
 <script>

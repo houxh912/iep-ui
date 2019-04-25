@@ -88,6 +88,11 @@ export default {
       if (row.orgId) {
         this.$refs['iepReviewForm'].id = row.orgId
       } else {
+        // TODO: 是否多选提醒
+        if (!this.multipleSelection.length) {
+          this.$message('请先选择需要的选项')
+          return
+        }
         this.$refs['iepReviewForm'].ids = this.multipleSelection
       }
       this.$refs['iepReviewForm'].title = '审核'

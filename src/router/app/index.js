@@ -79,6 +79,12 @@ export default [
         component: () => import('@/views/app/search/'),
         meta: noAuth,
       },
+      {
+        path: 'organizationStyle',
+        name: '组织风采',
+        component: () => import('@/views/app/organizationStyle/'),
+        meta: noAuth,
+      },
     ],
   },
 ]

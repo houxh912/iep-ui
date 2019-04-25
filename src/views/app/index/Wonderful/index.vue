@@ -1,6 +1,6 @@
 <template>
   <div class="wonderful">
-    <IepAppTabsCard isMore>
+    <IepAppTabsCard isMore :linkName="linkName">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Organization'" v-slot:Organization>
           <organization v-loading="activeTab !=='Organization'"></organization>
@@ -39,6 +39,7 @@ export default {
         value: 'Specialist',
       }],
       activeTab: 'Organization',
+      linkName: '/app/organizationStyle',
     }
   },
 }

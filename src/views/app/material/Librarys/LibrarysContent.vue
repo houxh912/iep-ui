@@ -1,6 +1,6 @@
 <template>
   <div class="librarys-content">
-    <div v-for="item in dataList" :key="item" class="piece">
+    <div v-for="(item,index) in dataList" :key="index" class="piece">
       <div class="title">
         <h4 class="name">{{item.name}}</h4>
         <i class="iconfont icon-caifu"></i>
@@ -13,8 +13,8 @@
         <span><i class="iconfont icon-yanjing"></i>{{item.pageviews}}人浏览</span>
         <span><i class="iconfont icon-download"></i>{{item.downloads}}人下载</span>
       </div>
-      <div v-for="label in item.label" :key="label" class="label">
-        <span>{{label}}</span>
+      <div v-for="(item,index) in item.label" :key="index" class="label">
+        <span>{{item}}</span>
       </div>
     </div>
   </div>

@@ -8,6 +8,7 @@ const noAuth = {
 export default [
   {
     path: '/app',
+    name: '首页',
     component: Layout,
     redirect: '/app/index',
     children: [

@@ -60,7 +60,7 @@ export default {
           // }, {
           id: '/app/data',
           name: '数据',
-        }, {
+          // }, {
           //   id: '/app/wealth',
           //   name: '财富',
         },

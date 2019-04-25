@@ -26,6 +26,7 @@ export default {
     return {
       title: '紧缺岗位',
       data: '（53个）',
+      linkName: '',
       tableData: [
         {
           name: 'java工程师',

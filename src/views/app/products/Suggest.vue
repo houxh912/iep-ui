@@ -24,6 +24,7 @@ export default {
   data () {
     return {
         title:'意见反馈',
+        linkName: '',
         suggestList: [
             {photo:require('./img/suggest1.jpg'),name:'刘丹',time:'2019-04-08',feed:'版权所有应该改为“2004-2019”'},
             {photo:require('./img/suggest2.jpg'),name:'陈一萍',time:'2019-04-03',feed:'内网的内部材料库，选择按上传者姓名搜索，搜索结果是空白的；选择按条件搜索，也是不全面的。比如选择人力学习类型，出来的列表是不全面的，有很多都没有，有时搜索结果是从2018年开始的列表。'},

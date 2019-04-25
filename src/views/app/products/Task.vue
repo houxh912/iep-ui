@@ -19,6 +19,7 @@ export default {
   data () {
     return {
       title: '十大任务',
+      linkName: '',
       tableData: [
           {name: '国脉2018数字政府与政务大数据建设高层研讨会专题设计',process: 20,principal: '洪琼'},
           {name: '国脉2018数字政府与政务大数据建设高层研讨会专题设计',process: 20,principal: '洪琼'},

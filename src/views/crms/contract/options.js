@@ -49,7 +49,7 @@ export const rules = {
     { required: true, message: '请选择业务类型', trigger: 'change' },
   ],
   tagKeyWords: [
-    { required: true, message: '请选择或输入标签', trigger: 'blur' },
+    { required: true, message: '请选择或输入标签', trigger: 'change' },
   ],
   companyOrgId: [
     { required: true, message: '请选择委托单位', trigger: 'change' },
@@ -61,7 +61,7 @@ export const rules = {
   finishTime: [
     { required: true, message: '请选择完结日期', trigger: 'change' },
   ],
-  signDeptOrgName: [{ required: true, validator: RespDept, trigger: 'blur' }],
+  signDeptOrgName: [{ required: true, validator: RespDept, trigger: 'change' }],
   contractLevel: [
     { required: true, message: '请选择合同级别', trigger: 'change' },
   ],

@@ -9,6 +9,11 @@
         </div>
       </div>
     </div>
+    <div class="breadcrumb-wrapper">
+      <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
     <router-view></router-view>
   </div>
 </template>
@@ -18,6 +23,9 @@ export default {
   data () {
     return {
       resourceRoute,
+      router: this.$router,
+      route: this.$route,
+      routerMatch: this.$router.currentRoute.matched,
     }
   },
   methods: {
@@ -60,6 +68,13 @@ export default {
   }
   .resource-count {
     font-size: 18px;
+  }
+}
+.breadcrumb-wrapper {
+  .breadcrumb-item {
+    margin: 20px auto 10px auto;
+    width: 1200px;
+    padding-left: 20px;
   }
 }
 </style>

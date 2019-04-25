@@ -15,6 +15,7 @@
       </el-breadcrumb>
     </div>
     <router-view></router-view>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>

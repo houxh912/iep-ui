@@ -62,7 +62,6 @@ export default {
         }
         this.fileList.push(formatFile)
       }
-      console.log(this.fileList)
     },
     handleRemove (file) {
       const newData = this.fileList.filter(item => item.url !== file.url)

@@ -53,12 +53,11 @@
 import { getExaminApprovalPage, deliverApprovaBatch, reviewApprovaBatch } from '@/api/hrms/wel'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
-import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
 import DeliverDialog from './DeliverDialog'
 export default {
   mixins: [mixins],
-  components: { NewApproval, IepReviewConfirm, DeliverDialog },
+  components: { NewApproval, DeliverDialog },
   data () {
     return {
       columnsMap,

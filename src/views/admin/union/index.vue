@@ -36,12 +36,10 @@
 </template>
 <script>
 import { getUnionPage, reviewById } from '@/api/goms/union'
-import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 import { dictsMap, columnsMap, checkboxInit } from './options'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
-  components: { IepReviewConfirm },
   data () {
     return {
       dictsMap,

@@ -66,12 +66,12 @@ export default {
       }).then(({ data }) => {
         if (data.data) {
           this.$message({
-            message: '审核成功',
+            message: '成功',
             type: 'success',
           })
         } else {
           this.$message({
-            message: '已驳回',
+            message: data.msg,
             type: 'warning',
           })
         }

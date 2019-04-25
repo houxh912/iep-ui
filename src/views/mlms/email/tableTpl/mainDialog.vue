@@ -201,6 +201,13 @@ export default {
       })
     }
   },
+  watch: {
+    '$route.params.id': function (v) {
+      getEmailById(v).then(({ data }) => {
+        this.formData = data.data
+      })
+    },
+  },
 }
 </script>
 

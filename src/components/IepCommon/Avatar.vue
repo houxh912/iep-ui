@@ -8,7 +8,6 @@
   </el-upload>
 </template>
 <script>
-import { imgUrl } from '@/config/env'
 import store from '@/store'
 export default {
   name: 'IepAvatar',
@@ -29,12 +28,11 @@ export default {
     avatarUrl: {
       // getter
       get: function () {
-        return imgUrl + this.value
+        return this.value
       },
       // setter
       set: function (newValue) {
-        const url = newValue.replace(imgUrl, '')
-        this.$emit('input', url)
+        this.$emit('input', newValue)
       },
     },
   },

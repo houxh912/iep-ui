@@ -18,11 +18,13 @@
       </el-table-column>
       <el-table-column label="创建人" width="250px" v-if="record.collaborations.length !== 0">
         <template>
-          <div class=' line'>
-            <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
-          </div>
-          <div class='create-name line'>
-            {{userInfo.realName}}
+          <div>
+            <div class=' line'>
+              <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
+            </div>
+            <div class='create-name line'>
+              {{userInfo.realName}}
+            </div>
           </div>
         </template>
       </el-table-column>
@@ -213,8 +215,10 @@ export default {
 }
 .line {
   display: inline-block;
+  vertical-align: middle;
 }
 .create-name {
-  padding-left: 10px;
+  vertical-align: middle;
+  padding-left: 5px;
 }
 </style>

@@ -60,7 +60,7 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <header-setting ref="HeaderSetting" :default-columns-label="defaultColumnsLabel" @load-page="loadPage" @save="setHeaderSetting"></header-setting>
+    <header-setting ref="HeaderSetting" :default-columns-label="defaultColumnsLabel" @save="setHeaderSetting"></header-setting>
     <transfer-dialog ref="TransferDialog" @load-page="loadPage"></transfer-dialog>
     <departure-dialog ref="DepartureDialog" @load-page="loadPage"></departure-dialog>
     <induction-dialog ref="InductionDialog" @load-page="loadPage"></induction-dialog>
@@ -133,6 +133,7 @@ export default {
     },
     setHeaderSetting (col) {
       this.defaultColumnsLabel = col
+      this.loadPage()
     },
     handleHeaderSetting () {
       this.$refs['HeaderSetting'].columnsMap = columnsMap

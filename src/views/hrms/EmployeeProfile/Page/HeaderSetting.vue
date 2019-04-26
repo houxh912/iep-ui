@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="表头设置" width="800px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="表头设置" width="800px" @close="dialogShow=false">
     <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
     <div style="margin: 15px 0;"></div>
     <el-checkbox-group class="grid-checkbox-wrapper" v-model="checkedHeader" @change="handleCheckedHeaderChange">
@@ -36,12 +36,8 @@ export default {
   },
   methods: {
     save () {
-      this.$emit('save', this.checkedHeader)
-      this.loadPage()
-    },
-    loadPage () {
       this.dialogShow = false
-      this.$emit('load-page')
+      this.$emit('save', this.checkedHeader)
     },
     handleCheckAllChange (val) {
       this.checkedHeader = val ? this.columnsOptions : []

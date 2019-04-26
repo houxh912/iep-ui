@@ -167,20 +167,26 @@ export default {
           })
         })
       } else {
-        deleteSchemeById(row.programId).then(res => {
-          if (res.data.data) {
-            this.$message({
-              type: 'success',
-              message: '删除成功!',
-            })
-            this.$emit('load-page')
-          } else {
-            this.$message({
-              type: 'info',
-              message: `删除失败，${res.data.msg}`,
-            })
-          }
-          this.loadPage()
+        this.$confirm('此操作将删除该条数据, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          deleteSchemeById(row.programId).then(res => {
+            if (res.data.data) {
+              this.$message({
+                type: 'success',
+                message: '删除成功!',
+              })
+              this.$emit('load-page')
+            } else {
+              this.$message({
+                type: 'info',
+                message: `删除失败，${res.data.msg}`,
+              })
+            }
+            this.loadPage()
+          })
         })
       }
     },

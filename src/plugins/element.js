@@ -5,6 +5,8 @@ import '@/styles/reset.css'
 import '@/styles/theme/index.scss'
 import {
   Scrollbar,
+  Timeline,
+  timelineItem,
   Pagination,
   Dialog,
   Autocomplete,
@@ -77,6 +79,8 @@ import {
 // Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 }
 
 Vue.use(Scrollbar)
+Vue.use(Timeline)
+Vue.use(timelineItem)
 Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Autocomplete)

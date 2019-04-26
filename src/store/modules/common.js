@@ -30,6 +30,10 @@ const common = {
     },
     SET_WELCOME: state => {
       state.isWelcome = !state.isWelcome
+      setStore({
+        name: 'isWelcome',
+        content: state.isWelcome,
+      })
     },
     SET_COLLAPSE: state => {
       state.isCollapse = !state.isCollapse

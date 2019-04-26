@@ -76,13 +76,26 @@
         </div>
         <iep-tag-detail :value="form.ccList.map(m => m.name)"></iep-tag-detail>
       </el-card>
+      <el-card v-if="needApproval" class="middle-card" :body-style="middleBodyStyle" shadow="never">
+        <div slot="header" class="clearfix">
+          <span>操作</span>
+        </div>
+        <iep-button type="warning" @click="handleReview(scope.row)" plain>审核</iep-button>
+        <iep-button :disabled="scope.row.status===3" @click="handleDeliver(scope.row)">转交</iep-button>
+      </el-card>
     </basic-container>
+    <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
+    <deliver-dialog ref="DeliverDialog" @load-page="loadPage"></deliver-dialog>
   </div>
 </template>
 <script>
+import { deliverApprovaBatch, reviewApprovaBatch } from '@/api/hrms/wel'
 import { getAdministrativeApprovalById } from '@/api/hrms/administrative_approval'
 import { initForm, dictsMap } from './options'
+import { mapGetters } from 'vuex'
+import DeliverDialog from '@/views/wel/approval/approval/ExaminApproval/Page/DeliverDialog'
 export default {
+  components: { DeliverDialog },
   data () {
     return {
       id: this.$route.params.id,
@@ -102,6 +115,12 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+    needApproval () {
+      return this.userInfo.userId !== this.form.userId
+    },
     startTimeLabel () {
       return dictsMap.startTime[this.form.type]
     },
@@ -113,6 +132,18 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleReview () {
+      this.$refs['iepReviewForm'].title = '审核'
+      this.$refs['iepReviewForm'].id = this.form.id
+      this.$refs['iepReviewForm'].formRequestFn = reviewApprovaBatch
+      this.$refs['iepReviewForm'].dialogShow = true
+    },
+    handleDeliver () {
+      this.$refs['DeliverDialog'].form.ids = [this.form.id]
+      this.$refs['DeliverDialog'].userId = this.form.userId
+      this.$refs['DeliverDialog'].formRequestFn = deliverApprovaBatch
+      this.$refs['DeliverDialog'].dialogShow = true
+    },
     loadPage () {
       this.pageLoading = true
       getAdministrativeApprovalById(this.id).then(({ data }) => {

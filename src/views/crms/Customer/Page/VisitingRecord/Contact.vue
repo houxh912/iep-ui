@@ -5,13 +5,13 @@
     </operation-wrapper>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       <el-table-column label="创建人" width="250px" v-if="record.collaborations.length !==0">
-        <template>
+        <template slot-scope="scope">
           <div>
-            <div class=' line'>
-              <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
+            <div class="line">
+              <iep-img-avatar :size="30" :src="scope.row.avatar" alt="头像"></iep-img-avatar>
             </div>
-            <div class='create-name line'>
-              {{userInfo.realName}}
+            <div class="create-name line">
+              {{scope.row.creatorName}}
             </div>
           </div>
         </template>

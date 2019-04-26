@@ -38,3 +38,10 @@ export function getContactById (id) {
     method: 'get',
   })
 }
+export function getContactAssociate (query) {
+  return request({
+    url: `${crmsUrl}/associate`,
+    method: 'get',
+    params: query,
+  })
+}

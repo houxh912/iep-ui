@@ -5,7 +5,8 @@
         <el-input v-model="form.contactName" placeholder="请输入联系人" maxlength="20"></el-input>
       </el-form-item>
       <el-form-item label="对应客户">
-        <el-input v-model="form.clientName" placeholder="请输入对应客户" maxlength="30"></el-input>
+        <!-- <el-input v-model="form.clientName" placeholder="请输入对应客户" maxlength="30"></el-input> -->
+        <el-autocomplete class="inline-input" v-model="form.clientName" :fetch-suggestions="querySearch" placeholder="请输入对应客户" @select="handleSelect"></el-autocomplete>
         <!-- <el-select v-model="form.clientIds" multiple placeholder="请选择">
           <el-option v-for="item in dictData" :key="item.clientId" :label="item.clientName" :value="item.clientId">
           </el-option>
@@ -20,11 +21,25 @@
 </template>
 <script>
 import { initSearchForm } from '../options'
+import { getContactAssociate } from '@/api/crms/contact'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
       form: {},
+      restaurants: [],
+      clientList: [],
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
+  // mounted () {
+  //   this.restaurants = this.loadAll()
+  // },
+  created () {
   },
   methods: {
     searchPage () {
@@ -33,6 +48,25 @@ export default {
     clearSearchParam () {
       this.form = initSearchForm()
     },
+    querySearch (queryString, cb) {
+      getContactAssociate({ clientName: queryString }).then(res => {
+        if (res.data.length > 0) {
+          let data = res.data.map(m => {
+            return { value: m.clientName }
+          })
+          cb(data)
+        }
+      })
+    },
+    handleSelect (item) {
+      console.log(item)
+    },
   },
 }
 </script>
+<style lang="scss" scoped>
+.inline-input {
+  width: 100%;
+}
+</style>
+

@@ -135,3 +135,11 @@ export function getAllContactincrease (params) {
     params: params,
   })
 }
+//全部客户所有统计签单金额
+export function getAllContractAmount (params) {
+  return request({
+    url: `${allUrl}/contractAmount`,
+    method: 'get',
+    params: params,
+  })
+}

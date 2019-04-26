@@ -2,7 +2,7 @@
   <div class="organization">
     <el-carousel height="200px" :interval="5000" indicator-position="none">
       <el-carousel-item v-for="item in 4" :key="item">
-        <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
+        <div v-for="(item,index) in wonderfulList" :key="index" class="piece" @click="handleOpen()">
           <div class="img"><img :src="item.img" class="img"></div>
           <span class="name">{{item.name}}</span>
         </div>
@@ -21,6 +21,13 @@ export default {
         { name: '佛山司马钱信息技术有限公司', img: require('../img/organization3.jpg') },
       ],
     }
+  },
+  methods: {
+    handleOpen () {
+      this.$router.push({
+        path: '/app/organization_style',
+      })
+    },
   },
 }
 </script>

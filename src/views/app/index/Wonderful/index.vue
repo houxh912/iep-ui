@@ -39,7 +39,7 @@ export default {
         value: 'Specialist',
       }],
       activeTab: 'Organization',
-      linkName: '/app/organizationStyle',
+      linkName: '/app/organization_style',
     }
   },
 }

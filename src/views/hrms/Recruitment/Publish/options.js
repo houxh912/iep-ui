@@ -45,7 +45,7 @@ const initForm = () => {
     targetCount: 0, // 目标人数
     academicId: '', // 学历要求(dict) hrms_highest_educational
     jobTypeId: '', // 工作类型(dict) hrms_work_type
-    years: 0, // 工作年限
+    years: '', // 工作年限
     profession: '', // 专业要求
     place: '', // 工作地点
     sex: 1, // 性别

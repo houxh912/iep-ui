@@ -46,12 +46,11 @@
 import AddDialogForm from './AddDialogForm'
 import PersonDialogForm from './PersonDialogForm'
 import { addObj, putObj, delObj, fetchList, reviewById } from '@/api/admin/org'
-import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 import { dictsMap, columnsMap, initForm, initOrgSearchForm } from './options'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
-  components: { AddDialogForm, PersonDialogForm, IepReviewConfirm },
+  components: { AddDialogForm, PersonDialogForm },
   data () {
     return {
       dictsMap,

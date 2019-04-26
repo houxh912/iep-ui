@@ -1,26 +1,24 @@
 <template>
-  <div>
-    <div class="material">
-      <div class="library">
-        <librarys></librarys>
-      </div>
-      <div class="piece">
-        <IepAppTabCard :title="listTitle1">
-          <IepAppListCard :dataList="listList1"></IepAppListCard>
-        </IepAppTabCard>
-        <IepAppTabCard :title="labelTitle">
-          <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
-        </IepAppTabCard>
-        <IepAppTabCard :title="rankingTitle">
-          <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
-        </IepAppTabCard>
-        <IepAppTabCard :title="listTitle2">
-          <IepAppListCard :dataList="listList2"></IepAppListCard>
-        </IepAppTabCard>
-        <IepAppTabCard :title="listTitle3">
-          <IepAppListCard :dataList="listList3"></IepAppListCard>
-        </IepAppTabCard>
-      </div>
+  <div class="material">
+    <div class="library">
+      <librarys></librarys>
+    </div>
+    <div class="piece">
+      <IepAppTabCard :title="listTitle1">
+        <IepAppListCard :dataList="listList1"></IepAppListCard>
+      </IepAppTabCard>
+      <IepAppTabCard :title="labelTitle">
+        <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
+      </IepAppTabCard>
+      <IepAppTabCard :title="rankingTitle">
+        <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
+      </IepAppTabCard>
+      <IepAppTabCard :title="listTitle2">
+        <IepAppListCard :dataList="listList2"></IepAppListCard>
+      </IepAppTabCard>
+      <IepAppTabCard :title="listTitle3">
+        <IepAppListCard :dataList="listList3"></IepAppListCard>
+      </IepAppTabCard>
     </div>
   </div>
 </template>

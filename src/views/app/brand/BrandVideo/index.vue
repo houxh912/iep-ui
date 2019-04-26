@@ -56,7 +56,7 @@ export default {
   grid-column-end: 4;
 }
 </style>
-<style lang="scss">
+<style lang="scss" scoped>
 .el-carousel {
   overflow: hidden;
 }
@@ -104,8 +104,5 @@ export default {
   font-size: 18px;
   opacity: 0.75;
   margin: 0;
-}
-.el-carousel__container {
-  height: 200px;
 }
 </style>

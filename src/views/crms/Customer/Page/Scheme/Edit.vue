@@ -2,21 +2,21 @@
   <div class="iep-page-form">
     <page-header title="本地上传" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
-      <el-form-item label="名称：" prop="materialName">
+      <el-form-item label="名称：">
         <span slot="label">
           名称
           <iep-tip :content="tipContent.materialName"></iep-tip>
           ：
         </span>
-        <el-input v-model="formData.materialName" maxlength="50"></el-input>
+        <el-input v-model="formData.materialName" maxlength="50" disabled></el-input>
       </el-form-item>
-      <el-form-item label="作者：" prop="uploader">
+      <el-form-item label="作者：">
         <span slot="label">
           作者
           <iep-tip :content="tipContent.uploader"></iep-tip>
           ：
         </span>
-        <el-input v-model="formData.uploader" maxlength="40"></el-input>
+        <el-input v-model="formData.uploader" maxlength="40" disabled></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
         <span slot="label">
@@ -47,7 +47,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="类型：" prop="materialType">
+      <el-form-item label="类型：">
         <span slot="label">
           类型
           <iep-tip :content="tipContent.materialType"></iep-tip>
@@ -76,7 +76,7 @@
       <el-form-item label="是否保密：" prop="secrecyLevel">
         <el-switch v-model="formData.secrecyLevel" :active-value="dictsMap.secrecyLevel[1].value" :inactive-value="dictsMap.secrecyLevel[0].value"></el-switch>
       </el-form-item>
-      <el-form-item label="附件：" prop="attachFileList">
+      <el-form-item prop="attachFileList">
         <span slot="label">
           附件
           <iep-tip :content="tipContent.attachFileList"></iep-tip>
@@ -92,44 +92,56 @@
   </div>
 </template>
 <script>
-import { initLocalForm, rules, dictsMap, tipContent } from './option'
-
+import { initLocalForm, rules, dictsMap, tipContent } from './options'
+import { getConfigureTree } from '@/api/mlms/material/datum/configure'
+import { createData } from '@/api/mlms/material/datum/material'
+import { updateScheme, getSchemeById } from '@/api/crms/scheme'
+import { mapGetters, mapState } from 'vuex'
+// import { getDataById } from '@/api/mlms/material/datum/material'
 export default {
-  props: {
-    firstClass: {
-      type: Array,
-      default: () => { },
-    },
+  computed: {
+    ...mapGetters(['permissions', 'userInfo']),
+    ...mapState({
+      dictGroup: state => state.user.dictGroup,
+    }),
   },
   data () {
     return {
+      record: '',
       tipContent,
-      dialogShow: false,
       methodName: '新增',
       formRequestFn: () => { },
       formData: initLocalForm(),
-      backId: '',
       rules: rules,
       secondClass: [],
       dictsMap,
-      dicData: {
-        select: [
-          { value: '1', label: '选项1' },
-          { value: '2', label: '选项2' },
-        ],
-        dept: [
-          { value: 1, label: '部门1' },
-          { value: 2, label: '部门2' },
-        ],
-      },
       limit: 1,
       backOption: {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          this.$emit('load-page', true)
+          this.$emit('onGoBack')
         },
       },
+      firstClass: '',
+      schemeData: '',
+    }
+  },
+  created () {
+    getConfigureTree().then(({ data }) => {
+      this.firstClass = data.data
+    })
+
+
+  },
+  updated () {
+    this.formData.uploader = this.userInfo.realName
+    if (this.record.hasOwnProperty('attachs')) {
+      this.formData.materialName = this.record.programName
+      this.formData.attachFileList = this.record.attachs
+      getSchemeById(this.record.programId).then((res) => {
+        this.schemeData = res.data.data
+      })
     }
   },
   methods: {
@@ -139,7 +151,6 @@ export default {
     resetForm (formName) {
       this.$refs[formName].resetFields()
       this.formData = initLocalForm()
-      this.dialogShow = false
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -148,8 +159,7 @@ export default {
             this.formData.attachFile = this.formData.attachFileList[0].url
           }
           this.formData.type = 0
-          this.formRequestFn(this.formData).then((data) => {
-            this.backId = data.id
+          createData(this.formData).then((data) => {
             if (data.data && data.data.data === false) {
               this.$message.error(data.data.msg)
               return
@@ -158,8 +168,12 @@ export default {
               message: `${this.methodName}成功`,
               type: 'success',
             })
+            console.log(data)
+            this.schemeData.meterialId = data.data.data
+            updateScheme(this.schemeData).then(() => {
+
+            })
             this.loadPage()
-            this.dialogShow = false
           })
         } else {
           return false

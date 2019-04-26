@@ -5,21 +5,21 @@
 </template>
 
 <script>
-import _ from 'lodash'
+// import _ from 'lodash'
 import 'v-charts/lib/style.css'
-import { getAllBusiness } from '@/api/crms/count'
+import { getBusiness } from '@/api/crms/count'
 export default {
   data () {
     this.chartExtend = {
       color: ['#A9CCF0', '#8D99B3', '#F0F0A9', '#FFD9BC', '#F1C8C8'],
       tooltip: {
         trigger: 'item',
-        formatter: '{b}：{c}%',
+        formatter: '{b}：{c}个 ({d}%)',
       },
       label: {
         show: true,
         color: '#000',
-        formatter: '{b}：{c}%',
+        formatter: '{b}：{d}%',
       },
       series: {
         center: ['50%', '50%'],
@@ -27,15 +27,8 @@ export default {
     }
     return {
       loading: true,
-      data: [
-        { value: '0', name: '咨询', label: 'consulting' },
-        { value: '0', name: '数据', label: 'information' },
-        { value: '0', name: '软件', label: 'softwareNumber' },
-        { value: '0', name: '平台', label: 'platform' },
-        { value: '0', name: '事项', label: 'matters' },
-      ],
       chartData: {
-        columns: ['name', 'value'],
+        columns: ['marketManager', 'contractQuantity'],
         rows: [],
       },
     }
@@ -45,15 +38,11 @@ export default {
   },
   methods: {
     load () {
-      getAllBusiness().then((res) => {
+      getBusiness().then((res) => {
         if (res) {
+          this.chartData.rows = res.data.data
           this.loading = false
         }
-        Object.keys(res.data.data).forEach((item) => {
-          var index = _.findIndex(this.data, function (o) { return o.label == item })
-          this.data[index].value = res.data.data[item]
-        })
-        this.chartData.rows = this.data
       })
     },
   },

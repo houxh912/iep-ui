@@ -23,6 +23,7 @@
           <el-table-column label="合同名称">
             <template slot-scope="scope">
               <div class="row-tpl" @click="handleDetail(scope.row)">
+                <div class="custom-name">{{scope.row.contractName}}</div>
                 <el-col class="custom-tags">
                   <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index">{{item}}</el-tag>
                 </el-col>
@@ -90,6 +91,7 @@ export default {
         }
         data.data.projectId = data.data.projectRelation.id
         data.data.projectName = data.data.projectRelation.name
+        data.data.signDeptName = data.data.signDeptOrgName.name
         this.$refs['mainDialog'].formData = data.data
         this.$refs['mainDialog'].methodName = '编辑'
         this.$refs['mainDialog'].formRequestFn = updateData

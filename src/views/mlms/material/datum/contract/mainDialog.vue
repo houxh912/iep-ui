@@ -52,9 +52,9 @@
       </el-row>
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="签署组织：" prop="signDeptOrgName">
-            <!-- <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select> -->
-            <el-input v-model="formData.signDeptOrgName" readonly ></el-input>
+          <el-form-item label="签署组织：" prop="signDeptName">
+            <!-- <iep-dept-select v-model="formData.signDeptName"></iep-dept-select> -->
+            <el-input v-model="formData.signDeptName" readonly ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
@@ -201,8 +201,7 @@ export default {
   },
   mounted () {
     this.formData.signDeptOrgId = this.userInfo.orgId
-    this.formData.signDeptOrgName = this.userInfo.orgName
-    console.log('mounted', this.userInfo)
+    this.formData.signDeptName = this.userInfo.orgName
   },
   created () {
     getCustomerPage({ type: 1 }).then(({ data }) => {

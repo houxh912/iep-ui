@@ -20,7 +20,7 @@ export default {
   data () {
     this.chartSetting = {
       // legendName: ['客户', '联系人'],
-      legendName: {
+      labelMap: {
         'clientQuantity': '客户',
         'contactQuantity': '联系人',
       },

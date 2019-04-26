@@ -51,7 +51,7 @@ import {
 } from 'ant-design-vue'
 // import VueCropper from 'vue-cropper'
 
-// Vue.use(LocaleProvider)
+Vue.use(LocaleProvider)
 // Vue.use(Layout)
 Vue.use(Input)
 // Vue.use(InputNumber)
@@ -64,7 +64,7 @@ Vue.use(Card)
 Vue.use(Form)
 Vue.use(Row)
 Vue.use(Col)
-// Vue.use(Modal)
+Vue.use(Modal)
 // Vue.use(Table)
 // Vue.use(Tabs)
 Vue.use(Icon)

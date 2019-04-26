@@ -161,6 +161,7 @@ export default {
 
 <style lang="scss" scoped>
 .daily {
+  margin-right: 16%;
   padding: 20px 0 0;
   .search {
     margin-bottom: 20px;

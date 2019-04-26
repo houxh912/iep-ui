@@ -134,10 +134,13 @@ export default {
         if (valid) {
           // 判断这条数据是否在系统中已经生成
           let fn = () => { }
+          let successTips = ''
           if (this.formData.createTime) {
             fn = updateData
+            successTips = '恭喜您完成本月月报，继续努力！'
           } else {
             fn = createData
+            successTips = '恭喜您完成月报补写，继续努力！'
             this.formData.reportType = 1
             this.formData.createTime = getDateStr(this.formData.timeStamp)
           }
@@ -146,10 +149,7 @@ export default {
           this.formData.projectIds = this.formData.projectList.map(m => m.id)
           this.formData.productIds = this.formData.productList.map(m => m.id)
           fn(this.formData).then(() => {
-            this.$message({
-              message: '编辑月报成功',
-              type: 'success',
-            })
+            this.$message.success(successTips)
             this.pageState = true
             this.$emit('success-submit', true)
           })

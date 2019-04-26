@@ -54,5 +54,13 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.menus {
+  border-right: 1px solid #eee;
+  .el-menu {
+    border-right: 0;
+  }
+}
+</style>
 
 

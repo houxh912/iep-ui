@@ -1,6 +1,7 @@
 import { serialize } from '@/util/util'
 import { getStore } from '../util/store'
 import axios from 'axios'
+import qs from 'qs'
 import NProgress from 'nprogress' // progress bar
 import errorCode from '@/const/errorCode'
 import { Message } from 'element-ui'
@@ -36,9 +37,14 @@ axios.interceptors.request.use(
       config.headers['TENANT_ID'] = TENANT_ID // 租户ID
     }
     // headers中配置serialize为true开启序列化
-    if (config.methods === 'post' && config.headers.serialize) {
+    if (config.method === 'post' && config.headers.serialize) {
       config.data = serialize(config.data)
       delete config.data.serialize
+    }
+    if (config.method === 'get') {
+      config.paramsSerializer = function (params) {
+        return qs.stringify(params, { arrayFormat: 'brackets' })
+      }
     }
     return config
   },
@@ -68,10 +74,12 @@ axios.interceptors.response.use(
       //   router.push({ path: '/500' })
       //   return
     } else if (status !== 200 || res.data.code === 1) {
-      Message({
-        message: message,
-        type: 'error',
-      })
+      if (process.env.NODE_ENV === 'development') {
+        Message({
+          message: message,
+          type: 'error',
+        })
+      }
       return Promise.reject(new Error(message))
     } else {
       return res

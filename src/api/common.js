@@ -26,3 +26,20 @@ export function downloadFile (file) {
     link.click()
   })
 }
+
+export function downloadUrl (url) {
+  request({
+    url: '/admin/file/' + url,
+    method: 'get',
+    responseType: 'arraybuffer',
+  }).then(response => {
+    // 处理返回的文件流
+    const blob = new Blob([response.data])
+    const link = document.createElement('a')
+    link.href = window.URL.createObjectURL(blob)
+    link.download = url
+    document.body.appendChild(link)
+    link.style.display = 'none'
+    link.click()
+  })
+}

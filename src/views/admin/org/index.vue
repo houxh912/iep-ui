@@ -46,12 +46,11 @@
 import AddDialogForm from './AddDialogForm'
 import PersonDialogForm from './PersonDialogForm'
 import { addObj, putObj, delObj, fetchList, reviewById } from '@/api/admin/org'
-import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 import { dictsMap, columnsMap, initForm, initOrgSearchForm } from './options'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
-  components: { AddDialogForm, PersonDialogForm, IepReviewConfirm },
+  components: { AddDialogForm, PersonDialogForm },
   data () {
     return {
       dictsMap,
@@ -88,6 +87,11 @@ export default {
       if (row.orgId) {
         this.$refs['iepReviewForm'].id = row.orgId
       } else {
+        // TODO: 是否多选提醒
+        if (!this.multipleSelection.length) {
+          this.$message('请先选择需要的选项')
+          return
+        }
         this.$refs['iepReviewForm'].ids = this.multipleSelection
       }
       this.$refs['iepReviewForm'].title = '审核'

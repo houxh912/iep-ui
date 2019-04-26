@@ -1,11 +1,7 @@
 <template>
   <div>
-    <iepAppTabCard :title="title">
-      <div class="institutional-document-list">
-        <div v-for="(item,index) in institutionalDocumentList" :key="index" class="piece">
-          {{item}}
-        </div>
-      </div>
+    <iepAppTabCard :title="title" isMore>
+      <IepAppListCard :dataList="dataList"></IepAppListCard>
     </iepAppTabCard>
   </div>
 </template>
@@ -14,7 +10,7 @@ export default {
   data () {
     return {
       title: '制度文件',
-      institutionalDocumentList: [
+      dataList: [
         '制度|浙江省人民政府办公厅关于加快推进“标准地”改革的实施意见',
         '文件|上海市信息化发展专项资金操作流程图',
         '文件|DB52∕T 1123-2016政府数据 数据分类分级指南',
@@ -28,34 +24,4 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.institutional-document-list {
-  .piece {
-    cursor: pointer;
-    height: 30px;
-    line-height: 30px;
-    position: relative;
-    margin-left: 15px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    &:hover {
-      color: #cb3737;
-      &:before {
-        background-color: #cb3737;
-      }
-    }
-    &:before {
-      content: "";
-      position: absolute;
-      left: -15px;
-      top: 14px;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background-color: #999;
-    }
-  }
-}
 </style>

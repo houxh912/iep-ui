@@ -168,7 +168,7 @@ export default {
           },
           {
             label: '市场经理',
-            prop: 'marketManager',
+            prop: 'marketManagerName',
           },
         ],
       },

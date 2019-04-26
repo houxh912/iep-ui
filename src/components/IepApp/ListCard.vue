@@ -3,6 +3,7 @@
     <div v-for="(item,index) in dataList" :key="index" class="piece">
       {{item}}
     </div>
+    <slot></slot>
   </div>
 </template>
 <script>

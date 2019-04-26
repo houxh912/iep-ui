@@ -15,13 +15,15 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="创建人" width="250px" v-if="record.type =='3'">
+        <el-table-column label="创建人" width="250px" v-if="record.collaborations.length !==0">
           <template>
-            <div class=' line'>
-              <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
-            </div>
-            <div class='create-name line'>
-              {{userInfo.realName}}
+            <div>
+              <div class=' line'>
+                <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
+              </div>
+              <div class='create-name line'>
+                {{userInfo.realName}}
+              </div>
             </div>
           </template>
         </el-table-column>
@@ -144,5 +146,13 @@ export default {
 <style lang="scss" scoped>
 .custom-name {
   cursor: pointer;
+}
+.line {
+  display: inline-block;
+  vertical-align: middle;
+}
+.create-name {
+  vertical-align: middle;
+  padding-left: 5px;
 }
 </style>

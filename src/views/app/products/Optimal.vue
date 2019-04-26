@@ -51,7 +51,7 @@ export default {
 .last-month {
   .piece {
     width: 100%;
-    margin-bottom: 12px;
+    margin-bottom: 13px;
     overflow: hidden;
     img {
       float: left;

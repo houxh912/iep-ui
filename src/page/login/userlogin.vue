@@ -143,6 +143,10 @@ export default {
           this.$store
             .dispatch('LoginByUsername', this.form)
             .then(() => {
+              this.$store.dispatch('GetMenu').then(data => {
+                if (data.length === 0) return
+                this.$router.$avueRouter.formatRoutes(data, true)
+              })
               this.$router.push({ path: this.tagWel.value })
             })
             .catch(() => {

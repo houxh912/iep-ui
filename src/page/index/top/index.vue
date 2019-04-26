@@ -5,149 +5,53 @@
         <el-tooltip class="item" effect="dark" content="点击返回工作台" placement="bottom">
           <div class="logo" @click="$openPage('/')"></div>
         </el-tooltip>
-        <el-dropdown>
-          <span class="el-dropdown-link">
+        <a-dropdown>
+          <a href="#">
             国脉智慧平台
-            <i class="el-icon-arrow-down el-icon--right"></i>
-          </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item v-for="(v, i) in collectWebsite" :key="i" @click.native="$openPage(v.url, 'url')">
+            <a-icon type="down" />
+          </a>
+          <a-menu slot="overlay">
+            <a-menu-item v-for="(v, i) in collectWebsite" :key="i" @click="$openPage(v.url, 'url')">
               {{v.name}}
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+            </a-menu-item>
+          </a-menu>
+        </a-dropdown>
       </div>
+    </div>
+    <div class="top-center">
       <top-navbar></top-navbar>
     </div>
     <div class="top-right">
       <top-search-icon></top-search-icon>
       <top-guide></top-guide>
       <top-message></top-message>
-      <el-dropdown>
-        <span class="el-dropdown-link iep-ellipsis">
-          {{ userInfo.realName || '游客' }}
-          <i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click.native="$openPage('/')">
-            工作台
-          </el-dropdown-item>
-          <el-dropdown-item @click.native="handleOrg(orgText.type)">
-            {{orgText.tipText}}&nbsp;&nbsp;&nbsp;
-            <a-icon type="swap" />
-          </el-dropdown-item>
-          <el-dropdown-item @click.native="$openPage('BaseSettings','name')">
-            个人信息
-          </el-dropdown-item>
-          <el-dropdown-item @click.native="handleAbout">
-            关于
-          </el-dropdown-item>
-          <el-dropdown-item @click.native="logout" divided>退出系统</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+      <top-user></top-user>
     </div>
-    <select-org-dialog ref="selectOrgDialog"></select-org-dialog>
-    <about-dialog ref="AboutDialog"></about-dialog>
   </div>
 </template>
 <script>
 import website from '@/const/website'
-import SelectOrgDialog from './SelectOrgDialog'
-import { mapGetters, mapState } from 'vuex'
-import { fullscreenToggel, listenfullscreen } from '@/util/util'
 import TopNavbar from './TopNavbar'
 import TopMessage from './TopMessage'
 import TopGuide from './TopGuide'
 import TopSearchIcon from './TopSearchIcon'
-import AboutDialog from './AboutDialog'
+import TopUser from './TopUser'
 export default {
   components: {
     TopNavbar,
     TopMessage,
     TopSearchIcon,
     TopGuide,
-    SelectOrgDialog,
-    AboutDialog,
+    TopUser,
   },
   name: 'Top',
   data () {
     return {
       collectWebsite: website.collectWebsite,
-      showDot1: true,
-      showDot2: true,
-      showDot3: true,
     }
-  },
-  mounted () {
-    listenfullscreen(this.setScreen)
-  },
-  computed: {
-    ...mapState({
-      showLock: state => state.common.showLock,
-      showFullScren: state => state.common.showFullScren,
-      showCollapse: state => state.common.showCollapse,
-      showMenu: state => state.common.showMenu,
-    }),
-    ...mapGetters([
-      'userInfo',
-      'noOrg',
-    ]),
-    orgText () {
-      return this.noOrg ? {
-        tipText: '无组织(加入/创建)',
-        type: 0,
-      } : {
-          tipText: `${this.userInfo.orgName}`,
-          type: 1,
-        }
-    },
-  },
-  methods: {
-    handleOrg (type) {
-      if (type === 0) {
-        this.$router.push({ name: '选择组织' })
-      } else {
-        this.$refs['selectOrgDialog'].dialogShow = true
-      }
-    },
-    handleAbout () {
-      this.$refs.AboutDialog.dialogShow = true
-    },
-    handleScreen () {
-      fullscreenToggel()
-    },
-    setCollapse () {
-      this.$store.commit('SET_COLLAPSE')
-    },
-    setScreen () {
-      this.$store.commit('SET_FULLSCREN')
-    },
-    logout () {
-      this.$confirm('是否退出系统, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        this.$store.dispatch('LogOut').then(() => {
-          this.$router.push({ path: '/login' })
-        })
-      })
-    },
   },
 }
 </script>
-<style scoped>
-.top-right >>> .el-dropdown {
-  color: #424242;
-  margin: 0 20px;
-  cursor: pointer;
-}
-.top-left >>> .el-dropdown {
-  color: #424242;
-  cursor: pointer;
-  width: 140px;
-}
-</style>
 
 <style lang="scss" scoped>
 .top {
@@ -169,7 +73,7 @@ export default {
       font-size: 16px;
       .logo {
         cursor: pointer;
-        margin-right: 5px;
+        margin-right: 10px;
         width: 76px;
         height: 32px;
         background-image: url("/img/logo.png");
@@ -182,15 +86,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-}
-@media (min-width: 0px) and (max-width: 1270px) {
-  .logo {
-    width: 50px;
-    height: 22px;
-  }
-  .top-left {
-    line-height: 34px;
+    margin-right: 20px;
   }
 }
 </style>

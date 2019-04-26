@@ -42,7 +42,7 @@
         </template>
       </el-table-column>
     </iep-table>
-    <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
+    <detail-drawer ref="DetailDrawer"></detail-drawer>
     <to-blacklist-dialog ref="ToBlacklistDialog" @load-page="loadPage"></to-blacklist-dialog>
   </div>
 </template>

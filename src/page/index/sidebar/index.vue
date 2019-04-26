@@ -24,12 +24,12 @@ export default {
   mixins: [displayMixins],
   name: 'Sidebar',
   components: { sidebarItem, MainItem },
-  created () {
-    this.$store.dispatch('GetMenu').then(data => {
-      if (data.length === 0) return
-      this.$router.$avueRouter.formatRoutes(data, true)
-    })
-  },
+  // created () {
+  //   this.$store.dispatch('GetMenu').then(data => {
+  //     if (data.length === 0) return
+  //     this.$router.$avueRouter.formatRoutes(data, true)
+  //   })
+  // },
   computed: {
     ...mapGetters(['website', 'menu', 'mainMenu', 'otherMenus', 'menusMap', 'screen']),
     keyCollapse () {

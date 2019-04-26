@@ -1,6 +1,6 @@
 {
   "name": "iep-ui",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -32,9 +32,11 @@
     "koa-router": "^7.4.0",
     "moment": "^2.24.0",
     "nprogress": "^0.2.0",
+    "qs": "^6.7.0",
     "register-service-worker": "^1.5.2",
     "sockjs-client": "^1.3.0",
     "stompjs": "^2.3.3",
+    "uglifyjs-webpack-plugin": "^2.1.2",
     "v-charts": "^1.19.0",
     "viser-vue": "^2.4.5",
     "vue": "^2.5.22",

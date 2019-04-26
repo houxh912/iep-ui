@@ -6,7 +6,7 @@
         <i class="icon-huanyuan"></i>
       </el-button>
     </div>
-    <el-scrollbar v-if="dialogShow" wrap-class="dialog-content">
+    <el-scrollbar v-if="dialogShow" wrap-class="wrap-dialog" view-class="view-dialog">
       <slot></slot>
     </el-scrollbar>
     <div slot="footer" class="dialog-footer">
@@ -113,10 +113,13 @@ export default {
   height: 24px;
   padding-right: 20px;
 }
-.dialog-content {
+.wrap-dialog {
   max-height: 54vh;
   padding: 8px 0;
   overflow-x: hidden;
+}
+.view-dialog {
+  padding-bottom: 10px;
 }
 .text-icon {
   color: #333;

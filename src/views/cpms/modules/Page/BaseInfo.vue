@@ -12,6 +12,11 @@
         </el-form-item>
       </el-col>
       <el-col :span='8'>
+        <el-form-item label="测试地址：">
+          <div>{{form.website}}</div>
+        </el-form-item>
+      </el-col>
+      <el-col :span='8'>
         <el-form-item label="模块指导价：">
           <div>{{form.guidePrice}}</div>
         </el-form-item>
@@ -24,7 +29,7 @@
     </el-row>
     <el-row>
       <el-col>
-        <el-form-item label="详细介绍：">
+        <el-form-item label="模块介绍：">
           <div>{{form.description}}</div>
         </el-form-item>
       </el-col>

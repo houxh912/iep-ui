@@ -63,7 +63,7 @@ export function fetchVisitLog (params) {
 // 拜访日志-通过id查询
 export function fetchVisitLogById (id) {
   return request({
-    url: `${visitLog}/page/%7Bid%7D`,
+    url: `${visitLog}/page`,
     method: 'get',
     params: id,
   })

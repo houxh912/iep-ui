@@ -1,19 +1,20 @@
 const utils = require('./config/utils')
 const devServer = require('./config/devServer')
-// const IS_PRODUCTION = process.env.NODE_ENV === 'production'
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const isProduction = process.env.NODE_ENV === 'production'
 module.exports = {
   lintOnSave: true,
   productionSourceMap: false,
   // pages: {
   //   index: {
   //     // page 的入口
-  //     entry: IS_PRODUCTION ? 'src/main.js' : 'src/main.dev.js',
+  //     entry: isProduction ? 'src/main.js' : 'src/main.dev.js',
   //     // 模板来源
-  //     template: IS_PRODUCTION ? 'public/index.html' : 'public/index.dev.html',
+  //     template: isProduction ? 'public/index.html' : 'public/index.dev.html',
   //   },
   // },
   // configureWebpack: {
-  //   externals: IS_PRODUCTION
+  //   externals: isProduction
   //     ? {
   //       vue: 'Vue',
   //       vuex: 'Vuex',
@@ -38,6 +39,27 @@ module.exports = {
     //     fileBlacklist: [/\.map$/, /hot-update\.js$/],
     //   }
     // })
+    config
+      .entry('index')
+      .add('babel-polyfill')
+      .end();
+    if (isProduction) {
+      // 删除预加载
+      config.plugins.delete('preload');
+      config.plugins.delete('prefetch');
+      // 压缩代码
+      config.optimization.minimize(true);
+      // 分割代码
+      config.optimization.splitChunks({
+        chunks: 'all'
+      })
+      // 生产环境注入cdn
+      // config.plugin('html')
+      //   .tap(args => {
+      //     args[0].cdn = cdn;
+      //     return args;
+      //   });
+    }
     config.plugin('define').tap(definitions => {
       definitions[0] = Object.assign(definitions[0], {
         BUILD_TIME: Date.parse(new Date()),
@@ -50,8 +72,41 @@ module.exports = {
     })
     return config
   },
-
+  configureWebpack: config => {
+    if (isProduction) {
+      // 用cdn方式引入
+      // config.externals = {
+      //   'vue': 'Vue',
+      //   'vuex': 'Vuex',
+      //   'vue-router': 'VueRouter',
+      //   'axios': 'axios'
+      // }
+      // 为生产环境修改配置...
+      config.plugins.push(
+        //生产环境自动删除console
+        new UglifyJsPlugin({
+          uglifyOptions: {
+            compress: {
+              warnings: false,
+              drop_debugger: true,
+              drop_console: true,
+            },
+          },
+          sourceMap: false,
+          parallel: true,
+        })
+      )
+    } else {
+      // 为开发环境修改配置...
+    }
+  },
+  // 生产环境是否生成 sourceMap 文件
+  productionSourceMap: false,
   css: {
+    // 是否使用css分离插件 ExtractTextPlugin
+    // extract: true,
+    // 开启 CSS source maps?
+    // sourceMap: false,
     loaderOptions: {
       less: {
         modifyVars: {
@@ -61,8 +116,11 @@ module.exports = {
         },
         javascriptEnabled: true
       }
-    }
+    },
+    // 启用 CSS modules for all css / pre-processor files.
+    // modules: false,
   },
+  parallel: require('os').cpus().length > 1,
   // 配置转发代理
   devServer: {
     host: devServer.host, // can be overwritten by process.env.HOST

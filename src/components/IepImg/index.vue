@@ -2,7 +2,7 @@
   <img :src="realSrc">
 </template>
 <script>
-import { imgUrl, base64Url } from '@/config/env'
+import { base64Url } from '@/config/env'
 
 export default {
   name: 'IepImg',
@@ -18,7 +18,7 @@ export default {
       if (!this.src) {
         return base64Url
       }
-      return imgUrl + this.src
+      return this.src
     },
   },
 }

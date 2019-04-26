@@ -8,11 +8,11 @@
     <div class="content">
       <newcomers></newcomers>
       <institutional-document></institutional-document>
-      <learning-resources></learning-resources>
+      <resources></resources>
       <new-technology></new-technology>
       <optimal></optimal>
       <honor></honor>
-      <recruit></recruit>
+      <bounty-mission></bounty-mission>
       <task></task>
       <suggest></suggest>
     </div>
@@ -25,15 +25,15 @@ import MyProducts from './MyProducts'
 import Visualization from './Visualization'
 import Newcomers from './Newcomers'
 import InstitutionalDocument from './InstitutionalDocument'
-import LearningResources from './LearningResources'
+import Resources from './Resources/'
 import NewTechnology from './NewTechnology'
 import Optimal from './Optimal'
 import Honor from './Honor'
-import Recruit from './Recruit'
+import BountyMission from './BountyMission/'
 import Task from './Task'
 import Suggest from './Suggest'
 export default {
-  components: { Banner, MyProducts, Visualization, Newcomers, InstitutionalDocument, LearningResources, NewTechnology, Optimal, Honor, Recruit, Task, Suggest },
+  components: { Banner, MyProducts, Visualization, Newcomers, InstitutionalDocument, Resources, NewTechnology, Optimal, Honor, BountyMission, Task, Suggest },
   data () {
     return {
     }

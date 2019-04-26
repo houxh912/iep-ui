@@ -155,13 +155,13 @@ const user = {
     GetUserInfo ({ commit }) {
       return new Promise((resolve, reject) => {
         getUserInfo()
-          .then(res => {
-            const data = res.data.data || {}
-            commit('SET_USERIFNO', data.sysUser)
-            commit('SET_ROLES', data.roles || [])
-            commit('SET_PERMISSIONS', data.permissions || [])
-            commit('SET_ORGS', data.orgs || [])
-            resolve(data)
+          .then(({ data }) => {
+            const realData = data.data || {}
+            commit('SET_USERIFNO', realData.sysUser)
+            commit('SET_ROLES', realData.roles || [])
+            commit('SET_PERMISSIONS', realData.permissions || [])
+            commit('SET_ORGS', realData.orgs || [])
+            resolve(realData)
           })
           .catch(() => {
             reject()
@@ -233,15 +233,10 @@ const user = {
     },
     // 获取系统菜单
     GetMenu ({ commit, state }) {
-      commit('SET_MENU', [])
-      commit('SET_MAINMENU', {})
-      commit('SET_OTHERMENUS', [])
-      commit('SET_MENUSMAP', {})
       commit('SET_MENUPATHLIST', [])
       return new Promise(resolve => {
-        GetMenu().then(res => {
-          const data = res.data.data
-          let menu = deepClone(data)
+        GetMenu().then(({ data }) => {
+          let menu = deepClone(data.data)
           menu.forEach(ele => {
             addPath(ele)
           })

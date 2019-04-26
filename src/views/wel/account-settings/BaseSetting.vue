@@ -345,6 +345,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import { getEmployeeProfileSelf, putEmployeeProfile } from '@/api/hrms/employee_profile'
 import { initForm, dictsMap, rules, formToDto } from '@/views/hrms/EmployeeProfile/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
@@ -367,6 +368,9 @@ export default {
     this.loadPage()
   },
   methods: {
+    ...mapActions([
+      'GetUserInfo',
+    ]),
     async handleSave () {
       try {
         const valid = await this.$refs['form'].validate()
@@ -377,6 +381,7 @@ export default {
               message: '修改成功',
               type: 'success',
             })
+            this.GetUserInfo()
             return true
           } else {
             this.$message({

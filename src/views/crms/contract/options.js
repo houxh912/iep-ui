@@ -12,20 +12,22 @@ const amount = (rules, value, callback) => {
     callback(new Error('金额不能为空'))
   } else {
     var reg = /^\d{0,8}\.{0,1}(\d{1,2})?$/
-    if (!reg.test(value)) {
+    var num = /^\d{0,100}\.{0,1}(\d{1,2})?$/
+    if (!num.test(value)) {
       callback(new Error('金额为数字类型且小数点后最多两位'))
-    } else {
-      callback()
+    } else if (!reg.test(value)) {
+      callback(new Error('金额不超过9位整数'))
     }
   }
   callback()
 }
 const amount1 = (rules, value, callback) => {
   var reg = /^\d{0,8}\.{0,1}(\d{1,2})?$/
-  if (!reg.test(value)) {
+  var num = /^\d{0,100}\.{0,1}(\d{1,2})?$/
+  if (value == '无' ? false : !num.test(value)) {
     callback(new Error('金额为数字类型且小数点后最多两位'))
-  } else {
-    callback()
+  } else if (value == '无' ? false : !reg.test(value)) {
+    callback(new Error('金额不超过9位整数'))
   }
   callback()
 }
@@ -41,13 +43,13 @@ export const rules = {
     { required: true, message: '请输入合同名称', trigger: 'blur' },
     { min: 2, max: 20, message: '长度为2-20个字符', trigger: 'blur' },
   ],
-  contractAmount: [{ required: true, validator: amount, trigger: 'blur' }],
+  contractAmount: [{ required: true, validator: amount, trigger: 'change' }],
   contractExpl: [{ max: 255, message: '长度不超过255个字符', trigger: 'blur' }],
   businessType: [
     { required: true, message: '请选择业务类型', trigger: 'change' },
   ],
   tagKeyWords: [
-    { required: true, message: '请选择或输入标签', trigger: 'blur' },
+    { required: true, message: '请选择或输入标签', trigger: 'change' },
   ],
   companyOrgId: [
     { required: true, message: '请选择委托单位', trigger: 'change' },
@@ -59,7 +61,7 @@ export const rules = {
   finishTime: [
     { required: true, message: '请选择完结日期', trigger: 'change' },
   ],
-  signDeptOrgName: [{ required: true, validator: RespDept, trigger: 'blur' }],
+  signDeptOrgName: [{ required: true, validator: RespDept, trigger: 'change' }],
   contractLevel: [
     { required: true, message: '请选择合同级别', trigger: 'change' },
   ],

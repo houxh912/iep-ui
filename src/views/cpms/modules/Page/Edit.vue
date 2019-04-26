@@ -18,6 +18,9 @@
           <el-form-item label="模块分类：" prop="type" class="form-half">
             <iep-dict-select v-model="form.type" dict-name="cpms_module_type"></iep-dict-select>
           </el-form-item>
+          <el-form-item label="测试地址：" prop="website" class="form-half">
+            <el-input maxlength="110" v-model="form.website"></el-input>
+          </el-form-item>
           <el-form-item label="模块指导价：" prop="guidePrice" class="form-half">
             <iep-input-number v-model="form.guidePrice"></iep-input-number>
           </el-form-item>
@@ -31,7 +34,7 @@
             <el-input maxlength="2010" v-model="form.synopsis"></el-input>
           </el-form-item>
           <el-form-item label="模块介绍：" prop="description">
-            <iep-input-area maxlength="2010" v-model="form.description"></iep-input-area>
+            <iep-input-area v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
         <div class="title">团队信息：</div>

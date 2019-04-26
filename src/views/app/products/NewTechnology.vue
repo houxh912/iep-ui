@@ -1,6 +1,6 @@
 <template>
   <div class="new-tehnology">
-    <iepAppTabCard :title="title">
+    <iepAppTabCard :title="title" isMore>
       <div class="new-tehnology-tab">
         分类：
         <div v-for="(item,index) in newTehnologyTab" :key="index" class="piece-tab" :class="showClass==index?'color':''" @click="tab(index)">{{item}}</div>

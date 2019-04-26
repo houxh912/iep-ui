@@ -4,13 +4,15 @@
       <iep-button class="btn" type="primary" plain @click="handleAdd"><i class="el-icon-plus"></i>新增</iep-button>
     </operation-wrapper>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-      <el-table-column label="创建人" width="250px" v-if="record.type =='3'">
+      <el-table-column label="创建人" width="250px" v-if="record.collaborations.length !==0">
         <template>
-          <div class=' line'>
-            <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
-          </div>
-          <div class='create-name line'>
-            {{userInfo.realName}}
+          <div>
+            <div class=' line'>
+              <iep-img-avatar :size="30" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
+            </div>
+            <div class='create-name line'>
+              {{userInfo.realName}}
+            </div>
           </div>
         </template>
       </el-table-column>
@@ -102,5 +104,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.line {
+  display: inline-block;
+  vertical-align: middle;
+}
+.create-name {
+  vertical-align: middle;
+  padding-left: 5px;
+}
 </style>

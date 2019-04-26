@@ -32,7 +32,6 @@ export default {
         name: [
           { required: true, message: '请输入组织名称', trigger: 'blur' },
         ],
-        isOpen: [],
         intro: [
           { required: true, message: '请填写组织描述', trigger: 'blur' },
         ],

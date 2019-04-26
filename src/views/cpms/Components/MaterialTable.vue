@@ -51,6 +51,7 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
+import uniqBy from 'lodash/uniqBy'
 import { getTableData } from '@/api/mlms/material/datum/material'
 export default {
   mixins: [mixins],
@@ -93,10 +94,11 @@ export default {
       this.tableData = tableData
     },
     handleSelect () {
-      // TODO: 过滤重复字段
       const selectData = this.pagedTable.filter(m => this.multipleSelection.includes(m.id))
       this.tableData.push(...selectData)
+      this.tableData = uniqBy(this.tableData, 'id')
       this.dialogShow = false
+      this.multipleSelection = []
     },
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)

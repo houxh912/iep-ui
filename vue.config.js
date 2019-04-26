@@ -120,7 +120,6 @@ module.exports = {
     // 启用 CSS modules for all css / pre-processor files.
     // modules: false,
   },
-  parallel: require('os').cpus().length > 1,
   // 配置转发代理
   devServer: {
     host: devServer.host, // can be overwritten by process.env.HOST

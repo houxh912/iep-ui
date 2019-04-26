@@ -291,7 +291,7 @@
               </iep-tip>
               ：
             </span>
-            <el-input type="textarea" v-model="form.careerPlanning"></el-input>
+            <iep-input-area v-model="form.careerPlanning"></iep-input-area>
           </el-form-item>
 
           <el-form-item>

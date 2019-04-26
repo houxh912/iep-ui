@@ -30,6 +30,7 @@
 import { getProductPage } from '@/api/cpms/product'
 import BlockModule from './BlockModule'
 import mixins from '@/mixins/mixins'
+import uniqBy from 'lodash/uniqBy'
 export default {
   mixins: [mixins],
   components: { BlockModule },
@@ -72,12 +73,12 @@ export default {
       this.tableData = tableData
     },
     handleSelect () {
-      // TODO: 过滤重复字段
       const selectData = this.pagedTable.filter(m => this.multipleSelection.includes(m.id))
       let tableData = this.tableData
       tableData = [...tableData, ...selectData]
-      this.$set(this, 'tableData', tableData)
+      this.tableData = uniqBy(tableData, 'id')
       this.dialogShow = false
+      this.multipleSelection = []
     },
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)

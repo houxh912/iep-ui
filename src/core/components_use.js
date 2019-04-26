@@ -50,6 +50,7 @@ import IepUploadSelect from '@/components/IepUpload/Select'
 
 // 弹出层相关组件
 import IepDialog from '@/components/IepDialog/'
+import IepADialog from '@/components/IepDialog/ADialog'
 import IepDrawer from '@/components/IepDrawer/'
 import IepHoverCard from '@/components/IepCommon/HoverCard'
 import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
@@ -126,6 +127,7 @@ Vue.component(IepUploadSelect.name, IepUploadSelect)
 
 // 弹出层相关组件
 Vue.component(IepDialog.name, IepDialog)
+Vue.component(IepADialog.name, IepADialog)
 Vue.component(IepDrawer.name, IepDrawer)
 Vue.component(IepHoverCard.name, IepHoverCard)
 Vue.component(IepReviewConfirm.name, IepReviewConfirm)

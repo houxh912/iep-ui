@@ -18,6 +18,7 @@
           <div class="content"></div>
         </div>
         <div v-else>
+          <!-- {{ today == item.createTime ? item : '不是' }} -->
           <div class="date" :class="active===index?'active':''">{{item.date}}</div>
           <div class="content">
             <slot name="content" :row="item" :index="index"></slot>
@@ -56,6 +57,7 @@ export default {
   data () {
     return {
       active: -1,
+      today: `${formatYear(new Date())} 00:00:00`,
     }
   },
   methods: {

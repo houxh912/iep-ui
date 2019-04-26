@@ -34,8 +34,8 @@
             <iep-button @click="handleCancel(scope)">取消</iep-button>
           </div>
           <div v-else>
-            <iep-button @click="handleEdit(scope, index)" type="warning" plain v-if="permission_edit">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope, index)" v-if="permission_delete">删除</iep-button>
+            <iep-button @click="handleEdit(scope, index)" type="warning" plain v-if="permission_edit_del">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope, index)" v-if="permission_edit_del">删除</iep-button>
           </div>
           
         </div>
@@ -68,8 +68,7 @@ export default {
       validateResult: {data: true},
       formState: false,
       permission_add: false,
-      permission_edit: false,
-      permission_delete: false,
+      permission_edit_del: false,
     }
   },
   methods: {
@@ -198,9 +197,8 @@ export default {
   },
   created () {
     this.loadPage()
-    this.permission_add = this.permissions['mlms_datum_add']
-    this.permission_edit = this.permissions['mlms_datum_edit']
-    this.permission_delete = this.permissions['mlms_datum_delete']
+    this.permission_add = this.permissions['mlms_datum_fp_add']
+    this.permission_edit_del = this.permissions['mlms_datum_fp_edit_del']
   },
 }
 </script>

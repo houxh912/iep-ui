@@ -22,10 +22,11 @@
         <template slot="before-columns">
           <el-table-column label="合同名称">
             <template slot-scope="scope">
-              <div class="custom-name" @click="handleDetail(scope.row)">{{scope.row.contractName}}</div>
-              <el-col class="custom-tags">
-                <el-tag type="info" size="mini" v-for="(item, index) in scope.row.code" :key="index">{{item}}</el-tag>
-              </el-col>
+              <div class="row-tpl" @click="handleDetail(scope.row)">
+                <el-col class="custom-tags">
+                  <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index">{{item}}</el-tag>
+                </el-col>
+              </div>
             </template>
           </el-table-column>
         </template>
@@ -144,18 +145,20 @@ export default {
     cursor: pointer;
   }
 }
-.custom-name {
-  cursor: pointer;
-  margin-bottom: 10px;
+.row-tpl {
   width: 100%;
-  // text-decoration: underline;
-}
-.custom-tags {
-  margin: 0;
-  .el-tag {
-    margin-right: 5px;
-    height: 26px;
-    line-height: 26px;
+  cursor: pointer;
+  .custom-name {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .custom-tags {
+    margin: 0;
+    .el-tag {
+      margin: 0 5px 5px 0;
+      height: 26px;
+      line-height: 26px;
+    }
   }
 }
 </style>

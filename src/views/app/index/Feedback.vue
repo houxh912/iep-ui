@@ -77,10 +77,10 @@ export default {
 </style>
 <style scoped>
 .index-card >>> .el-card__header {
-  padding: 18px 0;
+  padding: 13px 0;
 }
 .index-card >>> .el-card__body{
-  padding: 16px 0 0;
+  padding: 16px 0 2px;
 }
 .el-card{
   padding: 0 20px;

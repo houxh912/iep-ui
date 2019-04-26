@@ -98,6 +98,12 @@ export default [
         component: () => import('@/views/app/tagLibrary/'),
         meta: noAuth,
       },
+      {
+        path: 'module_details',
+        name: '模块详情',
+        component: () => import('@/views/app/moduleDetails/'),
+        meta: noAuth,
+      },
     ],
   },
 ]

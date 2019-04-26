@@ -103,3 +103,9 @@ export default {
   }
 }
 </style>
+<style scoped>
+.index-card >>> .el-card__header {
+  padding: 16px 0 10px;
+}
+</style>
+

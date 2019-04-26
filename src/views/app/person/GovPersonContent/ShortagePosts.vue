@@ -93,4 +93,9 @@ export default {
 .leader-board >>> .el-card__body {
   height: 332px;
 }
+.leader-board >>> .el-table .cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 </style>

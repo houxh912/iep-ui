@@ -24,6 +24,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .lr-btn {
-  margin: 15px 30px 13px;
+  margin: 15px 30px;
 }
 </style>

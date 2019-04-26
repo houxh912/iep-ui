@@ -24,18 +24,18 @@ export default {
 </script>
 <style scoped>
 .el-carousel >>> .el-carousel__container{
-  height: 302px;
+  height: 293px;
 }
 </style>
 
 <style lang="scss" scoped>
 .index-card{
-  height: 302px;
+  height: 293px;
   .baner-box{
-    height: 302px;
+    height: 293px;
     .img{
       width: 100%;
-      height: 302px;
+      height: 293px;
     }
   }
 }

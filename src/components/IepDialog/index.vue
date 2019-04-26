@@ -120,6 +120,7 @@ export default {
 }
 .view-dialog {
   padding-bottom: 10px;
+  padding-right: 10px;
 }
 .text-icon {
   color: #333;

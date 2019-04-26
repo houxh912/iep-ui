@@ -86,6 +86,8 @@ export default {
       this.requestFn(data).then(({data}) => {
         if (!data.data) {
           this.$message.error(data.msg)
+        } else {
+          this.$message.success('恭喜您完成本周周报，继续努力！')
         }
         this.dialogState = 'detail'
         getTableData(this.currentDate).then(({data}) => {
@@ -175,6 +177,7 @@ export default {
 
 <style lang="scss" scoped>
 .project {
+  margin-right: 16%;
   padding: 20px 0 0;
   .search {
     margin-bottom: 20px;

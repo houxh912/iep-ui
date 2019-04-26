@@ -13,7 +13,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'IepDictDetail',
   props: {
-    currentValue: {
+    value: {
       type: [Array, Number, String],
       required: true,
     },
@@ -40,11 +40,11 @@ export default {
       let options = this.itemTypes
       let labels = []
       let inputValue = []
-      const currentValue = +this.currentValue
-      if (!currentValue.length) {
-        inputValue = [currentValue]
+      const value = +this.value
+      if (!value.length) {
+        inputValue = [value]
       } else {
-        inputValue = currentValue
+        inputValue = value
       }
       inputValue.forEach(value => {
         const targetOption = options && options.filter(option => option[this.valueKey] === '' + value)[0]

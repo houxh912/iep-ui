@@ -73,6 +73,14 @@ export function getAllBusiness (params) {
     params: params,
   })
 }
+//全部客户出单分析业务类型
+export function getBusiness (params) {
+  return request({
+    url: `${allUrl}/businessType`,
+    method: 'get',
+    params: params,
+  })
+}
 //全部客户统计
 export function getAllClientNum (params) {
   return request({

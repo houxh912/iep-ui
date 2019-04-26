@@ -8,7 +8,7 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handleDeleteByIds" v-if="lookByMeOnly || permission_delete">删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteByIds" v-if="lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
               <el-dropdown-item @click.native="handleExport">导出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -22,18 +22,20 @@
         <template slot="before-columns">
           <el-table-column label="合同名称">
             <template slot-scope="scope">
-              <div class="custom-name" @click="handleDetail(scope.row)">{{scope.row.contractName}}</div>
-              <el-col class="custom-tags">
-                <el-tag type="info" size="mini" v-for="(item, index) in scope.row.code" :key="index">{{item}}</el-tag>
-              </el-col>
+              <div class="row-tpl" @click="handleDetail(scope.row)">
+                <div class="custom-name">{{scope.row.contractName}}</div>
+                <el-col class="custom-tags">
+                  <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index">{{item}}</el-tag>
+                </el-col>
+              </div>
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="180" v-if="lookByMeOnly || (permission_edit || permission_delete)">
+        <el-table-column prop="operation" label="操作" width="180" v-if="lookByMeOnly || permission_edit_del">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain v-if="lookByMeOnly || permission_edit">编辑</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)" size="small" v-if="lookByMeOnly || permission_delete">删除</iep-button>
+              <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain>编辑</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -64,8 +66,7 @@ export default {
       dictsMap,
       columnsMap: tableOption,
       getTableDataFn: getTableData,
-      permission_edit: false,
-      permission_delete: false,
+      permission_edit_del: false,
       lookByMeOnly: false,
     }
   },
@@ -89,6 +90,7 @@ export default {
         }
         data.data.projectId = data.data.projectRelation.id
         data.data.projectName = data.data.projectRelation.name
+        data.data.signDeptName = data.data.signDeptOrgName.name
         this.$refs['mainDialog'].formData = data.data
         this.$refs['mainDialog'].methodName = '编辑'
         this.$refs['mainDialog'].formRequestFn = updateData
@@ -127,8 +129,7 @@ export default {
   },
   created () {
     this.loadPage()
-    this.permission_edit = this.permissions['mlms_datum_edit']
-    this.permission_delete = this.permissions['mlms_datum_delete']
+    this.permission_edit_del = this.permissions['mlms_datum_ht_edit_del']
   },
 }
 </script>
@@ -144,18 +145,20 @@ export default {
     cursor: pointer;
   }
 }
-.custom-name {
-  cursor: pointer;
-  margin-bottom: 10px;
+.row-tpl {
   width: 100%;
-  // text-decoration: underline;
-}
-.custom-tags {
-  margin: 0;
-  .el-tag {
-    margin-right: 5px;
-    height: 26px;
-    line-height: 26px;
+  cursor: pointer;
+  .custom-name {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .custom-tags {
+    margin: 0;
+    .el-tag {
+      margin: 0 5px 5px 0;
+      height: 26px;
+      line-height: 26px;
+    }
   }
 }
 </style>

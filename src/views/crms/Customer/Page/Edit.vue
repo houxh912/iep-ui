@@ -39,7 +39,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-form-item prop="companyUrl">
+          <el-form-item>
             <span slot='label'>
               客户描述
               <iep-tip :content="tipContent.companyUrl"></iep-tip>
@@ -180,15 +180,6 @@ export default {
         }
       })
     }
-    const url = (rules, value, callback) => {
-      if (value !== '') {
-        var reg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~/])+$/
-        if (!reg.test(value)) {
-          callback(new Error('请输入有效的网址'))
-        }
-      }
-      callback()
-    }
     return {
       tipContent,
       id: '',
@@ -223,7 +214,6 @@ export default {
         marketManager: [
           { required: true, message: '请填写市场经理', trigger: 'blur' },
         ],
-        companyUrl: [{ validator: url, trigger: 'blur' }],
         companyFunction: [
           { message: '请填写单位职能', trigger: 'blur' },
           { max: 25, message: '长度不超过25个字符', trigger: 'blur' },

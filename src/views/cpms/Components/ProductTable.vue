@@ -72,6 +72,7 @@ export default {
       this.tableData = tableData
     },
     handleSelect () {
+      // TODO: 过滤重复字段
       const selectData = this.pagedTable.filter(m => this.multipleSelection.includes(m.id))
       let tableData = this.tableData
       tableData = [...tableData, ...selectData]

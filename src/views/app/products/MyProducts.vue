@@ -24,7 +24,7 @@
                 <hr>
                 <span class="name">{{item.name}}</span>
                 <p class="desc">{{item.desc}}</p>
-                <RouterLink class="inline change" to="">详情介绍>
+                <RouterLink class="inline change" to="/app/module_details/">详情介绍>
                 </RouterLink>
             </el-card>
         </div>

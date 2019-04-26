@@ -2,7 +2,7 @@
   <div>
     <a-dropdown>
       <div class="user-info-wrapper">
-        <a-avatar :src="userInfo.avatar" />
+        <a-avatar icon="user" :src="userInfo.avatar" />
         <span class="user-name">{{ userInfo.realName || '游客' }}</span>
         <a-icon type="down" />
       </div>

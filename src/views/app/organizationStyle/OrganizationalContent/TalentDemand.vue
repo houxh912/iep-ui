@@ -12,9 +12,7 @@
         </el-table-column>
         <el-table-column prop="education" label="学历要求">
         </el-table-column>
-        <el-table-column prop="salary" label="薪资待遇">
-        </el-table-column>
-        <el-table-column prop="demandDepartment" label="需求部门">
+        <el-table-column prop="salary" label="薪资待遇" width="100">
         </el-table-column>
       </el-table>
     </IepAppTabCard>
@@ -24,7 +22,7 @@
 export default {
   data () {
     return {
-      title: '紧缺岗位',
+      title: '人才需求',
       data: '（53个）',
       linkName: '',
       tableData: [
@@ -33,35 +31,30 @@ export default {
           num: '3',
           education: '大专',
           salary: '面议',
-          demandDepartment: '国脉集体研发中心',
         },
         {
           name: '产品经理',
           num: '5',
           education: '大专',
           salary: '面议',
-          demandDepartment: '国脉集体研发中心',
         },
         {
           name: '算法工程师',
           num: '2',
           education: '大专',
           salary: '面议',
-          demandDepartment: '国脉集体研发中心',
         },
         {
           name: '高级咨询师',
           num: '2',
           education: '大专',
           salary: '面议',
-          demandDepartment: '国脉集体研发中心',
         },
         {
           name: '前段开发工程师',
           num: '4',
           education: '大专',
           salary: '面议',
-          demandDepartment: '国脉集体研发中心',
         },
       ],
     }

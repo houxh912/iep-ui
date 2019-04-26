@@ -13,19 +13,11 @@
         <span class="autograph">个性签名：{{autograph}}</span>
         <div class="classTags">
           <div class="classTag">
-            <el-tag type="white">{{tag1}}</el-tag>
-            <el-tag type="white">{{tag2}}</el-tag>
-            <el-tag type="white">{{tag3}}</el-tag>
-            <el-tag type="white">{{tag4}}</el-tag>
-            <el-tag type="white">{{tag5}}</el-tag>
+            <el-tag type="white" v-for="item in tags" :key="item.id">{{item.tag}}</el-tag>
           </div>
           <el-button class="text-btn" type="text" @click="show"><span :class="isShow?'hide':'dib'">展示全部</span><span :class="isShow?'dib':'hide'">收起全部</span><i class="el-icon--right" :class="isShow?'el-icon-arrow-up':'el-icon-arrow-down'"></i></el-button>
           <div class="classTag" v-show="isShow">
-            <el-tag type="white">{{tag1}}</el-tag>
-            <el-tag type="white">{{tag2}}</el-tag>
-            <el-tag type="white">{{tag3}}</el-tag>
-            <el-tag type="white">{{tag4}}</el-tag>
-            <el-tag type="white">{{tag5}}</el-tag>
+            <el-tag type="white" v-for="item1 in tags1" :key="item1.id">{{item1.tag1}}</el-tag>
           </div>
         </div>
       </div>
@@ -58,11 +50,40 @@ export default {
       show2: 'show',
       show3: 'show',
       autograph: '做中学，学中悟，悟中得！',
-      tag1: '后端开发',
-      tag2: '系统架构',
-      tag3: '数据库规划',
-      tag4: 'PHP开发',
-      tag5: '项目管理',
+      tags: [
+        {
+          tag: '后端开发',
+        },
+        {
+          tag: '系统架构',
+        },
+        {
+          tag: '数据库规划',
+        },
+        {
+          tag: 'PHP开发',
+        },
+        {
+          tag: '项目管理',
+        },
+      ],
+      tags1: [
+        {
+          tag1: '后端开发',
+        },
+        {
+          tag1: '系统架构',
+        },
+        {
+          tag1: '数据库规划',
+        },
+        {
+          tag1: 'PHP开发',
+        },
+        {
+          tag1: '项目管理',
+        },
+      ],
       labList: [
         {
           data: '670',
@@ -172,6 +193,9 @@ export default {
     }
     .labs-con {
       margin-bottom: 30px;
+      .count {
+        font-size: 24px;
+      }
       .data-lab {
         &:nth-child(3) {
           border: 0;

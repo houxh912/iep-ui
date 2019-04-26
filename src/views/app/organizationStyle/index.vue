@@ -8,7 +8,7 @@
 import OrganizationalContent from './OrganizationalContent/'
 import OrganizationalTop from './OrganizationalTop'
 export default {
-  name: 'News',
+  name: 'organizational',
   components: { OrganizationalContent, OrganizationalTop },
 }
 </script>

@@ -33,6 +33,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.title{
+  font-size: 16px;
+  height: 60px;
+  line-height: 60px;
+  color: #333;
+}
 .introduction {
   .introduction-card{
     padding:30px;

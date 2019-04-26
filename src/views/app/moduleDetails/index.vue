@@ -1,23 +1,31 @@
 <template>
-  <div class="module-details">
-    <introduction></introduction>
-    <el-tabs v-model="activeName" class="tab">
-      <el-tab-pane label="基本信息" name="first">基本信息</el-tab-pane>
-      <el-tab-pane label="团队信息" name="second">团队信息</el-tab-pane>
-      <el-tab-pane label="全部版本" name="third">全部版本</el-tab-pane>
-      <el-tab-pane label="应用产品" name="fourth">应用产品</el-tab-pane>
-      <el-tab-pane label="技术应用" name="fifth">技术应用</el-tab-pane>
-      <el-tab-pane label="相关材料" name="sixth">相关材料</el-tab-pane>
-    </el-tabs>
+  <div>
+    <div class="module-details">
+      <introduction></introduction>
+      <r-d-progress></r-d-progress>
+      <basic-information></basic-information>
+      <team-information></team-information>
+      <all-versions></all-versions>
+      <application-module></application-module>
+      <technical-application></technical-application>
+      <related-materials></related-materials>
+    </div>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>
 import Introduction from './Introduction'
+import RDProgress from './RDProgress'
+import BasicInformation from './BasicInformation'
+import TeamInformation from './TeamInformation'
+import AllVersions from './AllVersions'
+import ApplicationModule from './ApplicationModule'
+import TechnicalApplication from './TechnicalApplication'
+import RelatedMaterials from './RelatedMaterials'
 export default {
-  components:{ Introduction },
+  components:{ Introduction, RDProgress, BasicInformation, TeamInformation, AllVersions, ApplicationModule, TechnicalApplication, RelatedMaterials },
   data () {
     return {
-      activeName: 'first',
     }
   },
 }
@@ -33,6 +41,7 @@ export default {
     font-size: 18px;
   }
 }
+
 </style>
 <style scoped>
 </style>

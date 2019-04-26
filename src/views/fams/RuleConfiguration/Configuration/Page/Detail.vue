@@ -15,7 +15,7 @@
           <div class="info-item">
             <label>工作类型：</label>
             <div class="content">
-              <iep-dict-detail :current-value="form.jobTypeId" dict-name="hrms_work_type"></iep-dict-detail>
+              <iep-dict-detail :value="form.jobTypeId" dict-name="hrms_work_type"></iep-dict-detail>
             </div>
           </div>
           <div class="info-item">

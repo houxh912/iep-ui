@@ -88,12 +88,12 @@
     <a-row>
       <a-col :span="12">
         <iep-description-item title="政治面貌：">
-          <iep-dict-detail slot="content" :current-value="form.politics" dict-name="hrms_politics_face"></iep-dict-detail>
+          <iep-dict-detail slot="content" :value="form.politics" dict-name="hrms_politics_face"></iep-dict-detail>
         </iep-description-item>
       </a-col>
       <a-col :span="12">
         <iep-description-item title="婚姻状况：">
-          <iep-dict-detail slot="content" :current-value="form.marriage" dict-name="hrms_marriage_status"></iep-dict-detail>
+          <iep-dict-detail slot="content" :value="form.marriage" dict-name="hrms_marriage_status"></iep-dict-detail>
         </iep-description-item>
       </a-col>
     </a-row>
@@ -101,7 +101,7 @@
     <a-row>
       <a-col :span="12">
         <iep-description-item title="最高学历：">
-          <iep-dict-detail slot="content" :current-value="form.education" dict-name="hrms_highest_educational"></iep-dict-detail>
+          <iep-dict-detail slot="content" :value="form.education" dict-name="hrms_highest_educational"></iep-dict-detail>
         </iep-description-item>
       </a-col>
       <a-col :span="12">

@@ -14,12 +14,16 @@
             <div class="address"><span>{{form.deptName}}</span>{{form.place}}</div>
           </div>
           <div class="right">
-            <div class="pay">薪资：{{form.treatment}}</div>
+            <div class="pay">薪资：
+              <iep-dict-detail :value="form.treatment" dict-name="hrms_wages_salaries"></iep-dict-detail>
+            </div>
             <div class="info-detail">
               <label>学历要求：
-                <iep-dict-detail :current-value="form.academicId" dict-name="hrms_highest_educational"></iep-dict-detail>
+                <iep-dict-detail :value="form.academicId" dict-name="hrms_highest_educational"></iep-dict-detail>
               </label>
-              <label>工作经验：{{form.years}}年</label>
+              <label>工作经验：
+                <iep-dict-detail :value="form.years" dict-name="hrms_working_life"></iep-dict-detail>
+              </label>
               <label>招{{form.recruitsCount}}人</label>
               <label>目标{{form.targetCount}}人</label>
             </div>
@@ -38,12 +42,14 @@
           <div class="info-item">
             <label>工作类型：</label>
             <div class="content">
-              <iep-dict-detail :current-value="form.jobTypeId" dict-name="hrms_work_type"></iep-dict-detail>
+              <iep-dict-detail :value="form.jobTypeId" dict-name="hrms_work_type"></iep-dict-detail>
             </div>
           </div>
           <div class="info-item">
             <label>外语要求：</label>
-            <div class="content">{{form.language}}</div>
+            <div class="content">
+              <iep-dict-detail :value="form.language" dict-name="hrms_foreign_language"></iep-dict-detail>
+            </div>
           </div>
           <div class="info-item">
             <label>性别要求：</label>
@@ -51,7 +57,9 @@
           </div>
           <div class="info-item">
             <label>福利待遇：</label>
-            <div class="content">{{form.welfare}}</div>
+            <div class="content">
+              <iep-dict-detail :value="form.welfare" dict-name="hrms_fringe_benefits"></iep-dict-detail>
+            </div>
           </div>
           <div class="info-item">
             <label>招聘期限：</label>

@@ -82,3 +82,11 @@ export function cancelClaim (obj) {
     data: obj,
   })
 }
+//发送消息
+export function sendMessage (query) {
+  return request({
+    url: 'ims//system_message/send',
+    method: 'post',
+    params: query,
+  })
+}

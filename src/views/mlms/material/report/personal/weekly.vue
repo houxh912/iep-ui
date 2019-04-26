@@ -104,19 +104,19 @@ export default {
         if (valid) {
           // 判断这条数据是否在系统中已经生成
           let fn = () => { }
+          let successTips = ''
           if (this.formData.createTime) {
             fn = updateData
+            successTips = '恭喜您完成周报补写，继续努力！'
           } else {
             fn = createData
+            successTips = '恭喜您完成本周周报，继续努力！'
             this.formData.createTime = getDateStr(this.formData.timeStamp)
           }
           delete this.formData.updateTime
           this.formData.title = `第${this.formatDig(this.formData.index)}周个人工作周报`
           fn(this.formData).then(() => {
-            this.$message({
-              message: '编辑周报成功',
-              type: 'success',
-            })
+            this.$message.success(successTips)
             this.pageState = true
             this.$emit('success-submit', true)
           })

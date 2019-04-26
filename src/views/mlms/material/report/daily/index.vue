@@ -87,6 +87,12 @@ export default {
           return time.getTime() > Date.now()
         },
       },
+      submitTips: {
+        // create: '恭喜您完成今日日报，成功获得1个国脉贝！',
+        create: '恭喜您完成今日日报，继续加油！',
+        writing: '恭喜您完成日报补写，继续加油！',
+        update: '编辑成功！',
+      },
     }
   },
   methods: {
@@ -120,13 +126,10 @@ export default {
           this.$message.error(res.data.msg)
           return
         }
-        this.$message({
-          message: `${this.stateList[state].methodsName}成功`,
-          type: 'success',
-        })
+        this.$message.success(this.submitTips[state])
         this[this.stateList[state].data] = ''
         this.dailyState = 'detail'
-        //////////////////////////////////////////////////////////  提交成功后要刷新
+        //////////////////////////////////////////////////////////  提交成功后要刷新 - 一直都没做 - 仅仅刷新当前的数据就行了，不需要重置时间轴
         this.list = []
         this.loadPage(0, 10)
       })
@@ -261,6 +264,7 @@ export default {
 
 <style lang="scss" scoped>
 .daily {
+  margin-right: 16%;
   .fillin {
     padding: 10px 0 20px;
     border-bottom: 1px solid #ddd;

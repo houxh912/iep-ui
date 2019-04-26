@@ -29,7 +29,9 @@ import { mapState } from 'vuex'
 export default {
   beforeRouteUpdate (to, from, next) {
     console.log(to, from)
-    this.loadPage()
+    this.$nextTick(() => {
+      this.loadPage()
+    })
     next()
     // 在当前路由改变，但是该组件被复用时调用
     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，

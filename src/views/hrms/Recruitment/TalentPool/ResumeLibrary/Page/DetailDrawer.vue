@@ -41,7 +41,7 @@
       </a-col>
       <a-col :span="12">
         <iep-description-item title="到岗时间：">
-          <iep-dict-detail slot="content" dict-name="hrms_arrive_time" :currentValue="form.arrive"></iep-dict-detail>
+          <iep-dict-detail slot="content" dict-name="hrms_arrive_time" :value="form.arrive"></iep-dict-detail>
         </iep-description-item>
       </a-col>
     </a-row>

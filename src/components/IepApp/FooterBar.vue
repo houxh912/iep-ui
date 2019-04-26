@@ -4,7 +4,7 @@
       <div class="text">
         <a href="javascript:void(0);">常见问题</a>
         <a href="javascript:void(0);" @click="handleOpen2()">操作手册</a>
-        <a href="javascript:void(0);">标签库</a>
+        <a href="javascript:void(0);" @click="getTag()">标签库</a>
         <a href="javascript:void(0);">知识图谱</a>
         <a href="javascript:void(0);" @click="handleOpen5()">国脉贝制度</a>
         <a href="javascript:void(0);"> 新人培训</a>
@@ -36,6 +36,11 @@ export default {
     },
     handleOpen6 () {
       openWindow('', '新人培训', 800, 600)
+    },
+    getTag () {
+      this.$router.push({
+        path: '/app/tag_library/',
+      })
     },
   },
 }

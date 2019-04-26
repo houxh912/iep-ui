@@ -92,6 +92,12 @@ export default [
         component: () => import('@/views/app/personalStyle/'),
         meta: noAuth,
       },
+      {
+        path: 'tag_library',
+        name: '标签库',
+        component: () => import('@/views/app/tagLibrary/'),
+        meta: noAuth,
+      },
     ],
   },
 ]

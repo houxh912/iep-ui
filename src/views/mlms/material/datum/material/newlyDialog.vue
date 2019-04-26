@@ -49,9 +49,10 @@
              类型
               <iep-tip :content="tipContent2.materialType"></iep-tip>：
             </span>
-        <el-select v-model="formData.materialType" placeholder="请选择">
+        <!-- <el-select v-model="formData.materialType" placeholder="请选择">
           <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
+        </el-select> -->
+        <iep-dict-select v-model="formData.materialType" dict-name="mlms_material_type"></iep-dict-select>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">
           <span slot="label">

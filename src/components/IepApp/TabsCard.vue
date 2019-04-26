@@ -49,12 +49,12 @@ export default {
   line-height: 53px;
 }
 .index-card >>> .el-tabs__item {
-  font-size: 18px;
+  font-size: 16px;
 }
 .index-card >>> .el-card__body {
   padding: 10px 0 15px;
 }
-.el-card{
+.el-card {
   padding: 0 20px;
 }
 </style>

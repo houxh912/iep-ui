@@ -46,7 +46,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .title {
-  font-size: 18px;
+  font-size: 16px;
   color: #303133;
   margin: 0 4px;
 }
@@ -62,12 +62,12 @@ export default {
 </style>
 <style scoped>
 .index-card >>> .el-card__header {
-  padding: 18px 0;
+  padding: 18px 0 10px;
 }
 .index-card >>> .el-card__body {
   padding: 16px 0;
 }
-.el-card{
+.el-card {
   padding: 0 20px;
 }
 </style>

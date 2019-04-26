@@ -63,7 +63,7 @@ export const initFormData = () => {
     visitType: 1,
     visitingAddress: '',
     visitingUserId: [],
-    status: 1,
+    status: 0,
   }
 }
 

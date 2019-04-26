@@ -19,6 +19,7 @@
 </template>
 <script>
 import { initFormData, dictsMap, rules } from './options'
+import { visitSend } from '@/api/crms/visiting_record'
 import TimeSelector from '@/views/crms/components/TimeSelector/'
 export default {
   components: { TimeSelector },
@@ -47,13 +48,14 @@ export default {
       this.formData.visitingUserId = [this.id]
       this.$refs[form].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.formData).then(() => {
+          this.formRequestFn(this.formData).then((res) => {
             this.$message({
               message: `${this.methodName}成功`,
               type: 'success',
             })
-            this.dialogShow = false
+            visitSend(res.data.data)
             this.$emit('load-page')
+             this.dialogShow = false
           })
         } else {
           return false

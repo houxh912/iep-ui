@@ -92,6 +92,13 @@ export function deleteVisitLog (id) {
     data: [id],
   })
 }
+//拜访日志发送
+export function visitSend (id) {
+  return request({
+    url: `/mlms/meeting/send/${id}`,
+    method: 'post',
+  })
+}
 
 
 

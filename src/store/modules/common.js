@@ -7,6 +7,7 @@ const common = {
     isFullScren: false,
     isShade: false,
     screen: -1,
+    isWelcome: getStore({ name: 'isWelcome' }) || false,
     isLock: getStore({ name: 'isLock' }) || false,
     showTag: getStore({ name: 'showTag' }) || false,
     showDebug: getStore({ name: 'showDebug' }) || false,
@@ -26,6 +27,9 @@ const common = {
   mutations: {
     SET_SHADE: (state, active) => {
       state.isShade = active
+    },
+    SET_WELCOME: state => {
+      state.isWelcome = !state.isWelcome
     },
     SET_COLLAPSE: state => {
       state.isCollapse = !state.isCollapse

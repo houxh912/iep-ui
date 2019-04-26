@@ -22,7 +22,7 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped>
 .el-carousel >>> .el-carousel__container{
   height: 302px;
 }

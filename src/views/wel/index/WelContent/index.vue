@@ -10,7 +10,9 @@
                   <iep-img-avatar :size="90" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
                 </div>
                 <div class="code-name">{{form.staffId}}</div>
-                <el-progress :percentage="form.integrity" color="#68C769"></el-progress>
+                <el-tooltip class="item" effect="dark" content="资料完善度" placement="top">
+                  <el-progress :percentage="form.integrity" color="#68C769"></el-progress>
+                </el-tooltip>
               </div>
             </el-col>
             <el-col :span="20">

@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="shadow">
     <el-carousel :interval="5000" arrow="always">
       <el-carousel-item class="department-con" v-for="(item,index) in itemList" :key="index">
-        <div class="department-list" v-for="item in item.childList" :key="item.id">
-          <div class="img"><img :src="item.img" alt=""></div>
-          <span class="sub-title">{{ item.subtitle }}</span>
+        <div class="department-list piece" v-for="item in item.childList" :key="item.id">
+          <div class="img"><img :src="item.img" alt="" class="img"></div>
+          <span class="sub-title name">{{ item.subtitle }}</span>
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -67,5 +67,42 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+.shadow {
+  padding-top: 15px;
+  .piece {
+    text-align: center;
+    width: 270px;
+    float: left;
+    margin: 0 5px;
+    .img {
+      width: 100%;
+      height: 165px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 165px;
+        transition: 0.5s;
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.1);
+        }
+      }
+    }
+    .name {
+      line-height: 40px;
+    }
+    &:first-child {
+      margin: 0 15px 0 10px;
+    }
+    &:last-child {
+      margin: 0 10px 0 15px;
+    }
+  }
+}
+</style>
+<style scoped>
+.shadow >>> .el-carousel__container{
+  height: 200px;
+}
 </style>

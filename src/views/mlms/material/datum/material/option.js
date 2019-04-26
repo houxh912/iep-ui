@@ -42,7 +42,7 @@ export const initLocalForm = () => {
     secondClass: '',
     materialType: '',
     tagKeyWords: [],
-    isContri: '',
+    isContri: 0,
     attachFileList: [],
     attachFile: '',
     isOpen: 0,

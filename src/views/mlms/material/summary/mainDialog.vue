@@ -226,16 +226,17 @@ export default {
       } else {
         this.formData.projectIds = []
       }
+      // 发送链接
       this.formRequestFn(this.formData).then(({data}) => {
         // 新建纪要及修改草稿，自动发送
         let id = this.methodType == 'create' ? data.data : this.formData.id
         if (this.formData.status == 0 && this.formData.isSend == 1) {
           meetingSend(id).then(({data}) => {
             if (data.data) {
-              this.$message.success(data.msg)
+              this.$message.success('您成功发送一篇会议纪要，继续加油！')
               this.goBack(true)
             } else {
-              this.$message.error(data.msg)
+              this.$message.error('当前网络异常，请稍后再试！')
             }
           })
         } else {

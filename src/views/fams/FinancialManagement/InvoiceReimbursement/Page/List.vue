@@ -83,10 +83,8 @@
 import { getFinancialManagementPage, reviewApprovaBatch } from '@/api/fams/financial_management'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap, initSearchForm } from '../options'
-import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 export default {
   mixins: [mixins],
-  components: { IepReviewConfirm },
   data () {
     return {
       dictsMap,

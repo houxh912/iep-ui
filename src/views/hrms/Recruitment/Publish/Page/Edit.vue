@@ -2,7 +2,7 @@
   <div class="iep-page-form">
     <basic-container>
       <page-header :title="`${methodName}招聘`" :backOption="backOption"></page-header>
-      <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="small">
+      <el-form ref="form" :model="form" :rules="rules" label-width="140px" size="small">
         <el-row>
           <el-col :span="12">
             <el-form-item label="岗位名称：" prop="position">
@@ -47,7 +47,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="工作年限：" prop="years">
-              <iep-input-number v-model="form.years"></iep-input-number>
+              <iep-dict-select v-model="form.years" dict-name="hrms_working_life"></iep-dict-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -85,7 +85,7 @@
                 <iep-tip content="请务必以区间形式体现且标明年薪还是月薪，如3000-5000元/月，5-6万/年"></iep-tip>
                 ：
               </span>
-              <el-input v-model="form.treatment" maxlength="2010"></el-input>
+              <iep-dict-select v-model="form.treatment" dict-name="hrms_wages_salaries"></iep-dict-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -95,7 +95,7 @@
                 <iep-tip content="此处填写语种+等级，如大学英语四级，日语二级"></iep-tip>
                 ：
               </span>
-              <el-input v-model="form.language" maxlength="2010"></el-input>
+              <iep-dict-select v-model="form.language" dict-name="hrms_foreign_language"></iep-dict-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -117,7 +117,7 @@
                 <iep-tip content="此处如需填写多项内容时，请用“/”分开"></iep-tip>
                 ：
               </span>
-              <el-input v-model="form.welfare" maxlength="2010"></el-input>
+              <iep-dict-select v-model="form.welfare" dict-name="hrms_fringe_benefits"></iep-dict-select>
             </el-form-item>
           </el-col>
         </el-row>

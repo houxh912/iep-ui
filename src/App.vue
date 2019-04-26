@@ -1,15 +1,20 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <a-locale-provider :locale="locale">
+    <div id="app">
+      <router-view />
+    </div>
+  </a-locale-provider>
 </template>
 
 <script>
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import { deviceEnquire, DEVICE_TYPE } from '@/util/device'
 export default {
   name: 'App',
   data () {
-    return {}
+    return {
+      locale: zhCN,
+    }
   },
   watch: {},
   mounted () {
@@ -30,12 +35,11 @@ export default {
           $store.dispatch('setSidebar', true)
           break
       }
-      console.log('deviceType', deviceType)
     })
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 #app {
   width: 100%;
   height: 100%;

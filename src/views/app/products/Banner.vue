@@ -25,9 +25,9 @@ export default {
                 require('./img/baner3.jpg'),
             ],
             newDynamic:[
-                {time:'03.09',dsec:'191内网2.0项目正式启动'},
-                {time:'03.09',dsec:'191内网2.0项目正式启动'},
-                {time:'03.09',dsec:'191内网2.0项目正式启动'},
+                {time:'03.10',dsec:'191内网2.0项目正式启动'},
+                {time:'03.10',dsec:'营商通微服务版专家评审上海通过'},
+                {time:'03.10',dsec:'北京新城区正式进入需求调研'},
             ],
         }
     },
@@ -39,6 +39,7 @@ export default {
     background-color: #f8f8f8;
     img{
         width: 100%;
+        height: 100%;
     }
     .new-dynamic{
         width: 1200px;
@@ -55,5 +56,10 @@ export default {
             }
         }
     }
+}
+</style>
+<style scoped>
+.el-carousel >>> .el-carousel__container{
+  height: 400px;
 }
 </style>

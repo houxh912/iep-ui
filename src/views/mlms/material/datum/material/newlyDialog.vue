@@ -49,9 +49,7 @@
              类型
               <iep-tip :content="tipContent2.materialType"></iep-tip>：
             </span>
-        <el-select v-model="formData.materialType" placeholder="请选择">
-          <el-option v-for="item in dicData.select" :key="item.value" :label="item.label" :value="item.value"></el-option>
-        </el-select>
+        <iep-dict-select v-model="formData.materialType" dict-name="mlms_material_type"></iep-dict-select>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">
           <span slot="label">
@@ -60,21 +58,15 @@
             </span>
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
-      <el-form-item label="是否投稿：" prop="isContri">
+      <!-- <el-form-item label="是否投稿：" prop="isContri">
         <el-switch v-model="formData.isContri" :active-value="dictsMap.isYes[1].value" :inactive-value="dictsMap.isYes[0].value"></el-switch>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="是否开放：" prop="isOpen">
         <el-switch v-model="formData.isOpen" :active-value="dictsMap.isOpen[0].value" :inactive-value="dictsMap.isOpen[1].value"></el-switch>
-        <!-- <el-radio-group v-model="formData.isOpen">
-          <el-radio v-for="(item, index) in dictsMap.isOpen" :key="index" :label="index">{{item}}</el-radio>
-        </el-radio-group> -->
       </el-form-item>
-      <el-form-item label="是否保密：" prop="secrecyLevel">
+      <!-- <el-form-item label="是否保密：" prop="secrecyLevel">
         <el-switch v-model="formData.secrecyLevel" :active-value="dictsMap.secrecyLevel[1].value" :inactive-value="dictsMap.secrecyLevel[0].value"></el-switch>
-        <!-- <el-radio-group v-model="formData.secrecyLevel">
-          <el-radio v-for="(item, index) in dictsMap.secrecyLevel" :key="index" :label="index">{{item}}</el-radio>
-        </el-radio-group> -->
-      </el-form-item>
+      </el-form-item> -->
 
     </el-form>
 
@@ -87,6 +79,7 @@
 </template>
 <script>
 import { initLocalForm, rules, dictsMap, tipContent2 } from './option'
+import { createData, updateData } from '@/api/mlms/material/datum/material'
 
 export default {
   components: {},
@@ -98,19 +91,22 @@ export default {
   },
   data () {
     return {
-        tipContent2,
+      tipContent2,
       dialogShow: false,
-      formRequestFn: () => { },
       formData: initLocalForm(),
+      methodList: {
+        create: {
+          name: '新增',
+          requestFn: createData,
+        },
+        update: {
+          name: '编辑',
+          requestFn: updateData,
+        },
+      },
       rules: rules,
       secondClass: [],
       dictsMap,
-      dicData: {
-        select: [
-          { value: '1', label: '选项1' },
-          { value: '2', label: '选项2' },
-        ],
-      },
       backOption: {
         isBack: true,
         backPath: null,
@@ -133,15 +129,13 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formData.type = 1
-          this.formRequestFn(this.formData).then(({data}) => {
+          this.methodList[this.methodName].requestFn(this.formData).then(({data}) => {
             if (data.data === false) {
               this.$message.error(data.msg)
               return
             }
-            this.$message({
-              message: `${this.methodName}成功`,
-              type: 'success',
-            })
+            let tips = this.methodName == 'create' ? '恭喜您成功上传了一篇材料，成功获得2个国脉贝，继续努力！' : '编辑成功'
+            this.$message.success(tips)
             this.loadPage()
             this.dialogShow = false
           })

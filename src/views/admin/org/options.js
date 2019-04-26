@@ -27,6 +27,10 @@ const columnsMap = [
     label: '创建时间',
     minWidth: 120,
   },
+  {
+    prop: 'creator',
+    label: '创建人',
+  },
 ]
 
 const initForm = () => {
@@ -34,6 +38,7 @@ const initForm = () => {
     orgId: '',
     logo: '',
     name: '',
+    isOpen: 0,
     abrName: '',
     establishTime: '',
     creatorName: '',

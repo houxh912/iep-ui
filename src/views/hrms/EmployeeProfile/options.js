@@ -21,45 +21,45 @@ const dictsMap = {
 const initForm = () => {
   return {
     id: '', // 用户ID 不可编辑
-    name: null, // 姓名 不可编辑
-    userName: null, // 用户名 不可编辑
-    orgId: null, // 组织ID 不可编辑
-    orgName: null, // 组织名 不可编辑
+    name: '', // 姓名 不可编辑
+    userName: '', // 用户名 不可编辑
+    orgId: '', // 组织ID 不可编辑
+    orgName: '', // 组织名 不可编辑
     orgList: [], // 组织名 不可编辑
-    staffId: null, // 工号
+    staffId: '', // 工号
     avatar: '', // 头像
     roleName: [], // 角色
     // orgName: '组织', // 资产所属公司 不可编辑
     position: [], // 岗位
-    positionName: null, // 岗位
-    externalTitle: null, // 外部头衔
-    socialRela: null, // 对外头衔
+    positionName: '', // 岗位
+    externalTitle: '', // 外部头衔
+    socialRela: '', // 对外头衔
     people: [], // 标签名字
-    job: null, // 职务
-    jobId: null, // 职务
-    title: null, // 职称
-    titleId: null, // 职称
-    entryTime: null, // 入职时间
-    positiveTime: null, // 转正时间
-    transferTime: null, // 调动时间
-    status: null, // 员工状态
+    job: '', // 职务
+    jobId: '', // 职务
+    title: '', // 职称
+    titleId: '', // 职称
+    entryTime: '', // 入职时间
+    positiveTime: '', // 转正时间
+    transferTime: '', // 调动时间
+    status: '', // 员工状态
     deptList: [], // 所属部门
     deptIds: [], // 所属部门
     dept: [], // 所属部门
     deptQm: '', // 资产所属组织
-    birthday: null, // 出生年月
-    sex: null, // 性别
-    sexName: null, // 性别
-    nationality: null, // 民族
-    politics: null, // 政治面貌字典
-    marriage: null, // 婚姻状况
-    bear: null, // 生育状况
-    language: null, // 外语水平
+    birthday: '', // 出生年月
+    sex: '', // 性别
+    sexName: '', // 性别
+    nationality: '', // 民族
+    politics: '', // 政治面貌字典
+    marriage: '', // 婚姻状况
+    bear: '', // 生育状况
+    language: '', // 外语水平
     education: '', // 最高学历
-    university: null, // 毕业学校
-    profession: null, // 专业
-    graduationTime: null, // 毕业时间
-    referrer: null, // 推荐人
+    university: '', // 毕业学校
+    profession: '', // 专业
+    graduationTime: '', // 毕业时间
+    referrer: '', // 推荐人
     abilityTag: [], // 卓越标签
     projectTag: [], // 专业标签
     learningTag: [], // 进步标签
@@ -67,32 +67,32 @@ const initForm = () => {
     trainingSituation: [], // 培训情况
     eduSituation: [], // 学习情况
     userCert: [], // 资质证书
-    accountTypeId: null, // 户口类别
-    accountTypeName: null, // 户口类别
-    accountLocation: null, // 户口所在地
+    accountTypeId: '', // 户口类别
+    accountTypeName: '', // 户口类别
+    accountLocation: '', // 户口所在地
     residenceCities: [], // (户口)
-    residenceAddress: null, // 户籍地址
-    provinceName: null, // 户籍地址
-    cityName: null, // 户籍地址
+    residenceAddress: '', // 户籍地址
+    provinceName: '', // 户籍地址
+    cityName: '', // 户籍地址
     currentCities: [], // 现住
-    currentAddress: null, // 现住地址
-    IDCard: null, // 身份证
-    phone: null, // 联系手机
-    wechat: null, // 微信
-    qq: null, // QQ
-    email: null, // 邮箱
-    home: null, // 邮箱
-    birthplaceProvince: null, //所属省（户口）
-    birthplaceCity: null,//所属市（户口）
-    province: null, //所属省（现住）
-    city: null,  //所属市（现住）
-    emergencyName: null, // 应急联系人
-    emergencyPhone: null, // 应急联系方式
-    signingTime: null, // 劳动合同签订时间
-    benefitsStartTime: null, // 社保福利起缴时间
-    benefitsStopTime: null, // 社保福利停缴时间
-    separationTime: null, // 离职时间
-    careerPlanning: null,//职业规划
+    currentAddress: '', // 现住地址
+    IDCard: '', // 身份证
+    phone: '', // 联系手机
+    wechat: '', // 微信
+    qq: '', // QQ
+    email: '', // 邮箱
+    home: '', // 邮箱
+    birthplaceProvince: '', //所属省（户口）
+    birthplaceCity: '',//所属市（户口）
+    province: '', //所属省（现住）
+    city: '',  //所属市（现住）
+    emergencyName: '', // 应急联系人
+    emergencyPhone: '', // 应急联系方式
+    signingTime: '', // 劳动合同签订时间
+    benefitsStartTime: '', // 社保福利起缴时间
+    benefitsStopTime: '', // 社保福利停缴时间
+    separationTime: '', // 离职时间
+    careerPlanning: '',//职业规划
     laborContract: [],//劳动合同
     welfare: [],//社保福利
     transfer: [],//调动情况
@@ -151,7 +151,7 @@ const columnsMap = [
     prop: 'lockOrg',
     label: '锁定状态',
     type: 'dict',
-    hidden: false,
+    hidden: true,
     key: 'lockOrg',
   },
   {
@@ -514,11 +514,11 @@ const rules = {
   ],
   projectTag: [
     { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
-    { type: 'array', required: true, message: '请填写专业标签', trigger: 'change' },
+    // { type: 'array', required: true, message: '请填写专业标签', trigger: 'change' },
   ],
   learningTag: [
     { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
-    { type: 'array', required: true, message: '请填写进步标签', trigger: 'change' },
+    // { type: 'array', required: true, message: '请填写进步标签', trigger: 'change' },
   ],
   careerPlanning: [
     { max: 2000, message: '字符不得超过 2000 个', trigger: 'change' },

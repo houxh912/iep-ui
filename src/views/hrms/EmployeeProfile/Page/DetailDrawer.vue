@@ -103,7 +103,7 @@
       </a-col>
       <a-col :span="12">
         <iep-description-item title="户口类型：">
-          <iep-dict-detail slot="content" :current-value="form.accountTypeId" dict-name="hrms_resident_type"></iep-dict-detail>
+          <iep-dict-detail slot="content" :value="form.accountTypeId" dict-name="hrms_resident_type"></iep-dict-detail>
         </iep-description-item>
       </a-col>
     </a-row>
@@ -150,7 +150,7 @@
     <a-row>
       <a-col :span="12">
         <iep-description-item title="最高学历：">
-          <iep-dict-detail slot="content" :current-value="form.education" dict-name="hrms_highest_educational"></iep-dict-detail>
+          <iep-dict-detail slot="content" :value="form.education" dict-name="hrms_highest_educational"></iep-dict-detail>
         </iep-description-item>
       </a-col>
       <a-col :span="12">
@@ -170,7 +170,7 @@
     <a-row>
       <a-col :span="12">
         <iep-description-item title="政治面貌：">
-          <iep-dict-detail slot="content" :current-value="form.politics" dict-name="hrms_politics_face"></iep-dict-detail>
+          <iep-dict-detail slot="content" :value="form.politics" dict-name="hrms_politics_face"></iep-dict-detail>
         </iep-description-item>
       </a-col>
       <a-col :span="12">
@@ -181,12 +181,12 @@
     <a-row>
       <a-col :span="12">
         <iep-description-item title="婚姻状况：">
-          <iep-dict-detail slot="content" :current-value="form.marriage" dict-name="hrms_marriage_status"></iep-dict-detail>
+          <iep-dict-detail slot="content" :value="form.marriage" dict-name="hrms_marriage_status"></iep-dict-detail>
         </iep-description-item>
       </a-col>
       <a-col :span="12">
         <iep-description-item title="生育状况：">
-          <iep-dict-detail slot="content" :current-value="form.bear" dict-name="hrms_birth_status"></iep-dict-detail>
+          <iep-dict-detail slot="content" :value="form.bear" dict-name="hrms_birth_status"></iep-dict-detail>
         </iep-description-item>
       </a-col>
     </a-row>
@@ -223,7 +223,7 @@
         <iep-description-item title="其他成果：" :content="form.result" />
       </a-col>
     </a-row>
-    
+
     <a-divider />
     <p :style="pStyle">相关信息</p>
     <div>学习情况：</div>

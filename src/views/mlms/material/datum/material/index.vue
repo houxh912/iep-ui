@@ -17,7 +17,7 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handleDeleteByIds" v-if="lookByMeOnly">删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteByIds" v-if="lookByMeOnly || permission_delete">删除</el-dropdown-item>
               <el-dropdown-item @click.native="handleExport">导出</el-dropdown-item>
               <el-dropdown-item @click.native="handleCollectAll">收藏</el-dropdown-item>
               <el-dropdown-item @click.native="handleAllShare">分享</el-dropdown-item>
@@ -43,10 +43,13 @@
         <template slot="before-columns">
           <el-table-column label="名称">
             <template slot-scope="scope">
-              <div class="custom-name" @click="handleDetail(scope.row)">{{scope.row.name}}</div>
-              <el-col class="custom-tags">
-                <el-tag type="info" size="mini" v-for="(item, index) in scope.row.code" :key="index">{{item}}</el-tag>
-              </el-col>
+              <div class="row-tpl" @click="handleDetail(scope.row)">
+                <div class="custom-name">{{scope.row.name}}</div>
+                <el-col class="custom-tags">
+                  <el-tag type="warning" size="mini">{{scope.row.creatorRealName}}</el-tag>
+                  <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index">{{item}}</el-tag>
+                </el-col>
+              </div>
             </template>
           </el-table-column>
         </template>
@@ -56,11 +59,11 @@
               <iep-button type="warning" plain size="small" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
               <iep-button type="warning" plain size="small" v-else>已收藏</iep-button>
               <iep-button size="small" @click="handleShare(scope.row)">分享</iep-button>
-              <el-dropdown size="medium" v-if="lookByMeOnly">
+              <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleEdit(scope.row)" v-if="permission_edit">修改</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleDeleteById(scope.row)" v-if="permission_delete">删除</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleEdit(scope.row)" v-if="lookByMeOnly || permission_edit">修改</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleDeleteById(scope.row)" v-if="lookByMeOnly || permission_delete">删除</el-dropdown-item>
                   <el-dropdown-item @click.native="handleContribute(scope.row)">投稿</el-dropdown-item>
                   <el-dropdown-item @click.native="handleEdition(scope.row)">上传新版本</el-dropdown-item>
                 </el-dropdown-menu>
@@ -82,7 +85,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { getTableData, getTableDataOnlyMe, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/material'
+import { getTableData, getTableDataOnlyMe, deleteData, getDataById } from '@/api/mlms/material/datum/material'
 import { createCollect } from '@/api/mlms/material/summary'
 import UploadFile from './uploadFile'
 import LocalDialog from './localDialog'
@@ -129,8 +132,7 @@ export default {
       getDataById(row.id).then((res) => {
         this.$refs[this.pageState].firstClassChange(res.data.data.firstClass)
         this.$refs[this.pageState].formData = res.data.data
-        this.$refs[this.pageState].methodName = '编辑'
-        this.$refs[this.pageState].formRequestFn = updateData
+        this.$refs[this.pageState].methodName = 'update'
       })
     },
     handleDeleteById (row) {
@@ -159,8 +161,7 @@ export default {
     localCreateForm (row) {
       this.pageState = 'local'
       this.$nextTick(() => {
-        this.$refs[this.pageState].methodName = '新建'
-        this.$refs['local'].formRequestFn = createData
+        this.$refs[this.pageState].methodName = 'create'
         let obj = {
           materialName: row[0].name,
           uploader: this.userInfo.realName,
@@ -173,8 +174,7 @@ export default {
     newlyCreate () {
       this.pageState = 'newly'
       this.$nextTick(() => {
-        this.$refs[this.pageState].methodName = '新建'
-        this.$refs['newly'].formRequestFn = createData
+        this.$refs[this.pageState].methodName = 'create'
       })
     },
     // 详情
@@ -207,7 +207,7 @@ export default {
     },
     // 分享
     handleShare (row) {
-      this.$refs['share'].open([row], `对“${row.name}”的分享`)
+      this.$refs['share'].open([row], `关于 ${row.name} 材料的分享`)
     },
     // 批量分享
     handleAllShare () {
@@ -243,18 +243,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.custom-name {
-  cursor: pointer;
-  margin-bottom: 10px;
+.row-tpl {
   width: 100%;
-  // text-decoration: underline;
-}
-.custom-tags {
-  margin: 0;
-  .el-tag {
-    margin-right: 5px;
-    height: 26px;
-    line-height: 26px;
+  cursor: pointer;
+  .custom-name {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .custom-tags {
+    margin: 0;
+    .el-tag {
+      margin: 0 5px 5px 0;
+      height: 26px;
+      line-height: 26px;
+    }
   }
 }
+
 </style>

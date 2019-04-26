@@ -81,7 +81,7 @@ export default [
         meta: noAuth,
       },
       {
-        path: 'organizationStyle',
+        path: 'organization_style',
         name: '组织风采',
         component: () => import('@/views/app/organizationStyle/'),
         meta: noAuth,
@@ -90,6 +90,12 @@ export default [
         path: 'personal_style',
         name: '个人风采',
         component: () => import('@/views/app/personalStyle/'),
+        meta: noAuth,
+      },
+      {
+        path: 'tag_library',
+        name: '标签库',
+        component: () => import('@/views/app/tagLibrary/'),
         meta: noAuth,
       },
     ],

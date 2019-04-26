@@ -86,6 +86,8 @@ export default {
       this.requestFn(data).then(({data}) => {
         if (!data.data) {
           this.$message.error(data.msg)
+        } else {
+          this.$message.success('恭喜您完成本周周报，继续努力！')
         }
         this.dialogState = 'detail'
         getTableData(this.currentDate).then(({data}) => {
@@ -129,9 +131,15 @@ export default {
       this.timeLineOption.list = list
       let today = {}
       if (type === 'year') { // 年份翻页
-        this.$refs['timeline'].active = month
-        this.$refs['timeline'].activeChild = week
-        today = getWeekStartAndEnd(list[1].children[0].timeStamp)
+        let obj = {}
+        if (year == this.today.getFullYear()) {
+          obj = getDateObj(list, this.today)
+        } else {
+          obj = { month: 1, week: 0 }
+        }
+        this.$refs['timeline'].active = obj.month
+        this.$refs['timeline'].activeChild = obj.week
+        today = getWeekStartAndEnd(list[obj.month].children[obj.week].timeStamp)
       } else if (type === 'search') { // 具体时间搜索
         let obj = getDateObj(list, monday)
         this.$refs['timeline'].active = obj.month
@@ -169,6 +177,7 @@ export default {
 
 <style lang="scss" scoped>
 .project {
+  margin-right: 16%;
   padding: 20px 0 0;
   .search {
     margin-bottom: 20px;

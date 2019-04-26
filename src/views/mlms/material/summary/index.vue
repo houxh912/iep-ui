@@ -8,7 +8,7 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handleDeleteByIds" v-if="tabName ==='personal'">删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteByIds" v-if="tabName ==='personal' || permission_delete">删除</el-dropdown-item>
               <el-dropdown-item @click.native="handleCollectAll">收藏</el-dropdown-item>
               <el-dropdown-item @click.native="handleAllShare">分享</el-dropdown-item>
               <el-dropdown-item @click.native="downloadPic">下载为图片</el-dropdown-item>
@@ -176,7 +176,7 @@ export default {
     },
     // 分享
     handleShare (row) {
-      this.$refs['share'].open([row], `对“${row.title}”的分享`)
+      this.$refs['share'].open([row], `关于 ${row.title} 的分享`)
     },
     // 头部subTitle方法
     replaceText (arr) {

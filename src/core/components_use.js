@@ -26,24 +26,27 @@ import IepTip from '@/components/IepCommon/Tip'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
-import IepSelect from '@/components/IepCommon/Select'
-import IepDatePicker from '@/components/IepCommon/DatePicker'
-import IepCascader from '@/components/IepCommon/Cascader'
-import IepDictDetail from '@/components/IepCommon/DictDetail'
-import IepDictSelect from '@/components/IepCommon/DictSelect'
-import IepDescriptionItem from '@/components/IepCommon/DescriptionItem'
-import IepTagDetail from '@/components/IepCommon/TagDetail'
-import IepDivDetail from '@/components/IepCommon/DivDetail'
-import IepInputNumber from '@/components/IepCommon/InputNumber'
-import IepInputArea from '@/components/IepCommon/InputArea'
-import IepDateRangeDetail from '@/components/IepCommon/DateRangeDetail'
+import IepSelect from '@/components/IepForm/Select'
+import IepDatePicker from '@/components/IepForm/DatePicker'
+import IepCascader from '@/components/IepForm/Cascader'
+import IepDictDetail from '@/components/IepForm/DictDetail'
+import IepDictSelect from '@/components/IepForm/DictSelect'
+import IepDescriptionItem from '@/components/IepForm/DescriptionItem'
+import IepTagDetail from '@/components/IepForm/TagDetail'
+import IepDivDetail from '@/components/IepForm/DivDetail'
+import IepDateRangeDetail from '@/components/IepForm/DateRangeDetail'
+
+// input
+import IepInputNumber from '@/components/IepInput/InputNumber'
+import IepInputArea from '@/components/IepInput/InputArea'
 
 // 头像上传文件有关组件
-import IepAvatar from '@/components/IepCommon/Avatar'
-import IepImgAvatar from '@/components/IepCommon/ImgAvatar'
-import IepImg from '@/components/IepCommon/Img'
-import IepUpload from '@/components/IepCommon/Upload'
-import IepDownload from '@/components/IepCommon/Download'
+import IepAvatar from '@/components/IepUpload/Avatar'
+import IepImgAvatar from '@/components/IepImg/ImgAvatar'
+import IepImg from '@/components/IepImg/index'
+import IepUpload from '@/components/IepUpload/index'
+import IepDownload from '@/components/IepUpload/Download'
+import IepUploadSelect from '@/components/IepUpload/Select'
 
 // 弹出层相关组件
 import IepDialog from '@/components/IepDialog/'
@@ -73,6 +76,7 @@ import IepAppFooterBar from '@/components/IepApp/FooterBar'
 import IepAppListCard from '@/components/IepApp/ListCard'
 import IepAppRankingCard from '@/components/IepApp/RankingCard'
 import IepAppLabelCard from '@/components/IepApp/LabelCard'
+import IepAppAssortCard from '@/components/IepApp/AssortCard'
 
 // 注册全局容器
 Vue.component(BasicContainer.name, BasicContainer)
@@ -118,6 +122,7 @@ Vue.component(IepImg.name, IepImg)
 Vue.component(IepUpload.name, IepUpload)
 Vue.component(IepAvatar.name, IepAvatar)
 Vue.component(IepDownload.name, IepDownload)
+Vue.component(IepUploadSelect.name, IepUploadSelect)
 
 // 弹出层相关组件
 Vue.component(IepDialog.name, IepDialog)
@@ -147,3 +152,4 @@ Vue.component(IepAppFooterBar.name, IepAppFooterBar)
 Vue.component(IepAppListCard.name, IepAppListCard)
 Vue.component(IepAppRankingCard.name, IepAppRankingCard)
 Vue.component(IepAppLabelCard.name, IepAppLabelCard)
+Vue.component(IepAppAssortCard.name, IepAppAssortCard)

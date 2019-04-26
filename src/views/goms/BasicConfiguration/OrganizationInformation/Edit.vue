@@ -6,7 +6,7 @@
           <iep-button type="primary" @click="handleSubmit">保存</iep-button>
         </template>
       </page-header>
-      <el-form :model="form" ref="form" label-width="120px">
+      <el-form :model="form" size="small" ref="form" label-width="120px">
         <el-form-item label="组织Logo：">
           <iep-avatar v-model="form.logo"></iep-avatar>
         </el-form-item>
@@ -26,13 +26,13 @@
           <el-input v-model="form.contactMethod" placeholder="请输入联系方式"></el-input>
         </el-form-item>
         <el-form-item label="组织简介：" prop="intro">
-          <el-input v-model="form.intro" type="textarea" placeholder="验证码登录使用"></el-input>
+          <iep-input-area v-model="form.intro" placeholder="验证码登录使用"></iep-input-area>
         </el-form-item>
         <el-form-item label="组织架构：" prop="structure">
-          <el-input v-model="form.structure" type="textarea"></el-input>
+          <iep-froala-editor v-model="form.structure"></iep-froala-editor>
         </el-form-item>
         <el-form-item label="核心优势：" prop="coreAdvantage">
-          <el-input v-model="form.coreAdvantage" type="textarea" placeholder="请输入核心优势"></el-input>
+          <iep-input-area v-model="form.coreAdvantage" placeholder="请输入核心优势"></iep-input-area>
         </el-form-item>
         <!-- <el-form-item label="组织客服人员：" prop="phone">
           <el-input></el-input>

@@ -7,8 +7,8 @@
           <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" size="small" plain>提现申请</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
-            <el-form :model="paramForm" label-width="80px" size="mini">
+          <operation-search @search-page="searchPage">
+            <!-- <el-form :model="paramForm" label-width="80px" size="mini">
               <el-form-item label="关键字">
                 <el-input v-model="paramForm.keyword"></el-input>
               </el-form-item>
@@ -43,7 +43,7 @@
                 <el-button type="primary" @click="searchPage">搜索</el-button>
                 <el-button>取消</el-button>
               </el-form-item>
-            </el-form>
+            </el-form> -->
           </operation-search>
         </template>
       </operation-container>
@@ -62,7 +62,7 @@
 <script>
 import { getTalentPoolPage } from '@/api/hrms/talent_pool'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from '../options'
+import { columnsMap } from '../options'
 export default {
   mixins: [mixins],
   data () {
@@ -81,14 +81,14 @@ export default {
         name: '',
       },
       columnsMap,
-      paramForm: initSearchForm(),
       value: '',
       value1: '',
       replaceText: (data) => `（支出：${data[0]}笔${data[0]}贝，收入：${data[0]}笔${data[0]}贝）`,
     }
   },
   created () {
-    this.loadPage()
+    // this.loadPage()
+    this.isLoadTable = false
   },
   methods: {
     handleSelectionChange (val) {
@@ -97,10 +97,6 @@ export default {
     handleDetail (row) {
       this.$emit('onDetail', row)
     },
-    // handleRejected (row) {
-    //   console.log(row)
-    //   this.$refs['RejectedDialog'].dialogShow = true
-    // },
     loadPage (param = this.paramForm) {
       this.loadTable(param, getTalentPoolPage)
     },

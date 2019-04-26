@@ -25,7 +25,7 @@
                       <span>{{form.phone}}</span>
                     </el-form-item>
                     <el-form-item label="政治面貌：">
-                      <iep-dict-detail :current-value="form.politics" dict-name="hrms_politics_face"></iep-dict-detail>
+                      <iep-dict-detail :value="form.politics" dict-name="hrms_politics_face"></iep-dict-detail>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -41,7 +41,7 @@
                       <span>{{form.title}}</span>
                     </el-form-item>
                     <el-form-item label="最高学历：">
-                      <iep-dict-detail :current-value="form.education" dict-name="hrms_highest_educational"></iep-dict-detail>
+                      <iep-dict-detail :value="form.education" dict-name="hrms_highest_educational"></iep-dict-detail>
                     </el-form-item>
                   </el-col>
                   <el-col :span="24">
@@ -72,10 +72,10 @@
                 <span>{{form.health}}</span>
               </el-form-item>
               <el-form-item label="婚姻状况：">
-                <iep-dict-detail :current-value="form.marriage" dict-name="hrms_marriage_status"></iep-dict-detail>
+                <iep-dict-detail :value="form.marriage" dict-name="hrms_marriage_status"></iep-dict-detail>
               </el-form-item>
               <el-form-item label="生育状况：">
-                <iep-dict-detail :current-value="form.bear" dict-name="hrms_birth_status"></iep-dict-detail>
+                <iep-dict-detail :value="form.bear" dict-name="hrms_birth_status"></iep-dict-detail>
               </el-form-item>
               <el-form-item label="员工关系：">
                 <span>{{form.relation}}</span>
@@ -84,10 +84,10 @@
                 <span>{{form.referrer}}</span>
               </el-form-item>
               <el-form-item label="应聘渠道：">
-                <iep-dict-detail :current-value="form.appWay" dict-name="hrms_app_way"></iep-dict-detail>
+                <iep-dict-detail :value="form.appWay" dict-name="hrms_app_way"></iep-dict-detail>
               </el-form-item>
               <el-form-item label="来源类型：">
-                <iep-dict-detail :current-value="form.source" dict-name="hrms_resume_source"></iep-dict-detail>
+                <iep-dict-detail :value="form.source" dict-name="hrms_resume_source"></iep-dict-detail>
               </el-form-item>
               <el-form-item label="兴趣爱好：">
                 <span>{{form.hobbies}}</span>

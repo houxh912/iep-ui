@@ -4,6 +4,9 @@
       <el-form-item label="头像:">
         <iep-avatar v-model="form.avatar"></iep-avatar>
       </el-form-item>
+      <el-form-item label="单文件:">
+        <iep-upload-select v-model="form.uploadSelect"></iep-upload-select>
+      </el-form-item>
       <el-form-item label="用户:">
         <iep-contact-select v-model="form.user"></iep-contact-select>
       </el-form-item>
@@ -52,6 +55,7 @@ export default {
     return {
       form: {
         avatar: '',
+        uploadSelect: '',
         user: {
           id: 1,
           name: '哈哈',

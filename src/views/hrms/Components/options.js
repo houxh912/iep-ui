@@ -6,7 +6,7 @@ const studyColumns = [
   {
     prop: 'startTime',
     label: '起止时间',
-    type: 'date',
+    type: 'daterange',
   },
   {
     prop: 'content',
@@ -22,12 +22,11 @@ const workExpColumns = [
   {
     prop: 'position',
     label: '岗位',
-    width: '150',
   },
   {
     prop: 'startTime',
     label: '起止时间',
-    type: 'date',
+    type: 'daterange',
   },
   {
     prop: 'description',
@@ -53,7 +52,7 @@ const trainingColumns = [
   {
     prop: 'startTime',
     label: '起止时间',
-    type: 'date',
+    type: 'daterange',
   },
 ]
 

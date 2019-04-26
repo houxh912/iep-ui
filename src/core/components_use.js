@@ -34,7 +34,7 @@ import IepDictSelect from '@/components/IepForm/DictSelect'
 import IepDescriptionItem from '@/components/IepForm/DescriptionItem'
 import IepTagDetail from '@/components/IepForm/TagDetail'
 import IepDivDetail from '@/components/IepForm/DivDetail'
-import IepDateRangeDetail from '@/components/IepForm/DateRangeDetail'
+import IepDateRangeSelect from '@/components/IepForm/DateRangeSelect'
 
 // input
 import IepInputNumber from '@/components/IepInput/InputNumber'
@@ -115,7 +115,7 @@ Vue.component(IepDescriptionItem.name, IepDescriptionItem)
 Vue.component(IepTagDetail.name, IepTagDetail)
 Vue.component(IepDivDetail.name, IepDivDetail)
 Vue.component(IepInputArea.name, IepInputArea)
-Vue.component(IepDateRangeDetail.name, IepDateRangeDetail)
+Vue.component(IepDateRangeSelect.name, IepDateRangeSelect)
 
 // 头像上传文件有关组件
 Vue.component(IepImgAvatar.name, IepImgAvatar)

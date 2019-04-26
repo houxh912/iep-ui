@@ -4,8 +4,8 @@
       <template v-if="fileName.length > 20" slot="title">
         <span>{{fileName}}</span>
       </template>
-      <el-tag class="file-tag" type="info" :size="size" @click="handleDownload" :closable="disabled && closable" @close="clearFile">
-        {{`${fileName.slice(0, 20)}${fileName.length > 20 ? '...' : ''}`}}
+      <el-tag class="file-tag" type="info" :size="size" @click="handleDownload" :closable="!disabled && closable" @close="clearFile">
+        {{`${fileName.slice(0, 15)}${fileName.length > 20 ? '...' : ''}`}}
       </el-tag>
     </el-tooltip>
     <el-tag class="file-tag" v-if="!disabled" :size="size" type="info" @click="handleUpload()">
@@ -86,6 +86,7 @@ export default {
   justify-content: center;
 }
 .file-tag {
+  margin-right: 5px;
   cursor: pointer;
 }
 </style>

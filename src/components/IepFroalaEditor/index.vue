@@ -40,7 +40,6 @@ export default {
         requestHeaders: { Authorization: 'Bearer ' + store.getters.access_token },
         events: {
           'froalaEditor.initialized': function () {
-            console.log('initialized')
           },
         },
       },

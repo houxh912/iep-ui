@@ -7,7 +7,7 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handleDeleteByIds" v-if="lookByMeOnly || permission_delete">删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteByIds" v-if="lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
               <el-dropdown-item @click.native="handleExportAll">导出</el-dropdown-item>
               <el-dropdown-item @click.native="handleCollectAll">收藏</el-dropdown-item>
               <el-dropdown-item @click.native="handleShareAll">分享</el-dropdown-item>
@@ -42,8 +42,8 @@
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleEdit(scope.row)" v-if="lookByMeOnly || permission_edit">修改</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleDeleteById(scope.row)" v-if="lookByMeOnly || permission_delete">删除</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleEdit(scope.row)" v-if="lookByMeOnly || permission_edit_del">修改</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleDeleteById(scope.row)" v-if="lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
                   <el-dropdown-item @click.native="handleContribute(scope.row)">投稿</el-dropdown-item>
                   <el-dropdown-item @click.native="handleEdition(scope.row)">上传新版本</el-dropdown-item>
                 </el-dropdown-menu>
@@ -81,8 +81,7 @@ export default {
       columnsMap: tableOption,
       createCollect,
       getTableDataFn: getTableData,
-      permission_edit: false,
-      permission_delete: false,
+      permission_edit_del: false,
       lookByMeOnly: false,
     }
   },
@@ -159,8 +158,7 @@ export default {
   },
   created () {
     this.loadPage()
-    this.permission_edit = this.permissions['mlms_datum_edit']
-    this.permission_delete = this.permissions['mlms_datum_delete']
+    this.permission_edit_del = this.permissions['mlms_datum_cr_edit_del']
   },
 }
 </script>

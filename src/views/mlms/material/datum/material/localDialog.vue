@@ -94,6 +94,7 @@
 <script>
 import { initLocalForm, rules, dictsMap, tipContent } from './option'
 import { saveScheme } from '@/api/crms/scheme'
+import { createData, updateData } from '@/api/mlms/material/datum/material'
 
 export default {
   props: {
@@ -108,25 +109,24 @@ export default {
   },
   data () {
     return {
-        tipContent,
+      tipContent,
       dialogShow: false,
-      methodName: '新增',
-      formRequestFn: () => { },
+      methodName: 'create',
+      methodList: {
+        create: {
+          name: '新增',
+          requestFn: createData,
+        },
+        update: {
+          name: '编辑',
+          requestFn: updateData,
+        },
+      },
       formData: initLocalForm(),
       backId: '',
       rules: rules,
       secondClass: [],
       dictsMap,
-      dicData: {
-        select: [
-          { value: '1', label: '选项1' },
-          { value: '2', label: '选项2' },
-        ],
-        dept: [
-          { value: 1, label: '部门1' },
-          { value: 2, label: '部门2' },
-        ],
-      },
       limit: 1,
       backOption: {
         isBack: true,
@@ -153,16 +153,14 @@ export default {
             this.formData.attachFile = this.formData.attachFileList[0].url
           }
           this.formData.type = 0
-          this.formRequestFn(this.formData).then((data) => {
+          this.methodList[this.methodName].requestFn(this.formData).then((data) => {
             this.backId = data.id
             if (data.data && data.data.data === false) {
               this.$message.error(data.data.msg)
               return
             }
-            this.$message({
-              message: `${this.methodName}成功`,
-              type: 'success',
-            })
+            let tips = this.methodName == 'create' ? '恭喜您成功上传了一篇材料，成功获得2个国脉贝，继续努力！' : '编辑成功'
+            this.$message.success(tips)
             this.loadPage()
             this.dialogShow = false
           })

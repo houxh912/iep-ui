@@ -82,7 +82,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { getTableData, getTableDataOnlyMe, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/material'
+import { getTableData, getTableDataOnlyMe, deleteData, getDataById } from '@/api/mlms/material/datum/material'
 import { createCollect } from '@/api/mlms/material/summary'
 import UploadFile from './uploadFile'
 import LocalDialog from './localDialog'
@@ -129,8 +129,7 @@ export default {
       getDataById(row.id).then((res) => {
         this.$refs[this.pageState].firstClassChange(res.data.data.firstClass)
         this.$refs[this.pageState].formData = res.data.data
-        this.$refs[this.pageState].methodName = '编辑'
-        this.$refs[this.pageState].formRequestFn = updateData
+        this.$refs[this.pageState].methodName = 'update'
       })
     },
     handleDeleteById (row) {
@@ -159,8 +158,7 @@ export default {
     localCreateForm (row) {
       this.pageState = 'local'
       this.$nextTick(() => {
-        this.$refs[this.pageState].methodName = '新建'
-        this.$refs['local'].formRequestFn = createData
+        this.$refs[this.pageState].methodName = 'create'
         let obj = {
           materialName: row[0].name,
           uploader: this.userInfo.realName,
@@ -173,8 +171,7 @@ export default {
     newlyCreate () {
       this.pageState = 'newly'
       this.$nextTick(() => {
-        this.$refs[this.pageState].methodName = '新建'
-        this.$refs['newly'].formRequestFn = createData
+        this.$refs[this.pageState].methodName = 'create'
       })
     },
     // 详情
@@ -207,7 +204,7 @@ export default {
     },
     // 分享
     handleShare (row) {
-      this.$refs['share'].open([row], `对“${row.name}”的分享`)
+      this.$refs['share'].open([row], `关于 ${row.name} 材料的分享`)
     },
     // 批量分享
     handleAllShare () {

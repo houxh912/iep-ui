@@ -85,7 +85,7 @@ export default {
   justify-content: center;
   align-items: center;
   .user-name {
-    margin-left: 5px;
+    margin-left: 10px;
   }
 }
 </style>

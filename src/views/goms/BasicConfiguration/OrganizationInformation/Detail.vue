@@ -37,21 +37,21 @@
             <div class="title">
               组织简介
             </div>
-            <p>{{form.intro}}</p>
+            <pre>{{form.intro}}</pre>
           </div>
           <a-divider dashed />
           <div class="bottom">
             <div class="title">
               组织架构
             </div>
-            <p>{{form.structure}}</p>
+            <iep-html v-model="form.structure"></iep-html>
           </div>
           <a-divider dashed />
           <div class="bottom">
             <div class="title">
               核心优势
             </div>
-            <p>{{form.coreAdvantage}}</p>
+            <pre>{{form.coreAdvantage}}</pre>
           </div>
         </div>
         <a-divider />

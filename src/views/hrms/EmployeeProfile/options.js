@@ -514,11 +514,11 @@ const rules = {
   ],
   projectTag: [
     { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
-    { type: 'array', required: true, message: '请填写专业标签', trigger: 'change' },
+    // { type: 'array', required: true, message: '请填写专业标签', trigger: 'change' },
   ],
   learningTag: [
     { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
-    { type: 'array', required: true, message: '请填写进步标签', trigger: 'change' },
+    // { type: 'array', required: true, message: '请填写进步标签', trigger: 'change' },
   ],
   careerPlanning: [
     { max: 2000, message: '字符不得超过 2000 个', trigger: 'change' },

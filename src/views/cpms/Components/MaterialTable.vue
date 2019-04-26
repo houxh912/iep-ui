@@ -14,7 +14,7 @@
       </el-table-column>
       <el-table-column label="类别">
         <template slot-scope="scope">
-          <iep-dict-detail :currentValue="scope.row.materialType" dict-name="mlms_material_type"></iep-dict-detail>
+          <iep-dict-detail :value="scope.row.materialType" dict-name="mlms_material_type"></iep-dict-detail>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="200">
@@ -34,7 +34,7 @@
         </el-table-column>
         <el-table-column label="分类">
           <template slot-scope="scope">
-            <iep-dict-detail :currentValue="scope.row.materialType" dict-name="mlms_material_type"></iep-dict-detail>
+            <iep-dict-detail :value="scope.row.materialType" dict-name="mlms_material_type"></iep-dict-detail>
           </template>
         </el-table-column>
         <el-table-column label="上传者">

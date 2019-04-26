@@ -277,6 +277,7 @@ export default {
     margin-bottom: 20px;
     .footer-left {
       flex: 1;
+      text-align: left;
       .el-tag {
         margin-right: 10px;
       }

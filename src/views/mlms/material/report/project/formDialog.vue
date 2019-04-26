@@ -134,7 +134,6 @@ export default {
     submit () {
       // 遍历判断 预计回款时间 内的数据是否填写完整
       for (let item of this.formData.paymentRelations) {
-        console.log('item: ', item)
         if (item.paymentAmount == '' || item.projectPaymentTime == '') {
           this.$message.error('请完整填写预计回款时间')
           return

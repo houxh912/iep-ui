@@ -160,6 +160,7 @@ export default {
 
 <style lang="scss" scoped>
 .organize {
+  margin-right: 16%;
   padding: 20px 0 0;
   .search {
     margin-bottom: 20px;

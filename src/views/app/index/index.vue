@@ -35,6 +35,9 @@ export default {
 
     }
   },
+  created (){
+    this.$message('此页面正在开发中，当前数据仅供参考。')
+  },
 }
 </script>
 <style lang="scss" scoped>

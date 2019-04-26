@@ -1,5 +1,5 @@
 import request from '@/router/axios'
-const prefixUrl = '/cpms/technology'
+export const prefixUrl = '/cpms/technology'
 
 export function getTechnologyPage (params) {
   return request({

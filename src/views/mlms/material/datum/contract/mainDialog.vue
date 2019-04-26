@@ -52,8 +52,9 @@
       </el-row>
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="签署部门：" prop="signDeptOrgName">
-            <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
+          <el-form-item label="签署组织：" prop="signDeptName">
+            <!-- <iep-dept-select v-model="formData.signDeptName"></iep-dept-select> -->
+            <el-input v-model="formData.signDeptName" readonly ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
@@ -112,7 +113,7 @@
 </template>
 <script>
 import { initFormData, rules, dictsMap } from './option'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import { getManeger } from '@/api/mlms/material/datum/contract'
 import { getCustomerPage } from '@/api/crms/customer'
 import projectDialog from './projectRelation'
@@ -123,6 +124,7 @@ export default {
     ...mapState({
       dictGroup: state => state.user.dictGroup,
     }),
+    ...mapGetters(['userInfo']),
   },
   data () {
     return {
@@ -154,9 +156,8 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
-      this.formData.signDeptOrgId = this.formData.signDeptOrgName.id // 签署部门
       this.formData.underTakeDeptId = this.formData.underTakeDeptList.map(m => m.id) // 承接部门
-      this.formData.contractFile = this.formData.contractFileList[0].url
+      this.formData.contractFile = this.formData.contractFileList.length > 0 ? this.formData.contractFileList[0].url : ''
       // 提交前需要处理下数据
       if (this.formData.contractType == 1) { // 外部合同
       } else { // 内部合同
@@ -197,6 +198,10 @@ export default {
       // this.formData.projectName = name
       this.$set(this.formData, 'projectName', name)
     },
+  },
+  mounted () {
+    this.formData.signDeptOrgId = this.userInfo.orgId
+    this.formData.signDeptName = this.userInfo.orgName
   },
   created () {
     getCustomerPage({ type: 1 }).then(({ data }) => {

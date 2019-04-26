@@ -70,6 +70,22 @@ export const initSearchForm = () => {
   }
 }
 
+var receiverValidate = (rule, value, callback) => {
+  if (value.orgs.length == 0 && value.users.length == 0) {
+    callback(new Error())
+  } else {
+    callback()
+  }
+}
+
+var hostValidate = (rule, value, callback) => {
+  if (value.id == '') {
+    callback(new Error())
+  } else {
+    callback()
+  }
+}
+
 export const rules = {
   meetingType: [
     { required: true, message: '必填', trigger: 'change' },
@@ -112,22 +128,18 @@ export const rules = {
   ],
   hostList: [
     { required: true, message: '必填', trigger: 'change' },
+    { validator: hostValidate, message: '主持人必填', trigger: 'change' },
   ],
   attendeeList: [
     { required: true, message: '必填', trigger: 'change' },
+    { validator: receiverValidate, message: '参会人必填', trigger: 'change' },
   ],
   receiverList: [
     { required: true, message: '必填', trigger: 'change' },
+    { validator: receiverValidate, message: '参会人必填', trigger: 'change' },
   ],
 }
 
-var receiverValidate = (rule, value, callback) => {
-  if (value.orgs.length == 0 && value.users.length == 0) {
-    callback(new Error())
-  } else {
-    callback()
-  }
-}
 export const shareRules = {
   subject: [
     { required: true, message: '必填', trigger: 'blur' },

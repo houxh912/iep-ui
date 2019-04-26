@@ -1,52 +1,53 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="批量添加成员" width="70%" @close="close">
-    <el-row :gutter="20" class="row-wrapper">
+  <iep-a-dialog :dialog-show="dialogShow" title="批量添加成员" width="70%" @ok="handleOk" :confirmLoading="confirmLoading" @cancel="dialogShow=false">
+    <el-row :gutter="20">
       <el-col :span="6">
         已选择的用户(点击移除)：
         <el-scrollbar style="height:410px;">
           <iep-no-data v-if="!selectUserList.length" message="请添加组织成员"></iep-no-data>
-          <a-button v-for="user in selectUserList" :key="user.id" icon="user-delete" @click="handleDelete(user)" block>{{user.name}}</a-button>
+          <a-button v-for="user in selectUserList" :key="user.id" @click="handleDelete(user)" block>
+            {{user.name}}
+            <a-icon type="user-delete" />
+          </a-button>
         </el-scrollbar>
       </el-col>
       <el-col :span="18">
-        <el-scrollbar style="height:410px;">
-          <operation-container>
-            <template slot="right">
-              <operation-search @search-page="searchPage">
-              </operation-search>
-            </template>
-          </operation-container>
-          <iep-table :isLoadTable="isLoadTable" align="center" size="mini" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-option-size="5">
-            <template slot="before-columns">
-              <el-table-column label="ID">
-                <template slot-scope="scope">
-                  {{scope.row.id}}
-                </template>
-              </el-table-column>
-              <el-table-column label="姓名">
-                <template slot-scope="scope">
-                  {{scope.row.name}}
-                </template>
-              </el-table-column>
-            </template>
-            <el-table-column prop="operation" label="操作" width="100">
+        <operation-container>
+          <template slot="right">
+            <operation-search @search-page="searchPage">
+            </operation-search>
+          </template>
+        </operation-container>
+        <iep-table :isLoadTable="isLoadTable" align="center" size="mini" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-option-size="5">
+          <template slot="before-columns">
+            <el-table-column label="ID">
               <template slot-scope="scope">
-                <operation-wrapper>
-                  <iep-button :disabled="isDisabled(scope.row)" type="text" @click="handleSelect(scope.row)">选择</iep-button>
-                </operation-wrapper>
+                {{scope.row.id}}
               </template>
             </el-table-column>
-          </iep-table>
-        </el-scrollbar>
+            <el-table-column label="姓名">
+              <template slot-scope="scope">
+                {{scope.row.name}}
+              </template>
+            </el-table-column>
+          </template>
+          <el-table-column prop="operation" label="操作" width="100">
+            <template slot-scope="scope">
+              <operation-wrapper>
+                <iep-button :disabled="isDisabled(scope.row)" type="text" @click="handleSelect(scope.row)">选择</iep-button>
+              </operation-wrapper>
+            </template>
+          </el-table-column>
+        </iep-table>
       </el-col>
     </el-row>
     <template slot="footer">
-      <operation-wrapper>
-        <iep-button type="primary" @click="handleBatchAddUsers()">添加</iep-button>
-        <iep-button @click="close">取消</iep-button>
-      </operation-wrapper>
+      <a-button key="back" @click="dialogShow=false">取消</a-button>
+      <a-button key="submit" type="primary" :loading="confirmLoading" @click="handleOk()">
+        添加
+      </a-button>
     </template>
-  </iep-dialog>
+  </iep-a-dialog>
 
 </template>
 <script>
@@ -58,6 +59,7 @@ export default {
   data () {
     return {
       dialogShow: false,
+      confirmLoading: false,
       selectUserList: [],
     }
   },
@@ -73,10 +75,14 @@ export default {
         size: 5,
       }
     },
-    handleBatchAddUsers () {
+    handleOk () {
+      this.confirmLoading = true
       pullUser(this.selectUserIds).then(() => {
         this.$message.success('批量添加成功')
-        this.close()
+        this.dialogShow = false
+        this.confirmLoading = false
+        this.selectUserList = []
+        this.$emit('load-page')
       })
     },
     isDisabled (row) {
@@ -93,18 +99,8 @@ export default {
     //   this.multipleSelection = val.map(m => m.id)
     // },
     loadPage (param) {
-      this.loadTable({...param,...this.searchForm}, gomsNoJoinUserPage)
-    },
-    close () {
-      this.selectUserList = []
-      this.dialogShow = false
-      this.$emit('load-page')
+      this.loadTable({ ...param, ...this.searchForm }, gomsNoJoinUserPage)
     },
   },
 }
 </script>
-<style lang="scss" scoped>
-.row-wrapper {
-  width: 95%;
-}
-</style>

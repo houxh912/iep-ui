@@ -137,7 +137,7 @@ export default {
         { name: '完结日期', value: 'finishTime', type: 'date' },
         { name: '委托单位', value: 'companyName' },
         { name: '签署单位', value: 'signCompanyRealName' },
-        { name: '签署部门', value: 'signDeptOrgNames' },
+        { name: '签署组织', value: 'signDeptOrgNames' },
         { name: '承接部门', value: 'underTakeDeptNames' },
         { name: '合同金额', value: 'contractAmount' },
         { name: '合同级别', value: 'contractLevel', type: 'dict' },
@@ -155,7 +155,7 @@ export default {
   methods: {
     open (id) {
       getDataById(id).then(({data}) => {
-        data.data.signDeptOrgNames = data.data.signDeptOrgName.name
+        data.data.signDeptOrgNames = data.data.signDeptOrgName.name // 签署组织
         let underTakeDeptNames = ''
         for (let item of data.data.underTakeDeptName) {
           underTakeDeptNames += item.name + '、'

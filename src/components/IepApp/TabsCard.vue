@@ -40,7 +40,7 @@ export default {
   position: absolute;
   right: 20px;
   top: 0px;
-  padding: 5px 0;
+  padding: 0;
   color: #999;
   z-index: 3;
 }
@@ -51,7 +51,7 @@ export default {
   font-size: 16px;
 }
 .index-card >>> .el-card__body {
-  padding: 10px 0 15px;
+  padding: 2px 0 15px;
 }
 .el-card {
   padding: 0 20px;

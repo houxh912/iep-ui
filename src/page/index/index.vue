@@ -16,14 +16,18 @@
           <!-- 主体视图层 -->
           <el-scrollbar style="height:100%">
             <keep-alive>
-              <router-view class="avue-view" v-if="$route.meta.$keepAlive" />
+              <router-view class="avue-view" v-if="$route.meta.keepAlive" />
             </keep-alive>
-            <router-view class="avue-view" />
+            <router-view class="avue-view" v-if="!$route.meta.keepAlive" />
           </el-scrollbar>
         </el-main>
       </el-container>
     </el-container>
     <div class="avue-shade" @click="showCollapse"></div>
+    <a-modal title="欢迎您加盟国脉内部智慧平台" v-model="visible" @ok="handleOk">
+      <p>欢迎登录国脉内部智慧平台，我们将为您提供工作、学习、（自我）管理、协作、个人财富增值和服务创新等一系列服务，将为你的工作与学习带来系列惊喜的变化。请您准确、全面填写好相关信息，了解好平台运营规则，学习新生必读相关材料。本平台是内部资源的汇聚与分享，许多材料和功能限于您个人使用，请注意保密，保管好您的账号密码和财富。</p>
+      <p>祝您通过平台获得观念进步、技能提升和财富增值!</p>
+    </a-modal>
   </div>
 </template>
 
@@ -55,6 +59,7 @@ export default {
       refreshLock: false,
       //刷新token的时间
       refreshTime: '',
+      visible: true,
     }
   },
   created () {
@@ -95,6 +100,9 @@ export default {
   props: [],
   methods: {
     ...mapActions(['LoadAllDictMap']),
+    handleOk () {
+      this.visible = false
+    },
     showCollapse () {
       this.$store.commit('SET_COLLAPSE')
     },

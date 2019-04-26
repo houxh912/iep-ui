@@ -176,7 +176,7 @@ export default {
     },
     // 分享
     handleShare (row) {
-      this.$refs['share'].open([row], `对“${row.title}”的分享`)
+      this.$refs['share'].open([row], `关于 ${row.title} 的分享`)
     },
     // 头部subTitle方法
     replaceText (arr) {

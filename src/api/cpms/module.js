@@ -1,5 +1,5 @@
 import request from '@/router/axios'
-const prefixUrl = '/cpms/module'
+export const prefixUrl = '/cpms/module'
 
 export function getModulePage (params) {
   return request({

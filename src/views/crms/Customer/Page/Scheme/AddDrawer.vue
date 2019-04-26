@@ -3,7 +3,7 @@
     <iep-tabs v-model="activeTab" :tab-list="tabList">
       <template v-if="activeTab ==='Meterials'" v-slot:Meterials>
         <div class="header">
-          <iep-button type="primary" plain size="mini"><i class="el-icon-plus"></i>新增方案</iep-button>
+          <iep-button type="primary" plain size="mini" @click="handleAdd"><i class="el-icon-plus"></i>新增方案</iep-button>
           <el-input placeholder="请输入内容" v-model="materialName" maxlength="100" size="small" class="search">
             <template slot="append">
               <el-button @click="search" size="mini">搜索</el-button>
@@ -37,7 +37,7 @@
           </el-form-item>
           <el-form-item label="附件上传：" prop="attach">
             <iep-upload v-model="formData.attachs" :limit="1">
-              <span>可上传任意类型的文件，每次上传数量不超过一个{{formData.attachs}}</span>
+              <span>可上传任意类型的文件，每次上传数量不超过一个</span>
             </iep-upload>
             <el-input v-model="formData.attach" v-show="false" class="msg"></el-input>
           </el-form-item>
@@ -56,6 +56,7 @@ import { initForm } from './options'
 import { checkName } from '@/api/crms/scheme'
 import mixins from '@/mixins/mixins'
 import { tableOption } from './options'
+import { mapGetters } from 'vuex'
 import { getTableData } from '@/api/mlms/material/datum/material'
 export default {
   mixins: [mixins],
@@ -103,21 +104,31 @@ export default {
       },
     }
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
   created () {
+    this.formData.avatar = this.userInfo.avatar
+    this.formData.realName = this.userInfo.realName
     this.loadPage()
   },
   methods: {
+    //新增方案
+    handleAdd () {
+      this.$emit('on-add')
+    },
     close () {
       this.formData = initForm()
       this.drawerShow = false
     },
     submitForm (formName) {
-      console.log(this.formData.attachs.length)
       if (this.formData.attachs.length !== 0) {
-        this.$set(this.formData, 0, { attach: '已上传文件' })
+        this.$set(this.formData, 'attach', '已上传文件')
         this.formData.atchUpload = this.formData.attachs[0].url
       } else {
-        this.$set(this.formData, 'attach', '已上传文件')
+        return false
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -145,8 +156,15 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        this.$emit('add', row)
-        this.drawerShow = false
+        checkName(row.materialName).then((res) => {
+          if (res.data.data) {
+            this.$emit('add', row)
+            this.drawerShow = false
+          } else {
+            this.$message.error('改则材料已经存在，无法添加！')
+          }
+        })
+
       })
     },
     search () {

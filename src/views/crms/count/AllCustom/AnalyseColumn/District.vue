@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// import _ from 'lodash'
 import 'v-charts/lib/style.css'
 import { getDistrict } from '@/api/crms/count'
 export default {

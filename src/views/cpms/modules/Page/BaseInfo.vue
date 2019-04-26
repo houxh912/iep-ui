@@ -8,7 +8,7 @@
       </el-col>
       <el-col :span='8'>
         <el-form-item label="模块分类：">
-          <iep-dict-detail :current-value="form.type" dict-name="cpms_module_type"></iep-dict-detail>
+          <iep-dict-detail :value="form.type" dict-name="cpms_module_type"></iep-dict-detail>
         </el-form-item>
       </el-col>
       <el-col :span='8'>

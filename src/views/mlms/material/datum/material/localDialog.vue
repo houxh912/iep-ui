@@ -53,7 +53,7 @@
           <iep-tip :content="tipContent.materialType"></iep-tip>
           ：
         </span>
-        <iep-dict-select v-model="formData.materialType" dict-name="mlms_material_type"></iep-dict-select>
+        <iep-dict-select v-model="formData.materialType" dict-name="mlms_download_cost"></iep-dict-select>
       </el-form-item>
       <el-form-item label="下载贝额：" prop="downloadCost">
         <span slot="label">
@@ -118,7 +118,6 @@ export default {
         },
       },
       formData: initLocalForm(),
-      backId: '',
       rules: rules,
       secondClass: [],
       dictsMap,
@@ -148,6 +147,7 @@ export default {
             this.formData.attachFile = this.formData.attachFileList[0].url
           }
           this.formData.type = 0
+          console.log(this.formData)
           this.methodList[this.methodName].requestFn(this.formData).then((data) => {
             this.backId = data.id
             if (data.data && data.data.data === false) {

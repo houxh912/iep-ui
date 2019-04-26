@@ -30,7 +30,7 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button @click="relateEdit(scope.row)" type="warning" plain v-if="!scope.row.status">保存至材料库</iep-button>
-            <iep-button @click="scope.row.materialId==0?localEdit(scope.row):relateEdit(scope.row)" type="warning" plain v-if="!scope.row.status">编辑</iep-button>
+            <iep-button @click="scope.row.status==0?localEdit(scope.row):relateEdit(scope.row)" type="warning" plain v-if="scope.row.creatorId===userInfo.userId">编辑</iep-button>
             <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
@@ -53,6 +53,7 @@ import { deleteData } from '@/api/mlms/material/datum/material'
 import { mapGetters } from 'vuex'
 import AddDrawer from './AddDrawer'
 import { downloadModel } from '@/api/crms/download'
+import { getDataById } from '@/api/mlms/material/datum/material'
 export default {
   name: 'contacts',
   mixins: [mixins],
@@ -97,7 +98,7 @@ export default {
     //新增方案函数
     OnAdd () {
       this.$refs['AddDrawer'].drawerShow = false
-      this.$emit('onEdit', { clientId: this.record.id })
+      this.$emit('onEdit', { newAdd: true })
     },
     loadPage (param) {
       this.$emit('load-page')
@@ -130,12 +131,18 @@ export default {
     },
     //保存至材料库/关联修改
     relateEdit (row) {
-      getSchemeById(row.programId).then((res) => {
-        this.$emit('onEdit', res.data.data)
-      })
+      console.log(row)
+      if (row.materialId !== 0) {
+        getDataById(row.materialId).then((res) => {
+          this.$emit('onEdit', { data: res.data.data, programId: row.programId, save: false })
+        })
+      } else {
+        this.$emit('onEdit', { data: row, programId: row.programId, save: true })
+      }
+
     },
     handleDeleteById (row) {
-      if (row.materialId !== 0 && row.status == 0) {
+      if (row.status && row.creatorId === this.userInfo.userId) {
         this.$confirm('此操作将同时删除原件, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -187,7 +194,7 @@ export default {
       this.formData.materialId = val.id
       this.formData.realName = val.creatorRealName
       this.formData.creator = val.creator
-      this.formData.attachs = [{ name: val.attachFile }]
+      this.formData.atchUpload = val.attachFile
       createScheme(this.formData).then(() => {
         this.$message({
           message: '添加方案成功',

@@ -8,7 +8,7 @@
           <iep-tip :content="tipContent.materialName"></iep-tip>
           ：
         </span>
-        <el-input v-model="formData.materialName" maxlength="50" disabled></el-input>
+        <el-input v-model="formData.materialName" maxlength="50"></el-input>
       </el-form-item>
       <el-form-item label="作者：">
         <span slot="label">
@@ -16,7 +16,7 @@
           <iep-tip :content="tipContent.uploader"></iep-tip>
           ：
         </span>
-        <el-input v-model="formData.uploader" maxlength="40" disabled></el-input>
+        <el-input v-model="formData.uploader" maxlength="40"></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
         <span slot="label">
@@ -53,7 +53,7 @@
           <iep-tip :content="tipContent.materialType"></iep-tip>
           ：
         </span>
-        <iep-dict-select v-model="formData.materialType" dict-name="mlms_material_type"></iep-dict-select>
+        <iep-dict-select v-model="formData.materialType" dict-name="mlms_download_cost"></iep-dict-select>
       </el-form-item>
       <el-form-item label="下载贝额：" prop="downloadCost">
         <span slot="label">
@@ -94,10 +94,9 @@
 <script>
 import { initLocalForm, rules, dictsMap, tipContent } from './options'
 import { getConfigureTree } from '@/api/mlms/material/datum/configure'
-import { createData } from '@/api/mlms/material/datum/material'
-import { updateScheme, getSchemeById } from '@/api/crms/scheme'
+import { createData, updateData } from '@/api/mlms/material/datum/material'
+import { createScheme, updateScheme, getSchemeById } from '@/api/crms/scheme'
 import { mapGetters, mapState } from 'vuex'
-// import { getDataById } from '@/api/mlms/material/datum/material'
 export default {
   computed: {
     ...mapGetters(['permissions', 'userInfo']),
@@ -105,9 +104,18 @@ export default {
       dictGroup: state => state.user.dictGroup,
     }),
   },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+    data: {
+      type: Object,
+      default: () => { },
+    },
+  },
   data () {
     return {
-      record: '',
       tipContent,
       methodName: '新增',
       formRequestFn: () => { },
@@ -124,25 +132,39 @@ export default {
         },
       },
       firstClass: '',
-      schemeData: '',
+      schemeData: {
+        atchUpload: '',
+        avatar: '',
+        programName: '',
+        clientId: '',
+        creator: '',
+        realName: '',
+        attachs: [],
+        attach: '',
+        materialId: '',
+      },
     }
   },
   created () {
     getConfigureTree().then(({ data }) => {
       this.firstClass = data.data
     })
-
-
-  },
-  updated () {
     this.formData.uploader = this.userInfo.realName
-    if (this.record.hasOwnProperty('attachs')) {
-      this.formData.materialName = this.record.programName
-      this.formData.attachFileList = this.record.attachs
-      getSchemeById(this.record.programId).then((res) => {
-        this.schemeData = res.data.data
-      })
+    if (!this.data.newAdd) {
+      if (this.data && this.data.save) {
+        this.formData.attachFileList = [{ name: this.data.data.atchUpload }]
+        this.formData.creatorId = this.data.data.creatorId
+        this.formData.materialName = this.data.data.programName
+        this.formData.uploader = this.data.data.realName
+      } else {
+        this.formData = this.data.data
+        getSchemeById(this.data.programId).then((res) => {
+          this.schemeData = res.data.data
+          this.formData.attachFileList = [{ name: this.schemeData.atchUpload }]
+        })
+      }
     }
+
   },
   methods: {
     loadPage () {
@@ -159,22 +181,103 @@ export default {
             this.formData.attachFile = this.formData.attachFileList[0].url
           }
           this.formData.type = 0
-          createData(this.formData).then((data) => {
-            if (data.data && data.data.data === false) {
-              this.$message.error(data.data.msg)
-              return
-            }
-            this.$message({
-              message: `${this.methodName}成功`,
-              type: 'success',
+          if (this.data.newAdd) {
+            console.log(this.formData)
+            createData(this.formData).then((data) => {
+              if (data.data && data.data.data === false) {
+                this.$message.error(data.data.msg)
+                return
+              }
+              this.schemeData.materialId = data.data.data
+              this.schemeData.programName = this.formData.materialName
+              this.schemeData.creator = this.userInfo.userId
+              this.schemeData.clientId = this.record.id
+              this.schemeData.attachs = this.formData.attachFileList
+              this.schemeData.atchUpload = this.formData.attachFile
+              createScheme(this.schemeData).then(() => {
+                this.$message({
+                  message: '新增成功',
+                  type: 'success',
+                })
+              })
+              this.$emit('onGoBack')
+              return false
             })
-            console.log(data)
-            this.schemeData.meterialId = data.data.data
-            updateScheme(this.schemeData).then(() => {
+          } else {
+            if (!this.data.save) {
+              this.formData.attachFile
+              updateData(this.formData).then(() => {
+                this.schemeData.programName = this.formData.materialName
+                this.schemeData.creator = this.userInfo.userId
+                this.schemeData.clientId = this.record.id
+                this.schemeData.attachs = this.formData.attachFileList
+                this.schemeData.atchUpload = this.formData.attachFile
+                updateScheme(this.schemeData).then(() => {
+                  this.$message({
+                    message: '编辑成功',
+                    type: 'success',
+                  })
+                  this.$emit('onGoBack')
+                })
+              })
+            } else {
+              console.log(this.formData)
+              createData(this.formData).then((data) => {
+                if (data.data && data.data.data === false) {
+                  this.$message.error(data.data.msg)
+                  return
+                }
+                console.log(data.data.data)
+                this.schemeData.materialId = data.data.data
+                this.schemeData.programName = this.formData.materialName
+                this.schemeData.creator = this.userInfo.userId
+                this.schemeData.clientId = this.record.id
+                this.schemeData.attachs = this.formData.attachFileList
+                this.schemeData.atchUpload = this.formData.attachFile
+                updateScheme(this.schemeData).then(() => {
+                  this.$message({
+                    message: '保存至材料库成功',
+                    type: 'success',
+                  })
+                })
 
-            })
-            this.loadPage()
-          })
+                this.$emit('onGoBack')
+              })
+            }
+          }
+
+          // createData(this.formData).then((data) => {
+          //   console.log(data)
+          //   if (data.data && data.data.data === false) {
+          //     this.$message.error(data.data.msg)
+          //     return
+          //   }
+          //   if (this.record.hasOwnProperty('attachs')) {
+          //     this.schemeData.materialId = data.data.data
+          //     updateScheme(this.schemeData).then(() => {
+          //       this.$message({
+          //         message: '编辑成功',
+          //         type: 'success',
+          //       })
+          //     })
+          //   } else {
+          //     this.schemeData.materialId = data.data.data
+          //     this.schemeData.programName = this.formData.materialName
+          //     this.schemeData.creator = this.userInfo.userId
+          //     this.schemeData.clientId = this.record.clientId
+          //     this.schemeData.attachs = this.formData.attachFileList
+          //     this.schemeData.atchUpload = this.formData.attachFile
+          //     createScheme(this.schemeData).then(() => {
+          //       this.$message({
+          //         message: '新增成功',
+          //         type: 'success',
+          //       })
+          //     })
+          //   }
+
+
+          //   this.$emit('onGoBack')
+          // })
         } else {
           return false
         }

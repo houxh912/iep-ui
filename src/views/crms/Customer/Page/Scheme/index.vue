@@ -1,5 +1,5 @@
 <template>
-  <component ref="component" @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" @load-page="loadPage" :is="currentComponet"></component>
+  <component ref="component" @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" @load-page="loadPage" :is="currentComponet" :data="data"></component>
 </template>
 
 <script>
@@ -19,15 +19,14 @@ export default {
   },
   data () {
     return {
+      data: '',
       currentComponet: 'List',
     }
   },
   methods: {
     handleEdit (val) {
+      this.data = val
       this.currentComponet = 'Edit'
-      this.$nextTick(() => {
-        this.$refs['component'].record = val
-      })
     },
     handleGoBack () {
       this.currentComponet = 'List'

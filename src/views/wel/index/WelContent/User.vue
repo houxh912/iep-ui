@@ -16,7 +16,10 @@
           </el-col>
           <el-col :span="20">
             <div class="right">
-              <div class="user-poster"><span class="say">{{timeFix}}，{{form.name}}，{{welcome}}</span></div>
+              <div class="user-poster"><span class="say">{{timeFix}}，{{form.name}}
+                  <span class="welcome-text">{{welcome}}</span>
+                </span>
+              </div>
               <div class="user-info">
                 <span v-if="form.title" class="color">{{form.title}}</span>
                 <span v-if="form.job" class="border">{{form.job}}</span>
@@ -118,6 +121,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.welcome-text {
+  margin-left: 10px;
+  font-size: 16px;
+  color: #cb3737;
+}
 .information {
   width: 100%;
   background: white;

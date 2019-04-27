@@ -18,10 +18,9 @@
           <div class="content"></div>
         </div>
         <div v-else>
-          <!-- {{ today == item.createTime ? item : '不是' }} -->
           <div class="date" :class="active===index?'active':''">{{item.date}}</div>
           <div class="content">
-            <slot name="content" :row="item" :index="index"></slot>
+            <slot name="content" :row="item" :index="index" :today="today == item.createTime"></slot>
           </div>
         </div>
       </div>

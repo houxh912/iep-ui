@@ -1,8 +1,15 @@
 import { mergeByFirst } from '@/util/util'
+const dictsMap = {
+  type: {
+    'L': '支出',
+    'A': '收入',
+  },
+}
 const columnsMap = [
   {
     prop: 'type',
     label: '分类',
+    type: 'dict',
   },
   {
     prop: 'amount',
@@ -53,4 +60,4 @@ const toDtoSearchForm = (row) => {
   }
   return newForm
 }
-export { columnsMap, initSearchForm, initDtoSearchForm, toDtoSearchForm }
+export { columnsMap, initSearchForm, initDtoSearchForm, toDtoSearchForm, dictsMap }

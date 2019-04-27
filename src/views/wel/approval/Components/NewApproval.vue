@@ -104,6 +104,7 @@ export default {
           type: row.value,
         },
       })
+      this.dialogShow = false
     },
     loadPage () {
       this.dialogShow = false

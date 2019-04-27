@@ -11,7 +11,7 @@
           <img :src="item.img" alt="">
           <div class="text">
             <span>{{item.name}}</span>
-            <span class="introduction">{{item.introduction}}</span>
+            <span class="introduction">{{item.synopsis}}</span>
           </div>
         </div>
       </div>

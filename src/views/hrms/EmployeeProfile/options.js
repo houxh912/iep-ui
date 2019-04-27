@@ -271,13 +271,13 @@ const columnsMap = [
     prop: 'residenceAddress',
     label: '户籍地址',
     hidden: true,
-    key: 'residentAdd',
+    key: 'residenceAddress',
   },
   {
     prop: 'currentAddress',
     label: '现住地址',
     hidden: true,
-    key: 'currentAdd',
+    key: 'currentAddress',
   },
   {
     prop: 'phone',

@@ -53,6 +53,7 @@ export default {
     },
     tabTechnologyType (val) {
       this.technologyType = val
+      this.loadTechnologyList()
     },
   },
 }

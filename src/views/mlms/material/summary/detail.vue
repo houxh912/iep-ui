@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div class="comment">
+      <div class="comment" v-if="formData.status !== 1">
         <div class="form">
           <h2 class="title">补充或评论</h2>
           <el-input type="textarea" rows=5 v-model="commentForm.commentContent" maxlength="500"></el-input>

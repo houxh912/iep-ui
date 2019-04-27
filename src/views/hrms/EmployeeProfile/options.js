@@ -523,6 +523,10 @@ const rules = {
   careerPlanning: [
     { max: 2000, message: '字符不得超过 2000 个', trigger: 'change' },
   ],
+}
+
+const selfRules = {
+  ...rules,
   accountTypeId: [
     { required: true, message: '请填写户口类型', trigger: 'blur' },
   ],
@@ -558,4 +562,4 @@ const rules = {
   ],
 }
 
-export { dictsMap, columnsMap, initForm, formToDto, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm, toDtoSearchForm, rules }
+export { dictsMap, columnsMap, initForm, formToDto, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm, toDtoSearchForm, rules, selfRules }

@@ -8,6 +8,7 @@
             <iep-date-range-select v-else-if="item.type === 'daterange'" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label"></iep-date-range-select>
             <iep-upload-select v-else-if="item.type === 'file'" size="mini" v-model="scope.row[item.prop]"></iep-upload-select>
             <iep-dict-select v-else-if="item.type === 'dict'" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label" :dict-name="item.dictName"></iep-dict-select>
+            <iep-input-area v-else-if="item.type === 'area'" maxlength="1000" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label" :autosize="{minRows: 1}"></iep-input-area>
             <el-input v-else maxlength="100" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label" clearable></el-input>
           </template>
           <template v-else>

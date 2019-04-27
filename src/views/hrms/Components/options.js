@@ -11,6 +11,7 @@ const studyColumns = [
   {
     prop: 'content',
     label: '学习内容',
+    type: 'area',
   },
 ]
 
@@ -31,6 +32,7 @@ const workExpColumns = [
   {
     prop: 'description',
     label: '工作描述',
+    type: 'area',
   },
 ]
 

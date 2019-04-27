@@ -80,8 +80,8 @@
         <div slot="header" class="clearfix">
           <span>操作</span>
         </div>
-        <iep-button type="warning" @click="handleReview(scope.row)" plain>审核</iep-button>
-        <iep-button :disabled="scope.row.status===3" @click="handleDeliver(scope.row)">转交</iep-button>
+        <iep-button type="warning" @click="handleReview()" plain>审核</iep-button>
+        <iep-button @click="handleDeliver()">转交</iep-button>
       </el-card>
     </basic-container>
     <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>

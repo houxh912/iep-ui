@@ -6,6 +6,7 @@
         <div :class="technologyType==''?'color':''" class="piece-tab" @click="tabTechnologyType('')">全部</div>
         <div v-for="(item) in cpmsTechnologyType" :key="item.value" class="piece-tab" :class="technologyType==item.value?'color':''" @click="tabTechnologyType(item.value)">{{item.label}}</div>
       </div>
+      <iep-no-data v-if="!technologyList.length"></iep-no-data>
       <div class="new-tehnology-content">
         <div v-for="(item,index) in technologyList" :key="index" class="piece">
           <img :src="item.img" alt="">

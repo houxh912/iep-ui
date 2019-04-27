@@ -2,17 +2,17 @@
   <div class="introduction">
     <el-card shadow="hover" class="introduction-card">
       <div class="left">
-        <i class="iconfont" :class="icon"></i>
+        <iep-img :src="form.imageUrl" alt="" style="width:160px;height: 160px;"></iep-img>
       </div>
       <div class="right">
         <div class="title">
-          <span class="name">{{name}}</span>
-          <span class="status">{{status}}</span>
+          <span class="name">{{form.name}}</span>
+          <span class="status">{{dictsMap.schedule[form.schedule]}}</span>
         </div>
         <div class="tag">
-          <span v-for="(item,index) in tag" :key="index">{{item}}</span>
+          <span v-for="(item,index) in form.tagKeywords" :key="index">{{item}}</span>
         </div>
-        <span class="updateTime">更新时间：{{updateTime}}</span>
+        <span class="updateTime">更新时间：{{form.updateTime}}</span>
         <el-button class="join">加入定制</el-button>
         <el-button class="use">立即使用</el-button>
       </div>
@@ -20,14 +20,12 @@
   </div>
 </template>
 <script>
+import { dictsMap } from '@/views/cpms/modules/options'
 export default {
+  props: ['form'],
   data () {
     return {
-      icon: 'icon-tongyongleiziyuanpeizhi',
-      name: '资源配置模块',
-      status: '已完成',
-      tag: ['产品设计', '项目管理', '原型设计', '平台规划', '需求分析', '流程设计', '产品培训', '需求文档'],
-      updateTime: '2019-04-26 15:30',
+      dictsMap,
     }
   },
 }

@@ -4,15 +4,15 @@
     <div class="title">
       <div>{{title}}</div>
     </div>
-    <IepAppListCard :dataList="dataList"></IepAppListCard>
+    <IepAppListCard :dataList="form.materialRelations.map(m => m.name)"></IepAppListCard>
   </div>
 </template>
 <script>
 export default {
+  props: ['form'],
   data () {
     return {
       title: '相关材料',
-      dataList: ['aaaaaaaaaaaa', 'aaaaaaaaaaaa', 'aaaaaaaaaaaa', 'aaaaaaaaaaaa', 'aaaaaaaaaaaa', 'aaaaaaaaaaaa'],
     }
   },
 }

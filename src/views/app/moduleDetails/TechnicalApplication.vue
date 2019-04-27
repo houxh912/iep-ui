@@ -4,9 +4,9 @@
     <div class="title">
       <div>{{title}}</div>
     </div>
-    <div class="piece" v-for="(item,index) in dataList" :key="index">
+    <div class="piece" v-for="(item,index) in form.technologyRelations" :key="index">
       <div>
-        <i class="iconfont" :class="item.icon"></i>
+        <iep-img :src="item.imageUrl" style="width:40px;height:40px;"></iep-img>
       </div>
       <span>{{item.name}}</span>
     </div>
@@ -14,15 +14,10 @@
 </template>
 <script>
 export default {
+  props: ['form'],
   data () {
     return {
       title: '相关技术应用',
-      dataList: [
-        { icon: 'icon-tongyongleiziyuanpeizhi', name: '资源配置模块' },
-        { icon: 'icon-tongyongleiziyuanpeizhi', name: '资源配置模块' },
-        { icon: 'icon-tongyongleiziyuanpeizhi', name: '资源配置模块' },
-        { icon: 'icon-tongyongleiziyuanpeizhi', name: '资源配置模块' },
-      ],
     }
   },
 }

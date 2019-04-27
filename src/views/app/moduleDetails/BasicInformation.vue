@@ -4,21 +4,23 @@
       <div>{{title}}</div>
     </div>
     <el-row>
-      <el-col :span="8"><span>模块编号：</span>{{number}}</el-col>
-      <el-col :span="8"><span>模块分类：</span>{{number}}</el-col>
-      <el-col :span="8"><span>模块指导价：</span>{{number}}</el-col>
+      <el-col :span="8"><span>模块编号：</span>{{form.number}}</el-col>
+      <el-col :span="8"><span>模块分类：</span>
+        <iep-dict-detail :value="form.type" dict-name="cpms_module_type"></iep-dict-detail>
+      </el-col>
+      <el-col :span="8"><span>模块指导价：</span>{{form.guidePrice}}</el-col>
     </el-row>
     <el-row>
-      <el-col :span="8"><span>模块优惠价：</span>{{number}}</el-col>
-      <el-col :span="16"><span>版本号：</span>{{number}}</el-col>
+      <el-col :span="8"><span>模块优惠价：</span>{{form.preferentialPrice}}</el-col>
     </el-row>
     <el-row>
-      <el-col :span="24"><span>详情介绍：</span>{{number}}</el-col>
+      <el-col :span="24"><span>详情介绍：</span>{{form.description}}</el-col>
     </el-row>
   </div>
 </template>
 <script>
 export default {
+  props: ['form'],
   data () {
     return {
       title: '基础信息',
@@ -38,7 +40,6 @@ export default {
     color: #333;
   }
   .el-col {
-    height: 30px;
     line-height: 30px;
     > span {
       width: 100px;

@@ -1,34 +1,34 @@
 <template>
   <div class="progress">
     <div class="title">
-      <div>{{title}}</div>
+      <div>研发进度</div>
     </div>
     <div class="box">
-      <div>
+      <div :class="form.schedule===1 ? 'red' : ''">
         <div class="piece">
           <i class="iconfont icon-lixiang"></i>
         </div>
         <span>立项</span>
       </div>
-      <div>
+      <div :class="form.schedule===2 ? 'red' : ''">
         <div class="piece">
           <i class="iconfont icon-yanfa"></i>
         </div>
         <span>研发中</span>
       </div>
-      <div>
+      <div :class="form.schedule===3 ? 'red' : ''">
         <div class="piece">
           <i class="iconfont icon-ceshi"></i>
         </div>
         <span>测试中</span>
       </div>
-      <div>
+      <div :class="form.schedule===4 ? 'red' : ''">
         <div class="piece">
           <i class="iconfont icon-chenggong1"></i>
         </div>
         <span>验收中</span>
       </div>
-      <div :class="status==='5' ? 'red' : ''">
+      <div :class="form.schedule===5 ? 'red' : ''">
         <div class="last-piece">
           <i class="iconfont icon-shangjia"></i>
         </div>
@@ -39,13 +39,7 @@
 </template>
 <script>
 export default {
-  data () {
-    return {
-      title: '研发进度',
-      status: '5',
-
-    }
-  },
+  props: ['form'],
 }
 </script>
 <style lang="scss" scoped>

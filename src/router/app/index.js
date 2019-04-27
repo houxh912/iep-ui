@@ -99,7 +99,7 @@ export default [
         meta: noAuth,
       },
       {
-        path: 'module_details',
+        path: 'module_details/:id',
         name: '模块详情',
         component: () => import('@/views/app/moduleDetails/'),
         meta: noAuth,

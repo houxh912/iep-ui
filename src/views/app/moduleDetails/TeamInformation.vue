@@ -4,18 +4,34 @@
       <div>{{title}}</div>
     </div>
     <el-row>
-      <el-col :span="8"><span>负责人：</span>{{number}}</el-col>
-      <el-col :span="8"><span>需求方：</span>{{number}}</el-col>
-      <el-col :span="8"><span>技术经理：</span>{{number}}</el-col>
+      <el-col :span="8">
+        <span>负责人：</span>
+        <iep-contact-multiple-user style="display:inline-block;" v-model="form.userRelationCharges" disabled></iep-contact-multiple-user>
+      </el-col>
+      <el-col :span="8">
+        <span>需求方：</span>
+        <iep-contact-multiple-user style="display:inline-block;" v-model="form.userRelationDemands" disabled></iep-contact-multiple-user>
+      </el-col>
+      <el-col :span="8">
+        <span>技术经理：</span>
+        <iep-contact-multiple-user style="display:inline-block;" v-model="form.userRelationTechnologys" disabled></iep-contact-multiple-user>
+      </el-col>
     </el-row>
     <el-row>
-      <el-col :span="8"><span>产品经理：</span>{{number}}</el-col>
-      <el-col :span="16"><span>团队成员：</span>{{number}}</el-col>
+      <el-col :span="8">
+        <span>产品经理：</span>
+        <iep-contact-multiple-user style="display:inline-block;" v-model="form.userRelationProducts" disabled></iep-contact-multiple-user>
+      </el-col>
+      <el-col :span="16">
+        <span>团队成员：</span>
+        <iep-contact-multiple-user style="display:inline-block;" v-model="form.userRelationTeams" disabled></iep-contact-multiple-user>
+      </el-col>
     </el-row>
   </div>
 </template>
 <script>
 export default {
+  props: ['form'],
   data () {
     return {
       title: '团队信息',

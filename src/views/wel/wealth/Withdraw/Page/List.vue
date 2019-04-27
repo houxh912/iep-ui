@@ -48,19 +48,12 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
-        <template slot="before-columns">
-          <el-table-column label="流水号" width="90px">
-            <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
-            </template>
-          </el-table-column>
-        </template>
       </iep-table>
     </basic-container>
   </div>
 </template>
 <script>
-import { getTalentPoolPage } from '@/api/hrms/talent_pool'
+import { getWithdrawPage } from '@/api/fams/withdraw'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from '../options'
 export default {
@@ -97,8 +90,8 @@ export default {
     handleDetail (row) {
       this.$emit('onDetail', row)
     },
-    loadPage (param = this.paramForm) {
-      this.loadTable(param, getTalentPoolPage)
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getWithdrawPage)
     },
     handleAdd () {
       this.$emit('onEdit', {

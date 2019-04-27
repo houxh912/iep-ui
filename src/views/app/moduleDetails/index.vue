@@ -23,7 +23,7 @@ import ApplicationModule from './ApplicationModule'
 import TechnicalApplication from './TechnicalApplication'
 import RelatedMaterials from './RelatedMaterials'
 export default {
-  components:{ Introduction, RDProgress, BasicInformation, TeamInformation, AllVersions, ApplicationModule, TechnicalApplication, RelatedMaterials },
+  components: { Introduction, RDProgress, BasicInformation, TeamInformation, AllVersions, ApplicationModule, TechnicalApplication, RelatedMaterials },
   data () {
     return {
     }
@@ -35,13 +35,12 @@ export default {
   width: 1200px;
   padding: 20px 0;
   margin: 0 auto;
-  .tab{
+  .tab {
     height: 80px;
     line-height: 80px;
     font-size: 18px;
   }
 }
-
 </style>
 <style scoped>
 </style>

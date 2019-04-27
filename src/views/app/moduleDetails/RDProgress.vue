@@ -41,64 +41,66 @@
 export default {
   data () {
     return {
-      title:'研发进度',
-      status:'5',
+      title: '研发进度',
+      status: '5',
 
     }
   },
 }
 </script>
 <style lang="scss" scoped>
-.progress{
-  margin-top:20px;
-  .title{
+.progress {
+  margin-top: 20px;
+  .title {
     font-size: 16px;
     height: 60px;
     line-height: 60px;
     color: #333;
   }
-  .box{
+  .box {
     display: grid;
     grid-auto-flow: row dense;
     grid-template-columns: 1fr 1fr 1fr 1fr 80px;
-    .piece,.last-piece{
+    .piece,
+    .last-piece {
       width: 80px;
       height: 80px;
       line-height: 80px;
       text-align: center;
       background: #f8f8f8;
       border-radius: 50%;
-      border:1px solid #dcdcdc;
+      border: 1px solid #dcdcdc;
       position: relative;
-      > i{
+      > i {
         font-size: 40px;
         color: #999;
       }
     }
-    .piece:before{
-      content: '';
+    .piece:before {
+      content: "";
       width: 195px;
       height: 2px;
-      border-top:2px dashed #999;
+      border-top: 2px dashed #999;
       position: absolute;
-      top:50%;
+      top: 50%;
       left: 80px;
     }
-    span{
+    span {
       width: 80px;
       height: 36px;
       line-height: 36px;
       text-align: center;
       display: block;
     }
-    .red{
-      .piece,.last-piece{
-        border:1px solid #dd7f83;
-        > i{
+    .red {
+      .piece,
+      .last-piece {
+        border: 1px solid #dd7f83;
+        > i {
           color: #dd7f83;
         }
       }
-      span{
+      span {
         color: #dd7f83;
       }
     }

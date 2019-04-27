@@ -21,32 +21,32 @@
 export default {
   data () {
     return {
-      title:'基础信息',
-      number:'AU8979626',
+      title: '基础信息',
+      number: 'AU8979626',
     }
   },
 }
 </script>
 <style lang="scss" scoped>
-.basic-information{
+.basic-information {
   border-top: 1px solid #f5f5f5;
-  margin-top:20px;
-  .title{
+  margin-top: 20px;
+  .title {
     font-size: 16px;
     height: 60px;
     line-height: 60px;
     color: #333;
   }
-  .el-col{
+  .el-col {
     height: 30px;
     line-height: 30px;
-    > span{
+    > span {
       width: 100px;
       display: inline-block;
       text-align: right;
     }
   }
-} 
+}
 </style>
 <style scoped>
 </style>

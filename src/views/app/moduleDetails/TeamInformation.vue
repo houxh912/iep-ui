@@ -18,27 +18,27 @@
 export default {
   data () {
     return {
-      title:'团队信息',
-      number:'AU8979626',
+      title: '团队信息',
+      number: 'AU8979626',
     }
   },
 }
 </script>
 <style lang="scss" scoped>
-.team-information{
+.team-information {
   border-top: 1px solid #f5f5f5;
-  margin-top:20px; 
+  margin-top: 20px;
 }
-.title{
+.title {
   font-size: 16px;
   height: 60px;
   line-height: 60px;
   color: #333;
 }
-.el-col{
+.el-col {
   height: 30px;
   line-height: 30px;
-  > span{
+  > span {
     width: 100px;
     display: inline-block;
     text-align: right;

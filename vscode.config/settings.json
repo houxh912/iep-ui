@@ -11,16 +11,9 @@
   "editor.autoIndent": true,
   "editor.insertSpaces": true,
   "editor.wordWrap": "on",
+  "files.autoSaveDelay": 1000,
+  "editor.formatOnSave": true,
   "extensions.ignoreRecommendations": false,
-  "eslint.autoFixOnSave": true,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    {
-      "language": "vue",
-      "autoFix": true
-    }
-  ],
   "files.autoSave": "onFocusChange",
   "files.associations": {
     "*.wxc": "vue",
@@ -31,13 +24,13 @@
   },
   "files.eol": "auto",
   "git.autofetch": true,
-  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true, //让函数(名)和后面的括号之间加个空格
   "telemetry.enableTelemetry": false,
   "telemetry.enableCrashReporter": false,
   "terminal.integrated.env.windows": {
     "LC_ALL": "en_US.UTF-8"
   },
-  "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "typescript.format.insertSpaceBeforeFunctionParenthesis": true, //让函数(名)和后面的括号之间加个空格
   "typescript.locale": "zh-CN",
   "todohighlight.include": [
     "**/*.js",
@@ -62,10 +55,14 @@
     "**/*.min.*",
     "**/*.map"
   ],
-  // Default formatter for <template> region
-  "vetur.format.defaultFormatter.html": "js-beautify-html",
-  // Default formatter for <script> region
-  "vetur.format.defaultFormatter.js": "vscode-typescript",
+  "workbench.editor.tabSizing": "shrink",
+  "window.zoomLevel": 0,
+  "eslint.autoFixOnSave": true, // 每次保存的时候将代码按eslint格式进行修复
+  "prettier.eslintIntegration": true, //让prettier使用eslint的代码格式进行校验
+  "prettier.semi": false, //去掉代码结尾的分号
+  "prettier.singleQuote": true, //使用单引号替代双引号
+  "vetur.format.defaultFormatter.html": "js-beautify-html", //格式化.vue中html
+  "vetur.format.defaultFormatter.js": "vscode-typescript", //让vue中的js按编辑器自带的ts格式进行格式化
   "vetur.format.defaultFormatterOptions": {
     "js-beautify-html": {
       "wrap_line_length": 0,
@@ -73,7 +70,17 @@
       "end_with_newline": false
     }
   },
-  "vetur.validation.template": false,
-  "workbench.editor.tabSizing": "shrink",
-  "window.zoomLevel": 0,
+  "eslint.validate": [
+    //开启对.vue文件中错误的检查
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "html",
+      "autoFix": true
+    },
+    {
+      "language": "vue",
+      "autoFix": true
+    }
+  ]
 }

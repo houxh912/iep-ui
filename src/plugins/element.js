@@ -3,6 +3,7 @@ import Vue from 'vue'
 import '@/styles/reset.css'
 // 全局变量
 import '@/styles/theme/index.scss'
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import {
   Scrollbar,
   Timeline,
@@ -78,6 +79,8 @@ import {
 
 // Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 }
 
+Vue.component(CollapseTransition.name, CollapseTransition)
+Vue.use(CollapseTransition)
 Vue.use(Scrollbar)
 Vue.use(Timeline)
 Vue.use(timelineItem)

@@ -10,13 +10,13 @@
             <iep-avatar v-model="form.imageUrl"></iep-avatar>
           </el-form-item>
           <el-form-item label="技术编号：" prop="number" class="form-half">
-            <el-input maxlength="110" v-model="form.number"></el-input>
+            <el-input :maxlength="110" v-model="form.number"></el-input>
           </el-form-item>
           <el-form-item label="技术名称：" prop="name" class="form-half">
-            <el-input maxlength="110" v-model="form.name"></el-input>
+            <el-input :maxlength="110" v-model="form.name"></el-input>
           </el-form-item>
           <el-form-item label="英文名称：" prop="englishName" class="form-half">
-            <el-input maxlength="110" v-model="form.englishName"></el-input>
+            <el-input :maxlength="110" v-model="form.englishName"></el-input>
           </el-form-item>
           <el-form-item label="技术分类：" prop="type" class="form-half">
             <iep-dict-select v-model="form.type" dict-name="cpms_technology_type"></iep-dict-select>
@@ -34,7 +34,7 @@
             <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="技术简介：" prop="synopsis">
-            <el-input maxlength="2010" v-model="form.synopsis"></el-input>
+            <el-input :maxlength="2010" v-model="form.synopsis"></el-input>
           </el-form-item>
           <el-form-item label="技术介绍：" prop="description">
             <iep-input-area v-model="form.description"></iep-input-area>

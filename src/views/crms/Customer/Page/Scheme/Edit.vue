@@ -8,7 +8,7 @@
           <iep-tip :content="tipContent.materialName"></iep-tip>
           ：
         </span>
-        <el-input v-model="formData.materialName" maxlength="50"></el-input>
+        <el-input v-model="formData.materialName" :maxlength="50"></el-input>
       </el-form-item>
       <el-form-item label="作者：">
         <span slot="label">
@@ -16,7 +16,7 @@
           <iep-tip :content="tipContent.uploader"></iep-tip>
           ：
         </span>
-        <el-input v-model="formData.uploader" maxlength="40" disabled></el-input>
+        <el-input v-model="formData.uploader" :maxlength="40" disabled></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
         <span slot="label">
@@ -24,7 +24,7 @@
           <iep-tip :content="tipContent.intro"></iep-tip>
           ：
         </span>
-        <el-input type="textarea" v-model="formData.intro" rows="5" maxlength="200"></el-input>
+        <el-input type="textarea" v-model="formData.intro" rows="5" :maxlength="200"></el-input>
       </el-form-item>
       <el-row>
         <el-col :span=12>

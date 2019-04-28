@@ -17,11 +17,11 @@
     </operation-container>
     <iep-table-tree :data="tableData" :option="columnsMap" @handleChild="handleChild" @selectChange="selectChange" :permissionAdd="permission_add">
       <template #levelName="{scope, index}">
-        <el-input v-model="formData.levelName" v-if="index===selectIndex" maxlength="10"></el-input>
+        <el-input v-model="formData.levelName" v-if="index===selectIndex" :maxlength="10"></el-input>
         <div v-else>{{scope.levelName}}</div>
       </template>
       <template #sort="{scope, index}">
-        <el-input v-model="formData.sort" v-if="index===selectIndex" maxlength="3"></el-input>
+        <el-input v-model="formData.sort" v-if="index===selectIndex" :maxlength="3"></el-input>
         <div v-else>{{scope.sort}}</div>
       </template>
       <template #createTime="scope">
@@ -37,7 +37,7 @@
             <iep-button @click="handleEdit(scope, index)" type="warning" plain v-if="permission_edit_del">编辑</iep-button>
             <iep-button @click="handleDeleteById(scope, index)" v-if="permission_edit_del">删除</iep-button>
           </div>
-          
+
         </div>
       </template>
     </iep-table-tree>
@@ -65,7 +65,7 @@ export default {
       index: 1,
       selectIndex: -1,
       formData: initFormData(),
-      validateResult: {data: true},
+      validateResult: { data: true },
       formState: false,
       permission_add: false,
       permission_edit_del: false,
@@ -123,7 +123,7 @@ export default {
           this.tableData[this.selectIndex.slice(0, index)].childrens.splice(this.selectIndex.slice(index + 1), 1)
         }
       }
-      this.validateResult = {data: true}
+      this.validateResult = { data: true }
       this.selectIndex = -1
       this.formState = false
     },
@@ -140,10 +140,10 @@ export default {
         return
       }
       let fn = this.formData.id ? updateData : createData
-      fn(this.formData).then(({data}) => {
+      fn(this.formData).then(({ data }) => {
         if (data.data) {
           this.$message({
-          message: '保存成功',
+            message: '保存成功',
             type: 'success',
           })
           this.handleCancel({})
@@ -187,7 +187,7 @@ export default {
       if (this.formData.levelName == '') {
         return
       }
-      validateName(this.formData.levelName).then(({data}) => {
+      validateName(this.formData.levelName).then(({ data }) => {
         this.validateResult = data
         if (!data.data) {
           this.$message.error(data.msg)

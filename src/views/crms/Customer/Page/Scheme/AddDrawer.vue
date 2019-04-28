@@ -4,7 +4,7 @@
       <template v-if="activeTab ==='Meterials'" v-slot:Meterials>
         <div class="header">
           <iep-button type="primary" plain size="mini" @click="handleAdd"><i class="el-icon-plus"></i>新增方案</iep-button>
-          <el-input placeholder="请输入内容" v-model="materialName" maxlength="100" size="small" class="search">
+          <el-input placeholder="请输入内容" v-model="materialName" :maxlength="100" size="small" class="search">
             <template slot="append">
               <el-button @click="search" size="mini">搜索</el-button>
             </template>

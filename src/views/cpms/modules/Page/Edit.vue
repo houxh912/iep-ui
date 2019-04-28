@@ -10,16 +10,16 @@
             <iep-avatar v-model="form.imageUrl"></iep-avatar>
           </el-form-item>
           <el-form-item label="模块编号：" prop="number" class="form-half">
-            <el-input maxlength="110" v-model="form.number"></el-input>
+            <el-input :maxlength="110" v-model="form.number"></el-input>
           </el-form-item>
           <el-form-item label="模块名称：" prop="name" class="form-half">
-            <el-input maxlength="110" v-model="form.name"></el-input>
+            <el-input :maxlength="110" v-model="form.name"></el-input>
           </el-form-item>
           <el-form-item label="模块分类：" prop="type" class="form-half">
             <iep-dict-select v-model="form.type" dict-name="cpms_module_type"></iep-dict-select>
           </el-form-item>
           <el-form-item label="测试地址：" prop="website" class="form-half">
-            <el-input maxlength="110" v-model="form.website"></el-input>
+            <el-input :maxlength="110" v-model="form.website"></el-input>
           </el-form-item>
           <el-form-item label="模块指导价：" prop="guidePrice" class="form-half">
             <iep-input-number v-model="form.guidePrice"></iep-input-number>
@@ -31,7 +31,7 @@
             <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
           <el-form-item label="模块简介：" prop="synopsis">
-            <el-input maxlength="110" v-model="form.synopsis"></el-input>
+            <el-input :maxlength="110" v-model="form.synopsis"></el-input>
           </el-form-item>
           <el-form-item label="模块介绍：" prop="description">
             <iep-input-area v-model="form.description"></iep-input-area>

@@ -359,7 +359,8 @@ const initSearchForm = () => {
     titleId: '',
     cities: [],
     rangeTime: [],
-    status: [],
+    status: '',
+    lockOrg: '',
   }
 }
 const initDtoSearchForm = () => {
@@ -375,7 +376,7 @@ const initDtoSearchForm = () => {
     startTime: '',
     endTime: '',
     status: '',
-    lockFlag: '',
+    lockOrg: '',
   }
 }
 const toDtoSearchForm = (row) => {
@@ -442,9 +443,6 @@ const rules = {
   staffId: [
     { required: true, message: '请填写员工编号', trigger: 'blur' },
   ],
-  avatar: [
-    { required: true, message: '请上传头像', trigger: 'blur' },
-  ],
   position: [
     { required: true, message: '请填写岗位', trigger: 'blur' },
   ],
@@ -468,6 +466,31 @@ const rules = {
   ],
   dept: [
     { required: true, message: '请填写所属部门', trigger: 'blur' },
+  ],
+  externalTitle: [
+    { min: 2, message: '外部头衔至少 2 个字符以上', trigger: 'blur' },
+    { max: 20, message: '外部头衔不得超过 20 个字符', trigger: 'blur' },
+  ],
+  abilityTag: [
+    { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
+  ],
+  projectTag: [
+    { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
+    // { type: 'array', required: true, message: '请填写专业标签', trigger: 'change' },
+  ],
+  learningTag: [
+    { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
+    // { type: 'array', required: true, message: '请填写进步标签', trigger: 'change' },
+  ],
+  careerPlanning: [
+    { max: 2000, message: '字符不得超过 2000 个', trigger: 'change' },
+  ],
+}
+
+const selfRules = {
+  ...rules,
+  avatar: [
+    { required: true, message: '请上传头像', trigger: 'blur' },
   ],
   birthday: [
     { required: true, message: '请填写出生年月', trigger: 'blur' },
@@ -505,28 +528,6 @@ const rules = {
   referrer: [
     { required: false, message: '请填写推荐人', trigger: 'blur' },
   ],
-  externalTitle: [
-    { min: 2, message: '外部头衔至少 2 个字符以上', trigger: 'blur' },
-    { max: 20, message: '外部头衔不得超过 20 个字符', trigger: 'blur' },
-  ],
-  abilityTag: [
-    { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
-  ],
-  projectTag: [
-    { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
-    // { type: 'array', required: true, message: '请填写专业标签', trigger: 'change' },
-  ],
-  learningTag: [
-    { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
-    // { type: 'array', required: true, message: '请填写进步标签', trigger: 'change' },
-  ],
-  careerPlanning: [
-    { max: 2000, message: '字符不得超过 2000 个', trigger: 'change' },
-  ],
-}
-
-const selfRules = {
-  ...rules,
   accountTypeId: [
     { required: true, message: '请填写户口类型', trigger: 'blur' },
   ],

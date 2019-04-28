@@ -2,7 +2,7 @@
   <div class="inbox">
     <basic-container>
       <div class="head">
-        <page-header title="收件箱" class="title" :backOption="backOption"></page-header>
+        <page-header title="" class="title" :backOption="backOption"></page-header>
       </div>
       <div class="info">
         <div class="title">{{formData.subject}}</div>

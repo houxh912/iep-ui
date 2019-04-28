@@ -8,11 +8,11 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handleDeleteByIds" v-if="lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteByIds" v-if="!lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
               <el-dropdown-item @click.native="handleExport">导出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <el-checkbox v-model="lookByMeOnly" @change="changeGetWay">只看我的</el-checkbox>
+          <el-checkbox v-model="lookByMeOnly" @change="changeGetWay">查看全部</el-checkbox>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="contractName"></operation-search>
@@ -31,7 +31,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="180" v-if="lookByMeOnly || permission_edit_del">
+        <el-table-column prop="operation" label="操作" width="180" v-if="!lookByMeOnly || permission_edit_del">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain>编辑</iep-button>
@@ -65,7 +65,7 @@ export default {
       pageState: 'list',
       dictsMap,
       columnsMap: tableOption,
-      getTableDataFn: getTableData,
+      getTableDataFn: getTableDataOnlyMe,
       permission_edit_del: false,
       lookByMeOnly: false,
     }
@@ -123,7 +123,7 @@ export default {
     },
     // 只看我的
     changeGetWay (val) {
-      this.getTableDataFn = val ? getTableDataOnlyMe : getTableData
+      this.getTableDataFn = val ? getTableData : getTableDataOnlyMe
       this.loadPage()
     },
   },

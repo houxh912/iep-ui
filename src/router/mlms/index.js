@@ -45,7 +45,7 @@ export default [
       {
         path: 'email/detail/:id',
         name: '查看邮件',
-        component: () => import('@/views/mlms/email/tableTpl/mainDialog'),
+        component: () => import('@/views/mlms/email/detail/index'),
         meta: noKeepAlive,
       },
     ],

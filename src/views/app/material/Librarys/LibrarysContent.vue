@@ -48,7 +48,7 @@ export default {
     display: inline-block;
     margin-right: 10px;
     font-size: 16px;
-    color:#000;
+    color:#333;
   }
   i{
     margin-right:10px;
@@ -78,6 +78,8 @@ export default {
     padding:5px 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
+    font-size: 12px;
+    color: #666;
     &:hover{
       background-color: #fef6f4;
       border: 1px solid #dc8687;

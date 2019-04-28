@@ -258,6 +258,7 @@ export default {
   }
 }
 .item {
+  margin-top: 10px;
   display: inline-block;
   border-radius: 4px;
   cursor: pointer;

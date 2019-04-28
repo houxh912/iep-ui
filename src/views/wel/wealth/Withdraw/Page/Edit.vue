@@ -1,74 +1,68 @@
 <template>
-  <basic-container>
-    <div class="edit-wrapper">
-      <el-card class="edit-card" shadow="hover">
-        <div slot="header" class="title">
-          <span>{{methodName}}提现<span class="sub-name">{{subName}}</span></span>
+  <basic-container class="edit-wrapper">
+    <page-header :title="`${methodName}提现`" :replaceText="replaceText" :backOption="backOption"></page-header>
+      <el-steps :active="active" align-center finish-status="success">
+        <el-step description="填写提现信息"></el-step>
+        <el-step description="确认提现信息"></el-step>
+        <el-step description="财务审核"></el-step>
+        <el-step description="财务发放"></el-step>
+        <el-step description="完成"></el-step>
+      </el-steps>
+      <div v-if="active === 0">
+        <el-form ref="form" :model="form" label-width="120px" size="small">
+          <el-form-item label="提现金额：">
+            <iep-input-number v-model="form.amount" :precision="2"></iep-input-number>
+          </el-form-item>
+          <el-form-item label="发票抵税：">
+            <iep-input-number v-model="form.deductionInvoice" :precision="2"></iep-input-number>
+          </el-form-item>
+          <el-form-item>
+            <iep-button type="primary" class="next" @click="next">下一步</iep-button>
+          </el-form-item>
+        </el-form>
+        <div class="explain-con">
+          <span>说明</span>
+          <span>提现</span>
+          <p>1、如有显示冻结金额，一般是已有相应金额在提现申请中，请核对</p>
+          <p>2、财务每月处理提现日期：16日、17日、18日、19日、20日、21日！提现起始额度100。</p>
+          <span>发票抵税</span>
+          <p>可使用已上传发票进行抵税，提现税率为5.5%，如不填写则默认不使用发票；发票抵税起始额度100起。</p>
         </div>
-        <el-steps :active="active" align-center finish-status="success">
-          <el-step description="填写提现信息"></el-step>
-          <el-step description="确认提现信息"></el-step>
-          <el-step description="财务审核"></el-step>
-          <el-step description="财务发放"></el-step>
-          <el-step description="完成"></el-step>
-        </el-steps>
-        <div v-if="active === 0">
-          <el-form ref="form" :model="form" label-width="120px" size="small">
-            <el-form-item label="提现金额：">
-              <el-input v-model="form.sum"></el-input>
-            </el-form-item>
-            <el-form-item label="发票抵税：">
-              <el-input v-model="form.invoice"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <iep-button type="primary" class="next" @click="next">下一步</iep-button>
-            </el-form-item>
-          </el-form>
-          <div class="explain-con">
-            <span>说明</span>
-            <span>提现</span>
-            <p>1、如有显示冻结金额，一般是已有相应金额在提现申请中，请核对</p>
-            <p>2、财务每月处理提现日期：16日、17日、18日、19日、20日、21日！提现起始额度100。</p>
-            <span>发票抵税</span>
-            <p>可使用已上传发票进行抵税，提现税率为5.5%，如不填写则默认不使用发票；发票抵税起始额度100起。</p>
+      </div>
+      <div v-if="active === 1">
+        <el-form ref="form" :model="form" size="small">
+          <div class="tips">
+            <i class="el-icon-warning"></i>确认提现后，财务将对您的提现申请进行审核。
           </div>
-        </div>
-        <div v-if="active === 1">
-          <el-form ref="form" :model="form" size="small">
-            <div class="tips">
-              <i class="el-icon-warning"></i>确认提现后，财务将对您的提现申请进行审核。
-            </div>
-            <div class="cashc-confirmation">
-              <p>提现金额：<span class="sum">{{sum1}}</span><span class="sumCap">({{sumCap1}})</span></p>
-              <p>发票抵税：<span class="sum">{{sum2}}</span><span class="sumCap">({{sumCap2}})</span></p>
-            </div>
-            <el-form-item>
-              <iep-button type="primary" class="submit" @click="next">提交</iep-button>
-              <iep-button @click="back">上一步</iep-button>
-            </el-form-item>
-          </el-form>
-        </div>
-        <div v-if="active === 2">
-          <div class="success-tips">
-            <i class="el-icon-success"></i>
-            <span>操作成功</span>
-            <p>等待财务审核，财务审核通过后提现资金将被冻结。同时在财务未审核通过前撤销申请。</p>
+          <div class="cashc-confirmation">
+            <p>提现金额：<span class="sum">{{sum1}}</span><span class="sumCap">({{sumCap1}})</span></p>
+            <p>发票抵税：<span class="sum">{{sum2}}</span><span class="sumCap">({{sumCap2}})</span></p>
           </div>
-          <el-form ref="form" :model="form" size="small">
-            <div class="cashc-confirmation">
-              <p>提现金额：<span class="sum">{{sum1}}</span><span class="sumCap">({{sumCap1}})</span></p>
-              <p>发票抵税：<span class="sum">{{sum2}}</span><span class="sumCap">({{sumCap2}})</span></p>
-            </div>
-            <el-form-item>
-              <iep-button type="primary" @click="back">上一步</iep-button>
-            </el-form-item>
-          </el-form>
+          <el-form-item>
+            <iep-button type="primary" class="submit" @click="next">提交</iep-button>
+            <iep-button @click="back">上一步</iep-button>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div v-if="active === 2">
+        <div class="success-tips">
+          <i class="el-icon-success"></i>
+          <span>操作成功</span>
+          <p>等待财务审核，财务审核通过后提现资金将被冻结。同时在财务未审核通过前撤销申请。</p>
         </div>
-      </el-card>
-      <footer-tool-bar>
-        <iep-button @click="handleGoBack">返回</iep-button>
-      </footer-tool-bar>
-    </div>
+        <el-form ref="form" :model="form" size="small">
+          <div class="cashc-confirmation">
+            <p>提现金额：<span class="sum">{{sum1}}</span><span class="sumCap">({{sumCap1}})</span></p>
+            <p>发票抵税：<span class="sum">{{sum2}}</span><span class="sumCap">({{sumCap2}})</span></p>
+          </div>
+          <el-form-item>
+            <iep-button type="primary" @click="back">上一步</iep-button>
+          </el-form-item>
+        </el-form>
+      </div>
+    <footer-tool-bar>
+      <iep-button @click="handleGoBack">返回</iep-button>
+    </footer-tool-bar>
   </basic-container>
 </template>
 <script>
@@ -94,6 +88,7 @@ export default {
         backPath: null,
         backFunction: this.handleGoBack,
       },
+      replaceText: () => '（每一笔提现均需提交为5.5%的税费，税费可用发票抵消。）',
       input4: '',
       activeNames: ['1'],
       methodName: '申请',
@@ -220,6 +215,9 @@ export default {
 }
 .edit-wrapper >>> .el-step__icon-inner {
   font-weight: 400;
+}
+.edit-wrapper >>> .el-input-number {
+  width: 100%;
 }
 .edit-wrapper >>> .el-step__line {
   background: none;

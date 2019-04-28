@@ -31,8 +31,8 @@ const columnsMap = [
 
 const initForm = () => {
   return {
-    'id': '',
-    'name': '',
+    'amount': 0,
+    'deductionInvoice': 0,
   }
 }
 

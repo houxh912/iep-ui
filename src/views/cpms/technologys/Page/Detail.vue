@@ -21,7 +21,7 @@
         </template>
       </iep-page-header>
       <iep-tab-scroll :tab-list="tabList" :height="270">
-        <div class="iep-page-form">
+        <div>
           <div class="base" :id="item.value" v-for="item in tabList" :key="item.value">
             <div class="title">{{item.label}}</div>
             <div class="context">

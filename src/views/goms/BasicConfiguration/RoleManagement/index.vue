@@ -77,7 +77,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['elements', 'permissions']),
+    ...mapGetters(['permissions']),
   },
   methods: {
     getList (page, params) {

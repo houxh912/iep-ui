@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" :title="`${methodName}岗位分类`" width="500px" @close="loadPage">
     <el-form :model="form" :rules="rules" ref="form" size="small" label-width="100px">
       <el-form-item label="分类名称" prop="name">
-        <el-input v-model="form.name"></el-input>
+        <el-input maxlength="80" v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="分类说明" prop="description">
         <iep-input-area type="textarea" v-model="form.description"></iep-input-area>

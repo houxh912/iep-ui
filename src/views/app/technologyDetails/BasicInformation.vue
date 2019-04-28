@@ -1,0 +1,51 @@
+<template>
+  <div class="basic-information">
+    <div class="title">
+      <div>{{title}}</div>
+    </div>
+    <el-row>
+      <el-col :span="12"><span>技术编号：</span>{{number}}</el-col>
+      <el-col :span="12"><span>负责人：</span>{{number}}</el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12"><span>英文名称：</span>{{number}}</el-col>
+      <el-col :span="12"><span>中午名称：</span>{{number}}</el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24"><span>详情介绍：</span>{{number}}</el-col>
+    </el-row>
+  </div>
+</template>
+<script>
+export default {
+  data () {
+    return {
+      title:'基本信息',
+      number:'AU8979626',
+    }
+  },
+}
+</script>
+<style lang="scss" scoped>
+.basic-information{
+  border-top: 1px solid #f5f5f5;
+  margin-top:20px;
+  .title{
+    font-size: 16px;
+    height: 60px;
+    line-height: 60px;
+    color: #333;
+  }
+  .el-col{
+    height: 30px;
+    line-height: 30px;
+    > span{
+      width: 100px;
+      display: inline-block;
+      text-align: right;
+    }
+  }
+} 
+</style>
+<style scoped>
+</style>

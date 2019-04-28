@@ -1,7 +1,7 @@
 <template>
   <el-card class="index-card" shadow="never">
     <div slot="header" class="clearfix">
-      <span class="title">{{title}}<span class="datas">{{data}}</span></span>
+      <span class="title">{{title}}<span class="datas">{{data}}</span><i class="iconfont icon-wenhao" v-if="icon"></i></span>
       <slot name="statistics"></slot>
       <el-button class="btn" type="text" v-if="isMore" @click="getMore">更多></el-button>
       <slot name="right"></slot>
@@ -18,6 +18,10 @@ export default {
       default: '标题',
     },
     isMore: {
+      type: Boolean,
+      default: false,
+    },
+    icon: {
       type: Boolean,
       default: false,
     },
@@ -58,6 +62,11 @@ export default {
 .datas {
   font-size: 16px;
   color: #999;
+}
+.iconfont {
+  margin-left: 5px;
+  color: #999;
+  cursor: pointer;
 }
 </style>
 <style scoped>

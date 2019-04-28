@@ -18,12 +18,12 @@
       </el-col>
       <el-col :span='8'>
         <el-form-item label="模块指导价：">
-          <div>{{form.guidePrice}}</div>
+          <div>{{form.guidePrice}}元</div>
         </el-form-item>
       </el-col>
       <el-col :span='8'>
         <el-form-item label="模块优惠价：">
-          <div>{{form.preferentialPrice}}</div>
+          <div>{{form.preferentialPrice}}元</div>
         </el-form-item>
       </el-col>
     </el-row>

@@ -45,7 +45,7 @@
         </el-row>
         <div class="title">团队信息：</div>
         <el-row class="base">
-          <el-form-item label="负责人：" class="form-half">
+          <el-form-item label="负责人：" prop="userRelationCharges" class="form-half">
             <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="需求方：" class="form-half">

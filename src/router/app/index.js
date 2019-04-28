@@ -110,6 +110,12 @@ export default [
         component: () => import('@/views/app/technologyDetails/'),
         meta: noAuth,
       },
+      {
+        path:'tags_detail',
+        name:'标签页详情',
+        component: ()=> import('@/views/app/tagLibrary/tagDetail/'),
+        meta:noAuth,
+      },
     ],
   },
 ]

@@ -33,9 +33,12 @@ export default {
   display: flex;
   grid-column-start: 1;
   grid-column-end: 4;
+  .banner-item:nth-last-child(1){
+    margin-right: 0;
+  }
   .banner-item{
     width: 33.333%;
-    margin: 0 15px;
+    margin-right: 30px;
         .grid-content:hover .masking-layer{
           display:block;
         }

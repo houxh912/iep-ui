@@ -62,7 +62,7 @@ export default {
       }
     },
     handleAbout () {
-      this.$refs['AboutDialog'].dialogShow = true
+      this.$refs['AboutDialog'].visible = true
     },
     logout () {
       this.$confirm('是否退出系统, 是否继续?', '提示', {

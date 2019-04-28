@@ -85,10 +85,10 @@
     "not ie <= 10"
   ],
   "repository": {
-    "url": "http://115.233.227.46:8066/root/iep-ui",
+    "name": "IEP 2.0.0",
+    "team": "国脉集团研发中心—内网突击队",
     "changelogurl": "http://115.233.227.46:8066/root/iep-ui/blob/develop/CHANGELOG.md",
-    "description": "国脉内网2.0项目",
-    "team": "DIPS开发团队"
+    "description": "国脉内网2.0项目"
   },
   "husky": {
     "hooks": {

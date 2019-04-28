@@ -11,9 +11,7 @@
                 2019政务大数据、数字政府理论与实践 高级研修班（第四期）
               </h3>
               <div class="classTag">
-                <el-tag type="white">{{tag1}}</el-tag>
-                <el-tag type="white">{{tag2}}</el-tag>
-                <el-tag type="white">{{tag3}}</el-tag>
+                <el-tag type="white" v-for="tag in tags" :key="tag.id">{{tag.tag}}</el-tag>
               </div>
               <p class="con-text">党的十八大以来，党中央高度重视以信息化推进国家治理体系和治理能力现代化，强调要加快推动电子政务，打通信息壁垒，构建全流程一体化在线服务平台，助力建设人民满意的服务型政府。2018年6月,构建全流程一体化在线服务平台</p>
               <div class="info">
@@ -36,9 +34,11 @@ export default {
   data () {
     return {
       img: require('../img/zz.jpg'),
-      tag1: '数据政府',
-      tag2: '培训班',
-      tag3: '政务大数据',
+      tags:[
+        {tag: '数据政府'},
+        {tag: '培训班'},
+        {tag: '政务大数据'},
+      ],
     }
   },
 }

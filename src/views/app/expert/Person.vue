@@ -8,9 +8,7 @@
           <span class="name">{{item.name}}<span class="dn show1" :class="item.show1">V</span><span class="dn show2" :class="item.show2">内</span></span>
           <span class="job">{{item.job}}</span>
           <span class="sign">
-            <span>{{item.sign1}}</span>
-            <span>{{item.sign2}}</span>
-            <span>{{item.sign3}}</span>
+            <span v-for="sign in item.signs" :key="sign.id">{{sign.sign}}</span>
           </span>
         </div>
       </div>
@@ -28,24 +26,118 @@ export default {
   data () {
     return {
       personList: [
-        { imgSrc: require('./image/gj.jpg'), name: '高新民', job: '中国互联网协会副理事长、国家信息化专家', sign1: '信息化', sign2: '互联网', sign3: '互联网协会', show1: 'show', show2: 'show' },
-        { imgSrc: require('./image/e1.jpg'), name: '朱森第', job: '中国机械工业联合会副会长', sign1: '人工智能', sign2: '互联网', sign3: '智能制造', show1: 'show', show2: 'show' },
-        { imgSrc: require('./image/e2.jpg'), name: '卢绍鸿', job: '项目经理', sign1: '数据分析', sign2: '信息资源目录编制', sign3: '法人库', show1: 'show', show2: 'show' },
-        { imgSrc: require('./image/person1.png'), name: '张金星', job: '高级咨询师、智慧企业研究专家', sign1: '互联网+', sign2: '智慧企业', sign3: '咨询服务', show1: 'show', show2: 'show' },
-        { imgSrc: require('./image/person2.png'), name: '金婧', job: '智慧政府研究专家', sign1: '互联网', sign2: '智慧政府', sign3: '电子政务' },
-        { imgSrc: require('./image/person3.png'), name: '张慧', job: '智慧企业研究专家', sign1: '智慧企业' },
-        { imgSrc: require('./image/person4.png'), name: '孙泽红', job: '信息化与大数据研究专家', sign1: '互联网+政务', sign2: '政务大数据', sign3: '信息化' },
-        { imgSrc: require('./image/person5.jpg'), name: '陈乐燕', job: '政务大数据咨询研究专家', sign1: '互联网+政务服务', sign2: '电子政务', sign3: '信息资源', show1: 'show', show2: 'show' },
-        { imgSrc: require('./image/person7.jpg'), name: '王玲', job: '智慧政府研究专家', sign1: '智慧政府', sign2: '政府网站', sign3: '政务信息资源' },
-        { imgSrc: require('./image/e4.jpg'), name: '周德铭', job: '国家促进大数据发展专家委员会委员', sign1: '电子政务', sign2: '信息化', sign3: '信息资源', show1: 'show', show2: 'show' },
-        { imgSrc: require('./image/e5.jpg'), name: '王金平', job: '中国国际工程咨询公司办公厅主任、国家', sign1: '信息化', show1: 'show' },
-        { imgSrc: require('./image/e6.jpg'), name: '汪玉凯', job: '国家行政学院教授、国家信息化专家咨询', sign1: '电子政务', sign2: '信息化', sign3: '政府管理' },
-        { imgSrc: require('./image/e7.jpg'), name: '汪向东', job: '中国社科院信息化研究中心主任', sign1: '互联网经济', sign2: '网络经济', show1: 'show' },
-        { imgSrc: require('./image/e8.jpg'), name: '姜奇平', job: '中国社会科学院信息化研究中心秘书长', sign1: '信息化', sign2: '网络经济', sign3: '经济学会' },
-        { imgSrc: require('./image/e9.jpg'), name: '胡小明', job: '中国信息协会原副会长', sign1: '电子政务', sign2: '信息化', sign3: '信息资源' },
-        { imgSrc: require('./image/e10.jpg'), name: '吕本富', job: '国科学院大学经管学院教授', sign1: '数据服务', sign2: '组织建设', sign3: '网络经济' },
-        { imgSrc: require('./image/e11.jpg'), name: '王路燕', job: '国脉集团总助、国脉海洋常务副总', sign1: '互联网+', sign2: '大数据', sign3: '数据基因', show1: 'show', show2: 'show' },
-        { imgSrc: require('./image/e12.jpg'), name: '李凯', job: '智慧门户咨询规划师、高级咨询师', sign1: '智慧政府', sign2: '政务服务', sign3: '网站规划', show1: 'show', show2: 'show' },
+        { imgSrc: require('./image/gj.jpg'), name: '高新民', job: '中国互联网协会副理事长、国家信息化专家', 
+        signs:[
+          {sign: '信息化'},
+          {sign: '互联网'},
+          {sign: '互联网协会'},
+        ],
+         show1: 'show', show2: 'show' },
+        { imgSrc: require('./image/e1.jpg'), name: '朱森第', job: '中国机械工业联合会副会长',
+        signs:[
+          {sign: '人工智能'},
+          {sign: '互联网'},
+          {sign: '智能制造'},
+        ],
+         show1: 'show', show2: 'show' },
+        { imgSrc: require('./image/e2.jpg'), name: '卢绍鸿', job: '项目经理',
+        signs:[
+          {sign: '数据分析'},
+          {sign: '信息资源目录编制'},
+          {sign: '法人库'},
+        ],
+          show1: 'show', show2: 'show' },
+        { imgSrc: require('./image/person1.png'), name: '张金星', job: '高级咨询师、智慧企业研究专家',
+        signs:[
+          {sign: '互联网+'},
+          {sign: '智慧企业'},
+          {sign: '咨询服务'},
+        ],
+          show1: 'show', show2: 'show' },
+        { imgSrc: require('./image/person2.png'), name: '金婧', job: '智慧政府研究专家',
+        signs:[
+          {sign: '互联网'},
+          {sign: '智慧政府'},
+          {sign: '电子政务'},
+        ]},
+        { imgSrc: require('./image/person3.png'), name: '张慧', job: '智慧企业研究专家',
+         signs:[
+          {sign: '智慧企业'},
+          {sign: '智慧政府'},
+          {sign: '电子政务'},
+        ]},
+        { imgSrc: require('./image/person4.png'), name: '孙泽红', job: '信息化与大数据研究专家',
+        signs:[
+          {sign: '互联网+政务'},
+          {sign: '政务大数据'},
+          {sign: '信息化'},
+        ]},
+        { imgSrc: require('./image/person5.jpg'), name: '陈乐燕', job: '政务大数据咨询研究专家',
+        signs:[
+          {sign: '互联网+政务服务'},
+          {sign: '电子政务'},
+          {sign: '信息资源'},
+        ],
+         show1: 'show', show2: 'show' },
+        { imgSrc: require('./image/person7.jpg'), name: '王玲', job: '智慧政府研究专家',
+        signs:[
+          {sign: '智慧政府'},
+          {sign: '政府网站'},
+          {sign: '政务信息资源'},
+        ]},
+        { imgSrc: require('./image/e4.jpg'), name: '周德铭', job: '国家促进大数据发展专家委员会委员', 
+        signs:[
+          {sign: '信息化'},
+          {sign: '电子政务'},
+          {sign: '信息资源'},
+        ],
+        show1: 'show', show2: 'show' },
+        { imgSrc: require('./image/e5.jpg'), name: '王金平', job: '中国国际工程咨询公司办公厅主任、国家',
+        signs:[
+          {sign: '信息化'},
+        ],show1: 'show' },
+        { imgSrc: require('./image/e6.jpg'), name: '汪玉凯', job: '国家行政学院教授、国家信息化专家咨询',
+        signs:[
+          {sign: '信息化'},
+          {sign: '电子政务'},
+          {sign: '政府管理'},
+        ]},
+        { imgSrc: require('./image/e7.jpg'), name: '汪向东', job: '中国社科院信息化研究中心主任', 
+        signs:[
+          {sign: '互联网经济'},
+          {sign: '网络经济'},
+        ],
+         show1: 'show' },
+        { imgSrc: require('./image/e8.jpg'), name: '姜奇平', job: '中国社会科学院信息化研究中心秘书长', 
+        signs:[
+          {sign: '信息化'},
+          {sign: '网络经济'},
+          {sign: '经济学会'},
+        ]},
+        { imgSrc: require('./image/e9.jpg'), name: '胡小明', job: '中国信息协会原副会长',
+        signs:[
+          {sign: '电子政务'},
+          {sign: '信息化'},
+          {sign: '信息资源'},
+        ]},
+        { imgSrc: require('./image/e10.jpg'), name: '吕本富', job: '国科学院大学经管学院教授', 
+        signs:[
+          {sign: '数据服务'},
+          {sign: '组织建设'},
+          {sign: '网络经济'},
+        ]},
+        { imgSrc: require('./image/e11.jpg'), name: '王路燕', job: '国脉集团总助、国脉海洋常务副总', 
+        signs:[
+          {sign: '互联网+'},
+          {sign: '大数据'},
+          {sign: '数据基因'},
+        ], show1: 'show', show2: 'show' },
+        { imgSrc: require('./image/e12.jpg'), name: '李凯', job: '智慧门户咨询规划师、高级咨询师', 
+        signs:[
+          {sign: '智慧政府'},
+          {sign: '政务服务'},
+          {sign: '网站规划'},
+        ], show1: 'show', show2: 'show' },
       ],
     }
   },

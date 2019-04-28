@@ -4,7 +4,6 @@
       <training-top></training-top>
       <training-content></training-content>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>

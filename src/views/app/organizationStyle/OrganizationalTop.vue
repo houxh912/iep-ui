@@ -111,7 +111,7 @@ export default {
           -webkit-transform: rotate(125deg);
         }
         &:last-child::before {
-          background-color: #fff;
+          display: none;
         }
       }
     }

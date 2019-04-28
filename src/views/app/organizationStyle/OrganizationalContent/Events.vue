@@ -43,7 +43,7 @@ export default {
       float: right;
       height: 30px;
       line-height: 30px;
-      color: #666;
+      color: #999;
     }
     &:hover {
       color: #cb3737;

@@ -11,6 +11,7 @@
           <sidebar />
         </el-aside>
         <el-main>
+          {{$route.meta.keepAlive}}
           <!-- 顶部标签卡 -->
           <tags />
           <!-- 主体视图层 -->

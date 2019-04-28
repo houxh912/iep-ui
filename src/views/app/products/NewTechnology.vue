@@ -6,7 +6,7 @@
         <div v-for="(item,index) in newTehnologyTab" :key="index" class="piece-tab" :class="showClass==index?'color':''" @click="tab(index)">{{item}}</div>
       </div>
       <div class="new-tehnology-content">
-        <div v-for="(item,index) in newTehnologyContent" :key="index" class="piece">
+        <div v-for="(item,index) in newTehnologyContent" :key="index" class="piece" @click="handleOpen()">
           <img :src="item.img" alt="">
           <div class="text">
             <span>{{item.name}}</span>
@@ -39,6 +39,11 @@ export default {
   methods: {
     tab (val) {
       this.showClass = val
+    },
+    handleOpen () {
+      this.$router.push({
+        path: '/app/technology_details',
+      })
     },
   },
 }

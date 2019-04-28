@@ -23,7 +23,7 @@ const initForm = () => {
     onlineTime: '',//上线时间
     tagKeywords: [], // 标签
     tapeLibrary: '', // 是否带库
-    valuation: '', // 产品估值
+    valuation: 0, // 产品估值
     instructions: '', // 估值说明
     synopsis: '', // 产品简介
     description: '', // 产品介绍

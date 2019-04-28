@@ -88,15 +88,16 @@ export default {
       this.multipleSelection = val.map(m => m.id)
     },
     handleDetail (row) {
-      this.$emit('onDetail', row)
+      this.$router.push({
+        path: '/fams_spa/withdraw_detail/' + row.id,
+      })
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getWithdrawPage)
     },
     handleAdd () {
-      this.$emit('onEdit', {
-        methodName: '提现申请',
-        id: false,
+      this.$router.push({
+        path: '/fams_spa/withdraw_detail/0',
       })
     },
   },

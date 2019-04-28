@@ -104,7 +104,7 @@ export default {
         methodName: '查看明细',
       })
     },
-    loadPage (param = this.paramForm) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getFinancialManagementPage)
     },
     handleReview (row) {

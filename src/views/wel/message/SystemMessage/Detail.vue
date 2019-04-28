@@ -72,10 +72,10 @@ export default {
       this.$emit('onGoBack')
     },
     loadPage () {
-      this.pageLoading = true
+      // this.pageLoading = true
       getSystemMessageById(this.$route.params.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
-        this.pageLoading = false
+        // this.pageLoading = false
       })
     },
   },

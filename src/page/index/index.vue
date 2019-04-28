@@ -92,7 +92,6 @@ export default {
       }
     },
   },
-  props: [],
   methods: {
     ...mapActions(['LoadAllDictMap']),
     handleOk () {

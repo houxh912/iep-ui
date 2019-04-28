@@ -152,7 +152,7 @@ export default {
               this.$message.error(data.data.msg)
               return
             }
-            let tips = this.methodName == 'create' ? '恭喜您成功上传了一篇材料，成功获得2个国脉贝，继续努力！' : '编辑成功'
+            let tips = this.methodName == 'create' ? '恭喜您成功上传了一篇材料，继续努力！' : '编辑成功'
             this.$message.success(tips)
             this.loadPage()
             this.dialogShow = false

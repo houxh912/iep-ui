@@ -87,7 +87,7 @@ export default {
     this.roleManager_btn_perm = this.permissions['sys_role_perm']
   },
   computed: {
-    ...mapGetters(['elements', 'permissions']),
+    ...mapGetters(['permissions']),
   },
   methods: {
     getList (page, params) {

@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div class="comment">
+      <div class="comment" v-if="formData.status !== 1">
         <div class="form">
           <h2 class="title">补充或评论</h2>
           <el-input type="textarea" rows=5 v-model="commentForm.commentContent" maxlength="500"></el-input>
@@ -169,7 +169,7 @@ export default {
   },
   created () {
     let params = this.$route.params
-    if (params.id) {
+    if (params.id && this.$route.name == '查看纪要') {
       this.loadDetail(params.id)
     }
   },

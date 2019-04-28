@@ -21,10 +21,10 @@
       </el-col>
       <el-col>
         <time-line :list="list" ref="timeline" @getMore="getMore" @getUpMore="getUpMore">
-          <template #content="{row, index}">
+          <template #content="{row, index, today}">
             <el-collapse v-model="activeIndex" @change="activeChange">
-              <el-collapse-item :title="row.title" :name="index">
-                <template slot="title" v-if="row.code">
+              <el-collapse-item :title="today ? '今日日报' : row.title" :name="index">
+                <template slot="title" v-if="row.code == 1 && !today">
                   <div class="writing" @click="writing(index)">{{row.title}}</div>
                 </template>
                 <div class="content" v-if="dailyState=='detail'">
@@ -63,7 +63,7 @@ export default {
   data () {
     return {
         tipContent:'请按照规范要求，重点记录今日工作，如有感悟更好。',
-      activeIndex: [],
+      activeIndex: [1],
       list: [],
       searchData: {
         date: '',

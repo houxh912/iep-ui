@@ -25,7 +25,6 @@
 
 <script>
 import mixinDevice from '@/mixins/displayMixins.js'
-
 export default {
   mixins: [mixinDevice],
   data () {

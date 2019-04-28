@@ -201,7 +201,7 @@ export default {
   },
   created () {
     let params = this.$route.params
-    if (params.id) {
+    if (params.id && this.$route.name == '查看文档') {
       this.getDataById(params.id)
     }
   },

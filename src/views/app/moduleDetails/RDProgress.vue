@@ -1,34 +1,34 @@
 <template>
   <div class="progress">
     <div class="title">
-      <div>{{title}}</div>
+      <div>研发进度</div>
     </div>
     <div class="box">
-      <div>
+      <div :class="form.schedule===1 ? 'red' : ''">
         <div class="piece">
           <i class="iconfont icon-lixiang"></i>
         </div>
         <span>立项</span>
       </div>
-      <div>
+      <div :class="form.schedule===2 ? 'red' : ''">
         <div class="piece">
           <i class="iconfont icon-yanfa"></i>
         </div>
         <span>研发中</span>
       </div>
-      <div>
+      <div :class="form.schedule===3 ? 'red' : ''">
         <div class="piece">
           <i class="iconfont icon-ceshi"></i>
         </div>
         <span>测试中</span>
       </div>
-      <div>
+      <div :class="form.schedule===4 ? 'red' : ''">
         <div class="piece">
           <i class="iconfont icon-chenggong1"></i>
         </div>
         <span>验收中</span>
       </div>
-      <div :class="status==='5' ? 'red' : ''">
+      <div :class="form.schedule===5 ? 'red' : ''">
         <div class="last-piece">
           <i class="iconfont icon-shangjia"></i>
         </div>
@@ -39,66 +39,62 @@
 </template>
 <script>
 export default {
-  data () {
-    return {
-      title:'研发进度',
-      status:'5',
-
-    }
-  },
+  props: ['form'],
 }
 </script>
 <style lang="scss" scoped>
-.progress{
-  margin-top:20px;
-  .title{
+.progress {
+  margin-top: 20px;
+  .title {
     font-size: 16px;
     height: 60px;
     line-height: 60px;
     color: #333;
   }
-  .box{
+  .box {
     display: grid;
     grid-auto-flow: row dense;
     grid-template-columns: 1fr 1fr 1fr 1fr 80px;
-    .piece,.last-piece{
+    .piece,
+    .last-piece {
       width: 80px;
       height: 80px;
       line-height: 80px;
       text-align: center;
       background: #f8f8f8;
       border-radius: 50%;
-      border:1px solid #dcdcdc;
+      border: 1px solid #dcdcdc;
       position: relative;
-      > i{
+      > i {
         font-size: 40px;
         color: #999;
       }
     }
-    .piece:before{
-      content: '';
+    .piece:before {
+      content: "";
       width: 195px;
       height: 2px;
-      border-top:2px dashed #999;
+      border-top: 2px dashed #999;
       position: absolute;
-      top:50%;
+      top: 50%;
       left: 80px;
     }
-    span{
+    span {
       width: 80px;
       height: 36px;
       line-height: 36px;
       text-align: center;
       display: block;
     }
-    .red{
-      .piece,.last-piece{
-        border:1px solid #dd7f83;
-        > i{
+    .red {
+      .piece,
+      .last-piece {
+        border: 1px solid #dd7f83;
+        > i {
           color: #dd7f83;
         }
       }
-      span{
+      span {
         color: #dd7f83;
       }
     }

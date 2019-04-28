@@ -11,20 +11,22 @@
     <div class="deletion-box">
       <div class="codule-deletion">
         按分类：
-        <div v-for="(item,index) in cpmsModuleType" :key="index" :class="showClass1==index?'color':''" class="piece-deletion" @click="tab1(index)">{{item.label}}</div>
+        <div :class="moduleType==''?'color':''" class="piece-deletion" @click="tabModuleType('')">全部</div>
+        <div v-for="(item) in cpmsModuleType" :key="item.value" :class="moduleType==item.value?'color':''" class="piece-deletion" @click="tabModuleType(item.value)">{{item.label}}</div>
       </div>
       <div class="products-deletion">
         按产品：
-        <div v-for="(item,index) in productList" :key="index" :class="showClass2==index?'color':''" class="piece-deletion" @click="tab2(index)">{{item.name}}</div>
+        <div v-for="(item) in productList" :key="item.id" :class="productId==item.id?'color':''" class="piece-deletion" @click="tabProductId(item.id)">{{item.name}}</div>
       </div>
     </div>
+    <iep-no-data v-if="!moduleList.length"></iep-no-data>
     <div class="my-products-box">
-      <el-card shadow="never" v-for="(item,index) in Module" :key="index" class="module-list">
-        <i class="iconfont" :class="item.icon"></i>
+      <el-card shadow="never" v-for="(item) in moduleList" :key="item.id" class="module-list">
+        <iep-img :src="item.imageUrl" style="width: 100px;height:100px;"></iep-img>
         <hr>
         <span class="name">{{item.name}}</span>
-        <p class="desc">{{item.desc}}</p>
-        <RouterLink class="inline change" to="/app/module_details/">详情介绍>
+        <p class="desc">{{item.synopsis}}</p>
+        <RouterLink class="inline change" :to="`/app/module_details/${item.id}`">详情介绍>
         </RouterLink>
       </el-card>
     </div>
@@ -33,23 +35,15 @@
 <script>
 import { mapState } from 'vuex'
 import { getProductList } from '@/api/app/cpms/product'
+import { getModuleList } from '@/api/app/cpms/module'
 export default {
   data () {
     return {
-      showClass1: 0,
-      showClass2: 0,
+      moduleType: '',
+      productId: 0,
       num: [18],
       productList: [],
-      Module: [
-        { icon: 'icon-tongyongleiziyuanpeizhi', name: '资源配置模块', desc: '支持各单位应用系统的表结构导入本系统，通过配置可实现数据元配置。', to: '' },
-        { icon: 'icon-qingdan', name: '清单管理模块', desc: '提供数据元的频率分析、同义词分析提供数据资源管理部门对彰据元、倍关联分析等功能', to: '' },
-        { icon: 'icon-hetongbianzhi-', name: '目录编制模块', desc: '提供部门数据元、信息资源总屋排行可共享开放排行，热门资翻可', to: '' },
-        { icon: 'icon-chaxun', name: '资源查询模块', desc: '表结构导入本系统，通过配置可实现资源查询模块。', to: '' },
-        { icon: 'icon-tongji1', name: '数据元分析模块', desc: '提供数据元的频率分析、同义词分析提供数据资源管理部门对彰据元、倍关联分析等功能,频率分析统计', to: '' },
-        { icon: 'icon-shenhexitong', name: '资源审核模块', desc: '息资源的常态化审核管理', to: '' },
-        { icon: 'icon-yunzhuomian', name: '资源桌面导航模块', desc: '提供部门数据元、信息资源总屋排行可共享开放排行，热门资翻可', to: '' },
-        { icon: 'icon-tongji1', name: '资源统计模块', desc: '支持各单位应用系统的表结构导入本系统，通过配置可实现资源统计。', to: '' },
-      ],
+      moduleList: [],
     }
   },
   computed: {
@@ -66,6 +60,15 @@ export default {
   methods: {
     async loadPage () {
       this.loadProductList()
+      this.loadModuleList()
+    },
+    async loadModuleList () {
+      const { data } = await getModuleList({
+        type: this.moduleType,
+        productId: this.productId || undefined,
+      })
+      const moduleList = data.data
+      this.moduleList = moduleList.slice(0, 8)
     },
     async loadProductList () {
       const { data } = await getProductList()
@@ -76,11 +79,13 @@ export default {
       })
       this.productList = productList.slice(0, 4)
     },
-    tab1 (val) {
-      this.showClass1 = val
+    tabModuleType (val) {
+      this.moduleType = val
+      this.loadModuleList()
     },
-    tab2 (val) {
-      this.showClass2 = val
+    tabProductId (val) {
+      this.productId = val
+      this.loadModuleList()
     },
   },
 }

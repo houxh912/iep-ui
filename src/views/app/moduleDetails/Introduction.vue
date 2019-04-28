@@ -2,17 +2,17 @@
   <div class="introduction">
     <el-card shadow="hover" class="introduction-card">
       <div class="left">
-        <i class="iconfont" :class="icon"></i>
+        <iep-img :src="form.imageUrl" alt="" style="width:160px;height: 160px;"></iep-img>
       </div>
       <div class="right">
         <div class="title">
-          <span class="name">{{name}}</span>
-          <span class="status">{{status}}</span>
+          <span class="name">{{form.name}}</span>
+          <span class="status">{{dictsMap.schedule[form.schedule]}}</span>
         </div>
         <div class="tag">
-          <span v-for="(item,index) in tag" :key="index" >{{item}}</span>
+          <span v-for="(item,index) in form.tagKeywords" :key="index">{{item}}</span>
         </div>
-        <span class="updateTime">更新时间：{{updateTime}}</span>
+        <span class="updateTime">更新时间：{{form.updateTime}}</span>
         <el-button class="join">加入定制</el-button>
         <el-button class="use">立即使用</el-button>
       </div>
@@ -20,30 +20,28 @@
   </div>
 </template>
 <script>
+import { dictsMap } from '@/views/cpms/modules/options'
 export default {
+  props: ['form'],
   data () {
     return {
-      icon:'icon-tongyongleiziyuanpeizhi',
-      name:'资源配置模块',
-      status: '已完成',
-      tag:['产品设计','项目管理','原型设计','平台规划','需求分析','流程设计','产品培训','需求文档'],
-      updateTime:'2019-04-26 15:30',
+      dictsMap,
     }
   },
 }
 </script>
 <style lang="scss" scoped>
-.title{
+.title {
   font-size: 16px;
   height: 60px;
   line-height: 60px;
   color: #333;
 }
 .introduction {
-  .introduction-card{
-    padding:30px;
+  .introduction-card {
+    padding: 30px;
   }
-  .left{
+  .left {
     width: 160px;
     height: 160px;
     line-height: 160px;
@@ -53,23 +51,23 @@ export default {
     text-align: center;
     margin-right: 30px;
     float: left;
-    > i{
+    > i {
       font-size: 60px;
       color: #999;
     }
   }
-  .right{
+  .right {
     float: left;
-    width:940px;
+    width: 940px;
     position: relative;
-    .title{
+    .title {
       height: 60px;
       line-height: 60px;
-      .name{
+      .name {
         font-size: 20px;
         color: #333;
       }
-      .status{
+      .status {
         background: #f8f8f8;
         border-radius: 12px;
         padding: 2px 10px;
@@ -77,8 +75,8 @@ export default {
         margin-left: 10px;
       }
     }
-    .tag{
-      > span{
+    .tag {
+      > span {
         display: inline;
         list-style: none;
         border: 1px solid #ebeaea;
@@ -88,36 +86,37 @@ export default {
         color: #999;
       }
     }
-    .updateTime{
+    .updateTime {
       height: 60px;
       line-height: 60px;
       color: #999;
     }
-    .join,.use{
+    .join,
+    .use {
       position: absolute;
       top: 0;
     }
-    .join{
+    .join {
       right: 110px;
       background-color: #ba1b21;
-      border:1px solid #ba1b21;
+      border: 1px solid #ba1b21;
       color: #fff;
       transition: all 0.5s;
-      &:hover{
+      &:hover {
         background-color: #fff;
-        border:1px solid #ba1b21;
+        border: 1px solid #ba1b21;
         color: #ba1b21;
       }
     }
-    .use{
+    .use {
       right: 0;
       background-color: #fff;
-      border:1px solid #ba1b21;
+      border: 1px solid #ba1b21;
       color: #ba1b21;
       transition: all 0.5s;
-      &:hover{
+      &:hover {
         background-color: #ba1b21;
-        border:1px solid #ba1b21;
+        border: 1px solid #ba1b21;
         color: #fff;
       }
     }
@@ -125,7 +124,7 @@ export default {
 }
 </style>
 <style scoped>
-.introduction >>> .el-card__body{
+.introduction >>> .el-card__body {
   padding: 0;
 }
 </style>

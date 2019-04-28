@@ -1,9 +1,11 @@
 import request from '@/router/axios'
-import { prefixUrl } from '../../cpms/module'
-export function getModulePage (params) {
+import { prefixUrl, getModuleById } from '../../cpms/module'
+const  getModuleList = (params) => {
   return request({
-    url: `${prefixUrl}/page`,
+    url: `${prefixUrl}/list`,
     method: 'get',
     params: params,
   })
 }
+
+export { getModuleById, getModuleList }

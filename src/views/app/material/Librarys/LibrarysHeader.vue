@@ -29,9 +29,9 @@ export default {
   height: 53px;
   padding-top: 12px;
   border-bottom: solid 1px #e6e6e6;
-  .left{
+  .left {
     float: left;
-    > div{
+    > div {
       display: inline-block;
       font-size: 16px;
       line-height: 40px;
@@ -43,7 +43,7 @@ export default {
       color: #9b9b9b;
     }
   }
-  .right{
+  .right {
     float: right;
   }
 }

@@ -1,6 +1,15 @@
 <template>
   <div class="table">
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-index>
+    <iep-table 
+      :isLoadTable="isLoadTable" 
+      :pagination="pagination" 
+      :dictsMap="dictsMap" 
+      :columnsMap="columnsMap" 
+      :pagedTable="pagedTable" 
+      @size-change="handleSizeChange" 
+      @current-change="handleCurrentChange" 
+      @selection-change="handleSelectionChange" 
+      is-mutiple-selection>
       <template slot="before-columns">
         <el-table-column label="会议标题">
           <template slot-scope="scope">

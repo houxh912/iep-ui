@@ -120,6 +120,7 @@ export default {
   .box-card {
     .img-con {
       display: flex;
+      margin-top: 20px;
       flex-wrap: wrap;
       flex-direction: column;
       align-items: center;
@@ -188,6 +189,7 @@ export default {
     }
     .right-con {
       display: flex;
+      margin-top: 20px;
       flex-direction: column;
       align-items: center;
     }
@@ -263,7 +265,7 @@ export default {
 .personal-top >>> .el-card__body {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
 }
 .personal-top >>> .el-tag--white {
   border: 1px solid #dcdfe6;

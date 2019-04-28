@@ -36,11 +36,12 @@ export default {
   margin: 30px 0 60px;
 }
 .texture-score-list {
+  height: 253px;
   .piece {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
     overflow: hidden;
     .img {
       float: left;
@@ -89,9 +90,6 @@ export default {
           color: #ba1b21;
         }
       }
-    }
-    &:last-child {
-      margin-bottom: 12px;
     }
   }
 }

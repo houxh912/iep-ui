@@ -1,5 +1,5 @@
 <template>
-  <ve-histogram :data="chartData" :extend="chartExtend" :colors="colors" :toolbox="toolbox">
+  <ve-histogram :data="chartData" :extend="chartExtend" :colors="colors" :toolbox="toolbox" height="307px">
   </ve-histogram>
 </template>
 

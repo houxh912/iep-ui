@@ -21,6 +21,7 @@ export default {
     }
     this.isTrue = false
     return {
+      title: 'TA的指数',
       chartData: {
         columns: ['引用', '产量', '贡献', '口碑', '热度'],
         rows: [

@@ -32,6 +32,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .organization-introduction {
+  margin-bottom: 30px;
   .con {
     overflow: hidden;
     text-overflow: ellipsis;

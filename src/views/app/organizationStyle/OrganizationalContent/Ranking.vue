@@ -38,6 +38,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .ranking {
+  margin-bottom: 30px;
   .labs-con {
     display: flex;
     justify-content: space-between;

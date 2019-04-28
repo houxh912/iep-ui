@@ -32,7 +32,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button v-if="scope.row.status===1" @click="handleShelf(scope.row)">上架</iep-button>
+              <iep-button v-if="scope.row.status!==2" @click="handleShelf(scope.row)">上架</iep-button>
               <iep-button v-if="scope.row.status===2" @click="handleObtained(scope.row)">下架</iep-button>
               <iep-button type="default" @click="handleDelete(scope.row)"><i class="el-icon-delete"></i></iep-button>
             </operation-wrapper>

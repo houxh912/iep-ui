@@ -74,7 +74,7 @@ export default {
     this.loadPage()
   },
   methods: {
-    loadPage (param = this.paramForm) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getFinancialManagementPage)
     },
     getSummaries (param) {

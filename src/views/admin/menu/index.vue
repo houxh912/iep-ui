@@ -18,7 +18,7 @@
           </el-tree>
         </el-col>
         <el-col :span="16" style="margin-top:15px;">
-          <el-card class="box-card">
+          <el-card class="box-card" shadow="never">
             <el-form :label-position="labelPosition" label-width="80px" :model="form" ref="form">
               <el-form-item label="父级节点" prop="parentId">
                 <el-input v-model="form.parentId" :disabled="true" placeholder="请输入父级节点"></el-input>
@@ -142,7 +142,7 @@ export default {
     this.menuManager_btn_del = this.permissions['sys_menu_del']
   },
   computed: {
-    ...mapGetters(['elements', 'permissions']),
+    ...mapGetters(['permissions']),
   },
   methods: {
     getList () {

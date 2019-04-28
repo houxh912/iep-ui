@@ -113,7 +113,7 @@ export default {
     //   console.log(row)
     //   this.$refs['RejectedDialog'].dialogShow = true
     // },
-    loadPage (param = this.paramForm) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getTalentPoolPage)
     },
   },

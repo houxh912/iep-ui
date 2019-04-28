@@ -234,9 +234,9 @@ function formatYear (day){
 
 export function getWeekStartAndEnd () {
   let date = new Date()
-  let today = date.getDay()
+  let today = date.getDay() == 0 ? 7 : date.getDay()
   let firstDay = +new Date(+date - (today-1)*24*3600*1000)
-  let lastDay = firstDay + 6*24*3600*1000
+  let lastDay = firstDay + 7*24*3600*1000
   return {
     startTime: formatYear(firstDay),
     endTime: formatYear(lastDay),

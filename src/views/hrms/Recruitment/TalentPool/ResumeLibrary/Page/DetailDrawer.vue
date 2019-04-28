@@ -48,10 +48,14 @@
 
     <a-row>
       <a-col :span="12">
-        <iep-description-item title="期望薪资：" :content="form.salary" />
+        <iep-description-item title="期望薪资：">
+          <iep-dict-detail slot="content" :value="form.salary" dict-name="hrms_wages_salaries"></iep-dict-detail>
+        </iep-description-item>
       </a-col>
       <a-col :span="12">
-        <iep-description-item title="期望工作地：" :content="form.workPlace"></iep-description-item>
+        <iep-description-item title="期望工作地：">
+          <iep-dict-detail slot="content" :value="form.workPlace" dict-name="hrms_work_place"></iep-dict-detail>
+        </iep-description-item>
       </a-col>
     </a-row>
 

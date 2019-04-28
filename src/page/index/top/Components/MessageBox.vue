@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card" :body-style="bodyStyle">
     <iep-no-data v-if="!messageList.length" message="暂无内容"></iep-no-data>
-    <el-scrollbar style="max-height:400px;" class="message-box-wrapper">
+    <el-scrollbar wrap-class="message-box-wrapper">
       <template v-for="(item,idx) in messageList">
         <div :key="item.id" class="text">
           <div class="list-item-content">
@@ -78,9 +78,15 @@ export default {
 .box-card >>> .ant-divider {
   margin: 12px 0;
 }
+.box-card >>> .message-box-wrapper {
+  max-height: 350px;
+}
 </style>
 
 <style lang="scss" scoped>
+.message-box-wrapper {
+  max-height: 400px;
+}
 h4 {
   margin: 0;
   padding: 0;

@@ -31,7 +31,7 @@
             <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
           <el-form-item label="模块简介：" prop="synopsis">
-            <el-input maxlength="2010" v-model="form.synopsis"></el-input>
+            <el-input maxlength="110" v-model="form.synopsis"></el-input>
           </el-form-item>
           <el-form-item label="模块介绍：" prop="description">
             <iep-input-area v-model="form.description"></iep-input-area>

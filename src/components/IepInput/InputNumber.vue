@@ -1,5 +1,5 @@
 <template>
-  <el-input-number controls-position="right" :min="min" v-bind="$attrs" v-on="$listeners"></el-input-number>
+  <el-input-number controls-position="right" :min="min" :max="max" v-bind="$attrs" v-on="$listeners"></el-input-number>
 </template>
 <script>
 export default {
@@ -9,6 +9,10 @@ export default {
     min: {
       type: Number,
       default: 0,
+    },
+    max: {
+      type: Number,
+      default: 999999999,
     },
   },
 }

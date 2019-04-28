@@ -1,3 +1,68 @@
+## [1.2.9](http://115.233.227.46:8066/root/iep-ui/compare/v1.2.8...v1.2.9) (2019-04-28)
+
+
+### Bug Fixes
+
+* **inlinetable:** 组件更新 ([938c1a7](http://115.233.227.46:8066/root/iep-ui/commits/938c1a7))
+* **maxlength:** int改为 ([aba695d](http://115.233.227.46:8066/root/iep-ui/commits/aba695d))
+* **remove:** pinyin包 ([331581a](http://115.233.227.46:8066/root/iep-ui/commits/331581a))
+* **产品:** 修复 ([3527005](http://115.233.227.46:8066/root/iep-ui/commits/3527005))
+* **产品:** 修复一些bug ([d843d64](http://115.233.227.46:8066/root/iep-ui/commits/d843d64))
+* **产品:** 展示页上传 ([2fefc2f](http://115.233.227.46:8066/root/iep-ui/commits/2fefc2f))
+* **人力:** 招聘上下架问题 ([f914b22](http://115.233.227.46:8066/root/iep-ui/commits/f914b22))
+* **人力移除:** 一些联系信息的验证 ([afc0949](http://115.233.227.46:8066/root/iep-ui/commits/afc0949))
+* **修复:** 高级搜索分页问题 ([9c26ae8](http://115.233.227.46:8066/root/iep-ui/commits/9c26ae8))
+* **关于:** 完善 ([5aa1b30](http://115.233.227.46:8066/root/iep-ui/commits/5aa1b30))
+* **字符过长问题:** 暂时修复 ([c07388b](http://115.233.227.46:8066/root/iep-ui/commits/c07388b))
+* **审批:** 修复 ([a594b5c](http://115.233.227.46:8066/root/iep-ui/commits/a594b5c))
+* **左侧menus修改:** 左侧menus修改 ([00d308c](http://115.233.227.46:8066/root/iep-ui/commits/00d308c))
+* **新技术详情:** 新技术详情 ([4dd8ddb](http://115.233.227.46:8066/root/iep-ui/commits/4dd8ddb))
+* **新技术详情修改:** 新技术详情修改 ([5439a99](http://115.233.227.46:8066/root/iep-ui/commits/5439a99))
+* **模块:** 接口对接 ([592013e](http://115.233.227.46:8066/root/iep-ui/commits/592013e))
+* **财务:** 流水对接 ([2b2e1de](http://115.233.227.46:8066/root/iep-ui/commits/2b2e1de))
+* **资源库修改:** 资源库修改 ([59729a8](http://115.233.227.46:8066/root/iep-ui/commits/59729a8))
+
+
+### Features
+
+* **bb:** b ([7cb5f4f](http://115.233.227.46:8066/root/iep-ui/commits/7cb5f4f))
+* **bb:** 细节 ([e3545d9](http://115.233.227.46:8066/root/iep-ui/commits/e3545d9))
+* **fix:** fix ([726c508](http://115.233.227.46:8066/root/iep-ui/commits/726c508))
+* **fix:** fix ([4dad11d](http://115.233.227.46:8066/root/iep-ui/commits/4dad11d))
+* **个人周月报:** 参考日报周报修改 ([c3a4764](http://115.233.227.46:8066/root/iep-ui/commits/c3a4764))
+* **产品添加权限:** 生日修复 ([882dceb](http://115.233.227.46:8066/root/iep-ui/commits/882dceb))
+* **员工档案:** 优化交互 ([1c19568](http://115.233.227.46:8066/root/iep-ui/commits/1c19568))
+* **客户详情:** 合同拜访日志创建人修改 ([4a5f05d](http://115.233.227.46:8066/root/iep-ui/commits/4a5f05d))
+* **我的财富:** 提现 ([e1a158e](http://115.233.227.46:8066/root/iep-ui/commits/e1a158e))
+* **推荐材料样式修改:** 推荐材料样式修改 ([23f5f35](http://115.233.227.46:8066/root/iep-ui/commits/23f5f35))
+* **方案完善:** 方案完善 ([cc50268](http://115.233.227.46:8066/root/iep-ui/commits/cc50268))
+* **日报:** 时间轴优化 ([ebd4c58](http://115.233.227.46:8066/root/iep-ui/commits/ebd4c58))
+* **材料库:** 菜单按钮的权限 ([488ad49](http://115.233.227.46:8066/root/iep-ui/commits/488ad49))
+* **标语:** 添加样式 ([e93ac7e](http://115.233.227.46:8066/root/iep-ui/commits/e93ac7e))
+* **纪要:** 刷新问题及提示语修改 ([7a44ac2](http://115.233.227.46:8066/root/iep-ui/commits/7a44ac2))
+* **纪要:** 统计 ([bd5a909](http://115.233.227.46:8066/root/iep-ui/commits/bd5a909))
+* **纪要:** 表格表头调整 ([ae2219b](http://115.233.227.46:8066/root/iep-ui/commits/ae2219b))
+* **纪要:** 详情 ([0f7e7ae](http://115.233.227.46:8066/root/iep-ui/commits/0f7e7ae))
+* **组件:** pinyin功能 ([6c1090e](http://115.233.227.46:8066/root/iep-ui/commits/6c1090e))
+* **组织风采:** 组织风采 ([0d14ac7](http://115.233.227.46:8066/root/iep-ui/commits/0d14ac7))
+* **组织风采数据修改数据修改:** 组织风数据修改 ([abc439b](http://115.233.227.46:8066/root/iep-ui/commits/abc439b))
+* **财务:** 完成提现 ([22af3d1](http://115.233.227.46:8066/root/iep-ui/commits/22af3d1))
+* **财务提现:** 修复keepalive ([1786891](http://115.233.227.46:8066/root/iep-ui/commits/1786891))
+* **财富菜单:** 与人力变更 ([032da88](http://115.233.227.46:8066/root/iep-ui/commits/032da88))
+* **路由跳转:** 路由跳转 ([4cae2fe](http://115.233.227.46:8066/root/iep-ui/commits/4cae2fe))
+* **邮件:** 查看详情的查看文件 ([b65405f](http://115.233.227.46:8066/root/iep-ui/commits/b65405f))
+* **项目:** 项目 ([dce24a7](http://115.233.227.46:8066/root/iep-ui/commits/dce24a7))
+
+
+### BREAKING CHANGES
+
+* **项目:** 项目
+* **bb:** 细节
+* **组织风采数据修改数据修改:** 组织风采数据修改
+* **组织风采:** 组织风采
+
+
+
 ## [1.2.8](http://115.233.227.46:8066/root/iep-ui/compare/v1.2.7...v1.2.8) (2019-04-26)
 
 

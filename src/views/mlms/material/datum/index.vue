@@ -28,15 +28,16 @@ import AptitudeDialog from './aptitude/'
 import ContractDialog from './contract/'
 import ConfigureDialog from './configure/'
 import FileDialog from './file/'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'datum',
   mixins: [ mixins ],
   components: { MaterialDialog, AptitudeDialog, ContractDialog, ConfigureDialog, FileDialog },
-  data () {
-    return {
-      tabName: 'materialDialog',
-      tabList: [
+  computed: {
+    ...mapGetters(['permissions']),
+    tabList () {
+      let obj = [
         {
           label: '材料',
           value: 'materialDialog',
@@ -46,12 +47,25 @@ export default {
         }, {
           label: '合同',
           value: 'contractDialog',
-        }, {
+        },
+      ]
+      if (this.permission_config) {
+        obj.push({
           label: '分类配置',
           value: 'configureDialog',
-        },
-      ],
+        })
+      }
+      return obj
+    },
+  },
+  data () {
+    return {
+      permission_config: false,
+      tabName: 'materialDialog',
     }
+  },
+  created () {
+    this.permission_config = this.permissions['mlms_datum_fp_add']
   },
 }
 </script>

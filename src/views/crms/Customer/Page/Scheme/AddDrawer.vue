@@ -65,7 +65,7 @@ export default {
       if (value == '') {
         callback(new Error('方案名称不能为空'))
       } else {
-        checkName(value).then(res => {
+        checkName({ name: value, id: this.id }).then(res => {
           if (res.data.data) {
             callback()
             return false
@@ -84,6 +84,7 @@ export default {
       }
     }
     return {
+      id: '',
       showMterial: true,
       drawerShow: false,
       submitFn: () => { },
@@ -156,7 +157,8 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        checkName(row.materialName).then((res) => {
+        checkName({ name: row.materialName, id: this.formData.clientId }).then((res) => {
+          console.log(res.data.data)
           if (res.data.data) {
             this.$emit('add', row)
             this.drawerShow = false

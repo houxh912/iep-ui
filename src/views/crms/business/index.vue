@@ -69,6 +69,7 @@ export default {
 
     if (this.$route.query.flag) {
       this.type = this.$route.query.type
+      this.loadPage()
     } else {
       this.loadPage()
     }

@@ -42,7 +42,7 @@ const initSearchForm = () => {
     districtType: '',
     clientRela: '',
     followUpStatus: '',
-    businessTypeKey: [],
+    businessTypeKeyString: [],
     timeSerach: '',
   }
 }

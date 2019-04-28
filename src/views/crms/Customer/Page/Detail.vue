@@ -42,6 +42,12 @@ import Information from './Information/'
 import mixins from '@/mixins/mixins'
 import { getCustomerById } from '@/api/crms/customer'
 export default {
+  // beforeRouteUpdate (to, from, next) {
+  //   this.$nextTick(() => {
+  //     this.loadPage()
+  //   })
+  //   next()
+  // },
   name: 'detail',
   mixins: [mixins],
   components: { CustomerPanorama, Contacts, VisitingRecord, Scheme, Agreement, Information },

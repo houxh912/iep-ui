@@ -1,7 +1,7 @@
 <template>
-  <keep-alive include="list">
-    <component ref="component" @onEdit="handleEdit" @onGoBack="handleGoBack" @showDrawer="showDarwer" :record="record" :is="currentComponet"></component>
-  </keep-alive>
+  <!-- <keep-alive include="list"> -->
+  <component ref="component" @onEdit="handleEdit" @onGoBack="handleGoBack" @showDrawer="showDarwer" :record="record" :is="currentComponet"></component>
+  <!-- </keep-alive> -->
 </template>
 
 <script>
@@ -22,6 +22,7 @@ export default {
     }
   },
   created () {
+    console.log(22222)
     if (this.$route.query.router) {
       this.record = {
         formRequestFn: postCustomer,
@@ -31,8 +32,24 @@ export default {
         data: this.$route.query.data,
       }
       this.currentComponet = 'Edit'
+    } else {
+      this.currentComponet = 'List'
     }
   },
+  // activated: function () {
+  //   if (this.$route.query.router) {
+  //     this.record = {
+  //       formRequestFn: postCustomer,
+  //       methodName: '新增',
+  //       id: false,
+  //       flag: this.$route.query.router,
+  //       data: this.$route.query.data,
+  //     }
+  //     this.currentComponet = 'Edit'
+  //   } else {
+  //     this.currentComponet = 'List'
+  //   }
+  // },
   methods: {
     handleEdit (record) {
       this.record = record
@@ -52,10 +69,9 @@ export default {
     },
   },
   watch: {
-    '$route.path' () {
-      this.record = ''
-      this.currentComponet = 'List'
-    },
+    // '$route.path' () {
+
+    // },
   },
 }
 </script>

@@ -41,10 +41,11 @@ export function saveScheme (obj) {
   })
 }
 // 方案查重
-export function checkName (name) {
+export function checkName (obj) {
   return request({
-    url: `${schemeUrl}/get/${name}`,
+    url: `${schemeUrl}/get`,
     method: 'get',
+    params: obj,
   })
 }
 // 方案-编辑

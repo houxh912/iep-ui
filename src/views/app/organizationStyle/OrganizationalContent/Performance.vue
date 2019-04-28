@@ -21,7 +21,7 @@ export default {
       },
     }
     this.chartExtend = {
-      barWidth: '15',
+      barWidth: '10',
       itemStyle: {
         barBorderRadius: 10,
       },

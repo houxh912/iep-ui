@@ -49,13 +49,14 @@ export default {
     .department {
       display: block;
       font-size: 12px;
-      color: #999;
+      color: #666;
     }
     .time {
       float: right;
       height: 16px;
       line-height: 16px;
       color: #666;
+      color: #999;
     }
     &:hover {
       color: #cb3737;

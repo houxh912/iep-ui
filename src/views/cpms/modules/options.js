@@ -109,6 +109,9 @@ const rules = {
   description: [
     { required: true, message: '请填写模块介绍', trigger: 'blur' },
   ],
+  userRelationCharges: [
+    { required: true, type: 'array', message: '请填写负责人', trigger: 'blur' },
+  ],
 }
 
 export { dictsMap, columnsMap, Column, initForm, toDtoForm, initSearchForm, rules }

@@ -18,7 +18,7 @@
           <el-form-item label="英文名称：" prop="englishName" class="form-half">
             <el-input maxlength="110" v-model="form.englishName"></el-input>
           </el-form-item>
-          <el-form-item label="技术类型：" prop="type" class="form-half">
+          <el-form-item label="技术分类：" prop="type" class="form-half">
             <iep-dict-select v-model="form.type" dict-name="cpms_technology_type"></iep-dict-select>
           </el-form-item>
           <el-form-item label="技术状态：" prop="status" class="form-half">

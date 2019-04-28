@@ -80,6 +80,8 @@ export default {
 <style lang="scss" scoped>
 .new-down {
   margin-bottom: 30px;
+  border-radius: 4px;
+  border: 1px solid #ebeef5;
   .title {
     margin: 0 4px;
     font-size: 16px;

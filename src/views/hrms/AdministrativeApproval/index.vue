@@ -101,7 +101,7 @@ export default {
       })
     },
     // handleShare (row) { },
-    async loadPage (param) {
+    async loadPage (param = this.searchForm) {
       const data = await this.loadTable(param, getAdministrativeApprovalPage)
       this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },

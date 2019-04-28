@@ -15,7 +15,7 @@ export default {
 .organization-content {
   display: grid;
   margin: 0 auto;
-  padding-top: 20px;
+  padding-top: 30px;
   width: 1200px;
   grid-auto-flow: row dense;
   grid-row-gap: 40px;

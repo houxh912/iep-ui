@@ -1,7 +1,7 @@
 <template>
   <div class="mark">
     <IepAppTabCard :title="title">
-      <ve-radar :data="chartData" :settings="chartSettings" :legendVisible="isTrue" height="300px"></ve-radar>
+      <ve-radar :data="chartData" :settings="chartSettings" :legendVisible="isTrue" height="220px"></ve-radar>
     </IepAppTabCard>
   </div>
 </template>
@@ -21,6 +21,7 @@ export default {
     }
     this.isTrue = false
     return {
+      title: 'TA的指数',
       chartData: {
         columns: ['引用', '产量', '贡献', '口碑', '热度'],
         rows: [

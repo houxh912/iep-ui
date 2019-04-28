@@ -36,11 +36,12 @@ export default {
   margin: 30px 0 60px;
 }
 .texture-score-list {
+  height: 261px;
   .piece {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
     overflow: hidden;
     .img {
       float: left;
@@ -90,16 +91,10 @@ export default {
         }
       }
     }
-    &:last-child {
-      margin-bottom: 12px;
-    }
   }
 }
 </style>
 <style scoped>
-.index-card >>> .el-card__header {
-  padding: 18px 0;
-}
 .index-card >>> .el-card__body {
   padding: 16px 0 0;
 }

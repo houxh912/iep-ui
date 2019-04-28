@@ -21,7 +21,7 @@
         </template>
       </iep-page-header>
       <iep-tab-scroll :tab-list="tabList" :height="270">
-        <div class="iep-page-form">
+        <div>
           <div class="base" :id="item.value" v-for="item in tabList" :key="item.value">
             <div class="title">{{item.label}}</div>
             <div class="context">
@@ -38,7 +38,6 @@
 import mixins from '@/mixins/mixins'
 import BaseInfo from './BaseInfo'
 import TeamInfo from './TeamInfo'
-import Versions from '@/views/cpms/Components/Versions'
 import Modules from '@/views/cpms/Components/Modules'
 import Technologys from '@/views/cpms/Components/Technologys'
 import Materials from '@/views/cpms/Components/Materials'
@@ -46,7 +45,7 @@ import { initForm, dictsMap } from '../options'
 import { getTechnologyById } from '@/api/cpms/technology'
 export default {
   name: 'detail',
-  components: { BaseInfo, TeamInfo, Versions, Modules, Technologys, Materials },
+  components: { BaseInfo, TeamInfo, Modules, Technologys, Materials },
   mixins: [mixins],
   data () {
     return {
@@ -65,10 +64,7 @@ export default {
         label: '团队信息',
         value: 'TeamInfo',
       }, {
-        label: '全新版本',
-        value: 'Versions',
-      }, {
-        label: '包含模块',
+        label: '应用模块',
         value: 'Modules',
       }, {
         label: '相关技术',

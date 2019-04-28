@@ -6,7 +6,7 @@
       <iep-button v-if="isClear && !disabled" icon="el-icon-error" @click="clearAll"></iep-button>
       <iep-button v-if="!disabled" @click="openContact()">选择</iep-button>
     </operation-wrapper>
-    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="dialogShow = false" :z-index="3000">
+    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="close" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
       <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" default-expand-all :expand-on-click-node="true">
         <span class="custom-tree-node" slot-scope="{ node, data }">
@@ -63,6 +63,10 @@ export default {
     },
   },
   methods: {
+    close () {
+      this.filterText = ''
+      this.dialogShow = false
+    },
     openContact () {
       this.dialogShow = true
       this.loadNode()

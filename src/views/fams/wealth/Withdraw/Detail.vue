@@ -1,0 +1,92 @@
+<template>
+  <div>
+    <basic-container>
+      <page-header title="提现提现" :replaceText="replaceText" :backOption="backOption"></page-header>
+      <div class="withdraw-wrapper">
+        <a-steps :current="current">
+          <a-step v-for="item in steps" :key="item.title" :title="item.title" />
+        </a-steps>
+        <component :is="steps[current].content"></component>
+        <!-- <div class="steps-content">
+        </div>
+        <div class="steps-action">
+          <a-button v-if="current < steps.length - 1 && steps[current].nextText" type="primary" @click="next">
+            {{steps[current].nextText}}
+          </a-button>
+          <a-button v-if="current == steps.length - 1" type="primary" @click="$message.success('Processing complete!')">
+            完成
+          </a-button>
+          <a-button v-if="current>0 && steps[current].prevText" style="margin-left: 8px" @click="prev">
+            {{steps[current].prevText}}
+          </a-button>
+        </div> -->
+      </div>
+    </basic-container>
+  </div>
+</template>
+<script>
+import FirstContent from './FirstContent'
+import SecondContent from './SecondContent'
+import ThirdContent from './ThirdContent'
+import FourthContent from './FourthContent'
+import LastContent from './LastContent'
+export default {
+  components: {
+    FirstContent,
+    SecondContent,
+    ThirdContent,
+    FourthContent,
+    LastContent,
+  },
+  data () {
+    return {
+      replaceText: () => '（每一笔提现均需提交为5.5%的税费，税费可用发票抵消。）',
+      backOption: {
+        isBack: true,
+      },
+      current: 0,
+      steps: [{
+        title: '填写提现信息',
+        content: 'FirstContent',
+        nextText: '下一步',
+        prevText: '',
+      }, {
+        title: '确认提现信息',
+        content: 'SecondContent',
+        nextText: '提交',
+        prevText: '上一步',
+      }, {
+        title: '财务审核',
+        content: 'ThirdContent',
+        nextText: '撤销',
+        prevText: '',
+      }, {
+        title: '财务发放',
+        content: 'FourthContent',
+        nextText: '',
+        prevText: '',
+      }, {
+        title: '完成',
+        content: 'LastContent',
+        nextText: '',
+        prevText: '',
+      }],
+    }
+  },
+  methods: {
+    next () {
+      this.current++
+    },
+    prev () {
+      this.current--
+    },
+  },
+}
+</script>
+<style scoped>
+.withdraw-wrapper {
+  margin-top: 50px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+</style>

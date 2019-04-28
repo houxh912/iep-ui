@@ -18,7 +18,7 @@
       </el-col>
       <el-col :span='8'>
         <el-form-item label="产品估值：">
-          <div>{{form.valuation}}</div>
+          <div>{{form.valuation}}元</div>
         </el-form-item>
       </el-col>
     </el-row>

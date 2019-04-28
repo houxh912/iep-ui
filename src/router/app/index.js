@@ -104,6 +104,12 @@ export default [
         component: () => import('@/views/app/moduleDetails/'),
         meta: noAuth,
       },
+      {
+        path: 'technology_details',
+        name: '新技术详情',
+        component: () => import('@/views/app/technologyDetails/'),
+        meta: noAuth,
+      },
     ],
   },
 ]

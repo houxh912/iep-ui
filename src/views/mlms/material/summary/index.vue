@@ -132,6 +132,14 @@ export default {
     this.permission_delete = this.permissions['mlms_summary_delete']
     this.getCount()
   },
+  watch: {
+    '$route' () {
+      if (this.$route.path == '/wel/material/summary') {
+        this.getCount()
+        this.$refs['tableTpl'].loadPage(this.searchForm)
+      }
+    },
+  },
   methods: {
     loadPage (params = {}) {
       let obj = { current: 1, size: 10 }

@@ -78,7 +78,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 20px 10px;
+    margin: 25px 10px;
     .text {
       display: flex;
       flex-direction: column;
@@ -88,7 +88,7 @@ export default {
         font-size: 16px;
       }
       .data {
-        font-size: 18px;
+        font-size: 24px;
       }
       .txt {
         color: #999;

@@ -147,7 +147,7 @@ export default {
     submitForm () {
       let workSummary = ''
       for (let item of this.selectList) {
-        workSummary += item.workContent
+        workSummary += item.workContent + '\r\n'
       }
       this.formData.workSummary += workSummary
       this.selectList = []

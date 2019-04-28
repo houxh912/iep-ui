@@ -52,7 +52,6 @@ export default {
 <style lang="scss" scoped>
 .material {
   width: 1200px;
-  padding: 20px 0;
   margin: 0 auto;
   display: grid;
   grid-auto-flow: row dense;

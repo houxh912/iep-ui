@@ -17,13 +17,13 @@
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handleDeleteByIds" v-if="lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
+              <el-dropdown-item @click.native="handleDeleteByIds" v-if="!lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
               <el-dropdown-item @click.native="handleExport">导出</el-dropdown-item>
               <el-dropdown-item @click.native="handleCollectAll">收藏</el-dropdown-item>
               <el-dropdown-item @click.native="handleAllShare">分享</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <el-checkbox v-model="lookByMeOnly" @change="changeGetWay">只看我的</el-checkbox>
+          <el-checkbox v-model="lookByMeOnly" @change="changeGetWay">查看全部</el-checkbox>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" :paramForm="paramForm"><!-- advance-search -->
@@ -62,8 +62,8 @@
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleEdit(scope.row)" v-if="lookByMeOnly || permission_edit_del">修改</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleDeleteById(scope.row)" v-if="lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleEdit(scope.row)" v-if="!lookByMeOnly || permission_edit_del">修改</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleDeleteById(scope.row)" v-if="!lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
                   <el-dropdown-item @click.native="handleContribute(scope.row)">投稿</el-dropdown-item>
                   <el-dropdown-item @click.native="handleEdition(scope.row)">上传新版本</el-dropdown-item>
                 </el-dropdown-menu>
@@ -111,7 +111,7 @@ export default {
       selectList: [],
       createCollect,
       firstClass: [],
-      getTableDataFn: getTableData,
+      getTableDataFn: getTableDataOnlyMe,
       permission_edit_del: false,
       lookByMeOnly: false,
     }
@@ -233,7 +233,7 @@ export default {
     },
     // 只看我的
     changeGetWay (val) {
-      this.getTableDataFn = val ? getTableDataOnlyMe : getTableData
+      this.getTableDataFn = val ? getTableData : getTableDataOnlyMe
       this.loadPage()
     },
   },

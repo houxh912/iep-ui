@@ -13,7 +13,7 @@
       </el-table-column>
       <el-table-column label="上线时间">
         <template slot-scope="scope">
-          {{scope.row.onlineTime}}
+          {{scope.row.onlineTime | parseTime('{y}-{m}-{d}')}}
         </template>
       </el-table-column>
       <el-table-column label="更新内容">
@@ -39,7 +39,7 @@
           <iep-date-picker v-model="form.onlineTime" type="date" placeholder="请选择上线时间"></iep-date-picker>
         </el-form-item>
         <el-form-item label="更新内容">
-          <iep-input-area v-model="form.updateContent"></iep-input-area>
+          <iep-input-area v-model="form.updateContent" :maxlength="200"></iep-input-area>
         </el-form-item>
       </el-form>
       <template slot="footer">

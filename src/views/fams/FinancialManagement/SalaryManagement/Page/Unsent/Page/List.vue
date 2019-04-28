@@ -43,9 +43,9 @@ export default {
       this.$emit('onDetail', row)
     },
     clearSearchParam () {
-      this.paramForm = initSearchForm()
+      this.searchForm = initSearchForm()
     },
-    loadPage (param = this.paramForm) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getAssessmentManagementPage)
     },
   },

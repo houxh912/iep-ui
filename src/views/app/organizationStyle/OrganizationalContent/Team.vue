@@ -1,5 +1,5 @@
 <template>
-  <div class="wonderful">
+  <div class="team">
     <IepAppTabsCard isMore :linkName="linkName">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='TeamDemeanor'" v-slot:TeamDemeanor>
@@ -37,11 +37,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.wonderful {
+.team {
   grid-column-start: 1;
   grid-column-end: 3;
   display: grid;
   margin: 30px 0;
+}
+</style>
+<style scoped>
+.team >>> .el-card__body {
+  padding: 2px 0 30px;
 }
 </style>
 

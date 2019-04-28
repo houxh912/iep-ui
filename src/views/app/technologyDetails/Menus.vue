@@ -68,7 +68,8 @@ export default {
 <style lang="scss" scoped>
 .menus {
   border-right: 1px solid #eee;
-  .el-menu {
+  height: 100%;
+  .ant-menu-inline {
     border-right: 0;
   }
 }

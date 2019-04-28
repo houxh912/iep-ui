@@ -88,7 +88,7 @@ export default {
   .title-name{
     display:inline-block;
     font-size: 16px;
-    color:#000;
+    color:#333;
     margin-right: 10px;
   }
   .type{

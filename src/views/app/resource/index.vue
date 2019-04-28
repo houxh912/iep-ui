@@ -28,7 +28,7 @@ export default {
     }
   },
   beforeRouteUpdate (to, from, next) {
-    console.log(to, from)
+    //console.log(to, from)
     this.routerMatch = to.matched
     next()
     // 在当前路由改变，但是该组件被复用时调用
@@ -83,9 +83,10 @@ export default {
 }
 .breadcrumb-wrapper {
   .breadcrumb-item {
-    margin: 20px auto 10px auto;
+    margin: 20px auto 0;
     width: 1200px;
-    padding-left: 20px;
+    padding:0 0 20px 20px;
+    border-bottom: 1px solid #eee;
   }
 }
 </style>

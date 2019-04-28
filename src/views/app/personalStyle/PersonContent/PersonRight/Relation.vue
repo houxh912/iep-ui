@@ -122,6 +122,7 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
+      cursor: pointer;
       .img {
         width: 60px;
         height: 60px;
@@ -138,7 +139,11 @@ export default {
         }
       }
       .name {
+        margin-top: 5px;
         font-size: 13px;
+      }
+      &:hover {
+        color: #999;
       }
     }
   }

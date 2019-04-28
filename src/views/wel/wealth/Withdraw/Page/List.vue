@@ -103,7 +103,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.line {
-  text-align: center;
-}
+// .line {
+//   text-align: center;
+// }
 </style>

@@ -72,11 +72,12 @@ export default {
   border-bottom: 1px solid #ccc;
 }
 .title{
-  margin-bottom: 15px;
+  height: 40px;
+  line-height: 40px;
   .name{
     display:inline-block;
     margin-right: 10px;
-    color: #000;
+    color: #333;
     font-size: 16px;
   }
   i{
@@ -110,7 +111,7 @@ export default {
     span{
       padding: 3px 5px;
       margin-right: 8px;
-      font-size: 14px;
+      font-size: 12px;
       color:#999;
       border: 1px solid #ccc;
       border-radius: 3px;

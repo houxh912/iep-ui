@@ -23,7 +23,7 @@
           </div>
           <div class="list">
             <span>卓越标签：</span>
-            <iep-tag-detail style="display: inline;" :value="form.tagKeywords"></iep-tag-detail>
+            <iep-tag-detail style="display: inline;" :value="form.abilityTag"></iep-tag-detail>
           </div>
           <div class="list">
             <span>专业标签：</span>

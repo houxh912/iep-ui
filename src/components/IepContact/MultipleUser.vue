@@ -4,7 +4,7 @@
       <el-tag v-if="!users.length" type="info">无</el-tag>
       <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
       <iep-button v-if="isClear && !disabled" icon="el-icon-error" @click="clearAll"></iep-button>
-      <iep-button v-if="!disabled" @click="dialogShow = true">选择</iep-button>
+      <iep-button v-if="!disabled" @click="openContact()">选择</iep-button>
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="dialogShow = false" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
@@ -62,10 +62,11 @@ export default {
       this.$refs.tree.filter(val)
     },
   },
-  created () {
-    this.loadNode()
-  },
   methods: {
+    openContact () {
+      this.dialogShow = true
+      this.loadNode()
+    },
     clearAll () {
       this.users = []
     },

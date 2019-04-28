@@ -100,7 +100,7 @@ export default [
       },
       {
         path: 'module_details/:id',
-        name: '模块详情',
+        name: '展示模块详情',
         component: () => import('@/views/app/moduleDetails/'),
         meta: noAuth,
       },

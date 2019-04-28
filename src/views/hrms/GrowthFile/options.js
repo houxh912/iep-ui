@@ -47,6 +47,9 @@ const initForm = () => {
     staffNo: '',
     status: '',
     timeLineList: [],
+    abilityTag: [],
+    projectTag: [],
+    learningTag: [],
     title: '',
     updateTime: '',
   }

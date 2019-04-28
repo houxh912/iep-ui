@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-tooltip v-if="!disabled" effect="dark" :content="showValue" placement="top">
-      <el-date-picker v-if="!disabled" v-model="formatValue" type="daterange" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" :size="size" :editable="false"></el-date-picker>
+    <el-tooltip :disabled="value===''" effect="dark" :content="showValue" placement="top">
+      <el-date-picker v-if="!disabled" v-model="formatValue" type="monthrange" start-placeholder="开始日期" end-placeholder="结束日期" format="yyyy-MM" value-format="yyyy-MM" :size="size" :editable="false" :clearable="false"></el-date-picker>
     </el-tooltip>
     <div v-if="disabled">{{showValue}}</div>
   </div>

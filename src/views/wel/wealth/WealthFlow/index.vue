@@ -9,9 +9,9 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
+      <iep-table :isLoadTable="isLoadTable" :dictsMap="dictsMap" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
         <template slot="before-columns">
-          <el-table-column label="流水号" width="90px">
+          <el-table-column label="流水号" width="200">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
@@ -22,25 +22,32 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import AdvanceSearch from './AdvanceSearch'
 import { getWealthFlowPage } from '@/api/fams/wealth_flow'
 import mixins from '@/mixins/mixins'
-import { columnsMap } from './options'
+import { columnsMap, dictsMap } from './options'
 export default {
   components: { AdvanceSearch },
   mixins: [mixins],
   data () {
     return {
+      dictsMap,
       columnsMap,
       replaceText: (data) => `（支出：${data[0]}笔${data[0]}贝，收入：${data[0]}笔${data[0]}贝）`,
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
   },
   created () {
     this.loadPage()
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getWealthFlowPage)
+      this.loadTable({ ...param, userId: this.userInfo.userId }, getWealthFlowPage)
     },
   },
 }

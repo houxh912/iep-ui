@@ -347,7 +347,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { getEmployeeProfileSelf, putEmployeeProfile } from '@/api/hrms/employee_profile'
-import { initForm, dictsMap, rules, formToDto } from '@/views/hrms/EmployeeProfile/options'
+import { initForm, dictsMap, selfRules, formToDto } from '@/views/hrms/EmployeeProfile/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
 export default {
@@ -359,7 +359,7 @@ export default {
       trainingColumns,
       certificateColumns,
       dictsMap,
-      rules,
+      rules: selfRules,
       preview: {},
       form: initForm(),
     }

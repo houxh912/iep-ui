@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import { _onFlattenTree } from './util'
+// import { _onFlattenTree } from './util'
 import { getUserListTree } from '@/api/admin/contacts'
 export default {
   name: 'IepContactSelect',
@@ -109,8 +109,8 @@ export default {
     loadNode () {
       getUserListTree().then(({ data }) => {
         this.treeData = data.data
-        this.userData = [..._onFlattenTree(data.data)]
-        this.userDataOptions = [..._onFlattenTree(data.data)]
+        // this.userData = [..._onFlattenTree(data.data)]
+        // this.userDataOptions = [..._onFlattenTree(data.data)]
       })
     },
   },

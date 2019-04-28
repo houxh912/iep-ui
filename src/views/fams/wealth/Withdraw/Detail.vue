@@ -1,6 +1,7 @@
 <template>
-  <basic-container class="edit-wrapper">
-    <page-header :title="`${methodName}提现`" :replaceText="replaceText" :backOption="backOption"></page-header>
+  <div>
+    <basic-container class="edit-wrapper">
+      <page-header :title="`${methodName}提现`" :replaceText="replaceText" :backOption="backOption"></page-header>
       <el-steps :active="active" align-center finish-status="success">
         <el-step description="填写提现信息"></el-step>
         <el-step description="确认提现信息"></el-step>
@@ -60,15 +61,16 @@
           </el-form-item>
         </el-form>
       </div>
-    <footer-tool-bar>
-      <iep-button @click="handleGoBack">返回</iep-button>
-    </footer-tool-bar>
-  </basic-container>
+      <footer-tool-bar>
+        <iep-button @click="handleGoBack">返回</iep-button>
+      </footer-tool-bar>
+    </basic-container>
+  </div>
 </template>
 <script>
 import { mapState } from 'vuex'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
-import { initForm } from '../options'
+import { initForm } from './options'
 
 export default {
   props: {

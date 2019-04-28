@@ -47,7 +47,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       </iep-table>
     </basic-container>
   </div>
@@ -55,24 +55,12 @@
 <script>
 import { getWithdrawPage } from '@/api/fams/withdraw'
 import mixins from '@/mixins/mixins'
-import { columnsMap } from './options'
+import { columnsMap, dictsMap } from './options'
 export default {
   mixins: [mixins],
   data () {
     return {
-      classify: [
-        {
-          value: '选项1',
-          label: '待审核',
-        },
-        {
-          value: '选项2',
-          label: '已审核',
-        },
-      ],
-      form: {
-        name: '',
-      },
+      dictsMap,
       columnsMap,
       value: '',
       value1: '',
@@ -80,8 +68,7 @@ export default {
     }
   },
   created () {
-    // this.loadPage()
-    this.isLoadTable = false
+    this.loadPage()
   },
   methods: {
     handleSelectionChange (val) {

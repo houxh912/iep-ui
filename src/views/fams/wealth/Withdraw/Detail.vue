@@ -6,7 +6,9 @@
         <a-steps :current="current">
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />
         </a-steps>
-        <component :is="steps[current].content"></component>
+        <keep-alive>
+          <component :is="steps[current].content" :data="steps[current].data" @on-data="steps[current].onData" @prev="prev"></component>
+        </keep-alive>
         <!-- <div class="steps-content">
         </div>
         <div class="steps-action">
@@ -50,30 +52,48 @@ export default {
         content: 'FirstContent',
         nextText: '下一步',
         prevText: '',
+        data: undefined,
+        onData: this.handleFirst,
       }, {
         title: '确认提现信息',
         content: 'SecondContent',
         nextText: '提交',
         prevText: '上一步',
+        data: undefined,
+        onData: this.handleSecond,
       }, {
         title: '财务审核',
         content: 'ThirdContent',
         nextText: '撤销',
         prevText: '',
+        data: undefined,
+        onData: this.handleFirst,
       }, {
         title: '财务发放',
         content: 'FourthContent',
         nextText: '',
         prevText: '',
+        data: undefined,
+        onData: this.handleFirst,
       }, {
         title: '完成',
         content: 'LastContent',
         nextText: '',
         prevText: '',
+        data: undefined,
+        onData: this.handleFirst,
       }],
     }
   },
   methods: {
+    handleFirst (form) {
+      console.log(form)
+      this.next()
+      this.steps[this.current].data = form
+    },
+    handleSecond () {
+      this.next()
+    },
     next () {
       this.current++
     },

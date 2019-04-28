@@ -1,7 +1,10 @@
 <template>
-  <div class="personal">
-    <person-top></person-top>
-    <person-content></person-content>
+  <div>
+    <div class="personal">
+      <person-top></person-top>
+      <person-content></person-content>
+    </div>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 

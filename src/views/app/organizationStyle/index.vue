@@ -2,6 +2,7 @@
   <div>
     <organizational-top></organizational-top>
     <organizational-content></organizational-content>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>

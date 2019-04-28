@@ -120,7 +120,7 @@ export default {
   .box-card {
     .img-con {
       display: flex;
-      margin-top: 20px;
+      margin-top: 15px;
       flex-wrap: wrap;
       flex-direction: column;
       align-items: center;
@@ -189,7 +189,7 @@ export default {
     }
     .right-con {
       display: flex;
-      margin-top: 20px;
+      margin-top: 15px;
       flex-direction: column;
       align-items: center;
     }

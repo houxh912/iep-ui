@@ -1,7 +1,7 @@
 <template>
   <div class="introduction">
     <div class="left">
-      <i class="iconfont" :class="icon"></i>
+      <img :src="img" :alt="name">
     </div>
     <div class="right">
       <div class="title">
@@ -18,7 +18,7 @@
 export default {
   data () {
     return {
-      icon:'icon-tongyongleiziyuanpeizhi',
+      img:require('./img/ant.svg'),
       name:'Ant Design Pro',
       status: '已完成',
       tag:['产品设计','项目管理','原型设计','平台规划','需求分析','流程设计','产品培训','需求文档'],
@@ -33,16 +33,15 @@ export default {
   .left{
     width: 80px;
     height: 80px;
-    line-height: 80px;
     border: 1px solid #ebeaea;
     border-radius: 2px;
     background-color: #f8f8f8;
     text-align: center;
     margin-right: 30px;
     float: left;
-    > i{
-      font-size: 60px;
-      color: #999;
+    > img{
+      width: 100%;
+      height: 100%;
     }
   }
   .right{

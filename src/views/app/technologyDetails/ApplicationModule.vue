@@ -6,7 +6,7 @@
     </div>
     <div class="piece" v-for="(item,index) in dataList" :key="index">
       <div>
-        <i class="iconfont" :class="item.icon"></i>
+        <img :src="item.img" :alt="item.name" class="img">
       </div>
       <span>{{item.name}}</span>
     </div>
@@ -18,10 +18,10 @@ export default {
     return {
       title:'应用产品',
       dataList: [
-        {icon:'icon-tongyongleiziyuanpeizhi',name:'资源配置模块'},
-        {icon:'icon-tongyongleiziyuanpeizhi',name:'资源配置模块'},
-        {icon:'icon-tongyongleiziyuanpeizhi',name:'资源配置模块'},
-        {icon:'icon-tongyongleiziyuanpeizhi',name:'资源配置模块'},
+        {img:require('./img/ant.svg'),name:'资源配置模块'},
+        {img:require('./img/ant.svg'),name:'资源配置模块'},
+        {img:require('./img/ant.svg'),name:'资源配置模块'},
+        {img:require('./img/ant.svg'),name:'资源配置模块'},
       ],
     }
   },
@@ -45,13 +45,12 @@ export default {
     > div{
       width: 50px;
       height: 50px;
-      line-height: 50px;
       text-align: center;
       border: 1px solid #dcdcdc;
       margin: 0 auto;
-      > i{
-        font-size: 40px;
-        color: #999;
+      > img{
+         width: 100%;
+         height: 100%;
       }
     }
     span{

@@ -6,7 +6,10 @@
         <el-carousel height="84px" :interval="5000" arrow="always">
           <el-carousel-item v-for="item in 4" :key="item">
             <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
-              <div class="img"><img :src="item.img" class="img"></div>
+              <div class="img">
+                <span class="bgb">{{item.post}}</span>
+                <img :src="item.img" class="img">
+              </div>
               <span class="name">{{item.name}}<span class="dn show1" :class="item.show1">V</span></span>
             </div>
           </el-carousel-item>
@@ -22,9 +25,9 @@ export default {
       title: '组织介绍',
       data: '（当前234人）',
       wonderfulList: [
-        { img: require('../img/people1.png'), name: '姚静', show1: 'show' },
-        { img: require('../img/people2.jpg'), name: '邵佳欢' },
-        { img: require('../img/people3.jpg'), name: '林毅宁' },
+        { img: require('../img/people1.png'), name: '姚静', post: '产品经理', show1: 'show' },
+        { img: require('../img/people2.jpg'), name: '邵佳欢', post: '视频剪辑' },
+        { img: require('../img/people3.jpg'), name: '林毅宁', post: '咨询师' },
       ],
     }
   },
@@ -71,10 +74,32 @@ export default {
       text-align: center;
       overflow: hidden;
       .img {
+        position: relative;
         width: 100%;
         height: 60px;
         overflow: hidden;
         border-radius: 50%;
+        cursor: pointer;
+        .bgb {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          line-height: 60px;
+          font-size: 12px;
+          text-align: center;
+          display: block;
+          border-radius: 50%;
+          color: #fff;
+          z-index: 100;
+          opacity: 0;
+          transition: all 0.5s;
+        }
+        &:hover .bgb {
+          background: rgba(0, 0, 0, 0.5);
+          opacity: 1;
+        }
         img {
           width: 100%;
           height: 60px;

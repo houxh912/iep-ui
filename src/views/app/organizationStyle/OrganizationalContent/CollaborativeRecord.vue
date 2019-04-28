@@ -32,6 +32,7 @@ export default {
 <style lang="scss" scoped>
 .collaborative-record {
   .piece {
+    margin-bottom: 14px;
     cursor: pointer;
     .con {
       position: relative;
@@ -39,8 +40,8 @@ export default {
     .name {
       display: inline-block;
       width: 200px;
-      height: 30px;
-      line-height: 30px;
+      height: 16px;
+      line-height: 16px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -52,8 +53,8 @@ export default {
     }
     .time {
       float: right;
-      height: 30px;
-      line-height: 30px;
+      height: 16px;
+      line-height: 16px;
       color: #666;
     }
     &:hover {

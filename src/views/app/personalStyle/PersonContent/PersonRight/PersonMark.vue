@@ -1,7 +1,7 @@
 <template>
   <div class="mark">
     <IepAppTabCard :title="title">
-      <ve-radar :data="chartData" :settings="chartSettings" :legendVisible="isTrue" height="300px"></ve-radar>
+      <ve-radar :data="chartData" :settings="chartSettings" :legendVisible="isTrue" height="220px"></ve-radar>
     </IepAppTabCard>
   </div>
 </template>

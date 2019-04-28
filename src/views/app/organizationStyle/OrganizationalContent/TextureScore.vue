@@ -36,7 +36,7 @@ export default {
   margin: 30px 0 60px;
 }
 .texture-score-list {
-  height: 253px;
+  height: 261px;
   .piece {
     display: flex;
     justify-content: space-between;
@@ -95,9 +95,6 @@ export default {
 }
 </style>
 <style scoped>
-.index-card >>> .el-card__header {
-  padding: 18px 0;
-}
 .index-card >>> .el-card__body {
   padding: 16px 0 0;
 }

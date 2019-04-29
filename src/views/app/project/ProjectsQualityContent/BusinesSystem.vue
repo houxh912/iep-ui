@@ -79,6 +79,7 @@ export default {
     }
     .con {
       text-align: justify;
+      color: #999;
     }
     &:hover {
       background-color: #f9f9f9;

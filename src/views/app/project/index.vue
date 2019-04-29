@@ -32,17 +32,5 @@ export default {
 .gov-person >>> .cardTitle {
   font-size: 16px;
 }
-.gov-person-content >>> .more:hover,
-.gov-person-content >>> .more:focus {
-  color: #cb3737;
-}
-.gov-person-content >>> .important {
-  float: right;
-  color: #cb3737;
-}
-.gov-person-content >>> .important:hover,
-.gov-person-content >>> .important:focus {
-  color: #f56c6c;
-}
 </style>
 

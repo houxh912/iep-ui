@@ -103,6 +103,7 @@ const laborContractColumns = [
   {
     prop: 'annex',
     label: '合同附件',
+    type: 'file',
   },
 ]
 const welfareColumns = [

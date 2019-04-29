@@ -35,7 +35,7 @@ export default {
     text-align: center;
     width: 260px;
     float: left;
-    margin: 0 5px;
+    margin: 0 14px;
     .img {
       width: 100%;
       height: 165px;
@@ -52,12 +52,6 @@ export default {
     }
     .name {
       line-height: 40px;
-    }
-    &:first-child {
-      margin: 0 15px 0 10px;
-    }
-    &:last-child {
-      margin: 0 10px 0 15px;
     }
   }
 }

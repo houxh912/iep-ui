@@ -54,7 +54,7 @@ export default {
     padding: 2px 10px;
     border-radius: 12px;
     border: 1px solid #ffffff;
-    margin: 0 10px;
+    margin: 0 18px 0 6px;
     cursor: pointer;
     transition: all 0.5s;
     &:hover {

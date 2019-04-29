@@ -45,7 +45,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 .title {
-  color: #000;
+  color: #333;
 }
 .introduce {
   & > span {
@@ -134,7 +134,7 @@ export default {
     line-height: 35px;
     cursor: pointer;
     &:hover {
-      background-color: #999;
+      background-color: #eee;
     }
     i {
       margin-right: 15px;

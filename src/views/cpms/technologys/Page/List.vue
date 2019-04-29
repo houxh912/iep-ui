@@ -26,11 +26,11 @@
             <iep-tag-detail :value="scope.row.chargeNames"></iep-tag-detail>
           </template>
         </el-table-column>
-        <el-table-column label="操作" v-if="cpms_technologys_edit_del">
+        <el-table-column label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button :disabled="isEditDelPermissions(scope.row)" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button :disabled="isEditDelPermissions(scope.row)" @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -69,6 +69,9 @@ export default {
     this.loadPage()
   },
   methods: {
+    isEditDelPermissions (row) {
+      return !(this.cpms_technologys_edit_del || this.userInfo.userId === row.creatorId)
+    },
     handleAdd () {
       this.$emit('onEdit', {
         formRequestFn: postTechnology,

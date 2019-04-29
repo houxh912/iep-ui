@@ -144,7 +144,7 @@ export default {
       this.selectList = val
       this.multipleSelection = val.map(m => m.id)
     },
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.pageState = 'list'
       this.loadTable(param, this.getTableDataFn)
     },

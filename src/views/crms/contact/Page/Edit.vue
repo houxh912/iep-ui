@@ -204,7 +204,7 @@ export default {
       this.loadPage()
     },
     loadPage () {
-      this.loadTable({ type: 1, clientName: this.clientName }, getCustomerPage)
+      this.loadTable({ type: 2, clientName: this.clientName }, getCustomerPage)
     },
     handleGoBack () {
       this.$emit('onGoBack')

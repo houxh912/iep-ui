@@ -29,3 +29,9 @@ export function getUserListTree () {
     method: 'get',
   })
 }
+export function getUserPyList () {
+  return request({
+    url: `${prefixUrl}/all/user/name/list`,
+    method: 'get',
+  })
+}

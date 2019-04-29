@@ -13,6 +13,9 @@
       <el-form-item label="用户群:">
         <iep-contact-multiple-user v-model="form.userList"></iep-contact-multiple-user>
       </el-form-item>
+      <el-form-item label="新用户群:">
+        <iep-contact-new-multiple-user v-model="form.userList1"></iep-contact-new-multiple-user>
+      </el-form-item>
       <el-form-item label="群发:">
         <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
       </el-form-item>
@@ -64,6 +67,7 @@ export default {
           users: [],
         },
         userList: [],
+        userList1: [],
         dept: {
           id: 1,
           name: '研发部',

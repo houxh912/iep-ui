@@ -1,15 +1,13 @@
 <template>
   <div class="multiple-box">
-    <el-tag v-if="!users.length" type="info">暂无</el-tag>
-    <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
+    <operation-wrapper v-if="disabled">
+      <el-tag v-if="!users.length" type="info">暂无</el-tag>
+      <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
+    </operation-wrapper>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
-      <el-autocomplete style="width:100%;" v-model="username" :fetch-suggestions="querySearch" placeholder="请输入姓名或姓名拼音" @select="handleSelect" highlight-first-item>
-        <i class="el-icon-edit el-input__icon" slot="suffix"></i>
-        <template slot-scope="{ item }">
-          <span style="float: left">{{ item.name }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">{{ item.pinyin }}</span>
-        </template>
-      </el-autocomplete>
+      <a-select mode="multiple" labelInValue :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="querySearch" @change="handleChange">
+        <a-select-option v-for="item in userResults" :key="item.id+''" :value="item.id+''" :title="item.name">{{ item.name }}</a-select-option>
+      </a-select>
       <iep-button v-if="isClear && !disabled" icon="el-icon-error" @click="clearAll"></iep-button>
       <iep-button @click="openContact()">通讯录</iep-button>
     </operation-wrapper>
@@ -29,8 +27,9 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
+import debounce from 'lodash/debounce'
 export default {
-  name: 'IepContactNewMultipleUser',
+  name: 'IepContactMultipleUser',
   props: {
     disabled: {
       type: Boolean,
@@ -46,13 +45,13 @@ export default {
     },
   },
   data () {
+    this.querySearch = debounce(this.querySearch, 200)
     return {
       filterText: '',
       dialogShow: false,
       props: {
         isLeaf: 'leaf',
       },
-      username: '',
       treeData: [],
       userPyList: [],
       userResults: [],
@@ -70,6 +69,14 @@ export default {
       set: function (value) { this.$emit('input', value) },
     },
     userIds: function () { return this.value.map(m => m.id) },
+    usersValue () {
+      return this.users.map(m => {
+        return {
+          key: m.id + '',
+          label: m.name,
+        }
+      })
+    },
     userPyListFilter () {
       return this.userPyList.filter(m => !this.userIds.includes(m.id))
     },
@@ -118,6 +125,17 @@ export default {
         }
       }
     },
+    handleChange (usersValue) {
+      const value = usersValue.map(m => {
+        return {
+          id: +m.key,
+          name: m.label,
+        }
+      })
+      Object.assign(this, {
+        users: value,
+      })
+    },
     handleSelect (item) {
       this.users.push({
         id: item.id,
@@ -125,12 +143,11 @@ export default {
       })
       this.username = ''
     },
-    querySearch (queryString, cb) {
+    querySearch (queryString) {
       const userPyListFilter = this.userPyListFilter
       const results = queryString ? userPyListFilter.filter(this.createFilter(queryString)) : userPyListFilter
       // 调用 callback 返回建议列表的数据
       this.userResults = results
-      cb(results)
     },
     createFilter (query) {
       const queryToLower = query.toLowerCase()

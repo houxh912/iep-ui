@@ -13,6 +13,7 @@ import keyBy from 'lodash/keyBy'
 import { deepClone, encryption, pickDeep } from '@/util/util'
 import website from '@/const/website'
 import { GetMenu } from '@/api/admin/menu'
+import { loadContactsPyList } from '@/api/admin/contacts'
 
 function addPath (ele, first) {
   const propsConfig = website.menu.props
@@ -58,6 +59,7 @@ const user = {
     roles: [],
     orgs: [],
     dictGroup: getStore({ name: 'dictGroup' }) || {},
+    contactsPyList: getStore({ name: 'contactsPyList' }) || {},
     menu: getStore({ name: 'menu' }) || [],
     mainMenu: getStore({ name: 'main_menu' }) || {},
     otherMenus: getStore({ name: 'other_menus' }) || [],
@@ -77,6 +79,20 @@ const user = {
       }) || '',
   },
   actions: {
+    // 获取通讯录
+    LoadContactsPyList ({
+      commit,
+    }) {
+      return new Promise((resolve, reject) => {
+        loadContactsPyList().then(res => {
+          const { data } = res
+          commit('SET_CONTACTS_PY_LIST', data.data)
+          resolve()
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
     // 获取全部字典
     LoadAllDictMap ({
       commit,
@@ -294,6 +310,14 @@ const user = {
     },
     SET_USERIFNO: (state, userInfo) => {
       state.userInfo = userInfo
+    },
+    SET_CONTACTS_PY_LIST: (state, contactsPyList) => {
+      state.contactsPyList = contactsPyList
+      setStore({
+        name: 'contactsPyList',
+        content: contactsPyList,
+        type: 'session',
+      })
     },
     SET_MENU: (state, menu) => {
       state.menu = menu

@@ -6,7 +6,7 @@
         <span style="float: right; color: #8492a6; font-size: 13px">{{ item.pinyin }}</span>
       </el-option>
     </el-select>
-    <iep-button @click="openContact()">选择</iep-button>
+    <iep-button @click="openContact()">通讯录</iep-button>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="dialogShow = false" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
       <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" :show-checkbox="showCheckbox" default-expand-all @node-click="selectUser">
@@ -18,7 +18,8 @@
   </operation-wrapper>
 </template>
 <script>
-import { getUserListTree, getUserPyList } from '@/api/admin/contacts'
+import { mapGetters } from 'vuex'
+import { getUserListTree } from '@/api/admin/contacts'
 export default {
   name: 'IepContactSelect',
   props: {
@@ -49,6 +50,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'contactsPyList',
+    ]),
     user: {
       // getter
       get: function () {
@@ -121,10 +125,9 @@ export default {
       if (!value) return true
       return data.label.indexOf(value) !== -1
     },
-    async loadPyList () {
-      const { data } = await getUserPyList()
-      this.userPyList = [...data.data]
-      this.userPyListOptions = [...data.data]
+    loadPyList () {
+      this.userPyList = [...this.contactsPyList]
+      this.userPyListOptions = [...this.contactsPyList]
     },
     loadNode () {
       getUserListTree().then(({ data }) => {

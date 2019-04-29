@@ -19,6 +19,8 @@ const workExpColumns = [
   {
     prop: 'name',
     label: '公司',
+    type: 'list',
+    prefixUrl: 'hrms/relation/labor_contract/company',
   },
   {
     prop: 'position',
@@ -89,6 +91,8 @@ const laborContractColumns = [
   {
     prop: 'company',
     label: '归属公司',
+    type: 'list',
+    prefixUrl: 'hrms/relation/labor_contract/company',
   },
   {
     prop: 'startTime',
@@ -116,6 +120,8 @@ const welfareColumns = [
   {
     prop: 'company',
     label: '归属公司',
+    type: 'list',
+    prefixUrl: 'hrms/relation/labor_contract/company',
   },
   {
     prop: 'startTime',

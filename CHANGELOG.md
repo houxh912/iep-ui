@@ -1,3 +1,56 @@
+# [1.3.0](http://115.233.227.46:8066/root/iep-ui/compare/v1.2.9...v1.3.0) (2019-04-29)
+
+
+### Bug Fixes
+
+* **remove:** IepTags ([b38e33b](http://115.233.227.46:8066/root/iep-ui/commits/b38e33b))
+* **修复标签:** 错误的默认值 ([d574501](http://115.233.227.46:8066/root/iep-ui/commits/d574501))
+* **可能修复:** 路由空白页的问题 ([27e3131](http://115.233.227.46:8066/root/iep-ui/commits/27e3131))
+* **合同添加:** 附件 ([f27cb46](http://115.233.227.46:8066/root/iep-ui/commits/f27cb46))
+* **我的订阅:** 我的订阅 ([1762446](http://115.233.227.46:8066/root/iep-ui/commits/1762446))
+* **提示修改:** 提示修改 ([422e5bf](http://115.233.227.46:8066/root/iep-ui/commits/422e5bf))
+* **数据展示页提交:** 数据展示页提交 ([8342e2d](http://115.233.227.46:8066/root/iep-ui/commits/8342e2d))
+* **新的:** 标签 ([da6ebb9](http://115.233.227.46:8066/root/iep-ui/commits/da6ebb9))
+* **添加关联:** 公司下拉 ([2769c17](http://115.233.227.46:8066/root/iep-ui/commits/2769c17))
+* **组织权限:** 必填问题 ([7b814f2](http://115.233.227.46:8066/root/iep-ui/commits/7b814f2))
+* **通讯录:** 完成 ([a7f9487](http://115.233.227.46:8066/root/iep-ui/commits/a7f9487))
+
+
+### Features
+
+* **bb:** dd ([c63f5db](http://115.233.227.46:8066/root/iep-ui/commits/c63f5db))
+* **fix:** fix ([df177b7](http://115.233.227.46:8066/root/iep-ui/commits/df177b7))
+* **fix:** fix ([f62490a](http://115.233.227.46:8066/root/iep-ui/commits/f62490a))
+* **fix:** fix ([b639c91](http://115.233.227.46:8066/root/iep-ui/commits/b639c91))
+* **fix:** fix ([60e9e2f](http://115.233.227.46:8066/root/iep-ui/commits/60e9e2f))
+* **mixinsCellPointerStyle:** 全局修改 ([009318b](http://115.233.227.46:8066/root/iep-ui/commits/009318b))
+* **yy:** yy ([2b53786](http://115.233.227.46:8066/root/iep-ui/commits/2b53786))
+* **yy:** yy ([c224a4d](http://115.233.227.46:8066/root/iep-ui/commits/c224a4d))
+* **产品:** 权限配置 ([fa4aeb7](http://115.233.227.46:8066/root/iep-ui/commits/fa4aeb7))
+* **分类配置:** 分页问题调整 ([7ef008a](http://115.233.227.46:8066/root/iep-ui/commits/7ef008a))
+* **单选通讯录:** 更新交互 ([bffeb63](http://115.233.227.46:8066/root/iep-ui/commits/bffeb63))
+* **周月报:** 表单提示及提交提示 ([b89151f](http://115.233.227.46:8066/root/iep-ui/commits/b89151f))
+* **学堂:** 学堂 ([ddc31d1](http://115.233.227.46:8066/root/iep-ui/commits/ddc31d1))
+* **客户|联系人、出单率:** 联系人对应客户关联修改为我的客户 ([e1e2378](http://115.233.227.46:8066/root/iep-ui/commits/e1e2378))
+* **细节修改:** 细节修改 ([ab8d60f](http://115.233.227.46:8066/root/iep-ui/commits/ab8d60f))
+* 學堂 ([1445c2d](http://115.233.227.46:8066/root/iep-ui/commits/1445c2d))
+* **通讯录:** 交互功能更新 ([e91fee7](http://115.233.227.46:8066/root/iep-ui/commits/e91fee7))
+* **通讯录:** 新的交互 ([710ccb6](http://115.233.227.46:8066/root/iep-ui/commits/710ccb6))
+* **通讯录:** 添加新的央视 ([6fa3570](http://115.233.227.46:8066/root/iep-ui/commits/6fa3570))
+* **邮件:** 列表中添加收件人 ([a511edd](http://115.233.227.46:8066/root/iep-ui/commits/a511edd))
+* **項目与质量管:** 项目与质量管理 ([743cc2f](http://115.233.227.46:8066/root/iep-ui/commits/743cc2f))
+
+
+### BREAKING CHANGES
+
+* **yy:** yy
+* **yy:** yy
+* **bb:** dd
+* **学堂:** 学堂
+* **項目与质量管:** 项目与质量管理
+
+
+
 ## [1.2.9](http://115.233.227.46:8066/root/iep-ui/compare/v1.2.8...v1.2.9) (2019-04-28)
 
 

@@ -1,5 +1,6 @@
 <template>
-  <a-select :value="tagsValue" mode="tags" style="width: 100%" :tokenSeparators="[',','；','，', ';']" @select="handleChange" @search="querySearch">
+  <a-select :defaultValue="value" mode="tags" style="width: 100%" :tokenSeparators="[',','；','，', ';']" @change="handleChange" @search="querySearch" :notFoundContent="fetching ? undefined : null">
+    <a-spin v-if="fetching" slot="notFoundContent" size="small" />
     <a-select-option v-for="i in tagResults" :key="i">{{ i }}</a-select-option>
   </a-select>
 </template>
@@ -17,8 +18,7 @@ export default {
   data () {
     this.querySearch = debounce(this.querySearch, 200)
     return {
-      tagsValue: [],
-      tagList: [],
+      fetching: false,
       tagResults: [],
     }
   },
@@ -28,23 +28,17 @@ export default {
   methods: {
     async loadTag (name = '') {
       const { data } = await getTagList({ name })
-      this.tagList = data.data.tags
+      this.tagResults = data.data.tags
     },
-    querySearch (queryString) {
-      const tagList = this.tagList
-      const results = queryString ? tagList.filter(this.createFilter(queryString)) : tagList
-      // 调用 callback 返回建议列表的数据
-      this.tagResults = results
-    },
-    createFilter (query) {
-      const queryToLower = query.toLowerCase()
-      return (item) => {
-        return (item.toLowerCase().indexOf(queryToLower) > -1)
-      }
+    async querySearch (query) {
+      this.fetching = true
+      const name = query.toLowerCase()
+      const { data } = await getTagList({ name })
+      this.tagResults = data.data.tags
+      this.fetching = false
     },
     handleChange (value) {
-      console.log(value)
-      this.tagsValue.push(value)
+      this.$emit('input', value)
     },
   },
 }

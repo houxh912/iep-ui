@@ -3,7 +3,7 @@
     <el-tag v-if="!users.length" type="info">暂无</el-tag>
     <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
-      <el-autocomplete style="width:100%;" v-model="username" :fetch-suggestions="querySearch" placeholder="请输入内容" @select="handleSelect" highlight-first-item>
+      <el-autocomplete style="width:100%;" v-model="username" :fetch-suggestions="querySearch" placeholder="请输入姓名或姓名拼音" @select="handleSelect" highlight-first-item>
         <i class="el-icon-edit el-input__icon" slot="suffix"></i>
         <template slot-scope="{ item }">
           <span style="float: left">{{ item.name }}</span>

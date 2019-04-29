@@ -30,7 +30,7 @@
 import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
 export default {
-  name: 'IepContactMultipleUser',
+  name: 'IepContactNewMultipleUser',
   props: {
     disabled: {
       type: Boolean,

@@ -1,13 +1,12 @@
 <template>
   <div class="multiple-box">
-    <el-tag v-if="!users.length" type="info">暂无</el-tag>
-    <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
+    <operation-wrapper v-if="disabled">
+      <el-tag v-if="!users.length" type="info">暂无</el-tag>
+      <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
+    </operation-wrapper>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
-      <a-select mode="multiple" labelInValue :value="users" placeholder="Select users" style="width: 100%" :filterOption="false" @search="querySearch" @change="handleChange">
-        <a-select-option v-for="item in userResults" :key="item.id">
-          <span style="float: left">{{ item.name }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">{{ item.pinyin }}</span>
-        </a-select-option>
+      <a-select mode="multiple" labelInValue :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="querySearch" @change="handleChange">
+        <a-select-option v-for="item in userResults" :key="item.id+''" :value="item.id+''" :title="item.name">{{ item.name }}</a-select-option>
       </a-select>
       <iep-button v-if="isClear && !disabled" icon="el-icon-error" @click="clearAll"></iep-button>
       <iep-button @click="openContact()">通讯录</iep-button>
@@ -30,7 +29,7 @@ import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
 import debounce from 'lodash/debounce'
 export default {
-  name: 'IepContactNewMultipleUser',
+  name: 'IepContactMultipleUser',
   props: {
     disabled: {
       type: Boolean,
@@ -70,6 +69,14 @@ export default {
       set: function (value) { this.$emit('input', value) },
     },
     userIds: function () { return this.value.map(m => m.id) },
+    usersValue () {
+      return this.users.map(m => {
+        return {
+          key: m.id + '',
+          label: m.name,
+        }
+      })
+    },
     userPyListFilter () {
       return this.userPyList.filter(m => !this.userIds.includes(m.id))
     },
@@ -118,11 +125,15 @@ export default {
         }
       }
     },
-    handleChange (value) {
-      console.log(value)
+    handleChange (usersValue) {
+      const value = usersValue.map(m => {
+        return {
+          id: +m.key,
+          name: m.label,
+        }
+      })
       Object.assign(this, {
-        user: value,
-        data: [],
+        users: value,
       })
     },
     handleSelect (item) {
@@ -133,7 +144,6 @@ export default {
       this.username = ''
     },
     querySearch (queryString) {
-      console.log(queryString)
       const userPyListFilter = this.userPyListFilter
       const results = queryString ? userPyListFilter.filter(this.createFilter(queryString)) : userPyListFilter
       // 调用 callback 返回建议列表的数据

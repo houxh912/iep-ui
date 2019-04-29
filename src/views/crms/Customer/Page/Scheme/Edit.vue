@@ -160,7 +160,7 @@ export default {
         this.formData = this.data.data
         getSchemeById(this.data.programId).then((res) => {
           this.schemeData = res.data.data
-          this.formData.attachFileList = [{ name: this.schemeData.atchUpload }]
+          this.formData.attachFileList = res.data.data.attachs
         })
       }
     }
@@ -182,7 +182,6 @@ export default {
           }
           this.formData.type = 0
           if (this.data.newAdd) {
-            console.log(this.formData)
             createData(this.formData).then((data) => {
               if (data.data && data.data.data === false) {
                 this.$message.error(data.data.msg)
@@ -195,10 +194,7 @@ export default {
               this.schemeData.attachs = this.formData.attachFileList
               this.schemeData.atchUpload = this.formData.attachFile
               createScheme(this.schemeData).then(() => {
-                this.$message({
-                  message: '新增成功',
-                  type: 'success',
-                })
+                this.$message.success('恭喜您成功上传了一篇材料，继续努力！')
               })
               this.$emit('onGoBack')
               return false

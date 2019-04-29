@@ -12,7 +12,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :cell-style="cell" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index @row-click="contactDetail">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :cell-style="mixinsCellPointerStyle" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="contactDetail">
         <el-table-column prop="operation" label="对应客户" width="460">
           <template slot-scope="scope">
             <span class="contact-tag" v-for="(item,index) in scope.row.clientInfos" :key="index">{{item.clientName}}</span>
@@ -78,7 +78,7 @@ export default {
       this.loadTable(param, fetchList)
     },
     contactDetail (row, column) {
-      if (column.label == '操作' || column.type == 'selection' || column.type == 'index') {
+      if (column.label == '操作' || column.type == 'selection') {
         return false
       }
       this.$refs['DetailDrawer'].drawerShow = true

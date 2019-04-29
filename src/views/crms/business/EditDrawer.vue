@@ -62,6 +62,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import { checkName } from '@/api/crms/customer'
+import { checkBusinessName } from '@/api/crms/business'
 import { initForm } from './options'
 const tipContent = {
   clientName: '客户名称精确到局办且为全称， 如：“北京市行政服务中心”',
@@ -90,7 +91,14 @@ export default {
             if (!res.data.data) {
               callback(new Error('您输入的客户名称已存在，请重新输入！'))
             } else {
-              callback()
+              checkBusinessName({ name: val }).then(res => {
+                if (res.data) {
+                  callback()
+                  return false
+                } else {
+                  callback(new Error('您输入的客户名称已存在，请重新输入！'))
+                }
+              })
             }
           })
         }
@@ -142,6 +150,7 @@ export default {
     },
     loadPage () {
       this.drawerShow = false
+      this.formData = initForm()
       this.$emit('load-page')
     },
     submitForm (formName) {

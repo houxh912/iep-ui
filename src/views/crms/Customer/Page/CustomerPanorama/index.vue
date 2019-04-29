@@ -87,12 +87,12 @@
             <div class="dot" v-for="(item,index) in formData.collaborations" :key="index">{{item.commonName}}</div>
           </div>
         </div>
-        <!-- <div class="item">
-          <div class="label">转义状态：</div>
+        <div class="item">
+          <div class="label">转移状态：</div>
           <div class="value">
-            <div class="dot">{{item.transferFlagName}}</div>
+            <div class="dot">{{formData.transferFlagName}}</div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
     <div class="info-block">

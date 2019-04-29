@@ -10,9 +10,9 @@ export function getBusinessList (query) {
   })
 }
 //商机新增查重
-export function checkName (query, name) {
+export function checkBusinessName (query) {
   return request({
-    url: `${crmsUrl}/page/${name}`,
+    url: `${crmsUrl}/page/%7Bname%7D`,
     method: 'get',
     params: query,
   })
@@ -85,7 +85,7 @@ export function cancelClaim (obj) {
 //发送消息
 export function sendMessage (query) {
   return request({
-    url: 'ims//system_message/send',
+    url: '/ims/system_message/send',
     method: 'post',
     params: query,
   })

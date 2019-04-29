@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       title: '意见反馈',
-      data: '（35次）',
+      data: '（58次）',
       linkName: '',
       thoughtsList: [
         { img: '../img/person/p015.jpg', name: '刘丹', time: '2019-04-09', feed: '国脉之最可以不断增加，建立增加签单量NO1，签单金额NO1，收款速度NO1等' },
@@ -65,7 +65,7 @@ export default {
     }
     .box {
       float: left;
-      width: 90%;
+      width: 270px;
       height: 62px;
       .pieceTitle {
         .name {
@@ -105,5 +105,9 @@ export default {
 }
 .thoughts >>> .el-button :hover {
   color: #f56c6c;
+}
+
+.thoughts >>> .el-card {
+  height: 329px;
 }
 </style>

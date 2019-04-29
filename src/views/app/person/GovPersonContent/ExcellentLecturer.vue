@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       title: '优秀讲师',
-      data: '（53位）',
+      data: '(53位)',
       thoughtsList: [
         {
           img: '../img/person/p013.jpg',

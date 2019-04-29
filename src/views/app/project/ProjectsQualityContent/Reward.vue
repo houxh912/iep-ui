@@ -80,4 +80,7 @@ export default {
 .reward-con >>> .el-card__body {
   height: 270px;
 }
+.reward-con >>> .el-card {
+  height: 329px;
+}
 </style>

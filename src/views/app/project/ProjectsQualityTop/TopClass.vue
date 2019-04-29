@@ -59,8 +59,8 @@ export default {
   .top-class-list {
     flex: 1;
     margin: 20px 0;
-    padding: 0 50px 0 20px;
-    border-right: 1px solid #eee;
+    padding: 0 50px 0 30px;
+    border-right: 1px solid #ddd;
     .numTotal,
     .numProjects,
     .numNow {

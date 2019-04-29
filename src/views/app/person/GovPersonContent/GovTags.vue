@@ -16,7 +16,7 @@ export default {
   data () {
     return {
       title: '国脉标签',
-      data: '（135个）',
+      data: '(135个)',
       leaderBoardList: [
         { name: '互联网+政务', num: '1222人', color: 'red' },
         { name: '服务', num: '421人', color: 'red' },

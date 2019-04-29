@@ -24,7 +24,7 @@
           <el-form-item label="标签：" prop="tagKeywords">
             <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
-          <el-form-item label="是否带库：" class="form-half">
+          <el-form-item label="是否带库：" prop="tapeLibrary" class="form-half">
             <el-radio-group v-model="form.tapeLibrary">
               <el-radio label="1">是</el-radio>
               <el-radio label="0">否</el-radio>

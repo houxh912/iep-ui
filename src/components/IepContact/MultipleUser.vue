@@ -1,10 +1,17 @@
 <template>
   <div class="multiple-box">
-    <operation-wrapper>
-      <el-tag v-if="!users.length" type="info">无</el-tag>
-      <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
+    <el-tag v-if="!users.length" type="info">暂无</el-tag>
+    <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
+    <operation-wrapper v-if="!disabled" class="contact-wrapper">
+      <el-autocomplete style="width:100%;" v-model="username" :fetch-suggestions="querySearch" placeholder="请输入内容" @select="handleSelect" highlight-first-item>
+        <i class="el-icon-edit el-input__icon" slot="suffix"></i>
+        <template slot-scope="{ item }">
+          <span style="float: left">{{ item.name }}</span>
+          <span style="float: right; color: #8492a6; font-size: 13px">{{ item.pinyin }}</span>
+        </template>
+      </el-autocomplete>
       <iep-button v-if="isClear && !disabled" icon="el-icon-error" @click="clearAll"></iep-button>
-      <iep-button v-if="!disabled" @click="openContact()">选择</iep-button>
+      <iep-button @click="openContact()">通讯录</iep-button>
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="close" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
@@ -20,6 +27,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
 export default {
   name: 'IepContactMultipleUser',
@@ -40,14 +48,20 @@ export default {
   data () {
     return {
       filterText: '',
-      treeData: [],
       dialogShow: false,
       props: {
         isLeaf: 'leaf',
       },
+      username: '',
+      treeData: [],
+      userPyList: [],
+      userResults: [],
     }
   },
   computed: {
+    ...mapGetters([
+      'contactsPyList',
+    ]),
     isClear () {
       return this.userIds.length !== 0 ? true : false
     },
@@ -56,6 +70,12 @@ export default {
       set: function (value) { this.$emit('input', value) },
     },
     userIds: function () { return this.value.map(m => m.id) },
+    userPyListFilter () {
+      return this.userPyList.filter(m => !this.userIds.includes(m.id))
+    },
+  },
+  created () {
+    this.loadPyList()
   },
   watch: {
     filterText (val) {
@@ -98,6 +118,31 @@ export default {
         }
       }
     },
+    handleSelect (item) {
+      this.users.push({
+        id: item.id,
+        name: item.name,
+      })
+      this.username = ''
+    },
+    querySearch (queryString, cb) {
+      const userPyListFilter = this.userPyListFilter
+      const results = queryString ? userPyListFilter.filter(this.createFilter(queryString)) : userPyListFilter
+      // 调用 callback 返回建议列表的数据
+      this.userResults = results
+      cb(results)
+    },
+    createFilter (query) {
+      const queryToLower = query.toLowerCase()
+      return (item) => {
+        return (item.name.toLowerCase().indexOf(queryToLower) > -1
+          || item.pinyin.toLowerCase().indexOf(queryToLower) > -1
+          || item.py.toLowerCase().indexOf(queryToLower) > -1)
+      }
+    },
+    loadPyList () {
+      this.userPyList = [...this.contactsPyList]
+    },
     loadNode () {
       getUserListTree().then(({ data }) => {
         this.treeData = data.data
@@ -107,8 +152,12 @@ export default {
 }
 </script>
 <style scoped>
+.contact-wrapper {
+  display: flex;
+}
 .multiple-box > .el-tag {
   margin-right: 5px;
+  margin-bottom: 5px;
 }
 .custom-tree-node {
   flex: 1;

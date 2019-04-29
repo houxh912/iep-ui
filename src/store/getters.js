@@ -25,6 +25,8 @@ const getters = {
   menusMap: state => state.user.menusMap,
   menuPathList: state => state.user.menuPathList,
   logsList: state => state.logs.logsList,
+  dictGroup: state => state.user.dictGroup,
+  contactsPyList: state => state.user.contactsPyList,
   logsLen: state => state.logs.logsList.length || 0,
   logsFlag: (state, getters) => getters.logsLen === 0,
 }

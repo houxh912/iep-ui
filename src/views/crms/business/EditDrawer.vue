@@ -73,21 +73,28 @@ const tipContent = {
 export default {
   data () {
     var validateFun = (rule, value, callback) => {
+
       let val = value.replace(/(^\s*)|(\s*$)/g, '')
       if (!val) {
         return callback(new Error('客户名称不能为空'))
-      }
-      checkName({ clientName: val }).then(res => {
-        if (!res.data.data) {
-          if (this.flag == this.formData.clientName) {
-            callback()
-            return false
-          }
-          callback(new Error('您输入的客户名称已存在，请重新输入！'))
-        } else {
+      } else {
+        if (this.flagName == this.formData.clientName) {
           callback()
+          return false
         }
-      })
+        if (value.length < 6 || value.length > 20) {
+          callback(new Error('客户名称至少6个字'))
+          return false
+        } else {
+          checkName({ clientName: val }).then(res => {
+            if (!res.data.data) {
+              callback(new Error('您输入的客户名称已存在，请重新输入！'))
+            } else {
+              callback()
+            }
+          })
+        }
+      }
     }
     return {
       tipContent,
@@ -97,7 +104,6 @@ export default {
       rules: {
         clientName: [
           { required: true, validator: validateFun, trigger: 'blur' },
-          { min: 2, max: 25, message: '长度在 2 到 25 个字符', trigger: 'blur' },
         ],
         projectName: [
           { required: true, message: '请输入项目名称', trigger: 'blur' },

@@ -108,7 +108,7 @@
       </el-form>
     </basic-container>
     <el-dialog title="添加对应客户" :visible.sync="dialogVisible" width="50%">
-      <el-input placeholder="请输入客户姓名" v-model="clientName" size="mini" maxlength="20">
+      <el-input placeholder="请输入客户姓名" v-model="clientName" size="mini" :maxlength="20">
         <template slot="append">
           <div class="search" @click="search">
             搜索

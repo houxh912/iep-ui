@@ -31,6 +31,8 @@ export default {
         data: this.$route.query.data,
       }
       this.currentComponet = 'Edit'
+    } else {
+      this.currentComponet = 'List'
     }
   },
   methods: {
@@ -52,10 +54,6 @@ export default {
     },
   },
   watch: {
-    '$route.path' () {
-      this.record = ''
-      this.currentComponet = 'List'
-    },
   },
 }
 </script>

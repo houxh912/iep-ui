@@ -2,15 +2,18 @@
     <div class="tag-content piece">
         <tag-desc></tag-desc>
         <about-person></about-person>
+        <datas></datas>
     </div>
 </template>
 <script>
 import TagDesc from './TagDesc'
 import AboutPerson from './AboutPerson'
+import Datas from './Datas'
 export default {
     components:{
         TagDesc,
         AboutPerson,
+        Datas,
     },
 }
 </script>

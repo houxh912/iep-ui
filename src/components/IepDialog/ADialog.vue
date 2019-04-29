@@ -1,5 +1,5 @@
 <template>
-  <a-modal :visible="dialogShow" :title="title" v-bind="$attrs" v-on="$listeners">
+  <a-modal :title="title" v-bind="$attrs" v-on="$listeners">
     <template slot="footer">
       <slot name="footer"></slot>
     </template>
@@ -9,11 +9,8 @@
 <script>
 export default {
   name: 'IepADialog',
+  inheritAttrs: false,
   props: {
-    dialogShow: {
-      default: false,
-      type: Boolean,
-    },
     title: {
       default: '标题',
       type: String,

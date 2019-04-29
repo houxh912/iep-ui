@@ -9,27 +9,27 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="收件人：" prop="receiverList" class="validate">
-            <span slot="label">
-              收件人
-              <iep-tip :content="tipContent.receiverList"></iep-tip>：
-            </span>
+          <span slot="label">
+            收件人
+            <iep-tip :content="tipContent.receiverList"></iep-tip>：
+          </span>
           <!-- <iep-tag v-model="formData.receiverIds"></iep-tag> -->
           <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
         </el-form-item>
         <el-form-item label="主题：" prop="subject">
-            <span slot="label">
-              主题
-              <iep-tip :content="tipContent.subject"></iep-tip>：
-            </span>
-          <el-input v-model="formData.subject" maxlength="50"></el-input>
+          <span slot="label">
+            主题
+            <iep-tip :content="tipContent.subject"></iep-tip>：
+          </span>
+          <el-input v-model="formData.subject" :maxlength="50"></el-input>
         </el-form-item>
         <el-form-item class="relation">
           <div class="item">
             <el-form-item label="附件列表：" label-width="90px">
-                <span slot="label">
-                  附件列表
-                  <iep-tip :content="tipContent.attachmentList"></iep-tip>
-                </span>
+              <span slot="label">
+                附件列表
+                <iep-tip :content="tipContent.attachmentList"></iep-tip>
+              </span>
               <iep-upload v-model="formData.attachmentList" :limit='limit'></iep-upload>
               <!-- <ul class="list">
               <li class="li" v-for="(item, index) in formData.materialIds" :key="index">
@@ -52,10 +52,10 @@
             </ul>
           </el-form-item> -->
             <el-form-item label="关联资源：" label-width="90px">
-                <span slot="label">
-                  关联资源
-                  <iep-tip :content="tipContent.transferList"></iep-tip>
-                </span>
+              <span slot="label">
+                关联资源
+                <iep-tip :content="tipContent.transferList"></iep-tip>
+              </span>
               <ul class="list">
                 <li class="li" v-for="(item, index) in this.formData.transferList.projectIds" :key="index">{{item.name}}</li>
               </ul>
@@ -66,18 +66,18 @@
           </div>
         </el-form-item>
         <el-form-item label="邮件标签：" prop="tagKeyWords">
-            <span slot="label">
-                  邮件标签
-                  <iep-tip :content="tipContent.tagKeyWords"></iep-tip>：
-                </span>
+          <span slot="label">
+            邮件标签
+            <iep-tip :content="tipContent.tagKeyWords"></iep-tip>：
+          </span>
           <iep-tag v-model="formData.tagKeyWords" plus @selectTags="selectTags"></iep-tag>
         </el-form-item>
         <el-form-item label="正文" prop="content">
-            <span slot="label">
-                  正文
-                  <iep-tip :content="tipContent.content"></iep-tip>：
-                </span>
-          <!-- <el-input type="textarea" rows=5 v-model="formData.content" maxlength="2000"></el-input> -->
+          <span slot="label">
+            正文
+            <iep-tip :content="tipContent.content"></iep-tip>：
+          </span>
+          <!-- <el-input type="textarea" rows=5 v-model="formData.content" :maxlength="2000"></el-input> -->
           <iep-froala-editor v-model="formData.content"></iep-froala-editor>
         </el-form-item>
         <el-form-item>
@@ -103,7 +103,7 @@ export default {
   data () {
     return {
       formData: initFormData(),
-        tipContent,
+      tipContent,
       rules,
       pageState: 'new',
       backOption: {
@@ -262,7 +262,7 @@ export default {
 <style>
 .validate label::before {
   content: "*";
-  color: #F56C6C;
+  color: #f56c6c;
   margin-right: 4px;
 }
 </style>

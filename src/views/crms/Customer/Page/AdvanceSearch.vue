@@ -12,9 +12,9 @@
     <el-form-item label="跟进状态">
       <iep-dict-select v-model="form.followUpStatus" dict-name="crms_follow_up_status"></iep-dict-select>
     </el-form-item>
-    <!-- <el-form-item label="业务类型">
-      <iep-dict-select v-model="form.businessTypeKey" dict-name="crms_business_type" multiple></iep-dict-select>
-    </el-form-item> -->
+    <el-form-item label="业务类型">
+      <iep-dict-select v-model="form.businessTypeKeyString" dict-name="crms_business_type" multiple></iep-dict-select>
+    </el-form-item>
     <el-form-item label="市场经理" v-if="type==='1'">
       <el-input v-model="form.marketManager" placeholder="请输入市场经理"></el-input>
     </el-form-item>
@@ -69,7 +69,9 @@ export default {
     }
   },
   methods: {
+
     searchPage () {
+      this.form.businessTypeKeyString = this.form.businessTypeKeyString.join(',')
       this.$emit('search-page', { type: this.type, ...this.form })
     },
     clearSearchParam () {

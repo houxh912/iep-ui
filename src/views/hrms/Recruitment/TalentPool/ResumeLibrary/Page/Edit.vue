@@ -215,7 +215,7 @@
                 <iep-tip content="请务必以年薪方式填写，如5-6万/年"></iep-tip>
                 ：
               </span>
-              <el-input v-model="form.salary"></el-input>
+              <iep-dict-select v-model="form.salary" dict-name="hrms_wages_salaries"></iep-dict-select>
             </el-form-item>
             <el-form-item label="期望工作地：" prop="workPlace" class="form-half">
               <iep-dict-select v-model="form.workPlace" dict-name="hrms_work_place"></iep-dict-select>

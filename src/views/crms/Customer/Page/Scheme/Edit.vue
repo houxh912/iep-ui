@@ -8,7 +8,7 @@
           <iep-tip :content="tipContent.materialName"></iep-tip>
           ：
         </span>
-        <el-input v-model="formData.materialName" maxlength="50"></el-input>
+        <el-input v-model="formData.materialName" :maxlength="50"></el-input>
       </el-form-item>
       <el-form-item label="作者：">
         <span slot="label">
@@ -16,7 +16,7 @@
           <iep-tip :content="tipContent.uploader"></iep-tip>
           ：
         </span>
-        <el-input v-model="formData.uploader" maxlength="40"></el-input>
+        <el-input v-model="formData.uploader" :maxlength="40" disabled></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
         <span slot="label">
@@ -24,7 +24,7 @@
           <iep-tip :content="tipContent.intro"></iep-tip>
           ：
         </span>
-        <el-input type="textarea" v-model="formData.intro" rows="5" maxlength="200"></el-input>
+        <el-input type="textarea" v-model="formData.intro" rows="5" :maxlength="200"></el-input>
       </el-form-item>
       <el-row>
         <el-col :span=12>
@@ -95,7 +95,7 @@
 import { initLocalForm, rules, dictsMap, tipContent } from './options'
 import { getConfigureTree } from '@/api/mlms/material/datum/configure'
 import { createData, updateData } from '@/api/mlms/material/datum/material'
-import { createScheme, updateScheme, getSchemeById } from '@/api/crms/scheme'
+import { createScheme, saveScheme, updateScheme, getSchemeById } from '@/api/crms/scheme'
 import { mapGetters, mapState } from 'vuex'
 export default {
   computed: {
@@ -230,11 +230,13 @@ export default {
                 console.log(data.data.data)
                 this.schemeData.materialId = data.data.data
                 this.schemeData.programName = this.formData.materialName
+                this.schemeData.programId = this.data.programId
+
                 this.schemeData.creator = this.userInfo.userId
                 this.schemeData.clientId = this.record.id
                 this.schemeData.attachs = this.formData.attachFileList
                 this.schemeData.atchUpload = this.formData.attachFile
-                updateScheme(this.schemeData).then(() => {
+                saveScheme(this.schemeData).then(() => {
                   this.$message({
                     message: '保存至材料库成功',
                     type: 'success',

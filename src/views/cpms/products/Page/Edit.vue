@@ -10,13 +10,13 @@
             <iep-avatar v-model="form.imageUrl"></iep-avatar>
           </el-form-item>
           <el-form-item label="产品编号：" prop="number" class="form-half">
-            <el-input maxlength="110" v-model="form.number"></el-input>
+            <el-input :maxlength="110" v-model="form.number"></el-input>
           </el-form-item>
           <el-form-item label="产品名称：" prop="name" class="form-half">
-            <el-input maxlength="110" v-model="form.name"></el-input>
+            <el-input :maxlength="110" v-model="form.name"></el-input>
           </el-form-item>
           <el-form-item label="产品网址：" prop="website" class="form-half">
-            <el-input maxlength="2010" v-model="form.website"></el-input>
+            <el-input :maxlength="2010" v-model="form.website"></el-input>
           </el-form-item>
           <el-form-item label="上线时间：" prop="onlineTime" class="form-half">
             <iep-date-picker v-model="form.onlineTime" type="date" placeholder="请输入时间"></iep-date-picker>
@@ -37,7 +37,7 @@
             <iep-input-area v-model="form.instructions"></iep-input-area>
           </el-form-item>
           <el-form-item label="产品简介：" prop="synopsis">
-            <el-input maxlength="2010" v-model="form.synopsis"></el-input>
+            <el-input :maxlength="110" v-model="form.synopsis"></el-input>
           </el-form-item>
           <el-form-item label="产品介绍：" prop="description">
             <iep-input-area v-model="form.description"></iep-input-area>
@@ -45,7 +45,7 @@
         </el-row>
         <div class="title">团队信息：</div>
         <el-row class="base">
-          <el-form-item label="负责人：" class="form-half">
+          <el-form-item label="负责人：" prop="userRelationCharges" class="form-half">
             <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="需求方：" class="form-half">

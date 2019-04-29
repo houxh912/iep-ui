@@ -39,8 +39,10 @@
       </el-table-column>
       <el-table-column label="操作" width="220px">
         <template slot-scope="scope">
-          <iep-button type="warning" @click="handleReview(scope.row)" plain>审核</iep-button>
-          <iep-button :disabled="scope.row.status===3" @click="handleDeliver(scope.row)">转交</iep-button>
+          <operation-wrapper>
+            <iep-button type="warning" @click="handleReview(scope.row)" plain>审核</iep-button>
+            <iep-button :disabled="scope.row.status===3" @click="handleDeliver(scope.row)">转交</iep-button>
+          </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>

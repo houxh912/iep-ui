@@ -42,16 +42,16 @@ module.exports = {
     config
       .entry('index')
       .add('babel-polyfill')
-      .end();
+      .end()
     if (isProduction) {
       // 删除预加载
-      config.plugins.delete('preload');
-      config.plugins.delete('prefetch');
+      config.plugins.delete('preload')
+      config.plugins.delete('prefetch')
       // 压缩代码
-      config.optimization.minimize(true);
+      config.optimization.minimize(true)
       // 分割代码
       config.optimization.splitChunks({
-        chunks: 'all'
+        chunks: 'all',
       })
       // 生产环境注入cdn
       // config.plugin('html')
@@ -62,11 +62,13 @@ module.exports = {
     }
     config.plugin('define').tap(definitions => {
       definitions[0] = Object.assign(definitions[0], {
-        BUILD_TIME: Date.parse(new Date()),
-        BUILD_GIT_HASH: JSON.stringify(utils.getGitHash()),
+        BUILD_PROJECT: JSON.stringify(utils.getProject()),
+        BUILD_TEAM_NAME: JSON.stringify(utils.getProjectTeam()),
         BUILD_PRO_NAME: JSON.stringify(utils.getProjectName()),
         BUILD_VER_TAG: JSON.stringify(utils.getCurrentTag()),
+        BUILD_GIT_HASH: JSON.stringify(utils.getGitHash()),
         BUILD_PRO_DESC: JSON.stringify(utils.getProjectDesc()),
+        BUILD_TIME: Date.parse(new Date()),
       })
       return definitions
     })
@@ -114,8 +116,8 @@ module.exports = {
           // 'link-color': '#1DA57A',
           // 'border-radius-base': '2px',
         },
-        javascriptEnabled: true
-      }
+        javascriptEnabled: true,
+      },
     },
     // 启用 CSS modules for all css / pre-processor files.
     // modules: false,
@@ -141,5 +143,5 @@ module.exports = {
       skipWaiting: true,
       clientsClaim: true,
     },
-  }
+  },
 }

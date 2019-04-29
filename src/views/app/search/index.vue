@@ -80,8 +80,31 @@ export default {
   },
 }
 </script>
+<style scoped>
+.gov-search >>> .el-input--small input {
+  height: 40px !important;
+}
+.gov-search >>> .el-card {
+  background-color: #fafafa;
+}
+.gov-search >>> .search-con .input-wrapper {
+  max-width: 510px;
+  width: 510px;
+}
+.gov-search >>> .el-button--danger.is-plain {
+  color: #cb3737;
+  background: #fef0f0;
+  border-color: #cb3737;
+}
+.gov-search >>> .el-button--danger.is-plain:hover,
+.gov-search >>> .el-button--danger.is-plain:focus {
+  background: #cb3737;
+  border-color: #ba1b21;
+  color: #fff;
+}
+</style>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .bg-white,
 .gov-search,
 .gov-info {
@@ -143,7 +166,7 @@ export default {
   max-width: 600px;
   justify-content: space-between;
 }
-.input-wrapper{
+.input-wrapper {
   width: 100%;
 }
 </style>

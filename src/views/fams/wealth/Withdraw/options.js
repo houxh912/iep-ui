@@ -1,10 +1,16 @@
 import { mergeByFirst } from '@/util/util'
 
-const columnsMap = [
-  {
-    prop: 'id',
-    label: 'ID',
+const dictsMap = {
+  status: {
+    '0': '待审',
+    '1': '待发放',
+    '2': '已发放',
+    '3': '提现失败',
+    '4': '提现失败',
   },
+}
+
+const columnsMap = [
   {
     prop: 'amount',
     label: '提现金额',
@@ -14,16 +20,31 @@ const columnsMap = [
     label: '发票抵扣金额',
   },
   {
-    prop: 'amount',
-    label: '金额',
+    prop: 'taxation',
+    label: '税费',
   },
   {
-    prop: 'currentAmount',
-    label: '当前金额',
-  },{
-    prop: 'time',
-    label: '日期',
-  },{
+    prop: 'status',
+    label: '状态',
+    type: 'dict',
+  },
+  {
+    prop: 'auditorName',
+    label: '审核人',
+  },
+  {
+    prop: 'createTime',
+    label: '申请日期',
+  },
+  {
+    prop: 'auditingTime',
+    label: '审核日期',
+  },
+  {
+    prop: 'grantTime',
+    label: '发放日期',
+  },
+  {
     prop: 'remarks',
     label: '备注',
   },
@@ -47,4 +68,4 @@ const initSearchForm = () => {
   }
 }
 
-export { columnsMap, initForm, initSearchForm, formToDto }
+export { columnsMap, dictsMap, initForm, initSearchForm, formToDto }

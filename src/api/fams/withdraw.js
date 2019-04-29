@@ -9,3 +9,10 @@ export function getWithdrawPage (query) {
     params: query,
   })
 }
+export function postWithdraw (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}

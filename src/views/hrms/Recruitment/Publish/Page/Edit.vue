@@ -57,7 +57,7 @@
                 <iep-tip content="多项内容时使用“/”分开，如无要求则填“无”"></iep-tip>
                 ：
               </span>
-              <el-input v-model="form.profession" maxlength="2010"></el-input>
+              <el-input v-model="form.profession" :maxlength="2010"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

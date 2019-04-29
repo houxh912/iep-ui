@@ -7,7 +7,7 @@
           <el-radio-group v-model="formData.meetingType">
             <el-radio v-for="(item, index) in dictGroup.mlms_meeting_type" :key="index" :label="item.value" @change="typeChange">
                 {{item.label}}
-                  <iep-tip :content="tipContent.meetingType[index]"></iep-tip>
+                  <iep-tip :content="tipContent.meetingType[item.value]"></iep-tip>
             </el-radio>
           </el-radio-group>
         </el-form-item>

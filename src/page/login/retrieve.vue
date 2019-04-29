@@ -13,7 +13,7 @@
         </a-input>
       </el-form-item>
       <el-form-item class="input-last" prop="code">
-        <a-input-search maxlength="4" v-model="form.code" auto-complete="off" placeholder="请输入验证码" @search="handleSend" size="large">
+        <a-input-search :maxlength="4" v-model="form.code" auto-complete="off" placeholder="请输入验证码" @search="handleSend" size="large">
           <a-button slot="enterButton" :class="[{ display: msgKey }]">{{ msgText }}</a-button>
         </a-input-search>
       </el-form-item>

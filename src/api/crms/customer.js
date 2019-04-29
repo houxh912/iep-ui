@@ -1,7 +1,7 @@
 import request from '@/router/axios'
-
 const prefixUrl = '/crm/customer'
 //客户page
+
 export function getCustomerPage (obj) {
   return request({
     url: `${prefixUrl}/page`,

@@ -4,7 +4,7 @@
       <template v-if="activeTab ==='Meterials'" v-slot:Meterials>
         <div class="header">
           <iep-button type="primary" plain size="mini" @click="handleAdd"><i class="el-icon-plus"></i>新增方案</iep-button>
-          <el-input placeholder="请输入内容" v-model="materialName" maxlength="100" size="small" class="search">
+          <el-input placeholder="请输入内容" v-model="materialName" :maxlength="100" size="small" class="search">
             <template slot="append">
               <el-button @click="search" size="mini">搜索</el-button>
             </template>
@@ -65,7 +65,7 @@ export default {
       if (value == '') {
         callback(new Error('方案名称不能为空'))
       } else {
-        checkName(value).then(res => {
+        checkName({ name: value, id: this.id }).then(res => {
           if (res.data.data) {
             callback()
             return false
@@ -84,6 +84,7 @@ export default {
       }
     }
     return {
+      id: '',
       showMterial: true,
       drawerShow: false,
       submitFn: () => { },
@@ -156,7 +157,8 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        checkName(row.materialName).then((res) => {
+        checkName({ name: row.materialName, id: this.formData.clientId }).then((res) => {
+          console.log(res.data.data)
           if (res.data.data) {
             this.$emit('add', row)
             this.drawerShow = false

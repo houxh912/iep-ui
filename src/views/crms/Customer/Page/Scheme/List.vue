@@ -3,7 +3,7 @@
     <operation-wrapper>
       <iep-button class="btn" type="primary" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加方案</iep-button>
     </operation-wrapper>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="cell" @row-click="handleDetail">
       <el-table-column label="方案名称">
         <template slot-scope="scope">
           <el-col>
@@ -43,6 +43,7 @@
       </div>
     </el-row>
     <add-drawer ref="AddDrawer" @load-page="loadPage" @add="add" @on-add="OnAdd"></add-drawer>
+    <detail ref="detail"></detail>
   </div>
 </template>
 
@@ -52,12 +53,13 @@ import { getSchemePage, createScheme, updateScheme, deleteSchemeById, getSchemeB
 import { deleteData } from '@/api/mlms/material/datum/material'
 import { mapGetters } from 'vuex'
 import AddDrawer from './AddDrawer'
+import Detail from './Detail'
 import { downloadModel } from '@/api/crms/download'
 import { getDataById } from '@/api/mlms/material/datum/material'
 export default {
   name: 'contacts',
   mixins: [mixins],
-  components: { AddDrawer },
+  components: { AddDrawer, Detail },
   props: {
     record: {
       type: Object,
@@ -95,6 +97,20 @@ export default {
     })
   },
   methods: {
+    handleDetail (row, column) {
+      if (row.materialId !== 0) {
+        if (column.label == '操作' || column.type == 'selection' || column.type == 'index') {
+          return false
+        }
+        this.$refs['detail'].drawerShow = true
+        getDataById(row.materialId).then((res) => {
+          this.$refs['detail'].detailForm = res.data.data
+        })
+      } else {
+        return false
+      }
+
+    },
     //新增方案函数
     OnAdd () {
       this.$refs['AddDrawer'].drawerShow = false
@@ -106,6 +122,7 @@ export default {
     },
     handleAdd () {
       this.$refs['AddDrawer'].formData.clientId = this.record.id
+      this.$refs['AddDrawer'].id = this.record.id
       this.$refs['AddDrawer'].drawerShow = true
       this.$refs['AddDrawer'].methodName = '新增'
       this.$refs['AddDrawer'].submitFn = createScheme
@@ -131,7 +148,6 @@ export default {
     },
     //保存至材料库/关联修改
     relateEdit (row) {
-      console.log(row)
       if (row.materialId !== 0) {
         getDataById(row.materialId).then((res) => {
           this.$emit('onEdit', { data: res.data.data, programId: row.programId, save: false })
@@ -242,6 +258,7 @@ export default {
   }
 }
 .item {
+  margin-top: 10px;
   display: inline-block;
   border-radius: 4px;
   cursor: pointer;

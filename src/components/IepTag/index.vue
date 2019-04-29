@@ -8,7 +8,7 @@
         {{`${tag.slice(0, 20)}${tag.length > 20 ? '...' : ''}`}}
       </a-tag>
     </a-tooltip>
-    <a-input v-if="inputVisible" ref="input" maxlength="100" type="text" size="small" :style="{ width: '78px', marginRight: '9px' }" :value="inputValue" @change="handleInputChange" @blur="handleInputConfirm" @keyup.enter="handleInputConfirm" />
+    <a-input v-if="inputVisible" ref="input" :maxlength="100" type="text" size="small" :style="{ width: '78px', marginRight: '9px' }" :value="inputValue" @change="handleInputChange" @blur="handleInputConfirm" @keyup.enter="handleInputConfirm" />
     <a-tag v-else @click="showInput" style="background: #fff; borderStyle: dashed;">
       <a-icon type="plus" /> 新建标签
     </a-tag>

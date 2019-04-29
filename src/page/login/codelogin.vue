@@ -4,7 +4,7 @@
       <a-input v-model="loginForm.mobile" auto-complete="off" placeholder="请输入手机号码" size="large" />
     </el-form-item>
     <el-form-item prop="code">
-      <a-input-search @keyup.enter.native="handleLogin" maxlength="4" v-model="loginForm.code" auto-complete="off" placeholder="请输入验证码" @search="handleSend" size="large">
+      <a-input-search @keyup.enter.native="handleLogin" :maxlength="4" v-model="loginForm.code" auto-complete="off" placeholder="请输入验证码" @search="handleSend" size="large">
         <a-button slot="enterButton" :class="[{ display: msgKey }]">{{ msgText }}</a-button>
       </a-input-search>
     </el-form-item>

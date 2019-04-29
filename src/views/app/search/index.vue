@@ -112,6 +112,9 @@ export default {
   margin-left: 0;
   margin-right: 0;
 }
+.gov-info{
+  margin-bottom:150px!important;
+}
 .el-row {
   margin-bottom: 20px;
 }

@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       title: '培训预告',
-      data: '（10条）',
+      data: '(10条)',
       trainingNotice: [
         { name: '数据基因产品培训服务', time: '2019-04-03' },
         { name: 'JAVA高级开发架构师课程', time: '2019-03-03' },

@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       title: '悬赏任务',
-      data: '（23件）',
+      data: '(23件)',
       reward: [
         { name: '关于项目验收表格材料标准化模版', money: '2000贝' },
         { name: '微服务设计入门', money: '已结束', bg: 'bgc' },
@@ -37,7 +37,7 @@ export default {
     margin-left: 15px;
     .name {
       display: inline-block;
-      width: 200px;
+      width: 70%;
       height: 30px;
       line-height: 30px;
       overflow: hidden;

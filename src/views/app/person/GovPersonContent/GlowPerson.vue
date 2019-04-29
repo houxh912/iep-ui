@@ -8,7 +8,7 @@
           <span class="pieceDeletion" v-for="(name,index) in nameList" :key="index" :class="showClass1==index?'color':''" @click="tab1(index)">{{name.name}}<span class="data-con">{{name.data}}</span></span>
         </div>
         <div class="resourcesList">
-          <div v-for="(item,index) in resourcesList" :key="index" class="piece"  @click="handleOpen()">
+          <div v-for="(item,index) in resourcesList" :key="index" class="piece" @click="handleOpen()">
             <div class="img-con"><img :src="item.img" class="img" alt=""></div>
             <div class="text">
               <span class="name">{{item.name}}</span>
@@ -26,7 +26,7 @@ export default {
     return {
       showClass1: 0,
       title: '光彩国脉人',
-      linkName:'',
+      linkName: '',
       nameList: [
         {
           name: '技术之星',
@@ -105,6 +105,9 @@ export default {
     background-color: #fef6f4;
     border: 1px solid #dc8687;
     color: #dc8687;
+  }
+  .name {
+    font-size: 16px;
   }
 }
 .resourcesList {

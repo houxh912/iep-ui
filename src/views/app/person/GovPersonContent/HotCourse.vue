@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       title: '热门课程',
-      data: '（37节）',
+      data: '(37节)',
       hotCourse: [
         { name: '数据基因产品培训服务', num: '113人已学习' },
         { name: 'JAVA高级开发架构师课程', num: '78人已学习' },

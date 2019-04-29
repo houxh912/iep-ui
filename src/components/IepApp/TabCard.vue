@@ -60,7 +60,8 @@ export default {
   color: #999;
 }
 .datas {
-  font-size: 16px;
+  margin-left: 5px;
+  font-size: 14px;
   color: #999;
 }
 .iconfont {

@@ -13,7 +13,7 @@
 export default {
   data () {
     return {
-      title: '国脉一统十',
+      title: '国脉十统一',
       tenLinksOne: [
         { icon: 'icon-xuexishuben', 'title': '宣传册5个', des: '内涵非常广泛' },
         { icon: 'icon-wendang', 'title': 'ppt4个', des: '内涵非常广泛' },

@@ -7,11 +7,11 @@
             {{value !== '-' ? formatNumber(value) : '-'}}
           </span>
           <template slot="title" v-else>
-            可提现金额 {{maxAmount}} 元
+            可提现金额 {{maxAmount}} 元，最低 100
           </template>
-          <a-input-number style="width:100%;" :formatter="value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')" :parser="value => value.replace(/\￥\s?|(,*)/g, '')" :min="0" :max="maxAmount" maxLength="25" v-decorator="[ 
+          <a-input-number style="width:100%;" :formatter="value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')" :parser="value => value.replace(/\￥\s?|(,*)/g, '')" :min="100" :max="maxAmount" maxLength="25" v-decorator="[ 
           'amount', {
-          initialValue: 0,
+          initialValue: 100,
           rules: [{ required: true, message: '请输入提现金额' }]
         }]" placeholder="请输入提现金额" />
         </a-tooltip>

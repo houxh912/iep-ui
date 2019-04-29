@@ -47,7 +47,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="cell" is-index>
       </iep-table>
     </basic-container>
   </div>
@@ -71,9 +71,6 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleSelectionChange (val) {
-      this.multipleSelection = val.map(m => m.id)
-    },
     handleDetail (row) {
       this.$router.push({
         path: '/fams_spa/withdraw_detail/' + row.id,

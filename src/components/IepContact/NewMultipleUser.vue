@@ -2,14 +2,14 @@
   <div class="multiple-box">
     <operation-wrapper v-if="disabled">
       <el-tag v-if="!users.length" type="info">暂无</el-tag>
-      <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
+      <el-tag type="info" v-for="user in users" :key="user.id">{{user.name}}</el-tag>
     </operation-wrapper>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
       <a-select mode="multiple" labelInValue :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="querySearch" @change="handleChange">
         <a-select-option v-for="item in userResults" :key="item.id+''" :value="item.id+''" :title="item.name">{{ item.name }}</a-select-option>
       </a-select>
-      <iep-button v-if="isClear && !disabled" icon="el-icon-error" @click="clearAll"></iep-button>
-      <iep-button @click="openContact()">通讯录</iep-button>
+      <a-button v-if="isClear && !disabled" icon="close" @click="clearAll"></a-button>
+      <a-button @click="openContact()">通讯录</a-button>
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="close" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
@@ -159,6 +159,7 @@ export default {
     },
     loadPyList () {
       this.userPyList = [...this.contactsPyList]
+      this.userResults = [...this.contactsPyList]
     },
     loadNode () {
       getUserListTree().then(({ data }) => {

@@ -1,6 +1,6 @@
 <template>
   <div class="iep-page-form">
-    <el-form ref="form" :model="form" size="small" label-width="80px">
+    <el-form ref="form" :model="form" size="small" label-width="120px">
       <el-form-item label="头像:">
         <iep-avatar v-model="form.avatar"></iep-avatar>
       </el-form-item>
@@ -13,11 +13,14 @@
       <el-form-item label="用户群:">
         <iep-contact-multiple-user v-model="form.userList"></iep-contact-multiple-user>
       </el-form-item>
-      <el-form-item label="新用户群:">
-        <iep-contact-new-multiple-user v-model="form.userList1"></iep-contact-new-multiple-user>
-      </el-form-item>
       <el-form-item label="群发:">
         <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
+      </el-form-item>
+      <el-form-item label="标签:">
+        <iep-tag v-model="form.tagList"></iep-tag>
+      </el-form-item>
+      <el-form-item label="新标签:">
+        <iep-new-tag v-model="form.tagList1"></iep-new-tag>
       </el-form-item>
       <el-form-item label="单部门:">
         <iep-dept-select v-model="form.dept"></iep-dept-select>
@@ -35,9 +38,6 @@
         <iep-upload v-model="form.fileList" drag :limit="2">
           点击进入<a href="http://77777">haahahahah</a>你好
         </iep-upload>
-      </el-form-item>
-      <el-form-item label="标签:">
-        <iep-tag v-model="form.tagList"></iep-tag>
       </el-form-item>
       <el-form-item label="froala富文本:">
         <iep-froala-editor v-model="form.content"></iep-froala-editor>
@@ -67,7 +67,6 @@ export default {
           users: [],
         },
         userList: [],
-        userList1: [],
         dept: {
           id: 1,
           name: '研发部',
@@ -78,6 +77,7 @@ export default {
         }],
         fileList: [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],
         tagList: ['大数据', '人工智能'],
+        tagList1: ['大数据', '人工智能'],
         content: '',
       },
     }

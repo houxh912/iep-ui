@@ -6,7 +6,7 @@
         <span style="float: right; color: #8492a6; font-size: 13px">{{ item.pinyin }}</span>
       </el-option>
     </el-select>
-    <iep-button @click="openContact()">通讯录</iep-button>
+    <a-button @click="openContact()">通讯录</a-button>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="dialogShow = false" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
       <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" :show-checkbox="showCheckbox" default-expand-all @node-click="selectUser">

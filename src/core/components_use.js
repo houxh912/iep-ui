@@ -26,6 +26,7 @@ import IepTip from '@/components/IepCommon/Tip'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
+import IepNewTag from '@/components/IepTag/newIndex'
 import IepSelect from '@/components/IepForm/Select'
 import IepDatePicker from '@/components/IepForm/DatePicker'
 import IepCascader from '@/components/IepForm/Cascader'
@@ -106,6 +107,7 @@ Vue.component(IepTip.name, IepTip)
 
 // 表单组件
 Vue.component(IepTag.name, IepTag)
+Vue.component(IepNewTag.name, IepNewTag)
 Vue.component(IepSelect.name, IepSelect)
 Vue.component(IepCascader.name, IepCascader)
 Vue.component(IepDictDetail.name, IepDictDetail)

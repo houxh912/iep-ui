@@ -11,7 +11,7 @@
         </template>
       </el-autocomplete>
       <iep-button v-if="isClear && !disabled" icon="el-icon-error" @click="clearAll"></iep-button>
-      <iep-button @click="openContact()">通讯录</iep-button>
+      <a-button @click="openContact()">通讯录</a-button>
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="close" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>

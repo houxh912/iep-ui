@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { toChinesNum, getDateStr } from '../util'
+import { toChinesNum, getDateStr, getWeekStartAndEnd } from '../util'
 import { updateData, createData } from '@/api/mlms/material/report/organize'
 import RelationDialog from './relationDialog'
 
@@ -106,6 +106,7 @@ export default {
         project: 'projectList',
         product: 'productList',
       },
+      submitMsg: '',
     }
   },
   methods: {
@@ -114,13 +115,10 @@ export default {
         if (valid) {
           // 判断这条数据是否在系统中已经生成
           let fn = () => { }
-          let successTips = ''
           if (this.formData.createTime) {
             fn = updateData
-            successTips = '恭喜您完成周报补写，继续努力！'
           } else {
             fn = createData
-            successTips = '恭喜您完成本周周报，继续努力！'
             this.formData.createTime = getDateStr(this.formData.timeStamp)
           }
           delete this.formData.updateTime
@@ -129,7 +127,7 @@ export default {
           this.formData.projectIds = this.formData.projectList.map(m => m.id)
           this.formData.productIds = this.formData.productList.map(m => m.id)
           fn(this.formData).then(() => {
-            this.$message.success(successTips)
+            this.$message.success(this.submitMsg)
             this.pageState = true
             this.$emit('success-submit', true)
           })
@@ -140,6 +138,17 @@ export default {
     },
     handleUpdate () {
       this.dislogState = 'update'
+      // 需要根据当前时间和内容判断提示语言
+      if (this.formData.workSummary !== '') { // 首先判断是新增还是修改
+        this.submitMsg = '保存成功'
+      } else {
+        let date = getWeekStartAndEnd(new Date())
+        if ((this.formData.timeStamp + 7*24*3600*1000) < +new Date(date.startYear)) { // 在本周时间内 - 正在填写的结束时间小于本周的开始时间
+          this.submitMsg = '恭喜您完成周报补写，继续努力！'
+        } else {
+          this.submitMsg = '恭喜您完成本周周报，继续努力！'
+        }
+      }
     },
     formatDig (index) {
       return toChinesNum(index)

@@ -98,6 +98,7 @@ export default {
         workSummary: [{ required: true, message: '必填', trigger: 'blur' }],
         workPlan: [{ required: true, message: '必填', trigger: 'blur' }],
       },
+      submitMsg: '',
     }
   },
   methods: {
@@ -106,19 +107,16 @@ export default {
         if (valid) {
           // 判断这条数据是否在系统中已经生成
           let fn = () => { }
-          let successTips = ''
           if (this.formData.createTime) {
             fn = updateData
-            successTips = '恭喜您完成本月月报，继续努力！'
           } else {
             fn = createData
-            successTips = '恭喜您完成月报补写，继续努力！'
             this.formData.reportType = 1
             this.formData.createTime = getDateStr(this.formData.timeStamp)
           }
           delete this.formData.updateTime
           fn(this.formData).then(() => {
-            this.$message.success(successTips)
+            this.$message.success(this.submitMsg)
             this.pageState = true
             this.$emit('success-submit', true)
           })
@@ -129,6 +127,18 @@ export default {
     },
     handleUpdate () {
       this.dislogState = 'update'
+      // 需要根据当前时间和内容判断提示语言
+      if (this.formData.workSummary !== '') { // 首先判断是新增还是修改
+        this.submitMsg = '保存成功'
+      } else {
+        // 判断是否是这个月内
+        let firstDay = +new Date(`${new Date().getFullYear()}-${new Date().getMonth()}`)
+        if (this.formData.timeStamp !== firstDay) {
+          this.submitMsg = '恭喜您完成月报补写，继续努力！'
+        } else {
+          this.submitMsg = '恭喜您完成本月月报，继续努力！'
+        }
+      }
     },
     getYearMonth (timeStamp) {
       let msg = '（'

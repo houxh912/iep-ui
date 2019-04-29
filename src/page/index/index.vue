@@ -70,6 +70,7 @@ export default {
   mounted () {
     // this.init()
     this.LoadAllDictMap()
+    this.LoadContactsPyList()
     // this.initWebSocket()
   },
   computed: {
@@ -81,7 +82,6 @@ export default {
       // 'expires_in',
     ]),
     asideWidth () {
-
       if (this.$route.matched[0].path === '/app') {
         return '0px'
       }
@@ -93,7 +93,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['LoadAllDictMap']),
+    ...mapActions(['LoadAllDictMap', 'LoadContactsPyList']),
     handleOk () {
       this.visible = false
     },

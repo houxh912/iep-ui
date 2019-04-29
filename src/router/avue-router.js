@@ -60,6 +60,8 @@ RouterPlugin.install = function (router, store) {
     },
     // 动态路由
     formatRoutes: function (aMenu = [], first) {
+      // TODO: 暂时空路由空白页处理方式
+      this.routerList = []
       const aRouter = []
       const propsConfig = this.$website.menu.props
       const propsDefault = {

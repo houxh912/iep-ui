@@ -54,6 +54,19 @@ export const tableOption = {
       prop: 'roleDesc',
       overHidden: true,
       span: 24,
+      rules: [
+        {
+          required: true,
+          message: '角色描述不能为空',
+          trigger: 'blur',
+        },
+        {
+          min: 3,
+          max: 20,
+          message: '长度在 3 到 20 个字符',
+          trigger: 'blur',
+        },
+      ],
     },
     {
       width: 180,

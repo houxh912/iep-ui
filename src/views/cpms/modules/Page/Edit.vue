@@ -39,12 +39,18 @@
         </el-row>
         <div class="title">团队信息：</div>
         <el-row class="base">
-          <el-form-item label="负责人：" prop="userRelationCharges" class="form-half">
-            <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
-          </el-form-item>
-          <el-form-item label="需求方：" class="form-half">
-            <iep-contact-multiple-user v-model="form.userRelationDemands"></iep-contact-multiple-user>
-          </el-form-item>
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="负责人：" prop="userRelationCharges">
+                <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="需求方：">
+                <iep-contact-multiple-user v-model="form.userRelationDemands"></iep-contact-multiple-user>
+              </el-form-item>
+            </el-col>
+          </el-row>
           <el-form-item label="技术经理：" class="form-half">
             <iep-contact-multiple-user v-model="form.userRelationTechnologys"></iep-contact-multiple-user>
           </el-form-item>

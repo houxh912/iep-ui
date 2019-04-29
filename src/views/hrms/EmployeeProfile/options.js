@@ -446,9 +446,6 @@ const rules = {
   position: [
     { required: true, message: '请填写岗位', trigger: 'blur' },
   ],
-  socialRela: [
-    { required: true, message: '请填写外部头衔', trigger: 'blur' },
-  ],
   jobId: [
     { required: true, message: '请填写职务', trigger: 'blur' },
   ],
@@ -463,9 +460,6 @@ const rules = {
   ],
   status: [
     { required: true, message: '请填写员工状态', trigger: 'blur' },
-  ],
-  dept: [
-    { required: true, message: '请填写所属部门', trigger: 'blur' },
   ],
   externalTitle: [
     { min: 2, message: '外部头衔至少 2 个字符以上', trigger: 'blur' },
@@ -491,6 +485,12 @@ const selfRules = {
   ...rules,
   avatar: [
     { required: true, message: '请上传头像', trigger: 'blur' },
+  ],
+  dept: [
+    { required: true, message: '请填写所属部门', trigger: 'blur' },
+  ],
+  socialRela: [
+    { required: true, message: '请填写外部头衔', trigger: 'blur' },
   ],
   birthday: [
     { required: true, message: '请填写出生年月', trigger: 'blur' },

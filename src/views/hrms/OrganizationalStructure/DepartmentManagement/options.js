@@ -52,6 +52,12 @@ const initDtoForm = () => {
 
 const toDeptForm = (row) => {
   const newForm = mergeByFirst(initForm(), row)
+  if (!newForm.user.id) {
+    newForm.user = {
+      id: '',
+      name: '',
+    }
+  }
   return newForm
 }
 

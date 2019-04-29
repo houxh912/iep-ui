@@ -114,7 +114,6 @@
 import { mapState } from 'vuex'
 import { mergeByFirst } from '@/util/util'
 import { initForm, rules } from './options'
-// import iepTags from '@/components/IepTags'
 import { getCustomerById } from '@/api/crms/customer'
 
 export default {
@@ -197,5 +196,4 @@ export default {
 .edit-wrapper {
   padding-bottom: 50px;
 }
-
 </style>

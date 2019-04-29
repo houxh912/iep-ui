@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <!-- <el-select v-model="userId" filterable :filter-method="onFilterMethod" placeholder="请选择" @focus.once="loadNode()" clearable>
-      <el-option v-for="item in userDataOptions" :key="item.value" :label="item.label" :value="item.value">
-        <span style="float: left">{{ item.label }}</span>
-        <span style="float: right; color: #8492a6; font-size: 13px">{{ item.py }}</span>
+  <operation-wrapper class="contact-wrapper">
+    <el-select :value="user.id" filterable :filter-method="onFilterMethod" placeholder="请输入姓名或姓名拼音或下拉" @change="handleChange" @clear="handleClear" clearable>
+      <el-option v-for="item in userPyListOptions" :key="item.id" :label="item.name" :value="item.id">
+        <span style="float: left">{{ item.name }}</span>
+        <span style="float: right; color: #8492a6; font-size: 13px">{{ item.pinyin }}</span>
       </el-option>
-    </el-select> -->
-    <el-input v-model="user.name" placeholder="请选择用户" @focus="openContact()" readonly>
-      <iep-button slot="append">选择</iep-button>
-    </el-input>
+    </el-select>
+    <iep-button @click="openContact()">通讯录</iep-button>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="dialogShow = false" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
       <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" :show-checkbox="showCheckbox" default-expand-all @node-click="selectUser">
@@ -17,10 +15,10 @@
         </span>
       </el-tree>
     </iep-drawer>
-  </div>
+  </operation-wrapper>
 </template>
 <script>
-// import { _onFlattenTree } from './util'
+import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
 export default {
   name: 'IepContactSelect',
@@ -47,11 +45,14 @@ export default {
         isLeaf: 'leaf',
       },
       treeData: [],
-      userData: [],
-      userDataOptions: [],
+      userPyList: [],
+      userPyListOptions: [],
     }
   },
   computed: {
+    ...mapGetters([
+      'contactsPyList',
+    ]),
     user: {
       // getter
       get: function () {
@@ -63,19 +64,38 @@ export default {
       },
     },
   },
+  created () {
+    this.loadPyList()
+  },
   methods: {
+    handleClear () {
+      this.user = {
+        id: '',
+        name: '',
+      }
+    },
+    handleChange (value) {
+      const index = this.userPyList.findIndex(m => m.id === value)
+      if (index >= 0) {
+        const name = this.userPyList[index].name
+        this.user = {
+          id: value,
+          name,
+        }
+      }
+    },
     onFilterMethod (query) {
       const queryToLower = query.toLowerCase()
       if (query !== '') {
         setTimeout(() => {
-          this.userDataOptions = this.userData.filter(item => {
-            return item.label.toLowerCase().indexOf(queryToLower) > -1
+          this.userPyListOptions = this.userPyList.filter(item => {
+            return item.name.toLowerCase().indexOf(queryToLower) > -1
+              || item.pinyin.toLowerCase().indexOf(queryToLower) > -1
               || item.py.toLowerCase().indexOf(queryToLower) > -1
-              || item.pys.toLowerCase().indexOf(queryToLower) > -1
           })
         }, 200)
       } else {
-        this.userDataOptions = [...this.userData]
+        this.userPyListOptions = [...this.userPyList]
       }
     },
     openContact () {
@@ -102,15 +122,16 @@ export default {
       }
     },
     filterNode (value, data) {
-      console.log(value)
       if (!value) return true
       return data.label.indexOf(value) !== -1
+    },
+    loadPyList () {
+      this.userPyList = [...this.contactsPyList]
+      this.userPyListOptions = [...this.contactsPyList]
     },
     loadNode () {
       getUserListTree().then(({ data }) => {
         this.treeData = data.data
-        // this.userData = [..._onFlattenTree(data.data)]
-        // this.userDataOptions = [..._onFlattenTree(data.data)]
       })
     },
   },
@@ -122,6 +143,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.contact-wrapper {
+  display: flex;
+}
 .is-disabled {
   cursor: not-allowed;
   color: #aaa;

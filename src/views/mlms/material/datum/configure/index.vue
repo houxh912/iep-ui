@@ -15,7 +15,15 @@
         </el-dropdown>
       </template>
     </operation-container>
-    <iep-table-tree :data="tableData" :option="columnsMap" @handleChild="handleChild" @selectChange="selectChange" :permissionAdd="permission_add">
+    <iep-table-tree 
+      :data="tableData" 
+      :option="columnsMap" 
+      @handleChild="handleChild" 
+      @selectChange="selectChange" 
+      :permissionAdd="permission_add"
+      :pagination="pagination"
+      @current-change="handleCurrentChange"
+      @size-change="handleSizeChange">
       <template #levelName="{scope, index}">
         <el-input v-model="formData.levelName" v-if="index===selectIndex" :maxlength="10"></el-input>
         <div v-else>{{scope.levelName}}</div>

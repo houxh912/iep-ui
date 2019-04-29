@@ -19,8 +19,6 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-</style>
 <style scoped>
 .el-carousel >>> .el-carousel__container {
   height: 390px;

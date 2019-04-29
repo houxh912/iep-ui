@@ -36,6 +36,7 @@ export default {
     width: 260px;
     float: left;
     margin: 0 14px;
+    cursor: pointer;
     .img {
       width: 100%;
       height: 165px;
@@ -49,6 +50,9 @@ export default {
           transform: scale(1.1);
         }
       }
+    }
+    &:hover .name {
+      color: #cb3737;
     }
     .name {
       line-height: 40px;

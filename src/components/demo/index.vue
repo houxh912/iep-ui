@@ -19,9 +19,6 @@
       <el-form-item label="标签:">
         <iep-tag v-model="form.tagList"></iep-tag>
       </el-form-item>
-      <el-form-item label="新标签:">
-        <iep-new-tag v-model="form.tagList1"></iep-new-tag>
-      </el-form-item>
       <el-form-item label="单部门:">
         <iep-dept-select v-model="form.dept"></iep-dept-select>
       </el-form-item>
@@ -76,8 +73,7 @@ export default {
           name: '研发部',
         }],
         fileList: [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],
-        tagList: ['大数据', '人工智能'],
-        tagList1: ['大数据', '人工智能'],
+        tagList: ['大数据', '人工智能', 'hahahaha'],
         content: '',
       },
     }

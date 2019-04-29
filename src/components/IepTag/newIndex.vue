@@ -1,5 +1,5 @@
 <template>
-  <a-select :defaultValue="value" mode="tags" style="width: 100%" :tokenSeparators="[',','；','，', ';']" @change="handleChange" @search="querySearch" :notFoundContent="fetching ? undefined : null">
+  <a-select :value="value" mode="tags" style="width: 100%" :tokenSeparators="[',','；','，', ';']" @change="handleChange" @search="querySearch" :notFoundContent="fetching ? undefined : null">
     <a-spin v-if="fetching" slot="notFoundContent" size="small" />
     <a-select-option v-for="i in tagResults" :key="i">{{ i }}</a-select-option>
   </a-select>
@@ -8,7 +8,7 @@
 import { getTagList } from '@/api/tms/index'
 import debounce from 'lodash/debounce'
 export default {
-  name: 'IepNewTag',
+  name: 'IepTag',
   props: {
     value: {
       type: Array,
@@ -16,7 +16,7 @@ export default {
     },
   },
   data () {
-    this.querySearch = debounce(this.querySearch, 200)
+    this.querySearch = debounce(this.querySearch, 500)
     return {
       fetching: false,
       tagResults: [],

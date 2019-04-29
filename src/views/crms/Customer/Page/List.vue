@@ -24,7 +24,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="cell" @selection-change="handleSelectionChange" isIndex :isMutipleSelection="showSelect?true:false" @row-click="handleDetail">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" @row-click="handleDetail">
         <template slot="before-columns">
           <el-table-column label="客户名称" width="300px">
             <template slot-scope="scope">

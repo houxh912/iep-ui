@@ -1,5 +1,6 @@
 import request from '@/router/axios'
 const prefixUrl = '/crm/customer'
+import Qs from 'qs'
 //客户page
 
 export function getCustomerPage (obj) {
@@ -7,6 +8,9 @@ export function getCustomerPage (obj) {
     url: `${prefixUrl}/page`,
     method: 'get',
     params: obj,
+    paramsSerializer: function (params) {
+      return Qs.stringify(params, { indices: false })
+    },
   })
 }
 //客户详情

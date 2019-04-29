@@ -3,11 +3,11 @@
     <operation-wrapper>
       <iep-button class="btn" type="primary" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加方案</iep-button>
     </operation-wrapper>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="cell" @row-click="handleDetail">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" @row-click="handleDetail">
       <el-table-column label="方案名称">
         <template slot-scope="scope">
           <el-col>
-            <div class="program-name">{{scope.row.programName}} <span class="fujian" @click="lookFile" v-if="scope.row.atchUpload==''?false:true"> <i class="icon-fujian"></i></span></div>
+            <div class="program-name">{{scope.row.programName}} <span class="fujian" @click.stop="lookFile" v-if="scope.row.atchUpload==''?false:true"> <i class="icon-fujian"></i></span></div>
           </el-col>
         </template>
       </el-table-column>
@@ -98,18 +98,25 @@ export default {
   },
   methods: {
     handleDetail (row, column) {
-      if (row.materialId !== 0) {
-        if (column.label == '操作' || column.type == 'selection' || column.type == 'index') {
-          return false
+      if (column.label == '方案名称') {
+        if (row.status === 0) {
+          this.$refs['detail'].hide = true
+          this.$refs['detail'].drawerShow = true
+          getSchemeById(row.programId).then((res) => {
+            this.$refs['detail'].detailForm.programName = row.programName
+            this.$refs['detail'].detailForm.realName = row.realName
+            this.$refs['detail'].detailForm.attachFileList = res.data.data.attachs
+          })
+        } else {
+          this.$refs['detail'].show = true
+          this.$refs['detail'].drawerShow = true
+          getDataById(row.materialId).then((res) => {
+            this.$refs['detail'].detailForm = res.data.data
+          })
         }
-        this.$refs['detail'].drawerShow = true
-        getDataById(row.materialId).then((res) => {
-          this.$refs['detail'].detailForm = res.data.data
-        })
       } else {
         return false
       }
-
     },
     //新增方案函数
     OnAdd () {
@@ -207,7 +214,6 @@ export default {
       }
     },
     download (row) {
-      this.$message('当前方案无附件供下载！')
       downloadModel(row.atchUpload)
     },
     add (val) {

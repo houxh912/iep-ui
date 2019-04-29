@@ -1,3 +1,4 @@
+import { mergeByFirst } from '@/util/util'
 const initForm = () => {
   return {
     clientId: '',
@@ -26,6 +27,7 @@ const initForm = () => {
 // 全部客户搜索
 const allSearchForm = () => {
   return {
+    type: '',
     clientName: '',
     districtType: '',
     clientRela: '',
@@ -38,13 +40,17 @@ const allSearchForm = () => {
 // 我的客户/协作客户搜索
 const initSearchForm = () => {
   return {
+    type: '',
     clientName: '',
     districtType: '',
     clientRela: '',
     followUpStatus: '',
-    businessTypeKeyString: [],
+    businessTypeKeyString: '',
     timeSerach: '',
   }
 }
-
-export { initSearchForm, allSearchForm, initForm }
+const formToDto = form => {
+  const newForm = mergeByFirst(initSearchForm(), form)
+  return newForm
+}
+export { initSearchForm, allSearchForm, initForm, formToDto }

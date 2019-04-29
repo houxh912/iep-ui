@@ -44,25 +44,30 @@ export default {
 .manager-board-list {
   .sub {
     display: flex;
+    margin-bottom: 5px;
     justify-content: space-between;
+    align-items: center;
   }
   .subTitle {
     margin-right: 5px;
-    width: 34px;
+    width: 62px;
     height: 18px;
     line-height: 18px;
   }
   .subName {
-    width: 180px;
+    flex: 2;
     height: 18px;
     line-height: 18px;
   }
 }
 .piece {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   cursor: pointer;
   .name {
     display: inline-block;
-    width: 200px;
+    flex: 2;
     height: 30px;
     line-height: 30px;
     overflow: hidden;
@@ -76,7 +81,7 @@ export default {
     height: 18px;
     line-height: 18px;
     text-align: center;
-    margin: 0 16px 0 4px;
+    margin: 0 40px 0 4px;
     background-color: #ccc;
     color: #fff;
     vertical-align: middle;
@@ -86,6 +91,7 @@ export default {
   }
   .num {
     float: right;
+    width: 34px;
     height: 30px;
     line-height: 30px;
     color: #666;

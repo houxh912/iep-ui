@@ -85,3 +85,18 @@ export function deleteTag (ids) {
     data: ids,
   })
 }
+// 推荐标签
+export function getRecTags () {
+  return request({
+    url: `${prefixUrl}/tag/rec_tags`,
+    method: 'get',
+  })
+}
+// 所有标签
+export function getIndexPage (query) {
+  return request({
+    url: `${prefixUrl}/tag/index_page`,
+    method: 'get',
+    params: query,
+  })
+}

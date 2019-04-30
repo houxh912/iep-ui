@@ -345,6 +345,7 @@
 </template>
 
 <script>
+import formMixins from '@/mixins/formMixins'
 import { mapActions } from 'vuex'
 import debounce from 'lodash/debounce'
 import { getEmployeeProfileSelf, putEmployeeProfile } from '@/api/hrms/employee_profile'
@@ -356,9 +357,10 @@ const saveTypeMap = {
   2: '自动保存',
 }
 export default {
+  mixins: [formMixins],
   components: { InlineFormTable },
   data () {
-    this.autoSave = debounce(this.autoSave, 5000)
+    this.autoSave = debounce(this.autoSave, 60000)
     return {
       workExpColumns,
       studyColumns,
@@ -380,40 +382,48 @@ export default {
     ...mapActions([
       'GetUserInfo',
     ]),
-    autoSave (curVal) {
-      console.log(curVal)
+    autoSave () {
       this.handleSave(2)
     },
     async handleSave (saveType = 1) {
       const useMethodName = saveTypeMap[saveType]
-      this.$refs['form'].validate(async (valid, object) => {
-        if (valid) {
-          try {
-            await putEmployeeProfile(formToDto(this.form))
+      try {
+        await this.mixinsValidate()
+        try {
+          const { data } = await putEmployeeProfile(formToDto(this.form))
+          if (data.data) {
             this.$message({
               message: `${useMethodName}成功`,
               type: 'success',
             })
             this.GetUserInfo()
-          } catch (error) {
+            return true
+          } else {
             this.$message({
-              message: error.message,
+              message: data.msg,
               type: 'error',
             })
             return false
           }
-        } else {
-          if (saveType === 2) return
-          let message = ''
-          for (const key in object) {
-            if (object.hasOwnProperty(key)) {
-              const element = object[key]
-              message = element[0].message
-            }
-          }
-          this.$message(message)
+        } catch (error) {
+          this.$message({
+            message: error.message,
+            type: 'error',
+          })
+          return false
         }
-      })
+      } catch (object) {
+        if (saveType === 2) return
+        let message = ''
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            const element = object[key]
+            message = element[0].message
+          }
+        }
+        this.$message(message)
+        return false
+      }
     },
     async handleSubmit () {
       const res = await this.handleSave()

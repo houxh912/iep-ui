@@ -5,7 +5,7 @@
   </el-select>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name: 'IepDictSelect',
   inheritAttrs: false,
@@ -16,9 +16,9 @@ export default {
     },
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters([
+      'dictGroup',
+    ]),
   },
 }
 </script>

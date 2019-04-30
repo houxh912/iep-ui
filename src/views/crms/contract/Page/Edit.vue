@@ -122,7 +122,7 @@
 <script>
 import { initFormData, rules } from '../options'
 import FooterToolbar from '@/components/FooterToolbar/'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { getDataById } from '@/api/crms/contract'
 import { getMarket } from '@/api/crms/customer'
 import { getObj } from '@/api/admin/user'
@@ -164,9 +164,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters(['dictGroup']),
   },
   created () {
 

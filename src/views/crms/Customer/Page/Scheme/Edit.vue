@@ -96,13 +96,10 @@ import { initLocalForm, rules, dictsMap, tipContent } from './options'
 import { getConfigureTree } from '@/api/mlms/material/datum/configure'
 import { createData, updateData } from '@/api/mlms/material/datum/material'
 import { createScheme, saveScheme, updateScheme, getSchemeById } from '@/api/crms/scheme'
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   computed: {
-    ...mapGetters(['permissions', 'userInfo']),
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters(['permissions', 'userInfo', 'dictGroup']),
   },
   props: {
     record: {

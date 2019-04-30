@@ -1,15 +1,6 @@
 import { getStore, setStore } from '@/util/store'
-import {
-  getUserInfo,
-  loginByMobile,
-  loginBySocial,
-  loginByUsername,
-  logout,
-  refreshToken,
-  loadAllDictMap,
-} from '@/api/login'
-import { encryption, pickDeep } from '@/util/util'
-import { loadContactsPyList } from '@/api/admin/contacts'
+import { getUserInfo, loginByMobile, loginBySocial, loginByUsername, logout, refreshToken } from '@/api/login'
+import { encryption } from '@/util/util'
 
 const user = {
   state: {
@@ -17,8 +8,6 @@ const user = {
     permissions: {},
     roles: [],
     orgs: [],
-    dictGroup: getStore({ name: 'dictGroup' }) || {},
-    contactsPyList: getStore({ name: 'contactsPyList' }) || {},
     expires_in:
       getStore({
         name: 'expires_in',
@@ -33,34 +22,6 @@ const user = {
       }) || '',
   },
   actions: {
-    // 获取通讯录
-    LoadContactsPyList ({
-      commit,
-    }) {
-      return new Promise((resolve, reject) => {
-        loadContactsPyList().then(res => {
-          const { data } = res
-          commit('SET_CONTACTS_PY_LIST', data.data)
-          resolve()
-        }).catch(err => {
-          reject(err)
-        })
-      })
-    },
-    // 获取全部字典
-    LoadAllDictMap ({
-      commit,
-    }) {
-      return new Promise((resolve, reject) => {
-        loadAllDictMap().then(res => {
-          const { data } = res
-          commit('SET_DICT_ALL', data)
-          resolve()
-        }).catch(err => {
-          reject(err)
-        })
-      })
-    },
     // 根据用户名登录
     LoginByUsername ({ commit }, userInfo) {
       const user = encryption({
@@ -201,20 +162,6 @@ const user = {
     },
   },
   mutations: {
-    SET_DICT_ALL: (state, dictGroup) => {
-      for (const key in dictGroup) {
-        if (dictGroup.hasOwnProperty(key)) {
-          const element = dictGroup[key]
-          dictGroup[key] = pickDeep(element)
-        }
-      }
-      state.dictGroup = dictGroup
-      setStore({
-        name: 'dictGroup',
-        content: state.dictGroup,
-        type: 'session',
-      })
-    },
     SET_ACCESS_TOKEN: (state, access_token) => {
       state.access_token = access_token
       setStore({
@@ -241,14 +188,6 @@ const user = {
     },
     SET_USERIFNO: (state, userInfo) => {
       state.userInfo = userInfo
-    },
-    SET_CONTACTS_PY_LIST: (state, contactsPyList) => {
-      state.contactsPyList = contactsPyList
-      setStore({
-        name: 'contactsPyList',
-        content: contactsPyList,
-        type: 'session',
-      })
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles

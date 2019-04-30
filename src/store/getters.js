@@ -20,10 +20,7 @@ const getters = {
   otherMenus: state => state.menu.otherMenus,
   menusMap: state => state.menu.menusMap,
   menuPathList: state => state.menu.menuPathList,
-  logsList: state => state.logs.logsList,
-  dictGroup: state => state.user.dictGroup,
-  contactsPyList: state => state.user.contactsPyList,
-  logsLen: state => state.logs.logsList.length || 0,
-  logsFlag: (state, getters) => getters.logsLen === 0,
+  dictGroup: state => state.cache.dictGroup,
+  contactsPyList: state => state.cache.contactsPyList,
 }
 export default getters

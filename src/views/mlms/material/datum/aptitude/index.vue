@@ -27,7 +27,7 @@
                 <div class="custom-name">{{scope.row.name}}</div>
                 <el-col class="custom-tags">
                   <el-tag type="warning" size="mini">{{scope.row.creatorRealName}}</el-tag>
-                  <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index">{{item}}</el-tag>
+                  <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index" @click="handleTagDetail(item)">{{item}}</el-tag>
                 </el-col>
               </div>
             </template>
@@ -55,6 +55,7 @@
     </div>
     <main-dialog ref="mainDialog" @load-page="loadPage" v-if="pageState=='dialog'"></main-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="honor" :requestFn="createCollect"></collection-dialog>
+    <detail-dialog ref="detailPage" @backPage="pageState = 'list'" v-if="pageState=='detail'" :detailState=true @load-page="loadPage(undefined, true)"></detail-dialog>
   </div>
 </template>
 
@@ -66,10 +67,11 @@ import { createCollect } from '@/api/mlms/material/summary'
 import MainDialog from './mainDialog'
 import CollectionDialog from '../../components/collectionDialog'
 import { mapGetters } from 'vuex'
+import DetailDialog from './detail'
 
 export default {
   mixins: [mixins],
-  components: { MainDialog, CollectionDialog },
+  components: { MainDialog, CollectionDialog, DetailDialog },
   computed: {
     ...mapGetters(['permissions']),
   },
@@ -101,6 +103,13 @@ export default {
         this.$refs['mainDialog'].formRequestFn = updateData
       })
     },
+    // 详情
+    handleDetail (row) {
+      this.pageState = 'detail'
+      this.$nextTick(() => {
+        this.$refs['detailPage'].open(row.id)
+      })
+    },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.id, deleteData)
     },
@@ -112,8 +121,10 @@ export default {
       this.selectList = val
       this.multipleSelection = val.map(m => m.id)
     },
-    loadPage (param = this.searchForm) {
-      this.pageState = 'list'
+    loadPage (param = this.searchForm, state) {
+      if (!state) {
+        this.pageState = 'list'
+      }
       this.loadTable(param, this.getTableDataFn)
     },
     // 收藏
@@ -154,6 +165,9 @@ export default {
     changeGetWay (val) {
       this.getTableDataFn = val ? getTableData : getTableDataOnlyMe
       this.loadPage()
+    },
+    handleTagDetail (val) {
+      this.$openTagDetail(val)
     },
   },
   created () {

@@ -1,19 +1,19 @@
 // 表单展示
 @import './form-detail.scss';
 * {
-	outline: none;
+  outline: none;
 }
 button,
 input,
 select,
 pre,
 textarea {
-		font-family: inherit;
-		font-size: inherit;
-		line-height: inherit;
-		color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
 }
 
 #nprogress .bar {
-	background: red;
+  background: red;
 }

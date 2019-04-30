@@ -2,7 +2,7 @@
   <el-tooltip :content="content" :placement="placement" v-bind="$attrs" v-on="$listeners">
     <div v-if="content!==''" slot="content" v-html="content"></div>
     <div v-if="content===''" slot="content" v-html="message"></div>
-    <i class="el-icon-info"></i>
+    <i :class="icon"></i>
   </el-tooltip>
 </template>
 <script>
@@ -20,6 +20,10 @@ export default {
     placement: {
       type: String,
       default: 'top',
+    },
+    icon: {
+      type: String,
+      default: 'el-icon-info',
     },
   },
 }

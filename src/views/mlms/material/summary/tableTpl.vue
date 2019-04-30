@@ -13,7 +13,13 @@
       <template slot="before-columns">
         <el-table-column label="会议标题">
           <template slot-scope="scope">
-            <div @click="handleDetail(scope.row)" class="detail">{{scope.row.title}}</div>
+            <!-- <div @click="handleDetail(scope.row)" class="detail">{{scope.row.title}}</div> -->
+            <div class="row-tpl" @click="handleDetail(scope.row)">
+              <div class="custom-name">{{scope.row.title}}</div>
+              <el-col class="custom-tags">
+                <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index" @click="handleTagDetail(item)">{{item}}</el-tag>
+              </el-col>
+            </div>
           </template>
         </el-table-column>
       </template>
@@ -127,6 +133,9 @@ export default {
     handleExport () {
       this.$message.error('抱歉，此功能尚未开发！')
     },
+    handleTagDetail (val) {
+      this.$openTagDetail(val)
+    },
   },
   created () {
     this.loadPage()
@@ -138,5 +147,21 @@ export default {
 .detail {
   width: 100%;
   cursor: pointer;
+}
+.row-tpl {
+  width: 100%;
+  cursor: pointer;
+  .custom-name {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .custom-tags {
+    margin: 0;
+    .el-tag {
+      margin: 0 5px 5px 0;
+      height: 26px;
+      line-height: 26px;
+    }
+  }
 }
 </style>

@@ -5,7 +5,7 @@
       <el-tag type="info" v-for="user in users" :key="user.id">{{user.name}}</el-tag>
     </operation-wrapper>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
-      <a-select mode="multiple" :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="querySearch" @change="handleChange">
+      <a-select mode="multiple" :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="querySearch" @change="handleChange" dropdownClassName="iep-contact-dropdown">
         <a-select-option v-for="item in userResults" :key="item.id+''">
           <span style="float: left">{{ item.name }}</span>
           <span style="float: right; color: #8492a6; font-size: 13px">{{ item.pinyin }}</span>

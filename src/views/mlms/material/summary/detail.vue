@@ -2,8 +2,11 @@
   <basic-container>
     <el-col class="left">
       <page-header :title="formData.title" :backOption="backOption">
-        <div slot="sub" class="tags">
+        <!-- <div slot="sub" class="tags">
           <el-tag type="info" v-for="(item, index) in formData.tagKeyWords" :key="index">{{item}}</el-tag>
+        </div> -->
+        <div slot="sub" class="tags">
+          <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
         </div>
       </page-header>
 

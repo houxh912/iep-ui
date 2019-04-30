@@ -118,8 +118,8 @@
 
       </el-form>
       <footer-tool-bar>
-        <iep-button type="primary" @click="saveDraft('form')" v-if="formData.status == 1 || methodName == '创建'">保存草稿</iep-button>
-        <iep-button type="primary" @click="saveForm('form')">{{formData.isSend == 0 ? '保存' : '保存并发送'}}</iep-button>
+        <iep-button type="primary" @click="saveDraft('form')" v-if="formData.status == 1 || methodName == '创建'" :loading="loadState">保存草稿</iep-button>
+        <iep-button type="primary" @click="saveForm('form')" :loading="loadState">{{formData.isSend == 0 ? '保存' : '保存并发送'}}</iep-button>
         <iep-button @click="resetForm('form')">取消</iep-button>
       </footer-tool-bar>
     </basic-container>
@@ -137,6 +137,7 @@ export default {
   components: { projectDialog },
   data () {
     return {
+      loadState: false,
       dictsMap,
       tipContent,
       formRequestFn: createData,
@@ -210,6 +211,7 @@ export default {
     },
     // 提交数据
     submitForm () {
+      this.loadState = true
       this.formData.hostId = this.formData.hostList.id
       this.formData.attendee = {
         orgIds: this.formData.attendeeList.orgs.map(m => m.id),
@@ -228,6 +230,7 @@ export default {
       this.formRequestFn(this.formData).then(({ data }) => {
         // 新建纪要及修改草稿，自动发送
         let id = this.methodType == 'create' ? data.data : this.formData.id
+        this.loadState = false
         if (this.formData.status == 0 && this.formData.isSend == 1) {
           meetingSend(id).then(({ data }) => {
             if (data.data) {

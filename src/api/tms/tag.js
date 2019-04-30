@@ -16,11 +16,20 @@ export function getTagById (id) {
   })
 }
 
-
 export function getTagViewById (id) {
   return request({
     url: `${prefixUrl}/tag/views/${id}`,
     method: 'get',
+  })
+}
+
+export function getTagViewByName (name) {
+  return request({
+    url: `${prefixUrl}/tag/views/name`,
+    method: 'get',
+    params: {
+      name,
+    },
   })
 }
 

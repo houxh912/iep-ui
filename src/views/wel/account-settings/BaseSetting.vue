@@ -13,7 +13,7 @@
             <iep-avatar v-model="form.avatar"></iep-avatar>
           </el-form-item>
           <el-form-item label="所属组织：">
-            <iep-tag-detail :value="form.orgList"></iep-tag-detail>
+            <iep-tag-detail :value="form.orgList" iep-type="org"></iep-tag-detail>
             <a-tag color="orange" @click="$openPage('/wel/org')">加入或创建新组织</a-tag>
           </el-form-item>
           <el-form-item label="资产所属：" class="form-half">
@@ -23,7 +23,7 @@
             <iep-div-detail :value="form.staffId"></iep-div-detail>
           </el-form-item>
           <el-form-item label="角色：">
-            <iep-tag-detail :value="form.roleName"></iep-tag-detail>
+            <iep-tag-detail :value="form.roleName" iep-type="role"></iep-tag-detail>
           </el-form-item>
           <el-form-item label="岗位：" class="form-half">
             <iep-div-detail :value="form.positionName"></iep-div-detail>
@@ -345,16 +345,22 @@
 </template>
 
 <script>
+import formMixins from '@/mixins/formMixins'
 import { mapActions } from 'vuex'
 import debounce from 'lodash/debounce'
 import { getEmployeeProfileSelf, putEmployeeProfile } from '@/api/hrms/employee_profile'
 import { initForm, dictsMap, selfRules, formToDto } from '@/views/hrms/EmployeeProfile/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
+const saveTypeMap = {
+  1: '保存',
+  2: '自动保存',
+}
 export default {
+  mixins: [formMixins],
   components: { InlineFormTable },
   data () {
-    this.autoSave = debounce(this.autoSave, 5000)
+    this.autoSave = debounce(this.autoSave, 60000)
     return {
       workExpColumns,
       studyColumns,
@@ -369,42 +375,55 @@ export default {
   created () {
     this.loadPage()
   },
+  destroyed () {
+    this.unAutoSave()
+  },
   methods: {
     ...mapActions([
       'GetUserInfo',
     ]),
-    autoSave (curVal, oldVal) {
-      console.log(curVal, oldVal)
-      this.handleSave('自动保存')
+    autoSave () {
+      this.handleSave(2)
     },
-    async handleSave (useMethodName = '保存') {
-      this.$refs['form'].validate(async (valid, object) => {
-        if (valid) {
-          try {
-            await putEmployeeProfile(formToDto(this.form))
+    async handleSave (saveType = 1) {
+      const useMethodName = saveTypeMap[saveType]
+      try {
+        await this.mixinsValidate()
+        try {
+          const { data } = await putEmployeeProfile(formToDto(this.form))
+          if (data.data) {
             this.$message({
               message: `${useMethodName}成功`,
               type: 'success',
             })
             this.GetUserInfo()
-          } catch (error) {
+            return true
+          } else {
             this.$message({
-              message: error.message,
+              message: data.msg,
               type: 'error',
             })
             return false
           }
-        } else {
-          let message = ''
-          for (const key in object) {
-            if (object.hasOwnProperty(key)) {
-              const element = object[key]
-              message = element[0].message
-            }
-          }
-          this.$message(message)
+        } catch (error) {
+          this.$message({
+            message: error.message,
+            type: 'error',
+          })
+          return false
         }
-      })
+      } catch (object) {
+        if (saveType === 2) return
+        let message = ''
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            const element = object[key]
+            message = element[0].message
+          }
+        }
+        this.$message(message)
+        return false
+      }
     },
     async handleSubmit () {
       const res = await this.handleSave()
@@ -415,16 +434,21 @@ export default {
     loadPage () {
       getEmployeeProfileSelf().then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
+        this.initAutoSave()
       })
     },
-  },
-  watch: {
-    form: {
-      //注意：当观察的数据为对象或数组时，curVal和oldVal是相等的，因为这两个形参指向的是同一个数据对象
-      handler (curVal, oldVal) {
-        this.autoSave(curVal, oldVal)
-      },
-      deep: true,
+    initAutoSave () {
+      setTimeout(() => {
+        const that = this
+        this.unWatch = this.$watch('form', function (curVal) {
+          that.autoSave(curVal)
+        }, {
+            deep: true, immediate: false,
+          })
+      }, 100)
+    },
+    unAutoSave () {
+      this.unWatch()
     },
   },
 }

@@ -280,6 +280,18 @@ export function mergeByFirst (distObject, srcObject) {
   }
 }
 
+export function openTagDetail (value) {
+  if (typeof value=='string') {
+    this.$router.push({
+      path: `/app/tags_detail/0?name=${value}`,
+    })
+  } else {
+    this.$router.push({
+      path: `/app/tags_detail/${value}`,
+    })
+  }
+}
+
 export function openPage (value, type = 'path') {
   if (type === 'path') {
     this.$router.push({

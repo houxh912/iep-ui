@@ -11,8 +11,6 @@
           <sidebar />
         </el-aside>
         <el-main>
-          <!-- 顶部标签卡 -->
-          <tags />
           <!-- 主体视图层 -->
           <el-scrollbar style="height:100%">
             <keep-alive>
@@ -29,8 +27,7 @@
 
 <script>
 import displayMixins from '@/mixins/displayMixins'
-import { mapGetters, mapActions } from 'vuex'
-import tags from './tags'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import top from './top/'
 import sidebar from './sidebar/'
 import admin from '@/util/admin'
@@ -45,7 +42,6 @@ export default {
   mixins: [displayMixins],
   components: {
     top,
-    tags,
     sidebar,
   },
   name: 'Index',
@@ -59,7 +55,7 @@ export default {
   },
   created () {
     //实时检测刷新token
-    // this.refreshToken()
+    // this.handleRefreshToken()
   },
   destroyed () {
     // console.log("销毁")
@@ -93,24 +89,25 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['LoadAllDictMap', 'LoadContactsPyList']),
+    ...mapActions(['LoadAllDictMap', 'LoadContactsPyList', 'RefreshToken']),
+    ...mapMutations({ setCollapse: 'SET_COLLAPSE', setScreen: 'SET_SCREEN', setExpiresIn: 'SET_EXPIRES_IN' }),
     handleOk () {
       this.visible = false
     },
     showCollapse () {
-      this.$store.commit('SET_COLLAPSE')
+      this.setCollapse()
     },
     // 屏幕检测
     init () {
-      this.$store.commit('SET_SCREEN', admin.getScreen())
+      this.setScreen(admin.getScreen())
       window.onresize = () => {
         setTimeout(() => {
-          this.$store.commit('SET_SCREEN', admin.getScreen())
+          this.setScreen(admin.getScreen())
         }, 0)
       }
     },
     // 实时检测刷新token
-    refreshToken () {
+    handleRefreshToken () {
       this.refreshTime = setInterval(() => {
         const token = getStore({
           name: 'access_token',
@@ -121,12 +118,12 @@ export default {
         }
         if (this.expires_in <= 1000 && !this.refreshLock) {
           this.refreshLock = true
-          this.$store.dispatch('RefreshToken').catch(() => {
+          this.RefreshToken().catch(() => {
             clearInterval(this.refreshTime)
           })
           this.refreshLock = false
         }
-        this.$store.commit('SET_EXPIRES_IN', this.expires_in - 10)
+        this.setExpiresIn(this.expires_in - 10)
       }, 10000)
     },
     // initWebSocket () {

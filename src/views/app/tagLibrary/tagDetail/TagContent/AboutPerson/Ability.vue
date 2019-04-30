@@ -1,5 +1,6 @@
 <template>
   <div class="ability">
+    <iep-no-data v-if="!data.length"></iep-no-data>
     <span v-for="(item) in data" :key="item.commonId" @click="TagsDetail()">
       {{item.commonName}}
     </span>

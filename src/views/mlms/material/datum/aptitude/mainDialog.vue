@@ -61,7 +61,7 @@
 
     </el-form>
     <footer-tool-bar>
-      <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
+      <iep-button type="primary" @click="submitForm('form')" :loading="loadState">保存</iep-button>
       <iep-button @click="resetForm('form')">重置</iep-button>
     </footer-tool-bar>
   </div>
@@ -73,6 +73,7 @@ export default {
   components: {},
   data () {
     return {
+      loadState: false,
       methodName: '新增',
       tipContent,
       formRequestFn: () => { },
@@ -109,10 +110,12 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.loadState = true
           if (this.formData.attachFileList.length > 0) {
             this.formData.attachFile = this.formData.attachFileList[0].url
           }
           this.formRequestFn(this.formData).then(() => {
+            this.loadState = false
             this.$message({
               message: `${this.methodName}成功`,
               type: 'success',

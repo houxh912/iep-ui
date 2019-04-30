@@ -161,8 +161,14 @@ const columnsMap = [
     key: 'idCard',
   },
   {
-    prop: 'externalTitle',
+    prop: 'socialRela',
     label: '对外头衔',
+    hidden: true,
+    key: 'socialRela',
+  },
+  {
+    prop: 'externalTitle',
+    label: '外部头衔',
     hidden: true,
     key: 'externalTitle',
   },

@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="`${form.name}的申请`" :backOption="backOption"></page-header>
+      <page-header :title="`${form.name}的${typeMap[form.type].label}`" :backOption="backOption"></page-header>
       <el-card class="top-card" :body-style="bodyStyle" shadow="hover">
         <div class="avatar-wrapper">
           <iep-img-avatar :size="90" :src="form.avatar" alt="头像"></iep-img-avatar>
@@ -95,6 +95,7 @@ import { deliverApprovaBatch, reviewApprovaBatch } from '@/api/hrms/wel'
 import { getAdministrativeApprovalById } from '@/api/hrms/administrative_approval'
 import { initForm, dictsMap } from './options'
 import { mapGetters } from 'vuex'
+import keyBy from 'lodash/keyBy'
 import DeliverDialog from '@/views/wel/approval/approval/ExaminApproval/Page/DeliverDialog'
 export default {
   components: { DeliverDialog },
@@ -119,7 +120,11 @@ export default {
   computed: {
     ...mapGetters([
       'userInfo',
+      'dictGroup',
     ]),
+    typeMap () {
+      return keyBy(this.dictGroup['hrms_applic_type'], 'value')
+    },
     needApproval () {
       return this.userInfo.userId !== this.form.userId && this.form.status === 0
     },

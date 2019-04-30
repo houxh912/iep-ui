@@ -16,6 +16,14 @@ export function getTagById (id) {
   })
 }
 
+
+export function getTagViewById (id) {
+  return request({
+    url: `${prefixUrl}/tag/views/${id}`,
+    method: 'get',
+  })
+}
+
 export function putTag (obj) {
   return request({
     url: `${prefixUrl}/tag/update`,
@@ -105,5 +113,19 @@ export function getIndexPage (query) {
     url: `${prefixUrl}/tag/index_page`,
     method: 'get',
     params: query,
+  })
+}
+// 标签关联人
+export function getPersonById (id) {
+  return request({
+    url: `${prefixUrl}/tag/person/${id}`,
+    method: 'get',
+  })
+}
+// 标签类
+export function getRelationsById (id) {
+  return request({
+    url: `${prefixUrl}/tag/relations/${id}`,
+    method: 'get',
   })
 }

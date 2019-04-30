@@ -105,10 +105,12 @@
 import { getDataById, downloadCount, getGreatMaterial, getMaterialTotal } from '@/api/mlms/material/datum/material'
 import { commentMaterial, getCommentPage } from '@/api/mlms/index'
 import { downloadFile } from '@/api/common'
-import wrongDialog from './wrongDialog'
 import CollectionDialog from '../../components/collectionDialog'
 import { createCollect } from '@/api/mlms/material/summary'
-import ShareDialog from '../../summary/shareDialog'
+import ShareDialog from '@/views/mlms/material/components/shareDialog'
+// import ShareDialog from '../../summary/shareDialog'
+import wrongDialog from '@/views/mlms/material/components/wrongDialog'
+// import wrongDialog from './wrongDialog'
 
 function commentForm () {
   return {

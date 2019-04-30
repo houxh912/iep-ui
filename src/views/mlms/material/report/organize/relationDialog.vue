@@ -106,7 +106,6 @@ export default {
     },
     // 单选
     selectChange (selection, row) {
-      console.log('selectChange: ', selection, row)
       let status = this.isSelectNow(selection, row)
       if (status) {
         this.selectList.push({ id: row.id, name: row[this.tableObj[this.type].prop] })

@@ -20,7 +20,7 @@
   </iep-dialog>
 </template>
 <script>
-import { initWrongForm, wrongRules } from './option'
+import { initWrongForm, wrongRules } from './options'
 import { createEmail } from '@/api/mlms/email/index'
 
 export default {

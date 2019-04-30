@@ -53,7 +53,7 @@
           <iep-tip :content="tipContent.materialType"></iep-tip>
           ：
         </span>
-        <iep-dict-select v-model="formData.materialType" dict-name="mlms_download_cost"></iep-dict-select>
+        <iep-dict-select v-model="formData.materialType" dict-name="mlms_material_type"></iep-dict-select>
       </el-form-item>
       <el-form-item label="下载贝额：" prop="downloadCost">
         <span slot="label">

@@ -194,11 +194,13 @@ export default {
       })
     }
   },
+
   methods: {
     handleClose (val) {
       this.formData.clientInfos.splice(this.formData.clientInfos.indexOf(val), 1)
     },
     addContact () {
+      this.pageOption.current = 1
       this.clientName = ''
       this.dialogVisible = true
       this.loadPage()
@@ -224,6 +226,15 @@ export default {
       for (var i = 0; i < this.selectData.length; i++) {
         this.formData.clientInfos.push(this.selectData[i])
       }
+      let result = {}
+      let finalResult = []
+      for (let i = 0; i < this.formData.clientInfos.length; i++) {
+        result[this.formData.clientInfos[i].clientName] = this.formData.clientInfos[i]
+      }
+      for (var item in result) {
+        finalResult.push(result[item])
+      }
+      this.formData.clientInfos = finalResult
     },
     search () {
       this.loadPage()

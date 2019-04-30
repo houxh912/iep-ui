@@ -33,16 +33,20 @@ export const tableOption = [
     label: '合同类型',
     prop: 'contractType',
     type: 'dict',
+    width: '180px',
   }, {
     label: '合同金额',
     prop: 'contractAmount',
+    width: '180px',
   }, {
     label: '合同状态',
     prop: 'contractStatus',
     type: 'dict',
+    width: '180px',
   }, {
     label: '回款率',
     prop: '',
+    width: '180px',
   },
 ]
 
@@ -64,7 +68,7 @@ export const initFormData = () => {
     directorId: '', // 市场经理-id
     directorName: '', // 市场经理-name
     directorList: {
-      id: 0,
+      id: '',
       name: '',
     }, // 市场经理-list
     contractAmount: '',

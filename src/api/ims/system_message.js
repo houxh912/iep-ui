@@ -28,9 +28,7 @@ export function readSystemMessageBatch (ids) {
   return request({
     url: `${prefixUrl}/read_or_set/batch`,
     method: 'post',
-    data: {
-      sysInfoIds:ids,
-    },
+    data: ids,
     params: {
       type: 8,
     },

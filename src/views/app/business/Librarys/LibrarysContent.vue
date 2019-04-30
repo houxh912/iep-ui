@@ -69,7 +69,7 @@ export default {
 <style scoped lang="scss">
 .librarys-item{
   padding: 20px 15px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #eee;
 }
 .title{
   height: 40px;

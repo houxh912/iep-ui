@@ -29,7 +29,7 @@ export default {
         label: '按模块',
         value: 'Module',
       }, {
-        label: '按定制',
+        label: '按产品',
         value: 'Customized',
       }],
       activeTab: 'Module',
@@ -43,7 +43,7 @@ export default {
 }
 .gird-product {
   width: 1200px;
-  padding: 20px 0;
+  padding: 0 0 20px 0;
   margin: 0 auto;
   display: grid;
   grid-auto-flow: row dense;

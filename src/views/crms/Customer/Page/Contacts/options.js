@@ -1,6 +1,6 @@
 const columnsMap = [
   { label: '联系人职务', prop: 'contactPosition' },
-  { label: '电话', prop: 'cellphone' },
+  { label: '电话', prop: 'telephoneNo' },
 ]
 const initForm = () => {
   return {

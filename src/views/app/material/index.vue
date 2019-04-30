@@ -16,6 +16,7 @@
         <most></most>
       </div>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 <script>
@@ -39,6 +40,7 @@ export default {
 .material {
   width: 1200px;
   margin: 0 auto;
+  border-top: 1px solid #eee;
   display: grid;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 220px) minmax(100px, 680px) minmax(100px, 300px);

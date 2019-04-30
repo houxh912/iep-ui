@@ -9,6 +9,7 @@
       <span><i class="iconfont icon-download1"></i>{{downloads}}</span>
       <div class="btn sc"><i class="iconfont icon-shoucang"></i>收藏</div>
       <div class="btn fx"><i class="iconfont icon-youxiangshixin"></i>分享</div>
+      <div class="btn fx"><i class="iconfont icon-zhuyi"></i>纠错</div>
     </div>
   </div>
 </template>

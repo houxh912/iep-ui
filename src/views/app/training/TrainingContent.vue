@@ -193,7 +193,7 @@ export default {
   methods: {
     getMore () {
       this.$router.push({
-        path: 'training_list',
+        path: '/app/training_list',
       })
     },
   },

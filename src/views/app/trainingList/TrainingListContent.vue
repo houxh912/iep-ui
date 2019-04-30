@@ -3,19 +3,21 @@
     <search></search>
     <div class="module">
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
-        <div class="header clearfix">
-          <div class="img"><img :src="item.img" alt=""></div>
-          <span class="time">{{item.time}}</span>
-          <el-tag class="dn" :class="item.show" size="small">{{item.tag}}</el-tag>
-        </div>
-        <div class="content">
-          <h4 class="item-title">{{item.title}}</h4>
-          <p class="con">{{item.con}}</p>
-          <div class="detail">
-            <div class="classTag">
-              <el-tag type="white" v-for="tag in item.tags" :key="tag.id">{{tag.tag}}</el-tag>
+        <div @click="handleOpen()">
+          <div class="header clearfix">
+            <div class="img"><img :src="item.img" alt=""></div>
+            <span class="time">{{item.time}}</span>
+            <el-tag class="dn" :class="item.show" size="small">{{item.tag}}</el-tag>
+          </div>
+          <div class="content">
+            <h4 class="item-title">{{item.title}}</h4>
+            <p class="con">{{item.con}}</p>
+            <div class="detail">
+              <div class="classTag">
+                <el-tag type="white" v-for="tag in item.tags" :key="tag.id">{{tag.tag}}</el-tag>
+              </div>
+              <span><i class="el-icon-view"></i>{{item.num}}</span>
             </div>
-            <span><i class="el-icon-view"></i>{{item.num}}</span>
           </div>
         </div>
       </el-card>
@@ -270,6 +272,13 @@ export default {
   components: {
     Search,
   },
+  methods: {
+    handleOpen () {
+      this.$router.push({
+        path: '/app/training_detail',
+      })
+    },
+  },
 }
 </script>
 
@@ -322,6 +331,7 @@ export default {
       border-radius: 50%;
       overflow: hidden;
       img {
+        display: block;
         width: 100%;
         height: 100%;
         transition: 0.5s;

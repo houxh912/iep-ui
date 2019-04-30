@@ -83,4 +83,9 @@ export default {
     }
 }
 </style>
-
+<style scoped>
+.gird-qualification >>> .el-card{
+  border:none;
+  padding:0;
+}
+</style>

@@ -246,7 +246,7 @@
 
             // Undo, redo
             "Undo": "\u64a4\u6d88",
-            "Redo": "\u91cd\u590d",
+            "Redo": "\u6062\u590d",
 
             // Select all
             "Select All": "\u5168\u9009",

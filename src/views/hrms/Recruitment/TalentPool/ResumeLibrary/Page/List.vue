@@ -77,11 +77,6 @@ export default {
       this._handleComfirm(this.multipleSelection, postToTalent, '放入人才库')
     },
     handleToTalent (row) {
-      // TODO: 是否多选提醒
-      if (!this.multipleSelection.length) {
-        this.$message('请先选择需要的选项')
-        return
-      }
       this._handleComfirm([row.id], postToTalent, '放入人才库')
     },
     handleToBlacklistBatch () {

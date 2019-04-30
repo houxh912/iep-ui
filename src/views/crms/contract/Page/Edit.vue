@@ -99,7 +99,7 @@
       <el-row>
         <el-col :span='12'>
           <el-form-item label="保证金：" prop="deposit">
-            <el-input v-model="formData.deposit" placeholder="请根据缴纳保证金额填写，如未缴纳则填“无”"></el-input>
+            <el-input v-model="formData.deposit" placeholder="请根据缴纳保证金额填写"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

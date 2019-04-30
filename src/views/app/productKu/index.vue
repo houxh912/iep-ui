@@ -29,7 +29,7 @@ export default {
         label: '按模块',
         value: 'Module',
       }, {
-        label: '按定制',
+        label: '按产品',
         value: 'Customized',
       }],
       activeTab: 'Module',

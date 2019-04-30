@@ -49,6 +49,7 @@ export default {
 .material {
   width: 1200px;
   margin: 0 auto;
+  border-top: 1px solid #eee;
   display: grid;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 9000px) minmax(100px, 300px);

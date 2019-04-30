@@ -8,19 +8,19 @@
             <img :src="img" class="img">
             <div class="text">
               <h3 class="sub-title">
-                2019政务大数据、数字政府理论与实践 高级研修班（第四期）
+                {{subTitle}}
               </h3>
               <div class="classTag">
                 <el-tag type="white" v-for="tag in tags" :key="tag.id">{{tag.tag}}</el-tag>
               </div>
-              <p class="con-text">党的十八大以来，党中央高度重视以信息化推进国家治理体系和治理能力现代化，强调要加快推动电子政务，打通信息壁垒，构建全流程一体化在线服务平台，助力建设人民满意的服务型政府。2018年6月,构建全流程一体化在线服务平台</p>
+              <p class="con-text">{{conText}}</p>
               <div class="info">
-                <span class="info-con"><i class="iconfont icon-denglu"></i><span>郑爱军、</span><span>王路燕、</span><span>何益挺</span></span>
+                <span class="info-con"><i class="iconfont icon-denglu"></i><span v-for="name in nameList" :key="name.id">{{name.name}}</span></span>
                 <span class="info-con">
-                  <i class="icon-font icon-shijian"></i><span>2019年04月02日-04月05日</span>
+                  <i class="icon-font icon-shijian"></i><span>{{time}}</span>
                 </span>
                 <span class="info-con">
-                  <i class="icon-font icon-place"></i><span>北京•万寿宾馆</span></span>
+                  <i class="icon-font icon-place"></i><span>{{address}}</span></span>
               </div>
             </div>
           </div>
@@ -33,12 +33,27 @@
 export default {
   data () {
     return {
+      subTitle: '2019政务大数据、数字政府理论与实践 高级研修班（第四期）',
+      conText: '党的十八大以来，党中央高度重视以信息化推进国家治理体系和治理能力现代化，强调要加快推动电子政务，打通信息壁垒，构建全流程一体化在线服务平台，助力建设人民满意的服务型政府。2018年6月,构建全流程一体化在线服务平台',
       img: require('../img/zz.jpg'),
-      tags:[
-        {tag: '数据政府'},
-        {tag: '培训班'},
-        {tag: '政务大数据'},
+      nameList: [
+        {
+          name: '郑爱军',
+        },
+        {
+          name: '王路燕',
+        },
+        {
+          name: '何益挺',
+        },
       ],
+      tags: [
+        { tag: '数据政府' },
+        { tag: '培训班' },
+        { tag: '政务大数据' },
+      ],
+      time: '2019年04月02日-04月05日',
+      address: '北京•万寿宾馆',
     }
   },
 }
@@ -92,6 +107,12 @@ export default {
       align-items: center;
       font-size: 12px;
       color: #666;
+      span {
+        margin-right: 5px;
+        &:last-child {
+          margin: 0;
+        }
+      }
       i {
         margin-right: 8px;
         font-size: 18px;

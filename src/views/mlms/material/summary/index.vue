@@ -86,7 +86,7 @@ import { initSearchForm, getWeekStartAndEnd } from './options'
 import mixins from '@/mixins/mixins'
 import { mapState, mapGetters } from 'vuex'
 import { getTablePersonal, getTableMyInvolved, getTableMyReceived, deleteData, createCollect, getCount } from '@/api/mlms/material/summary'
-import ShareDialog from './shareDialog'
+import ShareDialog from '@/views/mlms/material/components/shareDialog'
 import CollectionDialog from '../components/collectionDialog'
 import DetailPage from './detail'
 import tableTemplate from './tableTpl'
@@ -177,7 +177,7 @@ export default {
     // 批量分享
     handleAllShare () {
       if (this.selectList.length == 0) {
-        this.$message.info('请先选择需要收藏的选项')
+        this.$message.info('请先选择需要分享的选项')
         return
       }
       this.$refs['share'].open(this.selectList)

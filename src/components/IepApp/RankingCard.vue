@@ -1,7 +1,7 @@
 <template>
   <div class="ranking">
     <div v-for="(item,index) in dataList" :key="index" class="piece">
-      <span class="count" :class="item.color">{{index+1}}</span>
+      <span class="count" :class="index==0||index==1||index==2?'red':''">{{index+1}}</span>
       <span class="name">{{item.name}}</span>
       <span class="grade">{{item.grade}}</span>
     </div>
@@ -23,6 +23,7 @@ export default {
 .ranking {
   padding: 2px 0;
   .piece {
+    color:#333;
     cursor: pointer;
     .name {
       height: 30px;

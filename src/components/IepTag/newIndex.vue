@@ -1,5 +1,5 @@
 <template>
-  <a-select :value="value" mode="tags" style="width: 100%" :tokenSeparators="[',','；','，', ';']" @change="handleChange" @search="querySearch" :notFoundContent="fetching ? undefined : null">
+  <a-select :value="value" mode="tags" style="width: 100%" :tokenSeparators="[',','；','，', ';', '、']" @change="handleChange" @search="querySearch" :notFoundContent="fetching ? undefined : null">
     <a-spin v-if="fetching" slot="notFoundContent" size="small" />
     <a-select-option v-for="i in tagResults" :key="i">{{ i }}</a-select-option>
   </a-select>

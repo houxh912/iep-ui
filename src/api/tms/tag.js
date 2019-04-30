@@ -34,8 +34,8 @@ export function postTag (obj) {
 
 export function deleteTagById (id) {
   return request({
-    url: `${prefixUrl}/tag/${id}`,
-    method: 'delete',
+    url: `${prefixUrl}/tag/delete/${id}`,
+    method: 'post',
   })
 }
 

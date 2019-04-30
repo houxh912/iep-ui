@@ -53,7 +53,7 @@ export default {
   text-align: center;
   line-height: 65px;
   .context {
-    width: 1280px;
+    width: 1200px;
     margin: 0 auto;
     color: #d1d1d1;
     a {

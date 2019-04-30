@@ -77,7 +77,7 @@
         <template slot="before-columns">
           <el-table-column label="主题">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+              <div style="width: 100%; cursor: pointer;" @click="handleDetail(scope.row)">{{scope.row.name}}</div>
             </template>
           </el-table-column>
         </template>

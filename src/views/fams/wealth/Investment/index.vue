@@ -25,8 +25,8 @@
           </li>
         </ul>
       </el-card>
-      <div class="investment-content left">
-        <el-card class="box-card">
+      <div class="investment-content">
+        <el-card class="box-card left" shadow="hover">
           <div class="investment-details">
             <div class="clearfix details-title">
               <span>投资明细</span>
@@ -56,7 +56,7 @@
           </div>
           <div class="investment-recommend">
             <div class="clearfix recommend-title">
-              <span>投资明细</span>
+              <span>推荐投资</span>
             </div>
             <el-table
               :data="tableData"
@@ -82,12 +82,50 @@
             </el-table>
           </div>
         </el-card>
+        <el-card class="box-card right" shadow="hover">
+          <div class="investment-my">
+            <div class="header clearfix" slot="header">
+              <span>我要投资</span>
+            </div>
+            <div class="text item">
+              <span>我的投资</span>
+              <span>投资凭证</span>
+              <span>收益统计</span>
+            </div>
+          </div>
+          <div class="investment-index">
+            <div class="header clearfix" slot="header">
+              <span>投资指数</span>
+            </div>
+            <div>
+              <my-data></my-data>
+            </div>
+            <div class="text item">
+              <span> 
+                22
+                <span>个人</span>
+              </span>
+              <span>
+                32
+                <span>团队</span>
+              </span>
+              <span>
+                52
+                <span>部门</span>
+              </span>
+            </div>
+          </div>
+        </el-card>
       </div>
     </basic-container>
   </div>
 </template>
 <script>
+import MyData from './MyData'
 export default {
+  components:{
+    MyData,
+  },
   data () {
     return{
       tableData: [{
@@ -137,6 +175,48 @@ li {
   padding: 0;
   list-style: none;
 }
+.investment-content{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 25px;
+}
+.left {
+  grid-column-start :1;
+  grid-column-end :3;
+}
+.right{
+  grid-column-start :3;
+  grid-column-end :4;
+  .header{
+    padding:20px 10px 20px 25px;
+    border-bottom: 1px solid #eee;
+    span{
+        font-size: 18px;
+      }
+  }
+  .investment-index{
+    .item{
+      span{
+        padding: 20px;
+      }
+    }
+  }
+  .item{
+    padding: 30px 0;
+    span:nth-last-child(1){
+      border-right:none;
+    }
+    &>span{
+      display: inline-block;
+      text-align: center;
+      padding: 20px 30px;
+      border-right: 1px solid #eee;
+      span{
+        display:block;
+      }
+    }
+  }
+}
 .investment-item {
   margin-bottom:20px;
   ul{
@@ -177,7 +257,22 @@ li {
     }
 }
 .details-title,.recommend-title{
-  padding:0 10px;
+  padding:20px 10px 20px 25px;
   font-size: 18px;
 }
 </style> 
+<style scoped>
+.tasks>>>.investment-content .el-card__body{
+  padding:0;
+}
+.tasks>>>.el-table th > .cell{
+  font-size: 15px;
+  padding-left: 25px;
+}
+.tasks>>>.el-table td{
+  padding-left: 15px;
+}
+.tasks>>>.el-table thead th{
+  background-color: #f8f8f8;
+}
+</style>

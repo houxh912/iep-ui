@@ -44,7 +44,7 @@ export const rules = {
 
 export const tipContent = {
     receiverList: '1、需要回复或采取行动的人<br/>' +
-    '2、需要了解次邮件事项相关的人',
+    '2、需要了解此次邮件事项相关的人',
     subject: '1、部门简称+关于+事项+邮件类型，国脉集团研发中心关于内网2.0开发进度工作汇报',
     attachmentList: '1、附件文件应按照文件内容准确命名；<br/>' +
     '2、附件控制在200M以下。',

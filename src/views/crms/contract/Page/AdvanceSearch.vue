@@ -4,7 +4,7 @@
       <el-form-item label="合同名称">
         <el-input v-model="form.contractName" placeholder="请输入合同名称"></el-input>
       </el-form-item>
-      <el-form-item label="签订日期">
+      <!-- <el-form-item label="签订日期">
         <el-date-picker v-model="form.signTime" align="right" type="date" placeholder="选择日期">
         </el-date-picker>
       </el-form-item>
@@ -16,7 +16,7 @@
       </el-form-item>
       <el-form-item label="合同级别">
         <iep-dict-select v-model="form.contractLevel" dict-name="mlms_contract_level"></iep-dict-select>
-      </el-form-item>
+      </el-form-item> -->
       <!-- <el-form-item label="签署部门">
         <iep-dict-select v-model="form.signDeptName" dict-name="crms_client_opportunity_status" placeholder="请选择认领状态"></iep-dict-select>
       </el-form-item>

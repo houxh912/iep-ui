@@ -79,7 +79,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .gird-brand {
   width: 1200px;
   padding: 20px 0;

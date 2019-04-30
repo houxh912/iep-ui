@@ -37,10 +37,10 @@ import NotBegin from './NotBegin'
 import OnGoing from './OnGoing'
 import Completed from './Completed'
 export default {
-  components: { AllTasks, NotBegin,OnGoing,Completed},
+  components: { AllTasks, NotBegin, OnGoing, Completed },
   data () {
     return {
-      linkName:'',
+      linkName: '',
       tabList: [{
         label: '全部',
         value: 'AllTasks',
@@ -60,21 +60,21 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.tasks-info{
-  padding:15px;
+.tasks-info {
+  padding: 15px;
   margin-bottom: 15px;
   border: 1px solid #eac86d;
   background-color: #f4ecd3;
-  span{
-    display:block;
+  span {
+    display: block;
     line-height: 28px;
     color: #333;
   }
 }
-.red{
-  color:#ba1b21!important;
+.red {
+  color: #ba1b21 !important;
 }
-.block-right{
+.block-right {
   line-height: 48px;
   position: absolute;
   right: 0;
@@ -82,32 +82,25 @@ export default {
   color: #333;
   z-index: 3;
   cursor: pointer;
-  span{
+  span {
     display: inline-block;
     margin-right: 20px;
-    &:hover{
-      color:#ba1b21;
+    &:hover {
+      color: #ba1b21;
     }
   }
 }
 </style>
 
 <style scoped>
-.iep-tabs >>> .el-tabs__nav{
-  width:100%;
+.iep-tabs >>> .el-tabs__nav {
+  width: 100%;
 }
-.iep-tabs >>> .el-card__body{
+.iep-tabs >>> .el-card__body {
   position: relative;
 }
 .tasks >>> .el-card {
   border: 0;
-  padding:0;
+  padding: 0;
 }
-
-/* .iep-tabs >>> .el-tabs__item:nth-last-child(1){
-  float:right;
-}
-.iep-tabs >>> .el-tabs__item:nth-last-child(2){
-  float:right;
-} */
 </style>

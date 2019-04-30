@@ -18,7 +18,7 @@
       <operation-container>
         <template slot="left">
           <el-button-group>
-            <el-button class="iconfont icon-yanjing" size="mini"></el-button>
+            <el-button class="iconfont icon-yanjing" @click="handleViewBatch" size="mini"></el-button>
             <el-button class="iconfont icon-biaoqian" size="mini"></el-button>
             <el-button class="iconfont icon-shanchu" size="mini"></el-button>
           </el-button-group>
@@ -29,7 +29,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="主题">
             <template slot-scope="scope">
@@ -43,7 +43,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { getSystemMessagePage, getTypeCountMap } from '@/api/ims/system_message'
+import { getSystemMessagePage, getTypeCountMap, readSystemMessageBatch } from '@/api/ims/system_message'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
 import AdvanceSearch from './AdvanceSearch'
@@ -74,6 +74,12 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
+    handleViewBatch () {
+      this._handleComfirm(this.multipleSelection, readSystemMessageBatch, '批量已读', '', '操作成功')
+    },
     handleSelectType (k) {
       this.selectType = k
       this.loadPage()

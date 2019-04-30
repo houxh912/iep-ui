@@ -143,3 +143,43 @@ export function getAllContractAmount (params) {
     params: params,
   })
 }
+//查看核心客户拜访数量
+export function getAllCoreclient (params) {
+  return request({
+    url: `${allUrl}/coreclient`,
+    method: 'get',
+    params: params,
+  })
+}
+//查看重要客户拜访数量
+export function getAllImportantclient (params) {
+  return request({
+    url: `${allUrl}/importantclient`,
+    method: 'get',
+    params: params,
+  })
+}
+//查看一般客户拜访数量
+export function getAllGeneralclient (params) {
+  return request({
+    url: `${allUrl}/generalclient`,
+    method: 'get',
+    params: params,
+  })
+}
+//查看潜在客户拜访数量
+export function getAllPotentialclient (params) {
+  return request({
+    url: `${allUrl}/potentialclient`,
+    method: 'get',
+    params: params,
+  })
+}
+//查看其他拜访数量
+export function getAllOtherclient (params) {
+  return request({
+    url: `${allUrl}/otherclient`,
+    method: 'get',
+    params: params,
+  })
+}

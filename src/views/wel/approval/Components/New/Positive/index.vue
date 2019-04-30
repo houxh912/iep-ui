@@ -7,17 +7,19 @@
       <el-form-item label="发起时间：" class="form-half">
         <span>{{form.nowTime}}</span>
       </el-form-item>
-      <el-form-item label="职务：" class="form-half">
-        <span>{{form.job}}</span>
-      </el-form-item>
-      <el-form-item label="职称：" class="form-half">
-        <span>{{form.title}}</span>
-      </el-form-item>
       <el-form-item label="入职时间：" class="form-half">
         <span>{{form.startTime}}</span>
       </el-form-item>
       <el-form-item label="转正时间：" class="form-half">
         <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期" :picker-options="pickerOptions"></iep-date-picker>
+      </el-form-item>
+      <el-form-item class="form-half">
+        <div slot="label">
+          调入岗位
+          <iep-tip content="请选择想要调整的对应岗位"></iep-tip>
+          ：
+        </div>
+        <iep-cascader v-model="form.transferPosition" prefix-url="hrms/post_type"></iep-cascader>
       </el-form-item>
       <el-form-item prop="reason">
         <span slot="label">

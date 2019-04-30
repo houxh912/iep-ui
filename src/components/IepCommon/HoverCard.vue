@@ -6,7 +6,7 @@
         <div>{{obj.name}}的详情信息</div>
         <a @click="hide">关闭</a>
       </div>
-      <a-button :type="type">{{obj.name}}</a-button>
+      <a-button size="small" :type="type">{{obj.name}}</a-button>
     </a-popover>
   </a-popover>
 </template>
@@ -14,6 +14,10 @@
 export default {
   name: 'IepHoverCard',
   props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     type: {
       type: String,
       default: 'default',
@@ -35,8 +39,10 @@ export default {
       this.hovered = false
     },
     handleHoverChange (visible) {
-      this.clicked = false
-      this.hovered = visible
+      if (!this.disabled) {
+        this.clicked = false
+        this.hovered = visible
+      }
     },
     handleClickChange (visible) {
       this.clicked = visible

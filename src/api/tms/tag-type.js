@@ -42,7 +42,7 @@ export function postTagType (tag) {
 
 export function deleteTagTypeById (id) {
   return request({
-    url: `${prefixUrl}/tag_type/${id}`,
-    method: 'delete',
+    url: `${prefixUrl}/tag_type/delete/${id}`,
+    method: 'post',
   })
 }

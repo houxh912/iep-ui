@@ -33,7 +33,7 @@ export const tipContent = {
   uploader:
     '1、材料撰写者；<br/>' +
     '2、系统默认读取上传人为作者，如代替上传请修改姓名。',
-  intro: '1、材料内容主旨说明；<br/>' + '2、字数在200字以上',
+  intro: '1、材料内容主旨说明；<br/>' + '2、字数在200字以内',
   firstClass: '根据材料主题准确选择分类，确保分类的准确性！',
   materialType: '根据材料实际性质进行选择，如方案，报告，清单等',
   downloadCost:

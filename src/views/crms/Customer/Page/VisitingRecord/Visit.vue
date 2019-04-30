@@ -19,7 +19,8 @@
       <el-table-column prop="operation" label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" type="warning" plain :disabled="scope.row.userId !== userInfo.userId">编辑</iep-button>
+            <iep-button @click="handleDetail(scope.row)" type="warning" plain :disabled="scope.row.userId !== userInfo.userId">查看</iep-button>
+            <iep-button @click="handleEdit(scope.row)" :disabled="scope.row.userId !== userInfo.userId">编辑</iep-button>
             <iep-button @click="handleDeleteById(scope.row)" :disabled="scope.row.userId !== userInfo.userId">删除</iep-button>
           </operation-wrapper>
         </template>
@@ -63,6 +64,8 @@ export default {
       this.$refs['VisitDialog'].methodName = '保存'
       this.$refs['VisitDialog'].formRequestFn = createVisitLog
       this.$refs['VisitDialog'].id = this.id
+      this.$refs['VisitDialog'].created = true
+      this.$refs['VisitDialog'].disabled = false
     },
     handleEdit (row) {
       fetchVisitLogById({ id: row.id }).then(res => {
@@ -72,6 +75,17 @@ export default {
       this.$refs['VisitDialog'].methodName = '保存'
       this.$refs['VisitDialog'].id = this.id
       this.$refs['VisitDialog'].formRequestFn = updateVisitLog
+      this.$refs['VisitDialog'].isShow = true
+      this.$refs['VisitDialog'].disabled = false
+      this.$refs['VisitDialog'].created = false
+    },
+    handleDetail (row) {
+      fetchVisitLogById({ id: row.id }).then(res => {
+        this.$refs['VisitDialog'].formData = res.data.data
+      })
+      this.$refs['VisitDialog'].dialogShow = true
+      this.$refs['VisitDialog'].disabled = true
+      this.$refs['VisitDialog'].isShow = false
     },
     handleDeleteById (row) {
       this.$confirm('此操作将同时删除原件, 是否继续?', '提示', {

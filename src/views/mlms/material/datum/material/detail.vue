@@ -33,7 +33,7 @@
         <div class="footer-left">
           <el-tag v-for="(item, index) in formData.tagKeyWords" :key="index" type="info">{{item}}</el-tag>
         </div>
-        <div class="footer-right">
+        <div class="footer-right" v-if="isDelete">
           <!-- <div class="wrong" @click="handleWrong">
             <i class="icon-chakantiezigengduojubao"></i> 纠错
           </div> -->
@@ -158,6 +158,7 @@ export default {
       isCommentShow: false,
       createCollect,
       pageSize,
+      isDelete: true,
     }
   },
   methods: {
@@ -199,8 +200,9 @@ export default {
     },
     getDataById (id) {
       getDataById(id).then(({ data }) => {
-        if (data.data == null) {
+        if (!data.data) {
           this.$message.error(data.msg)
+          this.isDelete = false
           return
         }
         this.formData = data.data

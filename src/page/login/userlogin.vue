@@ -154,6 +154,7 @@ export default {
             })
             .catch(() => {
               this.refreshCode()
+              this.loginLoading = false
             })
         }
       })

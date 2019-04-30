@@ -19,24 +19,24 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="签订日期：" prop="signTime">
-            <IepDatePicker v-model="formData.signTime" @change="startChange(formData.signTime)"></IepDatePicker>
+            <IepDatePicker v-model="formData.signTime" @change="startChange(formData.signTime)" placeholder="请选择实际签订合同日期"></IepDatePicker>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="完结日期：" prop="finishTime">
-            <IepDatePicker v-model="formData.finishTime" @change="endChange(formData.finishTime)"></IepDatePicker>
+            <IepDatePicker v-model="formData.finishTime" @change="endChange(formData.finishTime)" placeholder="请选择合同中签订的完结时间"></IepDatePicker>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <iep-select prefix-url="crm/customer/my" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)"></iep-select>
+            <iep-select prefix-url="crm/customer/my" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)" placeholder="请选择该项目实际服务对象"></iep-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
-            <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId"></iep-select>
+            <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId" placeholder="请选择实际与我司签订合同的单位"></iep-select>
           </el-form-item>
         </el-col>
       </el-row>
@@ -60,7 +60,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="合同金额：" prop="contractAmount">
-            <el-input v-model="formData.contractAmount" placeholder="合同金额"></el-input>
+            <el-input v-model="formData.contractAmount" placeholder="请填写合同约定的金额，以“元”为单位"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -79,7 +79,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="保证金：" prop="deposit">
-            <el-input v-model="formData.deposit" placeholder="保证金"></el-input>
+            <el-input v-model="formData.deposit" placeholder="请根据缴纳保证金额填写"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

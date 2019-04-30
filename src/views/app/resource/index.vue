@@ -90,7 +90,12 @@ export default {
     margin: 20px auto 0;
     width: 1200px;
     padding: 0 0 20px 20px;
-    border-bottom: 1px solid #eee;
   }
 }
 </style>
+<style scoped>
+.breadcrumb-wrapper >>> .el-breadcrumb__inner.is-link{
+  font-weight: normal;
+}
+</style>
+

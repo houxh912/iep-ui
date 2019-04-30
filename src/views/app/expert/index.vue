@@ -6,7 +6,7 @@
           <template v-if="activeTab ==='Person'" v-slot:Person>
             <person v-loading="activeTab !=='Person'"></person>
           </template>
-          <template v-if="activeTab ==='Expert'" v-slot:Expert>
+          <template v-if="activeTab ==='Expert'" v-slot:Expert style="letter-spacing:18px;">
             <expert v-loading="activeTab !=='Expert'"></expert>
           </template>
         </iep-tabs>
@@ -32,7 +32,7 @@ export default {
         label: '专家',
         value: 'Expert',
       }],
-      activeTab: 'Person',
+      activeTab: 'Expert',
     }
   },
 }
@@ -43,7 +43,7 @@ export default {
 }
 .gird-expert {
   width: 1200px;
-  padding: 20px 0;
+  padding: 0 0 20px 0;
   margin: 0 auto;
   display: grid;
   grid-auto-flow: row dense;

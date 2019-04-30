@@ -38,17 +38,22 @@ export default {
 .whole{
   display:flex;
   flex-wrap: wrap;
-  .whole-box{
-    width:25%;
-    padding: 20px;
-  .whole-item{
-     border: 1px solid #ccc;
-     margin-bottom: 10px;
-     img{
-      width: 250px;
-      height: 250px;
-    }
+  .whole-box:nth-child(4n){
+    margin-right:0;
   }
+  .whole-box:nth-child(4n-3){
+    margin-left:0;
+  }
+  .whole-box{
+    width:23%;
+    margin: 20px 15px;
+    .whole-item{
+     border: 1px solid #ccc;
+      img{
+        width: 250px;
+        height: 250px;
+      }
+    }
     p{
       font-size: 14px;
       color: #333;

@@ -16,7 +16,7 @@
       </div>
     </div>
     <div>
-      <div class="money">签单金额：8000000</div>
+      <div class="money">签单金额：{{total}}</div>
       <el-row>
         <ve-line :data="chartData" :extend="chartExtend" height="300px" :loading="loading"></ve-line>
       </el-row>
@@ -117,26 +117,32 @@ export default {
         { timeInterval: '第四季度', clientQuantity: 0, contactQuantity: 22 },
       ],
       data4: [],
+      total: 0,
     }
   },
-  created (){
+  created () {
     this.load()
   },
   methods: {
-    searchPage () {
-      this.$message.success('功能开发中')
+    searchPage (val) {
+      this.load(val)
     },
     changeType () {
       this.interval = this.type
       this.load()
     },
-    load () {
-      getAllContractAmount({ interval: this.interval }).then(res => {
+    load (params) {
+      getAllContractAmount({ interval: this.interval, ...params }).then(res => {
+        this.total = 0
+        for (var i = 0; i < res.data.data.length; i++) {
+          this.total = Number(this.total) + Number(res.data.data[i].clientQuantity)
+        }
         if (this.interval == 1) {
           let arr = res.data.data.map(m => m.timeInterval.substring(0, m.timeInterval.indexOf(' ')))
           let time = arr.map(m => this.getMyDay(new Date(m)))
           let Data = res.data.data.map((m, index) => {
             m.timeInterval = time[index]
+
             return m
           })
           for (let i in this.data1) {

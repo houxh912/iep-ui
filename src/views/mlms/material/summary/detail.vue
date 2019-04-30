@@ -24,7 +24,14 @@
       </div>
 
       <div class="comment" v-if="formData.status !== 1">
-        <div class="form">
+        <div class="button-list">
+          <iep-button type="primary" @click="handleCollect">{{formData.collection == 1 ? '已收藏' : '收藏'}}</iep-button>
+          <iep-button type="primary" @click="handleShare">分享</iep-button>
+          <iep-button type="primary" @click="handleComment">评论</iep-button>
+          <iep-button type="primary" @click="handleReward">打赏</iep-button>
+          <iep-button type="primary" @click="Instructions" v-if="permission_instruct">领导批示</iep-button>
+        </div>
+        <div class="form" v-if="isCommentShow">
           <h2 class="title">补充或评论</h2>
           <el-input type="textarea" rows=5 v-model="commentForm.commentContent" maxlength="500"></el-input>
           <div class="button">
@@ -33,7 +40,7 @@
         </div>
         <div class="list" v-for="(item, index) in commentList" :key="index">
           <div class="img">
-            <img :src="`//cloud.govmade.com/${item.avatar}`" alt="">
+            <img :src="item.avatar" alt="">
           </div>
           <div class="info">
             <div class="name">{{item.realName}}</div>
@@ -44,8 +51,13 @@
             </div>
           </div>
         </div>
-        <div class="footer-button">
-          <iep-button type="primary" @click="Instructions">领导批示</iep-button>
+        <div class="pagination" v-if="commentList.length > 0">
+          <el-pagination
+            background
+            @current-change="handleCurrentChange"
+            layout="total, prev, pager, next, jumper"
+            :total="pageSize.total">
+          </el-pagination>
         </div>
       </div>
     </el-col>
@@ -66,12 +78,19 @@
       <p class="content" v-text="formData.receiverName"></p>
     </el-col>
     <instr-dialog ref="instrDialog"></instr-dialog>
+    <collection-dialog ref="collection" @load-page="loadPage" type="meeting" :requestFn="createCollect"></collection-dialog>
+    <share-dialog ref="share" type="summary"></share-dialog>
   </basic-container>
 </template>
 <script>
 import { getDataById } from '@/api/mlms/material/summary'
 import InstrDialog from './instrDialog'
 import { commentMaterial, getCommentPage } from '@/api/mlms/index'
+import { createCollect } from '@/api/mlms/material/summary'
+import ShareDialog from '@/views/mlms/material/components/shareDialog'
+import CollectionDialog from '@/views/mlms/material/components/collectionDialog'
+import { mapGetters } from 'vuex'
+
 function commentForm () {
   return {
     objectType: 2,
@@ -81,13 +100,22 @@ function commentForm () {
   }
 }
 
+const pageSize = {
+  size: 10,
+  current: 1,
+  total: 0,
+}
+
 export default {
-  components: { InstrDialog },
+  components: { InstrDialog, ShareDialog, CollectionDialog },
   props: {
     detailState: {
       type: Boolean,
       default: false,
     },
+  },
+  computed: {
+    ...mapGetters(['permissions']),
   },
   data () {
     return {
@@ -111,6 +139,9 @@ export default {
       },
       commentForm: commentForm(),
       commentList: [],
+      createCollect,
+      isCommentShow: false,
+      pageSize,
     }
   },
   methods: {
@@ -130,8 +161,11 @@ export default {
       getCommentPage({
         id: id,
         objectType: 2,
+        size: this.pageSize.size,
+        current: this.pageSize.current,
       }).then(({ data }) => {
         this.commentList = data.data.records
+        this.pageSize.total = data.data.total
       })
     },
     // 领导批示
@@ -165,6 +199,37 @@ export default {
         this.formData.attendeeName = fn(this.formData.attendee) // 参会人
         this.formData.receiverName = fn(this.formData.receiver) // 参会人
       })
+    },// 收藏
+    handleCollect () {
+      if (this.formData.collection == 1) {
+        this.$message.warning('该纪要已收藏，请勿重复操作！')
+        return
+      }
+      let row = { ...this.formData }
+      this.$refs['collection'].dialogShow = true
+      this.$refs['collection'].loadCollectList([row])
+    },
+    // 分享
+    handleShare () {
+      this.$refs['share'].open([this.formData], `关于 ${this.formData.title} 材料的分享`)
+    },
+    // 评论
+    handleComment () {
+      this.isCommentShow = !this.isCommentShow
+    },
+    // 打赏
+    handleReward () {
+      this.$message.info('抱歉，此功能正在开发中')
+    },
+    // 收藏和分享的返回函数
+    loadPage () {
+      this.formData.collection = 1 // 收藏成功后，将是否收藏改为已收藏
+      this.$emit('load-page', true)
+    },
+    // 评论翻页
+    handleCurrentChange (val) {
+      this.pageSize.current = val
+      this.getComment(this.formData.id)
     },
   },
   created () {
@@ -172,6 +237,7 @@ export default {
     if (params.id && this.$route.name == '查看纪要') {
       this.loadDetail(params.id)
     }
+    this.permission_instruct = this.permissions['mlms_summary_instruct']
   },
 }
 </script>
@@ -206,6 +272,12 @@ export default {
     }
   }
   .comment {
+    .button-list {
+      text-align: right;
+      .el-button {
+        margin-left: 10px;
+      }
+    }
     .form {
       .button {
         text-align: right;
@@ -214,6 +286,9 @@ export default {
     }
     .list {
       display: flex;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 10px;
+      padding: 10px 0;
       .img {
         width: 50px;
         img {
@@ -276,6 +351,9 @@ export default {
           margin-bottom: 10px;
         }
       }
+    }
+    .pagination {
+      text-align: right;
     }
     .footer-button {
       margin-top: 20px;

@@ -1,9 +1,9 @@
 const searchForm = () => {
   return {
-    position: '',
-    districtType: '',
-    businessTypeKey: '',
-    user: {},
+    business: [],
+    deptId: {},
+    district: '',
+    managerId: {},
   }
 }
 

@@ -83,21 +83,6 @@ export default {
 }
 .top {
   padding: 40px 20px 15px 20px;
-  .more {
-    float: right;
-    margin-right: 20px;
-    .border {
-      margin-left: 10px;
-      i {
-        display: inline-block;
-        padding: 5px;
-        border: 1px solid #9c9c9c;
-      }
-      &:hover {
-        color: blue;
-      }
-    }
-  }
   .inline {
     float: right;
   }

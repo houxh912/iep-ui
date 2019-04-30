@@ -23,3 +23,16 @@ export function getSystemMessageById (id) {
     method: 'get',
   })
 }
+
+export function readSystemMessageBatch (ids) {
+  return request({
+    url: `${prefixUrl}/read_or_set/batch`,
+    method: 'post',
+    data: {
+      sysInfoIds:ids,
+    },
+    params: {
+      type: 8,
+    },
+  })
+}

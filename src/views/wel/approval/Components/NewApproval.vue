@@ -9,82 +9,17 @@
   </iep-dialog>
 </template>
 <script>
-import { mapState } from 'vuex'
-function initTree () {
-  return [
-    {
-      id: 1,
-      name: '人事管理',
-      children: [
-        {
-          id: 1,
-          name: '转正',
-          checked: false,
-        },
-        {
-          id: 2,
-          name: '请假',
-          checked: false,
-        },
-        {
-          id: 3,
-          name: '调岗',
-          checked: false,
-        },
-        {
-          id: 4,
-          name: '离职',
-          checked: false,
-        },
-        {
-          id: 5,
-          name: '加班',
-          checked: false,
-        },
-        {
-          id: 6,
-          name: '出差',
-          checked: false,
-        },
-      ],
-    },
-    // {
-    //   id: 2,
-    //   name: '行政管理',
-    //   children: [
-    //     {
-    //       id: 1,
-    //       name: '物品领用',
-    //       checked: false,
-    //     },
-    //   ],
-    // },
-    // {
-    //   id: 3,
-    //   name: '费用管理',
-    //   children: [
-    //     {
-    //       id: 1,
-    //       name: '报销',
-    //       checked: false,
-    //     },
-    //   ],
-    // },
-  ]
-}
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
       name: '',
       dialogShow: false,
-      approvalTree: initTree(),
       formRequestFn: () => { },
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters(['dictGroup']),
     applicTypeTree () {
       const hrms_applic_type = this.dictGroup['hrms_applic_type']
       return [

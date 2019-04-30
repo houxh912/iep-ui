@@ -42,7 +42,7 @@
   </el-row>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { getSystemMessagePage, getTypeCountMap, readSystemMessageBatch } from '@/api/ims/system_message'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
@@ -62,9 +62,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters(['dictGroup']),
     imsMsgType () {
       return this.dictGroup['ims_msg_type']
     },

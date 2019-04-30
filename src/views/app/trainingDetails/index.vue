@@ -1,3 +1,140 @@
 <template>
-  <iep-to-dev></iep-to-dev>
+  <div class="material-detail">
+    <div class="library">
+      <train-details></train-details>
+    </div>
+    <div class="piece">
+      <IepAppTabCard :title="labelTitle">
+        <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
+      </IepAppTabCard>
+      <IepAppTabCard :title="listTitle1">
+        <div class="recommended-list">
+          <div v-for="(item,index) in recommendedList" :key="index" class="piece">
+            <div class="img-con"><img :src="item.img" class="img"></div>
+            <div class="box">
+              <div class="piece-title">
+                <span class="sub-title">{{item.title}}</span>
+              </div>
+              <span class="see"><i class="iconfont icon-yanjing"></i>{{item.see}}</span>
+            </div>
+          </div>
+        </div>
+      </IepAppTabCard>
+    </div>
+  </div>
 </template>
+<script>
+import TrainDetails from './TrainDetails'
+export default {
+  components: { TrainDetails },
+  data () {
+    return {
+      labelTitle: '推荐主题',
+      listTitle1: '推荐培训',
+      labelList: ['营商通', '营商环境', '数据基因', '数据政府', '电子政务', '数字经济', '微服务', 'dips', '知识图谱'],
+      recommendedList: [
+        { img: '../img/person/p010.jpg', title: '关于加快做好内网标签工作的相关规定与', see: '114人浏览' },
+        { img: '../img/person/p011.jpg', title: '数据基因安装部署培训', see: '134人浏览' },
+        { img: '../img/person/p07.jpg', title: '内网考试解读及内网各版块分工认责', see: '59人浏览' },
+        { img: '../img/person/p09.jpg', title: '着力打造卓越全球城市最优营商环境', see: '84人浏览' },
+        { img: '../img/person/p08.jpg', title: '城市数据中心的基因解码', see: '89人浏览' },
+      ],
+      routerMatch: this.$route.matched,
+    }
+  },
+  beforeRouteUpdate (to, from, next) {
+    //console.log(to, from)
+    this.routerMatch = to.matched
+    next()
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+  },
+}
+</script>
+<style lang="scss" scoped>
+.material-detail {
+  width: 1200px;
+  margin: 20px auto;
+  border-top: 1px solid #eee;
+  display: grid;
+  grid-auto-flow: row dense;
+  grid-template-columns: minmax(100px, 9000px) minmax(100px, 300px);
+}
+.recommended-list {
+  .piece {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    &:hover .sub-title {
+      color: #ba1b21;
+    }
+    .img-con {
+      float: left;
+      margin-right: 15px;
+      width: 60px;
+      height: 60px;
+      border: 1px solid #ebeef5;
+      overflow: hidden;
+    }
+    .img {
+      width: 100%;
+      height: 100%;
+      transition: 0.5s;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+    .box {
+      float: left;
+      flex: 2;
+      height: 64px;
+      .piece-title {
+        .sub-title {
+          font-size: 14px;
+          margin-right: 8px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+      }
+      .see {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        float: left;
+        font-size: 12px;
+        line-height: 28px;
+        color: #999;
+      }
+    }
+    &:last-child {
+      margin-bottom: 12px;
+    }
+  }
+  .mutual-card {
+    margin-top: -1px;
+    border-top-color: #fff;
+  }
+}
+.ranking {
+  padding: 0;
+}
+.el-card {
+  border: 0;
+}
+.library {
+  padding-right: 20px;
+  border-right: 1px solid #ebeef5;
+}
+</style>
+<style scoped>
+.breadcrumb-wrapper >>> .el-breadcrumb__inner.is-link {
+  font-weight: normal;
+}
+</style>

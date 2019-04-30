@@ -19,7 +19,8 @@
       <el-table-column prop="operation" label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" type="warning" plain :disabled="scope.row.creatorId !== userInfo.userId">编辑</iep-button>
+            <iep-button @click="handleDetail(scope.row)" type="warning" plain :disabled="scope.row.creatorId !== userInfo.userId">查看</iep-button>
+            <iep-button @click="handleEdit(scope.row)" :disabled="scope.row.creatorId !== userInfo.userId">编辑</iep-button>
             <iep-button @click="handleDeleteById(scope.row)" :disabled="scope.row.creatorId !== userInfo.userId">删除</iep-button>
           </operation-wrapper>
         </template>
@@ -64,13 +65,21 @@ export default {
       this.$refs['EditDialog'].methodName = '新增'
       this.$refs['EditDialog'].submitFn = createVisit
       this.$refs['EditDialog'].id = this.id
+      this.$refs['EditDialog'].disabled = false
     },
     handleEdit (row) {
       this.$refs['EditDialog'].formData = { ...row }
       this.$refs['EditDialog'].dialogShow = true
       this.$refs['EditDialog'].methodName = '编辑'
       this.$refs['EditDialog'].submitFn = updateVisit
-
+      this.$refs['EditDialog'].isShow = true
+      this.$refs['EditDialog'].disabled = false
+    },
+    handleDetail (row) {
+      this.$refs['EditDialog'].formData = { ...row }
+      this.$refs['EditDialog'].dialogShow = true
+      this.$refs['EditDialog'].disabled = true
+      this.$refs['EditDialog'].isShow = false
     },
     handleDeleteById (row) {
       this.$confirm('此操作将同时删除原件, 是否继续?', '提示', {

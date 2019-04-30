@@ -1,70 +1,13 @@
 import { getStore, setStore } from '@/util/store'
-import { isURL } from '@/util/validate'
-import {
-  getUserInfo,
-  loginByMobile,
-  loginBySocial,
-  loginByUsername,
-  logout,
-  refreshToken,
-  loadAllDictMap,
-} from '@/api/login'
-import keyBy from 'lodash/keyBy'
-import { deepClone, encryption, pickDeep } from '@/util/util'
-import website from '@/const/website'
-import { GetMenu } from '@/api/admin/menu'
-import { loadContactsPyList } from '@/api/admin/contacts'
+import { getUserInfo, loginByMobile, loginBySocial, loginByUsername, logout, refreshToken } from '@/api/login'
+import { encryption } from '@/util/util'
 
-function addPath (ele, first) {
-  const propsConfig = website.menu.props
-  const propsDefault = {
-    name: propsConfig.name || 'name',
-    label: propsConfig.label || 'label',
-    path: propsConfig.path || 'path',
-    icon: propsConfig.icon || 'icon',
-    children: propsConfig.children || 'children',
-  }
-  const isChild = ele[propsDefault.children] && ele[propsDefault.children].length !== 0
-  if (!isChild && first) {
-    ele[propsDefault.path] = ele[propsDefault.path] + '/index'
-    return
-  }
-  ele[propsDefault.children].forEach(child => {
-    child[propsDefault.name] = `${child[propsDefault.name]}-${ele[propsDefault.name]}`
-    if (!isURL(child[propsDefault.path])) {
-      child[propsDefault.path] = `${ele[propsDefault.path]}/${child[propsDefault.path] ? child[propsDefault.path] : 'index'}`
-    }
-    addPath(child)
-  })
-}
-
-function detachMenu (menu) {
-  const menuPathList = menu.map(m => m.path)
-  let mainMenu = {}
-  const otherMenus = []
-  for (const iterator of menu) {
-    if (iterator.path === website.menu.firstMenu.modulePath) {
-      mainMenu = deepClone(iterator)
-    } else {
-      otherMenus.push(iterator)
-    }
-  }
-  const menusMap = keyBy(menu, 'path')
-  return { mainMenu, otherMenus, menusMap, menuPathList }
-}
 const user = {
   state: {
     userInfo: {},
     permissions: {},
     roles: [],
     orgs: [],
-    dictGroup: getStore({ name: 'dictGroup' }) || {},
-    contactsPyList: getStore({ name: 'contactsPyList' }) || {},
-    menu: getStore({ name: 'menu' }) || [],
-    mainMenu: getStore({ name: 'main_menu' }) || {},
-    otherMenus: getStore({ name: 'other_menus' }) || [],
-    menusMap: getStore({ name: 'menus_map' }) || {},
-    menuPathList: getStore({ name: 'menu_path_list' }) || [],
     expires_in:
       getStore({
         name: 'expires_in',
@@ -79,34 +22,6 @@ const user = {
       }) || '',
   },
   actions: {
-    // 获取通讯录
-    LoadContactsPyList ({
-      commit,
-    }) {
-      return new Promise((resolve, reject) => {
-        loadContactsPyList().then(res => {
-          const { data } = res
-          commit('SET_CONTACTS_PY_LIST', data.data)
-          resolve()
-        }).catch(err => {
-          reject(err)
-        })
-      })
-    },
-    // 获取全部字典
-    LoadAllDictMap ({
-      commit,
-    }) {
-      return new Promise((resolve, reject) => {
-        loadAllDictMap().then(res => {
-          const { data } = res
-          commit('SET_DICT_ALL', data)
-          resolve()
-        }).catch(err => {
-          reject(err)
-        })
-      })
-    },
     // 根据用户名登录
     LoginByUsername ({ commit }, userInfo) {
       const user = encryption({
@@ -114,24 +29,22 @@ const user = {
         key: 'gdscloudprisbest',
         param: ['password'],
       })
-      return new Promise((resolve, reject) => {
-        loginByUsername(user.username, user.password, user.code, user.randomStr)
-          .then(response => {
-            const data = response.data
-            commit('SET_ACCESS_TOKEN', data.access_token)
-            commit('SET_REFRESH_TOKEN', data.refresh_token)
-            commit('SET_EXPIRES_IN', data.expires_in)
-            commit('SET_MENU', [])
-            commit('SET_MAINMENU', {})
-            commit('SET_OTHERMENUS', [])
-            commit('SET_MENUSMAP', {})
-            commit('SET_MENUPATHLIST', [])
-            commit('CLEAR_LOCK')
-            resolve()
-          })
-          .catch(error => {
-            reject(error)
-          })
+      return new Promise(async (resolve, reject) => {
+        try {
+          const {data} = await loginByUsername(user.username, user.password, user.code, user.randomStr)
+          commit('SET_ACCESS_TOKEN', data.access_token)
+          commit('SET_REFRESH_TOKEN', data.refresh_token)
+          commit('SET_EXPIRES_IN', data.expires_in)
+          commit('SET_MENU', [])
+          commit('SET_MAINMENU', {})
+          commit('SET_OTHERMENUS', [])
+          commit('SET_MENUSMAP', {})
+          commit('SET_MENUPATHLIST', [])
+          commit('CLEAR_LOCK')
+          resolve(data)
+        } catch (error) {
+          reject(error)
+        }
       })
     },
     // 根据手机号登录
@@ -247,43 +160,8 @@ const user = {
         resolve()
       })
     },
-    // 获取系统菜单
-    GetMenu ({ commit, state }) {
-      commit('SET_MENUPATHLIST', [])
-      return new Promise(resolve => {
-        GetMenu().then(({ data }) => {
-          let menu = deepClone(data.data)
-          menu.forEach(ele => {
-            addPath(ele)
-          })
-          commit('SET_MENU', menu)
-          if (state.menuPathList.length === 0) {
-            const { mainMenu, otherMenus, menusMap, menuPathList } = detachMenu(menu)
-            commit('SET_MAINMENU', mainMenu)
-            commit('SET_OTHERMENUS', otherMenus)
-            commit('SET_MENUSMAP', menusMap)
-            commit('SET_MENUPATHLIST', menuPathList)
-          }
-          resolve(menu)
-        })
-      })
-    },
   },
   mutations: {
-    SET_DICT_ALL: (state, dictGroup) => {
-      for (const key in dictGroup) {
-        if (dictGroup.hasOwnProperty(key)) {
-          const element = dictGroup[key]
-          dictGroup[key] = pickDeep(element)
-        }
-      }
-      state.dictGroup = dictGroup
-      setStore({
-        name: 'dictGroup',
-        content: state.dictGroup,
-        type: 'session',
-      })
-    },
     SET_ACCESS_TOKEN: (state, access_token) => {
       state.access_token = access_token
       setStore({
@@ -310,54 +188,6 @@ const user = {
     },
     SET_USERIFNO: (state, userInfo) => {
       state.userInfo = userInfo
-    },
-    SET_CONTACTS_PY_LIST: (state, contactsPyList) => {
-      state.contactsPyList = contactsPyList
-      setStore({
-        name: 'contactsPyList',
-        content: contactsPyList,
-        type: 'session',
-      })
-    },
-    SET_MENU: (state, menu) => {
-      state.menu = menu
-      setStore({
-        name: 'menu',
-        content: menu,
-        type: 'session',
-      })
-    },
-    SET_MENUSMAP: (state, menusMap) => {
-      state.menusMap = menusMap
-      setStore({
-        name: 'menus_map',
-        content: menusMap,
-        type: 'session',
-      })
-    },
-    SET_OTHERMENUS: (state, otherMenus) => {
-      state.otherMenus = otherMenus
-      setStore({
-        name: 'other_menus',
-        content: otherMenus,
-        type: 'session',
-      })
-    },
-    SET_MAINMENU: (state, mainMenu) => {
-      state.mainMenu = mainMenu
-      setStore({
-        name: 'main_menu',
-        content: mainMenu,
-        type: 'session',
-      })
-    },
-    SET_MENUPATHLIST: (state, menuPathList) => {
-      state.menuPathList = menuPathList
-      setStore({
-        name: 'menu_path_list',
-        content: menuPathList,
-        type: 'session',
-      })
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles

@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import { checkName } from '@/api/crms/customer'
 import { checkBusinessName } from '@/api/crms/business'
 import { initForm } from './options'
@@ -133,11 +133,9 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
     ...mapGetters([
       'userInfo',
+      'dictGroup',
     ]),
   },
   methods: {

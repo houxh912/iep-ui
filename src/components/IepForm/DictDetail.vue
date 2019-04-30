@@ -9,7 +9,7 @@
   </label>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name: 'IepDictDetail',
   props: {
@@ -30,9 +30,9 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters([
+      'dictGroup',
+    ]),
     itemTypes () {
       return this.dictGroup[this.dictName]
     },

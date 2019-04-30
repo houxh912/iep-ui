@@ -130,7 +130,6 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
 import { initForm } from '../options'
 import { getCustomerById } from '@/api/crms/customer'
 import { mapGetters } from 'vuex'
@@ -181,8 +180,6 @@ export default {
           })
         }
       }
-
-
     }
     return {
       tipContent,
@@ -301,11 +298,9 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
     ...mapGetters([
       'userInfo',
+      'dictGroup',
     ]),
   },
   methods: {

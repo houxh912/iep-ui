@@ -33,7 +33,7 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { getProductList } from '@/api/app/cpms/product'
 import { getModuleList } from '@/api/app/cpms/module'
 export default {
@@ -47,9 +47,9 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters([
+      'dictGroup',
+    ]),
     cpmsModuleType () {
       return this.dictGroup['cpms_module_type']
     },

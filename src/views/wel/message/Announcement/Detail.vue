@@ -7,13 +7,13 @@
           <li>
             <operation-wrapper>
               <span>发布人：</span>
-              <iep-hover-card :obj="form.sender"></iep-hover-card>
+              <iep-hover-card disabled :obj="form.sender"></iep-hover-card>
             </operation-wrapper>
           </li>
           <!-- <li>
             <operation-wrapper>
               <span>接收方：</span>
-              <iep-hover-card type="primary" v-for="item in form.receivers.orgs" :key="item.id" :obj="item"></iep-hover-card>
+              <iep-hover-card disabled type="danger" v-for="item in form.receivers.orgs" :key="item.id" :obj="item"></iep-hover-card>
               <iep-hover-card v-for="item in form.receivers.users" :key="item.id" :obj="item"></iep-hover-card>
             </operation-wrapper>
           </li> -->

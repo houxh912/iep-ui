@@ -111,7 +111,7 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { mergeByFirst } from '@/util/util'
 import { initForm, rules } from './options'
 import { getCustomerById } from '@/api/crms/customer'
@@ -152,9 +152,9 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters([
+      'dictGroup',
+    ]),
   },
   methods: {
     handleTag () {

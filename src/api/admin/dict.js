@@ -74,3 +74,10 @@ export function remote (type) {
     method: 'get',
   })
 }
+
+export const loadAllDictMap = () => {
+  return request({
+    url: '/admin/dict/all_map',
+    method: 'get',
+  })
+}

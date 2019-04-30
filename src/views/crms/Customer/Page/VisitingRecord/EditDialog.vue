@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="联系记录" width="40%" @close="loadPage">
-    <el-form :model="formData" :rules="rules" ref="formName" size="small" label-width="100px" class="contract">
+    <el-form :model="formData" :rules="rules" ref="formName" size="small" label-width="100px" class="contract" :disabled="disabled">
       <el-form-item label="联系主题：" prop="theme">
         <el-input v-model="formData.theme"></el-input>
       </el-form-item>
@@ -12,7 +12,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button class="btn" type="primary" @click="submitForm('formName')">保存</iep-button>
+      <iep-button class="btn" type="primary" @click="submitForm('formName')" v-if="isShow">保存</iep-button>
       <iep-button @click="resetForm">取消</iep-button>
     </template>
   </iep-dialog>
@@ -43,6 +43,8 @@ export default {
         { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
         ],
       },
+      disabled: false,
+      isShow: true,
     }
   },
   methods: {

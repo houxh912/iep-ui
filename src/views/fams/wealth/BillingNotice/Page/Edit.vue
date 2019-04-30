@@ -109,7 +109,7 @@
   </basic-container>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 import { initForm, workExpColumns, studyColumns, trainingColumns, certificateColumns } from '../options'
 
@@ -135,9 +135,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters(['dictGroup']),
   },
   created () {
     this.methodName = this.record.methodName

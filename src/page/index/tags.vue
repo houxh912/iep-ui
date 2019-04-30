@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Tags',
   data () {
@@ -49,9 +49,6 @@ export default {
   },
   computed: {
     ...mapGetters(['tagWel', 'tagList', 'tag', 'website']),
-    ...mapState({
-      showTag: state => state.common.showTag,
-    }),
     tagLen () {
       return this.tagList.length || 0
     },

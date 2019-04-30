@@ -1,3 +1,66 @@
+## [1.3.1](http://115.233.227.46:8066/root/iep-ui/compare/v1.3.0...v1.3.1) (2019-04-30)
+
+
+### Bug Fixes
+
+* **store:** menu移动文件 ([d7ba593](http://115.233.227.46:8066/root/iep-ui/commits/d7ba593))
+* **tabs:** 样式修复 ([b83b0c0](http://115.233.227.46:8066/root/iep-ui/commits/b83b0c0))
+* **个人x信息:** 添加验证 ([191c0bf](http://115.233.227.46:8066/root/iep-ui/commits/191c0bf))
+* **产品:** 修复权限 ([4185e45](http://115.233.227.46:8066/root/iep-ui/commits/4185e45))
+* **修复:** Error信息 ([c05c2b4](http://115.233.227.46:8066/root/iep-ui/commits/c05c2b4))
+* **修复:** 修复 ([f23c4e6](http://115.233.227.46:8066/root/iep-ui/commits/f23c4e6))
+* **修复:** 用户验证码 ([2acf6b2](http://115.233.227.46:8066/root/iep-ui/commits/2acf6b2))
+* **修复人力:** 放入人才库问题与高级搜索问题 ([10f68cb](http://115.233.227.46:8066/root/iep-ui/commits/10f68cb))
+* **修复标签删除:** 与分隔符问题 ([b869d58](http://115.233.227.46:8066/root/iep-ui/commits/b869d58))
+* **修复添加人员:** 不弹出问题 ([7f30990](http://115.233.227.46:8066/root/iep-ui/commits/7f30990))
+* **修复通讯录:** 拼音问题 ([690d7ef](http://115.233.227.46:8066/root/iep-ui/commits/690d7ef))
+* **审批:** 转正添加调入岗位 ([0391863](http://115.233.227.46:8066/root/iep-ui/commits/0391863))
+* **标签:** 详情修改 ([2fd6513](http://115.233.227.46:8066/root/iep-ui/commits/2fd6513))
+* **样式:** 统一开始为ant-design ([5af9e11](http://115.233.227.46:8066/root/iep-ui/commits/5af9e11))
+* **路由修复:** 路由修复 ([1ac6987](http://115.233.227.46:8066/root/iep-ui/commits/1ac6987))
+* **迁移缓存:** 字典 ([062c7ce](http://115.233.227.46:8066/root/iep-ui/commits/062c7ce))
+
+
+### Features
+
+* **bb:** bb ([c3e622b](http://115.233.227.46:8066/root/iep-ui/commits/c3e622b))
+* **dd:** dd ([b0fa6a2](http://115.233.227.46:8066/root/iep-ui/commits/b0fa6a2))
+* **fix:** fix ([3f115d9](http://115.233.227.46:8066/root/iep-ui/commits/3f115d9))
+* **fix:** fix ([bdf57ae](http://115.233.227.46:8066/root/iep-ui/commits/bdf57ae))
+* **fix:** fix ([7c1f089](http://115.233.227.46:8066/root/iep-ui/commits/7c1f089))
+* **fix:** fix ([312c02c](http://115.233.227.46:8066/root/iep-ui/commits/312c02c))
+* **fix:** fix ([39a1cc7](http://115.233.227.46:8066/root/iep-ui/commits/39a1cc7))
+* **v:** v ([984fc52](http://115.233.227.46:8066/root/iep-ui/commits/984fc52))
+* **前台标签页:** 列表等接口对接 ([9aec1db](http://115.233.227.46:8066/root/iep-ui/commits/9aec1db))
+* **合同保证金额修改:** 金额验证修改 ([b979d8c](http://115.233.227.46:8066/root/iep-ui/commits/b979d8c))
+* **合同暂时隐藏无效搜索:** 合同暂时隐藏无效搜索 ([c99a52a](http://115.233.227.46:8066/root/iep-ui/commits/c99a52a))
+* **培训列表:** 培训列表 ([3e180fb](http://115.233.227.46:8066/root/iep-ui/commits/3e180fb))
+* **审批:** 调入部门添加 ([c01a685](http://115.233.227.46:8066/root/iep-ui/commits/c01a685))
+* **客户商机:** 修改商机客户去重修改 ([c645c33](http://115.233.227.46:8066/root/iep-ui/commits/c645c33))
+* **客户统计|拜访数量:** 拜访数量接口对接 ([9abfbe9](http://115.233.227.46:8066/root/iep-ui/commits/9abfbe9))
+* **客户联系人电话显示修改:** 方案提示修改 ([6bbb541](http://115.233.227.46:8066/root/iep-ui/commits/6bbb541))
+* **客户详情拜访记录:** 增加查看详情 ([87d98b1](http://115.233.227.46:8066/root/iep-ui/commits/87d98b1))
+* b ([a82aff6](http://115.233.227.46:8066/root/iep-ui/commits/a82aff6))
+* **我的收藏:** 查看无数据的材料提示问题 ([6079240](http://115.233.227.46:8066/root/iep-ui/commits/6079240))
+* **材料:** 收藏分享评论功能 ([58f0bdd](http://115.233.227.46:8066/root/iep-ui/commits/58f0bdd))
+* **材料库:** 通用组件迁移 ([b1dbbb5](http://115.233.227.46:8066/root/iep-ui/commits/b1dbbb5))
+* **消息:** 批量已读 ([a52a439](http://115.233.227.46:8066/root/iep-ui/commits/a52a439))
+* **签单金额:** 接口对接，拜访记录长度限制 ([e2fbddb](http://115.233.227.46:8066/root/iep-ui/commits/e2fbddb))
+* **纪要:** 详情页收藏分享批示评论功能完成 ([df78b97](http://115.233.227.46:8066/root/iep-ui/commits/df78b97))
+* **联系人:** 联系人对应客户添加去重 ([66f1621](http://115.233.227.46:8066/root/iep-ui/commits/66f1621))
+* **通讯录:** 暂无修改 ([6e97dbc](http://115.233.227.46:8066/root/iep-ui/commits/6e97dbc))
+
+
+### BREAKING CHANGES
+
+* **v:** v
+* 培訓詳情
+* **培训列表:** 培训列表
+* **bb:** bb
+* **dd:** dd
+
+
+
 # [1.3.0](http://115.233.227.46:8066/root/iep-ui/compare/v1.2.9...v1.3.0) (2019-04-29)
 
 

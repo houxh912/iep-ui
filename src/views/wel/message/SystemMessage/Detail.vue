@@ -25,7 +25,7 @@ import { getSystemMessageById } from '@/api/ims/system_message'
 import keyBy from 'lodash/keyBy'
 import { initForm } from './options'
 import MsgLink from './MsgLink'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   beforeRouteUpdate (to, from, next) {
     console.log(to, from)
@@ -55,10 +55,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
-
+    ...mapGetters(['dictGroup']),
     imsPathType () {
       const imsPathType = this.dictGroup['ims_path_type']
       return keyBy(imsPathType, 'value')[this.form.pathType]

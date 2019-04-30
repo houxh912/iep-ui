@@ -346,6 +346,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import debounce from 'lodash/debounce'
 import { getEmployeeProfileSelf, putEmployeeProfile } from '@/api/hrms/employee_profile'
 import { initForm, dictsMap, selfRules, formToDto } from '@/views/hrms/EmployeeProfile/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
@@ -353,6 +354,7 @@ import { workExpColumns, studyColumns, trainingColumns, certificateColumns } fro
 export default {
   components: { InlineFormTable },
   data () {
+    this.autoSave = debounce(this.autoSave, 5000)
     return {
       workExpColumns,
       studyColumns,
@@ -371,13 +373,17 @@ export default {
     ...mapActions([
       'GetUserInfo',
     ]),
-    async handleSave () {
+    autoSave (curVal, oldVal) {
+      console.log(curVal, oldVal)
+      this.handleSave('自动保存')
+    },
+    async handleSave (useMethodName = '保存') {
       this.$refs['form'].validate(async (valid, object) => {
         if (valid) {
           try {
             await putEmployeeProfile(formToDto(this.form))
             this.$message({
-              message: '修改成功',
+              message: `${useMethodName}成功`,
               type: 'success',
             })
             this.GetUserInfo()
@@ -410,6 +416,15 @@ export default {
       getEmployeeProfileSelf().then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
       })
+    },
+  },
+  watch: {
+    form: {
+      //注意：当观察的数据为对象或数组时，curVal和oldVal是相等的，因为这两个形参指向的是同一个数据对象
+      handler (curVal, oldVal) {
+        this.autoSave(curVal, oldVal)
+      },
+      deep: true,
     },
   },
 }

@@ -57,7 +57,7 @@
         </div>
         <div class="list" v-for="(item, index) in commentList" :key="index">
           <div class="img">
-            <img :src="`//cloud.govmade.com/${item.avatar}`" alt="">
+            <img :src="item.avatar" alt="">
           </div>
           <div class="comment-info">
             <div class="name">{{item.realName}} <div class="rate">
@@ -339,7 +339,7 @@ export default {
   .footer {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     .el-button {
       margin-left: 10px;
     }

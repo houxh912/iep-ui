@@ -36,7 +36,7 @@ export default {
       pastTrainingList: [
         {
           img: require('./img/p1.jpg'),
-          tags:[
+          tags: [
             {
               tag: '标签管理',
             },
@@ -53,7 +53,7 @@ export default {
         },
         {
           img: require('./img/p2.jpg'),
-          tags:[
+          tags: [
             {
               tag: '数据基因部署',
             },
@@ -70,7 +70,7 @@ export default {
         },
         {
           img: require('./img/p3.jpg'),
-          tags:[
+          tags: [
             {
               tag: '互联网',
             },
@@ -87,7 +87,7 @@ export default {
         },
         {
           img: require('./img/p4.jpg'),
-          tags:[
+          tags: [
             {
               tag: '事项基因',
             },
@@ -104,7 +104,7 @@ export default {
         },
         {
           img: require('./img/p5.jpg'),
-          tags:[
+          tags: [
             {
               tag: '内网考试',
             },
@@ -121,7 +121,7 @@ export default {
         },
         {
           img: require('./img/p6.jpg'),
-          tags:[
+          tags: [
             {
               tag: '微服务',
             },
@@ -138,7 +138,7 @@ export default {
         },
         {
           img: require('./img/p7.jpg'),
-          tags:[
+          tags: [
             {
               tag: '营商环境',
             },
@@ -155,7 +155,7 @@ export default {
         },
         {
           img: require('./img/p8.jpg'),
-          tags:[
+          tags: [
             {
               tag: '项目开发实战',
             },
@@ -172,7 +172,7 @@ export default {
         },
         {
           img: require('./img//p9.jpg'),
-          tags:[
+          tags: [
             {
               tag: '目录系统',
             },
@@ -193,7 +193,7 @@ export default {
   methods: {
     getMore () {
       this.$router.push({
-        path: 'app/training_list',
+        path: 'training_list',
       })
     },
   },

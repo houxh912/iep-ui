@@ -116,6 +116,21 @@ export default [
         component: ()=> import('@/views/app/tagLibrary/tagDetail/'),
         meta:noAuth,
       },
+      {
+        path: 'material_detail',
+        name: '材料详情',
+        component: () => import('@/views/app/materialDetail/'),
+      },
+      {
+        path: 'training_detail',
+        name: '培训详情',
+        component: () => import('@/views/app/trainingDetails/'),
+      },
+      {
+        path: 'training_list',
+        name: '培训列表',
+        component: () => import('@/views/app/trainingList/'),
+      },
     ],
   },
 ]

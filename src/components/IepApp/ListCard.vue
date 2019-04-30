@@ -24,6 +24,7 @@ export default {
     cursor: pointer;
     height: 30px;
     line-height: 30px;
+    color:#333;
     position: relative;
     padding-left: 15px;
     overflow : hidden;

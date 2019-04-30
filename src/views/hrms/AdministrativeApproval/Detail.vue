@@ -121,7 +121,7 @@ export default {
       'userInfo',
     ]),
     needApproval () {
-      return this.userInfo.userId !== this.form.userId
+      return this.userInfo.userId !== this.form.userId && this.form.status === 0
     },
     startTimeLabel () {
       return dictsMap.startTime[this.form.type]

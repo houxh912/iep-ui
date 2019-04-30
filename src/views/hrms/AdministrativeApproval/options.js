@@ -21,6 +21,10 @@ const dictsMap = {
     1: '通过',
     2: '拒绝',
   },
+  sStatus: {
+    1: '通过',
+    2: '拒绝',
+  },
 }
 
 const columnsMap = [

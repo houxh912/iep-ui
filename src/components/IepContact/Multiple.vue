@@ -7,7 +7,7 @@
       <el-tag type="info" v-for="tag in users" :key="tag.id+tag.name">{{tag.name}}</el-tag>
     </operation-wrapper>
     <operation-wrapper v-if="!disabled">
-      <el-tag v-if="!isClearUser" type="info">暂无</el-tag>
+      <!-- <el-tag v-if="!isClearUser" type="info">暂无</el-tag> -->
       <el-tag type="danger" :closable="!disabled" v-for="tag in unions" :key="tag.id+tag.name" @close="handleClose(tag, 'unions')">{{tag.name}}</el-tag>
       <el-tag type="warning" :closable="!disabled" v-for="tag in orgs" :key="tag.id+tag.name" @close="handleClose(tag, 'orgs')">{{tag.name}}</el-tag>
       <operation-wrapper class="contact-wrapper">

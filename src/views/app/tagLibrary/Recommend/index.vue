@@ -2,7 +2,7 @@
   <div class="gird-recommend">
     <div class="leaderBoard">
       <IepAppTabsCard :linkName="linkName">
-        <span class="btn">换一批</span>
+        <!-- <span class="btn">换一批</span> -->
         <iep-tabs v-model="activeTab" :tab-list="tabList">
           <template v-if="activeTab ==='RecommendTags'" v-slot:RecommendTags>
             <recommend-tags v-loading="activeTab !=='RecommendTags'"></recommend-tags>
@@ -25,7 +25,7 @@ export default {
   },
   data () {
     return {
-      linkName:'',
+      linkName: '',
       tabList: [{
         label: '推荐标签',
         value: 'RecommendTags',
@@ -60,12 +60,12 @@ export default {
   }
 }
 .btn {
-    line-height: 48px;
-    position: absolute;
-    right: 20px;
-    top: 12px;
-    color: #999;
-    z-index: 3;
+  line-height: 48px;
+  position: absolute;
+  right: 20px;
+  top: 12px;
+  color: #999;
+  z-index: 3;
 }
 </style>
 <style scoped>

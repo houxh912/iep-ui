@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="pageState=='list'">
+    <div v-show="pageState=='list'">
       <operation-container>
         <template slot="left">
           <el-dropdown size="medium">
@@ -78,7 +78,7 @@
     <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
     <upload-file ref="uploadFile" @upload-success="uploadSuccess"></upload-file>
     <share-dialog ref="share" type="material"></share-dialog>
-    <detail-dialog ref="detailPage" @backPage="pageState = 'list'" v-if="pageState=='detail'" :detailState=true></detail-dialog>
+    <detail-dialog ref="detailPage" @backPage="pageState = 'list'" v-if="pageState=='detail'" :detailState=true @load-page="loadPage(undefined, true)"></detail-dialog>
   </div>
 </template>
 
@@ -144,8 +144,10 @@ export default {
       this.selectList = val
       this.multipleSelection = val.map(m => m.id)
     },
-    loadPage (param = this.searchForm) {
-      this.pageState = 'list'
+    loadPage (param = this.searchForm, state) {
+      if (!state) {
+        this.pageState = 'list'
+      }
       this.loadTable(param, this.getTableDataFn)
     },
     // 本地上传文件成功

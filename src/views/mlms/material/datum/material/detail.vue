@@ -34,13 +34,18 @@
           <el-tag v-for="(item, index) in formData.tagKeyWords" :key="index" type="info">{{item}}</el-tag>
         </div>
         <div class="footer-right">
-          <div class="wrong" @click="handleWrong">
+          <!-- <div class="wrong" @click="handleWrong">
             <i class="icon-chakantiezigengduojubao"></i> 纠错
-          </div>
+          </div> -->
+          <iep-button type="primary" @click="handleCollect">{{formData.collection == 1 ? '已收藏' : '收藏'}}</iep-button>
+          <iep-button type="primary" @click="handleShare">分享</iep-button>
+          <iep-button type="primary" @click="handleWrong">纠错</iep-button>
+          <iep-button type="primary" @click="handleComment">评论</iep-button>
+          <iep-button type="primary" @click="handleReward">打赏</iep-button>
         </div>
       </el-row>
       <el-row class="comment">
-        <div class="form">
+        <div class="form" v-if="isCommentShow">
           <h2 class="title">评价评论 <div class="rate">
               <el-rate v-model="comment.score"></el-rate>
             </div>
@@ -50,7 +55,7 @@
             <iep-button type="primary" @click="submit">发送</iep-button>
           </div>
         </div>
-        <div class="list" v-for="(item, index) in this.commentList" :key="index">
+        <div class="list" v-for="(item, index) in commentList" :key="index">
           <div class="img">
             <img :src="`//cloud.govmade.com/${item.avatar}`" alt="">
           </div>
@@ -65,8 +70,15 @@
             </div>
           </div>
         </div>
+        <div class="pagination" v-if="commentList.length > 0">
+          <el-pagination
+            background
+            @current-change="handleCurrentChange"
+            layout="total, prev, pager, next, jumper"
+            :total="pageSize.total">
+          </el-pagination>
+        </div>
       </el-row>
-
     </el-col>
 
     <el-col class="right">
@@ -74,8 +86,8 @@
         <div class="name">{{formData.creatorRealName}}</div>
         <div class="num">共{{materialTotal}}篇材料</div>
         <div class="foot">
-          <iep-button type="danger" @click="subscribe">订阅</iep-button>
-          <iep-button type="danger" @click="apprentice">向他拜师</iep-button>
+          <iep-button type="primary" @click="subscribe">订阅</iep-button>
+          <iep-button type="primary" @click="apprentice">向他拜师</iep-button>
         </div>
       </div>
       <div class="material">
@@ -84,6 +96,8 @@
       </div>
     </el-col>
     <wrongDialog ref="wrong"></wrongDialog>
+    <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
+    <share-dialog ref="share" type="material"></share-dialog>
   </basic-container>
 </template>
 
@@ -92,18 +106,27 @@ import { getDataById, downloadCount, getGreatMaterial, getMaterialTotal } from '
 import { commentMaterial, getCommentPage } from '@/api/mlms/index'
 import { downloadFile } from '@/api/common'
 import wrongDialog from './wrongDialog'
+import CollectionDialog from '../../components/collectionDialog'
+import { createCollect } from '@/api/mlms/material/summary'
+import ShareDialog from '../../summary/shareDialog'
 
 function commentForm () {
   return {
     objectType: 1,
     commentObjectId: 0,
     commentContent: '',
-    score: 0,
+    score: 5,
   }
 }
 
+const pageSize = {
+  size: 10,
+  current: 1,
+  total: 0,
+}
+
 export default {
-  components: { wrongDialog },
+  components: { wrongDialog, CollectionDialog, ShareDialog },
   props: {
     detailState: {
       type: Boolean,
@@ -130,6 +153,9 @@ export default {
       commentList: [],
       materialTotal: 0,
       greatMaterialList: [],
+      isCommentShow: false,
+      createCollect,
+      pageSize,
     }
   },
   methods: {
@@ -153,8 +179,11 @@ export default {
       getCommentPage({
         id: id,
         objectType: 1,
+        size: this.pageSize.size,
+        current: this.pageSize.current,
       }).then(({ data }) => {
         this.commentList = data.data.records
+        this.pageSize.total = data.data.total
       })
     },
     // 附件下载
@@ -162,10 +191,6 @@ export default {
       downloadFile(obj)
       // /getUpload/{id}
       downloadCount(this.formData.id)
-    },
-    // 纠错
-    handleWrong () {
-      this.$refs['wrong'].open(this.formData)
     },
     handleDetail (row) {
       this.$router.push(`/mlms_spa/material/detail/${row.id}`)
@@ -197,6 +222,44 @@ export default {
     // 拜师
     apprentice () {
       this.$message.info('抱歉，此功能正在开发中')
+    },
+    // 收藏
+    handleCollect () {
+      if (this.formData.collection == 1) {
+        this.$message.warning('该材料已收藏，请勿重复操作！')
+        return
+      }
+      let row = { ...this.formData }
+      row.title = row.materialName
+      this.$refs['collection'].dialogShow = true
+      this.$refs['collection'].loadCollectList([row])
+    },
+    // 分享
+    handleShare () {
+      this.formData.name = this.formData.materialName
+      this.$refs['share'].open([this.formData], `关于 ${this.formData.name} 材料的分享`)
+    },
+    // 纠错
+    handleWrong () {
+      this.$refs['wrong'].open(this.formData)
+    },
+    // 评论
+    handleComment () {
+      this.isCommentShow = !this.isCommentShow
+    },
+    // 打赏
+    handleReward () {
+      this.$message.info('抱歉，此功能正在开发中')
+    },
+    // 收藏和分享的返回函数
+    loadPage () {
+      this.formData.collection = 1 // 收藏成功后，将是否收藏改为已收藏
+      this.$emit('load-page', true)
+    },
+    // 评论翻页
+    handleCurrentChange (val) {
+      this.pageSize.current = val
+      this.getComment(this.formData.id)
     },
   },
   created () {
@@ -275,11 +338,14 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    .el-button {
+      margin-left: 10px;
+    }
     .footer-left {
       flex: 1;
       text-align: left;
       .el-tag {
-        margin-right: 10px;
+        margin: 0 10px 10px 0;
       }
     }
     .footer-right {
@@ -323,7 +389,7 @@ export default {
         .footer {
           display: flex;
           justify-content: space-between;
-          margin-bottom: 5px;
+          margin-bottom: 25px;
           .time {
             color: #999;
           }
@@ -365,6 +431,9 @@ export default {
           margin-bottom: 10px;
         }
       }
+    }
+    .pagination {
+      text-align: right;
     }
     .footer-button {
       margin-top: 20px;

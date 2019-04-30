@@ -177,7 +177,7 @@ export default {
     // 批量分享
     handleAllShare () {
       if (this.selectList.length == 0) {
-        this.$message.info('请先选择需要收藏的选项')
+        this.$message.info('请先选择需要分享的选项')
         return
       }
       this.$refs['share'].open(this.selectList)

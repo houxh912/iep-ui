@@ -105,13 +105,13 @@ export default [
         meta: noAuth,
       },
       {
-        path: 'technology_details',
+        path: 'technology_details/:id',
         name: '新技术详情',
         component: () => import('@/views/app/technologyDetails/'),
         meta: noAuth,
       },
       {
-        path:'tags_detail',
+        path:'tags_detail/:id',
         name:'标签页详情',
         component: ()=> import('@/views/app/tagLibrary/tagDetail/'),
         meta:noAuth,

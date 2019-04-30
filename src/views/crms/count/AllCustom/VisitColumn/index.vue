@@ -6,14 +6,6 @@
     <div>
       <el-row>
         <el-col :span='12'>
-          <div class="top">
-            <span>拜访数量</span>
-            <div class="inline">
-              <el-radio-group v-model="type" size="mini" @change="changeType">
-                <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
-              </el-radio-group>
-            </div>
-          </div>
           <div class="echarts odd">
             <visitNumber></visitNumber>
           </div>
@@ -36,8 +28,6 @@ export default {
   components: { visitNumber, Record },
   data () {
     return {
-      type: '1',
-      tabList: [{ label: '按周', value: '1' }, { label: '按月', value: '2' }, { label: '季度', value: '3' }, { label: '年度', value: '4' }],
     }
   },
   methods: {

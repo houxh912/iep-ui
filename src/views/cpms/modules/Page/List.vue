@@ -79,6 +79,9 @@ export default {
     isEditDelPermissions (row) {
       return !(this.cpms_modules_edit_del || this.userInfo.userId === row.creatorId)
     },
+    isViewPermissions (row) {
+      return this.cpms_modules_view || this.userInfo.userId === row.creatorId
+    },
     handleAdd () {
       this.$emit('onEdit', {
         formRequestFn: postModule,
@@ -94,7 +97,7 @@ export default {
       })
     },
     handleDetail (row) {
-      if (!this.cpms_modules_view) {
+      if (!this.isViewPermissions(row)) {
         return
       }
       this.$router.push({

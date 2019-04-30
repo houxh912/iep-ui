@@ -372,31 +372,33 @@ export default {
       'GetUserInfo',
     ]),
     async handleSave () {
-      try {
-        const valid = await this.$refs['form'].validate()
+      this.$refs['form'].validate(async (valid, object) => {
         if (valid) {
-          const { data } = await putEmployeeProfile(formToDto(this.form))
-          if (data.data) {
+          try {
+            await putEmployeeProfile(formToDto(this.form))
             this.$message({
               message: '修改成功',
               type: 'success',
             })
             this.GetUserInfo()
-            return true
-          } else {
+          } catch (error) {
             this.$message({
-              message: data.msg,
+              message: error.message,
               type: 'error',
             })
             return false
           }
         } else {
-          return false
+          let message = ''
+          for (const key in object) {
+            if (object.hasOwnProperty(key)) {
+              const element = object[key]
+              message = element[0].message
+            }
+          }
+          this.$message(message)
         }
-      } catch (error) {
-        console.log(error)
-        return false
-      }
+      })
     },
     async handleSubmit () {
       const res = await this.handleSave()

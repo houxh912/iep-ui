@@ -49,7 +49,7 @@ export default {
     }
     p {
       font-size: 14px;
-      color: #000;
+      color: #333;
       margin-bottom: 0;
     }
     .des {
@@ -60,7 +60,7 @@ export default {
 }
 .title {
   font-size: 18px;
-  color: #000;
+  color: #333;
   margin-bottom: 5px;
   line-height: 1.4;
 }

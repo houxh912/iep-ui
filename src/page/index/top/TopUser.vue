@@ -20,8 +20,9 @@
         <a-menu-item @click="handleAbout">
           关于
         </a-menu-item>
-        <a-menu-item @click="logout">
-          退出系统
+        <a-menu-divider />
+        <a-menu-item @click="handleLogout">
+          退出登录
         </a-menu-item>
       </a-menu>
     </a-dropdown>
@@ -37,6 +38,11 @@ export default {
   components: {
     SelectOrgDialog,
     AboutDialog,
+  },
+  data () {
+    return {
+      confirmLoading: false,
+    }
   },
   computed: {
     ...mapGetters([
@@ -64,15 +70,17 @@ export default {
     handleAbout () {
       this.$refs['AboutDialog'].visible = true
     },
-    logout () {
-      this.$confirm('是否退出系统, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        this.$store.dispatch('LogOut').then(() => {
-          this.$router.push({ path: '/login' })
-        })
+    handleLogout () {
+      this.$antConfirm({
+        title: '提示',
+        content: '真的要注销登录吗 ?',
+        onOk: () => {
+          this.$store.dispatch('LogOut').then(() => {
+            this.$router.push({ path: '/login' })
+          })
+        },
+        onCancel () {
+        },
       })
     },
   },

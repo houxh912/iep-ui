@@ -53,17 +53,26 @@ export const initFormData = () => {
   }
 }
 const amount = (rules, value, callback) => {
-  if (value == '') {
+  if (value === '') {
     callback(new Error('金额不能为空'))
-  } else if (value.length > 9) {
-    callback(new Error('金额长度不能超过9'))
   } else {
-    var reg = new RegExp('^[0-9]*$')
-    if (!reg.test(value)) {
-      callback(new Error('金额为数字类型'))
-    } else {
-      callback()
+    var reg = /^\d{0,8}\.{0,1}(\d{1,2})?$/
+    var num = /^\d{0,100}\.{0,1}(\d{1,2})?$/
+    if (!num.test(value)) {
+      callback(new Error('金额为数字类型且小数点后最多两位'))
+    } else if (!reg.test(value)) {
+      callback(new Error('金额不超过9位整数'))
     }
+  }
+  callback()
+}
+const amount1 = (rules, value, callback) => {
+  var reg = /^\d{0,8}\.{0,1}(\d{1,2})?$/
+  var num = /^\d{0,100}\.{0,1}(\d{1,2})?$/
+  if (!num.test(value)) {
+    callback(new Error('金额为数字类型且小数点后最多两位'))
+  } else if (!reg.test(value)) {
+    callback(new Error('金额不超过9位整数'))
   }
   callback()
 }
@@ -102,6 +111,6 @@ export const rules = {
   contractStatus: [
     { required: true, message: '请选择合同级别', trigger: 'change' },
   ],
-  deposit: [{ required: false, validator: amount, trigger: 'change' }],
+  deposit: [{ validator: amount1, trigger: 'change' }],
 }
 export { columnsMap }

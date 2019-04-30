@@ -34,8 +34,8 @@ export function postTag (obj) {
 
 export function deleteTagById (id) {
   return request({
-    url: `${prefixUrl}/tag/${id}`,
-    method: 'delete',
+    url: `${prefixUrl}/tag/delete/${id}`,
+    method: 'post',
   })
 }
 
@@ -83,5 +83,27 @@ export function deleteTag (ids) {
     url: `${prefixUrl}/tag/delete`,
     method: 'post',
     data: ids,
+  })
+}
+// 推荐标签
+export function getRecTags () {
+  return request({
+    url: `${prefixUrl}/tag/rec_tags`,
+    method: 'get',
+  })
+}
+// 每周标签
+export function getWeekTags () {
+  return request({
+    url: `${prefixUrl}/tag/week_tags`,
+    method: 'get',
+  })
+}
+// 所有标签
+export function getIndexPage (query) {
+  return request({
+    url: `${prefixUrl}/tag/index_page`,
+    method: 'get',
+    params: query,
   })
 }

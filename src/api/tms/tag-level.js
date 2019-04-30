@@ -35,7 +35,7 @@ export function putTagLevel (obj) {
 
 export function deleteTagLevelById (id) {
   return request({
-    url: `${prefixUrl}/tag_level/${id}`,
-    method: 'delete',
+    url: `${prefixUrl}/tag_level/delete/${id}`,
+    method: 'post',
   })
 }

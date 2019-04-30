@@ -32,11 +32,11 @@ export default {
 }
 .title {
   font-size: 18px;
-  color: #000;
+  color: #333;
 }
 .aboutGov p {
   font-size: 14px;
-  color: #000;
+  color: #333;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 5;

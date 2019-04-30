@@ -49,7 +49,12 @@ export default {
       this.isLoadTable = true
       requestFn({ ...param, ...this.pageOption }).then(({ data }) => {
         const { records, limit, total, page } = data
-        this.pagination = { page, limit, total }
+        const isBug = total / limit + 1 === page
+        if (isBug && total !== 0) {
+          this.searchPage() // 防止分页为空页的情况
+        } else {
+          this.pagination = { page, limit, total }
+        }
         this.pagedTable = records.filter(m => {
           return !this.selectedTags.includes(m.name)
         })

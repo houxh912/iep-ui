@@ -32,9 +32,6 @@ export default {
 .iep-tabs >>> .el-tabs__item.is-active {
   color: #ba1b21;
 }
-.iep-tabs >>> .el-tabs__item:hover {
-  color: #ba1b21;
-}
 .iep-tabs >>> .el-tabs__item {
   font-size: 17px;
 }

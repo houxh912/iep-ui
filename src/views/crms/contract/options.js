@@ -24,9 +24,9 @@ const amount = (rules, value, callback) => {
 const amount1 = (rules, value, callback) => {
   var reg = /^\d{0,8}\.{0,1}(\d{1,2})?$/
   var num = /^\d{0,100}\.{0,1}(\d{1,2})?$/
-  if (value == '无' ? false : !num.test(value)) {
+  if (!num.test(value)) {
     callback(new Error('金额为数字类型且小数点后最多两位'))
-  } else if (value == '无' ? false : !reg.test(value)) {
+  } else if (!reg.test(value)) {
     callback(new Error('金额不超过9位整数'))
   }
   callback()

@@ -24,10 +24,10 @@
       </el-col>
     </el-row>
     <el-row :gutter="20" class="gov-info">
-      <el-col :offset="2" :span="12">
+      <el-col :offset="2" :span="11">
         <el-card class="box-card" shadow="never">
           <div slot="header" class="clearfix">
-            <span>集团要闻</span>
+            <span style="font-size:18px;">集团要闻</span>
             <el-button style="float: right; padding: 3px 0" type="text">更多></el-button>
           </div>
           <el-timeline>
@@ -39,10 +39,10 @@
           </el-timeline>
         </el-card>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="8" :offset="1">
         <el-card :body-style="{ padding: '0px' }" shadow="never">
           <div slot="header" class="clearfix">
-            <span>集团喜讯</span>
+            <span style="font-size:18px;">集团喜讯</span>
             <el-button style="float: right; padding: 3px 0" type="text">更多></el-button>
           </div>
           <div style="padding:15px;display:inline-block; width:50%;" v-for="(item,index) in imgList" :key="index">
@@ -81,6 +81,16 @@ export default {
 }
 </script>
 <style scoped>
+.search-con >>> .el-button{
+  background-color: #ba1b21;
+  color:#fff;
+  border-radius: 0 3px 3px 0;
+  width:80px;
+  height:39px;
+}
+.search >>> .el-card{
+  border:none;
+}
 .gov-search >>> .el-input--small input {
   height: 40px !important;
 }
@@ -88,8 +98,8 @@ export default {
   background-color: #fafafa;
 }
 .gov-search >>> .search-con .input-wrapper {
-  max-width: 510px;
-  width: 510px;
+  max-width: 100%;
+  width: 100%;
 }
 .gov-search >>> .el-button--danger.is-plain {
   color: #cb3737;
@@ -119,15 +129,15 @@ export default {
   margin-bottom: 20px;
 }
 .el-row.gov-search {
-  padding-top: 25px;
-  padding-bottom: 25px;
-  background-color: #f6f7f8;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f6f7fb;
   &:last-child {
     margin-bottom: 0;
   }
 }
 .el-input-group__append {
-  background-color: #cb3737;
+  background-color: #ebd6d6;
   color: #fff;
 }
 .bg-white {
@@ -147,6 +157,7 @@ export default {
       cursor: pointer;
     }
     .keyMore {
+      margin-left:20px;
       font-size: 14px;
       color: #cb3737;
     }
@@ -156,7 +167,7 @@ export default {
   text-align: center;
   line-height: 1.7;
   color: #cb3737;
-  font-size: 20px;
+  font-size: 24px;
 }
 .imgDes {
   overflow: hidden;

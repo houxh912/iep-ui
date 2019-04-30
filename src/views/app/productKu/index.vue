@@ -43,7 +43,7 @@ export default {
 }
 .gird-product {
   width: 1200px;
-  padding: 20px 0;
+  padding: 0 0 20px 0;
   margin: 0 auto;
   display: grid;
   grid-auto-flow: row dense;

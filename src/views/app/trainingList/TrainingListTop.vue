@@ -2,14 +2,6 @@
   <div>
     <div class="training-search">
       <h3>{{title}}<span>{{num}}</span></h3>
-      <template>
-        <div class="search-con">
-          <operation-search>
-            <advance-search></advance-search>
-          </operation-search>
-          <el-button type="danger" plain>高级搜索</el-button>
-        </div>
-      </template>
     </div>
   </div>
 </template>

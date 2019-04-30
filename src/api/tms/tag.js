@@ -92,6 +92,13 @@ export function getRecTags () {
     method: 'get',
   })
 }
+// 每周标签
+export function getWeekTags () {
+  return request({
+    url: `${prefixUrl}/tag/week_tags`,
+    method: 'get',
+  })
+}
 // 所有标签
 export function getIndexPage (query) {
   return request({

@@ -19,7 +19,6 @@ export default {
   methods: {
     async loadPage () {
       const { data } = await getRecTags()
-      console.log(data.data)
       this.tags = data.data
     },
     TagsDetail (row) {

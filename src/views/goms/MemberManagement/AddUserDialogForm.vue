@@ -1,5 +1,5 @@
 <template>
-  <iep-a-dialog :dialog-show="dialogShow" title="批量添加成员" width="70%" @ok="handleOk" :confirmLoading="confirmLoading" @cancel="dialogShow=false">
+  <iep-a-dialog :visible="dialogShow" title="批量添加成员" width="70%" @ok="handleOk" :confirmLoading="confirmLoading" @cancel="dialogShow=false">
     <el-row :gutter="20">
       <el-col :span="6">
         已选择的用户(点击移除)：

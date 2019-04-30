@@ -111,7 +111,7 @@ export default [
         meta: noAuth,
       },
       {
-        path:'tags_detail',
+        path:'tags_detail/:id',
         name:'标签页详情',
         component: ()=> import('@/views/app/tagLibrary/tagDetail/'),
         meta:noAuth,

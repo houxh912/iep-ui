@@ -76,14 +76,12 @@ export const initSearchForm = () => {
 export const rules = {
   title: [
     { required: true, message: '必填', trigger: 'blur' },
-    { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
+    { max: 30, message: '长度不可超过30个字符', trigger: 'blur' },
   ],
   meetingContent: [
     { required: true, message: '必填', trigger: 'blur' },
     { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
   ],
-  meetingTime: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
+  meetingTime: [{ required: true, message: '必填', trigger: 'blur' }],
 }
 export { columnsMap, initForm, visitColumnsMap }

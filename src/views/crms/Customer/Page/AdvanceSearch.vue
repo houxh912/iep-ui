@@ -13,7 +13,7 @@
       <iep-dict-select v-model="form.followUpStatus" dict-name="crms_follow_up_status"></iep-dict-select>
     </el-form-item>
     <el-form-item label="业务类型">
-      <iep-dict-select v-model="form.businessTypeKeyString" dict-name="crms_business_type" multiple></iep-dict-select>
+      <iep-dict-select v-model="businessTypeKey" dict-name="crms_business_type" multiple></iep-dict-select>
     </el-form-item>
     <el-form-item label="市场经理" v-if="type==='1'">
       <el-input v-model="form.marketManager" placeholder="请输入市场经理"></el-input>
@@ -41,6 +41,7 @@ export default {
   data () {
     return {
       form: {},
+      businessTypeKey: [],
       options: [{
         value: '1',
         label: '一周内',
@@ -71,10 +72,12 @@ export default {
   methods: {
 
     searchPage () {
-      this.form.businessTypeKeyString = this.form.businessTypeKeyString.join(',')
-      this.$emit('search-page', { type: this.type, ...this.form })
+      this.form.type = this.type
+      this.form.businessTypeKeyString = this.businessTypeKey.join(',')
+      this.$emit('search-page', this.form)
     },
     clearSearchParam () {
+      this.businessTypeKey = []
       if (this.type === '1') {
         this.form = allSearchForm()
       } else {

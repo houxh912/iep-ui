@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="always">
+  <el-card shadow="hover">
     <el-row class="remind">
       <el-col class="head" :span='24'>预警提醒
         <div class="more">

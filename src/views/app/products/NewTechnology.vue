@@ -8,8 +8,8 @@
       </div>
       <iep-no-data v-if="!technologyList.length"></iep-no-data>
       <div class="new-tehnology-content">
-        <div v-for="(item,index) in newTehnologyContent" :key="index" class="piece" @click="handleOpen()">
-          <img :src="item.img" alt="">
+        <div v-for="(item,index) in technologyList" :key="index" class="piece" @click="handleOpen(item)">
+          <img :src="item.imageUrl" alt="">
           <div class="text">
             <span>{{item.name}}</span>
             <span class="introduction">{{item.synopsis}}</span>
@@ -56,9 +56,9 @@ export default {
       this.technologyType = val
       this.loadTechnologyList()
     },
-    handleOpen () {
+    handleOpen (row) {
       this.$router.push({
-        path: '/app/technology_details',
+        path: `/app/technology_details/${row.id}`,
       })
     },
   },

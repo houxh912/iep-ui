@@ -25,8 +25,8 @@
                     出单率
                   </el-progress>
                 </div>
-                <div class="msg">省级客户，业务咨询类客户居多出单了70%</div>
-                <div class="suggest">建议多寻找省级客户，建议多寻找省级客户，建议多寻找省级客户，建议多寻找省级客户。</div>
+                <div class="msg">{{region}}客户，{{business}}类客户居多,为{{percent+'%'}}；</div>
+                <div class="suggest">建议：拜访次数至少到达3次；方案至少达到2份</div>
               </div>
             </el-col>
           </el-row>
@@ -40,16 +40,37 @@
 import Business from './Business'
 import District from './District'
 import AdvanceSearch from './AdvanceSearch'
+import { getAllClientNum } from '@/api/crms/count'
+import { getBusiness } from '@/api/crms/count'
+import { getDistrict } from '@/api/crms/count'
 export default {
   components: { Business, District, AdvanceSearch },
   data () {
     return {
       percent: 70,
+      business: '',
+      region: '',
     }
+  },
+  created () {
+    this.load()
   },
   methods: {
     searchPage () {
-
+    },
+    toPercent (num, total) {
+      return (Math.round(num / total * 10000) / 100.00)// 小数点后两位百分比
+    },
+    load () {
+      getAllClientNum().then(res => {
+        this.percent = this.toPercent(res.data.data.contractQuantity, res.data.data.clientQuantity)
+      })
+      getBusiness().then(res => {
+        this.business = res.data.data[0].marketManager
+      })
+      getDistrict().then(res => {
+        this.region = res.data.data[0].marketManager
+      })
     },
   },
 }

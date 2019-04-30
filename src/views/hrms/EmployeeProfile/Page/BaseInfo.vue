@@ -36,9 +36,6 @@
     <el-form-item label="岗位：" prop="position" class="form-half">
       <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
     </el-form-item>
-    <el-form-item label="对外头衔：" prop="socialRela" class="form-half">
-      <el-input v-model="form.socialRela"></el-input>
-    </el-form-item>
     <el-form-item label="职务：" prop="jobId" class="form-half">
       <iep-select prefix-url="hrms/job_system" v-model="form.jobId"></iep-select>
     </el-form-item>
@@ -56,6 +53,9 @@
         <el-option v-for="(v,k) in dictsMap.status" :key="k" :label="v" :value="+k">
         </el-option>
       </el-select>
+    </el-form-item>
+    <el-form-item label="对外头衔：" prop="socialRela" class="form-half">
+      <el-input v-model="form.socialRela"></el-input>
     </el-form-item>
     <el-form-item label="所属部门：" prop="dept" class="form-half">
       <iep-dept-multiple v-model="form.dept"></iep-dept-multiple>
@@ -259,7 +259,7 @@ export default {
   components: { InlineFormTable },
   props: ['value'],
   data () {
-    return{
+    return {
       dictsMap,
       workExpColumns,
       studyColumns,

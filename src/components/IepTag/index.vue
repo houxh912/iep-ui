@@ -19,7 +19,7 @@
 <script>
 import TagDialog from './TagDialog'
 export default {
-  name: 'IepTag',
+  name: 'IepNewTag',
   components: { TagDialog },
   props: {
     value: {

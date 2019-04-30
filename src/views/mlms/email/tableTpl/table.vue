@@ -7,7 +7,6 @@
     :pagedTable="pagedTable"
     @size-change="handleSizeChange"
     @current-change="handleCurrentChange"
-    is-index
     isMutipleSelection
     @selection-change="selectionChange">
     <template slot="before-columns">
@@ -36,6 +35,11 @@
         <div class="mail-name" @click="handleDetail(scope.row)">{{scope.row.sendRealName}}</div>
       </template>
     </el-table-column>
+    <el-table-column prop="name" label="收件人" v-if="pageState == 'sent' || pageState == 'draft'">
+      <template slot-scope="scope">
+        <div class="mail-name" @click="handleDetail(scope.row)">{{dealReceiverList(scope.row.receivers)}}</div>
+      </template>
+    </el-table-column>
     <el-table-column prop="name" label="主题" min-width="160">
       <template slot-scope="scope">
         <div class="mail-name" @click="handleDetail(scope.row)">{{scope.row.subject}}</div>
@@ -58,7 +62,6 @@ export default {
   name: 'custom',
   mixins: [mixins],
   components: {  },
-  computed: {},
   props: {
     pageState: {
       type: String,
@@ -109,6 +112,19 @@ export default {
       emailStarById(row.emailId).then(() => {
         this.loadPage()
       })
+    },
+    // 处理收件人的数据，最多显示五条
+    dealReceiverList (list) {
+      let data = ''
+      for (let i = 0; (i < 5 && i < list.length); ++i) {
+        data += `${list[i].receiverRealName}、`
+      }
+      data = data.slice(0, data.length - 1)
+      if (list.length > 5) {
+        return (data+'...')
+      } else {
+        return data
+      }
     },
   },
 }

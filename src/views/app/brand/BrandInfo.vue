@@ -33,8 +33,8 @@ export default {
 </script>
 <style lang='scss' scoped>
   .bannerInfo{
-      display: flex;
-        justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
     background-color: #f8f8f8;
     .banner-container{
         display: flex;
@@ -49,7 +49,7 @@ export default {
             p ,span{
                 text-align: center;
                 font-size: 16px; 
-                color:#000;
+                color:#333;
                 margin-bottom: 0;
                 line-height:1.8;
             }

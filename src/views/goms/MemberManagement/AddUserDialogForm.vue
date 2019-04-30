@@ -1,5 +1,5 @@
 <template>
-  <iep-a-dialog :dialog-show="dialogShow" title="批量添加成员" width="70%" @ok="handleOk" :confirmLoading="confirmLoading" @cancel="dialogShow=false">
+  <iep-a-dialog :visible="dialogShow" title="批量添加成员" width="70%" @ok="handleOk" :confirmLoading="confirmLoading" @cancel="dialogShow=false">
     <el-row :gutter="20">
       <el-col :span="6">
         已选择的用户(点击移除)：
@@ -42,8 +42,8 @@
       </el-col>
     </el-row>
     <template slot="footer">
-      <a-button key="back" @click="dialogShow=false">取消</a-button>
-      <a-button key="submit" type="primary" :loading="confirmLoading" @click="handleOk()">
+      <a-button @click="dialogShow=false">取消</a-button>
+      <a-button :disabled="!selectUserList.length" type="primary" :loading="confirmLoading" @click="handleOk()">
         添加
       </a-button>
     </template>

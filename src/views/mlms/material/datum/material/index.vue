@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="pageState=='list'">
+    <div v-show="pageState=='list'">
       <operation-container>
         <template slot="left">
           <el-dropdown size="medium">
@@ -78,7 +78,7 @@
     <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
     <upload-file ref="uploadFile" @upload-success="uploadSuccess"></upload-file>
     <share-dialog ref="share" type="material"></share-dialog>
-    <detail-dialog ref="detailPage" @backPage="pageState = 'list'" v-if="pageState=='detail'" :detailState=true></detail-dialog>
+    <detail-dialog ref="detailPage" @backPage="pageState = 'list'" v-if="pageState=='detail'" :detailState=true @load-page="loadPage(undefined, true)"></detail-dialog>
   </div>
 </template>
 
@@ -91,7 +91,7 @@ import UploadFile from './uploadFile'
 import LocalDialog from './localDialog'
 import NewlyDialog from './newlyDialog'
 import CollectionDialog from '../../components/collectionDialog'
-import ShareDialog from '../../summary/shareDialog'
+import ShareDialog from '@/views/mlms/material/components/shareDialog'
 import { getConfigureTree } from '@/api/mlms/material/datum/configure'
 import DetailDialog from './detail'
 import { mapGetters } from 'vuex'
@@ -144,8 +144,10 @@ export default {
       this.selectList = val
       this.multipleSelection = val.map(m => m.id)
     },
-    loadPage (param) {
-      this.pageState = 'list'
+    loadPage (param = this.searchForm, state) {
+      if (!state) {
+        this.pageState = 'list'
+      }
       this.loadTable(param, this.getTableDataFn)
     },
     // 本地上传文件成功

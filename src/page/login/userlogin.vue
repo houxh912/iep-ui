@@ -29,7 +29,7 @@
     <el-form-item>
       <a-row :gutter="8">
         <a-col :span="12">
-          <a-button type="primary" size="large" @click="handleLogin" block>登录</a-button>
+          <a-button type="primary" size="large" :loading="loginLoading" @click="handleLogin" block>登录</a-button>
         </a-col>
         <a-col :span="12">
           <a-button size="large" @click="$message.success('功能开发中')" block>访客</a-button>
@@ -79,6 +79,7 @@ export default {
         ],
       },
       passwordType: 'password',
+      loginLoading: false,
     }
   },
   watch: {
@@ -140,16 +141,20 @@ export default {
     handleLogin () {
       this.$refs.form.validate(valid => {
         if (valid) {
+          this.loginLoading = true
           this.$store
             .dispatch('LoginByUsername', this.form)
             .then(() => {
+              this.loginLoading = false
               this.$store.dispatch('GetMenu').then(data => {
+                // console.log('LoginByUsername', data)
                 this.$router.$avueRouter.formatRoutes(data, true)
               })
               this.$router.push({ path: this.tagWel.value })
             })
             .catch(() => {
               this.refreshCode()
+              this.loginLoading = false
             })
         }
       })

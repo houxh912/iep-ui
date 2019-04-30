@@ -1,11 +1,25 @@
 <template>
   <div class="multiple-box">
-    <operation-wrapper>
+    <operation-wrapper v-if="disabled" class="contact-wrapper">
+      <el-tag v-if="!isClear" type="info">暂无</el-tag>
+      <el-tag type="danger" v-for="tag in unions" :key="tag.id+tag.name">{{tag.name}}</el-tag>
+      <el-tag type="warning" v-for="tag in orgs" :key="tag.id+tag.name">{{tag.name}}</el-tag>
+      <el-tag type="info" v-for="tag in users" :key="tag.id+tag.name">{{tag.name}}</el-tag>
+    </operation-wrapper>
+    <operation-wrapper v-if="!disabled">
+      <el-tag v-if="!isClearUser" type="info">暂无</el-tag>
       <el-tag type="danger" :closable="!disabled" v-for="tag in unions" :key="tag.id+tag.name" @close="handleClose(tag, 'unions')">{{tag.name}}</el-tag>
       <el-tag type="warning" :closable="!disabled" v-for="tag in orgs" :key="tag.id+tag.name" @close="handleClose(tag, 'orgs')">{{tag.name}}</el-tag>
-      <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id+tag.name" @close="handleClose(tag, 'users')">{{tag.name}}</el-tag>
-      <iep-button v-if="isClear && !disabled" icon="el-icon-error" @click="clearAll"></iep-button>
-      <iep-button @click="openContact()">选择</iep-button>
+      <operation-wrapper class="contact-wrapper">
+        <a-select mode="multiple" :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="querySearch" @change="handleChange">
+          <a-select-option v-for="item in userResults" :key="item.id+''" :value="item.id+''" :title="item.name">
+            <span style="float: left">{{ item.name }}</span>
+            <span style="float: right; color: #8492a6; font-size: 13px">{{ item.pinyin }}</span>
+          </a-select-option>
+        </a-select>
+        <a-button v-if="isClear && !disabled" icon="close" @click="clearAll"></a-button>
+        <a-button @click="openContact()">通讯录</a-button>
+      </operation-wrapper>
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="close" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
@@ -21,7 +35,9 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
+import debounce from 'lodash/debounce'
 export default {
   name: 'IepContactMultiple',
   props: {
@@ -39,21 +55,36 @@ export default {
     },
   },
   data () {
+    this.querySearch = debounce(this.querySearch, 500)
     return {
       filterText: '',
-      treeData: [],
       dialogShow: false,
       props: {
         isLeaf: 'leaf',
       },
+      username: '',
+      treeData: [],
+      userPyList: [],
+      userResults: [],
     }
   },
   computed: {
+    ...mapGetters([
+      'contactsPyList',
+    ]),
     users: {
       get: function () { return this.group.users },
       set: function (value) { this.group.users = value },
     },
     userIds: function () { return this.group.users.map(m => m.id) },
+    usersValue () {
+      return this.users.map(m => {
+        return m.id + ''
+      })
+    },
+    userPyListFilter () {
+      return this.userPyList.filter(m => !this.userIds.includes(m.id))
+    },
     orgs: {
       get: function () { return this.group.orgs },
       set: function (value) { this.group.orgs = value },
@@ -80,6 +111,18 @@ export default {
       }
       return false
     },
+    isClearUser () {
+      if (this.unionIds.length) {
+        return true
+      }
+      if (this.orgIds.length) {
+        return true
+      }
+      return false
+    },
+  },
+  created () {
+    this.loadPyList()
   },
   watch: {
     filterText (val) {
@@ -100,10 +143,6 @@ export default {
       this.orgs = []
       this.users = []
     },
-    filterNode (value, data) {
-      if (!value) return true
-      return data.label.indexOf(value) !== -1
-    },
     isDisabled (data, node) {
       if (data.value === 0) return true
       if (node.level === 1 && this.unionIds.includes(data.value)) {
@@ -120,6 +159,10 @@ export default {
     handleClose (tag, arr) {
       const newData = this.group[arr].filter(item => item.id !== tag.id)
       this.group[arr] = newData
+    },
+    filterNode (value, data) {
+      if (!value) return true
+      return data.label.indexOf(value) !== -1
     },
     selectGroup (data, node) {
       if (node.level === 3) {
@@ -147,6 +190,43 @@ export default {
         }
       }
     },
+    handleChange (value) {
+      const users = value.map(m => {
+        const i = this.userPyList.findIndex(user => user.id === +m)
+        return {
+          id: this.userPyList[i].id,
+          name: this.userPyList[i].name,
+        }
+      })
+      Object.assign(this, {
+        users,
+      })
+    },
+    handleSelect (item) {
+      this.users.push({
+        id: item.id,
+        name: item.name,
+      })
+      this.username = ''
+    },
+    querySearch (queryString) {
+      const userPyListFilter = this.userPyListFilter
+      const results = queryString ? userPyListFilter.filter(this.createFilter(queryString)) : userPyListFilter
+      // 调用 callback 返回建议列表的数据
+      this.userResults = results
+    },
+    createFilter (query) {
+      const queryToLower = query.toLowerCase()
+      return (item) => {
+        return (item.name.toLowerCase().indexOf(queryToLower) > -1
+          || item.pinyin.toLowerCase().indexOf(queryToLower) > -1
+          || item.py.toLowerCase().indexOf(queryToLower) > -1)
+      }
+    },
+    loadPyList () {
+      this.userPyList = [...this.contactsPyList]
+      this.userResults = [...this.contactsPyList]
+    },
     loadNode () {
       getUserListTree().then(({ data }) => {
         this.treeData = data.data
@@ -156,8 +236,12 @@ export default {
 }
 </script>
 <style scoped>
+.contact-wrapper {
+  display: flex;
+}
 .multiple-box > .el-tag {
   margin-right: 5px;
+  margin-bottom: 5px;
 }
 .custom-tree-node {
   flex: 1;

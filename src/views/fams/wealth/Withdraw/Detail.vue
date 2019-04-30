@@ -67,7 +67,7 @@ export default {
         nextText: '撤销',
         prevText: '',
         data: undefined,
-        onData: this.handleFirst,
+        onData: this.handleThird,
       }, {
         title: '财务发放',
         content: 'FourthContent',
@@ -93,6 +93,9 @@ export default {
     },
     handleSecond () {
       this.next()
+    },
+    handleThird () {
+      this.$router.history.go(-1)
     },
     next () {
       this.current++

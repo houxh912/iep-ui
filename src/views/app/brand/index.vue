@@ -79,7 +79,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .gird-brand {
   width: 1200px;
   padding: 20px 0;
@@ -96,6 +96,5 @@ export default {
 .el-tabs__item {
   padding: 0 15px;
   line-height: 18px;
-  color: #000;
 }
 </style>

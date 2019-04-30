@@ -26,6 +26,7 @@ import IepTip from '@/components/IepCommon/Tip'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
+import IepNewTag from '@/components/IepTag/newIndex'
 import IepSelect from '@/components/IepForm/Select'
 import IepDatePicker from '@/components/IepForm/DatePicker'
 import IepCascader from '@/components/IepForm/Cascader'
@@ -65,6 +66,7 @@ import IepTableLinkImgDesc from '@/components/IepTable/LinkImgDesc'
 import IepContactSelect from '@/components/IepContact/Select'
 import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
+import IepContactNewMultipleUser from '@/components/IepContact/NewMultipleUser'
 
 // 部门组件Contact
 import IepDeptSelect from '@/components/IepDept/Select'
@@ -105,6 +107,7 @@ Vue.component(IepTip.name, IepTip)
 
 // 表单组件
 Vue.component(IepTag.name, IepTag)
+Vue.component(IepNewTag.name, IepNewTag)
 Vue.component(IepSelect.name, IepSelect)
 Vue.component(IepCascader.name, IepCascader)
 Vue.component(IepDictDetail.name, IepDictDetail)
@@ -142,6 +145,7 @@ Vue.component(IepTableLinkImgDesc.name, IepTableLinkImgDesc)
 Vue.component(IepContactSelect.name, IepContactSelect)
 Vue.component(IepContactMultiple.name, IepContactMultiple)
 Vue.component(IepContactMultipleUser.name, IepContactMultipleUser)
+Vue.component(IepContactNewMultipleUser.name, IepContactNewMultipleUser)
 
 // 部门组件Contact
 Vue.component(IepDeptSelect.name, IepDeptSelect)

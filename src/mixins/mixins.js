@@ -130,7 +130,7 @@ export default {
         })
       })
     },
-    cell ({ column }) {
+    mixinsCellPointerStyle ({ column }) {
       if (
         column.type === 'index' ||
         column.type === 'selection' ||

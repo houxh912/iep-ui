@@ -17,7 +17,11 @@ export default {
     }
   },
   created () {
-    this.$message('此页面正在开发中，当前数据仅供参考。')
+    this.$notify({
+      title: '注意',
+      message: '此页面正在开发中，当前数据仅供参考。',
+      offset: 60,
+    })
   },
 }
 </script>

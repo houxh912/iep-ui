@@ -4,7 +4,7 @@
       <page-header :title="`${form.name}的申请`" :backOption="backOption"></page-header>
       <el-card class="top-card" :body-style="bodyStyle" shadow="hover">
         <div class="avatar-wrapper">
-          <iep-img class="avatar" :src="form.avatar"></iep-img>
+          <iep-img-avatar :size="90" :src="form.avatar" alt="头像"></iep-img-avatar>
         </div>
         <div class="info">
           <div class="info-item">
@@ -80,8 +80,10 @@
         <div slot="header" class="clearfix">
           <span>操作</span>
         </div>
-        <iep-button type="warning" @click="handleReview()" plain>审核</iep-button>
-        <iep-button @click="handleDeliver()">转交</iep-button>
+        <operation-wrapper>
+          <iep-button type="warning" @click="handleReview()" plain>审核</iep-button>
+          <iep-button @click="handleDeliver()">转交</iep-button>
+        </operation-wrapper>
       </el-card>
     </basic-container>
     <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
@@ -119,7 +121,7 @@ export default {
       'userInfo',
     ]),
     needApproval () {
-      return this.userInfo.userId !== this.form.userId
+      return this.userInfo.userId !== this.form.userId && this.form.status === 0
     },
     startTimeLabel () {
       return dictsMap.startTime[this.form.type]

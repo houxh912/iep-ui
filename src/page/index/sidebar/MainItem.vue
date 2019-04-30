@@ -59,7 +59,6 @@ export default {
   text-align: left;
   padding: 20px 20px;
   border-bottom: 1px solid #eee;
-  border-right: 1px solid #eee;
   color: #666;
   .main-link {
     &:hover {

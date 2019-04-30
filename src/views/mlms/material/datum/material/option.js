@@ -112,42 +112,6 @@ export const rules = {
   ],
 }
 
-// 纠错
-export function initWrongForm () {
-  return {
-    attachmentIds: [],
-    content: '',
-    emailId: 0,
-    materialIds: [],
-    projectIds: [],
-    receiverIds: [],
-    receiverList: {
-      unions: [],
-      orgs: [],
-      users: [],
-    },
-    reportIds: [],
-    status: 1,
-    subject: '',
-    summaryIds: [],
-    summaryList: [],
-    tagKeyWords: [],
-    type: 3, // 类型为纠错
-    kind: 0,
-  }
-}
-
-export const wrongRules = {
-  subject: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
-  receiverIds: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
-  content: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
-}
 export const tipContent = {
     materialName: '1、市场项目类文件：日期+项目名称/编号+文件描述+文件阶段标识，例如20190101丽水市信息化项目建设方案编制说明v1.0；<br/>' +
     '2、政策规范制度类文件：日期+发布部门/单位+文件主题+文件阶段标识，例如20190101资产管理与投融资委员会发布关于国脉贝管理v1.0；<br/>' +

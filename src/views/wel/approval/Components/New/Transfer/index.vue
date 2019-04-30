@@ -12,6 +12,17 @@
       </el-form-item>
       <el-form-item class="form-half">
         <div slot="label">
+          原先部门
+          <iep-tip content="请选择原先部门"></iep-tip>
+          ：
+        </div>
+        <el-select v-model="form.transferFormerDept" placeholder="请选择原先部门">
+          <el-option v-for="item in form.dept" :key="item.id" :label="item.name" :value="item.id">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item class="form-half">
+        <div slot="label">
           调入部门
           <iep-tip content="请选择想要调入的部门"></iep-tip>
           ：

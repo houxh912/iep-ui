@@ -27,31 +27,60 @@
       </el-card>
       <div class="investment-content left">
         <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>投资明细</span>
+          <div class="investment-details">
+            <div class="clearfix details-title">
+              <span>投资明细</span>
+            </div>
+            <el-table
+              :data="tableData"
+              style="width: 100%">
+              <el-table-column
+                prop="date"
+                label="投资公司"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                prop="name"
+                label="投资方式"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                prop="address"
+                label="投资金额">
+              </el-table-column>
+              <el-table-column
+                prop="time"
+                label="投资时间">
+              </el-table-column>
+            </el-table>
           </div>
-          <el-table
-            :data="tableData"
-            style="width: 100%">
-            <el-table-column
-              prop="date"
-              label="投资公司"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="name"
-              label="投资方式"
-              width="180">
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="投资金额">
-            </el-table-column>
-            <el-table-column
-              prop="time"
-              label="投资时间">
-            </el-table-column>
-          </el-table>
+          <div class="investment-recommend">
+            <div class="clearfix recommend-title">
+              <span>投资明细</span>
+            </div>
+            <el-table
+              :data="tableData"
+              style="width: 100%">
+              <el-table-column
+                prop="date"
+                label="投资公司"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                prop="name"
+                label="投资方式"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                prop="address"
+                label="投资金额">
+              </el-table-column>
+              <el-table-column
+                prop="time"
+                label="投资时间">
+              </el-table-column>
+            </el-table>
+          </div>
         </el-card>
       </div>
     </basic-container>
@@ -146,5 +175,9 @@ li {
     .sub-title {
       color: #999;
     }
+}
+.details-title,.recommend-title{
+  padding:0 10px;
+  font-size: 18px;
 }
 </style> 

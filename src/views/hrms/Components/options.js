@@ -19,8 +19,6 @@ const workExpColumns = [
   {
     prop: 'name',
     label: '公司',
-    type: 'list',
-    prefixUrl: 'hrms/relation/labor_contract/company',
   },
   {
     prop: 'position',
@@ -50,7 +48,7 @@ const trainingColumns = [
   {
     prop: 'method',
     label: '培训方式',
-    dictName: 'hrms_training_type',
+    dictName: 'hrms_training_mode',
     type: 'dict',
   },
   {
@@ -92,7 +90,7 @@ const laborContractColumns = [
     prop: 'company',
     label: '归属公司',
     type: 'list',
-    prefixUrl: 'hrms/relation/labor_contract/company',
+    prefixUrl: 'fams/company',
   },
   {
     prop: 'startTime',
@@ -121,7 +119,7 @@ const welfareColumns = [
     prop: 'company',
     label: '归属公司',
     type: 'list',
-    prefixUrl: 'hrms/relation/labor_contract/company',
+    prefixUrl: 'fams/company',
   },
   {
     prop: 'startTime',

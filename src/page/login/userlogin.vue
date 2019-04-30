@@ -139,9 +139,9 @@ export default {
       })
     },
     handleLogin () {
-      this.loginLoading = true
       this.$refs.form.validate(valid => {
         if (valid) {
+          this.loginLoading = true
           this.$store
             .dispatch('LoginByUsername', this.form)
             .then(() => {
@@ -154,6 +154,7 @@ export default {
             })
             .catch(() => {
               this.refreshCode()
+              this.loginLoading = false
             })
         }
       })

@@ -2,13 +2,13 @@
   <div class="gird-all">
     <div class="leaderBoard">
       <IepAppTabsCard :linkName="linkName">
-        <span class="btn">
-            <span class="red">按热度</span>
-            <span>按应用</span>
-        </span>
+        <el-radio-group v-model="descs" size="small" class="btn">
+          <el-radio-button label="views">按热度</el-radio-button>
+          <el-radio-button label="refers">按应用</el-radio-button>
+        </el-radio-group>
         <iep-tabs v-model="activeTab" :tab-list="tabList">
           <template v-if="activeTab ==='All'" v-slot:All>
-            <all v-loading="activeTab !=='All'"></all>
+            <all v-loading="activeTab !=='All'" :descs="descs"></all>
           </template>
           <template v-if="activeTab ==='OrgTags'" v-slot:OrgTags>
             <org-tags v-loading="activeTab !=='OrgTags'"></org-tags>
@@ -48,7 +48,8 @@ export default {
   },
   data () {
     return {
-      linkName:'',
+      linkName: '',
+      descs: '',
       tabList: [{
         label: '所有标签(430)',
         value: 'All',
@@ -95,22 +96,12 @@ export default {
   }
 }
 .btn {
-    line-height: 48px;
-    position: absolute;
-    right: 20px;
-    top: 12px;
-    color: #333;
-    z-index: 3;
-    .red{
-        background-color:#c73e3e;
-        color:#fff;
-        border:1px solid #c73e3e;
-    }
-    span{
-        padding: 5px 8px;
-        border: 1px solid #ccc;
-        cursor: pointer;
-    }
+  line-height: 48px;
+  position: absolute;
+  right: 20px;
+  top: 4px;
+  color: #333;
+  z-index: 3;
 }
 </style>
 <style scoped>

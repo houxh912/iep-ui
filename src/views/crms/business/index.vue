@@ -11,7 +11,7 @@
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
           </el-radio-group>
           <operation-search @search-page="searchPage" advance-search :prop="'clientName'">
-            <advance-search @search-page="searchPage" :type="type"></advance-search>
+            <advance-search @search-page="searchPage" :type="type" ref="search"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -43,6 +43,7 @@ import EditDrawer from './EditDrawer'
 import AdvanceSearch from './AdvanceSearch'
 import Create from './Create'
 import { getBusinessList, postBusiness, putBusiness, deleteBusinessById, getBusinessById, cancelClaim } from '@/api/crms/business'
+import { allSearchForm, initSearchForm } from './options'
 export default {
   name: 'List',
   mixins: [mixins],
@@ -85,6 +86,11 @@ export default {
     handleSelectionChange () {
     },
     changeType () {
+      if (this.type == '1') {
+        this.$refs.search.form = allSearchForm()
+      } else {
+        this.$refs.search.form = initSearchForm()
+      }
       this.searchPage({ type: this.type })
     },
     handleAdd () {
@@ -135,8 +141,8 @@ export default {
       let ids = [row.opportunityId]
       this._handleGlobalDeleteById(ids, deleteBusinessById)
     },
-    loadPage (param) {
-      this.loadTable({ ...param, type: this.type }, getBusinessList, m => {
+    loadPage () {
+      this.loadTable({ ...this.$refs.search.form, type: this.type }, getBusinessList, m => {
         return Object.assign(m, { businessTypeKey: m.businessType.map(m => m.commonName).join('，') })
       })
     },

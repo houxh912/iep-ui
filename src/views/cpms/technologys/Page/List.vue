@@ -72,6 +72,9 @@ export default {
     isEditDelPermissions (row) {
       return !(this.cpms_technologys_edit_del || this.userInfo.userId === row.creatorId)
     },
+    isViewPermissions (row) {
+      return this.cpms_technologys_view || this.userInfo.userId === row.creatorId
+    },
     handleAdd () {
       this.$emit('onEdit', {
         formRequestFn: postTechnology,
@@ -87,7 +90,7 @@ export default {
       })
     },
     handleDetail (row) {
-      if (!this.cpms_technologys_view) {
+      if (!this.isViewPermissions(row)) {
         return
       }
       this.$router.push({

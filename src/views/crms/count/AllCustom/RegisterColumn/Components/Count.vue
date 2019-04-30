@@ -50,6 +50,7 @@ export default {
       })
     },
     left () {
+      this.rightDisabled = false
       if (this.current > 1) {
         this.current--
         this.pageOption.current = this.current
@@ -61,6 +62,7 @@ export default {
       }
     },
     right () {
+      this.leftDisabled = false
       if (this.current < this.total) {
         this.current++
         this.pageOption.current = this.current
@@ -84,18 +86,13 @@ export default {
   padding: 10px;
 }
 .border {
-  cursor: pointer;
   margin-left: 10px;
   .el-button {
     padding: 0;
-    i {
-      display: inline-block;
-      padding: 5px;
-      border: 1px solid #9c9c9c;
-    }
-    // &:hover {
-    //   color: blue;
-    // }
+  }
+  i {
+    display: inline-block;
+    padding: 5px;
   }
 }
 </style>

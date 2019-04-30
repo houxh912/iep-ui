@@ -111,10 +111,17 @@ export default [
         meta: noAuth,
       },
       {
+<<<<<<< HEAD
         path: 'tags_detail',
         name: '标签页详情',
         component: () => import('@/views/app/tagLibrary/tagDetail/'),
         meta: noAuth,
+=======
+        path:'tags_detail/:id',
+        name:'标签页详情',
+        component: ()=> import('@/views/app/tagLibrary/tagDetail/'),
+        meta:noAuth,
+>>>>>>> 90b543efd96a6789f996d76302f5b5362522e92e
       },
       {
         path: 'material_detail',

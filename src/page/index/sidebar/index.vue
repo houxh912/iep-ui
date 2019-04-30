@@ -106,6 +106,7 @@ export default {
 <style lang="css" scoped>
 .avue-sidebar >>> .el-scrollbar .el-scrollbar__wrap {
   overflow-x: hidden;
+  border-right: 1px solid #fafafa;
 }
 .avue-sidebar >>> .el-submenu .el-submenu__title {
   border-left: 3px solid #fafafa;
@@ -122,5 +123,8 @@ export default {
 .avue-sidebar >>> .el-menu-item {
   height: 40px;
   line-height: 40px;
+}
+.avue-sidebar >>> .el-menu{
+  border-right:none;
 }
 </style>

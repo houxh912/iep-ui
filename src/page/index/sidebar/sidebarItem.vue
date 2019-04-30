@@ -127,3 +127,8 @@ export default {
   }
 }
 </style>
+<style scoped>
+.menu-wrapper >>> .el-menu{
+  border-right:none;
+}
+</style>

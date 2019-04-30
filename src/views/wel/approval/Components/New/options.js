@@ -13,6 +13,7 @@ const initForm = () => {
 		positiveTime: '',
 		transferTime: '',
 		deptList: [],
+		dept: [], // 所属部门不可编辑
 		type: 1, // 审批类型（字典：1-请假申请；2-出差申请；3-加班申请；4-请假申请；5-离职申请；6-调岗申请；7-招聘申请）
 		startTime: initNow(), // 开始时间(1:请假开始时间；2:出差开始时间;3:加班开始时间;4:入职时间;5:入职时间）
 		endTime: '', // 结束时间(1:请假结束时间；2:出差结束时间;3:加班结束时间;4:转正时间;5:离职时间;6:调岗时间）
@@ -62,6 +63,7 @@ const initSelfForm = () => {
 		positiveTime: '', // 转正时间
 		transferTime: '', // 调动时间
 		deptList: [], // 所属部门 Vo 不可编辑
+		dept: [], // 所属部门不可编辑
 	}
 }
 

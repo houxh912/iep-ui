@@ -139,23 +139,20 @@ export default {
       })
     },
     handleLogin () {
-      this.$refs.form.validate(valid => {
+      this.$refs.form.validate(async (valid) => {
         if (valid) {
-          this.loginLoading = true
-          this.$store
-            .dispatch('LoginByUsername', this.form)
-            .then(() => {
-              this.loginLoading = false
-              this.$store.dispatch('GetMenu').then(data => {
-                // console.log('LoginByUsername', data)
-                this.$router.$avueRouter.formatRoutes(data, true)
-              })
-              this.$router.push({ path: this.tagWel.value })
+          try {
+            this.loginLoading = true
+            await this.$store.dispatch('LoginByUsername', this.form)
+            this.$store.dispatch('GetMenu').then(data => {
+              this.$router.$avueRouter.formatRoutes(data, true)
             })
-            .catch(() => {
-              this.refreshCode()
-              this.loginLoading = false
-            })
+            this.$router.push({ path: this.tagWel.value })
+          } catch (error) {
+            this.$message.error(error.message)
+          } finally {
+            this.loginLoading = false
+          }
         }
       })
     },

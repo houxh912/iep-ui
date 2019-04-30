@@ -114,24 +114,22 @@ const user = {
         key: 'gdscloudprisbest',
         param: ['password'],
       })
-      return new Promise((resolve, reject) => {
-        loginByUsername(user.username, user.password, user.code, user.randomStr)
-          .then(response => {
-            const data = response.data
-            commit('SET_ACCESS_TOKEN', data.access_token)
-            commit('SET_REFRESH_TOKEN', data.refresh_token)
-            commit('SET_EXPIRES_IN', data.expires_in)
-            commit('SET_MENU', [])
-            commit('SET_MAINMENU', {})
-            commit('SET_OTHERMENUS', [])
-            commit('SET_MENUSMAP', {})
-            commit('SET_MENUPATHLIST', [])
-            commit('CLEAR_LOCK')
-            resolve()
-          })
-          .catch(error => {
-            reject(error)
-          })
+      return new Promise(async (resolve, reject) => {
+        try {
+          const {data} = await loginByUsername(user.username, user.password, user.code, user.randomStr)
+          commit('SET_ACCESS_TOKEN', data.access_token)
+          commit('SET_REFRESH_TOKEN', data.refresh_token)
+          commit('SET_EXPIRES_IN', data.expires_in)
+          commit('SET_MENU', [])
+          commit('SET_MAINMENU', {})
+          commit('SET_OTHERMENUS', [])
+          commit('SET_MENUSMAP', {})
+          commit('SET_MENUPATHLIST', [])
+          commit('CLEAR_LOCK')
+          resolve(data)
+        } catch (error) {
+          reject(error)
+        }
       })
     },
     // 根据手机号登录

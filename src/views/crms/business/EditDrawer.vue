@@ -1,6 +1,6 @@
 <template>
   <iep-drawer :drawer-show="drawerShow" type="drawer" :title="methodName+'商机'" width="40%" @close="loadPage">
-    <el-form :model="formData" :rules="rules" ref="formName" label-width="120px" size="small">
+    <el-form :model="formData" :rules="methodName=='修改' ? false: rules" ref="formName" label-width="120px" size="small">
       <el-form-item prop="clientName">
         <span slot="label">
           客户名称

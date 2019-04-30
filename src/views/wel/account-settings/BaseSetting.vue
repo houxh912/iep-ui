@@ -374,17 +374,16 @@ export default {
     async handleSave () {
       this.$refs['form'].validate(async (valid, object) => {
         if (valid) {
-          const { data } = await putEmployeeProfile(formToDto(this.form))
-          if (data.data) {
+          try {
+            await putEmployeeProfile(formToDto(this.form))
             this.$message({
               message: '修改成功',
               type: 'success',
             })
             this.GetUserInfo()
-            return true
-          } else {
+          } catch (error) {
             this.$message({
-              message: data.msg,
+              message: error.message,
               type: 'error',
             })
             return false

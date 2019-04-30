@@ -42,8 +42,8 @@
       </el-col>
     </el-row>
     <template slot="footer">
-      <a-button key="back" @click="dialogShow=false">取消</a-button>
-      <a-button key="submit" type="primary" :loading="confirmLoading" @click="handleOk()">
+      <a-button @click="dialogShow=false">取消</a-button>
+      <a-button :disabled="!selectUserList.length" type="primary" :loading="confirmLoading" @click="handleOk()">
         添加
       </a-button>
     </template>

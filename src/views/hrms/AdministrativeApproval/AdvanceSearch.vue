@@ -8,7 +8,7 @@
     </el-form-item>
     <el-form-item label="审核状态：">
       <el-select v-model="form.status" placeholder="请选择" clearable>
-        <el-option v-for="(v,k) in dictsMap.status" :key="k" :label="v" :value="+k">
+        <el-option v-for="(v,k) in dictsMap.sStatus" :key="k" :label="v" :value="+k">
         </el-option>
       </el-select>
     </el-form-item>

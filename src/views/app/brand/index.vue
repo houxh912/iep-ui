@@ -96,6 +96,5 @@ export default {
 .el-tabs__item {
   padding: 0 15px;
   line-height: 18px;
-  color: #000;
 }
 </style>

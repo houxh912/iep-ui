@@ -24,7 +24,7 @@
       </div>
 
       <div class="comment" v-if="formData.status !== 1">
-        <div class="button-list">
+        <div class="button-list" v-if="isDelete">
           <iep-button type="primary" @click="handleCollect">{{formData.collection == 1 ? '已收藏' : '收藏'}}</iep-button>
           <iep-button type="primary" @click="handleShare">分享</iep-button>
           <iep-button type="primary" @click="handleComment">评论</iep-button>
@@ -142,6 +142,7 @@ export default {
       createCollect,
       isCommentShow: false,
       pageSize,
+      isDelete: true,
     }
   },
   methods: {
@@ -177,6 +178,11 @@ export default {
     },
     loadDetail (id) {
       getDataById(id).then(({ data }) => {
+        if (!data.data) {
+          this.$message.error(data.msg)
+          this.isDelete = false
+          return
+        }
         this.formData = data.data
         this.getComment(data.data.id)
         this.formData.hostName = this.formData.host.length > 0 ? this.formData.host[0].name : '无'

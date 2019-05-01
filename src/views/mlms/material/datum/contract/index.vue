@@ -25,7 +25,7 @@
               <div class="row-tpl" @click="handleDetail(scope.row)">
                 <div class="custom-name">{{scope.row.contractName}}</div>
                 <el-col class="custom-tags">
-                  <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index">{{item}}</el-tag>
+                  <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index" @click="handleTagDetail(item)">{{item}}</el-tag>
                 </el-col>
               </div>
             </template>
@@ -125,6 +125,9 @@ export default {
     changeGetWay (val) {
       this.getTableDataFn = val ? getTableData : getTableDataOnlyMe
       this.loadPage()
+    },
+    handleTagDetail (val) {
+      this.$openTagDetail(val)
     },
   },
   created () {

@@ -27,7 +27,7 @@
                 <div class="custom-name">{{scope.row.name}}</div>
                 <el-col class="custom-tags">
                   <el-tag type="warning" size="mini">{{scope.row.creatorRealName}}</el-tag>
-                  <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index">{{item}}</el-tag>
+                  <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index" @click="handleTagDetail(item)">{{item}}</el-tag>
                 </el-col>
               </div>
             </template>
@@ -165,6 +165,9 @@ export default {
     changeGetWay (val) {
       this.getTableDataFn = val ? getTableData : getTableDataOnlyMe
       this.loadPage()
+    },
+    handleTagDetail (val) {
+      this.$openTagDetail(val)
     },
   },
   created () {

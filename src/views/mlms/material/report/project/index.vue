@@ -146,7 +146,7 @@ export default {
         this.$refs['timeline'].activeChild = obj.week
         today = getWeekStartAndEnd(list[obj.month].children[obj.week].timeStamp)
       } else { // 默认加载
-        let obj = getDateObj(list, this.today)
+        let obj = getDateObj(list, new Date(getMonday(+this.today).timeStamp))
         this.timeLineOption.active = obj.month
         this.timeLineOption.activeChild = obj.week
         today = getWeekStartAndEnd(this.today)

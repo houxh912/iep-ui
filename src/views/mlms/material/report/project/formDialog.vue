@@ -4,10 +4,10 @@
       <div class="name">{{this.formData.projectName}}</div>
       <div class="cancel"><iep-button @click="cancel" type="small">返回</iep-button></div>
     </div>
-    <el-form ref="form" :model="formData">
-      <el-form-item>
-        <el-row>
-          <el-col :span=12>
+    <el-form ref="form" :model="formData" :rules="rules">
+      <el-row>
+        <el-col :span=12>
+          <el-form-item prop="estimateSignTime">
             <div class="title validate">
                 项目预计签订时间
                 <iep-tip :content="tipContent.estimateSignTime"></iep-tip>
@@ -15,8 +15,10 @@
             <el-col :span=20>
               <IepDatePicker v-model="formData.estimateSignTime"></IepDatePicker>
             </el-col>
-          </el-col>
-          <el-col :span=12>
+          </el-form-item>
+        </el-col>
+        <el-col :span=12>
+          <el-form-item prop="contractSignTime">
             <div class="title validate">
                 合同签订时间
                 <iep-tip :content="tipContent.contractSignTime"></iep-tip>
@@ -24,9 +26,9 @@
             <el-col :span=24>
               <IepDatePicker v-model="formData.contractSignTime"></IepDatePicker>
             </el-col>
-          </el-col>
-        </el-row>
-      </el-form-item>
+          </el-form-item>
+        </el-col>
+      </el-row>
       <div class="title">
           预计回款时间
           <iep-tip :content="tipContent.paymentRelations"></iep-tip>
@@ -93,33 +95,23 @@
         <el-input type="textarea" v-model="formData.remark" rows=5 placeholder="此处填写备注" maxlength="1000"></el-input>
       </el-form-item>
       <el-form-item>
-        <iep-button @click="submit" type="primary">保存</iep-button>
+        <iep-button @click="submit" type="primary" :loading="loadState">保存</iep-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-const initFormData = () => {
-  return {
-    projectId: 0,
-    projectName: '',
-    estimateSignTime: '',
-    contractSignTime: '',
-    clientRqmt: '',
-    workSummary: '',
-    workPlan: '',
-    remark: '',
-    paymentRelations: [],
-  }
-}
-import { tipContent } from './option'
+import { tipContent, initFormData, rules } from './option'
+
 export default {
   data () {
     return {
+      loadState: false,
       formData: initFormData(),
-        tipContent,
+      tipContent,
       selectIndex: -1,
+      rules,
     }
   },
   methods: {
@@ -139,7 +131,15 @@ export default {
           return
         }
       }
-      this.$emit('putFormData', this.formData)
+      this.$refs['form'].validate((valid) => {
+        console.log('valid: ', valid)
+        if (valid) {
+          this.loadState = true
+          this.$emit('putFormData', this.formData)
+        } else {
+          return false
+        }
+      })
     },
     handleDelete (index) {
       this.formData.paymentRelations.splice(index, 1)

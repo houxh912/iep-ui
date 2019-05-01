@@ -117,7 +117,7 @@ export default {
     },
     loadPage (date, type) {
       // 初始化时间轴，获取到当前的周
-      let list = createWeeks(date.getFullYear())
+      let list = createWeeks((new Date(getMonday(date).timeStamp)).getFullYear())
       if (type === 'year') {
         // 需要判断是否是当前年，若不是，显示第一个月，若是，显示现在时
         let obj = {}
@@ -137,7 +137,7 @@ export default {
         // this.$refs['timeline'].active = this.timeLineOption.active
         // this.$refs['timeline'].activeChild = this.timeLineOption.activeChild
       } else {
-        let obj = getDateObj(list, this.today)
+        let obj = getDateObj(list, new Date(getMonday(+this.today).timeStamp))
         this.timeLineOption.active = obj.month
         this.timeLineOption.activeChild = obj.week
       }

@@ -37,7 +37,7 @@
             <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟" maxlength="1000"></el-input>
           </el-form-item>
           <el-form-item>
-            <iep-button @click="submit" type="primary">保存</iep-button>
+            <iep-button @click="submit" type="primary" :loading="loadState">保存</iep-button>
           </el-form-item>
         </el-form>
         <div v-else class="detail">
@@ -86,7 +86,8 @@ export default {
   },
   data () {
     return {
-        tipContent,
+      loadState: false,
+      tipContent,
       pageState: true,
       dailyTableData: [],
       formData: {},
@@ -103,6 +104,7 @@ export default {
     submit () {
       this.$refs['form'].validate((valid) => {
         if (valid) {
+          this.loadState = true
           // 判断这条数据是否在系统中已经生成
           let fn = () => { }
           if (this.formData.createTime) {
@@ -114,6 +116,7 @@ export default {
           delete this.formData.updateTime
           this.formData.title = `第${this.formatDig(this.formData.index)}周个人工作周报`
           fn(this.formData).then(() => {
+            this.loadState = false
             this.$message.success(this.submitMsg)
             this.pageState = true
             this.$emit('success-submit', true)

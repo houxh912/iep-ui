@@ -2,8 +2,8 @@
   <div>
     <bread-crumb></bread-crumb>
     <div class="tag-detail">
-      <tag-content></tag-content>
-      <about-tags></about-tags>
+      <tag-content :form="form"></tag-content>
+      <about-tags :form="form"></about-tags>
     </div>
     <IepAppFooterBar></IepAppFooterBar>
   </div>
@@ -12,11 +12,40 @@
 import BreadCrumb from './BreadCrumb'
 import AboutTags from './TagRight'
 import TagContent from './TagContent'
+import { getTagViewById, getTagViewByName } from '@/api/tms/tag'
+import { initForm } from './options'
 export default {
   components: {
     BreadCrumb,
     AboutTags,
     TagContent,
+  },
+  data () {
+    return {
+      form: initForm(),
+    }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.$nextTick(() => {
+      this.loadPage()
+    })
+    next()
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    async loadPage () {
+      let form = undefined
+      if (this.$route.params.id !== 0) {
+        const { data } = await getTagViewById(this.$route.params.id)
+        form = data.data
+      } else {
+        const { data } = await getTagViewByName(this.$route.query.name)
+        form = data.data
+      }
+      this.form = form
+    },
   },
 }
 </script>

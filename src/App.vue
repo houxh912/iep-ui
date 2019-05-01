@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex'
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 import { deviceEnquire, DEVICE_TYPE } from '@/util/device'
 export default {
@@ -16,26 +17,28 @@ export default {
       locale: zhCN,
     }
   },
-  watch: {},
   mounted () {
-    const { $store } = this
     deviceEnquire(deviceType => {
       switch (deviceType) {
         case DEVICE_TYPE.DESKTOP:
-          $store.commit('TOGGLE_DEVICE', 'desktop')
-          $store.dispatch('setSidebar', true)
+          this.toggleDevice('desktop')
+          this.setSidebar(true)
           break
         case DEVICE_TYPE.TABLET:
-          $store.commit('TOGGLE_DEVICE', 'tablet')
-          $store.dispatch('setSidebar', false)
+          this.toggleDevice('tablet')
+          this.setSidebar(false)
           break
         case DEVICE_TYPE.MOBILE:
         default:
-          $store.commit('TOGGLE_DEVICE', 'mobile')
-          $store.dispatch('setSidebar', true)
+          this.toggleDevice('mobile')
+          this.setSidebar(true)
           break
       }
     })
+  },
+  methods: {
+    ...mapActions(['setSidebar']),
+    ...mapMutations({ toggleDevice: 'TOGGLE_DEVICE' }),
   },
 }
 </script>

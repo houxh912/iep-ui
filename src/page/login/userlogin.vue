@@ -42,7 +42,7 @@
 <script>
 import { codeUrl } from '@/config/env'
 import { randomLenNum } from '@/util/util'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { validatenull } from '@/util/validate'
 export default {
   name: 'Userlogin',
@@ -103,12 +103,11 @@ export default {
   created () {
     this.refreshCode()
   },
-  mounted () { },
   computed: {
     ...mapGetters(['tagWel']),
   },
-  props: [],
   methods: {
+    ...mapActions(['LoginBySocial', 'LoginByUsername', 'GetMenu']),
     emitEmpty (name) {
       this.$refs[name].focus()
       this.form[name] = ''
@@ -134,7 +133,7 @@ export default {
         : (this.passwordType = '')
     },
     handleSocialLogin () {
-      this.$store.dispatch('LoginBySocial', this.socialForm).then(() => {
+      this.LoginBySocial(this.socialForm).then(() => {
         this.$router.push({ path: this.tagWel.value })
       })
     },
@@ -143,8 +142,8 @@ export default {
         if (valid) {
           try {
             this.loginLoading = true
-            await this.$store.dispatch('LoginByUsername', this.form)
-            this.$store.dispatch('GetMenu').then(data => {
+            await this.LoginByUsername(this.form)
+            this.GetMenu().then(data => {
               this.$router.$avueRouter.formatRoutes(data, true)
             })
             this.$router.push({ path: this.tagWel.value })

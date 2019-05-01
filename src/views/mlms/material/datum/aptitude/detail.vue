@@ -39,10 +39,10 @@
             <i class="icon-chakantiezigengduojubao"></i> 纠错
           </div> -->
           <iep-button type="primary" @click="handleCollect">{{formData.collection == 1 ? '已收藏' : '收藏'}}</iep-button>
-          <iep-button type="primary" @click="handleShare">分享</iep-button>
-          <iep-button type="primary" @click="handleWrong">纠错</iep-button>
-          <iep-button type="primary" @click="handleComment">评论</iep-button>
-          <iep-button type="primary" @click="handleReward">打赏</iep-button>
+          <!-- <iep-button type="primary" @click="handleShare">分享</iep-button> -->
+          <!-- <iep-button type="primary" @click="handleWrong">纠错</iep-button> -->
+          <!-- <iep-button type="primary" @click="handleComment">评论</iep-button> -->
+          <!-- <iep-button type="primary" @click="handleReward">打赏</iep-button> -->
         </div>
       </el-row>
       <el-row class="comment">
@@ -97,21 +97,20 @@
       </div>
     </el-col>
     <wrongDialog ref="wrong"></wrongDialog>
-    <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
+    <collection-dialog ref="collection" @load-page="loadPage" type="honor" :requestFn="createCollect"></collection-dialog>
     <share-dialog ref="share" type="material"></share-dialog>
   </basic-container>
 </template>
 
 <script>
-import { getDataById, downloadCount, getGreatMaterial, getMaterialTotal } from '@/api/mlms/material/datum/material'
+import { downloadCount, getGreatMaterial, getMaterialTotal } from '@/api/mlms/material/datum/material'
+import { getDataById } from '@/api/mlms/material/datum/aptitude'
 import { commentMaterial, getCommentPage } from '@/api/mlms/index'
 import { downloadFile } from '@/api/common'
 import CollectionDialog from '../../components/collectionDialog'
 import { createCollect } from '@/api/mlms/material/summary'
 import ShareDialog from '@/views/mlms/material/components/shareDialog'
-// import ShareDialog from '../../summary/shareDialog'
 import wrongDialog from '@/views/mlms/material/components/wrongDialog'
-// import wrongDialog from './wrongDialog'
 
 function commentForm () {
   return {
@@ -235,7 +234,7 @@ export default {
         return
       }
       let row = { ...this.formData }
-      row.title = row.materialName
+      row.title = row.honorQualName
       this.$refs['collection'].dialogShow = true
       this.$refs['collection'].loadCollectList([row])
     },

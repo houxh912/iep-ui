@@ -2,7 +2,8 @@
   <basic-container>
     <page-header :title="formData.contractName" :backOption="backOption">
       <div slot="sub" class="tags">
-        <el-tag type="info" v-for="(item, index) in formData.tagKeyWords" :key="index">{{item}}</el-tag>
+        <!-- <el-tag type="info" v-for="(item, index) in formData.tagKeyWords" :key="index">{{item}}</el-tag> -->
+        <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
       </div>
     </page-header>
 

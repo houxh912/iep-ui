@@ -4,7 +4,7 @@
       <a-tag>无</a-tag>
     </span>
     <span v-else v-for="(item,index) in value" :key="index">
-      <a-tag>{{item}}</a-tag>
+      <a-tag @click="handleOpenTag(item)">{{item}}</a-tag>
     </span>
   </span>
 </template>
@@ -16,6 +16,11 @@ export default {
       type: Array,
       required: true,
       default: () => [],
+    },
+  },
+  methods: {
+    handleOpenTag (name) {
+      this.$openTagDetail(name)
     },
   },
 }

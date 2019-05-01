@@ -37,7 +37,7 @@ export default {
   methods: {
     async loadPage () {
       let form = undefined
-      if (this.$route.params.id !== 0) {
+      if (this.$route.params.id !== '0') {
         const { data } = await getTagViewById(this.$route.params.id)
         form = data.data
       } else {

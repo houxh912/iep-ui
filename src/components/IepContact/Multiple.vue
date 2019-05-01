@@ -239,6 +239,11 @@ export default {
 .contact-wrapper {
   display: flex;
 }
+.contact-wrapper
+  >>> .ant-select-selection__choice__content
+  > span:nth-child(2) {
+  display: none;
+}
 .multiple-box > .el-tag {
   margin-right: 5px;
   margin-bottom: 5px;

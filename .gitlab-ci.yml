@@ -13,6 +13,9 @@ build_admin_job:
   stage: build
   tags:
     - gitlab-org
+  only:
+    - deploy
+    - master
   script:
     - yarn
     # - yarn test:unit

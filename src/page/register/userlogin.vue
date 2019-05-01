@@ -8,13 +8,13 @@
     </el-form-item>
     <el-form-item prop="password">
       <a-input ref="password" :type="passwordType" v-model="form.password" auto-complete="false" placeholder="请输入密码" size="large">
-        <a-icon slot="prefix" type="key" />
+        <a-icon slot="prefix" type="lock" />
         <a-icon v-if="form.password" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
       </a-input>
     </el-form-item>
     <el-form-item prop="cpassword">
       <a-input ref="cpassword" :type="passwordType" v-model="form.cpassword" auto-complete="false" placeholder="确认你的密码" size="large">
-        <a-icon slot="prefix" type="key" />
+        <a-icon slot="prefix" type="lock" />
         <a-icon v-if="form.cpassword" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
       </a-input>
     </el-form-item>

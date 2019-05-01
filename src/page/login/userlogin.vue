@@ -8,7 +8,7 @@
     </el-form-item>
     <el-form-item prop="password">
       <a-input ref="password" @keyup.enter.native="handleLogin" :type="passwordType" v-model="form.password" auto-complete="false" placeholder="请输入密码" size="large">
-        <a-icon slot="prefix" type="key" />
+        <a-icon slot="prefix" type="lock" />
         <a-icon v-if="form.password" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
       </a-input>
     </el-form-item>
@@ -19,7 +19,7 @@
     </el-form-item>
     <el-form-item>
       <div class="login-text">
-        <el-checkbox v-model="checked">记住密码</el-checkbox>
+        <el-checkbox v-model="checked">保持登陆</el-checkbox>
         <div class="check-text">
           <el-button type="text" @click.prevent="handleRetrieve">忘记密码?</el-button>
           <el-button type="text" @click.prevent="handleRegister">立即注册</el-button>
@@ -152,6 +152,7 @@ export default {
             this.$message.error(error.message)
           } finally {
             this.loginLoading = false
+            this.refreshCode()
           }
         }
       })

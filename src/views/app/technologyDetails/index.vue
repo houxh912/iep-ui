@@ -5,11 +5,11 @@
         <menus></menus>
       </div>
       <div>
-        <introduction></introduction>
-        <basic-information></basic-information>
-        <application-module></application-module>
-        <technical-application></technical-application>
-        <related-materials></related-materials>
+        <introduction :form="form"></introduction>
+        <basic-information :form="form"></basic-information>
+        <application-module :form="form"></application-module>
+        <technical-application :form="form"></technical-application>
+        <related-materials :form="form"></related-materials>
       </div>
     </div>
     <IepAppFooterBar></IepAppFooterBar>
@@ -22,11 +22,27 @@ import BasicInformation from './BasicInformation'
 import ApplicationModule from './ApplicationModule'
 import TechnicalApplication from './TechnicalApplication'
 import RelatedMaterials from './RelatedMaterials'
+import { getTechnologyById } from '@/api/app/cpms/technology'
+import { initForm } from '@/views/cpms/technologys/options'
 export default {
-  components:{ Menus, Introduction, BasicInformation, ApplicationModule, TechnicalApplication, RelatedMaterials },
+  components: { Menus, Introduction, BasicInformation, ApplicationModule, TechnicalApplication, RelatedMaterials },
   data () {
     return {
+      form: initForm(),
     }
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    async loadPage () {
+      try {
+        const { data } = await getTechnologyById(this.$route.params.id)
+        this.form = data.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
 }
 </script>
@@ -40,7 +56,6 @@ export default {
   grid-column-gap: 30px;
   grid-template-columns: minmax(100px, 220px) minmax(100px, 880px);
 }
-
 </style>
 <style scoped>
 </style>

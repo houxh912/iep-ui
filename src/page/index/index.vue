@@ -11,8 +11,6 @@
           <sidebar />
         </el-aside>
         <el-main>
-          <!-- 顶部标签卡 -->
-          <tags />
           <!-- 主体视图层 -->
           <el-scrollbar style="height:100%">
             <keep-alive>
@@ -30,7 +28,6 @@
 <script>
 import displayMixins from '@/mixins/displayMixins'
 import { mapGetters, mapActions } from 'vuex'
-import tags from './tags'
 import top from './top/'
 import sidebar from './sidebar/'
 import admin from '@/util/admin'
@@ -45,7 +42,6 @@ export default {
   mixins: [displayMixins],
   components: {
     top,
-    tags,
     sidebar,
   },
   name: 'Index',

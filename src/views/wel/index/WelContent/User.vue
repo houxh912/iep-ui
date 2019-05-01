@@ -100,10 +100,10 @@ export default {
       this.$message.success('功能开发中')
     },
     handleSome3 () {
-      this.$message.success('我创建的标签, 功能开发中')
+      this.$openPage('/app/tag_library')
     },
     handleSome4 () {
-      this.$message.success('我上传材料, 功能开发中')
+      this.$openPage('/wel/material/datum')
     },
     handleSome5 () {
       this.$message.success('个人信用评分, 功能开发中')

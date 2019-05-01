@@ -260,14 +260,12 @@ export function getDateObj (row, date) {
     if (day < item.timeStamp) {
       week++
     } else {
-      if (week == -1) {
+      if (week == 0) {
         // 上个月的最后一周
-        if (month == 1) {
-          // 上个月是去年的12月
-          return { month: (13 - 12), week: list.children.length-1 }
-        } else {
-          // month = month-1
-          return { month: (13 - month), week: list.children.length-1 }
+        if (month == 1) { // 上个月是去年的12月
+          return { month: (13 - 12), week: 0 }
+        } else { // 普通的月份，即上个月
+          return { month: (13 - month), week: 0 }
         }
       } else {
         return { month: (13 - month), week }

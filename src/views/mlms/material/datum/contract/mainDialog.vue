@@ -105,7 +105,7 @@
       </el-form-item>
     </el-form>
     <footer-tool-bar>
-      <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
+      <iep-button type="primary" @click="submitForm('form')" :loading="loadState">保存</iep-button>
       <iep-button @click="resetForm('form')">重置</iep-button>
     </footer-tool-bar>
     <projectDialog ref="project" @project-success="projectSuccess" :form="formData"></projectDialog>
@@ -128,6 +128,7 @@ export default {
   },
   data () {
     return {
+      loadState: false,
       dialogShow: false,
       methodName: '新增',
       formRequestFn: () => { },
@@ -165,7 +166,9 @@ export default {
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.loadState = true
           this.formRequestFn(this.formData).then(() => {
+            this.loadState = false
             this.$message({
               message: `${this.methodName}成功`,
               type: 'success',

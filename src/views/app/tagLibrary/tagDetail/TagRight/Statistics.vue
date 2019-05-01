@@ -1,5 +1,5 @@
 <template>
-  <IepAppTabCard :title="labelTitle">
+  <IepAppTabCard title="标签统计">
     <div class="piece-item" v-for="(item,index) in labelList" :key="index">
       <span class="name" v-text="item.name"></span>
       <span class="frequency" v-text="item.frequency"></span>
@@ -13,17 +13,10 @@
   </IepAppTabCard>
 </template>
 <script>
-import { getTagViewById } from '@/api/tms/tag'
 export default {
+  props: ['form'],
   data () {
     return {
-      labelTitle: '标签统计',
-      tag: {
-        views: 0,
-        refers: 0,
-        updateTime: '',
-        creatorRealName: '',
-      },
       labelList: [
         { name: '浏览次数:', frequency: '936次' },
         { name: '应用次数:', frequency: '93226次' },
@@ -43,13 +36,11 @@ export default {
     this.loadPage()
   },
   methods: {
-    async loadPage () {
-      const { data } = await getTagViewById(this.$route.params.id)
-      this.tag = data.data
-      this.labelList[0].frequency = this.tag.views + '次'
-      this.labelList[1].frequency = this.tag.refers + '次'
-      this.labelList[2].frequency = this.tag.updateTime
-      this.labelList[3].frequency = this.tag.creatorRealName
+    loadPage () {
+      this.labelList[0].frequency = this.form.views + '次'
+      this.labelList[1].frequency = this.form.refers + '次'
+      this.labelList[2].frequency = this.form.updateTime
+      this.labelList[3].frequency = this.form.creatorRealName
     },
   },
 }

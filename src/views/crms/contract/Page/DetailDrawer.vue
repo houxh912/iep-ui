@@ -96,7 +96,7 @@
 </template>
 <script>
 import { initFormData } from '../options'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   props: {
     record: {
@@ -111,9 +111,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters(['dictGroup']),
   },
   created () {
   },

@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { getTechnologyList } from '@/api/app/cpms/technology'
 export default {
   data () {
@@ -31,9 +31,9 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters([
+      'dictGroup',
+    ]),
     cpmsTechnologyType () {
       return this.dictGroup['cpms_technology_type']
     },

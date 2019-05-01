@@ -33,7 +33,7 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { allSearchForm, initSearchForm } from './options'
 export default {
   props: ['type'],
@@ -44,9 +44,9 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters([
+      'dictGroup',
+    ]),
   },
   created () {
     if (this.type === '1' && this.type === '2') {

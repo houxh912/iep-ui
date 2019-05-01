@@ -13,7 +13,7 @@
   </el-form>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { searchForm } from './options'
 export default {
   props: ['type'],
@@ -23,9 +23,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters(['dictGroup']),
   },
   methods: {
     searchPage () {

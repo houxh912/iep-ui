@@ -8,7 +8,7 @@
     </el-form-item>
     <el-form-item prop="password">
       <a-input ref="password" @keyup.enter.native="handleLogin" :type="passwordType" v-model="form.password" auto-complete="false" placeholder="请输入密码" size="large">
-        <a-icon slot="prefix" type="key" />
+        <a-icon slot="prefix" type="lock" />
         <a-icon v-if="form.password" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
       </a-input>
     </el-form-item>
@@ -19,7 +19,7 @@
     </el-form-item>
     <el-form-item>
       <div class="login-text">
-        <el-checkbox v-model="checked">记住密码</el-checkbox>
+        <el-checkbox v-model="checked">保持登陆</el-checkbox>
         <div class="check-text">
           <el-button type="text" @click.prevent="handleRetrieve">忘记密码?</el-button>
           <el-button type="text" @click.prevent="handleRegister">立即注册</el-button>
@@ -42,7 +42,7 @@
 <script>
 import { codeUrl } from '@/config/env'
 import { randomLenNum } from '@/util/util'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { validatenull } from '@/util/validate'
 export default {
   name: 'Userlogin',
@@ -103,12 +103,11 @@ export default {
   created () {
     this.refreshCode()
   },
-  mounted () { },
   computed: {
     ...mapGetters(['tagWel']),
   },
-  props: [],
   methods: {
+    ...mapActions(['LoginBySocial', 'LoginByUsername', 'GetMenu']),
     emitEmpty (name) {
       this.$refs[name].focus()
       this.form[name] = ''
@@ -134,28 +133,26 @@ export default {
         : (this.passwordType = '')
     },
     handleSocialLogin () {
-      this.$store.dispatch('LoginBySocial', this.socialForm).then(() => {
+      this.LoginBySocial(this.socialForm).then(() => {
         this.$router.push({ path: this.tagWel.value })
       })
     },
     handleLogin () {
-      this.$refs.form.validate(valid => {
+      this.$refs.form.validate(async (valid) => {
         if (valid) {
-          this.loginLoading = true
-          this.$store
-            .dispatch('LoginByUsername', this.form)
-            .then(() => {
-              this.loginLoading = false
-              this.$store.dispatch('GetMenu').then(data => {
-                // console.log('LoginByUsername', data)
-                this.$router.$avueRouter.formatRoutes(data, true)
-              })
-              this.$router.push({ path: this.tagWel.value })
+          try {
+            this.loginLoading = true
+            await this.LoginByUsername(this.form)
+            this.GetMenu().then(data => {
+              this.$router.$avueRouter.formatRoutes(data, true)
             })
-            .catch(() => {
-              this.refreshCode()
-              this.loginLoading = false
-            })
+            this.$router.push({ path: this.tagWel.value })
+          } catch (error) {
+            this.$message.error(error.message)
+          } finally {
+            this.loginLoading = false
+            this.refreshCode()
+          }
         }
       })
     },

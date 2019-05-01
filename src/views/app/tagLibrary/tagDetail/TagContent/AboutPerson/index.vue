@@ -63,12 +63,16 @@ export default {
   },
   methods: {
     async loadPage () {
-      const { data } = await getPersonById(this.$route.params.id)
-      this.data = data.data
-      this.tabList[0].label = `相关人物(${this.data.all.length})`
-      this.tabList[1].label = `职业(${this.data.ability.length})`
-      this.tabList[2].label = `能力(${this.data.project.length})`
-      this.tabList[3].label = `兴趣爱好(${this.data.learning.length})`
+      try {
+        const { data } = await getPersonById(this.$route.params.id)
+        this.data = this.$mergeByFirst(this.data, data.data)
+        this.tabList[0].label = `相关人物(${this.data.all.length})`
+        this.tabList[1].label = `职业(${this.data.ability.length})`
+        this.tabList[2].label = `能力(${this.data.project.length})`
+        this.tabList[3].label = `兴趣爱好(${this.data.learning.length})`
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }

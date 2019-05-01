@@ -1,28 +1,13 @@
 <template>
-  <IepAppTabCard :title="labelTitle">
-    <iep-no-data v-if="!tagList.length"></iep-no-data>
-    <IepAppLabelCard :dataList="tagList.map(m => m.commonName)"></IepAppLabelCard>
+  <IepAppTabCard title="相关标签">
+    <iep-no-data v-if="!form.tagList.length"></iep-no-data>
+    <IepAppLabelCard :dataList="form.tagList.map(m => m.commonName)"></IepAppLabelCard>
   </IepAppTabCard>
 </template>
 <script>
-import { getTagViewById } from '@/api/tms/tag'
 export default {
   name: 'AboutTags',
-  data () {
-    return {
-      labelTitle: '相关标签',
-      tagList: [],
-    }
-  },
-  created () {
-    this.loadPage()
-  },
-  methods: {
-    async loadPage () {
-      const { data } = await getTagViewById(this.$route.params.id)
-      this.tagList = data.data.tagList
-    },
-  },
+  props: ['form'],
 }
 </script>
 <style lang="scss" scoped>

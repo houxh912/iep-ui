@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'Lock',
@@ -23,23 +23,19 @@ export default {
       pass: false,
     }
   },
-  created () { },
-  mounted () { },
   computed: {
-    ...mapState({
-      userInfo: state => state.user.userInfo,
-    }),
-    ...mapGetters(['tag', 'lockPasswd']),
+    ...mapGetters(['tag', 'lockPasswd', 'userInfo']),
   },
-  props: [],
   methods: {
+    ...mapActions(['LogOut']),
+    ...mapMutations({ clearLock: 'CLEAR_LOCK' }),
     handleLogout () {
       this.$confirm('是否退出系统, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        this.$store.dispatch('LogOut').then(() => {
+        this.LogOut().then(() => {
           this.$router.push({ path: '/login' })
         })
       })
@@ -59,7 +55,7 @@ export default {
       }
       this.pass = true
       setTimeout(() => {
-        this.$store.commit('CLEAR_LOCK')
+        this.clearLock()
         this.$router.push({
           path: this.$router.$avueRouter.getPath({ src: this.tag.value }),
         })

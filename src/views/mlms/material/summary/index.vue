@@ -18,7 +18,7 @@
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" :paramForm="paramForm" prop="title">
-          <!-- <operation-search @search-page="searchPage" :paramForm="paramForm" prop="title" advance-search> -->
+            <!-- <operation-search @search-page="searchPage" :paramForm="paramForm" prop="title" advance-search> -->
             <el-form :model="paramForm" label-width="80px" size="small">
               <el-form-item label="会议标题">
                 <el-input v-model="paramForm.biaoti"></el-input>
@@ -43,35 +43,13 @@
 
       <iep-tabs v-model="tabName" :tab-list="tabList" @tab-click="tabClick">
         <template v-if="tabName ==='personal'" v-slot:personal>
-          <tableTemplate ref="tableTpl" 
-            :getTableData="getTablePersonal" 
-            @handleShare="handleShare" 
-            @selectionChange="handleSelectionChange" 
-            @handleCollection="handleCollection" 
-            :permissionEdit="permission_edit" 
-            :permissionDelete="permission_delete" 
-            @handleDetail="handleDetail"
-            :permissionOpera=true></tableTemplate>
+          <tableTemplate ref="tableTpl" :getTableData="getTablePersonal" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection" :permissionEdit="permission_edit" :permissionDelete="permission_delete" @handleDetail="handleDetail" :permissionOpera=true></tableTemplate>
         </template>
         <template v-if="tabName ==='involved'" v-slot:involved>
-          <tableTemplate ref="tableTpl" 
-            :getTableData="getTableMyInvolved" 
-            @handleShare="handleShare" 
-            @selectionChange="handleSelectionChange" 
-            @handleCollection="handleCollection"
-            :permissionEdit="permission_edit" 
-            :permissionDelete="permission_delete" 
-            @handleDetail="handleDetail"></tableTemplate>
+          <tableTemplate ref="tableTpl" :getTableData="getTableMyInvolved" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection" :permissionEdit="permission_edit" :permissionDelete="permission_delete" @handleDetail="handleDetail"></tableTemplate>
         </template>
         <template v-if="tabName ==='received'" v-slot:received>
-          <tableTemplate ref="tableTpl" 
-            :getTableData="getTableMyReceived" 
-            @handleShare="handleShare" 
-            @selectionChange="handleSelectionChange" 
-            @handleCollection="handleCollection"
-            :permissionEdit="permission_edit" 
-            :permissionDelete="permission_delete" 
-            @handleDetail="handleDetail"></tableTemplate>
+          <tableTemplate ref="tableTpl" :getTableData="getTableMyReceived" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection" :permissionEdit="permission_edit" :permissionDelete="permission_delete" @handleDetail="handleDetail"></tableTemplate>
         </template>
       </iep-tabs>
 
@@ -84,7 +62,7 @@
 <script>
 import { initSearchForm, getWeekStartAndEnd } from './options'
 import mixins from '@/mixins/mixins'
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import { getTablePersonal, getTableMyInvolved, getTableMyReceived, deleteData, createCollect, getCount } from '@/api/mlms/material/summary'
 import ShareDialog from '@/views/mlms/material/components/shareDialog'
 import CollectionDialog from '../components/collectionDialog'
@@ -122,10 +100,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
-    ...mapGetters(['permissions']),
+    ...mapGetters(['permissions', 'dictGroup']),
   },
   created () {
     this.permission_edit = this.permissions['mlms_summary_edit']
@@ -205,7 +180,7 @@ export default {
       })
     },
     getCount () {
-      getCount(getWeekStartAndEnd()).then(({data}) => {
+      getCount(getWeekStartAndEnd()).then(({ data }) => {
         this.data = [data.data.receivedCount, data.data.sendCount]
       })
     },

@@ -1,17 +1,19 @@
 <template>
   <div class="librarys-content">
-    <div v-for="(item,index) in dataList" :key="index" class="piece">
-      <div class="title">
-        <h4 class="name">{{item.name}}</h4>
-        <i class="iconfont icon-caifu"></i>
-        <i class="iconfont icon-fujian"></i>
-      </div>
-      <p>{{item.desc}}</p>
-      <div class="box">
-        <span class="uploaded">上传者：{{item.uploaded}}</span>
-        <span><i class="iconfont icon-shijian"></i>{{item.time}}</span>
-        <span><i class="iconfont icon-yanjing"></i>{{item.pageviews}}人浏览</span>
-        <span><i class="iconfont icon-download"></i>{{item.downloads}}人下载</span>
+    <div v-for="(item,index) in dataList" :key="index" class="piece" >
+      <div style="cursor: pointer;" @click="handleOpen()">
+        <div class="title">
+          <h4 class="name">{{item.name}}</h4>
+          <i class="iconfont icon-caifu"></i>
+          <i class="iconfont icon-fujian"></i>
+        </div>
+        <p>{{item.desc}}</p>
+        <div class="box">
+          <span class="uploaded">上传者：{{item.uploaded}}</span>
+          <span><i class="iconfont icon-shijian"></i>{{item.time}}</span>
+          <span><i class="iconfont icon-yanjing"></i>{{item.pageviews}}人浏览</span>
+          <span><i class="iconfont icon-download1"></i>{{item.downloads}}人下载</span>
+        </div>
       </div>
       <div v-for="(item,index) in item.label" :key="index" class="label">
         <span>{{item}}</span>
@@ -35,13 +37,20 @@ export default {
       ],
     }
   },
+  methods:{
+    handleOpen () {
+      this.$router.push({
+        path: '/app/material_detail',
+      })
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
 .piece {
   padding-top: 15px;
   padding-bottom: 15px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #eee;
   & > p {
     font-size: 14px;
     color: #666;

@@ -54,7 +54,7 @@
         <el-col :span='12'>
           <el-form-item label="签署组织：" prop="signDeptName">
             <!-- <iep-dept-select v-model="formData.signDeptName"></iep-dept-select> -->
-            <el-input v-model="formData.signDeptName" readonly ></el-input>
+            <el-input v-model="formData.signDeptName" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
@@ -113,7 +113,7 @@
 </template>
 <script>
 import { initFormData, rules, dictsMap } from './option'
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import { getManeger } from '@/api/mlms/material/datum/contract'
 import { getCustomerPage } from '@/api/crms/customer'
 import projectDialog from './projectRelation'
@@ -121,10 +121,7 @@ import projectDialog from './projectRelation'
 export default {
   components: { projectDialog },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
-    ...mapGetters(['userInfo']),
+    ...mapGetters(['userInfo', 'dictGroup']),
   },
   data () {
     return {

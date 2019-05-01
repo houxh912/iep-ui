@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import Positive from './Positive/'
 import Leaving from './Leaving/'
 import Transfer from './Transfer/'
@@ -46,9 +46,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters(['dictGroup']),
     applicType () {
       return this.$route.query.type + ''
     },

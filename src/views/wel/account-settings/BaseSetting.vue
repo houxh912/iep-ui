@@ -346,6 +346,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import debounce from 'lodash/debounce'
 import { getEmployeeProfileSelf, putEmployeeProfile } from '@/api/hrms/employee_profile'
 import { initForm, dictsMap, selfRules, formToDto } from '@/views/hrms/EmployeeProfile/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
@@ -353,6 +354,7 @@ import { workExpColumns, studyColumns, trainingColumns, certificateColumns } fro
 export default {
   components: { InlineFormTable },
   data () {
+    this.autoSave = debounce(this.autoSave, 5000)
     return {
       workExpColumns,
       studyColumns,
@@ -367,17 +369,24 @@ export default {
   created () {
     this.loadPage()
   },
+  destroyed () {
+    this.unAutoSave()
+  },
   methods: {
     ...mapActions([
       'GetUserInfo',
     ]),
-    async handleSave () {
+    autoSave (curVal) {
+      console.log(curVal)
+      this.handleSave('自动保存')
+    },
+    async handleSave (useMethodName = '保存') {
       this.$refs['form'].validate(async (valid, object) => {
         if (valid) {
           try {
             await putEmployeeProfile(formToDto(this.form))
             this.$message({
-              message: '修改成功',
+              message: `${useMethodName}成功`,
               type: 'success',
             })
             this.GetUserInfo()
@@ -409,7 +418,21 @@ export default {
     loadPage () {
       getEmployeeProfileSelf().then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
+        this.initAutoSave()
       })
+    },
+    initAutoSave () {
+      setTimeout(() => {
+        const that = this
+        this.unWatch = this.$watch('form', function (curVal) {
+          that.autoSave(curVal)
+        }, {
+            deep: true, immediate: false,
+          })
+      }, 100)
+    },
+    unAutoSave () {
+      this.unWatch()
     },
   },
 }

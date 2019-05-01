@@ -21,7 +21,6 @@ export default {
 <style lang="scss" scoped>
 .training {
   margin: 0 auto;
-  padding-top: 30px;
   width: 1200px;
   .training-top {
     display: grid;

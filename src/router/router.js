@@ -33,6 +33,6 @@ const Router = new VueRouter({
 })
 AvueRouter.install(Router, Store)
 // console.log('AvueRouter', Store.state.user.menu)
-Router.$avueRouter.formatRoutes(Store.state.user.menu, true)
+Router.$avueRouter.formatRoutes(Store.state.menu.menu, true)
 Router.addRoutes([...PageRouter, ...ViewsRouter, ...hrmsRouter, ...imsRouter, ...componentsRouter, ...mlmsRouter, ...welRouter, ...gpmsRouter, ...crmsRouter, ...appRouter, ...cpmsRouter, ...famsRouter])
 export default Router

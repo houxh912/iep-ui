@@ -108,7 +108,7 @@
   </el-row>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { getList, getListById, getAllList, catalogCreate, catalogUpdate, catalogDelete, farelationDelete, collectUpdate } from '@/api/mlms/collection/index'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap, rules, initFormData } from '../options'
@@ -141,9 +141,7 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters(['dictGroup']),
   },
   created () {
     this.loadTypeList()

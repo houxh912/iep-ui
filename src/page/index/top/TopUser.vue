@@ -20,8 +20,9 @@
         <a-menu-item @click="handleAbout">
           关于
         </a-menu-item>
-        <a-menu-item @click="logout">
-          退出系统
+        <a-menu-divider />
+        <a-menu-item @click="handleLogout">
+          退出登录
         </a-menu-item>
       </a-menu>
     </a-dropdown>
@@ -30,7 +31,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import AboutDialog from './AboutDialog'
 import SelectOrgDialog from './SelectOrgDialog'
 export default {
@@ -38,22 +39,30 @@ export default {
     SelectOrgDialog,
     AboutDialog,
   },
+  data () {
+    return {
+      confirmLoading: false,
+    }
+  },
   computed: {
     ...mapGetters([
       'userInfo',
       'noOrg',
     ]),
     orgText () {
-      return this.noOrg ? {
+      const noObj = {
         tipText: '无组织(加入/创建)',
         type: 0,
-      } : {
-          tipText: `${this.userInfo.orgName}`,
-          type: 1,
-        }
+      }
+      const haveObj = {
+        tipText: `${this.userInfo.orgName}`,
+        type: 1,
+      }
+      return this.noOrg ? noObj : haveObj
     },
   },
   methods: {
+    ...mapActions(['LogOut']),
     handleOrg (type) {
       if (type === 0) {
         this.$router.push({ name: '选择组织' })
@@ -64,15 +73,15 @@ export default {
     handleAbout () {
       this.$refs['AboutDialog'].visible = true
     },
-    logout () {
-      this.$confirm('是否退出系统, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        this.$store.dispatch('LogOut').then(() => {
-          this.$router.push({ path: '/login' })
-        })
+    handleLogout () {
+      this.$antConfirm({
+        title: '提示',
+        content: '真的要注销登录吗 ?',
+        onOk: () => {
+          this.LogOut().then(() => {
+            this.$router.push({ path: '/login' })
+          })
+        },
       })
     },
   },

@@ -87,14 +87,18 @@ export default {
   },
   methods: {
     async loadPage () {
-      const { data } = await getRelationsById(this.$route.params.id)
-      this.data = data.data
-      console.log(this.data)
-      this.tabList[0].label = `材料(${this.data.mlms_materialInfo.length})`
-      this.tabList[1].label = `会议(${this.data.mlms_meetingSummary.length})`
-      this.tabList[2].label = `项目(${this.data.iepProjectDetail.length})`
-      this.tabList[3].label = `组织(${this.data.upms_org_tag.length})`
-      this.tabList[4].label = `产品(${this.data.productDetails.length})`
+      try {
+        const { data } = await getRelationsById(this.$route.params.id)
+        this.data = this.$mergeByFirst(this.data, data.data)
+        this.tabList[0].label = `材料(${this.data.mlms_materialInfo.length})`
+        this.tabList[1].label = `会议(${this.data.mlms_meetingSummary.length})`
+        this.tabList[2].label = `项目(${this.data.iepProjectDetail.length})`
+        this.tabList[3].label = `组织(${this.data.upms_org_tag.length})`
+        this.tabList[4].label = `产品(${this.data.productDetails.length})`
+      } catch (error) {
+        console.log(error)
+      }
+
     },
   },
 }

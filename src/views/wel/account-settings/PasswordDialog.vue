@@ -65,7 +65,7 @@ export default {
     }),
   },
   methods: {
-    ...mapActions(['GetUserInfo']),
+    ...mapActions(['GetUserInfo', 'LogOut']),
     loadPage () {
       this.form = initPasswordForm()
       this.dialogShow = false
@@ -91,7 +91,7 @@ export default {
                 })
                 this.GetUserInfo()
                 // 修改密码之后强制重新登录
-                this.$store.dispatch('LogOut').then(() => {
+                this.LogOut().then(() => {
                   location.reload() // 为了重新实例化vue-router对象 避免bug
                 })
               } else {

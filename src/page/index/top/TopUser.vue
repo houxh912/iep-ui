@@ -78,8 +78,10 @@ export default {
         title: '提示',
         content: '真的要注销登录吗 ?',
         onOk: () => {
-          this.LogOut().then(() => {
+          return this.LogOut().then(() => {
             this.$router.push({ path: '/login' })
+          }).catch(err => {
+            this.$message.error(err.message)
           })
         },
       })

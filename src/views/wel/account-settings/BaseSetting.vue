@@ -369,12 +369,15 @@ export default {
   created () {
     this.loadPage()
   },
+  destroyed () {
+    this.unAutoSave()
+  },
   methods: {
     ...mapActions([
       'GetUserInfo',
     ]),
-    autoSave (curVal, oldVal) {
-      console.log(curVal, oldVal)
+    autoSave (curVal) {
+      console.log(curVal)
       this.handleSave('自动保存')
     },
     async handleSave (useMethodName = '保存') {
@@ -415,16 +418,21 @@ export default {
     loadPage () {
       getEmployeeProfileSelf().then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
+        this.initAutoSave()
       })
     },
-  },
-  watch: {
-    form: {
-      //注意：当观察的数据为对象或数组时，curVal和oldVal是相等的，因为这两个形参指向的是同一个数据对象
-      handler (curVal, oldVal) {
-        this.autoSave(curVal, oldVal)
-      },
-      deep: true,
+    initAutoSave () {
+      setTimeout(() => {
+        const that = this
+        this.unWatch = this.$watch('form', function (curVal) {
+          that.autoSave(curVal)
+        }, {
+            deep: true, immediate: false,
+          })
+      }, 100)
+    },
+    unAutoSave () {
+      this.unWatch()
     },
   },
 }

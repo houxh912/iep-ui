@@ -13,7 +13,7 @@
             <iep-avatar v-model="form.avatar"></iep-avatar>
           </el-form-item>
           <el-form-item label="所属组织：">
-            <iep-tag-detail :value="form.orgList"></iep-tag-detail>
+            <iep-tag-detail :value="form.orgList" iep-type="org"></iep-tag-detail>
             <a-tag color="orange" @click="$openPage('/wel/org')">加入或创建新组织</a-tag>
           </el-form-item>
           <el-form-item label="资产所属：" class="form-half">
@@ -23,7 +23,7 @@
             <iep-div-detail :value="form.staffId"></iep-div-detail>
           </el-form-item>
           <el-form-item label="角色：">
-            <iep-tag-detail :value="form.roleName"></iep-tag-detail>
+            <iep-tag-detail :value="form.roleName" iep-type="role"></iep-tag-detail>
           </el-form-item>
           <el-form-item label="岗位：" class="form-half">
             <iep-div-detail :value="form.positionName"></iep-div-detail>
@@ -351,6 +351,10 @@ import { getEmployeeProfileSelf, putEmployeeProfile } from '@/api/hrms/employee_
 import { initForm, dictsMap, selfRules, formToDto } from '@/views/hrms/EmployeeProfile/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
+const saveTypeMap = {
+  1: '保存',
+  2: '自动保存',
+}
 export default {
   components: { InlineFormTable },
   data () {
@@ -378,9 +382,10 @@ export default {
     ]),
     autoSave (curVal) {
       console.log(curVal)
-      this.handleSave('自动保存')
+      this.handleSave(2)
     },
-    async handleSave (useMethodName = '保存') {
+    async handleSave (saveType = 1) {
+      const useMethodName = saveTypeMap[saveType]
       this.$refs['form'].validate(async (valid, object) => {
         if (valid) {
           try {
@@ -398,6 +403,7 @@ export default {
             return false
           }
         } else {
+          if (saveType === 2) return
           let message = ''
           for (const key in object) {
             if (object.hasOwnProperty(key)) {

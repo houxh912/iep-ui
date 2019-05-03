@@ -4,7 +4,7 @@
       <a-tag>无</a-tag>
     </span>
     <span v-else v-for="(item,index) in value" :key="index">
-      <a-tag @click="handleOpenTag(item)">{{item}}</a-tag>
+      <a-tag @click="handleOpen(item)">{{item}}</a-tag>
     </span>
   </span>
 </template>
@@ -17,10 +17,20 @@ export default {
       required: true,
       default: () => [],
     },
+    iepType: {
+      type: String,
+      default: 'tag',
+    },
   },
   methods: {
-    handleOpenTag (name) {
-      this.$openTagDetail(name)
+    handleOpen (name) {
+      switch (this.iepType) {
+        case 'tag':
+          this.$openTagDetail(name)
+          break
+        default:
+          break
+      }
     },
   },
 }

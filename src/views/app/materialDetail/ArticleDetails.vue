@@ -2,14 +2,14 @@
   <div class="article-details">
     <div class="title">{{name}}</div>
     <div class="inform">
-      <img :src="avatar" :alt="avatar">
+      <img :src="avatar" :alt="name">
       <span>{{uploaded}}</span>
       <span>{{time}}</span>
       <span><i class="iconfont icon-yanjing"></i>{{pageviews}}</span>
       <span><i class="iconfont icon-download1"></i>{{downloads}}</span>
       <div class="btn sc"><i class="iconfont icon-shoucang"></i>收藏</div>
       <div class="btn fx"><i class="iconfont icon-youxiangshixin"></i>分享</div>
-      <div class="btn fx"><i class="iconfont icon-zhuyi"></i>纠错</div>
+      <div class="btn jc"><i class="iconfont icon-zhuyi"></i>纠错</div>
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
   data () {
     return {
       name: '国脉数据基因政务大数据整体解决方案', 
-      avatar: 'aaa.jpg',
+      avatar: require('./img/people.png'),
       desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系', 
       uploaded: '胡世军', 
       time: '2019-04-24', 
@@ -67,11 +67,17 @@ export default {
       top: 8px;
       font-size: 16px;
       color: #999;
+      > i{
+        margin: 4px;
+      }
     }
     .sc{
-      right: 80px;
+      right: 150px;
     }
     .fx{
+      right: 80px;
+    }
+    .jc{
       right: 10px;
     }
   }

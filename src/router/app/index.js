@@ -131,6 +131,11 @@ export default [
         name: '培训列表',
         component: () => import('@/views/app/trainingList/'),
       },
+      {
+        path: 'video_detail',
+        name: '视频详情',
+        component: () => import('@/views/app/videoDetails/'),
+      },
     ],
   },
 ]

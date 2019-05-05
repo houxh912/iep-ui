@@ -51,8 +51,8 @@ export default {
   margin: 0 auto;
   display: grid;
   grid-auto-flow: row dense;
-  grid-row-gap: 20px;
-  grid-column-gap: 20px;
+  grid-row-gap: 25px;
+  grid-column-gap: 25px;
   grid-template-columns: minmax(100px, 28fr) minmax(100px, 55fr) minmax(
       100px,
       28fr

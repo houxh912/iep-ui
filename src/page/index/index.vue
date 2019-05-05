@@ -21,12 +21,13 @@
         </el-main>
       </el-container>
     </el-container>
-    <div class="avue-shade" @click="showCollapse"></div>
+    <dialog-group></dialog-group>
   </div>
 </template>
 
 <script>
 import displayMixins from '@/mixins/displayMixins'
+import DialogGroup from './DialogGroup'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import top from './top/'
 import sidebar from './sidebar/'
@@ -43,6 +44,7 @@ export default {
   components: {
     top,
     sidebar,
+    DialogGroup,
   },
   name: 'Index',
   data () {
@@ -90,12 +92,9 @@ export default {
   },
   methods: {
     ...mapActions(['LoadAllDictMap', 'LoadContactsPyList', 'RefreshToken']),
-    ...mapMutations({ setCollapse: 'SET_COLLAPSE', setScreen: 'SET_SCREEN', setExpiresIn: 'SET_EXPIRES_IN' }),
+    ...mapMutations({ setScreen: 'SET_SCREEN', setExpiresIn: 'SET_EXPIRES_IN' }),
     handleOk () {
       this.visible = false
-    },
-    showCollapse () {
-      this.setCollapse()
     },
     // 屏幕检测
     init () {

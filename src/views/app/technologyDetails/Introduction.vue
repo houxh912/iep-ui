@@ -1,28 +1,26 @@
 <template>
   <div class="introduction">
     <div class="left">
-      <img :src="img" :alt="name">
+      <img :src="form.imageUrl" :alt="form.name">
     </div>
     <div class="right">
       <div class="title">
-        <span class="name">{{name}}</span>
-        <span class="status">{{status}}</span>
+        <span class="name">{{form.name}}</span>
+        <span class="status">{{dictsMap.status[form.status]}}</span>
       </div>
       <div class="tag">
-        <span v-for="(item,index) in tag" :key="index" >{{item}}</span>
+        <span v-for="(item,index) in form.tagKeywords" :key="index">{{item}}</span>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { dictsMap } from '@/views/cpms/technologys/options'
 export default {
+  props: ['form'],
   data () {
     return {
-      img:require('./img/ant.svg'),
-      name:'Ant Design Pro',
-      status: '已完成',
-      tag:['产品设计','项目管理','原型设计','平台规划','需求分析','流程设计','产品培训','需求文档'],
-      updateTime:'2019-04-26 15:30',
+      dictsMap,
     }
   },
 }
@@ -30,7 +28,7 @@ export default {
 <style lang="scss" scoped>
 .introduction {
   overflow: hidden;
-  .left{
+  .left {
     width: 80px;
     height: 80px;
     border: 1px solid #ebeaea;
@@ -39,22 +37,22 @@ export default {
     text-align: center;
     margin-right: 30px;
     float: left;
-    > img{
+    > img {
       width: 100%;
       height: 100%;
     }
   }
-  .right{
+  .right {
     float: left;
-    width:770px;
-    .title{
+    width: 770px;
+    .title {
       height: 50px;
       line-height: 40px;
-      .name{
+      .name {
         font-size: 20px;
         color: #333;
       }
-      .status{
+      .status {
         background: #f8f8f8;
         border-radius: 12px;
         padding: 2px 10px;
@@ -62,8 +60,8 @@ export default {
         margin-left: 10px;
       }
     }
-    .tag{
-      > span{
+    .tag {
+      > span {
         display: inline;
         list-style: none;
         border: 1px solid #ebeaea;
@@ -77,7 +75,7 @@ export default {
 }
 </style>
 <style scoped>
-.introduction >>> .el-card__body{
+.introduction >>> .el-card__body {
   padding: 0;
 }
 </style>

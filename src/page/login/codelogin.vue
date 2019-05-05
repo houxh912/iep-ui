@@ -19,7 +19,7 @@ const MSGINIT = '发送验证码',
   MSGSCUCCESS = '${time}秒后重发',
   MSGTIME = 60
 import { isvalidatemobile } from '@/util/validate'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { getMobileCode } from '@/api/admin/mobile'
 export default {
   name: 'Codelogin',
@@ -52,13 +52,11 @@ export default {
       },
     }
   },
-  created () { },
-  mounted () { },
   computed: {
     ...mapGetters(['tagWel']),
   },
-  props: [],
   methods: {
+    ...mapActions(['LoginByPhone']),
     handleSend () {
       if (this.msgKey) return
       getMobileCode(this.loginForm.mobile).then(response => {
@@ -68,7 +66,6 @@ export default {
           this.$message.error(response.data.msg)
         }
       })
-
       this.msgText = MSGSCUCCESS.replace('${time}', this.msgTime)
       this.msgKey = true
       const time = setInterval(() => {
@@ -85,7 +82,7 @@ export default {
     handleLogin () {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.$store.dispatch('LoginByPhone', this.loginForm).then(() => {
+          this.LoginByPhone(this.loginForm).then(() => {
             this.$router.push({ path: this.tagWel.value })
           })
         }

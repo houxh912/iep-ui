@@ -22,7 +22,7 @@
   </el-menu>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import { validatenull } from '@/util/validate'
 import config from './config.js'
 export default {
@@ -74,6 +74,7 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({ setCollapse: 'SET_COLLAPSE' }),
     vaildAvtive (item) {
       const groupFlag = (item['group'] || []).some(ele =>
         this.$route.path.includes(ele)
@@ -88,7 +89,7 @@ export default {
       return validatenull(val)
     },
     open (item) {
-      if (this.screen <= 1) this.$store.commit('SET_COLLAPSE')
+      if (this.screen <= 1) this.setCollapse()
       this.$router.$avueRouter.group = item.group
       this.$router.push({
         path: this.$router.$avueRouter.getPath({
@@ -128,7 +129,7 @@ export default {
 }
 </style>
 <style scoped>
-.menu-wrapper >>> .el-menu{
-  border-right:none;
+.menu-wrapper >>> .el-menu {
+  border-right: none;
 }
 </style>

@@ -4,7 +4,7 @@
     <div class="fillin">
       <el-input type="textarea" rows=5 v-model="createData" placeholder="请按照规范要求，重点记录今日工作，如有感悟更好。" maxlength="300"></el-input>
       <div class="footer">
-        <iep-button type="primary" @click="submit('create')">保存</iep-button>
+        <iep-button type="primary" @click="submit('create')" :loading="loadState">保存</iep-button>
         <div class="error" v-if="createValidate">日报内容不能为空</div>
       </div>
     </div>
@@ -38,7 +38,7 @@
                 <div class="content" v-else-if="updateIndex == index">
                   <el-input type="textarea" rows=5 v-model="updateData" placeholder="请按照规范要求，重点记录今日工作，如有感悟更好。" maxlength="300"></el-input>
                   <div class="footer">
-                    <iep-button type="primary" @click="submit(dailyState, row.createTime, index)">保存</iep-button>
+                    <iep-button type="primary" @click="submit(dailyState, row.createTime, index)" :loading="loadState">保存</iep-button>
                     <div class="error" v-if="updateValidate">日报内容不能为空</div>
                   </div>
                 </div>
@@ -62,7 +62,8 @@ export default {
   components: { TimeLine },
   data () {
     return {
-        tipContent:'请按照规范要求，重点记录今日工作，如有感悟更好。',
+      loadState: false,
+      tipContent:'请按照规范要求，重点记录今日工作，如有感悟更好。',
       activeIndex: [1],
       list: [],
       searchData: {
@@ -110,6 +111,7 @@ export default {
         this[validate] = true
         return
       }
+      this.loadState = true
       this[validate] = false
       let formData = {
         workContent: data,
@@ -122,6 +124,7 @@ export default {
         formData.id = this.list[index].id
       }
       fn(formData).then((res) => {
+        this.loadState = false
         if (!res.data.data) {
           this.$message.error(res.data.msg)
           return

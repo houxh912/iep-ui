@@ -13,7 +13,7 @@
       <iep-div-detail :value="form.userName"></iep-div-detail>
     </el-form-item>
     <el-form-item label="所属组织：" class="form-half">
-      <iep-tag-detail :value="form.orgList"></iep-tag-detail>
+      <iep-tag-detail :value="form.orgList" iep-type="org"></iep-tag-detail>
     </el-form-item>
     <el-form-item label="资产所属公司：" class="form-half">
       <iep-div-detail :value="form.deptQm"></iep-div-detail>
@@ -28,7 +28,7 @@
       <iep-avatar v-model="form.avatar"></iep-avatar>
     </el-form-item>
     <el-form-item label="角色：">
-      <iep-tag-detail :value="form.roleName"></iep-tag-detail>
+      <iep-tag-detail :value="form.roleName" iep-type="role"></iep-tag-detail>
     </el-form-item>
     <el-form-item label="工号：" prop="staffId" class="form-half">
       <el-input v-model="form.staffId"></el-input>

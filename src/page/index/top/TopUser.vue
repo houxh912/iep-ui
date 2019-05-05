@@ -31,7 +31,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import AboutDialog from './AboutDialog'
 import SelectOrgDialog from './SelectOrgDialog'
 export default {
@@ -50,16 +50,19 @@ export default {
       'noOrg',
     ]),
     orgText () {
-      return this.noOrg ? {
+      const noObj = {
         tipText: '无组织(加入/创建)',
         type: 0,
-      } : {
-          tipText: `${this.userInfo.orgName}`,
-          type: 1,
-        }
+      }
+      const haveObj = {
+        tipText: `${this.userInfo.orgName}`,
+        type: 1,
+      }
+      return this.noOrg ? noObj : haveObj
     },
   },
   methods: {
+    ...mapActions(['LogOut']),
     handleOrg (type) {
       if (type === 0) {
         this.$router.push({ name: '选择组织' })
@@ -75,11 +78,11 @@ export default {
         title: '提示',
         content: '真的要注销登录吗 ?',
         onOk: () => {
-          this.$store.dispatch('LogOut').then(() => {
+          return this.LogOut().then(() => {
             this.$router.push({ path: '/login' })
+          }).catch(err => {
+            this.$message.error(err.message)
           })
-        },
-        onCancel () {
         },
       })
     },

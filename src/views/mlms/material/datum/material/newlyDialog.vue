@@ -71,7 +71,7 @@
     </el-form>
 
     <footer-tool-bar>
-      <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
+      <iep-button type="primary" @click="submitForm('form')" :loading="loadState">保存</iep-button>
       <iep-button @click="resetForm('form')">重置</iep-button>
     </footer-tool-bar>
 
@@ -91,6 +91,7 @@ export default {
   },
   data () {
     return {
+      loadState: false,
       tipContent2,
       dialogShow: false,
       formData: initLocalForm(),
@@ -128,8 +129,10 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.loadState = true
           this.formData.type = 1
           this.methodList[this.methodName].requestFn(this.formData).then(({data}) => {
+            this.loadState = false
             if (data.data === false) {
               this.$message.error(data.msg)
               return

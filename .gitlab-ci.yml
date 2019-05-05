@@ -9,10 +9,13 @@ cache:
     - node_modules/
 
 build_admin_job:
-  image: node
+  image: node:lts
   stage: build
   tags:
     - gitlab-org
+  only:
+    - deploy
+    - master
   script:
     - yarn
     # - yarn test:unit

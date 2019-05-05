@@ -127,6 +127,12 @@ export default [
         component: () => import('@/views/app/trainingDetails/'),
       },
       {
+        path: 'client_detail',
+        name: '客户详情',
+        component: () => import('@/views/app/client/clientDetail'),
+        meta: noAuth,
+      },
+      {
         path: 'training_list',
         name: '培训列表',
         component: () => import('@/views/app/trainingList/'),

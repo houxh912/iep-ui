@@ -38,7 +38,7 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      type: '1',
+      type: '2',
       tabList: [
         {
           label: '我接收的',

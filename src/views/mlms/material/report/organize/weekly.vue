@@ -52,7 +52,7 @@
             </div>
           </div>
           <el-form-item>
-            <iep-button @click="submit" type="primary">保存</iep-button>
+            <iep-button @click="submit" type="primary" :loading="loadState">保存</iep-button>
           </el-form-item>
         </el-form>
         <div v-else class="detail">
@@ -94,6 +94,7 @@ export default {
   components: { RelationDialog },
   data () {
     return {
+      loadState: false,
       formData: {},
       dislogState: 'detail',
       rules: {
@@ -113,6 +114,7 @@ export default {
     submit () {
       this.$refs['form'].validate((valid) => {
         if (valid) {
+          this.loadState = true
           // 判断这条数据是否在系统中已经生成
           let fn = () => { }
           if (this.formData.createTime) {
@@ -127,6 +129,7 @@ export default {
           this.formData.projectIds = this.formData.projectList.map(m => m.id)
           this.formData.productIds = this.formData.productList.map(m => m.id)
           fn(this.formData).then(() => {
+            this.loadState = false
             this.$message.success(this.submitMsg)
             this.pageState = true
             this.$emit('success-submit', true)

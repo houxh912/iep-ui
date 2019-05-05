@@ -1,15 +1,15 @@
 <template>
   <div class="tag-desc">
     <div class="tag-main">
-      <p class="title">{{tag.name}}</p>
-      <span class="sign" v-for="typeName in tag.typeNames" :key="typeName">{{typeName}}</span>
+      <p class="title">{{form.name}}</p>
+      <span class="sign" v-for="typeName in form.typeNames" :key="typeName">{{typeName}}</span>
       <span class="explain fr">
         <i class="icon-bangzhu"></i>
         <span>标签规范说明</span>
       </span>
       <p class="content">
-        <iep-no-data v-if="!tag.description.length"></iep-no-data>
-        {{tag.description}}
+        <iep-no-data v-if="!form.description.length"></iep-no-data>
+        {{form.description}}
       </p>
       <!-- <span class="more fr">
         <span>查看更多</span>
@@ -19,26 +19,8 @@
   </div>
 </template>
 <script>
-import { getTagViewById } from '@/api/tms/tag'
 export default {
-  data () {
-    return {
-      tag: {
-        name: '',
-        typeNames: [],
-        description: '',
-      },
-    }
-  },
-  created () {
-    this.loadPage()
-  },
-  methods: {
-    async loadPage () {
-      const { data } = await getTagViewById(this.$route.params.id)
-      this.tag = data.data
-    },
-  },
+  props: ['form'],
 }
 </script>
 <style lang="scss" scoped>

@@ -11,9 +11,20 @@
       <div class="btn fx"><i class="iconfont icon-youxiangshixin"></i>分享</div>
       <div class="btn jc"><i class="iconfont icon-zhuyi"></i>纠错</div>
     </div>
+    <div class="introduction">解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案</div>
+    <div class="content">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</div>
+    <el-row class="down-load">
+      相关附件：
+      <div class="file" v-for="(item, index) in attachFileList" :key="index">
+        <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗5国脉贝下载）</span></div>
+      </div>
+    </el-row>
+    <IepAppRewardCard :total="total" :dataList="rewardList"></IepAppRewardCard>
   </div>
 </template>
 <script>
+import { downloadCount } from '@/api/mlms/material/datum/material'
+import { downloadFile } from '@/api/common'
 export default {
   data () {
     return {
@@ -25,7 +36,25 @@ export default {
       pageviews: '145', 
       downloads: '88', 
       label: ['创业女杰', '浙商', '创新创业'],
+      total:'6',
+      rewardList:[
+        {avatar: require('./img/people.png'),name:'杨冰之'},
+        {avatar: require('./img/people.png'),name:'杨冰之'},
+        {avatar: require('./img/people.png'),name:'杨冰之'},
+        {avatar: require('./img/people.png'),name:'杨冰之'},
+      ],
+      attachFileList: [
+        {name:'内网2.0改造项目'},
+      ],
     }
+  },
+  methods: {
+    // 附件下载
+    downLoad (obj) {
+      downloadFile(obj)
+      // /getUpload/{id}
+      downloadCount(this.formData.id)
+    },
   },
 }
 </script>
@@ -79,6 +108,30 @@ export default {
     }
     .jc{
       right: 10px;
+    }
+  }
+  .introduction{
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fafafa;
+  }
+  .content{
+    padding: 0 20px;
+  }
+  .down-load {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    .file {
+      cursor: pointer;
+      i {
+        font-size: 16px !important;
+        margin-right: 10px;
+      }
+      .tip {
+        margin-left: 10px;
+        color: #999;
+      }
     }
   }
 }

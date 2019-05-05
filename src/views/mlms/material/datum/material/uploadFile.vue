@@ -32,6 +32,9 @@ export default {
     },
     open () {
       this.dialogShow = true
+      this.formData = {
+        attachFileList: [],
+      }
     },
     submitForm () {
       if (this.formData.attachFileList.length == 0) {

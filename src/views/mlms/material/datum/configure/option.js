@@ -9,6 +9,7 @@ export const tableOption = {
   props: [
     { label: '分类名称', prop: 'levelName', slot: true },
     { label: '优先级', prop: 'sort', slot: true },
+    { label: '编码', prop: 'number', slot: true },
     { label: '创建时间', prop: 'createTime', slot: true },
     { label: '操作', prop: 'menu', slot: true },
   ],
@@ -19,6 +20,7 @@ export const initFormData = () => {
     parentId: 0,
     levelName: '',
     sort: '',
+    number: '',
   }
 }
 

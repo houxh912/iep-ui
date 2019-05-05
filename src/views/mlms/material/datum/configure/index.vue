@@ -25,12 +25,16 @@
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange">
       <template #levelName="{scope, index}">
-        <el-input v-model="formData.levelName" v-if="index===selectIndex" :maxlength="10"></el-input>
+        <el-input v-model="formData.levelName" v-if="index===selectIndex" :maxlength="10" placeholder="请输入分类名称"></el-input>
         <div v-else>{{scope.levelName}}</div>
       </template>
       <template #sort="{scope, index}">
-        <el-input v-model="formData.sort" v-if="index===selectIndex" :maxlength="3"></el-input>
+        <el-input v-model="formData.sort" v-if="index===selectIndex" :maxlength="3" placeholder="请输入优先级"></el-input>
         <div v-else>{{scope.sort}}</div>
+      </template>
+      <template #number="{scope, index}">
+        <el-input v-model="formData.number" v-if="index===selectIndex" :maxlength="5" placeholder="请输入唯一编码"></el-input>
+        <div v-else>{{scope.number}}</div>
       </template>
       <template #createTime="scope">
         {{scope.scope.createTime}}

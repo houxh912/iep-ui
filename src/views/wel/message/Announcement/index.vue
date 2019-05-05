@@ -5,12 +5,12 @@
       <iep-tabs v-model="type" :tab-list="tabList" @tab-click="changeType"></iep-tabs>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>发布公告</iep-button>
+          <iep-button v-if="ims_announcement_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>发布公告</iep-button>
           <el-dropdown size="medium">
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>标记</el-dropdown-item>
-              <el-dropdown-item>删除</el-dropdown-item>
+              <el-dropdown-item v-if="ims_announcement_edit_del">删除</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -31,6 +31,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { getAnnouncementPage } from '@/api/ims/announcement'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options'
@@ -59,16 +60,29 @@ export default {
         // },
       ],
       columnsMap,
+      ims_announcement_add: false,
+      ims_announcement_view: false,
+      ims_announcement_edit_del: false,
     }
   },
+  computed: {
+    ...mapGetters([
+      'permissions',
+    ]),
+  },
   created () {
+    this.ims_announcement_add = this.permissions['ims_announcement_add']
+    this.ims_announcement_view = this.permissions['ims_announcement_view']
+    this.ims_announcement_edit_del = this.permissions['ims_announcement_edit_del']
     this.loadPage()
   },
   methods: {
     handleDetail (row) {
-      this.$router.push({
-        path: `/ims_spa/announcement_detail/${row.id}`,
-      })
+      if (this.ims_announcement_view) {
+        this.$router.push({
+          path: `/ims_spa/announcement_detail/${row.id}`,
+        })
+      }
     },
     //tab切换菜单
     changeType () {

@@ -1,7 +1,8 @@
 <template>
   <div class="librarys-content">
     <div class="librarys-item" v-for="(item,index) in librarys" :key="index">
-      <div class="title">
+      <div class="handle-detail" @click="handleDetail()">
+        <div class="title">
         <span class="type">{{item.type}}</span>
         <h4 class="title-name">{{item.title}}</h4>
         <i :class="item.icon"></i>
@@ -18,6 +19,7 @@
         <span>合作项目：{{item.cooperation}}</span>
         <span>相关产品：{{item.product}}</span>
         <span>项目合作伙伴：{{item.partner}}</span>
+      </div>
       </div>
       <div class="lib-bottom">
         <span>咨询/事项</span>
@@ -77,6 +79,13 @@ export default {
       links: {link:'联系人',Journal:'拜访日志',programme:'方案',contract:'合同',information:'资讯',project:'合作项目'},
     }
   },
+  methods:{
+    handleDetail () {
+      this.$router.push({
+        path:'/app/client_detail',
+      })
+    },
+  },
 }
 </script>
 <style scoped lang="scss">
@@ -120,6 +129,9 @@ export default {
     color:#666;
     line-height: 28px;
   }
+}
+.handle-detail{
+  cursor: pointer;
 }
 .lib-bottom{
   &>span{

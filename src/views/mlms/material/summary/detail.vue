@@ -73,6 +73,8 @@
       <p class="content" v-text="formData.meetingTime"></p>
       <h3 class="title">会议地点</h3>
       <p class="content" v-text="formData.meetingLocation"></p>
+      <h3 class="title">发送人</h3>
+      <p class="content" v-text="formData.realName"></p>
       <h3 class="title">主持人</h3>
       <p class="content" v-text="formData.hostName"></p>
       <h3 class="title">参会人</h3>

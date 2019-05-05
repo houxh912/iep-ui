@@ -23,6 +23,7 @@
   </div>
 </template>
 <script>
+import formMixins from '@/mixins/formMixins'
 import BaseInfo from './BaseInfo'
 import ContactInfo from './ContactInfo'
 import LaborContract from './LaborContract'
@@ -32,13 +33,14 @@ import Dimission from './Dimission'
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
 import { initForm, formToDto, rules } from '@/views/hrms/EmployeeProfile/options'
 export default {
-  components: { 
-    BaseInfo, 
-    ContactInfo, 
-    LaborContract, 
+  mixins: [formMixins],
+  components: {
+    BaseInfo,
+    ContactInfo,
+    LaborContract,
     Welfare,
     Transfer,
-    Dimission, 
+    Dimission,
   },
   props: {
     record: {
@@ -83,8 +85,8 @@ export default {
   methods: {
     async handleSave () {
       try {
-        const valid = await this.$refs['form'].validate()
-        if (valid) {
+        await this.mixinsValidate()
+        try {
           const { data } = await this.formRequestFn(formToDto(this.form))
           if (data.data) {
             this.$message({
@@ -99,17 +101,27 @@ export default {
             })
             return false
           }
-        } else {
+        } catch (error) {
+          this.$message({
+            message: error.message,
+            type: 'error',
+          })
           return false
         }
-      } catch (error) {
-        console.log(error)
+      } catch (object) {
+        let message = ''
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            const element = object[key]
+            message = element[0].message
+          }
+        }
+        this.$message(message)
         return false
       }
     },
     async handleSubmit () {
       const res = await this.handleSave()
-      console.log(res)
       if (res) {
         this.handleGoBack()
       }

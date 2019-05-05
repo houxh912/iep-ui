@@ -20,6 +20,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
+import debounce from 'lodash/debounce'
 export default {
   name: 'IepContactSelect',
   props: {
@@ -37,6 +38,7 @@ export default {
     },
   },
   data () {
+    this.handleChange = debounce(this.handleChange, 500)
     return {
       dialogShow: false,
       userId: '',

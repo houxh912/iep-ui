@@ -8,3 +8,11 @@ export function getTotal () {
     method: 'get',
   })
 }
+
+export function reward (obj) {
+  return request({
+    url: `${prefixUrl}/reward`,
+    method: 'post',
+    data: obj,
+  })
+}

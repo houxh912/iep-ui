@@ -25,110 +25,110 @@ export default {
   data () {
     return {
       expertList: [
-        { imgSrc: require('./image/expert1.jpg'), name: '姜奇平', job: '中国社会科学院信息化研究中心',
-        signs:[
-          {sign: '信息化'},
-          {sign: '信息经济'},
-        ], 
-         show1: 'show' },
-        { imgSrc: require('./image/expert2.png'), name: '汪向东', job: '中国社科院信息化研究中心主任',
-        signs:[
-          {sign: '互联网经济'},
-          {sign: '网络经济'},
-        ],
-         show1: 'show' },
-        { imgSrc: require('./image/expert3.jpg'), name: '赖茂生', job: '北京大学信息管理学院博士生导师',
-        signs:[
-          {sign: '信息化'},
-          {sign: '信息管理'},
-        ],
-          show1: 'show' },
-        { imgSrc: require('./image/expert4.jpg'), name: '朱森第', job: '中国机械工业联合会副会长', 
-        signs:[
-          {sign: '人工智能'},
-          {sign: '智能制造'},
-        ],
-        show1: 'show' },
-        { imgSrc: require('./image/expert5.jpg'), name: '王金平', job: '中国国际工程咨询公司办公厅主',
-        signs:[
-          {sign: '信息化'},
-        ]},
-        { imgSrc: require('./image/e4.jpg'), name: '周德铭', job: '国家促进大数据发展专家委员会委员',
-        signs:[
-          {sign: '电子政务'},
-          {sign: '信息化'},
-          {sign: '信息资源'},
-        ],
-         show1: 'show', show2: 'show' },
-        { imgSrc: require('./image/expert6.jpg'), name: '周德铭', job: '国家促进大数据发展专家委员会',
-        signs:[
-          {sign: '电子政务'},
-          {sign: '信息化'},
-          {sign: '信息资源'},
-        ]},
-        { imgSrc: require('./image/expert7.jpg'), name: '胡小明', job: '中国信息协会原副会长', 
-        signs:[
-          {sign: '电子政务'},
-          {sign: '信息化'},
-          {sign: '信息资源'},
-        ]},
-        { imgSrc: require('./image/e6.jpg'), name: '汪玉凯', job: '国家行政学院教授、国家信息化专家咨询',
-        signs:[
-          {sign: '电子政务'},
-          {sign: '信息化'},
-          {sign: '政府管理'},
-        ]},
-        { imgSrc: require('./image/e7.jpg'), name: '汪向东', job: '中国社科院信息化研究中心主任', 
-        signs:[
-          {sign: '互联网经济'},
-          {sign: '网络经济'},
-        ]},
-        { imgSrc: require('./image/person3.png'), name: '张慧', job: '智慧企业研究专家', 
-        signs:[
-          {sign: '智慧企业'},
-        ]},
-        { imgSrc: require('./image/person4.png'), name: '孙泽红', job: '信息化与大数据研究专家',
-        signs:[
-          {sign: '互联网+政务'},
-          {sign: '政务大数据'},
-          {sign: '信息化'},
-        ]},
-        { imgSrc: require('./image/e8.jpg'), name: '姜奇平', job: '中国社会科学院信息化研究中心秘书长',
-        signs:[
-          {sign: '网络经济'},
-          {sign: '经济学会'},
-          {sign: '信息化'},
-        ]},
-        { imgSrc: require('./image/e9.jpg'), name: '胡小明', job: '中国信息协会原副会长',
-        signs:[
-          {sign: '电子政务'},
-          {sign: '信息资源'},
-          {sign: '信息化'},
-        ]},
-        { imgSrc: require('./image/e10.jpg'), name: '吕本富', job: '国科学院大学经管学院教授', 
-        signs:[
-          {sign: '数据服务'},
-          {sign: '组织建设'},
-          {sign: '网络经济'},
-        ]},
-        { imgSrc: require('./image/e11.jpg'), name: '王路燕', job: '国脉集团总助、国脉海洋常务副总',
-        signs:[
-          {sign: '互联网+'},
-          {sign: '大数据'},
-          {sign: '数据基因'},
-        ], show1: 'show', show2: 'show' },
-        { imgSrc: require('./image/e1.jpg'), name: '朱森第', job: '中国机械工业联合会副会长', 
-        signs:[
-          {sign: '人工智能'},
-          {sign: '互联网'},
-          {sign: '智能制造'},
-        ], show1: 'show', show2: 'show' },
-        { imgSrc: require('./image/e2.jpg'), name: '卢绍鸿', job: '项目经理', 
-        signs:[
-          {sign: '数据分析'},
-          {sign: '信息资源目录编制'},
-          {sign: '法人库'},
-        ], show1: 'show', show2: 'show' },
+        {          imgSrc: require('./image/expert1.jpg'), name: '姜奇平', job: '中国社会科学院信息化研究中心',
+          signs: [
+            { sign: '信息化' },
+            { sign: '信息经济' },
+          ],
+          show1: 'show'        },
+        {          imgSrc: require('./image/expert2.png'), name: '汪向东', job: '中国社科院信息化研究中心主任',
+          signs: [
+            { sign: '互联网经济' },
+            { sign: '网络经济' },
+          ],
+          show1: 'show'        },
+        {          imgSrc: require('./image/expert3.jpg'), name: '赖茂生', job: '北京大学信息管理学院博士生导师',
+          signs: [
+            { sign: '信息化' },
+            { sign: '信息管理' },
+          ],
+          show1: 'show'        },
+        {          imgSrc: require('./image/expert4.jpg'), name: '朱森第', job: '中国机械工业联合会副会长',
+          signs: [
+            { sign: '人工智能' },
+            { sign: '智能制造' },
+          ],
+          show1: 'show'        },
+        {          imgSrc: require('./image/expert5.jpg'), name: '王金平', job: '中国国际工程咨询公司办公厅主',
+          signs: [
+            { sign: '信息化' },
+          ]        },
+        {          imgSrc: require('./image/e4.jpg'), name: '周德铭', job: '国家促进大数据发展专家委员会委员',
+          signs: [
+            { sign: '电子政务' },
+            { sign: '信息化' },
+            { sign: '信息资源' },
+          ],
+          show1: 'show', show2: 'show'        },
+        {          imgSrc: require('./image/expert6.jpg'), name: '周德铭', job: '国家促进大数据发展专家委员会',
+          signs: [
+            { sign: '电子政务' },
+            { sign: '信息化' },
+            { sign: '信息资源' },
+          ]        },
+        {          imgSrc: require('./image/expert7.jpg'), name: '胡小明', job: '中国信息协会原副会长',
+          signs: [
+            { sign: '电子政务' },
+            { sign: '信息化' },
+            { sign: '信息资源' },
+          ]        },
+        {          imgSrc: require('./image/e6.jpg'), name: '汪玉凯', job: '国家行政学院教授、国家信息化专家咨询',
+          signs: [
+            { sign: '电子政务' },
+            { sign: '信息化' },
+            { sign: '政府管理' },
+          ]        },
+        {          imgSrc: require('./image/e7.jpg'), name: '汪向东', job: '中国社科院信息化研究中心主任',
+          signs: [
+            { sign: '互联网经济' },
+            { sign: '网络经济' },
+          ]        },
+        {          imgSrc: require('./image/person3.png'), name: '张慧', job: '智慧企业研究专家',
+          signs: [
+            { sign: '智慧企业' },
+          ]        },
+        {          imgSrc: require('./image/person4.png'), name: '孙泽红', job: '信息化与大数据研究专家',
+          signs: [
+            { sign: '互联网+政务' },
+            { sign: '政务大数据' },
+            { sign: '信息化' },
+          ]        },
+        {          imgSrc: require('./image/e8.jpg'), name: '姜奇平', job: '中国社会科学院信息化研究中心秘书长',
+          signs: [
+            { sign: '网络经济' },
+            { sign: '经济学会' },
+            { sign: '信息化' },
+          ]        },
+        {          imgSrc: require('./image/e9.jpg'), name: '胡小明', job: '中国信息协会原副会长',
+          signs: [
+            { sign: '电子政务' },
+            { sign: '信息资源' },
+            { sign: '信息化' },
+          ]        },
+        {          imgSrc: require('./image/e10.jpg'), name: '吕本富', job: '国科学院大学经管学院教授',
+          signs: [
+            { sign: '数据服务' },
+            { sign: '组织建设' },
+            { sign: '网络经济' },
+          ]        },
+        {          imgSrc: require('./image/e11.jpg'), name: '王路燕', job: '国脉集团总助、国脉海洋常务副总',
+          signs: [
+            { sign: '互联网+' },
+            { sign: '大数据' },
+            { sign: '数据基因' },
+          ], show1: 'show', show2: 'show'        },
+        {          imgSrc: require('./image/e1.jpg'), name: '朱森第', job: '中国机械工业联合会副会长',
+          signs: [
+            { sign: '人工智能' },
+            { sign: '互联网' },
+            { sign: '智能制造' },
+          ], show1: 'show', show2: 'show'        },
+        {          imgSrc: require('./image/e2.jpg'), name: '卢绍鸿', job: '项目经理',
+          signs: [
+            { sign: '数据分析' },
+            { sign: '信息资源目录编制' },
+            { sign: '法人库' },
+          ], show1: 'show', show2: 'show'        },
       ],
     }
   },
@@ -142,8 +142,8 @@ export default {
 .expert {
   display: grid;
   grid-auto-flow: row dense;
-  grid-row-gap: 30px;
-  grid-column-gap: 30px;
+  grid-row-gap: 25px;
+  grid-column-gap: 25px;
   grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(
       100px,
       3fr
@@ -152,7 +152,7 @@ export default {
     display: flex;
     .img {
       margin-right: 15px;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       width: 90px;
       height: 90px;
       border: 1px solid #dcdfe6;

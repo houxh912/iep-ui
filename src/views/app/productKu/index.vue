@@ -43,12 +43,12 @@ export default {
 }
 .gird-product {
   width: 1200px;
-  padding: 0 0 20px 0;
+  padding: 0 0 25px 0;
   margin: 0 auto;
   display: grid;
   grid-auto-flow: row dense;
-  grid-row-gap: 20px;
-  grid-column-gap: 20px;
+  grid-row-gap: 25px;
+  grid-column-gap: 25px;
   grid-template-columns: minmax(100px, 28fr) minmax(100px, 55fr) minmax(
       100px,
       28fr

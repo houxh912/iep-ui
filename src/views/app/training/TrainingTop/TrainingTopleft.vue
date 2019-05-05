@@ -4,7 +4,7 @@
       <el-col>
         <el-card :body-style="{ padding: '0px' }" shadow="hover">
           <span class="item"><span>NEW</span></span>
-          <div class="con">
+          <div class="con" @click="handleOpen()">
             <img :src="img" class="img">
             <div class="text">
               <h3 class="sub-title">
@@ -56,11 +56,19 @@ export default {
       address: '北京•万寿宾馆',
     }
   },
+  methods: {
+    handleOpen () {
+      this.$router.push({
+        path: '/app/training_detail',
+      })
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
 .training-top-left {
   position: relative;
+  cursor: pointer;
   .con {
     display: flex;
     justify-content: space-between;

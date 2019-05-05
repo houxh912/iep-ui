@@ -27,7 +27,7 @@ export default {
 <style lang="scss" scoped>
 .gov-person-top {
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 25px 20px;
   text-align: center;
   background: #fafafa url(./linebg.png) no-repeat;
   h3 {

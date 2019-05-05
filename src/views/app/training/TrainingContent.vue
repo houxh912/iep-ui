@@ -221,7 +221,7 @@ export default {
     }
   }
   .past-training-list {
-    margin: 30px 0 60px;
+    margin: 25px 0 25px;
     .el-card {
       border: 1px solid #ebeef5;
     }
@@ -288,8 +288,8 @@ export default {
 .past-training-list >>> .el-col {
   display: grid;
   grid-auto-flow: row dense;
-  grid-row-gap: 30px;
-  grid-column-gap: 30px;
+  grid-row-gap: 25px;
+  grid-column-gap: 25px;
   grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(
       100px,
       3fr

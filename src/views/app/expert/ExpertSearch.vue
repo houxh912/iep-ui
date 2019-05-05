@@ -15,7 +15,7 @@ export default {
 </script>
 <style scoped  lang="scss">
 .expert-search {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 .search-con {
   display: flex;

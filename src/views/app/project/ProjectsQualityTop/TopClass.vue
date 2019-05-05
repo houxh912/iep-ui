@@ -54,12 +54,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .top-class {
-  margin: 30px auto;
+  margin: 25px auto;
   width: 1200px;
   .top-class-list {
     flex: 1;
-    margin: 20px 0;
-    padding: 0 50px 0 30px;
+    margin: 25px 0;
+    padding: 0 50px 0 20px;
     border-right: 1px solid #ddd;
     .numTotal,
     .numProjects,

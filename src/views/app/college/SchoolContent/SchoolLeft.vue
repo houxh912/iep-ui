@@ -20,7 +20,11 @@ export default {
 }
 </script>
 <style scoped>
-.el-carousel >>> .el-carousel__container {
+.school-left >>> .el-carousel__container {
+  height: 390px;
+}
+.school-left >>> .el-carousel__container img {
+  width: 100%;
   height: 390px;
 }
 </style>

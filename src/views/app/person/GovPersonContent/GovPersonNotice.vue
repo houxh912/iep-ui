@@ -13,12 +13,12 @@ export default {
     return {
       title: '通知公告',
       dataList: [
-        { assort: '【通知】', desc: '国脉海洋获质量管理系认证' }, 
-        { assort: '【通知】', desc: '舟山国脉考察' }, 
-        { assort: '【通知】', desc: '中国建设银行总行首席经济学家黄志凌一行莅临舟山国脉考察' }, 
-        { assort: '【公告】', desc: '热烈庆祝广州国脉公司乔迁开业' }, 
-        { assort: '【公告】', desc: '国脉总经理郑爱军荣获“浙江创业女杰' }, 
-        { assort: '【公告】', desc: '国脉物联网两大研究中心简介' }, 
+        { assort: '【通知】', desc: '国脉海洋获质量管理系认证' },
+        { assort: '【通知】', desc: '舟山国脉考察' },
+        { assort: '【通知】', desc: '中国建设银行总行首席经济学家黄志凌一行莅临舟山国脉考察' },
+        { assort: '【公告】', desc: '热烈庆祝广州国脉公司乔迁开业' },
+        { assort: '【公告】', desc: '国脉总经理郑爱军荣获“浙江创业女杰' },
+        { assort: '【公告】', desc: '国脉物联网两大研究中心简介' },
         { assort: '【公告】', desc: '国脉物联网3.0版上线公告' },
       ],
       linkName: '',
@@ -27,7 +27,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.notice-box{
+.notice-box {
   position: relative;
   .new {
     padding: 0 3px;
@@ -38,18 +38,17 @@ export default {
     border-radius: 3px;
     border: 1px solid #cb3737;
     color: #cb3737;
-    position:absolute;
+    position: absolute;
     right: 0;
-    top:7px;
+    top: 7px;
   }
-  .assort .piece{
+  .assort .piece {
     padding-right: 40px;
   }
 }
-
 </style>
 <style scoped>
 .notice >>> .el-card {
-  height: 350px;
+  height: 351px;
 }
 </style>

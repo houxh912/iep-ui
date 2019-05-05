@@ -22,17 +22,17 @@ export default {
       findList: {
         title: '我要找',
         details: [
-          { icon: 'icon-xiangmu', subtitle: '项目', callback: () => { this.$message.success('功能开发中') } },
-          { icon: 'icon-shangjifaxian', subtitle: '商机', callback: () => { this.$message.success('功能开发中') } },
-          { icon: 'icon-peixun', subtitle: '培训', callback: () => { this.$message.success('功能开发中') } },
-          { icon: 'icon-shifu', subtitle: '师父', callback: () => { this.$message.success('功能开发中') } },
+          { icon: 'icon-xiangmu', subtitle: '项目', callback: () => { this.$openPage('/app/project') } },
+          { icon: 'icon-shangjifaxian', subtitle: '商机', callback: () => { this.$openPage('/app/resource/business') } },
+          { icon: 'icon-peixun', subtitle: '培训', callback: () => { this.$openPage('/app/resource/training') } },
+          { icon: 'icon-shifu', subtitle: '师父', callback: () => { this.$openPage('/app/person') } },
         ],
       },
     }
   },
   methods: {
     getMore () {
-      this.$message.success('功能开发中')
+      this.$openPage('/app/resource/material')
     },
   },
   computed: {

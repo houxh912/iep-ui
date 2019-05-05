@@ -49,6 +49,7 @@ export default {
   },
   data () {
     this.querySearch = debounce(this.querySearch, 500)
+    this.handleChange = debounce(this.handleChange, 500)
     return {
       filterText: '',
       dialogShow: false,

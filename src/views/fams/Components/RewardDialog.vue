@@ -49,7 +49,7 @@ export default {
           { required: true, message: '请输入打赏金额', trigger: 'blur' },
         ],
         targetUser: [
-          { validator: checkContact, trigger: 'blur' },
+          { required: true, validator: checkContact, trigger: 'blur' },
         ],
       },
     }

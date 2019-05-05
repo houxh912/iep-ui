@@ -126,13 +126,16 @@ export default {
       return keyBy(this.dictGroup['hrms_applic_type'], 'value')
     },
     needApproval () {
-      return this.userInfo.userId !== this.form.userId && this.form.status === 0
+      return this.approvalUserIds.includes(this.userInfo.userId) && this.form.status === 0
     },
     startTimeLabel () {
       return dictsMap.startTime[this.form.type]
     },
     endTimeLabel () {
       return dictsMap.endTime[this.form.type]
+    },
+    approvalUserIds () {
+      return this.form.approverList.map(m => m.id)
     },
   },
   created () {

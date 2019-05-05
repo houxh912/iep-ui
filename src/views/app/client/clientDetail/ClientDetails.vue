@@ -24,6 +24,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .client-top{
+  margin-bottom: 15px;
   p{
     color:#333;
     font-size: 18px;

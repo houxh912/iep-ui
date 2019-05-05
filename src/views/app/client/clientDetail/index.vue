@@ -13,9 +13,6 @@
       <IepAppTabCard :title="rankingTitle">
         <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
       </IepAppTabCard>
-      <IepAppTabCard :title="listTitle2">
-        <IepAppListCard :dataList="listList2"></IepAppListCard>
-      </IepAppTabCard>
     </div>
   </div>
 </template>
@@ -25,10 +22,9 @@ export default {
   components: { ClientDetails },
   data () {
     return {
-      labelTitle: '推荐主题',
-      listTitle2: '优秀客户方案',
-      listTitle1: '猜你想找',
-      rankingTitle: '热搜榜',
+      labelTitle: '热门标签',
+      listTitle1: '本周新增',
+      rankingTitle: '合作次数最多',
       labelList: ['营商通','营商环境','数据基因','数据政府','电子政务','数字经济','微服务','dips','知识图谱'],
       listList1: ['国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案'],
       listList2: ['国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案'],

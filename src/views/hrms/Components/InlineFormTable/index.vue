@@ -114,12 +114,20 @@ export default {
     saveRow (id) {
       const target = this.data.filter(item => item.id === id)[0]
       if (target.isNew) {
-        post(target, this.requestName, this.type, this.rid).then(() => {
-          this.$emit('load-page')
+        post(target, this.requestName, this.type, this.rid).then(({ data }) => {
+          if (data.data) {
+            this.$emit('load-page')
+          } else {
+            this.$message(data.msg)
+          }
         })
       } else {
-        put(target, this.requestName).then(() => {
-          this.$emit('load-page')
+        put(target, this.requestName).then(({ data }) => {
+          if (data.data) {
+            this.$emit('load-page')
+          } else {
+            this.$message(data.msg)
+          }
         })
       }
       target.editable = false

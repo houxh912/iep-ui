@@ -2,7 +2,7 @@
   <div class="videoCenter">
     <IepAppTabCard :title="title" :linkName="linkName">
       <div class="videoCenter-list">
-        <div v-for="(item,index) in videoCenterList" :key="index" class="piece">
+        <div v-for="(item,index) in videoCenterList" :key="index" class="piece" @click="handleOpen()">
           <img :src="item.img" class="img">
           <span class="name">{{item.name}}</span>
         </div>
@@ -21,12 +21,20 @@ export default {
       linkName: '',
     }
   },
+  methods: {
+    handleOpen () {
+      this.$router.push({
+        path: '/app/video_detail/',
+      })
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
 .videoCenter-list {
   padding: 10px 0 6px;
   .piece {
+    cursor: pointer;
     text-align: center;
     .img {
       width: 100%;

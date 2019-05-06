@@ -82,6 +82,9 @@ export default {
         deptNum: 0,
         isOpen: true,
         isUserLocked: true,
+        creator: {
+          name: '',
+        },
       },
       // data: [
       //   {

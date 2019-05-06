@@ -2,7 +2,7 @@
   <div class="video-list-con">
     <div class="module">
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
-        <div class="content">
+        <div class="content" @click="handleOpen()">
           <div class="video-con">
             <video class="video" controls>
               <source :src="item.video" controls poster="" alt="">
@@ -116,6 +116,13 @@ export default {
       ],
     }
   },
+  methods: {
+    handleOpen () {
+      this.$router.push({
+        path: '/app/video_detail',
+      })
+    },
+  },
 }
 </script>
 
@@ -143,7 +150,6 @@ export default {
       3fr
     );
   .module-item {
-    cursor: pointer;
     .img {
       margin-right: 10px;
       width: 40px;
@@ -177,6 +183,10 @@ export default {
     }
   }
   .content {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.9;
+    }
     .video-con {
       position: relative;
     }

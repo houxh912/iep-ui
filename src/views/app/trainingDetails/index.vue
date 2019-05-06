@@ -1,26 +1,29 @@
 <template>
-  <div class="material-detail">
-    <div class="library">
-      <train-details></train-details>
-    </div>
-    <div class="piece">
-      <IepAppTabCard :title="labelTitle">
-        <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
-      </IepAppTabCard>
-      <IepAppTabCard :title="listTitle1">
-        <div class="recommended-list">
-          <div v-for="(item,index) in recommendedList" :key="index" class="piece">
-            <div class="img-con"><img :src="item.img" class="img"></div>
-            <div class="box">
-              <div class="piece-title">
-                <span class="sub-title">{{item.title}}</span>
+  <div>
+    <div class="material-detail">
+      <div class="library">
+        <train-details></train-details>
+      </div>
+      <div class="piece">
+        <IepAppTabCard :title="labelTitle">
+          <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
+        </IepAppTabCard>
+        <IepAppTabCard :title="listTitle1">
+          <div class="recommended-list">
+            <div v-for="(item,index) in recommendedList" :key="index" class="piece">
+              <div class="img-con"><img :src="item.img" class="img"></div>
+              <div class="box">
+                <div class="piece-title">
+                  <span class="sub-title">{{item.title}}</span>
+                </div>
+                <span class="see"><i class="iconfont icon-yanjing"></i>{{item.see}}</span>
               </div>
-              <span class="see"><i class="iconfont icon-yanjing"></i>{{item.see}}</span>
             </div>
           </div>
-        </div>
-      </IepAppTabCard>
+        </IepAppTabCard>
+      </div>
     </div>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>

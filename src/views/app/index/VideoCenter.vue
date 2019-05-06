@@ -1,6 +1,6 @@
 <template>
   <div class="videoCenter">
-    <IepAppTabCard :title="title" :linkName="linkName">
+    <IepAppTabCard :title="title" :linkName="linkName" isMore>
       <div class="videoCenter-list">
         <div v-for="(item,index) in videoCenterList" :key="index" class="piece" @click="handleOpen()">
           <img :src="item.img" class="img">
@@ -18,7 +18,7 @@ export default {
       videoCenterList: [
         { name: '数据基因宣传视频', img: require('./img/video.jpg') },
       ],
-      linkName: '',
+      linkName: '/app/video_list/',
     }
   },
   methods: {

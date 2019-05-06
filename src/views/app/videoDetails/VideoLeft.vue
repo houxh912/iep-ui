@@ -1,7 +1,7 @@
 <template>
   <div>
     <video width="900" height="500" controls>
-      <source :src="video" controls poster="img/video/video.jpg" alt="">
+      <source :src="video" controls poster="" alt="">
     </video>
   </div>
 </template>

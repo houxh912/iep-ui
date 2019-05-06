@@ -41,7 +41,12 @@ import { getAllClientNum } from '@/api/crms/count'
 export default {
   data () {
     return {
-      data: {},
+      data: {
+        clientQuantity: 0,
+        contactQuantity: 0,
+        contractQuantity: 0,
+        contractAmount: 0,
+      },
     }
   },
   created () {

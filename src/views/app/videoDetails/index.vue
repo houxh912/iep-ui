@@ -1,10 +1,13 @@
 <template>
-  <div class="video">
-    <div class="video-con">
-      <video-left></video-left>
-      <video-right></video-right>
+  <div>
+    <div class="video">
+      <div class="video-con">
+        <video-left></video-left>
+        <video-right></video-right>
+      </div>
+      <video-operate></video-operate>
     </div>
-    <video-operate></video-operate>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>

@@ -12,7 +12,7 @@
 import BreadCrumb from './BreadCrumb'
 import AboutTags from './TagRight'
 import TagContent from './TagContent'
-import { getTagViewById, getTagViewByName } from '@/api/tms/tag'
+import { getTagViewById } from '@/api/tms/tag'
 import { initForm } from './options'
 export default {
   components: {
@@ -36,15 +36,8 @@ export default {
   },
   methods: {
     async loadPage () {
-      let form = undefined
-      if (this.$route.params.id !== '0') {
-        const { data } = await getTagViewById(this.$route.params.id)
-        form = data.data
-      } else {
-        const { data } = await getTagViewByName(this.$route.query.name)
-        form = data.data
-      }
-      this.form = form
+      const { data } = await getTagViewById(this.$route.params.id)
+      this.form = data.data
     },
   },
 }

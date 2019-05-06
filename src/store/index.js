@@ -6,6 +6,7 @@ import cache from './modules/cache'
 import common from './modules/common'
 import app from './modules/app'
 import tags from './modules/tags'
+import fams from './modules/fams'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -17,6 +18,7 @@ const store = new Vuex.Store({
     cache,
     common,
     tags,
+    fams,
   },
   getters,
 })

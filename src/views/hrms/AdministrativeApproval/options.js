@@ -50,6 +50,7 @@ const initForm = () => {
     'avatar': '', // 头像
     'type': 1, // 
     'deptList': [], // 所属部门
+    'approverList':[],
     'attachFile': [], // 附件
     'createTime': '', // 创建时间
     'startTime': '', // 开始时间(1:请假开始时间；2:出差开始时间;3:加班开始时间;4:入职时间;5:入职时间）
@@ -58,6 +59,7 @@ const initForm = () => {
     'title': '', // 职称
     'reason': '', // 申请理由
     'annex': '', // 附件
+    'status': 0,
     'processList': [], // 申请流程
     'cc': '', // 抄送人
     'ccList': [], // 抄送人

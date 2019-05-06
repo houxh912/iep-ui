@@ -63,7 +63,7 @@ export default {
     },
     load () {
       getAllClientNum().then(res => {
-        this.percent = this.toPercent(res.data.data.contractQuantity, res.data.data.clientQuantity)
+        this.percent = this.toPercent(res.data.data.clientQuantity, res.data.data.contractQuantity)
       })
       getBusiness().then(res => {
         this.business = res.data.data[0].marketManager

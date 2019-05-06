@@ -19,9 +19,10 @@
         <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5 maxlength="200"></el-input>
       </el-form-item>
       <el-form-item label="业务类型：" prop="businessType">
-        <el-radio-group v-model="formData.businessType">
+        <!-- <el-radio-group v-model="formData.businessType">
           <el-radio v-for="item in dictGroup.mlms_business_type" :key="item.value" :label="item.value">{{item.label}}</el-radio>
-        </el-radio-group>
+        </el-radio-group> -->
+        <businessType v-model="formData.businessType"></businessType>
       </el-form-item>
       <el-form-item label="合同标签：" prop="tagKeyWords">
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
@@ -117,9 +118,10 @@ import { mapGetters } from 'vuex'
 import { getManeger } from '@/api/mlms/material/datum/contract'
 import { getCustomerPage } from '@/api/crms/customer'
 import projectDialog from './projectRelation'
+import businessType from './businessType'
 
 export default {
-  components: { projectDialog },
+  components: { projectDialog, businessType },
   computed: {
     ...mapGetters(['userInfo', 'dictGroup']),
   },

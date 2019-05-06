@@ -68,7 +68,6 @@ export default {
     },
   },
   created () {
-    this.loadTypeList()
     this.loadPage()
   },
   methods: {
@@ -93,6 +92,7 @@ export default {
       })
     },
     loadPage (param = this.searchForm) {
+      this.loadTypeList()
       this.loadTable({ type: this.selectType, ...param }, getSystemMessagePage)
     },
   },

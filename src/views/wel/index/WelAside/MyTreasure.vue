@@ -18,14 +18,15 @@
       <span class="right-top"><i class="el-icon-view"></i></span>
     </div>
     <el-button-group class="operation-btn-group">
-      <iep-button type="" plain>报销</iep-button>
-      <iep-button type="" plain>打赏</iep-button>
-      <iep-button type="" plain>投资</iep-button>
-      <iep-button type="" plain>互助基金</iep-button>
+      <iep-button plain>报销</iep-button>
+      <iep-button @click="handleReward" plain>打赏</iep-button>
+      <iep-button plain>投资</iep-button>
+      <iep-button plain>互助基金</iep-button>
     </el-button-group>
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 import { openWindow } from '@/util/util'
 export default {
   data () {
@@ -49,8 +50,12 @@ export default {
     this.change = this.treasureData.dataList[2].change
   },
   methods: {
+    ...mapActions(['famsReward']),
     handleOpen () {
       openWindow('https://www.yuque.com/govmade/readings', '挖贝攻略', 800, 600)
+    },
+    handleReward () {
+      this.famsReward()
     },
     tagList (index) {
       this.showClass = index

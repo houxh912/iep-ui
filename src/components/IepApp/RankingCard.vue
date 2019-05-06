@@ -25,6 +25,7 @@ export default {
   .piece {
     color:#333;
     cursor: pointer;
+    transition-duration: 0.3s;
     .name {
       height: 30px;
       line-height: 30px;

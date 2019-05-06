@@ -1,12 +1,7 @@
 <template>
   <div class="set-containter">
     <basic-container>
-      <page-header title="工资"></page-header>
-      <operation-container>
-        <template slot="left">
-          <h4>说明：每月5日前需完成上月工资，可更新上传，发送后无法修改已上传的工资单。若当月工资核算有误，在下月工资调整匹配。</h4>
-        </template>
-      </operation-container>
+      <page-header title="工资" :replaceText="replaceText"></page-header>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="月份" width="150px">
@@ -32,7 +27,7 @@
   </div>
 </template>
 <script>
-import { getTalentPoolPage } from '@/api/hrms/talent_pool'
+import { getSalaryPage } from '@/api/fams/salary'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm } from '../options'
 export default {
@@ -40,6 +35,7 @@ export default {
   data () {
     return {
       value6: '',
+      replaceText: () => '（说明：每月5日前需完成上月工资，可更新上传，发送后无法修改已上传的工资单。若当月工资核算有误，在下月工资调整匹配。）',
       department: [
         {
           value: '选项1',
@@ -63,7 +59,6 @@ export default {
       paramForm: initSearchForm(),
       value: '',
       value1: '',
-      replaceText: (data) => `提现数：${data[0]}笔，总金额合计：￥${data[1]}元`,
     }
   },
   created () {
@@ -79,12 +74,8 @@ export default {
     handleDetail (row) {
       this.$emit('onDetail', row)
     },
-    // handleRejected (row) {
-    //   console.log(row)
-    //   this.$refs['RejectedDialog'].dialogShow = true
-    // },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getTalentPoolPage)
+      this.loadTable(param, getSalaryPage)
     },
     handleAdd () {
       this.$emit('onEdit', {

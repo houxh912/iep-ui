@@ -32,16 +32,11 @@ export default {
       ],
     }
   },
-  created () {
-    this.loadPage()
-  },
-  methods: {
-    loadPage () {
-      this.labelList[0].frequency = this.form.views + '次'
-      this.labelList[1].frequency = this.form.refers + '次'
-      this.labelList[2].frequency = this.form.updateTime
-      this.labelList[3].frequency = this.form.creatorRealName
-    },
+  mounted () {
+    this.labelList[0].frequency = this.form.views + '次'
+    this.labelList[1].frequency = this.form.refers + '次'
+    this.labelList[2].frequency = this.form.updateTime
+    this.labelList[3].frequency = this.form.creatorRealName
   },
 }
 </script>

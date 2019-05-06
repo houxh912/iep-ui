@@ -1,11 +1,8 @@
 <template>
   <div class="set-containter">
     <basic-container>
-      <page-header title="提现"></page-header>
+      <page-header title="提现" :replaceText="replaceText" :data="[10 ,300000]"></page-header>
       <operation-container>
-        <template slot="left">
-          <page-header class="data-title" :replaceText="replaceText" :data="[10 ,300000]"></page-header>
-        </template>
         <template slot="right">
           <operation-search @search="searchPage" advance-search>
             <el-form :model="paramForm" label-width="100px" size="mini">
@@ -113,7 +110,7 @@ export default {
       paramForm: initSearchForm(),
       value: '',
       value1: '',
-      replaceText: (data) => `提现数：${data[0]}笔，总金额合计：￥${data[1]}元`,
+      replaceText: (data) => `（提现数：${data[0]}笔，总金额合计：￥${data[1]}元）`,
     }
   },
   created () {

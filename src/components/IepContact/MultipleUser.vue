@@ -5,18 +5,16 @@
       <el-tag type="info" v-for="user in users" :key="user.id">{{user.name}}</el-tag>
     </operation-wrapper>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
-      <a-select mode="multiple" :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="querySearch" @change="handleChange" dropdownClassName="iep-contact-dropdown">
-        <a-select-option v-for="item in userResults" :key="item.id+''">
-          <span style="float: left">{{ item.name }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">{{ item.pinyin }}</span>
-        </a-select-option>
+      <a-select mode="multiple" labelInValue :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="fetching ? undefined : null">
+        <a-spin v-if="fetching" slot="notFoundContent" size="small" />
+        <a-select-option v-for="item in userResults" :key="item.id+''">{{item.name}}</a-select-option>
       </a-select>
       <a-button v-if="isClear && !disabled" icon="close" @click="clearAll"></a-button>
       <a-button @click="openContact()">通讯录</a-button>
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="close" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
-      <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" :expand-on-click-node="true">
+      <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="treeData" :expand-on-click-node="true">
         <span class="custom-tree-node" slot-scope="{ node, data }">
           <span :class="{level1:node.level===1,level2:node.level===2,level3:node.level===3}">{{ node.label }}</span>
           <span v-if="node.level===3">
@@ -30,6 +28,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
+import { loadContactsPyList } from '@/api/admin/contacts'
 import debounce from 'lodash/debounce'
 export default {
   name: 'IepContactMultipleUser',
@@ -48,22 +47,21 @@ export default {
     },
   },
   data () {
-    this.querySearch = debounce(this.querySearch, 500)
-    this.handleChange = debounce(this.handleChange, 500)
+    this.handleSearch = debounce(this.handleSearch, 500)
     return {
       filterText: '',
       dialogShow: false,
+      fetching: false,
       props: {
         isLeaf: 'leaf',
       },
       treeData: [],
-      userPyList: [],
       userResults: [],
     }
   },
   computed: {
     ...mapGetters([
-      'contactsPyList',
+      'contactsPyGroup',
     ]),
     isClear () {
       return this.userIds.length !== 0 ? true : false
@@ -75,15 +73,18 @@ export default {
     userIds: function () { return this.value.map(m => m.id) },
     usersValue () {
       return this.users.map(m => {
-        return m.id + ''
+        return {
+          key: m.id + '',
+          label: m.name,
+        }
       })
     },
-    userPyListFilter () {
-      return this.userPyList.filter(m => !this.userIds.includes(m.id))
-    },
+    // userPyListFilter () {
+    //   return this.userPyList.filter(m => !this.userIds.includes(m.id))
+    // },
   },
   created () {
-    this.loadPyList()
+    // this.loadPyList()
   },
   watch: {
     filterText (val) {
@@ -128,14 +129,15 @@ export default {
     },
     handleChange (value) {
       const users = value.map(m => {
-        const i = this.userPyList.findIndex(user => user.id === +m)
         return {
-          id: this.userPyList[i].id,
-          name: this.userPyList[i].name,
+          id: this.contactsPyGroup[+m.key].id,
+          name: this.contactsPyGroup[+m.key].name,
         }
       })
       Object.assign(this, {
         users,
+        userResults: [],
+        fetching: false,
       })
     },
     handleSelect (item) {
@@ -145,23 +147,12 @@ export default {
       })
       this.username = ''
     },
-    querySearch (queryString) {
-      const userPyListFilter = this.userPyListFilter
-      const results = queryString ? userPyListFilter.filter(this.createFilter(queryString)) : userPyListFilter
-      // 调用 callback 返回建议列表的数据
-      this.userResults = results
-    },
-    createFilter (query) {
-      const queryToLower = query.toLowerCase()
-      return (item) => {
-        return (item.name.toLowerCase().indexOf(queryToLower) > -1
-          || item.pinyin.toLowerCase().indexOf(queryToLower) > -1
-          || item.py.toLowerCase().indexOf(queryToLower) > -1)
-      }
-    },
-    loadPyList () {
-      this.userPyList = [...this.contactsPyList]
-      this.userResults = [...this.contactsPyList]
+    async handleSearch (query) {
+      this.fetching = true
+      const name = query.toLowerCase()
+      const { data } = await loadContactsPyList({ name })
+      this.userResults = data.data
+      this.fetching = false
     },
     loadNode () {
       if (this.treeData.length) {
@@ -175,6 +166,9 @@ export default {
 }
 </script>
 <style scoped>
+.filter-tree {
+  margin-top: 10px;
+}
 .contact-wrapper {
   display: flex;
 }

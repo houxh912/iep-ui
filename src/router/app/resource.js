@@ -42,7 +42,7 @@ export default [
     component: () => import('@/views/app/expert/'),
   },
   {
-    path: 'productKu',
+    path: 'product_ku',
     name: '产品库',
     icon: 'icon-chanpin',
     count: 2010,

@@ -9,7 +9,7 @@
     </el-row>
     <el-row>
       <el-col :span="12"><span>英文名称：</span>{{form.englishName}}</el-col>
-      <el-col :span="12"><span>简单介绍：</span>{{form.synopsis}}</el-col>
+      <el-col :span="12" style="overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;"><span>简单介绍：</span>{{form.synopsis}}</el-col>
     </el-row>
     <el-row>
       <el-col :span="24"><span>详情介绍：</span>{{form.description}}</el-col>
@@ -32,7 +32,6 @@ export default {
     color: #333;
   }
   .el-col {
-    height: 30px;
     line-height: 30px;
     > span {
       width: 100px;

@@ -129,7 +129,7 @@ export default [
       {
         path: 'client_detail',
         name: '客户详情',
-        component: () => import('@/views/app/client/clientDetail'),
+        component: () => import('@/views/app/client/clientDetail/'),
         meta: noAuth,
       },
       {
@@ -141,6 +141,11 @@ export default [
         path: 'video_detail',
         name: '视频详情',
         component: () => import('@/views/app/videoDetails/'),
+      },
+      {
+        path: 'video_list',
+        name: '视频详情',
+        component: () => import('@/views/app/videoList/'),
       },
     ],
   },

@@ -95,6 +95,7 @@
 <script>
 import { getDataById } from '@/api/mlms/material/datum/contract'
 import { dictsMap } from './option'
+import { mapGetters } from 'vuex'
 import { downloadFile } from '@/api/common'
 
 function formatDig (num) {
@@ -133,7 +134,7 @@ export default {
         { name: '关联项目', value: 'projectName' },
         { name: '市场经理', value: 'directorRealName' },
         { name: '合同类型', value: 'contractType', type: 'dict' },
-        { name: '业务类型', value: 'businessType', type: 'dict' },
+        { name: '业务类型', value: 'businessTypeList' },
         { name: '签订日期', value: 'signTime', type: 'date' },
         { name: '完结日期', value: 'finishTime', type: 'date' },
         { name: '委托单位', value: 'companyName' },
@@ -153,17 +154,33 @@ export default {
       formatYear,
     }
   },
+  computed: {
+    ...mapGetters(['dictGroup']),
+  },
   methods: {
     open (id) {
-      getDataById(id).then(({data}) => {
-        data.data.signDeptOrgNames = data.data.signDeptOrgName.name // 签署组织
+      getDataById(id).then((res) => {
+        let data = res.data.data
+        data.signDeptOrgNames = data.signDeptOrgName.name // 签署组织
         let underTakeDeptNames = ''
-        for (let item of data.data.underTakeDeptName) {
+        for (let item of data.underTakeDeptName) {
           underTakeDeptNames += item.name + '、'
         }
-        data.data.underTakeDeptNames = underTakeDeptNames.slice(0, underTakeDeptNames.length-1)
-        data.data.projectName = data.data.projectRelation ? data.data.projectRelation.name : '无'
-        this.formData = data.data
+        data.underTakeDeptNames = underTakeDeptNames.slice(0, underTakeDeptNames.length-1)
+        data.projectName = data.projectRelation ? data.projectRelation.name : '无'
+        console.log('data: ', data)
+        let businessType = data.businessType.split(','), list = []
+        for (let type of businessType) {
+          for (let item of this.dictGroup.prms_business_type) {
+            for (let t of item.children) {
+              if (t.value == type) {
+                list.push(t.label)
+              }
+            }
+          }
+        }
+        data.businessTypeList = list.toString()
+        this.formData = data
       })
     },
     // 下载附件

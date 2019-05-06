@@ -78,11 +78,19 @@ var receiverValidate = (rule, value, callback) => {
   }
 }
 
-var hostValidate = (rule, value, callback) => {
-  if (value.id == '') {
-    callback(new Error())
-  } else {
+// var hostValidate = (rule, value, callback) => {
+//   if (value.id == '') {
+//     callback(new Error())
+//   } else {
+//     callback()
+//   }
+// }
+
+var notEmpty = (rule, value, callback) => {
+  if (/^(?!(\s+$))/.test(value)) {
     callback()
+  } else {
+    callback(new Error())
   }
 }
 
@@ -92,15 +100,19 @@ export const rules = {
   ],
   title: [
     { required: true, message: '必填', trigger: 'blur' },
+    { validator: notEmpty, message: '请勿纯空格输入', trigger: 'blur' },
   ],
   meetingContent: [
     { required: true, message: '必填', trigger: 'blur' },
+    { validator: notEmpty, message: '请勿纯空格输入', trigger: 'blur' },
   ],
   meetingCon: [
     { required: true, message: '必填', trigger: 'blur' },
+    { validator: notEmpty, message: '请勿纯空格输入', trigger: 'blur' },
   ],
   thoughtsProblem: [
     { required: true, message: '必填', trigger: 'blur' },
+    { validator: notEmpty, message: '请勿纯空格输入', trigger: 'blur' },
   ],
   meetingTime: [
     { required: true, message: '必填', trigger: 'blur' },
@@ -127,16 +139,16 @@ export const rules = {
     { required: true, message: '必填', trigger: 'change' },
   ],
   hostList: [
-    { required: true, message: '必填', trigger: 'change' },
-    { validator: hostValidate, message: '主持人必填', trigger: 'change' },
+    // { required: true, message: '必填', trigger: 'change' },
+    // { validator: hostValidate, message: '主持人必填', trigger: 'change' },
   ],
   attendeeList: [
     { required: true, message: '必填', trigger: 'change' },
     { validator: receiverValidate, message: '参会人必填', trigger: 'change' },
   ],
   receiverList: [
-    { required: true, message: '必填', trigger: 'change' },
-    { validator: receiverValidate, message: '参会人必填', trigger: 'change' },
+    // { required: true, message: '必填', trigger: 'change' },
+    // { validator: receiverValidate, message: 抄送人必填', trigger: 'change' },
   ],
 }
 

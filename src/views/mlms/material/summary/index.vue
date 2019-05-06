@@ -17,23 +17,26 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" :paramForm="paramForm" prop="title">
-            <!-- <operation-search @search-page="searchPage" :paramForm="paramForm" prop="title" advance-search> -->
-            <el-form :model="paramForm" label-width="80px" size="small">
-              <el-form-item label="会议标题">
-                <el-input v-model="paramForm.biaoti"></el-input>
-              </el-form-item>
+          <operation-search @search-page="searchPage" :paramForm="paramForm" prop="title" advance-search>
+            <el-form :model="paramForm" label-width="100px" size="small">
+              <!-- <el-form-item label="会议标题">
+                <el-input v-model="paramForm.title"></el-input>
+              </el-form-item> -->
               <el-form-item label="会议类型">
-                <el-input v-model="paramForm.type"></el-input>
+                <!-- <el-input v-model="paramForm.meetingType"></el-input> -->
+                <iep-dict-select v-model="paramForm.meetingType" dict-name="mlms_meeting_type"></iep-dict-select>
               </el-form-item>
-              <el-form-item label="会议时间">
-                <el-input v-model="paramForm.shijian"></el-input>
+              <el-form-item label="会议开始时间">
+                <el-date-picker v-model="paramForm.startTime" value-format="yyyy-MM-dd HH:mm:ss" type="date" placeholder="选择日期时间"></el-date-picker>
               </el-form-item>
-              <el-form-item label="会议标签">
-                <el-input v-model="paramForm.code"></el-input>
+              <el-form-item label="会议结束时间">
+                <el-date-picker v-model="paramForm.endTime" value-format="yyyy-MM-dd 23:59:59" type="date" placeholder="选择日期时间"></el-date-picker>
               </el-form-item>
+              <!-- <el-form-item label="会议标签">
+                <el-input v-model="paramForm.tagKeyWords"></el-input>
+              </el-form-item> -->
               <el-form-item>
-                <el-button type="primary" @click="searchPage">搜索</el-button>
+                <el-button type="primary" @click="searchPage(paramForm)">搜索</el-button>
                 <el-button @click="clearSearchParam">清空</el-button>
               </el-form-item>
             </el-form>
@@ -43,13 +46,44 @@
 
       <iep-tabs v-model="tabName" :tab-list="tabList" @tab-click="tabClick">
         <template v-if="tabName ==='personal'" v-slot:personal>
-          <tableTemplate ref="tableTpl" :getTableData="getTablePersonal" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection" :permissionEdit="permission_edit" :permissionDelete="permission_delete" @handleDetail="handleDetail" :permissionOpera=true></tableTemplate>
+          <tableTemplate 
+            ref="tableTpl" 
+            :getTableData="getTablePersonal" 
+            @handleShare="handleShare" 
+            @selectionChange="handleSelectionChange" 
+            @handleCollection="handleCollection" 
+            :permissionEdit="permission_edit" 
+            :permissionDelete="permission_delete" 
+            @handleDetail="handleDetail" 
+            :permissionOpera=true
+            :paramForm="paramForm">
+          </tableTemplate>
         </template>
         <template v-if="tabName ==='involved'" v-slot:involved>
-          <tableTemplate ref="tableTpl" :getTableData="getTableMyInvolved" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection" :permissionEdit="permission_edit" :permissionDelete="permission_delete" @handleDetail="handleDetail"></tableTemplate>
+          <tableTemplate 
+            ref="tableTpl" 
+            :getTableData="getTableMyInvolved" 
+            @handleShare="handleShare" 
+            @selectionChange="handleSelectionChange" 
+            @handleCollection="handleCollection" 
+            :permissionEdit="permission_edit" 
+            :permissionDelete="permission_delete" 
+            @handleDetail="handleDetail"
+            :paramForm="paramForm">
+          </tableTemplate>
         </template>
         <template v-if="tabName ==='received'" v-slot:received>
-          <tableTemplate ref="tableTpl" :getTableData="getTableMyReceived" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection" :permissionEdit="permission_edit" :permissionDelete="permission_delete" @handleDetail="handleDetail"></tableTemplate>
+          <tableTemplate 
+            ref="tableTpl" 
+            :getTableData="getTableMyReceived" 
+            @handleShare="handleShare" 
+            @selectionChange="handleSelectionChange" 
+            @handleCollection="handleCollection" 
+            :permissionEdit="permission_edit" 
+            :permissionDelete="permission_delete" 
+            @handleDetail="handleDetail"
+            :paramForm="paramForm">
+          </tableTemplate>
         </template>
       </iep-tabs>
 
@@ -119,6 +153,7 @@ export default {
     loadPage (params = {}) {
       let obj = { current: 1, size: 10 }
       obj = Object.assign({}, obj, params)
+      this.paramForm = params
       this.$refs['tableTpl'].loadPage(obj)
     },
     clearSearchParam () {

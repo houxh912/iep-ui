@@ -81,9 +81,13 @@ export default {
       type: Boolean,
       default: false,
     },
+    paramForm: {
+      type: Object,
+      default: () => {},
+    },
   },
   methods: {
-    loadPage (param) {
+    loadPage (param = this.paramForm) {
       this.pageState = 'list'
       this.loadTable(param, this.getTableData)
     },

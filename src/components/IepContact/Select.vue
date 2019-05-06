@@ -7,9 +7,9 @@
       </el-option>
     </el-select>
     <a-button @click="openContact()">通讯录</a-button>
-    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="dialogShow = false" :z-index="3000">
+    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="dialogShow = false" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
-      <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" :show-checkbox="showCheckbox" default-expand-all @node-click="selectUser">
+      <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" :show-checkbox="showCheckbox" @node-click="selectUser">
         <span class="custom-tree-node" slot-scope="{ node, data }">
           <span :class="{'is-disabled':isDisabled(data, node)}" @click.stop="() => selectUser(data, node)">{{ node.label }}</span>
         </span>
@@ -132,6 +132,9 @@ export default {
       this.userPyListOptions = [...this.contactsPyList]
     },
     loadNode () {
+      if (this.treeData.length) {
+        return
+      }
       getUserListTree().then(({ data }) => {
         this.treeData = data.data
       })

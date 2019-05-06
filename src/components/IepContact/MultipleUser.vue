@@ -1,21 +1,22 @@
 <template>
   <div class="multiple-box">
-    <el-tag v-if="!users.length" type="info">暂无</el-tag>
-    <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
+    <operation-wrapper v-if="disabled">
+      <el-tag v-if="!users.length" type="info">暂无</el-tag>
+      <el-tag type="info" v-for="user in users" :key="user.id">{{user.name}}</el-tag>
+    </operation-wrapper>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
-      <el-autocomplete style="width:100%;" v-model="username" :fetch-suggestions="querySearch" placeholder="请输入姓名或姓名拼音" @select="handleSelect" highlight-first-item>
-        <i class="el-icon-edit el-input__icon" slot="suffix"></i>
-        <template slot-scope="{ item }">
+      <a-select mode="multiple" :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="querySearch" @change="handleChange" dropdownClassName="iep-contact-dropdown">
+        <a-select-option v-for="item in userResults" :key="item.id+''">
           <span style="float: left">{{ item.name }}</span>
           <span style="float: right; color: #8492a6; font-size: 13px">{{ item.pinyin }}</span>
-        </template>
-      </el-autocomplete>
-      <iep-button v-if="isClear && !disabled" icon="el-icon-error" @click="clearAll"></iep-button>
+        </a-select-option>
+      </a-select>
+      <a-button v-if="isClear && !disabled" icon="close" @click="clearAll"></a-button>
       <a-button @click="openContact()">通讯录</a-button>
     </operation-wrapper>
-    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="close" :z-index="3000">
+    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="close" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
-      <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" default-expand-all :expand-on-click-node="true">
+      <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" :expand-on-click-node="true">
         <span class="custom-tree-node" slot-scope="{ node, data }">
           <span :class="{level1:node.level===1,level2:node.level===2,level3:node.level===3}">{{ node.label }}</span>
           <span v-if="node.level===3">
@@ -29,8 +30,9 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
+import debounce from 'lodash/debounce'
 export default {
-  name: 'IepContactNewMultipleUser',
+  name: 'IepContactMultipleUser',
   props: {
     disabled: {
       type: Boolean,
@@ -46,13 +48,14 @@ export default {
     },
   },
   data () {
+    this.querySearch = debounce(this.querySearch, 500)
+    this.handleChange = debounce(this.handleChange, 500)
     return {
       filterText: '',
       dialogShow: false,
       props: {
         isLeaf: 'leaf',
       },
-      username: '',
       treeData: [],
       userPyList: [],
       userResults: [],
@@ -70,6 +73,11 @@ export default {
       set: function (value) { this.$emit('input', value) },
     },
     userIds: function () { return this.value.map(m => m.id) },
+    usersValue () {
+      return this.users.map(m => {
+        return m.id + ''
+      })
+    },
     userPyListFilter () {
       return this.userPyList.filter(m => !this.userIds.includes(m.id))
     },
@@ -118,6 +126,18 @@ export default {
         }
       }
     },
+    handleChange (value) {
+      const users = value.map(m => {
+        const i = this.userPyList.findIndex(user => user.id === +m)
+        return {
+          id: this.userPyList[i].id,
+          name: this.userPyList[i].name,
+        }
+      })
+      Object.assign(this, {
+        users,
+      })
+    },
     handleSelect (item) {
       this.users.push({
         id: item.id,
@@ -125,12 +145,11 @@ export default {
       })
       this.username = ''
     },
-    querySearch (queryString, cb) {
+    querySearch (queryString) {
       const userPyListFilter = this.userPyListFilter
       const results = queryString ? userPyListFilter.filter(this.createFilter(queryString)) : userPyListFilter
       // 调用 callback 返回建议列表的数据
       this.userResults = results
-      cb(results)
     },
     createFilter (query) {
       const queryToLower = query.toLowerCase()
@@ -142,8 +161,12 @@ export default {
     },
     loadPyList () {
       this.userPyList = [...this.contactsPyList]
+      this.userResults = [...this.contactsPyList]
     },
     loadNode () {
+      if (this.treeData.length) {
+        return
+      }
       getUserListTree().then(({ data }) => {
         this.treeData = data.data
       })
@@ -154,6 +177,11 @@ export default {
 <style scoped>
 .contact-wrapper {
   display: flex;
+}
+.contact-wrapper
+  >>> .ant-select-selection__choice__content
+  > span:nth-child(2) {
+  display: none;
 }
 .multiple-box > .el-tag {
   margin-right: 5px;

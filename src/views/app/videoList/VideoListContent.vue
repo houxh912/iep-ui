@@ -196,7 +196,7 @@ export default {
     }
     .video {
       width: 100%;
-      height: 200px;
+      height: 240px;
     }
     .info {
       display: flex;

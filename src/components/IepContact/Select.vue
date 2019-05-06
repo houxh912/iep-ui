@@ -6,9 +6,9 @@
     <a-button @click="openContact()">通讯录</a-button>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="dialogShow = false" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
-      <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="treeData" :show-checkbox="showCheckbox" @node-click="selectUser">
+      <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="treeData" :show-checkbox="showCheckbox" @node-click="selectUser" :default-expanded-keys="[1]" node-key="value">
         <span class="custom-tree-node" slot-scope="{ node, data }">
-          <span :class="{'is-disabled':isDisabled(data, node)}" @click.stop="() => selectUser(data, node)">{{ node.label }}</span>
+          <span :class="{'is-disabled':isDisabled(data, node)}" @click="() => selectUser(data, node)">{{ node.label }}</span>
         </span>
       </el-tree>
     </iep-drawer>
@@ -127,7 +127,8 @@ export default {
         this.dialogShow = false
       }
     },
-    filterNode (value, data) {
+    filterNode (value, data, node) {
+      console.log(value, data, node)
       if (!value) return true
       return data.label.indexOf(value) !== -1
     },

@@ -21,11 +21,11 @@
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="close" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
-      <el-tree ref="tree" class="filter-tree" :props="props" :data="treeData" :expand-on-click-node="true" :filter-node-method="filterNode">
-        <span class="custom-tree-node" slot-scope="{ node, data }">
+      <el-tree ref="tree" class="filter-tree" :props="props" :data="treeData" :default-expanded-keys="[1]" node-key="value" :filter-node-method="filterNode">
+        <span v-if="node.value!==1" class="custom-tree-node" slot-scope="{ node, data }">
           <iep-div-detail :value="node.label"></iep-div-detail>
           <span>
-            <el-button :disabled="isDisabled(data, node)" type="text" size="mini" @click.stop="() => selectGroup(data, node)">选择</el-button>
+            <el-button :disabled="isDisabled(data, node)" type="text" size="mini" @click="() => selectGroup(data, node)">选择</el-button>
           </span>
         </span>
       </el-tree>

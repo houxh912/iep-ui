@@ -1,5 +1,5 @@
 <template>
-  <el-upload action="/api/admin/file/upload" :headers="headers" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :on-success="handleSuccess" :on-error="handleError" :limit="limit" :on-exceed="handleExceed" :file-list="fileList" :drag="drag" v-bind="$attrs" v-on="$listeners">
+  <el-upload :action="action" :headers="headers" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :on-success="handleSuccess" :on-error="handleError" :limit="limit" :on-exceed="handleExceed" :file-list="fileList" :drag="drag" v-bind="$attrs" v-on="$listeners">
     <iep-button v-if="!drag" type="primary" plain>点击上传</iep-button>
     <template v-else>
       <i class="el-icon-upload"></i>
@@ -29,6 +29,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    action: {
+      type: String,
+      default: '/api/admin/file/upload',
+    },
   },
   data () {
     return {
@@ -53,7 +57,12 @@ export default {
     },
     handleSuccess (res, file) {
       if (res.code) {
-        this.$message.error('错了哦，请检查文件服务器')
+        if (!res.data) {
+          this.$message.error(res.msg)
+        } else {
+          this.$message.error('错了哦，请检查文件服务器')
+        }
+        this.$emit('on-finish', [], false)
       } else {
         const formatFile = {
           name: file.name,
@@ -61,7 +70,8 @@ export default {
           id: res.data.id,
         }
         this.fileList.push(formatFile)
-        this.$emit('on-finish', this.fileList)
+        this.$message.success('上传成功')
+        this.$emit('on-finish', this.fileList, true)
       }
     },
     handleRemove (file) {

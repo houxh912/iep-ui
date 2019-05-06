@@ -47,6 +47,8 @@ const initForm = () => {
     intro: '',
     structure: '',
     coreAdvantage: '',
+    abilityTag: [],
+    learningTag: [],
   }
 }
 

@@ -18,7 +18,7 @@ export default {
 <style lang="scss" scoped>
 .training-search {
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 25px 20px;
   text-align: center;
   h3 {
     font-size: 24px;

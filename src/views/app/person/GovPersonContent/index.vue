@@ -52,32 +52,32 @@ export default {
 <style lang="scss" scoped>
 .gov-person-content {
   margin: 0 auto;
-  padding-top: 30px;
+  padding-top: 25px;
   width: 1200px;
   .top-content {
     display: grid;
     grid-auto-flow: row dense;
-    grid-row-gap: 30px;
-    grid-column-gap: 30px;
+    grid-row-gap: 25px;
+    grid-column-gap: 25px;
     grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
   }
   .block {
-    margin-top: 30px;
+    margin-top: 25px;
     width: 100%;
   }
   .copies {
     display: grid;
-    margin-top: 30px;
+    margin-top: 25px;
     grid-auto-flow: row dense;
-    grid-row-gap: 30px;
-    grid-column-gap: 30px;
+    grid-row-gap: 25px;
+    grid-column-gap: 25px;
     grid-template-columns: minmax(100px, 2fr) minmax(100px, 2fr) minmax(
         100px,
         2fr
       );
   }
   .copies2 {
-    margin-bottom: 60px;
+    margin-bottom: 25px;
   }
 }
 </style>

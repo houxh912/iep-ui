@@ -1,17 +1,36 @@
 <template>
-  <div class="article-details">
-    <div class="title">{{name}}</div>
-    <div class="inform">
-      <div class="info">
-        <div class="img"><img :src="avatar" :alt="avatar"></div>
-        <span>{{uploaded}}</span>
-        <span class="time">{{time}}</span>
-        <span><i class="iconfont icon-yanjing"></i>{{pageviews}}</span>
-        <span><i class="iconfont icon-download1"></i>{{downloads}}</span>
+  <div>
+    <div class="article-details">
+      <div class="title">{{name}}</div>
+      <div class="inform">
+        <div class="info">
+          <div class="img"><img :src="avatar" :alt="avatar"></div>
+          <span>{{uploaded}}</span>
+          <span class="time">{{time}}</span>
+          <span><i class="iconfont icon-yanjing"></i>{{pageviews}}</span>
+          <span><i class="iconfont icon-download1"></i>{{downloads}}</span>
+        </div>
+        <div class="btn-con">
+          <div class="btn" v-for="item in itemList" :key="item.id"><i class="iconfont" :class="item.icon"></i>{{item.operate}}</div>
+        </div>
       </div>
-      <div class="btn-con">
-        <div class="btn" v-for="item in itemList" :key="item.id"><i class="iconfont" :class="item.icon"></i>{{item.operate}}</div>
+      <div class="detail">
+        <span class="sub-title">{{subTitle}}</span>
+        <div class="detail-con" v-for="detail in detailList" :key="detail.id">
+          <span>培训老师：{{detail.teacher}}</span>
+          <span>培训时间：{{detail.time}}</span>
+          <span>培训方式：{{detail.mode}}</span>
+          <span>培训主题：{{detail.theme}}</span>
+          <span>培训地点：{{detail.place}}</span>
+        </div>
+        <div class="classTag">
+          <el-tag type="white" v-for="tag in tags" :key="tag.id">{{tag.tag}}</el-tag>
+        </div>
       </div>
+    </div>
+    <div class="enclosure">
+      <span class="enclosure-title">相关附件</span>
+      <span><i class="iconfont icon-fujian"></i><span class="name">{{enclosureName}}</span><span class="dn pay" :class="show">{{pay}}</span></span>
     </div>
   </div>
 </template>
@@ -40,6 +59,24 @@ export default {
           operate: '纠错',
         },
       ],
+      subTitle: '培训信息',
+      detailList: [
+        {
+          teacher: '张超',
+          time: '2019-03-22',
+          mode: '线上微信',
+          theme: '技能类',
+          place: '舟山',
+        },
+      ],
+      tags: [
+        { tag: '数据服务' },
+        { tag: '数据应用' },
+        { tag: '数据分析' },
+      ],
+      enclosureName: '培训数据库优化方案.doc',
+      pay: '（消耗5国脉贝下载）',
+      show: 'show',
     }
   },
 }
@@ -47,11 +84,11 @@ export default {
 <style lang="scss" scoped>
 .article-details {
   padding: 20px 0;
+  border-bottom: 1px solid #ebeef5;
   .title {
     font-size: 18px;
     color: #333;
     height: 50px;
-    line-height: 50px;
   }
   .inform {
     display: flex;
@@ -123,6 +160,69 @@ export default {
       }
     }
   }
+  .detail {
+    margin-top: 30px;
+    .sub-title {
+      display: block;
+      margin-bottom: 18px;
+      font-weight: 500;
+    }
+    .detail-con {
+      display: flex;
+      margin-bottom: 18px;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      span {
+        margin-bottom: 10px;
+        padding-right: 20px;
+        width: 50%;
+        &:last-child {
+          width: 100%;
+        }
+      }
+    }
+    .classTag {
+      .el-tag {
+        margin-right: 5px;
+        &:hover {
+          color: #cb3737;
+          background: #fef0f0;
+          border-color: #cb3737;
+        }
+      }
+    }
+  }
+}
+.dn {
+  display: none;
+}
+.enclosure {
+  margin: 20px 0;
+  cursor: pointer;
+  &:hover .name {
+    color: #cb3737;
+  }
+  i {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  .enclosure-title {
+    display: block;
+    margin-bottom: 18px;
+  }
+  .pay {
+    color: #999;
+  }
+}
+.show {
+  display: inline-block;
+}
+.article-details .el-tag--white {
+  border: 1px solid #dcdfe6;
+  height: 28px;
+  line-height: 26px;
+  background: #fff;
+  color: #606266;
 }
 </style>
 

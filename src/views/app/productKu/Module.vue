@@ -8,7 +8,8 @@
           <div class="text">
             <h4 class="item-title">{{item.title}}</h4>
             <p class="con">{{item.con}}</p>
-            <div class="classTag"><el-tag type="white" v-for="tag in item.tags" :key="tag.id">{{tag.tag}}</el-tag>
+            <div class="classTag">
+              <el-tag type="white" v-for="tag in item.tags" :key="tag.id">{{tag.tag}}</el-tag>
             </div>
           </div>
         </div>
@@ -34,7 +35,7 @@ export default {
         {
           title: '资源配置模块',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags:[
+          tags: [
             {
               tag: '产品设计',
             },
@@ -50,7 +51,7 @@ export default {
         {
           title: '资源配置模块',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags:[
+          tags: [
             {
               tag: '产品设计',
             },
@@ -66,7 +67,7 @@ export default {
         {
           title: '资源配置模块',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags:[
+          tags: [
             {
               tag: '产品设计',
             },
@@ -82,7 +83,7 @@ export default {
         {
           title: '资源配置模块',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags:[
+          tags: [
             {
               tag: '产品设计',
             },
@@ -98,7 +99,7 @@ export default {
         {
           title: '资源配置模块',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags:[
+          tags: [
             {
               tag: '产品设计',
             },
@@ -114,7 +115,7 @@ export default {
         {
           title: '资源配置模块',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags:[
+          tags: [
             {
               tag: '产品设计',
             },
@@ -130,7 +131,7 @@ export default {
         {
           title: '资源配置模块',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags:[
+          tags: [
             {
               tag: '产品设计',
             },
@@ -146,7 +147,7 @@ export default {
         {
           title: '资源配置模块',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags:[
+          tags: [
             {
               tag: '产品设计',
             },
@@ -162,7 +163,7 @@ export default {
         {
           title: '资源配置模块',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags:[
+          tags: [
             {
               tag: '产品设计',
             },
@@ -178,7 +179,7 @@ export default {
         {
           title: '资源配置模块',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags:[
+          tags: [
             {
               tag: '产品设计',
             },
@@ -194,7 +195,7 @@ export default {
         {
           title: '资源配置模块',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags:[
+          tags: [
             {
               tag: '产品设计',
             },
@@ -210,7 +211,7 @@ export default {
         {
           title: '资源配置模块',
           con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags:[
+          tags: [
             {
               tag: '产品设计',
             },
@@ -243,10 +244,10 @@ export default {
 }
 .module {
   display: grid;
-  margin: 30px;
+  margin: 25px 0;
   grid-auto-flow: row dense;
-  grid-row-gap: 30px;
-  grid-column-gap: 30px;
+  grid-row-gap: 25px;
+  grid-column-gap: 25px;
   grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(
       100px,
       3fr
@@ -278,7 +279,7 @@ export default {
       border-radius: 50%;
       background-color: #cb3737;
       color: #fff;
-      &:hover{
+      &:hover {
         animation: iconRotate-data-v-300a8671 1s linear infinite;
       }
     }

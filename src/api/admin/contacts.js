@@ -32,14 +32,15 @@ export function getUserListTree () {
 
 export function getUserPyList () {
   return request({
-    url: `${prefixUrl}/all/user/name/list`,
+    url: `${prefixUrl}/user/name/list`,
     method: 'get',
   })
 }
 
-export function loadContactsPyList () {
+export function loadContactsPyList (query) {
   return request({
     url: `${prefixUrl}/all/user/name/list`,
     method: 'get',
+    params: query,
   })
 }

@@ -2,30 +2,59 @@
   <div class="article-details">
     <div class="title">{{name}}</div>
     <div class="inform">
-      <img :src="avatar" :alt="avatar">
+      <img :src="avatar" :alt="name">
       <span>{{uploaded}}</span>
       <span>{{time}}</span>
       <span><i class="iconfont icon-yanjing"></i>{{pageviews}}</span>
       <span><i class="iconfont icon-download1"></i>{{downloads}}</span>
       <div class="btn sc"><i class="iconfont icon-shoucang"></i>收藏</div>
       <div class="btn fx"><i class="iconfont icon-youxiangshixin"></i>分享</div>
-      <div class="btn fx"><i class="iconfont icon-zhuyi"></i>纠错</div>
+      <div class="btn jc"><i class="iconfont icon-zhuyi"></i>纠错</div>
     </div>
+    <div class="introduction">解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案</div>
+    <div class="content">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</div>
+    <el-row class="down-load">
+      相关附件：
+      <div class="file" v-for="(item, index) in attachFileList" :key="index">
+        <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗5国脉贝下载）</span></div>
+      </div>
+    </el-row>
+    <IepAppRewardCard :total="total" :dataList="rewardList"></IepAppRewardCard>
   </div>
 </template>
 <script>
+import { downloadCount } from '@/api/mlms/material/datum/material'
+import { downloadFile } from '@/api/common'
 export default {
   data () {
     return {
       name: '国脉数据基因政务大数据整体解决方案', 
-      avatar: 'aaa.jpg',
+      avatar: require('./img/people.png'),
       desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系', 
       uploaded: '胡世军', 
       time: '2019-04-24', 
       pageviews: '145', 
       downloads: '88', 
       label: ['创业女杰', '浙商', '创新创业'],
+      total:'6',
+      rewardList:[
+        {avatar: require('./img/people.png'),name:'杨冰之'},
+        {avatar: require('./img/people.png'),name:'杨冰之'},
+        {avatar: require('./img/people.png'),name:'杨冰之'},
+        {avatar: require('./img/people.png'),name:'杨冰之'},
+      ],
+      attachFileList: [
+        {name:'内网2.0改造项目'},
+      ],
     }
+  },
+  methods: {
+    // 附件下载
+    downLoad (obj) {
+      downloadFile(obj)
+      // /getUpload/{id}
+      downloadCount(this.formData.id)
+    },
   },
 }
 </script>
@@ -67,12 +96,42 @@ export default {
       top: 8px;
       font-size: 16px;
       color: #999;
+      > i{
+        margin: 4px;
+      }
     }
     .sc{
-      right: 80px;
+      right: 150px;
     }
     .fx{
+      right: 80px;
+    }
+    .jc{
       right: 10px;
+    }
+  }
+  .introduction{
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fafafa;
+  }
+  .content{
+    padding: 0 20px;
+  }
+  .down-load {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    .file {
+      cursor: pointer;
+      i {
+        font-size: 16px !important;
+        margin-right: 10px;
+      }
+      .tip {
+        margin-left: 10px;
+        color: #999;
+      }
     }
   }
 }

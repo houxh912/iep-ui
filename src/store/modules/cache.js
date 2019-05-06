@@ -1,21 +1,22 @@
 import { loadAllDictMap } from '@/api/admin/dict'
 import { getStore, setStore } from '@/util/store'
-import { loadContactsPyList } from '@/api/admin/contacts'
+import { getUserPyList } from '@/api/admin/contacts'
 import { pickDeep } from '@/util/util'
+import keyBy from 'lodash/keyBy'
 const cache = {
   state: {
     dictGroup: getStore({ name: 'dictGroup' }) || {},
-    contactsPyList: getStore({ name: 'contactsPyList' }) || {},
+    contactsPyGroup: getStore({ name: 'contactsPyGroup' }) || {},
   },
   actions: {
     // 获取通讯录
-    LoadContactsPyList ({
+    LoadContactsPyGroup ({
       commit,
     }) {
       return new Promise((resolve, reject) => {
-        loadContactsPyList().then(res => {
+        getUserPyList().then(res => {
           const { data } = res
-          commit('SET_CONTACTS_PY_LIST', data.data)
+          commit('SET_CONTACTS_PY_GROUP', keyBy(data.data, 'id'))
           resolve()
         }).catch(err => {
           reject(err)
@@ -52,11 +53,11 @@ const cache = {
         type: 'session',
       })
     },
-    SET_CONTACTS_PY_LIST: (state, contactsPyList) => {
-      state.contactsPyList = contactsPyList
+    SET_CONTACTS_PY_GROUP: (state, contactsPyGroup) => {
+      state.contactsPyGroup = contactsPyGroup
       setStore({
-        name: 'contactsPyList',
-        content: contactsPyList,
+        name: 'contactsPyGroup',
+        content: contactsPyGroup,
         type: 'session',
       })
     },

@@ -26,6 +26,7 @@ export default {
     float: left;
     margin: 7px 5px;
     color: #333;
+    transition-duration: 0.3s;
     &:hover{
       background-color: #fef6f4;
       border: 1px solid #dc8687;

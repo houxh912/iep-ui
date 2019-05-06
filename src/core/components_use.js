@@ -48,6 +48,7 @@ import IepImg from '@/components/IepImg/index'
 import IepUpload from '@/components/IepUpload/index'
 import IepDownload from '@/components/IepUpload/Download'
 import IepUploadSelect from '@/components/IepUpload/Select'
+import IepUploadDialog from '@/components/IepUpload/Dialog'
 
 // 弹出层相关组件
 import IepDialog from '@/components/IepDialog/'
@@ -66,7 +67,6 @@ import IepTableLinkImgDesc from '@/components/IepTable/LinkImgDesc'
 import IepContactSelect from '@/components/IepContact/Select'
 import IepContactMultiple from '@/components/IepContact/Multiple'
 import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
-import IepContactNewMultipleUser from '@/components/IepContact/NewMultipleUser'
 
 // 部门组件Contact
 import IepDeptSelect from '@/components/IepDept/Select'
@@ -80,6 +80,7 @@ import IepAppListCard from '@/components/IepApp/ListCard'
 import IepAppRankingCard from '@/components/IepApp/RankingCard'
 import IepAppLabelCard from '@/components/IepApp/LabelCard'
 import IepAppAssortCard from '@/components/IepApp/AssortCard'
+import IepAppRewardCard from '@/components/IepApp/RewardCard'
 
 // 注册全局容器
 Vue.component(BasicContainer.name, BasicContainer)
@@ -127,6 +128,7 @@ Vue.component(IepUpload.name, IepUpload)
 Vue.component(IepAvatar.name, IepAvatar)
 Vue.component(IepDownload.name, IepDownload)
 Vue.component(IepUploadSelect.name, IepUploadSelect)
+Vue.component(IepUploadDialog.name, IepUploadDialog)
 
 // 弹出层相关组件
 Vue.component(IepDialog.name, IepDialog)
@@ -145,7 +147,6 @@ Vue.component(IepTableLinkImgDesc.name, IepTableLinkImgDesc)
 Vue.component(IepContactSelect.name, IepContactSelect)
 Vue.component(IepContactMultiple.name, IepContactMultiple)
 Vue.component(IepContactMultipleUser.name, IepContactMultipleUser)
-Vue.component(IepContactNewMultipleUser.name, IepContactNewMultipleUser)
 
 // 部门组件Contact
 Vue.component(IepDeptSelect.name, IepDeptSelect)
@@ -159,3 +160,4 @@ Vue.component(IepAppListCard.name, IepAppListCard)
 Vue.component(IepAppRankingCard.name, IepAppRankingCard)
 Vue.component(IepAppLabelCard.name, IepAppLabelCard)
 Vue.component(IepAppAssortCard.name, IepAppAssortCard)
+Vue.component(IepAppRewardCard.name, IepAppRewardCard)

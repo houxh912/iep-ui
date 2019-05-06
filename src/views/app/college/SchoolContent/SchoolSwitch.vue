@@ -20,11 +20,11 @@ export default {
 <style lang="scss" scoped>
 .school-switch {
   display: grid;
-  margin: 0 auto 30px;
+  margin: 0 auto 25px;
   width: 1200px;
   grid-auto-flow: row dense;
-  grid-row-gap: 30px;
-  grid-column-gap: 30px;
+  grid-row-gap: 25px;
+  grid-column-gap: 25px;
   grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
 }
 </style>

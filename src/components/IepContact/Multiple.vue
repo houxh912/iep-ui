@@ -11,23 +11,21 @@
       <el-tag type="danger" :closable="!disabled" v-for="tag in unions" :key="tag.id+tag.name" @close="handleClose(tag, 'unions')">{{tag.name}}</el-tag>
       <el-tag type="warning" :closable="!disabled" v-for="tag in orgs" :key="tag.id+tag.name" @close="handleClose(tag, 'orgs')">{{tag.name}}</el-tag>
       <operation-wrapper class="contact-wrapper">
-        <a-select mode="multiple" :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="querySearch" @change="handleChange" dropdownClassName="iep-contact-dropdown">
-          <a-select-option v-for="item in userResults" :key="item.id+''" :value="item.id+''" :title="item.name">
-            <span style="float: left">{{ item.name }}</span>
-            <span style="float: right; color: #8492a6; font-size: 13px">{{ item.pinyin }}</span>
-          </a-select-option>
+        <a-select mode="multiple" labelInValue :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="querySearch" @change="handleChange" :notFoundContent="fetching ? undefined : null">
+          <a-spin v-if="fetching" slot="notFoundContent" size="small" />
+          <a-select-option v-for="item in userResults" :key="item.id+''" :value="item.id+''" :title="item.name">{{ item.name }}</a-select-option>
         </a-select>
         <a-button v-if="isClear && !disabled" icon="close" @click="clearAll"></a-button>
         <a-button @click="openContact()">通讯录</a-button>
       </operation-wrapper>
     </operation-wrapper>
-    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="close" :z-index="3000">
+    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="close" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
-      <el-tree ref="tree" :props="props" :data="treeData" default-expand-all :expand-on-click-node="true" :filter-node-method="filterNode">
-        <span class="custom-tree-node" slot-scope="{ node, data }">
-          <span>{{ node.label }}</span>
+      <el-tree ref="tree" class="filter-tree" :props="props" :data="treeData" :default-expanded-keys="[1]" node-key="value" :filter-node-method="filterNode">
+        <span v-if="node.value!==1" class="custom-tree-node" slot-scope="{ node, data }">
+          <iep-div-detail :value="node.label"></iep-div-detail>
           <span>
-            <el-button :disabled="isDisabled(data, node)" type="text" size="mini" @click.stop="() => selectGroup(data, node)">选择</el-button>
+            <el-button :disabled="isDisabled(data, node)" type="text" size="mini" @click="() => selectGroup(data, node)">选择</el-button>
           </span>
         </span>
       </el-tree>
@@ -37,6 +35,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
+import { loadContactsPyList } from '@/api/admin/contacts'
 import debounce from 'lodash/debounce'
 export default {
   name: 'IepContactMultiple',
@@ -56,22 +55,21 @@ export default {
   },
   data () {
     this.querySearch = debounce(this.querySearch, 500)
-    this.handleChange = debounce(this.handleChange, 500)
     return {
       filterText: '',
       dialogShow: false,
+      fetching: false,
       props: {
         isLeaf: 'leaf',
       },
       username: '',
       treeData: [],
-      userPyList: [],
       userResults: [],
     }
   },
   computed: {
     ...mapGetters([
-      'contactsPyList',
+      'contactsPyGroup',
     ]),
     users: {
       get: function () { return this.group.users },
@@ -80,12 +78,15 @@ export default {
     userIds: function () { return this.group.users.map(m => m.id) },
     usersValue () {
       return this.users.map(m => {
-        return m.id + ''
+        return {
+          key: m.id + '',
+          label: m.name,
+        }
       })
     },
-    userPyListFilter () {
-      return this.userPyList.filter(m => !this.userIds.includes(m.id))
-    },
+    // userPyListFilter () {
+    //   return this.userPyList.filter(m => !this.userIds.includes(m.id))
+    // },
     orgs: {
       get: function () { return this.group.orgs },
       set: function (value) { this.group.orgs = value },
@@ -123,7 +124,7 @@ export default {
     },
   },
   created () {
-    this.loadPyList()
+    // this.loadPyList()
   },
   watch: {
     filterText (val) {
@@ -193,14 +194,15 @@ export default {
     },
     handleChange (value) {
       const users = value.map(m => {
-        const i = this.userPyList.findIndex(user => user.id === +m)
         return {
-          id: this.userPyList[i].id,
-          name: this.userPyList[i].name,
+          id: this.contactsPyGroup[+m.key].id,
+          name: this.contactsPyGroup[+m.key].name,
         }
       })
       Object.assign(this, {
         users,
+        userResults: [],
+        fetching: false,
       })
     },
     handleSelect (item) {
@@ -210,25 +212,17 @@ export default {
       })
       this.username = ''
     },
-    querySearch (queryString) {
-      const userPyListFilter = this.userPyListFilter
-      const results = queryString ? userPyListFilter.filter(this.createFilter(queryString)) : userPyListFilter
-      // 调用 callback 返回建议列表的数据
-      this.userResults = results
-    },
-    createFilter (query) {
-      const queryToLower = query.toLowerCase()
-      return (item) => {
-        return (item.name.toLowerCase().indexOf(queryToLower) > -1
-          || item.pinyin.toLowerCase().indexOf(queryToLower) > -1
-          || item.py.toLowerCase().indexOf(queryToLower) > -1)
-      }
-    },
-    loadPyList () {
-      this.userPyList = [...this.contactsPyList]
-      this.userResults = [...this.contactsPyList]
+    async querySearch (query) {
+      this.fetching = true
+      const name = query.toLowerCase()
+      const { data } = await loadContactsPyList({ name })
+      this.userResults = data.data
+      this.fetching = false
     },
     loadNode () {
+      if (this.treeData.length) {
+        return
+      }
       getUserListTree().then(({ data }) => {
         this.treeData = data.data
       })
@@ -237,6 +231,9 @@ export default {
 }
 </script>
 <style scoped>
+.filter-tree {
+  margin-top: 10px;
+}
 .contact-wrapper {
   display: flex;
 }

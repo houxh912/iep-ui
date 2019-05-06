@@ -55,15 +55,21 @@ export default {
         uploadSelect: '',
         timeRange: '',
         user: {
-          id: 1,
-          name: '哈哈',
+          id: 588,
+          name: '张超',
         },
         receivers: { // 比如接收人
           unions: [],
           orgs: [],
-          users: [],
+          users: [{
+            id: 588,
+            name: '张超',
+          }],
         },
-        userList: [],
+        userList: [{
+          id: 588,
+          name: '张超',
+        }],
         dept: {
           id: 1,
           name: '研发部',

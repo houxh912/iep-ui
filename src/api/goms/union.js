@@ -129,3 +129,11 @@ export function delObj (id) {
     method: 'post',
   })
 }
+
+export function getUserPage (query) {
+  return request({
+    url: `${prefixUrl}/user/page`,
+    method: 'get',
+    params: query,
+  })
+}

@@ -1,3 +1,40 @@
+## [1.3.3](http://115.233.227.46:8066/root/iep-ui/compare/v1.3.2...v1.3.3) (2019-05-06)
+
+
+### Bug Fixes
+
+* **品牌修改:** 品牌修改 ([1d119a6](http://115.233.227.46:8066/root/iep-ui/commits/1d119a6))
+* **客户统计|出单率:** 出单率计算错误修改 ([3e8a8fb](http://115.233.227.46:8066/root/iep-ui/commits/3e8a8fb))
+* **插件的合并:** 插件的合并 ([d4c1d3f](http://115.233.227.46:8066/root/iep-ui/commits/d4c1d3f))
+* **新技术详情调整:** 新技术详情调整 ([e918f33](http://115.233.227.46:8066/root/iep-ui/commits/e918f33))
+* **标签名:** 详情页修复 ([fba63c2](http://115.233.227.46:8066/root/iep-ui/commits/fba63c2))
+* **组织:** 添加标签 ([92a56e6](http://115.233.227.46:8066/root/iep-ui/commits/92a56e6))
+* **联盟:** 成员搜索 ([aa2f05f](http://115.233.227.46:8066/root/iep-ui/commits/aa2f05f))
+* **通讯录:** 优化搜索速度 ([c2bd5f5](http://115.233.227.46:8066/root/iep-ui/commits/c2bd5f5))
+* **通讯录:** 小型优化 ([997f124](http://115.233.227.46:8066/root/iep-ui/commits/997f124))
+
+
+### Features
+
+* **b:** b ([bc4dfb3](http://115.233.227.46:8066/root/iep-ui/commits/bc4dfb3))
+* **bb:** bb ([7207317](http://115.233.227.46:8066/root/iep-ui/commits/7207317))
+* **合同:** 业务类型详情 ([7fba0b2](http://115.233.227.46:8066/root/iep-ui/commits/7fba0b2))
+* **客户统计:** 基本详情无数据NaN显示优化 ([0953fe7](http://115.233.227.46:8066/root/iep-ui/commits/0953fe7))
+* **工资:** 发送与通讯录 ([696d2c7](http://115.233.227.46:8066/root/iep-ui/commits/696d2c7))
+* **材料库:** 高级搜索 ([ac2666f](http://115.233.227.46:8066/root/iep-ui/commits/ac2666f))
+* **添加工资详情:** 移除不要的代码 ([cfb1d35](http://115.233.227.46:8066/root/iep-ui/commits/cfb1d35))
+* **視頻列表:** 視頻列表 ([b645321](http://115.233.227.46:8066/root/iep-ui/commits/b645321))
+* **联盟成员:** 添加查看功能 ([e3e003e](http://115.233.227.46:8066/root/iep-ui/commits/e3e003e))
+
+
+### BREAKING CHANGES
+
+* **bb:** bb
+* **b:** bb
+* **視頻列表:** 視列表
+
+
+
 ## [1.3.2](http://115.233.227.46:8066/root/iep-ui/compare/v1.3.1...v1.3.2) (2019-05-05)
 
 

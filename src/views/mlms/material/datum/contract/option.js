@@ -8,7 +8,6 @@ let changeDictFn = (name) => {
   return obj
 }
 
-
 export const dictsMap = {
   // contractType: [
   //   { value: '0', label: '内部合同' },
@@ -179,3 +178,16 @@ export const projecTableOption = [
     prop: 'publisherName',
   },
 ]
+
+export function initSearchForm () {
+  return {
+    contractName: '',
+    director: '',
+    businessType: '',
+    contractLevel: '',
+    contractStatus: '',
+    signDeptName: '',
+    signTime: '',
+    contractType: '',
+  }
+}

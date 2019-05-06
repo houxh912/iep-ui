@@ -26,7 +26,7 @@
       <el-row class="down-load">
         相关附件：
         <div class="file" v-for="(item, index) in formData.attachFileList" :key="index">
-          <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗5国脉贝下载）</span></div>
+          <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗{{getMoney(formData.downloadCost)}}下载）</span></div>
         </div>
       </el-row>
       <el-row class="footer">
@@ -112,6 +112,7 @@ import ShareDialog from '@/views/mlms/material/components/shareDialog'
 // import ShareDialog from '../../summary/shareDialog'
 import wrongDialog from '@/views/mlms/material/components/wrongDialog'
 // import wrongDialog from './wrongDialog'
+import { mapGetters } from 'vuex'
 
 function commentForm () {
   return {
@@ -161,6 +162,9 @@ export default {
       pageSize,
       isDelete: true,
     }
+  },
+  computed: {
+    ...mapGetters(['dictGroup']),
   },
   methods: {
     submit () {
@@ -265,6 +269,13 @@ export default {
     handleCurrentChange (val) {
       this.pageSize.current = val
       this.getComment(this.formData.id)
+    },
+    getMoney (val) {
+      for (let item of this.dictGroup.mlms_download_cost) {
+        if (item.value == val) {
+          return item.label
+        }
+      }
     },
   },
   created () {

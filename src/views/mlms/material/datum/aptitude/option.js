@@ -31,6 +31,16 @@ export const initFormData = () => {
   }
 }
 
+export function initSearchForm () {
+  return {
+    name: '',
+    honorQualType: '',
+    downloadCost: '',
+    creatorRealName: '',
+    orgName: '',
+  }
+}
+
 export const rules = {
   honorQualName: [
     { required: true, message: '必填', trigger: 'blur' },

@@ -26,17 +26,7 @@
           <el-checkbox v-model="lookByMeOnly" @change="changeGetWay">查看全部</el-checkbox>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" :paramForm="paramForm"><!-- advance-search -->
-            <el-form :model="paramForm" label-width="80px" size="small">
-              <el-form-item label="材料名称">
-                <el-input v-model="paramForm.name"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="searchPage">搜索</el-button>
-                <el-button @click="clearSearchParam">清空</el-button>
-              </el-form-item>
-            </el-form>
-          </operation-search>
+          <searchForm @searchPage="searchPage"></searchForm>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection @selection-change="selectionChange">
@@ -95,10 +85,11 @@ import ShareDialog from '@/views/mlms/material/components/shareDialog'
 import { getConfigureTree } from '@/api/mlms/material/datum/configure'
 import DetailDialog from './detail'
 import { mapGetters } from 'vuex'
+import searchForm from './searchForm'
 
 export default {
   mixins: [mixins],
-  components: { LocalDialog, NewlyDialog, CollectionDialog, ShareDialog, DetailDialog, UploadFile },
+  components: { LocalDialog, NewlyDialog, CollectionDialog, ShareDialog, DetailDialog, UploadFile, searchForm },
   computed: {
     ...mapGetters(['permissions', 'userInfo']),
   },
@@ -107,7 +98,6 @@ export default {
       pageState: 'list',
       dictsMap,
       columnsMap: tableOption,
-      paramForm: {},
       selectList: [],
       createCollect,
       firstClass: [],

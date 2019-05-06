@@ -1,11 +1,10 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="员工"></page-header>
+      <page-header title="联盟成员"></page-header>
       <operation-container>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
-            <advance-search @search-page="searchPage"></advance-search>
+          <operation-search @search-page="searchPage" prop="realName">
           </operation-search>
         </template>
       </operation-container>
@@ -31,11 +30,10 @@
 import { getUserPage } from '@/api/goms/union'
 import mixins from '@/mixins/mixins'
 import { dictsMap } from '@/views/hrms/EmployeeProfile/options'
-import AdvanceSearch from './AdvanceSearch'
 import DetailDrawer from './DetailDrawer'
 export default {
   mixins: [mixins],
-  components: { AdvanceSearch, DetailDrawer },
+  components: { DetailDrawer },
   data () {
     return {
       dictsMap,

@@ -30,10 +30,8 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { initForm, rules, formToDto } from './options'
 export default {
-  components: { IepDialog },
   data () {
     return {
       dialogShow: false,

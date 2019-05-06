@@ -23,9 +23,7 @@
 </template>
 <script>
 import { applyPersonList, passPerson } from '@/api/admin/org'
-import IepDialog from '@/components/IepDialog/'
 export default {
-  components: { IepDialog },
   data () {
     return {
       dialogShow: false,

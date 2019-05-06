@@ -18,11 +18,10 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { initForm } from './options'
 import TimeSelector from '@/views/crms/components/TimeSelector/'
 export default {
-  components: { IepDialog, TimeSelector },
+  components: { TimeSelector },
   data () {
     return {
       dialogShow: false,

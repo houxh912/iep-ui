@@ -15,10 +15,8 @@
 </template>
 <script>
 import { setOrg } from '@/api/admin/user'
-import IepDialog from '@/components/IepDialog/'
 import { mapState, mapActions } from 'vuex'
 export default {
-  components: { IepDialog },
   data () {
     return {
       dialogShow: false,

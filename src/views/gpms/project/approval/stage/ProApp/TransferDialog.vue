@@ -23,13 +23,11 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import IepDialog from '@/components/IepDialog/'
 import { updateData } from '@/api/gpms/index'
 import { initFormData } from './option'
 
 export default {
   name: 'index',
-  components: { IepDialog },
   mixins: [mixins],
   data () {
     return {

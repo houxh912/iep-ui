@@ -13,15 +13,12 @@
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
-      <iep-button @click="resetForm('form')">初始值</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { initForm } from './options'
 export default {
-  components: { IepDialog },
   data () {
     return {
       dialogShow: false,
@@ -58,9 +55,6 @@ export default {
           return false
         }
       })
-    },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
     },
   },
 }

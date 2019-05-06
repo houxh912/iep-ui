@@ -1,53 +1,66 @@
 <template>
-  <component @onDetail="handleDetail" @onSend="handleSend" @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <div>
+    <basic-container>
+      <page-header title="工资" :replaceText="replaceText"></page-header>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <el-table-column prop="operation" label="操作" width="250" fixed="right">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button @click="handleDetail(scope.row)">查看</iep-button>
+              <iep-button @click="handleUpload(scope.row)">上传</iep-button>
+              <iep-button @click="handleSend(scope.row)">发送</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
+      </iep-table>
+    </basic-container>
+    <iep-upload-dialog ref="uploadDialog" :action="action" @on-finish="handleFinish"></iep-upload-dialog>
+  </div>
 </template>
-
 <script>
-// 动态切换组件
-import List from './Page/List'
-import Edit from './Page/Edit'
-import Send from './Page/Send'
-import Detail from './Page/Detail'
-
+import { getSalaryPage } from '@/api/fams/salary'
+import mixins from '@/mixins/mixins'
+import { dictsMap, columnsMap } from './options'
 export default {
-  name: 'TableListWrapper',
-  components: {
-    List,
-    Edit,
-    Send,
-    Detail,
-  },
+  mixins: [mixins],
   data () {
     return {
-      currentComponet: 'List',
-      record: '',
+      columnsMap,
+      dictsMap,
+      actionId: 0,
+      replaceText: () => '（说明：每月5日前需完成上月工资，可更新上传，发送后无法修改已上传的工资单。若当月工资核算有误，在下月工资调整匹配。）',
     }
   },
+  computed: {
+    action () {
+      return '/api/fams/salary/import/payroll/' + this.actionId
+    },
+  },
   created () {
-
+    this.loadPage()
   },
   methods: {
-    handleEdit (record) {
-      this.record = record
-      this.currentComponet = 'Edit'
+    handleUpload (row) {
+      this.actionId = row.id
+      this.$refs['uploadDialog'].dialogShow = true
     },
-    handleSend (record) {
-      this.record = record
-      this.currentComponet = 'Send'
+    handleFinish () {
+      this.loadPage()
     },
-    handleGoBack () {
-      this.record = ''
-      this.currentComponet = 'List'
+    handleSend (row) {
+      this.$emit('onSend', row)
     },
-    handleDetail (record) {
-      this.record = record
-      this.currentComponet = 'Detail'
+    handleDetail (row) {
+      this.$openPage(`/fams_spa/salary_detail/${row.id}`)
     },
-  },
-  watch: {
-    '$route.path' () {
-      this.record = ''
-      this.currentComponet = 'List'
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getSalaryPage)
+    },
+    handleAdd () {
+      this.$emit('onEdit', {
+        methodName: '提现申请',
+        id: false,
+      })
     },
   },
 }

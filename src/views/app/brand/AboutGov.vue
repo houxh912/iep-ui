@@ -27,9 +27,6 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-.el-card {
-  height: 340px;
-}
 .title {
   font-size: 18px;
   color: #333;

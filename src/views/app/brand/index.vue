@@ -7,8 +7,8 @@
       <brand-ten></brand-ten>
       <focus-news></focus-news>
       <about-gov></about-gov>
-      <brand-introduce></brand-introduce>
       <brand-meeting></brand-meeting>
+      <brand-introduce></brand-introduce>
       <adver-resources></adver-resources>
       <user-resources></user-resources>
       <brand-ranking></brand-ranking>
@@ -43,7 +43,7 @@ import BrandResult from './BrandResult'
 import BrandVideo from './BrandVideo'
 import BrandCertificates from './BrandCertificates'
 import HoldAll from './HoldAll'
-import DataBase from './DataBase/index'
+import DataBase from './DataBase'
 export default {
   components: {
     BrandHeader,

@@ -33,4 +33,35 @@ const columnsMap = [
   },
 ]
 
-export { columnsMap, dictsMap }
+const detailColumnsMap = [
+  {
+    prop: 'id',
+    label: 'ID',
+  },
+  {
+    prop: 'staffId',
+    label: '工号',
+  },
+  {
+    prop: 'realName',
+    label: '姓名',
+  },
+  {
+    prop: 'postTaxWage',
+    label: '税后工资',
+  },
+  {
+    prop: 'bankPay',
+    label: '银行代发',
+  },
+  {
+    prop: 'innerPay',
+    label: '内网发放',
+  },
+  {
+    prop: 'sendTime',
+    label: '发送时间',
+  },
+]
+
+export { columnsMap, dictsMap, detailColumnsMap }

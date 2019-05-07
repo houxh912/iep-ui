@@ -98,17 +98,10 @@
 </template>
 <script>
 export default {
-  methods: {
-    handleGoBack () {
-      this.$emit('onGoBack')
-    },
-  },
   data () {
     return {
       backOption: {
         isBack: true,
-        backPath: null,
-        backFunction: this.handleGoBack,
       },
       tableData: [
         {
@@ -117,8 +110,8 @@ export default {
           time: '2018-03-05',
           post: '中级总监',
           title: '中级',
-          wages: '1,8000',
-          substitute: '1,2000',
+          wages: '18000',
+          substitute: '12000',
           iep: '6000',
           basePay: '5000',
           jobSubsidies: '2000',

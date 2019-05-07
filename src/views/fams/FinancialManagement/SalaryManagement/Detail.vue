@@ -19,13 +19,13 @@
 <script>
 import { getSalaryByIdPage } from '@/api/fams/salary'
 import mixins from '@/mixins/mixins'
-import { dictsMap, columnsMap } from './options'
+import { dictsMap, detailColumnsMap } from './options'
 export default {
   mixins: [mixins],
   data () {
     return {
       dictsMap,
-      columnsMap,
+      columnsMap: detailColumnsMap,
       replaceText: (data) => `（共${data[0]}笔，共计实发工资：${data[1]}元，共计银行代发：${data[2]}元，共计内网发放：${data[3]}元）`,
       backOption: {
         isBack: true,

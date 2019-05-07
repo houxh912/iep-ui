@@ -53,7 +53,7 @@ export default [
         name: '资源频道',
         component: () => import('@/views/app/resource/'),
         meta: noAuth,
-        redirect: '/app/resource/material',
+        /* redirect: '/app/resource/material', */
         children: resourceRoute,
       },
       {

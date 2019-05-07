@@ -9,6 +9,13 @@
         </div>
       </div>
     </div>
+    <div class="breadcrumb-wrapper">
+      <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <router-view></router-view>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>
@@ -32,51 +39,50 @@ export default {
   methods: {
     handleOpen (item) {
       this.$router.push({
-        /* path: `/app/resource/${item.path}`, */
-        path: `/app/resource/${item.path}/`,
+        path: `/app/resource/${item.path}`,
       })
     },
+  },
+  created () {
+    this.$notify({
+      title: '注意',
+      message: '此页面正在开发中，当前数据仅供参考。',
+      offset: 60,
+    })
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .nav-bar {
+  height: 150px;
+  background-color: #fafafa;
   display: flex;
-  margin: 0 20px;
-  height: 140px;
   justify-content: center;
 }
 .resource-wrapper {
-  display: flex;
   width: 1200px;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
+  display: flex;
+  justify-content: space-around;
 }
 .resource-item {
   cursor: pointer;
   display: flex;
-  padding: 20px 0;
   width: 100%;
-  height: 100%;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  &:hover,
-  &:focus {
-    background: rgba(248, 248, 248, 0.9);
+  &:hover {
+    background-color: #f5f5f5;
   }
   & > i {
     font-size: 30px !important;
-    height: 30px;
   }
   .resource-title {
     font-size: 16px;
-    height: 30px;
   }
   .resource-count {
     font-size: 18px;
-    height: 30px;
   }
 }
 .breadcrumb-wrapper {

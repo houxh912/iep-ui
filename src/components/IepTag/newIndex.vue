@@ -1,5 +1,5 @@
 <template>
-  <a-select :value="value" mode="tags" style="width: 100%" :tokenSeparators="[',','；','，', ';', '、']" @change="handleChange" @search="querySearch" :notFoundContent="fetching ? undefined : null">
+  <a-select :value="value" mode="tags" style="width: 100%" :tokenSeparators="[',','；','，', ';', '、',' ']" @change="handleChange" @search="querySearch" :notFoundContent="fetching ? undefined : null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select">
     <a-spin v-if="fetching" slot="notFoundContent" size="small" />
     <a-select-option v-for="i in tagResults" :key="i">{{ i }}</a-select-option>
     <div slot="dropdownRender" slot-scope="menu">
@@ -40,6 +40,9 @@ export default {
     // this.loadTag()
   },
   methods: {
+    getPopupContainer () {
+      return this.$refs['a-select'].$el
+    },
     async loadTag (name = '') {
       const { data } = await getTagList({ name })
       this.tagResults = data.data.tags

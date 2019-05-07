@@ -1,6 +1,6 @@
 <template>
   <operation-wrapper class="contact-wrapper">
-    <a-select showSearch labelInValue :value="userValue" placeholder="请输入姓名或姓名拼音" :defaultActiveFirstOption="false" :showArrow="false" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="null">
+    <a-select showSearch labelInValue :value="userValue" placeholder="请输入姓名或姓名拼音" :defaultActiveFirstOption="false" :showArrow="false" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select">
       <a-select-option v-for="user in userResults" :key="user.id">{{user.name}}</a-select-option>
     </a-select>
     <a-button @click="openContact()">通讯录</a-button>
@@ -73,6 +73,9 @@ export default {
     // this.loadPyList()
   },
   methods: {
+    getPopupContainer () {
+      return this.$refs['a-select'].$el
+    },
     handleClear () {
       this.user = {
         id: '',

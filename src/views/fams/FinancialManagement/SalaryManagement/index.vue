@@ -8,7 +8,7 @@
             <operation-wrapper>
               <iep-button @click="handleDetail(scope.row)">查看</iep-button>
               <iep-button @click="handleUpload(scope.row)">上传</iep-button>
-              <iep-button @click="handleSend(scope.row)">发送</iep-button>
+              <iep-button @click="handleSend(scope.row)">发放</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import { getSalaryPage } from '@/api/fams/salary'
+import { getSalaryPage, grantSalaryById } from '@/api/fams/salary'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
 export default {
@@ -48,7 +48,7 @@ export default {
       this.loadPage()
     },
     handleSend (row) {
-      this.$emit('onSend', row)
+      this._handleComfirm(row.id, grantSalaryById, '发放')
     },
     handleDetail (row) {
       this.$openPage(`/fams_spa/salary_detail/${row.id}`)

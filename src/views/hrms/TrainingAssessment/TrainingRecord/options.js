@@ -49,7 +49,16 @@ const rules = {
     { required: true, message: '请输入地点', trigger: 'blur' },
   ],
   material: [
-    { required: true, message: '请输入材料', trigger: 'blur' },
+    { required: false, message: '请输入材料', trigger: 'blur' },
+  ],
+  trainingTag: [
+    { type:'array', required: true, message: '请选择标签', trigger: 'blur' },
+  ],
+  trainingBrief: [
+    { required: true, message: '请选择简介', trigger: 'blur' },
+  ],
+  themePictures: [
+    { required: true, message: '请上传图片', trigger: 'blur' },
   ],
 }
 
@@ -65,6 +74,9 @@ const initForm = () => {
     place: '', // 培训地点
     material: [], // 培训材料(暂时无, 以后考虑)
     attachFile: [], // 文件
+    trainingTag: [], // 标签
+    trainingBrief: '', // 简介
+    themePictures: '', // 图片
   }
 }
 

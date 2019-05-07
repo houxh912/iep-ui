@@ -20,6 +20,11 @@ export default [
         name: '工资管理个人详情',
         component: () => import('@/views/fams/FinancialManagement/SalaryManagement/PersonDetail.vue'),
       },
+      {
+        path: 'payroll_detail/:id',
+        name: '工资条',
+        component: () => import('@/views/fams/FinancialManagement/SalaryManagement/PayrollDetail.vue'),
+      },
     ],
   },
 ]

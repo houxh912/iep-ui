@@ -1,6 +1,6 @@
 <template>
   <basic-container class="wages-details">
-    <page-header title="工资发放" :backOption="backOption"></page-header>
+    <page-header title="我的工资条" :backOption="backOption"></page-header>
     <el-table class="first-table" :data="tableData" border style="width: 100%">
       <el-table-column prop="staffId" label="工号">
       </el-table-column>
@@ -97,7 +97,7 @@
   </basic-container>
 </template>
 <script>
-import { getSalaryById } from '@/api/fams/salary'
+import { getPayrollById } from '@/api/fams/salary'
 import { payRollForm } from './options'
 export default {
   data () {
@@ -118,7 +118,7 @@ export default {
   },
   methods: {
     loadPage () {
-      getSalaryById(this.$route.params.id).then(({ data }) => {
+      getPayrollById(this.$route.params.id).then(({ data }) => {
         this.form = data.data
       })
     },

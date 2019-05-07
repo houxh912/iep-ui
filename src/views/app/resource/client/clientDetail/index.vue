@@ -1,24 +1,27 @@
 <template>
-  <div class="material-detail">
-    <div class="library">
-      <div class="client-top">
-        <p>{{title}}</p>
-        <span>市场经理：{{name[0]}}</span>
-        <span>协助人：{{name[1]}}</span>
+  <div>
+    <div class="client-detail">
+      <div class="library">
+        <div class="client-top">
+          <p>{{title}}</p>
+          <span>市场经理：{{name[0]}}</span>
+          <span>协助人：{{name[1]}}</span>
+        </div>
+        <customer></customer>
       </div>
-      <customer></customer>
+      <div class="piece">
+        <IepAppTabCard :title="labelTitle">
+          <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
+        </IepAppTabCard>
+        <IepAppTabCard :title="listTitle1">
+          <IepAppListCard :dataList="listList1"></IepAppListCard>
+        </IepAppTabCard>
+        <IepAppTabCard :title="rankingTitle">
+          <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
+        </IepAppTabCard>
+      </div>
     </div>
-    <div class="piece">
-      <IepAppTabCard :title="labelTitle">
-        <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
-      </IepAppTabCard>
-      <IepAppTabCard :title="listTitle1">
-        <IepAppListCard :dataList="listList1"></IepAppListCard>
-      </IepAppTabCard>
-      <IepAppTabCard :title="rankingTitle">
-        <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
-      </IepAppTabCard>
-    </div>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>
@@ -61,9 +64,10 @@ export default {
     font-size: 14px;
   }
 }
-.material-detail {
+.client-detail {
   width: 1200px;
-  margin: 20px auto;
+  margin: 0 auto 20px;
+  padding-top: 20px;
   border-top: 1px solid #eee;
   display: grid;
   grid-auto-flow: row dense;

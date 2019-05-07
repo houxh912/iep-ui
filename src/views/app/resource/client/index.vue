@@ -1,25 +1,28 @@
 <template>
-  <div class="material">
-    <div class="library">
-      <librarys></librarys>
+  <div>
+    <div class="material" v-if="'/app/resource/client'==routerMatch[routerMatch.length-1].path">
+      <div class="library">
+        <librarys></librarys>
+      </div>
+      <div class="piece">
+        <IepAppTabCard :title="listTitle1">
+          <IepAppListCard :dataList="listList1"></IepAppListCard>
+        </IepAppTabCard>
+        <IepAppTabCard :title="labelTitle">
+          <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
+        </IepAppTabCard>
+        <IepAppTabCard :title="rankingTitle">
+          <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
+        </IepAppTabCard>
+        <IepAppTabCard :title="listTitle2">
+          <IepAppListCard :dataList="listList2"></IepAppListCard>
+        </IepAppTabCard>
+        <IepAppTabCard :title="listTitle3">
+          <IepAppListCard :dataList="listList3"></IepAppListCard>
+        </IepAppTabCard>
+      </div>
     </div>
-    <div class="piece">
-      <IepAppTabCard :title="listTitle1">
-        <IepAppListCard :dataList="listList1"></IepAppListCard>
-      </IepAppTabCard>
-      <IepAppTabCard :title="labelTitle">
-        <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
-      </IepAppTabCard>
-      <IepAppTabCard :title="rankingTitle">
-        <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
-      </IepAppTabCard>
-      <IepAppTabCard :title="listTitle2">
-        <IepAppListCard :dataList="listList2"></IepAppListCard>
-      </IepAppTabCard>
-      <IepAppTabCard :title="listTitle3">
-        <IepAppListCard :dataList="listList3"></IepAppListCard>
-      </IepAppTabCard>
-    </div>
+    <router-view v-else></router-view>
   </div>
 </template>
 <script>
@@ -45,7 +48,12 @@ export default {
         { name: '珠海市营商环境评估', color: '' },
         { name: '珠海市营商环境评估', color: '' },
       ],
+      routerMatch: this.$route.matched,
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.routerMatch = to.matched
+    next()
   },
 }
 </script>

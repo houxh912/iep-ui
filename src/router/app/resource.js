@@ -5,6 +5,13 @@ export default [
     icon: 'icon-dangan',
     count: 2010, //TODO:暂时假数据
     component: () => import('@/views/app/resource/material/'),
+    children: [
+      {
+        path: 'material_detail',
+        name: '材料详情',
+        component: () => import('@/views/app/materialDetail/'),
+      },
+    ],
   },
   {
     path: 'training',
@@ -12,6 +19,13 @@ export default [
     icon: 'icon-peixun',
     count: 2010,
     component: () => import('@/views/app/resource/training/'),
+    children: [
+      {
+        path: 'training_detail',
+        name: '培训详情',
+        component: () => import('@/views/app/trainingDetails/'),
+      },
+    ],
   },
   {
     path: 'client',
@@ -19,6 +33,13 @@ export default [
     icon: 'icon-chengyuan',
     count: 2010,
     component: () => import('@/views/app/resource/client/'),
+    children: [
+      {
+        path: 'client_detail',
+        name: '客户详情',
+        component: () => import('@/views/app/resource/client/clientDetail/'),
+      },
+    ],
   },
   {
     path: 'qualification',

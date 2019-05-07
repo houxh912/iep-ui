@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="material">
+    <div class="material" v-if="'/app/resource/material'==routerMatch[routerMatch.length-1].path">
       <menus></menus>
       <div class="library">
         <librarys></librarys>
@@ -16,7 +16,7 @@
         <most></most>
       </div>
     </div>
-    <router-view></router-view>
+    <router-view v-else></router-view>
   </div>
 </template>
 <script>
@@ -32,7 +32,12 @@ export default {
       listTitle: '猜你想找',
       labelList: ['营商通','营商环境','数据基因','数据政府','电子政务','数字经济','微服务','dips','知识图谱'],
       listList: ['国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案'],
+      routerMatch: this.$route.matched,
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.routerMatch = to.matched
+    next()
   },
 }
 </script>

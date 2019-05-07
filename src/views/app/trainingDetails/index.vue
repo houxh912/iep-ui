@@ -70,7 +70,7 @@ export default {
 <style lang="scss" scoped>
 .material-detail {
   width: 1200px;
-  margin: 20px auto;
+  margin: 0 auto 20px;
   border-top: 1px solid #eee;
   display: grid;
   grid-auto-flow: row dense;

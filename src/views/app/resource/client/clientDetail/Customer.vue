@@ -158,17 +158,87 @@
       <el-collapse  v-model="activeNames">
         <el-collapse-item title="方案" name="1">
           <div class="programme">
-        
+            <el-table
+              :data="tableData"
+              style="width: 100%">
+              <el-table-column
+                label="方案名称"
+                width="700">
+                <template slot-scope="scope">
+                  <div style="width:600px;display:inline-block;">
+                    <span class="title" style="margin-left: 10px">{{ scope.row.programme }}</span>
+                    <div class="tags">
+                      <span v-for="(item,index) in tagsList" :key="index">{{item}}</span>
+                    </div>
+                  </div>
+                  <i class="icon-fujian"></i>
+                </template>
+              </el-table-column>
+              <el-table-column
+                label="上传时间">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row.time }}</span>  
+                </template>
+              </el-table-column>
+            </el-table>
           </div>
         </el-collapse-item>
         <el-collapse-item title="合同" name="2">
-          <div>简化流程：设计简洁直观的操作流程；</div>
-          <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-          <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
+          <div class="contract">
+             <el-table
+              :data="tableData1"
+              style="width: 100%">
+              <el-table-column
+                label="合同名称"
+                width="400">
+                <template slot-scope="scope">
+                  <div style="width:350px;display:inline-block;">
+                    <span class="title" style="margin-left: 10px">{{ scope.row.contract }}</span>
+                    <div class="tags">
+                      <span v-for="(item,index) in tagsList" :key="index">{{item}}</span>
+                    </div>
+                  </div>
+                  <i class="icon-fujian"></i>
+                </template>
+              </el-table-column>
+              <el-table-column
+                label="业务类型">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row.type }}</span>  
+                </template>
+              </el-table-column>
+               <el-table-column
+                label="合同金额">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row.money }}</span>  
+                </template>
+              </el-table-column>
+               <el-table-column
+                label="合同状态">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row.status }}</span>  
+                </template>
+              </el-table-column>
+               <el-table-column
+                label="回款率">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row.rate }}</span>  
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
         </el-collapse-item>
-        <el-collapse-item title="咨询" name="3">
-          <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
-          <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
+        <el-collapse-item title="资讯" name="3">
+          <div class="information" v-for="(item,index) in informationList" :key="index">
+            <p>这是xxxx的资讯</p>
+            <span>资讯摘要资讯摘要资讯摘要资讯摘要资讯摘要资讯摘要资讯摘要资讯摘要资讯摘要资讯摘要资讯摘要资讯摘要资讯摘要资讯摘要</span>
+            <div class="tags">
+              <i class="icon-shijian"></i>
+              <span class="time"> 2019-02-19 </span> 
+              <span>政务服务</span> 
+              <span>网站测评</span>
+            </div>
+          </div>
         </el-collapse-item>
       </el-collapse>
     </div>
@@ -183,6 +253,26 @@ export default {
   },
   data () {
     return {
+       tableData: [{
+          programme: '20180412象山县电子政务办公室象山县政府网站及政务公开评测与咨询服务项目方案',
+          time: '2016-05-02',
+        }, {
+          programme: '20180412象山县电子政务办公室象山县政府网站及政务公开评测与咨询服务项目方案',
+          time: '2016-05-02',
+        }],
+        tableData1: [{
+          contract: '20180412象山县电子政务办公室象山县政府网站及政务公开评测与咨询服务项目方案',
+          type: '外包',
+          money: '30000',
+          status: '执行中',
+          rate: '40%',
+        }, {
+          contract: '20180412象山县电子政务办公室象山县政府网站及政务公开评测与咨询服务项目方案',
+          type: '外包',
+          money: '30000',
+          status: '执行中',
+          rate: '40%',
+        }],
       activeNames:['1'],
       linksList:[
         {},
@@ -194,6 +284,11 @@ export default {
         {},
       ],
       tagsList:['创业创新','浙江创业女杰','浙商'],
+      informationList:[
+        {},
+        {},
+        {},
+      ],
       formData: {},
     }
   },
@@ -201,7 +296,63 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.programme{
+  .title{
+    display: block;
+    margin-bottom: 15px;
+  }
+  i{
+    font-size: 20px!important;
+    vertical-align: 17px;
+    color:#999;
+  }
+  .tags{
+    margin-left: 10px;
+    span{
+      padding: 5px 8px;
+      margin-right: 8px;
+      border: 1px solid #eee;
+    }
+  }
+}
+.contract{
+  @extend .programme;
+  i{
+    vertical-align: 27px;
+  }
+}
+.information{
+  padding: 15px 10px;
+  border-bottom: 1px solid #eee;
+  p{
+    margin-bottom:5px;
+    font-size: 16px;
+    color:#333;
+  }
+  &>span{
+    display:block;
+    margin-bottom:10px;
+    color:#666;
+    line-height: 28px;  
+  }
+  .tags{
+    i{
+      margin-right: 5px;
+      font-size: 16px!important;
+      vertical-align: -2px;
+    }
+    .time{
+      padding:inherit;
+      border: none;
+    }
+    span{
+      margin-right:10px;
+      padding: 5px 8px;
+      border: 1px solid #eee;
+      border-radius: 3px;
+    }
+  }
+}
 .info {
   .line {
     border-bottom: 1px solid #e4e7ed;

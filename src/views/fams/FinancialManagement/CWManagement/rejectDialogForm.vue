@@ -1,18 +1,18 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="通过" width="520px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="驳回" width="520px" @close="loadPage">
     <el-form size="small" ref="form" label-width="100px">
       <el-form-item label="备注">
         <iep-input-area v-model="content"></iep-input-area>
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm">通过</iep-button>
+      <iep-button type="primary" @click="submitForm">驳回</iep-button>
       <iep-button @click="loadPage">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
-import { passWithdrawBatch } from '@/api/fams/withdraw'
+import { rejectWithdrawBatch } from '@/api/fams/withdraw'
 export default {
   data () {
     return {
@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     submitForm () {
-      passWithdrawBatch({
+      rejectWithdrawBatch({
         ids: this.ids,
         content: this.content,
       }).then(({ data }) => {

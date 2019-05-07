@@ -1,6 +1,6 @@
 <template>
   <div class="menus">
-    <a-menu @click="handleClick" :defaultSelectedKeys="['1']" :openKeys.sync="openKeys" mode="inline">
+    <a-menu @click="handleClick" :defaultSelectedKeys="['1']" :openKeys="openKeys" @openChange="onOpenChange" mode="inline">
       <a-sub-menu key="sub1" @titleClick="titleClick">
         <span slot="title"><span>规章制度{{data[0]}}</span></span>
         <a-menu-item key="1">集团管理制度</a-menu-item>
@@ -47,6 +47,7 @@ export default {
     return {
       data: ['(86)','(16)','(25)','(25)','(80)','(58)','(36)','(126)','(96)'],
       current: ['mail'],
+      rootSubmenuKeys: ['sub1', 'sub2', 'sub4'],
       openKeys: ['sub1'],
     }
   },
@@ -56,6 +57,14 @@ export default {
     },
     titleClick (e) {
       console.log('titleClick', e)
+    },
+    onOpenChange (openKeys) {
+      const latestOpenKey = openKeys.find(key => this.openKeys.indexOf(key) === -1)
+      if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+        this.openKeys = openKeys
+      } else {
+        this.openKeys = latestOpenKey ? [latestOpenKey] : []
+      }
     },
   },
   watch: {
@@ -74,5 +83,3 @@ export default {
   }
 }
 </style>
-
-

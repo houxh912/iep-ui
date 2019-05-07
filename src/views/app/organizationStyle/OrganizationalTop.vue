@@ -6,8 +6,15 @@
         <span class="title">{{title}}</span>
         <span class="sub-title">{{subTitle}}</span>
         <div class="tags-con">
+          <span>卓越：</span>
           <span class="tags" v-for="item in tags" :key="item.id">
             {{item.tag}}
+          </span>
+        </div>
+        <div class="tags-con">
+          <span>专业：</span>
+          <span class="tags" v-for="item2 in tags2" :key="item2.id">
+            {{item2.tag}}
           </span>
         </div>
       </div>
@@ -27,6 +34,17 @@ export default {
       subTitle: '软件服务供应基地',
       img: require('./img/bm.jpg'),
       tags: [
+        {
+          tag: '产品设计',
+        },
+        {
+          tag: '项目管理',
+        },
+        {
+          tag: '微服务',
+        },
+      ],
+      tags2: [
         {
           tag: '产品设计',
         },
@@ -73,13 +91,13 @@ export default {
       flex-wrap: wrap;
       .title {
         display: block;
-        margin-bottom: 10px;
+        margin-bottom: 18px;
         font-size: 20px;
       }
       .sub-title {
         display: block;
+        margin-bottom: 5px;
         font-size: 16px;
-        margin-bottom: 25px;
       }
       .tags-con {
         display: flex;

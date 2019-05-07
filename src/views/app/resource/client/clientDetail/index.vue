@@ -1,7 +1,12 @@
 <template>
   <div class="material-detail">
     <div class="library">
-      <client-details></client-details>
+      <div class="client-top">
+        <p>{{title}}</p>
+        <span>市场经理：{{name[0]}}</span>
+        <span>协助人：{{name[1]}}</span>
+      </div>
+      <customer></customer>
     </div>
     <div class="piece">
       <IepAppTabCard :title="labelTitle">
@@ -17,16 +22,21 @@
   </div>
 </template>
 <script>
-import ClientDetails from './ClientDetails'
+import Customer from './Customer'
 export default {
-  components: { ClientDetails },
+  components: {
+    Customer,
+  },
   data () {
     return {
+      title: '厦门市信息中心标准规划部',
+      name:['李凯','胡浩'], 
       labelTitle: '热门标签',
       listTitle1: '本周新增',
       rankingTitle: '合作次数最多',
       labelList: ['营商通','营商环境','数据基因','数据政府','电子政务','数字经济','微服务','dips','知识图谱'],
-      listList1: ['国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案'],      dataList: [
+      listList1: ['国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案'],
+      dataList: [
         { name: '厦门市信息中心标准规划部' },
         { name: '深圳市经济贸易和信息化委员会'},
         { name: '象山政府部门'},
@@ -34,21 +44,23 @@ export default {
         { name: '珠海市营商环境评估'},
         { name: '珠海市营商环境评估'},
       ],
-      routerMatch: this.$route.matched,
     }
-  },
-  beforeRouteUpdate (to, from, next) {
-    //console.log(to, from)
-    this.routerMatch = to.matched
-    next()
-    // 在当前路由改变，但是该组件被复用时调用
-    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
-    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
-    // 可以访问组件实例 `this`
   },
 }
 </script>
 <style lang="scss" scoped>
+.client-top{
+  margin-bottom: 15px;
+  p{
+    color:#333;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  span{
+    margin-right: 10px;
+    font-size: 14px;
+  }
+}
 .material-detail {
   width: 1200px;
   margin: 20px auto;

@@ -158,11 +158,7 @@
       <el-collapse  v-model="activeNames">
         <el-collapse-item title="方案" name="1">
           <div class="programme">
-            <span>方案名称</span>
-            <span>上传时间</span>
-          </div>
-          <div class="programme-content">
-
+        
           </div>
         </el-collapse-item>
         <el-collapse-item title="合同" name="2">
@@ -182,7 +178,6 @@
 <script>
 import Visit from './Visit'
 export default {
-  name: 'detail',
   components:{
     Visit,
   },
@@ -194,18 +189,19 @@ export default {
         {},
         {},
       ],
+      programmeList:[
+        {},
+        {},
+      ],
+      tagsList:['创业创新','浙江创业女杰','浙商'],
+      formData: {},
     }
-  },
-  props: {
-    formData: {
-      type: Object,
-      default: () => { },
-    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+
 .info {
   .line {
     border-bottom: 1px solid #e4e7ed;

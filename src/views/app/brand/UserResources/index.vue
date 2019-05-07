@@ -25,7 +25,7 @@ export default {
       isMore:true,
       linkName: '',
       tabList: [{
-        label: '用户资源',
+        label: '用户资料',
         value: 'User',
       }, {
         label: '媒体资源',

@@ -11,7 +11,7 @@
       <el-tag type="danger" :closable="!disabled" v-for="tag in unions" :key="tag.id+tag.name" @close="handleClose(tag, 'unions')">{{tag.name}}</el-tag>
       <el-tag type="warning" :closable="!disabled" v-for="tag in orgs" :key="tag.id+tag.name" @close="handleClose(tag, 'orgs')">{{tag.name}}</el-tag>
       <operation-wrapper class="contact-wrapper">
-        <a-select mode="multiple" labelInValue :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="querySearch" @change="handleChange" :notFoundContent="fetching ? undefined : null">
+        <a-select mode="multiple" labelInValue :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="querySearch" @change="handleChange" :notFoundContent="fetching ? undefined : null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select">
           <a-spin v-if="fetching" slot="notFoundContent" size="small" />
           <a-select-option v-for="item in userResults" :key="item.id+''" :value="item.id+''" :title="item.name">{{ item.name }}</a-select-option>
         </a-select>
@@ -132,6 +132,9 @@ export default {
     },
   },
   methods: {
+    getPopupContainer () {
+      return this.$refs['a-select'].$el
+    },
     close () {
       this.filterText = ''
       this.dialogShow = false

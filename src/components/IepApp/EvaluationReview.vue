@@ -7,7 +7,8 @@
       <el-input v-model="inputFirst" placeholder=" " maxlength='200' type="textarea" :rows="4"></el-input>
       <iep-button type="danger" plain size="medium" style="float:right;margin-top:10px;">发送</iep-button>
     </div>
-    <div v-for="(item,index) in dataList" :key="index" class="box">
+    <div class="no" v-if="dataList.length==0">目前还没有人评论，来发表自己的看法吧~</div>
+    <div v-else v-for="(item,index) in dataList" :key="index" class="box">
       <div class="left"><img :src="item.img" :alt="item.name"></div>
       <div class="right">
         <div class="title">
@@ -99,6 +100,12 @@ export default {
   }
   .review{
     overflow: hidden;
+  }
+  .no{
+    color: #999;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
   }
   .box{
     display: flex;

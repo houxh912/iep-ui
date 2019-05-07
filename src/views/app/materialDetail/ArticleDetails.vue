@@ -20,6 +20,7 @@
       </div>
     </el-row>
     <IepAppRewardCard :total="total" :dataList="rewardList"></IepAppRewardCard>
+    <IepAppEvaluationReview :dataList="reviewList"></IepAppEvaluationReview>
   </div>
 </template>
 <script>
@@ -45,6 +46,19 @@ export default {
       ],
       attachFileList: [
         {name:'内网2.0改造项目'},
+      ],
+      //评论list
+      reviewList:[
+        {img:'//183.131.134.242:10060/upload/iep/201904/a45b1002-ab8c-4bc7-8e6c-9638a43e6000_蟠桃会订阅号二维码.jpg',name:'姓名',evaluation:3.7,desc:'这里是内容',time:'2019-05-06 11:00',replyData:2,
+          reply:[
+            {img:'//cloud.govmade.com/upload/iep/201904/ce562439-de98-4d56-b5db-9f6069de3bd4_4cfcf867db7b19d84fa531373464bc4a.jpg',responder:'响应者',reviewers:'评论者',desc:'回复评论的内容',time:'2019-05-06 11:10',likeData:66,replyData:0}, 
+            {img:'//cloud.govmade.com/upload/iep/201904/ce562439-de98-4d56-b5db-9f6069de3bd4_4cfcf867db7b19d84fa531373464bc4a.jpg',responder:'响应者',reviewers:'评论者',desc:'回复评论的内容',time:'2019-05-06 11:10',likeData:66,replyData:0}, 
+            {img:'//cloud.govmade.com/upload/iep/201904/ce562439-de98-4d56-b5db-9f6069de3bd4_4cfcf867db7b19d84fa531373464bc4a.jpg',responder:'响应者',reviewers:'评论者',desc:'回复评论的内容',time:'2019-05-06 11:10',likeData:66,replyData:0}, 
+            {img:'//cloud.govmade.com/upload/iep/201904/ce562439-de98-4d56-b5db-9f6069de3bd4_4cfcf867db7b19d84fa531373464bc4a.jpg',responder:'响应者',reviewers:'评论者',desc:'回复评论的内容',time:'2019-05-06 11:10',likeData:66,replyData:0}, 
+          ],
+        },
+        {img:'//183.131.134.242:10060/upload/iep/201904/a45b1002-ab8c-4bc7-8e6c-9638a43e6000_蟠桃会订阅号二维码.jpg',name:'姓名',evaluation:3.7,desc:'这里是内容',time:'2019-05-06 11:00',replyData:2,reply:[],
+        },
       ],
     }
   },

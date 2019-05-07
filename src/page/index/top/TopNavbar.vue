@@ -8,7 +8,7 @@
         </el-submenu>
       </el-menu>
       <el-menu v-else :default-active="activeIndex" mode="horizontal" router>
-        <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id"><span class="sub-menu" :class="item.show">{{item.name}}<resource class="sub-nav-menu"></resource></span></el-menu-item>
+        <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id"><span class="sub-menu" :class="item.show">{{item.name}}<resource-con class="sub-nav-menu"></resource-con></span></el-menu-item>
       </el-menu>
       <!-- <div class="search-con">
         <top-search class="search-con-input" :style="{top: isTop}" :class="{inactive:!isShow }">
@@ -24,9 +24,9 @@
 <script>
 // import TopSearch from './TopSearch'
 import displayMixins from '@/mixins/displayMixins'
-import resource from '@/views/app/resource/'
+import ResourceCon from './ResourceCon'
 export default {
-  components: { resource },
+  components: { ResourceCon },
   mixins: [displayMixins],
   data () {
     return {
@@ -113,7 +113,7 @@ export default {
     opacity: 0.7;
   }
   100% {
-    top: 50px;
+    top: 48px;
     opacity: 1; /*结尾状态 透明度为1*/
   }
 }
@@ -171,7 +171,7 @@ export default {
         &:hover .sub-nav-menu {
           display: block;
           opacity: 1;
-          top: 50px;
+          top: 48px;
           animation-name: fadeIn; /*动画名称*/
           animation-duration: 0.5s; /*动画持续时间*/
           animation-iteration-count: 1; /*动画次数*/

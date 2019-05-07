@@ -1,7 +1,7 @@
 <template>
   <div class="list">
     <div v-for="(item,index) in dataList" :key="index" class="piece">
-      {{item}}
+      {{typeof item === 'object' ? item[name] : item}}
     </div>
     <slot></slot>
   </div>
@@ -14,6 +14,10 @@ export default {
       type: Array,
       required: false,
       default: () => [],
+    },
+    name: {
+      type: String,
+      default: 'name',
     },
   },
 }

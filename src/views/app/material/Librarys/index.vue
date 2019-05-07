@@ -1,7 +1,7 @@
 <template>
   <div class="most">
-    <librarys-header></librarys-header>
-    <librarys-content></librarys-content>
+    <librarys-header @search_page="searchPage"></librarys-header>
+    <librarys-content ref="content"></librarys-content>
   </div>
 </template>
 <script>
@@ -12,6 +12,14 @@ export default {
   data () {
     return {
     }
+  },
+  methods: {
+    loadPage (val) {
+      this.$refs['content'].loadPage(val)
+    },
+    searchPage (params) {
+      this.$refs['content'].loadPage(params)
+    },
   },
 }
 </script>

@@ -27,3 +27,10 @@ export function getSalaryById (id) {
     method: 'get',
   })
 }
+
+export function grantSalaryById (id) {
+  return request({
+    url: `${prefixUrl}/payroll/grant/${id}`,
+    method: 'post',
+  })
+}

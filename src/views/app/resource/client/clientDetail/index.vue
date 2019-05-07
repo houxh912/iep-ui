@@ -67,6 +67,7 @@ export default {
 .client-detail {
   width: 1200px;
   margin: 0 auto 20px;
+  padding-top: 20px;
   border-top: 1px solid #eee;
   display: grid;
   grid-auto-flow: row dense;

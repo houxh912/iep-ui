@@ -94,6 +94,14 @@ var notEmpty = (rule, value, callback) => {
   }
 }
 
+var tagKeyWords = (rule, value, callback) => {
+  if (value.length < 3) {
+    callback(new Error())
+  } else {
+    callback()
+  }
+}
+
 export const rules = {
   meetingType: [
     { required: true, message: '必填', trigger: 'change' },
@@ -122,6 +130,7 @@ export const rules = {
   ],
   tagKeyWords: [
     { required: true, message: '必填', trigger: 'change' },
+    { validator: tagKeyWords, message: '请输入至少3个标签', trigger: 'change' },
   ],
   receiverIds: [
     { required: true, message: '必填', trigger: 'change' },

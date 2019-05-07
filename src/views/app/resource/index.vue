@@ -56,7 +56,7 @@ export default {
 <style lang="scss" scoped>
 .nav-bar {
   height: 150px;
-  background-color: rgb(243, 243, 243);
+  background-color: #fafafa;
   display: flex;
   justify-content: center;
 }
@@ -73,7 +73,7 @@ export default {
   justify-content: center;
   align-items: center;
   &:hover {
-    background-color: rgb(250, 250, 250);
+    background-color: #f5f5f5;
   }
   & > i {
     font-size: 30px !important;
@@ -94,7 +94,7 @@ export default {
 }
 </style>
 <style scoped>
-.breadcrumb-wrapper >>> .el-breadcrumb__inner.is-link{
+.breadcrumb-wrapper >>> .el-breadcrumb__inner.is-link {
   font-weight: normal;
 }
 </style>

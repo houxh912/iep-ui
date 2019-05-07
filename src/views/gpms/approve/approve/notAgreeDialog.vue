@@ -13,10 +13,7 @@
 </template>
 
 <script>
-import IepDialog from '@/components/IepDialog/'
-
 export default {
-  components: { IepDialog },
   data () {
     return {
       dialogShow: false,

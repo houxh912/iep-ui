@@ -2,14 +2,7 @@
   <div class="set-containter">
     <basic-container>
       <page-header title="工资" :replaceText="replaceText"></page-header>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
-        <template slot="before-columns">
-          <el-table-column label="月份" width="150px">
-            <template slot-scope="scope">
-              <iep-table-link>{{scope.row.time}}</iep-table-link>
-            </template>
-          </el-table-column>
-        </template>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column prop="operation" label="操作" width="250" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -21,52 +14,38 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <pass-dialog-form ref="passDialogForm" @load-page="loadPage"></pass-dialog-form>
-    <refuse-dialog-form ref="refuseDialogForm" @load-page="loadPage">
-    </refuse-dialog-form>
+    <iep-upload-dialog ref="uploadDialog" :action="action" @on-finish="handleFinish"></iep-upload-dialog>
   </div>
 </template>
 <script>
 import { getSalaryPage } from '@/api/fams/salary'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from '../options'
+import { dictsMap, columnsMap } from '../options'
 export default {
   mixins: [mixins],
   data () {
     return {
-      value6: '',
-      replaceText: () => '（说明：每月5日前需完成上月工资，可更新上传，发送后无法修改已上传的工资单。若当月工资核算有误，在下月工资调整匹配。）',
-      department: [
-        {
-          value: '选项1',
-          label: '国脉海洋信息发展有限公司',
-        },
-      ],
-      classify: [
-        {
-          value: '选项1',
-          label: '待审核',
-        },
-        {
-          value: '选项2',
-          label: '已审核',
-        },
-      ],
-      form: {
-        name: '',
-      },
       columnsMap,
-      paramForm: initSearchForm(),
-      value: '',
-      value1: '',
+      dictsMap,
+      actionId: 0,
+      replaceText: () => '（说明：每月5日前需完成上月工资，可更新上传，发送后无法修改已上传的工资单。若当月工资核算有误，在下月工资调整匹配。）',
     }
+  },
+  computed: {
+    action () {
+      return '/api/fams/salary/import/payroll/' + this.actionId
+    },
   },
   created () {
     this.loadPage()
   },
   methods: {
-    handleSelectionChange (val) {
-      this.multipleSelection = val.map(m => m.id)
+    handleUpload (row) {
+      this.actionId = row.id
+      this.$refs['uploadDialog'].dialogShow = true
+    },
+    handleFinish () {
+      this.loadPage()
     },
     handleSend (row) {
       this.$emit('onSend', row)

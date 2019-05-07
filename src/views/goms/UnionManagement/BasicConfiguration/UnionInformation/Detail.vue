@@ -35,14 +35,28 @@
           <a-divider dashed />
           <div class="bottom">
             <div class="title">
-              组织简介
+              联盟标签
+            </div>
+            <div class="tag-wrapper">
+              <div class="tag-item">
+                卓越标签：<iep-tag-detail :value="form.abilityTag"></iep-tag-detail>
+              </div>
+              <div>
+                进步标签：<iep-tag-detail :value="form.learningTag"></iep-tag-detail>
+              </div>
+            </div>
+          </div>
+          <a-divider dashed />
+          <div class="bottom">
+            <div class="title">
+              联盟简介
             </div>
             <p>{{form.intro}}</p>
           </div>
           <a-divider dashed />
           <div class="bottom">
             <div class="title">
-              组织架构
+              联盟架构
             </div>
             <p>{{form.structure}}</p>
           </div>
@@ -95,6 +109,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.tag-wrapper {
+  margin-left: 20px;
+  .tag-item {
+    margin-bottom: 10px;
+  }
+}
 .org-detail-wrapper {
   margin: 0 20px;
   .content {

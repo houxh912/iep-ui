@@ -39,10 +39,10 @@ module.exports = {
     //     fileBlacklist: [/\.map$/, /hot-update\.js$/],
     //   }
     // })
-    config
-      .entry('index')
-      .add('babel-polyfill')
-      .end()
+    // config
+    //   .entry('index')
+    //   .add('babel-polyfill')
+    //   .end()
     if (isProduction) {
       // 删除预加载
       config.plugins.delete('preload')

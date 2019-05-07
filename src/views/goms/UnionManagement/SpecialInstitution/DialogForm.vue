@@ -32,11 +32,9 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { initMemberForm } from './options'
 import { putGoms, updateGomsUser } from '@/api/admin/org'
 export default {
-  components: { IepDialog },
   props: {
     loadImage: {
       type: String,

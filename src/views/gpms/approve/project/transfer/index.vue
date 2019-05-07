@@ -17,13 +17,11 @@
 </template>
 
 <script>
-import IepDialog from '@/components/IepDialog/'
 import mixins from '@/mixins/mixins'
 import { updateData } from '@/api/gpms/index'
 
 export default {
   mixins: [mixins],
-  components: { IepDialog },
   data () {
     var validate = (rule, value, callback) => {
       if (value.name === '') {

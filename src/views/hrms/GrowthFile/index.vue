@@ -62,40 +62,6 @@ export default {
       simpleEmployeeStatus,
       form: initForm(),
       checkList: [1, 2, 3, 4, 5],
-      labellist: [
-        {
-          id: '1',
-          label: '产品设计',
-        },
-        {
-          id: '2',
-          label: '项目管理',
-        },
-        {
-          id: '3',
-          label: '原型设计',
-        },
-        {
-          id: '4',
-          label: '平台规划',
-        },
-        {
-          id: '5',
-          label: '平台规划',
-        },
-        {
-          id: '6',
-          label: '平台规划',
-        },
-        {
-          id: '7',
-          label: '平台规划',
-        },
-        {
-          id: '8',
-          label: '平台规划',
-        },
-      ],
       backOption: {
         isBack: true,
         backPath: this.$route.query.redirect,

@@ -1,17 +1,14 @@
 <template>
   <operation-wrapper class="contact-wrapper">
-    <el-select :value="user.id" filterable :filter-method="onFilterMethod" placeholder="请输入姓名或姓名拼音或下拉" @change="handleChange" @clear="handleClear" clearable>
-      <el-option v-for="item in userPyListOptions" :key="item.id" :label="item.name" :value="item.id">
-        <span style="float: left">{{ item.name }}</span>
-        <span style="float: right; color: #8492a6; font-size: 13px">{{ item.pinyin }}</span>
-      </el-option>
-    </el-select>
+    <a-select showSearch labelInValue :value="userValue" placeholder="请输入姓名或姓名拼音" :defaultActiveFirstOption="false" :showArrow="false" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="null">
+      <a-select-option v-for="user in userResults" :key="user.id">{{user.name}}</a-select-option>
+    </a-select>
     <a-button @click="openContact()">通讯录</a-button>
-    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="dialogShow = false" :z-index="3000">
+    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="dialogShow = false" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
-      <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" :show-checkbox="showCheckbox" default-expand-all @node-click="selectUser">
+      <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="treeData" :show-checkbox="showCheckbox" @node-click="selectUser" :default-expanded-keys="[1]" node-key="value">
         <span class="custom-tree-node" slot-scope="{ node, data }">
-          <span :class="{'is-disabled':isDisabled(data, node)}" @click.stop="() => selectUser(data, node)">{{ node.label }}</span>
+          <span :class="{'is-disabled':isDisabled(data, node)}" @click="() => selectUser(data, node)">{{ node.label }}</span>
         </span>
       </el-tree>
     </iep-drawer>
@@ -20,6 +17,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
+import { loadContactsPyList } from '@/api/admin/contacts'
 import debounce from 'lodash/debounce'
 export default {
   name: 'IepContactSelect',
@@ -38,22 +36,21 @@ export default {
     },
   },
   data () {
-    this.handleChange = debounce(this.handleChange, 500)
+    this.handleSearch = debounce(this.handleSearch, 500)
     return {
       dialogShow: false,
-      userId: '',
+      fetching: false,
       filterText: '',
       props: {
         isLeaf: 'leaf',
       },
       treeData: [],
-      userPyList: [],
-      userPyListOptions: [],
+      userResults: [],
     }
   },
   computed: {
     ...mapGetters([
-      'contactsPyList',
+      'contactsPyGroup',
     ]),
     user: {
       // getter
@@ -65,9 +62,15 @@ export default {
         this.$emit('input', value)
       },
     },
+    userValue () {
+      return {
+        key: this.user.id + '',
+        label: this.user.name,
+      }
+    },
   },
   created () {
-    this.loadPyList()
+    // this.loadPyList()
   },
   methods: {
     handleClear () {
@@ -77,14 +80,15 @@ export default {
       }
     },
     handleChange (value) {
-      const index = this.userPyList.findIndex(m => m.id === value)
-      if (index >= 0) {
-        const name = this.userPyList[index].name
-        this.user = {
-          id: value,
-          name,
-        }
+      const user = {
+        id: this.contactsPyGroup[+value.key].id,
+        name: this.contactsPyGroup[+value.key].name,
       }
+      Object.assign(this, {
+        user,
+        userResults: [],
+        fetching: false,
+      })
     },
     onFilterMethod (query) {
       const queryToLower = query.toLowerCase()
@@ -123,15 +127,22 @@ export default {
         this.dialogShow = false
       }
     },
-    filterNode (value, data) {
+    filterNode (value, data, node) {
+      console.log(value, data, node)
       if (!value) return true
       return data.label.indexOf(value) !== -1
     },
-    loadPyList () {
-      this.userPyList = [...this.contactsPyList]
-      this.userPyListOptions = [...this.contactsPyList]
+    async handleSearch (query) {
+      this.fetching = true
+      const name = query.toLowerCase()
+      const { data } = await loadContactsPyList({ name })
+      this.userResults = data.data
+      this.fetching = false
     },
     loadNode () {
+      if (this.treeData.length) {
+        return
+      }
       getUserListTree().then(({ data }) => {
         this.treeData = data.data
       })
@@ -145,6 +156,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.filter-tree {
+  margin-top: 10px;
+}
 .contact-wrapper {
   display: flex;
 }

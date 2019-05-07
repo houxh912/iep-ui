@@ -1,11 +1,7 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="编辑" width="60%" @close="resetForm">
     <div class="output">
-      <el-input
-        type="textarea"
-        placeholder="若无满足规范性材料的要求，请在此处简要说明相关理由"
-        :autosize="{ minRows: 8, maxRows: 10}"
-        v-model="textarea"></el-input>
+      <el-input type="textarea" placeholder="若无满足规范性材料的要求，请在此处简要说明相关理由" :autosize="{ minRows: 8, maxRows: 10}" v-model="textarea"></el-input>
       <div class="smallfoot">已输入{{textarea.length}}/500</div>
     </div>
     <template slot="footer">
@@ -15,15 +11,13 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { initForm } from './const'
 export default {
-  components: { IepDialog },
   data () {
     return {
       dialogShow: false,
       methodName: '创建',
-        textarea:'',
+      textarea: '',
     }
   },
   methods: {
@@ -42,28 +36,28 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  .smallfoot{
-    font-size: 14px;
-    color: #ccc;
-    position: absolute;
-    text-align: right;
-    bottom: 10px;
-    line-height: 20px;
-    left: 0;
-    right: 20px;
+.smallfoot {
+  font-size: 14px;
+  color: #ccc;
+  position: absolute;
+  text-align: right;
+  bottom: 10px;
+  line-height: 20px;
+  left: 0;
+  right: 20px;
+}
+.texta {
+  height: 150px !important;
+  textarea {
+    height: 100% !important;
   }
-  .texta{
-    height: 150px !important;
-    textarea{
-      height: 100% !important;
-    }
-  }
-  .output{
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    min-height: 150px;
-    position: relative;
-  }
+}
+.output {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  min-height: 150px;
+  position: relative;
+}
 </style>

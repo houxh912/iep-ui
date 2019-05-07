@@ -11,7 +11,6 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 export default {
   props: {
     defaultColumnsLabel: {
@@ -19,7 +18,6 @@ export default {
       required: true,
     },
   },
-  components: { IepDialog },
   data () {
     return {
       dialogShow: false,

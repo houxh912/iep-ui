@@ -21,6 +21,6 @@ const getters = {
   menusMap: state => state.menu.menusMap,
   menuPathList: state => state.menu.menuPathList,
   dictGroup: state => state.cache.dictGroup,
-  contactsPyList: state => state.cache.contactsPyList,
+  contactsPyGroup: state => state.cache.contactsPyGroup,
 }
 export default getters

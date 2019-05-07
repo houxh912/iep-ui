@@ -29,6 +29,18 @@ export const tableOption = [
   },
 ]
 
+export function initSearchForm () {
+  return {
+    name: '',
+    materialClsFirstClass: '',
+    materialClsSecondClass: '',
+    materialType: '',
+    format: '',
+    downloadCost: '',
+    creatorRealName: '',
+  }
+}
+
 // 本地上传
 export const initLocalForm = () => {
   return {

@@ -19,9 +19,12 @@ export function reviewApprovaBatch (obj) {
   })
 }
 
-export function getFinancialManagementById (id) {
-  return request({
-    url: `${prefixUrl}/${id}`,
-    method: 'get',
-  })
+export function getSalaryByIdPage (id) {
+  return function (query) {
+    return request({
+      url: `${prefixUrl}/${id}`,
+      method: 'get',
+      params: query,
+    })
+  }
 }

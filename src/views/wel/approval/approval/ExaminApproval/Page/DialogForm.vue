@@ -13,10 +13,8 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import IepDialog from '@/components/IepDialog/'
 import { initForm } from '../options'
 export default {
-  components: { IepDialog },
   data () {
     return {
       dialogShow: false,

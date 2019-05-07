@@ -1,25 +1,24 @@
 <template>
   <div class="multiple-box">
-    <el-tag v-if="!users.length" type="info">暂无</el-tag>
-    <el-tag type="info" :closable="!disabled" v-for="tag in users" :key="tag.id" @close="handleClose(tag)">{{tag.name}}</el-tag>
+    <operation-wrapper v-if="disabled">
+      <el-tag v-if="!users.length" type="info">暂无</el-tag>
+      <el-tag type="info" v-for="user in users" :key="user.id">{{user.name}}</el-tag>
+    </operation-wrapper>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
-      <el-autocomplete style="width:100%;" v-model="username" :fetch-suggestions="querySearch" placeholder="请输入姓名或姓名拼音" @select="handleSelect" highlight-first-item>
-        <i class="el-icon-edit el-input__icon" slot="suffix"></i>
-        <template slot-scope="{ item }">
-          <span style="float: left">{{ item.name }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">{{ item.pinyin }}</span>
-        </template>
-      </el-autocomplete>
-      <iep-button v-if="isClear && !disabled" icon="el-icon-error" @click="clearAll"></iep-button>
+      <a-select mode="multiple" labelInValue :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="fetching ? undefined : null">
+        <a-spin v-if="fetching" slot="notFoundContent" size="small" />
+        <a-select-option v-for="item in userResults" :key="item.id+''">{{item.name}}</a-select-option>
+      </a-select>
+      <a-button v-if="isClear && !disabled" icon="close" @click="clearAll"></a-button>
       <a-button @click="openContact()">通讯录</a-button>
     </operation-wrapper>
-    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="20%" @close="close" :z-index="3000">
+    <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="close" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
-      <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" default-expand-all :expand-on-click-node="true">
-        <span class="custom-tree-node" slot-scope="{ node, data }">
+      <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="treeData" :default-expanded-keys="[1]" node-key="value">
+        <span v-if="node.value!==1" class="custom-tree-node" slot-scope="{ node, data }">
           <span :class="{level1:node.level===1,level2:node.level===2,level3:node.level===3}">{{ node.label }}</span>
           <span v-if="node.level===3">
-            <el-button :disabled="isDisabled(data, node)" type="text" size="mini" @click.stop="() => selectGroup(data, node)">选择</el-button>
+            <el-button :disabled="isDisabled(data, node)" type="text" size="mini" @click="() => selectGroup(data, node)">选择</el-button>
           </span>
         </span>
       </el-tree>
@@ -29,8 +28,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
+import { loadContactsPyList } from '@/api/admin/contacts'
+import debounce from 'lodash/debounce'
 export default {
-  name: 'IepContactNewMultipleUser',
+  name: 'IepContactMultipleUser',
   props: {
     disabled: {
       type: Boolean,
@@ -46,21 +47,21 @@ export default {
     },
   },
   data () {
+    this.handleSearch = debounce(this.handleSearch, 500)
     return {
       filterText: '',
       dialogShow: false,
+      fetching: false,
       props: {
         isLeaf: 'leaf',
       },
-      username: '',
       treeData: [],
-      userPyList: [],
       userResults: [],
     }
   },
   computed: {
     ...mapGetters([
-      'contactsPyList',
+      'contactsPyGroup',
     ]),
     isClear () {
       return this.userIds.length !== 0 ? true : false
@@ -70,12 +71,20 @@ export default {
       set: function (value) { this.$emit('input', value) },
     },
     userIds: function () { return this.value.map(m => m.id) },
-    userPyListFilter () {
-      return this.userPyList.filter(m => !this.userIds.includes(m.id))
+    usersValue () {
+      return this.users.map(m => {
+        return {
+          key: m.id + '',
+          label: m.name,
+        }
+      })
     },
+    // userPyListFilter () {
+    //   return this.userPyList.filter(m => !this.userIds.includes(m.id))
+    // },
   },
   created () {
-    this.loadPyList()
+    // this.loadPyList()
   },
   watch: {
     filterText (val) {
@@ -118,6 +127,19 @@ export default {
         }
       }
     },
+    handleChange (value) {
+      const users = value.map(m => {
+        return {
+          id: this.contactsPyGroup[+m.key].id,
+          name: this.contactsPyGroup[+m.key].name,
+        }
+      })
+      Object.assign(this, {
+        users,
+        userResults: [],
+        fetching: false,
+      })
+    },
     handleSelect (item) {
       this.users.push({
         id: item.id,
@@ -125,25 +147,17 @@ export default {
       })
       this.username = ''
     },
-    querySearch (queryString, cb) {
-      const userPyListFilter = this.userPyListFilter
-      const results = queryString ? userPyListFilter.filter(this.createFilter(queryString)) : userPyListFilter
-      // 调用 callback 返回建议列表的数据
-      this.userResults = results
-      cb(results)
-    },
-    createFilter (query) {
-      const queryToLower = query.toLowerCase()
-      return (item) => {
-        return (item.name.toLowerCase().indexOf(queryToLower) > -1
-          || item.pinyin.toLowerCase().indexOf(queryToLower) > -1
-          || item.py.toLowerCase().indexOf(queryToLower) > -1)
-      }
-    },
-    loadPyList () {
-      this.userPyList = [...this.contactsPyList]
+    async handleSearch (query) {
+      this.fetching = true
+      const name = query.toLowerCase()
+      const { data } = await loadContactsPyList({ name })
+      this.userResults = data.data
+      this.fetching = false
     },
     loadNode () {
+      if (this.treeData.length) {
+        return
+      }
       getUserListTree().then(({ data }) => {
         this.treeData = data.data
       })
@@ -152,8 +166,16 @@ export default {
 }
 </script>
 <style scoped>
+.filter-tree {
+  margin-top: 10px;
+}
 .contact-wrapper {
   display: flex;
+}
+.contact-wrapper
+  >>> .ant-select-selection__choice__content
+  > span:nth-child(2) {
+  display: none;
 }
 .multiple-box > .el-tag {
   margin-right: 5px;

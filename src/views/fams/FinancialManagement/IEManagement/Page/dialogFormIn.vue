@@ -74,10 +74,8 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { initForm, rules } from './options'
 export default {
-  components: { IepDialog },
   data () {
     return {
       dynamicTags: ['标签一', '标签二', '标签三'],

@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import CryptoJS from 'crypto-js'
+import { getTagViewByName } from '@/api/tms/tag'
 // 表单序列化
 export const serialize = data => {
   let list = []
@@ -280,10 +281,11 @@ export function mergeByFirst (distObject, srcObject) {
   }
 }
 
-export function openTagDetail (value) {
+export async function openTagDetail (value) {
   if (typeof value=='string') {
+    const {data} = await getTagViewByName(value)
     this.$router.push({
-      path: `/app/tags_detail/0?name=${value}`,
+      path: `/app/tags_detail/${data.data.tagId}`,
     })
   } else {
     this.$router.push({

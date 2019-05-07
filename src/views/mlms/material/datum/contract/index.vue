@@ -15,7 +15,7 @@
           <el-checkbox v-model="lookByMeOnly" @change="changeGetWay">查看全部</el-checkbox>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="contractName"></operation-search>
+          <searchForm @searchPage="searchPage"></searchForm>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection @selection-change="selectionChange">
@@ -53,10 +53,11 @@ import { getTableData, getTableDataOnlyMe, createData, updateData, deleteData, g
 import MainDialog from './mainDialog'
 import detailDialog from './detail'
 import { mapGetters } from 'vuex'
+import searchForm from './searchForm'
 
 export default {
   mixins: [mixins],
-  components: { MainDialog, detailDialog },
+  components: { MainDialog, detailDialog, searchForm },
   computed: {
     ...mapGetters(['permissions']),
   },

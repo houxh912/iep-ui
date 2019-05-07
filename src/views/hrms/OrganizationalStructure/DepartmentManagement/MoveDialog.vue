@@ -9,10 +9,8 @@
   </iep-dialog>
 </template>
 <script>
-import IepDialog from '@/components/IepDialog/'
 import { initmoveForm } from './options'
 export default {
-  components: { IepDialog },
   data () {
     return {
       dialogShow: false,

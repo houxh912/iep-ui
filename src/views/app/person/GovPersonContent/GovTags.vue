@@ -4,32 +4,34 @@
       <div class="leader-board-list">
         <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
           <span class="count" :class="item.color">{{index+1}}</span>
-          <span class="name">{{item.name}}</span>
-          <span class="num">{{item.num}}</span>
+          <span class="name">{{item.key}}</span>
+          <span class="num">{{item.value}}</span>
         </div>
       </div>
     </IepAppTabCard>
   </div>
 </template>
 <script>
+import { getTagsList } from '@/api/app/tms'
+
 export default {
   data () {
     return {
       title: '国脉标签',
       data: '(135个)',
-      leaderBoardList: [
-        { name: '互联网+政务', num: '1222人', color: 'red' },
-        { name: '服务', num: '421人', color: 'red' },
-        { name: 'DIPS', num: '562人', color: 'red' },
-        { name: '数据基因', num: '322人', color: '' },
-        { name: '大数据', num: '5322人', color: '' },
-        { name: '规划与咨询', num: '1222人', color: '' },
-        { name: '项目管理', num: '88人', color: '' },
-        { name: '数据治理', num: '321人', color: '' },
-        { name: '营商环境', num: '342人', color: '' },
-        { name: '微服务', num: '1320人', color: '' },
-      ],
+      leaderBoardList: [],
     }
+  },
+  methods: {
+    loadList () {
+      getTagsList().then(({data}) => {
+        this.leaderBoardList = data.data.tags
+        this.data = `( ${data.data.size}个 )`
+      })
+    },
+  },
+  created () {
+    this.loadList()
   },
 }
 </script>

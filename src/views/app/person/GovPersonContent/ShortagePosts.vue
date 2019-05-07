@@ -6,21 +6,27 @@
         <el-button type="text">申请转岗</el-button>
       </div>
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="name" label="岗位名称" width="180">
+        <el-table-column prop="positionName" label="岗位名称" width="180">
         </el-table-column>
-        <el-table-column prop="num" label="需求数" width="180">
+        <el-table-column prop="recruitsCount" label="需求数" width="180">
         </el-table-column>
-        <el-table-column prop="education" label="学历要求">
+        <el-table-column prop="academicId" label="学历要求">
+          <template slot-scope="scope">
+            {{getEducation(scope.row.academicId)}}
+          </template>
         </el-table-column>
-        <el-table-column prop="salary" label="薪资待遇">
+        <el-table-column prop="treatment" label="薪资待遇">
         </el-table-column>
-        <el-table-column prop="demandDepartment" label="需求部门">
+        <el-table-column prop="deptName" label="需求部门">
         </el-table-column>
       </el-table>
     </IepAppTabCard>
   </div>
 </template>
 <script>
+import { getPostList } from '@/api/app/hrms/index'
+import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
@@ -65,6 +71,26 @@ export default {
         },
       ],
     }
+  },
+  computed: {
+    ...mapGetters(['dictGroup']),
+  },
+  methods: {
+    loadList () {
+      getPostList().then(({data}) => {
+        this.tableData = data.data
+      })
+    },
+    getEducation (val) {
+      for (let item of this.dictGroup.hrms_highest_educational) {
+        if (item.value == val) {
+          return item.label
+        }
+      }
+    },
+  },
+  created () {
+    this.loadList()
   },
 }
 </script>

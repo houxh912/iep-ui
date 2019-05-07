@@ -27,6 +27,12 @@ export function getSalaryById (id) {
     method: 'get',
   })
 }
+export function getPayrollById (id) {
+  return request({
+    url: `${prefixUrl}/payroll/${id}`,
+    method: 'get',
+  })
+}
 
 export function grantSalaryById (id) {
   return request({

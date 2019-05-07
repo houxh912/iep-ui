@@ -1,14 +1,5 @@
 <template>
   <div>
-    <el-form-item class="form-half">
-      <span slot="label">
-        姓名
-        <iep-tip content="请务必根据本人身份证上的姓名全称填写">
-        </iep-tip>
-        ：
-      </span>
-      <iep-div-detail :value="form.name"></iep-div-detail>
-    </el-form-item>
     <el-form-item label="用户名：" class="form-half">
       <iep-div-detail :value="form.userName"></iep-div-detail>
     </el-form-item>
@@ -27,8 +18,18 @@
       </span>
       <iep-avatar v-model="form.avatar"></iep-avatar>
     </el-form-item>
-    <el-form-item label="角色：">
+    <el-form-item label="角色：" class="form-half">
       <iep-tag-detail :value="form.roleName" iep-type="role"></iep-tag-detail>
+    </el-form-item>
+
+    <el-form-item class="form-half">
+      <span slot="label">
+        姓名
+        <iep-tip content="请务必根据本人身份证上的姓名全称填写">
+        </iep-tip>
+        ：
+      </span>
+      <el-input v-model="form.name"></el-input>
     </el-form-item>
     <el-form-item label="工号：" prop="staffId" class="form-half">
       <el-input v-model="form.staffId"></el-input>

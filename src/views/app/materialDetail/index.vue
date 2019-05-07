@@ -1,22 +1,25 @@
 <template>
-  <div class="material-detail">
-    <div class="library">
-      <article-details></article-details>
+  <div>
+    <div class="material-detail">
+      <div class="library">
+        <article-details></article-details>
+      </div>
+      <div class="piece">
+        <IepAppTabCard :title="labelTitle">
+          <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
+        </IepAppTabCard>
+        <IepAppTabCard :title="listTitle1">
+          <IepAppListCard :dataList="listList1"></IepAppListCard>
+        </IepAppTabCard>
+        <IepAppTabCard :title="rankingTitle">
+          <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
+        </IepAppTabCard>
+        <IepAppTabCard :title="listTitle2">
+          <IepAppListCard :dataList="listList2"></IepAppListCard>
+        </IepAppTabCard>
+      </div>
     </div>
-    <div class="piece">
-      <IepAppTabCard :title="labelTitle">
-        <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
-      </IepAppTabCard>
-      <IepAppTabCard :title="listTitle1">
-        <IepAppListCard :dataList="listList1"></IepAppListCard>
-      </IepAppTabCard>
-      <IepAppTabCard :title="rankingTitle">
-        <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
-      </IepAppTabCard>
-      <IepAppTabCard :title="listTitle2">
-        <IepAppListCard :dataList="listList2"></IepAppListCard>
-      </IepAppTabCard>
-    </div>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>

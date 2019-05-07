@@ -8,3 +8,12 @@ export const getTagsList = (params) => {
     params: params,
   })
 }
+
+// 推荐主题
+export const getRectagsList = (params) => {
+  return request({
+    url: `${prefixUrl}/rectags`,
+    method: 'get',
+    params: params,
+  })
+}

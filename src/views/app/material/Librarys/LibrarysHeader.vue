@@ -10,17 +10,27 @@
   </div>
 </template>
 <script>
+import { getTodayCount } from '@/api/app/mlms/index'
+
 export default {
   data () {
     return {
       title: '材料库',
-      data: '（今日上传39篇）',
+      data: '',
     }
   },
   methods: {
-    searchPage () {
-
+    searchPage (val) {
+      this.$emit('search_page', val)
     },
+    getCount () {
+      getTodayCount().then(({data}) => {
+        this.data = `（今日上传 ${data.data} 篇）`
+      })
+    },
+  },
+  created () {
+    this.getCount()
   },
 }
 </script>

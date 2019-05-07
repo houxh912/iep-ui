@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="material">
-      <menus></menus>
+      <menus @change_page="changePage" ref="menus"></menus>
       <div class="library">
-        <librarys></librarys>
+        <librarys ref="librarys"></librarys>
       </div>
       <div class="piece">
         <IepAppTabCard :title="labelTitle">
@@ -24,15 +24,39 @@ import Menus from './Menus'
 import Librarys from './Librarys/'
 import Ranking from './Ranking/'
 import Most from './Most/'
+import { getRectagsList } from '@/api/app/tms/index'
+import { getGuessList } from '@/api/app/mlms/index'
+
 export default {
   components: { Menus, Librarys, Ranking, Most},
   data () {
     return {
       labelTitle: '推荐主题',
       listTitle: '猜你想找',
-      labelList: ['营商通','营商环境','数据基因','数据政府','电子政务','数字经济','微服务','dips','知识图谱'],
-      listList: ['国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案'],
+      labelList: [],
+      listList: [],
     }
+  },
+  methods: {
+    changePage (val) {
+      this.$refs['librarys'].loadPage({materialClsSecondClass: val})
+    },
+    // 推荐主题
+    getRectags () {
+      getRectagsList().then(({data}) => {
+        this.labelList = data.data
+      })
+    },
+    // 猜你想找
+    getGuess () {
+      getGuessList().then(({data}) => {
+        this.listList = data.data
+      })
+    },
+  },
+  created () {
+    this.getRectags()
+    this.getGuess()
   },
 }
 </script>
@@ -44,8 +68,6 @@ export default {
   display: grid;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 220px) minmax(100px, 680px) minmax(100px, 300px);
-}
-.piece{
 }
 .el-card{
   border:0;

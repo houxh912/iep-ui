@@ -3,10 +3,10 @@
     <IepAppTabsCard>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Hottest'" v-slot:Hottest>
-          <hottest v-loading="activeTab !=='Hottest'"></hottest>
+          <hottest v-loading="activeTab !=='Hottest'" :list="hotList"></hottest>
         </template>
         <template v-if="activeTab ==='Download'" v-slot:Download>
-          <download v-loading="activeTab !=='Download'"></download>
+          <download v-loading="activeTab !=='Download'" :list="downloadList"></download>
         </template>
       </iep-tabs>
     </IepAppTabsCard>
@@ -15,6 +15,8 @@
 <script>
 import Hottest from './Hottest'
 import Download from './Download'
+import { getBestList } from '@/api/app/mlms/index'
+
 export default {
   components: {
     Hottest,
@@ -23,14 +25,22 @@ export default {
   data () {
     return {
       tabList: [{
-        label: '本周最热',
+        label: '查看最多',
         value: 'Hottest',
       }, {
         label: '下载最多',
         value: 'Download',
       }],
       activeTab: 'Hottest',
+      hotList: [],
+      downloadList: [],
     }
+  },
+  created () {
+    getBestList().then(({data}) => {
+      this.hotList = data.data.hot
+      this.downloadList = data.data.download
+    })
   },
 }
 </script>

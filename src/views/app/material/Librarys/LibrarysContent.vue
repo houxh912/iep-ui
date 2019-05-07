@@ -4,37 +4,32 @@
       <div style="cursor: pointer;" @click="handleOpen()">
         <div class="title">
           <h4 class="name">{{item.name}}</h4>
-          <i class="iconfont icon-caifu"></i>
-          <i class="iconfont icon-fujian"></i>
+          <i class="iconfont icon-caifu" v-if="item.downloadCost !== '0'"></i>
+          <i class="iconfont icon-fujian" v-if="item.attachFile !== ''"></i>
         </div>
-        <p>{{item.desc}}</p>
+        <p>{{item.intro}}</p>
         <div class="box">
-          <span class="uploaded">上传者：{{item.uploaded}}</span>
-          <span><i class="iconfont icon-shijian"></i>{{item.time}}</span>
-          <span><i class="iconfont icon-yanjing"></i>{{item.pageviews}}人浏览</span>
-          <span><i class="iconfont icon-download1"></i>{{item.downloads}}人下载</span>
+          <span class="uploaded">上传者：{{item.creatorRealName}}</span>
+          <span><i class="iconfont icon-shijian"></i>{{item.createTime}}</span>
+          <span><i class="iconfont icon-yanjing"></i>{{item.views}}人浏览</span>
+          <span><i class="iconfont icon-download1"></i>{{item.downloadTimes}}人下载</span>
         </div>
       </div>
-      <div v-for="(item,index) in item.label" :key="index" class="label">
+      <div v-for="(item,index) in item.tagKeyWords" :key="index" class="label">
         <span>{{item}}</span>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { getMaterialLPage } from '@/api/app/mlms/index'
+
 export default {
   data () {
     return {
-      dataList: [
-        { name: '国脉数据基因政务大数据整体解决方案', desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系', uploaded: '胡世军', time: '2019-04-24', pageviews: '145', downloads: '88', label: ['创业女杰', '浙商', '创新创业'] },
-        { name: '国脉数据基因政务大数据整体解决方案', desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系', uploaded: '胡世军', time: '2019-04-24', pageviews: '145', downloads: '88', label: ['创业女杰', '浙商', '创新创业'] },
-        { name: '国脉数据基因政务大数据整体解决方案', desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系', uploaded: '胡世军', time: '2019-04-24', pageviews: '145', downloads: '88', label: ['创业女杰', '浙商', '创新创业'] },
-        { name: '国脉数据基因政务大数据整体解决方案', desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系', uploaded: '胡世军', time: '2019-04-24', pageviews: '145', downloads: '88', label: ['创业女杰', '浙商', '创新创业'] },
-        { name: '国脉数据基因政务大数据整体解决方案', desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系', uploaded: '胡世军', time: '2019-04-24', pageviews: '145', downloads: '88', label: ['创业女杰', '浙商', '创新创业'] },
-        { name: '国脉数据基因政务大数据整体解决方案', desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系', uploaded: '胡世军', time: '2019-04-24', pageviews: '145', downloads: '88', label: ['创业女杰', '浙商', '创新创业'] },
-        { name: '国脉数据基因政务大数据整体解决方案', desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系', uploaded: '胡世军', time: '2019-04-24', pageviews: '145', downloads: '88', label: ['创业女杰', '浙商', '创新创业'] },
-        { name: '国脉数据基因政务大数据整体解决方案', desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系', uploaded: '胡世军', time: '2019-04-24', pageviews: '145', downloads: '88', label: ['创业女杰', '浙商', '创新创业'] },
-      ],
+      dataList: [],
+      secondClass: '',
+      paramForm: {},
     }
   },
   methods:{
@@ -43,6 +38,16 @@ export default {
         path: '/app/material_detail',
       })
     },
+    loadPage (params = {}) {
+      // materialClsSecondClass
+      this.paramForm = Object.assign({}, this.paramForm, params)
+      getMaterialLPage(this.paramForm).then(({data}) => {
+        this.dataList = data.data.records
+      })
+    },
+  },
+  created () {
+    this.loadPage()
   },
 }
 </script>

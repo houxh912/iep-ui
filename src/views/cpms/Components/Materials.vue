@@ -7,7 +7,7 @@
     </el-table-column>
     <el-table-column label="类别">
       <template slot-scope="scope">
-        <div>{{scope.row.type}}</div>
+        <iep-dict-detail :value="scope.row.materialType" dict-name="mlms_material_type"></iep-dict-detail>
       </template>
     </el-table-column>
   </el-table>

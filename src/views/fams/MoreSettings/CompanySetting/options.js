@@ -2,8 +2,10 @@
 
 const initForm = () => {
 	return {
-		id: '',
-		
+		parentId: '',
+		parentName: '',
+		orgId: '',
+		name: '',
 	}
 }
 
@@ -11,17 +13,18 @@ const columnsMap = [
 	{
 		prop: 'id',
 		label: 'ID',
+		width: 80,
 	},
 	{
-		prop: 'companyName',
+		prop: 'name',
 		label: '公司名称',
 	},
 	{
-		prop: 'related',
+		prop: 'orgName',
 		label: '关联组织',
 	},
 	{
-		prop: 'createTime',
+		prop: 'updateTime',
 		label: '操作时间',
 	},
 ]

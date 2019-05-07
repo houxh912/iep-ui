@@ -28,7 +28,7 @@
 
     <a-row>
       <a-col :span="12">
-        <iep-description-item title="工号：" :content="form.IDCard" />
+        <iep-description-item title="工号：" :content="form.staffId" />
       </a-col>
       <a-col :span="12">
         <iep-description-item title="员工状态：" :content="status[form.status]" />

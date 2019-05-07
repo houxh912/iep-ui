@@ -3,28 +3,15 @@
     <page-header title="本地上传" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
       <el-form-item label="名称：" prop="materialName">
-        <span slot="label">
-          名称
-          <iep-tip :content="tipContent.materialName"></iep-tip>
-          ：
-        </span>
-        <el-input v-model="formData.materialName" maxlength="50"></el-input>
+        <el-input v-model="formData.materialName" maxlength="50" :placeholder="tipContent.materialName"></el-input>
       </el-form-item>
       <el-form-item label="作者：" prop="uploader">
-        <span slot="label">
-          作者
-          <iep-tip :content="tipContent.uploader"></iep-tip>
-          ：
-        </span>
-        <el-input v-model="formData.uploader" maxlength="40"></el-input>
+        <el-input v-model="formData.uploader" maxlength="40" :placeholder="tipContent.uploader"></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
-        <span slot="label">
-          介绍
-          <iep-tip :content="tipContent.intro"></iep-tip>
-          ：
-        </span>
-        <el-input type="textarea" v-model="formData.intro" rows="5" maxlength="200"></el-input>
+        <!-- <el-input type="textarea" v-model="formData.intro" rows="5" maxlength="200" :placeholder="tipContent.intro"></el-input> -->
+<el-input type="textarea" v-model="formData.intro" rows="5" maxlength="200" placeholder="1、材料内容主旨说明，如选取文中重要的段落；
+2、字数控制在200字以内。"></el-input>
       </el-form-item>
       <el-row>
         <el-col :span=12>
@@ -63,12 +50,8 @@
         <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">
-        <span slot="label">
-          标签
-          <iep-tip :content="tipContent.tagKeyWords"></iep-tip>
-          ：
-        </span>
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
+        <div style="font-size: 12px;color: #aaa;">{{tipContent.tagKeyWords}}</div>
       </el-form-item>
       <el-form-item label="是否开放：" prop="isOpen">
         <el-switch v-model="formData.isOpen" :active-value="dictsMap.isOpen[0].value" :inactive-value="dictsMap.isOpen[1].value"></el-switch>
@@ -77,12 +60,8 @@
         <el-switch v-model="formData.secrecyLevel" :active-value="dictsMap.secrecyLevel[1].value" :inactive-value="dictsMap.secrecyLevel[0].value"></el-switch>
       </el-form-item>
       <el-form-item label="附件：" prop="attachFileList">
-        <span slot="label">
-          附件
-          <iep-tip :content="tipContent.attachFileList"></iep-tip>
-          ：
-        </span>
         <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload>
+        <div style="font-size: 12px;color: #aaa;">{{tipContent.attachFileList}}</div>
       </el-form-item>
     </el-form>
     <footer-tool-bar>

@@ -15,36 +15,27 @@
           <iep-select prefix-url="crm/customer" v-model="formData.visitingUserId" multiple></iep-select>
         </el-form-item>
         <el-form-item :label="`${formData.type == 0 ? '会议主题 ':'会议标题'}：`" prop="title">
-          <span slot="label">
-            {{formData.type == 0 ? '会议主题 ':'会议标题'}}
-            <iep-tip content="会议部门（简称）+会议日期（八位数字）+关于会议内容/会议类型（日例会/周例会/讨论会）+纪要，如北方一部20190415日例会纪要"></iep-tip>：
-          </span>
-          <el-input v-model="formData.title" maxlength="50"></el-input>
+          <el-input v-model="formData.title" maxlength="50" :placeholder="tipContent.title"></el-input>
         </el-form-item>
         <el-form-item label="会议内容：" prop="meetingContent">
-          <!-- <el-input type="textarea" v-model="formData.meetingContent" rows=8 maxlength="3000"></el-input> -->
-          <span slot="label">
-            会议内容
-            <iep-tip :content="tipContent.meetingContent"></iep-tip>：
-          </span>
-          <iep-froala-editor v-model="formData.meetingContent"></iep-froala-editor>
+          <iep-froala-editor v-model="formData.meetingContent" :placeholder="tipContent.meetingContent"></iep-froala-editor>
         </el-form-item>
         <el-form-item label="会议总结：" prop="meetingCon">
-          <span slot="label">
-            会议总结
-            <iep-tip :content="tipContent.meetingCon"></iep-tip>：
-          </span>
-          <el-input type="textarea" v-model="formData.meetingCon" rows=8 maxlength="1000"></el-input>
+          <!-- <el-input type="textarea" v-model="formData.meetingCon" rows=8 maxlength="1000" :placeholder="tipContent.meetingCon"></el-input> -->
+<el-input type="textarea" v-model="formData.meetingCon" rows=8 maxlength="1000" placeholder="一、简明扼要说明会议精神，如1、2、3......
+二、清晰罗列下一步工作计划，如1、2、3......（关联人员需要着重说明）
+案例：
+一、此次会议精神包含以下两点：
+1、内网2.0"></el-input>
         </el-form-item>
         <el-form-item label="备注：" prop="thoughtsProblem" v-if="formData.type==1">
           <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000"></el-input>
         </el-form-item>
         <el-form-item label="感想与困惑：" prop="thoughtsProblem" v-if="formData.type==0">
-          <span slot="label">
-            感想与困惑
-            <iep-tip :content="tipContent.thoughtsProblem"></iep-tip>：
-          </span>
-          <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000"></el-input>
+          <!-- <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000" :placeholder="tipContent.thoughtsProblem"></el-input> -->
+<el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000" placeholder="1、分段发表感想和说明困惑之处，如1、2、3......
+2、感想主要围绕会议中所汇报内容和指导意见如何应用到之后工作中；
+3、困惑主要围绕目前工作中疑惑不解，需要寻求帮助的事情。"></el-input>
         </el-form-item>
         <el-row>
           <el-col :span="12">
@@ -76,11 +67,8 @@
           <el-input v-model="formData.visitingAddress" placeholder="请输入面访具体地址"></el-input>
         </el-form-item>
         <el-form-item label="会议标签：" prop="tagKeyWords">
-          <span slot="label">
-            会议标签
-            <iep-tip :content="tipContent.tagKeyWords"></iep-tip>：
-          </span>
           <iep-tag v-model="formData.tagKeyWords"></iep-tag>
+          <div style="font-size: 12px;color: #aaa;">{{tipContent.tagKeyWords}}</div>
         </el-form-item>
         <el-form-item label="主持人：" prop="hostList">
           <span slot="label">

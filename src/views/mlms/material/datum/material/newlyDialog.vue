@@ -3,18 +3,12 @@
     <page-header title="新建文档" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
       <el-form-item label="名称：" prop="materialName">
-          <span slot="label">
-             名称
-              <iep-tip :content="tipContent2.materialName"></iep-tip>：
-            </span>
-        <el-input v-model="formData.materialName" maxlength="50"></el-input>
+        <el-input v-model="formData.materialName" maxlength="50" :placeholder="tipContent2.materialName"></el-input>
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
-          <span slot="label">
-             介绍
-              <iep-tip :content="tipContent2.intro"></iep-tip>：
-            </span>
-        <el-input v-model="formData.intro" type="textarea" rows="5" maxlength="200"></el-input>
+        <!-- <el-input v-model="formData.intro" type="textarea" rows="5" maxlength="200" :placeholder="tipContent2.intro"></el-input> -->
+<el-input v-model="formData.intro" type="textarea" rows="5" maxlength="200" placeholder="1、材料内容主旨说明，如选取文中重要的段落；
+2、字数控制在200字以内。"></el-input>
       </el-form-item>
       <el-form-item label="正文：" prop="content">
           <span slot="label">
@@ -52,11 +46,8 @@
         <iep-dict-select v-model="formData.materialType" dict-name="mlms_material_type"></iep-dict-select>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">
-          <span slot="label">
-             标签
-              <iep-tip :content="tipContent2.tagKeyWords"></iep-tip>：
-            </span>
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
+        <div style="font-size: 12px;color: #aaa;">{{tipContent2.tagKeyWords}}</div>
       </el-form-item>
       <!-- <el-form-item label="是否投稿：" prop="isContri">
         <el-switch v-model="formData.isContri" :active-value="dictsMap.isYes[1].value" :inactive-value="dictsMap.isYes[0].value"></el-switch>

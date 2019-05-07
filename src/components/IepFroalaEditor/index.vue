@@ -14,6 +14,10 @@ export default {
       type: String,
       required: true,
     },
+    placeholder: {
+      type: String,
+      default: '请填写内容',
+    },
   },
   data () {
     return {
@@ -29,7 +33,7 @@ export default {
         fontSize: ['12', '14', '18', '24', '30', '36', '48', '60', '72', '96'],
         toolbarButtons: ['undo', 'redo', 'selectAll', '|', 'bold', 'italic', 'underline', 'strikeThrough', '|', 'fontFamily', 'fontSize', 'color', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'paragraphStyle', '|', 'insertLink', 'insertImage', 'insertFile', 'embedly', 'insertTable', '|', 'insertHR', 'clearFormatting', '|', 'print', 'spellChecker', '|', 'fullscreen'],//['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],//显示可操作项
         theme: 'gray',//主题
-        placeholder: '请填写内容',
+        placeholderText: this.placeholder,
         language: 'zh_cn',//国际化
         imageUploadURL: '/api/admin/file/wysiwyg/upload',//上传url
         fileUploadURL: '/api/admin/file/wysiwyg/upload',//上传url 更多上传介绍 请访问https://www.froala.com/wysiwyg-editor/docs/options

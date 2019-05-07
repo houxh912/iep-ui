@@ -40,7 +40,7 @@ export default {
   methods:{
     handleOpen () {
       this.$router.push({
-        path: '/app/material_detail',
+        path: '/app/resource/material/material_detail',
       })
     },
   },

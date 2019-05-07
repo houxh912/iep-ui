@@ -59,7 +59,7 @@ export default {
   methods: {
     handleOpen () {
       this.$router.push({
-        path: '/app/training_detail',
+        path: '/app/resource/training/training_detail',
       })
     },
   },

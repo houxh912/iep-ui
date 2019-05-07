@@ -82,7 +82,7 @@ export default {
   methods:{
     handleDetail () {
       this.$router.push({
-        path:'/app/client_detail',
+        path:'/app/resource/client/client_detail',
       })
     },
   },

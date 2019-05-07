@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div class="training">
+    <div class="training" v-if="'/app/resource/training'==routerMatch[routerMatch.length-1].path">
       <training-top></training-top>
       <training-content></training-content>
     </div>
+    <router-view v-else></router-view>
   </div>
 </template>
 <script>
@@ -14,7 +15,12 @@ export default {
   components: { TrainingTop, TrainingContent },
   data () {
     return {
+      routerMatch: this.$route.matched,
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.routerMatch = to.matched
+    next()
   },
 }
 </script>

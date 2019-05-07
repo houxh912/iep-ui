@@ -117,22 +117,6 @@ export default [
         meta: noAuth,
       },
       {
-        path: 'material_detail',
-        name: '材料详情',
-        component: () => import('@/views/app/materialDetail/'),
-      },
-      {
-        path: 'training_detail',
-        name: '培训详情',
-        component: () => import('@/views/app/trainingDetails/'),
-      },
-      {
-        path: 'client_detail',
-        name: '客户详情',
-        component: () => import('@/views/app/client/clientDetail/'),
-        meta: noAuth,
-      },
-      {
         path: 'training_list',
         name: '培训列表',
         component: () => import('@/views/app/trainingList/'),

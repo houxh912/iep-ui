@@ -3,6 +3,14 @@
     <div class="material-detail">
       <div class="library">
         <train-details></train-details>
+        <el-row class="down-load">
+          相关附件：
+          <div class="file" v-for="(item, index) in attachFileList" :key="index">
+            <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗5国脉贝下载）</span></div>
+          </div>
+        </el-row>
+        <IepAppRewardCard></IepAppRewardCard>
+        <IepAppEvaluationReview></IepAppEvaluationReview>
       </div>
       <div class="piece">
         <IepAppTabCard :title="labelTitle">
@@ -43,6 +51,9 @@ export default {
         { img: '../img/person/p08.jpg', title: '城市数据中心的基因解码', see: '89人浏览' },
       ],
       routerMatch: this.$route.matched,
+      attachFileList: [
+        {name:'内网2.0改造项目'},
+      ],
     }
   },
   beforeRouteUpdate (to, from, next) {
@@ -59,7 +70,7 @@ export default {
 <style lang="scss" scoped>
 .material-detail {
   width: 1200px;
-  margin: 20px auto;
+  margin: 0 auto 20px;
   border-top: 1px solid #eee;
   display: grid;
   grid-auto-flow: row dense;
@@ -134,6 +145,22 @@ export default {
 .library {
   padding-right: 20px;
   border-right: 1px solid #ebeef5;
+  .down-load {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    .file {
+      cursor: pointer;
+      i {
+        font-size: 16px !important;
+        margin-right: 10px;
+      }
+      .tip {
+        margin-left: 10px;
+        color: #999;
+      }
+    }
+  }
 }
 </style>
 <style scoped>

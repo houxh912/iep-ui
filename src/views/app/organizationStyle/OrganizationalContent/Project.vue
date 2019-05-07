@@ -73,6 +73,12 @@ export default {
     border-radius: 50%;
     background-color: #f8f8f8;
     color: #666;
+    &:hover {
+      background-color: #cb3737;
+      color: #fff;
+      animation: iconRotate-data-v-300a8671 1s linear infinite;
+      cursor: pointer;
+    }
   }
   .item {
     display: flex;

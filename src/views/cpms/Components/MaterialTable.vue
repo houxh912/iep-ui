@@ -26,6 +26,12 @@
       </el-table-column>
     </el-table>
     <iep-dialog :dialog-show="dialogShow" title="添加关联材料" width="70%" @close="dialogShow=false">
+      <operation-container>
+        <template slot="right">
+          <operation-search @search-page="searchPage">
+          </operation-search>
+        </template>
+      </operation-container>
       <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="handleSelectionChange" :checkbox-init="checkboxInit">
         <el-table-column label="名称" min-width="200px">
           <template slot-scope="scope">
@@ -39,7 +45,7 @@
         </el-table-column>
         <el-table-column label="上传者">
           <template slot-scope="scope">
-            {{scope.row.uploader}}
+            {{scope.row.creatorRealName}}
           </template>
         </el-table-column>
       </iep-table>

@@ -11,20 +11,19 @@ export function getSalaryPage (query) {
   })
 }
 
-export function reviewApprovaBatch (obj) {
-  return request({
-    url: `${prefixUrl}/status/batch`,
-    method: 'post',
-    data: obj,
-  })
-}
-
 export function getSalaryByIdPage (id) {
   return function (query) {
     return request({
-      url: `${prefixUrl}/${id}`,
+      url: `${prefixUrl}/page/${id}`,
       method: 'get',
       params: query,
     })
   }
+}
+
+export function getSalaryById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
 }

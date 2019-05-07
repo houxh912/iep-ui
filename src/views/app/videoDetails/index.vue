@@ -6,6 +6,7 @@
         <video-right></video-right>
       </div>
       <video-operate></video-operate>
+      <IepAppEvaluationReview></IepAppEvaluationReview>
     </div>
     <IepAppFooterBar></IepAppFooterBar>
   </div>

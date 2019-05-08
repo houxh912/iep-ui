@@ -32,12 +32,7 @@ export default {
 
 
 <style lang="scss" scoped>
-.nav-bar {
-  display: flex;
-  margin: 0 20px;
-  height: 140px;
-  justify-content: center;
-}
+
 .resource-wrapper {
   display: flex;
   width: 1200px;

@@ -8,8 +8,8 @@
         </el-submenu>
       </el-menu>
       <el-menu v-else :default-active="activeIndex" mode="horizontal" router>
-        <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id">
-          <span class="sub-menu" :class="item.show">{{item.name}}
+        <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id" :class="item.show">
+          <span class="sub-menu">{{item.name}}
             <resource-con class="sub-nav-menu" v-if="item.show=='show'"></resource-con>
           </span>
         </el-menu-item>
@@ -103,12 +103,15 @@ export default {
   position: absolute;
   z-index: 100;
   width: 100%;
+  height: 0;
+  overflow: hidden;
   left: 0;
-  top: -150px;
-  width: 100%;
+  top: 60px;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 1px 1px 3px #ccc;
   box-sizing: border-box;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 .nav {
   width: 100%;
@@ -143,15 +146,13 @@ export default {
         -webkit-transition: all 0.5s;
         transition: all 0.5s;
         font-size: 16px;
-      }
-      .sub-menu.show {
-        .sub-nav-menu {
-          opacity: 0;
-          transition: all 1.2s;
-        }
-        &:hover .sub-nav-menu {
-          opacity: 1;
-          top: 60px;
+        .nav-bar {
+          display: flex;
+          margin: 0 20px;
+          height: 0;
+          -webkit-transition: all 0.5s;
+          transition: all 0.5s;
+          justify-content: center;
         }
       }
     }
@@ -196,6 +197,11 @@ export default {
       width: 260px !important;
       padding: 0 20px 0 30px;
     }
+  }
+}
+.show{
+  &:hover .sub-nav-menu{
+    height: 140px;
   }
 }
 </style>

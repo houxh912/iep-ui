@@ -9,7 +9,6 @@
             <el-dropdown-item>
               <div @click="handleDeletetByIds">删除</div>
             </el-dropdown-item>
-            <el-dropdown-item @click.native="handleExport">导出</el-dropdown-item>
             <el-dropdown-item @click.native="handleDownloadAll">下载</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -185,10 +184,6 @@ export default {
         this.isLoadTable = false
         this.formState = false
       })
-    },
-    // 批量导出
-    handleExport () {
-      this.$message.error('抱歉，此功能尚未开发')
     },
     // 批量下载
     handleDownloadAll () {

@@ -18,7 +18,6 @@
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="handleDeleteByIds" v-if="!lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
-              <el-dropdown-item @click.native="handleExport">导出</el-dropdown-item>
               <el-dropdown-item @click.native="handleCollectAll">收藏</el-dropdown-item>
               <el-dropdown-item @click.native="handleAllShare">分享</el-dropdown-item>
             </el-dropdown-menu>
@@ -206,10 +205,6 @@ export default {
         return
       }
       this.$refs['share'].open(this.selectList)
-    },
-    // 导出
-    handleExport () {
-      this.$message.error('抱歉，此功能尚未开发')
     },
     // 下载
     handleDownload () {

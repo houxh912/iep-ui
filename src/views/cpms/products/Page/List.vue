@@ -7,6 +7,7 @@
           <iep-button v-if="cpms_products_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
           <el-checkbox-group v-model="checkList" @change="handleChangeMe">
             <el-checkbox label="1">只看我登记的</el-checkbox>
+            <el-checkbox label="2">只看我负责的</el-checkbox>
           </el-checkbox-group>
         </template>
         <template slot="right">
@@ -52,7 +53,7 @@ export default {
   data () {
     return {
       checkList: [],
-      creatorId: null,
+      isMine: null,
       cpms_products_add: false,
       cpms_products_view: false,
       cpms_products_edit_del: false,
@@ -103,18 +104,15 @@ export default {
       })
     },
     handleChangeMe (value) {
-      if (value.length) {
-        this.creatorId = this.userInfo.userId
-      } else {
-        this.creatorId = undefined
-      }
+      const isMine = value.join(',')
+      this.isMine = isMine
       this.loadPage()
     },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deleteProductById)
     },
     loadPage (param) {
-      this.loadTable({ ...param, creatorId: this.creatorId }, getProductPage)
+      this.loadTable({ ...param, isMine: this.isMine }, getProductPage)
     },
   },
 }

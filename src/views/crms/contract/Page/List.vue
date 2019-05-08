@@ -37,6 +37,7 @@ import { getContractPage, postContract, putContract, deleteContract, getDataById
 import DetailDrawer from './DetailDrawer'
 import AdvanceSearch from './AdvanceSearch'
 import { getObj } from '@/api/admin/user'
+import { mapGetters } from 'vuex'
 export default {
   name: 'List',
   mixins: [mixins],
@@ -66,6 +67,7 @@ export default {
     columnsMap () {
       return columnsMapByTypeId
     },
+    ...mapGetters(['dictGroup']),
   },
   created () {
     this.loadPage()
@@ -98,6 +100,18 @@ export default {
       this.$refs['DetailDrawer'].drawerShow = true
       getDataById(row.contractId).then(res => {
         this.$refs['DetailDrawer'].formData = res.data.data
+        // 业务类型处理
+        let businessType = res.data.data.businessType.split(','), list = []
+        for (let type of businessType) {
+          for (let item of this.dictGroup.prms_business_type) {
+            for (let t of item.children) {
+              if (t.value == type) {
+                list.push(t.label)
+              }
+            }
+          }
+        }
+        this.$refs['DetailDrawer'].infoList = list.toString()
         getObj(res.data.data.directorId).then(res => {
           this.$set(this.$refs['DetailDrawer'].formData, 'Manager', res.data.data.realName)
         })

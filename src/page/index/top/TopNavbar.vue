@@ -99,39 +99,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@-webkit-keyframes fadeIn {
-  0% {
-    top: 100px;
-    opacity: 0; /*初始状态 透明度为0*/
-  }
-  20% {
-    top: 90px;
-    opacity: 0.2;
-  }
-  50% {
-    top: 80px;
-    opacity: 0.5; /*中间状态 透明度为0.5*/
-  }
-  70% {
-    top: 70px;
-    opacity: 0.7;
-  }
-  100% {
-    top: 48px;
-    opacity: 1; /*结尾状态 透明度为1*/
-  }
-}
 .sub-nav-menu {
   position: absolute;
   z-index: 100;
   width: 100%;
   left: 0;
-  top: 100px;
+  top: -150px;
   width: 100%;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 1px 1px 3px #ccc;
   box-sizing: border-box;
-  display: block;
 }
 .nav {
   width: 100%;
@@ -170,16 +147,11 @@ export default {
       .sub-menu.show {
         .sub-nav-menu {
           opacity: 0;
-          transition: all 0.5s;
+          transition: all 1.2s;
         }
         &:hover .sub-nav-menu {
-          display: block;
           opacity: 1;
-          top: 48px;
-          animation-name: fadeIn; /*动画名称*/
-          animation-duration: 0.5s; /*动画持续时间*/
-          animation-iteration-count: 1; /*动画次数*/
-          animation-delay: 0s; /*延迟时间*/
+          top: 60px;
         }
       }
     }

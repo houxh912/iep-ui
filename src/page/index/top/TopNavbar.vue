@@ -8,7 +8,11 @@
         </el-submenu>
       </el-menu>
       <el-menu v-else :default-active="activeIndex" mode="horizontal" router>
-        <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id"><span class="sub-menu">{{item.name}}</span></el-menu-item>
+        <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id" :class="item.show">
+          <span class="sub-menu">{{item.name}}
+            <resource-con class="sub-nav-menu" v-if="item.show=='show'"></resource-con>
+          </span>
+        </el-menu-item>
       </el-menu>
       <!-- <div class="search-con">
         <top-search class="search-con-input" :style="{top: isTop}" :class="{inactive:!isShow }">
@@ -24,7 +28,9 @@
 <script>
 // import TopSearch from './TopSearch'
 import displayMixins from '@/mixins/displayMixins'
+import ResourceCon from './ResourceCon'
 export default {
+  components: { ResourceCon },
   mixins: [displayMixins],
   data () {
     return {
@@ -42,6 +48,7 @@ export default {
         }, {
           id: '/app/resource',
           name: '资源',
+          show: 'show',
         }, {
           id: '/app/products',
           name: '产品',
@@ -92,6 +99,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.sub-nav-menu {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  left: 0;
+  top: 60px;
+  background: rgba(252, 252, 252, 0.99);
+  box-shadow: 1px 1px 3px #ccc;
+  box-sizing: border-box;
+  transition: all 0.5s;
+}
 .nav {
   width: 100%;
   height: 100%;
@@ -100,6 +120,10 @@ export default {
   .navbar {
     display: flex;
     height: 60px;
+    .el-menu,
+    .el-menu-item {
+      position: inherit;
+    }
     .el-menu.el-menu--horizontal {
       border-bottom: none;
     }
@@ -118,9 +142,14 @@ export default {
       border: 0;
       .sub-menu {
         padding: 4px 15px;
-        -webkit-transition: all 0.5s;
         transition: all 0.5s;
         font-size: 16px;
+        .nav-bar {
+          display: flex;
+          margin: 0 20px;
+          transition: all 0.5s;
+          justify-content: center;
+        }
       }
     }
     .el-select {
@@ -136,7 +165,6 @@ export default {
         border-radius: 3px;
         background-color: #fff;
         box-shadow: 0px 0px 1px 2px #eee;
-        -webkit-transition: all 0.5s;
         transition: all 0.5s;
       }
       .btn-search {
@@ -144,7 +172,6 @@ export default {
         font-size: 20px;
         line-height: 60px;
         cursor: pointer;
-        -webkit-transition: all 0.5s;
         transition: all 0.5s;
         &:hover,
         &:focus {
@@ -164,6 +191,11 @@ export default {
       width: 260px !important;
       padding: 0 20px 0 30px;
     }
+  }
+}
+.show {
+  &:hover .sub-nav-menu {
+    height: 132px;
   }
 }
 </style>

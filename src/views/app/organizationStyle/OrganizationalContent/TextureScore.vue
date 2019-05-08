@@ -26,6 +26,7 @@ export default {
         { photo: require('../img/people1.png'), name: '姚静', department: '上海国脉互联知政信息咨询有限公司', feed: '合作下来非常愉快，技术团队强大，产品功能非常满足我们的需求，期待下次合作！', time: '2019-02-15' },
         { photo: require('../img/people2.jpg'), name: '邵佳欢', department: '国脉技术研发中心', feed: '严谨的工作态度，良好的沟通能力，整个组织非常有活力。', time: '2019-01-30' },
         { photo: require('../img/people3.jpg'), name: '林毅宁', department: '广东国脉信息发展有限公司', feed: '通过这次合作，让我对我们国脉的研发中心有了进一步的了解，这是一个非常有创造力的部门，值得大', time: '2019-12-26' },
+        { photo: require('../img/people3.jpg'), name: '张路', department: '广东国脉信息发展有限公司', feed: '通过这次合作，让我对我们国脉的研发中心有了进一步的了解，这是一个非常有创造力的部门，值得大', time: '2019-12-26' },
       ],
     }
   },
@@ -95,9 +96,34 @@ export default {
 }
 </style>
 <style scoped>
-.index-card >>> .el-card__body {
-  padding: 16px 0 0;
+.texture-score >>> .el-card__body {
+  padding: 0;
+  overflow-x: hidden;
 }
+.texture-score >>> .el-card__body::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 6px;
+  background-color: #fff;
+}
+.texture-score >>> .el-card__body::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+}
+.texture-score >>> .el-card__body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  display: none;
+  background-color: #ddd;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.texture-score >>> .el-card:hover ::-webkit-scrollbar-thumb {
+  display: block;
+}
+
 .el-card {
   padding: 0 20px;
 }

@@ -83,3 +83,8 @@ export default {
   }
 }
 </style>
+<style scoped>
+.material-content >>> .ant-tag {
+  margin-bottom: 5px;
+}
+</style>

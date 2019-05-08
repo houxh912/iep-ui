@@ -32,9 +32,10 @@ export default {
       ],
       iconList: [
         { icon: 'icon-shoucang1', iconName: '收藏' },
-        { icon: 'icon-share', iconName: '转发' },
+        { icon: 'icon-share', iconName: '分享' },
         { icon: 'icon-chakantiezigengduojubao', iconName: '纠错' },
         { icon: 'icon-yuanbao', iconName: '打赏' },
+        { icon: 'icon-xiaoxi', iconName: '评论' },
       ],
     }
   },
@@ -82,7 +83,7 @@ export default {
   }
   .icon-box {
     display: inline-block;
-    margin-right: 15px;
+    margin-right: 10px;
     padding: 10px;
     i {
       display: block;

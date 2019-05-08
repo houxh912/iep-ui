@@ -28,10 +28,6 @@
         </div>
       </div>
     </div>
-    <div class="enclosure">
-      <span class="enclosure-title">相关附件</span>
-      <span><i class="iconfont icon-fujian"></i><span class="name">{{enclosureName}}</span><span class="dn pay" :class="show">{{pay}}</span></span>
-    </div>
   </div>
 </template>
 <script>
@@ -74,9 +70,6 @@ export default {
         { tag: '数据应用' },
         { tag: '数据分析' },
       ],
-      enclosureName: '培训数据库优化方案.doc',
-      pay: '（消耗5国脉贝下载）',
-      show: 'show',
     }
   },
 }
@@ -195,24 +188,6 @@ export default {
 }
 .dn {
   display: none;
-}
-.enclosure {
-  margin: 20px 0;
-  cursor: pointer;
-  &:hover .name {
-    color: #cb3737;
-  }
-  i {
-    display: inline-block;
-    margin-right: 5px;
-  }
-  .enclosure-title {
-    display: block;
-    margin-bottom: 18px;
-  }
-  .pay {
-    color: #999;
-  }
 }
 .show {
   display: inline-block;

@@ -1,5 +1,3 @@
-import { mergeByFirst } from '@/util/util'
-
 const dictsMap = {
   status: {
     '0': '待审',
@@ -61,15 +59,14 @@ const initForm = () => {
   }
 }
 
-const formToDto = (form) => {
-  const newForm = mergeByFirst(initForm(), form)
-  newForm.positionId = form.position[form.position.length - 1]
-  return newForm
-}
-
-const initSearchForm = () => {
+const initGrantForm = () => {
   return {
+    ids: [],
+    remarks: '',
+    offlineCompany: '',
+    payType: 0,
+    bankAmount: '',
   }
 }
 
-export { columnsMap, dictsMap, initForm, initSearchForm, formToDto }
+export { columnsMap, dictsMap, initForm, initGrantForm }

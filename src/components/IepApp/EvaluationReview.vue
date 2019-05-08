@@ -68,6 +68,7 @@ export default {
     return {
       evaluation:null,
       inputFirst:'',
+      input:'',
       reviewShow1:null,
       reviewShow2:null,
     }

@@ -97,7 +97,7 @@ export default {
 </style>
 <style scoped>
 .index-card >>> .el-card__body {
-  padding: 16px 0 0;
+  padding: 0;
   overflow-x: hidden;
 }
 .index-card >>> .el-card__body::-webkit-scrollbar {

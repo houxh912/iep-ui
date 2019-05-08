@@ -2,7 +2,7 @@
   <div>
     <div class="nav-bar">
       <div class="resource-wrapper">
-        <div v-for="item in resourceRoute" :key="item.path" class="resource-item" @click="handleOpen(item)">
+        <div v-for="item in resourceRoute" :key="item.path" class="resource-item" @click.stop="handleOpen(item)">
           <i :class="item.icon"></i>
           <div class="resource-title">{{item.name}}</div>
           <div class="resource-count">{{item.count}}</div>

@@ -8,7 +8,11 @@
         </el-submenu>
       </el-menu>
       <el-menu v-else :default-active="activeIndex" mode="horizontal" router>
-        <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id"><span class="sub-menu" :class="item.show">{{item.name}}<resource-con class="sub-nav-menu"></resource-con></span></el-menu-item>
+        <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id">
+          <span class="sub-menu" :class="item.show">{{item.name}}
+            <resource-con class="sub-nav-menu" v-if="item.show=='show'"></resource-con>
+          </span>
+        </el-menu-item>
       </el-menu>
       <!-- <div class="search-con">
         <top-search class="search-con-input" :style="{top: isTop}" :class="{inactive:!isShow }">
@@ -127,7 +131,7 @@ export default {
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 1px 1px 3px #ccc;
   box-sizing: border-box;
-  display: none;
+  display: block;
 }
 .nav {
   width: 100%;

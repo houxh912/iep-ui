@@ -205,6 +205,8 @@ export default {
         } else {
           this.$router.push('/wel/mail/draft')
         }
+      }).catch((res) => {
+        this.$message.error(res.toString())
       })
     },
     addRelation () {

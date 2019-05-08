@@ -142,13 +142,11 @@ export default {
       border: 0;
       .sub-menu {
         padding: 4px 15px;
-        -webkit-transition: all 0.5s;
         transition: all 0.5s;
         font-size: 16px;
         .nav-bar {
           display: flex;
           margin: 0 20px;
-          -webkit-transition: all 0.5s;
           transition: all 0.5s;
           justify-content: center;
         }

@@ -183,6 +183,7 @@ export function initSearchForm () {
   return {
     contractName: '',
     director: '',
+    businessTypeFirst: '',
     businessType: '',
     contractLevel: '',
     contractStatus: '',

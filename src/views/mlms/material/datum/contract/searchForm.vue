@@ -8,7 +8,18 @@
         <el-input v-model="paramForm.directorRealName"></el-input>
       </el-form-item>
       <el-form-item label="业务类型">
-        <businessType v-model="paramForm.businessType"></businessType>
+        <div class="business-type">
+          <div class="half">
+            <el-select v-model="paramForm.businessTypeFirst" placeholder="请选择" @change="changeBusinessType">
+              <el-option v-for="(item, index) in dictGroup.prms_business_type" :key="item.value" :label="item.label" :value="index"></el-option>
+            </el-select>
+          </div>
+          <div class="half">
+            <el-select v-model="paramForm.businessType" placeholder="请选择">
+              <el-option v-for="item in businessTypeChildren" :key="item.value" :label="item.label" :value="item.value"></el-option>
+            </el-select>
+          </div>
+        </div>
       </el-form-item>
       <el-form-item label="合同级别">
         <iep-dict-select v-model="paramForm.contractLevel" dict-name="mlms_contract_level"></iep-dict-select>
@@ -44,15 +55,19 @@
 
 <script>
 import { initSearchForm } from './option'
-import businessType from './businessType'
+import { mapGetters } from 'vuex'
 
 export default {
-  components: { businessType },
+  components: {  },
+  computed: {
+    ...mapGetters(['dictGroup']),
+  },
   data () {
     return {
       paramForm: initSearchForm(),
       firstClass: [],
       secondClass: [],
+      businessTypeChildren: [],
     }
   },
   methods: {
@@ -62,6 +77,24 @@ export default {
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },
+    changeBusinessType (val) {
+      this.paramForm.businessType = ''
+      if (val !== '') {
+        this.businessTypeChildren = this.dictGroup.prms_business_type[val].children
+      } else {
+        this.businessTypeChildren = []
+      }
+    },
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.business-type {
+  display: flex;
+  justify-content: space-between;
+  .half {
+    width: 49%;
+  }
+}
+</style>

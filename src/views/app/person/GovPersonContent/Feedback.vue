@@ -65,7 +65,7 @@ export default {
     }
     .box {
       float: left;
-      width: 90%;
+      width: 77%;
       height: 62px;
       .pieceTitle {
         .name {

@@ -63,6 +63,9 @@ export default {
     backWeb () {
       this.$router.go(-1)
     },
+    loadPage () {
+      this.pageState = 'detail'
+    },
   },
 }
 </script>

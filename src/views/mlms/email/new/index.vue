@@ -174,10 +174,13 @@ export default {
               message: '发送邮件成功',
               type: 'success',
             })
+            console.log('pageState: ', this.pageState)
             this.formData = initFormData()
             if (this.pageState !== 'new') {
+              console.log('new')
               this.$emit('load-page', 'list')
             } else {
+              console.log('sent')
               this.$router.push('/wel/mail/sent')
             }
             if (this.$route.query.back) {

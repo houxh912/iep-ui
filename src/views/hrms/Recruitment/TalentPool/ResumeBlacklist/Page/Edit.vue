@@ -26,7 +26,7 @@
               <IepDatePicker v-model="form.birthday" type="date" placeholder="选择日期"></IepDatePicker>
             </el-form-item>
             <el-form-item label="年龄：" class="form-half">
-              <el-input v-model="form.age"></el-input>
+              <iep-input-number v-model="form.age" :max="200"></iep-input-number>
             </el-form-item>
             <el-form-item label="外部头衔：" class="form-half">
               <el-input v-model="form.title"></el-input>

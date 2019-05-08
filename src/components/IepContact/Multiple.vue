@@ -54,7 +54,7 @@ export default {
     },
   },
   data () {
-    this.querySearch = debounce(this.querySearch, 500)
+    this.querySearch = debounce(this.querySearch, 800)
     return {
       filterText: '',
       dialogShow: false,
@@ -84,9 +84,6 @@ export default {
         }
       })
     },
-    // userPyListFilter () {
-    //   return this.userPyList.filter(m => !this.userIds.includes(m.id))
-    // },
     orgs: {
       get: function () { return this.group.orgs },
       set: function (value) { this.group.orgs = value },
@@ -124,7 +121,6 @@ export default {
     },
   },
   created () {
-    // this.loadPyList()
   },
   watch: {
     filterText (val) {

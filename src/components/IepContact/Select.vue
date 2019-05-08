@@ -1,12 +1,12 @@
 <template>
   <operation-wrapper class="contact-wrapper">
-    <a-select showSearch labelInValue :value="userValue" placeholder="请输入姓名或姓名拼音" :defaultActiveFirstOption="false" :showArrow="false" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select">
+    <a-select showSearch labelInValue :value="userValue" placeholder="请输入姓名或姓名拼音" :showArrow="false" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select">
       <a-select-option v-for="user in userResults" :key="user.id">{{user.name}}</a-select-option>
     </a-select>
     <a-button @click="openContact()">通讯录</a-button>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="dialogShow = false" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
-      <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="treeData" :show-checkbox="showCheckbox" @node-click="selectUser" :default-expanded-keys="[1]" node-key="value">
+      <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="treeData" @node-click="selectUser" :default-expanded-keys="[1]" node-key="value">
         <span class="custom-tree-node" slot-scope="{ node, data }">
           <span :class="{'is-disabled':isDisabled(data, node)}" @click="() => selectUser(data, node)">{{ node.label }}</span>
         </span>
@@ -22,10 +22,6 @@ import debounce from 'lodash/debounce'
 export default {
   name: 'IepContactSelect',
   props: {
-    showCheckbox: {
-      type: Boolean,
-      default: false,
-    },
     filterUserList: {
       type: Array,
       default: () => [],
@@ -36,7 +32,7 @@ export default {
     },
   },
   data () {
-    this.handleSearch = debounce(this.handleSearch, 500)
+    this.handleSearch = debounce(this.handleSearch, 800)
     return {
       dialogShow: false,
       fetching: false,

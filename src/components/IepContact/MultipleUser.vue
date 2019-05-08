@@ -47,7 +47,7 @@ export default {
     },
   },
   data () {
-    this.handleSearch = debounce(this.handleSearch, 500)
+    this.handleSearch = debounce(this.handleSearch, 800)
     return {
       filterText: '',
       dialogShow: false,
@@ -79,12 +79,8 @@ export default {
         }
       })
     },
-    // userPyListFilter () {
-    //   return this.userPyList.filter(m => !this.userIds.includes(m.id))
-    // },
   },
   created () {
-    // this.loadPyList()
   },
   watch: {
     filterText (val) {

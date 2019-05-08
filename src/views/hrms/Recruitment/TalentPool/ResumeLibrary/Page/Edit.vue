@@ -46,7 +46,7 @@
                 <iep-tip content="此处请填写您的实际周岁年龄"></iep-tip>
                 ：
               </span>
-              <el-input v-model="form.age"></el-input>
+              <iep-input-number v-model="form.age" :max="200"></iep-input-number>
             </el-form-item>
             <el-form-item class="form-half">
               <span slot="label">

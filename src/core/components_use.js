@@ -36,6 +36,7 @@ import IepDescriptionItem from '@/components/IepForm/DescriptionItem'
 import IepTagDetail from '@/components/IepForm/TagDetail'
 import IepDivDetail from '@/components/IepForm/DivDetail'
 import IepDateRangeSelect from '@/components/IepForm/DateRangeSelect'
+import IepFormItem from '@/components/IepForm/FormItem'
 
 // input
 import IepInputNumber from '@/components/IepInput/InputNumber'
@@ -81,6 +82,7 @@ import IepAppRankingCard from '@/components/IepApp/RankingCard'
 import IepAppLabelCard from '@/components/IepApp/LabelCard'
 import IepAppAssortCard from '@/components/IepApp/AssortCard'
 import IepAppRewardCard from '@/components/IepApp/RewardCard'
+import IepAppEvaluationReview from '@/components/IepApp/EvaluationReview'
 
 // 注册全局容器
 Vue.component(BasicContainer.name, BasicContainer)
@@ -120,6 +122,7 @@ Vue.component(IepTagDetail.name, IepTagDetail)
 Vue.component(IepDivDetail.name, IepDivDetail)
 Vue.component(IepInputArea.name, IepInputArea)
 Vue.component(IepDateRangeSelect.name, IepDateRangeSelect)
+Vue.component(IepFormItem.name, IepFormItem)
 
 // 头像上传文件有关组件
 Vue.component(IepImgAvatar.name, IepImgAvatar)
@@ -161,3 +164,4 @@ Vue.component(IepAppRankingCard.name, IepAppRankingCard)
 Vue.component(IepAppLabelCard.name, IepAppLabelCard)
 Vue.component(IepAppAssortCard.name, IepAppAssortCard)
 Vue.component(IepAppRewardCard.name, IepAppRewardCard)
+Vue.component(IepAppEvaluationReview.name, IepAppEvaluationReview)

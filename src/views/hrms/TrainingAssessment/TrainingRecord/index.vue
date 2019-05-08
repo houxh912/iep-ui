@@ -14,30 +14,6 @@
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="trainingTheme">
-            <!-- <el-form :model="paramForm" label-width="80px" size="mini">
-              <el-form-item label="培训主题">
-                <el-input v-model="paramForm.theme" placeholder="请输入培训主题"></el-input>
-              </el-form-item>
-              <el-form-item label="培训老师">
-                <el-input v-model="paramForm.teacher" placeholder="请输入培训主老师姓名"></el-input>
-              </el-form-item>
-              <el-form-item label="培训类型">
-                <el-select v-model="paramForm.type" placeholder="请选择培训类型">
-                  <el-option label="内网培训1" value="内网培训1"></el-option>
-                  <el-option label="内网培训2" value="内网培训1"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="培训时间">
-                <div class="block">
-                  <el-date-picker v-model="dateVal" type="daterange" align="left" unlink-panels range-separator="至" start-placeholder="2019-02-01" end-placeholder="2019-03-01" :picker-options="pickerOptions">
-                  </el-date-picker>
-                </div>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="searchPage">搜索</el-button>
-                <el-button @click="clearSearchParam">清空</el-button>
-              </el-form-item>
-            </el-form> -->
           </operation-search>
         </template>
       </operation-container>

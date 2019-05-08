@@ -5,7 +5,7 @@ const columnsMap = [
     label: '培训主题',
   },
   {
-    prop: 'teacher',
+    prop: 'trainerName',
     label: '培训老师',
   },
   {
@@ -67,6 +67,10 @@ const initForm = () => {
     id: null, // ID
     trainingTheme: '', // 培训主题
     teacher: '', // 培训老师
+    user: {
+      id: '',
+      name: '',
+    }, // 培训老师
     startTime: '', // 培训开始时间
     endTime: '', // 培训结束时间
     typeId: null, // 培训类型
@@ -83,12 +87,14 @@ const initForm = () => {
 const formToVo = (row) => {
   const newForm = mergeByFirst(initForm(), row)
   newForm.material = row.attachFile || []
+  newForm.user = row.trainerList[0]
   return newForm
 }
 
 const formToDto = (row) => {
   const newForm = { ...row }
   newForm.attachFileUrl = row.material.map(m => m.url)[0]
+  newForm.teacher = row.user.id
   delete newForm.material
   delete newForm.attachFile
   return newForm

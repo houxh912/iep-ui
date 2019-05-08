@@ -9,7 +9,7 @@ export default {
   data () {
     return {
       showClass: 2,
-      title:'品牌活动',
+      title:'品牌资料',
       selectList: ['活动', '模板', '宣传'],
       linkName:'',
          dataList: ['国脉集团宣传PPT（16篇）',

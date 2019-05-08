@@ -59,6 +59,10 @@ export default {
     &:hover {
       .operate {
         opacity: 1;
+        &:hover {
+          background-color: #cb3737;
+          color: #fff;
+        }
       }
     }
   }

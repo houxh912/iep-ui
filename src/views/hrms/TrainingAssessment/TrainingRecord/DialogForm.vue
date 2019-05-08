@@ -8,7 +8,7 @@
         <el-input v-model="form.trainingTheme" placeholder="请填入培训主题"></el-input>
       </el-form-item>
       <el-form-item label="培训老师：" prop="teacher">
-        <el-input v-model="form.teacher" placeholder="请填入培训老师"></el-input>
+        <iep-contact-select v-model="form.user"></iep-contact-select>
       </el-form-item>
       <el-form-item label="培训时间：" prop="startTime">
         <iep-date-picker v-model="form.startTime" type="date" placeholder="选择日期"></iep-date-picker>

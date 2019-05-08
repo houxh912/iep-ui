@@ -22,51 +22,31 @@
       </template>
     </operation-container>
     <template>
-      <el-table
-        :data="tableData"
-        style="width: 100%">
-        <el-table-column
-          prop="budgetItem"
-          label="预算项">
+      <el-table :data="tableData" style="width: 100%">
+        <el-table-column prop="budgetItem" label="预算项">
         </el-table-column>
         <el-table-column label="2018">
-          <el-table-column
-            prop="budget"
-            label="预算">
+          <el-table-column prop="budget" label="预算">
           </el-table-column>
-          <el-table-column
-            prop="actual"
-            label="实际">
+          <el-table-column prop="actual" label="实际">
           </el-table-column>
         </el-table-column>
         <el-table-column label="2019">
-          <el-table-column
-            prop="budget"
-            label="预算">
+          <el-table-column prop="budget" label="预算">
           </el-table-column>
-          <el-table-column
-            prop="actual"
-            label="实际">
+          <el-table-column prop="actual" label="实际">
           </el-table-column>
         </el-table-column>
         <el-table-column label="2020">
-          <el-table-column
-            prop="budget"
-            label="预算">
+          <el-table-column prop="budget" label="预算">
           </el-table-column>
-          <el-table-column
-            prop="actual"
-            label="实际">
+          <el-table-column prop="actual" label="实际">
           </el-table-column>
         </el-table-column>
         <el-table-column label="2021">
-          <el-table-column
-            prop="budget"
-            label="预算">
+          <el-table-column prop="budget" label="预算">
           </el-table-column>
-          <el-table-column
-            prop="actual"
-            label="实际">
+          <el-table-column prop="actual" label="实际">
           </el-table-column>
         </el-table-column>
       </el-table>
@@ -83,31 +63,31 @@ export default {
       columnsMap,
       paramForm: initSearchForm(),
       classify: '',
-      tableData:[{
-          budgetItem: '办公房租',
-          budget: '王小虎',
-          actual: '上海',
-        }, {
-          budgetItem: '人工成本',
-          budget: '王小虎',
-          actual: '上海',
-        }, {
-          budgetItem: '员工福利',
-          budget: '王小虎',
-          actual: '上海',
-        }, {
-          budgetItem: '办公费用',
-          budget: '王小虎',
-          actual: '上海',
-        }, {
-          budgetItem: '公司车辆费用',
-          budget: '王小虎',
-          actual: '上海',
-        }, {
-          budgetItem: '合计',
-          budget: '王小虎',
-          actual: '上海',
-        }],
+      tableData: [{
+        budgetItem: '办公房租',
+        budget: '1',
+        actual: '2',
+      }, {
+        budgetItem: '人工成本',
+        budget: '3',
+        actual: '4',
+      }, {
+        budgetItem: '员工福利',
+        budget: '5',
+        actual: '6',
+      }, {
+        budgetItem: '办公费用',
+        budget: '7',
+        actual: '8',
+      }, {
+        budgetItem: '公司车辆费用',
+        budget: '9',
+        actual: '0',
+      }, {
+        budgetItem: '合计',
+        budget: '11',
+        actual: '12',
+      }],
     }
   },
   created () {

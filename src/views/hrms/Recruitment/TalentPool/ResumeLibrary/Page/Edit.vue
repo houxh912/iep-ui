@@ -10,107 +10,64 @@
             <template slot="title">
               <i class="header-icon el-icon-info"></i> 基础信息
             </template>
-            <el-form-item prop="name" class="form-half">
-              <span slot="label">
-                姓名
-                <iep-tip content="请务必根据本人身份证上的姓名全称填写"></iep-tip>
-                ：
-              </span>
+            <iep-form-item class="form-half" prop="name" label-name="姓名" tip="请务必根据本人身份证上的姓名全称填写">
               <el-input v-model="form.name"></el-input>
-            </el-form-item>
-            <el-form-item label="性别：" class="form-half">
+            </iep-form-item>
+
+            <iep-form-item class="form-half" prop="sex" label-name="性别" tip="">
               <el-radio-group v-model="form.sex">
                 <el-radio :label="1">男</el-radio>
                 <el-radio :label="2">女</el-radio>
               </el-radio-group>
-            </el-form-item>
-            <el-form-item class="">
-              <div slot="label">
-                头像
-                <iep-tip content="请务必根据以下说明上传头像：<br/>1. 照片必须为本人真实、正面、静态、采用蓝、白、灰底1年内的证件照；<br/>2. 上传尺寸为宽300像素*高300像素"></iep-tip>
-                ：
-              </div>
+            </iep-form-item>
+
+            <iep-form-item prop="avatar" label-name="头像" tip="请务必根据以下说明上传头像：<br/>1. 照片必须为本人真实、正面、静态、采用蓝、白、灰底1年内的证件照；<br/>2. 上传尺寸为宽300像素*高300像素">
               <iep-avatar v-model="form.avatar"></iep-avatar>
-            </el-form-item>
-            <el-form-item class="form-half">
-              <span slot="label">
-                出生年月
-                <iep-tip content="请务必填写身份证上的年月"></iep-tip>
-                ：
-              </span>
-              <IepDatePicker v-model="form.birthday" type="date" placeholder="选择日期"></IepDatePicker>
-            </el-form-item>
-            <el-form-item class="form-half">
-              <span slot="label">
-                年龄
-                <iep-tip content="此处请填写您的实际周岁年龄"></iep-tip>
-                ：
-              </span>
-              <el-input v-model="form.age"></el-input>
-            </el-form-item>
-            <el-form-item class="form-half">
-              <span slot="label">
-                外部头衔
-                <iep-tip content="此处填写您在外部获得的头衔，如电子商务协会副会长"></iep-tip>
-                ：
-              </span>
+            </iep-form-item>
+
+            <iep-form-item class="form-half" prop="birthday" label-name="出生年月" tip="请务必填写身份证上的年月">
+              <iep-date-picker v-model="form.birthday" type="date" placeholder="选择日期"></iep-date-picker>
+            </iep-form-item>
+
+            <iep-form-item class="form-half" prop="age" label-name="年龄" tip="此处请填写您的实际周岁年龄">
+              <iep-input-number v-model="form.age" :max="200"></iep-input-number>
+            </iep-form-item>
+
+            <iep-form-item class="form-half" prop="title" label-name="外部头衔" tip="此处填写您在外部获得的头衔，如电子商务协会副会长">
               <el-input v-model="form.title"></el-input>
-            </el-form-item>
-            <el-form-item prop="phone" class="form-half">
-              <span slot="label">
-                联系手机
-                <iep-tip content="请务必填写可联系上的手机号码"></iep-tip>
-                ：
-              </span>
+            </iep-form-item>
+
+            <iep-form-item class="form-half" prop="phone" label-name="联系手机" tip="请务必填写可联系上的手机号码">
               <el-input v-model="form.phone"></el-input>
-            </el-form-item>
-            <el-form-item class="form-half">
-              <span slot="label">
-                邮箱
-                <iep-tip content="请务必填写本人常用的邮箱账号"></iep-tip>
-                ：
-              </span>
+            </iep-form-item>
+
+            <iep-form-item class="form-half" prop="email" label-name="邮箱" tip="请务必填写本人常用的邮箱账号">
               <el-input v-model="form.email"></el-input>
-            </el-form-item>
-            <el-form-item class="form-half">
-              <span slot="label">
-                身高
-                <iep-tip content="请务必填写准确的身高，以cm结尾"></iep-tip>
-                ：
-              </span>
+            </iep-form-item>
+
+            <iep-form-item class="form-half" prop="height" label-name="身高" tip="请务必填写准确的身高，以cm结尾">
               <el-input v-model="form.height">
                 <template slot="append">cm</template>
               </el-input>
-            </el-form-item>
-            <el-form-item label="身高：" class="form-half">
-              <span slot="label">
-                体重
-                <iep-tip content="请务必填写当前体重，以kg结尾"></iep-tip>
-                ：
-              </span>
+            </iep-form-item>
+
+            <iep-form-item class="form-half" prop="weight" label-name="体重" tip="请务必填写当前体重，以kg结尾">
               <el-input v-model="form.weight">
                 <template slot="append">kg</template>
               </el-input>
-            </el-form-item>
-            <el-form-item class="form-half">
-              <span slot="label">
-                民族
-                <iep-tip content="请务必准确填写，后缀含“族”，即汉族、满族、维吾尔族等"></iep-tip>
-                ：
-              </span>
+            </iep-form-item>
+
+            <iep-form-item class="form-half" prop="nation" label-name="民族" tip="请务必准确填写，后缀含“族”，即汉族、满族、维吾尔族等">
               <el-input v-model="form.nation"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <span slot="label">
-                现住地址
-                <iep-tip content="请务必精确到区/县+乡镇/街道+村/社区+小区/街+幢/弄号"></iep-tip>
-                ：
-              </span>
+            </iep-form-item>
+
+            <iep-form-item prop="cities" label-name="现住地址" tip="请务必精确到区/县+乡镇/街道+村/社区+小区/街+幢/弄号">
               <div style="display:flex;">
                 <iep-cascader style="flex:1;" v-model="form.cities" prefix-url="admin/city"></iep-cascader>
                 <el-input style="flex:3;" v-model="form.address"></el-input>
               </div>
-            </el-form-item>
+            </iep-form-item>
+
             <el-form-item label="政治面貌：" class="form-half">
               <iep-dict-select v-model="form.politics" dict-name="hrms_politics_face"></iep-dict-select>
             </el-form-item>

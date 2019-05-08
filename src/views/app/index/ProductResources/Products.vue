@@ -56,7 +56,7 @@ export default {
     }
   }
   .box{
-    width: 360px;
+    width: 355px;
     height: 80px;
     float: left;
     .name{

@@ -30,6 +30,7 @@
         <div class="button-list" v-if="isDelete">
           <iep-button type="primary" @click="handleCollect">{{formData.collection == 1 ? '已收藏' : '收藏'}}</iep-button>
           <iep-button type="primary" @click="handleShare">分享</iep-button>
+          <iep-button type="primary" @click="handleWrong">纠错</iep-button>
           <iep-button type="primary" @click="handleComment">评论</iep-button>
           <iep-button type="primary" @click="handleReward">打赏</iep-button>
           <iep-button type="primary" @click="Instructions" v-if="permission_instruct">领导批示</iep-button>
@@ -82,6 +83,7 @@
       <h3 class="title">抄送人</h3>
       <p class="content" v-text="formData.receiverName"></p>
     </el-col>
+    <wrongDialog ref="wrong"></wrongDialog>
     <instr-dialog ref="instrDialog"></instr-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="meeting" :requestFn="createCollect"></collection-dialog>
     <share-dialog ref="share" type="summary"></share-dialog>
@@ -94,6 +96,7 @@ import { commentMaterial, getCommentPage } from '@/api/mlms/index'
 import { createCollect } from '@/api/mlms/material/summary'
 import ShareDialog from '@/views/mlms/material/components/shareDialog'
 import CollectionDialog from '@/views/mlms/material/components/collectionDialog'
+import wrongDialog from '@/views/mlms/material/components/wrongDialog'
 import { mapGetters } from 'vuex'
 
 function commentForm () {
@@ -112,7 +115,7 @@ const pageSize = {
 }
 
 export default {
-  components: { InstrDialog, ShareDialog, CollectionDialog },
+  components: { InstrDialog, ShareDialog, CollectionDialog, wrongDialog },
   props: {
     detailState: {
       type: Boolean,
@@ -223,6 +226,14 @@ export default {
     // 分享
     handleShare () {
       this.$refs['share'].open([this.formData], `关于 ${this.formData.title} 材料的分享`)
+    },
+    // 纠错
+    handleWrong () {
+      this.$refs['wrong'].open({
+        subject: `纠错：${this.formData.title}`,
+        receiverIds: [this.formData.userId],
+        receiverName: this.formData.realName,
+      })
     },
     // 评论
     handleComment () {

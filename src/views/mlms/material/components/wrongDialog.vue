@@ -43,9 +43,7 @@ export default {
   methods: {
     open (row) {
       this.dialogShow = true
-      this.formData.subject = `纠错：${row.materialName}`
-      this.formData.receiverIds = [row.creator]
-      this.formData.receiverName = row.creatorRealName
+      this.formData = Object.assign({}, this.formData, row)
     },
     loadPage () {
       this.$emit('load-page')

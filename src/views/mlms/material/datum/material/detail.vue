@@ -250,7 +250,11 @@ export default {
     },
     // 纠错
     handleWrong () {
-      this.$refs['wrong'].open(this.formData)
+      this.$refs['wrong'].open({
+        subject: `纠错：${this.formData.materialName}`,
+        receiverIds: [this.formData.creator],
+        receiverName: this.formData.creatorRealName,
+      })
     },
     // 评论
     handleComment () {

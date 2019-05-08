@@ -23,10 +23,7 @@
         <el-form-item label="会议总结：" prop="meetingCon">
           <!-- <el-input type="textarea" v-model="formData.meetingCon" rows=8 maxlength="1000" :placeholder="tipContent.meetingCon"></el-input> -->
 <el-input type="textarea" v-model="formData.meetingCon" rows=8 maxlength="1000" placeholder="一、简明扼要说明会议精神，如1、2、3......
-二、清晰罗列下一步工作计划，如1、2、3......（关联人员需要着重说明）
-案例：
-一、此次会议精神包含以下两点：
-1、内网2.0"></el-input>
+二、清晰罗列下一步工作计划，如1、2、3......（关联人员需要着重说明）"></el-input>
         </el-form-item>
         <el-form-item label="备注：" prop="thoughtsProblem" v-if="formData.type==1">
           <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000"></el-input>

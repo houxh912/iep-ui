@@ -96,7 +96,6 @@
         <p v-for="(item, index) in greatMaterialList" :key="index" @click="handleDetail(item)">{{item.name}}</p>
       </div>
     </el-col>
-    <wrongDialog ref="wrong"></wrongDialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="honor" :requestFn="createCollect"></collection-dialog>
     <share-dialog ref="share" type="material"></share-dialog>
   </basic-container>
@@ -110,7 +109,6 @@ import { downloadFile } from '@/api/common'
 import CollectionDialog from '../../components/collectionDialog'
 import { createCollect } from '@/api/mlms/material/summary'
 import ShareDialog from '@/views/mlms/material/components/shareDialog'
-import wrongDialog from '@/views/mlms/material/components/wrongDialog'
 
 function commentForm () {
   return {
@@ -128,7 +126,7 @@ const pageSize = {
 }
 
 export default {
-  components: { wrongDialog, CollectionDialog, ShareDialog },
+  components: { CollectionDialog, ShareDialog },
   props: {
     detailState: {
       type: Boolean,

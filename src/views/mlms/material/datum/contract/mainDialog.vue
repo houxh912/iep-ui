@@ -166,13 +166,17 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loadState = true
-          this.formRequestFn(this.formData).then(() => {
+          this.formRequestFn(this.formData).then(({data}) => {
             this.loadState = false
-            this.$message({
-              message: `${this.methodName}成功`,
-              type: 'success',
-            })
-            this.loadPage()
+            if (data.data) {
+              this.$message({
+                message: `${this.methodName}成功`,
+                type: 'success',
+              })
+              this.loadPage()
+            } else {
+              this.$message.error(data.msg)
+            }
           })
         } else {
           return false

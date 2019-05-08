@@ -7,7 +7,7 @@ export default [
     children: [
       {
         path: 'detail/:id',
-        component: () => import('@/views/activiti/detail'),
+        component: () => import(/* webpackChunkName: "page" */ '@/views/activiti/detail'),
       },
     ],
   },
@@ -19,8 +19,7 @@ export default [
     children: [
       {
         path: '404',
-        component: () =>
-          import(/* webpackChunkName: "page" */ '@/components/error-page/404'),
+        component: () => import(/* webpackChunkName: "page" */ '@/components/error-page/404'),
         name: '404',
         meta: {
           keepAlive: true,
@@ -30,8 +29,7 @@ export default [
       },
       {
         path: '403',
-        component: () =>
-          import(/* webpackChunkName: "page" */ '@/components/error-page/403'),
+        component: () => import(/* webpackChunkName: "page" */ '@/components/error-page/403'),
         name: '403',
         meta: {
           keepAlive: true,
@@ -41,8 +39,7 @@ export default [
       },
       {
         path: '500',
-        component: () =>
-          import(/* webpackChunkName: "page" */ '@/components/error-page/500'),
+        component: () => import(/* webpackChunkName: "page" */ '@/components/error-page/500'),
         name: '500',
         meta: {
           keepAlive: true,
@@ -52,8 +49,7 @@ export default [
       },
       {
         path: '502',
-        component: () =>
-          import(/* webpackChunkName: "page" */ '@/components/error-page/502'),
+        component: () => import(/* webpackChunkName: "page" */ '@/components/error-page/502'),
         name: '502',
         meta: {
           keepAlive: true,
@@ -63,8 +59,7 @@ export default [
       },
       {
         path: '503',
-        component: () =>
-          import(/* webpackChunkName: "page" */ '@/components/error-page/503'),
+        component: () => import(/* webpackChunkName: "page" */ '@/components/error-page/503'),
         name: '503',
         meta: {
           keepAlive: true,
@@ -74,8 +69,7 @@ export default [
       },
       {
         path: '504',
-        component: () =>
-          import(/* webpackChunkName: "page" */ '@/components/error-page/504'),
+        component: () => import(/* webpackChunkName: "page" */ '@/components/error-page/504'),
         name: '504',
         meta: {
           keepAlive: true,

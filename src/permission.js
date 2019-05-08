@@ -25,22 +25,6 @@ router.beforeEach((to, from, next) => {
     mainMenu,
     otherMenus,
   } = store.getters
-  // 缓冲设置
-  // if (
-  //   to.meta.keepAlive === true &&
-  //   store.state.tags.tagList.some(ele => {
-  //     return ele.value === to.fullPath
-  //   })
-  // ) {
-  //   to.meta.$keepAlive = true
-  // } else {
-  //   NProgress.start()
-  //   if (to.meta.keepAlive === true && validatenull(to.meta.$keepAlive)) {
-  //     to.meta.$keepAlive = true
-  //   } else {
-  //     to.meta.$keepAlive = false
-  //   }
-  // }
   NProgress.start()
   const meta = to.meta || {}
   if (access_token) {

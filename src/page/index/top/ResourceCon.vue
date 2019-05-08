@@ -59,6 +59,7 @@ export default {
     margin-bottom: 8px;
     font-size: 14px;
     line-height: 14px;
+    color: #999;
   }
   .resource-count {
     font-size: 18px;

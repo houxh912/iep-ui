@@ -30,12 +30,12 @@
       <el-row>
         <el-col :span='12'>
           <el-form-item label="签订日期：" prop="signTime">
-            <IepDatePicker v-model="formData.signTime"></IepDatePicker>
+            <IepDatePicker v-model="formData.signTime" :picker-options="signTimeOption"></IepDatePicker>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
           <el-form-item label="完结日期：" prop="finishTime">
-            <IepDatePicker v-model="formData.finishTime"></IepDatePicker>
+            <IepDatePicker v-model="formData.finishTime" :picker-options="finishTimeOption"></IepDatePicker>
           </el-form-item>
         </el-col>
       </el-row>
@@ -144,6 +144,24 @@ export default {
         },
       },
       limit: 1,
+      signTimeOption: {
+        disabledDate: (time) => {
+          if (this.formData.finishTime) {
+            return time.getTime() > +new Date(this.formData.finishTime)
+          } else {
+            return time.getTime() < 0
+          }
+        },
+      },
+      finishTimeOption: {
+        disabledDate: (time) => {
+          if (this.formData.signTime) {
+            return time.getTime() < +new Date(this.formData.signTime)
+          } else {
+            return time.getTime() < 0
+          }
+        },
+      },
     }
   },
   methods: {

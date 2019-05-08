@@ -31,7 +31,6 @@
         </IepAppTabCard>
       </div>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>

@@ -11,6 +11,14 @@ export function getWithdrawPage (query) {
   })
 }
 
+export function getMyWithdrawPage (query) {
+  return request({
+    url: `${prefixUrl}/my/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
 export function postWithdraw (obj) {
   return request({
     url: `${prefixUrl}/create`,

@@ -53,7 +53,7 @@
   </div>
 </template>
 <script>
-import { getWithdrawPage } from '@/api/fams/withdraw'
+import { getMyWithdrawPage } from '@/api/fams/withdraw'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
 export default {
@@ -77,7 +77,7 @@ export default {
       })
     },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getWithdrawPage)
+      this.loadTable(param, getMyWithdrawPage)
     },
     handleAdd () {
       this.$router.push({

@@ -165,7 +165,6 @@ export default {
         border-radius: 3px;
         background-color: #fff;
         box-shadow: 0px 0px 1px 2px #eee;
-        -webkit-transition: all 0.5s;
         transition: all 0.5s;
       }
       .btn-search {
@@ -173,7 +172,6 @@ export default {
         font-size: 20px;
         line-height: 60px;
         cursor: pointer;
-        -webkit-transition: all 0.5s;
         transition: all 0.5s;
         &:hover,
         &:focus {

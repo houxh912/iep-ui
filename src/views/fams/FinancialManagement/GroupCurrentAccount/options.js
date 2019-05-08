@@ -1,73 +1,40 @@
-import { mergeByFirst } from '@/util/util'
+const dictsMap = {
+  type: {
+    'A': '收入',
+    'L': '支出',
+  },
+}
 
 const columnsMap = [
   {
-    prop: 'class',
+    prop: 'serialNo',
+    label: '流水号',
+    minWidth: 100,
+  },
+  {
+    prop: 'categoryName',
     label: '往来分类',
+    // type: 'dictGroup',
+    // dictName: 'fams_current_bill_flow_type',
   },
   {
-    prop: 'contacts',
-    label: '往来类型',
+    prop: 'type',
+    label: '往来类别',
+    type: 'dict',
   },
   {
-    prop: 'money',
+    prop: 'amount',
     label: '金额',
   },
   {
-    prop: 'data',
+    prop: 'createTime',
     label: '日期',
   },
   {
-    prop: 'remark',
+    prop: 'remarks',
     label: '备注',
   },
 ]
 
-const initForm = () => {
-  return {
-    'id': '',
-    'name': '',
-  }
-}
 
-const initDtoForm = () => {
-  return {
-    'id': '',
-    'name': '',
-  }
-}
-
-const formToDto = (form) => {
-  const newForm = mergeByFirst(initDtoForm(), form)
-  newForm.positionId = form.position[form.position.length - 1]
-  return newForm
-}
-
-const initSearchForm = () => {
-  return {
-    name: '',
-    sex: '',
-  }
-}
-const initToResumeForm = () => {
-  return {
-    ids: [],
-    reason: '',
-  }
-}
-const initToBlacklistForm = () => {
-  return {
-    ids: [],
-    area: '',
-    reason: '',
-  }
-}
-
-const initrejectedForm = () => {
-  return {
-    msg: '',
-  }
-}
-
-
-export { columnsMap, initForm, initSearchForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm}
+export { columnsMap, dictsMap }

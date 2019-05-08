@@ -21,6 +21,9 @@
           <template v-if="item.type==='dict'">
             <div>{{dictsMap[item.prop][scope.row[item.prop]]}}</div>
           </template>
+          <template v-else-if="item.type==='dictGroup'">
+            <div>{{dictJS(item, scope)}}</div>
+          </template>
           <template v-else-if="item.type==='tag'">
             <iep-tag-detail :value="scope.row[item.prop]"></iep-tag-detail>
           </template>
@@ -37,6 +40,8 @@
 
 <script>
 import treeToArray from './eval'
+import keyBy from 'lodash/keyBy'
+import { mapGetters } from 'vuex'
 export default {
   name: 'IepTable',
   inheritAttrs: false,
@@ -102,11 +107,10 @@ export default {
       default: 10,
     },
   },
-  data () {
-    return {
-    }
-  },
   computed: {
+    ...mapGetters([
+      'dictGroup',
+    ]),
     initPageSize () {
       const { pageOptionSize } = this
       return [pageOptionSize, pageOptionSize * 2, pageOptionSize * 3, pageOptionSize * 4]
@@ -125,6 +129,9 @@ export default {
     },
   },
   methods: {
+    dictJS (item, scope) {
+      return keyBy(this.dictGroup[item.dictName], 'value')[scope.row[item.prop]].label
+    },
     cellClassName ({ row }) {
       const { _level } = row
       if (_level === 1) {

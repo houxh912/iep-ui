@@ -32,9 +32,9 @@ export default {
 
 
 <style lang="scss" scoped>
-
 .resource-wrapper {
   display: flex;
+  margin: 0 auto;
   width: 1200px;
   justify-content: space-between;
   align-items: center;
@@ -42,27 +42,27 @@ export default {
 }
 .resource-item {
   cursor: pointer;
-  display: flex;
-  padding: 20px 0;
+  padding: 10px 0 20px;
   width: 100%;
   height: 100%;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
   &:hover,
   &:focus {
-    background: rgba(248, 248, 248, 0.9);
+    background: rgba(245, 245, 245, 0.9);
   }
   & > i {
+    margin-right: 0;
     font-size: 30px !important;
     height: 30px;
   }
   .resource-title {
-    font-size: 16px;
-    height: 30px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 14px;
   }
   .resource-count {
     font-size: 18px;
-    height: 30px;
+    line-height: 18px;
   }
 }
 </style>

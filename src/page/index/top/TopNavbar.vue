@@ -107,10 +107,9 @@ export default {
   overflow: hidden;
   left: 0;
   top: 60px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(252, 252, 252, 0.99);
   box-shadow: 1px 1px 3px #ccc;
   box-sizing: border-box;
-  -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
 .nav {
@@ -149,7 +148,6 @@ export default {
         .nav-bar {
           display: flex;
           margin: 0 20px;
-          height: 0;
           -webkit-transition: all 0.5s;
           transition: all 0.5s;
           justify-content: center;
@@ -199,9 +197,9 @@ export default {
     }
   }
 }
-.show{
-  &:hover .sub-nav-menu{
-    height: 140px;
+.show {
+  &:hover .sub-nav-menu {
+    height: 132px;
   }
 }
 </style>

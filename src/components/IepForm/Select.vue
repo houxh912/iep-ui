@@ -25,9 +25,19 @@ export default {
     }
   },
   created () {
-    getCommonList(this.prefixUrl).then(({ data }) => {
-      this.options = data.data
-    })
+    this.load()
+  },
+  methods: {
+    load () {
+      getCommonList(this.prefixUrl).then(({ data }) => {
+        this.options = data.data
+      })
+    },
+  },
+  watch: {
+    'prefixUrl': function () {
+      this.load()
+    },
   },
 }
 </script>

@@ -33,7 +33,7 @@
 <script>
 import { getWithdrawPage } from '@/api/fams/withdraw'
 import mixins from '@/mixins/mixins'
-import { columnsMap, dictsMap } from './options.js'
+import { columnsMap, dictsMap, initGrantForm } from './options.js'
 import grantDialogForm from './grantDialogForm'
 import passDialogForm from './passDialogForm'
 import rejectDialogForm from './rejectDialogForm'
@@ -72,13 +72,13 @@ export default {
         this.$message('请先选择需要的选项')
         return
       }
-      this.$refs['grantDialogForm'].ids = this.multipleSelection
-      this.$refs['grantDialogForm'].content = ''
+      this.$refs['grantDialogForm'].form = initGrantForm()
+      this.$refs['grantDialogForm'].form.ids = this.multipleSelection
       this.$refs['grantDialogForm'].dialogShow = true
     },
     handleGrant (row) {
-      this.$refs['grantDialogForm'].ids = [row.id]
-      this.$refs['grantDialogForm'].content = ''
+      this.$refs['grantDialogForm'].form = initGrantForm()
+      this.$refs['grantDialogForm'].form.ids = [row.id]
       this.$refs['grantDialogForm'].dialogShow = true
     },
     handlePassBatch () {

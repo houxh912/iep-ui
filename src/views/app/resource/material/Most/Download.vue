@@ -18,9 +18,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.download{
-  padding: 0 20px 20px 20px;
-}
 </style>
 
 

@@ -51,6 +51,7 @@ export default {
       current: ['mail'],
       rootSubmenuKeys: ['sub1', 'sub2', 'sub4'],
       openKeys: ['sub1'],
+      data:[11,22,41,52,41,41,12],
     }
   },
   methods: {

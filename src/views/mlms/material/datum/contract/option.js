@@ -82,7 +82,7 @@ export const initFormData = () => {
 }
 
 let intValidate = (rule, value, callback) => {
-  if (/^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/.test(value)) {
+  if (/^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/.test(value) || value === '') {
     callback()
   } else {
     callback(new Error())
@@ -90,7 +90,7 @@ let intValidate = (rule, value, callback) => {
 }
 
 let xsValidate = (rule, value, callback) => {
-  if (/^\d+(\.\d{1,2})?$/.test(value)) {
+  if (/^\d+(\.\d{1,2})?$/.test(value) || value === '') {
     callback()
   } else {
     callback(new Error())
@@ -147,9 +147,9 @@ export const rules = {
     { required: true, message: '必填', trigger: 'change' },
   ],
   contractAmount: [
-    { required: true, message: '必填', trigger: 'blur' },
-    { validator: intValidate, message: '请输入正数', trigger: 'blur' },
-    { validator: xsValidate, message: '小数位最多为2位', trigger: 'blur' },
+    { required: true, message: '必填', trigger: 'change' },
+    { validator: intValidate, message: '请输入正数', trigger: 'change' },
+    { validator: xsValidate, message: '小数位最多为2位', trigger: 'change' },
   ],
   contractLevel: [
     { required: true, message: '必填', trigger: 'change' },
@@ -158,8 +158,8 @@ export const rules = {
     { required: true, message: '必填', trigger: 'change' },
   ],
   deposit: [
-    { validator: intValidate, message: '请输入正数', trigger: 'blur' },
-    { validator: xsValidate, message: '小数位最多为2位', trigger: 'blur' },
+    { validator: intValidate, message: '请输入正数', trigger: 'change' },
+    { validator: xsValidate, message: '小数位最多为2位', trigger: 'change' },
   ],
   projectId: [
     { required: true, message: '必填', trigger: 'change' },

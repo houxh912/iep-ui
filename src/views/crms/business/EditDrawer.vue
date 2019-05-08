@@ -1,6 +1,6 @@
 <template>
   <iep-drawer :drawer-show="drawerShow" type="drawer" :title="methodName+'商机'" width="40%" @close="loadPage">
-    <el-form :model="formData" :rules="methodName=='修改' ? false: rules" ref="formName" label-width="120px" size="small">
+    <el-form :model="formData" :rules="methodName=='修改' ? rule: rules" ref="formName" label-width="120px" size="small">
       <el-form-item prop="clientName">
         <span slot="label">
           客户名称
@@ -23,9 +23,10 @@
           <iep-tip :content="tipContent.businessType"></iep-tip>
           :
         </span>
-        <el-checkbox-group v-model="formData.businessType">
+        <!-- <el-checkbox-group v-model="formData.businessType">
           <el-checkbox v-for="item in dictGroup['crms_client_opportunity']" :key="item.value" :label="item.value">{{item.label}}</el-checkbox>
-        </el-checkbox-group>
+        </el-checkbox-group> -->
+        <businessType v-model="formData.businessType"></businessType>
       </el-form-item>
       <el-form-item prop="intentionLevel">
         <span slot="label">
@@ -64,6 +65,7 @@ import { mapGetters } from 'vuex'
 import { checkName } from '@/api/crms/customer'
 import { checkBusinessName } from '@/api/crms/business'
 import { initForm } from './options'
+import businessType from './businessType'
 const tipContent = {
   clientName: '客户名称精确到局办且为全称， 如：“北京市行政服务中心”',
   projectName: '请准确填写该商机对接的项目信息，发布日期+部委/省级名称+项目内容，如“20190406农业部信息中心互联网+政务规划设计需求”。',
@@ -72,6 +74,7 @@ const tipContent = {
   opportunityDes: '请尽可能将获取的客户需求及相关信息有条理的描述清楚，如有建议更好',
 }
 export default {
+  components: { businessType },
   data () {
     var validateFun = (rule, value, callback) => {
 
@@ -128,6 +131,22 @@ export default {
           { max: 100, message: '长度不超过100个字符', trigger: 'blur' },
         ],
       },
+      rule: {
+        projectName: [
+          { required: true, message: '请输入项目名称', trigger: 'blur' },
+          { min: 2, max: 25, message: '长度在 2 到 25 个字符', trigger: 'blur' }],
+        businessType: [
+          { required: true, message: '请选择业务类型', trigger: 'blur' },
+        ],
+        intentionLevel: [
+          { required: true, message: '请选择意向程度', trigger: 'blur' },
+        ],
+        tags: [{ required: true, message: '请添加商机标签', trigger: 'blur' }],
+        opportunityDes: [
+          { required: true, message: '请输入商机描述', trigger: 'blur' },
+          { max: 100, message: '长度不超过100个字符', trigger: 'blur' },
+        ],
+      },
       drawerShow: false,
       formRequestFn: () => { },
     }
@@ -137,6 +156,9 @@ export default {
       'userInfo',
       'dictGroup',
     ]),
+  },
+  created () {
+    console.log(this.formData)
   },
   methods: {
     validateFun () {

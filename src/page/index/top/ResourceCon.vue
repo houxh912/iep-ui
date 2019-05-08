@@ -54,6 +54,7 @@ export default {
     margin-right: 0;
     font-size: 30px !important;
     height: 30px;
+    color: #999 !important;
   }
   .resource-title {
     margin-top: -5px;

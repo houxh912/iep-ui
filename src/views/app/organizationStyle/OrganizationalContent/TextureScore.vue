@@ -96,31 +96,31 @@ export default {
 }
 </style>
 <style scoped>
-.index-card >>> .el-card__body {
+.texture-score >>> .el-card__body {
   padding: 0;
   overflow-x: hidden;
 }
-.index-card >>> .el-card__body::-webkit-scrollbar {
+.texture-score >>> .el-card__body::-webkit-scrollbar {
   border-radius: 10px;
   width: 6px;
   background-color: #fff;
 }
-.index-card >>> .el-card__body::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #ddd;
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-}
-.index-card >>> .el-card__body::-webkit-scrollbar-thumb {
+.texture-score >>> .el-card__body::-webkit-scrollbar-track {
   border-radius: 10px;
   background-color: #fff;
   -webkit-transition: 0.3s background-color;
   transition: 0.3s background-color;
+}
+.texture-score >>> .el-card__body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
   display: none;
+  background-color: #ddd;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
-.index-card >>> .el-card__body:hover ::-webkit-scrollbar-thumb {
+.texture-score >>> .el-card:hover ::-webkit-scrollbar-thumb {
   display: block;
 }
 

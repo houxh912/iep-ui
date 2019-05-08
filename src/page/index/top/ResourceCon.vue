@@ -42,7 +42,7 @@ export default {
 }
 .resource-item {
   cursor: pointer;
-  padding: 10px 0 20px;
+  padding: 10px 0 25px;
   width: 100%;
   height: 100%;
   text-align: center;
@@ -56,6 +56,7 @@ export default {
     height: 30px;
   }
   .resource-title {
+    margin-top: -5px;
     margin-bottom: 8px;
     font-size: 14px;
     line-height: 14px;

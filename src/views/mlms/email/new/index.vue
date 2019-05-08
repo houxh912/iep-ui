@@ -94,7 +94,8 @@
 </template>
 
 <script>
-import MainDialog from './mainDialog'
+// import MainDialog from './mainDialog'
+import MainDialog from './relationDialog'
 import { createEmail, updateEmail } from '@/api/mlms/email/index'
 import { initFormData, rules, tipContent } from './option'
 

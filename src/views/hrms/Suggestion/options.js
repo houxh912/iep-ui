@@ -9,16 +9,9 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'dept',
-    label: '招聘部门',
-  },
-  {
-    prop: 'recruitsCount',
-    label: '招聘人数',
-  },
-  {
-    prop: 'jobType',
-    label: '工作类型',
+    prop: 'status',
+    label: '状态',
+    type: 'dict',
   },
   {
     prop: 'applicationTime',

@@ -30,7 +30,7 @@
             <operation-wrapper>
               <iep-button type="warning" @click="handleReview(scope.row)" plain>查看</iep-button>
               <iep-button v-if="scope.row.status==0">修改</iep-button>
-              <iep-button>删除</iep-button>
+              <iep-button @click.native="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -74,6 +74,9 @@ export default {
     },
     handleAdd () {
 
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id)
     },
   },
 }

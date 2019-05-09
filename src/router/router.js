@@ -11,6 +11,7 @@ import crmsRouter from './crms/'
 import appRouter from './app/'
 import cpmsRouter from './cpms/'
 import famsRouter from './fams/'
+import exceptionRouter from './exception/'
 import AvueRouter from './avue-router'
 import Store from '../store/'
 
@@ -34,5 +35,5 @@ const Router = new VueRouter({
 AvueRouter.install(Router, Store)
 // console.log('AvueRouter', Store.state.user.menu)
 Router.$avueRouter.formatRoutes(Store.state.menu.menu, true)
-Router.addRoutes([...PageRouter, ...ViewsRouter, ...hrmsRouter, ...imsRouter, ...componentsRouter, ...mlmsRouter, ...welRouter, ...gpmsRouter, ...crmsRouter, ...appRouter, ...cpmsRouter, ...famsRouter])
+Router.addRoutes([...PageRouter, ...ViewsRouter, ...hrmsRouter, ...imsRouter, ...componentsRouter, ...mlmsRouter, ...welRouter, ...gpmsRouter, ...crmsRouter, ...appRouter, ...cpmsRouter, ...famsRouter, ...exceptionRouter])
 export default Router

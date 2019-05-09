@@ -58,8 +58,10 @@ export const initFormData = () => {
     tagKeyWords: [],
     signTime: '',
     finishTime: '',
-    companyOrgId: '',
-    signCompanyOrgId: '',
+    companyOrgId: '', // 委托单位
+    companyOrgObj: {},
+    signCompanyOrgId: '', // 签署单位
+    signCompanyOrgObj: {},
     signDeptOrgId: '', // 签署组织
     signDeptName: '',
     underTakeDeptId: [], // 承接部门

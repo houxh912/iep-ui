@@ -42,12 +42,14 @@
       <el-row v-if="formData.contractType==1">
         <el-col :span='12'>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <iep-select prefix-url="crm/customer" v-model="formData.companyOrgId" @change="clientChange"></iep-select>
+            <!-- <iep-select prefix-url="crm/customer/myorcoll" v-model="formData.companyOrgId" label="clientName" prop="clientId" @change="clientChange"></iep-select> -->
+            <selectMore v-model="formData.companyOrgObj" prefix-url="crm/customer/myorcoll/list" @change="clientChange"></selectMore>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
-            <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId"></iep-select>
+            <!-- <iep-select prefix-url="crm/customer/all" v-model="formData.signCompanyOrgId" label="clientName" prop="clientId"></iep-select> -->
+            <selectMore v-model="formData.signCompanyOrgObj" prefix-url="crm/customer/all/list"></selectMore>
           </el-form-item>
         </el-col>
       </el-row>
@@ -119,9 +121,10 @@ import { getManeger } from '@/api/mlms/material/datum/contract'
 import { getCustomerPage } from '@/api/crms/customer'
 import projectDialog from './projectRelation'
 import businessType from './businessType'
+import selectMore from './selectMore'
 
 export default {
-  components: { projectDialog, businessType },
+  components: { projectDialog, businessType, selectMore },
   computed: {
     ...mapGetters(['userInfo', 'dictGroup']),
   },
@@ -178,6 +181,8 @@ export default {
       this.formData.contractFile = this.formData.contractFileList.length > 0 ? this.formData.contractFileList[0].url : ''
       // 提交前需要处理下数据
       if (this.formData.contractType == 1) { // 外部合同
+        this.formData.companyOrgId = this.formData.companyOrgObj.id
+        this.formData.signCompanyOrgId = this.formData.signCompanyOrgObj.id
       } else { // 内部合同
         this.formData.directorId = this.formData.directorList.id
       }

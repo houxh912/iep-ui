@@ -79,64 +79,37 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item prop="treatment">
-              <span slot="label">
-                工资待遇
-                <iep-tip content="请务必以区间形式体现且标明年薪还是月薪，如3000-5000元/月，5-6万/年"></iep-tip>
-                ：
-              </span>
+            <iep-form-item class="form-half" prop="treatment" label-name="工资待遇" tip="请务必以区间形式体现且标明年薪还是月薪，如3000-5000元/月，5-6万/年">
               <iep-dict-select v-model="form.treatment" dict-name="hrms_wages_salaries"></iep-dict-select>
-            </el-form-item>
+            </iep-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item prop="language">
-              <span slot="label">
-                外语要求
-                <iep-tip content="此处填写语种+等级，如大学英语四级，日语二级"></iep-tip>
-                ：
-              </span>
+            <iep-form-item class="form-half" prop="language" label-name="外语要求" tip="此处填写语种+等级，如大学英语四级，日语二级">
               <iep-dict-select v-model="form.language" dict-name="hrms_foreign_language"></iep-dict-select>
-            </el-form-item>
+            </iep-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item prop="term">
-              <span slot="label">
-                招聘期限
-                <iep-tip content="此处为招聘截止日期，请务必明确到具体日期，如2019年5月10日"></iep-tip>
-                ：
-              </span>
+            <iep-form-item class="form-half" prop="term" label-name="招聘期限" tip="此处为招聘截止日期，请务必明确到具体日期，如2019年5月10日">
               <iep-date-picker v-model="form.term" type="date" placeholder="选择日期"></iep-date-picker>
-            </el-form-item>
+            </iep-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item prop="welfare">
-              <span slot="label">
-                福利待遇
-                <iep-tip content="此处如需填写多项内容时，请用“/”分开"></iep-tip>
-                ：
-              </span>
+            <iep-form-item class="form-half" prop="welfare" label-name="福利待遇" tip="此处如需填写多项内容时，请用“/”分开">
               <iep-dict-select v-model="form.welfare" dict-name="hrms_fringe_benefits"></iep-dict-select>
-            </el-form-item>
+            </iep-form-item>
           </el-col>
         </el-row>
-        <el-form-item prop="duties">
-          <span slot="label">
-            岗位职责
-            <iep-tip content="请务必准确规范填写且不少于6条：<br />1、内容要有条理性，次序性，以1、2、3、4.....序列的形式描述；<br />2、岗位职责清晰，语言简练，忌口语化描述；<br />3、岗位职责为该岗位的工作方向，而非具体内容的操作方法；"></iep-tip>
-            ：
-          </span>
+
+        <iep-form-item class="form-half" prop="duties" label-name="福利待遇" tip="请务必准确规范填写且不少于6条：<br />1、内容要有条理性，次序性，以1、2、3、4.....序列的形式描述；<br />2、岗位职责清晰，语言简练，忌口语化描述；<br />3、岗位职责为该岗位的工作方向，而非具体内容的操作方法；">
           <iep-input-area v-model="form.duties"></iep-input-area>
-        </el-form-item>
-        <el-form-item prop="claim">
-          <span slot="label">
-            岗位要求
-            <iep-tip content="请务必准确规范填写：<br/>1、内容要有条理性，次序性，以1、2、3、4.....序列的形式描述；<br/>2、岗位要求具体内容与岗位职责描述相匹配，切记不搭边。"></iep-tip>
-            ：
-          </span>
+        </iep-form-item>
+
+        <iep-form-item class="form-half" prop="claim" label-name="岗位要求" tip="请务必准确规范填写：<br/>1、内容要有条理性，次序性，以1、2、3、4.....序列的形式描述；<br/>2、岗位要求具体内容与岗位职责描述相匹配，切记不搭边。">
           <iep-input-area v-model="form.claim"></iep-input-area>
-        </el-form-item>
+        </iep-form-item>
+
         <el-form-item label="">
           <operation-wrapper>
             <iep-button type="primary" @click="handleSubmit">保存</iep-button>

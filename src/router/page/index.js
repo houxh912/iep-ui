@@ -1,5 +1,14 @@
 import Layout from '@/page/index/'
+/**
+ * 基础路由
+ * @type { *[] }
+ */
 export default [
+  {
+    path: '/',
+    name: '主页',
+    redirect: '/wel/index',
+  },
   {
     path: '/login',
     name: '登录页',
@@ -33,11 +42,6 @@ export default [
     },
   },
   {
-    path: '/',
-    name: '主页',
-    redirect: '/wel/index',
-  },
-  {
     path: '/myiframe',
     component: Layout,
     redirect: '/myiframe',
@@ -45,8 +49,7 @@ export default [
       {
         path: ':routerPath',
         name: 'iframe',
-        component: () =>
-          import(/* webpackChunkName: "page" */ '@/components/iframe/main'),
+        component: () => import(/* webpackChunkName: "page" */ '@/components/iframe/main'),
         props: true,
       },
     ],

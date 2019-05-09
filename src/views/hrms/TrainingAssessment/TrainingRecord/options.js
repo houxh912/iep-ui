@@ -30,7 +30,7 @@ const rules = {
   trainingTheme: [
     { required: true, message: '请输入主题', trigger: 'blur' },
   ],
-  teacher: [
+  user: [
     { required: true, message: '请输入培训老师', trigger: 'blur' },
   ],
   startTime: [

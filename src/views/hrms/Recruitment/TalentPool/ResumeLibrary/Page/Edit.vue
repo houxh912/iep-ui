@@ -68,25 +68,18 @@
               </div>
             </iep-form-item>
 
-            <el-form-item label="政治面貌：" class="form-half">
+            <iep-form-item class="form-half" prop="politics" label-name="政治面貌">
               <iep-dict-select v-model="form.politics" dict-name="hrms_politics_face"></iep-dict-select>
-            </el-form-item>
-            <el-form-item class="form-half">
-              <span slot="label">
-                健康状况
-                <iep-tip content="根据自身情况准确选择"></iep-tip>
-                ：
-              </span>
+            </iep-form-item>
+            
+            <iep-form-item class="form-half" prop="health" label-name="健康状况" tip="根据自身情况准确选择">
               <el-input v-model="form.health"></el-input>
-            </el-form-item>
-            <el-form-item class="form-half">
-              <span slot="label">
-                婚姻状况
-                <iep-tip content="请务必根据实际情况选择"></iep-tip>
-                ：
-              </span>
+            </iep-form-item>
+
+            <iep-form-item class="form-half" prop="marriage" label-name="婚姻状况" tip="请务必根据实际情况选择">
               <iep-dict-select v-model="form.marriage" dict-name="hrms_marriage_status"></iep-dict-select>
-            </el-form-item>
+            </iep-form-item>
+
             <el-form-item class="form-half">
               <span slot="label">
                 生育状况

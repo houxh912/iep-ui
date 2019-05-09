@@ -9,10 +9,10 @@
           <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
         </IepAppTabCard>
         <IepAppTabCard :title="listTitle">
-          <IepAppListCard :dataList="listList"></IepAppListCard>
+          <IepAppListCard :dataList="listList" name="projectName"></IepAppListCard>
         </IepAppTabCard>
         <IepAppTabCard :title="rankingTitle">
-          <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
+          <IepAppRankingCard :dataList="dataList" name="projectName"></IepAppRankingCard>
         </IepAppTabCard>
       </div>
     </div>
@@ -20,6 +20,9 @@
 </template>
 <script>
 import Librarys from './Librarys/'
+import { getLatestList, getPopularList } from '@/api/app/crms/'
+import { getRectagsList } from '@/api/app/tms/index'
+
 export default {
   components: { Librarys },
   data () {
@@ -27,21 +30,32 @@ export default {
       labelTitle: '推荐主题',
       listTitle: '最新商机',
       rankingTitle: '热门商机',
-      labelList: ['营商通', '营商环境', '数据基因', '数据政府', '电子政务', '数字经济', '微服务', 'dips', '知识图谱'],
-      listList: ['国脉数据基因政务大数据整体解决方案', '国脉数据基因政务大数据整体解决方案', '国脉数据基因政务大数据整体解决方案', '国脉数据基因政务大数据整体解决方案'],
-      dataList: [
-        { name: '珠海市营商环境评估', color: 'red' },
-        { name: '珠海市营商环境评估', color: 'red' },
-        { name: '珠海市营商环境评估', color: 'red' },
-        { name: '珠海市营商环境评估', color: '' },
-        { name: '珠海市营商环境评估', color: '' },
-        { name: '珠海市营商环境评估', color: '' },
-        { name: '珠海市营商环境评估', color: '' },
-        { name: '珠海市营商环境评估', color: '' },
-        { name: '珠海市营商环境评估', color: '' },
-        { name: '珠海市营商环境评估', color: '' },
-      ],
+      labelList: [],
+      listList: [],
+      dataList: [],
     }
+  },
+  methods: {
+    getLatestList () {
+      getLatestList().then(({data}) => {
+        this.listList = data.data
+      })
+    },
+    getPopularList () {
+      getPopularList().then(({data}) => {
+        this.dataList = data.data
+      })
+    },
+    getRectagsList () {
+      getRectagsList().then(({data}) => {
+        this.labelList = data.data
+      })
+    },
+  },
+  created () {
+    this.getLatestList()
+    this.getPopularList()
+    this.getRectagsList()
   },
 }
 </script>
@@ -53,8 +67,6 @@ export default {
   display: grid;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 9000px) minmax(100px, 300px);
-}
-.piece {
 }
 .ranking {
   padding: 0;

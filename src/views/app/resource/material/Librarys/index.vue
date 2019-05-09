@@ -1,6 +1,6 @@
 <template>
   <div class="most">
-    <librarys-header @search_page="searchPage"></librarys-header>
+    <librarys-header @search_page="loadPage"></librarys-header>
     <librarys-content ref="content"></librarys-content>
   </div>
 </template>
@@ -16,9 +16,6 @@ export default {
   methods: {
     loadPage (val) {
       this.$refs['content'].loadPage(val)
-    },
-    searchPage (params) {
-      this.$refs['content'].loadPage(params)
     },
   },
 }

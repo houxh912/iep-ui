@@ -93,6 +93,7 @@ export default {
     handleAdd () {
       this.$refs['EditDrawer'].methodName = '新增'
       this.$refs['EditDrawer'].drawerShow = true
+      this.$refs['EditDrawer'].flag = ''
       this.$refs['EditDrawer'].formRequestFn = postBusiness
     },
     //编辑

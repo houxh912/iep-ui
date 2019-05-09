@@ -4,55 +4,39 @@
       <el-form-item label="申请人：" class="form-half">
         <span>{{form.name}}</span>
       </el-form-item>
+      
       <el-form-item label="发起时间：" class="form-half">
         <span>{{form.nowTime}}</span>
       </el-form-item>
+
       <el-form-item label="入职时间：" class="form-half">
         <span>{{form.startTime}}</span>
       </el-form-item>
+
       <el-form-item label="岗位名称：" class="form-half">
         <span>{{form.positionName}}</span>
       </el-form-item>
-      <el-form-item>
-        <div slot="label">
-          离职时间
-          <iep-tip content="请根据劳动法规定填写：离职时间为提出申请的一个月后，谢谢！"></iep-tip>
-          ：
-        </div>
+      
+      <iep-form-item prop="endTime" label-name="离职时间" tip="请根据劳动法规定填写：离职时间为提出申请的一个月后，谢谢！">
         <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期" :picker-options="pickerOptions"></iep-date-picker>
-      </el-form-item>
-      <el-form-item prop="reason">
-        <span slot="label">
-          申请理由
-          <iep-tip content="请说明离职的原因，同事的合作情况，对公司的意见建议等内容"></iep-tip>
-          ：
-        </span>
+      </iep-form-item>
+
+      <iep-form-item prop="reason" label-name="申请理由" tip="请说明离职的原因，同事的合作情况，对公司的意见建议等内容">
         <iep-input-area v-model="form.reason"></iep-input-area>
-      </el-form-item>
-      <el-form-item>
-        <div slot="label">
-          附件
-          <iep-tip content="请上传详细的离职申请书"></iep-tip>
-          ：
-        </div>
+      </iep-form-item>
+
+      <iep-form-item prop="annex" label-name="附件" tip="请上传详细的离职申请书">
         <iep-upload v-model="form.annex">请上传附件</iep-upload>
-      </el-form-item>
-      <el-form-item prop="approver">
-        <span slot="label">
-          审批人
-          <iep-tip content="请务必选择所属部门（组织）班长审批，谢谢！"></iep-tip>
-          ：
-        </span>
+      </iep-form-item>
+      
+      <iep-form-item prop="approver" label-name="审批人" tip="请务必选择所属部门（组织）班长审批，谢谢！">
         <iep-contact-multiple-user v-model="form.approver" :filter-user-list="filterUserList"></iep-contact-multiple-user>
-      </el-form-item>
-      <el-form-item>
-        <div slot="label">
-          抄送人
-          <iep-tip content="请务必抄送所属部门人力与财务，谢谢！"></iep-tip>
-          ：
-        </div>
+      </iep-form-item>
+      
+      <iep-form-item prop="cc" label-name="抄送人" tip="请务必抄送所属部门人力和财务，谢谢！">
         <iep-contact-multiple-user v-model="form.cc" :filter-user-list="filterUserList"></iep-contact-multiple-user>
-      </el-form-item>
+      </iep-form-item>
+
       <el-form-item label="">
         <operation-wrapper>
           <iep-button type="primary" @click="handleSubmit">提交</iep-button>

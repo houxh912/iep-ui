@@ -81,17 +81,23 @@ export default {
     handleEdit (row) {
       this.pageState = 'dialog'
       getDataById(row.id).then(({ data }) => {
-        data.data.underTakeDeptList = data.data.underTakeDeptName // 承接部门
-        if (data.data.contractType == 0) {
-          data.data.directorList = {
-            id: data.data.directorId,
-            name: data.data.directorRealName,
+        let row = data.data
+        row.underTakeDeptList = row.underTakeDeptName // 承接部门
+        if (row.contractType == 0) {
+          row.directorList = {
+            id: row.directorId,
+            name: row.directorRealName,
           }
         }
-        data.data.projectId = data.data.projectRelation.id
-        data.data.projectName = data.data.projectRelation.name
-        data.data.signDeptName = data.data.signDeptOrgName.name
-        this.$refs['mainDialog'].formData = data.data
+        console.log('row: ', row)
+        if (row.projectRelation) {
+          row.projectId = row.projectRelation.id
+          row.projectName = row.projectRelation.name
+        }
+        row.signDeptName = row.signDeptOrgName.name
+        row.companyOrgObj = { id: row.companyOrgId, name: row.companyName }
+        row.signCompanyOrgObj = { id: row.signCompanyOrgId, name: row.signCompanyRealName }
+        this.$refs['mainDialog'].formData = row
         this.$refs['mainDialog'].methodName = '编辑'
         this.$refs['mainDialog'].formRequestFn = updateData
       })

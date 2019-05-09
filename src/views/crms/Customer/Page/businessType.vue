@@ -22,8 +22,8 @@ import { mapGetters } from 'vuex'
 export default {
   props: {
     value: {
-      type: String,
-      default: '',
+      type: Array,
+      // default: '',
     },
   },
   computed: {
@@ -32,7 +32,7 @@ export default {
       if (this.type_one === '') {
         return []
       } else {
-       return this.dictGroup.prms_business_type[this.type_one].children
+        return this.dictGroup.prms_business_type[this.type_one].children
       }
     },
   },
@@ -64,19 +64,24 @@ export default {
       })
     },
     getTagsList (val) {
-      for (let item of this.dictGroup.prms_business_type) {
-        for (let t of item.children) {
-          if (t.value == val) {
-            return t
+      for (let j = 0; j < this.dictGroup.prms_business_type.length; j++) {
+        const item = this.dictGroup.prms_business_type[j]
+        if (item.children && item.children.length > 0) {
+          for (let i = 0; i < item.children.length; i++) {
+            const t = item.children[i]
+            if (t.value == val) {
+              return t
+            }
           }
         }
+
       }
     },
     changeMultiple (val) {
       // 首先要判断是去除还是添加
       if (val.length > this.secondList.length) {
         // 长度变长，添加了数据
-        let data = this.getTagsList([val[val.length-1]])
+        let data = this.getTagsList([val[val.length - 1]])
         this.secondList.push(data)
         this.list.push(data)
       } else {
@@ -100,9 +105,8 @@ export default {
       }
     },
     removeTag () {
-      
+
     },
-    // 删除标签
     tagClose (data, index) {
       this.list.splice(index, 1)
       // 判断是否是当前选项
@@ -120,7 +124,8 @@ export default {
   },
   watch: {
     value (newVal) {
-      let list = newVal === '' ? [] : newVal.split(',')
+      console.log(newVal, newVal)
+      let list = newVal.split(',')
       let data = []
       for (let item of list) {
         data.push(this.getTagsList(item))
@@ -133,7 +138,7 @@ export default {
         for (let item of newVal) {
           list.push(item.value)
         }
-        this.$emit('input', list.toString())
+        this.$emit('input', list.map(Number))
       },
       deep: true,
     },

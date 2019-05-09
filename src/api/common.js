@@ -10,6 +10,14 @@ export function getCommonList (url, name) {
   })
 }
 
+export function getCommonPage (url, params) {
+  return request({
+    url: `/${url}`,
+    method: 'get',
+    params,
+  })
+}
+
 export function downloadFile (file) {
   request({
     url: '/admin/file/' + file.url,

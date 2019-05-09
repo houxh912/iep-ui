@@ -1,3 +1,3 @@
 <template>
-  <div>功能待开发</div>
+  <iep-to-dev></iep-to-dev>
 </template>

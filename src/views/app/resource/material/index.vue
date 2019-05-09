@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="material" v-if="'/app/resource/material'==routerMatch[routerMatch.length-1].path">
-      <menus></menus>
+      <menus @change_page="changePage"></menus>
       <div class="library">
         <librarys ref="librarys"></librarys>
       </div>
@@ -24,8 +24,8 @@ import Menus from './Menus'
 import Librarys from './Librarys/'
 import Ranking from './Ranking/'
 import Most from './Most/'
-// import { getRectagsList } from '@/api/app/tms/index'
-// import { getGuessList } from '@/api/app/mlms/index'
+import { getRectagsList } from '@/api/app/tms/index'
+import { getGuessList } from '@/api/app/mlms/index'
 
 export default {
   components: { Menus, Librarys, Ranking, Most },
@@ -33,14 +33,35 @@ export default {
     return {
       labelTitle: '推荐主题',
       listTitle: '猜你想找',
-      labelList: ['营商通', '营商环境', '数据基因', '数据政府', '电子政务', '数字经济', '微服务', 'dips', '知识图谱'],
-      listList: ['国脉数据基因政务大数据整体解决方案', '国脉数据基因政务大数据整体解决方案', '国脉数据基因政务大数据整体解决方案', '国脉数据基因政务大数据整体解决方案'],
+      labelList: [],
+      listList: [],
       routerMatch: this.$route.matched,
     }
   },
   beforeRouteUpdate (to, from, next) {
     this.routerMatch = to.matched
     next()
+  },
+  methods: {
+    changePage (val) {
+      this.$refs['librarys'].loadPage({materialClsSecondClass: val})
+    },
+    // 推荐主题
+    getRectagsList () {
+      getRectagsList().then(({data}) => {
+        this.labelList = data.data
+      })
+    },
+    // 猜你想找
+    getGuessList () {
+      getGuessList().then(({data}) => {
+        this.listList = data.data
+      })
+    },
+  },
+  created () {
+    this.getRectagsList()
+    this.getGuessList()
   },
 }
 </script>

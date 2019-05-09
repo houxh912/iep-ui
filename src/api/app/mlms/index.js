@@ -11,7 +11,7 @@ export const getMenuList = (params) => {
 
 export const getMaterialLPage = (params) => {
   return request({
-    url: '/mlms/material/page',
+    url: `${prefixUrl}/page`,
     method: 'get',
     params: params,
   })
@@ -34,7 +34,7 @@ export const getGuessList = (params) => {
   })
 }
 
-// 贡献帮
+// 贡献榜
 export const getContributeList = (params) => {
   return request({
     url: `${prefixUrl}/contribute`,

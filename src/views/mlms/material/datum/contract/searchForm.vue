@@ -33,10 +33,10 @@
       <!-- <el-form-item label="签订日期">
         <IepDatePicker v-model="paramForm.signTime"></IepDatePicker>
       </el-form-item> -->
-      <el-form-item label="会议开始时间">
+      <el-form-item label="签署开始时间">
         <el-date-picker v-model="paramForm.startTime" value-format="yyyy-MM-dd HH:mm:ss" type="date" placeholder="选择日期时间"></el-date-picker>
       </el-form-item>
-      <el-form-item label="会议结束时间">
+      <el-form-item label="签署结束时间">
         <el-date-picker v-model="paramForm.endTime" value-format="yyyy-MM-dd 23:59:59" type="date" placeholder="选择日期时间"></el-date-picker>
       </el-form-item>
       <el-form-item label="合同类型">

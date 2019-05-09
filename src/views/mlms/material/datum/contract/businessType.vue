@@ -102,6 +102,7 @@ export default {
     removeTag () {
       
     },
+    // 删除标签
     tagClose (data, index) {
       this.list.splice(index, 1)
       // 判断是否是当前选项
@@ -119,7 +120,7 @@ export default {
   },
   watch: {
     value (newVal) {
-      let list = newVal.split(',')
+      let list = newVal === '' ? [] : newVal.split(',')
       let data = []
       for (let item of list) {
         data.push(this.getTagsList(item))

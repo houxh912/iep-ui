@@ -1,27 +1,24 @@
 <template>
-  <div>
-    <div class="client-detail">
-      <div class="library">
-        <div class="client-top">
-          <p>{{title}}</p>
-          <span>市场经理：{{name[0]}}</span>
-          <span>协助人：{{name[1]}}</span>
-        </div>
-        <customer></customer>
+  <div class="client-detail">
+    <div class="library">
+      <div class="client-top">
+        <p>{{title}}</p>
+        <span>市场经理：{{name[0]}}</span>
+        <span>协助人：{{name[1]}}</span>
       </div>
-      <div class="piece">
-        <IepAppTabCard :title="labelTitle">
-          <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
-        </IepAppTabCard>
-        <IepAppTabCard :title="listTitle1">
-          <IepAppListCard :dataList="listList1"></IepAppListCard>
-        </IepAppTabCard>
-        <IepAppTabCard :title="rankingTitle">
-          <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
-        </IepAppTabCard>
-      </div>
+      <customer></customer>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
+    <div class="piece">
+      <IepAppTabCard :title="labelTitle">
+        <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
+      </IepAppTabCard>
+      <IepAppTabCard :title="listTitle1">
+        <IepAppListCard :dataList="listList1"></IepAppListCard>
+      </IepAppTabCard>
+      <IepAppTabCard :title="rankingTitle">
+        <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
+      </IepAppTabCard>
+    </div>
   </div>
 </template>
 <script>

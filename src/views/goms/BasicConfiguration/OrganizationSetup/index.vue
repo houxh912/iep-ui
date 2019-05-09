@@ -22,13 +22,27 @@
         </template>
       </div>
       <a-divider />
-      <div class="organize-group">
-        <el-button circle @click="handleCreateOrg"><i class="icon-diannaodenglu"></i><span>创建组织</span></el-button>
-        <el-button circle @click="handleCreateLeague"><i class="icon-organ"></i><span>创建联盟</span></el-button>
-        <el-button circle><i class="icon-chuangxinfuwu"></i><span>创建特殊组织</span></el-button>
+      <div class="change-record">
+        <span>查看组织变更记录>></span>
       </div>
       <el-row class="row-bg">
-        <el-col :span="12" class="organize-item">
+        <el-col :span="8" class="organize-item">
+          <!-- <div class="organize-group">
+            <el-button circle @click="handleCreateOrg"><i class="icon-diannaodenglu"></i><span>创建组织</span></el-button>
+            <el-button circle @click="handleCreateLeague"><i class="icon-organ"></i><span>创建联盟</span></el-button>
+            <el-button circle><i class="icon-chuangxinfuwu"></i><span>创建特殊组织</span></el-button>
+          </div> -->
+          <div class="organize-con">
+            <div slot="header" class="clearfix sub-title">
+              <span>创建联盟<i></i></span>
+            </div>
+            <div class="text item">
+              联盟即常规组织的并集，对下属组织拥有集中管理的权限（包括财务），使用场景包括集团、协会、以组织为单位的项目组织。
+            </div>
+            <el-button type="warning" plain @click="handleCreateLeague">创建</el-button>
+          </div>
+        </el-col>
+        <el-col :span="8" class="organize-item">
           <div class="organize-con">
             <div slot="header" class="clearfix sub-title">
               <span>组织升级<i></i></span>
@@ -39,7 +53,7 @@
             <el-button type="warning" plain>升级</el-button>
           </div>
         </el-col>
-        <el-col :span="12" class="organize-item">
+        <el-col :span="8" class="organize-item">
           <div class="organize-con">
             <div slot="header" class="clearfix sub-title">
               <span>组织合并<i></i></span>
@@ -50,7 +64,7 @@
             <el-button type="warning" plain>合并</el-button>
           </div>
         </el-col>
-        <el-col :span="12" class="organize-item">
+        <el-col :span="8" class="organize-item">
           <div class="organize-con">
             <div slot="header" class="clearfix sub-title">
               <span>组织转让<i></i></span>
@@ -61,7 +75,7 @@
             <el-button type="warning" plain>转让</el-button>
           </div>
         </el-col>
-        <el-col :span="12" class="organize-item">
+        <el-col :span="8" class="organize-item">
           <div class="organize-con">
             <div slot="header" class="clearfix sub-title">
               <span>组织解散<i></i></span>
@@ -126,6 +140,15 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.change-record{
+  span{
+    display: inline-block;
+    margin-left: 20px;
+    color:#bf051a;
+    font-size: 14px;
+    cursor: pointer;
+  }
+}
 .message-box {
   color: #909399;
   padding: 0 20px;
@@ -218,7 +241,6 @@ export default {
   }
 }
 .row-bg {
-  padding: 10px 40px;
   margin: 0 auto;
 }
 </style>

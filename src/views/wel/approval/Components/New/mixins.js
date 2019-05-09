@@ -50,6 +50,9 @@ export default {
       if (this.id) {
         getAdministrativeApprovalById(this.id).then(({ data }) => {
           this.form = formToVo(data.data)
+          getEmployeeProfileSelf().then(({data}) => {
+            this.form.dept = data.data.dept
+          })
         })
       } else {
         this.loadSelf()

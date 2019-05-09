@@ -17,7 +17,8 @@
         <el-input v-model="formData.opportunityDes" placeholder="商机描述" :disabled="true"></el-input>
       </el-form-item>
       <el-form-item label="商机标签：">
-        <a-tag type="info" class="tag-style" v-for="(item,index) in formData.tags" :key="index">{{item.commonName}}</a-tag>
+        <!-- <a-tag type="info" class="tag-style" v-for="(item,index) in formData.tags" :key="index">{{item.commonName}}</a-tag> -->
+        <iep-tag-detail v-model="formData.tags"></iep-tag-detail>
       </el-form-item>
       <el-form-item label="发布者：">
         <span>{{formData.publisher}} </span>

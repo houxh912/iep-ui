@@ -16,7 +16,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" @row-click="handleDetail">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" @row-click="handleDetail" :dictsMap="dictsMap">
         <el-table-column v-if="+type !== 0" prop="operation" label="操作" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -32,7 +32,7 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMapByTypeId } from '../columns'
+import { columnsMapByTypeId, dictsMap } from '../columns'
 import { getContractPage, postContract, putContract, deleteContract, getDataById } from '@/api/crms/contract'
 import DetailDrawer from './DetailDrawer'
 import AdvanceSearch from './AdvanceSearch'
@@ -47,6 +47,7 @@ export default {
   },
   data () {
     return {
+      dictsMap,
       type: '1',
       deleteAll: false,
       dialogVisible: false,

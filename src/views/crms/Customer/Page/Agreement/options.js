@@ -1,9 +1,15 @@
 const columnsMap = [
-  { label: '业务类型', prop: 'contractTypeValue' },
+  { label: '合同类型', prop: 'contractType', type: 'dict' },
   { label: '合同金额 (元)', prop: 'contractAmount' },
   { label: '合同状态', prop: 'contractStatusValue' },
   { label: '回款率', prop: 'efficiency' },
 ]
+const dictsMap = {
+  contractType: {
+    '0': '内部合同',
+    '1': '外部合同',
+  },
+}
 export const tableOption = [
   {
     label: '合同类型',
@@ -22,7 +28,6 @@ export const tableOption = [
     prop: '',
   },
 ]
-
 export const initFormData = () => {
   return {
     contractName: '',
@@ -46,7 +51,7 @@ export const initFormData = () => {
     contractLevel: '',
     contractStatus: '',
     deposit: '',
-    fileList: [],
+    contractFileList: [],
     contractType: 1,
     id: '',
     contractId: '',
@@ -99,9 +104,9 @@ export const rules = {
   finishTime: [
     { required: true, message: '请选择完结日期', trigger: 'change' },
   ],
-  signDeptOrgName: [
-    { required: true, message: '请选择签属部门', trigger: 'change' },
-  ],
+  // signDeptOrgName: [
+  //   { required: true, message: '', trigger: 'blur' },
+  // ],
   underTakeDeptName: [
     { required: true, message: '请选择承接部门', trigger: 'change' },
   ],
@@ -113,4 +118,4 @@ export const rules = {
   ],
   deposit: [{ validator: amount1, trigger: 'change' }],
 }
-export { columnsMap }
+export { columnsMap, dictsMap }

@@ -4,7 +4,7 @@
       <operation-wrapper>
         <iep-button type="primary" @click="handleAdd" plain><i class="el-icon-plus"></i> 新增</iep-button>
       </operation-wrapper>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :dictsMap="dictsMap">
         <template slot="before-columns">
           <el-table-column label="合同名称">
             <template slot-scope="scope">
@@ -44,7 +44,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMap } from './options'
+import { columnsMap, dictsMap } from './options'
 import { getAgreementPage, postAgreement, putAgreement, deleteAgreementById } from '@/api/crms/agreement'
 import Edit from './Edit'
 import Detail from './Detail'
@@ -55,6 +55,7 @@ export default {
   mixins: [mixins],
   data () {
     return {
+      dictsMap,
       columnsMap,
       formData: {},
       pageState: 'list',

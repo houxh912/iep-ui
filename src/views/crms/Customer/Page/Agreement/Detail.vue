@@ -9,13 +9,14 @@
         <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5></el-input>
       </el-form-item>
       <el-form-item label="业务类型：" prop="businessType">
-        <el-radio-group v-model="formData.businessType">
+        <!-- <el-radio-group v-model="formData.businessType">
           <el-radio v-for="item in dictGroup['mlms_business_type']" :key="item.value" :label="item.value">{{item.label}}</el-radio>
-        </el-radio-group>
+        </el-radio-group> -->{{infoList}}
       </el-form-item>
       <el-form-item label="合同标签：" prop="tagKeyWords">
         <!-- <iep-tag v-model="formData.tagKeyWords"></iep-tag> -->
-        <a-tag v-for="(item,index) in formData.tagKeyWords" :key="index">{{item}}</a-tag>
+        <!-- <a-tag v-for="(item,index) in formData.tagKeyWords" :key="index">{{item}}</a-tag> -->
+        <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
       </el-form-item>
       <el-row>
         <el-col :span=12>
@@ -123,6 +124,7 @@ export default {
           this.$emit('detail')
         },
       },
+      infoList: '',
     }
   },
   props: {
@@ -142,6 +144,18 @@ export default {
     this.contractId = this.add.contractId
     agreementById(this.contractId).then(res => {
       this.formData = res.data.data
+      // 业务类型处理
+      let businessType = res.data.data.businessType.split(','), list = []
+      for (let type of businessType) {
+        for (let item of this.dictGroup.prms_business_type) {
+          for (let t of item.children) {
+            if (t.value == type) {
+              list.push(t.label)
+            }
+          }
+        }
+      }
+      this.infoList = list.toString()
       getObj(this.formData.directorId).then(res => {
         this.$set(this.formData, 'Manager', res.data.data.realName)
       })

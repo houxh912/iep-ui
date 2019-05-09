@@ -2,18 +2,39 @@
   <div class="iep-page-form">
     <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" ref="form" size="small" label-width="130px" style="margin-bottom: 50px;">
-      <el-form-item label="合同名称：" prop="contractName">
+      <el-form-item prop="contractName">
+        <span slot="label">
+          合同名称
+          <iep-tip :content="tipContent.contractName"></iep-tip>
+          :
+        </span>
         <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。"></el-input>
       </el-form-item>
-      <el-form-item label="合同说明 / 收款方式：" prop="contractExpl">
+      <el-form-item prop="contractExpl">
+        <span slot="label">
+          合同说明 / 收款方式
+          <iep-tip :content="tipContent.contractExpl"></iep-tip>
+          :
+        </span>
         <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5></el-input>
       </el-form-item>
-      <el-form-item label="业务类型：" prop="businessType">
-        <el-radio-group v-model="formData.businessType">
+      <el-form-item prop="businessType">
+        <span slot="label">
+          业务类型
+          <iep-tip :content="tipContent.businessType"></iep-tip>
+          :
+        </span>
+        <!-- <el-radio-group v-model="formData.businessType">
           <el-radio v-for="item in dictGroup['mlms_business_type']" :key="item.value" :label="item.value">{{item.label}}</el-radio>
-        </el-radio-group>
+        </el-radio-group> -->
+        <businessType v-model="formData.businessType"></businessType>
       </el-form-item>
-      <el-form-item label="合同标签：" prop="tagKeyWords">
+      <el-form-item prop="tagKeyWords">
+        <span slot="label">
+          合同标签
+          <iep-tip :content="tipContent.tagKeyWords"></iep-tip>
+          :
+        </span>
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-row>
@@ -42,8 +63,9 @@
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="签署部门：" prop="signDeptOrgName">
-            <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
+          <el-form-item label="签署组织：" prop="signDeptOrgName">
+            <!-- <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select> -->
+            <el-input v-model="formData.signDeptName" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -84,13 +106,9 @@
         </el-col>
       </el-row>
       <el-row>
-        <!-- <el-col :span="12">
-          <el-form-item label="合同附件：" prop="baozhengjin">
-            <iep-upload v-model="formData.fileList" :limit="1">
-              <slot name="tip"><span>文件类型为excel，每次上传数量不超过一个</span></slot>
-            </iep-upload>
-          </el-form-item>
-        </el-col> -->
+        <el-form-item label="合同附件上传：" prop="contractFileList">
+          <iep-upload v-model="formData.contractFileList" :limit="limit"></iep-upload>
+        </el-form-item>
       </el-row>
     </el-form>
     <footer-toolbar>
@@ -106,10 +124,19 @@ import { mapGetters } from 'vuex'
 import { agreementById } from '@/api/crms/agreement'
 import { getMarket } from '@/api/crms/customer'
 import { getObj } from '@/api/admin/user'
+import businessType from './businessType'
+const tipContent = {
+  contractName: '合同签订日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”',
+  contractExpl: '1、合同说明：请详细说明签订合同时承诺客户或需要注意的地方；<br>2、收款方式：付款周期+付款方式，如三期付款+对公;<br>3、开票资料信息。',
+  businessType: '咨询：规划/行动计划/工作方案/课题研究/标准规范/管理制度/整体解决方案/评测;<br>产品：DNA/DIPS/营商通/咨询服务产品化;<br>数据：数据采集/普查/编目/标准化/开放共享/应用服务/主题库、基础库建设/事项材料梳理/主题清单规范优化、再造;<br>外包：软件/平台/服务;<br>会议培训：研讨会/招商合作/培训会;<br>平台：平台新建/平台升级;<br>技术服务：网站/平台/软件;<br>其他：自定义填写',
+  tagKeyWords: '1、合同标签要与合作项目/产品关联，其中合作项目简称，合作产品，客户简称等必须作为标签；<br>2、标签次序按照重要性排序；<br>3、标签数量必须3个以上。',
+
+}
 export default {
-  components: { FooterToolbar },
+  components: { FooterToolbar, businessType },
   data () {
     return {
+      tipContent,
       dialogShow: false,
       methodName: '新增',
       formRequestFn: () => { },
@@ -127,6 +154,7 @@ export default {
       signTime: '',
       finishTime: '',
       isTime: true,
+      limit: 1,
     }
   },
   props: {
@@ -140,7 +168,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['dictGroup']),
+    ...mapGetters(['userInfo', 'dictGroup']),
   },
   created () {
     this.formRequestFn = this.add.formRequestFn
@@ -148,6 +176,8 @@ export default {
     this.id = this.add.id
     this.formData.companyOrgId = this.record.clientName
     this.formData.signCompanyOrgId = this.record.clientName
+    this.formData.signDeptName = this.userInfo.orgName
+    this.formData.signDeptOrgId = this.userInfo.orgId
     getMarket({ clientId: this.id }).then((res) => {
       this.formData.directorId = res.data.data.id
       getObj(this.formData.directorId).then(res => {
@@ -162,6 +192,8 @@ export default {
         this.finishTime = res.data.data.finishTime
         getMarket({ clientId: this.id }).then((res) => {
           this.formData.directorId = res.data.data.id
+          this.formData.signDeptName = this.userInfo.orgName
+          this.formData.signDeptOrgId = this.userInfo.orgId
           getObj(this.formData.directorId).then(res => {
             this.$set(this.formData, 'Manager', res.data.data.realName)
           })
@@ -184,12 +216,12 @@ export default {
       this.$emit('dialog')
     },
     submitForm (formName) {
+      this.formData.contractFile = this.formData.contractFileList.length > 0 ? this.formData.contractFileList[0].url : ''
       if (this.methodName == '新增') {
         this.formData.companyOrgId = this.id
         this.formData.signCompanyOrgId = this.id
       }
       let formData = Object.assign({}, this.formData)
-      formData.signDeptOrgId = this.formData.signDeptOrgName.id
       formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
       formData.directorId = this.formData.directorId
       formData.id = this.contractId,

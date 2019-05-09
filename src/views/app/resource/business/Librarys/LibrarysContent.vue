@@ -1,19 +1,19 @@
 <template>
   <div class="librarys-content">
-    <div class="librarys-item" v-for="(item,index) in librarys" :key="index">
+    <div class="librarys-item" v-for="(item,index) in list" :key="index">
       <div class="title">
-        <h4 class="name">{{item.name}}</h4>
+        <h4 class="name">{{item.projectName}}</h4>
         <i :class="item.icon" v-if="item.icon"></i>
       </div>
-      <p class="desc" v-text="item.desc">
+      <p class="desc" v-text="item.opportunityDes">
       </p>
       <div class="librarys-bottom">
-        <span class="reserve">对接人：{{item.reserve}}</span>
-        <span><i class="icon-shijian"></i>{{item.time}}</span>
-        <span><i class="icon-yanjing"></i>{{item.browse}}</span>
-        <span><i class="icon-download"></i>{{item.download}}</span>
+        <span class="reserve">对接人：{{item.publisherName}}</span>
+        <span><i class="icon-shijian"></i>{{item.updateTime}}</span>
+        <span><i class="icon-yanjing"></i>{{item.views}} 人浏览</span>
+        <!-- <span><i class="icon-download"></i>{{item.download}} 人下载</span> -->
         <div class="tags">
-          <span v-for="(item,index) in tags" :key="index">{{item}}</span>
+          <span v-for="(item,index) in item.tagsName" :key="index">{{item}}</span>
         </div>
       </div>
     </div>
@@ -21,47 +21,15 @@
 </template>
 <script>
 export default {
+  props: {
+    list: {
+      type: Array,
+      default: () => {},
+    },
+  },
   data () {
     return {
-      librarys:[
-        {
-          name:'佛山市市场监督管理局信息规划',
-          icon:'icon-fujian',
-          desc:'数据基因市指基于数据元和元数据的标准化编码基础上可实现数据自由编程、抽取、复制和关联应用的核心技术体系。它是实现数据跨系统共享交换、创新应用的底层逻辑和关键。',
-          reserve: '郑国庆',
-          time:'2019-03-13',
-          browse:'111人浏览',
-          download:'35人下载',
-        },
-        {
-          name:'佛山市市场监督管理局信息规划',
-          icon:'',
-          desc:'数据基因市指基于数据元和元数据的标准化编码基础上可实现数据自由编程、抽取、复制和关联应用的核心技术体系。它是实现数据跨系统共享交换、创新应用的底层逻辑和关键。',
-          reserve: '郑国庆',
-          time:'2019-03-13',
-          browse:'111人浏览',
-          download:'35人下载',
-        },
-        {
-          name:'佛山市市场监督管理局信息规划',
-          icon:'icon-fujian',
-          desc:'数据基因市指基于数据元和元数据的标准化编码基础上可实现数据自由编程、抽取、复制和关联应用的核心技术体系。它是实现数据跨系统共享交换、创新应用的底层逻辑和关键。',
-          reserve: '郑国庆',
-          time:'2019-03-13',
-          browse:'111人浏览',
-          download:'35人下载',
-        },
-        {
-          name:'佛山市市场监督管理局信息规划',
-          icon:'icon-fujian',
-          desc:'数据基因市指基于数据元和元数据的标准化编码基础上可实现数据自由编程、抽取、复制和关联应用的核心技术体系。它是实现数据跨系统共享交换、创新应用的底层逻辑和关键。',
-          reserve: '郑国庆',
-          time:'2019-03-13',
-          browse:'111人浏览',
-          download:'35人下载',
-        },
-      ],
-      tags:['数据平台','数据对接','数据资源'],
+
     }
   },
 }

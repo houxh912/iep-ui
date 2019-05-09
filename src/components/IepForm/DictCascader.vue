@@ -1,13 +1,11 @@
 <template>
-  <el-select :placeholder="placeholder" v-bind="$attrs" v-on="$listeners">
-    <el-option v-for="item in dictGroup[this.dictName]" :key="item.value" :label="item.label" :value="item.value">
-    </el-option>
-  </el-select>
+  <el-cascader :placeholder="placeholder" :options="dictGroup[this.dictName]" v-bind="$attrs" v-on="$listeners">
+  </el-cascader>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  name: 'IepDictSelect',
+  name: 'IepDictCascader',
   inheritAttrs: false,
   props: {
     placeholder: {

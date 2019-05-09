@@ -14,12 +14,12 @@
       <el-row>
         <el-col>
           <el-card shadow="hover" v-for="(item,index) in pastTrainingList" :key="index">
-            <div class="img"><img :src="item.img" alt=""></div>
-            <span class="item-title">{{item.title}}</span>
-            <p class="content">{{item.con}}</p>
+            <div class="img"><img :src="item.trainerImage" alt=""></div>
+            <span class="item-title">{{item.trainingTheme}}</span>
+            <p class="content">{{item.trainingBrief}}</p>
             <div class="classTag">
-              <el-tag type="white" v-for="tag in item.tags" :key="tag.id">{{tag.tag}}</el-tag>
-              <span class="see"><i class="iconfont icon-yanjing"></i>{{item.see}}</span>
+              <el-tag type="white" v-for="(tag, index) in item.trainingTags" :key="index">{{tag}}</el-tag>
+              <span class="see"><i class="iconfont icon-yanjing"></i>{{item.views}} 人浏览</span>
             </div>
           </el-card>
         </el-col>
@@ -27,167 +27,16 @@
     </div>
   </div>
 </template>
+
 <script>
+import { getPastList } from '@/api/app/hrms/'
+
 export default {
   name: 'AppPastTraining',
   data () {
     return {
       title: '往期培训',
-      pastTrainingList: [
-        {
-          img: require('./img/p1.jpg'),
-          tags: [
-            {
-              tag: '标签管理',
-            },
-            {
-              tag: '标签规范',
-            },
-            {
-              tag: '内网标签',
-            },
-          ],
-          title: '关于加快做好内网标签工作的相关规定与建议',
-          con: '重点就做好内网标签工作的几点要求，责任分工、现有标签存在的问题、标签常识、国脉内网标签设计',
-          see: '112人浏览',
-        },
-        {
-          img: require('./img/p2.jpg'),
-          tags: [
-            {
-              tag: '数据基因部署',
-            },
-            {
-              tag: '数据基因培训',
-            },
-            {
-              tag: '数据基因',
-            },
-          ],
-          title: '数据基因安装部署培训',
-          con: '为响应公司战略，加快团队建设，完善现有培训机制，尽快提高公司实施人员的综合能力，促进公司发展',
-          see: '156人浏览',
-        },
-        {
-          img: require('./img/p3.jpg'),
-          tags: [
-            {
-              tag: '互联网',
-            },
-            {
-              tag: '政务服务',
-            },
-            {
-              tag: '一门一网',
-            },
-          ],
-          title: '佛山市互联网+政务服务内容分享',
-          con: '主要是分享佛山互联网+政务服务的背景以及一门一网式架构，系统关系流程等内容。',
-          see: '112人浏览',
-        },
-        {
-          img: require('./img/p4.jpg'),
-          tags: [
-            {
-              tag: '事项基因',
-            },
-            {
-              tag: '事项基因系统',
-            },
-            {
-              tag: '行政务服务',
-            },
-          ],
-          title: '事项基因系统的发展',
-          con: '介绍事项基因系统的发展。系统主要有三个阶段：第一个阶段是上海青浦区行政务服务平台，第二',
-          see: '112人浏览',
-        },
-        {
-          img: require('./img/p5.jpg'),
-          tags: [
-            {
-              tag: '内网考试',
-            },
-            {
-              tag: '分工认责',
-            },
-            {
-              tag: '内网各版块',
-            },
-          ],
-          title: '内网考试解读及内网各版块分工认责',
-          con: '内网考试解读及内网各版块分工认责文件说明',
-          see: '87人浏览',
-        },
-        {
-          img: require('./img/p6.jpg'),
-          tags: [
-            {
-              tag: '微服务',
-            },
-            {
-              tag: '佛山技术团队',
-            },
-            {
-              tag: '国脉GDS微服务',
-            },
-          ],
-          title: '国脉GDS微服务开发框架',
-          con: '陈振辉给佛山技术团队培训国脉GDS微服务开发框架',
-          see: '94人浏览',
-        },
-        {
-          img: require('./img/p7.jpg'),
-          tags: [
-            {
-              tag: '营商环境',
-            },
-            {
-              tag: '政务大数据',
-            },
-            {
-              tag: '软件企业',
-            },
-          ],
-          title: '着力打造卓越全球城市最优营商环境',
-          con: '从政务大数据、政务信息资源相关行业的互联网企业、软件企业相关管理层、产品经理、技术人员等。',
-          see: '65人浏览',
-        },
-        {
-          img: require('./img/p8.jpg'),
-          tags: [
-            {
-              tag: '项目开发实战',
-            },
-            {
-              tag: '线上和线下',
-            },
-            {
-              tag: '在线学习',
-            },
-          ],
-          title: '城市数据中心的基因解码',
-          con: '贯穿整个课程的项目开发实战，培训模式采用创新的线上和线下结合的方式，利用在线学习平台提供的资',
-          see: '123人浏览',
-        },
-        {
-          img: require('./img//p9.jpg'),
-          tags: [
-            {
-              tag: '目录系统',
-            },
-            {
-              tag: '业务流程',
-            },
-            {
-              tag: '相关政策',
-            },
-          ],
-          title: '浙江省目录系统普查系统业务流程分享',
-          con: '针对大数据、互联网+政务相关政策文件进行解读，由国家级专家向学员详细地解释相关政策的具体内容',
-          see: '153人浏览',
-        },
-      ],
+      pastTrainingList: [],
     }
   },
   methods: {
@@ -196,6 +45,14 @@ export default {
         path: '/app/training_list',
       })
     },
+    getPastList () {
+      getPastList ().then(({data}) => {
+        this.pastTrainingList = data.data
+      })
+    },
+  },
+  created () {
+    this.getPastList()
   },
 }
 </script>

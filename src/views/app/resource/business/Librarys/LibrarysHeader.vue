@@ -1,7 +1,7 @@
 <template>
   <div class="librarys-header">
     <div class="left">
-      <div :label="title" name="first">{{title}}</div><span class="data">{{data}}</span>
+      <div :label="title" name="first">{{title}}</div><span class="data">（今日上传{{total}}个）</span>
     </div>
     <div class="right">
       <operation-search @search-page="searchPage">
@@ -11,10 +11,15 @@
 </template>
 <script>
 export default {
+  props: {
+    total: {
+      type: Number,
+      default: 0,
+    },
+  },
   data () {
     return {
       title: '商机库',
-      data: '（今日上传139个）',
     }
   },
   methods: {

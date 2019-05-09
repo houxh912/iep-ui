@@ -5,25 +5,25 @@
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
         <div @click="handleOpen()">
           <div class="header clearfix">
-            <div class="img"><img :src="item.img" alt=""></div>
-            <span class="time">{{item.time}}</span>
+            <div class="img"><img :src="item.trainerImage" alt=""></div>
+            <span class="time">{{item.startTime}}</span>
             <el-tag class="dn" :class="item.show" size="small">{{item.tag}}</el-tag>
           </div>
           <div class="content">
-            <h4 class="item-title">{{item.title}}</h4>
-            <p class="con">{{item.con}}</p>
+            <h4 class="item-title">{{item.trainingTheme}}</h4>
+            <p class="con">{{item.trainingBrief}}</p>
             <div class="detail">
               <div class="classTag">
-                <el-tag type="white" v-for="tag in item.tags" :key="tag.id">{{tag.tag}}</el-tag>
+                <el-tag type="white" v-for="(tag, index) in item.trainingTags" :key="index">{{tag}}</el-tag>
               </div>
-              <span><i class="el-icon-view"></i>{{item.num}}</span>
+              <span><i class="el-icon-view"></i>{{item.views}} 人浏览</span>
             </div>
           </div>
         </div>
       </el-card>
     </div>
     <div class="page">
-      <el-pagination background layout="prev, pager, next" :total="1000">
+      <el-pagination background layout="prev, pager, next" :total="total" :page-size="12" @current-change="currentChange">
       </el-pagination>
     </div>
   </div>
@@ -31,242 +31,17 @@
 
 <script>
 import Search from './Search'
+import { getRecruitPage } from '@/api/app/hrms/'
+
 export default {
   data () {
     return {
-      moduleList: [
-        {
-          title: '北京市政服务事项标准化和主题事项持续',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags: [
-            {
-              tag: '产品设计',
-            },
-            {
-              tag: '项目管理',
-            },
-            {
-              tag: '原型设计',
-            },
-          ],
-          time: '2019-04-09',
-          tag: '预告',
-          show: 'show',
-          img: require('./img/e1.jpg'),
-          num: '120人浏览',
-        },
-        {
-          title: '研发中心测试组赵雨晨培训如何应用阿里',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags: [
-            {
-              tag: '产品设计',
-            },
-            {
-              tag: '项目管理',
-            },
-            {
-              tag: '原型设计',
-            },
-          ],
-          time: '2019-04-09',
-          tag: '预告',
-          show: 'show',
-          img: require('./img/e2.jpg'),
-          num: '56人浏览',
-        },
-        {
-          title: '如何提高人员文档撰写能力及撰写规范',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags: [
-            {
-              tag: '产品设计',
-            },
-            {
-              tag: '项目管理',
-            },
-            {
-              tag: '原型设计',
-            },
-          ],
-          time: '2019-04-09',
-          tag: '预告',
-          show: 'show',
-          img: require('./img/e12.jpg'),
-          num: '34人浏览',
-        },
-        {
-          title: '区块链点对点技术实现电子现金系统',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags: [
-            {
-              tag: '产品设计',
-            },
-            {
-              tag: '项目管理',
-            },
-            {
-              tag: '原型设计',
-            },
-          ],
-          time: '2019-04-09',
-          tag: '预告',
-          img: require('./img/e4.jpg'),
-          num: '112人浏览',
-        },
-        {
-          title: 'docker微服务部署培训',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags: [
-            {
-              tag: '产品设计',
-            },
-            {
-              tag: '项目管理',
-            },
-            {
-              tag: '原型设计',
-            },
-          ],
-          tag: '预告',
-          time: '2019-04-09',
-          img: require('./img/e5.jpg'),
-          num: '35人浏览',
-        },
-        {
-          title: '慈溪市政务公开工作要点培训',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags: [
-            {
-              tag: '产品设计',
-            },
-            {
-              tag: '项目管理',
-            },
-            {
-              tag: '原型设计',
-            },
-          ],
-          tag: '预告',
-          time: '2019-04-09',
-          img: require('./img/e6.jpg'),
-          num: '28人浏览',
-        },
-        {
-          title: '佛山市企业经营准入主题式服务改革',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags: [
-            {
-              tag: '产品设计',
-            },
-            {
-              tag: '项目管理',
-            },
-            {
-              tag: '原型设计',
-            },
-          ],
-          tag: '预告',
-          time: '2019-04-09',
-          img: require('./img/e7.jpg'),
-          num: '220人浏览',
-        },
-        {
-          title: '蓝山县基层政务公开标准化规范化',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags: [
-            {
-              tag: '产品设计',
-            },
-            {
-              tag: '项目管理',
-            },
-            {
-              tag: '原型设计',
-            },
-          ],
-          tag: '预告',
-          time: '2019-04-09',
-          img: require('./img/e8.jpg'),
-          num: '123人浏览',
-        },
-        {
-          title: '江西省政务服务标准化项目分享',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags: [
-            {
-              tag: '产品设计',
-            },
-            {
-              tag: '项目管理',
-            },
-            {
-              tag: '原型设计',
-            },
-          ],
-          tag: '预告',
-          time: '2019-04-09',
-          img: require('./img/e9.jpg'),
-          num: '235人浏览',
-        },
-        {
-          title: '项目开发的代码规范',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags: [
-            {
-              tag: '产品设计',
-            },
-            {
-              tag: '项目管理',
-            },
-            {
-              tag: '原型设计',
-            },
-          ],
-          tag: '预告',
-          time: '2019-04-09',
-          img: require('./img/e10.jpg'),
-          num: '156人浏览',
-        },
-        {
-          title: '上海市青浦区行政审批事项标准化',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags: [
-            {
-              tag: '产品设计',
-            },
-            {
-              tag: '项目管理',
-            },
-            {
-              tag: '原型设计',
-            },
-          ],
-          tag: '预告',
-          time: '2019-04-090',
-          img: require('./img/e11.jpg'),
-          num: '134人浏览',
-        },
-        {
-          title: '浙江省目录系统普查系统业务流程分享',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          tags: [
-            {
-              tag: '产品设计',
-            },
-            {
-              tag: '项目管理',
-            },
-            {
-              tag: '原型设计',
-            },
-          ],
-          tag: '预告',
-          time: '2019-04-090',
-          img: require('./img/e12.jpg'),
-          num: '146人浏览',
-        },
-      ],
+      moduleList: [],
+      total: 0,
+      params: {
+        current: 1,
+        size: 12,
+      },
     }
   },
   components: {
@@ -278,6 +53,19 @@ export default {
         path: '/app/training_detail',
       })
     },
+    getRecruitPage () {
+      getRecruitPage(this.params).then(({data}) => {
+        this.moduleList = data.data.records
+        this.total = data.data.total
+      })
+    },
+    currentChange (val) {
+      this.params.current = val
+      this.getRecruitPage()
+    },
+  },
+  created () {
+    this.getRecruitPage()
   },
 }
 </script>

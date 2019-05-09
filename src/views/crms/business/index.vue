@@ -42,7 +42,7 @@ import DetailDrawer from './DetailDrawer'
 import EditDrawer from './EditDrawer'
 import AdvanceSearch from './AdvanceSearch'
 // import Create from './Create'
-import { getBusinessList, postBusiness, putBusiness, deleteBusinessById, getBusinessById, cancelClaim } from '@/api/crms/business'
+import { getBusinessList, postBusiness, putBusiness, deleteBusinessById, getBusinessById, cancelClaim, businessView } from '@/api/crms/business'
 import { allSearchForm, initSearchForm } from './options'
 export default {
   name: 'List',
@@ -133,6 +133,8 @@ export default {
       }
       getBusinessById(row.opportunityId).then((res) => {
         this.$refs['DetailDrawer'].formData = res.data.data.data
+        let obj = { viewCount: res.data.data.data.viewCount, opportunityId: res.data.data.data.opportunityId }
+        businessView(obj)
       })
       this.$refs['DetailDrawer'].methodName = '详情'
       this.$refs['DetailDrawer'].drawerShow = true

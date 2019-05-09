@@ -42,7 +42,7 @@
       </el-row>
       <el-row>
         <el-col :span=12>
-          <el-form-item label="签署部门：">
+          <el-form-item label="签署组织：">
             <el-input v-model="formData.signDeptOrgName.name" disabled></el-input>
           </el-form-item>
         </el-col>

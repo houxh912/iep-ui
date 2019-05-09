@@ -90,3 +90,11 @@ export function sendMessage (query) {
     params: query,
   })
 }
+//商机浏览量
+export function businessView (obj) {
+  return request({
+    url: `${crmsUrl}/update/view`,
+    method: 'post',
+    params: obj,
+  })
+}

@@ -20,31 +20,15 @@
     </div>
   </div>
 </template>
+
 <script>
+import { getNoticeList } from '@/api/app/hrms/'
+
 export default {
   data () {
     return {
       title: '培训预告',
-      activities: [{
-        title: '04-06 • 张云飞 • 国脉人微信培训 • ',
-        important: '即将开始',
-        content: '河北人口库项目',
-        color: '#cb3737',
-        icon: 'el-icon-time',
-        size: 'large',
-      }, {
-        title: '04-10 • 刘晓燕 • 海洋科学城12楼会议室',
-        content: '北京市政务服务事项标准化和主题事项持续优化项目',
-      }, {
-        title: '04-12 • 应琪瑜 • 国脉人微信培训',
-        content: '区块链点对点技术实现电子现金系统技术培训',
-      }, {
-        title: '04-15 • 俞泽益 • 舟山国脉集团10楼1002会议室',
-        content: '如何提高人员文档撰写能力及撰写规范',
-      }, {
-        title: '04-19 • 温迎璐 • 舟北京市丰台区党委',
-        content: '北京市政务服务（公共服务）事项规范填报说明培训',
-      }],
+      activities: [],
     }
   },
   methods: {
@@ -53,6 +37,38 @@ export default {
         path: '/app/training_list',
       })
     },
+    getNoticeList () {
+      getNoticeList().then(({data}) => {
+        for (let item of data.data) {
+          this.activities.push({
+            id: item.id,
+            title: `${this.itmeChange(item.startTime)} • ${item.trainerName} • ${item.place}`,
+            content: item.trainingTheme,
+          })
+        }
+        this.activities[0] = Object.assign({}, this.activities[0], {
+          important: '即将开始',
+          color: '#cb3737',
+          icon: 'el-icon-time',
+          size: 'large',
+        })
+      })
+    },
+    itmeChange (val) {
+      let formatDig = (num) => {
+        return num>9?''+num:'0'+num
+      }
+      var y = new Date(val)
+      let raws = [
+        formatDig(y.getMonth() + 1),
+        formatDig(y.getDate()),
+      ]
+      let format = ['-','-']
+      return String.raw({raw:raws}, ...format)
+    },
+  },
+  created () {
+    this.getNoticeList()
   },
 }
 </script>

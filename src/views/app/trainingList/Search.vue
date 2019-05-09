@@ -1,16 +1,28 @@
 <template>
   <div class="expert-search">
     <div class="search-con">
-      <operation-search>
-        <advance-search></advance-search>
+      <operation-search @search-page="searchPage" :paramForm="paramForm">
+        <!-- <advance-search></advance-search> -->
       </operation-search>
       <el-button type="danger" plain>高级搜索</el-button>
     </div>
   </div>
 </template>
+
 <script>
 export default {
-
+  data () {
+    return {
+      paramForm: {
+        
+      },
+    }
+  },
+  methods: {
+    searchPage () {
+      console.log('params: ', this.paramForm)
+    },
+  },
 }
 </script>
 <style scoped  lang="scss">

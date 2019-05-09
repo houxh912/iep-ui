@@ -5,22 +5,22 @@
         <el-card :body-style="{ padding: '0px' }" shadow="hover">
           <span class="item"><span>NEW</span></span>
           <div class="con" @click="handleOpen()">
-            <img :src="img" class="img">
+            <img :src="data.themePictures" class="img">
             <div class="text">
               <h3 class="sub-title">
-                {{subTitle}}
+                {{data.trainingTheme}}
               </h3>
               <div class="classTag">
-                <el-tag type="white" v-for="tag in tags" :key="tag.id">{{tag.tag}}</el-tag>
+                <el-tag type="white" v-for="(tag, index) in data.trainingTags" :key="index">{{tag}}</el-tag>
               </div>
-              <p class="con-text">{{conText}}</p>
+              <p class="con-text">{{data.trainingBrief}}</p>
               <div class="info">
-                <span class="info-con"><i class="iconfont icon-denglu"></i><span v-for="name in nameList" :key="name.id">{{name.name}}</span></span>
+                <span class="info-con"><i class="iconfont icon-denglu"></i><span>{{data.trainerName}}</span></span>
                 <span class="info-con">
-                  <i class="icon-font icon-shijian"></i><span>{{time}}</span>
+                  <i class="icon-font icon-shijian"></i><span>{{data.startTime}}</span>
                 </span>
                 <span class="info-con">
-                  <i class="icon-font icon-place"></i><span>{{address}}</span></span>
+                  <i class="icon-font icon-place"></i><span>{{data.place}}</span></span>
               </div>
             </div>
           </div>
@@ -29,31 +29,16 @@
     </el-row>
   </div>
 </template>
+
 <script>
+import { getNewestList } from '@/api/app/hrms/'
+
 export default {
   data () {
     return {
-      subTitle: '2019政务大数据、数字政府理论与实践 高级研修班（第四期）',
-      conText: '党的十八大以来，党中央高度重视以信息化推进国家治理体系和治理能力现代化，强调要加快推动电子政务，打通信息壁垒，构建全流程一体化在线服务平台，助力建设人民满意的服务型政府。2018年6月,构建全流程一体化在线服务平台',
-      img: require('../img/zz.jpg'),
-      nameList: [
-        {
-          name: '郑爱军',
-        },
-        {
-          name: '王路燕',
-        },
-        {
-          name: '何益挺',
-        },
-      ],
-      tags: [
-        { tag: '数据政府' },
-        { tag: '培训班' },
-        { tag: '政务大数据' },
-      ],
-      time: '2019年04月02日-04月05日',
-      address: '北京•万寿宾馆',
+      data: {
+        trainingBrief: [],
+      },
     }
   },
   methods: {
@@ -62,6 +47,14 @@ export default {
         path: '/app/resource/training/training_detail',
       })
     },
+    getNewestList () {
+      getNewestList().then(({data}) => {
+        this.data = data.data
+      })
+    },
+  },
+  created () {
+    this.getNewestList()
   },
 }
 </script>

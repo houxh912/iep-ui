@@ -31,7 +31,6 @@
       </iep-table>
       <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
       <edit-drawer ref="EditDrawer" @load-page="loadPage"></edit-drawer>
-      <!-- <create v-if="showCreate"></create> -->
     </basic-container>
   </div>
 </template>
@@ -41,7 +40,6 @@ import { columnsMapByTypeId, tabList } from './columns'
 import DetailDrawer from './DetailDrawer'
 import EditDrawer from './EditDrawer'
 import AdvanceSearch from './AdvanceSearch'
-// import Create from './Create'
 import { getBusinessList, postBusiness, putBusiness, deleteBusinessById, getBusinessById, cancelClaim, businessView } from '@/api/crms/business'
 import { allSearchForm, initSearchForm } from './options'
 export default {
@@ -51,7 +49,6 @@ export default {
     DetailDrawer,
     EditDrawer,
     AdvanceSearch,
-    // Create,
   },
   data () {
     return {
@@ -82,7 +79,6 @@ export default {
     })
   },
   methods: {
-
     handleSelectionChange () {
     },
     changeType () {
@@ -93,11 +89,14 @@ export default {
       }
       this.searchPage({ type: this.type })
     },
+    //新增
     handleAdd () {
       this.$refs['EditDrawer'].methodName = '新增'
       this.$refs['EditDrawer'].drawerShow = true
+      this.$refs['EditDrawer'].flag = ''
       this.$refs['EditDrawer'].formRequestFn = postBusiness
     },
+    //编辑
     handleEdit (row) {
       getBusinessById(row.opportunityId).then((res) => {
         let formData = res.data.data.data
@@ -118,6 +117,7 @@ export default {
       this.$refs['EditDrawer'].id = row.opportunityId
 
     },
+    // 创建客户
     handleCreate (row) {
       this.$router.push({
         path: '/crms/customer',
@@ -127,24 +127,28 @@ export default {
         },
       })
     },
+    //点击详情
     handleDetail (row, column) {
+      //限制详情点击范围
       if (column.label == '操作' || column.type == 'selection') {
         return false
       }
       getBusinessById(row.opportunityId).then((res) => {
         this.$refs['DetailDrawer'].formData = res.data.data.data
         let obj = { viewCount: res.data.data.data.viewCount, opportunityId: res.data.data.data.opportunityId }
+        //商机浏览量接口
         businessView(obj)
       })
       this.$refs['DetailDrawer'].methodName = '详情'
       this.$refs['DetailDrawer'].drawerShow = true
     },
+    //删除
     handleDelete (row) {
       let ids = [row.opportunityId]
       this._handleGlobalDeleteById(ids, deleteBusinessById)
     },
-    loadPage () {
-      this.loadTable({ ...this.$refs.search.form, type: this.type }, getBusinessList, m => {
+    loadPage (param) {
+      this.loadTable({ ...param, type: this.type }, getBusinessList, m => {
         return Object.assign(m, { businessTypeKey: m.businessType.map(m => m.commonName).join('，') })
       })
     },
@@ -167,7 +171,6 @@ export default {
               this.$message.success('操作成功!')
               //发送消息
               // sendMessage({instantFlag:'',pathId:'',pathType:'',receiverIds:'',receiverId:row.reciver,text:'',title:'',type:''}).then(() => {
-
               // })
             } else {
               this.$message.info(`操作失败，${res.data.msg}`)

@@ -23,7 +23,10 @@ import { reward } from '@/api/fams/total'
 function initForm () {
   return {
     amount: 0,
-    targetUser: {},
+    targetUser: {
+      id: '',
+      name: '',
+    },
     message: '',
   }
 }

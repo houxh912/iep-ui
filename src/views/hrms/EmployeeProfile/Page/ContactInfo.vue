@@ -1,8 +1,9 @@
 <template>
   <div>
-    <el-form-item label="户口类型：" prop="accountTypeId" class="form-half">
+    <iep-form-item class="form-half" prop="accountTypeId" label-name="户口类型" tip="请务必根据实际情况选择">
       <iep-dict-select v-model="form.accountTypeId" dict-name="hrms_resident_type"></iep-dict-select>
-    </el-form-item>
+    </iep-form-item>
+
     <el-form-item label="户籍地址：" prop="residenceAddress">
       <div style="display:flex;">
         <iep-cascader style="flex:1;" v-model="form.residenceCities" prefix-url="admin/city"></iep-cascader>
@@ -45,14 +46,14 @@
 export default {
   props: ['value'],
   computed: {
-  form: {
-    get: function () {
-      return this.value
-    },
-    set: function (value) {
-      this.$emit('input', value)
+    form: {
+      get: function () {
+        return this.value
+      },
+      set: function (value) {
+        this.$emit('input', value)
+      },
     },
   },
-},
 }
 </script>

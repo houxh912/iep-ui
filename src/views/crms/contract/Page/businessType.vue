@@ -124,7 +124,7 @@ export default {
   },
   watch: {
     value (newVal) {
-      let list = newVal.split(',')
+      let list = newVal === '' ? [] : newVal.split(',')
       let data = []
       for (let item of list) {
         data.push(this.getTagsList(item))

@@ -1,6 +1,6 @@
 <template>
   <iep-drawer :drawer-show="drawerShow" type="drawer" :title="methodName+'商机'" width="40%" @close="loadPage">
-    <el-form :model="formData" :rules="methodName=='修改' ? rule: rules" ref="formName" label-width="120px" size="small">
+    <el-form :model="formData" :rules="methodName=='修改' ? rules: rules" ref="formName" label-width="120px" size="small">
       <el-form-item prop="clientName">
         <span slot="label">
           客户名称
@@ -76,8 +76,8 @@ const tipContent = {
 export default {
   components: { businessType },
   data () {
+    //自定义客户名称去重验证
     var validateFun = (rule, value, callback) => {
-
       let val = value.replace(/(^\s*)|(\s*$)/g, '')
       if (!val) {
         return callback(new Error('客户名称不能为空'))
@@ -94,14 +94,18 @@ export default {
             if (!res.data.data) {
               callback(new Error('您输入的客户名称已存在，请重新输入！'))
             } else {
-              checkBusinessName({ name: val }).then(res => {
-                if (res.data) {
-                  callback()
-                  return false
-                } else {
-                  callback(new Error('您输入的客户名称已存在，请重新输入！'))
-                }
-              })
+              if (this.flag == value) {
+                callback()
+              } else {
+                checkBusinessName({ name: val }).then(res => {
+                  if (res.data) {
+                    callback()
+                    return false
+                  } else {
+                    callback(new Error('您输入的客户名称已存在，请重新输入！'))
+                  }
+                })
+              }
             }
           })
         }
@@ -131,22 +135,6 @@ export default {
           { max: 100, message: '长度不超过100个字符', trigger: 'blur' },
         ],
       },
-      rule: {
-        projectName: [
-          { required: true, message: '请输入项目名称', trigger: 'blur' },
-          { min: 2, max: 25, message: '长度在 2 到 25 个字符', trigger: 'blur' }],
-        businessType: [
-          { required: true, message: '请选择业务类型', trigger: 'blur' },
-        ],
-        intentionLevel: [
-          { required: true, message: '请选择意向程度', trigger: 'blur' },
-        ],
-        tags: [{ required: true, message: '请添加商机标签', trigger: 'blur' }],
-        opportunityDes: [
-          { required: true, message: '请输入商机描述', trigger: 'blur' },
-          { max: 100, message: '长度不超过100个字符', trigger: 'blur' },
-        ],
-      },
       drawerShow: false,
       formRequestFn: () => { },
     }
@@ -158,7 +146,6 @@ export default {
     ]),
   },
   created () {
-    console.log(this.formData)
   },
   methods: {
     validateFun () {

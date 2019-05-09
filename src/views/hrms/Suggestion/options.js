@@ -10,14 +10,6 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'name',
-    label: '收件人',
-  },
-  {
-    prop: 'theme',
-    label: '主题',
-  },
-  {
     prop: 'status',
     label: '状态',
     type: 'dict',

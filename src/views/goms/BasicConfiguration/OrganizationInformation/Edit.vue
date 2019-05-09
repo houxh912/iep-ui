@@ -28,7 +28,7 @@
         <el-form-item label="卓越标签：">
           <iep-tag v-model="form.abilityTag"></iep-tag>
         </el-form-item>
-        <el-form-item label="进步标签：">
+        <el-form-item label="专业标签：">
           <iep-tag v-model="form.learningTag"></iep-tag>
         </el-form-item>
         <el-form-item label="组织简介：" prop="intro">

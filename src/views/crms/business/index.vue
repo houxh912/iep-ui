@@ -31,7 +31,7 @@
       </iep-table>
       <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
       <edit-drawer ref="EditDrawer" @load-page="loadPage"></edit-drawer>
-      <create v-if="showCreate"></create>
+      <!-- <create v-if="showCreate"></create> -->
     </basic-container>
   </div>
 </template>
@@ -41,8 +41,8 @@ import { columnsMapByTypeId, tabList } from './columns'
 import DetailDrawer from './DetailDrawer'
 import EditDrawer from './EditDrawer'
 import AdvanceSearch from './AdvanceSearch'
-import Create from './Create'
-import { getBusinessList, postBusiness, putBusiness, deleteBusinessById, getBusinessById, cancelClaim } from '@/api/crms/business'
+// import Create from './Create'
+import { getBusinessList, postBusiness, putBusiness, deleteBusinessById, getBusinessById, cancelClaim, businessView } from '@/api/crms/business'
 import { allSearchForm, initSearchForm } from './options'
 export default {
   name: 'List',
@@ -51,7 +51,7 @@ export default {
     DetailDrawer,
     EditDrawer,
     AdvanceSearch,
-    Create,
+    // Create,
   },
   data () {
     return {
@@ -105,7 +105,7 @@ export default {
           opportunityId: formData.opportunityId, // ID
           clientName: formData.clientName, // 客户名称 clientName
           projectName: formData.projectName, // 项目名称 projectName
-          businessType: formData.businessType.map(m => m.commonId), // 业务类型 businessType
+          businessType: formData.businessType.map(m => m.commonId).toString(), // 业务类型 businessType
           intentionLevel: formData.intentionLevelKey, // 意向程度 intentionLevel
           tags: formData.tags.map(m => m.commonName), // 商机标签 businessTag
           opportunityDes: formData.opportunityDes, // 商机描述
@@ -133,6 +133,8 @@ export default {
       }
       getBusinessById(row.opportunityId).then((res) => {
         this.$refs['DetailDrawer'].formData = res.data.data.data
+        let obj = { viewCount: res.data.data.data.viewCount, opportunityId: res.data.data.data.opportunityId }
+        businessView(obj)
       })
       this.$refs['DetailDrawer'].methodName = '详情'
       this.$refs['DetailDrawer'].drawerShow = true

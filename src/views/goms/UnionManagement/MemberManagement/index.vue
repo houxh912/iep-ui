@@ -10,11 +10,6 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <template slot="before-columns">
-          <el-table-column label="ID">
-            <template slot-scope="scope">
-              {{scope.row.userId}}
-            </template>
-          </el-table-column>
           <el-table-column label="姓名">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.realName}}</iep-table-link>

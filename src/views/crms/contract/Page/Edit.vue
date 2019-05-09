@@ -24,9 +24,10 @@
           <iep-tip :content="tipContent.businessType"></iep-tip>
           :
         </span>
-        <el-radio-group v-model="formData.businessType">
+        <!-- <el-radio-group v-model="formData.businessType">
           <el-radio v-for="item in dictGroup['mlms_business_type']" :key="item.value" :label="item.value">{{item.label}}</el-radio>
-        </el-radio-group>
+        </el-radio-group> -->
+        <businessType v-model="formData.businessType"></businessType>
       </el-form-item>
       <el-form-item prop="tagKeyWords">
         <span slot="label">
@@ -63,7 +64,8 @@
       <el-row>
         <el-col :span='12'>
           <el-form-item label="签署组织：" prop="signDeptOrgName">
-            <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select>
+            <!-- <iep-dept-select v-model="formData.signDeptOrgName"></iep-dept-select> -->
+            <el-input v-model="formData.signDeptName" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
@@ -104,13 +106,9 @@
         </el-col>
       </el-row>
       <el-row>
-        <!-- <el-col :span='12'>
-          <el-form-item label="合同附件：" prop="baozhengjin">
-            <iep-upload v-model="formData.fileList" :limit="1">
-              <slot name="tip"><span>文件类型为excel，每次上传数量不超过一个</span></slot>
-            </iep-upload>
-          </el-form-item>
-        </el-col> -->
+        <el-form-item label="合同附件上传：" prop="contractFileList">
+          <iep-upload v-model="formData.contractFileList" :limit="limit"></iep-upload>
+        </el-form-item>
       </el-row>
     </el-form>
     <footer-toolbar>
@@ -126,6 +124,7 @@ import { mapGetters } from 'vuex'
 import { getDataById } from '@/api/crms/contract'
 import { getMarket } from '@/api/crms/customer'
 import { getObj } from '@/api/admin/user'
+import businessType from './businessType'
 const tipContent = {
   contractName: '合同签订日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”',
   contractExpl: '1、合同说明：请详细说明签订合同时承诺客户或需要注意的地方；<br>2、收款方式：付款周期+付款方式，如三期付款+对公;<br>3、开票资料信息。',
@@ -134,7 +133,7 @@ const tipContent = {
 
 }
 export default {
-  components: { FooterToolbar },
+  components: { FooterToolbar, businessType },
   props: {
     record: {
       type: Object,
@@ -161,24 +160,27 @@ export default {
       signTime: '',
       finishTime: '',
       isTime: true,
+      limit: 1,
     }
   },
   computed: {
-    ...mapGetters(['dictGroup']),
+    ...mapGetters(['userInfo', 'dictGroup']),
   },
   created () {
-
     this.formRequestFn = this.record.formRequestFn
     this.methodName = this.record.methodName
     this.id = this.record.id
+    this.formData.signDeptOrgId = this.userInfo.orgId
+    this.formData.signDeptName = this.userInfo.orgName
     if (this.id) {
       getDataById(this.id).then(res => {
         this.formData = res.data.data
         this.signTime = res.data.data.signTime
         this.finishTime = res.data.data.finishTime
+        this.formData.signDeptOrgId = this.userInfo.orgId
+        this.formData.signDeptName = this.userInfo.orgName
         getObj(this.formData.directorId).then(res => {
           this.$set(this.formData, 'Manager', res.data.data.realName)
-
         })
       })
     }
@@ -198,8 +200,8 @@ export default {
       })
     },
     submitForm (formName) {
+      this.formData.contractFile = this.formData.contractFileList.length > 0 ? this.formData.contractFileList[0].url : ''
       let formData = Object.assign({}, this.formData)
-      formData.signDeptOrgId = this.formData.signDeptOrgName.id
       formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
       formData.directorId = this.formData.directorId
       this.$refs[formName].validate((valid) => {

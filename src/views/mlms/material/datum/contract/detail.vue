@@ -30,7 +30,7 @@
         <iep-button>预览</iep-button> -->
       </el-col>
     </el-row>
-      
+
     <el-row class="clause">
       <el-col class="name">合同/项目款项</el-col>
       <el-row class="list">
@@ -89,7 +89,6 @@
       </el-row>
     </el-row>
 
-
   </basic-container>
 </template>
 <script>
@@ -99,18 +98,18 @@ import { mapGetters } from 'vuex'
 import { downloadFile } from '@/api/common'
 
 function formatDig (num) {
-  return num>9?''+num:'0'+num
+  return num > 9 ? '' + num : '0' + num
 }
 
-function formatYear (mill){
+function formatYear (mill) {
   var y = new Date(mill)
   let raws = [
-      y.getFullYear(),
-      formatDig(y.getMonth() + 1),
-      formatDig(y.getDate()),
+    y.getFullYear(),
+    formatDig(y.getMonth() + 1),
+    formatDig(y.getDate()),
   ]
-  let format = ['-','-','-']
-  return String.raw({raw:raws}, ...format)
+  let format = ['-', '-', '-']
+  return String.raw({ raw: raws }, ...format)
 }
 
 export default {
@@ -166,7 +165,7 @@ export default {
         for (let item of data.underTakeDeptName) {
           underTakeDeptNames += item.name + '、'
         }
-        data.underTakeDeptNames = underTakeDeptNames.slice(0, underTakeDeptNames.length-1)
+        data.underTakeDeptNames = underTakeDeptNames.slice(0, underTakeDeptNames.length - 1)
         data.projectName = data.projectRelation ? data.projectRelation.name : '无'
         console.log('data: ', data)
         let businessType = data.businessType.split(','), list = []

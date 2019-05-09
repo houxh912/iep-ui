@@ -1,11 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织设置">
-        <template>
-          <el-button class="modify" size="small">组织变更记录</el-button>
-        </template>
-      </page-header>
+      <page-header title="组织设置"></page-header>
       <div class="message-box" v-for="(item,i) in message" :key="i">
         <template v-if="item.status===3">
           <i class="el-icon-info"></i>

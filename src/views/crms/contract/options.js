@@ -1,10 +1,13 @@
 const initSearchForm = () => {
   return {
     contractName: '',
-    signTime: '',
+    director: '',
     businessType: '',
-    contractStatus: '',
     contractLevel: '',
+    contractStatus: '',
+    signDeptName: '',
+    signTime: '',
+    contractType: '',
   }
 }
 const amount = (rules, value, callback) => {
@@ -31,13 +34,13 @@ const amount1 = (rules, value, callback) => {
   }
   callback()
 }
-const RespDept = (rules, value, callback) => {
-  if (value.name == '' || value.name == null) {
-    callback(new Error('签署组织不能为空'))
-  } else {
-    callback()
-  }
-}
+// const RespDept = (rules, value, callback) => {
+//   if (value.name == '' || value.name == null) {
+//     callback(new Error('签署组织不能为空'))
+//   } else {
+//     callback()
+//   }
+// }
 export const rules = {
   contractName: [
     { required: true, message: '请输入合同名称', trigger: 'blur' },
@@ -61,7 +64,7 @@ export const rules = {
   finishTime: [
     { required: true, message: '请选择完结日期', trigger: 'change' },
   ],
-  signDeptOrgName: [{ required: true, validator: RespDept, trigger: 'change' }],
+  // signDeptOrgName: [{ required: true, validator: RespDept, trigger: 'change' }],
   contractLevel: [
     { required: true, message: '请选择合同级别', trigger: 'change' },
   ],
@@ -93,7 +96,7 @@ export const initFormData = () => {
     contractLevel: '',
     contractStatus: '',
     deposit: '',
-    fileList: [],
+    contractFileList: [],
     contractType: 1,
   }
 }

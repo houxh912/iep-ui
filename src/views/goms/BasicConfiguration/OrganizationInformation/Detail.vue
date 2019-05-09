@@ -42,7 +42,7 @@
                 卓越标签：<iep-tag-detail :value="form.abilityTag"></iep-tag-detail>
               </div>
               <div>
-                进步标签：<iep-tag-detail :value="form.learningTag"></iep-tag-detail>
+                专业标签：<iep-tag-detail :value="form.learningTag"></iep-tag-detail>
               </div>
             </div>
           </div>

@@ -10,3 +10,11 @@ export function getMyInvoicePage (query) {
     params: query,
   })
 }
+// 财务管理
+export function getInvoicePage (query) {
+  return request({
+    url: `${prefixUrl}/financial_page`,
+    method: 'get',
+    params: query,
+  })
+}

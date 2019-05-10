@@ -11,16 +11,10 @@
       <iep-div-detail :value="form.deptQm"></iep-div-detail>
     </el-form-item>
 
-    <el-form-item prop="avatar" class="">
-      <span slot="label">
-        头像
-        <iep-tip content="请务必根据以下说明上传头像：1.照片必须为本人真实、正面、静态、采用蓝、白、灰底1年内的证件照；2.上传尺寸为宽300像素*高300像素">
-        </iep-tip>
-        ：
-      </span>
+    <iep-form-item prop="avatar" label-name="头像" tip="请务必根据以下说明上传头像：1.照片必须为本人真实、正面、静态、采用蓝、白、灰底1年内的证件照；2.上传尺寸为宽300像素*高300像素">
       <iep-avatar v-model="form.avatar"></iep-avatar>
-    </el-form-item>
-    <el-form-item label="角色：" class="form-half">
+    </iep-form-item>
+    <el-form-item label="角色：">
       <iep-tag-detail :value="form.roleName" iep-type="role"></iep-tag-detail>
     </el-form-item>
 
@@ -30,6 +24,10 @@
 
     <iep-form-item class="form-half" prop="staffId" label-name="工号">
       <el-input v-model="form.staffId" dict-name="hrms_marriage_status"></el-input>
+    </iep-form-item>
+
+    <iep-form-item class="form-half" prop="identityMark" label-name="身份标志">
+      <iep-select multiple prefix-url="hrms/employee_profile/identity_mark" v-model="form.identityMark"></iep-select>
     </iep-form-item>
 
     <el-form-item label="岗位：" prop="position" class="form-half">

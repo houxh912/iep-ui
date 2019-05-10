@@ -18,9 +18,7 @@
             <div class="right">
               <div class="user-poster">
                 <span class="say">{{timeFix}}，{{form.name}}
-                  <svg class="iep2-icon" aria-hidden="true">
-                    <use xlink:href="#iep2-iconchengyuan"></use>
-                  </svg>
+                  <iep-ddentity-mark icon="iep2-iconchengyuan" title="成员"></iep-ddentity-mark>
                   <span class="welcome-text">{{welcome}}</span>
                 </span>
               </div>

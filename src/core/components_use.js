@@ -23,6 +23,7 @@ import IepTabScroll from '@/components/IepTabScroll/'
 import IepNoData from '@/components/IepCommon/NoData'
 import IepToDev from '@/components/IepToDev/'
 import IepTip from '@/components/IepCommon/Tip'
+import IepIdentityMark from '@/components/IepCommon/IdentityMark'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
@@ -111,6 +112,7 @@ Vue.component(IepTabScroll.name, IepTabScroll)
 Vue.component(IepNoData.name, IepNoData)
 Vue.component(IepToDev.name, IepToDev)
 Vue.component(IepTip.name, IepTip)
+Vue.component(IepIdentityMark.name, IepIdentityMark)
 
 // 表单组件
 Vue.component(IepTag.name, IepTag)

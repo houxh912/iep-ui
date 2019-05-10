@@ -34,7 +34,7 @@
       <el-form-item label="开票税率：">
         <iep-div-detail :value="form.invoicingTax+'%'"></iep-div-detail>
       </el-form-item>
-      <el-form-item label="计息比率：">
+      <el-form-item v-if="form.parentType==='6'" label="计息比率：">
         <iep-div-detail :value="form.interestRate+'%'"></iep-div-detail>
       </el-form-item>
       <el-form-item label="备注：">

@@ -25,7 +25,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="200px">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleReview(scope.row)" plain>查看</iep-button>
@@ -73,7 +73,7 @@ export default {
       // console.log(val)
     },
     handleAdd () {
-
+      this.$router.push('/hrms_spa/suggestion_new')
     },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id)

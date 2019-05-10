@@ -9,32 +9,30 @@
           <el-input v-model="form.theme"></el-input>
         </iep-form-item>
 
-        <iep-form-item class="form-half" prop="con" label-name=" 建议内容">
-          <iep-input-area v-model="form.con"></iep-input-area>
+        <iep-form-item class="form-half" prop="desc" label-name="建议内容">
+          <iep-input-area v-model="form.desc"></iep-input-area>
         </iep-form-item>
 
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="通讯录" prop="academicId">
-              <iep-dict-select v-model="form.academicId" dict-name=""></iep-dict-select>
-            </iep-form-item>
-          </el-col>
-        </el-row>
+        <iep-form-item prop="attendeeList" label-name="接收对象">
+          <iep-contact-multiple v-model="attendeeList"></iep-contact-multiple>
+        </iep-form-item>
 
         <iep-form-item class="form-half" prop="" label-name="附件">
           <el-input v-model="input2">
             <template slot="append">
-              <el-upload class="upload-demo" action="" :on-change="handleChange" :file-list="fileList">
+              <el-upload class="upload-demo" action="">
                 <el-button size="small" type="primary">上传</el-button>
               </el-upload>
             </template>
           </el-input>
         </iep-form-item>
+
         <el-form-item label="">
           <el-tag class="el-tag-new" :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)" type="white">
             {{tag}}
           </el-tag>
         </el-form-item>
+        
         <el-form-item label="">
           <operation-wrapper>
             <iep-button type="primary" @click="handlePublish">发送</iep-button>
@@ -47,9 +45,8 @@
   </div>
 </template>
 <script>
-import { getPublishRecruitmentById, postPublishRecruitment, putPublishRecruitment } from '@/api/hrms/publish_recruitment'
+import { postPublishRecruitment, putPublishRecruitment } from '@/api/hrms/publish_recruitment'
 import { initForm, formToDto, rules } from './options'
-import _ from 'lodash'
 export default {
   data () {
     return {
@@ -60,6 +57,14 @@ export default {
       },
       rules,
       form: initForm(),
+      attendeeList: { // 比如接收人
+        unions: [],
+        orgs: [],
+        users: [{
+          id: 588,
+          name: '张超',
+        }],
+      },
     }
   },
   computed: {
@@ -67,21 +72,7 @@ export default {
       return this.id ? '编辑' : '新增'
     },
   },
-  created () {
-    if (this.id) {
-      getPublishRecruitmentById(this.id).then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
-      })
-    }
-  },
   mounted () {
-    if (this.$route.query.position) {
-      const position = this.$route.query.position.map(m => +m) || []
-      this.form.position = position || []
-      setTimeout(() => {
-        this.$refs['IepCascader'].handleChange(position)
-      }, 2000)
-    }
   },
   methods: {
     handleClose (tag) {
@@ -89,19 +80,6 @@ export default {
     },
     onGoBack () {
       this.$router.history.go(-1)
-    },
-    handlePositionChange (item, options) {
-      const value = item[item.length - 1]
-      const position = _(options)
-        .thru(function (coll) {
-          return _.union(coll, _.map(coll, 'children'))
-        })
-        .flatten()
-        .find({ value })
-      if (position) {
-        this.form.duties = position.duty
-        this.form.claim = position.rqmt
-      }
     },
     handlePublish () {
       this.handleSubmit(true)

@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`转移客户`" width="25%" @close="close">
+  <iep-dialog :dialog-show="dialogShow" :title="`转移客户`" width="30%" @close="close">
     <div class="user">
       <span>新负责人：</span>
       <iep-contact-select v-model="form.user"></iep-contact-select>
@@ -30,7 +30,10 @@ export default {
         creatorId: [],
       },
       form: {
-        user: {},
+        user: {
+          id: '',
+          name: '',
+        },
       },
     }
   },
@@ -59,6 +62,10 @@ export default {
         if (res.data.data) {
           this.$message.success('转移客户成功！')
           this.dialogShow = false
+          this.form.user = {
+            id: '',
+            name: '',
+          }
           this.$emit('load-page')
         } else {
           this.$message.error(`操作失败，${res.data.msg}`)

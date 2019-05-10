@@ -88,6 +88,7 @@ import IepAppLabelCard from '@/components/IepApp/LabelCard'
 import IepAppAssortCard from '@/components/IepApp/AssortCard'
 import IepAppRewardCard from '@/components/IepApp/RewardCard'
 import IepAppEvaluationReview from '@/components/IepApp/EvaluationReview'
+import IepAppEvaluationReviews from '@/components/IepApp/EvaluationReviews'
 
 // 注册全局容器
 Vue.component(BasicContainer.name, BasicContainer)
@@ -176,3 +177,4 @@ Vue.component(IepAppLabelCard.name, IepAppLabelCard)
 Vue.component(IepAppAssortCard.name, IepAppAssortCard)
 Vue.component(IepAppRewardCard.name, IepAppRewardCard)
 Vue.component(IepAppEvaluationReview.name, IepAppEvaluationReview)
+Vue.component(IepAppEvaluationReviews.name, IepAppEvaluationReviews)

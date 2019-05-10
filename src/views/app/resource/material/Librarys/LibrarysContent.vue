@@ -1,7 +1,7 @@
 <template>
   <div class="librarys-content">
     <div v-for="(item,index) in dataList" :key="index" class="piece" >
-      <div style="cursor: pointer;" @click="handleOpen()">
+      <div style="cursor: pointer;" @click="handleOpen(item)">
         <div class="title">
           <h4 class="name">{{item.name}}</h4>
           <i class="iconfont icon-caifu" v-if="item.downloadCost !== '0'"></i>
@@ -33,9 +33,9 @@ export default {
     }
   },
   methods:{
-    handleOpen () {
+    handleOpen (row) {
       this.$router.push({
-        path: '/app/resource/material/material_detail',
+        path: `/app/resource/material/material_detail/${row.id}`,
       })
     },
     loadPage (params = {}) {

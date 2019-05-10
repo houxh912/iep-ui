@@ -3,14 +3,17 @@
     <!-- <p :style="[pStyle, pStyle2]"></p> -->
     <p :style="pStyle">基本信息</p>
     <a-row>
-      <a-col :span="12">
+      <a-col :span="24">
         <iep-description-item title="姓名：">
           <span slot="content">{{form.name}}
             <iep-img-avatar size="small" :src="form.avatar"></iep-img-avatar>
           </span>
         </iep-description-item>
       </a-col>
-      <a-col :span="12">
+    </a-row>
+
+    <a-row>
+      <a-col :span="24">
         <iep-description-item title="权限：">
           <iep-tag-detail slot="content" :value="form.roleName" iep-type="role"></iep-tag-detail>
         </iep-description-item>

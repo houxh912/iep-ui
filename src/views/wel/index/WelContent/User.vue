@@ -19,7 +19,7 @@
               <div class="user-poster">
                 <span class="say">{{timeFix}}，{{form.name}}
                   <svg class="iep2-icon" aria-hidden="true">
-                    <use xlink:href="#iep2-iconrainbow-of-love"></use>
+                    <use xlink:href="#iep2-iconchengyuan"></use>
                   </svg>
                   <span class="welcome-text">{{welcome}}</span>
                 </span>

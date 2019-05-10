@@ -22,7 +22,7 @@
         <iep-select v-model="form.accountId" autocomplete="off" :prefix-url="bankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
       </el-form-item>
       <el-form-item label="关联合同：">
-        <select-contract v-model="form.protocolId"></select-contract>
+        <iep-contract-select v-model="form.protocolId"></iep-contract-select>
       </el-form-item>
       <el-form-item label="开票金额：">
         <iep-input-number v-model="form.invoiceAmount"></iep-input-number>
@@ -50,12 +50,10 @@
   </iep-dialog>
 </template>
 <script>
-import SelectContract from './SelectContract'
 import { initForm, dictsMap, toDtoForm } from './options'
 import formMixins from '@/mixins/formMixins'
 import { mapGetters } from 'vuex'
 export default {
-  components: { SelectContract },
   mixins: [formMixins],
   data () {
     return {

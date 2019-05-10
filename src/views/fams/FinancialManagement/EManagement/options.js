@@ -1,6 +1,6 @@
 // import { mergeByFirst } from '@/util/util'
 const dictsMap = {
-  incomeMode: {
+  expenditureMode: {
     '0': '库存现金',
     '1': '银行存款',
   },
@@ -16,7 +16,7 @@ const columnsMap = [
 		label: '金额',
 	},
 	{
-		prop: 'type',
+		prop: 'typeValue',
 		label: '类型',
 	},
 	{
@@ -28,12 +28,12 @@ const columnsMap = [
 		label: '线下公司',
 	},
 	{
-		prop: 'incomeMode',
+		prop: 'expenditureMode',
 		label: '支出方式',
 		type: 'dict',
 	},
 	{
-		prop: 'accountName',
+		prop: 'bankAccount',
 		label: '银行账户',
 	},
 	{
@@ -49,7 +49,7 @@ const initForm = () => {
 		orgId: '',
 		invoiceOrgId: '',
 		orgName: '',
-		incomeMode: '0',
+		expenditureMode: '0',
 		companyId: '',
 		accountId: '',
 		amount: '',

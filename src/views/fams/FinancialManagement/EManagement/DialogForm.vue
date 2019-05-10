@@ -11,8 +11,8 @@
         <iep-div-detail :value="form.orgName"></iep-div-detail>
       </el-form-item>
       <el-form-item label="支付方式：">
-        <el-radio-group v-model="form.incomeMode" @change="handleChange">
-          <el-radio v-for="(item, idx) in dictsMap.incomeMode" :key="idx" :label="idx">{{item}}</el-radio>
+        <el-radio-group v-model="form.expenditureMode" @change="handleChange">
+          <el-radio v-for="(item, idx) in dictsMap.expenditureMode" :key="idx" :label="idx">{{item}}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="支出公司：">
@@ -22,7 +22,7 @@
         <iep-select v-model="form.accountId" autocomplete="off" :prefix-url="bankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
       </el-form-item>
       <el-form-item label="关联合同：">
-        <iep-button icon="el-icon-plus"></iep-button>
+        <iep-contract-select v-model="form.protocolId"></iep-contract-select>
       </el-form-item>
       <el-form-item label="计算税率：">
         <el-select v-model="form.invoicingTax">
@@ -63,7 +63,7 @@ export default {
       'dictGroup',
     ]),
     bankAmountOption () {
-      if (this.form.companyId && this.form.incomeMode === '1') {
+      if (this.form.companyId && this.form.expenditureMode === '1') {
         return {
           disabled: false,
           prefixUrl: `fams/bank_account/${this.form.companyId}`,
@@ -95,6 +95,7 @@ export default {
               message: '操作成功',
               type: 'success',
             })
+            this.loadPage()
           } else {
             this.$message({
               message: data.msg,

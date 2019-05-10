@@ -7,6 +7,7 @@
 <script>
 import { getContractListByName } from '@/api/mlms/material/datum/contract'
 export default {
+  name: 'IepContractSelect',
   inheritAttrs: false,
   data () {
     return {

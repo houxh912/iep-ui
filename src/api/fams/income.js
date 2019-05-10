@@ -18,3 +18,10 @@ export function postIncome (obj) {
     data: obj,
   })
 }
+
+export function getIncomeById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}

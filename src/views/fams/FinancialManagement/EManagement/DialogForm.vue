@@ -24,14 +24,23 @@
       <el-form-item label="关联合同：">
         <iep-contract-select v-model="form.protocolId"></iep-contract-select>
       </el-form-item>
+      <el-form-item label="支出金额：">
+        <iep-input-number v-model="form.amount"></iep-input-number>
+      </el-form-item>
       <el-form-item label="计算税率：">
         <el-select v-model="form.invoicingTax">
           <el-option v-for="item in dictGroup['fams_billing_rate']" :key="item.value" :label="item.label+'%'" :value="(+item.label/100)">
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="支出金额：">
-        <iep-input-number v-model="form.amount"></iep-input-number>
+      <el-form-item v-if="form.type[0]==='17'" label="计息比率：">
+        <el-select v-model="form.interestRate">
+          <el-option v-for="item in dictGroup['fams_interest_rate']" :key="item.value" :label="(+item.label/100)+'%'" :value="(+item.label/10000)">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item v-if="form.type[0]==='23'" label="预计退款时间：">
+        <iep-date-picker v-model="form.estimatedRefundTime" type="date" placeholder="选择日期"></iep-date-picker>
       </el-form-item>
       <el-form-item label="备注：">
         <iep-input-area v-model="form.remarks"></iep-input-area>

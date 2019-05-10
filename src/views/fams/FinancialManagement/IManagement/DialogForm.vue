@@ -31,11 +31,17 @@
         <iep-input-number v-model="form.amount"></iep-input-number>
       </el-form-item>
       <el-form-item label="开票组织：">
-        <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择开票组织"></iep-select>
+        <iep-select v-model="form.invoiceOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择开票组织"></iep-select>
       </el-form-item>
       <el-form-item label="开票税率：">
         <el-select v-model="form.invoicingTax">
           <el-option v-for="item in dictGroup['fams_billing_rate']" :key="item.value" :label="item.label+'%'" :value="(+item.label/100)">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item v-if="form.type[0]==='6'" label="计息比率：">
+        <el-select v-model="form.interestRate">
+          <el-option v-for="item in dictGroup['fams_interest_rate']" :key="item.value" :label="(+item.label/100)+'%'" :value="(+item.label/10000)">
           </el-option>
         </el-select>
       </el-form-item>
@@ -128,13 +134,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.el-tag {
-  margin-left: 10px;
-  margin-bottom: 10px;
-}
-.el-tag + .el-tag {
-  margin-left: 10px;
-}
-</style>
-

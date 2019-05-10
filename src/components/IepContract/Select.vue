@@ -16,13 +16,17 @@ export default {
     }
   },
   methods: {
-    remoteMethod (query) {
+    async remoteMethod (query) {
       if (query !== '') {
         this.loading = true
-        getContractListByName({ name: query }).then(({ data }) => {
-          this.loading = false
+        try {
+          const { data } = await getContractListByName({ name: query })
           this.contractOptions = data.data
-        })
+        } catch (error) {
+          console.log(error)
+        } finally {
+          this.loading = false
+        }
       } else {
         this.contractOptions = []
       }

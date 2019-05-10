@@ -56,7 +56,9 @@ const initForm = () => {
 		amount: 0,
 		invoiceAmount: 0,
 		remarks: '',
+		typeValue: '',
 		invoicingTax:'',
+		interestRate:'',
 	}
 }
 

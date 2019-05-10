@@ -55,20 +55,19 @@ const formToDto = (row) => {
 	newForm.receivers.userIds = row.receivers.users.map(m => m.id)
 	return newForm
 }
+const formToVo = (row) => {
+	const newForm = mergeByFirst(initDtoForm(), row)
+	newForm.title = row.name
+	newForm.text = row.content
+	newForm.receivers.unions = row.receivers.unions || []
+	newForm.receivers.orgs = row.receivers.orgs || []
+	newForm.receivers.users = row.receivers.users || []
+	return newForm
+}
 
 export {
 	columnsMap,
 	initForm,
 	formToDto,
-}
-export const tipContent = {
-    name : '主题请务必包含关于+事由+通知类型，如关于学习内网2.0相关功能操作的通知。',
-    type : '日常公告：关于学习、传达会议精神/要求、放假等日常的通知；<br/>' +
-    '公司制度：制度规范类征集意见或实施等公布的通知；<br/>' +
-    '培训通知：关于培训而发布的通知；<br/>' +
-    '人事调动：关于人事任免而发布的通知；<br/>' +
-    '其他通知：除上述提到的以外的通知。<br/>',
-    content : '1、包含称呼、通知缘由、事项、要求和发文单位等内容；<br/>' +
-    '2、分段陈述，默认字体与字号，带格式的文字粘贴请使用“格式清除”工具；',
-    receivers : '为该通知接收对象，一般以某个组织或群体为单位。',
+	formToVo,
 }

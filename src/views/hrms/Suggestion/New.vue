@@ -18,20 +18,8 @@
         </iep-form-item>
 
         <iep-form-item class="form-half" prop="" label-name="附件">
-          <el-input v-model="input2">
-            <template slot="append">
-              <el-upload class="upload-demo" action="">
-                <el-button size="small" type="primary">上传</el-button>
-              </el-upload>
-            </template>
-          </el-input>
+          <iep-upload v-model="annexList" :limit="limit"></iep-upload>
         </iep-form-item>
-
-        <el-form-item label="">
-          <el-tag class="el-tag-new" :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)" type="white">
-            {{tag}}
-          </el-tag>
-        </el-form-item>
         
         <el-form-item label="">
           <operation-wrapper>
@@ -50,8 +38,8 @@ import { initForm, formToDto, rules } from './options'
 export default {
   data () {
     return {
-      dynamicTags: ['内网2.0改造项目', '标数据基因新框架改造'],
-      input2: '',
+      limit: 1,
+      annexList: [],
       back: () => {
         this.$router.push('/hrms_spa/suggestion_list')
       },
@@ -75,9 +63,6 @@ export default {
   mounted () {
   },
   methods: {
-    handleClose (tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
-    },
     onGoBack () {
       this.$router.history.go(-1)
     },

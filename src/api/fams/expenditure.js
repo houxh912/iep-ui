@@ -18,3 +18,10 @@ export function postExpenditure (obj) {
     data: obj,
   })
 }
+
+export function getExpenditureById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}

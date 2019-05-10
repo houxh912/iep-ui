@@ -55,6 +55,8 @@ const initForm = () => {
 		amount: '',
 		remarks: '',
 		invoicingTax:'',
+		interestRate:'',
+		estimatedRefundTime:'',
 	}
 }
 

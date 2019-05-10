@@ -10,21 +10,23 @@
           <operation-search @search-page="searchPage"></operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+    <dialog-detail ref="DialogDetail" @load-page="loadPage"></dialog-detail>
   </div>
 </template>
 <script>
-import { getExpenditurePage, postExpenditure } from '@/api/fams/expenditure'
+import { getExpenditurePage, postExpenditure, getExpenditureById } from '@/api/fams/expenditure'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initForm } from './options'
 import DialogForm from './DialogForm'
+import DialogDetail from './DialogDetail'
 import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
-  components: { DialogForm },
+  components: { DialogForm, DialogDetail },
   data () {
     return {
       dictsMap,
@@ -41,6 +43,13 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDetail (row) {
+      getExpenditureById(row.expenditureId).then(({ data }) => {
+        console.log(data.data)
+        this.$refs['DialogDetail'].form = data.data
+        this.$refs['DialogDetail'].dialogShow = true
+      })
+    },
     handleExpenditure () {
       this.$refs['DialogForm'].form = initForm()
       this.$refs['DialogForm'].formRequestFn = postExpenditure

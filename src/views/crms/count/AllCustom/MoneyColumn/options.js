@@ -3,7 +3,10 @@ const searchForm = () => {
     business: [],
     deptId: {},
     district: '',
-    managerId: {},
+    managerId: {
+      id: '',
+      name: '',
+    },
   }
 }
 

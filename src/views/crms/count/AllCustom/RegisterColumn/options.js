@@ -3,7 +3,10 @@ const searchForm = () => {
     position: '',
     districtType: '',
     clientRela: '',
-    user: {},
+    user: {
+      id: '',
+      name: '',
+    },
   }
 }
 

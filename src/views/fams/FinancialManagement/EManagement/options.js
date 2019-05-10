@@ -29,10 +29,11 @@ const columnsMap = [
 	},
 	{
 		prop: 'incomeMode',
-		label: '收支方式',
+		label: '支出方式',
+		type: 'dict',
 	},
 	{
-		prop: 'bankAccount',
+		prop: 'accountName',
 		label: '银行账户',
 	},
 	{
@@ -43,12 +44,29 @@ const columnsMap = [
 
 const initForm = () => {
 	return {
-		id: '',
+		type: [],
+		createTime: '',
+		orgId: '',
+		invoiceOrgId: '',
+		orgName: '',
+		incomeMode: '0',
+		companyId: '',
+		accountId: '',
+		amount: '',
+		remarks: '',
+		invoicingTax:'',
 	}
+}
+
+const toDtoForm = (row) => {
+	const newForm = {...row}
+	newForm.type = newForm.type[1]
+	return newForm
 }
 
 export {
 	dictsMap,
 	columnsMap,
 	initForm,
+	toDtoForm,
 }

@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import { getIncomePage } from '@/api/fams/income'
+import { getIncomePage, postIncome } from '@/api/fams/income'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initForm } from './options'
 import DialogForm from './DialogForm'
@@ -44,6 +44,7 @@ export default {
   methods: {
     handleIncome () {
       this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].formRequestFn = postIncome
       this.$refs['DialogForm'].form.orgId = this.userInfo.orgId
       this.$refs['DialogForm'].form.invoiceOrgId = this.userInfo.orgId
       this.$refs['DialogForm'].form.orgName = this.userInfo.orgName

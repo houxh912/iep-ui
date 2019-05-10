@@ -22,34 +22,41 @@
         <iep-select v-model="form.accountId" autocomplete="off" :prefix-url="bankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
       </el-form-item>
       <el-form-item label="关联合同：">
-        <el-button size="small" icon="el-icon-plus"></el-button>
+        <select-contract v-model="form.protocolId"></select-contract>
+      </el-form-item>
+      <el-form-item label="开票金额：">
+        <iep-input-number v-model="form.invoiceAmount"></iep-input-number>
       </el-form-item>
       <el-form-item label="收入金额：">
         <iep-input-number v-model="form.amount"></iep-input-number>
       </el-form-item>
       <el-form-item label="开票组织：">
-        <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org" placeholder="请选择开票组织"></iep-select>
+        <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择开票组织"></iep-select>
       </el-form-item>
       <el-form-item label="开票税率：">
         <el-select v-model="form.invoicingTax">
-          <el-option v-for="item in dictGroup['fams_billing_rate']" :key="item.value" :label="item.label+'%'" :value="item.label+'%'">
+          <el-option v-for="item in dictGroup['fams_billing_rate']" :key="item.value" :label="item.label+'%'" :value="(+item.label/100)">
           </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="备注：">
-        <el-input type="textarea" v-model="form.remarks"></el-input>
+        <iep-input-area v-model="form.remarks"></iep-input-area>
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')">提交</iep-button>
+      <iep-button type="primary" @click="submitForm()">提交</iep-button>
       <iep-button @click="loadPage">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
-import { initForm, dictsMap } from './options'
+import SelectContract from './SelectContract'
+import { initForm, dictsMap, toDtoForm } from './options'
+import formMixins from '@/mixins/formMixins'
 import { mapGetters } from 'vuex'
 export default {
+  components: { SelectContract },
+  mixins: [formMixins],
   data () {
     return {
       dictsMap,
@@ -81,26 +88,44 @@ export default {
     handleChange () {
       this.form.accountId = ''
     },
-
     loadPage () {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.formRequestFn(this.form).then(() => {
+    async submitForm () {
+      try {
+        await this.mixinsValidate()
+        try {
+          const { data } = await this.formRequestFn(toDtoForm(this.form))
+          if (data.data) {
             this.$message({
-              message: `${this.methodName}成功`,
+              message: '操作成功',
               type: 'success',
             })
             this.loadPage()
+          } else {
+            this.$message({
+              message: data.msg,
+              type: 'error',
+            })
+          }
+        } catch (error) {
+          this.$message({
+            message: error.message,
+            type: 'error',
           })
-        } else {
-          return false
         }
-      })
+      } catch (object) {
+        let message = ''
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            const element = object[key]
+            message = element[0].message
+          }
+        }
+        this.$message(message)
+      }
     },
   },
 }

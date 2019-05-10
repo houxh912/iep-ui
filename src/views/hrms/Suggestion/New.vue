@@ -2,7 +2,7 @@
   <div class="iep-page-form">
     <basic-container>
       <page-header :title="`${methodName}建议`">
-        <el-button @click="back">返回建议列表</el-button>
+        <iep-button @click="back">返回建议列表</iep-button>
       </page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="140px" size="small">
         <iep-form-item class="form-half" label-name="建议主题" prop="theme">

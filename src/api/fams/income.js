@@ -10,3 +10,18 @@ export function getIncomePage (query) {
     params: query,
   })
 }
+
+export function postIncome (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function getIncomeById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}

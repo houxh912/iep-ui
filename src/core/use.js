@@ -12,8 +12,8 @@ import Avue from '@smallwei/avue/lib/index.js'
 import '@smallwei/avue/lib/theme-chalk/index.css'
 import Viser from 'viser-vue'
 
-import { loadStyle, mergeByFirst, openPage,openTagDetail, fillStatisticsArray } from '@/util/util'
-import { iconfontUrl, iconfontVersion } from '@/config/env'
+import { loadStyle, loadJs, mergeByFirst, openPage,openTagDetail, fillStatisticsArray } from '@/util/util'
+import { iconfontUrl, iconfontVersion, multicolorIconfontUrl } from '@/config/env'
 import * as filters from '@/filters/' // 全局filter
 
 Vue.prototype.$mergeByFirst = mergeByFirst
@@ -32,3 +32,5 @@ Object.keys(filters).forEach(key => {
 iconfontVersion.forEach(ele => {
   loadStyle(iconfontUrl.replace('$key', ele))
 })
+
+loadJs(multicolorIconfontUrl)

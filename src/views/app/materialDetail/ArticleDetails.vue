@@ -1,41 +1,40 @@
 <template>
   <div class="article-details">
-    <div class="title">{{name}}</div>
+    <div class="title">{{formData.materialName}}</div>
     <div class="inform">
-      <img :src="avatar" :alt="name">
-      <span>{{uploaded}}</span>
-      <span>{{time}}</span>
-      <span><i class="iconfont icon-yanjing"></i>{{pageviews}}</span>
-      <span><i class="iconfont icon-download1"></i>{{downloads}}</span>
+      <img :src="formData.avatar" :alt="formData.creatorRealName">
+      <span>{{formData.creatorRealName}}</span>
+      <span>{{formData.createTime}}</span>
+      <span><i class="iconfont icon-yanjing"></i>{{formData.views}}</span>
+      <span><i class="iconfont icon-download1"></i>{{formData.downloadTimes}}</span>
       <div class="btn sc"><i class="iconfont icon-shoucang"></i>收藏</div>
       <div class="btn fx"><i class="iconfont icon-youxiangshixin"></i>分享</div>
       <div class="btn jc"><i class="iconfont icon-zhuyi"></i>纠错</div>
     </div>
-    <div class="introduction">解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案解决方案</div>
-    <div class="content">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</div>
-    <el-row class="down-load">
+    <div class="introduction">{{formData.intro}}</div>
+    <div class="content">{{formData.content}}</div>
+    <el-row class="down-load" v-if="formData.attachFile">
       相关附件：
-      <div class="file" v-for="(item, index) in attachFileList" :key="index">
-        <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗5国脉贝下载）</span></div>
+      <div class="file" v-for="(item, index) in formData.attachFileList" :key="index">
+        <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗 {{getMoney(formData.downloadCost)}} 下载）</span></div>
       </div>
     </el-row>
     <IepAppRewardCard :total="total" :dataList="rewardList"></IepAppRewardCard>
-    <IepAppEvaluationReview :dataList="reviewList"></IepAppEvaluationReview>
+    <IepAppEvaluationReviews :id="formData.id" :objectType="1"></IepAppEvaluationReviews>
   </div>
 </template>
 <script>
-import { downloadCount } from '@/api/mlms/material/datum/material'
+import { downloadCount, getDataById } from '@/api/mlms/material/datum/material'
 import { downloadFile } from '@/api/common'
+import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
-      name: '国脉数据基因政务大数据整体解决方案', 
-      avatar: require('./img/people.png'),
+      formData: {
+        attachFileList: [],
+      },
       desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系', 
-      uploaded: '胡世军', 
-      time: '2019-04-24', 
-      pageviews: '145', 
-      downloads: '88', 
       label: ['创业女杰', '浙商', '创新创业'],
       total:'6',
       rewardList:[
@@ -47,20 +46,10 @@ export default {
       attachFileList: [
         {name:'内网2.0改造项目'},
       ],
-      //评论list
-      reviewList:[
-        {img:'//183.131.134.242:10060/upload/iep/201904/a45b1002-ab8c-4bc7-8e6c-9638a43e6000_蟠桃会订阅号二维码.jpg',name:'姓名',evaluation:3.7,desc:'这里是内容',time:'2019-05-06 11:00',replyData:2,
-          reply:[
-            {img:'//cloud.govmade.com/upload/iep/201904/ce562439-de98-4d56-b5db-9f6069de3bd4_4cfcf867db7b19d84fa531373464bc4a.jpg',responder:'响应者',reviewers:'评论者',desc:'回复评论的内容',time:'2019-05-06 11:10',likeData:66,replyData:0}, 
-            {img:'//cloud.govmade.com/upload/iep/201904/ce562439-de98-4d56-b5db-9f6069de3bd4_4cfcf867db7b19d84fa531373464bc4a.jpg',responder:'响应者',reviewers:'评论者',desc:'回复评论的内容',time:'2019-05-06 11:10',likeData:66,replyData:0}, 
-            {img:'//cloud.govmade.com/upload/iep/201904/ce562439-de98-4d56-b5db-9f6069de3bd4_4cfcf867db7b19d84fa531373464bc4a.jpg',responder:'响应者',reviewers:'评论者',desc:'回复评论的内容',time:'2019-05-06 11:10',likeData:66,replyData:0}, 
-            {img:'//cloud.govmade.com/upload/iep/201904/ce562439-de98-4d56-b5db-9f6069de3bd4_4cfcf867db7b19d84fa531373464bc4a.jpg',responder:'响应者',reviewers:'评论者',desc:'回复评论的内容',time:'2019-05-06 11:10',likeData:66,replyData:0}, 
-          ],
-        },
-        {img:'//183.131.134.242:10060/upload/iep/201904/a45b1002-ab8c-4bc7-8e6c-9638a43e6000_蟠桃会订阅号二维码.jpg',name:'姓名',evaluation:3.7,desc:'这里是内容',time:'2019-05-06 11:00',replyData:2,reply:[],
-        },
-      ],
     }
+  },
+  computed: {
+    ...mapGetters(['dictGroup']),
   },
   methods: {
     // 附件下载
@@ -69,6 +58,22 @@ export default {
       // /getUpload/{id}
       downloadCount(this.formData.id)
     },
+    loadData (id) {
+      getDataById(id).then(({data}) => {
+        this.formData = data.data
+      })
+    },
+    getMoney (val) {
+      for (let item of this.dictGroup.mlms_download_cost) {
+        if (item.value == val) {
+          return item.label
+        }
+      }
+    },
+  },
+  created () {
+    let params = this.$route.params
+    this.loadData(params.id)
   },
 }
 </script>

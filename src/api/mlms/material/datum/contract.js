@@ -56,3 +56,11 @@ export function getManeger (id) {
     method: 'get',
   })
 }
+
+export function getContractListByName (query) {
+  return request({
+    url: `${prefixUrl}/all/contract/name/list`,
+    method: 'get',
+    params: query,
+  })
+}

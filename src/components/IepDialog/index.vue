@@ -1,5 +1,5 @@
 <template>
-  <el-dialog class="iep-dialog" :width="width" :visible="dialogShow" :before-close="handleClose" @close="close" :fullscreen="fullscreen" append-to-body v-bind="$attrs" v-on="$listeners">
+  <el-dialog class="iep-dialog" :width="width" :visible="dialogShow" :before-close="handleClose" @close="close" :fullscreen="fullscreen" append-to-body :close-on-click-modal="closeOnClickModal" v-bind="$attrs" v-on="$listeners">
     <div slot="title" class="dialog-title-box">
       <span class="dialog-title">{{title}}</span>
       <el-button v-if="isNeedRestore" class="text-icon" type="text" @click="toggleFullscreen">
@@ -33,6 +33,10 @@ export default {
     width: {
       default: '30%',
       type: String,
+    },
+    closeOnClickModal: {
+      default: false,
+      type: Boolean,
     },
     isNeedConfirm: {
       default: false,

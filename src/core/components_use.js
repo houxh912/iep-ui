@@ -74,6 +74,9 @@ import IepContactMultipleUser from '@/components/IepContact/MultipleUser'
 import IepDeptSelect from '@/components/IepDept/Select'
 import IepDeptMultiple from '@/components/IepDept/Multiple'
 
+// 合同组件Contact
+import IepContractSelect from '@/components/IepContract/Select'
+
 // 展示页公共组件
 import IepAppTabCard from '@/components/IepApp/TabCard'
 import IepAppTabsCard from '@/components/IepApp/TabsCard'
@@ -84,6 +87,7 @@ import IepAppLabelCard from '@/components/IepApp/LabelCard'
 import IepAppAssortCard from '@/components/IepApp/AssortCard'
 import IepAppRewardCard from '@/components/IepApp/RewardCard'
 import IepAppEvaluationReview from '@/components/IepApp/EvaluationReview'
+import IepAppEvaluationReviews from '@/components/IepApp/EvaluationReviews'
 
 // 注册全局容器
 Vue.component(BasicContainer.name, BasicContainer)
@@ -153,9 +157,13 @@ Vue.component(IepContactSelect.name, IepContactSelect)
 Vue.component(IepContactMultiple.name, IepContactMultiple)
 Vue.component(IepContactMultipleUser.name, IepContactMultipleUser)
 
-// 部门组件Contact
+// 部门组件Dept
 Vue.component(IepDeptSelect.name, IepDeptSelect)
 Vue.component(IepDeptMultiple.name, IepDeptMultiple)
+
+// 部门组件Contract
+Vue.component(IepContractSelect.name, IepContractSelect)
+
 
 // 展示页公共组件
 Vue.component(IepAppTabCard.name, IepAppTabCard)
@@ -167,3 +175,4 @@ Vue.component(IepAppLabelCard.name, IepAppLabelCard)
 Vue.component(IepAppAssortCard.name, IepAppAssortCard)
 Vue.component(IepAppRewardCard.name, IepAppRewardCard)
 Vue.component(IepAppEvaluationReview.name, IepAppEvaluationReview)
+Vue.component(IepAppEvaluationReviews.name, IepAppEvaluationReviews)

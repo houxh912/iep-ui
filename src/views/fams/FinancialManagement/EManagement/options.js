@@ -1,6 +1,6 @@
 // import { mergeByFirst } from '@/util/util'
 const dictsMap = {
-  incomeMode: {
+  expenditureMode: {
     '0': '库存现金',
     '1': '银行存款',
   },
@@ -16,7 +16,7 @@ const columnsMap = [
 		label: '金额',
 	},
 	{
-		prop: 'type',
+		prop: 'typeValue',
 		label: '类型',
 	},
 	{
@@ -28,8 +28,9 @@ const columnsMap = [
 		label: '线下公司',
 	},
 	{
-		prop: 'incomeMode',
-		label: '收支方式',
+		prop: 'expenditureMode',
+		label: '支出方式',
+		type: 'dict',
 	},
 	{
 		prop: 'bankAccount',
@@ -43,12 +44,31 @@ const columnsMap = [
 
 const initForm = () => {
 	return {
-		id: '',
+		type: [],
+		createTime: '',
+		orgId: '',
+		invoiceOrgId: '',
+		orgName: '',
+		expenditureMode: '0',
+		companyId: '',
+		accountId: '',
+		amount: '',
+		remarks: '',
+		invoicingTax:'',
+		interestRate:'',
+		estimatedRefundTime:'',
 	}
+}
+
+const toDtoForm = (row) => {
+	const newForm = {...row}
+	newForm.type = newForm.type[1]
+	return newForm
 }
 
 export {
 	dictsMap,
 	columnsMap,
 	initForm,
+	toDtoForm,
 }

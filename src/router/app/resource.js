@@ -7,7 +7,7 @@ export default [
     component: () => import('@/views/app/resource/material/'),
     children: [
       {
-        path: 'material_detail',
+        path: 'material_detail/:id',
         name: '材料详情',
         component: () => import('@/views/app/materialDetail/'),
       },

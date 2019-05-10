@@ -6,27 +6,32 @@
       </div>
       <div class="piece">
         <IepAppTabCard :title="listTitle1">
-          <IepAppListCard :dataList="listList1"></IepAppListCard>
+          <IepAppListCard :dataList="listList1" name="clientName"></IepAppListCard>
         </IepAppTabCard>
         <IepAppTabCard :title="labelTitle">
           <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
         </IepAppTabCard>
         <IepAppTabCard :title="rankingTitle">
-          <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
+          <IepAppRankingCard :dataList="dataList" name="clientName"></IepAppRankingCard>
         </IepAppTabCard>
         <IepAppTabCard :title="listTitle2">
-          <IepAppListCard :dataList="listList2"></IepAppListCard>
+          <IepAppListCard :dataList="listList2" name="materialName"></IepAppListCard>
         </IepAppTabCard>
-        <IepAppTabCard :title="listTitle3">
+        <!-- <IepAppTabCard :title="listTitle3">
           <IepAppListCard :dataList="listList3"></IepAppListCard>
-        </IepAppTabCard>
+        </IepAppTabCard> -->
       </div>
     </div>
     <router-view v-else></router-view>
   </div>
 </template>
+
 <script>
 import Librarys from './Librarys/'
+import { getNewClientList, getCoopClientList } from '@/api/app/crms/customer'
+import { getExcellentList } from '@/api/app/mlms/material'
+import { getRectagsList } from '@/api/app/tms/index'
+
 export default {
   components: { Librarys },
   data () {
@@ -36,24 +41,52 @@ export default {
       listTitle3: '客户资讯',
       listTitle1: '本周新增',
       rankingTitle: '合作次数最多',
-      labelList: ['营商通','营商环境','数据基因','数据政府','电子政务','数字经济','微服务','dips','知识图谱'],
-      listList1: ['国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案'],
-      listList2: ['国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案'],
+      labelList: [],
+      listList1: [],
+      listList2: [],
       listList3: ['国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案'],
-      dataList: [
-        { name: '厦门市信息中心标准规划部', color: 'red' },
-        { name: '深圳市经济贸易和信息化委员会', color: 'red' },
-        { name: '象山政府部门', color: 'red' },
-        { name: '珠海市营商环境评估', color: '' },
-        { name: '珠海市营商环境评估', color: '' },
-        { name: '珠海市营商环境评估', color: '' },
-      ],
+      dataList: [],
       routerMatch: this.$route.matched,
     }
   },
   beforeRouteUpdate (to, from, next) {
     this.routerMatch = to.matched
     next()
+  },
+  methods: {
+    // 本周新增
+    getNewClientList () {
+      getNewClientList().then(({data}) => {
+        this.listList1 = data.data
+      })
+    },
+    // 合作次数最多
+    getCoopClientList () {
+      getCoopClientList().then(({data}) => {
+        this.dataList = data.data
+        for (let i = 0; i < 3; ++i) {
+          this.dataList[i].color = 'red'
+        }
+      })
+    },
+    // 优秀客户方案
+    getExcellentList () {
+      getExcellentList().then(({data}) => {
+        this.listList2 = data.data
+      })
+    },
+    // 推荐主题
+    getRectagsList () {
+      getRectagsList().then(({data}) => {
+        this.labelList = data.data
+      })
+    },
+  },
+  created () {
+    this.getNewClientList()
+    this.getCoopClientList()
+    this.getExcellentList()
+    this.getRectagsList()
   },
 }
 </script>
@@ -65,8 +98,6 @@ export default {
   display: grid;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 9000px) minmax(100px, 300px);
-}
-.piece{
 }
 .ranking {
   padding: 0;

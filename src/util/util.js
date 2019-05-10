@@ -197,6 +197,17 @@ export const loadStyle = url => {
   const head = document.getElementsByTagName('head')[0]
   head.appendChild(link)
 }
+
+/**
+ * 动态插入js
+ */
+
+export const loadJs = (src) => {
+  //创建一个script节点
+  var element = document.createElement('script')//给该节点设置src属性
+  element.src = src//debug//console.log(element);//将该script节点添加到body尾部
+  document.body.appendChild(element)
+}
 /**
  * 生成随机len位数字
  */

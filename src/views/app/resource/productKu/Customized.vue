@@ -1,15 +1,15 @@
 <template>
   <div>
-    <search></search>
+    <search @search-page="getDetailsPage"></search>
     <div class="module">
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
         <div class="content">
-          <div class="img"><img :src="item.img" alt=""></div>
+          <div class="img"><img :src="item.imageUrl" alt=""></div>
           <div class="text">
-            <h4 class="item-title">{{item.title}}</h4>
-            <p class="con">{{item.con}}</p>
+            <h4 class="item-title">{{item.name}}</h4>
+            <p class="con">{{item.synopsis}}</p>
             <div class="header clearfix">
-              <span class="price">指导价：¥{{item.price}}</span>
+              <span class="price">指导价：¥{{item.valuation}}</span>
               <el-button icon="el-icon-plus"></el-button>
             </div>
           </div>
@@ -17,7 +17,7 @@
       </el-card>
     </div>
     <div class="page">
-      <el-pagination background layout="prev, pager, next" :total="1000">
+      <el-pagination background layout="prev, pager, next" :total="total" :page-size="params.size" @current-change="currentChange">
       </el-pagination>
     </div>
   </div>
@@ -25,87 +25,36 @@
 
 <script>
 import Search from './Search'
+import { getDetailsPage } from '@/api/app/cpms/channel'
+
 export default {
   data () {
     return {
-      moduleList: [
-        {
-          img: require('./logo/dnalogo.png'),
-          title: '数据基因DNA',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据',
-          price: '90000',
-        },
-        {
-          img: require('./logo/ystLogo.png'),
-          title: '营商通',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          price: '90000',
-        },
-        {
-          img: require('./logo/iepLogo.png'),
-          title: 'IEP智慧赋能平台',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          price: '90000',
-        },
-        {
-          img: require('./logo/dnalogo.png'),
-          title: '数据基因DNA',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据',
-          price: '90000',
-        },
-        {
-          img: require('./logo/ystLogo.png'),
-          title: '营商通',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          price: '90000',
-        },
-        {
-          img: require('./logo/iepLogo.png'),
-          title: 'IEP智慧赋能平台',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          price: '90000',
-        },
-        {
-          img: require('./logo/dnalogo.png'),
-          title: '数据基因DNA',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据',
-          price: '90000',
-        },
-        {
-          img: require('./logo/ystLogo.png'),
-          title: '营商通',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          price: '90000',
-        },
-        {
-          img: require('./logo/iepLogo.png'),
-          title: 'IEP智慧赋能平台',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          price: '90000',
-        },
-        {
-          img: require('./logo/dnalogo.png'),
-          title: '数据基因DNA',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据',
-          price: '90000',
-        },
-        {
-          img: require('./logo/ystLogo.png'),
-          title: '营商通',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          price: '90000',
-        },
-        {
-          img: require('./logo/iepLogo.png'),
-          title: 'IEP智慧赋能平台',
-          con: '支持各单位应用系统的表结构直接导入本系统，通过配置可实现数据元通过配置通过配置',
-          price: '90000',
-        },
-      ],
+      moduleList: [],
+      params: {
+        current: 1,
+        size: 12,
+      },
+      total: 0,
     }
   },
   components: {
     Search,
+  },
+  methods: {
+    getDetailsPage (params) {
+      getDetailsPage(Object.assign({}, this.params, params)).then(({data}) => {
+        this.moduleList = data.data.records
+        this.total = data.data.total
+      })
+    },
+    currentChange (val) {
+      this.params.current = val
+      this.getDetailsPage()
+    },
+  },
+  created () {
+    this.getDetailsPage()
   },
 }
 </script>

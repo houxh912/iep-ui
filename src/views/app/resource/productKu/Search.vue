@@ -1,7 +1,7 @@
 <template>
   <div class="expert-search">
     <div class="search-con">
-      <operation-search>
+      <operation-search @search-page="searchPage">
         <advance-search></advance-search>
       </operation-search>
       <el-button type="danger" plain>高级搜索</el-button>
@@ -10,7 +10,16 @@
 </template>
 <script>
 export default {
-
+  data () {
+    return {
+      params: {},
+    }
+  },
+  methods: {
+    searchPage (val) {
+      this.$emit('search-page', val)
+    },
+  },
 }
 </script>
 <style scoped  lang="scss">

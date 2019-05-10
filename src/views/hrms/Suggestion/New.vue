@@ -1,7 +1,9 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}建议`" :backOption="backOption"></page-header>
+      <page-header :title="`${methodName}建议`">
+        <el-button @click="back">返回建议列表</el-button>
+      </page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="140px" size="small">
         <iep-form-item class="form-half" label-name="建议主题" prop="theme">
           <el-input v-model="form.theme"></el-input>
@@ -53,19 +55,14 @@ export default {
     return {
       dynamicTags: ['内网2.0改造项目', '标数据基因新框架改造'],
       input2: '',
-      backOption: {
-        isBack: true,
-        backPath: null,
-        backFunction: () => { this.onGoBack() },
+      back: () => {
+        this.$router.push('/hrms_spa/suggestion_list')
       },
       rules,
       form: initForm(),
     }
   },
   computed: {
-    id () {
-      return +this.$route.params.id
-    },
     methodName () {
       return this.id ? '编辑' : '新增'
     },

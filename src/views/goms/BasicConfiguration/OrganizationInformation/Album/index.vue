@@ -36,11 +36,11 @@ export default {
   data () {
     return {
       imgList:[
-        {imgSrc:require('./images/colum1.jpg'),desc:'集团平台营运中心'},
-        {imgSrc:require('./images/colum1.jpg'),desc:'集团平台营运中心'},
-        {imgSrc:require('./images/colum1.jpg'),desc:'集团平台营运中心'},
-        {imgSrc:require('./images/colum1.jpg'),desc:'集团平台营运中心'},
-        {imgSrc:require('./images/colum1.jpg'),desc:'集团平台营运中心'},
+        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
+        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
+        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
+        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
+        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
       ],
       isShow: true,
       isRotate: '',

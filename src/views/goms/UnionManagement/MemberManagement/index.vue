@@ -25,7 +25,7 @@
 import { getUserPage } from '@/api/goms/union'
 import mixins from '@/mixins/mixins'
 import { dictsMap } from '@/views/hrms/EmployeeProfile/options'
-import DetailDrawer from './DetailDrawer'
+import DetailDrawer from '@/views/hrms/EmployeeProfile/Page/DetailDrawer.vue'
 export default {
   mixins: [mixins],
   components: { DetailDrawer },
@@ -33,6 +33,10 @@ export default {
     return {
       dictsMap,
       columnsMap: [
+        {
+          prop: 'staffNo',
+          label: '工号',
+        },
         {
           prop: 'phone',
           label: '手机',

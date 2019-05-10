@@ -17,10 +17,11 @@
   </div>
 </template>
 <script>
-import { getExpenditurePage } from '@/api/fams/expenditure'
+import { getExpenditurePage, postExpenditure } from '@/api/fams/expenditure'
 import mixins from '@/mixins/mixins'
-import { dictsMap, columnsMap } from './options'
+import { dictsMap, columnsMap, initForm } from './options'
 import DialogForm from './DialogForm'
+import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
   components: { DialogForm },
@@ -31,13 +32,22 @@ export default {
       replaceText: (data) => `（支出：${data[0]}笔，支出金额：￥${data[1]}元，收入${data[2]}笔，收入金额￥${data[3]}元，抵扣：${data[4]}笔，抵扣金额${data[5]}元）`,
     }
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
   created () {
     this.loadPage()
   },
   methods: {
     handleExpenditure () {
+      this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].formRequestFn = postExpenditure
+      this.$refs['DialogForm'].form.orgId = this.userInfo.orgId
+      this.$refs['DialogForm'].form.invoiceOrgId = this.userInfo.orgId
+      this.$refs['DialogForm'].form.orgName = this.userInfo.orgName
       this.$refs['DialogForm'].dialogShow = true
-
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getExpenditurePage)

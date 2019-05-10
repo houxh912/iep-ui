@@ -16,7 +16,11 @@
           </el-col>
           <el-col :span="20">
             <div class="right">
-              <div class="user-poster"><span class="say">{{timeFix}}，{{form.name}}
+              <div class="user-poster">
+                <span class="say">{{timeFix}}，{{form.name}}
+                  <svg class="iep2-icon" aria-hidden="true">
+                    <use xlink:href="#iep2-iconchengyuan"></use>
+                  </svg>
                   <span class="welcome-text">{{welcome}}</span>
                 </span>
               </div>

@@ -10,3 +10,11 @@ export function getExpenditurePage (query) {
     params: query,
   })
 }
+
+export function postExpenditure (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}

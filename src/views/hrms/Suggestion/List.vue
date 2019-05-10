@@ -28,7 +28,7 @@
         <el-table-column label="操作" width="200px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" @click="handleReview(scope.row)" plain>查看</iep-button>
+              <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
               <iep-button v-if="scope.row.status==0">修改</iep-button>
               <iep-button @click.native="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
@@ -77,6 +77,11 @@ export default {
     },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id)
+    },
+    handleDetail () {
+      this.$router.push({
+        path: '/hrms_spa/suggestion_detail',
+      })
     },
   },
 }

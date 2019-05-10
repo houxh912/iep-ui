@@ -90,22 +90,3 @@ export default {
   },
 }
 </script>
-<style lang="css" scoped>
-.el-form-item >>> .el-form-item__content {
-  display: flex;
-  flex-direction: column;
-}
-.el-tag-new.el-tag--white {
-  background: none;
-  border: 0;
-  color: #606266;
-  transition: 0.1s;
-}
-.el-tag-new >>> .el-icon-close {
-  color: #333;
-}
-.el-tag-new >>> .el-icon-close:hover {
-  background-color: #fff;
-  color: #cb3737;
-}
-</style>

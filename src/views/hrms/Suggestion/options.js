@@ -26,6 +26,8 @@ const initForm = () => {
     id: '', // ID
     desc: '',//内容
     attendeeList: '',//接收对象通讯录
+    // ProcessingOpinion: '',//处理意见
+    // Feedback:'',//反馈意见
   }
 }
 

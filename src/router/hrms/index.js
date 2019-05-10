@@ -42,6 +42,12 @@ export default [
         component: () => import('@/views/hrms/Suggestion/List.vue'),
         meta: noKeepAlive,
       },
+      {
+        path: 'suggestion_detail',
+        name: '成长档案',
+        component: () => import('@/views/hrms/Suggestion/Detail.vue'),
+        meta: noKeepAlive,
+      },
     ],
   },
 ]

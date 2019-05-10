@@ -3,79 +3,45 @@
     <div class="librarys-item" v-for="(item,index) in librarys" :key="index">
       <div class="handle-detail" @click="handleDetail()">
         <div class="title">
-        <span class="type">{{item.type}}</span>
-        <h4 class="title-name">{{item.title}}</h4>
+        <span class="type">{{item.districtTypeName}}</span>
+        <h4 class="title-name">{{item.clientName}}</h4>
         <i :class="item.icon"></i>
       </div>
       <div class="links">
-        <span>{{links.link}} {{num[0]}} / </span>
-        <span>{{links.Journal}} {{num[1]}} / </span>
-        <span>{{links.programme}} {{num[2]}} / </span>
-        <span>{{links.contract}} {{num[3]}} / </span>
-        <span>{{links.information}} {{num[4]}} / </span>
-        <span>{{links.project}} {{num[5]}}</span>
+        <span>{{links.link}} {{item.contactNumber}} / </span>
+        <span>{{links.Journal}} {{item.contactRecordNumber}} / </span>
+        <span>{{links.programme}} {{item.programNumber}} / </span>
+        <span>{{links.contract}} {{item.contractNumber}} / </span>
+        <!-- <span>{{links.information}} {{num[4]}} / </span> -->
+        <span>{{links.project}} {{item.projectNumber}}</span>
       </div>
       <div class="lib-info">
-        <span>合作项目：{{item.cooperation}}</span>
-        <span>相关产品：{{item.product}}</span>
-        <span>项目合作伙伴：{{item.partner}}</span>
+        <span>合作项目：{{item.projectName}}</span>
+        <span>相关产品：{{item.productName}}</span>
+        <span>项目合作伙伴：{{item.parterName}}</span>
       </div>
       </div>
       <div class="lib-bottom">
         <span>咨询/事项</span>
-        <span>负责人：{{item.name}}</span>
-        <span><i class="icon-shijian"></i>{{item.time}}</span>
+        <span>负责人：{{item.creatorName}}</span>
+        <span><i class="icon-shijian"></i>{{item.createTime}}</span>
         <div class="tag">
-            <span v-for='(item,index) in tags' :key="index">{{item}}</span>
+            <span v-for='(item,index) in item.tagsName' :key="index">{{item}}</span>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
+import { getCustomList } from '@/api/app/crms/customer'
+
 export default {
   data () {
     return {
       num:[3,3,2,1,5,2],
       tags:['重新创业','浙江创业女杰','浙商'],
-      librarys: [
-        {
-          type:'省级',
-          title:'厦门市信息中心标准规划部',
-          icon:'icon-shoucang1',
-          cooperation:'浙江省重大项目管理建设项目（合同金额：20W）|浙江省重大项目管理建设项目（合同金额：20W）',
-          product:'海南省政务信息资源目录管理系统',partner:'腾讯人工智能（市场经理：何益挺）| 百度人工智能（市场经理：何益挺）| 百度人工智能（市场经理：何益挺）',
-          name:'李凯',
-          time:'2019-03-13',
-        },
-        {
-          type:'省级',
-          title:'厦门市信息中心标准规划部',
-          icon:'icon-shoucang1',
-          cooperation:'浙江省重大项目管理建设项目（合同金额：20W）|浙江省重大项目管理建设项目（合同金额：20W）',
-          product:'海南省政务信息资源目录管理系统',partner:'腾讯人工智能（市场经理：何益挺）| 百度人工智能（市场经理：何益挺）| 百度人工智能（市场经理：何益挺）',
-          name:'李凯',
-          time:'2019-03-13',
-        },
-        {
-          type:'省级',
-          title:'厦门市信息中心标准规划部',
-          icon:'icon-shoucang1',
-          cooperation:'浙江省重大项目管理建设项目（合同金额：20W）|浙江省重大项目管理建设项目（合同金额：20W）',
-          product:'海南省政务信息资源目录管理系统',partner:'腾讯人工智能（市场经理：何益挺）| 百度人工智能（市场经理：何益挺）| 百度人工智能（市场经理：何益挺）',
-          name:'李凯',
-          time:'2019-03-13',
-        },
-        {
-          type:'省级',
-          title:'厦门市信息中心标准规划部',
-          icon:'icon-shoucang1',
-          cooperation:'浙江省重大项目管理建设项目（合同金额：20W）|浙江省重大项目管理建设项目（合同金额：20W）',
-          product:'海南省政务信息资源目录管理系统',partner:'腾讯人工智能（市场经理：何益挺）| 百度人工智能（市场经理：何益挺）| 百度人工智能（市场经理：何益挺）',
-          name:'李凯',
-          time:'2019-03-13',
-        },
-      ],
+      librarys: [],
       links: {link:'联系人',Journal:'拜访日志',programme:'方案',contract:'合同',information:'资讯',project:'合作项目'},
     }
   },
@@ -85,6 +51,14 @@ export default {
         path:'/app/resource/client/client_detail',
       })
     },
+    getCustomList () {
+      getCustomList().then(({data}) => {
+        this.librarys = data.data.records
+      })
+    },
+  },
+  created () {
+    this.getCustomList()
   },
 }
 </script>

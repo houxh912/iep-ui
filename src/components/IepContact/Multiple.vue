@@ -213,7 +213,7 @@ export default {
     },
     async querySearch (query) {
       this.fetching = true
-      const name = query.toLowerCase()
+      const name = query.toLowerCase().trim()
       const { data } = await loadContactsPyList({ name })
       this.userResults = data.data
       this.fetching = false

@@ -1,6 +1,6 @@
 <template>
   <div class="avue-sidebar" :style="{width: keyCollapse ? '' : '200px'}">
-    <el-scrollbar style="height:calc(100vh - 60px);">
+    <el-scrollbar style="height:calc(100vh - 60px);" native>
       <main-item :mainMenu="mainMenu" :collapse="keyCollapse"></main-item>
       <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
       <div class="sub-menu-wrapper" v-if="mainMenu.path === '/wel'">
@@ -89,10 +89,6 @@ export default {
     }
   }
 }
-.avue-sidebar {
-  height: 100%;
-  background-color: #fafafa;
-}
 .el-menu {
   background-color: #fafafa;
 }
@@ -100,7 +96,6 @@ export default {
 <style lang="css" scoped>
 .avue-sidebar >>> .el-scrollbar .el-scrollbar__wrap {
   overflow-x: hidden;
-  border-right: 1px solid #fafafa;
 }
 .avue-sidebar >>> .el-submenu .el-submenu__title {
   border-left: 3px solid #fafafa;
@@ -118,7 +113,7 @@ export default {
   height: 40px;
   line-height: 40px;
 }
-.avue-sidebar >>> .el-menu{
-  border-right:none;
+.avue-sidebar >>> .el-menu {
+  border-right: none;
 }
 </style>

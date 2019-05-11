@@ -1,5 +1,5 @@
 <template>
-  <div class="avue-contail" :class="{ 'avue--collapse': isCollapse }">
+  <div class="avue-contail">
     <el-container style="height: 100vh;">
       <el-header style="height: 60px;padding: 0;z-index: 500;">
         <!-- 顶部导航栏 -->
@@ -75,7 +75,6 @@ export default {
     ...mapGetters([
       'userInfo',
       'isLock',
-      'isCollapse',
       'website',
       // 'expires_in',
     ]),
@@ -182,8 +181,8 @@ export default {
 <style lang="scss" scoped>
 .el-aside {
   overflow: hidden;
-  // border-right: 1px solid #eee;
   background-color: #fafafa;
+  border-right: 1px solid #d2d2d2;
 }
 </style>
 <style lang="css" scoped>

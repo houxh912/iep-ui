@@ -1,3 +1,30 @@
+## [1.3.7](http://115.233.227.46:8066/root/iep-ui/compare/v1.3.6...v1.3.7) (2019-05-11)
+
+
+### Bug Fixes
+
+* **修复:** 通讯录组件空格与菜单样式 ([bbff9be](http://115.233.227.46:8066/root/iep-ui/commits/bbff9be))
+* **头衔图片:** 添加与人力详情修复 ([8424558](http://115.233.227.46:8066/root/iep-ui/commits/8424558))
+* **财务:** 收支操作 ([c7b02d3](http://115.233.227.46:8066/root/iep-ui/commits/c7b02d3))
+
+
+### Features
+
+* **多色图标:** 可编辑功能 ([be5f78e](http://115.233.227.46:8066/root/iep-ui/commits/be5f78e))
+* **客户统计:** 出单率错误修改 ([266f3eb](http://115.233.227.46:8066/root/iep-ui/commits/266f3eb))
+* **组件新增:** 添加标识组件 ([9011642](http://115.233.227.46:8066/root/iep-ui/commits/9011642))
+* **财务:** 修复支出问题与dialog不再点击modal退出 ([b28c724](http://115.233.227.46:8066/root/iep-ui/commits/b28c724))
+* **财务:** 支出详情页面 ([c1f5fa6](http://115.233.227.46:8066/root/iep-ui/commits/c1f5fa6))
+* **财务:** 添加支出功能 ([de06bc5](http://115.233.227.46:8066/root/iep-ui/commits/de06bc5))
+* **财务收入:** 详情页完善 ([909607e](http://115.233.227.46:8066/root/iep-ui/commits/909607e))
+* **通知公告:** 添加编辑自己发出的公告功能 ([fe79ec1](http://115.233.227.46:8066/root/iep-ui/commits/fe79ec1))
+* **通讯录undefined修复:** 通讯录undefined修复 ([7125647](http://115.233.227.46:8066/root/iep-ui/commits/7125647))
+* **频道页:** 产品库 ([f845849](http://115.233.227.46:8066/root/iep-ui/commits/f845849))
+* **频道页:** 客户库 ([8966aec](http://115.233.227.46:8066/root/iep-ui/commits/8966aec))
+* **频道页:** 材料库详情 ([b6ba9e0](http://115.233.227.46:8066/root/iep-ui/commits/b6ba9e0))
+
+
+
 ## [1.3.6](http://115.233.227.46:8066/root/iep-ui/compare/v1.3.5...v1.3.6) (2019-05-09)
 
 

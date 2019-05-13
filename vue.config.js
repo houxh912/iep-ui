@@ -3,7 +3,7 @@ const devServer = require('./config/devServer')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const isProduction = process.env.NODE_ENV === 'production'
 module.exports = {
-  lintOnSave: true,
+  lintOnSave: false,
   productionSourceMap: false,
   // pages: {
   //   index: {

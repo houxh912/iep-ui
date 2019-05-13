@@ -3884,11 +3884,6 @@ dotenv@^7.0.0:
   resolved "https://registry.npm.taobao.org/dotenv/download/dotenv-7.0.0.tgz#a2be3cd52736673206e8a85fb5210eea29628e7c"
   integrity sha1-or481Sc2ZzIG6KhftSEO6ilijnw=
 
-driver.js@^0.9.2:
-  version "0.9.5"
-  resolved "https://registry.npm.taobao.org/driver.js/download/driver.js-0.9.5.tgz#ee8a8b6a7d3a49bab6f55cb5e25055837db6cda4"
-  integrity sha1-7oqLan06Sbq29Vy14lBVg322zaQ=
-
 duplexer@^0.1.1:
   version "0.1.1"
   resolved "https://registry.npm.taobao.org/duplexer/download/duplexer-0.1.1.tgz#ace6ff808c1ce66b57d1ebf97977acb02334cfc1"
@@ -10458,9 +10453,9 @@ vuedraggable@^2.17.0:
     sortablejs "^1.8.4"
 
 vuex@^3.0.1:
-  version "3.1.0"
-  resolved "https://registry.npm.taobao.org/vuex/download/vuex-3.1.0.tgz#634b81515cf0cfe976bd1ffe9601755e51f843b9"
-  integrity sha1-Y0uBUVzwz+l2vR/+lgF1XlH4Q7k=
+  version "3.1.1"
+  resolved "https://registry.npm.taobao.org/vuex/download/vuex-3.1.1.tgz#0c264bfe30cdbccf96ab9db3177d211828a5910e"
+  integrity sha1-DCZL/jDNvM+Wq52zF30hGCilkQ4=
 
 warning@^3.0.0:
   version "3.0.0"

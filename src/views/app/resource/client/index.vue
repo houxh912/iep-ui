@@ -63,10 +63,17 @@ export default {
     // 合作次数最多
     getCoopClientList () {
       getCoopClientList().then(({data}) => {
-        this.dataList = data.data
-        for (let i = 0; i < 3; ++i) {
-          this.dataList[i].color = 'red'
+        // 存在偶尔可能数据为null的情况
+        let row = data.data
+        for (let i = 0; i < row.length; ++i) {
+          if (row[i] == null) {
+            row[i] = {}
+          }
+          if (i < 3) {
+            row[i].color = 'red'
+          }
         }
+        this.dataList = row
       })
     },
     // 优秀客户方案

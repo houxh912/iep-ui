@@ -25,6 +25,11 @@ export default [
         name: '工资条',
         component: () => import('@/views/fams/FinancialManagement/SalaryManagement/PayrollDetail.vue'),
       },
+      {
+        path: 'invoice_detail/:id',
+        name: '发票详情',
+        component: () => import('@/views/fams/wealth/Invoice/Page/Detail.vue'),
+      },
     ],
   },
 ]

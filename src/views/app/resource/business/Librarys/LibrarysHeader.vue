@@ -4,7 +4,7 @@
       <div :label="title" name="first">{{title}}</div><span class="data">（今日上传{{total}}个）</span>
     </div>
     <div class="right">
-      <operation-search @search-page="searchPage">
+      <operation-search @search-page="searchPage" prop="keyWord">
       </operation-search>
     </div>
   </div>
@@ -23,8 +23,8 @@ export default {
     }
   },
   methods: {
-    searchPage () {
-
+    searchPage (val) {
+      this.$emit('load_page', val)
     },
   },
 }

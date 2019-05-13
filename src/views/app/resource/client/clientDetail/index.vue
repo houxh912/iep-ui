@@ -1,31 +1,38 @@
 <template>
   <div class="client-detail">
-    <div class="library">
+    <!-- <div class="library">
       <div class="client-top">
         <p>{{title}}</p>
         <span>市场经理：{{name[0]}}</span>
         <span>协助人：{{name[1]}}</span>
       </div>
       <customer></customer>
-    </div>
+    </div> -->
+    <customerDetail></customerDetail>
     <div class="piece">
       <IepAppTabCard :title="labelTitle">
         <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
       </IepAppTabCard>
       <IepAppTabCard :title="listTitle1">
-        <IepAppListCard :dataList="listList1"></IepAppListCard>
+        <IepAppListCard :dataList="listList1" name="clientName"></IepAppListCard>
       </IepAppTabCard>
       <IepAppTabCard :title="rankingTitle">
-        <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
+        <IepAppRankingCard :dataList="dataList" name="clientName"></IepAppRankingCard>
       </IepAppTabCard>
     </div>
   </div>
 </template>
 <script>
-import Customer from './Customer'
+// import Customer from './Customer'
+import { getCustomerById } from '@/api/crms/customer'
+import customerDetail from '@/views/crms/Customer/Page/Detail.vue'
+import { getRectagsList } from '@/api/app/tms/index'
+import { getNewClientList, getCoopClientList } from '@/api/app/crms/customer'
+
 export default {
   components: {
-    Customer,
+    // Customer,
+    customerDetail,
   },
   data () {
     return {
@@ -34,17 +41,50 @@ export default {
       labelTitle: '热门标签',
       listTitle1: '本周新增',
       rankingTitle: '合作次数最多',
-      labelList: ['营商通','营商环境','数据基因','数据政府','电子政务','数字经济','微服务','dips','知识图谱'],
-      listList1: ['国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案'],
-      dataList: [
-        { name: '厦门市信息中心标准规划部' },
-        { name: '深圳市经济贸易和信息化委员会'},
-        { name: '象山政府部门'},
-        { name: '珠海市营商环境评估'},
-        { name: '珠海市营商环境评估'},
-        { name: '珠海市营商环境评估'},
-      ],
+      labelList: [],
+      listList1: [],
+      dataList: [],
     }
+  },
+  methods: {
+    getCustomerById (id) {
+      getCustomerById(id).then(() => {})
+    },
+    // 推荐主题
+    getRectagsList () {
+      getRectagsList().then(({data}) => {
+        this.labelList = data.data
+      })
+    },
+    // 合作次数最多
+    getCoopClientList () {
+      getCoopClientList().then(({data}) => {
+        // 存在偶尔可能数据为null的情况
+        let row = data.data
+        for (let i = 0; i < row.length; ++i) {
+          if (row[i] == null) {
+            row[i] = {}
+          }
+          if (i < 3) {
+            row[i].color = 'red'
+          }
+        }
+        this.dataList = row
+      })
+    },
+    // 本周新增
+    getNewClientList () {
+      getNewClientList().then(({data}) => {
+        this.listList1 = data.data
+      })
+    },
+  },
+  created () {
+    let params = this.$route.params
+    this.getCustomerById(params.id)
+    this.getRectagsList()
+    this.getCoopClientList()
+    this.getNewClientList()
   },
 }
 </script>
@@ -69,8 +109,6 @@ export default {
   display: grid;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 9000px) minmax(100px, 300px);
-}
-.piece{
 }
 .ranking {
   padding: 0;

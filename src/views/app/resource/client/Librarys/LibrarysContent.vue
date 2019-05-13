@@ -1,7 +1,8 @@
 <template>
   <div class="librarys-content">
-    <div class="librarys-item" v-for="(item,index) in librarys" :key="index">
-      <div class="handle-detail" @click="handleDetail()">
+    <div style="height: 100vh;" v-loading="loading" v-if="loading"></div>
+    <div class="librarys-item" v-for="(item,index) in librarys" :key="index" v-else>
+      <div class="handle-detail" @click="handleDetail(item)">
         <div class="title">
         <span class="type">{{item.districtTypeName}}</span>
         <h4 class="title-name">{{item.clientName}}</h4>
@@ -43,16 +44,19 @@ export default {
       tags:['重新创业','浙江创业女杰','浙商'],
       librarys: [],
       links: {link:'联系人',Journal:'拜访日志',programme:'方案',contract:'合同',information:'资讯',project:'合作项目'},
+      loading: false,
     }
   },
   methods:{
-    handleDetail () {
+    handleDetail (row) {
       this.$router.push({
-        path:'/app/resource/client/client_detail',
+        path: `/app/resource/client/client_detail/${row.clientId}`,
       })
     },
-    getCustomList () {
-      getCustomList().then(({data}) => {
+    getCustomList (params = {}) {
+      this.loading = true
+      getCustomList(params).then(({data}) => {
+        this.loading = false
         this.librarys = data.data.records
       })
     },

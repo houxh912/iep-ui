@@ -5,20 +5,10 @@
         <div>年度预算</div>
       </template>
       <template slot="right">
-        <operation-search @search="searchPage" advance-search>
-          <el-form :model="paramForm" label-width="80px" size="mini">
-            <el-form-item label="年份">
-              <el-select v-model="paramForm.status" placeholder="请选择年份">
-                <el-option v-for="item in classify" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="searchPage">搜索</el-button>
-              <el-button>取消</el-button>
-            </el-form-item>
-          </el-form>
-        </operation-search>
+        <el-select v-model="yearId" placeholder="请选择年份" size="small">
+          <el-option v-for="item in yearList" :key="item.yearBudgetId" :label="item.budgetYear" :value="item.yearBudgetId">
+          </el-option>
+        </el-select>
       </template>
     </operation-container>
     <template>
@@ -55,14 +45,14 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from './options'
+import { getBudgetYearList, getBudgetYearById } from '@/api/fams/budget'
+import { columnsMap } from './options'
 export default {
   mixins: [mixins],
   data () {
     return {
       columnsMap,
-      paramForm: initSearchForm(),
-      classify: '',
+      yearList: [],
       tableData: [{
         budgetItem: '办公房租',
         budget: '1',
@@ -91,32 +81,17 @@ export default {
     }
   },
   created () {
-    // this.loadPage()
+    this.loadPage()
   },
   methods: {
-    handleCommandType () {
-      // console.log(val)
+    loadPage () {
+      getBudgetYearList().then(({ data }) => {
+        const date = new Date()
+        console.log(date.getYear())
+        this.yearList = data.data
+        getBudgetYearById()
+      })
     },
-    handleCommandUser () {
-      // console.log(val)
-    },
-    handleDetail () {
-      // this.$emit('onDetail', {
-      //   formRequestFn: putApprovalInitiate,
-      //   methodName: '查看明细',
-      //   id: row.id,
-      // })
-    },
-    handleEdit () {
-      // this.$emit('onEdit', {
-      //   formRequestFn: putApprovalInitiate,
-      //   methodName: '编辑规则',
-      //   id: row.id,
-      // })
-    },
-    // loadPage (param = this.searchForm) {
-    //   this.loadTable(param,getInvoiceNotificationPage)
-    // },
   },
 }
 </script>

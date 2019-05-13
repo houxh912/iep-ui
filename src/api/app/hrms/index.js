@@ -40,3 +40,10 @@ export const getRecruitPage = (params) => {
     params: params,
   })
 }
+
+export const getRecruitDetail = (id) => {
+  return request({
+    url: `${prefixUrl}/training/${id}`,
+    method: 'get',
+  })
+}

@@ -11,15 +11,10 @@
       <iep-div-detail :value="form.deptQm"></iep-div-detail>
     </el-form-item>
 
-    <el-form-item prop="avatar" class="">
-      <span slot="label">
-        头像
-        <iep-tip content="请务必根据以下说明上传头像：1.照片必须为本人真实、正面、静态、采用蓝、白、灰底1年内的证件照；2.上传尺寸为宽300像素*高300像素">
-        </iep-tip>
-        ：
-      </span>
+    <iep-form-item prop="avatar" label-name="头像" tip="请务必根据以下说明上传头像：1.照片必须为本人真实、正面、静态、采用蓝、白、灰底1年内的证件照；2.上传尺寸为宽300像素*高300像素">
       <iep-avatar v-model="form.avatar"></iep-avatar>
-    </el-form-item>
+    </iep-form-item>
+
     <el-form-item label="角色：" class="form-half">
       <iep-tag-detail :value="form.roleName" iep-type="role"></iep-tag-detail>
     </el-form-item>
@@ -70,11 +65,11 @@
     </el-form-item>
 
     <iep-form-item class="form-half" prop="nationality" label-name="民族" tip="请务必准确填写，后缀含“族”，即汉族、满族、维吾尔族等">
-      <el-input v-model="form.nationality" dict-name="hrms_marriage_status"></el-input>
+      <el-input v-model="form.nationality"></el-input>
     </iep-form-item>
 
     <iep-form-item class="form-half" prop="politics" label-name="政治面貌" tip="请务必根据实际情况选择">
-      <el-input v-model="form.politics" dict-name="hrms_politics_face"></el-input>
+      <iep-dict-select v-model="form.politics" dict-name="hrms_politics_face"></iep-dict-select>
     </iep-form-item>
 
     <iep-form-item class="form-half" prop="marriage" label-name="婚姻状况" tip="请务必根据实际情况选择">
@@ -86,7 +81,7 @@
     </iep-form-item>
 
     <iep-form-item class="form-half" prop="language" label-name="外语水平" tip="单选项：英语、韩语、日语、法语、德语等">
-      <el-input v-model="form.language" dict-name="hrms_birth_status"></el-input>
+      <iep-dict-select v-model="form.language" dict-name="hrms_birth_status"></iep-dict-select>
     </iep-form-item>
 
     <iep-form-item class="form-half" prop="education" label-name="最高学历" tip="高中及以下、专科、本科、硕士、博士及以上">

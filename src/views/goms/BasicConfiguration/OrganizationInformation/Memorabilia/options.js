@@ -11,6 +11,7 @@ const columnsMap = [
   {
     prop: 'title',
     label: '标题',
+    width: 400,
   },
   {
     prop: 'publisher',
@@ -23,7 +24,6 @@ const columnsMap = [
   {
     prop: 'priority',
     label: '优先级',
-    //width: 280,
   },
   {
     prop: 'status',
@@ -43,10 +43,5 @@ const initForm = () => {
   }
 }
 
-const initSearchForm = () => {
-  return {
-    name: '',
-  }
-}
 
-export { dictsMap, columnsMap, initForm, initSearchForm }
+export { dictsMap, columnsMap, initForm }

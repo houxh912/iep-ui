@@ -1,6 +1,11 @@
 <template>
   <div>
     <operation-container>
+      <template slot="right">
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
+          </operation-search>
+        </template>
       <template slot="left">
         <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
         <el-dropdown size="medium">
@@ -11,8 +16,8 @@
         </el-dropdown>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
-      <el-table-column prop="operation" label="操作" width="180">
+    <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+      <el-table-column prop="operation" label="操作" width="250">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="warning" @click="handleReview(scope.row)" plain>审核</iep-button>
@@ -28,17 +33,25 @@
 </template>
 <script>
 import DialogForm from './DialogForm'
+import AdvanceSearch from './AdvanceSearch'
 import { addObj, putOrg, deleteJobBatch, deleteJobById, reviewApprovaBatch } from '@/api/goms/org_thing'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm, initForm, dictsMap } from './options'
+import { columnsMap, initForm, dictsMap } from './options'
 export default {
-  components: { DialogForm },
+  components: { DialogForm, AdvanceSearch },
   mixins: [mixins],
   data () {
     return {
       dictsMap,
       columnsMap,
-      paramForm: initSearchForm(),
+      pagedTable:[
+        {title:'标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',publisher:'发布人',releaseTime:'发布时间',priority:'0',status:'1'},
+        {title:'标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',publisher:'发布人',releaseTime:'发布时间',priority:'0',status:'1'},
+        {title:'标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',publisher:'发布人',releaseTime:'发布时间',priority:'0',status:'1'},
+        {title:'标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',publisher:'发布人',releaseTime:'发布时间',priority:'0',status:'1'},
+        {title:'标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',publisher:'发布人',releaseTime:'发布时间',priority:'0',status:'1'},
+        {title:'标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',publisher:'发布人',releaseTime:'发布时间',priority:'0',status:'1'},
+      ],
     }
   },
   created () {
@@ -71,11 +84,8 @@ export default {
       this.$refs['DialogForm'].formRequestFn = addObj
       this.$refs['DialogForm'].dialogShow = true
     },
-    clearSearchParam () {
-      this.paramForm = initSearchForm()
-    },
     loadPage () {
-      //this.loadTable(param, getJobPage)
+    //   this.loadTable(param, geOrgPage)
     },
   },
 }

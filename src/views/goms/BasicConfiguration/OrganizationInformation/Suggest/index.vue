@@ -14,7 +14,7 @@
         <template slot="before-columns">
           <el-table-column label="发件人" width="220px">
             <template slot-scope="scope">
-              {{scope.row.name}}
+              {{scope.row.sender}}
             </template>
           </el-table-column>
           <el-table-column label="主题">
@@ -51,9 +51,9 @@ export default {
       dictsMap,
       columnsMap,
       pagedTable:[
-        {name:'aaaa',theme:'内网2.0开发进度安排建议',annex:true,status:'1',sendTime:'2019-05-09'},
-        {name:'aaaa',theme:'内网2.0开发进度安排建议',annex:false,status:'2',sendTime:'2019-05-09'},
-        {name:'aaaa',theme:'内网2.0开发进度安排建议',annex:false,status:'1',sendTime:'2019-05-09'},
+        {sender:'aaaa',theme:'内网2.0开发进度安排建议',annex:true,status:'1',sendTime:'2019-05-09'},
+        {sender:'aaaa',theme:'内网2.0开发进度安排建议',annex:false,status:'2',sendTime:'2019-05-09'},
+        {sender:'aaaa',theme:'内网2.0开发进度安排建议',annex:false,status:'1',sendTime:'2019-05-09'},
       ],
     }
   },

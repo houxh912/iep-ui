@@ -2,6 +2,13 @@ import request from '@/router/axios'
 
 const prefixUrl = '/admin/org_thing'
 //组织大事记
+export function geOrgPage (query) {
+  return request({
+    url: `${prefixUrl}/page`,
+    method: 'get',
+    params: query,
+  })
+}
 export function reviewApprovaBatch (obj) {
   return request({
     url: `${prefixUrl}/status/batch`,

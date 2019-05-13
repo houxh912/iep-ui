@@ -58,12 +58,11 @@ export default {
         theme:'主题主题主题主题主题主题',
         desc:'内容内容内容内容内容内容内容内容内容内容',
         attendeeList:'研发中心',
-        ProcessingOpinion:'',
+        ProcessingOpinion:'1',
         Feedback:'',
         reward:'',
         annex:'附件附件',
       },
-      opinion:'1',
     }
   },
   methods: {

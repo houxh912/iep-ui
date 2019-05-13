@@ -18,7 +18,7 @@
             <div class="right">
               <div class="user-poster">
                 <span class="say">{{timeFix}}，{{form.name}}
-                  <iep-ddentity-mark icon="iep2-iconchengyuan" title="成员"></iep-ddentity-mark>
+                  <iep-identity-mark icon="iep2-iconchengyuan" title="成员"></iep-identity-mark>
                   <span class="welcome-text">{{welcome}}</span>
                 </span>
               </div>

@@ -48,7 +48,8 @@
         <div class="item">
           <div class="label">客户标签：</div>
           <div class="value">
-            <el-tag type="info" class="tag-dot" v-for="(item,index) in formData.tags" :key="index">{{item.commonName}}</el-tag>
+            <!-- <el-tag type="info" class="tag-dot" v-for="(item,index) in formData.tags" :key="index">{{item.commonName}}</el-tag> -->
+            <iep-tag-detail v-model="formData.tagsName"></iep-tag-detail>
           </div>
         </div>
         <div class="item">
@@ -87,12 +88,12 @@
             <div class="dot" v-for="(item,index) in formData.collaborations" :key="index">{{item.commonName}}</div>
           </div>
         </div>
-        <div class="item">
+        <!-- <div class="item">
           <div class="label">转移状态：</div>
           <div class="value">
             <div class="dot">{{formData.transferFlagName}}</div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="info-block">
@@ -134,6 +135,7 @@ export default {
   name: 'detail',
   data () {
     return {
+      tagsName: [],
     }
   },
   props: {

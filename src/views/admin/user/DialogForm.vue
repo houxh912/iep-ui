@@ -82,8 +82,13 @@ export default {
       this.formRequestFn({
         userId: this.form.userId,
         role: this.form.roleList,
-      }).then(() => {
-        this.loadPage()
+      }).then(({ data }) => {
+        if (data.data) {
+          this.$message.success('修改成功')
+          this.loadPage()
+        } else {
+          this.$message(data.msg)
+        }
       })
     },
   },

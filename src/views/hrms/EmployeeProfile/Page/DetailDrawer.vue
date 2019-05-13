@@ -3,11 +3,16 @@
     <!-- <p :style="[pStyle, pStyle2]"></p> -->
     <p :style="pStyle">基本信息</p>
     <a-row>
-      <a-col :span="24">
+      <a-col :span="12">
         <iep-description-item title="姓名：">
           <span slot="content">{{form.name}}
             <iep-img-avatar size="small" :src="form.avatar"></iep-img-avatar>
           </span>
+        </iep-description-item>
+      </a-col>
+      <a-col :span="12">
+        <iep-description-item title="身份标识：">
+          <iep-identity-mark v-for="item in form.identityMarks" :key="item.id" slot="content" :icon="item.icon" :title="item.label"></iep-identity-mark>
         </iep-description-item>
       </a-col>
     </a-row>

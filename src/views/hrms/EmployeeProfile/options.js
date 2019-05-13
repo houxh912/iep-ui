@@ -28,6 +28,7 @@ const initForm = () => {
     orgList: [], // 组织名 不可编辑
     staffId: '', // 工号
     identityMark: [], // 身份标识
+    identityMarks: [], // 身份标识
     avatar: '', // 头像
     roleName: [], // 角色
     // orgName: '组织', // 资产所属公司 不可编辑

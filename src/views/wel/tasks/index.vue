@@ -8,26 +8,20 @@
         <span>用户自主收到来自其他模块的任务安排，未来的日报、周报、月报可以从我的任务中截取。</span>
         <span class="red">我的任务模块还在开发中，敬请期待，本页面仅为样式效果演示</span>
       </div>
-      <IepAppTabsCard :linkName="linkName">
-        <div class="block-right">
-          <span>日程</span>
-          <span>建议</span>
-        </div>
-        <iep-tabs v-model="activeTab" :tab-list="tabList">
-          <template v-if="activeTab ==='AllTasks'" v-slot:AllTasks>
-            <all-tasks v-loading="activeTab !=='AllTasks'"></all-tasks>
-          </template>
-          <template v-if="activeTab ==='NotBegin'" v-slot:NotBegin>
-            <not-begin v-loading="activeTab !=='NotBegin'"></not-begin>
-          </template>
-          <template v-if="activeTab ==='OnGoing'" v-slot:OnGoing>
-            <on-going v-loading="activeTab !=='OnGoing'"></on-going>
-          </template>
-          <template v-if="activeTab ==='Completed'" v-slot:Completed>
-            <completed v-loading="activeTab !=='Completed'"></completed>
-          </template>
-        </iep-tabs>
-      </IepAppTabsCard>
+      <iep-tabs v-model="activeTab" :tab-list="tabList">
+        <template v-if="activeTab ==='AllTasks'" v-slot:AllTasks>
+          <all-tasks v-loading="activeTab !=='AllTasks'"></all-tasks>
+        </template>
+        <template v-if="activeTab ==='NotBegin'" v-slot:NotBegin>
+          <not-begin v-loading="activeTab !=='NotBegin'"></not-begin>
+        </template>
+        <template v-if="activeTab ==='OnGoing'" v-slot:OnGoing>
+          <on-going v-loading="activeTab !=='OnGoing'"></on-going>
+        </template>
+        <template v-if="activeTab ==='Completed'" v-slot:Completed>
+          <completed v-loading="activeTab !=='Completed'"></completed>
+        </template>
+      </iep-tabs>
     </basic-container>
   </div>
 </template>

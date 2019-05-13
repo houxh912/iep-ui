@@ -1,7 +1,7 @@
 <template>
   <div class="librarys-content">
     <div class="librarys-item" v-for="(item,index) in librarys" :key="index">
-      <div class="handle-detail" @click="handleDetail()">
+      <div class="handle-detail" @click="handleDetail(item)">
         <div class="title">
         <span class="type">{{item.districtTypeName}}</span>
         <h4 class="title-name">{{item.clientName}}</h4>
@@ -46,9 +46,9 @@ export default {
     }
   },
   methods:{
-    handleDetail () {
+    handleDetail (row) {
       this.$router.push({
-        path:'/app/resource/client/client_detail',
+        path: `/app/resource/client/client_detail/${row.clientId}`,
       })
     },
     getCustomList (params = {}) {

@@ -40,12 +40,6 @@ export default {
   },
   data () {
     return {
-      name: '培训数据库优化方案',
-      avatar: '../img/person/p08.jpg',
-      desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系',
-      uploaded: '何舟杰',
-      time: '2019-04-24',
-      pageviews: '145',
       downloads: '88',
       itemList: [
         {
@@ -62,20 +56,6 @@ export default {
         },
       ],
       subTitle: '培训信息',
-      detailList: [
-        {
-          teacher: '张超',
-          time: '2019-03-22',
-          mode: '线上微信',
-          theme: '技能类',
-          place: '舟山',
-        },
-      ],
-      tags: [
-        { tag: '数据服务' },
-        { tag: '数据应用' },
-        { tag: '数据分析' },
-      ],
     }
   },
 }

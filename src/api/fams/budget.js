@@ -16,3 +16,11 @@ export function getBudgetYearById (id) {
     method: 'get',
   })
 }
+
+export function putBudgetYearRelation (obj) {
+  return request({
+    url: `${prefixUrl}/update/year/relation`,
+    method: 'post',
+    data: obj,
+  })
+}

@@ -12,30 +12,14 @@
             <!-- <span class="dn show1" :class="show1">V</span>
             <span class="dn show2 el-icon-star-on" :class="show2"></span>
             <span class="dn show3 iconfont icon-huangguan" :class="show2"></span> -->
-            <svg class="iep2-icon" aria-hidden="true">
-              <use xlink:href="#iep2-icondongshichang"></use>
-            </svg>
-            <svg class="iep2-icon" aria-hidden="true">
-              <use xlink:href="#iep2-iconzongjingli"></use>
-            </svg>
-            <svg class="iep2-icon" aria-hidden="true">
-              <use xlink:href="#iep2-icontouziren1"></use>
-            </svg>
-            <svg class="iep2-icon" aria-hidden="true">
-              <use xlink:href="#iep2-iconbanchang"></use>
-            </svg>
-            <svg class="iep2-icon" aria-hidden="true">
-              <use xlink:href="#iep2-iconbanwei"></use>
-            </svg>
-            <svg class="iep2-icon" aria-hidden="true">
-              <use xlink:href="#iep2-iconweiyuanhuizhuren"></use>
-            </svg>
-            <svg class="iep2-icon" aria-hidden="true">
-              <use xlink:href="#iep2-iconweiyuanhui"></use>
-            </svg>
-            <svg class="iep2-icon" aria-hidden="true">
-              <use xlink:href="#iep2-iconzhuanjia1"></use>
-            </svg>
+            <iep-identity-mark class="mark" icon="iep2-icondongshichang" title="董事长"></iep-identity-mark>
+            <iep-identity-mark class="mark" icon="iep2-iconzongjingli" title="总经理"></iep-identity-mark>
+            <iep-identity-mark class="mark" icon="iep2-icontouziren1" title="投资人"></iep-identity-mark>
+            <iep-identity-mark class="mark" icon="iep2-iconbanchang" title="班长"></iep-identity-mark>
+            <iep-identity-mark class="mark" icon="iep2-iconbanwei" title="班委"></iep-identity-mark>
+            <iep-identity-mark class="mark" icon="iep2-iconweiyuanhuizhuren" title="委员会主任"></iep-identity-mark>
+            <iep-identity-mark class="mark" icon="iep2-iconweiyuanhui" title="委员会"></iep-identity-mark>
+            <iep-identity-mark class="mark" icon="iep2-iconzhuanjia1" title="专家"></iep-identity-mark>
           </span>
         </div>
         <span class="autograph">个性签名：{{autograph}}</span>
@@ -193,6 +177,9 @@ export default {
       justify-content: space-between;
       align-items: center;
       color: #999;
+      .mark {
+        margin: 0 5px;
+      }
     }
     .classTags {
       margin-top: 20px;

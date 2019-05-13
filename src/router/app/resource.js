@@ -21,7 +21,7 @@ export default [
     component: () => import('@/views/app/resource/training/'),
     children: [
       {
-        path: 'training_detail',
+        path: 'training_detail/:id',
         name: '培训详情',
         component: () => import('@/views/app/trainingDetails/'),
       },
@@ -35,7 +35,7 @@ export default [
     component: () => import('@/views/app/resource/client/'),
     children: [
       {
-        path: 'client_detail',
+        path: 'client_detail/:id',
         name: '客户详情',
         component: () => import('@/views/app/resource/client/clientDetail/'),
       },

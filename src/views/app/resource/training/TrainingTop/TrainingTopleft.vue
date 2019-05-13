@@ -4,7 +4,7 @@
       <el-col>
         <el-card :body-style="{ padding: '0px' }" shadow="hover">
           <span class="item"><span>NEW</span></span>
-          <div class="con" @click="handleOpen()">
+          <div class="con" @click="handleOpen(data)">
             <img :src="data.themePictures" class="img">
             <div class="text">
               <h3 class="sub-title">
@@ -42,9 +42,9 @@ export default {
     }
   },
   methods: {
-    handleOpen () {
+    handleOpen (row) {
       this.$router.push({
-        path: '/app/resource/training/training_detail',
+        path: `/app/resource/training/training_detail/${row.id}`,
       })
     },
     getNewestList () {

@@ -1,7 +1,7 @@
 <template>
   <div class="most">
-    <librarys-header></librarys-header>
-    <librarys-content></librarys-content>
+    <librarys-header @load-page="loadPage"></librarys-header>
+    <librarys-content ref="librarys"></librarys-content>
   </div>
 </template>
 <script>
@@ -12,6 +12,11 @@ export default {
   data () {
     return {
     }
+  },
+  methods: {
+    loadPage (val) {
+      this.$refs['librarys'].getCustomList(val)
+    },
   },
 }
 </script>

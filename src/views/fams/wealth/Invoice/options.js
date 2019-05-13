@@ -11,6 +11,11 @@ const dictsMap = {
     2: '日常管理类',
     3: '其他类',
   },
+  invoiceType: {
+    1: '增值税专用发票',
+    2: '增值税普通发票',
+    3: '其他',
+  },
 }
 
 const columnsMap = [

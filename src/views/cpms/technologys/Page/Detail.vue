@@ -52,9 +52,6 @@ export default {
       dictsMap,
       backOption: {
         isBack: true,
-        backFunction: () => {
-          this.$openPage(this.$route.query.redirect)
-        },
       },
       form: initForm(),
       tabList: [{

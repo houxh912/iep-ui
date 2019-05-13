@@ -1,3 +1,30 @@
+## [1.3.8](http://115.233.227.46:8066/root/iep-ui/compare/v1.3.7...v1.3.8) (2019-05-13)
+
+
+### Bug Fixes
+
+* **发票:** 字段修改 ([2ac9974](http://115.233.227.46:8066/root/iep-ui/commits/2ac9974))
+* **财务:** 预算对接 ([78204d8](http://115.233.227.46:8066/root/iep-ui/commits/78204d8))
+* **预算:** 更新 ([8d89580](http://115.233.227.46:8066/root/iep-ui/commits/8d89580))
+
+
+### Features
+
+* **update:** package ([3ccff8b](http://115.233.227.46:8066/root/iep-ui/commits/3ccff8b))
+* **修复:** identity组件 ([76475de](http://115.233.227.46:8066/root/iep-ui/commits/76475de))
+* **多色:** 图标 ([535a70f](http://115.233.227.46:8066/root/iep-ui/commits/535a70f))
+* **客户标签:** 列表标签及详情标签修改 ([38cdf70](http://115.233.227.46:8066/root/iep-ui/commits/38cdf70))
+* **客户统计客户登记:** 客户登记搜索对接 ([0020e26](http://115.233.227.46:8066/root/iep-ui/commits/0020e26))
+* **新增:** 发票 ([2cc1f92](http://115.233.227.46:8066/root/iep-ui/commits/2cc1f92))
+* **材料:** 开放选项添加 ([6522d5d](http://115.233.227.46:8066/root/iep-ui/commits/6522d5d))
+* **身份标识:** 添加编辑功能 ([6aa78a5](http://115.233.227.46:8066/root/iep-ui/commits/6aa78a5))
+* **频道页:** 国脉人 ([83fb306](http://115.233.227.46:8066/root/iep-ui/commits/83fb306))
+* **频道页:** 培训库详情 ([a074991](http://115.233.227.46:8066/root/iep-ui/commits/a074991))
+* **频道页:** 客户详情 ([120c176](http://115.233.227.46:8066/root/iep-ui/commits/120c176))
+* **频道页:** 搜索即加载 ([174d219](http://115.233.227.46:8066/root/iep-ui/commits/174d219))
+
+
+
 ## [1.3.7](http://115.233.227.46:8066/root/iep-ui/compare/v1.3.6...v1.3.7) (2019-05-11)
 
 

@@ -96,9 +96,6 @@ export default {
       }
       this.$router.push({
         path: `/cpms_spa/technology_detail/${row.id}`,
-        query: {
-          redirect: this.$route.fullPath,
-        },
       })
     },
     handleChangeMe (value) {

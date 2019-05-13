@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="产品系列"></page-header>
+      <iep-page-header title="产品系列"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button v-if="cpms_products_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -98,9 +98,6 @@ export default {
       }
       this.$router.push({
         path: `/cpms_spa/product_detail/${row.id}`,
-        query: {
-          redirect: this.$route.fullPath,
-        },
       })
     },
     handleChangeMe (value) {

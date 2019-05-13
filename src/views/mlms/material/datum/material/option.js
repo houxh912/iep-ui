@@ -57,7 +57,7 @@ export const initLocalForm = () => {
     isContri: 0,
     attachFileList: [],
     attachFile: '',
-    isOpen: 0,
+    isOpen: 2,
     secrecyLevel: 0,
   }
 }
@@ -77,7 +77,7 @@ export const initFormData = () => {
     downloadCost: '',
     tagKeyWords: [],
     attachFileList: [],
-    isOpen: 0,
+    isOpen: 2,
     secrecyLevel: 0,
   }
 }

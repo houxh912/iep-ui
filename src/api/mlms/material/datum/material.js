@@ -89,3 +89,11 @@ export function validateName (name) {
     method: 'post',
   })
 }
+
+// 判断用户有无联盟
+export function getUnion () {
+  return request({
+    url: `${prefixUrl}/get/union`,
+    method: 'post',
+  })
+}

@@ -62,8 +62,10 @@ export default {
     })
   },
   methods: {
-    searchPage () {
-      this.$message.success('功能开发中')
+    searchPage (val) {
+      getAllRejister(val).then((res) => {
+        this.number = res.data.data
+      })
     },
   },
 }

@@ -2,7 +2,7 @@
   <div>
     <div class="material-detail">
       <div class="library">
-        <train-details></train-details>
+        <train-details :data="detailData"></train-details>
         <el-row class="down-load">
           相关附件：
           <div class="file" v-for="(item, index) in attachFileList" :key="index">
@@ -19,12 +19,12 @@
         <IepAppTabCard :title="listTitle1">
           <div class="recommended-list">
             <div v-for="(item,index) in recommendedList" :key="index" class="piece">
-              <div class="img-con"><img :src="item.img" class="img"></div>
+              <div class="img-con"><img :src="item.themePictures" class="img"></div>
               <div class="box">
                 <div class="piece-title">
-                  <span class="sub-title">{{item.title}}</span>
+                  <span class="sub-title">{{item.trainingTheme}}</span>
                 </div>
-                <span class="see"><i class="iconfont icon-yanjing"></i>{{item.see}}</span>
+                <span class="see"><i class="iconfont icon-yanjing"></i>{{item.views}}</span>
               </div>
             </div>
           </div>
@@ -35,20 +35,18 @@
 </template>
 <script>
 import TrainDetails from './TrainDetails'
+import { getRectagsList } from '@/api/app/tms/index'
+import { getRecruitDetail, getNoticeList } from '@/api/app/hrms/'
+
 export default {
   components: { TrainDetails },
   data () {
     return {
+      detailData: {},
       labelTitle: '推荐主题',
-      listTitle1: '推荐培训',
-      labelList: ['营商通', '营商环境', '数据基因', '数据政府', '电子政务', '数字经济', '微服务', 'dips', '知识图谱'],
-      recommendedList: [
-        { img: '../img/person/p010.jpg', title: '关于加快做好内网标签工作的相关规定与', see: '114人浏览' },
-        { img: '../img/person/p011.jpg', title: '数据基因安装部署培训', see: '134人浏览' },
-        { img: '../img/person/p07.jpg', title: '内网考试解读及内网各版块分工认责', see: '59人浏览' },
-        { img: '../img/person/p09.jpg', title: '着力打造卓越全球城市最优营商环境', see: '84人浏览' },
-        { img: '../img/person/p08.jpg', title: '城市数据中心的基因解码', see: '89人浏览' },
-      ],
+      listTitle1: '培训预告',
+      labelList: [],
+      recommendedList: [],
       routerMatch: this.$route.matched,
       attachFileList: [
         {name:'内网2.0改造项目'},
@@ -63,6 +61,31 @@ export default {
     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
     // 可以访问组件实例 `this`
+  },
+  methods: {
+    getTrainingDetail (id) {
+      getRecruitDetail(id).then(({data}) => {
+        this.detailData = data.data
+      })
+    },
+    // 推荐主题
+    getRectagsList () {
+      getRectagsList().then(({data}) => {
+        this.labelList = data.data
+      })
+    },
+    // 培训预告
+    getNoticeList () {
+      getNoticeList().then(({data}) => {
+        this.recommendedList = data.data
+      })
+    },
+  },
+  created () {
+    let params = this.$route.params
+    this.getTrainingDetail(params.id)
+    this.getRectagsList()
+    this.getNoticeList()
   },
 }
 </script>

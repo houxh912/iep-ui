@@ -1,9 +1,13 @@
 const searchForm = () => {
   return {
     position: '',
-    districtType: '',
-    clientRela: '',
+    district: '',
+    rela: '',
     user: {
+      id: '',
+      name: '',
+    },
+    dept: {
       id: '',
       name: '',
     },

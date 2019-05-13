@@ -30,7 +30,7 @@
             <template slot-scope="scope">
               <iep-table-link>{{scope.row.clientName}}</iep-table-link>
               <el-col class="custom-tags">
-                <a-tag v-for="(item, index) in dealTag(scope.row.tags)" :key="index">{{item.commonName}}
+                <a-tag v-for="(item, index) in dealTag(scope.row.tags)" :key="index" @click="handleTagDetail(item.commonName)">{{item.commonName}}
                 </a-tag>
                 <span v-if="scope.row.tags.length>3">...</span>
               </el-col>
@@ -230,6 +230,10 @@ export default {
       this.loadTable({ ...param, type: this.type }, getCustomerPage, m => {
         return Object.assign(m, { businessType: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
+    },
+    // 列表标签点击进入标签详情页
+    handleTagDetail (val) {
+      this.$openTagDetail(val)
     },
   },
 

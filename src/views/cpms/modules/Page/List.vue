@@ -103,9 +103,6 @@ export default {
       }
       this.$router.push({
         path: `/cpms_spa/module_detail/${row.id}`,
-        query: {
-          redirect: this.$route.fullPath,
-        },
       })
     },
     handleChangeMe (value) {

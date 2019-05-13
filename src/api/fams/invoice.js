@@ -18,3 +18,11 @@ export function getInvoicePage (query) {
     params: query,
   })
 }
+
+export function postInvoice (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}

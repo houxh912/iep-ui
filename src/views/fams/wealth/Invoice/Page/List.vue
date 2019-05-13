@@ -25,7 +25,7 @@
   </div>
 </template>
 <script>
-import { getMyInvoicePage } from '@/api/fams/invoice'
+import { getMyInvoicePage, postInvoice } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from '../options'
 export default {
@@ -53,6 +53,7 @@ export default {
       this.$emit('onEdit', {
         methodName: '新增',
         id: false,
+        formRequestFn: postInvoice,
       })
     },
   },

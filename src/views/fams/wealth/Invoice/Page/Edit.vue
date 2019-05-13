@@ -5,9 +5,9 @@
         <iep-button type="primary" @click="handleSubmit()">保存</iep-button>
       </page-header>
       <el-table :data="tableData" style="width: 100%" size="small" border show-summary>
-        <el-table-column prop="expenditureType" label="支出类型">
+        <el-table-column prop="type" label="支出类型">
           <template slot-scope="scope">
-            <iep-dict-cascader size="small" dictName="fams_expenditure_type" v-model="scope.row.expenditureType"></iep-dict-cascader>
+            <iep-dict-cascader size="small" dictName="fams_expenditure_type" v-model="scope.row.type"></iep-dict-cascader>
           </template>
         </el-table-column>
         <el-table-column label="发票类型">
@@ -55,7 +55,7 @@
 import { dictsMap } from '../options'
 function initTableForm () {
   return {
-    expenditureType: [],
+    type: [],
     invoiceType: '',
     amount: 0,
   }

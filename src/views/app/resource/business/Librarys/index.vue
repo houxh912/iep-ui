@@ -1,6 +1,6 @@
 <template>
   <div class="most">
-    <librarys-header :total="total"></librarys-header>
+    <librarys-header :total="total" @load_page="getBusinessPage"></librarys-header>
     <librarys-content :list="list"></librarys-content>
   </div>
 </template>
@@ -18,8 +18,8 @@ export default {
     }
   },
   methods: {
-    getBusinessPage () {
-      getBusinessPage().then(({data}) => {
+    getBusinessPage (params = {}) {
+      getBusinessPage(params).then(({data}) => {
         this.total = data.data.total
         this.list = data.data.records
       })

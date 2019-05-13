@@ -51,8 +51,8 @@ export default {
         path:'/app/resource/client/client_detail',
       })
     },
-    getCustomList () {
-      getCustomList().then(({data}) => {
+    getCustomList (params = {}) {
+      getCustomList(params).then(({data}) => {
         this.librarys = data.data.records
       })
     },

@@ -13,7 +13,7 @@
     <div class="past-training-list">
       <el-row>
         <el-col>
-          <el-card shadow="hover" v-for="(item,index) in pastTrainingList" :key="index">
+          <el-card shadow="hover" v-for="(item,index) in pastTrainingList" :key="index" @click.native="handleOpen(item)">
             <div class="img"><img :src="item.trainerImage" alt=""></div>
             <span class="item-title">{{item.trainingTheme}}</span>
             <p class="content">{{item.trainingBrief}}</p>
@@ -50,6 +50,11 @@ export default {
         this.pastTrainingList = data.data
       })
     },
+    handleOpen (row) {
+      this.$router.push({
+        path: `/app/resource/training/training_detail/${row.id}`,
+      })
+    },
   },
   created () {
     this.getPastList()
@@ -81,6 +86,7 @@ export default {
     margin: 25px 0 25px;
     .el-card {
       border: 1px solid #ebeef5;
+      cursor: pointer;
     }
     .classTag,
     .content {

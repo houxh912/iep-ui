@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="article-details">
-      <div class="title">{{name}}</div>
+      <div class="title">{{data.trainingTheme}}</div>
       <div class="inform">
         <div class="info">
-          <div class="img"><img :src="avatar" :alt="avatar"></div>
-          <span>{{uploaded}}</span>
-          <span class="time">{{time}}</span>
-          <span><i class="iconfont icon-yanjing"></i>{{pageviews}}</span>
+          <div class="img"><img :src="data.creatorImage" :alt="data.creatorName"></div>
+          <span>{{data.creatorName}}</span>
+          <span class="time">{{data.createTime}}</span>
+          <span><i class="iconfont icon-yanjing"></i>{{data.views}}</span>
           <span><i class="iconfont icon-download1"></i>{{downloads}}</span>
         </div>
         <div class="btn-con">
@@ -15,16 +15,16 @@
         </div>
       </div>
       <div class="detail">
-        <span class="sub-title">{{subTitle}}</span>
-        <div class="detail-con" v-for="detail in detailList" :key="detail.id">
-          <span>培训老师：{{detail.teacher}}</span>
-          <span>培训时间：{{detail.time}}</span>
-          <span>培训方式：{{detail.mode}}</span>
-          <span>培训主题：{{detail.theme}}</span>
-          <span>培训地点：{{detail.place}}</span>
+        <span class="sub-title">{{data.trainingBrief}}</span>
+        <div class="detail-con">
+          <span>培训老师：{{data.trainerName}}</span>
+          <span>培训时间：{{data.startTime}}</span>
+          <span>培训方式：{{data.method}}</span>
+          <span>培训主题：{{data.trainingTheme}}</span>
+          <span>培训地点：{{data.place}}</span>
         </div>
         <div class="classTag">
-          <el-tag type="white" v-for="tag in tags" :key="tag.id">{{tag.tag}}</el-tag>
+          <el-tag type="white" v-for="(tag, index) in data.trainingTags" :key="index">{{tag}}</el-tag>
         </div>
       </div>
     </div>
@@ -32,6 +32,12 @@
 </template>
 <script>
 export default {
+  props: {
+    data: {
+      type: Object,
+      default: () => {},
+    },
+  },
   data () {
     return {
       name: '培训数据库优化方案',

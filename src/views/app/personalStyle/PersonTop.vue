@@ -8,7 +8,35 @@
       <div class="text">
         <div class="name-con">
           <span class="name">{{personName}}</span>
-          <span class="post">{{post}}<span class="dn show1" :class="show1">V</span><span class="dn show2 el-icon-star-on" :class="show2"></span><span class="dn show3 iconfont icon-huangguan" :class="show2"></span></span>
+          <span class="post">{{post}}
+            <!-- <span class="dn show1" :class="show1">V</span>
+            <span class="dn show2 el-icon-star-on" :class="show2"></span>
+            <span class="dn show3 iconfont icon-huangguan" :class="show2"></span> -->
+            <svg class="iep2-icon" aria-hidden="true">
+              <use xlink:href="#iep2-icondongshichang"></use>
+            </svg>
+            <svg class="iep2-icon" aria-hidden="true">
+              <use xlink:href="#iep2-iconzongjingli"></use>
+            </svg>
+            <svg class="iep2-icon" aria-hidden="true">
+              <use xlink:href="#iep2-icontouziren1"></use>
+            </svg>
+            <svg class="iep2-icon" aria-hidden="true">
+              <use xlink:href="#iep2-iconbanchang"></use>
+            </svg>
+            <svg class="iep2-icon" aria-hidden="true">
+              <use xlink:href="#iep2-iconbanwei"></use>
+            </svg>
+            <svg class="iep2-icon" aria-hidden="true">
+              <use xlink:href="#iep2-iconweiyuanhuizhuren"></use>
+            </svg>
+            <svg class="iep2-icon" aria-hidden="true">
+              <use xlink:href="#iep2-iconweiyuanhui"></use>
+            </svg>
+            <svg class="iep2-icon" aria-hidden="true">
+              <use xlink:href="#iep2-iconzhuanjia1"></use>
+            </svg>
+          </span>
         </div>
         <span class="autograph">个性签名：{{autograph}}</span>
         <div class="classTags">

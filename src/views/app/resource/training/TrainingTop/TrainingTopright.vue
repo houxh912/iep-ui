@@ -13,8 +13,10 @@
     <div class="block">
       <el-timeline>
         <el-timeline-item v-for="(activity, index) in activities" :key="index" :icon="activity.icon" :type="activity.type" :color="activity.color" :size="activity.size">
-          <div><span class="item-title">{{activity.title}}</span><strong>{{activity.important}}</strong></div>
-          <p class="content">{{activity.content}}</p>
+          <div class="timeline-item" @click="handleOpen(activity)">
+            <div><span class="item-title">{{activity.title}}</span><strong>{{activity.important}}</strong></div>
+            <p class="content">{{activity.content}}</p>
+          </div>
         </el-timeline-item>
       </el-timeline>
     </div>
@@ -35,6 +37,11 @@ export default {
     getMore () {
       this.$router.push({
         path: '/app/training_list',
+      })
+    },
+    handleOpen (row) {
+      this.$router.push({
+        path: `/app/resource/training/training_detail/${row.id}`,
       })
     },
     getNoticeList () {
@@ -80,6 +87,9 @@ export default {
     padding: 0;
     .el-timeline-item {
       padding-bottom: 10px;
+      .timeline-item {
+        cursor: pointer;
+      }
     }
     .content {
       overflow: hidden;

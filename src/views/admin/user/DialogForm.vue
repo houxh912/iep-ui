@@ -1,9 +1,6 @@
 <template>
-  <iep-dialog class="dialog-con" :dialog-show="dialogShow" :title="`${methodName}成员信息`" width="500px" @close="loadPage" @slot-mounted="load">
-    <div class="avatar" style="text-align: center;margin-bottom:20px;">
-      <iep-img-avatar :size="128" :src="form.avatar"></iep-img-avatar>
-    </div>
-    <el-form :model="form" ref="form" size="small" label-width="100px">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}信息`" width="500px" @close="loadPage" @slot-mounted="load">
+    <el-form :model="form" ref="form" size="small" label-width="100px" :disabled="disabled">
       <el-form-item label="用户名：" prop="username">
         <el-input v-model="form.username" disabled></el-input>
       </el-form-item>
@@ -12,15 +9,9 @@
       </el-form-item>
       <el-form-item label="配置角色：" prop="role">
         <el-select v-model="form.roleList" multiple placeholder="请选择">
-          <el-option v-for="role in roleList" :key="role.roleId" :label="role.roleName" :value="role.roleId">
+          <el-option v-for="item in roleList" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
           </el-option>
         </el-select>
-      </el-form-item>
-      <el-form-item label="手机：" prop="phone">
-        <el-input v-model="form.phone" disabled></el-input>
-      </el-form-item>
-      <el-form-item label="所属组织：" prop="orgNames">
-        <li v-for="item in form.orgNames" :key="item">{{item}}</li>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -32,8 +23,9 @@
   </iep-dialog>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { initMemberForm } from './options'
-import { getRoleOrgList, updateGomsUser } from '@/api/admin/org'
+import { getRoleOrgList } from '@/api/admin/org'
 export default {
   props: {
     loadImage: {
@@ -43,6 +35,7 @@ export default {
   data () {
     return {
       dialogShow: false,
+      disabled: false,
       formRequestFn: () => { },
       methodName: '创建',
       form: initMemberForm(),
@@ -51,10 +44,33 @@ export default {
       roleList: [],
     }
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
   methods: {
+    handleCancelAsset () {
+      this.form.assetOrgId = 0
+    },
+    handleSetAsset (row) {
+      this.form.assetOrgId = row.id
+      console.log(row.id)
+    },
     load () {
-      getRoleOrgList().then((res) => {
-        this.roleList = res.data.data
+      getRoleOrgList().then(({ data }) => {
+        const roleList = data.data.map(m => {
+          return {
+            label: m.roleName,
+            value: m.roleId,
+          }
+        })
+        this.roleList = [
+          { value: 1, label: '超级管理员', disabled: true },
+          { value: 2, label: '游客权限', disabled: true },
+          { value: 3, label: '组织成员', disabled: true },
+          ...roleList,
+        ]
       })
     },
     loadPage () {
@@ -63,7 +79,7 @@ export default {
       this.$emit('load-page')
     },
     updateForm () {
-      updateGomsUser({
+      this.formRequestFn({
         userId: this.form.userId,
         role: this.form.roleList,
       }).then(() => {
@@ -73,5 +89,8 @@ export default {
   },
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
+.isAsset {
+  color: red;
+}
 </style>

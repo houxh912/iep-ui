@@ -1,10 +1,19 @@
 import request from '@/router/axios'
 
+// const prefixUrl = '/admin/user'
+
 export function fetchList (query) {
   return request({
     url: '/admin/user/page',
     method: 'get',
     params: query,
+  })
+}
+
+export function resetPassByUserId (id) {
+  return request({
+    url: `/admin/user/reset/password/${id}`,
+    method: 'get',
   })
 }
 
@@ -38,10 +47,10 @@ export function delObj (id) {
   })
 }
 
-export function putObj (obj) {
+export function putUser (obj) {
   return request({
-    url: '/admin/user',
-    method: 'put',
+    url: '/admin/user/update',
+    method: 'post',
     data: obj,
   })
 }

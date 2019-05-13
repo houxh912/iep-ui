@@ -166,7 +166,7 @@ export function updateGomsUser (obj) {
   })
 }
 
-export function putGoms () {
+export function getRoleOrgList () {
   return request({
     url: '/admin/role/org/list',
     method: 'get',

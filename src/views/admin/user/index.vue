@@ -65,11 +65,7 @@ export default {
       this.$refs['DialogForm'].dialogShow = true
     },
     handleResetPass (row) {
-      resetPassByUserId(row.userId).then(({ data }) => {
-        if (data.data) {
-          this.$message.success('重置密码成功')
-        }
-      })
+      this._handleComfirm(row.userId, resetPassByUserId, '重置密码')
     },
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.userId)

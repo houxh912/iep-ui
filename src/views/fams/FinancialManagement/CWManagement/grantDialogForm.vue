@@ -19,7 +19,7 @@
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm">发放</iep-button>
-      <iep-button @click="loadPage">取消</iep-button>
+      <iep-button @click="close">取消</iep-button>
     </template>
   </iep-dialog>
 </template>

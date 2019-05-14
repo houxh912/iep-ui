@@ -10,19 +10,19 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <el-table-column label="操作" width="80px">
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
+        <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" plain v-if="scope.row.status==1 || scope.row.status==2" @click="handleDetail(scope.row)">查看</iep-button>
-              <iep-button type="warning" plain v-if="scope.row.status==0" @click="handleReview(scope.row)">审核</iep-button>
+              <iep-button v-if="scope.row.status===0" @click.stop="handlePass(scope.row)">通过</iep-button>
+              <iep-button v-if="scope.row.status===0" @click.stop="handleReject(scope.row)">驳回</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
     </basic-container>
-    <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
-    <!-- <new-approval ref="NewApproval" @load-page="loadPage"></new-approval> -->
+    <pass-dialog-form ref="passDialogForm" @load-page="loadPage"></pass-dialog-form>
+    <reject-dialog-form ref="rejectDialogForm" @load-page="loadPage"></reject-dialog-form>
   </div>
 </template>
 
@@ -30,7 +30,10 @@
 import { getMyInvoicePage } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap, initSearchForm } from '../options'
+import passDialogForm from './passDialogForm'
+import rejectDialogForm from './rejectDialogForm'
 export default {
+  components: { rejectDialogForm, passDialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -45,21 +48,24 @@ export default {
     this.loadPage()
   },
   methods: {
-    // handleDetail () {
-    //   this.$emit('onDetail', {
-    //     formRequestFn: getFinancialManagementPage,
-    //     methodName: '查看明细',
-    //   })
-    // },
+    handlePass (row) {
+      this.$refs['passDialogForm'].id = row.id
+      this.$refs['passDialogForm'].content = ''
+      this.$refs['passDialogForm'].dialogShow = true
+    },
+    handleReject (row) {
+      this.$refs['rejectDialogForm'].id = row.id
+      this.$refs['rejectDialogForm'].content = ''
+      this.$refs['rejectDialogForm'].dialogShow = true
+    },
+    handleDetail (row) {
+      this.$router.push({
+        path: `/fams_spa/invoice_detail/${row.id}`,
+      })
+    },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getMyInvoicePage)
     },
-    // handleReview (row) {
-    //   this.$refs['iepReviewForm'].title = '审核'
-    //   this.$refs['iepReviewForm'].id = row.id
-    //   this.$refs['iepReviewForm'].formRequestFn = reviewApprovaBatch
-    //   this.$refs['iepReviewForm'].dialogShow = true
-    // },
   },
 }
 </script>

@@ -54,15 +54,15 @@ export default {
       back: () => {
         this.$router.push('/hrms_spa/suggestion_list')
       },
-      form:{
-        theme:'主题主题主题主题主题主题',
-        desc:'内容内容内容内容内容内容内容内容内容内容',
-        attendeeList:'研发中心',
-        ProcessingOpinion:'1',
-        Feedback:'',
-        reward:'',
-        annex:'附件附件',
-        disabled:true
+      form: {
+        theme: '主题主题主题主题主题主题',
+        desc: '内容内容内容内容内容内容内容内容内容内容',
+        attendeeList: '研发中心',
+        ProcessingOpinion: '1',
+        Feedback: '',
+        reward: '',
+        annex: '附件附件',
+        disabled: true,
       },
     }
   },
@@ -87,7 +87,7 @@ export default {
 </style>
 
 <style scoped>
-.iep-page-form >>> .el-form-item__content .el-input-group{
+.iep-page-form >>> .el-form-item__content .el-input-group {
   width: 250px;
 }
 </style>

@@ -97,3 +97,12 @@ export function getUnion () {
     method: 'post',
   })
 }
+
+// 更新版本
+export function getVersion (obj) {
+  return request({
+    url: `${prefixUrl}/get/new/version`,
+    method: 'post',
+    data: obj,
+  })
+}

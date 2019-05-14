@@ -74,7 +74,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { getTableData, getTableDataOnlyMe, deleteData, getDataById } from '@/api/mlms/material/datum/material'
+import { getTableData, getTableDataOnlyMe, deleteData, getDataById, getVersion } from '@/api/mlms/material/datum/material'
 import { createCollect } from '@/api/mlms/material/summary'
 import UploadFile from './uploadFile'
 import LocalDialog from './localDialog'
@@ -103,6 +103,7 @@ export default {
       getTableDataFn: getTableDataOnlyMe,
       permission_edit_del: false,
       lookByMeOnly: false,
+      versionId: 0,
     }
   },
   created () {
@@ -215,12 +216,19 @@ export default {
       this.$message.error('抱歉，此功能尚未开发')
     },
     // 上传新版本
-    handleEdition () {
+    handleEdition (row) {
+      this.versionId = row.id
       this.$refs['uploadFile'].open('update')
     },
     // 更新版本
-    updateSuccess () {
-      // 首先需要获取到全部的数据，然后更换文件进行更新
+    updateSuccess (list) {
+      let obj = {
+        id: this.versionId,
+        attachFile: list[0].url,
+      }
+      getVersion(obj).then(() => {
+        this.$message.success('更新成功！')
+      })
     },
     // 只看我的
     changeGetWay (val) {

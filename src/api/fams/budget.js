@@ -10,6 +10,13 @@ export function getBudgetYearList () {
   })
 }
 
+export function getBudgetQuarterList (yearId) {
+  return request({
+    url: `${prefixUrl}/quarter/${yearId}`,
+    method: 'get',
+  })
+}
+
 export function getBudgetYearById (id) {
   return request({
     url: `${prefixUrl}/year/${id}`,
@@ -20,6 +27,14 @@ export function getBudgetYearById (id) {
 export function putBudgetYearRelation (obj) {
   return request({
     url: `${prefixUrl}/update/year/relation`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function putBudgetQuarterRelation (obj) {
+  return request({
+    url: `${prefixUrl}/update/quarter/relation`,
     method: 'post',
     data: obj,
   })

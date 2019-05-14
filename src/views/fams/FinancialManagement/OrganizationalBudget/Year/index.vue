@@ -11,7 +11,7 @@
         </el-select>
       </template>
     </operation-container>
-    <el-table :data="budgetTable" style="width: 100%" show-summary @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
+    <el-table :data="budgetTable" style="width: 100%" show-summary @row-dblclick="handleDetail">
       <el-table-column prop="typeName" label="预算项">
       </el-table-column>
       <el-table-column :label="budgetTime + '年'">
@@ -34,10 +34,8 @@
 import { getBudgetYearList, getBudgetYearById, putBudgetYearRelation } from '@/api/fams/budget'
 import DialogForm from './DialogForm'
 import { initForm } from './options'
-import mixins from '@/mixins/mixins'
 export default {
   components: { DialogForm },
-  mixins: [mixins],
   data () {
     return {
       budgetId: '',

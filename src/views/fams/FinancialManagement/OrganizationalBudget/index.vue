@@ -7,7 +7,7 @@
           <year v-loading="activeTab !=='Year'" @on-change-year="handleChangeYear"></year>
         </template>
         <template v-if="activeTab ==='Quarter'" v-slot:Quarter>
-          <quarter v-loading="activeTab !=='Quarter'" :yearId="yearId"></quarter>
+          <quarter v-loading="activeTab !=='Quarter'" :year-id="yearId"></quarter>
         </template>
         <template v-if="activeTab ==='Monthly'" v-slot:Monthly>
           <monthly v-loading="activeTab !=='Monthly'"></monthly>

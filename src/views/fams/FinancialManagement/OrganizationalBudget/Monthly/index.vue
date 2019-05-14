@@ -2,151 +2,83 @@
   <div>
     <operation-container>
       <template slot="left">
-        <div>2018年第一季度预算</div>
+        <div>{{budgetTime}}年度预算</div>
       </template>
       <template slot="right">
-        <operation-search @search="searchPage" advance-search>
-          <el-form :model="paramForm" label-width="80px" size="mini">
-            <el-form-item label="月份">
-              <el-select v-model="paramForm.status" placeholder="请选择月份">
-                <el-option v-for="item in classify" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="年份">
-              <el-select v-model="paramForm.status" placeholder="请选择年份">
-                <el-option v-for="item in classify" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="searchPage">搜索</el-button>
-              <el-button>取消</el-button>
-            </el-form-item>
-          </el-form>
-        </operation-search>
+        <el-select v-model="budgetId" placeholder="请选择年份" size="small" @change="handleChange">
+          <el-option v-for="item in yearList" :key="item.budgetId" :label="item.budgetTime+'年'" :value="item.budgetId">
+          </el-option>
+        </el-select>
       </template>
     </operation-container>
-    <template>
-      <el-table
-        :data="tableData"
-        style="width: 100%">
-        <el-table-column
-          prop="budgetItem"
-          label="预算项">
+    <el-table :data="budgetTable" style="width: 100%" show-summary @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
+      <el-table-column prop="typeName" label="预算项">
+      </el-table-column>
+      <el-table-column :label="budgetTime + '年'">
+        <el-table-column prop="budget" label="预算">
+          <template slot-scope="scope">
+            <span>{{scope.row['budget']}}</span>
+          </template>
         </el-table-column>
-        <el-table-column label="一月">
-          <el-table-column
-            prop="budget"
-            label="预算">
-          </el-table-column>
-          <el-table-column
-            prop="actual"
-            label="实际">
-          </el-table-column>
+        <el-table-column prop="actual" label="实际">
+          <template slot-scope="scope">
+            <span>{{scope.row['actual']}}</span>
+          </template>
         </el-table-column>
-        <el-table-column label="二月">
-          <el-table-column
-            prop="budget"
-            label="预算">
-          </el-table-column>
-          <el-table-column
-            prop="actual"
-            label="实际">
-          </el-table-column>
-        </el-table-column>
-        <el-table-column label="三月">
-          <el-table-column
-            prop="budget"
-            label="预算">
-          </el-table-column>
-          <el-table-column
-            prop="actual"
-            label="实际">
-          </el-table-column>
-        </el-table-column>
-        <el-table-column label="一季度预算">
-          <el-table-column
-            prop="budget"
-            label="预算">
-          </el-table-column>
-          <el-table-column
-            prop="actual"
-            label="实际">
-          </el-table-column>
-        </el-table-column>
-      </el-table>
-    </template>
+      </el-table-column>
+    </el-table>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 <script>
+import { getBudgetYearList, getBudgetYearById, putBudgetYearRelation } from '@/api/fams/budget'
+import DialogForm from './DialogForm'
+import { initForm } from './options'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm } from './options'
 export default {
+  components: { DialogForm },
   mixins: [mixins],
   data () {
     return {
-      columnsMap,
-      paramForm: initSearchForm(),
-      classify: '',
-      tableData:[{
-          budgetItem: '办公房租',
-          budget: '王小虎',
-          actual: '上海',
-        }, {
-          budgetItem: '人工成本',
-          budget: '王小虎',
-          actual: '上海',
-        }, {
-          budgetItem: '员工福利',
-          budget: '王小虎',
-          actual: '上海',
-        }, {
-          budgetItem: '办公费用',
-          budget: '王小虎',
-          actual: '上海',
-        }, {
-          budgetItem: '公司车辆费用',
-          budget: '王小虎',
-          actual: '上海',
-        }, {
-          budgetItem: '合计',
-          budget: '王小虎',
-          actual: '上海',
-        }, {
-          budgetItem: '季度合计',
-          budget: '王小虎',
-          actual: '上海',
-        }],
+      budgetId: '',
+      budgetTime: '',
+      yearList: [],
+      budgetTable: [],
     }
   },
-  created () {
-    // this.loadPage()
+  async created () {
+    await this.loadYearList()
+    await this.loadPage()
   },
   methods: {
-    handleCommandType () {
-      // console.log(val)
+    handleDetail (row) {
+      this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].form.id = this.budgetId
+      this.$refs['DialogForm'].form.type = row.type
+      this.$refs['DialogForm'].form.budget = row.budget
+      this.$refs['DialogForm'].form.actual = row.actual
+      this.$refs['DialogForm'].formRequestFn = putBudgetYearRelation
+      this.$refs['DialogForm'].dialogShow = true
     },
-    handleCommandUser () {
-      // console.log(val)
+    handleChange () {
+      this.loadPage()
     },
-    handleDetail () {
-      // this.$emit('onDetail', {
-      //   formRequestFn: putApprovalInitiate,
-      //   methodName: '查看明细',
-      //   id: row.id,
-      // })
+    async loadYearList () {
+      const { data } = await getBudgetYearList()
+      this.yearList = data.data
+      this.budgetId = this.yearList[0].budgetId
+      this.budgetTime = this.yearList[0].budgetTime
     },
-    handleEdit () {
-      // this.$emit('onEdit', {
-      //   formRequestFn: putApprovalInitiate,
-      //   methodName: '编辑规则',
-      //   id: row.id,
-      // })
+    loadPage () {
+      getBudgetYearById(this.budgetId).then(({ data }) => {
+        this.budgetTable = data.data.relation
+      })
     },
-    // loadPage (param = this.searchForm) {
-    //   this.loadTable(param,getInvoiceNotificationPage)
-    // },
+  },
+  watch: {
+    budgetId (n) {
+      this.$emit('on-change-year', n)
+    },
   },
 }
 </script>

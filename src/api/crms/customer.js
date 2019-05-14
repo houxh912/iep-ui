@@ -84,3 +84,11 @@ export function getMarket (query) {
     params: query,
   })
 }
+//我的客户和协作客户列表
+export function getMyorcollList (query) {
+  return request({
+    url: `${prefixUrl}/myorcoll/list`,
+    method: 'get',
+    params: query,
+  })
+}

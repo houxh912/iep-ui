@@ -7,8 +7,9 @@
         <template slot="left">
           <iep-button v-if="ims_announcement_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>发布公告</iep-button>
           <el-dropdown size="medium">
-            <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+            <iep-button type="default">批量操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="handleViewBatch">已读</el-dropdown-item>
               <el-dropdown-item>标记</el-dropdown-item>
               <el-dropdown-item v-if="ims_announcement_edit_del">删除</el-dropdown-item>
             </el-dropdown-menu>
@@ -37,7 +38,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getAnnouncementPage } from '@/api/ims/announcement'
+import { getAnnouncementPage, readAnnouncementBatch } from '@/api/ims/announcement'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options'
 export default {
@@ -81,6 +82,14 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleViewBatch () {
+      // TODO: 是否多选提醒
+      if (!this.multipleSelection.length) {
+        this.$message('请先选择需要的选项')
+        return
+      }
+      this._handleComfirm(this.multipleSelection, readAnnouncementBatch, '批量已读', '', '操作成功')
+    },
     handleDetail (row) {
       if (this.ims_announcement_view) {
         this.$router.push({

@@ -1,7 +1,9 @@
 <template>
-  <el-button class="link-btn" :class="{'link-is-read':isRead}" type="text" v-bind="$attrs" v-on="$listeners">
-    <slot></slot>
-  </el-button>
+  <el-badge :hidden="!!isRead" is-dot class="item">
+    <el-button class="link-btn" :class="{'link-is-read':isRead}" type="text" v-bind="$attrs" v-on="$listeners">
+      <slot></slot>
+    </el-button>
+  </el-badge>
 </template>
 <script>
 export default {
@@ -32,5 +34,12 @@ export default {
   &:hover {
     color: #666;
   }
+}
+</style>
+<style scoped>
+.item >>> .is-dot {
+  top: 13px;
+  right: -3px;
+  background: #cb3737;
 }
 </style>

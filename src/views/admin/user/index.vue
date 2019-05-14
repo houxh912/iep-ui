@@ -1,214 +1,81 @@
 <template>
   <div>
     <basic-container>
-      <avue-crud :option="option" ref="crud" v-model="form" :page="page" @on-load="getList" :table-loading="listLoading" @search-change="handleFilter" @refresh-change="handleRefreshChange" @row-update="update" @row-save="create" :before-open="handleOpenBefore" :data="list">
-        <template slot="menuLeft">
-          <el-button v-if="sys_user_add" class="filter-item" @click="handleCreate" size="small" type="primary" icon="el-icon-edit">添加
-          </el-button>
+      <page-header title="用户管理"></page-header>
+      <operation-container>
+        <template slot="left">
+          <iep-button type="primary" @click="handleAddUsers()" icon="el-icon-plus" plain>添加用户</iep-button>
         </template>
-        <template slot="username" slot-scope="scope">
-          <span>{{ scope.row.username }}</span>
+        <template slot="right">
+          <operation-search @search-page="searchPage">
+          </operation-search>
         </template>
-        <template slot="role" slot-scope="scope">
-          <span v-for="(role, index) in scope.row.roleList" :key="index">
-            <el-tag>{{ role.roleName }} </el-tag>&nbsp;&nbsp;
-          </span>
-        </template>
-        <template slot="deptId" slot-scope="scope">
-          {{ scope.row.deptName }}
-        </template>
-        <template slot="lockFlag" slot-scope="scope">
-          <el-tag>{{ scope.label }}</el-tag>
-        </template>
-        <template slot="menu" slot-scope="scope">
-          <!-- <el-button v-if="sys_user_edit" size="small" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row, scope.index)">编辑
-          </el-button> -->
-          <el-button v-if="sys_user_del" size="small" type="text" icon="el-icon-delete" @click="deletes(scope.row, scope.index)">删除
-          </el-button>
-        </template>
-        <template slot="deptIdForm">
-          <avue-crud-input v-model="form.deptId" type="tree" placeholder="请选择所属部门" :node-click="getNodeData" :dic="treeDeptData" :props="defaultProps"></avue-crud-input>
-        </template>
-        <template slot="roleForm">
-          <avue-crud-select v-model="role" multiple placeholder="请选择角色" :dic="rolesOptions" :props="roleProps"></avue-crud-select>
-        </template>
-      </avue-crud>
+      </operation-container>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+        <el-table-column prop="role" label="角色">
+          <template slot-scope="scope">
+            <iep-tag-detail iep-type="role" :value="scope.row.roleList.map(m => m.name)"></iep-tag-detail>
+          </template>
+        </el-table-column>
+        <el-table-column prop="operation" label="操作" width="220">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
+              <iep-button @click="handleResetPass(scope.row)" plain>重置密码</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
+      </iep-table>
     </basic-container>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
-
 <script>
-import { addObj, delObj, fetchList, putObj } from '@/api/admin/user'
-import { deptRoleList } from '@/api/admin/role'
-import { fetchDeptTree, fetchTree } from '@/api/admin/dept'
-import { tableOption } from '@/const/crud/admin/user'
-import { mapGetters } from 'vuex'
-
+import { mapState } from 'vuex'
+import mixins from '@/mixins/mixins'
+import DialogForm from './DialogForm'
+import { dictsMap, columnsMap, initMemberForm } from './options'
+import { fetchList, putUser, resetPassByUserId } from '@/api/admin/user'
 export default {
-  name: 'TableUser',
+  components: {
+    DialogForm,
+  },
+  mixins: [mixins],
   data () {
     return {
-      option: tableOption,
-      treeDeptData: [],
-      checkedKeys: [],
-      roleProps: {
-        label: 'roleName',
-        value: 'roleId',
-      },
-      defaultProps: {
-        label: 'name',
-        value: 'id',
-      },
-      page: {
-        total: 0, // 总页数
-        currentPage: 1, // 当前页数
-        pageSize: 20, // 每页显示多少条,
-        isAsc: false, //是否倒序
-      },
-      list: [],
-      listLoading: true,
-      role: [],
-      form: {},
-      rolesOptions: [],
+      columnsMap,
+      dictsMap,
     }
   },
   computed: {
-    ...mapGetters(['permissions']),
-  },
-  watch: {
-    role () {
-      this.form.role = this.role
-    },
+    ...mapState({
+      userInfo: state => state.user.userInfo,
+    }),
   },
   created () {
-    this.sys_user_add = this.permissions['sys_user_add']
-    this.sys_user_edit = this.permissions['sys_user_edit']
-    this.sys_user_del = this.permissions['sys_user_del']
-    this.init()
+    this.loadPage()
   },
   methods: {
-    init () {
-      fetchDeptTree().then(response => {
-        this.treeData = response.data.data
-      })
+    handleEdit (row) {
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initMemberForm(), row)
+      this.$refs['DialogForm'].form.roleList = this.$refs['DialogForm'].form.roleList.map(m => m.id)
+      this.$refs['DialogForm'].methodName = '编辑'
+      this.$refs['DialogForm'].formRequestFn = putUser
+      this.$refs['DialogForm'].disabled = false
+      this.$refs['DialogForm'].dialogShow = true
     },
-    getList (page, params) {
-      this.listLoading = true
-      fetchList(
-        Object.assign(
-          {
-            current: page.currentPage,
-            size: page.pageSize,
-          },
-          params
-        )
-      ).then(response => {
-        this.list = response.data.data.records
-        this.page.total = response.data.data.total
-        this.listLoading = false
-      })
-    },
-    getNodeData () {
-      deptRoleList().then(response => {
-        this.rolesOptions = response.data.data
-      })
-    },
-    handleDept () {
-      fetchTree().then(response => {
-        this.treeDeptData = response.data.data
-      })
-    },
-    handleFilter (param) {
-      this.page.page = 1
-      this.getList(this.page, param)
-    },
-    handleRefreshChange () {
-      this.getList(this.page)
-    },
-    handleCreate () {
-      this.$refs.crud.rowAdd()
-    },
-    handleOpenBefore (show, type) {
-      window.boxType = type
-      this.handleDept()
-      if (['edit', 'views'].includes(type)) {
-        this.role = []
-        for (var i = 0; i < this.form.roleList.length; i++) {
-          this.role[i] = this.form.roleList[i].roleId
+    handleResetPass (row) {
+      resetPassByUserId(row.userId).then(({ data }) => {
+        if (data.data) {
+          this.$message.success('重置密码成功')
         }
-        deptRoleList().then(response => {
-          this.rolesOptions = response.data.data
-        })
-      } else if (type === 'add') {
-        this.role = []
-      }
-      show()
-    },
-    handleUpdate (row, index) {
-      this.$refs.crud.rowEdit(row, index)
-      this.form.password = undefined
-    },
-    create (row, done, loading) {
-      addObj(this.form)
-        .then(() => {
-          this.getList(this.page)
-          done()
-          this.$notify({
-            title: '成功',
-            message: '创建成功',
-            type: 'success',
-            duration: 2000,
-          })
-        })
-        .catch(() => {
-          loading()
-        })
-    },
-    update (row, index, done, loading) {
-      putObj(this.form)
-        .then(() => {
-          this.getList(this.page)
-          done()
-          this.$notify({
-            title: '成功',
-            message: '修改成功',
-            type: 'success',
-            duration: 2000,
-          })
-        })
-        .catch(() => {
-          loading()
-        })
-    },
-    deletes (row, index) {
-      this.$confirm(
-        '此操作将永久删除该用户(用户名:' + row.username + '), 是否继续?',
-        '提示',
-        {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-        }
-      ).then(() => {
-        delObj(row.userId)
-          .then(() => {
-            this.list.splice(index, 1)
-            this.$notify({
-              title: '成功',
-              message: '删除成功',
-              type: 'success',
-              duration: 2000,
-            })
-          })
-          .cache(() => {
-            this.$notify({
-              title: '失败',
-              message: '删除失败',
-              type: 'error',
-              duration: 2000,
-            })
-          })
       })
+    },
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.userId)
+    },
+    async loadPage (param = this.searchForm) {
+      await this.loadTable(param, fetchList)
     },
   },
 }

@@ -37,7 +37,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { initMemberForm } from './options'
-import { putGoms, updateGomsUser } from '@/api/admin/org'
+import { getRoleOrgList } from '@/api/admin/org'
 export default {
   props: {
     loadImage: {
@@ -70,7 +70,7 @@ export default {
       console.log(row.id)
     },
     load () {
-      putGoms().then(({ data }) => {
+      getRoleOrgList().then(({ data }) => {
         const roleList = data.data.map(m => {
           return {
             label: m.roleName,
@@ -91,7 +91,7 @@ export default {
       this.$emit('load-page')
     },
     updateForm () {
-      updateGomsUser({
+      this.formRequestFn({
         userId: this.form.userId,
         role: this.form.roleList,
         assetOrg: this.form.assetOrgId,

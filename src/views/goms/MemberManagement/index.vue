@@ -53,7 +53,7 @@ import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 import AddUserDialogForm from './AddUserDialogForm'
 import { dictsMap, columnsMap, initSearchForm, initMemberForm } from './options'
-import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, putGoms, gomsPass, gomsReject } from '@/api/admin/org'
+import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, updateGomsUser, gomsPass, gomsReject } from '@/api/admin/org'
 import { passJoins } from '@/api/goms/org'
 export default {
   components: {
@@ -110,7 +110,7 @@ export default {
     handleEdit (row) {
       this.$refs['DialogForm'].form = this.$mergeByFirst(initMemberForm(), row)
       this.$refs['DialogForm'].methodName = '编辑'
-      this.$refs['DialogForm'].formRequestFn = putGoms
+      this.$refs['DialogForm'].formRequestFn = updateGomsUser
       this.$refs['DialogForm'].disabled = false
       this.$refs['DialogForm'].dialogShow = true
     },

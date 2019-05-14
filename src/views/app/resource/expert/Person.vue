@@ -3,7 +3,7 @@
     <search></search>
     <div class="person">
       <div class="person-item" v-for="(item,index) in personList" :key="index">
-        <div class="img"><img :src="item.imgSrc" a//183.131.134.242:10060/upload/iep/201904/e29cedd1-efba-4082-a966-151153b77f28_5D559C5D-76D2-40A8-9150-B5D0D87DAE31.pnglt=""></div>
+        <div class="img"><img :src="item.imgSrc" alt=""></div>
         <div class="text">
           <span class="name">{{item.name}}<span class="dn show1" :class="item.show1">V</span><span class="dn show2" :class="item.show2">内</span></span>
           <span class="job">{{item.job}}</span>
@@ -26,7 +26,7 @@ export default {
   data () {
     return {
       personList: [
-        {          imgSrc: '//183.131.134.242:10060/upload/iep/201904/e29cedd1-efba-4082-a966-151153b77f28_5D559C5D-76D2-40A8-9150-B5D0D87DAE31.png//183.131.134.242:10060/upload/iep/201904/e29cedd1-efba-4082-a966-151153b77f28_5D559C5D-76D2-40A8-9150-B5D0D87DAE31.png', name: '高新民', job: '中国互联网协会副理事长、国家信息化专家',
+        {          imgSrc: '//183.131.134.242:10060/upload/iep/201904/e29cedd1-efba-4082-a966-151153b77f28_5D559C5D-76D2-40A8-9150-B5D0D87DAE31.png', name: '高新民', job: '中国互联网协会副理事长、国家信息化专家',
           signs: [
             { sign: '信息化' },
             { sign: '互联网' },

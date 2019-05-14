@@ -5,7 +5,11 @@
     v-model="visible">
     <slot>
       <div class="content">
-        <div class="seach"></div>
+        <div class="seach">
+          <el-input placeholder="请输入关键字" v-model="params.clientName" class="input-with-select" @keyup.enter.native="seachParams">
+            <el-button slot="append" icon="el-icon-search" @click="seachParams"></el-button>
+          </el-input>
+        </div>
         <div class="list">
           <iep-scroll :load="projectState" @load-page="loadProject">
             <div class="item" v-for="item in relationlist" :key="item.clientId" @click="selectFn(item)" :class="activeIndex == item.clientId ? 'active' : ''">{{item.clientName}}</div>
@@ -43,6 +47,7 @@ export default {
       params: {
         current: 1,
         size: 10,
+        clientName: '',
       },
       formData: clientName,
       activeIndex: clientId,
@@ -73,6 +78,11 @@ export default {
         name: row.clientName,
       })
       this.$emit('change', row.clientId)
+    },
+    seachParams () {
+      this.params.current = 1
+      this.relationlist = []
+      this.getListFn()
     },
   },
   created () {

@@ -41,13 +41,13 @@
       </el-row>
       <el-row v-if="formData.contractType==1">
         <el-col :span='12'>
-          <el-form-item label="委托单位：" prop="companyOrgId">
+          <el-form-item label="委托单位：" prop="companyOrgObj">
             <!-- <iep-select prefix-url="crm/customer/myorcoll" v-model="formData.companyOrgId" label="clientName" prop="clientId" @change="clientChange"></iep-select> -->
             <selectMore v-model="formData.companyOrgObj" prefix-url="crm/customer/myorcoll/list" @change="clientChange"></selectMore>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="签署单位：" prop="signCompanyOrgId">
+          <el-form-item label="签署单位：" prop="signCompanyOrgObj">
             <!-- <iep-select prefix-url="crm/customer/all" v-model="formData.signCompanyOrgId" label="clientName" prop="clientId"></iep-select> -->
             <selectMore v-model="formData.signCompanyOrgObj" prefix-url="crm/customer/all/list"></selectMore>
           </el-form-item>

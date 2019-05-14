@@ -99,6 +99,14 @@ let xsValidate = (rule, value, callback) => {
   }
 }
 
+let objValidate = (rule, value, callback) => {
+  if (value.id == undefined) {
+    callback(new Error())
+  } else {
+    callback()
+  }
+}
+
 export const rules = {
   contractName: [
     { required: true, message: '必填', trigger: 'blur' },
@@ -121,11 +129,11 @@ export const rules = {
   finishTime: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
-  companyOrgId: [
-    { required: true, message: '必填', trigger: 'blur' },
+  companyOrgObj: [
+    { validator: objValidate, message: '必填', trigger: 'change' },
   ],
-  signCompanyOrgId: [
-    { required: true, message: '必填', trigger: 'change' },
+  signCompanyOrgObj: [
+    { validator: objValidate, message: '必填', trigger: 'change' },
   ],
   signDeptOrgId: [
     { required: true, message: '必填', trigger: 'change' },

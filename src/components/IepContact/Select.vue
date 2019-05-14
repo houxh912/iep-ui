@@ -1,9 +1,15 @@
 <template>
-  <operation-wrapper class="contact-wrapper">
-    <a-select showSearch labelInValue :value="userValue" placeholder="请输入姓名或姓名拼音" :showArrow="false" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select">
-      <a-select-option v-for="user in userResults" :key="user.id">{{user.name}}</a-select-option>
-    </a-select>
-    <a-button @click="openContact()">通讯录</a-button>
+  <div>
+    <operation-wrapper v-if="disabled">
+      <el-tag v-if="![user].length" type="info">暂无</el-tag>
+      <el-tag type="info" v-for="item in [user]" :key="item.id">{{item.name}}</el-tag>
+    </operation-wrapper>
+    <operation-wrapper v-if="!disabled" class="contact-wrapper">
+      <a-select showSearch labelInValue :value="userValue" placeholder="请输入姓名或姓名拼音" :showArrow="false" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select">
+        <a-select-option v-for="user in userResults" :key="user.id">{{user.name}}</a-select-option>
+      </a-select>
+      <a-button @click="openContact()">通讯录</a-button>
+    </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="dialogShow = false" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
       <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="treeData" @node-click="selectUser" :default-expanded-keys="[1]" node-key="value">
@@ -12,7 +18,7 @@
         </span>
       </el-tree>
     </iep-drawer>
-  </operation-wrapper>
+  </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
@@ -22,6 +28,10 @@ import debounce from 'lodash/debounce'
 export default {
   name: 'IepContactSelect',
   props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     filterUserList: {
       type: Array,
       default: () => [],

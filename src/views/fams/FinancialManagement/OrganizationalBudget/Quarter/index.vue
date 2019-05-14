@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <div>四季度预算</div>
+        <div>{{year}}季度预算</div>
       </template>
       <template slot="right">
         <el-select v-model="budgetId" placeholder="请选择年份" size="small" @change="handleChange">
@@ -11,16 +11,16 @@
         </el-select>
       </template>
     </operation-container>
-    <el-table v-loading="loading" :data="budgetTableRelation" style="width: 100%" show-summary :summary-method="getSummaries">
+    <el-table v-loading="loading" :data="budgetTableRelation" style="width: 100%" :height="tableHeight" show-summary :summary-method="getSummaries">
       <el-table-column prop="typeName" label="预算项">
       </el-table-column>
-      <el-table-column v-for="item in budgetTable" :key="item.id" :label="item.time + '季度'">
-        <el-table-column prop="budget" label="预算">
+      <el-table-column v-for="item in budgetTable" :key="item.id" :label="getLabel(item)">
+        <el-table-column prop="budget" label="预算(元)">
           <template slot-scope="scope">
             <div @dblclick="handleDetail(item, scope)">{{getValue(item, scope, 'budget')}}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="actual" label="实际">
+        <el-table-column prop="actual" label="实际(元)">
           <template slot-scope="scope">
             <div @dblclick="handleDetail(item, scope)">{{getValue(item, scope, 'actual')}}</div>
           </template>
@@ -31,15 +31,23 @@
   </div>
 </template>
 <script>
-import { getBudgetQuarterList, getBudgetYearList, putBudgetQuarterRelation } from '@/api/fams/budget'
+import { getBudgetQuarterDetail, putBudgetQuarterRelation } from '@/api/fams/budget'
 import DialogForm from './DialogForm'
 import { initForm } from './options'
 import mixins from '@/mixins/mixins'
 import keyBy from 'lodash/keyBy'
 export default {
   props: {
+    year: {
+      type: Number,
+      required: true,
+    },
     yearId: {
       type: Number,
+      required: true,
+    },
+    yearList: {
+      type: Array,
       required: true,
     },
   },
@@ -50,17 +58,19 @@ export default {
       loading: false,
       budgetId: this.yearId,
       budgetTime: '',
-      yearList: [],
       budgetTableRelation: [],
       budgetTable: [],
       budgetMap: {},
+      tableHeight: 'calc(100vh - 260px)',
     }
   },
   created () {
-    this.loadYearList()
     this.loadPage()
   },
   methods: {
+    getLabel (item) {
+      return item.flag ? item.time + '年度' : item.time + '季度'
+    },
     getSummaries (param) {
       const { columns } = param
       const sums = []
@@ -90,7 +100,7 @@ export default {
       return sums
     },
     getValue (item, scope, tName) {
-      return this.budgetMap[item.time].relation[scope.$index][tName]
+      return this.budgetMap[item.id].relation[scope.$index][tName]
     },
     handleDetail (item, scope) {
       this.$refs['DialogForm'].form = initForm()
@@ -104,16 +114,12 @@ export default {
     handleChange () {
       this.loadPage()
     },
-    async loadYearList () {
-      const { data } = await getBudgetYearList()
-      this.yearList = data.data
-    },
     async loadPage () {
       this.loading = true
-      const { data } = await getBudgetQuarterList(this.yearId)
+      const { data } = await getBudgetQuarterDetail(this.yearId)
       this.budgetTable = data.data
       this.budgetTableRelation = this.budgetTable[0].relation
-      this.budgetMap = keyBy(this.budgetTable, 'time')
+      this.budgetMap = keyBy(this.budgetTable, 'id')
       this.loading = false
     },
   },

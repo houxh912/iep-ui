@@ -107,6 +107,7 @@ export default {
       this.formRequestFn(this.form).then(({ data }) => {
         if (data.data) {
           this.$message.success('操作成功')
+          this.handleGoBack()
         } else {
           this.$message(data.msg)
         }

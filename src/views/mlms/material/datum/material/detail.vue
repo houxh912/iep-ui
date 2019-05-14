@@ -1,105 +1,108 @@
 <template>
-  <basic-container>
-    <el-col class="left">
-      <page-header :title="formData.materialName" :backOption="backOption"></page-header>
+  <div :oncontextmenu="`return ${formData.secrecyLevel == 1 ? false : true}`" :onselectstart="`return ${formData.secrecyLevel == 1 ? false : true}`">
+    <basic-container>
+      <el-col class="left">
+        <page-header :title="formData.materialName" :backOption="backOption"></page-header>
 
-      <el-row class="info">
-        <div class="person">
-          <div class="name">{{formData.creatorRealName}}</div>
-          <div class="date">{{formData.createTime}}</div>
-          <!-- <i class="icon-yanjing icon"></i>
-          <div class="open"> 111</div>
-          <i class="icon-download icon"></i>
-          <div class="down"> 88</div> -->
-        </div>
-        <div class="operat">
-          <!-- <div class="button"><i class="icon-shoucang"></i> 收藏</div>
-          <div class="button"><i class="icon-youxiangshixin"></i> 分享</div> -->
-        </div>
-      </el-row>
-      <el-row class="sub-title">
-        <pre>{{formData.intro}}</pre>
-      </el-row>
-      <el-row class="content">
-        <pre>{{formData.content}}</pre>
-      </el-row>
-      <el-row class="down-load">
-        相关附件：
-        <div class="file" v-for="(item, index) in formData.attachFileList" :key="index">
-          <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗{{getMoney(formData.downloadCost)}}下载）</span></div>
-        </div>
-      </el-row>
-      <el-row class="footer">
-        <div class="footer-left">
-          <!-- <el-tag v-for="(item, index) in formData.tagKeyWords" :key="index" type="info">{{item}}</el-tag> -->
-          <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
-        </div>
-        <div class="footer-right" v-if="isDelete">
-          <!-- <div class="wrong" @click="handleWrong">
-            <i class="icon-chakantiezigengduojubao"></i> 纠错
-          </div> -->
-          <iep-button type="primary" @click="handleCollect">{{formData.collection == 1 ? '已收藏' : '收藏'}}</iep-button>
-          <iep-button type="primary" @click="handleShare">分享</iep-button>
-          <iep-button type="primary" @click="handleWrong">纠错</iep-button>
-          <iep-button type="primary" @click="handleComment">评论</iep-button>
-          <iep-button type="primary" @click="handleReward">打赏</iep-button>
-        </div>
-      </el-row>
-      <el-row class="comment">
-        <div class="form" v-if="isCommentShow">
-          <h2 class="title">评价评论 <div class="rate">
-              <el-rate v-model="comment.score"></el-rate>
+        <el-row class="info">
+          <div class="person">
+            <div class="name">{{formData.creatorRealName}}</div>
+            <div class="date">{{formData.createTime}}</div>
+            <!-- <i class="icon-yanjing icon"></i>
+            <div class="open"> 111</div>
+            <i class="icon-download icon"></i>
+            <div class="down"> 88</div> -->
+          </div>
+          <div class="operat">
+            <!-- <div class="button"><i class="icon-shoucang"></i> 收藏</div>
+            <div class="button"><i class="icon-youxiangshixin"></i> 分享</div> -->
+          </div>
+        </el-row>
+        <el-row class="sub-title">
+          <pre>{{formData.intro}}</pre>
+        </el-row>
+        <el-row class="content">
+          <!-- <pre v-if="formData.secrecyLevel == 0">{{formData.content}}</pre> -->
+          <pre>{{formData.content}}</pre>
+        </el-row>
+        <el-row class="down-load">
+          相关附件：
+          <div class="file" v-for="(item, index) in formData.attachFileList" :key="index">
+            <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗{{getMoney(formData.downloadCost)}}下载）</span></div>
+          </div>
+        </el-row>
+        <el-row class="footer">
+          <div class="footer-left">
+            <!-- <el-tag v-for="(item, index) in formData.tagKeyWords" :key="index" type="info">{{item}}</el-tag> -->
+            <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
+          </div>
+          <div class="footer-right" v-if="isDelete">
+            <!-- <div class="wrong" @click="handleWrong">
+              <i class="icon-chakantiezigengduojubao"></i> 纠错
+            </div> -->
+            <iep-button type="primary" @click="handleCollect">{{formData.collection == 1 ? '已收藏' : '收藏'}}</iep-button>
+            <iep-button type="primary" @click="handleShare">分享</iep-button>
+            <iep-button type="primary" @click="handleWrong">纠错</iep-button>
+            <iep-button type="primary" @click="handleComment">评论</iep-button>
+            <iep-button type="primary" @click="handleReward">打赏</iep-button>
+          </div>
+        </el-row>
+        <el-row class="comment">
+          <div class="form" v-if="isCommentShow">
+            <h2 class="title">评价评论 <div class="rate">
+                <el-rate v-model="comment.score"></el-rate>
+              </div>
+            </h2>
+            <el-input type="textarea" rows=5 v-model="comment.commentContent" maxlength="500"></el-input>
+            <div class="button">
+              <iep-button type="primary" @click="submit">发送</iep-button>
             </div>
-          </h2>
-          <el-input type="textarea" rows=5 v-model="comment.commentContent" maxlength="500"></el-input>
-          <div class="button">
-            <iep-button type="primary" @click="submit">发送</iep-button>
           </div>
-        </div>
-        <div class="list" v-for="(item, index) in commentList" :key="index">
-          <div class="img">
-            <img :src="item.avatar" alt="">
-          </div>
-          <div class="comment-info">
-            <div class="name">{{item.realName}} <div class="rate">
-                <el-rate v-model="item.score" disabled></el-rate>
+          <div class="list" v-for="(item, index) in commentList" :key="index">
+            <div class="img">
+              <img :src="item.avatar" alt="">
+            </div>
+            <div class="comment-info">
+              <div class="name">{{item.realName}} <div class="rate">
+                  <el-rate v-model="item.score" disabled></el-rate>
+                </div>
+              </div>
+              <p>{{item.commentContent}}</p>
+              <div class="footer">
+                <div class="time">{{item.createTime}}</div>
               </div>
             </div>
-            <p>{{item.commentContent}}</p>
-            <div class="footer">
-              <div class="time">{{item.createTime}}</div>
-            </div>
+          </div>
+          <div class="pagination" v-if="commentList.length > 0">
+            <el-pagination
+              background
+              @current-change="handleCurrentChange"
+              layout="total, prev, pager, next, jumper"
+              :total="pageSize.total">
+            </el-pagination>
+          </div>
+        </el-row>
+      </el-col>
+
+      <el-col class="right">
+        <div class="info">
+          <div class="name">{{formData.creatorRealName}}</div>
+          <div class="num">共{{materialTotal}}篇材料</div>
+          <div class="foot">
+            <iep-button type="primary" @click="subscribe">订阅</iep-button>
+            <iep-button type="primary" @click="apprentice">向他拜师</iep-button>
           </div>
         </div>
-        <div class="pagination" v-if="commentList.length > 0">
-          <el-pagination
-            background
-            @current-change="handleCurrentChange"
-            layout="total, prev, pager, next, jumper"
-            :total="pageSize.total">
-          </el-pagination>
+        <div class="material">
+          <h3>优秀材料</h3>
+          <p v-for="(item, index) in greatMaterialList" :key="index" @click="handleDetail(item)">{{item.name}}</p>
         </div>
-      </el-row>
-    </el-col>
-
-    <el-col class="right">
-      <div class="info">
-        <div class="name">{{formData.creatorRealName}}</div>
-        <div class="num">共{{materialTotal}}篇材料</div>
-        <div class="foot">
-          <iep-button type="primary" @click="subscribe">订阅</iep-button>
-          <iep-button type="primary" @click="apprentice">向他拜师</iep-button>
-        </div>
-      </div>
-      <div class="material">
-        <h3>优秀材料</h3>
-        <p v-for="(item, index) in greatMaterialList" :key="index" @click="handleDetail(item)">{{item.name}}</p>
-      </div>
-    </el-col>
-    <wrongDialog ref="wrong"></wrongDialog>
-    <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
-    <share-dialog ref="share" type="material"></share-dialog>
-  </basic-container>
+      </el-col>
+      <wrongDialog ref="wrong"></wrongDialog>
+      <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
+      <share-dialog ref="share" type="material"></share-dialog>
+    </basic-container>
+  </div>
 </template>
 
 <script>
@@ -211,6 +214,7 @@ export default {
           return
         }
         this.formData = data.data
+        // 获取评论数据
         this.getComment(data.data.id)
         // 获取优秀材料
         getGreatMaterial(data.data.creator).then(({ data }) => {

@@ -42,7 +42,7 @@ export default {
   },
 
   methods: {
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, fetchList)
       this.drawerShow = false
     },

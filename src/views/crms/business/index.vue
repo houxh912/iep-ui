@@ -150,7 +150,7 @@ export default {
       let ids = [row.opportunityId]
       this._handleGlobalDeleteById(ids, deleteBusinessById)
     },
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable({ ...param, type: this.type }, getBusinessList, m => {
         return Object.assign(m, { businessTypeKey: m.businessType.map(m => m.commonName).join('，') })
       })

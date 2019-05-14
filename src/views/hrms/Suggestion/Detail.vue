@@ -18,15 +18,15 @@
         </iep-form-item>
         <hr>
         <iep-form-item prop="ProcessingOpinion" label-name="处理意见">
-          <el-radio disabled v-model="form.ProcessingOpinion" label="1">采纳</el-radio>
-          <el-radio disabled v-model="form.ProcessingOpinion" label="2">驳回</el-radio>
+          <el-radio :disabled="form.disabled" v-model="form.ProcessingOpinion" label="1">采纳</el-radio>
+          <el-radio :disabled="form.disabled" v-model="form.ProcessingOpinion" label="2">驳回</el-radio>
         </iep-form-item>
 
         <iep-form-item prop="Feedback" label-name="反馈意见">
-          <iep-input-area disabled v-model="form.Feedback"></iep-input-area>
+          <iep-input-area :disabled="form.disabled" v-model="form.Feedback"></iep-input-area>
         </iep-form-item>
         <iep-form-item prop="reward" label-name="打赏">
-          <el-input disabled v-model="form.reward" size="small">
+          <el-input :disabled="form.disabled" v-model="form.reward" size="small">
             <template slot="append">贝</template>
           </el-input>
         </iep-form-item>
@@ -62,6 +62,7 @@ export default {
         Feedback:'',
         reward:'',
         annex:'附件附件',
+        disabled:true
       },
     }
   },

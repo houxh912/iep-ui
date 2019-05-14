@@ -116,7 +116,7 @@ export default {
     },
     loadPage (date, type) {
       // 初始化时间轴，获取到当前的周
-      let list = createWeeks((new Date(getMonday(date).timeStamp)).getFullYear())
+      let list = createWeeks((new Date(type === 'year' ? date : getMonday(date).timeStamp)).getFullYear())
       if (type === 'year') {
         // 需要判断是否是当前年，若不是，显示第一个月，若是，显示现在时
         let obj = {}

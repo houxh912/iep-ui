@@ -54,7 +54,7 @@
                   <el-dropdown-item @click.native="handleEdit(scope.row)" v-if="!lookByMeOnly || permission_edit_del">修改</el-dropdown-item>
                   <el-dropdown-item @click.native="handleDeleteById(scope.row)" v-if="!lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
                   <el-dropdown-item @click.native="handleContribute(scope.row)">投稿</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleEdition(scope.row)" v-if="scope.row.type == 0">上传新版本</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleEdition(scope.row)" v-if="!lookByMeOnly && scope.row.type == 0">上传新版本</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>

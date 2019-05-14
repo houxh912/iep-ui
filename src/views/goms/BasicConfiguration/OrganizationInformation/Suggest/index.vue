@@ -50,11 +50,6 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      pagedTable:[
-        {sender:'aaaa',theme:'内网2.0开发进度安排建议',annex:true,status:'1',sendTime:'2019-05-09'},
-        {sender:'aaaa',theme:'内网2.0开发进度安排建议',annex:false,status:'2',sendTime:'2019-05-09'},
-        {sender:'aaaa',theme:'内网2.0开发进度安排建议',annex:false,status:'1',sendTime:'2019-05-09'},
-      ],
     }
   },
   created () {
@@ -70,15 +65,12 @@ export default {
     handleCommandUser () {
       // console.log(val)
     },
-    handleAdd () {
-      this.$router.push('/hrms_spa/suggestion_new')
-    },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id)
     },
-    handleDetail () {
+    handleDetail (row) {
       this.$router.push({
-        path: '/hrms_spa/suggestion_detail',
+        path: `/hrms_spa/suggestion_detail${row.id}`,
       })
     },
   },

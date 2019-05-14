@@ -16,6 +16,13 @@ export function getSuggestionReceivedPage (query) {
     params: query,
   })
 }
+
+export function getSuggestionById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}
 export function postSuggestion (obj) {
   return request({
     url: `${prefixUrl}/create`,

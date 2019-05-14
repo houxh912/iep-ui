@@ -23,19 +23,29 @@ const columnsMap = [
 
 const initForm = () => {
   return {
-    id: '', // ID
-    desc: '',//内容
-    attendeeList: '',//接收对象通讯录
-    // ProcessingOpinion: '',//处理意见
-    // Feedback:'',//反馈意见
+    'id': '', // ID
+    'theme':'',
+    'proposeContent': '',//内容
+    'attendeeList': '',//接收对象
+    'addresStatus': '',//处理意见
+    'feedbackOpinion':'',//反馈意见
+    'reward':'',//打赏
+    'disabled':'',
+    'annexList':[],
   }
 }
 
 const initDtoForm = () => {
   return {
-    id: '', // ID
-    desc: '',//内容
-    attendeeList: '',//接收对象通讯录
+    'id': '', // ID
+    'theme':'',
+    'proposeContent': '',//内容
+    'attendeeList': '',//接收对象
+    'addresStatus': '',//处理意见
+    'feedbackOpinion':'',//反馈意见
+    'reward':'',//打赏
+    'disabled':'',
+    'annexList':[],
   }
 }
 
@@ -52,6 +62,9 @@ const rules = {
   ],
   desc: [
     { required: true, message: '请填写建议内容', trigger: 'blur' },
+  ],
+  attendeeList: [
+    { required: true, message: '请填写接收对象', trigger: 'blur' },
   ],
 }
 

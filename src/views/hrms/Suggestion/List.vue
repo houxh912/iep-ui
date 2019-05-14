@@ -16,7 +16,7 @@
         <template slot="before-columns">
           <el-table-column label="收件人" width="120px">
             <template slot-scope="scope">
-              {{scope.row.name}}
+              {{scope.row.attendeeList[0]}}
             </template>
           </el-table-column>
           <el-table-column label="主题">
@@ -53,11 +53,6 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      pagedTable:[
-        {name:'aaaa',theme:'内网2.0开发进度安排建议',annex:'',status:'1',sendTime:'2019-05-09'},
-        {name:'aaaa',theme:'内网2.0开发进度安排建议',annex:'附件',status:'0',sendTime:'2019-05-09'},
-        {name:'aaaa',theme:'内网2.0开发进度安排建议',annex:'',status:'1',sendTime:'2019-05-09'},
-      ],
     }
   },
   created () {
@@ -76,15 +71,15 @@ export default {
     handleAdd () {
       this.$router.push('/hrms_spa/suggestion_new')
     },
-    handleEdit () {
-      this.$router.push('/hrms_spa/suggestion_edit')
+    handleEdit (row) {
+      this.$router.push(`/hrms_spa/suggestion_edit/${row.id}`)
     },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id)
     },
-    handleDetail () {
+    handleDetail (row) {
       this.$router.push({
-        path: '/hrms_spa/suggestion_detail',
+        path: `/hrms_spa/suggestion_detail/${row.id}`,
       })
     },
   },

@@ -37,7 +37,7 @@ export default [
         meta: noKeepAlive,
       },
       {
-        path: 'suggestion_edit',
+        path: 'suggestion_edit/:id',
         name: '修改建议',
         component: () => import('@/views/hrms/Suggestion/New.vue'),
         meta: noKeepAlive,
@@ -49,8 +49,8 @@ export default [
         meta: noKeepAlive,
       },
       {
-        path: 'suggestion_detail',
-        name: '成长档案',
+        path: 'suggestion_detail/:id',
+        name: '建议详情',
         component: () => import('@/views/hrms/Suggestion/Detail.vue'),
         meta: noKeepAlive,
       },

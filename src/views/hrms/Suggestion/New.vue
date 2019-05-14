@@ -35,8 +35,9 @@
   </div>
 </template>
 <script>
-import { postPublishRecruitment, putPublishRecruitment } from '@/api/hrms/publish_recruitment'
+import { getSuggestionById, postSuggestion, putSuggestion } from '@/api/hrms/suggestion'
 import { initForm, formToDto, rules } from './options'
+import _ from 'lodash'
 export default {
   data () {
     return {
@@ -47,22 +48,22 @@ export default {
       },
       rules,
       form: initForm(),
-      attendeeList: { // 比如接收人
-        unions: [],
-        orgs: [],
-        users: [{
-          id: 588,
-          name: '张超',
-        }],
-      },
     }
   },
   computed: {
+    id () {
+      return +this.$route.params.id
+    },
     methodName () {
       return this.id ? '编辑' : '新增'
     },
   },
-  mounted () {
+  created () {
+    if (this.id) {
+      getSuggestionById(this.id).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
+      })
+    }
   },
   methods: {
     onGoBack () {
@@ -72,14 +73,14 @@ export default {
       this.handleSubmit(true)
     },
     handleSubmit (isPublish) {
-      const submitFunction = this.id ? putPublishRecruitment : postPublishRecruitment
+      const submitFunction = this.id ? putSuggestion : postSuggestion
       this.$refs['form'].validate((valid) => {
         if (valid) {
           const publish = isPublish === true ? true : false
           submitFunction(formToDto(this.form), publish).then(({ data }) => {
             if (data.data) {
               this.$message({
-                message: `新建${this.methodName}成功`,
+                message: `${this.methodName}建议成功`,
                 type: 'success',
               })
               this.onGoBack()

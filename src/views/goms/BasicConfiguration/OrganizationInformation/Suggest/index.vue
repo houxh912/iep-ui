@@ -27,7 +27,6 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
-              <iep-button v-if="scope.row.status==0">修改</iep-button>
               <iep-button @click.native="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
@@ -38,6 +37,7 @@
 </template>
 
 <script>
+import { getSuggestionReceivedPage } from '@/api/hrms/suggestion'
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from './AdvanceSearch'
 import { dictsMap, columnsMap } from './options'
@@ -61,8 +61,8 @@ export default {
     this.loadPage()
   },
   methods: {
-    loadPage () {
-
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getSuggestionReceivedPage)
     },
     handleCommandType () {
       // console.log(val)

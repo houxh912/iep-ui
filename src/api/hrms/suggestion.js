@@ -9,6 +9,13 @@ export function getSuggestionIssuePage (query) {
     params: query,
   })
 }
+export function getSuggestionReceivedPage (query) {
+  return request({
+    url: `${prefixUrl}/pageReceived`,
+    method: 'get',
+    params: query,
+  })
+}
 export function postSuggestion (obj) {
   return request({
     url: `${prefixUrl}/create`,

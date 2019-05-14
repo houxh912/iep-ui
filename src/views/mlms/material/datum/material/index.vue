@@ -54,7 +54,7 @@
                   <el-dropdown-item @click.native="handleEdit(scope.row)" v-if="!lookByMeOnly || permission_edit_del">修改</el-dropdown-item>
                   <el-dropdown-item @click.native="handleDeleteById(scope.row)" v-if="!lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
                   <el-dropdown-item @click.native="handleContribute(scope.row)">投稿</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleEdition(scope.row)">上传新版本</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleEdition(scope.row)" v-if="scope.row.type == 0">上传新版本</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
@@ -65,7 +65,7 @@
     <local-dialog ref="local" @load-page="loadPage" v-if="pageState=='local'" :firstClass="firstClass"></local-dialog>
     <newly-dialog ref="newly" @load-page="loadPage" v-if="pageState=='newly'" :firstClass="firstClass"></newly-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
-    <upload-file ref="uploadFile" @upload-success="uploadSuccess"></upload-file>
+    <upload-file ref="uploadFile" @upload-success="uploadSuccess" @update-success="updateSuccess"></upload-file>
     <share-dialog ref="share" type="material"></share-dialog>
     <detail-dialog ref="detailPage" @backPage="pageState = 'list'" v-if="pageState=='detail'" :detailState=true @load-page="loadPage(undefined, true)"></detail-dialog>
   </div>
@@ -144,7 +144,7 @@ export default {
       this.localCreateForm(row)
     },
     localCreate () {
-      this.$refs['uploadFile'].open()
+      this.$refs['uploadFile'].open('create')
     },
     // 本地上传
     localCreateForm (row) {
@@ -216,7 +216,11 @@ export default {
     },
     // 上传新版本
     handleEdition () {
-      this.$message.error('抱歉，此功能尚未开发')
+      this.$refs['uploadFile'].open('update')
+    },
+    // 更新版本
+    updateSuccess () {
+      // 首先需要获取到全部的数据，然后更换文件进行更新
     },
     // 只看我的
     changeGetWay (val) {

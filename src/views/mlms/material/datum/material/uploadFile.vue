@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="上传材料" width="40%" @close="resetForm">
+  <iep-dialog :dialog-show="dialogShow" :title="methodName[type]" width="40%" @close="resetForm">
     <el-form :model="formData" ref="form" label-width="100px">
 
       <el-form-item label="材料：">
@@ -24,13 +24,19 @@ export default {
       formData: {
         attachFileList: [],
       },
+      type: 'create',
+      methodName: {
+        create: '上传材料',
+        update: '更新版本',
+      },
     }
   },
   methods: {
     resetForm () {
       this.dialogShow = false
     },
-    open () {
+    open (type) {
+      this.type = type
       this.dialogShow = true
       this.formData = {
         attachFileList: [],
@@ -41,7 +47,7 @@ export default {
         this.$message.error('请先选择一个材料进行上传')
         return
       }
-      this.$emit('upload-success', this.formData.attachFileList)
+      this.$emit(this.type == 'create' ? 'upload-success' : 'update-success', this.formData.attachFileList)
       this.dialogShow = false
     },
   },

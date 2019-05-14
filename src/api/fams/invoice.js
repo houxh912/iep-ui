@@ -34,6 +34,28 @@ export function postInvoice (obj) {
   })
 }
 
+export function putInvoice (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function referInvoiceById (id) {
+  return request({
+    url: `${prefixUrl}/refer/${id}`,
+    method: 'post',
+  })
+}
+
+export function withdrawInvoiceById (id) {
+  return request({
+    url: `${prefixUrl}/withdraw/${id}`,
+    method: 'post',
+  })
+}
+
 export function deleteInvoiceById (id) {
   return request({
     url: `${prefixUrl}/delete/batch`,

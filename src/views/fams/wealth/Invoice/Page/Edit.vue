@@ -44,14 +44,15 @@
         <iep-form-item class="form-half" prop="projectId" label-name="项目">
           <el-input v-model="form.projectId"></el-input>
         </iep-form-item>
-        <iep-form-item class="form-half" prop="user" label-name="审批人">
-          <iep-contact-select v-model="form.user"></iep-contact-select>
+        <iep-form-item class="form-half" prop="auditor" label-name="审批人">
+          <iep-contact-select v-model="form.auditor"></iep-contact-select>
         </iep-form-item>
       </el-form>
     </basic-container>
   </div>
 </template>
 <script>
+import { getInvoiceById } from '@/api/fams/invoice'
 import { dictsMap } from '../options'
 function initTableForm () {
   return {
@@ -62,13 +63,15 @@ function initTableForm () {
 }
 function initForm () {
   return {
+    id: '',
     referType: '',
     companyId: '',
     projectId: '',
-    user: {
+    auditor: {
       id: 0,
       name: '',
     },
+    relations: [],
   }
 }
 export default {
@@ -92,16 +95,27 @@ export default {
       },
     }
   },
+  created () {
+    if (this.record.id) {
+      this.loadPage()
+    }
+  },
   methods: {
     handleSubmit () {
       this.form.relations = this.tableData
-      this.form.auditorId = this.form.user.id
+      this.form.auditorId = this.form.auditor.id
       this.formRequestFn(this.form).then(({ data }) => {
         if (data.data) {
           this.$message.success('操作成功')
         } else {
           this.$message(data.msg)
         }
+      })
+    },
+    loadPage () {
+      getInvoiceById(this.record.id).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
+        this.tableData = this.form.relations
       })
     },
     handleDelete (row, i) {

@@ -48,7 +48,7 @@ export default {
         {
           title: '建议',
           callback: () => {
-            this.$message.success('功能开发中')
+            this.$router.push('/hrms_spa/suggestion_new')
           },
         },
         {

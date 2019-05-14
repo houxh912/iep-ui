@@ -30,6 +30,24 @@ export default [
         component: () => import('@/views/hrms/Recruitment/Publish/Page/Edit.vue'),
         meta: noKeepAlive,
       },
+      {
+        path: 'suggestion_new',
+        name: '新增建议',
+        component: () => import('@/views/hrms/Suggestion/New.vue'),
+        meta: noKeepAlive,
+      },
+      {
+        path: 'suggestion_list',
+        name: '发布的建议列表',
+        component: () => import('@/views/hrms/Suggestion/List.vue'),
+        meta: noKeepAlive,
+      },
+      {
+        path: 'suggestion_detail',
+        name: '成长档案',
+        component: () => import('@/views/hrms/Suggestion/Detail.vue'),
+        meta: noKeepAlive,
+      },
     ],
   },
 ]

@@ -19,9 +19,9 @@ export default {
       title: '内部质量评审专家',
       linkName: '',
       leaderBoardList: [
-        { img: require('../img/expert1.jpg'), name: '杨冰之', num: '（项目76）', des: '国脉集团董事长' },
-        { img: require('../img/expert2.png'), name: '郑爱军', num: '（项目76）', des: '国脉集团总经理' },
-        { img: require('../img/expert3.png'), name: '王路燕', num: '（项目76）', des: '国脉集团总助' },
+        { img: '//183.131.134.242:10060/upload/iep/201904/2cab9b7e-77cd-4e5c-9039-6c05f27e2529_20180709150516_jg3j6m3qre.jpg', name: '杨冰之', num: '（项目76）', des: '国脉集团董事长' },
+        { img: '//183.131.134.242:10060/upload/iep/201904/2cab9b7e-77cd-4e5c-9039-6c05f27e2529_20180709150516_jg3j6m3qre.jpg', name: '郑爱军', num: '（项目76）', des: '国脉集团总经理' },
+        { img: '//183.131.134.242:10060/upload/iep/201904/2cab9b7e-77cd-4e5c-9039-6c05f27e2529_20180709150516_jg3j6m3qre.jpg', name: '王路燕', num: '（项目76）', des: '国脉集团总助' },
       ],
     }
   },

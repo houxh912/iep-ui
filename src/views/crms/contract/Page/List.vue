@@ -140,7 +140,7 @@ export default {
         })
       })
     },
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable({ ...param, type: this.type }, getContractPage)
     },
 

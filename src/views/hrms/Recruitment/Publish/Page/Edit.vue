@@ -10,14 +10,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item prop="dept">
-              <span slot="label">
-                所属部门
-                <iep-tip content="请准确选择人才需求部门"></iep-tip>
-                ：
-              </span>
+            <iep-form-item prop="dept" label-name="所属部门" tip="请准确选择人才需求部门">
               <iep-cascader v-model="form.dept" prefix-url="admin/dept" change-on-select></iep-cascader>
-            </el-form-item>
+            </iep-form-item>
           </el-col>
         </el-row>
         <el-row>
@@ -51,14 +46,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item prop="profession">
-              <span slot="label">
-                专业要求
-                <iep-tip content="多项内容时使用“/”分开，如无要求则填“无”"></iep-tip>
-                ：
-              </span>
+            <iep-form-item prop="profession" label-name="专业要求" tip="多项内容时使用“/”分开，如无要求则填“无”">
               <el-input v-model="form.profession" :maxlength="2010"></el-input>
-            </el-form-item>
+            </iep-form-item>
           </el-col>
         </el-row>
         <el-row>

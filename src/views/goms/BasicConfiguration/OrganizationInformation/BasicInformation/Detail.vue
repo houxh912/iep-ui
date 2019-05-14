@@ -1,11 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织基本信息">
-        <template>
-          <el-button class="modify" size="small" @click="handleEdit">修改</el-button>
-        </template>
-      </page-header>
+      <el-button style="float:right" class="modify" size="small" @click="handleEdit">修改</el-button>
       <div class="org-detail-wrapper">
         <div class="content">
           <div class="top">

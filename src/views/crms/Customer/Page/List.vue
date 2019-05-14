@@ -19,7 +19,7 @@
           <el-radio-group v-model="type" size="small" @change="changeType">
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
           </el-radio-group>
-          <operation-search @search-page="searchPage" advance-search :prop="'clientName'">
+          <operation-search @search-page="searchPage" advance-search prop="clientName">
             <advance-search @search-page="searchPage" :type="type"></advance-search>
           </operation-search>
         </template>
@@ -226,7 +226,7 @@ export default {
       this.ids = ids
     },
     //加载
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable({ ...param, type: this.type }, getCustomerPage, m => {
         return Object.assign(m, { businessType: m.businessTypeKey.map(m => m.commonName).join('，') })
       })

@@ -123,7 +123,7 @@ export default {
       this.$refs['AddDrawer'].drawerShow = false
       this.$emit('onEdit', { newAdd: true })
     },
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.$emit('load-page')
       this.loadTable({ ...param, clientId: this.record.id }, getSchemePage)
     },

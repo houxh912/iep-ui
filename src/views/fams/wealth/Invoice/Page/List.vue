@@ -18,8 +18,8 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleSend(scope.row)">发送</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+              <iep-button @click.stop="handleSend(scope.row)">发送</iep-button>
+              <iep-button @click.stop="handleDeleteById(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

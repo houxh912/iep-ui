@@ -1,5 +1,5 @@
 <template>
-  <a-select :value="value" mode="tags" style="width: 100%" :tokenSeparators="[',','；','，', ';', '、']" @change="handleChange" @search="querySearch" :notFoundContent="fetching ? undefined : null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select">
+  <a-select :value="value" mode="tags" style="width: 100%" :tokenSeparators="[',','；','，',';','、']" @change="handleChange" @search="querySearch" :notFoundContent="fetching ? undefined : null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select" :filterOption="filterOption">
     <a-spin v-if="fetching" slot="notFoundContent" size="small" />
     <a-select-option v-for="i in tagResults" :key="i">{{ i }}</a-select-option>
     <div slot="dropdownRender" slot-scope="menu">
@@ -14,6 +14,7 @@
 <script>
 import { getTagList } from '@/api/tms/index'
 import debounce from 'lodash/debounce'
+import compact from 'lodash/compact'
 export default {
   name: 'IepTag',
   components: {
@@ -40,6 +41,15 @@ export default {
     // this.loadTag()
   },
   methods: {
+    filterOption (inputValue, option) {
+      console.log(inputValue, option)
+      const name = inputValue.toLowerCase().trim()
+      if (name) {
+        return true
+      } else {
+        return false
+      }
+    },
     getPopupContainer () {
       return this.$refs['a-select'].$el
     },
@@ -49,16 +59,20 @@ export default {
     },
     async querySearch (query) {
       this.fetching = true
-      const name = query.toLowerCase()
-      const { data } = await getTagList({ name })
-      this.tagResults = data.data.tags
-      this.count = data.data.count
-      this.fetching = false
+      const name = query.toLowerCase().trim()
+      if (name) {
+        const { data } = await getTagList({ name })
+        this.tagResults = data.data.tags
+        this.count = data.data.count
+        this.fetching = false
+      }
     },
     handleChange (value) {
+      const noTrimValue = value.map(m => m.trim())
+      const v = compact(noTrimValue)
       this.fetching = false
       this.tagResults = []
-      this.$emit('input', value)
+      this.$emit('input', v)
     },
   },
 }

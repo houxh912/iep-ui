@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { getCustomList } from '@/api/app/crms/customer'
+import { getCustomList } from '@/api/app/crms/'
 
 export default {
   data () {

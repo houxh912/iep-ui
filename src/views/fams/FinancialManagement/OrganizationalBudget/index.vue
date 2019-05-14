@@ -4,10 +4,10 @@
       <page-header title="组织预算"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Year'" v-slot:Year>
-          <year v-loading="activeTab !=='Year'"></year>
+          <year v-loading="activeTab !=='Year'" @on-change-year="handleChangeYear"></year>
         </template>
         <template v-if="activeTab ==='Quarter'" v-slot:Quarter>
-          <quarter v-loading="activeTab !=='Quarter'"></quarter>
+          <quarter v-loading="activeTab !=='Quarter'" :yearId="yearId"></quarter>
         </template>
         <template v-if="activeTab ==='Monthly'" v-slot:Monthly>
           <monthly v-loading="activeTab !=='Monthly'"></monthly>
@@ -24,6 +24,9 @@ export default {
   components: { Monthly, Quarter, Year },
   data () {
     return {
+      yearId: 0,
+      quarterId: 0,
+      MonthId: 0,
       tabList: [{
         label: '年度',
         value: 'Year',
@@ -36,6 +39,11 @@ export default {
       }],
       activeTab: 'Year',
     }
+  },
+  methods: {
+    handleChangeYear (yearId) {
+      this.yearId = yearId
+    },
   },
 }
 </script>

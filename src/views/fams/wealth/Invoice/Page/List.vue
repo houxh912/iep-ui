@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import { getMyInvoicePage, postInvoice, putInvoice, deleteInvoiceById, deleteInvoiceBatch,referInvoiceById,withdrawInvoiceById } from '@/api/fams/invoice'
+import { getMyInvoicePage, postInvoice, putInvoice, deleteInvoiceById, deleteInvoiceBatch, referInvoiceById, withdrawInvoiceById } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from '../options'
 export default {
@@ -56,7 +56,7 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteInvoiceById)
     },
     handleDeleteBatch () {
-      this._handleGlobalDeleteAll(this.multipleSelection, deleteInvoiceBatch)
+      this._handleGlobalDeleteAll(deleteInvoiceBatch)
     },
     handleDetail (row) {
       this.$router.push({

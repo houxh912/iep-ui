@@ -62,9 +62,9 @@
           <el-radio :label="3" v-if="inUnion == 1">对联盟开放</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="是否保密：" prop="secrecyLevel">
+      <!-- <el-form-item label="是否保密：" prop="secrecyLevel">
         <el-switch v-model="formData.secrecyLevel" :active-value="dictsMap.secrecyLevel[1].value" :inactive-value="dictsMap.secrecyLevel[0].value"></el-switch>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="附件：" prop="attachFileList">
         <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload>
         <div style="font-size: 12px;color: #aaa;">{{tipContent.attachFileList}}</div>

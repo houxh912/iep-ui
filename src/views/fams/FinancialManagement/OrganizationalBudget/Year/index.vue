@@ -11,16 +11,16 @@
         </el-select>
       </template>
     </operation-container>
-    <el-table :data="budgetTable" style="width: 100%" show-summary @row-dblclick="handleDetail">
+    <el-table :data="budgetTable" style="width: 100%" :height="tableHeight" show-summary @row-dblclick="handleDetail">
       <el-table-column prop="typeName" label="预算项">
       </el-table-column>
       <el-table-column :label="budgetTime + '年'">
-        <el-table-column prop="budget" label="预算">
+        <el-table-column prop="budget" label="预算(元)">
           <template slot-scope="scope">
             <span>{{scope.row['budget']}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="actual" label="实际">
+        <el-table-column prop="actual" label="实际(元)">
           <template slot-scope="scope">
             <span>{{scope.row['actual']}}</span>
           </template>
@@ -31,7 +31,7 @@
   </div>
 </template>
 <script>
-import { getBudgetYearList, getBudgetYearById, putBudgetYearRelation } from '@/api/fams/budget'
+import { getBudgetYearList, getBudgetQuarterList, getBudgetYearById, putBudgetYearRelation } from '@/api/fams/budget'
 import DialogForm from './DialogForm'
 import { initForm } from './options'
 export default {
@@ -42,11 +42,11 @@ export default {
       budgetTime: '',
       yearList: [],
       budgetTable: [],
+      tableHeight: 'calc(100vh - 260px)',
     }
   },
-  async created () {
-    await this.loadYearList()
-    await this.loadPage()
+  created () {
+    this.load()
   },
   methods: {
     handleDetail (row) {
@@ -61,11 +61,19 @@ export default {
     handleChange () {
       this.loadPage()
     },
+    async load () {
+      await this.loadYearList()
+      await this.loadPage()
+    },
     async loadYearList () {
       const { data } = await getBudgetYearList()
       this.yearList = data.data
       this.budgetId = this.yearList[0].budgetId
       this.budgetTime = this.yearList[0].budgetTime
+      this.$emit('on-change-year', this.budgetId, this.yearList, this.budgetTime)
+      const quarterList = (await getBudgetQuarterList(this.budgetId)).data.data
+      console.log(quarterList)
+      this.$emit('on-change-quarter', quarterList, quarterList[0].budgetId)
     },
     loadPage () {
       getBudgetYearById(this.budgetId).then(({ data }) => {
@@ -75,7 +83,7 @@ export default {
   },
   watch: {
     budgetId (n) {
-      this.$emit('on-change-year', n)
+      this.$emit('on-change-year', n, this.yearList, this.budgetTime)
     },
   },
 }

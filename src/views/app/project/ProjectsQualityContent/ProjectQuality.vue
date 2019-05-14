@@ -32,11 +32,11 @@ export default {
       title: '项目执行与质量委员会',
       linkName: '',
       wonderfulList: [
-        { img: require('../img/expert1.jpg'), name: '杨冰之' },
-        { img: require('../img/expert2.png'), name: '郑爱军' },
-        { img: require('../img/expert3.png'), name: '王路燕' },
-        { img: require('../img/expert4.png'), name: '刘林英' },
-        { img: require('../img/expert5.jpg'), name: '谢海艳' },
+        { img: '//183.131.134.242:10060/upload/iep/201904/2cab9b7e-77cd-4e5c-9039-6c05f27e2529_20180709150516_jg3j6m3qre.jpg', name: '杨冰之' },
+        { img: '//183.131.134.242:10060/upload/iep/201904/2cab9b7e-77cd-4e5c-9039-6c05f27e2529_20180709150516_jg3j6m3qre.jpg', name: '郑爱军' },
+        { img: '//183.131.134.242:10060/upload/iep/201904/2cab9b7e-77cd-4e5c-9039-6c05f27e2529_20180709150516_jg3j6m3qre.jpg', name: '王路燕' },
+        { img: '//183.131.134.242:10060/upload/iep/201904/2cab9b7e-77cd-4e5c-9039-6c05f27e2529_20180709150516_jg3j6m3qre.jpg', name: '刘林英' },
+        { img: '//183.131.134.242:10060/upload/iep/201904/2cab9b7e-77cd-4e5c-9039-6c05f27e2529_20180709150516_jg3j6m3qre.jpg', name: '谢海艳' },
       ],
       introduce: '委员会作出的决策都是经过集体讨论并通过的，因而它有利于避免权力过分集中，防止一个人独断专行。委员会作出的决策都是经过集体讨论并通过的，因而它有利于避免权力过分集中，防止一个人独断专行。',
     }

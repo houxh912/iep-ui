@@ -5,9 +5,7 @@
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>新增</iep-button>
-          <iep-button>发送</iep-button>
-          <iep-button>撤回</iep-button>
-          <iep-button @click="handleDelete()">删除</iep-button>
+          <iep-button @click="handleDeleteBatch()">删除</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
@@ -15,11 +13,13 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click.stop="handleSend(scope.row)">发送</iep-button>
-              <iep-button @click.stop="handleDeleteById(scope.row)">删除</iep-button>
+              <iep-button v-if="scope.row.status===0" @click.stop="handleSend(scope.row)">发送</iep-button>
+              <iep-button v-if="scope.row.status===0" @click.stop="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button v-if="scope.row.status===1" @click.stop="handleCancel(scope.row)">撤回</iep-button>
+              <iep-button v-if="scope.row.status!==2" @click.stop="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import { getMyInvoicePage, postInvoice, deleteInvoiceById, deleteInvoiceBatch } from '@/api/fams/invoice'
+import { getMyInvoicePage, postInvoice, putInvoice, deleteInvoiceById, deleteInvoiceBatch, referInvoiceById, withdrawInvoiceById } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from '../options'
 export default {
@@ -43,14 +43,20 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleSend (row) {
+      this._handleComfirm(row.id, referInvoiceById, '发送')
+    },
+    handleCancel (row) {
+      this._handleComfirm(row.id, withdrawInvoiceById, '撤回')
+    },
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)
     },
-    handleDeleteById (row) {
+    handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deleteInvoiceById)
     },
-    handleDelete () {
-      this._handleGlobalDeleteAll(this.multipleSelection, deleteInvoiceBatch)
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deleteInvoiceBatch)
     },
     handleDetail (row) {
       this.$router.push({
@@ -65,6 +71,13 @@ export default {
         methodName: '新增',
         id: false,
         formRequestFn: postInvoice,
+      })
+    },
+    handleEdit (row) {
+      this.$emit('onEdit', {
+        methodName: '编辑',
+        id: row.id,
+        formRequestFn: putInvoice,
       })
     },
   },

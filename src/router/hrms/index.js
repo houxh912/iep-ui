@@ -37,6 +37,12 @@ export default [
         meta: noKeepAlive,
       },
       {
+        path: 'suggestion_edit',
+        name: '修改建议',
+        component: () => import('@/views/hrms/Suggestion/New.vue'),
+        meta: noKeepAlive,
+      },
+      {
         path: 'suggestion_list',
         name: '发布的建议列表',
         component: () => import('@/views/hrms/Suggestion/List.vue'),

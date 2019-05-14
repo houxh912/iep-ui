@@ -14,7 +14,7 @@
         </iep-form-item>
 
         <iep-form-item prop="attendeeList" label-name="接收对象">
-          <iep-contact-multiple v-model="attendeeList"></iep-contact-multiple>
+          <iep-select v-model="form.attendeeList" multiple autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
         </iep-form-item>
 
         <iep-form-item class="form-half" prop="" label-name="附件">
@@ -23,8 +23,10 @@
         
         <el-form-item label="">
           <operation-wrapper>
-            <iep-button type="primary" @click="handlePublish">发送</iep-button>
-            <iep-button @click="handleSubmit">保存</iep-button>
+            <iep-button type="primary" @click="handlePublish">保存并发送</iep-button>
+            <iep-button @click="handleSubmit">保存草稿</iep-button>
+            <!-- <iep-button type="primary" @click="saveDraft('form')" v-if="formData.status == 1 || methodName == '创建'" :loading="loadState">保存草稿</iep-button>
+            <iep-button type="primary" @click="saveForm('form')" :loading="loadState">{{formData.isSend == 0 ? '保存' : '保存并发送'}}</iep-button> -->
             <iep-button>取消</iep-button>
           </operation-wrapper>
         </el-form-item>

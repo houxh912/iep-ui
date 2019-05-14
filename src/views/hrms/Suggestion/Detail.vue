@@ -2,7 +2,7 @@
   <div class="iep-page-form">
     <basic-container>
       <page-header title="建议详情">
-        <iep-button @click="back">返回建议列表</iep-button>
+        <iep-button @click="onGoBack()">返回建议列表</iep-button>
       </page-header>
       <el-form ref="form" :model="form" label-width="140px" size="small">
         <iep-form-item prop="theme" label-name="建议主题">
@@ -39,7 +39,7 @@
 
         <el-form-item label="">
           <operation-wrapper>
-            <iep-button type="primary" @click="handlePublish">确定</iep-button>
+            <iep-button type="primary" @click="handlePublish" :disabled="form.disabled">确定</iep-button>
             <iep-button @click="onGoBack">取消</iep-button>
           </operation-wrapper>
         </el-form-item>
@@ -51,9 +51,6 @@
 export default {
   data () {
     return {
-      back: () => {
-        this.$router.push('/hrms_spa/suggestion_list')
-      },
       form:{
         theme:'主题主题主题主题主题主题',
         desc:'内容内容内容内容内容内容内容内容内容内容',

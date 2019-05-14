@@ -1,10 +1,10 @@
 <template>
   <el-row class="aside-main" :gutter="8">
-    <el-col :span="4">
+    <el-col class="sub-menu-left" :span="4">
       <el-card shadow="never" :body-style="bodyStyle">
         <div slot="header" class="clearfix">
           <div class="title">收藏目录</div>
-          <iep-button type="primary" @click="catalogCreate(0)"><i class="el-icon-plus"></i> 新增目录</iep-button>
+          <iep-button type="primary" @click="catalogCreate(0)" plain><i class="el-icon-plus"></i> 新增目录</iep-button>
         </div>
         <el-menu :default-active="selectType" class="menu-vertical" @select="catalogSelect" @open="nemuOpen" @close="nemuColse" unique-opened>
           <el-menu-item index="-1">
@@ -294,10 +294,12 @@ export default {
 <style lang="scss" scoped>
 .aside-main {
   display: flex;
+  margin: 0 !important;
   padding: 20px;
+  width: 100%;
   .title {
     margin-bottom: 15px;
-    font-size: 18px;
+    font-size: 16px;
   }
   .item-tpl {
     display: flex;
@@ -322,6 +324,36 @@ export default {
     margin-left: 20px;
     width: 100%;
   }
+}
+.sub-menu-left {
+  margin: -20px 15px -20px -20px;
+  padding-top: 20px;
+  border-right: 1px solid #ebeef5;
+  .el-card {
+    border: 0;
+  }
+}
+.el-button--warning {
+  color: #e6a23c;
+  background-color: #fdf6ec;
+  &:hover {
+    color: #fff;
+    background-color: #e6a23c;
+  }
+}
+</style>
+<style scoped>
+.sub-menu-left >>> .el-card__header {
+  padding: 8px 20px;
+  border: 0;
+}
+.sub-menu-left >>> .el-submenu__title,
+.sub-menu-left >>> .el-menu-item {
+  height: 40px;
+  line-height: 40px;
+}
+.sub-menu-left >>> .el-dropdown {
+  top: -5px;
 }
 </style>
 

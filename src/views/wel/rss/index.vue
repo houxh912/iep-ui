@@ -1,6 +1,6 @@
 <template>
   <el-row class="aside-main" :gutter="8">
-    <el-col :span="4">
+    <el-col class="sub-menu-left" :span="4">
       <el-card shadow="never" :body-style="bodyStyle">
         <div slot="header" class="clearfix">
           <span>订阅目录</span>
@@ -38,14 +38,14 @@
         <template slot="before-columns">
         </template>
         <el-table-column prop="operation" label="操作" width="260">
-            <template>
-              <operation-wrapper>
-                <iep-button type="warning" plain>收藏</iep-button>
-                <iep-button>分享</iep-button>
-                <iep-button>取消订阅</iep-button>
-              </operation-wrapper>
-            </template>
-          </el-table-column>
+          <template>
+            <operation-wrapper>
+              <iep-button type="warning" plain>收藏</iep-button>
+              <iep-button>分享</iep-button>
+              <iep-button>取消订阅</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
       </iep-table>
     </el-col>
   </el-row>
@@ -59,21 +59,21 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      pagedTable:[
-          {time:'2019-02-02',name:'数据基因微服务版说明书 V1.0',status:'0'},
-          {time:'2019-02-02',name:'数据基因微服务版说明书 V1.0',status:'0'},
-          {time:'2019-02-02',name:'数据基因微服务版说明书 V1.0',status:'0'},
-          {time:'2019-02-02',name:'数据基因微服务版说明书 V1.0',status:'0'},
-          {time:'2019-02-02',name:'数据基因微服务版说明书 V1.0',status:'0'},
-          {time:'2019-02-02',name:'数据基因微服务版说明书 V1.0',status:'0'},
+      pagedTable: [
+        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
+        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
+        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
+        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
+        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
+        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
       ],
-      imsMsgType:[
-        {label:'技术文档',value:'1'},
-        {label:'产品解决方案',value:'1'},
-        {label:'培训/课程',value:'1'},
-        {label:'制度文件',value:'1'},
-        {label:'会议纪要',value:'1'},
-        {label:'学习资源',value:'1'},
+      imsMsgType: [
+        { label: '技术文档', value: '1' },
+        { label: '产品解决方案', value: '1' },
+        { label: '培训/课程', value: '1' },
+        { label: '制度文件', value: '1' },
+        { label: '会议纪要', value: '1' },
+        { label: '学习资源', value: '1' },
       ],
       selectType: '0',
       bodyStyle: {
@@ -104,18 +104,18 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.info{
-  padding:15px;
+.info {
+  padding: 15px;
   margin-bottom: 15px;
   border: 1px solid #eac86d;
   background-color: #f4ecd3;
-  span{
-    display:block;
+  span {
+    display: block;
     line-height: 28px;
     color: #333;
   }
-  .red{
-    color:#ba1b21!important;
+  .red {
+    color: #ba1b21 !important;
   }
 }
 .aside-main {
@@ -135,5 +135,20 @@ export default {
     margin-left: 20px;
     width: 100%;
   }
+}
+.sub-menu-left {
+  padding-right: 20px !important;
+}
+</style>
+<style scoped>
+.sub-menu-left >>> .el-card__header {
+  padding: 10px 20px;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 4px 4px 0 0;
+}
+.sub-menu-left >>> .el-menu-item {
+  height: 40px;
+  line-height: 40px;
 }
 </style>

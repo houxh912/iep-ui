@@ -41,7 +41,6 @@
               <el-tag v-for="(item,index) in formData.clientInfos" :key="index" closable @close="handleClose(item)">
                 {{item.clientName}}
               </el-tag>
-              <!-- <span class="tags" v-for="(item,index) in formData.clientInfos" :key="index">{{item.clientName}}</span> -->
               <el-button size="small" @click="addContact" icon="el-icon-plus"></el-button>
             </el-form-item>
           </el-col>
@@ -107,7 +106,7 @@
         </el-form-item>
       </el-form>
     </basic-container>
-    <el-dialog title="添加对应客户" :visible.sync="dialogVisible" width="50%">
+    <el-dialog title="添加对应客户" :visible.sync="dialogVisible" width="40%">
       <el-input placeholder="请输入客户姓名" v-model="clientName" size="mini" :maxlength="20">
         <template slot="append">
           <div class="search" @click="search">
@@ -128,7 +127,7 @@
 import mixins from '@/mixins/mixins'
 import { initForm, rules } from '../options'
 import { getContactById } from '@/api/crms/contact'
-import { getCustomerPage } from '@/api/crms/customer'
+import { getMyorcollList } from '@/api/crms/customer'
 const tipContent = {
   contactName: '请务必填写真实联系人姓名，与⾝份证信息⼀致，切记出现张主任等',
   clientInfos: '请务必准确关联该联系人对应的单位/企业',
@@ -166,10 +165,10 @@ export default {
             label: '客户姓名',
             prop: 'clientName',
           },
-          {
-            label: '市场经理',
-            prop: 'marketManagerName',
-          },
+          // {
+          //   label: '市场经理',
+          //   prop: 'marketManagerName',
+          // },
         ],
       },
     }
@@ -206,7 +205,7 @@ export default {
       this.loadPage()
     },
     loadPage () {
-      this.loadTable({ type: 2, clientName: this.clientName }, getCustomerPage)
+      this.loadTable({ clientName: this.clientName }, getMyorcollList)
     },
     handleGoBack () {
       this.$emit('onGoBack')

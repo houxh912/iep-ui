@@ -110,8 +110,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getTalentPoolById } from '@/api/hrms/talent_pool'
-import { initForm, workExpColumns, studyColumns, trainingColumns, certificateColumns } from '../options'
+// import { getTalentPoolById } from '@/api/hrms/talent_pool'
 
 export default {
   props: {
@@ -123,13 +122,9 @@ export default {
   data () {
     return {
       input4: '',
-      certificateColumns,
-      trainingColumns,
-      studyColumns,
-      workExpColumns,
       activeNames: ['1'],
       methodName: '新增',
-      form: initForm(),
+      form: {},
       formRequestFn: () => { },
       checked: true,
     }
@@ -141,11 +136,11 @@ export default {
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn
     this.id = this.record.id
-    if (this.id) {
-      getTalentPoolById(this.id).then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
-      })
-    }
+    // if (this.id) {
+    //   getTalentPoolById(this.id).then(({ data }) => {
+    //     this.form = this.$mergeByFirst(initForm(), data.data)
+    //   })
+    // }
   },
   methods: {
     handleAvatarSuccess (res, file) {

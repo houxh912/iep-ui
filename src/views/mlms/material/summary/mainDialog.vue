@@ -103,12 +103,16 @@
 
       </el-form>
       <footer-tool-bar>
+        <iep-button type="primary" @click="handlePreview">预览</iep-button>
         <iep-button type="primary" @click="saveDraft('form')" v-if="formData.status == 1 || methodName == '创建'" :loading="loadState">保存草稿</iep-button>
         <iep-button type="primary" @click="saveForm('form')" :loading="loadState">{{formData.isSend == 0 ? '保存' : '保存并发送'}}</iep-button>
         <iep-button @click="resetForm('form')">取消</iep-button>
       </footer-tool-bar>
     </basic-container>
+    <!-- 关联项目 -->
     <projectDialog ref="project" @selectProject="submitProject"></projectDialog>
+    <!-- 预览 -->
+    <previewDialog ref="preview"></previewDialog>
   </div>
 </template>
 <script>
@@ -117,9 +121,10 @@ import { mapGetters } from 'vuex'
 import { getCustomerPage } from '@/api/crms/customer'
 import { createData, updateData, getDataById, meetingSend } from '@/api/mlms/material/summary'
 import projectDialog from './projectDialog'
+import previewDialog from './previewDialog'
 
 export default {
-  components: { projectDialog },
+  components: { projectDialog, previewDialog },
   data () {
     return {
       loadState: false,
@@ -266,6 +271,10 @@ export default {
       this.formData = initFormData()
       this.formData.projectList = [obj]
       this.pageState = 'project'
+    },
+    // 预览
+    handlePreview () {
+      this.$refs['preview'].open(this.formData)
     },
   },
   created () {

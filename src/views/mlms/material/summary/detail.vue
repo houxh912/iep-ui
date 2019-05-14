@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <div class="comment" v-if="formData.status !== 1">
+      <div class="comment" v-if="formData.status !== 1 && !previewState">
         <div class="button-list" v-if="isDelete">
           <iep-button type="primary" @click="handleCollect">{{formData.collection == 1 ? '已收藏' : '收藏'}}</iep-button>
           <iep-button type="primary" @click="handleShare">分享</iep-button>
@@ -151,6 +151,7 @@ export default {
       isCommentShow: false,
       pageSize,
       isDelete: true,
+      previewState: false,
     }
   },
   methods: {
@@ -191,29 +192,35 @@ export default {
           this.isDelete = false
           return
         }
-        this.formData = data.data
+        this.handleDealData(data.data)
         this.getComment(data.data.id)
-        this.formData.hostName = this.formData.host.length > 0 ? this.formData.host[0].name : '无'
-        // 获取人物
-        let fn = (obj) => {
-          let msg = ''
-          for (let key in obj) {
-            if (obj[key] !== null) {
-              for (let item of obj[key]) {
-                msg += item.name + '、'
-              }
+      })
+    },
+    // 处理数据，展示数据
+    handleDealData (data, state) {
+      this.previewState = state
+      this.formData = data
+      this.formData.hostName = this.formData.host.length > 0 ? this.formData.host[0].name : '无'
+      // 获取人物
+      let fn = (obj) => {
+        let msg = ''
+        for (let key in obj) {
+          if (obj[key] !== null) {
+            for (let item of obj[key]) {
+              msg += item.name + '、'
             }
           }
-          if (msg === '') {
-            return '无'
-          } else {
-            return msg.slice(0, msg.length - 1)
-          }
         }
-        this.formData.attendeeName = fn(this.formData.attendee) // 参会人
-        this.formData.receiverName = fn(this.formData.receiver) // 参会人
-      })
-    },// 收藏
+        if (msg === '') {
+          return '无'
+        } else {
+          return msg.slice(0, msg.length - 1)
+        }
+      }
+      this.formData.attendeeName = fn(this.formData.attendee) // 参会人
+      this.formData.receiverName = fn(this.formData.receiver) // 参会人
+    },
+    // 收藏
     handleCollect () {
       if (this.formData.collection == 1) {
         this.$message.warning('该纪要已收藏，请勿重复操作！')

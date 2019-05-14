@@ -213,7 +213,7 @@ export default {
     }
   },
   created () {
-    this.loadPage()
+    // this.loadPage()
   },
 }
 </script>

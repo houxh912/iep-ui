@@ -2,54 +2,57 @@ import { mergeByFirst } from '@/util/util'
 // org config options
 const dictsMap = {
   status: {
-    0: '待审核',
-    1: '审核通过',
-    2: '审核驳回',
+    0: '待提交',
+    1: '待确认',
+    2: '已确认',
+  },
+  referType: {
+    1: '项目管理类',
+    2: '日常管理类',
+    3: '其他类',
+  },
+  invoiceType: {
+    1: '增值税专用发票',
+    2: '增值税普通发票',
+    3: '其他',
   },
 }
 
 const columnsMap = [
   {
-    prop: 'type',
-    label: '提交类型',
-  },
-  {
-    prop: 'rise',
-    label: '发票抬头',
-  },
-  {
-    prop: 'applicant',
+    prop: 'creatorName',
     label: '申请人',
   },
   {
-    prop: 'departments',
-    label: '所属部门',
-  },
-  {
-    prop: 'money',
-    label: '金额',
-  },
-  {
-    prop: 'applyTime',
-    label: '申请日期',
-  },
-  {
-    prop: 'status',
-    label: '状态',
-    type: 'dict',
-  },
-  {
-    prop: 'availableAmount',
-    label: '可用金额',
-  },
-  {
-    prop: 'auditor',
-    label: '审核人',
-  },
-  {
-    prop: 'auditTime',
-    label: '审核日期',
-  },
+		prop: 'referType',
+		label: '发票类型',
+		type: 'dict',
+	},
+	{
+		prop: 'companyName',
+		label: '发票抬头',
+	},
+	{
+		prop: 'totalAmount',
+		label: '发票金额',
+	},
+	{
+		prop: 'createTime',
+		label: '申请日期',
+	},
+	{
+		prop: 'status',
+		label: '状态',
+		type: 'dict',
+	},
+	{
+		prop: 'auditorName',
+		label: '审核人',
+	},
+	{
+		prop: 'auditingTime',
+		label: '审核日期',
+	},
 ]
 
 const initForm = () => {

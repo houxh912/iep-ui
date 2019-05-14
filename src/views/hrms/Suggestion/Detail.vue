@@ -48,7 +48,7 @@
 </template>
 <script>
 import { getSuggestionById } from '@/api/hrms/suggestion'
-import { initForm, dictsMap } from './options'
+import { initForm } from './options'
 import { downloadFile } from '@/api/common'
 import { mapGetters } from 'vuex'
 export default {
@@ -63,7 +63,7 @@ export default {
     ...mapGetters([
       'userInfo',
     ]),
-    isEdit (){
+    isEdit () {
       return this.userInfo.userId === this.form.userId
     },
   },
@@ -94,7 +94,7 @@ export default {
 </style>
 
 <style scoped>
-.iep-page-form >>> .el-form-item__content .el-input-group{
+.iep-page-form >>> .el-form-item__content .el-input-group {
   width: 250px;
 }
 </style>

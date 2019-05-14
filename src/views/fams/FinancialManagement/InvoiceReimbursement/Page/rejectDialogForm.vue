@@ -12,19 +12,19 @@
   </iep-dialog>
 </template>
 <script>
-import { rejectWithdrawBatch } from '@/api/fams/withdraw'
+import { rejectInvoice } from '@/api/fams/invoice'
 export default {
   data () {
     return {
       dialogShow: false,
-      ids: [],
+      ids: '',
       content: '',
     }
   },
   methods: {
     submitForm () {
-      rejectWithdrawBatch({
-        ids: this.ids,
+      rejectInvoice({
+        id: this.id,
         content: this.content,
       }).then(({ data }) => {
         if (data.data) {

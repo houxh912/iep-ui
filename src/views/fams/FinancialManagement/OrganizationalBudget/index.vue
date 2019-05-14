@@ -4,13 +4,13 @@
       <page-header title="组织预算"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Year'" v-slot:Year>
-          <year v-loading="activeTab !=='Year'"></year>
+          <year v-loading="activeTab !=='Year'" @on-change-year="handleChangeYear" @on-change-quarter="handleChangeQuarter"></year>
         </template>
         <template v-if="activeTab ==='Quarter'" v-slot:Quarter>
-          <quarter v-loading="activeTab !=='Quarter'"></quarter>
+          <quarter v-loading="activeTab !=='Quarter'" :year="year" :year-id="yearId" :year-list="yearList"></quarter>
         </template>
         <template v-if="activeTab ==='Monthly'" v-slot:Monthly>
-          <monthly v-loading="activeTab !=='Monthly'"></monthly>
+          <monthly v-loading="activeTab !=='Monthly'" :year="year" :quarter-id="quarterId" :quarter-list="quarterList"></monthly>
         </template>
       </iep-tabs>
     </basic-container>
@@ -24,6 +24,12 @@ export default {
   components: { Monthly, Quarter, Year },
   data () {
     return {
+      year: 0,
+      yearId: 0,
+      yearList: [],
+      quarterId: 0,
+      quarterList: [],
+      MonthId: 0,
       tabList: [{
         label: '年度',
         value: 'Year',
@@ -36,6 +42,17 @@ export default {
       }],
       activeTab: 'Year',
     }
+  },
+  methods: {
+    handleChangeYear (yearId, yearList, year) {
+      this.yearId = yearId
+      this.yearList = yearList
+      this.year = year
+    },
+    handleChangeQuarter (quarterList, quarterId) {
+      this.quarterList = quarterList
+      this.quarterId = quarterId
+    },
   },
 }
 </script>

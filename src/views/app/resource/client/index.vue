@@ -28,7 +28,7 @@
 
 <script>
 import Librarys from './Librarys/'
-import { getNewClientList, getCoopClientList } from '@/api/app/crms/customer'
+import { getNewClientList, getCoopClientList } from '@/api/app/crms/'
 import { getExcellentList } from '@/api/app/mlms/material'
 import { getRectagsList } from '@/api/app/tms/index'
 

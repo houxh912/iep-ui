@@ -37,6 +37,13 @@ export function putSuggestion (obj) {
     data: obj,
   })
 }
+export function putfeedback (obj) {
+  return request({
+    url: `${prefixUrl}/feedback`,
+    method: 'post',
+    data: obj,
+  })
+}
 export function deleteSuggestionById (id) {
   return request({
     url: `${prefixUrl}/delete/batch`,

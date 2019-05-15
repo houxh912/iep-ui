@@ -26,17 +26,17 @@ const initForm = () => {
     'id': '', // ID
     'userId':'',//userId
     'theme':'',
+    'status':'',//
     'proposeContent': '',//内容
     'attendeeList': '',//接收对象
-    'addresStatus': '',//处理意见
+    'attendeeId':'',//接收对象id
+    'feedbackStatus': '',//处理意见
     'feedbackOpinion':'',//反馈意见
-    'reward':'',//打赏
+    'gratuity':'',//打赏
     'disabled':'',
-    'annex':[
-      {'uel':''},
-    ],
     'annexList':[],
     'fileName':'',//文件名
+    'proposeRelatioList':'',//反馈
   }
 }
 
@@ -68,6 +68,15 @@ const rules = {
   ],
   attendeeList: [
     { required: true, message: '请填写接收对象', trigger: 'blur' },
+  ],
+  feedbackStatus: [
+    { required: true, message: '请填写处理意见', trigger: 'blur' },
+  ],
+  feedbackOpinion: [
+    { required: true, message: '请填写反馈意见', trigger: 'blur' },
+  ],
+  gratuity: [
+    { required: true, message: '请输入打赏金额', trigger: 'blur' },
   ],
 }
 

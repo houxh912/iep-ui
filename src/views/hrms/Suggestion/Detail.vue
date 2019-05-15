@@ -4,7 +4,7 @@
       <page-header title="建议详情">
         <iep-button @click="onGoBack()">返回建议列表</iep-button>
       </page-header>
-      <el-form ref="form" :model="form" label-width="140px" size="small">
+      <el-form ref="form" :model="form" :rules="rules" label-width="140px" size="small">
         <iep-form-item prop="theme" label-name="建议主题">
           <div class="content">{{form.theme}}</div>
         </iep-form-item>
@@ -17,16 +17,16 @@
           <div class="content" v-for="(item,index) in form.attendeeList" :key="index" style="margin-right:5px;">{{item}}</div>
         </iep-form-item>
         <hr>
-        <iep-form-item prop="addresStatus" label-name="处理意见">
-          <el-radio :disabled="isEdit" v-model="form.addresStatus" label="1">采纳</el-radio>
-          <el-radio :disabled="isEdit" v-model="form.addresStatus" label="2">驳回</el-radio>
+        <iep-form-item prop="proposeRelatioList[0].feedbackStatus" label-name="处理意见">
+          <el-radio :disabled="isEdit" v-model="form.proposeRelatioList[0].feedbackStatus" label="1">采纳</el-radio>
+          <el-radio :disabled="isEdit" v-model="form.proposeRelatioList[0].feedbackStatus" label="2">驳回</el-radio>
         </iep-form-item>
 
-        <iep-form-item prop="feedbackOpinion" label-name="反馈意见">
-          <iep-input-area :disabled="isEdit" v-model="form.feedbackOpinion"></iep-input-area>
+        <iep-form-item prop="proposeRelatioList[0].feedbackOpinion" label-name="反馈意见">
+          <iep-input-area :disabled="isEdit" v-model="form.proposeRelatioList[0].feedbackOpinion"></iep-input-area>
         </iep-form-item>
-        <iep-form-item prop="reward" label-name="打赏">
-          <el-input :disabled="isEdit" v-model="form.reward" size="small">
+        <iep-form-item prop="proposeRelatioList[0].gratuity" label-name="打赏">
+          <el-input :disabled="isEdit" v-model="form.proposeRelatioList[0].gratuity" size="small">
             <template slot="append">贝</template>
           </el-input>
         </iep-form-item>
@@ -47,13 +47,14 @@
   </div>
 </template>
 <script>
-import { getSuggestionById } from '@/api/hrms/suggestion'
-import { initForm } from './options'
+import { getSuggestionById, putfeedback } from '@/api/hrms/suggestion'
+import { initForm, formToDto, rules } from './options'
 import { downloadFile } from '@/api/common'
 import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+      rules,
       id: this.$route.params.id,
       pageLoading: true,
       form: initForm(),
@@ -75,7 +76,28 @@ export default {
       this.$router.history.go(-1)
     },
     handlePublish () {
-      this.handleSubmit(true)
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          if (this.form.annexList.length > 0) {
+            this.form.annex = this.form.annexList[0].url
+          }
+          if (this.form.proposeRelatioList.length > 0) {
+            this.form.feedbackOpinion = this.form.proposeRelatioList[0].feedbackOpinion
+            this.form.feedbackStatus = this.form.proposeRelatioList[0].status
+            this.form.gratuity = this.form.proposeRelatioList[0].gratuity
+          }
+          putfeedback(formToDto(this.form), true).then(({ data }) => {
+            if (data.data) {
+              this.$message({
+                message: '回复建议成功',
+                type: 'success',
+              })
+              this.onGoBack()
+            }
+          })
+        }
+      })
+
     },
     handleDownload (file) {
       downloadFile(file)

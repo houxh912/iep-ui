@@ -13,8 +13,8 @@
           <iep-input-area v-model="form.proposeContent"></iep-input-area>
         </iep-form-item>
 
-        <iep-form-item prop="attendeeList" label-name="接收对象">
-          <iep-select v-model="form.attendeeList" multiple autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+        <iep-form-item prop="attendeeId" label-name="接收对象">
+          <iep-select v-model="form.attendeeId" multiple autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
         </iep-form-item>
 
         <iep-form-item class="form-half" prop="annexList" label-name="附件">
@@ -69,6 +69,7 @@ export default {
       this.$router.history.go(-1)
     },
     handlePublish () {
+      this.form.status='1'
       this.handleSubmit(true)
     },
     handleSubmit (isPublish) {
@@ -85,7 +86,7 @@ export default {
                 message: `${this.methodName}建议成功`,
                 type: 'success',
               })
-              this.onGoBack()
+              this.back()
             }
           })
         }

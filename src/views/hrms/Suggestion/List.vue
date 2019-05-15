@@ -18,7 +18,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="收件人" width="160px">
             <template slot-scope="scope">
@@ -73,6 +73,9 @@ export default {
     },
     handleCommandUser () {
       // console.log(val)
+    },
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
     },
     handleAdd () {
       this.$router.push('/hrms_spa/suggestion_new')

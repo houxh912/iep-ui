@@ -9,25 +9,25 @@
           <el-input v-model="form.theme"></el-input>
         </iep-form-item>
 
-        <iep-form-item class="form-half" prop="desc" label-name="建议内容">
-          <iep-input-area v-model="form.desc"></iep-input-area>
+        <iep-form-item class="form-half" prop="proposeContent" label-name="建议内容">
+          <iep-input-area v-model="form.proposeContent"></iep-input-area>
         </iep-form-item>
 
         <iep-form-item prop="attendeeList" label-name="接收对象">
           <iep-select v-model="form.attendeeList" multiple autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
         </iep-form-item>
 
-        <iep-form-item class="form-half" prop="" label-name="附件">
-          <iep-upload v-model="annexList" :limit="limit"></iep-upload>
+        <iep-form-item class="form-half" prop="annex" label-name="附件">
+          <iep-upload v-model="annex" :limit="limit"></iep-upload>
         </iep-form-item>
         
         <el-form-item label="">
           <operation-wrapper>
-            <iep-button type="primary" @click="handlePublish">保存并发送</iep-button>
-            <iep-button @click="handleSubmit">保存草稿</iep-button>
+            <iep-button type="primary" @click="handleSubmit">保存</iep-button>
+            <iep-button @click="handlePublish">保存并发布</iep-button>
             <!-- <iep-button type="primary" @click="saveDraft('form')" v-if="formData.status == 1 || methodName == '创建'" :loading="loadState">保存草稿</iep-button>
             <iep-button type="primary" @click="saveForm('form')" :loading="loadState">{{formData.isSend == 0 ? '保存' : '保存并发送'}}</iep-button> -->
-            <iep-button>取消</iep-button>
+            <iep-button @click="onGoBack">取消</iep-button>
           </operation-wrapper>
         </el-form-item>
       </el-form>

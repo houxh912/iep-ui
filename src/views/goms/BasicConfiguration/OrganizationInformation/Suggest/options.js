@@ -25,9 +25,10 @@ const initForm = () => {
   return {
     id: '', // ID
     desc: '',//内容
-    attendeeList: '',//接收对象通讯录
-    // ProcessingOpinion: '',//处理意见
-    // Feedback:'',//反馈意见
+    sender: '',//发件人
+    ProcessingOpinion: '',//处理意见
+    Feedback:'',//反馈意见
+    reward:'',//打赏
   }
 }
 
@@ -35,7 +36,10 @@ const initDtoForm = () => {
   return {
     id: '', // ID
     desc: '',//内容
-    attendeeList: '',//接收对象通讯录
+    sender: '',//发件人
+    ProcessingOpinion: '',//处理意见
+    Feedback:'',//反馈意见
+    reward:'',//打赏
   }
 }
 

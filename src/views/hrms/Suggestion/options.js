@@ -1,4 +1,4 @@
-import { mergeByFirst } from '@/util/util'
+// import { mergeByFirst } from '@/util/util'
 
 const dictsMap = {
   status: {
@@ -35,24 +35,22 @@ const initForm = () => {
   }
 }
 
-const initDtoForm = () => {
-  return {
-    'id': '', // ID
-    'theme':'',
-    'proposeContent': '',//内容
-    'attendeeList': '',//接收对象
-    'addresStatus': '',//处理意见
-    'feedbackOpinion':'',//反馈意见
-    'reward':'',//打赏
-    'disabled':'',
-    'annexList':[],
-  }
-}
+// const initDtoForm = () => {
+//   return {
+//     'id': '', // ID
+//     'theme':'',
+//     'proposeContent': '',//内容
+//     'attendeeList': '',//接收对象
+//     'addresStatus': '',//处理意见
+//     'feedbackOpinion':'',//反馈意见
+//     'reward':'',//打赏
+//     'disabled':'',
+//     'annexList':[],
+//   }
+// }
 
 const formToDto = (row) => {
-  const newForm = mergeByFirst(initDtoForm(), row)
-  newForm.positionId = row.position[row.position.length - 1]
-  newForm.deptId = row.dept[row.dept.length - 1]
+  const newForm = { ...row }
   return newForm
 }
 

@@ -70,7 +70,7 @@ export default {
     },
     handleDetail (row) {
       this.$router.push({
-        path: `/hrms_spa/suggestion_detail${row.id}`,
+        path: `/hrms_spa/suggestion_detail/${row.id}`,
       })
     },
   },

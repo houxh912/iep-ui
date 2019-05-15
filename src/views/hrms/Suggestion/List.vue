@@ -5,6 +5,12 @@
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
+          <el-dropdown size="medium">
+            <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search>
@@ -14,7 +20,7 @@
       </operation-container>
       <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="收件人" width="120px">
+          <el-table-column label="收件人" width="160px">
             <template slot-scope="scope">
               {{scope.row.attendeeList[0]}}
             </template>
@@ -40,7 +46,7 @@
 </template>
 
 <script>
-import { getSuggestionIssuePage } from '@/api/hrms/suggestion'
+import { getSuggestionIssuePage, deleteSuggestionById, deleteSuggestionBatch } from '@/api/hrms/suggestion'
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from './AdvanceSearch'
 import { dictsMap, columnsMap } from './options'
@@ -74,8 +80,11 @@ export default {
     handleEdit (row) {
       this.$router.push(`/hrms_spa/suggestion_edit/${row.id}`)
     },
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deleteSuggestionBatch)
+    },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id)
+      this._handleGlobalDeleteById(row.id, deleteSuggestionById)
     },
     handleDetail (row) {
       this.$router.push({

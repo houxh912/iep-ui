@@ -3,8 +3,6 @@
     <basic-container>
       <page-header title="发票审批" :replaceText="replaceText" :data="[10 ,5,10,25,15,31421.00,4733.00,355]"></page-header>
       <operation-container>
-        <template slot="left">
-        </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
           </operation-search>

@@ -41,7 +41,7 @@
           <el-input v-model="form.unit"></el-input>
         </iep-form-item>
         <iep-form-item label-name="金额" class="form-half">
-          <el-input v-model="form.amount"></el-input>
+          <iep-input-number v-model="form.amount"></iep-input-number>
         </iep-form-item>
         <iep-form-item label-name="关联项目">
           <el-input v-model="form.projectId"></el-input>

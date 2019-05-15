@@ -2,7 +2,6 @@
   <div class="iep-page-form">
     <basic-container>
       <page-header title="开票通知详情" :back-option="backOption">
-        <iep-button type="primary" @click="handleSubmit()">保存</iep-button>
       </page-header>
       <el-form ref="form" class="form-detail" :model="form" label-width="150px" size="small">
         <h4 class="sub-title">购买方信息</h4>

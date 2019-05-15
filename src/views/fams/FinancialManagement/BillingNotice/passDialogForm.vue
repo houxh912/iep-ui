@@ -12,7 +12,7 @@
   </iep-dialog>
 </template>
 <script>
-import { passInvoice } from '@/api/fams/invoice'
+import { passBilling } from '@/api/fams/billing'
 export default {
   data () {
     return {
@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     submitForm () {
-      passInvoice({
+      passBilling({
         id: this.id,
         content: this.content,
       }).then(({ data }) => {

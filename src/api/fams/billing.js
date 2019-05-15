@@ -71,3 +71,19 @@ export function deleteBillingBatch (ids) {
     data: ids,
   })
 }
+
+export function rejectBilling (obj) {
+  return request({
+    url: `${prefixUrl}/financial_refuse`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function passBilling (obj) {
+  return request({
+    url: `${prefixUrl}/financial_agree`,
+    method: 'post',
+    data: obj,
+  })
+}

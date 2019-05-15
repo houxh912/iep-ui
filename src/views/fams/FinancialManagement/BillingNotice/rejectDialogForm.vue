@@ -12,7 +12,7 @@
   </iep-dialog>
 </template>
 <script>
-import { rejectInvoice } from '@/api/fams/invoice'
+import { rejectBilling } from '@/api/fams/billing'
 export default {
   data () {
     return {
@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     submitForm () {
-      rejectInvoice({
+      rejectBilling({
         id: this.id,
         content: this.content,
       }).then(({ data }) => {

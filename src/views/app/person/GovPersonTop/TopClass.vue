@@ -1,12 +1,15 @@
 <template>
   <div class="top-class">
     <div class="top-class-list" v-for="item in items" :key="item.id">
-      <span class="num">{{item.num}}</span>
+      <span class="num">{{countObj[item.prop]}}</span>
       <span class="name">{{item.name}}</span>
     </div>
   </div>
 </template>
+
 <script>
+import { getRecruitCount } from '@/api/app/hrms/'
+
 export default {
   data () {
     return {
@@ -15,34 +18,53 @@ export default {
           id: '1',
           num: '498',
           name: '国脉同学',
+          prop: 'userCount',
         },
         {
           id: '2',
           num: '28',
           name: '外部同学',
+          prop: 'externalCount',
         },
         {
           id: '3',
           num: '88',
           name: '国脉专家',
+          prop: 'expertCount',
         },
         {
           id: '4',
           num: '228',
           name: '国脉校友',
+          prop: 'alumnusCount',
         },
         {
           id: '5',
           num: '33',
           name: '组织',
+          prop: 'orgCount',
         },
         {
           id: '6',
           num: '28',
           name: '入驻机构',
+          prop: 'institutionCount',
         },
       ],
+      countObj: {
+        userCount: 0,
+        externalCount: 0,
+        expertCount: 0,
+        alumnusCount: 0,
+        orgCount: 0,
+        institutionCount: 0,
+      },
     }
+  },
+  created () {
+    getRecruitCount().then(({data}) => {
+      this.countObj = data.data
+    })
   },
 }
 </script>

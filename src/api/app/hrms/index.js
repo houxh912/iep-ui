@@ -56,3 +56,19 @@ export const getRecruitDetailPage = (obj) => {
     params: obj,
   })
 }
+
+// 频道页国脉人统计
+export const getRecruitCount = () => {
+  return request({
+    url: `${prefixUrl}/count`,
+    method: 'get',
+  })
+}
+
+// 今日寿星
+export const getRecruitBirthday = () => {
+  return request({
+    url: `${prefixUrl}/birthday`,
+    method: 'get',
+  })
+}

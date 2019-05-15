@@ -47,3 +47,12 @@ export const getRecruitDetail = (id) => {
     method: 'get',
   })
 }
+
+// 国脉人
+export const getRecruitDetailPage = (obj) => {
+  return request({
+    url: `${prefixUrl}/hr_detail/page`,
+    method: 'get',
+    params: obj,
+  })
+}

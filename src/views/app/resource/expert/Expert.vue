@@ -1,19 +1,20 @@
 <template>
   <div>
-    <search></search>
-    <div class="expert">
-      <div class="expert-item" v-for="(item,index) in expertList" :key="index">
-        <div class="img"><img :src="item.imgSrc" alt=""></div>
+    <search @load-page="searchPage"></search>
+    <div class="person">
+      <div class="person-item" v-for="(item,index) in personList" :key="index">
+        <div class="img"><img :src="item.avatar" alt=""></div>
         <div class="text">
-          <span class="name">{{item.name}}<span class="dn show1" :class="item.show1">V</span><span class="dn show2" :class="item.show2">内</span></span>
-          <span class="job">{{item.job}}</span>
-          <span class="sign"><span v-for="sign in item.signs" :key="sign.id">{{sign.sign}}</span>
+          <span class="name">{{item.name}}<span class="dn show1 show" v-if="item.isExpert == 1">V</span></span>
+          <span class="job">{{item.externalTitle}}</span>
+          <span class="sign">
+            <span v-for="(sign, index) in item.abilityTag" :key="index">{{sign}}</span>
           </span>
         </div>
       </div>
     </div>
     <div class="page">
-      <el-pagination background layout="prev, pager, next" :total="1000">
+      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange">
       </el-pagination>
     </div>
   </div>
@@ -21,125 +22,51 @@
 
 <script>
 import Search from './ExpertSearch'
+import { getRecruitDetailPage } from '@/api/app/hrms/'
+
 export default {
   data () {
     return {
-      expertList: [
-        {          imgSrc: require('./image/expert1.jpg'), name: '姜奇平', job: '中国社会科学院信息化研究中心',
-          signs: [
-            { sign: '信息化' },
-            { sign: '信息经济' },
-          ],
-          show1: 'show'        },
-        {          imgSrc: require('./image/expert2.png'), name: '汪向东', job: '中国社科院信息化研究中心主任',
-          signs: [
-            { sign: '互联网经济' },
-            { sign: '网络经济' },
-          ],
-          show1: 'show'        },
-        {          imgSrc: require('./image/expert3.jpg'), name: '赖茂生', job: '北京大学信息管理学院博士生导师',
-          signs: [
-            { sign: '信息化' },
-            { sign: '信息管理' },
-          ],
-          show1: 'show'        },
-        {          imgSrc: require('./image/expert4.jpg'), name: '朱森第', job: '中国机械工业联合会副会长',
-          signs: [
-            { sign: '人工智能' },
-            { sign: '智能制造' },
-          ],
-          show1: 'show'        },
-        {          imgSrc: require('./image/expert5.jpg'), name: '王金平', job: '中国国际工程咨询公司办公厅主',
-          signs: [
-            { sign: '信息化' },
-          ]        },
-        {          imgSrc: require('./image/expert4.jpg'), name: '周德铭', job: '国家促进大数据发展专家委员会委员',
-          signs: [
-            { sign: '电子政务' },
-            { sign: '信息化' },
-            { sign: '信息资源' },
-          ],
-          show1: 'show', show2: 'show'        },
-        {          imgSrc: require('./image/expert6.jpg'), name: '周德铭', job: '国家促进大数据发展专家委员会',
-          signs: [
-            { sign: '电子政务' },
-            { sign: '信息化' },
-            { sign: '信息资源' },
-          ]        },
-        {          imgSrc: require('./image/expert7.jpg'), name: '胡小明', job: '中国信息协会原副会长',
-          signs: [
-            { sign: '电子政务' },
-            { sign: '信息化' },
-            { sign: '信息资源' },
-          ]        },
-        {          imgSrc: require('./image/expert6.jpg'), name: '汪玉凯', job: '国家行政学院教授、国家信息化专家咨询',
-          signs: [
-            { sign: '电子政务' },
-            { sign: '信息化' },
-            { sign: '政府管理' },
-          ]        },
-        {          imgSrc: require('./image/expert7.jpg'), name: '汪向东', job: '中国社科院信息化研究中心主任',
-          signs: [
-            { sign: '互联网经济' },
-            { sign: '网络经济' },
-          ]        },
-        {          imgSrc: require('./image/expert3.jpg'), name: '张慧', job: '智慧企业研究专家',
-          signs: [
-            { sign: '智慧企业' },
-          ]        },
-        {          imgSrc: require('./image/expert4.jpg'), name: '孙泽红', job: '信息化与大数据研究专家',
-          signs: [
-            { sign: '互联网+政务' },
-            { sign: '政务大数据' },
-            { sign: '信息化' },
-          ]        },
-        {          imgSrc: require('./image/expert5.jpg'), name: '姜奇平', job: '中国社会科学院信息化研究中心秘书长',
-          signs: [
-            { sign: '网络经济' },
-            { sign: '经济学会' },
-            { sign: '信息化' },
-          ]        },
-        {          imgSrc: require('./image/expert6.jpg'), name: '胡小明', job: '中国信息协会原副会长',
-          signs: [
-            { sign: '电子政务' },
-            { sign: '信息资源' },
-            { sign: '信息化' },
-          ]        },
-        {          imgSrc: require('./image/expert7.jpg'), name: '吕本富', job: '国科学院大学经管学院教授',
-          signs: [
-            { sign: '数据服务' },
-            { sign: '组织建设' },
-            { sign: '网络经济' },
-          ]        },
-        {          imgSrc: require('./image/expert7.jpg'), name: '王路燕', job: '国脉集团总助、国脉海洋常务副总',
-          signs: [
-            { sign: '互联网+' },
-            { sign: '大数据' },
-            { sign: '数据基因' },
-          ], show1: 'show', show2: 'show'        },
-        {          imgSrc: require('./image/expert1.jpg'), name: '朱森第', job: '中国机械工业联合会副会长',
-          signs: [
-            { sign: '人工智能' },
-            { sign: '互联网' },
-            { sign: '智能制造' },
-          ], show1: 'show', show2: 'show'        },
-        {          imgSrc: require('./image/expert2.png'), name: '卢绍鸿', job: '项目经理',
-          signs: [
-            { sign: '数据分析' },
-            { sign: '信息资源目录编制' },
-            { sign: '法人库' },
-          ], show1: 'show', show2: 'show'        },
-      ],
+      personList: [],
+      total: 0,
+      params: {
+        current: 1,
+        size: 12,
+      },
+      paramData: {
+        isExpert: 1,
+        name: '',
+      },
     }
   },
   components: {
     Search,
   },
+  methods: {
+    searchPage (params) {
+      this.paramData.name = params.name
+      this.loadPage()
+    },
+    loadPage () {
+      let obj = Object.assign({}, this.params, this.paramData)
+      getRecruitDetailPage(obj).then(({data}) => {
+        this.personList = data.data.records
+        this.total = data.data.total
+      })
+    },
+    currentChange (val) {
+      this.params.current = val
+      this.loadPage()
+    },
+  },
+  created () {
+    this.loadPage()
+  },
 }
 </script>
 
 <style scoped lang="scss">
-.expert {
+.person {
   display: grid;
   grid-auto-flow: row dense;
   grid-row-gap: 25px;
@@ -148,7 +75,7 @@ export default {
       100px,
       3fr
     );
-  .expert-item {
+  .person-item {
     display: flex;
     .img {
       margin-right: 15px;
@@ -205,6 +132,7 @@ export default {
       .name,
       .job,
       .sign {
+        min-height: 30px;
         display: block;
         width: 200px;
         overflow: hidden;
@@ -254,3 +182,4 @@ export default {
   text-align: center;
 }
 </style>
+

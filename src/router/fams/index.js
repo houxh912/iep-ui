@@ -30,6 +30,11 @@ export default [
         name: '发票详情',
         component: () => import('@/views/fams/wealth/Invoice/Page/Detail.vue'),
       },
+      {
+        path: 'billing_detail/:id',
+        name: '开票详情',
+        component: () => import('@/views/fams/wealth/BillingNotice/Page/Detail.vue'),
+      },
     ],
   },
 ]

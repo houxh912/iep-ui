@@ -18,6 +18,14 @@ export function getInvoicePage (query) {
     params: query,
   })
 }
+// 个人审批发票
+export function getMyInvoiceApprovalPage (query) {
+  return request({
+    url: `${prefixUrl}/primary_page`,
+    method: 'get',
+    params: query,
+  })
+}
 
 export function getInvoiceById (id) {
   return request({
@@ -83,6 +91,22 @@ export function rejectInvoice (obj) {
 export function passInvoice (obj) {
   return request({
     url: `${prefixUrl}/financial_agree`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function myRejectInvoice (obj) {
+  return request({
+    url: `${prefixUrl}/primary_refuse`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function myPassInvoice (obj) {
+  return request({
+    url: `${prefixUrl}/primary_agree`,
     method: 'post',
     data: obj,
   })

@@ -1,10 +1,8 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="发票审批" :replaceText="replaceText" :data="[10 ,5,10,25,15,31421.00,4733.00,355]"></page-header>
+      <page-header title="发票审批"></page-header>
       <operation-container>
-        <template slot="left">
-        </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
           </operation-search>
@@ -14,8 +12,8 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===0" @click.stop="handlePass(scope.row)">通过</iep-button>
-              <iep-button v-if="scope.row.status===0" @click.stop="handleReject(scope.row)">驳回</iep-button>
+              <iep-button v-if="scope.row.status===1" @click.stop="handlePass(scope.row)">通过</iep-button>
+              <iep-button v-if="scope.row.status===1" @click.stop="handleReject(scope.row)">驳回</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -27,9 +25,9 @@
 </template>
 
 <script>
-import { getInvoicePage } from '@/api/fams/invoice'
+import { getMyInvoiceApprovalPage } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
-import { columnsMap, dictsMap } from '../options'
+import { columnsMap, dictsMap } from '@/views/fams/FinancialManagement/InvoiceReimbursement/options.js'
 import passDialogForm from './passDialogForm'
 import rejectDialogForm from './rejectDialogForm'
 export default {
@@ -39,7 +37,6 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      replaceText: (data) => `（待审核：${data[0]}笔，已通过：${data[1]}笔，未通过：${data[2]}笔，废弃：${data[3]}笔，总计：${data[4]}，有效发票：￥${data[5]}元，已用发票：￥${data[6]}元，剩余发票：￥${data[7]}元）`,
     }
   },
   created () {
@@ -62,7 +59,7 @@ export default {
       })
     },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getInvoicePage)
+      this.loadTable(param, getMyInvoiceApprovalPage)
     },
   },
 }

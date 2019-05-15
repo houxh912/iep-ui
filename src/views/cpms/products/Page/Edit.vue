@@ -30,7 +30,7 @@
               <el-radio label="0">否</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="产品估值：" prop="valuation" class="form-half">
+          <el-form-item label="产品估值(元)：" prop="valuation" class="form-half">
             <iep-input-number v-model="form.valuation"></iep-input-number>
           </el-form-item>
           <el-form-item label="估值说明：" prop="instructions">

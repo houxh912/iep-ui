@@ -67,12 +67,21 @@
         <iep-form-item label-name="备注">
           <iep-div-detail :value="form.remarks"></iep-div-detail>
         </iep-form-item>
+        <template v-if="form.status">
+          <h4 class="sub-title">审批内容</h4>
+          <iep-form-item label-name="状态">
+            <iep-div-detail :value="dictsMap.status[form.status]"></iep-div-detail>
+          </iep-form-item>
+          <iep-form-item label-name="理由">
+            <iep-div-detail :value="form.content"></iep-div-detail>
+          </iep-form-item>
+        </template>
       </el-form>
     </basic-container>
   </div>
 </template>
 <script>
-import { initForm } from '../options'
+import { initForm, dictsMap } from '../options'
 import { mapGetters } from 'vuex'
 import { getBillingById } from '@/api/fams/billing'
 import { getCompanyById } from '@/api/fams/company'
@@ -94,6 +103,7 @@ export default {
   },
   data () {
     return {
+      dictsMap,
       form: initForm(),
       companyForm: initCompanyForm(),
       backOption: {

@@ -59,6 +59,9 @@ const initForm = () => {
 		projectId: '',//关联项目
 		companyId: '', //销售方公司ID
 		remarks: '',//备注
+
+		status: '',//状态
+		content: '',//理由
 	}
 }
 

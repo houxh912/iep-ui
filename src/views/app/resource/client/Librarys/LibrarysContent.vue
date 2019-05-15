@@ -43,7 +43,7 @@ export default {
       num:[3,3,2,1,5,2],
       tags:['重新创业','浙江创业女杰','浙商'],
       librarys: [],
-      links: {link:'联系人',Journal:'拜访日志',programme:'方案',contract:'合同',information:'资讯',project:'合作项目'},
+      links: {link:'联系人',Journal:'联系记录',programme:'方案',contract:'合同',information:'资讯',project:'合作项目'},
       loading: false,
     }
   },

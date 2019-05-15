@@ -1,10 +1,10 @@
 <template>
   <div class="empolyee">
-    <el-carousel height="200px" :interval="5000" indicator-position="none">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
-          <div class="img"><img :src="item.img" class="img"></div>
-          <span class="name">{{item.name}}</span>
+    <el-carousel height="200px" :interval="5000" indicator-position="outside">
+      <el-carousel-item v-for="(item, index) in Math.ceil(wonderfulList.length/4)" :key="index">
+        <div class="piece" v-for="(t, i) in wonderfulList.slice(index*4, index*4+4)" :key="i">
+          <div class="img"><img :src="t.logo" class="img"></div>
+          <span class="name">{{t.org_name}}</span>
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -12,19 +12,27 @@
 </template>
 
 <script>
+import { getRectagsOrgList } from '@/api/app/upms/'
+
 export default {
   data () {
     return {
-      wonderfulList: [
-        { name: '国脉海洋信息发展有限公司', img: '../../img/department/d1.jpg' },
-        { name: '国脉湖南子公司', img: '../../img/department/d2.jpg' },
-        { name: '集团平台运营中心', img: '../../img/department/d3.jpg' },
-        { name: '集团研发中心', img: '../../img/department/d4.jpg' },
-      ],
+      wonderfulList: [],
     }
+  },
+  methods: {
+    loadList () {
+      getRectagsOrgList().then(({data}) => {
+        this.wonderfulList = data.data
+      })
+    },
+  },
+  created () {
+    this.loadList()
   },
 }
 </script>
+
 <style lang="scss" scoped>
 .empolyee {
   padding-top: 15px;

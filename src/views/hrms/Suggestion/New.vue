@@ -37,7 +37,6 @@
 <script>
 import { getSuggestionById, postSuggestion, putSuggestion } from '@/api/hrms/suggestion'
 import { initForm, formToDto, rules } from './options'
-import _ from 'lodash'
 export default {
   data () {
     return {

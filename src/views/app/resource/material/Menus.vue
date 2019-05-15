@@ -2,7 +2,7 @@
   <div class="menus">
     <a-menu @click="handleClick" :defaultSelectedKeys="['1']" :openKeys="openKeys" @openChange="onOpenChange" mode="inline">
       <a-sub-menu v-for="item in data" :key="item.id" @titleClick="titleClick">
-        <span slot="title"><span>{{item.levelName}}{{item.materialCount}}</span></span>
+        <span slot="title"><span>{{item.levelName}} （{{item.materialCount}}）</span></span>
         <a-menu-item v-for="t in item.childrens" :key="t.id">{{t.levelName}}</a-menu-item>
       </a-sub-menu>
     </a-menu>

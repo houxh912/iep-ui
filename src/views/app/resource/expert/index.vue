@@ -32,7 +32,7 @@ export default {
         label: '专家',
         value: 'Expert',
       }],
-      activeTab: 'Expert',
+      activeTab: 'Person',
     }
   },
 }

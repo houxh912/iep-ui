@@ -37,6 +37,12 @@ export default [
         meta: noKeepAlive,
       },
       {
+        path: 'aptitude/detail/:id',
+        name: '查看荣誉资质',
+        component: () => import('@/views/mlms/material/datum/aptitude/detail.vue'),
+        meta: noKeepAlive,
+      },
+      {
         path: 'contract/detail/:id',
         name: '查看合同',
         component: () => import('@/views/mlms/material/datum/contract/detail.vue'),

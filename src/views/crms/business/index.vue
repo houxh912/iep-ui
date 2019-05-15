@@ -135,10 +135,8 @@ export default {
       }
       getBusinessById(row.opportunityId).then((res) => {
         this.$refs['DetailDrawer'].formData = res.data.data.data
-
         this.$refs['DetailDrawer'].formData.tags = res.data.data.data.tags.map(m => m.commonName)
-        // console.log(res.data.data)
-        let obj = { viewCount: res.data.data.data.viewCount, opportunityId: res.data.data.data.opportunityId }
+        let obj = { viewCount: res.data.data.data.viewCount, opportunityId: res.data.data.data.opportunityId, creatorId: res.data.data.data.creatorId }
         //商机浏览量接口
         businessView(obj)
       })

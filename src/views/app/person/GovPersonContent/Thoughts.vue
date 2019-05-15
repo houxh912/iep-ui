@@ -14,7 +14,7 @@
         </div>
       </div>
     </IepAppTabCard>
-    <IepAppTabCard :title="title" :linkName="linkName" class="mutual-card">
+    <IepAppTabCard :title="titleStar" :linkName="linkName" class="mutual-card">
       <el-button class="important" type="text" slot="right">申请互助基金</el-button>
       <div class="star-list">
         <div v-for="(item,index) in starList" :key="index" class="piece">

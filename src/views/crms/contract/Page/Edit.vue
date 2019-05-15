@@ -52,7 +52,7 @@
       <el-row>
         <el-col :span='12'>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <iep-select prefix-url="crm/customer/my" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)" placeholder="请选择该项目实际服务对象"></iep-select>
+            <iep-select prefix-url="crm/customer/myorcolllabel" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)" placeholder="请选择该项目实际服务对象"></iep-select>
           </el-form-item>
         </el-col>
         <el-col :span='12'>

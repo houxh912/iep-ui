@@ -1,7 +1,7 @@
 <template>
 <div class="whole">
   <div class="whole-box" v-for="(item,index) in list" :key="index">
-    <div class="whole-item">
+    <div class="whole-item" @click="pushRoute(item)">
       <img :src="item.image" alt="">
     </div>
     <p>{{item.honorQualName}}</p>
@@ -22,6 +22,12 @@ export default {
 
     }
   },
+  methods: {
+    pushRoute (row) {
+      console.log('row: ', row)
+      this.$router.push(`/mlms_spa/aptitude/detail/${row.id}`)
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -37,6 +43,7 @@ export default {
   .whole-box{
     width:23%;
     margin: 20px 15px;
+    cursor: pointer;
     .whole-item{
      border: 1px solid #ccc;
       img{

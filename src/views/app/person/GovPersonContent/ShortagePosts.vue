@@ -17,7 +17,7 @@
         </el-table-column>
         <el-table-column prop="treatment" label="薪资待遇">
         </el-table-column>
-        <el-table-column prop="deptName" label="需求部门">
+        <el-table-column prop="deptName" label="需求组织">
         </el-table-column>
       </el-table>
     </IepAppTabCard>
@@ -33,43 +33,7 @@ export default {
       title: '紧缺岗位',
       data: '（53个）',
       linkName: '',
-      tableData: [
-        {
-          name: 'java工程师',
-          num: '3',
-          education: '大专',
-          salary: '面议',
-          demandDepartment: '国脉集体研发中心',
-        },
-        {
-          name: '产品经理',
-          num: '5',
-          education: '大专',
-          salary: '面议',
-          demandDepartment: '国脉集体研发中心',
-        },
-        {
-          name: '算法工程师',
-          num: '2',
-          education: '大专',
-          salary: '面议',
-          demandDepartment: '国脉集体研发中心',
-        },
-        {
-          name: '高级咨询师',
-          num: '2',
-          education: '大专',
-          salary: '面议',
-          demandDepartment: '国脉集体研发中心',
-        },
-        {
-          name: '前段开发工程师',
-          num: '4',
-          education: '大专',
-          salary: '面议',
-          demandDepartment: '国脉集体研发中心',
-        },
-      ],
+      tableData: [],
     }
   },
   computed: {

@@ -1,16 +1,18 @@
 <template>
   <div class="expert-search">
     <div class="search-con">
-      <operation-search>
-        <advance-search></advance-search>
-      </operation-search>
+      <operation-search @search-page="searchPage"></operation-search>
       <el-button type="danger" plain>高级搜索</el-button>
     </div>
   </div>
 </template>
 <script>
 export default {
-
+  methods: {
+    searchPage (val) {
+      this.$emit('load-page', val)
+    },
+  },
 }
 </script>
 <style scoped  lang="scss">

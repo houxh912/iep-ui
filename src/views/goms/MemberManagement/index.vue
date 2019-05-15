@@ -28,7 +28,7 @@
             </iep-div-detail>
           </template>
         </el-table-column>
-        <el-table-column prop="operation" label="操作" width="220">
+        <el-table-column prop="operation" label="操作" width="300">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button v-if="!([1].includes(scope.row.status))" type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
@@ -36,6 +36,7 @@
               <iep-button :disabled="isMine(scope.row)" v-else-if="scope.row.status===2" @click="handleLocking(scope.row)">解锁</iep-button>
               <iep-button :disabled="isMine(scope.row)" v-if="([1].includes(scope.row.status))" @click="handlePassById(scope.row)">通过</iep-button>
               <iep-button :disabled="isMine(scope.row)" v-if="([1].includes(scope.row.status))" @click="handleRejectById(scope.row)">不通过</iep-button>
+              <iep-button :disabled="isMine(scope.row)" @click="handleResetPass(scope.row)" plain>重置密码</iep-button>
               <iep-button :disabled="isMine(scope.row)" v-if="!([1].includes(scope.row.status))" icon="el-icon-delete" @click="handleDeleteById(scope.row)"></iep-button>
             </operation-wrapper>
           </template>
@@ -55,6 +56,7 @@ import AddUserDialogForm from './AddUserDialogForm'
 import { dictsMap, columnsMap, initSearchForm, initMemberForm } from './options'
 import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, updateGomsUser, gomsPass, gomsReject } from '@/api/admin/org'
 import { passJoins } from '@/api/goms/org'
+import { resetPassByUserId } from '@/api/admin/user'
 export default {
   components: {
     DialogForm, AddUserDialogForm,
@@ -86,6 +88,9 @@ export default {
     },
     isMine (row) {
       return row.userId === this.userInfo.userId
+    },
+    handleResetPass (row) {
+      this._handleComfirm(row.userId, resetPassByUserId, '重置密码为123456')
     },
     handleReviewBatch () {
       // TODO: 是否多选提醒

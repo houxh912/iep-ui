@@ -16,6 +16,9 @@
             </template>
           </el-table-column>
         </template>
+        <el-table-column label="操作">
+          <iep-button @click="handleResetPass(scope.row)" plain>重置密码</iep-button>
+        </el-table-column>
       </iep-table>
     </basic-container>
     <detail-drawer ref="DetailDrawer"></detail-drawer>
@@ -23,6 +26,7 @@
 </template>
 <script>
 import { getUserPage } from '@/api/goms/union'
+import { resetPassByUserId } from '@/api/admin/user'
 import mixins from '@/mixins/mixins'
 import { dictsMap } from '@/views/hrms/EmployeeProfile/options'
 import DetailDrawer from '@/views/hrms/EmployeeProfile/Page/DetailDrawer.vue'
@@ -52,6 +56,9 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleResetPass (row) {
+      this._handleComfirm(row.userId, resetPassByUserId, '重置密码为123456')
+    },
     handleDetail (row) {
       this.$refs['DetailDrawer'].id = row.userId
       this.$refs['DetailDrawer'].loadPage()

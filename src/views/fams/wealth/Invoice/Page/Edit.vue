@@ -18,7 +18,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column prop="amount" label="发票金额">
+        <el-table-column prop="amount" label="发票金额(元)">
           <template slot-scope="scope">
             <iep-input-number size="small" v-model="scope.row.amount"></iep-input-number>
           </template>

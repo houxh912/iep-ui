@@ -32,3 +32,14 @@ export function putAnnouncement (obj) {
     data: obj,
   })
 }
+
+export function readAnnouncementBatch (ids) {
+  return request({
+    url: `${prefixUrl}/read_or_set/batch`,
+    method: 'post',
+    data: ids,
+    params: {
+      type: 8,
+    },
+  })
+}

@@ -7,18 +7,15 @@
         <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
           <el-table-column prop="expenditureType" label="支出类型">
             <template slot-scope="scope">
-              <iep-dict-cascader disabled size="small" dictName="fams_expenditure_type" :value="scope.row.type"></iep-dict-cascader>
+              <iep-dict-cascader-detail dictName="fams_expenditure_type" :value="scope.row.type"></iep-dict-cascader-detail>
             </template>
           </el-table-column>
           <el-table-column label="发票类型">
             <template slot-scope="scope">
-              <el-select disabled size="small" :value="scope.row.invoiceType" placeholder="请选择" clearable>
-                <el-option v-for="(v,k) in dictsMap.invoiceType" :key="k" :label="v" :value="+k">
-                </el-option>
-              </el-select>
+              <iep-div-detail :value="dictsMap.invoiceType[scope.row.invoiceType]"></iep-div-detail>
             </template>
           </el-table-column>
-          <el-table-column prop="amount" label="发票金额">
+          <el-table-column prop="amount" label="发票金额(元)">
             <template slot-scope="scope">
               <span>{{scope.row.amount}}</span>
             </template>
@@ -26,13 +23,10 @@
         </el-table>
         <a-divider />
         <iep-form-item class="form-half" label-name="发票类型">
-          <el-select disabled size="small" v-model="form.referType" placeholder="请选择" clearable>
-            <el-option v-for="(v,k) in dictsMap.referType" :key="k" :label="v" :value="+k">
-            </el-option>
-          </el-select>
+          <iep-div-detail :value="dictsMap.referType[form.referType]"></iep-div-detail>
         </iep-form-item>
         <iep-form-item class="form-half" label-name="发票抬头">
-          <iep-select disabled v-model="form.companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择发票抬头"></iep-select>
+          <iep-select-detail :value="form.companyId" prefix-url="fams/company"></iep-select-detail>
         </iep-form-item>
         <iep-form-item class="form-half" label-name="项目">
           <el-input v-model="form.projectId"></el-input>

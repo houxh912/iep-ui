@@ -17,7 +17,7 @@
       </el-card>
     </div>
     <div class="page">
-      <el-pagination background layout="prev, pager, next" :total="total" :page-size="params.size" @current-change="currentChange">
+      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange">
       </el-pagination>
     </div>
   </div>

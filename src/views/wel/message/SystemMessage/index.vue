@@ -1,9 +1,9 @@
 <template>
   <el-row class="aside-main" :gutter="8">
-    <el-col :span="4">
+    <el-col class="sub-menu-left" :span="4">
       <el-card shadow="never" :body-style="bodyStyle">
         <div slot="header" class="clearfix">
-          <span>消息分类</span>
+          <span class="title">消息分类</span>
         </div>
         <el-menu :default-active="selectType" class="menu-vertical">
           <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in imsMsgType" @click.native="handleSelectType(item.value+'')">
@@ -24,8 +24,8 @@
           </el-button-group>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
-            <advance-search @search-page="searchPage"></advance-search>
+          <operation-search @search-page="searchPage">
+            <!-- <advance-search @search-page="searchPage"></advance-search> -->
           </operation-search>
         </template>
       </operation-container>
@@ -46,10 +46,10 @@ import { mapGetters } from 'vuex'
 import { getSystemMessagePage, getTypeCountMap, readSystemMessageBatch } from '@/api/ims/system_message'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
-import AdvanceSearch from './AdvanceSearch'
+// import AdvanceSearch from './AdvanceSearch'
 export default {
   mixins: [mixins],
-  components: { AdvanceSearch },
+  // components: { AdvanceSearch },
   data () {
     return {
       dictsMap,
@@ -75,6 +75,11 @@ export default {
       this.multipleSelection = val.map(m => m.id)
     },
     handleViewBatch () {
+      // TODO: 是否多选提醒
+      if (!this.multipleSelection.length) {
+        this.$message('请先选择需要的选项')
+        return
+      }
       this._handleComfirm(this.multipleSelection, readSystemMessageBatch, '批量已读', '', '操作成功')
     },
     handleSelectType (k) {
@@ -101,7 +106,12 @@ export default {
 <style lang="scss" scoped>
 .aside-main {
   display: flex;
+  margin: 0 !important;
   padding: 20px;
+  width: 100%;
+  .title {
+    font-size: 16px;
+  }
   .menu-vertical {
     border: none;
   }
@@ -117,7 +127,26 @@ export default {
     width: 100%;
   }
 }
+.sub-menu-left {
+  margin: -20px 15px -20px -20px;
+  padding-top: 20px;
+  border-right: 1px solid #ebeef5;
+  .el-card {
+    border: 0;
+  }
+}
 </style>
+<style scoped>
+.sub-menu-left >>> .el-card__header {
+  padding: 8px 20px;
+  border: 0;
+}
+.sub-menu-left >>> .el-menu-item {
+  height: 40px;
+  line-height: 40px;
+}
+</style>
+
 
 
 

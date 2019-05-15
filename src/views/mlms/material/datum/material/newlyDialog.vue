@@ -15,8 +15,8 @@
              正文
               <iep-tip :content="tipContent2.content"></iep-tip>：
             </span>
-        <!-- <iep-editor v-model="formData.content"></iep-editor> -->
-        <el-input type="textarea" v-model="formData.content" rows=5 maxlength="3000"></el-input>
+        <!-- <el-input type="textarea" v-model="formData.content" rows=5 maxlength="3000"></el-input> -->
+        <iep-froala-editor v-model="formData.content"></iep-froala-editor>
       </el-form-item>
       <el-row>
         <el-col :span=12>

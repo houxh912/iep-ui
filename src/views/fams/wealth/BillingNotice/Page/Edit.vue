@@ -110,7 +110,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getTalentPoolById } from '@/api/hrms/talent_pool'
+// import { getTalentPoolById } from '@/api/hrms/talent_pool'
 
 export default {
   props: {
@@ -136,11 +136,11 @@ export default {
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn
     this.id = this.record.id
-    if (this.id) {
-      getTalentPoolById(this.id).then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
-      })
-    }
+    // if (this.id) {
+    //   getTalentPoolById(this.id).then(({ data }) => {
+    //     this.form = this.$mergeByFirst(initForm(), data.data)
+    //   })
+    // }
   },
   methods: {
     handleAvatarSuccess (res, file) {

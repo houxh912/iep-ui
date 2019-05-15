@@ -220,6 +220,29 @@ export default {
 .table >>> .cell-child {
   background-color: #fafafa;
 }
+.table >>> .el-checkbox__inner {
+  width: 17px;
+  height: 17px;
+}
+.table >>> .el-checkbox__inner:hover {
+  border-color: #999;
+}
+.table >>> .el-checkbox__inner::after {
+  height: 10px;
+  left: 6px;
+  border-color: #999;
+}
+.table >>> .el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
+  top: 7px;
+  background-color: #999;
+}
+.table >>> .el-checkbox__input.is-checked .el-checkbox__inner,
+.table >>> .el-checkbox__input.is-indeterminate .el-checkbox__inner,
+.table >>> .el-checkbox__input.is-focus .el-checkbox__inner {
+  border-color: #999;
+  background-color: #fff;
+}
+
 span.ms-tree-space {
   display: block;
 }

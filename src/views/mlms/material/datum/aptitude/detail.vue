@@ -12,22 +12,18 @@
           <i class="icon-download icon"></i>
           <div class="down"> 88</div> -->
         </div>
-        <div class="operat">
-          <!-- <div class="button"><i class="icon-shoucang"></i> 收藏</div>
-          <div class="button"><i class="icon-youxiangshixin"></i> 分享</div> -->
-        </div>
       </el-row>
       <el-row class="sub-title">
         <pre>{{formData.intro}}</pre>
       </el-row>
-      <el-row class="content">
-        <pre>{{formData.content}}</pre>
-      </el-row>
-      <el-row class="down-load">
+      <!-- <el-row class="down-load">
         相关附件：
         <div class="file" v-for="(item, index) in formData.attachFileList" :key="index">
           <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗5国脉贝下载）</span></div>
         </div>
+      </el-row> -->
+      <el-row class="image">
+        <img v-if="formData.image" :src="formData.image" class="avatar">
       </el-row>
       <el-row class="footer">
         <div class="footer-left">
@@ -35,49 +31,7 @@
           <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
         </div>
         <div class="footer-right" v-if="isDelete">
-          <!-- <div class="wrong" @click="handleWrong">
-            <i class="icon-chakantiezigengduojubao"></i> 纠错
-          </div> -->
           <iep-button type="primary" @click="handleCollect">{{formData.collection == 1 ? '已收藏' : '收藏'}}</iep-button>
-          <!-- <iep-button type="primary" @click="handleShare">分享</iep-button> -->
-          <!-- <iep-button type="primary" @click="handleWrong">纠错</iep-button> -->
-          <!-- <iep-button type="primary" @click="handleComment">评论</iep-button> -->
-          <!-- <iep-button type="primary" @click="handleReward">打赏</iep-button> -->
-        </div>
-      </el-row>
-      <el-row class="comment">
-        <div class="form" v-if="isCommentShow">
-          <h2 class="title">评价评论 <div class="rate">
-              <el-rate v-model="comment.score"></el-rate>
-            </div>
-          </h2>
-          <el-input type="textarea" rows=5 v-model="comment.commentContent" maxlength="500"></el-input>
-          <div class="button">
-            <iep-button type="primary" @click="submit">发送</iep-button>
-          </div>
-        </div>
-        <div class="list" v-for="(item, index) in commentList" :key="index">
-          <div class="img">
-            <img :src="item.avatar" alt="">
-          </div>
-          <div class="comment-info">
-            <div class="name">{{item.realName}} <div class="rate">
-                <el-rate v-model="item.score" disabled></el-rate>
-              </div>
-            </div>
-            <p>{{item.commentContent}}</p>
-            <div class="footer">
-              <div class="time">{{item.createTime}}</div>
-            </div>
-          </div>
-        </div>
-        <div class="pagination" v-if="commentList.length > 0">
-          <el-pagination
-            background
-            @current-change="handleCurrentChange"
-            layout="total, prev, pager, next, jumper"
-            :total="pageSize.total">
-          </el-pagination>
         </div>
       </el-row>
     </el-col>
@@ -241,27 +195,10 @@ export default {
       this.formData.name = this.formData.materialName
       this.$refs['share'].open([this.formData], `关于 ${this.formData.name} 材料的分享`)
     },
-    // 纠错
-    handleWrong () {
-      this.$refs['wrong'].open(this.formData)
-    },
-    // 评论
-    handleComment () {
-      this.isCommentShow = !this.isCommentShow
-    },
-    // 打赏
-    handleReward () {
-      this.$message.info('抱歉，此功能正在开发中')
-    },
     // 收藏和分享的返回函数
     loadPage () {
       this.formData.collection = 1 // 收藏成功后，将是否收藏改为已收藏
       this.$emit('load-page', true)
-    },
-    // 评论翻页
-    handleCurrentChange (val) {
-      this.pageSize.current = val
-      this.getComment(this.formData.id)
     },
   },
   created () {
@@ -336,6 +273,9 @@ export default {
       }
     }
   }
+  .image {
+    margin: 20px 0;
+  }
   .footer {
     display: flex;
     justify-content: space-between;
@@ -357,89 +297,6 @@ export default {
           font-size: 16px !important;
         }
       }
-    }
-  }
-  .comment {
-    .form {
-      .button {
-        text-align: right;
-        margin-top: 15px;
-      }
-    }
-    .list {
-      display: flex;
-      border-bottom: 1px solid #ddd;
-      margin-bottom: 10px;
-      padding: 10px 0;
-      .img {
-        width: 50px;
-        img {
-          width: 40px;
-          height: 40px;
-        }
-      }
-      .comment-info {
-        width: 100%;
-        .name {
-          color: #5473b6;
-          margin-bottom: 10px;
-        }
-        p {
-          margin: 0 0 10px 0;
-          word-break: break-all;
-        }
-        .footer {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 25px;
-          .time {
-            color: #999;
-          }
-        }
-        .button {
-          height: 20px;
-          line-height: 20px;
-          cursor: pointer;
-          i {
-            font-size: 16px !important;
-            margin-right: 5px;
-            color: #999;
-          }
-        }
-        .button-chosen {
-          color: #f00;
-        }
-      }
-      .reply {
-        padding: 15px;
-        background-color: #f3f3f3;
-        .title {
-          height: 50px;
-          line-height: 30px;
-          display: flex;
-          .img {
-            width: 40px;
-            img {
-              width: 30px;
-              height: 30px;
-            }
-          }
-          span {
-            margin: 0 5px;
-            color: #5473b6;
-          }
-        }
-        .info {
-          margin-bottom: 10px;
-        }
-      }
-    }
-    .pagination {
-      text-align: right;
-    }
-    .footer-button {
-      margin-top: 20px;
-      text-align: right;
     }
   }
 }

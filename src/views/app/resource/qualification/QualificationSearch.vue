@@ -1,23 +1,43 @@
 <template>
   <div>
     <div class="qualification-search">
-      <h3><span>资质库</span>（共3243个）</h3>
+      <h3><span>资质库</span>（共 {{total}} 个）</h3>
       <template>
         <div class="search-con">
-          <operation-search>
-            <advance-search></advance-search>
-          </operation-search>
-          <el-button type="danger" plain>高级搜索</el-button>
+          <operation-search @search-page="searchPage" prop="honorQualName"></operation-search>
+          <!-- <el-button type="danger" plain>高级搜索</el-button> -->
         </div>
       </template>
     </div>
   </div>
 </template>
+
 <script>
+import { getHonorCount } from '@/api/app/mlms/honor'
+
 export default {
-    
+  data () {
+    return {
+      total: 0,
+    }
+  },
+  methods: {
+    searchPage (val) {
+      this.$emit('load-page', val)
+    },
+    // 获取总数
+    getHonorCount () {
+      getHonorCount().then(({data}) => {
+        this.total = data.data
+      })
+    },
+  },
+  created () {
+    this.getHonorCount()
+  },
 }
 </script>
+
 <style lang="scss" scoped>
 .qualification-search {
   margin: 0 auto;

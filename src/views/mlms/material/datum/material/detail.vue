@@ -13,17 +13,12 @@
             <i class="icon-download icon"></i>
             <div class="down"> 88</div> -->
           </div>
-          <div class="operat">
-            <!-- <div class="button"><i class="icon-shoucang"></i> 收藏</div>
-            <div class="button"><i class="icon-youxiangshixin"></i> 分享</div> -->
-          </div>
         </el-row>
         <el-row class="sub-title">
           <pre>{{formData.intro}}</pre>
         </el-row>
         <el-row class="content">
-          <!-- <pre v-if="formData.secrecyLevel == 0">{{formData.content}}</pre> -->
-          <pre>{{formData.content}}</pre>
+          <iep-html v-model="formData.content"></iep-html>
         </el-row>
         <el-row class="down-load">
           相关附件：
@@ -33,13 +28,9 @@
         </el-row>
         <el-row class="footer">
           <div class="footer-left">
-            <!-- <el-tag v-for="(item, index) in formData.tagKeyWords" :key="index" type="info">{{item}}</el-tag> -->
             <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
           </div>
           <div class="footer-right" v-if="isDelete">
-            <!-- <div class="wrong" @click="handleWrong">
-              <i class="icon-chakantiezigengduojubao"></i> 纠错
-            </div> -->
             <iep-button type="primary" @click="handleCollect">{{formData.collection == 1 ? '已收藏' : '收藏'}}</iep-button>
             <iep-button type="primary" @click="handleShare">分享</iep-button>
             <iep-button type="primary" @click="handleWrong">纠错</iep-button>
@@ -143,7 +134,7 @@ export default {
   data () {
     return {
       formData: {
-
+        content: '',
       },
       backOption: {
         isBack: true,

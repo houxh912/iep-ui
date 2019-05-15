@@ -28,6 +28,7 @@ export const initFormData = () => {
     tagKeyWords: [],
     attachFileList: [],
     attachFile: '',
+    image: '',
   }
 }
 
@@ -63,7 +64,11 @@ export const rules = {
   tagKeyWords: [
     { required: true, message: '必填', trigger: 'change' },
   ],
+  image: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
 }
+
 export const tipContent = {
     honorQualName:'1、日期+单位简称/产品+荣誉资质名称+类型：20190101数据基因发明专利审查合格通知书；<br/>' +
     '备注：名称中切记出现特殊符号',
@@ -76,5 +81,6 @@ export const tipContent = {
       '3、常规材料不高于10（普遍性公共性，比如方案、研究报告模板等），特殊领域应用不高于50贝。',
     tagKeyWords:'1、标签必须三个以上；<br/>' +
       '2、标签必须与荣誉资质材料内容密切相关；',
-    attachFileList:'支持jpg，png、.gif 、bmp等格式',
+    attachFileList:'支持jpg、png等格式',
+    image: '支持jpg、png等格式',
 }

@@ -14,7 +14,7 @@ export default {
       color: ['#A9CCF0', '#8D99B3', '#F0F0A9', '#FFD9BC', '#F1C8C8'],
       tooltip: {
         trigger: 'item',
-        formatter: '{b}：{d}%',
+        formatter: '{b}：{c}个 ({d}%)',
       },
       label: {
         show: true,
@@ -49,11 +49,9 @@ export default {
   methods: {
     load () {
       getMyBusiness().then((res) => {
-        console.log(res)
         if (res) {
           this.loading = false
         }
-        console.log(this.data)
         Object.keys(res.data.data).forEach((item) => {
           var index = _.findIndex(this.data, function (o) { return o.label == item })
           this.data[index].value = res.data.data[item]

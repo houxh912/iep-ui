@@ -1,6 +1,6 @@
 <template>
   <div>
-    <search></search>
+    <search @load-page="searchPage"></search>
     <div class="person">
       <div class="person-item" v-for="(item,index) in personList" :key="index">
         <div class="img"><img :src="item.imgSrc" alt=""></div>
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="page">
-      <el-pagination background layout="prev, pager, next" :total="1000">
+      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange">
       </el-pagination>
     </div>
   </div>
@@ -139,10 +139,30 @@ export default {
             { sign: '网站规划' },
           ], show1: 'show', show2: 'show'        },
       ],
+      total: 30,
+      params: {
+        current: 1,
+        size: 12,
+      },
+      paramData: {},
     }
   },
   components: {
     Search,
+  },
+  methods: {
+    searchPage (params) {
+      this.paramData = params
+      this.loadPage()
+    },
+    loadPage () {
+      let obj = Object.assign({}, this.params, this.paramData)
+      console.log('obj: ', obj)
+    },
+    currentChange (val) {
+      this.params.current = val
+      this.loadPage()
+    },
   },
 }
 </script>

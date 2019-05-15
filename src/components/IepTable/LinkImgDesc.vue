@@ -4,7 +4,7 @@
       <iep-img :src="img" alt=""></iep-img>
     </div>
     <div>
-      <iep-table-link>{{name}}</iep-table-link>
+      <iep-table-link disabled>{{name}}</iep-table-link>
       <div class="desc">{{desc}}</div>
     </div>
   </div>
@@ -32,5 +32,6 @@ img {
 }
 .desc {
   font-size: 12px;
+  color: #999;
 }
 </style>

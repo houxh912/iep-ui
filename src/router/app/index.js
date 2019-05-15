@@ -87,6 +87,51 @@ export default [
         meta: noAuth,
       },
       {
+        path: 'organization_details',
+        name: '关于组织',
+        component: () => import('@/views/app/organizationDetails/'),
+        meta: noAuth,
+        redirect: '/app/organization_details/introduction',
+        children:[
+          {
+            path: 'introduction',
+            name: '组织介绍',
+            component: () => import('@/views/app/organizationDetails/introduction/'),
+            meta: noAuth,
+          },
+          {
+            path: 'member',
+            name: '组织介绍',
+            component: () => import('@/views/app/organizationDetails/member/'),
+            meta: noAuth,
+          },
+          {
+            path: 'memorabilia',
+            name: '组织大事记',
+            component: () => import('@/views/app/organizationDetails/memorabilia/'),
+            meta: noAuth,
+          },
+          {
+            path: 'album',
+            name: '组织相册',
+            component: () => import('@/views/app/organizationDetails/album/'),
+            meta: noAuth,
+          },
+          {
+            path: 'honor',
+            name: '组织荣誉',
+            component: () => import('@/views/app/organizationDetails/honor/'),
+            meta: noAuth,
+          },
+          {
+            path: 'evaluation',
+            name: '组织评价',
+            component: () => import('@/views/app/organizationDetails/evaluation/'),
+            meta: noAuth,
+          },
+        ],
+      },
+      {
         path: 'personal_style',
         name: '个人风采',
         component: () => import('@/views/app/personalStyle/'),

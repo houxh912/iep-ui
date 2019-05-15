@@ -107,6 +107,7 @@ export default {
       .tags {
         position: relative;
         display: inline-block;
+        margin-bottom: 5px;
         padding: 0 10px;
         cursor: pointer;
         &:hover {

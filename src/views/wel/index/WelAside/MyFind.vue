@@ -64,7 +64,10 @@ export default {
     }
   }
   .icon {
-    padding: 10px 0;
+    padding: 10px 0 0;
+    i {
+      font-size: 24px !important;
+    }
     .icon-fangan {
       color: #5c79a5;
     }

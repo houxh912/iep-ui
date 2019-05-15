@@ -41,7 +41,7 @@ export default {
   props: {
     list: {
       type: Array,
-      default: () => {},
+      default: () => { },
     },
   },
   computed: {
@@ -111,14 +111,14 @@ export default {
         color: #999;
       }
       .active {
-        border: 1px solid #F56C6C;
-        color: #F56C6C;
+        border: 1px solid #f56c6c;
+        color: #f56c6c;
         background: #fef0f0;
         border-color: #fbc4c4;
       }
       .content {
         position: relative;
-        margin-left: 43px;
+        margin-left: 55px;
         top: -33px;
         min-height: 40px;
         // border: 1px solid #ddd;
@@ -132,7 +132,7 @@ export default {
       //   height: 0;
       //   border-right: 10px solid #bbb;
       //   border-bottom: 10px solid transparent;
-      //   border-top: 10px solid transparent; 
+      //   border-top: 10px solid transparent;
       // }
       // .content:after {
       //   content: '';
@@ -143,7 +143,7 @@ export default {
       //   height: 0;
       //   border-right: 9px solid #fff;
       //   border-bottom: 9px solid transparent;
-      //   border-top: 9px solid transparent; 
+      //   border-top: 9px solid transparent;
       // }
     }
     .up-load {

@@ -51,12 +51,22 @@
         </span>
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
-      <el-form-item label="附件：">
+      <el-form-item label="图片：" prop="image">
         <span slot="label">
-          附件
-          <iep-tip :content="tipContent.tagKeyWords"></iep-tip>：
+          图片
+          <iep-tip :content="tipContent.image"></iep-tip>：
         </span>
-        <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload>
+        <!-- <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload> -->
+        <el-upload
+          class="avatar-uploader"
+          action="/api/admin/file/upload/avatar"
+          :show-file-list="false"
+          :headers="headers"
+          :on-success="handleAvatarSuccess"
+          accept="image/*">
+          <img v-if="formData.image" :src="formData.image" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
       </el-form-item>
 
     </el-form>
@@ -68,6 +78,7 @@
 </template>
 <script>
 import { initFormData, rules, tipContent } from './option'
+import store from '@/store'
 
 export default {
   components: {},
@@ -97,6 +108,9 @@ export default {
         },
       },
       limit: 1,
+      headers: {
+        Authorization: 'Bearer ' + store.getters.access_token,
+      },
     }
   },
   methods: {
@@ -111,9 +125,9 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loadState = true
-          if (this.formData.attachFileList.length > 0) {
-            this.formData.attachFile = this.formData.attachFileList[0].url
-          }
+          // if (this.formData.attachFileList.length > 0) {
+          //   this.formData.attachFile = this.formData.attachFileList[0].url
+          // }
           this.formRequestFn(this.formData).then(() => {
             this.loadState = false
             this.$message({
@@ -127,6 +141,35 @@ export default {
         }
       })
     },
+    handleAvatarSuccess (row) {
+      this.formData.image = row.data.url
+    },
   },
 }
 </script>
+
+<style lang="scss">
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+</style>

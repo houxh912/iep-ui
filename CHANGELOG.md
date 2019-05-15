@@ -1,3 +1,40 @@
+# [1.4.0](http://115.233.227.46:8066/root/iep-ui/compare/v1.3.9...v1.4.0) (2019-05-15)
+
+
+### Bug Fixes
+
+* **lintOnSave:** setTrue ([6fa91d3](http://115.233.227.46:8066/root/iep-ui/commits/6fa91d3))
+* **开票:** 完成审批对接 ([5d6a3a2](http://115.233.227.46:8066/root/iep-ui/commits/5d6a3a2))
+* **样式:** 修复全局checkbox样式 ([a02c6cc](http://115.233.227.46:8066/root/iep-ui/commits/a02c6cc))
+* **财务:** 添加待开发 ([158ef90](http://115.233.227.46:8066/root/iep-ui/commits/158ef90))
+
+
+### Features
+
+* **公司账户:** 添加一些属性 ([ea216f7](http://115.233.227.46:8066/root/iep-ui/commits/ea216f7))
+* **发票审核:** 完成流程 ([6d6f374](http://115.233.227.46:8066/root/iep-ui/commits/6d6f374))
+* **合同委托单位:** 委托单位关联我的客户及写协作客户 ([c88e19e](http://115.233.227.46:8066/root/iep-ui/commits/c88e19e))
+* **商机浏览次数:** 浏览量优化 ([2f56239](http://115.233.227.46:8066/root/iep-ui/commits/2f56239))
+* **客户统计|全部客户:** 出单分析业务类对接 ([04342f5](http://115.233.227.46:8066/root/iep-ui/commits/04342f5))
+* **客户统计|客户分析:** 业务类型对接 ([ce2dfc1](http://115.233.227.46:8066/root/iep-ui/commits/ce2dfc1))
+* **客户详情方案:** 方案列表下载文件名优化 ([6e6adca](http://115.233.227.46:8066/root/iep-ui/commits/6e6adca))
+* **开票:** 审批与完成 ([beca4af](http://115.233.227.46:8066/root/iep-ui/commits/beca4af))
+* **开票:** 审批内容 ([0010130](http://115.233.227.46:8066/root/iep-ui/commits/0010130))
+* **招聘:** 实现是否紧急的功能 ([2f759a1](http://115.233.227.46:8066/root/iep-ui/commits/2f759a1))
+* **材料库:** 富文本 ([8a154e2](http://115.233.227.46:8066/root/iep-ui/commits/8a154e2))
+* **添加小型显示组件:** 字典与关联显示组件 ([5745e1c](http://115.233.227.46:8066/root/iep-ui/commits/5745e1c))
+* **荣誉资质:** 附件改成图片 ([b11b1a1](http://115.233.227.46:8066/root/iep-ui/commits/b11b1a1))
+* **转移客户:** 转移客户框样式调整 ([34a321e](http://115.233.227.46:8066/root/iep-ui/commits/34a321e))
+* **频道页:** 专家库 ([c425d87](http://115.233.227.46:8066/root/iep-ui/commits/c425d87))
+* **频道页:** 专家库 ([0a6f78e](http://115.233.227.46:8066/root/iep-ui/commits/0a6f78e))
+* **频道页:** 国脉人 ([6be2de1](http://115.233.227.46:8066/root/iep-ui/commits/6be2de1))
+* **频道页:** 国脉人今日寿星 ([ea019c2](http://115.233.227.46:8066/root/iep-ui/commits/ea019c2))
+* **频道页:** 国脉人组织风采 ([f738d8f](http://115.233.227.46:8066/root/iep-ui/commits/f738d8f))
+* **频道页:** 资质库 ([dcbe120](http://115.233.227.46:8066/root/iep-ui/commits/dcbe120))
+* **频道页:** 资质库详情 ([d935eaf](http://115.233.227.46:8066/root/iep-ui/commits/d935eaf))
+
+
+
 ## [1.3.9](http://115.233.227.46:8066/root/iep-ui/compare/v1.3.8...v1.3.9) (2019-05-14)
 
 

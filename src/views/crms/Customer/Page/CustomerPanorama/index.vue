@@ -15,6 +15,7 @@
           <el-col :span=12 class="item">
             <div class="label">业务类型：</div>
             <div class="value customer" v-for="(item,index) in formData.businessTypeKey" :key="index">{{item.commonName}}</div>
+            <div>{{formData.specificBusinessType}}</div>
           </el-col>
           <el-col :span=12 class="item">
             <div class="label">单位职能：</div>

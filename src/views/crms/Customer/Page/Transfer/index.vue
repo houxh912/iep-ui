@@ -1,8 +1,11 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`转移客户`" width="30%" @close="close">
     <div class="user">
-      <span>新负责人：</span>
-      <iep-contact-select v-model="form.user"></iep-contact-select>
+      <el-form :model="form">
+        <el-form-item label="新负责人：">
+          <iep-contact-select v-model="form.user"></iep-contact-select>
+        </el-form-item>
+      </el-form>
     </div>
     <template slot="footer">
       <iep-button class="btn" @click="close">取消</iep-button>
@@ -96,6 +99,9 @@ export default {
   padding: 20px 0;
   display: flex;
   align-items: baseline;
+}
+.el-form {
+  width: 100%;
 }
 </style>
 

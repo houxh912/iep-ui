@@ -11,6 +11,13 @@ export function getCompanyPage (query) {
   })
 }
 
+export function getCompanyById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}
+
 export function postCompany (obj) {
   return request({
     url: `${prefixUrl}/create`,

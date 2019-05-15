@@ -21,10 +21,10 @@
           <el-form-item label="测试地址：" prop="website" class="form-half">
             <el-input :maxlength="110" v-model="form.website"></el-input>
           </el-form-item>
-          <el-form-item label="模块指导价：" prop="guidePrice" class="form-half">
+          <el-form-item label="模块指导价(元)：" prop="guidePrice" class="form-half">
             <iep-input-number v-model="form.guidePrice"></iep-input-number>
           </el-form-item>
-          <el-form-item label="模块优惠价：" prop="preferentialPrice" class="form-half">
+          <el-form-item label="模块优惠价(元)：" prop="preferentialPrice" class="form-half">
             <iep-input-number v-model="form.preferentialPrice"></iep-input-number>
           </el-form-item>
           <el-form-item label="标签：" prop="tagKeywords">

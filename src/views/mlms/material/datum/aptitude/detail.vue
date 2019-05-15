@@ -203,7 +203,7 @@ export default {
   },
   created () {
     let params = this.$route.params
-    if (params.id && this.$route.name == '查看文档') {
+    if (params.id && this.$route.name == '查看荣誉资质') {
       this.getDataById(params.id)
     }
   },

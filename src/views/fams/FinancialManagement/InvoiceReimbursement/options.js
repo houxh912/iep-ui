@@ -1,10 +1,9 @@
 import { mergeByFirst } from '@/util/util'
 // org config options
 const dictsMap = {
-  status: {
-    0: '待提交',
-    1: '待确认',
-    2: '已确认',
+  financialAudit: {
+    0: '待确认',
+    1: '已确认',
   },
   referType: {
     1: '项目管理类',
@@ -41,7 +40,7 @@ const columnsMap = [
 		label: '申请日期',
 	},
 	{
-		prop: 'status',
+		prop: 'financialAudit',
 		label: '状态',
 		type: 'dict',
 	},

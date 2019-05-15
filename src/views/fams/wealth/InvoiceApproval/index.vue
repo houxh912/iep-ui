@@ -12,8 +12,8 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===1" @click.stop="handlePass(scope.row)">通过</iep-button>
-              <iep-button v-if="scope.row.status===1" @click.stop="handleReject(scope.row)">驳回</iep-button>
+              <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handlePass(scope.row)">通过</iep-button>
+              <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handleReject(scope.row)">驳回</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -27,7 +27,7 @@
 <script>
 import { getMyInvoiceApprovalPage } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
-import { columnsMap, dictsMap } from '@/views/fams/FinancialManagement/InvoiceReimbursement/options.js'
+import { columnsMap, dictsMap } from './options.js'
 import passDialogForm from './passDialogForm'
 import rejectDialogForm from './rejectDialogForm'
 export default {

@@ -1,67 +1,84 @@
 <template>
-    <div class="gird-qualification">
-        <div class="leaderBoard">
-            <IepAppTabsCard :linkName="linkName">
-            <iep-tabs v-model="activeTab" :tab-list="tabList">
-                <template v-if="activeTab ==='Whole'" v-slot:Whole>
-                  <whole v-loading="activeTab !=='Whole'"></whole>
-                </template>
-                <template v-if="activeTab ==='Trademark'" v-slot:Trademark>
-                  <trademark v-loading="activeTab !=='Trademark'"></trademark>
-                </template>
-                <template v-if="activeTab ==='Certificate'" v-slot:Certificate>
-                  <certificate v-loading="activeTab !=='Certificate'"></certificate>
-                </template>
-                <template v-if="activeTab ==='SoftwareCopyright'" v-slot:SoftwareCopyright>
-                  <software-copyright v-loading="activeTab !=='SoftwareCopyright'"></software-copyright>
-                </template>
-                <template v-if="activeTab ==='SoftwarePatents'" v-slot:SoftwarePatents>
-                  <software-patents v-loading="activeTab !=='SoftwarePatents'"></software-patents>
-                </template>
-            </iep-tabs>
-            </IepAppTabsCard>
-        </div>
+  <div class="gird-qualification">
+    <div class="leaderBoard">
+      <IepAppTabsCard :linkName="linkName">
+        
+      <iep-tabs v-model="activeTab" :tab-list="tabList"></iep-tabs>
+      <whole :list="list"></whole>
+
+      <div class="page">
+        <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange">
+        </el-pagination>
+      </div>
+      </IepAppTabsCard>
     </div>
+  </div>
 </template>
 <script>
 import Whole from './Whole'
-import Trademark from './Trademark'
-import Certificate from './Certificate'
-import SoftwareCopyright from './SoftwareCopyright'
-import SoftwarePatents from './SoftwarePatents'
+import { getHonorSign, getHonorPage } from '@/api/app/mlms/honor'
+
 export default {
   components: {
     Whole,
-    Trademark,
-    Certificate,
-    SoftwareCopyright,
-    SoftwarePatents,
   },
   data () {
     return {
       linkName: '',
       tabList: [{
         label: '全部',
-        value: 'Whole',
-      }, {
-        label: '证书',
-        value: 'Trademark',
-      }, {
-        label: '商标',
-        value: 'Certificate',
-      }, {
-        label: '软件著作权',
-        value: 'SoftwareCopyright',
-      }, {
-        label: '软件专利',
-        value: 'SoftwarePatents',
+        value: '',
       }],
-      activeTab: 'Whole',
+      activeTab: '',
+      total: 0,
+      params: {
+        current: 1,
+        size: 12,
+        honorQualType: '',
+      },
+      list: [],
     }
+  },
+  methods: {
+    loadPageSearch (val) {
+      this.params.current = 1
+      this.loadPage(val)
+    },
+    // 获取分页
+    loadPage (params = {}) {
+      getHonorPage(Object.assign({}, this.params, params)).then(({data}) => {
+        this.list = data.data.records
+        this.total = data.data.total
+      })
+    },
+    currentChange (val) {
+      this.params.current = val
+      this.loadPage()
+    },
+    // 获取选项卡
+    getHonorSign () {
+      getHonorSign().then(({data}) => {
+        this.tabList = this.tabList.concat(data.data)
+      })
+    },
+  },
+  created () {
+    this.getHonorSign()
+  },
+  watch: {
+    activeTab (newVal) {
+      if (newVal == 0) newVal = ''
+      this.params.current = 1
+      this.params.honorQualType = newVal
+      this.loadPage()
+    },
   },
 }
 </script>
 <style scoped lang="scss">
+.page {
+  text-align: center;
+}
 .iep-tabs >>> .el-tabs__content {
   padding: 0 20px 20px 20px;
 }

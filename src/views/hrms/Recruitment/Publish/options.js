@@ -5,6 +5,9 @@ const dictsMap = {
   status: {
     1: '待发布', 2: '招聘中', 3: '结束招聘',
   },
+  targetCount: { // 是否紧缺
+    0: '否', 1: '是',
+  },
 }
 
 const columnsMap = [
@@ -42,7 +45,7 @@ const initForm = () => {
     // deptId: '', // 所属部门 deptnName
     deptName: '', // 所属部门 deptnName
     recruitsCount: 0, // 招聘人数
-    targetCount: 0, // 目标人数
+    targetCount: '', // 目标人数
     academicId: '', // 学历要求(dict) hrms_highest_educational
     jobTypeId: '', // 工作类型(dict) hrms_work_type
     years: '', // 工作年限

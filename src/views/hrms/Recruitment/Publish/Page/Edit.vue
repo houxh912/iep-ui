@@ -22,8 +22,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="目标人数：" prop="targetCount">
-              <iep-input-number v-model="form.targetCount"></iep-input-number>
+            <el-form-item label="是否紧缺：" prop="targetCount">
+              <el-radio-group v-model="form.targetCount">
+                <el-radio v-for="(item,i) in dictsMap.targetCount" :key="i" :label="+i">{{item}}</el-radio>
+              </el-radio-group>
             </el-form-item>
           </el-col>
         </el-row>
@@ -112,11 +114,12 @@
 </template>
 <script>
 import { getPublishRecruitmentById, postPublishRecruitment, putPublishRecruitment } from '@/api/hrms/publish_recruitment'
-import { initForm, formToDto, rules } from '../options'
+import { initForm, formToDto, rules, dictsMap } from '../options'
 import _ from 'lodash'
 export default {
   data () {
     return {
+      dictsMap,
       backOption: {
         isBack: true,
         backPath: null,

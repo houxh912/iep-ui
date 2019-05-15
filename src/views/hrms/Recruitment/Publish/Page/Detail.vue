@@ -25,7 +25,7 @@
                 <iep-dict-detail :value="form.years" dict-name="hrms_working_life"></iep-dict-detail>
               </label>
               <label>招{{form.recruitsCount}}人</label>
-              <label>目标{{form.targetCount}}人</label>
+              <label>{{form.targetCount ? '紧急' : '不紧急'}}</label>
             </div>
           </div>
         </div>

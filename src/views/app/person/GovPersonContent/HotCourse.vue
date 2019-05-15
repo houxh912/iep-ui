@@ -3,46 +3,44 @@
     <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
       <div class="hot-course">
         <div class="con-course">
-          <div class="con" v-for="con in conCourse" :key="con.id">
-            <div class="img"><img :src="con.img" alt=""></div>
-            <span class="text">{{con.text}}</span>
-            <span class="num">{{con.num}}</span>
+          <div class="con" v-for="(con, index) in conCourse" :key="index">
+            <div class="img"><img :src="con.theme_pictures" alt=""></div>
+            <span class="text">{{con.training_theme}}</span>
+            <span class="num">{{con.views}} 人已学习</span>
           </div>
         </div>
-        <div v-for="(item,index) in hotCourse" :key="index" class="piece">
-          <span class="name">{{item.name}}</span>
-          <span class="num">{{item.num}}</span>
+        <div v-for="(item, index) in hotCourse" :key="index" class="piece">
+          <span class="name">{{item.training_theme}}</span>
+          <span class="num">{{item.views}} 人已学习</span>
         </div>
       </div>
     </iepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getHottestList } from '@/api/app/hrms/'
+
 export default {
   data () {
     return {
       title: '热门课程',
-      data: '(37节)',
-      hotCourse: [
-        { name: '数据基因产品培训服务', num: '113人已学习' },
-        { name: 'JAVA高级开发架构师课程', num: '78人已学习' },
-        { name: 'H5前端基础入门教程', num: '145人已学习' }],
-      conCourse: [
-        {
-          id: 1,
-          img: '../img/bg/k1.jpg',
-          text: 'JAVA高级开发 架构师课程',
-          num: '55人已学习',
-        },
-        {
-          id: 2,
-          img: '../img/bg/k2.jpg',
-          text: 'Html5+css3前段开发课程',
-          num: '35人已学习',
-        },
-      ],
-      linkName: '',
+      data: '',
+      hotCourse: [],
+      conCourse: [],
+      linkName: '/app/resource/training',
     }
+  },
+  methods: {
+    loadList () {
+      getHottestList().then(({data}) => {
+        this.conCourse = data.data.slice(0, 2)
+        this.hotCourse = data.data.slice(2)
+      })
+    },
+  },
+  created () {
+    this.loadList()
   },
 }
 </script>

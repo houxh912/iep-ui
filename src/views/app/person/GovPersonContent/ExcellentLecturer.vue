@@ -2,19 +2,17 @@
   <div class="thoughts">
     <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
       <div class="thoughtsList">
-        <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
-          <div class="img-con"><img :src="item.img" class="img"></div>
+        <div v-for="(item, index) in thoughtsList" :key="index" class="piece">
+          <div class="img-con"><img :src="item.avatar" class="img"></div>
           <div class="box">
             <div class="pieceTitle">
               <span class="name">{{item.name}}</span>
-              <span class="level">{{item.level}}</span>
+              <!-- <span class="level">{{item.level}}</span> -->
             </div>
             <div class="feed">
-              <span>{{item.num}}</span>
+              <span>培训次数：{{item.trainingNum}}</span>
               <div class="tags-con">
-                <span class="tags" v-for="tag in item.tags" :key="tag.id">
-                  {{tag.tag}}
-                </span>
+                <span class="tags" v-for="(tag, index) in item.abilityTags" :key="index">{{tag}}</span>
               </div>
             </div>
           </div>
@@ -23,70 +21,28 @@
     </iepAppTabCard>
   </div>
 </template>
+
 <script>
+import{ getTeacherList } from '@/api/app/hrms/'
+
 export default {
   data () {
     return {
       title: '优秀讲师',
-      data: '(53位)',
-      thoughtsList: [
-        {
-          img: '../img/person/p013.jpg',
-          name: '杨冰之',
-          level: '顶级讲师',
-          num: '培训次数：365',
-          tags: [
-            {
-              tag: '组织管理',
-            },
-            {
-              tag: '智慧经济',
-            },
-            {
-              tag: '规划报告',
-            },
-            {
-              tag: '规划报告',
-            },
-          ],
-        },
-        {
-          img: '../img/person/p8.jpg', name: '邵琦凯', level: '中级讲师', num: '培训次数：53',
-          tags: [
-            {
-              tag: '技术研发',
-            },
-            {
-              tag: '数据基因',
-            },
-            {
-              tag: '前端',
-            },
-            {
-              tag: 'Java',
-            },
-          ],
-        },
-        {
-          img: '../img/person/p014.jpg', name: '江作敏', level: '高级讲师', num: '培训次数：248',
-          tags: [
-            {
-              tag: '微服务',
-            },
-            {
-              tag: '需求梳理',
-            },
-            {
-              tag: '数据基因',
-            },
-            {
-              tag: '咨询服务',
-            },
-          ],
-        },
-      ],
-      linkName: '',
+      data: '',
+      thoughtsList: [],
+      linkName: '/app/resource/training',
     }
+  },
+  methods: {
+    loadList () {
+      getTeacherList().then(({data}) => {
+        this.thoughtsList = data.data
+      })
+    },
+  },
+  created () {
+    this.loadList()
   },
 }
 </script>

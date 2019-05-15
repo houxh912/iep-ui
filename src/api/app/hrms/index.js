@@ -17,6 +17,7 @@ export const getNewestList = (params) => {
   })
 }
 
+// 培训预告
 export const getNoticeList = (params) => {
   return request({
     url: `${prefixUrl}/training_notice`,
@@ -69,6 +70,22 @@ export const getRecruitCount = () => {
 export const getRecruitBirthday = () => {
   return request({
     url: `${prefixUrl}/birthday`,
+    method: 'get',
+  })
+}
+
+// 热门培训
+export const getHottestList = () => {
+  return request({
+    url: `${prefixUrl}/training_hottest`,
+    method: 'get',
+  })
+}
+
+// 优秀讲师
+export const getTeacherList = () => {
+  return request({
+    url: `${prefixUrl}/training_teacher`,
     method: 'get',
   })
 }

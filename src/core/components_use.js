@@ -29,11 +29,13 @@ import IepIdentityMark from '@/components/IepCommon/IdentityMark'
 import IepTag from '@/components/IepTag'
 import IepNewTag from '@/components/IepTag/newIndex'
 import IepSelect from '@/components/IepForm/Select'
+import IepSelectDetail from '@/components/IepForm/SelectDetail'
 import IepDatePicker from '@/components/IepForm/DatePicker'
 import IepCascader from '@/components/IepForm/Cascader'
 import IepDictDetail from '@/components/IepForm/DictDetail'
 import IepDictSelect from '@/components/IepForm/DictSelect'
 import IepDictCascader from '@/components/IepForm/DictCascader'
+import IepDictCascaderDetail from '@/components/IepForm/DictCascaderDetail'
 import IepDescriptionItem from '@/components/IepForm/DescriptionItem'
 import IepTagDetail from '@/components/IepForm/TagDetail'
 import IepDivDetail from '@/components/IepForm/DivDetail'
@@ -119,10 +121,12 @@ Vue.component(IepIdentityMark.name, IepIdentityMark)
 Vue.component(IepTag.name, IepTag)
 Vue.component(IepNewTag.name, IepNewTag)
 Vue.component(IepSelect.name, IepSelect)
+Vue.component(IepSelectDetail.name, IepSelectDetail)
 Vue.component(IepCascader.name, IepCascader)
 Vue.component(IepDictDetail.name, IepDictDetail)
 Vue.component(IepDictSelect.name, IepDictSelect)
 Vue.component(IepDictCascader.name, IepDictCascader)
+Vue.component(IepDictCascaderDetail.name, IepDictCascaderDetail)
 Vue.component(IepInputNumber.name, IepInputNumber)
 Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepDescriptionItem.name, IepDescriptionItem)

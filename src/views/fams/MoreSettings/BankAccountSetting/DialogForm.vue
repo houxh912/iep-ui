@@ -11,6 +11,10 @@
         <el-switch v-model="form.isWagePay" active-text="是" inactive-text="否" :active-value="1" :inactive-value="0">
         </el-switch>
       </el-form-item>
+      <el-form-item label="是否为开票账户：">
+        <el-switch v-model="form.isInvoiceingPay" active-text="是" inactive-text="否" :active-value="1" :inactive-value="0">
+        </el-switch>
+      </el-form-item>
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="handleSubmit">确 定</iep-button>

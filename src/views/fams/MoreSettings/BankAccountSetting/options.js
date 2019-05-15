@@ -5,6 +5,7 @@ const initForm = () => {
 		isWagePay: 0, // (0-不是，1-是)
 		accountName: '',
 		companyId: '',
+		isInvoiceingPay: 0, // (0-不是，1-是)
 	}
 }
 

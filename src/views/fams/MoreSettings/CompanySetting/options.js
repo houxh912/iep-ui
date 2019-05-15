@@ -6,6 +6,10 @@ const initForm = () => {
 		parentName: '',
 		orgId: '',
 		name: '',
+		taxpayerNumber: '', // 纳税人识别号
+		phone: '', // 电话
+		address: '', // 地址
+		businessScope: '', // 经营范围
 	}
 }
 

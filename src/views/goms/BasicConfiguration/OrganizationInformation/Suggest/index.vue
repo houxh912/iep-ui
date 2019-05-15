@@ -3,6 +3,12 @@
     <basic-container>
       <operation-container>
         <template slot="left">
+          <el-dropdown size="medium">
+            <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search>
@@ -14,7 +20,7 @@
         <template slot="before-columns">
           <el-table-column label="发件人" width="220px">
             <template slot-scope="scope">
-              {{scope.row.sender}}
+              {{scope.row.name}}
             </template>
           </el-table-column>
           <el-table-column label="主题">

@@ -17,8 +17,8 @@
           <iep-select v-model="form.attendeeList" multiple autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
         </iep-form-item>
 
-        <iep-form-item class="form-half" prop="annex" label-name="附件">
-          <iep-upload v-model="annex" :limit="limit"></iep-upload>
+        <iep-form-item class="form-half" prop="annexList" label-name="附件">
+          <iep-upload v-model="form.annexList" :limit="limit"></iep-upload>
         </iep-form-item>
         
         <el-form-item label="">
@@ -36,12 +36,12 @@
 </template>
 <script>
 import { getSuggestionById, postSuggestion, putSuggestion } from '@/api/hrms/suggestion'
+import { downloadFile } from '@/api/common'
 import { initForm, formToDto, rules } from './options'
 export default {
   data () {
     return {
       limit: 1,
-      annexList: [],
       back: () => {
         this.$router.push('/hrms_spa/suggestion_list')
       },
@@ -76,6 +76,9 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           const publish = isPublish === true ? true : false
+          if (this.form.annexList.length > 0) {
+            this.form.annex = this.form.annexList[0].url
+          }
           submitFunction(formToDto(this.form), publish).then(({ data }) => {
             if (data.data) {
               this.$message({
@@ -88,6 +91,9 @@ export default {
         }
       })
 
+    },
+    handleDownload (file) {
+      downloadFile(file)
     },
   },
 }

@@ -24,6 +24,7 @@ const columnsMap = [
 const initForm = () => {
   return {
     'id': '', // ID
+    'userId':'',//userId
     'theme':'',
     'proposeContent': '',//内容
     'attendeeList': '',//接收对象
@@ -31,7 +32,11 @@ const initForm = () => {
     'feedbackOpinion':'',//反馈意见
     'reward':'',//打赏
     'disabled':'',
+    'annex':[
+      {'uel':''},
+    ],
     'annexList':[],
+    'fileName':'',//文件名
   }
 }
 
@@ -58,7 +63,7 @@ const rules = {
   theme: [
     { required: true, message: '请填写建议主题', trigger: 'blur' },
   ],
-  desc: [
+  proposeContent: [
     { required: true, message: '请填写建议内容', trigger: 'blur' },
   ],
   attendeeList: [

@@ -55,6 +55,8 @@ export const initFormData = () => {
     contractType: 1,
     id: '',
     contractId: '',
+    projectName: '',
+    projectId: '',
   }
 }
 const amount = (rules, value, callback) => {
@@ -118,4 +120,16 @@ export const rules = {
   ],
   deposit: [{ validator: amount1, trigger: 'change' }],
 }
+export const projecTableOption = [
+  {
+    label: '项目名称',
+    prop: 'projectName',
+  }, {
+    label: '项目预算',
+    prop: 'projectBudget',
+  }, {
+    label: '发布人',
+    prop: 'publisherName',
+  },
+]
 export { columnsMap, dictsMap }

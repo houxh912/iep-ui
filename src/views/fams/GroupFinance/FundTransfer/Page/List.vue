@@ -12,10 +12,10 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
-        <el-table-column label="操作" width="200">
+        <el-table-column label="操作" width="100">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===1" @click.stop="handleCancel(scope.row)">撤回</iep-button>
+              <iep-button v-if="scope.row.status===0" @click.stop="handleRevoke(scope.row)">撤回</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { getFundTransferPage, postFundTransfer } from '@/api/fams/fund_transfer'
+import { getFundTransferPage, postFundTransfer, revokeFundTransferById } from '@/api/fams/fund_transfer'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
 export default {
@@ -47,7 +47,8 @@ export default {
         formRequestFn: postFundTransfer,
       })
     },
-    handleCancel () {
+    handleRevoke (row) {
+      this._handleComfirm(row.id, revokeFundTransferById, '撤销')
     },
     handleDetail (row) {
       this.$router.push({

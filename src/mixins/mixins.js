@@ -123,10 +123,10 @@ export default {
           })
         }
         this.loadPage()
-      }).catch(() => {
+      }).catch((err) => {
         this.$message({
           type: 'info',
-          message: `已取消${msg}`,
+          message: `${err}, 已取消${msg}`,
         })
       })
     },

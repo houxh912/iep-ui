@@ -129,8 +129,14 @@ export const rules = {
   finishTime: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
+  companyOrgId: [
+    { required: true, message: '必填', trigger: 'change' },
+  ],
   companyOrgObj: [
     { validator: objValidate, message: '必填', trigger: 'change' },
+  ],
+  signCompanyOrgId: [
+    { required: true, message: '必填', trigger: 'change' },
   ],
   signCompanyOrgObj: [
     { validator: objValidate, message: '必填', trigger: 'change' },

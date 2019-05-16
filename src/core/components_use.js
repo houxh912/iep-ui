@@ -41,6 +41,8 @@ import IepTagDetail from '@/components/IepForm/TagDetail'
 import IepDivDetail from '@/components/IepForm/DivDetail'
 import IepDateRangeSelect from '@/components/IepForm/DateRangeSelect'
 import IepFormItem from '@/components/IepForm/FormItem'
+import IepCrmsSelect from '@/components/IepForm/CrmsSelect'
+import IepCrmsSelectMultiple from '@/components/IepForm/CrmsSelectMultiple'
 
 // input
 import IepInputNumber from '@/components/IepInput/InputNumber'
@@ -135,6 +137,8 @@ Vue.component(IepDivDetail.name, IepDivDetail)
 Vue.component(IepInputArea.name, IepInputArea)
 Vue.component(IepDateRangeSelect.name, IepDateRangeSelect)
 Vue.component(IepFormItem.name, IepFormItem)
+Vue.component(IepCrmsSelect.name, IepCrmsSelect)
+Vue.component(IepCrmsSelectMultiple.name, IepCrmsSelectMultiple)
 
 // 头像上传文件有关组件
 Vue.component(IepImgAvatar.name, IepImgAvatar)

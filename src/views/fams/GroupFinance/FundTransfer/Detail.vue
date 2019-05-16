@@ -54,12 +54,12 @@
           <iep-form-item label-name="状态">
             <iep-div-detail :value="dictsMap.status[form.status]"></iep-div-detail>
           </iep-form-item>
-          <iep-form-item label-name="操作">
-            <operation-wrapper>
-              <a-button v-if="form.status===0" @click="handleFinish()">转账完成</a-button>
-              <a-button v-if="form.status===1" @click="handleConfirm()">确认收款</a-button>
-            </operation-wrapper>
-          </iep-form-item>
+
+          <a-divider></a-divider>
+          <operation-wrapper style="padding: 0 200px;">
+            <a-button type="primary" v-if="form.status===0" @click="handleFinish()">转账完成</a-button>
+            <a-button type="primary" v-if=" form.status===1" @click="handleConfirm()">确认收款</a-button>
+          </operation-wrapper>
         </template>
       </el-form>
     </basic-container>

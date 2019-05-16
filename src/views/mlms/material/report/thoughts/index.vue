@@ -2,7 +2,7 @@
   <div class="thoughts">
 
     <div class="fillin">
-      <el-input type="textarea" rows=5 v-model="formData.content" placeholder="感悟" maxlength="300"></el-input>
+      <el-input type="textarea" rows=5 v-model="formData.content" placeholder="工作之余，分享一下今天的感想吧" maxlength="300"></el-input>
       <div class="footer">
         <div class="state">
           <p>是否公开：</p>
@@ -15,7 +15,7 @@
           </el-switch>
         </div>
         <div class="button">
-          <div class="error" v-if="createValidate">感悟内容不能为空</div>
+          <div class="error" v-if="createValidate">感想内容不能为空</div>
           <iep-button type="primary" @click="submit" :loading="loadState">保存</iep-button>
         </div>
       </div>
@@ -37,6 +37,7 @@
               </div>
               <div class="right">
                 <i class="el-icon-delete" @click="handleDelete(row, index)"></i>
+                <i class="icon-suoding" v-if="row.status == 0"></i>
               </div>
             </div>
           </template>

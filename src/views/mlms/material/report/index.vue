@@ -55,7 +55,7 @@ export default {
           label: '项目周报',
           value: 'projectTab',
         }, {
-          label: '感悟',
+          label: '感想',
           value: 'thoughtsTab',
         },
       ],

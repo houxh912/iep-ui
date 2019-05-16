@@ -24,7 +24,6 @@ export default {
   },
   methods: {
     handleEdit (record) {
-      console.log(record)
       this.record = record
       this.currentComponet = 'Edit'
     },

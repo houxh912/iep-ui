@@ -39,7 +39,7 @@
   </div>
 </template>
 <script>
-import { dictsMap } from '../options'
+import { dictsMap } from './options'
 import { getInvoiceById } from '@/api/fams/invoice'
 function initForm () {
   return {

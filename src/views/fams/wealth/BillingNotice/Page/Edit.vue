@@ -4,8 +4,8 @@
       <page-header :title="`${methodName}开票通知`" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">保存</iep-button>
       </page-header>
-      <el-form ref="form" class="form-detail" :model="form" label-width="150px" size="small">
-        <h4 class="sub-title">购买方信息</h4>
+      <el-form ref="form" class="form-detail" :model="form" label-width="200px" size="small">
+        <h4 class="iep-sub-title">购买方信息</h4>
         <iep-form-item label-name="名称" class="form-half">
           <el-input v-model="form.buyerName"></el-input>
         </iep-form-item>
@@ -24,7 +24,7 @@
         <iep-form-item label-name="发票邮寄地址">
           <el-input v-model="form.buyerMail"></el-input>
         </iep-form-item>
-        <h4 class="sub-title">货物或应税劳务、服务名称</h4>
+        <h4 class="iep-sub-title">货物或应税劳务、服务名称</h4>
         <iep-form-item label-name="一级科目" class="form-half">
           <iep-dict-select v-model="form.firstSubject" dict-name="fams_tax_subject"></iep-dict-select>
         </iep-form-item>
@@ -46,7 +46,7 @@
         <iep-form-item label-name="关联项目">
           <el-input v-model="form.projectId"></el-input>
         </iep-form-item>
-        <h4 class="sub-title">销售方</h4>
+        <h4 class="iep-sub-title">销售方</h4>
         <iep-form-item label-name="销售方公司">
           <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" @change="handleChangeCompanyId" placeholder="请选择销售方公司"></iep-select>
         </iep-form-item>
@@ -135,12 +135,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.iep-page-form {
-  .sub-title {
-    margin-bottom: 10px;
-    font-weight: 700;
-    margin-left: 15px;
-  }
-}
-</style>

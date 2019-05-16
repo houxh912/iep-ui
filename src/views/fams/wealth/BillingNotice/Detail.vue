@@ -81,7 +81,7 @@
   </div>
 </template>
 <script>
-import { initForm, dictsMap } from '../options'
+import { initForm, dictsMap } from './options'
 import { mapGetters } from 'vuex'
 import { getBillingById } from '@/api/fams/billing'
 import { getCompanyById } from '@/api/fams/company'

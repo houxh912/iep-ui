@@ -17,6 +17,10 @@
       <template v-if="tabName ==='customTab'" v-slot:customTab>
         <custom-dialog></custom-dialog>
       </template>
+      <template v-if="tabName ==='thoughtsTab'" v-slot:thoughtsTab>
+        <thoughts-dialog></thoughts-dialog>
+      </template>
+      
     </iep-tabs>
   </div>
 </template>
@@ -28,10 +32,12 @@ import PersonalDialog from './personal/'
 import OrganizeDialog from './organize/'
 import ProjectDialog from './project/'
 import CustomDialog from './custom/'
+import ThoughtsDialog from './thoughts/'
+
 export default {
   name: 'report',
   mixins: [mixins],
-  components: { DailyDialog, PersonalDialog, OrganizeDialog, ProjectDialog, CustomDialog },
+  components: { DailyDialog, PersonalDialog, OrganizeDialog, ProjectDialog, CustomDialog, ThoughtsDialog },
   data () {
     return {
       tabName: 'dailyTab',
@@ -48,6 +54,9 @@ export default {
         }, {
           label: '项目周报',
           value: 'projectTab',
+        }, {
+          label: '感悟',
+          value: 'thoughtsTab',
         },
       ],
     }

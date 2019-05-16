@@ -17,16 +17,16 @@
           <div class="content" v-for="(item,index) in form.attendeeList" :key="index" style="margin-right:5px;">{{item}}</div>
         </iep-form-item>
         <hr>
-        <iep-form-item prop="proposeRelatioList[0].feedbackStatus" label-name="处理意见">
-          <el-radio :disabled="isEdit" v-model="form.proposeRelatioList[0].feedbackStatus" label="1">采纳</el-radio>
-          <el-radio :disabled="isEdit" v-model="form.proposeRelatioList[0].feedbackStatus" label="2">驳回</el-radio>
+        <iep-form-item prop="status" label-name="处理意见">
+          <el-radio :disabled="isEdit" v-model="form.status" label="2">采纳</el-radio>
+          <el-radio :disabled="isEdit" v-model="form.status" label="3">驳回</el-radio>
         </iep-form-item>
 
-        <iep-form-item prop="proposeRelatioList[0].feedbackOpinion" label-name="反馈意见">
-          <iep-input-area :disabled="isEdit" v-model="form.proposeRelatioList[0].feedbackOpinion"></iep-input-area>
+        <iep-form-item prop="feedbackOpinion" label-name="反馈意见">
+          <iep-input-area :disabled="isEdit" v-model="form.feedbackOpinion"></iep-input-area>
         </iep-form-item>
-        <iep-form-item prop="proposeRelatioList[0].gratuity" label-name="打赏">
-          <el-input :disabled="isEdit" v-model="form.proposeRelatioList[0].gratuity" size="small">
+        <iep-form-item prop="gratuity" label-name="打赏">
+          <el-input :disabled="isEdit" v-model.number="form.gratuity" size="small">
             <template slot="append">贝</template>
           </el-input>
         </iep-form-item>
@@ -65,7 +65,7 @@ export default {
       'userInfo',
     ]),
     isEdit () {
-      return this.userInfo.userId === this.form.userId
+      return this.userInfo.userId === this.form.userId 
     },
   },
   created () {
@@ -80,11 +80,6 @@ export default {
         if (valid) {
           if (this.form.annexList.length > 0) {
             this.form.annex = this.form.annexList[0].url
-          }
-          if (this.form.proposeRelatioList.length > 0) {
-            this.form.feedbackOpinion = this.form.proposeRelatioList[0].feedbackOpinion
-            this.form.feedbackStatus = this.form.proposeRelatioList[0].status
-            this.form.gratuity = this.form.proposeRelatioList[0].gratuity
           }
           putfeedback(formToDto(this.form), true).then(({ data }) => {
             if (data.data) {

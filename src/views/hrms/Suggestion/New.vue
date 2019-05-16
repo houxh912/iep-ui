@@ -14,7 +14,7 @@
         </iep-form-item>
 
         <iep-form-item prop="attendeeId" label-name="接收对象">
-          <iep-select v-model="form.attendeeId" multiple autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+          <iep-select v-model="form.attendeeId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
         </iep-form-item>
 
         <iep-form-item class="form-half" prop="annexList" label-name="附件">

@@ -30,7 +30,6 @@ const initForm = () => {
     'proposeContent': '',//内容
     'attendeeList': '',//接收对象
     'attendeeId':'',//接收对象id
-    'feedbackStatus': '',//处理意见
     'feedbackOpinion':'',//反馈意见
     'gratuity':'',//打赏
     'disabled':'',

@@ -49,11 +49,14 @@ export default {
   name: 'detail',
   components: { BaseInfo, TeamInfo, Versions, Products, Technologys, Materials },
   mixins: [mixins],
+  props: ['record'],
   data () {
     return {
       dictsMap,
       backOption: {
         isBack: true,
+        backPath: null,
+        backFunction: this.handleGoBack,
       },
       form: initForm(),
       tabList: [{
@@ -79,7 +82,7 @@ export default {
   },
   computed: {
     id () {
-      return this.$route.params.id
+      return this.$route.params.id || this.record.id
     },
   },
   created () {
@@ -88,7 +91,7 @@ export default {
     })
   },
   methods: {
-    handleBack () {
+    handleGoBack () {
       this.$emit('onGoBack')
     },
   },

@@ -18,7 +18,7 @@
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column label="名称" min-width="200px">
           <template slot-scope="scope">
-            <IepTableLinkImgDesc :img="scope.row.imageUrl" :desc="scope.row.synopsis" :name="scope.row.name" @click.native="handleDetail(scope.row)"></IepTableLinkImgDesc>
+            <iep-table-link-img-desc :img="scope.row.imageUrl" :desc="scope.row.synopsis" :name="scope.row.name" @m-click="handleDetail(scope.row)"></iep-table-link-img-desc>
           </template>
         </el-table-column>
         <el-table-column label="负责人">
@@ -96,9 +96,12 @@ export default {
       if (!this.isViewPermissions(row)) {
         return
       }
-      this.$router.push({
-        path: `/cpms_spa/product_detail/${row.id}`,
+      this.$emit('onDetail', {
+        id: row.id,
       })
+      // this.$router.push({
+      //   path: `/cpms_spa/product_detail/${row.id}`,
+      // })
     },
     handleChangeMe (value) {
       const isMine = value.join(',')

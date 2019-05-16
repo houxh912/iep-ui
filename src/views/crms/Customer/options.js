@@ -22,6 +22,7 @@ const initForm = () => {
     otherDesc: '', //其他说明
     tags: [],
     collaborations: [],
+    assertionsSave: 1,
   }
 }
 // 全部客户搜索

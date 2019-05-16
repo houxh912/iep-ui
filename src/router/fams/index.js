@@ -28,12 +28,17 @@ export default [
       {
         path: 'invoice_detail/:id',
         name: '发票详情',
-        component: () => import('@/views/fams/wealth/Invoice/Page/Detail.vue'),
+        component: () => import('@/views/fams/wealth/Invoice/Detail.vue'),
       },
       {
         path: 'billing_detail/:id',
         name: '开票详情',
-        component: () => import('@/views/fams/wealth/BillingNotice/Page/Detail.vue'),
+        component: () => import('@/views/fams/wealth/BillingNotice/Detail.vue'),
+      },
+      {
+        path: 'fund_transfer_detail/:id',
+        name: '资金调拨详情',
+        component: () => import('@/views/fams/GroupFinance/FundTransfer/Detail.vue'),
       },
     ],
   },

@@ -36,7 +36,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" show-summary :summary-method="getSummaries">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" show-summary :summary-method="getSummaries">
         <el-table-column label="金额">
           <el-table-column prop="income" label="收入">
           </el-table-column>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { getFinancialManagementPage} from '@/api/fams/financial_management'
+import { getFinancialManagementPage } from '@/api/fams/financial_management'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap, initSearchForm } from './options'
 export default {
@@ -67,7 +67,7 @@ export default {
       cashAccount: '',
       paramForm: initSearchForm(),
       replaceText: (data) => `（所属公司：${data[0]}）`,
-      
+
     }
   },
   created () {

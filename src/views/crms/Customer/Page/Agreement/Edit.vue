@@ -18,6 +18,11 @@
         </span>
         <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5></el-input>
       </el-form-item>
+      <el-form-item label="关联项目：" prop="projectId">
+        <el-input v-show="false" v-model="formData.projectId"></el-input>
+        <el-tag type="info" v-if="formData.projectName != ''">{{formData.projectName}}</el-tag>
+        <iep-button @click="relationProject"><i class="el-icon-plus"></i></iep-button>
+      </el-form-item>
       <el-form-item prop="businessType">
         <span slot="label">
           业务类型
@@ -115,6 +120,7 @@
       <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
       <iep-button @click="resetForm">取消</iep-button>
     </footer-toolbar>
+    <projectDialog ref="project" @project-success="projectSuccess" :form="formData"></projectDialog>
   </div>
 </template>
 <script>
@@ -125,6 +131,7 @@ import { agreementById } from '@/api/crms/agreement'
 import { getMarket } from '@/api/crms/customer'
 import { getObj } from '@/api/admin/user'
 import businessType from './businessType'
+import projectDialog from './projectRelation'
 const tipContent = {
   contractName: '合同签订日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”',
   contractExpl: '1、合同说明：请详细说明签订合同时承诺客户或需要注意的地方；<br>2、收款方式：付款周期+付款方式，如三期付款+对公;<br>3、开票资料信息。',
@@ -133,7 +140,7 @@ const tipContent = {
 
 }
 export default {
-  components: { FooterToolbar, businessType },
+  components: { FooterToolbar, businessType, projectDialog },
   data () {
     return {
       tipContent,
@@ -190,6 +197,8 @@ export default {
         this.formData = res.data.data
         this.signTime = res.data.data.signTime
         this.finishTime = res.data.data.finishTime
+        this.formData.projectName = res.data.data.projectRelation.name
+        this.formData.projectId = res.data.data.projectRelation.id
         getMarket({ clientId: this.id }).then((res) => {
           this.formData.directorId = res.data.data.id
           this.formData.signDeptName = this.userInfo.orgName
@@ -267,6 +276,21 @@ export default {
       this.finishTime = val
       this.dealTime(this.signTime, val)
     },
+    // 关联项目
+    relationProject () {
+      this.$refs['project'].open(this.formData.projectId, this.formData.projectName)
+    },
+    projectSuccess (id, name) {
+      this.formData.projectId = id
+      // this.formData.projectName = name
+      this.$set(this.formData, 'projectName', name)
+    },
   },
 }
 </script>
+<style lang="scss" scoped>
+.el-tag {
+  margin-right: 10px;
+}
+</style>
+

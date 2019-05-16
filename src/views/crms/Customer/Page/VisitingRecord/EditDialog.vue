@@ -33,7 +33,7 @@ export default {
       rules: {
         theme: [
           { required: true, message: '请输入主题', trigger: 'change' },
-          { max: 30, message: '长度不可超过30个字符', trigger: 'blur' },
+          { max: 20, message: '长度不可超过20个字符', trigger: 'blur' },
         ],
         visitTime: [
           { required: true, message: '请选择时间', trigger: 'change' },

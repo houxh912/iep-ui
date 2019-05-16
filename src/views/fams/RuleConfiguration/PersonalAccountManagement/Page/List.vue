@@ -56,7 +56,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column label="操作" width="300px">
           <template slot-scope="scope">
             <el-button size="small" type="warning" plain @click="handleDetail(scope.row)">查看明细</el-button>

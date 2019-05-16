@@ -2,9 +2,8 @@
   <div class="expert-search">
     <div class="search-con">
       <operation-search @search-page="searchPage">
-        <advance-search></advance-search>
       </operation-search>
-      <el-button type="danger" plain>高级搜索</el-button>
+      <!-- <el-button type="danger" plain>高级搜索</el-button> -->
     </div>
   </div>
 </template>

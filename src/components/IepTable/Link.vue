@@ -1,6 +1,6 @@
 <template>
   <el-badge :hidden="!!isRead" is-dot class="item">
-    <el-button class="link-btn" :class="{'link-is-read':isRead}" type="text" v-bind="$attrs" v-on="$listeners">
+    <el-button :class="{'link-is-read':isRead && !disabled, 'link-btn': true}" type="text" v-bind="$attrs" v-on="$listeners">
       <slot></slot>
     </el-button>
   </el-badge>
@@ -9,6 +9,10 @@
 export default {
   name: 'IepTableLink',
   props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     isRead: {
       type: Number,
       default: 1,

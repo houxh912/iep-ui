@@ -63,7 +63,7 @@ export default {
   data () {
     return {
       loadState: false,
-      tipContent:'请按照规范要求，重点记录今日工作，如有感悟更好。',
+      tipContent: '请按照规范要求，重点记录今日工作，如有感悟更好。',
       activeIndex: [1],
       list: [],
       searchData: {
@@ -297,10 +297,28 @@ export default {
     .content {
       display: flex;
       flex-wrap: wrap;
+      .el-collapse {
+        position: relative;
+        padding-left: 20px;
+        border-left: 1px solid #ebeef5;
+        border-right: 1px solid #ebeef5;
+        &::before {
+          content: "";
+          position: absolute;
+          left: -16px;
+          top: 16px;
+          width: 29px;
+          height: 18px;
+          background: #fafafa url(../img/sanjiao.jpg) no-repeat;
+        }
+      }
       .left {
         width: calc(100% - 30px);
       }
       .right {
+        position: absolute;
+        top: 15px;
+        right: 40px;
         text-align: right;
         padding-right: 4px;
         width: 30px;

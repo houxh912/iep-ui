@@ -14,27 +14,34 @@
         </div>
       </div>
     </IepAppTabCard>
+
     <IepAppTabCard :title="titleStar" :linkName="linkName" class="mutual-card">
       <el-button class="important" type="text" slot="right">申请互助基金</el-button>
       <div class="star-list">
-        <div v-for="(item,index) in starList" :key="index" class="piece">
-          <div class="img-con"><img :src="item.img" class="img"></div>
+        <div v-for="(item, index) in starList" :key="index" class="piece">
+          <div class="img-con"><img :src="item.avatar" class="img"></div>
           <div class="box">
             <div class="piece-title">
               <span class="name">{{item.name}}</span>
             </div>
-            <p class="job">{{item.job}}</p>
+            <p class="job" v-for="(item, index) in item.orgList" :key="index">{{item}}</p>
           </div>
           <div class="btn">
-            <el-button type="danger" plain>送上祝福</el-button>
+            <el-button type="danger" plain @click="sendBlessing(item)">送上祝福</el-button>
           </div>
         </div>
       </div>
     </IepAppTabCard>
+    <blessing-dialog ref="blessing"></blessing-dialog>
   </div>
 </template>
+
 <script>
+import { getRecruitBirthday } from '@/api/app/hrms/'
+import BlessingDialog from './Blessing'
+
 export default {
+  components: { BlessingDialog },
   data () {
     return {
       title: '员工感想',
@@ -43,11 +50,22 @@ export default {
         { img: '../img/person/p010.jpg', name: '奎永秀', time: '2019-02-25 15:30', feed: '认认真真做事，踏踏实实做人！' },
         { img: '../img/person/p011.jpg', name: '谢海艳', time: '2019-04-08', feed: '项目有困难，我们更要有激情，有压力不要压抑，有危机感不要有焦虑感' },
       ],
-      starList: [
-        { img: '../img/person/p012.jpg', name: '钟乙乔', job: '国脉基因研发中心' },
-      ],
+      starList: [],
       linkName: '',
     }
+  },
+  methods: {
+    sendBlessing (row) {
+      this.$refs['blessing'].open({id: row.id, name: row.name})
+    },
+    getBirthdayList () {
+      getRecruitBirthday().then(({data}) => {
+        this.starList = data.data
+      })
+    },
+  },
+  created () {
+    this.getBirthdayList()
   },
 }
 </script>
@@ -149,6 +167,6 @@ export default {
 .mutual-card >>> .el-card__body {
   display: flex;
   align-items: center;
-  height: 122px;
+  /* height: 122px; */
 }
 </style>

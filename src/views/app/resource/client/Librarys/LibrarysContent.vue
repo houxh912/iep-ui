@@ -31,6 +31,9 @@
         </div>
       </div>
     </div>
+    <div style="text-align: center;margin: 20px 0;">
+      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+    </div>
   </div>
 </template>
 
@@ -43,22 +46,38 @@ export default {
       num:[3,3,2,1,5,2],
       tags:['重新创业','浙江创业女杰','浙商'],
       librarys: [],
-      links: {link:'联系人',Journal:'拜访日志',programme:'方案',contract:'合同',information:'资讯',project:'合作项目'},
+      links: {link:'联系人',Journal:'联系记录',programme:'方案',contract:'合同',information:'资讯',project:'合作项目'},
       loading: false,
+      paramForm: {},
+      total: 0,
+      params: {
+        current: 1,
+        size: 10,
+      },
     }
   },
   methods:{
+    searchData (val) {
+      this.params.current = 1
+      this.paramForm = val
+      this.getCustomList()
+    },
     handleDetail (row) {
       this.$router.push({
         path: `/app/resource/client/client_detail/${row.clientId}`,
       })
     },
-    getCustomList (params = {}) {
+    getCustomList () {
       this.loading = true
-      getCustomList(params).then(({data}) => {
+      getCustomList(Object.assign({}, this.paramForm, this.params)).then(({data}) => {
         this.loading = false
         this.librarys = data.data.records
+        this.total = data.data.total
       })
+    },
+    currentChange (val) {
+      this.params.current = val
+      this.getCustomList()
     },
   },
   created () {

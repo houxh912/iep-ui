@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     loadPage (val) {
-      this.$refs['content'].loadPage(val)
+      this.$refs['content'].searchData(val)
     },
   },
 }

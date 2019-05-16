@@ -3,32 +3,56 @@
     <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
       <div class="training-notice">
         <div v-for="(item,index) in trainingNotice" :key="index" class="piece">
-          <span class="name">{{item.name}}</span>
-          <span class="time">{{item.time}}</span>
+          <span class="name">{{item.trainingTheme}}</span>
+          <span class="time">{{formatYear(item.startTime)}}</span>
         </div>
       </div>
     </iepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getNoticeList } from '@/api/app/hrms'
+// 根据传入的时间，返回YYYY-MM-DD
+function formatYear (mill){
+  var y = new Date(mill)
+  let raws = [
+      y.getFullYear(),
+      formatDig(y.getMonth() + 1),
+      formatDig(y.getDate()),
+      // y.getDay() || 7,
+  ]
+  let format = ['-','-','-']
+  return String.raw({raw:raws}, ...format)
+}
+// 月份日期前一位补0
+function formatDig (num) {
+  return num>9?''+num:'0'+num
+}
+
 export default {
   data () {
     return {
       title: '培训预告',
-      data: '(10条)',
-      trainingNotice: [
-        { name: '数据基因产品培训服务', time: '2019-04-03' },
-        { name: 'JAVA高级开发架构师课程', time: '2019-03-03' },
-        { name: 'H5前端基础入门教程', time: '2019-04-03' },
-        { name: '营商通培训', time: '2019-04-03' },
-        { name: '数据基因微服务部署', time: '2019-04-03' },
-        { name: '性能测试培训', time: '2019-01-03' },
-        { name: '网络安全培训', time: '2019-04-03' }],
-      linkName: '',
+      data: '',
+      trainingNotice: [],
+      linkName: '/app/resource/training',
+      formatYear,
     }
+  },
+  methods: {
+    loadList () {
+      getNoticeList().then(({data}) => {
+        this.trainingNotice = data.data
+      })
+    },
+  },
+  created () {
+    this.loadList()
   },
 }
 </script>
+
 <style lang="scss" scoped>
 .training-notice {
   .piece {

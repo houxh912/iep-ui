@@ -30,7 +30,7 @@ import ProjectDialog from './project/'
 import CustomDialog from './custom/'
 export default {
   name: 'report',
-  mixins: [ mixins ],
+  mixins: [mixins],
   components: { DailyDialog, PersonalDialog, OrganizeDialog, ProjectDialog, CustomDialog },
   data () {
     return {
@@ -61,3 +61,4 @@ export default {
   background-color: #fff;
 }
 </style>
+

@@ -19,6 +19,9 @@
         <span>{{item}}</span>
       </div>
     </div>
+    <div style="text-align: center;margin: 20px 0;">
+      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+    </div>
   </div>
 </template>
 <script>
@@ -30,20 +33,33 @@ export default {
       dataList: [],
       secondClass: '',
       paramForm: {},
+      total: 0,
+      params: {
+        current: 1,
+        size: 10,
+      },
     }
   },
   methods:{
+    searchData (val) {
+      this.params.current = 1
+      this.paramForm = Object.assign({}, this.paramForm, val)
+      this.loadPage()
+    },
     handleOpen (row) {
       this.$router.push({
         path: `/app/resource/material/material_detail/${row.id}`,
       })
     },
-    loadPage (params = {}) {
-      // materialClsSecondClass
-      this.paramForm = Object.assign({}, this.paramForm, params)
-      getMaterialLPage(this.paramForm).then(({data}) => {
+    loadPage () {
+      getMaterialLPage(Object.assign({}, this.paramForm, this.params)).then(({data}) => {
         this.dataList = data.data.records
+        this.total = data.data.total
       })
+    },
+    currentChange (val) {
+      this.params.current = val
+      this.loadPage()
     },
   },
   created () {

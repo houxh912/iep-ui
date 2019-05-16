@@ -33,7 +33,7 @@ export default {
   data () {
     return {
       tabList: [{
-        label: '员工风采',
+        label: '组织风采',
         value: 'Empolyee',
       }, {
         label: '培训学习',

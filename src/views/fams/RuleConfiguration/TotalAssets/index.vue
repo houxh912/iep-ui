@@ -65,7 +65,7 @@
           <v-chart :forceFit="true" :height="height" :data="data" :scale="scale">
             <v-tooltip />
             <v-axis />
-            <v-bar position="dept*money" color="#CB3737"/>
+            <v-bar position="dept*money" color="#CB3737" />
           </v-chart>
           <ve-histogram :data="chartData" :settings="chartSettings" :extend="chartExtend" :colors="colors"></ve-histogram>
         </el-card>
@@ -79,8 +79,8 @@ export default {
   data () {
     this.colors = [
       (paramsA) => {
-        var colorList1 = ['#d66368', '#d97276', '#dd8184', '#e7a6aa', '#e6a1a4','#e9b1b2','#e9b1b2','#edc2c3','#f2d0d1']
-        return colorList1[paramsA.dataIndex] 
+        var colorList1 = ['#d66368', '#d97276', '#dd8184', '#e7a6aa', '#e6a1a4', '#e9b1b2', '#e9b1b2', '#edc2c3', '#f2d0d1']
+        return colorList1[paramsA.dataIndex]
       },
     ]
     this.chartSettings = {
@@ -89,7 +89,7 @@ export default {
       lineStyle: {
         color: '#fff',
       },
-      
+
     }
     this.chartExtend = {
       barWidth: '26',

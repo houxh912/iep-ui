@@ -27,7 +27,7 @@
 import { getCustomerById } from '@/api/crms/customer'
 import customerDetail from '@/views/crms/Customer/Page/Detail.vue'
 import { getRectagsList } from '@/api/app/tms/index'
-import { getNewClientList, getCoopClientList } from '@/api/app/crms/customer'
+import { getNewClientList, getCoopClientList } from '@/api/app/crms/'
 
 export default {
   components: {

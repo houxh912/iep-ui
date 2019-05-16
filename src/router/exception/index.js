@@ -1,21 +1,21 @@
 import Layout from '@/page/index/index'
 export default [
   {
+    path: '/404',
+    component: () => import(/* webpackChunkName: "exception" */ '@/components/error-page/404'),
+    name: '404',
+    meta: {
+      keepAlive: true,
+      isTab: false,
+      isAuth: false,
+    },
+  },
+  {
     path: '/exception',
     name: '错误页',
     component: Layout,
-    redirect: '/exception/404',
+    redirect: '/exception/500',
     children: [
-      {
-        path: '404',
-        component: () => import(/* webpackChunkName: "exception" */ '@/components/error-page/404'),
-        name: '404',
-        meta: {
-          keepAlive: true,
-          isTab: false,
-          isAuth: false,
-        },
-      },
       {
         path: '403',
         component: () => import(/* webpackChunkName: "exception" */ '@/components/error-page/403'),
@@ -67,10 +67,6 @@ export default [
         },
       },
     ],
-  },
-  {
-    path: '/404',
-    redirect: '/exception/404',
   },
   {
     path: '/403',

@@ -1,5 +1,8 @@
 import Layout from '@/page/index/index'
 import resourceRoute from './resource'
+
+
+
 const noAuth = {
   keepAlive: false,
   // isTab: false,

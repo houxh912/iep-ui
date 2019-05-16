@@ -1,13 +1,13 @@
 <template>
   <div class="nav">
     <div class="navbar">
-      <el-menu v-if="keyCollapse" class="menu-collapse" :default-active="activeIndex" mode="horizontal" menu-trigger="click" router>
+      <el-menu ref="navMenu" v-if="keyCollapse" class="menu-collapse" :default-active="activeIndex" mode="horizontal" menu-trigger="click" router>
         <el-submenu index="">
           <template slot="title">导航</template>
           <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id"><span class="sub-menu">{{item.name}}</span></el-menu-item>
         </el-submenu>
       </el-menu>
-      <el-menu v-else :default-active="activeIndex" mode="horizontal" router>
+      <el-menu ref="navMenu" v-else :default-active="activeIndex" mode="horizontal" router>
         <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id" :class="item.show">
           <span class="sub-menu">{{item.name}}
             <resource-con class="sub-nav-menu" v-if="item.show=='show'"></resource-con>
@@ -29,49 +29,14 @@
 // import TopSearch from './TopSearch'
 import displayMixins from '@/mixins/displayMixins'
 import ResourceCon from './ResourceCon'
+import { navList, navPathList } from '@/router/app/navList.js'
 export default {
   components: { ResourceCon },
   mixins: [displayMixins],
   data () {
     return {
       isShow: false,
-      input: '',
-      classIndex: 1,
-      activeIndex: this.$route.fullPath,
-      navList: [
-        {
-          id: '/app/index',
-          name: '首页',
-        }, {
-          id: '/app/person',
-          name: '国脉人',
-        }, {
-          id: '/app/resource',
-          name: '资源',
-          show: 'show',
-        }, {
-          id: '/app/products',
-          name: '产品',
-        }, {
-          id: '/app/project',
-          name: '项目',
-        }, {
-          id: '/app/college',
-          name: '学堂',
-        }, {
-          id: '/app/brand',
-          name: '品牌',
-        }, {
-          //   id: '/app/news',
-          //   name: '要闻',
-          // }, {
-          id: '/app/data',
-          name: '数据',
-          // }, {
-          //   id: '/app/wealth',
-          //   name: '财富',
-        },
-      ],
+      navList,
     }
   },
   // components: { TopSearch },
@@ -81,6 +46,13 @@ export default {
     },
   },
   computed: {
+    activeIndex () {
+      const matchedPath = this.$route.matched[1].path
+      if (navPathList.includes(matchedPath)) {
+        return matchedPath
+      }
+      return ''
+    },
     keyCollapse () {
       if (this.isDesktop()) {
         return false
@@ -88,12 +60,11 @@ export default {
         return true
       }
     },
-    // isTop () {
-    //   if (this.isTablet()) {
-    //     return '66px'
-    //   }
-    //   return this.isShow ? '66px' : '-66px'
-    // },
+  },
+  watch: {
+    'activeIndex': function (n) {
+      this.$refs['navMenu'].activeIndex = n
+    },
   },
 }
 </script>

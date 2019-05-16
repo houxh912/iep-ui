@@ -1,5 +1,7 @@
 <template>
-  <component @onDetail="handleDetail" @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <keep-alive include="List">
+    <component @onDetail="handleDetail" @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  </keep-alive>
 </template>
 <script>
 import List from './Page/List'

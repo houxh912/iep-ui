@@ -9,7 +9,7 @@ const columnsMap = [
   {
     prop: 'serialNo',
     label: '流水号',
-    minWidth: 100,
+    minWidth: 120,
   },
   {
     prop: 'categoryName',
@@ -25,6 +25,7 @@ const columnsMap = [
   {
     prop: 'amount',
     label: '金额',
+    width: 100,
   },
   {
     prop: 'createTime',
@@ -33,6 +34,7 @@ const columnsMap = [
   {
     prop: 'remarks',
     label: '备注',
+    minWidth: 200,
   },
 ]
 

@@ -314,6 +314,49 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn((this.formData)).then(({ data }) => {
+            //验证联盟下客户是否存在，如果存在若还要保存再次调用接口
+            let str = data.msg
+            let res = str.substr(str.length - 1, 1)
+            if (res == '？') {
+              this.$confirm(str, '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning',
+              }).then(() => {
+                this.formData.assertionsSave = 2
+                this.formRequestFn((this.formData)).then(({ data }) => {
+                  if (data.data) {
+                    this.$message({
+                      message: `客户${this.methodName}成功`,
+                      type: 'success',
+                    })
+                    if (this.flag) {
+                      createById({ iepOpportunityInputId: this.record.data.opportunityId }).then(() => {
+                      })
+                      this.$confirm('创建客户成功！', '提示', {
+                        confirmButtonText: '返回商机',
+                        cancelButtonText: '留在客户',
+                        type: 'success',
+                      }).then(() => {
+                        this.$router.push({
+                          path: '/crms/business',
+                          query: {
+                            flag: true,
+                            type: '3',
+                          },
+                        })
+                      }).catch(() => {
+                        this.$emit('onGoBack')
+                      })
+                    }
+                    if (!this.flag) {
+                      this.$emit('onGoBack')
+                    }
+                  }
+                })
+              })
+            }
+            //名字不重复
             if (data.data) {
               this.$message({
                 message: `客户${this.methodName}成功`,
@@ -337,6 +380,49 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn((this.formData)).then(({ data }) => {
+            //验证联盟下客户是否存在，如果存在若还要保存再次调用接口
+            let str = data.msg
+            let res = str.substr(str.length - 1, 1)
+            if (res == '？') {
+              this.$confirm(str, '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning',
+              }).then(() => {
+                this.formData.assertionsSave = 2
+                this.formRequestFn((this.formData)).then(({ data }) => {
+                  if (data.data) {
+                    this.$message({
+                      message: `客户${this.methodName}成功`,
+                      type: 'success',
+                    })
+                    if (this.flag) {
+                      createById({ iepOpportunityInputId: this.record.data.opportunityId }).then(() => {
+                      })
+                      this.$confirm('创建客户成功！', '提示', {
+                        confirmButtonText: '返回商机',
+                        cancelButtonText: '留在客户',
+                        type: 'success',
+                      }).then(() => {
+                        this.$router.push({
+                          path: '/crms/business',
+                          query: {
+                            flag: true,
+                            type: '3',
+                          },
+                        })
+                      }).catch(() => {
+                        this.$emit('onGoBack')
+                      })
+                    }
+                    if (!this.flag) {
+                      this.$emit('onGoBack')
+                    }
+                  }
+                })
+              })
+            }
+            //名字不重复
             if (data.data) {
               this.$message({
                 message: `客户${this.methodName}成功`,
@@ -366,7 +452,6 @@ export default {
               }
             }
           })
-
         } else {
           return false
         }

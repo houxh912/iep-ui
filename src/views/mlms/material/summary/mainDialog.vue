@@ -11,8 +11,11 @@
             </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="拜访对象：" prop="visitingUserId" v-if="formData.type == 1">
+        <!-- <el-form-item label="拜访对象：" prop="visitingUserId" v-if="formData.type == 1">
           <iep-select prefix-url="crm/customer" v-model="formData.visitingUserId" multiple></iep-select>
+        </el-form-item> -->
+        <el-form-item label="拜访对象：" prop="visitingUserId" v-if="formData.type == 1">
+          <IepCrmsSelectMultiple v-model="formData.visitingUserId" :option="formData.visitingUser" prefixUrl="crm/customer/all/list"></IepCrmsSelectMultiple>
         </el-form-item>
         <el-form-item :label="`${formData.type == 0 ? '会议主题 ':'会议标题'}：`" prop="title">
           <el-input v-model="formData.title" maxlength="50" :placeholder="tipContent.title"></el-input>

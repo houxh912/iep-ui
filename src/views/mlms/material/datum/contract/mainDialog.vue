@@ -41,15 +41,24 @@
       </el-row>
       <el-row v-if="formData.contractType==1">
         <el-col :span='12'>
-          <el-form-item label="委托单位：" prop="companyOrgObj">
-            <!-- <iep-select prefix-url="crm/customer/myorcoll" v-model="formData.companyOrgId" label="clientName" prop="clientId" @change="clientChange"></iep-select> -->
-            <selectMore v-model="formData.companyOrgObj" prefix-url="crm/customer/myorcoll/list" @change="clientChange"></selectMore>
+          <el-form-item label="委托单位：" prop="companyOrgId">
+            <!-- <selectMore v-model="formData.companyOrgObj" prefix-url="crm/customer/myorcoll/list" @change="clientChange"></selectMore> -->
+            <IepCrmsSelect 
+              v-model="formData.companyOrgId" 
+              :option="[{id: formData.companyOrgId, name: formData.companyName}]" 
+              prefixUrl="crm/customer/myorcoll/list" 
+              @change="clientChange">
+            </IepCrmsSelect>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="签署单位：" prop="signCompanyOrgObj">
-            <!-- <iep-select prefix-url="crm/customer/all" v-model="formData.signCompanyOrgId" label="clientName" prop="clientId"></iep-select> -->
-            <selectMore v-model="formData.signCompanyOrgObj" prefix-url="crm/customer/all/list"></selectMore>
+          <el-form-item label="签署单位：" prop="signCompanyOrgId">
+            <!-- <selectMore v-model="formData.signCompanyOrgId" prefix-url="crm/customer/all/list"></selectMore> -->
+            <IepCrmsSelect 
+              v-model="formData.signCompanyOrgId" 
+              :option="[{id: formData.signCompanyOrgId, name: formData.signCompanyRealName}]" 
+              prefixUrl="crm/customer/all/list">
+            </IepCrmsSelect>
           </el-form-item>
         </el-col>
       </el-row>
@@ -117,14 +126,12 @@
 <script>
 import { initFormData, rules, dictsMap } from './option'
 import { mapGetters } from 'vuex'
-import { getManeger } from '@/api/mlms/material/datum/contract'
-import { getCustomerPage } from '@/api/crms/customer'
+import { getManeger, updateData, getDataById } from '@/api/mlms/material/datum/contract'
 import projectDialog from './projectRelation'
 import businessType from './businessType'
-import selectMore from './selectMore'
 
 export default {
-  components: { projectDialog, businessType, selectMore },
+  components: { projectDialog, businessType },
   computed: {
     ...mapGetters(['userInfo', 'dictGroup']),
   },
@@ -136,7 +143,6 @@ export default {
       formRequestFn: () => { },
       formData: initFormData(),
       rules: rules,
-      clientList: [],
       directorList: [],
       dictsMap,
       backOption: {
@@ -168,6 +174,29 @@ export default {
     }
   },
   methods: {
+    // 编辑
+    open (id) {
+      getDataById(id).then(({ data }) => {
+        let row = data.data
+        row.underTakeDeptList = row.underTakeDeptName // 承接部门
+        if (row.contractType == 0) {
+          row.directorList = {
+            id: row.directorId,
+            name: row.directorRealName,
+          }
+        }
+        if (row.projectRelation) {
+          row.projectId = row.projectRelation.id
+          row.projectName = row.projectRelation.name
+        }
+        row.signDeptName = row.signDeptOrgName.name
+        row.companyOrgObj = { id: row.companyOrgId, name: row.companyName }
+        row.signCompanyOrgObj = { id: row.signCompanyOrgId, name: row.signCompanyRealName }
+        this.formData = Object.assign({}, this.formData, row)
+        this.methodName = '编辑'
+        this.formRequestFn = updateData
+      })
+    },
     loadPage () {
       this.$emit('load-page')
     },
@@ -181,8 +210,8 @@ export default {
       this.formData.contractFile = this.formData.contractFileList.length > 0 ? this.formData.contractFileList[0].url : ''
       // 提交前需要处理下数据
       if (this.formData.contractType == 1) { // 外部合同
-        this.formData.companyOrgId = this.formData.companyOrgObj.id
-        this.formData.signCompanyOrgId = this.formData.signCompanyOrgObj.id
+        // this.formData.companyOrgId = this.formData.companyOrgObj.id // 委托单位
+        // this.formData.signCompanyOrgId = this.formData.signCompanyOrgObj.id // 签署单位
       } else { // 内部合同
         this.formData.directorId = this.formData.directorList.id
       }
@@ -231,11 +260,6 @@ export default {
   mounted () {
     this.formData.signDeptOrgId = this.userInfo.orgId
     this.formData.signDeptName = this.userInfo.orgName
-  },
-  created () {
-    getCustomerPage({ type: 1 }).then(({ data }) => {
-      this.clientList = data.data.records
-    })
   },
 }
 </script>

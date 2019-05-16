@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     loadPage (val) {
-      this.$refs['librarys'].getCustomList(val)
+      this.$refs['librarys'].searchData(val)
     },
   },
 }

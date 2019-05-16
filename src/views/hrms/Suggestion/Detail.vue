@@ -32,8 +32,11 @@
         </iep-form-item>
         <hr>
         <iep-form-item label-name="附件">
+          <div v-if="form.annexList.length > 0">
           <a-tag v-for="file in form.annexList" :key="file.url" @click="handleDownload(file)">
             <a-icon type="paper-clip" />{{file.name}}</a-tag>
+          </div>
+          <span v-else>无附件</span>
         </iep-form-item>
 
         <el-form-item label="">

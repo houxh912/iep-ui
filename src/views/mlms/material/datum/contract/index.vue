@@ -48,7 +48,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { getTableData, getTableDataOnlyMe, createData, updateData, deleteData, getDataById } from '@/api/mlms/material/datum/contract'
+import { getTableData, getTableDataOnlyMe, createData, deleteData } from '@/api/mlms/material/datum/contract'
 import MainDialog from './mainDialog'
 import detailDialog from './detail'
 import { mapGetters } from 'vuex'
@@ -80,26 +80,8 @@ export default {
     },
     handleEdit (row) {
       this.pageState = 'dialog'
-      getDataById(row.id).then(({ data }) => {
-        let row = data.data
-        row.underTakeDeptList = row.underTakeDeptName // 承接部门
-        if (row.contractType == 0) {
-          row.directorList = {
-            id: row.directorId,
-            name: row.directorRealName,
-          }
-        }
-        console.log('row: ', row)
-        if (row.projectRelation) {
-          row.projectId = row.projectRelation.id
-          row.projectName = row.projectRelation.name
-        }
-        row.signDeptName = row.signDeptOrgName.name
-        row.companyOrgObj = { id: row.companyOrgId, name: row.companyName }
-        row.signCompanyOrgObj = { id: row.signCompanyOrgId, name: row.signCompanyRealName }
-        this.$refs['mainDialog'].formData = row
-        this.$refs['mainDialog'].methodName = '编辑'
-        this.$refs['mainDialog'].formRequestFn = updateData
+      this.$nextTick(() => {
+        this.$refs['mainDialog'].open(row.id)
       })
     },
     handleDetail (row) {

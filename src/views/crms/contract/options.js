@@ -72,6 +72,7 @@ export const rules = {
     { required: true, message: '请选择合同级别', trigger: 'change' },
   ],
   deposit: [{ validator: amount1, trigger: 'change' }],
+  projectId: [{ required: true, message: '请选择关联项目', trigger: 'change' }],
 }
 export const initFormData = () => {
   return {
@@ -98,7 +99,21 @@ export const initFormData = () => {
     deposit: '',
     contractFileList: [],
     contractType: 1,
+    projectName: '',
+    projectId: '',
   }
 }
+export const projecTableOption = [
+  {
+    label: '项目名称',
+    prop: 'projectName',
+  }, {
+    label: '项目预算',
+    prop: 'projectBudget',
+  }, {
+    label: '发布人',
+    prop: 'publisherName',
+  },
+]
 
 export { initSearchForm }

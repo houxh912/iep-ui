@@ -1,6 +1,6 @@
 <template>
   <div class="time-line">
-    <div class="item" v-if="upLoad">
+    <!-- <div class="item" v-if="upLoad">
       <div class="middle up-load">
         <div class="tail"></div>
         <div>
@@ -8,9 +8,12 @@
           <div class="content"></div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="item" v-for="(item, index) in list" :key=index>
-      <div class="before" v-if="item.month">{{item.month}}</div>
+      <!-- 获取到第一条数据的月份 -->
+      <div class="before" v-if="index == 0">{{formatYearMonth(item.createTime)}}</div>
+      <!-- 判断与前一条月份是否相同 -->
+      <div class="before" v-else-if="!isMonth(item, list[index-1])">{{formatYearMonth(item.createTime)}}</div>
       <div class="middle">
         <div class="tail"></div>
         <div v-if="item.month">
@@ -18,8 +21,9 @@
           <div class="content"></div>
         </div>
         <div v-else>
-          <div class="date" :class="active===index?'active':''">{{item.date}}</div>
-          <div class="content">
+          <div class="date" v-if="index == 0 || !isDay(item, list[index-1])">{{formatDay(item.createTime)}}</div>
+          <div class="date-null" v-else></div>
+          <div class="thoughts-content">
             <slot name="content" :row="item" :index="index" :today="today == item.createTime"></slot>
           </div>
         </div>
@@ -66,6 +70,36 @@ export default {
     getupMore () {
       this.$emit('getUpMore', true)
     },
+    // 返回日
+    formatDay (mill) {
+      return `${new Date(mill).getDate()}日`
+    },
+    // 返回YYYY年mm月
+    formatYearMonth (mill) {
+      var y = new Date(mill)
+      return `${y.getFullYear()}年${y.getMonth() + 1}月`
+    },
+    isMonth (before, after) {
+      // 年月都要判断
+      if (new Date(before.createTime).getFullYear() != new Date(after.createTime).getFullYear()) {
+        return false
+      } else {
+        return new Date(before.createTime).getMonth() == new Date(after.createTime).getMonth()
+      }
+    },
+    isDay (before, after) {
+      if (!after) {
+        return true
+      }
+      // 年月日都要判断
+      if (new Date(before.createTime).getFullYear() != new Date(after.createTime).getFullYear()) {
+        return false
+      } else if (new Date(before.createTime).getMonth() != new Date(after.createTime).getMonth()) {
+        return false
+      } else {
+        return new Date(before.createTime).getDate() == new Date(after.createTime).getDate()
+      }
+    },
   },
 }
 </script>
@@ -106,6 +140,11 @@ export default {
         text-align: center;
         font-size: 12px;
       }
+      .date-null {
+        margin-left: 17px;
+        height: 36px;
+        border-left: 1px solid #e4e7ed;
+      }
       .icon {
         transform: rotate(134deg);
         color: #999;
@@ -116,12 +155,22 @@ export default {
         background: #fef0f0;
         border-color: #fbc4c4;
       }
-      .content {
+      .thoughts-content {
+        border-radius: 8px;
         position: relative;
         margin-left: 55px;
         top: -33px;
         min-height: 40px;
-        // border: 1px solid #ddd;
+        border: 1px solid #ddd;
+        &::before {
+          content: "";
+          position: absolute;
+          left: -16px;
+          top: 16px;
+          width: 29px;
+          height: 18px;
+          background: #fafafa url(../img/sanjiao.jpg) no-repeat;
+        }
       }
     }
     .up-load {

@@ -12,7 +12,7 @@ export function getBusinessList (query) {
 //商机新增查重
 export function checkBusinessName (query) {
   return request({
-    url: `${crmsUrl}/page/%7Bname%7D`,
+    url: `${crmsUrl}/page/name`,
     method: 'get',
     params: query,
   })

@@ -24,7 +24,6 @@ export default {
   },
   methods: {
     handleOpen () {
-      console.log(this.isCommon)
       this.$openPage(this.isCommon)
     },
   },

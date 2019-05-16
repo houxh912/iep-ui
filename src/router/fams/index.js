@@ -35,6 +35,11 @@ export default [
         name: '开票详情',
         component: () => import('@/views/fams/wealth/BillingNotice/Detail.vue'),
       },
+      {
+        path: 'fund_transfer_detail/:id',
+        name: '资金调拨详情',
+        component: () => import('@/views/fams/GroupFinance/FundTransfer/Detail.vue'),
+      },
     ],
   },
 ]

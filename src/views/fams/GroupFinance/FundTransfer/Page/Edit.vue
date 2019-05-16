@@ -31,7 +31,7 @@
         <iep-form-item label-name="调出组织" class="form-half">
           <iep-select v-model="form.callOutOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调出组织"></iep-select>
         </iep-form-item>
-        <iep-form-item label-name="线下公司" class="form-half">
+        <iep-form-item v-if="!!form.allocationWay" label-name="线下公司" class="form-half">
           <iep-select v-model="form.callOutCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择线下公司"></iep-select>
         </iep-form-item>
         <iep-form-item v-if="!callOutBankAmountOption.disabled" label-name="银行账户：">
@@ -44,13 +44,13 @@
         <iep-form-item label-name="调入组织" class="form-half">
           <iep-select v-model="form.callInOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调入组织"></iep-select>
         </iep-form-item>
-        <iep-form-item label-name="线下公司" class="form-half">
+        <iep-form-item v-if="!!form.allocationWay" label-name="线下公司" class="form-half">
           <iep-select v-model="form.callInCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择线下公司"></iep-select>
         </iep-form-item>
         <iep-form-item v-if="!callInBankAmountOption.disabled" label-name="银行账户：">
           <iep-select v-model="form.callInCompanyBankId" autocomplete="off" :prefix-url="callInBankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
         </iep-form-item>
-        <iep-form-item label-name="调出方财务" class="form-half">
+        <iep-form-item label-name="调入方财务" class="form-half">
           <iep-contact-select v-model="form.callInUser"></iep-contact-select>
         </iep-form-item>
       </el-form>
@@ -58,7 +58,7 @@
   </div>
 </template>
 <script>
-import { initForm, dictsMap, formToDto, calcularTime } from '../options'
+import { initForm, dictsMap, formToDto, calculateTime } from '../options'
 import { pickerOptions } from '@/const/formConfig.js'
 import { mapGetters } from 'vuex'
 export default {
@@ -86,7 +86,7 @@ export default {
     ...mapGetters(['dictGroup']),
     estimatedTime () {
       const lastTime = this.form.implementRangeTime[1]
-      return calcularTime(lastTime, this.form.allocationDays)
+      return calculateTime(lastTime, this.form.allocationDays)
     },
     callOutBankAmountOption () {
       if (this.form.callOutCompanyId) {

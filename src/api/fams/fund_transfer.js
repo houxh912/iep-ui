@@ -18,6 +18,27 @@ export function getFundTransferById (id) {
   })
 }
 
+export function revokeFundTransferById (id) {
+  return request({
+    url: `${prefixUrl}/revoke/${id}`,
+    method: 'get',
+  })
+}
+
+export function finishFundTransferById (id) {
+  return request({
+    url: `${prefixUrl}/finish/${id}`,
+    method: 'get',
+  })
+}
+
+export function confirmFundTransferById (id) {
+  return request({
+    url: `${prefixUrl}/confirm/${id}`,
+    method: 'get',
+  })
+}
+
 export function postFundTransfer (obj) {
   return request({
     url: `${prefixUrl}/create`,

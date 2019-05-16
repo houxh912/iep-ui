@@ -4,7 +4,7 @@
       <page-header title="开票通知详情" :back-option="backOption">
       </page-header>
       <el-form ref="form" class="form-detail" :model="form" label-width="150px" size="small">
-        <h4 class="sub-title">购买方信息</h4>
+        <h4 class="iep-sub-title">购买方信息</h4>
         <iep-form-item label-name="名称" class="form-half">
           <iep-div-detail :value="form.buyerName"></iep-div-detail>
         </iep-form-item>
@@ -23,7 +23,7 @@
         <iep-form-item label-name="发票邮寄地址">
           <iep-div-detail :value="form.buyerMail"></iep-div-detail>
         </iep-form-item>
-        <h4 class="sub-title">货物或应税劳务、服务名称</h4>
+        <h4 class="iep-sub-title">货物或应税劳务、服务名称</h4>
         <iep-form-item label-name="一级科目" class="form-half">
           <iep-dict-detail v-model="form.firstSubject" dict-name="fams_tax_subject"></iep-dict-detail>
         </iep-form-item>
@@ -45,7 +45,7 @@
         <iep-form-item label-name="关联项目">
           <el-input v-model="form.projectId"></el-input>
         </iep-form-item>
-        <h4 class="sub-title">销售方</h4>
+        <h4 class="iep-sub-title">销售方</h4>
         <iep-form-item label-name="销售方公司">
           <iep-select-detail v-model="form.companyId" prefix-url="fams/company"></iep-select-detail>
         </iep-form-item>
@@ -68,7 +68,7 @@
           <iep-div-detail :value="form.remarks"></iep-div-detail>
         </iep-form-item>
         <template v-if="form.status">
-          <h4 class="sub-title">审批内容</h4>
+          <h4 class="iep-sub-title">审批内容</h4>
           <iep-form-item label-name="状态">
             <iep-div-detail :value="dictsMap.status[form.status]"></iep-div-detail>
           </iep-form-item>
@@ -127,12 +127,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.iep-page-form {
-  .sub-title {
-    margin-bottom: 10px;
-    font-weight: 700;
-    margin-left: 15px;
-  }
-}
-</style>

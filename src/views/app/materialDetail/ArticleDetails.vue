@@ -12,7 +12,9 @@
       <div class="btn jc"><i class="iconfont icon-zhuyi"></i>纠错</div>
     </div>
     <div class="introduction">{{formData.intro}}</div>
-    <div class="content">{{formData.content}}</div>
+    <div class="content">
+      <iep-html v-model="formData.content"></iep-html>
+    </div>
     <el-row class="down-load" v-if="formData.attachFile">
       相关附件：
       <div class="file" v-for="(item, index) in formData.attachFileList" :key="index">
@@ -136,6 +138,7 @@ export default {
   }
   .content{
     padding: 0 20px;
+    margin: 0 0 20px;
   }
   .down-load {
     background-color: #fff;

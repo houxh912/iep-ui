@@ -1,13 +1,12 @@
 <template>
   <div class="most">
-    <librarys-header :total="total" @load_page="getBusinessPage"></librarys-header>
-    <librarys-content :list="list"></librarys-content>
+    <librarys-header :total="total" @load_page="loadPage"></librarys-header>
+    <librarys-content ref="content"></librarys-content>
   </div>
 </template>
 <script>
 import LibrarysHeader from './LibrarysHeader'
 import LibrarysContent from './LibrarysContent'
-import { getBusinessPage } from '@/api/app/crms/'
 
 export default {
   components: { LibrarysHeader, LibrarysContent },
@@ -18,15 +17,9 @@ export default {
     }
   },
   methods: {
-    getBusinessPage (params = {}) {
-      getBusinessPage(params).then(({data}) => {
-        this.total = data.data.total
-        this.list = data.data.records
-      })
+    loadPage (val) {
+      this.$refs['content'].searchData(val)
     },
-  },
-  created () {
-    this.getBusinessPage()
   },
 }
 </script>

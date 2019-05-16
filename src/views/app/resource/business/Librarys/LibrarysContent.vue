@@ -17,9 +17,15 @@
         </div>
       </div>
     </div>
+    <div style="text-align: center;margin: 20px 0;">
+      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+    </div>
   </div>
 </template>
+
 <script>
+import { getBusinessPage } from '@/api/app/crms/'
+
 export default {
   props: {
     list: {
@@ -29,8 +35,34 @@ export default {
   },
   data () {
     return {
-
+      paramForm: {},
+      total: 0,
+      params: {
+        current: 1,
+        size: 10,
+      },
     }
+  },
+  methods: {
+    searchData (val) {
+      this.params.current = 1
+      this.paramForm = val
+      this.getBusinessPage()
+    },
+    getBusinessPage () {
+      getBusinessPage(Object.assign({}, this.paramForm, this.params)).then(({data}) => {
+        this.total = data.data.total
+        this.list = data.data.records
+        this.total = data.data.total
+      })
+    },
+    currentChange (val) {
+      this.params.current = val
+      this.getBusinessPage()
+    },
+  },
+  created () {
+    this.getBusinessPage()
   },
 }
 </script>

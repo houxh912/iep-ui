@@ -17,7 +17,7 @@
         </el-table-column>
         <el-table-column prop="treatment" label="薪资待遇">
         </el-table-column>
-        <el-table-column prop="deptName" label="需求组织">
+        <el-table-column prop="orgName" label="需求组织">
         </el-table-column>
       </el-table>
     </IepAppTabCard>

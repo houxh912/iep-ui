@@ -65,7 +65,7 @@ const rules = {
   proposeContent: [
     { required: true, message: '请填写建议内容', trigger: 'blur' },
   ],
-  attendeeList: [
+  attendeeId: [
     { required: true, message: '请填写接收对象', trigger: 'blur' },
   ],
   feedbackStatus: [

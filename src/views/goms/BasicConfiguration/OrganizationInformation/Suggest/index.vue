@@ -16,7 +16,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @selection-change="handleSelectionChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="发件人" width="220px">
             <template slot-scope="scope">
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { getSuggestionReceivedPage } from '@/api/hrms/suggestion'
+import { getSuggestionReceivedPage, deleteSuggestionById, deleteSuggestionBatch } from '@/api/hrms/suggestion'
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from './AdvanceSearch'
 import { dictsMap, columnsMap } from './options'
@@ -71,8 +71,14 @@ export default {
     handleCommandUser () {
       // console.log(val)
     },
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deleteSuggestionBatch)
+    },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id)
+      this._handleGlobalDeleteById(row.id, deleteSuggestionById)
     },
     handleDetail (row) {
       this.$router.push({

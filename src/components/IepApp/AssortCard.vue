@@ -1,7 +1,7 @@
 <template>
   <div class="assort">
     <div v-for="(item,index) in dataList" :key="index" class="piece">
-      <span class="assort">{{item.assort}}</span>{{item.desc}}<slot name="label"></slot>
+      <span class="assort">{{item[title]}}</span>{{item[desc]}}<slot name="label"></slot>
     </div>
   </div>
 </template>
@@ -13,6 +13,14 @@ export default {
       type: Array,
       required: false,
       default: () => [],
+    },
+    title: {
+      type: String,
+      default: 'assort',
+    },
+    desc: {
+      type: String,
+      default: 'desc',
     },
   },
 }

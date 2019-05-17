@@ -51,3 +51,12 @@ export const getBestList = (params) => {
     params: params,
   })
 }
+
+// 学习资料、制度文件
+export const getMaterialList = (params) => {
+  return request({
+    url: `${prefixUrl}/list`,
+    method: 'get',
+    params: params,
+  })
+}

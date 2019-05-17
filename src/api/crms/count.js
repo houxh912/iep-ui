@@ -183,3 +183,11 @@ export function getAllOtherclient (params) {
     params: params,
   })
 }
+//查看所有业务类型最大值
+export function getBusinessMax (params) {
+  return request({
+    url: `${allUrl}/businessMax`,
+    method: 'get',
+    params: params,
+  })
+}

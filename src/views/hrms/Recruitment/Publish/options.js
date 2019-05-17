@@ -56,7 +56,7 @@ const initForm = () => {
     treatment: '', // 工资待遇
     language: '', // 外语要求
     term: initNow(), // 招聘期限
-    welfare: '', // 福利待遇
+    welfare: [], // 福利待遇
     status: '', // 状态
     duties: '', // 岗位职责
     claim: '', // 岗位要求
@@ -137,7 +137,7 @@ const rules = {
     { required: true, type: 'array', message: '请填写岗位', trigger: 'blur' },
   ],
   dept: [
-    { required: true, message: '请填写部门', trigger: 'blur' },
+    { required: false, message: '请填写部门', trigger: 'blur' },
   ],
   recruitsCount: [
     { required: true, message: '请填写招聘人数', trigger: 'blur' },
@@ -173,7 +173,7 @@ const rules = {
     { required: true, message: '请填写招聘期限', trigger: 'blur' },
   ],
   welfare: [
-    { required: true, message: '请填写福利待遇', trigger: 'blur' },
+    { type:'array', required: true, message: '请填写福利待遇', trigger: 'blur' },
   ],
   duties: [
     { required: true, message: '请填写岗位职责', trigger: 'blur' },

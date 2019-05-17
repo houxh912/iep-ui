@@ -1,31 +1,35 @@
 <template>
   <div class="notice">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <IepAppAssortCard :dataList="dataList" class="notice-box">
+      <IepAppAssortCard :dataList="dataList" class="notice-box" title="typeName" desc="name">
         <span class="new" slot="label">NEW</span>
       </IepAppAssortCard>
     </IepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getNotificationList } from '@/api/app/ims/'
+
 export default {
   data () {
     return {
       title: '通知公告',
-      dataList: [
-        { assort: '【通知】', desc: '国脉海洋获质量管理系认证' },
-        { assort: '【通知】', desc: '舟山国脉考察' },
-        { assort: '【通知】', desc: '中国建设银行总行首席经济学家黄志凌一行莅临舟山国脉考察' },
-        { assort: '【公告】', desc: '热烈庆祝广州国脉公司乔迁开业' },
-        { assort: '【公告】', desc: '国脉总经理郑爱军荣获“浙江创业女杰' },
-        { assort: '【公告】', desc: '国脉物联网两大研究中心简介' },
-        { assort: '【公告】', desc: '国脉物联网3.0版上线公告' },
-      ],
+      dataList: [],
       linkName: '',
     }
   },
+  created () {
+    getNotificationList().then(({data}) => {
+      for (let item of data.data) {
+        item.typeName = `【${item.typeName}】`
+      }
+      this.dataList = data.data
+    })
+  },
 }
 </script>
+
 <style lang="scss" scoped>
 .notice-box {
   position: relative;

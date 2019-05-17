@@ -1,15 +1,15 @@
 <template>
   <div class="switch">
-    <IepAppTabsCard isMore>
+    <IepAppTabsCard isMore :linkName="linkName">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='LearnList'" v-slot:LearnList>
-          <learn-list v-loading="activeTab !=='LearnList'"></learn-list>
+          <learn-list v-loading="activeTab !=='LearnList'" :learningList="learningList"></learn-list>
         </template>
         <template v-if="activeTab ==='ReadList'" v-slot:ReadList>
           <read-list v-loading="activeTab !=='ReadList'"></read-list>
         </template>
         <template v-if="activeTab ==='DocumentList'" v-slot:DocumentList>
-          <document-list v-loading="activeTab !=='DocumentList'"></document-list>
+          <document-list v-loading="activeTab !=='DocumentList'" :documentList="documentList"></document-list>
         </template>
         <template v-if="activeTab ==='ActivityList'" v-slot:ActivityList>
           <activity-list v-loading="activeTab !=='ActivityList'"></activity-list>
@@ -23,6 +23,7 @@ import LearnList from './LearnList'
 import ReadList from './ReadList'
 import DocumentList from './DocumentList'
 import ActivityList from './ActivityList'
+import { getMaterialList } from '@/api/app/mlms/'
 
 export default {
   components: {
@@ -37,17 +38,20 @@ export default {
         label: '学习资源',
         value: 'LearnList',
       }, {
-        label: '新人必读',
-        value: 'ReadList',
-      }, {
         label: '制度文件',
         value: 'DocumentList',
-      }, {
-        label: '团建活动',
-        value: 'ActivityList',
       }],
       activeTab: 'LearnList',
+      learningList: [],
+      documentList: [],
+      linkName: '/app/resource/material',
     }
+  },
+  created () {
+    getMaterialList().then(({data}) => {
+      this.learningList = data.data.rlxx ? data.data.rlxx : []
+      this.documentList = data.data.gzzd ? data.data.gzzd : []
+    })
   },
 }
 </script>

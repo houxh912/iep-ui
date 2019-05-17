@@ -22,9 +22,6 @@ export default {
 </script>
 <style scoped lang="scss">
 .hobby {
-  span:nth-last-child(1) {
-    color: #c73e3e;
-  }
   span {
     display: inline-block;
     padding: 5px 20px;

@@ -17,8 +17,8 @@ export default {
         {levelName:'联盟介绍',materialCount:'11',path:'introduction'},
         {levelName:'联盟大事记',materialCount:'11',path:'memorabilia'},
         {levelName:'联盟发展历程',materialCount:'11',path:'development'},
+        {levelName:'联盟文化',materialCount:'11',path:'culture'},
         {levelName:'联盟相册',materialCount:'11',path:'album'},
-        {levelName:'平台体系',materialCount:'11',path:'platform'},
         {levelName:'评价管理',materialCount:'11',path:'evaluation'},
       ],
     }

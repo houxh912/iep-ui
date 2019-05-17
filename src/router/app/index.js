@@ -166,9 +166,9 @@ export default [
             meta: noAuth,
           },
           {
-            path: 'platform',
-            name: '平台体系',
-            component: () => import('@/views/app/allianceDetails/platform/'),
+            path: 'culture',
+            name: '联盟文化',
+            component: () => import('@/views/app/allianceDetails/culture/'),
             meta: noAuth,
           },
           {

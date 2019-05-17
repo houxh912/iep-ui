@@ -2,10 +2,10 @@
   <div class="gird-recommend">
     <div class="leaderBoard">
       <IepAppTabsCard :linkName="linkName">
-        <!-- <span class="btn">换一批</span> -->
+        <span class="btn" @click="handleChangeBatch">换一批</span>
         <iep-tabs v-model="activeTab" :tab-list="tabList">
           <template v-if="activeTab ==='RecommendTags'" v-slot:RecommendTags>
-            <recommend-tags v-loading="activeTab !=='RecommendTags'"></recommend-tags>
+            <recommend-tags ref="recommendTags" v-loading="activeTab !=='RecommendTags'"></recommend-tags>
           </template>
           <template v-if="activeTab ==='AddTags'" v-slot:AddTags>
             <add-tags v-loading="activeTab !=='AddTags'"></add-tags>
@@ -36,6 +36,11 @@ export default {
       activeTab: 'RecommendTags',
     }
   },
+  methods: {
+    handleChangeBatch () {
+      this.$refs['recommendTags'].selectIdx = 1 - this.$refs['recommendTags'].selectIdx
+    },
+  },
 }
 </script>
 <style scoped lang="scss">
@@ -60,6 +65,7 @@ export default {
   }
 }
 .btn {
+  cursor: pointer;
   line-height: 48px;
   position: absolute;
   right: 20px;

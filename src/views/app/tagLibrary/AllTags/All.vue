@@ -11,7 +11,7 @@ import { getIndexPage } from '@/api/tms/tag'
 function pageOption () {
   return {
     page: 1,
-    limit: 40,
+    limit: 100,
   }
 }
 export default {

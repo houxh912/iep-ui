@@ -173,7 +173,7 @@ export default [
           },
           {
             path: 'evaluation',
-            name: '组织评价',
+            name: '评价管理',
             component: () => import('@/views/app/organizationDetails/evaluation/'),
             meta: noAuth,
           },

@@ -10,8 +10,8 @@
             v-model="formData.status"
             active-color="#13ce66"
             inactive-color="#bbb"
-            :active-value="1"
-            :inactive-value="0">
+            :active-value="0"
+            :inactive-value="1">
           </el-switch>
         </div>
         <div class="button">
@@ -37,7 +37,7 @@
               </div>
               <div class="right">
                 <i class="el-icon-delete" @click="handleDelete(row, index)"></i>
-                <i class="icon-suoding" v-if="row.status == 0"></i>
+                <i class="icon-suoding" v-if="row.status == 1"></i>
               </div>
             </div>
           </template>
@@ -52,16 +52,20 @@
 import TimeLine from './timeline'
 import { thoughtsCreate, getThoughtsPage, thoughtsDelete } from '@/api/hrms/thoughts'
 
+function initFormData () {
+  return {
+    content: '',
+    status: 0, // 0开放、1不开放
+  }
+}
+
 export default {
   name: 'thoughts',
   components: { TimeLine },
   data () {
     return {
       activeIndex: [0],
-      formData: {
-        content: '',
-        status: 1, // 0不开放、1开放
-      },
+      formData: initFormData(),
       createValidate: false,
       searchData: {
         createTime: '',
@@ -88,14 +92,12 @@ export default {
       this.createValidate = false
       this.loadState = true
       thoughtsCreate(this.formData).then(() => {
+        this.$message.success('保存成功！')
         this.loadState = false
         this.params.current = 1
         this.list = []
         this.loadPage()
-        this.formData = {
-          content: '',
-          status: 1,
-        }
+        this.formData = initFormData()
       })
     },
     // 获取更多

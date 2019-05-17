@@ -89,7 +89,7 @@
           </el-col>
           <el-col :span="12">
             <iep-form-item class="form-half" prop="welfare" label-name="福利待遇" tip="此处如需填写多项内容时，请用“/”分开">
-              <iep-dict-select v-model="form.welfare" dict-name="hrms_fringe_benefits"></iep-dict-select>
+              <iep-dict-select v-model="form.welfare" multiple dict-name="hrms_fringe_benefits"></iep-dict-select>
             </iep-form-item>
           </el-col>
         </el-row>

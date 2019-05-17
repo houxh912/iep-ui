@@ -31,13 +31,13 @@
     </iep-form-item>
 
     <el-form-item label="岗位：" prop="position" class="form-half">
-      <iep-cascader v-model="form.position" prefix-url="hrms/post_type"></iep-cascader>
+      <iep-cascader v-model="form.position" prefix-url="hrms/post_type" :disabled="!!form.staffId"></iep-cascader>
     </el-form-item>
     <el-form-item label="职务：" prop="jobId" class="form-half">
-      <iep-select prefix-url="hrms/job_system" v-model="form.jobId"></iep-select>
+      <iep-select prefix-url="hrms/job_system" v-model="form.jobId" :disabled="!!form.staffId"></iep-select>
     </el-form-item>
     <el-form-item label="职称：" prop="titleId" class="form-half">
-      <iep-select prefix-url="hrms/title_system" v-model="form.titleId"></iep-select>
+      <iep-select prefix-url="hrms/title_system" v-model="form.titleId" :disabled="!!form.staffId"></iep-select>
     </el-form-item>
     <el-form-item label="入职时间：" prop="entryTime" class="form-half">
       <IepDatePicker v-model="form.entryTime" type="date" placeholder="选择日期"></IepDatePicker>

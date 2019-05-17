@@ -43,7 +43,7 @@ export default {
     this.isTrue = false
     return {
       chartData: {
-        columns: ['date', 'creative', 'work', 'study', 'admin', 'xz', 'weath'],
+        columns: ['date', 'creative', 'work', 'study', 'weath', 'admin', 'xz'],
         rows: [
           {
             date: '去年', 'weath': 40, 'creative': 50, 'work': 30, 'study': 40, 'admin': 50, 'xz': 40,

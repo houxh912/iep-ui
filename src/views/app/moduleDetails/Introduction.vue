@@ -2,7 +2,7 @@
   <div class="introduction">
     <el-card shadow="hover" class="introduction-card">
       <div class="left">
-        <iep-img :src="form.imageUrl" alt="" style="width:160px;height: 160px;"></iep-img>
+        <iep-img :src="form.imageUrl" alt=""></iep-img>
       </div>
       <div class="right">
         <div class="title">
@@ -51,6 +51,12 @@ export default {
     text-align: center;
     margin-right: 30px;
     float: left;
+    img {
+      display: block;
+      padding: 10px;
+      width: 100%;
+      height: 100%;
+    }
     > i {
       font-size: 60px;
       color: #999;

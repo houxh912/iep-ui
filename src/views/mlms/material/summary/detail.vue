@@ -28,12 +28,15 @@
 
       <div class="comment" v-if="formData.status !== 1 && !previewState">
         <div class="button-list" v-if="isDelete">
-          <iep-button type="primary" @click="handleCollect">{{formData.collection == 1 ? '已收藏' : '收藏'}}</iep-button>
-          <iep-button type="primary" @click="handleShare">分享</iep-button>
-          <iep-button type="primary" @click="handleWrong">纠错</iep-button>
-          <iep-button type="primary" @click="handleComment">评论</iep-button>
-          <iep-button type="primary" @click="handleReward">打赏</iep-button>
-          <iep-button type="primary" @click="Instructions" v-if="permission_instruct">领导批示</iep-button>
+          <IepFiveKay>
+            <IepKeyItem icon="icon-aixin" name="已收藏" @click.native="handleCollect" isChecked v-if="formData.collection == 1"></IepKeyItem>
+            <IepKeyItem icon="icon-heart" name="收藏" @click.native="handleCollect" v-else></IepKeyItem>
+            <IepKeyItem icon="icon-share" name="分享" @click.native="handleShare"></IepKeyItem>
+            <IepKeyItem icon="icon-chakantiezigengduojubao" name="纠错" @click.native="handleWrong"></IepKeyItem>
+            <IepKeyItem icon="icon-xiaoxi" name="评论" @click.native="handleComment"></IepKeyItem>
+            <IepKeyItem icon="icon-yuanbao" name="打赏" @click.native="handleReward"></IepKeyItem>
+            <IepKeyItem icon="icon-piyue" name="领导批示" @click.native="Instructions" v-if="permission_instruct"></IepKeyItem>
+          </IepFiveKay>
         </div>
         <div class="form" v-if="isCommentShow">
           <h2 class="title">补充或评论</h2>

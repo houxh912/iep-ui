@@ -5,9 +5,21 @@
       <IepAppLabelCard :dataList="form.tagList.map(m => m.commonName)"></IepAppLabelCard>
     </IepAppTabCard>
     <IepAppTabCard title="标签统计">
-      <div class="piece-item" v-for="(item,index) in labelList" :key="index">
-        <span class="name" v-text="item.name"></span>
-        <span class="frequency" v-text="item.frequency"></span>
+      <div class="piece-item">
+        <span class="name">浏览次数:</span>
+        <span class="frequency" v-text="form.views"></span>
+      </div>
+      <div class="piece-item">
+        <span class="name">应用次数:</span>
+        <span class="frequency" v-text="form.refers"></span>
+      </div>
+      <div class="piece-item">
+        <span class="name">最近更新:</span>
+        <span class="frequency" v-text="form.updateTime"></span>
+      </div>
+      <div class="piece-item">
+        <span class="name">创建者:</span>
+        <span class="frequency" v-text="form.creatorRealName"></span>
       </div>
       <div class="icon-item">
         <div class="icon-box" v-for="(item,index) in iconList" :key="index">
@@ -23,13 +35,6 @@ export default {
   props: ['form'],
   data () {
     return {
-      labelList: [
-        { name: '浏览次数:', frequency: '936次' },
-        { name: '应用次数:', frequency: '93226次' },
-        // { name: '编辑人次:', frequency: '93622次' },
-        { name: '最近更新:', frequency: '2019-02-15' },
-        { name: '创建者:', frequency: '国脉总账户' },
-      ],
       iconList: [
         { icon: 'icon-shoucang1', iconName: '收藏' },
         { icon: 'icon-share', iconName: '分享' },
@@ -38,12 +43,6 @@ export default {
         { icon: 'icon-xiaoxi', iconName: '评论' },
       ],
     }
-  },
-  mounted () {
-    this.labelList[0].frequency = this.form.views + '次'
-    this.labelList[1].frequency = this.form.refers + '次'
-    this.labelList[2].frequency = this.form.updateTime
-    this.labelList[3].frequency = this.form.creatorRealName
   },
 }
 </script>

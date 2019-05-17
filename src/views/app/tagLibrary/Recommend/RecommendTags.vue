@@ -1,16 +1,18 @@
 <template>
   <div class="recommend-tags">
-    <span v-for="(item) in tags" :key="item.id" @click="TagsDetail(item)">
+    <span v-for="(item) in tags[selectIdx]" :key="item.id" @click="TagsDetail(item)">
       {{item.name+'('+ item.refers +')'}}
     </span>
   </div>
 </template>
 <script>
+import chunk from 'lodash/chunk'
 import { getRecTags } from '@/api/tms/tag'
 export default {
   data () {
     return {
       tags: [],
+      selectIdx: 0,
     }
   },
   created () {
@@ -19,7 +21,7 @@ export default {
   methods: {
     async loadPage () {
       const { data } = await getRecTags()
-      this.tags = data.data
+      this.tags = chunk(data.data, 20)
     },
     TagsDetail (row) {
       this.$router.push({

@@ -52,8 +52,8 @@ export default {
   color: #333;
 }
 .el-col {
-  height: 30px;
-  line-height: 30px;
+  height: 42px;
+  line-height: 42px;
   > span {
     width: 100px;
     display: inline-block;

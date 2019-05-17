@@ -56,10 +56,10 @@ export default {
   },
   methods: {
     sendBlessing (row) {
-      this.$refs['blessing'].open({id: row.id, name: row.name})
+      this.$refs['blessing'].open({ id: row.id, name: row.name })
     },
     getBirthdayList () {
-      getRecruitBirthday().then(({data}) => {
+      getRecruitBirthday().then(({ data }) => {
         this.starList = data.data
       })
     },
@@ -167,6 +167,6 @@ export default {
 .mutual-card >>> .el-card__body {
   display: flex;
   align-items: center;
-  /* height: 122px; */
+  height: 131px;
 }
 </style>

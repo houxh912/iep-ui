@@ -36,17 +36,17 @@ export default {
       formData: {
         attachFileList: [],
       },
-      desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系', 
+      desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系',
       label: ['创业女杰', '浙商', '创新创业'],
-      total:'6',
-      rewardList:[
-        {avatar: require('./img/people.png'),name:'杨冰之'},
-        {avatar: require('./img/people.png'),name:'杨冰之'},
-        {avatar: require('./img/people.png'),name:'杨冰之'},
-        {avatar: require('./img/people.png'),name:'杨冰之'},
+      total: '6',
+      rewardList: [
+        { avatar: require('./img/people.png'), name: '杨冰之' },
+        { avatar: require('./img/people.png'), name: '杨冰之' },
+        { avatar: require('./img/people.png'), name: '杨冰之' },
+        { avatar: require('./img/people.png'), name: '杨冰之' },
       ],
       attachFileList: [
-        {name:'内网2.0改造项目'},
+        { name: '内网2.0改造项目' },
       ],
     }
   },
@@ -61,7 +61,7 @@ export default {
       downloadCount(this.formData.id)
     },
     loadData (id) {
-      getDataById(id).then(({data}) => {
+      getDataById(id).then(({ data }) => {
         this.formData = data.data
       })
     },
@@ -80,63 +80,66 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.article-details{
+.article-details {
   padding: 20px 0;
-  .title{
+  .title {
     font-size: 18px;
     color: #333;
     height: 50px;
     line-height: 50px;
   }
-  .inform{
+  .inform {
     width: 100%;
     height: 40px;
     line-height: 40px;
     position: relative;
-    > img{
+    > img {
       width: 40px;
       height: 40px;
       border-radius: 50%;
       display: inline-block;
     }
-    > span{
+    > span {
       margin-left: 10px;
       display: inline-block;
-      >i{
+      > i {
         margin: 4px;
       }
-      &:nth-child(4){
+      &:nth-child(4) {
         margin-left: 30px;
       }
-      &:nth-child(5){
+      &:nth-child(5) {
         margin-left: 30px;
       }
     }
-    .btn{
+    .btn {
       position: absolute;
       top: 8px;
       font-size: 16px;
       color: #999;
-      > i{
+      > i {
         margin: 4px;
       }
     }
-    .sc{
+    .sc {
       right: 150px;
+      font-size: 14px;
     }
-    .fx{
+    .fx {
       right: 80px;
+      font-size: 14px;
     }
-    .jc{
+    .jc {
       right: 10px;
+      font-size: 14px;
     }
   }
-  .introduction{
+  .introduction {
     margin: 20px 0;
     padding: 20px;
     background-color: #fafafa;
   }
-  .content{
+  .content {
     padding: 0 20px;
     margin: 0 0 20px;
   }

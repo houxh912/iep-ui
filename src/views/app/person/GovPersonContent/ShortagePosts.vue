@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     loadList () {
-      getPostList().then(({data}) => {
+      getPostList().then(({ data }) => {
         this.tableData = data.data
       })
     },
@@ -81,7 +81,7 @@ export default {
   cursor: pointer;
 }
 .leader-board >>> .el-card__body {
-  height: 332px;
+  height: 302px;
 }
 .leader-board >>> .el-table .cell {
   overflow: hidden;

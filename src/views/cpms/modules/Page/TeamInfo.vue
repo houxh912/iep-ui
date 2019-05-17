@@ -1,5 +1,5 @@
 <template>
-  <el-form size="small" label-width="100px">
+  <el-form class="" size="small" label-width="100px">
     <el-row>
       <el-col :span='8'>
         <el-form-item label="负责人：">

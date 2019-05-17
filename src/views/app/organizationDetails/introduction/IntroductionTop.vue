@@ -51,6 +51,7 @@ export default {
 <style lang="scss" scoped>
 .introduction-top {
   display: flex;
+  margin: 0 20px;
   align-items: center;
   align-content: center;
   height: 180px;

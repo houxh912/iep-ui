@@ -15,7 +15,7 @@
 export default {
   data () {
     return {
-      subTitle: '组织架构',
+      subTitle: '联盟架构',
       tableData: [{
         post: '主任',
         name: '黄磊',

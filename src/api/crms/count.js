@@ -191,3 +191,35 @@ export function getBusinessMax (params) {
     params: params,
   })
 }
+//查看所有业务类型最小值
+export function getBusinessMin (params) {
+  return request({
+    url: `${allUrl}/businessMin`,
+    method: 'get',
+    params: params,
+  })
+}
+//查看我的客户区域类型最大值
+export function getDistrictMax (params) {
+  return request({
+    url: `${myUrl}/districtMax`,
+    method: 'get',
+    params: params,
+  })
+}
+//查看我的客户区域类型最小值
+export function getDistrictMin (params) {
+  return request({
+    url: `${myUrl}/districtMin`,
+    method: 'get',
+    params: params,
+  })
+}
+//查看我的客户业务类型最大值
+export function getMyBusinessMax (params) {
+  return request({
+    url: `${myUrl}/businessMax`,
+    method: 'get',
+    params: params,
+  })
+}

@@ -1,7 +1,6 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${form.name}的${typeMap[form.type].label}`" :backOption="backOption"></page-header>
       <el-card class="top-card" :body-style="bodyStyle" shadow="hover">
         <div class="avatar-wrapper">
           <iep-img-avatar :size="90" :src="form.avatar" alt="头像"></iep-img-avatar>
@@ -91,118 +90,23 @@
   </div>
 </template>
 <script>
-import { deliverApprovaBatch, reviewApprovaBatch } from '@/api/hrms/wel'
-import { getAdministrativeApprovalById } from '@/api/hrms/administrative_approval'
-import { initForm, dictsMap } from './options'
-import { mapGetters } from 'vuex'
-import keyBy from 'lodash/keyBy'
-import DeliverDialog from '@/views/wel/approval/approval/ExaminApproval/Page/DeliverDialog'
+import mixins from '../mixins'
+import { initNow } from '../options'
+// 所有支持的预处理器都一样工作
+import '../approval.scss'
 export default {
-  components: { DeliverDialog },
+  mixins: [mixins],
   data () {
     return {
-      id: this.$route.params.id,
-      backOption: {
-        isBack: true,
-      },
-      bodyStyle: {
-        display: 'flex',
-        padding: '20px',
-      },
-      middleBodyStyle: {
-        padding: '20px',
-        border: 0,
-      },
-      pageLoading: true,
-      form: initForm(),
     }
   },
-  computed: {
-    ...mapGetters([
-      'userInfo',
-      'dictGroup',
-    ]),
-    typeMap () {
-      return keyBy(this.dictGroup['hrms_applic_type'], 'value')
-    },
-    needApproval () {
-      return this.approvalUserIds.includes(this.userInfo.userId) && this.form.status === 0
-    },
-    startTimeLabel () {
-      return dictsMap.startTime[this.form.type]
-    },
-    endTimeLabel () {
-      return dictsMap.endTime[this.form.type]
-    },
-    approvalUserIds () {
-      return this.form.approverList.map(m => m.id)
-    },
-  },
-  created () {
-    this.loadPage()
-  },
   methods: {
-    handleReview () {
-      this.$refs['iepReviewForm'].title = '审核'
-      this.$refs['iepReviewForm'].id = this.form.id
-      this.$refs['iepReviewForm'].formRequestFn = reviewApprovaBatch
-      this.$refs['iepReviewForm'].dialogShow = true
-    },
-    handleDeliver () {
-      this.$refs['DeliverDialog'].form.ids = [this.form.id]
-      this.$refs['DeliverDialog'].userId = this.form.userId
-      this.$refs['DeliverDialog'].formRequestFn = deliverApprovaBatch
-      this.$refs['DeliverDialog'].dialogShow = true
-    },
-    loadPage () {
-      this.pageLoading = true
-      getAdministrativeApprovalById(this.id).then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
-        this.pageLoading = false
+    loadSelf () {
+      this.fnSelf().then(({ data }) => {
+        this.form = this.selfToVo(data.data)
+        this.form.startTime = initNow()
       })
     },
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.top-card {
-  .avatar-wrapper {
-    flex: 1;
-    text-align: center;
-  }
-  .avatar {
-    border-radius: 50%;
-    border: 1px solid #fff;
-    height: 100px;
-    width: 100px;
-  }
-  .info {
-    flex: 5;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    .info-item {
-      & > label {
-        width: 120px;
-        text-align: right;
-        vertical-align: middle;
-        float: left;
-        font-size: 14px;
-        color: #606266;
-        line-height: 40px;
-        padding: 0 12px 0 0;
-        box-sizing: border-box;
-      }
-      .content {
-        margin-left: 120px;
-        line-height: 40px;
-        position: relative;
-        font-size: 14px;
-      }
-    }
-  }
-}
-.middle-card {
-  margin-top: 20px;
-}
-</style>

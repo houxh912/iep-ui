@@ -21,7 +21,7 @@ export default [
       {
         path: 'approval_detail/:id',
         name: '审批详情',
-        component: () => import('@/views/hrms/AdministrativeApproval/Detail.vue'),
+        component: () => import('@/views/wel/approval/Components/Detail/index.vue'),
         meta: noKeepAlive,
       },
       {

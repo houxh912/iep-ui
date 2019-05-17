@@ -94,7 +94,7 @@
           </el-col>
         </el-row>
 
-        <iep-form-item class="form-half" prop="duties" label-name="福利待遇" tip="请务必准确规范填写且不少于6条：<br />1、内容要有条理性，次序性，以1、2、3、4.....序列的形式描述；<br />2、岗位职责清晰，语言简练，忌口语化描述；<br />3、岗位职责为该岗位的工作方向，而非具体内容的操作方法；">
+        <iep-form-item class="form-half" prop="duties" label-name="岗位职责" tip="请务必准确规范填写且不少于6条：<br />1、内容要有条理性，次序性，以1、2、3、4.....序列的形式描述；<br />2、岗位职责清晰，语言简练，忌口语化描述；<br />3、岗位职责为该岗位的工作方向，而非具体内容的操作方法；">
           <iep-input-area v-model="form.duties"></iep-input-area>
         </iep-form-item>
 

@@ -13,6 +13,9 @@
       <el-form-item label="内容" prop="description">
         <iep-input-area v-model="form.description"></iep-input-area>
       </el-form-item>
+      <el-form-item label="阶段" prop="stage">
+        <el-input v-model="form.stage"></el-input>
+      </el-form-item>
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
@@ -20,7 +23,7 @@
   </iep-dialog>
 </template>
 <script>
-import { initForm } from './options'
+import { initForm } from '../options'
 export default {
   data () {
     return {
@@ -39,6 +42,9 @@ export default {
           { message: '请选择日期', trigger: 'change' },
         ],
         description: [
+          { message: '请填写详细内容', trigger: 'change' },
+        ],
+        stage: [
           { message: '请填写详细内容', trigger: 'change' },
         ],
       },

@@ -109,6 +109,8 @@ export default {
       })
     },
     handleOverTimeList () {
+      this.$refs['OvertimeListDialog'].userId = this.form.userId
+      this.$refs['OvertimeListDialog'].load()
       this.$refs['OvertimeListDialog'].dialogShow = true
     },
   },

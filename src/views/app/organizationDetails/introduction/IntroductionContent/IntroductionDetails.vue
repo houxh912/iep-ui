@@ -30,7 +30,7 @@
       <span class="details-title">{{subTitle4}}</span>
       <div class="con">
         <div class="opex-item" v-for="opex in opexList" :key="opex.id">
-          <div class="img"><img :src="opex.img" alt=""></div>
+          <div class="img"><span class="bgb">{{opex.name1}}</span><img :src="opex.img" alt=""></div>
           <span class="name">{{opex.name}}</span>
         </div>
       </div>
@@ -51,14 +51,17 @@ export default {
       opexList: [
         {
           img: require('../img/people1.png'),
+          name1: '陈珊',
           name: '客服一',
         },
         {
           img: require('../img/people2.jpg'),
+          name1: '邵佳欢',
           name: '客服二',
         },
         {
           img: require('../img/people3.jpg'),
+          name1: '章佩瑜',
           name: '客服三',
         },
       ],
@@ -192,6 +195,7 @@ export default {
     }
   }
   .img {
+    position: relative;
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -206,6 +210,27 @@ export default {
       &:hover {
         transform: scale(1.1);
       }
+    }
+    .bgb {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      line-height: 50px;
+      font-size: 12px;
+      text-align: center;
+      display: block;
+      border-radius: 50%;
+      color: #fff;
+      z-index: 100;
+      opacity: 0;
+      -webkit-transition: all 0.5s;
+      transition: all 0.5s;
+    }
+    &:hover .bgb {
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 1;
     }
   }
 }

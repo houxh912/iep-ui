@@ -1,9 +1,7 @@
 <template>
   <div>
-    <basic-container>
-      <iframe v-if="$route.query.src" :src="$route.query.src" class="iframe" ref="iframe"></iframe>
-      <iframe v-else :src="urlPath" class="iframe" ref="iframe"></iframe>
-    </basic-container>
+    <iframe v-if="$route.query.src" :src="$route.query.src" class="iframe" ref="iframe"></iframe>
+    <iframe v-else :src="urlPath" class="iframe" ref="iframe"></iframe>
   </div>
 </template>
 
@@ -90,9 +88,6 @@ export default {
     //iframe窗口初始化
     iframeInit () {
       const iframe = this.$refs.iframe
-      const clientHeight =
-        document.documentElement.clientHeight - (screen > 1 ? 200 : 130)
-      iframe.style.height = `${clientHeight}px`
       if (iframe.attachEvent) {
         iframe.attachEvent('onload', () => {
           this.hide()
@@ -116,7 +111,7 @@ export default {
 <style lang="scss" scoped>
 .iframe {
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 64px);
   border: 0;
   overflow: hidden;
   box-sizing: border-box;

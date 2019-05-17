@@ -31,7 +31,10 @@
           <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
         </div>
         <div class="footer-right" v-if="isDelete">
-          <iep-button type="primary" @click="handleCollect">{{formData.collection == 1 ? '已收藏' : '收藏'}}</iep-button>
+          <IepFiveKay>
+            <IepKeyItem icon="icon-aixin" name="已收藏" @click.native="handleCollect" isChecked v-if="formData.collection == 1"></IepKeyItem>
+            <IepKeyItem icon="icon-heart" name="收藏" @click.native="handleCollect" v-else></IepKeyItem>
+          </IepFiveKay>
         </div>
       </el-row>
     </el-col>

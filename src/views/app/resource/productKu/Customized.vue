@@ -1,6 +1,6 @@
 <template>
   <div>
-    <search @search-page="getDetailsPage"></search>
+    <search @search-page="searchData"></search>
     <div class="module">
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
         <div class="content">
@@ -31,6 +31,7 @@ export default {
   data () {
     return {
       moduleList: [],
+      paramForm: {},
       params: {
         current: 1,
         size: 12,
@@ -42,8 +43,13 @@ export default {
     Search,
   },
   methods: {
-    getDetailsPage (params) {
-      getDetailsPage(Object.assign({}, this.params, params)).then(({data}) => {
+    searchData (val) {
+      this.params.current = 1
+      this.paramForm = val
+      this.getDetailsPage()
+    },
+    getDetailsPage () {
+      getDetailsPage(Object.assign({}, this.params, this.paramForm)).then(({data}) => {
         this.moduleList = data.data.records
         this.total = data.data.total
       })

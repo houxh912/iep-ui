@@ -31,11 +31,14 @@
             <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
           </div>
           <div class="footer-right" v-if="isDelete">
-            <iep-button type="primary" @click="handleCollect">{{formData.collection == 1 ? '已收藏' : '收藏'}}</iep-button>
-            <iep-button type="primary" @click="handleShare">分享</iep-button>
-            <iep-button type="primary" @click="handleWrong">纠错</iep-button>
-            <iep-button type="primary" @click="handleComment">评论</iep-button>
-            <iep-button type="primary" @click="handleReward">打赏</iep-button>
+            <IepFiveKay>
+              <IepKeyItem icon="icon-aixin" name="已收藏" @click.native="handleCollect" isChecked v-if="formData.collection == 1"></IepKeyItem>
+              <IepKeyItem icon="icon-heart" name="收藏" @click.native="handleCollect" v-else></IepKeyItem>
+              <IepKeyItem icon="icon-share" name="分享" @click.native="handleShare"></IepKeyItem>
+              <IepKeyItem icon="icon-chakantiezigengduojubao" name="纠错" @click.native="handleWrong"></IepKeyItem>
+              <IepKeyItem icon="icon-xiaoxi" name="评论" @click.native="handleComment"></IepKeyItem>
+              <IepKeyItem icon="icon-yuanbao" name="打赏" @click.native="handleReward"></IepKeyItem>
+            </IepFiveKay>
           </div>
         </el-row>
         <el-row class="comment">

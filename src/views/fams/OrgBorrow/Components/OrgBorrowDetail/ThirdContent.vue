@@ -1,36 +1,40 @@
 <template>
   <steps-content>
-    <a-form class="content-wrapper" :form="form">
-      <a-form-item label="提现金额：" :label-col="labelCol" :wrapper-col="wrapperCol">
-        <a-tooltip :trigger="['focus']" placement="topLeft" overlayClassName="numeric-input">
-          <span slot="title" v-if="form.amount" class="numeric-input-title">
-            {{value !== '-' ? formatNumber(value) : '-'}}
-          </span>
-          <template slot="title" v-else>
-            可提现金额 {{maxAmount}} 元，最低 100
-          </template>
-          <a-input-number style="width:100%;" :formatter="value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')" :parser="value => value.replace(/\￥\s?|(,*)/g, '')" :min="100" :max="maxAmount" maxLength="25" v-decorator="[ 
-          'amount', {
-          initialValue: 100,
-          rules: [{ required: true, message: '请输入提现金额' }]
-        }]" placeholder="请输入提现金额" />
-        </a-tooltip>
-      </a-form-item>
-      <a-form-item label="发票抵税：" :label-col="labelCol" :wrapper-col="wrapperCol">
-        <a-tooltip :trigger="['focus']" placement="topLeft" overlayClassName="numeric-input">
-          <template slot="title">
-            可发票抵税 {{maxDeductionInvoice}} 元
-          </template>
-          <a-input-number style="width:100%;" :formatter="value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')" :parser="value => value.replace(/\￥\s?|(,*)/g, '')" :min="0" :max="maxDeductionInvoice" maxLength="25" v-decorator="[
-          'deductionInvoice', {
-          initialValue: 0,
-        }]" placeholder="请输入发票抵税" />
-        </a-tooltip>
-      </a-form-item>
-    </a-form>
+    <el-form class="content-wrapper" ref="form" size="small" :model="data" label-width="150px" disabled>
+      <a-alert :closable="true" type="error" message="借出方组织审核通过后，将无法撤回！" style="margin-bottom: 24px;" />
+      <iep-form-item label-name="借出组织">
+        <iep-div-detail :value="data.outOrgName"></iep-div-detail>
+      </iep-form-item>
+      <iep-form-item label-name="支付方式">
+        <el-radio-group v-model="data.borrowMoneyType">
+          <el-radio v-for="(item, idx) in dictsMap.borrowMoneyType" :key="idx" :label="idx">{{item}}</el-radio>
+        </el-radio-group>
+      </iep-form-item>
+      <iep-form-item label-name="收款公司">
+        <iep-div-detail :value="data.borrowInCompany"></iep-div-detail>
+      </iep-form-item>
+      <iep-form-item v-if="!bankAmountOption.disabled" label-name="收款账户">
+        <iep-div-detail :value="data.borrowInCompanyBank"></iep-div-detail>
+      </iep-form-item>
+      <iep-form-item label-name="还款天数(天)">
+        <iep-input-number v-model="data.borrowDays" :precision="0"></iep-input-number>
+      </iep-form-item>
+      <iep-form-item label-name="还款时间">
+        <iep-date-picker v-model="data.repaymentTime" type="date" placeholder="选择日期" disabled></iep-date-picker>
+      </iep-form-item>
+      <iep-form-item label-name="借款利息">
+        <iep-div-detail :value="`${data.orgInterest}%`"></iep-div-detail>
+      </iep-form-item>
+      <iep-form-item label-name="借款金额">
+        <iep-input-number v-model="data.borrowAmount"></iep-input-number>
+      </iep-form-item>
+    </el-form>
     <template v-slot:action>
-      <a-button type="primary" @click="handleSubmit">
-        下一步
+      <a-button type="primary" :loading="submitLoading" @click="handleSubmit">
+        提交
+      </a-button>
+      <a-button style="margin-left: 8px" @click="handlePrev">
+        上一步
       </a-button>
     </template>
   </steps-content>
@@ -38,72 +42,58 @@
 </template>
 <script>
 import StepsContent from './StepsContent'
-import { getTotal } from '@/api/fams/total'
-function formatNumber (value) {
-  value += ''
-  const list = value.split('.')
-  const prefix = list[0].charAt(0) === '-' ? '-' : ''
-  let num = prefix ? list[0].slice(1) : list[0]
-  let result = ''
-  while (num.length > 3) {
-    result = `,${num.slice(-3)}${result}`
-    num = num.slice(0, num.length - 3)
-  }
-  if (num) {
-    result = num + result
-  }
-  return `${prefix}${result}${list[1] ? `.${list[1]}` : ''}`
-}
+import { postOrgBorrow } from '@/api/fams/org_borrow'
+import { dictsMap } from './options'
 export default {
+  props: ['data'],
   components: { StepsContent },
   data () {
     return {
-      labelCol: { span: 6 },
-      wrapperCol: { span: 18 },
-      maxAmount: 0,
-      maxDeductionInvoice: 0,
-      formLayout: 'horizontal',
-      form: this.$form.createForm(this),
+      dictsMap,
+      submitLoading: false,
     }
   },
+  computed: {
+    bankAmountOption () {
+      if (this.data.borrowInCompanyId && this.data.borrowMoneyType === '1') {
+        return {
+          disabled: false,
+          prefixUrl: `fams/bank_account/${this.data.borrowInCompanyId}`,
+        }
+      } else {
+        return {
+          disabled: true,
+          prefixUrl: `fams/bank_account/${this.data.borrowInCompanyId}`,
+        }
+      }
+    },
+  },
   created () {
-    this.loadTotal()
   },
   methods: {
-    async loadTotal () {
-      const { data } = await getTotal()
-      this.maxAmount = data.data.withdrawableCash
-      this.maxDeductionInvoice = data.data.withInvoice
+    handlePrev () {
+      this.$emit('prev')
     },
-    formatNumber,
-    handleSubmit () {
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          if (values.amount === 0) {
-            return
-          }
-          this.$emit('on-data', values)
+    async handleSubmit () {
+      this.submitLoading = true
+      try {
+        const { data } = await postOrgBorrow(this.data)
+        if (data.data) {
+          this.$emit('on-data', data.data)
+        } else {
+          this.$message(data.msg)
         }
-      })
+      } catch (error) {
+        this.$message('似乎出现了一些问题')
+      }
+      this.submitLoading = false
     },
   },
 }
 </script>
-<style scoped>
-/* to prevent the arrow overflow the popup container,
-or the height is not enough when content is empty */
-.numeric-input >>> .ant-tooltip-inner {
-  min-width: 32px;
-  min-height: 37px;
-}
-
-.numeric-input >>> .numeric-input-title {
-  font-size: 14px;
-}
-</style>
 
 <style lang="scss" scoped>
 .content-wrapper {
-  width: 60%;
+  width: 500px;
 }
 </style>

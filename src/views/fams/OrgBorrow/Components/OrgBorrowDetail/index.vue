@@ -83,12 +83,12 @@ export default {
   },
   methods: {
     handleFirst (form) {
-      console.log(form)
       this.next()
       this.steps[this.current].data = form
     },
-    handleSecond () {
+    handleSecond (form) {
       this.next()
+      this.steps[this.current].data = form
     },
     handleThird () {
       this.$router.history.go(-1)

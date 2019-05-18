@@ -10,3 +10,11 @@ export function getOrgBorrowPage (query) {
     params: query,
   })
 }
+
+export function postOrgBorrow (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}

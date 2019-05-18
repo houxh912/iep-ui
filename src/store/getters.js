@@ -22,5 +22,6 @@ const getters = {
   menuPathList: state => state.menu.menuPathList,
   dictGroup: state => state.cache.dictGroup,
   contactsPyGroup: state => state.cache.contactsPyGroup,
+  famsConfig: state => state.cache.famsConfig,
 }
 export default getters

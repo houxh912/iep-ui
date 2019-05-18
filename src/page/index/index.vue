@@ -69,6 +69,7 @@ export default {
     // this.init()
     this.LoadAllDictMap()
     this.LoadContactsPyGroup()
+    this.LoadFamsConfig()
     // this.initWebSocket()
   },
   computed: {
@@ -90,7 +91,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['LoadAllDictMap', 'LoadContactsPyGroup', 'RefreshToken']),
+    ...mapActions(['LoadAllDictMap', 'LoadContactsPyGroup', 'LoadFamsConfig', 'RefreshToken']),
     ...mapMutations({ setScreen: 'SET_SCREEN', setExpiresIn: 'SET_EXPIRES_IN' }),
     handleOk () {
       this.visible = false

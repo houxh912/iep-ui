@@ -2,44 +2,46 @@
   <div class="iep-page-form">
     <basic-container>
       <page-header title="建议详情">
-        <iep-button @click="back">返回建议列表</iep-button>
+        <iep-button @click="onGoBack()">返回建议列表</iep-button>
       </page-header>
-      <el-form ref="form" :model="form" label-width="140px" size="small">
+      <el-form ref="form" :model="form" :rules="rules" label-width="140px" size="small">
         <iep-form-item prop="theme" label-name="建议主题">
           <div class="content">{{form.theme}}</div>
         </iep-form-item>
 
-        <iep-form-item prop="desc" label-name="建议内容">
-          <div class="content">{{form.desc}}</div>
+        <iep-form-item prop="proposeContent" label-name="建议内容">
+          <div class="content">{{form.proposeContent}}</div>
         </iep-form-item>
 
         <iep-form-item prop="attendeeList" label-name="接收对象">
-          <div class="content">{{form.attendeeList}}</div>
+          <div class="content" v-for="(item,index) in form.attendeeList" :key="index" style="margin-right:5px;">{{item}}</div>
         </iep-form-item>
         <hr>
-        <iep-form-item prop="ProcessingOpinion" label-name="处理意见">
-          <el-radio :disabled="form.disabled" v-model="form.ProcessingOpinion" label="1">采纳</el-radio>
-          <el-radio :disabled="form.disabled" v-model="form.ProcessingOpinion" label="2">驳回</el-radio>
+        <iep-form-item prop="status" label-name="处理意见">
+          <el-radio :disabled="isEdit" v-model="form.status" label="2">采纳</el-radio>
+          <el-radio :disabled="isEdit" v-model="form.status" label="3">驳回</el-radio>
         </iep-form-item>
 
-        <iep-form-item prop="Feedback" label-name="反馈意见">
-          <iep-input-area :disabled="form.disabled" v-model="form.Feedback"></iep-input-area>
+        <iep-form-item prop="proposeRelatioList[0].feedbackOpinion" label-name="反馈意见">
+          <iep-input-area :disabled="isEdit" v-model="form.proposeRelatioList[0].feedbackOpinion"></iep-input-area>
         </iep-form-item>
-        <iep-form-item prop="reward" label-name="打赏">
-          <el-input :disabled="form.disabled" v-model="form.reward" size="small">
+        <iep-form-item prop="proposeRelatioList[0].gratuity" label-name="打赏">
+          <el-input :disabled="isEdit" v-model.number="form.proposeRelatioList[0].gratuity" :value="val" maxlength=4 size="small">
             <template slot="append">贝</template>
           </el-input>
         </iep-form-item>
         <hr>
         <iep-form-item label-name="附件">
-          <div class="file">
-            <div><i class="icon-fujian"></i>{{form.annex}}</div>
+          <div v-if="form.annexList.length > 0">
+            <a-tag v-for="file in form.annexList" :key="file.url" @click="handleDownload(file)">
+            <a-icon type="paper-clip" />{{file.name}}</a-tag>
           </div>
+          <span v-else>无附件</span>
         </iep-form-item>
 
         <el-form-item label="">
           <operation-wrapper>
-            <iep-button type="primary" @click="handlePublish">确定</iep-button>
+            <iep-button type="primary" @click="handlePublish" :disabled="isEdit">确定</iep-button>
             <iep-button @click="onGoBack">取消</iep-button>
           </operation-wrapper>
         </el-form-item>
@@ -48,42 +50,81 @@
   </div>
 </template>
 <script>
+import { getSuggestionById, putfeedback } from '@/api/hrms/suggestion'
+import { initForm, formToDto, rules } from './options'
+import { downloadFile } from '@/api/common'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      back: () => {
-        this.$router.push('/hrms_spa/suggestion_list')
-      },
-      form: {
-        theme: '主题主题主题主题主题主题',
-        desc: '内容内容内容内容内容内容内容内容内容内容',
-        attendeeList: '研发中心',
-        ProcessingOpinion: '1',
-        Feedback: '',
-        reward: '',
-        annex: '附件附件',
-        disabled: true,
-      },
+      rules,
+      id: this.$route.params.id,
+      pageLoading: true,
+      disabled: false,
+      form: initForm(),
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+    isEdit () {
+      return this.userInfo.userId === this.form.userId || this.disabled
+    },
+  },
+  created () {
+    this.loadPage()
   },
   methods: {
     onGoBack () {
       this.$router.history.go(-1)
     },
     handlePublish () {
-      this.handleSubmit(true)
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          if (this.form.annexList.length > 0) {
+            this.form.annex = this.form.annexList[0].url
+          }
+          if (this.form.proposeRelatioList.length > 0) {
+            this.form.feedbackOpinion = this.form.proposeRelatioList[0].feedbackOpinion
+            this.form.gratuity = this.form.proposeRelatioList[0].gratuity
+          }
+          putfeedback(formToDto(this.form), true).then(({ data }) => {
+            if (data.data) {
+              this.$message({
+                message: '回复建议成功',
+                type: 'success',
+              })
+              this.onGoBack()
+            }
+            else{
+              this.$message({
+                message: data.msg,
+              })
+            }
+          })
+        }
+      })
+
+    },
+    // handleInput(e){
+    //   this.val=e.target.value.replace(/[^\d]/g,'')
+    // },
+    handleDownload (file) {
+      downloadFile(file)
+    },
+    loadPage () {
+      this.pageLoading = true
+      getSuggestionById(this.id).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
+        this.disabled = this.form.status === '2' || this.form.status === '3'
+        this.pageLoading = false
+      })
     },
   },
 }
 </script>
 <style lang="scss" scoped>
-.file {
-  cursor: pointer;
-  i {
-    font-size: 16px !important;
-    margin-right: 10px;
-  }
-}
 </style>
 
 <style scoped>

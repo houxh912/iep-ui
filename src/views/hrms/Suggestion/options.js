@@ -1,4 +1,4 @@
-import { mergeByFirst } from '@/util/util'
+// import { mergeByFirst } from '@/util/util'
 
 const dictsMap = {
   status: {
@@ -23,26 +23,38 @@ const columnsMap = [
 
 const initForm = () => {
   return {
-    id: '', // ID
-    desc: '',//内容
-    attendeeList: '',//接收对象通讯录
-    // ProcessingOpinion: '',//处理意见
-    // Feedback:'',//反馈意见
+    'id': '', // ID
+    'userId':'',//userId
+    'theme':'',
+    'status':'',//
+    'proposeContent': '',//内容
+    'attendeeList': '',//接收对象
+    'attendeeId':'',//接收对象id
+    'feedbackOpinion':'',//反馈意见
+    'gratuity':'',//打赏
+    'disabled':'',
+    'annexList':[],
+    'fileName':'',//文件名
+    'proposeRelatioList':'',//反馈
   }
 }
 
-const initDtoForm = () => {
-  return {
-    id: '', // ID
-    desc: '',//内容
-    attendeeList: '',//接收对象通讯录
-  }
-}
+// const initDtoForm = () => {
+//   return {
+//     'id': '', // ID
+//     'theme':'',
+//     'proposeContent': '',//内容
+//     'attendeeList': '',//接收对象
+//     'addresStatus': '',//处理意见
+//     'feedbackOpinion':'',//反馈意见
+//     'reward':'',//打赏
+//     'disabled':'',
+//     'annexList':[],
+//   }
+// }
 
 const formToDto = (row) => {
-  const newForm = mergeByFirst(initDtoForm(), row)
-  newForm.positionId = row.position[row.position.length - 1]
-  newForm.deptId = row.dept[row.dept.length - 1]
+  const newForm = { ...row }
   return newForm
 }
 
@@ -50,8 +62,20 @@ const rules = {
   theme: [
     { required: true, message: '请填写建议主题', trigger: 'blur' },
   ],
-  desc: [
+  proposeContent: [
     { required: true, message: '请填写建议内容', trigger: 'blur' },
+  ],
+  attendeeId: [
+    { required: true, message: '请填写接收对象', trigger: 'blur' },
+  ],
+  feedbackStatus: [
+    { required: true, message: '请填写处理意见', trigger: 'blur' },
+  ],
+  feedbackOpinion: [
+    { required: true, message: '请填写反馈意见', trigger: 'blur' },
+  ],
+  gratuity: [
+    { required: true, message: '请输入打赏金额', trigger: 'blur' },
   ],
 }
 

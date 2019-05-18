@@ -5,6 +5,12 @@
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
+          <el-dropdown size="medium">
+            <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search>
@@ -12,11 +18,11 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="收件人" width="220px">
+          <el-table-column label="收件人" width="160px">
             <template slot-scope="scope">
-              {{scope.row.name}}
+              {{scope.row.attendeeList[0]}}
             </template>
           </el-table-column>
           <el-table-column label="主题">
@@ -29,7 +35,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
-              <iep-button v-if="scope.row.status==0">修改</iep-button>
+              <iep-button @click="handleEdit(scope.row)" v-if="scope.row.status==0">修改</iep-button>
               <iep-button @click.native="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
@@ -40,6 +46,7 @@
 </template>
 
 <script>
+import { getSuggestionIssuePage, deleteSuggestionById, deleteSuggestionBatch } from '@/api/hrms/suggestion'
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from './AdvanceSearch'
 import { dictsMap, columnsMap } from './options'
@@ -52,19 +59,14 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      pagedTable: [
-        { name: 'aaaa', theme: '内网2.0开发进度安排建议', annex: true, status: '1', sendTime: '2019-05-09' },
-        { name: 'aaaa', theme: '内网2.0开发进度安排建议', annex: false, status: '0', sendTime: '2019-05-09' },
-        { name: 'aaaa', theme: '内网2.0开发进度安排建议', annex: false, status: '1', sendTime: '2019-05-09' },
-      ],
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
-    loadPage () {
-
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getSuggestionIssuePage)
     },
     handleCommandType () {
       // console.log(val)
@@ -72,15 +74,24 @@ export default {
     handleCommandUser () {
       // console.log(val)
     },
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
     handleAdd () {
       this.$router.push('/hrms_spa/suggestion_new')
     },
-    handleDelete (row) {
-      this._handleGlobalDeleteById(row.id)
+    handleEdit (row) {
+      this.$router.push(`/hrms_spa/suggestion_edit/${row.id}`)
     },
-    handleDetail () {
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deleteSuggestionBatch)
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deleteSuggestionById)
+    },
+    handleDetail (row) {
       this.$router.push({
-        path: '/hrms_spa/suggestion_detail',
+        path: `/hrms_spa/suggestion_detail/${row.id}`,
       })
     },
   },

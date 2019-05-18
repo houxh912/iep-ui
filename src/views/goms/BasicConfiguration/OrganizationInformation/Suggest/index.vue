@@ -3,6 +3,12 @@
     <basic-container>
       <operation-container>
         <template slot="left">
+          <el-dropdown size="medium">
+            <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search>
@@ -10,11 +16,11 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @selection-change="handleSelectionChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="发件人" width="220px">
             <template slot-scope="scope">
-              {{scope.row.sender}}
+              {{scope.row.name}}
             </template>
           </el-table-column>
           <el-table-column label="主题">
@@ -27,7 +33,6 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
-              <iep-button v-if="scope.row.status==0">修改</iep-button>
               <iep-button @click.native="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
@@ -38,6 +43,7 @@
 </template>
 
 <script>
+import { getSuggestionReceivedPage, deleteSuggestionById, deleteSuggestionBatch } from '@/api/hrms/suggestion'
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from './AdvanceSearch'
 import { dictsMap, columnsMap } from './options'
@@ -50,19 +56,14 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      pagedTable:[
-        {sender:'aaaa',theme:'内网2.0开发进度安排建议',annex:true,status:'1',sendTime:'2019-05-09'},
-        {sender:'aaaa',theme:'内网2.0开发进度安排建议',annex:false,status:'2',sendTime:'2019-05-09'},
-        {sender:'aaaa',theme:'内网2.0开发进度安排建议',annex:false,status:'1',sendTime:'2019-05-09'},
-      ],
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
-    loadPage () {
-
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getSuggestionReceivedPage)
     },
     handleCommandType () {
       // console.log(val)
@@ -70,15 +71,18 @@ export default {
     handleCommandUser () {
       // console.log(val)
     },
-    handleAdd () {
-      this.$router.push('/hrms_spa/suggestion_new')
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deleteSuggestionBatch)
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id)
+      this._handleGlobalDeleteById(row.id, deleteSuggestionById)
     },
-    handleDetail () {
+    handleDetail (row) {
       this.$router.push({
-        path: '/hrms_spa/suggestion_detail',
+        path: `/hrms_spa/suggestion_detail/${row.id}`,
       })
     },
   },

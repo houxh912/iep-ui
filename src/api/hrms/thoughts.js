@@ -1,5 +1,5 @@
 import request from '@/router/axios'
-const prefixUrl = '/hrms/iephrthoughts'
+const prefixUrl = '/cpms/iephrthoughts'
 
 export function thoughtsCreate (obj) {
   return request({

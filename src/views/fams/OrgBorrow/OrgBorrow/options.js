@@ -1,44 +1,61 @@
 // import { mergeByFirst } from '@/util/util'
 const dictsMap = {
-  expenditureMode: {
-    '0': '库存现金',
-    '1': '银行存款',
-  },
+  borrowMoneyType: {
+    '0': '国脉贝',
+    '1': '线下支付',
+	},
+	status: {
+		'0': '向集团申请中',
+		'1': '集团审核通过且发起资金调拨',
+		'2': '调拨对象汇款确认',
+		'3': '调入对象收款确认',
+		'4': '向组织借款申请中',
+		'5': '被借款组织确认且打款',
+		'6': '借款组织确认收款',
+		'7': '已还款',
+		'8': '已撤回',
+		'9': '已逾期',
+	},
 }
+
+//【0向集团申请中，1集团审核通过且发起资金调拨，2调拨对象汇款确认，3调入对象收款确认】
+  //向组织借款状态
+  //【4，向组织借款申请中，5被借款组织确认且打款，6借款组织确认收款】
+  //7已还款，8已撤回,9已逾期）
+
+const tabList = [
+  {
+    label: '借出',
+    value: 'inOrgId',
+  },
+  {
+    label: '借入',
+    value: 'outOrgId',
+  },
+]
 
 const columnsMap = [
 	{
-		prop: 'createTime',
-		label: '时间',
+		prop: 'inOrgName',
+		label: '借入组织',
 	},
 	{
 		prop: 'amount',
-		label: '金额',
+		label: '调拨金额',
 	},
 	{
-		prop: 'typeValue',
-		label: '类型',
-	},
-	{
-		prop: 'orgName',
-		label: '组织',
-	},
-	{
-		prop: 'companyName',
-		label: '线下公司',
-	},
-	{
-		prop: 'expenditureMode',
-		label: '支出方式',
+		prop: 'borrowMoneyType',
+		label: '支付类型',
 		type: 'dict',
 	},
 	{
-		prop: 'bankAccount',
-		label: '银行账户',
+		prop: 'status',
+		label: '拆借状态',
+		type: 'dict',
 	},
 	{
-		prop: 'remarks',
-		label: '备注',
+		prop: 'repaymentTime',
+		label: '还款时间',
 	},
 ]
 
@@ -51,4 +68,5 @@ export {
 	dictsMap,
 	columnsMap,
 	initForm,
+	tabList,
 }

@@ -40,6 +40,11 @@ export default [
         name: '资金调拨详情',
         component: () => import('@/views/fams/GroupFinance/FundTransfer/Detail.vue'),
       },
+      {
+        path: 'org_borrow_detail/:id',
+        name: '组织拆借详情',
+        component: () => import('@/views/fams/OrgBorrow/Components/OrgBorrowDetail/index.vue'),
+      },
     ],
   },
 ]

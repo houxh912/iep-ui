@@ -1,6 +1,6 @@
 import request from '@/router/axios'
 
-const prefixUrl = '/fams/org_borrow'
+const prefixUrl = '/fams/borrow'
 // @/api/fams/org_borrow
 
 export function getOrgBorrowPage (query) {

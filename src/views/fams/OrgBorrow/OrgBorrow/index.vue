@@ -4,9 +4,20 @@
       <page-header title="组织拆借"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd()" type="danger" icon="el-icon-plus" plain>新增拆借</iep-button>
+          <el-dropdown>
+            <iep-button type="danger" icon="el-icon-plus" plain>
+              新增拆借<i class="el-icon-arrow-down el-icon--right"></i>
+            </iep-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="handleAddOrgBorrow">组织拆借</el-dropdown-item>
+              <el-dropdown-item>集团拆借</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
         <template slot="right">
+          <el-radio-group v-model="type" size="small" @change="changeType">
+            <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
+          </el-radio-group>
           <operation-search @search-page="searchPage"></operation-search>
         </template>
       </operation-container>
@@ -16,24 +27,53 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { getOrgBorrowPage } from '@/api/fams/org_borrow'
 import mixins from '@/mixins/mixins'
-import { dictsMap, columnsMap } from './options'
+import { dictsMap, columnsMap, tabList } from './options'
 export default {
   mixins: [mixins],
   data () {
     return {
+      type: 'inOrgId',
+      tabList,
       dictsMap,
       columnsMap,
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+    orgId () {
+      return this.userInfo.orgId
+    },
+    typeQuery () {
+      const type = this.type
+      return {
+        [type]: this.orgId,
+      }
+    },
   },
   created () {
     this.loadPage()
   },
   methods: {
-    handleAdd () { },
+    changeType () {
+      this.loadPage()
+    },
+    handleAddOrgBorrow () {
+      this.$router.push({
+        path: '/fams_spa/org_borrow_detail/0',
+      })
+    },
+    handleDetail () {
+      this.$router.push({
+        path: '/fams_spa/withdraw_detail/0',
+      })
+    },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getOrgBorrowPage)
+      this.loadTable({ ...this.typeQuery, ...param }, getOrgBorrowPage)
     },
   },
 }

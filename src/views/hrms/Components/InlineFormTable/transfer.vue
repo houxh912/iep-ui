@@ -95,6 +95,7 @@ export default {
       this.data = this.tableData.filter(m => m.type !== 4)
     },
     handleAdd () {
+      this.form = initForm()
       this.methodName = '新增'
       this.requestFunction = post
       this.dialogShow = true

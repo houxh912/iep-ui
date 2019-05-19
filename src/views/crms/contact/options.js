@@ -30,19 +30,19 @@ const initSearchForm = () => {
     clientName: '',
   }
 }
-const telPhone = (rules, value, callback) => {
-  if (value === '') {
-    callback(new Error('电话不可为空'))
-  } else {
-    if (value !== '') {
-      var reg = /(^1[0-9]{10}$)|(^0\d{2,3}-?\d{7,8}$)/
-      if (!reg.test(value)) {
-        callback(new Error('请输入有效的电话号码'))
-      }
-    }
-    callback()
-  }
-}
+// const telPhone = (rules, value, callback) => {
+//   if (value === '') {
+//     callback(new Error('电话不可为空'))
+//   } else {
+//     if (value !== '') {
+//       var reg = /(^1[0-9]{10}$)|(^0\d{2,3}-?\d{7,8}$)/
+//       if (!reg.test(value)) {
+//         callback(new Error('请输入有效的电话号码'))
+//       }
+//     }
+//     callback()
+//   }
+// }
 const cellPhone = (rules, value, callback) => {
   if (value !== '') {
     var reg = /(^1[0-9]{10}$)|(^0\d{2,3}-?\d{7,8}$)/
@@ -61,13 +61,13 @@ const rules = {
     { required: true, message: '请输入联系人职务', trigger: 'blur' },
     { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
   ],
-  telephoneNo: [
-    {
-      required: true,
-      validator: telPhone,
-      trigger: 'blur',
-    },
-  ],
+  // telephoneNo: [
+  //   {
+  //     required: true,
+  //     validator: telPhone,
+  //     trigger: 'blur',
+  //   },
+  // ],
   address: [
     { message: '请填写地址', trigger: 'blur' },
     { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },

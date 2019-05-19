@@ -28,19 +28,19 @@ const cellPhone = (rules, value, callback) => {
   }
   callback()
 }
-const telPhone = (rules, value, callback) => {
-  if (value === '') {
-    callback(new Error('电话不可为空'))
-  } else {
-    if (value !== '') {
-      var reg = /(^[0-9]{3,4}-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/
-      if (!reg.test(value)) {
-        callback(new Error('请输入有效的电话号码'))
-      }
-    }
-    callback()
-  }
-}
+// const telPhone = (rules, value, callback) => {
+//   if (value === '') {
+//     callback(new Error('电话不可为空'))
+//   } else {
+//     if (value !== '') {
+//       var reg = /(^[0-9]{3,4}-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/
+//       if (!reg.test(value)) {
+//         callback(new Error('请输入有效的电话号码'))
+//       }
+//     }
+//     callback()
+//   }
+// }
 const fax = (rules, value, callback) => {
   if (value !== '') {
     var reg = /^(\d{3,4}-)?\d{7,8}$/
@@ -59,7 +59,7 @@ const rules = {
     { required: true, message: '联系人职务不能为空', trigger: 'blur' },
     { max: 20, message: '不能超过20个字符', trigger: 'blur' },
   ],
-  telephoneNo: [{ required: true, validator: telPhone, trigger: 'blur' }],
+  // telephoneNo: [{ required: true, validator: telPhone, trigger: 'blur' }],
   cellphone: [{ validator: cellPhone, trigger: 'blur' }],
   address: [
     { message: '请填写地址', trigger: 'blur' },

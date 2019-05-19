@@ -170,7 +170,7 @@ export default {
           callback()
           return false
         }
-        if (value.length < 6 || value.length > 20) {
+        if (value.length < 6 || value.length > 50) {
           callback(new Error('客户名称至少6个字'))
           return false
         } else {

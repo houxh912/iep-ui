@@ -1,3 +1,34 @@
+## [1.4.2](http://115.233.227.46:8066/root/iep-ui/compare/v1.4.1...v1.4.2) (2019-05-19)
+
+
+### Bug Fixes
+
+* **人力:** 关联新增修复 ([6350ee2](http://115.233.227.46:8066/root/iep-ui/commits/6350ee2))
+* **人力:** 编辑去掉编辑 ([3c0c49f](http://115.233.227.46:8066/root/iep-ui/commits/3c0c49f))
+* **更新:** 图标 ([c7040c0](http://115.233.227.46:8066/root/iep-ui/commits/c7040c0))
+* **标签详情:** 修复显示问题 ([d163da7](http://115.233.227.46:8066/root/iep-ui/commits/d163da7))
+
+
+### Features
+
+* **iconfont:** 链接地址修改 ([bafc649](http://115.233.227.46:8066/root/iep-ui/commits/bafc649))
+* **人力:** 关联修复 ([23732a7](http://115.233.227.46:8066/root/iep-ui/commits/23732a7))
+* **修复:** 标签内容 ([305a5ab](http://115.233.227.46:8066/root/iep-ui/commits/305a5ab))
+* **审核详情:** 重构 ([9a657de](http://115.233.227.46:8066/root/iep-ui/commits/9a657de))
+* **客户统计|我的客户:** 我的客户客户分析客户建议对接 ([0a52a7b](http://115.233.227.46:8066/root/iep-ui/commits/0a52a7b))
+* **客户统计出单分析:** 出单率占比率接口对接 ([e1254d1](http://115.233.227.46:8066/root/iep-ui/commits/e1254d1))
+* **客户联系人电话验证验证取消:** 客户名字限制改为6到50 ([4e1b5a6](http://115.233.227.46:8066/root/iep-ui/commits/4e1b5a6))
+* **展示页:** 组织页面样式优化 ([6188ecf](http://115.233.227.46:8066/root/iep-ui/commits/6188ecf))
+* **拆借:** 新增 ([beac078](http://115.233.227.46:8066/root/iep-ui/commits/beac078))
+* **材料库:** 五大键 ([a861a19](http://115.233.227.46:8066/root/iep-ui/commits/a861a19))
+* **组织资金拆借:** 新建页面 ([9f99390](http://115.233.227.46:8066/root/iep-ui/commits/9f99390))
+* **联盟添加:** 添加信息 ([028e60d](http://115.233.227.46:8066/root/iep-ui/commits/028e60d))
+* **财务:** 拆借 ([6afd832](http://115.233.227.46:8066/root/iep-ui/commits/6afd832))
+* **频道页:** 国脉人 ([91aa846](http://115.233.227.46:8066/root/iep-ui/commits/91aa846))
+* **频道页:** 资源模块分页修改 ([3ad2c08](http://115.233.227.46:8066/root/iep-ui/commits/3ad2c08))
+
+
+
 ## [1.4.1](http://115.233.227.46:8066/root/iep-ui/compare/v1.4.0...v1.4.1) (2019-05-16)
 
 
@@ -5,6 +36,10 @@
 
 * **navList:** 修复显示问题 ([547ed4b](http://115.233.227.46:8066/root/iep-ui/commits/547ed4b))
 * **修复:** 产品状态存储问题 ([8aeebe5](http://115.233.227.46:8066/root/iep-ui/commits/8aeebe5))
+* **反馈:** 反馈 ([3cf6bca](http://115.233.227.46:8066/root/iep-ui/commits/3cf6bca))
+* **反馈bug:** 修复 ([6b99f2d](http://115.233.227.46:8066/root/iep-ui/commits/6b99f2d))
+* **无附件修改:** 无附件修改 ([3aa593b](http://115.233.227.46:8066/root/iep-ui/commits/3aa593b))
+* **无附件添加:** 无附件添加 ([8ec7080](http://115.233.227.46:8066/root/iep-ui/commits/8ec7080))
 * **样式:** 修改 ([7ee65ce](http://115.233.227.46:8066/root/iep-ui/commits/7ee65ce))
 
 
@@ -31,6 +66,10 @@
 ### Bug Fixes
 
 * **lintOnSave:** setTrue ([6fa91d3](http://115.233.227.46:8066/root/iep-ui/commits/6fa91d3))
+* **建议-反馈:** 接口对接 ([ef6cea6](http://115.233.227.46:8066/root/iep-ui/commits/ef6cea6))
+* **建议修复:** 建议修复 ([21f377b](http://115.233.227.46:8066/root/iep-ui/commits/21f377b))
+* **建议借口对接:** 修复 ([123a0e2](http://115.233.227.46:8066/root/iep-ui/commits/123a0e2))
+* **建议接了对接:** 建议接了对接 ([2548fc6](http://115.233.227.46:8066/root/iep-ui/commits/2548fc6))
 * **开票:** 完成审批对接 ([5d6a3a2](http://115.233.227.46:8066/root/iep-ui/commits/5d6a3a2))
 * **样式:** 修复全局checkbox样式 ([a02c6cc](http://115.233.227.46:8066/root/iep-ui/commits/a02c6cc))
 * **财务:** 添加待开发 ([158ef90](http://115.233.227.46:8066/root/iep-ui/commits/158ef90))
@@ -75,8 +114,11 @@
 * **客户:** 修复高级搜索功能 ([b0d3377](http://115.233.227.46:8066/root/iep-ui/commits/b0d3377))
 * **展示页-项目:** 本地图片删除 ([47dba51](http://115.233.227.46:8066/root/iep-ui/commits/47dba51))
 * **建议修改:** 建议修改 ([87dd754](http://115.233.227.46:8066/root/iep-ui/commits/87dd754))
+* **建议接口对接:** 建议接口对接 ([60f6ed1](http://115.233.227.46:8066/root/iep-ui/commits/60f6ed1))
+* **建议接口对接:** 建议接口对接 ([4a40f5b](http://115.233.227.46:8066/root/iep-ui/commits/4a40f5b))
 * **本地图片删除:** 本地图片删除 ([ae1d459](http://115.233.227.46:8066/root/iep-ui/commits/ae1d459))
 * **移除部分代码:** 添加批量删除发票功能 ([98a2e53](http://115.233.227.46:8066/root/iep-ui/commits/98a2e53))
+* **组织收到的建议:** 组织收到的建议 ([5667a86](http://115.233.227.46:8066/root/iep-ui/commits/5667a86))
 * **财务:** 预算季度 ([51a6e28](http://115.233.227.46:8066/root/iep-ui/commits/51a6e28))
 
 

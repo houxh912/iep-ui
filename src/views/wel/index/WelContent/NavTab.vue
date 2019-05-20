@@ -1,8 +1,8 @@
 <template>
   <div class="tab">
-    <div class="tabList" v-for="(item,index) in navList.dataList" :key="index" @click="tab(index,item.type)">
+    <div class="tabList" v-for="(item,index) in navList" :key="index" @click="tab(index,item.type)">
       <span class="title" :class="showClass==index?'color':''">{{item.subtitle}} </span>
-      <span class="line" :class="index==navList.dataList.length-1?'showLine':''">/</span>
+      <span class="line" :class="index==navList.length-1?'showLine':''">/</span>
     </div>
   </div>
 </template>
@@ -16,8 +16,8 @@ export default {
   },
   props: {
     navList: {
-      type: Object,
-      default: () => { },
+      type: Array,
+      default: () => [],
     },
   },
   methods: {

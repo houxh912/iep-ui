@@ -26,7 +26,7 @@
 const resultEnum = ['success', 'error']
 
 export default {
-  name: 'Result',
+  name: 'IepResult',
   props: {
     /** @Deprecated */
     isSuccess: {

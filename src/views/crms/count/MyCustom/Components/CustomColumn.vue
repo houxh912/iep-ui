@@ -18,7 +18,7 @@
         <div class="echarts lines">
           <div class="line"></div>
           <div class="msg">您的客户中：</div>
-          <div class="msg">{{region}}，{{proposal}}类客户居多</div>
+          <div class="msg" v-if="isShow">{{region}}，{{proposal}}类客户居多</div>
           <div class="msg">平均拜访次数：<span class="color">3</span></div>
           <div class="msg">平均方案上传：<span class="color">4</span></div>
           <div class="suggest">建议多寻找{{info}}类客户。</div>
@@ -61,6 +61,7 @@ export default {
       businessMax: [],
       aaa: [],
       proposal: '',
+      isShow: true,
     }
   },
   created () {
@@ -89,6 +90,13 @@ export default {
         for (let index = 0; index < res.data.length; index++) {
           for (let key in res.data[index]) {
             keys.push(key)
+          }
+        }
+        for (let i in res.data) {
+          let key = Object.keys(res.data[i])[0]
+          if (res.data[i][key] == 0) {
+            this.isShow = false
+            break
           }
         }
         for (let i = 0; i < this.data.length; i++) {

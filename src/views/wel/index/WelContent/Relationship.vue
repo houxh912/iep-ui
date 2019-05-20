@@ -1,7 +1,7 @@
 <template>
-  <div class="relationship">
+  <div class="about-task">
     <div class="task-nav">
-      <span class="navTitle">{{navList.title}}</span>
+      <span class="navTitle">我的关系</span>
       <nav-tab :nav-list="navList" @tab="tab"></nav-tab>
     </div>
     <relationship-content :contentData="contentData"></relationship-content>
@@ -18,26 +18,23 @@ export default {
       showClass: 0,
       navName: 'order',
       contentData: [],
-      navList: {
-        title: '我的关系',
-        dataList: [{
-          subtitle: '师徒',
-          type: 'mentor',
-          id: 0,
-        }, {
-          subtitle: '协作',
-          type: 'customer',
-          id: 1,
-        }, {
-          subtitle: '同事',
-          type: 'colleague',
-          id: 3,
-        }, {
-          subtitle: '通讯录',
-          type: 'circle',
-          id: 4,
-        }],
-      },
+      navList: [{
+        subtitle: '师徒',
+        type: 'mentor',
+        id: 0,
+      }, {
+        subtitle: '协作',
+        type: 'customer',
+        id: 1,
+      }, {
+        subtitle: '同事',
+        type: 'colleague',
+        id: 3,
+      }, {
+        subtitle: '通讯录',
+        type: 'circle',
+        id: 4,
+      }],
       content: {
         mentor: [],
         customer: [],
@@ -59,7 +56,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.relationship {
+.about-task {
   padding: 15px 30px;
   padding-bottom: 0;
   border-bottom: 1px solid #eee;
@@ -67,8 +64,8 @@ export default {
     display: flex;
     align-items: center;
     .navTitle {
-      padding-right: 20px;
       font-size: 16px;
+      padding-right: 20px;
       color: #000;
     }
   }

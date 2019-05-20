@@ -19,7 +19,11 @@ export default {
   },
   computed: {
     isCommon () {
-      return this.link.pathType !== '3' ? `${this.imsPathType.label}/${this.link.pathId}` : undefined
+      if (this.link.pathId) {
+        return this.link.pathType !== '3' ? `${this.imsPathType.label}/${this.link.pathId}` : undefined
+      } else {
+        return this.link.pathType !== '3' ? `${this.imsPathType.label}` : undefined
+      }
     },
   },
   methods: {

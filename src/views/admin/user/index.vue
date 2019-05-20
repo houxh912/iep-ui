@@ -7,7 +7,7 @@
           <iep-button type="primary" @click="handleAddUsers()" icon="el-icon-plus" plain>添加用户</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" prop="username">
           </operation-search>
         </template>
       </operation-container>

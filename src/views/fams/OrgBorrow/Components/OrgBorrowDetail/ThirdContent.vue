@@ -6,9 +6,7 @@
         <iep-div-detail :value="data.outOrgName"></iep-div-detail>
       </iep-form-item>
       <iep-form-item label-name="支付方式">
-        <el-radio-group v-model="data.borrowMoneyType">
-          <el-radio v-for="(item, idx) in dictsMap.borrowMoneyType" :key="idx" :label="idx">{{item}}</el-radio>
-        </el-radio-group>
+        <iep-div-detail :value="dictsMap.borrowMoneyType[data.borrowMoneyType]"></iep-div-detail>
       </iep-form-item>
       <iep-form-item label-name="收款公司">
         <iep-div-detail :value="data.borrowInCompany"></iep-div-detail>
@@ -16,25 +14,25 @@
       <iep-form-item v-if="!bankAmountOption.disabled" label-name="收款账户">
         <iep-div-detail :value="data.borrowInCompanyBank"></iep-div-detail>
       </iep-form-item>
-      <iep-form-item label-name="还款天数(天)">
-        <iep-input-number v-model="data.borrowDays" :precision="0"></iep-input-number>
+      <iep-form-item label-name="还款天数">
+        <iep-div-detail :value="`${data.borrowDays}天`"></iep-div-detail>
       </iep-form-item>
       <iep-form-item label-name="还款时间">
-        <iep-date-picker v-model="data.repaymentTime" type="date" placeholder="选择日期" disabled></iep-date-picker>
+        <iep-div-detail :value="data.repaymentTime"></iep-div-detail>
       </iep-form-item>
       <iep-form-item label-name="借款利息">
         <iep-div-detail :value="`${data.orgInterest}%`"></iep-div-detail>
       </iep-form-item>
       <iep-form-item label-name="借款金额">
-        <iep-input-number v-model="data.borrowAmount"></iep-input-number>
+        <iep-div-detail :value="`${data.amount}元`"></iep-div-detail>
       </iep-form-item>
     </el-form>
     <template v-slot:action>
       <a-button type="primary" :loading="submitLoading" @click="handleSubmit">
-        提交
+        取消借款
       </a-button>
-      <a-button style="margin-left: 8px" @click="handlePrev">
-        上一步
+      <a-button style="margin-left: 8px" @click="handleBack">
+        返回
       </a-button>
     </template>
   </steps-content>
@@ -42,7 +40,7 @@
 </template>
 <script>
 import StepsContent from './StepsContent'
-import { postOrgBorrow } from '@/api/fams/org_borrow'
+import { cancelOrgBorrow } from '@/api/fams/org_borrow'
 import { dictsMap } from './options'
 export default {
   props: ['data'],
@@ -71,22 +69,34 @@ export default {
   created () {
   },
   methods: {
-    handlePrev () {
-      this.$emit('prev')
+    handleBack () {
+      this.$emit('back')
     },
     async handleSubmit () {
-      this.submitLoading = true
       try {
-        const { data } = await postOrgBorrow(this.data)
-        if (data.data) {
-          this.$emit('on-data', data.data)
-        } else {
-          this.$message(data.msg)
+        await this.$confirm('此操作将取消借款, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        })
+        this.submitLoading = true
+        try {
+          const { data } = await cancelOrgBorrow(this.data.id)
+          if (data.data) {
+            this.$message('操作成功')
+            this.$emit('on-data', data.data)
+          } else {
+            this.$message(data.msg)
+          }
+        } catch (error) {
+          this.$message('似乎出现了一些问题')
         }
       } catch (error) {
-        this.$message('似乎出现了一些问题')
+        this.$message('操作取消')
+      } finally {
+        this.submitLoading = false
       }
-      this.submitLoading = false
+
     },
   },
 }

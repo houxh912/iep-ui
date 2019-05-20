@@ -1,16 +1,16 @@
 <template>
   <div class="organization-introduction">
-    <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
-      <p class="con">国脉集团研发中心定位于集团技术支撑大本营，主要发展思路为：以集团五位一体发展战略为指导，以国脉品牌与资源为依托，整合技术资源，全力支持</p>
+    <iepAppTabCard :title="title" :linkName="linkName" :data="`（当前${data.memberNum}人）`" isMore>
+      <p class="con">{{data.intro}}</p>
       <div class="person">
         <el-carousel height="84px" :interval="5000" arrow="always">
-          <el-carousel-item v-for="item in 4" :key="item">
-            <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
+          <el-carousel-item v-for="(item, index) in Math.ceil(members.length/3)" :key="index">
+            <div v-for="(item, i) in members.slice(index*3, index*3+3)" :key="i" class="piece">
               <div class="img">
                 <span class="bgb">{{item.post}}</span>
-                <img :src="item.img" class="img">
+                <img :src="item.avatar" class="img">
               </div>
-              <span class="name">{{item.name}}<span class="dn show1" :class="item.show1">V</span></span>
+              <span class="name">{{item.name}}<span class="dn show1" :class="item.isExpert==1?item.show1:''">V</span></span>
             </div>
           </el-carousel-item>
         </el-carousel>
@@ -20,10 +20,25 @@
 </template>
 <script>
 export default {
+  props: {
+    data: {
+      type: Object,
+      default: () => {
+        return {
+          members: [],
+        }
+      },
+    },
+  },
+  computed: {
+    members () {
+      let members = this.data.members ? this.data.members : []
+      return members
+    },
+  },
   data () {
     return {
       title: '组织介绍',
-      data: '（当前234人）',
       wonderfulList: [
         { img: require('../img/people1.png'), name: '姚静', post: '产品经理', show1: 'show' },
         { img: require('../img/people2.jpg'), name: '邵佳欢', post: '视频剪辑' },

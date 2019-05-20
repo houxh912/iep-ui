@@ -1,7 +1,7 @@
 import request from '@/router/axios'
 
-export function downloadModel (url) {
-  let name = url
+export function downloadModel (url, name) {
+  // let name = url
   return request({
     url: `/admin/file/${url}`,
     method: 'get',

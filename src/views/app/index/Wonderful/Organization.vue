@@ -1,10 +1,10 @@
 <template>
   <div class="organization">
     <el-carousel height="200px" :interval="5000" indicator-position="none">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <div v-for="(item,index) in wonderfulList" :key="index" class="piece" @click="handleOpen()">
-          <div class="img"><img :src="item.img" class="img"></div>
-          <span class="name">{{item.name}}</span>
+      <el-carousel-item v-for="(item, index) in Math.ceil(wonderfulList.length/3)" :key="index">
+        <div class="piece" v-for="(t, i) in wonderfulList.slice(index*3, index*3+3)" :key="i" @click="handleOpen(t)">
+          <div class="img"><img :src="t.logo" class="img"></div>
+          <span class="name">{{t.org_name}}</span>
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -12,22 +12,25 @@
 </template>
 
 <script>
+import { getRectagsOrgList } from '@/api/app/upms/'
+
 export default {
   data () {
     return {
-      wonderfulList: [
-        { name: '国脉先锋队', img: require('../img/organization1.jpg') },
-        { name: '国脉集团研发中心', img: require('../img/organization2.jpg') },
-        { name: '佛山司马钱信息技术有限公司', img: require('../img/organization3.jpg') },
-      ],
+      wonderfulList: [],
     }
   },
   methods: {
-    handleOpen () {
+    handleOpen (row) {
       this.$router.push({
-        path: '/app/organization_style',
+        path: `/app/organization_style/${row.org_id}`,
       })
     },
+  },
+  created () {
+    getRectagsOrgList().then(({data}) => {
+      this.wonderfulList = data.data
+    })
   },
 }
 </script>

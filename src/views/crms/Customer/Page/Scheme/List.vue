@@ -214,7 +214,7 @@ export default {
       }
     },
     download (row) {
-      downloadModel(row.attachs[0].name)
+      downloadModel(row.attachs[0].url, row.attachs[0].name)
     },
     add (val) {
       this.formData.programName = val.name

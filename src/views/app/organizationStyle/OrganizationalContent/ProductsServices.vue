@@ -2,27 +2,37 @@
   <div class="products-services-con">
     <iepAppTabCard :title="title" :linkName="linkName" isMore>
       <div class="products-services">
-        <div v-for="(item,index) in productsServices" :key="index" class="piece">
+        <div v-for="(item, index) in productsServices" :key="index" class="piece">
           <span class="name">{{item.name}}</span>
-          <span class="operate">{{item.operate}}</span>
+          <span class="operate">申请代理</span>
         </div>
       </div>
     </iepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getDetailsList } from '@/api/app/cpms/channel'
+
 export default {
+  props: {
+    orgId: {
+      type: Number,
+    },
+  },
   data () {
     return {
       title: '产品与服务',
-      productsServices: [
-        { name: '国脉信息资源库管理系统', operate: '申请代理' },
-        { name: '统一用户管理系统', operate: '申请代理' },
-        { name: '数据基因系统', operate: '申请代理' },
-        { name: '营商通', operate: '申请代理' },
-        { name: '数据清洗系统', operate: '申请代理' }],
+      productsServices: [],
       linkName: '',
     }
+  },
+  watch: {
+    orgId (newVal) {
+      if (newVal) getDetailsList(newVal).then(({data}) => {
+        this.productsServices = data.data
+      })
+    },
   },
 }
 </script>

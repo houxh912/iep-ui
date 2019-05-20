@@ -3,7 +3,7 @@
     <ranking></ranking>
     <organization-introduction :data="data"></organization-introduction>
     <business-layout></business-layout>
-    <products-services></products-services>
+    <products-services :orgId="data.orgId"></products-services>
     <organize-events></organize-events>
     <reward></reward>
     <collaborative-record></collaborative-record>

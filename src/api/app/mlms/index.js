@@ -60,3 +60,11 @@ export const getMaterialList = (params) => {
     params: params,
   })
 }
+
+// 组织详情方案材料集合 
+export const getOrgMaterialList = (id) => {
+  return request({
+    url: `${prefixUrl}/material_list/${id}`,
+    method: 'get',
+  })
+}

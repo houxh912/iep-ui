@@ -44,6 +44,7 @@ export default {
         { img: require('../img/people2.jpg'), name: '邵佳欢', post: '视频剪辑' },
         { img: require('../img/people3.jpg'), name: '林毅宁', post: '咨询师' },
       ],
+      linkName: '',
     }
   },
 }

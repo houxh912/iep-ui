@@ -54,7 +54,7 @@
                 会议地点
                 <iep-tip :content="tipContent.meetingLocation"></iep-tip>：
               </span>
-              <el-input v-model="formData.meetingLocation" maxlength="20"></el-input>
+              <el-input v-model="formData.meetingLocation" maxlength="50"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

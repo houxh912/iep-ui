@@ -40,22 +40,36 @@ export default {
   data () {
     return {
       dictsMap,
-      title: '提交成功',
-      description: '等待财务审核，财务审核通过后提现资金将被冻结。同时在财务未审核通过前撤销申请。',
       submitLoading: false,
     }
   },
   computed: {
+    title () {
+      if (this.form.status === 8) {
+        return '借款失败'
+      } else if (this.form.status === 6) {
+        return '确认成功'
+      } else {
+        return '操作成功'
+      }
+    },
+    description () {
+      if (this.form.status === 8) {
+        return '具体原因请与借入方联系'
+      } else if (this.form.status === 6) {
+        return '已到账，请及时还款，切勿逾期！'
+      } else {
+        return ''
+      }
+    },
     bankAmountOption () {
       if (this.data.borrowInCompanyId && this.data.borrowMoneyType === '1') {
         return {
           disabled: false,
-          prefixUrl: `fams/bank_account/${this.data.borrowInCompanyId}`,
         }
       } else {
         return {
           disabled: true,
-          prefixUrl: `fams/bank_account/${this.data.borrowInCompanyId}`,
         }
       }
     },

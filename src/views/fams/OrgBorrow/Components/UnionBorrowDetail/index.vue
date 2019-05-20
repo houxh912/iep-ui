@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织申请借款" :replaceText="replaceText" :backOption="backOption"></page-header>
+      <page-header title="集团申请借款" :replaceText="replaceText" :backOption="backOption"></page-header>
       <div class="withdraw-wrapper">
         <a-steps :current="current">
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />
@@ -19,8 +19,6 @@ import FirstContent from './FirstContent'
 import SecondContent from './SecondContent'
 import ThirdContent from './ThirdContent'
 import FourthContent from './FourthContent'
-import FifthContent from './FifthContent'
-import SixthContent from './SixthContent'
 import { getOrgBorrowById } from '@/api/fams/org_borrow'
 export default {
   components: {
@@ -28,8 +26,6 @@ export default {
     SecondContent,
     ThirdContent,
     FourthContent,
-    FifthContent,
-    SixthContent,
   },
   data () {
     return {
@@ -53,29 +49,15 @@ export default {
         data: undefined,
         onData: this.handleSecond,
       }, {
-        title: '借出方组织审核',
+        title: '集团财政财务审核',
         content: 'ThirdContent',
         nextText: '撤销',
         prevText: '',
         data: undefined,
         onData: this.handleThird,
       }, {
-        title: '借出方财务操作',
-        content: 'FourthContent',
-        nextText: '',
-        prevText: '',
-        data: undefined,
-        onData: this.handleFirst,
-      }, {
-        title: '借入方财务确认收款',
-        content: 'FifthContent',
-        nextText: '',
-        prevText: '',
-        data: undefined,
-        onData: this.handleFirst,
-      }, {
         title: '完成',
-        content: 'SixthContent',
+        content: 'FourthContent',
         nextText: '',
         prevText: '',
         data: undefined,

@@ -11,10 +11,24 @@ export function getOrgBorrowPage (query) {
   })
 }
 
+export function getOrgBorrowById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}
+
 export function postOrgBorrow (obj) {
   return request({
     url: `${prefixUrl}/create`,
     method: 'post',
     data: obj,
+  })
+}
+
+export function cancelOrgBorrow (id) {
+  return request({
+    url: `${prefixUrl}/cancel/${id}`,
+    method: 'get',
   })
 }

@@ -1,19 +1,15 @@
 <template>
   <div>
-    <result type="success" :description="description" :title="title">
+    <iep-result type="success" :description="description" :title="title">
       <template slot="action">
         <a-button type="primary" @click="handleBack">返回列表</a-button>
         <a-button @click="handleBack">撤销</a-button>
       </template>
-    </result>
+    </iep-result>
   </div>
 </template>
 <script>
-import Result from '@/components/IepResult/'
 export default {
-  components: {
-    Result,
-  },
   data () {
     return {
       title: '提交成功',

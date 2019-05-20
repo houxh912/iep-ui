@@ -9,6 +9,7 @@ import OperationContainer from '@/components/Operation/Container'
 import PageHeader from '@/components/Page/Header'
 import IepPageHeader from '@/components/IepCommon/PageHeader'
 import FooterToolBar from '@/components/FooterToolbar'
+import IepResult from '@/components/IepResult/index'
 
 // 富文本
 // import IepEditor from '@/components/IepEditor/'
@@ -105,6 +106,7 @@ Vue.component(OperationSearch.name, OperationSearch)
 Vue.component(PageHeader.name, PageHeader)
 Vue.component(IepPageHeader.name, IepPageHeader)
 Vue.component(FooterToolBar.name, FooterToolBar)
+Vue.component(IepResult.name, IepResult)
 
 //富文本
 // Vue.component(IepEditor.name, IepEditor)

@@ -10,7 +10,7 @@
             </iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="handleAddOrgBorrow">组织拆借</el-dropdown-item>
-              <el-dropdown-item>集团拆借</el-dropdown-item>
+              <el-dropdown-item @click.native="handleAddUnionBorrow">集团拆借</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </template>
@@ -30,7 +30,7 @@
 import { mapGetters } from 'vuex'
 import { getOrgBorrowPage } from '@/api/fams/org_borrow'
 import mixins from '@/mixins/mixins'
-import { dictsMap, columnsMap, tabList } from './options'
+import { dictsMap, colMap, tabList } from './options'
 export default {
   mixins: [mixins],
   data () {
@@ -38,7 +38,6 @@ export default {
       type: 'inOrgId',
       tabList,
       dictsMap,
-      columnsMap,
     }
   },
   computed: {
@@ -54,6 +53,9 @@ export default {
         [type]: this.orgId,
       }
     },
+    columnsMap () {
+      return colMap[this.type]
+    },
   },
   created () {
     this.loadPage()
@@ -67,9 +69,14 @@ export default {
         path: '/fams_spa/org_borrow_detail/0',
       })
     },
-    handleDetail () {
+    handleAddUnionBorrow () {
       this.$router.push({
-        path: '/fams_spa/withdraw_detail/0',
+        path: '/fams_spa/union_borrow_detail/0',
+      })
+    },
+    handleDetail (row) {
+      this.$router.push({
+        path: `/fams_spa/org_borrow_detail/${row.id}`,
       })
     },
     loadPage (param = this.searchForm) {

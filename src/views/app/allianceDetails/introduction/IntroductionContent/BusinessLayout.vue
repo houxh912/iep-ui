@@ -1,7 +1,7 @@
 <template>
   <div class="business-layout">
     <span class="details-title">{{subTitle}}</span>
-    <ve-radar :data="chartData" :settings="chartSettings" :legendVisible="isTrue" height="195px" width="280px"></ve-radar>
+    <ve-radar :data="chartData" :settings="chartSettings" :legendVisible="isTrue" height="200px" width="280px"></ve-radar>
   </div>
 </template>
 

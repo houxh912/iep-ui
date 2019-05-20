@@ -1,28 +1,48 @@
 <template>
   <div class="reward-con">
     <div class="reward">
-      <div v-for="(item,index) in reward" :key="index" class="piece">
-        <span class="title">{{item.title}}</span>
-        <span class="name">{{item.name}}</span>
-        <div class="percentage">
+      <div v-for="(item,index) in reward" :key="index" class="piece" @click="handleDetail(item.id)">
+        <span class="title">{{item.projectName}}</span>
+        <span class="name">{{item.authorizations[0]}}</span>
+        <!-- <div class="percentage">
           <el-progress :percentage="item.integrity" color="#68C769"></el-progress>
-        </div>
+        </div> -->
+        <span class="percentage">{{dictList[item.projectStage]}}</span>
       </div>
     </div>
   </div>
 </template>
+
 <script>
+import { getProjectList } from '@/api/app/prms/'
+
 export default {
+  props: {
+    orgId: {
+      type: Number,
+    },
+  },
   data () {
     return {
-      reward: [
-        { title: '20180115海沧区公共安全主题数据资源梳理与服务', name: '潘超巧', integrity: 20 },
-        { title: '海南省政务信息资源目录管理系统', name: '邵万炯', integrity: 20 },
-        { title: '北京市西城区政务数据梳理系统', name: '陈争辉', integrity: 50 },
-        { title: '浙江省数据资源管理服务平台公共数据目录系统', name: '潘超巧', integrity: 60 },
-        { title: '20170317浙江省公共数据目录系统项目', name: '阮晨光', integrity: 20 },
-        { title: '20180413数据基因海南版 ', name: '王俊辉', integrity: 80 }],
+      reward: [],
+      dictList: {
+        1: '立项阶段',
+        2: '实施阶段',
+        3: '收尾阶段',
+        4: '完结阶段',
+        5: '失败阶段',
+      },
     }
+  },
+  methods: {
+    handleDetail (id) {
+      this.$router.push(`/gpms_spa/project/detail/${id}`)
+    },
+  },
+  created () {
+    getProjectList(this.orgId).then(({data}) => {
+      this.reward = data.data
+    })
   },
 }
 </script>
@@ -36,7 +56,9 @@ export default {
     position: relative;
     margin-left: 15px;
     .percentage {
-      flex: 1;
+      height: 30px;
+      line-height: 30px;
+      width: 60px;
     }
     .title {
       display: inline-block;

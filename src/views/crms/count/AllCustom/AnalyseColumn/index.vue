@@ -25,7 +25,7 @@
                     出单率
                   </el-progress>
                 </div>
-                <div class="msg">{{region}}客户，{{info}}类客户居多,为{{percent+'%'}}；</div>
+                <div class="msg" v-if="isShow">{{region}}客户，{{info}}类客户居多,为{{percent+'%'}}；</div>
                 <div class="suggest">{{proposal}}最少</div>
               </div>
             </el-col>
@@ -73,6 +73,7 @@ export default {
         { value: '0', name: '产品', label: 'product' },
         { value: '0', name: '技术服务', label: 'technicalService' },
       ],
+      isShow: true,
     }
   },
   created () {
@@ -93,6 +94,13 @@ export default {
         for (let index = 0; index < res.data.length; index++) {
           for (let key in res.data[index]) {
             keys.push(key)
+          }
+        }
+        for (let i in res.data) {
+          let key = Object.keys(res.data[i])[0]
+          if (res.data[i][key] == 0) {
+            this.isShow = false
+            break
           }
         }
         for (let i = 0; i < this.data.length; i++) {

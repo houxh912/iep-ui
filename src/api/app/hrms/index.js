@@ -89,3 +89,11 @@ export const getTeacherList = () => {
     method: 'get',
   })
 }
+
+// 组织人才需求
+export const getRecruitList = (id) => {
+  return request({
+    url: `${prefixUrl}/recruit_list/${id}`,
+    method: 'get',
+  })
+}

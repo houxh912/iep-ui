@@ -2,7 +2,7 @@
   <div class="empolyee">
     <el-carousel height="200px" :interval="5000" indicator-position="outside">
       <el-carousel-item v-for="(item, index) in Math.ceil(wonderfulList.length/4)" :key="index">
-        <div class="piece" v-for="(t, i) in wonderfulList.slice(index*4, index*4+4)" :key="i">
+        <div class="piece" v-for="(t, i) in wonderfulList.slice(index*4, index*4+4)" :key="i" @click="handleDetail(t.org_id)">
           <div class="img"><img :src="t.logo" class="img"></div>
           <span class="name">{{t.org_name}}</span>
         </div>
@@ -25,6 +25,9 @@ export default {
       getRectagsOrgList().then(({data}) => {
         this.wonderfulList = data.data
       })
+    },
+    handleDetail (id) {
+      this.$router.push(`/app/organization_style/${id}`)
     },
   },
   created () {

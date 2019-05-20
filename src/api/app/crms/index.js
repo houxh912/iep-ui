@@ -1,5 +1,5 @@
 import request from '@/router/axios'
-const prefixUrl = './crm/channel_client'
+const prefixUrl = '/crm/channel_client'
 
 // 本周新增
 export const getNewClientList = (params) => {
@@ -52,6 +52,10 @@ export const getBusinessPage = (params) => {
   })
 }
 
-
-
-
+// 组织客户集合
+export const getClientList = (id) => {
+  return request({
+    url: `${prefixUrl}/client_list/${id}`,
+    method: 'get',
+  })
+}

@@ -16,3 +16,11 @@ export const getModulePage = (params) => {
     params: params,
   })
 }
+
+// 组织详情产品集合
+export const getDetailsList = (id) => {
+  return request({
+    url: `${prefixUrl}/details_list/${id}`,
+    method: 'get',
+  })
+}

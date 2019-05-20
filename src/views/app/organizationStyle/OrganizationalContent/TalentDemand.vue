@@ -6,24 +6,38 @@
         <el-button type="text">申请转岗</el-button>
       </div>
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="name" label="岗位名称" width="180">
+        <el-table-column prop="positionName" label="岗位名称" width="180">
         </el-table-column>
-        <el-table-column prop="num" label="需求数" width="180">
+        <el-table-column prop="recruitsCount" label="需求数" width="180">
         </el-table-column>
-        <el-table-column prop="education" label="学历要求">
+        <el-table-column prop="academicId" label="学历要求">
+          <template slot-scope="scope">
+            {{getEducation(scope.row.academicId)}}
+          </template>
         </el-table-column>
-        <el-table-column prop="salary" label="薪资待遇" width="100">
+        <el-table-column prop="treatment" label="薪资待遇" width="100">
         </el-table-column>
       </el-table>
     </IepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getRecruitList } from '@/api/app/hrms/'
+import { mapGetters } from 'vuex'
+
 export default {
+  props: {
+    orgId: {
+      type: Number,
+    },
+  },
+  computed: {
+    ...mapGetters(['dictGroup']),
+  },
   data () {
     return {
       title: '人才需求',
-      data: '（53个）',
       linkName: '',
       tableData: [
         {
@@ -32,32 +46,24 @@ export default {
           education: '大专',
           salary: '面议',
         },
-        {
-          name: '产品经理',
-          num: '5',
-          education: '大专',
-          salary: '面议',
-        },
-        {
-          name: '算法工程师',
-          num: '2',
-          education: '大专',
-          salary: '面议',
-        },
-        {
-          name: '高级咨询师',
-          num: '2',
-          education: '大专',
-          salary: '面议',
-        },
-        {
-          name: '前段开发工程师',
-          num: '4',
-          education: '大专',
-          salary: '面议',
-        },
       ],
     }
+  },
+  methods: {
+    getEducation (val) {
+      for (let item of this.dictGroup.hrms_highest_educational) {
+        if (item.value == val) {
+          return item.label
+        }
+      }
+    },
+  },
+  watch: {
+    orgId (newVal) {
+      getRecruitList(newVal).then(({data}) => {
+        this.tableData = data.data
+      })
+    },
   },
 }
 </script>

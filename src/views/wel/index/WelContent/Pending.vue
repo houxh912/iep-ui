@@ -1,14 +1,15 @@
 <template>
   <div class="about-task">
     <div class="task-nav">
-      <span class="navTitle">{{navList.title}}</span>
-      <nav-tab :nav-list="navList" @tab="tab"></nav-tab>
+      <span class="navTitle">我的待办</span>
+      <nav-tab :nav-list="dataList" @tab="tab"></nav-tab>
     </div>
     <nav-content :contentData="contentData" @on-detail="handleDetail"></nav-content>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import NavTab from './NavTab'
 import NavContent from './NavContent'
 import { getPending } from '@/api/wel/index'
@@ -23,26 +24,33 @@ export default {
       showClass: 0,
       navName: 'instruction',
       contentData: [],
-      navList: {
-        title: '我的待办',
-        dataList: [
-          {
-            subtitle: '领导批示',
-            type: 'instruction',
-            id: 0,
-          },
-          {
-            subtitle: '待审批',
-            type: 'approval',
-            id: 3,
-          },
-        ],
-      },
+      dataList: [
+        {
+          subtitle: '领导批示',
+          type: 'instruction',
+          id: 0,
+        },
+        {
+          subtitle: '待审批',
+          type: 'approval',
+          id: 3,
+        },
+      ],
       content: [],
+      hrms_to_approval: false,
     }
+  },
+  computed: {
+    ...mapGetters([
+      'permissions',
+    ]),
   },
   created () {
     this.tab(this.navName)
+    this.hrms_to_approval = this.permissions['hrms_to_approval']
+    if (this.hrms_to_approval) {
+      this.dataList = [this.dataList[0]]
+    }
   },
   methods: {
     handleDetail (row) {

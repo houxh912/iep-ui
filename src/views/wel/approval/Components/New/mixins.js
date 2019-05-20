@@ -24,11 +24,6 @@ export default {
       },
       fnSelf: getEmployeeProfileSelf,
       selfToVo,
-      pickerOptions: {
-        disabledDate (time) {
-          return time.getTime() < Date.now()
-        },
-      },
     }
   },
   computed: {

@@ -1,7 +1,7 @@
 <template>
   <basic-container>
     <el-col class="left">
-      <page-header :title="formData.materialName" :backOption="backOption"></page-header>
+      <page-header :title="formData.honorQualName" :backOption="backOption"></page-header>
 
       <el-row class="info">
         <div class="person">
@@ -23,7 +23,7 @@
         </div>
       </el-row> -->
       <el-row class="image">
-        <img v-if="formData.image" :src="formData.image" class="avatar">
+        <img v-if="formData.image" :src="formData.image" class="img-avatar">
       </el-row>
       <el-row class="footer">
         <div class="footer-left">
@@ -278,6 +278,9 @@ export default {
   }
   .image {
     margin: 20px 0;
+    .img-avatar {
+      max-width: 100%;
+    }
   }
   .footer {
     display: flex;

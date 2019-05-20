@@ -8,42 +8,6 @@
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
-            <!-- <el-form :model="paramForm" label-width="80px" size="mini">
-              <el-form-item label="关键字">
-                <el-input v-model="paramForm.keyword"></el-input>
-              </el-form-item>
-              <el-form-item label="申请时间">
-                <el-date-picker v-model="value1" type="date" placeholder="选择日期">
-                </el-date-picker>
-              </el-form-item>
-              <el-form-item label="审核时间">
-                <el-date-picker v-model="value1" type="date" placeholder="选择日期">
-                </el-date-picker>
-              </el-form-item>
-              <el-form-item label="发布时间">
-                <el-date-picker v-model="value1" type="date" placeholder="选择日期">
-                </el-date-picker>
-              </el-form-item>
-              <el-form-item label="金额">
-                <el-col :span="11">
-                  <el-input v-model="paramForm.sum" style="width: 100%;"></el-input>
-                </el-col>
-                <el-col class="line" :span="2">-</el-col>
-                <el-col :span="11">
-                  <el-input v-model="paramForm.sum2" style="width: 100%;"></el-input>
-                </el-col>
-              </el-form-item>
-              <el-form-item label="状态">
-                <el-select v-model="value" placeholder="请选择">
-                  <el-option v-for="item in classify" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="searchPage">搜索</el-button>
-                <el-button>取消</el-button>
-              </el-form-item>
-            </el-form> -->
           </operation-search>
         </template>
       </operation-container>

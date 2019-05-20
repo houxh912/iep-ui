@@ -29,7 +29,7 @@
       </iep-form-item>
 
       <iep-form-item class="form-half" prop="endTime" label-name="调岗时间" tip="请选择想要调岗的时间">
-        <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期" :picker-options="pickerOptions"></iep-date-picker>
+        <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期"></iep-date-picker>
       </iep-form-item>
 
       <iep-form-item prop="reason" label-name="申请理由" tip="请详细说明申请调岗的原因和理由。">

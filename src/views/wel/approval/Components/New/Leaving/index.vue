@@ -23,21 +23,21 @@
       </iep-form-item>
 
       <iep-form-item class="form-half" prop="endTime" label-name="结束时间" tip="请假实际结束时间，例如5月12日17：30">
-        <iep-date-picker v-model="form.endTime" type="datetime" placeholder="选择日期" @change="endChange(form.endTime)" :picker-options="pickerOptions"></iep-date-picker>
+        <iep-date-picker v-model="form.endTime" type="datetime" placeholder="选择日期" @change="endChange(form.endTime)"></iep-date-picker>
       </iep-form-item>
-      
+
       <iep-form-item prop="reason" label-name="申请理由" tip="因xxxx原因需请假x天，望领导批准。">
         <iep-input-area v-model="form.reason"></iep-input-area>
       </iep-form-item>
-      
+
       <iep-form-item prop="approver" label-name="审批人" tip="1、一天以内由直属领导审批（含1天）；<br/>2、二天以内由部门班长审批（含2天）；<br/>3、三天及以上总经理（郑总）审批（含3天）。">
         <iep-contact-multiple-user v-model="form.approver" :filter-user-list="filterUserList"></iep-contact-multiple-user>
       </iep-form-item>
-      
+
       <iep-form-item prop="cc" label-name="抄送人" tip="请务必抄送所属部门人力和财务，谢谢！">
         <iep-contact-multiple-user v-model="form.cc" :filter-user-list="filterUserList"></iep-contact-multiple-user>
       </iep-form-item>
-      
+
       <el-form-item label="">
         <operation-wrapper>
           <iep-button type="primary" @click="handleSubmit">提交</iep-button>

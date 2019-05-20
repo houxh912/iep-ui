@@ -27,8 +27,7 @@
       </iep-form-item>
     </el-form>
     <template v-slot:action>
-      <a-button type="primary" @click="handleBack">返回列表</a-button>
-      <a-button style="margin-left: 8px" @click="handleBack">撤销</a-button>
+      <a-button @click="handleBack">返回列表</a-button>
     </template>
   </iep-result>
 </template>
@@ -45,18 +44,18 @@ export default {
   },
   computed: {
     title () {
-      if (this.form.status === 8) {
+      if (this.data.status === 8) {
         return '借款失败'
-      } else if (this.form.status === 6) {
+      } else if (this.data.status === 6) {
         return '确认成功'
       } else {
         return '操作成功'
       }
     },
     description () {
-      if (this.form.status === 8) {
+      if (this.data.status === 8) {
         return '具体原因请与借入方联系'
-      } else if (this.form.status === 6) {
+      } else if (this.data.status === 6) {
         return '已到账，请及时还款，切勿逾期！'
       } else {
         return ''

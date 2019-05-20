@@ -39,10 +39,10 @@
     <el-form-item label="职称：" prop="titleId" class="form-half">
       <iep-select prefix-url="hrms/title_system" v-model="form.titleId" :disabled="!!form.staffId"></iep-select>
     </el-form-item>
-    <el-form-item label="入职时间：" prop="entryTime" class="form-half">
+    <el-form-item v-if="form.status" label="入职时间：" prop="entryTime" class="form-half">
       <IepDatePicker v-model="form.entryTime" type="date" placeholder="选择日期"></IepDatePicker>
     </el-form-item>
-    <el-form-item label="转正时间：" prop="positiveTime" class="form-half">
+    <el-form-item v-if="form.status===1" label="转正时间：" prop="positiveTime" class="form-half">
       <IepDatePicker v-model="form.positiveTime" type="date" placeholder="选择日期"></IepDatePicker>
     </el-form-item>
     <el-form-item label="员工状态：" prop="status" class="form-half">

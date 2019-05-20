@@ -35,7 +35,7 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      type: 'inOrgId',
+      type: 'outOrgId',
       tabList,
       dictsMap,
     }

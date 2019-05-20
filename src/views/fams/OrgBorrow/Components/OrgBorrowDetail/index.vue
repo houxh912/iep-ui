@@ -85,7 +85,7 @@ export default {
   },
   computed: {
     id () {
-      return this.$route.params.id
+      return +this.$route.params.id
     },
   },
   created () {
@@ -113,10 +113,12 @@ export default {
       this.$router.go(-1)
     },
     loadPage () {
-      getOrgBorrowById(this.id).then(({ data }) => {
-        this.current = statusMap[data.data.status]
-        this.steps[this.current].data = data.data
-      })
+      if (this.id) {
+        getOrgBorrowById(this.id).then(({ data }) => {
+          this.current = statusMap[data.data.status]
+          this.steps[this.current].data = data.data
+        })
+      }
     },
   },
 }

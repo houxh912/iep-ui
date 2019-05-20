@@ -28,8 +28,14 @@
       </iep-form-item>
     </el-form>
     <template v-slot:action>
-      <a-button type="primary" :loading="submitLoading" @click="handleSubmit">
+      <a-button v-if="!data.isOut" type="primary" :loading="submitLoading" @click="handleSubmit">
         取消借款
+      </a-button>
+      <a-button v-if="data.isOut" style="margin-left: 8px" type="primary" :loading="submitLoading" @click="handleOutConfirm">
+        审核通过
+      </a-button>
+      <a-button v-if="data.isOut" style="margin-left: 8px" :loading="submitLoading" @click="handleOrgReject">
+        审核拒绝
       </a-button>
       <a-button style="margin-left: 8px" @click="handleBack">
         返回
@@ -40,7 +46,7 @@
 </template>
 <script>
 import StepsContent from './StepsContent'
-import { cancelOrgBorrow } from '@/api/fams/org_borrow'
+import { cancelOrgBorrow, outOrgConfirmBorrow, orgRejectBorrow } from '@/api/fams/org_borrow'
 import { dictsMap } from './options'
 export default {
   props: ['data'],
@@ -72,16 +78,25 @@ export default {
     handleBack () {
       this.$emit('back')
     },
+    async handleOutConfirm () {
+      await this.handleCommon('审核通过', outOrgConfirmBorrow)
+    },
+    async handleOrgReject () {
+      await this.handleCommon('审核通过', orgRejectBorrow)
+    },
     async handleSubmit () {
+      await this.handleCommon('取消借款', cancelOrgBorrow)
+    },
+    async handleCommon (text, requestFunction) {
       try {
-        await this.$confirm('此操作将取消借款, 是否继续?', '提示', {
+        await this.$confirm(`此操作将${text}, 是否继续?`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
         })
         this.submitLoading = true
         try {
-          const { data } = await cancelOrgBorrow(this.data.id)
+          const { data } = await requestFunction(this.data.id)
           if (data.data) {
             this.$message('操作成功')
             this.$emit('on-data', data.data)
@@ -96,7 +111,6 @@ export default {
       } finally {
         this.submitLoading = false
       }
-
     },
   },
 }

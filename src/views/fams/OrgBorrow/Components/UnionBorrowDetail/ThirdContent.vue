@@ -2,9 +2,6 @@
   <steps-content>
     <el-form class="content-wrapper" ref="form" size="small" :model="data" label-width="150px" disabled>
       <a-alert :closable="true" type="error" message="借出方组织审核通过后，将无法撤回！" style="margin-bottom: 24px;" />
-      <iep-form-item label-name="借出组织">
-        <iep-div-detail :value="data.outOrgName"></iep-div-detail>
-      </iep-form-item>
       <iep-form-item label-name="支付方式">
         <iep-div-detail :value="dictsMap.borrowMoneyType[data.borrowMoneyType]"></iep-div-detail>
       </iep-form-item>
@@ -29,7 +26,10 @@
     </el-form>
     <template v-slot:action>
       <a-button type="primary" :loading="submitLoading" @click="handleSubmit">
-        取消借款
+        通过
+      </a-button>
+      <a-button style="margin-left: 8px" :loading="submitLoading" @click="handleReject">
+        拒绝
       </a-button>
       <a-button style="margin-left: 8px" @click="handleBack">
         返回
@@ -40,7 +40,7 @@
 </template>
 <script>
 import StepsContent from './StepsContent'
-import { cancelOrgBorrow } from '@/api/fams/org_borrow'
+import { groupConfirmBorrow, groupRejectBorrow } from '@/api/fams/org_borrow'
 import { dictsMap } from './options'
 export default {
   props: ['data'],
@@ -73,18 +73,33 @@ export default {
       this.$emit('back')
     },
     async handleSubmit () {
+      const { res } = await this.handleCommon('确认审核', groupConfirmBorrow)
+      if (res) {
+        this.$emit('add')
+      }
+    },
+    async handleReject () {
+      const { res } = await this.handleCommon('拒绝审核', groupRejectBorrow)
+      if (res) {
+        this.handleBack()
+      }
+    },
+    async handleCommon (text, requestFunction) {
       try {
-        await this.$confirm('此操作将取消借款, 是否继续?', '提示', {
+        await this.$confirm(`此操作将${text}, 是否继续?`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
         })
         this.submitLoading = true
         try {
-          const { data } = await cancelOrgBorrow(this.data.id)
+          const { data } = await requestFunction(this.data.id)
           if (data.data) {
             this.$message('操作成功')
-            this.$emit('on-data', data.data)
+            return {
+              res: true,
+              data: data.data,
+            }
           } else {
             this.$message(data.msg)
           }
@@ -96,7 +111,6 @@ export default {
       } finally {
         this.submitLoading = false
       }
-
     },
   },
 }

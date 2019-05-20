@@ -45,7 +45,7 @@ const initForm = () => {
     // deptId: '', // 所属部门 deptnName
     deptName: '', // 所属部门 deptnName
     recruitsCount: 0, // 招聘人数
-    targetCount: '', // 目标人数
+    targetCount: 0, // 目标人数
     academicId: '', // 学历要求(dict) hrms_highest_educational
     jobTypeId: '', // 工作类型(dict) hrms_work_type
     years: '', // 工作年限
@@ -73,7 +73,7 @@ const initDtoForm = () => {
     deptId: '', // 所属部门 deptnName
     // deptName: '', // 所属部门 deptnName
     recruitsCount: 0, // 招聘人数
-    targetCount: 0, // 目标人数
+    targetCount: 0, // 是否紧急
     academicId: '', // 学历要求(dict) hrms_highest_educational
     jobTypeId: '', // 工作类型(dict) hrms_work_type
     years: 0, // 工作年限
@@ -143,7 +143,7 @@ const rules = {
     { required: true, message: '请填写招聘人数', trigger: 'blur' },
   ],
   targetCount: [
-    { required: true, message: '请填写目标人数', trigger: 'blur' },
+    { required: true, message: '请选择是否紧急', trigger: 'blur' },
   ],
   academicId: [
     { required: true, message: '请填写学历要求', trigger: 'blur' },

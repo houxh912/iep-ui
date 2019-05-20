@@ -7,7 +7,7 @@
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />
         </a-steps>
         <keep-alive>
-          <component :is="steps[current].content" :data="steps[current].data" @on-data="steps[current].onData" @prev="prev" @back="back"></component>
+          <component :is="steps[current].content" :data="steps[current].data" @on-data="steps[current].onData" @prev="prev" @back="back" @add="add"></component>
         </keep-alive>
       </div>
     </basic-container>
@@ -67,7 +67,7 @@ export default {
   },
   computed: {
     id () {
-      return this.$route.params.id
+      return +this.$route.params.id
     },
   },
   created () {
@@ -94,11 +94,18 @@ export default {
     back () {
       this.$router.go(-1)
     },
-    loadPage () {
-      getOrgBorrowById(this.id).then(({ data }) => {
-        this.current = statusMap[data.data.status]
-        this.steps[this.current].data = data.data
+    add (row) {
+      this.$router.push({
+        path: `/fams_spa/fund_transfer_edit/${row.id}`,
       })
+    },
+    loadPage () {
+      if (this.id) {
+        getOrgBorrowById(this.id).then(({ data }) => {
+          this.current = statusMap[data.data.status]
+          this.steps[this.current].data = data.data
+        })
+      }
     },
   },
 }

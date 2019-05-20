@@ -29,7 +29,7 @@
     </el-form>
     <template v-slot:action>
       <a-button type="primary" :loading="submitLoading" @click="handleSubmit">
-        取消借款
+        确认收款
       </a-button>
       <a-button style="margin-left: 8px" @click="handleBack">
         返回
@@ -40,7 +40,7 @@
 </template>
 <script>
 import StepsContent from './StepsContent'
-import { cancelOrgBorrow } from '@/api/fams/org_borrow'
+import { inOrgConfirmBorrow } from '@/api/fams/org_borrow'
 import { dictsMap } from './options'
 export default {
   props: ['data'],
@@ -74,14 +74,14 @@ export default {
     },
     async handleSubmit () {
       try {
-        await this.$confirm('此操作将取消借款, 是否继续?', '提示', {
+        await this.$confirm('此操作将确认收款, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
         })
         this.submitLoading = true
         try {
-          const { data } = await cancelOrgBorrow(this.data.id)
+          const { data } = await inOrgConfirmBorrow(this.data.id)
           if (data.data) {
             this.$message('操作成功')
             this.$emit('on-data', data.data)

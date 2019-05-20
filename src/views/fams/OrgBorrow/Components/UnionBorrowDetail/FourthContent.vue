@@ -1,10 +1,6 @@
 <template>
-  <result type="success" :description="description" :title="title">
+  <iep-result type="success" :description="description" :title="title">
     <el-form class="content-wrapper" ref="form" size="small" :model="data" label-width="150px" disabled>
-      <a-alert :closable="true" type="error" message="借出方组织审核通过后，将无法撤回！" style="margin-bottom: 24px;" />
-      <iep-form-item label-name="借出组织">
-        <iep-div-detail :value="data.outOrgName"></iep-div-detail>
-      </iep-form-item>
       <iep-form-item label-name="支付方式">
         <iep-div-detail :value="dictsMap.borrowMoneyType[data.borrowMoneyType]"></iep-div-detail>
       </iep-form-item>
@@ -28,10 +24,10 @@
       </iep-form-item>
     </el-form>
     <template v-slot:action>
-      <a-button type="primary" @click="handleBack">返回列表</a-button>
-      <a-button @click="handleBack">撤销</a-button>
+      <a-button type="primary" @click="handleAdd">去填写资金调拨</a-button>
+      <a-button style="margin-left: 8px" @click="handleBack">返回列表</a-button>
     </template>
-  </result>
+  </iep-result>
 </template>
 <script>
 import { cancelOrgBorrow } from '@/api/fams/org_borrow'
@@ -64,6 +60,9 @@ export default {
   created () {
   },
   methods: {
+    handleAdd () {
+      this.$emit('add')
+    },
     handleBack () {
       this.$emit('back')
     },

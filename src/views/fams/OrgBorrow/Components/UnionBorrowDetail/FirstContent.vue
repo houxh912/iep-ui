@@ -1,9 +1,6 @@
 <template>
   <steps-content>
     <el-form class="content-wrapper" ref="form" size="small" :model="form" label-width="150px">
-      <iep-form-item label-name="借出组织">
-        <iep-select v-model="form.borrowOutOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择向哪个组织借款"></iep-select>
-      </iep-form-item>
       <iep-form-item label-name="支付方式">
         <el-radio-group v-model="form.borrowMoneyType">
           <el-radio v-for="(item, idx) in dictsMap.borrowMoneyType" :key="idx" :label="idx">{{item}}</el-radio>

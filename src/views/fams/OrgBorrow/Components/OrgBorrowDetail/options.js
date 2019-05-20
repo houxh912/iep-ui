@@ -10,6 +10,9 @@ const dictsMap = {
 const statusMap = {
   '4': 2,
   '8': 5,
+  '6': 5,
+  '11': 3,
+  '5': 4,
 }
 
 const initForm = (config) => {

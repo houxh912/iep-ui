@@ -36,6 +36,11 @@ export default [
         component: () => import('@/views/fams/wealth/BillingNotice/Detail.vue'),
       },
       {
+        path: 'fund_transfer_edit/:id',
+        name: '新增资金调拨',
+        component: () => import('@/views/fams/GroupFinance/FundTransfer/Edit.vue'),
+      },
+      {
         path: 'fund_transfer_detail/:id',
         name: '资金调拨详情',
         component: () => import('@/views/fams/GroupFinance/FundTransfer/Detail.vue'),

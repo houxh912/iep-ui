@@ -58,7 +58,7 @@ export default {
       this.drawerShow = false
     },
     download () {
-      downloadModel(this.detailForm.attachFileList[0].name)
+      downloadModel(this.detailForm.attachFileList[0].url, this.detailForm.attachFileList[0].name)
     },
   },
 }

@@ -236,7 +236,7 @@ export default {
   margin: 0 20px;
   .labs-con {
     display: flex;
-    margin-top: 20px;
+    margin-top: 15px;
     justify-content: space-between;
     .count {
       font-size: 18px;
@@ -272,7 +272,6 @@ export default {
         padding: 10px;
         .title {
           font-size: 18px;
-          margin-bottom: 10px;
         }
         .col {
           display: flex;

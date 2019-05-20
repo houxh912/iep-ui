@@ -118,6 +118,9 @@ export default {
   .subTime {
     flex: 2;
   }
+  .close {
+    color: #999;
+  }
   .conList {
     display: flex;
     padding: 20px 0;

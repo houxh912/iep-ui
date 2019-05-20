@@ -1,13 +1,18 @@
 <template>
   <div class="organization-content">
-    <organization-left></organization-left>
-    <organization-right></organization-right>
+    <organization-left :data="data"></organization-left>
+    <organization-right :data="data"></organization-right>
   </div>
 </template>
 <script>
 import OrganizationRight from './OrganizationRight'
 import OrganizationLeft from './OrganizationLeft'
 export default {
+  props: {
+    data: {
+      type: Object,
+    },
+  },
   components: { OrganizationLeft, OrganizationRight },
 }
 </script>

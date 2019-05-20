@@ -1,7 +1,7 @@
 <template>
   <div class="organization-right">
     <ranking></ranking>
-    <organization-introduction></organization-introduction>
+    <organization-introduction :data="data"></organization-introduction>
     <business-layout></business-layout>
     <products-services></products-services>
     <organize-events></organize-events>
@@ -18,6 +18,11 @@ import OrganizeEvents from './OrganizeEvents'
 import Reward from './Reward'
 import CollaborativeRecord from './CollaborativeRecord'
 export default {
+  props: {
+    data: {
+      type: Object,
+    },
+  },
   components: { Ranking, OrganizationIntroduction, BusinessLayout, ProductsServices, OrganizeEvents, Reward, CollaborativeRecord },
 }
 </script>

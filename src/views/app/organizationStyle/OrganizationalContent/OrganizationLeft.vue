@@ -1,7 +1,7 @@
 <template>
   <div class="organization-left">
     <histogram></histogram>
-    <project></project>
+    <project :counts="data.counts"></project>
     <project-switching></project-switching>
     <team></team>
     <talent-demand></talent-demand>
@@ -16,6 +16,11 @@ import Team from './Team'
 import TalentDemand from './TalentDemand'
 import TextureScore from './TextureScore'
 export default {
+  props: {
+    data: {
+      type: Object,
+    },
+  },
   components: { Histogram, Project, ProjectSwitching, Team, TalentDemand,TextureScore },
 }
 </script>

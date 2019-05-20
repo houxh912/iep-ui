@@ -16,46 +16,71 @@
 </template>
 <script>
 export default {
-  data () {
-    return {
-      itemList: [
+  props: {
+    counts: {
+      type: Object,
+      default: () => {
+        return {
+          projectCount1: 0,
+          projectCount2: 0,
+          clientCount1: 0,
+          clientCount2: 0,
+          planCount1: 0,
+          planCount2: 0,
+          productCount: 0,
+          honorCount1: 0,
+          honorCount2: 0,
+          contractCount1: 0,
+          contractCount2: 0,
+        }
+      },
+    },
+  },
+  computed: {
+    itemList () {
+      return [
         {
           icon: 'icon-renwu',
           name: '项目',
-          data: '23',
-          text: '（在建 5）',
+          data: this.counts.projectCount1,
+          text: `（在建 ${this.counts.projectCount2}）`,
         },
         {
           icon: 'icon-lianxiren',
           name: '客户',
-          data: '116',
-          text: '（本月新增 20）',
+          data: this.counts.clientCount1,
+          text: `（本月新增 ${this.counts.clientCount2}）`,
         },
         {
           icon: 'icon-dangan',
           name: '方案',
-          data: '320',
-          text: '（本月新增 24）',
+          data: this.counts.planCount1,
+          text: `（本月新增 ${this.counts.planCount2}）`,
         },
         {
           icon: 'icon-dongtai',
           name: '产品',
-          data: '8',
-          text: '（最新代理 12）',
+          data: this.counts.productCount,
+          text: '（最新代理 0）',
         },
         {
           icon: 'icon-hetongliebiao',
           name: '资质',
-          data: '11',
-          text: '（本月新增 20）',
+          data: this.counts.honorCount1,
+          text: `（本月新增 ${this.counts.honorCount2}）`,
         },
         {
           icon: 'icon-custom',
           name: '合同',
-          data: '48',
-          text: '（待签 7）',
+          data: this.contractCount1,
+          text: `（待签 ${this.counts.contractCount1}）`,
         },
-      ],
+      ]
+    },
+  },
+  data () {
+    return {
+      
     }
   },
 }

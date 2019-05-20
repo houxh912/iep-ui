@@ -1,20 +1,20 @@
 <template>
   <div class="organizational-top">
     <div class="organizational-top-con">
-      <div class="img"><img :src="img" alt=""></div>
+      <div class="img"><img :src="data.logo" alt=""></div>
       <div class="text">
-        <span class="title">{{title}}</span>
-        <span class="sub-title">{{subTitle}}</span>
+        <span class="title">{{data.name}}</span>
+        <span class="sub-title">{{data.intro}}</span>
         <div class="tags-con">
           <span>卓越：</span>
-          <span class="tags" v-for="item in tags" :key="item.id">
-            {{item.tag}}
+          <span class="tags" v-for="(item, index) in data.abilityTag" :key="index">
+            {{item}}
           </span>
         </div>
         <div class="tags-con">
-          <span>专业：</span>
-          <span class="tags" v-for="item2 in tags2" :key="item2.id">
-            {{item2.tag}}
+          <span>学习：</span>
+          <span class="tags" v-for="(item2, index) in data.learningTag" :key="index">
+            {{item2}}
           </span>
         </div>
       </div>
@@ -28,39 +28,15 @@
 </template>
 <script>
 export default {
+  props: {
+    data: {
+      type: Object,
+      default: () => {},
+    },
+  },
   data () {
     return {
-      title: '国脉集团研发中心',
-      subTitle: '软件服务供应基地',
-      img: require('./img/bm.jpg'),
-      tags: [
-        {
-          tag: '产品设计',
-        },
-        {
-          tag: '项目管理',
-        },
-        {
-          tag: '微服务',
-        },
-      ],
-      tags2: [
-        {
-          tag: '产品设计',
-        },
-        {
-          tag: '项目管理',
-        },
-        {
-          tag: '微服务',
-        },
-        {
-          tag: '实施部署',
-        },
-        {
-          tag: '需求分析',
-        },
-      ],
+      
     }
   },
 }
@@ -97,7 +73,13 @@ export default {
       .sub-title {
         display: block;
         margin-bottom: 5px;
+        padding:0 10px 0 0;
         font-size: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
       .tags-con {
         display: flex;

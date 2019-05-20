@@ -55,36 +55,36 @@ axios.interceptors.request.use(
 
 // HTTPresponse拦截
 axios.interceptors.response.use(res => {
-    NProgress.done()
-    const status = Number(res.status) || 200
-    const message = res.data.msg || errorCode[status] || errorCode['default']
-    if (status === 401 || res.data.code === 401) {
-      store.dispatch('FedLogOut').then(() => {
-        router.push({ path: '/login' })
-      })
-      return
-    } else if (status === 403 || res.data.code === 403) {
-      router.push({ path: '/403' })
-      return
-    } else if (status === 404 || res.data.code === 404) {
-      router.push({ path: '/404' })
-      return
-      // } else if (status === 500 || res.data.code === 500) {
-      //   router.push({ path: '/500' })
-      //   return
-    } else if (status !== 200 || res.data.code === 1) {
-      // if (process.env.NODE_ENV === 'development') {
-      //   Message({
-      //     message: message,
-      //     type: 'error',
-      //   })
-      // }
-      return Promise.reject(new Error(message))
-    } else {
-      return res
-    }
+  NProgress.done()
+  const status = Number(res.status) || 200
+  const message = res.data.msg || errorCode[status] || errorCode['default']
+  if (status === 401 || res.data.code === 401) {
+    store.dispatch('FedLogOut').then(() => {
+      router.push({ path: '/login' })
+    })
+    return
+  } else if (status === 403 || res.data.code === 403) {
+    router.push({ path: '/403' })
+    return
+    // } else if (status === 404 || res.data.code === 404) {
+    //   router.push({ path: '/404' })
+    //   return
+    // } else if (status === 500 || res.data.code === 500) {
+    //   router.push({ path: '/500' })
+    //   return
+  } else if (status !== 200 || res.data.code === 1) {
+    // if (process.env.NODE_ENV === 'development') {
+    //   Message({
+    //     message: message,
+    //     type: 'error',
+    //   })
+    // }
+    return Promise.reject(new Error(message))
+  } else {
+    return res
+  }
 
-  },
+},
   error => {
     NProgress.done()
     return Promise.reject(new Error(error))

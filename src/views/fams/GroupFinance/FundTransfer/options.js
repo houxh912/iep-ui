@@ -118,4 +118,11 @@ const formToDto = (row) => {
 	return newForm
 }
 
-export { dictsMap, columnsMap, initForm, initDetailForm, formToDto, calculateTime }
+const borrowToForm = (row) => {
+	const newForm = initForm()
+	newForm.amount = row.amount
+	newForm.callInOrgId = row.inOrgId
+	return newForm
+}
+
+export { dictsMap, columnsMap, initForm, initDetailForm, formToDto, borrowToForm, calculateTime }

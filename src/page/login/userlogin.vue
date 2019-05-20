@@ -143,9 +143,8 @@ export default {
           try {
             this.loginLoading = true
             await this.LoginByUsername(this.form)
-            this.GetMenu().then(data => {
-              this.$router.$avueRouter.formatRoutes(data, true)
-            })
+            const data = await this.GetMenu()
+            this.$router.$avueRouter.formatRoutes(data, true)
             this.$router.push({ path: this.tagWel.value })
           } catch (error) {
             this.$message.error(error.message)

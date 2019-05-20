@@ -50,8 +50,9 @@ export default {
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.7)',
           })
-          setTimeout(() => {
-            this.GetMenu()
+          setTimeout(async () => {
+            const data = await this.GetMenu()
+            this.$router.$avueRouter.formatRoutes(data, true)
             loading.close()
             this.$message({
               message: '组织切换成功!',

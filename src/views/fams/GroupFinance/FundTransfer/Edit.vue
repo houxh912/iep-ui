@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}资金调拨`" :back-option="backOption">
+      <page-header :title="`新增资金调拨`" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">保存</iep-button>
       </page-header>
       <el-form ref="form" class="form-detail" :model="form" label-width="200px" size="small">
@@ -42,7 +42,7 @@
         </iep-form-item>
         <h4 class="iep-sub-title">调入组织</h4>
         <iep-form-item label-name="调入组织" class="form-half">
-          <iep-select v-model="form.callInOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调入组织"></iep-select>
+          <iep-select v-model="form.callInOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调入组织" disabled></iep-select>
         </iep-form-item>
         <iep-form-item v-if="!!form.allocationWay" label-name="线下公司" class="form-half">
           <iep-select v-model="form.callInCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择线下公司"></iep-select>
@@ -58,8 +58,10 @@
   </div>
 </template>
 <script>
-import { initForm, dictsMap, formToDto, calculateTime } from './options'
+import { initForm, dictsMap, borrowToForm, formToDto, calculateTime } from './options'
+import { postFundTransfer } from '@/api/fams/fund_transfer'
 import { pickerOptions } from '@/const/formConfig.js'
+import { getOrgBorrowById } from '@/api/fams/org_borrow'
 import { mapGetters } from 'vuex'
 export default {
   props: {
@@ -73,17 +75,16 @@ export default {
       dictsMap,
       pickerOptions,
       form: initForm(),
-      methodName: this.record.methodName || '新增',
-      formRequestFn: this.record.formRequestFn || (() => { }),
       backOption: {
         isBack: true,
-        backPath: null,
-        backFunction: this.handleGoBack,
       },
     }
   },
   computed: {
     ...mapGetters(['dictGroup']),
+    id () {
+      return +this.$route.params.id
+    },
     estimatedTime () {
       const lastTime = this.form.implementRangeTime[1]
       return calculateTime(lastTime, this.form.allocationDays)
@@ -114,16 +115,16 @@ export default {
     },
   },
   created () {
-    this.methodName = this.record.methodName
-    this.formRequestFn = this.record.formRequestFn
-    this.id = this.record.id
+    this.loadPage()
   },
   methods: {
-    handleGoBack () {
-      this.$emit('onGoBack')
+    loadPage () {
+      getOrgBorrowById(this.id).then(({ data }) => {
+        this.form = borrowToForm(data.data)
+      })
     },
     handleSubmit () {
-      this.formRequestFn(formToDto(this.form)).then(({ data }) => {
+      postFundTransfer(formToDto(this.form)).then(({ data }) => {
         if (data.data) {
           this.$message.success('操作成功')
           this.handleGoBack()

@@ -37,8 +37,8 @@ export default {
   data () {
     return {
       dictsMap,
-      title: '提交成功',
-      description: '等待财务审核，财务审核通过后提现资金将被冻结。同时在财务未审核通过前撤销申请。',
+      title: '操作成功',
+      description: '集团财政资金调拨审核通过，等待其调拨。',
       submitLoading: false,
     }
   },
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$emit('add')
+      this.$emit('add', this.data)
     },
     handleBack () {
       this.$emit('back')

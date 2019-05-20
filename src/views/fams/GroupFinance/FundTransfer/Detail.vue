@@ -92,7 +92,7 @@ export default {
   computed: {
     ...mapGetters(['dictGroup']),
     id () {
-      return this.$route.params.id
+      return +this.$route.params.id
     },
     estimatedTime () {
       const lastTime = this.form.implementEndTime

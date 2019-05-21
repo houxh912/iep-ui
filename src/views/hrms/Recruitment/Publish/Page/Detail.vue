@@ -58,7 +58,7 @@
           <div class="info-item">
             <label>福利待遇：</label>
             <div class="content">
-              <iep-dict-detail :value="form.welfare" dict-name="hrms_fringe_benefits"></iep-dict-detail>
+              <iep-tag-detail :value="form.welfareTreatmentList"></iep-tag-detail>
             </div>
           </div>
           <div class="info-item">

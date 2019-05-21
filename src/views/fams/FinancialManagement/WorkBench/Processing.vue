@@ -7,13 +7,15 @@
             <a-list-item-meta>
               <a slot="title" href="https://vue.ant.design/">{{item.title}}</a>
               <div slot="description" class="description">
-                <div>向<a href="#">{{item.place}}</a>提交了<a href="#">{{item.type}}</a></div>
+                <div>向 <a href="#">{{item.place}}</a> 提交了 <a href="#">{{item.type}}</a> </div>
                 <div>{{item.time}}</div>
               </div>
               <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
             </a-list-item-meta>
           </a-list-item>
         </a-list>
+        <el-pagination style="text-align:center;" :page-size="20" :pager-count="11" layout="prev, pager, next" :total="1000">
+        </el-pagination>
       </div>
       <a-list class="processing-select" :grid="{ gutter: 16, xs: 2, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2 }" :dataSource="selectMap">
         <a-list-item slot="renderItem" slot-scope="item">
@@ -25,6 +27,12 @@
 </template>
 <script>
 import IepFamsCard from './IepFamsCard'
+function pageOption () {
+  return {
+    current: 1,
+    size: 10,
+  }
+}
 export default {
   components: { IepFamsCard },
   data () {
@@ -62,7 +70,18 @@ export default {
         { label: '组织拆借', value: 75 },
         { label: '资金调拨', value: 75 },
       ],
+      pagination: pageOption(),
     }
+  },
+  methods: {
+    handleSizeChange (val) {
+      this.pageOption.size = val
+      this.loadPage()
+    },
+    handleCurrentChange (val) {
+      this.pageOption.current = val
+      this.loadPage()
+    },
   },
 }
 </script>

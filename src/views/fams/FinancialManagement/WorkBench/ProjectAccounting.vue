@@ -9,13 +9,18 @@
     </template>
     <div class="processing-wrapper">
       <div class="processing-data">
-        <ve-line :data="chartData" :extend="extend"></ve-line>
+        <ve-line :data="chartData" :extend="chartExtend"></ve-line>
       </div>
-      <a-list class="processing-select" :grid="{ gutter: 16, xs: 2, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2 }" :dataSource="selectMap">
-        <a-list-item slot="renderItem" slot-scope="item">
-          <a-card>{{item.label}}({{item.value}})</a-card>
-        </a-list-item>
-      </a-list>
+      <div class="processing-select">
+        <div class="rank-item" v-for="(item, idx) in projectData" :key="idx">
+          <h1>{{item.title}}</h1>
+          <div class="content">
+            <div>{{item.desc}}</div>
+            <div>{{item.rank}}/{{item.total}}</div>
+          </div>
+          <el-progress :stroke-width="8" :show-text="false" :percentage="(item.total-item.rank)/item.total*100" status="success"></el-progress>
+        </div>
+      </div>
     </div>
   </iep-fams-card>
 </template>
@@ -24,8 +29,11 @@ import IepFamsCard from './IepFamsCard'
 export default {
   components: { IepFamsCard },
   data () {
-    this.extend = {
+    this.chartExtend = {
       'xAxis.0.axisLabel.rotate': 45,
+      series: {
+        smooth: 0,
+      },
     }
     return {
       timeType: 'week',
@@ -46,12 +54,25 @@ export default {
           { '日期': '12月', '收入': 4593, '支出': 4293, '利润': 0.78 },
         ],
       },
-      selectMap: [
-        { label: '提现', value: 75 },
-        { label: '发票', value: 75 },
-        { label: '开票', value: 75 },
-        { label: '组织拆借', value: 75 },
-        { label: '资金调拨', value: 75 },
+      projectData: [
+        {
+          title: 275,
+          desc: '2019年合同总数',
+          rank: 4,
+          total: 100,
+        },
+        {
+          title: 27534234,
+          desc: '2019年合同总数',
+          rank: 56,
+          total: 100,
+        },
+        {
+          title: 275312,
+          desc: '2019年合同总数',
+          rank: 32,
+          total: 100,
+        },
       ],
     }
   },
@@ -72,6 +93,20 @@ export default {
     padding-right: 15px;
     margin-right: 15px;
     flex: 2;
+  }
+}
+.rank-item {
+  margin-top: 20px;
+  margin-left: 30px;
+  h1 {
+    margin: 20px 0 5px 0;
+    font-size: 25px;
+    color: #333;
+  }
+  .content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
   }
 }
 </style>

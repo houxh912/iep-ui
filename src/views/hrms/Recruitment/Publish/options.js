@@ -57,6 +57,7 @@ const initForm = () => {
     language: '', // 外语要求
     term: initNow(), // 招聘期限
     welfare: [], // 福利待遇
+    welfareTreatmentList: [], // 福利待遇
     status: '', // 状态
     duties: '', // 岗位职责
     claim: '', // 岗位要求

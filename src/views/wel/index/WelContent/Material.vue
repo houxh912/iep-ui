@@ -6,13 +6,13 @@
     <div class="material-content">
       <iep-no-data v-if="!dataList.length" message="暂无材料"></iep-no-data>
       <el-row class="item" v-for="(item) in dataList" :key="item.id">
-        <el-col :span="8">
+        <el-col :span="10">
           <div class="iep-ellipsis title" @click="handleDetail(item)">{{item.name}}</div>
         </el-col>
         <el-col :span="8">
-          <iep-tag-detail :value="item.tagKeyWords"></iep-tag-detail>
+          <iep-tag-detail :value="item.tagKeyWords.slice(0, 3)"></iep-tag-detail>
         </el-col>
-        <el-col :span="5">
+        <el-col :span="3">
           <iep-dict-detail :value="item.materialType" dict-name="mlms_material_type" style="text-align: right;"></iep-dict-detail>
         </el-col>
         <el-col :span="3">

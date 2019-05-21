@@ -66,6 +66,7 @@ export default {
       let claim = {
         opportunityId: this.formData.opportunityId,
         status: this.formData.statusKey,
+        creatorId: this.formData.creatorId,
       }
       claimById({ ...claim }).then(res => {
         if (res.status == 200) {

@@ -166,6 +166,8 @@ export default {
           let claim = {
             opportunityId: id,
             status: state,
+            reciver: parseInt(row.reciver),
+            creatorId: row.creatorId,
           }
           cancelClaim({ ...claim }).then(res => {
             if (res.status == 200) {
@@ -195,6 +197,7 @@ export default {
           let claim = {
             opportunityId: id,
             status: state,
+            creatorId: row.creatorId,
           }
           cancelClaim({ ...claim }).then(res => {
             if (res.status == 200) {

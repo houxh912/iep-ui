@@ -5,6 +5,8 @@
         <financial-assets></financial-assets>
         <processing></processing>
         <project-accounting></project-accounting>
+        <org-in-out></org-in-out>
+        <distribution-funds></distribution-funds>
       </div>
     </basic-container>
   </div>
@@ -13,11 +15,15 @@
 import FinancialAssets from './FinancialAssets'
 import Processing from './Processing'
 import ProjectAccounting from './ProjectAccounting'
+import OrgInOut from './OrgInOut'
+import DistributionFunds from './DistributionFunds'
 export default {
   components: {
     FinancialAssets,
     Processing,
     ProjectAccounting,
+    OrgInOut,
+    DistributionFunds,
   },
 }
 </script>

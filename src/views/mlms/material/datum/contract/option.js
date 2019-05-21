@@ -45,7 +45,7 @@ export const tableOption = [
   }, {
     label: '回款率',
     prop: '',
-    width: '180px',
+    minWidth: '100px',
   },
 ]
 

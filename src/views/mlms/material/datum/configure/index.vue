@@ -58,7 +58,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap, initFormData } from './option'
-import { getTableData, createData, updateData, deleteDate, validateName } from '@/api/mlms/material/datum/configure'
+import { getTableData, createData, updateData, deleteDate } from '@/api/mlms/material/datum/configure'
 import IepTableTree from './IepTableTree'
 import { mapGetters } from 'vuex'
 
@@ -188,18 +188,6 @@ export default {
     // 批量下载
     handleDownloadAll () {
       this.$message.error('抱歉，此功能尚未开发')
-    },
-    // 重名验证
-    validateName () {
-      if (this.formData.levelName == '') {
-        return
-      }
-      validateName(this.formData.levelName).then(({ data }) => {
-        this.validateResult = data
-        if (!data.data) {
-          this.$message.error(data.msg)
-        }
-      })
     },
   },
   created () {

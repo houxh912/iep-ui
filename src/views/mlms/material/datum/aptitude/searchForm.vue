@@ -20,7 +20,7 @@
         <el-input v-model="paramForm.orgName"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="searchPage">搜索</el-button>
+        <el-button type="primary" @click="searchPage()">搜索</el-button>
         <el-button @click="clearSearchParam">清空</el-button>
       </el-form-item>
     </el-form>
@@ -39,8 +39,9 @@ export default {
     }
   },
   methods: {
-    searchPage () {
-      this.$emit('searchPage', this.paramForm)
+    searchPage (val) {
+      let obj = val ? val : this.paramForm
+      this.$emit('searchPage', obj)
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

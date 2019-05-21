@@ -19,7 +19,7 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection @selection-change="selectionChange">
         <template slot="before-columns">
-          <el-table-column label="合同名称">
+          <el-table-column label="合同名称" min-width="200px">
             <template slot-scope="scope">
               <div class="row-tpl" @click="handleDetail(scope.row)">
                 <div class="custom-name">{{scope.row.contractName}}</div>

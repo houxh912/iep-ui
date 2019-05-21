@@ -20,7 +20,7 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection @selection-change="selectionChange">
         <template slot="before-columns">
-          <el-table-column label="名称">
+          <el-table-column label="名称" min-width="300px">
             <template slot-scope="scope">
               <div class="row-tpl" @click="handleDetail(scope.row)">
                 <div class="custom-name">{{scope.row.name}}</div>
@@ -32,7 +32,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="300">
+        <el-table-column prop="operation" label="操作" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain size="small" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>

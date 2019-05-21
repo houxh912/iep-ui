@@ -1,16 +1,25 @@
 <template>
-  <iep-fams-card title="财务资产">
-    <template slot="right">
-      <div style="width: 350px;">
-        <el-date-picker v-model="rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" size="mini">
-        </el-date-picker>
+  <iep-fams-card title="待处理">
+    <div class="processing-wrapper">
+      <div class="processing-data">
+        <a-list itemLayout="horizontal" :dataSource="data">
+          <a-list-item slot="renderItem" slot-scope="item">
+            <a-list-item-meta>
+              <a slot="title" href="https://vue.ant.design/">{{item.title}}</a>
+              <div slot="description" class="description">
+                <div>向<a href="#">{{item.place}}</a>提交了<a href="#">{{item.type}}</a></div>
+                <div>{{item.time}}</div>
+              </div>
+              <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+            </a-list-item-meta>
+          </a-list-item>
+        </a-list>
       </div>
-    </template>
-    <div class="total-wrapper">
-      <div class="total-item" v-for="(item, index) in financialData" :key="index">
-        <div class="value">{{item}}</div>
-        <div class="label">{{index}}</div>
-      </div>
+      <a-list class="processing-select" :grid="{ gutter: 16, xs: 2, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2 }" :dataSource="selectMap">
+        <a-list-item slot="renderItem" slot-scope="item">
+          <a-card>{{item.label}}({{item.value}})</a-card>
+        </a-list-item>
+      </a-list>
     </div>
   </iep-fams-card>
 </template>
@@ -20,70 +29,58 @@ export default {
   components: { IepFamsCard },
   data () {
     return {
-      rangeTime: [],
-      pickerOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', [start, end])
-          },
-        }, {
-          text: '最近一个月',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            picker.$emit('pick', [start, end])
-          },
-        }, {
-          text: '最近三个月',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            picker.$emit('pick', [start, end])
-          },
-        }],
-      },
-      financialData: {
-        '银行存款': 6325.5,
-        '库存现金': 6325.5,
-        '集团往来': 6325.5,
-        '合同应收账款': 6325.5,
-        '融资': 6325.5,
-        '投资': 6325.5,
-        '其他应收款': 6325.5,
-        '组织拆借': 6325.5,
-      },
+      data: [
+        {
+          title: '王军辉',
+          place: '舟山研发中心',
+          type: '报销申请',
+          time: '2011.11.11',
+        },
+        {
+          title: '王军辉',
+          place: '舟山研发中心',
+          type: '报销申请',
+          time: '2011.11.11',
+        },
+        {
+          title: '王军辉',
+          place: '舟山研发中心',
+          type: '报销申请',
+          time: '2011.11.11',
+        },
+        {
+          title: '王军辉',
+          place: '舟山研发中心',
+          type: '报销申请',
+          time: '2011.11.11',
+        },
+      ],
+      selectMap: [
+        { label: '提现', value: 75 },
+        { label: '发票', value: 75 },
+        { label: '开票', value: 75 },
+        { label: '组织拆借', value: 75 },
+        { label: '资金调拨', value: 75 },
+      ],
     }
   },
 }
 </script>
 <style lang="scss" scoped>
-.total-wrapper {
+.description {
   display: flex;
-  justify-content: space-around;
-  margin: 20px 0;
-  .total-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-right: 1px solid rgb(233, 233, 233);
-    width: 100%;
-    &:last-child {
-      border-right: none;
-    }
-    .value {
-      font-size: 24px;
-      color: rgb(48, 49, 51);
-    }
-    .label {
-      color: #999;
-    }
+  justify-content: space-between;
+}
+.processing-wrapper {
+  display: flex;
+  .processing-select {
+    flex: 1;
+  }
+  .processing-data {
+    border-right: 1px solid #e8e8e8;
+    padding-right: 15px;
+    margin-right: 15px;
+    flex: 2;
   }
 }
 </style>

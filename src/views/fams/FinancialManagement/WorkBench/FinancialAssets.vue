@@ -2,7 +2,7 @@
   <iep-fams-card title="财务资产">
     <template slot="right">
       <div style="width: 350px;">
-        <el-date-picker v-model="rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" size="mini">
+        <el-date-picker v-model="rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" size="small">
         </el-date-picker>
       </div>
     </template>

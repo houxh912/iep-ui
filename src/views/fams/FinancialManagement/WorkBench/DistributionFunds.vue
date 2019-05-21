@@ -1,17 +1,12 @@
 <template>
-  <iep-fams-card title="财务资产">
+  <iep-fams-card title="内网资金分布情况">
     <template slot="right">
       <div style="width: 350px;">
         <iep-date-picker v-model="rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" size="small">
         </iep-date-picker>
       </div>
     </template>
-    <div class="total-wrapper">
-      <div class="total-item" v-for="(item, index) in financialData" :key="index">
-        <div class="value">{{item}}</div>
-        <div class="label">{{index}}</div>
-      </div>
-    </div>
+    <ve-histogram :data="chartData" :settings="chartSettings" :extend="chartExtend" :colors="colors"></ve-histogram>
   </iep-fams-card>
 </template>
 <script>
@@ -20,8 +15,45 @@ import IepFamsCard from './IepFamsCard'
 export default {
   components: { IepFamsCard },
   data () {
+    this.colors = [
+      (paramsA) => {
+        var colorList1 = ['#d66368', '#d97276', '#dd8184', '#da8a8d', '#e09c9e', '#e8adaf', '#f7c6c8', '#ffdfe0']
+        return colorList1[paramsA.dataIndex]
+      },
+      (paramsB) => {
+        var colorList2 = ['#f58f44', '#f79349', '#f79a55', '#f9a261', '#f7af78', '#f9b37f', '#fdc296', '#fdd1b0']
+        return colorList2[paramsB.dataIndex]
+      },
+    ]
+    this.chartSettings = {
+      metrics: ['收入', '支出'],
+      dimension: ['dept'],
+      lineStyle: {
+        color: '#fff',
+      },
+
+    }
+    this.chartExtend = {
+      barWidth: '26',
+      itemStyle: {
+        barBorderRadius: 13,
+      },
+    }
     return {
       rangeTime: [],
+      columnsMap: [],
+      chartData: {
+        columns: ['dept', '收入', '支出'],
+        rows: [
+          { 'dept': '内网', '收入': 38, '支出': 22 },
+          { 'dept': '部门', '收入': 52, '支出': 22 },
+          { 'dept': '提现', '收入': 61, '支出': 22 },
+          { 'dept': '批评', '收入': 145, '支出': 22 },
+          { 'dept': '学习', '收入': 48, '支出': 22 },
+          { 'dept': '打赏', '收入': 38, '支出': 22 },
+          { 'dept': '其他', '收入': 38, '支出': 22 },
+        ],
+      },
       pickerOptions: {
         shortcuts: [{
           text: '最近一周',

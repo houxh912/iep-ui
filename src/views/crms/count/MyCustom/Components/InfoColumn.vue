@@ -37,9 +37,9 @@
       </el-col>
       <el-col class="tab">
         <div class="head">
-          <span>{{data.contractAmount}}</span> 个软件
+          <span>{{data.softwareQuantity}}</span> 个软件
         </div>
-        <div class="content">超过了{{data.contractAmountBeyond}}% 的同事</div>
+        <div class="content">超过了{{data.softwareBeyond}}% 的同事</div>
       </el-col>
     </el-row>
   </el-card>
@@ -61,6 +61,8 @@ export default {
         contractBeyond: 0,
         contractAmount: 0,
         contractAmountBeyond: 0,
+        softwareQuantity: 0,
+        softwareBeyond: 0,
       },
     }
   },

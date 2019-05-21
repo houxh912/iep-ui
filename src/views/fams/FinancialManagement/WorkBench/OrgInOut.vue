@@ -1,27 +1,26 @@
 <template>
-  <iep-fams-card title="财务资产">
+  <iep-fams-card title="组织收支">
     <template slot="right">
       <div style="width: 350px;">
         <iep-date-picker v-model="rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" size="small">
         </iep-date-picker>
       </div>
     </template>
-    <div class="total-wrapper">
-      <div class="total-item" v-for="(item, index) in financialData" :key="index">
-        <div class="value">{{item}}</div>
-        <div class="label">{{index}}</div>
-      </div>
-    </div>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+    </iep-table>
   </iep-fams-card>
 </template>
 <script>
+import mixins from '@/mixins/mixins'
 import { getAssetsByDate } from '@/api/fams/statistics'
 import IepFamsCard from './IepFamsCard'
 export default {
+  mixins: [mixins],
   components: { IepFamsCard },
   data () {
     return {
       rangeTime: [],
+      columnsMap: [],
       pickerOptions: {
         shortcuts: [{
           text: '最近一周',

@@ -5,25 +5,9 @@
         <el-card class="left" shadow="hover">
           <h4 class="title">总资产</h4>
           <ul>
-            <li>
-              <span class="num">6233.5</span>
-              <span class="sub-title">国脉贝</span>
-            </li>
-            <li>
-              <span class="num">8000</span>
-              <span class="sub-title">发票额度</span>
-            </li>
-            <li>
-              <span class="num">2000</span>
-              <span class="sub-title">现金</span>
-            </li>
-            <li>
-              <span class="num">3000</span>
-              <span class="sub-title">股权</span>
-            </li>
-            <li>
-              <span class="num">6233.5</span>
-              <span class="sub-title">其他</span>
+            <li v-for="(item, idx) in totalMap" :key="idx">
+              <span class="num">{{item}}</span>
+              <span class="sub-title">{{idx}}</span>
             </li>
           </ul>
         </el-card>
@@ -31,10 +15,10 @@
           <h4 class="title">快捷入口</h4>
           <ul>
             <li>互助基金</li>
-            <li>发票提交</li>
-            <li>开票通知</li>
-            <li>我要提现</li>
-            <li>我要打赏</li>
+            <li @click="$openPage('/wel/wealth/invoice')">发票提交</li>
+            <li @click="$openPage('/wel/wealth/billing_notice')">开票通知</li>
+            <li @click="$openPage('/wel/wealth/withdraw')">我要提现</li>
+            <li @click="handleReward()">我要打赏</li>
             <li>我要投资</li>
           </ul>
         </el-card>
@@ -55,7 +39,7 @@
                   <span class="active">全年</span>
                 </div>
                 <div class="block">
-                  <el-date-picker v-model="value6" type="daterange" range-separator="~" start-placeholder="开始日期" end-placeholder="结束日期">
+                  <el-date-picker v-model="dateValue" type="daterange" range-separator="~" start-placeholder="开始日期" end-placeholder="结束日期">
                   </el-date-picker>
                 </div>
               </div>
@@ -69,7 +53,8 @@
   </div>
 </template>
 <script>
-
+import { mapActions } from 'vuex'
+import { getTotal } from '@/api/fams/total'
 export default {
   data () {
     this.colors = [
@@ -99,7 +84,14 @@ export default {
     }
     return {
       replaceText: (data) => `（收入共计${data[0]}笔，共计${data[0]}贝）`,
-      value6: '',
+      totalMap: {
+        '国脉贝': 6233.5,
+        '发票额度': 6233.5,
+        '现金': 6233.5,
+        '股权': 6233.5,
+        '其他': 6233.5,
+      },
+      dateValue: '',
       chartData: {
         columns: ['dept', '收入', '支出'],
         rows: [
@@ -113,6 +105,23 @@ export default {
         ],
       },
     }
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    ...mapActions(['famsReward']),
+    handleReward () {
+      this.famsReward()
+    },
+    async loadPage () {
+      const { data } = await getTotal()
+      this.totalMap['国脉贝'] = data.data.govmadeBell
+      this.totalMap['发票额度'] = data.data.withInvoice
+      this.totalMap['现金'] = data.data.cash
+      this.totalMap['股权'] = data.data.stockRight
+      this.totalMap['其他'] = data.data.other
+    },
   },
 }
 </script>

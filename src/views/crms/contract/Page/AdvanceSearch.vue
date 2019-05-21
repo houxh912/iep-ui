@@ -16,34 +16,15 @@
       <el-form-item label="合同状态">
         <iep-dict-select v-model="form.contractStatus" dict-name="mlms_contract_status"></iep-dict-select>
       </el-form-item>
-      <el-form-item label="签署组织">
+      <!-- <el-form-item label="签署组织">
         <el-input v-model="form.signDeptName"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="会议开始时间">
         <el-date-picker v-model="form.startTime" value-format="yyyy-MM-dd HH:mm:ss" type="date" placeholder="选择日期时间"></el-date-picker>
       </el-form-item>
       <el-form-item label="会议结束时间">
         <el-date-picker v-model="form.endTime" value-format="yyyy-MM-dd 23:59:59" type="date" placeholder="选择日期时间"></el-date-picker>
       </el-form-item>
-      <!-- <el-form-item label="签订日期">
-        <el-date-picker v-model="form.signTime" align="right" type="date" placeholder="选择日期">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="业务类型">
-        <iep-dict-select v-model="form.businessTypeKey" dict-name="crms_business_type" multiple></iep-dict-select>
-      </el-form-item>
-      <el-form-item label="合同状态">
-        <iep-dict-select v-model="form.contractStatus" dict-name="mlms_contract_status"></iep-dict-select>
-      </el-form-item>
-      <el-form-item label="合同级别">
-        <iep-dict-select v-model="form.contractLevel" dict-name="mlms_contract_level"></iep-dict-select>
-      </el-form-item> -->
-      <!-- <el-form-item label="签署部门">
-        <iep-dict-select v-model="form.signDeptName" dict-name="crms_client_opportunity_status" placeholder="请选择认领状态"></iep-dict-select>
-      </el-form-item>
-      <el-form-item label="市场经理">
-        <el-input v-model="form.directorId" placeholder="请输入市场经理"></el-input>
-      </el-form-item> -->
       <el-form-item label="">
         <el-button type="primary" @click="searchPage" size="mini">搜索</el-button>
         <el-button @click="clearSearchParam" size="mini">清空</el-button>

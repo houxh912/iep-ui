@@ -2,11 +2,15 @@
   <div class="inbox">
     <basic-container>
       <div class="head">
-        <page-header title="" class="title" :backOption="backOption"></page-header>
+        <page-header :title="formData.subject" class="title" :backOption="backOption">
+          <div slot="sub" class="tags">
+            <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
+          </div>
+        </page-header>
       </div>
       <div class="info">
-        <div class="title">{{formData.subject}}</div>
-        <el-tag type="info" class="tags" v-for="(item, index) in formData.tagKeyWords" :key="index">{{item}}</el-tag>
+        <!-- <div class="title">{{formData.subject}}</div> -->
+        <!-- <el-tag type="info" class="tags" v-for="(item, index) in formData.tagKeyWords" :key="index">{{item}}</el-tag> -->
         <div class="msg">发件人：{{formData.sendRealName}}</div>
         <div class="msg">收件人：<span v-for="(item, index) in formData.receivers" :key="index">{{item.receiverRealName}}{{index==formData.receivers.length-1?'':'；'}}</span></div>
         <div class="msg">时<span style="width: 14px;display: inline-block;"></span>间：{{formData.createTime}}</div>

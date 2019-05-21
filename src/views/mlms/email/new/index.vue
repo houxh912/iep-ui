@@ -56,11 +56,11 @@
                 关联资源
                 <iep-tip :content="tipContent.transferList"></iep-tip>
               </span>
-              <ul class="list">
-                <li class="li" v-for="(item, index) in this.formData.transferList.projectIds" :key="index">{{item.name}}</li>
+              <ul class="list" v-if="this.formData.transferList.projectIds.length > 0">
+                <li class="li" v-for="(item, index) in this.formData.transferList.projectIds" :key="index">{{item.name}} <i class="el-icon-close" @click="deleteRelatios('projectIds', index)"></i></li>
               </ul>
-              <ul class="list">
-                <li class="li" v-for="(item, index) in this.formData.transferList.materialIds" :key="index">{{item.name}}</li>
+              <ul class="list" v-if="this.formData.transferList.materialIds.length > 0">
+                <li class="li" v-for="(item, index) in this.formData.transferList.materialIds" :key="index">{{item.name}} <i class="el-icon-close" @click="deleteRelatios('materialIds', index)"></i></li>
               </ul>
             </el-form-item>
           </div>
@@ -138,7 +138,7 @@ export default {
         materialIds: this.dealWithList(row.materialRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }]),
         reportIds: [],
       }
-      row.attachmentList = this.dealWithList(row.materialRelatios, [{ O: 'url', X: 'attachmentUrl' }, { O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }])
+      row.attachmentList = this.dealWithList(row.attachmentRelatios, [{ O: 'url', X: 'attachmentUrl' }, { O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }])
       this.formData = row
       this.relativeSubmit(row.transferList)
     },
@@ -225,6 +225,10 @@ export default {
       this.formData.projectIds = val.projectIds.map(m => m.id)
       this.formData.transferList = val
     },
+    // 删除关联
+    deleteRelatios (key, index) {
+      this.formData.transferList[key].splice(index, 1)
+    },
   },
   created () {
     this.formData = initFormData()
@@ -259,6 +263,10 @@ export default {
           line-height: 30px;
           color: #999;
           list-style: none;
+          i {
+            margin-left: 10px;
+            cursor: pointer;
+          }
         }
       }
     }

@@ -90,6 +90,13 @@ export function repayOrgBorrow (obj) {
   })
 }
 
+export function confirmRepayOrgBorrow (id) {
+  return request({
+    url: `${prefixUrl}/repayment/confirm/${id}`,
+    method: 'get',
+  })
+}
+
 export function outOrgReconfirmBorrow (obj) {
   return request({
     url: `${prefixUrl}/out/org/reconfirm`,

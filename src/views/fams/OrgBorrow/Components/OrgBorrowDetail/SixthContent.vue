@@ -25,7 +25,7 @@
       <iep-form-item label-name="借款金额">
         <iep-div-detail :value="`${data.amount}元`"></iep-div-detail>
       </iep-form-item>
-      <template v-if="!data.isOut">
+      <template v-if="!data.isOut && data.status === 6">
         <a-divider />
         <iep-form-item label-name="还款公司">
           <iep-select v-model="borrowInRepayCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择收入公司"></iep-select>
@@ -36,13 +36,14 @@
       </template>
     </el-form>
     <template v-slot:action>
-      <a-button v-if="!data.isOut" type="primary" @click="handleRepay">还款</a-button>
+      <a-button v-if="!data.isOut && data.status === 6" type="primary" @click="handleRepay">还款</a-button>
+      <a-button v-if="data.isOut && data.status === 10" type="primary" @click="handleConfirm">确认收款</a-button>
       <a-button style="margin-left: 8px" @click="handleBack">返回列表</a-button>
     </template>
   </iep-result>
 </template>
 <script>
-import { repayOrgBorrow } from '@/api/fams/org_borrow'
+import { repayOrgBorrow, confirmRepayOrgBorrow } from '@/api/fams/org_borrow'
 import { dictsMap } from './options'
 import '../borrow.scss'
 export default {
@@ -105,6 +106,31 @@ export default {
     handleBack () {
       this.$emit('back')
     },
+    async handleConfirm () {
+      try {
+        await this.$confirm('此操作将已收款, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        })
+        this.submitLoading = true
+        try {
+          const { data } = await confirmRepayOrgBorrow(this.data.id)
+          if (data.data) {
+            this.$message('操作成功')
+            this.handleBack()
+          } else {
+            this.$message(data.msg)
+          }
+        } catch (error) {
+          this.$message('似乎出现了一些问题')
+        }
+      } catch (error) {
+        this.$message('操作取消')
+      } finally {
+        this.submitLoading = false
+      }
+    },
     async handleRepay () {
       try {
         await this.$confirm('此操作将还款, 是否继续?', '提示', {
@@ -133,7 +159,6 @@ export default {
       } finally {
         this.submitLoading = false
       }
-
     },
   },
 }

@@ -19,7 +19,7 @@
 import { mapGetters } from 'vuex'
 import { getOrgBorrowPage } from '@/api/fams/org_borrow'
 import mixins from '@/mixins/mixins'
-import { dictsMap, colMap, tabList } from './options'
+import { dictsMap, colMap, tabList, statusMap } from './options'
 export default {
   mixins: [mixins],
   data () {
@@ -40,6 +40,7 @@ export default {
       const type = this.type
       return {
         [type]: this.orgId,
+        staus: statusMap[this.type],
       }
     },
     columnsMap () {
@@ -69,7 +70,7 @@ export default {
       })
     },
     loadPage (param = this.searchForm) {
-      this.loadTable({ ...this.typeQuery, status: 3, ...param }, getOrgBorrowPage)
+      this.loadTable({ ...this.typeQuery, ...param }, getOrgBorrowPage)
     },
   },
 }

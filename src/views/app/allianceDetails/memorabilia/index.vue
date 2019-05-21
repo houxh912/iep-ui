@@ -101,8 +101,8 @@ export default {
 }
 .events >>> .el-timeline-item__timestamp {
   position: absolute;
-  top: 4px;
-  left: -40px;
+  top: 5px;
+  left: -50px;
   margin: 0;
 }
 .events >>> .el-collapse-item__arrow {

@@ -35,6 +35,15 @@
         </div>
       </div>
     </div>
+    <div class="opex">
+      <span class="details-title">{{subTitle5}}</span>
+      <div class="con">
+        <div class="opex-item" v-for="opex2 in opexList2" :key="opex2.id">
+          <div class="img"><span class="bgb">{{opex2.name1}}</span><img :src="opex2.img" alt=""></div>
+          <span class="name">{{opex2.name}}</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -44,10 +53,11 @@ export default {
   components: { Framework, BusinessLayout },
   data () {
     return {
-      subTitle1: '组织标签',
-      subTitle2: '组织简介',
+      subTitle1: '联盟标签',
+      subTitle2: '联盟简介',
       subTitle3: '联系方式',
-      subTitle4: '组织运维',
+      subTitle4: '联盟客服人员',
+      subTitle5: '系统联络人员',
       opexList: [
         {
           img: require('../img/people1.png'),
@@ -63,6 +73,18 @@ export default {
           img: require('../img/people3.jpg'),
           name1: '章佩瑜',
           name: '客服三',
+        },
+      ],
+      opexList2: [
+        {
+          img: require('../img/people1.png'),
+          name1: '邵佳欢',
+          name: '业务产品',
+        },
+        {
+          img: require('../img/people2.jpg'),
+          name1: '章佩瑜',
+          name: '技术支持',
         },
       ],
       tags: [

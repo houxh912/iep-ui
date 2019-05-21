@@ -135,6 +135,51 @@ export default [
         ],
       },
       {
+        path: 'alliance_details',
+        name: '关于联盟',
+        component: () => import('@/views/app/allianceDetails/'),
+        meta: noAuth,
+        redirect: '/app/alliance_details/introduction',
+        children:[
+          {
+            path: 'introduction',
+            name: '联盟介绍',
+            component: () => import('@/views/app/allianceDetails/introduction/'),
+            meta: noAuth,
+          },
+          {
+            path: 'memorabilia',
+            name: '联盟大事记',
+            component: () => import('@/views/app/allianceDetails/memorabilia/'),
+            meta: noAuth,
+          },
+          {
+            path: 'development',
+            name: '联盟发展历程',
+            component: () => import('@/views/app/allianceDetails/development/'),
+            meta: noAuth,
+          },
+          {
+            path: 'album',
+            name: '联盟相册',
+            component: () => import('@/views/app/allianceDetails/album/'),
+            meta: noAuth,
+          },
+          {
+            path: 'culture',
+            name: '联盟文化',
+            component: () => import('@/views/app/allianceDetails/culture/'),
+            meta: noAuth,
+          },
+          {
+            path: 'evaluation',
+            name: '评价管理',
+            component: () => import('@/views/app/organizationDetails/evaluation/'),
+            meta: noAuth,
+          },
+        ],
+      },
+      {
         path: 'personal_style',
         name: '个人风采',
         component: () => import('@/views/app/personalStyle/'),

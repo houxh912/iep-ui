@@ -20,7 +20,7 @@ export default {
   data () {
     return {
       title: '国脉互联',
-      subTitle: 'govemade',
+      subTitle: 'govmade',
       founder: '杨冰之',
       time: '2017-12-13',
       scale: '500',

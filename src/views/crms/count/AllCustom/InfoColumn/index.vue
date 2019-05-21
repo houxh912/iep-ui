@@ -29,7 +29,7 @@
     </el-col>
     <el-col class="tab">
       <div class="head">
-        <span>25</span>
+        <span>{{data.softwareQuantity}}</span>
       </div>
       <div class="content">软件</div>
     </el-col>
@@ -46,6 +46,7 @@ export default {
         contactQuantity: 0,
         contractQuantity: 0,
         contractAmount: 0,
+        softwareQuantity: 0,
       },
     }
   },

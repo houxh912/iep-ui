@@ -48,6 +48,7 @@
 import StepsContent from './StepsContent'
 import { cancelOrgBorrow, outOrgConfirmBorrow, orgRejectBorrow } from '@/api/fams/org_borrow'
 import { dictsMap } from './options'
+import '../borrow.scss'
 export default {
   props: ['data'],
   components: { StepsContent },
@@ -115,9 +116,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.content-wrapper {
-  width: 500px;
-}
-</style>

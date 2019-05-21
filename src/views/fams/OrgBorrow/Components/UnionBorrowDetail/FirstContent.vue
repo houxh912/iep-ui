@@ -37,6 +37,7 @@
 import { mapGetters } from 'vuex'
 import StepsContent from './StepsContent'
 import { dictsMap, initForm, calculaterDate } from './options'
+import '../borrow.scss'
 export default {
   components: { StepsContent },
   data () {
@@ -76,9 +77,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.content-wrapper {
-  width: 500px;
-}
-</style>

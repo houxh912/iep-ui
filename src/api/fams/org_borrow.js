@@ -82,6 +82,14 @@ export function inOrgConfirmBorrow (id) {
   })
 }
 
+export function repayOrgBorrow (obj) {
+  return request({
+    url: `${prefixUrl}/repayment`,
+    method: 'post',
+    data: obj,
+  })
+}
+
 export function outOrgReconfirmBorrow (obj) {
   return request({
     url: `${prefixUrl}/out/org/reconfirm`,

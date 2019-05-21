@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织拆借"></page-header>
+      <page-header title="待处理还款"></page-header>
       <operation-container>
         <template slot="right">
           <el-radio-group v-model="type" size="small" @change="changeType">
@@ -19,7 +19,7 @@
 import { mapGetters } from 'vuex'
 import { getOrgBorrowPage } from '@/api/fams/org_borrow'
 import mixins from '@/mixins/mixins'
-import { dictsMap, colMap, tabList } from './options'
+import { dictsMap, colMap, tabList, statusMap } from './options'
 export default {
   mixins: [mixins],
   data () {
@@ -40,6 +40,7 @@ export default {
       const type = this.type
       return {
         [type]: this.orgId,
+        staus: statusMap[this.type],
       }
     },
     columnsMap () {
@@ -69,7 +70,7 @@ export default {
       })
     },
     loadPage (param = this.searchForm) {
-      this.loadTable({ ...this.typeQuery, status: 3, ...param }, getOrgBorrowPage)
+      this.loadTable({ ...this.typeQuery, ...param }, getOrgBorrowPage)
     },
   },
 }

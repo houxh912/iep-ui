@@ -11,6 +11,8 @@ const statusMap = {
   '4': 2,
   '8': 5,
   '6': 5,
+  '10': 5,
+  '7': 5,
   '11': 3,
   '5': 4,
 }
@@ -18,7 +20,7 @@ const statusMap = {
 const initForm = (config) => {
   return {
     borrowObjectType: 1,//拆借类型（0 - 向集团借款，1 - 向组织借款）
-    borrowMoneyType: 0,//拆借方式（0国脉贝，1线下支付）
+    borrowMoneyType: '0',//拆借方式（0国脉贝，1线下支付）
     borrowInOrgId: '',//借入组织ID
     borrowInCompanyId: '',//借入线下公司ID
     borrowInCompanyBankId: '',//借入线下公司银行账户ID

@@ -165,7 +165,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.content-wrapper {
-  width: 500px;
-}
+@import "../borrow.scss";
 </style>

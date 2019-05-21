@@ -74,7 +74,7 @@ export default {
     top: 10px;
     left: 84px;
     display: block;
-    width: 2px;
+    width: 1px;
     height: 100%;
     background-color: #ddd;
     z-index: 1;
@@ -83,7 +83,7 @@ export default {
     position: absolute;
     top: 10px;
     left: 70px;
-    font-size: 32px;
+    font-size: 30px;
     color: #ddd;
     background: #fff;
     z-index: 2;
@@ -95,9 +95,6 @@ export default {
   border: 1px solid #ddd;
   border-radius: 50%;
   z-index: 3;
-}
-.events >>> .el-timeline-item:nth-child(1) .el-timeline-item__node {
-  border: 0;
 }
 .events >>> .el-timeline {
   margin-left: 40px;
@@ -125,8 +122,31 @@ export default {
 }
 .events >>> .el-timeline-item:hover .el-timeline-item__node {
   border-color: #cb3737;
-  background-color: #cb3737;
-  color: #cb3737;
   transition: all 0.5s;
+}
+.events >>> .el-timeline-item__tail {
+  border-width: 1px;
+}
+.events >>> .el-timeline-item__node--normal {
+  position: relative;
+  top: 16px;
+  left: -2px;
+  width: 14px;
+  height: 14px;
+  background-color: #fff;
+}
+.events >>> .el-timeline-item__node--normal::before {
+  position: absolute;
+  content: "";
+  top: 4px;
+  left: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #ddd;
+  transition: all 0.5s;
+}
+.events >>> .el-timeline-item:hover .el-timeline-item__node--normal::before {
+  background-color: #cb3737;
 }
 </style>

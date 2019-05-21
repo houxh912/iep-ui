@@ -10,7 +10,7 @@
       <div class="content">
         <div class="search">
           <el-input placeholder="请输入关键字" v-model="name" class="input-with-select">
-            <el-button slot="append" icon="el-icon-search"></el-button>
+            <el-button slot="append" icon="el-icon-search" @click="searchData"></el-button>
           </el-input>
         </div>
         <div class="list">
@@ -91,6 +91,13 @@ export default {
         name: '',
       }
       this.activeIndex = index
+      this.getListFn()
+    },
+    searchData () {
+      this.relationlist = []
+      this.projectState = 4
+      this.params.current = 1
+      this.params.name = this.name
       this.getListFn()
     },
     getListFn () {

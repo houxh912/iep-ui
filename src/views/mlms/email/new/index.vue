@@ -159,6 +159,7 @@ export default {
     },
     // 处理数据
     dealReceiverList () {
+      this.relativeSubmit(this.formData.transferList)
       this.formData.receiverIds = this.formData.receiverList.users.map(m => m.id) // 接收人
       this.formData.orgIds = this.formData.receiverList.orgs.map(m => m.id) // 组织
       this.formData.attachmentIds = this.formData.attachmentList.map(m => m.id)
@@ -175,7 +176,6 @@ export default {
               message: '发送邮件成功',
               type: 'success',
             })
-            console.log('pageState: ', this.pageState)
             this.formData = initFormData()
             if (this.pageState !== 'new') {
               console.log('new')

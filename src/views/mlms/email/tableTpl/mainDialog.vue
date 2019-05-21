@@ -162,6 +162,7 @@ export default {
       }
       this.$emit('reply', this.formData)
     },
+    // 全部回复
     allReply () {
       let receiverList = {
         unions: [],

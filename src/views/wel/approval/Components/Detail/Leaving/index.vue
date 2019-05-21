@@ -99,8 +99,6 @@
 import mixins from '../mixins'
 import { initNow } from '../options'
 import OvertimeListDialog from './OvertimeListDialog'
-// 所有支持的预处理器都一样工作
-import '../approval.scss'
 export default {
   components: { OvertimeListDialog },
   mixins: [mixins],
@@ -123,3 +121,7 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import "../approval.scss";
+</style>

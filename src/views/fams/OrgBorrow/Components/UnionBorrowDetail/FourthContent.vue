@@ -32,7 +32,6 @@
 <script>
 import { cancelOrgBorrow } from '@/api/fams/org_borrow'
 import { dictsMap } from './options'
-import '../borrow.scss'
 export default {
   props: ['data'],
   data () {
@@ -96,3 +95,7 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import "../borrow.scss";
+</style>

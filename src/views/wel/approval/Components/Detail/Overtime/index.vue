@@ -92,8 +92,6 @@
 <script>
 import mixins from '../mixins'
 import { initNow } from '../options'
-// 所有支持的预处理器都一样工作
-import '../approval.scss'
 export default {
   mixins: [mixins],
   data () {
@@ -110,3 +108,7 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import "../approval.scss";
+</style>

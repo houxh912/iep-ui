@@ -104,6 +104,7 @@ export default {
       this.methodName = '编辑'
       this.requestFunction = put
       this.form = { ...row }
+      this.form.relationId = ''
       this.form.type = this.form.type + ''
       this.dialogShow = true
     },

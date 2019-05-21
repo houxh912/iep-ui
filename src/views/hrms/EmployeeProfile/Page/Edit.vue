@@ -8,7 +8,7 @@
             <div class="base" :id="item.value" v-for="item in tabList" :key="item.value">
               <div class="title">{{item.label}}</div>
               <div class="context">
-                <component v-model="form" :is="item.value" @on-save="handleSave"></component>
+                <component v-model="form" :is="item.value" @on-save="handleAutoSubmit"></component>
               </div>
             </div>
           </div>
@@ -120,8 +120,16 @@ export default {
         return false
       }
     },
+    async handleAutoSubmit () {
+      const res = await this.handleSave()
+      console.log(res)
+      if (res) {
+        this.loadPage()
+      }
+    },
     async handleSubmit () {
       const res = await this.handleSave()
+      console.log(res)
       if (res) {
         this.handleGoBack()
       }

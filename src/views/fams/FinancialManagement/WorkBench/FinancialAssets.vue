@@ -15,6 +15,7 @@
   </iep-fams-card>
 </template>
 <script>
+import { getAssetsByDate } from '@/api/fams/statistics'
 import IepFamsCard from './IepFamsCard'
 export default {
   components: { IepFamsCard },
@@ -59,6 +60,23 @@ export default {
         '组织拆借': 6325.5,
       },
     }
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    async loadPage () {
+      const { data } = await getAssetsByDate(this.rangeTime)
+      const realData = data.data
+      this.financialData['银行存款'] = realData.bankDeposit
+      this.financialData['库存现金'] = realData.cashInStock
+      this.financialData['集团往来'] = realData.groupContacts
+      this.financialData['合同应收账款'] = realData.contractualReceive
+      this.financialData['融资'] = realData.financing
+      this.financialData['投资'] = realData.investment
+      this.financialData['其他应收款'] = realData.other
+      this.financialData['组织拆借'] = realData.borrow
+    },
   },
 }
 </script>

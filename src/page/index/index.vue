@@ -183,7 +183,7 @@ export default {
 .el-aside {
   overflow: hidden;
   background-color: #fafafa;
-  border-right: 1px solid #d2d2d2;
+  border-right: 1px solid #e5e5e5;
 }
 </style>
 <style lang="css" scoped>
@@ -195,7 +195,10 @@ export default {
 .avue-contail >>> .el-scrollbar__wrap {
   overflow-x: hidden;
 }
-.aside-main >>> .el-scrollbar {
+.avue-contail >>> .el-scrollbar {
   width: 100%;
+}
+.avue-contail >>> .el-scrollbar__view {
+  height: 100%;
 }
 </style>

@@ -94,6 +94,7 @@ export default {
     .el-menu,
     .el-menu-item {
       position: inherit;
+      color: #444;
     }
     .el-menu.el-menu--horizontal {
       border-bottom: none;

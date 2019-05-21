@@ -57,8 +57,8 @@ export default {
 .tasks-info {
   padding: 15px;
   margin-bottom: 15px;
-  border: 1px solid #eac86d;
-  background-color: #f4ecd3;
+  border: 1px solid #ffdbc1;
+  background-color: #fffbf6;
   span {
     display: block;
     line-height: 28px;

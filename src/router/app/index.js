@@ -180,7 +180,7 @@ export default [
         ],
       },
       {
-        path: 'personal_style',
+        path: 'personal_style/:id',
         name: '个人风采',
         component: () => import('@/views/app/personalStyle/'),
         meta: noAuth,

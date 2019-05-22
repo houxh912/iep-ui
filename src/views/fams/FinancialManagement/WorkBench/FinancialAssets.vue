@@ -9,7 +9,7 @@
     <div class="total-wrapper">
       <div class="total-item" v-for="(item, index) in financialData" :key="index">
         <div class="value">{{item | parseToMoney}}</div>
-        <div class="label">{{index}}</div>
+        <div class="label"><a href="#" @click="$openPage(typeUrlMap[index])">{{index}}</a></div>
       </div>
     </div>
   </iep-fams-card>
@@ -59,6 +59,16 @@ export default {
         '其他应收款': 6325.5,
         '组织拆借': 6325.5,
       },
+      typeUrlMap: {
+        '银行存款': '/fams/financial_management/bank_deposit_journal',
+        '库存现金': '/fams/financial_management/cash_journal',
+        '集团往来': '/fams/financial_management/group_current_ccount',
+        '合同应收账款': '/fams_spa/accounts_receivable',
+        '融资': '/fams/financial_management/work_bench',
+        '投资': '/fams/financial_management/work_bench',
+        '其他应收款': '/fams_spa/other_receivables',
+        '组织拆借': '/fams/org_borrow/org_borrow',
+      },
     }
   },
   created () {
@@ -100,7 +110,9 @@ export default {
       color: rgb(48, 49, 51);
     }
     .label {
-      color: #999;
+      & > a {
+        color: #999;
+      }
     }
   }
 }

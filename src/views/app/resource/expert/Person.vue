@@ -1,8 +1,8 @@
 <template>
   <div>
     <search @load-page="searchPage"></search>
-    <div class="person">
-      <div class="person-item" v-for="(item,index) in personList" :key="index">
+    <div class="person" v-loading="loading">
+      <div class="person-item" v-for="(item,index) in personList" :key="index" @click="handleDetail(item.id)">
         <div class="img"><img :src="item.avatar" alt=""></div>
         <div class="text">
           <span class="name">{{item.name}}<span class="dn show1 show" v-if="item.isExpert == 1">V</span></span>
@@ -27,6 +27,7 @@ import { getRecruitDetailPage } from '@/api/app/hrms/'
 export default {
   data () {
     return {
+      loading: false,
       personList: [],
       total: 0,
       params: {
@@ -45,8 +46,10 @@ export default {
       this.loadPage()
     },
     loadPage () {
+      this.loading = true
       let obj = Object.assign({}, this.params, this.paramData)
       getRecruitDetailPage(obj).then(({data}) => {
+        this.loading = false
         this.personList = data.data.records
         this.total = data.data.total
       })
@@ -54,6 +57,9 @@ export default {
     currentChange (val) {
       this.params.current = val
       this.loadPage()
+    },
+    handleDetail (id) {
+      this.$router.push(`/app/personal_style/${id}`)
     },
   },
   created () {
@@ -64,6 +70,7 @@ export default {
 
 <style scoped lang="scss">
 .person {
+  min-height: 100px;
   display: grid;
   grid-auto-flow: row dense;
   grid-row-gap: 25px;
@@ -73,6 +80,7 @@ export default {
       3fr
     );
   .person-item {
+    cursor: pointer;
     display: flex;
     .img {
       margin-right: 15px;

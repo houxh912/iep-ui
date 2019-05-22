@@ -76,7 +76,7 @@ export const initSearchForm = () => {
 export const rules = {
   title: [
     { required: true, message: '必填', trigger: 'blur' },
-    { max: 30, message: '长度不可超过30个字符', trigger: 'blur' },
+    { max: 50, message: '长度不可超过50个字符', trigger: 'blur' },
   ],
   meetingContent: [
     { required: true, message: '必填', trigger: 'blur' },

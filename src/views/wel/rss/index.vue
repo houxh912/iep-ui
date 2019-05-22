@@ -3,7 +3,7 @@
     <el-col class="sub-menu-left" :span="4">
       <el-card shadow="never" :body-style="bodyStyle">
         <div slot="header" class="clearfix">
-          <span>订阅目录</span>
+          <span class="title">订阅目录</span>
         </div>
         <el-menu :default-active="selectType" class="menu-vertical">
           <el-menu-item class="menu-item" :key="index" v-for="(item,index) in imsMsgType">
@@ -107,8 +107,8 @@ export default {
 .info {
   padding: 15px;
   margin-bottom: 15px;
-  border: 1px solid #eac86d;
-  background-color: #f4ecd3;
+  border: 1px solid #ffdbc1;
+  background-color: #fffbf6;
   span {
     display: block;
     line-height: 28px;
@@ -120,7 +120,9 @@ export default {
 }
 .aside-main {
   display: flex;
+  margin: 0 !important;
   padding: 20px;
+  height: 100ch;
   .menu-vertical {
     border: none;
   }
@@ -137,15 +139,22 @@ export default {
   }
 }
 .sub-menu-left {
-  padding-right: 20px !important;
+  margin: -20px 15px -20px -20px;
+  padding-top: 20px;
+  border-right: 1px solid #e5e5e5;
+  .title {
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
 }
 </style>
 <style scoped>
+.sub-menu-left >>> .el-card {
+  border: 0;
+}
 .sub-menu-left >>> .el-card__header {
-  padding: 10px 20px;
-  font-size: 18px;
-  text-align: center;
-  border-radius: 4px 4px 0 0;
+  padding: 8px 20px;
+  border: 0;
 }
 .sub-menu-left >>> .el-menu-item {
   height: 40px;

@@ -12,7 +12,7 @@
         <template slot-scope="scope">
           <iep-button type="text" size="mini" @click="handleEdit(scope.row)">编辑</iep-button>
           <a-divider type="vertical" />
-          <a-popconfirm title="是否要删除此行？" okText="确认" cancelText="取消" @confirm="handleRemove(scope.row)">
+          <a-popconfirm title="是否要删除此数据？" okText="确认" cancelText="取消" @confirm="handleRemove(scope.row)">
             <iep-button type="text" size="mini">删除</iep-button>
           </a-popconfirm>
         </template>
@@ -126,6 +126,7 @@ export default {
           message: '删除成功',
           type: 'success',
         })
+        this.$emit('load-page')
       })
     },
   },

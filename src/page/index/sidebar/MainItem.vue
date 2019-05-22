@@ -58,7 +58,7 @@ export default {
   font-size: 16px;
   text-align: left;
   padding: 20px 20px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #e5e5e5;
   color: #666;
   .main-link {
     &:hover {

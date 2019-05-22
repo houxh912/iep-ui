@@ -42,7 +42,7 @@ export default {
     },
     handleDetail (row) {
       this.$router.push({
-        path: `/fams/org_assets/project_accounting/${row.id}`,
+        path: `/fams_spa/project_accounting/${row.id}`,
       })
     },
   },

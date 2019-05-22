@@ -1,46 +1,27 @@
 <template>
-    <el-table
-      :data="tableData"
-      style="width: 100%">
-      <el-table-column
-        prop="date"
-        label="日期"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="姓名"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="地址">
-      </el-table-column>
+    <el-table :data="tableData" style="width: 100%">
+      <el-table-column  prop="name"  label="签订时间"></el-table-column>
+      <el-table-column  prop="name"  label="合同金额"></el-table-column>
+      <el-table-column  prop="name"  label="预计执行时间"></el-table-column>
+      <el-table-column  prop="name"  label="预计结束时间"></el-table-column>
+      <el-table-column  prop="name"  label="项目收入"></el-table-column>
+      <el-table-column  prop="name"  label="项目总支出"></el-table-column>
+      <el-table-column  prop="name"  label="人力成本"></el-table-column>
+      <el-table-column  prop="name"  label="项目提成"></el-table-column>
+      <el-table-column  prop="name"  label="开票金额"></el-table-column>
+      <el-table-column  prop="name"  label="是否结清"></el-table-column>
+      <el-table-column  prop="name"  label="项目利润"></el-table-column>
     </el-table>
   </template>
 
   <script>
     export default {
-      data() {
+      data () {
         return {
           tableData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }]
+            name: 'sss',
+          }],
         }
-      }
+      },
     }
   </script>

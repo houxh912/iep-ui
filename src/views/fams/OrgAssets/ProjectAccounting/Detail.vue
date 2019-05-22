@@ -1,8 +1,4 @@
 <template>
-<<<<<<< Updated upstream
-  <iep-to-dev></iep-to-dev>
-</template>
-=======
   <div class="iep-page-form">
     <basic-container>
       <page-header :title="form.name" :back-option="backOption">
@@ -39,7 +35,7 @@
           </div>
         </div>
       </el-card>
-      <iep-tabs v-model="activeTab" :tab-list="tabList">
+      <iep-tabs v-model="activeTab" :tab-list="tabList" style="margin-top:20px;">
         <template v-if="activeTab ==='Accounting'" v-slot:Accounting>
           <accounting v-loading="activeTab !=='Accounting'"></accounting>
         </template>
@@ -57,12 +53,13 @@
   </div>
 </template>
 <script>
-import {  dictsMap } from './options'
+import { dictsMap } from './options'
 import Accounting from './Accounting/'
 import Budget from './Budget/'
 import Cost from './Cost/'
 import Payback from './Payback/'
 export default {
+  components: { Accounting, Budget, Cost, Payback },
   data () {
     return {
       backOption: {
@@ -135,4 +132,3 @@ export default {
     }
   }
 </style>
->>>>>>> Stashed changes

@@ -1,46 +1,32 @@
 <template>
-    <el-table
-      :data="tableData"
-      style="width: 100%">
-      <el-table-column
-        prop="date"
-        label="日期"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
-        label="姓名"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="address"
-        label="地址">
-      </el-table-column>
+    <el-table :data="tableData" style="width: 100%">
+      <el-table-column  prop="name"  label="回款金额"></el-table-column>
+      <el-table-column  prop="name"  label="合同金额"></el-table-column>
+      <el-table-column  prop="name"  label="一月"></el-table-column>
+      <el-table-column  prop="name"  label="二月"></el-table-column>
+      <el-table-column  prop="name"  label="三月"></el-table-column>
+      <el-table-column  prop="name"  label="四月"></el-table-column>
+      <el-table-column  prop="name"  label="五月"></el-table-column>
+      <el-table-column  prop="name"  label="六月"></el-table-column>
+      <el-table-column  prop="name"  label="七月"></el-table-column>
+      <el-table-column  prop="name"  label="八月"></el-table-column>
+      <el-table-column  prop="name"  label="九月"></el-table-column>
+      <el-table-column  prop="name"  label="十月"></el-table-column>
+      <el-table-column  prop="name"  label="十一月"></el-table-column>
+      <el-table-column  prop="name"  label="十二月"></el-table-column>
+      <el-table-column  prop="name"  label="总计"></el-table-column>
+      <el-table-column  prop="name"  label="剩余回款"></el-table-column>
     </el-table>
   </template>
-
+       
   <script>
     export default {
-      data() {
+      data () {
         return {
           tableData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }]
+            name: 'sss',
+          }],
         }
-      }
+      },
     }
   </script>

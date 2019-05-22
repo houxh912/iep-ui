@@ -44,7 +44,7 @@ const amount1 = (rules, value, callback) => {
 export const rules = {
   contractName: [
     { required: true, message: '请输入合同名称', trigger: 'blur' },
-    { min: 2, max: 20, message: '长度为2-20个字符', trigger: 'blur' },
+    { min: 2, max: 50, message: '长度为2-50个字符', trigger: 'blur' },
   ],
   contractAmount: [{ required: true, validator: amount, trigger: 'change' }],
   contractExpl: [{ max: 255, message: '长度不超过255个字符', trigger: 'blur' }],

@@ -10,6 +10,13 @@ export function getBudgetYearList () {
   })
 }
 
+export function postYearBudget (year) {
+  return request({
+    url: `${prefixUrl}/create/${year}`,
+    method: 'post',
+  })
+}
+
 export function getBudgetQuarterList (id) {
   return request({
     url: `${prefixUrl}/quarter/list/${id}`,

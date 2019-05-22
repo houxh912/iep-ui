@@ -89,10 +89,6 @@ export default {
         try {
           const { data } = await this.formRequestFn(formToDto(this.form))
           if (data.data) {
-            this.$message({
-              message: '修改成功',
-              type: 'success',
-            })
             return true
           } else {
             this.$message({
@@ -122,15 +118,17 @@ export default {
     },
     async handleAutoSubmit () {
       const res = await this.handleSave()
-      console.log(res)
       if (res) {
         this.loadPage()
       }
     },
     async handleSubmit () {
       const res = await this.handleSave()
-      console.log(res)
       if (res) {
+        this.$message({
+          message: '修改成功',
+          type: 'success',
+        })
         this.handleGoBack()
       }
     },

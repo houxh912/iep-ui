@@ -13,7 +13,7 @@
       </div>
       <div class="processing-select">
         <div class="rank-item" v-for="(item, idx) in projectData" :key="idx">
-          <h1>{{item.title}}</h1>
+          <h1>{{item.title | parseToMoney}}</h1>
           <div class="content">
             <div>{{item.desc}}</div>
             <div>{{item.rank}}/{{item.total}}</div>

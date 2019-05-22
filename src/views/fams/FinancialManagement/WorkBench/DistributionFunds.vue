@@ -26,7 +26,7 @@ export default {
       },
     ]
     this.chartSettings = {
-      metrics: ['收入', '支出'],
+      metrics: ['资金'],
       dimension: ['dept'],
       lineStyle: {
         color: '#fff',
@@ -43,15 +43,15 @@ export default {
       rangeTime: [],
       columnsMap: [],
       chartData: {
-        columns: ['dept', '收入', '支出'],
+        columns: ['dept', '资金'],
         rows: [
-          { 'dept': '内网', '收入': 38, '支出': 22 },
-          { 'dept': '部门', '收入': 52, '支出': 22 },
-          { 'dept': '提现', '收入': 61, '支出': 22 },
-          { 'dept': '批评', '收入': 145, '支出': 22 },
-          { 'dept': '学习', '收入': 48, '支出': 22 },
-          { 'dept': '打赏', '收入': 38, '支出': 22 },
-          { 'dept': '其他', '收入': 38, '支出': 22 },
+          { 'dept': '货币资金', '资金': 38 },
+          { 'dept': '集团往来账', '资金': 52 },
+          { 'dept': '注册资本', '资金': 61 },
+          { 'dept': '有形资产', '资金': 145 },
+          { 'dept': '无形资产', '资金': 48 },
+          { 'dept': '应收款', '资金': 38 },
+          { 'dept': '其他', '资金': 38 },
         ],
       },
       pickerOptions: {

@@ -8,7 +8,7 @@
     </template>
     <div class="total-wrapper">
       <div class="total-item" v-for="(item, index) in financialData" :key="index">
-        <div class="value">{{item}}</div>
+        <div class="value">{{item | parseToMoney}}</div>
         <div class="label">{{index}}</div>
       </div>
     </div>

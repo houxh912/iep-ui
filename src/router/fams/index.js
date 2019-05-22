@@ -55,6 +55,16 @@ export default [
         name: '集团拆借详情',
         component: () => import('@/views/fams/OrgBorrow/Components/UnionBorrowDetail/index.vue'),
       },
+      {
+        path: 'accounts_receivable',
+        name: '合同应收账款',
+        component: () => import('@/views/fams/FinancialManagement/WorkBench/AccountsReceivableDetail/index.vue'),
+      },
+      {
+        path: 'other_receivables',
+        name: '其他应收款',
+        component: () => import('@/views/fams/FinancialManagement/WorkBench/OtherReceivablesDetail/index.vue'),
+      },
     ],
   },
 ]

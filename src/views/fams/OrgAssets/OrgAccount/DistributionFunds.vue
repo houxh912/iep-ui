@@ -1,17 +1,12 @@
 <template>
-  <iep-fams-card title="财务资产">
+  <iep-fams-card title="财务资产统计">
     <template slot="right">
       <div style="width: 350px;">
         <iep-date-picker v-model="rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" size="small">
         </iep-date-picker>
       </div>
     </template>
-    <div class="total-wrapper">
-      <div class="total-item" v-for="(item, index) in financialData" :key="index">
-        <div class="value">{{item | parseToMoney}}</div>
-        <div class="label"><a href="#" @click="$openPage(typeUrlMap[index])">{{index}}</a></div>
-      </div>
-    </div>
+    <ve-histogram :data="chartData" :settings="chartSettings" :extend="chartExtend" :colors="colors"></ve-histogram>
   </iep-fams-card>
 </template>
 <script>
@@ -20,8 +15,45 @@ import IepFamsCard from './IepFamsCard'
 export default {
   components: { IepFamsCard },
   data () {
+    this.colors = [
+      (paramsA) => {
+        var colorList1 = ['#d66368', '#d97276', '#dd8184', '#da8a8d', '#e09c9e', '#e8adaf', '#f7c6c8', '#ffdfe0']
+        return colorList1[paramsA.dataIndex]
+      },
+      (paramsB) => {
+        var colorList2 = ['#f58f44', '#f79349', '#f79a55', '#f9a261', '#f7af78', '#f9b37f', '#fdc296', '#fdd1b0']
+        return colorList2[paramsB.dataIndex]
+      },
+    ]
+    this.chartSettings = {
+      metrics: ['资金'],
+      dimension: ['dept'],
+      lineStyle: {
+        color: '#fff',
+      },
+
+    }
+    this.chartExtend = {
+      barWidth: '26',
+      itemStyle: {
+        barBorderRadius: 13,
+      },
+    }
     return {
       rangeTime: [],
+      columnsMap: [],
+      chartData: {
+        columns: ['dept', '资金'],
+        rows: [
+          { 'dept': '货币资金', '资金': 38 },
+          { 'dept': '集团往来账', '资金': 52 },
+          { 'dept': '注册资本', '资金': 61 },
+          { 'dept': '有形资产', '资金': 145 },
+          { 'dept': '无形资产', '资金': 48 },
+          { 'dept': '应收款', '资金': 38 },
+          { 'dept': '其他', '资金': 38 },
+        ],
+      },
       pickerOptions: {
         shortcuts: [{
           text: '最近一周',
@@ -54,20 +86,10 @@ export default {
         '库存现金': 6325.5,
         '集团往来': 6325.5,
         '合同应收账款': 6325.5,
-        '组织拆借': 6325.5,
         '融资': 6325.5,
         '投资': 6325.5,
         '其他应收款': 6325.5,
-      },
-      typeUrlMap: {
-        '银行存款': '/fams/financial_management/bank_deposit_journal',
-        '库存现金': '/fams/financial_management/cash_journal',
-        '集团往来': '/fams/financial_management/group_current_ccount',
-        '合同应收账款': '/fams_spa/accounts_receivable',
-        '融资': '/fams/financial_management/work_bench',
-        '投资': '/fams/financial_management/work_bench',
-        '其他应收款': '/fams_spa/other_receivables',
-        '组织拆借': '/fams/org_borrow/org_borrow',
+        '组织拆借': 6325.5,
       },
     }
   },
@@ -110,9 +132,7 @@ export default {
       color: rgb(48, 49, 51);
     }
     .label {
-      & > a {
-        color: #999;
-      }
+      color: #999;
     }
   }
 }

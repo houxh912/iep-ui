@@ -1,27 +1,26 @@
 <template>
-  <iep-fams-card title="财务资产">
+  <iep-fams-card title="组织收支">
     <template slot="right">
       <div style="width: 350px;">
         <iep-date-picker v-model="rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" size="small">
         </iep-date-picker>
       </div>
     </template>
-    <div class="total-wrapper">
-      <div class="total-item" v-for="(item, index) in financialData" :key="index">
-        <div class="value">{{item | parseToMoney}}</div>
-        <div class="label"><a href="#" @click="$openPage(typeUrlMap[index])">{{index}}</a></div>
-      </div>
-    </div>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+    </iep-table>
   </iep-fams-card>
 </template>
 <script>
+import mixins from '@/mixins/mixins'
 import { getAssetsByDate } from '@/api/fams/statistics'
 import IepFamsCard from './IepFamsCard'
 export default {
+  mixins: [mixins],
   components: { IepFamsCard },
   data () {
     return {
       rangeTime: [],
+      columnsMap: [],
       pickerOptions: {
         shortcuts: [{
           text: '最近一周',
@@ -54,20 +53,10 @@ export default {
         '库存现金': 6325.5,
         '集团往来': 6325.5,
         '合同应收账款': 6325.5,
-        '组织拆借': 6325.5,
         '融资': 6325.5,
         '投资': 6325.5,
         '其他应收款': 6325.5,
-      },
-      typeUrlMap: {
-        '银行存款': '/fams/financial_management/bank_deposit_journal',
-        '库存现金': '/fams/financial_management/cash_journal',
-        '集团往来': '/fams/financial_management/group_current_ccount',
-        '合同应收账款': '/fams_spa/accounts_receivable',
-        '融资': '/fams/financial_management/work_bench',
-        '投资': '/fams/financial_management/work_bench',
-        '其他应收款': '/fams_spa/other_receivables',
-        '组织拆借': '/fams/org_borrow/org_borrow',
+        '组织拆借': 6325.5,
       },
     }
   },
@@ -110,9 +99,7 @@ export default {
       color: rgb(48, 49, 51);
     }
     .label {
-      & > a {
-        color: #999;
-      }
+      color: #999;
     }
   }
 }

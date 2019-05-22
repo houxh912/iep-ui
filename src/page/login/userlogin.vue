@@ -107,20 +107,13 @@ export default {
     ...mapGetters(['tagWel']),
   },
   methods: {
-    ...mapActions(['LoginBySocial', 'LoginByUsername', 'LoginByLocalStorage', 'GetMenu']),
+    ...mapActions(['LoginBySocial', 'LoginByUsername', 'GetMenu']),
     emitEmpty (name) {
       this.$refs[name].focus()
       this.form[name] = ''
     },
-    async loadPage () {
-      const result = await this.LoginByLocalStorage()
-      if (result) {
-        const data = await this.GetMenu()
-        this.$router.$avueRouter.formatRoutes(data, true)
-        this.$router.push({ path: this.tagWel.value })
-      } else {
-        this.refreshCode()
-      }
+    loadPage () {
+      this.refreshCode()
     },
     handleRetrieve () {
       this.$emit('tab-active', 'retrieve')

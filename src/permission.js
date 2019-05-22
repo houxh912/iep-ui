@@ -14,7 +14,7 @@ NProgress.configure({ showSpinner: false })
 
 
 const lockPage = store.getters.website.lockPage // 锁屏页
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
 
   const {
     access_token,
@@ -24,6 +24,7 @@ router.beforeEach((to, from, next) => {
     menu,
     mainMenu,
     otherMenus,
+    tagWel,
   } = store.getters
   NProgress.start()
   const meta = to.meta || {}
@@ -69,8 +70,13 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else {
+    const result = await store.dispatch('LoginByLocalStorage')
     if (meta.isAuth === false) {
       next()
+    } else if (result) {
+      const data = await store.dispatch('GetMenu')
+      router.$avueRouter.formatRoutes(data, true)
+      router.push({ path: tagWel.value })
     } else {
       next('/login')
     }

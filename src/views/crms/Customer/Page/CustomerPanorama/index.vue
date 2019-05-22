@@ -186,4 +186,7 @@ export default {
 .customer {
   margin-right: 10px;
 }
+.value {
+  word-break: break-all;
+}
 </style>

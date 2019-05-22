@@ -8,20 +8,35 @@ const user = {
     permissions: {},
     roles: [],
     orgs: [],
-    expires_in:
-      getStore({
-        name: 'expires_in',
-      }) || '',
-    access_token:
-      getStore({
-        name: 'access_token',
-      }) || '',
-    refresh_token:
-      getStore({
-        name: 'refresh_token',
-      }) || '',
+    keep_login_token: getStore({ name: 'keep_login_token' }) || {
+      is_keep_login: false,
+      access_token: '',
+      refresh_token: '',
+      expires_in: '',
+    },
+    expires_in: getStore({ name: 'expires_in' }) || '',
+    access_token: getStore({ name: 'access_token' }) || '',
+    refresh_token: getStore({ name: 'refresh_token'  }) || '',
   },
   actions: {
+    // 根据之前保持登陆记录
+    LoginByLocalStorage ({commit, state}) {
+      const { keep_login_token } = state
+      if (keep_login_token.is_keep_login) {
+        commit('SET_ACCESS_TOKEN', keep_login_token.access_token)
+        commit('SET_REFRESH_TOKEN', keep_login_token.refresh_token)
+        commit('SET_EXPIRES_IN', keep_login_token.expires_in)
+        commit('SET_MENU', [])
+        commit('SET_MAINMENU', {})
+        commit('SET_OTHERMENUS', [])
+        commit('SET_MENUSMAP', {})
+        commit('SET_MENUPATHLIST', [])
+        commit('CLEAR_LOCK')
+        return true
+      } else {
+        return false
+      }
+    },
     // 根据用户名登录
     LoginByUsername ({ commit }, userInfo) {
       const user = encryption({
@@ -32,6 +47,14 @@ const user = {
       return new Promise(async (resolve, reject) => {
         try {
           const {data} = await loginByUsername(user.username, user.password, user.code, user.randomStr)
+          if (user.isKeepLogin) {
+            commit('SET_KEEP_LOGIN_TOKEN', {
+              is_keep_login: true,
+              access_token: data.access_token,
+              refresh_token: data.refresh_token,
+              expires_in: data.expires_in,
+            })
+          }
           commit('SET_ACCESS_TOKEN', data.access_token)
           commit('SET_REFRESH_TOKEN', data.refresh_token)
           commit('SET_EXPIRES_IN', data.expires_in)
@@ -128,6 +151,7 @@ const user = {
             commit('SET_ORGS', [])
             commit('SET_USER_INFO', {})
             commit('SET_ACCESS_TOKEN', '')
+            commit('SET_KEEP_LOGIN_TOKEN', {})
             commit('SET_REFRESH_TOKEN', '')
             commit('SET_EXPIRES_IN', '')
             commit('SET_ROLES', [])
@@ -151,7 +175,6 @@ const user = {
         commit('SET_ROLES', [])
         commit('DEL_ALL_TAG')
         commit('CLEAR_LOCK')
-
         commit('SET_MENU', [])
         commit('SET_MAINMENU', {})
         commit('SET_OTHERMENUS', [])
@@ -162,6 +185,13 @@ const user = {
     },
   },
   mutations: {
+    SET_KEEP_LOGIN_TOKEN: (state, keep_login_token) => {
+      state.keep_login_token = keep_login_token
+      setStore({
+        name: 'keep_login_token',
+        content: state.keep_login_token,
+      })
+    },
     SET_ACCESS_TOKEN: (state, access_token) => {
       state.access_token = access_token
       setStore({

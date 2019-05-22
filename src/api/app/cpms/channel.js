@@ -32,3 +32,11 @@ export const getResourceCount = () => {
     method: 'get',
   })
 }
+
+// 频道页员工感想列表
+export function getThoughtsList () {
+  return request({
+    url: `${prefixUrl}/thoughts_list`,
+    method: 'get',
+  })
+}

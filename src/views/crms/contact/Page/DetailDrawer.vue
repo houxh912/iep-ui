@@ -28,13 +28,13 @@
       <el-form-item label="邮箱：" class="form-half">
         <span>{{detailForm.email}}</span>
       </el-form-item>
-      <el-form-item label="地址：" class="form-half">
+      <el-form-item label="地址：">
         <span>{{detailForm.address}}</span>
       </el-form-item>
-      <el-form-item label="客户关注：" class="form-half">
+      <el-form-item label="客户关注：">
         <span>{{detailForm.clientConcern}}</span>
       </el-form-item>
-      <el-form-item label="其他：" class="form-half">
+      <el-form-item label="其他：">
         <span>{{detailForm.other}}</span>
       </el-form-item>
     </el-form>

@@ -19,7 +19,7 @@
     </el-form-item>
     <el-form-item>
       <div class="login-text">
-        <el-checkbox v-model="checked">保持登陆</el-checkbox>
+        <el-checkbox v-model="form.isKeepLogin">保持登陆</el-checkbox>
         <div class="check-text">
           <el-button type="text" @click.prevent="handleRetrieve">忘记密码?</el-button>
           <el-button type="text" @click.prevent="handleRegister">立即注册</el-button>
@@ -57,8 +57,8 @@ export default {
         password: '',
         code: '',
         redomStr: '',
+        isKeepLogin: false,
       },
-      checked: false,
       code: {
         src: '/code',
         value: '',
@@ -101,16 +101,26 @@ export default {
     },
   },
   created () {
-    this.refreshCode()
+    this.loadPage()
   },
   computed: {
     ...mapGetters(['tagWel']),
   },
   methods: {
-    ...mapActions(['LoginBySocial', 'LoginByUsername', 'GetMenu']),
+    ...mapActions(['LoginBySocial', 'LoginByUsername', 'LoginByLocalStorage', 'GetMenu']),
     emitEmpty (name) {
       this.$refs[name].focus()
       this.form[name] = ''
+    },
+    async loadPage () {
+      const result = await this.LoginByLocalStorage()
+      if (result) {
+        const data = await this.GetMenu()
+        this.$router.$avueRouter.formatRoutes(data, true)
+        this.$router.push({ path: this.tagWel.value })
+      } else {
+        this.refreshCode()
+      }
     },
     handleRetrieve () {
       this.$emit('tab-active', 'retrieve')

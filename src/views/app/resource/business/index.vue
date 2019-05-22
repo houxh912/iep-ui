@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="material">
+    <div class="material" v-if="'/app/resource/business'==routerMatch[routerMatch.length-1].path">
       <div class="library">
         <librarys></librarys>
       </div>
@@ -16,6 +16,7 @@
         </IepAppTabCard>
       </div>
     </div>
+    <router-view v-else></router-view>
   </div>
 </template>
 <script>
@@ -33,7 +34,12 @@ export default {
       labelList: [],
       listList: [],
       dataList: [],
+      routerMatch: this.$route.matched,
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.routerMatch = to.matched
+    next()
   },
   methods: {
     getLatestList () {

@@ -59,6 +59,13 @@ export default [
     count: 0,
     countName: 'countOpportunity',
     component: () => import('@/views/app/resource/business/'),
+    children: [
+      {
+        path: 'business_detail/:id',
+        name: '商机库详情',
+        component: () => import('@/views/app/resource/business/businessDetail/'),
+      },
+    ],
   },
   {
     path: 'expert',

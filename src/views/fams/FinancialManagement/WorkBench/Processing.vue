@@ -2,85 +2,89 @@
   <iep-fams-card title="待处理">
     <div class="processing-wrapper">
       <div class="processing-data">
-        <a-list itemLayout="horizontal" :dataSource="data">
-          <a-list-item slot="renderItem" slot-scope="item">
-            <a-list-item-meta>
-              <a slot="title" href="https://vue.ant.design/">{{item.title}}</a>
-              <div slot="description" class="description">
-                <div>向 <a href="#">{{item.place}}</a> 提交了 <a href="#">{{item.type}}</a> </div>
-                <div>{{item.time}}</div>
-              </div>
-              <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-            </a-list-item-meta>
-          </a-list-item>
-        </a-list>
-        <el-pagination style="text-align:center;" :page-size="20" :pager-count="11" layout="prev, pager, next" :total="1000">
-        </el-pagination>
+        <iep-no-data v-if="!pagedTable.length"></iep-no-data>
+        <template v-else>
+          <a-list itemLayout="horizontal" :dataSource="pagedTable">
+            <a-list-item slot="renderItem" slot-scope="item">
+              <a-list-item-meta>
+                <a slot="title">{{item.realName}}</a>
+                <div slot="description" class="description">
+                  <div>向 <a href="#">{{item.orgName}}</a> 提交了 <a href="#">{{processingMap[selectType].label}}申请</a> </div>
+                  <div>{{item.time}}</div>
+                </div>
+                <a-avatar slot="avatar" :src="item.avatar" />
+              </a-list-item-meta>
+            </a-list-item>
+          </a-list>
+          <el-pagination style="text-align:center;" :page-size="pagination.size" :current-page="pagination.current" :pager-count="11" layout="prev, pager, next" :total="pagination.total">
+          </el-pagination>
+        </template>
       </div>
-      <a-list class="processing-select" :grid="{ gutter: 16, xs: 2, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2 }" :dataSource="selectMap">
+      <a-list class="processing-select" :grid="{ gutter: 16, xs: 2, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2 }" :dataSource="processingData">
         <a-list-item slot="renderItem" slot-scope="item">
-          <a-card>{{item.label}}({{item.value}})</a-card>
+          <a-card @click="handleSelect(item)" class="list-item" :class="{active: item.id === selectType}">
+            {{item.label}}
+            ({{item.value}})</a-card>
         </a-list-item>
       </a-list>
     </div>
   </iep-fams-card>
 </template>
 <script>
+import keyBy from 'lodash/keyBy'
 import IepFamsCard from './IepFamsCard'
+import mixins from '@/mixins/mixins'
+import { getPendingPage } from '@/api/fams/statistics'
 function pageOption () {
   return {
     current: 1,
-    size: 10,
+    size: 3,
   }
 }
+const typeMap = {
+  1: '提现',
+  2: '发票',
+  3: '开票',
+  4: '组织拆借',
+  5: '资金调拨提现',
+}
 export default {
+  mixins: [mixins],
   components: { IepFamsCard },
   data () {
     return {
-      data: [
-        {
-          title: '王军辉',
-          place: '舟山研发中心',
-          type: '报销申请',
-          time: '2011.11.11',
-        },
-        {
-          title: '王军辉',
-          place: '舟山研发中心',
-          type: '报销申请',
-          time: '2011.11.11',
-        },
-        {
-          title: '王军辉',
-          place: '舟山研发中心',
-          type: '报销申请',
-          time: '2011.11.11',
-        },
-        {
-          title: '王军辉',
-          place: '舟山研发中心',
-          type: '报销申请',
-          time: '2011.11.11',
-        },
-      ],
-      selectMap: [
-        { label: '提现', value: 75 },
-        { label: '发票', value: 75 },
-        { label: '开票', value: 75 },
-        { label: '组织拆借', value: 75 },
-        { label: '资金调拨', value: 75 },
-      ],
+      selectType: 1,
+      statistics: [0, 0, 0, 0, 0],
       pagination: pageOption(),
+      pageOption: pageOption(),
     }
   },
+  computed: {
+    processingData () {
+      return this.statistics.map((m, i) => {
+        const id = i + 1
+        return {
+          id,
+          label: typeMap[id],
+          value: m,
+        }
+      })
+    },
+    processingMap () {
+      return keyBy(this.processingData, 'id')
+    },
+  },
+  created () {
+    this.loadPage()
+  },
   methods: {
-    handleSizeChange (val) {
-      this.pageOption.size = val
+    handleSelect (item) {
+      this.selectType = item.id
       this.loadPage()
     },
-    handleCurrentChange (val) {
-      this.pageOption.current = val
-      this.loadPage()
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable({ ...param, type: this.selectType }, getPendingPage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }
@@ -96,10 +100,24 @@ export default {
     flex: 1;
   }
   .processing-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border-right: 1px solid #e8e8e8;
     padding-right: 15px;
     margin-right: 15px;
     flex: 2;
+  }
+}
+.list-item {
+  cursor: pointer;
+  &:hover {
+    background-color: #ba1b21;
+    color: #fff;
+  }
+  &.active {
+    background-color: #ba1b21;
+    color: #fff;
   }
 }
 </style>

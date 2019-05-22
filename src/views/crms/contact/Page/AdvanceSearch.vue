@@ -6,7 +6,7 @@
       </el-form-item>
       <el-form-item label="对应客户">
         <!-- <el-input v-model="form.clientName" placeholder="请输入对应客户" :maxlength="30"></el-input> -->
-        <el-autocomplete class="inline-input" v-model="form.clientName" :fetch-suggestions="querySearch" placeholder="请输入对应客户" @select="handleSelect"></el-autocomplete>
+        <el-autocomplete class="inline-input" v-model="form.clientName" :fetch-suggestions="querySearch" placeholder="请输入对应客户" @select="handleSelect" hide-loading="true"></el-autocomplete>
         <!-- <el-select v-model="form.clientIds" multiple placeholder="请选择">
           <el-option v-for="item in dictData" :key="item.clientId" :label="item.clientName" :value="item.clientId">
           </el-option>

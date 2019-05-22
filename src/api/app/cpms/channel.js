@@ -24,3 +24,11 @@ export const getDetailsList = (id) => {
     method: 'get',
   })
 }
+
+// 资源库资源统计
+export const getResourceCount = () => {
+  return request({
+    url: `${prefixUrl}/resource_count`,
+    method: 'get',
+  })
+}

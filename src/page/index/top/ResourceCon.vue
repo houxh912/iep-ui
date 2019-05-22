@@ -13,6 +13,8 @@
 </template>
 <script>
 import resourceRoute from '@/router/app/resource'
+import { getResourceCount } from '@/api/app/cpms/channel'
+
 export default {
   data () {
     return {
@@ -26,6 +28,16 @@ export default {
         path: `/app/resource/${item.path}`,
       })
     },
+    getCount () {
+      getResourceCount().then(({data}) => {
+        for (let item of this.resourceRoute) {
+          item.count = data.data[item.countName]
+        }
+      })
+    },
+  },
+  created () {
+    this.getCount()
   },
 }
 </script>

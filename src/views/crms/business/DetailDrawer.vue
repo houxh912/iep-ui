@@ -14,7 +14,7 @@
         <a-tag type="info">{{formData.intentionLevelValue}}</a-tag>
       </el-form-item>
       <el-form-item label="商机描述：">
-        <el-input v-model="formData.opportunityDes" placeholder="商机描述" :disabled="true"></el-input>
+        <span>{{formData.opportunityDes}}</span>
       </el-form-item>
       <el-form-item label="商机标签：">
         <!-- <a-tag type="info" class="tag-style" v-for="(item,index) in formData.tags" :key="index">{{item.commonName}}</a-tag> -->

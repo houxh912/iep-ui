@@ -1,6 +1,6 @@
 <template>
   <div class="librarys-content">
-    <div class="librarys-item" v-for="(item,index) in list" :key="index">
+    <div class="librarys-item" v-for="(item,index) in list" :key="index" @click="handleDetail(item.opportunityId)">
       <div class="title">
         <h4 class="name">{{item.projectName}}</h4>
         <i :class="item.icon" v-if="item.icon"></i>
@@ -27,12 +27,6 @@
 import { getBusinessPage } from '@/api/app/crms/'
 
 export default {
-  props: {
-    list: {
-      type: Array,
-      default: () => {},
-    },
-  },
   data () {
     return {
       paramForm: {},
@@ -41,6 +35,7 @@ export default {
         current: 1,
         size: 10,
       },
+      list: [],
     }
   },
   methods: {
@@ -60,6 +55,9 @@ export default {
       this.params.current = val
       this.getBusinessPage()
     },
+    handleDetail (id) {
+      this.$router.push(`/app/resource/business/business_detail/${id}`)
+    },
   },
   created () {
     this.getBusinessPage()
@@ -70,6 +68,7 @@ export default {
 .librarys-item{
   padding: 20px 15px;
   border-bottom: 1px solid #eee;
+  cursor: pointer;
 }
 .title{
   height: 40px;

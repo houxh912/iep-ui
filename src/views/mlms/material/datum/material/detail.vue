@@ -20,12 +20,12 @@
         <el-row class="content">
           <iep-html v-model="formData.content"></iep-html>
         </el-row>
-        <!-- <el-row class="down-load">
+        <el-row class="down-load">
           相关附件：
           <div class="file" v-for="(item, index) in formData.attachFileList" :key="index">
             <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗{{getMoney(formData.downloadCost)}}下载）</span></div>
           </div>
-        </el-row> -->
+        </el-row>
         <el-row class="footer">
           <div class="footer-left">
             <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
@@ -193,6 +193,11 @@ export default {
     },
     // 附件下载
     downLoad (obj) {
+      // 首先需要判断下载扣除的国脉贝 -- 目前先判断是否需要国脉贝，选哟就不允许下载
+      if (this.formData.downloadCost > 0) {
+        this.$message.error('对不起，您的余额不足！')
+        return
+      }
       downloadFile(obj)
       // /getUpload/{id}
       downloadCount(this.formData.id)

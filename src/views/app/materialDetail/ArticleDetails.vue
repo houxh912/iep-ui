@@ -15,12 +15,12 @@
     <div class="content">
       <iep-html v-model="formData.content"></iep-html>
     </div>
-    <!-- <el-row class="down-load" v-if="formData.attachFile">
+    <el-row class="down-load" v-if="formData.attachFile">
       相关附件：
       <div class="file" v-for="(item, index) in formData.attachFileList" :key="index">
         <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗 {{getMoney(formData.downloadCost)}} 下载）</span></div>
       </div>
-    </el-row> -->
+    </el-row>
     <IepAppRewardCard :total="total" :dataList="rewardList"></IepAppRewardCard>
     <IepAppEvaluationReviews :id="formData.id" :objectType="1"></IepAppEvaluationReviews>
   </div>
@@ -56,6 +56,10 @@ export default {
   methods: {
     // 附件下载
     downLoad (obj) {
+      if (this.formData.downloadCost > 0) {
+        this.$message.error('对不起，您的余额不足！')
+        return
+      }
       downloadFile(obj)
       // /getUpload/{id}
       downloadCount(this.formData.id)

@@ -2,14 +2,14 @@
   <div class="thoughts">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
       <div class="thoughts-list">
-        <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
-          <div class="img-con"><img :src="item.img" class="img"></div>
+        <div v-for="(item, index) in thoughtsList" :key="index" class="piece">
+          <div class="img-con"><img :src="item.avatar" class="img"></div>
           <div class="box">
             <div class="piece-title">
-              <span class="name">{{item.name}}</span>
-              <span class="time">{{item.time}}</span>
+              <span class="name">{{item.userName}}</span>
+              <span class="time">{{item.createTime}}</span>
             </div>
-            <p class="feed">{{item.feed}}</p>
+            <p class="feed">{{item.content}}</p>
           </div>
         </div>
       </div>
@@ -38,6 +38,7 @@
 
 <script>
 import { getRecruitBirthday } from '@/api/app/hrms/'
+import { getThoughtsList } from '@/api/app/cpms/channel'
 import BlessingDialog from './Blessing'
 
 export default {
@@ -46,10 +47,7 @@ export default {
     return {
       title: '员工感想',
       titleStar: '今日寿星',
-      thoughtsList: [
-        { img: '../img/person/p010.jpg', name: '奎永秀', time: '2019-02-25 15:30', feed: '认认真真做事，踏踏实实做人！' },
-        { img: '../img/person/p011.jpg', name: '谢海艳', time: '2019-04-08', feed: '项目有困难，我们更要有激情，有压力不要压抑，有危机感不要有焦虑感' },
-      ],
+      thoughtsList: [],
       starList: [],
       linkName: '',
     }
@@ -63,9 +61,15 @@ export default {
         this.starList = data.data
       })
     },
+    getThoughtsList () {
+      getThoughtsList().then(({data}) => {
+        this.thoughtsList = data.data
+      })
+    },
   },
   created () {
     this.getBirthdayList()
+    this.getThoughtsList()
   },
 }
 </script>

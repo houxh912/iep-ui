@@ -65,6 +65,11 @@ export default [
         name: '其他应收款',
         component: () => import('@/views/fams/FinancialManagement/WorkBench/OtherReceivablesDetail/index.vue'),
       },
+      {
+        path: 'project_accounting/:id',
+        name: '项目核算详情',
+        component: () => import('@/views/fams/OrgAssets/ProjectAccounting/Detail.vue'),
+      },
     ],
   },
 ]

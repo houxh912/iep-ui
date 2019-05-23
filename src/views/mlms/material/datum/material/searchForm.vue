@@ -60,6 +60,7 @@ export default {
     },
     // 分类配置
     firstClassChange (val) {
+      this.paramForm.materialClsSecondClass = ''
       for (let item of this.firstClass) {
         if (item.id == val) {
           this.secondClass = item.childrens

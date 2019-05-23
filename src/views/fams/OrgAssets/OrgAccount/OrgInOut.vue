@@ -1,14 +1,19 @@
 <template>
-  <iep-fams-card title="组织收支">
-    <template slot="right">
-      <div style="width: 350px;">
-        <iep-date-picker v-model="rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" size="small">
-        </iep-date-picker>
+  <div class="total-wrapper">
+    <iep-fams-card class="total-item-2" title="组织收支">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      </iep-table>
+    </iep-fams-card>
+    <iep-fams-card class="total-item-1" title="快捷入口">
+      <div class="card-btn-grid">
+        <div>组织拆借</div>
+        <div>组织转账</div>
+        <div>打赏/扣减</div>
+        <div>投资管理</div>
+        <div>组织预算</div>
       </div>
-    </template>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-    </iep-table>
-  </iep-fams-card>
+    </iep-fams-card>
+  </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
@@ -19,35 +24,7 @@ export default {
   components: { IepFamsCard },
   data () {
     return {
-      rangeTime: [],
       columnsMap: [],
-      pickerOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', [start, end])
-          },
-        }, {
-          text: '最近一个月',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            picker.$emit('pick', [start, end])
-          },
-        }, {
-          text: '最近三个月',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            picker.$emit('pick', [start, end])
-          },
-        }],
-      },
       financialData: {
         '银行存款': 6325.5,
         '库存现金': 6325.5,
@@ -82,24 +59,27 @@ export default {
 <style lang="scss" scoped>
 .total-wrapper {
   display: flex;
-  justify-content: space-around;
-  margin: 20px 0;
-  .total-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-right: 1px solid rgb(233, 233, 233);
-    width: 100%;
-    &:last-child {
-      border-right: none;
-    }
-    .value {
-      font-size: 24px;
-      color: rgb(48, 49, 51);
-    }
-    .label {
-      color: #999;
+  .total-item-2 {
+    flex: 2;
+  }
+  .total-item-1 {
+    flex: 1;
+    margin-left: 20px;
+  }
+}
+.card-btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  & > div {
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #aaa;
+    color: #666;
+    &:hover {
+      border: 1px solid #ba1b21;
+      color: #ba1b21;
     }
   }
 }

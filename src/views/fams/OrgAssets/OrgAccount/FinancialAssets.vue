@@ -50,6 +50,7 @@ export default {
         }],
       },
       financialData: {
+        '可用金额': 6325.5,
         '银行存款': 6325.5,
         '库存现金': 6325.5,
         '集团往来': 6325.5,
@@ -58,6 +59,7 @@ export default {
         '其他应收款': 6325.5,
       },
       typeUrlMap: {
+        '可用金额': '/fams/org_assets/org_account',
         '银行存款': '/fams/financial_management/bank_deposit_journal',
         '库存现金': '/fams/financial_management/cash_journal',
         '集团往来': '/fams/financial_management/group_current_ccount',
@@ -74,6 +76,7 @@ export default {
     async loadPage () {
       const { data } = await getAssetsByDate(this.rangeTime)
       const realData = data.data
+      this.financialData['可用金额'] = realData.availableBalance
       this.financialData['银行存款'] = realData.bankDeposit
       this.financialData['库存现金'] = realData.cashInStock
       this.financialData['集团往来'] = realData.groupContacts

@@ -70,6 +70,16 @@ export default [
         name: '项目核算详情',
         component: () => import('@/views/fams/OrgAssets/ProjectAccounting/Detail.vue'),
       },
+      {
+        path: 'organization_transfer',
+        name: '组织转账',
+        component: () => import('@/views/fams/GroupFinance/OrganizationTransfer/index.vue'),
+      },
+      {
+        path: 'organization_reward',
+        name: '组织打赏/扣减',
+        component: () => import('@/views/fams/GroupFinance/OrganizationReward/index.vue'),
+      },
     ],
   },
 ]

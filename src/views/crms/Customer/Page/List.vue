@@ -28,9 +28,9 @@
         <template slot="before-columns">
           <el-table-column label="客户名称" width="300px">
             <template slot-scope="scope">
-              <iep-table-link>{{scope.row.clientName}}</iep-table-link>
+              <span class="clientName">{{scope.row.clientName}}</span>
               <el-col class="custom-tags">
-                <a-tag v-for="(item, index) in dealTag(scope.row.tags)" :key="index" @click="handleTagDetail(item.commonName)">{{item.commonName}}
+                <a-tag v-for="(item, index) in dealTag(scope.row.tags)" :key="index" @click.stop="handleTagDetail(item.commonName)">{{item.commonName}}
                 </a-tag>
                 <span v-if="scope.row.tags.length>3">...</span>
               </el-col>
@@ -251,6 +251,12 @@ export default {
     height: 26px;
     line-height: 26px;
   }
+}
+.clientName {
+  width: 300px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>
 

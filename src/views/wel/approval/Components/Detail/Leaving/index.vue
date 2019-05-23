@@ -32,7 +32,7 @@
             <label>请假类型：</label>
             <div class="content">
               <iep-dict-detail dict-name="hrms_applic_type" :value="form.type+''"></iep-dict-detail>/
-              <iep-dict-detail dict-name="hrms_levae_type" :value="form.leavingType"></iep-dict-detail>
+              <iep-dict-detail dict-name="hrms_levae_type" :value="form.levaeType"></iep-dict-detail>
             </div>
           </div>
           <div class="info-item">

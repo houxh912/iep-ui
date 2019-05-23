@@ -23,7 +23,7 @@ const initForm = () => {
 		approver: [], // 审批人
 		cc: [], // 抄送人
 		duration: '', //各种时长
-		leaveType: '', // 请假类型
+		levaeType: '', // 请假类型
 		transferDeptList: {
 			id: '',
 			name: '',

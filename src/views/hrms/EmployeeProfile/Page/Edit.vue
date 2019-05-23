@@ -138,6 +138,7 @@ export default {
     loadPage () {
       getEmployeeProfileById(this.record.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
+        this.form.isStaff = !!this.form.staffId
         this.form.identityMark = this.form.identityMarks.map(m => m.value)
       })
     },

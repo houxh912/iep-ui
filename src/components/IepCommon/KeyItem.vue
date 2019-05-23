@@ -26,7 +26,9 @@ export default {
 
 <style lang="scss" scoped>
 .icon-box {
-  display: inline-block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 10px 5px;
   padding: 0 10px;
   cursor: pointer;
@@ -35,21 +37,21 @@ export default {
   i {
     display: inline-block;
     text-align: center;
-    font-size: 22px !important;
+    font-size: 18px !important;
     margin-right: 5px;
   }
   span {
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 .icon-box:last-of-type {
   border: 0;
 }
 .icon-box:hover {
-  color: #F56C6C !important;
+  color: #f56c6c !important;
 }
 .red {
-  color: #F56C6C;
+  color: #f56c6c;
 }
 </style>

@@ -52,7 +52,7 @@ const initForm = () => {
     'transferDeptList': {
       name: '',
     },
-    'leavingType': '',
+    'levaeType': '',
   }
 }
 const formToVo = (row) => {

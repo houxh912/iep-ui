@@ -1,12 +1,12 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="修改预算" width="400px" @close="close">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
-      <el-form-item label="实际" prop="actual">
-        <iep-input-number v-model="form.actual"></iep-input-number>
-      </el-form-item>
-      <el-form-item label="预算" prop="budget">
+      <iep-form-item label-name="实际(元)" prop="actual">
+        <iep-input-number v-model="form.actual" disabled></iep-input-number>
+      </iep-form-item>
+      <iep-form-item label-name="预算(元)" prop="budget">
         <iep-input-number v-model="form.budget"></iep-input-number>
-      </el-form-item>
+      </iep-form-item>
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm()">提交</iep-button>

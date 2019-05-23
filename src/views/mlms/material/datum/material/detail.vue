@@ -301,6 +301,7 @@ export default {
 <style lang="scss" scoped>
 .left {
   width: calc(100% - 370px);
+  min-width: 560px;
   margin-right: 20px;
   .info {
     display: flex;
@@ -358,20 +359,21 @@ export default {
     }
   }
   .footer {
-    display: flex;
     justify-content: space-between;
     margin-bottom: 50px;
     .el-button {
       margin-left: 10px;
     }
     .footer-left {
-      flex: 1;
+      float: left;
       text-align: left;
+      margin-bottom: 10px;
       .el-tag {
         margin: 0 10px 10px 0;
       }
     }
     .footer-right {
+      float: right;
       .wrong {
         cursor: pointer;
         i {

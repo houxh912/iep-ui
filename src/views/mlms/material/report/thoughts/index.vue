@@ -2,7 +2,7 @@
   <div class="thoughts">
 
     <div class="fillin">
-      <el-input type="textarea" rows=5 v-model="formData.content" placeholder="工作之余，分享一下今天的感想吧" maxlength="300"></el-input>
+      <el-input type="textarea" rows=5 v-model="formData.content" placeholder="工作之余，分享一下今天的感想吧" maxlength="200"></el-input>
       <div class="footer">
         <div class="state">
           <p>是否公开：</p>
@@ -123,6 +123,10 @@ export default {
     },
     loadPage () {
       getThoughtsPage(Object.assign({}, this.params, this.searchData)).then(({data}) => {
+        if (data.data.records.length == 0) {
+          this.$message.info('暂无更多数据')
+          return
+        }
         this.list = this.list.concat(data.data.records)
       })
     },

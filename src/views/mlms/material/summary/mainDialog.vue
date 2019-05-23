@@ -28,10 +28,7 @@
 <el-input type="textarea" v-model="formData.meetingCon" rows=8 maxlength="1000" placeholder="一、简明扼要说明会议精神，如1、2、3......
 二、清晰罗列下一步工作计划，如1、2、3......（关联人员需要着重说明）"></el-input>
         </el-form-item>
-        <el-form-item label="备注：" prop="thoughtsProblem" v-if="formData.type==1">
-          <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000"></el-input>
-        </el-form-item>
-        <el-form-item label="感想与困惑：" prop="thoughtsProblem" v-if="formData.type==0">
+        <el-form-item label="感想与困惑：" prop="thoughtsProblem">
           <!-- <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000" :placeholder="tipContent.thoughtsProblem"></el-input> -->
 <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000" placeholder="1、分段发表感想和说明困惑之处，如1、2、3......
 2、感想主要围绕会议中所汇报内容和指导意见如何应用到之后工作中；

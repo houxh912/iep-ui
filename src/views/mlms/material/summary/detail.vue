@@ -90,6 +90,9 @@
     <instr-dialog ref="instrDialog"></instr-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="meeting" :requestFn="createCollect"></collection-dialog>
     <share-dialog ref="share" type="summary"></share-dialog>
+    <!-- <div class="top">
+      <i class="icon-fanhuidingbu"></i>
+    </div> -->
   </basic-container>
 </template>
 <script>
@@ -417,6 +420,27 @@ export default {
   }
   .content {
     margin-bottom: 50px;
+  }
+}
+.top {
+  position: fixed;
+  bottom: 100px;
+  right: 250px;
+  z-index: 100;
+  background-color: #f3f3f3;
+  height: 60px;
+  width: 60px;
+  line-height: 60px;
+  text-align: center;
+  opacity: 0.5;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 3px 3px #c8c8c8;
+  -moz-box-shadow: 0px 3px 3px #c8c8c8;
+  box-shadow: 0px 3px 3px #c8c8c8;
+  i {
+    width: 20px;
+    height: 20px;
   }
 }
 </style>

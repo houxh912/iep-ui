@@ -59,6 +59,7 @@ export default {
     getBirthdayList () {
       getRecruitBirthday().then(({ data }) => {
         this.starList = data.data
+        this.starList = [data.data[0], data.data[0], data.data[0], data.data[0], data.data[0]]
       })
     },
     getThoughtsList () {
@@ -74,8 +75,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.star-list {
+  height: 100%;
+  overflow-y: scroll;
+}
 .thoughts-list,
 .star-list {
+  width: 100%;
   .piece {
     display: flex;
     justify-content: flex-start;
@@ -149,6 +155,29 @@ export default {
     margin-top: -1px;
     border-top-color: #fff;
   }
+}
+::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 6px;
+  background-color: #fff;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ddd;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+  display: none;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+:hover ::-webkit-scrollbar-thumb {
+  display: block;
 }
 </style>
 <style scoped>

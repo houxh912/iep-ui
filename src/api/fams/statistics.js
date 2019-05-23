@@ -18,3 +18,10 @@ export function getPendingPage (query) {
     params: query,
   })
 }
+// 取 3 条
+export function getBudgetList () {
+  return request({
+    url: `${prefixUrl}/budget/list`,
+    method: 'get',
+  })
+}

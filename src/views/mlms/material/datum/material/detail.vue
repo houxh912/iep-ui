@@ -12,10 +12,7 @@
             <div class="open"> 111</div>
             <i class="icon-download icon"></i>
             <div class="down"> 88</div> -->
-          </div>
-          <div class="classes">
-            <div>{{formData.firstClass}}</div>
-            <div>{{formData.secondClass}}</div>
+            <div>{{getClass(formData.firstClass, formData.secondClass).first}} - {{getClass(formData.firstClass, formData.secondClass).second}}</div>
           </div>
         </el-row>
         <el-row class="sub-title">
@@ -114,6 +111,7 @@ import ShareDialog from '@/views/mlms/material/components/shareDialog'
 import wrongDialog from '@/views/mlms/material/components/wrongDialog'
 // import wrongDialog from './wrongDialog'
 import { mapGetters } from 'vuex'
+import { getConfigureTree } from '@/api/mlms/material/datum/configure'
 
 function commentForm () {
   return {
@@ -162,6 +160,7 @@ export default {
       createCollect,
       pageSize,
       isDelete: true,
+      firstClass: [],
     }
   },
   computed: {
@@ -288,12 +287,30 @@ export default {
         }
       }
     },
+    getClass (first, second) {
+      let obj = {}
+      for (let item of this.firstClass) {
+        if (item.id == first) {
+          obj.first = item.levelName
+          for (let t of item.childrens) {
+            if (t.id == second) {
+              obj.second = t.levelName
+              return obj
+            }
+          }
+        }
+      }
+    },
   },
   created () {
     let params = this.$route.params
     if (params.id && this.$route.name == '查看文档') {
       this.getDataById(params.id)
     }
+    // 获取分类配置
+    getConfigureTree().then(({ data }) => {
+      this.firstClass = data.data
+    })
   },
   beforeRouteUpdate (to, from, next) {
     this.getDataById(to.params.id)

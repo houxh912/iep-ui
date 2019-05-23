@@ -11,6 +11,7 @@
       <div class="btn fx"><i class="iconfont icon-youxiangshixin"></i>分享</div>
       <div class="btn jc"><i class="iconfont icon-zhuyi"></i>纠错</div>
     </div>
+    <div class="classes">{{getClass(formData.firstClass, formData.secondClass).first}} - {{getClass(formData.firstClass, formData.secondClass).second}}</div>
     <div class="introduction">{{formData.intro}}</div>
     <div class="content">
       <iep-html v-model="formData.content"></iep-html>
@@ -29,6 +30,7 @@
 import { downloadCount, getDataById } from '@/api/mlms/material/datum/material'
 import { downloadFile } from '@/api/common'
 import { mapGetters } from 'vuex'
+import { getConfigureTree } from '@/api/mlms/material/datum/configure'
 
 export default {
   data () {
@@ -48,6 +50,7 @@ export default {
       attachFileList: [
         { name: '内网2.0改造项目' },
       ],
+      firstClass: [],
     }
   },
   computed: {
@@ -76,8 +79,29 @@ export default {
         }
       }
     },
+    getClass (first, second) {
+      if (!first || !second) {
+        return {}
+      }
+      let obj = {}
+      for (let item of this.firstClass) {
+        if (item.id == first) {
+          obj.first = item.levelName
+          for (let t of item.childrens) {
+            if (t.id == second) {
+              obj.second = t.levelName
+              return obj
+            }
+          }
+        }
+      }
+    },
   },
   created () {
+    // 获取分类配置
+    getConfigureTree().then(({ data }) => {
+      this.firstClass = data.data
+    })
     let params = this.$route.params
     this.loadData(params.id)
   },
@@ -137,6 +161,9 @@ export default {
       right: 10px;
       font-size: 14px;
     }
+  }
+  .classes {
+    margin: 0 0 10px 50px;
   }
   .introduction {
     margin: 20px 0;

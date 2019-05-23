@@ -27,6 +27,7 @@ const initForm = () => {
     orgName: '', // 组织名 不可编辑
     orgList: [], // 组织名 不可编辑
     staffId: '', // 工号
+    isStaff: false, // 是否设置了工号
     identityMark: [], // 身份标识
     identityMarks: [], // 身份标识
     avatar: '', // 头像

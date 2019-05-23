@@ -17,6 +17,10 @@
             </div>
           </div>
           <div class="info-item">
+            <label>调入部门：</label>
+            <div class="content">{{form.transferDeptList.name}}</div>
+          </div>
+          <div class="info-item">
             <label>创建时间：</label>
             <div class="content">{{form.createTime}}</div>
           </div>

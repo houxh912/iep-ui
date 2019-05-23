@@ -37,10 +37,6 @@
         <span>{{formData.reciver}}</span>
       </el-form-item>
     </el-form>
-    <template slot="footer">
-      <iep-button @click="handleCancel">取消</iep-button>
-      <iep-button type="primary" @click="claimBusiness" v-if="formData.statusKey!=1">认领</iep-button>
-    </template>
   </iep-drawer>
 </template>
 

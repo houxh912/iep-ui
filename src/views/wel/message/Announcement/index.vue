@@ -2,7 +2,7 @@
   <div>
     <basic-container>
       <page-header title="通知公告"></page-header>
-      <iep-tabs v-model="type" :tab-list="tabList" @tab-click="changeType"></iep-tabs>
+      <iep-tabs v-model="type" :tab-list="announcementTypeList" @tab-click="changeType"></iep-tabs>
       <operation-container>
         <template slot="left">
           <iep-button v-if="ims_announcement_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>发布公告</iep-button>
@@ -74,6 +74,13 @@ export default {
     ...mapGetters([
       'permissions',
     ]),
+    announcementTypeList () {
+      if (!this.ims_announcement_add) {
+        return this.tabList.filter(m => m.value !== '1')
+      } else {
+        return this.tabList
+      }
+    },
   },
   created () {
     this.ims_announcement_add = this.permissions['ims_announcement_add']

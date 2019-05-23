@@ -58,11 +58,12 @@ export default {
     handleSuccess (res, file) {
       if (res.code) {
         if (!res.data) {
-          this.$message.error(res.msg)
-        } else {
           this.$message.error('错了哦，请检查文件服务器')
+        } else {
+          this.$message.error(res.msg)
         }
         this.$emit('on-finish', [], false)
+        this.$emit('input', [])
       } else {
         const formatFile = {
           name: file.name,
@@ -72,6 +73,7 @@ export default {
         this.fileList.push(formatFile)
         this.$message.success('上传成功')
         this.$emit('on-finish', this.fileList, true)
+        this.$emit('input', this.fileList)
       }
     },
     handleRemove (file) {

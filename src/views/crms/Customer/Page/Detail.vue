@@ -131,14 +131,17 @@ export default {
           this.formData = data.data
         this.record.collaborations = this.formData.collaborations
         this.record.clientName = this.formData.clientName
-        if (this.formData.preMarketManagerName == '' || this.formData.preDeptName == '') {
+        if (this.formData.preMarketManagerName == '') {
           this.formData.preMarketManagerName = '暂无'
+        }
+        else if (this.formData.preDeptName == '') {
           this.formData.preDeptName = '暂无'
-        } else {
-          if (!this.formData.hasOwnProperty('preMarketManagerName') || !this.formData.hasOwnProperty('preDeptName')) {
-            this.formData.preMarketManagerName = '暂无'
-            this.formData.preDeptName = '暂无'
-          }
+        }
+        else if (!this.formData.hasOwnProperty('preMarketManagerName')) {
+          this.formData.preMarketManagerName = '暂无'
+        }
+        else if (!this.formData.hasOwnProperty('preDeptName')) {
+          this.formData.preDeptName = '暂无'
         }
         this.count.push(data.data.contactNumber, data.data.contactRecordNumber, data.data.programNumber, data.data.contractNumber, 0)
         for (var i = 1; i < this.tabList.length; i++) {

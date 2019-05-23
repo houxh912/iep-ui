@@ -9,8 +9,8 @@
         <span>{{form.nowTime}}</span>
       </el-form-item>
 
-      <iep-form-item class="form-half" prop="leaveType" label-name="请假类型" tip="根据实际情况选择">
-        <iep-dict-select v-model="form.leaveType" dict-name="hrms_levae_type"></iep-dict-select>
+      <iep-form-item class="form-half" prop="levaeType" label-name="请假类型" tip="根据实际情况选择">
+        <iep-dict-select v-model="form.levaeType" dict-name="hrms_levae_type"></iep-dict-select>
       </iep-form-item>
 
       <el-form-item label="请假时长：" class="form-half">

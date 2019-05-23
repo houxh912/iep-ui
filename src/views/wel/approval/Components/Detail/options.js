@@ -49,6 +49,10 @@ const initForm = () => {
     'cc': '', // 抄送人
     'ccList': [], // 抄送人
     'userId': '', // 抄送人
+    'transferDeptList': {
+      name: '',
+    },
+    'leavingType': '',
   }
 }
 const formToVo = (row) => {

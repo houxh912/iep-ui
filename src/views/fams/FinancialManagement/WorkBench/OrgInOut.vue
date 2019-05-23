@@ -1,63 +1,32 @@
 <template>
   <iep-fams-card title="组织收支">
     <template slot="right">
-      <div style="width: 350px;">
+      <!-- <div style="width: 350px;">
         <iep-date-picker v-model="rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" size="small">
         </iep-date-picker>
-      </div>
+      </div> -->
     </template>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-    </iep-table>
+    <el-table :data="tableData" style="width: 100%">
+      <el-table-column prop="createTime" label="创建日期">
+      </el-table-column>
+      <el-table-column prop="actualIncome" label="实际收入">
+      </el-table-column>
+      <el-table-column prop="actualExpenditure" label="实际支出">
+      </el-table-column>
+      <el-table-column prop="budgetExpenditure" label="预算支出">
+      </el-table-column>
+    </el-table>
   </iep-fams-card>
 </template>
 <script>
-import mixins from '@/mixins/mixins'
-import { getAssetsByDate } from '@/api/fams/statistics'
+import { getBudgetList } from '@/api/fams/statistics'
 import IepFamsCard from './IepFamsCard'
 export default {
-  mixins: [mixins],
   components: { IepFamsCard },
   data () {
     return {
       rangeTime: [],
-      columnsMap: [],
-      pickerOptions: {
-        shortcuts: [{
-          text: '最近一周',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', [start, end])
-          },
-        }, {
-          text: '最近一个月',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
-            picker.$emit('pick', [start, end])
-          },
-        }, {
-          text: '最近三个月',
-          onClick (picker) {
-            const end = new Date()
-            const start = new Date()
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
-            picker.$emit('pick', [start, end])
-          },
-        }],
-      },
-      financialData: {
-        '银行存款': 6325.5,
-        '库存现金': 6325.5,
-        '集团往来': 6325.5,
-        '合同应收账款': 6325.5,
-        '融资': 6325.5,
-        '投资': 6325.5,
-        '其他应收款': 6325.5,
-        '组织拆借': 6325.5,
-      },
+      tableData: [],
     }
   },
   created () {
@@ -65,42 +34,9 @@ export default {
   },
   methods: {
     async loadPage () {
-      const { data } = await getAssetsByDate(this.rangeTime)
-      const realData = data.data
-      this.financialData['银行存款'] = realData.bankDeposit
-      this.financialData['库存现金'] = realData.cashInStock
-      this.financialData['集团往来'] = realData.groupContacts
-      this.financialData['合同应收账款'] = realData.contractualReceive
-      this.financialData['融资'] = realData.financing
-      this.financialData['投资'] = realData.investment
-      this.financialData['其他应收款'] = realData.other
-      this.financialData['组织拆借'] = realData.borrow
+      const { data } = await getBudgetList(this.rangeTime)
+      this.tableData = data.data
     },
   },
 }
 </script>
-<style lang="scss" scoped>
-.total-wrapper {
-  display: flex;
-  justify-content: space-around;
-  margin: 20px 0;
-  .total-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-right: 1px solid rgb(233, 233, 233);
-    width: 100%;
-    &:last-child {
-      border-right: none;
-    }
-    .value {
-      font-size: 24px;
-      color: rgb(48, 49, 51);
-    }
-    .label {
-      color: #999;
-    }
-  }
-}
-</style>

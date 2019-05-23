@@ -17,7 +17,6 @@
         <span>{{formData.opportunityDes}}</span>
       </el-form-item>
       <el-form-item label="商机标签：">
-        <!-- <a-tag type="info" class="tag-style" v-for="(item,index) in formData.tags" :key="index">{{item.commonName}}</a-tag> -->
         <iep-tag-detail v-model="formData.tags"></iep-tag-detail>
       </el-form-item>
       <el-form-item label="发布者：">
@@ -37,11 +36,16 @@
         <span>{{formData.reciver}}</span>
       </el-form-item>
     </el-form>
+    <template slot="footer">
+      <iep-button class="btn" @click="handleGoBack">返回</iep-button>
+      <iep-button type="primary" @click="claimBusiness" v-if="this.formData.statusKey == 0" v-show="this.userInfo.userId !==this.formData.creatorId">认领</iep-button>
+    </template>
   </iep-drawer>
 </template>
 
 <script>
 import { claimById } from '@/api/crms/business'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -49,6 +53,11 @@ export default {
       methodName: '',
       drawerShow: false,
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
   },
   methods: {
     handleCancel () {
@@ -73,6 +82,9 @@ export default {
           this.$message.info(`认领失败，${res.data.msg}`)
         }
       })
+    },
+    handleGoBack () {
+      this.drawerShow = false
     },
   },
 }

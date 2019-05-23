@@ -93,7 +93,7 @@ export default {
     ]),
   },
   created () {
-    this.loadPage()
+    this.loadPage({ type: 2 })
   },
   methods: {
     showDrawer (val) {

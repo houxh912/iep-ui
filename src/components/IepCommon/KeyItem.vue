@@ -1,7 +1,9 @@
 <template>
   <div class="icon-box" :class="isChecked !==false ? 'red' : ''">
-    <i :class="icon"></i>
-    <span>{{name}}</span>
+    <div class="item">
+      <i :class="icon"></i>
+      <span>{{name}}</span>
+    </div>
   </div>
 </template>
 
@@ -26,14 +28,17 @@ export default {
 
 <style lang="scss" scoped>
 .icon-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: inline-block;
   margin: 10px 5px;
   padding: 0 10px;
   cursor: pointer;
   color: #333;
   border-right: 1px solid #ddd;
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   i {
     display: inline-block;
     text-align: center;

@@ -16,9 +16,8 @@ export default {
 
 <style lang="scss" scoped>
 .five-key {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: inline-block;
+  padding: 0 10px;
   border: 1px solid #eee;
   border-radius: 5px;
 }

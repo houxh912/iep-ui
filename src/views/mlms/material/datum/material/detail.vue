@@ -13,6 +13,10 @@
             <i class="icon-download icon"></i>
             <div class="down"> 88</div> -->
           </div>
+          <div class="classes">
+            <div>{{formData.firstClass}}</div>
+            <div>{{formData.secondClass}}</div>
+          </div>
         </el-row>
         <el-row class="sub-title">
           <pre>{{formData.intro}}</pre>
@@ -307,6 +311,7 @@ export default {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    flex-wrap: wrap;
     .person {
       flex: 1;
       display: flex;
@@ -330,6 +335,12 @@ export default {
         i {
           font-size: 16px !important;
         }
+      }
+    }
+    .classes {
+      width: 100%;
+      div {
+        display: inline-block;
       }
     }
   }

@@ -69,7 +69,7 @@
         <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload>
         <div style="font-size: 12px;color: #aaa;">{{tipContent.attachFileList}}</div>
       </el-form-item>
-      <el-form-item label="历史版本：" prop="attachFileList">
+      <el-form-item label="历史版本：">
         <div class="file" v-for="(item, index) in formData.fileList" :key="index">
           <div class="download" @click="downLoad(item)">{{item.name}}<span class="tip"></span></div>
         </div>

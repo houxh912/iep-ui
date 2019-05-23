@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table ref="table" class="table" v-loading="isLoadTable" :data="formatData" style="width: 100%;" @selection-change="handleSelectionChange" :header-cell-style="getRowClass" :cell-class-name="cellClassName" :row-style="showRow" v-bind="$attrs" v-on="$listeners">
+    <el-table v-bind="$attrs" ref="table" class="table" v-loading="isLoadTable" :data="formatData" style="width: 100%;" :header-cell-style="headerCellStyle" :cell-class-name="cellClassName" :row-style="rowStyle" @row-click="rowClick" @select="selectLine" @select-all="selectAll">
       <el-table-column v-if="isMutipleSelection" type="selection" :selectable="checkboxInit" width="55" :align="align">
       </el-table-column>
       <el-table-column v-if="isIndex" type="index" width="50" :align="align">
@@ -106,6 +106,43 @@ export default {
       type: Number,
       default: 10,
     },
+    cellClassName: {
+      type: Function,
+      default: ({ row }) => {
+        const { _level } = row
+        if (_level === 1) {
+          return 'cell-master'
+        }
+        if (_level == 2) {
+          return 'cell-child'
+        }
+        if (_level == 3) {
+          return 'cell-sub'
+        }
+      },
+    },
+    rowStyle: {
+      type: Function,
+      default: (row) => {
+        const show = row.row.parent
+          ? row.row.parent._expanded && row.row.parent._show
+          : true
+        row.row._show = show
+        return show
+          ? 'animation:treeTableShow 1s;'
+          : 'display:none;'
+      },
+    },
+    headerCellStyle: {
+      type: Function,
+      default: ({ rowIndex }) => {
+        if (rowIndex == 0) {
+          return 'background:#F2F4F5;color:#000'
+        } else {
+          return ''
+        }
+      },
+    },
   },
   computed: {
     ...mapGetters([
@@ -132,42 +169,11 @@ export default {
     dictJS (item, scope) {
       return keyBy(this.dictGroup[item.dictName], 'value')[scope.row[item.prop]].label
     },
-    cellClassName ({ row }) {
-      const { _level } = row
-      if (_level === 1) {
-        return 'cell-master'
-      }
-      if (_level == 2) {
-        return 'cell-child'
-      }
-      if (_level == 3) {
-        return 'cell-sub'
-      }
-    },
     handleSizeChange (val) {
       this.$emit('size-change', val)
     },
     handleCurrentChange (val) {
       this.$emit('current-change', val)
-    },
-    handleSelectionChange (val) {
-      this.$emit('selection-change', val)
-    },
-    getRowClass ({ rowIndex }) {
-      if (rowIndex == 0) {
-        return 'background:#F2F4F5;color:#000'
-      } else {
-        return ''
-      }
-    },
-    showRow (row) {
-      const show = row.row.parent
-        ? row.row.parent._expanded && row.row.parent._show
-        : true
-      row.row._show = show
-      return show
-        ? 'animation:treeTableShow 1s;'
-        : 'display:none;'
     },
     // 切换下级是否展开
     toggleExpanded (scope) {
@@ -177,6 +183,18 @@ export default {
     // 图标显示
     iconShow (index, record) {
       return index === 0 && record.children && record.children.length > 0
+    },
+    // 整行点击事件
+    rowClick (row, column, event) {
+      this.$emit('row-click', row, column, event)
+    },
+    // 选择单行回调事件
+    selectLine (selection, row) {
+      this.$emit('select', selection, row)
+    },
+    // 全选回调事件
+    selectAll (selection) {
+      this.$emit('select-all', selection)
     },
     // 切换某一行的选中状态
     toggleRowSelection (row, selected) {
@@ -208,29 +226,6 @@ export default {
 .table >>> .cell-child {
   background-color: #fafafa;
 }
-.table >>> .el-checkbox__inner {
-  width: 17px;
-  height: 17px;
-}
-.table >>> .el-checkbox__inner:hover {
-  border-color: #999;
-}
-.table >>> .el-checkbox__inner::after {
-  height: 10px;
-  left: 6px;
-  border-color: #999;
-}
-.table >>> .el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
-  top: 7px;
-  background-color: #999;
-}
-.table >>> .el-checkbox__input.is-checked .el-checkbox__inner,
-.table >>> .el-checkbox__input.is-indeterminate .el-checkbox__inner,
-.table >>> .el-checkbox__input.is-focus .el-checkbox__inner {
-  border-color: #999;
-  background-color: #fff;
-}
-
 span.ms-tree-space {
   display: block;
 }

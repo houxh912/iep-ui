@@ -224,6 +224,11 @@ export default [
         name: '视频详情',
         component: () => import('@/views/app/videoList/'),
       },
+      {
+        path: 'search_detail',
+        name: '搜索结果',
+        component: () => import('@/views/app/searchDetails/'),
+      },
     ],
   },
 ]

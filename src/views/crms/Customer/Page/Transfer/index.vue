@@ -55,7 +55,11 @@ export default {
     handleGoBack () {
       this.$emit('onGoBack')
     },
-    close () {
+    close () {      
+      this.form.user = {
+        id: '',
+        name: '',
+      }
       this.dialogShow = false
     },
     submitForm () {

@@ -53,10 +53,8 @@ export default {
         '银行存款': 6325.5,
         '库存现金': 6325.5,
         '集团往来': 6325.5,
-        '合同应收账款': 6325.5,
         '组织拆借': 6325.5,
-        '融资': 6325.5,
-        '投资': 6325.5,
+        '合同应收账款': 6325.5,
         '其他应收款': 6325.5,
       },
       typeUrlMap: {
@@ -64,8 +62,6 @@ export default {
         '库存现金': '/fams/financial_management/cash_journal',
         '集团往来': '/fams/financial_management/group_current_ccount',
         '合同应收账款': '/fams_spa/accounts_receivable',
-        '融资': '/fams/financial_management/work_bench',
-        '投资': '/fams/financial_management/work_bench',
         '其他应收款': '/fams_spa/other_receivables',
         '组织拆借': '/fams/org_borrow/org_borrow',
       },
@@ -82,8 +78,6 @@ export default {
       this.financialData['库存现金'] = realData.cashInStock
       this.financialData['集团往来'] = realData.groupContacts
       this.financialData['合同应收账款'] = realData.contractualReceive
-      this.financialData['融资'] = realData.financing
-      this.financialData['投资'] = realData.investment
       this.financialData['其他应收款'] = realData.other
       this.financialData['组织拆借'] = realData.borrow
     },

@@ -2,7 +2,10 @@
   <div>
     <operation-container>
       <template slot="left">
-        <div>{{budgetTime}}年度预算</div>
+        <operation-wrapper>
+          <span>{{budgetTime}}年度预算</span>
+          <iep-button @click="handleAddBudget()">新增本年度预算</iep-button>
+        </operation-wrapper>
       </template>
       <template slot="right">
         <el-select v-model="budgetId" placeholder="请选择年份" size="small" @change="handleChange">
@@ -31,7 +34,7 @@
   </div>
 </template>
 <script>
-import { getBudgetYearList, getBudgetQuarterList, getBudgetYearById, putBudgetYearRelation } from '@/api/fams/budget'
+import { getBudgetYearList, getBudgetQuarterList, getBudgetYearById, putBudgetYearRelation, postYearBudget } from '@/api/fams/budget'
 import DialogForm from './DialogForm'
 import { initForm } from './options'
 export default {
@@ -49,6 +52,12 @@ export default {
     this.load()
   },
   methods: {
+    handleAddBudget () {
+      const year = new Date().getFullYear()
+      postYearBudget(year).then(() => {
+        this.load()
+      })
+    },
     handleDetail (row) {
       this.$refs['DialogForm'].form = initForm()
       this.$refs['DialogForm'].form.id = this.budgetId

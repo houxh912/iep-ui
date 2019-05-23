@@ -134,7 +134,7 @@ export default {
     },
     //tab切换菜单
     changeType () {
-      this.loadPage()
+      this.searchPage({ ...this.searchForm, type: this.type })
       if (this.type === '2') {
         this.showSelect = true
       } else { this.showSelect = false }
@@ -211,7 +211,8 @@ export default {
     Transfer () {
       if (this.ids.length === 0) {
         this.$message('请勾选需要转移的客户')
-        return false      } else {
+        return false
+      } else {
         this.$refs['transfer'].dialogShow = true
         this.$refs['transfer'].id = this.ids
       }
@@ -227,7 +228,7 @@ export default {
     },
     //加载
     loadPage (param = this.searchForm) {
-      this.loadTable({ ...param, type: this.type }, getCustomerPage, m => {
+      this.loadTable({ ...param }, getCustomerPage, m => {
         return Object.assign(m, { businessType: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
     },

@@ -1,5 +1,5 @@
 <template>
-  <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :headers="headers" :show-file-list="false" :on-success="handleAvatarSuccess">
+  <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :headers="headers" :show-file-list="false" :on-success="handleAvatarSuccess" accept="image/*">
     <div class="no-avatar-wrapper">
       <a-avatar v-if="isShow" :size="64" shape="square" :src="value"></a-avatar>
       <a-avatar v-if="!isShow" shape="square" :size="64" icon="user"></a-avatar>

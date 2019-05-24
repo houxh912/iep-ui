@@ -1,7 +1,7 @@
 <template>
   <div class="execution">
     <basic-container>
-      <avue-crud ref="crud" :page="page" :data="tableData" :table-loading="tableLoading" :option="tableOption" @on-load="getList" @row-update="handleUpdate" @row-save="handleSave" @search-change="searchChange" @refresh-change="refreshChange" @row-del="rowDel">
+      <avue-crud ref="crud" :page="page" :data="tableData" :table-loading="tableLoading" :option="tableOption" @on-load="loadPage" @row-update="handleUpdate" @row-save="handleSave" @search-change="searchChange" @refresh-change="refreshChange" @row-del="rowDel">
         <template slot-scope="scope" slot="menu">
           <el-button type="text" icon="el-icon-plus" size="mini" @click="handleChild(scope.row, scope.index)">子项
           </el-button>
@@ -12,12 +12,9 @@
         </template>
       </avue-crud>
     </basic-container>
-    <el-dialog title="字典子项" :visible.sync="dialogDictChildVisible" width="70%" append-to-body>
-      <dict-child v-if="dialogDictChildVisible" :current-id="currentId"></dict-child>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogDictChildVisible = false">取 消</el-button>
-      </div>
-    </el-dialog>
+    <iep-dialog :dialog-show="dialogShow" title="字典子项" width="70%" @close="dialogShow=false">
+      <dict-child v-if="dialogShow" :current-id="currentId"></dict-child>
+    </iep-dialog>
   </div>
 </template>
 
@@ -40,7 +37,7 @@ export default {
       },
       currentId: 1,
       tableLoading: false,
-      dialogDictChildVisible: false,
+      dialogShow: false,
       tableOption: tableOption,
     }
   },
@@ -50,7 +47,7 @@ export default {
     ...mapGetters(['permissions']),
   },
   methods: {
-    getList (page, params) {
+    loadPage (page, params) {
       this.tableLoading = true
       fetchList(
         Object.assign(
@@ -68,7 +65,7 @@ export default {
     },
     handleChild (row) {
       this.currentId = row.id
-      this.dialogDictChildVisible = true
+      this.dialogShow = true
     },
     /**
      * @title 打开新增窗口
@@ -95,7 +92,7 @@ export default {
           return delObj(row)
         })
         .then(() => {
-          this.getList(this.page)
+          this.loadPage(this.page)
           _this.$message({
             showClose: true,
             message: '删除成功',
@@ -119,7 +116,7 @@ export default {
           message: '修改成功',
           type: 'success',
         })
-        this.getList(this.page)
+        this.loadPage(this.page)
         done()
       })
     },
@@ -137,21 +134,19 @@ export default {
           message: '添加成功',
           type: 'success',
         })
-        this.getList(this.page)
+        this.loadPage(this.page)
         done()
       })
     },
     searchChange (form) {
-      this.getList(this.page, form)
+      this.loadPage(this.page, form)
     },
     /**
      * 刷新回调
      */
     refreshChange () {
-      this.getList(this.page)
+      this.loadPage(this.page)
     },
   },
 }
 </script>
-
-<style lang="scss" scoped></style>

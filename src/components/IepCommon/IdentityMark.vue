@@ -26,6 +26,7 @@ export default {
 </script>
 <style lang="css" scoped>
 .iep2-icon {
+  font-size: 20px;
   width: 1em;
   height: 1em;
   vertical-align: -0.15em;

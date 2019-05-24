@@ -59,3 +59,12 @@ export const getClientList = (id) => {
     method: 'get',
   })
 }
+
+// 客户库首页分页查询（包括模糊搜索）
+export const getPersonPage = (params) => {
+  return request({
+    url: `${prefixUrl}/getPersonPage`,
+    method: 'get',
+    params: params,
+  })
+}

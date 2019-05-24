@@ -3961,19 +3961,7 @@ element-ui@2.4.9:
     resize-observer-polyfill "^1.5.0"
     throttle-debounce "^1.0.1"
 
-element-ui@2.6.3:
-  version "2.6.3"
-  resolved "https://registry.npm.taobao.org/element-ui/download/element-ui-2.6.3.tgz#e5c87ca3cdc988586320c826872720a8cdc7db44"
-  integrity sha1-5ch8o83JiFhjIMgmhycgqM3H20Q=
-  dependencies:
-    async-validator "~1.8.1"
-    babel-helper-vue-jsx-merge-props "^2.0.0"
-    deepmerge "^1.2.0"
-    normalize-wheel "^1.0.1"
-    resize-observer-polyfill "^1.5.0"
-    throttle-debounce "^1.0.1"
-
-element-ui@^2.4.6:
+element-ui@2.8.2, element-ui@^2.4.6:
   version "2.8.2"
   resolved "https://registry.npm.taobao.org/element-ui/download/element-ui-2.8.2.tgz#21a7a4cb92616b0f8b75d4d4e637d3a1cd8c09de"
   integrity sha1-Iaeky5Jhaw+LddTU5jfToc2MCd4=

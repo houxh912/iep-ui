@@ -79,7 +79,7 @@ export default {
     handleSubmit () {
       this.form.validateFields((err, values) => {
         if (!err) {
-          if (values.amount === 0) {
+          if (values.amount < 100) {
             return
           }
           this.$emit('on-data', values)

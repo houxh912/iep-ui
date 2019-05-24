@@ -1,30 +1,26 @@
 <template>
   <div>
-    <el-button type="primary" icon="el-icon-plus" style="margin-bottom: 10px;" @click="handleEdit()">添 加</el-button>
-    <avue-tree-table :option="options">
+    <iep-button type="primary" icon="el-icon-plus" style="margin-bottom: 10px;" @click="handleEdit()">添 加</iep-button>
+    <!-- TODO:expand-all失效 -->
+    <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagedTable="pagedTable" :is-pagination="false" is-tree :expand-all="true">
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button v-if="scope.row._level <= 1" type="text" icon="el-icon-plus" size="mini" @click="handleEdit(scope.row, scope.index, true)">子项
-          </el-button>
-          <el-button type="text" icon="el-icon-check" size="mini" @click="handleEdit(scope.row, scope.index)">编辑
-          </el-button>
-          <el-button type="text" icon="el-icon-delete" size="mini" @click="handleDel(scope.row, scope.index)">删除
-          </el-button>
+          <iep-button v-if="scope.row._level <= 1" type="text" icon="el-icon-plus" size="mini" @click="handleEdit(scope.row, scope.index, true)">子项
+          </iep-button>
+          <iep-button type="text" icon="el-icon-check" size="mini" @click="handleEdit(scope.row, scope.index)">编辑
+          </iep-button>
+          <iep-button type="text" icon="el-icon-delete" size="mini" @click="handleDel(scope.row, scope.index)">删除
+          </iep-button>
         </template>
       </el-table-column>
-    </avue-tree-table>
-    <el-dialog :title="title" :visible.sync="dialogChildVisible" append-to-body>
+    </iep-table>
+    <iep-dialog :dialog-show="dialogShow" :title="`${methodName}字典`" width="60%" @close="loadPage">
       <avue-form ref="form" v-model="row" :option="option" @submit="handleSubmit"></avue-form>
-    </el-dialog>
+    </iep-dialog>
   </div>
 </template>
 <script>
-import {
-  getChild,
-  postChild,
-  putChild,
-  deleteChildById,
-} from '@/api/admin/dict'
+import { getChild, postChild, putChild, deleteChildById } from '@/api/admin/dict'
 export default {
   props: {
     currentId: {
@@ -34,8 +30,31 @@ export default {
   },
   data () {
     return {
+      methodName: '添加',
+      dialogShow: false,
+      pagedTable: [],
+      columnsMap: [
+        {
+          label: 'ID',
+          prop: 'id',
+          width: 100,
+        },
+        {
+          label: '字典值',
+          prop: 'value',
+        },
+        {
+          label: '字典名',
+          prop: 'label',
+        },
+        {
+          label: '排序',
+          prop: 'sort',
+          width: 100,
+        },
+      ],
+      isLoadTable: false,
       id: this.currentId,
-      title: '添加',
       option: {
         emptyBtn: true,
         submitBtn: true,
@@ -76,41 +95,11 @@ export default {
           },
         ],
       },
-      dialogChildVisible: false,
-      data: [],
       row: this._initRow(),
     }
   },
-  computed: {
-    options () {
-      return {
-        expandAll: false,
-        columns: [
-          {
-            text: 'ID',
-            value: 'id',
-            width: 100,
-          },
-          {
-            text: '字典值',
-            value: 'value',
-          },
-          {
-            text: '字典名',
-            value: 'label',
-          },
-          {
-            text: '排序',
-            value: 'sort',
-            width: 100,
-          },
-        ],
-        data: this.data,
-      }
-    },
-  },
   created () {
-    this.getList()
+    this.loadPage()
   },
   methods: {
     _initRow () {
@@ -123,10 +112,12 @@ export default {
         value: '',
       }
     },
-    getList () {
+    loadPage () {
+      this.isLoadTable = true
       getChild(this.id).then(({ data }) => {
-        this.data = data.data
-        this.dialogChildVisible = false
+        this.pagedTable = data.data
+        this.isLoadTable = false
+        this.dialogShow = false
       })
     },
     handleSubmit (row) {
@@ -137,7 +128,7 @@ export default {
         submitChild = postChild
       }
       submitChild(row).then(() => {
-        this.getList()
+        this.loadPage()
       })
     },
     handleEdit (row, index, isChild) {
@@ -153,14 +144,13 @@ export default {
         this.title = `添加至<${row.label}>`
         this.row.parentId = row.id
       }
-      this.dialogChildVisible = true
+      this.dialogShow = true
     },
     handleDel (row) {
       deleteChildById(row.id).then(() => {
-        this.getList()
+        this.loadPage()
       })
     },
   },
 }
 </script>
-<style lang="scss" scoped></style>

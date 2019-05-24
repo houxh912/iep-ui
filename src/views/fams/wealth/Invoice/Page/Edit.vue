@@ -2,7 +2,8 @@
   <div class="iep-page-form">
     <basic-container>
       <page-header :title="`${methodName}发票`" :back-option="backOption">
-        <iep-button type="primary" @click="handleSubmit()">保存</iep-button>
+        <iep-button type="primary" @click="handleSubmit()">存为草稿</iep-button>
+        <iep-button type="primary" @click="handleSubmit(true)">发布</iep-button>
       </page-header>
       <el-table :data="tableData" style="width: 100%" size="small" border show-summary>
         <el-table-column prop="type" label="支出类型">
@@ -101,10 +102,10 @@ export default {
     }
   },
   methods: {
-    handleSubmit () {
+    handleSubmit (isPublish = false) {
       this.form.relations = this.tableData
       this.form.auditorId = this.form.auditor.id
-      this.formRequestFn(this.form).then(({ data }) => {
+      this.formRequestFn(this.form, isPublish).then(({ data }) => {
         if (data.data) {
           this.$message.success('操作成功')
           this.handleGoBack()

@@ -1,7 +1,7 @@
 <template>
   <div class="person-con">
-    <person-left></person-left>
-    <person-right></person-right>
+    <person-left :counts="userInfo.map" :userId="userInfo.id"></person-left>
+    <person-right :userId="userInfo.id"></person-right>
   </div>
 </template>
 
@@ -9,6 +9,11 @@
 import PersonLeft from './PersonLeft/'
 import PersonRight from './PersonRight/'
 export default {
+  props: {
+    userInfo: {
+      type: Object,
+    },
+  },
   components: {
     PersonLeft, PersonRight,
   },

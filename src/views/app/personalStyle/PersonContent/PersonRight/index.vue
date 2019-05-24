@@ -1,8 +1,8 @@
 <template>
   <div class="person-right">
-    <person-mark></person-mark>
-    <feelings></feelings>
-    <relation></relation>
+    <person-mark :userId="userId"></person-mark>
+    <feelings :userId="userId"></feelings>
+    <relation :userId="userId"></relation>
   </div>
 </template>
 
@@ -13,6 +13,12 @@ import Relation from './Relation'
 export default {
   components: {
     PersonMark, Feelings, Relation,
+  },
+  props: {
+    userId: {
+      type: Number,
+      default: 0,
+    },
   },
   data () {
     return {

@@ -25,3 +25,10 @@ export function getBudgetList () {
     method: 'get',
   })
 }
+// 取 3 条
+export function getOrgBudgetList (type) {
+  return request({
+    url: `${prefixUrl}/org/budget/list/${type}`,
+    method: 'get',
+  })
+}

@@ -75,7 +75,7 @@ export default {
       this.$refs['updateDialog'].backOption.isBack = true
       this.$refs['updateDialog'].backType = type
       this.$refs['updateDialog'].formData.content = row.content
-      this.$refs['updateDialog'].formData.subject = row.subject
+      this.$refs['updateDialog'].formData.subject = `转发：${row.subject}`
       this.$refs['updateDialog'].formData.transferList = { // 所有的关联
         projectIds: this.dealWithTransferList(row.projectRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }]),
         summaryIds: [],
@@ -101,8 +101,8 @@ export default {
       this.$refs['updateDialog'].backOption.isBack = true
       this.$refs['updateDialog'].backType = 'detail'
       this.$refs['updateDialog'].formData.receiverList = row.receiverList
-      this.$refs['updateDialog'].formData.content = row.content
-      this.$refs['updateDialog'].formData.subject = row.subject
+      this.$refs['updateDialog'].formData.content = `<br /><br /><p style="text-align: center;"><span style="color: rgb(204, 204, 204);">--------------- &nbsp;下面是上封邮件内容 &nbsp;---------------</span></p><p>发件人：${row.sendRealName}</p>${row.content}`
+      this.$refs['updateDialog'].formData.subject = `回复：${row.subject}`
       this.$refs['updateDialog'].formData.transferList = { // 所有的关联
         projectIds: this.dealWithTransferList(row.projectRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }]),
         summaryIds: [],

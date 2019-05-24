@@ -97,3 +97,11 @@ export const getRecruitList = (id) => {
     method: 'get',
   })
 }
+
+// 频道页用户详情
+export const getUserDetail = (id) => {
+  return request({
+    url: `${prefixUrl}/user_detail/${id}`,
+    method: 'get',
+  })
+}

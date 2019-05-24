@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}部门`" width="400px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}部门`" width="400px" @close="close">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item v-show="form._level!==1" label="上级部门" prop="superiorDepartment">
         <el-input v-model="form.parentName" disabled></el-input>
@@ -21,7 +21,7 @@
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm('form')">提交</iep-button>
-      <iep-button @click="loadPage">取消</iep-button>
+      <iep-button @click="dialogShow = false">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
@@ -48,7 +48,7 @@ export default {
     }
   },
   methods: {
-    loadPage () {
+    close () {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
@@ -61,7 +61,7 @@ export default {
               message: `${this.methodName}成功`,
               type: 'success',
             })
-            this.loadPage()
+            this.close()
           })
         } else {
           return false

@@ -12,7 +12,7 @@
       </a-col>
       <a-col :span="12">
         <iep-description-item title="身份标识：">
-          <iep-identity-mark v-for="item in form.identityMarks" :key="item.id" slot="content" :icon="item.icon" :title="item.label"></iep-identity-mark>
+          <iep-identity-mark v-for="item in form.identityMarks" :key="item.value" slot="content" :icon="item.icon" :title="item.label"></iep-identity-mark>
         </iep-description-item>
       </a-col>
     </a-row>

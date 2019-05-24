@@ -1,23 +1,42 @@
 <template>
   <div>
     <div class="personal">
-      <person-top></person-top>
-      <person-content></person-content>
+      <person-top :userInfo="userInfo"></person-top>
+      <person-content :userInfo="userInfo"></person-content>
     </div>
     <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 
 <script>
+import { getUserDetail } from '@/api/app/hrms/'
 import PersonTop from './PersonTop'
 import PersonContent from './PersonContent/'
+
 export default {
   components: {
     PersonTop, PersonContent,
   },
   data () {
     return {
+      userInfo: {
+        identityMarks: [],
+        tagList: [],
+      },
     }
+  },
+  methods: {
+    // 获取用户信息
+    getUserDetail () {
+      getUserDetail(this.$route.params.id).then(({data}) => {
+        let obj = data.data
+        obj.tagList = obj.abilityTag.concat(obj.learningTag, obj.projectTag)
+        this.userInfo = obj
+      })
+    },
+  },
+  created () {
+    this.getUserDetail()
   },
 }
 </script>

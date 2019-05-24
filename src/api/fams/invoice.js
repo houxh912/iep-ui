@@ -34,19 +34,19 @@ export function getInvoiceById (id) {
   })
 }
 
-export function postInvoice (obj) {
+export function postInvoice (obj, isPublish = false) {
   return request({
     url: `${prefixUrl}/create`,
     method: 'post',
-    data: obj,
+    data: {isPublish,...obj},
   })
 }
 
-export function putInvoice (obj) {
+export function putInvoice (obj, isPublish = false) {
   return request({
     url: `${prefixUrl}/update`,
     method: 'post',
-    data: obj,
+    data: {isPublish,...obj},
   })
 }
 

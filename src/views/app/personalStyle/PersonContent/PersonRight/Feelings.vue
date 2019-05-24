@@ -4,23 +4,40 @@
       <el-button class="btn" type="text" slot="right">发表感想</el-button>
       <div class="dynamicList">
         <div v-for="(item,index) in dynamicList" :key="index" class="piece">
-          <span>{{item.text}}</span>
+          <span>{{item.content}}</span>
         </div>
       </div>
     </IepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getPersonalThoughts } from '@/api/app/cpms/channel'
+
 export default {
+  props: {
+    userId: {
+      type: Number,
+      default: 0,
+    },
+  },
   data () {
     return {
       showClass: 0,
       title: '个人感想',
-      dynamicList: [{ text: '执行力胜过一切竞争力！' }, { text: '现实生活的人生感悟短语' }, { text: '人生最大的痛，其实是无奈' }, { text: '有压力不要压抑，有危机感不要有焦虑感' }, { text: '越是折磨自己的，越是自己在乎的' }, { text: '人生最宝贵的不是你拥有的物质，而是…' }],
+      dynamicList: [],
     }
+  },
+  watch: {
+    userId () {
+      getPersonalThoughts(this.userId).then(({data}) => {
+        this.dynamicList = data.data
+      })
+    },
   },
 }
 </script>
+
 <style lang="scss" scoped>
 .feelings {
   margin-bottom: 30px;

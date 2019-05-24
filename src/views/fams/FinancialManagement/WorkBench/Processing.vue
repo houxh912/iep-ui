@@ -16,7 +16,7 @@
               </a-list-item-meta>
             </a-list-item>
           </a-list>
-          <el-pagination style="text-align:center;" :page-size="pagination.size" :current-page="pagination.current" :pager-count="11" layout="prev, pager, next" :total="pagination.total">
+          <el-pagination style="text-align:center;" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="pagination.size" :current-page="pagination.current" :pager-count="11" layout="prev, pager, next" :total="pagination.total">
           </el-pagination>
         </template>
       </div>

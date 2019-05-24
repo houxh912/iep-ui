@@ -17,11 +17,7 @@
       <page-header title="系统消息"></page-header>
       <operation-container>
         <template slot="left">
-          <el-button-group>
-            <el-button class="iconfont icon-yanjing" @click="handleViewBatch" size="mini"></el-button>
-            <el-button class="iconfont icon-biaoqian" size="mini"></el-button>
-            <el-button class="iconfont icon-shanchu" size="mini"></el-button>
-          </el-button-group>
+          <iep-read-mark-del @on-view-batch="handleViewBatch"></iep-read-mark-del>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">

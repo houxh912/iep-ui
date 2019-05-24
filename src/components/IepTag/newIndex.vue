@@ -1,7 +1,7 @@
 <template>
-  <a-select :value="value" mode="tags" style="width: 100%" :tokenSeparators="[',','；','，',';','、']" @change="handleChange" @search="querySearch" :notFoundContent="fetching ? undefined : null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select" :filterOption="filterOption">
+  <a-select ref="a-select" style="width: 100%" mode="tags" dropdownClassName="iep-contact-dropdown" :value="value" :tokenSeparators="[',','；','，',';','、']" :notFoundContent="fetching ? undefined : null" :getPopupContainer="getPopupContainer" :filterOption="filterOption" :defaultActiveFirstOption="false" @change="handleChange" @search="querySearch">
     <a-spin v-if="fetching" slot="notFoundContent" size="small" />
-    <a-select-option v-for="i in tagResults" :key="i">{{ i }}</a-select-option>
+    <a-select-option v-for="i in filteredOptions" :key="i">{{ i }}</a-select-option>
     <div slot="dropdownRender" slot-scope="menu">
       <v-nodes :vnodes="menu" />
       <a-divider style="margin: 4px 0;" />
@@ -36,6 +36,11 @@ export default {
       tagResults: [],
       count: 0,
     }
+  },
+  computed: {
+    filteredOptions () {
+      return this.tagResults.filter(o => !this.value.includes(o))
+    },
   },
   created () {
     // this.loadTag()

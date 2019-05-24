@@ -7,10 +7,7 @@
           <li><span>接收人：</span><span>{{form.receiverName}}</span></li>
           <li><span>时间：</span><span>{{form.time}}</span></li>
         </ul>
-        <el-button-group>
-          <el-button icon="iconfont icon-biaoqian" size="mini"></el-button>
-          <el-button icon="iconfont icon-shanchu" size="mini"></el-button>
-        </el-button-group>
+        <iep-read-mark-del :enableList="[false, true, true]"></iep-read-mark-del>
       </div>
       <div class="item-con">
         <div class="paragraph">

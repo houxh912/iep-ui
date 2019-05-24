@@ -10,7 +10,7 @@
                 <span class="bgb">{{item.post}}</span>
                 <img :src="item.avatar" class="img">
               </div>
-              <span class="name">{{item.name}}<span class="dn show1" :class="item.isExpert==1?item.show1:''">V</span></span>
+              <span class="name">{{item.name}}<span v-if="item.isExpert==1" class="dn show1" :class="item.isExpert==1?item.show1:''">V</span></span>
             </div>
           </el-carousel-item>
         </el-carousel>
@@ -82,6 +82,7 @@ export default {
     }
     .name {
       line-height: 24px;
+      text-align: center;
     }
     .piece {
       float: left;

@@ -7,3 +7,12 @@ export const getProjectList = (id) => {
     method: 'get',
   })
 }
+
+// 频道页项目分页
+export const getProjectPage = (params) => {
+  return request({
+    url: `${prefixUrl}/project_page`,
+    method: 'get',
+    params: params,
+  })
+}

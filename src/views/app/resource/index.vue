@@ -25,13 +25,6 @@ export default {
     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
     // 可以访问组件实例 `this`
   },
-  created () {
-    this.$notify({
-      title: '注意',
-      message: '此页面正在开发中，当前数据仅供参考。',
-      offset: 60,
-    })
-  },
 }
 </script>
 

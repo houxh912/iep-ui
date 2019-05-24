@@ -1,5 +1,5 @@
 <template>
-  <iep-drawer :drawer-show="drawerShow" type="drawer" :title="methodName+'联系人'" width="40%" @close="loadPage">
+  <iep-drawer :drawer-show="drawerShow" type="drawer" :title="methodName+'联系人'" width="50%" @close="loadPage">
     <el-form :model="form" :rules="rules" ref="formName" label-width="130px" size="small">
       <el-row>
         <el-col :span='12'>

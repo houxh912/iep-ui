@@ -57,7 +57,9 @@ export default {
               visitSend(res.data.data)
             }
             this.dialogShow = false
-            this.$emit('load-page')
+            setTimeout(() => {
+              this.$emit('load-page')
+            }, 2000)
           })
         } else {
           return false

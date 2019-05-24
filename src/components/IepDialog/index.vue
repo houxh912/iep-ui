@@ -1,10 +1,7 @@
 <template>
-  <el-dialog class="iep-dialog" :width="width" :visible="dialogShow" :before-close="handleClose" @close="close" :fullscreen="fullscreen" append-to-body :close-on-click-modal="closeOnClickModal" v-bind="$attrs" v-on="$listeners">
+  <el-dialog class="iep-dialog" :width="width" :visible="dialogShow" append-to-body :close-on-click-modal="closeOnClickModal" v-bind="$attrs" v-on="$listeners">
     <div slot="title" class="dialog-title-box">
       <span class="dialog-title">{{title}}</span>
-      <el-button v-if="isNeedRestore" class="text-icon" type="text" @click="toggleFullscreen">
-        <i class="icon-huanyuan"></i>
-      </el-button>
     </div>
     <el-scrollbar v-if="dialogShow" wrap-class="wrap-dialog" view-class="view-dialog">
       <slot></slot>
@@ -38,43 +35,11 @@ export default {
       default: false,
       type: Boolean,
     },
-    isNeedConfirm: {
-      default: false,
-      type: Boolean,
-    },
-    isNeedRestore: {
-      default: false,
-      type: Boolean,
-    },
-    reminderText: {
-      default: '数据还没保存',
-      type: String,
-      required: false,
-    },
   },
   data () {
     return {
       fullscreen: false,
     }
-  },
-  methods: {
-    toggleFullscreen () {
-      this.fullscreen = !this.fullscreen
-    },
-    handleClose (done) {
-      if (this.isNeedConfirm) {
-        this.$confirm(`${this.reminderText}，确定关闭？`)
-          .then(() => {
-            done()
-          })
-          .catch(() => { })
-      } else {
-        done()
-      }
-    },
-    close () {
-      this.$emit('close', false)
-    },
   },
   watch: {
     dialogShow (n) {
@@ -128,9 +93,5 @@ export default {
 }
 .text-icon {
   color: #333;
-}
-.el-dialog__wrapper >>> .is-fullscreen .el-dialog__body {
-  text-align: initial;
-  max-height: 88vh !important;
 }
 </style>

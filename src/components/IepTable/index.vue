@@ -34,11 +34,12 @@
       </el-table-column>
       <slot></slot>
     </el-table>
-    <iep-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :pagination-option="pagination" :page-sizes="initPageSize" layout="total, sizes, prev, pager, next" prev-text="上一页" next-text="下一页" background></iep-pagination>
+    <iep-pagination v-if="isPagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :pagination-option="pagination" :page-sizes="initPageSize" layout="total, sizes, prev, pager, next" prev-text="上一页" next-text="下一页" background></iep-pagination>
   </div>
 </template>
 
 <script>
+import { pageOption } from '@/const/pageConfig'
 import treeToArray from './eval'
 import keyBy from 'lodash/keyBy'
 import { mapGetters } from 'vuex'
@@ -52,19 +53,23 @@ export default {
     },
     isMutipleSelection: {
       type: Boolean,
-      required: false,
+      default: false,
     },
     isTree: {
       type: Boolean,
-      required: false,
+      default: false,
     },
     isIndex: {
       type: Boolean,
-      required: false,
+      default: false,
+    },
+    isPagination: {
+      type: Boolean,
+      default: true,
     },
     pagination: {
       type: Object,
-      required: true,
+      default: () => pageOption(),
     },
     pagedTable: {
       type: Array,
@@ -72,17 +77,14 @@ export default {
     },
     columnsMap: {
       type: Array,
-      required: false,
       default: () => [],
     },
     dictsMap: {
       type: Object,
-      required: false,
       default: () => { },
     },
     align: {
       type: String,
-      required: false,
       default: 'left',
     },
     checkboxInit: {
@@ -99,7 +101,6 @@ export default {
     },
     expandAll: {
       type: Boolean,
-      required: false,
       default: true,
     },
     pageOptionSize: {
@@ -124,13 +125,9 @@ export default {
     rowStyle: {
       type: Function,
       default: (row) => {
-        const show = row.row.parent
-          ? row.row.parent._expanded && row.row.parent._show
-          : true
+        const show = row.row.parent ? row.row.parent._expanded && row.row.parent._show : true
         row.row._show = show
-        return show
-          ? 'animation:treeTableShow 1s;'
-          : 'display:none;'
+        return show ? 'animation:treeTableShow 1s;-webkit-animation:treeTableShow 1s;' : 'display:none;'
       },
     },
     headerCellStyle: {
@@ -161,7 +158,7 @@ export default {
         tmp = this.pagedTable
       }
       const func = this.evalFunc || treeToArray
-      const args = [tmp, this.expandAll]
+      const args = this.evalArgs ? [tmp, this.expandAll, ...this.evalArgs] : [tmp, this.expandAll]
       return func.apply(null, args)
     },
   },
@@ -182,7 +179,7 @@ export default {
     },
     // 图标显示
     iconShow (index, record) {
-      return index === 0 && record.children && record.children.length > 0
+      return index === 0 && record.childrenLength > 0
     },
     // 整行点击事件
     rowClick (row, column, event) {

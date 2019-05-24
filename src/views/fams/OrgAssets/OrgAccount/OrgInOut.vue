@@ -1,7 +1,16 @@
 <template>
   <div class="total-wrapper">
     <iep-fams-card class="total-item-2" title="组织收支">
+      <template slot="right">
+        <el-radio-group v-model="type" size="small" @change="loadPage">
+          <el-radio-button label="1">月</el-radio-button>
+          <el-radio-button label="2">季</el-radio-button>
+          <el-radio-button label="3">年</el-radio-button>
+        </el-radio-group>
+      </template>
       <el-table :data="tableData" style="width: 100%">
+        <el-table-column prop="createTime" label="创建日期">
+        </el-table-column>
         <el-table-column prop="actualIncome" label="实际收入">
         </el-table-column>
         <el-table-column prop="actualExpenditure" label="实际支出">
@@ -22,12 +31,13 @@
   </div>
 </template>
 <script>
-import { getBudgetList } from '@/api/fams/statistics'
+import { getOrgBudgetList } from '@/api/fams/statistics'
 import IepFamsCard from './IepFamsCard'
 export default {
   components: { IepFamsCard },
   data () {
     return {
+      type: '1',
       rangeTime: [],
       tableData: [],
     }
@@ -37,7 +47,7 @@ export default {
   },
   methods: {
     async loadPage () {
-      const { data } = await getBudgetList(this.rangeTime)
+      const { data } = await getOrgBudgetList(this.type)
       this.tableData = data.data
     },
   },

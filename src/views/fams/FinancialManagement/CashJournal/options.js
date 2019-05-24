@@ -10,39 +10,17 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'number',
+    prop: 'id',
     label: '序号',
   },
   {
-    prop: 'date',
+    prop: 'createTime',
     label: '日期',
   },
   {
-    prop: 'abstract',
-    label: '摘要',
+    prop: 'remark',
+    label: 'summary',
   },
-  // {
-  //   prop: 'money',
-  //   label: '金额',
-  //   children:[
-  //     {
-  //       prop: 'aaaa',
-  //       label: '收入',
-  //     },
-  //     {
-  //       prop: 'bbbb',
-  //       label: '支出',
-  //     },
-  //     {
-  //       prop: 'cccc',
-  //       label: '本期余额',
-  //     },
-  //   ],
-  // },
-  // {
-  //   prop: 'departments',
-  //   label: '备注',
-  // },
 ]
 
 const initForm = () => {
@@ -68,10 +46,9 @@ const formToDto = (row) => {
 
 const initSearchForm = () => {
   return {
-    applicant: '',
-    company: '',
-    cashAccount: '',
-    date: '',
+    year: new Date().getFullYear(),
+    companyId: '0',
+    month: new Date().getMonth()+1,
   }
 }
 

@@ -32,3 +32,19 @@ export function getOrgBudgetList (type) {
     method: 'get',
   })
 }
+// 现金财务日记账
+export function getCashDiaryList (query) {
+  return request({
+    url: `${prefixUrl}/org/cash/diary/list`,
+    method: 'get',
+    params: query,
+  })
+}
+// 银行财务日记账
+export function getBankDiaryList (query) {
+  return request({
+    url: `${prefixUrl}/org/bank/diary/list`,
+    method: 'get',
+    params: query,
+  })
+}

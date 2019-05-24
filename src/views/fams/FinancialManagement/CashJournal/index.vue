@@ -1,60 +1,34 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="现金日记账" :replaceText="replaceText" :data="['国脉海洋']"></page-header>
+      <page-header title="现金日记账"></page-header>
       <operation-container>
         <template slot="left">
-          <div class="table-heading">舟山国脉海洋舟山建行支行（工资支出）2019年四月</div>
+          <iep-select v-model="companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择公司"></iep-select>
         </template>
         <template slot="right">
-          <operation-search @search="searchPage" advance-search>
-            <el-form :model="paramForm" label-width="100px" size="mini">
-              <el-form-item label="关键字：">
-                <el-input v-model="paramForm.applicant"></el-input>
-              </el-form-item>
-              <el-form-item label="所属公司：">
-                <el-select v-model="paramForm.company" placeholder="请选择所属公司">
-                  <el-option v-for="item in company" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="现金账户：">
-                <el-select v-model="paramForm.cashAccount" placeholder="请选择现金账户">
-                  <el-option v-for="item in cashAccount" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="时间：">
-                <el-date-picker v-model="paramForm.date" type="date" placeholder="选择日期">
-                </el-date-picker>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="searchPage">搜索</el-button>
-                <el-button>取消</el-button>
-              </el-form-item>
-            </el-form>
-          </operation-search>
+          <el-date-picker v-model="dateValue" align="right" type="date" placeholder="选择日期" :picker-options="pickerOptions">
+          </el-date-picker>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" show-summary :summary-method="getSummaries">
+      <iep-table :isLoadTable="isLoadTable" :is-pagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" show-summary :summary-method="getSummaries">
         <el-table-column label="金额">
-          <el-table-column prop="income" label="收入">
+          <el-table-column prop="inCome" label="收入">
           </el-table-column>
           <el-table-column prop="expenditure" label="支出">
           </el-table-column>
-          <el-table-column prop="balance" label="本期余额">
+          <el-table-column prop="currentBalance" label="本期余额">
           </el-table-column>
         </el-table-column>
-        <el-table-column prop="remarks" label="备注">
+        <el-table-column prop="remark" label="备注">
         </el-table-column>
       </iep-table>
     </basic-container>
-    <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
   </div>
 </template>
 
 <script>
-import { getFinancialManagementPage } from '@/api/fams/financial_management'
+import { getCashDiaryList } from '@/api/fams/statistics'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap, initSearchForm } from './options'
 export default {
@@ -63,11 +37,36 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      company: '',
+      companyId: '0',
+      dateValue: '',
       cashAccount: '',
-      paramForm: initSearchForm(),
+      pickerOptions: {
+        disabledDate (time) {
+          return time.getTime() > Date.now()
+        },
+        shortcuts: [{
+          text: '今天',
+          onClick (picker) {
+            picker.$emit('pick', new Date())
+          },
+        }, {
+          text: '昨天',
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24)
+            picker.$emit('pick', date)
+          },
+        }, {
+          text: '一周前',
+          onClick (picker) {
+            const date = new Date()
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+            picker.$emit('pick', date)
+          },
+        }],
+      },
+      searchForm: initSearchForm(),
       replaceText: (data) => `（所属公司：${data[0]}）`,
-
     }
   },
   created () {
@@ -75,7 +74,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getFinancialManagementPage)
+      this.loadTable(param, getCashDiaryList)
     },
     getSummaries (param) {
       const { columns, data } = param

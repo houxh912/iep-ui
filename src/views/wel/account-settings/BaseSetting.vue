@@ -16,14 +16,20 @@
             <iep-tag-detail :value="form.orgList" iep-type="org"></iep-tag-detail>
             <a-tag color="orange" @click="$openPage('/wel/org')">加入或创建新组织</a-tag>
           </el-form-item>
+          <el-form-item label="所属部门：">
+            <iep-tag-detail :value="form.deptList"></iep-tag-detail>
+          </el-form-item>
+          <el-form-item label="角色：">
+            <iep-tag-detail :value="form.roleName" iep-type="role"></iep-tag-detail>
+          </el-form-item>
+          <el-form-item label="身份标识：">
+            <iep-identity-mark v-for="item in form.identityMarks" :key="item.value" :icon="item.icon" :title="item.label"></iep-identity-mark>
+          </el-form-item>
           <el-form-item label="资产所属：" class="form-half">
             <iep-div-detail :value="form.deptQm"></iep-div-detail>
           </el-form-item>
           <el-form-item label="工号：" class="form-half">
             <iep-div-detail :value="form.staffId"></iep-div-detail>
-          </el-form-item>
-          <el-form-item label="角色：">
-            <iep-tag-detail :value="form.roleName" iep-type="role"></iep-tag-detail>
           </el-form-item>
           <el-form-item label="岗位：" class="form-half">
             <iep-div-detail :value="form.positionName"></iep-div-detail>
@@ -42,9 +48,6 @@
           </el-form-item>
           <el-form-item label="转正时间：" class="form-half">
             <span>{{form.positiveTime | parseTime('{y}-{m}-{d}')}}</span>
-          </el-form-item>
-          <el-form-item label="所属部门：" class="form-half">
-            <iep-tag-detail :value="form.deptList"></iep-tag-detail>
           </el-form-item>
           <el-form-item class="form-half">
             <span slot="label">

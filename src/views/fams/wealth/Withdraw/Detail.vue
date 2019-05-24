@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="提现提现" :replaceText="replaceText" :backOption="backOption"></page-header>
+      <page-header title="申请提现" :replaceText="replaceText" :backOption="backOption"></page-header>
       <div class="withdraw-wrapper">
         <a-steps :current="current">
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />
@@ -9,19 +9,6 @@
         <keep-alive>
           <component :is="steps[current].content" :data="steps[current].data" @on-data="steps[current].onData" @prev="prev"></component>
         </keep-alive>
-        <!-- <div class="steps-content">
-        </div>
-        <div class="steps-action">
-          <a-button v-if="current < steps.length - 1 && steps[current].nextText" type="primary" @click="next">
-            {{steps[current].nextText}}
-          </a-button>
-          <a-button v-if="current == steps.length - 1" type="primary" @click="$message.success('Processing complete!')">
-            完成
-          </a-button>
-          <a-button v-if="current>0 && steps[current].prevText" style="margin-left: 8px" @click="prev">
-            {{steps[current].prevText}}
-          </a-button>
-        </div> -->
       </div>
     </basic-container>
   </div>

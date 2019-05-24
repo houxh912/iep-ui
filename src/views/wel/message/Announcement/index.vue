@@ -6,14 +6,7 @@
       <operation-container>
         <template slot="left">
           <iep-button v-if="ims_announcement_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>发布公告</iep-button>
-          <el-dropdown size="medium">
-            <iep-button type="default">批量操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="handleViewBatch">已读</el-dropdown-item>
-              <el-dropdown-item>标记</el-dropdown-item>
-              <el-dropdown-item v-if="ims_announcement_edit_del">删除</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+          <iep-read-mark-del @on-view-batch="handleViewBatch"></iep-read-mark-del>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage"></operation-search>
@@ -98,11 +91,9 @@ export default {
       this._handleComfirm(this.multipleSelection, readAnnouncementBatch, '批量已读', '', '操作成功')
     },
     handleDetail (row) {
-      if (this.ims_announcement_view) {
-        this.$router.push({
-          path: `/ims_spa/announcement_detail/${row.id}`,
-        })
-      }
+      this.$router.push({
+        path: `/ims_spa/announcement_detail/${row.id}`,
+      })
     },
     //tab切换菜单
     changeType () {

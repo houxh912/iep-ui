@@ -283,7 +283,7 @@ export default {
     if (this.id) {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = this.$mergeByFirst(initForm(), data.data)
-        this.formData.businessTypeKey = data.data.businessTypeKey.map(m => m.commonId).toString()
+        this.formData.businessTypeKey = data.data.businessTypeKey.map(m => m.commonId)
         this.formData.clientTypeKey = data.data.clientTypeKey.map(m => m.commonId)
         this.formData.districtType = data.data.districtTypeKey
         this.formData.followUpStatus = data.data.followUpStatusKey
@@ -298,6 +298,7 @@ export default {
       this.formData.businessTypeKey = this.data.businessType.map(m => m.commonId)
       this.formData.clientName = this.data.clientName
       this.formData.tags = this.data.tags.map(m => (m.commonName))
+      console.log(this.formData.businessTypeKey)
     }
   },
   computed: {

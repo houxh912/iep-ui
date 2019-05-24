@@ -228,7 +228,7 @@ export default {
     },
     //加载
     loadPage (param = this.searchForm) {
-      this.loadTable({ ...param }, getCustomerPage, m => {
+      this.loadTable({ ...param, type: this.type }, getCustomerPage, m => {
         return Object.assign(m, { businessType: m.businessTypeKey.map(m => m.commonName).join('，') })
       })
     },

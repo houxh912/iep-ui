@@ -25,6 +25,7 @@ import IepNoData from '@/components/IepCommon/NoData'
 import IepToDev from '@/components/IepToDev/'
 import IepTip from '@/components/IepCommon/Tip'
 import IepIdentityMark from '@/components/IepCommon/IdentityMark'
+import IepReadMarkDel from '@/components/IepCommon/ReadMarkDel'
 import IepFiveKay from '@/components/IepCommon/FiveKey'
 import IepKeyItem from '@/components/IepCommon/KeyItem'
 
@@ -122,6 +123,7 @@ Vue.component(IepNoData.name, IepNoData)
 Vue.component(IepToDev.name, IepToDev)
 Vue.component(IepTip.name, IepTip)
 Vue.component(IepIdentityMark.name, IepIdentityMark)
+Vue.component(IepReadMarkDel.name, IepReadMarkDel)
 Vue.component(IepFiveKay.name, IepFiveKay)
 Vue.component(IepKeyItem.name, IepKeyItem)
 

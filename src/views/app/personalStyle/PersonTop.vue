@@ -2,34 +2,27 @@
   <div class="personal-top">
     <el-card class="box-card" shadow="hover">
       <div class="img-con">
-        <div class="img"><img :src="img" alt=""></div>
+        <div class="img"><img :src="userInfo.avatar" alt=""></div>
         <span class="num">GM000001</span>
       </div>
       <div class="text">
         <div class="name-con">
-          <span class="name">{{personName}}</span>
-          <span class="post">{{post}}
+          <span class="name">{{userInfo.name}}</span>
+          <span class="post">{{userInfo.positionName}}
             <!-- <span class="dn show1" :class="show1">V</span>
             <span class="dn show2 el-icon-star-on" :class="show2"></span>
             <span class="dn show3 iconfont icon-huangguan" :class="show2"></span> -->
-            <iep-identity-mark class="mark" icon="iep2-icondongshichang" title="董事长"></iep-identity-mark>
-            <iep-identity-mark class="mark" icon="iep2-iconzongjingli" title="总经理"></iep-identity-mark>
-            <iep-identity-mark class="mark" icon="iep2-icontouziren1" title="投资人"></iep-identity-mark>
-            <iep-identity-mark class="mark" icon="iep2-iconbanchang" title="班长"></iep-identity-mark>
-            <iep-identity-mark class="mark" icon="iep2-iconbanwei" title="班委"></iep-identity-mark>
-            <iep-identity-mark class="mark" icon="iep2-iconweiyuanhuizhuren" title="委员会主任"></iep-identity-mark>
-            <iep-identity-mark class="mark" icon="iep2-iconweiyuanhui" title="委员会"></iep-identity-mark>
-            <iep-identity-mark class="mark" icon="iep2-iconzhuanjia1" title="专家"></iep-identity-mark>
+            <iep-identity-mark class="mark" :icon="item.icon" :title="item.label" v-for="(item, index) in userInfo.identityMarks" :key="index"></iep-identity-mark>
           </span>
         </div>
-        <span class="autograph">个性签名：{{autograph}}</span>
+        <span class="autograph">个性签名：{{userInfo.signName}}</span>
         <div class="classTags">
           <div class="classTag">
-            <el-tag type="white" v-for="item in tags" :key="item.id">{{item.tag}}</el-tag>
+            <el-tag type="white" v-for="(item, index) in userInfo.tagList.slice(0, 5)" :key="index">{{item}}</el-tag>
           </div>
           <el-button class="text-btn" type="text" @click="show"><span :class="isShow?'hide':'dib'">展示全部</span><span :class="isShow?'dib':'hide'">收起全部</span><i class="el-icon--right" :class="isShow?'el-icon-arrow-up':'el-icon-arrow-down'"></i></el-button>
           <div class="classTag" v-show="isShow">
-            <el-tag type="white" v-for="item1 in tags1" :key="item1.id">{{item1.tag1}}</el-tag>
+            <el-tag type="white" v-for="(item, index) in userInfo.tagList" :key="index">{{item}}</el-tag>
           </div>
         </div>
       </div>
@@ -50,52 +43,22 @@
     </el-card>
   </div>
 </template>
+
 <script>
+
 export default {
+  props: {
+    userInfo: {
+      type: Object,
+      default: () => {},
+    },
+  },
   data () {
     return {
       isShow: false,
-      img: require('./img/pr1.jpg'),
-      personName: '何舟杰',
-      post: '后端开发工程师',
       show1: 'show',
       show2: 'show',
       show3: 'show',
-      autograph: '做中学，学中悟，悟中得！',
-      tags: [
-        {
-          tag: '后端开发',
-        },
-        {
-          tag: '系统架构',
-        },
-        {
-          tag: '数据库规划',
-        },
-        {
-          tag: 'PHP开发',
-        },
-        {
-          tag: '项目管理',
-        },
-      ],
-      tags1: [
-        {
-          tag1: '后端开发',
-        },
-        {
-          tag1: '系统架构',
-        },
-        {
-          tag1: '数据库规划',
-        },
-        {
-          tag1: 'PHP开发',
-        },
-        {
-          tag1: '项目管理',
-        },
-      ],
       labList: [
         {
           data: '670',

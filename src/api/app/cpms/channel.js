@@ -40,3 +40,11 @@ export function getThoughtsList () {
     method: 'get',
   })
 }
+
+// 频道页个人感想
+export function getPersonalThoughts (id) {
+  return request({
+    url: `${prefixUrl}/personal_thoughts/${id}`,
+    method: 'get',
+  })
+}

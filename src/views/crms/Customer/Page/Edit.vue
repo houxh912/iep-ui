@@ -72,18 +72,10 @@
               <iep-tip :content="tipContent.businessTypeKey"></iep-tip>
               :
             </span>
-            <!-- <el-checkbox-group v-model="formData.businessTypeKey">
-              <el-checkbox v-for="item in dictGroup['crms_business_type']" :key="item.value" :label="item.value">{{item.label}}</el-checkbox>
-            </el-checkbox-group> -->
             <businessType v-model="formData.businessTypeKey"></businessType>
           </el-form-item>
           <el-form-item label="" prop="specificBusinessType">
             <el-input v-model="formData.specificBusinessType" placeholder="请务必结合客户需求准确填写业务类型"></el-input>
-            <!-- <el-col class="col-tips" v-for="(item,index) in businessType" :key="index">
-              <IepTip :content="item.name">
-              </IepTip>
-              {{item.name}}
-            </el-col> -->
           </el-form-item>
           <el-form-item label="客户关系：" prop="clientRela">
             <span slot="label">
@@ -298,7 +290,6 @@ export default {
       this.formData.businessTypeKey = this.data.businessType.map(m => m.commonId)
       this.formData.clientName = this.data.clientName
       this.formData.tags = this.data.tags.map(m => (m.commonName))
-      console.log(this.formData.businessTypeKey)
     }
   },
   computed: {

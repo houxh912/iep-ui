@@ -1,7 +1,7 @@
 <template>
   <div class="type">
     <div class="tags">
-      <el-tag type="info" v-for="(item, index) in list" :key="index" closable @close="tagClose(item, index)">{{item.label}}</el-tag>
+      <el-tag type="info" v-for="(item, index) in getList" :key="index" closable @close="tagClose(item, index)">{{item.label}}</el-tag>
     </div>
     <div class="first">
       <el-select v-model="type_one" placeholder="请选择" @change="changeValue">
@@ -34,6 +34,13 @@ export default {
       } else {
         return this.dictGroup.prms_business_type[this.type_one].children
       }
+    },
+    getList () {
+      let data = []
+      for (let item of this.list) {
+        data.push(this.getTagsList(item))
+      }
+      return data
     },
   },
   data () {
@@ -84,7 +91,7 @@ export default {
         // 长度变长，添加了数据
         let data = this.getTagsList([val[val.length - 1]])
         this.secondList.push(data)
-        this.list.push(data)
+        this.list.push(data.value)
       } else {
         // 长度变短，删减了数据
         for (let index in this.secondList) {
@@ -96,7 +103,7 @@ export default {
           if (!state) {
             this.secondList.splice(index, 1)
             for (let index in this.list) {
-              if (this.list[index].value == item.value) {
+              if (this.list[index] == item.value) {
                 this.list.splice(index, 1)
                 return
               }
@@ -122,30 +129,29 @@ export default {
         }
       }
     },
+    initList (newVal) {
+      this.init = true
+      let list = newVal
+      let data = []
+      for (let item of list) {
+        data.push(this.getTagsList(item))
+      }
+      this.list = data
+    },
   },
   watch: {
     value (newVal) {
-      if (!this.init) {
-        this.init = true
-        let list = newVal
-        let data = []
-        for (let item of list) {
-          data.push(this.getTagsList(item))
-        }
-        this.list = data
-      }
-
+      this.list = newVal
     },
     list: {
       handler (newVal) {
-        let list = []
-        for (let item of newVal) {
-          list.push(item.value)
-        }
-        this.$emit('input', list)
+        this.$emit('input', newVal)
       },
     },
     deep: true,
+  },
+  created () {
+    this.list = this.value
   },
 }
 </script>

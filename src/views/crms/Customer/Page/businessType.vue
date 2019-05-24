@@ -38,6 +38,7 @@ export default {
   },
   data () {
     return {
+      init: false,
       list: [], // 展示的tag
       type_one: '',
       type_two: [],
@@ -124,12 +125,16 @@ export default {
   },
   watch: {
     value (newVal) {
-      let list = newVal === '' ? [] : newVal.split(',')
-      let data = []
-      for (let item of list) {
-        data.push(this.getTagsList(item))
+      if (!this.init) {
+        this.init = true
+        let list = newVal
+        let data = []
+        for (let item of list) {
+          data.push(this.getTagsList(item))
+        }
+        this.list = data
       }
-      this.list = data
+
     },
     list: {
       handler (newVal) {
@@ -137,10 +142,10 @@ export default {
         for (let item of newVal) {
           list.push(item.value)
         }
-        this.$emit('input', list.map(Number))
+        this.$emit('input', list)
       },
-      deep: true,
     },
+    deep: true,
   },
 }
 </script>

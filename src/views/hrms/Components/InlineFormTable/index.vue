@@ -27,20 +27,20 @@
           <template v-if="scope.row.editable">
             <span v-if="scope.row.isNew">
               <iep-button type="text" size="mini" @click="saveRow(scope.row.id)">添加</iep-button>
-              <a-divider type="vertical" />
+              <iep-divider type="vertical" />
               <a-popconfirm title="是否要删除此数据？" okText="确认" cancelText="取消" @confirm="remove(scope.row.id)">
                 <iep-button type="text" size="mini">删除</iep-button>
               </a-popconfirm>
             </span>
             <span v-else>
               <iep-button type="text" size="mini" @click="saveRow(scope.row.id)">更新</iep-button>
-              <a-divider type="vertical" />
+              <iep-divider type="vertical" />
               <iep-button type="text" size="mini" @click="cancel(scope.row.id)">取消</iep-button>
             </span>
           </template>
           <span v-else>
             <iep-button v-if="!(onlyLastCanEdit && columns.length-1 === idx)" type="text" size="mini" @click="toggle(scope.row.id)">编辑</iep-button>
-            <a-divider type="vertical" />
+            <iep-divider type="vertical" />
             <a-popconfirm title="是否要删除此数据？" okText="确认" cancelText="取消" @confirm="remove(scope.row.id)">
               <iep-button type="text" size="mini">删除</iep-button>
             </a-popconfirm>

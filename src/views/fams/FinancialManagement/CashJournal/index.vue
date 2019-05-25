@@ -1,17 +1,16 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="现金日记账"></page-header>
+      <page-header title="现金日记账" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-select v-model="companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择公司"></iep-select>
+          <iep-select v-model="companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择公司" @change="searchPage()"></iep-select>
         </template>
         <template slot="right">
-          <el-date-picker v-model="dateValue" align="right" type="date" placeholder="选择日期" :picker-options="pickerOptions">
-          </el-date-picker>
+          <iep-date-picker v-model="yearMonth" align="right" type="month" placeholder="选择年月" @change="searchPage()"></iep-date-picker>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :is-pagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" show-summary :summary-method="getSummaries">
+      <iep-table :isLoadTable="isLoadTable" :is-pagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" show-summary :summary-method="getSummaries">
         <el-table-column label="金额">
           <el-table-column prop="inCome" label="收入">
           </el-table-column>
@@ -29,50 +28,44 @@
 
 <script>
 import { getCashDiaryList } from '@/api/fams/statistics'
-import mixins from '@/mixins/mixins'
-import { columnsMap, dictsMap, initSearchForm } from './options'
+import { columnsMap, initSearchForm, initNow, getYear, getMonth } from './options'
 export default {
-  mixins: [mixins],
   data () {
     return {
-      dictsMap,
       columnsMap,
-      companyId: '0',
-      dateValue: '',
-      cashAccount: '',
-      pickerOptions: {
-        disabledDate (time) {
-          return time.getTime() > Date.now()
-        },
-        shortcuts: [{
-          text: '今天',
-          onClick (picker) {
-            picker.$emit('pick', new Date())
-          },
-        }, {
-          text: '昨天',
-          onClick (picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24)
-            picker.$emit('pick', date)
-          },
-        }, {
-          text: '一周前',
-          onClick (picker) {
-            const date = new Date()
-            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-            picker.$emit('pick', date)
-          },
-        }],
-      },
+      yearMonth: initNow(),
+      companyId: '',
+      isLoadTable: true,
+      pagedTable: [],
       searchForm: initSearchForm(),
-      replaceText: (data) => `（所属公司：${data[0]}）`,
+      statistics: [0, 0],
+      replaceText: (data) => `（累计总支出：${data[0]}元，累计总收入：${data[1]}元）`,
     }
+  },
+  computed: {
+    newSearchForm () {
+      return {
+        companyId: this.companyId,
+        year: getYear(this.yearMonth),
+        month: getMonth(this.yearMonth) + 1,
+      }
+    },
   },
   created () {
     this.loadPage()
   },
   methods: {
+    async loadTable (param, requestFn) {
+      this.isLoadTable = true
+      const { data } = await requestFn({ ...param, ...this.pageOption })
+      this.companyId = data.data.companyId
+      this.pagedTable = data.data.diaryList
+      this.statistics = [data.data.expenditureTotal, data.data.inComeTotal]
+      this.isLoadTable = false
+    },
+    searchPage () {
+      this.loadPage(this.newSearchForm)
+    },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getCashDiaryList)
     },
@@ -96,7 +89,7 @@ export default {
           }, 0)
           sums[index] += ' 元'
         } else {
-          sums[index] = 'N/A'
+          sums[index] = ''
         }
       })
 

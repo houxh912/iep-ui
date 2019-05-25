@@ -17,7 +17,6 @@ import IepFroalaEditor from '@/components/IepFroalaEditor/'
 import IepHtml from '@/components/IepHtml/'
 
 // 公共组件
-import IepButton from '@/components/IepCommon/Button'
 import IepPagination from '@/components/IepCommon/Pagination'
 import IepTabs from '@/components/IepCommon/Tabs'
 import IepTabScroll from '@/components/IepTabScroll/'
@@ -115,7 +114,6 @@ Vue.component(IepFroalaEditor.name, IepFroalaEditor)
 Vue.component(IepHtml.name, IepHtml)
 
 // 公共组件
-Vue.component(IepButton.name, IepButton)
 Vue.component(IepPagination.name, IepPagination)
 Vue.component(IepTabs.name, IepTabs)
 Vue.component(IepTabScroll.name, IepTabScroll)

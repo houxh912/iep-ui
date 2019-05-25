@@ -6,7 +6,7 @@
           <div class="logo" @click="$openPage('/')"></div>
         </el-tooltip>
         <a-dropdown>
-          <a href="#">
+          <a>
             国脉智慧平台
             <a-icon type="down" />
           </a>

@@ -31,7 +31,7 @@
         </el-table-column>
       </el-table>
       <iep-button style="width: 100%; margin-top: 5px; margin-bottom: 8px" icon="el-icon-plus" @click="newMember" plain>新增</iep-button>
-      <a-divider />
+      <iep-divider />
       <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="140px" size="small">
         <iep-form-item class="form-half" prop="referType" label-name="发票类型">
           <el-select size="small" v-model="form.referType" placeholder="请选择" clearable>

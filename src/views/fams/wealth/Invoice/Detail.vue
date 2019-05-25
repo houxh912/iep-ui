@@ -21,7 +21,7 @@
             </template>
           </el-table-column>
         </el-table>
-        <a-divider />
+        <iep-divider />
         <iep-form-item class="form-half" label-name="发票类型">
           <iep-div-detail :value="dictsMap.referType[form.referType]"></iep-div-detail>
         </iep-form-item>

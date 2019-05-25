@@ -21,7 +21,7 @@
           <span class="message-text"> {{userInfo.orgName}} 现在无所属联盟 。</span>
         </template>
       </div>
-      <a-divider />
+      <iep-divider />
       <div class="change-record">
         <span>查看组织变更记录>></span>
       </div>

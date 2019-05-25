@@ -1,12 +1,4 @@
-import { mergeByFirst } from '@/util/util'
-// org config options
-const dictsMap = {
-  status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
-  },
-}
+import { initNow, getYear, getMonth } from '@/util/date'
 
 const columnsMap = [
   {
@@ -19,30 +11,9 @@ const columnsMap = [
   },
   {
     prop: 'remark',
-    label: 'summary',
+    label: '摘要',
   },
 ]
-
-const initForm = () => {
-  return {
-    isOpen: false,
-    intro: '',
-  }
-}
-
-const initDtoForm = () => {
-  return {
-    isOpen: false,
-    intro: '',
-  }
-}
-
-const formToDto = (row) => {
-  const newForm = mergeByFirst(initDtoForm(), row)
-  newForm.positionId = row.position[row.position.length - 1]
-  newForm.deptId = row.dept[row.dept.length - 1]
-  return newForm
-}
 
 const initSearchForm = () => {
   return {
@@ -52,4 +23,4 @@ const initSearchForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initForm, formToDto, initSearchForm }
+export { columnsMap, initSearchForm, initNow, getYear, getMonth }

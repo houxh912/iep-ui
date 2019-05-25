@@ -7,7 +7,7 @@
           <li>
             <operation-wrapper>
               <span>发布人：</span>
-              <iep-hover-card disabled :obj="form.sender"></iep-hover-card>
+              <iep-hover-card :obj="form.sender"></iep-hover-card>
             </operation-wrapper>
           </li>
           <!-- <li>
@@ -19,7 +19,7 @@
           </li> -->
           <li><span>时间：</span><span>{{form.time}}</span></li>
         </ul>
-        <iep-read-mark-del :enableList="[false, true, true]"></iep-read-mark-del>
+        <iep-read-mark-del :enableList="[false, true, false]"></iep-read-mark-del>
       </div>
       <div class="item-con">
         <div class="paragraph">

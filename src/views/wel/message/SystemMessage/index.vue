@@ -17,7 +17,7 @@
       <page-header title="系统消息"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-read-mark-del @on-view-batch="handleViewBatch"></iep-read-mark-del>
+          <iep-read-mark-del :enableList="[true, true, false]" @on-view-batch="handleViewBatch"></iep-read-mark-del>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">

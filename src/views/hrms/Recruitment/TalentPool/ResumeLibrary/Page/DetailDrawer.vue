@@ -34,7 +34,7 @@
       </a-col>
     </a-row>
 
-    <a-divider />
+    <iep-divider />
     <p :style="pStyle">求职意向</p>
 
     <a-row>
@@ -61,7 +61,7 @@
       </a-col>
     </a-row>
 
-    <a-divider />
+    <iep-divider />
     <p :style="pStyle">联系方式</p>
 
     <a-row>
@@ -79,7 +79,7 @@
       </a-col>
     </a-row>
 
-    <a-divider />
+    <iep-divider />
     <p :style="pStyle">详细信息</p>
 
     <a-row>
@@ -151,7 +151,7 @@
       </a-col>
     </a-row>
 
-    <a-divider />
+    <iep-divider />
     <p :style="pStyle">相关信息</p>
     <div>学习情况：</div>
     <inline-form-table-detail :data="form.eduSituation" :columns="studyColumns"></inline-form-table-detail>

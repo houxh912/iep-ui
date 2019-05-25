@@ -18,7 +18,7 @@
         <i class="icon-bumen"></i>组织数量：{{form.orgNum}}
       </p>
     </div>
-    <a-divider :dashed="true" />
+    <iep-divider :dashed="true" />
 
     <div class="account-center-team">
       <div class="teamTitle">
@@ -45,7 +45,7 @@
         </div>
       </a-spin>
     </div>
-    <!-- <a-divider />
+    <!-- <iep-divider />
     <a-list itemLayout="horizontal" :dataSource="data">
       <a-list-item slot="renderItem" slot-scope="item, index" :key="index">
         <a-list-item-meta>

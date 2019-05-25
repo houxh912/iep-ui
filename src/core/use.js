@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import '@/core/components_use'
+import '@/core/custom_use'
 import '@/core/editor_use'
 import '@/core/charts_use'
 

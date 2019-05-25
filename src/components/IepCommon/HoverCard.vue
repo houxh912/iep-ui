@@ -1,22 +1,44 @@
 <template>
-  <a-popover :title="obj.name" trigger="hover" :visible="hovered" @visibleChange="handleHoverChange">
-    <div slot="content">{{obj.name}}</div>
-    <a-popover :title="obj.name" trigger="click" :visible="clicked" @visibleChange="handleClickChange">
-      <div slot="content">
-        <div>{{obj.name}}的详情信息</div>
-        <a @click="hide">关闭</a>
-      </div>
-      <a-button size="small" :type="type">{{obj.name}}</a-button>
-    </a-popover>
-  </a-popover>
+  <el-popover placement="bottom" @show="handleClickChange" popper-class="popover-wrapper-no-padding" :visible-arrow="false">
+    <a-card style="width: 300px">
+      <!-- <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" slot="cover" /> -->
+      <!-- <template class="ant-card-actions" slot="actions">
+            <a-icon type="setting" />
+            <a-icon type="edit" />
+            <a-icon type="ellipsis" />
+          </template> -->
+      <a-card-meta :title="cardData.name" :description="cardData.desc">
+        <a-avatar slot="avatar" :src="cardData.avatar" />
+      </a-card-meta>
+    </a-card>
+    <a-button slot="reference" size="small" :type="type">{{obj.name}}</a-button>
+  </el-popover>
 </template>
 <script>
+import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
+const filterUser = (data) => {
+  return {
+    avatar: data.avatar,
+    name: data.name,
+    desc: data.roleName.join('，'),
+  }
+}
+const functionMap = {
+  user: getEmployeeProfileById,
+}
+const dataFilterMap = {
+  user: filterUser,
+}
 export default {
   name: 'IepHoverCard',
   props: {
     disabled: {
       type: Boolean,
       default: false,
+    },
+    detailType: {
+      type: String,
+      default: 'user',
     },
     type: {
       type: String,
@@ -29,25 +51,46 @@ export default {
   },
   data () {
     return {
-      clicked: false,
-      hovered: false,
+      cardData: {
+        avatar: '',
+        name: '',
+        desc: '',
+      },
     }
   },
+  computed: {
+    requestFunction () {
+      return functionMap[this.detailType]
+    },
+    filterFunction () {
+      return dataFilterMap[this.detailType]
+    },
+  },
   methods: {
-    hide () {
-      this.clicked = false
-      this.hovered = false
+    loadDetail () {
+      this.requestFunction(this.obj.id).then(({ data }) => {
+        this.cardData = this.filterFunction(data.data)
+      })
     },
-    handleHoverChange (visible) {
+    handleClickChange () {
       if (!this.disabled) {
-        this.clicked = false
-        this.hovered = visible
+        this.loadDetail()
       }
-    },
-    handleClickChange (visible) {
-      this.clicked = visible
-      this.hovered = false
     },
   },
 }
 </script>
+<style>
+.popover-wrapper-no-padding {
+  padding: 0 !important;
+}
+</style>
+
+<style lang="scss" scoped>
+.card-data-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>

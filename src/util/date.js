@@ -28,4 +28,12 @@ const calcDate = (date1, date2) => {
   }
 }
 
-export { initNow, calcDate }
+const getYear = (date) => {
+  return moment(date).year()
+}
+
+const getMonth = (date) => {
+  return moment(date).month()
+}
+
+export { initNow, calcDate, getYear, getMonth }

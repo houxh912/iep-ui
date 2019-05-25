@@ -4,7 +4,7 @@
     <a-select-option v-for="i in filteredOptions" :key="i">{{ i }}</a-select-option>
     <div slot="dropdownRender" slot-scope="menu">
       <v-nodes :vnodes="menu" />
-      <a-divider style="margin: 4px 0;" />
+      <iep-divider style="margin: 4px 0;" />
       <div style="padding: 8px;">
         <a-icon type="tag" /> 共找到 {{count}} 个相关标签
       </div>

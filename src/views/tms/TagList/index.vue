@@ -64,9 +64,9 @@
         <el-table-column prop="operation" align="center" label="操作" width="200">
           <template slot-scope="scope">
             <el-button @click="handleAddToMerge(scope.row)" type="text" size="small">合并</el-button>
-            <a-divider type="vertical" />
+            <iep-divider type="vertical" />
             <el-button :disabled="!gov_tag_edit" @click="handleEdit(scope.row)" type="text" size="small">修改</el-button>
-            <a-divider type="vertical" />
+            <iep-divider type="vertical" />
             <el-button :disabled="!gov_tag_del" @click="handleDeleteTag(scope.row)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>

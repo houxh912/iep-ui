@@ -26,7 +26,7 @@
         <iep-div-detail :value="`${data.amount}元`"></iep-div-detail>
       </iep-form-item>
       <template v-if="!data.isOut && data.status === 6">
-        <a-divider />
+        <iep-divider />
         <iep-form-item label-name="还款公司">
           <iep-select v-model="borrowInRepayCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择收入公司"></iep-select>
         </iep-form-item>

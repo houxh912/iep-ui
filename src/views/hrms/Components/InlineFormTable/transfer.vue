@@ -11,7 +11,7 @@
       <el-table-column label="操作" width="100">
         <template slot-scope="scope">
           <!-- <iep-button type="text" size="mini" @click="handleEdit(scope.row)">编辑</iep-button>
-          <a-divider type="vertical" /> -->
+          <iep-divider type="vertical" /> -->
           <a-popconfirm title="是否要删除此数据？" okText="确认" cancelText="取消" @confirm="handleRemove(scope.row)">
             <iep-button type="text" size="mini">删除</iep-button>
           </a-popconfirm>

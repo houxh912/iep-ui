@@ -61,7 +61,7 @@
               </div>
             </template>
           </operation-container>
-          <a-divider />
+          <iep-divider />
           <v-chart :forceFit="true" :height="height" :data="data" :scale="scale">
             <v-tooltip />
             <v-axis />

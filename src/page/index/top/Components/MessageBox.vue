@@ -11,10 +11,10 @@
             </div>
           </div>
         </div>
-        <a-divider v-if="messageList.length-1 !== idx" :key="-item.id" />
+        <iep-divider v-if="messageList.length-1 !== idx" :key="-item.id" />
       </template>
     </el-scrollbar>
-    <a-divider />
+    <iep-divider />
     <div class="msg-footer">
       <a-button type="dashed" @click="handleOpen()" block>查看更多</a-button>
     </div>

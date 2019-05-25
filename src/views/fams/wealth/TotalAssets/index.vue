@@ -45,7 +45,7 @@
               </div>
             </template>
           </operation-container>
-          <a-divider />
+          <iep-divider />
           <ve-histogram :data="chartData" :settings="chartSettings" :extend="chartExtend" :colors="colors"></ve-histogram>
         </el-card>
       </div>

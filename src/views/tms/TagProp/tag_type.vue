@@ -22,9 +22,9 @@
       <el-table-column label="操作" width="250">
         <template slot-scope="scope">
           <el-button :disabled="scope.row.parentId===-1 || scope.row._level >= 4" @click="handleAddChild(scope.row)" type="text" size="small">添加子分类</el-button>
-          <a-divider type="vertical" />
+          <iep-divider type="vertical" />
           <el-button :disabled="!gov_tagType_edit || scope.row.parentId===-1" @click="handleClick(scope.row)" type="text" size="small">修改</el-button>
-          <a-divider type="vertical" />
+          <iep-divider type="vertical" />
           <el-button :disabled="!gov_tagType_del || scope.row.parentId===-1" @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>

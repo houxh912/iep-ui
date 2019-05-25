@@ -5,9 +5,6 @@ import '@/styles/reset.css'
 import '@/styles/theme/index.scss'
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import {
-  Scrollbar,
-  Timeline,
-  timelineItem,
   Pagination,
   Dialog,
   Autocomplete,
@@ -54,12 +51,14 @@ import {
   Col,
   Upload,
   Progress,
+  // Spinner,
   Badge,
   Card,
   Rate,
   Steps,
   Step,
   Carousel,
+  Scrollbar,
   CarouselItem,
   Collapse,
   CollapseItem,
@@ -75,15 +74,25 @@ import {
   MessageBox,
   Message,
   Notification,
+  Timeline,
+  TimelineItem,
+  Link,
+  // Divider,
+  // Image,
+  // Calendar,
 } from 'element-ui'
 
 // Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 }
 
 Vue.component(CollapseTransition.name, CollapseTransition)
 Vue.use(CollapseTransition)
+// Vue.use(Image)
+// Vue.use(Calendar)
+// Vue.use(Divider)
+Vue.use(Link)
 Vue.use(Scrollbar)
 Vue.use(Timeline)
-Vue.use(timelineItem)
+Vue.use(TimelineItem)
 Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Autocomplete)

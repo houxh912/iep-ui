@@ -18,7 +18,7 @@
       <el-table-column prop="operation" label="操作">
         <template slot-scope="scope">
           <el-button :disabled="!gov_tagLevel_edit" @click="handleClick(scope.row)" type="text" size="small">修改</el-button>
-          <a-divider type="vertical" />
+          <iep-divider type="vertical" />
           <el-button :disabled="!gov_tagLevel_del" @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>

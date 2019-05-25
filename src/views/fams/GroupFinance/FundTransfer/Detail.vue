@@ -55,7 +55,7 @@
             <iep-div-detail :value="dictsMap.status[form.status]"></iep-div-detail>
           </iep-form-item>
 
-          <a-divider></a-divider>
+          <iep-divider></iep-divider>
           <operation-wrapper style="padding: 0 200px;">
             <a-button type="primary" v-if="form.status===0" @click="handleFinish()">转账完成</a-button>
             <a-button type="primary" v-if=" form.status===1" @click="handleConfirm()">确认收款</a-button>

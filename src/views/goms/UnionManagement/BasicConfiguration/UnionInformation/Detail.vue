@@ -32,7 +32,7 @@
               </div>
             </div>
           </div>
-          <a-divider dashed />
+          <iep-divider dashed />
           <div class="bottom">
             <div class="title">
               联盟标签
@@ -46,21 +46,21 @@
               </div>
             </div>
           </div>
-          <a-divider dashed />
+          <iep-divider dashed />
           <div class="bottom">
             <div class="title">
               联盟简介
             </div>
             <p>{{form.intro}}</p>
           </div>
-          <a-divider dashed />
+          <iep-divider dashed />
           <div class="bottom">
             <div class="title">
               联盟架构
             </div>
             <p>{{form.structure}}</p>
           </div>
-          <a-divider dashed />
+          <iep-divider dashed />
           <div class="bottom">
             <div class="title">
               核心优势
@@ -68,7 +68,7 @@
             <p>{{form.coreAdvantage}}</p>
           </div>
         </div>
-        <a-divider />
+        <iep-divider />
         <div class="content"></div>
         <div class="content"></div>
       </div>

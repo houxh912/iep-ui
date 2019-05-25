@@ -28,7 +28,7 @@
               </div>
             </div>
           </div>
-          <a-divider dashed />
+          <iep-divider dashed />
           <div class="bottom">
             <div class="title">
               组织标签
@@ -42,21 +42,21 @@
               </div>
             </div>
           </div>
-          <a-divider dashed />
+          <iep-divider dashed />
           <div class="bottom">
             <div class="title">
               组织简介
             </div>
             <pre>{{form.intro}}</pre>
           </div>
-          <a-divider dashed />
+          <iep-divider dashed />
           <div class="bottom">
             <div class="title">
               组织架构
             </div>
             <iep-html v-model="form.structure"></iep-html>
           </div>
-          <a-divider dashed />
+          <iep-divider dashed />
           <div class="bottom">
             <div class="title">
               核心优势
@@ -64,7 +64,7 @@
             <pre>{{form.coreAdvantage}}</pre>
           </div>
         </div>
-        <a-divider />
+        <iep-divider />
         <div class="content"></div>
         <div class="content"></div>
       </div>

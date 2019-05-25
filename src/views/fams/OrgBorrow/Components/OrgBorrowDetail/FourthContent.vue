@@ -26,7 +26,7 @@
       <iep-form-item label-name="借款金额">
         <iep-div-detail :value="`${data.amount}元`"></iep-div-detail>
       </iep-form-item>
-      <a-divider />
+      <iep-divider />
       <iep-form-item label-name="支付公司">
         <iep-select v-model="borrowOutCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择收入公司"></iep-select>
       </iep-form-item>

@@ -287,6 +287,16 @@
             <iep-tag v-model="form.learningTag"></iep-tag>
           </el-form-item>
 
+          <el-form-item prop="signature">
+            <span slot="label">
+              个性签名
+              <iep-tip content="个性签名">
+              </iep-tip>
+              ：
+            </span>
+            <iep-input-area v-model="form.signature"></iep-input-area>
+          </el-form-item>
+
           <el-form-item prop="careerPlanning">
             <span slot="label">
               职业规划

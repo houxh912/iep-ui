@@ -1,12 +1,27 @@
-// import { mergeByFirst } from '@/util/util'
+import { initNow, getYear, getMonth } from '@/util/date'
 
-function initForm () {
+const columnsMap = [
+  {
+    prop: 'id',
+    label: '序号',
+  },
+  {
+    prop: 'createTime',
+    label: '日期',
+  },
+  {
+    prop: 'remark',
+    label: '摘要',
+  },
+]
+
+const initSearchForm = () => {
   return {
-    actual: '',
-    budget: '',
-    id: '',
-    type: '',
+    year: new Date().getFullYear(),
+    companyId: '0',
+    bankId: '0',
+    month: new Date().getMonth()+1,
   }
 }
 
-export { initForm }
+export { columnsMap, initSearchForm, initNow, getYear, getMonth }

@@ -9,7 +9,7 @@
         </el-select>
       </template>
     </operation-container>
-    <el-table class="income-table" v-loading="loading" :data="budgetTableRelation" style="width: 100%" :height="tableHeight" show-summary :summary-method="getSummaries" row-key="id">
+    <el-table class="income-table" v-loading="loading" :data="budgetTableRelation" style="width: 100%" :height="tableHeight" show-summary row-key="id">
       <el-table-column label="2018年第一季度（1、2、3月）收入账单">
         <el-table-column prop="num" label="序号">
         </el-table-column>

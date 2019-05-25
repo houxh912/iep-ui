@@ -17,12 +17,12 @@
       <el-table-column v-for="item in budgetTable" :key="item.id" :label="getLabel(item)">
         <el-table-column prop="budget" label="预算(元)">
           <template slot-scope="scope">
-            <div @dblclick="handleDetail(item, scope)">{{getValue(item, scope, 'budget')}}</div>
+            <div @dblclick="handleDetail(item, scope)">{{getValue(item, scope, 'budget') | parseToMoney}}</div>
           </template>
         </el-table-column>
         <el-table-column prop="actual" label="实际(元)">
           <template slot-scope="scope">
-            <div @dblclick="handleDetail(item, scope)">{{getValue(item, scope, 'actual')}}</div>
+            <div @dblclick="handleDetail(item, scope)">{{getValue(item, scope, 'actual') | parseToMoney}}</div>
           </template>
         </el-table-column>
       </el-table-column>
@@ -31,6 +31,7 @@
   </div>
 </template>
 <script>
+import { getSummaries } from '@/util/table'
 import { getBudgetQuarterDetail, putBudgetQuarterRelation } from '@/api/fams/budget'
 import DialogForm from './DialogForm'
 import { initForm } from './options'
@@ -71,34 +72,7 @@ export default {
     getLabel (item) {
       return item.flag ? item.time + '年度' : item.time + '季度'
     },
-    getSummaries (param) {
-      const { columns } = param
-      const sums = []
-      columns.forEach((column, index) => {
-        if (index === 0) {
-          sums[index] = '总计'
-          return
-        }
-        const realIndex = Math.ceil(index / 2)
-        const data = this.budgetTable[realIndex - 1].relation
-        const values = data.map(item => Number(item[column.property]))
-        if (!values.every(value => isNaN(value))) {
-          sums[index] = values.reduce((prev, curr) => {
-            const value = Number(curr)
-            if (!isNaN(value)) {
-              return prev + curr
-            } else {
-              return prev
-            }
-          }, 0)
-          sums[index] += ' 元'
-        } else {
-          sums[index] = 'N/A'
-        }
-      })
-
-      return sums
-    },
+    getSummaries,
     getValue (item, scope, tName) {
       return this.budgetMap[item.id].relation[scope.$index][tName]
     },

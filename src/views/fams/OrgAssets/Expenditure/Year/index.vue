@@ -3,113 +3,72 @@
     <operation-container>
       <template slot="left">
         <operation-wrapper>
-          <span>{{budgetTime}}年度支出</span>
+          <span>年度支出</span>
         </operation-wrapper>
       </template>
       <template slot="right">
-        <el-select v-model="budgetId" placeholder="请选择年份" size="small" @change="handleChange">
-          <el-option v-for="item in yearList" :key="item.budgetId" :label="item.budgetTime+'年'" :value="item.budgetId">
-          </el-option>
-        </el-select>
+        <iep-date-picker size="small" v-model="yearMonth" align="right" type="year" placeholder="选择年" @change="searchPage()"></iep-date-picker>
       </template>
     </operation-container>
-    <el-table v-loading="false" :data="budgetTableRelation" style="width: 100%" show-summary :summary-method="getSummaries">
-      <el-table-column prop="number" label="序号">
+    <iep-table :isLoadTable="isLoadTable" :is-pagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" show-summary :summary-method="getSummaries">
+      <el-table-column label="金额">
+        <el-table-column prop="inCome" label="收入">
         </el-table-column>
-        <el-table-column prop="subjects" label="财务科目">
+        <el-table-column prop="expenditure" label="支出">
         </el-table-column>
-        <el-table-column label="金额（元）">
-          <el-table-column prop="actual" label="实际">
-          </el-table-column>
-          <el-table-column prop="Eetimate" label="预计">
-          </el-table-column>
+        <el-table-column prop="currentBalance" label="本期余额">
+        </el-table-column>
       </el-table-column>
-    </el-table>
-
+      <el-table-column prop="remark" label="备注">
+      </el-table-column>
+    </iep-table>
   </div>
 </template>
 <script>
+import { getSummaries } from '@/util/table'
+import { getBankDiaryList } from '@/api/fams/statistics'
+import { columnsMap, initNow, getYear } from './options'
 export default {
   data () {
     return {
-      budgetId: '',
-      budgetTime: '',
-      yearList: [],
-      budgetTableRelation: [{
-        number: '1',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      },{
-        number: '2',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      },{
-        number: '3',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      },{
-        number: '4',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      },{
-        number: '5',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      },{
-        number: '6',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      },{
-        number: '7',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      }],
+      columnsMap,
+      yearMonth: initNow(),
+      isLoadTable: true,
+      pagedTable: [],
     }
   },
+  computed: {
+    newSearchForm () {
+      return {
+        year: getYear(this.yearMonth),
+      }
+    },
+  },
   created () {
+    this.loadPage()
   },
   methods: {
-    handleChange () {
-      
+    async loadTable (param, requestFn) {
+      this.isLoadTable = true
+      const { data } = await requestFn({ ...param, ...this.pageOption })
+      this.companyId = data.data.companyId
+      this.bankId = data.data.bankId
+      this.pagedTable = data.data.diaryList
+      this.statistics = [data.data.expenditureTotal, data.data.inComeTotal]
+      this.isLoadTable = false
     },
-    getSummaries (param) {
-      const { columns, data } = param
-      const sums = []
-      columns.forEach((column, index) => {
-        if (index === 0) {
-          sums[index] = '总价'
-          return
-        }
-        const values = data.map(item => Number(item[column.property]))
-        if (!values.every(value => isNaN(value))) {
-          sums[index] = values.reduce((prev, curr) => {
-            const value = Number(curr)
-            if (!isNaN(value)) {
-              return prev + curr
-            } else {
-              return prev
-            }
-          }, 0)
-          sums[index] += ' 元'
-        } else {
-          sums[index] = 'N/A'
-        }
-      })
-
-      return sums
+    searchPage () {
+      this.loadPage(this.newSearchForm)
     },
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getBankDiaryList)
+    },
+    getSummaries,
   },
 }
 </script>
 <style scoped>
-.year >>>.el-table .cell{
+.year >>> .el-table .cell {
   text-align: center;
 }
 </style>

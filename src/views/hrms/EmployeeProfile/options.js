@@ -35,6 +35,7 @@ const initForm = () => {
     // orgName: '组织', // 资产所属公司 不可编辑
     position: [], // 岗位
     positionName: '', // 岗位
+    signature: '', // 个性签名
     externalTitle: '', // 外部头衔
     socialRela: '', // 对外头衔
     people: [], // 标签名字

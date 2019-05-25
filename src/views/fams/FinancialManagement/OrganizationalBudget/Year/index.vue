@@ -14,18 +14,18 @@
         </el-select>
       </template>
     </operation-container>
-    <el-table :data="budgetTable" style="width: 100%" :height="tableHeight" show-summary @row-dblclick="handleDetail">
+    <el-table :data="budgetTable" style="width: 100%" :height="tableHeight" show-summary :summary-method="getSummaries" @row-dblclick="handleDetail">
       <el-table-column prop="typeName" label="预算项">
       </el-table-column>
       <el-table-column :label="budgetTime + '年'">
         <el-table-column prop="budget" label="预算(元)">
           <template slot-scope="scope">
-            <span>{{scope.row['budget']}}</span>
+            <span>{{scope.row['budget'] | parseToMoney}}</span>
           </template>
         </el-table-column>
         <el-table-column prop="actual" label="实际(元)">
           <template slot-scope="scope">
-            <span>{{scope.row['actual']}}</span>
+            <span>{{scope.row['actual'] | parseToMoney}}</span>
           </template>
         </el-table-column>
       </el-table-column>
@@ -34,6 +34,7 @@
   </div>
 </template>
 <script>
+import { getSummaries } from '@/util/table'
 import { getBudgetYearList, getBudgetQuarterList, getBudgetYearById, putBudgetYearRelation, postYearBudget } from '@/api/fams/budget'
 import DialogForm from './DialogForm'
 import { initForm } from './options'
@@ -52,6 +53,7 @@ export default {
     this.load()
   },
   methods: {
+    getSummaries,
     handleAddBudget () {
       const year = new Date().getFullYear()
       postYearBudget(year).then(() => {
@@ -81,7 +83,6 @@ export default {
       this.budgetTime = this.yearList[0].budgetTime
       this.$emit('on-change-year', this.budgetId, this.yearList, this.budgetTime)
       const quarterList = (await getBudgetQuarterList(this.budgetId)).data.data
-      console.log(quarterList)
       this.$emit('on-change-quarter', quarterList, quarterList[0].budgetId)
     },
     loadPage () {

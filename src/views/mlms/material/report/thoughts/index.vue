@@ -51,6 +51,7 @@
 <script>
 import TimeLine from './timeline'
 import { thoughtsCreate, getThoughtsPage, thoughtsDelete } from '@/api/hrms/thoughts'
+import { mapGetters } from 'vuex'
 
 function initFormData () {
   return {
@@ -62,6 +63,9 @@ function initFormData () {
 export default {
   name: 'thoughts',
   components: { TimeLine },
+  computed: {
+    ...mapGetters(['userInfo']),
+  },
   data () {
     return {
       activeIndex: [0],
@@ -148,6 +152,7 @@ export default {
     },
   },
   created () {
+    this.params.id = this.userInfo.userId
     this.loadPage()
   },
 }

@@ -6,12 +6,8 @@ const columnsMap = [
     label: '序号',
   },
   {
-    prop: 'createTime',
-    label: '日期',
-  },
-  {
-    prop: 'remark',
-    label: '摘要',
+    prop: 'typeName',
+    label: '类别',
   },
 ]
 

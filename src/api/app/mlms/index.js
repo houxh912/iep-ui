@@ -68,3 +68,12 @@ export const getOrgMaterialList = (id) => {
     method: 'get',
   })
 }
+
+// 分页查询合同
+export const getContractPage = (params) => {
+  return request({
+    url: `${prefixUrl}/contract_page`,
+    method: 'get',
+    params: params,
+  })
+}

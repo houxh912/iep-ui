@@ -25,6 +25,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    params: {
+      type: String,
+      default: '',
+    },
   },
   data () {
     return {
@@ -37,6 +41,9 @@ export default {
       this.form[this.prop] = this.input
       this.$emit('search-page', this.form)
     },
+  },
+  mounted () {
+    this.input = this.params
   },
 }
 </script>

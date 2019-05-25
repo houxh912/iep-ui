@@ -4,7 +4,7 @@
       <h3><span>国脉人，</span>人人都要成为专家</h3>
       <template>
         <div class="search-con">
-          <operation-search>
+          <operation-search @search-page="searchPage" prop="title">
             <advance-search></advance-search>
           </operation-search>
           <el-button type="danger" plain>高级搜索</el-button>
@@ -21,6 +21,14 @@ export default {
   data () {
     return {
     }
+  },
+  methods: {
+    searchPage (val) {
+      if (val.name == '') {
+        return
+      }
+      this.$router.push({ path: '/app/search_detail', query: val })
+    },
   },
 }
 </script>

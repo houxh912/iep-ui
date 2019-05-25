@@ -3,7 +3,7 @@
     <el-card class="box-card" shadow="hover">
       <div class="img-con">
         <div class="img"><img :src="userInfo.avatar" alt=""></div>
-        <span class="num">GM000001</span>
+        <span class="num">{{userInfo.staffId}}</span>
       </div>
       <div class="text">
         <div class="name-con">

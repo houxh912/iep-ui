@@ -48,3 +48,12 @@ export function getPersonalThoughts (id) {
     method: 'get',
   })
 }
+
+// 搜索结果统计
+export function getSearchCount (params) {
+  return request({
+    url: `${prefixUrl}/search_count`,
+    method: 'get',
+    params: params,
+  })
+}

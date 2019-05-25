@@ -3,7 +3,7 @@
     <h2 class="title">以奋斗者为本，做智慧国脉系!</h2>
     <template>
       <div class="search-con">
-        <operation-search>
+        <operation-search :params="params" @search-page="searchPage" prop="title">
         </operation-search>
       </div>
     </template>
@@ -11,9 +11,20 @@
 </template>
 <script>
 export default {
+  props: {
+    params: {
+      type: String,
+      default: '',
+    },
+  },
   data () {
     return {
     }
+  },
+  methods: {
+    searchPage (val) {
+      this.$emit('search-page', val)
+    },
   },
 }
 </script>

@@ -3,7 +3,7 @@
     <el-card class="news-list" v-for="item in pageList" :key="item.id" shadow="hover">
       <div class="text">
         <h4 class="sub-title">
-          <el-tag class="classTag">客户</el-tag><span class="sub-title-con">{{item.projectName}}</span>
+          <el-tag class="classTag">商机</el-tag><span class="sub-title-con">{{item.projectName}}</span>
         </h4>
         <p class="list-content">{{item.opportunityDes}}</p>
         <div class="list-item-description">

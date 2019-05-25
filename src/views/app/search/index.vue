@@ -6,7 +6,7 @@
           <h2 class="title">以奋斗者为本，做智慧国脉系!</h2>
           <template>
             <div class="search-con">
-              <operation-search>
+              <operation-search @search-page="searchPage" prop="title">
                 <advance-search></advance-search>
               </operation-search>
             </div>
@@ -77,6 +77,14 @@ export default {
         { imgSrc: require('./images/04.jpg'), imgDes: '国脉数据基因4.5版在京正式发布' },
       ],
     }
+  },
+  methods: {
+    searchPage (val) {
+      if (val.name == '') {
+        return
+      }
+      this.$router.push({ path: '/app/search_detail', query: val })
+    },
   },
 }
 </script>

@@ -48,3 +48,16 @@ export function getBankDiaryList (query) {
     params: query,
   })
 }
+// 支出 统计 类型 1-月  2-季  3-年
+export function getExpenditureList (type) {
+  return function (query) {
+    return request({
+      url: `${prefixUrl}/org/expenditure/list`,
+      method: 'post',
+      data: {
+        ...query,
+        type,
+      },
+    })
+  }
+}

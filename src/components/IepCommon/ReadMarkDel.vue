@@ -1,22 +1,22 @@
 <template>
   <a-button-group>
-    <a-tooltip placement="top">
+    <a-tooltip v-if="enableList[0]">
       <template slot="title">
         <span>已读</span>
       </template>
-      <a-button v-if="enableList[0]" icon="eye" @click="handleViewBatch"></a-button>
+      <a-button icon="eye" @click="handleViewBatch"></a-button>
     </a-tooltip>
-    <a-tooltip placement="top">
+    <a-tooltip v-if="enableList[1]">
       <template slot="title">
         <span>标记</span>
       </template>
-      <a-button v-if="enableList[1]" icon="flag" @click="handleMarkBatch"></a-button>
+      <a-button icon="flag" @click="handleMarkBatch"></a-button>
     </a-tooltip>
-    <a-tooltip placement="top">
+    <a-tooltip v-if="enableList[2]">
       <template slot="title">
         <span>删除</span>
       </template>
-      <a-button v-if="enableList[2]" icon="delete" @click="handleDelBatch"></a-button>
+      <a-button icon="delete" @click="handleDelBatch"></a-button>
     </a-tooltip>
   </a-button-group>
 </template>

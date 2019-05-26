@@ -91,7 +91,7 @@ export default {
 .total-wrapper {
   display: flex;
   justify-content: space-around;
-  margin: 20px 0;
+  margin: 12px 0;
   .total-item {
     display: flex;
     flex-direction: column;

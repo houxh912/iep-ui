@@ -2,16 +2,16 @@
   <div>
     <basic-container>
       <div class="main-top">
-        <el-card class="left" shadow="hover">
+        <el-card class="left">
           <h4 class="title">总资产</h4>
-          <ul>
-            <li v-for="(item, idx) in totalMap" :key="idx">
-              <span class="num">{{item}}</span>
-              <span class="sub-title">{{idx}}</span>
-            </li>
-          </ul>
+          <div class="total-wrapper">
+            <div class="total-item" v-for="(item, index) in financialData" :key="index">
+              <div class="value">{{item | parseToMoney}}</div>
+              <div class="label"><a href="#" @click="$openPage(typeUrlMap[index])">{{index}}</a></div>
+            </div>
+          </div>
         </el-card>
-        <el-card class="right" shadow="hover">
+        <el-card class="right">
           <h4 class="title">快捷入口</h4>
           <ul>
             <li>互助基金</li>
@@ -24,7 +24,7 @@
         </el-card>
       </div>
       <div class="content">
-        <el-card class="box-card" shadow="hover">
+        <el-card class="box-card">
           <operation-container>
             <template slot="left">
               <page-header title="财富统计-类型" :replaceText="replaceText" :data="[10 ,5]"></page-header>
@@ -92,6 +92,13 @@ export default {
         '其他': 6233.5,
       },
       dateValue: '',
+      financialData: {
+        '国脉贝': 6233.5,
+        '发票额度': 6233.5,
+        '现金': 6233.5,
+        '股权': 6233.5,
+        '其他': 6233.5,
+      },
       chartData: {
         columns: ['dept', '收入', '支出'],
         rows: [
@@ -125,6 +132,34 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.total-wrapper {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+  .total-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid rgb(233, 233, 233);
+    width: 100%;
+    &:last-child {
+      border-right: none;
+    }
+    .value {
+      font-size: 24px;
+      color: rgb(48, 49, 51);
+    }
+    .label {
+      & > a {
+        color: #999;
+      }
+    }
+  }
+}
+</style>
+
 <style lang="scss" scoped>
 ul,
 li {

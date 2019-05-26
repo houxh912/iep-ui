@@ -24,7 +24,7 @@
         </el-table-column>
         <el-table-column label="负责人">
           <template slot-scope="scope">
-            <iep-tag-detail :value="scope.row.chargeNames"></iep-tag-detail>
+            <iep-tag-detail iep-type="user" :value="scope.row.chargeNames"></iep-tag-detail>
           </template>
         </el-table-column>
         <el-table-column label="研发进度">

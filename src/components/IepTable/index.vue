@@ -101,7 +101,7 @@ export default {
     },
     expandAll: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     pageOptionSize: {
       type: Number,
@@ -127,7 +127,7 @@ export default {
       default: (row) => {
         const show = row.row.parent ? row.row.parent._expanded && row.row.parent._show : true
         row.row._show = show
-        return show ? 'animation:treeTableShow 1s;-webkit-animation:treeTableShow 1s;' : 'display:none;'
+        return show ? 'animation:treeTableShow 1s;-webkit-animation:treeTableShow 1s;' : 'display:table-column;'
       },
     },
     headerCellStyle: {

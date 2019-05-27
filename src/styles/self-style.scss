@@ -1,0 +1,28 @@
+.el-checkbox__inner {
+  width: 17px;
+  height: 17px;
+  &:hover {
+    border-color: #999;
+  }
+  &::after {
+    height: 10px;
+    left: 6px;
+    border-color: #999;
+  }
+}
+.el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
+  top: 7px;
+  background-color: #999;
+}
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-checkbox__input.is-indeterminate .el-checkbox__inner,
+.el-checkbox__input.is-focus .el-checkbox__inner {
+  border-color: #999;
+  background-color: #fff;
+}
+.el-loading-mask {
+  z-index: 99;
+}
+.ant-tag {
+  margin-bottom: 5px;
+}

@@ -15,6 +15,11 @@ export default [
         name: '图标库演示',
         component: () => import('@/components/demo/charts'),
       },
+      {
+        path: 'self',
+        name: '重写库演示',
+        component: () => import('@/components/demo/self'),
+      },
     ],
   },
 ]

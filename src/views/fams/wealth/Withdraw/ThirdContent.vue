@@ -25,6 +25,7 @@ export default {
     handleRevoke () {
       revokeWithdrawById(this.data.id).then(({ data }) => {
         if (data.data) {
+          this.$message('已撤销')
           this.$emit('on-data')
         } else {
           this.$message(data.msg)

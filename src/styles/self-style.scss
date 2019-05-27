@@ -14,9 +14,23 @@
   top: 7px;
   background-color: #999;
 }
+.el-radio__inner{
+    width: 18px;
+    height: 18px;
+    &:hover {
+      border-color: #999;
+    }
+    &::after{    
+      width: 5px;
+    height: 5px;
+    background-color: #999;
+    border-color: #999;
+  }
+}
 .el-checkbox__input.is-checked .el-checkbox__inner,
 .el-checkbox__input.is-indeterminate .el-checkbox__inner,
-.el-checkbox__input.is-focus .el-checkbox__inner {
+.el-checkbox__input.is-focus .el-checkbox__inner,
+.el-radio__input.is-checked .el-radio__inner {
   border-color: #999;
   background-color: #fff;
 }

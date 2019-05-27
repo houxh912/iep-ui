@@ -5,14 +5,8 @@
         <template v-if="activeTab ==='LearnList'" v-slot:LearnList>
           <learn-list v-loading="activeTab !=='LearnList'" :learningList="learningList"></learn-list>
         </template>
-        <template v-if="activeTab ==='ReadList'" v-slot:ReadList>
-          <read-list v-loading="activeTab !=='ReadList'"></read-list>
-        </template>
         <template v-if="activeTab ==='DocumentList'" v-slot:DocumentList>
           <document-list v-loading="activeTab !=='DocumentList'" :documentList="documentList"></document-list>
-        </template>
-        <template v-if="activeTab ==='ActivityList'" v-slot:ActivityList>
-          <activity-list v-loading="activeTab !=='ActivityList'"></activity-list>
         </template>
       </iep-tabs>
     </IepAppTabsCard>
@@ -20,17 +14,13 @@
 </template>
 <script>
 import LearnList from './LearnList'
-import ReadList from './ReadList'
 import DocumentList from './DocumentList'
-import ActivityList from './ActivityList'
 import { getMaterialList } from '@/api/app/mlms/'
 
 export default {
   components: {
     LearnList,
-    ReadList,
     DocumentList,
-    ActivityList,
   },
   data () {
     return {

@@ -9,20 +9,44 @@
 </template>
 
 <script>
+import { getResourceCount } from '@/api/app/cpms/channel'
 export default {
   data () {
     return {
-      resourcesList: [
-        { icon: 'icon-dangan', name: '材料库', number: '10306' },
-        { icon: 'icon-renwu', name: '项目库', number: '1075' },
-        { icon: 'icon-gongzuotai', name: '产品库', number: '33' },
-        { icon: 'icon-kehu', name: '客户库', number: '6043' },
-        { icon: 'icon-peixun', name: '培训库', number: '101' },
-        { icon: 'icon-shangjifaxian', name: '商机库', number: '214' },
-        { icon: 'icon-hetongliebiao', name: '资质库', number: '67' },
-        { icon: 'icon-dingwei', name: '招标库', number: '88' },
-      ],
+      counts: {
+        countMaterial: 0,
+        countHonor: 0,
+        countProduct: 0,
+        countClient: 0,
+        countTraining: 0,
+        countOpportunity: 0,
+        countExpert: 0,
+      },
     }
+  },
+  computed: {
+    resourcesList () {
+      return [
+        { icon: 'icon-dangan', name: '材料库', number: this.counts.countMaterial },
+        { icon: 'icon-renwu', name: '资质库', number: this.counts.countHonor },
+        { icon: 'icon-gongzuotai', name: '产品库', number: this.counts.countProduct },
+        { icon: 'icon-kehu', name: '客户库', number: this.counts.countClient },
+        { icon: 'icon-peixun', name: '培训库', number: this.counts.countTraining },
+        { icon: 'icon-shangjifaxian', name: '商机库', number: this.counts.countOpportunity },
+        { icon: 'icon-hetongliebiao', name: '专家库', number: this.counts.countExpert },
+        { icon: 'icon-dingwei', name: '招标库', number: '0' },
+      ]
+    },
+  },
+  methods: {
+    loadCount () {
+      getResourceCount().then(({data}) => {
+        this.counts = data.data
+      })
+    },
+  },
+  created () {
+    this.loadCount()
   },
 }
 </script>

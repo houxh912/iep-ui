@@ -65,3 +65,11 @@ export function getDetailsIndex () {
     method: 'get',
   })
 }
+
+// 频道页意见反馈
+export function getProposeList () {
+  return request({
+    url: `${prefixUrl}/propose_list`,
+    method: 'get',
+  })
+}

@@ -134,14 +134,14 @@ export default {
     handleEdit (row, index, isChild) {
       if (row) {
         this.row = this.$mergeByFirst(this._initRow(), row)
-        this.title = '修改'
+        this.methodName = '修改'
       } else {
         this.row = this._initRow()
-        this.title = '添加'
+        this.methodName = '添加'
       }
       if (isChild) {
         this.row = this._initRow()
-        this.title = `添加至<${row.label}>`
+        this.methodName = `添加至<${row.label}>`
         this.row.parentId = row.id
       }
       this.dialogShow = true

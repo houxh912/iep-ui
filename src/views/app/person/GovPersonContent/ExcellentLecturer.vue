@@ -122,3 +122,8 @@ export default {
   }
 }
 </style>
+<style scoped>
+.thoughts >>> .el-card__body {
+  height: 270px;
+}
+</style>

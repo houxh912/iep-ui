@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tags">
     <IepAppTabCard :title="title" :data="data">
       <div class="leader-board-list">
         <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
@@ -76,3 +76,9 @@ export default {
   color: #999;
 }
 </style>
+<style scoped>
+.tags >>> .el-card__body {
+  height: 302px;
+}
+</style>
+

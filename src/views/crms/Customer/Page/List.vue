@@ -52,6 +52,15 @@
             </operation-wrapper>
           </template>
         </el-table-column>
+        <el-table-column v-if="type == '1'" prop="operation" label="操作" width="250px">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button type="warning" plain @click="addContact(scope.row)" :disabled="isEditDelPermissions(scope.row)">添加联系人</iep-button>
+              <iep-button type="warning" plain @click="handleEdit(scope.row)" :disabled="isEditDelPermissions(scope.row)">编辑</iep-button>
+              <iep-button @click="handleDelete(scope.row)" :disabled="isEditDelPermissions(scope.row)">删除</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
       </iep-table>
       <edit-drawer ref="EditDrawer" @load-page="loadPage" @showDrawer="showDrawer"></edit-drawer>
       <excell-import ref="ExcellImport" :urlName="url" @close="handleClose"></excell-import>
@@ -82,6 +91,10 @@ export default {
       url: '/api/crm/crms/iepclientinfoexcel/upload',
       showSelect: true,
       ids: [],
+      crms_customer_add: false,
+      crms_customer_edit_del: false,
+      crms_customer_view: false,
+      crms_customer_zy: false,
     }
   },
   computed: {
@@ -90,12 +103,29 @@ export default {
     },
     ...mapGetters([
       'userInfo',
+      'permissions',
     ]),
   },
   created () {
+    this.crms_customer_add = this.permissions['crms_customer_add']
+    this.crms_customer_edit_del = this.permissions['crms_customer_edit_del']
+    this.crms_customer_view = this.permissions['crms_customer_view']
+    this.crms_customer_zy = this.permissions['crms_customer_zy']
     this.loadPage({ type: 2 })
   },
   methods: {
+    isViewPermissions () {
+      return this.crms_customer_view
+    },
+    isEditDelPermissions () {
+      return !this.crms_customer_edit_del
+    },
+    isAddPermissions () {
+      return this.crms_customer_add
+    },
+    isZyPermissions () {
+      return this.crms_customer_zy
+    },
     showDrawer (val) {
       this.$refs.EditDrawer.drawerShow = true
       this.$refs.EditDrawer.form.clientIds = [val]

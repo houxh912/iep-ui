@@ -57,3 +57,11 @@ export function getSearchCount (params) {
     params: params,
   })
 }
+
+// 频道分页首页产品列表
+export function getDetailsIndex () {
+  return request({
+    url: `${prefixUrl}/details_index`,
+    method: 'get',
+  })
+}

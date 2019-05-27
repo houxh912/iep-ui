@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import { getSummaries } from '@/util/table'
+import { parseToMoney } from '@/filters/'
 import { getExpenditureList } from '@/api/fams/statistics'
 import { columnsMap, initNow, getMonth } from './options'
 export default {
@@ -31,6 +31,7 @@ export default {
       yearMonth: initNow(),
       isLoadTable: true,
       pagedTable: [],
+      statistics: [0],
       tableHeight: 'calc(100vh - 260px)',
     }
   },
@@ -49,6 +50,7 @@ export default {
       this.isLoadTable = true
       const { data } = await requestFn({ ...param, ...this.pageOption })
       this.pagedTable = data.data.list
+      this.statistics[0] = data.data.expenditureTotal
       this.isLoadTable = false
     },
     searchPage () {
@@ -57,7 +59,23 @@ export default {
     loadPage (param = this.searchForm) {
       this.loadTable(param, getExpenditureList(1))
     },
-    getSummaries,
+    getSummaries (param) {
+      const { columns, data } = param
+      const sums = []
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = '合计'
+          return
+        }
+        const values = data.map(item => Number(item[column.property]))
+        if (!values.every(value => isNaN(value))) {
+          sums[index] = parseToMoney(this.statistics[0])
+        } else {
+          sums[index] = ''
+        }
+      })
+      return sums
+    },
   },
 }
 </script>

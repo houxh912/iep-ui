@@ -73,12 +73,12 @@ export default {
   },
   created () {
     getMyClientNum().then((res) => {
+      this.data = res.data.data
       if (res.data.data.contractAmount !== 0) {
         var num = 10000
         res.data.data.contractAmount = (res.data.data.contractAmount / num).toFixed(2)
         this.data = res.data.data
       }
-
     })
   },
 }

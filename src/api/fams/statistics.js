@@ -61,3 +61,16 @@ export function getExpenditureList (type) {
     })
   }
 }
+// 收入 统计 类型 1-月  2-季  3-年
+export function getIncomeList (type) {
+  return function (query) {
+    return request({
+      url: `${prefixUrl}/org/income/list`,
+      method: 'post',
+      data: {
+        ...query,
+        type,
+      },
+    })
+  }
+}

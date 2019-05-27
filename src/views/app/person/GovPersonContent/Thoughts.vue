@@ -59,7 +59,6 @@ export default {
     getBirthdayList () {
       getRecruitBirthday().then(({ data }) => {
         this.starList = data.data
-        this.starList = [data.data[0], data.data[0], data.data[0], data.data[0], data.data[0]]
       })
     },
     getThoughtsList () {

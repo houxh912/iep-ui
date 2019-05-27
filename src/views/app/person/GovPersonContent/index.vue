@@ -4,7 +4,7 @@
       <gov-person-img></gov-person-img>
       <gov-person-notice></gov-person-notice>
       <glow-person></glow-person>
-      <thoughts></thoughts>
+      <talent-advantage></talent-advantage>
       <shortage-posts></shortage-posts>
       <gov-tags></gov-tags>
     </div>
@@ -16,8 +16,10 @@
       <hot-course></hot-course>
       <excellent-lecturer></excellent-lecturer>
     </div>
-    <div class="block">
-      <switch-tabs></switch-tabs>
+    <div class="copies">
+      <gov-learn></gov-learn>
+      <gvo-document></gvo-document>
+      <thoughts></thoughts>
     </div>
     <div class="copies copies2">
       <interactive-zone></interactive-zone>
@@ -37,12 +39,32 @@ import Carousel from './Carousel/'
 import TrainingNotice from './TrainingNotice'
 import HotCourse from './HotCourse'
 import ExcellentLecturer from './ExcellentLecturer'
-import SwitchTabs from './SwitchTabs/'
 import InteractiveZone from './InteractiveZone'
 import Reward from './Reward'
 import Feedback from './Feedback'
+import GovLearn from './GovLearn'
+import GvoDocument from './GvoDocument'
+import TalentAdvantage from './TalentAdvantage'
+
 export default {
-  components: { GovPersonImg, GovPersonNotice, GlowPerson, Thoughts, ShortagePosts, GovTags, Carousel, TrainingNotice, HotCourse, ExcellentLecturer, SwitchTabs, InteractiveZone, Reward, Feedback },
+  components: { 
+    GovPersonImg, 
+    GovPersonNotice, 
+    GlowPerson, 
+    Thoughts, 
+    ShortagePosts, 
+    GovTags, 
+    Carousel, 
+    TrainingNotice, 
+    HotCourse, 
+    ExcellentLecturer, 
+    InteractiveZone, 
+    Reward, 
+    Feedback, 
+    GovLearn,
+    GvoDocument,
+    TalentAdvantage,
+  },
   data () {
     return {
     }

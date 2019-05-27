@@ -3,7 +3,7 @@
     <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
       <div class="training-notice">
         <div v-for="(item,index) in learningList.slice(0, 12)" :key="index" class="piece">
-          <span @click="handleDetail(item)">{{item.material_name}}</span>
+          <span class="name" @click="handleDetail(item)">{{item.material_name}}</span>
         </div>
       </div>
     </iepAppTabCard>
@@ -44,7 +44,7 @@ export default {
     height: 30px;
     .name {
       display: inline-block;
-      width: 200px;
+      width: 100%;
       height: 30px;
       line-height: 30px;
       overflow: hidden;

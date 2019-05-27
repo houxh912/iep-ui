@@ -4,32 +4,41 @@
       <el-button class="charge" type="text" slot="right">我要发表</el-button>
       <div class="thoughtsList">
         <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
-          <div class="img-con"><img :src="item.img" class="img"></div>
+          <div class="img-con"><img :src="item.avatar" class="img"></div>
           <div class="box">
             <div class="pieceTitle">
               <span class="name">{{item.name}}</span>
-              <span class="time">{{item.time}}</span>
+              <span class="time">{{item.sendTime}}</span>
             </div>
-            <p class="feed">{{item.feed}}</p>
+            <p class="feed">{{item.proposeContent}}</p>
           </div>
         </div>
       </div>
     </IepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getProposeList } from '@/api/app/cpms/channel'
+
 export default {
   data () {
     return {
       title: '意见反馈',
       data: '（35次）',
       linkName: '',
-      thoughtsList: [
-        { img: '../img/person/p015.jpg', name: '刘丹', time: '2019-04-09', feed: '国脉之最可以不断增加，建立增加签单量NO1，签单金额NO1，收款速度NO1等' },
-        { img: '../img/person/p016.jpg', name: '陈一萍', time: '2019-04-15', feed: '内网编辑器有格式问题，一样的格式和字体粘贴进去会自动变化成不同的字体和大' },
-        { img: '../img/person/p017.jpg', name: '张小燕', time: '2019-04-23', feed: '内网可加入考勤审批功能，上传资料能多份文件同时插入上传区' },
-      ],
+      thoughtsList: [],
     }
+  },
+  methods: {
+    loadList () {
+      getProposeList().then(({data}) => {
+        this.thoughtsList = data.data
+      })
+    },
+  },
+  created () {
+    this.loadList()
   },
 }
 </script>
@@ -105,5 +114,8 @@ export default {
 }
 .thoughts >>> .el-button :hover {
   color: #f56c6c;
+}
+.thoughts >>> .el-card__body {
+  height: 270px;
 }
 </style>

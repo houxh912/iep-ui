@@ -1,26 +1,36 @@
 <template>
   <div class="learning-resources">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <IepAppListCard :dataList="dataList"></IepAppListCard>
+      <IepAppListCard :dataList="dataList.slice(0, 8)" name="material_name"></IepAppListCard>
     </IepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getMaterialList } from '@/api/app/mlms/'
+
 export default {
   data () {
     return {
       title: '学习资源',
-      dataList: [
-        '关于项目验收表格材料标准化模板',
-        '微服务设计入门',
-        '微服务-框架',
-        '微服务架构与SpringCloud',
-        '浙江省目录系统普查系统业务流程分享',
-        '如何使用Python语言来编码和解码',
-        '微服务架构起源、简介及设计',
-        '郑总微信语言培训《品牌活动和客户拜访》'],
-      linkName: '',
+      dataList: [],
+      linkName: '/app/resource/material',
     }
+  },
+  methods: {
+    loadList () {
+      getMaterialList().then(({data}) => {
+        this.dataList = data.data.rlxx ? data.data.rlxx : []
+      })
+    },
+  },
+  created () {
+    this.loadList()
   },
 }
 </script>
+<style scoped>
+.learning-resources >>> .el-card__body {
+  height: 270px;
+}
+</style>

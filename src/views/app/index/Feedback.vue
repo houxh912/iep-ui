@@ -94,4 +94,7 @@ export default {
 .el-card{
   padding: 0 20px;
 }
+.feedback >>> .el-card__body {
+  height: 270px;
+}
 </style>

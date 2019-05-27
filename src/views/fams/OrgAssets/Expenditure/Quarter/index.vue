@@ -3,92 +3,75 @@
     <operation-container>
       <template slot="left">
         <operation-wrapper>
-          <span>{{budgetTime}}季度支出</span>
+          <span>季度支出</span>
         </operation-wrapper>
       </template>
       <template slot="right">
-        <el-select v-model="budgetId" placeholder="请选择季度" size="small" @change="handleChange">
-          <el-option v-for="item in yearList" :key="item.budgetId" :label="item.budgetTime+'年'" :value="item.budgetId">
+        <iep-date-picker size="small" v-model="yearMonth" align="right" type="year" placeholder="选择年" @change="searchPage()"></iep-date-picker>
+        <el-select v-model="quarter" size="small" placeholder="请选择季度" @change="searchPage()">
+          <el-option v-for="(v, k) in quarterOptions" :key="k" :label="v" :value="k">
           </el-option>
         </el-select>
       </template>
     </operation-container>
-    <el-table v-loading="false" :data="budgetTableRelation" style="width: 100%" show-summary :summary-method="getSummaries">
-      <el-table-column prop="number" label="序号">
+    <iep-table :isLoadTable="isLoadTable" :height="tableHeight" :is-pagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" show-summary :summary-method="getSummaries" is-tree>
+      <el-table-column label="金额">
+        <el-table-column prop="actualExpenditure" label="实际支出">
         </el-table-column>
-        <el-table-column prop="subjects" label="财务科目">
+        <el-table-column prop="budgetExpenditure" label="预计支出">
         </el-table-column>
-        <el-table-column label="金额（元）">
-          <el-table-column prop="actual" label="实际">
-          </el-table-column>
-          <el-table-column prop="Eetimate" label="预计">
-          </el-table-column>
       </el-table-column>
-    </el-table>
-
+    </iep-table>
   </div>
 </template>
 <script>
 import { getSummaries } from '@/util/table'
+import { getExpenditureList } from '@/api/fams/statistics'
+import { columnsMap, initNow, getYear } from './options'
 export default {
   data () {
     return {
-      budgetId: '',
-      budgetTime: '',
-      yearList: [],
-      budgetTableRelation: [{
-        number: '1',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      },{
-        number: '2',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      },{
-        number: '3',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      },{
-        number: '4',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      },{
-        number: '5',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      },{
-        number: '6',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      },{
-        number: '7',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      }],
+      columnsMap,
+      yearMonth: initNow(),
+      quarter: '',
+      quarterOptions: {
+        '1': '一季度',
+        '2': '二季度',
+        '3': '三季度',
+        '4': '四季度',
+      },
+      isLoadTable: true,
+      pagedTable: [],
+      tableHeight: 'calc(100vh - 260px)',
     }
   },
+  computed: {
+    newSearchForm () {
+      return {
+        year: getYear(this.yearMonth),
+        quarter: this.quarter,
+      }
+    },
+  },
   created () {
+    this.loadPage()
   },
   methods: {
-    handleChange () {
-      
+    async loadTable (param, requestFn) {
+      this.isLoadTable = true
+      const { data } = await requestFn({ ...param, ...this.pageOption })
+      this.pagedTable = data.data.list
+      this.quarter = data.data.quarter + ''
+      this.isLoadTable = false
+    },
+    searchPage () {
+      this.loadPage(this.newSearchForm)
+    },
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getExpenditureList(2))
     },
     getSummaries,
   },
 }
 </script>
-<style scoped>
-.year >>>.el-table .cell{
-  text-align: center;
-}
-</style>
-
-
 

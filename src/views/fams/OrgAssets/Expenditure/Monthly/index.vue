@@ -1,86 +1,64 @@
 <template>
   <div class="year">
     <operation-container>
+      <template slot="left">
+        <operation-wrapper>
+          <span>年度支出</span>
+        </operation-wrapper>
+      </template>
       <template slot="right">
-        <el-select v-model="budgetId" placeholder="请选择年份" size="small">
-          <el-option v-for="item in yearList" :key="item.budgetId" :label="item.budgetTime+'年'" :value="item.budgetId">
-          </el-option>
-        </el-select>
+        <iep-date-picker size="small" v-model="yearMonth" align="right" type="year" placeholder="选择年" @change="searchPage()"></iep-date-picker>
       </template>
     </operation-container>
-    <el-table v-loading="false" :data="budgetTableRelation" style="width: 100%" show-summary :summary-method="getSummaries">
-      <el-table-column prop="number" label="序号">
-      </el-table-column>
-      <el-table-column prop="subjects" label="财务科目">
-      </el-table-column>
-      <el-table-column label="金额（元）">
-        <el-table-column prop="actual" label="实际">
+    <iep-table :isLoadTable="isLoadTable" :height="tableHeight" :is-pagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" show-summary :summary-method="getSummaries" is-tree>
+      <el-table-column label="金额">
+        <el-table-column prop="actualExpenditure" label="实际支出">
         </el-table-column>
-        <el-table-column prop="Eetimate" label="预计">
+        <el-table-column prop="budgetExpenditure" label="预计支出">
         </el-table-column>
       </el-table-column>
-    </el-table>
-
+    </iep-table>
   </div>
 </template>
 <script>
 import { getSummaries } from '@/util/table'
+import { getExpenditureList } from '@/api/fams/statistics'
+import { columnsMap, initNow, getYear } from './options'
 export default {
   data () {
     return {
-      budgetId: '',
-      budgetTime: '',
-      yearList: [],
-      budgetTableRelation: [{
-        number: '1',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      }, {
-        number: '2',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      }, {
-        number: '3',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      }, {
-        number: '4',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      }, {
-        number: '5',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      }, {
-        number: '6',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      }, {
-        number: '7',
-        subjects: '办公房租',
-        actual: '11111',
-        Eetimate: '3333',
-      }],
+      columnsMap,
+      yearMonth: initNow(),
+      isLoadTable: true,
+      pagedTable: [],
+      tableHeight: 'calc(100vh - 260px)',
     }
   },
+  computed: {
+    newSearchForm () {
+      return {
+        year: getYear(this.yearMonth),
+      }
+    },
+  },
   created () {
+    this.loadPage()
   },
   methods: {
+    async loadTable (param, requestFn) {
+      this.isLoadTable = true
+      const { data } = await requestFn({ ...param, ...this.pageOption })
+      this.pagedTable = data.data.list
+      this.isLoadTable = false
+    },
+    searchPage () {
+      this.loadPage(this.newSearchForm)
+    },
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getExpenditureList(1))
+    },
     getSummaries,
   },
 }
 </script>
-<style scoped>
-.year >>> .el-table .cell {
-  text-align: center;
-}
-</style>
-
-
 

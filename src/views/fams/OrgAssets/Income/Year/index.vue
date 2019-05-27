@@ -1,133 +1,77 @@
 <template>
-  <div>
+  <div class="year">
     <operation-container>
       <template slot="left">
-        <span class="label" slot="label">请选择年份：</span>
-        <!-- <el-select v-model="budgetId" placeholder="请选择年份" size="small" @change="handleChange">
-          <el-option v-for="item in yearList" :key="item.budgetId" :label="item.budgetTime+'年'" :value="item.budgetId">
-          </el-option>
-        </el-select> -->
-        <div class="block">
-          <el-date-picker v-model="value3" type="year" placeholder="选择年">
-          </el-date-picker>
-        </div>
+        <operation-wrapper>
+          <span>年度收入</span>
+        </operation-wrapper>
+      </template>
+      <template slot="right">
+        <iep-date-picker size="small" v-model="yearMonth" align="right" type="year" placeholder="选择年" @change="searchPage()"></iep-date-picker>
       </template>
     </operation-container>
-    <el-table class="income-table" v-loading="loading" :data="budgetTableRelation" style="width: 100%" :height="tableHeight" show-summary row-key="id">
-      <el-table-column label="2018年收入账单">
-        <el-table-column prop="num" label="序号">
-        </el-table-column>
-        <el-table-column prop="subjects" label="财务科目">
-        </el-table-column>
-        <el-table-column label="金额（元）">
-          <el-table-column prop="reality" label="实际">
-          </el-table-column>
-          <el-table-column prop="expect" label="预计">
-          </el-table-column>
-        </el-table-column>
-        <el-table-column prop="num2" label="序号">
-        </el-table-column>
-        <el-table-column prop="subjects2" label="财务科目">
-        </el-table-column>
-        <el-table-column label="金额（元）">
-          <el-table-column prop="reality2" label="实际">
-          </el-table-column>
-          <el-table-column prop="expect2" label="预计">
-          </el-table-column>
-        </el-table-column>
-      </el-table-column>
-    </el-table>
+    <iep-table :isLoadTable="isLoadTable" :height="tableHeight" :is-pagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" show-summary :summary-method="getSummaries" is-tree>
+      <el-table-column prop="actualIncome" label="实际收入"></el-table-column>
+    </iep-table>
   </div>
 </template>
 <script>
+import { parseToMoney } from '@/filters/'
+import { getIncomeList } from '@/api/fams/statistics'
+import { columnsMap, initNow, getYear } from './options'
 export default {
   data () {
     return {
-      value3: '',
-      budgetId: '',
-      budgetTime: '',
-      yearList: [],
-      budgetTableRelation: [
-        {
-          id: 1,
-          num: '1',
-          subjects: '项目收入',
-          reality: '419203',
-          expect: '50000',
-          num2: '1',
-          subjects2: '项目收入',
-          reality2: '244563',
-          expect2: '5088',
-          children: [
-            {
-              id: 31,
-              subjects: '外部项目收入',
-              reality: '876322',
-              expect: '5000',
-            },
-            {
-              id: 32,
-              subjects: '内部项目收入',
-              reality: '876322',
-              expect: '5000',
-            },
-          ],
-        },
-        {
-          id: 2,
-          num: '2',
-          subjects: '政府补贴',
-          reality: '876322',
-          expect: '5000',
-          num2: '5',
-          subjects2: '政府补贴',
-          reality2: '242563',
-          expect2: '50288',
-        },
-        {
-          id: 3,
-          num: '3',
-          subjects: '政府补贴',
-          reality: '876322',
-          expect: '5000',
-          num2: '5',
-          subjects2: '政府补贴',
-          reality2: '242563',
-          expect2: '50288',
-        },
-      ],
+      columnsMap,
+      yearMonth: initNow(),
+      isLoadTable: true,
+      pagedTable: [],
+      statistics: [0],
       tableHeight: 'calc(100vh - 260px)',
     }
   },
+  computed: {
+    newSearchForm () {
+      return {
+        year: getYear(this.yearMonth),
+      }
+    },
+  },
+  created () {
+    this.loadPage()
+  },
   methods: {
-    load (tree, treeNode, resolve) {
-      resolve([
-        {
-          id: 31,
-          subjects: '外部项目收入',
-          reality: '876322',
-          expect: '5000',
-        },
-        {
-          id: 32,
-          subjects: '内部项目收入',
-          reality: '876322',
-          expect: '5000',
-        },
-      ])
+    async loadTable (param, requestFn) {
+      this.isLoadTable = true
+      const { data } = await requestFn({ ...param, ...this.pageOption })
+      this.pagedTable = data.data.list
+      this.statistics[0] = data.data.inComeTotal
+      this.isLoadTable = false
+    },
+    searchPage () {
+      this.loadPage(this.newSearchForm)
+    },
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getIncomeList(3))
+    },
+    getSummaries (param) {
+      const { columns, data } = param
+      const sums = []
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = '合计'
+          return
+        }
+        const values = data.map(item => Number(item[column.property]))
+        if (!values.every(value => isNaN(value))) {
+          sums[index] = parseToMoney(this.statistics[0])
+        } else {
+          sums[index] = ''
+        }
+      })
+      return sums
     },
   },
 }
 </script>
-<style lang="css" scoped>
-.label {
-  min-width: 100px;
-  text-align: right;
-}
-.income-table >>> .el-table .cell {
-  text-align: center;
-}
-</style>
-
-
 

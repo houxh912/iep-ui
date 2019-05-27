@@ -22,7 +22,6 @@ const getSummaries = (param) => {
       sums[index] = ''
     }
   })
-
   return sums
 }
 

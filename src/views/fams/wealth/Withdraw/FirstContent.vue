@@ -72,7 +72,7 @@ export default {
   methods: {
     async loadTotal () {
       const { data } = await getTotal()
-      this.maxAmount = data.data.withdrawableCash
+      this.maxAmount = data.data.withdrawableCash >= 0 ? data.data.withdrawableCash : 0
       this.maxDeductionInvoice = data.data.withInvoice
     },
     formatNumber,

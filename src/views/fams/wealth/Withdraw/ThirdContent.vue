@@ -3,13 +3,15 @@
     <iep-result type="success" :description="description" :title="title">
       <template slot="action">
         <a-button type="primary" @click="handleBack">返回列表</a-button>
-        <a-button @click="handleBack">撤销</a-button>
+        <a-button style="margin-left: 8px" @click="handleRevoke">撤销</a-button>
       </template>
     </iep-result>
   </div>
 </template>
 <script>
+import { revokeWithdrawById } from '@/api/fams/withdraw'
 export default {
+  props: ['data'],
   data () {
     return {
       title: '提交成功',
@@ -19,6 +21,15 @@ export default {
   methods: {
     handleBack () {
       this.$emit('on-data')
+    },
+    handleRevoke () {
+      revokeWithdrawById(this.data.id).then(({ data }) => {
+        if (data.data) {
+          this.$emit('on-data')
+        } else {
+          this.$message(data.msg)
+        }
+      })
     },
   },
 }

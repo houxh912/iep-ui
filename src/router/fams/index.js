@@ -73,12 +73,12 @@ export default [
       {
         path: 'organization_transfer',
         name: '组织转账',
-        component: () => import('@/views/fams/GroupFinance/OrganizationTransfer/index.vue'),
+        component: () => import('@/views/fams/OrgAssets/OrganizationTransfer/index.vue'),
       },
       {
         path: 'organization_reward',
         name: '组织打赏/扣减',
-        component: () => import('@/views/fams/GroupFinance/OrganizationReward/index.vue'),
+        component: () => import('@/views/fams/OrgAssets/OrganizationReward/index.vue'),
       },
     ],
   },

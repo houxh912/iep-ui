@@ -2,7 +2,7 @@
   <div>
     <iep-button type="primary" icon="el-icon-plus" style="margin-bottom: 10px;" @click="handleEdit()">添 加</iep-button>
     <!-- TODO:expand-all失效 -->
-    <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagedTable="pagedTable" :is-pagination="false" is-tree :expand-all="true">
+    <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagedTable="pagedTable" :is-pagination="false" is-tree expand-all>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <iep-button v-if="scope.row._level <= 1" type="text" icon="el-icon-plus" size="mini" @click="handleEdit(scope.row, scope.index, true)">子项

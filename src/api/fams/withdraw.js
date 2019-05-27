@@ -11,6 +11,20 @@ export function getWithdrawPage (query) {
   })
 }
 
+export function getWithdrawById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}
+
+export function revokeWithdrawById (id) {
+  return request({
+    url: `${prefixUrl}/revoke/${id}`,
+    method: 'post',
+  })
+}
+
 export function getMyWithdrawPage (query) {
   return request({
     url: `${prefixUrl}/my/page`,

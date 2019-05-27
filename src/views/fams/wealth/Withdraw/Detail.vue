@@ -19,6 +19,13 @@ import SecondContent from './SecondContent'
 import ThirdContent from './ThirdContent'
 import FourthContent from './FourthContent'
 import LastContent from './LastContent'
+import { getWithdrawById } from '@/api/fams/withdraw'
+const statusMap = {
+  '0': 2,
+  '1': 3,
+  '2': 4,
+  '3': 4,
+}
 export default {
   components: {
     FirstContent,
@@ -54,34 +61,51 @@ export default {
         nextText: '撤销',
         prevText: '',
         data: undefined,
-        onData: this.handleThird,
+        onData: this.handleBack,
       }, {
         title: '财务发放',
         content: 'FourthContent',
         nextText: '',
         prevText: '',
         data: undefined,
-        onData: this.handleFirst,
+        onData: this.handleBack,
       }, {
         title: '完成',
         content: 'LastContent',
         nextText: '',
         prevText: '',
         data: undefined,
-        onData: this.handleFirst,
+        onData: this.handleBack,
       }],
     }
   },
+  computed: {
+    id () {
+      return +this.$route.params.id
+    },
+  },
+  created () {
+    this.loadPage()
+  },
   methods: {
+    loadPage () {
+      if (this.id) {
+        getWithdrawById(this.id).then(({ data }) => {
+          this.current = statusMap[data.data.status]
+          this.steps[this.current].data = data.data
+          // console.log(this.current, this.steps[this.current])
+          // debugger
+        })
+      }
+    },
     handleFirst (form) {
-      console.log(form)
       this.next()
       this.steps[this.current].data = form
     },
     handleSecond () {
       this.next()
     },
-    handleThird () {
+    handleBack () {
       this.$router.history.go(-1)
     },
     next () {

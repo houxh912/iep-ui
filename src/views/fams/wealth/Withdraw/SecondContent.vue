@@ -77,6 +77,6 @@ export default {
 <style lang="scss" scoped>
 .content-wrapper {
   max-width: 500px;
-  margin: 40px auto 0;
+  margin: 30px auto 0;
 }
 </style>

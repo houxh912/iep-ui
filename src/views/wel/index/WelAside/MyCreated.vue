@@ -52,9 +52,9 @@ export default {
           },
         },
         {
-          title: '感想',
+          title: '说说',
           callback: () => {
-            this.$message.success('功能开发中')
+            this.$router.push({path: '/wel/material/report', query: {type: 'thoughts'}})
           },
         },
         {

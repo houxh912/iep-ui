@@ -61,6 +61,11 @@ export default {
       ],
     }
   },
+  created () {
+    if (this.$route.query.type == 'thoughts') {
+      this.tabName = 'thoughtsTab'
+    }
+  },
 }
 </script>
 

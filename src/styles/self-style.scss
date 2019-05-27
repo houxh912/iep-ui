@@ -40,3 +40,6 @@
 .ant-tag {
   margin-bottom: 5px;
 }
+.el-checkbox__input.is-checked + .el-checkbox__label,.el-checkbox__input.is-checked + .el-checkbox__label,.el-radio__input.is-checked + .el-radio__label{
+  color: #606266;
+}

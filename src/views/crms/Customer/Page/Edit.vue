@@ -212,7 +212,7 @@ export default {
         ],
         companyFunction: [
           { message: '请填写单位职能', trigger: 'blur' },
-          { max: 25, message: '长度不超过25个字符', trigger: 'blur' },
+          { max: 255, message: '长度不超过255个字符', trigger: 'blur' },
         ],
         contractAddress: [
           { message: '请填写单位地址', trigger: 'blur' },

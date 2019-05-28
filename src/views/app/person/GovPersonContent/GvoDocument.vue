@@ -67,7 +67,7 @@ export default {
       content: "";
       position: absolute;
       left: -15px;
-      top: 8px;
+      top: 12px;
       width: 5px;
       height: 5px;
       border-radius: 50%;

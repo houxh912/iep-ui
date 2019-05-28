@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { getPersonPage } from '@/api/app/crms/'
+import { getCustomList } from '@/api/app/crms/'
 
 export default {
   props: {
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     loadPage () {
-      getPersonPage(this.params).then(({data}) => {
+      getCustomList(this.params).then(({data}) => {
         this.pageList = data.data.records
         this.total = data.data.total
       })

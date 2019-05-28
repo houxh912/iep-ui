@@ -19,6 +19,7 @@
 import Organization from './Organization'
 import Empolyee from './Empolyee'
 import Specialist from './Specialist'
+import { getRecruitCount } from '@/api/app/hrms/'
 
 export default {
   components: {
@@ -26,21 +27,40 @@ export default {
     Empolyee,
     Specialist,
   },
-  data () {
-    return {
-      tabList: [{
-        label: '组织风采(35)',
+  computed: {
+    tabList () {
+      return [{
+        label: `组织风采(${this.countObj.orgCount})`,
         value: 'Organization',
       }, {
-        label: '员工风采(519)',
+        label: `员工风采(${this.countObj.userCount})`,
         value: 'Empolyee',
       }, {
-        label: '专家风采(75)',
+        label: `专家风采(${this.countObj.expertCount})`,
         value: 'Specialist',
-      }],
+      }]
+    },
+  },
+  data () {
+    return {
+      countObj: {
+        orgCount: 0,
+        userCount: 0,
+        expertCount: 0,
+      },
       activeTab: 'Organization',
       linkName: '/app/organization_style',
     }
+  },
+  methods: {
+    loadCount () {
+      getRecruitCount().then(({data}) => {
+        this.countObj = data.data
+      })
+    },
+  },
+  created () {
+    this.loadCount()
   },
 }
 </script>

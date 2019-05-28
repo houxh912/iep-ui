@@ -229,6 +229,11 @@ export default [
         name: '搜索结果',
         component: () => import('@/views/app/searchDetails/'),
       },
+      {
+        path: 'tobeBole',
+        name: '争做伯乐',
+        component: () => import('@/views/app/person/GovPersonContent/TobeBole/'),
+      },
     ],
   },
 ]

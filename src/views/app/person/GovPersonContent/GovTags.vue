@@ -17,7 +17,7 @@ import { getTagsList } from '@/api/app/tms'
 export default {
   data () {
     return {
-      title: '国脉标签',
+      title: '人物标签排行榜',
       data: '(135个)',
       leaderBoardList: [],
     }

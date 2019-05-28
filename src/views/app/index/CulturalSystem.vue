@@ -14,7 +14,7 @@ export default {
     return {
       title: '文化制度',
       dataList: [],
-      linkName: '',
+      linkName: '/app/resource/material',
     }
   },
   methods: {

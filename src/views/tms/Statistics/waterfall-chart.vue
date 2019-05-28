@@ -5,22 +5,32 @@
     <el-menu v-if="commontag.length" :default-active="activeIndex" mode="horizontal" @select="handleSelect">
       <el-menu-item v-for="item in commontag" :index="item.id+''" :key="item.id">{{item.name}}</el-menu-item>
     </el-menu>
-    <waterfall :data="data"></waterfall>
+    <ve-waterfall :data="chartData" :extend="extend"></ve-waterfall>
   </div>
 </template>
 
 <script>
-import waterfall from './waterfall'
 import { getTagCommon, getTagRelationList } from '@/api/tms/statistics'
 import noData from './no-data'
 export default {
-  components: { waterfall, noData },
+  components: { noData },
   data () {
+    this.extend = {
+      'xAxis.0.axisLabel.rotate': 45,
+    }
     return {
-      data: [],
+      realData: [],
       activeIndex: '1',
       commontag: [],
     }
+  },
+  computed: {
+    chartData () {
+      return {
+        columns: ['name', 'count'],
+        rows: this.realData,
+      }
+    },
   },
   created () {
     this.loadCommonTag()
@@ -35,16 +45,7 @@ export default {
     },
     loadRelationList (id) {
       getTagRelationList(id).then(res => {
-        this.data = [...res.data]
-        const countArray = this.data.map(m => m.count)
-        let sum = 0
-        countArray.forEach(element => {
-          sum += element
-        })
-        this.data.push({
-          name: '关联总数',
-          count: sum,
-        })
+        this.realData = res.data
       })
     },
     handleSelect (index) {

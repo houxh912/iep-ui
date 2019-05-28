@@ -1,6 +1,6 @@
 <template>
   <div class="basic-box">
-    <el-card>
+    <el-card shadow="hover">
       <slot></slot>
     </el-card>
   </div>
@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'BasicContainer',
+  name: 'BasicBox',
 }
 </script>
 

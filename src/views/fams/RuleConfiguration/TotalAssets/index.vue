@@ -62,14 +62,8 @@
             </template>
           </operation-container>
           <iep-divider />
-          <v-chart :forceFit="true" :height="height" :data="data" :scale="scale">
-            <v-tooltip />
-            <v-axis />
-            <v-bar position="dept*money" color="#CB3737" />
-          </v-chart>
           <ve-histogram :data="chartData" :settings="chartSettings" :extend="chartExtend" :colors="colors"></ve-histogram>
         </el-card>
-
       </div>
     </basic-container>
   </div>

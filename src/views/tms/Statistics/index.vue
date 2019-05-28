@@ -2,7 +2,7 @@
   <div class="statistics-wrapper">
     <basic-box>
       <div class="count-wrapper">
-        <avue-data-box :option="option"></avue-data-box>
+        <tag-data-box :option="option"></tag-data-box>
       </div>
     </basic-box>
     <el-row :gutter="20">
@@ -36,6 +36,7 @@
 </template>
 <script>
 import { getTagStatistics } from '@/api/tms/statistics'
+import TagDataBox from './tag-data-box'
 import BasicBox from './basic-box'
 import PieChart from './pie-chart'
 import LineChart from './line-chart'
@@ -43,7 +44,7 @@ import TagGroup from './tag-group'
 import PhotoShow from './photo-show'
 import WaterfallChart from './waterfall-chart'
 export default {
-  components: { BasicBox, PieChart, LineChart, TagGroup, PhotoShow, WaterfallChart },
+  components: { TagDataBox, BasicBox, PieChart, LineChart, TagGroup, PhotoShow, WaterfallChart },
   data () {
     return {
       form: {},
@@ -52,19 +53,19 @@ export default {
           {
             title: '标签总量',
             count: 0,
-            icon: 'icon-list',
+            icon: 'el-icon-pie-chart',
             color: 'rgb(49, 180, 141)',
           },
           {
             title: '应用系统',
             count: 0,
-            icon: 'icon-jiaoseguanli',
+            icon: 'el-icon-mobile',
             color: 'rgb(56, 161, 242)',
           },
           {
             title: '本周新增',
             count: 0,
-            icon: 'icon-shujuzhanshi2',
+            icon: 'el-icon-folder-add',
             color: 'rgb(117, 56, 199)',
           },
         ],

@@ -6,47 +6,55 @@ const dictsMap = {
   },
 }
 
-const columnsMap = [
+const tabList = [
   {
-    prop: 'targetUserName',
-    label: '打赏对象',
+    label: '转出',
+    value: 'outOrgId',
   },
   {
-    prop: 'orgName',
-    label: '所属组织',
-  },
-  {
-    prop: 'amount',
-    label: '金额',
-  },
-  {
-    prop: 'createTime',
-    label: '操作时间',
-  },
-  {
-    prop: 'message',
-    label: '备注',
+    label: '转入',
+    value: 'inOrgId',
   },
 ]
+
+const colMap = {
+	'inOrgId': [
+		{
+			prop: 'outOrgName',
+			label: '转出组织',
+		},
+		{
+			prop: 'amount',
+			label: '金额',
+		},
+		{
+			prop: 'createTime',
+			label: '操作时间',
+		},
+	],
+	'outOrgId': [
+		{
+			prop: 'inOrgName',
+			label: '转入组织',
+		},
+		{
+			prop: 'amount',
+			label: '金额',
+		},
+		{
+			prop: 'createTime',
+			label: '操作时间',
+		},
+	],
+}
 
 const initForm = () => {
   return {
     id: '', // ID
     amount: '', // 打赏金额
-    message: '', // 打赏备注
-    type: '', // 打赏类型
-    isReward: '', // 打赏/扣减
-    targetUser: {
-      id: '',
-      name: '',
-    }, // 打赏对象
+    remarks: '', // 打赏备注
+    orgId: '', // 打赏对象
   }
 }
 
-const dtoForm = (row) => {
-  const newForm = {...row}
-  newForm.targetUserId = newForm.targetUser.id
-  return newForm
-}
-
-export { dictsMap, columnsMap, initForm, dtoForm }
+export { dictsMap, colMap, initForm, tabList }

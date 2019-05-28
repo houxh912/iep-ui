@@ -1,3 +1,59 @@
+## [1.4.6](http://115.233.227.46:8066/root/iep-ui/compare/v1.4.5...v1.4.6) (2019-05-28)
+
+
+### Bug Fixes
+
+* **个人信息tip修改:** 个人信息tip修改 ([251c63e](http://115.233.227.46:8066/root/iep-ui/commits/251c63e))
+* **产品:** 修复新增与修改不更新的问题 ([8c58ffe](http://115.233.227.46:8066/root/iep-ui/commits/8c58ffe))
+* **修复:** 一些DOM深度问题 ([8a6f084](http://115.233.227.46:8066/root/iep-ui/commits/8a6f084))
+* **修复:** 添加一些问题修复 ([5e9f144](http://115.233.227.46:8066/root/iep-ui/commits/5e9f144))
+* **修复:** 财务一些bug ([7635553](http://115.233.227.46:8066/root/iep-ui/commits/7635553))
+* **修复财务与产品:** 一些bug修复 ([5b0a237](http://115.233.227.46:8066/root/iep-ui/commits/5b0a237))
+* **字典:** 修复展开问题 ([bd96b33](http://115.233.227.46:8066/root/iep-ui/commits/bd96b33))
+* **字典管理编辑文本修改:** 字典管理编辑文本修改 ([9108e8c](http://115.233.227.46:8066/root/iep-ui/commits/9108e8c))
+* **客户全景|合同:** 未全部验证保存委托单位签署单位变数字修改 ([9f704ef](http://115.233.227.46:8066/root/iep-ui/commits/9f704ef))
+* **客户统计:** 合同为零时导致客户新增也为0 ([b9e9e5f](http://115.233.227.46:8066/root/iep-ui/commits/b9e9e5f))
+* **表格树修复:** 表格树修复 ([719efdd](http://115.233.227.46:8066/root/iep-ui/commits/719efdd))
+* **财务:** 修复一些默认值bug与提现问题提示 ([de1addc](http://115.233.227.46:8066/root/iep-ui/commits/de1addc))
+* **财务:** 完成组织支出 ([e67964d](http://115.233.227.46:8066/root/iep-ui/commits/e67964d))
+* **财务与产品:** 样式与组件问题修复 ([5b3aee4](http://115.233.227.46:8066/root/iep-ui/commits/5b3aee4))
+
+
+### Features
+
+* **bb:** bb ([87bf135](http://115.233.227.46:8066/root/iep-ui/commits/87bf135))
+* **优化:** 减少一些不要的包 ([5f80933](http://115.233.227.46:8066/root/iep-ui/commits/5f80933))
+* **全部客户操作权限添加:** 根据权限是否能操作全部客户按钮 ([cf31fe0](http://115.233.227.46:8066/root/iep-ui/commits/cf31fe0))
+* **单选框样式:** 单选框 ([af2d97b](http://115.233.227.46:8066/root/iep-ui/commits/af2d97b))
+* **完成组织支出:** 月季年 ([2dd9a18](http://115.233.227.46:8066/root/iep-ui/commits/2dd9a18))
+* **客户全景合同:** 合同名称限制统一 ([a1df1c2](http://115.233.227.46:8066/root/iep-ui/commits/a1df1c2))
+* **客户新增:** 单位职能字数限制加大 ([37f6263](http://115.233.227.46:8066/root/iep-ui/commits/37f6263))
+* **新增:** 演示页面 ([beb273f](http://115.233.227.46:8066/root/iep-ui/commits/beb273f))
+* **财务:** 完成提现问题修复与组织打赏与扣减 ([874e597](http://115.233.227.46:8066/root/iep-ui/commits/874e597))
+* **财务:** 完成支出与收入 ([256c4fd](http://115.233.227.46:8066/root/iep-ui/commits/256c4fd))
+* **财务:** 完成组织转账 ([6ee0c5f](http://115.233.227.46:8066/root/iep-ui/commits/6ee0c5f))
+* **财务:** 完成组织转账 ([6c1b7a7](http://115.233.227.46:8066/root/iep-ui/commits/6c1b7a7))
+* **财务与组件:** 更新功能与选项 ([030182a](http://115.233.227.46:8066/root/iep-ui/commits/030182a))
+* **集团财务:** 完成一些静态页面的设计 ([fd76afb](http://115.233.227.46:8066/root/iep-ui/commits/fd76afb))
+* **频道页:** 争做伯乐 ([a50ad25](http://115.233.227.46:8066/root/iep-ui/commits/a50ad25))
+* **频道页:** 国脉人 ([4e61e23](http://115.233.227.46:8066/root/iep-ui/commits/4e61e23))
+* **频道页:** 国脉人客户接口调整 ([1224988](http://115.233.227.46:8066/root/iep-ui/commits/1224988))
+* **频道页:** 国脉人页面调整 ([ed0a178](http://115.233.227.46:8066/root/iep-ui/commits/ed0a178))
+* **频道页:** 完成页面去除提示 ([37c666f](http://115.233.227.46:8066/root/iep-ui/commits/37c666f))
+* **频道页:** 意见反馈 ([6cc9b78](http://115.233.227.46:8066/root/iep-ui/commits/6cc9b78))
+* **频道页:** 首页产品接口 ([1881c01](http://115.233.227.46:8066/root/iep-ui/commits/1881c01))
+* **频道页:** 首页接口 ([643da3f](http://115.233.227.46:8066/root/iep-ui/commits/643da3f))
+* **频道页:** 首页更多链接配置 ([1e79320](http://115.233.227.46:8066/root/iep-ui/commits/1e79320))
+* **首页:** 个人说说路由跳转 ([9fee0ac](http://115.233.227.46:8066/root/iep-ui/commits/9fee0ac))
+
+
+### Performance Improvements
+
+* **优化:** 移除viser优化包大小 ([7d61399](http://115.233.227.46:8066/root/iep-ui/commits/7d61399))
+* **更新:** 更新一些插件 ([7470ad1](http://115.233.227.46:8066/root/iep-ui/commits/7470ad1))
+
+
+
 ## [1.4.5](http://115.233.227.46:8066/root/iep-ui/compare/v1.4.4...v1.4.5) (2019-05-25)
 
 

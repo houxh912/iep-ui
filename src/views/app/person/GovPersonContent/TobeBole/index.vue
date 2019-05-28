@@ -1,41 +1,54 @@
 <template>
   <div>
-    <div class="material" v-if="'/app/tobeBole'==routerMatch[routerMatch.length-1].path">
+    <div class="breadcrumb-wrapper">
+      <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="material">
       <div class="library">
-        <librarys></librarys>
+        <boleForm></boleForm>
       </div>
       <div class="piece">
         <IepAppTabCard :title="labelTitle">
-          <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
+          <IepAppListCard :dataList="labelList" name="positionName"></IepAppListCard>
         </IepAppTabCard>
       </div>
     </div>
-    <router-view v-else></router-view>
   </div>
 </template>
 
 <script>
-import Librarys from './Librarys/'
-import { getRectagsList } from '@/api/app/tms/index'
+import boleForm from './boleForm'
+import { getPostList } from '@/api/app/hrms/'
 
 export default {
-  components: { Librarys },
+  components: { boleForm },
   data () {
     return {
-      labelTitle: '热门标签',
+      labelTitle: '推荐岗位',
       labelList: [],
       dataList: [],
-      routerMatch: this.$route.matched,
+      routerMatch: [
+        {
+          path: '/app/index',
+          name: '首页',
+        }, 
+        {
+          path: '/app/person',
+          name: '国脉人',
+        },
+        {
+          path: '/app/tobeBole',
+          name: '争做伯乐',
+        },
+      ],
     }
   },
-  beforeRouteUpdate (to, from, next) {
-    this.routerMatch = to.matched
-    next()
-  },
   methods: {
-    // 推荐主题
+    // 推荐岗位
     getRectagsList () {
-      getRectagsList().then(({data}) => {
+      getPostList().then(({data}) => {
         this.labelList = data.data
       })
     },
@@ -46,6 +59,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.breadcrumb-wrapper {
+  .breadcrumb-item {
+    margin: 20px auto 0;
+    width: 1200px;
+    padding: 0 0 20px 20px;
+  }
+}
 .material {
   width: 1200px;
   margin: 0 auto;

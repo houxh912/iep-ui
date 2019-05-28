@@ -4,19 +4,11 @@
       <el-form-item label="金额：" prop="amount">
         <iep-input-number v-model="form.amount"></iep-input-number>
       </el-form-item>
-      <el-form-item label="方式：" prop="isReward">
-        <el-radio-group v-model="form.isReward" size="medium">
-          <el-radio v-for="(v,k) in dictsMap.isReward" :key="k" :label="k">{{v}}</el-radio>
-        </el-radio-group>
+      <el-form-item label="组织：" prop="orgId">
+        <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
       </el-form-item>
-      <el-form-item label="类型：" prop="type">
-        <iep-dict-select v-model="form.type" dict-name="fams_reward_reason" placeholder="选择打赏类型"></iep-dict-select>
-      </el-form-item>
-      <el-form-item label="对象：" prop="targetUser">
-        <iep-contact-select v-model="form.targetUser"></iep-contact-select>
-      </el-form-item>
-      <el-form-item label="备注：" prop="message">
-        <iep-input-area v-model="form.message"></iep-input-area>
+      <el-form-item label="备注：" prop="remarks">
+        <iep-input-area v-model="form.remarks"></iep-input-area>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -26,26 +18,23 @@
   </iep-dialog>
 </template>
 <script>
-import { initForm, dictsMap, dtoForm } from './options'
+import { initForm, dictsMap } from './options'
 export default {
   data () {
     return {
       dictsMap,
       dialogShow: false,
       formRequestFn: () => { },
-      methodName: '打赏/扣减',
+      methodName: '组织转账',
       form: initForm(),
       rules: {
         amount: [
           { required: true, message: '请输入金额', trigger: 'blur' },
         ],
-        isReward: [
-          { required: true, message: '请选择方式', trigger: 'blur' },
+        orgId: [
+          { required: true, message: '请选择组织', trigger: 'blur' },
         ],
-        targetUser: [
-          { required: true, message: '请选择用户', trigger: 'blur' },
-        ],
-        message: [
+        remarks: [
           { required: true, message: '请输入备注', trigger: 'blur' },
         ],
       },
@@ -60,7 +49,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(dtoForm(this.form)).then(({ data }) => {
+          this.formRequestFn(this.form).then(({ data }) => {
             if (data.data) {
               this.$message({
                 message: '操作成功',

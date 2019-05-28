@@ -12,7 +12,7 @@
         </el-form-item>
 
         <el-form-item label="用户:">
-          <iep-contact-select v-model="form.user"></iep-contact-select>
+          <iep-contact-select v-model="form.user" :is-show-contact-btn="false"></iep-contact-select>
         </el-form-item>
 
         <el-form-item label="用户群:">

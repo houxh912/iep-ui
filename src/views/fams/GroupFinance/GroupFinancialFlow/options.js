@@ -1,11 +1,26 @@
+const tabList = [
+  {
+    label: '转出',
+    value: 'outOrgId',
+  },
+  {
+    label: '转入',
+    value: 'inOrgId',
+  },
+]
+
 const columnsMap = [
 	{
 		prop: 'inOrgName',
-		label: '发行数量',
+		label: '流水号',
 	},
 	{
 		prop: 'amount',
-		label: '当前用户余额',
+		label: '类型',
+	},
+	{
+		prop: 'borrowMoneyType',
+		label: '操作对象',
 	},
 	{
 		prop: 'borrowMoneyType',
@@ -13,8 +28,16 @@ const columnsMap = [
 	},
 	{
 		prop: 'repaymentTime',
-		label: '发行日期',
+		label: '国脉贝',
+	},
+	{
+		prop: 'repaymentTime',
+		label: '操作时间',
+	},
+	{
+		prop: 'repaymentTime',
+		label: '操作说明',
 	},
 ]
 
-export { columnsMap }
+export { columnsMap, tabList }

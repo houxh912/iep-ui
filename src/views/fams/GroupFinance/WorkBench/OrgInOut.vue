@@ -22,7 +22,7 @@
     <iep-fams-card class="total-item-1" title="快捷入口">
       <div class="card-btn-grid">
         <div @click="$openPage('/fams/group_finance/fund_fransfer')">资金调拨</div>
-        <div @click="$openPage('/fams_spa/organization_transfer')">系统打赏</div>
+        <div @click="$openPage('/fams_spa/group_reward')">集团打赏</div>
         <div>投资管理</div>
         <div>组织预算</div>
       </div>

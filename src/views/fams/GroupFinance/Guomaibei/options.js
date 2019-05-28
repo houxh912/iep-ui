@@ -1,6 +1,6 @@
 const columnsMap = [
 	{
-		prop: 'inOrgName',
+		prop: 'amount',
 		label: '发行数量',
 	},
 	{
@@ -8,11 +8,11 @@ const columnsMap = [
 		label: '当前用户余额',
 	},
 	{
-		prop: 'borrowMoneyType',
+		prop: 'creatorId',
 		label: '操作人',
 	},
 	{
-		prop: 'repaymentTime',
+		prop: 'createTime',
 		label: '发行日期',
 	},
 ]

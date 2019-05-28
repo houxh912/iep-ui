@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import { getUnionBorrowPage } from '@/api/fams/org_borrow'
+import { getGuomaibeiPage } from '@/api/fams/guomaibei'
 import DialogForm from './DialogForm'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options'
@@ -31,15 +31,14 @@ export default {
     }
   },
   created () {
-    // this.loadPage()
-    this.isLoadTable = false
+    this.loadPage()
   },
   methods: {
     handleAdd () {
       this.$refs['DialogForm'].dialogShow = true
     },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getUnionBorrowPage)
+      this.loadTable(param, getGuomaibeiPage)
     },
   },
 }

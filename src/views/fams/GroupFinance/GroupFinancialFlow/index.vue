@@ -3,10 +3,10 @@
     <basic-container>
       <page-header title="集团财务流水"></page-header>
       <operation-container>
-        <template slot="left">
-          <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>发行</iep-button>
-        </template>
         <template slot="right">
+          <el-radio-group v-model="type" size="small" @change="changeType">
+            <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
+          </el-radio-group>
           <operation-search @search-page="searchPage"></operation-search>
         </template>
       </operation-container>
@@ -20,13 +20,15 @@
 import { getUnionBorrowPage } from '@/api/fams/org_borrow'
 import DialogForm from './DialogForm'
 import mixins from '@/mixins/mixins'
-import { columnsMap } from './options'
+import { columnsMap, tabList } from './options'
 export default {
   mixins: [mixins],
   components: { DialogForm },
   data () {
     return {
+      tabList,
       columnsMap,
+      type: 'outOrgId',
     }
   },
   created () {
@@ -37,6 +39,7 @@ export default {
     handleAdd () {
       this.$refs['DialogForm'].dialogShow = true
     },
+    changeType () { },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getUnionBorrowPage)
     },

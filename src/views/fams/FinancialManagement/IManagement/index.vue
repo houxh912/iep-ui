@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="收入管理" class="data-title" :replaceText="replaceText" :data="[10 ,0, 1,300000,0,0]"></page-header>
+      <page-header title="收入管理" :replaceText="replaceText" :data="[10 ,0, 1,300000,0,0]"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleIncome()" type="danger" icon="el-icon-plus" plain>添加收入</iep-button>

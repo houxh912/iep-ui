@@ -13,7 +13,6 @@
     "serve-mock": "node --max_old_space_size=2048 node_modules/@vue/cli-service/bin/vue-cli-service.js serve --mode=mock"
   },
   "dependencies": {
-    "@antv/data-set": "^0.10.2",
     "@smallwei/avue": "^1.5.3",
     "ant-design-vue": "^1.3.7",
     "axios": "^0.18.0",
@@ -37,7 +36,6 @@
     "stompjs": "^2.3.3",
     "uglifyjs-webpack-plugin": "^2.1.2",
     "v-charts": "^1.19.0",
-    "viser-vue": "^2.4.5",
     "vue": "^2.6.10",
     "vue-froala-wysiwyg": "^2.9.5",
     "vue-router": "^3.0.1",

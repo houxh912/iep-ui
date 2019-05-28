@@ -6,19 +6,19 @@ export default [
     redirect: '/cpms_spa/product_detail',
     children: [
       {
-        path: 'product_detail/:id',
-        name: '产品详情',
-        component: () => import('@/views/cpms/products/Page/Detail.vue'),
+        path: 'product_edit/:id',
+        name: '产品编辑',
+        component: () => import('@/views/cpms/products/Page/Edit.vue'),
       },
       {
-        path: 'module_detail/:id',
-        name: '模块详情',
-        component: () => import('@/views/cpms/modules/Page/Detail.vue'),
+        path: 'module_edit/:id',
+        name: '模块编辑',
+        component: () => import('@/views/cpms/modules/Page/Edit.vue'),
       },
       {
-        path: 'technology_detail/:id',
-        name: '技术详情',
-        component: () => import('@/views/cpms/technologys/Page/Detail.vue'),
+        path: 'technology_edit/:id',
+        name: '技术编辑',
+        component: () => import('@/views/cpms/technologys/Page/Edit.vue'),
       },
     ],
   },

@@ -25,7 +25,7 @@ export default {
   data () {
     return {
       title:'意见反馈',
-      linkName:'',
+      linkName:'/hrms_spa/suggestion_new',
       feedbackList: [],
     }
   },

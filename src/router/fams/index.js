@@ -80,6 +80,11 @@ export default [
         name: '组织打赏/扣减',
         component: () => import('@/views/fams/OrgAssets/OrganizationReward/index.vue'),
       },
+      {
+        path: 'group_reward',
+        name: '集团打赏/扣减',
+        component: () => import('@/views/fams/GroupFinance/GroupTransfer/index.vue'),
+      },
     ],
   },
 ]

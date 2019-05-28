@@ -11,7 +11,6 @@ import '@/styles/common.scss'
 import Avue from '@smallwei/avue/lib/index.js'
 // // 引入avue的样式文件
 import '@smallwei/avue/lib/theme-chalk/index.css'
-import Viser from 'viser-vue'
 
 import { loadStyle, loadJs, mergeByFirst, openPage,openTagDetail, fillStatisticsArray } from '@/util/util'
 import { iconfontUrl, iconfontVersion, multicolorIconfontUrl } from '@/config/env'
@@ -23,7 +22,6 @@ Vue.prototype.$openTagDetail = openTagDetail
 Vue.prototype.$fillStatisticsArray = fillStatisticsArray
 
 Vue.use(Avue, { menuType: 'text' })
-Vue.use(Viser)
 //加载过滤器
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

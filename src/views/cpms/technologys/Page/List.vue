@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { getTechnologyPage, postTechnology, putTechnology, deleteTechnologyById } from '@/api/cpms/technology'
+import { getTechnologyPage, deleteTechnologyById } from '@/api/cpms/technology'
 import AdvanceSearch from './AdvanceSearch'
 import mixins from '@/mixins/mixins'
 import { mapGetters } from 'vuex'
@@ -77,17 +77,13 @@ export default {
       return this.cpms_technologys_view || this.userInfo.userId === row.creatorId
     },
     handleAdd () {
-      this.$emit('onEdit', {
-        formRequestFn: postTechnology,
-        methodName: '新增',
-        id: false,
+      this.$router.push({
+        path: '/cpms_spa/technology_edit/0',
       })
     },
     handleEdit (row) {
-      this.$emit('onEdit', {
-        formRequestFn: putTechnology,
-        methodName: '修改',
-        id: row.id,
+      this.$router.push({
+        path: `/cpms_spa/technology_edit/${row.id}`,
       })
     },
     handleDetail (row) {
@@ -97,9 +93,6 @@ export default {
       this.$emit('onDetail', {
         id: row.id,
       })
-      // this.$router.push({
-      //   path: `/cpms_spa/technology_detail/${row.id}`,
-      // })
     },
     handleChangeMe (value) {
       const isMine = value.join(',')

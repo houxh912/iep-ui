@@ -77,18 +77,18 @@ import {
   Timeline,
   TimelineItem,
   Link,
-  // Divider,
-  // Image,
-  // Calendar,
+  Divider,
+  Image,
+  Calendar,
 } from 'element-ui'
 
 // Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 }
 
 Vue.component(CollapseTransition.name, CollapseTransition)
 Vue.use(CollapseTransition)
-// Vue.use(Image)
-// Vue.use(Calendar)
-// Vue.use(Divider)
+Vue.use(Image)
+Vue.use(Calendar)
+Vue.use(Divider)
 Vue.use(Link)
 Vue.use(Scrollbar)
 Vue.use(Timeline)

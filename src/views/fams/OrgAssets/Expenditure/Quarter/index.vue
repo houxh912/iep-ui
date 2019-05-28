@@ -42,7 +42,7 @@ export default {
       },
       isLoadTable: true,
       pagedTable: [],
-      statistics: [0],
+      statistics: ['', 0, 0],
       tableHeight: 'calc(100vh - 260px)',
     }
   },
@@ -63,7 +63,7 @@ export default {
       const { data } = await requestFn({ ...param, ...this.pageOption })
       this.pagedTable = data.data.list
       this.quarter = data.data.quarter + ''
-      this.statistics[0] = data.data.expenditureTotal
+      this.statistics[1] = data.data.expenditureTotal
       this.isLoadTable = false
     },
     searchPage () {
@@ -80,9 +80,10 @@ export default {
           sums[index] = '合计'
           return
         }
+        const idx = index - 1
         const values = data.map(item => Number(item[column.property]))
         if (!values.every(value => isNaN(value))) {
-          sums[index] = parseToMoney(this.statistics[0])
+          sums[index] = parseToMoney(this.statistics[idx])
         } else {
           sums[index] = ''
         }

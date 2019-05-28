@@ -2,7 +2,7 @@
   <div class="tag-photo-wrapper">
     <h1>标签生命周期</h1>
     <div class="tag-wrapper" style="height: 275px;">
-      <img :src="imgUrl" alt="">
+      <el-image style="width: 100%; height: 300px" :src="imgUrl" fit="fill"></el-image>
     </div>
   </div>
 </template>

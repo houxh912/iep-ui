@@ -8,7 +8,7 @@
       <a-select showSearch labelInValue :value="userValue" placeholder="请输入姓名或姓名拼音" :showArrow="false" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select">
         <a-select-option v-for="user in userResults" :key="user.id">{{user.name}}</a-select-option>
       </a-select>
-      <a-button @click="openContact()">通讯录</a-button>
+      <a-button v-if="isShowContactBtn" @click="openContact()">通讯录</a-button>
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="dialogShow = false" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
@@ -31,6 +31,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
+    },
+    isShowContactBtn: {
+      type: Boolean,
+      default: true,
     },
     filterUserList: {
       type: Array,

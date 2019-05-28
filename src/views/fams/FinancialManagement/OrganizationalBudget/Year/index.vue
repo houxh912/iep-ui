@@ -4,7 +4,7 @@
       <template slot="left">
         <operation-wrapper>
           <span>{{budgetTime}}年度预算</span>
-          <iep-button @click="handleAddBudget()">新增本年度预算</iep-button>
+          <iep-button v-if="isAddThisYearBudget()" @click="handleAddBudget()">新增本年度预算</iep-button>
         </operation-wrapper>
       </template>
       <template slot="right">
@@ -54,6 +54,13 @@ export default {
   },
   methods: {
     getSummaries,
+    isAddThisYearBudget () {
+      if (this.yearList.length && this.budgetTime === new Date().getFullYear()) {
+        return false
+      } else {
+        return true
+      }
+    },
     handleAddBudget () {
       const year = new Date().getFullYear()
       postYearBudget(year).then(() => {

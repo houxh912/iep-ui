@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="组织打赏"></iep-page-header>
+      <iep-page-header title="组织打赏" :backOption="backOption"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -35,6 +35,9 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      backOption: {
+        isBack: true,
+      },
       checkList: [],
       isReward: null,
     }

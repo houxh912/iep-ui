@@ -39,32 +39,26 @@
                 <div class="inline data">
                   <div class="data-lab">
                     <div class="count" @click="handleSome3()">{{form.tagNum}}</div>
-                    <div class="labTitle">
+                    <div class="lab-title">
                       <span>标签</span>
-                      <span class="span">
-                        <iep-tip icon="el-icon-question" content="您创建和管理标签的数量">
-                        </iep-tip>
-                      </span>
+                      <iep-tip class="tag-icon" icon="el-icon-question" content="您创建和管理标签的数量">
+                      </iep-tip>
                     </div>
                   </div>
                   <div class="data-lab">
                     <div class="count" @click="handleSome4()">{{form.materialNum}}</div>
-                    <div class="labTitle">
+                    <div class="lab-title">
                       <span>材料</span>
-                      <span class="span">
-                        <iep-tip icon="el-icon-question" content="您上传材料的总数量">
-                        </iep-tip>
-                      </span>
+                      <iep-tip class="tag-icon" icon="el-icon-question" content="您上传材料的总数量">
+                      </iep-tip>
                     </div>
                   </div>
                   <div class="data-lab hideLine">
                     <div class="count" @click="handleSome5()">{{form.credit}}</div>
-                    <div class="labTitle">
+                    <div class="lab-title">
                       <span>信用</span>
-                      <span class="span">
-                        <iep-tip icon="el-icon-question" content="个人信用是基于内网创建的一套征信系统，依据个人在内网中的各项行为数据，运用云计算和机器学习等技术，对各维度数据进行综合处理和评估，在个人工作、学习、管理、协作五个维度客观呈现个人信用状况的综合分值。信用值的高低将影响项目承接机会、企业内部投资、员工提拔、晋升、领导表扬/奖励及享受特权的重要依据。">
-                        </iep-tip>
-                      </span>
+                      <iep-tip class="tag-icon" icon="el-icon-question" content="个人信用是基于内网创建的一套征信系统，依据个人在内网中的各项行为数据，运用云计算和机器学习等技术，对各维度数据进行综合处理和评估，在个人工作、学习、管理、协作五个维度客观呈现个人信用状况的综合分值。信用值的高低将影响项目承接机会、企业内部投资、员工提拔、晋升、领导表扬/奖励及享受特权的重要依据。">
+                      </iep-tip>
                     </div>
                   </div>
                 </div>
@@ -141,6 +135,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.tag-icon {
+  padding-left: 5px;
+}
 .welcome-text {
   margin-left: 10px;
   font-size: 16px;
@@ -234,9 +231,6 @@ export default {
             &:hover {
               opacity: 0.7;
             }
-          }
-          span {
-            margin: 0 4px;
           }
           .border {
             padding: 3px 12px;
@@ -334,11 +328,8 @@ export default {
                   color: rgb(172, 172, 172);
                 }
               }
-              .labTitle {
+              .lab-title {
                 color: #bbb;
-                .span {
-                  padding-left: 5px;
-                }
               }
             }
             .hideLine:after {

@@ -12,6 +12,7 @@
   </iep-dialog>
 </template>
 <script>
+import { postGuomaibei } from '@/api/fams/guomaibei'
 function initForm () {
   return {
     amount: 0,
@@ -28,9 +29,17 @@ export default {
     close () {
       this.dialogShow = false
       this.form = initForm()
+      this.$emit('load-page')
     },
     submitForm () {
-
+      postGuomaibei(this.form).then(({ data }) => {
+        if (data.data) {
+          this.$message('操作成功')
+          this.close()
+        } else {
+          this.$message(data.msg)
+        }
+      })
     },
   },
 }

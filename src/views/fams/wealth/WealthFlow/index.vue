@@ -10,13 +10,6 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :dictsMap="dictsMap" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
-        <template slot="before-columns">
-          <el-table-column label="流水号" width="200">
-            <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
-            </template>
-          </el-table-column>
-        </template>
       </iep-table>
     </basic-container>
   </div>

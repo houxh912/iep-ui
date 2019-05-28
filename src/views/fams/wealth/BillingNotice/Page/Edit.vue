@@ -75,6 +75,7 @@
 <script>
 import { initForm } from '../options'
 import { mapGetters } from 'vuex'
+import { postBilling, putBilling, getBillingById } from '@/api/fams/billing'
 import { getCompanyById } from '@/api/fams/company'
 function initCompanyForm () {
   return {
@@ -96,8 +97,6 @@ export default {
     return {
       form: initForm(),
       companyForm: initCompanyForm(),
-      methodName: this.record.methodName || '新增',
-      formRequestFn: this.record.formRequestFn || (() => { }),
       backOption: {
         isBack: true,
         backPath: null,
@@ -107,13 +106,30 @@ export default {
   },
   computed: {
     ...mapGetters(['dictGroup']),
+    id () {
+      return +this.record.id
+    },
+    isEdit () {
+      return this.id ? true : false
+    },
+    formRequestFn () {
+      return this.isEdit ? putBilling : postBilling
+    },
+    methodName () {
+      return this.isEdit ? '修改' : '新增'
+    },
   },
   created () {
-    this.methodName = this.record.methodName
-    this.formRequestFn = this.record.formRequestFn
-    this.id = this.record.id
+    this.loadPage()
   },
   methods: {
+    loadPage () {
+      if (this.isEdit) {
+        getBillingById(this.id).then(({ data }) => {
+          this.form = this.$mergeByFirst(initForm(), data.data)
+        })
+      }
+    },
     handleChangeCompanyId (value) {
       getCompanyById(value).then(({ data }) => {
         this.companyForm = data.data

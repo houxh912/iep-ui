@@ -10,3 +10,11 @@ export function getGuomaibeiPage (query) {
     params: query,
   })
 }
+
+export function postGuomaibei (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}

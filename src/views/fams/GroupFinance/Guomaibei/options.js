@@ -4,11 +4,11 @@ const columnsMap = [
 		label: '发行数量',
 	},
 	{
-		prop: 'amount',
+		prop: 'balance',
 		label: '当前用户余额',
 	},
 	{
-		prop: 'creatorId',
+		prop: 'creator',
 		label: '操作人',
 	},
 	{

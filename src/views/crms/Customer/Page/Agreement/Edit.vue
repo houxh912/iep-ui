@@ -233,8 +233,8 @@ export default {
       let formData = Object.assign({}, this.formData)
       formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
       formData.directorId = this.formData.directorId
-      formData.id = this.contractId,
-        formData.companyOrgId = this.formData.companyOrgId
+      formData.id = this.contractId
+      formData.companyOrgId = this.formData.companyOrgId
       formData.signCompanyOrgId = this.formData.signCompanyOrgId
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -252,6 +252,8 @@ export default {
             this.$message.error('签订日期大于完结日期，不能保存！！！')
           }
         } else {
+          this.formData.companyOrgId = this.record.clientName
+          this.formData.signCompanyOrgId = this.record.clientName
           return false
         }
       })

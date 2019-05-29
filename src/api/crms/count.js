@@ -232,9 +232,17 @@ export function getWeekincrease (params) {
   })
 }
 // 查看所有客户关系统计
-export function getClientRela (params) {
+export function getAllClientRela (params) {
   return request({
     url: `${allUrl}/clientRela`,
+    method: 'get',
+    params: params,
+  })
+}
+// 查看我的客户关系统计
+export function getMyClientRela (params) {
+  return request({
+    url: `${myUrl}/clientRela`,
     method: 'get',
     params: params,
   })

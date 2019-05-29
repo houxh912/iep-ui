@@ -1,6 +1,6 @@
 <template>
   <div class="resources">
-    <IepAppTabsCard isMore>
+    <IepAppTabsCard isMore :linkName="activeTab === 'Recourses' ? '/app/resource' : '/app/resource/product_ku'">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Recourses'" v-slot:Recourses>
           <recourses v-loading="activeTab !=='Recourses'"></recourses>

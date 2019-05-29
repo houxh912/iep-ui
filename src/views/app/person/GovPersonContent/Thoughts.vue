@@ -45,7 +45,7 @@ export default {
   components: { BlessingDialog },
   data () {
     return {
-      title: '员工感想',
+      title: '员工说说',
       titleStar: '今日寿星',
       thoughtsList: [],
       starList: [],

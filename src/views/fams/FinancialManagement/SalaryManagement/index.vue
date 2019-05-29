@@ -8,7 +8,7 @@
             <operation-wrapper>
               <iep-button @click="handleDetail(scope.row)">查看</iep-button>
               <iep-button @click="handleUpload(scope.row)">上传</iep-button>
-              <iep-button @click="handleSend(scope.row)">发放</iep-button>
+              <iep-button v-if="scope.row.status!=='A'" @click="handleSend(scope.row)">发放</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

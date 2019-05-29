@@ -55,7 +55,6 @@
       </el-form>
       <FooterToolBar>
         <iep-button type="primary" @click="submitForm">提交</iep-button>
-        <iep-button @click="$emit('onGoBack')">取消</iep-button>
       </FooterToolBar>
     </basic-container>
   </div>

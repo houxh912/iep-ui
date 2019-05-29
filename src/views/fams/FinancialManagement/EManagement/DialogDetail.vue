@@ -35,7 +35,7 @@
       </el-form-item>
 
       <el-form-item label="税率：">
-        <iep-div-detail :value="form.taxRate+'%'"></iep-div-detail>
+        <iep-div-detail :value="(form.taxRate*100)+'%'"></iep-div-detail>
       </el-form-item>
 
       <el-form-item v-if="form.parentType==='17'" label="计息比率：">

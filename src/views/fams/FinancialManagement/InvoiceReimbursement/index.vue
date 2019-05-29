@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="发票审批" :replaceText="replaceText" :data="[10 ,5,10,25,15,31421.00,4733.00,355]"></page-header>
+      <page-header title="发票报销" :replaceText="replaceText" :data="[10 ,5,10,25,15,31421.00,4733.00,355]"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button>查看明细</iep-button>

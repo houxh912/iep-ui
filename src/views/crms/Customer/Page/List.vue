@@ -223,7 +223,7 @@ export default {
           },
         })
       } else {
-        if (this.userInfo.userId == row.marketManager) {
+        if (this.crms_customer_view) {
           this.$router.push({
             path: `/crms_spa/customer_detail/${row.clientId}`,
             query: {

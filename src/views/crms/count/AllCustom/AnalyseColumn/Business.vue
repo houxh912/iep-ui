@@ -1,13 +1,13 @@
 <template>
   <div>
-    <ve-pie :data="chartData" :legend-visible="false" :extend="chartExtend" height="300px" :loading="loading"></ve-pie>
+    <ve-pie :data="chartData" :legend-visible="false" :extend="chartExtend" height="300px"></ve-pie>
   </div>
 </template>
 
 <script>
-import _ from 'lodash'
+// import _ from 'lodash'
 import 'v-charts/lib/style.css'
-import { getAllBusiness } from '@/api/crms/count'
+import { getClientRela } from '@/api/crms/count'
 export default {
   data () {
     this.chartExtend = {
@@ -26,19 +26,20 @@ export default {
       },
     }
     return {
-      loading: true,
-      data: [
-        { value: '0', name: '咨询', label: 'consulting' },
-        { value: '0', name: '数据', label: 'information' },
-        { value: '0', name: '会议培训', label: 'meetingTraining' },
-        { value: '0', name: '业务类型其他', label: 'othersBusiness' },
-        { value: '0', name: '外包', label: 'outsourcing' },
-        { value: '0', name: '平台', label: 'platform' },
-        { value: '0', name: '产品', label: 'product' },
-        { value: '0', name: '技术服务', label: 'technicalService' },
-      ],
+      // loading: true,
+      // data: [
+      //   { value: '0', name: '咨询', label: 'consulting' },
+      //   { value: '0', name: '数据', label: 'information' },
+      //   { value: '0', name: '会议培训', label: 'meetingTraining' },
+      //   { value: '0', name: '业务类型其他', label: 'othersBusiness' },
+      //   { value: '0', name: '外包', label: 'outsourcing' },
+      //   { value: '0', name: '平台', label: 'platform' },
+      //   { value: '0', name: '产品', label: 'product' },
+      //   { value: '0', name: '技术服务', label: 'technicalService' },
+      // ],
+      sourceData: '',
       chartData: {
-        columns: ['name', 'value'],
+        columns: ['planUpload', 'clientQuantity'],
         rows: [],
       },
     }
@@ -48,15 +49,16 @@ export default {
   },
   methods: {
     load () {
-      getAllBusiness().then((res) => {
-        if (res) {
-          this.loading = false
-        }
-        Object.keys(res.data.data).forEach((item) => {
-          var index = _.findIndex(this.data, function (o) { return o.label == item })
-          this.data[index].value = res.data.data[item]
-        })
-        this.chartData.rows = this.data
+      getClientRela().then((res) => {
+        this.chartData.rows = res.data
+        // if (res) {
+        //   this.loading = false
+        // }
+        // Object.keys(res.data.data).forEach((item) => {
+        //   var index = _.findIndex(this.data, function (o) { return o.label == item })
+        //   this.data[index].value = res.data.data[item]
+        // })
+        // this.chartData.rows = this.data
       })
     },
   },

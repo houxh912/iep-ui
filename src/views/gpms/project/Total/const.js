@@ -156,6 +156,29 @@ export function initFormData () {
     coopDept: '', // 合作部门
     coopDeptList: {},
     groupExternalCooperatePartner: '', // 集团外部合作伙伴
+    productIds: [], // 产品
+    summaryIds: [], // 纪要
+    materialIds: [], // 材料
+    contractIds: [], // 合同
+    projectIds: [], // 项目
+    reportIds: [], // 周报
   }
 }
 
+export const relatedFormList = [{
+    name: '关联的纪要',
+    list: 'summaryIds',
+  }, {
+    name: '关联的材料',
+    list: 'materialIds',
+  }, {
+    name: '关联的合同',
+    list: 'contractIds',
+  }, {
+    name: '关联的项目',
+    list: 'projectIds',
+  }, {
+    name: '关联的周报',
+    list: 'reportIds',
+  },
+]

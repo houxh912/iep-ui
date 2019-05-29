@@ -131,15 +131,15 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="集团外部合作伙伴：" prop="groupExternalCooperatePartner">
-        <span slot="label">
-          集团外部合作伙伴:
-          <!-- <iep-tip :content="tipContent.groupExternalCooperatePartner"></iep-tip>： -->
-        </span>
-        <iep-select prefix-url="crm/customer" v-model="formData.groupExternalCooperatePartner"></iep-select>
-      </el-form-item>
+            <span slot="label">
+              集团外部合作伙伴:
+              <!-- <iep-tip :content="tipContent.groupExternalCooperatePartner"></iep-tip>： -->
+            </span>
+            <iep-select prefix-url="crm/customer" v-model="formData.groupExternalCooperatePartner"></iep-select>
+          </el-form-item>
         </el-col>
       </el-row>
-<el-form-item label="是否关联产品：" prop="isRelevanceProduct">
+      <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
         <span slot="label">
           是否关联产品:
           <!-- <iep-tip :content="tipContent.isRelevanceProduct"></iep-tip>： -->
@@ -152,11 +152,13 @@
           >{{item.label}}</el-radio>
         </el-radio-group>
       </el-form-item>
-    <el-form-item
-       label="添加关联:" 
-       v-if="formData.isRelevanceProduct === 1">
-      <!-- <iep-tip :content="tipContent.isRelevanceProduct"></iep-tip>： -->
-        <el-button @click="handleAdd">添加关联</el-button>
+      <el-form-item
+        label="添加关联产品：" 
+        v-if="formData.isRelevanceProduct === 1">
+        <el-button @click="handleAddProduct">添加关联</el-button>
+        <ul class="relevance-list" v-if="formData.productIds.length > 0">
+          <li class="item" v-for="t in formData.productIds" :key="t.id">{{t.name}}</li>
+        </ul>
       </el-form-item>
       <el-form-item
         label="未关联产品理由："
@@ -164,27 +166,40 @@
         v-if="formData.isRelevanceProduct === 2">
         <el-input type="textarea" rows="5" v-model="formData.notRelevanceProductReason"></el-input>
       </el-form-item>
-      </el-form> 
+      <el-form-item
+        label="添加其他关联：" >
+        <el-button @click="handleAdd">添加关联</el-button>
+      </el-form-item>
+      <div v-for="(item, index) in relatedFormList" :key="index">
+        <el-form-item :label="`${item.name}：`" v-if="formData[item.list].length > 0">
+          <ul class="relevance-list">
+            <li class="item" v-for="t in formData[item.list]" :key="t.id">{{t.name}}</li>
+          </ul>
+        </el-form-item>
+      </div>
+    </el-form>
 
     <footer-tool-bar>
       <iep-button type="primary" @click="save">保存</iep-button>
       <iep-button @click="close">取消</iep-button>
     </footer-tool-bar>
-    <relation-dialog ref="relationDialog"></relation-dialog>
+    <relation-dialog ref="relationDialog" @relativeSubmit="relativeSubmit"></relation-dialog>
+    <product-relation-dialog ref="productRelationDialog" @relativeSubmit="relativeProductSubmit"></product-relation-dialog>
   </div>
 </template>
 
 <script>
-import { dictMap, rules, initFormData } from './Total/const.js'
+import { dictMap, rules, initFormData, relatedFormList } from './Total/const.js'
 import { createData, updateData } from '@/api/gpms/index'
 import { getCustomerPage } from '@/api/crms/customer'
 import { mapState } from 'vuex'
 import { tipContent } from './option'
 import RelationDialog from './Total/relation'
+import ProductRelationDialog from './Total/productRelation'
 
 export default {
   name: 'add-dialog',
-  components: {RelationDialog},
+  components: { RelationDialog, ProductRelationDialog},
   computed: {
     ...mapState({
       dictGroup: state => state.user.dictGroup,
@@ -218,11 +233,11 @@ export default {
           name: '编辑',
         },
       },
-      
       clientList: [],
       typeOptions: dictMap.typeOptions, // 项目类型菜单
       isRelevOptions: dictMap.isRelevOptions, // 是否关联菜单
       workTypeOne: dictMap.workTypeOne, // 业务类型一级菜单
+      relatedFormList,
     }
   },
   methods: {
@@ -243,40 +258,36 @@ export default {
       this.formData = initFormData()
       this.$emit('close', state)
     },
-
     save () {
-        this.$refs['form'].validate((valid) => {
-            if (valid) {
-                // 进行数据的转换先
-                let personList = [{
-                    name: 'mktManager',
-                    list: 'mktManagerList',
-                }, {
-                    name: 'projectMentor',
-                    list: 'projectMentorList',
-                }, 
-                
-                {
-                    name: 'projectManager',
-                    list: 'projectManagerList',
-                },
-                ]
-                for (let item of personList) {
-                    this.formData[item.name] = this.formData[item.list].id
-                }
-                this.formData.inChargeDept = this.formData.inChargeDeptList.id
-                this.formData.coopDept = this.formData.coopDeptList.id
-                this.typeObj[this.type].requestFn(this.formData).then(() => {
-                    this.$message({
-                        message: `${this.methodName}成功`,
-                                type: 'success',
-                            })
-                            this.close(true)
-                        })
-                    } else {
-                        return false
-                    }
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          // 进行数据的转换先
+          let personList = [{
+              name: 'mktManager',
+              list: 'mktManagerList',
+          }, {
+              name: 'projectMentor',
+              list: 'projectMentorList',
+          }, {
+            name: 'projectManager',
+            list: 'projectManagerList',
+          }]
+          for (let item of personList) {
+            this.formData[item.name] = this.formData[item.list].id
+          }
+          this.formData.inChargeDept = this.formData.inChargeDeptList.id
+          this.formData.coopDept = this.formData.coopDeptList.id
+          this.typeObj[this.type].requestFn(this.formData).then(() => {
+            this.$message({
+              message: `${this.methodName}成功`,
+              type: 'success',
+            })
+              this.close(true)
           })
+        } else {
+          return false
+        }
+      })
     },
     // 业务类型
     businessTypeChange (val) {
@@ -284,8 +295,28 @@ export default {
     },
     handleAdd () {
       this.$refs['relationDialog'].dialogShow = true
+      this.$refs['relationDialog'].loadData({
+        summaryIds: this.formData.summaryIds,
+        materialIds: this.formData.materialIds,
+        contractIds: this.formData.contractIds,
+        projectIds: this.formData.projectIds,
+        reportIds: this.formData.reportIds,
+      })
     },
-
+    handleAddProduct () {
+      this.$refs['productRelationDialog'].dialogShow = true
+      this.$refs['productRelationDialog'].loadData({
+        productIds: this.formData.productIds,
+      })
+    },
+    // 添加其他关联
+    relativeSubmit (list) {
+      this.formData = Object.assign({}, this.formData, list)
+    },
+    // 添加关联产品
+    relativeProductSubmit (list) {
+      this.formData.productIds = list.productIds
+    },
   },
   created () {
     getCustomerPage({ type: 1 }).then(({ data }) => {
@@ -298,5 +329,12 @@ export default {
 <style scoped lang="scss">
 .abs {
   padding-bottom: 30px;
+}
+.relevance-list {
+  padding: 0;
+  .item {
+    list-style: none;
+    height: 28px;
+  }
 }
 </style>

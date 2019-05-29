@@ -1,5 +1,5 @@
 <template>
-    <iep-dialog :dialog-show="dialogShow" title="添加关联" width="650px" @close="resetForm">
+    <iep-dialog :dialog-show="dialogShow" title="添加关联" width="800px" @close="resetForm">
     <div class="iep-transfer">
       <div class="head">
         <div class="title">选择事项分类：</div>
@@ -15,7 +15,6 @@
         </div>
         <div class="list">
           <iep-scroll :load="projectState" @load-page="loadProject">
-            <!-- <div class="item" v-for="(item, index) in relationlist" :key="index">{{item.name}}</div> -->
             <el-checkbox-group v-model="formData">
               <div class="item" v-for="(item, index) in relationlist" :key="index">
                 <el-checkbox :label="item.id" name="type" @change="changeItem(item)">{{item.name}}</el-checkbox>
@@ -36,6 +35,17 @@
 import IepScroll from '@/components/IepScroll/index'
 import { getMaterialList } from '@/api/mlms/material/datum/material'
 import { getProjectList } from '@/api/gpms/index'
+import { getTableData } from '@/api/mlms/material/summary'
+import { getContractPageAll } from '@/api/mlms/material/datum/contract'
+import { getAllReportsOrg } from '@/api/mlms/material/report/project'
+function initParams () {
+  return {
+    current: 1,
+    size: 10,
+    name: '',
+  }
+}
+
 export default {
   components: { IepScroll },
   data () {
@@ -44,31 +54,29 @@ export default {
       activeIndex: 0,
       projectState: 0,
       selectList: [
-        { name: '会议纪要' },
-        { name: '产品项目', requestFn: getProjectList, type: 'projectIds' },
+        { name: '会议纪要', requestFn: getTableData, type: 'summaryIds', prop: 'title'},
         { name: '材料', requestFn: getMaterialList, type: 'materialIds' },
-        { name: '周报' },
+        { name: '合同', requestFn: getContractPageAll, type: 'contractIds', prop: 'contractName' },
+        { name: '项目', requestFn: getProjectList, type: 'projectIds', prop: 'projectName' },
+        { name: '周报', requestFn: getAllReportsOrg, type: 'reportIds', prop: 'projectName', id: 'projectWeekReportId' },
       ],
       transferList: {
-        projectIds: [], // 项目
         summaryIds: [], // 纪要
         materialIds: [], // 材料
-        reportIds: [], // 报表
+        contractIds: [], // 合同
+        projectIds: [], // 项目
+        reportIds: [], // 周报
       },
       name: '',
       relationlist: [],
-      params: {
-        current: 1,
-        size: 10,
-        name: '',
-      },
+      params: initParams(),
       formData: [],
     }
   },
   methods: {
     loadData (list) {
       this.transferList = list
-      this.chosenIndex(this.selectList[2], 2)
+      this.chosenIndex(this.selectList[0], 0)
     },
     resetForm () {
       this.dialogShow = false
@@ -85,11 +93,7 @@ export default {
       }
       // 开始获取数据
       this.relationlist = []
-      this.params = {
-        current: 1,
-        size: 10,
-        name: '',
-      }
+      this.params = initParams()
       this.activeIndex = index
       this.getListFn()
     },
@@ -105,9 +109,12 @@ export default {
       row.requestFn(this.params).then(({data}) => {
         if (data.data.records.length > 0) {
           this.projectState = 0
-          if (row.name == '项目') {
+          if (row.prop) {
             for (let t of data.data.records) {
-              t.name = t.projectName
+              t.name = t[row.prop]
+              if (row.id) {
+                t.id = t[row.id]
+              }
             }
           }
           this.relationlist = this.relationlist.concat(data.data.records)
@@ -135,7 +142,7 @@ export default {
           return
         }
       }
-      this.transferList[this.selectList[this.activeIndex].type].push(val)
+      this.transferList[this.selectList[this.activeIndex].type].push({id: val.id, name: val.name})
     },
   },
 }
@@ -154,7 +161,7 @@ export default {
       display: flex;
       li {
         list-style: none;
-        width: 65px;
+        width: calc(100% / 6);
         cursor: pointer;
         height: 25px;
         line-height: 25px;

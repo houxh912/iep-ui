@@ -137,7 +137,7 @@ export function initFormData () {
       id: 0,
       name: '',
     },//项目经理
-    projectMembersList:[],
+    projectMembersList: [], // 项目成员
     mktManagerList: {
       id: 0,
       name: '',
@@ -157,28 +157,39 @@ export function initFormData () {
     coopDeptList: {},
     groupExternalCooperatePartner: '', // 集团外部合作伙伴
     productIds: [], // 产品
+    productList: [],
     summaryIds: [], // 纪要
+    summaryList: [],
     materialIds: [], // 材料
+    materialList: [],
     contractIds: [], // 合同
+    contractList: [],
     projectIds: [], // 项目
+    projectList: [],
     reportIds: [], // 周报
+    reportList: [],
   }
 }
 
 export const relatedFormList = [{
     name: '关联的纪要',
-    list: 'summaryIds',
+    ids: 'summaryIds',
+    list: 'summaryList',
   }, {
     name: '关联的材料',
-    list: 'materialIds',
+    ids: 'materialIds',
+    list: 'materialList',
   }, {
     name: '关联的合同',
-    list: 'contractIds',
+    ids: 'contractIds',
+    list: 'contractList',
   }, {
     name: '关联的项目',
-    list: 'projectIds',
+    ids: 'projectIds',
+    list: 'projectList',
   }, {
     name: '关联的周报',
-    list: 'reportIds',
+    ids: 'reportIds',
+    list: 'reportList',
   },
 ]

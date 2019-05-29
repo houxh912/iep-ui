@@ -156,8 +156,8 @@
         label="添加关联产品：" 
         v-if="formData.isRelevanceProduct === 1">
         <el-button @click="handleAddProduct">添加关联</el-button>
-        <ul class="relevance-list" v-if="formData.productIds.length > 0">
-          <li class="item" v-for="t in formData.productIds" :key="t.id">{{t.name}}</li>
+        <ul class="relevance-list" v-if="formData.productList.length > 0">
+          <li class="item" v-for="t in formData.productList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'productList', 'productIds')"></i></li>
         </ul>
       </el-form-item>
       <el-form-item
@@ -173,7 +173,7 @@
       <div v-for="(item, index) in relatedFormList" :key="index">
         <el-form-item :label="`${item.name}：`" v-if="formData[item.list].length > 0">
           <ul class="relevance-list">
-            <li class="item" v-for="t in formData[item.list]" :key="t.id">{{t.name}}</li>
+            <li class="item" v-for="(t, i) in formData[item.list]" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, item.list, item.ids)"></i></li>
           </ul>
         </el-form-item>
       </div>
@@ -272,12 +272,24 @@ export default {
             name: 'projectManager',
             list: 'projectManagerList',
           }]
-          for (let item of personList) {
-            this.formData[item.name] = this.formData[item.list].id
+          let form = {...this.formData}
+          form.projectMembersList = this.formData.projectMembersList.map(m => m.id)
+          form.productIds = this.formData.productList.map(m => m.id)
+          for (let item of this.relatedFormList) {
+            form[item.ids] = this.formData[item.list].map(m => m.id)
           }
-          this.formData.inChargeDept = this.formData.inChargeDeptList.id
-          this.formData.coopDept = this.formData.coopDeptList.id
-          this.typeObj[this.type].requestFn(this.formData).then(() => {
+          for (let item of personList) {
+            form[item.name] = this.formData[item.list].id
+          }
+          form.inChargeDept = this.formData.inChargeDeptList.id
+          form.coopDept = this.formData.coopDeptList.id
+          delete form.productList
+          delete form.summaryList
+          delete form.materialList
+          delete form.contractList
+          delete form.projectList
+          delete form.reportList
+          this.typeObj[this.type].requestFn(form).then(() => {
             this.$message({
               message: `${this.methodName}成功`,
               type: 'success',
@@ -296,17 +308,17 @@ export default {
     handleAdd () {
       this.$refs['relationDialog'].dialogShow = true
       this.$refs['relationDialog'].loadData({
-        summaryIds: this.formData.summaryIds,
-        materialIds: this.formData.materialIds,
-        contractIds: this.formData.contractIds,
-        projectIds: this.formData.projectIds,
-        reportIds: this.formData.reportIds,
+        summaryList: this.formData.summaryList,
+        materialList: this.formData.materialList,
+        contractList: this.formData.contractList,
+        projectList: this.formData.projectList,
+        reportList: this.formData.reportList,
       })
     },
     handleAddProduct () {
       this.$refs['productRelationDialog'].dialogShow = true
       this.$refs['productRelationDialog'].loadData({
-        productIds: this.formData.productIds,
+        productList: this.formData.productList,
       })
     },
     // 添加其他关联
@@ -315,7 +327,12 @@ export default {
     },
     // 添加关联产品
     relativeProductSubmit (list) {
-      this.formData.productIds = list.productIds
+      this.formData.productList = list.productList
+    },
+    // 删除关联
+    closeRelation (index, list, ids) {
+      this.formData[list].splice(index, 1)
+      this.formData[ids].splice(index, 1)
     },
   },
   created () {
@@ -335,6 +352,10 @@ export default {
   .item {
     list-style: none;
     height: 28px;
+    i {
+      margin-left: 10px;
+      cursor: pointer;
+    }
   }
 }
 </style>

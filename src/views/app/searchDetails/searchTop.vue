@@ -23,7 +23,10 @@ export default {
   },
   methods: {
     searchPage (val) {
-      if (val == '') return
+      if (val.title == '') {
+        this.$message.error('请输入搜索内容')
+        return
+      }
       this.$emit('search-page', val)
     },
   },

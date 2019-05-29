@@ -78,6 +78,7 @@ export default {
   padding: 20px 0;
   border-bottom: 1px solid #eee;
   overflow: hidden;
+  cursor: pointer;
   .user-info {
     display: flex;
     margin-top: 15px;

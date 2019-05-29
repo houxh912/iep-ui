@@ -69,6 +69,7 @@ export default {
         countUser: 0,
         countHonor: 0,
       },
+      labelList: [],
     }
   },
   computed: {

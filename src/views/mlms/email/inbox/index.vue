@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import mixins from '@/mixins/mixins'
 import WebTabTpl from './tab'
 import SummaryDetail from '@/views/mlms/material/summary/detail'
@@ -30,7 +31,7 @@ import MaterialDetail from '@/views/mlms/material/datum/material/detail'
 
 export default {
   name: 'inbox',
-  mixins: [ mixins ],
+  mixins: [mixins],
   components: { WebTabTpl, SummaryDetail, MaterialDetail },
   data () {
     return {
@@ -54,9 +55,15 @@ export default {
       pageState: 'list',
     }
   },
+  computed: {
+    ...mapState({
+      emailNum: state => state.notify.emailNum,
+    }),
+  },
   methods: {
     subTitleFn (data) {
-      return '（共有 ' + data[0] + ' 封邮件，其中未读邮件 ' + data[1] + ' 封）'
+      return '（共有 ' + data[0] + ' 封邮件，其中未读邮件 ' + this.emailNum + ' 封）'
+      //      return '（共有 ' + data[0] + ' 封邮件，其中未读邮件 ' + data[1] + ' 封）'
     },
     backPage () {
       this.pageState = 'list'

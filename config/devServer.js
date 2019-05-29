@@ -42,6 +42,14 @@ if (process.env.NODE_ENV === 'development') {
         '^/act': '/act',
       },
     },
+    '/ims/ws': {
+      target: baseUrl,
+      changeOrigin: true,
+      ws: true,
+      pathRewrite: {
+        '^/ims/ws': '/ims/ws',
+      },
+    },
   }
 }
 // 改成本地 IP

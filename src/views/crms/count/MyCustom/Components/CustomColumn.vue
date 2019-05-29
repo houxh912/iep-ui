@@ -18,7 +18,7 @@
         <div class="echarts lines">
           <div class="line"></div>
           <div class="msg">您的客户中：</div>
-          <div class="msg" v-if="isShow">{{region}}，{{proposal}}类客户居多</div>
+          <div class="msg" v-if="isShow">{{region}}，{{proposal}}等居多</div>
           <div class="msg">平均拜访次数：<span class="color">3</span></div>
           <div class="msg">平均方案上传：<span class="color">4</span></div>
           <div class="suggest">建议多寻找{{info}}类客户。</div>
@@ -30,7 +30,7 @@
 <script>
 import District from './District'
 import Business from './Business'
-import { getDistrictMin, getDistrictMax, getMyBusinessMax } from '@/api/crms/count'
+import { getDistrictMax, getMyClientRela } from '@/api/crms/count'
 export default {
   components: { District, Business },
   data () {
@@ -69,22 +69,22 @@ export default {
   },
   methods: {
     load () {
-      getDistrictMin().then(res => {
-        let keys = []
-        for (let index = 0; index < res.data.length; index++) {
-          for (let key in res.data[index]) {
-            keys.push(key)
-          }
-        }
-        for (let i = 0; i < this.data.length; i++) {
-          for (let index = 0; index < keys.length; index++) {
-            if (this.data[i].label == keys[index]) {
-              this.business.push(this.data[i].name)
-            }
-          }
-        }
-        this.info = this.business.join('，')
-      })
+      // getDistrictMin().then(res => {
+      //   let keys = []
+      //   for (let index = 0; index < res.data.length; index++) {
+      //     for (let key in res.data[index]) {
+      //       keys.push(key)
+      //     }
+      //   }
+      //   for (let i = 0; i < this.data.length; i++) {
+      //     for (let index = 0; index < keys.length; index++) {
+      //       if (this.data[i].label == keys[index]) {
+      //         this.business.push(this.data[i].name)
+      //       }
+      //     }
+      //   }
+      //   this.info = this.business.join('，')
+      // })
       getDistrictMax().then(res => {
         let keys = []
         for (let index = 0; index < res.data.length; index++) {
@@ -108,21 +108,25 @@ export default {
         }
         this.region = this.businessMax.join('，')
       })
-      getMyBusinessMax().then(res => {
-        let keys = []
-        for (let index = 0; index < res.data.length; index++) {
-          for (let key in res.data[index]) {
-            keys.push(key)
-          }
-        }
-        for (let i = 0; i < this.data1.length; i++) {
-          for (let index = 0; index < keys.length; index++) {
-            if (this.data1[i].label == keys[index]) {
-              this.aaa.push(this.data1[i].name)
-            }
-          }
-        }
-        this.proposal = this.aaa.join('，')
+      // getMyBusinessMax().then(res => {
+      //   let keys = []
+      //   for (let index = 0; index < res.data.length; index++) {
+      //     for (let key in res.data[index]) {
+      //       keys.push(key)
+      //     }
+      //   }
+      //   for (let i = 0; i < this.data1.length; i++) {
+      //     for (let index = 0; index < keys.length; index++) {
+      //       if (this.data1[i].label == keys[index]) {
+      //         this.aaa.push(this.data1[i].name)
+      //       }
+      //     }
+      //   }
+      //   this.proposal = this.aaa.join('，')
+      // })
+      getMyClientRela().then(res => {
+        this.proposal = res.data.data[0].planUpload
+        this.info = res.data.data[res.data.data.length - 1].planUpload
       })
     },
   },

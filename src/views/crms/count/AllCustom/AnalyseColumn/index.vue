@@ -25,7 +25,7 @@
                     出单率
                   </el-progress>
                 </div>
-                <div class="msg" v-if="isShow">{{region}}客户，{{info}}类客户居多,为{{percent+'%'}}；</div>
+                <div class="msg" v-if="isShow">{{region}}客户，{{info}}等出单率居多,为{{percent+'%'}}；</div>
                 <div class="suggest">{{proposal}}最少</div>
               </div>
             </el-col>
@@ -41,7 +41,8 @@ import Business from './Business'
 import District from './District'
 import AdvanceSearch from './AdvanceSearch'
 import { getAllClientNum } from '@/api/crms/count'
-import { getBusinessMax, getBusinessMin } from '@/api/crms/count'
+// import { getBusinessMax, getBusinessMin } from '@/api/crms/count'
+import { getAllClientRela } from '@/api/crms/count'
 import { getDistrict } from '@/api/crms/count'
 export default {
   components: { Business, District, AdvanceSearch },
@@ -89,49 +90,52 @@ export default {
       getAllClientNum().then(res => {
         this.percent = this.toPercent(res.data.data.contractQuantity, res.data.data.clientQuantity)
       })
-      getBusinessMax().then(res => {
-        let keys = []
-        for (let index = 0; index < res.data.length; index++) {
-          for (let key in res.data[index]) {
-            keys.push(key)
-          }
-        }
-        for (let i in res.data) {
-          let key = Object.keys(res.data[i])[0]
-          if (res.data[i][key] == 0) {
-            this.isShow = false
-            break
-          }
-        }
-        for (let i = 0; i < this.data.length; i++) {
-          for (let index = 0; index < keys.length; index++) {
-            if (this.data[i].label == keys[index]) {
-              this.business.push(this.data1[i].name)
-            }
-          }
-        }
-        this.info = this.business.join('，')
-      })
-      getBusinessMin().then(res => {
-        let keys = []
-        for (let index = 0; index < res.data.length; index++) {
-          for (let key in res.data[index]) {
-            keys.push(key)
-          }
-        }
-        for (let i = 0; i < this.data1.length; i++) {
-          for (let index = 0; index < keys.length; index++) {
-            if (this.data1[i].label == keys[index]) {
-              this.businessMin.push(this.data[i].name)
-            }
-          }
-        }
-        this.proposal = this.businessMin.join('，')
-      })
+      // getBusinessMax().then(res => {
+      //   let keys = []
+      //   for (let index = 0; index < res.data.length; index++) {
+      //     for (let key in res.data[index]) {
+      //       keys.push(key)
+      //     }
+      //   }
+      //   for (let i in res.data) {
+      //     let key = Object.keys(res.data[i])[0]
+      //     if (res.data[i][key] == 0) {
+      //       this.isShow = false
+      //       break
+      //     }
+      //   }
+      //   for (let i = 0; i < this.data.length; i++) {
+      //     for (let index = 0; index < keys.length; index++) {
+      //       if (this.data[i].label == keys[index]) {
+      //         this.business.push(this.data1[i].name)
+      //       }
+      //     }
+      //   }
+      //   this.info = this.business.join('，')
+      // })
+      // getBusinessMin().then(res => {
+      //   let keys = []
+      //   for (let index = 0; index < res.data.length; index++) {
+      //     for (let key in res.data[index]) {
+      //       keys.push(key)
+      //     }
+      //   }
+      //   for (let i = 0; i < this.data1.length; i++) {
+      //     for (let index = 0; index < keys.length; index++) {
+      //       if (this.data1[i].label == keys[index]) {
+      //         this.businessMin.push(this.data[i].name)
+      //       }
+      //     }
+      //   }
+      //   this.proposal = this.businessMin.join('，')
+      // })
       getDistrict().then(res => {
         this.region = res.data.data[0].marketManager
       })
-
+      getAllClientRela().then(res => {
+        this.info = res.data.data[0].planUpload
+        this.proposal = res.data.data[res.data.data.length - 1].planUpload
+      })
     },
   },
 }

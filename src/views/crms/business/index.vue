@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="商机" :replaceText="replaceText" :data="[10]"></page-header>
+      <page-header title="合作机会" :replaceText="replaceText" :data="[10]"></page-header>
       <operation-container>
         <template v-if="+type !=3" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>

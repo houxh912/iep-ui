@@ -5,7 +5,9 @@
       <operation-container>
         <template v-if="type==='2'" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
-          <el-dropdown size="medium">
+          <iep-button type="primary" @click="excellImport" plain>导入</iep-button>
+          <iep-button type="primary" @click="Transfer" plain>转移</iep-button>
+          <!-- <el-dropdown size="medium">
             <iep-button size="small" :disabled="type !== '2'" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="excellImport">导入</el-dropdown-item>
@@ -13,7 +15,7 @@
               <el-dropdown-item @click.native="Transfer">转移</el-dropdown-item>
               <el-dropdown-item @click.native="handleCooperation">添加协作人</el-dropdown-item>
             </el-dropdown-menu>
-          </el-dropdown>
+          </el-dropdown> -->
         </template>
         <template slot="right">
           <el-radio-group v-model="type" size="small" @change="changeType">
@@ -46,18 +48,32 @@
         <el-table-column v-if="type !== '1'" prop="operation" label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" plain @click="addContact(scope.row)">添加联系人</iep-button>
+              <!-- <iep-button type="warning" plain @click="addContact(scope.row)">添加联系人</iep-button> -->
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="type === '2'" @click="handleDelete(scope.row)">删除</iep-button>
+              <el-dropdown size="medium">
+                <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item @click.native="addContact(scope.row)">添加联系人</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleCooperation(scope.row)">添加协作人</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
             </operation-wrapper>
           </template>
         </el-table-column>
         <el-table-column v-if="type == '1'" prop="operation" label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" plain @click="addContact(scope.row)" :disabled="isEditDelPermissions(scope.row)">添加联系人</iep-button>
+              <!-- <iep-button type="warning" plain @click="addContact(scope.row)" :disabled="isEditDelPermissions(scope.row)">添加联系人</iep-button> -->
               <iep-button type="warning" plain @click="handleEdit(scope.row)" :disabled="isEditDelPermissions(scope.row)">编辑</iep-button>
               <iep-button @click="handleDelete(scope.row)" :disabled="isEditDelPermissions(scope.row)">删除</iep-button>
+              <el-dropdown size="medium">
+                <iep-button type="default" :disabled="isEditDelPermissions(scope.row)"><i class="el-icon-more-outline"></i></iep-button>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item @click.native="addContact(scope.row)">添加联系人</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleCooperation(scope.row)">添加协作人</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -227,15 +243,16 @@ export default {
 
     },
     //添加协作人
-    handleCooperation () {
-      if (this.ids.length == 0) {
-        this.$message('请勾选需要添加协作人的客户')
-      } else if (this.ids.length == 1) {
-        this.$refs['collaborator'].data.clientId = this.ids[0]
-        this.$refs['collaborator'].dialogShow = true
-      } else {
-        this.$message('一次只能添加一名协作人')
-      }
+    handleCooperation (row) {
+      console.log(row)
+      // if (this.ids.length == 0) {
+      //   this.$message('请勾选需要添加协作人的客户')
+      // } else if (this.ids.length == 1) {
+      this.$refs['collaborator'].data.clientId = row.clientId
+      this.$refs['collaborator'].dialogShow = true
+      // } else {
+      //   this.$message('一次只能添加一名协作人')
+      // }
     },
     //转移
     Transfer () {
@@ -249,6 +266,7 @@ export default {
     },
     //table多选
     handleSelectionChange (val) {
+      console.log(val)
       this.multipleSelection = val.map(m => m.clientId)
       let ids = []
       val.forEach((item) => {
@@ -258,9 +276,7 @@ export default {
     },
     //加载
     loadPage (param = this.searchForm) {
-      this.loadTable({ ...param, type: this.type }, getCustomerPage, m => {
-        return Object.assign(m, { businessType: m.businessTypeKey.map(m => m.commonName).join('，') })
-      })
+      this.loadTable({ ...param, type: this.type }, getCustomerPage)
     },
     // 列表标签点击进入标签详情页
     handleTagDetail (val) {

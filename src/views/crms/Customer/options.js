@@ -23,6 +23,8 @@ const initForm = () => {
     tags: [],
     collaborations: [],
     assertionsSave: 1,
+    orgNameForOld: '',//原机构名
+    clientAbrName: '',//客户简称
   }
 }
 // 全部客户搜索

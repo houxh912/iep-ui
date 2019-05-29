@@ -13,12 +13,12 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :cell-style="mixinsCellPointerStyle" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="contactDetail">
-        <el-table-column prop="operation" label="对应客户" width="460">
+        <el-table-column prop="operation" label="对应客户">
           <template slot-scope="scope">
             <span class="contact-tag" v-for="(item,index) in scope.row.clientInfos" :key="index">{{item.clientName}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="operation" label="操作" width="160">
+        <el-table-column prop="operation" label="操作" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)" plain type="warning">编辑</iep-button>

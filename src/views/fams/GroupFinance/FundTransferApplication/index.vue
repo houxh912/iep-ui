@@ -36,6 +36,7 @@ export default {
     handleDetail (row) {
       this.$router.push({
         path: `/fams_spa/union_borrow_detail/${row.id}`,
+        query: { approval: 'true' },
       })
     },
     loadPage (param = this.searchForm) {

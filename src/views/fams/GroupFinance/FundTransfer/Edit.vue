@@ -4,9 +4,9 @@
       <page-header :title="`新增资金调拨`" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">保存</iep-button>
       </page-header>
-      <el-form ref="form" class="form-detail" :model="form" label-width="200px" size="small">
+      <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="200px" size="small">
         <h4 class="iep-sub-title">基础信息</h4>
-        <iep-form-item label-name="调拨金额(元)" class="form-half">
+        <iep-form-item label-name="调拨金额(元)" prop="amount" class="form-half">
           <iep-input-number v-model="form.amount"></iep-input-number>
         </iep-form-item>
         <iep-form-item label-name="调拨方式" class="form-half">
@@ -58,12 +58,14 @@
   </div>
 </template>
 <script>
-import { initForm, dictsMap, borrowToForm, formToDto, calculateTime } from './options'
+import { initForm, dictsMap, borrowToForm, formToDto, calculateTime, rules } from './options'
 import { postFundTransfer } from '@/api/fams/fund_transfer'
 import { pickerOptions } from '@/const/formConfig.js'
 import { getOrgBorrowById } from '@/api/fams/org_borrow'
+import formMixins from '@/mixins/formMixins'
 import { mapGetters } from 'vuex'
 export default {
+  mixins: [formMixins],
   props: {
     record: {
       type: Object,
@@ -78,6 +80,7 @@ export default {
       backOption: {
         isBack: true,
       },
+      rules,
     }
   },
   computed: {
@@ -123,15 +126,28 @@ export default {
         this.form = borrowToForm(data.data)
       })
     },
-    handleSubmit () {
-      postFundTransfer(formToDto(this.form)).then(({ data }) => {
-        if (data.data) {
-          this.$message.success('操作成功')
-          this.handleGoBack()
-        } else {
-          this.$message(data.msg)
+    async handleSubmit () {
+      try{
+        await this.mixinsValidate()
+        postFundTransfer(formToDto(this.form)).then(({ data }) => {
+          if (data.data) {
+            this.$message.success('操作成功')
+            this.handleGoBack()
+          } else {
+            this.$message(data.msg)
+          }
+        })
+      }
+      catch (object) {
+        let message = ''
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            const element = object[key]
+            message = element[0].message
+          }
         }
-      })
+        this.$message(message)
+      }
     },
   },
 }

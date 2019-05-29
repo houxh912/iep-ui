@@ -13,14 +13,13 @@ import Avue from '@smallwei/avue/lib/index.js'
 import '@smallwei/avue/lib/theme-chalk/index.css'
 
 import { loadStyle, loadJs, mergeByFirst, openPage,openTagDetail, fillStatisticsArray } from '@/util/util'
-import { iconfontUrl, iconfontVersion, multicolorIconfontUrl, wsUrl } from '@/config/env'
+import { iconfontUrl, iconfontVersion, multicolorIconfontUrl } from '@/config/env'
 import * as filters from '@/filters/' // 全局filter
 
 Vue.prototype.$mergeByFirst = mergeByFirst
 Vue.prototype.$openPage = openPage
 Vue.prototype.$openTagDetail = openTagDetail
 Vue.prototype.$fillStatisticsArray = fillStatisticsArray
-Vue.prototype.$wsUrl = wsUrl
 
 Vue.use(Avue, { menuType: 'text' })
 //加载过滤器

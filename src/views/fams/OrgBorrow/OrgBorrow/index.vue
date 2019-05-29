@@ -18,7 +18,7 @@
           <el-radio-group v-model="type" size="small" @change="changeType">
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
           </el-radio-group>
-          <operation-search @search-page="searchPage"></operation-search>
+          <operation-search @search-page="searchPage" :prop="searchProp"></operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
@@ -30,7 +30,7 @@
 import { mapGetters } from 'vuex'
 import { getOrgBorrowPage } from '@/api/fams/org_borrow'
 import mixins from '@/mixins/mixins'
-import { dictsMap, colMap, tabList } from './options'
+import { dictsMap, colMap, propMap, tabList } from './options'
 export default {
   mixins: [mixins],
   data () {
@@ -52,6 +52,9 @@ export default {
       return {
         [type]: this.orgId,
       }
+    },
+    searchProp () {
+      return propMap[this.type]
     },
     columnsMap () {
       return colMap[this.type]

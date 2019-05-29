@@ -76,7 +76,7 @@ export default {
         'Authorization': 'Bearer ' + token,
       }
       // 建立连接对象
-      this.socket = new SockJS(this.$wsUrl)//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
+      this.socket = new SockJS('/api/ims/ws')//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
       this.stompClient = Stomp.over(this.socket)
       this.stompClient.debug = null
       // 向服务器发起websocket连接
@@ -88,16 +88,16 @@ export default {
     },
     initWebSocket () {
       this.connection()
-      let self = this
-      //断开重连机制,尝试发送消息,捕获异常发生时重连
-      this.timer = setInterval(() => {
-        try {
-          self.stompClient.send('test')
-        } catch (err) {
-          console.log('断线了: ' + err)
-          self.connection()
-        }
-      }, 5000)
+      // let self = this
+      // //断开重连机制,尝试发送消息,捕获异常发生时重连
+      // this.timer = setInterval(() => {
+      //   try {
+      //     self.stompClient.send('test')
+      //   } catch (err) {
+      //     console.log('断线了: ' + err)
+      //     self.connection()
+      //   }
+      // }, 5000)
     },
     loadPage () {
       this.pageLoading = true

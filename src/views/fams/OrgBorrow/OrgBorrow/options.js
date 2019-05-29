@@ -12,7 +12,10 @@ const tabList = [
     value: 'inOrgId',
   },
 ]
-
+const propMap = {
+	'inOrgId': 'outOrgName',
+	'outOrgId': 'inOrgName',
+}
 const colMap = {
 	'inOrgId': [
 		{
@@ -72,6 +75,7 @@ const initForm = () => {
 export {
 	dictsMap,
 	colMap,
+	propMap,
 	initForm,
 	tabList,
 }

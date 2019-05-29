@@ -51,10 +51,19 @@ const colMap = {
 const initForm = () => {
   return {
     id: '', // ID
-    amount: '', // 打赏金额
+    amount: 0, // 打赏金额
     remarks: '', // 打赏备注
     orgId: '', // 打赏对象
   }
 }
 
-export { dictsMap, colMap, initForm, tabList }
+const rules = {
+	amount: [
+		{ type: 'number', required: true, message: '输入的金额至少大于 0 元', trigger: 'blur',  min: 1  },
+	],
+	orgId: [
+		{ required: true, message: '请选择组织', trigger: 'blur' },
+	],
+}
+
+export { dictsMap, colMap, initForm, tabList, rules }

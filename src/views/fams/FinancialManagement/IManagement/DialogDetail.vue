@@ -5,7 +5,7 @@
         <iep-div-detail :value="form.typeValue"></iep-div-detail>
       </el-form-item>
       <el-form-item label="收入时间：">
-        <iep-div-detail :value="form.startTime"></iep-div-detail>
+        <iep-div-detail :value="form.createTime"></iep-div-detail>
       </el-form-item>
       <el-form-item label="收入组织：">
         <iep-div-detail :value="form.orgName"></iep-div-detail>
@@ -25,15 +25,15 @@
       <el-form-item label="开票金额：">
         <iep-div-detail :value="form.invoiceAmount"></iep-div-detail>
       </el-form-item>
-      <el-form-item label="收入金额：">
+      <!-- <el-form-item label="收入金额：">
         <iep-div-detail :value="form.amount"></iep-div-detail>
-      </el-form-item>
-      <el-form-item label="开票组织：">
+      </el-form-item> -->
+      <!-- <el-form-item label="开票组织：">
         <iep-div-detail :value="form.invoiceOrgName"></iep-div-detail>
-      </el-form-item>
-      <el-form-item label="开票税率：">
+      </el-form-item> -->
+      <!-- <el-form-item label="开票税率：">
         <iep-div-detail :value="(form.invoicingTax*100)+'%'"></iep-div-detail>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item v-if="form.parentType==='6'" label="计息比率：">
         <iep-div-detail :value="form.interestRate+'%'"></iep-div-detail>
       </el-form-item>

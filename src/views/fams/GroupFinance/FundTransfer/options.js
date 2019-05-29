@@ -1,5 +1,6 @@
 // import { mergeByFirst } from '@/util/util'
 import { initNow } from '@/util/date'
+import { checkContactUser } from '@/util/rules'
 import moment from 'moment'
 
 const dictsMap = {
@@ -125,4 +126,37 @@ const borrowToForm = (row) => {
 	return newForm
 }
 
-export { dictsMap, columnsMap, initForm, initDetailForm, formToDto, borrowToForm, calculateTime }
+const rules = {
+	amount: [
+	{ required: true, message: '调拨金额为数字且大于0', trigger: 'blur', type:'number', min:1 },
+	],
+	allocationWay: [
+    { required: true, message: '请输入调拨方式', trigger: 'blur' },
+	],
+	interest: [
+    { required: true, message: '日利息(%)为数字且大于0', trigger: 'blur', type:'number', min:1 },
+	],
+	allocationDays: [
+    { required: true, message: '调拨天数(日)为数字且大于0', trigger: 'blur', type:'number', min:1 },
+  ],
+	implementRangeTime: [
+    { required: true, message: '请输入执行日期', trigger: 'blur' },
+	],
+	estimatedTime: [
+    { required: true, message: '请输入预计时间', trigger: 'blur' },
+	],
+	callOutOrgId: [
+    { required: true, message: '请输入调出组织', trigger: 'blur' },
+	],
+	callOutUser: [
+    { required: true, message: '请输入调出方财务', validator: checkContactUser('调出方财务'), trigger: 'blur', type:'object' },
+	],
+	callInOrgId: [
+    { required: true, message: '请输入调入组织', trigger: 'blur' },
+	],
+	callInUser: [
+    { required: true, message: '请输入调入方财务', validator: checkContactUser('调入方财务'), trigger: 'blur', type:'object' },
+	],
+}
+
+export { dictsMap, columnsMap, initForm, initDetailForm, formToDto, borrowToForm, calculateTime, rules }

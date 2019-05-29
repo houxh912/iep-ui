@@ -47,7 +47,9 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteCompanyById)
     },
     handleChild (row) {
-      this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].form.id = ''
+      this.$refs['DialogForm'].form.name = ''
       this.$refs['DialogForm'].form.parentId = row.id
       this.$refs['DialogForm'].form.parentName = row.name
       this.$refs['DialogForm'].formRequestFn = postCompany

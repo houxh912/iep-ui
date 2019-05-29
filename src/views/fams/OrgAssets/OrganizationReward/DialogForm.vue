@@ -26,7 +26,7 @@
   </iep-dialog>
 </template>
 <script>
-import { initForm, dictsMap, dtoForm } from './options'
+import { initForm, dictsMap, dtoForm, rules } from './options'
 export default {
   data () {
     return {
@@ -35,20 +35,7 @@ export default {
       formRequestFn: () => { },
       methodName: '打赏/扣减',
       form: initForm(),
-      rules: {
-        amount: [
-          { required: true, message: '请输入金额', trigger: 'blur' },
-        ],
-        isReward: [
-          { required: true, message: '请选择方式', trigger: 'blur' },
-        ],
-        targetUser: [
-          { required: true, message: '请选择用户', trigger: 'blur' },
-        ],
-        message: [
-          { required: true, message: '请输入备注', trigger: 'blur' },
-        ],
-      },
+      rules,
     }
   },
   methods: {

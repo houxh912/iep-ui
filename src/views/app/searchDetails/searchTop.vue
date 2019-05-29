@@ -23,6 +23,7 @@ export default {
   },
   methods: {
     searchPage (val) {
+      if (val == '') return
       this.$emit('search-page', val)
     },
   },

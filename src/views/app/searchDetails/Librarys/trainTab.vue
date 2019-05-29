@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { getTrainingRecordPage } from '@/api/hrms/training_record'
+import { getRecruitPage } from '@/api/app/hrms/'
 
 export default {
   props: {
@@ -50,7 +50,7 @@ export default {
         this.params.trainingTheme = title
       }
       this.loading = true
-      getTrainingRecordPage(this.params).then(({data}) => {
+      getRecruitPage(this.params).then(({data}) => {
         this.loading = false
         this.librarys = data.data.records
         this.total = data.data.total

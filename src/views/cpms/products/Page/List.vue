@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { getProductPage, postProduct, putProduct, deleteProductById } from '@/api/cpms/product'
+import { getProductPage, deleteProductById } from '@/api/cpms/product'
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
 export default {
@@ -79,17 +79,13 @@ export default {
       return this.cpms_products_view || this.userInfo.userId === row.creatorId
     },
     handleAdd () {
-      this.$emit('onEdit', {
-        formRequestFn: postProduct,
-        methodName: '新增',
-        id: false,
+      this.$router.push({
+        path: '/cpms_spa/product_edit/0',
       })
     },
     handleEdit (row) {
-      this.$emit('onEdit', {
-        formRequestFn: putProduct,
-        methodName: '修改',
-        id: row.id,
+      this.$router.push({
+        path: `/cpms_spa/product_edit/${row.id}`,
       })
     },
     handleDetail (row) {
@@ -99,9 +95,6 @@ export default {
       this.$emit('onDetail', {
         id: row.id,
       })
-      // this.$router.push({
-      //   path: `/cpms_spa/product_detail/${row.id}`,
-      // })
     },
     handleChangeMe (value) {
       const isMine = value.join(',')

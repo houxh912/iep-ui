@@ -68,6 +68,7 @@ export default {
   },
   methods: {
     loadData (list) {
+      this.name = ''
       this.transferList = list
       this.chosenIndex(this.selectList[2], 2)
     },

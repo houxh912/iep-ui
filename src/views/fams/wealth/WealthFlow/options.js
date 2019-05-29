@@ -7,6 +7,11 @@ const dictsMap = {
 }
 const columnsMap = [
   {
+    prop: 'name',
+    label: '流水号',
+    minWidth: '200',
+  },
+  {
     prop: 'type',
     label: '分类',
     type: 'dict',

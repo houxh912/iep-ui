@@ -55,14 +55,13 @@
       </el-form>
       <FooterToolBar>
         <iep-button type="primary" @click="submitForm">提交</iep-button>
-        <iep-button @click="$emit('onGoBack')">取消</iep-button>
       </FooterToolBar>
     </basic-container>
   </div>
 </template>
 
 <script>
-import { getTechnologyById } from '@/api/cpms/technology'
+import { getTechnologyById, postTechnology, putTechnology } from '@/api/cpms/technology'
 import mixins from '@/mixins/mixins'
 import { dictsMap, initForm, toDtoForm, rules } from '../options'
 import IepCpmsModuleTable from '@/views/cpms/Components/ModuleTable'
@@ -85,22 +84,24 @@ export default {
     return {
       dictsMap,
       rules,
-      methodName: '',
-      formRequestFn: () => { },
       backOption: {
         isBack: true,
-        backPath: null,
-        backFunction: () => { this.$emit('onGoBack') },
       },
       form: initForm(),
     }
   },
   computed: {
     id () {
-      return this.record.id
+      return +this.$route.params.id
     },
     isEdit () {
       return this.id ? true : false
+    },
+    formRequestFn () {
+      return this.isEdit ? putTechnology : postTechnology
+    },
+    methodName () {
+      return this.isEdit ? '修改' : '新增'
     },
   },
   created () {
@@ -108,8 +109,6 @@ export default {
   },
   methods: {
     loadPage () {
-      this.methodName = this.record.methodName
-      this.formRequestFn = this.record.formRequestFn
       if (this.isEdit) {
         getTechnologyById(this.id).then(({ data }) => {
           this.form = this.$mergeByFirst(initForm(), data.data)
@@ -134,7 +133,7 @@ export default {
         if (valid) {
           const { data } = await this.formRequestFn(toDtoForm(this.form))
           if (data.data) {
-            this.$emit('onGoBack')
+            this.$router.history.go(-1)
           } else {
             this.$message(data.msg)
           }

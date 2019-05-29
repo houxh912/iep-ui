@@ -1,9 +1,9 @@
 const columnsMapByTypeId = [
   [
-    {
-      label: '业务类型',
-      prop: 'businessType',
-    },
+    // {
+    //   label: '业务类型',
+    //   prop: 'businessType',
+    // },
     {
       label: '区域类型',
       prop: 'districtTypeName',
@@ -22,10 +22,10 @@ const columnsMapByTypeId = [
     },
   ],
   [
-    {
-      label: '业务类型',
-      prop: 'businessType',
-    },
+    // {
+    //   label: '业务类型',
+    //   prop: 'businessType',
+    // },
     {
       label: '区域类型',
       prop: 'districtTypeName',
@@ -40,10 +40,10 @@ const columnsMapByTypeId = [
     },
   ],
   [
-    {
-      label: '业务类型',
-      prop: 'businessType',
-    },
+    // {
+    //   label: '业务类型',
+    //   prop: 'businessType',
+    // },
     {
       label: '区域类型',
       prop: 'districtTypeName',

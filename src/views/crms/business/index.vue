@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="商机" :replaceText="replaceText" :data="[10]"></page-header>
+      <page-header title="合作机会" :replaceText="replaceText" :data="[increasedOpportunity]"></page-header>
       <operation-container>
         <template v-if="+type !=3" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
@@ -41,6 +41,7 @@ import DetailDrawer from './DetailDrawer'
 import EditDrawer from './EditDrawer'
 import AdvanceSearch from './AdvanceSearch'
 import { getBusinessList, postBusiness, putBusiness, deleteBusinessById, getBusinessById, cancelClaim, businessView } from '@/api/crms/business'
+import { getWeekincrease } from '@/api/crms/count'
 import { allSearchForm, initSearchForm } from './options'
 export default {
   name: 'List',
@@ -55,6 +56,7 @@ export default {
       type: '1',
       tabList,
       showCreate: false,
+      increasedOpportunity: '',
       replaceText: (data) => `（本周新增${data[0]}个商机）`,
     }
   },
@@ -64,14 +66,12 @@ export default {
     },
   },
   created () {
-
     if (this.$route.query.flag) {
       this.type = this.$route.query.type
       this.loadPage()
     } else {
       this.loadPage()
     }
-
   },
   mounted () {
     this.$nextTick(() => {
@@ -148,10 +148,18 @@ export default {
       let ids = [row.opportunityId]
       this._handleGlobalDeleteById(ids, deleteBusinessById)
     },
+    // 获取每周新增客户数
+    getWeekincrease () {
+      getWeekincrease().then(res => {
+        this.increasedOpportunity = res.data.data.increasedOpportunity
+      })
+    },
+    // 加载
     loadPage (param = this.searchForm) {
       this.loadTable({ ...param, type: this.type }, getBusinessList, m => {
         return Object.assign(m, { businessTypeKey: m.businessType.map(m => m.commonName).join('，') })
       })
+      this.getWeekincrease()
     },
     //拒绝认领
     handleRefuse (row) {

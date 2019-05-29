@@ -16,8 +16,21 @@
               </el-form-item>
             </el-col>
             <el-col :span='10' :offset="4">
-              <el-form-item label="市场经理:" prop="Manager">
-                <el-input v-model="formData.Manager" :disabled="true"></el-input>
+              <el-form-item label="客户简称:">
+                <el-input v-model="formData.clientAbrName"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span='10'>
+              <el-form-item label="原机构名:">
+                <el-input v-model="formData.orgNameForOld"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span='10' :offset="4">
+              <el-form-item label="负责部门:">
+                <!-- <el-input v-model="formData.respDept" placeholder="负责部门"></el-input> -->
+                <iep-dept-select v-model="formData.iepClientRespDept"></iep-dept-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -33,9 +46,8 @@
               </el-form-item>
             </el-col>
             <el-col :span='10' :offset="4">
-              <el-form-item label="负责部门:">
-                <!-- <el-input v-model="formData.respDept" placeholder="负责部门"></el-input> -->
-                <iep-dept-select v-model="formData.iepClientRespDept"></iep-dept-select>
+              <el-form-item label="市场经理:" prop="Manager">
+                <el-input v-model="formData.Manager" :disabled="true"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -66,17 +78,17 @@
               <el-checkbox v-for="item in dictGroup['crms_client_type']" :key="item.value" :label="item.value" name="leixing">{{item.label}}</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item prop="businessTypeKey">
+          <!-- <el-form-item prop="businessTypeKey">
             <span slot="label">
               业务类型
               <iep-tip :content="tipContent.businessTypeKey"></iep-tip>
               :
             </span>
             <businessType v-model="formData.businessTypeKey"></businessType>
-          </el-form-item>
-          <el-form-item label="" prop="specificBusinessType">
+          </el-form-item> -->
+          <!-- <el-form-item label="" prop="specificBusinessType">
             <el-input v-model="formData.specificBusinessType" placeholder="请务必结合客户需求准确填写业务类型"></el-input>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="客户关系：" prop="clientRela">
             <span slot="label">
               客户关系
@@ -98,9 +110,10 @@
               {{tag.commonName}}
             </a-tag>
           </el-form-item>
-          <el-form-item label="跟进状态:" prop="followUpStatus">
+          <!-- <el-form-item label="跟进状态:" prop="followUpStatus">
             <iep-dict-select v-model="formData.followUpStatus" dict-name="crms_follow_up_status"></iep-dict-select>
-          </el-form-item>
+          </el-form-item> -->
+
           <!-- <el-form-item label="相关产品：" prop="products">
           <iep-button size="small" @click="selectProduct"><i class="el-icon-plus"></i></iep-button>
           <el-col class="col-item">内网2.0改造项目 <i class="el-icon-close"></i></el-col>
@@ -129,7 +142,7 @@ import { mapGetters } from 'vuex'
 import { createById } from '@/api/crms/business'
 import { getObj } from '@/api/admin/user'
 import { checkName } from '@/api/crms/customer'
-import businessType from './businessType'
+// import businessType from './businessType'
 const tipContent = {
   clientName: '客户名称精确到局办且为全称， 如：“北京市行政服务中心”',
   districtType: '部委：指中华人民共和国国务院下属的各部和各委员会，如发改委，国家信访局;<br>省级：省级国家机构所创立/ 负责管理或直属省政府领导和管理的行政单位, 如省发展改革委员会;<br>市级：市级国家机构负责管理或直属市政府领导和管理的行政单位, 如舟山市委组织部;<br>区级：属于市辖区下行政区单位，如舟山市定海区组织部；<br>园区：当地人民政府集中统一规划指定区域，如高新园区；<br>企业：以营利为目的，实行自主经营，自负盈亏，独立核算的法人或其他社会组织，如阿里巴巴；<br>其他：行业协会等。',
@@ -144,7 +157,7 @@ const tipContent = {
   clientTypeKey: '客户：与我公司有合作可能或已合作单位/机构/企业;<br>战略合作伙伴：为已签订战略合同的客户。',
 }
 export default {
-  components: { businessType },
+  // components: { businessType },
   name: 'edit',
   props: {
     record: {
@@ -275,7 +288,7 @@ export default {
     if (this.id) {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = this.$mergeByFirst(initForm(), data.data)
-        this.formData.businessTypeKey = data.data.businessTypeKey.map(m => m.commonId)
+        // this.formData.businessTypeKey = data.data.businessTypeKey.map(m => m.commonId)
         this.formData.clientTypeKey = data.data.clientTypeKey.map(m => m.commonId)
         this.formData.districtType = data.data.districtTypeKey
         this.formData.followUpStatus = data.data.followUpStatusKey
@@ -287,7 +300,7 @@ export default {
         })
       })
     } else if (this.flag) {
-      this.formData.businessTypeKey = this.data.businessType.map(m => m.commonId)
+      // this.formData.businessTypeKey = this.data.businessType.map(m => m.commonId)
       this.formData.clientName = this.data.clientName
       this.formData.tags = this.data.tags.map(m => (m.commonName))
     }

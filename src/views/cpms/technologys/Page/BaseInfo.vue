@@ -17,21 +17,21 @@
         </el-form-item>
       </el-col>
       <el-col :span='8'>
-        <el-form-item label="状态：">
+        <el-form-item label="技术状态：">
           <div>{{dictsMap.status[form.status]}}</div>
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
-        <el-form-item label="简单介绍：">
+        <el-form-item label="技术简介：">
           <div>{{form.synopsis}}</div>
         </el-form-item>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
-        <el-form-item label="详细介绍：">
+        <el-form-item label="技术介绍：">
           <div>{{form.description}}</div>
         </el-form-item>
       </el-col>

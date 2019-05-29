@@ -4,7 +4,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const isProduction = process.env.NODE_ENV === 'production'
 module.exports = {
   lintOnSave: true,
-  productionSourceMap: false,
   // pages: {
   //   index: {
   //     // page 的入口
@@ -132,7 +131,7 @@ module.exports = {
     },
   },
   pwa: {
-    name: 'govmade-iep-2.0',
+    name: 'iep-2.0',
     themeColor: '#BA1B21',
     msTileColor: '#000000',
     appleMobileWebAppCapable: 'yes',

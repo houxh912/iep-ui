@@ -30,5 +30,7 @@ const getters = {
   dictGroup: state => state.cache.dictGroup,
   contactsPyGroup: state => state.cache.contactsPyGroup,
   famsConfig: state => state.cache.famsConfig,
+  // notify 通知消息
+  notify: state => key => state.notify[key],
 }
 export default getters

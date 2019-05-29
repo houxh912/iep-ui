@@ -4,23 +4,9 @@
     <div class="librarys-item" v-for="(item,index) in librarys" :key="index" v-else>
       <div class="handle-detail" @click="handleDetail(item)">
         <div class="title">
-        <span class="type">{{item.districtTypeName}}</span>
-        <h4 class="title-name">{{item.clientName}}</h4>
-        <i :class="item.icon"></i>
-      </div>
-      <div class="links">
-        <span>{{links.link}} {{item.contactNumber}} / </span>
-        <span>{{links.Journal}} {{item.contactRecordNumber}} / </span>
-        <span>{{links.programme}} {{item.programNumber}} / </span>
-        <span>{{links.contract}} {{item.contractNumber}} / </span>
-        <!-- <span>{{links.information}} {{num[4]}} / </span> -->
-        <span>{{links.project}} {{item.projectNumber}}</span>
-      </div>
-      <div class="lib-info">
-        <span>合作项目：{{item.projectName}}</span>
-        <span>相关产品：{{item.productName}}</span>
-        <span>项目合作伙伴：{{item.parterName}}</span>
-      </div>
+          <h4 class="title-name">{{item.clientName}}</h4>
+          <i :class="item.icon"></i>
+        </div>
       </div>
       <div class="lib-bottom">
         <span>咨询/事项</span>

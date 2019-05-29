@@ -20,7 +20,7 @@
         </el-form-item>
 
         <el-form-item label="群发:">
-          <iep-contact-multiple v-model="form.receivers"></iep-contact-multiple>
+          <iep-contact-multiple v-model="form.receivers" :is-show-contact-btn="false"></iep-contact-multiple>
         </el-form-item>
 
         <el-form-item label="标签:">

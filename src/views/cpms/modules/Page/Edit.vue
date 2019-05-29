@@ -91,14 +91,13 @@
       </el-form>
       <FooterToolBar>
         <iep-button type="primary" @click="submitForm">提交</iep-button>
-        <iep-button @click="$emit('onGoBack')">取消</iep-button>
       </FooterToolBar>
     </basic-container>
   </div>
 </template>
 
 <script>
-import { getModuleById } from '@/api/cpms/module'
+import { getModuleById, postModule, putModule } from '@/api/cpms/module'
 import mixins from '@/mixins/mixins'
 import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
 import IepCpmsProductTable from '@/views/cpms/Components/ProductTable'
@@ -124,22 +123,24 @@ export default {
     return {
       dictsMap,
       rules,
-      methodName: '',
-      formRequestFn: () => { },
       backOption: {
         isBack: true,
-        backPath: null,
-        backFunction: () => { this.$emit('onGoBack') },
       },
       form: initForm(),
     }
   },
   computed: {
     id () {
-      return this.record.id
+      return +this.$route.params.id
     },
     isEdit () {
       return this.id ? true : false
+    },
+    formRequestFn () {
+      return this.isEdit ? putModule : postModule
+    },
+    methodName () {
+      return this.isEdit ? '修改' : '新增'
     },
   },
   created () {
@@ -150,8 +151,6 @@ export default {
       return this.dictsMap.schedule[val]
     },
     loadPage () {
-      this.methodName = this.record.methodName
-      this.formRequestFn = this.record.formRequestFn
       if (this.isEdit) {
         getModuleById(this.id).then(({ data }) => {
           this.form = this.$mergeByFirst(initForm(), data.data)
@@ -176,7 +175,7 @@ export default {
         if (valid) {
           const { data } = await this.formRequestFn(toDtoForm(this.form))
           if (data.data) {
-            this.$emit('onGoBack')
+            this.$router.history.go(-1)
           } else {
             this.$message(data.msg)
           }

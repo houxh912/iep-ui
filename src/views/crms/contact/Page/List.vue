@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="我的联系人" :replaceText="replaceText" :data="[10]"></page-header>
+      <page-header title="我的联系人" :replaceText="replaceText" :data="[increasedContact]"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增</iep-button>
@@ -13,12 +13,12 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :cell-style="mixinsCellPointerStyle" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="contactDetail">
-        <el-table-column prop="operation" label="对应客户" width="460">
+        <el-table-column prop="operation" label="对应客户">
           <template slot-scope="scope">
             <span class="contact-tag" v-for="(item,index) in scope.row.clientInfos" :key="index">{{item.clientName}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="operation" label="操作" width="160">
+        <el-table-column prop="operation" label="操作" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)" plain type="warning">编辑</iep-button>
@@ -37,6 +37,7 @@ import { fetchList, deleteDataById, createData, updateData, getContactById } fro
 import { columnsMap, initSearchForm } from '../options'
 import DetailDrawer from './DetailDrawer'
 import AdvanceSearch from './AdvanceSearch'
+import { getWeekincrease } from '@/api/crms/count'
 export default {
   mixins: [mixins],
   components: { DetailDrawer, AdvanceSearch },
@@ -48,6 +49,7 @@ export default {
       paramForm: initSearchForm(),
       dialogShow: false,
       detailForm: {},
+      increasedContact: '',
       replaceText: (data) => `（本周新增${data[0]}个联系人）`,
     }
   },
@@ -74,9 +76,17 @@ export default {
         methodName: '新增',
       })
     },
+    // 获取每周新增客户数
+    getWeekincrease () {
+      getWeekincrease().then(res => {
+        this.increasedContact = res.data.data.increasedContact
+      })
+    },
     loadPage (param = this.searchForm) {
       this.loadTable(param, fetchList)
+      this.getWeekincrease()
     },
+    //点击进入详情区域范围限制
     contactDetail (row, column) {
       if (column.label == '操作' || column.type == 'selection') {
         return false

@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { getModulePage, postModule, putModule, deleteModuleById } from '@/api/cpms/module'
+import { getModulePage, deleteModuleById } from '@/api/cpms/module'
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from './AdvanceSearch'
 import { dictsMap } from '../options'
@@ -84,17 +84,13 @@ export default {
       return this.cpms_modules_view || this.userInfo.userId === row.creatorId
     },
     handleAdd () {
-      this.$emit('onEdit', {
-        formRequestFn: postModule,
-        methodName: '新增',
-        id: false,
+      this.$router.push({
+        path: '/cpms_spa/module_edit/0',
       })
     },
     handleEdit (row) {
-      this.$emit('onEdit', {
-        formRequestFn: putModule,
-        methodName: '修改',
-        id: row.id,
+      this.$router.push({
+        path: `/cpms_spa/module_edit/${row.id}`,
       })
     },
     handleDetail (row) {
@@ -104,9 +100,6 @@ export default {
       this.$emit('onDetail', {
         id: row.id,
       })
-      // this.$router.push({
-      //   path: `/cpms_spa/module_detail/${row.id}`,
-      // })
     },
     handleChangeMe (value) {
       const isMine = value.join(',')

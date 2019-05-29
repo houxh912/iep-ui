@@ -223,3 +223,19 @@ export function getMyBusinessMax (params) {
     params: params,
   })
 }
+//查看本周新增客户、联系人、商机
+export function getWeekincrease (params) {
+  return request({
+    url: `${allUrl}/weekincrease`,
+    method: 'get',
+    params: params,
+  })
+}
+// 查看所有客户关系统计
+export function getClientRela (params) {
+  return request({
+    url: `${allUrl}/clientRela`,
+    method: 'get',
+    params: params,
+  })
+}

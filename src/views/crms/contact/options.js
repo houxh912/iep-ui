@@ -3,6 +3,7 @@ const columnsMap = [
   {
     prop: 'contactPosition',
     label: '联系人职务',
+    width: '400',
   },
 ]
 

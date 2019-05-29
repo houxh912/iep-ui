@@ -43,11 +43,11 @@
       </el-form-item>
       <el-form-item prop="opportunityDes">
         <span slot="label">
-          商机描述
+          描述
           <iep-tip :content="tipContent.opportunityDes"></iep-tip>
           :
         </span>
-        <el-input type="textarea" v-model="formData.opportunityDes" placeholder="商机描述"></el-input>
+        <el-input type="textarea" v-model="formData.opportunityDes" placeholder="商机描述与内部合作点"></el-input>
       </el-form-item>
       <el-form-item label="发布者：">
         <el-input v-model="userInfo.realName" :disabled="true"></el-input>

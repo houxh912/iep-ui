@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { getTableData } from '@/api/mlms/material/datum/material'
+import { getMaterialLPage } from '@/api/app/mlms/'
 
 export default {
   props: {
@@ -50,7 +50,7 @@ export default {
         this.params.name = title
       }
       this.loading = true
-      getTableData(this.params).then(({data}) => {
+      getMaterialLPage(this.params).then(({data}) => {
         this.loading = false
         this.librarys = data.data.records
         this.total = data.data.total
@@ -71,6 +71,7 @@ export default {
   padding: 20px 0;
   border-bottom: 1px solid #eee;
   overflow: hidden;
+  cursor: pointer;
   .text {
     flex: 1;
     margin-right: 20px;

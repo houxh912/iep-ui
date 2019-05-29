@@ -70,6 +70,7 @@ export default {
   padding: 20px 0;
   border-bottom: 1px solid #eee;
   overflow: hidden;
+  cursor: pointer;
   .text {
     flex: 1;
     margin-right: 20px;

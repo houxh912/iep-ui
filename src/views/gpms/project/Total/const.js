@@ -65,9 +65,9 @@ export const rules = {
   relatedClient: [
     { required: true, message: '必填', trigger: 'change' },
   ],
-  projectBudget: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
+  // projectBudget: [
+  //   { required: true, message: '必填', trigger: 'blur' },
+  // ],
   mktManagerList: [
     { required: true, message: '必填', trigger: 'change' },
   ],
@@ -130,6 +130,14 @@ export function initFormData () {
     relatedClient: '', // 相关客户
     projectBudget: '', // 项目预算
     mktManager: '', // 市场经理
+    projectTime:'',
+    projectManager:'',//项目经理
+    endTime:'',
+    projectManagerList:{
+      id: 0,
+      name: '',
+    },//项目经理
+    projectMembersList:[],
     mktManagerList: {
       id: 0,
       name: '',
@@ -144,6 +152,7 @@ export function initFormData () {
     notRelevanceProductReason: '', // 不关联理由
     inChargeDept: '', // 承接部门
     inChargeDeptList: {},
+    initFormData:{},//项目等级
     coopDept: '', // 合作部门
     coopDeptList: {},
     groupExternalCooperatePartner: '', // 集团外部合作伙伴

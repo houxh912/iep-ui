@@ -7,7 +7,7 @@
 <script>
 // import _ from 'lodash'
 import 'v-charts/lib/style.css'
-import { getClientRela } from '@/api/crms/count'
+import { getAllClientRela } from '@/api/crms/count'
 export default {
   data () {
     this.chartExtend = {
@@ -49,8 +49,8 @@ export default {
   },
   methods: {
     load () {
-      getClientRela().then((res) => {
-        this.chartData.rows = res.data
+      getAllClientRela().then((res) => {
+        this.chartData.rows = res.data.data
         // if (res) {
         //   this.loading = false
         // }

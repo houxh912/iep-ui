@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="客户" :replaceText="replaceText" :data="[10]"></page-header>
+      <page-header title="客户" :replaceText="replaceText" :data="[increasedClient]"></page-header>
       <operation-container>
         <template v-if="type==='2'" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
@@ -89,6 +89,7 @@
 import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId, tabList } from '../columns'
 import { getCustomerPage, postCustomer, putCustomer, deleteCustomerBatch } from '@/api/crms/customer'
+import { getWeekincrease } from '@/api/crms/count'
 import AdvanceSearch from './AdvanceSearch'
 import ExcellImport from './ExcellImport/'
 import Collaborator from './Collaborator/'
@@ -107,6 +108,7 @@ export default {
       url: '/api/crm/crms/iepclientinfoexcel/upload',
       showSelect: true,
       ids: [],
+      increasedClient: '',
       crms_customer_add: false,
       crms_customer_edit_del: false,
       crms_customer_view: false,
@@ -128,17 +130,22 @@ export default {
     this.crms_customer_view = this.permissions['crms_customer_view']
     this.crms_customer_zy = this.permissions['crms_customer_zy']
     this.loadPage({ type: 2 })
+    this.getWeekincrease()
   },
   methods: {
+    //能否查看详情权限
     isViewPermissions () {
       return this.crms_customer_view
     },
+    // 能否编辑删除客户权限
     isEditDelPermissions () {
       return !this.crms_customer_edit_del
     },
+    // 能否新增客户权限
     isAddPermissions () {
       return this.crms_customer_add
     },
+    // 能否转移客户权限
     isZyPermissions () {
       return this.crms_customer_zy
     },
@@ -266,7 +273,6 @@ export default {
     },
     //table多选
     handleSelectionChange (val) {
-      console.log(val)
       this.multipleSelection = val.map(m => m.clientId)
       let ids = []
       val.forEach((item) => {
@@ -274,9 +280,16 @@ export default {
       })
       this.ids = ids
     },
+    // 获取每周新增客户数
+    getWeekincrease () {
+      getWeekincrease().then(res => {
+        this.increasedClient = res.data.data.increasedClient
+      })
+    },
     //加载
     loadPage (param = this.searchForm) {
       this.loadTable({ ...param, type: this.type }, getCustomerPage)
+      this.getWeekincrease()
     },
     // 列表标签点击进入标签详情页
     handleTagDetail (val) {

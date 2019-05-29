@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="我的联系人" :replaceText="replaceText" :data="[10]"></page-header>
+      <page-header title="我的联系人" :replaceText="replaceText" :data="[increasedContact]"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增</iep-button>
@@ -37,6 +37,7 @@ import { fetchList, deleteDataById, createData, updateData, getContactById } fro
 import { columnsMap, initSearchForm } from '../options'
 import DetailDrawer from './DetailDrawer'
 import AdvanceSearch from './AdvanceSearch'
+import { getWeekincrease } from '@/api/crms/count'
 export default {
   mixins: [mixins],
   components: { DetailDrawer, AdvanceSearch },
@@ -48,6 +49,7 @@ export default {
       paramForm: initSearchForm(),
       dialogShow: false,
       detailForm: {},
+      increasedContact: '',
       replaceText: (data) => `（本周新增${data[0]}个联系人）`,
     }
   },
@@ -74,9 +76,17 @@ export default {
         methodName: '新增',
       })
     },
+    // 获取每周新增客户数
+    getWeekincrease () {
+      getWeekincrease().then(res => {
+        this.increasedContact = res.data.data.increasedContact
+      })
+    },
     loadPage (param = this.searchForm) {
       this.loadTable(param, fetchList)
+      this.getWeekincrease()
     },
+    //点击进入详情区域范围限制
     contactDetail (row, column) {
       if (column.label == '操作' || column.type == 'selection') {
         return false

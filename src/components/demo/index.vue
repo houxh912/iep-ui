@@ -16,7 +16,7 @@
         </el-form-item>
 
         <el-form-item label="用户群:">
-          <iep-contact-multiple-user v-model="form.userList"></iep-contact-multiple-user>
+          <iep-contact-multiple-user v-model="form.userList" :is-show-contact-btn="false"></iep-contact-multiple-user>
         </el-form-item>
 
         <el-form-item label="群发:">

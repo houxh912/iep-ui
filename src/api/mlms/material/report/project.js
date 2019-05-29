@@ -24,3 +24,11 @@ export function updateData (obj) {
     data: obj,
   })
 }
+
+export function getAllReportsOrg (params) {
+  return request({
+    url: `${prefixUrl}/getAllReportsOrg`,
+    method: 'get',
+    params: params,
+  })
+}

@@ -64,3 +64,12 @@ export function getContractListByName (query) {
     params: query,
   })
 }
+
+// 项目中关联的合同，联盟下的合同
+export function getContractPageAll (query) {
+  return request({
+    url: `${prefixUrl}/page_all`,
+    method: 'get',
+    params: query,
+  })
+}

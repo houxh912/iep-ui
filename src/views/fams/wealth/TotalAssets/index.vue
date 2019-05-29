@@ -2,7 +2,7 @@
   <div>
     <basic-container>
       <div class="main-top">
-        <el-card class="left">
+        <el-card class="left" shadow="never">
           <h4 class="title">总资产</h4>
           <div class="total-wrapper">
             <div class="total-item" v-for="(item, index) in financialData" :key="index">
@@ -11,7 +11,7 @@
             </div>
           </div>
         </el-card>
-        <el-card class="right">
+        <el-card class="right" shadow="never">
           <h4 class="title">快捷入口</h4>
           <ul>
             <li>互助基金</li>
@@ -24,7 +24,7 @@
         </el-card>
       </div>
       <div class="content">
-        <el-card class="box-card">
+        <el-card shadow="never">
           <operation-container>
             <template slot="left">
               <page-header title="财富统计-类型" :replaceText="replaceText" :data="[10 ,5]"></page-header>

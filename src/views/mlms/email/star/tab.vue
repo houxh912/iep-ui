@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import mixins from '@/mixins/mixins'
 import mixinTable from '../tableTpl/mixinTable'
 import TableDialog from '../tableTpl/table.vue'
@@ -43,9 +44,15 @@ export default {
       },
     }
   },
+  computed: {
+    ...mapState({
+      emailNum: state => state.notify.emailNum,
+    }),
+  },
   methods: {
     subTitleFn (data) {
-      return '（共有 ' + data[0] + ' 封邮件，其中未读邮件 ' + data[1] + ' 封）'
+      return '（共有 ' + data[0] + ' 封邮件，其中未读邮件 ' + this.emailNum + ' 封）'
+      //      return '（共有 ' + data[0] + ' 封邮件，其中未读邮件 ' + data[1] + ' 封）'
     },
     search (val) {
       val.type = this.type

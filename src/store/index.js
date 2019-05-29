@@ -7,6 +7,7 @@ import common from './modules/common'
 import app from './modules/app'
 import tags from './modules/tags'
 import fams from './modules/fams'
+import notify from './modules/notify'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -19,6 +20,7 @@ const store = new Vuex.Store({
     common,
     tags,
     fams,
+    notify,
   },
   getters,
 })

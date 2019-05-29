@@ -2,13 +2,13 @@
   <el-popover popper-class="msg-popover" placement="bottom" width="336" v-model="visible" trigger="click">
     <a-spin :spinning="pageLoading">
       <el-tabs class="msg-tabs" v-model="activeName">
-        <el-tab-pane :label="`公告 (${announcementNum})`" name="first">
+        <el-tab-pane :label="`公告 (${announcementList.length || 0})`" name="first">
           <iep-top-message-box :message-list="announcementList" :type="0" @visible="visible=false"></iep-top-message-box>
         </el-tab-pane>
-        <el-tab-pane :label="`消息 (${systemMessageNum})`" name="second">
+        <el-tab-pane :label="`消息 (${systemMessageList.length || 0})`" name="second">
           <iep-top-message-box :message-list="systemMessageList" :type="1" @visible="visible=false"></iep-top-message-box>
         </el-tab-pane>
-        <el-tab-pane :label="`邮件 (${emailNum})`" name="third">
+        <el-tab-pane :label="`邮件 (${emailList.length || 0})`" name="third">
           <iep-top-message-box :message-list="emailList" :type="2" @visible="visible=false"></iep-top-message-box>
         </el-tab-pane>
       </el-tabs>
@@ -20,8 +20,11 @@
   </el-popover>
 </template>
 <script>
+import { mapState, mapGetters, mapActions } from 'vuex'
 import { getImsWel } from '@/api/ims/email'
 import IepTopMessageBox from './Components/MessageBox'
+import SockJS from 'sockjs-client'
+import Stomp from 'stompjs'
 export default {
   components: { IepTopMessageBox },
   data () {
@@ -29,38 +32,79 @@ export default {
       pageLoading: true,
       visible: false,
       activeName: 'first',
-      announcementList: [],
-      announcementNum: 0,
-      systemMessageList: [],
-      systemMessageNum: 0,
-      emailList: [],
-      emailNum: 0,
-      totalNum: 0,
+      socket: null,
+      stompClient: null,
     }
+  },
+  computed: {
+    ...mapState({
+      announcementList: state => state.notify.announcementList,
+      announcementNum: state => state.notify.announcementNum,
+      emailList: state => state.notify.emailList,
+      emailNum: state => state.notify.emailNum,
+      systemMessageList: state => state.notify.systemMessageList,
+      systemMessageNum: state => state.notify.systemMessageNum,
+    }),
+    ...mapGetters([
+      'access_token',
+      'userInfo',
+    ]),
+    totalNum () {
+      return this.announcementNum + this.emailNum + this.systemMessageNum
+    },
   },
   created () {
     this.loadPage()
+    this.initWebSocket()
+  },
+  destroyed () {
+    // clearInterval(this.refreshTime)
+    this.disconnect()
   },
   methods: {
+    ...mapActions(['UpdatePushNotify', 'SetNotify']),
+    disconnect () {
+      if (this.stompClient != null) {
+        this.stompClient.disconnect()
+        console.log('Disconnected')
+      }
+    },
+    connection () {
+      let token = this.access_token
+      let userInfo = this.userInfo
+      let headers = {
+        'Authorization': 'Bearer ' + token,
+      }
+      // 建立连接对象
+      this.socket = new SockJS(this.$wsUrl)//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
+      this.stompClient = Stomp.over(this.socket)
+      this.stompClient.debug = null
+      // 向服务器发起websocket连接
+      this.stompClient.connect(headers, () => {
+        this.stompClient.subscribe(`/self/notify/${userInfo.userId}`, (data) => { // 订阅服务端提供的某个topic;
+          this.UpdatePushNotify(data)
+        })
+      }, () => { })
+    },
+    initWebSocket () {
+      this.connection()
+      let self = this
+      //断开重连机制,尝试发送消息,捕获异常发生时重连
+      this.timer = setInterval(() => {
+        try {
+          self.stompClient.send('test')
+        } catch (err) {
+          console.log('断线了: ' + err)
+          self.connection()
+        }
+      }, 5000)
+    },
     loadPage () {
       this.pageLoading = true
       getImsWel().then(({ data }) => {
-        this.totalNum = data.totalNum
-        this.announcementList = data.announcementList
-        this.announcementNum = data.announcementNum
-        this.emailList = data.emailList
-        this.emailNum = data.emailNum
-        this.systemMessageList = data.systemMessageList
-        this.systemMessageNum = data.systemMessageNum
+        this.SetNotify(data)
         this.pageLoading = false
       })
-    },
-  },
-  watch: {
-    visible (n) {
-      if (n) {
-        this.loadPage()
-      }
     },
   },
 }

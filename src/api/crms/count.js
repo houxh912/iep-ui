@@ -231,3 +231,11 @@ export function getWeekincrease (params) {
     params: params,
   })
 }
+// 查看所有客户关系统计
+export function getClientRela (params) {
+  return request({
+    url: `${allUrl}/clientRela`,
+    method: 'get',
+    params: params,
+  })
+}

@@ -10,7 +10,7 @@
         <a-select-option v-for="item in userResults" :key="item.id+''">{{item.name}}</a-select-option>
       </a-select>
       <a-button v-if="isClear && !disabled" icon="close" @click="clearAll"></a-button>
-      <a-button @click="openContact()">通讯录</a-button>
+      <a-button v-if="isShowContactBtn" @click="openContact()">通讯录</a-button>
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="close" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
@@ -36,6 +36,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false,
+    },
+    isShowContactBtn: {
+      type: Boolean,
+      default: true,
     },
     filterUserList: {
       type: Array,

@@ -234,7 +234,7 @@ export default {
         this.formData = initFormData()
         this.formData.mktManagerList.name = this.userInfo.realName
         this.formData.projectManagerList.name = this.userInfo.realName
-        
+            // console.log(this.userInfo)
       } else {
         data.relatedClient = parseInt(data.relatedClient)
         data.groupExternalCooperatePartner = parseInt(
@@ -330,8 +330,6 @@ export default {
     getCustomerPage({ type: 1 }).then(({ data }) => {
       this.clientList = data.data.records
     })
-    
-
   },
 }
 </script>

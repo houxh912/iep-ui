@@ -108,18 +108,18 @@ export function initFormData () {
     projectManager:'',//项目经理
     endTime:'',
     projectManagerList:{
-      id: 0,
+      id: '',
       name: '',
     },//项目经理
     projectMembersList: [], // 项目成员
     membersList: [],
     mktManagerList: {
-      id: 0,
+      id: '',
       name: '',
     },
     projectMentor: '', // 项目指导人
     projectMentorList: {
-      id: 0,
+      id: '',
       name: '',
     },
     projectTagList: [], // 项目标签

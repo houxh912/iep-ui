@@ -95,7 +95,7 @@ export default [
         component: () => import('@/views/app/organizationDetails/'),
         meta: noAuth,
         redirect: '/app/organization_details/introduction',
-        children:[
+        children: [
           {
             path: 'introduction',
             name: '组织介绍',
@@ -140,7 +140,7 @@ export default [
         component: () => import('@/views/app/allianceDetails/'),
         meta: noAuth,
         redirect: '/app/alliance_details/introduction',
-        children:[
+        children: [
           {
             path: 'introduction',
             name: '联盟介绍',

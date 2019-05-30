@@ -25,7 +25,7 @@ export default {
           { icon: 'icon-xiangmu', subtitle: '项目', callback: () => { this.$openPage('/app/project') } },
           { icon: 'icon-shangjifaxian', subtitle: '商机', callback: () => { this.$openPage('/app/resource/business') } },
           { icon: 'icon-peixun', subtitle: '培训', callback: () => { this.$openPage('/app/resource/training') } },
-          { icon: 'icon-shifu', subtitle: '师父', callback: () => { this.$openPage('/app/person') } },
+          { icon: 'icon-shifu', subtitle: '师父', callback: () => { this.$openPage('/wel/master') } },
         ],
       },
     }

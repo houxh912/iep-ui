@@ -11,6 +11,14 @@ export function getAssetsByDate (obj) {
   })
 }
 
+export function getGroupAssetsByDate (obj) {
+  return request({
+    url: `${prefixUrl}/group/assets`,
+    method: 'post',
+    data: obj,
+  })
+}
+
 export function getPendingPage (query) {
   return request({
     url: `${prefixUrl}/pending/page`,

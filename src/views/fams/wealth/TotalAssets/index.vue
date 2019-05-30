@@ -87,6 +87,7 @@ export default {
       dateValue: '',
       financialData: {
         '国脉贝': 0,
+        '冻结金额': 0,
         '发票额度': 0,
         '现金': 0,
         '股权': 0,
@@ -117,6 +118,7 @@ export default {
     async loadPage () {
       const { data } = await getTotal()
       this.financialData['国脉贝'] = data.data.govmadeBell
+      this.financialData['冻结金额'] = data.data.lockBell
       this.financialData['发票额度'] = data.data.withInvoice
       this.financialData['现金'] = data.data.cash
       this.financialData['股权'] = data.data.stockRight

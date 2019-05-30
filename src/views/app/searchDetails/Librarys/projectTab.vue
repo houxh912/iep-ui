@@ -1,7 +1,7 @@
 <template>
   <div class="librarys-content">
     <div style="height: 100vh;" v-loading="loading" v-if="loading"></div>
-    <div class="librarys-item" v-for="(item,index) in librarys" :key="index" v-else>
+    <div class="librarys-item" v-for="(item,index) in librarys" :key="index" v-else @click="handleDetail(item)">
       <div class="text">
         <h4 class="sub-title">
           <el-tag class="classTag">项目</el-tag><span class="sub-title-con">{{item.projectName}}</span>
@@ -58,6 +58,9 @@ export default {
     currentChange (val) {
       this.params.current = val
       this.loadPage()
+    },
+    handleDetail () {
+      this.$router.push('/app/project')
     },
   },
   created () {

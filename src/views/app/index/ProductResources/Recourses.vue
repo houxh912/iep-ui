@@ -1,6 +1,6 @@
 <template>
   <div class="resources">
-    <div v-for="(item,index) in resourcesList" :key="index" class="piece">
+    <div v-for="(item,index) in resourcesList" :key="index" class="piece" @click="handleDetail(item)">
       <i :class="item.icon" class="iconfont"></i>
       <span class="name">{{item.name}}</span>
       <span class="number">{{item.number}}</span>
@@ -27,14 +27,14 @@ export default {
   computed: {
     resourcesList () {
       return [
-        { icon: 'icon-dangan', name: '材料库', number: this.counts.countMaterial },
-        { icon: 'icon-renwu', name: '资质库', number: this.counts.countHonor },
-        { icon: 'icon-gongzuotai', name: '产品库', number: this.counts.countProduct },
-        { icon: 'icon-kehu', name: '客户库', number: this.counts.countClient },
-        { icon: 'icon-peixun', name: '培训库', number: this.counts.countTraining },
-        { icon: 'icon-shangjifaxian', name: '商机库', number: this.counts.countOpportunity },
-        { icon: 'icon-hetongliebiao', name: '专家库', number: this.counts.countExpert },
-        { icon: 'icon-dingwei', name: '招标库', number: '0' },
+        { icon: 'icon-dangan', name: '材料库', number: this.counts.countMaterial, path: '/app/resource/material' },
+        { icon: 'icon-renwu', name: '资质库', number: this.counts.countHonor, path: '/app/resource/qualification' },
+        { icon: 'icon-gongzuotai', name: '产品库', number: this.counts.countProduct, path: '/app/resource/product_ku' },
+        { icon: 'icon-kehu', name: '客户库', number: this.counts.countClient, path: '/app/resource/client' },
+        { icon: 'icon-peixun', name: '培训库', number: this.counts.countTraining, path: '/app/resource/training' },
+        { icon: 'icon-shangjifaxian', name: '商机库', number: this.counts.countOpportunity, path: '/app/resource/business' },
+        { icon: 'icon-hetongliebiao', name: '专家库', number: this.counts.countExpert, path: '/app/resource/expert' },
+        { icon: 'icon-dingwei', name: '招标库', number: '0', path: '/app/project' },
       ]
     },
   },
@@ -43,6 +43,9 @@ export default {
       getResourceCount().then(({data}) => {
         this.counts = data.data
       })
+    },
+    handleDetail (row) {
+      this.$router.push(row.path)
     },
   },
   created () {

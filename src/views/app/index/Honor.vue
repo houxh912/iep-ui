@@ -1,7 +1,7 @@
 <template>
   <div class="honor">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <IepAppListCard :dataList="dataList" name="honorQualName"></IepAppListCard>
+      <IepAppListCard :dataList="dataList" name="honorQualName" @clicked="handleDetail"></IepAppListCard>
     </IepAppTabCard>
   </div>
 </template>
@@ -18,6 +18,9 @@ export default {
     }
   },
   methods: {
+    handleDetail (row) {
+      this.$router.push(`/mlms_spa/aptitude/detail/${row.id}`)
+    },
     loadList () {
       getHonorPage().then(({data}) => {
         this.dataList = data.data.records

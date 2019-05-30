@@ -232,6 +232,8 @@ export default {
       this.type = type
       if (!data) {
         this.formData = initFormData()
+        this.formData.mktManagerList.name = this.userInfo.username
+        this.formData.projectManagerList.name = this.userInfo.username
       } else {
         data.relatedClient = parseInt(data.relatedClient)
         data.groupExternalCooperatePartner = parseInt(
@@ -240,6 +242,7 @@ export default {
         this.formData = Object.assign({}, this.formData, data)
         this.methodName = '修改'
       }
+      
     },
     close (state) {
       this.formData = initFormData()
@@ -323,11 +326,10 @@ export default {
     },
   },
   created () {
-    this.formData.mktManagerList.name = this.userInfo.username
-    this.formData.projectManagerList.name = this.userInfo.username
     getCustomerPage({ type: 1 }).then(({ data }) => {
       this.clientList = data.data.records
     })
+    
 
   },
 }

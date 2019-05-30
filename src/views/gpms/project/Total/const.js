@@ -1,6 +1,4 @@
 
-// import { getters } from 'vuex'
-
 export const dictMap = {
   is_yes: [
     { value: 1, label: '是' },

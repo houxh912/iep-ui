@@ -55,7 +55,7 @@ export default {
   },
   created () {
     this.loadPage()
-    // this.initWebSocket()
+    this.initWebSocket()
   },
   destroyed () {
     clearInterval(this.timer)

@@ -9,13 +9,15 @@
     <div class="treasure-data">
       <div class="total">
         <div class="little-title">总资产</div>
-        <div class="color">0.00</div>
+        <div class="color">{{displayTotalAsset}}</div>
       </div>
       <div class="change">
         <div class="little-title">今日变化</div>
-        <div class="color">0.00</div>
+        <div class="color">{{displayTodayChange}}</div>
       </div>
-      <span class="right-top"><i class="el-icon-view"></i></span>
+      <span class="right-top" @click="handleShowMoney">
+        <a-icon class="eye-btn" :type="showMoneyIcon" />
+      </span>
     </div>
     <el-button-group class="operation-btn-group">
       <iep-button plain>报销</iep-button>
@@ -31,36 +33,36 @@ import { openWindow } from '@/util/util'
 export default {
   data () {
     return {
-      showClass: 2,
-      total: '',
-      change: '',
-      treasureData: {
-        title: '我的财富',
-        dataList: [
-          { name: '报销', totalMoney: 1111.2, change: 3333 },
-          { name: '打赏', totalMoney: 2222.2, change: 2222 },
-          { name: '投资', totalMoney: 3333.2, change: 3333 },
-          { name: '互助基金', totalMoney: 4444.2, change: 4444 },
-        ],
-      },
+      showMoney: true,
+      totalAsset: 0,
+      todayChange: 0,
     }
   },
-  created () {
-    this.total = this.treasureData.dataList[2].totalMoney
-    this.change = this.treasureData.dataList[2].change
+  computed: {
+    displayTotalAsset () {
+      let { totalAsset } = this
+      totalAsset = totalAsset.toFixed(2)
+      return this.showMoney ? totalAsset : '****'
+    },
+    displayTodayChange () {
+      let { todayChange } = this
+      todayChange = todayChange.toFixed(2)
+      return this.showMoney ? todayChange : '****'
+    },
+    showMoneyIcon () {
+      return this.showMoney ? 'eye' : 'eye-invisible'
+    },
   },
   methods: {
+    handleShowMoney () {
+      this.showMoney = !this.showMoney
+    },
     ...mapActions(['famsReward']),
     handleOpen () {
       openWindow('https://www.yuque.com/govmade/readings', '挖贝攻略', 800, 600)
     },
     handleReward () {
       this.famsReward()
-    },
-    tagList (index) {
-      this.showClass = index
-      this.total = this.treasureData.dataList[index].totalMoney
-      this.change = this.treasureData.dataList[index].change
     },
   },
 }
@@ -122,6 +124,7 @@ export default {
   overflow: hidden;
   width: 100%;
   .right-top {
+    cursor: pointer;
     display: inline-block;
     width: 45px;
     height: 45px;
@@ -131,9 +134,14 @@ export default {
     right: -22px;
     z-index: 98;
     transform: rotate(225deg);
+    &:hover {
+      background: #e0e0e0;
+    }
     i {
       transform: rotate(-225deg);
       color: #999;
+    }
+    .eye-btn {
     }
   }
   > div {

@@ -3,7 +3,7 @@
     <el-form size="small" ref="form" label-width="100px">
       <el-form-item v-for="child in applicTypeTree" :key="child.id" :label="`${child.name}：`">
         <!-- <a-checkable-tag class="tag-item" v-for="item in child.children" :key="item.id" v-model="item.checked" @change="handleChange(item.name)">{{item.name}}</a-checkable-tag> -->
-        <iep-button :disabled="item.value==='7'" class="tag-item" type="warning" size="mini" v-for="item in child.children" :key="item.value" :plain="!item.checked" @click="handleChange(item)">{{item.label}}</iep-button>
+        <iep-button :disabled="item.value==='7'" class="tag-item" size="mini" v-for="item in child.children" :key="item.value" :plain="!item.checked" @click="handleChange(item)">{{item.label}}</iep-button>
       </el-form-item>
     </el-form>
   </iep-dialog>

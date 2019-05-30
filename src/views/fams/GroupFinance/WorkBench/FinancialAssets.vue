@@ -1,5 +1,5 @@
 <template>
-  <iep-fams-card title="资产">
+  <iep-fams-card title="集团资产">
     <template slot="right">
       <div style="width: 350px;">
         <iep-date-picker v-model="rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" size="small">
@@ -15,7 +15,7 @@
   </iep-fams-card>
 </template>
 <script>
-import { getAssetsByDate } from '@/api/fams/statistics'
+import { getGroupAssetsByDate } from '@/api/fams/statistics'
 import IepFamsCard from './IepFamsCard'
 export default {
   components: { IepFamsCard },
@@ -59,15 +59,6 @@ export default {
         '其他应收款': 0,
         '组织借款': 0,
       },
-      typeUrlMap: {
-        '可用金额': '/fams/org_assets/org_account',
-        '银行存款': '/fams/financial_management/bank_deposit_journal',
-        '库存现金': '/fams/financial_management/cash_journal',
-        '集团往来': '/fams/financial_management/group_current_ccount',
-        '合同应收账款': '/fams_spa/accounts_receivable',
-        '其他应收款': '/fams_spa/other_receivables',
-        '组织拆借': '/fams/org_borrow/org_borrow',
-      },
     }
   },
   created () {
@@ -75,13 +66,15 @@ export default {
   },
   methods: {
     async loadPage () {
-      const { data } = await getAssetsByDate(this.rangeTime)
+      const { data } = await getGroupAssetsByDate(this.rangeTime)
       const realData = data.data
-      this.financialData['可用金额'] = realData.availableBalance
-      this.financialData['银行存款'] = realData.bankDeposit
-      this.financialData['库存现金'] = realData.cashInStock
-      this.financialData['集团往来'] = realData.groupContacts
-      this.financialData['合同应收账款'] = realData.contractualReceive
+      console.log(realData)
+      this.financialData['发行量'] = realData.circulation
+      this.financialData['系统账户余额'] = realData.balance
+      this.financialData['系统支出'] = realData.expenditure
+      this.financialData['系统收入'] = realData.income
+      this.financialData['提现数'] = realData.putForward
+      this.financialData['项目应收款'] = realData.project
       this.financialData['其他应收款'] = realData.other
       this.financialData['组织拆借'] = realData.borrow
     },

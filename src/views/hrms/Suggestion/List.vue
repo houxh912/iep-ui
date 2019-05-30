@@ -61,6 +61,9 @@ export default {
       columnsMap,
       backOption: {
         isBack: true,
+        backFunction: () => {
+          this.$router.push({ path: '/' })
+        },
       },
     }
   },

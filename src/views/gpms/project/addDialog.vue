@@ -234,7 +234,6 @@ export default {
         this.formData = initFormData()
         this.formData.mktManagerList.name = this.userInfo.realName
         this.formData.projectManagerList.name = this.userInfo.realName
-            // console.log(this.userInfo)
       } else {
         data.relatedClient = parseInt(data.relatedClient)
         data.groupExternalCooperatePartner = parseInt(
@@ -269,9 +268,26 @@ export default {
           for (let item of this.relatedFormList) {
             form[item.ids] = this.formData[item.list].map(m => m.id)
           }
-          for (let item of personList) {
+          // console.log(personList)
+          if(this.formData.mktManager == ''){
+             for (let item of personList) {
+            form[item.name] = this.userInfo.userId
+            }
+          }else {
+            for (let item of personList) {
             form[item.name] = this.formData[item.list].id
           }
+          }
+          if(this.formData.projectManager == ''){
+             for (let item of personList) {
+            form[item.name] = this.userInfo.userId
+            }
+          }else {
+            for (let item of personList) {
+            form[item.name] = this.formData[item.list].id
+          }
+          }
+          
           form.inChargeDept = this.formData.inChargeDeptList.id
           form.coopDept = this.formData.coopDeptList.id
           delete form.productList

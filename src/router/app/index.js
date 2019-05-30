@@ -234,6 +234,11 @@ export default [
         name: '争做伯乐',
         component: () => import('@/views/app/person/GovPersonContent/TobeBole/'),
       },
+      {
+        path: 'more_thoughts',
+        name: '说说列表页',
+        component: () => import('@/views/app/moreThoughts/'),
+      },
     ],
   },
 ]

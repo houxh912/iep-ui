@@ -9,7 +9,7 @@
       </el-menu>
       <el-menu ref="navMenu" v-else :default-active="activeIndex" mode="horizontal" router>
         <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id" :class="item.show">
-          <span class="sub-menu" @mouseenter="menuItemEnter(item)">{{item.name}}</span>
+          <span class="sub-menu">{{item.name}}</span>
           <resource-con ref="resource" class="sub-nav-menu" v-if="item.show=='show'"></resource-con>
         </el-menu-item>
       </el-menu>
@@ -43,13 +43,14 @@ export default {
     handleInput () {
       this.isShow = !this.isShow
     },
-    menuItemEnter (row) {
-      if (row.id == '/app/resource') {
-        this.$nextTick(() => {
-          this.$refs['resource'][0].getCount()
-        })
-      }
+    menuItemEnter () {
+      this.$nextTick(() => {
+        this.$refs['resource'][0].getCount()
+      })
     },
+  },
+  created () {
+    this.menuItemEnter()
   },
   computed: {
     activeIndex () {

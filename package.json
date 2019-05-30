@@ -1,6 +1,6 @@
 {
   "name": "iep-ui",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "private": true,
   "scripts": {
     "serve": "node --max_old_space_size=2048 node_modules/@vue/cli-service/bin/vue-cli-service.js serve",
@@ -19,7 +19,7 @@
     "babel-polyfill": "^6.26.0",
     "crypto-js": "^3.1.9-1",
     "echarts": "^4.2.1",
-    "element-ui": "2.8.2",
+    "element-ui": "^2.8.2",
     "enquire.js": "^2.1.6",
     "file-saver": "^2.0.0",
     "html2canvas": "^1.0.0-alpha.12",

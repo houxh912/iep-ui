@@ -5,7 +5,9 @@
       <div class="grid-container">
         <div class="grid-item-1-3">
           <el-card shadow="never" class="box-card" :body-style="bodyStyle">
-            <h2>投资指数</h2>
+            <div slot="header" class="clearfix">
+              <h2>投资指数</h2>
+            </div>
             <my-data></my-data>
             <div class="flex-aroud">
               <iep-button size="default">我的投资</iep-button>
@@ -26,7 +28,9 @@
         </div>
         <div class="grid-item-2">
           <el-card shadow="never" class="box-card" :body-style="bodyStyle">
-            <h2>我要投资</h2>
+            <div slot="header" class="clearfix">
+              <h2>我要投资</h2>
+            </div>
             <div class="flex-aroud">
               <iep-button size="default">我的投资</iep-button>
               <iep-button size="default">投资凭证</iep-button>
@@ -36,7 +40,9 @@
         </div>
         <div class="gird-item-3">
           <el-card shadow="never" class="box-card" :body-style="bodyStyle">
-            <h2>我的投资</h2>
+            <div slot="header" class="clearfix">
+              <h2>我的投资</h2>
+            </div>
             <el-table :data="tableData" style="width: 100%">
               <el-table-column prop="date" label="日期" width="180">
               </el-table-column>
@@ -49,7 +55,9 @@
         </div>
         <div class="grid-item-4">
           <el-card shadow="never" class="box-card" :body-style="bodyStyle">
-            <h2>推荐投资</h2>
+            <div slot="header" class="clearfix">
+              <h2>推荐投资</h2>
+            </div>
             <el-table :data="tableData" style="width: 100%">
               <el-table-column prop="date" label="日期" width="180">
               </el-table-column>
@@ -71,7 +79,6 @@ export default {
   data () {
     return {
       bodyStyle: {
-        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
@@ -139,9 +146,9 @@ export default {
 .grid-container {
   display: grid;
   grid-template-columns: 55fr 28fr;
-  grid-template-rows: 1fr 2fr 2fr;
+  grid-template-rows: 1fr 3fr 3fr;
   grid-template-areas: "grid-item-1 grid-item-2" "gird-item-3 grid-item-1-3" "grid-item-4 grid-item-1-3";
-  height: calc(100vh - 150px);
+  // height: calc(100vh - 150px);
   grid-gap: 25px;
   .grid-item-1-3 {
     grid-area: grid-item-1-3;

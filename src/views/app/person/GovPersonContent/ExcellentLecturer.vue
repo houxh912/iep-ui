@@ -2,7 +2,7 @@
   <div class="thoughts">
     <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
       <div class="thoughtsList">
-        <div v-for="(item, index) in thoughtsList" :key="index" class="piece">
+        <div v-for="(item, index) in thoughtsList" :key="index" class="piece" @click="handleDetail(item)">
           <div class="img-con"><img :src="item.avatar" class="img"></div>
           <div class="box">
             <div class="pieceTitle">
@@ -39,6 +39,9 @@ export default {
       getTeacherList().then(({data}) => {
         this.thoughtsList = data.data
       })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/personal_style/${row.id}`)
     },
   },
   created () {

@@ -28,6 +28,9 @@ export default {
         this.learningList = data.data.rlxx ? data.data.rlxx : []
       })
     },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+    },
   },
   created () {
     this.loadList()

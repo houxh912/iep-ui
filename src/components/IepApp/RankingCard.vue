@@ -28,7 +28,6 @@ export default {
   padding: 2px 0;
   .piece {
     color:#333;
-    cursor: pointer;
     transition-duration: 0.3s;
     .name {
       height: 30px;

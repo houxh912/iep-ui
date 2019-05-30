@@ -2,7 +2,7 @@
   <div class="training-con">
     <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
       <div class="training-notice">
-        <div v-for="(item,index) in trainingNotice" :key="index" class="piece">
+        <div v-for="(item,index) in trainingNotice" :key="index" class="piece" @click="handleDetail(item)">
           <span class="name">{{item.trainingTheme}}</span>
           <span class="time">{{formatYear(item.startTime)}}</span>
         </div>
@@ -45,6 +45,9 @@ export default {
       getNoticeList().then(({data}) => {
         this.trainingNotice = data.data
       })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/training/training_detail/${row.id}`)
     },
   },
   created () {

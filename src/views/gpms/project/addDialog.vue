@@ -232,8 +232,9 @@ export default {
       this.type = type
       if (!data) {
         this.formData = initFormData()
-        this.formData.mktManagerList.name = this.userInfo.username
-        this.formData.projectManagerList.name = this.userInfo.username
+        this.formData.mktManagerList.name = this.userInfo.realName
+        this.formData.projectManagerList.name = this.userInfo.realName
+        
       } else {
         data.relatedClient = parseInt(data.relatedClient)
         data.groupExternalCooperatePartner = parseInt(

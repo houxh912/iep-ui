@@ -25,3 +25,25 @@ export function postExamById (params) {
     data: params,
   })
 }
+
+/**
+* post考试禁用状态
+*/
+export function postExamForbidById (params) {
+  return request({
+    url: 'exms/iepexamination/prohibit',
+    method: 'post',
+    params: params,
+  })
+}
+
+/**
+* post考试启用状态
+*/
+export function postExamPassById (params) {
+  return request({
+    url: 'exms/iepexamination/enable',
+    method: 'post',
+    params: params,
+  })
+}

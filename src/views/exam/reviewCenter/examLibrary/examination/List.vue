@@ -123,14 +123,12 @@
         </operation-wrapper>
       </template>
     </iep-dialog>
-    <edit-dialog ref="EditDialog"></edit-dialog>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
 import { getExamInationList, postExamForbidById, postExamPassById } from '@/api/exam/examLibrary/examInation/examInation'
-import EditDialog from './EditDialog'
 // import { getTableData } from '@/api/mlms/material/datum/material'
 // import { putCustomer, deleteCustomerBatch } from '@/api/crms/customer'
 // import { getWealthFlowPage } from '@/api/fams/wealth_flow'
@@ -138,7 +136,6 @@ import EditDialog from './EditDialog'
 
 export default {
   mixins: [mixins],
-  components: { EditDialog },
   data () {
     return {
       isChangeTime: true,

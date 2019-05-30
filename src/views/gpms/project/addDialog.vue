@@ -64,12 +64,12 @@
       </el-row>
       <el-row type="flex" class="row-bg">
         <el-col :span="12">
-          <el-form-item label="项目成员：" prop="projectMembersList">
+          <el-form-item label="项目成员：" prop="membersList">
           <span slot="label">
               项目成员:
-              <!-- <iep-tip :content="tipContent.projectMembersList"></iep-tip>： -->
+              <!-- <iep-tip :content="tipContent.membersList"></iep-tip>： -->
           </span>
-            <iep-contact-multiple-user v-model="formData.projectMembersList" :is-show-contact-btn="false"></iep-contact-multiple-user>
+            <iep-contact-multiple-user v-model="formData.membersList" :is-show-contact-btn="false"></iep-contact-multiple-user>
             </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -250,7 +250,7 @@ export default {
         data.groupExternalCooperatePartner = parseInt(
           data.groupExternalCooperatePartner
         )
-        this.formData = data
+        this.formData = Object.assign({}, this.formData, data)
         this.methodName = '修改'
       }
     },
@@ -273,7 +273,7 @@ export default {
             list: 'projectManagerList',
           }]
           let form = {...this.formData}
-          form.projectMembersList = this.formData.projectMembersList.map(m => m.id)
+          form.projectMembersList = this.formData.membersList.map(m => m.id)
           form.productIds = this.formData.productList.map(m => m.id)
           for (let item of this.relatedFormList) {
             form[item.ids] = this.formData[item.list].map(m => m.id)

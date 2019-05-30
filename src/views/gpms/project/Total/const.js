@@ -138,6 +138,7 @@ export function initFormData () {
       name: '',
     },//项目经理
     projectMembersList: [], // 项目成员
+    membersList: [],
     mktManagerList: {
       id: 0,
       name: '',

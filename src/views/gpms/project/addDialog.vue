@@ -255,19 +255,25 @@ export default {
           let personList = [{
               name: 'mktManager',
               list: 'mktManagerList',
-          }, {
-              name: 'projectMentor',
-              list: 'projectMentorList',
-          }, {
+          },  {
             name: 'projectManager',
             list: 'projectManagerList',
           }]
+          let mentorList = [
+              {
+              name: 'projectMentor',
+              list: 'projectMentorList',
+            },
+          ]
           let form = {...this.formData}
           form.projectMembersList = this.formData.membersList.map(m => m.id)
           form.productIds = this.formData.productList.map(m => m.id)
           for (let item of this.relatedFormList) {
             form[item.ids] = this.formData[item.list].map(m => m.id)
           }
+          for (let item of mentorList) {
+            form[item.name] = this.formData[item.list].id
+            }
           // console.log(personList)
           if(this.formData.mktManager == ''){
              for (let item of personList) {

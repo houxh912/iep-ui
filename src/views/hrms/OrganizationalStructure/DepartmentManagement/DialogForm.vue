@@ -11,7 +11,7 @@
       <el-form-item label="部门名称" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
-      <el-form-item label="负责人" prop="userId">
+      <el-form-item label="负责人" prop="user">
         <iep-contact-select v-model="form.user"></iep-contact-select>
       </el-form-item>
       <el-form-item label="成立时间" prop="establishedTime">
@@ -27,6 +27,7 @@
 </template>
 <script>
 import { initForm, toDtoForm } from './options'
+import { checkContactUser } from '@/util/rules'
 export default {
   data () {
     return {
@@ -36,13 +37,16 @@ export default {
       form: initForm(),
       rules: {
         number: [
-          { required: true, message: '请输入', trigger: 'blur' },
+          { required: true, message: '请输入部门编号', trigger: 'blur' },
         ],
         name: [
-          { required: true, message: '请输入', trigger: 'blur' },
+          { required: true, message: '请输入部门名称', trigger: 'blur' },
+        ],
+        user: [
+          { required: true, validator: checkContactUser('负责人'), trigger: 'blur' },
         ],
         establishedTime: [
-          { required: true, message: '请输入', trigger: 'blur' },
+          { required: true, message: '请选择部门创建时间', trigger: 'blur' },
         ],
       },
     }

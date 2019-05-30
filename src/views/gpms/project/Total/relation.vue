@@ -54,18 +54,18 @@ export default {
       activeIndex: 0,
       projectState: 0,
       selectList: [
-        { name: '会议纪要', requestFn: getTableData, type: 'summaryIds', prop: 'title'},
-        { name: '材料', requestFn: getMaterialList, type: 'materialIds' },
-        { name: '合同', requestFn: getContractPageAll, type: 'contractIds', prop: 'contractName' },
-        { name: '项目', requestFn: getProjectList, type: 'projectIds', prop: 'projectName' },
-        { name: '周报', requestFn: getAllReportsOrg, type: 'reportIds', prop: 'projectName', id: 'projectWeekReportId' },
+        { name: '会议纪要', requestFn: getTableData, type: 'summaryList', prop: 'title'},
+        { name: '材料', requestFn: getMaterialList, type: 'materialList' },
+        { name: '合同', requestFn: getContractPageAll, type: 'contractList', prop: 'contractName' },
+        { name: '项目', requestFn: getProjectList, type: 'projectList', prop: 'projectName' },
+        { name: '周报', requestFn: getAllReportsOrg, type: 'reportList', prop: 'projectName', id: 'projectWeekReportId' },
       ],
       transferList: {
-        summaryIds: [], // 纪要
-        materialIds: [], // 材料
-        contractIds: [], // 合同
-        projectIds: [], // 项目
-        reportIds: [], // 周报
+        summaryList: [], // 纪要
+        materialList: [], // 材料
+        contractList: [], // 合同
+        projectList: [], // 项目
+        reportList: [], // 周报
       },
       name: '',
       relationlist: [],

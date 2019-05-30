@@ -5,7 +5,7 @@
       <iep-form-item label-name="支付方式">
         <iep-div-detail :value="dictsMap.borrowMoneyType[data.borrowMoneyType]"></iep-div-detail>
       </iep-form-item>
-      <iep-form-item label-name="收款公司">
+      <iep-form-item v-if="companyOption" label-name="收款公司">
         <iep-div-detail :value="data.borrowInCompany"></iep-div-detail>
       </iep-form-item>
       <iep-form-item v-if="!bankAmountOption.disabled" label-name="收款账户">
@@ -25,12 +25,14 @@
       </iep-form-item>
     </el-form>
     <template v-slot:action>
-      <a-button type="primary" :loading="submitLoading" @click="handleSubmit">
-        通过
-      </a-button>
-      <a-button style="margin-left: 8px" :loading="submitLoading" @click="handleReject">
-        拒绝
-      </a-button>
+      <template v-if="isApproval">
+        <a-button type="primary" :loading="submitLoading" @click="handleSubmit">
+          通过
+        </a-button>
+        <a-button style="margin-left: 8px" :loading="submitLoading" @click="handleReject">
+          拒绝
+        </a-button>
+      </template>
       <a-button style="margin-left: 8px" @click="handleBack">
         返回
       </a-button>
@@ -52,8 +54,18 @@ export default {
     }
   },
   computed: {
+    isApproval () {
+      return this.$route.query.approval === 'true'
+    },
+    companyOption () {
+      if (this.data.borrowMoneyType == '0') {
+        return false
+      } else {
+        return true
+      }
+    },
     bankAmountOption () {
-      if (this.data.borrowInCompanyId && this.data.borrowMoneyType === '1') {
+      if (this.data.borrowInCompanyId && this.data.borrowMoneyType == '1') {
         return {
           disabled: false,
           prefixUrl: `fams/bank_account/${this.data.borrowInCompanyId}`,
@@ -73,15 +85,24 @@ export default {
       this.$emit('back')
     },
     async handleSubmit () {
-      const { res } = await this.handleCommon('确认审核', groupConfirmBorrow)
-      if (res) {
-        this.$emit('add')
+      try {
+        const { res } = await this.handleCommon('确认审核', groupConfirmBorrow)
+        if (res) {
+          this.$emit('add', this.data)
+        }
+      } catch (error) {
+        console.log(error)
       }
+
     },
     async handleReject () {
-      const { res } = await this.handleCommon('拒绝审核', groupRejectBorrow)
-      if (res) {
-        this.handleBack()
+      try {
+        const { res } = await this.handleCommon('拒绝审核', groupRejectBorrow)
+        if (res) {
+          this.handleBack()
+        }
+      } catch (error) {
+        console.log(error)
       }
     },
     async handleCommon (text, requestFunction) {

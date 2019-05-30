@@ -33,7 +33,7 @@
       <iep-button style="width: 100%; margin-top: 5px; margin-bottom: 8px" icon="el-icon-plus" @click="newMember" plain>新增</iep-button>
       <iep-divider />
       <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="140px" size="small">
-        <iep-form-item class="form-half" prop="referType" label-name="发票类型">
+        <iep-form-item class="form-half" prop="referType" label-name="报销类型">
           <el-select size="small" v-model="form.referType" placeholder="请选择" clearable>
             <el-option v-for="(v,k) in dictsMap.referType" :key="k" :label="v" :value="+k">
             </el-option>
@@ -43,7 +43,7 @@
           <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择发票抬头"></iep-select>
         </iep-form-item>
         <iep-form-item class="form-half" prop="projectId" label-name="项目">
-          <el-input v-model="form.projectId"></el-input>
+          <iep-project-select v-model="form.projectId"></iep-project-select>
         </iep-form-item>
         <iep-form-item class="form-half" prop="auditor" label-name="审批人">
           <iep-contact-select v-model="form.auditor"></iep-contact-select>
@@ -54,7 +54,8 @@
 </template>
 <script>
 import { getInvoiceById } from '@/api/fams/invoice'
-import { dictsMap } from '../options'
+import formMixins from '@/mixins/formMixins'
+import { dictsMap, rules } from '../options'
 function initTableForm () {
   return {
     type: [],
@@ -76,17 +77,14 @@ function initForm () {
   }
 }
 export default {
+  mixins: [formMixins],
   props: ['record'],
   data () {
     return {
       dictsMap,
       tableData: [],
       form: initForm(),
-      rules: {
-        referType: [
-          { required: true, message: '请选择发票类型', trigger: 'blur' },
-        ],
-      },
+      rules,
       methodName: this.record.methodName || '新增',
       formRequestFn: this.record.formRequestFn || (() => { }),
       backOption: {
@@ -102,17 +100,33 @@ export default {
     }
   },
   methods: {
-    handleSubmit (isPublish = false) {
-      this.form.relations = this.tableData
-      this.form.auditorId = this.form.auditor.id
-      this.formRequestFn(this.form, isPublish).then(({ data }) => {
-        if (data.data) {
-          this.$message.success('操作成功')
-          this.handleGoBack()
-        } else {
-          this.$message(data.msg)
+    async handleSubmit (isPublish = false) {
+      try {
+        await this.mixinsValidate()
+        if (this.tableData.length === 0) {
+          this.$message('发票数目至少存在一条')
+          return
         }
-      })
+        this.form.relations = this.tableData
+        this.form.auditorId = this.form.auditor.id
+        this.formRequestFn(this.form, isPublish).then(({ data }) => {
+          if (data.data) {
+            this.$message.success('操作成功')
+            this.handleGoBack()
+          } else {
+            this.$message(data.msg)
+          }
+        })
+      } catch (object) {
+        let message = ''
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            const element = object[key]
+            message = element[0].message
+          }
+        }
+        this.$message(message)
+      }
     },
     loadPage () {
       getInvoiceById(this.record.id).then(({ data }) => {

@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <div v-for="(item,index) in dataList" :key="index" class="piece">
+    <div v-for="(item,index) in dataList" :key="index" class="piece" @click="clicked(item)">
       {{typeof item === 'object' ? item[name] : item}}
     </div>
     <slot></slot>
@@ -18,6 +18,11 @@ export default {
     name: {
       type: String,
       default: 'name',
+    },
+  },
+  methods: {
+    clicked (item) {
+      this.$emit('clicked', item)
     },
   },
 }

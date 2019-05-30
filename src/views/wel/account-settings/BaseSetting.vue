@@ -98,7 +98,7 @@
           <el-form-item label="外部头衔：" prop="externalTitle" class="form-half">
             <el-input v-model="form.externalTitle"></el-input>
           </el-form-item>
-          
+
           <iep-form-item class="form-half" prop="accountTypeId" label-name="户口类别" tip="单选项：农业户口/非农业户口">
             <iep-dict-select v-model="form.accountTypeId" dict-name="hrms_resident_type"></iep-dict-select>
           </iep-form-item>
@@ -128,34 +128,30 @@
           <iep-form-item class="form-half" prop="wechat" label-name="微信" tip="请务必填写本人常用的微信号码">
             <el-input v-model="form.wechat"></el-input>
           </iep-form-item>
-          
+
           <iep-form-item class="form-half" prop="qq" label-name="QQ" tip="请务必填写本人常用的QQ号码">
             <el-input v-model="form.qq"></el-input>
           </iep-form-item>
-          
+
           <iep-form-item class="form-half" prop="email" label-name="邮箱" tip="请务必填写本人常用的邮箱账号">
             <el-input v-model="form.email"></el-input>
           </iep-form-item>
-          
+
           <el-form-item label="个人主页：" prop="home" class="form-half">
             <el-input v-model="form.home"></el-input>
           </el-form-item>
-          
-          <iep-form-item class="form-half" prop="email" label-name="邮箱" tip="请务必填写本人常用的邮箱账号">
-            <el-input v-model="form.email"></el-input>
-          </iep-form-item>
-          
+
           <iep-form-item class="form-half" prop="emergencyName" label-name="应急联系人" tip="请务必填写能及时联系到您的应急联系人姓名及与您的关系，如张三/父亲">
             <el-input v-model="form.emergencyName"></el-input>
           </iep-form-item>
-          
+
           <iep-form-item class="form-half" prop="emergencyPhone" label-name="应急联系电话" tip="请务必填写可联系上的应急人手机号码">
             <el-input v-model="form.emergencyPhone"></el-input>
           </iep-form-item>
           <!-- <el-form-item label="添加师父：">
                 <iep-tag v-model="form.people"></iep-tag>
               </el-form-item> -->
-              
+
           <iep-form-item prop="abilityTag" label-name="卓越标签" tip="请务必根据自身能力选择对应标签，如发现标签不匹配导致信用降低等">
             <iep-tag v-model="form.abilityTag"></iep-tag>
           </iep-form-item>
@@ -175,7 +171,7 @@
           <iep-form-item label-name="工作经历" tip="1.请务必准确填写公司全称，忌简称；2.请务必准确填写岗位全称，忌简称；3.请务必准确填写起始时间，并精确到年月，如：2017.7-2018.6；4.请务必简要说明离职原因">
             <inline-form-table :table-data="form.workExperience" :columns="workExpColumns" requestName="work_exp" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
           </iep-form-item>
-          
+
           <iep-form-item label-name="学习情况" tip="1.请务必准确填写学校全称，忌简称；2.请务准确必填写起始时间，并精确到年月，如：2017.7-2018.6；3.请务必简要概括学习内容，如经济管理，财务管理">
             <inline-form-table :table-data="form.eduSituation" :columns="studyColumns" requestName="study" type="employee_profile" :rid="form.id" @load-page="handleSave"></inline-form-table>
           </iep-form-item>

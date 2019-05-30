@@ -64,6 +64,16 @@ export default {
     loadSelf () {
       this.fnSelf().then(({ data }) => {
         this.form = this.selfToVo(data.data)
+        if (!this.form.positionName) {
+          this.$message('请找人力管理员申请岗位名')
+          this.$router.history.go(-1)
+          return
+        }
+        if (!this.form.dept.length) {
+          this.$message('请找人力管理员申请部门')
+          this.$router.history.go(-1)
+          return
+        }
       })
     },
     handlePublish () {

@@ -27,7 +27,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { projecTableOption } from './option'
-import { getTableData } from '@/api/gpms/index'
+import { getProjectList } from '@/api/gpms/index'
 
 export default {
   mixins: [mixins],
@@ -51,7 +51,7 @@ export default {
       this.loadPage()
     },
     loadPage (param = {}) {
-      this.loadTable(param, getTableData)
+      this.loadTable(param, getProjectList)
     },
     handleSelect (row) {
       if (this.projectId == row.id) {

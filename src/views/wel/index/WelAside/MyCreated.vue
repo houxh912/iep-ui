@@ -48,7 +48,7 @@ export default {
         {
           title: '建议',
           callback: () => {
-            this.$router.push('/hrms_spa/suggestion_new')
+            this.$router.push('/hrms_spa/suggestion_list')
           },
         },
         {

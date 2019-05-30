@@ -1,30 +1,33 @@
 <template>
   <div class="appraise">
-    <el-collapse v-model="activeNames" @change="handleChange">
-      <el-timeline v-for="(appraise,index) in appraiseList" :key="index">
-        <el-collapse-item :title="appraise.time" :name="index">
-          <el-card shadow="never" v-for="(child, index2) in appraise.childList" :key="index2">
-            <div class="conList" v-if="isShow">
-              <div class="img"><img :src="child.img" alt=""></div>
-              <div class="con">
-                <h4>
-                  <span class="name">{{child.name}}</span>
-                  <span class="department">{{child.department}}</span>
-                  <span class="subTime">{{child.subTime}}</span>
-                  <span class="operate">
-                    <i class="el-icon-edit" @click="handleEdit"></i>
-                    <i class="icon-shanchu1 close" @click="handleClose"></i>
-                  </span>
-                </h4>
-                <div v-if="itShow">{{child.con}}</div>
-                <el-input v-if="show" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="textarea">
-                </el-input>
+    <basic-container>
+      <page-header title="评价管理"></page-header>
+      <el-collapse v-model="activeNames" @change="handleChange">
+        <el-timeline v-for="(appraise,index) in appraiseList" :key="index">
+          <el-collapse-item :title="appraise.time" :name="index">
+            <el-card shadow="never" v-for="(child, index2) in appraise.childList" :key="index2">
+              <div class="conList" v-if="isShow">
+                <div class="img"><img :src="child.img" alt=""></div>
+                <div class="con">
+                  <h4>
+                    <span class="name">{{child.name}}</span>
+                    <span class="department">{{child.department}}</span>
+                    <span class="subTime">{{child.subTime}}</span>
+                    <span class="operate">
+                      <i class="el-icon-edit" @click="handleEdit"></i>
+                      <i class="icon-shanchu1 close" @click="handleClose"></i>
+                    </span>
+                  </h4>
+                  <div v-if="itShow">{{child.con}}</div>
+                  <el-input v-if="show" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="textarea">
+                  </el-input>
+                </div>
               </div>
-            </div>
-          </el-card>
-        </el-collapse-item>
-      </el-timeline>
-    </el-collapse>
+            </el-card>
+          </el-collapse-item>
+        </el-timeline>
+      </el-collapse>
+    </basic-container>
   </div>
 </template>
 <script>

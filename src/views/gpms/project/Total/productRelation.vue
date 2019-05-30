@@ -44,10 +44,10 @@ export default {
       activeIndex: 0,
       projectState: 0,
       selectList: [
-        { name: '产品', requestFn: getDetailsPage, type: 'productIds' },
+        { name: '产品', requestFn: getDetailsPage, type: 'productList' },
       ],
       transferList: {
-        productIds: [], // 产品
+        productList: [], // 产品
       },
       name: '',
       relationlist: [],

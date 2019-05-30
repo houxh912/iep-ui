@@ -66,9 +66,34 @@ const toDtoForm = (row) => {
 	return newForm
 }
 
+const rules = {
+	type: [
+    { required: true, message: '请输入支出类型', trigger: 'blur' },
+	],
+	createTime: [
+    { required: true, message: '请输入支出时间', trigger: 'blur' },
+	],
+	orgName: [
+    { required: true, message: '请输入支出组织', trigger: 'blur' },
+	],
+	expenditureMode: [
+    { required: true, message: '请输入支出方式', trigger: 'blur' },
+  	],
+  	companyId: [
+    { required: true, message: '请输入支出公司', trigger: 'blur' },
+	],
+	accountName: [
+    { required: true, message: '请输入银行户头', trigger: 'blur' },
+	],
+	amount: [
+    { required: true, message: '支出金额为数字且大于0', trigger: 'blur', type:'number', min:1 },
+	],
+}
+
 export {
 	dictsMap,
 	columnsMap,
 	initForm,
 	toDtoForm,
+	rules,
 }

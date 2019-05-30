@@ -65,8 +65,51 @@ const initForm = () => {
 	}
 }
 
+const rules = {
+  buyerName: [
+    { required: true, message: '请输入名称', trigger: 'blur' },
+  ],
+  buyerNumber: [
+	  { required: true, message: '请输入纳税人号码', trigger: 'blur' },
+	],
+	buyerAddress: [
+	  { required: true, message: '请输入地址', trigger: 'blur' },
+	],
+	buyerPhone: [
+	  { required: true, message: '请输入电话号码', trigger: 'blur' },
+	],
+	buyerAccount: [
+	  { required: true, message: '请输入开户行及账户', trigger: 'blur' },
+	],
+	buyerMail: [
+	  { required: true, message: '请输入发票邮寄地址', trigger: 'blur' },
+	],
+	firstSubject: [
+	  { required: true, message: '请输入一级科目', trigger: 'blur' },
+	],
+	secondSubject: [
+	  { required: true, message: '请输入二级科目', trigger: 'blur' },
+  ],
+	rate: [
+	  { required: true, message: '请输入税率', trigger: 'blur' },
+  ],
+  unit: [
+	  { required: true, message: '请输入单位', trigger: 'blur' },
+  ],
+  amount: [
+	  { required: true, message: '请输入金额', trigger: 'blur', type:'number', min:1 },
+  ],
+  projectId: [
+	  { required: true, message: '请输入关联项目', trigger: 'blur' },
+  ],
+  companyId: [
+	  { required: true, message: '请输入销售方公司', trigger: 'blur' },
+	],
+}
+
 export {
 	columnsMap,
 	dictsMap,
 	initForm,
+	rules,
 }

@@ -1,21 +1,21 @@
 <template>
   <steps-content>
-    <el-form class="content-wrapper" ref="form" size="small" :model="form" label-width="150px">
-      <iep-form-item label-name="借出组织">
+    <el-form class="content-wrapper" ref="form" size="small" :rules="rules" :model="form" label-width="150px">
+      <iep-form-item label-name="借出组织" prop="borrowOutOrgId">
         <iep-select v-model="form.borrowOutOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择向哪个组织借款"></iep-select>
       </iep-form-item>
-      <iep-form-item label-name="支付方式">
+      <iep-form-item label-name="支付方式" prop="borrowMoneyType">
         <el-radio-group v-model="form.borrowMoneyType">
           <el-radio v-for="(item, idx) in dictsMap.borrowMoneyType" :key="idx" :label="idx">{{item}}</el-radio>
         </el-radio-group>
       </iep-form-item>
-      <iep-form-item label-name="收款公司">
+      <iep-form-item label-name="收款公司" prop="borrowInCompanyId">
         <iep-select v-model="form.borrowInCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择收入公司"></iep-select>
       </iep-form-item>
       <iep-form-item v-if="!bankAmountOption.disabled" label-name="收款账户">
         <iep-select v-model="form.borrowInCompanyBankId" autocomplete="off" :prefix-url="bankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
       </iep-form-item>
-      <iep-form-item label-name="还款天数(天)">
+      <iep-form-item label-name="还款天数(天)" prop="borrowDays">
         <iep-input-number v-model="form.borrowDays" :precision="0"></iep-input-number>
       </iep-form-item>
       <iep-form-item label-name="还款时间">
@@ -24,7 +24,7 @@
       <iep-form-item label-name="借款利息">
         <iep-div-detail :value="`${form.orgInterest}%`"></iep-div-detail>
       </iep-form-item>
-      <iep-form-item label-name="借款金额">
+      <iep-form-item label-name="借款金额" prop="borrowAmount">
         <iep-input-number v-model="form.borrowAmount"></iep-input-number>
       </iep-form-item>
     </el-form>
@@ -39,13 +39,16 @@
 <script>
 import { mapGetters } from 'vuex'
 import StepsContent from './StepsContent'
-import { dictsMap, initForm, calculaterDate } from './options'
+import formMixins from '@/mixins/formMixins'
+import { dictsMap, initForm, calculaterDate, rules } from './options'
 export default {
+  mixins: [formMixins],
   components: { StepsContent },
   data () {
     return {
       form: {},
       dictsMap,
+      rules,
     }
   },
   computed: {
@@ -68,8 +71,21 @@ export default {
     this.form = initForm(this.famsConfig)
   },
   methods: {
-    handleSubmit () {
-      this.$emit('on-data', this.form)
+    async handleSubmit () {
+      try {
+        await this.mixinsValidate()
+        this.$emit('on-data', this.form)
+      }
+      catch (object) {
+        let message = ''
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            const element = object[key]
+            message = element[0].message
+          }
+        }
+        this.$message(message)
+      }
     },
   },
   watch: {

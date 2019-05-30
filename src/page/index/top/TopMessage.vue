@@ -55,10 +55,10 @@ export default {
   },
   created () {
     this.loadPage()
-    this.initWebSocket()
+    // this.initWebSocket()
   },
   destroyed () {
-    // clearInterval(this.refreshTime)
+    clearInterval(this.timer)
     this.disconnect()
   },
   methods: {
@@ -76,7 +76,7 @@ export default {
         'Authorization': 'Bearer ' + token,
       }
       // 建立连接对象
-      this.socket = new SockJS(this.$wsUrl)//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
+      this.socket = new SockJS('/api/ims/ws')//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
       this.stompClient = Stomp.over(this.socket)
       this.stompClient.debug = null
       // 向服务器发起websocket连接

@@ -1,5 +1,5 @@
 <template>
-  <div>    
+  <div>
     <div class="plate">
       <div class="head">
         <p class="title">会议纪要</p>
@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-
+    
   </div>
 </template>
 

@@ -97,12 +97,6 @@
             <span slot="label">
               立项时间:
             </span>
-            <!-- <el-date-picker
-              v-model="formData.projectTime"
-              type="date"
-              value-format="yyyy-MM-dd"
-              placeholder="立项时间">
-            </el-date-picker> -->
             <iep-date-picker 
               v-model="formData.projectTime"
               type="date"
@@ -110,7 +104,6 @@
           </el-form-item>
         </el-col>
       </el-row>
-
       <el-row type="flex" class="row-bg">
         <el-col :span="12">
           <el-form-item label="结束时间：" prop="endTime">
@@ -121,12 +114,6 @@
               v-model="formData.endTime"
               type="date"
               placeholder="结束时间"></iep-date-picker>
-            <!-- <el-date-picker
-              v-model="formData.endTime"
-              type="date"
-              value-format="yyyy-MM-dd"
-              placeholder="结束时间">
-            </el-date-picker> -->
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -192,7 +179,8 @@
 import { dictMap, rules, initFormData, relatedFormList } from './Total/const.js'
 import { createData, updateData } from '@/api/gpms/index'
 import { getCustomerPage } from '@/api/crms/customer'
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { tipContent } from './option'
 import RelationDialog from './Total/relation'
 import ProductRelationDialog from './Total/productRelation'
@@ -201,10 +189,9 @@ export default {
   name: 'add-dialog',
   components: { RelationDialog, ProductRelationDialog},
   computed: {
-    ...mapState({
-      dictGroup: state => state.user.dictGroup,
-    }),
+    ...mapGetters(['dictGroup', 'userInfo']),
   },
+
   data () {
     return {
       projectTime: '',
@@ -336,9 +323,12 @@ export default {
     },
   },
   created () {
+    this.formData.mktManagerList.name = this.userInfo.username
+    this.formData.projectManagerList.name = this.userInfo.username
     getCustomerPage({ type: 1 }).then(({ data }) => {
       this.clientList = data.data.records
     })
+
   },
 }
 </script>

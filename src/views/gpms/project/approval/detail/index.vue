@@ -1,6 +1,5 @@
 <template>
   <div class="abs">
-    
     <div class="plate">
       <div class="head">
         <p class="title">基本信息</p>
@@ -24,7 +23,6 @@
 
     <teamPage :form="form"></teamPage>
 
-    
   </div>
 </template>
 

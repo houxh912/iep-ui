@@ -8,6 +8,10 @@
         <template v-if="activeTab ==='Norm'" v-slot:Norm>
           <norm v-loading="activeTab !=='Norm'" :projectId="form.id"></norm>
         </template>
+        <!-- <template v-if="activeTab ==='Agreement'" v-slot:Agreement>
+          <agreement v-loading="activeTab !=='Agreement'" :projectId="form.id"></agreement>
+        </template> -->
+
       </iep-tabs>
     </basic-container>
     <relateDialog ref="relation" :projectId="form.id"></relateDialog>
@@ -38,7 +42,15 @@ export default {
       }, {
         label: '规范性材料',
         value: 'Norm',
-      }],
+      },
+      // {
+      //   label: '合同',
+      //   value: 'Agreement',
+      // },{
+      //   label: '过去的项目',
+
+      // }
+      ],
       activeTab: 'Normy',
     }
   },

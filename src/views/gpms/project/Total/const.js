@@ -1,3 +1,6 @@
+
+// import { getters } from 'vuex'
+
 export const dictMap = {
   is_yes: [
     { value: 1, label: '是' },
@@ -56,40 +59,13 @@ export const rules = {
   projectName: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
-  projectType: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  businessType: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
   relatedClient: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  // projectBudget: [
-  //   { required: true, message: '必填', trigger: 'blur' },
-  // ],
-  mktManagerList: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  projectMentorList: [
     { required: true, message: '必填', trigger: 'change' },
   ],
   projectTagList: [
     { required: true, message: '必填', trigger: 'change' },
   ],
-  isRelevanceProduct: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  notRelevanceProductReason: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
-  inChargeDeptList: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  coopDeptList: [
-    { required: true, message: '必填', trigger: 'change' },
-  ],
-  groupExternalCooperatePartner: [
+  projectTime: [
     { required: true, message: '必填', trigger: 'change' },
   ],
 }

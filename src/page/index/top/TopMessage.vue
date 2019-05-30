@@ -58,7 +58,7 @@ export default {
     this.initWebSocket()
   },
   destroyed () {
-    // clearInterval(this.refreshTime)
+    clearInterval(this.timer)
     this.disconnect()
   },
   methods: {
@@ -88,16 +88,16 @@ export default {
     },
     initWebSocket () {
       this.connection()
-      // let self = this
-      // //断开重连机制,尝试发送消息,捕获异常发生时重连
-      // this.timer = setInterval(() => {
-      //   try {
-      //     self.stompClient.send('test')
-      //   } catch (err) {
-      //     console.log('断线了: ' + err)
-      //     self.connection()
-      //   }
-      // }, 5000)
+      let self = this
+      //断开重连机制,尝试发送消息,捕获异常发生时重连
+      this.timer = setInterval(() => {
+        try {
+          self.stompClient.send('test')
+        } catch (err) {
+          console.log('断线了: ' + err)
+          self.connection()
+        }
+      }, 5000)
     },
     loadPage () {
       this.pageLoading = true

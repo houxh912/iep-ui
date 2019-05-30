@@ -1,7 +1,7 @@
 <template>
   <div class="honor">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <IepAppListCard :dataList="dataList.slice(0, 8)" name="material_name"></IepAppListCard>
+      <IepAppListCard :dataList="dataList.slice(0, 8)" name="material_name" @clicked="handleDetail"></IepAppListCard>
     </IepAppTabCard>
   </div>
 </template>
@@ -22,6 +22,9 @@ export default {
       getMaterialList().then(({data}) => {
         this.dataList = data.data.gzzd ? data.data.gzzd : []
       })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
     },
   },
   created () {

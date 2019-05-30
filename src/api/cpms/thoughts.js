@@ -32,3 +32,12 @@ export function thoughtsDelete (obj) {
     data: obj,
   })
 }
+
+// 分页查询感想
+export function geTallPage (obj) {
+  return request({
+    url: `${prefixUrl}/all_page`,
+    method: 'get',
+    params: obj,
+  })
+}

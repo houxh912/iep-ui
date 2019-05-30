@@ -28,6 +28,9 @@ export default {
         this.documentList = data.data.gzzd ? data.data.gzzd : []
       })
     },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+    },
   },
   created () {
     this.loadList()

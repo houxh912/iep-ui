@@ -1,7 +1,7 @@
 <template>
   <div class="librarys-content">
     <div style="height: 100vh;" v-loading="loading" v-if="loading"></div>
-    <div class="librarys-item" v-for="(item,index) in librarys" :key="index" v-else>
+    <div class="librarys-item" v-for="(item,index) in librarys" :key="index" v-else @click="handleDetail(item)">
       <div class="text">
         <h4 class="sub-title">
           <el-tag class="classTag">合同</el-tag><span class="sub-title-con">{{item.contractName}}</span>
@@ -59,6 +59,9 @@ export default {
     currentChange (val) {
       this.params.current = val
       this.loadPage()
+    },
+    handleDetail () {
+      // this.$router.push(`/app/resource/training/training_detail/${row.id}`)
     },
   },
   created () {

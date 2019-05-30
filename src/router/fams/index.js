@@ -82,8 +82,13 @@ export default [
       },
       {
         path: 'group_reward',
-        name: '集团打赏/扣减',
-        component: () => import('@/views/fams/GroupFinance/GroupTransfer/index.vue'),
+        name: '集团打赏/扣减(组织)',
+        component: () => import('@/views/fams/GroupFinance/GroupReward/index.vue'),
+      },
+      {
+        path: 'group_reward_user',
+        name: '集团打赏/扣减(个人)',
+        component: () => import('@/views/fams/GroupFinance/GroupRewardUser/index.vue'),
       },
     ],
   },

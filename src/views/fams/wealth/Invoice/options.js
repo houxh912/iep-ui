@@ -18,6 +18,27 @@ const dictsMap = {
   },
 }
 
+function initTableForm () {
+  return {
+    type: [],
+    invoiceType: '',
+    amount: 0,
+  }
+}
+function initForm () {
+  return {
+    id: '',
+    referType: '',
+    companyId: '',
+    projectId: '',
+    auditor: {
+      id: 0,
+      name: '',
+    },
+    relations: [],
+  }
+}
+
 const columnsMap = [
 	{
 		prop: 'referType',
@@ -62,7 +83,7 @@ const rules = {
     { required: true, message: '请选择项目', trigger: 'blur' },
   ],
   auditor: [
-    { required: true, validator: checkContactUser('审批人'),  trigger: 'blur' },
+    { required: false, validator: checkContactUser('审批人'),  trigger: 'blur' },
   ],
 }
 
@@ -70,4 +91,6 @@ export {
 	columnsMap,
 	dictsMap,
 	rules,
+	initTableForm,
+	initForm,
 }

@@ -5,6 +5,11 @@
       <gov-person-notice></gov-person-notice>
       <glow-person></glow-person>
       <talent-advantage></talent-advantage>
+    </div>
+    <div class="first-img">
+      <img src="./img/first.png" alt="">
+    </div>
+    <div class="top-content">
       <shortage-posts></shortage-posts>
       <gov-tags></gov-tags>
     </div>
@@ -15,6 +20,9 @@
       <training-notice></training-notice>
       <hot-course></hot-course>
       <excellent-lecturer></excellent-lecturer>
+    </div>
+    <div class="second-img">
+      <img src="./img/second.png" alt="">
     </div>
     <div class="copies">
       <gov-learn></gov-learn>
@@ -82,6 +90,9 @@ export default {
     grid-row-gap: 25px;
     grid-column-gap: 25px;
     grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
+  }
+  .first-img, .second-img {
+    margin: 20px 0;
   }
   .block {
     margin-top: 25px;

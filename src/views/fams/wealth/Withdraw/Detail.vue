@@ -14,6 +14,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import FirstContent from './FirstContent'
 import SecondContent from './SecondContent'
 import ThirdContent from './ThirdContent'
@@ -36,7 +37,7 @@ export default {
   },
   data () {
     return {
-      replaceText: () => '（每一笔提现均需提交为5.5%的税费，税费可用发票抵消。）',
+      replaceText: () => `（每一笔提现均需提交为${this.famsConfig.taxRate * 100}%的税费，税费可用发票抵消。）`,
       backOption: {
         isBack: true,
       },
@@ -80,6 +81,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['famsConfig']),
     id () {
       return +this.$route.params.id
     },

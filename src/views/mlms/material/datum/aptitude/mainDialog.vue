@@ -42,7 +42,10 @@
           下载贝额
           <iep-tip :content="tipContent.downloadCost"></iep-tip>：
         </span>
-        <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select>
+        <!-- <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select> -->
+        <el-select v-model="formData.downloadCost" placeholder="请选择">
+          <el-option v-for="item in dictGroup.mlms_download_cost" :key="item.id" :label="`${item.label}国脉贝`" :value="item.value"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">
         <span slot="label">
@@ -68,6 +71,9 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
+      <el-form-item label="附件：">
+        <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload>
+      </el-form-item>
 
     </el-form>
     <footer-tool-bar>
@@ -79,9 +85,13 @@
 <script>
 import { initFormData, rules, tipContent } from './option'
 import store from '@/store'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {},
+  computed: {
+    ...mapGetters(['dictGroup']),
+  },
   data () {
     return {
       loadState: false,
@@ -125,9 +135,9 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loadState = true
-          // if (this.formData.attachFileList.length > 0) {
-          //   this.formData.attachFile = this.formData.attachFileList[0].url
-          // }
+          if (this.formData.attachFileList.length > 0) {
+            this.formData.attachFile = this.formData.attachFileList[0].url
+          }
           this.formRequestFn(this.formData).then(() => {
             this.loadState = false
             this.$message({

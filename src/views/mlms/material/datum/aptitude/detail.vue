@@ -16,14 +16,14 @@
       <el-row class="sub-title">
         <pre>{{formData.intro}}</pre>
       </el-row>
-      <!-- <el-row class="down-load">
-        相关附件：
-        <div class="file" v-for="(item, index) in formData.attachFileList" :key="index">
-          <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗5国脉贝下载）</span></div>
-        </div>
-      </el-row> -->
       <el-row class="image">
         <img v-if="formData.image" :src="formData.image" class="img-avatar">
+      </el-row>
+      <el-row class="down-load" v-if="formData.attachFileList.length > 0">
+        相关附件：
+        <div class="file" v-for="(item, index) in formData.attachFileList" :key="index">
+          <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗{{getMoney(formData.downloadCost)}}下载）</span></div>
+        </div>
       </el-row>
       <el-row class="footer">
         <div class="footer-left">
@@ -59,13 +59,14 @@
 </template>
 
 <script>
-import { downloadCount, getGreatMaterial, getMaterialTotal } from '@/api/mlms/material/datum/material'
-import { getDataById } from '@/api/mlms/material/datum/aptitude'
+import { getGreatMaterial, getMaterialTotal } from '@/api/mlms/material/datum/material'
+import { downloadCount, getDataById } from '@/api/mlms/material/datum/aptitude'
 import { commentMaterial, getCommentPage } from '@/api/mlms/index'
 import { downloadFile } from '@/api/common'
 import CollectionDialog from '../../components/collectionDialog'
 import { createCollect } from '@/api/mlms/material/summary'
 import ShareDialog from '@/views/mlms/material/components/shareDialog'
+import { mapGetters } from 'vuex'
 
 function commentForm () {
   return {
@@ -90,10 +91,13 @@ export default {
       default: false,
     },
   },
+  computed: {
+    ...mapGetters(['dictGroup']),
+  },
   data () {
     return {
       formData: {
-
+        attachFileList: [],
       },
       backOption: {
         isBack: true,
@@ -146,9 +150,13 @@ export default {
     },
     // 附件下载
     downLoad (obj) {
-      downloadFile(obj)
-      // /getUpload/{id}
-      downloadCount(this.formData.id)
+      downloadCount(this.formData.id).then(({data}) => {
+        if (data.data) {
+          downloadFile(obj)
+        } else {
+          this.$message.error(data.msg)
+        }
+      })
     },
     handleDetail (row) {
       this.$router.push(`/mlms_spa/material/detail/${row.id}`)
@@ -202,6 +210,13 @@ export default {
     loadPage () {
       this.formData.collection = 1 // 收藏成功后，将是否收藏改为已收藏
       this.$emit('load-page', true)
+    },
+    getMoney (val) {
+      for (let item of this.dictGroup.mlms_download_cost) {
+        if (item.value == val) {
+          return item.label
+        }
+      }
     },
   },
   created () {

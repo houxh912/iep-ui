@@ -187,7 +187,7 @@ export default {
     },
     //tab切换菜单
     changeType () {
-      this.searchPage({ ...this.searchForm, type: this.type })
+      this.searchPage()
       if (this.type === '2') {
         this.showSelect = true
       } else { this.showSelect = false }

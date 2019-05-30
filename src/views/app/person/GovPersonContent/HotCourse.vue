@@ -3,13 +3,13 @@
     <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
       <div class="hot-course">
         <div class="con-course">
-          <div class="con" v-for="(con, index) in conCourse" :key="index">
+          <div class="con" v-for="(con, index) in conCourse" :key="index" @click="handleDetail(con)">
             <div class="img"><img :src="con.theme_pictures" alt=""></div>
             <span class="text">{{con.training_theme}}</span>
             <span class="num">{{con.views}} 人已学习</span>
           </div>
         </div>
-        <div v-for="(item, index) in hotCourse" :key="index" class="piece">
+        <div v-for="(item, index) in hotCourse" :key="index" class="piece" @click="handleDetail(item)">
           <span class="name">{{item.training_theme}}</span>
           <span class="num">{{item.views}} 人已学习</span>
         </div>
@@ -37,6 +37,9 @@ export default {
         this.conCourse = data.data.slice(0, 2)
         this.hotCourse = data.data.slice(2)
       })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/training/training_detail/${row.id}`)
     },
   },
   created () {

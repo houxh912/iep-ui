@@ -95,7 +95,7 @@ export default [
         component: () => import('@/views/app/organizationDetails/'),
         meta: noAuth,
         redirect: '/app/organization_details/introduction',
-        children:[
+        children: [
           {
             path: 'introduction',
             name: '组织介绍',
@@ -140,7 +140,7 @@ export default [
         component: () => import('@/views/app/allianceDetails/'),
         meta: noAuth,
         redirect: '/app/alliance_details/introduction',
-        children:[
+        children: [
           {
             path: 'introduction',
             name: '联盟介绍',
@@ -233,6 +233,11 @@ export default [
         path: 'tobeBole',
         name: '争做伯乐',
         component: () => import('@/views/app/person/GovPersonContent/TobeBole/'),
+      },
+      {
+        path: 'more_thoughts',
+        name: '说说列表页',
+        component: () => import('@/views/app/moreThoughts/'),
       },
     ],
   },

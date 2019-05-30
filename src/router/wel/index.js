@@ -11,6 +11,11 @@ export default [
         component: () => import('@/views/wel/index/'),
       },
       {
+        path: 'master',
+        name: '推荐师父',
+        component: () => import('@/views/wel/master/'),
+      },
+      {
         path: 'account-settings',
         name: '个人设置',
         component: () => import('@/views/wel/account-settings/index'),

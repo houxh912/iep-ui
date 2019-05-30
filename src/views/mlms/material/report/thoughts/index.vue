@@ -50,7 +50,7 @@
 
 <script>
 import TimeLine from './timeline'
-import { thoughtsCreate, getThoughtsPage, thoughtsDelete } from '@/api/hrms/thoughts'
+import { thoughtsCreate, getThoughtsPage, thoughtsDelete } from '@/api/cpms/thoughts'
 import { mapGetters } from 'vuex'
 
 function initFormData () {

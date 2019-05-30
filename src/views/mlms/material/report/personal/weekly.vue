@@ -115,6 +115,7 @@ export default {
           }
           delete this.formData.updateTime
           this.formData.title = `第${this.formatDig(this.formData.index)}周个人工作周报`
+          this.formData.week = this.formData.index
           fn(this.formData).then(() => {
             this.loadState = false
             this.$message.success(this.submitMsg)

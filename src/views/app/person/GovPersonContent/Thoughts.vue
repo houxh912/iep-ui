@@ -49,7 +49,7 @@ export default {
       titleStar: '今日寿星',
       thoughtsList: [],
       starList: [],
-      linkName: '',
+      linkName: '/app/more_thoughts',
     }
   },
   methods: {

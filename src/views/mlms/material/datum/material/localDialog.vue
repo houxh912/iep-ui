@@ -47,7 +47,10 @@
           下载贝额
           <iep-tip :content="tipContent.downloadCost"></iep-tip>
         </span>
-        <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select>
+        <!-- <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select> -->
+        <el-select v-model="formData.downloadCost" placeholder="请选择">
+          <el-option v-for="item in dictGroup.mlms_download_cost" :key="item.id" :label="`${item.label}国脉贝`" :value="item.value"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
@@ -85,6 +88,7 @@
 import { initLocalForm, rules, dictsMap, tipContent } from './option'
 import { createData, updateData, getUnion } from '@/api/mlms/material/datum/material'
 import { downloadFile } from '@/api/common'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -92,6 +96,9 @@ export default {
       type: Array,
       default: () => { },
     },
+  },
+  computed: {
+    ...mapGetters(['dictGroup']),
   },
   data () {
     return {

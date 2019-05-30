@@ -48,3 +48,11 @@ export function getDataById (id) {
     method: 'get',
   })
 }
+
+// 统计荣誉资质的下载
+export function downloadCount (id) {
+  return request({
+    url: `${prefixUrl}/getUpload/${id}`,
+    method: 'get',
+  })
+}

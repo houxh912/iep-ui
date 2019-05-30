@@ -33,21 +33,26 @@
       <iep-button style="width: 100%; margin-top: 5px; margin-bottom: 8px" icon="el-icon-plus" @click="newMember" plain>新增</iep-button>
       <iep-divider />
       <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="140px" size="small">
+
+        <iep-form-item class="form-half" prop="companyId" label-name="发票抬头">
+          <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择发票抬头"></iep-select>
+        </iep-form-item>
+
         <iep-form-item class="form-half" prop="referType" label-name="报销类型">
           <el-select size="small" v-model="form.referType" placeholder="请选择" clearable>
             <el-option v-for="(v,k) in dictsMap.referType" :key="k" :label="v" :value="+k">
             </el-option>
           </el-select>
         </iep-form-item>
-        <iep-form-item class="form-half" prop="companyId" label-name="发票抬头">
-          <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择发票抬头"></iep-select>
-        </iep-form-item>
-        <iep-form-item class="form-half" prop="projectId" label-name="项目">
+
+        <iep-form-item v-if="projectOption" class="form-half" prop="projectId" label-name="项目">
           <iep-project-select v-model="form.projectId"></iep-project-select>
         </iep-form-item>
-        <iep-form-item class="form-half" prop="auditor" label-name="审批人">
+
+        <iep-form-item class="form-half" prop="auditor" label-name="审批人" tip="发票金额超过 1 万，请添加部门班长为审批人">
           <iep-contact-select v-model="form.auditor"></iep-contact-select>
         </iep-form-item>
+
       </el-form>
     </basic-container>
   </div>
@@ -55,27 +60,7 @@
 <script>
 import { getInvoiceById } from '@/api/fams/invoice'
 import formMixins from '@/mixins/formMixins'
-import { dictsMap, rules } from '../options'
-function initTableForm () {
-  return {
-    type: [],
-    invoiceType: '',
-    amount: 0,
-  }
-}
-function initForm () {
-  return {
-    id: '',
-    referType: '',
-    companyId: '',
-    projectId: '',
-    auditor: {
-      id: 0,
-      name: '',
-    },
-    relations: [],
-  }
-}
+import { dictsMap, rules, initTableForm, initForm } from '../options'
 export default {
   mixins: [formMixins],
   props: ['record'],
@@ -93,6 +78,11 @@ export default {
         backFunction: this.handleGoBack,
       },
     }
+  },
+  computed: {
+    projectOption () {
+      return this.form.referType === 1
+    },
   },
   created () {
     if (this.record.id) {

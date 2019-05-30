@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="我发出的建议"></page-header>
+      <page-header title="我发出的建议" :back-option="backOption"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -59,6 +59,9 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      backOption: {
+        isBack: true,
+      },
     }
   },
   created () {

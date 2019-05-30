@@ -2,7 +2,7 @@
   <div>
     <basic-container>
       <div class="main-top">
-        <el-card class="left">
+        <el-card class="left" shadow="never">
           <h4 class="title">总资产</h4>
           <div class="total-wrapper">
             <div class="total-item" v-for="(item, index) in financialData" :key="index">
@@ -11,7 +11,7 @@
             </div>
           </div>
         </el-card>
-        <el-card class="right">
+        <el-card class="right" shadow="never">
           <h4 class="title">快捷入口</h4>
           <ul>
             <li>互助基金</li>
@@ -24,7 +24,7 @@
         </el-card>
       </div>
       <div class="content">
-        <el-card class="box-card">
+        <el-card shadow="never">
           <operation-container>
             <template slot="left">
               <page-header title="财富统计-类型" :replaceText="replaceText" :data="[10 ,5]"></page-header>
@@ -84,20 +84,13 @@ export default {
     }
     return {
       replaceText: (data) => `（收入共计${data[0]}笔，共计${data[0]}贝）`,
-      totalMap: {
-        '国脉贝': 6233.5,
-        '发票额度': 6233.5,
-        '现金': 6233.5,
-        '股权': 6233.5,
-        '其他': 6233.5,
-      },
       dateValue: '',
       financialData: {
-        '国脉贝': 6233.5,
-        '发票额度': 6233.5,
-        '现金': 6233.5,
-        '股权': 6233.5,
-        '其他': 6233.5,
+        '国脉贝': 0,
+        '发票额度': 0,
+        '现金': 0,
+        '股权': 0,
+        '其他': 0,
       },
       chartData: {
         columns: ['dept', '收入', '支出'],
@@ -123,11 +116,11 @@ export default {
     },
     async loadPage () {
       const { data } = await getTotal()
-      this.totalMap['国脉贝'] = data.data.govmadeBell
-      this.totalMap['发票额度'] = data.data.withInvoice
-      this.totalMap['现金'] = data.data.cash
-      this.totalMap['股权'] = data.data.stockRight
-      this.totalMap['其他'] = data.data.other
+      this.financialData['国脉贝'] = data.data.govmadeBell
+      this.financialData['发票额度'] = data.data.withInvoice
+      this.financialData['现金'] = data.data.cash
+      this.financialData['股权'] = data.data.stockRight
+      this.financialData['其他'] = data.data.other
     },
   },
 }
@@ -136,7 +129,7 @@ export default {
 .total-wrapper {
   display: flex;
   justify-content: space-around;
-  margin: 20px 0;
+  margin: 14px 0;
   .total-item {
     display: flex;
     flex-direction: column;

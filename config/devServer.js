@@ -30,6 +30,7 @@ if (process.env.NODE_ENV === 'development') {
     '/api': {
       target: baseUrl,
       changeOrigin: true,
+      ws: true,
       pathRewrite: {
         '^/api': '',
       },
@@ -40,14 +41,6 @@ if (process.env.NODE_ENV === 'development') {
       ws: true,
       pathRewrite: {
         '^/act': '/act',
-      },
-    },
-    '/ims/ws': {
-      target: baseUrl,
-      changeOrigin: true,
-      ws: true,
-      pathRewrite: {
-        '^/ims/ws': '/ims/ws',
       },
     },
   }

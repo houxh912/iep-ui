@@ -9,7 +9,7 @@
           <iep-button @click="handleRejectBatch">批量拒绝</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" prop="applyName">
           </operation-search>
         </template>
       </operation-container>

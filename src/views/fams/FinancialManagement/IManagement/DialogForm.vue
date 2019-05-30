@@ -1,44 +1,44 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="新增收入" width="700px" @close="loadPage">
-    <el-form :model="form" size="small" ref="form" label-width="100px">
-      <el-form-item label="收入类型：">
+    <el-form :model="form" size="small" ref="form" :rules="rules" label-width="100px">
+      <el-form-item label="收入类型：" prop="type">
         <iep-dict-cascader dictName="fams_income_type" v-model="form.type"></iep-dict-cascader>
       </el-form-item>
-      <el-form-item label="收入时间：">
-        <iep-date-picker v-model="form.startTime" type="date" placeholder="选择日期"></iep-date-picker>
+      <el-form-item label="收入时间：" prop="createTime">
+        <iep-date-picker v-model="form.createTime" type="date" placeholder="选择日期"></iep-date-picker>
       </el-form-item>
-      <el-form-item label="收入组织：">
+      <el-form-item label="收入组织：" prop="orgName">
         <iep-div-detail :value="form.orgName"></iep-div-detail>
       </el-form-item>
-      <el-form-item label="收入方式：">
+      <el-form-item label="收入方式：" prop="incomeMode">
         <el-radio-group v-model="form.incomeMode" @change="handleChange">
           <el-radio v-for="(item, idx) in dictsMap.incomeMode" :key="idx" :label="idx">{{item}}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="收入公司：">
+      <el-form-item label="收入公司：" prop="companyId">
         <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择收入公司"></iep-select>
       </el-form-item>
-      <el-form-item v-if="!bankAmountOption.disabled" label="银行户头：">
+      <el-form-item v-if="!bankAmountOption.disabled" label="银行户头：" prop="accountId">
         <iep-select v-model="form.accountId" autocomplete="off" :prefix-url="bankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
       </el-form-item>
       <el-form-item label="关联合同：">
         <iep-contract-select v-model="form.protocolId"></iep-contract-select>
       </el-form-item>
-      <el-form-item label="开票金额：">
+      <!-- <el-form-item label="开票金额：">
         <iep-input-number v-model="form.invoiceAmount"></iep-input-number>
-      </el-form-item>
-      <el-form-item label="收入金额：">
+      </el-form-item> -->
+      <el-form-item label="收入金额：" prop="amount">
         <iep-input-number v-model="form.amount"></iep-input-number>
       </el-form-item>
-      <el-form-item label="开票组织：">
+      <!-- <el-form-item label="开票组织：">
         <iep-select v-model="form.invoiceOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择开票组织"></iep-select>
-      </el-form-item>
-      <el-form-item label="开票税率：">
+      </el-form-item> -->
+      <!-- <el-form-item label="开票税率：">
         <el-select v-model="form.invoicingTax">
           <el-option v-for="item in dictGroup['fams_billing_rate']" :key="item.value" :label="item.label+'%'" :value="(+item.label/100)">
           </el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item v-if="form.type[0]==='6'" label="计息比率：">
         <el-select v-model="form.interestRate">
           <el-option v-for="item in dictGroup['fams_interest_rate']" :key="item.value" :label="(+item.label/100)+'%'" :value="(+item.label/10000)">
@@ -56,7 +56,7 @@
   </iep-dialog>
 </template>
 <script>
-import { initForm, dictsMap, toDtoForm } from './options'
+import { initForm, dictsMap, toDtoForm, rules } from './options'
 import formMixins from '@/mixins/formMixins'
 import { mapGetters } from 'vuex'
 export default {
@@ -68,6 +68,7 @@ export default {
       formRequestFn: () => { },
       methodName: '创建',
       form: initForm(),
+      rules,
     }
   },
   computed: {

@@ -18,7 +18,7 @@
   </iep-dialog>
 </template>
 <script>
-import { initForm, dictsMap } from './options'
+import { initForm, dictsMap, rules } from './options'
 export default {
   data () {
     return {
@@ -27,17 +27,7 @@ export default {
       formRequestFn: () => { },
       methodName: '组织转账',
       form: initForm(),
-      rules: {
-        amount: [
-          { required: true, message: '请输入金额', trigger: 'blur' },
-        ],
-        orgId: [
-          { required: true, message: '请选择组织', trigger: 'blur' },
-        ],
-        remarks: [
-          { required: true, message: '请输入备注', trigger: 'blur' },
-        ],
-      },
+      rules,
     }
   },
   methods: {

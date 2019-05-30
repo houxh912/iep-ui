@@ -95,8 +95,13 @@ export default {
         userId: this.form.userId,
         role: this.form.roleList,
         assetOrg: this.form.assetOrgId,
-      }).then(() => {
-        this.loadPage()
+      }).then(({ data }) => {
+        if (data.data) {
+          this.$message.success('操作成功')
+          this.loadPage()
+        } else {
+          this.$message(data.msg)
+        }
       })
     },
   },

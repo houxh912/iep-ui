@@ -10,11 +10,11 @@
         <el-step description="完成"></el-step>
       </el-steps>
       <div v-if="active === 0">
-        <el-form ref="form" :model="form" label-width="120px" size="small">
-          <el-form-item label="提现金额：">
+        <el-form ref="form" :model="form" label-width="120px" size="small" :rules="rules">
+          <el-form-item label="提现金额：" prop="amount">
             <iep-input-number v-model="form.amount" :precision="2"></iep-input-number>
           </el-form-item>
-          <el-form-item label="发票抵税：">
+          <el-form-item label="发票抵税：" prop="deductionInvoice">
             <iep-input-number v-model="form.deductionInvoice" :precision="2"></iep-input-number>
           </el-form-item>
           <el-form-item>
@@ -70,7 +70,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
-import { initForm } from './options'
+import { initForm, rules } from './options'
 
 export default {
   props: {
@@ -99,6 +99,7 @@ export default {
       formRequestFn: () => { },
       checked: true,
       active: 0,
+      rules,
     }
   },
   computed: {

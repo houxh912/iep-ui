@@ -1,4 +1,5 @@
 // org config options
+import { checkContactUser } from '@/util/rules'
 const dictsMap = {
   isReward: {
     1: '打赏',
@@ -32,7 +33,7 @@ const columnsMap = [
 const initForm = () => {
   return {
     id: '', // ID
-    amount: '', // 打赏金额
+    amount: 0, // 打赏金额
     message: '', // 打赏备注
     type: '', // 打赏类型
     isReward: '', // 打赏/扣减
@@ -49,4 +50,19 @@ const dtoForm = (row) => {
   return newForm
 }
 
-export { dictsMap, columnsMap, initForm, dtoForm }
+const rules = {
+  isReward: [
+    { required: true, message: '请选择打赏方式', trigger: 'blur' },
+  ],
+  amount: [
+    { type: 'number', required: true, message: '输入的金额至少大于 0 元', trigger: 'blur', min: 1 },
+  ],
+  type: [
+    { required: true, message: '请选择打赏类型', trigger: 'blur' },
+  ],
+  targetUser: [
+    { required: true, message: '请选择打赏对象', validator: checkContactUser('对象'), trigger: 'blur' },
+  ],
+}
+
+export { dictsMap, columnsMap, initForm, dtoForm, rules }

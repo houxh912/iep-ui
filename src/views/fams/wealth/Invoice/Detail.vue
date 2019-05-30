@@ -29,7 +29,7 @@
           <iep-select-detail :value="form.companyId" prefix-url="fams/company"></iep-select-detail>
         </iep-form-item>
         <iep-form-item class="form-half" label-name="项目">
-          <el-input v-model="form.projectId"></el-input>
+          <el-input v-model="form.projectId" disabled></el-input>
         </iep-form-item>
         <iep-form-item class="form-half" label-name="审批人">
           <iep-contact-select disabled v-model="form.auditor"></iep-contact-select>

@@ -84,6 +84,8 @@ import IepDeptMultiple from '@/components/IepDept/Multiple'
 
 // 合同组件Contact
 import IepContractSelect from '@/components/IepContract/Select'
+// 项目
+import IepProjectSelect from '@/components/IepProject/Select'
 
 // 展示页公共组件
 import IepAppTabCard from '@/components/IepApp/TabCard'
@@ -177,8 +179,10 @@ Vue.component(IepContactMultipleUser.name, IepContactMultipleUser)
 Vue.component(IepDeptSelect.name, IepDeptSelect)
 Vue.component(IepDeptMultiple.name, IepDeptMultiple)
 
-// 部门组件Contract
+// 合同组件Contract
 Vue.component(IepContractSelect.name, IepContractSelect)
+// 项目
+Vue.component(IepProjectSelect.name, IepProjectSelect)
 
 
 // 展示页公共组件

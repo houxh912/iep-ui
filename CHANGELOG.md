@@ -1,3 +1,35 @@
+## [1.4.8](http://115.233.227.46:8066/root/iep-ui/compare/v1.4.7...v1.4.8) (2019-05-30)
+
+
+### Bug Fixes
+
+* **发票:** 添加验证 ([55aca2c](http://115.233.227.46:8066/root/iep-ui/commits/55aca2c))
+* **工作台与财务投资:** 优化界面问题 ([ce14a10](http://115.233.227.46:8066/root/iep-ui/commits/ce14a10))
+* **暂时修复:** websocket导致token失效的问题 ([eef4495](http://115.233.227.46:8066/root/iep-ui/commits/eef4495))
+
+
+### Features
+
+* **客户搜索:** 搜索切换不干扰列表数据 ([ea2b91c](http://115.233.227.46:8066/root/iep-ui/commits/ea2b91c))
+* **师傅:** 添加推荐页面 ([c17087b](http://115.233.227.46:8066/root/iep-ui/commits/c17087b))
+* **材料库:** 下载附件的控制 ([881f142](http://115.233.227.46:8066/root/iep-ui/commits/881f142))
+* **材料库:** 周报week month字段新增 ([9784ed7](http://115.233.227.46:8066/root/iep-ui/commits/9784ed7))
+* **财务:** 完成集团打赏 ([e17175f](http://115.233.227.46:8066/root/iep-ui/commits/e17175f))
+* **财务:** 投资页面添加 ([8b77987](http://115.233.227.46:8066/root/iep-ui/commits/8b77987))
+* **财富:** 我的投资 ([5c614b1](http://115.233.227.46:8066/root/iep-ui/commits/5c614b1))
+* **项目:** 新增修改功能完成 ([2141e22](http://115.233.227.46:8066/root/iep-ui/commits/2141e22))
+* **项目:** 立项 ([fd3492e](http://115.233.227.46:8066/root/iep-ui/commits/fd3492e))
+* **项目:** 立项 ([f5df350](http://115.233.227.46:8066/root/iep-ui/commits/f5df350))
+* **项目:** 立项 ([49d32c7](http://115.233.227.46:8066/root/iep-ui/commits/49d32c7))
+* **项目:** 立项 ([4169f8a](http://115.233.227.46:8066/root/iep-ui/commits/4169f8a))
+* **频道页:** 全局搜索的详情页 ([895cae3](http://115.233.227.46:8066/root/iep-ui/commits/895cae3))
+* **频道页:** 国脉人页面图片添加 ([6d4509b](http://115.233.227.46:8066/root/iep-ui/commits/6d4509b))
+* **频道页:** 国脉人页面详情页面跳转 ([9530f7a](http://115.233.227.46:8066/root/iep-ui/commits/9530f7a))
+* **频道页:** 说说 ([2e59f35](http://115.233.227.46:8066/root/iep-ui/commits/2e59f35))
+* **频道页:** 首页 ([6400c9e](http://115.233.227.46:8066/root/iep-ui/commits/6400c9e))
+
+
+
 ## [1.4.7](http://115.233.227.46:8066/root/iep-ui/compare/v1.4.6...v1.4.7) (2019-05-29)
 
 

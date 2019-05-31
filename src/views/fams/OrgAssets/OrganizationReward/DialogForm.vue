@@ -10,7 +10,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="类型：" prop="type">
-        <iep-dict-select v-model="form.type" dict-name="fams_reward_reason" placeholder="选择打赏类型"></iep-dict-select>
+        <iep-dict-select v-model="form.type" :dict-name="dictName" placeholder="选择类型"></iep-dict-select>
       </el-form-item>
       <el-form-item label="对象：" prop="targetUsers">
         <iep-contact-multiple-user v-model="form.targetUsers"></iep-contact-multiple-user>
@@ -37,6 +37,11 @@ export default {
       form: initForm(),
       rules,
     }
+  },
+  computed: {
+    dictName () {
+      return this.form.isReward === '1' ? 'fams_reward_reason' : 'fams_reduce_reason'
+    },
   },
   methods: {
     close () {

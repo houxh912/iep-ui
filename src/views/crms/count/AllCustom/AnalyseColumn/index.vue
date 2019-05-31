@@ -88,7 +88,12 @@ export default {
     },
     load () {
       getAllClientNum().then(res => {
-        this.percent = this.toPercent(res.data.data.contractQuantity, res.data.data.clientQuantity)
+        let percent = this.toPercent(res.data.data.contractQuantity, res.data.data.clientQuantity)
+        if (percent == Infinity || window.isNaN(percent) === true) {
+          this.percent = 0
+        } else {
+          this.percent = percent
+        }
       })
       // getBusinessMax().then(res => {
       //   let keys = []

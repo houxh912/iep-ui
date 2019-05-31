@@ -54,7 +54,7 @@
         </iep-form-item>
         <h4 class="iep-sub-title">销售方</h4>
         <iep-form-item label-name="销售方公司" prop="companyId">
-          <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" @change="handleChangeCompanyId" placeholder="请选择销售方公司"></iep-select>
+          <iep-select v-model="form.companyId" autocomplete="off" :prefix-url="`fams/company/${orgId}`" @change="handleChangeCompanyId" placeholder="请选择销售方公司"></iep-select>
         </iep-form-item>
         <iep-form-item label-name="纳税人识别号">
           <span>{{companyForm.taxpayerNumber}}</span>
@@ -80,7 +80,7 @@
 </template>
 <script>
 import { initForm, rules, dictsMap } from '../options'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { postBilling, putBilling, getBillingById } from '@/api/fams/billing'
 import { getCompanyById } from '@/api/fams/company'
 import formMixins from '@/mixins/formMixins'
@@ -116,6 +116,9 @@ export default {
   },
   computed: {
     ...mapGetters(['dictGroup']),
+    ...mapState({
+      orgId: state => state.user.userInfo.orgId,
+    }),
     id () {
       return +this.record.id
     },

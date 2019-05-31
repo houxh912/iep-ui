@@ -10,7 +10,7 @@ const columnsMap = [
     label: '日期',
   },
   {
-    prop: 'remark',
+    prop: 'summary',
     label: '摘要',
   },
 ]

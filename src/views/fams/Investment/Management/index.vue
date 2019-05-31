@@ -20,9 +20,14 @@
       </operation-container>
       <iep-table class="dept-table" :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
         <template slot="before-columns">
-          <el-table-column prop="company" label="公司" width="250">
+          <!-- <el-table-column prop="company" label="公司" width="250">
             <template slot-scope="scope">
               <iep-table-link-img-desc :img="scope.row.imageUrl" :desc="scope.row.synopsis" :name="scope.row.name"></iep-table-link-img-desc>
+            </template>
+          </el-table-column> -->
+          <el-table-column prop="company" label="公司" width="250">
+            <template slot-scope="scope">
+              <iep-table-link :img="scope.row.imageUrl" :desc="scope.row.synopsis" @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
@@ -67,7 +72,12 @@ export default {
   methods: {
     handleAdd () {
       this.$router.push({
-        path: '/fams_spa/management_detail',
+        path: '/fams_spa/management_edit/1',
+      })
+    },
+    handleDetail () {
+      this.$router.push({
+        path: '/fams_spa/management_detail/1',
       })
     },
   },

@@ -51,9 +51,19 @@ export default [
         component: () => import('@/views/fams/OrgBorrow/Components/OrgBorrowDetail/index.vue'),
       },
       {
-        path: 'management_detail',
+        path: 'apply_investment',
+        name: '申请投资',
+        component: () => import('@/views/fams/Investment/ApplyInvestment/index.vue'),
+      },
+      {
+        path: 'management_edit/:id',
+        name: '新增投资管理',
+        component: () => import('@/views/fams/Investment/Management/Edit.vue'),
+      },
+      {
+        path: 'management_detail/:id',
         name: '投资管理详情',
-        component: () => import('@/views/fams/Investment/Management/ManagementDetail/index.vue'),
+        component: () => import('@/views/fams/Investment/ManagementDetail/index.vue'),
       },
       {
         path: 'union_borrow_detail/:id',

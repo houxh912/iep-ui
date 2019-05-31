@@ -31,7 +31,7 @@
   </div>
 </template>
 <script>
-import { getSummaries } from '@/util/table'
+import { getSummariesInBudget } from '@/util/table'
 import { getBudgetMonthDetail, putBudgetMonthRelation } from '@/api/fams/budget'
 import DialogForm from './DialogForm'
 import { initForm } from './options'
@@ -65,6 +65,9 @@ export default {
     }
   },
   computed: {
+    getSummaries () {
+      return getSummariesInBudget(this.budgetTable)
+    },
     budgetTime () {
       return this.quarterList.find(m => m.budgetId === this.budgetId).budgetTime
     },
@@ -76,7 +79,6 @@ export default {
     getLabel (item) {
       return item.flag ? item.time + '季度' : item.time + ((this.budgetTime - 1) * 3) + '月份'
     },
-    getSummaries,
     getValue (item, scope, tName) {
       return this.budgetMap[item.id].relation[scope.$index][tName]
     },

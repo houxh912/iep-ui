@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="详情" width="700px" @close="loadPage">
-    <el-form :model="form" size="small" ref="form" label-width="100px" disabled>
+    <el-form :model="form" size="small" ref="form" label-width="120px" disabled>
 
       <el-form-item label="支出类型：">
         <iep-div-detail :value="form.typeValue"></iep-div-detail>
@@ -31,7 +31,7 @@
       </el-form-item>
 
       <el-form-item label="支出金额：">
-        <iep-div-detail :value="form.amount"></iep-div-detail>
+        <iep-div-detail :value="form.amount+' 元'"></iep-div-detail>
       </el-form-item>
 
       <!-- <el-form-item label="税率：">

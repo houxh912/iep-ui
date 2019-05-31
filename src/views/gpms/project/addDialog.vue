@@ -2,7 +2,7 @@
   <div class="abs iep-page-form">
     <page-header :title="`${methodName}项目`" :backOption="backOption"></page-header>
     <el-form :model="formData" :rules="rules" ref="form" label-width="200px" class="form">
-      <el-row type="flex" class="row-bg">
+      <el-row>
         <el-col :span="12">
           <el-form-item label="项目名称：" prop="projectName">
             <span slot="label">
@@ -13,11 +13,12 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
+          <el-form-item label="项目类型：" prop="projectType">
+            <iep-dict-select v-model="formData.projectType" dict-name="prms_project_type"></iep-dict-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12" v-if="formData.projectType == 2">
           <el-form-item label="客户名称：" prop="relatedClient">
-            <span slot="label">
-              客户名称:
-              <!-- <iep-tip :content="tipContent.relatedClient"></iep-tip>： -->
-            </span>
             <!-- <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select> -->
             <IepCrmsSelect 
               v-model="formData.relatedClient" 
@@ -26,8 +27,6 @@
             </IepCrmsSelect>
           </el-form-item>
         </el-col>
-      </el-row>
-      <el-row type="flex" class="row-bg">
         <el-col :span="12">
           <el-form-item label="项目标签：" prop="projectTagList">
             <span slot="label">
@@ -46,8 +45,6 @@
             <iep-contact-select v-model="formData.projectManagerList"  :is-show-contact-btn="false"></iep-contact-select>
           </el-form-item>
         </el-col>
-      </el-row>
-      <el-row type="flex" class="row-bg">
         <el-col :span="12">
           <el-form-item label="市场经理：" prop="mktManagerList">
             <span slot="label">
@@ -66,16 +63,14 @@
             <iep-contact-select v-model="formData.projectMentorList"  :is-show-contact-btn="false"></iep-contact-select>
           </el-form-item>
         </el-col>
-      </el-row>
-      <el-row type="flex" class="row-bg">
         <el-col :span="12">
           <el-form-item label="项目成员：" prop="membersList">
-          <span slot="label">
-              项目成员:
-              <!-- <iep-tip :content="tipContent.membersList"></iep-tip>： -->
-          </span>
+            <span slot="label">
+                项目成员:
+                <!-- <iep-tip :content="tipContent.membersList"></iep-tip>： -->
+            </span>
             <iep-contact-multiple-user v-model="formData.membersList" :is-show-contact-btn="false"></iep-contact-multiple-user>
-            </el-form-item>
+          </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="项目预算：" prop="projectBudget">
@@ -86,8 +81,6 @@
             <el-input v-model="formData.projectBudget"></el-input>
           </el-form-item>
         </el-col>
-      </el-row>
-      <el-row type="flex" class="row-bg">
         <el-col :span="12">
           <el-form-item label="项目等级：" prop="projectLevel">
             <span slot="label">
@@ -108,8 +101,6 @@
               placeholder="立项时间"></iep-date-picker>
           </el-form-item>
         </el-col>
-      </el-row>
-      <el-row type="flex" class="row-bg">
         <el-col :span="12">
           <el-form-item label="结束时间：" prop="endTime">
             <span slot="label">

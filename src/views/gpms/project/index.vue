@@ -29,16 +29,16 @@ export default {
       replaceText: (data) => `[共${data[0]}条数据]`,
       addDialogShow: false,
       tabList: [{
-        label: '全部',
-        value: 'Total',
-      }, {
         label: '我发布的',
         value: 'Release',
+      }, {
+        label: '全部',
+        value: 'Total',
       }, {
         label: '我参与的',
         value: 'TakePartIn',
       }],
-      activeTab: 'Total',
+      activeTab: 'Release',
       pageState: 'list',
     }
   },

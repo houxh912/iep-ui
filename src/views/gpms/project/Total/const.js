@@ -54,6 +54,9 @@ export const columnsMap = [
 ]
 
 export const rules = {
+  projectType: [
+    { required: true, message: '必填', trigger: 'blur' },
+  ],
   projectName: [
     { required: true, message: '必填', trigger: 'blur' },
   ],

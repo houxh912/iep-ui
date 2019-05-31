@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading.lock="fullscreenLoading">
     <operation-container>
       <template slot="left">
         <operation-wrapper>
@@ -42,6 +42,7 @@ export default {
   components: { DialogForm },
   data () {
     return {
+      fullscreenLoading: false,
       budgetId: '',
       budgetTime: '',
       yearList: [],
@@ -63,8 +64,10 @@ export default {
     },
     handleAddBudget () {
       const year = new Date().getFullYear()
+      this.fullscreenLoading = true
       postYearBudget(year).then(() => {
         this.load()
+        this.fullscreenLoading = false
       })
     },
     handleDetail (row) {

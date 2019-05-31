@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="新增收入" width="700px" @close="loadPage">
-    <el-form :model="form" size="small" ref="form" :rules="rules" label-width="100px">
+    <el-form :model="form" size="small" ref="form" :rules="rules" label-width="120px">
       <el-form-item label="收入类型：" prop="type">
         <iep-dict-cascader dictName="fams_income_type" v-model="form.type"></iep-dict-cascader>
       </el-form-item>
@@ -24,11 +24,11 @@
       <el-form-item label="关联合同：">
         <iep-contract-select v-model="form.protocolId"></iep-contract-select>
       </el-form-item>
-      <!-- <el-form-item label="开票金额：">
-        <iep-input-number v-model="form.invoiceAmount"></iep-input-number>
-      </el-form-item> -->
-      <el-form-item label="收入金额：" prop="amount">
+      <el-form-item label="收入金额(元)：" prop="amount">
         <iep-input-number v-model="form.amount"></iep-input-number>
+      </el-form-item>
+      <el-form-item label="开票费(元)：">
+        <iep-input-number v-model="form.invoiceAmount"></iep-input-number>
       </el-form-item>
       <!-- <el-form-item label="开票组织：">
         <iep-select v-model="form.invoiceOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择开票组织"></iep-select>
@@ -131,6 +131,11 @@ export default {
         }
         this.$message(message)
       }
+    },
+  },
+  watch: {
+    'form.amount': function (n) {
+      this.form.invoiceAmount = n * 0.01
     },
   },
 }

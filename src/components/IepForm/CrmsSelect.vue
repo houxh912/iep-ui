@@ -30,9 +30,12 @@ export default {
     option: {
       type: Array,
       required: true,
+      default: () => {
+        return [{id: '', name: ''}]
+      },
     },
     value: {
-      type: Number,
+      // type: Number,
       required: true,
     },
   },
@@ -72,7 +75,7 @@ export default {
     },
     option (newVal) {
       this.options = newVal.map((m) => {return {clientId: m.id, clientName: m.name}})
-      this.$nextTick(() => { this.selectValue = this.value })
+      this.$nextTick(() => { this.selectValue = this.value ? this.value : '' })
     },
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="合同应收账款"></page-header>
+      <page-header title="项目核算"></page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search>
@@ -26,10 +26,10 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      pagedTable:[
-        {number:'1000231',name:'ss',time:'ss',contractAmount:'',income:'',expenditure:'',billingStatus:'0',settleStatus:'1',profit:'1000'},
-        {number:'1000231',name:'ss',time:'ss',contractAmount:'',income:'',expenditure:'',billingStatus:'0',settleStatus:'1',profit:'1000'},
-        {number:'1000231',name:'ss',time:'ss',contractAmount:'',income:'',expenditure:'',billingStatus:'0',settleStatus:'1',profit:'1000'},
+      pagedTable: [
+        { number: '1000231', name: 'ss', time: 'ss', contractAmount: '', income: '', expenditure: '', billingStatus: '0', settleStatus: '1', profit: '1000' },
+        { number: '1000231', name: 'ss', time: 'ss', contractAmount: '', income: '', expenditure: '', billingStatus: '0', settleStatus: '1', profit: '1000' },
+        { number: '1000231', name: 'ss', time: 'ss', contractAmount: '', income: '', expenditure: '', billingStatus: '0', settleStatus: '1', profit: '1000' },
       ],
     }
   },

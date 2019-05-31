@@ -158,7 +158,9 @@ export default {
   .blackColor{
     color: #666;
   }
-
+  .cell {
+    padding:0;
+  }
   .cell .el-button {
     margin-left: 0;
     display: inline;

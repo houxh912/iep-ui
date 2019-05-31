@@ -90,7 +90,7 @@ export default {
     padding: 15px 0;
     .item {
       height: auto;
-      margin-bottom: 10px;
+      // margin-bottom: 10px;
       word-break: break-all;
     }
   }

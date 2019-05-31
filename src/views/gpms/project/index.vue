@@ -32,11 +32,11 @@ export default {
         label: '我发布的',
         value: 'Release',
       }, {
-        label: '全部',
-        value: 'Total',
-      }, {
         label: '我参与的',
         value: 'TakePartIn',
+      }, {
+        label: '全部',
+        value: 'Total',
       }],
       activeTab: 'Release',
       pageState: 'list',

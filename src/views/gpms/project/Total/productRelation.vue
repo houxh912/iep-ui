@@ -83,7 +83,7 @@ export default {
       this.relationlist = []
       this.projectState = 4
       this.params.current = 1
-      this.params.name = this.name
+      this.params.projectName = this.name
       this.getListFn()
     },
     getListFn () {

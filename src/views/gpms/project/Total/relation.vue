@@ -34,10 +34,10 @@
 <script>
 import IepScroll from '@/components/IepScroll/index'
 import { getMaterialList } from '@/api/mlms/material/datum/material'
-import { getProjectList } from '@/api/gpms/index'
 import { getTableData } from '@/api/mlms/material/summary'
 import { getContractPageAll } from '@/api/mlms/material/datum/contract'
-import { getAllReportsOrg } from '@/api/mlms/material/report/project'
+// import { getProjectList } from '@/api/gpms/index'
+// import { getAllReportsOrg } from '@/api/mlms/material/report/project'
 function initParams () {
   return {
     current: 1,
@@ -54,11 +54,11 @@ export default {
       activeIndex: 0,
       projectState: 0,
       selectList: [
-        { name: '会议纪要', requestFn: getTableData, type: 'summaryList', prop: 'title'},
-        { name: '材料', requestFn: getMaterialList, type: 'materialList' },
-        { name: '合同', requestFn: getContractPageAll, type: 'contractList', prop: 'contractName' },
-        { name: '项目', requestFn: getProjectList, type: 'projectList', prop: 'projectName' },
-        { name: '周报', requestFn: getAllReportsOrg, type: 'reportList', prop: 'projectName', id: 'projectWeekReportId' },
+        { name: '会议纪要', requestFn: getTableData, type: 'summaryList', prop: 'title', searchName: 'title' },
+        { name: '材料', requestFn: getMaterialList, type: 'materialList', searchName: 'name' },
+        { name: '合同', requestFn: getContractPageAll, type: 'contractList', prop: 'contractName', searchName: 'contractName' },
+        // { name: '项目', requestFn: getProjectList, type: 'projectList', prop: 'projectName', searchName: 'projectName' },
+        // { name: '周报', requestFn: getAllReportsOrg, type: 'reportList', prop: 'projectName', id: 'projectWeekReportId', searchName: 'projectName' },
       ],
       transferList: {
         summaryList: [], // 纪要
@@ -101,7 +101,7 @@ export default {
       this.relationlist = []
       this.projectState = 4
       this.params.current = 1
-      this.params.name = this.name
+      this.params[this.selectList[this.activeIndex].searchName] = this.name
       this.getListFn()
     },
     getListFn () {

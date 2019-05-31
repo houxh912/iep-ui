@@ -55,14 +55,14 @@
           <el-row>
             <el-col :span="12">
               <iep-form-item label-name="最低认购数量" prop="minimumSubscriptionQuantity" tip="最低认购数量">
-                <el-input v-model="form.minimumSubscriptionQuantity"></el-input>
+                <el-input v-model="form.minimumSubscriptionQuantity" disabled></el-input>
               </iep-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="12">
               <iep-form-item label-name="投资人最低信用评分" prop="minimumCreditScore" tip="投资人最低信用评分">
-                <el-input v-model="form.minimumCreditScore"></el-input>
+                <el-input v-model="form.minimumCreditScore" disabled></el-input>
               </iep-form-item>
             </el-col>
           </el-row>

@@ -4,7 +4,7 @@
       <page-header title="财富流水" :replaceText="replaceText" :data="[10 ,5,10,25]"></page-header>
       <operation-container>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
+          <operation-search @search-page="searchPage" prop="remarks" advance-search>
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>

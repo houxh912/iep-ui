@@ -81,16 +81,16 @@ export default {
         examinationId: this.examId,
         qualificationsurl: this.form.qualificationsurl,
       }
-      await postSign(params).then(res => {
+      await postSign(params).then(
         this.dialogConfigShow = false,
         this.dialogShow = false,
-        this.$emit('closed')
         this.$message({
-            message: res.data.msg,
+          message: '报名成功！',
             type: 'success',
-          })
-          console.log(res)
-        }
+          }),
+        setTimeout(() => {
+          this.$emit('closed')
+        }, 450)
       )
     },
   },

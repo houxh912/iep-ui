@@ -1,5 +1,5 @@
 /**
- * 新增新试题API请求接口
+ * 新增考试库管理API请求接口
  */
 
 import request from '@/router/axios'
@@ -27,7 +27,7 @@ export function postExamById (params) {
 }
 
 /**
-* post考试禁用状态
+* post禁用考试
 */
 export function postExamForbidById (params) {
   return request({
@@ -38,12 +38,23 @@ export function postExamForbidById (params) {
 }
 
 /**
-* post考试启用状态
+* post启用考试
 */
 export function postExamPassById (params) {
   return request({
     url: 'exms/iepexamination/enable',
     method: 'post',
     params: params,
+  })
+}
+
+/**
+ * 删除
+ */
+export function deleteById (params) {
+  return request({
+    url: 'exms/iepexamination/remove',
+    method: 'post',
+    data: params,
   })
 }

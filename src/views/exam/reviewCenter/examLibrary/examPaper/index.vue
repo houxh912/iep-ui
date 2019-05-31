@@ -3,8 +3,8 @@
     <operation-container>
       <template slot="left">
         <iep-button type="danger" @click="handleDeleteAll">批量删除</iep-button>
-        <iep-button class="tip">当前已选择<span>{{Value}}</span>项</iep-button>
-        <iep-button class="empty" @click="handleEmpty">清空</iep-button>
+        <iep-button class="tip">当前已选择<span>{{sumValue}}</span>项</iep-button>
+        <iep-button class="empty" @click="handleEmpty" v-show="sumValue != 0">清空</iep-button>
       </template>
       <template slot="right">
         <operation-search @search-page="searchPage">
@@ -12,18 +12,27 @@
       </template>
     </operation-container>
 
-    <iep-table :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-mutiple-selection is-index>
-      <el-table-column prop="field" label="状态">
+    <iep-table
+      :columnsMap="columnsMap"
+      :isLoadTable="isLoadTable"
+      :pagination="pagination"
+      :pagedTable="pagedTable"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      @selection-change="selectionChange"
+      is-mutiple-selection
+      is-index>
+      <el-table-column prop="state" label="状态">
         <template slot-scope="scope">
-          <el-tag type="warning" size="medium" v-if="scope.row.field === 0">无关联</el-tag>
-          <el-tag type="success" size="medium" v-if="scope.row.field === 1">关联中</el-tag>
+          <el-tag type="warning" size="medium" v-if="scope.row.state === 1">未交卷</el-tag>
+          <el-tag type="success" size="medium" v-if="scope.row.state === 2">已交卷</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="operation" label="操作" width="240">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleRollingTest(scope.row)">收卷</iep-button>
-            <iep-button @click="handlesetTest(scope.row)">设为可考</iep-button>
+            <iep-button @click="handleRollingTest(scope.row)" v-if="scope.row.state === 1">收卷</iep-button>
+            <iep-button @click="handlesetTest(scope.row)" v-if="scope.row.state === 2">设为可考</iep-button>
             <iep-button @click="handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
@@ -33,45 +42,45 @@
   </div>
 </template>
 <script>
-import { getExamInationList } from '@/api/exam/examLibrary/examInation/examInation'
-//  import { getExamPaperList, RollingTestById, setTestById,deleteById, deleteIdAll } from '@/api/exam/examLibrary/examPaper/examPaper'
+import { getExamPaperList,RollingTestById,setTestById,deleteById } from '@/api/exam/examLibrary/examPaper/examPaper'
 import mixins from '@/mixins/mixins'
 const columnsMap = [
   {
     label: '姓名',
-    prop: 'field',
+    prop: 'userName',
   },
   {
     label: '准考证号',
-    prop: 'field',
+    prop: 'examinationNumber',
   },
   {
     label: '笔试分数',
-    prop: 'field',
+    prop: 'penScore',
     // type: 'dict',
   },
   {
     label: '面试分数',
-    prop: 'field',
+    prop: 'interviewScore',
   },
   {
     label: '面试人',
-    prop: 'field',
+    prop: 'interviewerName',
   },
   {
     label: '剩余时间',
-    prop: 'field',
+    prop: 'remainingTime',
   },
 ]
 export default {
   mixins: [mixins],
-  components: {},
+  props: ['record'],
+
   data () {
     return {
       columnsMap,
-      Value: 0,
+      sumValue: 0,
       selectValue: false,
-      selectionValue: '',
+      selectionValue: {},
     }
   },
   created () {
@@ -81,68 +90,110 @@ export default {
     /**
      * 获取列表分页数据
      */
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getExamInationList)
+    loadPage () {
+      const param = {
+        examinationId: this.record.row.id,
+      }
+      this.loadTable({...param}, getExamPaperList)
     },
 
     /**
      * 收卷
      */
-    handleRollingTest (row) {
-      // this._handleComfirm([row.id], RollingTestById, '收卷')
-      console.log(row.id)
+    handleRollingTest (val) {
+      const param = {
+        creatorId: val.creatorId,
+        examId: val.examId,
+        examinationId: val.examinationId,
+      }
+      this.$confirm('此操作将对该考生进行收卷，是否继续？','提示',{
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        RollingTestById(param).then(() => {
+          this.$message({
+            type: 'success',
+            message: '该试卷已收卷!',
+          })
+          setTimeout(() => {
+            this.loadPage()
+          }, 450)
+        })
+      })
     },
 
 
     /**
      * 设为可考
      */
-    handlesetTest (row) {
-      // this._handleComfirm([row.id], setTestById, '设为可考')
-      console.log(row.id)
+    handlesetTest (val) {
+       const param = {
+        creatorId: val.creatorId,
+        examId: val.examId,
+        examinationId: val.examinationId,
+      }
+      this.$confirm('此操作将对该考生设为可考状态，是否继续？','提示',{
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        setTestById(param).then(() => {
+          this.$message({
+            type: 'success',
+            message: '该试卷已设为可考!',
+          })
+          setTimeout(() => {
+            this.loadPage()
+          }, 450)
+        })
+      })
     },
 
     /**
      * 删除
      */
-    handleDelete (row) {
-      // this._handleComfirm([row.id], deleteById, '删除')
-      console.log(row.id)
+    handleDelete (val) {
+      this._handleComfirm([val.examId], deleteById,'删除')
     },
 
     /**
-     * 多项选择，判断是否选择
+     * 选择试题
      */
     selectionChange (val) {
-      this.Value = val.length
-      if (val.map(m => m.id) == '') {
-        this.selectValue = false
-        return
-      }
-      else {
+      this.sumValue = val.length
+      if (val.map(item => item.id).length > 0){
         this.selectValue = true
-        this.selectionValue = val.map(m => m.id)
-        //console.log(val)
-        return
+        this.selectionValue = val.map(item => item.examId)
       }
+      else
+        this.selectValue = false
     },
 
     /**
      * 批量删除
      */
-    handleDeleteAll () {
-      if (this.selectValue == false) {
-        this.$message.error('请至少选择一项试题！')
-        return
+    handleDeleteAll (){
+      if (this.selectValue == false){
+        this.$message.error('请至少选择一项考试！')
       }
+
       if (this.selectValue == true) {
-        // deleteIdAll(this.selectionValue).then(() => {
-        //   this.$message({
-        //     message: '操作成功',
-        //     type: 'success',
-        //   })
-        //   this.loadPage()
-        // })
+        this.$confirm('此操作将删除选中的考试，是否继续？','提示',{
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          deleteById(this.selectionValue).then(() => {
+            this.$message({
+              message: '操作成功',
+              type: 'success',
+            })
+            setTimeout(() => {
+            this.loadPage()
+          }, 450)
+          })
+        })
       }
     },
 
@@ -150,8 +201,6 @@ export default {
      * 清空选择
      */
     handleEmpty () {
-      this.Value = 0
-      console.log(22)
     },
   },
 }
@@ -169,6 +218,7 @@ export default {
   }
 }
 .empty {
+  margin-top: 6px;
   border: 0px solid #ccc;
   color: #419fff;
   &:hover {

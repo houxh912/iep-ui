@@ -128,7 +128,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { getExamInationList, postExamForbidById, postExamPassById } from '@/api/exam/examLibrary/examInation/examInation'
+import { getExamInationList, postExamForbidById, postExamPassById,deleteById } from '@/api/exam/examLibrary/examInation/examInation'
 // import { getTableData } from '@/api/mlms/material/datum/material'
 // import { putCustomer, deleteCustomerBatch } from '@/api/crms/customer'
 // import { getWealthFlowPage } from '@/api/fams/wealth_flow'
@@ -193,13 +193,15 @@ export default {
           cancelButtonText: '取消',
           type: 'warning',
         }).then(() => {
-          // deleteApprovalById(this.selectionValue).then(() => {
-          //   this.$message({
-          //     message: '操作成功',
-          //     type: 'success',
-          //   })
-          //   this.loadPage()
-          // })
+          deleteById(this.selectionValue).then(() => {
+            this.$message({
+              message: '操作成功',
+              type: 'success',
+            })
+            setTimeout(() => {
+              this.loadPage()
+            }, 450)
+          })
         })
       }
     },
@@ -233,14 +235,6 @@ export default {
         methodName: '编辑考试',
         id: row.id,
       })
-      // this.dialogEdit = true
-      // this.reForm.field = row.field
-      // this.reForm.title = row.title
-      // this.reForm.totalScore = row.totalScore
-      // this.reForm.username = row.username
-      // this.reForm.creatTime = row.creatTime
-      // this.reForm.beginTime = row.beginTime
-      // this.reForm.endTime = row.endTime
     },
 
     // 报名、考卷、阅卷管理按钮

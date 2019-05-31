@@ -9,7 +9,7 @@ import request from '@/router/axios'
  */
 export function getExamPaperList (params) {
     return request({
-        url: 'exms',
+        url: 'exms/iepexaminationmanagement/page',
         method: 'get',
         params: params,
     })
@@ -20,7 +20,7 @@ export function getExamPaperList (params) {
  */
 export function RollingTestById (params) {
     return request({
-      url: 'exms',
+      url: 'exms/iepexaminationmanagement/changeStat',
       method: 'post',
       data: params,
     })
@@ -31,7 +31,7 @@ export function RollingTestById (params) {
  */
 export function setTestById (params) {
     return request({
-      url: 'exms',
+      url: 'exms/iepexaminationmanagement/changeNoState',
       method: 'post',
       data: params,
     })
@@ -41,22 +41,10 @@ export function setTestById (params) {
 /**
  * 删除
  */
-export function deleteById (id) {
+export function deleteById (params) {
     return request({
-      url: 'exms',
+      url: 'exms/iepexaminationmanagement/removeById',
       method: 'post',
-      data: id,
+      data: params,
     })
   }
-  
-  /**
-  * 批量删除
-  */
-  export function deleteIdAll (ids) {
-    return request({
-      url: 'exms',
-      method: 'post',
-      data: ids,
-    })
-  }
-  

@@ -39,14 +39,14 @@
             {{scope.row.kindName}}
           </template>
         </el-table-column>
-        <el-table-column prop="titleName" label="内容" min-width="80" sortable>
+        <el-table-column prop="title" label="内容" min-width="80" sortable>
           <template slot-scope="scope">
-            {{scope.row.titleName}}
+            {{scope.row.title}}
           </template>
         </el-table-column>
-        <el-table-column prop="difficulty" label="难度" sortable min-width="75">
+        <el-table-column prop="difficultyName" label="难度" sortable min-width="75">
           <template slot-scope="scope">
-            {{scope.row.difficulty}}
+            {{scope.row.difficultyName}}
           </template>
         </el-table-column>
         <el-table-column prop="associatedState" label="关联" sortable min-width="68">
@@ -283,20 +283,7 @@ export default {
      */
     handleModify (rows){
       this.dialogModify = true
-      this.reForm=rows
-      // this.reForm.field = rows.field
-      // this.reForm.questionType = rows.questionType
-      // this.reForm.kind = rows.kind
-      // this.reForm.difficulty = rows.difficulty
-      // this.reForm.title = rows.title
-      // this.reForm.tagLists = rows.tagLists
-      // this.reForm.associatedState = rows.associatedState
-      // if ( rows.associatedState === '0'){
-      //   this.reForm.associatedState = '不限'
-      // }
-      // if ( rows.associatedState === '1'){
-      //   this.reForm.associatedState = '限考试'
-      // }
+      this.reForm = {...rows}
     },
     /**
      * 删除按钮
@@ -373,7 +360,9 @@ export default {
             message: '该试题审核通过',
             type: 'success',
           }),
-          this.loadPage()
+          setTimeout(() => {
+            this.loadPage()
+          }, 450)
         )
       }
       if (this.states === 1 && this.content != ''){
@@ -390,7 +379,9 @@ export default {
             message: '该试题审核不通过',
             type: 'success',
           }),
-          this.loadPage()
+          setTimeout(() => {
+            this.loadPage()
+          }, 450)
         )
       }
       if (this.states === 1 && this.content == ''){
@@ -418,7 +409,9 @@ export default {
           message: '修改成功',
           type: 'success',
         }),
-        this.loadPage(),
+        setTimeout(() => {
+            this.loadPage()
+          }, 450)
       )
     },
   },

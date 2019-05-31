@@ -32,7 +32,7 @@ export default {
       required: true,
     },
     value: {
-      type: Number,
+      // type: Number,
       required: true,
     },
   },

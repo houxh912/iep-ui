@@ -70,6 +70,11 @@ export default {
         path: '/fams_spa/management_edit/1',
       })
     },
+    handleEdit () {
+       this.$router.push({
+        path: '/fams_spa/management_edit/0',
+      })
+    },
     handleDetail () {
       this.$router.push({
         path: '/fams_spa/management_detail/1',

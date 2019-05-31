@@ -2,8 +2,8 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleCreate" class="add" type="primary">新增</iep-button>
-        <iep-button @click="handleDeleteAll" class="add">批量删除</iep-button>
+        <iep-button @click="handleCreate" class="add" type="primary" v-if="gpms_project_add">新增</iep-button>
+        <iep-button @click="handleDeleteAll" class="add" v-if="gpms_project_edit_del">批量删除</iep-button>
       </template>
       <template slot="right">
         <operation-search
@@ -44,8 +44,8 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <!-- <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">详情</el-button> -->
-          <el-button size="small" @click="handleUpdate(scope.row)">编辑</el-button>
-          <el-button size="small" @click="handleDelete(scope.row)">删除</el-button>
+          <el-button size="small" @click="handleUpdate(scope.row)" v-if="gpms_project_edit_del">编辑</el-button>
+          <el-button size="small" @click="handleDelete(scope.row)" v-if="gpms_project_edit_del">删除</el-button>
         </template>
       </el-table-column>
     </iep-table>
@@ -57,6 +57,7 @@ import mixins from '@/mixins/mixins'
 import { dictMap, columnsMap, paramForm } from './const.js'
 import { getTableData, deleteData } from '@/api/gpms/index'
 // import searchForm from './searchForm'
+import { mapGetters} from 'vuex'
 
 export default {
   components: {  },
@@ -65,6 +66,9 @@ export default {
       type: String,
       default: '',
     },
+  },
+  computed: {
+    ...mapGetters(['permissions']),
   },
   data () {
     return {
@@ -75,6 +79,9 @@ export default {
       dialogIsShow: true,
       paramForm: paramForm(),
       value: '',
+      gpms_project_add: false,
+      gpms_project_view: false,
+      gpms_project_edit_del: false,
     }
   },
   mixins: [mixins],
@@ -100,7 +107,9 @@ export default {
     },
     handleDetail (row) {
       // this.$store.commit('SET_ACCESS_TOKEN',row)
-      this.$router.push(`/gpms_spa/project/detail/${row.id}`)
+      if (this.gpms_project_view) {
+        this.$router.push(`/gpms_spa/project/detail/${row.id}`)
+      }
     },
     handleCreate () {
       this.$emit('toggle-show', 'create')
@@ -117,6 +126,11 @@ export default {
   },
   mounted () {
     this.loadPage({listType: this.tabType})
+  },
+  created () {
+    this.gpms_project_add = this.tabType == 1 ? true : this.permissions.gpms_project_add
+    this.gpms_project_view = this.tabType == 1 ? true : this.permissions.gpms_project_view
+    this.gpms_project_edit_del = this.tabType == 1 ? true : this.permissions.gpms_project_edit_del
   },
 }
 </script>

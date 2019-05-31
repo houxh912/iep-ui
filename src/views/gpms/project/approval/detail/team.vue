@@ -9,19 +9,19 @@
     <div class="content">
       <div class="box">
         <div class="title">市场经理：</div>
-        <div class="item">超级管理员</div>
+        <div class="item">{{form.mktManagerList.name}}</div>
       </div>
       <div class="box">
         <div class="title">项目经理：</div>
-        <div class="item">张三</div>
+        <div class="item">{{form.projectManagerList.name}}</div>
       </div>
       <div class="box">
         <div class="title">项目指导人：</div>
-        <div class="item">李四</div>
+        <div class="item">{{form.projectMentorList.name}}</div>
       </div>
       <div class="box">
         <div class="title">项目成员：</div>
-        <div class="item">赵文、赵武</div>
+        <div class="item">{{form.membersList.map(m => m.name).join('，')}}</div>
       </div>
     </div>
   </div>
@@ -32,7 +32,14 @@ export default {
   props: {
     form: {
       type: Object,
-      default: () => {},
+      default: () => {
+        return {
+          mktManagerList: {name: ''},
+          projectManagerList: {name: ''},
+          projectMentorList: {name: ''},
+          membersList: [],
+        }
+      },
     },
   },
 }

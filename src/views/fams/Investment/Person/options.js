@@ -7,32 +7,26 @@ const dictsMap = {
         2:'拒绝',
     },
 }
-const tabList = [
-  {
-    label: '待审核',
-    value: '1',
-  },
-  {
-    label: '通过',
-    value: '2',
-  },
-  {
-    label: '拒绝',
-    value: '3',
-  },
-]
 const columnsMap = [
   {
-    prop:'amount',
-    label:'目标金额',
+    prop:'name',
+    label:'投资人',
   },
   {
-    prop:'interestRate',
-    label:'预计年利率',
+    prop:'organization',
+    label:'投资组织',
   },
   {
     prop:'way',
-    label:'投资方式',
+    label:'支付方式',
+  },
+  {
+    prop:'amount',
+    label:'投资金额',
+  },
+  {
+    prop:'sharesNumber',
+    label:'投资股数',
   },
   {
     prop:'status',
@@ -43,5 +37,4 @@ const columnsMap = [
 export {
   dictsMap,
   columnsMap,
-  tabList,
 }

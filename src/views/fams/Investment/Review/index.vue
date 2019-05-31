@@ -1,105 +1,74 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="申请投资" :replaceText="replaceText" :backOption="backOption"></page-header>
-      <div class="withdraw-wrapper">
-        <a-steps :current="current">
-          <a-step v-for="item in steps" :key="item.title" :title="item.title" />
-        </a-steps>
-        <keep-alive>
-          <component :is="steps[current].content" :data="steps[current].data" @on-data="steps[current].onData" @prev="prev"></component>
-        </keep-alive>
-      </div>
+      <page-header title="投资审核"></page-header>
+      <operation-container>
+        <template slot="left">
+        </template>
+        <template slot="right">
+          <el-radio-group size="small">
+            <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
+          </el-radio-group>
+          <operation-search @search-page="searchPage"></operation-search>
+        </template>
+      </operation-container>
+      <iep-table class="dept-table" :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
+        <template slot="before-columns">
+          <el-table-column prop="company" label="公司" width="250">
+            <template slot-scope="scope">
+              <iep-table-link-img-desc :img="scope.row.imageUrl" :desc="scope.row.synopsis" :name="scope.row.name" v-on:m-click="handleDetail"></iep-table-link-img-desc>
+            </template>
+          </el-table-column>
+        </template>
+        <el-table-column prop="operation" label="操作">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button type="warning" plain @click="handleReview(scope.row)" v-if="scope.row.status==0">审核</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
+      </iep-table>
     </basic-container>
+    <iep-review-confirm ref="iepReviewForm"></iep-review-confirm>
   </div>
 </template>
 <script>
-import FirstContent from './FirstContent'
-import SecondContent from './SecondContent'
-import ThirdContent from './ThirdContent'
-import LastContent from './LastContent'
+import {tabList,columnsMap,dictsMap} from './options'
+import mixins from '@/mixins/mixins'
 export default {
-  components: {
-    FirstContent,
-    SecondContent,
-    ThirdContent,
-    LastContent,
-  },
   data () {
     return {
-      replaceText: () => '（将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。）',
-      backOption: {
-        isBack: true,
-      },
-      current: 0,
-      steps: [{
-        title: '填写投资信息',
-        content: 'FirstContent',
-        nextText: '下一步',
-        prevText: '',
-        data: undefined,
-        onData: this.handleFirst,
-      }, {
-        title: '确认投资信息',
-        content: 'SecondContent',
-        nextText: '下一步',
-        prevText: '上一步',
-        data: undefined,
-        onData: this.handleSecond,
-      }, {
-        title: '财务委员会审核',
-        content: 'ThirdContent',
-        nextText: '撤销',
-        prevText: '',
-        data: undefined,
-        onData: this.handleBack,
-      }, {
-        title: '完成',
-        content: 'LastContent',
-        nextText: '',
-        prevText: '',
-        data: undefined,
-        onData: this.handleBack,
-      }],
+      tabList,
+      columnsMap,
+      dictsMap,
+      pagination:{},
+      pagedTable: [
+        {amount:'222',interestRate:'3%',way:'股权投资',status:'0',name:'舟山国脉研发中心'},
+        {amount:'222',interestRate:'3%',way:'股权投资',status:'1',name:'舟山国脉研发中心'},
+        {amount:'222',interestRate:'3%',way:'股权投资',status:'2',name:'舟山国脉研发中心'},
+        {amount:'222',interestRate:'3%',way:'股权投资',status:'0',name:'舟山国脉研发中心'},
+        {amount:'222',interestRate:'3%',way:'股权投资',status:'0',name:'舟山国脉研发中心'},
+      ],
+      searchProp:[],
     }
   },
+  mixins:[mixins],
   computed: {
   },
   created () {
-    this.loadPage()
   },
   methods: {
-    loadPage () {
+    handleDetail () {
+      this.$router.push({
+        path: '/fams_spa/management_detail/1',
+      })
     },
-    handleFirst (form) {
-      this.next()
-      this.steps[this.current].data = form
-    },
-    handleSecond () {
-      this.next()
-    },
-    handleBack () {
-      this.$router.history.go(-1)
-    },
-    next () {
-      this.current++
-    },
-    prev () {
-      this.current--
-    },
-    back () {
-      this.$router.go(-1)
+    handleReview (row) {
+      this.$refs['iepReviewForm'].title = '审核'
+      this.$refs['iepReviewForm'].id = row.id
+      //this.$refs['iepReviewForm'].formRequestFn = reviewApprovaBatch
+      this.$refs['iepReviewForm'].dialogShow = true
     },
   },
 }
 </script>
-<style scoped>
-.withdraw-wrapper {
-  margin-top: 50px;
-  margin-left: 10%;
-  margin-right: 10%;
-}
-.withdraw-wrapper >>> .steps-content{
-  padding-top: 20px;
-}
-</style>

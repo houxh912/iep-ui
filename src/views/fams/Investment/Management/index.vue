@@ -22,7 +22,7 @@
         <template slot="before-columns">
           <el-table-column prop="company" label="公司" width="250">
             <template slot-scope="scope">
-              <iep-table-link-img-desc :img="scope.row.imageUrl" :desc="scope.row.synopsis" :name="scope.row.name"></iep-table-link-img-desc>
+              <iep-table-link-img-desc :img="scope.row.imageUrl" :desc="scope.row.synopsis" :name="scope.row.name" v-on:m-click="handleDetail"></iep-table-link-img-desc>
             </template>
           </el-table-column>
         </template>
@@ -67,7 +67,17 @@ export default {
   methods: {
     handleAdd () {
       this.$router.push({
-        path: '/fams_spa/management_detail',
+        path: '/fams_spa/management_edit/1',
+      })
+    },
+    handleEdit () {
+       this.$router.push({
+        path: '/fams_spa/management_edit/0',
+      })
+    },
+    handleDetail () {
+      this.$router.push({
+        path: '/fams_spa/management_detail/1',
       })
     },
   },

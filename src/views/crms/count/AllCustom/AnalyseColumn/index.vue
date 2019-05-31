@@ -2,9 +2,9 @@
   <el-card class="box-card">
     <div slot="header" class="clearfix">
       <span class="title">出单分析</span>
-      <operation-search @search-page="searchPage" advance-search class="search">
+      <!-- <operation-search @search-page="searchPage" advance-search class="search">
         <advance-search @search-page="searchPage"></advance-search>
-      </operation-search>
+      </operation-search> -->
     </div>
     <div>
       <el-row>
@@ -39,13 +39,13 @@
 <script>
 import Business from './Business'
 import District from './District'
-import AdvanceSearch from './AdvanceSearch'
+// import AdvanceSearch from './AdvanceSearch'
 import { getAllClientNum } from '@/api/crms/count'
 // import { getBusinessMax, getBusinessMin } from '@/api/crms/count'
 import { getAllClientRela } from '@/api/crms/count'
 import { getDistrict } from '@/api/crms/count'
 export default {
-  components: { Business, District, AdvanceSearch },
+  components: { Business, District },
   data () {
     return {
       percent: 70,

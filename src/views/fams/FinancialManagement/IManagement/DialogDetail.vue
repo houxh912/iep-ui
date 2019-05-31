@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="详情" width="700px" @close="loadPage">
-    <el-form :model="form" size="small" ref="form" label-width="100px" disabled>
+    <el-form :model="form" size="small" ref="form" label-width="120px" disabled>
       <el-form-item label="收入类型：">
         <iep-div-detail :value="form.typeValue"></iep-div-detail>
       </el-form-item>

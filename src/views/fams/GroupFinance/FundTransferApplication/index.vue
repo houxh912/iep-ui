@@ -34,6 +34,9 @@ export default {
       this.loadPage()
     },
     handleDetail (row) {
+      if (row.status === 9) {
+        return
+      }
       this.$router.push({
         path: `/fams_spa/union_borrow_detail/${row.id}`,
         query: { approval: 'true' },

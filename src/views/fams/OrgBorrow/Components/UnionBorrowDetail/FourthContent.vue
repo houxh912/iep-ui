@@ -16,7 +16,7 @@
       <iep-form-item label-name="还款时间">
         <iep-div-detail :value="data.repaymentTime"></iep-div-detail>
       </iep-form-item>
-      <iep-form-item label-name="借款利息">
+      <iep-form-item label-name="借款利息(日)">
         <iep-div-detail :value="`${data.orgInterest}%`"></iep-div-detail>
       </iep-form-item>
       <iep-form-item label-name="借款金额">

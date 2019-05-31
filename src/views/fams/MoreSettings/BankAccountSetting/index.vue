@@ -1,10 +1,10 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="线下公司设置"></page-header>
+      <page-header title="银行户头设置"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd()" icon="el-icon-plus">新增</iep-button>
+          <iep-button type="danger" @click="handleAdd()" icon="el-icon-plus" plain>新增</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">

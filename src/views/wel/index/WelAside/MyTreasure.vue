@@ -20,9 +20,9 @@
       </span>
     </div>
     <el-button-group class="operation-btn-group">
-      <iep-button plain>报销</iep-button>
+      <iep-button @click="$openPage('/wel/wealth/invoice')" plain>报销</iep-button>
       <iep-button @click="handleReward" plain>打赏</iep-button>
-      <iep-button plain>投资</iep-button>
+      <iep-button @click="$openPage('/wel/wealth/investment')" plain>投资</iep-button>
       <iep-button plain>互助基金</iep-button>
     </el-button-group>
   </div>

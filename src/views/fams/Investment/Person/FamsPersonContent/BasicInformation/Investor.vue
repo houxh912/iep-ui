@@ -1,6 +1,12 @@
 <template>
   <div class="investor">
     <span class="sub-title">{{title}}</span>
+    <div class="item-con">
+      <span class="item" v-for="item in itemList" :key="item.id">
+        <span>{{item.name}}</span>
+        <span>{{item.info}}</span>
+      </span>
+    </div>
   </div>
 </template>
 

@@ -5,7 +5,7 @@
       <operation-container>
         <template v-if="type==='2'" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
-          <iep-button type="primary" @click="excellImport" plain>导入</iep-button>
+          <iep-button type="primary" @click="excellImport" plain v-show="isDrPermissions()">导入</iep-button>
           <iep-button type="primary" @click="Transfer" plain>转移</iep-button>
           <!-- <el-dropdown size="medium">
             <iep-button size="small" :disabled="type !== '2'" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
@@ -113,6 +113,7 @@ export default {
       crms_customer_edit_del: false,
       crms_customer_view: false,
       crms_customer_zy: false,
+      crms_customer_dr: false,
     }
   },
   computed: {
@@ -129,6 +130,8 @@ export default {
     this.crms_customer_edit_del = this.permissions['crms_customer_edit_del']
     this.crms_customer_view = this.permissions['crms_customer_view']
     this.crms_customer_zy = this.permissions['crms_customer_zy']
+    this.crms_customer_dr = this.permissions['crms_customer_dr']
+    console.log(this.crms_customer_dr)
     this.loadPage({ type: 2 })
     this.getWeekincrease()
   },
@@ -148,6 +151,10 @@ export default {
     // 能否转移客户权限
     isZyPermissions () {
       return this.crms_customer_zy
+    },
+    // 能否导入客户权限
+    isDrPermissions () {
+      return this.crms_customer_dr
     },
     showDrawer (val) {
       this.$refs.EditDrawer.drawerShow = true

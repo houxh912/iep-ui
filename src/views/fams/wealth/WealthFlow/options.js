@@ -37,20 +37,15 @@ const columnsMap = [
 
 const initSearchForm = () => {
   return {
-    name: null, // 流水
-    type: null, // 分类ID
+    serialNo: null, // 流水
     rangeTime: null, // 日期
-    rangeAmount: null, // 金额
   }
 }
 const initDtoSearchForm = () => {
   return {
-    name: '', // 流水
-    type: null, // 分类ID
+    serialNo: '', // 流水
     startTime: null, // 日期
     endTime: null, // 日期
-    minAmount: null, // 金额
-    maxAmount: null, // 金额
   }
 }
 const toDtoSearchForm = (row) => {
@@ -58,10 +53,6 @@ const toDtoSearchForm = (row) => {
   if (row.rangeTime) {
     newForm.startTime = row.rangeTime[0]
     newForm.endTime = row.rangeTime[1]
-  }
-  if (row.rangeAmount) {
-    newForm.minAmount = row.rangeAmount[0]
-    newForm.maxAmount = row.rangeAmount[1]
   }
   return newForm
 }

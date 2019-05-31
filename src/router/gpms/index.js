@@ -7,7 +7,7 @@ export default [
     children: [
       {
         path: 'project/detail/:id',
-        name: '查看纪要',
+        name: '查看项目详情',
         component: () => import('@/views/gpms/project/approval/index.vue'),
       },
     ],

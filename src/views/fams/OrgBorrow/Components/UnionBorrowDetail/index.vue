@@ -95,6 +95,7 @@ export default {
       this.$router.go(-1)
     },
     add (row) {
+      console.log(`/fams_spa/fund_transfer_edit/${row.id}`)
       this.$router.push({
         path: `/fams_spa/fund_transfer_edit/${row.id}`,
       })

@@ -51,6 +51,11 @@ export default [
         component: () => import('@/views/fams/OrgBorrow/Components/OrgBorrowDetail/index.vue'),
       },
       {
+        path: 'management_detail',
+        name: '投资管理详情',
+        component: () => import('@/views/fams/Investment/Management/ManagementDetail/index.vue'),
+      },
+      {
         path: 'union_borrow_detail/:id',
         name: '集团拆借详情',
         component: () => import('@/views/fams/OrgBorrow/Components/UnionBorrowDetail/index.vue'),

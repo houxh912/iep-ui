@@ -4,7 +4,7 @@
       <page-header title="投资管理"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="danger" icon="el-icon-plus" plain>
+          <iep-button type="danger" icon="el-icon-plus" plain @click="handleAdd">
             新增
           </iep-button>
           <iep-button plain>
@@ -15,7 +15,7 @@
           <el-radio-group size="small">
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
           </el-radio-group>
-          <operation-search @search-page="searchPage" :prop="searchProp" ></operation-search>
+          <operation-search @search-page="searchPage"></operation-search>
         </template>
       </operation-container>
       <iep-table class="dept-table" :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
@@ -29,7 +29,7 @@
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button type="warning" plain @click="handleEdit(scope.row)" v-if="scope.row.status==0">编辑</iep-button>
               <iep-button v-if="scope.row.status==0">上架</iep-button>
               <iep-button v-if="scope.row.status==1||scope.row.status==2">下架</iep-button>
             </operation-wrapper>
@@ -65,6 +65,11 @@ export default {
   created () {
   },
   methods: {
+    handleAdd () {
+      this.$router.push({
+        path: '/fams_spa/management_detail',
+      })
+    },
   },
 }
 </script>

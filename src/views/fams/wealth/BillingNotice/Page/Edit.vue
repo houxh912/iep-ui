@@ -43,8 +43,14 @@
         <iep-form-item label-name="金额" prop="amount" class="form-half">
           <iep-input-number v-model="form.amount"></iep-input-number>
         </iep-form-item>
+        <iep-form-item label-name="发票种类" prop="invoicingType">
+          <el-select v-model="form.invoicingType">
+            <el-option v-for="(v, k) in dictsMap['invoicingType']" :key="k" :label="v" :value="+k">
+            </el-option>
+          </el-select>
+        </iep-form-item>
         <iep-form-item label-name="关联项目" prop="projectId">
-          <el-input v-model="form.projectId"></el-input>
+          <iep-project-select v-model="form.projectId"></iep-project-select>
         </iep-form-item>
         <h4 class="iep-sub-title">销售方</h4>
         <iep-form-item label-name="销售方公司" prop="companyId">
@@ -73,7 +79,7 @@
   </div>
 </template>
 <script>
-import { initForm, rules } from '../options'
+import { initForm, rules, dictsMap } from '../options'
 import { mapGetters } from 'vuex'
 import { postBilling, putBilling, getBillingById } from '@/api/fams/billing'
 import { getCompanyById } from '@/api/fams/company'
@@ -97,6 +103,8 @@ export default {
   },
   data () {
     return {
+      rules,
+      dictsMap,
       form: initForm(),
       companyForm: initCompanyForm(),
       backOption: {
@@ -104,7 +112,6 @@ export default {
         backPath: null,
         backFunction: this.handleGoBack,
       },
-      rules,
     }
   },
   computed: {
@@ -142,7 +149,7 @@ export default {
       this.$emit('onGoBack')
     },
     async handleSubmit () {
-      try{
+      try {
         await this.mixinsValidate()
         this.formRequestFn(this.form).then(({ data }) => {
           if (data.data) {

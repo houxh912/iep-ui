@@ -4,7 +4,7 @@
       <div class="head">
         <p class="title">{{item.name}}</p>
         <div class="button">
-          <iep-button size="small" @click="handleRelate"><i class="icon-guanlian"></i> 关联</iep-button>
+          <!-- <iep-button size="small" @click="handleRelate"><i class="icon-guanlian"></i> 关联</iep-button> -->
         </div>
       </div>
       <div class="content">
@@ -49,12 +49,12 @@ export default {
         }, {
           name: '关联合同',
           prop: 'contractList',
-        }, {
-          name: '其他项目',
-          prop: 'projectList',
-        }, {
-          name: '项目周报',
-          prop: 'reportList',
+        // }, {
+        //   name: '其他项目',
+        //   prop: 'projectList',
+        // }, {
+        //   name: '项目周报',
+        //   prop: 'reportList',
         },
       ],
     }
@@ -76,6 +76,7 @@ export default {
 .plate {
   border: 1px solid #eee;
   padding: 20px 15px;
+  margin-bottom: 20px;
   .head {
     display: flex;
     border-bottom: 1px solid #eee;
@@ -106,8 +107,5 @@ export default {
       }
     }
   }
-}
-.plate:first-of-type {
-  margin-bottom: 20px;
 }
 </style>

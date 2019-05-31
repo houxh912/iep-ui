@@ -138,8 +138,8 @@ export default {
       freeInput: '',          //简答(v-model绑定的值)
       inputAreaList: [''],
       questionExplain: '本题来源于国脉内网、水巢、数据基因、技能类、知识类、数据能力类、基本能力类、项目管理类、公司常识类、人力资源类等。',
-      mins: 45,
-      secs: 0,
+      mins: '',
+      secs: '',
       time: '',   //定义定时器
       examNo: '2019052568969',
       chartData: {
@@ -186,9 +186,9 @@ export default {
     count: function () {
       return this.offNum()
     },
-    residueCount: function () {
-      return this.resdata.questionTotalNum - this.count
-    },
+    // residueCount: function () {
+    //   return this.resdata.questionTotalNum - this.count
+    // },
   },
   mounted () {
     this.timer()
@@ -230,11 +230,16 @@ export default {
     /**
      * 获取题目的详细数据(公用请求方法)
      */
-    getSubjectById (params) {
+    getSubjectById (params, times) {
       getTestPageById(params).then(res => {
         const record = res.data.data
-        this.resdata = record
+        if (times === true) {
+          const timeAll = record.remainingTime ? record.remainingTime.split('-') : []
+          this.mins = Number(timeAll[0])
+          this.secs = Number(timeAll[1])
+        }
         this.chartData.rows = record.questionStatus
+        this.resdata = record
         this.resdata.questionOffNum = record.questionNumList
         this.resdata.questionTotalNum = record.questionNumList.checkboxMap.length + record.questionNumList.checkedMap.length + record.questionNumList.radioMap.length + record.questionNumList.textMap.length
         this.resdata.titleOptions = record.titleOptions ? JSON.parse(record.titleOptions) : []
@@ -263,7 +268,7 @@ export default {
      */
     saveAll () {
       const params = {
-        remainingTime: this.min + '-' + this.sec,
+        remainingTime: this.mins + '-' + this.secs,
       }
       this.judgeType(params)
       this.getSubjectById(params)
@@ -277,12 +282,13 @@ export default {
      * 首次进入页面加载题目
      */
     loadPage () {
+      //const times = true
       const params = {
         examId: this.record.id,
         currentQuestionNum: this.resdata.questionNum,
         questionNum: this.resdata.questionNum,
       }
-      this.getSubjectById(params)
+      this.getSubjectById(params, true)
     },
 
     /**
@@ -446,7 +452,7 @@ export default {
       }).then(() => {
         const params = {
           ifCommit: 1,
-          remainingTime: this.min + '-' + this.sec,
+          remainingTime: this.mins + '-' + this.secs,
         }
         this.judgeType(params)
         this.getSubjectById(params)
@@ -463,7 +469,7 @@ export default {
       })
     },
 
-    /**
+    /**f
      * 小于10自动补零
      */
     num (n) {
@@ -476,7 +482,7 @@ export default {
     timer () {
       const _this = this  //声明一个变量指向this，保证作用域一致，只在当前作用域
       this.time = window.setInterval(function () {
-        if (_this.secs === 0 && _this.mins !== 0) {
+        if (_this.secs === 0 && _this.mins > 0) {
           _this.secs = 59
           _this.mins -= 1
         }
@@ -484,7 +490,8 @@ export default {
           _this.secs = 0
           window.clearInterval(this.time)
           const params = {
-            remainingTime: _this.min + '-' + _this.sec,
+            ifCommit: 1,
+            remainingTime: _this.mins + '-' + _this.secs,
           }
           _this.judgeType(params)
           _this.getSubjectById(params)

@@ -3,21 +3,25 @@
     <div class="plate" v-for="(item, index) in relationList" :key="index">
       <div class="head">
         <p class="title">{{item.name}}</p>
+        <div class="button">
+          <!-- <iep-button size="small" @click="handleRelate"><i class="icon-guanlian"></i> 关联</iep-button> -->
+        </div>
       </div>
       <div class="content">
         <div v-if="form[item.prop].length == 0" style="color: #999;">暂无数据</div>
         <div v-else>
           <div class="item" v-for="(t, i) in form[item.prop]" :key="i">
             <i class="icon-guanlian"></i>{{t.name}}
+            
           </div>
         </div>
       </div>
     </div>
-    
   </div>
 </template>
 
 <script>
+
 
 export default {
   name: 'index',
@@ -45,21 +49,25 @@ export default {
         }, {
           name: '关联合同',
           prop: 'contractList',
-        }, {
-          name: '其他项目',
-          prop: 'projectList',
-        }, {
-          name: '项目周报',
-          prop: 'reportList',
+        // }, {
+        //   name: '其他项目',
+        //   prop: 'projectList',
+        // }, {
+        //   name: '项目周报',
+        //   prop: 'reportList',
         },
       ],
     }
   },
   methods: {
-
+    handleRelate () {
+      // this.$emit('relateSummary', this.projectId)
+ 
+    },
   },
   created () {
-
+  
+    // console.log(this.relationList)
   },
 }
 </script>
@@ -68,6 +76,7 @@ export default {
 .plate {
   border: 1px solid #eee;
   padding: 20px 15px;
+  margin-bottom: 20px;
   .head {
     display: flex;
     border-bottom: 1px solid #eee;
@@ -98,8 +107,5 @@ export default {
       }
     }
   }
-}
-.plate:first-of-type {
-  margin-bottom: 20px;
 }
 </style>

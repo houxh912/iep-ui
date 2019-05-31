@@ -7,7 +7,7 @@
       </template>
       <template slot="right">
         <operation-search
-          @search="searchPage"
+          @search-page="searchPage"
           @closed="dialogIsShow = true"
           advanceSearch
           placeHolder="请输入项目名称"
@@ -93,13 +93,14 @@ export default {
       this.dialogIsShow = false
       this.paramForm = paramForm()
     },
-    searchPage (name) {
+    searchPage (val) {
       if (name) {
-        this.paramForm.name = name
+        this.paramForm.name = val.name
       }
-      // console.log(this.paramForm)
-      // 搜索完成后
-      // this.paramForm.name = ''
+      this.loadPage({
+        listType: this.tabType,
+        projectName: val.name,
+      })
     },
     //勾选行执行
     selectionChange (val) {

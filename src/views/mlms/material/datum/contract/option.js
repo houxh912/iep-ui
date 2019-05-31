@@ -65,7 +65,7 @@ export const initFormData = () => {
     signDeptOrgId: '', // 签署组织
     signDeptName: '',
     underTakeDeptId: [], // 承接部门
-    underTakeDeptList: [],
+    underTakeDeptName: [],
     directorId: '', // 市场经理-id
     directorName: '', // 市场经理-name
     directorList: {

@@ -51,11 +51,6 @@ export default [
         component: () => import('@/views/fams/OrgBorrow/Components/OrgBorrowDetail/index.vue'),
       },
       {
-        path: 'apply_investment',
-        name: '申请投资',
-        component: () => import('@/views/fams/Investment/ApplyInvestment/index.vue'),
-      },
-      {
         path: 'management_edit/:id',
         name: '新增投资管理',
         component: () => import('@/views/fams/Investment/Management/Edit.vue'),

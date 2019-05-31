@@ -27,9 +27,9 @@ const navList = [
     // }, {
     id: '/app/data',
     name: '数据',
-    // }, {
-    //   id: '/app/wealth',
-    //   name: '财富',
+  }, {
+    id: '/app/wealth',
+    name: '财富',
   },
 ]
 const navPathList = navList.map(m => m.id)

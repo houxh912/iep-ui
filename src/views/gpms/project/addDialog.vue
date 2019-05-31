@@ -18,7 +18,12 @@
               客户名称:
               <!-- <iep-tip :content="tipContent.relatedClient"></iep-tip>： -->
             </span>
-            <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select>
+            <!-- <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select> -->
+            <IepCrmsSelect 
+              v-model="formData.relatedClient" 
+              :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" 
+              prefixUrl="crm/customer/all/list">
+            </IepCrmsSelect>
           </el-form-item>
         </el-col>
       </el-row>
@@ -122,7 +127,12 @@
               集团外部合作伙伴:
               <!-- <iep-tip :content="tipContent.groupExternalCooperatePartner"></iep-tip>： -->
             </span>
-            <iep-select prefix-url="crm/customer" v-model="formData.groupExternalCooperatePartner"></iep-select>
+            <!-- <iep-select prefix-url="crm/customer" v-model="formData.groupExternalCooperatePartner"></iep-select> -->
+            <IepCrmsSelect 
+              v-model="formData.groupExternalCooperatePartner" 
+              :option="[{id: formData.groupExternalCooperatePartnerList.id, name: formData.groupExternalCooperatePartnerList.name}]" 
+              prefixUrl="crm/customer/all/list">
+            </IepCrmsSelect>
           </el-form-item>
         </el-col>
       </el-row>
@@ -232,8 +242,8 @@ export default {
       this.type = type
       if (!data) {
         this.formData = initFormData()
-        this.formData.mktManagerList.name = this.userInfo.realName
-        this.formData.projectManagerList.name = this.userInfo.realName
+        this.formData.mktManagerList = { id: this.userInfo.userId, name: this.userInfo.realName }
+        this.formData.projectManagerList = { id: this.userInfo.userId, name: this.userInfo.realName }
       } else {
         data.relatedClient = parseInt(data.relatedClient)
         data.groupExternalCooperatePartner = parseInt(
@@ -242,7 +252,6 @@ export default {
         this.formData = Object.assign({}, this.formData, data)
         this.methodName = '修改'
       }
-      
     },
     close (state) {
       this.formData = initFormData()
@@ -349,6 +358,7 @@ export default {
     },
   },
   created () {
+    console.log('userinfo: ', this.userInfo)
     getCustomerPage({ type: 1 }).then(({ data }) => {
       this.clientList = data.data.records
     })

@@ -70,6 +70,10 @@ export default {
       this.$emit('input', newVal)
       this.$emit('change', newVal)
     },
+    option (newVal) {
+      this.options = newVal.map((m) => {return {clientId: m.id, clientName: m.name}})
+      this.$nextTick(() => { this.selectValue = this.value })
+    },
   },
 }
 </script>

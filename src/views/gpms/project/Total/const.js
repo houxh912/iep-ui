@@ -102,17 +102,21 @@ export function initFormData () {
     businessType: '', // 业务类型
     businessTypeSec: '', // 其他
     relatedClient: '', // 相关客户
+    relatedClientList: {
+      id: '',
+      name: '',
+    },
     projectBudget: '', // 项目预算
-    mktManager: '', // 市场经理
     projectTime:'',
-    projectManager:'',//项目经理
     endTime:'',
+    projectManager:'',//项目经理
     projectManagerList:{
       id: '',
       name: '',
     },//项目经理
     projectMembersList: [], // 项目成员
     membersList: [],
+    mktManager: '', // 市场经理
     mktManagerList: {
       id: '',
       name: '',
@@ -131,6 +135,7 @@ export function initFormData () {
     coopDept: '', // 合作部门
     coopDeptList: {},
     groupExternalCooperatePartner: '', // 集团外部合作伙伴
+    groupExternalCooperatePartnerList: { id: '', name: '' },
     productIds: [], // 产品
     productList: [],
     summaryIds: [], // 纪要

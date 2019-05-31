@@ -35,12 +35,25 @@
         </div>
         <el-row>
           <el-button size="mini" type="danger" plain>邮件</el-button>
-          <el-button size="mini" type="danger" plain>拜师</el-button>
+          <el-button size="mini" type="danger" plain @click="handleApprentice">拜师</el-button>
           <el-button size="mini" type="danger" plain>打赏</el-button>
           <el-button size="mini" type="danger">PK</el-button>
         </el-row>
       </div>
     </el-card>
+
+    <!-- 拜师 -->
+    <el-dialog
+      title="拜师"
+      :visible.sync="apprenticeShow"
+      width="330px"
+      center>
+      <div style="text-align: center;">是否确认向 【{{userInfo.name}}】 拜师</div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="apprenticeShow = false" size="small">取 消</el-button>
+        <el-button type="primary" @click="apprenticeShow = false" size="small">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -73,12 +86,17 @@ export default {
           labTitle: '资产排名',
         },
       ],
+      apprenticeShow: false,
     }
   },
   methods: {
     show () {
       this.name = 'el-icon-arrow-up',
         this.isShow = !this.isShow
+    },
+    // 拜师
+    handleApprentice () {
+      this.apprenticeShow = true
     },
   },
 }

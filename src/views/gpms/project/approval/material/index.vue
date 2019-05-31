@@ -3,7 +3,8 @@
     <basic-container>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Normy'" v-slot:Normy>
-          <normy v-loading="activeTab !=='Normy'" :projectId="form.id" @createSummary="createSummary" @relateSummary="relateSummary"></normy>
+          <!-- <normy v-loading="activeTab !=='Normy'" :projectId="form.id" :form="form" @createSummary="createSummary" @relateSummary="relateSummary"></normy> -->
+          <relation v-loading="activeTab !=='Normy'" :projectId="form.id" :form="form" @createSummary="createSummary" @relateSummary="relateSummary"></relation>
         </template>
         <template v-if="activeTab ==='Norm'" v-slot:Norm>
           <norm v-loading="activeTab !=='Norm'" :projectId="form.id"></norm>
@@ -19,13 +20,14 @@
 </template>
 
 <script>
-import Normy from './Normy/'
+// import Normy from './Normy/'
+import relation from './relation'
 import Norm from './Norm/'
 import relateDialog from './relateDialog'
 
 export default {
   name: 'index',
-  components: { Normy, Norm, relateDialog },
+  components: { relation, Norm, relateDialog },
   props: {
     form: {
       type: Object,
@@ -37,7 +39,7 @@ export default {
   data () {
     return {
       tabList: [{
-        label: '纪要与周报',
+        label: '关联材料',
         value: 'Normy',
       }, {
         label: '规范性材料',

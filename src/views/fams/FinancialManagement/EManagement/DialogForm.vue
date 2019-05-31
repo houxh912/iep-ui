@@ -24,7 +24,7 @@
       <el-form-item label="关联合同：">
         <iep-contract-select v-model="form.protocolId"></iep-contract-select>
       </el-form-item>
-      <el-form-item label="支出金额：" prop="amount">
+      <el-form-item label="支出金额(元)：" prop="amount">
         <iep-input-number v-model="form.amount"></iep-input-number>
       </el-form-item>
       <!-- <el-form-item label="税率：">

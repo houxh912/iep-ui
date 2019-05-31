@@ -22,12 +22,12 @@
       <el-form-item label="关联合同：">
         <iep-div-detail :value="form.protocolName"></iep-div-detail>
       </el-form-item>
-      <el-form-item label="开票金额：">
-        <iep-div-detail :value="form.invoiceAmount"></iep-div-detail>
+      <el-form-item label="收入金额：">
+        <iep-div-detail :value="form.amount+' 元'"></iep-div-detail>
       </el-form-item>
-      <!-- <el-form-item label="收入金额：">
-        <iep-div-detail :value="form.amount"></iep-div-detail>
-      </el-form-item> -->
+      <el-form-item label="开票费：">
+        <iep-div-detail :value="form.invoiceAmount+' 元'"></iep-div-detail>
+      </el-form-item>
       <!-- <el-form-item label="开票组织：">
         <iep-div-detail :value="form.invoiceOrgName"></iep-div-detail>
       </el-form-item> -->

@@ -5,9 +5,10 @@
       <el-tag type="info" v-for="item in [user]" :key="item.id">{{item.name}}</el-tag>
     </operation-wrapper>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
-      <a-select showSearch labelInValue :value="userValue" placeholder="请输入姓名或姓名拼音" :showArrow="false" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select">
+      <a-select ref="a-select" showSearch labelInValue :value="userValue" placeholder="请输入姓名或姓名拼音" :showArrow="false" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer">
         <a-select-option v-for="user in userResults" :key="user.id">{{user.name}}</a-select-option>
       </a-select>
+      <a-button v-if="isClear && !disabled" icon="close" @click="clearAll"></a-button>
       <a-button v-if="isShowContactBtn" @click="openContact()">通讯录</a-button>
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="dialogShow = false" :z-index="3000">
@@ -62,6 +63,9 @@ export default {
     ...mapGetters([
       'contactsPyGroup',
     ]),
+    isClear () {
+      return this.user.id !== ''
+    },
     user: {
       // getter
       get: function () {
@@ -83,6 +87,12 @@ export default {
     // this.loadPyList()
   },
   methods: {
+    clearAll () {
+      this.user = {
+        id: '',
+        name: '',
+      }
+    },
     getPopupContainer () {
       return this.$refs['a-select'].$el
     },

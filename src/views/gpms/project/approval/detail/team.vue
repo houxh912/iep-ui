@@ -78,10 +78,12 @@ export default {
       word-break: break-all;
       .title {
         width: 150px;
+        white-space:nowrap;
         padding: 0 12px 0 0;
         text-align: right;
       }
     }
   }
 }
+
 </style>

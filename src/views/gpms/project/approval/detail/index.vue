@@ -98,5 +98,8 @@ export default {
 .el-tag {
   margin-right: 10px;
 }
+.el-form-item {
+  margin-bottom: 5px;
+}
 
 </style>

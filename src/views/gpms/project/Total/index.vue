@@ -34,7 +34,7 @@
       is-mutiple-selection 
       @selection-change="selectionChange"
       :dictsMap="dictMap">
-      <el-table-column  label="项目名称" slot="before-columns" width="350px">
+      <el-table-column  label="项目名称" slot="before-columns" width="300px">
         <template slot-scope="scope">
           <div style="cursor: pointer;" @click="handleDetail(scope.row)">
             <span>{{ scope.row.projectName }}</span>
@@ -157,6 +157,14 @@ export default {
   }
   .blackColor{
     color: #666;
+  }
+
+  .cell .el-button {
+    margin-left: 0;
+    display: inline;
+  }
+  .el-button--small {
+    padding:8px 10px;
   }
 
 </style>

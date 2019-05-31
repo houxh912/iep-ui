@@ -89,12 +89,14 @@ export default {
   .content {
     padding: 15px 0;
     .item {
-      height: 30px;
+      height: auto;
       margin-bottom: 10px;
+      word-break: break-all;
     }
   }
 }
 .el-tag {
   margin-right: 10px;
 }
+
 </style>

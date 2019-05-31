@@ -42,7 +42,7 @@ export default {
           prop: 'productList',
         }, {
           name: '会议纪要',
-          prop: 'productList',
+          prop: 'summaryList',
         }, {
           name: '关联材料',
           prop: 'materialList',

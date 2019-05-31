@@ -10,20 +10,20 @@
       <template v-if="activeTab ==='ShareRatio'" v-slot:ShareRatio>
         <share-ratio v-loading="activeTab !=='ShareRatio'"></share-ratio>
       </template>
-      <template v-if="activeTab ==='InvestorAudit'" v-slot:InvestorAudit>
+      <!-- <template v-if="activeTab ==='InvestorAudit'" v-slot:InvestorAudit>
         <investor-audit v-loading="activeTab !=='InvestorAudit'"></investor-audit>
-      </template>
+      </template> -->
     </iep-tabs>
   </div>
 </template>
 
 <script>
 import BasicInformation from './BasicInformation/'
-import InvestmentRecord from './InvestmentRecord'
-import ShareRatio from './ShareRatio'
-import InvestorAudit from './InvestorAudit'
+import InvestmentRecord from './InvestmentRecord/'
+import ShareRatio from './ShareRatio/'
+// import InvestorAudit from './InvestorAudit'
 export default {
-  components: { BasicInformation, InvestmentRecord, ShareRatio, InvestorAudit },
+  components: { BasicInformation, InvestmentRecord, ShareRatio/*, InvestorAudit */ },
   data () {
     return {
       tabList: [{
@@ -35,10 +35,10 @@ export default {
       }, {
         label: '股份占比',
         value: 'ShareRatio',
-      }, {
+      },/*  {
         label: '投资人审核',
         value: 'InvestorAudit',
-      },
+      }, */
       ],
       activeTab: 'BasicInformation',
     }

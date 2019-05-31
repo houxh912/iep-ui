@@ -58,10 +58,13 @@ export default {
   height: 180px;
   text-align: center;
   background-size: 100% 100%;
+  .el-card {
+    width: 100%;
+  }
   .fams-top-con {
     display: flex;
     margin: 0 auto;
-    width: 1200px;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
     align-content: center;

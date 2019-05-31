@@ -1,13 +1,15 @@
 <template>
   <div class="fams-person">
-    <process-schedule>
-    </process-schedule>
-    <basic-data>
-    </basic-data>
-    <investor>
-    </investor>
-    <stock-composition>
-    </stock-composition>
+    <basic-container>
+      <process-schedule>
+      </process-schedule>
+      <basic-data>
+      </basic-data>
+      <investor>
+      </investor>
+      <stock-composition>
+      </stock-composition>
+    </basic-container>
   </div>
 </template>
 

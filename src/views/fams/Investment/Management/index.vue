@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-import {tabList,columnsMap,dictsMap} from './options'
+import { tabList, columnsMap, dictsMap } from './options'
 import mixins from '@/mixins/mixins'
 export default {
   data () {
@@ -48,18 +48,18 @@ export default {
       tabList,
       columnsMap,
       dictsMap,
-      pagination:{},
+      pagination: {},
       pagedTable: [
-        {member:'222',targetAmount:'2000000',votedAmount:'300000',investmentMode:'股权投资',status:'0',name:'舟山国脉研发中心'},
-        {member:'222',targetAmount:'2000000',votedAmount:'300000',investmentMode:'股权投资',status:'1',name:'舟山国脉研发中心'},
-        {member:'222',targetAmount:'2000000',votedAmount:'300000',investmentMode:'股权投资',status:'2',name:'舟山国脉研发中心'},
-        {member:'222',targetAmount:'2000000',votedAmount:'300000',investmentMode:'股权投资',status:'0',name:'舟山国脉研发中心'},
-        {member:'222',targetAmount:'2000000',votedAmount:'300000',investmentMode:'股权投资',status:'0',name:'舟山国脉研发中心'},
+        { member: '222', targetAmount: '2000000', votedAmount: '300000', investmentMode: '股权投资', status: '0', name: '舟山国脉研发中心' },
+        { member: '222', targetAmount: '2000000', votedAmount: '300000', investmentMode: '股权投资', status: '1', name: '舟山国脉研发中心' },
+        { member: '222', targetAmount: '2000000', votedAmount: '300000', investmentMode: '股权投资', status: '2', name: '舟山国脉研发中心' },
+        { member: '222', targetAmount: '2000000', votedAmount: '300000', investmentMode: '股权投资', status: '0', name: '舟山国脉研发中心' },
+        { member: '222', targetAmount: '2000000', votedAmount: '300000', investmentMode: '股权投资', status: '0', name: '舟山国脉研发中心' },
       ],
-      searchProp:[],
+      searchProp: [],
     }
   },
-  mixins:[mixins],
+  mixins: [mixins],
   computed: {
   },
   created () {

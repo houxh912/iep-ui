@@ -85,5 +85,8 @@ export default {
     }
   }
 }
+.el-form-item {
+  margin-bottom: 0;
+}
 
 </style>

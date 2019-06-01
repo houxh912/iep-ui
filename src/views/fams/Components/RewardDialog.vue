@@ -73,7 +73,7 @@ export default {
         if (valid) {
           reward(toDtoForm(this.form)).then(({ data }) => {
             if (data.data) {
-              this.$message('打赏成功')
+              this.$message.success('打赏成功')
               this.setRewardDialogShow(false)
               this.form = initForm()
             } else {

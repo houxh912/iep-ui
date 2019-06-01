@@ -28,17 +28,18 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { openWindow } from '@/util/util'
+import { getTotal } from '@/api/fams/total'
 export default {
   data () {
     return {
-      showMoney: true,
       totalAsset: 0,
       todayChange: 0,
     }
   },
   computed: {
+    ...mapGetters(['showMoney']),
     displayTotalAsset () {
       let { totalAsset } = this
       totalAsset = totalAsset.toFixed(2)
@@ -53,9 +54,20 @@ export default {
       return this.showMoney ? 'eye' : 'eye-invisible'
     },
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
+    ...mapMutations({
+      setShowMoney: 'SET_SHOWMONEY',
+    }),
+    async loadPage () {
+      const { data } = await getTotal()
+      this.totalAsset = data.data.govmadeBell + data.data.lockBell
+      this.todayChange = data.data.dayBell
+    },
     handleShowMoney () {
-      this.showMoney = !this.showMoney
+      this.setShowMoney(!this.showMoney)
     },
     ...mapActions(['famsReward']),
     handleOpen () {

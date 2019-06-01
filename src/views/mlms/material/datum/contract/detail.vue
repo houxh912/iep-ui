@@ -2,17 +2,16 @@
   <basic-container>
     <page-header :title="formData.contractName" :backOption="backOption">
       <div slot="sub" class="tags">
-        <!-- <el-tag type="info" v-for="(item, index) in formData.tagKeyWords" :key="index">{{item}}</el-tag> -->
         <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
       </div>
     </page-header>
 
     <el-row class="info">
       <el-col class="item" :span='12' v-for="(item, index) in infoList" :key="index">
-        <label>{{item.name}}：</label>
-        <span v-if="item.type == 'dict'">{{dictsMap[item.value][formData[item.value]]}}</span>
-        <span v-else-if="item.type == 'date'">{{formatYear(formData[item.value])}}</span>
-        <span v-else>{{formData[item.value]}}</span>
+        <div class="label">{{item.name}}：</div>
+        <div class="span" v-if="item.type == 'dict'">{{dictsMap[item.value][formData[item.value]]}}</div>
+        <div class="span" v-else-if="item.type == 'date'">{{formatYear(formData[item.value])}}</div>
+        <div class="span" v-else>{{formData[item.value]}}</div>
       </el-col>
       <el-col class="item remark">
         <div class="remark-title">合同说明/收款方式：</div>
@@ -20,10 +19,10 @@
       </el-col>
       <el-col class="item file">
         <el-col class="item" :span='12'>
-          <label>合同附件：</label>
-          <span v-for="(item, index) in formData.contractFileList" :key="index">
+          <div class="label">合同附件：</div>
+          <div class="span" v-for="(item, index) in formData.contractFileList" :key="index">
             <i class="icon-fujian"></i>{{item.name}} <iep-button type="text" @click="downloadFile(item)">下载</iep-button>
-          </span>
+          </div>
         </el-col>
         <!-- <iep-button type="primary">附件下载</iep-button>
         <iep-button>复制下载链接</iep-button>
@@ -36,7 +35,7 @@
       <el-row class="list">
         <el-col class="title">关联项目：</el-col>
         <el-col class="content">
-          <label>金额</label><span>50,000</span>
+          <label>金额</label><span>{{formData.contractAmount}}</span>
         </el-col>
       </el-row>
       <el-row class="list">
@@ -48,42 +47,32 @@
       <el-row class="list">
         <el-col class="title">集团项目管理费：</el-col>
         <el-col class="content">
-          <label>金额</label><span>10,000</span>
+          <label>金额</label><span>{{formData.manageAmount}}</span>
           <label>费率</label><span>5%</span>
         </el-col>
       </el-row>
       <el-row class="list">
         <el-col class="title">开票费：</el-col>
         <el-col class="content">
-          <label>金额</label><span>1000</span>
+          <label>金额</label><span>{{formData.billingAmount}}</span>
           <label>费率</label><span>1%</span>
         </el-col>
       </el-row>
       <el-row class="list">
         <el-col class="title">税费：</el-col>
         <el-col class="content">
-          <label>金额</label><span>2,300</span>
+          <label>金额</label><span>{{formData.taxes}}</span>
           <label>费率</label><span>6.34%</span>
         </el-col>
       </el-row>
       <el-row class="list">
         <el-col class="title">合同收款：</el-col>
         <el-col class="content">
-          <el-table :data="contractMoney" stripe style="width: 100%" border>
+          <el-table :data="formData.contractCollection" stripe style="width: 100%" border>
             <el-table-column prop="date" label="到账时间"> </el-table-column>
             <el-table-column prop="money" label="到账金额"> </el-table-column>
             <el-table-column prop="const" label="累计到账"> </el-table-column>
             <el-table-column prop="icon" label="到账比例"> </el-table-column>
-          </el-table>
-        </el-col>
-      </el-row>
-      <el-row class="list">
-        <el-col class="title">项目主要支付：</el-col>
-        <el-col class="content">
-          <el-table :data="payList" stripe style="width: 100%" border>
-            <el-table-column prop="waibao" label="项目外包费用"> </el-table-column>
-            <el-table-column prop="pingshen" label="项目评审费用（专家费等）"> </el-table-column>
-            <el-table-column prop="fuwu" label="项目服务费用（中标费用、佣金等）"> </el-table-column>
           </el-table>
         </el-col>
       </el-row>
@@ -93,7 +82,7 @@
 </template>
 <script>
 import { getDataById } from '@/api/mlms/material/datum/contract'
-import { dictsMap } from './option'
+import { dictsMap, infoList } from './option'
 import { mapGetters } from 'vuex'
 import { downloadFile } from '@/api/common'
 
@@ -129,21 +118,7 @@ export default {
           }
         },
       },
-      infoList: [
-        { name: '关联项目', value: 'projectName' },
-        { name: '市场经理', value: 'directorRealName' },
-        { name: '合同类型', value: 'contractType', type: 'dict' },
-        { name: '业务类型', value: 'businessTypeList' },
-        { name: '签订日期', value: 'signTime', type: 'date' },
-        { name: '完结日期', value: 'finishTime', type: 'date' },
-        { name: '委托单位', value: 'companyName' },
-        { name: '签署单位', value: 'signCompanyRealName' },
-        { name: '签署组织', value: 'signDeptOrgNames' },
-        { name: '承接部门', value: 'underTakeDeptNames' },
-        { name: '合同金额', value: 'contractAmount' },
-        { name: '合同级别', value: 'contractLevel', type: 'dict' },
-        { name: '保证金', value: 'deposit' },
-      ],
+      infoList,
       contractMoney: [
         { date: '2019-03-22', money: '22,000', const: '22,000', icon: '9.0%' },
       ],
@@ -210,10 +185,14 @@ export default {
   padding: 0 0 15px 0;
   .item {
     margin-bottom: 10px;
-    label {
+    display: flex;
+    .label {
       width: 150px;
       text-align: right;
       display: inline-block;
+    }
+    .span {
+      flex: 1;
     }
     .el-button {
       margin-right: 15px;

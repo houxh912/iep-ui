@@ -51,13 +51,14 @@
       <div style="text-align: center;">是否确认向 【{{userInfo.name}}】 拜师</div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="apprenticeShow = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="apprenticeShow = false" size="small">确 定</el-button>
+        <el-button type="primary" @click="handleApprentice" size="small">确 定</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
+import { addMasterWorker } from '@/api/hrms/employee_profile'
 
 export default {
   props: {
@@ -96,7 +97,10 @@ export default {
     },
     // 拜师
     handleApprentice () {
-      this.apprenticeShow = true
+      console.log('userId: ', this.userInfo.userId)
+      addMasterWorker([this.userInfo.userId]).then(() => {
+        this.apprenticeShow = false
+      })
     },
   },
 }

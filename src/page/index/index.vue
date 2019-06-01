@@ -1,5 +1,6 @@
 <template>
   <div class="avue-contail">
+    <im-ui></im-ui>
     <el-container style="height: 100vh;">
       <el-header style="height: 60px;padding: 0;z-index: 500;">
         <!-- 顶部导航栏 -->
@@ -32,6 +33,7 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 import top from './top/'
 import sidebar from './sidebar/'
 import admin from '@/util/admin'
+import imUi from '@/views/imui'
 import { validatenull } from '@/util/validate'
 // import { calcDate } from '@/util/date.js'
 import { getStore } from '@/util/store.js'
@@ -45,6 +47,7 @@ export default {
     top,
     sidebar,
     DialogGroup,
+    imUi,
   },
   name: 'Index',
   data () {

@@ -33,5 +33,7 @@ const getters = {
   famsConfig: state => state.cache.famsConfig,
   // notify 通知消息
   notify: state => key => state.notify[key],
+  imMessage: state => key => state.im.messageMap[key],
+  imUserList: state => state.im.userList,
 }
 export default getters

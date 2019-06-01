@@ -9,9 +9,18 @@ import { getProjectPage } from '@/api/gpms/select'
 export default {
   name: 'IepProjectSelect',
   inheritAttrs: false,
+  props: {
+    projectName: {
+      type: String,
+      default: '',
+    },
+  },
   data () {
     return {
-      contractOptions: [],
+      contractOptions: [{
+        id: this.$attrs.value,
+        projectName: this.projectName,
+      }],
       loading: false,
     }
   },

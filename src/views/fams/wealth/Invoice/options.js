@@ -1,4 +1,4 @@
-import { checkContactUser } from '@/util/rules'
+// import { checkContactUser } from '@/util/rules'
 
 const dictsMap = {
   status: {
@@ -31,6 +31,7 @@ function initForm () {
     referType: '',
     companyId: '',
     projectId: '',
+    projectName: '',
     auditor: {
       id: 0,
       name: '',
@@ -83,7 +84,7 @@ const rules = {
     { required: true, message: '请选择项目', trigger: 'blur' },
   ],
   auditor: [
-    { required: false, validator: checkContactUser('审批人'),  trigger: 'blur' },
+    { required: false, trigger: 'blur' },
   ],
 }
 

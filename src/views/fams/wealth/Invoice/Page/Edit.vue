@@ -46,7 +46,7 @@
         </iep-form-item>
 
         <iep-form-item v-if="projectOption" class="form-half" prop="projectId" label-name="项目">
-          <iep-project-select v-model="form.projectId"></iep-project-select>
+          <iep-project-select v-model="form.projectId" :project-name="form.projectName"></iep-project-select>
         </iep-form-item>
 
         <iep-form-item class="form-half" prop="auditor" label-name="审批人" tip="发票金额超过 1 万，请添加部门班长为审批人">

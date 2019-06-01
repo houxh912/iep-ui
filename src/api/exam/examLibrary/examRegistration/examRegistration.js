@@ -1,5 +1,5 @@
 /**
- * 新增新试题API请求接口
+ * 新增报名管理API请求接口
  */
 
 import request from '@/router/axios'
@@ -25,12 +25,23 @@ export function passExamerById (params) {
     })
 }
 /**
- * 取消通过
+ * 撤销资格
  */
 export function cancelExamerById (params) {
     return request({
       url: '/exms/iepentryform/changeStat',
       method: 'post',
-      data: params,
+      params: params,
     })
+}
+
+/**
+ * 删除
+ */
+export function deleteById (params) {
+  return request({
+    url: '/exms/iepentryform/removeByIds',
+    method: 'post',
+    data: params,
+  })
 }

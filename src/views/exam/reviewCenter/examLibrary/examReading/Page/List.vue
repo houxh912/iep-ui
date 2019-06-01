@@ -39,12 +39,9 @@
       <progress-form :formData="InterviewData" @close="loadPage()"></progress-form>
     </iep-dialog>
 
-    <!-- <iep-dialog :dialog-show="dialogWritten" title="笔试判分" width="550px" @close="loadPage()" center>
+    <iep-dialog :dialog-show="dialogWritten" title="笔试判分" width="550px" @close="loadPage()" center>
       <writte-form :formData="InterviewData" @close="loadPage()"></writte-form>
-    </iep-dialog> -->
-    <el-dialog class="titleDialog" title="笔试判分" :visible.sync="dialogWritten" width="90%" @close="loadPage()">
-      <writte-form :formData="InterviewData" @close="loadPage()"></writte-form>
-    </el-dialog>
+    </iep-dialog>
 
     <iep-dialog :dialog-show="dialogChoice" title="选择题判分" width="550px" @close="loadPage()" center>
       <choice-form :formData="InterviewData" @close="loadPage()"></choice-form>
@@ -236,6 +233,7 @@ export default {
   }
 }
 .empty {
+  margin-top: 6px;
   border: 0px solid #ccc;
   color: #419fff;
   &:hover {
@@ -243,13 +241,3 @@ export default {
   }
 }
 </style>
-<style lang="scss">
-.titleDialog {
-  .el-dialog {
-    .el-dialog__title {
-      display: none;
-    }
-  }
-}
-</style>
-

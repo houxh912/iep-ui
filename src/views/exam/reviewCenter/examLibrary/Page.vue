@@ -1,23 +1,23 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="row.field" :backOption="backOption"></page-header>
+      <page-header :title="topTitle" :backOption="backOption"></page-header>
 
       <div class="top">
         <div class="row">
           <p>名称：<span>{{row.title}}</span></p>
-          <p>题库：<span>{{row.title}}</span></p>
+          <p>题库：<span>{{row.field}}</span></p>
           <p>总题量：<span>{{row.number}}道</span></p>
           <p>总分：<span>{{row.totalScore}}</span></p>
-        </div>
-        <div class="row" style="margin-top:-17px">
           <p>考试时间：<span>{{row.beginTime}}</span></p>
         </div>
-        <div class="row">
+        <!-- <div class="row" style="margin-top:-17px">
+        </div> -->
+        <!-- <div class="row">
           <p>标签：<el-tag type="info" size="medium" style="margin-right:10px" closable>{{row.title}}</el-tag>
             <el-tag type="info" size="medium" closable>{{row.title}}</el-tag>
           </p>
-        </div>
+        </div> -->
       </div>
       <hr class="line">
 
@@ -51,6 +51,7 @@ export default {
   },
   data () {
     return {
+      topTitle: null,
       row: {},
       tabList: [{
         label: '报名管理',
@@ -76,11 +77,12 @@ export default {
     const { row, activeTab } = this.record
     this.row = row
     this.activeTab = activeTab
-    this.row.field = '试题： ' + this.row.field
+    this.row.field = this.row.field
     this.row.title = this.row.title
     this.row.number = this.row.number
     this.row.totalScore = this.row.totalScore
     this.row.beginTime = this.row.beginTime
+    this.topTitle = '试题： ' + this.row.title
   },
   methods: {
   },
@@ -106,7 +108,7 @@ export default {
     }
   }
   .top {
-    height: 95px;
+    // height: 95px;
     margin: -15px 0px;
     // background-color: #ecf5ff;
     .row {
@@ -115,7 +117,7 @@ export default {
       font-size: 16px;
       color: #000000;
       p {
-        margin-right: 180px;
+        margin-right: 80px;
         span {
           color: #797b79;
         }

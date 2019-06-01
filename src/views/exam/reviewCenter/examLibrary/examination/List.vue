@@ -25,7 +25,7 @@
         @selection-change="selectionChange" is-mutiple-selection>
         <el-table-column prop="fieldName" label="科目">
           <template slot-scope="scope">
-            {{scope.row.field}}
+            {{scope.row.fieldName}}
           </template>
         </el-table-column>
         <el-table-column prop="title" label="名称">
@@ -128,7 +128,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { getExamInationList, postExamForbidById, postExamPassById } from '@/api/exam/examLibrary/examInation/examInation'
+import { getExamInationList, postExamForbidById, postExamPassById,deleteById } from '@/api/exam/examLibrary/examInation/examInation'
 // import { getTableData } from '@/api/mlms/material/datum/material'
 // import { putCustomer, deleteCustomerBatch } from '@/api/crms/customer'
 // import { getWealthFlowPage } from '@/api/fams/wealth_flow'
@@ -193,13 +193,15 @@ export default {
           cancelButtonText: '取消',
           type: 'warning',
         }).then(() => {
-          // deleteApprovalById(this.selectionValue).then(() => {
-          //   this.$message({
-          //     message: '操作成功',
-          //     type: 'success',
-          //   })
-          //   this.loadPage()
-          // })
+          deleteById(this.selectionValue).then(() => {
+            this.$message({
+              message: '操作成功',
+              type: 'success',
+            })
+            setTimeout(() => {
+              this.loadPage()
+            }, 450)
+          })
         })
       }
     },

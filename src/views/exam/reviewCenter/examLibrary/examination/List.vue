@@ -23,9 +23,9 @@
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
         @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection
         @selection-change="selectionChange" is-mutiple-selection>
-        <el-table-column prop="field" label="科目">
+        <el-table-column prop="fieldName" label="科目">
           <template slot-scope="scope">
-            {{scope.row.field}}
+            {{scope.row.fieldName}}
           </template>
         </el-table-column>
         <el-table-column prop="title" label="名称">

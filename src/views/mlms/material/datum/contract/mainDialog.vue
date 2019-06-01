@@ -92,7 +92,7 @@
         </el-col>
         <el-col :span='12'>
           <el-form-item label="合同金额：" prop="contractAmount">
-            <el-input v-model="formData.contractAmount" placeholder="合同金额" maxlength="10"></el-input>
+            <el-input v-model="formData.contractAmount" placeholder="合同金额" maxlength="9"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

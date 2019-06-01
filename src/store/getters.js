@@ -9,6 +9,7 @@ const getters = {
   screen: state => state.common.screen,
   isLock: state => state.common.isLock,
   lockPasswd: state => state.common.lockPasswd,
+  showMoney: state => state.common.showMoney,
   // user
   userInfo: state => state.user.userInfo,
   noOrg: state => !state.user.userInfo.orgId,

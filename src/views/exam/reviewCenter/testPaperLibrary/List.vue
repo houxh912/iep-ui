@@ -64,7 +64,7 @@ export default {
     handleAdd () {
       this.$emit('onEdit', {
         methodName: '创建试卷',
-        id: false,
+        id: '',
       })
     },
 

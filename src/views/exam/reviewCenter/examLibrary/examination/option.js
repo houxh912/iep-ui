@@ -236,6 +236,11 @@ export function examForm () {
     onclidingRemarks: '',//考试结束语
     testPaperId: '',//试卷库id
     iepCertiFicate: [],//证书信息
+    iepExaminationOperate: {
+      operateUserids: '',
+      writeUserids: '',
+      faceUserIds: '',
+    },
     operateUseridsList: [],//报名管理&考卷管理集合
     writeUseridsList: [],//试卷审阅权限集合
     faceUserIdsList: [],//面试判分集合
@@ -298,11 +303,11 @@ export const examFormRules = {
 
 export const toDtoForm = (row) => {
   var newForm = { ...row }
+  console.log('newForm', newForm)
   newForm.iepCertiFicate = row.iepCertiFicate[0]
   newForm.iepExaminationOperate.faceUserIds = row.faceUserIdsList.map(m => m.id).join(',')
   newForm.iepExaminationOperate.operateUserids = row.operateUseridsList.map(m => m.id).join(',')
   newForm.iepExaminationOperate.writeUserids = row.writeUseridsList.map(m => m.id).join(',')
-
   delete newForm.faceUserIdsList
   delete newForm.operateUseridsList
   delete newForm.writeUseridsList

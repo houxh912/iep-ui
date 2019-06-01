@@ -17,10 +17,9 @@
       <el-row class="total-questions" v-for="(item,index) in pagerListSort" :key="index">
         <el-col :span="24" class="questions">
           <div class="title">
-            <h2 v-if="item.type==0">单选题</h2>
-            <h2 v-else-if="item.type==1">多选题</h2>
-            <h2 v-else-if="item.type==2">填空题</h2>
-            <h2 v-else>实操题</h2>
+            <h2>{{res.exms_question_type.find(data => {
+              return data.id === item.type
+              }).label}}</h2>
             <span v-if="readOnly===false" class="el-icon-close" @click="deletePaper(index)"></span>
           </div>
           <div class="body">

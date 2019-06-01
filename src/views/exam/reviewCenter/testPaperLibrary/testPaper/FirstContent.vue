@@ -43,7 +43,7 @@ export default {
     'data.id': {
       handler (newName) {
         console.log('data1', this.data)
-        if (newName === false) {
+        if (newName === '') {
           this.form = initForm()
         } else {
           this.getTestPaper(this.data.id)

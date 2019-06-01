@@ -40,7 +40,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <iep-button type="primary" style="float:right" @click="handleEdit(data)">编辑试卷</iep-button>
+              <iep-button type="primary" style="float:right" @click="handleEdit(data.id)">编辑试卷</iep-button>
             </el-col>
           </el-row>
         </el-form>
@@ -172,14 +172,14 @@
           <hr>
           <el-form-item label="权限设置" required>
             <div class="permissionSettings">
-              <el-form-item prop="operateUseridsList" label="报名管理&考卷管理">
+              <el-form-item prop="operateUseridsList" label="报名管理&考卷管理" label-width="140px">
                 <iep-contact-multiple-user v-model="examForm.operateUseridsList" :filter-user-list="filterUserList"></iep-contact-multiple-user>
               </el-form-item>
-              <el-form-item prop="writeUseridsList" label="试卷审阅权限">
+              <el-form-item prop="writeUseridsList" label="试卷审阅权限" label-width="140px">
                 <iep-contact-multiple-user v-model="examForm.writeUseridsList" :filter-user-list="filterUserList"></iep-contact-multiple-user>
               </el-form-item>
 
-              <el-form-item prop="faceUserIdsList" label="面试判分权限">
+              <el-form-item prop="faceUserIdsList" label="面试判分权限" label-width="140px">
                 <iep-contact-multiple-user v-model="examForm.faceUserIdsList" :filter-user-list="filterUserList"></iep-contact-multiple-user>
               </el-form-item>
             </div>
@@ -207,6 +207,8 @@ import mixins from '@/mixins/mixins'
 import DialogCertificate from '../DialogCertificate'
 import { examForm, examFormRules, toDtoForm } from '../option'
 import { save, release } from '@/api/exam/createExam/newTest/newTest'
+import { initForm } from '../../../testPaperLibrary/option'
+import { getTestPaperById } from '@/api/examPaper/examPaperApi'
 export default {
   mixins: [mixins],
   props: ['data'],
@@ -217,6 +219,7 @@ export default {
       saveLoading: false,
       examFormRules,
       examForm: examForm(),
+      testPaper: initForm(),
     }
   },
   watch: {
@@ -279,8 +282,12 @@ export default {
     /**
      * 编辑试卷
      */
-    handleEdit (data) {
-      this.$emit('prev', data)
+    handleEdit (id) {
+      getTestPaperById({ id: id }).then(({ data }) => {
+        data.data[0].resource = 0
+        this.$emit('prev', data.data[0])
+      })
+
     },
 
     /**
@@ -304,7 +311,7 @@ export default {
       this.submitDisabled = true
       this.$refs['examForm'].validate(async (valid) => {
         if (valid) {
-          this.examForm.testPaperId = this.data.testPaperId
+          this.examForm.testPaperId = this.data.id
           const { data } = await release(toDtoForm(this.examForm))
           this.$emit('on-data', data.data)
         }

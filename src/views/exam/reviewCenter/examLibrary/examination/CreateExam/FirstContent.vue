@@ -61,9 +61,6 @@ export default {
           })
 
         }
-        //  else {
-        //   this.getTestPaper(this.data.id)
-        // }
       },
       immediate: true,
     },
@@ -88,7 +85,6 @@ export default {
     },
   },
   methods: {
-
     /**
      * 单选框change
      */

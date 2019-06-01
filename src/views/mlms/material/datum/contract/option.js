@@ -208,3 +208,19 @@ export function initSearchForm () {
     contractType: '',
   }
 }
+
+export const infoList = [
+  { name: '关联项目', value: 'projectName' },
+  { name: '市场经理', value: 'directorRealName' },
+  { name: '合同类型', value: 'contractType', type: 'dict' },
+  { name: '业务类型', value: 'businessTypeList' },
+  { name: '签订日期', value: 'signTime', type: 'date' },
+  { name: '完结日期', value: 'finishTime', type: 'date' },
+  { name: '委托单位', value: 'companyName' },
+  { name: '签署单位', value: 'signCompanyRealName' },
+  { name: '签署组织', value: 'signDeptOrgNames' },
+  { name: '承接部门', value: 'underTakeDeptNames' },
+  { name: '合同金额', value: 'contractAmount' },
+  { name: '合同级别', value: 'contractLevel', type: 'dict' },
+  { name: '保证金', value: 'deposit' },
+]

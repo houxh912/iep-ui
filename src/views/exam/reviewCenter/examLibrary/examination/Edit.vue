@@ -36,7 +36,7 @@ export default {
         backPath: null,
         backFunction: this.handleGoBack,
       },
-      current: 0,
+      current: this.record.current,
       steps: [{
         title: this.record.methodName,
         content: 'FirstContent',

@@ -234,10 +234,12 @@ export function examForm () {
     showPlace: '',//考完后是否显示名次
     showComment: '',//是否显示面试评语
     onclidingRemarks: '',//考试结束语
-    state: '',//考试启用状态 ,0.启用| 1. 禁用  2.已结束 
     testPaperId: '',//试卷库id
-    approver: [],//阅卷老师
-    zhengshu:[],//证书信息
+    iepCertiFicate: [],//证书信息
+    operateUseridsList: [],//报名管理&考卷管理集合
+    writeUseridsList: [],//试卷审阅权限集合
+    faceUserIdsList: [],//面试判分集合
+
   }
 
 }
@@ -283,4 +285,27 @@ export const examFormRules = {
   onclidingRemarks: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
+}
+
+// const selfToVo = (row) => {
+//   const newForm = mergeByFirst(initForm(), row)
+//   newForm.annex = row.attachFile || []
+//   newForm.startTime = row.entryTime || ''
+//   newForm.approver = row.approverList || []
+//   newForm.cc = row.ccList || []
+//   return newForm
+// }
+
+export const toDtoForm = (row) => {
+  var newForm = { ...row }
+  newForm.iepCertiFicate = row.iepCertiFicate[0]
+  newForm.iepExaminationOperate.faceUserIds = row.faceUserIdsList.map(m => m.id).join(',')
+  newForm.iepExaminationOperate.operateUserids = row.operateUseridsList.map(m => m.id).join(',')
+  newForm.iepExaminationOperate.writeUserids = row.writeUseridsList.map(m => m.id).join(',')
+
+  delete newForm.faceUserIdsList
+  delete newForm.operateUseridsList
+  delete newForm.writeUseridsList
+
+  return newForm
 }

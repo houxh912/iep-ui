@@ -23,7 +23,7 @@
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
         @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection
         @selection-change="selectionChange" is-mutiple-selection>
-        <el-table-column prop="field" label="科目">
+        <el-table-column prop="fieldName" label="科目">
           <template slot-scope="scope">
             {{scope.row.field}}
           </template>
@@ -217,6 +217,7 @@ export default {
       this.$emit('onEdit', {
         methodName: '创建考试',
         id: false,
+        current: 0,
       })
     },
     /**
@@ -232,15 +233,8 @@ export default {
       this.$emit('onEdit', {
         methodName: '编辑考试',
         id: row.id,
+        current: 2,
       })
-      // this.dialogEdit = true
-      // this.reForm.field = row.field
-      // this.reForm.title = row.title
-      // this.reForm.totalScore = row.totalScore
-      // this.reForm.username = row.username
-      // this.reForm.creatTime = row.creatTime
-      // this.reForm.beginTime = row.beginTime
-      // this.reForm.endTime = row.endTime
     },
 
     // 报名、考卷、阅卷管理按钮

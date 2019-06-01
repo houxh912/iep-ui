@@ -60,8 +60,8 @@
             <el-col :span="12">
               <el-form-item label="所属科目" prop="field">
                 <el-select placeholder="请选择所属科目" v-model="examForm.field">
-                  <el-option value="0" label="国脉内网"></el-option>
-                  <el-option value="1" label="数据基因"></el-option>
+                  <el-option :value="0" label="国脉内网"></el-option>
+                  <el-option :value="1" label="数据基因"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -110,9 +110,6 @@
             <el-col :span="12">
               <el-form-item label="答卷时长" prop="timeLong">
                 <el-input v-model="examForm.timeLong" disabled>
-                  <template slot="append">
-                    分
-                  </template>
                 </el-input>
               </el-form-item>
             </el-col>
@@ -161,29 +158,41 @@
             </el-col>
             <el-col :span="8">
               <el-form-item prop="showPlace">
-                <el-switch active-text="添加面试判分" v-model="examForm.showPlace" :active-value="1"
+                <el-switch active-text="添加面试判分" v-model="examForm.showComment" :active-value="1"
                   :inactive-value="0"></el-switch>
               </el-form-item>
             </el-col>
           </el-form-item>
-          <el-form-item label="证书信息" prop="zhengshu">
-            <dialog-certificate v-model="examForm.zhengshu"></dialog-certificate>
+          <el-form-item label="证书信息" prop="iepCertiFicate">
+            <dialog-certificate v-model="examForm.iepCertiFicate"></dialog-certificate>
           </el-form-item>
           <el-form-item label="结束语" prop="onclidingRemarks">
             <iep-input-area v-model="examForm.onclidingRemarks"></iep-input-area>
           </el-form-item>
           <hr>
-          <el-form-item prop="approver" label="阅卷老师">
-            <iep-contact-multiple-user v-model="examForm.approver" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+          <el-form-item label="权限设置" required>
+            <div class="permissionSettings">
+              <el-form-item prop="operateUseridsList" label="报名管理&考卷管理">
+                <iep-contact-multiple-user v-model="examForm.operateUseridsList" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+              </el-form-item>
+              <el-form-item prop="writeUseridsList" label="试卷审阅权限">
+                <iep-contact-multiple-user v-model="examForm.writeUseridsList" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+              </el-form-item>
+
+              <el-form-item prop="faceUserIdsList" label="面试判分权限">
+                <iep-contact-multiple-user v-model="examForm.faceUserIdsList" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+              </el-form-item>
+            </div>
           </el-form-item>
+
         </el-form>
       </el-card>
     </div>
     <div class="steps-action">
-      <el-button style="margin-left: 8px" @click="handlePrev">
-        上一步
+      <el-button style="margin-left: 8px" :loading="saveLoading" @click="handleSave()">
+        保存
       </el-button>
-      <el-button type="primary" :loading="submitLoading" @click="handleSubmit()">
+      <el-button type="primary" :loading="submitLoading" @click="handleRelease()">
         发布
       </el-button>
     </div>
@@ -196,7 +205,8 @@
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
 import DialogCertificate from '../DialogCertificate'
-import { examForm, examFormRules } from '../option'
+import { examForm, examFormRules, toDtoForm } from '../option'
+import { save, release } from '@/api/exam/createExam/newTest/newTest'
 export default {
   mixins: [mixins],
   props: ['data'],
@@ -204,16 +214,28 @@ export default {
   data () {
     return {
       submitLoading: false,
+      saveLoading: false,
       examFormRules,
       examForm: examForm(),
     }
+  },
+  watch: {
+    'data.id': {
+      handler (newName) {
+        console.log('newName3', this.data)
+        if (newName === undefined) {
+          this.examForm = examForm()
+        }
+      },
+      immediate: true,
+    },
   },
   computed: {
     ...mapGetters([
       'userInfo',
     ]),
     filterUserList () {
-      return [this.userInfo.userId, ...this.examForm.approver.map(m => m.id)]
+      return [this.userInfo.userId, ...this.examForm.operateUseridsList.map(m => m.id), ...this.examForm.faceUserIdsList.map(m => m.id), ...this.examForm.writeUseridsList.map(m => m.id)]
     },
   },
   methods: {
@@ -261,25 +283,30 @@ export default {
       this.$emit('prev', data)
     },
 
-
-
     /**
-     * 上一步
+     * 保存
      */
-    handlePrev () {
-      this.$emit('prev')
+    handleSave () {
+      this.saveLoading = true
+      this.$refs['examForm'].validate(async (valid) => {
+        if (valid) {
+          this.examForm.testPaperId = this.data.id
+          const { data } = await save(toDtoForm(this.examForm))
+          this.$emit('on-data', data.data)
+        }
+      })
     },
 
     /**
      * 发布
      */
-    handleSubmit () {
+    handleRelease () {
       this.submitDisabled = true
-      this.$refs['examForm'].validate((valid) => {
+      this.$refs['examForm'].validate(async (valid) => {
         if (valid) {
-          console.log('this.examForm', this.examForm)
-          this.$emit('on-data', this.examForm)
-          this.examForm = examForm()
+          this.examForm.testPaperId = this.data.testPaperId
+          const { data } = await release(toDtoForm(this.examForm))
+          this.$emit('on-data', data.data)
         }
       })
     },
@@ -308,6 +335,18 @@ export default {
   width: 100%;
   &:first-child {
     margin-bottom: 15px;
+  }
+
+  .el-form {
+    .el-form-item {
+      .permissionSettings {
+        border: 1px solid #c0c4cc;
+        padding: 20px;
+        .el-form-item {
+          margin-bottom: 20px;
+        }
+      }
+    }
   }
 }
 </style>

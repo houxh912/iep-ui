@@ -44,15 +44,15 @@
 const columnsMap = [
   {
     label: '科目',
-    prop: 'field',
+    prop: 'fieldName',
   },
   {
     label: '题型',
-    prop: 'questionType',
+    prop: 'questionTypeName',
   },
   {
     label: '题类',
-    prop: 'kind',
+    prop: 'kindName',
   },
   {
     label: '内容',
@@ -60,7 +60,7 @@ const columnsMap = [
   },
   {
     label: '难度',
-    prop: 'difficulty',
+    prop: 'difficultyName',
   },
   {
     label: '提交时间',
@@ -73,7 +73,7 @@ import AdvanceSearch from '../testQuestionsLibrary/Page/AdvanceSearch'
 import { getTestList } from '@/api/exam/createExam/newTest/newTest'
 import uniqBy from 'lodash/uniqBy'
 export default {
-  props: ['value', 'questionType'],
+  props: ['value', 'questionType', 'fieldType'],
   mixins: [mixins],
   components: { AdvanceSearch },
   data () {
@@ -109,7 +109,7 @@ export default {
      */
     handleAdd () {
       this.dialogShow = true
-      this.loadPage({ questionType: this.questionType })
+      this.loadPage({ questionType: this.questionType, subject: this.fieldType })
     },
 
     /**

@@ -22,6 +22,7 @@
 <script>
 import StepsContent from '../StepsContent'
 import { initForm } from '../option'
+import { getTestPaperById } from '@/api/examPaper/examPaperApi'
 export default {
   props: ['data'],
   components: { StepsContent },
@@ -39,14 +40,13 @@ export default {
     }
   },
   watch: {
-    'data.row': {
-      handler (newName, oldName) {
-        console.log('newName1', newName)
-        console.log('oldName1', oldName)
+    'data.id': {
+      handler (newName) {
+        console.log('data1', this.data)
         if (newName === false) {
           this.form = initForm()
         } else {
-          this.form = newName
+          this.getTestPaper(this.data.id)
         }
       },
       immediate: true,
@@ -74,6 +74,15 @@ export default {
           let testPaper = Object.assign(this.data, this.form)
           this.$emit('on-data', testPaper)
         }
+      })
+    },
+
+    /**
+     * 获取试卷
+     */
+    getTestPaper (id) {
+      getTestPaperById({ id: id }).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data[0])
       })
     },
   },

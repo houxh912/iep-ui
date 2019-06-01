@@ -4,21 +4,22 @@
       <h1>{{data.title}}</h1>
       <el-form size="small" label-width="100px">
         <el-form-item label="所属科目:">
-          <el-input readonly></el-input>
+          <el-input readonly v-model="fieldName"></el-input>
         </el-form-item>
-        <el-form-item label="试题数量:">
-          <el-input v-model="data.choiceNum" readonly>
-            <template slot="append">道</template>
-          </el-input>
-        </el-form-item>
-        <el-form-item label="试卷总分:">
+        <el-form-item label="分数:">
           <el-input v-model="data.score" readonly>
-            <template slot="append">分</template>
           </el-input>
+        </el-form-item>
+        <el-form-item label="优秀线:">
+          <el-input v-model="data.totalEnrollment" readonly>
+          </el-input>
+        </el-form-item>
+        <el-form-item label="考试说明:">
+          <iep-input-area v-model="data.totalExam"></iep-input-area>
         </el-form-item>
         <el-form-item>
           <el-col :span="12">
-            <p>创建人：<span>{{data.createName}}</span></p>
+            <p>创建人：<span>{{data.username}}</span></p>
           </el-col>
           <el-col :span="12">
             <p>创建时间：<span>{{data.createTime}}</span></p>
@@ -55,8 +56,9 @@ export default {
      */
     createNewExam () {
       let testPaper = {
-        methodName: '新建考试',
-        id: 'dasd',
+        methodName: '创建考试',
+        id: false,
+        current: 0,
       }
       this.$emit('on-data', testPaper)
     },

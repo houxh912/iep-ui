@@ -53,3 +53,11 @@ export const initForm = () => {
     score: 0,//试卷总分
   }
 }
+
+
+export const toDtoForm = (row) => {
+  var newForm = { ...row }
+  newForm.questionList = row.questionArray.map(m => m.id).join(',')
+
+  return newForm
+}

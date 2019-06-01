@@ -64,7 +64,7 @@ export default {
     handleAdd () {
       this.$emit('onEdit', {
         methodName: '创建试卷',
-        row: false,
+        id: false,
       })
     },
 
@@ -74,7 +74,7 @@ export default {
     handleEdit (row) {
       this.$emit('onEdit', {
         methodName: '编辑试卷',
-        row: row,
+        id: row.id,
       })
     },
 
@@ -91,7 +91,7 @@ export default {
     handleSelect (row) {
       this.$emit('onEdit', {
         methodName: '查看试卷',
-        row: row,
+        id: row.id,
       })
     },
 

@@ -32,7 +32,19 @@ export function postPaperAmount (params) {
   return request({
     url: '/exms/iepitembank/statistics',
     method: 'get',
-    data: params,
+    params: params,
+  })
+}
+
+/**
+ * 获取固定选题试题
+ * @param {Object} params 对象
+ */
+export function getPaperTest (params) {
+  return request({
+    url: '/exms/iepitembank/selectItemByTypeSub',
+    method: 'get',
+    params: params,
   })
 }
 
@@ -44,5 +56,16 @@ export function deletePaperById (params) {
     url: '/exms/ieptestpaper/deleteByStatus',
     method: 'post',
     data: params,
+  })
+}
+
+/**
+ * 根据ID获取试卷
+ */
+export function getTestPaperById (params) {
+  return request({
+    url: '/exms/ieptestpaper/getTestPaperById',
+    method: 'get',
+    params: params,
   })
 }

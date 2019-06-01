@@ -24,8 +24,8 @@ export function postNewTest (params) {
         url: '/exms/iepitembank/save',
         method: 'post',
         data: params,
-        headers:{
-            'Content-Type':'application/json',
+        headers: {
+            'Content-Type': 'application/json',
         },
     })
 }
@@ -47,11 +47,11 @@ export function getTestList (params) {
  */
 export function deleteApprovalById (params) {
     return request({
-      url: '/exms/iepitembank/removeById',
-      method: 'post',
-      data: params,
+        url: '/exms/iepitembank/removeById',
+        method: 'post',
+        data: params,
     })
-  }
+}
 
 /**
  * 审核通过
@@ -90,6 +90,34 @@ export function postModify (params) {
             'Content-Type': 'application/json',
         },
         url: 'exms/iepitembank/update',
+        method: 'post',
+        data: params,
+    })
+}
+
+/**
+ * 保存考试
+ */
+export function save (params) {
+    return request({
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        url: '/exms/iepexamination/save',
+        method: 'post',
+        data: params,
+    })
+}
+
+/**
+ * 发布考试
+ */
+export function release (params) {
+    return request({
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        url: '/exms/iepexamination/release',
         method: 'post',
         data: params,
     })

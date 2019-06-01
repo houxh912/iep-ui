@@ -60,7 +60,7 @@ export default {
     createNewPaper () {
       let testPaper = {
         methodName: '创建试卷',
-        row: false,
+        id: false,
       }
       this.$emit('on-data', testPaper)
     },

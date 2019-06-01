@@ -52,10 +52,20 @@ export default {
     }
   },
   watch: {
-    data: function (newVal, oldVal) {
-      console.log('newVal', newVal)
-      console.log('oldVal', oldVal)
-      // deep: true
+    'data.id': {
+      handler (newName) {
+        console.log('data1', this.data)
+        if (newName === false) {
+          this.$nextTick(() => {
+            this.$refs['form'].resetFields()
+          })
+
+        }
+        //  else {
+        //   this.getTestPaper(this.data.id)
+        // }
+      },
+      immediate: true,
     },
   },
   computed: {
@@ -77,18 +87,8 @@ export default {
       }
     },
   },
-  created () {
-    this.loadData()
-  },
   methods: {
-    /**
-     * 获取数据
-     */
-    loadData () {
-      // if (this.isEdit()) {
-      //   // this.form = this.$mergeByFirst(initForm(), row)
-      // }
-    },
+
     /**
      * 单选框change
      */
@@ -104,18 +104,12 @@ export default {
     handleNext () {
       this.$refs.form.validate(valid => {
         if (valid) {
-          let _form = { ...this.form }
+          let _form = Object.assign(this.data, this.form)
           this.$emit('on-data', _form)
         }
       })
     },
 
-    /**
-     * 清空
-     */
-    reset () {
-      this.$refs['form'].resetFields()
-    },
   },
 }
 </script>
@@ -133,6 +127,7 @@ export default {
 }
 .content-wrapper >>> .el-radio__label {
   font-size: 16px;
+  display: inline;
 }
 </style>
 

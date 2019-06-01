@@ -100,7 +100,7 @@
               <div class="dt_div" v-if="item.configurationState=='0'">
                 <el-form-item label="已选试题:" style="width:100%" label-width="75px">
                   <ol type="1" style="padding-left:20px">
-                    <li v-for="(choice,index) in item.iepItemBankList" :key="index">
+                    <li v-for="(choice,index) in item.questionArray" :key="index">
                       <div class="iep-ellinsis">
                         {{choice.title}}
                       </div>
@@ -144,8 +144,8 @@
       </el-button>
 
     </template>
-    <el-dialog title="试题配置" :visible.sync="questionConfiguration" append-to-body width="700px"
-      @close="questionConfiguration=false">
+    <el-dialog title="试题配置" :visible.sync="questionConfiguration" :close-on-click-modal="false"
+      width="700px" @close="questionConfiguration=false">
       <el-form ref="form" :model="form" label-width="100px" :rules="rules">
         <el-form-item label="科目" prop="field">
           <el-select v-model="form.field" clearable placeholder="请选择科目" @change="fieldChang">
@@ -169,29 +169,30 @@
 
         <el-form-item label="简单题数" prop="simpleNum">
           <el-col :span="17">
-            <iep-input-number controls-position="right" :min="0" :max="totalNum.simpleTotalNum"
+            <iep-input-number controls-position="right" :min="0" :max="totalNum.simpleTotalNum || 0"
               v-model="form.simpleNum" style="width:100%" :disabled="form.configurationState==='0'"></iep-input-number>
           </el-col>
-          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.simpleTotalNum}}</span>
+          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.simpleTotalNum || 0}}</span>
             道</el-col>
 
         </el-form-item>
 
         <el-form-item label="一般题数" prop="middleNum">
           <el-col :span="17">
-            <iep-input-number controls-position="right" :min="0" :max="totalNum.middleTotalNum"
+            <iep-input-number controls-position="right" :min="0" :max="totalNum.middleTotalNum || 0"
               v-model="form.middleNum" style="width:100%" :disabled="form.configurationState==='0'"></iep-input-number>
           </el-col>
-          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.middleTotalNum}}</span>
+          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.middleTotalNum || 0}}</span>
             道</el-col>
         </el-form-item>
 
         <el-form-item label="困难题数" prop="hardNum">
           <el-col :span="17">
-            <iep-input-number controls-position="right" :min="0" :max="totalNum.hardTotalNum"
+            <iep-input-number controls-position="right" :min="0" :max="totalNum.hardTotalNum || 0"
               v-model="form.hardNum" style="width:100%" :disabled="form.configurationState==='0'"></iep-input-number>
           </el-col>
-          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.hardTotalNum}}</span> 道</el-col>
+          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.hardTotalNum || 0}}</span>
+            道</el-col>
         </el-form-item>
 
         <el-form-item label="每题" prop="single">
@@ -235,9 +236,9 @@
         <el-form-item label="题型说明" prop="qstnDescribe" v-if="form.type==3">
           <iep-input-area placeholder="请输入题型说明" :autosize={minRows:2,maxRows:6} v-model="form.qstnDescribe"></iep-input-area>
         </el-form-item>
-        <el-form-item v-if="form.configurationState==='0'" prop="iepItemBankList">
-          <dialog-question-table v-model="form.iepItemBankList" :questionType="form.type" ref="table"
-            @show-number="showNumber"></dialog-question-table>
+        <el-form-item v-if="form.configurationState==='0'" prop="questionArray">
+          <dialog-question-table v-model="form.questionArray" :questionType="form.type" :fieldType="form.field"
+            ref="table" @show-number="showNumber"></dialog-question-table>
         </el-form-item>
       </el-form>
       <template slot="footer">
@@ -250,8 +251,9 @@
 <script>
 import StepsContent from '../StepsContent'
 import DialogQuestionTable from '../DialogQuestionTable'
-import { postPaperAmount } from '@/api/examPaper/examPaperApi'
+import { postPaperAmount, postNewPaper } from '@/api/examPaper/examPaperApi'
 import { getTestOption } from '@/api/exam/createExam/newTest/newTest'
+import { toDtoForm } from '../option'
 function sortKey (array, key) {
   return array.sort(function (a, b) {
     var x = a[key]
@@ -295,12 +297,12 @@ export default {
         multipleSelection: 0,//是否开启多选
         single: '',//单题分数
         total: '',//试题总数
-        iepItemBankList: [],//选择的试题
+        questionArray: [],//固定试题
       },
       totalNum: {
-        simpleTotalNum: 10,//简单总数
-        middleTotalNum: 10,//普通总数
-        hardTotalNum: 10,//困难总数
+        simpleTotalNum: 0,//简单总数
+        middleTotalNum: 0,//普通总数
+        hardTotalNum: 0,//困难总数
       },
       iepQstnRuleList: [],//试题集合
     }
@@ -352,12 +354,10 @@ export default {
     },
   },
   watch: {
-    'data': {
-      handler (newName, oldName) {
-        console.log('newName2', newName)
-        console.log('oldName2', oldName)
-        console.log('oldName2', newName.id)
-        if (newName.id != '') {
+    'data.id': {
+      handler (newName) {
+        console.log('data2', this.data)
+        if (newName != '') {
           this.iepQstnRuleList = this.data.iepQstnRuleList
           this.iepQstnRuleList.forEach((item) => {
             this.choiceType.push(item.type)
@@ -369,7 +369,6 @@ export default {
           this.submitDisabled = false
         }
       },
-      // deep: true,
       immediate: true,
     },
   },
@@ -403,6 +402,8 @@ export default {
           this.$refs['form'].resetFields()
         })
       }
+      console.log('this.form', this.form)
+      this.count()
     },
 
     /**
@@ -411,8 +412,9 @@ export default {
     submitForm () {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          let form = { ...this.form }
+          let form = toDtoForm(this.form)
           form.total = this.totalCount
+          console.log('form', form)
           if (this.iepTestPaperIndex != undefined) {
             this.iepQstnRuleList.splice(this.iepTestPaperIndex, 1, form)
             this.choiceType.splice(this.iepTestPaperIndex, 1, form.type)
@@ -423,18 +425,26 @@ export default {
           this.choiceType.sort()
           this.questionConfiguration = false
           this.submitDisabled = true
+          this.totalNum.simpleTotalNum = ''
+          this.totalNum.middleTotalNum = ''
+          this.totalNum.hardTotalNum = ''
           this.$refs['form'].resetFields()
         }
       })
     },
 
     /**
-     * 科目选择时加载对应难度的总数
+     * 计算题数
      */
-    async fieldChang (value) {
-      if (this.form.type != '') {
-        const { data } = await postPaperAmount({ subject: value, question: this.form.type })
-        console.log('aasd', data)
+    async count () {
+      let _form = this.form
+      if (_form.type != '' && _form.field != '') {
+        const { data } = await postPaperAmount({ subject: _form.field, question: _form.type })
+        if (data.data) {
+          this.totalNum.simpleTotalNum = data.data.simple
+          this.totalNum.middleTotalNum = data.data.middle
+          this.totalNum.hardTotalNum = data.data.hard
+        }
       }
     },
 
@@ -442,19 +452,27 @@ export default {
      * 配置选题改变
      */
     configurationStateChange (val) {
-      let form = this.form
+      let _form = this.form
       if (val === '1') {
-        form.simpleNum = 0
-        form.middleNum = 0
-        form.hardNum = 0
-        form.iepItemBankList = []
+        _form.simpleNum = 0
+        _form.middleNum = 0
+        _form.hardNum = 0
+        _form.questionArray = []
       }
     },
 
     /**
+     * 科目选择时加载对应难度的总数
+     */
+    fieldChang () {
+      this.count()
+    },
+
+
+    /**
      * 题型选择时部分表单内容清空以及加载对应难度的总数
      */
-    async typeChange (value) {
+    typeChange (value) {
       let form = this.form
       if (value == '0' || value == '1') {
         form.scoringMethod = ''
@@ -468,14 +486,11 @@ export default {
         form.scoringMethod = ''
       }
 
-      if (form.field != '') {
-        const { data } = await postPaperAmount({ subject: this.form.field, question: value })
-        console.log('aasd', data)
-      }
-
-      if (form.iepItemBankList.length > 0) {
+      if (form.questionArray.length > 0) {
         this.$refs['table'].handleDelete()
       }
+
+      this.count()
     },
 
     /**
@@ -501,13 +516,13 @@ export default {
             }
           }
         }
-        for (var difficultyName in sortMap) {
-          if (difficultyName === '简单') {
-            this.form.simpleNum = sortMap[difficultyName]
-          } else if (difficultyName === '一般') {
-            this.form.middleNum = sortMap[difficultyName]
+        for (var difficulty in sortMap) {
+          if (difficulty === '9') {
+            this.form.simpleNum = sortMap[difficulty]
+          } else if (difficulty === '8') {
+            this.form.middleNum = sortMap[difficulty]
           } else {
-            this.form.hardNum = sortMap[difficultyName]
+            this.form.hardNum = sortMap[difficulty]
           }
         }
       }
@@ -543,19 +558,19 @@ export default {
      * 配置完成
      */
     async handleSubmit () {
-      let data = this.data
-      data.iepQstnRuleList = this.iepQstnRuleList
-      data.score = this.assessmentPaper.score
-      data.choiceNum = this.assessmentPaper.choiceNum
-      data.difficulty = this.assessmentPaper.difficulty
+      const iepTestPaper = { ...this.data }
+      iepTestPaper.iepQstnRuleList = this.iepQstnRuleList
+      iepTestPaper.score = this.assessmentPaper.score
+      iepTestPaper.choiceNum = this.assessmentPaper.choiceNum
+      iepTestPaper.difficulty = this.assessmentPaper.difficulty
       this.submitLoading = true
       try {
-        // const { data } = await postNewPaper(this.data)
-        // if (data.data) {
-        this.$emit('on-data', data)
-        // } else {
-        //   this.$message(data.msg)
-        // }
+        const { data } = await postNewPaper(iepTestPaper)
+        if (data.data) {
+          this.$emit('on-data', data.data)
+        } else {
+          this.$message(data.msg)
+        }
       } catch (error) {
         this.$message('似乎出现了一些问题')
       }

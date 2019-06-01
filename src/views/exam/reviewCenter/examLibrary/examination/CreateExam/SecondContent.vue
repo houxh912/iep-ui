@@ -53,6 +53,14 @@ export default {
       currentRow: null,
     }
   },
+  watch: {
+    'data.id': {
+      handler () {
+        console.log('data2', this.data)
+      },
+      immediate: true,
+    },
+  },
   created () {
     this.loadPage()
   },
@@ -86,21 +94,23 @@ export default {
      * 上一步
      */
     handlePrev () {
-      this.$emit('prev')
+      this.$emit('prev', this.data)
     },
 
     /**
      * 下一步
      */
-    onData (iepTestPaper) {
-      console.log('iepTestPaper', iepTestPaper)
-      this.$emit('on-data', iepTestPaper)
+    onData (data) {
+      this.$emit('on-data', data)
     },
   },
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.el-radio {
+  margin: 0;
+}
 .content-wrapper {
   width: 100%;
 }

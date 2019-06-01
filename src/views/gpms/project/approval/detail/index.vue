@@ -90,16 +90,13 @@ export default {
     padding: 15px 0;
     .item {
       height: auto;
-      // margin-bottom: 10px;
+      margin-bottom: 5px;
       word-break: break-all;
     }
   }
 }
 .el-tag {
   margin-right: 10px;
-}
-.el-form-item {
-  margin-bottom: 5px;
 }
 
 </style>

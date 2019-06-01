@@ -8,10 +8,6 @@ const dictsMap = {
 
 const columnsMap = [
 	{
-		prop: 'createTime',
-		label: '时间',
-	},
-	{
 		prop: 'amount',
 		label: '金额',
 	},

@@ -18,7 +18,7 @@
       <iep-form-item label-name="还款时间">
         <iep-date-picker v-model="form.repaymentTime" type="date" placeholder="选择日期" disabled></iep-date-picker>
       </iep-form-item>
-      <iep-form-item label-name="借款利息">
+      <iep-form-item label-name="借款利息(日)">
         <iep-div-detail :value="`${form.orgInterest}%`"></iep-div-detail>
       </iep-form-item>
       <iep-form-item label-name="借款金额" prop="borrowAmount">

@@ -31,7 +31,7 @@
   </div>
 </template>
 <script>
-import { getSummaries } from '@/util/table'
+import { getSummariesInBudget } from '@/util/table'
 import { getBudgetQuarterDetail, putBudgetQuarterRelation } from '@/api/fams/budget'
 import DialogForm from './DialogForm'
 import { initForm } from './options'
@@ -65,6 +65,11 @@ export default {
       tableHeight: 'calc(100vh - 260px)',
     }
   },
+  computed: {
+    getSummaries () {
+      return getSummariesInBudget(this.budgetTable)
+    },
+  },
   created () {
     this.loadPage()
   },
@@ -72,7 +77,6 @@ export default {
     getLabel (item) {
       return item.flag ? item.time + '年度' : item.time + '季度'
     },
-    getSummaries,
     getValue (item, scope, tName) {
       return this.budgetMap[item.id].relation[scope.$index][tName]
     },

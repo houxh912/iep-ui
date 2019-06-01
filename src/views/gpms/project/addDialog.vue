@@ -349,7 +349,7 @@ export default {
     },
   },
   created () {
-    console.log('userinfo: ', this.userInfo)
+    // console.log('userinfo: ', this.userInfo)
     getCustomerPage({ type: 1 }).then(({ data }) => {
       this.clientList = data.data.records
     })

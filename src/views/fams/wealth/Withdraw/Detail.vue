@@ -104,8 +104,9 @@ export default {
       this.next()
       this.steps[this.current].data = form
     },
-    handleSecond () {
+    handleSecond (form) {
       this.next()
+      this.steps[this.current].data = form
     },
     handleBack () {
       this.$router.history.go(-1)

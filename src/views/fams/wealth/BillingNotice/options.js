@@ -7,6 +7,11 @@ const dictsMap = {
     2: '已确认',
     3: '拒绝',
   },
+  invoicingType: {
+    1: '增值税专用发票',
+    2: '增值税普通发票',
+    3: '其他',
+  },
 }
 
 const columnsMap = [
@@ -56,6 +61,7 @@ const initForm = () => {
 		rate: '',//税率
 		unit: '',//单位
 		amount: '', //开票金额
+		invoicingType: '',//开票种类
 		projectId: '',//关联项目
 		companyId: '', //销售方公司ID
 		remarks: '',//备注
@@ -98,6 +104,9 @@ const rules = {
   ],
   amount: [
 	  { required: true, message: '请输入金额', trigger: 'blur', type:'number', min:1 },
+  ],
+  invoicingType: [
+	  { required: true, message: '请选择开票种类', trigger: 'blur' },
   ],
   projectId: [
 	  { required: true, message: '请输入关联项目', trigger: 'blur' },

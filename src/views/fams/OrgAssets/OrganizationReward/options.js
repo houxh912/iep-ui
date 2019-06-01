@@ -1,5 +1,5 @@
 // org config options
-import { checkContactUser } from '@/util/rules'
+// import { checkContactUser } from '@/util/rules'
 const dictsMap = {
   isReward: {
     1: '打赏',
@@ -36,17 +36,14 @@ const initForm = () => {
     amount: 0, // 打赏金额
     message: '', // 打赏备注
     type: '', // 打赏类型
-    isReward: '', // 打赏/扣减
-    targetUser: {
-      id: '',
-      name: '',
-    }, // 打赏对象
+    isReward: '1', // 打赏/扣减
+    targetUsers: [], // 打赏对象
   }
 }
 
 const dtoForm = (row) => {
   const newForm = {...row}
-  newForm.targetUserId = newForm.targetUser.id
+  newForm.targetUserIds = newForm.targetUsers.map(m => m.id)
   return newForm
 }
 
@@ -60,8 +57,8 @@ const rules = {
   type: [
     { required: true, message: '请选择打赏类型', trigger: 'blur' },
   ],
-  targetUser: [
-    { required: true, message: '请选择打赏对象', validator: checkContactUser('对象'), trigger: 'blur' },
+  targetUsers: [
+    { type: 'array', required: true, message: '请选择打赏对象', trigger: 'blur' },
   ],
 }
 

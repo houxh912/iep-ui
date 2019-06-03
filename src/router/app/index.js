@@ -91,7 +91,7 @@ export default [
         meta: noAuth,
       },
       {
-        path: 'apply_investment',
+        path: 'apply_investment/:id',
         name: '申请投资',
         component: () => import('@/views/app/wealth/ApplyInvestment/'),
         meta: noAuth,

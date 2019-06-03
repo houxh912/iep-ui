@@ -13,7 +13,7 @@ export function getInvestmentPage (query) {
 
 export function getInvestmentById (id) {
   return request({
-    url: `${prefixUrl}/${id}`,
+    url: `${prefixUrl}/detail/${id}`,
     method: 'get',
   })
 }

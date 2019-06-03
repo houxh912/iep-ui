@@ -1,3 +1,55 @@
+## [1.4.10](http://115.233.227.46:8066/root/iep-ui/compare/v1.4.9...v1.4.10) (2019-06-01)
+
+
+### Bug Fixes
+
+* **修复:** 记住是否隐藏 ([a342840](http://115.233.227.46:8066/root/iep-ui/commits/a342840))
+* **项目关联:** 组件修复 ([a9ea9c0](http://115.233.227.46:8066/root/iep-ui/commits/a9ea9c0))
+
+
+### Features
+
+* **合同:** 合同款项功能 ([db92cd4](http://115.233.227.46:8066/root/iep-ui/commits/db92cd4))
+* **周月报:** 时间轴优化 ([396abf2](http://115.233.227.46:8066/root/iep-ui/commits/396abf2))
+* **样式:** 修改 ([f32fbd6](http://115.233.227.46:8066/root/iep-ui/commits/f32fbd6))
+* **骨架屏:** 添加骨架屏优化体验 ([f09fba0](http://115.233.227.46:8066/root/iep-ui/commits/f09fba0))
+
+
+
+## [1.4.9](http://115.233.227.46:8066/root/iep-ui/compare/v1.4.8...v1.4.9) (2019-06-01)
+
+
+### Bug Fixes
+
+* **修复:** 表格高度问题与element版本回退 ([8a468ce](http://115.233.227.46:8066/root/iep-ui/commits/8a468ce))
+* **组件与更新:** 通讯录组件添加删除单人功能与一些细节更新 ([7f3bd79](http://115.233.227.46:8066/root/iep-ui/commits/7f3bd79))
+* **财务:** 修复一些关联的问题 ([64cd00d](http://115.233.227.46:8066/root/iep-ui/commits/64cd00d))
+* **财务:** 修复一些字段显示问题 ([08574ed](http://115.233.227.46:8066/root/iep-ui/commits/08574ed))
+* **财务:** 扣减添加 ([74580e6](http://115.233.227.46:8066/root/iep-ui/commits/74580e6))
+* **财务:** 组织调拨关联修复 ([8db9d06](http://115.233.227.46:8066/root/iep-ui/commits/8db9d06))
+* **财务:** 统计与菜单转移 ([7b026f1](http://115.233.227.46:8066/root/iep-ui/commits/7b026f1))
+
+
+### Features
+
+* **合同:** 承接部门 ([d43223b](http://115.233.227.46:8066/root/iep-ui/commits/d43223b))
+* **客户导入:** 导入权限添加 ([1829784](http://115.233.227.46:8066/root/iep-ui/commits/1829784))
+* **客户统计:** 业务类型搜索取消 ([eedbeaf](http://115.233.227.46:8066/root/iep-ui/commits/eedbeaf))
+* **客户统计|全部客户:** 客户金额NAN和出单金额NAN修改 ([c4a5b1f](http://115.233.227.46:8066/root/iep-ui/commits/c4a5b1f))
+* **样式:** 修改 ([6237c05](http://115.233.227.46:8066/root/iep-ui/commits/6237c05))
+* **样式:** 修改 ([682ae2b](http://115.233.227.46:8066/root/iep-ui/commits/682ae2b))
+* **样式:** 修改 ([81addda](http://115.233.227.46:8066/root/iep-ui/commits/81addda))
+* **项目:** 修改关联字段 ([35750bb](http://115.233.227.46:8066/root/iep-ui/commits/35750bb))
+* **项目:** 关联客户 ([b6aac21](http://115.233.227.46:8066/root/iep-ui/commits/b6aac21))
+* **项目:** 关联项去除 ([a04fd7c](http://115.233.227.46:8066/root/iep-ui/commits/a04fd7c))
+* **项目:** 外部集团选项优化 ([a856c79](http://115.233.227.46:8066/root/iep-ui/commits/a856c79))
+* **项目:** 立项 ([55c437b](http://115.233.227.46:8066/root/iep-ui/commits/55c437b))
+* **项目:** 立项 ([a68e88a](http://115.233.227.46:8066/root/iep-ui/commits/a68e88a))
+* **项目:** 立项 ([1ca4d6d](http://115.233.227.46:8066/root/iep-ui/commits/1ca4d6d))
+* **项目:** 立项阶段 ([204cee8](http://115.233.227.46:8066/root/iep-ui/commits/204cee8))
+
+
+
 ## [1.4.8](http://115.233.227.46:8066/root/iep-ui/compare/v1.4.7...v1.4.8) (2019-05-30)
 
 

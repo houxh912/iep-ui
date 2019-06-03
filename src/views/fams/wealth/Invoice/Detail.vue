@@ -29,7 +29,7 @@
           <iep-select-detail :value="form.companyId" prefix-url="fams/company"></iep-select-detail>
         </iep-form-item>
         <iep-form-item class="form-half" label-name="项目">
-          <el-input v-model="form.projectId" disabled></el-input>
+          <iep-div-detail :value="form.projectName"></iep-div-detail>
         </iep-form-item>
         <iep-form-item class="form-half" label-name="审批人">
           <iep-contact-select disabled v-model="form.auditor"></iep-contact-select>
@@ -39,20 +39,8 @@
   </div>
 </template>
 <script>
-import { dictsMap } from './options'
+import { dictsMap, initForm } from './options'
 import { getInvoiceById } from '@/api/fams/invoice'
-function initForm () {
-  return {
-    referType: '',
-    companyId: '',
-    projectId: '',
-    auditor: {
-      id: 0,
-      name: '',
-    },
-    relations: [],
-  }
-}
 export default {
   data () {
     return {

@@ -8,6 +8,7 @@ import app from './modules/app'
 import tags from './modules/tags'
 import fams from './modules/fams'
 import notify from './modules/notify'
+import im from './modules/im'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -21,6 +22,7 @@ const store = new Vuex.Store({
     tags,
     fams,
     notify,
+    im,
   },
   getters,
 })

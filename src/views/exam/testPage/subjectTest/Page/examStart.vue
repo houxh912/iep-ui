@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <img src="../img/IG.png">
+      <!-- <img src="../img/IG.png"> -->
       <span class="title-one"><b>在线考试系统</b></span>
       <span class="line"></span>
       <span class="title-two">{{resdata.fieldName}}</span>
@@ -78,28 +78,28 @@
             <div v-if="resdata.radioMap.length > 0">
               <span class="answerSheet">单选题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :class="{active: item.id == resdata.questionNum}" >{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div v-if="resdata.checkboxMap.length > 0">
               <span class="answerSheet">复选题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :style="statusColor(item)">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div v-if="resdata.checkedMap.length > 0">
               <span class="answerSheet">判断题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :style="statusColor(item)">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div v-if="resdata.textMap.length > 0">
               <span class="answerSheet">简答题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="(item)" :style="statusColor(item)">{{item.id}}</iep-button>
               </div><br>
             </div>
 
@@ -147,7 +147,7 @@ export default {
         rows: '',
       },
       statusColor: function (val) {
-        if (val === 1) {
+        if (val.answerOrNot === 1) {
           return 'background:#409eff;borderColor:#409eff;color:#fff'
         } else {
           return 'background:#fff;color:#409eff'
@@ -501,10 +501,11 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  background: -webkit-linear-gradient(left, rgb(64, 156, 252), rgb(100, 6, 10));
-  background: -moz-linear-gradient(right, rgb(64, 156, 252), rgb(100, 6, 10));
-  background: -o-linear-gradient(right, rgb(64, 156, 252), rgb(100, 6, 10));
-  background: linear-gradient(to right, rgb(64, 156, 252), rgb(100, 6, 10));
+  background-color: rgb(236, 236, 236);
+  // background: -webkit-linear-gradient(left, #012f52, #35495e);
+  // background: -moz-linear-gradient(right, #012f52, #35495e);
+  // background: -o-linear-gradient(right, #012f52, #35495e);
+  // background: linear-gradient(to right, #012f52, #35495e);
   padding: 15px 20px;
   width: 100%;
   height: 60px;
@@ -515,19 +516,19 @@ export default {
   .title-one {
     font-size: 19px;
     float: left;
-    color: #fff;
+    color: #595959;
   }
   .line {
     height: 20px;
     width: 2px;
-    background: #fff;
+    background: #595959;
     margin: 6px 15px 0 15px;
     float: left;
   }
   .title-two {
     font-size: 17px;
     float: left;
-    color: #fff;
+    color: #595959;
     margin-top: 3px;
   }
 }
@@ -590,35 +591,41 @@ export default {
       .card {
         text-align: left;
         padding: 0 18px;
+        .active {
+          background: #fff849;
+          border-color: #fff849;
+          color: #fff;
+        }
       }
     }
   }
 }
-
 .headerTxt {
   padding: 0 20px;
 }
 </style>
-<style>
-.el-radio__label {
-  display: none;
-}
-.el-radio {
-  margin: 0 10px 0 28px !important;
-}
-.answerSheet {
-  font-size: 18px;
-  color: white;
-}
-.answerSheetTop {
-  border-top: solid 1px #eee;
-  padding-top: 6px;
-}
-.choices + .choices {
-  margin: 1px;
-}
-.choices {
-  width: 41.6px;
-  margin-right: 1px;
+<style lang="scss">
+.examShow {
+  .el-radio__label {
+    display: none;
+  }
+  .el-radio {
+    margin: 0 10px 0 28px !important;
+  }
+  .answerSheet {
+    font-size: 18px;
+    color: white;
+  }
+  .answerSheetTop {
+    border-top: solid 1px #eee;
+    padding-top: 6px;
+  }
+  .choices + .choices {
+    margin: 1px;
+  }
+  .choices {
+    width: 41.6px;
+    margin-right: 1px;
+  }
 }
 </style>

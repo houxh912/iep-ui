@@ -1,20 +1,20 @@
 <template>
   <div>
     <div class="header">
-      <img src="./IG.png" style="margin-top: -2px;float: left;">
-      <span style="font-size:19px;float: left;color: #fff;"><b>在线考试系统</b></span>
-      <span style="height: 20px;width:2px;background: #fff;margin: 6px 15px 0 15px;float: left;"></span>
-      <span style="font-size:17px;float:left;color: #fff;margin-top:3px;">内网考试</span>
-      <span style="font-size:15px;float:left;color: #fff;margin-top:3px;margin-left:150px">
-        评分进度<span style="color: rgb(65, 153, 248);margin-left:15px">5</span> / 23</span>
+      <img src="./IG.png">
+      <span class="title1"><b>在线考试系统</b></span>
+      <span class="title2"></span>
+      <span class="title3">内网考试</span>
+      <span class="title4">
+        评分进度<span class="title5">5</span> / 23</span>
     </div>
 
     <div class="examShow" style="background-color:#fff">
-      <div style="float: left; width: 70%;">
+      <div class="left">
         <span style="font-size: 20px;"><b>填空题</b></span>
-        <span style="font-size: 15px;margin-left: 25px;">共 5 题，合计 5 分，已完成 {{count}} / {{resdata.questionTotalNum}}</span>
+        <span class="title1">共 5 题，合计 5 分，已完成 {{count}} / {{resdata.questionTotalNum}}</span>
         <hr>
-        <div style="margin-top: 15px;font-size: 15px;">
+        <div class="container">
           <div style="margin-bottom: 10px;">
             <span>1、 </span>
             <span>公司共有战略决策委员会、__人力与技术委员会____、市场与营销委员会、_______________、项目执行与质量委员会五大委员会。</span>
@@ -22,30 +22,30 @@
           </div>
 
           <!-- <div>
-            <li v-for="(item,index) in fillAreaList" :key="index" style="list-style-type:none;margin-left:28px;">
-              <el-input type="textarea" v-model="fillInput" style="width: 70%;margin-top:10px" :rows="3"></el-input>
+            <li v-for="(item,index) in fillAreaList" :key="index" style="margin-left:28px;">
+              <el-input type="textarea" v-model="fillInput" style="width: 70%;margin-top:10px" :rows="2"></el-input>
               <el-input v-model="freeInput" class="give-mark"></el-input>
               <span style="margin-left:10px;">分</span>
             </li>
           </div> -->
 
-          <!-- <div>
-            <li v-for="(item,index) in inputAreaList" :key="index" style="list-style-type:none;margin-left:28px;">
-              <el-input type="textarea" v-model="freeInput" style="width: 75%;margin-top:10px" :rows="6"></el-input>
-              <el-input v-model="freeInput" class="give-mark-two"></el-input>
-              <span style="margin-left:-20px;">分</span>
-            </li>
-          </div> -->
-
           <div>
-            <li v-for="(item,index) in operationList" :key="index" style="list-style-type:none;margin-left:28px;">
-              <iep-froala-editor v-model="operation"></iep-froala-editor>
-              <el-input v-model="freeInput" class="give-mark-three"></el-input>
-              <span style="margin-left:-27px;">分</span>
+            <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
+              <el-input type="textarea" v-model="freeInput" style="width: 80%;margin-top:10px" :rows="6"></el-input>
+              <el-input v-model="freeInput" class="give-mark-two"></el-input>
+              <span style="margin-left:-30px;">分</span>
             </li>
           </div>
 
-          <div align="center" style="width:100%;margin:50px 0 50px 0;">
+          <!-- <div>
+            <li v-for="(item,index) in operationList" :key="index" style="margin-left:28px;display:flex">
+              <iep-froala-editor v-model="operation" style="width:80%"></iep-froala-editor>
+              <el-input v-model="freeInput" class="give-mark-three"></el-input>
+              <span style="margin-left:15px;margin-top:175px">分</span>
+            </li>
+          </div> -->
+
+          <div class="center" align="center">
             <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.questionNum === 1">上一题</iep-button>
             <iep-button style="margin:0 10px;" @click="next" :disabled="resdata.questionNum === resdata.questionTotalNum">下一题</iep-button>
             <iep-button style="margin:0 10px;" @click="saveAndGoBack">保存并退出</iep-button>
@@ -53,36 +53,38 @@
         </div>
       </div>
 
-      <div style="float:right;width: 28%;border-left: 1px solid #eee;padding-bottom: 75px;">
-        <div style="float:right;width: 250px;background: linear-gradient(to bottom right, rgb(55, 15, 68) , rgb(107, 174, 246));">
-          <div style="text-align: center;position: relative;top: 65px;">
-            <span style="color: white;font-size: 30px;">本题得分</span><br>
-            <span style="color: rgb(65, 153, 248);font-size: 40px;">8</span>
-            <span style="color: white;font-size: 20px;"> / </span>
-            <span style="color: white;font-size: 20px;">12</span>
+      <div class="right">
+        <div class="container">
+          <div class="top">
+            <span class="titleone">本题得分</span><br>
+            <span class="titletwoss">
+              <el-input class="fen" v-model="freeInput"></el-input>
+            </span>
+            <span class="titlethree"> / </span>
+            <span class="titlefour">12</span>
           </div>
 
           <ve-ring style="padding-top: 15px;margin-top: -75px;" height="200px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
 
-          <div style="text-align: left;padding: 0 18px;">
+          <div class="bottom">
             <div>
               <span class="answerSheet">填空题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleTypeOne(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div>
               <span class="answerSheet">简答题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleTypeTwo(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div>
               <span class="answerSheet">实操题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleTypeThree(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
               </div><br>
             </div>
           </div>
@@ -92,7 +94,6 @@
 
   </div>
 </template>
-
 <script>
 import { getTestPageById } from '@/api/exam/testPage/subjectTest/examStart'
 import mixins from '@/mixins/mixins'
@@ -153,7 +154,7 @@ export default {
   },
   created () {
     this.loadPage()
-    console.log('formData', this.formData.id)
+    // console.log('33', this.formData.id)
   },
   methods: {
     /**
@@ -214,6 +215,7 @@ export default {
         currentQuestionNum: this.resdata.questionNum,
         questionNum: this.resdata.questionNum,
       }
+      console.log('2e', params)
       this.getSubjectById(params)
     },
 
@@ -271,44 +273,15 @@ export default {
     },
 
     /**
-     * 点击填空题答题卡
+     * 点击答题卡
      */
-    handleTypeOne (item) {
+    handleCard (item) {
       const params = {
-        examId: this.formData.id,
-        currentQuestionNum: this.resdata.questionNum,
         questionNum: item.id,
-        userAnswer: this.answerRadio,
       }
+      this.judgeType(params)
       this.getSubjectById(params)
     },
-
-    /**
-     * 点击简答题答题卡
-     */
-    handleTypeTwo (item) {
-      const params = {
-        examId: this.formData.id,
-        currentQuestionNum: this.resdata.questionNum,
-        questionNum: item.id,
-        userAnswer: JSON.stringify(this.checksList),
-      }
-      this.getSubjectById(params)
-    },
-
-    /**
-     * 点击实操题答题卡
-     */
-    handleTypeThree (item) {
-      const params = {
-        examId: this.formData.id,
-        currentQuestionNum: this.resdata.questionNum,
-        questionNum: item.id,
-        userAnswer: this.trueOrFalseRadio,
-      }
-      this.getSubjectById(params)
-    },
-
 
     /**
      * 保存并退出
@@ -342,11 +315,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.examShow {
-  margin: 20px auto;
-  width: 89%;
-  overflow: hidden;
-}
 .header {
   background: -webkit-linear-gradient(left, rgb(64, 156, 252), rgb(100, 6, 10));
   background: -moz-linear-gradient(right, rgb(64, 156, 252), rgb(100, 6, 10));
@@ -355,68 +323,181 @@ export default {
   padding: 15px 20px;
   width: 100%;
   height: 60px;
+  img {
+    margin-top: -2px;
+    float: left;
+  }
+  .title1 {
+    font-size: 19px;
+    float: left;
+    color: #fff;
+  }
+  .title2 {
+    height: 20px;
+    width: 2px;
+    background: #fff;
+    margin: 6px 15px 0 15px;
+    float: left;
+  }
+  .title3 {
+    font-size: 17px;
+    float: left;
+    color: #fff;
+    margin-top: 3px;
+  }
+  .title4 {
+    font-size: 15px;
+    float: left;
+    color: #fff;
+    margin-top: 3px;
+    margin-left: 150px;
+    .title5 {
+      color: rgb(65, 153, 248);
+      margin-left: 15px;
+    }
+  }
+}
+.examShow {
+  margin: 20px auto;
+  width: 89%;
+  overflow: hidden;
+  .left {
+    float: left;
+    width: 70%;
+    .title1 {
+      font-size: 15px;
+      margin-left: 25px;
+    }
+    .container {
+      margin-top: 15px;
+      font-size: 15px;
+      li {
+        list-style-type: none;
+      }
+      .center {
+        width: 100%;
+        margin: 50px 0 0 0;
+      }
+    }
+  }
+  .right {
+    float: right;
+    width: 28%;
+    border-left: 1px solid #eee;
+    padding-bottom: 75px;
+    .container {
+      float: right;
+      width: 250px;
+      background: linear-gradient(
+        to bottom right,
+        rgb(55, 15, 68),
+        rgb(107, 174, 246)
+      );
+      .top {
+        text-align: center;
+        position: relative;
+        top: 65px;
+        .titleone {
+          color: white;
+          font-size: 30px;
+        }
+        .titletwoss {
+          color: rgb(65, 153, 248);
+          font-size: 40px;
+          .fen {
+            width: 22%;
+            font-size: 40px;
+          }
+        }
+        .titlethree {
+          color: white;
+          font-size: 20px;
+          margin-left: -2px;
+        }
+        .titlefour {
+          color: white;
+          font-size: 20px;
+        }
+      }
+      .bottom {
+        text-align: left;
+        padding: 0 18px;
+      }
+    }
+  }
 }
 .headerTxt {
   padding: 0 20px;
 }
 </style>
 <style lang="scss">
-.el-radio__label {
-  display: none;
-}
-.el-radio {
-  margin: 0 10px 0 28px !important;
-}
-.answerSheet {
-  font-size: 18px;
-  color: white;
-}
-.answerSheetTop {
-  border-top: solid 1px #eee;
-  padding-top: 6px;
-}
-.choices + .choices {
-  margin: 1px;
-}
-.choices {
-  width: 41.6px;
-  margin-right: 1px;
-}
-.give-mark {
-  width: 10%;
-  height: 71px;
-  margin-left: 100px;
-  .el-input__inner {
-    height: 71px;
-    color: #ff6666;
-    font-size: 20px;
-    text-align: center;
+.examShow {
+  .give-mark {
+    width: 7%;
+    height: 50px;
+    //margin-top: 20px;
+    margin-left: 100px;
+    .el-input__inner {
+      height: 50px;
+      color: #ff6666;
+      font-size: 20px;
+      text-align: center;
+    }
   }
-}
-.give-mark-two {
-  width: 15%;
-  height: 74px;
-  margin-left: 50px;
-  .el-input__inner {
-    width: 80px;
-    height: 74px;
-    margin-top: -25px;
-    color: #ff6666;
-    font-size: 20px;
-    text-align: center;
+  .give-mark-two {
+    width: 13%;
+    height: 50px;
+    margin-left: 50px;
+    .el-input__inner {
+      width: 60px;
+      height: 50px;
+      margin-top: -40px;
+      color: #ff6666;
+      font-size: 20px;
+      text-align: center;
+    }
   }
-}
-.give-mark-three {
-  width: 15%;
-  height: 74px;
-  margin-left: 350px;
-  margin-top: 25px;
-  .el-input__inner {
-    width: 80px;
+  .give-mark-three {
+    width: 10%;
     height: 74px;
-    color: #ff6666;
-    font-size: 20px;
-    text-align: center;
+    margin-left: 30px;
+    margin-top: 150px;
+    .el-input__inner {
+      width: 80px;
+      height: 74px;
+      color: #ff6666;
+      font-size: 20px;
+      text-align: center;
+    }
+  }
+  .titletwoss {
+    .el-input__inner {
+      width: 139%;
+      color: rgb(65, 153, 248);
+      border: 0px solid #494884;
+      background: none;
+    }
+  }
+  .el-radio__label {
+    display: none;
+  }
+  .el-radio {
+    margin: 0 10px 0 28px !important;
+  }
+  .answerSheet {
+    font-size: 18px;
+    color: white;
+  }
+  .answerSheetTop {
+    border-top: solid 1px #eee;
+    padding-top: 6px;
+  }
+  .choices + .choices {
+    margin: 1px;
+  }
+  .choices {
+    width: 41.6px;
+    margin-right: 1px;
   }
 }
 </style>

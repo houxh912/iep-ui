@@ -3,18 +3,23 @@
     <div v-for="(item,index) in dataList" :key="index" class="piece">
       <a-skeleton :loading="loading" active />
       <template v-if="!loading">
-        <div style="cursor: pointer;" @click="handleOpen(item)">
-          <div class="title">
-            <h4 class="name">{{item.name}}</h4>
-            <i class="iconfont icon-caifu" v-if="item.downloadCost !== '0'"></i>
-            <i class="iconfont icon-fujian" v-if="item.attachFile !== ''"></i>
+        <div>
+          <div @click="handleOpen(item)" style="cursor: pointer;">
+            <div class="title">
+              <h4 class="name">{{item.name}}</h4>
+              <i class="iconfont icon-caifu" v-if="item.downloadCost !== '0'"></i>
+              <i class="iconfont icon-fujian" v-if="item.attachFile !== ''"></i>
+            </div>
+            <p>{{item.intro}}</p>
           </div>
-          <p>{{item.intro}}</p>
           <div class="box">
             <span class="uploaded">上传者：{{item.creatorRealName}}</span>
             <span><i class="iconfont icon-shijian"></i>{{item.createTime}}</span>
             <span><i class="iconfont icon-yanjing"></i>{{item.views}}人浏览</span>
             <span><i class="iconfont icon-download1"></i>{{item.downloadTimes}}人下载</span>
+            <span style="cursor: pointer;" v-if="item.collection == 0" @click="handleCollect(item)"><i class="icon-heart"></i>收藏</span>
+            <span style="cursor: pointer;" v-else><i class="icon-aixin"></i>已收藏</span>
+            <span style="cursor: pointer;" @click="handleShare(item)"><i class="icon-share"></i>分享</span>
           </div>
         </div>
         <div v-for="(item,index) in item.tagKeyWords" :key="index" class="label">
@@ -25,10 +30,16 @@
     <div style="text-align: center;margin: 20px 0;">
       <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
     </div>
+    <collectionDialog ref="collection" type="material" :requestFn="createCollect" @load-page="loadPage"></collectionDialog>
+    <share-dialog ref="share" type="material"></share-dialog>
   </div>
 </template>
 <script>
 import { getMaterialLPage } from '@/api/app/mlms/index'
+import collectionDialog from '@/views/mlms/material/components/collectionDialog'
+import ShareDialog from '@/views/mlms/material/components/shareDialog'
+import { createCollect } from '@/api/mlms/material/summary'
+
 function initDataItem () {
   return {
     tagKeyWords: [],
@@ -43,6 +54,10 @@ function initDataItem () {
   }
 }
 export default {
+  components: {
+    collectionDialog,
+    ShareDialog,
+  },
   data () {
     const dataList = []
     for (let i = 0; i < 10; i++) {
@@ -58,6 +73,7 @@ export default {
         current: 1,
         size: 10,
       },
+      createCollect,
     }
   },
   methods: {
@@ -82,6 +98,14 @@ export default {
     currentChange (val) {
       this.params.current = val
       this.loadPage()
+    },
+    handleCollect (row) {
+      row.title = row.name
+      this.$refs['collection'].dialogShow = true
+      this.$refs['collection'].loadCollectList([row])
+    },
+    handleShare (row) {
+      this.$refs['share'].open([row], `关于 ${row.name} 材料的分享`)
     },
   },
   created () {

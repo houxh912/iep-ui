@@ -1,5 +1,5 @@
 <template>
-  <div class="im-box" :style="getPosition()">
+  <div ref="imbox" class="im-box-large" :style="getPosition">
     <div class="drag" @mousedown="mousedown"></div>
     <div class="im-main">
       <div class="im-info">
@@ -9,11 +9,11 @@
         <li :class="tableChosen === 'book' ? 'chosen' : ''" @click="tableChosen = 'book'">通讯录</li>
         <li :class="tableChosen === 'chat' ? 'chosen' : ''" @click="tableChosen = 'chat'">聊天</li>
       </ul>
-      <!--<user-tree :userList="userList"></user-tree>-->
       <div class="im-tabel-content-large-im">
           <el-tree
+                  v-show="tableChosen === 'book'"
                   @node-click="toChat"
-                  :data="userList"
+                  :data="$store.getters.imUserList"
                   node-key="id"
                   :expand-on-click-node="false">
             <span v-if="data.leaf" class="im-tabel-content-large-im-item" slot-scope="{ node, data }">
@@ -24,56 +24,83 @@
             </span>
             <span v-else>{{ data.label }}</span>
         </el-tree>
+        <ul v-show="tableChosen === 'chat'" class="im-chat-list">
+          <li class="im-friend" v-for="user in $store.getters.imChatList" @click="toChatUser(user)" :key="user.id">
+            <img class="im-friend-head" :src="user.avatar ? user.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
+            <span>{{user.realName}}</span>
+            <el-badge class="unread-point"
+                      v-show="$store.getters.imUnread(user.username)"
+                      :max="99"
+                      :value="$store.getters.imUnread(user.username)"></el-badge>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { getUserListTree } from '@/api/admin/contacts'
-//import userTree from '../userTree/index.vue'
 export default {
   name: 'im-ui-large',
-  components: {
-//    userTree,
-  },
   data () {
     return {
-      moveHorizontal: 0,
-      moveVertical: 0,
       tableChosen: 'book',
-      userList: [],
+      clientWidth: document.body.clientWidth,
+      clientHeight: document.body.clientHeight,
+      mousePosition: {
+        x: 0,
+        y: 0,
+      },
+      position: {
+        x: 0,
+        y: 0,
+      },
+      boxWidth: 0,
+      boxHeight: 0,
     }
   },
-  created () {
-    this.getUserList()
+  mounted () {
+    window.onresize = () => {
+      this.clientWidth = document.body.clientWidth
+      this.clientHeight = document.body.clientHeight
+      this.position = {
+        x: 0,
+        y: 0,
+      }
+    }
+    this.boxWidth = this.$refs.imbox.offsetWidth
+    this.boxHeight = this.$refs.imbox.offsetWidth
   },
   methods: {
-    showSmall () {
-      this.$emit('showSmall')
-    },
-    getUserList () {
-      getUserListTree().then(({data}) => {
-        this.userList = data.data
-      })
-    },
-    getPosition () {
-      return {
-        right: this.moveHorizontal + 'px',
-        bottom: this.moveVertical + 'px',
+    positionChange (translate) {
+      if (this.position.x + translate.x < 0 && this.position.x + translate.x > this.boxWidth - this.clientWidth) {
+        this.position.x = this.position.x + translate.x
+      }
+      if (this.position.y + translate.y < 0 && this.position.y + translate.y > this.boxHeight - this.clientHeight) {
+        this.position.y = this.position.y + translate.y
       }
     },
     mousedown () {
       document.body.style['user-select'] = 'none'
       document.addEventListener('mousemove', this.mousemove)
       document.addEventListener('mouseup', this.mouseup)
+      this.mousePosition.x = event.clientX
+      this.mousePosition.y = event.clientY
     },
     mousemove (event) {
-      console.log(document.body.clientWidth - event.clientX)
+      this.positionChange({
+        x: event.clientX - this.mousePosition.x,
+        y: event.clientY - this.mousePosition.y,
+      })
+      this.mousePosition.x = event.clientX
+      this.mousePosition.y = event.clientY
     },
     mouseup () {
       document.removeEventListener('mousemove', this.mousemove)
       document.removeEventListener('mouseup', this.mouseup)
+    },
+    showSmall () {
+      this.$emit('showSmall')
     },
     toChat (data) {
       if (data.leaf) {
@@ -83,16 +110,36 @@ export default {
           avatar: data.avatar,
           userId: data.value,
         }
+        console.log(chat)
         this.$emit('toChat', chat)
       }
-
+    },
+    toChatUser (user) {
+      console.log(user)
+      this.$emit('toChat', user)
+    },
+  },
+  computed: {
+    getPosition () {
+      return {
+        transform: `translate(${this.position.x}px, ${this.position.y}px)`,
+      }
     },
   },
 }
 </script>
 
-<style lang="scss">
-.im-box {
+<style scoped>
+  .im-tabel-content-large-im >>> .el-tree-node__content {
+    height: auto;
+  }
+   .im-tabel-content-large-im >>> .is-leaf.el-tree-node__expand-icon.el-icon-caret-right {
+    display: none;
+  }
+</style>
+
+<style lang="scss" scoped>
+.im-box-large {
   position: fixed;
   right: 0;
   bottom: 0;
@@ -128,7 +175,7 @@ export default {
           bottom: -2px;
           left: 0;
           right: 0;
-          border-bottom: 2px solid #5DDC96;
+          border-bottom: 2px solid #BA1B21;
           cursor: pointer;
           opacity: 1;
         }
@@ -160,11 +207,52 @@ export default {
     &:hover {
       width: 260px;
     }
-    .el-tree-node__content {
-      height: auto;
-    }
-    .is-leaf.el-tree-node__expand-icon.el-icon-caret-right {
-      display: none;
+  }
+  .im-chat-list {
+    padding: 0;
+    .im-friend {
+      box-sizing: border-box;
+      height: 52px;
+      max-width: 260px;
+      padding: 5px 15px 5px 60px;
+      cursor: pointer;
+      position: relative;
+      &:hover {
+        background: #F5F7FA;
+      }
+      .im-friend-head {
+        position: absolute;
+        left: 15px;
+        top: 8px;
+        height: 36px;
+        width: 36px;
+        border-radius: 18px;
+      }
+      .unread-point {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+      span {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 4px;
+        max-width: 185px;
+        line-height: 19px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 14px;
+      }
+      p {
+        line-height: 18px;
+        max-width: 185px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #DFDFDF;
+        font-size: 12px;
+      }
     }
   }
   .im-tabel-content-large-im .im-tabel-content-large-im-item {

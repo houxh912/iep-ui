@@ -77,7 +77,7 @@
   </div>
 </template>
 <script>
-import { postInvestment } from '@/api/fams/investment'
+import { postInvestment, putInvestment } from '@/api/fams/investment'
 import { initForm, rules } from './options'
 export default {
   data () {
@@ -96,12 +96,20 @@ export default {
     methodName () {
       return this.id ? '新增' : '编辑'
     },
+    requestFunc () {
+      if (this.id) {
+        return putInvestment
+      } else {
+        return postInvestment
+      }
+    },
   },
   methods: {
     handleSubmit () {
-      postInvestment(this.form).then(({ data }) => {
+      this.requestFunc(this.form).then(({ data }) => {
         if (data.data) {
-          this.$router.history.go(-1)
+          this.$message.success('操作成功')
+          this.onGoBack()
         } else {
           this.$message(data.msg)
         }

@@ -18,16 +18,31 @@ export default {
   },
   computed: {
     ...mapState({
-      dialogShow: state => state.hrms.invoiceDialogShow,
+      dialogShow: state => state.fams.invoiceDialogShow,
     }),
   },
   methods: {
     ...mapMutations({
       setInvoiceDialogShow: 'SET_INVOICE_DIALOG_SHOW',
     }),
+    handleChange (value) {
+      this.$router.push({
+        path: '/fams_spa/invoice_edit/0',
+        query: {
+          referType: value,
+        },
+      })
+      this.setInvoiceDialogShow(false)
+    },
     close () {
       this.setInvoiceDialogShow(false)
     },
   },
 }
 </script>
+<style lang="scss" scoped>
+.tag-item {
+  margin-right: 8px;
+}
+</style>
+

@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}报销`" :back-option="backOption">
+      <page-header :title="`${methodName}报销-${dictsMap.referType[this.form.referType]}`" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">存为草稿</iep-button>
         <iep-button type="primary" @click="handleSubmit(true)">发布</iep-button>
       </page-header>
@@ -35,7 +35,7 @@
       <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="140px" size="small">
 
         <iep-form-item class="form-half" prop="referType" label-name="报销类型">
-          <el-select size="small" v-model="form.referType" placeholder="请选择" clearable>
+          <el-select size="small" v-model="form.referType" placeholder="请选择报销类型" clearable disabled>
             <el-option v-for="(v,k) in dictsMap.referType" :key="k" :label="v" :value="+k">
             </el-option>
           </el-select>
@@ -58,9 +58,9 @@
   </div>
 </template>
 <script>
-import { getInvoiceById } from '@/api/fams/invoice'
+import { getInvoiceById, putInvoice, postInvoice } from '@/api/fams/invoice'
 import formMixins from '@/mixins/formMixins'
-import { dictsMap, rules, initTableForm, initForm } from '../options'
+import { dictsMap, rules, initTableForm, initForm } from './options'
 export default {
   mixins: [formMixins],
   props: ['record'],
@@ -70,23 +70,33 @@ export default {
       tableData: [],
       form: initForm(),
       rules,
-      methodName: this.record.methodName || '新增',
-      formRequestFn: this.record.formRequestFn || (() => { }),
       backOption: {
         isBack: true,
-        backPath: null,
-        backFunction: this.handleGoBack,
       },
     }
   },
   computed: {
+    id () {
+      return +this.$route.params.id
+    },
+    referType () {
+      return +this.$route.query.referType
+    },
+    methodName () {
+      return this.id ? '编辑' : '新增'
+    },
+    formRequestFn () {
+      return this.id ? putInvoice : postInvoice
+    },
     projectOption () {
       return this.form.referType === 1
     },
   },
   created () {
-    if (this.record.id) {
+    if (this.id) {
       this.loadPage()
+    } else {
+      this.form.referType = this.referType
     }
   },
   methods: {
@@ -102,7 +112,7 @@ export default {
         this.formRequestFn(this.form, isPublish).then(({ data }) => {
           if (data.data) {
             this.$message.success('操作成功')
-            this.handleGoBack()
+            this.$router.go(-1)
           } else {
             this.$message(data.msg)
           }
@@ -119,7 +129,7 @@ export default {
       }
     },
     loadPage () {
-      getInvoiceById(this.record.id).then(({ data }) => {
+      getInvoiceById(this.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
         this.tableData = this.form.relations
       })
@@ -129,9 +139,6 @@ export default {
     },
     newMember () {
       this.tableData.push(initTableForm())
-    },
-    handleGoBack () {
-      this.$emit('onGoBack')
     },
   },
 }

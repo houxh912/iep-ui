@@ -28,7 +28,7 @@ function initTableForm () {
 function initForm () {
   return {
     id: '',
-    referType: '',
+    referType: 1,
     companyId: '',
     projectId: '',
     auditor: {

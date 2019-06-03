@@ -7,7 +7,7 @@
           <iep-button type="danger" icon="el-icon-plus" plain @click="handleAdd">
             新增
           </iep-button>
-          <iep-button plain>
+          <iep-button @click="handleDelete()" plain>
             删除
           </iep-button>
         </template>
@@ -19,7 +19,7 @@
           <operation-search @search-page="searchPage"></operation-search>
         </template>
       </operation-container>
-      <iep-table class="dept-table" :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
+      <iep-table class="dept-table" :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column prop="company" label="组织名" width="250">
             <template slot-scope="scope">
@@ -30,9 +30,9 @@
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===0" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button v-if="scope.row.status===0">上架</iep-button>
-              <iep-button v-if="scope.row.status===1||scope.row.status===2">下架</iep-button>
+              <iep-button v-if="scope.row.status===1" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button v-if="scope.row.status===1">上架</iep-button>
+              <iep-button v-if="scope.row.status===2||scope.row.status===3">下架</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import { getInvestmentPage } from '@/api/fams/investment'
+import { getInvestmentPage, deleteInvestmentBatch } from '@/api/fams/investment'
 import { tabList, columnsMap, dictsMap } from './options'
 import mixins from '@/mixins/mixins'
 export default {
@@ -58,6 +58,12 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
+    handleDelete () {
+      this._handleGlobalDeleteAll(deleteInvestmentBatch)
+    },
     handleChange () {
       this.loadPage()
     },

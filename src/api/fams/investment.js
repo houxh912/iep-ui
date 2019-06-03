@@ -18,3 +18,27 @@ export function postInvestment (obj) {
     data: obj,
   })
 }
+
+export function putInvestment (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function deleteInvestmentById (id) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: [id],
+  })
+}
+
+export function deleteInvestmentBatch (ids) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: ids,
+  })
+}

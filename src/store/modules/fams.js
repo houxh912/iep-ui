@@ -3,10 +3,14 @@ const fams = {
   state: {
     rewardDialogShow: false,
     withdrawableCash: 0,
+    invoiceDialogShow: false,
   },
   mutations: {
     SET_REWARD_DIALOG_SHOW: (state, rewardDialogShow) => {
       state.rewardDialogShow = rewardDialogShow
+    },
+    SET_INVOICE_DIALOG_SHOW: (state, invoiceDialogShow) => {
+      state.invoiceDialogShow = invoiceDialogShow
     },
     SET_WITHDRAWABLE_CASH: (state, withdrawableCash) => {
       state.withdrawableCash = withdrawableCash

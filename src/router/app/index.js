@@ -70,6 +70,13 @@ export default [
         name: '财富频道',
         component: () => import('@/views/app/wealth/'),
         meta: noAuth,
+        children: [
+          {
+            path: 'wealth_details/:id',
+            name: '投资详情',
+            component: () => import('@/views/app/wealth/wealthDetails/'),
+          },
+        ],
       },
       {
         path: 'college',
@@ -81,6 +88,12 @@ export default [
         path: 'search',
         name: '搜索频道',
         component: () => import('@/views/app/search/'),
+        meta: noAuth,
+      },
+      {
+        path: 'apply_investment',
+        name: '申请投资',
+        component: () => import('@/views/app/wealth/ApplyInvestment/'),
         meta: noAuth,
       },
       {

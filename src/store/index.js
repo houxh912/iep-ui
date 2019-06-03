@@ -7,6 +7,7 @@ import common from './modules/common'
 import app from './modules/app'
 import tags from './modules/tags'
 import fams from './modules/fams'
+import hrms from './modules/hrms'
 import notify from './modules/notify'
 import im from './modules/im'
 import getters from './getters'
@@ -21,6 +22,7 @@ const store = new Vuex.Store({
     common,
     tags,
     fams,
+    hrms,
     notify,
     im,
   },

@@ -9,7 +9,7 @@ const dictsMap = {
   referType: {
     1: '项目管理类',
     2: '日常管理类',
-    3: '其他类',
+    3: '其他类(发票抵税)',
   },
   invoiceType: {
     1: '增值税专用发票',
@@ -28,7 +28,7 @@ function initTableForm () {
 function initForm () {
   return {
     id: '',
-    referType: '',
+    referType: 1,
     companyId: '',
     projectId: '',
     projectName: '',
@@ -43,16 +43,16 @@ function initForm () {
 const columnsMap = [
 	{
 		prop: 'referType',
-		label: '发票类型',
+		label: '报销类型',
 		type: 'dict',
 	},
 	{
 		prop: 'companyName',
-		label: '发票抬头',
+		label: '报销抬头',
 	},
 	{
 		prop: 'totalAmount',
-		label: '发票金额',
+		label: '报销金额',
 	},
 	{
 		prop: 'createTime',

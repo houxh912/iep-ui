@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="发起申请" width="550px" @close="loadPage" center>
+  <iep-dialog :dialog-show="dialogShow" title="发起申请" width="550px" @close="close" center>
     <el-form size="small" ref="form" label-width="100px">
       <el-form-item v-for="child in applicTypeTree" :key="child.id" :label="`${child.name}：`">
         <!-- <a-checkable-tag class="tag-item" v-for="item in child.children" :key="item.id" v-model="item.checked" @change="handleChange(item.name)">{{item.name}}</a-checkable-tag> -->
@@ -9,17 +9,19 @@
   </iep-dialog>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState, mapMutations } from 'vuex'
 export default {
   data () {
     return {
       name: '',
-      dialogShow: false,
       formRequestFn: () => { },
     }
   },
   computed: {
     ...mapGetters(['dictGroup']),
+    ...mapState({
+      dialogShow: state => state.hrms.approvalDialogShow,
+    }),
     applicTypeTree () {
       const hrms_applic_type = this.dictGroup['hrms_applic_type']
       return [
@@ -32,6 +34,9 @@ export default {
     },
   },
   methods: {
+    ...mapMutations({
+      setApprovalDialogShow: 'SET_APPROVAL_DIALOG_SHOW',
+    }),
     handleChange (row) {
       this.$router.push({
         path: '/hrms_spa/approval/0',
@@ -39,10 +44,10 @@ export default {
           type: row.value,
         },
       })
-      this.dialogShow = false
+      this.setApprovalDialogShow(false)
     },
-    loadPage () {
-      this.dialogShow = false
+    close () {
+      this.setApprovalDialogShow(false)
       this.$emit('load-page')
     },
   },

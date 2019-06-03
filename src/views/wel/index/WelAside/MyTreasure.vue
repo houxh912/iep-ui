@@ -28,6 +28,7 @@
   </div>
 </template>
 <script>
+import { addBellBalanceRule } from '@/api/fams/balance_rule'
 import { mapActions, mapMutations } from 'vuex'
 import { openWindow } from '@/util/util'
 export default {
@@ -53,7 +54,13 @@ export default {
       return this.showMoney ? 'eye' : 'eye-invisible'
     },
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
+    loadPage () {
+      addBellBalanceRule()
+    },
     handleShowMoney () {
       this.showMoney = !this.showMoney
     },

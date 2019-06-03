@@ -14,12 +14,12 @@ export default {
       color: ['#A9F0DF', '#D56368', '#F1C8C8', '#FFB880', '#F0F0A9', '#8D99B3', '#A9CCF0'],
       tooltip: {
         trigger: 'item',
-        formatter: '{b}：{c}%',
+        formatter: '{b}：{c}个 ({d}%)',
       },
       label: {
         show: true,
         color: '#000',
-        formatter: '{b}：{c}%',
+        formatter: '{b}：{d}%',
       },
       series: {
         center: ['50%', '50%'],

@@ -20,7 +20,7 @@ export default {
     }
   },
   created () {
-    getNotificationList().then(({data}) => {
+    getNotificationList().then(({ data }) => {
       for (let item of data.data) {
         item.typeName = `【${item.typeName}】`
       }
@@ -46,13 +46,13 @@ export default {
     right: 0;
     top: 7px;
   }
-  .assort .piece {
-    padding-right: 40px;
-  }
 }
 </style>
 <style scoped>
 .notice >>> .el-card {
   height: 351px;
+}
+.notice >>> .assort .piece {
+  padding-right: 40px;
 }
 </style>

@@ -34,5 +34,9 @@ const getters = {
   notify: state => key => state.notify[key],
   imMessage: state => key => state.im.messageMap[key],
   imUserList: state => state.im.userList,
+  imChatList: state => state.im.chatList,
+  imCurrentChatList: state => state.im.currentChatList,
+  imUnread: state => key => state.im.unreadMap[key],
+  imUnreadTotal: state => state.im.unreadTotal,
 }
 export default getters

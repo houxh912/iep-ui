@@ -1,14 +1,13 @@
 <template>
   <div class="gov-chat" :style="getLeftStyle">
     <chat-list
-      v-show="chatList.length > 1"
+      v-show="$store.getters.imCurrentChatList.length > 1"
       :currentChat="currentChatId"
-      :chatList="chatList"
       @chatChange="chatChange"
       @chatClose="chatClose"></chat-list>
-    <chat-total-title></chat-total-title>
+    <chat-total-title @positionChange="positionChange"></chat-total-title>
     <chat-content
-      v-for="(chat, index) in chatList"
+      v-for="(chat, index) in $store.getters.imCurrentChatList"
       :key="index"
       v-show="currentChatId === chat.userId"
       :chatDetail="chat"
@@ -29,12 +28,6 @@ export default {
     chatList,
   },
   props: {
-    chatList: {
-      type: Array,
-      default () {
-        return []
-      },
-    },
     currentChat: {
       type: Object,
       default () {
@@ -46,9 +39,21 @@ export default {
     return {
       clientWidth: document.body.clientWidth,
       clientHeight: document.body.clientHeight,
-      moveHorizonal: 0,
-      moveVertical: 0,
       currentChatId: null,
+      position: {
+        x: 0,
+        y: 0,
+      },
+    }
+  },
+  mounted () {
+    window.onresize = () => {
+      this.clientWidth = document.body.clientWidth
+      this.clientHeight = document.body.clientHeight
+      this.position = {
+        x: 0,
+        y: 0,
+      }
     }
   },
   watch: {
@@ -60,6 +65,14 @@ export default {
     },
   },
   methods: {
+    positionChange (translate) {
+      if (Math.abs(this.position.x + translate.x) < this.clientWidth / 2 - (this.$store.getters.imCurrentChatList.length > 1 ? 400 : 300)) {
+        this.position.x = this.position.x + translate.x
+      }
+      if (Math.abs(this.position.y + translate.y) < this.clientHeight / 2 - 260) {
+        this.position.y = this.position.y + translate.y
+      }
+    },
     chatChange (chat) {
       this.$emit('chatChange', chat)
     },
@@ -73,7 +86,9 @@ export default {
   computed: {
     getLeftStyle () {
       return {
-        paddingLeft: this.chatList.length > 1 ? '200px' : '',
+        paddingLeft: this.$store.getters.imCurrentChatList.length > 1 ? '200px' : '',
+        marginLeft: this.$store.getters.imCurrentChatList.length > 1 ? '-400px' : '-300px',
+        transform: `translate(${this.position.x}px, ${this.position.y}px)`,
       }
     },
   },
@@ -84,6 +99,9 @@ export default {
   .gov-chat {
     position: fixed;
     box-sizing: content-box;
+    left: 50%;
+    top: 50%;
+    margin-top: -260px;
     height: 520px;
     width: 600px;
     background: #FFFFFF;

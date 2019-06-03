@@ -3,8 +3,7 @@
     <im-ui-small v-show="showType === 'small'" @showLarge="showType = 'large'"></im-ui-small>
     <im-ui-large v-show="showType === 'large'" @showSmall="showType = 'small'" @toChat="toChat"></im-ui-large>
     <chat-box
-      v-show="chatList.length > 0"
-      :chatList="chatList"
+      v-show="$store.getters.imCurrentChatList.length > 0"
       :currentChat="currentChat"
       @chatChange="chatChange"
       @sendMessage="sendMessage"
@@ -19,7 +18,7 @@ import chatBox from './components/chatBox/index.vue'
 import store from '@/store'
 import SockJS from 'sockjs-client'
 import Stomp from 'stompjs'
-import { fetchList } from '@/api/admin/user'
+import { getUserListTree } from '@/api/admin/contacts'
 export default {
   name: 'im-ui',
   components: {
@@ -39,10 +38,8 @@ export default {
   },
   created () {
     this.initWebSocket()
-    fetchList({size: 10000}).then(({data}) => {
-      if (data.code === 0) {
-        this.$store.commit('setUserList', data.data.records)
-      }
+    getUserListTree().then(({data}) => {
+      this.$store.commit('setUserList', data.data)
     })
   },
   methods: {
@@ -77,53 +74,47 @@ export default {
             message: body.msg,
             time: body.sendTime,
             username: body.targetName === userInfo.username ? body.resourceName : body.targetName,
+            avatar: body.otherAvatar,
+            realName: body.otherRealName,
+            userId: body.otherId,
             type: body.targetName === userInfo.username ? 1 : 0,
+            unread: (body.targetName === userInfo.username ? body.resourceName : body.targetName) !== this.currentChat.username,
           })
         })
-        this.stompClient.subscribe('/public/chat/online', (data) => {
-          console.log(data)
-        })
+//        this.stompClient.subscribe('/public/chat/online', (data) => {
+//          console.log(data)
+//        })
       }, (err) => {
-        console.log(err)
+        this.$message.error(err.message)
       })
     },
     sendMessage ({receiver, message, messageType}) {
       this.stompClient.send(`/unicast/${receiver.username}/${store.getters.userInfo.userId}-${receiver.userId}`, {}, JSON.stringify({msg: message, type: messageType, msgType: 1, msgCode: new Date().getTime()}))
     },
     toChat (chat) {
-      if (this.newChat(chat)) {
-        this.chatList.push(chat)
-      }
+      this.$store.commit('addCurrentChatList', chat)
       this.currentChat = chat
     },
     chatChange (chat) {
+      this.$store.commit('clearUserUnread', chat.username)
       this.currentChat = chat
     },
     chatClose (chat) {
-      for (let i = this.chatList.length; i--;) {
-        if (this.chatList[i].userId === chat.userId) {
+      for (let i = this.$store.getters.imCurrentChatList.length; i--;) {
+        if (this.$store.getters.imCurrentChatList[i].userId === chat.userId) {
           if (chat.userId === this.currentChat.userId) {
             if (i > 0) {
-              this.currentChat = this.chatList[i - 1]
-            } else if (this.chatList.length > 1) {
-              this.currentChat = this.chatList[1]
+              this.currentChat = this.$store.getters.imCurrentChatList[i - 1]
+            } else if (this.$store.getters.imCurrentChatList.length > 1) {
+              this.currentChat = this.$store.getters.imCurrentChatList[1]
             } else {
               this.currentChat = {}
             }
           }
-          this.chatList.splice(i, 1)
+          this.$store.commit('closeCurrentChatList', i)
           return
         }
       }
-    },
-    newChat (chat) {
-      for (let i = this.chatList.length; i--;) {
-        if (this.chatList[i].userId === chat.userId) {
-          this.chatList.splice(i, 1, chat)
-          return false
-        }
-      }
-      return true
     },
   },
 }

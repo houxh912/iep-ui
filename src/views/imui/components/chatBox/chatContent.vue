@@ -3,7 +3,7 @@
     <div class="chat-box">
       <div class="chat-group">
         <div class="chat-title">
-          <img class="chat-title-head" :src="chatDetail.avatar"/>
+          <img class="chat-title-head" :src="chatDetail.avatar ? chatDetail.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
           <span class="chat-title-name">{{chatDetail.realName}}</span>
         </div>
         <div class="chat-main" ref="chatmain">
@@ -179,7 +179,7 @@ export default {
                 vertical-align: middle;
                 padding: 0 20px;
                 border-radius: 3px;
-                background: #5FB878;
+                background: #BA1B21;
                 cursor: pointer;
                 color: #FFFFFF;
                 &:hover {

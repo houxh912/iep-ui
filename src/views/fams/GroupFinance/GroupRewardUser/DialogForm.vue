@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="methodName" width="400px" @close="close">
+  <iep-dialog :dialog-show="dialogShow" :title="methodName" width="500px" @close="close">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="金额：" prop="amount">
         <iep-input-number v-model="form.amount"></iep-input-number>
@@ -10,10 +10,10 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="类型：" prop="type">
-        <iep-dict-select v-model="form.type" dict-name="fams_reward_reason" placeholder="选择打赏类型"></iep-dict-select>
+        <iep-dict-select v-model="form.type" :dict-name="dictName" placeholder="选择类型"></iep-dict-select>
       </el-form-item>
       <el-form-item label="对象：" prop="targetUser">
-        <iep-contact-select v-model="form.targetUser"></iep-contact-select>
+        <iep-contact-multiple-user v-model="form.targetUsers"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item label="备注：" prop="message">
         <iep-input-area v-model="form.message"></iep-input-area>
@@ -37,6 +37,11 @@ export default {
       form: initForm(),
       rules,
     }
+  },
+  computed: {
+    dictName () {
+      return this.form.isReward === '1' ? 'fams_reward_reason' : 'fams_reduce_reason'
+    },
   },
   methods: {
     close () {

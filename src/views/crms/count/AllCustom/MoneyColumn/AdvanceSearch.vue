@@ -6,9 +6,9 @@
     <el-form-item label="市场经理">
       <iep-contact-select v-model="form.managerId" placeholder="请输入市场经理"></iep-contact-select>
     </el-form-item>
-    <el-form-item label="业务类型">
+    <!-- <el-form-item label="业务类型">
       <iep-dict-select v-model="form.business" dict-name="crms_business_type" multiple></iep-dict-select>
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item label="区域类型">
       <iep-dict-select v-model="form.district" dict-name="crms_district_type"></iep-dict-select>
     </el-form-item>

@@ -74,13 +74,16 @@ export default {
     padding: 15px 0;
     .box {
       display: flex;
-      height: 40px;
+      line-height: 30px;
+      word-break: break-all;
       .title {
         width: 150px;
+        white-space:nowrap;
         padding: 0 12px 0 0;
         text-align: right;
       }
     }
   }
 }
+
 </style>

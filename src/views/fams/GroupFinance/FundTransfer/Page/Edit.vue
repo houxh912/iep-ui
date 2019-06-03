@@ -31,10 +31,10 @@
         <iep-form-item label-name="调出组织" prop="callOutOrgId" class="form-half">
           <iep-select v-model="form.callOutOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调出组织"></iep-select>
         </iep-form-item>
-        <iep-form-item v-if="!!form.allocationWay" label-name="线下公司" class="form-half">
-          <iep-select v-model="form.callOutCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择线下公司"></iep-select>
+        <iep-form-item v-if="!callOutCompanyOption.disabled" label-name="线下公司" class="form-half">
+          <iep-select v-model="form.callOutCompanyId" autocomplete="off" :prefix-url="callOutCompanyOption.prefixUrl" placeholder="请选择线下公司"></iep-select>
         </iep-form-item>
-        <iep-form-item v-if="!callOutBankAmountOption.disabled" label-name="银行账户：">
+        <iep-form-item v-if="!callOutBankAmountOption.disabled" label-name="银行账户">
           <iep-select v-model="form.callOutCompanyBankId" autocomplete="off" :prefix-url="callOutBankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
         </iep-form-item>
         <iep-form-item label-name="调出方财务" prop="callOutUser" class="form-half">
@@ -44,10 +44,10 @@
         <iep-form-item label-name="调入组织" prop="callInOrgId" class="form-half">
           <iep-select v-model="form.callInOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调入组织"></iep-select>
         </iep-form-item>
-        <iep-form-item v-if="!!form.allocationWay" label-name="线下公司" class="form-half">
-          <iep-select v-model="form.callInCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择线下公司"></iep-select>
+        <iep-form-item v-if="!callInCompanyOption.disabled" label-name="线下公司" class="form-half">
+          <iep-select v-model="form.callInCompanyId" autocomplete="off" :prefix-url="callInCompanyOption.prefixUrl" placeholder="请选择线下公司"></iep-select>
         </iep-form-item>
-        <iep-form-item v-if="!callInBankAmountOption.disabled" label-name="银行账户：">
+        <iep-form-item v-if="!callInBankAmountOption.disabled" label-name="银行账户">
           <iep-select v-model="form.callInCompanyBankId" autocomplete="off" :prefix-url="callInBankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
         </iep-form-item>
         <iep-form-item label-name="调入方财务" prop="callInUser" class="form-half">
@@ -62,8 +62,9 @@ import { initForm, dictsMap, formToDto, calculateTime, rules } from '../options'
 import formMixins from '@/mixins/formMixins'
 import { pickerOptions } from '@/const/formConfig.js'
 import { mapGetters } from 'vuex'
+import fundTransferMixins from '../fundTransferMixins'
 export default {
-  mixins: [formMixins],
+  mixins: [formMixins, fundTransferMixins],
   props: {
     record: {
       type: Object,
@@ -91,30 +92,6 @@ export default {
       const lastTime = this.form.implementRangeTime[1]
       return calculateTime(lastTime, this.form.allocationDays)
     },
-    callOutBankAmountOption () {
-      if (this.form.callOutCompanyId) {
-        return {
-          disabled: false,
-          prefixUrl: `fams/bank_account/${this.form.callOutCompanyId}`,
-        }
-      } else {
-        return {
-          disabled: true,
-        }
-      }
-    },
-    callInBankAmountOption () {
-      if (this.form.callInCompanyId) {
-        return {
-          disabled: false,
-          prefixUrl: `fams/bank_account/${this.form.callInCompanyId}`,
-        }
-      } else {
-        return {
-          disabled: true,
-        }
-      }
-    },
   },
   created () {
     this.methodName = this.record.methodName
@@ -126,7 +103,7 @@ export default {
       this.$emit('onGoBack')
     },
     async handleSubmit () {
-      try{
+      try {
         await this.mixinsValidate()
         this.formRequestFn(formToDto(this.form)).then(({ data }) => {
           if (data.data) {
@@ -147,7 +124,7 @@ export default {
         }
         this.$message(message)
       }
-      
+
     },
   },
 }

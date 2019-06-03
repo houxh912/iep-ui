@@ -1,10 +1,10 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="财富流水" :replaceText="replaceText" :data="[10 ,5,10,25]"></page-header>
+      <page-header title="财富流水" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
+          <operation-search @search-page="searchPage" prop="remarks" advance-search>
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
@@ -27,7 +27,8 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      replaceText: (data) => `（支出：${data[0]}笔${data[0]}贝，收入：${data[0]}笔${data[0]}贝）`,
+      statistics: [0, 0, 0, 0],
+      replaceText: (data) => `（支出：${data[0]} 笔 ${data[1]} 贝，收入：${data[2]} 笔 ${data[3]} 贝）`,
     }
   },
   computed: {
@@ -39,8 +40,9 @@ export default {
     this.loadPage()
   },
   methods: {
-    loadPage (param = this.searchForm) {
-      this.loadTable({ ...param, userId: this.userInfo.userId }, getWealthFlowPage)
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable({ ...param, userId: this.userInfo.userId }, getWealthFlowPage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

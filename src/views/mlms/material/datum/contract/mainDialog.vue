@@ -70,8 +70,11 @@
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="承接部门：" prop="underTakeDeptList">
+          <!-- <el-form-item label="承接部门：">
             <iep-dept-multiple v-model="formData.underTakeDeptList"></iep-dept-multiple>
+          </el-form-item> -->
+          <el-form-item label="承接组织：">
+            <iep-select v-model="formData.underTakeDeptId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调出组织" multiple></iep-select>
           </el-form-item>
         </el-col>
       </el-row>
@@ -178,7 +181,7 @@ export default {
     open (id) {
       getDataById(id).then(({ data }) => {
         let row = data.data
-        row.underTakeDeptList = row.underTakeDeptName // 承接部门
+        row.underTakeDeptId = row.underTakeDeptName.map(m => m.id) // 承接部门
         if (row.contractType == 0) {
           row.directorList = {
             id: row.directorId,
@@ -206,7 +209,7 @@ export default {
       this.dialogShow = false
     },
     submitForm (formName) {
-      this.formData.underTakeDeptId = this.formData.underTakeDeptList.map(m => m.id) // 承接部门
+      // this.formData.underTakeDeptId = this.formData.underTakeDeptList.map(m => m.id) // 承接部门
       this.formData.contractFile = this.formData.contractFileList.length > 0 ? this.formData.contractFileList[0].url : ''
       // 提交前需要处理下数据
       if (this.formData.contractType == 1) { // 外部合同

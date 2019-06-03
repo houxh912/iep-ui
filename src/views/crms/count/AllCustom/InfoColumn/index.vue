@@ -51,8 +51,12 @@ export default {
     }
   },
   created () {
-    getAllClientNum().then((res) => {
-      res.data.data.contractAmount = '￥ ' + parseFloat(res.data.data.contractAmount).toLocaleString()
+    getAllClientNum().then(res => {
+      if (res.data.data.contractAmount) {
+        res.data.data.contractAmount = '￥ ' + parseFloat(res.data.data.contractAmount).toLocaleString()
+      } else {
+        res.data.data.contractAmount = 0
+      }
       this.data = res.data.data
     })
   },

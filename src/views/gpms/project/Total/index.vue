@@ -7,7 +7,7 @@
       </template>
       <template slot="right">
         <operation-search
-          @search="searchPage"
+          @search-page="searchPage"
           @closed="dialogIsShow = true"
           advanceSearch
           placeHolder="请输入项目名称"
@@ -34,7 +34,7 @@
       is-mutiple-selection 
       @selection-change="selectionChange"
       :dictsMap="dictMap">
-      <el-table-column  label="项目名称" slot="before-columns" width="350px">
+      <el-table-column  label="项目名称" slot="before-columns" width="300px">
         <template slot-scope="scope">
           <div style="cursor: pointer;" @click="handleDetail(scope.row)">
             <span>{{ scope.row.projectName }}</span>
@@ -93,13 +93,14 @@ export default {
       this.dialogIsShow = false
       this.paramForm = paramForm()
     },
-    searchPage (name) {
+    searchPage (val) {
       if (name) {
-        this.paramForm.name = name
+        this.paramForm.name = val.name
       }
-      // console.log(this.paramForm)
-      // 搜索完成后
-      // this.paramForm.name = ''
+      this.loadPage({
+        listType: this.tabType,
+        projectName: val.name,
+      })
     },
     //勾选行执行
     selectionChange (val) {
@@ -156,6 +157,16 @@ export default {
   }
   .blackColor{
     color: #666;
+  }
+  .cell {
+    padding:0;
+  }
+  .cell .el-button {
+    margin-left: 0;
+    display: inline;
+  }
+  .el-button--small {
+    padding:8px 10px;
   }
 
 </style>

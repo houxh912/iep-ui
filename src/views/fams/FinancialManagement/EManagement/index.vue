@@ -11,6 +11,11 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
+        <template slot="before-columns">
+          <el-table-column label="时间">
+            <template slot-scope="scope">{{scope.row.createTime | parseDateYMD}}</template>
+          </el-table-column>
+        </template>
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>

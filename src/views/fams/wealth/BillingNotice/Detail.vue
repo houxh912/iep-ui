@@ -42,8 +42,11 @@
         <iep-form-item label-name="金额" class="form-half">
           <iep-div-detail :value="form.amount"></iep-div-detail>
         </iep-form-item>
+        <iep-form-item label-name="发票种类">
+          <iep-div-detail :value="dictsMap.invoicingType[form.invoicingType]"></iep-div-detail>
+        </iep-form-item>
         <iep-form-item label-name="关联项目">
-          <el-input v-model="form.projectId"></el-input>
+          <el-input v-model="form.projectName"></el-input>
         </iep-form-item>
         <h4 class="iep-sub-title">销售方</h4>
         <iep-form-item label-name="销售方公司">

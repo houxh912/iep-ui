@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="新增支出" width="700px" @close="loadPage">
-    <el-form :model="form" size="small" ref="form" :rules="rules" label-width="100px">
+    <el-form :model="form" size="small" ref="form" :rules="rules" label-width="120px">
       <el-form-item label="支出类型：" prop="type">
         <iep-dict-cascader dictName="fams_expenditure_type" v-model="form.type"></iep-dict-cascader>
       </el-form-item>

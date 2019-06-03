@@ -11,7 +11,9 @@
             <h4 class="name">
               {{form.positionName}}
             </h4>
-            <div class="address"><span>{{form.deptName}}</span>{{form.place}}</div>
+            <div class="address"><span>{{form.deptName}}</span>
+              <iep-dict-detail :value="form.place" dict-name="hrms_work_place"></iep-dict-detail>
+            </div>
           </div>
           <div class="right">
             <div class="pay">薪资：

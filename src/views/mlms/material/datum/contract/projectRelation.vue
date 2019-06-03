@@ -1,6 +1,9 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="关联项目" width="50%" @close="resetForm">
     
+    <div class="search">
+      <el-input v-model="searchForm.projectName"><el-button slot="append" icon="el-icon-search" @click="loadPage"></el-button></el-input>
+    </div>
     <iep-table
       :isLoadTable="isLoadTable"
       :pagination="pagination" 
@@ -38,6 +41,9 @@ export default {
       columnsMap: projecTableOption,
       projectId: '',
       projectName: '',
+      searchForm: {
+        projectName: '',
+      },
     }
   },
   methods: {
@@ -51,7 +57,7 @@ export default {
       this.loadPage()
     },
     loadPage (param = {}) {
-      this.loadTable(param, getProjectList)
+      this.loadTable(Object.assign({}, param, this.searchForm), getProjectList)
     },
     handleSelect (row) {
       if (this.projectId == row.id) {
@@ -69,3 +75,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.search {
+  margin-bottom: 20px;
+}
+</style>

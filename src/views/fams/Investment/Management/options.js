@@ -1,11 +1,11 @@
 // import { mergeByFirst } from '@/util/util'
 
 const dictsMap = {
-    status:{
-        0:'未开始',
-        1:'进行中',
-        2:'已完结',
-    },
+  status: { // （1待审核，2进行中，3已结束）
+    1:'待审核',
+    2:'进行中',
+    3:'已结束',
+  },
 }
 const tabList = [
   {
@@ -23,7 +23,7 @@ const tabList = [
 ]
 const columnsMap = [
   {
-    prop:'member',
+    prop:'investmentNumber',
     label:'已投人数',
   },
   {
@@ -31,12 +31,8 @@ const columnsMap = [
     label:'目标金额',
   },
   {
-    prop:'votedAmount',
+    prop:'hadMoney',
     label:'已投金额',
-  },
-  {
-    prop:'investmentMode',
-    label:'投资方式',
   },
   {
     prop:'status',
@@ -47,44 +43,44 @@ const columnsMap = [
 const initForm = () => {
   return{
     id:'',
-    investmentOrganization:[],//投资组织
-    numberOfShares:'',//股份数量
-    pricePerShare:'',//每股单价
-    targetAmount:'',
-    predictedAnnualizedReturnRate:'',//预计年化收益率
-    startDate:'',//开始日期
-    endDate:'',//结束日期
-    minimumSubscriptionQuantity:'',//最低认购数量
-    minimumCreditScore:'',//投资人最低信用评分
+    orgId:'',//投资组织
+    allSharesNumber:0,//股份数量
+    sharesUnivalent:0,//每股单价
+    targetAmount:0,//目标金额
+    returnRate:0,//预计年化收益率
+    startTime:'',//开始日期
+    endTime:'',//结束日期
+    minimumBuy:0,//最低认购数量
+    minimumCredit:0,//投资人最低信用评分
   }
 }
 const rules = {
-  investmentOrganization: [
-    {type: 'array', message: '请填写投资组织', trigger: 'blur' },
+  orgId: [
+    { required: true, message: '请填写投资组织', trigger: 'blur' },
   ],
-  numberOfShares: [
-    { required: true, type: '', message: '请填写股份数量', trigger: 'blur' },
+  allSharesNumber: [
+    { required: true, message: '请填写股份数量', trigger: 'blur' },
   ],
-  pricePerShare: [
-    { required: true, type: '', message: '请填写每股单价', trigger: 'blur' },
+  sharesUnivalent: [
+    { required: true, message: '请填写每股单价', trigger: 'blur' },
   ],
   targetAmount: [
-    { required: true, type: '', message: '请填写', trigger: 'blur' },
+    { required: true, message: '请填写目标金额', trigger: 'blur' },
   ],
-  predictedAnnualizedReturnRate: [
-    { required: true, type: '', message: '请填写', trigger: 'blur' },
+  returnRate: [
+    { required: true, message: '请填写预计年化收益率', trigger: 'blur' },
   ],
-  startDate: [
-    { required: true, type: '', message: '请填写', trigger: 'blur' },
+  startTime: [
+    { required: true, message: '请填写开始日期', trigger: 'blur' },
   ],
-  endDate: [
-    { required: true, type: '', message: '请填写', trigger: 'blur' },
+  endTime: [
+    { required: true, message: '请填写结束日期', trigger: 'blur' },
   ],
-  minimumSubscriptionQuantity: [
-    { required: true, type: '', message: '请填写', trigger: 'blur' },
+  minimumBuy: [
+    { required: true, message: '请填写最低认购数量', trigger: 'blur' },
   ],
-  minimumCreditScore: [
-    { required: true, type: '', message: '请填写', trigger: 'blur' },
+  minimumCredit: [
+    { required: true, message: '请填写投资人最低信用评分', trigger: 'blur' },
   ],
 }
 export {

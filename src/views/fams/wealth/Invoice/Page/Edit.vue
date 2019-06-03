@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}发票`" :back-option="backOption">
+      <page-header :title="`${methodName}报销`" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">存为草稿</iep-button>
         <iep-button type="primary" @click="handleSubmit(true)">发布</iep-button>
       </page-header>
@@ -11,7 +11,7 @@
             <iep-dict-cascader size="small" dictName="fams_expenditure_type" v-model="scope.row.type"></iep-dict-cascader>
           </template>
         </el-table-column>
-        <el-table-column label="发票类型">
+        <el-table-column label="报销类型">
           <template slot-scope="scope">
             <el-select size="small" v-model="scope.row.invoiceType" placeholder="请选择" clearable>
               <el-option v-for="(v,k) in dictsMap.invoiceType" :key="k" :label="v" :value="+k">
@@ -19,7 +19,7 @@
             </el-select>
           </template>
         </el-table-column>
-        <el-table-column prop="amount" label="发票金额(元)">
+        <el-table-column prop="amount" label="报销金额(元)">
           <template slot-scope="scope">
             <iep-input-number size="small" v-model="scope.row.amount"></iep-input-number>
           </template>
@@ -34,10 +34,6 @@
       <iep-divider />
       <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="140px" size="small">
 
-        <iep-form-item class="form-half" prop="companyId" label-name="发票抬头">
-          <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择发票抬头"></iep-select>
-        </iep-form-item>
-
         <iep-form-item class="form-half" prop="referType" label-name="报销类型">
           <el-select size="small" v-model="form.referType" placeholder="请选择" clearable>
             <el-option v-for="(v,k) in dictsMap.referType" :key="k" :label="v" :value="+k">
@@ -45,11 +41,15 @@
           </el-select>
         </iep-form-item>
 
+        <iep-form-item class="form-half" prop="companyId" label-name="报销抬头">
+          <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择报销抬头"></iep-select>
+        </iep-form-item>
+
         <iep-form-item v-if="projectOption" class="form-half" prop="projectId" label-name="项目">
           <iep-project-select v-model="form.projectId"></iep-project-select>
         </iep-form-item>
 
-        <iep-form-item class="form-half" prop="auditor" label-name="审批人" tip="发票金额超过 1 万，请添加部门班长为审批人">
+        <iep-form-item class="form-half" prop="auditor" label-name="审批人" tip="报销金额超过 1 万，请添加部门班长为审批人">
           <iep-contact-select v-model="form.auditor"></iep-contact-select>
         </iep-form-item>
 
@@ -94,7 +94,7 @@ export default {
       try {
         await this.mixinsValidate()
         if (this.tableData.length === 0) {
-          this.$message('发票数目至少存在一条')
+          this.$message('报销数目至少存在一条')
           return
         }
         this.form.relations = this.tableData

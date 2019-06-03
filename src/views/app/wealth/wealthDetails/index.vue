@@ -117,6 +117,7 @@
   </div>
 </template>
 <script>
+import { getInvestmentById } from '@/api/fams/investment'
 export default {
   data () {
     this.chartSettings = {
@@ -129,13 +130,13 @@ export default {
         flexDirection: 'column',
         justifyContent: 'space-around',
       },
-      investmentName:'舟山国脉研发中心',
-      img:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',
-      way:'股权投资',
-      peopleNumber:'34',
-      spanList:['产品设计','产品设计','产品设计','产品设计'],
-      targetAmount:'2,000,000,000.00',
-      informationData:[{sum:'2000000',price:'100',rate:'2.613%',lowest:'1000',credit:'800',ranking:'9/15'}],
+      investmentName: '舟山国脉研发中心',
+      img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',
+      way: '股权投资',
+      peopleNumber: '34',
+      spanList: ['产品设计', '产品设计', '产品设计', '产品设计'],
+      targetAmount: '2,000,000,000.00',
+      informationData: [{ sum: '2000000', price: '100', rate: '2.613%', lowest: '1000', credit: '800', ranking: '9/15' }],
       officialRelease: '2019-04-22',
       chartData: {
         columns: ['日期', '本组织', '组织业绩平均值对比'],
@@ -148,26 +149,42 @@ export default {
           { '日期': '2019-05-26', '本组织': 4593, '组织业绩平均值对比': 4293 },
         ],
       },
-      reportData:[
-        {type:'类型'},
+      reportData: [
+        { type: '类型' },
       ],
-      recordingData:[
-        {type:'类型'},
+      recordingData: [
+        { type: '类型' },
       ],
-      shareholderData:[
-        {img:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',type:'企业',name:'国脉集团研发中心',proportion:'18%',time:'2019-05-21'},
-        {img:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',type:'',name:'国脉集团研发中心',proportion:'18%',time:'2019-05-21'},
-        {img:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',type:'企业',name:'国脉集团研发中心',proportion:'18%',time:'2019-05-21'},
-        {img:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',type:'企业',name:'国脉集团研发中心',proportion:'18%',time:'2019-05-21'},
-        {img:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',type:'企业',name:'国脉集团研发中心',proportion:'18%',time:'2019-05-21'},
+      shareholderData: [
+        { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '企业', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
+        { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
+        { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '企业', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
+        { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '企业', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
+        { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '企业', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
       ],
     }
+  },
+  computed: {
+    id () {
+      return +this.$route.params.id
+    },
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    loadPage () {
+      getInvestmentById(this.id).then(({ data }) => {
+        console.log(data.data)
+        this.investmentName = data.data.orgName
+      })
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.wealth-details{
+.wealth-details {
   width: 1200px;
   margin: 0 auto;
 }
@@ -180,61 +197,61 @@ export default {
   grid-row-gap: 25px;
   grid-column-gap: 25px;
   grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
-  .title{
+  .title {
     grid-column-start: 1;
     grid-column-end: 3;
     display: grid;
-    .title-wrapper{
+    .title-wrapper {
       display: flex;
-      .left{
+      .left {
         display: flex;
         flex-grow: 1;
-        >img {
+        > img {
           width: 220px;
           height: 140px;
         }
-        .main{
+        .main {
           padding-left: 20px;
-          .investmentName{
+          .investmentName {
             height: 50px;
             line-height: 50px;
             font-size: 20px;
           }
-          .way > span{
-            border: 1px solid #DCDFE6;
+          .way > span {
+            border: 1px solid #dcdfe6;
             margin-right: 10px;
             padding: 4px 10px;
             color: #666;
           }
-          .span-list{
+          .span-list {
             display: inline-block;
             height: 60px;
             line-height: 60px;
-            :after{
-              content:"/";
+            :after {
+              content: "/";
               width: 30px;
               text-align: center;
               display: inline-block;
             }
-            > span{
+            > span {
               color: #666;
             }
           }
         }
       }
-      .right{
+      .right {
         width: 250px;
-        > div:first-child{
+        > div:first-child {
           height: 30px;
           line-height: 30px;
         }
-        > div:nth-child(2){
+        > div:nth-child(2) {
           height: 40px;
           line-height: 40px;
           font-size: 22px;
           margin-bottom: 10px;
-          &:before{
-            content:"￥";
+          &:before {
+            content: "￥";
             font-size: 16px;
             width: 30px;
             height: 30px;
@@ -248,54 +265,54 @@ export default {
       }
     }
   }
-  .information-wrapper{
+  .information-wrapper {
     display: flex;
     flex-flow: row wrap;
     align-content: flex-start;
-    > div{
+    > div {
       width: 33%;
       flex: 0 0 33%;
       padding-left: 10px;
       margin-bottom: 20px;
-      > .label{
+      > .label {
         font-size: 16px;
         color: #666;
         height: 30px;
         line-height: 30px;
       }
-      > .num{
+      > .num {
         font-size: 20px;
         height: 50px;
         line-height: 50px;
       }
     }
   }
-  .schedule{
-    .schedule-title{
+  .schedule {
+    .schedule-title {
       font-size: 16px;
       height: 50px;
       line-height: 50px;
     }
-    .release{
+    .release {
       padding-left: 10px;
       height: 35px;
       line-height: 35px;
     }
   }
-  .shareholder-inform{
+  .shareholder-inform {
     width: 16%;
     float: left;
     margin: 0 22px;
-    .img{
+    .img {
       width: 180px;
       height: 120px;
       position: relative;
       margin-bottom: 10px;
-      > img{
+      > img {
         width: 180px;
         height: 120px;
       }
-      .type{
+      .type {
         position: absolute;
         top: 10px;
         right: 5px;
@@ -306,13 +323,13 @@ export default {
         color: #c53b3e;
       }
     }
-    .row{
+    .row {
       color: #666;
       height: 30px;
       line-height: 30px;
     }
   }
-  .last-grid{
+  .last-grid {
     grid-column-start: 1;
     grid-column-end: 3;
     display: grid;

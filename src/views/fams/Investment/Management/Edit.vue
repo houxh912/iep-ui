@@ -77,7 +77,7 @@
   </div>
 </template>
 <script>
-import { postInvestment, putInvestment } from '@/api/fams/investment'
+import { getInvestmentById, postInvestment, putInvestment } from '@/api/fams/investment'
 import { initForm, rules } from './options'
 export default {
   data () {
@@ -104,7 +104,17 @@ export default {
       }
     },
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
+    loadPage () {
+      if (this.id) {
+        getInvestmentById(this.id).then(({ data }) => {
+          this.form = data.data
+        })
+      }
+    },
     handleSubmit () {
       this.requestFunc(this.form).then(({ data }) => {
         if (data.data) {

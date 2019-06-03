@@ -19,7 +19,7 @@
           <operation-search @search-page="searchPage"></operation-search>
         </template>
       </operation-container>
-      <iep-table class="dept-table" :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+      <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column prop="company" label="组织名" width="250">
             <template slot-scope="scope">
@@ -31,8 +31,8 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button v-if="scope.row.status===1" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button v-if="scope.row.status===1">上架</iep-button>
-              <iep-button v-if="scope.row.status===2||scope.row.status===3">下架</iep-button>
+              <iep-button v-if="scope.row.status===2 || scope.row.status===5" @click="handleUp(scope.row)">上架</iep-button>
+              <iep-button v-if="scope.row.status===4" @click="handleDown(scope.row)">下架</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -41,23 +41,40 @@
   </div>
 </template>
 <script>
-import { getInvestmentPage, deleteInvestmentBatch } from '@/api/fams/investment'
-import { tabList, columnsMap, dictsMap } from './options'
+import { getInvestmentPage, deleteInvestmentBatch, upInvestmentById, downInvestmentById } from '@/api/fams/investment'
+import { columnsMap, dictsMap } from './options'
 import mixins from '@/mixins/mixins'
 export default {
+  mixins: [mixins],
   data () {
     return {
-      tabList,
       columnsMap,
       dictsMap,
       status: '',
     }
   },
-  mixins: [mixins],
   created () {
     this.loadPage()
   },
   methods: {
+    handleUp (row) {
+      upInvestmentById(row.id).then(({ data }) => {
+        if (data.data) {
+          this.loadPage()
+        } else {
+          this.$message(data.msg)
+        }
+      })
+    },
+    handleDown (row) {
+      downInvestmentById(row.id).then(({ data }) => {
+        if (data.data) {
+          this.loadPage()
+        } else {
+          this.$message(data.msg)
+        }
+      })
+    },
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)
     },
@@ -69,7 +86,7 @@ export default {
     },
     handleAdd () {
       this.$router.push({
-        path: '/fams_spa/management_edit/1',
+        path: '/fams_spa/management_edit/0',
       })
     },
     handleEdit (row) {
@@ -77,9 +94,9 @@ export default {
         path: `/fams_spa/management_edit/${row.id}`,
       })
     },
-    handleDetail () {
+    handleDetail (row) {
       this.$router.push({
-        path: '/fams_spa/management_detail/1',
+        path: `/fams_spa/management_detail/${row.id}`,
       })
     },
     loadPage (param = this.searchForm) {

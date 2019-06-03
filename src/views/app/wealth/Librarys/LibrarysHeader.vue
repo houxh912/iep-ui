@@ -1,7 +1,7 @@
 <template>
   <div class="librarys-header">
     <div class="left">
-      <div :label="title" name="first">{{title}}</div><span class="data">{{data}}</span>
+      <div :label="title" name="first">{{title}}</div>
     </div>
     <div class="right">
       <operation-search @search-page="searchPage">
@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import { getTodayCount } from '@/api/app/mlms/index'
+// import { getTodayCount } from '@/api/app/mlms/index'
 
 export default {
   data () {
@@ -23,19 +23,19 @@ export default {
     searchPage (val) {
       this.$emit('search_page', val)
     },
-    getCount () {
-      getTodayCount().then(({data}) => {
-        this.data = `（${data.data} 个投资项目）`
-      })
-    },
+    // getCount () {
+    //   getTodayCount().then(({data}) => {
+    //     this.data = `（${data.data} 个投资项目）`
+    //   })
+    // },
   },
   created () {
-    this.getCount()
+    // this.getCount()
   },
 }
 </script>
 <style lang="scss" scoped>
-.librarys-header{
+.librarys-header {
   height: 53px;
   padding-top: 12px;
   border-bottom: solid 1px #e6e6e6;
@@ -45,10 +45,10 @@ export default {
       display: inline-block;
       font-size: 16px;
       line-height: 40px;
-      padding:0 10px;
+      padding: 0 10px;
       border-bottom: 2px solid #ba1b21;
     }
-    .data{
+    .data {
       font-size: 14px;
       color: #9b9b9b;
     }

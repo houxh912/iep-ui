@@ -1,14 +1,13 @@
 <template>
   <div class="librarys-content">
-    <div v-for="(item,index) in dataList" :key="index" class="piece" >
+    <div v-for="(item,index) in dataList" :key="index" class="piece">
       <div style="cursor: pointer;" @click="handleOpen(item)">
         <div class="title">
-          <h4 class="name">{{item.name}}</h4>
+          <h4 class="name">{{item.orgName}}</h4>
         </div>
         <div class="box">
-          <span>目标金额：{{item.creatorRealName}}</span>
-          <span>已投人数：{{item.creatorRealName}}</span>
-          <span>投资方式：{{item.creatorRealName}}</span>
+          <span>目标金额：{{item.targetAmount}}</span>
+          <span>已投人数：{{item.investmentNumber}}</span>
           <span><i class="iconfont icon-shijian"></i>{{item.createTime}}</span>
         </div>
       </div>
@@ -19,7 +18,7 @@
   </div>
 </template>
 <script>
-import { getMaterialLPage } from '@/api/app/mlms/index'
+import { getInvestmentPage } from '@/api/fams/investment'
 
 export default {
   data () {
@@ -34,7 +33,7 @@ export default {
       },
     }
   },
-  methods:{
+  methods: {
     searchData (val) {
       this.params.current = 1
       this.paramForm = Object.assign({}, this.paramForm, val)
@@ -46,7 +45,7 @@ export default {
       })
     },
     loadPage () {
-      getMaterialLPage(Object.assign({}, this.paramForm, this.params)).then(({data}) => {
+      getInvestmentPage(Object.assign({}, this.paramForm, this.params)).then(({ data }) => {
         this.dataList = data.data.records
         this.total = data.data.total
       })
@@ -79,7 +78,7 @@ export default {
     line-height: 50px;
     margin-right: 10px;
     font-size: 16px;
-    color:#333;
+    color: #333;
   }
   i {
     margin-right: 10px;

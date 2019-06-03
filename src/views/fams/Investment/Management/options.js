@@ -1,26 +1,15 @@
 // import { mergeByFirst } from '@/util/util'
 
 const dictsMap = {
-  status: { // （1待审核，2进行中，3已结束）
+  status: { // （待审核—通过—上架—下架—结束）
     1:'待审核',
-    2:'进行中',
-    3:'已结束',
+    2:'通过',
+    3:'拒绝',
+    4:'上架',
+    5:'下架',
+    6:'结束',
   },
 }
-const tabList = [
-  {
-    label: '未开始',
-    value: 'notBegin',
-  },
-  {
-    label: '进行中',
-    value: 'inHand',
-  },
-  {
-    label: '已完结',
-    value: 'hasEnd',
-  },
-]
 const columnsMap = [
   {
     prop:'investmentNumber',
@@ -88,5 +77,4 @@ export {
   initForm,
   dictsMap,
   columnsMap,
-  tabList,
 }

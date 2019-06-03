@@ -11,6 +11,27 @@ export function getInvestmentPage (query) {
   })
 }
 
+export function getInvestmentById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}
+
+export function upInvestmentById (id) {
+  return request({
+    url: `${prefixUrl}/up/${id}`,
+    method: 'post',
+  })
+}
+
+export function downInvestmentById (id) {
+  return request({
+    url: `${prefixUrl}/down/${id}`,
+    method: 'post',
+  })
+}
+
 export function postInvestment (obj) {
   return request({
     url: `${prefixUrl}/create`,
@@ -40,5 +61,13 @@ export function deleteInvestmentBatch (ids) {
     url: `${prefixUrl}/delete/batch`,
     method: 'post',
     data: ids,
+  })
+}
+
+export function ReviewInvestmentBatch (obj) {
+  return request({
+    url: `${prefixUrl}/pass/batch`,
+    method: 'post',
+    data: obj,
   })
 }

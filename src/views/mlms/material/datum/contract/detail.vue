@@ -41,7 +41,7 @@
       <el-row class="list">
         <el-col class="title">回款率：</el-col>
         <el-col class="content">
-          <label>40%</label>
+          <label>{{formData.contractCollection.length > 0 ? calculation(formData.contractCollection[formData.contractCollection.length-1].cumulativeAmount, formData.contractAmount) : '0%'}}</label>
         </el-col>
       </el-row>
       <el-row class="list">
@@ -65,14 +65,16 @@
           <label>费率</label><span>6.34%</span>
         </el-col>
       </el-row>
-      <el-row class="list">
+      <el-row class="list" v-if="formData.contractCollection.length > 0">
         <el-col class="title">合同收款：</el-col>
         <el-col class="content">
           <el-table :data="formData.contractCollection" stripe style="width: 100%" border>
-            <el-table-column prop="date" label="到账时间"> </el-table-column>
-            <el-table-column prop="money" label="到账金额"> </el-table-column>
-            <el-table-column prop="const" label="累计到账"> </el-table-column>
-            <el-table-column prop="icon" label="到账比例"> </el-table-column>
+            <el-table-column prop="arrivalTime" label="到账时间"> </el-table-column>
+            <el-table-column prop="arrivalAmount" label="到账金额"> </el-table-column>
+            <el-table-column prop="cumulativeAmount" label="累计到账"> </el-table-column>
+            <el-table-column prop="icon" label="到账比例">
+              <template slot-scope="scope">{{calculation(scope.row.cumulativeAmount, formData.contractAmount)}}</template>
+            </el-table-column>
           </el-table>
         </el-col>
       </el-row>
@@ -104,7 +106,9 @@ function formatYear (mill) {
 export default {
   data () {
     return {
-      formData: {},
+      formData: {
+        contractCollection: [],
+      },
       dictsMap,
       backOption: {
         isBack: true,
@@ -163,6 +167,10 @@ export default {
         url: obj.url,
         name: obj.name,
       })
+    },
+    // 计算百分数
+    calculation (son, mom) {
+      return `${son / mom * 100}%`
     },
   },
   created () {

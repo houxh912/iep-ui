@@ -38,9 +38,19 @@ export default {
     open (row) {
       this.dialogShow = true
       this.formData.subject = `对“${row.title}”的批示`
+      // 默认获取前五个联系人作为收件人
+      let attendee = 0
+      if (row.attendee.orgs) {
+        this.formData.receiverList.orgs = row.attendee.orgs.slice(0, 5)
+      }
+      attendee = this.formData.receiverList.orgs.length
+      if (row.attendee.users) {
+        this.formData.receiverList.users = row.attendee.users.slice(0, 5 - attendee)
+      }
     },
     submitForm (formName) {
       this.formData.receiverIds = this.formData.receiverList.users.map(m => m.id)
+      this.formData.orgIds = this.formData.receiverList.orgs.map(m => m.id) // 组织
       this.$refs[formName].validate((valid) => {
         if (valid) {
           createEmail(this.formData).then(() => {

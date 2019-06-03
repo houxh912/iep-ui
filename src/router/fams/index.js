@@ -31,6 +31,11 @@ export default [
         component: () => import('@/views/fams/wealth/Invoice/Detail.vue'),
       },
       {
+        path: 'invoice_edit/:id',
+        name: '发票编辑',
+        component: () => import('@/views/fams/wealth/Invoice/Edit.vue'),
+      },
+      {
         path: 'billing_detail/:id',
         name: '开票详情',
         component: () => import('@/views/fams/wealth/BillingNotice/Detail.vue'),
@@ -49,6 +54,16 @@ export default [
         path: 'org_borrow_detail/:id',
         name: '组织拆借详情',
         component: () => import('@/views/fams/OrgBorrow/Components/OrgBorrowDetail/index.vue'),
+      },
+      {
+        path: 'management_edit/:id',
+        name: '新增投资管理',
+        component: () => import('@/views/fams/Investment/Management/Edit.vue'),
+      },
+      {
+        path: 'management_detail/:id',
+        name: '投资管理详情',
+        component: () => import('@/views/fams/Investment/ManagementDetail/index.vue'),
       },
       {
         path: 'union_borrow_detail/:id',

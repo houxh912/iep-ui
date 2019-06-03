@@ -69,7 +69,6 @@ export default {
     }),
     submitForm () {
       this.$refs['form'].validate((valid) => {
-        console.log(valid)
         if (valid) {
           reward(toDtoForm(this.form)).then(({ data }) => {
             if (data.data) {

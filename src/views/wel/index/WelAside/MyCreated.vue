@@ -5,13 +5,11 @@
       <div class="handelCreate" v-for="(item,index) in dataList" :key="index" @click="item.callback">{{item.title}}</div>
       <div class="add"><i class="el-icon-plus"></i></div>
     </div>
-    <new-approval ref="NewApproval"></new-approval>
   </div>
 </template>
 <script>
-import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
+import { mapMutations } from 'vuex'
 export default {
-  components: { NewApproval },
   data () {
     return {
       dataList: [
@@ -42,7 +40,7 @@ export default {
         {
           title: '审批',
           callback: () => {
-            this.$refs['NewApproval'].dialogShow = true
+            this.setApprovalDialogShow(true)
           },
         },
         {
@@ -54,7 +52,7 @@ export default {
         {
           title: '说说',
           callback: () => {
-            this.$router.push({path: '/wel/material/report', query: {type: 'thoughts'}})
+            this.$router.push({ path: '/wel/material/report', query: { type: 'thoughts' } })
           },
         },
         {
@@ -85,6 +83,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations({
+      setApprovalDialogShow: 'SET_APPROVAL_DIALOG_SHOW',
+    }),
     //创建标签事件
     handelCreate () {
 

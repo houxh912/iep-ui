@@ -41,7 +41,7 @@
       <el-row class="list">
         <el-col class="title">回款率：</el-col>
         <el-col class="content">
-          <label>{{formData.contractCollection.length > 0 ? calculation(formData.contractCollection[formData.contractCollection.length-1].cumulativeAmount, formData.contractAmount) : '0%'}}</label>
+          <label>{{formData.contractCollection ? calculation(formData.contractCollection[formData.contractCollection.length-1].cumulativeAmount, formData.contractAmount) : '0%'}}</label>
         </el-col>
       </el-row>
       <el-row class="list">
@@ -65,7 +65,7 @@
           <label>费率</label><span>6.34%</span>
         </el-col>
       </el-row>
-      <el-row class="list" v-if="formData.contractCollection.length > 0">
+      <el-row class="list" v-if="formData.contractCollection">
         <el-col class="title">合同收款：</el-col>
         <el-col class="content">
           <el-table :data="formData.contractCollection" stripe style="width: 100%" border>
@@ -106,9 +106,7 @@ function formatYear (mill) {
 export default {
   data () {
     return {
-      formData: {
-        contractCollection: [],
-      },
+      formData: {},
       dictsMap,
       backOption: {
         isBack: true,
@@ -140,11 +138,13 @@ export default {
       getDataById(id).then((res) => {
         let data = res.data.data
         data.signDeptOrgNames = data.signDeptOrgName.name // 签署组织
-        let underTakeDeptNames = ''
-        for (let item of data.underTakeDeptName) {
-          underTakeDeptNames += item.name + '、'
-        }
-        data.underTakeDeptNames = underTakeDeptNames.slice(0, underTakeDeptNames.length - 1)
+        // let underTakeDeptNames = ''
+        // for (let item of data.underTakeDeptName) {
+        //   underTakeDeptNames += item.name + '、'
+        // }
+        // data.underTakeDeptNames = underTakeDeptNames.slice(0, underTakeDeptNames.length - 1)
+        data.underTakeDeptNames = ''
+        if (data.underTakeDeptName) data.underTakeDeptNames = data.underTakeDeptName.map(m => m.name).join('、')
         data.projectName = data.projectRelation ? data.projectRelation.name : '无'
         console.log('data: ', data)
         let businessType = data.businessType.split(','), list = []

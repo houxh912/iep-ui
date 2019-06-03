@@ -80,7 +80,7 @@
       </el-row>
       <el-row>
         <el-col :span='12' v-if="formData.contractType == 1">
-          <el-form-item label="市场经理：" prop="directorId">
+          <el-form-item label="市场经理：">
             <el-input v-model="formData.directorId" v-show="false"></el-input>
             <el-input v-model="formData.directorRealName" disabled></el-input>
           </el-form-item>

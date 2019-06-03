@@ -1,7 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="选择项目" width="40%" @close="resetForm('form')">
     
-    
     <div class="search">
       <el-input placeholder="请输入内容" v-model="params.projectName" class="input-with-select">
         <el-button slot="append" icon="el-icon-search" @click="searchProject"></el-button>
@@ -74,6 +73,7 @@ export default {
     },
     // 获取项目列表
     loadProject () {
+      this.projectState = 4
       getTableData(this.params).then(({data}) => {
         let res = data.data.records
         if (res.length > 0) {

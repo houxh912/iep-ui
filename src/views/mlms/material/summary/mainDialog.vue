@@ -97,7 +97,7 @@
         <iep-button><i class="el-icon-plus"></i></iep-button>
       </el-form-item> -->
         <el-form-item label="关联项目：" prop="projectList">
-          <el-tag type="info" v-for="(item, index) in formData.projectList" :key="index">{{item.name}}</el-tag>
+          <el-tag type="info" v-for="(item, index) in formData.projectList" :key="index">{{item.name}} <i class="el-icon-close" @click="closeProject(item, index)"></i></el-tag>
           <iep-button @click="selectProject"><i class="el-icon-plus"></i></iep-button>
         </el-form-item>
 
@@ -271,6 +271,9 @@ export default {
       this.formData = initFormData()
       this.formData.projectList = [obj]
       this.pageState = 'project'
+    },
+    closeProject (row, index) {
+      this.formData.projectList.splice(index, 1)
     },
     // 预览
     handlePreview () {

@@ -1,17 +1,39 @@
-## [1.4.10](http://115.233.227.46:8066/root/iep-ui/compare/v1.4.9...v1.4.10) (2019-06-01)
+# [1.5.0](http://115.233.227.46:8066/root/iep-ui/compare/v1.4.9...v1.5.0) (2019-06-03)
 
 
 ### Bug Fixes
 
+* **人力:** 细节修复 ([0e8e384](http://115.233.227.46:8066/root/iep-ui/commits/0e8e384))
 * **修复:** 记住是否隐藏 ([a342840](http://115.233.227.46:8066/root/iep-ui/commits/a342840))
+* **即时消息:** 恢复显示 ([3d540a6](http://115.233.227.46:8066/root/iep-ui/commits/3d540a6))
+* **即时消息:** 暂时隐藏 ([8e264b7](http://115.233.227.46:8066/root/iep-ui/commits/8e264b7))
+* **投资详情:** 投资详情 ([e63079e](http://115.233.227.46:8066/root/iep-ui/commits/e63079e))
+* **报销:** 字段与快速访问修改 ([2323974](http://115.233.227.46:8066/root/iep-ui/commits/2323974))
+* **模拟练习:** 修复样式影响其它页面的问题 ([34168f4](http://115.233.227.46:8066/root/iep-ui/commits/34168f4))
+* **试卷库管理:** 修复冲突 ([b719e95](http://115.233.227.46:8066/root/iep-ui/commits/b719e95))
+* **财务:** 投资审核 ([56ee651](http://115.233.227.46:8066/root/iep-ui/commits/56ee651))
+* **财务:** 添加登陆国脉贝 ([1b1dc44](http://115.233.227.46:8066/root/iep-ui/commits/1b1dc44))
 * **项目关联:** 组件修复 ([a9ea9c0](http://115.233.227.46:8066/root/iep-ui/commits/a9ea9c0))
 
 
 ### Features
 
+* **专题考试:** 修复应试界面和阅卷界面样式 ([91d89a2](http://115.233.227.46:8066/root/iep-ui/commits/91d89a2))
+* **专题考试:** 开始考试界面 ([a2b71bb](http://115.233.227.46:8066/root/iep-ui/commits/a2b71bb))
+* **会议纪要:** 关联项目 ([1839daa](http://115.233.227.46:8066/root/iep-ui/commits/1839daa))
+* **合同:** 关联项目搜索项 ([0050642](http://115.233.227.46:8066/root/iep-ui/commits/0050642))
 * **合同:** 合同款项功能 ([db92cd4](http://115.233.227.46:8066/root/iep-ui/commits/db92cd4))
 * **周月报:** 时间轴优化 ([396abf2](http://115.233.227.46:8066/root/iep-ui/commits/396abf2))
+* **周月报:** 时间轴问题 ([3348e4f](http://115.233.227.46:8066/root/iep-ui/commits/3348e4f))
+* **国脉人通公告样式:** 国脉人通知通告样式 ([c2aaa6a](http://115.233.227.46:8066/root/iep-ui/commits/c2aaa6a))
+* **客户统计:** 客户分析客户类型百分比修复 ([6ba860a](http://115.233.227.46:8066/root/iep-ui/commits/6ba860a))
+* **材料库:** 部分细节优化 ([dcfd542](http://115.233.227.46:8066/root/iep-ui/commits/dcfd542))
 * **样式:** 修改 ([f32fbd6](http://115.233.227.46:8066/root/iep-ui/commits/f32fbd6))
+* **模块名:** 备注说明 ([89fbee4](http://115.233.227.46:8066/root/iep-ui/commits/89fbee4))
+* **考试库管理:** 修复bug ([6adb1a3](http://115.233.227.46:8066/root/iep-ui/commits/6adb1a3))
+* **考试库管理:** 新增接口对接 ([353e59e](http://115.233.227.46:8066/root/iep-ui/commits/353e59e))
+* **财务:** 投资初始化 ([d8ad019](http://115.233.227.46:8066/root/iep-ui/commits/d8ad019))
+* **频道页材料页:** 列表中分享和收藏功能完善 ([c3b33ff](http://115.233.227.46:8066/root/iep-ui/commits/c3b33ff))
 * **骨架屏:** 添加骨架屏优化体验 ([f09fba0](http://115.233.227.46:8066/root/iep-ui/commits/f09fba0))
 
 
@@ -21,24 +43,38 @@
 
 ### Bug Fixes
 
+* **xiugai:** xiugai ([b03355d](http://115.233.227.46:8066/root/iep-ui/commits/b03355d))
+* **修复:** 修复 ([959727f](http://115.233.227.46:8066/root/iep-ui/commits/959727f))
 * **修复:** 表格高度问题与element版本回退 ([8a468ce](http://115.233.227.46:8066/root/iep-ui/commits/8a468ce))
+* **投资修改:** 投资修改 ([59d43a5](http://115.233.227.46:8066/root/iep-ui/commits/59d43a5))
+* **投资审核:** 投资审核 ([f6445d1](http://115.233.227.46:8066/root/iep-ui/commits/f6445d1))
+* **投资管理新增:** 投资管理新增 ([1f4ea53](http://115.233.227.46:8066/root/iep-ui/commits/1f4ea53))
+* **搬迁:** 搬迁 ([ff2d7f8](http://115.233.227.46:8066/root/iep-ui/commits/ff2d7f8))
 * **组件与更新:** 通讯录组件添加删除单人功能与一些细节更新 ([7f3bd79](http://115.233.227.46:8066/root/iep-ui/commits/7f3bd79))
+* **详情点击修改:** 详情点击修改 ([460632d](http://115.233.227.46:8066/root/iep-ui/commits/460632d))
 * **财务:** 修复一些关联的问题 ([64cd00d](http://115.233.227.46:8066/root/iep-ui/commits/64cd00d))
 * **财务:** 修复一些字段显示问题 ([08574ed](http://115.233.227.46:8066/root/iep-ui/commits/08574ed))
 * **财务:** 扣减添加 ([74580e6](http://115.233.227.46:8066/root/iep-ui/commits/74580e6))
 * **财务:** 组织调拨关联修复 ([8db9d06](http://115.233.227.46:8066/root/iep-ui/commits/8db9d06))
 * **财务:** 统计与菜单转移 ([7b026f1](http://115.233.227.46:8066/root/iep-ui/commits/7b026f1))
+* **路由修改:** 路由修改 ([00affc2](http://115.233.227.46:8066/root/iep-ui/commits/00affc2))
+* **频道页投资:** 频道页投资 ([c23959d](http://115.233.227.46:8066/root/iep-ui/commits/c23959d))
 
 
 ### Features
 
+* **bb:** bb ([365b93b](http://115.233.227.46:8066/root/iep-ui/commits/365b93b))
+* **专题考试:** 开始考试界面 ([7f02f48](http://115.233.227.46:8066/root/iep-ui/commits/7f02f48))
 * **合同:** 承接部门 ([d43223b](http://115.233.227.46:8066/root/iep-ui/commits/d43223b))
+* **审阅中心:** 添加功能接口 ([41c9ab2](http://115.233.227.46:8066/root/iep-ui/commits/41c9ab2))
 * **客户导入:** 导入权限添加 ([1829784](http://115.233.227.46:8066/root/iep-ui/commits/1829784))
 * **客户统计:** 业务类型搜索取消 ([eedbeaf](http://115.233.227.46:8066/root/iep-ui/commits/eedbeaf))
 * **客户统计|全部客户:** 客户金额NAN和出单金额NAN修改 ([c4a5b1f](http://115.233.227.46:8066/root/iep-ui/commits/c4a5b1f))
-* **样式:** 修改 ([6237c05](http://115.233.227.46:8066/root/iep-ui/commits/6237c05))
-* **样式:** 修改 ([682ae2b](http://115.233.227.46:8066/root/iep-ui/commits/682ae2b))
+* **投资人审核:** 投资人审核 ([d9efa2b](http://115.233.227.46:8066/root/iep-ui/commits/d9efa2b))
 * **样式:** 修改 ([81addda](http://115.233.227.46:8066/root/iep-ui/commits/81addda))
+* **样式:** 修改 ([682ae2b](http://115.233.227.46:8066/root/iep-ui/commits/682ae2b))
+* **样式:** 修改 ([6237c05](http://115.233.227.46:8066/root/iep-ui/commits/6237c05))
+* **阅卷管理:** 笔试判分、考试界面 ([6f3d4f0](http://115.233.227.46:8066/root/iep-ui/commits/6f3d4f0))
 * **项目:** 修改关联字段 ([35750bb](http://115.233.227.46:8066/root/iep-ui/commits/35750bb))
 * **项目:** 关联客户 ([b6aac21](http://115.233.227.46:8066/root/iep-ui/commits/b6aac21))
 * **项目:** 关联项去除 ([a04fd7c](http://115.233.227.46:8066/root/iep-ui/commits/a04fd7c))
@@ -66,14 +102,16 @@
 * **师傅:** 添加推荐页面 ([c17087b](http://115.233.227.46:8066/root/iep-ui/commits/c17087b))
 * **材料库:** 下载附件的控制 ([881f142](http://115.233.227.46:8066/root/iep-ui/commits/881f142))
 * **材料库:** 周报week month字段新增 ([9784ed7](http://115.233.227.46:8066/root/iep-ui/commits/9784ed7))
+* **考试库管理:** 阅卷管理接口 ([217781b](http://115.233.227.46:8066/root/iep-ui/commits/217781b))
+* **考试系统:** 滚回重来 ([0482e98](http://115.233.227.46:8066/root/iep-ui/commits/0482e98))
 * **财务:** 完成集团打赏 ([e17175f](http://115.233.227.46:8066/root/iep-ui/commits/e17175f))
 * **财务:** 投资页面添加 ([8b77987](http://115.233.227.46:8066/root/iep-ui/commits/8b77987))
 * **财富:** 我的投资 ([5c614b1](http://115.233.227.46:8066/root/iep-ui/commits/5c614b1))
 * **项目:** 新增修改功能完成 ([2141e22](http://115.233.227.46:8066/root/iep-ui/commits/2141e22))
-* **项目:** 立项 ([fd3492e](http://115.233.227.46:8066/root/iep-ui/commits/fd3492e))
 * **项目:** 立项 ([f5df350](http://115.233.227.46:8066/root/iep-ui/commits/f5df350))
-* **项目:** 立项 ([49d32c7](http://115.233.227.46:8066/root/iep-ui/commits/49d32c7))
 * **项目:** 立项 ([4169f8a](http://115.233.227.46:8066/root/iep-ui/commits/4169f8a))
+* **项目:** 立项 ([49d32c7](http://115.233.227.46:8066/root/iep-ui/commits/49d32c7))
+* **项目:** 立项 ([fd3492e](http://115.233.227.46:8066/root/iep-ui/commits/fd3492e))
 * **频道页:** 全局搜索的详情页 ([895cae3](http://115.233.227.46:8066/root/iep-ui/commits/895cae3))
 * **频道页:** 国脉人页面图片添加 ([6d4509b](http://115.233.227.46:8066/root/iep-ui/commits/6d4509b))
 * **频道页:** 国脉人页面详情页面跳转 ([9530f7a](http://115.233.227.46:8066/root/iep-ui/commits/9530f7a))

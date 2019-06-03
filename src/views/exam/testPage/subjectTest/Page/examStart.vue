@@ -9,8 +9,8 @@
 
     <div class="examShow">
       <div class="left">
-        <span style="font-size: 20px;"><b>{{resdata.kindName}}</b></span>
-        <span class="title">共 {{resdata.questionTotalNum}} 题，合计 45 分，已完成 {{count}} / {{resdata.questionTotalNum}}</span>
+        <span style="font-size: 20px;"><b>{{resdata.questionTypeName}}</b></span>
+        <span class="title">共 {{resdata.kindTotalNum}} 题，合计 {{resdata.kindMark}} 分，已完成 {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
         <hr>
         <span style="font-size: 15px;"><b>说明：</b></span>
         <span style="font-size: 15px;">{{questionExplain}}</span>
@@ -78,28 +78,28 @@
             <div v-if="resdata.radioMap.length > 0">
               <span class="answerSheet">单选题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleTypeOne(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div v-if="resdata.checkboxMap.length > 0">
               <span class="answerSheet">复选题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleTypeTwo(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div v-if="resdata.checkedMap.length > 0">
               <span class="answerSheet">判断题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleTypeThree(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div v-if="resdata.textMap.length > 0">
               <span class="answerSheet">简答题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleTypeFour(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
               </div><br>
             </div>
 
@@ -112,7 +112,7 @@
       <span class="headerTxt">准考证号：{{examNo}}</span>
       <span class="headerTxt">剩余时间：{{min}} 分：{{sec}} 秒</span>
       <!-- <iep-button @click="handleSave">暂停</iep-button> -->
-      <iep-button @click="backhome">返回</iep-button>
+      <!-- <iep-button @click="backhome">返回</iep-button> -->
       <iep-button style="margin-right: 30px;" @click="saveAndGoBack">保存并退出</iep-button>
       <iep-button type="primary" @click="handleExamination">交卷</iep-button>
     </footer-tool-bar>
@@ -154,8 +154,10 @@ export default {
         }
       },
       resdata: {
-        questionOffNum: [],  //已完成的题数
-        questionTotalNum: '',//题目总数
+        kindTotalNum: '',    //每种题型合计题数
+        kindMark: '',        //每种题型合计分数
+        questionOffNum: [],  //全部已完成的题目总数
+        questionTotalNum: '',//全部的题目总数
         titleOptions: [],    //答案选项数组
         radioMap: [],        //答题卡片的单选题数组集合，从数组中遍历题目出来
         checkboxMap: [],     //答题卡片的复选题数组集合，从数组中遍历题目出来
@@ -183,12 +185,12 @@ export default {
     min: function () {
       return this.num(this.mins)
     },
+    kindOffCount: function () {
+      return this.kindOffNum()
+    },
     count: function () {
       return this.offNum()
     },
-    // residueCount: function () {
-    //   return this.resdata.questionTotalNum - this.count
-    // },
   },
   mounted () {
     this.timer()
@@ -249,17 +251,26 @@ export default {
         this.resdata.textMap = record.questionNumList.textMap
         if (record.questionTypeName === '单选题') {
           this.answerRadio = record.userAnswer
+          this.resdata.kindTotalNum = record.questionNumList.radioMap.length
+          this.resdata.kindMark = record.questionNumList.radioMap[0].grade * this.resdata.kindTotalNum
         }
+
         if (record.questionTypeName === '复选题') {
           this.checksList = JSON.parse(record.userAnswer)
+          this.resdata.kindTotalNum = record.questionNumList.checkboxMap.length
+          this.resdata.kindMark = record.questionNumList.checkboxMap[0].grade * this.resdata.kindTotalNum
         }
         if (record.questionTypeName === '判断题') {
           this.trueOrFalseRadio = record.userAnswer
+          this.resdata.kindTotalNum = record.questionNumList.checkedMap.length
+          this.resdata.kindMark = record.questionNumList.checkedMap[0].grade * this.resdata.kindTotalNum
         }
         if (record.questionTypeName === '简答题') {
           this.freeInput = record.userAnswer
+          this.resdata.kindTotalNum = record.questionNumList.textMap.length
+          this.resdata.kindMark = record.questionNumList.textMap[0].grade * this.resdata.kindTotalNum
         }
-        // console.log('ttt', this.resdata)
+        // console.log('ttt', this.resdata.kindMark)
       })
     },
 
@@ -292,7 +303,44 @@ export default {
     },
 
     /**
-     *计算已完成的题数
+     *计算每种题型已完成的题数
+     */
+    kindOffNum () {
+      let kindcount = 0
+      const type = this.resdata.questionTypeName
+      if (type === '单选题') {
+        for (let i = 0; i < this.resdata.radioMap.length; i++) {
+          if (this.resdata.radioMap[i].answerOrNot > 0) {
+            kindcount++
+          }
+        }
+      }
+      if (type === '复选题') {
+        for (let i = 0; i < this.resdata.checkboxMap.length; i++) {
+          if (this.resdata.checkboxMap[i].answerOrNot > 0) {
+            kindcount++
+          }
+        }
+      }
+      if (type === '判断题') {
+        for (let i = 0; i < this.resdata.checkedMap.length; i++) {
+          if (this.resdata.checkedMap[i].answerOrNot > 0) {
+            kindcount++
+          }
+        }
+      }
+      if (type === '简答题') {
+        for (let i = 0; i < this.resdata.textMap.length; i++) {
+          if (this.resdata.textMap[i].answerOrNot > 0) {
+            kindcount++
+          }
+        }
+      }
+      return kindcount
+    },
+
+    /**
+     *计算已完成的题数总数
      */
     offNum () {
       let arr = []
@@ -307,7 +355,7 @@ export default {
           }
         }
       }
-      console.log('counts33', counts)
+      //console.log('counts33', counts)
       return counts
 
       // for (let i = 0; i < this.resdata.questionOffNum.length; i++) {
@@ -344,55 +392,15 @@ export default {
       this.getSubjectById(params)
     },
 
-    /**
-     * 点击单选题答题卡
+    /** 
+     * 点击答题卡作答
      */
-    handleTypeOne (item) {
+    handleCard (item) {
       const params = {
-        examId: this.record.id,
-        currentQuestionNum: this.resdata.questionNum,
         questionNum: item.id,
-        userAnswer: this.answerRadio,
       }
-      this.getSubjectById(params)
-    },
-
-    /**
-     * 点击复选题答题卡
-     */
-    handleTypeTwo (item) {
-      const params = {
-        examId: this.record.id,
-        currentQuestionNum: this.resdata.questionNum,
-        questionNum: item.id,
-        userAnswer: JSON.stringify(this.checksList),
-      }
-      this.getSubjectById(params)
-    },
-
-    /**
-     * 点击判断题答题卡
-     */
-    handleTypeThree (item) {
-      const params = {
-        examId: this.record.id,
-        currentQuestionNum: this.resdata.questionNum,
-        questionNum: item.id,
-        userAnswer: this.trueOrFalseRadio,
-      }
-      this.getSubjectById(params)
-    },
-
-    /**
-     * 点击简答题答题卡
-     */
-    handleTypeFour (item) {
-      const params = {
-        examId: this.record.id,
-        currentQuestionNum: this.resdata.questionNum,
-        questionNum: item.id,
-        userAnswer: this.freeInput,
-      }
+      this.judgeType(params)
+      console.log('33', params)
       this.getSubjectById(params)
     },
 
@@ -402,25 +410,6 @@ export default {
     // handleSave () {
     //   clearInterval(this.time)
     // },
-
-    /** 
-     * 返回
-     */
-    backhome () {
-      this.$confirm('此操作将自动保存试卷并返回主页面，是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        this.saveAll()
-        this.$emit('onGoBack')
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消返回',
-        })
-      })
-    },
 
     /**
      * 保存并退出

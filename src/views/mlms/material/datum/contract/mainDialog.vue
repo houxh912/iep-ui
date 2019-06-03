@@ -41,7 +41,7 @@
       </el-row>
       <el-row v-if="formData.contractType==1">
         <el-col :span='12'>
-          <el-form-item label="委托单位：" prop="companyOrgId">
+          <el-form-item label="委托单位：">
             <!-- <selectMore v-model="formData.companyOrgObj" prefix-url="crm/customer/myorcoll/list" @change="clientChange"></selectMore> -->
             <IepCrmsSelect 
               v-model="formData.companyOrgId" 

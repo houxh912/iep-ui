@@ -1,6 +1,6 @@
 {
   "name": "iep-ui",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "private": true,
   "scripts": {
     "serve": "node --max_old_space_size=2048 node_modules/@vue/cli-service/bin/vue-cli-service.js serve",

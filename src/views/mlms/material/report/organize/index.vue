@@ -80,7 +80,12 @@ export default {
       }
     },
     loadList (date, type, isMonth) {
-      let month = getDateObj(this.timeLineOption.list, date).month
+      let month = 0
+      if (isMonth) {
+        month = 13 - (date.getMonth() + 1)
+      } else {
+        month = getDateObj(this.timeLineOption.list, new Date(getMonday(date).timeStamp)).month
+      }
       getTableData({ yearMonthTime: `${date.getFullYear()}-${formatDig(13 - month)}` }).then((res) => {
         let obj = this.timeLineOption.list[month]
         let resObj = {}

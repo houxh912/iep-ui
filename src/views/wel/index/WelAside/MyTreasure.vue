@@ -29,17 +29,18 @@
 </template>
 <script>
 import { addBellBalanceRule } from '@/api/fams/balance_rule'
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { openWindow } from '@/util/util'
+import { getTotal } from '@/api/fams/total'
 export default {
   data () {
     return {
-      showMoney: true,
       totalAsset: 0,
       todayChange: 0,
     }
   },
   computed: {
+    ...mapGetters(['showMoney']),
     displayTotalAsset () {
       let { totalAsset } = this
       totalAsset = totalAsset.toFixed(2)
@@ -58,11 +59,17 @@ export default {
     this.loadPage()
   },
   methods: {
-    loadPage () {
-      addBellBalanceRule()
+    ...mapMutations({
+      setShowMoney: 'SET_SHOWMONEY',
+    }),
+    async loadPage () {
+      await addBellBalanceRule()
+      const { data } = await getTotal()
+      this.totalAsset = data.data.govmadeBell + data.data.lockBell
+      this.todayChange = data.data.dayBell
     },
     handleShowMoney () {
-      this.showMoney = !this.showMoney
+      this.setShowMoney(!this.showMoney)
     },
     ...mapMutations({
       setInvoiceDialogShow: 'SET_INVOICE_DIALOG_SHOW',

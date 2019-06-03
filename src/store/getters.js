@@ -9,6 +9,7 @@ const getters = {
   screen: state => state.common.screen,
   isLock: state => state.common.isLock,
   lockPasswd: state => state.common.lockPasswd,
+  showMoney: state => state.common.showMoney,
   // user
   userInfo: state => state.user.userInfo,
   noOrg: state => !state.user.userInfo.orgId,
@@ -32,5 +33,7 @@ const getters = {
   famsConfig: state => state.cache.famsConfig,
   // notify 通知消息
   notify: state => key => state.notify[key],
+  imMessage: state => key => state.im.messageMap[key],
+  imUserList: state => state.im.userList,
 }
 export default getters

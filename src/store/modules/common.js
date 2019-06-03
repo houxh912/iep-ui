@@ -11,6 +11,7 @@ const common = {
     showSearch: getStore({ name: 'showSearch' }) || false,
     showLock: getStore({ name: 'showLock' }) || false,
     showMenu: getStore({ name: 'showMenu' }) || false,
+    showMoney: getStore({ name: 'showMoney' }) || false,
     lockPasswd: getStore({ name: 'lockPasswd' }) || '',
     website: website,
   },
@@ -38,6 +39,13 @@ const common = {
       setStore({
         name: 'showMenu',
         content: state.showMenu,
+      })
+    },
+    SET_SHOWMONEY: (state, active) => {
+      state.showMoney = active
+      setStore({
+        name: 'showMoney',
+        content: state.showMoney,
       })
     },
     SET_SHOWLOCK: (state, active) => {

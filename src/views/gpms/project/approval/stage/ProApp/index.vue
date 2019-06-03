@@ -111,11 +111,15 @@ export default {
     }
   }
   .item {
-    height: 30px;
-    margin-bottom: 10px;
+    line-height: 20px;
+    // margin-bottom: 10px;
   }
   .footer {
     margin: 20px 0 0 60px;
   }
 }
+.el-form-item {
+  margin-bottom: 0;
+}
+
 </style>

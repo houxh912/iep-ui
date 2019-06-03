@@ -41,7 +41,7 @@
       </el-row>
       <el-row v-if="formData.contractType==1">
         <el-col :span='12'>
-          <el-form-item label="委托单位：" prop="companyOrgId">
+          <el-form-item label="委托单位：">
             <!-- <selectMore v-model="formData.companyOrgObj" prefix-url="crm/customer/myorcoll/list" @change="clientChange"></selectMore> -->
             <IepCrmsSelect 
               v-model="formData.companyOrgId" 
@@ -92,7 +92,7 @@
         </el-col>
         <el-col :span='12'>
           <el-form-item label="合同金额：" prop="contractAmount">
-            <el-input v-model="formData.contractAmount" placeholder="合同金额" maxlength="10"></el-input>
+            <el-input v-model="formData.contractAmount" placeholder="合同金额" maxlength="9"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

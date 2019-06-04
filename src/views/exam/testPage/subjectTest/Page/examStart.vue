@@ -626,7 +626,8 @@ export default {
   padding: 0 20px;
 }
 </style>
-<style lang="scss">
+<style lang="scss" scoped>
+/* TODO:scoped */
 .examShow {
   .el-radio__label {
     display: none;

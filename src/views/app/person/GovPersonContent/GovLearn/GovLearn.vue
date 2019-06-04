@@ -1,12 +1,8 @@
 <template>
-  <div class="training-con">
-    <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
-      <div class="training-notice">
-        <div v-for="(item,index) in documentList.slice(0, 12)" :key="index" class="piece">
-          <span class="name" @click="handleDetail(item)">{{item.material_name}}</span>
-        </div>
-      </div>
-    </iepAppTabCard>
+  <div class="training-notice">
+    <div v-for="(item,index) in learningList.slice(0, 12)" :key="index" class="piece">
+      <span class="name" @click="handleDetail(item)">{{item.material_name}}</span>
+    </div>
   </div>
 </template>
 
@@ -16,16 +12,16 @@ import { getMaterialList } from '@/api/app/mlms/'
 export default {
   data () {
     return {
-      title: '制度文件',
+      title: '学习资源',
       data: '',
-      documentList: [],
+      learningList: [],
       linkName: '/app/resource/material',
     }
   },
   methods: {
     loadList () {
       getMaterialList().then(({data}) => {
-        this.documentList = data.data.gzzd ? data.data.gzzd : []
+        this.learningList = data.data.rlxx ? data.data.rlxx : []
       })
     },
     handleDetail (row) {
@@ -77,10 +73,5 @@ export default {
       background-color: #999;
     }
   }
-}
-</style>
-<style scoped>
-.training-con >>> .el-card__body {
-  height: 378px;
 }
 </style>

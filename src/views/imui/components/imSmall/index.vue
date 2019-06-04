@@ -15,8 +15,6 @@ export default {
   name: 'im-ui-small',
   data () {
     return {
-      clientWidth: document.body.clientWidth,
-      clientHeight: document.body.clientHeight,
       mousePosition: {
         x: 0,
         y: 0,
@@ -31,23 +29,15 @@ export default {
     }
   },
   mounted () {
-    window.onresize = () => {
-      this.clientWidth = document.body.clientWidth
-      this.clientHeight = document.body.clientHeight
-      this.position = {
-        x: 0,
-        y: 0,
-      }
-    }
     this.boxWidth = this.$refs.imbox.offsetWidth
     this.boxHeight = this.$refs.imbox.offsetWidth
   },
   methods: {
     positionChange (translate) {
-      if (this.position.x + translate.x < 0 && this.position.x + translate.x > this.boxWidth - this.clientWidth) {
+      if (this.position.x + translate.x < 0 && this.position.x + translate.x > this.boxWidth - this.windowSize.width) {
         this.position.x = this.position.x + translate.x
       }
-      if (this.position.y + translate.y < 0 && this.position.y + translate.y > this.boxHeight - this.clientHeight) {
+      if (this.position.y + translate.y < 0 && this.position.y + translate.y > this.boxHeight - this.windowSize.height) {
         this.position.y = this.position.y + translate.y
       }
     },
@@ -82,6 +72,17 @@ export default {
         transform: `translate(${this.position.x}px, ${this.position.y}px)`,
       }
     },
+    windowSize () {
+      return this.$store.getters.windowSize
+    },
+  },
+  watch: {
+    windowSize () {
+      this.position = {
+        x: 0,
+        y: 0,
+      }
+    },
   },
 }
 </script>
@@ -105,19 +106,15 @@ export default {
   border-radius: 30px;
   cursor: move;
   opacity: .4;
-  transform: translate3D(0, 0, 0);
-  &:not(:hover).flash {
-    animation: flash .3s linear infinite alternate;
-  }
-  &:hover {
-    opacity: 1;
-  }
   .headimage {
     height: 60px;
     width: 60px;
     border-radius: 30px;
     vertical-align: middle;
     cursor: pointer;
+  }
+  &:hover {
+    opacity: 1;
   }
 }
 

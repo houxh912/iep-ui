@@ -3,12 +3,19 @@
     <div class="chat-box">
       <div class="chat-group">
         <div class="chat-title">
-          <img class="chat-title-head" :src="chatDetail.avatar ? chatDetail.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
+          <img class="chat-title-head"
+               :src="chatDetail.avatar ? chatDetail.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
           <span class="chat-title-name">{{chatDetail.realName}}</span>
         </div>
         <div class="chat-main" ref="chatmain">
           <ul>
-            <li v-for="(message, index) in getMessageList" :key="index" :style="getDirectionStyle(message.type)">
+            <li v-show="$store.getters.imMessageMore(chatDetail.username)" class="chat-more">
+              <i v-show="loadingMore" class="el-icon-loading"></i>
+              <span v-show="!loadingMore" @click="getMore">点击查看更多</span>
+            </li>
+            <li v-for="(message, index) in messageList"
+                :key="index"
+                :style="getDirectionStyle(message.type)">
               <img src=""/>
               <div class="chat-main-content">
                 <span>{{message.time}}</span>
@@ -34,11 +41,14 @@
 </template>
 
 <script>
+import { getMoreHistory } from '@/api/im'
 export default {
   name: 'chat-content',
   data () {
     return {
       message: '',
+      loadingMore: false,
+      messageList: [],
     }
   },
   props: {
@@ -48,6 +58,9 @@ export default {
         return {}
       },
     },
+  },
+  created () {
+    this.messageList = this.getMessageList
   },
   methods: {
     keydown (event) {
@@ -72,6 +85,29 @@ export default {
         textAlign: type === 0 ? 'right' : 'left',
       }
     },
+    getMore () {
+      this.loadingMore = true
+      let msgCode = 0
+      if (this.getMessageList && this.getMessageList[0]) {
+        msgCode = this.getMessageList[0].msgCode
+      }
+      getMoreHistory({
+        targetId: this.chatDetail.userId,
+        type: 1,
+        msgCode,
+      }).then(({data}) => {
+        if (data.code === 0) {
+          this.$store.commit('addHistoryMessage', {
+            list: data.data,
+            username: this.chatDetail.username,
+          })
+        }
+      }, error => {
+        this.$message.error(error.message)
+      }).finally(() => {
+        this.loadingMore = false
+      })
+    },
   },
   computed: {
     getMessageList () {
@@ -80,12 +116,26 @@ export default {
   },
   watch: {
     getMessageList: {
-      handler: function () {
-        this.$nextTick(() => {
-          this.$refs.chatmain.scrollTop = this.$refs.chatmain.scrollHeight
-        })
+      handler: function (newVal) {
+        this.messageList = Object.assign([], newVal)
       },
-      deep: true,
+    },
+    messageList: {
+      handler: function (newVal, oldVal) {
+        if (newVal) {
+          let oldHeight = this.$refs.chatmain.scrollHeight
+          let oldScrollTop = this.$refs.chatmain.scrollTop
+          if (newVal[newVal.length - 1].id !== (oldVal ? oldVal[oldVal.length - 1].id : 0)) {
+            this.$nextTick(() => {
+              this.$refs.chatmain.scrollTop = this.$refs.chatmain.scrollHeight
+            })
+          } else {
+            this.$nextTick(() => {
+              this.$refs.chatmain.scrollTop = oldScrollTop + this.$refs.chatmain.scrollHeight - oldHeight
+            })
+          }
+        }
+      },
     },
   },
 }
@@ -142,8 +192,11 @@ export default {
               list-style: none;
               display: flex;
               flex-wrap: nowrap;
-              .head-image {
-
+              &.chat-more {
+                justify-content: center;
+                align-items: flex-start;
+                font-size: 12px;
+                color: #BA1B21;
               }
             }
           }

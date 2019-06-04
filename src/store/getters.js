@@ -10,6 +10,7 @@ const getters = {
   isLock: state => state.common.isLock,
   lockPasswd: state => state.common.lockPasswd,
   showMoney: state => state.common.showMoney,
+  windowSize: state => state.common.windowSize,
   // user
   userInfo: state => state.user.userInfo,
   noOrg: state => !state.user.userInfo.orgId,
@@ -33,8 +34,10 @@ const getters = {
   famsConfig: state => state.cache.famsConfig,
   // notify 通知消息
   notify: state => key => state.notify[key],
+  // im 即时聊天
   imMessage: state => key => state.im.messageMap[key],
-  imUserList: state => state.im.userList,
+  imMessageMore: state => key => state.im.messageMore[key],
+  imUserTree: state => state.im.userTree,
   imChatList: state => state.im.chatList,
   imCurrentChatList: state => state.im.currentChatList,
   imUnread: state => key => state.im.unreadMap[key],

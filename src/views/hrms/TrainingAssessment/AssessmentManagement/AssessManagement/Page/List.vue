@@ -38,11 +38,13 @@
     <add-dialog-form ref="AddDialogForm" @load-page="loadPage"></add-dialog-form>
   </div>
 </template>
+
 <script>
-import { getAssessmentManagementPage, postAssessmentManagement, deletePublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/assessment_management'
+import { getTemplatePage, deleteTemplateById, createTemplate } from '@/api/hrms/template'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initSearchForm } from '../options'
 import AddDialogForm from './AddDialogForm'
+
 export default {
   mixins: [mixins],
   components: { AddDialogForm },
@@ -58,20 +60,20 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$refs['AddDialogForm'].formRequestFn = postAssessmentManagement
+      this.$refs['AddDialogForm'].formRequestFn = createTemplate
       this.$refs['AddDialogForm'].dialogShow = true
     },
     handleDeleteBatch () {
-      this._handleGlobalDeleteAll(deletePublishRecruitment)
+      this._handleGlobalDeleteAll(deleteTemplateById)
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deletePublishRecruitmentById)
+      this._handleGlobalDeleteById(row.id, deleteTemplateById)
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },
     loadPage (param = this.paramForm) {
-      this.loadTable(param, getAssessmentManagementPage)
+      this.loadTable(param, getTemplatePage)
     },
   },
 }

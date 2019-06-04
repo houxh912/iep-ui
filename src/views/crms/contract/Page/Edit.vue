@@ -74,8 +74,11 @@
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="承接部门：">
+          <!-- <el-form-item label="承接部门：">
             <iep-dept-multiple v-model="formData.underTakeDeptName"></iep-dept-multiple>
+          </el-form-item> -->
+          <el-form-item label="承接组织：">
+            <iep-select v-model="formData.underTakeDeptId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调出组织" multiple></iep-select>
           </el-form-item>
         </el-col>
       </el-row>
@@ -188,6 +191,7 @@ export default {
         this.formData.signDeptName = this.userInfo.orgName
         this.formData.projectName = res.data.data.projectRelation.name
         this.formData.projectId = res.data.data.projectRelation.id
+        this.formData.underTakeDeptId = res.data.data.underTakeDeptName.map(m => m.id)
         getObj(this.formData.directorId).then(res => {
           this.$set(this.formData, 'Manager', res.data.data.realName)
         })
@@ -211,18 +215,24 @@ export default {
     submitForm (formName) {
       this.formData.contractFile = this.formData.contractFileList.length > 0 ? this.formData.contractFileList[0].url : ''
       let formData = Object.assign({}, this.formData)
-      formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
+      // formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
+      formData.contractAmount = parseInt(this.formData.contractAmount)
+      formData.deposit = parseInt(this.formData.deposit)
       formData.directorId = this.formData.directorId
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.isTime) {
-            this.formRequestFn(formData).then(() => {
-              this.$message({
-                message: `${this.methodName}成功`,
-                type: 'success',
-              })
-              this.$emit('onGoBack')
-              this.loadPage()
+            this.formRequestFn(formData).then(({ data }) => {
+              if (data.data) {
+                this.$message({
+                  message: `${this.methodName}成功`,
+                  type: 'success',
+                })
+                this.$emit('onGoBack')
+                this.loadPage()
+              } else {
+                this.$message.error(data.msg)
+              }
             })
           } else {
             this.$message.error('签订日期不能晚于完结日期')

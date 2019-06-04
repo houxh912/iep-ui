@@ -101,6 +101,7 @@ export default {
       this.$refs['DetailDrawer'].drawerShow = true
       getDataById(row.contractId).then(res => {
         this.$refs['DetailDrawer'].formData = res.data.data
+        this.$refs['DetailDrawer'].formData.signDeptOrgName = res.data.data.signDeptOrgName.name
         // 业务类型处理
         let businessType = res.data.data.businessType.split(','), list = []
         for (let type of businessType) {

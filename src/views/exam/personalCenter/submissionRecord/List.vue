@@ -12,64 +12,79 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap"
-        :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange"
-        @current-change="handleCurrentChange" is-index>
-        <el-table-column prop="operation" label="操作" width="220">
+      <iep-table
+        :isLoadTable="isLoadTable"
+        :pagination="pagination"
+        :pagedTable="pagedTable"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        is-index>
+        <el-table-column prop="fieldName" label="科目">
           <template slot-scope="scope">
-            <operation-wrapper>
-              <iep-button type="text" @click="handleModify(scope.row)">重新编辑</iep-button>
-            </operation-wrapper>
+            {{scope.row.fieldName}}
           </template>
         </el-table-column>
+        <el-table-column prop="questionTypeName" label="题型">
+          <template slot-scope="scope">
+            {{scope.row.questionTypeName}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="kindName" label="题类">
+          <template slot-scope="scope">
+            {{scope.row.kindName}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="title" label="内容">
+          <template slot-scope="scope">
+            {{scope.row.title}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="difficultyName" label="难度">
+          <template slot-scope="scope">
+            {{scope.row.difficultyName}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="status" label="状态">
+          <template slot-scope="scope">
+            <el-tag
+              type="info"
+              size="medium"
+              v-if="scope.row.status === 0"
+            >审核中</el-tag>
+            <el-tag
+              type="success"
+              size="medium"
+              v-if="scope.row.status === 1"
+            >通过</el-tag>
+            <el-tooltip effect="dark" placement="top-start">
+              <div slot="content">未通过原因：<br/>{{scope.row.reason}}</div>
+              <el-tag
+                type="warning"
+                size="medium"
+                v-if="scope.row.status === 2"
+              >未通过</el-tag>
+            </el-tooltip>
+          </template>
+        </el-table-column>
+        <el-table-column prop="creatTime" label="提交时间">
+          <template slot-scope="scope">
+            {{scope.row.creatTime}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="operation" label="操作">
+            <template slot-scope="scope">
+              <operation-wrapper>
+                <iep-button type="warning" plain @click="handleModify(scope.row)">重新编辑</iep-button>
+              </operation-wrapper>
+            </template>
+          </el-table-column>
       </iep-table>
     </basic-container>
   </div>
 </template>
 
 <script>
-const columnsMap = [
-  {
-    prop: 'field',
-    label: '科目',
-  },
-  {
-    prop: 'questionType',
-    label: '题型',
-  },
-  {
-    prop: 'kind',
-    label: '题类',
-  },
-  {
-    prop: 'title',
-    label: '内容',
-  },
-  {
-    prop: 'difficulty',
-    label: '难度',
-  },
-  {
-    prop: 'status',
-    label: '状态',
-  },
-  {
-    prop: 'username',
-    label: '提交者',
-  },
-  {
-    prop: 'creatTime',
-    label: '提交时间',
-  },
-]
-const dictsMap = {
-  status: {
-    0: '审核中',
-    1: '通过',
-    2: '未通过',
-  },
-}
-import { getTestList } from '@/api/exam/createExam/newTest/newTest'
+import { getSubmissionRecordList } from '@/api/exam/personalCenter/submissionRecord/submissionRecord'
 import AdvanceSearch from '@/views/exam/reviewCenter/testQuestionsLibrary/Page/AdvanceSearch'
 import mixins from '@/mixins/mixins'
 export default {
@@ -77,8 +92,6 @@ export default {
   components: { AdvanceSearch },
   data () {
     return {
-      columnsMap,
-      dictsMap,
     }
   },
   created () {
@@ -86,7 +99,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getTestList)
+      this.loadTable(param, getSubmissionRecordList)
     },
     /**
      * 新增试题
@@ -101,7 +114,6 @@ export default {
     handleModify (row) {
       console.log(row)
       this.$message('此功能开发中...')
-
     },
   },
 }

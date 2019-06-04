@@ -19,6 +19,7 @@ import store from '@/store'
 import SockJS from 'sockjs-client'
 import Stomp from 'stompjs'
 import { getUserListTree } from '@/api/admin/contacts'
+import { getTotalHistory, clearUnread } from '@/api/im'
 export default {
   name: 'im-ui',
   components: {
@@ -40,6 +41,7 @@ export default {
     this.initWebSocket()
     getUserListTree().then(({data}) => {
       this.$store.commit('setUserList', data.data)
+      this.getUnreadHistory()
     })
   },
   methods: {
@@ -63,27 +65,32 @@ export default {
       let headers = {
         'Authorization': 'Bearer ' + token,
       }
-      // 建立连接对象
       this.socket = new SockJS(this.$wsUrl)//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
       this.stompClient = Stomp.over(this.socket)
-      // 向服务器发起websocket连接
+      this.stompClient.debug = null
       this.stompClient.connect(headers, () => {
+        this.$eventBus.$on('logout', () => {
+          this.$store.commit('imClearAll')
+          this.stompClient.disconnect(headers)
+        })
         this.stompClient.subscribe(`/self/chat/${userInfo.userId}`, (data) => { // 订阅服务端提供的某个topic;
           let body = JSON.parse(data.body)
           this.$store.commit('addMessage', {
+            id: body.id,
             message: body.msg,
+            msgCode: body.msgCode,
             time: body.sendTime,
             username: body.targetName === userInfo.username ? body.resourceName : body.targetName,
             avatar: body.otherAvatar,
             realName: body.otherRealName,
             userId: body.otherId,
             type: body.targetName === userInfo.username ? 1 : 0,
-            unread: (body.targetName === userInfo.username ? body.resourceName : body.targetName) !== this.currentChat.username,
+            unread: (body.targetName === userInfo.username ? body.resourceName : body.targetName) !== this.currentChat.username ? 1 : 0,
           })
+          if ((body.targetName === userInfo.username ? body.resourceName : body.targetName) === this.currentChat.username) {
+            clearUnread({type: 1, targetId: body.otherId})
+          }
         })
-//        this.stompClient.subscribe('/public/chat/online', (data) => {
-//          console.log(data)
-//        })
       }, (err) => {
         this.$message.error(err.message)
       })
@@ -91,22 +98,33 @@ export default {
     sendMessage ({receiver, message, messageType}) {
       this.stompClient.send(`/unicast/${receiver.username}/${store.getters.userInfo.userId}-${receiver.userId}`, {}, JSON.stringify({msg: message, type: messageType, msgType: 1, msgCode: new Date().getTime()}))
     },
-    toChat (chat) {
-      this.$store.commit('addCurrentChatList', chat)
-      this.currentChat = chat
+    getUnreadHistory () {
+      getTotalHistory().then(({data}) => {
+        if (data.code === 0) {
+          this.$store.commit('initHistory', data.data)
+        }
+      }, error => {
+        this.$message.error(error.message)
+      })
     },
-    chatChange (chat) {
-      this.$store.commit('clearUserUnread', chat.username)
-      this.currentChat = chat
+    toChat (user) {
+      this.$store.commit('addCurrentChatList', user)
+      clearUnread({type: 1, targetId: user.userId})
+      this.currentChat = user
     },
-    chatClose (chat) {
-      for (let i = this.$store.getters.imCurrentChatList.length; i--;) {
-        if (this.$store.getters.imCurrentChatList[i].userId === chat.userId) {
-          if (chat.userId === this.currentChat.userId) {
+    chatChange (user) {
+      this.$store.commit('clearUserUnread', user.username)
+      this.currentChat = user
+    },
+    chatClose (user) {
+      let imCurrentChatList = this.$store.getters.imCurrentChatList
+      for (let i = imCurrentChatList.length; i--;) {
+        if (imCurrentChatList[i].userId === user.userId) {
+          if (user.userId === this.currentChat.userId) {
             if (i > 0) {
-              this.currentChat = this.$store.getters.imCurrentChatList[i - 1]
-            } else if (this.$store.getters.imCurrentChatList.length > 1) {
-              this.currentChat = this.$store.getters.imCurrentChatList[1]
+              this.currentChat = imCurrentChatList[i - 1]
+            } else if (imCurrentChatList.length > 1) {
+              this.currentChat = imCurrentChatList[1]
             } else {
               this.currentChat = {}
             }

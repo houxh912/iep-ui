@@ -37,8 +37,6 @@ export default {
   },
   data () {
     return {
-      clientWidth: document.body.clientWidth,
-      clientHeight: document.body.clientHeight,
       currentChatId: null,
       position: {
         x: 0,
@@ -46,30 +44,12 @@ export default {
       },
     }
   },
-  mounted () {
-    window.onresize = () => {
-      this.clientWidth = document.body.clientWidth
-      this.clientHeight = document.body.clientHeight
-      this.position = {
-        x: 0,
-        y: 0,
-      }
-    }
-  },
-  watch: {
-    currentChat: {
-      handler: function (newVal) {
-        this.currentChatId = newVal.userId
-      },
-      deep: true,
-    },
-  },
   methods: {
     positionChange (translate) {
-      if (Math.abs(this.position.x + translate.x) < this.clientWidth / 2 - (this.$store.getters.imCurrentChatList.length > 1 ? 400 : 300)) {
+      if (Math.abs(this.position.x + translate.x) < this.windowSize.width / 2 - (this.$store.getters.imCurrentChatList.length > 1 ? 400 : 300)) {
         this.position.x = this.position.x + translate.x
       }
-      if (Math.abs(this.position.y + translate.y) < this.clientHeight / 2 - 260) {
+      if (Math.abs(this.position.y + translate.y) < this.windowSize.height / 2 - 260) {
         this.position.y = this.position.y + translate.y
       }
     },
@@ -89,6 +69,23 @@ export default {
         paddingLeft: this.$store.getters.imCurrentChatList.length > 1 ? '200px' : '',
         marginLeft: this.$store.getters.imCurrentChatList.length > 1 ? '-400px' : '-300px',
         transform: `translate(${this.position.x}px, ${this.position.y}px)`,
+      }
+    },
+    windowSize () {
+      return this.$store.getters.windowSize
+    },
+  },
+  watch: {
+    currentChat: {
+      handler: function (newVal) {
+        this.currentChatId = newVal.userId
+      },
+      deep: true,
+    },
+    windowSize () {
+      this.position = {
+        x: 0,
+        y: 0,
       }
     },
   },

@@ -3,7 +3,8 @@
     <ul class="chat-list">
       <li
         v-for="(chat, index) in $store.getters.imCurrentChatList"
-        :key="index" @click="chatChange(chat)"
+        :key="index"
+        @click="chatChange(chat)"
         :class="currentChat === chat.userId ? 'chosen' : ''">
         <img :src="chat.avatar ? chat.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
         <span>{{chat.realName}}</span>

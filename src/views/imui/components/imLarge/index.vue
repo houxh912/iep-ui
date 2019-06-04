@@ -6,27 +6,43 @@
         <div class="close-button" @click="showSmall"></div>
       </div>
       <ul class="im-table">
-        <li :class="tableChosen === 'book' ? 'chosen' : ''" @click="tableChosen = 'book'">通讯录</li>
-        <li :class="tableChosen === 'chat' ? 'chosen' : ''" @click="tableChosen = 'chat'">聊天</li>
+        <li :class="tableChosen === 'book' ? 'chosen' : ''"
+            @click="tableChosen = 'book'">通讯录</li>
+        <li :class="tableChosen === 'chat' ? 'chosen' : ''"
+            @click="tableChosen = 'chat'">
+          <span>聊天</span>
+          <el-badge class="unread-point"
+                    :max="99"
+                    v-show="$store.getters.imUnreadTotal"
+                    :value="$store.getters.imUnreadTotal">
+          </el-badge>
+        </li>
       </ul>
       <div class="im-tabel-content-large-im">
           <el-tree
                   v-show="tableChosen === 'book'"
                   @node-click="toChat"
-                  :data="$store.getters.imUserList"
+                  :data="$store.getters.imUserTree"
                   node-key="id"
                   :expand-on-click-node="false">
-            <span v-if="data.leaf" class="im-tabel-content-large-im-item" slot-scope="{ node, data }">
+            <span v-if="data.leaf"
+                  class="im-tabel-content-large-im-item"
+                  slot-scope="{ node, data }">
               <span class="im-friend">
-                <img class="im-friend-head" :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
+                <img class="im-friend-head"
+                     :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
                 <span>{{data.label}}</span>
               </span>
             </span>
             <span v-else>{{ data.label }}</span>
         </el-tree>
         <ul v-show="tableChosen === 'chat'" class="im-chat-list">
-          <li class="im-friend" v-for="user in $store.getters.imChatList" @click="toChatUser(user)" :key="user.id">
-            <img class="im-friend-head" :src="user.avatar ? user.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
+          <li class="im-friend"
+              v-for="user in $store.getters.imChatList"
+              @click="toChatUser(user)"
+              :key="user.id">
+            <img class="im-friend-head"
+                 :src="user.avatar ? user.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
             <span>{{user.realName}}</span>
             <el-badge class="unread-point"
                       v-show="$store.getters.imUnread(user.username)"
@@ -45,8 +61,6 @@ export default {
   data () {
     return {
       tableChosen: 'book',
-      clientWidth: document.body.clientWidth,
-      clientHeight: document.body.clientHeight,
       mousePosition: {
         x: 0,
         y: 0,
@@ -60,23 +74,15 @@ export default {
     }
   },
   mounted () {
-    window.onresize = () => {
-      this.clientWidth = document.body.clientWidth
-      this.clientHeight = document.body.clientHeight
-      this.position = {
-        x: 0,
-        y: 0,
-      }
-    }
     this.boxWidth = this.$refs.imbox.offsetWidth
-    this.boxHeight = this.$refs.imbox.offsetWidth
+    this.boxHeight = this.$refs.imbox.offsetHeight
   },
   methods: {
     positionChange (translate) {
-      if (this.position.x + translate.x < 0 && this.position.x + translate.x > this.boxWidth - this.clientWidth) {
+      if (this.position.x + translate.x < 0 && this.position.x + translate.x > this.boxWidth - this.windowSize.width) {
         this.position.x = this.position.x + translate.x
       }
-      if (this.position.y + translate.y < 0 && this.position.y + translate.y > this.boxHeight - this.clientHeight) {
+      if (this.position.y + translate.y < 0 && this.position.y + translate.y > this.boxHeight - this.windowSize.height) {
         this.position.y = this.position.y + translate.y
       }
     },
@@ -110,12 +116,10 @@ export default {
           avatar: data.avatar,
           userId: data.value,
         }
-        console.log(chat)
         this.$emit('toChat', chat)
       }
     },
     toChatUser (user) {
-      console.log(user)
       this.$emit('toChat', user)
     },
   },
@@ -123,6 +127,17 @@ export default {
     getPosition () {
       return {
         transform: `translate(${this.position.x}px, ${this.position.y}px)`,
+      }
+    },
+    windowSize () {
+      return this.$store.getters.windowSize
+    },
+  },
+  watch: {
+    windowSize () {
+      this.position = {
+        x: 0,
+        y: 0,
       }
     },
   },

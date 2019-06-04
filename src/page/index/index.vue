@@ -1,6 +1,6 @@
 <template>
   <div class="avue-contail">
-    <im-ui></im-ui>
+    <im-ui v-if="$store.getters.userInfo.userId != 1"></im-ui>
     <el-container style="height: 100vh;">
       <el-header style="height: 60px;padding: 0;z-index: 500;">
         <!-- 顶部导航栏 -->

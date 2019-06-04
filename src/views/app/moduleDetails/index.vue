@@ -26,7 +26,7 @@ import { getModuleById } from '@/api/app/cpms/module'
 import { initForm } from '@/views/cpms/modules/options'
 export default {
   beforeRouteUpdate (to, from, next) {
-    console.log(to, from)
+    // console.log(to, from)
     this.$nextTick(() => {
       this.loadPage()
     })

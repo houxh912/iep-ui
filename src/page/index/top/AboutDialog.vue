@@ -7,6 +7,12 @@
       <p>版本号：{{ BUILD_GIT_HASH }}</p>
       <p v-html="BUILD_PRO_DESC"></p>
       <p>最近更新日期：{{ BUILD_TIME | parseTime }}</p>
+      <p>是否开启实验性功能：
+        <a-switch :checked="isExperimental" checkedChildren="开" unCheckedChildren="关" @change="setExperimental" />
+      </p>
+      <p>实验性功能：
+        1. 即时聊天功能!
+      </p>
     </div>
     <template slot="footer">
       <a-button key="submit" type="primary" @click="visible=false">
@@ -16,6 +22,7 @@
   </a-modal>
 </template>
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -36,7 +43,15 @@ export default {
       BUILD_TIME: BUILD_TIME,
     }
   },
+  computed: {
+    ...mapState({
+      isExperimental: state => state.common.isExperimental,
+    }),
+  },
   methods: {
+    ...mapMutations({
+      setExperimental: 'SET_EXPERIMENTAL',
+    }),
     handleClose () {
       this.visible = false
     },

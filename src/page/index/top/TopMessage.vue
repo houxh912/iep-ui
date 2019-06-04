@@ -2,13 +2,13 @@
   <el-popover popper-class="msg-popover" placement="bottom" width="336" v-model="visible" trigger="click">
     <a-spin :spinning="pageLoading">
       <el-tabs class="msg-tabs" v-model="activeName">
-        <el-tab-pane :label="`公告 (${announcementList.length || 0})`" name="first">
+        <el-tab-pane :label="`公告 (${announcementNum || 0})`" name="first">
           <iep-top-message-box :message-list="announcementList" :type="0" @visible="visible=false"></iep-top-message-box>
         </el-tab-pane>
-        <el-tab-pane :label="`消息 (${systemMessageList.length || 0})`" name="second">
+        <el-tab-pane :label="`消息 (${systemMessageNum || 0})`" name="second">
           <iep-top-message-box :message-list="systemMessageList" :type="1" @visible="visible=false"></iep-top-message-box>
         </el-tab-pane>
-        <el-tab-pane :label="`邮件 (${emailList.length || 0})`" name="third">
+        <el-tab-pane :label="`邮件 (${emailNum || 0})`" name="third">
           <iep-top-message-box :message-list="emailList" :type="2" @visible="visible=false"></iep-top-message-box>
         </el-tab-pane>
       </el-tabs>
@@ -76,7 +76,7 @@ export default {
         'Authorization': 'Bearer ' + token,
       }
       // 建立连接对象
-      this.socket = new SockJS('/api/ims/ws')//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
+      this.socket = new SockJS('/ims/ws')//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
       this.stompClient = Stomp.over(this.socket)
       this.stompClient.debug = null
       // 向服务器发起websocket连接

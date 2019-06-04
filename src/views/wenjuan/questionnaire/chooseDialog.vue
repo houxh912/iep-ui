@@ -19,7 +19,7 @@
   </gov-dialog>
 </template>
 <script>
-import mixin from '@/wenjuan/mixins/mixin'
+import mixin from '@/views/wenjuan/mixins/mixin'
 import currentMixin from './const/mixin'
 import { getUserList } from '@/api/admin/user'
 import { getList, getDetail, getProject } from '@/api/evaluate/question'

@@ -37,7 +37,7 @@
   </gov-dialog>
 </template>
 <script>
-import mixin from '@/wenjuan/mixins/mixin'
+import mixin from '@/views/wenjuan/mixins/mixin'
 import scopeMixin from './const/mixin'
 import FormItem from './editForm'
 import draggable from 'vuedraggable'

@@ -19,10 +19,10 @@
   </gov-dialog>
 </template>
 <script>
-import mixin from '@/wenjuan/mixins/mixin'
+import mixin from '@/views/wenjuan/mixins/mixin'
 import workOrder from './compoments/workOrder'
 import { getGroups, getMembers, getWorkById } from '@/api/evaluate/management'
-import { getDic, getDept } from '@/wenjuan/util/dic'
+import { getDic, getDept } from '@/views/wenjuan/util/dic'
 export default {
   mixins: [mixin],
   components: { workOrder },

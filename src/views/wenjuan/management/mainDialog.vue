@@ -40,10 +40,10 @@
 </template>
 <script>
 /*eslint-disable*/
-import mixin from '@/wenjuan/mixins/mixin'
+import mixin from '@/views/wenjuan/mixins/mixin'
 import createWork from './compoments/createWork'
 import { getGroups, getMembers, getSystemIndex } from '@/api/evaluate/management'
-import { getDic, getDept } from '@/wenjuan/util/dic'
+import { getDic, getDept } from '@/views/wenjuan/util/dic'
 export default {
   mixins: [mixin],
   components: {createWork},

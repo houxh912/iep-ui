@@ -1,4 +1,4 @@
-import { getDic } from '@/wenjuan/util/dic'
+import { getDic } from '@/views/wenjuan/util/dic'
 export function getDicValue (value,dic) {
   let dicArr = getDic(dic)
   for(let item of dicArr){

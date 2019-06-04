@@ -1,4 +1,4 @@
-import { getDic,getDept,changeDicType } from '@/wenjuan/util/dic'
+import { getDic,getDept,changeDicType } from '@/views/wenjuan/util/dic'
 export default {
   data () {
     return {

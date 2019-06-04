@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '../store'
-import { getToken } from '@/wenjuan/util/auth'
+import { getToken } from '@/views/wenjuan/util/auth'
 import { Message } from 'element-ui'
 // import qs form 'qs'
 import errorCode from '@/config/errorCode'

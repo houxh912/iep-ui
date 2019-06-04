@@ -16,7 +16,7 @@
   </el-row>
 </template>
 <script>
-import mixin from '@/wenjuan/mixins/mixin'
+import mixin from '@/views/wenjuan/mixins/mixin'
 import workOrder from './workOrder'
 // import {getWorkById} from '@/api/evaluate/management'
 export default {

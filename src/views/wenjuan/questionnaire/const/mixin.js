@@ -1,7 +1,7 @@
 import {
   getDic,
   getDept,
-} from '@/wenjuan/util/dic'
+} from '@/views/wenjuan/util/dic'
 // import {
 //   getProject,
 //   getGroupDept,

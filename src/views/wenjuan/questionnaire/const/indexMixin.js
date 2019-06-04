@@ -1,4 +1,4 @@
-import { getDic, changeDicType } from '@/wenjuan/util/dic'
+import { getDic, changeDicType } from '@/views/wenjuan/util/dic'
 export default {
   data () {
     return {

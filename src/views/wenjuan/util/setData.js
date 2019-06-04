@@ -1,4 +1,4 @@
-import {getDicAll} from '@/wenjuan/util/dic'
+import {getDicAll} from '@/views/wenjuan/util/dic'
 import mergeWith from 'lodash/mergeWith'
 /**
 * 数据格式

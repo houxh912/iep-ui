@@ -1,8 +1,8 @@
 import axios from 'axios'
-import store from '../store'
-import { getToken } from '@/wenjuan/util/auth'
+import store from '@/store'
+import { getToken } from '@/views/wenjuan/util/auth'
 import { Message } from 'element-ui'
-import errorCode from '@/config/errorCode'
+import errorCode from '@/views/wenjuan/config/errorCode'
 import Qs from 'qs'
 // import {transformGetRequest} from '@/util/util'
 const timeout = 30 * 1000

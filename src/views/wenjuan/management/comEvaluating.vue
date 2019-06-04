@@ -74,10 +74,10 @@
                       <div>
                         <h4>
                           评测说明：
-                          <gov-froala-editor-detail v-if="explain.type == '1'" :htmlStr="upData.reviewInstructions"></gov-froala-editor-detail>
+                          <iep-html v-if="explain.type == '1'" :htmlStr="upData.reviewInstructions"></iep-html>
                           <!-- <div ref="isi" v-if="explain.type == '1'"></div> -->
                           <!-- <span v-if="explain.type == '1'">{{upData.reviewInstructions}}</span> -->
-                          <gov-froala-editor v-else v-model="explain.text"></gov-froala-editor>
+                          <iep-froala-editor v-else v-model="explain.text"></iep-froala-editor>
                           <!-- <el-input v-else size="small" style="width:200px" v-model="explain.text" placeholder="请输入内容"></el-input> -->
                         </h4>
                       </div>
@@ -113,14 +113,11 @@
 </template>
 <script>
 /*eslint-disable*/
-import mixin from '@/wenjuan/mixins/mixin'
+import mixin from '@/views/wenjuan/mixins/mixin'
 import scopeMixin from './const/mixin'
-import govFroalaEditor from '@/wenjuan/Components/govFroalaEditor'
-import govFroalaEditorDetail from '@/wenjuan/Components/govFroalaEditor/detail'
 import { getIndexSydtems, getGroups, getInfo, updateReviewFlow, statistical, getMembers } from '@/api/evaluate/management'
-import { getDept, getDic } from '@/wenjuan/util/dic'
+import { getDept, getDic } from '@/views/wenjuan/util/dic'
 export default {
-  components: { govFroalaEditor, govFroalaEditorDetail },
   mixins: [mixin, scopeMixin],
   data () {
     return {

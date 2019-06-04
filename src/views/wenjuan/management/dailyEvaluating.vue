@@ -80,12 +80,12 @@
 </template>
 <script>
 /*eslint-disable*/
-import mixin from '@/wenjuan/mixins/mixin'
+import mixin from '@/views/wenjuan/mixins/mixin'
 import scopeMixin from './const/dailyMixin'
 import mainDialog from './mainDialog'
 import editDialog from './editDialog'
 import workListDialog from './workListDialog'
-import { getDic } from '@/wenjuan/util/dic'
+import { getDic } from '@/views/wenjuan/util/dic'
 // import { getProject } from '@/api/evaluate/question'
 import { getData } from '@/api/evaluate/projectStep'
 import { getSummary, getPageByUser, getMembers } from '@/api/evaluate/management'

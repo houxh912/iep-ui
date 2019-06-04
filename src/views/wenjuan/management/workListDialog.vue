@@ -19,10 +19,10 @@
   </gov-dialog>
 </template>
 <script>
-import mixin from '@/wenjuan/mixins/mixin'
+import mixin from '@/views/wenjuan/mixins/mixin'
 import scopeMixin from './const/dailyMixin'
 import editDialog from './editDialog'
-import { getDic } from '@/wenjuan/util/dic'
+import { getDic } from '@/views/wenjuan/util/dic'
 import { getSummaryByDept } from '@/api/evaluate/management'
 export default {
   mixins: [mixin, scopeMixin],

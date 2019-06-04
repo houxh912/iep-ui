@@ -45,7 +45,7 @@
 
 <script>
 /*eslint-disable*/
-import { getToken } from '@/wenjuan/util/auth'
+import { getToken } from '@/views/wenjuan/util/auth'
 var token = getToken() // 要保证取到
 export default {
   components: {},

@@ -17,7 +17,7 @@
 </template>
 <script>
 /*eslint-disable*/
-import mixin from '@/wenjuan/mixins/mixin'
+import mixin from '@/views/wenjuan/mixins/mixin'
 import scopeMixin from './const/listMixin'
 import { getComList } from '@/api/evaluate/management'
 export default {

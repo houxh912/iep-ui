@@ -1,4 +1,4 @@
-import request from '@/wenjuan/router/request'
+import request from '@/views/wenjuan/router/request'
 const queryUrl = '/evaluate/evaluateproject'
 
 export function getPage (params) {

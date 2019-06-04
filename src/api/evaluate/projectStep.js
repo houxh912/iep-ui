@@ -1,5 +1,5 @@
 // 项目阶段
-import request from '@/wenjuan/router/request'
+import request from '@/views/wenjuan/router/request'
 const queryUrl = '/evaluate/evaluatesection'
 
 // 项目阶段删除

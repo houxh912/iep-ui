@@ -41,7 +41,7 @@
 </template>
 <script>
 /*eslint-disable*/
-import mixin from '@/wenjuan/mixins/mixin'
+import mixin from '@/views/wenjuan/mixins/mixin'
 import currentMixin from './const/mixin'
 import {getList} from  '@/api/evaluate/question'
 import mainDialog from './mainDialog'

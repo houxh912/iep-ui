@@ -1,6 +1,6 @@
 import {getUserList} from '@/api/admin/user'
 import { getProject } from '@/api/evaluate/question'
-import { getDic } from '@/wenjuan/util/dic'
+import { getDic } from '@/views/wenjuan/util/dic'
 export default {
   data () {
     return {

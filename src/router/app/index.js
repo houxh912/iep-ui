@@ -91,12 +91,6 @@ export default [
         meta: noAuth,
       },
       {
-        path: 'apply_investment/:id',
-        name: '申请投资',
-        component: () => import('@/views/app/wealth/ApplyInvestment/'),
-        meta: noAuth,
-      },
-      {
         path: 'organization_style/:id',
         name: '组织风采',
         component: () => import('@/views/app/organizationStyle/'),

@@ -111,7 +111,7 @@ export default {
       this.$message.success('页面建设中')
     },
     handleSome2 () {
-      this.$message.success('功能开发中')
+      this.$openPage('/wel/desktop')
     },
     handleSome3 () {
       this.$openPage('/app/tag_library')

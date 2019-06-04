@@ -4,7 +4,7 @@
       <h1>{{data.title}}</h1>
       <el-form size="small" label-width="100px">
         <el-form-item label="所属科目:">
-          <el-input readonly v-model="fieldName"></el-input>
+          <el-input readonly v-model="data.fieldName"></el-input>
         </el-form-item>
         <el-form-item label="分数:">
           <el-input v-model="data.score" readonly>
@@ -22,7 +22,7 @@
             <p>创建人：<span>{{data.username}}</span></p>
           </el-col>
           <el-col :span="12">
-            <p>创建时间：<span>{{data.createTime}}</span></p>
+            <p>创建时间：<span>{{data.creatTime}}</span></p>
           </el-col>
         </el-form-item>
       </el-form>
@@ -56,8 +56,8 @@ export default {
      */
     createNewExam () {
       let testPaper = {
-        methodName: '创建考试',
-        id: false,
+        methodName: '创建',
+        id: '',
         current: 0,
       }
       this.$emit('on-data', testPaper)

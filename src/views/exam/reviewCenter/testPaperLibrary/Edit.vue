@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${record.methodName}`" :backOption="backOption"></page-header>
+      <page-header :title="`${record.methodName}试卷`" :backOption="backOption"></page-header>
       <div class="withdraw-wrapper">
         <a-steps :current="current">
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />
@@ -37,7 +37,7 @@ export default {
       },
       current: 0,
       steps: [{
-        title: this.record.methodName,
+        title: this.record.methodName + '试卷',
         content: 'FirstContent',
         data: this.record,
         onData: this.handleFirst,
@@ -66,6 +66,9 @@ export default {
     handleLast (data) {
       this.current = 0
       this.steps[this.current].data = data
+      this.$nextTick(() => {
+        this.$refs[this.steps[this.current].content].reset()
+      })
     },
     next () {
       this.current++

@@ -1,7 +1,6 @@
 <template>
   <steps-content>
-    <el-form ref="form" :model="form" :rules="{rules:resourceReadonly}" size="small" label-width="100px"
-      class="content-wrapper">
+    <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px" class="content-wrapper">
       <el-form-item prop="resource">
         <el-radio-group v-model="form.resource" @change="resourceChange">
           <el-radio :label="0">创建新试卷</el-radio>
@@ -9,12 +8,12 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="试卷名称：" prop="title">
-        <el-input v-model="form.title" :disabled="resourceReadonly" :readonly="readOnly"></el-input>
+        <el-input v-model="form.title" :disabled="resourceReadonly"></el-input>
       </el-form-item>
       <el-form-item label="试卷分类：" prop="field">
-        <el-select v-model="form.field" :disabled="resourceReadonly || readOnly">
-          <el-option value="0" label="国脉内网"></el-option>
-          <el-option value="1" label="数据基因"></el-option>
+        <el-select v-model="form.field" clearable placeholder="请选择科目" :disabled="resourceReadonly">
+          <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
+            :value="item.id"></el-option>
         </el-select>
       </el-form-item>
     </el-form>
@@ -28,6 +27,7 @@
 </template>
 <script>
 import StepsContent from '@/views/exam/reviewCenter/testPaperLibrary/StepsContent'
+import { getTestOption } from '@/api/exam/createExam/newTest/newTest'
 export default {
   props: ['data'],
   components: { StepsContent },
@@ -38,6 +38,7 @@ export default {
         field: '',
         resource: '',
       },
+      res: [],
       rules: {
         title: [
           { required: true, message: '请输入试卷名称', trigger: 'blur' },
@@ -51,31 +52,7 @@ export default {
       },
     }
   },
-  watch: {
-    'data.id': {
-      handler (newName) {
-        console.log('data1', this.data)
-        if (newName === false) {
-          this.$nextTick(() => {
-            this.$refs['form'].resetFields()
-          })
-
-        }
-      },
-      immediate: true,
-    },
-  },
   computed: {
-    isEdit () {
-      return this.data.id ? true : false
-    },
-    readOnly () {
-      if (this.isEdit) {
-        return this.data.methodName === '查看考试' ? true : false
-      } else {
-        return false
-      }
-    },
     resourceReadonly () {
       if (this.form.resource === 1) {
         return true
@@ -83,6 +60,9 @@ export default {
         return false
       }
     },
+  },
+  created () {
+    this.getTestOption()
   },
   methods: {
     /**
@@ -98,14 +78,40 @@ export default {
      * 下一步
      */
     handleNext () {
-      this.$refs.form.validate(valid => {
-        if (valid) {
-          let _form = Object.assign(this.data, this.form)
-          this.$emit('on-data', _form)
-        }
-      })
+      if (this.form.resource === 1) {
+        this.$refs.form.clearValidate()
+        let _form = Object.assign(this.data, { ...this.form })
+        this.$emit('on-data', _form)
+      } else {
+        this.$refs.form.validate(valid => {
+          if (valid) {
+            let _form = Object.assign(this.data, { ...this.form })
+            this.$emit('on-data', _form)
+          }
+        })
+      }
     },
 
+    /**
+ * 获取试题数据
+ */
+    async getTestOption () {
+      const params = {
+        numberList: [
+          'exms_subjects',//考试科目
+        ],
+      }
+      const { data } = await getTestOption(params)
+      this.res = data
+    },
+
+    /**
+     * 重置
+     */
+    reset () {
+      this.$refs['form'].resetFields()
+      this.getTestOption()
+    },
   },
 }
 </script>

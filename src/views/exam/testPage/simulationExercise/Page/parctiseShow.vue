@@ -5,64 +5,49 @@
       <el-form :model="searchForm">
         <el-form-item label="科目：" prop="subjectList">
           <el-radio-group size="small" v-model="searchForm.subjectList" style="width: 90%;">
-            <el-radio-button
-              v-for="item in res.exms_subjects"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+            <el-radio-button v-for="item in res.exms_subjects" :key="item.value" :label="item.label" :value="item.value">
             </el-radio-button>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="状态：" prop="statesList" class="statesShow">
           <el-radio-group size="small" v-model="searchForm.statesList" style="width: 90%;">
-            <el-radio-button
-              v-for="item in states"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+            <el-radio-button v-for="item in states" :key="item.value" :label="item.label" :value="item.value">
             </el-radio-button>
           </el-radio-group>
         </el-form-item>
       </el-form>
       <div class="gird-product">
         <div class="leaderBoard">
-            <iep-tabs v-model="activeTab" :tab-list="tabList">
-              <template v-if="activeTab ==='testRecordTab'" v-slot:testRecordTab>
-                <div class="record">
-                  <div class="module">
-                    <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
-                      <div class="content">
-                        <div class="img">
-                          <img :src="item.img" alt="">
-                        </div>
-                        <div class="message">
-                          <span class="title" style="font-size:15px;font-weight:bold;">{{item.title}}</span>
-                          <div class="title" style="float:left;">共有 {{signUp}} 道题</div>
-                          <div class="title" style="float:right;text-align:right;">
-                            <div class="circle"></div>
-                            <div style="font-size: 14px;padding-left: 15px;color: #CE3737;">新！</div>
-                          </div>
-                        </div>
-                        <div class="handleButton">
-                          <iep-button type="primary" @click="handleStart">开始练习</iep-button>
+          <iep-tabs v-model="activeTab" :tab-list="tabList">
+            <template v-if="activeTab ==='testRecordTab'" v-slot:testRecordTab>
+              <div class="record">
+                <div class="module">
+                  <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
+                    <div class="content">
+                      <div class="img">
+                        <img :src="item.img" alt="">
+                      </div>
+                      <div class="message">
+                        <span class="title" style="font-size:15px;font-weight:bold;">{{item.title}}</span>
+                        <div class="title" style="float:left;">共有 {{signUp}} 道题</div>
+                        <div class="title" style="float:right;text-align:right;">
+                          <div class="circle"></div>
+                          <div style="font-size: 14px;padding-left: 15px;color: #CE3737;">新！</div>
                         </div>
                       </div>
-                    </el-card>
-                  </div>
-                  <div class="pagination">
-                    <el-pagination
-                      @size-change="handleSizeChange"
-                      @current-change="handleCurrentChange"
-                      :current-page="1"
-                      :page-sizes="[12, 24, 36, 48]"
-                      :page-size="12"
-                      layout="total, sizes, prev, pager, next, jumper"
-                      :total="20">
-                    </el-pagination>
-                  </div>
+                      <div class="handleButton">
+                        <iep-button type="primary" @click="handleStart">开始练习</iep-button>
+                      </div>
+                    </div>
+                  </el-card>
                 </div>
-              </template>
-            </iep-tabs>
+                <div class="pagination">
+                  <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="1" :page-sizes="[12, 24, 36, 48]" :page-size="12" layout="total, sizes, prev, pager, next, jumper" :total="20">
+                  </el-pagination>
+                </div>
+              </div>
+            </template>
+          </iep-tabs>
         </div>
       </div>
     </basic-container>
@@ -70,12 +55,12 @@
 </template>
 
 <script>
-import {getTestOption} from '@/api/exam/testPage/subjectTest/subjectTest'
+import { getTestOption } from '@/api/exam/testPage/subjectTest/subjectTest'
 export default {
   data () {
     return {
       res: {},
-      subjects: {value:'0',label:'全部'},
+      subjects: { value: '0', label: '全部' },
       signUp: '123',
       moduleList: [
         {
@@ -157,13 +142,13 @@ export default {
       }],
       activeTab: 'testRecordTab',
       states: [
-        {value:'0',label:'全部'},
-        {value:'1',label:'已报名'},
-        {value:'2',label:'进行中'},
-        {value:'3',label:'未报名'},
-        {value:'4',label:'已完成'},
-        {value:'5',label:'批卷中'},
-        {value:'6',label:'已结束'},
+        { value: '0', label: '全部' },
+        { value: '1', label: '已报名' },
+        { value: '2', label: '进行中' },
+        { value: '3', label: '未报名' },
+        { value: '4', label: '已完成' },
+        { value: '5', label: '批卷中' },
+        { value: '6', label: '已结束' },
       ],
       searchForm: {
         subjectList: '全部',
@@ -171,8 +156,8 @@ export default {
       },
     }
   },
-  created (){
-    this.getTestOption ()
+  created () {
+    this.getTestOption()
   },
   methods: {
     handleSizeChange (val) {
@@ -184,13 +169,13 @@ export default {
     /**
      * 科目点击
      */
-    handleSubject (item){
+    handleSubject (item) {
       console.log('handleSubject => ' + item.value)
     },
     /**
      * 状态点击
      */
-    handleStates (item){
+    handleStates (item) {
       console.log('handleStates => ' + item.value)
     },
     /**
@@ -214,8 +199,8 @@ export default {
     /**
      * 开始练习
      */
-    handleStart (){
-      this.$confirm('此操作将开始练习, 是否继续?','提示',{
+    handleStart () {
+      this.$confirm('此操作将开始练习, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
@@ -254,11 +239,11 @@ export default {
     margin-top: -12px;
   }
 }
-.circle{
+.circle {
   position: absolute;
   width: 10px;
   height: 10px;
-  background: #CE3737;
+  background: #ce3737;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -285,11 +270,11 @@ export default {
     .message {
       display: none;
     }
-    .handleButton{
+    .handleButton {
       display: block;
     }
   }
-  .handleButton{
+  .handleButton {
     padding: 40px 0;
     text-align: center;
     display: none;
@@ -349,13 +334,14 @@ export default {
   color: #fff;
 }
 </style>
-<style>
+<style scoped>
+/* TODO:scoped */
 .el-radio-button__inner {
   margin-right: 10px;
   border-radius: 5px !important;
   border: 1px solid #dde0e7;
 }
-.statesShow{
+.statesShow {
   margin-top: -12px;
 }
 </style>

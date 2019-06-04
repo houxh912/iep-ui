@@ -40,26 +40,26 @@
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
         @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <template slot="before-columns">
-  <el-table-column label="选择" width="50" center>
-    <template slot-scope="scope">
-      <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.row)">&nbsp;</el-radio>
-    </template>
-  </el-table-column>
-</template>
+          <el-table-column label="选择" width="50" center>
+            <template slot-scope="scope">
+              <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.row)">&nbsp;</el-radio>
+            </template>
+          </el-table-column>
+        </template>
         <el-table-column prop="subject" label="科目" min-width="100">
           <template slot-scope="scope">
-  {{scope.row.subject}}
-</template>
+            {{scope.row.subject}}
+          </template>
         </el-table-column>
         <el-table-column prop="title" label="名称">
           <template slot-scope="scope">
-  {{scope.row.title}}
-</template>
+            {{scope.row.title}}
+          </template>
         </el-table-column>
         <el-table-column prop="levelName" label="级别">
           <template slot-scope="scope">
-  {{scope.row.levelName}}
-</template>
+            {{scope.row.levelName}}
+          </template>
         </el-table-column>
         <el-table-column prop="deptName" label="颁发机构">
           <template slot-scope="scope">
@@ -171,6 +171,7 @@ export default {
 
       this.dialogShow = false
       this.currentRow = ''
+      this.radio = false
     },
   },
 }

@@ -45,6 +45,11 @@ export default [
         name: '选择组织',
         component: () => import('@/views/wel/org/index'),
       },
+      {
+        path: 'desktop',
+        name: '领导桌面',
+        component: () => import('@/views/wel/desktop/index'),
+      },
     ],
   },
 ]

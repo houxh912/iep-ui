@@ -1,21 +1,24 @@
 <template>
   <div class="librarys-content">
-    <div class="librarys-item" v-for="(item,index) in list" :key="index" @click="handleDetail(item.opportunityId)">
-      <div class="title">
-        <h4 class="name">{{item.projectName}}</h4>
-        <i :class="item.icon" v-if="item.icon"></i>
-      </div>
-      <p class="desc" v-text="item.opportunityDes">
-      </p>
-      <div class="librarys-bottom">
-        <span class="reserve">对接人：{{item.publisherName}}</span>
-        <span><i class="icon-shijian"></i>{{item.updateTime}}</span>
-        <span><i class="icon-yanjing"></i>{{item.views}} 人浏览</span>
-        <!-- <span><i class="icon-download"></i>{{item.download}} 人下载</span> -->
-        <div class="tags">
-          <span v-for="(item,index) in item.tagsName" :key="index">{{item}}</span>
+    <div class="librarys-item" v-for="(item,index) in dataList" :key="index" @click="handleDetail(item.opportunityId)">
+      <a-skeleton :loading="loading" active />
+      <template v-if="!loading">
+        <div class="title">
+          <h4 class="name">{{item.projectName}}</h4>
+          <i :class="item.icon" v-if="item.icon"></i>
         </div>
-      </div>
+        <p class="desc" v-text="item.opportunityDes">
+        </p>
+        <div class="librarys-bottom">
+          <span class="reserve">对接人：{{item.publisherName}}</span>
+          <span><i class="icon-shijian"></i>{{item.updateTime}}</span>
+          <span><i class="icon-yanjing"></i>{{item.views}} 人浏览</span>
+          <!-- <span><i class="icon-download"></i>{{item.download}} 人下载</span> -->
+          <div class="tags">
+            <span v-for="(item,index) in item.tagsName" :key="index">{{item}}</span>
+          </div>
+        </div>
+      </template>
     </div>
     <div style="text-align: center;margin: 20px 0;">
       <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
@@ -25,17 +28,32 @@
 
 <script>
 import { getBusinessPage } from '@/api/app/crms/'
-
+function initDataItem () {
+  return {
+    tagsName: [],
+    publisherName: '',
+    views: 0,
+    updateTime: '',
+    opportunityDes: '',
+    icon: '',
+    projectName: '',
+  }
+}
 export default {
   data () {
+    const dataList = []
+    for (let i = 0; i < 10; i++) {
+      dataList.push(initDataItem())
+    }
     return {
+      loading: true,
       paramForm: {},
       total: 0,
       params: {
         current: 1,
         size: 10,
       },
-      list: [],
+      dataList: dataList,
     }
   },
   methods: {
@@ -45,10 +63,12 @@ export default {
       this.getBusinessPage()
     },
     getBusinessPage () {
-      getBusinessPage(Object.assign({}, this.paramForm, this.params)).then(({data}) => {
+      this.loading = true
+      getBusinessPage(Object.assign({}, this.paramForm, this.params)).then(({ data }) => {
         this.total = data.data.total
-        this.list = data.data.records
+        this.dataList = data.data.records
         this.total = data.data.total
+        this.loading = false
       })
     },
     currentChange (val) {
@@ -65,57 +85,56 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.librarys-item{
+.librarys-item {
   padding: 20px 15px;
   border-bottom: 1px solid #eee;
   cursor: pointer;
 }
-.title{
+.title {
   height: 40px;
   line-height: 40px;
-  .name{
-    display:inline-block;
+  .name {
+    display: inline-block;
     margin-right: 10px;
     color: #333;
     font-size: 16px;
   }
-  i{
+  i {
     color: #666;
-    font-size: 20px!important;
+    font-size: 20px !important;
     vertical-align: -2px;
   }
 }
-.desc{
+.desc {
   margin-bottom: 15px;
   font-size: 14px;
-  color:#666;
+  color: #666;
   line-height: 28px;
 }
-.librarys-bottom{
-  &>span{
+.librarys-bottom {
+  & > span {
     margin-right: 15px;
-    color:#999;
+    color: #999;
     font-size: 12px;
-    i{
+    i {
       margin-right: 5px;
-      font-size: 18px!important;
+      font-size: 18px !important;
       vertical-align: -2px;
     }
   }
-  .reserve{
+  .reserve {
     font-size: 14px;
   }
-  .tags{
+  .tags {
     display: inline-block;
-    span{
+    span {
       padding: 3px 5px;
       margin-right: 8px;
       font-size: 12px;
-      color:#999;
+      color: #999;
       border: 1px solid #ccc;
       border-radius: 3px;
     }
   }
 }
-
 </style>

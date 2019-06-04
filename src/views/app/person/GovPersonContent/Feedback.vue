@@ -1,7 +1,7 @@
 <template>
   <div class="thoughts">
     <IepAppTabCard :title="title" :linkName="linkName">
-      <el-button class="charge" type="text" slot="right">我要发表</el-button>
+      <el-button class="charge" type="text" slot="right" @click="handlePublish">我要发表</el-button>
       <div class="thoughtsList">
         <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
           <div class="img-con"><img :src="item.avatar" class="img"></div>
@@ -35,6 +35,9 @@ export default {
       getProposeList().then(({data}) => {
         this.thoughtsList = data.data
       })
+    },
+    handlePublish () {
+      this.$router.push('/hrms_spa/suggestion_new')
     },
   },
   created () {

@@ -20,28 +20,33 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button @click="handleDetail(scope.row)" type="warning" plain>查看</iep-button>
-            <iep-button @click="handleEdit(scope.row)" :disabled="scope.row.userId !== userInfo.userId">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)" :disabled="scope.row.userId !== userInfo.userId">删除</iep-button>
+            <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
     <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
     <visit-dialog ref="VisitDialog" @load-page="loadPage"></visit-dialog>
+    <detail ref='detail' @load-page="loadPage"></detail>
   </div>
 </template> 
 
 <script>
 import mixins from '@/mixins/mixins'
-import { fetchVisitLog, deleteVisitLog, updateVisitLog, createVisitLog, fetchVisitLogById } from '@/api/crms/visiting_record'
+import { deleteVisitLog, createVisitLog } from '@/api/crms/visiting_record'
+import { getTableData } from '@/api/mlms/material/summary'
 import { visitColumnsMap } from './options'
 import EditDialog from './EditDialog'
 import VisitDialog from './VisitDialog'
+import Detail from './detail'
 import { mapGetters } from 'vuex'
+import { updateData, getDataById } from '@/api/mlms/material/summary'
+import { initFormData } from './options'
 export default {
   mixins: [mixins],
   props: ['record'],
-  components: { EditDialog, VisitDialog },
+  components: { EditDialog, VisitDialog, Detail },
   data () {
     return {
       id: this.record.id,
@@ -60,33 +65,71 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$refs['VisitDialog'].dialogShow = true
+      this.$refs['VisitDialog'].formData = initFormData()
       this.$refs['VisitDialog'].methodName = '保存'
       this.$refs['VisitDialog'].formRequestFn = createVisitLog
       this.$refs['VisitDialog'].id = this.id
       this.$refs['VisitDialog'].created = true
       this.$refs['VisitDialog'].disabled = false
+      this.$refs['VisitDialog'].dialogShow = true
     },
     handleEdit (row) {
-      fetchVisitLogById({ id: row.id }).then(res => {
-        this.$refs['VisitDialog'].formData = res.data.data
-      })
-      this.$refs['VisitDialog'].dialogShow = true
-      this.$refs['VisitDialog'].methodName = '保存'
-      this.$refs['VisitDialog'].id = this.id
-      this.$refs['VisitDialog'].formRequestFn = updateVisitLog
+      // fetchVisitLogById({ id: row.id }).then(res => {
+      //   this.$refs['VisitDialog'].formData = res.data.data
+      // })
+
+      // 首先获取query
+      // let query = this.params
+      // 若存在 id， 即为修改
+
+      if (row) { // 可能是从别的项目进来新增的
+        this.$refs['VisitDialog'].methodType = 'update'
+        getDataById(row.id).then(({ data }) => {
+          data.data.receiverList = {
+            orgs: data.data.receiver.orgs ? data.data.receiver.orgs : [],
+            users: data.data.receiver.users ? data.data.receiver.users : [],
+            unions: [],
+          }
+          data.data.attendeeList = {
+            orgs: data.data.attendee.orgs ? data.data.attendee.orgs : [],
+            users: data.data.attendee.users ? data.data.attendee.users : [],
+            unions: [],
+          }
+          data.data.hostList = data.data.host.length > 0 ? data.data.host[0] : { id: '', name: '' }
+          this.$refs['VisitDialog'].formData = { ...data.data }
+          this.$refs['VisitDialog'].methodName = '修改'
+          this.$refs['VisitDialog'].formRequestFn = updateData
+        })
+      }
+      // setTimeout().then(() => {
+      //   this.$refs['VisitDialog'].dialogShow = true, 1000
+      // })
+      setTimeout(() => {
+        this.$refs['VisitDialog'].dialogShow = true
+      }, 500)
+      // this.$refs['VisitDialog'].dialogShow = true
+      // this.$refs['VisitDialog'].methodName = '保存'
+      // this.$refs['VisitDialog'].id = this.id
+      // this.$refs['VisitDialog'].formRequestFn = updateVisitLog
       this.$refs['VisitDialog'].isShow = true
       this.$refs['VisitDialog'].disabled = false
       this.$refs['VisitDialog'].created = false
+
     },
     handleDetail (row) {
-      fetchVisitLogById({ id: row.id }).then(res => {
-        this.$refs['VisitDialog'].formData = res.data.data
+      // fetchVisitLogById({ id: row.id }).then(res => {
+      //   this.$refs['VisitDialog'].formData = res.data.data
+      // })
+      getDataById(row.id).then(res => {
+        console.log(res)
+        this.$refs['detail'].dialogShow = true
+        this.$refs['detail'].formData = res.data.data
       })
-      this.$refs['VisitDialog'].dialogShow = true
-      this.$refs['VisitDialog'].disabled = true
-      this.$refs['VisitDialog'].isShow = false
+      // this.$refs['VisitDialog'].dialogShow = true
+      // this.$refs['VisitDialog'].disabled = true
+      // this.$refs['VisitDialog'].isShow = false
     },
+
     handleDeleteById (row) {
       this.$confirm('此操作将同时删除原件, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -112,7 +155,7 @@ export default {
     },
     loadPage (param = { ...this.searchForm, id: this.id }) {
       this.$emit('async')
-      this.loadTable(param, fetchVisitLog)
+      this.loadTable(param, getTableData)
     },
   },
 }

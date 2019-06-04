@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="申请投资" :replaceText="replaceText" :backOption="backOption"></page-header>
+      <page-header title="申请投资" :backOption="backOption"></page-header>
       <div class="withdraw-wrapper">
         <a-steps :current="current">
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />
@@ -14,10 +14,12 @@
   </div>
 </template>
 <script>
+import { statusMap } from './options'
 import FirstContent from './FirstContent'
 import SecondContent from './SecondContent'
 import ThirdContent from './ThirdContent'
 import LastContent from './LastContent'
+import { getInvestmentById } from '@/api/fams/investment'
 export default {
   components: {
     FirstContent,
@@ -27,7 +29,6 @@ export default {
   },
   data () {
     return {
-      replaceText: () => '（将一个冗长或用户不熟悉的表单任务分成多个步骤，指导用户完成。）',
       backOption: {
         isBack: true,
       },
@@ -64,19 +65,21 @@ export default {
     }
   },
   computed: {
+    id () {
+      return +this.$route.params.id
+    },
   },
   created () {
     this.loadPage()
   },
   methods: {
-    loadPage () {
-    },
     handleFirst (form) {
       this.next()
       this.steps[this.current].data = form
     },
-    handleSecond () {
+    handleSecond (form) {
       this.next()
+      this.steps[this.current].data = form
     },
     handleBack () {
       this.$router.history.go(-1)
@@ -89,6 +92,14 @@ export default {
     },
     back () {
       this.$router.go(-1)
+    },
+    loadPage () {
+      if (this.id) {
+        getInvestmentById(this.id).then(({ data }) => {
+          this.current = statusMap[data.data.status]
+          this.steps[this.current].data = data.data
+        })
+      }
     },
   },
 }

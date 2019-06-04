@@ -9,3 +9,10 @@ export function addBellBalanceRule () {
     method: 'get',
   })
 }
+
+export function addBellBalanceRuleByNumber (number) {
+  return request({
+    url: `${prefixUrl}/bell/add/${number}`,
+    method: 'get',
+  })
+}

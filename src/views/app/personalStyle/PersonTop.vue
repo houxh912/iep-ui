@@ -43,11 +43,7 @@
     </el-card>
 
     <!-- 拜师 -->
-    <el-dialog
-      title="拜师"
-      :visible.sync="apprenticeShow"
-      width="330px"
-      center>
+    <el-dialog title="拜师" :visible.sync="apprenticeShow" width="330px" center>
       <div style="text-align: center;">是否确认向 【{{userInfo.name}}】 拜师</div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="apprenticeShow = false" size="small">取 消</el-button>
@@ -64,7 +60,7 @@ export default {
   props: {
     userInfo: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   data () {
@@ -100,7 +96,7 @@ export default {
       this.apprenticeShow = true
     },
     handleApprenticeConfirm () {
-      addMasterWorker({masterWorker: [this.userInfo.id]}).then(() => {
+      addMasterWorker({ masterWorker: [this.userInfo.id] }).then(() => {
         this.$message.success('拜师成功！')
         this.apprenticeShow = false
       })
@@ -183,6 +179,7 @@ export default {
       margin-bottom: 10px;
       .el-tag {
         margin-right: 5px;
+        margin-bottom: 5px;
         &:hover {
           color: #cb3737;
           background: #fef0f0;

@@ -53,6 +53,14 @@ export const columnsMap = [
   },
 ]
 
+let intValidate = (rule, value, callback) => {
+  if (/^[1-9]*[1-9][0-9]*$/.test(value) || value === '') {
+    callback()
+  } else {
+    callback(new Error())
+  }
+}
+
 export const rules = {
   projectType: [
     { required: true, message: '必填', trigger: 'blur' },
@@ -68,6 +76,9 @@ export const rules = {
   ],
   projectTime: [
     { required: true, message: '必填', trigger: 'change' },
+  ],
+  projectBudget: [
+    { validator: intValidate, message: '请输入正整数', trigger: 'change' },
   ],
 }
 

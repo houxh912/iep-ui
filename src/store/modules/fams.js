@@ -4,6 +4,7 @@ const fams = {
     rewardDialogShow: false,
     withdrawableCash: 0,
     invoiceDialogShow: false,
+    billingDialogShow: false,
   },
   mutations: {
     SET_REWARD_DIALOG_SHOW: (state, rewardDialogShow) => {
@@ -11,6 +12,9 @@ const fams = {
     },
     SET_INVOICE_DIALOG_SHOW: (state, invoiceDialogShow) => {
       state.invoiceDialogShow = invoiceDialogShow
+    },
+    SET_BILLING_DIALOG_SHOW: (state, billingDialogShow) => {
+      state.billingDialogShow = billingDialogShow
     },
     SET_WITHDRAWABLE_CASH: (state, withdrawableCash) => {
       state.withdrawableCash = withdrawableCash

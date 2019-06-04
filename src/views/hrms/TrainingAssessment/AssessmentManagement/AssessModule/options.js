@@ -13,7 +13,7 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'templateScore',
+    prop: 'score',
     label: '考核分值',
   },
 ]
@@ -21,16 +21,76 @@ const columnsMap = [
 const initForm = () => {
   return {
     id: '',
-    name: '',
-    templateScore: '',
+    templateName: '',
+    score: '',
+    checks: [{
+      item: '',
+      checkExplan: '',
+      weight: '',
+    }],
   }
 }
 
 const initSearchForm = () => {
   return {
-    name: '',
+    templateName: '',
     sex: '',
   }
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm }
+let validateChecksLength = (rule, value, callback) => {
+  if (value.length == 0) {
+    callback(new Error())
+  } else {
+    callback()
+  }
+}
+
+let validateChecksContent = (rule, value, callback) => {
+  for (let item of value) {
+    for (let key in item) {
+      if (item[key] == '') {
+        callback(new Error())
+        return
+      }
+    }
+  }
+  callback()
+}
+
+let validateChecksCount = (rule, value, callback) => {
+  let counts = 0
+  for (let item of value) {
+    counts += parseInt(item.weight)
+  }
+  if (counts !== 100) {
+    callback(new Error())
+  } else {
+    callback()
+  }
+}
+
+let intValidate = (rule, value, callback) => {
+  if (/^[1-9]*[1-9][0-9]*$/.test(value) || value === '') {
+    callback()
+  } else {
+    callback(new Error())
+  }
+}
+
+const rules = {
+  templateName: [
+    { required: true, message: '请输入模版名称', trigger: 'blur' },
+  ],
+  score: [
+    { required: true, message: '请输入考核分值', trigger: 'blur' },
+    { validator: intValidate, message: '请输入正整数', trigger: 'change' },
+  ],
+  checks: [
+    { validator: validateChecksLength, message: '请输入至少一条指标内容', trigger: 'blur' },
+    { validator: validateChecksContent, message: '请完整填写所有参数', trigger: 'blur' },
+    { validator: validateChecksCount, message: '请保证所有考核项权重之和为100', trigger: 'blur' },
+  ],
+}
+
+export { dictsMap, columnsMap, initForm, initSearchForm, rules }

@@ -25,19 +25,17 @@
           </template>
         </el-table-column>
       </iep-table>
-      <new-approval ref="NewApproval" @load-page="loadPage"></new-approval>
     </basic-container>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import { getCCPage } from '@/api/hrms/wel'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
-import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
 export default {
   mixins: [mixins],
-  components: { NewApproval },
   data () {
     return {
       dictsMap,
@@ -48,13 +46,16 @@ export default {
     this.loadPage()
   },
   methods: {
+    ...mapMutations({
+      setApprovalDialogShow: 'SET_APPROVAL_DIALOG_SHOW',
+    }),
     handleDetail (row) {
       this.$router.push({
         path: `/hrms_spa/approval_detail/${row.id}`,
       })
     },
     handleAdd () {
-      this.$refs['NewApproval'].dialogShow = true
+      this.setApprovalDialogShow(true)
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getCCPage)

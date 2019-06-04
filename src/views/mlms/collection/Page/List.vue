@@ -297,7 +297,7 @@ export default {
   margin: 0 !important;
   padding: 20px;
   width: 100%;
-  height: 100ch;
+  height: 100vh;
   .title {
     margin-bottom: 15px;
     font-size: 16px;
@@ -328,7 +328,7 @@ export default {
 }
 .sub-menu-left {
   margin: -20px 15px -20px -20px;
-  padding-top: 20px;
+  padding-top: 12px;
   border-right: 1px solid #e5e5e5;
   .el-card {
     border: 0;

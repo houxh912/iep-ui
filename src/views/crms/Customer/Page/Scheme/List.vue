@@ -31,7 +31,7 @@
           <operation-wrapper>
             <iep-button @click="relateEdit(scope.row)" type="warning" plain v-if="!scope.row.status" v-show="scope.row.creatorId===userInfo.userId">保存至材料库</iep-button>
             <iep-button @click="scope.row.status==0?localEdit(scope.row):relateEdit(scope.row)" type="warning" plain v-if="scope.row.creatorId===userInfo.userId">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)" v-if="scope.row.creatorId===userInfo.userId">删除</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>

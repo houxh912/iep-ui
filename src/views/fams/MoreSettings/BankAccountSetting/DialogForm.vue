@@ -5,7 +5,7 @@
         <el-input v-model="form.accountName" autocomplete="off" placeholder="请输入银行户头名称"></el-input>
       </el-form-item>
       <el-form-item label="户头所属公司：">
-        <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择户头所属公司"></iep-select>
+        <iep-select v-model="form.companyIds" multiple autocomplete="off" prefix-url="fams/company" placeholder="请选择户头所属公司"></iep-select>
       </el-form-item>
       <el-form-item label="是否为工资支付账户：">
         <el-switch v-model="form.isWagePay" active-text="是" inactive-text="否" :active-value="1" :inactive-value="0">

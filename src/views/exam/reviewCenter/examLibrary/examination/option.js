@@ -1,4 +1,5 @@
 import { initNow } from '@/util/date'
+import { mergeByFirst } from '@/util/util'
 export const dictsMap = {
   type: {
     '1': '类型1',
@@ -236,14 +237,11 @@ export function examForm () {
     onclidingRemarks: '',//考试结束语
     testPaperId: '',//试卷库id
     iepCertiFicate: [],//证书信息
-    iepExaminationOperate: {
-      operateUserids: '',
-      writeUserids: '',
-      faceUserIds: '',
-    },
-    operateUseridsList: [],//报名管理&考卷管理集合
-    writeUseridsList: [],//试卷审阅权限集合
-    faceUserIdsList: [],//面试判分集合
+    // iepExaminationOperate: {
+    operateUserids: [],
+    writeUserids: [],
+    faceUserIds: [],
+    // },
 
   }
 
@@ -290,27 +288,35 @@ export const examFormRules = {
   onclidingRemarks: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
+  operateUserids: [
+    { required: true, message: '请选择报名管理&考卷管理的阅卷老师', trigger: 'change' },
+  ],
+  writeUserids: [
+    { required: true, message: '请选择试卷审阅权限的阅卷老师', trigger: 'change' },
+  ],
+  faceUserIds: [
+    { required: true, message: '请选择面试判分权限的阅卷老师', trigger: 'change' },
+  ],
 }
 
-// const selfToVo = (row) => {
-//   const newForm = mergeByFirst(initForm(), row)
-//   newForm.annex = row.attachFile || []
-//   newForm.startTime = row.entryTime || ''
-//   newForm.approver = row.approverList || []
-//   newForm.cc = row.ccList || []
-//   return newForm
-// }
+export const selfToVo = (row) => {
+  const newForm = mergeByFirst(examForm(), row)
+  newForm.operateUserids = row.iepExaminationOperateVO.operateUsersArly || []
+  newForm.writeUserids = row.iepExaminationOperateVO.writeUsedAiry || []
+  newForm.faceUserIds = row.iepExaminationOperateVO.faceUserIdsAiry || []
+  if (row.iepCertiFicateVO != undefined) {
+    newForm.iepCertiFicate.push(row.iepCertiFicateVO)
+  }
+  return newForm
+}
 
 export const toDtoForm = (row) => {
   var newForm = { ...row }
-  console.log('newForm', newForm)
   newForm.iepCertiFicate = row.iepCertiFicate[0]
-  newForm.iepExaminationOperate.faceUserIds = row.faceUserIdsList.map(m => m.id).join(',')
-  newForm.iepExaminationOperate.operateUserids = row.operateUseridsList.map(m => m.id).join(',')
-  newForm.iepExaminationOperate.writeUserids = row.writeUseridsList.map(m => m.id).join(',')
-  delete newForm.faceUserIdsList
-  delete newForm.operateUseridsList
-  delete newForm.writeUseridsList
-
+  newForm.iepExaminationOperate = {}
+  newForm.iepExaminationOperate.faceUserIds = row.faceUserIds.map(m => m.id).join(',')
+  newForm.iepExaminationOperate.operateUserids = row.operateUserids.map(m => m.id).join(',')
+  newForm.iepExaminationOperate.writeUserids = row.writeUserids.map(m => m.id).join(',')
+  newForm.consume = parseInt(row.consume)
   return newForm
 }

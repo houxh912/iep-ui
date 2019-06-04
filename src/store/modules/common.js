@@ -5,6 +5,7 @@ const common = {
   state: {
     isCollapse: false,
     screen: -1,
+    windowSize: {width: 0, height: 0},
     isWelcome: getStore({ name: 'isWelcome' }) || false,
     isLock: getStore({ name: 'isLock' }) || false,
     showCollapse: getStore({ name: 'showCollapse' }) || false,
@@ -72,6 +73,9 @@ const common = {
     },
     SET_SCREEN: (state, screen) => {
       state.screen = screen
+    },
+    SET_WINDOWSIZE: (state, size) => {
+      state.windowSize = size
     },
     SET_LOCK_PASSWD: (state, lockPasswd) => {
       state.lockPasswd = lockPasswd

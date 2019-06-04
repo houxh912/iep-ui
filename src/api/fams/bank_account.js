@@ -11,6 +11,13 @@ export function getBankAccountPage (query) {
   })
 }
 
+export function getBankAccountById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}
+
 export function postBankAccount (obj) {
   return request({
     url: `${prefixUrl}/create`,

@@ -63,7 +63,7 @@ export default {
      */
     handleAdd () {
       this.$emit('onEdit', {
-        methodName: '创建试卷',
+        methodName: '创建',
         id: '',
       })
     },
@@ -73,7 +73,7 @@ export default {
      */
     handleEdit (row) {
       this.$emit('onEdit', {
-        methodName: '编辑试卷',
+        methodName: '编辑',
         id: row.id,
       })
     },
@@ -90,7 +90,7 @@ export default {
      */
     handleSelect (row) {
       this.$emit('onEdit', {
-        methodName: '查看试卷',
+        methodName: '查看',
         id: row.id,
       })
     },

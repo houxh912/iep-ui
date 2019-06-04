@@ -123,3 +123,18 @@ export function release (params) {
     })
 }
 
+/**
+ * 修改/查看考试
+ */
+export function getExam (params) {
+    return request({
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        url: '/exms/iepexamination/get',
+        method: 'get',
+        params: params,
+    })
+}
+
+

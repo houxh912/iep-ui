@@ -3,7 +3,7 @@
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
       <div class="opportunity-list">
         <el-table :data="tableData" style="width: 100%">
-          <el-table-column prop="name" label="目名称"></el-table-column>
+          <el-table-column prop="name" label="项目名称"></el-table-column>
           <el-table-column prop="degree" label="意向程度" width="80"></el-table-column>
         </el-table>
       </div>

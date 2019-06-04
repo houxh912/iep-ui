@@ -18,7 +18,7 @@
         <el-col :span="24" class="questions">
           <div class="title">
             <h2>{{res.exms_question_type.find(data => {
-              return data.id === item.type
+              return data.id === parseInt(item.type)
               }).label}}</h2>
             <span v-if="readOnly===false" class="el-icon-close" @click="deletePaper(index)"></span>
           </div>
@@ -131,7 +131,7 @@
       </div>
     </el-card>
     <template v-slot:action>
-      <el-button style="margin-left: 8px" @click="handlePrev">
+      <el-button style="margin-left: 8px" @click="handlePrev" v-if="isEdit==false">
         上一步
       </el-button>
       <el-button type="primary" @click="handleNext" v-if="readOnly">
@@ -326,7 +326,7 @@ export default {
     //是否只读
     readOnly () {
       if (this.isEdit) {
-        return this.data.methodName === '查看试卷' ? true : false
+        return this.data.methodName === '查看' ? true : false
       } else {
         return false
       }
@@ -352,32 +352,13 @@ export default {
       return paperNum
     },
   },
-  watch: {
-    'data.id': {
-      handler (newName) {
-        console.log('data2', this.data)
-        if (newName != '') {
-          this.iepQstnRuleList = this.data.iepQstnRuleList
-          this.iepQstnRuleList.forEach((item) => {
-            this.choiceType.push(item.type)
-          })
-          this.submitDisabled = true
-        } else {
-          this.choiceType = []
-          this.iepQstnRuleList = []
-          this.submitDisabled = false
-        }
-      },
-      immediate: true,
-    },
-  },
   created () {
     this.getTestOption()
   },
   methods: {
     /**
-   * 获取试题数据
-   */
+     * 获取试题数据
+     */
     async getTestOption () {
       const params = {
         numberList: [
@@ -387,7 +368,26 @@ export default {
       }
       const { data } = await getTestOption(params)
       this.res = data
+      this.loadSelf()
     },
+
+    /**
+     * 获取信息
+     */
+    loadSelf () {
+      if (this.isEdit) {
+        this.iepQstnRuleList = this.data.iepQstnRuleList
+        this.iepQstnRuleList.forEach((item) => {
+          this.choiceType.push(item.type)
+        })
+        this.submitDisabled = true
+      } else {
+        this.choiceType = []
+        this.iepQstnRuleList = []
+        this.submitDisabled = false
+      }
+    },
+
     /**
      * 试题配置操作
      */
@@ -401,7 +401,6 @@ export default {
           this.$refs['form'].resetFields()
         })
       }
-      console.log('this.form', this.form)
       this.count()
     },
 
@@ -413,7 +412,6 @@ export default {
         if (valid) {
           let form = toDtoForm(this.form)
           form.total = this.totalCount
-          console.log('form', form)
           if (this.iepTestPaperIndex != undefined) {
             this.iepQstnRuleList.splice(this.iepTestPaperIndex, 1, form)
             this.choiceType.splice(this.iepTestPaperIndex, 1, form.type)
@@ -441,8 +439,8 @@ export default {
         const { data } = await postPaperAmount({ subject: _form.field, question: _form.type })
         if (data.data) {
           this.totalNum.simpleTotalNum = data.data.simple
-          this.totalNum.middleTotalNum = data.data.middle
-          this.totalNum.hardTotalNum = data.data.hard
+          this.totalNum.middleTotalNum = data.data.general
+          this.totalNum.hardTotalNum = data.data.difficulty
         }
       }
     },
@@ -550,7 +548,7 @@ export default {
      *下一步 
      */
     handleNext () {
-      this.$emit('on-data', this.data)
+      this.$emit('on-data', { ...this.data })
     },
 
     /**
@@ -566,6 +564,10 @@ export default {
       try {
         const { data } = await postNewPaper(iepTestPaper)
         if (data.data) {
+          this.choiceType = []
+          this.iepQstnRuleList = []
+          this.submitDisabled = false
+          console.log('data.data', data.data)
           this.$emit('on-data', data.data)
         } else {
           this.$message(data.msg)

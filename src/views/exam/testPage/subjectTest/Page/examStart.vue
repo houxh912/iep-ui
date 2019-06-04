@@ -66,7 +66,7 @@
       <div class="right" style="" v-if="resdata.title">
         <div class="container">
           <div class="explain">
-            <span style="color: white;">当前进度</span><br>
+            <span style="color: #595959;">当前进度</span><br>
             <span class="count">{{count}}</span>
             <span class="line"> / </span>
             <span class="TotalNum">{{resdata.questionTotalNum}}</span>
@@ -78,28 +78,28 @@
             <div v-if="resdata.radioMap.length > 0">
               <span class="answerSheet">单选题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :class="{active: item.id == resdata.questionNum}" >{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div v-if="resdata.checkboxMap.length > 0">
               <span class="answerSheet">复选题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :style="statusColor(item)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div v-if="resdata.checkedMap.length > 0">
               <span class="answerSheet">判断题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :style="statusColor(item)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div v-if="resdata.textMap.length > 0">
               <span class="answerSheet">简答题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="(item)" :style="statusColor(item)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
               </div><br>
             </div>
 
@@ -126,9 +126,9 @@ export default {
   mixins: [mixins],
   props: ['record'],
   data () {
-    this.colors = ['#409AF9', '#FFFFFF']
+    this.colors = ['#ffcb8c', '#ba1b21']
     this.chartSettings = {
-      radius: [40, 50],
+      radius: [50, 60],
       offsetY: 100,
     }
     return {
@@ -146,13 +146,13 @@ export default {
         columns: ['是否完成', '进度'],
         rows: '',
       },
-      statusColor: function (val) {
-        if (val.answerOrNot === 1) {
-          return 'background:#409eff;borderColor:#409eff;color:#fff'
-        } else {
-          return 'background:#fff;color:#409eff'
-        }
-      },
+      // statusColor: function (val) {
+      //   if (val.answerOrNot === 1) {
+      //     return 'background:#409eff;borderColor:#409eff;color:#fff'
+      //   } else {
+      //     return 'background:#fff;color:#409eff'
+      //   }
+      // },
       resdata: {
         kindTotalNum: '',    //每种题型合计题数
         kindMark: '',        //每种题型合计分数
@@ -240,37 +240,41 @@ export default {
           this.mins = Number(timeAll[0])
           this.secs = Number(timeAll[1])
         }
-        this.chartData.rows = record.questionStatus
-        this.resdata = record
-        this.resdata.questionOffNum = record.questionNumList
-        this.resdata.questionTotalNum = record.questionNumList.checkboxMap.length + record.questionNumList.checkedMap.length + record.questionNumList.radioMap.length + record.questionNumList.textMap.length
-        this.resdata.titleOptions = record.titleOptions ? JSON.parse(record.titleOptions) : []
-        this.resdata.radioMap = record.questionNumList.radioMap
-        this.resdata.checkboxMap = record.questionNumList.checkboxMap
-        this.resdata.checkedMap = record.questionNumList.checkedMap
-        this.resdata.textMap = record.questionNumList.textMap
-        if (record.questionTypeName === '单选题') {
-          this.answerRadio = record.userAnswer
-          this.resdata.kindTotalNum = record.questionNumList.radioMap.length
-          this.resdata.kindMark = record.questionNumList.radioMap[0].grade * this.resdata.kindTotalNum
+        if (this.mins + this.secs === 0) {
+          this.tip()
+        } else {
+          this.chartData.rows = record.questionStatus
+          this.resdata = record
+          this.resdata.questionOffNum = record.questionNumList
+          this.resdata.questionTotalNum = record.questionNumList.checkboxMap.length + record.questionNumList.checkedMap.length + record.questionNumList.radioMap.length + record.questionNumList.textMap.length
+          this.resdata.titleOptions = record.titleOptions ? JSON.parse(record.titleOptions) : []
+          this.resdata.radioMap = record.questionNumList.radioMap
+          this.resdata.checkboxMap = record.questionNumList.checkboxMap
+          this.resdata.checkedMap = record.questionNumList.checkedMap
+          this.resdata.textMap = record.questionNumList.textMap
+          if (record.questionTypeName === '单选题') {
+            this.answerRadio = record.userAnswer
+            this.resdata.kindTotalNum = record.questionNumList.radioMap.length
+            this.resdata.kindMark = record.questionNumList.radioMap[0].grade * this.resdata.kindTotalNum
+          }
+
+          if (record.questionTypeName === '复选题') {
+            this.checksList = JSON.parse(record.userAnswer)
+            this.resdata.kindTotalNum = record.questionNumList.checkboxMap.length
+            this.resdata.kindMark = record.questionNumList.checkboxMap[0].grade * this.resdata.kindTotalNum
+          }
+          if (record.questionTypeName === '判断题') {
+            this.trueOrFalseRadio = record.userAnswer
+            this.resdata.kindTotalNum = record.questionNumList.checkedMap.length
+            this.resdata.kindMark = record.questionNumList.checkedMap[0].grade * this.resdata.kindTotalNum
+          }
+          if (record.questionTypeName === '简答题') {
+            this.freeInput = record.userAnswer
+            this.resdata.kindTotalNum = record.questionNumList.textMap.length
+            this.resdata.kindMark = record.questionNumList.textMap[0].grade * this.resdata.kindTotalNum
+          }
         }
 
-        if (record.questionTypeName === '复选题') {
-          this.checksList = JSON.parse(record.userAnswer)
-          this.resdata.kindTotalNum = record.questionNumList.checkboxMap.length
-          this.resdata.kindMark = record.questionNumList.checkboxMap[0].grade * this.resdata.kindTotalNum
-        }
-        if (record.questionTypeName === '判断题') {
-          this.trueOrFalseRadio = record.userAnswer
-          this.resdata.kindTotalNum = record.questionNumList.checkedMap.length
-          this.resdata.kindMark = record.questionNumList.checkedMap[0].grade * this.resdata.kindTotalNum
-        }
-        if (record.questionTypeName === '简答题') {
-          this.freeInput = record.userAnswer
-          this.resdata.kindTotalNum = record.questionNumList.textMap.length
-          this.resdata.kindMark = record.questionNumList.textMap[0].grade * this.resdata.kindTotalNum
-        }
-        // console.log('ttt', this.resdata.kindMark)
       })
     },
 
@@ -287,6 +291,17 @@ export default {
         type: 'success',
         message: '自动保存成功!',
       })
+    },
+
+    /**
+     *考试时间已结束，再次进入时提示时间为零
+     */
+    tip () {
+      this.$message({
+        type: 'warning',
+        message: '剩余考试时间已为零!',
+      })
+      this.$emit('onGoBack')
     },
 
     /**
@@ -501,7 +516,7 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  background-color: rgb(236, 236, 236);
+  background-color: #fafafa;
   // background: -webkit-linear-gradient(left, #012f52, #35495e);
   // background: -moz-linear-gradient(right, #012f52, #35495e);
   // background: -o-linear-gradient(right, #012f52, #35495e);
@@ -561,26 +576,28 @@ export default {
     padding-bottom: 75px;
     .container {
       float: right;
-      width: 250px;
-      background: linear-gradient(
-        to bottom right,
-        rgb(55, 15, 68),
-        rgb(107, 174, 246)
-      );
+      width: 280px;
+      background: #fffbf6;
+      border: 1px solid #ffdbc1;
+      // background: linear-gradient(
+      //   to bottom right,
+      //   rgb(55, 15, 68),
+      //   rgb(107, 174, 246)
+      // );
       .explain {
         text-align: center;
         position: relative;
         top: 65px;
         .count {
-          color: rgb(65, 153, 248);
+          color: #e6a23c;
           font-size: 18px;
         }
         .line {
-          color: white;
+          color: #595959;
           font-size: 18px;
         }
         .TotalNum {
-          color: white;
+          color: #595959;
           font-size: 18px;
         }
       }
@@ -591,9 +608,14 @@ export default {
       .card {
         text-align: left;
         padding: 0 18px;
+        .activess {
+          background: #fdf6eb;
+          border-color: #f5dab1;
+          color: #e6a23c;
+        }
         .active {
-          background: #fff849;
-          border-color: #fff849;
+          background: #ba1b21;
+          border-color: #ba1b21;
           color: #fff;
         }
       }
@@ -604,7 +626,8 @@ export default {
   padding: 0 20px;
 }
 </style>
-<style lang="scss">
+<style lang="scss" scoped>
+/* TODO:scoped */
 .examShow {
   .el-radio__label {
     display: none;
@@ -614,7 +637,7 @@ export default {
   }
   .answerSheet {
     font-size: 18px;
-    color: white;
+    color: #595959;
   }
   .answerSheetTop {
     border-top: solid 1px #eee;

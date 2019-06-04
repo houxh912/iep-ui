@@ -27,6 +27,14 @@ if (process.env.NODE_ENV === 'development') {
   // 实际代理转发表
   console.log(`Develop Proxy forwarding table, Proxy address: <${baseUrl}>`)
   exports.proxy = {
+    '/api/ims/ws': {
+      target: baseUrl,
+      changeOrigin: true,
+      ws: true,
+      pathRewrite: {
+        '^/api/ims/ws': '/ims/ws',
+      },
+    },
     '/api': {
       target: baseUrl,
       changeOrigin: true,
@@ -41,14 +49,6 @@ if (process.env.NODE_ENV === 'development') {
       ws: true,
       pathRewrite: {
         '^/act': '/act',
-      },
-    },
-    '/ims/ws': {
-      target: baseUrl,
-      changeOrigin: true,
-      ws: true,
-      pathRewrite: {
-        '^/ims/ws': '/ims/ws',
       },
     },
   }

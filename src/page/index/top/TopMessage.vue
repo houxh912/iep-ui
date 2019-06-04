@@ -20,6 +20,7 @@
   </el-popover>
 </template>
 <script>
+import { wsUrl } from '@/config/env.js'
 import { mapState, mapGetters, mapActions } from 'vuex'
 import { getImsWel } from '@/api/ims/email'
 import IepTopMessageBox from './Components/MessageBox'
@@ -76,7 +77,7 @@ export default {
         'Authorization': 'Bearer ' + token,
       }
       // 建立连接对象
-      this.socket = new SockJS('/ims/ws')//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
+      this.socket = new SockJS(wsUrl)//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
       this.stompClient = Stomp.over(this.socket)
       this.stompClient.debug = null
       // 向服务器发起websocket连接

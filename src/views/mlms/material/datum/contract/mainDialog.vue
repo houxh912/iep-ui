@@ -79,13 +79,13 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span='12' v-if="formData.contractType == 1">
+        <!-- <el-col :span='12' v-if="formData.contractType == 1">
           <el-form-item label="市场经理：">
             <el-input v-model="formData.directorId" v-show="false"></el-input>
             <el-input v-model="formData.directorRealName" disabled></el-input>
           </el-form-item>
-        </el-col>
-        <el-col :span='12' v-else>
+        </el-col> -->
+        <el-col :span='12'>
           <el-form-item label="市场经理：" prop="directorList">
             <iep-contact-select v-model="formData.directorList"></iep-contact-select>
           </el-form-item>
@@ -241,12 +241,17 @@ export default {
     // 根据委托单位查询市场经理
     clientChange (val) {
       getManeger(val).then(({ data }) => {
+        // if (data.data) {
+        //   this.formData.directorRealName = data.data.name
+        //   this.formData.directorId = data.data.id
+        // } else {
+        //   this.formData.directorRealName = ''
+        //   this.formData.directorId = ''
+        // }
         if (data.data) {
-          this.formData.directorRealName = data.data.name
-          this.formData.directorId = data.data.id
+          this.$set(this.formData, 'directorList', { id: data.data.id, name: data.data.name })
         } else {
-          this.formData.directorRealName = ''
-          this.formData.directorId = ''
+          this.$set(this.formData, 'directorList', { id: '', name: '' })
         }
       })
     },

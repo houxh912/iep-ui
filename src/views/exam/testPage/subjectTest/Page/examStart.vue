@@ -63,7 +63,7 @@
         </div>
       </div>
 
-      <div class="right" style="" v-if="resdata.title">
+      <div class="right" v-if="resdata.title">
         <div class="container">
           <div class="explain">
             <span style="color: #595959;">当前进度</span><br>
@@ -99,7 +99,7 @@
             <div v-if="resdata.textMap.length > 0">
               <span class="answerSheet">简答题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
               </div><br>
             </div>
 
@@ -572,7 +572,7 @@ export default {
   .right {
     float: right;
     width: 28%;
-    border-left: 1px solid #eee;
+    border-left: 0px solid #eee;
     padding-bottom: 75px;
     .container {
       float: right;

@@ -9,7 +9,7 @@
         评分进度<span class="title5">5</span> / 23</span>
     </div>
 
-    <div class="examShow" style="background-color:#fff">
+    <div class="examShowss" style="background-color:#fff">
       <div class="left">
         <span style="font-size: 20px;"><b>填空题</b></span>
         <span class="title1">共 5 题，合计 5 分，已完成 {{count}} / {{resdata.questionTotalNum}}</span>
@@ -21,21 +21,21 @@
             <span> （ 1 分）</span>
           </div>
 
-          <div>
+          <!-- <div>
             <li v-for="(item,index) in fillAreaList" :key="index" style="margin-left:28px;">
               <el-input type="textarea" v-model="fillInput" style="width: 70%;margin-top:10px" :rows="2"></el-input>
               <el-input v-model="freeInput" class="give-mark"></el-input>
               <span style="margin-left:10px;">分</span>
             </li>
-          </div>
+          </div> -->
 
-          <div>
+          <!-- <div>
             <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
               <el-input type="textarea" v-model="freeInput" style="width: 80%;margin-top:10px" :rows="6"></el-input>
-              <el-input v-model="freeInput" class="give-mark-two"></el-input>
-              <span style="margin-left:-30px;">分</span>
+              <el-input class="give-mark-two" v-model="freeInput"></el-input>
+              <span style="margin-left:10px;">分</span>
             </li>
-          </div>
+          </div> -->
 
           <div>
             <li v-for="(item,index) in operationList" :key="index" style="margin-left:28px;display:flex">
@@ -66,25 +66,25 @@
 
           <ve-ring style="padding-top: 15px;margin-top: -75px;" height="180px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
 
-          <div class="bottom">
+          <div class="card">
             <div>
               <span class="answerSheet">填空题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div>
               <span class="answerSheet">简答题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div>
               <span class="answerSheet">实操题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
               </div><br>
             </div>
           </div>
@@ -120,13 +120,6 @@ export default {
           { '是否完成': '已完成', '进度': '' },
           { '是否完成': '未完成', '进度': '' },
         ],
-      },
-      statusColor: function (val) {
-        if (val === 1) {
-          return 'background:#409eff;borderColor:#409eff;color:#fff'
-        } else {
-          return 'background:#fff;color:#409eff'
-        }
       },
       resdata: {
         questionOffNum: [],  //已完成的题数
@@ -352,7 +345,7 @@ export default {
     }
   }
 }
-.examShow {
+.examShowss {
   margin: 20px auto;
   width: 89%;
   overflow: hidden;
@@ -378,7 +371,7 @@ export default {
   .right {
     float: right;
     width: 28%;
-    border-left: 1px solid #eee;
+    border-left: 0px solid #eee;
     padding-bottom: 75px;
     .container {
       float: right;
@@ -416,9 +409,19 @@ export default {
           font-size: 20px;
         }
       }
-      .bottom {
+      .card {
         text-align: left;
         padding: 0 18px;
+        .activess {
+          background: #fdf6eb;
+          border-color: #f5dab1;
+          color: #e6a23c;
+        }
+        .active {
+          background: #ba1b21;
+          border-color: #ba1b21;
+          color: #fff;
+        }
       }
     }
   }
@@ -428,7 +431,7 @@ export default {
 }
 </style>
 <style lang="scss">
-.examShow {
+.examShowss {
   .give-mark {
     width: 7%;
     height: 50px;
@@ -442,8 +445,8 @@ export default {
     }
   }
   .give-mark-two {
-    width: 13%;
-    height: 50px;
+    width: 8%;
+    height: 70px;
     margin-left: 50px;
     .el-input__inner {
       width: 60px;

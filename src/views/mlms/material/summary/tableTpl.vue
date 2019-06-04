@@ -1,15 +1,6 @@
 <template>
   <div class="table">
-    <iep-table 
-      :isLoadTable="isLoadTable" 
-      :pagination="pagination" 
-      :dictsMap="dictsMap" 
-      :columnsMap="columnsMap" 
-      :pagedTable="pagedTable" 
-      @size-change="handleSizeChange" 
-      @current-change="handleCurrentChange" 
-      @selection-change="handleSelectionChange" 
-      is-mutiple-selection>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <template slot="before-columns">
         <el-table-column label="会议标题">
           <template slot-scope="scope">
@@ -58,7 +49,7 @@ import { copyData, meetingSend, deleteData } from '@/api/mlms/material/summary'
 
 export default {
   mixins: [mixins],
-  components: {  },
+  components: {},
   data () {
     return {
       dictsMap,
@@ -83,7 +74,7 @@ export default {
     },
     paramForm: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   methods: {
@@ -126,7 +117,7 @@ export default {
     },
     // 发送
     handleSent (row) {
-      meetingSend(row.id).then(({data}) => {
+      meetingSend(row.id).then(({ data }) => {
         this.$message.success(data.msg)
         if (data.data) {
           this.loadPage()

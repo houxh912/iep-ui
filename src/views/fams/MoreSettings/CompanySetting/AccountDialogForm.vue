@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :title="methodName" :dialog-show="dialogShow" width="520px" @close="close">
-    <el-form :model="form" size="small" label-width="140px">
+    <el-form class="form-detail" :model="form" size="small" label-width="140px">
       <el-form-item label="支付工资账户：">
         <iep-select v-model="form.wagePayAccountId" autocomplete="off" :prefix-url="`fams/bank_account/${form.id}`" placeholder="请选择户头所属组织"></iep-select>
       </el-form-item>

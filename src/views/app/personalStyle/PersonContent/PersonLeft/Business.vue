@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     loadPage () {
-      getBusinessPage(this.params).then(({data}) => {
+      getBusinessPage(this.params).then(({ data }) => {
         this.pageList = data.data.records
         this.total = data.data.total
       })
@@ -87,7 +87,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    font-size: 18px;
+    font-size: 16px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

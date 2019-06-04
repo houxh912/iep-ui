@@ -14,14 +14,14 @@
                     <span>投资人次：{{form.investmentNumber}}</span>
                   </div>
                   <div class="span-list">
-                    <span v-for="(item,index) in spanList" :key="index">{{item}}</span>
+                    <span v-for="(item,index) in form.abilityTag" :key="index">{{item}}</span>
                   </div>
                 </div>
               </div>
               <div class="right">
                 <div>目标金额</div>
                 <div>{{form.targetAmount}}</div>
-                <el-button @click="handleAdd(id)" type="danger" size="medium" plain v-show="form.status==4">马上参与</el-button>
+                <el-button @click="handleAdd()" type="danger" size="medium" plain v-show="form.status==4">马上参与</el-button>
               </div>
             </div>
           </el-card>
@@ -51,14 +51,14 @@
               </div>
               <div>
                 <div class="label">组织排行</div>
-                <div class="num">{{form.ranking}}</div>
+                <div class="num">9/15</div>
               </div>
             </div>
             <div class="schedule">
               <div class="schedule-title">投资进度</div>
-              <div class="release">正式发布：{{officialRelease}}</div>
+              <div class="release">正式发布：2019-06-03</div>
               <div class="release">目标金额：￥{{form.targetAmount}}</div>
-              <el-progress :text-inside="true" :stroke-width="18" :percentage="percentage" status="exception" style="margin-top:10px;"></el-progress>
+              <el-progress :text-inside="true" :stroke-width="18" :percentage="form.percentage" status="exception" style="margin-top:10px;"></el-progress>
             </div>
           </IepAppTabCard>
         </div>
@@ -83,10 +83,10 @@
         </div>
         <div>
           <IepAppTabCard title="投资记录">
-            <el-table :data="recordingData" style="width: 100%">
+            <el-table :data="record" style="width: 100%">
               <el-table-column prop="type" label="序号" width="60px;">
               </el-table-column>
-              <el-table-column prop="type" label="投资人">
+              <el-table-column prop="type" label="投资人" width="80px;">
               </el-table-column>
               <el-table-column prop="type" label="投资金额（元）">
               </el-table-column>
@@ -114,11 +114,17 @@
         </div>
       </div>
     </basic-container>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 <script>
-import { getInvestmentById } from '@/api/fams/investment'
+import { getInvestmentById, postInvestment } from '@/api/fams/investment'
+import mixins from '@/mixins/mixins'
+import { initForm } from './options'
+import DialogForm from './DialogForm'
 export default {
+  mixins: [mixins],
+  components: { DialogForm },
   data () {
     this.chartSettings = {
       metrics: ['本组织', '组织业绩平均值对比'],
@@ -134,10 +140,13 @@ export default {
         status: '',
         orgName: '',
         orgLogo: '',
+        orgId: '',
         //way: '股权投资',
         investmentNumber: '',
-        spanList: ['产品设计', '产品设计', '产品设计', '产品设计'],
+        abilityTag: [],
+        percentage:'',
         targetAmount: '',
+        hadMoney: '',
         allSharesNumber: '', 
         sharesUnivalent: '', 
         returnRate: '', 
@@ -160,9 +169,7 @@ export default {
       reportData: [
         { type: '类型' },
       ],
-      recordingData: [
-        { type: '类型' },
-      ],
+      record: [],//投资记录
       shareholderData: [
         { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '企业', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
         { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
@@ -176,9 +183,6 @@ export default {
     id () {
       return +this.$route.params.id
     },
-    percentage () {
-      return this.form.hadMoney/this.form.targetAmount
-    },
   },
   created () {
     this.loadPage()
@@ -186,14 +190,15 @@ export default {
   methods: {
     loadPage () {
       getInvestmentById(this.id).then(({ data }) => {
-        console.log(data.data)
         this.form = data.data
+        this.form.percentage = this.form.hadMoney/this.form.targetAmount*100
       })
     },
-    handleAdd (row) {
-      this.$router.push({
-        path: `/app/apply_investment/${row.id}`,
-      })
+    handleAdd () {
+      this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].formRequestFn = postInvestment
+      this.$refs['DialogForm'].form.investmentId = this.form.orgId
+      this.$refs['DialogForm'].dialogShow = true
     },
   },
 }
@@ -248,6 +253,9 @@ export default {
               width: 30px;
               text-align: center;
               display: inline-block;
+            }
+            :last-child:after{
+              display: none;
             }
             > span {
               color: #666;

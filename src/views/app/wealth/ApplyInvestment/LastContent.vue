@@ -13,7 +13,7 @@
         </el-radio-group>
       </iep-form-item>
       <iep-form-item label-name="投资金额">
-        <iep-input-number v-model="data.borrowAmount"></iep-input-number>
+        <iep-input-number v-model="data.investmentAmount"></iep-input-number>
       </iep-form-item>
     </el-form>
     <template v-slot:action>

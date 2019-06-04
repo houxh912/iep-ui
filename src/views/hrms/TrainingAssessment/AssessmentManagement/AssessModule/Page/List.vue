@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="modules">
     <operation-container>
       <template slot="left">
         <iep-button @click="handleAdd()" type="primary" plain>新建模版</iep-button>
@@ -23,7 +23,7 @@
       <template slot="before-columns">
         <el-table-column label="模板名称">
           <template slot-scope="scope">
-            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.assessName}}</iep-table-link>
+            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.templateName}}</iep-table-link>
           </template>
         </el-table-column>
       </template>
@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-import { getAssessmentManagementPage, postAssessmentManagement, deletePublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/assessment_management'
+import { getTemplatePage, deleteTemplateById, createTemplate } from '@/api/hrms/template'
 import mixins from '@/mixins/mixins'
 
 import { columnsMap, initSearchForm, initForm } from '../options'
@@ -59,26 +59,26 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$refs['DialogForm'].formRequestFn = postAssessmentManagement
+      this.$refs['DialogForm'].formRequestFn = createTemplate
       this.$refs['DialogForm'].dialogShow = true
     },
     handleDeleteBatch () {
-      this._handleGlobalDeleteAll(deletePublishRecruitment)
+      this._handleGlobalDeleteAll(deleteTemplateById)
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deletePublishRecruitmentById)
+      this._handleGlobalDeleteById(row.id, deleteTemplateById)
     },
     handleEdit (row) {
       this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].methodName = '修改'
-      this.$refs['DialogForm'].formRequestFn = postAssessmentManagement
+      this.$refs['DialogForm'].formRequestFn = deleteTemplateById
       this.$refs['DialogForm'].dialogShow = true
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },
     loadPage (param = this.paramForm) {
-      this.loadTable(param, getAssessmentManagementPage)
+      this.loadTable(param, getTemplatePage)
     },
   },
 }

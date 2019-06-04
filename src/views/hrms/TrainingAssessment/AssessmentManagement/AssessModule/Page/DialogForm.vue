@@ -1,11 +1,31 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="新增考核模版" width="400px" @close="loadPage">
+  <iep-dialog class="modules-dialog" :dialog-show="dialogShow" title="新增考核模版" width="700px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
-      <el-form-item label="模版名称" prop="assessName">
-        <el-input v-model="form.assessName"></el-input>
+      <el-form-item label="模版名称：" prop="templateName">
+        <el-input v-model="form.templateName"></el-input>
       </el-form-item>
-      <el-form-item label="考核分值" prop="templateScore">
-        <el-input v-model="form.templateScore"></el-input>
+      <el-form-item label="考核分值：" prop="score">
+        <el-input v-model="form.score"></el-input>
+      </el-form-item>
+      <el-form-item label="考核内容：" prop="checks">
+        <div class="item head">
+          <div class="title">考核指标项</div>
+          <div class="remark">考核指标说明</div>
+          <div class="weight">权重%</div>
+          <div class="button" @click="addChecks"><i class="el-icon-plus"></i></div>
+        </div>
+        <div class="item" v-for="(item, index) in form.checks" :key="index">
+          <div class="title">
+            <el-input v-model="form.checks[index].item" maxlength=20></el-input>
+          </div>
+          <div class="remark">
+            <el-input v-model="form.checks[index].explain" maxlength=100></el-input>
+          </div>
+          <div class="weight">
+            <el-input v-model="form.checks[index].weight"></el-input>
+          </div>
+          <div class="button"><i class="el-icon-close" @click="deleteChecks(index)"></i></div>
+        </div>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -15,7 +35,9 @@
   </iep-dialog>
 </template>
 <script>
-import { initForm } from '../options'
+import { initForm, rules } from '../options'
+import './style.scss'
+
 export default {
   data () {
     return {
@@ -23,14 +45,7 @@ export default {
       formRequestFn: () => { },
       methodName: '创建',
       form: initForm(),
-      rules: {
-        assessName: [
-          { required: true, message: '请输入模版名称', trigger: 'blur' },
-        ],
-        templateScore: [
-          { required: true, message: '请输入考核分值', trigger: 'blur' },
-        ],
-      },
+      rules,
     }
   },
   methods: {
@@ -53,6 +68,16 @@ export default {
           return false
         }
       })
+    },
+    addChecks () {
+      this.form.checks.push({
+        item: '',
+        explain: '',
+        weight: '',
+      })
+    },
+    deleteChecks (index) {
+      this.form.checks.splice(index, 1)
     },
   },
 }

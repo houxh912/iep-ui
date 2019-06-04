@@ -13,7 +13,7 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'templateScore',
+    prop: 'score',
     label: '考核分值',
   },
 ]
@@ -21,16 +21,30 @@ const columnsMap = [
 const initForm = () => {
   return {
     id: '',
-    name: '',
-    templateScore: '',
+    templateName: '',
+    score: '',
+    checks: [{
+      item: '',
+      explain: '',
+      weight: '',
+    }],
   }
 }
 
 const initSearchForm = () => {
   return {
-    name: '',
+    templateName: '',
     sex: '',
   }
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm }
+const rules = {
+  assessName: [
+    { required: true, message: '请输入模版名称', trigger: 'blur' },
+  ],
+  templateScore: [
+    { required: true, message: '请输入考核分值', trigger: 'blur' },
+  ],
+}
+
+export { dictsMap, columnsMap, initForm, initSearchForm, rules }

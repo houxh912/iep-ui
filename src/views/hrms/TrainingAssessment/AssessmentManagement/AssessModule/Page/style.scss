@@ -1,0 +1,39 @@
+.modules {
+
+}
+
+.modules-dialog {
+  .head {
+    text-align: center;
+    margin-bottom: 10px;
+    .button {
+      border: 1px solid #bbb;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+  .item {
+    display: flex;
+    margin-bottom: 5px;
+    div {
+      padding-right: 10px;
+    }
+    .title {
+      width: 115px;
+    }
+    .remark {
+      flex: 1;
+    }
+    .weight {
+      width: 100px;
+    }
+    .button {
+      padding-right: 0;
+      width: 34px;
+      text-align: center;
+      i {
+        cursor: pointer;
+      }
+    }
+  }
+}

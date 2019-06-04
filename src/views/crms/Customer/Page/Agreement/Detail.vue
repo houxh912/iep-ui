@@ -45,11 +45,11 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="签署组织：" prop="signDeptOrgName">
-            <el-input v-model="formData.signDeptOrgName.name" disabled></el-input>
+            <el-input v-model="formData.signDeptOrgName" disabled></el-input>
           </el-form-item>
         </el-col>
         <el-col :span=12>
-          <el-form-item label="承接部门：" prop="underTakeDeptName">
+          <el-form-item label="承接组织：" prop="underTakeDeptName">
             <a-tag v-for="(item,index) in formData.underTakeDeptName" :key="index">{{item.name}}</a-tag>
           </el-form-item>
         </el-col>
@@ -145,6 +145,7 @@ export default {
     this.contractId = this.add.contractId
     agreementById(this.contractId).then(res => {
       this.formData = res.data.data
+      this.formData.signDeptOrgName = res.data.data.signDeptOrgName.name
       // 业务类型处理
       let businessType = res.data.data.businessType.split(','), list = []
       for (let type of businessType) {

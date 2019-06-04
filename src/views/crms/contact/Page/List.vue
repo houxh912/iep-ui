@@ -5,6 +5,7 @@
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增</iep-button>
+          <iep-button type="primary" @click="excellImport" plain>导入</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search :prop="'contactName'">
@@ -27,6 +28,7 @@
           </template>
         </el-table-column>
       </iep-table>
+      <excell-import ref="ExcellImport" :urlName="url" @close="handleClose"></excell-import>
     </basic-container>
     <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
   </div>
@@ -38,9 +40,10 @@ import { columnsMap, initSearchForm } from '../options'
 import DetailDrawer from './DetailDrawer'
 import AdvanceSearch from './AdvanceSearch'
 import { getWeekincrease } from '@/api/crms/count'
+import ExcellImport from './ExcellImport/'
 export default {
   mixins: [mixins],
-  components: { DetailDrawer, AdvanceSearch },
+  components: { DetailDrawer, AdvanceSearch, ExcellImport },
   data () {
     return {
       dictsMap: {},
@@ -49,6 +52,7 @@ export default {
       paramForm: initSearchForm(),
       dialogShow: false,
       detailForm: {},
+      url: '/api/crm/clientcontactexcel/import',
       increasedContact: '',
       replaceText: (data) => `（本周新增${data[0]}个联系人）`,
     }
@@ -98,6 +102,28 @@ export default {
     },
     close () {
       this.dialogShow = false
+    },
+    //导入按钮
+    excellImport () {
+      this.$refs['ExcellImport'].dialogShow = true
+    },
+    //导入弹框关闭
+    handleClose (res) {
+      this.loadPage()
+      this.$refs['ExcellImport'].dialogShow = false
+      if (res.data) {
+        this.$message({
+          message: `成功!${res.msg}`,
+          type: 'success',
+          duration: 15000,
+        })
+      } else {
+        this.$message({
+          message: `警告!${res.msg}`,
+          type: 'warning',
+          duration: 15000,
+        })
+      }
     },
   },
 }

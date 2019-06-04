@@ -6,7 +6,7 @@
         <el-col :span="12">
           <el-form-item label="项目名称：" prop="projectName">
             <span slot="label">
-              项目名称:
+              项目名称：
               <!-- <iep-tip :content="tipContent.projectName"></iep-tip>： -->
             </span>
             <el-input v-model="formData.projectName" placeholder="请输入项目名称"></el-input>
@@ -30,7 +30,7 @@
         <el-col :span="12">
           <el-form-item label="项目标签：" prop="projectTagList">
             <span slot="label">
-              项目标签:
+              项目标签：
               <!-- <iep-tip :content="tipContent.projectTagList"></iep-tip>: -->
             </span>
             <iep-tag v-model="formData.projectTagList"></iep-tag>
@@ -39,7 +39,7 @@
         <el-col :span="12">
           <el-form-item label="项目经理：" prop="projectManagerList">
             <span slot="label">
-              项目经理:
+              项目经理：
               <!-- <iep-tip :content="tipContent.projectTagList"></iep-tip>： -->
             </span>
             <iep-contact-select v-model="formData.projectManagerList"  :is-show-contact-btn="false"></iep-contact-select>
@@ -48,7 +48,7 @@
         <el-col :span="12">
           <el-form-item label="市场经理：" prop="mktManagerList">
             <span slot="label">
-              市场经理:
+              市场经理：
               <!-- <iep-tip :content="tipContent.mktManagerList"></iep-tip>： -->
             </span>
             <iep-contact-select v-model="formData.mktManagerList"  :is-show-contact-btn="false"></iep-contact-select>
@@ -57,7 +57,7 @@
         <el-col :span="12">
           <el-form-item label="项目指导与审核人：" prop="projectMentorList">
             <span slot="label">
-              项目指导与审核人:
+              项目指导与审核人：
               <!-- <iep-tip :content="tipContent.projectMentorList"></iep-tip>： -->
             </span>
             <iep-contact-select v-model="formData.projectMentorList"  :is-show-contact-btn="false"></iep-contact-select>
@@ -66,7 +66,7 @@
         <el-col :span="12">
           <el-form-item label="项目成员：" prop="membersList">
             <span slot="label">
-                项目成员:
+                项目成员：
                 <!-- <iep-tip :content="tipContent.membersList"></iep-tip>： -->
             </span>
             <iep-contact-multiple-user v-model="formData.membersList" :is-show-contact-btn="false"></iep-contact-multiple-user>
@@ -75,7 +75,7 @@
         <el-col :span="12">
           <el-form-item label="项目预算：" prop="projectBudget">
             <span slot="label">
-              项目预算
+              项目预算(元)：
               <!-- <iep-tip :content="tipContent.projectBudget"></iep-tip>： -->
             </span>
             <el-input v-model="formData.projectBudget"></el-input>
@@ -84,7 +84,7 @@
         <el-col :span="12">
           <el-form-item label="项目等级：" prop="projectLevel">
             <span slot="label">
-              项目等级
+              项目等级：
               <!-- <iep-tip :content="tipContent.relatedClient"></iep-tip>： -->
             </span>
             <iep-dict-select v-model="formData.projectLevel" dict-name="prms_project_level"></iep-dict-select>
@@ -93,7 +93,7 @@
         <el-col :span="12">
           <el-form-item label="立项时间:" prop="projectTime">
             <span slot="label">
-              立项时间:
+              立项时间：
             </span>
             <iep-date-picker 
               v-model="formData.projectTime"
@@ -104,7 +104,7 @@
         <el-col :span="12">
           <el-form-item label="结束时间：" prop="endTime">
             <span slot="label">
-              结束时间:
+              结束时间：
             </span>
             <iep-date-picker 
               v-model="formData.endTime"
@@ -115,7 +115,7 @@
         <el-col :span="12">
           <el-form-item label="集团外部合作伙伴：" prop="groupExternalCooperatePartner">
             <span slot="label">
-              集团外部合作伙伴:
+              集团外部合作伙伴：
               <!-- <iep-tip :content="tipContent.groupExternalCooperatePartner"></iep-tip>： -->
             </span>
             <!-- <iep-select prefix-url="crm/customer" v-model="formData.groupExternalCooperatePartner"></iep-select> -->
@@ -129,7 +129,7 @@
       </el-row>
       <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
         <span slot="label">
-          是否关联产品:
+          是否关联产品：
           <!-- <iep-tip :content="tipContent.isRelevanceProduct"></iep-tip>： -->
         </span>
         <el-radio-group v-model="formData.isRelevanceProduct">

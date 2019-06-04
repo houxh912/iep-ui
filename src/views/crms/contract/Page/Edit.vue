@@ -198,6 +198,10 @@ export default {
       })
     }
   },
+  mounted () {
+    this.formData.signDeptOrgId = this.userInfo.orgId
+    this.formData.signDeptName = this.userInfo.orgName
+  },
   methods: {
     loadPage () {
       this.$emit('load-page')

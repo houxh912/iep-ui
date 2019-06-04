@@ -78,7 +78,7 @@ export const rules = {
     { required: true, message: '必填', trigger: 'change' },
   ],
   projectBudget: [
-    { validator: intValidate, message: '请输入正数', trigger: 'change' },
+    { validator: intValidate, message: '请输入正整数', trigger: 'change' },
   ],
 }
 

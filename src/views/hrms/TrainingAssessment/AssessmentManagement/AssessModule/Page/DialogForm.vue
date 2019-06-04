@@ -19,12 +19,12 @@
             <el-input v-model="form.checks[index].item" maxlength=20></el-input>
           </div>
           <div class="remark">
-            <el-input v-model="form.checks[index].explain" maxlength=100></el-input>
+            <el-input v-model="form.checks[index].checkExplan" maxlength=100></el-input>
           </div>
           <div class="weight">
             <el-input v-model="form.checks[index].weight"></el-input>
           </div>
-          <div class="button"><i class="el-icon-close" @click="deleteChecks(index)"></i></div>
+          <div class="button"><i class="el-icon-close" @click="deleteChecks(index, item)"></i></div>
         </div>
       </el-form-item>
     </el-form>
@@ -36,6 +36,7 @@
 </template>
 <script>
 import { initForm, rules } from '../options'
+import { deleteCheckById } from '@/api/hrms/template'
 import './style.scss'
 
 export default {
@@ -55,6 +56,7 @@ export default {
       this.$emit('load-page')
     },
     submitForm (formName) {
+      console.log('for: ', this.form)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn(this.form).then(() => {
@@ -72,12 +74,26 @@ export default {
     addChecks () {
       this.form.checks.push({
         item: '',
-        explain: '',
+        checkExplan: '',
         weight: '',
       })
     },
-    deleteChecks (index) {
-      this.form.checks.splice(index, 1)
+    deleteChecks (index, item) {
+      if (item.checkId) {
+        this.$confirm('此操作会直接删除数据库中数据，且此操作不可逆，是否继续删除？', '警告', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          deleteCheckById(item.checkId).then(() => {
+            this.form.checks.splice(index, 1)
+          })
+        }).catch(() => {
+                  
+        })
+      } else {
+        this.form.checks.splice(index, 1)
+      }
     },
   },
 }

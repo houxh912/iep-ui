@@ -3,7 +3,7 @@
     <operation-container>
       <template slot="left">
         <iep-button @click="handleAdd()" type="primary" plain>新建模版</iep-button>
-        <iep-button type="default" plain @click.native="handleDeleteBatch">删除</iep-button>
+        <!-- <iep-button type="default" plain @click.native="handleDeleteBatch">删除</iep-button> -->
       </template>
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
@@ -30,8 +30,8 @@
       <el-table-column prop="operation" label="操作" width="220">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)" type="warning" plain>修改</iep-button>
-            <iep-button @click="handleDelete(scope.row)">删除</iep-button>
+            <iep-button @click="handleEdit(scope.row)" type="warning" plain :disabled="scope.row.status==1">修改</iep-button>
+            <iep-button @click="handleDelete(scope.row)" :disabled="scope.row.status==1">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -39,12 +39,13 @@
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
-<script>
-import { getTemplatePage, deleteTemplateById, createTemplate } from '@/api/hrms/template'
-import mixins from '@/mixins/mixins'
 
-import { columnsMap, initSearchForm, initForm } from '../options'
+<script>
+import { getTemplatePage, deleteTemplateById, createTemplate, updateTemplate, getTemplateById } from '@/api/hrms/template'
+import mixins from '@/mixins/mixins'
+import { columnsMap, initSearchForm } from '../options'
 import DialogForm from './DialogForm'
+
 export default {
   mixins: [mixins],
   components: { DialogForm },
@@ -66,13 +67,15 @@ export default {
       this._handleGlobalDeleteAll(deleteTemplateById)
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deleteTemplateById)
+      this._handleGlobalDeleteById(row.templateId, deleteTemplateById)
     },
     handleEdit (row) {
-      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
-      this.$refs['DialogForm'].methodName = '修改'
-      this.$refs['DialogForm'].formRequestFn = deleteTemplateById
-      this.$refs['DialogForm'].dialogShow = true
+      getTemplateById(row.templateId).then(({data}) => {
+        this.$refs['DialogForm'].form = data.data
+        this.$refs['DialogForm'].methodName = '修改'
+        this.$refs['DialogForm'].formRequestFn = updateTemplate
+        this.$refs['DialogForm'].dialogShow = true
+      })
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

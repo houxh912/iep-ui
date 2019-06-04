@@ -12,11 +12,11 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <el-table-column label="公司名称">
+        <!-- <el-table-column label="公司名称">
           <template slot-scope="scope">
             <iep-tag-detail :value="scope.row.companyName.map(m => m.name)"></iep-tag-detail>
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column label="操作时间">
           <template slot-scope="scope">
             <iep-div-detail :value="scope.row.updateTime"></iep-div-detail>
@@ -58,13 +58,15 @@ export default {
     handleEdit (row) {
       getBankAccountById(row.id).then(({ data }) => {
         this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), data.data)
-        this.$refs['DialogForm'].form.companyIds = row.companyName.map(m => m.id)
+        // this.$refs['DialogForm'].form.companyIds = row.companyName.map(m => m.id)
         this.$refs['DialogForm'].formRequestFn = putBankAccount
+        this.$refs['DialogForm'].methodName = '编辑'
         this.$refs['DialogForm'].dialogShow = true
       })
     },
     handleAdd () {
       this.$refs['DialogForm'].formRequestFn = postBankAccount
+      this.$refs['DialogForm'].methodName = '新增'
       this.$refs['DialogForm'].dialogShow = true
     },
     loadPage (param = this.searchForm) {

@@ -61,7 +61,7 @@ const initForm = () => {
 		rate: '',//税率
 		unit: '',//单位
 		amount: '', //开票金额
-		invoicingType: '',//开票种类
+		invoicingType: 1,//开票种类
 		projectId: '',//关联项目
 		companyId: '', //销售方公司ID
 		remarks: '',//备注
@@ -116,9 +116,58 @@ const rules = {
 	],
 }
 
+const initRule = (type) => {
+
+	return {
+		buyerName: [
+			{ required: true, message: '请输入名称', trigger: 'blur' },
+		],
+		buyerNumber: [
+			{ required: true, message: '请输入纳税人号码', trigger: 'blur' },
+		],
+		buyerAddress: [
+			{ required: type === 2 ? false : true, message: '请输入地址', trigger: 'blur' },
+		],
+		buyerPhone: [
+			{ required: type === 2 ? false : true, message: '请输入电话号码', trigger: 'blur' },
+		],
+		buyerAccount: [
+			{ required: type === 2 ? false : true, message: '请输入开户行及账户', trigger: 'blur' },
+		],
+		buyerMail: [
+			{ required: type === 2 ? false : true, message: '请输入发票邮寄地址', trigger: 'blur' },
+		],
+		firstSubject: [
+			{ required: true, message: '请输入一级科目', trigger: 'blur' },
+		],
+		secondSubject: [
+			{ required: true, message: '请输入二级科目', trigger: 'blur' },
+		],
+		rate: [
+			{ required: true, message: '请输入税率', trigger: 'blur' },
+		],
+		unit: [
+			{ required: true, message: '请输入单位', trigger: 'blur' },
+		],
+		amount: [
+			{ required: true, message: '请输入金额', trigger: 'blur', type:'number', min:1 },
+		],
+		invoicingType: [
+			{ required: true, message: '请选择开票种类', trigger: 'blur' },
+		],
+		projectId: [
+			{ required: true, message: '请输入关联项目', trigger: 'blur' },
+		],
+		companyId: [
+			{ required: true, message: '请输入销售方公司', trigger: 'blur' },
+		],
+	}
+}
+
 export {
 	columnsMap,
 	dictsMap,
 	initForm,
 	rules,
+	initRule,
 }

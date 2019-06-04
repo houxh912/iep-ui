@@ -53,15 +53,18 @@ export default {
       this.$refs['DialogForm'].form.parentId = row.id
       this.$refs['DialogForm'].form.parentName = row.name
       this.$refs['DialogForm'].formRequestFn = postCompany
+      this.$refs['DialogForm'].methodName = '添加子公司'
       this.$refs['DialogForm'].dialogShow = true
     },
     handleEdit (row) {
       this.$refs['DialogForm'].form = { ...row }
       this.$refs['DialogForm'].formRequestFn = putCompany
+      this.$refs['DialogForm'].methodName = '编辑'
       this.$refs['DialogForm'].dialogShow = true
     },
     handleAdd () {
       this.$refs['DialogForm'].formRequestFn = postCompany
+      this.$refs['DialogForm'].methodName = '新增'
       this.$refs['DialogForm'].dialogShow = true
     },
     loadPage (param = this.searchForm) {

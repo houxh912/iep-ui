@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}开票通知`" :back-option="backOption">
+      <page-header :title="`${methodName}开票通知-${dictsMap.invoicingType[this.form.invoicingType]}`" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">保存</iep-button>
       </page-header>
       <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="200px" size="small">
@@ -44,7 +44,7 @@
           <iep-input-number v-model="form.amount"></iep-input-number>
         </iep-form-item>
         <iep-form-item label-name="发票种类" prop="invoicingType">
-          <el-select v-model="form.invoicingType">
+          <el-select v-model="form.invoicingType" disabled>
             <el-option v-for="(v, k) in dictsMap['invoicingType']" :key="k" :label="v" :value="+k">
             </el-option>
           </el-select>
@@ -79,7 +79,7 @@
   </div>
 </template>
 <script>
-import { initForm, rules, dictsMap } from '../options'
+import { initForm, dictsMap, initRule } from './options'
 import { mapGetters, mapState } from 'vuex'
 import { postBilling, putBilling, getBillingById } from '@/api/fams/billing'
 import { getCompanyById } from '@/api/fams/company'
@@ -103,14 +103,11 @@ export default {
   },
   data () {
     return {
-      rules,
       dictsMap,
       form: initForm(),
       companyForm: initCompanyForm(),
       backOption: {
         isBack: true,
-        backPath: null,
-        backFunction: this.handleGoBack,
       },
     }
   },
@@ -120,36 +117,38 @@ export default {
       orgId: state => state.user.userInfo.orgId,
     }),
     id () {
-      return +this.record.id
+      return +this.$route.params.id
     },
-    isEdit () {
-      return this.id ? true : false
-    },
-    formRequestFn () {
-      return this.isEdit ? putBilling : postBilling
+    invoicingType () {
+      return +this.$route.query.invoicingType
     },
     methodName () {
-      return this.isEdit ? '修改' : '新增'
+      return this.id ? '编辑' : '新增'
+    },
+    formRequestFn () {
+      return this.id ? putBilling : postBilling
+    },
+    rules () {
+      return initRule(this.invoicingType)
     },
   },
   created () {
-    this.loadPage()
+    if (this.id) {
+      this.loadPage()
+    } else {
+      this.form.invoicingType = this.invoicingType
+    }
   },
   methods: {
     loadPage () {
-      if (this.isEdit) {
-        getBillingById(this.id).then(({ data }) => {
-          this.form = this.$mergeByFirst(initForm(), data.data)
-        })
-      }
+      getBillingById(this.id).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
+      })
     },
     handleChangeCompanyId (value) {
       getCompanyById(value).then(({ data }) => {
         this.companyForm = data.data
       })
-    },
-    handleGoBack () {
-      this.$emit('onGoBack')
     },
     async handleSubmit () {
       try {
@@ -157,7 +156,7 @@ export default {
         this.formRequestFn(this.form).then(({ data }) => {
           if (data.data) {
             this.$message.success('操作成功')
-            this.handleGoBack()
+            this.$router.go(-1)
           } else {
             this.$message(data.msg)
           }

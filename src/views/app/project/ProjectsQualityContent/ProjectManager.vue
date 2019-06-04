@@ -135,6 +135,6 @@ export default {
 </style>
 <style scoped>
 .project-manager >>> .el-card {
-  height: 408px;
+  height: 413px;
 }
 </style>

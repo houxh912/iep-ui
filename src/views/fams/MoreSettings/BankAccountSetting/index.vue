@@ -37,7 +37,7 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { getBankAccountPage, postBankAccount, putBankAccount, deleteBankAccountById } from '@/api/fams/bank_account'
+import { getBankAccountPage, postBankAccount, putBankAccount, deleteBankAccountById, getBankAccountById } from '@/api/fams/bank_account'
 import DialogForm from './DialogForm'
 import { columnsMap, initForm } from './options'
 export default {
@@ -55,18 +55,13 @@ export default {
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deleteBankAccountById)
     },
-    handleChild (row) {
-      this.$refs['DialogForm'].form = initForm()
-      this.$refs['DialogForm'].form.parentId = row.id
-      this.$refs['DialogForm'].form.parentName = row.name
-      this.$refs['DialogForm'].formRequestFn = postBankAccount
-      this.$refs['DialogForm'].dialogShow = true
-    },
     handleEdit (row) {
-      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
-      this.$refs['DialogForm'].form.companyIds = row.companyName.map(m => m.id)
-      this.$refs['DialogForm'].formRequestFn = putBankAccount
-      this.$refs['DialogForm'].dialogShow = true
+      getBankAccountById(row.id).then(({ data }) => {
+        this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), data.data)
+        this.$refs['DialogForm'].form.companyIds = row.companyName.map(m => m.id)
+        this.$refs['DialogForm'].formRequestFn = putBankAccount
+        this.$refs['DialogForm'].dialogShow = true
+      })
     },
     handleAdd () {
       this.$refs['DialogForm'].formRequestFn = postBankAccount

@@ -3,8 +3,6 @@
 const initForm = () => {
 	return {
 		id: '',
-		parentId: '',
-		parentName: '',
 		isWagePay: 0, // (0-不是，1-是)
 		accountName: '',
 		companyIds: [],

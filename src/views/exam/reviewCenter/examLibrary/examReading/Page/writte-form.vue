@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <img src="./IG.png">
+      <!-- <img src="./IG.png"> -->
       <span class="title1"><b>在线考试系统</b></span>
       <span class="title2"></span>
       <span class="title3">内网考试</span>
@@ -21,13 +21,13 @@
             <span> （ 1 分）</span>
           </div>
 
-          <!-- <div>
+          <div>
             <li v-for="(item,index) in fillAreaList" :key="index" style="margin-left:28px;">
               <el-input type="textarea" v-model="fillInput" style="width: 70%;margin-top:10px" :rows="2"></el-input>
               <el-input v-model="freeInput" class="give-mark"></el-input>
               <span style="margin-left:10px;">分</span>
             </li>
-          </div> -->
+          </div>
 
           <div>
             <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
@@ -37,13 +37,13 @@
             </li>
           </div>
 
-          <!-- <div>
+          <div>
             <li v-for="(item,index) in operationList" :key="index" style="margin-left:28px;display:flex">
               <iep-froala-editor v-model="operation" style="width:80%"></iep-froala-editor>
               <el-input v-model="freeInput" class="give-mark-three"></el-input>
               <span style="margin-left:15px;margin-top:175px">分</span>
             </li>
-          </div> -->
+          </div>
 
           <div class="center" align="center">
             <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.questionNum === 1">上一题</iep-button>
@@ -64,7 +64,7 @@
             <span class="titlefour">12</span>
           </div>
 
-          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="200px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
+          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="180px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
 
           <div class="bottom">
             <div>
@@ -103,19 +103,17 @@ export default {
   data () {
     this.colors = ['#409AF9', '#FFFFFF']
     this.chartSettings = {
-      radius: [40, 50],
-      offsetY: 100,
+      radius: [50, 60],
+      offsetY: 80,
     }
     return {
       fillInput: '',           //填空(v-model绑定的值)
       freeInput: '',           //简答(v-model绑定的值)
       operation: '',           //实操(v-model绑定的值)
-      //inputList: ['', ''],  
       fillAreaList: ['', ''],  //填空
       inputAreaList: [''],     //简答
-      operationList: [''],       //实操
+      operationList: [''],     //实操
       questionExplain: '本题来源于国脉内网、水巢、数据基因、技能类、知识类、数据能力类、基本能力类、项目管理类、公司常识类、人力资源类等。',
-      examNo: '2019052568969',
       chartData: {
         columns: ['是否完成', '进度'],
         rows: [
@@ -147,9 +145,6 @@ export default {
   computed: {
     count: function () {
       return this.offNum()
-    },
-    residueCount: function () {
-      return this.resdata.questionTotalNum - this.count
     },
   },
   created () {
@@ -215,7 +210,7 @@ export default {
         currentQuestionNum: this.resdata.questionNum,
         questionNum: this.resdata.questionNum,
       }
-      console.log('2e', params)
+      // console.log('2e', params)
       this.getSubjectById(params)
     },
 
@@ -313,13 +308,13 @@ export default {
   },
 }
 </script>
-
 <style lang="scss" scoped>
 .header {
-  background: -webkit-linear-gradient(left, rgb(64, 156, 252), rgb(100, 6, 10));
-  background: -moz-linear-gradient(right, rgb(64, 156, 252), rgb(100, 6, 10));
-  background: -o-linear-gradient(right, rgb(64, 156, 252), rgb(100, 6, 10));
-  background: linear-gradient(to right, rgb(64, 156, 252), rgb(100, 6, 10));
+  background-color: #fafafa;
+  // background: -webkit-linear-gradient(left, rgb(64, 156, 252), rgb(100, 6, 10));
+  // background: -moz-linear-gradient(right, rgb(64, 156, 252), rgb(100, 6, 10));
+  // background: -o-linear-gradient(right, rgb(64, 156, 252), rgb(100, 6, 10));
+  // background: linear-gradient(to right, rgb(64, 156, 252), rgb(100, 6, 10));
   padding: 15px 20px;
   width: 100%;
   height: 60px;
@@ -330,25 +325,25 @@ export default {
   .title1 {
     font-size: 19px;
     float: left;
-    color: #fff;
+    color: #595959;
   }
   .title2 {
     height: 20px;
     width: 2px;
-    background: #fff;
+    background: #595959;
     margin: 6px 15px 0 15px;
     float: left;
   }
   .title3 {
     font-size: 17px;
     float: left;
-    color: #fff;
+    color: #595959;
     margin-top: 3px;
   }
   .title4 {
     font-size: 15px;
     float: left;
-    color: #fff;
+    color: #595959;
     margin-top: 3px;
     margin-left: 150px;
     .title5 {
@@ -387,22 +382,24 @@ export default {
     padding-bottom: 75px;
     .container {
       float: right;
-      width: 250px;
-      background: linear-gradient(
-        to bottom right,
-        rgb(55, 15, 68),
-        rgb(107, 174, 246)
-      );
+      width: 280px;
+      background: #fffbf6;
+      border: 1px solid #ffdbc1;
+      // background: linear-gradient(
+      //   to bottom right,
+      //   rgb(55, 15, 68),
+      //   rgb(107, 174, 246)
+      // );
       .top {
         text-align: center;
         position: relative;
-        top: 65px;
+        top: 40px;
         .titleone {
-          color: white;
+          color: #595959;
           font-size: 30px;
         }
         .titletwoss {
-          color: rgb(65, 153, 248);
+          color: #e6a23c;
           font-size: 40px;
           .fen {
             width: 22%;
@@ -410,12 +407,12 @@ export default {
           }
         }
         .titlethree {
-          color: white;
+          color: #595959;
           font-size: 20px;
           margin-left: -2px;
         }
         .titlefour {
-          color: white;
+          color: #595959;
           font-size: 20px;
         }
       }
@@ -473,7 +470,7 @@ export default {
   .titletwoss {
     .el-input__inner {
       width: 139%;
-      color: rgb(65, 153, 248);
+      color: #e6a23c;
       border: 0px solid #494884;
       background: none;
     }
@@ -486,7 +483,7 @@ export default {
   }
   .answerSheet {
     font-size: 18px;
-    color: white;
+    color: #595959;
   }
   .answerSheetTop {
     border-top: solid 1px #eee;
@@ -501,4 +498,3 @@ export default {
   }
 }
 </style>
-

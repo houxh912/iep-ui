@@ -49,6 +49,13 @@ export function downInvestmentById (id) {
 
 export function postInvestment (obj) {
   return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+export function joinInvestment (obj) {
+  return request({
     url: `${prefixUrl}/join`,
     method: 'post',
     data: obj,

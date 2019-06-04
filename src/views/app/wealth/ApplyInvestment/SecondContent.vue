@@ -8,7 +8,7 @@
       <iep-form-item label-name="投资股份比例">
         <iep-div-detail :value="`${data.orgInterest}%`"></iep-div-detail>
       </iep-form-item>
-      <iep-form-item label-name="支付方式"> 
+      <iep-form-item label-name="支付方式">
         <el-radio-group v-model="data.investmentMoneyType">
           <el-radio v-for="(item, idx) in dictsMap.investmentMoneyType" :key="idx" :label="idx">{{item}}</el-radio>
         </el-radio-group>
@@ -30,7 +30,7 @@
 </template>
 <script>
 import StepsContent from './StepsContent'
-import { postInvestment } from '@/api/fams/investment'
+import { joinInvestment } from '@/api/fams/investment'
 import { dictsMap } from './options'
 export default {
   props: ['data'],
@@ -53,7 +53,7 @@ export default {
     async handleSubmit () {
       this.submitLoading = true
       try {
-        const { data } = await postInvestment(this.data)
+        const { data } = await joinInvestment(this.data)
         if (data.data) {
           this.$emit('on-data', data.data)
         } else {

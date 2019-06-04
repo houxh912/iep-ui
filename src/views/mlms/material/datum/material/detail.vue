@@ -42,6 +42,7 @@
             </IepFiveKay>
           </div>
         </el-row>
+        <!-- 评论 -->
         <el-row class="comment">
           <div class="form" v-if="isCommentShow">
             <h2 class="title">评价评论 <div class="rate">
@@ -112,6 +113,7 @@ import wrongDialog from '@/views/mlms/material/components/wrongDialog'
 // import wrongDialog from './wrongDialog'
 import { mapGetters } from 'vuex'
 import { getConfigureTree } from '@/api/mlms/material/datum/configure'
+import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 
 function commentForm () {
   return {
@@ -167,6 +169,7 @@ export default {
     ...mapGetters(['dictGroup']),
   },
   methods: {
+    // 评论
     submit () {
       if (this.comment.commentContent == '') {
         this.$message.error('请先填写评论的内容！')
@@ -174,8 +177,11 @@ export default {
       }
       this.comment.commentObjectId = this.formData.id
       commentMaterial(this.comment).then(() => {
-        this.getComment(this.formData.id)
-        this.comment = commentForm()
+        addBellBalanceRuleByNumber('MATERIAL_COMMENT').then(() => {
+          this.getComment(this.formData.id)
+          this.comment = commentForm()
+          this.$message.success('评论成功！')
+        })
       })
     },
     // 领导批示

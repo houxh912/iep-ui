@@ -26,7 +26,7 @@
     </div>
     <div class="copies">
       <gov-learn></gov-learn>
-      <gvo-document></gvo-document>
+      <gov-document></gov-document>
       <thoughts></thoughts>
     </div>
     <div class="copies copies2">
@@ -50,8 +50,8 @@ import ExcellentLecturer from './ExcellentLecturer'
 import InteractiveZone from './InteractiveZone'
 import Reward from './Reward'
 import Feedback from './Feedback'
-import GovLearn from './GovLearn'
-import GvoDocument from './GvoDocument'
+import GovLearn from './GovLearn/'
+import GovDocument from './GovDocument/'
 import TalentAdvantage from './TalentAdvantage'
 
 export default {
@@ -70,7 +70,7 @@ export default {
     Reward, 
     Feedback, 
     GovLearn,
-    GvoDocument,
+    GovDocument,
     TalentAdvantage,
   },
   data () {

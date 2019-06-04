@@ -12,6 +12,16 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <el-table-column label="公司名称">
+          <template slot-scope="scope">
+            <iep-tag-detail :value="scope.row.companyName.map(m => m.name)"></iep-tag-detail>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作时间">
+          <template slot-scope="scope">
+            <iep-div-detail :value="scope.row.updateTime"></iep-div-detail>
+          </template>
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -53,7 +63,8 @@ export default {
       this.$refs['DialogForm'].dialogShow = true
     },
     handleEdit (row) {
-      this.$refs['DialogForm'].form = { ...row }
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].form.companyIds = row.companyName.map(m => m.id)
       this.$refs['DialogForm'].formRequestFn = putBankAccount
       this.$refs['DialogForm'].dialogShow = true
     },

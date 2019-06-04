@@ -32,7 +32,7 @@ import DialogGroup from './DialogGroup'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import top from './top/'
 import sidebar from './sidebar/'
-import admin from '@/util/admin'
+//import admin from '@/util/admin'
 import imUi from '@/views/imui'
 import { validatenull } from '@/util/validate'
 // import { calcDate } from '@/util/date.js'
@@ -69,7 +69,7 @@ export default {
     // this.disconnect()
   },
   mounted () {
-    // this.init()
+     this.init()
     this.LoadAllDictMap()
     this.LoadContactsPyGroup()
     this.LoadFamsConfig()
@@ -95,16 +95,24 @@ export default {
   },
   methods: {
     ...mapActions(['LoadAllDictMap', 'LoadContactsPyGroup', 'LoadFamsConfig', 'RefreshToken']),
-    ...mapMutations({ setScreen: 'SET_SCREEN', setExpiresIn: 'SET_EXPIRES_IN' }),
+    ...mapMutations({ setScreen: 'SET_SCREEN', setExpiresIn: 'SET_EXPIRES_IN', setWindowSize: 'SET_WINDOWSIZE' }),
     handleOk () {
       this.visible = false
     },
     // 屏幕检测
     init () {
-      this.setScreen(admin.getScreen())
+      this.setWindowSize({
+        width: document.body.clientWidth,
+        height: document.body.clientHeight,
+      })
+//      this.setScreen(admin.getScreen())
       window.onresize = () => {
         setTimeout(() => {
-          this.setScreen(admin.getScreen())
+          this.setWindowSize({
+            width: document.body.clientWidth,
+            height: document.body.clientHeight,
+          })
+//          this.setScreen(admin.getScreen())
         }, 0)
       }
     },

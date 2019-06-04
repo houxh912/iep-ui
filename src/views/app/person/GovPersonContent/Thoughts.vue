@@ -1,6 +1,10 @@
 <template>
   <div class="thoughts">
-    <IepAppTabCard :title="title" :linkName="linkName" isMore>
+    <IepAppTabCard :title="title" :linkName="linkName">
+      <div class="title-right" slot="right">
+        <el-button class="btn" type="text" @click="getMore">更多></el-button>
+        <el-button class="publish" type="text" @click="handlePublish">我要发布</el-button>
+      </div>
       <div class="thoughts-list">
         <div v-for="(item, index) in thoughtsList" :key="index" class="piece">
           <div class="img-con"><img :src="item.avatar" class="img"></div>
@@ -32,17 +36,21 @@
         </div>
       </div>
     </IepAppTabCard>
+    <!-- 祝福 -->
     <blessing-dialog ref="blessing"></blessing-dialog>
+    <!-- 发表说说 -->
+    <publish-dialog ref="publish" @load-page="getThoughtsList"></publish-dialog>
   </div>
 </template>
 
 <script>
 import { getRecruitBirthday } from '@/api/app/hrms/'
 import { getThoughtsList } from '@/api/app/cpms/channel'
-import BlessingDialog from './Blessing'
+import BlessingDialog from './ThoughtsDialog/Blessing'
+import PublishDialog from './ThoughtsDialog/Publish'
 
 export default {
-  components: { BlessingDialog },
+  components: { BlessingDialog, PublishDialog },
   data () {
     return {
       title: '员工说说',
@@ -66,6 +74,12 @@ export default {
         this.thoughtsList = data.data
       })
     },
+    getMore () {
+      this.$router.push(this.linkName)
+    },
+    handlePublish () {
+      this.$refs['publish'].open()
+    },
   },
   created () {
     this.getBirthdayList()
@@ -74,6 +88,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.title-right {
+  display: inline-block;
+  width: 244px;
+  > .publish {
+    margin-right: 10px;
+    color: #cb3737 !important;
+  }
+}
 .star-list {
   height: 100%;
   overflow-y: scroll;

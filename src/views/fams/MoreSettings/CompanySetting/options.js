@@ -11,8 +11,8 @@ const initForm = () => {
 		address: '', // 地址
 		businessScope: '', // 经营范围
 		bankAccountIds: [], // 关联的银行
-		invoiceAccountId: 1, // 关联工资支付银行
-		wagepayAccountIds: [], // 关联开票银行
+		wagePayAccountId: 1, // 关联工资支付银行
+		invoiceAccountIds: [], // 关联开票银行
 	}
 }
 

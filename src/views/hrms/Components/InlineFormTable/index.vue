@@ -26,7 +26,7 @@
         <template slot-scope="scope">
           <template v-if="scope.row.editable">
             <span v-if="scope.row.isNew">
-              <iep-button type="text" size="mini" @click="saveRow(scope.row.id)">添加</iep-button>
+              <iep-button type="text" size="mini" @click="saveRow(scope.row.id)">保存</iep-button>
               <iep-divider type="vertical" />
               <a-popconfirm title="是否要删除此数据？" okText="确认" cancelText="取消" @confirm="remove(scope.row.id)">
                 <iep-button type="text" size="mini">删除</iep-button>

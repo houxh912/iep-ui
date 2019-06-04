@@ -11,7 +11,7 @@
         <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择户头所属组织"></iep-select>
       </el-form-item>
       <el-form-item label="关联银行账户：">
-        <iep-select v-model="form.orgId" autocomplete="off" prefix-url="fams/bank_account" placeholder="请选择户头所属组织"></iep-select>
+        <iep-select v-model="form.bankAccountIds" multiple autocomplete="off" prefix-url="fams/bank_account" placeholder="请选择户头所属组织"></iep-select>
       </el-form-item>
       <el-form-item label="纳税人识别号：">
         <el-input v-model="form.taxpayerNumber" autocomplete="off" placeholder="请输入纳税人识别号"></el-input>

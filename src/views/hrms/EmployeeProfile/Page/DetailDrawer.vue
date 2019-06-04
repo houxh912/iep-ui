@@ -19,7 +19,7 @@
 
     <a-row>
       <a-col :span="24">
-        <iep-description-item title="权限：">
+        <iep-description-item title="角色：">
           <iep-tag-detail slot="content" :value="form.roleName" iep-type="role"></iep-tag-detail>
         </iep-description-item>
       </a-col>

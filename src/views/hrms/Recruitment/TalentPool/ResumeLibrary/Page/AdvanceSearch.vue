@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="form" label-width="100px" size="mini">
+  <el-form :model="form" label-width="120px" size="mini">
     <el-form-item label="岗位名称：">
       <el-input v-model="form.positionName" clearable></el-input>
     </el-form-item>

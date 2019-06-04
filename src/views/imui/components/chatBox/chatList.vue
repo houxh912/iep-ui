@@ -2,12 +2,12 @@
   <div class="chat-list-box">
     <ul class="chat-list">
       <li
-        v-for="(chat, index) in chatList"
+        v-for="(chat, index) in $store.getters.imCurrentChatList"
         :key="index" @click="chatChange(chat)"
         :class="currentChat === chat.userId ? 'chosen' : ''">
-        <img :src="chat.avatar"/>
+        <img :src="chat.avatar ? chat.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
         <span>{{chat.realName}}</span>
-        <i @click.stop="chatClose(chat)"></i>
+        <i class="icon-font icon-guanbi" @click.stop="chatClose(chat)"></i>
       </li>
     </ul>
   </div>
@@ -17,12 +17,6 @@
 export default {
   name: 'chat-list',
   props: {
-    chatList: {
-      type: Array,
-      default () {
-        return []
-      },
-    },
     currentChat: {
       type: Number,
       default: 0,
@@ -92,11 +86,9 @@ export default {
         position: absolute;
         right: 5px;
         top: 15px;
-        height: 20px;
-        width: 20px;
-        background: #000000;
+        font-size: 14px;
         &:hover {
-          background: red;
+          color: #BA1B21;
         }
       }
       &:hover {

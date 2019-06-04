@@ -46,19 +46,15 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <new-approval ref="NewApproval" @load-page="loadPage"></new-approval>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import { getInitiatePage, deleteApprovalById, submitApprovalById, cancelApprovalById } from '@/api/hrms/wel'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
-import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
 export default {
-  components: {
-    NewApproval,
-  },
   mixins: [mixins],
   data () {
     return {
@@ -70,6 +66,9 @@ export default {
     this.loadPage()
   },
   methods: {
+    ...mapMutations({
+      setApprovalDialogShow: 'SET_APPROVAL_DIALOG_SHOW',
+    }),
     handleCancel (row) {
       this._handleGlobalById(row.id, cancelApprovalById, 'cancel')
     },
@@ -90,7 +89,7 @@ export default {
       })
     },
     handleAdd () {
-      this.$refs['NewApproval'].dialogShow = true
+      this.setApprovalDialogShow(true)
     },
     handleDelete (row) {
       this._handleComfirm(row.id, deleteApprovalById, '删除')

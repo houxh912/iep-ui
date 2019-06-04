@@ -17,17 +17,15 @@
         </el-table-column>
       </template>
     </iep-table>
-    <new-approval ref="NewApproval" @load-page="loadPage"></new-approval>
   </div>
 </template>
 <script>
+import { mapMutations } from 'vuex'
 import { getAlreadyApprovalPage } from '@/api/hrms/wel'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
-import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
 export default {
   mixins: [mixins],
-  components: { NewApproval },
   data () {
     return {
       dictsMap,
@@ -38,11 +36,14 @@ export default {
     this.loadPage()
   },
   methods: {
+    ...mapMutations({
+      setApprovalDialogShow: 'SET_APPROVAL_DIALOG_SHOW',
+    }),
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)
     },
     handleAdd () {
-      this.$refs['NewApproval'].dialogShow = true
+      this.setApprovalDialogShow(true)
     },
     handleDetail (row) {
       this.$router.push({

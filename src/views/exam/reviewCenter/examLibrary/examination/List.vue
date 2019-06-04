@@ -73,7 +73,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <!-- <iep-button size="small" @click="handleEdit(scope.row)">编辑</iep-button> -->
+              <iep-button type="warning" size="small" plain @click="handleDetail(scope.row)">查看</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
@@ -128,7 +128,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { getExamInationList, postExamForbidById, postExamPassById,deleteById } from '@/api/exam/examLibrary/examInation/examInation'
+import { getExamInationList, postExamForbidById, postExamPassById, deleteById } from '@/api/exam/examLibrary/examInation/examInation'
 // import { getTableData } from '@/api/mlms/material/datum/material'
 // import { putCustomer, deleteCustomerBatch } from '@/api/crms/customer'
 // import { getWealthFlowPage } from '@/api/fams/wealth_flow'
@@ -217,8 +217,8 @@ export default {
      */
     handleAdd () {
       this.$emit('onEdit', {
-        methodName: '创建考试',
-        id: false,
+        methodName: '创建',
+        id: '',
         current: 0,
       })
     },
@@ -228,15 +228,29 @@ export default {
     handleChangeTime () {
       this.isChangeTime = false
     },
+
     /**
      * 编辑按钮
      */
     handleEdit (row) {
-      this.$emit('onEdit', {
-        methodName: '编辑考试',
-        id: row.id,
+      const record = {
+        methodName: '编辑',
         current: 2,
-      })
+        id: row.id,
+      }
+      this.$emit('onEdit', record)
+    },
+
+    /**
+     * 查看按钮
+     */
+    handleDetail (row) {
+      const record = {
+        methodName: '查看',
+        current: 2,
+        id: row.id,
+      }
+      this.$emit('onEdit', record)
     },
 
     // 报名、考卷、阅卷管理按钮

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${record.methodName}`" :backOption="backOption"></page-header>
+      <page-header :title="`${record.methodName}考试`" :backOption="backOption"></page-header>
       <div class="withdraw-wrapper">
         <a-steps :current="current">
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />
@@ -29,6 +29,15 @@ export default {
   components: {
     FirstContent, SecondContent, ThirdContent, LastContent,
   },
+  watch: {
+    'record.current': {
+      handler (newName) {
+        this.current = newName
+        this.steps[this.record.current].data = this.record
+      },
+      immediate: true,
+    },
+  },
   data () {
     return {
       backOption: {
@@ -36,11 +45,11 @@ export default {
         backPath: null,
         backFunction: this.handleGoBack,
       },
-      current: this.record.current,
+      current: 0,
       steps: [{
-        title: this.record.methodName,
+        title: this.record.methodName + '考试',
         content: 'FirstContent',
-        data: this.record,
+        data: undefined,
         onData: this.handleFirst,
       }, {
         title: '选择试题',
@@ -64,6 +73,11 @@ export default {
     handleFirst (form) {
       this.next()
       this.steps[this.current].data = form
+      if (form.id === '') {
+        this.$nextTick(() => {
+          this.$refs[this.steps[this.current].content].reset()
+        })
+      }
     },
     handleSecond (data) {
       this.next()
@@ -76,6 +90,9 @@ export default {
     handleLast (data) {
       this.current = 0
       this.steps[this.current].data = data
+      this.$nextTick(() => {
+        this.$refs[this.steps[this.current].content].reset()
+      })
     },
     next () {
       this.current++

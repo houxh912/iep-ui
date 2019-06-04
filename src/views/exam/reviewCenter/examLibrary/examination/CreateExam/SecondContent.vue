@@ -1,5 +1,5 @@
 <template>
-  <steps-content v-if="data.resource===1">
+  <steps-content v-if="resource===1">
     <el-card shadow="never" class="content-wrapper">
       <div slot="header">
         <span>试卷抽取</span>
@@ -50,19 +50,13 @@ export default {
       columnsMap,
       dictsMap,
       radio: false,
-      currentRow: null,
+      currentRow: '',
     }
   },
-  watch: {
-    'data.id': {
-      handler () {
-        console.log('data2', this.data)
-      },
-      immediate: true,
+  computed: {
+    resource () {
+      return this.data.resource
     },
-  },
-  created () {
-    this.loadPage()
   },
   methods: {
     /**
@@ -87,21 +81,38 @@ export default {
         this.$message.error('请选择一份试卷进行抽取')
         return
       }
-      this.$emit('on-data', this.currentRow)
+      const record = {
+        methodName: this.data.methodName,
+        iepTestPaperVO: this.currentRow,
+      }
+      this.$emit('on-data', record)
     },
 
     /**
      * 上一步
      */
     handlePrev () {
-      this.$emit('prev', this.data)
+      this.$emit('prev', { ...this.data })
     },
 
     /**
      * 下一步
      */
     onData (data) {
-      this.$emit('on-data', data)
+      const record = {
+        methodName: this.data.methodName,
+        iepTestPaperVO: data,
+      }
+      this.$emit('on-data', record)
+    },
+
+    /**
+     * 重置
+     */
+    reset () {
+      this.radio = false
+      this.currentRow = ''
+      this.loadPage()
     },
   },
 }

@@ -3,44 +3,44 @@
     <div class="steps-content">
       <el-card shadow="never" class="content-wrapper">
         <el-form size="small" :model="data" label-width="100px">
-          <h1>{{data.title}}</h1>
+          <h1>{{testPaper.title}}</h1>
           <el-form-item label="所属科目:" style="width:50%">
-            <el-input readonly></el-input>
+            <el-input readonly v-model="testPaper.fieldName"></el-input>
           </el-form-item>
           <el-row>
             <el-col :span="4">
               <el-form-item label="试题数量:">
-                <el-input v-model="data.choiceNum" readonly>
+                <el-input v-model="testPaper.choiceNum" readonly>
                   <template slot="append">道</template>
                 </el-input>
               </el-form-item>
             </el-col>
             <el-col :span="4">
               <el-form-item label="试题总分:">
-                <el-input v-model="data.score" readonly>
+                <el-input v-model="testPaper.score" readonly>
                   <template slot="append">分</template>
                 </el-input>
               </el-form-item>
             </el-col>
             <el-col :span="4">
               <el-form-item label="试题难度:">
-                <el-input v-model="data.difficulty" readonly></el-input>
+                <el-input v-model="testPaper.difficulty" readonly></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="6">
               <el-form-item label="创建人：">
-                <span>{{data.createName}}</span>
+                <span>{{testPaper.createName}}</span>
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item label="创建时间：">
-                <span>{{data.createTime}}</span>
+                <span>{{testPaper.creatTime}}</span>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <iep-button type="primary" style="float:right" @click="handleEdit(data.id)">编辑试卷</iep-button>
+              <iep-button type="primary" style="float:right" @click="handleEdit(testPaper.id)">编辑试卷</iep-button>
             </el-col>
           </el-row>
         </el-form>
@@ -60,8 +60,8 @@
             <el-col :span="12">
               <el-form-item label="所属科目" prop="field">
                 <el-select placeholder="请选择所属科目" v-model="examForm.field">
-                  <el-option :value="0" label="国脉内网"></el-option>
-                  <el-option :value="1" label="数据基因"></el-option>
+                  <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
+                    :value="item.id"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
@@ -109,7 +109,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="答卷时长" prop="timeLong">
-                <el-input v-model="examForm.timeLong" disabled>
+                <el-input v-model="examForm.timeLong" onkeyup="this.value=this.value.replace(/[^\w]/g,'');">
                 </el-input>
               </el-form-item>
             </el-col>
@@ -172,15 +172,15 @@
           <hr>
           <el-form-item label="权限设置" required>
             <div class="permissionSettings">
-              <el-form-item prop="operateUseridsList" label="报名管理&考卷管理" label-width="140px">
-                <iep-contact-multiple-user v-model="examForm.operateUseridsList" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+              <el-form-item prop="operateUserids" label="报名管理&考卷管理" label-width="140px">
+                <iep-contact-multiple-user v-model="examForm.operateUserids" :filter-user-list="filterUserList"></iep-contact-multiple-user>
               </el-form-item>
-              <el-form-item prop="writeUseridsList" label="试卷审阅权限" label-width="140px">
-                <iep-contact-multiple-user v-model="examForm.writeUseridsList" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+              <el-form-item prop="writeUserids" label="试卷审阅权限" label-width="140px">
+                <iep-contact-multiple-user v-model="examForm.writeUserids" :filter-user-list="filterUserList"></iep-contact-multiple-user>
               </el-form-item>
 
-              <el-form-item prop="faceUserIdsList" label="面试判分权限" label-width="140px">
-                <iep-contact-multiple-user v-model="examForm.faceUserIdsList" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+              <el-form-item prop="faceUserIds" label="面试判分权限" label-width="140px">
+                <iep-contact-multiple-user v-model="examForm.faceUserIds" :filter-user-list="filterUserList"></iep-contact-multiple-user>
               </el-form-item>
             </div>
           </el-form-item>
@@ -189,11 +189,14 @@
       </el-card>
     </div>
     <div class="steps-action">
-      <el-button style="margin-left: 8px" :loading="saveLoading" @click="handleSave()">
+      <el-button style="margin-left: 8px" :loading="saveLoading" @click="handleSave()" v-if="data.methodName != '查看'">
         保存
       </el-button>
-      <el-button type="primary" :loading="submitLoading" @click="handleRelease()">
+      <el-button type="primary" :loading="submitLoading" @click="handleRelease()" v-if="data.methodName != '查看'">
         发布
+      </el-button>
+      <el-button type="primary" @click="back" v-if="data.methodName === '查看'">
+        返回考试列表
       </el-button>
     </div>
 
@@ -205,8 +208,8 @@
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
 import DialogCertificate from '../DialogCertificate'
-import { examForm, examFormRules, toDtoForm } from '../option'
-import { save, release } from '@/api/exam/createExam/newTest/newTest'
+import { examForm, examFormRules, toDtoForm, selfToVo } from '../option'
+import { save, release, getTestOption, getExam } from '@/api/exam/createExam/newTest/newTest'
 import { initForm } from '../../../testPaperLibrary/option'
 import { getTestPaperById } from '@/api/examPaper/examPaperApi'
 export default {
@@ -219,32 +222,71 @@ export default {
       saveLoading: false,
       examFormRules,
       examForm: examForm(),
-      testPaper: initForm(),
+      testPaper: initForm(),//试卷信息
+      res: [],
     }
   },
-  watch: {
-    'data.id': {
-      handler (newName) {
-        console.log('newName3', this.data)
-        if (newName === undefined) {
-          this.examForm = examForm()
-        }
-      },
-      immediate: true,
-    },
-  },
   computed: {
+    //新增/编辑
+    isEdit () {
+      return this.data.id ? true : false
+    },
+    //是否只读
+    readOnly () {
+      if (this.isEdit) {
+        return this.data.methodName === '查看' ? true : false
+      } else {
+        return false
+      }
+    },
     ...mapGetters([
       'userInfo',
     ]),
     filterUserList () {
-      return [this.userInfo.userId, ...this.examForm.operateUseridsList.map(m => m.id), ...this.examForm.faceUserIdsList.map(m => m.id), ...this.examForm.writeUseridsList.map(m => m.id)]
+      return [this.userInfo.userId, ...this.examForm.operateUserids.map(m => m.id), ...this.examForm.faceUserIds.map(m => m.id), ...this.examForm.writeUserids.map(m => m.id)]
+    },
+  },
+  created () {
+    this.loadSelf()
+    this.getTestOption()
+  },
+  watch: {
+    'data.iepTestPaperVO': {
+      handler (newName) {
+        this.testPaper = newName
+      },
     },
   },
   methods: {
 
+    /**
+    * 获取科目数据
+    */
+    async getTestOption () {
+      const params = {
+        numberList: [
+          'exms_subjects',//考试科目
+        ],
+      }
+      const { data } = await getTestOption(params)
+      this.res = data
+    },
+
+    async loadSelf () {
+      if (this.isEdit) {
+        await getExam({ id: this.data.id }).then(({ data }) => {
+          this.examForm = selfToVo(data.data)
+          this.testPaper = data.data.iepTestPaperVO
+        })
+      } else {
+        this.examForm = examForm()
+        this.testPaper = this.data.iepTestPaperVO
+      }
+
+    },
+
     // 处理时间段
-    dealTime (val1, val2, type) {
+    dealTime (val1, val2) {
       function parseDate (date) {
         return new Date(date)
       }
@@ -255,11 +297,6 @@ export default {
         this.$message.error('开始时间不能大于结束时间！！！')
         return
       }
-      if (type === 'exam') {
-        const hours = parseInt(between / 3600)
-        const minutes = parseInt((between - 3600 * hours) / 60)
-        this.examForm.timeLong = hours + '小时' + minutes + '分钟'
-      }
 
     },
     startChange (val, type) {
@@ -268,7 +305,7 @@ export default {
       } else {
         this.examForm.signBeginTime = val
       }
-      this.dealTime(val, this.examForm.signEndTime, type)
+      this.dealTime(val, this.examForm.signEndTime)
     },
     endChange (val, type) {
       if (type === 'exam') {
@@ -276,7 +313,7 @@ export default {
       } else {
         this.examForm.signEndTime = val
       }
-      this.dealTime(this.examForm.signBeginTime, val, type)
+      this.dealTime(this.examForm.signBeginTime, val)
     },
 
     /**
@@ -285,10 +322,11 @@ export default {
     handleEdit (id) {
       getTestPaperById({ id: id }).then(({ data }) => {
         data.data[0].resource = 0
-        this.$emit('prev', data.data[0])
+        let _exam = Object.assign(this.data, data.data[0])
+        this.$emit('prev', _exam)
       })
-
     },
+
 
     /**
      * 保存
@@ -297,9 +335,13 @@ export default {
       this.saveLoading = true
       this.$refs['examForm'].validate(async (valid) => {
         if (valid) {
-          this.examForm.testPaperId = this.data.id
-          const { data } = await save(toDtoForm(this.examForm))
-          this.$emit('on-data', data.data)
+          this.examForm.testPaperId = this.data.iepTestPaperVO.id
+          await save(toDtoForm(this.examForm)).then(({ data }) => {
+            this.$emit('on-data', data.data)
+            this.reset()
+            this.saveLoading = false
+          })
+
         }
       })
     },
@@ -311,11 +353,27 @@ export default {
       this.submitDisabled = true
       this.$refs['examForm'].validate(async (valid) => {
         if (valid) {
-          this.examForm.testPaperId = this.data.id
-          const { data } = await release(toDtoForm(this.examForm))
-          this.$emit('on-data', data.data)
+          this.examForm.testPaperId = this.data.iepTestPaperVO.id
+          await release(toDtoForm(this.examForm)).then(({ data }) => {
+            this.$emit('on-data', data.data)
+            this.reset()
+            this.submitDisabled = false
+          })
         }
       })
+    },
+
+    /**
+     * 重置
+     */
+    reset () {
+      this.$refs['examForm'].resetFields()
+    },
+    /**
+    * 返回试卷列表
+    */
+    back () {
+      this.$emit('back-list')
     },
   },
 }

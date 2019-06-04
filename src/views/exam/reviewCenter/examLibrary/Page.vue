@@ -6,7 +6,7 @@
       <div class="top">
         <div class="row">
           <p>名称：<span>{{row.title}}</span></p>
-          <p>题库：<span>{{row.field}}</span></p>
+          <p>题库：<span>{{row.fieldName}}</span></p>
           <p>总题量：<span>{{row.number}}道</span></p>
           <p>总分：<span>{{row.totalScore}}</span></p>
           <p>考试时间：<span>{{row.beginTime}}</span></p>
@@ -77,7 +77,7 @@ export default {
     const { row, activeTab } = this.record
     this.row = row
     this.activeTab = activeTab
-    this.row.field = this.row.field
+    this.row.fieldName = this.row.fieldName
     this.row.title = this.row.title
     this.row.number = this.row.number
     this.row.totalScore = this.row.totalScore

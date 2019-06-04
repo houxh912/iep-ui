@@ -5,18 +5,15 @@
         <el-input type="textarea" rows="3" v-model="ruleForm.title" style="width:89%;"></el-input>
       </el-form-item>
       <el-form-item
-        v-show="index < 26"
+        v-show="index < 26 && !shortAnswer"
         v-for="(option, index) in ruleForm.options"
         :label="'选项 ' + chooseOption[index] + ' ：'"
         :key="option.key"
-        :prop="'options.' + index + '.value'"
-        :rules="{
-          required: true, message: '请填写选项内容', trigger: 'change'
-        }">
+        :prop="'options.' + index + '.value'">
         <el-input v-model="option.value" style="width:89%;"></el-input>
-        <iep-button plain v-show="index > 0" @click="removeOption(option)" icon="el-icon-close" style="margin-left:10px;">移除</iep-button>
+        <iep-button plain v-show="index > 0" @click="removeOption(option)" icon="el-icon-close" style="margin-left:10px;">移除</iep-button><span v-show="false">{{shortAnswer}}</span>
       </el-form-item>
-      <iep-button v-show="clickAdd < 25" icon="el-icon-plus" style="margin:-4px 0 20px 110px;" @click="addOption">添加选项</iep-button>
+      <iep-button v-show="clickAdd < 25 && !shortAnswer" icon="el-icon-plus" style="margin:-4px 0 20px 110px;" @click="addOption">添加选项</iep-button>
       <el-form-item label="答案：" prop="answer">
         <el-input type="textarea" rows="3" v-model="ruleForm.answer" style="width:89%;">
         </el-input>
@@ -34,6 +31,7 @@
 
 <script>
 export default {
+  props:['shortAnswer'],
   data (){
     return{
       clickAdd: 0,
@@ -63,9 +61,20 @@ export default {
     }
   },
   created () {
-
+    this.typeOption ()
   },
   methods:{
+    /**
+     * 判断选择题还是简答题
+     */
+    typeOption (){
+      if (this.$emit('handleChangeQuestionType') == true) {
+        console.log('wew')
+      }
+      if (this.$emit('handleChangeQuestionType') == false) {
+        console.log('rht')
+      }
+    },
     /**
      * 保存
      */

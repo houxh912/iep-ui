@@ -2,60 +2,63 @@
   <div class="report">
     <page-header title="创建新试题" :data="[10, 5]" :backOption="backOption"></page-header>
     <el-form :model="form" ref="form" label-width="110px" :rules="rules">
-      <el-form-item label="科目：" prop="field" style="width:35%;float:left;">
-        <el-select v-model="form.field" size="small" clearable :disabled="flag">
-          <el-option
-              v-for="(item, index) in res.exms_subjects"
+      <div class="select">
+        <el-form-item class="item" label="科目：" prop="field">
+          <el-select v-model="form.field" size="small" clearable :disabled="flag">
+            <el-option
+                v-for="(item, index) in res.exms_subjects"
+                :key="index"
+                :label="item.label"
+                :value="item.id"
+              ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item class="item" label="题类：" prop="kind" style="margin-left:20%;">
+          <el-select v-model="form.kind" size="small" clearable :disabled="flag">
+            <el-option
+                v-for="(item, index) in res.exms_question_category"
+                :key="index"
+                :label="item.label"
+                :value="item.id"
+              ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item class="item" label="题型：" prop="questionType">
+          <el-select v-model="form.questionType" size="small" clearable :disabled="flag" @change="handleChangeQuestionType">
+            <el-option
+                v-for="(item, index) in res.exms_question_type"
+                :key="index"
+                :label="item.label"
+                :value="item.id"
+              ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item class="item" label="难度：" prop="difficulty" style="margin-left:20%;">
+          <el-select v-model="form.difficulty" size="small" clearable :disabled="flag">
+            <el-option
+                v-for="(item, index) in res.exms_difficulty"
+                :key="index"
+                :label="item.label"
+                :value="item.id"
+              ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item class="item" label="关联：" prop="associatedState">
+          <el-select v-model="form.associatedState" size="small" clearable :disabled="flag">
+            <el-option
+              v-for="(item, index) in associatedStateList"
               :key="index"
               :label="item.label"
-              :value="item.id"
-            ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="题类：" prop="kind" style="width:35%;float:left;margin-left:20%;">
-        <el-select v-model="form.kind" size="small" clearable :disabled="flag">
-          <el-option
-              v-for="(item, index) in res.exms_question_category"
-              :key="index"
-              :label="item.label"
-              :value="item.id"
-            ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="题型：" prop="questionType" style="width:35%;float:left;">
-        <el-select v-model="form.questionType" size="small" clearable :disabled="flag">
-          <el-option
-              v-for="(item, index) in res.exms_question_type"
-              :key="index"
-              :label="item.label"
-              :value="item.id"
-            ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="难度：" prop="difficulty" style="width:35%;float:left;margin-left:20%;">
-        <el-select v-model="form.difficulty" size="small" clearable :disabled="flag">
-          <el-option
-              v-for="(item, index) in res.exms_difficulty"
-              :key="index"
-              :label="item.label"
-              :value="item.id"
-            ></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="关联：" prop="associatedState" style="width:35%;float:left;">
-        <el-select v-model="form.associatedState" size="small" clearable :disabled="flag">
-          <el-option
-            v-for="(item, index) in associatedStateList"
-            :key="index"
-            :label="item.label"
-            :value="item.id">
-          </el-option>
-        </el-select>
-      </el-form-item>
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
 
-      <el-form-item label="关联标签：" prop="tagLists" style="width:35%;float:left;margin-left:20%;">
-        <mutiply-tag-select v-model="form.tagLists" :select-objs="form.tagsList"></mutiply-tag-select>
-      </el-form-item>
+        <el-form-item class="item" label="关联标签：" prop="tagLists" style="margin-left:20%;">
+          <mutiply-tag-select v-model="form.tagLists" :select-objs="form.tagsList"></mutiply-tag-select>
+        </el-form-item>
+      </div>
+      
     </el-form>
     <div align="center" style="width:100%;margin-top:220px;">
       <iep-button type="primary" @click="saveBothForm" style="margin:0 10px;" :disabled="flag">下一步</iep-button>
@@ -64,10 +67,10 @@
     </div>
     <iep-tabs v-if="flag" v-model="tabName" :tab-list="tabList">
       <template v-if="tabName ==='Single'" v-slot:Single>
-        <single-dialog ref="single"></single-dialog>
+        <single-dialog ref="single" :shortAnswer="shortAnswer"></single-dialog>
         <div align="center" style="margin-top:2%;">
-          <iep-button type="primary" style="margin:0 10px;" @click="submitSingle">提交</iep-button>
-          <iep-button @click="saveSingle" style="margin:0 10px;">保存</iep-button>
+          <iep-button type="primary" @click="submitSingle">提交</iep-button>
+          <!-- <iep-button @click="saveSingle" style="margin:0 10px;">保存</iep-button> -->
         </div>
       </template>
       <template v-if="tabName ==='Batch'" v-slot:Batch>
@@ -93,6 +96,7 @@ export default {
   },
   data () {
     return {
+      shortAnswer: '',
       backOption: {
         isBack: true,
         backPath: null,
@@ -150,6 +154,19 @@ export default {
   },
   methods:{
     /**
+     *题型选到简答题时
+     */
+    handleChangeQuestionType (val){
+      if (val == 10) {
+        this.shortAnswer = true
+        return this.shortAnswer
+      }
+      else {
+        this.shortAnswer = false
+        return this.shortAnswer
+      }
+    },
+    /**
      * 返回
      */
     handleGoBack () {
@@ -158,7 +175,7 @@ export default {
     /**
      * 保存试题
      */
-    saveSingle (){},
+    // saveSingle (){},
     /**
      * 提交试题
      */
@@ -212,6 +229,7 @@ export default {
       this.form.kind = ''
       this.form.questionType = ''
       this.form.difficulty = ''
+      this.form.associatedState = ''
       this.form.tagLists = []
       this.flag = false
     },
@@ -246,5 +264,14 @@ export default {
 .report {
   padding: 20px;
   background-color: #fff;
+}
+.item {
+  width: 35%;
+  float: left;
+}
+</style>
+<style scoped>
+.select >>> .el-input .el-select__caret {
+  line-height: 2.9;
 }
 </style>

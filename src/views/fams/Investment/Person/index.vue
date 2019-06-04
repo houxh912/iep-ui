@@ -9,13 +9,28 @@
           <operation-search @search-page="searchPage"></operation-search>
         </template>
       </operation-container>
-      <iep-table class="dept-table" :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
-        <template>
+      <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
+        <template slot="before-columns">
+          <el-table-column label="投资人">
+            <template slot-scope="scope">
+              {{scope.row.userName}}
+            </template>
+          </el-table-column>
+          <el-table-column label="投资组织">
+            <template slot-scope="scope">
+              {{scope.row.orgName}}
+            </template>
+          </el-table-column>
+          <el-table-column label="支付方式">
+            <template>
+              国脉贝
+            </template>
+          </el-table-column>
         </template>
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" plain @click="handleReview(scope.row)" v-if="scope.row.status==0">审核</iep-button>
+              <iep-button type="warning" plain @click="handleReview(scope.row)" v-if="scope.row.status==1">审核</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -25,7 +40,8 @@
   </div>
 </template>
 <script>
-import {columnsMap,dictsMap} from './options'
+import { getInvestmentPersonPage, PersonInvestmentBatch } from '@/api/fams/investment'
+import { columnsMap, dictsMap } from './options'
 import mixins from '@/mixins/mixins'
 export default {
   data () {
@@ -33,27 +49,24 @@ export default {
       columnsMap,
       dictsMap,
       pagination:{},
-      pagedTable: [
-        {name:'张三',amount:'222',sharesNumber:'3',way:'股权投资',status:'0',organization:'舟山国脉研发中心'},
-        {name:'张三',amount:'222',sharesNumber:'3',way:'股权投资',status:'1',organization:'舟山国脉研发中心'},
-        {name:'张三',amount:'222',sharesNumber:'3',way:'股权投资',status:'2',organization:'舟山国脉研发中心'},
-        {name:'张三',amount:'222',sharesNumber:'3',way:'股权投资',status:'0',organization:'舟山国脉研发中心'},
-        {name:'张三',amount:'222',sharesNumber:'3',way:'股权投资',status:'0',organization:'舟山国脉研发中心'},
-      ],
-      searchProp:[],
+      pagedTable: [],
     }
   },
   mixins:[mixins],
   computed: {
   },
   created () {
+    this.loadPage()
   },
   methods: {
     handleReview (row) {
       this.$refs['iepReviewForm'].title = '审核'
       this.$refs['iepReviewForm'].id = row.id
-      //this.$refs['iepReviewForm'].formRequestFn = reviewApprovaBatch
+      this.$refs['iepReviewForm'].formRequestFn = PersonInvestmentBatch
       this.$refs['iepReviewForm'].dialogShow = true
+    },
+    loadPage (param = this.searchForm) {
+      this.loadTable({ status: this.status, ...param }, getInvestmentPersonPage)
     },
   },
 }

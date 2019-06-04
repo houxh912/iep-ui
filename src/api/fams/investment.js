@@ -13,7 +13,7 @@ export function getInvestmentPage (query) {
 
 export function getInvestmentById (id) {
   return request({
-    url: `${prefixUrl}/${id}`,
+    url: `${prefixUrl}/detail/${id}`,
     method: 'get',
   })
 }
@@ -34,7 +34,7 @@ export function downInvestmentById (id) {
 
 export function postInvestment (obj) {
   return request({
-    url: `${prefixUrl}/create`,
+    url: `${prefixUrl}/join`,
     method: 'post',
     data: obj,
   })

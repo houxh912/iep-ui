@@ -37,6 +37,6 @@ export default {
 
 <style scoped>
 .document >>> .el-card__body {
-  height: 378px;
+  height: 434px;
 }
 </style>

@@ -59,8 +59,10 @@ export const initFormData = () => {
     signTime: '',
     finishTime: '',
     companyOrgId: '', // 委托单位
+    companyName: {name: ''},
     companyOrgObj: {},
     signCompanyOrgId: '', // 签署单位
+    signCompanyRealName: {name: ''},
     signCompanyOrgObj: {},
     signDeptOrgId: '', // 签署组织
     signDeptName: '',
@@ -216,8 +218,8 @@ export const infoList = [
   { name: '业务类型', value: 'businessTypeList' },
   { name: '签订日期', value: 'signTime', type: 'date' },
   { name: '完结日期', value: 'finishTime', type: 'date' },
-  { name: '委托单位', value: 'companyName' },
-  { name: '签署单位', value: 'signCompanyRealName' },
+  { name: '委托单位', value: 'companyRealName' },
+  { name: '签署单位', value: 'signCompanyName' },
   { name: '签署组织', value: 'signDeptOrgNames' },
   { name: '承接部门', value: 'underTakeDeptNames' },
   { name: '合同金额', value: 'contractAmount' },

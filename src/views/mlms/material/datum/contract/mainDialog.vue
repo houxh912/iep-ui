@@ -45,7 +45,7 @@
             <!-- <selectMore v-model="formData.companyOrgObj" prefix-url="crm/customer/myorcoll/list" @change="clientChange"></selectMore> -->
             <IepCrmsSelect 
               v-model="formData.companyOrgId" 
-              :option="[{id: formData.companyOrgId, name: formData.companyName}]" 
+              :option="[{id: formData.companyOrgId, name: formData.companyName.name}]" 
               prefixUrl="crm/customer/myorcoll/list" 
               @change="clientChange">
             </IepCrmsSelect>
@@ -56,7 +56,7 @@
             <!-- <selectMore v-model="formData.signCompanyOrgId" prefix-url="crm/customer/all/list"></selectMore> -->
             <IepCrmsSelect 
               v-model="formData.signCompanyOrgId" 
-              :option="[{id: formData.signCompanyOrgId, name: formData.signCompanyRealName}]" 
+              :option="[{id: formData.signCompanyOrgId, name: formData.signCompanyRealName.name}]" 
               prefixUrl="crm/customer/all/list">
             </IepCrmsSelect>
           </el-form-item>
@@ -193,8 +193,8 @@ export default {
           row.projectName = row.projectRelation.name
         }
         row.signDeptName = row.signDeptOrgName.name
-        row.companyOrgObj = { id: row.companyOrgId, name: row.companyName }
-        row.signCompanyOrgObj = { id: row.signCompanyOrgId, name: row.signCompanyRealName }
+        row.companyOrgObj = { id: row.companyOrgId, name: row.companyName.name }
+        row.signCompanyOrgObj = { id: row.signCompanyOrgId, name: row.signCompanyRealName.name }
         this.formData = Object.assign({}, this.formData, row)
         this.methodName = '编辑'
         this.formRequestFn = updateData

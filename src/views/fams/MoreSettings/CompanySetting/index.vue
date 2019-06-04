@@ -16,6 +16,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button v-if="scope.row._level===1" @click="handleChild(scope.row)" icon="el-icon-plus">子公司</iep-button>
+              <iep-button @click="handleSet(scope.row)">设置账户</iep-button>
               <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
@@ -24,15 +25,17 @@
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+    <account-dialog-form ref="AccountDialogForm" @load-page="loadPage"></account-dialog-form>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { getCompanyPage, postCompany, putCompany, deleteCompanyById } from '@/api/fams/company'
+import { getCompanyPage, postCompany, putCompany, deleteCompanyById, getCompanyById } from '@/api/fams/company'
 import DialogForm from './DialogForm'
+import AccountDialogForm from './AccountDialogForm'
 import { columnsMap, initForm } from './options'
 export default {
-  components: { DialogForm },
+  components: { DialogForm, AccountDialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -46,6 +49,13 @@ export default {
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deleteCompanyById)
     },
+    handleSet (row) {
+      getCompanyById(row.id).then(({ data }) => {
+        this.$refs['AccountDialogForm'].form = data.data
+        this.$refs['AccountDialogForm'].formRequestFn = putCompany
+        this.$refs['AccountDialogForm'].dialogShow = true
+      })
+    },
     handleChild (row) {
       this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].form.id = ''
@@ -57,10 +67,12 @@ export default {
       this.$refs['DialogForm'].dialogShow = true
     },
     handleEdit (row) {
-      this.$refs['DialogForm'].form = { ...row }
-      this.$refs['DialogForm'].formRequestFn = putCompany
-      this.$refs['DialogForm'].methodName = '编辑'
-      this.$refs['DialogForm'].dialogShow = true
+      getCompanyById(row.id).then(({ data }) => {
+        this.$refs['DialogForm'].form = data.data
+        this.$refs['DialogForm'].formRequestFn = putCompany
+        this.$refs['DialogForm'].methodName = '编辑'
+        this.$refs['DialogForm'].dialogShow = true
+      })
     },
     handleAdd () {
       this.$refs['DialogForm'].formRequestFn = postCompany

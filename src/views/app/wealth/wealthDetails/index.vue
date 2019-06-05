@@ -384,4 +384,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.wealth-details >>> .el-button {
+  margin: 0;
+}
 </style>

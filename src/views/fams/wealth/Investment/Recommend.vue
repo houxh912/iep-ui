@@ -1,6 +1,6 @@
 <template>
   <div>
-    <iep-table class="dept-table" :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" is-mutiple-selection is-tree>
+    <iep-table class="dept-table" :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" is-tree>
       <template slot="before-columns">
       </template>
     </iep-table>

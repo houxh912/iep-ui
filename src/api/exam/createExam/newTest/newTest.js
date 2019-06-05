@@ -124,7 +124,7 @@ export function release (params) {
 }
 
 /**
- * 修改/查看考试
+ * 查看考试
  */
 export function getExam (params) {
     return request({
@@ -136,5 +136,37 @@ export function getExam (params) {
         params: params,
     })
 }
+
+
+/**
+ * 保存的修改
+ */
+export function updateSave (params) {
+    return request({
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        url: '/exms/iepexamination/update',
+        method: 'post',
+        data: params,
+    })
+}
+
+
+
+/**
+ * 发布的修改
+ */
+export function updateRelease (params) {
+    return request({
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        url: '/exms/iepexamination/updaterelease',
+        method: 'post',
+        data: params,
+    })
+}
+
 
 

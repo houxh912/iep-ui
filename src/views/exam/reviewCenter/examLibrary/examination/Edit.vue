@@ -18,7 +18,6 @@
 import FirstContent from './CreateExam/FirstContent'
 import SecondContent from './CreateExam/SecondContent'
 import ThirdContent from './CreateExam/ThirdContent'
-import LastContent from './CreateExam/LastContent'
 export default {
   props: {
     record: {
@@ -27,13 +26,13 @@ export default {
     },
   },
   components: {
-    FirstContent, SecondContent, ThirdContent, LastContent,
+    FirstContent, SecondContent, ThirdContent,
   },
   watch: {
     'record.current': {
       handler (newName) {
         this.current = newName
-        this.steps[this.record.current].data = this.record
+        this.steps[this.current].data = this.record
       },
       immediate: true,
     },
@@ -60,12 +59,7 @@ export default {
         title: '发布考试',
         content: 'ThirdContent',
         data: undefined,
-        onData: this.handleThird,
-      }, {
-        title: '完成',
-        content: 'LastContent',
-        data: undefined,
-        onData: this.handleLast,
+        onData: this.handleBack,
       }],
     }
   },
@@ -73,26 +67,13 @@ export default {
     handleFirst (form) {
       this.next()
       this.steps[this.current].data = form
-      if (form.id === '') {
-        this.$nextTick(() => {
-          this.$refs[this.steps[this.current].content].reset()
-        })
-      }
     },
     handleSecond (data) {
       this.next()
       this.steps[this.current].data = data
     },
-    handleThird (data) {
-      this.next()
-      this.steps[this.current].data = data
-    },
-    handleLast (data) {
-      this.current = 0
-      this.steps[this.current].data = data
-      this.$nextTick(() => {
-        this.$refs[this.steps[this.current].content].reset()
-      })
+    handleBack () {
+      this.back()
     },
     next () {
       this.current++

@@ -352,13 +352,13 @@ export default {
     /**
      * 审核提交
      */
-    async handleSubmit (){
+    handleSubmit (){
       if (this.states === 0){
         let postExaminePassList = {
           id: null,
         }
         postExaminePassList.id = this.examine
-        await postExaminePass(postExaminePassList).then(
+        postExaminePass(postExaminePassList).then(
           this.dialogExamine = false,
           this.$message({
             message: '该试题审核通过',
@@ -377,7 +377,7 @@ export default {
         postExamineFalseList.id = this.examine
         postExamineFalseList.reason = this.content
         postExamineFalseList = JSON.stringify(postExamineFalseList)
-        await postExamineFalse(postExamineFalseList).then(
+        postExamineFalse(postExamineFalseList).then(
           this.dialogExamine = false,
           this.$message({
             message: '该试题审核不通过',
@@ -404,10 +404,10 @@ export default {
     /**
      * 保存修改
      */
-    async handleModifySave (){
+    handleModifySave (){
       var postModifyList = this.reForm
       postModifyList = JSON.stringify(postModifyList)
-      await postModify(postModifyList).then(
+      postModify(postModifyList).then(
         this.dialogModify = false,
         this.$message({
           message: '修改成功',

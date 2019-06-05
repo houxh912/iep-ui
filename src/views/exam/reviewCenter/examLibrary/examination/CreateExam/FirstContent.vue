@@ -93,8 +93,8 @@ export default {
     },
 
     /**
- * 获取试题数据
- */
+     * 获取试题数据
+     */
     async getTestOption () {
       const params = {
         numberList: [
@@ -103,14 +103,6 @@ export default {
       }
       const { data } = await getTestOption(params)
       this.res = data
-    },
-
-    /**
-     * 重置
-     */
-    reset () {
-      this.$refs['form'].resetFields()
-      this.getTestOption()
     },
   },
 }

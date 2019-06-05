@@ -15,14 +15,17 @@ const columnsMap = [
   {
     prop: 'updateTime',
     label: '日期',
+    width: '180px',
   },
   {
     prop: 'orgName',
     label: '投资组织',
+    width: '250px',
   },
   {
     prop: 'status',
     label: '状态',
+    width: '100px',
     type: 'dict',
   },
   {

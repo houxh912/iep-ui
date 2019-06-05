@@ -26,6 +26,7 @@ export default {
 </script>
 <style lang="css" scoped>
 .item >>> .el-badge__content.is-fixed {
+  z-index: 1;
   top: 20px;
   right: 22px;
 }

@@ -4,12 +4,11 @@
   </el-tooltip>
 </template>
 <script>
-// import { openWindow } from '@/util/util'
+import { openWindow } from '@/util/util'
 export default {
   methods: {
     handleOpen () {
-      this.$message.success('暂无内容')
-      // openWindow('https://www.yuque.com/govmade/lq2610', '国脉内网使用指南', 800, 600)
+      openWindow('/app/resource/material/material_detail/7914', '国脉内网使用指南', 1300, 900)
     },
   },
 }
@@ -17,6 +16,7 @@ export default {
 
 <style lang="css" scoped>
 .item >>> .el-badge__content.is-fixed {
+  z-index: 1;
   top: 20px;
   right: 22px;
 }

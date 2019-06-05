@@ -24,8 +24,8 @@
     <div class="top-right">
       <top-search-icon></top-search-icon>
       <top-guide></top-guide>
-      <top-email></top-email>
       <top-message></top-message>
+      <top-email></top-email>
       <top-user></top-user>
     </div>
   </div>

@@ -4,14 +4,14 @@
       <!-- <img src="./IG.png"> -->
       <span class="title1"><b>在线考试系统</b></span>
       <span class="title2"></span>
-      <span class="title3">内网考试</span>
+      <span class="title3">{{resdata.fieldName}}</span>
       <span class="title4">
         评分进度<span class="title5">5</span> / 23</span>
     </div>
 
-    <div class="examShow" style="background-color:#fff">
+    <div class="examShowss" style="background-color:#fff">
       <div class="left">
-        <span style="font-size: 20px;"><b>填空题</b></span>
+        <span style="font-size: 20px;"><b>{{resdata.questionTypeName}}</b></span>
         <span class="title1">共 5 题，合计 5 分，已完成 {{count}} / {{resdata.questionTotalNum}}</span>
         <hr>
         <div class="container">
@@ -21,29 +21,29 @@
             <span> （ 1 分）</span>
           </div>
 
-          <div>
+          <!-- <div>
             <li v-for="(item,index) in fillAreaList" :key="index" style="margin-left:28px;">
               <el-input type="textarea" v-model="fillInput" style="width: 70%;margin-top:10px" :rows="2"></el-input>
               <el-input v-model="freeInput" class="give-mark"></el-input>
               <span style="margin-left:10px;">分</span>
             </li>
-          </div>
+          </div> -->
 
           <div>
             <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
-              <el-input type="textarea" v-model="freeInput" style="width: 80%;margin-top:10px" :rows="6"></el-input>
-              <el-input v-model="freeInput" class="give-mark-two"></el-input>
-              <span style="margin-left:-30px;">分</span>
+              <el-input type="textarea" v-model="userByAnswer" style="width: 80%;margin-top:10px" :rows="6"></el-input>
+              <el-input class="give-mark-two" v-model="freeInput"></el-input>
+              <span style="margin-left:10px;">分</span>
             </li>
           </div>
 
-          <div>
+          <!-- <div>
             <li v-for="(item,index) in operationList" :key="index" style="margin-left:28px;display:flex">
               <iep-froala-editor v-model="operation" style="width:80%"></iep-froala-editor>
               <el-input v-model="freeInput" class="give-mark-three"></el-input>
               <span style="margin-left:15px;margin-top:175px">分</span>
             </li>
-          </div>
+          </div> -->
 
           <div class="center" align="center">
             <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.questionNum === 1">上一题</iep-button>
@@ -66,25 +66,25 @@
 
           <ve-ring style="padding-top: 15px;margin-top: -75px;" height="180px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
 
-          <div class="bottom">
+          <div class="card">
             <div>
               <span class="answerSheet">填空题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div>
               <span class="answerSheet">简答题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
               </div><br>
             </div>
 
             <div>
               <span class="answerSheet">实操题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
               </div><br>
             </div>
           </div>
@@ -95,7 +95,7 @@
   </div>
 </template>
 <script>
-import { getTestPageById } from '@/api/exam/testPage/subjectTest/examStart'
+import { judgeWrittenById, passWrittenById } from '@/api/exam/examLibrary/examReading/examReading'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -107,26 +107,19 @@ export default {
       offsetY: 80,
     }
     return {
+      userByAnswer:'',         //用户答案(v-model绑定的值)
       fillInput: '',           //填空(v-model绑定的值)
       freeInput: '',           //简答(v-model绑定的值)
       operation: '',           //实操(v-model绑定的值)
       fillAreaList: ['', ''],  //填空
       inputAreaList: [''],     //简答
       operationList: [''],     //实操
-      questionExplain: '本题来源于国脉内网、水巢、数据基因、技能类、知识类、数据能力类、基本能力类、项目管理类、公司常识类、人力资源类等。',
       chartData: {
         columns: ['是否完成', '进度'],
         rows: [
           { '是否完成': '已完成', '进度': '' },
           { '是否完成': '未完成', '进度': '' },
         ],
-      },
-      statusColor: function (val) {
-        if (val === 1) {
-          return 'background:#409eff;borderColor:#409eff;color:#fff'
-        } else {
-          return 'background:#fff;color:#409eff'
-        }
       },
       resdata: {
         questionOffNum: [],  //已完成的题数
@@ -149,69 +142,81 @@ export default {
   },
   created () {
     this.loadPage()
-    // console.log('33', this.formData.id)
   },
   methods: {
     /**
      * 判断题型(公用方法)
      */
     judgeType (params) {
-      params.examId = this.formData.id
+      params.examId = this.formData.examId
       params.currentQuestionNum = this.resdata.questionNum
       const type = this.resdata.questionTypeName
-      if (type === '单选题') {
-        params.userAnswer = this.answerRadio
-      }
-      if (type === '复选题') {
-        params.userAnswer = JSON.stringify(this.checksList)
-      }
-      if (type === '判断题') {
-        params.userAnswer = this.trueOrFalseRadio
+      if (type === '填空题') {
+        params.score = this.answerRadio
       }
       if (type === '简答题') {
-        params.userAnswer = this.freeInput
+        params.score = JSON.stringify(this.checksList)
       }
+      if (type === '实操题') {
+        params.score = this.trueOrFalseRadio
+      }
+      // if (type === '简答题') {
+      //   params.score = this.freeInput
+      // }
     },
 
     /**
      * 获取题目的详细数据(公用请求方法)
      */
     getSubjectById (params) {
-      getTestPageById(params).then(res => {
-        this.resdata = res.data
-        this.resdata.questionOffNum = res.data.questionNumList
-        this.resdata.questionTotalNum = res.data.questionNumList.checkboxMap.length + res.data.questionNumList.checkedMap.length + res.data.questionNumList.radioMap.length + res.data.questionNumList.textMap.length
-        this.resdata.titleOptions = res.data.titleOptions ? JSON.parse(res.data.titleOptions) : ''
-        this.resdata.radioMap = res.data.questionNumList.radioMap
-        this.resdata.checkboxMap = res.data.questionNumList.checkboxMap
-        this.resdata.checkedMap = res.data.questionNumList.checkedMap
-        this.resdata.textMap = res.data.questionNumList.textMap
-        if (res.data.questionTypeName === '单选题') {
-          this.answerRadio = res.data.userAnswer
-        }
-        if (res.data.questionTypeName === '复选题') {
-          this.checksList = JSON.parse(res.data.userAnswer)
-        }
-        if (res.data.questionTypeName === '判断题') {
-          this.trueOrFalseRadio = res.data.userAnswer
-        }
-        if (res.data.questionTypeName === '简答题') {
-          this.freeInput = res.data.userAnswer
-        }
+      passWrittenById(params).then(res => {
+         const record = res.data.data
+         this.resdata = record
+         this.userByAnswer = record.userAnswer
+        // this.resdata = res.data
+        // this.resdata.questionOffNum = res.data.questionNumList
+        // this.resdata.questionTotalNum = res.data.questionNumList.checkboxMap.length + res.data.questionNumList.checkedMap.length + res.data.questionNumList.radioMap.length + res.data.questionNumList.textMap.length
+        // this.resdata.titleOptions = res.data.titleOptions ? JSON.parse(res.data.titleOptions) : ''
+        // this.resdata.radioMap = res.data.questionNumList.radioMap
+        // this.resdata.checkboxMap = res.data.questionNumList.checkboxMap
+        // this.resdata.checkedMap = res.data.questionNumList.checkedMap
+        // this.resdata.textMap = res.data.questionNumList.textMap
+        // if (res.data.questionTypeName === '单选题') {
+        //   this.answerRadio = res.data.score
+        // }
+        // if (res.data.questionTypeName === '复选题') {
+        //   this.checksList = JSON.parse(res.data.score)
+        // }
+        // if (res.data.questionTypeName === '判断题') {
+        //   this.trueOrFalseRadio = res.data.score
+        // }
+        // if (res.data.questionTypeName === '简答题') {
+        //   this.freeInput = res.data.score
+        // }
       })
     },
 
     /**
-     * 首次进入页面加载题目
+     * 首次进入页面先判断后台返回信息，true代表可以阅卷再去发送获取考卷的请求
      */
     loadPage () {
       const params = {
-        examId: this.formData.id,
-        currentQuestionNum: this.resdata.questionNum,
-        questionNum: this.resdata.questionNum,
+        examId: this.formData.examId,
       }
-      // console.log('2e', params)
-      this.getSubjectById(params)
+      judgeWrittenById(params).then(res => {
+        const resjudge = res.data.data
+        if (resjudge === true) {
+          const params = {
+            examId: this.formData.examId,
+          }
+          this.getSubjectById(params)
+        } else {
+          this.$message({
+            type: 'info',
+            message: '已有老师阅卷，目前不能阅卷哦',
+          })
+        }
+      })
     },
 
     /**
@@ -288,7 +293,7 @@ export default {
         type: 'warning',
       }).then(() => {
         const params = {
-          remainingTime: this.min + '-' + this.sec,
+          ifCommit: 1,
         }
         this.judgeType(params)
         this.getSubjectById(params)
@@ -352,7 +357,7 @@ export default {
     }
   }
 }
-.examShow {
+.examShowss {
   margin: 20px auto;
   width: 89%;
   overflow: hidden;
@@ -378,11 +383,12 @@ export default {
   .right {
     float: right;
     width: 28%;
-    border-left: 1px solid #eee;
+    border-left: 0px solid #eee;
     padding-bottom: 75px;
     .container {
       float: right;
       width: 280px;
+      margin-top: 20px;
       background: #fffbf6;
       border: 1px solid #ffdbc1;
       // background: linear-gradient(
@@ -416,9 +422,19 @@ export default {
           font-size: 20px;
         }
       }
-      .bottom {
+      .card {
         text-align: left;
         padding: 0 18px;
+        .activess {
+          background: #fdf6eb;
+          border-color: #f5dab1;
+          color: #e6a23c;
+        }
+        .active {
+          background: #ba1b21;
+          border-color: #ba1b21;
+          color: #fff;
+        }
       }
     }
   }
@@ -428,7 +444,7 @@ export default {
 }
 </style>
 <style lang="scss">
-.examShow {
+.examShowss {
   .give-mark {
     width: 7%;
     height: 50px;
@@ -442,8 +458,8 @@ export default {
     }
   }
   .give-mark-two {
-    width: 13%;
-    height: 50px;
+    width: 8%;
+    height: 70px;
     margin-left: 50px;
     .el-input__inner {
       width: 60px;

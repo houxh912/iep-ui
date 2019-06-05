@@ -25,8 +25,9 @@ const columnsMap = [
     label: '当前金额',
   },
   {
-    prop: 'time',
+    prop: 'createTime',
     label: '日期',
+    width: '160',
   },
   {
     prop: 'remarks',

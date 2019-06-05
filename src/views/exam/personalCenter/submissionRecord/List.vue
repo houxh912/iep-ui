@@ -74,22 +74,27 @@
         <el-table-column prop="operation" label="操作">
             <template slot-scope="scope">
               <operation-wrapper>
-                <iep-button type="warning" plain @click="handleModify(scope.row)">重新编辑</iep-button>
+                <iep-button type="warning" plain @click="handleModify(scope.row)" v-if="scope.row.status === 2">重新修改</iep-button>
+                <iep-button type="warning" plain @click="handleShow(scope.row)" v-if="scope.row.status === 0 || scope.row.status === 1">查看</iep-button>
               </operation-wrapper>
             </template>
           </el-table-column>
       </iep-table>
     </basic-container>
+    <show-dialog ref="ShowDialog"></show-dialog>
+    <reedit-dialog ref="ReeditDialog" @reload="loadPage"></reedit-dialog>
   </div>
 </template>
 
 <script>
 import { getSubmissionRecordList } from '@/api/exam/personalCenter/submissionRecord/submissionRecord'
 import AdvanceSearch from '@/views/exam/reviewCenter/testQuestionsLibrary/Page/AdvanceSearch'
+import ShowDialog from './ShowDialog'
+import ReeditDialog from './ReeditDialog'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
-  components: { AdvanceSearch },
+  components: { AdvanceSearch,ShowDialog,ReeditDialog },
   data () {
     return {
     }
@@ -111,10 +116,18 @@ export default {
     /**
      * 重新编辑
      */
-    handleModify (row) {
-      console.log(row)
-      this.$message('此功能开发中...')
+    handleModify (val) {
+      this.$refs['ReeditDialog'].dialogShow = true
+      this.$refs['ReeditDialog'].form = {...val}
+    },
+    /**
+     * 查看按钮
+     */
+    handleShow (val) {
+      this.$refs['ShowDialog'].dialogShow = true
+      this.$refs['ShowDialog'].form = val
     },
   },
 }
 </script>
+

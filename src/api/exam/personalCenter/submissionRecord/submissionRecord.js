@@ -14,3 +14,28 @@ export function getSubmissionRecordList (params) {
         params: params,
     })
 }
+/**
+ * 获取试题选项
+ * @param {Object} params 参数
+ */
+export function getTestOption (params) {
+    return request({
+        url: 'exms/dict/map',
+        method: 'get',
+        params: params,
+    })
+}
+/**
+ * 修改试题
+ * @param {Object} params 参数
+ */
+export function postModify (params) {
+    return request({
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        url: 'exms/iepitembank/update',
+        method: 'post',
+        data: params,
+    })
+}

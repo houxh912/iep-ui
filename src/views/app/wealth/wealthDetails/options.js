@@ -31,10 +31,10 @@ const dictsMap = {
   
   const rules = {
 		investmentNumber: [
-		{ type:'number', required: true, message: '输入的股份数量至少大于 0', trigger: 'blur', min: 1 },
+		{ type:'number', required: true, message: '输入的股份数量至少大于最低投资股份数', trigger: 'blur' },
 	],
 	totalAmount: [
-	  { type:'number', required: true, message: '输入的金额至少大于或等于每股单价', trigger: 'blur', min: 1 },
+	  { required: true, message: '输入的金额至少大于或等于每股单价', trigger: 'blur' },
 	],
 	investmentMoneyType: [
 	  { required: true, message: '请选择支付方式', trigger: 'blur' },

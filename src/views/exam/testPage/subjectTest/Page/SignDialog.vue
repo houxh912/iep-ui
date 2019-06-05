@@ -68,7 +68,7 @@ export default {
     /**
      * 确认报名
      */
-    async handleSignConfig (){
+    handleSignConfig (){
       // let examinationId = this.examId
       // let qualificationsurl = this.form
       // let post = Object.assign(examinationId,qualificationsurl)
@@ -81,17 +81,17 @@ export default {
         examinationId: this.examId,
         qualificationsurl: this.form.qualificationsurl,
       }
-      await postSign(params).then(
-        this.dialogConfigShow = false,
-        this.dialogShow = false,
-        this.$message({
-          message: '报名成功！',
-            type: 'success',
-          }),
-        setTimeout(() => {
+      postSign(params).then( res => {
+        if (res.data.data == true){
+          this.dialogConfigShow = false,
+          this.dialogShow = false,
+          this.$message({
+            message: '报名成功！',
+              type: 'success',
+            })
           this.$emit('reload')
-        }, 350)
-      )
+        }
+      })
     },
   },
 }

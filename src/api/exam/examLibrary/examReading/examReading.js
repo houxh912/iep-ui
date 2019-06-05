@@ -9,7 +9,7 @@ import request from '@/router/axios'
  */
 export function getExamReadingList (params) {
     return request({
-        url: 'exms',
+        url: '/exms/grade/page',
         method: 'get',
         params: params,
     })
@@ -39,15 +39,27 @@ export function deleteById (id) {
   
 
 /**
- * 提交笔试阅卷判分表单
+ *根据id判断是否可以进行笔试阅卷
  */
-export function passWrittenById (params) {
+export function judgeWrittenById (id) {
     return request({
-      url: 'exms',
+      url: '/exms/grade/check',
       method: 'post',
-      data: params,
+      data: id,
     })
 }
+
+/**
+ *根据id获取笔试阅卷信息
+ */
+export function passWrittenById (params) {
+  return request({
+    url: '/exms/grade/makding',
+    method: 'post',
+    data: params,
+  })
+}
+
 
 /**
  * 提交选择题判分表单

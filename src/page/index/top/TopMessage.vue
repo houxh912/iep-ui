@@ -8,9 +8,6 @@
         <el-tab-pane :label="`消息 (${systemMessageNum || 0})`" name="second">
           <iep-top-message-box :message-list="systemMessageList" :type="1" @visible="visible=false"></iep-top-message-box>
         </el-tab-pane>
-        <el-tab-pane :label="`邮件 (${emailNum || 0})`" name="third">
-          <iep-top-message-box :message-list="emailList" :type="2" @visible="visible=false"></iep-top-message-box>
-        </el-tab-pane>
       </el-tabs>
     </a-spin>
     <!-- <div class="list-clear">清空 通知</div> -->
@@ -41,8 +38,6 @@ export default {
     ...mapState({
       announcementList: state => state.notify.announcementList,
       announcementNum: state => state.notify.announcementNum,
-      emailList: state => state.notify.emailList,
-      emailNum: state => state.notify.emailNum,
       systemMessageList: state => state.notify.systemMessageList,
       systemMessageNum: state => state.notify.systemMessageNum,
     }),
@@ -51,7 +46,7 @@ export default {
       'userInfo',
     ]),
     totalNum () {
-      return this.announcementNum + this.emailNum + this.systemMessageNum
+      return this.announcementNum + this.systemMessageNum
     },
   },
   created () {
@@ -112,6 +107,7 @@ export default {
 </script>
 <style lang="css" scoped>
 .item >>> .el-badge__content.is-fixed {
+  z-index: 1;
   top: 20px;
   right: 22px;
 }
@@ -153,7 +149,6 @@ export default {
 <style lang="scss" scoped>
 .item {
   position: relative;
-  margin-right: 20px;
   button {
     border: 0;
     height: 60px;

@@ -17,7 +17,6 @@
 <script>
 import FirstContent from './testPaper/FirstContent'
 import SecondContent from './testPaper/SecondContent'
-import LastContent from './testPaper/LastContent'
 export default {
   props: {
     record: {
@@ -26,7 +25,7 @@ export default {
     },
   },
   components: {
-    FirstContent, SecondContent, LastContent,
+    FirstContent, SecondContent,
   },
   data () {
     return {
@@ -45,12 +44,7 @@ export default {
         title: '试题配置',
         content: 'SecondContent',
         data: undefined,
-        onData: this.handleSecond,
-      }, {
-        title: '完成',
-        content: 'LastContent',
-        data: undefined,
-        onData: this.handleLast,
+        onData: this.handleBack,
       }],
     }
   },
@@ -59,16 +53,8 @@ export default {
       this.next()
       this.steps[this.current].data = form
     },
-    handleSecond (data) {
-      this.next()
-      this.steps[this.current].data = data
-    },
-    handleLast (data) {
-      this.current = 0
-      this.steps[this.current].data = data
-      this.$nextTick(() => {
-        this.$refs[this.steps[this.current].content].reset()
-      })
+    handleBack () {
+      this.back()
     },
     next () {
       this.current++

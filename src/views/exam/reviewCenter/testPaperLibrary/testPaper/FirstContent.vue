@@ -91,13 +91,6 @@ export default {
       const { data } = await getTestOption(params)
       this.res = data
     },
-
-    /**
-     * 重置
-     */
-    reset () {
-      this.$refs['form'].resetFields()
-    },
   },
 }
 </script>

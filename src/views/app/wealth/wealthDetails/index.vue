@@ -22,9 +22,9 @@
                 <div>目标金额</div>
                 <div>{{form.targetAmount}}</div>
                 <el-button @click="handleAdd()" type="danger" size="medium" plain v-show="form.status==4">马上参与</el-button>
-                <el-button type="warning" size="medium" plain v-show="form.status==1">待审核</el-button>
-                <el-button type="info" size="medium" plain v-show="form.status==6">已结束</el-button>
-                <el-button type="info" size="medium" plain v-show="form.status==5 || form.status==2">待上架</el-button>
+                <el-button type="warning" disabled size="medium" plain v-show="form.status==1">待审核</el-button>
+                <el-button type="info" disabled size="medium" plain v-show="form.status==6">已结束</el-button>
+                <el-button type="info" disabled size="medium" plain v-show="form.status==5 || form.status==2">待上架</el-button>
               </div>
             </div>
           </el-card>

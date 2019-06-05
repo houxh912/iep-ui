@@ -246,6 +246,8 @@ export default {
     resetForm () {
       // this.goBack()
       this.dialogShow = false
+      this.formData = initFormData()
+
     },
     // 纪要类型转换
     // typeChange (val) {

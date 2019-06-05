@@ -42,7 +42,7 @@ import VisitDialog from './VisitDialog'
 import Detail from './detail'
 import { mapGetters } from 'vuex'
 import { updateData, getDataById } from '@/api/mlms/material/summary'
-import { initFormData } from './options'
+// import { initFormData } from './options'
 export default {
   mixins: [mixins],
   props: ['record'],
@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$refs['VisitDialog'].formData = initFormData()
+      // this.$refs['VisitDialog'].formData = initFormData()
       this.$refs['VisitDialog'].methodName = '保存'
       this.$refs['VisitDialog'].formRequestFn = createVisitLog
       this.$refs['VisitDialog'].id = this.id
@@ -121,7 +121,6 @@ export default {
       //   this.$refs['VisitDialog'].formData = res.data.data
       // })
       getDataById(row.id).then(res => {
-        console.log(res)
         this.$refs['detail'].dialogShow = true
         this.$refs['detail'].formData = res.data.data
       })

@@ -2,17 +2,19 @@
   <el-popover popper-class="msg-popover" placement="bottom" width="336" v-model="visible" trigger="click">
     <a-spin :spinning="pageLoading">
       <el-tabs class="msg-tabs" v-model="activeName">
-        <el-tab-pane :label="`公告 (${announcementNum || 0})`" name="first">
+        <el-tab-pane :label="`通知公告 (${announcementNum || 0})`" name="first">
           <iep-top-message-box :message-list="announcementList" :type="0" @visible="visible=false"></iep-top-message-box>
         </el-tab-pane>
-        <el-tab-pane :label="`消息 (${systemMessageNum || 0})`" name="second">
+        <el-tab-pane :label="`系统消息 (${systemMessageNum || 0})`" name="second">
           <iep-top-message-box :message-list="systemMessageList" :type="1" @visible="visible=false"></iep-top-message-box>
         </el-tab-pane>
       </el-tabs>
     </a-spin>
     <!-- <div class="list-clear">清空 通知</div> -->
     <el-badge :hidden="!totalNum" :value="totalNum" slot="reference" class="item">
-      <iep-button><i class="el-icon-bell"></i></iep-button>
+      <el-tooltip class="item" effect="dark" content="消息" placement="bottom">
+        <iep-button><i class="el-icon-bell"></i></iep-button>
+      </el-tooltip>
     </el-badge>
   </el-popover>
 </template>
@@ -119,8 +121,7 @@ export default {
   text-align: center;
 }
 .msg-tabs >>> .el-tabs__active-bar {
-  left: 30px;
-  width: 70px !important;
+  left: 55px;
 }
 .msg-tabs >>> .el-tabs__header {
   margin-bottom: 0;

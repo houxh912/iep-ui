@@ -2,7 +2,9 @@
   <el-popover popper-class="msg-popover" placement="bottom" width="336" v-model="visible" trigger="click">
     <iep-top-message-box class="msg-tabs" :message-list="emailList" :type="2" @visible="visible=false"></iep-top-message-box>
     <el-badge :hidden="!emailNum" :value="emailNum || 0" slot="reference" class="item">
-      <iep-button><i class="el-icon-message"></i></iep-button>
+      <el-tooltip class="item" effect="dark" content="邮件" placement="bottom">
+        <iep-button><i class="el-icon-message"></i></iep-button>
+      </el-tooltip>
     </el-badge>
   </el-popover>
 </template>
@@ -32,17 +34,6 @@ export default {
 }
 .msg-popover >>> .el-popover {
   right: 0;
-}
-.msg-tabs >>> .el-tabs__nav {
-  width: 100%;
-  text-align: center;
-}
-.msg-tabs >>> .el-tabs__active-bar {
-  left: 75px;
-  width: 70px !important;
-}
-.msg-tabs >>> .el-tabs__header {
-  margin-bottom: 0;
 }
 .msg-tabs >>> .el-card__body {
   overflow: auto;

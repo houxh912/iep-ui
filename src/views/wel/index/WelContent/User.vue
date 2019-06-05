@@ -233,6 +233,7 @@ export default {
             }
           }
           .border {
+            margin-left: 10px;
             padding: 3px 12px;
             min-width: 25px;
             border-radius: 40px;

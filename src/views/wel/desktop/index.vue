@@ -1,32 +1,34 @@
 <template>
-<div>
-   <div class="desktop">
-    <div class="full">
-      <leader-top></leader-top>
-    </div>
-    <div>
-      <fund-distribution></fund-distribution>
-    </div>
-    <div>
-      <dev-ops></dev-ops>
-    </div>
-    <div class="full">
-      <financial-assets></financial-assets>
-    </div>
-    <div class="full">
-      <project-receipt></project-receipt>
-    </div>
-    <div>
-      <budget></budget>
-    </div>
-    <div>
-      <bulleted-list></bulleted-list>
-    </div>
-    <div class="full">
-      <post-statistics></post-statistics>
-    </div>
+  <div>
+    <basic-container>
+      <div class="grid-container">
+        <div class="item-grid-1">
+          <leader-top></leader-top>
+        </div>
+        <div class="item-grid-2">
+          <fund-distribution></fund-distribution>
+        </div>
+        <div class="item-grid-3">
+          <dev-ops></dev-ops>
+        </div>
+        <div class="item-grid-4">
+          <financial-assets></financial-assets>
+        </div>
+        <div class="item-grid-5">
+          <project-receipt></project-receipt>
+        </div>
+        <div class="item-grid-6">
+          <budget></budget>
+        </div>
+        <div class="item-grid-7">
+          <bulleted-list></bulleted-list>
+        </div>
+        <div class="item-grid-8">
+          <post-statistics></post-statistics>
+        </div>
+      </div>
+    </basic-container>
   </div>
-</div>
 </template>
 <script>
 import LeaderTop from './LeaderTop'
@@ -48,19 +50,43 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.desktop {
-  padding: 20px;
-  margin: 0 auto;
+.grid-container {
   display: grid;
-  grid-auto-flow: row dense;
-  grid-row-gap: 25px;
-  grid-column-gap: 25px;
-  grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
-  .full {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    display: grid;
-    height: auto;
-  }
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 100px 407px 150px 515px 350px 300px;
+  grid-template-areas: "item-grid-1 item-grid-1 item-grid-1 item-grid-1" "item-grid-2 item-grid-2 item-grid-2 item-grid-3" "item-grid-4 item-grid-4 item-grid-4 item-grid-4" "item-grid-5 item-grid-5 item-grid-5 item-grid-5" "item-grid-6 item-grid-6 item-grid-6 item-grid-7" "item-grid-8 item-grid-8 item-grid-8 item-grid-8";
+  grid-gap: 25px;
+}
+
+.item-grid-1 {
+  grid-area: item-grid-1;
+}
+
+.item-grid-2 {
+  grid-area: item-grid-2;
+}
+
+.item-grid-3 {
+  grid-area: item-grid-3;
+}
+
+.item-grid-4 {
+  grid-area: item-grid-4;
+}
+
+.item-grid-5 {
+  grid-area: item-grid-5;
+}
+
+.item-grid-6 {
+  grid-area: item-grid-6;
+}
+
+.item-grid-7 {
+  grid-area: item-grid-7;
+}
+
+.item-grid-8 {
+  grid-area: item-grid-8;
 }
 </style>

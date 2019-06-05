@@ -35,7 +35,7 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      width: 80%;
+      width: 60%;
       display: inline-block;
       vertical-align: middle;
     }

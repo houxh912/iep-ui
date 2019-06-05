@@ -144,11 +144,6 @@ export default {
         this.financialData['投资金额'] = data.data
       })
     },
-    handleDetail (row) {
-      this.$router.push({
-        path: `/app/wealth/wealth_details/${row.investmentId}`,
-      })
-    },
   },
 }
 </script>

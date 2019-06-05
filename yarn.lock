@@ -765,27 +765,6 @@
   resolved "https://registry.npm.taobao.org/@nodelib/fs.stat/download/@nodelib/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha1-K1o6s/kYzKSKjHVMCBaOPwPrphs=
 
-"@smallwei/avue@^1.5.3":
-  version "1.6.2"
-  resolved "https://registry.npm.taobao.org/@smallwei/avue/download/@smallwei/avue-1.6.2.tgz#51a42eb12cb06cfef0200a2be13a93ba1482fe4f"
-  integrity sha1-UaQusSywbP7wIAor4TqTuhSC/k8=
-  dependencies:
-    async-validator "^1.10.0"
-    avue-plugin-dynamicquery "^0.0.4"
-    avue-plugin-map "^0.0.2"
-    avue-plugin-transfer "^0.0.3"
-    avue-plugin-ueditor "^0.0.2"
-    axios "^0.16.2"
-    babel-helper-vue-jsx-merge-props "^2.0.0"
-    dayjs "^1.7.5"
-    deepmerge "^1.2.0"
-    element-ui "2.4.9"
-    normalize-wheel "^1.0.1"
-    resize-observer-polyfill "^1.5.0"
-    throttle-debounce "^1.0.1"
-    vue "^2.5.2"
-    vue-json-editor "^1.2.3"
-
 "@soda/friendly-errors-webpack-plugin@^1.7.1":
   version "1.7.1"
   resolved "https://registry.npm.taobao.org/@soda/friendly-errors-webpack-plugin/download/@soda/friendly-errors-webpack-plugin-1.7.1.tgz#706f64bcb4a8b9642b48ae3ace444c70334d615d"
@@ -1643,7 +1622,7 @@ async-limiter@~1.0.0:
   resolved "https://registry.npm.taobao.org/async-limiter/download/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
   integrity sha1-ePrtjD0HSrgfIrTphdeehzj3IPg=
 
-async-validator@^1.10.0, async-validator@^1.8.2:
+async-validator@^1.8.2:
   version "1.11.2"
   resolved "https://registry.npm.taobao.org/async-validator/download/async-validator-1.11.2.tgz#ca5e2ba31c15e9319cb2d873c2b137b67a198ead"
   integrity sha1-yl4roxwV6TGcsthzwrE3tnoZjq0=
@@ -1684,47 +1663,6 @@ autoprefixer@^9.5.1:
     postcss "^7.0.14"
     postcss-value-parser "^3.3.1"
 
-avue-plugin-dynamicquery@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.npm.taobao.org/avue-plugin-dynamicquery/download/avue-plugin-dynamicquery-0.0.4.tgz#4de2eb300ad4e5d95e2848b7681ced3226549e53"
-  integrity sha1-TeLrMArU5dleKEi3aBztMiZUnlM=
-  dependencies:
-    axios "^0.18.0"
-    dayjs "^1.7.7"
-    element-ui "^2.4.6"
-    vue "^2.5.17"
-    vue-router "^3.0.1"
-
-avue-plugin-map@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.npm.taobao.org/avue-plugin-map/download/avue-plugin-map-0.0.2.tgz#ed2d716cdea91c8b3572556c18240ae49c5f3890"
-  integrity sha1-7S1xbN6pHIs1clVsGCQK5JxfOJA=
-  dependencies:
-    axios "^0.18.0"
-    element-ui "^2.4.6"
-    vue "^2.5.17"
-    vue-router "^3.0.1"
-
-avue-plugin-transfer@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.npm.taobao.org/avue-plugin-transfer/download/avue-plugin-transfer-0.0.3.tgz#de4325866df757d734e34d682d654352d9e1e9c8"
-  integrity sha1-3kMlhm33V9c0401oLWVDUtnh6cg=
-  dependencies:
-    axios "^0.18.0"
-    element-ui "^2.4.6"
-    vue "^2.5.17"
-    vue-router "^3.0.1"
-
-avue-plugin-ueditor@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.npm.taobao.org/avue-plugin-ueditor/download/avue-plugin-ueditor-0.0.2.tgz#1bad259b981524ca9f0eecc63240f9433b349f78"
-  integrity sha1-G60lm5gVJMqfDuzGMkD5Qzs0n3g=
-  dependencies:
-    axios "^0.18.0"
-    vue "^2.5.17"
-    vue-quill-editor "^3.0.6"
-    vue-router "^3.0.1"
-
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.npm.taobao.org/aws-sign2/download/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
@@ -1734,14 +1672,6 @@ aws4@^1.8.0:
   version "1.8.0"
   resolved "https://registry.npm.taobao.org/aws4/download/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
   integrity sha1-8OAD2cqef1nHpQiUXXsu+aBKVC8=
-
-axios@^0.16.2:
-  version "0.16.2"
-  resolved "https://registry.npm.taobao.org/axios/download/axios-0.16.2.tgz#ba4f92f17167dfbab40983785454b9ac149c3c6d"
-  integrity sha1-uk+S8XFn37q0CYN4VFS5rBScPG0=
-  dependencies:
-    follow-redirects "^1.2.3"
-    is-buffer "^1.1.5"
 
 axios@^0.18.0:
   version "0.18.1"
@@ -3459,11 +3389,6 @@ dateformat@^3.0.0:
   resolved "https://registry.npm.taobao.org/dateformat/download/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
   integrity sha1-puN0maTZqc+F71hyBE1ikByYia4=
 
-dayjs@^1.7.5, dayjs@^1.7.7:
-  version "1.8.13"
-  resolved "https://registry.npm.taobao.org/dayjs/download/dayjs-1.8.13.tgz#51b5cdad23ba508bcea939a853b492fefb7fdc47"
-  integrity sha1-UbXNrSO6UIvOqTmoU7SS/vt/3Ec=
-
 de-indent@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npm.taobao.org/de-indent/download/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
@@ -3887,19 +3812,7 @@ electron-to-chromium@^1.3.133:
   resolved "https://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.3.137.tgz#ba7c88024984c038a5c5c434529aabcea7b42944"
   integrity sha1-unyIAkmEwDilxcQ0Upqrzqe0KUQ=
 
-element-ui@2.4.9:
-  version "2.4.9"
-  resolved "https://registry.npm.taobao.org/element-ui/download/element-ui-2.4.9.tgz#b7c9c96da06f182c6a4fe7f508b8c8ef1a516732"
-  integrity sha1-t8nJbaBvGCxqT+f1CLjI7xpRZzI=
-  dependencies:
-    async-validator "~1.8.1"
-    babel-helper-vue-jsx-merge-props "^2.0.0"
-    deepmerge "^1.2.0"
-    normalize-wheel "^1.0.1"
-    resize-observer-polyfill "^1.5.0"
-    throttle-debounce "^1.0.1"
-
-element-ui@2.8.2, element-ui@^2.4.6:
+element-ui@2.8.2:
   version "2.8.2"
   resolved "https://registry.npm.taobao.org/element-ui/download/element-ui-2.8.2.tgz#21a7a4cb92616b0f8b75d4d4e637d3a1cd8c09de"
   integrity sha1-Iaeky5Jhaw+LddTU5jfToc2MCd4=
@@ -4270,11 +4183,6 @@ event-pubsub@4.3.0:
   resolved "https://registry.npm.taobao.org/event-pubsub/download/event-pubsub-4.3.0.tgz#f68d816bc29f1ec02c539dc58c8dd40ce72cb36e"
   integrity sha1-9o2Ba8KfHsAsU53FjI3UDOcss24=
 
-eventemitter3@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.npm.taobao.org/eventemitter3/download/eventemitter3-2.0.3.tgz#b5e1079b59fb5e1ba2771c0a993be060a58c99ba"
-  integrity sha1-teEHm1n7XhuidxwKmTvgYKWMmbo=
-
 eventemitter3@^3.0.0:
   version "3.1.2"
   resolved "https://registry.npm.taobao.org/eventemitter3/download/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
@@ -4415,7 +4323,7 @@ extend-shallow@^3.0.0, extend-shallow@^3.0.2:
     assign-symbols "^1.0.0"
     is-extendable "^1.0.1"
 
-extend@^3.0.1, extend@^3.0.2, extend@~3.0.2:
+extend@~3.0.2:
   version "3.0.2"
   resolved "https://registry.npm.taobao.org/extend/download/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
   integrity sha1-+LETa0Bx+9jrFAr/hYsQGewpFfo=
@@ -4471,11 +4379,6 @@ fast-deep-equal@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npm.taobao.org/fast-deep-equal/download/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
   integrity sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk=
-
-fast-diff@1.1.2:
-  version "1.1.2"
-  resolved "https://registry.npm.taobao.org/fast-diff/download/fast-diff-1.1.2.tgz#4b62c42b8e03de3f848460b639079920695d0154"
-  integrity sha1-S2LEK44D3j+EhGC2OQeZIGldAVQ=
 
 fast-diff@^1.1.2:
   version "1.2.0"
@@ -4728,7 +4631,7 @@ follow-redirects@1.5.10:
   dependencies:
     debug "=3.1.0"
 
-follow-redirects@^1.0.0, follow-redirects@^1.2.3:
+follow-redirects@^1.0.0:
   version "1.7.0"
   resolved "https://registry.npm.taobao.org/follow-redirects/download/follow-redirects-1.7.0.tgz#489ebc198dc0e7f64167bd23b03c4c19b5784c76"
   integrity sha1-SJ68GY3A5/ZBZ70jsDxMGbV4THY=
@@ -8150,11 +8053,6 @@ param-case@2.1.x:
   dependencies:
     no-case "^2.2.0"
 
-parchment@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.npm.taobao.org/parchment/download/parchment-1.1.4.tgz#aeded7ab938fe921d4c34bc339ce1168bc2ffde5"
-  integrity sha1-rt7Xq5OP6SHUw0vDOc4RaLwv/eU=
-
 parent-module@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/parent-module/download/parent-module-1.0.1.tgz#691d2709e78c79fae3a156622452d00762caaaa2"
@@ -8960,27 +8858,6 @@ quick-lru@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/quick-lru/download/quick-lru-1.1.0.tgz#4360b17c61136ad38078397ff11416e186dcfbb8"
   integrity sha1-Q2CxfGETatOAeDl/8RQW4Ybc+7g=
-
-quill-delta@^3.6.2:
-  version "3.6.3"
-  resolved "https://registry.npm.taobao.org/quill-delta/download/quill-delta-3.6.3.tgz#b19fd2b89412301c60e1ff213d8d860eac0f1032"
-  integrity sha1-sZ/SuJQSMBxg4f8hPY2GDqwPEDI=
-  dependencies:
-    deep-equal "^1.0.1"
-    extend "^3.0.2"
-    fast-diff "1.1.2"
-
-quill@^1.3.4:
-  version "1.3.6"
-  resolved "https://registry.npm.taobao.org/quill/download/quill-1.3.6.tgz#99f4de1fee85925a0d7d4163b6d8328f23317a4d"
-  integrity sha1-mfTeH+6FkloNfUFjttgyjyMxek0=
-  dependencies:
-    clone "^2.1.1"
-    deep-equal "^1.0.1"
-    eventemitter3 "^2.0.3"
-    extend "^3.0.1"
-    parchment "^1.1.4"
-    quill-delta "^3.6.2"
 
 qw@~1.0.1:
   version "1.0.1"
@@ -11173,10 +11050,10 @@ vue-hot-reload-api@^2.3.0:
   resolved "https://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.3.tgz#2756f46cb3258054c5f4723de8ae7e87302a1ccf"
   integrity sha1-J1b0bLMlgFTF9HI96K5+hzAqHM8=
 
-vue-json-editor@^1.2.3:
-  version "1.3.0"
-  resolved "https://registry.npm.taobao.org/vue-json-editor/download/vue-json-editor-1.3.0.tgz#a879bc20bb444ae19fc65aa057fbfce0ff93130a"
-  integrity sha1-qHm8ILtESuGfxlqgV/v84P+TEwo=
+vue-json-editor@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.npm.taobao.org/vue-json-editor/download/vue-json-editor-1.3.1.tgz#1def62fe52cce928a9211473998fd67823edeb2c"
+  integrity sha1-He9i/lLM6SipIRRzmY/WeCPt6yw=
   dependencies:
     vue "^2.2.6"
 
@@ -11190,14 +11067,6 @@ vue-loader@^15.7.0:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
-
-vue-quill-editor@^3.0.6:
-  version "3.0.6"
-  resolved "https://registry.npm.taobao.org/vue-quill-editor/download/vue-quill-editor-3.0.6.tgz#1f85646211d68a31a80a72cb7f45bb2f119bc8fb"
-  integrity sha1-H4VkYhHWijGoCnLLf0W7LxGbyPs=
-  dependencies:
-    object-assign "^4.1.1"
-    quill "^1.3.4"
 
 vue-ref@^1.0.4:
   version "1.0.6"
@@ -11235,7 +11104,7 @@ vue@2.6.6:
   resolved "https://registry.npm.taobao.org/vue/download/vue-2.6.6.tgz#dde41e483c11c46a7bf523909f4f2f816ab60d25"
   integrity sha1-3eQeSDwRxGp79SOQn08vgWq2DSU=
 
-vue@^2.2.6, vue@^2.5.17, vue@^2.5.2, vue@^2.6.10:
+vue@^2.2.6, vue@^2.6.10:
   version "2.6.10"
   resolved "https://registry.npm.taobao.org/vue/download/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha1-pysaQqTYKnIepDjRtr9V5mGVxjc=

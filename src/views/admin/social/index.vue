@@ -1,20 +1,32 @@
 <template>
   <div class="execution">
     <basic-container>
-      <avue-crud ref="crud" :page="page" :data="tableData" :table-loading="tableLoading" :option="tableOption" @on-load="getList" @refresh-change="refreshChange" @search-change="searchChange" @row-update="handleUpdate" @row-save="handleSave" @row-del="rowDel">
-        <template slot="menuLeft">
-          <el-button type="primary" @click="handleAdd" size="small" v-if="permissions.generator_syssocialdetails_add">新 增
-          </el-button>
-          <br /><br />
+      <page-header title="密钥管理"></page-header>
+      <operation-container>
+        <template slot="left">
+          <iep-button type="primary" @click="handleAdd()" icon="el-icon-plus" plain>新增</iep-button>
         </template>
-        <template slot-scope="scope" slot="menu">
-          <el-button type="text" v-if="permissions.generator_syssocialdetails_edit" icon="el-icon-check" size="small" @click="handleEdit(scope.row, scope.index)">编辑
-          </el-button>
-          <el-button type="text" v-if="permissions.generator_syssocialdetails_del" icon="el-icon-delete" size="small" @click="handleDel(scope.row, scope.index)">删除
-          </el-button>
+        <template slot="right">
+          <operation-search @search-page="searchChange" prop="name">
+          </operation-search>
         </template>
-      </avue-crud>
+      </operation-container>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+        <el-table-column prop="operation" label="操作" width="220">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button type="warning" @click="handleChild(scope.row, scope.index)" icon="el-icon-plus" plain>子项
+              </iep-button>
+              <iep-button v-if="permissions.sys_dict_edit" @click="handleEdit(scope.row)" plain>编辑
+              </iep-button>
+              <iep-button v-if="permissions.sys_dict_del" @click="handleDel(scope.row, scope.index)" plain>删除
+              </iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
+      </iep-table>
     </basic-container>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 
@@ -25,128 +37,57 @@ import {
   fetchList,
   putObj,
 } from '@/api/admin/sys-social-details'
-import { tableOption } from '@/const/crud/admin/sys-social-details'
+// import { tableOption } from '@/const/crud/admin/sys-social-details'
 import { mapGetters } from 'vuex'
+import mixins from '@/mixins/mixins'
+import DialogForm from './DialogForm'
+import { columnsMap, initMemberForm } from './options'
+
 
 export default {
   name: 'SysSocialDetails',
+  components: { DialogForm },
+  mixins: [mixins],
   data () {
     return {
-      tableData: [],
-      page: {
-        total: 0, // 总页数
-        currentPage: 1, // 当前页数
-        pageSize: 20, // 每页显示多少条
-      },
+      columnsMap,
+      currentId: 1,
       tableLoading: false,
-      tableOption: tableOption,
+      dialogShow: false,
     }
   },
-  created () { },
+  created () {
+    this.loadPage()
+  },
   mounted: function () { },
   computed: {
     ...mapGetters(['permissions']),
   },
   methods: {
-    getList (page, params) {
-      this.tableLoading = true
-      fetchList(
-        Object.assign(
-          {
-            current: page.currentPage,
-            size: page.pageSize,
-          },
-          params
-        )
-      ).then(response => {
-        this.tableData = response.data.data.records
-        this.page.total = response.data.data.total
-        this.tableLoading = false
-      })
+     handleAdd (){
+      this.$refs['DialogForm'].methodName = '添加'
+      this.$refs['DialogForm'].formRequestFn = addObj
+      this.$refs['DialogForm'].disabled = false
+      this.$refs['DialogForm'].dialogShow = true
     },
-    /**
-     * @title 打开新增窗口
-     * @detail 调用crud的handleadd方法即可
-     *
-     **/
-    handleAdd: function () {
-      this.$refs.crud.rowAdd()
+    handleDel (row) {
+      this._handleGlobalDeleteById(row.userId,delObj)
     },
-    handleEdit (row, index) {
-      this.$refs.crud.rowEdit(row, index)
+    handleEdit (row) {
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initMemberForm(), row)
+      this.$refs['DialogForm'].methodName = '编辑'
+      this.$refs['DialogForm'].formRequestFn = putObj
+      this.$refs['DialogForm'].disabled = false
+      this.$refs['DialogForm'].dialogShow = true
     },
-    handleDel (row, index) {
-      this.$refs.crud.rowDel(row, index)
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.userId)
     },
-    rowDel: function (row, index) {
-      var _this = this
-      this.$confirm('是否确认删除ID为' + row.id, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      })
-        .then(function () {
-          return delObj(row.id)
-        })
-        .then(() => {
-          _this.tableData.splice(index, 1)
-          _this.$message({
-            showClose: true,
-            message: '删除成功',
-            type: 'success',
-          })
-          this.refreshChange()
-        })
-        .catch(function () { })
+    async loadPage (param = this.searchForm) {
+      await this.loadTable(param, fetchList)
     },
-    /**
-     * @title 数据更新
-     * @param row 为当前的数据
-     * @param index 为当前更新数据的行数
-     * @param done 为表单关闭函数
-     *
-     **/
-    handleUpdate: function (row, index, done) {
-      putObj(row).then(() => {
-        this.tableData.splice(index, 1, Object.assign({}, row))
-        this.$message({
-          showClose: true,
-          message: '修改成功',
-          type: 'success',
-        })
-        this.refreshChange()
-        done()
-      })
-    },
-    /**
-     * @title 数据添加
-     * @param row 为当前的数据
-     * @param done 为表单关闭函数
-     *
-     **/
-    handleSave: function (row, done) {
-      addObj(row).then(() => {
-        this.tableData.push(Object.assign({}, row))
-        this.$message({
-          showClose: true,
-          message: '添加成功',
-          type: 'success',
-        })
-        this.refreshChange()
-        done()
-      })
-    },
-    /**
-     * 刷新回调
-     */
-    refreshChange () {
-      this.getList(this.page)
-    },
-    /**
-     * 搜索回调
-     */
     searchChange (form) {
-      this.getList(this.page, form)
+      this.loadPage(this.page, form)
     },
   },
 }

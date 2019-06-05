@@ -1,80 +1,58 @@
 <template>
   <div class="log">
     <basic-container>
-      <avue-crud ref="crud" :page="page" :data="tableData" :table-loading="tableLoading" :option="tableOption" @on-load="getList" @search-change="searchChange" @refresh-change="refreshChange" @row-del="rowDel">
-        <template slot-scope="scope" slot="menu">
-          <el-button type="text" v-if="permissions.sys_log_del" icon="el-icon-delete" size="mini" @click="handleDel(scope.row, scope.index)">删除
-          </el-button>
+      <page-header title="日志管理"></page-header>
+      <operation-container>
+        <template slot="right">
+          <!-- <iep-button icon="el-icon-refresh" circle @refresh-change="refreshChange"></iep-button>
+          <iep-button icon="el-icon-menu" circle @click="handleCheckbox" :option="tableOption"></iep-button> -->
         </template>
-      </avue-crud>
+      </operation-container>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <el-table-column prop="operation" label="操作" min-width="100">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button type="warning" @click="handleDetails(scope.row)" plain>查看</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)">刪除</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
+      </iep-table>
     </basic-container>
+    <iep-review-confirm is-inverse ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
-
 <script>
-import { delObj, fetchList } from '@/api/admin/log'
-import { tableOption } from '@/const/crud/admin/log'
-import { mapGetters } from 'vuex'
-
+import { delObj, getUnionPage, getObj } from '@/api/admin/log'
+import { columnsMap, initMemberForm } from './options'
+import mixins from '@/mixins/mixins'
+import DialogForm from './DialogForm'
 export default {
-  name: 'Log',
+  components: { DialogForm },
+  mixins: [mixins],
   data () {
     return {
-      tableData: [],
-      page: {
-        total: 0, // 总页数
-        currentPage: 1, // 当前页数
-        pageSize: 20, // 每页显示多少条
-      },
-      tableLoading: false,
-      tableOption: tableOption,
+      columnsMap,
     }
   },
-  created () { },
-  mounted: function () { },
+  created () {
+    this.loadPage()
+  },
   computed: {
-    ...mapGetters(['permissions']),
   },
   methods: {
-    getList (page, params) {
-      this.tableLoading = true
-      fetchList(
-        Object.assign(
-          {
-            descs: 'create_time',
-            current: page.currentPage,
-            size: page.pageSize,
-          },
-          params
-        )
-      ).then(response => {
-        this.tableData = response.data.data.records
-        this.page.total = response.data.data.total
-        this.tableLoading = false
-      })
+    handleDetails (row) {
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initMemberForm(), row)
+      this.$refs['DialogForm'].methodName = '查看'
+      this.$refs['DialogForm'].formRequestFn = getObj
+      this.$refs['DialogForm'].dialogShow = true
     },
-    handleDel (row, index) {
-      this.$refs.crud.rowDel(row, index)
+    async loadPage (param = this.searchForm) {
+      await this.loadTable(param, getUnionPage)
     },
-    rowDel: function (row) {
-      var _this = this
-      this.$confirm('是否确认删除ID为"' + row.id + '"的日志?', '警告', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      })
-        .then(function () {
-          return delObj(row.id)
-        })
-        .then(() => {
-          this.getList(this.page)
-          _this.$message({
-            showClose: true,
-            message: '删除成功',
-            type: 'success',
-          })
-        })
-        .catch(function () { })
+    handleDeleteById (row) {
+      this._handleGlobalDeleteById(row.orgId, delObj)
     },
     /**
      * 搜索回调
@@ -91,5 +69,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped></style>

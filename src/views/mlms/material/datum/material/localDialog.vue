@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <page-header title="本地上传" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
+    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;" class="form-detail">
       <el-form-item label="名称：" prop="materialName">
         <el-input v-model="formData.materialName" maxlength="50" :placeholder="tipContent.materialName"></el-input>
       </el-form-item>

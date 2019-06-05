@@ -81,7 +81,7 @@ export function postExamineFalse (params) {
 }
 
 /**
- * 审核不通过
+ * 修改试题
  * @param {Object} params 参数
  */
 export function postModify (params) {

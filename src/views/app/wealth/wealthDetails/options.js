@@ -17,8 +17,8 @@ const dictsMap = {
 	  investmentNumber: '', //股份数量
 	  totalAmount: '',//投资金额
 	  investmentMoneyType: '0',//支付方式（0国脉贝，1现金）
-	  investmentId: '',//投资组织
-	  orgId: '',
+		investmentId: '',//投资
+		orgId: '',//投资组织
 	}
   }
   
@@ -37,7 +37,7 @@ const dictsMap = {
 	investmentMoneyType: [
 	  { required: true, message: '请选择支付方式', trigger: 'blur' },
 	],
-	investmentId: [
+	orgId: [
 	  { required: true, message: '请选择投资组织', trigger: 'blur' },
 	],
   }

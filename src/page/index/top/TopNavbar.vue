@@ -49,8 +49,10 @@ export default {
       })
     },
   },
-  created () {
-    this.menuItemEnter()
+  mounted () {
+    if (!this.keyCollapse) {
+      this.menuItemEnter()
+    }
   },
   computed: {
     activeIndex () {

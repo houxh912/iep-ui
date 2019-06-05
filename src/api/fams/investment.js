@@ -11,6 +11,21 @@ export function getInvestmentPage (query) {
   })
 }
 
+export function getInvestmentPersonPage (query) {
+  return request({
+    url: `${prefixUrl}/relation/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getMyPerson () {
+  return request({
+    url: `${prefixUrl}/my`,
+    method: 'get',
+  })
+}
+
 export function getInvestmentById (id) {
   return request({
     url: `${prefixUrl}/detail/${id}`,
@@ -33,6 +48,13 @@ export function downInvestmentById (id) {
 }
 
 export function postInvestment (obj) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+export function joinInvestment (obj) {
   return request({
     url: `${prefixUrl}/join`,
     method: 'post',
@@ -67,6 +89,14 @@ export function deleteInvestmentBatch (ids) {
 export function ReviewInvestmentBatch (obj) {
   return request({
     url: `${prefixUrl}/pass/batch`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function PersonInvestmentBatch (obj) {
+  return request({
+    url: `${prefixUrl}/join/pass/batch`,
     method: 'post',
     data: obj,
   })

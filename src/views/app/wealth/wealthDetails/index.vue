@@ -83,16 +83,16 @@
         </div>
         <div>
           <IepAppTabCard title="投资记录">
-            <el-table :data="record" style="width: 100%">
-              <el-table-column prop="type" label="序号" width="60px;">
+            <el-table :data="form.record" style="width: 100%">
+              <el-table-column prop="id" label="序号" width="60px;">
               </el-table-column>
-              <el-table-column prop="type" label="投资人" width="80px;">
+              <el-table-column prop="userName" label="投资人" width="80px;">
               </el-table-column>
-              <el-table-column prop="type" label="投资金额（元）">
+              <el-table-column prop="totalAmount" label="投资金额（元）" width="120px;">
               </el-table-column>
-              <el-table-column prop="type" label="支付方式">
+              <el-table-column prop="status" label="支付方式">
               </el-table-column>
-              <el-table-column prop="type" label="投资时间">
+              <el-table-column prop="updateTime" label="投资时间" width="160px;">
               </el-table-column>
             </el-table>
           </IepAppTabCard>
@@ -118,7 +118,7 @@
   </div>
 </template>
 <script>
-import { getInvestmentById, postInvestment } from '@/api/fams/investment'
+import { getInvestmentById, joinInvestment } from '@/api/fams/investment'
 import mixins from '@/mixins/mixins'
 import { initForm } from './options'
 import DialogForm from './DialogForm'
@@ -136,7 +136,7 @@ export default {
         flexDirection: 'column',
         justifyContent: 'space-around',
       },
-      form:[{
+      form: [{
         status: '',
         orgName: '',
         orgLogo: '',
@@ -144,16 +144,19 @@ export default {
         //way: '股权投资',
         investmentNumber: '',
         abilityTag: [],
-        percentage:'',
+        percentage: '',
         targetAmount: '',
         hadMoney: '',
-        allSharesNumber: '', 
-        sharesUnivalent: '', 
-        returnRate: '', 
-        minimumAmount: '', 
-        minimumCredit: '', 
+        allSharesNumber: '',
+        sharesUnivalent: '',
+        returnRate: '',
+        minimumAmount: '',
+        minimumCredit: '',
         ranking: '9/15',
         officialRelease: '2019-04-22',
+        record: [
+          { id: '', userName: '', totalAmount: '', status: '', updateTime: '' },
+        ],//投资记录
       }],
       chartData: {
         columns: ['日期', '本组织', '组织业绩平均值对比'],
@@ -169,7 +172,6 @@ export default {
       reportData: [
         { type: '类型' },
       ],
-      record: [],//投资记录
       shareholderData: [
         { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '企业', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
         { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
@@ -191,13 +193,19 @@ export default {
     loadPage () {
       getInvestmentById(this.id).then(({ data }) => {
         this.form = data.data
-        this.form.percentage = this.form.hadMoney/this.form.targetAmount*100
+        this.form.percentage = this.form.hadMoney / this.form.targetAmount * 100
+        var recordLen = this.form.record.length
+        for (var i = 0; i < recordLen; i++) {
+          var surname = this.form.record[i].userName.substring(0, 1)
+          this.form.record[i].userName = surname + '**'
+        }
       })
     },
     handleAdd () {
       this.$refs['DialogForm'].form = initForm()
-      this.$refs['DialogForm'].formRequestFn = postInvestment
-      this.$refs['DialogForm'].form.investmentId = this.form.orgId
+      this.$refs['DialogForm'].formRequestFn = joinInvestment
+      this.$refs['DialogForm'].form.investmentId = this.id
+      this.$refs['DialogForm'].form.orgId = this.form.orgId
       this.$refs['DialogForm'].dialogShow = true
     },
   },
@@ -254,7 +262,7 @@ export default {
               text-align: center;
               display: inline-block;
             }
-            :last-child:after{
+            :last-child:after {
               display: none;
             }
             > span {

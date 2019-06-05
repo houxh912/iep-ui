@@ -43,14 +43,7 @@
             <div slot="header" class="clearfix">
               <h2>我的投资</h2>
             </div>
-            <el-table :data="tableData" style="width: 100%">
-              <el-table-column prop="date" label="日期" width="180">
-              </el-table-column>
-              <el-table-column prop="name" label="姓名" width="180">
-              </el-table-column>
-              <el-table-column prop="address" label="地址">
-              </el-table-column>
-            </el-table>
+            <my-investment></my-investment>
           </el-card>
         </div>
         <div class="grid-item-4">
@@ -58,14 +51,7 @@
             <div slot="header" class="clearfix">
               <h2>推荐投资</h2>
             </div>
-            <el-table :data="tableData" style="width: 100%">
-              <el-table-column prop="date" label="日期" width="180">
-              </el-table-column>
-              <el-table-column prop="name" label="姓名" width="180">
-              </el-table-column>
-              <el-table-column prop="address" label="地址">
-              </el-table-column>
-            </el-table>
+            <recommend></recommend>
           </el-card>
         </div>
       </div>
@@ -73,11 +59,46 @@
   </div>
 </template>
 <script>
+import { getInvestmentPersonPage, getMyPerson } from '@/api/fams/investment'
 import MyData from './MyData'
+import MyInvestment from './MyInvestment'
+import Recommend from './Recommend'
+import { mapGetters } from 'vuex'
+import mixins from '@/mixins/mixins'
+const columnsMap = [
+  {
+    prop: 'updateTime',
+    label: '日期',
+  },
+  {
+    prop: 'orgName',
+    label: '投资组织',
+  },
+  {
+    prop: 'status',
+    label: '状态',
+    type: 'dict',
+  },
+  {
+    prop: 'remarks',
+    label: '备注',
+  },
+]
+const dictsMap = {
+  status: {
+    1: '待审核',
+    2: '审核通过',
+    3: '审核驳回',
+  },
+}
 export default {
-  components: { MyData },
+  components: { MyData, MyInvestment, Recommend },
   data () {
     return {
+      pagination:{},
+      pagedTable: [],
+      columnsMap,
+      dictsMap,
       bodyStyle: {
         display: 'flex',
         flexDirection: 'column',
@@ -85,8 +106,8 @@ export default {
       },
       financialData: {
         '投资金额': 0,
-        '收益金额': 0,
-        '投资排名': 0,
+        '收益金额': 2,
+        '投资排名': 59,
       },
       tableData: [{
         date: '2016-05-02',
@@ -106,6 +127,28 @@ export default {
         address: '上海市普陀区金沙江路 1516 弄',
       }],
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
+  mixins:[mixins],
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    loadPage (param = this.searchForm) {
+      this.loadTable({ status: this.status, ...param, userId: this.userInfo.userId }, getInvestmentPersonPage)
+      getMyPerson().then(({ data }) => {
+        this.financialData['投资金额'] = data.data
+      })
+    },
+    handleDetail (row) {
+      this.$router.push({
+        path: `/app/wealth/wealth_details/${row.investmentId}`,
+      })
+    },
   },
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :title="methodName" :dialog-show="dialogShow" width="520px" @close="close">
-    <el-form :model="form" size="small" label-width="140px">
+    <el-form class="form-detail" :model="form" size="small" label-width="140px">
       <el-form-item label="父公司：" v-if="!!form.parentId">
         <iep-div-detail :value="form.parentName"></iep-div-detail>
       </el-form-item>

@@ -16,8 +16,8 @@ const notify = {
   actions: {
     UpdatePushNotify ({ commit }, data) {
       const {notifyBody, body} = pushNotify(data)
-      commit('updateNotify', { key: notifyBody.listName, value: body.msg })
-      commit('updateNotify', { key: notifyBody.numName, value: body.num })
+      commit('updateNotify', { key: notifyBody.listName, value: body.msgList })
+      commit('updateNotify', { key: notifyBody.numName, value: body.msgNum })
     },
     SetNotify ({ commit }, data) {
       for (const key in data) {

@@ -34,7 +34,7 @@ import { getAnnouncementById } from '@/api/ims/announcement'
 import { initForm } from './options'
 export default {
   beforeRouteUpdate (to, from, next) {
-    console.log(to, from)
+    // console.log(to, from)
     this.$nextTick(() => {
       this.loadPage()
     })

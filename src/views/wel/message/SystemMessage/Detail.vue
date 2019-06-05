@@ -25,7 +25,7 @@ import MsgLink from './MsgLink'
 import { mapGetters } from 'vuex'
 export default {
   beforeRouteUpdate (to, from, next) {
-    console.log(to, from)
+    // console.log(to, from)
     this.$nextTick(() => {
       this.loadPage()
     })

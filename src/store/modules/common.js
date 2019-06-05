@@ -7,6 +7,7 @@ const common = {
     screen: -1,
     windowSize: {width: 0, height: 0},
     isWelcome: getStore({ name: 'isWelcome' }) || false,
+    isExperimental: getStore({ name: 'isExperimental' }) || false,
     isLock: getStore({ name: 'isLock' }) || false,
     showCollapse: getStore({ name: 'showCollapse' }) || false,
     showSearch: getStore({ name: 'showSearch' }) || false,
@@ -23,6 +24,13 @@ const common = {
       setStore({
         name: 'isWelcome',
         content: state.isWelcome,
+      })
+    },
+    SET_EXPERIMENTAL: state => {
+      state.isExperimental = !state.isExperimental
+      setStore({
+        name: 'isExperimental',
+        content: state.isExperimental,
       })
     },
     SET_COLLAPSE: state => {

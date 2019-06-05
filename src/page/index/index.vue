@@ -1,6 +1,6 @@
 <template>
   <div class="avue-contail">
-    <im-ui v-if="$store.getters.userInfo.userId != 1" v-show="false"></im-ui>
+    <im-ui v-if="$store.getters.userInfo.userId != 1" v-show="isExperimental"></im-ui>
     <el-container style="height: 100vh;">
       <el-header style="height: 60px;padding: 0;z-index: 500;">
         <!-- 顶部导航栏 -->
@@ -29,7 +29,7 @@
 <script>
 import displayMixins from '@/mixins/displayMixins'
 import DialogGroup from './DialogGroup'
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import top from './top/'
 import sidebar from './sidebar/'
 //import admin from '@/util/admin'
@@ -58,24 +58,10 @@ export default {
       refreshTime: '',
     }
   },
-  created () {
-    //实时检测刷新token
-    // this.handleRefreshToken()
-  },
-  destroyed () {
-    // console.log("销毁")
-    // console.log(this.refreshTime)
-    clearInterval(this.refreshTime)
-    // this.disconnect()
-  },
-  mounted () {
-    this.init()
-    this.LoadAllDictMap()
-    this.LoadContactsPyGroup()
-    this.LoadFamsConfig()
-    // this.initWebSocket()
-  },
   computed: {
+    ...mapState({
+      isExperimental: state => state.common.isExperimental,
+    }),
     ...mapGetters([
       'userInfo',
       'isLock',
@@ -92,6 +78,23 @@ export default {
         return '64px'
       }
     },
+  },
+  created () {
+    //实时检测刷新token
+    // this.handleRefreshToken()
+  },
+  destroyed () {
+    // console.log("销毁")
+    // console.log(this.refreshTime)
+    clearInterval(this.refreshTime)
+    // this.disconnect()
+  },
+  mounted () {
+    this.init()
+    this.LoadAllDictMap()
+    this.LoadContactsPyGroup()
+    this.LoadFamsConfig()
+    // this.initWebSocket()
   },
   methods: {
     ...mapActions(['LoadAllDictMap', 'LoadContactsPyGroup', 'LoadFamsConfig', 'RefreshToken']),

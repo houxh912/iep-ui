@@ -15,7 +15,7 @@ const notifyTypeMap = {
   5: {
     isPush: false,
     listName: 'systemMessageList',
-    numName: 'systemMessage',
+    numName: 'systemMessageNum',
   },
   6: {
     isPush: true,
@@ -39,7 +39,7 @@ const notifyTypeMap = {
     notifyDesc: '收到一条系统消息，点击查看',
     notifyPath: '/ims_spa/system_message_detail',
     listName: 'systemMessageList',
-    numName: 'systemMessage',
+    numName: 'systemMessageNum',
   },
 }
 

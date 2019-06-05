@@ -4,7 +4,7 @@ const columnsMap = [
   { label: '联系记录', prop: 'contactRecord' },
 ]
 const visitColumnsMap = [
-  { label: '拜访主题', prop: 'title', width: 400 },
+  // { label: '拜访主题', prop: 'title', width: 400 },
   { label: '拜访时间', prop: 'meetingTime' },
   // { label: '类型', prop: 'contactRecord' },
 ]

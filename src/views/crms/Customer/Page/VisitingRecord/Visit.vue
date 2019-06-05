@@ -4,7 +4,7 @@
       <iep-button class="btn" type="primary" plain @click="handleAdd"><i class="el-icon-plus"></i>新增</iep-button>
     </operation-wrapper>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-      <el-table-column label="创建人" width="250px" v-if="record.collaborations.length !==0">
+      <!-- <el-table-column label="创建人" width="250px" v-if="record.collaborations.length !==0">
         <template slot-scope="scope">
           <div>
             <div class="line">
@@ -15,7 +15,18 @@
             </div>
           </div>
         </template>
-      </el-table-column>
+      </el-table-column> -->
+      <template slot="before-columns">
+        <el-table-column label="拜访主题">
+          <template slot-scope="scope">
+            <!-- <div @click="handleDetail(scope.row)" class="detail">{{scope.row.title}}</div> -->
+            <div class="custom-name">{{scope.row.title}}</div>
+            <el-col class="custom-tags">
+              <el-tag class="tag" type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index" @click="handleTagDetail(item)">{{item}}</el-tag>
+            </el-col>
+          </template>
+        </el-table-column>
+      </template>
       <el-table-column prop="operation" label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper v-if="scope.row.status===1">
@@ -220,6 +231,9 @@ export default {
       this.$emit('async')
       this.loadTable(param, getVisitListData)
     },
+    handleTagDetail (val) {
+      this.$openTagDetail(val)
+    },
   },
 }
 </script>
@@ -232,5 +246,20 @@ export default {
 .create-name {
   vertical-align: middle;
   padding-left: 5px;
+}
+.custom-tags {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0;
+  .el-tag {
+    margin-top: 5px;
+    margin-right: 5px;
+    height: 26px;
+    line-height: 26px;
+  }
+}
+.tag {
+  cursor: pointer;
 }
 </style>

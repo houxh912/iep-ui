@@ -24,6 +24,7 @@
     <div class="top-right">
       <top-search-icon></top-search-icon>
       <top-guide></top-guide>
+      <top-email></top-email>
       <top-message></top-message>
       <top-user></top-user>
     </div>
@@ -33,6 +34,7 @@
 import website from '@/const/website'
 import TopNavbar from './TopNavbar'
 import TopMessage from './TopMessage'
+import TopEmail from './TopEmail'
 import TopGuide from './TopGuide'
 import TopSearchIcon from './TopSearchIcon'
 import TopUser from './TopUser'
@@ -40,6 +42,7 @@ export default {
   components: {
     TopNavbar,
     TopMessage,
+    TopEmail,
     TopSearchIcon,
     TopGuide,
     TopUser,

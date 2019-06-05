@@ -1,11 +1,12 @@
 <template>
   <div class="leader-top">
     <el-card v-for="item in itemList" :key="item.id" shadow="hover">
-      <span class="info">
+      <span class="info" @click="handleClick(item)">
         <span class="sub-title">{{item.title}}</span><span class="time" :style="item.bgc">{{item.time}}</span>
       </span>
-      <span class="num">{{item.num}}</span>
+      <span class="num" @click="handleClick(item)">{{item.num}}</span>
     </el-card>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -16,6 +17,8 @@ export default {
       name: 'leader-top',
       itemList: [
         {
+          id:1,
+          routerPath:'visiting_log',
           title: '拜訪日志',
           time: '全年',
           num: '15',
@@ -24,40 +27,50 @@ export default {
           },
         },
         {
+          id:2,
+          routerPath:'staff_report',
           title: '员工周报',
-          time: '全年',
+          time: '本周',
           num: '530',
           bgc: {
             background: '#89c7d6',
           },
         },
         {
+          id:3,
+          routerPath:'staff_report',
           title: '员工月报',
-          time: '今日',
+          time: '本月',
           num: '188',
           bgc: {
             background: '#dbadad',
           },
         },
         {
+          id:4,
+          routerPath:'project_report',         
           title: '项目周报',
-          time: '今日',
+          time: '本周',
           num: '9',
           bgc: {
             background: '#d7ba9a',
           },
         },
         {
+          id:5,
+          routerPath:'origanaze_report',         
           title: '部门周报',
-          time: '今日',
+          time: '本周',
           num: '34',
           bgc: {
             background: '#89c7d6',
           },
         },
         {
+          id:6,
+          routerPath:'origanaze_report',
           title: '部门月报',
-          time: '今日',
+          time: '本月',
           num: '34',
           bgc: {
             background: '#dbadad',
@@ -65,6 +78,13 @@ export default {
         },
       ],
     }
+  },
+  methods: {
+    handleClick (row) {
+      this.$router.push({
+        path:`/wel/${row.routerPath}`,
+      })
+    },
   },
 }
 </script>
@@ -79,6 +99,7 @@ export default {
   .info,
   .num {
     display: block;
+    cursor: pointer;
   }
   .info {
     display: flex;
@@ -88,7 +109,7 @@ export default {
     border-bottom: 1px solid #eee;
   }
   .num {
-    padding-bottom: 10px;
+    padding: 10px;
     font-size: 24px;
     text-align: center;
   }
@@ -105,6 +126,9 @@ export default {
 </style>
 <style lang="css" scoped>
 .leader-top >>> .el-card__body {
-  padding: 10px;
+  padding: 0 15px;
+}
+.leader-top >>> .el-card {
+  padding: 0;
 }
 </style>

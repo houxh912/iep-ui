@@ -19,6 +19,8 @@ const dictsMap = {
 	  investmentMoneyType: '0',//支付方式（0国脉贝，1现金）
 		investmentId: '',//投资
 		orgId: '',//投资组织
+		targetAmount: 0,//目标金额
+		sharesUnivalent: 0,//每股单价
 	}
   }
   
@@ -28,11 +30,11 @@ const dictsMap = {
   }
   
   const rules = {
-	investmentNumber: [
-	  { type:'number', required: true, message: '输入的数量至少大于 0 ', trigger: 'blur', min: 1 },
+		investmentNumber: [
+		{ type:'number', required: true, message: '输入的股份数量至少大于 0', trigger: 'blur', min: 1 },
 	],
 	totalAmount: [
-	  { type:'number', required: true, message: '输入的金额至少大于 0 元', trigger: 'blur', min: 1 },
+	  { type:'number', required: true, message: '输入的金额至少大于或等于每股单价', trigger: 'blur', min: 1 },
 	],
 	investmentMoneyType: [
 	  { required: true, message: '请选择支付方式', trigger: 'blur' },

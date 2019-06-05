@@ -1,6 +1,6 @@
 <template>
   <div>
-    <iep-table class="dept-table" :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
+    <iep-table class="dept-table" :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" is-tree>
       <template slot="before-columns">
       </template>
     </iep-table>
@@ -14,14 +14,17 @@ const columnsMap = [
   {
     prop: 'updateTime',
     label: '日期',
+    width: '180px',
   },
   {
     prop: 'orgName',
     label: '投资组织',
+    width: '250px',
   },
   {
     prop: 'status',
     label: '状态',
+    width: '100px',
     type: 'dict',
   },
   {
@@ -31,9 +34,12 @@ const columnsMap = [
 ]
 const dictsMap = {
   status: {
-    1: '待审核',
-    2: '审核通过',
-    3: '审核驳回',
+    1:'待审核',
+    2:'通过',
+    3:'拒绝',
+    4:'上架',
+    5:'下架',
+    6:'结束',
   },
 }
 export default {
@@ -54,6 +60,11 @@ export default {
   methods: {
     loadPage (param = this.searchForm) {
       this.loadTable({ status: this.status, ...param }, getInvestmentPage)
+    },
+    handleDetail (row) {
+      this.$router.push({
+        path: `/app/wealth/wealth_details/${row.id}`,
+      })
     },
   },
 }

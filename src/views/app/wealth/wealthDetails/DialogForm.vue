@@ -2,10 +2,10 @@
   <iep-dialog :dialog-show="dialogShow" title="创建投资" width="500px" @close="loadPage">
     <el-form :model="form" size="small" ref="form" :rules="rules" label-width="120px">
       <iep-form-item label-name="股份数量" prop="investmentNumber">
-        <iep-input-number v-model="form.investmentNumber"></iep-input-number>
+        <iep-input-number v-model="form.investmentNumber" :max="form.allSharesNumber" :precision="0"></iep-input-number>
       </iep-form-item>
       <iep-form-item label-name="投资金额" prop="totalAmount">
-        <iep-input-number v-model="form.totalAmount"></iep-input-number>
+        <iep-input-number v-model="form.totalAmount" :precision="0"></iep-input-number>
       </iep-form-item>
       <iep-form-item label-name="支付方式" prop="investmentMoneyType">
         <el-radio-group v-model="form.investmentMoneyType" disabled>
@@ -78,6 +78,14 @@ export default {
         }
         this.$message(message)
       }
+    },
+  },
+  watch: {
+    'form.totalAmount': function (n) {
+      this.form.investmentNumber = Math.round( n / this.form.sharesUnivalent *100)/100
+    },
+    'form.investmentNumber': function (n) {
+      this.form.totalAmount = this.form.sharesUnivalent * n
     },
   },
 }

@@ -77,7 +77,8 @@ export default {
 .fund >>> .time .el-button {
   padding: 5px 20px;
 }
-.fund >>> .time .el-button.active {
+.fund >>> .time .el-button.active,
+.fund >>> .time .el-button:focus {
   border-color: #cb3737;
   color: #cb3737;
 }

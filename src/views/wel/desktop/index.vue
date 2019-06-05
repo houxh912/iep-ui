@@ -1,5 +1,6 @@
 <template>
-  <div class="desktop">
+<div>
+   <div class="desktop">
     <div class="full">
       <leader-top></leader-top>
     </div>
@@ -25,6 +26,7 @@
       <post-statistics></post-statistics>
     </div>
   </div>
+</div>
 </template>
 <script>
 import LeaderTop from './LeaderTop'
@@ -40,6 +42,8 @@ export default {
   data () {
     return {
     }
+  },
+  methods: {
   },
 }
 </script>

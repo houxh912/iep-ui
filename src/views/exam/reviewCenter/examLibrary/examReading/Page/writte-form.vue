@@ -29,21 +29,21 @@
             </li>
           </div> -->
 
-          <!-- <div>
+          <div>
             <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
               <el-input type="textarea" v-model="freeInput" style="width: 80%;margin-top:10px" :rows="6"></el-input>
               <el-input class="give-mark-two" v-model="freeInput"></el-input>
               <span style="margin-left:10px;">分</span>
             </li>
-          </div> -->
+          </div>
 
-          <div>
+          <!-- <div>
             <li v-for="(item,index) in operationList" :key="index" style="margin-left:28px;display:flex">
               <iep-froala-editor v-model="operation" style="width:80%"></iep-froala-editor>
               <el-input v-model="freeInput" class="give-mark-three"></el-input>
               <span style="margin-left:15px;margin-top:175px">分</span>
             </li>
-          </div>
+          </div> -->
 
           <div class="center" align="center">
             <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.questionNum === 1">上一题</iep-button>
@@ -95,7 +95,7 @@
   </div>
 </template>
 <script>
-import { getTestPageById } from '@/api/exam/testPage/subjectTest/examStart'
+import { passWrittenById } from '@/api/exam/examLibrary/examReading/examReading'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -142,7 +142,6 @@ export default {
   },
   created () {
     this.loadPage()
-    // console.log('33', this.formData.id)
   },
   methods: {
     /**
@@ -170,7 +169,7 @@ export default {
      * 获取题目的详细数据(公用请求方法)
      */
     getSubjectById (params) {
-      getTestPageById(params).then(res => {
+      passWrittenById(params).then(res => {
         this.resdata = res.data
         this.resdata.questionOffNum = res.data.questionNumList
         this.resdata.questionTotalNum = res.data.questionNumList.checkboxMap.length + res.data.questionNumList.checkedMap.length + res.data.questionNumList.radioMap.length + res.data.questionNumList.textMap.length
@@ -203,7 +202,7 @@ export default {
         currentQuestionNum: this.resdata.questionNum,
         questionNum: this.resdata.questionNum,
       }
-      // console.log('2e', params)
+      console.log('parmsss', params)
       this.getSubjectById(params)
     },
 
@@ -376,6 +375,7 @@ export default {
     .container {
       float: right;
       width: 280px;
+      margin-top: 20px;
       background: #fffbf6;
       border: 1px solid #ffdbc1;
       // background: linear-gradient(

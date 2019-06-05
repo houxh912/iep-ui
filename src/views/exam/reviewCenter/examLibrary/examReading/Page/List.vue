@@ -39,11 +39,8 @@
       <progress-form :formData="InterviewData" @close="loadPage()"></progress-form>
     </iep-dialog>
 
-    <!-- <iep-dialog :dialog-show="dialogWritten" title="笔试判分" width="550px" @close="loadPage()" center>
-      <writte-form :formData="InterviewData" @close="loadPage()"></writte-form>
-    </iep-dialog> -->
     <el-dialog class="titleDialogs" title="笔试判分" :visible.sync="dialogWritten" width="90%" @close="loadPage()">
-      <writte-form :formData="InterviewData" @close="loadPage()"></writte-form>
+      <writte-form :formData="InterviewData" v-if="dialogWritten" @close="loadPage()"></writte-form>
     </el-dialog>
 
     <iep-dialog :dialog-show="dialogChoice" title="选择题判分" width="550px" @close="loadPage()" center>
@@ -142,8 +139,9 @@ export default {
      * 笔试判分
      */
     handleWritten (row) {
-      this.dialogWritten = true
       this.InterviewData = { ...row }
+      this.dialogWritten = true
+      console.log('eee', row)
     },
 
     /**
@@ -152,6 +150,7 @@ export default {
     handleChoice (row) {
       this.dialogChoice = true
       this.InterviewData = { ...row }
+
     },
 
     /**
@@ -243,13 +242,9 @@ export default {
   }
 }
 </style>
-<style lang="scss">
-.titleDialogs {
-  .el-dialog {
-    .el-dialog__title {
-      display: none;
-    }
-  }
+<style scoped>
+.titleDialogs >>> .el-dialog__title {
+  display: none;
 }
 </style>
 

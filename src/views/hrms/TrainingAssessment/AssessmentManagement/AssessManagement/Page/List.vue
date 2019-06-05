@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import { getTemplatePage, deleteTemplateById, createTemplate } from '@/api/hrms/template'
+import { getTemplatePage, deleteTemplateById } from '@/api/hrms/template'
+import { createTemplate } from '@/api/hrms/cover'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initSearchForm } from '../options'
 import AddDialogForm from './AddDialogForm'

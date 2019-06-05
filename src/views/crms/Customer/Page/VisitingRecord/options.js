@@ -145,6 +145,7 @@ export const initFormData = () => {
     visitType: -1,
     visitingAddress: '',
     visitingUserId: [],
+    visitingUser: [],
     status: 0,
     projectIds: [],
     projectList: [],

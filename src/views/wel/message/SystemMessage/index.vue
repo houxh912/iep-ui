@@ -20,7 +20,7 @@
           <iep-read-mark-del :enableList="[true, true, false]" @on-view-batch="handleViewBatch"></iep-read-mark-del>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" prop="title">
             <!-- <advance-search @search-page="searchPage"></advance-search> -->
           </operation-search>
         </template>

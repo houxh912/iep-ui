@@ -6,7 +6,6 @@
       </el-breadcrumb>
     </div>
     <div class="wealth" v-if="'/app/wealth'==routerMatch[routerMatch.length-1].path">
-      <menus @change_page="changePage"></menus>
       <div class="library">
         <librarys ref="librarys"></librarys>
       </div>
@@ -21,14 +20,13 @@
   </div>
 </template>
 <script>
-import Menus from './Menus'
 import Librarys from './Librarys/'
 import Ranking from './Ranking/'
 import { getRectagsList } from '@/api/app/tms/index'
 import { getGuessList } from '@/api/app/mlms/index'
 
 export default {
-  components: { Menus, Librarys, Ranking },
+  components: { Librarys, Ranking },
   data () {
     return {
       listTitle: '猜你想找',
@@ -82,10 +80,7 @@ export default {
   border-top: 1px solid #eee;
   display: grid;
   grid-auto-flow: row dense;
-  grid-template-columns: minmax(100px, 220px) minmax(100px, 680px) minmax(
-      100px,
-      300px
-    );
+  grid-template-columns: minmax(100px, 900px) minmax(100px, 300px);
 }
 .el-card {
   border: 0;

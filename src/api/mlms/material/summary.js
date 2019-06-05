@@ -9,6 +9,14 @@ export function getTableData (obj) {
     params: obj,
   })
 }
+// 根据客户id获取拜访纪要分页
+export function getVisitListData (obj) {
+  return request({
+    url: `${prefixUrl}/page/visitList`,
+    method: 'get',
+    params: obj,
+  })
+}
 
 // 我发布的
 export function getTablePersonal (obj) {
@@ -72,6 +80,8 @@ export function deleteData (ids) {
   })
 }
 
+
+
 // 收藏
 export function createCollect (obj) {
   return request({
@@ -120,5 +130,13 @@ export function getCount (obj) {
     url: `${prefixUrl}/getCount`,
     method: 'post',
     data: obj,
+  })
+}
+//删除关联客户拜访日志
+export function deleteVisitLog (id) {
+  return request({
+    url: `${prefixUrl}/deleteRelation/batch`,
+    method: 'post',
+    data: [id],
   })
 }

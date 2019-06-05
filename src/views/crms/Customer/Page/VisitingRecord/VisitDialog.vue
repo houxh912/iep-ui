@@ -13,9 +13,9 @@
       <!-- <el-form-item label="拜访对象：" prop="visitingUserId" v-if="formData.type == 1">
           <iep-select prefix-url="crm/customer" v-model="formData.visitingUserId" multiple></iep-select>
         </el-form-item> -->
-      <el-form-item label="拜访对象：" prop="visitingUserId" v-if="formData.type == 1">
+      <!-- <el-form-item label="拜访对象：" prop="visitingUserId" v-if="formData.type == 1">
         <IepCrmsSelectMultiple v-model="formData.visitingUserId" :option="formData.visitingUser" prefixUrl="crm/customer/all/list"></IepCrmsSelectMultiple>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item :label="`${formData.type == 0 ? '会议主题 ':'会议标题'}：`" prop="title">
         <el-input v-model="formData.title" maxlength="50" :placeholder="tipContent.title"></el-input>
       </el-form-item>
@@ -116,7 +116,7 @@
 <script>
 import { initFormData, dictsMap, rules, tipContent } from './options'
 import { mapGetters } from 'vuex'
-import { getCustomerPage } from '@/api/crms/customer'
+// import { getCustomerPage } from '@/api/crms/customer'
 import { meetingSend } from '@/api/mlms/material/summary'
 import { createVisitLog } from '@/api/crms/visiting_record'
 import projectDialog from './projectDialog'
@@ -135,6 +135,8 @@ export default {
       methodType: 'create',
       formData: initFormData(),
       rules,
+      id: '',
+      name: '',
       clientList: [],
       backOption: {
         isBack: true,
@@ -219,16 +221,20 @@ export default {
       } else {
         this.formData.projectIds = []
       }
+      this.formData.visitingUserId = [this.id]
       // 发送链接
       this.formRequestFn(this.formData).then(({ data }) => {
         // 新建纪要及修改草稿，自动发送
         let id = this.methodType == 'create' ? data.data : this.formData.id
+
         this.loadState = false
         if (this.formData.status == 0 && this.formData.isSend == 1) {
           meetingSend(id).then(({ data }) => {
             if (data.data) {
               this.$message.success('您成功发送一篇会议纪要，继续加油！')
-              this.goBack(true)
+              // this.goBack(true)
+              this.$emit('load-page')
+              this.dialogShow = false
             } else {
               this.$message.error('当前网络异常，请稍后再试！')
             }
@@ -238,7 +244,9 @@ export default {
             message: `${this.methodName}成功`,
             type: 'success',
           })
-          this.goBack(true)
+          // this.goBack(true)
+          this.$emit('load-page')
+          this.dialogShow = false
         }
       })
     },
@@ -288,9 +296,11 @@ export default {
   },
   created () {
     // 获取客户的数据
-    getCustomerPage({ type: 1 }).then(({ data }) => {
-      this.clientList = data.data.records
-    })
+    // getCustomerPage({ type: 1 }).then(({ data }) => {
+    //   this.clientList = data.data.records
+    // })
+    this.formData.visitingUserId = [this.id]
+    this.formData.visitingUser = [{ id: this.id, name: this.name }]
   },
 }
 </script>

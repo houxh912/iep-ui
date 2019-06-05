@@ -23,14 +23,14 @@
         <template slot="before-columns">
           <el-table-column prop="company" label="组织名" width="250">
             <template slot-scope="scope">
-              <iep-table-link-img-desc :img="scope.row.orgLogo" :name="scope.row.orgName" v-on:m-click="handleDetail"></iep-table-link-img-desc>
+              <iep-table-link-img-desc :img="scope.row.orgLogo" :name="scope.row.orgName" v-on:m-click="handleDetail(scope.row)"></iep-table-link-img-desc>
             </template>
           </el-table-column>
         </template>
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===1" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button v-if="scope.row.status===1 || scope.row.status===5" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="scope.row.status===2 || scope.row.status===5" @click="handleUp(scope.row)">上架</iep-button>
               <iep-button v-if="scope.row.status===4" @click="handleDown(scope.row)">下架</iep-button>
             </operation-wrapper>
@@ -96,7 +96,7 @@ export default {
     },
     handleDetail (row) {
       this.$router.push({
-        path: `/fams_spa/management_detail/${row.id}`,
+        path: `/app/wealth/wealth_details/${row.id}`,
       })
     },
     loadPage (param = this.searchForm) {

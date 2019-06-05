@@ -164,6 +164,10 @@
             <iep-tag v-model="form.learningTag"></iep-tag>
           </iep-form-item>
 
+          <iep-form-item prop="signature" label-name="个性签名" tip="个性签名">
+            <iep-input-area v-model="form.signature"></iep-input-area>
+          </iep-form-item>
+
           <iep-form-item prop="careerPlanning" label-name="职业规划" tip="请清晰罗列自己未来三年的职业规划，如能详细描述更好">
             <iep-input-area v-model="form.careerPlanning"></iep-input-area>
           </iep-form-item>

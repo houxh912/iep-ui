@@ -1,44 +1,47 @@
 import { mergeByFirst } from '@/util/util'
-// org config options
-const dictsMap = {
-  status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
-  },
-}
 
 const columnsMap = [
   {
-    prop: 'ruler',
+    prop: 'ruleName',
     label: '规则名称',
+  },
+  {
+    prop: 'number',
+    label: '规则编码',
   },
   {
     prop: 'action',
     label: '动作',
+    type: 'dictGroup',
+    dictName: 'fams_wealth_action',
   },
   {
-    prop: 'attribute',
-    label: '属性',
-  },
-  {
-    prop: 'govValue',
+    prop: 'score',
     label: '国脉贝值',
   },
   {
-    prop: 'govUpper',
-    label: '上限国脉贝',
+    prop: 'dailyLimit',
+    label: '每日上限次数',
   },
   {
-    prop: 'accumulatedApply',
+    prop: 'totalExpenditure',
     label: '累计支出',
+  },
+  {
+    prop: 'remarks',
+    label: '描述',
   },
 ]
 
 const initForm = () => {
   return {
-    isOpen: false,
-    intro: '',
+    ruleName: '',
+    number: '',
+    score: '',
+    action: '',
+    dailyLimit: '',
+    totalExpenditure: '',
+    remarks: '',
   }
 }
 
@@ -70,4 +73,4 @@ const initSearchForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initForm, formToDto, initSearchForm }
+export { columnsMap, initForm, formToDto, initSearchForm }

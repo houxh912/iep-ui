@@ -19,11 +19,11 @@
     </el-form-item>
 
     <iep-form-item class="form-half" prop="name" label-name="姓名" tip="请务必根据本人身份证上的姓名全称填写">
-      <el-input v-model="form.name" dict-name="hrms_marriage_status"></el-input>
+      <el-input v-model="form.name"></el-input>
     </iep-form-item>
 
     <iep-form-item class="form-half" prop="staffId" label-name="工号">
-      <el-input v-model="form.staffId" dict-name="hrms_marriage_status"></el-input>
+      <el-input v-model="form.staffId"></el-input>
     </iep-form-item>
 
     <iep-form-item class="form-half" prop="identityMark" label-name="身份标志">

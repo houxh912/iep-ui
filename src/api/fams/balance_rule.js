@@ -16,3 +16,26 @@ export function addBellBalanceRuleByNumber (number) {
     method: 'get',
   })
 }
+
+export function getBellBalancePage (query) {
+  return request({
+    url: `${prefixUrl}/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getBellBalanceById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}
+
+export function putBellBalance (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}

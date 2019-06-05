@@ -23,7 +23,7 @@
             <span v-if="readOnly===false" class="el-icon-close" @click="deletePaper(index)"></span>
           </div>
           <div class="body">
-            <el-form label-width="50px">
+            <el-form label-width="50px" :inline="true">
               <div class="dt_div">
                 <el-form-item label="科目:">
                   <el-select v-model="item.field" size="mini" disabled>
@@ -43,7 +43,7 @@
                     <el-option value="1" label="随机选题"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label-width="530px">
+                <el-form-item style="float:right">
                   <iep-button type="primary" @click="questionButton(index)" :disabled="readOnly">试题配置</iep-button>
                 </el-form-item>
               </div>
@@ -51,10 +51,10 @@
                 <el-form-item label="简单:">
                   <el-input v-model="item.simpleNum" size="mini" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="普通:" label-width="60px">
+                <el-form-item label="普通:">
                   <el-input v-model="item.middleNum" size="mini" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="困难:" label-width="60px">
+                <el-form-item label="困难:">
                   <el-input v-model="item.hardNum" size="mini" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="共">
@@ -64,35 +64,34 @@
                 </el-form-item>
               </div>
               <div class="dt_div">
-                <el-form-item label="每题:" style="width:150px">
-                  <el-input v-model="item.single" size="mini" readonly>
+                <el-form-item label="每题:">
+                  <el-input v-model="item.single" size="mini" readonly style="width:150px">
                     <template slot="append">分</template>
                   </el-input>
                 </el-form-item>
-                <el-form-item label="共:" style="width:160px">
-                  <el-input size="mini" readonly :value="item.total * item.single">
+                <el-form-item label="共:">
+                  <el-input size="mini" readonly :value="item.total * item.single" style="width:160px">
                     <template slot="append">分</template>
                   </el-input>
                 </el-form-item>
-                <el-form-item label="打分方式:" style="width:300px" label-width="100px" v-if="item.type==2">
+                <el-form-item label="打分方式:" label-width="90px" v-if="item.type==2">
                   <el-radio-group v-model="item.scoringMethod">
                     <el-radio label="0" disabled>系统判定</el-radio>
                     <el-radio label="1" disabled>人工阅卷</el-radio>
                   </el-radio-group>
                 </el-form-item>
-                <el-form-item style="width:150px" label-width="30px" v-if="item.type==2 || item.type==3">
+                <el-form-item style="margin-left:20px" v-if="item.type==2 || item.type==3">
                   <el-checkbox v-model="item.marker" label="指定阅卷老师" disabled></el-checkbox>
                 </el-form-item>
-                <el-form-item style="width:150px" v-if="item.type==3" label-width="30px">
+                <el-form-item style="margin-left:20px" v-if="item.type==3">
                   <el-switch active-text="多选模式" v-model="item.multipleSelection" disabled
                     :active-value="1" :inactive-value="0"></el-switch>
                 </el-form-item>
               </div>
 
-              <div class="dt_div" v-if="item.type==3">
-                <el-form-item label="题型:" style="width:100%">
-                  <iep-input-area :autosize={minRows:2,maxRows:6} style="width:100%" readonly
-                    v-model="item.qstnDescribe"></iep-input-area>
+              <div class="dt_div">
+                <el-form-item label="题型:" style="width: 100%;" class="qstnDescribeArea">
+                  <iep-input-area :autosize={minRows:2,maxRows:6} readonly v-model="item.qstnDescribe"></iep-input-area>
                 </el-form-item>
               </div>
 
@@ -134,17 +133,14 @@
       <el-button style="margin-left: 8px" @click="handlePrev" v-if="isEdit==false">
         上一步
       </el-button>
-      <el-button type="primary" @click="handleNext" v-if="readOnly">
-        下一步
-      </el-button>
       <el-button type="primary" :loading="submitLoading" :disabled="submitDisabled===false" @click="handleSubmit"
-        v-else>
+        v-if="readOnly===false">
         配置完成
       </el-button>
 
     </template>
     <el-dialog title="试题配置" :visible.sync="questionConfiguration" :close-on-click-modal="false"
-      width="700px" @close="questionConfiguration=false">
+      width="700px" @close="questionClose">
       <el-form ref="form" :model="form" label-width="100px" :rules="rules">
         <el-form-item label="科目" prop="field">
           <el-select v-model="form.field" clearable placeholder="请选择科目" @change="fieldChang">
@@ -352,8 +348,13 @@ export default {
       return paperNum
     },
   },
-  created () {
-    this.getTestOption()
+  watch: {
+    'data': {
+      handler () {
+        this.getTestOption()
+      },
+      immediate: true,
+    },
   },
   methods: {
     /**
@@ -396,12 +397,13 @@ export default {
       this.iepTestPaperIndex = index
       if (index != undefined) {
         this.form = { ...this.iepQstnRuleList[index] }
+        this.count()
       } else {
         this.$nextTick(function () {
           this.$refs['form'].resetFields()
         })
       }
-      this.count()
+
     },
 
     /**
@@ -545,13 +547,6 @@ export default {
     },
 
     /**
-     *下一步 
-     */
-    handleNext () {
-      this.$emit('on-data', { ...this.data })
-    },
-
-    /**
      * 配置完成
      */
     async handleSubmit () {
@@ -567,7 +562,6 @@ export default {
           this.choiceType = []
           this.iepQstnRuleList = []
           this.submitDisabled = false
-          console.log('data.data', data.data)
           this.$emit('on-data', data.data)
         } else {
           this.$message(data.msg)
@@ -576,6 +570,17 @@ export default {
         this.$message('似乎出现了一些问题')
       }
       this.submitLoading = false
+    },
+
+    /**
+     * 关闭弹窗
+     */
+    questionClose () {
+      this.questionConfiguration = false
+      this.totalNum.simpleTotalNum = ''
+      this.totalNum.middleTotalNum = ''
+      this.totalNum.hardTotalNum = ''
+      this.$refs['form'].resetFields()
     },
   },
 }
@@ -611,17 +616,13 @@ span {
       padding: 0px 25px;
       font-size: 16px;
       .dt_div {
-        display: flex;
         border-bottom: 1px solid #c0c4cc;
         padding: 10px 0px;
-        &:first-child {
-          .el-form-item {
-            width: 200px;
-          }
-        }
         &:nth-child(2) {
           .el-form-item {
-            width: 150px;
+            .el-input {
+              width: 100px;
+            }
           }
         }
         &:last-child {
@@ -647,5 +648,10 @@ span {
       }
     }
   }
+}
+</style>
+<style  scoped>
+.qstnDescribeArea >>> .el-form-item__content {
+  width: 95%;
 }
 </style>

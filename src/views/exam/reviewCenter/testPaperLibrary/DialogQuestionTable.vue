@@ -70,7 +70,7 @@ const columnsMap = [
 ]
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from '../testQuestionsLibrary/Page/AdvanceSearch'
-import { getTestList } from '@/api/exam/createExam/newTest/newTest'
+import { getPaperTest } from '@/api/examPaper/examPaperApi'
 import uniqBy from 'lodash/uniqBy'
 export default {
   props: ['value', 'questionType', 'fieldType'],
@@ -129,7 +129,7 @@ export default {
     * 获取试题数据
     */
     loadPage (param = this.searchForm) {
-      this.loadTable({ ...param }, getTestList)
+      this.loadTable({ ...param }, getPaperTest)
     },
 
     /**

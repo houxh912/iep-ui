@@ -68,9 +68,6 @@ export default {
       },
     }
   },
-  created () {
-    this.loadPage()
-  },
 }
 </script>
 <style lang="scss" scoped>

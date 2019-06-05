@@ -50,6 +50,26 @@ export default [
         name: '领导桌面',
         component: () => import('@/views/wel/desktop/index'),
       },
+      {
+        path:'visiting_log',
+        name:'拜訪日志',
+        component: () => import('@/views/wel/desktop/VisitingLog/index'),     
+      },
+      {
+        path:'project_report',
+        name:'项目周报',
+        component: () => import('@/views/wel/desktop/ProjectReport/index'),     
+      },
+      {
+        path:'staff_report',
+        name:'员工周月报',
+        component: () => import('@/views/wel/desktop/StaffReport/index'),     
+      },
+      {
+        path:'origanaze_report',
+        name:'组织周月报',
+        component: () => import('@/views/wel/desktop/OriganazeReport/index'),     
+      },
     ],
   },
 ]

@@ -34,9 +34,12 @@ const columnsMap = [
 ]
 const dictsMap = {
   status: {
-    1: '待审核',
-    2: '审核通过',
-    3: '审核驳回',
+    1:'待审核',
+    2:'通过',
+    3:'拒绝',
+    4:'上架',
+    5:'下架',
+    6:'结束',
   },
 }
 export default {

@@ -43,10 +43,7 @@
             <div slot="header" class="clearfix">
               <h2>我的投资</h2>
             </div>
-            <iep-table class="dept-table" :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
-              <template slot="before-columns">
-              </template>
-            </iep-table>
+            <my-investment></my-investment>
           </el-card>
         </div>
         <div class="grid-item-4">
@@ -54,25 +51,7 @@
             <div slot="header" class="clearfix">
               <h2>推荐投资</h2>
             </div>
-            <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" is-mutiple-selection is-tree>
-              <template slot="before-columns">
-                <el-table-column label="日期">
-                  <template slot-scope="scope">
-                    {{scope.row.updateTime}}
-                  </template>
-                </el-table-column>
-                <el-table-column label="姓名">
-                  <template slot-scope="scope">
-                    {{scope.row.userName}}
-                  </template>
-                </el-table-column>
-                <el-table-column label="投资组织">
-                  <template slot-scope="scope">
-                    {{scope.row.orgName}}
-                  </template>
-                </el-table-column>
-              </template>
-            </iep-table>
+            <recommend></recommend>
           </el-card>
         </div>
       </div>
@@ -82,6 +61,8 @@
 <script>
 import { getInvestmentPersonPage, getMyPerson } from '@/api/fams/investment'
 import MyData from './MyData'
+import MyInvestment from './MyInvestment'
+import Recommend from './Recommend'
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
 const columnsMap = [
@@ -111,7 +92,7 @@ const dictsMap = {
   },
 }
 export default {
-  components: { MyData },
+  components: { MyData, MyInvestment, Recommend },
   data () {
     return {
       pagination:{},

@@ -36,7 +36,7 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <iep-review-confirm ref="iepReviewForm"></iep-review-confirm>
+    <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
   </div>
 </template>
 <script>

@@ -218,6 +218,7 @@ export const tipContent2 = {
 //考试表单字段
 export function examForm () {
   return {
+    id: '',//考试Id
     title: '',//考试名称
     field: '',//考试科目
     signBeginTime: initNow(),//考试报名开始时间
@@ -232,16 +233,15 @@ export function examForm () {
     description: '',//考试说明
     showResult: '',//考完后是否显示成绩
     showAnswer: '',//考完后是否显示答案和解析
-    showPlace: '',//考完后是否显示名次
     showComment: '',//是否显示面试评语
-    onclidingRemarks: '',//考试结束语
+    oncludingRemarks: '',//考试结束语
     testPaperId: '',//试卷库id
     iepCertiFicate: [],//证书信息
-    // iepExaminationOperate: {
-    operateUserids: [],
-    writeUserids: [],
-    faceUserIds: [],
-    // },
+    examRoleId: '',//权限id
+    operateUserids: [],//报名管理&考卷管理列表
+    writeUserids: [],//试卷审阅权限列表
+    faceUserIds: [],//面试判分权限列表
+
 
   }
 
@@ -285,7 +285,7 @@ export const examFormRules = {
   description: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
-  onclidingRemarks: [
+  oncludingRemarks: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
   operateUserids: [
@@ -301,6 +301,7 @@ export const examFormRules = {
 
 export const selfToVo = (row) => {
   const newForm = mergeByFirst(examForm(), row)
+  newForm.examRoleId = row.iepExaminationOperateVO.id
   newForm.operateUserids = row.iepExaminationOperateVO.operateUsersArly || []
   newForm.writeUserids = row.iepExaminationOperateVO.writeUsedAiry || []
   newForm.faceUserIds = row.iepExaminationOperateVO.faceUserIdsAiry || []
@@ -314,9 +315,14 @@ export const toDtoForm = (row) => {
   var newForm = { ...row }
   newForm.iepCertiFicate = row.iepCertiFicate[0]
   newForm.iepExaminationOperate = {}
+  newForm.iepExaminationOperate.id = row.examRoleId
   newForm.iepExaminationOperate.faceUserIds = row.faceUserIds.map(m => m.id).join(',')
   newForm.iepExaminationOperate.operateUserids = row.operateUserids.map(m => m.id).join(',')
   newForm.iepExaminationOperate.writeUserids = row.writeUserids.map(m => m.id).join(',')
   newForm.consume = parseInt(row.consume)
+  delete newForm.examRoleId
+  delete newForm.faceUserIds
+  delete newForm.operateUserids
+  delete newForm.writeUserids
   return newForm
 }

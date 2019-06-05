@@ -1,7 +1,7 @@
 <template>
   <el-form :model="form" label-width="80px" size="mini">
     <el-form-item label="内容：">
-      <el-input v-model="form.title"></el-input>
+      <el-input v-model="form.title" clearable></el-input>
     </el-form-item>
     <el-form-item label="难度">
       <el-select v-model="form.questionType" placeholder="请选择难度" clearable>

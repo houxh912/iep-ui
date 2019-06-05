@@ -50,7 +50,7 @@ export default {
   created () {
   },
   methods: {
-      /**
+    /**
      * 关闭报名弹窗
      */
     handleDialogCancel (){
@@ -74,7 +74,7 @@ export default {
       // let post = Object.assign(examinationId,qualificationsurl)
       // console.log(post)
       this.form.examinationId = this.examId
-      console.log(JSON.stringify(this.form))
+      // console.log(JSON.stringify(this.form))
       // let postSingleBothForm = {}
       // postSingleBothForm = JSON.stringify(this.form)
       const params = {
@@ -89,8 +89,8 @@ export default {
             type: 'success',
           }),
         setTimeout(() => {
-          this.$emit('closed')
-        }, 450)
+          this.$emit('reload')
+        }, 350)
       )
     },
   },

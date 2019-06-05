@@ -22,6 +22,11 @@
       @selection-change="selectionChange"
       is-mutiple-selection
       is-index>
+      <el-table-column prop="remainingTime" label="剩余时间">
+        <template slot-scope="scope">
+            {{scope.row.remainingTime | setTime}}
+          </template>
+        </el-table-column>
       <el-table-column prop="state" label="状态">
         <template slot-scope="scope">
           <el-tag type="warning" size="medium" v-if="scope.row.state === 1">未交卷</el-tag>
@@ -66,10 +71,10 @@ const columnsMap = [
     label: '面试人',
     prop: 'interviewerName',
   },
-  {
-    label: '剩余时间',
-    prop: 'remainingTime',
-  },
+  // {
+  //   label: '剩余时间',
+  //   prop: 'remainingTime',
+  // },
 ]
 export default {
   mixins: [mixins],
@@ -82,6 +87,14 @@ export default {
       selectValue: false,
       selectionValue: {},
     }
+  },
+  filters: {
+    setTime (val){
+      // console.log('val => ',val)
+      var str = new Array()
+      str = val.split('-')
+      return str[0] + ' : ' + str[1]
+    },
   },
   created () {
     this.loadPage()

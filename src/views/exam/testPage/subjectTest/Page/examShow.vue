@@ -5,12 +5,24 @@
       <el-form :model="searchForm">
         <el-form-item label="科目：" prop="field">
           <el-radio-group size="small" v-model="searchForm.field" style="width: 90%;">
-            <el-radio-button v-for="item in res.exms_subjects" :key="item.value" :label="item.label" :value="item.value" @change.native="handleSubject (item)"></el-radio-button>
+            <el-radio-button
+              v-for="item in res.exms_subjects"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+              @change.native="handleSubject (item)">
+            </el-radio-button>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="状态：" prop="states" class="statesShow">
           <el-radio-group size="small" v-model="searchForm.states">
-            <el-radio-button v-for="item in states" :key="item.value" :label="item.label" :value="item.value" @change.native="handleStates (item)"></el-radio-button>
+            <el-radio-button
+              v-for="item in states"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+              @change.native="handleStates (item)">
+            </el-radio-button>
           </el-radio-group>
         </el-form-item>
       </el-form>
@@ -41,19 +53,19 @@
                         <div v-if="item.examStatus === 2" class="title" style="float:left;">已有 {{item.totalExam}} 人完成考试</div>
                         <div class="title" style="float:right;text-align:right;">
                           <div class="circleG" v-if="item.examStatus === 0 && item.status !== 1"></div>
-                          <div style="font-size: 13px;padding-left: 15px;" v-if="item.examStatus === 0 && item.status !== 1 ">已报名</div>
+                          <div class="states" v-if="item.examStatus === 0 && item.status !== 1 ">已报名</div>
 
                           <div class="circleR" v-if="item.status === 1"></div>
-                          <div style="font-size: 13px;padding-left: 15px;" v-if="item.status === 1">进行中</div>
+                          <div class="states" v-if="item.status === 1">进行中</div>
 
                           <div class="circleY" v-if="item.examStatus === 5"></div>
-                          <div style="font-size: 13px;padding-left: 15px;" v-if="item.examStatus === 5">未报名</div>
+                          <div class="states" v-if="item.examStatus === 5">未报名</div>
 
                           <div class="circleGray" v-if="item.examStatus === 4"></div>
-                          <div style="font-size: 13px;padding-left: 15px;" v-if="item.examStatus === 4">已结束</div>
+                          <div class="states" v-if="item.examStatus === 4">已结束</div>
 
                           <div class="circleB" v-if="item.examStatus === 2"></div>
-                          <div style="font-size: 13px;padding-left: 15px;" v-if="item.examStatus === 2">已完成</div>
+                          <div class="states" v-if="item.examStatus === 2">已完成</div>
                         </div>
                       </div>
                       <div class="handleButton">
@@ -77,7 +89,7 @@
         </div>
       </div>
     </basic-container>
-    <sign-dialog ref="SignDialog" @closed="load"></sign-dialog>
+    <sign-dialog ref="SignDialog" @reload="reload"></sign-dialog>
   </div>
 </template>
 
@@ -125,6 +137,20 @@ export default {
         current: 1,
         size: 12,
       },
+      reloadPaginationOption: {
+        current: 1,
+        size: 12,
+      },
+      reloadPageOption: {
+        field: null,
+        state: null,
+        current: 1,
+        size: 12,
+      },
+      choosedPaginationOption: {
+        current: 1,
+        size: 12,
+      },
     }
   },
   created () {
@@ -141,11 +167,11 @@ export default {
       this.load()
     },
     /**
-     * 科目点击
+     * 选择科目
      */
     handleSubject (item) {
-      this.pageOption.field = item.value
-      getTestList({ ...this.pageOption, ...this.paginationOption }).then(response => {
+      this.pageOption.field = item.id
+      getTestList({ ...this.pageOption, ...this.choosedPaginationOption }).then(response => {
         const { records, size, total, current } = response.data.data
         this.testListRes = records
         this.total = total
@@ -157,11 +183,11 @@ export default {
       })
     },
     /**
-     * 状态点击
+     * 选择状态
      */
     handleStates (item) {
       this.pageOption.state = item.value
-      getTestList({ ...this.pageOption, ...this.paginationOption }).then(response => {
+      getTestList({ ...this.pageOption, ...this.choosedPaginationOption }).then(response => {
         const { records, size, total, current } = response.data.data
         this.testListRes = records
         this.total = total
@@ -226,7 +252,7 @@ export default {
           type: 'info',
           message: '已取消考试',
         })
-        this.$emit('onStart', item)
+        // this.$emit('onStart', item)
       })
       // console.log(item)
     },
@@ -238,6 +264,21 @@ export default {
       this.$refs['SignDialog'].explainList = item.description
       this.$refs['SignDialog'].consume = item.consume
       this.$refs['SignDialog'].examId = item.id
+    },
+    /**
+     * 报名成功重新加载
+     */
+    reload () {
+      getTestList({ ...this.reloadPageOption, ...this.reloadPaginationOption }).then(response => {
+        const { records, size, total, current } = response.data.data
+        this.testListRes = records
+        this.total = total
+        this.paginationOption = {
+          current,
+          size,
+          total,
+        }
+      })
     },
   },
 }
@@ -418,6 +459,10 @@ export default {
   float: right;
   text-align: right;
   width: 60%;
+}
+.states {
+  font-size: 13px;
+  padding-left: 15px;
 }
 </style>
 

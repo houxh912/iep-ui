@@ -15,10 +15,10 @@
         </span>
         <span v-if="scope.row[item.prop] === 0 && item.type !== 'status' && item.type !== 'TAGSTATUS'">0</span>
         <span v-if="scope.row[item.prop] && item.type === 'date'">{{
-          scope.row[item.prop] | parseTime('{y}-{m}-{d} {h}:{i}')
+          scope.row[item.prop] | parseToTimeSeconds
           }}</span>
         <span v-if="scope.row[item.prop] && item.type === 'time'">{{
-          scope.row[item.prop] | parseTime('{y}-{m}-{d}')
+          scope.row[item.prop] | parseToDay
           }}</span>
         <span v-if="scope.row[item.prop] && item.type === undefined">{{
           scope.row[item.prop]

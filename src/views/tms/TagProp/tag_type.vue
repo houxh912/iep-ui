@@ -16,7 +16,7 @@
     <crud-tree-table :is-load-table="isLoadTable" :paged-table="pagedTable" :column-map="columnMap" border>
       <el-table-column label="创建时间">
         <template slot-scope="scope">
-          {{scope.row.createTime | dateFormatSS}}
+          {{scope.row.createTime | parseToDay}}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="250">

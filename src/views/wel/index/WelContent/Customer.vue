@@ -22,7 +22,7 @@
           <div class="iep-ellipsis">{{item.followUpStatus}}</div>
         </el-col>
         <el-col :span="2" class="time">
-          <div class="iep-ellipsis">{{item.time | parseTime('{m}-{d}')}}</div>
+          <div class="iep-ellipsis">{{item.time | parseToMonthDay}}</div>
         </el-col>
       </el-row>
     </div>

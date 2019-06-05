@@ -6,7 +6,7 @@
       <p>前端名称：{{ BUILD_PRO_NAME }}({{ BUILD_VER_TAG }})</p>
       <p>版本号：{{ BUILD_GIT_HASH }}</p>
       <p v-html="BUILD_PRO_DESC"></p>
-      <p>最近更新日期：{{ BUILD_TIME | parseTime }}</p>
+      <p>最近更新日期：{{ BUILD_TIME | parseToTimeSeconds }}</p>
       <p>是否开启实验性功能：
         <a-switch :checked="isExperimental" checkedChildren="开" unCheckedChildren="关" @change="setExperimental" />
       </p>

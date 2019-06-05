@@ -12,7 +12,7 @@
         <el-progress :percentage="item.process" color="#68C769"></el-progress>
       </el-col>
       <el-col :span="2">
-        <div class="iep-ellipsis text-right text-time">{{item.time | parseTime('{m}-{d}')}}</div>
+        <div class="iep-ellipsis text-right text-time">{{item.time | parseToMonthDay}}</div>
       </el-col>
     </el-row>
   </div>

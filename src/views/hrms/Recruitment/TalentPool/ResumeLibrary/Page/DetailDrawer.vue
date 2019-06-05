@@ -26,7 +26,7 @@
     <a-row>
       <a-col :span="12">
         <iep-description-item title="出生年月：">
-          <span slot="content">{{form.birthday | parseTime('{y}-{m}-{d}')}}</span>
+          <span slot="content">{{form.birthday | parseToDay}}</span>
         </iep-description-item>
       </a-col>
       <a-col :span="12">

@@ -38,10 +38,10 @@
             <iep-div-detail :value="form.title"></iep-div-detail>
           </el-form-item>
           <el-form-item label="入职时间：" class="form-half">
-            <span>{{form.entryTime | parseTime('{y}-{m}-{d}')}}</span>
+            <span>{{form.entryTime | parseToDay}}</span>
           </el-form-item>
           <el-form-item label="转正时间：" class="form-half">
-            <span>{{form.positiveTime | parseTime('{y}-{m}-{d}')}}</span>
+            <span>{{form.positiveTime | parseToDay}}</span>
           </el-form-item>
           <el-form-item label="所属部门：" class="form-half">
             <iep-tag-detail :value="form.deptList"></iep-tag-detail>

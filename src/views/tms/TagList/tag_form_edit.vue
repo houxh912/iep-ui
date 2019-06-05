@@ -61,7 +61,7 @@
     </el-form-item>
 
     <el-form-item label="更新时间：" class="formWidth">
-      <label>{{formData.updateTime | dateFormatLLLL}}</label>
+      <label>{{formData.updateTime | parseToTimeSeconds}}</label>
     </el-form-item>
 
     <el-form-item label="点击量：" class="formWidth">
@@ -86,7 +86,7 @@
 
     <li class="record-list" v-for="item in recordList" :key="item.createTime">
       <span>{{item.creatorRealName}}</span>
-      <span>{{item.createTime | dateFormatLL}}</span>
+      <span>{{item.createTime | parseToDay}}</span>
       <span>{{item.description}}</span>
     </li>
 

@@ -111,7 +111,7 @@
       <span class="headerTxt">准考证号：{{examNo}}</span>
       <span class="headerTxt">剩余时间：{{min}} 分：{{sec}} 秒</span>
       <!-- <iep-button @click="handleSave">暂停</iep-button> -->
-      <!-- <iep-button @click="backhome">返回</iep-button> -->
+      <iep-button @click="backhome">返回</iep-button>
       <iep-button style="margin-right: 30px;" @click="saveAndGoBack">保存并退出</iep-button>
       <iep-button type="primary" @click="handleExamination">交卷</iep-button>
     </footer-tool-bar>
@@ -198,7 +198,7 @@ export default {
     this.loadPage()
   },
   beforeDestroy () {
-    this.saveAll()   //去到其他界面将自动保存
+    // this.saveAll()   //去到其他界面将自动保存
     clearInterval(this.time)
     this.time = null
 
@@ -426,6 +426,28 @@ export default {
     // },
 
     /**
+     * 返回
+     */
+    backhome () {
+      this.$confirm('此操作将不保存试卷，是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '已成功返回到主界面!',
+        })
+        this.$emit('onGoBack')
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消返回',
+        })
+      })
+    },
+
+    /**
      * 保存并退出
      */
     saveAndGoBack () {
@@ -458,12 +480,16 @@ export default {
           remainingTime: this.mins + '-' + this.secs,
         }
         this.judgeType(params)
-        this.getSubjectById(params)
-        this.$message({
-          type: 'success',
-          message: '交卷成功!',
+        getTestPageById(params).then(res => {
+          if (res.data.code === 0) {
+            console.log('success go back')
+            this.$message({
+              type: 'success',
+              message: '交卷成功!',
+            })
+            this.$emit('onGoBack')
+          }
         })
-        this.$emit('onGoBack')
       }).catch(() => {
         this.$message({
           type: 'info',

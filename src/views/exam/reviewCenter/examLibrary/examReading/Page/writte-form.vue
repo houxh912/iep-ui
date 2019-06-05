@@ -4,14 +4,14 @@
       <!-- <img src="./IG.png"> -->
       <span class="title1"><b>在线考试系统</b></span>
       <span class="title2"></span>
-      <span class="title3">内网考试</span>
+      <span class="title3">{{resdata.fieldName}}</span>
       <span class="title4">
         评分进度<span class="title5">5</span> / 23</span>
     </div>
 
     <div class="examShowss" style="background-color:#fff">
       <div class="left">
-        <span style="font-size: 20px;"><b>填空题</b></span>
+        <span style="font-size: 20px;"><b>{{resdata.questionTypeName}}</b></span>
         <span class="title1">共 5 题，合计 5 分，已完成 {{count}} / {{resdata.questionTotalNum}}</span>
         <hr>
         <div class="container">
@@ -31,7 +31,7 @@
 
           <div>
             <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
-              <el-input type="textarea" v-model="freeInput" style="width: 80%;margin-top:10px" :rows="6"></el-input>
+              <el-input type="textarea" v-model="userByAnswer" style="width: 80%;margin-top:10px" :rows="6"></el-input>
               <el-input class="give-mark-two" v-model="freeInput"></el-input>
               <span style="margin-left:10px;">分</span>
             </li>
@@ -95,7 +95,7 @@
   </div>
 </template>
 <script>
-import { passWrittenById } from '@/api/exam/examLibrary/examReading/examReading'
+import { judgeWrittenById, passWrittenById } from '@/api/exam/examLibrary/examReading/examReading'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -107,13 +107,13 @@ export default {
       offsetY: 80,
     }
     return {
+      userByAnswer:'',         //用户答案(v-model绑定的值)
       fillInput: '',           //填空(v-model绑定的值)
       freeInput: '',           //简答(v-model绑定的值)
       operation: '',           //实操(v-model绑定的值)
       fillAreaList: ['', ''],  //填空
       inputAreaList: [''],     //简答
       operationList: [''],     //实操
-      questionExplain: '本题来源于国脉内网、水巢、数据基因、技能类、知识类、数据能力类、基本能力类、项目管理类、公司常识类、人力资源类等。',
       chartData: {
         columns: ['是否完成', '进度'],
         rows: [
@@ -148,21 +148,21 @@ export default {
      * 判断题型(公用方法)
      */
     judgeType (params) {
-      params.examId = this.formData.id
+      params.examId = this.formData.examId
       params.currentQuestionNum = this.resdata.questionNum
       const type = this.resdata.questionTypeName
-      if (type === '单选题') {
-        params.userAnswer = this.answerRadio
-      }
-      if (type === '复选题') {
-        params.userAnswer = JSON.stringify(this.checksList)
-      }
-      if (type === '判断题') {
-        params.userAnswer = this.trueOrFalseRadio
+      if (type === '填空题') {
+        params.score = this.answerRadio
       }
       if (type === '简答题') {
-        params.userAnswer = this.freeInput
+        params.score = JSON.stringify(this.checksList)
       }
+      if (type === '实操题') {
+        params.score = this.trueOrFalseRadio
+      }
+      // if (type === '简答题') {
+      //   params.score = this.freeInput
+      // }
     },
 
     /**
@@ -170,40 +170,53 @@ export default {
      */
     getSubjectById (params) {
       passWrittenById(params).then(res => {
-        this.resdata = res.data
-        this.resdata.questionOffNum = res.data.questionNumList
-        this.resdata.questionTotalNum = res.data.questionNumList.checkboxMap.length + res.data.questionNumList.checkedMap.length + res.data.questionNumList.radioMap.length + res.data.questionNumList.textMap.length
-        this.resdata.titleOptions = res.data.titleOptions ? JSON.parse(res.data.titleOptions) : ''
-        this.resdata.radioMap = res.data.questionNumList.radioMap
-        this.resdata.checkboxMap = res.data.questionNumList.checkboxMap
-        this.resdata.checkedMap = res.data.questionNumList.checkedMap
-        this.resdata.textMap = res.data.questionNumList.textMap
-        if (res.data.questionTypeName === '单选题') {
-          this.answerRadio = res.data.userAnswer
-        }
-        if (res.data.questionTypeName === '复选题') {
-          this.checksList = JSON.parse(res.data.userAnswer)
-        }
-        if (res.data.questionTypeName === '判断题') {
-          this.trueOrFalseRadio = res.data.userAnswer
-        }
-        if (res.data.questionTypeName === '简答题') {
-          this.freeInput = res.data.userAnswer
-        }
+         const record = res.data.data
+         this.resdata = record
+         this.userByAnswer = record.userAnswer
+        // this.resdata = res.data
+        // this.resdata.questionOffNum = res.data.questionNumList
+        // this.resdata.questionTotalNum = res.data.questionNumList.checkboxMap.length + res.data.questionNumList.checkedMap.length + res.data.questionNumList.radioMap.length + res.data.questionNumList.textMap.length
+        // this.resdata.titleOptions = res.data.titleOptions ? JSON.parse(res.data.titleOptions) : ''
+        // this.resdata.radioMap = res.data.questionNumList.radioMap
+        // this.resdata.checkboxMap = res.data.questionNumList.checkboxMap
+        // this.resdata.checkedMap = res.data.questionNumList.checkedMap
+        // this.resdata.textMap = res.data.questionNumList.textMap
+        // if (res.data.questionTypeName === '单选题') {
+        //   this.answerRadio = res.data.score
+        // }
+        // if (res.data.questionTypeName === '复选题') {
+        //   this.checksList = JSON.parse(res.data.score)
+        // }
+        // if (res.data.questionTypeName === '判断题') {
+        //   this.trueOrFalseRadio = res.data.score
+        // }
+        // if (res.data.questionTypeName === '简答题') {
+        //   this.freeInput = res.data.score
+        // }
       })
     },
 
     /**
-     * 首次进入页面加载题目
+     * 首次进入页面先判断后台返回信息，true代表可以阅卷再去发送获取考卷的请求
      */
     loadPage () {
       const params = {
-        examId: this.formData.id,
-        currentQuestionNum: this.resdata.questionNum,
-        questionNum: this.resdata.questionNum,
+        examId: this.formData.examId,
       }
-      console.log('parmsss', params)
-      this.getSubjectById(params)
+      judgeWrittenById(params).then(res => {
+        const resjudge = res.data.data
+        if (resjudge === true) {
+          const params = {
+            examId: this.formData.examId,
+          }
+          this.getSubjectById(params)
+        } else {
+          this.$message({
+            type: 'info',
+            message: '已有老师阅卷，目前不能阅卷哦',
+          })
+        }
+      })
     },
 
     /**
@@ -280,7 +293,7 @@ export default {
         type: 'warning',
       }).then(() => {
         const params = {
-          remainingTime: this.min + '-' + this.sec,
+          ifCommit: 1,
         }
         this.judgeType(params)
         this.getSubjectById(params)

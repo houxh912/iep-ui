@@ -94,7 +94,7 @@ export default {
       return +this.$route.params.id
     },
     methodName () {
-      return this.id ? '新增' : '编辑'
+      return this.id ? '编辑' : '新增'
     },
     requestFunc () {
       if (this.id) {

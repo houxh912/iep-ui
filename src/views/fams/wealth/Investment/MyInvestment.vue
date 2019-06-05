@@ -1,6 +1,6 @@
 <template>
   <div>
-    <iep-table class="dept-table" :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
+    <iep-table class="dept-table" :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-tree>
       <template slot="before-columns">
       </template>
     </iep-table>
@@ -15,14 +15,17 @@ const columnsMap = [
   {
     prop: 'updateTime',
     label: '日期',
+    width: '180px',
   },
   {
     prop: 'orgName',
     label: '投资组织',
+    width: '250px',
   },
   {
     prop: 'status',
     label: '状态',
+    width: '100px',
     type: 'dict',
   },
   {

@@ -22,6 +22,9 @@
                 <div>目标金额</div>
                 <div>{{form.targetAmount}}</div>
                 <el-button @click="handleAdd()" type="danger" size="medium" plain v-show="form.status==4">马上参与</el-button>
+                <el-button type="warning" disabled size="medium" plain v-show="form.status==1">待审核</el-button>
+                <el-button type="info" disabled size="medium" plain v-show="form.status==6">已结束</el-button>
+                <el-button type="info" disabled size="medium" plain v-show="form.status==5 || form.status==2">待上架</el-button>
               </div>
             </div>
           </el-card>
@@ -205,7 +208,7 @@ export default {
       this.$refs['DialogForm'].formRequestFn = joinInvestment
       this.$refs['DialogForm'].form.investmentId = this.id
       this.$refs['DialogForm'].form.orgId = this.form.orgId
-      this.$refs['DialogForm'].form.targetAmount = this.form.targetAmount
+      this.$refs['DialogForm'].form.allSharesNumber = this.form.allSharesNumber
       this.$refs['DialogForm'].form.sharesUnivalent = this.form.sharesUnivalent
       this.$refs['DialogForm'].dialogShow = true
     },
@@ -380,5 +383,8 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.wealth-details >>> .el-button {
+  margin: 0;
 }
 </style>

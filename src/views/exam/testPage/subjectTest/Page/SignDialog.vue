@@ -24,7 +24,7 @@
             <span>此次考试将消耗 {{consume}} 贝，是否确认报名？</span>
             <template slot="footer">
                 <operation-wrapper>
-                <iep-button type="primary" @click="handleSignConfig">确认</iep-button>
+                <iep-button type="primary" @click="handleSignConfig" :loading="handleSure">确认</iep-button>
                 <iep-button @click="handleSignConfigCancel">取消</iep-button>
                 </operation-wrapper>
             </template>
@@ -36,6 +36,7 @@ import {postSign} from '@/api/exam/testPage/subjectTest/subjectTest'
 export default {
   data () {
     return {
+        handleSure: false,
         examId: '',
         dialogShow: false,
         dialogConfigShow: false,
@@ -69,6 +70,7 @@ export default {
      * 确认报名
      */
     handleSignConfig (){
+      this.handleSure = true
       // let examinationId = this.examId
       // let qualificationsurl = this.form
       // let post = Object.assign(examinationId,qualificationsurl)
@@ -90,6 +92,16 @@ export default {
               type: 'success',
             })
           this.$emit('reload')
+          this.handleSure = false
+        }
+        if (res.data.data == false) {
+          this.dialogConfigShow = false,
+          this.dialogShow = false,
+          this.$message({
+            message: res.data.msg,
+            type: 'warning',
+          })
+          this.handleSure = false
         }
       })
     },

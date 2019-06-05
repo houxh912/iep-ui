@@ -193,14 +193,14 @@ export default {
           cancelButtonText: '取消',
           type: 'warning',
         }).then(() => {
-          deleteById(this.selectionValue).then(() => {
-            this.$message({
-              message: '操作成功',
-              type: 'success',
-            })
-            setTimeout(() => {
-              this.loadPage()
-            }, 450)
+          deleteById(this.selectionValue).then( res => {
+            if (res.data.data == true) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+              })
+                this.loadPage()
+            }
           })
         })
       }
@@ -283,14 +283,14 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        postExamPassById(param).then(() => {
-          this.$message({
-            type: 'success',
-            message: '该试卷已启用!',
-          })
-          setTimeout(() => {
+        postExamPassById(param).then( res => {
+          if (res.data.data == true) {
+            this.$message({
+              type: 'success',
+              message: '该试卷已启用!',
+            })
             this.loadPage()
-          }, 450)
+          }
         })
 
       })
@@ -307,14 +307,14 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        postExamForbidById(param).then(() => {
-          this.$message({
-            type: 'success',
-            message: '该试卷已禁用!',
-          })
-          setTimeout(() => {
+        postExamForbidById(param).then( res => {
+          if (res.data.data == true) {
+            this.$message({
+              type: 'success',
+              message: '该试卷已禁用!',
+            })
             this.loadPage()
-          }, 450)
+          }
         })
 
       })

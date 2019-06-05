@@ -19,8 +19,8 @@
           <div class="line"></div>
           <div class="msg">您的客户中：</div>
           <div class="msg" v-if="isShow">{{region}}，{{proposal}}等居多</div>
-          <div class="msg">平均拜访次数：<span class="color">3</span></div>
-          <div class="msg">平均方案上传：<span class="color">4</span></div>
+          <div class="msg">平均拜访次数：<span class="color">{{visits}}</span></div>
+          <div class="msg">平均方案上传：<span class="color">{{upload}}</span></div>
           <div class="suggest">建议多寻找{{info}}类客户。</div>
         </div>
       </el-col>
@@ -30,7 +30,7 @@
 <script>
 import District from './District'
 import Business from './Business'
-import { getDistrictMax, getMyClientRela } from '@/api/crms/count'
+import { getDistrictMax, getMyClientRela, getMyClientAverage } from '@/api/crms/count'
 export default {
   components: { District, Business },
   data () {
@@ -62,12 +62,17 @@ export default {
       aaa: [],
       proposal: '',
       isShow: true,
+      visits: '',
+      upload: '',
     }
   },
   created () {
     this.load()
   },
   methods: {
+    toPercent (num, total) {
+      return (Math.round(num / total))
+    },
     load () {
       // getDistrictMin().then(res => {
       //   let keys = []
@@ -127,6 +132,21 @@ export default {
       getMyClientRela().then(res => {
         this.proposal = res.data.data[0].planUpload
         this.info = res.data.data[res.data.data.length - 1].planUpload
+      })
+      getMyClientAverage().then(res => {
+
+        this.visits = this.toPercent(res.data.data.contactQuantity, res.data.data.clientQuantity)
+        this.upload = this.toPercent(res.data.data.softwareQuantity, res.data.data.clientQuantity)
+        if (this.visits == Infinity || window.isNaN(this.visits) === true) {
+          this.visits = 0
+        } else {
+          this.visits = this.visits
+        }
+        if (this.upload == Infinity || window.isNaN(this.upload) === true) {
+          this.upload = 0
+        } else {
+          this.upload = this.upload
+        }
       })
     },
   },

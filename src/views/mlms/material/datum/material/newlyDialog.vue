@@ -77,6 +77,7 @@
 <script>
 import { initLocalForm, rules, dictsMap, tipContent2 } from './option'
 import { createData, updateData, getUnion } from '@/api/mlms/material/datum/material'
+import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 
 export default {
   components: {},
@@ -130,15 +131,24 @@ export default {
           this.loadState = true
           this.formData.type = 1
           this.methodList[this.methodName].requestFn(this.formData).then(({data}) => {
-            this.loadState = false
             if (data.data === false) {
+              this.loadState = false
               this.$message.error(data.msg)
               return
             }
-            let tips = this.methodName == 'create' ? '恭喜您成功上传了一篇材料，继续努力！' : '编辑成功'
-            this.$message.success(tips)
-            this.loadPage()
-            this.dialogShow = false
+            let requestFn = (msg) => {
+              this.loadState = false
+              this.$message.success(msg)
+              this.loadPage()
+              this.dialogShow = false
+            }
+            if (this.methodName == 'create') {
+              addBellBalanceRuleByNumber('MATERIAL_ADD').then(({data}) => {
+                requestFn(`恭喜您成功上传了一篇材料，${data.msg}，继续努力`)
+              })
+            } else {
+              requestFn('编辑成功')
+            }
           })
         } else {
           return false

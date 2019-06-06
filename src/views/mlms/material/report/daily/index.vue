@@ -91,7 +91,7 @@ export default {
       },
       submitTips: {
         // create: '恭喜您完成今日日报，成功获得1个国脉贝！',
-        create: '恭喜您完成今日日报，成功获得1个国脉贝！',
+        create: '恭喜您完成今日日报',
         writing: '恭喜您完成日报补写，继续加油！',
         update: '编辑成功！',
       },
@@ -125,9 +125,9 @@ export default {
         formData.id = this.list[index].id
       }
       fn(formData).then((res) => {
-        let requsetFn = () => {
+        let requsetFn = (msg) => {
           this.loadState = false
-          this.$message.success(this.submitTips[state])
+          this.$message.success(msg ? `${this.submitTips[state]}，${msg}！` : this.submitTips[state])
           this[this.stateList[state].data] = ''
           this.dailyState = 'detail'
           //////////////////////////////////////////////////////////  提交成功后要刷新 - 一直都没做 - 仅仅刷新当前的数据就行了，不需要重置时间轴
@@ -139,7 +139,7 @@ export default {
           this.loadState = false
         } else if (state === 'create') { // 判断是否是新增日报，若是，访问财务接口
           addBellBalanceRuleByNumber('USER_DAILY').then(({data}) => {
-            if (data.data) requsetFn()
+            if (data.data) requsetFn(data.msg)
           })
         } else {
           requsetFn()

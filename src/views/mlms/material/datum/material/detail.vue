@@ -177,10 +177,10 @@ export default {
       }
       this.comment.commentObjectId = this.formData.id
       commentMaterial(this.comment).then(() => {
-        addBellBalanceRuleByNumber('MATERIAL_COMMENT').then(() => {
+        addBellBalanceRuleByNumber('MATERIAL_COMMENT').then(({data}) => {
           this.getComment(this.formData.id)
           this.comment = commentForm()
-          this.$message.success('评论成功！')
+          this.$message.success(`评论成功，${data.msg}！`)
         })
       })
     },

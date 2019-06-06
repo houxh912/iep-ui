@@ -6,7 +6,7 @@
         <iep-button @click="handleDeleteAll" class="add" v-if="gpms_project_edit_del">批量删除</iep-button>
       </template>
       <template slot="right">
-        <operation-search @search-page="searchPage" @closed="dialogIsShow = true" advanceSearch placeHolder="请输入项目名称" :dialogIsShow="dialogIsShow">
+        <operation-search @search-page="searchPage" @closed="dialogIsShow = true" advanceSearch placeHolder="请输入项目名称" :dialogIsShow="dialogIsShow" prop="projectName">
           <!--title-->
           <el-row class="search">
             <el-col :span="23">高级搜索</el-col>
@@ -72,21 +72,15 @@ export default {
   },
   mixins: [mixins],
   methods: {
-    loadPage (param) {
-      this.loadTable(param, getTableData)
+    loadPage (params = {}) {
+      this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
     },
     closeDialog () {
       this.dialogIsShow = false
       this.paramForm = paramForm()
     },
     searchPage (val) {
-      if (name) {
-        this.paramForm.name = val.name
-      }
-      this.loadPage({
-        listType: this.tabType,
-        projectName: val.name,
-      })
+      if (val.projectName) this.loadPage(val)
     },
     //勾选行执行
     selectionChange (val) {
@@ -112,7 +106,8 @@ export default {
     },
   },
   mounted () {
-    this.loadPage({ listType: this.tabType })
+    this.searchForm.listType = this.tabType
+    this.loadPage()
   },
   created () {
     this.gpms_project_add = this.tabType == 1 ? true : this.permissions.gpms_project_add

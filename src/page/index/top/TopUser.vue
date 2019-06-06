@@ -17,6 +17,9 @@
         <a-menu-item @click="$openPage('BaseSettings','name')">
           个人信息
         </a-menu-item>
+        <a-menu-item @click="openVersion">
+          版本信息
+        </a-menu-item>
         <a-menu-item @click="handleAbout">
           关于
         </a-menu-item>
@@ -72,6 +75,11 @@ export default {
     },
     handleAbout () {
       this.$refs['AboutDialog'].visible = true
+    },
+    openVersion () {
+      this.$router.push({
+        path:'/app/version_page',
+      })
     },
     handleLogout () {
       this.$antConfirm({

@@ -246,6 +246,11 @@ export default [
         name: '说说列表页',
         component: () => import('@/views/app/moreThoughts/'),
       },
+      {
+        path: 'version_page',
+        name: '版本记录',
+        component: () => import('@/views/app/versionPage/'),
+      },
     ],
   },
 ]

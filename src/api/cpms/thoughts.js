@@ -1,5 +1,6 @@
 import request from '@/router/axios'
 const prefixUrl = '/cpms/iephrthoughts'
+const commentUrl = '/cpms/iepcommonthoughtscomment'
 
 export function thoughtsCreate (obj) {
   return request({
@@ -39,5 +40,23 @@ export function geTallPage (obj) {
     url: `${prefixUrl}/all_page`,
     method: 'get',
     params: obj,
+  })
+}
+
+// 说说点赞
+export function addThumbsUpByRecord (id) {
+  return request({
+    url: `${prefixUrl}/addThumbsUpByRecord/${id}`,
+    method: 'get',
+  })
+}
+
+
+// 评论
+export function CommentThoughts (obj) {
+  return request({
+    url: `${commentUrl}/create`,
+    method: 'post',
+    data: obj,
   })
 }

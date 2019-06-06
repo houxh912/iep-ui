@@ -24,7 +24,7 @@
       </avue-crud>
     </basic-container>
     <el-dialog title="分配权限" :visible.sync="dialogPermissionVisible">
-      <el-tree class="filter-tree" :data="treeData" :default-checked-keys="checkedKeys" :check-strictly="false" node-key="id" highlight-current :props="defaultProps" show-checkbox ref="menuTree" :filter-node-method="filterNode" default-expand-all>
+      <el-tree class="filter-tree" :data="treeData" :default-checked-keys="checkedKeys" :check-strictly="false" node-key="id" highlight-current :props="defaultProps" show-checkbox ref="menuTree" :filter-node-method="filterNode">
       </el-tree>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="updatePermession(roleId, roleCode)">更 新
@@ -47,7 +47,15 @@ import { tableOption } from './role'
 import { fetchTree } from '@/api/admin/dept'
 import { fetchMenuTree } from '@/api/admin/menu'
 import { mapGetters } from 'vuex'
-
+function filterTree (arr, selectedKey) {
+  return arr.filter(item => !selectedKey.includes(item.id)).map(item => {
+    item = Object.assign({}, item)
+    if (item.children) {
+      item.children = filterTree(item.children, selectedKey)
+    }
+    return item
+  })
+}
 export default {
   name: 'TableRole',
   data () {
@@ -128,6 +136,7 @@ export default {
         })
         .then(response => {
           this.treeData = response.data.data
+          this.treeData = filterTree(this.treeData, [8300, 8400, 10000])
           // 解析出所有的太监节点
           this.checkedKeys = this.resolveAllEunuchNodeId(
             this.treeData,
@@ -138,6 +147,7 @@ export default {
           this.dialogPermissionVisible = true
           this.roleId = row.roleId
           this.roleCode = row.roleCode
+          this.$refs.menuTree.filter()
         })
     },
     /**
@@ -160,8 +170,18 @@ export default {
       return temp
     },
     filterNode (value, data) {
-      if (!value) return true
-      return data.label.indexOf(value) !== -1
+      if (data.id == 10000) {
+        console.log(10000)
+        return false
+      } else if (data.id == 8300) {
+        console.log(8300)
+        return false
+      } else if (data.id == 8400) {
+        console.log(8400)
+        return false
+      } else {
+        return true
+      }
     },
     getNodeData (data, done) {
       done()

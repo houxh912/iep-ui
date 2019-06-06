@@ -79,7 +79,9 @@
 <script>
 import { getInvestmentById, postInvestment, putInvestment } from '@/api/fams/investment'
 import { initForm, rules } from './options'
+import formMixins from '@/mixins/formMixins'
 export default {
+  mixins: [formMixins],
   data () {
     return {
       backOption: {
@@ -115,15 +117,27 @@ export default {
         })
       }
     },
-    handleSubmit () {
-      this.requestFunc(this.form).then(({ data }) => {
-        if (data.data) {
-          this.$message.success('操作成功')
-          this.onGoBack()
-        } else {
-          this.$message(data.msg)
+    async handleSubmit () {
+      try {
+        await this.mixinsValidate()
+        this.requestFunc(this.form).then(({ data }) => {
+          if (data.data) {
+            this.$message.success('操作成功')
+            this.onGoBack()
+          } else {
+            this.$message(data.msg)
+          }
+        })
+      } catch (object) {
+        let message = ''
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            const element = object[key]
+            message = element[0].message
+          }
         }
-      })
+        this.$message(message)
+      }
     },
     onGoBack () {
       this.$router.history.go(-1)

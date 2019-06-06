@@ -8,7 +8,7 @@ import { openWindow } from '@/util/util'
 export default {
   methods: {
     handleOpen () {
-      openWindow('/app/resource/material/material_detail/7914', '国脉内网使用指南', 1300, 900)
+      openWindow('/app/resource/material/material_detail/7914', '国脉内网使用指南', 1400, 900)
     },
   },
 }

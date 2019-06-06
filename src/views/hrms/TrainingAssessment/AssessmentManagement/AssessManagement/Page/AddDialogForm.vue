@@ -29,8 +29,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="考核人评分方式" prop="scoringMethod">
-        <!-- <iep-dict-select v-model="form.scoringMethod" dict-name="" placeholder="请选择评分方式"></iep-dict-select> -->
+      <!-- <el-form-item label="考核人评分方式" prop="scoringMethod">
         <el-select v-model="form.scoringMethod" placeholder="请选择">
           <el-option
             v-for="(item, index) in dictsMap.scoringMethod"
@@ -39,7 +38,7 @@
             :value="index">
           </el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm('form')">提交</iep-button>

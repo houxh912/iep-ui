@@ -43,7 +43,7 @@ const initFormData = () => {
     templateName: '',
     selfWeight: '', // 自评权重
     assessorWeight: '', // 考核人权重
-    scoringMethod: '', // 考核人评分方式
+    scoringMethod: 1, // 考核人评分方式
     covers: [], // 被考核人集合
     coversList: {
       orgs: [],

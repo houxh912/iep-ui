@@ -1,6 +1,6 @@
 <template>
   <div>
-    <iep-table class="dept-table" :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" is-tree>
+    <iep-table class="dept-table" :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" is-tree>
       <template slot="before-columns">
       </template>
     </iep-table>
@@ -22,26 +22,10 @@ const columnsMap = [
     width: '250px',
   },
   {
-    prop: 'status',
-    label: '状态',
-    width: '100px',
-    type: 'dict',
-  },
-  {
     prop: 'remarks',
     label: '备注',
   },
 ]
-const dictsMap = {
-  status: {
-    1:'待审核',
-    2:'通过',
-    3:'拒绝',
-    4:'上架',
-    5:'下架',
-    6:'结束',
-  },
-}
 export default {
   mixins:[mixins],
   data () {
@@ -49,7 +33,6 @@ export default {
       pagination:{},
       pagedTable: [],
       columnsMap,
-      dictsMap,
     }
   },
   computed: {
@@ -59,7 +42,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable({ status: this.status, ...param }, getInvestmentPage)
+      this.loadTable({ status: 4, ...param }, getInvestmentPage)
     },
     handleDetail (row) {
       this.$router.push({

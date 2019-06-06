@@ -140,6 +140,7 @@ export default {
         justifyContent: 'space-around',
       },
       form: {
+        percentage: 0,
         status: '',
         orgName: '',
         orgLogo: '',

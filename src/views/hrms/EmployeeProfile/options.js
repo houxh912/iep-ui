@@ -454,13 +454,13 @@ const rules = {
     { required: true, message: '请填写员工编号', trigger: 'blur' },
   ],
   position: [
-    { required: true, message: '请填写岗位', trigger: 'blur' },
+    { required: false, message: '请填写岗位', trigger: 'blur' },
   ],
   jobId: [
-    { required: true, message: '请填写职务', trigger: 'blur' },
+    { required: false, message: '请填写职务', trigger: 'blur' },
   ],
   titleId: [
-    { required: true, message: '请填写职称', trigger: 'blur' },
+    { required: false, message: '请填写职称', trigger: 'blur' },
   ],
   entryTime: [
     { required: true, message: '请填写入职时间', trigger: 'blur' },

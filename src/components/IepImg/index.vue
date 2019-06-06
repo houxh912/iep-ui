@@ -1,8 +1,14 @@
 <template>
-  <img :src="realSrc">
+  <el-image :src="src">
+    <div slot="placeholder" class="image-slot">
+      加载中<span class="dot">...</span>
+    </div>
+    <div slot="error" class="image-slot">
+      <i class="icon-gmlogo"></i>
+    </div>
+  </el-image>
 </template>
 <script>
-import { base64Url } from '@/config/env'
 
 export default {
   name: 'IepImg',
@@ -13,13 +19,20 @@ export default {
       validator: prop => typeof prop === 'string' || prop === null || prop === undefined,
     },
   },
-  computed: {
-    realSrc () {
-      if (!this.src) {
-        return base64Url
-      }
-      return this.src
-    },
-  },
 }
 </script>
+<style lang="scss" scoped>
+.image-slot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: #f5f7fa;
+  color: #909399;
+  font-size: 30px;
+  & > .icon-gmlogo {
+    font-size: 30px;
+  }
+}
+</style>

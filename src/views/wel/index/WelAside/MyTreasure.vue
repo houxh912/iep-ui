@@ -76,7 +76,7 @@ export default {
     }),
     ...mapActions(['famsReward']),
     handleOpen () {
-      openWindow('https://www.yuque.com/govmade/readings', '挖贝攻略', 800, 600)
+      openWindow('/app/resource/material/material_detail/7971', '挖贝攻略', 1400, 900)
     },
     handleReward () {
       this.famsReward()

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="img-wrapper" @click="handleClick">
-      <iep-img :src="img" alt=""></iep-img>
+      <iep-img class="img" :src="img" alt=""></iep-img>
     </div>
     <div>
       <iep-table-link @click="handleClick" disabled>{{name}}</iep-table-link>
@@ -20,11 +20,7 @@ export default {
   },
 }
 </script>
-<style scoped>
-img {
-  width: 50px;
-  height: 50px;
-}
+<style lang="scss" scoped>
 .wrapper {
   display: flex;
   justify-content: center;
@@ -35,6 +31,10 @@ img {
   padding: 5px;
   border: 1px solid #eee;
   margin: 5px;
+  & > .img {
+    width: 50px;
+    height: 50px;
+  }
 }
 .desc {
   font-size: 12px;

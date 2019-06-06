@@ -92,3 +92,11 @@ export function getMyorcollList (query) {
     params: query,
   })
 }
+//分页查询对应客户
+export function getPageData (query) {
+  return request({
+    url: `${prefixUrl}/page/list`,
+    method: 'get',
+    params: query,
+  })
+}

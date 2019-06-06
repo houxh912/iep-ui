@@ -10,7 +10,7 @@
           <iep-input-number v-model="form.amount"></iep-input-number>
         </iep-form-item>
         <iep-form-item label-name="调拨方式" class="form-half">
-          <el-radio-group v-model="form.allocationWay">
+          <el-radio-group v-model="form.allocationWay" disabled>
             <el-radio v-for="(item,i) in dictsMap.allocationWay" :key="i" :label="+i">{{item}}</el-radio>
           </el-radio-group>
         </iep-form-item>
@@ -109,7 +109,9 @@ export default {
         postFundTransfer(formToDto(this.form)).then(({ data }) => {
           if (data.data) {
             this.$message.success('操作成功')
-            this.handleGoBack()
+            this.$router.push({
+              path: '/fams/group_finance/fund_fransfer',
+            })
           } else {
             this.$message(data.msg)
           }

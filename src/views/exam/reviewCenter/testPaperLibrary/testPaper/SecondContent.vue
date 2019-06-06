@@ -96,35 +96,32 @@
               </div>
 
               <div class="dt_div" v-if="item.configurationState=='0'">
-                <el-form-item label="已选试题:" style="width:100%" label-width="75px">
+                <el-form-item label="已选试题:" style="width:100%" label-width="75px"></el-form-item>
+                <el-table :data="item.iepItemBankList" :header-cell-style="getRowClass" class="questionTable"
+                  border style="width: 100%; margin-bottom: 10px;">
+                  <el-table-column type="index"></el-table-column>
+                  <el-table-column prop="title" label="内容">
+                    <template slot-scope="scope">
+                      {{scope.row.title}}
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="title" label="题型" width="120px">
+                    <template slot-scope="scope">
+                      {{scope.row.questionTypeName}}
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="title" label="题类" width="120px">
+                    <template slot-scope="scope">
+                      {{scope.row.kindName}}
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="levelName" label="难度" width="120px">
+                    <template slot-scope="scope">
+                      {{scope.row.difficultyName}}
+                    </template>
+                  </el-table-column>
+                </el-table>
 
-                  <el-table :data="item.iepItemBankList" class="questionTable" border
-                    :header-cell-style="getRowClass" style="width: 100%">
-                    <el-table-column type="index">
-                    </el-table-column>
-                    <el-table-column prop="title" label="内容" width="350px">
-                      <template slot-scope="scope">
-                        {{scope.row.title}}
-                      </template>
-                    </el-table-column>
-                    <el-table-column prop="title" label="题型" width="200px">
-                      <template slot-scope="scope">
-                        {{scope.row.questionTypeName}}
-                      </template>
-                    </el-table-column>
-                    <el-table-column prop="title" label="题类" width="200px">
-                      <template slot-scope="scope">
-                        {{scope.row.kindName}}
-                      </template>
-                    </el-table-column>
-                    <el-table-column prop="levelName" label="难度" width="200px">
-                      <template slot-scope="scope">
-                        {{scope.row.difficultyName}}
-                      </template>
-                    </el-table-column>
-
-                  </el-table>
-                </el-form-item>
               </div>
             </el-form>
           </div>
@@ -366,7 +363,7 @@ export default {
 
     getRowClass ({ rowIndex }) {
       if (rowIndex == 0) {
-        return 'background:#F2F4F5;color:#000'
+        return 'background:#F2F4F5;color:#333'
       } else {
         return ''
       }

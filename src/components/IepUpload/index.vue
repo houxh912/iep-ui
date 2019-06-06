@@ -58,7 +58,11 @@ export default {
     handleSuccess (res, file) {
       if (res.code) {
         if (!res.data) {
-          this.$message.error('错了哦，请检查文件服务器')
+          if (res.msg) {
+            this.$message.error(res.msg)
+          } else {
+            this.$message.error('错了哦，请检查文件服务器')
+          }
         } else {
           this.$message.error(res.msg)
         }

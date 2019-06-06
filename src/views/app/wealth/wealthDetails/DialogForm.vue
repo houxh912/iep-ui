@@ -15,9 +15,16 @@
       <iep-form-item label-name="投资组织" prop="orgId">
         <iep-select disabled v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择向哪个组织投资"></iep-select>
       </iep-form-item>
+      <div class="agree-wrapper">
+        <el-checkbox v-model="checked">
+        </el-checkbox>
+        <el-link type="primary" @click="handleOpen('https://www.yuque.com/govmade/dzsv2m/lzdm4e','激励股权认购须知')">激励股权认购须知</el-link>
+        <iep-divider type="vertical"></iep-divider>
+        <el-link type="primary" @click="handleOpen('https://www.yuque.com/govmade/dzsv2m/toymli','投资风险告知说明')">投资风险告知说明</el-link>
+      </div>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm()">提交</iep-button>
+      <iep-button type="primary" @click="submitForm()" :disabled="!checked">提交</iep-button>
       <iep-button @click="loadPage">取消</iep-button>
     </template>
   </iep-dialog>
@@ -25,12 +32,14 @@
 <script>
 import { initForm, dictsMap, formToDto, rules } from './options'
 import formMixins from '@/mixins/formMixins'
+import { openWindow } from '@/util/util'
 export default {
   mixins: [formMixins],
   data () {
     return {
       dictsMap,
       dialogShow: false,
+      checked: false,
       formRequestFn: () => { },
       methodName: '创建',
       form: initForm(),
@@ -40,6 +49,9 @@ export default {
   computed: {
   },
   methods: {
+    handleOpen (url, name) {
+      openWindow(url, name, 1400, 900)
+    },
     loadPage () {
       this.form = initForm()
       this.dialogShow = false
@@ -90,3 +102,8 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.agree-wrapper {
+  text-align: center;
+}
+</style>

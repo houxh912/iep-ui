@@ -20,9 +20,9 @@
         <a-menu-item @click="openVersion">
           更新日志
         </a-menu-item>
-        <a-menu-item @click="handleAbout">
+        <!-- <a-menu-item @click="handleAbout">
           关于
-        </a-menu-item>
+        </a-menu-item> -->
         <a-menu-divider />
         <a-menu-item @click="handleLogout">
           退出登录

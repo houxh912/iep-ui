@@ -43,21 +43,14 @@
         <el-col :span='12'>
           <el-form-item label="委托单位：">
             <!-- <selectMore v-model="formData.companyOrgObj" prefix-url="crm/customer/myorcoll/list" @change="clientChange"></selectMore> -->
-            <IepCrmsSelect 
-              v-model="formData.companyOrgId" 
-              :option="[{id: formData.companyOrgId, name: formData.companyName.name}]" 
-              prefixUrl="crm/customer/myorcoll/list" 
-              @change="clientChange">
+            <IepCrmsSelect v-model="formData.companyOrgId" :option="[{id: formData.companyOrgId, name: formData.companyName.name}]" prefixUrl="crm/customer/myorcoll/list" @change="clientChange">
             </IepCrmsSelect>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
             <!-- <selectMore v-model="formData.signCompanyOrgId" prefix-url="crm/customer/all/list"></selectMore> -->
-            <IepCrmsSelect 
-              v-model="formData.signCompanyOrgId" 
-              :option="[{id: formData.signCompanyOrgId, name: formData.signCompanyRealName.name}]" 
-              prefixUrl="crm/customer/all/list">
+            <IepCrmsSelect v-model="formData.signCompanyOrgId" :option="[{id: formData.signCompanyOrgId, name: formData.signCompanyRealName.name}]" prefixUrl="crm/customer/all/list">
             </IepCrmsSelect>
           </el-form-item>
         </el-col>
@@ -181,7 +174,9 @@ export default {
     open (id) {
       getDataById(id).then(({ data }) => {
         let row = data.data
-        row.underTakeDeptId = row.underTakeDeptName.map(m => m.id) // 承接部门
+        if (row.underTakeDeptName) {
+          row.underTakeDeptId = row.underTakeDeptName.map(m => m.id) // 承接部门
+        }
         if (row.contractType == 0) {
           row.directorList = {
             id: row.directorId,
@@ -221,7 +216,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loadState = true
-          this.formRequestFn(this.formData).then(({data}) => {
+          this.formRequestFn(this.formData).then(({ data }) => {
             this.loadState = false
             if (data.data) {
               this.$message({

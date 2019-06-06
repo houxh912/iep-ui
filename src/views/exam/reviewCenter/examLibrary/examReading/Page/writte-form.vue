@@ -6,19 +6,19 @@
       <span class="title2"></span>
       <span class="title3">{{resdata.fieldName}}</span>
       <span class="title4">
-        评分进度<span class="title5">5</span> / 23</span>
+        评分进度<span class="title5">{{count}}</span> / {{resdata.questionTotalNum}}</span>
     </div>
 
     <div class="examShowss" style="background-color:#fff">
       <div class="left">
         <span style="font-size: 20px;"><b>{{resdata.questionTypeName}}</b></span>
-        <span class="title1">共 5 题，合计 5 分，已完成 {{count}} / {{resdata.questionTotalNum}}</span>
+        <span class="title1">共 {{resdata.kindTotalNum}} 题，合计 {{resdata.kindMark}} 分，已完成 {{count}} / {{resdata.questionTotalNum}}</span>
         <hr>
         <div class="container">
           <div style="margin-bottom: 10px;">
-            <span>1、 </span>
-            <span>公司共有战略决策委员会、__人力与技术委员会____、市场与营销委员会、_______________、项目执行与质量委员会五大委员会。</span>
-            <span> （ 1 分）</span>
+            <span>{{resdata.questionNum}}、 </span>
+            <span>{{resdata.title}}</span>
+            <span> （ {{resdata.single}} 分）</span>
           </div>
 
           <!-- <div>
@@ -46,14 +46,14 @@
           </div> -->
 
           <div class="center" align="center">
-            <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.questionNum === 1">上一题</iep-button>
+            <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.questionTotalNum === 1">上一题</iep-button>
             <iep-button style="margin:0 10px;" @click="next" :disabled="resdata.questionNum === resdata.questionTotalNum">下一题</iep-button>
             <iep-button style="margin:0 10px;" @click="saveAndGoBack">保存并退出</iep-button>
           </div>
         </div>
       </div>
 
-      <div class="right">
+      <div class="right" v-if="resdata.title">
         <div class="container">
           <div class="top">
             <span class="titleone">本题得分</span><br>
@@ -64,29 +64,29 @@
             <span class="titlefour">12</span>
           </div>
 
-          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="180px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
+          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="150px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
 
           <div class="card">
-            <div>
+            <!-- <div v-if="resdata.textMap.length > 0">
               <span class="answerSheet">填空题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
               </div><br>
-            </div>
+            </div> -->
 
-            <div>
+            <div v-if="resdata.textMap.length > 0">
               <span class="answerSheet">简答题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
               </div><br>
             </div>
 
-            <div>
+            <!-- <div v-if="resdata.Map.length > 0">
               <span class="answerSheet">实操题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
               </div><br>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -107,7 +107,7 @@ export default {
       offsetY: 80,
     }
     return {
-      userByAnswer:'',         //用户答案(v-model绑定的值)
+      userByAnswer: '',         //用户答案(v-model绑定的值)
       fillInput: '',           //填空(v-model绑定的值)
       freeInput: '',           //简答(v-model绑定的值)
       operation: '',           //实操(v-model绑定的值)
@@ -122,12 +122,11 @@ export default {
         ],
       },
       resdata: {
+        kindTotalNum: '',    //每种题型合计题数
+        kindMark: '',        //每种题型合计分数
         questionOffNum: [],  //已完成的题数
         questionTotalNum: '',//题目总数
         titleOptions: [],    //答案选项数组
-        radioMap: [],        //答题卡片的单选题数组集合，从数组中遍历题目出来
-        checkboxMap: [],     //答题卡片的复选题数组集合，从数组中遍历题目出来
-        checkedMap: [],      //答题卡片的判断题数组集合，从数组中遍历题目出来
         textMap: [],         //答题卡片的简答题数组集合，从数组中遍历题目出来
       },
     }
@@ -149,20 +148,23 @@ export default {
      */
     judgeType (params) {
       params.examId = this.formData.examId
+      //params.judgeId = this.formData.judgeId
       params.currentQuestionNum = this.resdata.questionNum
       const type = this.resdata.questionTypeName
       if (type === '填空题') {
         params.score = this.answerRadio
       }
       if (type === '简答题') {
-        params.score = JSON.stringify(this.checksList)
+        if (this.freeInput > 0) {
+          params.score = this.freeInput
+          params.judgeId = this.formData.judgeId
+        } else {
+          params.score = ''
+        }
       }
       if (type === '实操题') {
         params.score = this.trueOrFalseRadio
       }
-      // if (type === '简答题') {
-      //   params.score = this.freeInput
-      // }
     },
 
     /**
@@ -170,10 +172,18 @@ export default {
      */
     getSubjectById (params) {
       passWrittenById(params).then(res => {
-         const record = res.data.data
-         this.resdata = record
-         this.userByAnswer = record.userAnswer
-        // this.resdata = res.data
+        const record = res.data.data
+        this.userByAnswer = record.userAnswer
+        this.resdata = record
+        this.resdata.questionOffNum = record.questionNumList
+        this.resdata.questionTotalNum = record.questionNumList.textMap.length
+        this.resdata.textMap = record.questionNumList.textMap
+        if (this.resdata.questionTypeName === '简答题') {
+          this.freeInput = record.score
+          this.resdata.kindTotalNum = record.questionNumList.textMap.length
+          this.resdata.kindMark = record.questionNumList.textMap[0].grade * this.resdata.kindTotalNum
+        }
+        console.log('hhh', this.resdata.questionTotalNum)
         // this.resdata.questionOffNum = res.data.questionNumList
         // this.resdata.questionTotalNum = res.data.questionNumList.checkboxMap.length + res.data.questionNumList.checkedMap.length + res.data.questionNumList.radioMap.length + res.data.questionNumList.textMap.length
         // this.resdata.titleOptions = res.data.titleOptions ? JSON.parse(res.data.titleOptions) : ''
@@ -235,7 +245,6 @@ export default {
           }
         }
       }
-      //console.log('counts22', arr)
       return counts
 
       // for (let i = 0; i < this.resdata.questionOffNum.length; i++) {
@@ -277,7 +286,7 @@ export default {
      */
     handleCard (item) {
       const params = {
-        questionNum: item.id,
+        questionNum: item.questionNum,
       }
       this.judgeType(params)
       this.getSubjectById(params)
@@ -388,7 +397,7 @@ export default {
     .container {
       float: right;
       width: 280px;
-      margin-top: 20px;
+      margin-top: 30px;
       background: #fffbf6;
       border: 1px solid #ffdbc1;
       // background: linear-gradient(
@@ -426,9 +435,9 @@ export default {
         text-align: left;
         padding: 0 18px;
         .activess {
-          background: #fdf6eb;
-          border-color: #f5dab1;
-          color: #e6a23c;
+          background: #f8e8e9;
+          border-color: #e3a4a6;
+          color: #ba1b21;
         }
         .active {
           background: #ba1b21;

@@ -125,12 +125,13 @@ export default {
   mixins: [mixins],
   props: ['record'],
   data () {
-    this.colors = ['#ba1b21', '#999999']
+    this.colors = ['#ba1b21', '#ddd']
     this.chartSettings = {
       radius: [50, 60],
       offsetY: 100,
     }
     return {
+      isLoadTable: true,      //加载圈圈
       answerRadio: '',        //单选(v-model绑定的值)
       checksList: [],         //复选(v-model绑定的值)
       trueOrFalseRadio: '',   //判断(v-model绑定的值)
@@ -218,7 +219,8 @@ export default {
         params.userAnswer = this.answerRadio
       }
       if (type === '复选题') {
-        params.userAnswer = JSON.stringify(this.checksList)
+        params.userAnswer = this.checksList.length > 1 ? JSON.stringify(this.checksList) : ''
+        console.log('uuuu', params.userAnswer)
       }
       if (type === '判断题') {
         params.userAnswer = this.trueOrFalseRadio
@@ -233,47 +235,53 @@ export default {
      */
     getSubjectById (params, times) {
       getTestPageById(params).then(res => {
-        const record = res.data.data
-        if (times === true) {
-          const timeAll = record.remainingTime ? record.remainingTime.split('-') : []
-          this.mins = Number(timeAll[0])
-          this.secs = Number(timeAll[1])
-        }
-        if (this.mins + this.secs === 0) {
-          this.tip()
+        console.log('333', res)
+        if (res.data.code === 1) {
+          console.log('warn')
+          this.isLoadTable = true
         } else {
-          this.chartData.rows = record.questionStatus
-          this.resdata = record
-          this.resdata.questionOffNum = record.questionNumList
-          this.resdata.questionTotalNum = record.questionNumList.checkboxMap.length + record.questionNumList.checkedMap.length + record.questionNumList.radioMap.length + record.questionNumList.textMap.length
-          this.resdata.titleOptions = record.titleOptions ? JSON.parse(record.titleOptions) : []
-          this.resdata.radioMap = record.questionNumList.radioMap
-          this.resdata.checkboxMap = record.questionNumList.checkboxMap
-          this.resdata.checkedMap = record.questionNumList.checkedMap
-          this.resdata.textMap = record.questionNumList.textMap
-          if (record.questionTypeName === '单选题') {
-            this.answerRadio = record.userAnswer
-            this.resdata.kindTotalNum = record.questionNumList.radioMap.length
-            this.resdata.kindMark = record.questionNumList.radioMap[0].grade * this.resdata.kindTotalNum
+          this.isLoadTable = false
+          const record = res.data.data
+          if (times === true) {
+            const timeAll = record.remainingTime ? record.remainingTime.split('-') : []
+            this.mins = Number(timeAll[0])
+            this.secs = Number(timeAll[1])
           }
+          if (this.mins + this.secs === 0) {
+            this.tip()
+          } else {
+            this.chartData.rows = record.questionStatus
+            this.resdata = record
+            this.resdata.questionOffNum = record.questionNumList
+            this.resdata.questionTotalNum = record.questionNumList.checkboxMap.length + record.questionNumList.checkedMap.length + record.questionNumList.radioMap.length + record.questionNumList.textMap.length
+            this.resdata.titleOptions = record.titleOptions ? JSON.parse(record.titleOptions) : []
+            this.resdata.radioMap = record.questionNumList.radioMap
+            this.resdata.checkboxMap = record.questionNumList.checkboxMap
+            this.resdata.checkedMap = record.questionNumList.checkedMap
+            this.resdata.textMap = record.questionNumList.textMap
+            if (record.questionTypeName === '单选题') {
+              this.answerRadio = record.userAnswer
+              this.resdata.kindTotalNum = record.questionNumList.radioMap.length
+              this.resdata.kindMark = record.questionNumList.radioMap[0].grade * this.resdata.kindTotalNum
+            }
 
-          if (record.questionTypeName === '复选题') {
-            this.checksList = JSON.parse(record.userAnswer)
-            this.resdata.kindTotalNum = record.questionNumList.checkboxMap.length
-            this.resdata.kindMark = record.questionNumList.checkboxMap[0].grade * this.resdata.kindTotalNum
-          }
-          if (record.questionTypeName === '判断题') {
-            this.trueOrFalseRadio = record.userAnswer
-            this.resdata.kindTotalNum = record.questionNumList.checkedMap.length
-            this.resdata.kindMark = record.questionNumList.checkedMap[0].grade * this.resdata.kindTotalNum
-          }
-          if (record.questionTypeName === '简答题') {
-            this.freeInput = record.userAnswer
-            this.resdata.kindTotalNum = record.questionNumList.textMap.length
-            this.resdata.kindMark = record.questionNumList.textMap[0].grade * this.resdata.kindTotalNum
+            if (record.questionTypeName === '复选题') {
+              this.checksList = JSON.parse(record.userAnswer)
+              this.resdata.kindTotalNum = record.questionNumList.checkboxMap.length
+              this.resdata.kindMark = record.questionNumList.checkboxMap[0].grade * this.resdata.kindTotalNum
+            }
+            if (record.questionTypeName === '判断题') {
+              this.trueOrFalseRadio = record.userAnswer
+              this.resdata.kindTotalNum = record.questionNumList.checkedMap.length
+              this.resdata.kindMark = record.questionNumList.checkedMap[0].grade * this.resdata.kindTotalNum
+            }
+            if (record.questionTypeName === '简答题') {
+              this.freeInput = record.userAnswer
+              this.resdata.kindTotalNum = record.questionNumList.textMap.length
+              this.resdata.kindMark = record.questionNumList.textMap[0].grade * this.resdata.kindTotalNum
+            }
           }
         }
-
       })
     },
 

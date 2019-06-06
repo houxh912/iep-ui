@@ -7,7 +7,7 @@
           <el-radio-group v-model="status" size="small" @change="handleChange">
             <el-radio-button v-for="(v,k) in dictsMap.status" :label="k" :key="k">{{v}}</el-radio-button>
           </el-radio-group>
-          <operation-search @search-page="searchPage"></operation-search>
+          <operation-search @search-page="searchPage" prop="orgName"></operation-search>
         </template>
       </operation-container>
       <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">

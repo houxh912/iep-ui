@@ -123,6 +123,7 @@ const borrowToForm = (row) => {
 	const newForm = initForm()
 	newForm.amount = row.amount
 	newForm.callInOrgId = row.inOrgId
+	newForm.allocationWay = row.borrowMoneyType
 	return newForm
 }
 

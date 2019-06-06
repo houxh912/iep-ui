@@ -1,0 +1,57 @@
+.cover-detail-form {
+  .head {
+    margin-bottom: 10px;
+  }
+  .item {
+    display: flex;
+    margin-bottom: 5px;
+    div {
+      padding-right: 10px;
+    }
+    .title {
+      width: 130px;
+    }
+    .remark {
+      flex: 1;
+    }
+    .weight {
+      width: 100px;
+    }
+    .input {
+      padding-right: 0;
+      width: 100px;
+      text-align: center;
+      .cover-error {
+        display: none;
+      }
+    }
+    .error {
+      input {
+        border-color: #F56C6C;
+      }
+      .cover-error {
+        display: block;
+        font-size: 12px;
+        color: #F56C6C;
+      }
+    }
+  }
+  .score {
+    width: 100px;
+  }
+  .score-list {
+    border-top: 1px solid #ddd;
+    .score-item {
+      display: flex;
+      .name {
+        width: 100px;
+      }
+      .score {
+        width: 100px;
+      }
+      .evaluate {
+        flex: 1;
+      }
+    }
+  }
+}

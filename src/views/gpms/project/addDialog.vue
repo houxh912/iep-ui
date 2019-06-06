@@ -5,21 +5,21 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="项目名称：" prop="projectName">
-            <span slot="label">
-              项目名称：
-              <!-- <iep-tip :content="tipContent.projectName"></iep-tip>： -->
-            </span>
-            <el-input v-model="formData.projectName" placeholder="请输入项目名称"></el-input>
+            <el-input v-model="formData.projectName" :placeholder="tipContent.projectName"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="项目类型：" prop="projectType">
+            <span slot="label">
+              项目标签
+              <iep-tip :content="tipContent.businessType"></iep-tip>：
+            </span>
             <iep-dict-select v-model="formData.projectType" dict-name="prms_project_type"></iep-dict-select>
           </el-form-item>
         </el-col>
         <el-col :span="12" v-if="formData.projectType == 2">
           <el-form-item label="客户名称：" prop="relatedClient">
-            <!-- <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select> -->
+            <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select>
             <IepCrmsSelect 
               v-model="formData.relatedClient" 
               :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" 
@@ -29,18 +29,14 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="项目标签：" prop="projectTagList">
-            <span slot="label">
-              项目标签：
-              <!-- <iep-tip :content="tipContent.projectTagList"></iep-tip>: -->
-            </span>
             <iep-tag v-model="formData.projectTagList"></iep-tag>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="项目经理：" prop="projectManagerList">
             <span slot="label">
-              项目经理：
-              <!-- <iep-tip :content="tipContent.projectTagList"></iep-tip>： -->
+              项目经理
+              <iep-tip :content="tipContent.projectTagList"></iep-tip>：
             </span>
             <iep-contact-select v-model="formData.projectManagerList"  :is-show-contact-btn="false"></iep-contact-select>
           </el-form-item>
@@ -48,8 +44,8 @@
         <el-col :span="12">
           <el-form-item label="市场经理：" prop="mktManagerList">
             <span slot="label">
-              市场经理：
-              <!-- <iep-tip :content="tipContent.mktManagerList"></iep-tip>： -->
+              市场经理
+              <iep-tip :content="tipContent.mktManagerList"></iep-tip>：
             </span>
             <iep-contact-select v-model="formData.mktManagerList"  :is-show-contact-btn="false"></iep-contact-select>
           </el-form-item>
@@ -57,8 +53,8 @@
         <el-col :span="12">
           <el-form-item label="项目指导与审核人：" prop="projectMentorList">
             <span slot="label">
-              项目指导与审核人：
-              <!-- <iep-tip :content="tipContent.projectMentorList"></iep-tip>： -->
+              项目指导与审核人
+              <iep-tip :content="tipContent.projectMentorList"></iep-tip>：
             </span>
             <iep-contact-select v-model="formData.projectMentorList"  :is-show-contact-btn="false"></iep-contact-select>
           </el-form-item>
@@ -75,8 +71,8 @@
         <el-col :span="12">
           <el-form-item label="项目预算：" prop="projectBudget">
             <span slot="label">
-              项目预算(元)：
-              <!-- <iep-tip :content="tipContent.projectBudget"></iep-tip>： -->
+              项目预算(元)
+              <iep-tip :content="tipContent.projectBudget"></iep-tip>：
             </span>
             <el-input v-model="formData.projectBudget"></el-input>
           </el-form-item>
@@ -115,10 +111,9 @@
         <el-col :span="12">
           <el-form-item label="集团外部合作伙伴：" prop="groupExternalCooperatePartner">
             <span slot="label">
-              集团外部合作伙伴：
-              <!-- <iep-tip :content="tipContent.groupExternalCooperatePartner"></iep-tip>： -->
+              集团外部合作伙伴
+              <iep-tip :content="tipContent.groupExternalCooperatePartner"></iep-tip>：
             </span>
-            <!-- <iep-select prefix-url="crm/customer" v-model="formData.groupExternalCooperatePartner"></iep-select> -->
             <IepCrmsSelect 
               v-model="formData.groupExternalCooperatePartner" 
               :option="[{id: formData.groupExternalCooperatePartnerList.id, name: formData.groupExternalCooperatePartnerList.name}]" 
@@ -129,8 +124,8 @@
       </el-row>
       <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
         <span slot="label">
-          是否关联产品：
-          <!-- <iep-tip :content="tipContent.isRelevanceProduct"></iep-tip>： -->
+          是否关联产品
+          <iep-tip :content="tipContent.isRelevanceProduct"></iep-tip>：
         </span>
         <el-radio-group v-model="formData.isRelevanceProduct">
           <el-radio

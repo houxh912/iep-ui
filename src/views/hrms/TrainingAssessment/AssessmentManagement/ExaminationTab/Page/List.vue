@@ -33,6 +33,7 @@
       </el-table-column>
     </iep-table>
     <add-dialog-form ref="AddDialogForm" @load-page="loadPage" :type="type"></add-dialog-form>
+    <detail-dialog ref="detail"></detail-dialog>
   </div>
 </template>
 
@@ -42,10 +43,11 @@ import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initSearchForm } from '../options'
 import AddDialogForm from './AddDialogForm'
 import { dateFormat } from '@/util/date'
+import DetailDialog from '../../detail/'
 
 export default {
   mixins: [mixins],
-  components: { AddDialogForm },
+  components: { AddDialogForm, DetailDialog },
   props: {
     type: {
       type: String,
@@ -81,7 +83,7 @@ export default {
       this.loadTable(param, this.type == 'waiting' ? getEvaluationKpiPage : getEvaluationSelfPage, fn)
     },
     handleDetail (row) {
-      this.$emit('handleDetail', row)
+      this.$refs['detail'].open(row)
     },
   },
 }

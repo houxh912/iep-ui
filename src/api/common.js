@@ -1,5 +1,5 @@
 import request from '@/router/axios'
-// @/api/hrms/post_type
+// @/api/common
 export function getCommonList (url, name) {
   return request({
     url: `/${url}/list`,

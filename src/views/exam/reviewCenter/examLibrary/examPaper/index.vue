@@ -124,14 +124,14 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        RollingTestById(param).then(() => {
-          this.$message({
-            type: 'success',
-            message: '该试卷已收卷!',
-          })
-          setTimeout(() => {
+        RollingTestById(param).then( res => {
+          if (res.data.data == true) {
+            this.$message({
+              type: 'success',
+              message: '该试卷已收卷!',
+            })
             this.loadPage()
-          }, 450)
+          }
         })
       })
     },
@@ -151,14 +151,14 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        setTestById(param).then(() => {
-          this.$message({
-            type: 'success',
-            message: '该试卷已设为可考!',
-          })
-          setTimeout(() => {
+        setTestById(param).then( res => {
+          if (res.data.data == true) {
+            this.$message({
+              type: 'success',
+              message: '该试卷已设为可考!',
+            })
             this.loadPage()
-          }, 450)
+          }
         })
       })
     },
@@ -197,14 +197,14 @@ export default {
           cancelButtonText: '取消',
           type: 'warning',
         }).then(() => {
-          deleteById(this.selectionValue).then(() => {
-            this.$message({
-              message: '操作成功',
-              type: 'success',
-            })
-            setTimeout(() => {
-            this.loadPage()
-          }, 450)
+          deleteById(this.selectionValue).then( res => {
+            if (res.data.data == true) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+              })
+              this.loadPage()
+            }
           })
         })
       }

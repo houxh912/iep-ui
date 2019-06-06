@@ -196,7 +196,7 @@
       </el-form>
       <template slot="footer">
         <operation-wrapper>
-          <iep-button :disabled="isModifyChange" type="primary" @click="handleModifySave">保存</iep-button>
+          <iep-button :disabled="isModifyChange" type="primary" @click="handleModifySave">提交</iep-button>
           <iep-button @click="handleModifyCancel">取消</iep-button>
         </operation-wrapper>
       </template>
@@ -358,16 +358,16 @@ export default {
           id: null,
         }
         postExaminePassList.id = this.examine
-        postExaminePass(postExaminePassList).then(
-          this.dialogExamine = false,
-          this.$message({
-            message: '该试题审核通过',
-            type: 'success',
-          }),
-          setTimeout(() => {
+        postExaminePass(postExaminePassList).then( res => {
+          if (res.data.data == true) {
+            this.dialogExamine = false,
+            this.$message({
+              message: '该试题审核通过',
+              type: 'success',
+            }),
             this.loadPage()
-          }, 450)
-        )
+          }
+        })
       }
       if (this.states === 1 && this.content != ''){
         let postExamineFalseList = {
@@ -377,16 +377,16 @@ export default {
         postExamineFalseList.id = this.examine
         postExamineFalseList.reason = this.content
         postExamineFalseList = JSON.stringify(postExamineFalseList)
-        postExamineFalse(postExamineFalseList).then(
-          this.dialogExamine = false,
-          this.$message({
-            message: '该试题审核不通过',
-            type: 'success',
-          }),
-          setTimeout(() => {
+        postExamineFalse(postExamineFalseList).then( res => {
+          if (res.data.data == true){
+            this.dialogExamine = false,
+            this.$message({
+              message: '该试题审核不通过',
+              type: 'success',
+            }),
             this.loadPage()
-          }, 450)
-        )
+          }
+        })
       }
       if (this.states === 1 && this.content == ''){
         this.$message({
@@ -407,16 +407,16 @@ export default {
     handleModifySave (){
       var postModifyList = this.reForm
       postModifyList = JSON.stringify(postModifyList)
-      postModify(postModifyList).then(
-        this.dialogModify = false,
-        this.$message({
-          message: '修改成功',
-          type: 'success',
-        }),
-        setTimeout(() => {
-            this.loadPage()
-          }, 450)
-      )
+      postModify(postModifyList).then( res => {
+        if (res.data.data == true) {
+          this.dialogModify = false,
+          this.$message({
+            message: '修改成功',
+            type: 'success',
+          }),
+          this.loadPage()
+        }
+      })
     },
   },
 }

@@ -16,9 +16,9 @@
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination"
       :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange"
       isMutipleSelection @selection-change="selectionChange" is-mutiple-selection is-index>
-      <el-table-column prop="examineeId" label="姓名">
+      <el-table-column prop="examineeName" label="姓名">
         <template slot-scope="scope">
-          {{scope.row.examineeId}}
+          {{scope.row.examineeName}}
         </template>
       </el-table-column>
       <el-table-column prop="examineeNumber" label="工号">
@@ -175,14 +175,14 @@ export default {
             cancelButtonText: '取消',
             type: 'warning',
           }).then(() => {
-            passExamerById (this.selectionValue).then(() => {
-              this.$message({
-                message: '操作成功',
-                type: 'success',
-              })
-              setTimeout(() => {
+            passExamerById (this.selectionValue).then( res => {
+              if (res.data.data == true) {
+                this.$message({
+                  message: '操作成功',
+                  type: 'success',
+                })
                 this.loadPage()
-              }, 450)
+              }
             })
         })
       }
@@ -206,14 +206,14 @@ export default {
           cancelButtonText: '取消',
           type: 'warning',
         }).then(() => {
-          deleteById(this.selectionValue).then(() => {
-            this.$message({
-              message: '操作成功',
-              type: 'success',
-            })
-            setTimeout(() => {
-            this.loadPage()
-          }, 450)
+          deleteById(this.selectionValue).then( res => {
+            if (res.data.data == true) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+              })
+              this.loadPage()
+            }
           })
         })
       }

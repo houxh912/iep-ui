@@ -1,8 +1,8 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="重新修改试题" width="500px" @close="handleClose" center>
-    <el-form :model="form" size="small" ref="form" label-width="100px" style="padding-right: 25px;">
-        <el-form-item label="科目" prop="fieldName">
-            <el-select v-model="form.fieldName" size="small" @change="dialogModifyChange">
+    <el-form :model="form" size="small" ref="form" label-width="90px">
+        <el-form-item label="科目" prop="field">
+            <el-select v-model="form.field" size="small" @change="dialogModifyChange">
                 <el-option
                 v-for="(item, index) in res.exms_subjects"
                 :key="index"
@@ -11,8 +11,8 @@
                 </el-option>
             </el-select>
         </el-form-item>
-        <el-form-item label="题型" prop="questionTypeName">
-            <el-select v-model="form.questionTypeName" size="small" @change="dialogModifyChange">
+        <el-form-item label="题型" prop="questionType">
+            <el-select v-model="form.questionType" size="small" @change="dialogModifyChange">
                 <el-option
                 v-for="(item, index) in res.exms_question_type"
                 :key="index"
@@ -21,8 +21,8 @@
                 </el-option>
             </el-select>
         </el-form-item>
-        <el-form-item label="题类" prop="kindName">
-            <el-select v-model="form.kindName" size="small" @change="dialogModifyChange">
+        <el-form-item label="题类" prop="kind">
+            <el-select v-model="form.kind" size="small" @change="dialogModifyChange">
                 <el-option
                 v-for="(item, index) in res.exms_question_category"
                 :key="index"
@@ -31,8 +31,8 @@
                 </el-option>
             </el-select>
         </el-form-item>
-        <el-form-item label="难度" prop="difficultyName">
-            <el-select v-model="form.difficultyName" size="small" @change="dialogModifyChange">
+        <el-form-item label="难度" prop="difficulty">
+            <el-select v-model="form.difficulty" size="small" @change="dialogModifyChange">
                 <el-option
                 v-for="(item, index) in res.exms_difficulty"
                 :key="index"
@@ -41,8 +41,8 @@
                 </el-option>
             </el-select>
         </el-form-item>
-        <el-form-item label="内容" prop="title" @change="dialogModifyChange">
-            <el-input type="textarea" rows="4" v-model="form.title" size="small"></el-input>
+        <el-form-item label="内容" prop="title">
+            <el-input type="textarea" :rows="4" v-model="form.title" size="small" @change="dialogModifyChange"></el-input>
         </el-form-item>
         <el-form-item label="提交时间" prop="creatTime">
             <el-input v-model="form.creatTime" size="small" disabled></el-input>
@@ -50,8 +50,8 @@
     </el-form>
     <template slot="footer">
         <operation-wrapper>
-        <iep-button :disabled="isModifyChange" type="primary" @click="handleModifySave">保存</iep-button>
-        <iep-button type="primary" @click="handleClose">取消</iep-button>
+        <iep-button :disabled="isModifyChange" type="primary" @click="handleModifySave">提交</iep-button>
+        <iep-button @click="handleClose">取消</iep-button>
         </operation-wrapper>
     </template>
   </iep-dialog>
@@ -84,16 +84,16 @@ export default {
     handleModifySave (){
       var postModifyList = this.form
       postModifyList = JSON.stringify(postModifyList)
-      postModify(postModifyList).then(
-        this.dialogShow = false,
-        this.$message({
-          message: '修改成功',
-          type: 'success',
-        }),
-        setTimeout(() => {
-            this.$emit('reload')
-          }, 450)
-      )
+      postModify(postModifyList).then( res => {
+        if (res.data.data == true){
+          this.dialogShow = false,
+          this.$message({
+            message: '修改成功',
+            type: 'success',
+          }),
+          this.$emit('reload')   
+        }
+      })
     },
     /**
      * 是否修改选项

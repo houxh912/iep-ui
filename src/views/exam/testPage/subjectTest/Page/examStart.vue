@@ -125,7 +125,7 @@ export default {
   mixins: [mixins],
   props: ['record'],
   data () {
-    this.colors = ['#ffcb8c', '#ba1b21']
+    this.colors = ['#ba1b21', '#999999']
     this.chartSettings = {
       radius: [50, 60],
       offsetY: 100,
@@ -598,6 +598,7 @@ export default {
     float: right;
     width: 28%;
     border-left: 0px solid #eee;
+    padding-top: 30px;
     padding-bottom: 75px;
     .container {
       float: right;
@@ -612,9 +613,9 @@ export default {
       .explain {
         text-align: center;
         position: relative;
-        top: 65px;
+        top: 78px;
         .count {
-          color: #e6a23c;
+          color: #ba1b21;
           font-size: 18px;
         }
         .line {
@@ -628,15 +629,15 @@ export default {
       }
       .ring {
         padding-top: 15px;
-        margin-top: -75px;
+        margin-top: -60px;
       }
       .card {
         text-align: left;
-        padding: 0 18px;
+        padding: 10px 18px 0;
         .activess {
-          background: #fdf6eb;
-          border-color: #f5dab1;
-          color: #e6a23c;
+          background: #f8e8e9;
+          border-color: #e3a4a6;
+          color: #ba1b21;
         }
         .active {
           background: #ba1b21;

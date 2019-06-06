@@ -17,7 +17,6 @@ export default {
       name: 'leader-top',
       itemList: [
         {
-          id:1,
           routerPath:'visiting_log',
           title: '拜訪日志',
           time: '全年',
@@ -27,8 +26,8 @@ export default {
           },
         },
         {
-          id:2,
           routerPath:'staff_report',
+          name:'StaffWeek',        
           title: '员工周报',
           time: '本周',
           num: '530',
@@ -37,8 +36,8 @@ export default {
           },
         },
         {
-          id:3,
           routerPath:'staff_report',
+          name:'StaffMonth',        
           title: '员工月报',
           time: '本月',
           num: '188',
@@ -47,7 +46,6 @@ export default {
           },
         },
         {
-          id:4,
           routerPath:'project_report',         
           title: '项目周报',
           time: '本周',
@@ -57,8 +55,8 @@ export default {
           },
         },
         {
-          id:5,
-          routerPath:'origanaze_report',         
+          routerPath:'origanaze_report',
+          name:'OriganazeWeek',        
           title: '部门周报',
           time: '本周',
           num: '34',
@@ -67,8 +65,8 @@ export default {
           },
         },
         {
-          id:6,
           routerPath:'origanaze_report',
+          name:'OriganazeMonth',        
           title: '部门月报',
           time: '本月',
           num: '34',
@@ -83,6 +81,7 @@ export default {
     handleClick (row) {
       this.$router.push({
         path:`/wel/${row.routerPath}`,
+        query:{name:row.name},
       })
     },
   },

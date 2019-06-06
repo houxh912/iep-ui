@@ -73,11 +73,21 @@ export function passChoiceById (params) {
 }
 
 /**
+ * 根据id获取面试信息
+ */
+export function getInterviewById (id) {
+  return request({
+    url: `/exms/grade/face/${id}`,
+    method: 'get',
+  })
+}
+
+/**
  * 提交面试表单
  */
 export function passInterviewById (params) {
     return request({
-      url: 'exms',
+      url: '/exms/grade/face/save',
       method: 'post',
       data: params,
     })
@@ -99,7 +109,7 @@ export function sendCertificateById (params) {
  */
 export function rollingPaperById (params) {
   return request({
-    url: 'exms',
+    url: '/exms/grade/rolling',
     method: 'post',
     data: params,
   })
@@ -110,7 +120,7 @@ export function rollingPaperById (params) {
  */
 export function  overPapersById (params) {
   return request({
-    url: 'exms',
+    url: '/exms/grade/done',
     method: 'post',
     data: params,
   })

@@ -112,7 +112,7 @@
       <span class="headerTxt">剩余时间：{{min}} 分：{{sec}} 秒</span>
       <!-- <iep-button @click="handleSave">暂停</iep-button> -->
       <iep-button @click="backhome">返回</iep-button>
-      <iep-button style="margin-right: 30px;" @click="saveAndGoBack">保存并退出</iep-button>
+      <iep-button @click="saveAndGoBack">保存并退出</iep-button>
       <iep-button type="primary" @click="handleExamination">交卷</iep-button>
     </footer-tool-bar>
   </div>
@@ -125,7 +125,7 @@ export default {
   mixins: [mixins],
   props: ['record'],
   data () {
-    this.colors = ['#ba1b21', '#ddd']
+    this.colors = ['#ba1b21', '#999']
     this.chartSettings = {
       radius: [50, 60],
       offsetY: 100,
@@ -193,7 +193,7 @@ export default {
     },
   },
   mounted () {
-    this.timer()
+    // this.timer()
   },
   created () {
     this.loadPage()
@@ -322,6 +322,7 @@ export default {
         questionNum: this.resdata.questionNum,
       }
       this.getSubjectById(params, true)
+      this.timer()
     },
 
     /**
@@ -446,6 +447,7 @@ export default {
           type: 'success',
           message: '已成功返回到主界面!',
         })
+        this.saveAll()
         this.$emit('onGoBack')
       }).catch(() => {
         this.$message({

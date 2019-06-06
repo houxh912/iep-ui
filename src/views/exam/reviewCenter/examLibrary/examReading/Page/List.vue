@@ -99,6 +99,7 @@ function initForm () {
 }
 export default {
   mixins: [mixins],
+  props: ['record'],
   components: { WritteForm, ChoiceForm, InterviewForm, ProgressForm },
   data () {
     return {
@@ -126,21 +127,27 @@ export default {
     /**
      * 获取列表分页数据
      */
-    loadPage (param = this.searchForm) {
+    loadPage () {
       this.dialogProgress = false
       this.dialogWritten = false
       this.dialogChoice = false
       this.dialogInterview = false
-      this.loadTable(param, getExamReadingList)
+      const param = {
+        examinationId: this.record.row.id,
+      }
+      this.loadTable({ ...param }, getExamReadingList)
+      // this.loadTable(param, getExamReadingList)
     },
 
     /**
      * 阅卷进度按钮
      */
     handleEdit () {
-      // this.$emit('onEdit')
+      // console.log('redd',this.record)
       this.dialogProgress = true
-      this.InterviewData = initForm()
+      this.InterviewData = { ...this.record }
+      //console.log('kkk', this.InterviewData)
+      // this.InterviewData = initForm()
     },
 
     /**
@@ -186,7 +193,6 @@ export default {
     handleChoice (row) {
       this.dialogChoice = true
       this.InterviewData = { ...row }
-
     },
 
     /**

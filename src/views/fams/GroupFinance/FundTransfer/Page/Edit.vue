@@ -14,8 +14,11 @@
             <el-radio v-for="(item,i) in dictsMap.allocationWay" :key="i" :label="+i">{{item}}</el-radio>
           </el-radio-group>
         </iep-form-item>
-        <iep-form-item label-name="日利息(%)" prop="interest" class="form-half">
-          <iep-input-number v-model="form.interest"></iep-input-number>
+        <iep-form-item label-name="组织日利息(%)" prop="orgInterest" class="form-half">
+          <iep-input-number v-model="form.orgInterest"></iep-input-number>
+        </iep-form-item>
+        <iep-form-item label-name="集团日利息(%)" prop="groupInterest" class="form-half">
+          <iep-input-number v-model="form.groupInterest"></iep-input-number>
         </iep-form-item>
         <iep-form-item label-name="调拨天数(日)" prop="allocationDays" class="form-half">
           <iep-input-number v-model="form.allocationDays" :precision="0"></iep-input-number>

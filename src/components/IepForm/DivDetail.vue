@@ -13,10 +13,13 @@ export default {
   props: ['value'],
   computed: {
     content () {
-      if (validatenull(this.value)) {
+      const { value } = this
+      if (value === 0) {
+        return '0'
+      } else if (validatenull(value)) {
         return '暂无'
       } else {
-        return this.value
+        return value
       }
     },
   },

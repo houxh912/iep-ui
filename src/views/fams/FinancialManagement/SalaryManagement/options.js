@@ -13,6 +13,7 @@ const columnsMap = [
   {
     prop: 'id',
     label: 'ID',
+    width: '55',
   },
   {
     prop: 'title',

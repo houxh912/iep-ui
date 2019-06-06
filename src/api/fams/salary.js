@@ -40,3 +40,18 @@ export function grantSalaryById (id) {
     method: 'post',
   })
 }
+
+export function addSalary () {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'get',
+  })
+}
+
+export function deleteSalaryById (id) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: [id],
+  })
+}

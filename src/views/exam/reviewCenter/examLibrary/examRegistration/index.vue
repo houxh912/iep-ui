@@ -100,7 +100,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { getExamRegistrationList,passExamerById,cancelExamerById,deleteById } from '@/api/exam/examLibrary/examRegistration/examRegistration'
+import { getExamRegistrationList,passExamerById,deleteById,cancelExamerById } from '@/api/exam/examLibrary/examRegistration/examRegistration'
 export default {
   mixins: [mixins],
   props: ['record'],
@@ -158,6 +158,8 @@ export default {
     handleCancel (row){
       const param = {
         id: row.id,
+        examinationId: row.examinationId,
+        userId: row.examineeId,
       }
       this._handleComfirm(param, cancelExamerById,'撤销资格')
     },

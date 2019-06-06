@@ -236,7 +236,7 @@ export default {
     getSubjectById (params, times) {
       getTestPageById(params).then(res => {
         console.log('333', res)
-        if (res.data.code === 1) {
+        if (res.data.code === 2) {
           console.log('warn')
           this.isLoadTable = true
         } else {

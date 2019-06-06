@@ -27,7 +27,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="loadData('form')" v-if="`${methodName==='上传'}`">确定</iep-button>
+      <iep-button type="primary" @click="loadData('form')" v-if="methodName==='上传'">确定</iep-button>
       <iep-button type="primary" @click="submitForm('form')" v-else>提交</iep-button>
       <iep-button @click="loadPage">取消</iep-button>
     </template>

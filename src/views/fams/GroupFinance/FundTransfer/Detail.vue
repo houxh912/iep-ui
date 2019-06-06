@@ -11,8 +11,11 @@
         <iep-form-item label-name="调拨方式" class="form-half">
           <iep-div-detail :value="dictsMap.allocationWay[form.allocationWay]"></iep-div-detail>
         </iep-form-item>
-        <iep-form-item label-name="日利息(%)" class="form-half">
-          <iep-div-detail :value="form.interest"></iep-div-detail>
+        <iep-form-item label-name="组织日利息(%)" class="form-half">
+          <iep-div-detail :value="form.orgInterest"></iep-div-detail>
+        </iep-form-item>
+        <iep-form-item label-name="集团日利息(%)" class="form-half">
+          <iep-div-detail :value="form.groupInterest"></iep-div-detail>
         </iep-form-item>
         <iep-form-item label-name="调拨天数(日)" class="form-half">
           <iep-div-detail :value="form.allocationDays"></iep-div-detail>

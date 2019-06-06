@@ -2,8 +2,8 @@
   <div>
     <iep-result type="success" :description="description" :title="title">
       <template slot="action">
-        <a-button type="primary" @click="handleBack">返回列表</a-button>
-        <a-button style="margin-left: 8px" @click="handleRevoke">撤销</a-button>
+        <a-button type="primary" @click="handleRevoke">撤销</a-button>
+        <a-button style="margin-left: 8px" @click="handleBack">返回列表</a-button>
       </template>
     </iep-result>
   </div>

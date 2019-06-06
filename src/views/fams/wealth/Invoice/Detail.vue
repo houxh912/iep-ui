@@ -28,10 +28,10 @@
         <iep-form-item class="form-half" label-name="报销抬头">
           <iep-select-detail :value="form.companyId" prefix-url="fams/company"></iep-select-detail>
         </iep-form-item>
-        <iep-form-item class="form-half" label-name="项目">
+        <iep-form-item v-if="projectOption" class="form-half" label-name="项目">
           <iep-div-detail :value="form.projectName"></iep-div-detail>
         </iep-form-item>
-        <iep-form-item class="form-half" label-name="审批人">
+        <iep-form-item v-if="auditorOption" class="form-half" label-name="审批人">
           <iep-contact-select disabled v-model="form.auditor"></iep-contact-select>
         </iep-form-item>
       </el-form>
@@ -54,6 +54,12 @@ export default {
   computed: {
     id () {
       return this.$route.params.id
+    },
+    projectOption () {
+      return this.form.referType === 1
+    },
+    auditorOption () {
+      return this.form.referType !== 3
     },
   },
   created () {

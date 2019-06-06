@@ -69,4 +69,13 @@ const initGrantForm = () => {
   }
 }
 
-export { columnsMap, dictsMap, initForm, initGrantForm }
+const rules = {
+	offlineCompany: [
+	{ required: true, message: '请选择公司', trigger: 'blur' },
+	],
+	bankAmount: [
+    { required: true, message: '请选择银行账户', trigger: 'blur' },
+	],
+}
+
+export { columnsMap, dictsMap, initForm, initGrantForm, rules }

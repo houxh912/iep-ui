@@ -63,19 +63,19 @@ let intValidate = (rule, value, callback) => {
 
 export const rules = {
   projectType: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请选择项目类型', trigger: 'blur' },
   ],
   projectName: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入项目名称', trigger: 'blur' },
   ],
   relatedClient: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请输入相关客户', trigger: 'change' },
   ],
   projectTagList: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请输入项目标签', trigger: 'change' },
   ],
   projectTime: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择立项时间', trigger: 'change' },
   ],
   projectBudget: [
     { validator: intValidate, message: '请输入正整数', trigger: 'change' },

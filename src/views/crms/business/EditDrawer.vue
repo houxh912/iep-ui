@@ -66,6 +66,7 @@ import { checkName } from '@/api/crms/customer'
 import { checkBusinessName } from '@/api/crms/business'
 import { initForm } from './options'
 import businessType from './businessType'
+import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 const tipContent = {
   clientName: '客户名称精确到局办且为全称， 如：“北京市行政服务中心”',
   projectName: '请准确填写该商机对接的项目信息，发布日期+部委/省级名称+项目内容，如“20190406农业部信息中心互联网+政务规划设计需求”。',
@@ -164,10 +165,16 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn(this.formData).then(() => {
-            this.$message({
-              message: `${this.methodName}成功`,
-              type: 'success',
-            })
+            if (this.methodName == '新增') {
+              addBellBalanceRuleByNumber('BUSINESS_SUBMIT').then(() => {
+                this.$message.success('您成功录入一条商机，获得1个国脉贝，继续加油！')
+              })
+            } else {
+              this.$message({
+                message: `${this.methodName}成功`,
+                type: 'success',
+              })
+            }
             this.loadPage()
             this.drawerShow = false
             this.formData = initForm()

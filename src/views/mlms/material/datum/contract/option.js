@@ -111,25 +111,25 @@ let objValidate = (rule, value, callback) => {
 
 export const rules = {
   contractName: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入合同名称', trigger: 'blur' },
   ],
   contractExpl: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '', trigger: 'blur' },
   ],
   contractType: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择合同类型', trigger: 'change' },
   ],
   businessType: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择业务类型', trigger: 'change' },
   ],
   tagKeyWords: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请输入至少3个标签', trigger: 'change' },
   ],
   signTime: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请选择签订日期', trigger: 'blur' },
   ],
   finishTime: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请选择完结日期', trigger: 'blur' },
   ],
   companyOrgId: [
     { required: true, message: '必填', trigger: 'change' },
@@ -138,7 +138,7 @@ export const rules = {
     { validator: objValidate, message: '必填', trigger: 'change' },
   ],
   signCompanyOrgId: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请输入签署组织', trigger: 'change' },
   ],
   signCompanyOrgObj: [
     { validator: objValidate, message: '必填', trigger: 'change' },
@@ -162,25 +162,25 @@ export const rules = {
     { required: true, message: '必填', trigger: 'change' },
   ],
   directorList: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择市场经理', trigger: 'change' },
   ],
   contractAmount: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请输入合同金额', trigger: 'change' },
     { validator: intValidate, message: '请输入正数', trigger: 'change' },
     { validator: xsValidate, message: '小数位最多为2位', trigger: 'change' },
   ],
   contractLevel: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择合同级别', trigger: 'change' },
   ],
   contractStatus: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择合同状态', trigger: 'change' },
   ],
   deposit: [
     { validator: intValidate, message: '请输入正数', trigger: 'change' },
     { validator: xsValidate, message: '小数位最多为2位', trigger: 'change' },
   ],
   projectId: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择关联项目', trigger: 'change' },
   ],
 }
 

@@ -107,42 +107,42 @@ export const rules = {
     { required: true, message: '必填', trigger: 'change' },
   ],
   title: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请填写会议主题', trigger: 'blur' },
     { validator: notEmpty, message: '请勿纯空格输入', trigger: 'blur' },
   ],
   meetingContent: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请填写会议内容', trigger: 'blur' },
     { validator: notEmpty, message: '请勿纯空格输入', trigger: 'blur' },
   ],
   meetingCon: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请填写会议总结', trigger: 'blur' },
     { validator: notEmpty, message: '请勿纯空格输入', trigger: 'blur' },
   ],
   thoughtsProblem: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请填写会议总结感想与困惑', trigger: 'blur' },
     { validator: notEmpty, message: '请勿纯空格输入', trigger: 'blur' },
   ],
   meetingTime: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请选择会议时间', trigger: 'blur' },
   ],
   meetingLocation: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入会议地址', trigger: 'blur' },
   ],
   tagKeyWords: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请输入至少3个标签', trigger: 'change' },
     { validator: tagKeyWords, message: '请输入至少3个标签', trigger: 'change' },
   ],
   receiverIds: [
     { required: true, message: '必填', trigger: 'change' },
   ],
   remark: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入会议总结', trigger: 'blur' },
   ],
   visitType: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请输入拜访类型', trigger: 'change' },
   ],
   visitingAddress: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入拜访地址', trigger: 'blur' },
   ],
   visitingUserId: [
     { required: true, message: '必填', trigger: 'change' },
@@ -153,7 +153,7 @@ export const rules = {
   ],
   attendeeList: [
     { required: true, message: '必填', trigger: 'change' },
-    { validator: receiverValidate, message: '参会人必填', trigger: 'change' },
+    { validator: receiverValidate, message: '请选择参会人', trigger: 'change' },
   ],
   receiverList: [
     // { required: true, message: '必填', trigger: 'change' },

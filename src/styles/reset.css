@@ -108,11 +108,8 @@
 /* Break-point
 --------------------------*/
 body {
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  color: #000000;
-  -webkit-font-smoothing: antialiased; }
+  -webkit-font-smoothing: antialiased;
+}
 
 /* a {
   color: #409EFF;
@@ -122,48 +119,80 @@ body {
   a:active {
     color: #3a8ee6; } */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #606266;
-  font-weight: inherit; }
-  h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child {
-    margin-top: 0; }
-  h1:last-child, h2:last-child, h3:last-child, h4:last-child, h5:last-child, h6:last-child {
-    margin-bottom: 0; }
+  font-weight: inherit;
+}
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+  margin-top: 0;
+}
+h1:last-child,
+h2:last-child,
+h3:last-child,
+h4:last-child,
+h5:last-child,
+h6:last-child {
+  margin-bottom: 0;
+}
 
 h1 {
-  font-size: 20px; }
+  font-size: 20px;
+}
 
 h2 {
-  font-size: 18px; }
+  font-size: 18px;
+}
 
 h3 {
-  font-size: 16px; }
+  font-size: 16px;
+}
 
-h4, h5, h6, p {
-  font-size: inherit; }
+h4,
+h5,
+h6,
+p {
+  font-size: inherit;
+}
 
 p {
-  line-height: 1.8; }
-  p:first-child {
-    margin-top: 0; }
-  p:last-child {
-    margin-bottom: 0; }
+  line-height: 1.8;
+}
+p:first-child {
+  margin-top: 0;
+}
+p:last-child {
+  margin-bottom: 0;
+}
 
-sup, sub {
-  font-size: 13px; }
+sup,
+sub {
+  font-size: 13px;
+}
 
 small {
-  font-size: 12px; }
+  font-size: 12px;
+}
 
 hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
-  border-top: 1px solid #eeeeee; }
+  border-top: 1px solid #eeeeee;
+}
 pre {
-  white-space:pre-wrap; /* css3.0 */ 
-  white-space:-moz-pre-wrap; /* Firefox */ 
-  white-space:-pre-wrap; /* Opera 4-6 */ 
-  white-space:-o-pre-wrap; /* Opera 7 */ 
-  word-wrap:break-word; /* Internet Explorer 5.5+ */ 
+  white-space: pre-wrap; /* css3.0 */
+  white-space: -moz-pre-wrap; /* Firefox */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }

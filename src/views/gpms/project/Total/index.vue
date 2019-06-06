@@ -6,12 +6,7 @@
         <iep-button @click="handleDeleteAll" class="add" v-if="gpms_project_edit_del">批量删除</iep-button>
       </template>
       <template slot="right">
-        <operation-search
-          @search-page="searchPage"
-          @closed="dialogIsShow = true"
-          advanceSearch
-          placeHolder="请输入项目名称"
-          :dialogIsShow="dialogIsShow">
+        <operation-search @search-page="searchPage" @closed="dialogIsShow = true" advanceSearch placeHolder="请输入项目名称" :dialogIsShow="dialogIsShow">
           <!--title-->
           <el-row class="search">
             <el-col :span="23">高级搜索</el-col>
@@ -24,17 +19,8 @@
         </operation-search>
       </template>
     </operation-container>
-    <iep-table 
-      :isLoadTable="isLoadTable" 
-      :pagination="pagination" 
-      :columnsMap="columnsMap" 
-      :pagedTable="pagedTable" 
-      @size-change="handleSizeChange" 
-      @current-change="handleCurrentChange" 
-      is-mutiple-selection 
-      @selection-change="selectionChange"
-      :dictsMap="dictMap">
-      <el-table-column  label="项目名称" slot="before-columns" width="300px">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="selectionChange" :dictsMap="dictMap">
+      <el-table-column label="项目名称" slot="before-columns" width="300px">
         <template slot-scope="scope">
           <div style="cursor: pointer;" @click="handleDetail(scope.row)">
             <span>{{ scope.row.projectName }}</span>
@@ -57,10 +43,10 @@ import mixins from '@/mixins/mixins'
 import { dictMap, columnsMap, paramForm } from './const.js'
 import { getTableData, deleteData } from '@/api/gpms/index'
 // import searchForm from './searchForm'
-import { mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
-  components: {  },
+  components: {},
   props: {
     tabType: {
       type: String,
@@ -126,7 +112,7 @@ export default {
     },
   },
   mounted () {
-    this.loadPage({listType: this.tabType})
+    this.loadPage({ listType: this.tabType })
   },
   created () {
     this.gpms_project_add = this.tabType == 1 ? true : this.permissions.gpms_project_add
@@ -137,36 +123,35 @@ export default {
 </script>
 
 <style scoped>
-  .search {
-    height: 35px;
-    line-height: 26px;
-    color: #666;
-    font-weight: 900;
-    font-size: 17px;
-    border-bottom: 1px solid #cdcdcd;
-    margin-bottom: 20px;
-  }
-  .searchbot {
-    margin-right: 20px !important;
-  }
-  .num{
-    width: 47%;
-  }
-  .smallcol{
-    width: 110px !important;
-  }
-  .blackColor{
-    color: #666;
-  }
-  .cell {
-    padding:0;
-  }
-  .cell .el-button {
-    margin-left: 0;
-    display: inline;
-  }
-  .el-button--small {
-    padding:8px 10px;
-  }
-
+.search {
+  height: 35px;
+  line-height: 26px;
+  color: #666;
+  font-weight: 900;
+  font-size: 17px;
+  border-bottom: 1px solid #cdcdcd;
+  margin-bottom: 20px;
+}
+.searchbot {
+  margin-right: 20px !important;
+}
+.num {
+  width: 47%;
+}
+.smallcol {
+  width: 110px !important;
+}
+.blackColor {
+  color: #666;
+}
+.cell {
+  padding: 0;
+}
+.cell .el-button {
+  margin-left: 0;
+  display: inline;
+}
+.el-button--small {
+  padding: 8px 10px;
+}
 </style>

@@ -193,32 +193,32 @@ var tagKeyWords = (rule, value, callback) => {
 
 export const rules = {
   meetingType: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择会议类型', trigger: 'change' },
   ],
   title: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入会议标题', trigger: 'blur' },
     { validator: notEmpty, message: '请勿纯空格输入', trigger: 'blur' },
   ],
   meetingContent: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入会议内容', trigger: 'blur' },
     { validator: notEmpty, message: '请勿纯空格输入', trigger: 'blur' },
   ],
   meetingCon: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入会议总结', trigger: 'blur' },
     { validator: notEmpty, message: '请勿纯空格输入', trigger: 'blur' },
   ],
   thoughtsProblem: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入感想与困惑', trigger: 'blur' },
     { validator: notEmpty, message: '请勿纯空格输入', trigger: 'blur' },
   ],
   meetingTime: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请选择会议时间', trigger: 'blur' },
   ],
   meetingLocation: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入会议地点', trigger: 'blur' },
   ],
   tagKeyWords: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请输入至少3个标签', trigger: 'change' },
     { validator: tagKeyWords, message: '请输入至少3个标签', trigger: 'change' },
   ],
   receiverIds: [
@@ -228,20 +228,20 @@ export const rules = {
     { required: true, message: '必填', trigger: 'blur' },
   ],
   visitType: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择会议形式', trigger: 'change' },
   ],
   visitingAddress: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入面访具体地址', trigger: 'blur' },
   ],
   visitingUserId: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '输入拜访对象', trigger: 'change' },
   ],
   hostList: [
     // { required: true, message: '必填', trigger: 'change' },
     // { validator: hostValidate, message: '主持人必填', trigger: 'change' },
   ],
   attendeeList: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择参会人', trigger: 'change' },
     { validator: receiverValidate, message: '参会人必填', trigger: 'change' },
   ],
   receiverList: [

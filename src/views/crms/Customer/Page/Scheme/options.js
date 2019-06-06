@@ -9,19 +9,19 @@ export const dictsMap = {
 }
 
 const rules = {
-  materialName: [{ required: true, message: '必填', trigger: 'blur' }],
-  intro: [{ required: true, message: '必填', trigger: 'blur' }],
+  materialName: [{ required: true, message: '名称', trigger: 'blur' }],
+  intro: [{ required: true, message: '请输入方案介绍', trigger: 'blur' }],
   content: [{ required: true, message: '必填', trigger: 'blur' }],
-  firstClass: [{ required: true, message: '必填', trigger: 'change' }],
-  secondClass: [{ required: true, message: '必填', trigger: 'change' }],
+  firstClass: [{ required: true, message: '请选择方案分类', trigger: 'change' }],
+  secondClass: [{ required: true, message: '请选择方案二级分类', trigger: 'change' }],
   materialType: [{ required: true, message: '必填', trigger: 'change' }],
-  tagKeyWords: [{ required: true, message: '必填', trigger: 'change' }],
+  tagKeyWords: [{ required: true, message: '请输入至少3个标签', trigger: 'change' }],
   isContri: [{ required: true, message: '必填', trigger: 'change' }],
-  downloadCost: [{ required: true, message: '必填', trigger: 'change' }],
+  downloadCost: [{ required: true, message: '输入下载贝额', trigger: 'change' }],
   uploader: [{ required: true, message: '必填', trigger: 'change' }],
   isOpen: [{ required: true, message: '必填', trigger: 'change' }],
   secrecyLevel: [{ required: true, message: '必填', trigger: 'change' }],
-  attachFileList: [{ required: true, message: '必填', trigger: 'change' }],
+  attachFileList: [{ required: true, message: '请上传方案附件', trigger: 'change' }],
 }
 
 export const tipContent = {

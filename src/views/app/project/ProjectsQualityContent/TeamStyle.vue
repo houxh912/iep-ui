@@ -19,10 +19,10 @@ export default {
     return {
       title: '项目团队风采',
       wonderfulList: [
-        { name: '数据基因项目组', img: '//183.131.134.242:10060/upload/iep/201904/2cab9b7e-77cd-4e5c-9039-6c05f27e2529_20180709150516_jg3j6m3qre.jpg'},
-        { name: '营商通项目组', img: '//183.131.134.242:10060/upload/iep/201904/2cab9b7e-77cd-4e5c-9039-6c05f27e2529_20180709150516_jg3j6m3qre.jpg'},
-        { name: '营商通项目组', img: '//183.131.134.242:10060/upload/iep/201904/2cab9b7e-77cd-4e5c-9039-6c05f27e2529_20180709150516_jg3j6m3qre.jpg'},
-        { name: '营商环境项目组', img: '//183.131.134.242:10060/upload/iep/201904/2cab9b7e-77cd-4e5c-9039-6c05f27e2529_20180709150516_jg3j6m3qre.jpg' },
+        { name: '数据基因项目组', img: '../img/person/p6.jpg'},
+        { name: '营商通项目组', img: '../img/person/p5.jpg'},
+        { name: '营商通项目组', img: '../img/person/p2.jpg'},
+        { name: '营商环境项目组', img: '../img/person/p9.jpg' },
       ],
     }
   },

@@ -121,7 +121,7 @@ import { meetingSend } from '@/api/mlms/material/summary'
 import { createVisitLog } from '@/api/crms/visiting_record'
 import projectDialog from './projectDialog'
 import previewDialog from './previewDialog'
-
+import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 export default {
   components: { projectDialog, previewDialog },
   data () {
@@ -231,8 +231,9 @@ export default {
         if (this.formData.status == 0 && this.formData.isSend == 1) {
           meetingSend(id).then(({ data }) => {
             if (data.data) {
-              this.$message.success('您成功发送一篇会议纪要，继续加油！')
-              // this.goBack(true)
+              addBellBalanceRuleByNumber('VISIT_LOG').then(() => {
+                this.$message.success('您成功发送一篇拜访纪要，获得2个国脉贝，继续加油！')
+              })
               this.$emit('load-page')
               this.dialogShow = false
             } else {

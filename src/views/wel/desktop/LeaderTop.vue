@@ -83,6 +83,7 @@ export default {
         path:`/wel/${row.routerPath}`,
         query:{name:row.name},
       })
+       this.$emit('select',row.name)
     },
   },
 }

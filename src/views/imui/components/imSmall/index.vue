@@ -49,7 +49,9 @@ export default {
       this.mousePosition.y = event.clientY
     },
     mousemove (event) {
-      this.move = true
+      if (event.clientX !== this.mousePosition.x || event.clientY !== this.mousePosition.y) {
+        this.move = true
+      }
       this.positionChange({
         x: event.clientX - this.mousePosition.x,
         y: event.clientY - this.mousePosition.y,
@@ -58,6 +60,7 @@ export default {
       this.mousePosition.y = event.clientY
     },
     mouseup () {
+      document.body.style['user-select'] = 'auto'
       if (!this.move) {
         this.$emit('showLarge')
       }
@@ -102,7 +105,8 @@ export default {
   right: 0;
   bottom: 0;
   background: #FFFFFF;
-  box-shadow: 1px 1px 50px rgba(0,0,0,.3);
+  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
   border-radius: 30px;
   cursor: move;
   opacity: .4;

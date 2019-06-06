@@ -19,22 +19,22 @@
         </li>
       </ul>
       <div class="im-tabel-content-large-im">
-          <el-tree
-                  v-show="tableChosen === 'book'"
-                  @node-click="toChat"
-                  :data="$store.getters.imUserTree"
-                  node-key="id"
-                  :expand-on-click-node="false">
-            <span v-if="data.leaf"
-                  class="im-tabel-content-large-im-item"
-                  slot-scope="{ node, data }">
-              <span class="im-friend">
-                <img class="im-friend-head"
-                     :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
-                <span>{{data.label}}</span>
-              </span>
+        <el-tree
+                v-show="tableChosen === 'book'"
+                @node-click="toChat"
+                :data="$store.getters.imUserTree"
+                node-key="id"
+                :expand-on-click-node="false">
+          <span v-if="data.leaf"
+                class="im-tabel-content-large-im-item"
+                slot-scope="{ node, data }">
+            <span class="im-friend">
+              <img class="im-friend-head"
+                   :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
+              <span>{{data.label}}</span>
             </span>
-            <span v-else>{{ data.label }}</span>
+          </span>
+          <span v-else>{{ data.label }}</span>
         </el-tree>
         <ul v-show="tableChosen === 'chat'" class="im-chat-list">
           <li class="im-friend"
@@ -102,6 +102,7 @@ export default {
       this.mousePosition.y = event.clientY
     },
     mouseup () {
+      document.body.style['user-select'] = 'auto'
       document.removeEventListener('mousemove', this.mousemove)
       document.removeEventListener('mouseup', this.mouseup)
     },
@@ -161,7 +162,8 @@ export default {
   width: 260px;
   background: #FFFFFF;
   border-radius: 2px;
-  box-shadow: 1px 1px 50px rgba(0,0,0,.3);
+  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
   li {
     list-style: none;
   }

@@ -27,7 +27,7 @@ function addChat (state, data, isNew = true) {
   }
 }
 
-function updateChatList (state, user) {
+function updateChatList (state, user, reverse = true) {
   let chatList = state.chatList
   let chat = {}
   for (let i = chatList.length; i--;) {
@@ -35,7 +35,11 @@ function updateChatList (state, user) {
       chat = chatList[i]
       chatList.splice(i, 1)
       updateUnread(state, chat.username, user.unread)
-      chatList.unshift(chat)
+      if (reverse) {
+        chatList.unshift(chat)
+      } else {
+        chatList.push(chat)
+      }
       return
     }
   }
@@ -46,7 +50,11 @@ function updateChatList (state, user) {
     realName: user.realName,
   }
   updateUnread(state, user.username, user.unread)
-  chatList.unshift(chat)
+  if (reverse) {
+    chatList.unshift(chat)
+  } else {
+    chatList.push(chat)
+  }
 }
 
 function updateUnread (state, username, num) {
@@ -171,7 +179,7 @@ const im = {
       for (let i = 0; i <  history.length; i++) {
         let user = getUserInfo(state, history[i].resourceName)
         user.unread = history[i].msgNum
-        updateChatList(state, user)
+        updateChatList(state, user, false)
         addChat(state, {
           id: history[i].id,
           message: history[i].msg,

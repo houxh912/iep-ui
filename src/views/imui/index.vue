@@ -3,10 +3,11 @@
     <im-ui-small v-show="showType === 'small'" @showLarge="showType = 'large'"></im-ui-small>
     <im-ui-large v-show="showType === 'large'" @showSmall="showType = 'small'" @toChat="toChat"></im-ui-large>
     <chat-box
-      v-show="$store.getters.imCurrentChatList.length > 0"
+      v-show="$store.getters.imCurrentChatList.length > 0 && chatShow"
       :currentChat="currentChat"
       @chatChange="chatChange"
       @sendMessage="sendMessage"
+      @chatAllClose="chatShow = false"
       @chatClose="chatClose"></chat-box>
   </div>
 </template>
@@ -30,6 +31,7 @@ export default {
   data () {
     return {
       showType: 'small',
+      chatShow: false,
       chatList: [],
       currentChat: {},
       socket: null,
@@ -108,6 +110,7 @@ export default {
       })
     },
     toChat (user) {
+      this.chatShow = true
       this.$store.commit('addCurrentChatList', user)
       clearUnread({type: 1, targetId: user.userId})
       this.currentChat = user

@@ -57,7 +57,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getExamReadingList } from '@/api/exam/examLibrary/examReading/examReading'
+import { getExamReadingList, judgeWrittenById } from '@/api/exam/examLibrary/examReading/examReading'
 // import { getExamReadingList, sendCertificateById, deleteById, deleteIdAll } from '@/api/exam/examLibrary/examReading/examReading'
 import WritteForm from './writte-form'
 import ChoiceForm from './choice-form'
@@ -148,8 +148,36 @@ export default {
      */
     handleWritten (row) {
       row.judgeId = this.userInfo.userId
-      this.InterviewData = { ...row }
-      this.dialogWritten = true
+      this.InterviewData = { ...row }          //传到子组件的数据
+      const params = {
+        examId: row.examId,
+      }
+      judgeWrittenById(params).then(res => {   //首次进入页面先判断后台返回信息
+        const resjudge = res.data.data         //true 可阅卷
+        if (resjudge === true) {               //false code=0  有老师在阅卷
+          this.dialogWritten = true            //false code=2  不可阅卷
+        } else {
+          if (resjudge === false && res.data.code === 0) {
+            this.$confirm(res.data.msg, '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning',
+            }).then(() => {
+              this.dialogWritten = true
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: '已取消',
+              })
+            })
+          } else {
+            this.$message({
+              type: 'warning',
+              message: res.data.msg,
+            })
+          }
+        }
+      })
     },
 
     /**

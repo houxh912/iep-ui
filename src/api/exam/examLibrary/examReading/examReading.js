@@ -39,7 +39,7 @@ export function deleteById (id) {
   
 
 /**
- *根据id判断是否可以进行笔试阅卷
+ *点击笔试阅卷先判断是否可以进行笔试阅卷
  */
 export function judgeWrittenById (id) {
     return request({

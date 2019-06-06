@@ -57,7 +57,7 @@
                             <div class="states">已报名</div>
                           </div>
                           
-                          <div v-if="item.status === 1 && item.examStatus === 7">
+                          <div v-if="(item.status === 1 && item.examStatus === 7) || item.examStatus === 0">
                             <div class="circleR"></div>
                             <div class="states">进行中</div>
                           </div>

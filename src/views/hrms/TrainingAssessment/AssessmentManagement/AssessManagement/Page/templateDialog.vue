@@ -40,7 +40,7 @@ export default {
       columnsMap: [
         {
           label: '模板名称',
-          prop: 'assessName',
+          prop: 'templateName',
         }, {
           label: '考核分数',
           prop: 'score',

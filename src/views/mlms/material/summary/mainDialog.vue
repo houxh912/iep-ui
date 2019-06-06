@@ -228,12 +228,12 @@ export default {
               // 发送成功之后访问财务接口
               if (this.formData.meetingType == 6) {
                 addBellBalanceRuleByNumber('VISIT_LOG').then(() => {
-                  this.$message.success('您成功发送一篇拜访纪要，获得5个国脉贝，继续加油！')
+                  this.$message.success('您成功发送一篇拜访纪要，继续加油！')
                   this.goBack(true)
                 })
               } else {
                 addBellBalanceRuleByNumber('MEETING_SUMMARY').then(() => {
-                  this.$message.success('您成功发送一篇会议纪要，获得5个国脉贝，继续加油！')
+                  this.$message.success('您成功发送一篇会议纪要，继续加油！')
                   this.goBack(true)
                 })
               }

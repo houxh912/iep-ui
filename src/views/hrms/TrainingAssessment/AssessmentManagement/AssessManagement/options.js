@@ -1,8 +1,8 @@
 const dictsMap = {
   status: {
-    1: '考核中',
-    2: '考核完成',
-    3: '已过期',
+    0: '考核中',
+    1: '考核完成',
+    2: '已过期',
   },
   scoringMethod: {
     1: '平均分',
@@ -12,15 +12,15 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'assessor',
+    prop: 'userName',
     label: '被考核人',
   },
   {
-    prop: 'assessName',
+    prop: 'kpiName',
     label: '考核名称',
   },
   {
-    prop: 'assessTime',
+    prop: 'startTime',
     label: '考核时间',
   },
   {
@@ -29,7 +29,7 @@ const columnsMap = [
     type: 'dict',
   },
   {
-    prop: 'assessScore',
+    prop: 'score',
     label: '考核分值',
   },
 ]
@@ -92,7 +92,7 @@ const validateCovers = (rule, value, callback) => {
 }
 
 const validateAssessors = (rule, value, callback) => {
-  if (value.users.length > 5) {
+  if (value.users.length > 3) {
     callback(new Error())
   } else {
     callback()

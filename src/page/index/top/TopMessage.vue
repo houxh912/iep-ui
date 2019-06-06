@@ -12,7 +12,7 @@
     </a-spin>
     <!-- <div class="list-clear">清空 通知</div> -->
     <el-badge :hidden="!totalNum" :value="totalNum" slot="reference" class="item">
-      <el-tooltip class="item" effect="dark" content="消息" placement="bottom">
+      <el-tooltip effect="dark" content="消息" placement="bottom">
         <iep-button><i class="el-icon-bell"></i></iep-button>
       </el-tooltip>
     </el-badge>

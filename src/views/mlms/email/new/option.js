@@ -37,9 +37,9 @@ var receiverValidate = (rule, value, callback) => {
 }
 
 export const rules = {
-  content: [{ required: true, message: '必填', trigger: 'blur' }],
-  subject: [{ required: true, message: '必填', trigger: 'blur' }],
-  receiverList: [{ validator: receiverValidate, message: '必填', trigger: 'change' }],
+  content: [{ required: true, message: '请填写内容', trigger: 'blur' }],
+  subject: [{ required: true, message: '请输入主题', trigger: 'blur' }],
+  receiverList: [{ validator: receiverValidate, message: '请输入姓名或姓名拼音', trigger: 'change' }],
 }
 
 export const tipContent = {

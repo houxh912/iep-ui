@@ -92,25 +92,25 @@ var tagKeyWords = (rule, value, callback) => {
 
 export const rules = {
   materialName: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入材料名称', trigger: 'blur' },
   ],
   intro: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入材料介绍', trigger: 'blur' },
   ],
   content: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入正文内容', trigger: 'blur' },
   ],
   firstClass: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择分类', trigger: 'change' },
   ],
   secondClass: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择二级分类', trigger: 'change' },
   ],
   materialType: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择类型', trigger: 'change' },
   ],
   tagKeyWords: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请输入至少3个标签', trigger: 'change' },
     { validator: tagKeyWords, message: '请输入至少3个标签', trigger: 'change' },
   ],
   isContri: [

@@ -3,7 +3,9 @@
     <el-carousel height="200px" :interval="5000" indicator-position="none">
       <el-carousel-item v-for="(item, index) in Math.ceil(wonderfulList.length/3)" :key="index">
         <div class="piece" v-for="(t, i) in wonderfulList.slice(index*3, index*3+3)" :key="i" @click="handleOpen(t)">
-          <div class="img"><img :src="t.logo" class="img"></div>
+          <div class="img">
+            <iep-img :src="t.logo" class="img"></iep-img>
+          </div>
           <span class="name">{{t.org_name}}</span>
         </div>
       </el-carousel-item>
@@ -28,7 +30,7 @@ export default {
     },
   },
   created () {
-    getRectagsOrgList().then(({data}) => {
+    getRectagsOrgList().then(({ data }) => {
       this.wonderfulList = data.data
     })
   },

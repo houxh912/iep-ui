@@ -27,17 +27,17 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="default" @click="handleCheck(scope.row)" v-if="scope.row.isChecked == 0">考核</iep-button>
-            <iep-button type="default" @click="handleDelete(scope.row)" v-if="scope.row.status != 0">删除</iep-button>
+            <iep-button type="default" @click="handleDetail(scope.row)" v-else>查看</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
-    <add-dialog-form ref="AddDialogForm" @load-page="loadPage"></add-dialog-form>
+    <add-dialog-form ref="AddDialogForm" @load-page="loadPage" :type="type"></add-dialog-form>
   </div>
 </template>
 
 <script>
-import { getEvaluationKpiPage, deleteEvaluation, getEvaluationCreateKpi } from '@/api/hrms/cover'
+import { getEvaluationKpiPage, deleteEvaluation, getEvaluationCreateKpi, getEvaluationSelfPage } from '@/api/hrms/cover'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initSearchForm } from '../options'
 import AddDialogForm from './AddDialogForm'
@@ -46,6 +46,11 @@ import { dateFormat } from '@/util/date'
 export default {
   mixins: [mixins],
   components: { AddDialogForm },
+  props: {
+    type: {
+      type: String,
+    },
+  },
   data () {
     return {
       dictsMap,
@@ -73,7 +78,10 @@ export default {
         m.time = `${dateFormat(m.startTime)} - ${dateFormat(m.endTime)}`
         return m
       }
-      this.loadTable(param, getEvaluationKpiPage, fn)
+      this.loadTable(param, this.type == 'waiting' ? getEvaluationKpiPage : getEvaluationSelfPage, fn)
+    },
+    handleDetail (row) {
+      this.$emit('handleDetail', row)
     },
   },
 }

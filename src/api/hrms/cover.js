@@ -45,11 +45,28 @@ export function getEvaluationKpiPage (params) {
   })
 }
 
+// 自评分页
+export function getEvaluationSelfPage (params) {
+  return request({
+    url: `${prefixUrl}/self_page`,
+    method: 'get',
+    params: params,
+  })
+}
+
 // 考核
 export function createKpi (obj) {
   return request({
     url: `${kpiUrl}/create`,
     method: 'post',
     data: obj,
+  })
+}
+
+// 获取考核详情
+export function getCoverDetail (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
   })
 }

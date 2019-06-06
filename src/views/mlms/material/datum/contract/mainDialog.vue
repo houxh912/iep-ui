@@ -193,8 +193,8 @@ export default {
           row.projectName = row.projectRelation.name
         }
         row.signDeptName = row.signDeptOrgName.name
-        row.companyOrgObj = { id: row.companyOrgId, name: row.companyName.name }
-        row.signCompanyOrgObj = { id: row.signCompanyOrgId, name: row.signCompanyRealName.name }
+        row.companyOrgObj = { id: row.companyOrgId, name: row.companyName ? row.companyName.name : '' }
+        row.signCompanyOrgObj = { id: row.signCompanyOrgId, name: row.signCompanyRealName ? row.signCompanyRealName.name : '' }
         this.formData = Object.assign({}, this.formData, row)
         this.methodName = '编辑'
         this.formRequestFn = updateData

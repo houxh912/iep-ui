@@ -18,7 +18,7 @@
           个人信息
         </a-menu-item>
         <a-menu-item @click="openVersion">
-          版本信息
+          更新日志
         </a-menu-item>
         <a-menu-item @click="handleAbout">
           关于
@@ -78,7 +78,7 @@ export default {
     },
     openVersion () {
       this.$router.push({
-        path:'/app/version_page',
+        path: '/app/version_page',
       })
     },
     handleLogout () {

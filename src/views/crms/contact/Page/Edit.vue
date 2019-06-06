@@ -107,15 +107,18 @@
       </el-form>
     </basic-container>
     <el-dialog title="添加对应客户" :visible.sync="dialogVisible" width="40%">
-      <el-input placeholder="请输入客户姓名" v-model="clientName" size="mini" :maxlength="20">
-        <template slot="append">
-          <div class="search" @click="search">
-            搜索
-          </div>
-        </template>
-      </el-input>
-      <avue-crud :data="pagedTable" :option="option" :page="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange">
-      </avue-crud>
+      <div class="bottom">
+        <el-input placeholder="请输入客户姓名" v-model="clientName" size="mini" :maxlength="20">
+          <template slot="append">
+            <div class="search" @click="search">
+              搜索
+            </div>
+          </template>
+        </el-input>
+      </div>
+      <!-- <avue-crud :data="pagedTable" :option="option" :page="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange">
+      </avue-crud> -->
+      <iep-table :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" :isLoadTable="isLoadTable" :columnsMap="columnsMap" @selection-change="handleSelectionChange" :isMutipleSelection="true"></iep-table>
       <div class="btn">
         <iep-button class="cancel" @click="dialogVisible = false">取 消</iep-button>
         <iep-button type="primary" @click="handlequery">添加</iep-button>
@@ -127,7 +130,7 @@
 import mixins from '@/mixins/mixins'
 import { initForm, rules } from '../options'
 import { getContactById } from '@/api/crms/contact'
-import { getMyorcollList } from '@/api/crms/customer'
+import { getPageData } from '@/api/crms/customer'
 const tipContent = {
   contactName: '请务必填写真实联系人姓名，与⾝份证信息⼀致，切记出现张主任等',
   clientInfos: '请务必准确关联该联系人对应的单位/企业',
@@ -181,6 +184,9 @@ export default {
         pageSize: this.pagination.size,
       }
     },
+    columnsMap () {
+      return [{ label: '客户名称', prop: 'clientName' }]
+    },
   },
   created () {
     this.methodName = this.record.methodName
@@ -205,7 +211,7 @@ export default {
       this.loadPage()
     },
     loadPage () {
-      this.loadTable({ clientName: this.clientName }, getMyorcollList)
+      this.loadTable({ clientName: this.clientName, clientContactId: this.record.id }, getPageData)
     },
     handleGoBack () {
       this.$emit('onGoBack')
@@ -288,6 +294,12 @@ export default {
 }
 .search {
   cursor: pointer;
+}
+.el-tag {
+  margin-right: 5px;
+}
+.bottom {
+  margin-bottom: 10px;
 }
 </style>
 

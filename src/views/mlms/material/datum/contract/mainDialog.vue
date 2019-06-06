@@ -10,7 +10,7 @@
           <el-option v-for="(item, value) in dictsMap.contractType" :key="value" :label="item" :value="value"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="关联项目：" prop="projectId">
+      <el-form-item label="关联项目：">
         <el-input v-show="false" v-model="formData.projectId"></el-input>
         <el-tag type="info" v-if="formData.projectName != ''">{{formData.projectName}}</el-tag>
         <iep-button @click="relationProject"><i class="el-icon-plus"></i></iep-button>

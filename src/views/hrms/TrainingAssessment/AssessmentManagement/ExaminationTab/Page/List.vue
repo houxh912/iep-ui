@@ -1,10 +1,6 @@
 <template>
   <div>
     <operation-container>
-      <template slot="left">
-        <iep-button @click="handleAdd" type="primary" plain>发起考核</iep-button>
-        <iep-button type="default" plain @click.native="handleDeleteBatch">删除</iep-button>
-      </template>
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
           <el-form :model="paramForm" label-width="80px" size="mini">
@@ -30,7 +26,8 @@
       <el-table-column prop="operation" label="操作" width="120">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button type="default" @click="handleDelete(scope.row)">删除</iep-button>
+            <iep-button type="default" @click="handleCheck(scope.row)" v-if="scope.row.isChecked == 0">考核</iep-button>
+            <iep-button type="default" @click="handleDelete(scope.row)" v-if="scope.row.status != 0">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -40,10 +37,11 @@
 </template>
 
 <script>
-import { createEvaluatio, getAssessmentPage, deleteEvaluation } from '@/api/hrms/cover'
+import { getEvaluationKpiPage, deleteEvaluation, getEvaluationCreateKpi } from '@/api/hrms/cover'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initSearchForm } from '../options'
 import AddDialogForm from './AddDialogForm'
+import { dateFormat } from '@/util/date'
 
 export default {
   mixins: [mixins],
@@ -59,21 +57,23 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleAdd () {
-      this.$refs['AddDialogForm'].formRequestFn = createEvaluatio
-      this.$refs['AddDialogForm'].dialogShow = true
-    },
-    handleDeleteBatch () {
-      this._handleGlobalDeleteAll(deleteEvaluation)
-    },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deleteEvaluation)
+    },
+    handleCheck (row) {
+      getEvaluationCreateKpi(row.coverId).then(({data}) => {
+        this.$refs['AddDialogForm'].open(data.data)
+      })
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },
     loadPage (param = this.paramForm) {
-      this.loadTable(param, getAssessmentPage)
+      let fn = (m) => {
+        m.time = `${dateFormat(m.startTime)} - ${dateFormat(m.endTime)}`
+        return m
+      }
+      this.loadTable(param, getEvaluationKpiPage, fn)
     },
   },
 }

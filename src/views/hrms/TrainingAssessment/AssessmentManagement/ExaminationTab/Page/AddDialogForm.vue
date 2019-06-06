@@ -54,6 +54,11 @@ import { createKpi } from '@/api/hrms/cover'
 
 export default {
   components: {  },
+  props: {
+    type: {
+      type: String,
+    },
+  },
   data () {
     return {
       dialogShow: false,
@@ -70,12 +75,13 @@ export default {
       this.form.checkName = data.detailsVO.kpiName
       this.form.checkTime = `${data.detailsVO.createTime} 至 ${data.detailsVO.endTime}`
       this.form.checkUser = data.userName
+      this.form.kpiType = this.type == 'waiting' ? 1 : 2
       for (let item of data.detailsVO.templateVO.checks) {
         this.form.kpiRelations.push({
           item: item.item,
           checkExplan: item.checkExplan,
           weight: item.weight,
-          max: data.detailsVO.templateVO.score * data.detailsVO.assessorWeight / 100 * item.weight / 100,
+          max: data.detailsVO.templateVO.score * (this.type == 'waiting' ? data.detailsVO.assessorWeight : data.detailsVO.selfWeight) / 100 * item.weight / 100,
           score: '',
           checkId: item.checkId,
           error: false,

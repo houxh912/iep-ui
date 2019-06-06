@@ -1,16 +1,16 @@
 <template>
-  <component @onDetail="handleDetail" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <component type="waiting" @onDetail="handleDetail" @onGoBack="handleGoBack" :record="record" :is="currentComponet" @handleDetail="handleDetail"></component>
 </template>
 
 <script>
 // 动态切换组件
 import List from './Page/List'
-// import Detail from './Page/Detail'
+import Detail from './Page/Detail'
 
 export default {
   name: 'TableListWrapper',
   components: {
-    List,
+    List, Detail,
   },
   data () {
     return {

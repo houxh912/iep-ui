@@ -4,7 +4,8 @@
       <page-header title="工资" :replaceText="replaceText"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd()">新增工资单</iep-button>
+          <iep-button icon="el-icon-plus" @click="handleAdd()">新增工资单</iep-button>
+          <iep-button icon="el-icon-download" @click="handleDownload()">下载工资单模板</iep-button>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
@@ -25,6 +26,7 @@
 </template>
 <script>
 import { getSalaryPage, grantSalaryById, addSalary, deleteSalaryById } from '@/api/fams/salary'
+import { downloadUrl } from '@/api/common'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
 export default {
@@ -46,6 +48,9 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDownload () {
+      downloadUrl('files-67e757b556894b22b089536cd49304f4.xls')
+    },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deleteSalaryById)
     },

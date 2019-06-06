@@ -2,7 +2,7 @@
   <el-popover popper-class="msg-popover" placement="bottom" width="336" v-model="visible" trigger="click">
     <iep-top-message-box class="msg-tabs" :message-list="emailList" :type="2" @visible="visible=false"></iep-top-message-box>
     <el-badge :hidden="!emailNum" :value="emailNum || 0" slot="reference" class="item">
-      <el-tooltip class="item" effect="dark" content="邮件" placement="bottom">
+      <el-tooltip effect="dark" content="邮件" placement="bottom">
         <iep-button><i class="el-icon-message"></i></iep-button>
       </el-tooltip>
     </el-badge>

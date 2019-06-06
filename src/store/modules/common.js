@@ -7,7 +7,7 @@ const common = {
     screen: -1,
     windowSize: {width: 0, height: 0},
     isWelcome: getStore({ name: 'isWelcome' }) || false,
-    isExperimental: getStore({ name: 'isExperimental' }) || false,
+    isExperimental: getStore({ name: 'isExperimental' }) ? getStore({ name: 'isExperimental' }) : true,
     isLock: getStore({ name: 'isLock' }) || false,
     showCollapse: getStore({ name: 'showCollapse' }) || false,
     showSearch: getStore({ name: 'showSearch' }) || false,

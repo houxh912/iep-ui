@@ -42,7 +42,7 @@
             </el-select>
         </el-form-item>
         <el-form-item label="内容" prop="title">
-            <el-input type="textarea" :rows="4" v-model="form.title" size="small" @change="dialogModifyChange"></el-input>
+            <el-input type="textarea" rows="4" v-model="form.title" size="small" @change="dialogModifyChange"></el-input>
         </el-form-item>
         <el-form-item label="提交时间" prop="creatTime">
             <el-input v-model="form.creatTime" size="small" disabled></el-input>

@@ -49,7 +49,7 @@ export default {
       form: initForm(),
       rules: {
         amount: [
-          { required: true, message: '请输入打赏金额', trigger: 'blur' },
+          { type: 'number', required: true, message: '请输入的打赏金额不少于 1 元', trigger: 'blur', min: 1 },
         ],
         targetUser: [
           { required: true, validator: checkContact, trigger: 'blur' },

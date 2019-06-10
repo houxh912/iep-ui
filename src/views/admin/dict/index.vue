@@ -7,7 +7,7 @@
           <iep-button type="primary" @click="handleAdd()" icon="el-icon-plus" plain>添加字典</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchChange" prop="name">
+          <operation-search @search-page="searchPage">
           </operation-search>
         </template>
       </operation-container>
@@ -43,7 +43,7 @@ import { columnsMap, initMemberForm } from './options'
 
 export default {
   name: 'Dict',
-  components: { dictChild,DialogForm },
+  components: { dictChild, DialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -53,7 +53,7 @@ export default {
       dialogShow: false,
     }
   },
-  created () { 
+  created () {
     this.loadPage()
   },
   mounted: function () { },
@@ -61,7 +61,7 @@ export default {
     ...mapGetters(['permissions']),
   },
   methods: {
-    handleAdd (){
+    handleAdd () {
       this.$refs['DialogForm'].methodName = '添加'
       this.$refs['DialogForm'].formRequestFn = addObj
       this.$refs['DialogForm'].disabled = false
@@ -86,9 +86,6 @@ export default {
     },
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.id, delObj)
-    },
-    searchChange (form) {
-      this.loadPage(this.page, form)
     },
   },
 }

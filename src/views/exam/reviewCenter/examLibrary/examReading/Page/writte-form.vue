@@ -1,30 +1,29 @@
 <template>
   <div>
     <div class="header">
-      <!-- <img src="./IG.png"> -->
       <span class="title1"><b>在线考试系统</b></span>
       <span class="title2"></span>
       <span class="title3">{{resdata.fieldName}}</span>
       <span class="title4">
-        评分进度<span class="title5">5</span> / 23</span>
+        评分进度<span class="title5">{{count}}</span> / {{resdata.questionTotalNum}}</span>
     </div>
 
     <div class="examShowss" style="background-color:#fff">
       <div class="left">
         <span style="font-size: 20px;"><b>{{resdata.questionTypeName}}</b></span>
-        <span class="title1">共 5 题，合计 5 分，已完成 {{count}} / {{resdata.questionTotalNum}}</span>
+        <span class="title1">共 {{resdata.kindTotalNum}} 题，合计 {{resdata.kindMark}} 分，已完成 {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
         <hr>
         <div class="container">
           <div style="margin-bottom: 10px;">
-            <span>1、 </span>
-            <span>公司共有战略决策委员会、__人力与技术委员会____、市场与营销委员会、_______________、项目执行与质量委员会五大委员会。</span>
-            <span> （ 1 分）</span>
+            <span>{{resdata.questionNum}}、 </span>
+            <span>{{resdata.title}}</span>
+            <span> （ {{resdata.single}} 分）</span>
           </div>
 
           <!-- <div>
             <li v-for="(item,index) in fillAreaList" :key="index" style="margin-left:28px;">
-              <el-input type="textarea" v-model="fillInput" style="width: 70%;margin-top:10px" :rows="2"></el-input>
-              <el-input v-model="freeInput" class="give-mark"></el-input>
+              <el-input type="textarea" v-model="userByAnswer" style="width: 70%;margin-top:10px" :rows="2"></el-input>
+              <el-input  class="give-mark" v-model="fillInput"></el-input>
               <span style="margin-left:10px;">分</span>
             </li>
           </div> -->
@@ -39,54 +38,54 @@
 
           <!-- <div>
             <li v-for="(item,index) in operationList" :key="index" style="margin-left:28px;display:flex">
-              <iep-froala-editor v-model="operation" style="width:80%"></iep-froala-editor>
-              <el-input v-model="freeInput" class="give-mark-three"></el-input>
+              <iep-froala-editor v-model="userByAnswer" style="width:80%"></iep-froala-editor>
+              <el-input  class="give-mark-three" v-model="operation"></el-input>
               <span style="margin-left:15px;margin-top:175px">分</span>
             </li>
           </div> -->
 
           <div class="center" align="center">
-            <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.questionNum === 1">上一题</iep-button>
-            <iep-button style="margin:0 10px;" @click="next" :disabled="resdata.questionNum === resdata.questionTotalNum">下一题</iep-button>
+            <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.firstOrLastQuestion === 0">上一题</iep-button>
+            <iep-button style="margin:0 10px;" @click="next" :disabled="resdata.firstOrLastQuestion === 1">下一题</iep-button>
             <iep-button style="margin:0 10px;" @click="saveAndGoBack">保存并退出</iep-button>
           </div>
         </div>
       </div>
 
-      <div class="right">
+      <div class="right" v-if="resdata.title">
         <div class="container">
           <div class="top">
             <span class="titleone">本题得分</span><br>
             <span class="titletwoss">
-              <el-input class="fen" v-model="freeInput"></el-input>
+              <el-input class="fen" v-model="showScore"></el-input>
             </span>
             <span class="titlethree"> / </span>
-            <span class="titlefour">12</span>
+            <span class="titlefour">{{resdata.single}}</span>
           </div>
 
-          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="180px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
+          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="160px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
 
           <div class="card">
-            <div>
+            <!-- <div v-if="resdata.textMap.length > 0">
               <span class="answerSheet">填空题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
               </div><br>
-            </div>
+            </div> -->
 
-            <div>
+            <div v-if="resdata.textMap.length > 0">
               <span class="answerSheet">简答题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
               </div><br>
             </div>
 
-            <div>
+            <!-- <div v-if="resdata.Map.length > 0">
               <span class="answerSheet">实操题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.id == resdata.questionNum}">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
               </div><br>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -95,7 +94,7 @@
   </div>
 </template>
 <script>
-import { judgeWrittenById, passWrittenById } from '@/api/exam/examLibrary/examReading/examReading'
+import { passWrittenById } from '@/api/exam/examLibrary/examReading/examReading'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -107,7 +106,8 @@ export default {
       offsetY: 80,
     }
     return {
-      userByAnswer:'',         //用户答案(v-model绑定的值)
+      userByAnswer: '',        //显示用户答案的输入框(v-model绑定的值)
+      showScore: '',           //答题卡上显示的分数(v-model绑定的值)
       fillInput: '',           //填空(v-model绑定的值)
       freeInput: '',           //简答(v-model绑定的值)
       operation: '',           //实操(v-model绑定的值)
@@ -122,12 +122,11 @@ export default {
         ],
       },
       resdata: {
+        kindTotalNum: '',    //每种题型合计题数
+        kindMark: '',        //每种题型合计分数
         questionOffNum: [],  //已完成的题数
         questionTotalNum: '',//题目总数
         titleOptions: [],    //答案选项数组
-        radioMap: [],        //答题卡片的单选题数组集合，从数组中遍历题目出来
-        checkboxMap: [],     //答题卡片的复选题数组集合，从数组中遍历题目出来
-        checkedMap: [],      //答题卡片的判断题数组集合，从数组中遍历题目出来
         textMap: [],         //答题卡片的简答题数组集合，从数组中遍历题目出来
       },
     }
@@ -136,6 +135,9 @@ export default {
 
   },
   computed: {
+    kindOffCount: function () {
+      return this.kindOffNum()
+    },
     count: function () {
       return this.offNum()
     },
@@ -152,17 +154,29 @@ export default {
       params.currentQuestionNum = this.resdata.questionNum
       const type = this.resdata.questionTypeName
       if (type === '填空题') {
-        params.score = this.answerRadio
+        if (this.fillInput > 0) {
+          params.score = this.fillInput
+          params.judgeId = this.formData.judgeId
+        } else {
+          params.score = ''
+        }
       }
       if (type === '简答题') {
-        params.score = JSON.stringify(this.checksList)
+        if (this.freeInput > 0) {
+          params.score = this.freeInput
+          params.judgeId = this.formData.judgeId
+        } else {
+          params.score = ''
+        }
       }
       if (type === '实操题') {
-        params.score = this.trueOrFalseRadio
+        if (this.operation > 0) {
+          params.score = this.operation
+          params.judgeId = this.formData.judgeId
+        } else {
+          params.score = ''
+        }
       }
-      // if (type === '简答题') {
-      //   params.score = this.freeInput
-      // }
     },
 
     /**
@@ -170,57 +184,50 @@ export default {
      */
     getSubjectById (params) {
       passWrittenById(params).then(res => {
-         const record = res.data.data
-         this.resdata = record
-         this.userByAnswer = record.userAnswer
-        // this.resdata = res.data
-        // this.resdata.questionOffNum = res.data.questionNumList
-        // this.resdata.questionTotalNum = res.data.questionNumList.checkboxMap.length + res.data.questionNumList.checkedMap.length + res.data.questionNumList.radioMap.length + res.data.questionNumList.textMap.length
-        // this.resdata.titleOptions = res.data.titleOptions ? JSON.parse(res.data.titleOptions) : ''
-        // this.resdata.radioMap = res.data.questionNumList.radioMap
-        // this.resdata.checkboxMap = res.data.questionNumList.checkboxMap
-        // this.resdata.checkedMap = res.data.questionNumList.checkedMap
-        // this.resdata.textMap = res.data.questionNumList.textMap
-        // if (res.data.questionTypeName === '单选题') {
-        //   this.answerRadio = res.data.score
-        // }
-        // if (res.data.questionTypeName === '复选题') {
-        //   this.checksList = JSON.parse(res.data.score)
-        // }
-        // if (res.data.questionTypeName === '判断题') {
-        //   this.trueOrFalseRadio = res.data.score
-        // }
-        // if (res.data.questionTypeName === '简答题') {
-        //   this.freeInput = res.data.score
-        // }
+        const record = res.data.data
+        this.userByAnswer = record.userAnswer
+        this.showScore = record.score
+        this.resdata = record
+        this.resdata.questionOffNum = record.questionNumList
+        this.resdata.questionTotalNum = record.questionNumList.textMap.length
+        this.resdata.textMap = record.questionNumList.textMap
+        if (this.resdata.questionTypeName === '简答题') {
+          this.freeInput = record.score
+          this.resdata.kindTotalNum = record.questionNumList.textMap.length
+          this.resdata.kindMark = record.questionNumList.textMap[0].grade * this.resdata.kindTotalNum
+        }
+        //console.log('hhh', this.resdata.questionTotalNum)
       })
     },
 
     /**
-     * 首次进入页面先判断后台返回信息，true代表可以阅卷再去发送获取考卷的请求
+     * 首次进入页面获取题目的详细数据
      */
     loadPage () {
       const params = {
         examId: this.formData.examId,
       }
-      judgeWrittenById(params).then(res => {
-        const resjudge = res.data.data
-        if (resjudge === true) {
-          const params = {
-            examId: this.formData.examId,
-          }
-          this.getSubjectById(params)
-        } else {
-          this.$message({
-            type: 'info',
-            message: '已有老师阅卷，目前不能阅卷哦',
-          })
-        }
-      })
+      this.getSubjectById(params)
     },
 
     /**
-     *计算已完成的题数
+     *计算每种题型已完成的题数
+     */
+    kindOffNum () {
+      let kindcount = 0
+      const type = this.resdata.questionTypeName
+      if (type === '简答题') {
+        for (let i = 0; i < this.resdata.textMap.length; i++) {
+          if (this.resdata.textMap[i].answerOrNot > 0) {
+            kindcount++
+          }
+        }
+      }
+      return kindcount
+    },
+
+    /**
+     *计算已完成的题数总数
      */
     offNum () {
       let arr = []
@@ -235,19 +242,7 @@ export default {
           }
         }
       }
-      //console.log('counts22', arr)
       return counts
-
-      // for (let i = 0; i < this.resdata.questionOffNum.length; i++) {
-      //   if (this.resdata.questionOffNum[i].length > 0) {
-      //     let resultArr = this.resdata.questionOffNum[i]
-      //     for (let j = 0; j < resultArr.length; j++) {
-      //       if (resultArr[j].answerOrNot > 0) {
-      //         counts++
-      //       }
-      //     }
-      //   }
-      // }
     },
 
     /** 
@@ -277,7 +272,7 @@ export default {
      */
     handleCard (item) {
       const params = {
-        questionNum: item.id,
+        questionNum: item.questionNum,
       }
       this.judgeType(params)
       this.getSubjectById(params)
@@ -388,7 +383,7 @@ export default {
     .container {
       float: right;
       width: 280px;
-      margin-top: 20px;
+      margin-top: 30px;
       background: #fffbf6;
       border: 1px solid #ffdbc1;
       // background: linear-gradient(
@@ -426,9 +421,9 @@ export default {
         text-align: left;
         padding: 0 18px;
         .activess {
-          background: #fdf6eb;
-          border-color: #f5dab1;
-          color: #e6a23c;
+          background: #f8e8e9;
+          border-color: #e3a4a6;
+          color: #ba1b21;
         }
         .active {
           background: #ba1b21;

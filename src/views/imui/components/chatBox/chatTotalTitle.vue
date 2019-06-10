@@ -1,5 +1,7 @@
 <template>
-  <div class="chat-total-title"  @mousedown="mousedown"></div>
+  <div class="chat-total-title"  @mousedown="mousedown">
+    <i @mousedown.stop="" @mousemove.stop="" class="icon-font icon-guanbi" @click.stop="chatClose"></i>
+  </div>
 </template>
 
 <script>
@@ -14,6 +16,9 @@ export default {
     }
   },
   methods: {
+    chatClose () {
+      this.$emit('chatClose')
+    },
     mousedown (event) {
       document.body.style['user-select'] = 'none'
       document.addEventListener('mousemove', this.mousemove)
@@ -30,6 +35,7 @@ export default {
       this.position.y = event.clientY
     },
     mouseup () {
+      document.body.style['user-select'] = 'auto'
       document.removeEventListener('mousemove', this.mousemove)
       document.removeEventListener('mouseup', this.mouseup)
     },
@@ -39,8 +45,20 @@ export default {
 
 <style lang="scss" scoped>
 .chat-total-title {
+  position: relative;
   flex: 0 0 80px;
   background: #ECECEC;
   cursor: move;
+  i {
+    display: block;
+    position: absolute;
+    right: 5px;
+    top: 15px;
+    font-size: 14px;
+    cursor: auto;
+    &:hover {
+      color: #BA1B21;
+    }
+  }
 }
 </style>

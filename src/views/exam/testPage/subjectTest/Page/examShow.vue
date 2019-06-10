@@ -41,23 +41,23 @@
                         <span class="title" style="font-size:15px;font-weight:bold;">{{item.title}}</span>
                         <div class="detail" v-if="item.examStatus === 5">
                           <span style="float:left;width: 40%;">报名日期</span>
-                          <span class="timeShow">{{item.signBeginTime.substr(0,10)}} ~ {{item.signEndTime.substr(0,10)}}</span>
+                          <span class="timeShow">{{item.signBeginTime.substr(0,10)}}至{{item.signEndTime.substr(0,10)}}</span>
                         </div>
 
                         <div class="detail" v-if="item.examStatus === 1 || item.examStatus === 0 || item.examStatus === 4 || item.examStatus === 2 || item.examStatus === 7">
                           <span style="float:left;width: 40%;">考试日期</span>
-                          <span class="timeShow">{{item.beginTime.substr(0,10)}} ~ {{item.endTime.substr(0,10)}}</span>
+                          <span class="timeShow">{{item.beginTime.substr(0,10)}}至{{item.endTime.substr(0,10)}}</span>
                         </div>
 
                         <div v-if="item.examStatus !== 1 && item.examStatus !== 2 && item.examStatus !== 4" class="title" style="float:left;">已有 {{item.totalEnrollment}} 人报名</div>
                         <div v-if="item.examStatus === 2" class="title" style="float:left;">已有 {{item.totalExam}} 人完成考试</div>
                         <div class="title" style="float:right;text-align:right;">
-                          <div v-if="item.examStatus === 0 && item.status !== 1">
+                          <div v-if="item.status !== 1 && item.examStatus === 7">
                             <div class="circleG"></div>
                             <div class="states">已报名</div>
                           </div>
                           
-                          <div v-if="item.status === 1">
+                          <div v-if="(item.status === 1 && item.examStatus === 7) || item.examStatus === 0">
                             <div class="circleR"></div>
                             <div class="states">进行中</div>
                           </div>
@@ -77,16 +77,22 @@
                             <div class="states">已完成</div>
                           </div>
 
+                          <div v-if="item.examStatus === 1 && item.status === 1">
+                            <div class="circleR"></div>
+                            <div class="states">已撤销考试资格</div>
+                          </div>
+
                         </div>
                       </div>
                       <div class="handleButton">
                         <iep-button type="primary" @click="handleStart(item)" v-if="item.status === 1 && item.examStatus === 7">开始考试</iep-button>
                         <iep-button type="primary" @click="handleSign(item)" v-if="item.status === 0 && item.examStatus === 5">开始报名</iep-button>
-                        <iep-button type="primary" disabled v-if="item.examStatus === 0 && item.status === 0 ">等待考试</iep-button>
+                        <iep-button type="primary" disabled v-if="item.status !== 1 && item.examStatus === 7 ">等待考试</iep-button>
                         <iep-button type="primary" disabled v-if="item.status === 2 && item.examStatus === 5">报名结束</iep-button>
                         <iep-button type="primary" disabled v-if="item.examStatus === 4">考试结束</iep-button>
                         <iep-button type="primary" disabled v-if="item.examStatus === 2">考试完成</iep-button>
-                        <iep-button type="primary" disabled v-if="(item.examStatus === 0 && item.status === 1) || (item.examStatus === 0 && item.status !== 1)">报名审核中</iep-button>
+                        <iep-button type="primary" disabled v-if="item.examStatus === 0">报名审核中</iep-button>
+                        <iep-button type="primary" disabled v-if="item.examStatus === 1 && item.status === 1">报名审核不通过</iep-button>
                       </div>
                     </div>
                   </el-card>
@@ -396,7 +402,7 @@ export default {
     }
   }
   .handleButton {
-    padding: 50px 0;
+    line-height: 100px;
     text-align: center;
     display: none;
     width: 100%;

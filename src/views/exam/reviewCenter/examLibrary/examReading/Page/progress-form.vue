@@ -138,6 +138,9 @@ export default {
       switchValue: true,
     }
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
     /**
      * 关闭tag标签
@@ -166,6 +169,13 @@ export default {
       }
       this.inputVisible = false
       this.inputValue = ''
+    },
+
+    /**
+     * 获取列表分页数据
+     */
+    loadPage () {
+      console.log('ddd', this.formData.row.id)
     },
 
     /**

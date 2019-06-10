@@ -1,22 +1,19 @@
-const tabList = [
-  {
-    label: '转出',
-    value: 'outOrgId',
-  },
-  {
-    label: '转入',
-    value: 'inOrgId',
-  },
-]
+const dictsMap = {
+	isIncome: {
+		1: '收入',
+		2: '支出',
+	},
+}
 
 const columnsMap = [
 	{
-		prop: 'inOrgName',
+		prop: 'serialNumber',
 		label: '流水号',
 	},
 	{
-		prop: 'amount',
+		prop: 'isIncome',
 		label: '类型',
+		type: 'dict',
 	},
 	{
 		prop: 'borrowMoneyType',
@@ -27,17 +24,18 @@ const columnsMap = [
 		label: '操作人',
 	},
 	{
-		prop: 'repaymentTime',
+		prop: 'amount',
 		label: '国脉贝',
 	},
 	{
-		prop: 'repaymentTime',
+		prop: 'createTime',
 		label: '操作时间',
 	},
 	{
-		prop: 'repaymentTime',
+		prop: 'remake',
 		label: '操作说明',
+		minWidth: '200',
 	},
 ]
 
-export { columnsMap, tabList }
+export { columnsMap, dictsMap }

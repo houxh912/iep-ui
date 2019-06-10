@@ -5,10 +5,10 @@
       :currentChat="currentChatId"
       @chatChange="chatChange"
       @chatClose="chatClose"></chat-list>
-    <chat-total-title @positionChange="positionChange"></chat-total-title>
+    <chat-total-title @chatClose="chatAllClose" @positionChange="positionChange"></chat-total-title>
     <chat-content
-      v-for="(chat, index) in $store.getters.imCurrentChatList"
-      :key="index"
+      v-for="chat in $store.getters.imCurrentChatList"
+      :key="chat.username"
       v-show="currentChatId === chat.userId"
       :chatDetail="chat"
       @sendMessage="sendMessage"
@@ -45,6 +45,9 @@ export default {
     }
   },
   methods: {
+    chatAllClose () {
+      this.$emit('chatAllClose')
+    },
     positionChange (translate) {
       if (Math.abs(this.position.x + translate.x) < this.windowSize.width / 2 - (this.$store.getters.imCurrentChatList.length > 1 ? 400 : 300)) {
         this.position.x = this.position.x + translate.x
@@ -102,7 +105,8 @@ export default {
     height: 520px;
     width: 600px;
     background: #FFFFFF;
-    box-shadow: 1px 1px 50px rgba(0,0,0,.3);
+    -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
     display: flex;
     flex-direction: column;
     z-index: 10;

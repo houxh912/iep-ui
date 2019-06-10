@@ -5,22 +5,14 @@
       <el-form :model="searchForm">
         <el-form-item label="科目：" prop="field">
           <el-radio-group size="small" v-model="searchForm.field" style="width: 90%;">
-            <el-radio-button
-              v-for="item in res.exms_subjects"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-              @change.native="handleSubject (item)">
+            <el-radio-button v-for="item in res.exms_subjects" :key="item.value" :label="item.label"
+              :value="item.value" @change.native="handleSubject (item)">
             </el-radio-button>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="状态：" prop="states" class="statesShow">
           <el-radio-group size="small" v-model="searchForm.states">
-            <el-radio-button
-              v-for="item in states"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+            <el-radio-button v-for="item in states" :key="item.value" :label="item.label" :value="item.value"
               @change.native="handleStates (item)">
             </el-radio-button>
           </el-radio-group>
@@ -32,7 +24,8 @@
             <template v-if="activeTab ==='testRecordTab'" v-slot:testRecordTab>
               <div class="record">
                 <div class="module">
-                  <el-card class="module-item" v-for="(item,index) in testListRes" :key="index" shadow="hover">
+                  <el-card class="module-item" v-for="(item,index) in testListRes" :key="index"
+                    shadow="hover">
                     <div class="content">
                       <div class="img">
                         <img src="../img/1.jpg" alt="">
@@ -49,14 +42,16 @@
                           <span class="timeShow">{{item.beginTime.substr(0,10)}}至{{item.endTime.substr(0,10)}}</span>
                         </div>
 
-                        <div v-if="item.examStatus !== 1 && item.examStatus !== 2 && item.examStatus !== 4" class="title" style="float:left;">已有 {{item.totalEnrollment}} 人报名</div>
-                        <div v-if="item.examStatus === 2" class="title" style="float:left;">已有 {{item.totalExam}} 人完成考试</div>
+                        <div v-if="item.examStatus !== 1 && item.examStatus !== 2 && item.examStatus !== 4"
+                          class="title" style="float:left;">已有 {{item.totalEnrollment}} 人报名</div>
+                        <div v-if="item.examStatus === 2" class="title" style="float:left;">已有
+                          {{item.totalExam}} 人完成考试</div>
                         <div class="title" style="float:right;text-align:right;">
                           <div v-if="item.status !== 1 && item.examStatus === 7">
                             <div class="circleG"></div>
                             <div class="states">已报名</div>
                           </div>
-                          
+
                           <div v-if="(item.status === 1 && item.examStatus === 7) || item.examStatus === 0">
                             <div class="circleR"></div>
                             <div class="states">进行中</div>
@@ -93,18 +88,16 @@
                         <iep-button type="primary" disabled v-if="item.examStatus === 2">考试完成</iep-button>
                         <iep-button type="primary" disabled v-if="item.examStatus === 0">报名审核中</iep-button>
                         <iep-button type="primary" disabled v-if="item.examStatus === 1 && item.status === 1">报名审核不通过</iep-button>
+                        <iep-button type="primary" disabled v-if="item.examStatus === 3">已交卷</iep-button>
+                        <iep-button type="primary" v-if="item.examStatus === 8">查看成绩</iep-button>
                       </div>
                     </div>
                   </el-card>
                 </div>
                 <div class="pagination">
-                  <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page.sync="paginationOption.current"
-                    :page-sizes="[12, 16, 20, 24]"
-                    :page-size="paginationOption.size"
-                    layout="total, sizes, prev, pager, next, jumper"
+                  <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                    :current-page.sync="paginationOption.current" :page-sizes="[12, 16, 20, 24]"
+                    :page-size="paginationOption.size" layout="total, sizes, prev, pager, next, jumper"
                     :total="paginationOption.total">
                   </el-pagination>
                 </div>

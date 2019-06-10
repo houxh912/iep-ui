@@ -7,8 +7,9 @@
       <span>{{formData.createTime}}</span>
       <span><i class="iconfont icon-yanjing"></i>{{formData.views}}</span>
       <span><i class="iconfont icon-download1"></i>{{formData.downloadTimes}}</span>
-      <div class="btn sc"><i class="iconfont icon-shoucang"></i>收藏</div>
-      <div class="btn fx"><i class="iconfont icon-youxiangshixin"></i>分享</div>
+      <div class="btn sc" v-if="formData.collection == 0" @click="handleCollect(formData)"><i class="iconfont icon-heart"></i>收藏</div>
+      <div class="btn sc" v-else><i class="iconfont icon-aixin"></i>已收藏</div>
+      <div class="btn fx" @click="handleShare"><i class="iconfont icon-youxiangshixin"></i>分享</div>
       <div class="btn jc"><i class="iconfont icon-zhuyi"></i>纠错</div>
     </div>
     <div class="classes">{{getClass(formData.firstClass, formData.secondClass).first}} - {{getClass(formData.firstClass, formData.secondClass).second}}</div>
@@ -24,6 +25,8 @@
     </el-row>
     <IepAppRewardCard :total="total" :dataList="rewardList"></IepAppRewardCard>
     <IepAppEvaluationReviews :id="formData.id" :objectType="1"></IepAppEvaluationReviews>
+    <collectionDialog ref="collection" type="material" :requestFn="createCollect" @load-page="loadData(route.id)"></collectionDialog>
+    <share-dialog ref="share" type="material"></share-dialog>
   </div>
 </template>
 <script>
@@ -31,8 +34,12 @@ import { downloadCount, getDataById } from '@/api/mlms/material/datum/material'
 import { downloadFile } from '@/api/common'
 import { mapGetters } from 'vuex'
 import { getConfigureTree } from '@/api/mlms/material/datum/configure'
+import collectionDialog from '@/views/mlms/material/components/collectionDialog'
+import ShareDialog from '@/views/mlms/material/components/shareDialog'
+import { createCollect } from '@/api/mlms/material/summary'
 
 export default {
+  components: { collectionDialog, ShareDialog },
   data () {
     return {
       formData: {
@@ -51,6 +58,8 @@ export default {
         { name: '内网2.0改造项目' },
       ],
       firstClass: [],
+      route: this.$route.params,
+      createCollect,
     }
   },
   computed: {
@@ -87,7 +96,7 @@ export default {
     },
     getClass (first, second) {
       if (!first || !second) {
-        return {}
+        return {first: '', second: ''}
       }
       let obj = {}
       for (let item of this.firstClass) {
@@ -102,14 +111,25 @@ export default {
         }
       }
     },
+    // 收藏
+    handleCollect (row) {
+      row.title = row.name
+      this.$refs['collection'].dialogShow = true
+      this.$refs['collection'].loadCollectList([row])
+    },
+    // 分享
+    handleShare () {
+      this.formData.name = this.formData.materialName
+      this.$refs['share'].open([this.formData], `关于 ${this.formData.name} 材料的分享`)
+    },
   },
   created () {
     // 获取分类配置
     getConfigureTree().then(({ data }) => {
       this.firstClass = data.data
     })
-    let params = this.$route.params
-    this.loadData(params.id)
+    this.route = this.$route.params
+    this.loadData(this.route.id)
   },
 }
 </script>
@@ -147,6 +167,7 @@ export default {
       }
     }
     .btn {
+      cursor: pointer;
       position: absolute;
       top: 8px;
       font-size: 16px;

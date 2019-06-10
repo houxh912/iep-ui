@@ -15,7 +15,7 @@
         </el-col>
         <el-col :span="12" v-if="formData.projectType == 2">
           <el-form-item label="客户名称：" prop="relatedClient">
-            <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select>
+            <!-- <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select> -->
             <IepCrmsSelect v-model="formData.relatedClient" :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" prefixUrl="crm/customer/all/list">
             </IepCrmsSelect>
           </el-form-item>

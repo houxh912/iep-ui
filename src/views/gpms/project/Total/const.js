@@ -80,6 +80,12 @@ export const rules = {
   projectBudget: [
     { validator: intValidate, message: '请输入正整数', trigger: 'change' },
   ],
+  isRelevanceProduct: [
+    { required: true, message: '请选择是否关联产品', trigger: 'change' },
+  ],
+  notRelevanceProductReason: [
+    { required: true, message: '请输入未关联产品理由', trigger: 'blur' },
+  ],
 }
 
 export function paramForm () {

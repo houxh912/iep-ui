@@ -23,35 +23,29 @@
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
         @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection
         @selection-change="selectionChange" is-mutiple-selection>
-        <el-table-column prop="fieldName" label="科目">
+        <el-table-column prop="fieldName" label="考试科目">
           <template slot-scope="scope">
             {{scope.row.fieldName}}
           </template>
         </el-table-column>
-        <el-table-column prop="title" label="名称">
+        <el-table-column prop="title" label="考试名称" min-width="150">
           <template slot-scope="scope">
             {{scope.row.title}}
           </template>
         </el-table-column>
-        <el-table-column prop="totalScore" label="总分">
-          <template slot-scope="scope">
-            {{scope.row.totalScore}}
-          </template>
-        </el-table-column>
-        <el-table-column prop="beginTime" label="开始时间" min-width="150">
+        <el-table-column prop="beginTime" label="开始时间" min-width="120">
           <template slot-scope="scope">
             {{scope.row.beginTime}}
           </template>
         </el-table-column>
-        <el-table-column prop="endTime" label="结束时间" min-width="150">
+        <el-table-column prop="endTime" label="结束时间" min-width="120">
           <template slot-scope="scope">
             {{scope.row.endTime}}
           </template>
         </el-table-column>
-        <el-table-column prop="state" label="状态">
+        <el-table-column prop="totalScore" label="总分" min-width="60">
           <template slot-scope="scope">
-            <el-tag type="success" size="medium" v-if="scope.row.state === 0">启用</el-tag>
-            <el-tag type="warning" size="medium" v-if="scope.row.state === 1">禁用</el-tag>
+            {{scope.row.totalScore}}
           </template>
         </el-table-column>
         <el-table-column prop="number" label="报名人数">
@@ -59,16 +53,22 @@
             {{scope.row.number}}
           </template>
         </el-table-column>
+        <el-table-column prop="state" label="状态" min-width="60">
+          <template slot-scope="scope">
+            <el-tag type="success" size="medium" v-if="scope.row.state === 0">启用</el-tag>
+            <el-tag type="warning" size="medium" v-if="scope.row.state === 1">禁用</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column prop="username" label="创建人">
           <template slot-scope="scope">
             {{scope.row.username}}
           </template>
         </el-table-column>
-        <el-table-column prop="creatTime" label="创建时间" min-width="150">
+        <!-- <el-table-column prop="creatTime" label="创建时间" min-width="150">
           <template slot-scope="scope">
             {{scope.row.creatTime}}
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column prop="operation" label="操作" min-width="140">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -193,13 +193,13 @@ export default {
           cancelButtonText: '取消',
           type: 'warning',
         }).then(() => {
-          deleteById(this.selectionValue).then( res => {
+          deleteById(this.selectionValue).then(res => {
             if (res.data.data == true) {
               this.$message({
                 message: '操作成功',
                 type: 'success',
               })
-                this.loadPage()
+              this.loadPage()
             }
           })
         })
@@ -283,7 +283,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        postExamPassById(param).then( res => {
+        postExamPassById(param).then(res => {
           if (res.data.data == true) {
             this.$message({
               type: 'success',
@@ -307,7 +307,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        postExamForbidById(param).then( res => {
+        postExamForbidById(param).then(res => {
           if (res.data.data == true) {
             this.$message({
               type: 'success',

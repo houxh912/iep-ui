@@ -8,7 +8,7 @@
           <iep-button @click="handleDeleteAll">批量删除</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="title" advance-search>
+          <operation-search @search-page="searchPage" prop="title">
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
@@ -20,8 +20,7 @@
           :pagedTable="pagedTable"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          @select="handleSelectChange"
-          @select-all="handleSelectAllChange"
+          @selection-change="handleSelectChange"
           is-mutiple-selection
           is-index
         >
@@ -190,7 +189,7 @@
             <el-input type="textarea" :rows="4" v-model="reForm.title" @change="dialogModifyChange"></el-input>
           </el-form-item>
           <el-form-item class="titleList" label="关联标签：" prop="tagLists">
-            <mutiply-tag-select v-model="reForm.tagLists" :select-objs="reForm.tagsList"></mutiply-tag-select>
+            <mutiply-tag-select v-model="reForm.tagKeyWords" :select-objs="reForm.tagKeyWords"></mutiply-tag-select>
           </el-form-item>
         </div>
       </el-form>
@@ -207,7 +206,7 @@
 
 <script>
 import AdvanceSearch from './AdvanceSearch'
-import { getTestList,deleteApprovalById,getTestOption,postExaminePass,postExamineFalse,postModify } from '@/api/exam/createExam/newTest/newTest'
+import { getTestList,deleteApprovalById,getTestOption,postExaminePass,postExamineFalse,postModify,getExamMsg } from '@/api/exam/createExam/newTest/newTest'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import mixins from '@/mixins/mixins'
 
@@ -219,7 +218,7 @@ export default {
       examine: {},//审核
       isModifyChange: true,//是否被修改
       selectValue: false,
-      selectionValue: {},
+      selectionValue: '',
       res: {},
       labelPosition: 'right',
       states: 0,
@@ -286,8 +285,13 @@ export default {
      * 修改按钮
      */
     handleModify (rows){
+      const param ={
+        id: rows.id,
+      }
       this.dialogModify = true
-      this.reForm = {...rows}
+      getExamMsg(param).then( res => {
+        this.reForm = {...res.data.data}
+      })
     },
     /**
      * 删除按钮
@@ -299,24 +303,14 @@ export default {
     /**
      * 选择试题
      */
-    handleSelectChange (row) {
-      if (row.map(item => item.id).length > 0){
-        this.selectValue = true
-        this.selectionValue = row.map(item => item.id)
-      }
-      else
+    handleSelectChange (val) {
+      if (val.map(m => m.id) == ''){
         this.selectValue = false
-    },
-    /**
-     * 全选按钮
-     */
-    handleSelectAllChange (row){
-      if (row.map(item => item.id).length > 0){
-        this.selectValue = true
-        this.selectionValue = row.map(item => item.id)
       }
-      else
-        this.selectValue = false
+      else{
+        this.selectValue = true
+        this.selectionValue = val.map(m => m.id)
+      }
     },
     /**
      * 批量删除按钮
@@ -324,11 +318,23 @@ export default {
     handleDeleteAll (){
       if (this.selectValue == false){
         this.$message.error('请至少选择一项试题！')
-        return
       }
       if (this.selectValue == true){
-        this._handleComfirm(this.selectionValue, deleteApprovalById,'删除')
-        this.selectValue = false
+        this.$confirm('此操作将删除选中的试题，是否继续？','提示',{
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          deleteApprovalById(this.selectionValue).then( res => {
+            if (res.data.data == true) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+              })
+              this.loadPage()
+            }
+          })
+        })
       }
     },
     /**

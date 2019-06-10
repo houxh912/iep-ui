@@ -112,7 +112,10 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="答卷时长" prop="timeLong">
-                <el-input v-model="examForm.timeLong" onkeyup="this.value=this.value.replace(/[^\w]/g,'');">
+                <el-input v-model="examForm.timeLong">
+                  <template slot="append">
+                    分
+                  </template>
                 </el-input>
               </el-form-item>
             </el-col>
@@ -423,5 +426,11 @@ export default {
       }
     }
   }
+}
+</style>
+
+<style scoped>
+.permissionSettings >>> .el-form-item__label {
+  line-height: 32px;
 }
 </style>

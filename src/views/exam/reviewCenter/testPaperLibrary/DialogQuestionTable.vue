@@ -62,11 +62,6 @@ const columnsMap = [
     label: '难度',
     prop: 'difficultyName',
   },
-  {
-    label: '提交时间',
-    prop: 'creatTime',
-    width: '250px',
-  },
 ]
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from '../testQuestionsLibrary/Page/AdvanceSearch'

@@ -6,48 +6,28 @@
         <div class="close-button" @click="showSmall"></div>
       </div>
       <ul class="im-table">
-        <li :class="tableChosen === 'book' ? 'chosen' : ''"
-            @click="tableChosen = 'book'">通讯录</li>
-        <li :class="tableChosen === 'chat' ? 'chosen' : ''"
-            @click="tableChosen = 'chat'">
+        <li :class="tableChosen === 'book' ? 'chosen' : ''" @click="tableChosen = 'book'">通讯录</li>
+        <li :class="tableChosen === 'chat' ? 'chosen' : ''" @click="tableChosen = 'chat'">
           <span>聊天</span>
-          <el-badge class="unread-point"
-                    :max="99"
-                    v-show="$store.getters.imUnreadTotal"
-                    :value="$store.getters.imUnreadTotal">
+          <el-badge class="unread-point" :max="99" v-show="$store.getters.imUnreadTotal" :value="$store.getters.imUnreadTotal">
           </el-badge>
         </li>
       </ul>
       <div class="im-tabel-content-large-im">
-        <el-tree
-                v-show="tableChosen === 'book'"
-                @node-click="toChat"
-                :data="$store.getters.imUserTree"
-                node-key="id"
-                :expand-on-click-node="false">
-          <span v-if="data.leaf"
-                class="im-tabel-content-large-im-item"
-                slot-scope="{ node, data }">
+        <el-tree v-show="tableChosen === 'book'" @node-click="toChat" :data="$store.getters.imUserTree" node-key="id" :expand-on-click-node="false">
+          <span v-if="data.leaf" class="im-tabel-content-large-im-item" slot-scope="{ node, data }">
             <span class="im-friend">
-              <iep-img class="im-friend-head"
-                   :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
+              <img class="im-friend-head" :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'" />
               <span>{{data.label}}</span>
             </span>
           </span>
           <span v-else>{{ data.label }}</span>
         </el-tree>
         <ul v-show="tableChosen === 'chat'" class="im-chat-list">
-          <li class="im-friend"
-              v-for="user in $store.getters.imChatList"
-              @click="toChatUser(user)"
-              :key="user.id">
-            <iep-img class="im-friend-head"
-                 :src="user.avatar ? user.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
+          <li class="im-friend" v-for="user in $store.getters.imChatList" @click="toChatUser(user)" :key="user.id">
+            <img class="im-friend-head" :src="user.avatar ? user.avatar : '/img/icons/apple-touch-icon-60x60.png'" />
             <span>{{user.realName}}</span>
-            <el-badge class="unread-point"
-                      v-show="$store.getters.imUnread(user.username)"
-                      :max="99"
-                      :value="$store.getters.imUnread(user.username)"></el-badge>
+            <el-badge class="unread-point" v-show="$store.getters.imUnread(user.username)" :max="99" :value="$store.getters.imUnread(user.username)"></el-badge>
           </li>
         </ul>
       </div>
@@ -146,12 +126,13 @@ export default {
 </script>
 
 <style scoped>
-  .im-tabel-content-large-im >>> .el-tree-node__content {
-    height: auto;
-  }
-   .im-tabel-content-large-im >>> .is-leaf.el-tree-node__expand-icon.el-icon-caret-right {
-    display: none;
-  }
+.im-tabel-content-large-im >>> .el-tree-node__content {
+  height: auto;
+}
+.im-tabel-content-large-im
+  >>> .is-leaf.el-tree-node__expand-icon.el-icon-caret-right {
+  display: none;
+}
 </style>
 
 <style lang="scss" scoped>
@@ -160,10 +141,10 @@ export default {
   right: 0;
   bottom: 0;
   width: 260px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 2px;
-  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   li {
     list-style: none;
   }
@@ -184,15 +165,15 @@ export default {
         width: 50%;
         text-align: center;
         &:hover {
-          opacity: .8;
+          opacity: 0.8;
         }
         &.chosen:after {
           position: absolute;
-          content: '';
+          content: "";
           bottom: -2px;
           left: 0;
           right: 0;
-          border-bottom: 2px solid #BA1B21;
+          border-bottom: 2px solid #ba1b21;
           cursor: pointer;
           opacity: 1;
         }
@@ -208,10 +189,10 @@ export default {
         cursor: pointer;
         &:after {
           display: block;
-          content: '';
+          content: "";
           height: 2px;
           width: 10px;
-          background: #AAAAAA;
+          background: #aaaaaa;
         }
       }
     }
@@ -235,7 +216,7 @@ export default {
       cursor: pointer;
       position: relative;
       &:hover {
-        background: #F5F7FA;
+        background: #f5f7fa;
       }
       .im-friend-head {
         position: absolute;
@@ -267,7 +248,7 @@ export default {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        color: #DFDFDF;
+        color: #dfdfdf;
         font-size: 12px;
       }
     }
@@ -305,7 +286,7 @@ export default {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        color: #DFDFDF;
+        color: #dfdfdf;
         font-size: 12px;
       }
     }

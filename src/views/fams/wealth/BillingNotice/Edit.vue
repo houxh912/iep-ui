@@ -50,11 +50,14 @@
           </el-select>
         </iep-form-item>
         <iep-form-item label-name="关联项目" prop="projectId">
-          <iep-project-select v-model="form.projectId"></iep-project-select>
+          <iep-project-select v-model="form.projectId" :project-name="form.projectName"></iep-project-select>
         </iep-form-item>
         <h4 class="iep-sub-title">销售方</h4>
-        <iep-form-item label-name="销售方公司" prop="companyId">
-          <iep-select v-model="form.companyId" autocomplete="off" :prefix-url="`fams/company/${orgId}`" @change="handleChangeCompanyId" placeholder="请选择销售方公司"></iep-select>
+        <iep-form-item label-name="销售方组织" prop="orgId">
+          <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择销售方组织"></iep-select>
+        </iep-form-item>
+        <iep-form-item v-if="!companyOption.disabled" label-name="销售方公司" prop="companyId">
+          <iep-select v-model="form.companyId" autocomplete="off" :prefix-url="companyOption.prefixUrl" @change="handleChangeCompanyId" placeholder="请选择销售方公司"></iep-select>
         </iep-form-item>
         <iep-form-item label-name="纳税人识别号">
           <span>{{companyForm.taxpayerNumber}}</span>
@@ -131,21 +134,36 @@ export default {
     rules () {
       return initRule(this.invoicingType)
     },
+    companyOption () {
+      if (this.form.orgId) {
+        return {
+          disabled: false,
+          prefixUrl: `fams/company/${this.form.orgId}`,
+        }
+      } else {
+        return {
+          disabled: true,
+        }
+      }
+    },
   },
   created () {
     if (this.id) {
       this.loadPage()
     } else {
       this.form.invoicingType = this.invoicingType
+      this.form.orgId = this.orgId
     }
   },
   methods: {
     loadPage () {
       getBillingById(this.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
+        this.handleChangeCompanyId(this.form.companyId)
       })
     },
     handleChangeCompanyId (value) {
+      console.log(value)
       getCompanyById(value).then(({ data }) => {
         this.companyForm = data.data
       })

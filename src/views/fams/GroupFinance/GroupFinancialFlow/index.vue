@@ -2,11 +2,6 @@
   <div>
     <basic-container>
       <page-header title="集团财务流水"></page-header>
-      <operation-container>
-        <template slot="right">
-          <operation-search @search-page="searchPage"></operation-search>
-        </template>
-      </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       </iep-table>
     </basic-container>

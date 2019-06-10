@@ -1,7 +1,7 @@
 <template>
     <div class="grid-content">
         <div class="logo-container" v-for="(item,index) in info" :key="index">
-            <img :src="item.logoSrc" alt="">
+            <iep-img :src="item.logoSrc" alt=""></iep-img>
             <p class="pv" v-text="item.pv"></p>
             <span class="day">日环比
                 <i class="el-icon-caret-bottom down" v-if=0></i>

@@ -2,7 +2,7 @@
   <div class="block">
     <el-carousel trigger="click" height="400px">
       <el-carousel-item v-for="(item,index) in header" :key="index">
-        <img style="width:100%;heiht:100%;" :src="item.imgSrc" alt="">
+        <iep-img class="img" style="width:100%;heiht:100%;" :src="item.imgSrc" alt=""></iep-img>
       </el-carousel-item>
     </el-carousel>
   </div>

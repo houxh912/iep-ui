@@ -4,7 +4,7 @@
       <span class="details-title">{{subTitle1}}</span>
       <div class="con">
         <div class="item" v-for="detail in datailList" :key="detail.id">
-          <div class="img"><img :src="detail.img" alt=""></div>
+          <div class="img"><iep-img :src="detail.img" alt=""></iep-img></div>
           <span class="name">{{detail.name}}</span>
           <span class="post">{{detail.post}}</span>
         </div>
@@ -14,7 +14,7 @@
       <span class="details-title">{{subTitle2}}</span>
       <div class="con">
         <div class="item" v-for="detail2 in datailList2" :key="detail2.id">
-          <div class="img"><img :src="detail2.img" alt=""></div>
+          <div class="img"><iep-img :src="detail2.img" alt=""></iep-img></div>
           <span class="name">{{detail2.name}}</span>
         </div>
       </div>

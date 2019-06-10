@@ -20,10 +20,10 @@ export default {
   name: 'IepAppFooterBar',
   methods: {
     handleOpen1 () {
-      openWindow('', '常见问题', 800, 600)
+      openWindow('http://iep.govmade.com/app/resource/material/material_detail/7978', '常见问题', 800, 600)
     },
     handleOpen2 () {
-      openWindow('https://ioa.govmade.com/uploads/2/file/public/201804/20180408101156_n2l3kmaach.pdf', '操作手册', 800, 600)
+      openWindow('http://iep.govmade.com/app/resource/material/material_detail/7984', '操作手册', 800, 600)
     },
     handleOpen3 () {
       openWindow('', '标签库', 800, 600)
@@ -32,7 +32,7 @@ export default {
       openWindow('', '知识图谱', 800, 600)
     },
     handleOpen5 () {
-      openWindow('https://ioa.govmade.com/template/2/default/_files/onlineFiles/About_GB_2019_No1.pdf', '国脉贝制度', 800, 600)
+      openWindow('http://iep.govmade.com/app/resource/material/material_detail/7985', '国脉贝制度', 800, 600)
     },
     handleOpen6 () {
       openWindow('', '新人培训', 800, 600)

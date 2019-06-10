@@ -7,7 +7,7 @@
         <div class="person-list">
           <div class="person" v-for="(item,index1) in title.itemList" :key="index1">
             <div class="img">
-              <img :src="item.img" alt="">
+              <iep-img :src="item.img" alt=""></iep-img>
             </div>
             <span class="name">{{item.name}}</span>
           </div>

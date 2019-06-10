@@ -29,8 +29,8 @@
                 class="im-tabel-content-large-im-item"
                 slot-scope="{ node, data }">
             <span class="im-friend">
-              <img class="im-friend-head"
-                   :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
+              <iep-img class="im-friend-head"
+                   :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
               <span>{{data.label}}</span>
             </span>
           </span>
@@ -41,8 +41,8 @@
               v-for="user in $store.getters.imChatList"
               @click="toChatUser(user)"
               :key="user.id">
-            <img class="im-friend-head"
-                 :src="user.avatar ? user.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
+            <iep-img class="im-friend-head"
+                 :src="user.avatar ? user.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
             <span>{{user.realName}}</span>
             <el-badge class="unread-point"
                       v-show="$store.getters.imUnread(user.username)"

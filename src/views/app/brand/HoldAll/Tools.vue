@@ -6,7 +6,7 @@
       </div>
       <div class="new-tehnology-content">
         <div v-for="(item,index) in newTehnologyContent" :key="index" class="piece">
-          <img :src="item.img" alt="">
+          <iep-img class="img" :src="item.img" alt=""></iep-img>
           <div class="text">
             <span>{{item.name}}</span>
             <span class="introduction">{{item.introduction}}</span>

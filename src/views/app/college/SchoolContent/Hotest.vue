@@ -10,7 +10,7 @@
             <span class="classTag">
               <el-tag type="white" v-for="tag in item.tags" :key="tag.id">{{tag.tag}}</el-tag>
             </span>
-            <img :src="item.img" alt="">
+            <iep-img :src="item.img" alt=""></iep-img>
           </div>
           <span class="title">{{item.title}}</span>
           <div class="detail">

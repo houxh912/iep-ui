@@ -10,7 +10,7 @@
               <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
                 <div class="img">
                   <span class="bgb">{{item.post}}</span>
-                  <img :src="item.img" class="img">
+                  <iep-img :src="item.img" class="img"></iep-img>
                 </div>
                 <span class="name">{{item.name}}<span class="dn show1" :class="item.show1">V</span></span>
               </div>

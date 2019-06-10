@@ -4,7 +4,7 @@
       <div class="title">{{data.trainingTheme}}</div>
       <div class="inform">
         <div class="info">
-          <div class="img"><img :src="data.creatorImage" :alt="data.creatorName"></div>
+          <div class="img"><iep-img :src="data.creatorImage" :alt="data.creatorName"></iep-img></div>
           <span>{{data.creatorName}}</span>
           <span class="time">{{data.createTime}}</span>
           <span><i class="iconfont icon-yanjing"></i>{{data.views}}</span>

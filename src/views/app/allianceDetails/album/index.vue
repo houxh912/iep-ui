@@ -3,7 +3,7 @@
       <el-collapse-item title="2019年4月" name="1" class="album-block">
         <div class="album-lib">
           <div class="lib-ibox" v-for="(item,index) in imgList" :key="index">
-            <img :src="item.imgSrc" alt="">
+            <iep-img class="img" :src="item.imgSrc" alt=""></iep-img>
             <span>{{item.desc}}</span>
           </div>
         </div>
@@ -11,7 +11,7 @@
       <el-collapse-item title="2019年3月" name="2" class="album-block">
         <div class="album-lib">
           <div class="lib-ibox" v-for="(item,index) in imgList" :key="index">
-            <img :src="item.imgSrc" alt="">
+            <iep-img class="img" :src="item.imgSrc" alt=""></iep-img>
             <span>{{item.desc}}</span>
           </div>
         </div>

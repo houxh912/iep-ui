@@ -65,7 +65,7 @@
             <div class="con">
               <div class="opex-item" v-for="opex in opexList" :key="opex.id">
                 <div class="img">
-                  <span class="bgb">{{opex.name1}}</span><img :src="opex.img" alt=""></div>
+                  <span class="bgb">{{opex.name1}}</span><iep-img :src="opex.img" alt=""></iep-img></div>
                 <span class="name">{{opex.name}}</span>
               </div>
             </div>
@@ -75,7 +75,7 @@
             <div class="con">
               <div class="opex-item" v-for="opex2 in opexList2" :key="opex2.id">
                 <div class="img">
-                  <span class="bgb">{{opex2.name1}}</span><img :src="opex2.img" alt=""></div>
+                  <span class="bgb">{{opex2.name1}}</span><iep-img :src="opex2.img" alt=""></iep-img></div>
                 <span class="name">{{opex2.name}}</span>
               </div>
             </div>

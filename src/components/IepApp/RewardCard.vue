@@ -4,7 +4,7 @@
     <iep-button type="danger" round style="padding:8px 40px">打赏</iep-button>
     <span class="total">{{total}}人打赏</span>
     <div v-for="(item,index) in dataList" :key="index" class="avatar">
-      <img :src="item.avatar" :alt="item.name">
+      <iep-img class="img" :src="item.avatar" :alt="item.name"></iep-img>
     </div>
   </div>
 </template>

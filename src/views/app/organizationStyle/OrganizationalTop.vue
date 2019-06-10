@@ -1,7 +1,7 @@
 <template>
   <div class="organizational-top">
     <div class="organizational-top-con">
-      <div class="img"><img :src="data.logo" alt=""></div>
+      <div class="img"><iep-img :src="data.logo" alt=""></iep-img></div>
       <div class="text">
         <span class="title">{{data.name}}</span>
         <span class="sub-title">{{data.intro}}</span>

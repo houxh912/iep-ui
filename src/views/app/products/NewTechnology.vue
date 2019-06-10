@@ -9,7 +9,7 @@
       <iep-no-data v-if="!technologyList.length"></iep-no-data>
       <div class="new-tehnology-content">
         <div v-for="(item,index) in technologyList" :key="index" class="piece" @click="handleOpen(item)">
-          <img :src="item.imageUrl" alt="">
+          <iep-img :src="item.imageUrl" alt=""></iep-img>
           <div class="text">
             <span>{{item.name}}</span>
             <span class="introduction">{{item.synopsis}}</span>

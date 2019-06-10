@@ -30,7 +30,7 @@
       <span class="details-title">{{subTitle4}}</span>
       <div class="con">
         <div class="opex-item" v-for="opex in opexList" :key="opex.id">
-          <div class="img"><span class="bgb">{{opex.name1}}</span><img :src="opex.img" alt=""></div>
+          <div class="img"><span class="bgb">{{opex.name1}}</span><iep-img :src="opex.img" alt=""></iep-img></div>
           <span class="name">{{opex.name}}</span>
         </div>
       </div>

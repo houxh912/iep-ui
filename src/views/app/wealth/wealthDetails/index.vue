@@ -6,7 +6,7 @@
           <el-card shadow="never" class="box-card" :body-style="bodyStyle">
             <div class="title-wrapper">
               <div class="left">
-                <img :src="form.orgLogo" alt="">
+                <iep-img :src="form.orgLogo" alt=""></iep-img>
                 <div class="main">
                   <h4 class="investmentName">{{form.orgName}}</h4>
                   <div class="way">
@@ -104,7 +104,7 @@
           <IepAppTabCard title="股东信息">
             <div class="shareholder-inform" v-for="(item, index) in shareholderData" :key="index">
               <div class="img">
-                <img :src="item.img" alt="">
+                <iep-img :src="item.img" alt=""></iep-img>
                 <span v-show="item.type" class="type">{{item.type}}</span>
               </div>
               <div class="row">股东：{{item.name}}</div>

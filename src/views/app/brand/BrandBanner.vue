@@ -2,7 +2,7 @@
   <div class="brand-banner">
     <div class="banner-item" v-for="(item,index) in banner" :key="index">
       <div class="grid-content">
-        <img style="width:100%;height:150px;" :src="item.imgSrc" alt="">
+        <iep-img style="width:100%;height:150px;" :src="item.imgSrc" alt=""></iep-img>
         <div class="masking-layer" v-for="(item,index) in layer" :key="index">
           <p class="title">{{item.title}}</p>
           <p class="time">时间：{{item.time}}</p>

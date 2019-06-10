@@ -9,7 +9,7 @@
         </div>
         <div class="resourcesList">
           <div v-for="(item,index) in resourcesList" :key="index" class="piece" @click="handleOpen()">
-            <div class="img-con"><img :src="item.img" class="img" alt=""></div>
+            <div class="img-con"><iep-img :src="item.img" class="img" alt=""></iep-img></div>
             <div class="text">
               <span class="name">{{item.name}}</span>
               <span class="department">{{item.department}}</span>

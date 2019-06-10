@@ -1,7 +1,7 @@
 <template>
   <div class="introduction-top">
     <div class="introduction-top-con">
-      <div class="img"><img :src="img" alt=""></div>
+      <div class="img"><iep-img :src="img" alt=""></iep-img></div>
       <div class="text">
         <span class="title">{{title}}<span class="sub-title">{{subTitle}}</span></span>
         <span class="detail"><span>创建人：{{founder}}</span><span>成立时间：{{time}}</span><span>人员规模：{{scale}}</span></span>

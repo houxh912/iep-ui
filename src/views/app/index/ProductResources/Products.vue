@@ -2,7 +2,7 @@
   <div class="products">
     <el-scrollbar style="height:100%">
       <div v-for="(item, index) in productsList" :key="index" class="piece">
-        <div class="img"><img :src="item.image_url" :alt="item.name"></div>
+        <div class="img"><iep-img :src="item.image_url" :alt="item.name"></iep-img></div>
         <div class="box">
           <span class="name">{{item.name}}</span>
           <span class="desc">{{item.synopsis}}</span>

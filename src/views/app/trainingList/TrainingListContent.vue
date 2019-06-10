@@ -5,7 +5,7 @@
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
         <div @click="handleOpen()">
           <div class="header clearfix">
-            <div class="img"><img :src="item.trainerImage" alt=""></div>
+            <div class="img"><iep-img :src="item.trainerImage" alt=""></iep-img></div>
             <span class="time">{{item.startTime}}</span>
             <el-tag class="dn" :class="item.show" size="small">{{item.tag}}</el-tag>
           </div>

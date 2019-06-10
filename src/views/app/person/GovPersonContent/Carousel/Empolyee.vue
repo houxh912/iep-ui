@@ -4,7 +4,7 @@
       <el-carousel-item v-for="(item, index) in Math.ceil(wonderfulList.length/4)" :key="index">
         <div class="piece" v-for="(t, i) in wonderfulList.slice(index*4, index*4+4)" :key="i" @click="handleDetail(t.org_id)">
           <div class="img">
-            <img v-if="t.logo" :src="t.logo" class="img">
+            <iep-img v-if="t.logo" :src="t.logo" class="img"></iep-img>
             <img v-else src="./img/organization.png" class="img">
           </div>
           <span class="name">{{t.org_name}}</span>

@@ -23,7 +23,7 @@
       </div>
       <div class="album-lib" v-show="isShow">
         <div class="lib-ibox" v-for="(item,index) in imgList" :key="index">
-          <img :src="item.imgSrc" alt="">
+          <iep-img :src="item.imgSrc" alt=""></iep-img>
           <i class="icon-shanchu1 close" @click="handleClose(index)"></i>
           <span>{{item.desc}}</span>
         </div>

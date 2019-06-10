@@ -1,8 +1,9 @@
 <template>
     <div class="banner">
         <el-carousel :interval="5000">
-            <el-carousel-item v-for="(item,index) in banerImg" :key="index">
-                <img :src="item" class="baner-img">
+            <el-carousel-item v-for="(item,index) in note" :key="index">
+                <div class="baner-img" :style="item">
+                </div>
             </el-carousel-item>
         </el-carousel>
         <div class="new-dynamic">
@@ -19,10 +20,22 @@
 export default {
     data () {
         return {
-            banerImg: [
-                require('./img/baner1.jpg'),
-                require('./img/baner2.jpg'),
-                require('./img/baner3.jpg'),
+            note: [
+                {
+                    backgroundImage: 'url(' + require('./img/banner2.jpg') + ')',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: '100% 100%',
+                },
+                {
+                    backgroundImage: 'url(' + require('./img/banner2.jpg') + ')',
+                   backgroundRepeat: 'no-repeat',
+                    backgroundSize: '100% 100%',
+                },
+                {
+                    backgroundImage: 'url(' + require('./img/banner2.jpg') + ')',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: '100% 100%',
+                },
             ],
             newDynamic:[
                 {time:'03.10',dsec:'191内网2.0项目正式启动'},
@@ -37,7 +50,7 @@ export default {
 .banner{
     width: 100%;
     background-color: #f8f8f8;
-    img{
+    .baner-img{
         width: 100%;
         height: 100%;
     }

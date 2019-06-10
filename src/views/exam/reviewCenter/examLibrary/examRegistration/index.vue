@@ -86,7 +86,7 @@
     </iep-dialog> -->
     <iep-dialog :dialog-show="dialogShow" title="查看资质" width="500px" @close="dialogShow = false" center>
       <div style="text-align:center;">
-        <img :src="imgUrl">
+        <iep-img :src="imgUrl"></iep-img>
         <span v-if="imgUrlNo">资质证明图片未上传！</span>
       </div>
       <template slot="footer">

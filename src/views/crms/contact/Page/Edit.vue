@@ -154,6 +154,7 @@ export default {
       methodName: '创建',
       formData: initForm(),
       rules,
+      Checklist: false,
       gridData: [],
       selectData: [],
       clientId: '',
@@ -225,9 +226,10 @@ export default {
     handleSelectionChange (row) {
       this.formData.clientIds = row.map(m => m.clientId)
       this.selectData = row
+      this.Checklist = true
     },
     handlequery () {
-      if (this.formData.clientIds.length > 0) {
+      if (this.Checklist && this.formData.clientIds.length>0) {
         this.dialogVisible = false
         for (var i = 0; i < this.selectData.length; i++) {
           this.formData.clientInfos.push(this.selectData[i])

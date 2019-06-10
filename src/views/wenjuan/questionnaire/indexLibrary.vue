@@ -36,7 +36,7 @@ import { getList, deleteData } from '@/api/evaluate/question'
 import mainDialog from './mainDialog'
 import previewDialog from './previewDialog'
 import statisticsDialog from './statisticsDialog'
-import { getUserList } from '@/api/admin/user'
+import { fetchList } from '@/api/admin/user'
 import { release, getDetail, getProject, getRePercent } from '@/api/evaluate/question'
 export default {
   components: { mainDialog, previewDialog, statisticsDialog },
@@ -52,7 +52,7 @@ export default {
   methods: {
     initApi () {
       this.getList()
-      getUserList({ //获取用户dic
+      fetchList({ //获取用户dic
         limit: 9999,
         page: 1,
       }).then(({ data }) => {

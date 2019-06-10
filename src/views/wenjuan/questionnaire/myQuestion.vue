@@ -46,7 +46,7 @@ import currentMixin from './const/mixin'
 import {getList} from  '@/api/evaluate/question'
 import mainDialog from './mainDialog'
 import previewDialog from './previewDialog'
-import {getUserList} from '@/api/admin/user'
+import {fetchList} from '@/api/admin/user'
 import { getDetail, getQuestionnaireIdList, getProject } from '@/api/evaluate/question'
 export default {
   components: { mainDialog, previewDialog },
@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     initApi () {
-      getUserList({
+      fetchList({
         limit:9999,
         page:1,
       }).then(({data})=>{

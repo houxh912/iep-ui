@@ -1,4 +1,4 @@
-import {getUserList} from '@/api/admin/user'
+import { fetchList } from '@/api/admin/user'
 import { getProject } from '@/api/evaluate/question'
 import { getDic } from '@/views/wenjuan/util/dic'
 export default {
@@ -64,7 +64,7 @@ export default {
     },
   },
   created () {
-    getUserList({ //获取用户dic
+    fetchList ({ //获取用户dic
       limit:9999,
       page:1,
     }).then(({data})=>{

@@ -21,7 +21,7 @@
 <script>
 import mixin from '@/views/wenjuan/mixins/mixin'
 import currentMixin from './const/mixin'
-import { getUserList } from '@/api/admin/user'
+import { fetchList } from '@/api/admin/user'
 import { getList, getDetail, getProject } from '@/api/evaluate/question'
 import previewDialog from './previewDialog'
 export default {
@@ -36,7 +36,7 @@ export default {
   },
   created () {
     this.getList()
-    getUserList({
+    fetchList({
       limit: 9999,
       page: 1,
     }).then(({ data }) => {

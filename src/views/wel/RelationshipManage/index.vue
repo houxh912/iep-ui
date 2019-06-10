@@ -1,72 +1,79 @@
 <template>
-  <el-row class="aside-main" :gutter="8">
-    <el-col class="sub-menu-left" :span="4">
-      <el-card shadow="never" :body-style="bodyStyle">
-        <div slot="header" class="clearfix">
-          <span class="title">通讯录</span>
-        </div>
-        <el-menu :default-openeds="selectType" class="menu-vertical">
-          <el-submenu index="1" collapse>
-            <template slot="title">
-              <span>国脉人</span>
-            </template>
-            <!-- <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in imsMsgType" @click.native="handleSelectType(item.value+'')"> -->
-            <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in allPeople">
-              <span>{{item.label}}</span>
-              <!-- <el-badge v-if="typeCountMap[item.value]" class="mark" type="primary" :value="typeCountMap[item.value]" /> -->
-            </el-menu-item>
-          </el-submenu>
-          <el-submenu index="2" collapse>
-            <template slot="title">
-              <span>我的关系</span>
-            </template>
-            <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in relationship">
-              <span>{{item.label}}</span>
-              <!-- <el-badge v-if="typeCountMap[item.value]" class="mark" type="primary" :value="typeCountMap[item.value]" /> -->
-            </el-menu-item>
-          </el-submenu>
-        </el-menu>
-        <el-button style="width:100%;border:0;" @click="openContact()"><i class="iconfont icon-xinzeng"></i></el-button>
-      </el-card>
-    </el-col>
-    <el-col :span="20">
-      <!-- <page-header title=""></page-header> -->
-      <operation-container>
-        <template slot="left">
-          <iep-button type="primary" @click="handleAddBatch" plain>批量添加</iep-button>
-        </template>
-        <template slot="right">
-          <!-- <el-radio-group v-model="type" size="small" @change="changeType"> -->
-          <el-radio-group size="small">
-            <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
-          </el-radio-group>
-          <operation-search @search-page="searchPage" prop="title">
-            <!-- <advance-search @search-page="searchPage"></advance-search> -->
-          </operation-search>
-        </template>
-      </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
-        <template slot="before-columns">
-        </template>
-        <el-table-column prop="operation" label="操作">
-          <template slot-scope="scope">
-            <operation-wrapper>
-              <iep-button type="warning" plain @click="handleadd(scope.row)">添加</iep-button>
-            </operation-wrapper>
+  <div>
+    <el-row class="aside-main" :gutter="8">
+      <el-col class="sub-menu-left" :span="4">
+        <el-card shadow="never" :body-style="bodyStyle">
+          <div slot="header" class="clearfix">
+            <span class="title">通讯录</span>
+          </div>
+          <el-menu :default-openeds="selectType" class="menu-vertical">
+            <el-submenu index="1" collapse>
+              <template slot="title">
+                <span>国脉人</span>
+              </template>
+              <!-- <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in imsMsgType" @click.native="handleSelectType(item.value+'')"> -->
+              <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in allPeople">
+                <span>{{item.label}}</span>
+                <!-- <el-badge v-if="typeCountMap[item.value]" class="mark" type="primary" :value="typeCountMap[item.value]" /> -->
+              </el-menu-item>
+            </el-submenu>
+            <el-submenu index="2" collapse>
+              <template slot="title">
+                <span>我的关系</span>
+              </template>
+              <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id)" @dblclick.native="changeGroup(item.name,item.id)">
+                <span>{{item.name}}</span>
+                <i class="iconfont icon-shanchu1" @click="handleDelete(item.id)"></i>
+                <!-- <el-badge v-if="typeCountMap[item.id]" class="mark" type="primary" :id="typeCountMap[item.id]" /> -->
+              </el-menu-item>
+            </el-submenu>
+          </el-menu>
+          <el-button style="width:100%;border:0;" @click="openContact"><i class="iconfont icon-xinzeng"></i></el-button>
+        </el-card>
+      </el-col>
+      <el-col :span="20">
+        <!-- <page-header title=""></page-header> -->
+        <operation-container>
+          <template slot="left">
+            <iep-button type="primary" @click="handleAddBatch" plain>批量添加</iep-button>
           </template>
-        </el-table-column>
-      </iep-table>
-    </el-col>
-  </el-row>
+          <template slot="right">
+            <!-- <el-radio-group v-model="type" size="small" @change="changeType"> -->
+            <el-radio-group size="small">
+              <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
+            </el-radio-group>
+            <operation-search @search-page="searchPage" prop="title">
+              <!-- <advance-search @search-page="searchPage"></advance-search> -->
+            </operation-search>
+          </template>
+        </operation-container>
+        <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+          <template slot="before-columns">
+          </template>
+          <el-table-column prop="operation" label="操作">
+            <template slot-scope="scope">
+              <operation-wrapper>
+                <iep-button type="warning" v-show="mark==''" plain @click="handleadd(scope.row)">添加</iep-button>
+                <iep-button v-show="mark=='group'" plain @click="handleRemove(scope.row)">移除</iep-button>
+              </operation-wrapper>
+            </template>
+          </el-table-column>
+        </iep-table>
+      </el-col>
+    </el-row>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+  </div>
 </template>
 <script>
-import { getSystemMessagePage, getTypeCountMap } from '@/api/ims/system_message'
+import { getRelationshipManagePage, getTypeCountMap, getRelationshipList, putRelationshipList, joinRelationship, deleteRelationshipList } from '@/api/wel/relationship_manage'
 import mixins from '@/mixins/mixins'
-import { columnsMap, dictsMap } from './options'
+import { columnsMap, dictsMap, initForm } from './options'
+import DialogForm from './DialogForm'
 // import AdvanceSearch from './AdvanceSearch'
 export default {
   mixins: [mixins],
   // components: { AdvanceSearch },
+  components: { DialogForm },
   data () {
     return {
       dictsMap,
@@ -74,6 +81,7 @@ export default {
       bodyStyle: {
         padding: 0,
       },
+      mark:'',
       typeCountMap: {},
       selectType: ['1','2'],
       allPeople:[
@@ -82,10 +90,6 @@ export default {
         {value:2,label:'按职称信息'},
       ],
       relationship:[
-        {value:3,label:'我的特设机构'},
-        {value:4,label:'我的师徒'},
-        {value:5,label:'我的好友'},
-        {value:6,label:'外部联系人'},
       ],
       tabList:[
         {value:0,label:'含离职'},
@@ -106,17 +110,35 @@ export default {
     handleAddBatch () {
 
     },
-    
+    handleDelete (id) {
+      this._handleGlobalDeleteById(id, deleteRelationshipList)
+    },
+    handleRemove () {
+
+    },
+    openContact () {
+      this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].formRequestFn = joinRelationship
+      this.$refs['DialogForm'].dialogShow = true
+    },
+    changeGroup (name,id) {
+      this.$refs['DialogForm'].form.name = name
+      this.$refs['DialogForm'].form.id = id
+      this.$refs['DialogForm'].methodName = '编辑'
+      this.$refs['DialogForm'].formRequestFn = putRelationshipList
+      this.$refs['DialogForm'].dialogShow = true
+    },
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)
     },
-    // handleSelectType (k) {
-    //   this.selectType = k
-    //   this.loadPage()
-    // },
+    handleSelectType (k) {
+      this.groupType = k
+      this.mark = 'group'
+      this.loadPage()
+    },
     loadTypeList () {
-      getTypeCountMap().then(({ data }) => {
-        this.typeCountMap = data.data
+      getRelationshipList().then(({ data }) => {
+        this.relationship = data.data
       })
     },
     //tab切换菜单
@@ -128,7 +150,12 @@ export default {
     // },
     loadPage (param = this.searchForm) {
       this.loadTypeList()
-      this.loadTable({ type: this.selectType, ...param }, getSystemMessagePage)
+      if(this.mark=='group'){
+        this.loadTable({ id: this.groupType, ...param }, getTypeCountMap)
+      }
+      else {
+        this.loadTable(param, getRelationshipManagePage)
+      }
     },
   },
 }

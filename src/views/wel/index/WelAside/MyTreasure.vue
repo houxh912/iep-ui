@@ -63,7 +63,10 @@ export default {
       setShowMoney: 'SET_SHOWMONEY',
     }),
     async loadPage () {
-      await addBellBalanceRule()
+      const res = await addBellBalanceRule()
+      if (res.data.data) {
+        this.$message.success(res.data.msg)
+      }
       const { data } = await getTotal()
       this.totalAsset = data.data.govmadeBell + data.data.lockBell
       this.todayChange = data.data.dayBell

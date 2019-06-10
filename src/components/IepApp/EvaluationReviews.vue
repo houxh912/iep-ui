@@ -9,7 +9,7 @@
     </div>
     <div class="no" v-if="commentList.length==0">目前还没有人评论，来发表自己的看法吧~</div>
     <div v-else v-for="(item,index) in commentList" :key="index" class="box">
-      <div class="left"><img :src="item.avatar" :alt="item.realName"></div>
+      <div class="left"><iep-img class="img" :src="item.avatar" :alt="item.realName"></iep-img></div>
       <div class="right">
         <div class="title">
           <span class="name">{{item.realName}}</span>

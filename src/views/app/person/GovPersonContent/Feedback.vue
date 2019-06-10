@@ -4,7 +4,7 @@
       <el-button class="charge" type="text" slot="right" @click="handlePublish">我要发表</el-button>
       <div class="thoughtsList">
         <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
-          <div class="img-con"><img :src="item.avatar" class="img"></div>
+          <div class="img-con"><iep-img :src="item.avatar" class="img"></iep-img></div>
           <div class="box">
             <div class="pieceTitle">
               <span class="name">{{item.name}}</span>

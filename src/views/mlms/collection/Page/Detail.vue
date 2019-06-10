@@ -25,7 +25,7 @@
       <div class="comment">
         <ul>
           <li class="con" v-for="item in list" :key="item.id">
-            <div class="img"><img :src="item.img" alt="张三"></div>
+            <div class="img"><iep-img :src="item.img" alt="张三"></iep-img></div>
             <div class="text">
               <span class="name">{{item.name}}</span>
               <div class="text-bottom">

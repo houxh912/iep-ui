@@ -2,7 +2,7 @@
   <div class="baner">
     <el-carousel :interval="5000" class="index-card">
         <el-carousel-item v-for="(item,index) in img" :key="index" class="baner-box">
-            <img :src="item" class="img">
+            <iep-img :src="item" class="img"></iep-img>
         </el-carousel-item>
     </el-carousel>
   </div>

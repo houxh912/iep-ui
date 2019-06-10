@@ -67,7 +67,7 @@
           :headers="headers"
           :on-success="handleAvatarSuccess"
           accept="image/*">
-          <img v-if="formData.image" :src="formData.image" class="avatar">
+          <iep-img v-if="formData.image" :src="formData.image" class="avatar"></iep-img>
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>

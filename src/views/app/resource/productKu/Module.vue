@@ -5,7 +5,7 @@
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
         <div class="content">
           <!-- <i class="iconfont icon-tongyongleiziyuanpeizhi"></i> -->
-          <div class="img"><img :src="item.imageUrl" alt=""></div>
+          <div class="img"><iep-img :src="item.imageUrl" alt=""></iep-img></div>
           <div class="text">
             <h4 class="item-title">{{item.name}}</h4>
             <p class="con">{{item.synopsis}}</p>

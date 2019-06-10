@@ -4,7 +4,7 @@
     <div class="librarys-item" v-for="(item,index) in librarys" :key="index" v-else @click="handleDetail(item)">
       <div class="text">
         <h4 class="sub-title">
-          <img :src="item.image" alt="">
+          <iep-img :src="item.image" alt=""></iep-img>
           <div class="content">
             <div class="sub-title-con">{{item.honorQualName}}</div>
             <div class="time"><i class="iconfont icon-shijian"></i> {{item.createTime}}</div>

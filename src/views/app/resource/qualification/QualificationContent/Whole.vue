@@ -2,7 +2,7 @@
 <div class="whole">
   <div class="whole-box" v-for="(item,index) in list" :key="index">
     <div class="whole-item" @click="pushRoute(item)">
-      <img :src="item.image" alt="">
+      <iep-img :src="item.image" alt=""></iep-img>
     </div>
     <p>{{item.honorQualName}}</p>
   </div>

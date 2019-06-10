@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="img" v-show="isShow">
-        <img :src="news.img" alt="" />
+        <iep-img :src="news.img" alt="" ></iep-img>
       </div>
     </el-card>
     <el-pagination background layout="prev, pager, next" :total="1000">

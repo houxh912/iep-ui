@@ -4,7 +4,7 @@
       <div class="hot-course">
         <div class="con-course">
           <div class="con" v-for="(con, index) in conCourse" :key="index" @click="handleDetail(con)">
-            <div class="img"><img :src="con.theme_pictures" alt=""></div>
+            <div class="img"><iep-img :src="con.theme_pictures" alt=""></iep-img></div>
             <span class="text">{{con.training_theme}}</span>
             <span class="num">{{con.views}} 人已学习</span>
           </div>

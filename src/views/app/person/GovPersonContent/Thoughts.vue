@@ -7,7 +7,7 @@
       </div>
       <div class="thoughts-list">
         <div v-for="(item, index) in thoughtsList" :key="index" class="piece">
-          <div class="img-con"><img :src="item.avatar" class="img"></div>
+          <div class="img-con"><iep-img :src="item.avatar" class="img"></iep-img></div>
           <div class="box">
             <div class="piece-title">
               <span class="name">{{item.userName}}</span>
@@ -23,7 +23,7 @@
       <el-button class="important" type="text" slot="right">申请互助基金</el-button>
       <div class="star-list">
         <div v-for="(item, index) in starList" :key="index" class="piece">
-          <div class="img-con"><img :src="item.avatar" class="img"></div>
+          <div class="img-con"><iep-img :src="item.avatar" class="img"></iep-img></div>
           <div class="box">
             <div class="piece-title">
               <span class="name">{{item.name}}</span>

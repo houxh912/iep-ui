@@ -3,8 +3,8 @@
     <div class="chat-box">
       <div class="chat-group">
         <div class="chat-title">
-          <img class="chat-title-head"
-               :src="chatDetail.avatar ? chatDetail.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
+          <iep-img class="chat-title-head"
+               :src="chatDetail.avatar ? chatDetail.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
           <span class="chat-title-name">{{chatDetail.realName}}</span>
         </div>
         <div class="chat-main">

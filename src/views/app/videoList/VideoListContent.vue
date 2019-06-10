@@ -10,7 +10,7 @@
             <span class="sub-title">{{item.subTitle}}</span>
           </div>
           <div class="info">
-            <span class="img"><img :src="item.img" alt=""></span>
+            <span class="img"><iep-img :src="item.img" alt=""></iep-img></span>
             <span class="time">{{item.time}}</span>
             <span class="see"><i class="iconfont icon-yanjing"></i><span>{{item.see}}</span></span>
           </div>

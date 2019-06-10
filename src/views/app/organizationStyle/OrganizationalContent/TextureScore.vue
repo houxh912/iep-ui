@@ -4,7 +4,7 @@
       <el-button style="float: right; padding: 5px 0;" type="text" slot="right">我要评价</el-button>
       <div class="texture-score-list">
         <div v-for="(item,index) in textureScoreList" :key="index" class="piece">
-          <div class="img"><img :src="item.photo"></div>
+          <div class="img"><iep-img :src="item.photo"></iep-img></div>
           <div class="box">
             <div class="piece-title">
               <span class="name">{{item.name}}<span class="department">{{item.department}}</span><span class="time">{{item.time}}</span></span>

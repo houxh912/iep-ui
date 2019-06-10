@@ -19,7 +19,7 @@
         <IepAppTabCard :title="listTitle1">
           <div class="recommended-list">
             <div v-for="(item,index) in recommendedList" :key="index" class="piece">
-              <div class="img-con"><img :src="item.themePictures" class="img"></div>
+              <div class="img-con"><iep-img :src="item.themePictures" class="img"></iep-img></div>
               <div class="box">
                 <div class="piece-title">
                   <span class="sub-title">{{item.trainingTheme}}</span>

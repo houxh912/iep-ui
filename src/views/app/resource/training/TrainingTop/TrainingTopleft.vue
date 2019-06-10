@@ -5,7 +5,7 @@
         <el-card :body-style="{ padding: '0px' }" shadow="hover">
           <span class="item"><span>NEW</span></span>
           <div class="con" @click="handleOpen(data)">
-            <img :src="data.themePictures" class="img">
+            <iep-img :src="data.themePictures" class="img"></iep-img>
             <div class="text">
               <h3 class="sub-title">
                 {{data.trainingTheme}}

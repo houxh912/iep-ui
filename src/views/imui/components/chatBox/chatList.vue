@@ -6,7 +6,7 @@
         :key="index"
         @click="chatChange(chat)"
         :class="currentChat === chat.userId ? 'chosen' : ''">
-        <img :src="chat.avatar ? chat.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
+        <iep-img :src="chat.avatar ? chat.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
         <span>{{chat.realName}}</span>
         <i class="icon-font icon-guanbi" @click.stop="chatClose(chat)"></i>
       </li>

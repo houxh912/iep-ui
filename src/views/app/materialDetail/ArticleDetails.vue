@@ -2,7 +2,7 @@
   <div class="article-details">
     <div class="title">{{formData.materialName}}</div>
     <div class="inform">
-      <img :src="formData.avatar" :alt="formData.creatorRealName">
+      <iep-img :src="formData.avatar" :alt="formData.creatorRealName"></iep-img>
       <span>{{formData.creatorRealName}}</span>
       <span>{{formData.createTime}}</span>
       <span><i class="iconfont icon-yanjing"></i>{{formData.views}}</span>

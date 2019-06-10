@@ -9,7 +9,7 @@
       <div class="library">
         <div class="items" v-for="(item, index) in dataList" :key="index">
           <div class="avatar">
-            <img :src="item.avatar" alt="">
+            <iep-img :src="item.avatar" alt=""></iep-img>
           </div>
           <div class="content">
             <div class="title">

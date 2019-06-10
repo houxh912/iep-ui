@@ -3,7 +3,7 @@
     <el-carousel height="200px" :interval="5000" indicator-position="none">
       <el-carousel-item v-for="item in 4" :key="item">
         <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
-          <div class="img"><img :src="item.img" class="img"></div>
+          <div class="img"><iep-img :src="item.img" class="img"></iep-img></div>
           <span class="name">{{item.name}}</span>
         </div>
       </el-carousel-item>

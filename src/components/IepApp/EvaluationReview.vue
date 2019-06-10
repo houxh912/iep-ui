@@ -9,7 +9,9 @@
     </div>
     <div class="no" v-if="dataList.length==0">目前还没有人评论，来发表自己的看法吧~</div>
     <div v-else v-for="(item,index) in dataList" :key="index" class="box">
-      <div class="left"><img :src="item.img" :alt="item.name"></div>
+      <div class="left">
+        <iep-img class="img" :src="item.img" :alt="item.name"></iep-img>
+      </div>
       <div class="right">
         <div class="title">
           <span class="name">{{item.name}}</span>
@@ -30,7 +32,7 @@
         </div>
         <div class="reply-box" v-for="(item,index) in item.reply" :key="index">
           <div class="title">
-            <img :src="item.img" :alt="item.responder">
+            <iep-img class="img" :src="item.img" :alt="item.responder"></iep-img>
             <span>{{item.responder}}</span>
             回复
             <span>{{item.reviewers}}</span>

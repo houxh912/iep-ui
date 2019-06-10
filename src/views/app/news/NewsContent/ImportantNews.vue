@@ -4,7 +4,7 @@
       <span class="sub-title">{{title}}</span>
     </div>
     <el-card class="important-list" v-for="important in importantList" :key="important.id" shadow="hover">
-      <div class="img"><img :src="important.img" alt=""></div>
+      <div class="img"><iep-img :src="important.img" alt=""></iep-img></div>
       <div class="text">
         <p class="con">{{important.con}}</p>
         <span class="time">{{important.time}}</span>

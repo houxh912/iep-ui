@@ -56,7 +56,7 @@
           </div>
           <div class="list" v-for="(item, index) in commentList" :key="index">
             <div class="img">
-              <img :src="item.avatar" alt="">
+              <iep-img :src="item.avatar" alt=""></iep-img>
             </div>
             <div class="comment-info">
               <div class="name">{{item.realName}} <div class="rate">

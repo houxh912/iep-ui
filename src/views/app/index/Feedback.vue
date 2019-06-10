@@ -4,7 +4,7 @@
     <el-button style="float: right; padding: 5px 0;" type="text" slot="right">我要发表</el-button>
     <div class="feedback-list">
       <div v-for="(item,index) in feedbackList" :key="index" class="piece">
-        <img :src="item.avatar" class="photo">
+        <iep-img :src="item.avatar" class="photo"></iep-img>
         <div class="box">
           <div class="piece-title">
             <span class="name">{{item.name}}</span>

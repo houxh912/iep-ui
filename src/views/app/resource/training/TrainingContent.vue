@@ -14,7 +14,7 @@
       <el-row>
         <el-col>
           <el-card shadow="hover" v-for="(item,index) in pastTrainingList" :key="index" @click.native="handleOpen(item)">
-            <div class="img"><img :src="item.trainerImage" alt=""></div>
+            <div class="img"><iep-img :src="item.trainerImage" alt=""></iep-img></div>
             <span class="item-title">{{item.trainingTheme}}</span>
             <p class="content">{{item.trainingBrief}}</p>
             <div class="classTag">

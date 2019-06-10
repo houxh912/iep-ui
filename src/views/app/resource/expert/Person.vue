@@ -3,7 +3,7 @@
     <search @load-page="searchPage"></search>
     <div class="person" v-loading="loading">
       <div class="person-item" v-for="(item,index) in personList" :key="index" @click="handleDetail(item.id)">
-        <div class="img"><img :src="item.avatar" alt=""></div>
+        <div class="img"><iep-img :src="item.avatar" alt=""></iep-img></div>
         <div class="text">
           <span class="name">{{item.name}}<span class="dn show1 show" v-if="item.isExpert == 1">V</span></span>
           <span class="job">{{item.externalTitle}}</span>

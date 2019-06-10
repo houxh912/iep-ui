@@ -5,7 +5,7 @@
         <el-collapse-item :title="appraise.time" :name="index">
           <el-card shadow="never" v-for="(child, index2) in appraise.childList" :key="index2">
             <div class="conList" v-if="isShow">
-              <div class="img"><img :src="child.img" alt=""></div>
+              <div class="img"><iep-img :src="child.img" alt=""></iep-img></div>
               <div class="con">
                 <h4>
                   <span class="name">{{child.name}}</span>

@@ -7,7 +7,7 @@
       </a-col>
       <a-col :xs="24" :md="12" :style="{height: '350px'}">
         <div class="avatar-upload-preview">
-          <img :src="previews.url" :style="previews.img" />
+          <iep-img :src="previews.url" :style="previews.img" ></iep-img>
         </div>
       </a-col>
     </a-row>

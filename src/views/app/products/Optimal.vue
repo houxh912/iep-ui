@@ -3,7 +3,7 @@
     <iepAppTabCard :title="title1">
       <div class="technology-list">
         <div v-for="(item,index) in technologyList" :key="index" class="piece">
-          <img :src="item.img" alt="">
+          <iep-img :src="item.img" alt=""></iep-img>
           <div class="text">
             <div class="title">
               <span class="name">{{item.name}}</span>
@@ -17,7 +17,7 @@
     <IepAppTabCard :title="title2" :linkName="linkName" class="last-card">
       <div class="last-month">
         <div v-for="(item,index) in lastMonth" :key="index" class="piece">
-          <img :src="item.img" alt="">
+          <iep-img :src="item.img" alt=""></iep-img>
           <div class="text">
             <div class="title">
               <span class="name">{{item.name}}</span>

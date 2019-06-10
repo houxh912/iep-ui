@@ -71,7 +71,7 @@
           <el-row :gutter="20">
             <el-col :span="12" class="clemr" v-for="(item,index) in boss" :key="index">
               <!-- https://ioa.govmade.com/uploads/2/image/public/201812/20181228133004_x5eaosqf7y.png -->
-              <img class="imgs" :src="item.url" alt="未加载">
+              <iep-img class="imgs" :src="item.url" alt="未加载"></iep-img>
               <div class="offdiv">
                 <p class="bigfon sixsix">{{item.name}}</p>
                 <p class="coles">{{item.company}}</p>

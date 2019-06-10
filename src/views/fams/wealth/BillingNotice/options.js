@@ -63,6 +63,8 @@ const initForm = () => {
 		amount: '', //开票金额
 		invoicingType: 1,//开票种类
 		projectId: '',//关联项目
+		projectName: '',//关联项目
+		orgId: '', //销售方组织ID
 		companyId: '', //销售方公司ID
 		remarks: '',//备注
 

@@ -17,12 +17,11 @@ export default {
   },
   data () {
     return {
-      contractOptions: [{
-        id: this.$attrs.value,
-        projectName: this.projectName,
-      }],
+      contractOptions: [],
       loading: false,
     }
+  },
+  created () {
   },
   methods: {
     async remoteMethod (query) {
@@ -40,6 +39,14 @@ export default {
       } else {
         this.contractOptions = []
       }
+    },
+  },
+  watch: {
+    projectName: function (n) {
+      this.contractOptions = [{
+        id: this.$attrs.value,
+        projectName: n,
+      }]
     },
   },
 }

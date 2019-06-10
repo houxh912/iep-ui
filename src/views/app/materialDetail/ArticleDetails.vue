@@ -1,8 +1,8 @@
 <template>
-  <div class="article-details">
+  <div class="article-details app-material-detail">
     <div class="title">{{formData.materialName}}</div>
     <div class="inform">
-      <iep-img :src="formData.avatar" :alt="formData.creatorRealName"></iep-img>
+      <iep-img :src="formData.avatar" :alt="formData.creatorRealName" class="img"></iep-img>
       <span>{{formData.creatorRealName}}</span>
       <span>{{formData.createTime}}</span>
       <span><i class="iconfont icon-yanjing"></i>{{formData.views}}</span>
@@ -10,7 +10,7 @@
       <div class="btn sc" v-if="formData.collection == 0" @click="handleCollect(formData)"><i class="iconfont icon-heart"></i>收藏</div>
       <div class="btn sc" v-else><i class="iconfont icon-aixin"></i>已收藏</div>
       <div class="btn fx" @click="handleShare"><i class="iconfont icon-youxiangshixin"></i>分享</div>
-      <div class="btn jc"><i class="iconfont icon-zhuyi"></i>纠错</div>
+      <div class="btn jc" @click="handleWrong"><i class="iconfont icon-zhuyi"></i>纠错</div>
     </div>
     <div class="classes">{{getClass(formData.firstClass, formData.secondClass).first}} - {{getClass(formData.firstClass, formData.secondClass).second}}</div>
     <div class="introduction">{{formData.intro}}</div>
@@ -27,6 +27,7 @@
     <IepAppEvaluationReviews :id="formData.id" :objectType="1"></IepAppEvaluationReviews>
     <collectionDialog ref="collection" type="material" :requestFn="createCollect" @load-page="loadData(route.id)"></collectionDialog>
     <share-dialog ref="share" type="material"></share-dialog>
+    <wrongDialog ref="wrong"></wrongDialog>
   </div>
 </template>
 <script>
@@ -37,12 +38,16 @@ import { getConfigureTree } from '@/api/mlms/material/datum/configure'
 import collectionDialog from '@/views/mlms/material/components/collectionDialog'
 import ShareDialog from '@/views/mlms/material/components/shareDialog'
 import { createCollect } from '@/api/mlms/material/summary'
+import wrongDialog from '@/views/mlms/material/components/wrongDialog'
 
 export default {
-  components: { collectionDialog, ShareDialog },
+  components: { collectionDialog, ShareDialog, wrongDialog },
   data () {
     return {
       formData: {
+        firstClass: '',
+        secondClass: '',
+        content: '',
         attachFileList: [],
       },
       desc: '数据基因是基于数据元和元数据的标准化编码基础上可实现数据自由编辑、抽取、复制和关联应用的核心机数体系',
@@ -98,18 +103,20 @@ export default {
       if (!first || !second) {
         return {first: '', second: ''}
       }
-      let obj = {}
+      let obj = {first: '', second: ''}
       for (let item of this.firstClass) {
         if (item.id == first) {
           obj.first = item.levelName
           for (let t of item.childrens) {
             if (t.id == second) {
               obj.second = t.levelName
+              console.log('obj: ', obj)
               return obj
             }
           }
         }
       }
+      return obj
     },
     // 收藏
     handleCollect (row) {
@@ -121,6 +128,14 @@ export default {
     handleShare () {
       this.formData.name = this.formData.materialName
       this.$refs['share'].open([this.formData], `关于 ${this.formData.name} 材料的分享`)
+    },
+    // 纠错
+    handleWrong () {
+      this.$refs['wrong'].open({
+        subject: `纠错：${this.formData.materialName}`,
+        receiverIds: [this.formData.creator],
+        receiverName: this.formData.creatorRealName,
+      })
     },
   },
   created () {
@@ -147,12 +162,6 @@ export default {
     height: 40px;
     line-height: 40px;
     position: relative;
-    > img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: inline-block;
-    }
     > span {
       margin-left: 10px;
       display: inline-block;
@@ -215,6 +224,18 @@ export default {
         margin-left: 10px;
         color: #999;
       }
+    }
+  }
+}
+</style>
+<style lang="scss">
+.app-material-detail {
+  .inform {
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: inline-block;
     }
   }
 }

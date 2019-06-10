@@ -59,10 +59,10 @@ export const initFormData = () => {
     signTime: '',
     finishTime: '',
     companyOrgId: '', // 委托单位
-    companyName: {name: ''},
+    companyName: {id: '', name: ''},
     companyOrgObj: {},
     signCompanyOrgId: '', // 签署单位
-    signCompanyRealName: {name: ''},
+    signCompanyRealName: {id: '', name: ''},
     signCompanyOrgObj: {},
     signDeptOrgId: '', // 签署组织
     signDeptName: '',

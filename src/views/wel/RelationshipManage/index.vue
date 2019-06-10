@@ -5,14 +5,28 @@
         <div slot="header" class="clearfix">
           <span class="title">通讯录</span>
         </div>
-        <el-menu :default-active="selectType" class="menu-vertical">
-          <!-- <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in imsMsgType" @click.native="handleSelectType(item.value+'')"> -->
-          <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in imsMsgType">
-            <span>{{item.label}}</span>
-            <el-badge v-if="typeCountMap[item.value]" class="mark" type="primary" :value="typeCountMap[item.value]" />
-          </el-menu-item>
-          <el-button style="width:100%;border:0;" @click="openContact()"><i class="iconfont icon-xinzeng"></i></el-button>
+        <el-menu :default-openeds="selectType" class="menu-vertical">
+          <el-submenu index="1" collapse>
+            <template slot="title">
+              <span>国脉人</span>
+            </template>
+            <!-- <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in imsMsgType" @click.native="handleSelectType(item.value+'')"> -->
+            <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in allPeople">
+              <span>{{item.label}}</span>
+              <!-- <el-badge v-if="typeCountMap[item.value]" class="mark" type="primary" :value="typeCountMap[item.value]" /> -->
+            </el-menu-item>
+          </el-submenu>
+          <el-submenu index="2" collapse>
+            <template slot="title">
+              <span>我的关系</span>
+            </template>
+            <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in relationship">
+              <span>{{item.label}}</span>
+              <!-- <el-badge v-if="typeCountMap[item.value]" class="mark" type="primary" :value="typeCountMap[item.value]" /> -->
+            </el-menu-item>
+          </el-submenu>
         </el-menu>
+        <el-button style="width:100%;border:0;" @click="openContact()"><i class="iconfont icon-xinzeng"></i></el-button>
       </el-card>
     </el-col>
     <el-col :span="20">
@@ -22,7 +36,8 @@
           <iep-button type="primary" @click="handleAddBatch" plain>批量添加</iep-button>
         </template>
         <template slot="right">
-          <el-radio-group v-model="type" size="small" @change="changeType">
+          <!-- <el-radio-group v-model="type" size="small" @change="changeType"> -->
+          <el-radio-group size="small">
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
           </el-radio-group>
           <operation-search @search-page="searchPage" prop="title">
@@ -60,13 +75,17 @@ export default {
         padding: 0,
       },
       typeCountMap: {},
-      selectType: '0',
-      imsMsgType:[
-        {value:0,label:'国脉人'},
-        {value:1,label:'我的特设机构'},
-        {value:2,label:'我的师徒'},
-        {value:3,label:'我的好友'},
-        {value:4,label:'外部联系人'},
+      selectType: ['1','2'],
+      allPeople:[
+        {value:0,label:'按岗位信息'},
+        {value:1,label:'按职务信息'},
+        {value:2,label:'按职称信息'},
+      ],
+      relationship:[
+        {value:3,label:'我的特设机构'},
+        {value:4,label:'我的师徒'},
+        {value:5,label:'我的好友'},
+        {value:6,label:'外部联系人'},
       ],
       tabList:[
         {value:0,label:'含离职'},
@@ -101,12 +120,12 @@ export default {
       })
     },
     //tab切换菜单
-    changeType () {
-      this.searchPage()
-      if (this.type === '2') {
-        this.showSelect = true
-      } else { this.showSelect = false }
-    },
+    // changeType () {
+    //   this.searchPage()
+    //   if (this.type === '2') {
+    //     this.showSelect = true
+    //   } else { this.showSelect = false }
+    // },
     loadPage (param = this.searchForm) {
       this.loadTypeList()
       this.loadTable({ type: this.selectType, ...param }, getSystemMessagePage)

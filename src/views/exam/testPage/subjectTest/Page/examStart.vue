@@ -7,7 +7,7 @@
       <span class="title-two">{{resdata.fieldName}}</span>
     </div>
 
-    <div class="examShow">
+    <div class="examShow" v-loading="loading">
       <div class="left">
         <span style="font-size: 20px;"><b>{{resdata.questionTypeName}}</b></span>
         <span class="title">共 {{resdata.kindTotalNum}} 题，合计 {{resdata.kindMark}} 分，已完成 {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
@@ -24,7 +24,7 @@
           <div v-if="resdata.questionTypeName ==='单选题'">
             <li v-for="(item,index) in resdata.titleOptions" :key="index">
               <el-radio v-model="answerRadio" :label="item.key"></el-radio>
-              <span> {{item.key}}、{{item.value}}</span>
+              <span>{{item.value}}</span>
             </li>
           </div>
 
@@ -131,7 +131,7 @@ export default {
       offsetY: 100,
     }
     return {
-      isLoadTable: true,      //加载圈圈
+      loading: true,      //加载圈圈
       answerRadio: '',        //单选(v-model绑定的值)
       checksList: [],         //复选(v-model绑定的值)
       trueOrFalseRadio: '',   //判断(v-model绑定的值)
@@ -235,17 +235,14 @@ export default {
      */
     getSubjectById (params, times) {
       getTestPageById(params).then(res => {
-        console.log('333', res)
-        if (res.data.code === 2) {
-          console.log('warn')
-          this.isLoadTable = true
-        } else {
-          this.isLoadTable = false
+        if (res.data.code === 0) {
+          this.loading = false
           const record = res.data.data
           if (times === true) {
             const timeAll = record.remainingTime ? record.remainingTime.split('-') : []
             this.mins = Number(timeAll[0])
             this.secs = Number(timeAll[1])
+            this.timer()
           }
           if (this.mins + this.secs === 0) {
             this.tip()
@@ -281,6 +278,11 @@ export default {
               this.resdata.kindMark = record.questionNumList.textMap[0].grade * this.resdata.kindTotalNum
             }
           }
+        } else {
+          this.$message({
+            type: 'error',
+            message: res.data.msg,
+          })
         }
       })
     },
@@ -322,7 +324,6 @@ export default {
         questionNum: this.resdata.questionNum,
       }
       this.getSubjectById(params, true)
-      this.timer()
     },
 
     /**
@@ -438,7 +439,7 @@ export default {
      * 返回
      */
     backhome () {
-      this.$confirm('此操作将不保存试卷，是否继续?', '提示', {
+      this.$confirm('此操作将不保存试卷所选答案，是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',

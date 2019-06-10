@@ -34,12 +34,25 @@
   </iep-dialog>
 </template>
 <script>
+import { validCertificateTitle } from '@/api/exam/review'
 import { getTestOption } from '@/api/exam/createExam/newTest/newTest'
 import { getOrgList } from '@/api/admin/org'
 import { initForm } from './options'
 export default {
   name: 'DialogForm',
   data () {
+    var checkTitle = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('标题不能为空'))
+      }
+      validCertificateTitle(value).then(res => {
+        if (this.form.title !== value && !res.data.data) {
+          callback(new Error('标题重复，已存在。'))
+        } else {
+          callback()
+        }
+      })
+    }
     return {
       dialogShow: false,
       formRequestFn: () => { },
@@ -49,7 +62,7 @@ export default {
       res: {},
       resdata: {},
       rules: {
-        title: [{ required: true, message: '请输入名称', trigger: 'blur' }],
+        title: [{ required: true, validator: checkTitle, trigger: 'blur' }],
         field: [{ required: true, message: '请选择科目', trigger: 'blur' }],
         level: [{ required: true, message: '请选择级别', trigger: 'blur' }],
         deptId: [{ required: true, message: '请选择颁发机构', trigger: 'blur' }],

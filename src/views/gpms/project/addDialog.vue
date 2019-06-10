@@ -10,10 +10,6 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="项目类型：" prop="projectType">
-            <span slot="label">
-              项目类型
-              <iep-tip :content="tipContent.businessType"></iep-tip>：
-            </span>
             <iep-dict-select v-model="formData.projectType" dict-name="prms_project_type"></iep-dict-select>
           </el-form-item>
         </el-col>

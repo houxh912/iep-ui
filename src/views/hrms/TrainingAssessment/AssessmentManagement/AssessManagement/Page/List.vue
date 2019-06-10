@@ -3,7 +3,7 @@
     <operation-container>
       <template slot="left">
         <iep-button @click="handleAdd" type="primary" plain>发起考核</iep-button>
-        <iep-button type="default" plain @click.native="handleDeleteBatch">删除</iep-button>
+        <!-- <iep-button type="default" plain @click.native="handleDeleteBatch">删除</iep-button> -->
       </template>
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
@@ -70,7 +70,7 @@ export default {
       this._handleGlobalDeleteAll(deleteEvaluation)
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deleteEvaluation)
+      this._handleGlobalDeleteById(row.coverId, deleteEvaluation)
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()

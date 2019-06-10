@@ -37,6 +37,11 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDetail (row) {
+      this.$emit('onDetail', {
+        id: row.ruleId,
+      })
+    },
     handleEdit (row) {
       this.$emit('onEdit', {
         formRequestFn: putBellBalance,

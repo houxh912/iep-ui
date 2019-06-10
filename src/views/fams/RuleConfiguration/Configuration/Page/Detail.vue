@@ -1,56 +1,19 @@
 <template>
-  <div class="edit-wrapper">
+  <div>
     <basic-container>
-      <page-header title="加班申请单" :backOption="backOption">
+      <page-header title="流水详情" :backOption="backOption">
       </page-header>
-      <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
-        <div slot="header" class="clearfix">
-          <span>其他要求</span>
-        </div>
-        <div class="info">
-          <div class="info-item">
-            <label>专业要求：</label>
-            <div class="content">{{form.profession}}</div>
-          </div>
-          <div class="info-item">
-            <label>工作类型：</label>
-            <div class="content">
-              <iep-dict-detail :value="form.jobTypeId" dict-name="hrms_work_type"></iep-dict-detail>
-            </div>
-          </div>
-          <div class="info-item">
-            <label>外语要求：</label>
-            <div class="content">{{form.language}}</div>
-          </div>
-          <div class="info-item">
-            <label>性别要求：</label>
-            <div class="content">{{form.sexName}}</div>
-          </div>
-          <div class="info-item">
-            <label>福利待遇：</label>
-            <div class="content">{{form.welfare}}</div>
-          </div>
-        </div>
-      </el-card>
-      <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
-        <div slot="header" class="clearfix">
-          <span>岗位职责</span>
-        </div>
-        <pre>{{form.duties}}</pre>
-      </el-card>
-      <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
-        <div slot="header" class="clearfix">
-          <span>岗位要求</span>
-        </div>
-        <pre>{{form.claim}}</pre>
-      </el-card>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      </iep-table>
     </basic-container>
   </div>
 </template>
 <script>
-import { getApprovalInitiateById } from '@/api/hrms/wel'
+import { getBellBalancePageById } from '@/api/fams/balance_rule'
+import mixins from '@/mixins/mixins'
 import { initForm } from '../options'
 export default {
+  mixins: [mixins],
   props: {
     record: {
       type: Object,
@@ -64,21 +27,33 @@ export default {
         backPath: null,
         backFunction: () => { this.$emit('onGoBack') },
       },
-      middleBodyStyle: {
-        padding: '20px',
-        border: 0,
-      },
+      columnsMap: [
+        {
+          prop: 'ruleName',
+          label: '规则名称',
+        },
+        {
+          prop: 'targetName',
+          label: '操作对象',
+        },
+        {
+          prop: 'userName',
+          label: '操作人',
+        },
+        {
+          prop: 'amount',
+          label: '国脉贝',
+        },
+      ],
       form: initForm(),
     }
   },
   created () {
-    this.load()
+    this.loadPage()
   },
   methods: {
-    load () {
-      getApprovalInitiateById(this.record.id).then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
-      })
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getBellBalancePageById(this.record.id))
     },
   },
 }

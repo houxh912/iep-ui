@@ -70,12 +70,3 @@ export function postTransfer (obj) {
     data: obj,
   })
 }
-
-// 拜师
-export function addMasterWorker (obj) {
-  return request({
-    url: `${prefixUrl}/addMasterWorker`,
-    method: 'post',
-    data: obj,
-  })
-}

@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { addMasterWorker } from '@/api/hrms/employee_profile'
+import { addMasterWorker } from '@/api/cpms/characterrelations'
 
 export default {
   props: {

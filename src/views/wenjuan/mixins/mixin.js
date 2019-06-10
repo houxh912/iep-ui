@@ -6,8 +6,31 @@ import isPlainObject from 'lodash/isPlainObject'
 import isString from 'lodash/isString'
 import cloneDeep from 'lodash/cloneDeep'
 import { mapGetters } from 'vuex'
+import GovButton from '@/views/wenjuan/components/govButton/index'
+import GovSearchBar from '@/views/wenjuan/components/govSearchBar/index'
+import GovDialog from '@/views/wenjuan/components/govDialog/index'
+import GovLayout from '@/views/wenjuan/components/govLayout'
+import GovDialogImport from '@/views/wenjuan/components/govDialogImport'
+import GovDialogExport from '@/views/wenjuan/components/govDialogExport'
+import GovDetailForm from '@/views/wenjuan/components/govDetailForm'
+import GovSmartTag from '@/views/wenjuan/components/govSmartTag'
 
 export default {
+  components: {
+    GovButton,
+    GovSearchBar,
+    GovDialog,
+    GovLayoutBody: GovLayout.GovLayoutBody,
+    GovLayoutButtonGroup: GovLayout.GovLayoutButtonGroup,
+    GovLayoutDialog: GovLayout.GovLayoutDialog,
+    GovLayoutForm: GovLayout.GovLayoutForm,
+    GovLayoutHeader: GovLayout.GovLayoutHeader,
+    GovLayoutMain: GovLayout.GovLayoutMain,
+    GovDialogImport,
+    GovDialogExport,
+    GovDetailForm,
+    GovSmartTag,
+  },
   computed: {
     ...mapGetters(['permissions', 'dicList', 'userInfo']),
   },

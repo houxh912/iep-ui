@@ -1,4 +1,4 @@
-import request from '@/router/request'
+import request from '@/views/wenjuan/router/request'
 import {downloadExport} from '@/util/util'
 
 export default function exportDownload ({url, method = 'post', data = {}, title = ''}) {

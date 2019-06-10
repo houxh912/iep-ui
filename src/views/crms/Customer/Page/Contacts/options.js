@@ -19,15 +19,15 @@ const initForm = () => {
     clientIds: [0],
   }
 }
-const cellPhone = (rules, value, callback) => {
-  if (value !== '') {
-    var reg = /^1[3456789]\d{9}$/
-    if (!reg.test(value)) {
-      callback(new Error('请输入有效的手机号码'))
-    }
-  }
-  callback()
-}
+// const cellPhone = (rules, value, callback) => {
+//   if (value !== '') {
+//     var reg = /^1[3456789]\d{9}$/
+//     if (!reg.test(value)) {
+//       callback(new Error('请输入有效的手机号码'))
+//     }
+//   }
+//   callback()
+// }
 // const telPhone = (rules, value, callback) => {
 //   if (value === '') {
 //     callback(new Error('电话不可为空'))
@@ -41,15 +41,15 @@ const cellPhone = (rules, value, callback) => {
 //     callback()
 //   }
 // }
-const fax = (rules, value, callback) => {
-  if (value !== '') {
-    var reg = /^(\d{3,4}-)?\d{7,8}$/
-    if (!reg.test(value)) {
-      callback(new Error('请输入有效的传真'))
-    }
-  }
-  callback()
-}
+// const fax = (rules, value, callback) => {
+//   if (value !== '') {
+//     var reg = /^(\d{3,4}-)?\d{7,8}$/
+//     if (!reg.test(value)) {
+//       callback(new Error('请输入有效的传真'))
+//     }
+//   }
+//   callback()
+// }
 const rules = {
   contactName: [
     { required: true, message: '联系人姓名不能为空', trigger: 'blur' },
@@ -60,12 +60,13 @@ const rules = {
     { max: 20, message: '不能超过20个字符', trigger: 'blur' },
   ],
   // telephoneNo: [{ required: true, validator: telPhone, trigger: 'blur' }],
-  cellphone: [{ validator: cellPhone, trigger: 'blur' }],
+  // cellphone: [{ validator: cellPhone, trigger: 'blur' }],
+  cellphone: [{ trigger: 'blur' }],
   address: [
     { message: '请填写地址', trigger: 'blur' },
     { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
   ],
-  fax: [{ validator: fax, trigger: 'blur' }],
+  // fax: [{ validator: fax, trigger: 'blur' }],
   qq: [{ max: 11, message: '昵称，电话或者qq号', trigger: 'blur' }],
   wechat: [{ max: 20, message: '长度不可超过20个字符', trigger: 'blur' }],
   email: [

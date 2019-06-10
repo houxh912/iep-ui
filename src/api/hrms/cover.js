@@ -20,11 +20,10 @@ export function createEvaluatio (obj) {
   })
 }
 
-export function deleteEvaluation (obj) {
+export function deleteEvaluation (id) {
   return request({
-    url: `${detailsUrl}/create`,
+    url: `${prefixUrl}/delete/${id}`,
     method: 'post',
-    data: obj,
   })
 }
 

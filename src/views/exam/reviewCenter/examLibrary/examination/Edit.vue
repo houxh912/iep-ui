@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${record.methodName}`" :backOption="backOption"></page-header>
+      <page-header :title="`${record.methodName}考试`" :backOption="backOption"></page-header>
       <div class="withdraw-wrapper">
         <a-steps :current="current">
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />
@@ -18,7 +18,6 @@
 import FirstContent from './CreateExam/FirstContent'
 import SecondContent from './CreateExam/SecondContent'
 import ThirdContent from './CreateExam/ThirdContent'
-import LastContent from './CreateExam/LastContent'
 export default {
   props: {
     record: {
@@ -27,7 +26,16 @@ export default {
     },
   },
   components: {
-    FirstContent, SecondContent, ThirdContent, LastContent,
+    FirstContent, SecondContent, ThirdContent,
+  },
+  watch: {
+    'record.current': {
+      handler (newName) {
+        this.current = newName
+        this.steps[this.current].data = this.record
+      },
+      immediate: true,
+    },
   },
   data () {
     return {
@@ -36,11 +44,11 @@ export default {
         backPath: null,
         backFunction: this.handleGoBack,
       },
-      current: this.record.current,
+      current: 0,
       steps: [{
-        title: this.record.methodName,
+        title: this.record.methodName + '考试',
         content: 'FirstContent',
-        data: this.record,
+        data: undefined,
         onData: this.handleFirst,
       }, {
         title: '选择试题',
@@ -51,12 +59,7 @@ export default {
         title: '发布考试',
         content: 'ThirdContent',
         data: undefined,
-        onData: this.handleThird,
-      }, {
-        title: '完成',
-        content: 'LastContent',
-        data: undefined,
-        onData: this.handleLast,
+        onData: this.handleBack,
       }],
     }
   },
@@ -69,13 +72,8 @@ export default {
       this.next()
       this.steps[this.current].data = data
     },
-    handleThird (data) {
-      this.next()
-      this.steps[this.current].data = data
-    },
-    handleLast (data) {
-      this.current = 0
-      this.steps[this.current].data = data
+    handleBack () {
+      this.back()
     },
     next () {
       this.current++

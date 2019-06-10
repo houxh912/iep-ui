@@ -29,6 +29,10 @@ export default {
       linkName: '',
       nameList: [
         {
+          name: '全部',
+          data: '(506人)',
+        },
+        {
           name: '技术之星',
           data: '(2人)',
         },

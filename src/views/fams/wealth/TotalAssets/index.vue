@@ -38,10 +38,6 @@
                   <span>本月</span>
                   <span class="active">全年</span>
                 </div>
-                <div class="block">
-                  <el-date-picker v-model="dateValue" type="daterange" range-separator="~" start-placeholder="开始日期" end-placeholder="结束日期">
-                  </el-date-picker>
-                </div>
               </div>
             </template>
           </operation-container>

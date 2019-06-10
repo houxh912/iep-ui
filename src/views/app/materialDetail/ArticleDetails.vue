@@ -59,13 +59,19 @@ export default {
   methods: {
     // 附件下载
     downLoad (obj) {
-      if (this.formData.downloadCost > 0) {
-        this.$message.error('对不起，您的余额不足！')
-        return
-      }
-      downloadFile(obj)
-      // /getUpload/{id}
-      downloadCount(this.formData.id)
+      // if (this.formData.downloadCost > 0) {
+      //   this.$message.error('对不起，您的余额不足！')
+      //   return
+      // }
+      // downloadFile(obj)
+      // downloadCount(this.formData.id)
+      downloadCount(this.formData.id).then(({data}) => {
+        if (data.data) {
+          downloadFile(obj)
+        } else {
+          this.$message.error(data.msg)
+        }
+      })
     },
     loadData (id) {
       getDataById(id).then(({ data }) => {

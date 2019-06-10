@@ -81,7 +81,7 @@ export function postExamineFalse (params) {
 }
 
 /**
- * 审核不通过
+ * 修改试题
  * @param {Object} params 参数
  */
 export function postModify (params) {
@@ -122,4 +122,62 @@ export function release (params) {
         data: params,
     })
 }
+
+/**
+ * 查看考试
+ */
+export function getExam (params) {
+    return request({
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        url: '/exms/iepexamination/get',
+        method: 'get',
+        params: params,
+    })
+}
+
+
+/**
+ * 保存的修改
+ */
+export function updateSave (params) {
+    return request({
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        url: '/exms/iepexamination/update',
+        method: 'post',
+        data: params,
+    })
+}
+
+/**
+ * 点击修改按钮
+ */
+export function getExamMsg (params) {
+    return request({
+        url: 'exms/iepitembank/getById',
+        method: 'get',
+        params: params,
+    })
+}
+
+
+
+/**
+ * 发布的修改
+ */
+export function updateRelease (params) {
+    return request({
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        url: '/exms/iepexamination/updaterelease',
+        method: 'post',
+        data: params,
+    })
+}
+
+
 

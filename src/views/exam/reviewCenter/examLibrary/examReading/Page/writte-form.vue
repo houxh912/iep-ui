@@ -1,92 +1,91 @@
 <template>
   <div>
     <div class="header">
-      <img src="./IG.png">
       <span class="title1"><b>在线考试系统</b></span>
       <span class="title2"></span>
-      <span class="title3">内网考试</span>
+      <span class="title3">{{resdata.fieldName}}</span>
       <span class="title4">
-        评分进度<span class="title5">5</span> / 23</span>
+        评分进度<span class="title5">{{count}}</span> / {{resdata.questionTotalNum}}</span>
     </div>
 
-    <div class="examShow" style="background-color:#fff">
+    <div class="examShowss" style="background-color:#fff">
       <div class="left">
-        <span style="font-size: 20px;"><b>填空题</b></span>
-        <span class="title1">共 5 题，合计 5 分，已完成 {{count}} / {{resdata.questionTotalNum}}</span>
+        <span style="font-size: 20px;"><b>{{resdata.questionTypeName}}</b></span>
+        <span class="title1">共 {{resdata.kindTotalNum}} 题，合计 {{resdata.kindMark}} 分，已完成 {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
         <hr>
         <div class="container">
           <div style="margin-bottom: 10px;">
-            <span>1、 </span>
-            <span>公司共有战略决策委员会、__人力与技术委员会____、市场与营销委员会、_______________、项目执行与质量委员会五大委员会。</span>
-            <span> （ 1 分）</span>
+            <span>{{resdata.questionNum}}、 </span>
+            <span>{{resdata.title}}</span>
+            <span> （ {{resdata.single}} 分）</span>
           </div>
 
           <!-- <div>
             <li v-for="(item,index) in fillAreaList" :key="index" style="margin-left:28px;">
-              <el-input type="textarea" v-model="fillInput" style="width: 70%;margin-top:10px" :rows="2"></el-input>
-              <el-input v-model="freeInput" class="give-mark"></el-input>
+              <el-input type="textarea" v-model="userByAnswer" style="width: 70%;margin-top:10px" :rows="2"></el-input>
+              <el-input  class="give-mark" v-model="fillInput"></el-input>
               <span style="margin-left:10px;">分</span>
             </li>
           </div> -->
 
           <div>
             <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
-              <el-input type="textarea" v-model="freeInput" style="width: 80%;margin-top:10px" :rows="6"></el-input>
-              <el-input v-model="freeInput" class="give-mark-two"></el-input>
-              <span style="margin-left:-30px;">分</span>
+              <el-input type="textarea" v-model="userByAnswer" style="width: 80%;margin-top:10px" :rows="6"></el-input>
+              <el-input class="give-mark-two" v-model="freeInput"></el-input>
+              <span style="margin-left:10px;">分</span>
             </li>
           </div>
 
           <!-- <div>
             <li v-for="(item,index) in operationList" :key="index" style="margin-left:28px;display:flex">
-              <iep-froala-editor v-model="operation" style="width:80%"></iep-froala-editor>
-              <el-input v-model="freeInput" class="give-mark-three"></el-input>
+              <iep-froala-editor v-model="userByAnswer" style="width:80%"></iep-froala-editor>
+              <el-input  class="give-mark-three" v-model="operation"></el-input>
               <span style="margin-left:15px;margin-top:175px">分</span>
             </li>
           </div> -->
 
           <div class="center" align="center">
-            <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.questionNum === 1">上一题</iep-button>
-            <iep-button style="margin:0 10px;" @click="next" :disabled="resdata.questionNum === resdata.questionTotalNum">下一题</iep-button>
+            <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.firstOrLastQuestion === 0">上一题</iep-button>
+            <iep-button style="margin:0 10px;" @click="next" :disabled="resdata.firstOrLastQuestion === 1">下一题</iep-button>
             <iep-button style="margin:0 10px;" @click="saveAndGoBack">保存并退出</iep-button>
           </div>
         </div>
       </div>
 
-      <div class="right">
+      <div class="right" v-if="resdata.title">
         <div class="container">
           <div class="top">
             <span class="titleone">本题得分</span><br>
             <span class="titletwoss">
-              <el-input class="fen" v-model="freeInput"></el-input>
+              <el-input class="fen" v-model="showScore"></el-input>
             </span>
             <span class="titlethree"> / </span>
-            <span class="titlefour">12</span>
+            <span class="titlefour">{{resdata.single}}</span>
           </div>
 
-          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="200px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
+          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="160px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
 
-          <div class="bottom">
-            <div>
+          <div class="card">
+            <!-- <div v-if="resdata.textMap.length > 0">
               <span class="answerSheet">填空题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
               </div><br>
-            </div>
+            </div> -->
 
-            <div>
+            <div v-if="resdata.textMap.length > 0">
               <span class="answerSheet">简答题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
               </div><br>
             </div>
 
-            <div>
+            <!-- <div v-if="resdata.Map.length > 0">
               <span class="answerSheet">实操题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :style="statusColor(item.answerOrNot)">{{item.id}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
               </div><br>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -95,7 +94,7 @@
   </div>
 </template>
 <script>
-import { getTestPageById } from '@/api/exam/testPage/subjectTest/examStart'
+import { passWrittenById } from '@/api/exam/examLibrary/examReading/examReading'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -103,19 +102,18 @@ export default {
   data () {
     this.colors = ['#409AF9', '#FFFFFF']
     this.chartSettings = {
-      radius: [40, 50],
-      offsetY: 100,
+      radius: [50, 60],
+      offsetY: 80,
     }
     return {
+      userByAnswer: '',        //显示用户答案的输入框(v-model绑定的值)
+      showScore: '',           //答题卡上显示的分数(v-model绑定的值)
       fillInput: '',           //填空(v-model绑定的值)
       freeInput: '',           //简答(v-model绑定的值)
       operation: '',           //实操(v-model绑定的值)
-      //inputList: ['', ''],  
       fillAreaList: ['', ''],  //填空
       inputAreaList: [''],     //简答
-      operationList: [''],       //实操
-      questionExplain: '本题来源于国脉内网、水巢、数据基因、技能类、知识类、数据能力类、基本能力类、项目管理类、公司常识类、人力资源类等。',
-      examNo: '2019052568969',
+      operationList: [''],     //实操
       chartData: {
         columns: ['是否完成', '进度'],
         rows: [
@@ -123,20 +121,12 @@ export default {
           { '是否完成': '未完成', '进度': '' },
         ],
       },
-      statusColor: function (val) {
-        if (val === 1) {
-          return 'background:#409eff;borderColor:#409eff;color:#fff'
-        } else {
-          return 'background:#fff;color:#409eff'
-        }
-      },
       resdata: {
+        kindTotalNum: '',    //每种题型合计题数
+        kindMark: '',        //每种题型合计分数
         questionOffNum: [],  //已完成的题数
         questionTotalNum: '',//题目总数
         titleOptions: [],    //答案选项数组
-        radioMap: [],        //答题卡片的单选题数组集合，从数组中遍历题目出来
-        checkboxMap: [],     //答题卡片的复选题数组集合，从数组中遍历题目出来
-        checkedMap: [],      //答题卡片的判断题数组集合，从数组中遍历题目出来
         textMap: [],         //答题卡片的简答题数组集合，从数组中遍历题目出来
       },
     }
@@ -145,36 +135,47 @@ export default {
 
   },
   computed: {
+    kindOffCount: function () {
+      return this.kindOffNum()
+    },
     count: function () {
       return this.offNum()
-    },
-    residueCount: function () {
-      return this.resdata.questionTotalNum - this.count
     },
   },
   created () {
     this.loadPage()
-    // console.log('33', this.formData.id)
   },
   methods: {
     /**
      * 判断题型(公用方法)
      */
     judgeType (params) {
-      params.examId = this.formData.id
+      params.examId = this.formData.examId
       params.currentQuestionNum = this.resdata.questionNum
       const type = this.resdata.questionTypeName
-      if (type === '单选题') {
-        params.userAnswer = this.answerRadio
-      }
-      if (type === '复选题') {
-        params.userAnswer = JSON.stringify(this.checksList)
-      }
-      if (type === '判断题') {
-        params.userAnswer = this.trueOrFalseRadio
+      if (type === '填空题') {
+        if (this.fillInput > 0) {
+          params.score = this.fillInput
+          params.judgeId = this.formData.judgeId
+        } else {
+          params.score = ''
+        }
       }
       if (type === '简答题') {
-        params.userAnswer = this.freeInput
+        if (this.freeInput > 0) {
+          params.score = this.freeInput
+          params.judgeId = this.formData.judgeId
+        } else {
+          params.score = ''
+        }
+      }
+      if (type === '实操题') {
+        if (this.operation > 0) {
+          params.score = this.operation
+          params.judgeId = this.formData.judgeId
+        } else {
+          params.score = ''
+        }
       }
     },
 
@@ -182,45 +183,51 @@ export default {
      * 获取题目的详细数据(公用请求方法)
      */
     getSubjectById (params) {
-      getTestPageById(params).then(res => {
-        this.resdata = res.data
-        this.resdata.questionOffNum = res.data.questionNumList
-        this.resdata.questionTotalNum = res.data.questionNumList.checkboxMap.length + res.data.questionNumList.checkedMap.length + res.data.questionNumList.radioMap.length + res.data.questionNumList.textMap.length
-        this.resdata.titleOptions = res.data.titleOptions ? JSON.parse(res.data.titleOptions) : ''
-        this.resdata.radioMap = res.data.questionNumList.radioMap
-        this.resdata.checkboxMap = res.data.questionNumList.checkboxMap
-        this.resdata.checkedMap = res.data.questionNumList.checkedMap
-        this.resdata.textMap = res.data.questionNumList.textMap
-        if (res.data.questionTypeName === '单选题') {
-          this.answerRadio = res.data.userAnswer
+      passWrittenById(params).then(res => {
+        const record = res.data.data
+        this.userByAnswer = record.userAnswer
+        this.showScore = record.score
+        this.resdata = record
+        this.resdata.questionOffNum = record.questionNumList
+        this.resdata.questionTotalNum = record.questionNumList.textMap.length
+        this.resdata.textMap = record.questionNumList.textMap
+        if (this.resdata.questionTypeName === '简答题') {
+          this.freeInput = record.score
+          this.resdata.kindTotalNum = record.questionNumList.textMap.length
+          this.resdata.kindMark = record.questionNumList.textMap[0].grade * this.resdata.kindTotalNum
         }
-        if (res.data.questionTypeName === '复选题') {
-          this.checksList = JSON.parse(res.data.userAnswer)
-        }
-        if (res.data.questionTypeName === '判断题') {
-          this.trueOrFalseRadio = res.data.userAnswer
-        }
-        if (res.data.questionTypeName === '简答题') {
-          this.freeInput = res.data.userAnswer
-        }
+        //console.log('hhh', this.resdata.questionTotalNum)
       })
     },
 
     /**
-     * 首次进入页面加载题目
+     * 首次进入页面获取题目的详细数据
      */
     loadPage () {
       const params = {
-        examId: this.formData.id,
-        currentQuestionNum: this.resdata.questionNum,
-        questionNum: this.resdata.questionNum,
+        examId: this.formData.examId,
       }
-      console.log('2e', params)
       this.getSubjectById(params)
     },
 
     /**
-     *计算已完成的题数
+     *计算每种题型已完成的题数
+     */
+    kindOffNum () {
+      let kindcount = 0
+      const type = this.resdata.questionTypeName
+      if (type === '简答题') {
+        for (let i = 0; i < this.resdata.textMap.length; i++) {
+          if (this.resdata.textMap[i].answerOrNot > 0) {
+            kindcount++
+          }
+        }
+      }
+      return kindcount
+    },
+
+    /**
+     *计算已完成的题数总数
      */
     offNum () {
       let arr = []
@@ -235,19 +242,7 @@ export default {
           }
         }
       }
-      //console.log('counts22', arr)
       return counts
-
-      // for (let i = 0; i < this.resdata.questionOffNum.length; i++) {
-      //   if (this.resdata.questionOffNum[i].length > 0) {
-      //     let resultArr = this.resdata.questionOffNum[i]
-      //     for (let j = 0; j < resultArr.length; j++) {
-      //       if (resultArr[j].answerOrNot > 0) {
-      //         counts++
-      //       }
-      //     }
-      //   }
-      // }
     },
 
     /** 
@@ -277,7 +272,7 @@ export default {
      */
     handleCard (item) {
       const params = {
-        questionNum: item.id,
+        questionNum: item.questionNum,
       }
       this.judgeType(params)
       this.getSubjectById(params)
@@ -293,7 +288,7 @@ export default {
         type: 'warning',
       }).then(() => {
         const params = {
-          remainingTime: this.min + '-' + this.sec,
+          ifCommit: 1,
         }
         this.judgeType(params)
         this.getSubjectById(params)
@@ -313,13 +308,13 @@ export default {
   },
 }
 </script>
-
 <style lang="scss" scoped>
 .header {
-  background: -webkit-linear-gradient(left, rgb(64, 156, 252), rgb(100, 6, 10));
-  background: -moz-linear-gradient(right, rgb(64, 156, 252), rgb(100, 6, 10));
-  background: -o-linear-gradient(right, rgb(64, 156, 252), rgb(100, 6, 10));
-  background: linear-gradient(to right, rgb(64, 156, 252), rgb(100, 6, 10));
+  background-color: #fafafa;
+  // background: -webkit-linear-gradient(left, rgb(64, 156, 252), rgb(100, 6, 10));
+  // background: -moz-linear-gradient(right, rgb(64, 156, 252), rgb(100, 6, 10));
+  // background: -o-linear-gradient(right, rgb(64, 156, 252), rgb(100, 6, 10));
+  // background: linear-gradient(to right, rgb(64, 156, 252), rgb(100, 6, 10));
   padding: 15px 20px;
   width: 100%;
   height: 60px;
@@ -330,25 +325,25 @@ export default {
   .title1 {
     font-size: 19px;
     float: left;
-    color: #fff;
+    color: #595959;
   }
   .title2 {
     height: 20px;
     width: 2px;
-    background: #fff;
+    background: #595959;
     margin: 6px 15px 0 15px;
     float: left;
   }
   .title3 {
     font-size: 17px;
     float: left;
-    color: #fff;
+    color: #595959;
     margin-top: 3px;
   }
   .title4 {
     font-size: 15px;
     float: left;
-    color: #fff;
+    color: #595959;
     margin-top: 3px;
     margin-left: 150px;
     .title5 {
@@ -357,7 +352,7 @@ export default {
     }
   }
 }
-.examShow {
+.examShowss {
   margin: 20px auto;
   width: 89%;
   overflow: hidden;
@@ -383,26 +378,29 @@ export default {
   .right {
     float: right;
     width: 28%;
-    border-left: 1px solid #eee;
+    border-left: 0px solid #eee;
     padding-bottom: 75px;
     .container {
       float: right;
-      width: 250px;
-      background: linear-gradient(
-        to bottom right,
-        rgb(55, 15, 68),
-        rgb(107, 174, 246)
-      );
+      width: 280px;
+      margin-top: 30px;
+      background: #fffbf6;
+      border: 1px solid #ffdbc1;
+      // background: linear-gradient(
+      //   to bottom right,
+      //   rgb(55, 15, 68),
+      //   rgb(107, 174, 246)
+      // );
       .top {
         text-align: center;
         position: relative;
-        top: 65px;
+        top: 40px;
         .titleone {
-          color: white;
+          color: #595959;
           font-size: 30px;
         }
         .titletwoss {
-          color: rgb(65, 153, 248);
+          color: #e6a23c;
           font-size: 40px;
           .fen {
             width: 22%;
@@ -410,18 +408,28 @@ export default {
           }
         }
         .titlethree {
-          color: white;
+          color: #595959;
           font-size: 20px;
           margin-left: -2px;
         }
         .titlefour {
-          color: white;
+          color: #595959;
           font-size: 20px;
         }
       }
-      .bottom {
+      .card {
         text-align: left;
         padding: 0 18px;
+        .activess {
+          background: #f8e8e9;
+          border-color: #e3a4a6;
+          color: #ba1b21;
+        }
+        .active {
+          background: #ba1b21;
+          border-color: #ba1b21;
+          color: #fff;
+        }
       }
     }
   }
@@ -431,7 +439,7 @@ export default {
 }
 </style>
 <style lang="scss">
-.examShow {
+.examShowss {
   .give-mark {
     width: 7%;
     height: 50px;
@@ -445,8 +453,8 @@ export default {
     }
   }
   .give-mark-two {
-    width: 13%;
-    height: 50px;
+    width: 8%;
+    height: 70px;
     margin-left: 50px;
     .el-input__inner {
       width: 60px;
@@ -473,7 +481,7 @@ export default {
   .titletwoss {
     .el-input__inner {
       width: 139%;
-      color: rgb(65, 153, 248);
+      color: #e6a23c;
       border: 0px solid #494884;
       background: none;
     }
@@ -486,7 +494,7 @@ export default {
   }
   .answerSheet {
     font-size: 18px;
-    color: white;
+    color: #595959;
   }
   .answerSheetTop {
     border-top: solid 1px #eee;
@@ -501,4 +509,3 @@ export default {
   }
 }
 </style>
-

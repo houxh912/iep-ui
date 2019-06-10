@@ -17,9 +17,12 @@
         <a-menu-item @click="$openPage('BaseSettings','name')">
           个人信息
         </a-menu-item>
-        <a-menu-item @click="handleAbout">
-          关于
+        <a-menu-item @click="openVersion">
+          更新日志
         </a-menu-item>
+        <!-- <a-menu-item @click="handleAbout">
+          关于
+        </a-menu-item> -->
         <a-menu-divider />
         <a-menu-item @click="handleLogout">
           退出登录
@@ -73,12 +76,18 @@ export default {
     handleAbout () {
       this.$refs['AboutDialog'].visible = true
     },
+    openVersion () {
+      this.$router.push({
+        path: '/app/version_page',
+      })
+    },
     handleLogout () {
       this.$antConfirm({
         title: '提示',
         content: '真的要注销登录吗 ?',
         onOk: () => {
           return this.LogOut().then(() => {
+            this.$eventBus.$emit('logout')
             this.$router.push({ path: '/login' })
           }).catch(err => {
             this.$message.error(err.message)

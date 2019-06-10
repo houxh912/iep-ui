@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form project-relation">
     <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;">
+    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;" class="form-detail">
       <el-form-item label="合同名称：" prop="contractName">
         <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。" maxlength="50"></el-input>
       </el-form-item>
@@ -10,7 +10,7 @@
           <el-option v-for="(item, value) in dictsMap.contractType" :key="value" :label="item" :value="value"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="关联项目：" prop="projectId">
+      <el-form-item label="关联项目：">
         <el-input v-show="false" v-model="formData.projectId"></el-input>
         <el-tag type="info" v-if="formData.projectName != ''">{{formData.projectName}}</el-tag>
         <iep-button @click="relationProject"><i class="el-icon-plus"></i></iep-button>
@@ -43,21 +43,14 @@
         <el-col :span='12'>
           <el-form-item label="委托单位：">
             <!-- <selectMore v-model="formData.companyOrgObj" prefix-url="crm/customer/myorcoll/list" @change="clientChange"></selectMore> -->
-            <IepCrmsSelect 
-              v-model="formData.companyOrgId" 
-              :option="[{id: formData.companyOrgId, name: formData.companyName}]" 
-              prefixUrl="crm/customer/myorcoll/list" 
-              @change="clientChange">
+            <IepCrmsSelect v-model="formData.companyOrgId" :option="[{id: formData.companyOrgId, name: formData.companyName.name}]" prefixUrl="crm/customer/myorcoll/list" @change="clientChange">
             </IepCrmsSelect>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
             <!-- <selectMore v-model="formData.signCompanyOrgId" prefix-url="crm/customer/all/list"></selectMore> -->
-            <IepCrmsSelect 
-              v-model="formData.signCompanyOrgId" 
-              :option="[{id: formData.signCompanyOrgId, name: formData.signCompanyRealName}]" 
-              prefixUrl="crm/customer/all/list">
+            <IepCrmsSelect v-model="formData.signCompanyOrgId" :option="[{id: formData.signCompanyOrgId, name: formData.signCompanyRealName.name}]" prefixUrl="crm/customer/all/list">
             </IepCrmsSelect>
           </el-form-item>
         </el-col>
@@ -79,19 +72,19 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span='12' v-if="formData.contractType == 1">
+        <!-- <el-col :span='12' v-if="formData.contractType == 1">
           <el-form-item label="市场经理：">
             <el-input v-model="formData.directorId" v-show="false"></el-input>
             <el-input v-model="formData.directorRealName" disabled></el-input>
           </el-form-item>
-        </el-col>
-        <el-col :span='12' v-else>
+        </el-col> -->
+        <el-col :span='12'>
           <el-form-item label="市场经理：" prop="directorList">
             <iep-contact-select v-model="formData.directorList"></iep-contact-select>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="合同金额：" prop="contractAmount">
+          <el-form-item label="合同金额(元)：" prop="contractAmount">
             <el-input v-model="formData.contractAmount" placeholder="合同金额" maxlength="9"></el-input>
           </el-form-item>
         </el-col>
@@ -110,7 +103,7 @@
       </el-row>
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="保证金：" prop="deposit">
+          <el-form-item label="保证金(元)：" prop="deposit">
             <el-input v-model="formData.deposit" placeholder="保证金" maxlength="10"></el-input>
           </el-form-item>
         </el-col>
@@ -181,7 +174,9 @@ export default {
     open (id) {
       getDataById(id).then(({ data }) => {
         let row = data.data
-        row.underTakeDeptId = row.underTakeDeptName.map(m => m.id) // 承接部门
+        if (row.underTakeDeptName) {
+          row.underTakeDeptId = row.underTakeDeptName.map(m => m.id) // 承接部门
+        }
         if (row.contractType == 0) {
           row.directorList = {
             id: row.directorId,
@@ -193,8 +188,8 @@ export default {
           row.projectName = row.projectRelation.name
         }
         row.signDeptName = row.signDeptOrgName.name
-        row.companyOrgObj = { id: row.companyOrgId, name: row.companyName }
-        row.signCompanyOrgObj = { id: row.signCompanyOrgId, name: row.signCompanyRealName }
+        row.companyOrgObj = { id: row.companyOrgId, name: row.companyName ? row.companyName.name : '' }
+        row.signCompanyOrgObj = { id: row.signCompanyOrgId, name: row.signCompanyRealName ? row.signCompanyRealName.name : '' }
         this.formData = Object.assign({}, this.formData, row)
         this.methodName = '编辑'
         this.formRequestFn = updateData
@@ -221,7 +216,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loadState = true
-          this.formRequestFn(this.formData).then(({data}) => {
+          this.formRequestFn(this.formData).then(({ data }) => {
             this.loadState = false
             if (data.data) {
               this.$message({
@@ -241,12 +236,17 @@ export default {
     // 根据委托单位查询市场经理
     clientChange (val) {
       getManeger(val).then(({ data }) => {
+        // if (data.data) {
+        //   this.formData.directorRealName = data.data.name
+        //   this.formData.directorId = data.data.id
+        // } else {
+        //   this.formData.directorRealName = ''
+        //   this.formData.directorId = ''
+        // }
         if (data.data) {
-          this.formData.directorRealName = data.data.name
-          this.formData.directorId = data.data.id
+          this.$set(this.formData, 'directorList', { id: data.data.id, name: data.data.name })
         } else {
-          this.formData.directorRealName = ''
-          this.formData.directorId = ''
+          this.$set(this.formData, 'directorList', { id: '', name: '' })
         }
       })
     },

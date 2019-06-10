@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <basic-container>
       <page-header title="员工信息管理"></page-header>
-      <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="150px" size="small">
+      <el-form v-loading="formLoading" ref="form" class="form-detail" :rules="rules" :model="form" label-width="150px" size="small">
         <iep-tab-scroll :tab-list="tabList" :height="270">
           <div>
             <div class="base" :id="item.value" v-for="item in tabList" :key="item.value">
@@ -74,6 +74,7 @@ export default {
         backPath: null,
         backFunction: this.handleGoBack,
       },
+      formLoading: true,
       rules,
       form: initForm(),
       formRequestFn: this.record.formRequestFn,
@@ -136,10 +137,12 @@ export default {
       this.$emit('onGoBack')
     },
     loadPage () {
+      this.formLoading = true
       getEmployeeProfileById(this.record.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
         this.form.isStaff = !!this.form.staffId
         this.form.identityMark = this.form.identityMarks.map(m => m.value)
+        this.formLoading = false
       })
     },
   },

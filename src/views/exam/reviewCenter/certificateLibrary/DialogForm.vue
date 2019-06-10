@@ -3,17 +3,15 @@
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="科目：" prop="field">
         <el-select v-model="form.field" size="small" clearable>
-          <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
-            :value="item.id"></el-option>
+          <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="名称" prop="title">
+      <el-form-item label="名称：" prop="title">
         <el-input :maxlength="80" v-model="form.title"></el-input>
       </el-form-item>
       <el-form-item label="级别：" prop="level">
         <el-select v-model="form.level" size="small" clearable>
-          <el-option v-for="(item, index) in res.exam_certificate_level" :key="index" :label="item.label"
-            :value="item.id"></el-option>
+          <el-option v-for="(item, index) in res.exam_certificate_level" :key="index" :label="item.label" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="颁发机构：" prop="deptId">
@@ -29,7 +27,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="loadData('form')" v-if="`${methodName==='上传'}`">确定</iep-button>
+      <iep-button type="primary" @click="loadData('form')" v-if="methodName==='上传'">确定</iep-button>
       <iep-button type="primary" @click="submitForm('form')" v-else>提交</iep-button>
       <iep-button @click="loadPage">取消</iep-button>
     </template>

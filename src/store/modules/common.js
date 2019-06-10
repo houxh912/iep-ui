@@ -5,7 +5,9 @@ const common = {
   state: {
     isCollapse: false,
     screen: -1,
+    windowSize: {width: 0, height: 0},
     isWelcome: getStore({ name: 'isWelcome' }) || false,
+    isExperimental: getStore({ name: 'isExperimental' }) ? getStore({ name: 'isExperimental' }) : true,
     isLock: getStore({ name: 'isLock' }) || false,
     showCollapse: getStore({ name: 'showCollapse' }) || false,
     showSearch: getStore({ name: 'showSearch' }) || false,
@@ -22,6 +24,13 @@ const common = {
       setStore({
         name: 'isWelcome',
         content: state.isWelcome,
+      })
+    },
+    SET_EXPERIMENTAL: state => {
+      state.isExperimental = !state.isExperimental
+      setStore({
+        name: 'isExperimental',
+        content: state.isExperimental,
       })
     },
     SET_COLLAPSE: state => {
@@ -72,6 +81,9 @@ const common = {
     },
     SET_SCREEN: (state, screen) => {
       state.screen = screen
+    },
+    SET_WINDOWSIZE: (state, size) => {
+      state.windowSize = size
     },
     SET_LOCK_PASSWD: (state, lockPasswd) => {
       state.lockPasswd = lockPasswd

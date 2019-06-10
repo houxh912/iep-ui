@@ -29,9 +29,6 @@
           <iep-tip :content="tipContent.businessType"></iep-tip>
           :
         </span>
-        <!-- <el-radio-group v-model="formData.businessType">
-          <el-radio v-for="item in dictGroup['mlms_business_type']" :key="item.value" :label="item.value">{{item.label}}</el-radio>
-        </el-radio-group> -->
         <businessType v-model="formData.businessType"></businessType>
       </el-form-item>
       <el-form-item prop="tagKeyWords">
@@ -74,8 +71,11 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="承接部门：" prop="underTakeDeptName">
+          <!-- <el-form-item label="承接部门：" prop="underTakeDeptName">
             <iep-dept-multiple v-model="formData.underTakeDeptName"></iep-dept-multiple>
+          </el-form-item> -->
+          <el-form-item label="承接组织：">
+            <iep-select v-model="formData.underTakeDeptId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调出组织" multiple></iep-select>
           </el-form-item>
         </el-col>
       </el-row>
@@ -199,6 +199,7 @@ export default {
         this.finishTime = res.data.data.finishTime
         this.formData.projectName = res.data.data.projectRelation.name
         this.formData.projectId = res.data.data.projectRelation.id
+        this.formData.underTakeDeptId = res.data.data.underTakeDeptName.map(m => m.id)
         getMarket({ clientId: this.id }).then((res) => {
           this.formData.directorId = res.data.data.id
           this.formData.signDeptName = this.userInfo.orgName
@@ -209,6 +210,10 @@ export default {
         })
       })
     }
+  },
+  mounted () {
+    this.formData.signDeptOrgId = this.userInfo.orgId
+    this.formData.signDeptName = this.userInfo.orgName
   },
   methods: {
     handleChange (val) {
@@ -231,7 +236,7 @@ export default {
         this.formData.signCompanyOrgId = this.id
       }
       let formData = Object.assign({}, this.formData)
-      formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
+      // formData.underTakeDeptId = this.formData.underTakeDeptName.map(m => m.id)
       formData.directorId = this.formData.directorId
       formData.id = this.contractId
       formData.companyOrgId = this.formData.companyOrgId
@@ -239,21 +244,22 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.isTime) {
-            this.formRequestFn(formData).then(() => {
-              this.$message({
-                message: `${this.methodName}成功`,
-                type: 'success',
-              })
-              this.$emit('dialog')
-              this.$emit('async')
-              this.loadPage()
+            this.formRequestFn(formData).then(({ data }) => {
+              if (data.data) {
+                this.$message({
+                  message: `${this.methodName}成功`,
+                  type: 'success',
+                })
+                this.$emit('onGoBack')
+                this.loadPage()
+              } else {
+                this.$message.error(data.msg)
+              }
             })
           } else {
-            this.$message.error('签订日期大于完结日期，不能保存！！！')
+            this.$message.error('签订日期不能晚于完结日期')
           }
         } else {
-          this.formData.companyOrgId = this.record.clientName
-          this.formData.signCompanyOrgId = this.record.clientName
           return false
         }
       })

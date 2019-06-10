@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <page-header title="本地上传" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
+    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;" class="form-detail">
       <el-form-item label="名称：" prop="materialName">
         <el-input v-model="formData.materialName" maxlength="50" :placeholder="tipContent.materialName"></el-input>
       </el-form-item>
@@ -89,6 +89,7 @@ import { initLocalForm, rules, dictsMap, tipContent } from './option'
 import { createData, updateData, getUnion } from '@/api/mlms/material/datum/material'
 import { downloadFile } from '@/api/common'
 import { mapGetters } from 'vuex'
+import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 
 export default {
   props: {
@@ -149,15 +150,24 @@ export default {
           }
           this.formData.type = 0
           this.methodList[this.methodName].requestFn(this.formData).then((data) => {
-            this.loadState = false
             if (data.data && data.data.data === false) {
+              this.loadState = false
               this.$message.error(data.data.msg)
               return
             }
-            let tips = this.methodName == 'create' ? '恭喜您成功上传了一篇材料，继续努力！' : '编辑成功'
-            this.$message.success(tips)
-            this.loadPage()
-            this.dialogShow = false
+            let requestFn = (msg) => {
+              this.loadState = false
+              this.$message.success(msg)
+              this.loadPage()
+              this.dialogShow = false
+            }
+            if (this.methodName == 'create') {
+              addBellBalanceRuleByNumber('MATERIAL_ADD').then(({data}) => {
+                requestFn(`恭喜您成功上传了一篇材料，${data.msg}，继续努力`)
+              })
+            } else {
+              requestFn('编辑成功')
+            }
           })
         } else {
           return false

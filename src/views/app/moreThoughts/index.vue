@@ -17,9 +17,27 @@
               <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
             </div>
             <div class="item">{{item.content}}</div>
+            <!-- 评论 -->
+            <div class="comment" v-if="activeIndex == index">
+              <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>
+              <iep-button class="comment-submit" @click="() => {activeIndex = -1}">取消</iep-button>
+              <iep-button type="primary" class="comment-submit" @click="commentSubmit">提交</iep-button>
+            </div>
+            <!-- 评论列表 -->
+            <div class="comment-list" v-if="item.thoughtsCommentList.length > 0">
+              <div class="comment-item" v-for="(comItem, comIndex) in item.thoughtsCommentList" :key="comIndex">
+                <div class="comment-head">
+                  <div class="comment-avatar"><img :src="comItem.avatar" alt=""></div>
+                  <div class="comment-name">{{comItem.realName}}</div><div class="huuifu">回复</div><div class="comment-name">{{item.userName}}</div>
+                </div>
+                <div class="comment-content">{{comItem.replyMsg}}</div>
+                <div class="comment-date">{{comItem.createTime}}</div>
+              </div>
+            </div>
+            <!-- 按钮组 -->
             <div class="footer">
-              <div class="button"><i class="icon-like"></i> 点赞（0）</div>
-              <div class="button"><i class="icon-pinglun1"></i> 评论（0）</div>
+              <div class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
+              <div class="button" @click="hadnleComment(item, index)"><i class="icon-pinglun1"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
               <div class="button"><i class="icon-yuanbao"></i> 打赏</div>
             </div>
           </div>
@@ -33,11 +51,19 @@
 </template>
 
 <script>
-import { geTallPage } from '@/api/cpms/thoughts'
+import { geTallPage, CommentThoughts, addThumbsUpByRecord } from '@/api/cpms/thoughts'
+
 const initParams = () => {
   return {
     current: 1,
     size: 10,
+  }
+}
+
+const initFormData = () => {
+  return {
+    replyMsg: '',
+    thoughtsId: 0,
   }
 }
 
@@ -64,6 +90,8 @@ export default {
       ],
       total: 0,
       params: initParams(),
+      activeIndex: -1,
+      form: initFormData(),
     }
   },
   methods: {
@@ -71,11 +99,36 @@ export default {
       geTallPage(this.params).then(({data}) => {
         this.dataList = data.data.records
         this.total = data.data.total
+        this.activeIndex = -1
       })
     },
     currentChange (val) {
       this.params.current = val
       this.loadPage()
+    },
+    hadnleComment (item, index) {
+      this.activeIndex = index
+      this.form = {
+        replyMsg: '',
+        thoughtsId: item.thoughtsId,
+      }
+    },
+    // 评论
+    commentSubmit () {
+      if (this.form.replyMsg == '') return
+      CommentThoughts(this.form).then(() => {
+        this.loadPage()
+      })
+    },
+    // 点赞
+    hadnleAddUp (row) {
+      addThumbsUpByRecord(row.thoughtsId).then(({data}) => {
+        if (data.data) {
+          this.loadPage()
+        } else {
+          this.$message.error(data.msg)
+        }
+      })
     },
   },
   created () {
@@ -111,6 +164,55 @@ export default {
       .content {
         flex: 1;
         margin-top: 5px;
+        .comment {
+          margin-top: 20px;
+          text-align: right;
+          .comment-submit {
+            margin-top: 10px;
+            margin-left: 10px;
+          }
+        }
+        .comment-list {
+          padding: 15px;
+          background-color: #fafafa;
+          margin-top: 15px;
+          border-radius: 3px;
+          .comment-item {
+            border-bottom: 1px solid #ddd;
+            margin-top: 10px;
+            .comment-head {
+              display: flex;
+              .comment-avatar {
+                margin-right: 20px;
+                img {
+                  width: 30px;
+                  height: 30px;
+                  border-radius: 50%;
+                }
+              }
+              .huuifu {
+                margin-top: 3px;
+              }
+              .comment-name {
+                margin: 3px 15px;
+                color: #5883ce;
+              }
+            }
+            .comment-content {
+              margin: 10px 0;
+            }
+            .comment-date {
+              margin-bottom: 10px;
+              color: #999;
+            }
+          }
+          .comment-item:last-of-type {
+            border: 0;
+            .comment-date {
+              margin-bottom: 0;
+            }
+          }
+        }
         .title {
           display: flex;
           .name {

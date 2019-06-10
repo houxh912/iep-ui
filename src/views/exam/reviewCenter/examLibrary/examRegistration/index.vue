@@ -16,9 +16,9 @@
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination"
       :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange"
       isMutipleSelection @selection-change="selectionChange" is-mutiple-selection is-index>
-      <el-table-column prop="examineeId" label="姓名">
+      <el-table-column prop="examineeName" label="姓名">
         <template slot-scope="scope">
-          {{scope.row.examineeId}}
+          {{scope.row.examineeName}}
         </template>
       </el-table-column>
       <el-table-column prop="examineeNumber" label="工号">
@@ -100,7 +100,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { getExamRegistrationList,passExamerById,cancelExamerById,deleteById } from '@/api/exam/examLibrary/examRegistration/examRegistration'
+import { getExamRegistrationList,passExamerById,deleteById,cancelExamerById } from '@/api/exam/examLibrary/examRegistration/examRegistration'
 export default {
   mixins: [mixins],
   props: ['record'],
@@ -158,6 +158,8 @@ export default {
     handleCancel (row){
       const param = {
         id: row.id,
+        examinationId: row.examinationId,
+        userId: row.examineeId,
       }
       this._handleComfirm(param, cancelExamerById,'撤销资格')
     },
@@ -175,14 +177,14 @@ export default {
             cancelButtonText: '取消',
             type: 'warning',
           }).then(() => {
-            passExamerById (this.selectionValue).then(() => {
-              this.$message({
-                message: '操作成功',
-                type: 'success',
-              })
-              setTimeout(() => {
+            passExamerById (this.selectionValue).then( res => {
+              if (res.data.data == true) {
+                this.$message({
+                  message: '操作成功',
+                  type: 'success',
+                })
                 this.loadPage()
-              }, 450)
+              }
             })
         })
       }
@@ -206,14 +208,14 @@ export default {
           cancelButtonText: '取消',
           type: 'warning',
         }).then(() => {
-          deleteById(this.selectionValue).then(() => {
-            this.$message({
-              message: '操作成功',
-              type: 'success',
-            })
-            setTimeout(() => {
-            this.loadPage()
-          }, 450)
+          deleteById(this.selectionValue).then( res => {
+            if (res.data.data == true) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+              })
+              this.loadPage()
+            }
           })
         })
       }

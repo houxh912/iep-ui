@@ -9,18 +9,21 @@
         <iep-form-item label-name="调拨金额(元)" prop="amount" class="form-half">
           <iep-input-number v-model="form.amount"></iep-input-number>
         </iep-form-item>
-        <iep-form-item label-name="调拨方式" class="form-half">
-          <el-radio-group v-model="form.allocationWay">
+        <iep-form-item label-name="调拨方式" prop="allocationWay" class="form-half">
+          <el-radio-group v-model="form.allocationWay" disabled>
             <el-radio v-for="(item,i) in dictsMap.allocationWay" :key="i" :label="+i">{{item}}</el-radio>
           </el-radio-group>
         </iep-form-item>
-        <iep-form-item label-name="日利息(%)" class="form-half">
-          <iep-input-number v-model="form.interest"></iep-input-number>
+        <iep-form-item label-name="组织日利息(%)" prop="orgInterest" class="form-half">
+          <iep-input-number v-model="form.orgInterest"></iep-input-number>
         </iep-form-item>
-        <iep-form-item label-name="调拨天数(日)" class="form-half">
+        <iep-form-item label-name="集团日利息(%)" prop="groupInterest" class="form-half">
+          <iep-input-number v-model="form.groupInterest"></iep-input-number>
+        </iep-form-item>
+        <iep-form-item label-name="调拨天数(日)" prop="allocationDays" class="form-half">
           <iep-input-number v-model="form.allocationDays" :precision="0"></iep-input-number>
         </iep-form-item>
-        <iep-form-item label-name="执行日期" class="form-half">
+        <iep-form-item label-name="执行日期" prop="implementRangeTime" class="form-half">
           <iep-date-picker v-model="form.implementRangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions">
           </iep-date-picker>
         </iep-form-item>
@@ -28,7 +31,7 @@
           <el-input v-model="estimatedTime" disabled></el-input>
         </iep-form-item>
         <h4 class="iep-sub-title">调出组织</h4>
-        <iep-form-item label-name="调出组织" class="form-half">
+        <iep-form-item label-name="调出组织" prop="callOutOrgId" class="form-half">
           <iep-select v-model="form.callOutOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调出组织"></iep-select>
         </iep-form-item>
         <iep-form-item v-if="!callOutCompanyOption.disabled" label-name="线下公司" class="form-half">
@@ -45,10 +48,10 @@
           <iep-select v-model="form.callInOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调入组织" disabled></iep-select>
         </iep-form-item>
         <iep-form-item v-if="!callInCompanyOption.disabled" label-name="线下公司" class="form-half">
-          <iep-select v-model="form.callInCompanyId" autocomplete="off" :prefix-url="callInCompanyOption.prefixUrl" placeholder="请选择线下公司"></iep-select>
+          <iep-select v-model="form.callInCompanyId" autocomplete="off" :prefix-url="callInCompanyOption.prefixUrl" placeholder="请选择线下公司" disabled></iep-select>
         </iep-form-item>
         <iep-form-item v-if="!callInBankAmountOption.disabled" label-name="银行账户">
-          <iep-select v-model="form.callInCompanyBankId" autocomplete="off" :prefix-url="callInBankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
+          <iep-select v-model="form.callInCompanyBankId" autocomplete="off" :prefix-url="callInBankAmountOption.prefixUrl" placeholder="请选择银行账户" disabled></iep-select>
         </iep-form-item>
         <iep-form-item label-name="调入方财务" class="form-half">
           <iep-contact-select v-model="form.callInUser"></iep-contact-select>
@@ -109,7 +112,9 @@ export default {
         postFundTransfer(formToDto(this.form)).then(({ data }) => {
           if (data.data) {
             this.$message.success('操作成功')
-            this.handleGoBack()
+            this.$router.push({
+              path: '/fams/group_finance/fund_fransfer',
+            })
           } else {
             this.$message(data.msg)
           }

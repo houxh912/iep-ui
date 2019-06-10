@@ -2,7 +2,7 @@
   <div class="iep-page-form">
     <basic-container>
       <page-header :title="`${methodName}纪要`" :backOption="backOption"></page-header>
-      <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;">
+      <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;" class="form-detail">
         <el-form-item label="会议类型：" prop="meetingType">
           <el-radio-group v-model="formData.meetingType">
             <el-radio v-for="(item, index) in dictGroup.mlms_meeting_type" :key="index" :label="item.value" @change="typeChange">
@@ -120,6 +120,7 @@ import { initFormData, dictsMap, rules, tipContent } from './options'
 import { mapGetters } from 'vuex'
 import { getCustomerPage } from '@/api/crms/customer'
 import { createData, updateData, getDataById, meetingSend } from '@/api/mlms/material/summary'
+import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 import projectDialog from './projectDialog'
 import previewDialog from './previewDialog'
 
@@ -220,12 +221,22 @@ export default {
       this.formRequestFn(this.formData).then(({ data }) => {
         // 新建纪要及修改草稿，自动发送
         let id = this.methodType == 'create' ? data.data : this.formData.id
-        this.loadState = false
         if (this.formData.status == 0 && this.formData.isSend == 1) {
           meetingSend(id).then(({ data }) => {
+            this.loadState = false
             if (data.data) {
-              this.$message.success('您成功发送一篇会议纪要，继续加油！')
-              this.goBack(true)
+              // 发送成功之后访问财务接口
+              if (this.formData.meetingType == 6) {
+                addBellBalanceRuleByNumber('VISIT_LOG').then(({data}) => {
+                  this.$message.success(`您成功发送一篇拜访纪要，${data.msg}，继续加油！`)
+                  this.goBack(true)
+                })
+              } else {
+                addBellBalanceRuleByNumber('MEETING_SUMMARY').then(({data}) => {
+                  this.$message.success(`您成功发送一篇会议纪要，${data.msg}，继续加油！`)
+                  this.goBack(true)
+                })
+              }
             } else {
               this.$message.error('当前网络异常，请稍后再试！')
             }
@@ -235,6 +246,7 @@ export default {
             message: `${this.methodName}成功`,
             type: 'success',
           })
+          this.loadState = false
           this.goBack(true)
         }
       })

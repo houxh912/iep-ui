@@ -1,5 +1,5 @@
 <template>
-  <el-card class="box-card" :body-style="bodyStyle">
+  <el-card class="box-card" :body-style="bodyStyle" shadow="never">
     <iep-no-data v-if="!messageList.length" message="暂无内容"></iep-no-data>
     <el-scrollbar wrap-class="message-box-wrapper">
       <template v-for="(item,idx) in messageList">
@@ -72,6 +72,26 @@ export default {
 }
 </script>
 <style scoped>
+.box-card >>> .el-card__body {
+  overflow: auto;
+}
+.box-card >>> ::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 8px;
+  background-color: #fff;
+}
+.box-card >>> ::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+}
+.box-card >>> ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ccc;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+}
 .msg-footer >>> button {
   border: none;
 }

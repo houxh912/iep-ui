@@ -2,10 +2,11 @@
 
 const initForm = () => {
 	return {
-		isWagePay: 0, // (0-不是，1-是)
+		id: '',
+		// isWagePay: 0, // (0-不是，1-是)
 		accountName: '',
-		companyId: '',
-		isInvoiceingPay: 0, // (0-不是，1-是)
+		// companyIds: [],
+		// isInvoiceingPay: 0, // (0-不是，1-是)
 	}
 }
 
@@ -18,14 +19,6 @@ const columnsMap = [
 	{
 		prop: 'accountName',
 		label: '银行户头',
-	},
-	{
-		prop: 'companyName',
-		label: '公司名称',
-	},
-	{
-		prop: 'updateTime',
-		label: '操作时间',
 	},
 ]
 

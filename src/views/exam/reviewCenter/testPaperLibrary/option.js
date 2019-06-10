@@ -54,10 +54,29 @@ export const initForm = () => {
   }
 }
 
+export const questionForm = () => {
+  return {
+        field: '',//科目
+        type: '',//题型
+        configurationState: '',//配置状态
+        simpleNum: '',//简单题数
+        middleNum: '',//普通题数
+        hardNum: '',//困难题数
+        scoringMethod: '',//打分方式
+        marker: '',//是否指定阅卷人
+        qstnDescribe: '',// 题型说明
+        multipleSelection: 0,//是否开启多选
+        single: '',//单题分数
+        total: '',//试题总数
+        iepItemBankList: [],//固定试题
+        questionList:'',//试题id
+  }
+}
+
 
 export const toDtoForm = (row) => {
   var newForm = { ...row }
-  newForm.questionList = row.questionArray.map(m => m.id).join(',')
+  newForm.questionList = row.iepItemBankList.map(m => m.id).join(',')
 
   return newForm
 }

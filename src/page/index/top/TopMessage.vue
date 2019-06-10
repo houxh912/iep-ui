@@ -2,24 +2,24 @@
   <el-popover popper-class="msg-popover" placement="bottom" width="336" v-model="visible" trigger="click">
     <a-spin :spinning="pageLoading">
       <el-tabs class="msg-tabs" v-model="activeName">
-        <el-tab-pane :label="`公告 (${announcementList.length || 0})`" name="first">
+        <el-tab-pane :label="`通知公告 (${announcementNum || 0})`" name="first">
           <iep-top-message-box :message-list="announcementList" :type="0" @visible="visible=false"></iep-top-message-box>
         </el-tab-pane>
-        <el-tab-pane :label="`消息 (${systemMessageList.length || 0})`" name="second">
+        <el-tab-pane :label="`系统消息 (${systemMessageNum || 0})`" name="second">
           <iep-top-message-box :message-list="systemMessageList" :type="1" @visible="visible=false"></iep-top-message-box>
-        </el-tab-pane>
-        <el-tab-pane :label="`邮件 (${emailList.length || 0})`" name="third">
-          <iep-top-message-box :message-list="emailList" :type="2" @visible="visible=false"></iep-top-message-box>
         </el-tab-pane>
       </el-tabs>
     </a-spin>
     <!-- <div class="list-clear">清空 通知</div> -->
     <el-badge :hidden="!totalNum" :value="totalNum" slot="reference" class="item">
-      <iep-button><i class="el-icon-bell"></i></iep-button>
+      <el-tooltip effect="dark" content="消息" placement="bottom">
+        <iep-button><i class="el-icon-bell"></i></iep-button>
+      </el-tooltip>
     </el-badge>
   </el-popover>
 </template>
 <script>
+import { wsUrl } from '@/config/env.js'
 import { mapState, mapGetters, mapActions } from 'vuex'
 import { getImsWel } from '@/api/ims/email'
 import IepTopMessageBox from './Components/MessageBox'
@@ -40,8 +40,6 @@ export default {
     ...mapState({
       announcementList: state => state.notify.announcementList,
       announcementNum: state => state.notify.announcementNum,
-      emailList: state => state.notify.emailList,
-      emailNum: state => state.notify.emailNum,
       systemMessageList: state => state.notify.systemMessageList,
       systemMessageNum: state => state.notify.systemMessageNum,
     }),
@@ -50,7 +48,7 @@ export default {
       'userInfo',
     ]),
     totalNum () {
-      return this.announcementNum + this.emailNum + this.systemMessageNum
+      return this.announcementNum + this.systemMessageNum
     },
   },
   created () {
@@ -76,7 +74,7 @@ export default {
         'Authorization': 'Bearer ' + token,
       }
       // 建立连接对象
-      this.socket = new SockJS('/api/ims/ws')//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
+      this.socket = new SockJS(wsUrl)//连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
       this.stompClient = Stomp.over(this.socket)
       this.stompClient.debug = null
       // 向服务器发起websocket连接
@@ -111,6 +109,7 @@ export default {
 </script>
 <style lang="css" scoped>
 .item >>> .el-badge__content.is-fixed {
+  z-index: 1;
   top: 20px;
   right: 22px;
 }
@@ -122,8 +121,7 @@ export default {
   text-align: center;
 }
 .msg-tabs >>> .el-tabs__active-bar {
-  left: 30px;
-  width: 70px !important;
+  left: 55px;
 }
 .msg-tabs >>> .el-tabs__header {
   margin-bottom: 0;
@@ -152,7 +150,6 @@ export default {
 <style lang="scss" scoped>
 .item {
   position: relative;
-  margin-right: 20px;
   button {
     border: 0;
     height: 60px;

@@ -1,4 +1,5 @@
 import { initNow } from '@/util/date'
+import { mergeByFirst } from '@/util/util'
 export const dictsMap = {
   type: {
     '1': '类型1',
@@ -217,6 +218,7 @@ export const tipContent2 = {
 //考试表单字段
 export function examForm () {
   return {
+    id: '',//考试Id
     title: '',//考试名称
     field: '',//考试科目
     signBeginTime: initNow(),//考试报名开始时间
@@ -231,19 +233,15 @@ export function examForm () {
     description: '',//考试说明
     showResult: '',//考完后是否显示成绩
     showAnswer: '',//考完后是否显示答案和解析
-    showPlace: '',//考完后是否显示名次
     showComment: '',//是否显示面试评语
-    onclidingRemarks: '',//考试结束语
+    oncludingRemarks: '',//考试结束语
     testPaperId: '',//试卷库id
     iepCertiFicate: [],//证书信息
-    iepExaminationOperate: {
-      operateUserids: '',
-      writeUserids: '',
-      faceUserIds: '',
-    },
-    operateUseridsList: [],//报名管理&考卷管理集合
-    writeUseridsList: [],//试卷审阅权限集合
-    faceUserIdsList: [],//面试判分集合
+    examRoleId: '',//权限id
+    operateUserids: [],//报名管理&考卷管理列表
+    writeUserids: [],//试卷审阅权限列表
+    faceUserIds: [],//面试判分权限列表
+
 
   }
 
@@ -287,30 +285,44 @@ export const examFormRules = {
   description: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
-  onclidingRemarks: [
+  oncludingRemarks: [
     { required: true, message: '必填', trigger: 'blur' },
+  ],
+  operateUserids: [
+    { required: true, message: '请选择报名管理&考卷管理的阅卷老师', trigger: 'change' },
+  ],
+  writeUserids: [
+    { required: true, message: '请选择试卷审阅权限的阅卷老师', trigger: 'change' },
+  ],
+  faceUserIds: [
+    { required: true, message: '请选择面试判分权限的阅卷老师', trigger: 'change' },
   ],
 }
 
-// const selfToVo = (row) => {
-//   const newForm = mergeByFirst(initForm(), row)
-//   newForm.annex = row.attachFile || []
-//   newForm.startTime = row.entryTime || ''
-//   newForm.approver = row.approverList || []
-//   newForm.cc = row.ccList || []
-//   return newForm
-// }
+export const selfToVo = (row) => {
+  const newForm = mergeByFirst(examForm(), row)
+  newForm.examRoleId = row.iepExaminationOperateVO.id
+  newForm.operateUserids = row.iepExaminationOperateVO.operateUsersArly || []
+  newForm.writeUserids = row.iepExaminationOperateVO.writeUsedAiry || []
+  newForm.faceUserIds = row.iepExaminationOperateVO.faceUserIdsAiry || []
+  if (row.iepCertiFicateVO != undefined) {
+    newForm.iepCertiFicate.push(row.iepCertiFicateVO)
+  }
+  return newForm
+}
 
 export const toDtoForm = (row) => {
   var newForm = { ...row }
-  console.log('newForm', newForm)
   newForm.iepCertiFicate = row.iepCertiFicate[0]
-  newForm.iepExaminationOperate.faceUserIds = row.faceUserIdsList.map(m => m.id).join(',')
-  newForm.iepExaminationOperate.operateUserids = row.operateUseridsList.map(m => m.id).join(',')
-  newForm.iepExaminationOperate.writeUserids = row.writeUseridsList.map(m => m.id).join(',')
-  delete newForm.faceUserIdsList
-  delete newForm.operateUseridsList
-  delete newForm.writeUseridsList
-
+  newForm.iepExaminationOperate = {}
+  newForm.iepExaminationOperate.id = row.examRoleId
+  newForm.iepExaminationOperate.faceUserIds = row.faceUserIds.map(m => m.id).join(',')
+  newForm.iepExaminationOperate.operateUserids = row.operateUserids.map(m => m.id).join(',')
+  newForm.iepExaminationOperate.writeUserids = row.writeUserids.map(m => m.id).join(',')
+  newForm.consume = parseInt(row.consume)
+  delete newForm.examRoleId
+  delete newForm.faceUserIds
+  delete newForm.operateUserids
+  delete newForm.writeUserids
   return newForm
 }

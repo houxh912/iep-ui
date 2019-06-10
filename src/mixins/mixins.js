@@ -124,10 +124,6 @@ export default {
         }
         this.loadPage()
       }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: `已取消${msg}`,
-        })
       })
     },
     mixinsCellPointerStyle ({ column }) {

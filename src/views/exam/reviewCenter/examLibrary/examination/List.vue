@@ -23,35 +23,29 @@
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
         @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection
         @selection-change="selectionChange" is-mutiple-selection>
-        <el-table-column prop="fieldName" label="科目">
+        <el-table-column prop="fieldName" label="考试科目">
           <template slot-scope="scope">
             {{scope.row.fieldName}}
           </template>
         </el-table-column>
-        <el-table-column prop="title" label="名称">
+        <el-table-column prop="title" label="考试名称" min-width="150">
           <template slot-scope="scope">
             {{scope.row.title}}
           </template>
         </el-table-column>
-        <el-table-column prop="totalScore" label="总分">
-          <template slot-scope="scope">
-            {{scope.row.totalScore}}
-          </template>
-        </el-table-column>
-        <el-table-column prop="beginTime" label="开始时间" min-width="150">
+        <el-table-column prop="beginTime" label="开始时间" min-width="120">
           <template slot-scope="scope">
             {{scope.row.beginTime}}
           </template>
         </el-table-column>
-        <el-table-column prop="endTime" label="结束时间" min-width="150">
+        <el-table-column prop="endTime" label="结束时间" min-width="120">
           <template slot-scope="scope">
             {{scope.row.endTime}}
           </template>
         </el-table-column>
-        <el-table-column prop="state" label="状态">
+        <el-table-column prop="totalScore" label="总分" min-width="60">
           <template slot-scope="scope">
-            <el-tag type="success" size="medium" v-if="scope.row.state === 0">启用</el-tag>
-            <el-tag type="warning" size="medium" v-if="scope.row.state === 1">禁用</el-tag>
+            {{scope.row.totalScore}}
           </template>
         </el-table-column>
         <el-table-column prop="number" label="报名人数">
@@ -59,21 +53,27 @@
             {{scope.row.number}}
           </template>
         </el-table-column>
+        <el-table-column prop="state" label="状态" min-width="60">
+          <template slot-scope="scope">
+            <el-tag type="success" size="medium" v-if="scope.row.state === 0">启用</el-tag>
+            <el-tag type="warning" size="medium" v-if="scope.row.state === 1">禁用</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column prop="username" label="创建人">
           <template slot-scope="scope">
             {{scope.row.username}}
           </template>
         </el-table-column>
-        <el-table-column prop="creatTime" label="创建时间" min-width="150">
+        <!-- <el-table-column prop="creatTime" label="创建时间" min-width="150">
           <template slot-scope="scope">
             {{scope.row.creatTime}}
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column prop="operation" label="操作" min-width="140">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <!-- <iep-button size="small" @click="handleEdit(scope.row)">编辑</iep-button> -->
+              <iep-button type="warning" size="small" plain @click="handleDetail(scope.row)">查看</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
@@ -128,7 +128,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { getExamInationList, postExamForbidById, postExamPassById,deleteById } from '@/api/exam/examLibrary/examInation/examInation'
+import { getExamInationList, postExamForbidById, postExamPassById, deleteById } from '@/api/exam/examLibrary/examInation/examInation'
 // import { getTableData } from '@/api/mlms/material/datum/material'
 // import { putCustomer, deleteCustomerBatch } from '@/api/crms/customer'
 // import { getWealthFlowPage } from '@/api/fams/wealth_flow'
@@ -193,14 +193,14 @@ export default {
           cancelButtonText: '取消',
           type: 'warning',
         }).then(() => {
-          deleteById(this.selectionValue).then(() => {
-            this.$message({
-              message: '操作成功',
-              type: 'success',
-            })
-            setTimeout(() => {
+          deleteById(this.selectionValue).then(res => {
+            if (res.data.data == true) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+              })
               this.loadPage()
-            }, 450)
+            }
           })
         })
       }
@@ -217,8 +217,8 @@ export default {
      */
     handleAdd () {
       this.$emit('onEdit', {
-        methodName: '创建考试',
-        id: false,
+        methodName: '创建',
+        id: '',
         current: 0,
       })
     },
@@ -228,15 +228,29 @@ export default {
     handleChangeTime () {
       this.isChangeTime = false
     },
+
     /**
      * 编辑按钮
      */
     handleEdit (row) {
-      this.$emit('onEdit', {
-        methodName: '编辑考试',
-        id: row.id,
+      const record = {
+        methodName: '编辑',
         current: 2,
-      })
+        id: row.id,
+      }
+      this.$emit('onEdit', record)
+    },
+
+    /**
+     * 查看按钮
+     */
+    handleDetail (row) {
+      const record = {
+        methodName: '查看',
+        current: 2,
+        id: row.id,
+      }
+      this.$emit('onEdit', record)
     },
 
     // 报名、考卷、阅卷管理按钮
@@ -269,14 +283,14 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        postExamPassById(param).then(() => {
-          this.$message({
-            type: 'success',
-            message: '该试卷已启用!',
-          })
-          setTimeout(() => {
+        postExamPassById(param).then(res => {
+          if (res.data.data == true) {
+            this.$message({
+              type: 'success',
+              message: '该试卷已启用!',
+            })
             this.loadPage()
-          }, 450)
+          }
         })
 
       })
@@ -293,14 +307,14 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        postExamForbidById(param).then(() => {
-          this.$message({
-            type: 'success',
-            message: '该试卷已禁用!',
-          })
-          setTimeout(() => {
+        postExamForbidById(param).then(res => {
+          if (res.data.data == true) {
+            this.$message({
+              type: 'success',
+              message: '该试卷已禁用!',
+            })
             this.loadPage()
-          }, 450)
+          }
         })
 
       })

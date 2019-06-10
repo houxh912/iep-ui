@@ -91,12 +91,6 @@ export default [
         meta: noAuth,
       },
       {
-        path: 'apply_investment',
-        name: '申请投资',
-        component: () => import('@/views/app/wealth/ApplyInvestment/'),
-        meta: noAuth,
-      },
-      {
         path: 'organization_style/:id',
         name: '组织风采',
         component: () => import('@/views/app/organizationStyle/'),
@@ -251,6 +245,11 @@ export default [
         path: 'more_thoughts',
         name: '说说列表页',
         component: () => import('@/views/app/moreThoughts/'),
+      },
+      {
+        path: 'version_page',
+        name: '版本记录',
+        component: () => import('@/views/app/versionPage/'),
       },
     ],
   },

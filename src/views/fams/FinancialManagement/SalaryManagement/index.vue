@@ -2,13 +2,20 @@
   <div>
     <basic-container>
       <page-header title="工资" :replaceText="replaceText"></page-header>
+      <operation-container>
+        <template slot="left">
+          <iep-button icon="el-icon-plus" @click="handleAdd()">新增工资单</iep-button>
+          <iep-button icon="el-icon-download" @click="handleDownload()">下载工资单模板</iep-button>
+        </template>
+      </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <el-table-column prop="operation" label="操作" width="250" fixed="right">
+        <el-table-column prop="operation" label="操作" width="270" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleDetail(scope.row)">查看</iep-button>
               <iep-button @click="handleUpload(scope.row)">上传</iep-button>
               <iep-button v-if="scope.row.status!=='A'" @click="handleSend(scope.row)">发放</iep-button>
+              <iep-button v-if="scope.row.status!=='A'" @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -18,7 +25,8 @@
   </div>
 </template>
 <script>
-import { getSalaryPage, grantSalaryById } from '@/api/fams/salary'
+import { getSalaryPage, grantSalaryById, addSalary, deleteSalaryById } from '@/api/fams/salary'
+import { downloadUrl } from '@/api/common'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
 export default {
@@ -40,6 +48,12 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDownload () {
+      downloadUrl('files-67e757b556894b22b089536cd49304f4.xls')
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deleteSalaryById)
+    },
     handleUpload (row) {
       this.actionId = row.id
       this.$refs['uploadDialog'].dialogShow = true
@@ -57,9 +71,8 @@ export default {
       this.loadTable(param, getSalaryPage)
     },
     handleAdd () {
-      this.$emit('onEdit', {
-        methodName: '提现申请',
-        id: false,
+      addSalary().then(() => {
+        this.loadPage()
       })
     },
   },

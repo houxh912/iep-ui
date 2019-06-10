@@ -27,11 +27,17 @@ export default {
 .ranking {
   padding: 2px 0;
   .piece {
-    color:#333;
+    color: #333;
     transition-duration: 0.3s;
     .name {
       height: 30px;
       line-height: 30px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 60%;
+      display: inline-block;
+      vertical-align: middle;
     }
     .count {
       width: 18px;

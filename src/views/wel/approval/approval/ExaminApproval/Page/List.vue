@@ -47,19 +47,18 @@
       </el-table-column>
     </iep-table>
     <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
-    <new-approval ref="NewApproval" @load-page="loadPage"></new-approval>
     <deliver-dialog ref="DeliverDialog" @load-page="loadPage"></deliver-dialog>
   </div>
 </template>
 <script>
 import { getExaminApprovalPage, deliverApprovaBatch, reviewApprovaBatch } from '@/api/hrms/wel'
+import { mapMutations } from 'vuex'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../options'
-import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
 import DeliverDialog from './DeliverDialog'
 export default {
   mixins: [mixins],
-  components: { NewApproval, DeliverDialog },
+  components: { DeliverDialog },
   data () {
     return {
       columnsMap,
@@ -70,11 +69,14 @@ export default {
     this.loadPage()
   },
   methods: {
+    ...mapMutations({
+      setApprovalDialogShow: 'SET_APPROVAL_DIALOG_SHOW',
+    }),
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)
     },
     handleAdd () {
-      this.$refs['NewApproval'].dialogShow = true
+      this.setApprovalDialogShow(true)
     },
     handleDetail (row) {
       this.$router.push({

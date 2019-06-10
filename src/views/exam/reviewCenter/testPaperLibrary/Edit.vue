@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${record.methodName}`" :backOption="backOption"></page-header>
+      <page-header :title="`${record.methodName}试卷`" :backOption="backOption"></page-header>
       <div class="withdraw-wrapper">
         <a-steps :current="current">
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />
@@ -17,7 +17,6 @@
 <script>
 import FirstContent from './testPaper/FirstContent'
 import SecondContent from './testPaper/SecondContent'
-import LastContent from './testPaper/LastContent'
 export default {
   props: {
     record: {
@@ -26,7 +25,7 @@ export default {
     },
   },
   components: {
-    FirstContent, SecondContent, LastContent,
+    FirstContent, SecondContent,
   },
   data () {
     return {
@@ -37,7 +36,7 @@ export default {
       },
       current: 0,
       steps: [{
-        title: this.record.methodName,
+        title: this.record.methodName + '试卷',
         content: 'FirstContent',
         data: this.record,
         onData: this.handleFirst,
@@ -45,12 +44,7 @@ export default {
         title: '试题配置',
         content: 'SecondContent',
         data: undefined,
-        onData: this.handleSecond,
-      }, {
-        title: '完成',
-        content: 'LastContent',
-        data: undefined,
-        onData: this.handleLast,
+        onData: this.handleBack,
       }],
     }
   },
@@ -59,13 +53,8 @@ export default {
       this.next()
       this.steps[this.current].data = form
     },
-    handleSecond (data) {
-      this.next()
-      this.steps[this.current].data = data
-    },
-    handleLast (data) {
-      this.current = 0
-      this.steps[this.current].data = data
+    handleBack () {
+      this.back()
     },
     next () {
       this.current++

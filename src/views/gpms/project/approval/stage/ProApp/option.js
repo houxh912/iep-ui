@@ -31,7 +31,7 @@ export const setUpList = [
   { label: '项目类型：', value: 'projectType', type: 'dict' },
   { label: '业务类型：', value: 'businessType', type: 'dict' },
   { label: '相关客户：', value: 'relatedClientName' },
-  { label: '项目预算（万元）：', value: 'projectBudget' },
+  { label: '项目预算（元）：', value: 'projectBudget' },
   { label: '项目标签：', value: 'projectTagList', type: 'tag' },
   { label: '是否关联产品：', value: 'isRelevanceProduct', type: 'dict' },
   { label: '相关产品：', value: 'aa-aa', type: 'tag' },

@@ -247,3 +247,11 @@ export function getMyClientRela (params) {
     params: params,
   })
 }
+// 查看我的客户平均拜访上传统计
+export function getMyClientAverage (params) {
+  return request({
+    url: `${myUrl}/clientAverage`,
+    method: 'get',
+    params: params,
+  })
+}

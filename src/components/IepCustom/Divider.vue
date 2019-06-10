@@ -1,5 +1,7 @@
 <template>
-  <a-divider v-bind="$attrs" />
+  <a-divider v-bind="$attrs">
+    <slot></slot>
+  </a-divider>
 </template>
 <script>
 export default {

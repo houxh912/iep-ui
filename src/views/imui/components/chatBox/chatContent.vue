@@ -3,19 +3,31 @@
     <div class="chat-box">
       <div class="chat-group">
         <div class="chat-title">
-          <img class="chat-title-head" :src="chatDetail.avatar ? chatDetail.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
+          <img class="chat-title-head"
+               :src="chatDetail.avatar ? chatDetail.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
           <span class="chat-title-name">{{chatDetail.realName}}</span>
         </div>
-        <div class="chat-main" ref="chatmain">
-          <ul>
-            <li v-for="(message, index) in getMessageList" :key="index" :style="getDirectionStyle(message.type)">
-              <img src=""/>
-              <div class="chat-main-content">
-                <span>{{message.time}}</span>
-                <p>{{message.message}}</p>
-              </div>
-            </li>
-          </ul>
+        <div class="chat-main">
+          <div class="chat-main-new" v-show="messageNew" @click="readNew">
+            {{chatDetail.realName}}:{{messageNew}}
+          </div>
+          <div class="chat-main-box" ref="chatmain" @scroll="onScroll">
+            <ul>
+              <li v-show="$store.getters.imMessageMore(chatDetail.username)" class="chat-more">
+                <i v-show="loadingMore" class="el-icon-loading"></i>
+                <span v-show="!loadingMore" @click="getMore">点击查看更多</span>
+              </li>
+              <li v-for="message in messageList"
+                  :key="message.id"
+                  :style="getDirectionStyle(message.type)">
+                <img src=""/>
+                <div class="chat-main-content">
+                  <span>{{message.time}}</span>
+                  <p>{{message.message}}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
         <div class="chat-footer">
           <div class="chat-textarea">
@@ -34,11 +46,15 @@
 </template>
 
 <script>
+import { getMoreHistory } from '@/api/im'
 export default {
   name: 'chat-content',
   data () {
     return {
       message: '',
+      loadingMore: false,
+      messageList: [],
+      messageNew: '',
     }
   },
   props: {
@@ -49,7 +65,18 @@ export default {
       },
     },
   },
+  created () {
+    this.messageList = Object.assign([], this.getMessageList)
+  },
   methods: {
+    readNew () {
+      this.$refs.chatmain.scrollTop = this.$refs.chatmain.scrollHeight
+    },
+    onScroll () {
+      if (this.$refs.chatmain.scrollTop > this.$refs.chatmain.scrollHeight - this.$refs.chatmain.offsetHeight - 20) {
+        this.messageNew = ''
+      }
+    },
     keydown (event) {
       if (event.keyCode === 13) {
         if (event.shiftKey) {
@@ -72,6 +99,29 @@ export default {
         textAlign: type === 0 ? 'right' : 'left',
       }
     },
+    getMore () {
+      this.loadingMore = true
+      let msgCode = 0
+      if (this.getMessageList && this.getMessageList[0]) {
+        msgCode = this.getMessageList[0].msgCode
+      }
+      getMoreHistory({
+        targetId: this.chatDetail.userId,
+        type: 1,
+        msgCode,
+      }).then(({data}) => {
+        if (data.code === 0) {
+          this.$store.commit('addHistoryMessage', {
+            list: data.data,
+            username: this.chatDetail.username,
+          })
+        }
+      }, error => {
+        this.$message.error(error.message)
+      }).finally(() => {
+        this.loadingMore = false
+      })
+    },
   },
   computed: {
     getMessageList () {
@@ -80,12 +130,28 @@ export default {
   },
   watch: {
     getMessageList: {
-      handler: function () {
-        this.$nextTick(() => {
-          this.$refs.chatmain.scrollTop = this.$refs.chatmain.scrollHeight
-        })
+      handler: function (newVal) {
+        this.messageList = Object.assign([], newVal)
       },
-      deep: true,
+    },
+    messageList: {
+      handler: function (newVal, oldVal) {
+        if (newVal && newVal.length > 0) {
+          let oldHeight = this.$refs.chatmain.scrollHeight
+          let oldScrollTop = this.$refs.chatmain.scrollTop
+          if (!oldVal || oldVal.length === 0 || (newVal[newVal.length - 1].id !== oldVal[oldVal.length - 1].id) && newVal[newVal.length - 1].type === 0) {
+            this.$nextTick(() => {
+              this.$refs.chatmain.scrollTop = this.$refs.chatmain.scrollHeight
+            })
+          } else if (newVal[newVal.length - 1].id === oldVal[oldVal.length - 1].id) {
+            this.$nextTick(() => {
+              this.$refs.chatmain.scrollTop = oldScrollTop + this.$refs.chatmain.scrollHeight - oldHeight
+            })
+          } else {
+            this.messageNew = newVal[newVal.length - 1].message
+          }
+        }
+      },
     },
   },
 }
@@ -132,18 +198,43 @@ export default {
           }
         }
         .chat-main {
+          position: relative;
           flex: 1 1 200px;
-          overflow-y: auto;
-          padding: 15px 15px 5px 15px;
-          ul {
-            padding: 0;
-            li {
-              margin-bottom: 10px;
-              list-style: none;
-              display: flex;
-              flex-wrap: nowrap;
-              .head-image {
-
+          .chat-main-new {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 0 15px;
+            height: 30px;
+            line-height: 30px;
+            background: rgba(186, 27, 33, .8);
+            z-index: 2;
+            cursor: pointer;
+            font-size: 12px;
+          }
+          .chat-main-box {
+            position: absolute;
+            padding: 15px;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 1;
+            ul {
+              padding: 0;
+              li {
+                margin-bottom: 10px;
+                list-style: none;
+                display: flex;
+                flex-wrap: nowrap;
+                &.chat-more {
+                  justify-content: center;
+                  align-items: flex-start;
+                  font-size: 12px;
+                  color: #BA1B21;
+                }
               }
             }
           }

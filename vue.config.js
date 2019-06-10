@@ -59,6 +59,12 @@ module.exports = {
       //     return args;
       //   });
     }
+    config
+      .plugin('webpack-context-replacement')
+      .use(require('webpack').ContextReplacementPlugin, [
+        /moment[/\\]locale$/,
+        /zh-cn/,
+      ])
     config.plugin('define').tap(definitions => {
       definitions[0] = Object.assign(definitions[0], {
         BUILD_PROJECT: JSON.stringify(utils.getProject()),

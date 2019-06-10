@@ -9,7 +9,7 @@
             </el-col>
             <el-col :span="14" class="title">
               <div>
-                <div class="tags"><span class="weight">{{form.name}}</span><span class="time">上线时间：{{form.onlineTime | parseTime('{y}-{m}-{d}')}}</span></div>
+                <div class="tags"><span class="weight">{{form.name}}</span><span class="time">上线时间：{{form.onlineTime | parseToDay}}</span></div>
                 <div class="tags">
                   <iep-tag-detail :value="form.tagKeywords"></iep-tag-detail>
                 </div>

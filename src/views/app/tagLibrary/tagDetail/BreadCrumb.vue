@@ -1,9 +1,9 @@
 <template>
-    <div class="breadcrumb-wrapper">
-      <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
+  <div class="breadcrumb-wrapper">
+    <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
+    </el-breadcrumb>
+  </div>
 </template>
 <script>
 export default {
@@ -13,7 +13,7 @@ export default {
     }
   },
   beforeRouteUpdate (to, from, next) {
-    console.log(to, from)
+    // console.log(to, from)
     this.routerMatch = to.matched
     next()
     // 在当前路由改变，但是该组件被复用时调用

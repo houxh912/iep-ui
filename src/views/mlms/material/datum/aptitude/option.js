@@ -44,28 +44,28 @@ export function initSearchForm () {
 
 export const rules = {
   honorQualName: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入荣誉资质的名称', trigger: 'blur' },
   ],
   intro: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入介绍', trigger: 'blur' },
   ],
   type: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请选择分类', trigger: 'change' },
   ],
   number: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入专利号/证书号', trigger: 'blur' },
   ],
   acquireTime: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, message: '请输入获得时间', trigger: 'blur' },
   ],
   downloadCost: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请输入下载贝额', trigger: 'change' },
   ],
   tagKeyWords: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请输入至少3个标签', trigger: 'change' },
   ],
   image: [
-    { required: true, message: '必填', trigger: 'change' },
+    { required: true, message: '请上传专利/证书图片', trigger: 'change' },
   ],
 }
 

@@ -11,7 +11,7 @@
             <iep-dict-cascader size="small" dictName="fams_expenditure_type" v-model="scope.row.type"></iep-dict-cascader>
           </template>
         </el-table-column>
-        <el-table-column label="报销类型">
+        <el-table-column label="发票类型">
           <template slot-scope="scope">
             <el-select size="small" v-model="scope.row.invoiceType" placeholder="请选择" clearable>
               <el-option v-for="(v,k) in dictsMap.invoiceType" :key="k" :label="v" :value="+k">
@@ -30,7 +30,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <iep-button style="width: 100%; margin-top: 5px; margin-bottom: 8px" icon="el-icon-plus" @click="newMember" plain>新增</iep-button>
+      <iep-button type="primary" style="width: 100%; margin-top: 5px; margin-bottom: 8px" icon="el-icon-plus" @click="newMember" plain>新增</iep-button>
       <iep-divider />
       <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="140px" size="small">
 
@@ -41,15 +41,19 @@
           </el-select>
         </iep-form-item>
 
-        <iep-form-item class="form-half" prop="companyId" label-name="报销抬头">
-          <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择报销抬头"></iep-select>
+        <iep-form-item label-name="报销组织" prop="orgId" class="form-half">
+          <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择报销组织"></iep-select>
+        </iep-form-item>
+
+        <iep-form-item v-if="!companyOption.disabled" class="form-half" prop="companyId" label-name="报销抬头">
+          <iep-select v-model="form.companyId" autocomplete="off" :prefix-url="companyOption.prefixUrl" placeholder="请选择报销抬头"></iep-select>
         </iep-form-item>
 
         <iep-form-item v-if="projectOption" class="form-half" prop="projectId" label-name="项目">
           <iep-project-select v-model="form.projectId" :project-name="form.projectName"></iep-project-select>
         </iep-form-item>
 
-        <iep-form-item class="form-half" prop="auditor" label-name="审批人" tip="报销金额超过 1 万，请添加部门班长为审批人">
+        <iep-form-item v-if="auditorOption" class="form-half" prop="auditor" label-name="审批人" tip="报销金额超过 1 万，请添加部门班长为审批人">
           <iep-contact-select v-model="form.auditor"></iep-contact-select>
         </iep-form-item>
 
@@ -90,6 +94,21 @@ export default {
     },
     projectOption () {
       return this.form.referType === 1
+    },
+    auditorOption () {
+      return this.form.referType !== 3
+    },
+    companyOption () {
+      if (this.form.orgId) {
+        return {
+          disabled: false,
+          prefixUrl: `fams/company/${this.form.orgId}`,
+        }
+      } else {
+        return {
+          disabled: true,
+        }
+      }
     },
   },
   created () {

@@ -14,7 +14,7 @@
 
       <el-row>
         <el-col :span="8" style="margin-top:15px;">
-          <el-tree class="filter-tree" :data="treeData" node-key="id" highlight-current :props="defaultProps" :filter-node-method="filterNode" @node-click="getNodeData" default-expand-all>
+          <el-tree class="filter-tree" :data="treeData" node-key="id" highlight-current :props="defaultProps" :filter-node-method="filterNode" @node-click="getNodeData">
           </el-tree>
         </el-col>
         <el-col :span="16" style="margin-top:15px;">

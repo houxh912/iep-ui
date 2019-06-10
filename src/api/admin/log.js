@@ -1,5 +1,5 @@
 import request from '@/router/axios'
-
+const prefixUrl = '/admin/log'
 export function fetchList (query) {
   return request({
     url: '/admin/log/page',
@@ -43,5 +43,12 @@ export function sendLogs (logsList) {
     url: '/admin/log/logs',
     method: 'post',
     data: logsList,
+  })
+}
+export function getUnionPage (query) {
+  return request({
+    url: `${prefixUrl}/page`,
+    method: 'get',
+    params: query,
   })
 }

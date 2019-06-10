@@ -1,7 +1,7 @@
 export default {
   getScreen: function () {
     var width = document.body.clientWidth
-    if (width >= 1200) {
+    if (width >= 1300) {
       return 3 // 大屏幕
     } else if (width >= 992) {
       return 2 // 中屏幕

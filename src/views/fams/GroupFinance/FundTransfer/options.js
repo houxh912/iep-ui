@@ -60,7 +60,8 @@ const initForm = () => {
   
 		amount: 0,//调拨金额
 		allocationWay: 0,//资金调拨方式（0国脉贝，1现金）
-		interest: 0,//利息
+		orgInterest: 0,//组织日利息
+		groupInterest: 0,//集团日利息
 		allocationDays: 0,//调拨天数
 		implementRangeTime: [initNow(), initNow()],//执行日期
 		implementStartTime: '',//执行开始日期
@@ -86,7 +87,8 @@ const initDetailForm = () => {
 		
 		amount: '',//调拨金额
 		allocationWay: '',//资金调拨方式（0国脉贝，1现金）
-		interest: '',//利息
+		groupInterest: '',//利息
+		orgInterest: '',//利息
 		allocationDays: '',//调拨天数
 		implementStartTime: '',//执行开始日期
 		implementEndTime: '',//执行结束日期
@@ -123,6 +125,9 @@ const borrowToForm = (row) => {
 	const newForm = initForm()
 	newForm.amount = row.amount
 	newForm.callInOrgId = row.inOrgId
+	newForm.callInCompanyId = row.borrowInCompanyId
+	newForm.callInCompanyBankId = row.borrowInCompanyBankId
+	newForm.allocationWay = row.borrowMoneyType
 	return newForm
 }
 
@@ -133,8 +138,11 @@ const rules = {
 	allocationWay: [
     { required: true, message: '请输入调拨方式', trigger: 'blur' },
 	],
-	interest: [
-    { required: true, message: '日利息(%)为数字且大于0', trigger: 'blur', type:'number', min:1 },
+	orgInterest: [
+    { required: true, message: '组织日利息(%)为数字且大于0', trigger: 'blur', type:'number', min:1 },
+	],
+	groupInterest: [
+    { required: true, message: '集团日利息(%)为数字且大于0', trigger: 'blur', type:'number', min:1 },
 	],
 	allocationDays: [
     { required: true, message: '调拨天数(日)为数字且大于0', trigger: 'blur', type:'number', min:1 },

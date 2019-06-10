@@ -20,7 +20,7 @@
           <iep-read-mark-del :enableList="[true, true, false]" @on-view-batch="handleViewBatch"></iep-read-mark-del>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" prop="title">
             <!-- <advance-search @search-page="searchPage"></advance-search> -->
           </operation-search>
         </template>
@@ -105,6 +105,7 @@ export default {
   margin: 0 !important;
   padding: 20px;
   width: 100%;
+  height: 100vh;
   .title {
     font-size: 16px;
   }
@@ -125,7 +126,7 @@ export default {
 }
 .sub-menu-left {
   margin: -20px 15px -20px -20px;
-  padding-top: 20px;
+  padding-top: 12px;
   border-right: 1px solid #ebeef5;
   .el-card {
     border: 0;

@@ -6,7 +6,7 @@
       <el-card shadow="hover" v-for="master in masterList" :key="master.id">
         <div>
           <div class="name">
-            <span class="img"><img :src="master.img" alt=""></span>
+            <span class="img" @click="getPerson()"><img :src="master.img" alt=""></span>
             <span class="text">{{master.name}}<span class="num">{{master.num}}</span></span>
           </div>
           <span></span>
@@ -29,146 +29,146 @@ export default {
     return {
       masterList: [
         {
-          img: '../img/person/p2.jpg',
-          name: '王昉',
-          num: 'GM100356',
+          img: '../img/person/p013.jpg',
+          name: '杨冰之',
+          num: 'GM000001',
           tagsList: [
             {
-              tag: '产品设计',
+              tag: '组织管理',
             },
             {
-              tag: '项目管理',
+              tag: '智慧经济',
             },
             {
-              tag: '原型设计',
+              tag: '规划报告',
             },
           ],
         },
         {
-          img: '../img/person/p09.jpg',
-          name: '王昉',
-          num: 'GM100356',
+          img: '../img/person/p122.jpg',
+          name: '郑爱军',
+          num: 'GM000002',
           tagsList: [
             {
-              tag: '产品设计',
+              tag: '成本核算',
             },
             {
-              tag: '项目管理',
+              tag: '组织管理',
             },
             {
-              tag: '原型设计',
+              tag: '活动策划与组织',
             },
           ],
         },
         {
-          img: '../img/person/p07.jpg',
-          name: '王昉',
-          num: 'GM100356',
+          img: '../img/person/pw1.jpg',
+          name: '王玲',
+          num: 'GM000101',
           tagsList: [
             {
-              tag: '产品设计',
+              tag: '指标体系设计',
             },
             {
-              tag: '项目管理',
+              tag: '资源梳理与编目',
             },
             {
-              tag: '原型设计',
+              tag: '评估与规划咨询',
             },
           ],
         },
         {
-          img: '../img/person/p09.jpg',
-          name: '王昉',
-          num: 'GM100356',
+          img: '../img/person/pkk1.jpg',
+          name: '李凯',
+          num: 'GM000102',
           tagsList: [
             {
-              tag: '产品设计',
+              tag: '成本核算',
             },
             {
-              tag: '项目管理',
+              tag: '团队协作',
             },
             {
-              tag: '原型设计',
+              tag: '客户关系管理',
             },
           ],
         },
         {
-          img: '../img/person/p01.jpg',
-          name: '王昉',
-          num: 'GM100356',
+          img: '../img/person/p02.jpg',
+          name: '符恩祖',
+          num: 'GM000103',
           tagsList: [
             {
-              tag: '产品设计',
+              tag: '百度推广',
             },
             {
-              tag: '项目管理',
+              tag: '404检测',
             },
             {
-              tag: '原型设计',
+              tag: '平面设计',
             },
           ],
         },
         {
-          img: '../img/person/p01.jpg',
-          name: '王昉',
-          num: 'GM100356',
+          img: '../img/person/pzz.jpg',
+          name: '赵蕊',
+          num: 'GM000104',
           tagsList: [
             {
-              tag: '产品设计',
+              tag: '会议服务与支持',
             },
             {
-              tag: '项目管理',
+              tag: '财务管理',
             },
             {
-              tag: '原型设计',
+              tag: '综合管理',
             },
           ],
         },
         {
-          img: '../img/person/p01.jpg',
-          name: '王昉',
-          num: 'GM100356',
+          img: '../img/person/pxx.jpg',
+          name: '肖香芝',
+          num: 'GM000106',
           tagsList: [
             {
-              tag: '产品设计',
+              tag: '网站规划',
             },
             {
-              tag: '项目管理',
+              tag: '网站评测',
             },
             {
-              tag: '原型设计',
+              tag: '信息资源梳理',
             },
           ],
         },
         {
-          img: '../img/person/p01.jpg',
-          name: '王昉',
-          num: 'GM100356',
+          img: '../img/person/pzx.jpg',
+          name: '郑鑫宁',
+          num: 'GM000107',
           tagsList: [
             {
-              tag: '产品设计',
+              tag: '大数据咨询',
             },
             {
-              tag: '项目管理',
+              tag: '政务服务事项标准化',
             },
             {
-              tag: '原型设计',
+              tag: '互联网+政务服务',
             },
           ],
         },
         {
-          img: '../img/person/p01.jpg',
-          name: '王昉',
-          num: 'GM100356',
+          img: '../img/person/pld.jpg',
+          name: '刘丹',
+          num: 'GM000108',
           tagsList: [
             {
-              tag: '产品设计',
+              tag: '平台运营',
             },
             {
-              tag: '项目管理',
+              tag: '战略合作',
             },
             {
-              tag: '原型设计',
+              tag: '品牌宣传',
             },
           ],
         },
@@ -176,8 +176,10 @@ export default {
     }
   },
   methods: {
-    getMore () {
-      this.$openPage('/app/personal_style')
+    getPerson () {
+      this.$router.push({
+        path: '@/app/personal_style/:id',
+      })
     },
   },
 }
@@ -244,6 +246,10 @@ export default {
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 30px;
     .name {
       margin-bottom: 8px;
       color: #999;

@@ -9,7 +9,7 @@ import request from '@/router/axios'
  */
 export function getExamReadingList (params) {
     return request({
-        url: 'exms',
+        url: '/exms/grade/page',
         method: 'get',
         params: params,
     })
@@ -39,15 +39,27 @@ export function deleteById (id) {
   
 
 /**
- * 提交笔试阅卷判分表单
+ *点击笔试阅卷先判断是否可以进行笔试阅卷
  */
-export function passWrittenById (params) {
+export function judgeWrittenById (id) {
     return request({
-      url: 'exms',
+      url: '/exms/grade/check',
       method: 'post',
-      data: params,
+      data: id,
     })
 }
+
+/**
+ *根据id获取笔试阅卷信息
+ */
+export function passWrittenById (params) {
+  return request({
+    url: '/exms/grade/makding',
+    method: 'post',
+    data: params,
+  })
+}
+
 
 /**
  * 提交选择题判分表单
@@ -61,11 +73,21 @@ export function passChoiceById (params) {
 }
 
 /**
+ * 根据id获取面试信息
+ */
+export function getInterviewById (id) {
+  return request({
+    url: `/exms/grade/face/${id}`,
+    method: 'get',
+  })
+}
+
+/**
  * 提交面试表单
  */
 export function passInterviewById (params) {
     return request({
-      url: 'exms',
+      url: '/exms/grade/face/save',
       method: 'post',
       data: params,
     })
@@ -87,7 +109,7 @@ export function sendCertificateById (params) {
  */
 export function rollingPaperById (params) {
   return request({
-    url: 'exms',
+    url: '/exms/grade/rolling',
     method: 'post',
     data: params,
   })
@@ -98,7 +120,7 @@ export function rollingPaperById (params) {
  */
 export function  overPapersById (params) {
   return request({
-    url: 'exms',
+    url: '/exms/grade/done',
     method: 'post',
     data: params,
   })

@@ -22,6 +22,11 @@
       @selection-change="selectionChange"
       is-mutiple-selection
       is-index>
+      <el-table-column prop="remainingTime" label="剩余时间">
+        <template slot-scope="scope">
+            {{scope.row.remainingTime | setTime}}
+          </template>
+        </el-table-column>
       <el-table-column prop="state" label="状态">
         <template slot-scope="scope">
           <el-tag type="warning" size="medium" v-if="scope.row.state === 1">未交卷</el-tag>
@@ -66,10 +71,10 @@ const columnsMap = [
     label: '面试人',
     prop: 'interviewerName',
   },
-  {
-    label: '剩余时间',
-    prop: 'remainingTime',
-  },
+  // {
+  //   label: '剩余时间',
+  //   prop: 'remainingTime',
+  // },
 ]
 export default {
   mixins: [mixins],
@@ -82,6 +87,14 @@ export default {
       selectValue: false,
       selectionValue: {},
     }
+  },
+  filters: {
+    setTime (val){
+      // console.log('val => ',val)
+      var str = new Array()
+      str = val.split('-')
+      return str[0] + ' : ' + str[1]
+    },
   },
   created () {
     this.loadPage()
@@ -111,14 +124,14 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        RollingTestById(param).then(() => {
-          this.$message({
-            type: 'success',
-            message: '该试卷已收卷!',
-          })
-          setTimeout(() => {
+        RollingTestById(param).then( res => {
+          if (res.data.data == true) {
+            this.$message({
+              type: 'success',
+              message: '该试卷已收卷!',
+            })
             this.loadPage()
-          }, 450)
+          }
         })
       })
     },
@@ -138,14 +151,14 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        setTestById(param).then(() => {
-          this.$message({
-            type: 'success',
-            message: '该试卷已设为可考!',
-          })
-          setTimeout(() => {
+        setTestById(param).then( res => {
+          if (res.data.data == true) {
+            this.$message({
+              type: 'success',
+              message: '该试卷已设为可考!',
+            })
             this.loadPage()
-          }, 450)
+          }
         })
       })
     },
@@ -184,14 +197,14 @@ export default {
           cancelButtonText: '取消',
           type: 'warning',
         }).then(() => {
-          deleteById(this.selectionValue).then(() => {
-            this.$message({
-              message: '操作成功',
-              type: 'success',
-            })
-            setTimeout(() => {
-            this.loadPage()
-          }, 450)
+          deleteById(this.selectionValue).then( res => {
+            if (res.data.data == true) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+              })
+              this.loadPage()
+            }
           })
         })
       }

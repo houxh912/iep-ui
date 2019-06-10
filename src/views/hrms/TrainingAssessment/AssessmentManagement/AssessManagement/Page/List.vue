@@ -3,7 +3,7 @@
     <operation-container>
       <template slot="left">
         <iep-button @click="handleAdd" type="primary" plain>发起考核</iep-button>
-        <iep-button type="default" plain @click.native="handleDeleteBatch">删除</iep-button>
+        <!-- <iep-button type="default" plain @click.native="handleDeleteBatch">删除</iep-button> -->
       </template>
       <template slot="right">
         <operation-search @search="searchPage" advance-search>
@@ -27,25 +27,30 @@
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :dictsMap="dictsMap" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
-      <el-table-column prop="operation" label="操作" width="120">
+      <el-table-column prop="operation" label="操作" width="180">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button type="default" @click="handleDelete(scope.row)">删除</iep-button>
+            <iep-button type="default" @click="handleDetail(scope.row)">查看</iep-button>
+            <iep-button type="default" @click="handleDelete(scope.row)" v-if="scope.row.status !== 0">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
     <add-dialog-form ref="AddDialogForm" @load-page="loadPage"></add-dialog-form>
+    <detail-dialog ref="detail"></detail-dialog>
   </div>
 </template>
+
 <script>
-import { getAssessmentManagementPage, postAssessmentManagement, deletePublishRecruitmentById, deletePublishRecruitment } from '@/api/hrms/assessment_management'
+import { createEvaluatio, getAssessmentPage, deleteEvaluation } from '@/api/hrms/cover'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initSearchForm } from '../options'
 import AddDialogForm from './AddDialogForm'
+import DetailDialog from '../../detail/'
+
 export default {
   mixins: [mixins],
-  components: { AddDialogForm },
+  components: { AddDialogForm, DetailDialog },
   data () {
     return {
       dictsMap,
@@ -58,20 +63,23 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$refs['AddDialogForm'].formRequestFn = postAssessmentManagement
+      this.$refs['AddDialogForm'].formRequestFn = createEvaluatio
       this.$refs['AddDialogForm'].dialogShow = true
     },
     handleDeleteBatch () {
-      this._handleGlobalDeleteAll(deletePublishRecruitment)
+      this._handleGlobalDeleteAll(deleteEvaluation)
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deletePublishRecruitmentById)
+      this._handleGlobalDeleteById(row.coverId, deleteEvaluation)
     },
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },
     loadPage (param = this.paramForm) {
-      this.loadTable(param, getAssessmentManagementPage)
+      this.loadTable(param, getAssessmentPage)
+    },
+    handleDetail (row) {
+      this.$refs['detail'].open(row)
     },
   },
 }

@@ -15,11 +15,13 @@
     </operation-container>
 
     <iep-table :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-mutiple-selection is-index>
-      <el-table-column prop="associatedState" label="判分状态">
+      <el-table-column prop="state" label="判分状态">
         <template slot-scope="scope">
-          <el-tag type="warning" size="medium" v-if="scope.row.associatedState === 0">待阅卷</el-tag>
-          <el-tag type="success" size="medium" v-if="scope.row.associatedState === 1">已阅卷</el-tag>
-          <el-tag type="success" size="medium" v-if="scope.row.associatedState === 2">阅卷完成</el-tag>
+          <el-tag type="warning" size="medium" v-if="scope.row.state === 1">未阅卷</el-tag>
+          <el-tag type="success" size="medium" v-if="scope.row.state === 2">正在阅卷</el-tag>
+          <el-tag type="success" size="medium" v-if="scope.row.state === 3">未完成阅卷</el-tag>
+          <el-tag type="success" size="medium" v-if="scope.row.state === 4">已阅卷</el-tag>
+          <el-tag type="success" size="medium" v-if="scope.row.state === 5">完成阅卷</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="operation" label="操作" width="270">
@@ -39,11 +41,8 @@
       <progress-form :formData="InterviewData" @close="loadPage()"></progress-form>
     </iep-dialog>
 
-    <!-- <iep-dialog :dialog-show="dialogWritten" title="笔试判分" width="550px" @close="loadPage()" center>
-      <writte-form :formData="InterviewData" @close="loadPage()"></writte-form>
-    </iep-dialog> -->
     <el-dialog class="titleDialogs" title="笔试判分" :visible.sync="dialogWritten" width="90%" @close="loadPage()">
-      <writte-form :formData="InterviewData" @close="loadPage()"></writte-form>
+      <writte-form :formData="InterviewData" v-if="dialogWritten" @close="loadPage()"></writte-form>
     </el-dialog>
 
     <iep-dialog :dialog-show="dialogChoice" title="选择题判分" width="550px" @close="loadPage()" center>
@@ -57,8 +56,9 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+import { getExamReadingList, judgeWrittenById } from '@/api/exam/examLibrary/examReading/examReading'
 // import { getExamReadingList, sendCertificateById, deleteById, deleteIdAll } from '@/api/exam/examLibrary/examReading/examReading'
-import { getCertificatePage } from '@/api/exam/review'
 import WritteForm from './writte-form'
 import ChoiceForm from './choice-form'
 import InterviewForm from './interview-form'
@@ -67,11 +67,11 @@ import mixins from '@/mixins/mixins'
 const columnsMap = [
   {
     label: '姓名',
-    prop: 'field',
+    prop: 'userName',
   },
   {
     label: '准考证号',
-    prop: 'deptId',
+    prop: 'examinationNumber',
   },
   {
     label: '笔试分数',
@@ -88,7 +88,7 @@ const columnsMap = [
   },
   {
     label: '剩余时间',
-    prop: 'field',
+    prop: 'remainingTime',
   },
 ]
 function initForm () {
@@ -99,6 +99,7 @@ function initForm () {
 }
 export default {
   mixins: [mixins],
+  props: ['record'],
   components: { WritteForm, ChoiceForm, InterviewForm, ProgressForm },
   data () {
     return {
@@ -114,6 +115,11 @@ export default {
       InterviewData: initForm(),
     }
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
   created () {
     this.loadPage()
   },
@@ -121,29 +127,64 @@ export default {
     /**
      * 获取列表分页数据
      */
-    loadPage (param = this.searchForm) {
+    loadPage () {
       this.dialogProgress = false
       this.dialogWritten = false
       this.dialogChoice = false
       this.dialogInterview = false
-      this.loadTable(param, getCertificatePage)
+      const param = {
+        examinationId: this.record.row.id,
+      }
+      this.loadTable({ ...param }, getExamReadingList)
+      // this.loadTable(param, getExamReadingList)
     },
 
     /**
      * 阅卷进度按钮
      */
     handleEdit () {
-      // this.$emit('onEdit')
+      // console.log('redd',this.record)
       this.dialogProgress = true
-      this.InterviewData = initForm()
+      this.InterviewData = { ...this.record }
+      //console.log('kkk', this.InterviewData)
+      // this.InterviewData = initForm()
     },
 
     /**
      * 笔试判分
      */
     handleWritten (row) {
-      this.dialogWritten = true
-      this.InterviewData = { ...row }
+      row.judgeId = this.userInfo.userId
+      this.InterviewData = { ...row }          //传到子组件的数据
+      const params = {
+        examId: row.examId,
+      }
+      judgeWrittenById(params).then(res => {   //首次进入页面先判断后台返回信息
+        const resjudge = res.data.data         //true 可阅卷
+        if (resjudge === true) {               //false code=0  有老师在阅卷
+          this.dialogWritten = true            //false code=2  不可阅卷
+        } else {
+          if (resjudge === false && res.data.code === 0) {
+            this.$confirm(res.data.msg, '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning',
+            }).then(() => {
+              this.dialogWritten = true
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: '已取消',
+              })
+            })
+          } else {
+            this.$message({
+              type: 'warning',
+              message: res.data.msg,
+            })
+          }
+        }
+      })
     },
 
     /**
@@ -243,13 +284,9 @@ export default {
   }
 }
 </style>
-<style lang="scss">
-.titleDialogs {
-  .el-dialog {
-    .el-dialog__title {
-      display: none;
-    }
-  }
+<style scoped>
+.titleDialogs >>> .el-dialog__title {
+  display: none;
 }
 </style>
 

@@ -15,8 +15,6 @@ export default {
   name: 'im-ui-small',
   data () {
     return {
-      clientWidth: document.body.clientWidth,
-      clientHeight: document.body.clientHeight,
       mousePosition: {
         x: 0,
         y: 0,
@@ -31,23 +29,15 @@ export default {
     }
   },
   mounted () {
-    window.onresize = () => {
-      this.clientWidth = document.body.clientWidth
-      this.clientHeight = document.body.clientHeight
-      this.position = {
-        x: 0,
-        y: 0,
-      }
-    }
     this.boxWidth = this.$refs.imbox.offsetWidth
     this.boxHeight = this.$refs.imbox.offsetWidth
   },
   methods: {
     positionChange (translate) {
-      if (this.position.x + translate.x < 0 && this.position.x + translate.x > this.boxWidth - this.clientWidth) {
+      if (this.position.x + translate.x < 0 && this.position.x + translate.x > this.boxWidth - this.windowSize.width) {
         this.position.x = this.position.x + translate.x
       }
-      if (this.position.y + translate.y < 0 && this.position.y + translate.y > this.boxHeight - this.clientHeight) {
+      if (this.position.y + translate.y < 0 && this.position.y + translate.y > this.boxHeight - this.windowSize.height) {
         this.position.y = this.position.y + translate.y
       }
     },
@@ -59,7 +49,9 @@ export default {
       this.mousePosition.y = event.clientY
     },
     mousemove (event) {
-      this.move = true
+      if (event.clientX !== this.mousePosition.x || event.clientY !== this.mousePosition.y) {
+        this.move = true
+      }
       this.positionChange({
         x: event.clientX - this.mousePosition.x,
         y: event.clientY - this.mousePosition.y,
@@ -68,6 +60,7 @@ export default {
       this.mousePosition.y = event.clientY
     },
     mouseup () {
+      document.body.style['user-select'] = 'auto'
       if (!this.move) {
         this.$emit('showLarge')
       }
@@ -80,6 +73,17 @@ export default {
     getPosition () {
       return {
         transform: `translate(${this.position.x}px, ${this.position.y}px)`,
+      }
+    },
+    windowSize () {
+      return this.$store.getters.windowSize
+    },
+  },
+  watch: {
+    windowSize () {
+      this.position = {
+        x: 0,
+        y: 0,
       }
     },
   },
@@ -101,23 +105,20 @@ export default {
   right: 0;
   bottom: 0;
   background: #FFFFFF;
-  box-shadow: 1px 1px 50px rgba(0,0,0,.3);
+  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
   border-radius: 30px;
   cursor: move;
   opacity: .4;
-  transform: translate3D(0, 0, 0);
-  &:not(:hover).flash {
-    animation: flash .3s linear infinite alternate;
-  }
-  &:hover {
-    opacity: 1;
-  }
   .headimage {
     height: 60px;
     width: 60px;
     border-radius: 30px;
     vertical-align: middle;
     cursor: pointer;
+  }
+  &:hover {
+    opacity: 1;
   }
 }
 

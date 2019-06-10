@@ -16,7 +16,7 @@
             <iep-dict-detail v-if="item.type === 'dict'" size="mini" :value="scope.row[item.prop]" :dict-name="item.dictName"></iep-dict-detail>
             <iep-date-range-select v-else-if="item.type === 'daterange'" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label" disabled></iep-date-range-select>
             <iep-upload-select v-else-if="item.type === 'file'" size="mini" :value="scope.row[item.prop]" disabled></iep-upload-select>
-            <iep-div-detail v-else-if="item.type === 'date'" :value="scope.row[item.prop] | parseTime('{y}-{m}-{d}')"></iep-div-detail>
+            <iep-div-detail v-else-if="item.type === 'date'" :value="scope.row[item.prop] | parseToDay"></iep-div-detail>
             <iep-select v-else-if="item.type === 'list'" size="mini" disabled :prefixUrl="item.prefixUrl" v-model="scope.row[item.prop]" :placeholder="item.label"></iep-select>
             <iep-div-detail v-else :value="scope.row[item.prop]"></iep-div-detail>
           </template>
@@ -26,7 +26,7 @@
         <template slot-scope="scope">
           <template v-if="scope.row.editable">
             <span v-if="scope.row.isNew">
-              <iep-button type="text" size="mini" @click="saveRow(scope.row.id)">添加</iep-button>
+              <iep-button type="text" size="mini" @click="saveRow(scope.row.id)">保存</iep-button>
               <iep-divider type="vertical" />
               <a-popconfirm title="是否要删除此数据？" okText="确认" cancelText="取消" @confirm="remove(scope.row.id)">
                 <iep-button type="text" size="mini">删除</iep-button>

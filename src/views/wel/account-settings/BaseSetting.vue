@@ -38,10 +38,10 @@
             <iep-div-detail :value="form.title"></iep-div-detail>
           </el-form-item>
           <el-form-item label="入职时间：" class="form-half">
-            <span>{{form.entryTime | parseTime('{y}-{m}-{d}')}}</span>
+            <span>{{form.entryTime | parseToDay}}</span>
           </el-form-item>
           <el-form-item label="转正时间：" class="form-half">
-            <span>{{form.positiveTime | parseTime('{y}-{m}-{d}')}}</span>
+            <span>{{form.positiveTime | parseToDay}}</span>
           </el-form-item>
           <el-form-item label="所属部门：" class="form-half">
             <iep-tag-detail :value="form.deptList"></iep-tag-detail>
@@ -162,6 +162,10 @@
 
           <iep-form-item prop="learningTag" label-name="进步标签" tip="请务必根据自身相关岗位进行选择，如发现标签不匹配导致信用降低等">
             <iep-tag v-model="form.learningTag"></iep-tag>
+          </iep-form-item>
+
+          <iep-form-item prop="signature" label-name="个性签名" tip="个性签名">
+            <iep-input-area v-model="form.signature"></iep-input-area>
           </iep-form-item>
 
           <iep-form-item prop="careerPlanning" label-name="职业规划" tip="请清晰罗列自己未来三年的职业规划，如能详细描述更好">

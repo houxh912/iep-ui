@@ -74,7 +74,9 @@ export default {
       this.$emit('change', newVal)
     },
     option (newVal) {
-      this.options = newVal.map((m) => {return {clientId: m.id, clientName: m.name}})
+      if (newVal[0].name != undefined) {
+        this.options = newVal.map((m) => {return {clientId: m.id, clientName: m.name}})
+      }
       this.$nextTick(() => { this.selectValue = this.value ? this.value : '' })
     },
   },

@@ -4,10 +4,10 @@
       <el-form-item label="试卷名称：" prop="title">
         <el-input v-model="form.title" :readonly="readOnly"></el-input>
       </el-form-item>
-      <el-form-item label="试卷分类：" prop="field">
-        <el-select v-model="form.field" :disabled="readOnly">
-          <el-option value="0" label="国脉内网"></el-option>
-          <el-option value="1" label="数据基因"></el-option>
+      <el-form-item label="试卷科目：" prop="field">
+        <el-select v-model="form.field" clearable placeholder="请选择科目" :disabled="readOnly">
+          <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
+            :value="item.id"></el-option>
         </el-select>
       </el-form-item>
     </el-form>
@@ -23,6 +23,7 @@
 import StepsContent from '../StepsContent'
 import { initForm } from '../option'
 import { getTestPaperById } from '@/api/examPaper/examPaperApi'
+import { getTestOption } from '@/api/exam/createExam/newTest/newTest'
 export default {
   props: ['data'],
   components: { StepsContent },
@@ -37,20 +38,8 @@ export default {
           { required: true, message: '请选择试卷类型', trigger: 'change' },
         ],
       },
+      res: [],
     }
-  },
-  watch: {
-    'data.id': {
-      handler (newName) {
-        console.log('data1', this.data)
-        if (newName === '') {
-          this.form = initForm()
-        } else {
-          this.getTestPaper(this.data.id)
-        }
-      },
-      immediate: true,
-    },
   },
   computed: {
     isEdit () {
@@ -58,11 +47,15 @@ export default {
     },
     readOnly () {
       if (this.isEdit) {
-        return this.data.methodName === '查看试卷' ? true : false
+        return this.data.methodName === '查看' ? true : false
       } else {
         return false
       }
     },
+  },
+  created () {
+    this.getTestOption()
+    this.getTestPaper(this.data.id)
   },
   methods: {
     /**
@@ -84,6 +77,19 @@ export default {
       getTestPaperById({ id: id }).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data[0])
       })
+    },
+
+    /**
+     * 获取试题数据
+     */
+    async getTestOption () {
+      const params = {
+        numberList: [
+          'exms_subjects',//考试科目
+        ],
+      }
+      const { data } = await getTestOption(params)
+      this.res = data
     },
   },
 }

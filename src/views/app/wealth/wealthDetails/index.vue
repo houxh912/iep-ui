@@ -6,59 +6,62 @@
           <el-card shadow="never" class="box-card" :body-style="bodyStyle">
             <div class="title-wrapper">
               <div class="left">
-                <img :src="img" alt="">
+                <img :src="form.orgLogo" alt="">
                 <div class="main">
-                  <h4 class="investmentName">{{investmentName}}</h4>
+                  <h4 class="investmentName">{{form.orgName}}</h4>
                   <div class="way">
-                    <span>投资方式：{{way}}</span>
-                    <span>投资人次：{{peopleNumber}}</span>
+                    <!-- <span>投资方式：{{way}}</span> -->
+                    <span>投资人次：{{form.investmentNumber}}</span>
                   </div>
                   <div class="span-list">
-                    <span v-for="(item,index) in spanList" :key="index">{{item}}</span>
+                    <span v-for="(item,index) in form.abilityTag" :key="index">{{item}}</span>
                   </div>
                 </div>
               </div>
               <div class="right">
                 <div>目标金额</div>
-                <div>{{targetAmount}}</div>
-                <el-button type="danger" size="medium" plain>马上参与</el-button>
+                <div>{{form.targetAmount}}</div>
+                <el-button @click="handleAdd()" type="danger" size="medium" plain v-show="form.status==4">马上参与</el-button>
+                <el-button type="warning" disabled size="medium" plain v-show="form.status==1">待审核</el-button>
+                <el-button type="info" disabled size="medium" plain v-show="form.status==6">已结束</el-button>
+                <el-button type="info" disabled size="medium" plain v-show="form.status==5 || form.status==2">待上架</el-button>
               </div>
             </div>
           </el-card>
         </div>
         <div>
           <IepAppTabCard title="基本信息">
-            <div class="information-wrapper" v-for="(item, index) in informationData" :key="index">
+            <div class="information-wrapper">
               <div>
                 <div class="label">当前释放股权数量</div>
-                <div class="num">{{item.sum}}</div>
+                <div class="num">{{form.allSharesNumber}}</div>
               </div>
               <div>
                 <div class="label">当前股权单价</div>
-                <div class="num">{{item.price}}<span style="font-size:16px;color:#666;">（贝）</span></div>
+                <div class="num">{{form.sharesUnivalent}}<span style="font-size:16px;color:#666;">（贝）</span></div>
               </div>
               <div>
                 <div class="label">预计年化收益率</div>
-                <div class="num" style="color:#c53b3e">{{item.rate}}</div>
+                <div class="num" style="color:#c53b3e">{{form.returnRate}}%</div>
               </div>
               <div>
                 <div class="label">最低起投金额</div>
-                <div class="num">{{item.lowest}}<span style="font-size:16px;color:#666;">（元）</span></div>
+                <div class="num">{{form.minimumAmount}}<span style="font-size:16px;color:#666;">（元）</span></div>
               </div>
               <div>
                 <div class="label">投资人最低信用评分</div>
-                <div class="num">{{item.credit}}</div>
+                <div class="num">{{form.minimumCredit}}</div>
               </div>
               <div>
                 <div class="label">组织排行</div>
-                <div class="num">{{item.ranking}}</div>
+                <div class="num">9/15</div>
               </div>
             </div>
             <div class="schedule">
               <div class="schedule-title">投资进度</div>
-              <div class="release">正式发布：{{officialRelease}}</div>
-              <div class="release">目标金额：￥{{targetAmount}}</div>
-              <el-progress :text-inside="true" :stroke-width="18" :percentage="50" status="exception" style="margin-top:10px;"></el-progress>
+              <div class="release">正式发布：2019-06-03</div>
+              <div class="release">目标金额：￥{{form.targetAmount}}</div>
+              <el-progress :text-inside="true" :stroke-width="18" :percentage="form.percentage" status="exception" style="margin-top:10px;"></el-progress>
             </div>
           </IepAppTabCard>
         </div>
@@ -83,16 +86,16 @@
         </div>
         <div>
           <IepAppTabCard title="投资记录">
-            <el-table :data="recordingData" style="width: 100%">
-              <el-table-column prop="type" label="序号" width="60px;">
+            <el-table :data="form.record" style="width: 100%">
+              <el-table-column prop="id" label="序号" width="60px;">
               </el-table-column>
-              <el-table-column prop="type" label="投资人">
+              <el-table-column prop="userName" label="投资人" width="80px;">
               </el-table-column>
-              <el-table-column prop="type" label="投资金额（元）">
+              <el-table-column prop="totalAmount" label="投资金额（元）" width="120px;">
               </el-table-column>
-              <el-table-column prop="type" label="支付方式">
+              <el-table-column prop="status" label="支付方式">
               </el-table-column>
-              <el-table-column prop="type" label="投资时间">
+              <el-table-column prop="updateTime" label="投资时间" width="160px;">
               </el-table-column>
             </el-table>
           </IepAppTabCard>
@@ -114,11 +117,17 @@
         </div>
       </div>
     </basic-container>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 <script>
-import { getInvestmentById } from '@/api/fams/investment'
+import { getInvestmentById, joinInvestment } from '@/api/fams/investment'
+import mixins from '@/mixins/mixins'
+import { initForm } from './options'
+import DialogForm from './DialogForm'
 export default {
+  mixins: [mixins],
+  components: { DialogForm },
   data () {
     this.chartSettings = {
       metrics: ['本组织', '组织业绩平均值对比'],
@@ -130,14 +139,28 @@ export default {
         flexDirection: 'column',
         justifyContent: 'space-around',
       },
-      investmentName: '舟山国脉研发中心',
-      img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',
-      way: '股权投资',
-      peopleNumber: '34',
-      spanList: ['产品设计', '产品设计', '产品设计', '产品设计'],
-      targetAmount: '2,000,000,000.00',
-      informationData: [{ sum: '2000000', price: '100', rate: '2.613%', lowest: '1000', credit: '800', ranking: '9/15' }],
-      officialRelease: '2019-04-22',
+      form: {
+        percentage: 0,
+        status: '',
+        orgName: '',
+        orgLogo: '',
+        orgId: '',
+        //way: '股权投资',
+        investmentNumber: '',
+        abilityTag: [],
+        targetAmount: '',
+        hadMoney: '',
+        allSharesNumber: '',
+        sharesUnivalent: '',
+        returnRate: '',
+        minimumAmount: '',
+        minimumCredit: '',
+        ranking: '9/15',
+        officialRelease: '2019-04-22',
+        record: [
+          { id: '', userName: '', totalAmount: '', status: '', updateTime: '' },
+        ],//投资记录
+      },
       chartData: {
         columns: ['日期', '本组织', '组织业绩平均值对比'],
         rows: [
@@ -150,9 +173,6 @@ export default {
         ],
       },
       reportData: [
-        { type: '类型' },
-      ],
-      recordingData: [
         { type: '类型' },
       ],
       shareholderData: [
@@ -175,9 +195,24 @@ export default {
   methods: {
     loadPage () {
       getInvestmentById(this.id).then(({ data }) => {
-        console.log(data.data)
-        this.investmentName = data.data.orgName
+        this.form = data.data
+        this.form.percentage = this.form.hadMoney / this.form.targetAmount * 100
+        var recordLen = this.form.record.length
+        for (var i = 0; i < recordLen; i++) {
+          var surname = this.form.record[i].userName.substring(0, 1)
+          this.form.record[i].userName = surname + '**'
+        }
       })
+    },
+    handleAdd () {
+      this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].formRequestFn = joinInvestment
+      this.$refs['DialogForm'].form.investmentId = this.id
+      this.$refs['DialogForm'].form.orgId = this.form.orgId
+      this.$refs['DialogForm'].form.minimumBuy = this.form.minimumBuy
+      this.$refs['DialogForm'].form.remainSharesNumber = this.form.remainSharesNumber
+      this.$refs['DialogForm'].form.sharesUnivalent = this.form.sharesUnivalent
+      this.$refs['DialogForm'].dialogShow = true
     },
   },
 }
@@ -232,6 +267,9 @@ export default {
               width: 30px;
               text-align: center;
               display: inline-block;
+            }
+            :last-child:after {
+              display: none;
             }
             > span {
               color: #666;
@@ -347,5 +385,8 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.wealth-details >>> .el-button {
+  margin: 0;
 }
 </style>

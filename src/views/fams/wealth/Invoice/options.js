@@ -29,6 +29,7 @@ function initForm () {
   return {
     id: '',
     referType: 1,
+    orgId: '',
     companyId: '',
     projectId: '',
     projectName: '',
@@ -77,8 +78,11 @@ const rules = {
   referType: [
     { required: true, message: '请选择报销类型', trigger: 'blur' },
   ],
+  orgId: [
+    { required: true, message: '请选择报销组织', trigger: 'blur' },
+  ],
   companyId: [
-    { required: true, message: '请选择公司抬头', trigger: 'blur' },
+    { required: true, message: '请选择报销抬头', trigger: 'blur' },
   ],
   projectId: [
     { required: true, message: '请选择项目', trigger: 'blur' },

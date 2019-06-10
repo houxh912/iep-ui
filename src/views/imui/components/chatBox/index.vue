@@ -5,10 +5,10 @@
       :currentChat="currentChatId"
       @chatChange="chatChange"
       @chatClose="chatClose"></chat-list>
-    <chat-total-title @positionChange="positionChange"></chat-total-title>
+    <chat-total-title @chatClose="chatAllClose" @positionChange="positionChange"></chat-total-title>
     <chat-content
-      v-for="(chat, index) in $store.getters.imCurrentChatList"
-      :key="index"
+      v-for="chat in $store.getters.imCurrentChatList"
+      :key="chat.username"
       v-show="currentChatId === chat.userId"
       :chatDetail="chat"
       @sendMessage="sendMessage"
@@ -37,8 +37,6 @@ export default {
   },
   data () {
     return {
-      clientWidth: document.body.clientWidth,
-      clientHeight: document.body.clientHeight,
       currentChatId: null,
       position: {
         x: 0,
@@ -46,30 +44,15 @@ export default {
       },
     }
   },
-  mounted () {
-    window.onresize = () => {
-      this.clientWidth = document.body.clientWidth
-      this.clientHeight = document.body.clientHeight
-      this.position = {
-        x: 0,
-        y: 0,
-      }
-    }
-  },
-  watch: {
-    currentChat: {
-      handler: function (newVal) {
-        this.currentChatId = newVal.userId
-      },
-      deep: true,
-    },
-  },
   methods: {
+    chatAllClose () {
+      this.$emit('chatAllClose')
+    },
     positionChange (translate) {
-      if (Math.abs(this.position.x + translate.x) < this.clientWidth / 2 - (this.$store.getters.imCurrentChatList.length > 1 ? 400 : 300)) {
+      if (Math.abs(this.position.x + translate.x) < this.windowSize.width / 2 - (this.$store.getters.imCurrentChatList.length > 1 ? 400 : 300)) {
         this.position.x = this.position.x + translate.x
       }
-      if (Math.abs(this.position.y + translate.y) < this.clientHeight / 2 - 260) {
+      if (Math.abs(this.position.y + translate.y) < this.windowSize.height / 2 - 260) {
         this.position.y = this.position.y + translate.y
       }
     },
@@ -91,6 +74,23 @@ export default {
         transform: `translate(${this.position.x}px, ${this.position.y}px)`,
       }
     },
+    windowSize () {
+      return this.$store.getters.windowSize
+    },
+  },
+  watch: {
+    currentChat: {
+      handler: function (newVal) {
+        this.currentChatId = newVal.userId
+      },
+      deep: true,
+    },
+    windowSize () {
+      this.position = {
+        x: 0,
+        y: 0,
+      }
+    },
   },
 }
 </script>
@@ -105,7 +105,8 @@ export default {
     height: 520px;
     width: 600px;
     background: #FFFFFF;
-    box-shadow: 1px 1px 50px rgba(0,0,0,.3);
+    -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
     display: flex;
     flex-direction: column;
     z-index: 10;

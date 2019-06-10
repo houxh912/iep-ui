@@ -50,16 +50,8 @@ export default {
       columnsMap,
       dictsMap,
       radio: false,
-      currentRow: null,
+      currentRow: '',
     }
-  },
-  watch: {
-    'data.id': {
-      handler () {
-        console.log('data2', this.data)
-      },
-      immediate: true,
-    },
   },
   created () {
     this.loadPage()
@@ -87,22 +79,31 @@ export default {
         this.$message.error('请选择一份试卷进行抽取')
         return
       }
-      this.$emit('on-data', this.currentRow)
+      const record = {
+        methodName: this.data.methodName,
+        iepTestPaperVO: this.currentRow,
+      }
+      this.$emit('on-data', record)
     },
 
     /**
      * 上一步
      */
     handlePrev () {
-      this.$emit('prev', this.data)
+      this.$emit('prev', { ...this.data })
     },
 
     /**
      * 下一步
      */
     onData (data) {
-      this.$emit('on-data', data)
+      const record = {
+        methodName: this.data.methodName,
+        iepTestPaperVO: data,
+      }
+      this.$emit('on-data', record)
     },
+
   },
 }
 </script>

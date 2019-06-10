@@ -10,7 +10,7 @@ import '@/styles/common.scss'
 // // 引入avue的包
 import Avue from '@smallwei/avue/lib/index.js'
 // // 引入avue的样式文件
-import '@smallwei/avue/lib/theme-chalk/index.css'
+// import '@smallwei/avue/lib/theme-chalk/index.css'
 
 import { loadStyle, loadJs, mergeByFirst, openPage,openTagDetail, fillStatisticsArray } from '@/util/util'
 import { iconfontUrl, iconfontVersion, multicolorIconfontUrl, wsUrl } from '@/config/env'
@@ -23,6 +23,8 @@ Vue.prototype.$fillStatisticsArray = fillStatisticsArray
 Vue.prototype.$wsUrl = wsUrl
 
 Vue.use(Avue, { menuType: 'text' })
+
+
 //加载过滤器
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

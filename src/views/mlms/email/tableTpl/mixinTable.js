@@ -82,6 +82,7 @@ export default {
         materialIds: this.dealWithTransferList(row.materialRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }]),
         reportIds: [],
       }
+      this.$refs['updateDialog'].formData.attachmentList = this.dealWithTransferList(row.attachmentRelatios, [{ O: 'url', X: 'attachmentUrl' }, { O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }])
       this.$refs['updateDialog'].formData.kind = 2
     },
     // 回复
@@ -109,6 +110,7 @@ export default {
         materialIds: this.dealWithTransferList(row.materialRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }]),
         reportIds: [],
       }
+      this.$refs['updateDialog'].formData.attachmentList = this.dealWithTransferList(row.attachmentRelatios, [{ O: 'url', X: 'attachmentUrl' }, { O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }])
       this.$refs['updateDialog'].formData.kind = 1
     },
     dealWithTransferList (row, field) {

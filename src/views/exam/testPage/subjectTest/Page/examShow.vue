@@ -30,23 +30,32 @@
                       <div class="img">
                         <img src="../img/1.jpg" alt="">
                       </div>
-                      <div class="message">
+                      <div class="message" style="overflow: hidden; padding-bottom: 10px;">
                         <span class="title" style="font-size:15px;font-weight:bold;">{{item.title}}</span>
-                        <div class="detail" v-if="item.examStatus === 5">
+                        <div class="detail" v-if="item.examStatus === 5" style="margin-bottom: 4px">
                           <span style="float:left;width: 40%;">报名日期</span>
-                          <span class="timeShow">{{item.signBeginTime.substr(0,10)}}至{{item.signEndTime.substr(0,10)}}</span>
+                          <span class="timeShow">{{registDate(item)}}</span>
                         </div>
 
-                        <div class="detail" v-if="item.examStatus === 1 || item.examStatus === 0 || item.examStatus === 4 || item.examStatus === 2 || item.examStatus === 7">
+                        <div class="detail" v-if="item.examStatus === 1 || item.examStatus === 0 || item.examStatus === 4 || item.examStatus === 2 || item.examStatus === 7"
+                          style="margin-bottom: 4px">
                           <span style="float:left;width: 40%;">考试日期</span>
-                          <span class="timeShow">{{item.beginTime.substr(0,10)}}至{{item.endTime.substr(0,10)}}</span>
+                          <span class="timeShow">{{examDate(item)}}</span>
                         </div>
 
-                        <div v-if="item.examStatus !== 1 && item.examStatus !== 2 && item.examStatus !== 4"
+                        <!-- <div v-if="item.examStatus !== 1 && item.examStatus !== 2 && item.examStatus !== 3 && item.examStatus !== 4"
                           class="title" style="float:left;">已有 {{item.totalEnrollment}} 人报名</div>
-                        <div v-if="item.examStatus === 2" class="title" style="float:left;">已有
-                          {{item.totalExam}} 人完成考试</div>
-                        <div class="title" style="float:right;text-align:right;">
+                        <div v-if="item.examStatus === 2 || item.examStatus === 3" class="title"
+                          style="float:left;">已有 {{item.totalExam}} 人完成考试</div> -->
+
+                        <div class="detail" style="float:left">
+                          <span v-if="item.examStatus === 2 || item.examStatus === 3 || item.examStatus === 4 || item.examStatus === 8">
+                            <em>{{item.totalExam}}</em>人完成
+                          </span>
+                          <span v-else><em>{{item.totalEnrollment}}</em>人报名</span>
+                        </div>
+
+                        <div class="title" style="float:right;margin:0">
                           <div v-if="item.status !== 1 && item.examStatus === 7">
                             <div class="circleG"></div>
                             <div class="states">已报名</div>
@@ -176,6 +185,24 @@ export default {
     this.getList()
   },
   methods: {
+    /**
+     * 报名时间
+     */
+    registDate (item) {
+      return `${this.dateFormat(item.signBeginTime)} - ${this.dateFormat(item.signEndTime)}`
+    },
+    /**
+     * 考试时间
+     */
+    examDate (item) {
+      return `${this.dateFormat(item.beginTime)} - ${this.dateFormat(item.endTime)}`
+    },
+    /**
+     * 格式化日期
+     */
+    dateFormat (date) {
+      return date.substr(0, 10).replace(/-/g, '/')
+    },
     handleSizeChange (val) {
       this.paginationOption.size = val
       this.load()
@@ -395,11 +422,11 @@ export default {
     }
   }
   .handleButton {
-    line-height: 100px;
+    line-height: 98px;
     text-align: center;
     display: none;
     width: 100%;
-    height: 100px;
+    height: 98px;
   }
   .title {
     display: block;

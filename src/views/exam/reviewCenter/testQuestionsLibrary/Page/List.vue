@@ -14,16 +14,9 @@
         </template>
       </operation-container>
       <div class="table">
-        <iep-table
-          :isLoadTable="isLoadTable"
-          :pagination="pagination"
-          :pagedTable="pagedTable"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          @selection-change="handleSelectChange"
-          is-mutiple-selection
-          is-index
-        >
+        <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
+          @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectChange"
+          is-mutiple-selection is-index>
           <el-table-column prop="fieldName" label="科目" min-width="100" sortable>
             <template slot-scope="scope">
               {{scope.row.fieldName}}
@@ -39,11 +32,11 @@
               {{scope.row.kindName}}
             </template>
           </el-table-column>
-          <el-table-column prop="title" label="内容" min-width="80" sortable>
+          <!-- <el-table-column prop="title" label="内容" min-width="80" sortable>
             <template slot-scope="scope">
               {{scope.row.title}}
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column prop="difficultyName" label="难度" sortable min-width="75">
             <template slot-scope="scope">
               {{scope.row.difficultyName}}
@@ -51,56 +44,41 @@
           </el-table-column>
           <el-table-column prop="associatedState" label="关联" sortable min-width="68">
             <template slot-scope="scope">
-              <el-tag
-                type="success"
-                size="medium"
-                v-if="scope.row.associatedState === 0"
-              >不限</el-tag>
-              <el-tag
-                type="warning"
-                size="medium"
-                v-if="scope.row.associatedState === 1"
-              >限考试</el-tag>
+              <el-tag type="success" size="medium" v-if="scope.row.associatedState === 0">不限</el-tag>
+              <el-tag type="warning" size="medium" v-if="scope.row.associatedState === 1">限考试</el-tag>
             </template>
           </el-table-column>
           <el-table-column prop="status" label="状态" sortable>
             <template slot-scope="scope">
-              <el-tag
-                type="info"
-                size="medium"
-                v-if="scope.row.status === 0"
-              >审核中</el-tag>
-              <el-tag
-                type="success"
-                size="medium"
-                v-if="scope.row.status === 1"
-              >通过</el-tag>
+              <el-tag type="info" size="medium" v-if="scope.row.status === 0">审核中</el-tag>
+              <el-tag type="success" size="medium" v-if="scope.row.status === 1">通过</el-tag>
               <el-tooltip effect="dark" placement="top-start">
-                <div slot="content">未通过原因：<br/>{{scope.row.reason}}</div>
-                <el-tag
-                  type="warning"
-                  size="medium"
-                  v-if="scope.row.status === 2"
-                >未通过</el-tag>
+                <div slot="content">未通过原因：<br />{{scope.row.reason}}</div>
+                <el-tag type="warning" size="medium" v-if="scope.row.status === 2">未通过</el-tag>
               </el-tooltip>
             </template>
           </el-table-column>
-          <el-table-column prop="username" label="提交者" sortable>
+          <el-table-column prop="username" label="创建者" sortable>
             <template slot-scope="scope">
               {{scope.row.username}}
             </template>
           </el-table-column>
-          <el-table-column prop="creatTime" label="提交时间" width="148" sortable>
+          <el-table-column prop="creatTime" label="创建时间" width="148" sortable>
             <template slot-scope="scope">
               {{scope.row.creatTime}}
             </template>
           </el-table-column>
-          <el-table-column prop="operation" label="操作" width="250">
+          <el-table-column prop="operation" label="操作" width="130">
             <template slot-scope="scope">
               <operation-wrapper>
                 <iep-button type="warning" plain @click="handleExamine(scope.row)">审核</iep-button>
-                <iep-button @click="handleModify(scope.row)">修改</iep-button>
-                <iep-button @click="handleDelete(scope.row)">删除</iep-button>
+                <el-dropdown size="medium">
+                  <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item @click.native="handleModify(scope.row)">修改</el-dropdown-item>
+                    <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
               </operation-wrapper>
             </template>
           </el-table-column>
@@ -109,19 +87,15 @@
 
     </basic-container>
 
-    <iep-dialog :dialog-show="dialogExamine" title="审核" width="520px" @close="handleExamineCancel" center>
+    <iep-dialog :dialog-show="dialogExamine" title="审核" width="520px" @close="handleExamineCancel"
+      center>
       <div style="text-align: center;">
         <el-radio-group v-model="states">
           <el-radio :label="0">审核通过</el-radio>
           <el-radio :label="1">审核不通过</el-radio>
         </el-radio-group>
-        <el-input
-          v-if="states === 1" v-model="content"
-          type="textarea"
-          maxlength="1000"
-          rows="4"
-          style="margin-top:25px;"
-          placeholder="请输入理由，字数不超过 1000 ！">
+        <el-input v-if="states === 1" v-model="content" type="textarea" maxlength="1000" rows="4"
+          style="margin-top:25px;" placeholder="请输入理由，字数不超过 1000 ！">
         </el-input>
       </div>
       <template slot="footer">
@@ -132,57 +106,38 @@
       </template>
     </iep-dialog>
 
-    <iep-dialog :dialog-show="dialogModify" title="修改试题" width="500px" @close="handleModifyCancel" center>
+    <iep-dialog :dialog-show="dialogModify" title="修改试题" width="500px" @close="handleModifyCancel"
+      center>
       <el-form :label-position="labelPosition" label-width="100px" :model="reForm">
         <div class="select">
           <el-form-item style="padding-right: 25px;" label="科目：" prop="field">
             <el-select class="select" v-model="reForm.field" size="small" @change="dialogModifyChange">
-              <el-option
-                v-for="(item, index) in res.exms_subjects"
-                :key="index"
-                :label="item.label"
-                :value="item.id"
-                ></el-option>
+              <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
+                :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="题型：" prop="questionType">
             <el-select v-model="reForm.questionType" size="small" @change="dialogModifyChange">
-              <el-option
-                v-for="(item, index) in res.exms_question_type"
-                :key="index"
-                :label="item.label"
-                :value="item.id"
-              ></el-option>
+              <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label"
+                :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="题类：" prop="kind">
             <el-select v-model="reForm.kind" size="small" @change="dialogModifyChange">
-              <el-option
-                v-for="(item, index) in res.exms_question_category"
-                :key="index"
-                :label="item.label"
-                :value="item.id"
-              ></el-option>
+              <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label"
+                :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="难度：" prop="difficulty">
             <el-select v-model="reForm.difficulty" size="small" @change="dialogModifyChange">
-              <el-option
-                v-for="(item, index) in res.exms_difficulty"
-                :key="index"
-                :label="item.label"
-                :value="item.id"
-              ></el-option>
+              <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label"
+                :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="关联：" prop="associatedState">
             <el-select v-model="reForm.associatedState" size="small" @change="dialogModifyChange">
-              <el-option
-                v-for="(item, index) in associatedStateList"
-                :key="index"
-                :label="item.label"
-                :value="item.id"
-              ></el-option>
+              <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label"
+                :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="内容：" prop="title">
@@ -206,13 +161,13 @@
 
 <script>
 import AdvanceSearch from './AdvanceSearch'
-import { getTestList,deleteApprovalById,getTestOption,postExaminePass,postExamineFalse,postModify,getExamMsg } from '@/api/exam/createExam/newTest/newTest'
+import { getTestList, deleteApprovalById, getTestOption, postExaminePass, postExamineFalse, postModify, getExamMsg } from '@/api/exam/createExam/newTest/newTest'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import mixins from '@/mixins/mixins'
 
 export default {
   mixins: [mixins],
-  components: { AdvanceSearch,MutiplyTagSelect },
+  components: { AdvanceSearch, MutiplyTagSelect },
   data () {
     return {
       examine: {},//审核
@@ -236,14 +191,14 @@ export default {
         associatedState: '',
       },
       associatedStateList: [
-        {id: 0,label: '不限'},
-        {id: 1,label: '限考试'},
+        { id: 0, label: '不限' },
+        { id: 1, label: '限考试' },
       ],
     }
   },
   created () {
-    this.loadPage ()
-    this.getTestOption ()
+    this.loadPage()
+    this.getTestOption()
   },
   methods: {
     /**
@@ -270,44 +225,44 @@ export default {
     /**
      * 新增试题
      */
-    handleAdd (){
+    handleAdd () {
       // this.$router.push('/exam/createExam/newTest/')
       this.$emit('onEdit')
     },
     /**
      * 审核按钮
      */
-    handleExamine (row){
+    handleExamine (row) {
       this.dialogExamine = true
       this.examine = row.id
     },
     /**
      * 修改按钮
      */
-    handleModify (rows){
-      const param ={
+    handleModify (rows) {
+      const param = {
         id: rows.id,
       }
       this.dialogModify = true
-      getExamMsg(param).then( res => {
-        this.reForm = {...res.data.data}
+      getExamMsg(param).then(res => {
+        this.reForm = { ...res.data.data }
       })
     },
     /**
      * 删除按钮
      */
-    handleDelete (row){
-      this._handleComfirm([row.id], deleteApprovalById,'删除')
+    handleDelete (row) {
+      this._handleComfirm([row.id], deleteApprovalById, '删除')
       //console.log(row.id)
     },
     /**
      * 选择试题
      */
     handleSelectChange (val) {
-      if (val.map(m => m.id) == ''){
+      if (val.map(m => m.id) == '') {
         this.selectValue = false
       }
-      else{
+      else {
         this.selectValue = true
         this.selectionValue = val.map(m => m.id)
       }
@@ -315,17 +270,17 @@ export default {
     /**
      * 批量删除按钮
      */
-    handleDeleteAll (){
-      if (this.selectValue == false){
+    handleDeleteAll () {
+      if (this.selectValue == false) {
         this.$message.error('请至少选择一项试题！')
       }
-      if (this.selectValue == true){
-        this.$confirm('此操作将删除选中的试题，是否继续？','提示',{
+      if (this.selectValue == true) {
+        this.$confirm('此操作将删除选中的试题，是否继续？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
         }).then(() => {
-          deleteApprovalById(this.selectionValue).then( res => {
+          deleteApprovalById(this.selectionValue).then(res => {
             if (res.data.data == true) {
               this.$message({
                 message: '操作成功',
@@ -340,7 +295,7 @@ export default {
     /**
      * 修改取消
      */
-    handleModifyCancel (){
+    handleModifyCancel () {
       this.dialogModify = false
       this.states = 0
       this.content = ''
@@ -350,7 +305,7 @@ export default {
     /**
      * 审核取消
      */
-    handleExamineCancel (){
+    handleExamineCancel () {
       this.dialogExamine = false
       this.states = 0
       this.content = ''
@@ -358,24 +313,24 @@ export default {
     /**
      * 审核提交
      */
-    handleSubmit (){
-      if (this.states === 0){
+    handleSubmit () {
+      if (this.states === 0) {
         let postExaminePassList = {
           id: null,
         }
         postExaminePassList.id = this.examine
-        postExaminePass(postExaminePassList).then( res => {
+        postExaminePass(postExaminePassList).then(res => {
           if (res.data.data == true) {
             this.dialogExamine = false,
-            this.$message({
-              message: '该试题审核通过',
-              type: 'success',
-            }),
-            this.loadPage()
+              this.$message({
+                message: '该试题审核通过',
+                type: 'success',
+              }),
+              this.loadPage()
           }
         })
       }
-      if (this.states === 1 && this.content != ''){
+      if (this.states === 1 && this.content != '') {
         let postExamineFalseList = {
           id: null,
           reason: '',
@@ -383,18 +338,18 @@ export default {
         postExamineFalseList.id = this.examine
         postExamineFalseList.reason = this.content
         postExamineFalseList = JSON.stringify(postExamineFalseList)
-        postExamineFalse(postExamineFalseList).then( res => {
-          if (res.data.data == true){
+        postExamineFalse(postExamineFalseList).then(res => {
+          if (res.data.data == true) {
             this.dialogExamine = false,
-            this.$message({
-              message: '该试题审核不通过',
-              type: 'success',
-            }),
-            this.loadPage()
+              this.$message({
+                message: '该试题审核不通过',
+                type: 'success',
+              }),
+              this.loadPage()
           }
         })
       }
-      if (this.states === 1 && this.content == ''){
+      if (this.states === 1 && this.content == '') {
         this.$message({
           message: '请填写理由！',
           type: 'warning',
@@ -404,23 +359,23 @@ export default {
     /**
      * 是否修改选项
      */
-    dialogModifyChange (){
+    dialogModifyChange () {
       this.isModifyChange = false
     },
     /**
      * 保存修改
      */
-    handleModifySave (){
+    handleModifySave () {
       var postModifyList = this.reForm
       postModifyList = JSON.stringify(postModifyList)
-      postModify(postModifyList).then( res => {
+      postModify(postModifyList).then(res => {
         if (res.data.data == true) {
           this.dialogModify = false,
-          this.$message({
-            message: '修改成功',
-            type: 'success',
-          }),
-          this.loadPage()
+            this.$message({
+              message: '修改成功',
+              type: 'success',
+            }),
+            this.loadPage()
         }
       })
     },

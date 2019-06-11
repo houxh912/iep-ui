@@ -21,7 +21,7 @@
           <iep-div-detail :value="form.allocationDays"></iep-div-detail>
         </iep-form-item>
         <iep-form-item label-name="执行日期" class="form-half">
-          <iep-div-detail :value="`${parseDateYMD(form.implementStartTime)} 至 ${parseDateYMD(form.implementEndTime)}`"></iep-div-detail>
+          <iep-div-detail :value="`${parseToDay(form.implementStartTime)} 至 ${parseToDay(form.implementEndTime)}`"></iep-div-detail>
         </iep-form-item>
         <iep-form-item label-name="预计时间" class="form-half">
           <iep-div-detail :value="estimatedTime"></iep-div-detail>
@@ -89,7 +89,7 @@ export default {
       backOption: {
         isBack: true,
       },
-      parseDateYMD: this.$options.filters.parseDateYMD,
+      parseToDay: this.$options.filters.parseToDay,
     }
   },
   computed: {

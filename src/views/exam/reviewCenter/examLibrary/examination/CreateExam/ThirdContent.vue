@@ -54,12 +54,12 @@
           <el-row :gutter="40">
             <el-col :span="12">
               <el-form-item label="考试名称" prop="title">
-                <el-input v-model="examForm.title" placeholder="请输入考试名称"></el-input>
+                <el-input v-model="examForm.title" placeholder="请输入考试名称" :readonly="readOnly"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="所属科目" prop="field">
-                <el-select placeholder="请选择所属科目" v-model="examForm.field">
+                <el-select placeholder="请选择所属科目" v-model="examForm.field" :disabled="readOnly">
                   <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
                     :value="item.id"></el-option>
                 </el-select>
@@ -73,14 +73,14 @@
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="signBeginTime">
                       <iep-date-picker v-model="examForm.signBeginTime" type="datetime" placeholder="开始时间"
-                        @change="startChange(examForm.signBeginTime)"></iep-date-picker>
+                        @change="startChange(examForm.signBeginTime)" :readonly="readOnly"></iep-date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col class="line" :span="2">-</el-col>
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="signEndTime">
                       <iep-date-picker v-model="examForm.signEndTime" type="datetime" placeholder="结束时间"
-                        @change="endChange(examForm.signEndTime)"></iep-date-picker>
+                        @change="endChange(examForm.signEndTime)" :readonly="readOnly"></iep-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -88,7 +88,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="报名消耗" prop="consume">
-                <el-input v-model="examForm.consume">
+                <el-input v-model.number="examForm.consume" :readonly="readOnly">
                   <template slot="append">贝</template>
                 </el-input>
               </el-form-item>
@@ -100,19 +100,19 @@
                 <el-row>
                   <el-col :span="11" style="padding:0">
                     <iep-date-picker v-model="examForm.beginTime" type="datetime" placeholder="开始时间"
-                      @change="startChange(examForm.beginTime,'exam')"></iep-date-picker>
+                      @change="startChange(examForm.beginTime,'exam')" :readonly="readOnly"></iep-date-picker>
                   </el-col>
                   <el-col class="line" :span="2">-</el-col>
                   <el-col :span="11" style="padding:0">
                     <iep-date-picker v-model="examForm.endTime" type="datetime" placeholder="开始时间"
-                      @change="endChange(examForm.endTime,'exam')"></iep-date-picker>
+                      @change="endChange(examForm.endTime,'exam')" :readonly="readOnly"></iep-date-picker>
                   </el-col>
                 </el-row>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item label="答卷时长" prop="timeLong">
-                <el-input v-model="examForm.timeLong">
+                <el-input v-model="examForm.timeLong" :readonly="readOnly">
                   <template slot="append">
                     分
                   </template>
@@ -123,19 +123,19 @@
           <el-row :gutter="40">
             <el-col :span="12">
               <el-form-item label="及格线" prop="passScore">
-                <el-input v-model="examForm.passScore"></el-input>
+                <el-input v-model.number="examForm.passScore" :readonly="readOnly"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-row>
                 <el-col :span="12">
                   <el-form-item label="优秀线" prop="excellentLine">
-                    <el-input v-model="examForm.excellentLine"></el-input>
+                    <el-input v-model.number="examForm.excellentLine" :readonly="readOnly"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="12">
                   <el-form-item label="奖励" prop="reward">
-                    <el-input v-model="examForm.reward">
+                    <el-input v-model.number="examForm.reward" :readonly="readOnly">
                       <template slot="append">
                         贝
                       </template>
@@ -146,47 +146,49 @@
             </el-col>
           </el-row>
           <el-form-item label="考试说明" prop="description">
-            <iep-input-area v-model="examForm.description"></iep-input-area>
+            <iep-input-area v-model="examForm.description" :readonly="readOnly"></iep-input-area>
           </el-form-item>
           <hr>
           <el-form-item>
             <el-col :span="8">
               <el-form-item prop="showResult">
                 <el-switch active-text="考后显示成绩" v-model="examForm.showResult" :active-value="1"
-                  :inactive-value="0"></el-switch>
+                  :inactive-value="0" :disabled="readOnly"></el-switch>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item prop="showAnswer">
                 <el-switch active-text="考后显示答案和解析" v-model="examForm.showAnswer" :active-value="1"
-                  :inactive-value="0"></el-switch>
+                  :inactive-value="0" :disabled="readOnly"></el-switch>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item prop="showPlace">
                 <el-switch active-text="添加面试判分" v-model="examForm.showComment" :active-value="1"
-                  :inactive-value="0"></el-switch>
+                  :inactive-value="0" :disabled="readOnly"></el-switch>
               </el-form-item>
             </el-col>
           </el-form-item>
           <el-form-item label="证书信息" prop="iepCertiFicate">
-            <dialog-certificate v-model="examForm.iepCertiFicate"></dialog-certificate>
+            <dialog-certificate v-model="examForm.iepCertiFicate" :is-show-contact-btn="readOnly"></dialog-certificate>
           </el-form-item>
           <el-form-item label="结束语" prop="oncludingRemarks">
-            <iep-input-area v-model="examForm.oncludingRemarks"></iep-input-area>
+            <iep-input-area v-model="examForm.oncludingRemarks" :readonly="readOnly"></iep-input-area>
           </el-form-item>
           <hr>
           <el-form-item label="权限设置" required>
             <div class="permissionSettings">
               <el-form-item prop="operateUserids" label="报名管理&考卷管理" label-width="150px">
-                <iep-contact-multiple-user v-model="examForm.operateUserids" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+                <iep-contact-multiple-user v-model="examForm.operateUserids" :filter-user-list="filterUserList"
+                  :disabled="readOnly"></iep-contact-multiple-user>
               </el-form-item>
               <el-form-item prop="writeUserids" label="试卷审阅权限" label-width="150px">
-                <iep-contact-multiple-user v-model="examForm.writeUserids" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+                <iep-contact-multiple-user v-model="examForm.writeUserids" :filter-user-list="filterUserList"
+                  :disabled="readOnly"></iep-contact-multiple-user>
               </el-form-item>
-
-              <el-form-item prop="faceUserIds" label="面试判分权限" label-width="150px">
-                <iep-contact-multiple-user v-model="examForm.faceUserIds" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+              <el-form-item prop="faceUserIds" label="面试判分权限" label-width="150px" v-if="examForm.showComment===1">
+                <iep-contact-multiple-user v-model="examForm.faceUserIds" :filter-user-list="filterUserList"
+                  :disabled="readOnly"></iep-contact-multiple-user>
               </el-form-item>
             </div>
           </el-form-item>

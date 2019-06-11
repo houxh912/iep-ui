@@ -1,30 +1,10 @@
 <template>
   <div class="report">
-    <page-header title="创建新试题" :data="[10, 5]" :backOption="backOption"></page-header>
+    <page-header :title="`${record.methodName}试题`" :data="[10, 5]" :backOption="backOption"></page-header>
     <el-form :model="form" ref="form" label-width="110px" :rules="rules">
       <div class="select">
-        <el-form-item class="item" label="科目：" prop="field">
-          <el-select v-model="form.field" size="small" clearable :disabled="flag">
-            <el-option
-                v-for="(item, index) in res.exms_subjects"
-                :key="index"
-                :label="item.label"
-                :value="item.id"
-              ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item class="item" label="题类：" prop="kind" style="margin-left:20%;">
-          <el-select v-model="form.kind" size="small" clearable :disabled="flag">
-            <el-option
-                v-for="(item, index) in res.exms_question_category"
-                :key="index"
-                :label="item.label"
-                :value="item.id"
-              ></el-option>
-          </el-select>
-        </el-form-item>
         <el-form-item class="item" label="题型：" prop="questionType">
-          <el-select v-model="form.questionType" size="small" clearable :disabled="flag" @change="handleChangeQuestionType">
+          <el-select v-model="form.questionType" size="small" clearable @change="handleChangeQuestionType" :disabled="questionTypeDisabled">
             <el-option
                 v-for="(item, index) in res.exms_question_type"
                 :key="index"
@@ -34,7 +14,7 @@
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="难度：" prop="difficulty" style="margin-left:20%;">
-          <el-select v-model="form.difficulty" size="small" clearable :disabled="flag">
+          <el-select v-model="form.difficulty" size="small" clearable>
             <el-option
                 v-for="(item, index) in res.exms_difficulty"
                 :key="index"
@@ -43,31 +23,50 @@
               ></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item class="item" label="科目：" prop="field">
+          <el-select v-model="form.field" size="small" clearable>
+            <el-option
+                v-for="(item, index) in res.exms_subjects"
+                :key="index"
+                :label="item.label"
+                :value="item.id"
+              ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item class="item" label="题类：" prop="kind" style="margin-left:20%;">
+          <el-select v-model="form.kind" size="small" clearable>
+            <el-option
+                v-for="(item, index) in res.exms_question_category"
+                :key="index"
+                :label="item.label"
+                :value="item.id"
+              ></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item class="item" label="关联：" prop="associatedState">
-          <el-select v-model="form.associatedState" size="small" clearable :disabled="flag">
+          <el-select v-model="form.associatedState" size="small" clearable>
             <el-option
               v-for="(item, index) in associatedStateList"
               :key="index"
               :label="item.label"
-              :value="item.id">
-            </el-option>
+              :value="item.id"
+            ></el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item class="item" label="关联标签：" prop="tagLists" style="margin-left:20%;">
-          <mutiply-tag-select v-model="form.tagLists" :select-objs="form.tagsList"></mutiply-tag-select>
+        <el-form-item class="item" label="关联标签：" prop="tagKeyWords" style="margin-left:20%;">
+          <mutiply-tag-select v-model="form.tagKeyWords" :select-objs="form.tagKeyWords"></mutiply-tag-select>
         </el-form-item>
       </div>
-      
     </el-form>
+
     <div align="center" style="width:100%;margin-top:220px;">
-      <iep-button type="primary" @click="saveBothForm" style="margin:0 10px;" :disabled="flag">下一步</iep-button>
-      <iep-button @click="resSubjectset" style="margin:0 10px;" :disabled="!flag">重置</iep-button>
       <hr>
     </div>
-    <iep-tabs v-if="flag" v-model="tabName" :tab-list="tabList">
+
+    <iep-tabs v-model="tabName" :tab-list="tabList">
       <template v-if="tabName ==='Single'" v-slot:Single>
-        <single-dialog ref="single" :shortAnswer="shortAnswer"></single-dialog>
+        <single-dialog ref="single" :postAnswer="postAnswer"></single-dialog>
         <div align="center" style="margin-top:2%;">
           <iep-button type="primary" @click="submitSingle">提交</iep-button>
           <!-- <iep-button @click="saveSingle" style="margin:0 10px;">保存</iep-button> -->
@@ -85,7 +84,7 @@ import mixins from '@/mixins/mixins'
 import SingleDialog from './Single.vue'
 import BatchDialog from './Batch.vue'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
-import { getTestOption,postNewTest } from '@/api/exam/createExam/newTest/newTest'
+import { getTestOption,postNewTest,getExamMsg } from '@/api/exam/createExam/newTest/newTest'
 export default {
   name: 'report',
   mixins: [ mixins ],
@@ -94,16 +93,22 @@ export default {
     BatchDialog,
     MutiplyTagSelect,
   },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
   data () {
     return {
-      shortAnswer: '',
+      questionTypeDisabled: false,
+      postAnswer: '',
       backOption: {
         isBack: true,
         backPath: null,
         backFunction: this.handleGoBack,
       },
       res: {},
-      flag: false,
       // fieldList: ['大库','小库'],
       // kindList: ['操作题','客观题'],
       // questionTypeList: ['选择题','判断题'],
@@ -117,8 +122,8 @@ export default {
       },
       tabName: 'Single',
       associatedStateList: [
-        {id:'0',label:'不限'},
-        {id:'1',label:'限考试'},
+        {id: 0,label: '不限'},
+        {id: 1,label: '限考试'},
       ],
       tabList: [
         {
@@ -151,20 +156,46 @@ export default {
   },
   created (){
     this.getTestOption ()
+    this.getTestPaper ()
   },
   methods:{
     /**
-     *题型选到简答题时
+     * 获取试题
+     */
+    getTestPaper () {
+      const param ={
+        id: this.record.id,
+      }
+      getExamMsg(param).then( res => {
+        this.questionTypeDisabled = true
+        this.form = res.data.data
+        this.$refs.single.ruleForm = res.data.data
+        this.postAnswer = res.data.data.questionType
+        if (res.data.data.questionType == 13) {
+          var arrRadio = JSON.parse(res.data.data.titleOptions)
+          console.log(arrRadio)
+          this.$refs.single.ruleForm.radioOptions = arrRadio
+          this.$refs.single.ruleForm.radioOption = arrRadio.map(i => i.value)
+          this.$refs.single.ruleForm.inputRadioAnswer = res.data.data.answer
+        }
+        if (res.data.data.questionType == 12) {
+          this.$refs.single.ruleForm.inputCheckboxAnswer = res.data.data.answer
+        }
+        if (res.data.data.questionType == 11) {
+          this.$refs.single.ruleForm.inputJudgeAnswer = res.data.data.answer
+        }
+        if (res.data.data.questionType == 10) {
+          this.$refs.single.ruleForm.inputShortAnswer = res.data.data.answer
+        }
+        console.log('res.data.data => ',res.data.data) 
+      })
+    },
+    /**
+     *判断题型
      */
     handleChangeQuestionType (val){
-      if (val == 10) {
-        this.shortAnswer = true
-        return this.shortAnswer
-      }
-      else {
-        this.shortAnswer = false
-        return this.shortAnswer
-      }
+      // this.$refs.single.$refs['ruleForm'].resetFields ()
+      this.postAnswer = val
     },
     /**
      * 返回
@@ -179,59 +210,40 @@ export default {
     /**
      * 提交试题
      */
-    async submitSingle (){
-      if(this.$refs.single.submitForm () == true){
-        // this.$refs.single.submitForm ()
-        this.form.tag = this.form.tagLists
-        let form = this.form
-        let ruleForm = this.$refs.single.ruleForm
-        let singleBothForm = Object.assign(form,ruleForm)
-        delete singleBothForm.options
-        delete singleBothForm.tagLists
-        let postSingleBothForm = {
-          itemBankList: [],
-          tag: [],
-        }
-        postSingleBothForm.itemBankList.push(singleBothForm)
-        postSingleBothForm.tag = this.form.tag
-        postSingleBothForm = JSON.stringify(postSingleBothForm)
-        await postNewTest(postSingleBothForm).then( res => {
-          console.log(res)
-        })
-        this.$message({
-          type: 'success',
-          message: '提交成功!',
-        })
-        this.$emit('onGoBack')
-        // console.log(postSingleBothForm)
-        // this.$router.push('/exam/reviewCenter/testQuestionsLibrary/')
-      }
-    },
-    /**
-     * 保存试题选项表单
-     */
-    saveBothForm (){
-      this.$refs.form.validate(async valid => {
-        if(valid){
-          this.flag = true
-        }
-        else{
-          this.flag = false   
+    submitSingle (){
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          if(this.$refs.single.submitForm () == true){
+            // this.$refs.single.submitForm ()
+            this.form.tag = this.form.tagKeyWords
+            let form = this.form
+            let ruleForm = this.$refs.single.ruleForm
+            let singleBothForm = Object.assign(form,ruleForm)
+            delete singleBothForm.options
+            delete singleBothForm.tagKeyWords
+            let postSingleBothForm = {
+              itemBankList: [],
+              tag: [],
+            }
+            postSingleBothForm.itemBankList.push(singleBothForm)
+            postSingleBothForm.tag = this.form.tag
+            postSingleBothForm = JSON.stringify(postSingleBothForm)
+            postNewTest(postSingleBothForm).then( res => {
+              if (res.data.data == true) {
+                this.$message({
+                  type: 'success',
+                  message: '提交成功!',
+                })
+                this.$emit('onGoBack')
+              }
+            })
+            
+            // console.log(postSingleBothForm)
+            // this.$router.push('/exam/reviewCenter/testQuestionsLibrary/')
+          }
         }
       })
-      return this.flag
-    },
-    /**
-     * 重置试题选项表单
-     */
-    resSubjectset (){
-      this.form.field = ''
-      this.form.kind = ''
-      this.form.questionType = ''
-      this.form.difficulty = ''
-      this.form.associatedState = ''
-      this.form.tagLists = []
-      this.flag = false
+      
     },
     /**
      * 获取试题数据

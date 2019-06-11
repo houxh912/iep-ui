@@ -57,12 +57,16 @@
       <el-row>
         <el-col :span='12'>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <iep-select prefix-url="crm/customer/myorcolllabel" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)" placeholder="请选择该项目实际服务对象"></iep-select>
+            <!-- <iep-select prefix-url="crm/customer/myorcolllabel" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)" placeholder="请选择该项目实际服务对象"></iep-select> -->
+            <IepCrmsSelect v-model="formData.companyOrgId" :option="[formData.companyName]" prefixUrl="crm/customer/myorcoll/list" @change="clientChange">
+            </IepCrmsSelect>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
-            <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId" placeholder="请选择实际与我司签订合同的单位"></iep-select>
+            <!-- <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId" placeholder="请选择实际与我司签订合同的单位"></iep-select> -->
+            <IepCrmsSelect v-model="formData.signCompanyOrgId" :option="[formData.signCompanyRealName]" prefixUrl="crm/customer/all/list">
+            </IepCrmsSelect>
           </el-form-item>
         </el-col>
       </el-row>
@@ -84,8 +88,9 @@
       </el-row>
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="市场经理：" prop="Manager">
-            <el-input v-model="formData.Manager" disabled></el-input>
+          <el-form-item label="市场经理：" prop="directorList">
+            <!-- <el-input v-model="formData.Manager" disabled></el-input> -->
+            <iep-contact-select v-model="formData.directorList"></iep-contact-select>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
@@ -132,9 +137,10 @@ import FooterToolbar from '@/components/FooterToolbar/'
 import { mapGetters } from 'vuex'
 import { getDataById } from '@/api/crms/contract'
 import { getMarket } from '@/api/crms/customer'
-import { getObj } from '@/api/admin/user'
+// import { getObj } from '@/api/admin/user'
 import businessType from './businessType'
 import projectDialog from './projectRelation'
+import { getManeger } from '@/api/mlms/material/datum/contract'
 const tipContent = {
   contractName: '合同签订日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”',
   contractExpl: '1、合同说明：请详细说明签订合同时承诺客户或需要注意的地方；<br>2、收款方式：付款周期+付款方式，如三期付款+对公;<br>3、开票资料信息。',
@@ -154,6 +160,7 @@ export default {
     return {
       tipContent,
       dialogShow: false,
+      directorList: [],
       methodName: '',
       formRequestFn: () => { },
       formData: initFormData(),
@@ -192,9 +199,13 @@ export default {
         this.formData.projectName = res.data.data.projectRelation.name
         this.formData.projectId = res.data.data.projectRelation.id
         this.formData.underTakeDeptId = res.data.data.underTakeDeptName.map(m => m.id)
-        getObj(this.formData.directorId).then(res => {
-          this.$set(this.formData, 'Manager', res.data.data.realName)
-        })
+        this.formData.directorList = {
+          id: res.data.data.directorId,
+          name: res.data.data.directorRealName,
+        }
+        // getObj(this.formData.directorId).then(res => {
+        //   this.$set(this.formData, 'Manager', res.data.data.realName)
+        // })
       })
     }
   },
@@ -214,6 +225,23 @@ export default {
       getMarket({ clientId: val }).then((res) => {
         this.formData.directorId = res.data.data.id
         this.formData.Manager = res.data.data.name
+      })
+    },
+    // 根据委托单位查询市场经理
+    clientChange (val) {
+      getManeger(val).then(({ data }) => {
+        // if (data.data) {
+        //   this.formData.directorRealName = data.data.name
+        //   this.formData.directorId = data.data.id
+        // } else {
+        //   this.formData.directorRealName = ''
+        //   this.formData.directorId = ''
+        // }
+        if (data.data) {
+          this.$set(this.formData, 'directorList', { id: data.data.id, name: data.data.name })
+        } else {
+          this.$set(this.formData, 'directorList', { id: '', name: '' })
+        }
       })
     },
     submitForm (formName) {

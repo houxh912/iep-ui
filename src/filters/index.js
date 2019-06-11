@@ -1,42 +1,34 @@
 import moment from 'moment'
 
-function parseDate (date) {
-  return new Date(date)
+function parseDate (date, formatString) {
+  if(moment(date).isValid()) {
+    return moment(date).format(formatString)
+  } else {
+    return null
+  }
 }
+
 export function parseToTimeSeconds (time) {
-  let newDate = parseDate(time)
-  return moment(newDate).format('YYYY-MM-DD HH:mm:ss')
+  return parseDate(time, 'YYYY-MM-DD HH:mm:ss')
 }
 export function parseToTimeMinutes (time) {
-  let newDate = parseDate(time)
-  return moment(newDate).format('YYYY-MM-DD HH:mm')
+  return parseDate(time, 'YYYY-MM-DD HH:mm')
 }
 export function parseToDay (time) {
-  let newDate = parseDate(time)
-  return moment(newDate).format('YYYY-MM-DD')
-
+  return parseDate(time, 'YYYY-MM-DD')
 }
 export function parseToMonth (time) {
-  let newDate = parseDate(time)
-  return moment(newDate).format('YYYY-MM')
+  return parseDate(time, 'YYYY-MM')
 }
-
 export function parseToYear (time) {
-  let newDate = parseDate(time)
-  return moment(newDate).format('YYYY')
+  return parseDate(time, 'YYYY')
 }
 export function parseToMonthDay (time) {
-  let newDate = parseDate(time)
-  return moment(newDate).format('MM-DD')
+  return parseDate(time, 'MM-DD')
 }
 
 export function formatTime (time) {
-  let newDate = parseDate(time)
-  return moment(newDate).fromNow()
-}
-
-export function parseDateYMD (time) {
-  return moment(time).format('YYYY-MM-DD')
+  return moment(time).fromNow()
 }
 
 export function parseToMoney (money) {

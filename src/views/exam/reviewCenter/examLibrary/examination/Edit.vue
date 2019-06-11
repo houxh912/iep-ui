@@ -8,7 +8,7 @@
         </a-steps>
         <keep-alive>
           <component :is="steps[current].content" :data="steps[current].data" @on-data="steps[current].onData"
-            @prev="prev" @back-list="back" :ref="steps[current].content"></component>
+            @prev="prev" :ref="steps[current].content"></component>
         </keep-alive>
       </div>
     </basic-container>
@@ -41,8 +41,8 @@ export default {
     return {
       backOption: {
         isBack: true,
-        backPath: null,
-        backFunction: this.handleGoBack,
+        backPath: '',
+        backFunction: this.record.methodName === '查看' ? this.handleBack : this.handleGoBack,
       },
       current: 0,
       steps: [{
@@ -73,7 +73,7 @@ export default {
       this.steps[this.current].data = data
     },
     handleBack () {
-      this.back()
+      this.$emit('onGoBack')
     },
     next () {
       this.current++
@@ -81,9 +81,6 @@ export default {
     prev (data) {
       this.current--
       this.steps[this.current].data = data
-    },
-    back () {
-      this.$emit('onGoBack')
     },
     handleGoBack () {
       this.$confirm('此操作将不会自动保存考试,是否继续？', '提示', {

@@ -9,7 +9,6 @@ export function getOrgBorrowPage (query) {
     method: 'get',
     params: {
       ...query,
-      borrowObjectType: 1,
     },
   })
 }

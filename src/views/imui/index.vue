@@ -7,7 +7,7 @@
       :currentChat="currentChat"
       @chatChange="chatChange"
       @sendMessage="sendMessage"
-      @chatAllClose="chatShow = false"
+      @chatAllClose="chatAllClose"
       @chatClose="chatClose"></chat-box>
   </div>
 </template>
@@ -136,6 +136,10 @@ export default {
           return
         }
       }
+    },
+    chatAllClose () {
+      this.chatShow = false
+      this.currentChat = {}
     },
   },
 }

@@ -99,7 +99,7 @@
                 <el-form-item label="已选试题:" style="width:100%" label-width="75px"></el-form-item>
                 <el-table :data="item.iepItemBankList" :header-cell-style="getRowClass" class="questionTable"
                   border style="width: 100%; margin-bottom: 10px;">
-                  <el-table-column type="index"></el-table-column>
+                  <el-table-column type="index" align="center"></el-table-column>
                   <el-table-column prop="title" label="内容">
                     <template slot-scope="scope">
                       {{scope.row.title}}
@@ -209,7 +209,7 @@
 
         <el-form-item label="每题" prop="single">
           <el-col :span="7">
-            <iep-input-number controls-position="right" :min="0" v-model="form.single" style="width:100%"></iep-input-number>
+            <iep-input-number controls-position="right" :min="1" v-model="form.single" style="width:100%"></iep-input-number>
           </el-col>
           <el-col :span="3">
             <span style="border-right: 1px solid #c0c4cc;">分</span>
@@ -248,7 +248,7 @@
         <el-form-item label="题型说明" prop="qstnDescribe" v-if="form.type==3">
           <iep-input-area placeholder="请输入题型说明" :autosize={minRows:2,maxRows:6} v-model="form.qstnDescribe"></iep-input-area>
         </el-form-item>
-        <el-form-item v-if="form.configurationState==='0'" prop="iepItemBankList">
+        <el-form-item v-if="form.configurationState==='0'" prop="iepItemBankList" label-width="20px">
           <dialog-question-table v-model="form.iepItemBankList" :questionType="form.type"
             :fieldType="form.field" ref="table" @show-number="showNumber"></dialog-question-table>
         </el-form-item>

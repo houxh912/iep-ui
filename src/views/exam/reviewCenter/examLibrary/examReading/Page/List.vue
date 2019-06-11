@@ -37,7 +37,7 @@
       </el-table-column>
     </iep-table>
 
-    <iep-dialog :dialog-show="dialogProgress" title="阅卷进度" width="1000px" @close="loadPage()" center>
+    <iep-dialog :dialog-show="dialogProgress" title="阅卷进度" width="900px" @close="loadPage()" center>
       <progress-form :formData="InterviewData" @close="loadPage()"></progress-form>
     </iep-dialog>
 

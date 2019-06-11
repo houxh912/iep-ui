@@ -89,7 +89,7 @@
                         <iep-button type="primary" disabled v-if="item.examStatus === 0">报名审核中</iep-button>
                         <iep-button type="primary" disabled v-if="item.examStatus === 1 && item.status === 1">报名审核不通过</iep-button>
                         <iep-button type="primary" disabled v-if="item.examStatus === 3">已交卷</iep-button>
-                        <iep-button type="primary" v-if="item.examStatus === 8">查看成绩</iep-button>
+                        <iep-button type="primary" v-if="item.examStatus === 8" @click="handleExamine(item)">查看成绩</iep-button>
                       </div>
                     </div>
                   </el-card>
@@ -282,6 +282,13 @@ export default {
       this.$refs['SignDialog'].explainList = item.description
       this.$refs['SignDialog'].consume = item.consume
       this.$refs['SignDialog'].examId = item.id
+    },
+
+    /**
+     * 查看成绩
+     */
+    handleExamine (item) {
+      this.$emit('onExamine', item)
     },
     /**
      * 报名成功重新加载

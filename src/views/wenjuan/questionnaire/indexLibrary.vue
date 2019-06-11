@@ -43,7 +43,7 @@ export default {
   mixins: [mixin, currentMixin],
   data () {
     return {
-
+      previewData: [],
     }
   },
   created () {

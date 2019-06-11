@@ -3,7 +3,7 @@ import isArray from 'lodash/isArray'
 import isPlainObject from 'lodash/isPlainObject'
 
 export function getDicAll () {
-  return getStore({name: 'dicList'})
+  return getStore({name: 'dictGroup'})
 }
 
 function getDeptAll () {

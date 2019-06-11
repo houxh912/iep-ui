@@ -15,19 +15,17 @@ export default {
 </script>
 
 <style lang="scss">
-  .main-layout {
-    padding: 0 20px;
-    .main-container {
-      border-radius: 6px;
-      margin: 0 -20px;
-      padding: 0 20px;
-      background-color: #eee;
-      max-height: calc(100vh - 60px);
-    }
-    .main-wrapper {
-      background: #fff;
-      padding: 20px;
-      border-radius: 4px;
-    }
+.main-layout {
+  padding: 0 20px;
+  .main-container {
+    border-radius: 6px;
+    margin: 0 -20px;
+    background-color: #eee;
   }
+  .main-wrapper {
+    background: #fff;
+    padding: 20px;
+    border-radius: 4px;
+  }
+}
 </style>

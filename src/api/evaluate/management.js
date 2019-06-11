@@ -1,4 +1,4 @@
-import request from '@/views/wenjuan/router/request'
+import request from '@/router/axios'
 const queryUrl = '/evaluate/evaluateintegratedreview'
 
 //获取指标体系内容

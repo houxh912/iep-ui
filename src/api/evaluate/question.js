@@ -1,4 +1,4 @@
-import request from '@/views/wenjuan/router/request'
+import request from '@/router/axios'
 const queryUrl = '/question/dna_questionnaire'
 
 export function createData (data) {

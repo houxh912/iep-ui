@@ -238,9 +238,9 @@ export default {
     },
     searchOption () {
       return [
-        { label: '问卷名称', prop: 'name'},
-        { label: '问卷类型', prop: 'type', type: 'select', data: getDic('QUESTION_TYPE')  },
-        { label: '问卷状态', prop: 'status', type: 'select', data: getDic('QUESTION_STATUS')  },
+        { label: '问卷名称', prop: 'name', change: ()=> {}},
+        { label: '问卷类型', prop: 'type', type: 'select', data: getDic('QUESTION_TYPE'), change: ()=> {}  },
+        { label: '问卷状态', prop: 'status', type: 'select', data: getDic('QUESTION_STATUS'), change: ()=> {} },
       ]
     },
     searchOptionMy () {

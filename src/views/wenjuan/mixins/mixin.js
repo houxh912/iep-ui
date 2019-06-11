@@ -6,33 +6,10 @@ import isPlainObject from 'lodash/isPlainObject'
 import isString from 'lodash/isString'
 import cloneDeep from 'lodash/cloneDeep'
 import { mapGetters } from 'vuex'
-import GovButton from '@/views/wenjuan/components/govButton/index'
-import GovSearchBar from '@/views/wenjuan/components/govSearchBar/index'
-import GovDialog from '@/views/wenjuan/components/govDialog/index'
-import GovLayout from '@/views/wenjuan/components/govLayout'
-import GovDialogImport from '@/views/wenjuan/components/govDialogImport'
-import GovDialogExport from '@/views/wenjuan/components/govDialogExport'
-import GovDetailForm from '@/views/wenjuan/components/govDetailForm'
-import GovSmartTag from '@/views/wenjuan/components/govSmartTag'
 
 export default {
-  components: {
-    GovButton,
-    GovSearchBar,
-    GovDialog,
-    GovLayoutBody: GovLayout.GovLayoutBody,
-    GovLayoutButtonGroup: GovLayout.GovLayoutButtonGroup,
-    GovLayoutDialog: GovLayout.GovLayoutDialog,
-    GovLayoutForm: GovLayout.GovLayoutForm,
-    GovLayoutHeader: GovLayout.GovLayoutHeader,
-    GovLayoutMain: GovLayout.GovLayoutMain,
-    GovDialogImport,
-    GovDialogExport,
-    GovDetailForm,
-    GovSmartTag,
-  },
   computed: {
-    ...mapGetters(['permissions', 'dicList', 'userInfo']),
+    ...mapGetters(['permissions', 'dictGroup', 'userInfo']),
   },
   props: {
     // 弹窗状态值
@@ -304,7 +281,7 @@ export default {
         console.warn('字典名不能为空')
         return []
       }
-      return this.dicList[name]
+      return this.dictGroup[name]
     },
     // 添加全部
     setAll (data) {
@@ -318,11 +295,11 @@ export default {
       })
     },
     // table添加字典
-    setTableDicList (tableData, dicList) {
-      for (let j = 0, len1 = dicList.length; j < len1; j++) {
+    setTableDicList (tableData, dictGroup) {
+      for (let j = 0, len1 = dictGroup.length; j < len1; j++) {
         for (let i = 0, len = tableData.length; i < len; i++) {
-          if (tableData[i].prop === dicList[j].name) {
-            this.$set(tableData[i], 'dicData', this.getDic(dicList[j].dicName))
+          if (tableData[i].prop === dictGroup[j].name) {
+            this.$set(tableData[i], 'dicData', this.getDic(dictGroup[j].dicName))
             break
           }
         }

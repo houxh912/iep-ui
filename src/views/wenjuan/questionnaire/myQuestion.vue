@@ -35,7 +35,8 @@ export default {
   data () {
     return {
       disableStatus: false,
-      answeredList: []
+      answeredList: [],
+      previewData: [],
     }
   },
   created () {

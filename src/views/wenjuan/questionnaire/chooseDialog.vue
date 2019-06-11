@@ -29,6 +29,7 @@ export default {
   components: { previewDialog },
   data () {
     return {
+      previewData: [],
     }
   },
   computed: {

@@ -4,6 +4,7 @@ import '@/core/components_use'
 import '@/core/custom_use'
 import '@/core/editor_use'
 import '@/core/charts_use'
+import '@/core/gov_use'
 
 import '@/styles/common.scss'
 

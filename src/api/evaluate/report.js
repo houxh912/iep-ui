@@ -1,4 +1,4 @@
-import request from '@/views/wenjuan/router/request'
+import request from '@/router/axios'
 
 //获取评测说明
 export function getEvaluatingDescription (query) {

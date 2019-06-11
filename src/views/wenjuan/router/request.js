@@ -1,6 +1,5 @@
 import axios from 'axios'
 import store from '@/store'
-import { getToken } from '@/views/wenjuan/util/auth'
 import { Message } from 'element-ui'
 import errorCode from '@/views/wenjuan/config/errorCode'
 import Qs from 'qs'
@@ -20,7 +19,7 @@ $http.interceptors.request.use(config => {
     }
   }
   if (store.getters.access_token) {
-    config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
+    config.headers['Authorization'] = 'Bearer ' + store.getters.access_token // 让每个请求携带token--['X-Token']为自定义key 请根据实际情况自行修改
   }
   return config
 }, error => {

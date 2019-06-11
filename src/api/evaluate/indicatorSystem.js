@@ -1,4 +1,4 @@
-import request from '@/views/wenjuan/router/request'
+import request from '@/router/axios'
 import exportDownload from '@/util/export'
 const queryUrl = '/evaluate'
 

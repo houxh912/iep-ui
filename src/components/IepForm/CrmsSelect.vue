@@ -1,19 +1,26 @@
 <template>
-  <div>
-    <el-select
-    v-model="selectValue"
-    filterable
-    remote
-    placeholder="请输入关键词"
-    :remote-method="remoteMethod"
-    :loading="loading">
-    <el-option
-      v-for="item in options"
-      :key="item.clientId"
-      :label="item.clientName"
-      :value="item.clientId">
-    </el-option>
-  </el-select>
+  <div class="crms-select">
+    <div class="crms-option">
+      <el-select
+        v-model="selectValue"
+        filterable
+        remote
+        placeholder="请输入关键词"
+        :remote-method="remoteMethod"
+        :loading="loading"
+        size="small">
+        <el-option
+          v-for="item in options"
+          :key="item.clientId"
+          :label="item.clientName"
+          :value="item.clientId">
+        </el-option>
+      </el-select>
+    </div>
+    <div class="crms-button">
+      <!-- <el-button size="small" @click="selectClose"><i class="el-icon-close"></i></el-button> -->
+      <a-button icon="close" @click="selectClose"></a-button>
+    </div>
   </div>
 </template>
 
@@ -63,6 +70,9 @@ export default {
         this.loading = false
       })
     },
+    selectClose () {
+      this.selectValue = ''
+    },
   },
   mounted () {
     this.selectValue = this.value
@@ -82,3 +92,19 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.crms-select {
+  display: flex;
+  .crms-option {
+    flex: 1;
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+  .crms-button {
+    button:hover {
+      background-color: #fff;
+    }
+  }
+}
+</style>

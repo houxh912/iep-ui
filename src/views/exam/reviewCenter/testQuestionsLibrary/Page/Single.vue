@@ -59,7 +59,7 @@
       </iep-button>
 
 
-      <el-form-item class="item" label="答案：" prop="inputRadioAnswer" v-show="postAnswer == 13">
+      <el-form-item class="item" label="答案：" prop="inputRadioAnswer" v-if="postAnswer == 13">
         <el-select v-model="ruleForm.inputRadioAnswer" clearable size="small" placeholder="请选择答案">
           <el-option
             v-for="(item, index) in ruleForm.radioOption"
@@ -69,7 +69,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item class="item" label="答案：" prop="inputCheckboxAnswer" v-show="postAnswer == 12">
+      <el-form-item class="item" label="答案：" prop="inputCheckboxAnswer" v-if="postAnswer == 12">
         <el-select multiple v-model="ruleForm.inputCheckboxAnswer" clearable size="small" placeholder="请选择答案">
           <el-option
             v-for="(item, index) in ruleForm.checkboxOption"
@@ -79,7 +79,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item class="item" label="答案：" prop="inputJudgeAnswer" v-show="postAnswer == 11">
+      <el-form-item class="item" label="答案：" prop="inputJudgeAnswer" v-if="postAnswer == 11">
         <el-select v-model="ruleForm.inputJudgeAnswer" clearable size="small" placeholder="请选择答案">
           <el-option
             v-for="(item, index) in judgeStateList"
@@ -89,7 +89,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="答案：" prop="inputShortAnswer" v-show="postAnswer == 10">
+      <el-form-item label="答案：" prop="inputShortAnswer" v-if="postAnswer == 10">
         <el-input type="textarea" rows="3" v-model="ruleForm.inputShortAnswer" placeholder="请填写答案" style="width:89%;"></el-input>
       </el-form-item>
       <el-form-item label="解析：" prop="analysis">
@@ -144,10 +144,22 @@ export default {
         title: [
           { required: true, message: '请填写题目', trigger: 'blur' },
         ],
+        inputRadioAnswer: [
+          { required: true, message: '请填写题目', trigger: 'change' },
+        ],
+        inputCheckboxAnswer: [
+          { required: true, message: '请填写题目', trigger: 'change' },
+        ],
+        inputJudgeAnswer: [
+          { required: true, message: '请填写题目', trigger: 'change' },
+        ],
+        inputShortAnswer: [
+          { required: true, message: '请填写题目', trigger: 'blur' },
+        ],
       },
       judgeStateList: [
-        {id: '0',label: '正确'},
-        {id: '1',label: '错误'},
+        {id: '正确',label: '正确'},
+        {id: '错误',label: '错误'},
       ],
     }
   },
@@ -167,7 +179,6 @@ export default {
     //     }
     //   })
     // },
-    
     /**
      * 提交
      */
@@ -182,6 +193,12 @@ export default {
             }
             this.ruleForm.titleOptions = JSON.stringify(this.ruleForm.radioOptions).toString()
             this.ruleForm.answer = this.ruleForm.inputRadioAnswer
+            if (this.ruleForm.inputRadioAnswer.length == 0) {
+              this.$message.error('请输入答案！')
+              flag = false
+            }
+            else
+              flag = true
           }
           if (this.postAnswer == 12) {
             const checkboxOptions = this.ruleForm.checkboxOptions
@@ -189,16 +206,34 @@ export default {
               this.ruleForm.checkboxOptions[index].key = this.chooseOption[index]
             }
             this.ruleForm.titleOptions = JSON.stringify(this.ruleForm.checkboxOptions).toString()
-            this.ruleForm.answer = this.ruleForm.inputCheckboxAnswer
+            this.ruleForm.answer = JSON.stringify(this.ruleForm.inputCheckboxAnswer).toString()
+            if (this.ruleForm.inputCheckboxAnswer.length == 0) {
+              this.$message.error('请输入答案！')
+              flag = false
+            }
+            else
+              flag = true
           }
           if (this.postAnswer == 11) {
             this.ruleForm.answer = this.ruleForm.inputJudgeAnswer
+            if (this.ruleForm.inputJudgeAnswer.length == 0) {
+              this.$message.error('请输入答案！')
+              flag = false
+            }
+            else
+              flag = true
           }
           if (this.postAnswer == 10) {
             this.ruleForm.answer = this.ruleForm.inputShortAnswer
+            if (this.ruleForm.inputShortAnswer,length == 0) {
+              this.$message.error('请输入答案！')
+              flag = false
+            }
+            else
+              flag = true
           }
           // console.log(this.ruleForm)
-          flag = true
+          // flag = true
         } else {
           // console.log('error submit!!')
           flag = false

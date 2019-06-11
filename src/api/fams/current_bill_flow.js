@@ -10,3 +10,10 @@ export function getCurrentBillFlowPage (query) {
     params: query,
   })
 }
+export function getAllCurrentBillFlowPage (query) {
+  return request({
+    url: `${prefixUrl}/all/page`,
+    method: 'get',
+    params: query,
+  })
+}

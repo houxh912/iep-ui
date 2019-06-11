@@ -3,6 +3,12 @@
     <basic-container>
       <page-header title="流水详情" :backOption="backOption">
       </page-header>
+      <operation-container>
+        <template slot="right">
+          <operation-search @search-page="searchPage" prop="targetName">
+          </operation-search>
+        </template>
+      </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       </iep-table>
     </basic-container>
@@ -43,6 +49,10 @@ export default {
         {
           prop: 'amount',
           label: '国脉贝',
+        },
+        {
+          prop: 'createTime',
+          label: '操作时间',
         },
       ],
       form: initForm(),

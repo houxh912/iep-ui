@@ -122,7 +122,7 @@ export default {
       padding: 0 10px;
       border: 0;
       .sub-menu {
-        padding: 4px 15px;
+        padding: 4px 10px;
         transition: all 0.5s;
         font-size: 16px;
         .nav-bar {

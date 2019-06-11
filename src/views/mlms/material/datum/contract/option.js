@@ -53,7 +53,7 @@ export const initFormData = () => {
   return {
     contractName: '',
     contractExpl: '',
-    contractType: '', // 合同类型
+    contractType: '1', // 合同类型
     businessType: '',
     tagKeyWords: [],
     signTime: '',

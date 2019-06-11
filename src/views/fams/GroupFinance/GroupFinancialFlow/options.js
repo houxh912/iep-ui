@@ -16,11 +16,11 @@ const columnsMap = [
 		type: 'dict',
 	},
 	{
-		prop: 'borrowMoneyType',
+		prop: 'targetName',
 		label: '操作对象',
 	},
 	{
-		prop: 'borrowMoneyType',
+		prop: 'userName',
 		label: '操作人',
 	},
 	{

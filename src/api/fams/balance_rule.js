@@ -25,6 +25,16 @@ export function getBellBalancePage (query) {
   })
 }
 
+export function getBellBalancePageById (id) {
+  return function (query) {
+    return request({
+      url: `${prefixUrl}/page/${id}`,
+      method: 'get',
+      params: query,
+    })
+  }
+}
+
 export function getBellBalanceById (id) {
   return request({
     url: `${prefixUrl}/${id}`,

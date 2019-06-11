@@ -53,6 +53,7 @@ const rules = {
   tags: [{ required: true, message: '请添加商机标签', trigger: 'blur' }],
   opportunityDes: [
     { required: true, message: '请输入商机描述', trigger: 'blur' },
+    { max: 500, message: '长度不超过500个字符', trigger: 'blur' },
   ],
 }
 const initBusinessForm = () => {

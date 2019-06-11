@@ -24,7 +24,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')">分享</iep-button>
+      <iep-button type="primary" @click="submitForm('form')" :loading="loadState">分享</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
     </template>
   </iep-dialog>
@@ -50,6 +50,7 @@ export default {
       formData: initShareForm(),
       list: [],
       shareType,
+      loadState: false,
     }
   },
   methods: {
@@ -68,11 +69,13 @@ export default {
       this.formData.receiverIds = this.formData.receiverList.users.map(m => m.id)
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.loadState = true
           createEmail(this.formData).then(() => {
             this.$message({
               message: '分享成功',
               type: 'success',
             })
+            this.loadState = false
             this.loadPage()
             this.dialogShow = false
           })

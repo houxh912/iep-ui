@@ -14,7 +14,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
+      <iep-button type="primary" @click="submitForm('form')" :loading="loadState">{{methodName}}</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
     </template>
   </iep-dialog>
@@ -38,6 +38,7 @@ export default {
       methodName: '发送',
       formData: initWrongForm(),
       list: [],
+      loadState: false,
     }
   },
   methods: {
@@ -51,11 +52,13 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.loadState = true
           createEmail(this.formData).then(() => {
             this.$message({
               message: `${this.methodName}成功`,
               type: 'success',
             })
+            this.loadState = false
             this.loadPage()
             this.dialogShow = false
           })

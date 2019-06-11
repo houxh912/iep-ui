@@ -40,6 +40,6 @@ export const formList = [
   { label: '客户名称：', value: 'relatedClientName' },
   // { label: '业务类型：', value: 'businessType', type: 'dict' },
   // { label: '合同金额', value: 'contractAmount' },
-  { label: '项目预算（万元）：', value: 'projectBudget' },
+  { label: '项目预算（元）：', value: 'projectBudget' },
   { label: '是否关联产品：', value: 'isRelevanceProduct', type: 'dict' },
 ]

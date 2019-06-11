@@ -188,7 +188,7 @@ export default {
           }
           if (this.postAnswer == 10) {
             this.ruleForm.answer = this.ruleForm.inputShortAnswer
-            if (this.ruleForm.inputShortAnswer, length == 0) {
+            if (this.ruleForm.inputShortAnswer.length == 0) {
               this.$message.error('请输入答案！')
               flag = false
             }

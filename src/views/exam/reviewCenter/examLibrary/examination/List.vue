@@ -59,7 +59,7 @@
             <el-tag type="warning" size="medium" v-if="scope.row.state === 1">禁用</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="username" label="创建人">
+        <el-table-column prop="username" label="创建者">
           <template slot-scope="scope">
             {{scope.row.username}}
           </template>
@@ -73,7 +73,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button type="warning" size="small" plain @click="handleDetail(scope.row)">查看</iep-button>
+              <iep-button size="small" @click="handleDetail(scope.row)">查看</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">

@@ -219,8 +219,8 @@ export default {
         params.userAnswer = this.answerRadio
       }
       if (type === '复选题') {
-        params.userAnswer = this.checksList.length > 1 ? JSON.stringify(this.checksList) : ''
-        console.log('uuuu', params.userAnswer)
+        params.userAnswer = this.checksList.length > 0 ? JSON.stringify(this.checksList) : ''
+        // console.log('111', params.userAnswer)
       }
       if (type === '判断题') {
         params.userAnswer = this.trueOrFalseRadio
@@ -263,7 +263,9 @@ export default {
             }
 
             if (record.questionTypeName === '复选题') {
-              this.checksList = JSON.parse(record.userAnswer)
+              console.log('222', this.checksList)
+              this.checksList = record.userAnswer && record.userAnswer.length > 0 ? JSON.parse(record.userAnswer) : []
+              console.log('333', this.checksList)
               this.resdata.kindTotalNum = record.questionNumList.checkboxMap.length
               this.resdata.kindMark = record.questionNumList.checkboxMap[0].grade * this.resdata.kindTotalNum
             }
@@ -424,7 +426,6 @@ export default {
         questionNum: item.questionNum,
       }
       this.judgeType(params)
-      console.log('33', params)
       this.getSubjectById(params)
     },
 

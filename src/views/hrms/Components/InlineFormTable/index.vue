@@ -119,6 +119,7 @@ export default {
             this.$emit('load-page')
           } else {
             this.$message(data.msg)
+            this.initData()
           }
         })
       } else {
@@ -127,6 +128,7 @@ export default {
             this.$emit('load-page')
           } else {
             this.$message(data.msg)
+            this.initData()
           }
         })
       }

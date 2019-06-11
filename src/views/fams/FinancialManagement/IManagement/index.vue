@@ -14,7 +14,7 @@
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
         <template slot="before-columns">
           <el-table-column label="时间">
-            <template slot-scope="scope">{{scope.row.createTime | parseDateYMD}}</template>
+            <template slot-scope="scope">{{scope.row.createTime | parseToDay}}</template>
           </el-table-column>
         </template>
       </iep-table>

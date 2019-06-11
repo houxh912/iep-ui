@@ -1,6 +1,6 @@
 <template>
   <div class="staff-report">
-    <leader-top></leader-top>
+    <leader-top @select="select"></leader-top>
     <basic-container>
       <span class="btn" @click="handleReturn">返回</span>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
@@ -33,7 +33,7 @@ export default {
         label: '员工月报',
         value: 'StaffMonth',
       }],
-      activeTab: 'StaffWeek',
+      activeTab: '',
     }
   },
   mounted () {
@@ -42,6 +42,9 @@ export default {
   methods:{
     handleReturn () {
       this.$router.push('/wel/desktop')
+    },
+    select (selectName) {
+      this.activeTab = selectName
     },
   },
 }

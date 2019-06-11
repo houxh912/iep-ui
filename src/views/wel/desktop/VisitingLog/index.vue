@@ -1,6 +1,7 @@
 <template>
     <div class="visiting-log">
       <leader-top></leader-top>
+      <iep-to-dev></iep-to-dev>
     </div>
 </template>
 <script>

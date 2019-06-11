@@ -11,8 +11,7 @@
               <template slot="title">
                 <span>国脉人</span>
               </template>
-              <!-- <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in imsMsgType" @click.native="handleSelectType(item.value+'')"> -->
-              <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in allPeople">
+              <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in allPeople" @click.native="handleAllPeople()">
                 <span>{{item.label}}</span>
                 <!-- <el-badge v-if="typeCountMap[item.value]" class="mark" type="primary" :value="typeCountMap[item.value]" /> -->
               </el-menu-item>
@@ -54,7 +53,7 @@
             <template slot-scope="scope">
               <operation-wrapper>
                 <iep-button type="warning" v-show="mark==''" plain @click="handleadd(scope.row)">添加</iep-button>
-                <iep-button v-show="mark=='group'" plain @click="handleRemove(scope.row)">移除</iep-button>
+                <iep-button v-show="mark=='group'" plain @click="handleRemove(scope.row,scope.row)">移除</iep-button>
               </operation-wrapper>
             </template>
           </el-table-column>
@@ -62,18 +61,21 @@
       </el-col>
     </el-row>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+    <add-dialog-form ref="AddDialogForm" @load-page="loadPage"></add-dialog-form>
   </div>
 </template>
 <script>
-import { getRelationshipManagePage, getTypeCountMap, getRelationshipList, putRelationshipList, joinRelationship, deleteRelationshipList } from '@/api/wel/relationship_manage'
+import { getRelationshipManagePage, getTypeCountMap, getRelationshipList, putRelationshipList, joinRelationship, deleteRelationshipList, joinGroup, removeRelationshipById } from '@/api/wel/relationship_manage'
 import mixins from '@/mixins/mixins'
+import formMixins from '@/mixins/formMixins'
 import { columnsMap, dictsMap, initForm } from './options'
 import DialogForm from './DialogForm'
+import AddDialogForm from './AddDialogForm'
 // import AdvanceSearch from './AdvanceSearch'
 export default {
-  mixins: [mixins],
+  mixins: [mixins,formMixins],
   // components: { AdvanceSearch },
-  components: { DialogForm },
+  components: { DialogForm, AddDialogForm },
   data () {
     return {
       dictsMap,
@@ -85,9 +87,9 @@ export default {
       typeCountMap: {},
       selectType: ['1','2'],
       allPeople:[
-        {value:0,label:'按岗位信息'},
-        {value:1,label:'按职务信息'},
-        {value:2,label:'按职称信息'},
+        {value:1001,label:'按岗位信息'},
+        {value:1002,label:'按职务信息'},
+        {value:1003,label:'按职称信息'},
       ],
       relationship:[
       ],
@@ -104,17 +106,39 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleadd () {
-
+    handleadd (row) {
+      this.$refs['AddDialogForm'].form.userId = [row.userId]
+      this.$refs['AddDialogForm'].methodName = '添加到'
+      this.$refs['AddDialogForm'].formRequestFn = joinGroup
+      this.$refs['AddDialogForm'].dialogShow = true
     },
     handleAddBatch () {
-
+      this.$refs['AddDialogForm'].form.userId = this.multipleSelection
+      this.$refs['AddDialogForm'].methodName = '添加到'
+      this.$refs['AddDialogForm'].formRequestFn = joinGroup
+      this.$refs['AddDialogForm'].dialogShow = true
     },
     handleDelete (id) {
       this._handleGlobalDeleteById(id, deleteRelationshipList)
     },
-    handleRemove () {
-
+    handleAllPeople () {
+      this.mark = ''
+      this.loadPage()
+    },
+    async handleRemove (row) {
+      const { data } = await removeRelationshipById(row.groupId,[row.userId])
+      if (data.data) {
+        this.$message({
+          message: '操作成功',
+          type: 'success',
+        })
+        this.loadPage()
+      } else {
+        this.$message({
+          message: data.msg,
+          type: 'error',
+        })
+      }
     },
     openContact () {
       this.$refs['DialogForm'].form = initForm()
@@ -151,7 +175,7 @@ export default {
     loadPage (param = this.searchForm) {
       this.loadTypeList()
       if(this.mark=='group'){
-        this.loadTable({ id: this.groupType, ...param }, getTypeCountMap)
+        this.loadTable({ groupId: this.groupType, ...param }, getTypeCountMap)
       }
       else {
         this.loadTable(param, getRelationshipManagePage)

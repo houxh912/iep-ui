@@ -1,11 +1,11 @@
 import request from '@/router/axios'
 
 
-const prefixUrl = '/admin/contacts/custom'
+const prefixUrl = '/admin'
 // @/api/admin/contactscustom
 export function getRelationshipManagePage (query) {
   return request({
-    url: `${prefixUrl}/contacts/page`,
+    url: `${prefixUrl}/contacts/custom/contacts/page`,
     method: 'get',
     params: query,
   })
@@ -13,14 +13,14 @@ export function getRelationshipManagePage (query) {
 
 export function getRelationshipList () {
   return request({
-    url: `${prefixUrl}/contacts/list`,
+    url: `${prefixUrl}/contacts/custom/contacts/list`,
     method: 'get',
   })
 }
 
 export function getTypeCountMap (query) {
   return request({
-    url: `${prefixUrl}/page`,
+    url: `${prefixUrl}/contacts/custom/page`,
     method: 'get',
     params: query,
   })
@@ -28,14 +28,14 @@ export function getTypeCountMap (query) {
 
 export function getRelationshipManageById (id) {
   return request({
-    url: `${prefixUrl}/${id}`,
+    url: `${prefixUrl}/contacts/custom/${id}`,
     method: 'get',
   })
 }
 
 export function readRelationshipManageBatch (ids) {
   return request({
-    url: `${prefixUrl}/read_or_set/batch`,
+    url: `${prefixUrl}/contacts/custom/read_or_set/batch`,
     method: 'post',
     data: ids,
     params: {
@@ -46,7 +46,7 @@ export function readRelationshipManageBatch (ids) {
 
 export function joinRelationship (obj) {
   return request({
-    url: `${prefixUrl}/create`,
+    url: `${prefixUrl}/contacts/custom/create`,
     method: 'post',
     data: obj,
   })
@@ -54,7 +54,7 @@ export function joinRelationship (obj) {
 
 export function putRelationshipList (obj) {
   return request({
-    url: `${prefixUrl}/update`,
+    url: `${prefixUrl}/contacts/custom/update`,
     method: 'post',
     data: obj,
   })
@@ -62,8 +62,34 @@ export function putRelationshipList (obj) {
 
 export function deleteRelationshipList (id) {
   return request({
-    url: `${prefixUrl}/delete/${id}`,
+    url: `${prefixUrl}/contacts/custom/delete/${id}`,
     method: 'post',
     data: [id],
+  })
+}
+
+export function joinGroup (obj) {
+  return request({
+    url: `${prefixUrl}/custom/relation/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function removeRelationshipById (groupId,useId) {
+  return request({
+    url: `${prefixUrl}/custom/relation/delete/batch`,
+    method: 'post',
+    data: { 
+      userId:useId,
+      groupId:groupId,
+    },
+  })
+}
+export function removeRelationshipBatch (ids) {
+  return request({
+    url: `${prefixUrl}/custom/relation/delete/batch`,
+    method: 'post',
+    data: ids,
   })
 }

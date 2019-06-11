@@ -59,6 +59,13 @@ const initForm = () => {
   }
 }
 
+const initGroupForm = () => {
+  return {
+    customId:'',
+    userId:[],
+  }
+}
+
 const formToDto = (row) => {
   const newForm = {...row}
   return newForm
@@ -76,4 +83,4 @@ const rules = {
   ],
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm, rules, formToDto }
+export { dictsMap, columnsMap, initForm, initSearchForm, rules, formToDto, initGroupForm }

@@ -206,7 +206,7 @@
 
 <script>
 import AdvanceSearch from './AdvanceSearch'
-import { getTestList,deleteApprovalById,getTestOption,postExaminePass,postExamineFalse,postModify,getExamMsg } from '@/api/exam/createExam/newTest/newTest'
+import { getTestList,deleteApprovalById,getTestOption,postExaminePass,postExamineFalse,postModify } from '@/api/exam/createExam/newTest/newTest'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import mixins from '@/mixins/mixins'
 
@@ -272,7 +272,10 @@ export default {
      */
     handleAdd (){
       // this.$router.push('/exam/createExam/newTest/')
-      this.$emit('onEdit')
+      this.$emit('onEdit',{
+        methodName: '创建新',
+        id: '',
+      })
     },
     /**
      * 审核按钮
@@ -285,13 +288,17 @@ export default {
      * 修改按钮
      */
     handleModify (rows){
-      const param ={
+      this.$emit('onEdit',{
+        methodName: '修改',
         id: rows.id,
-      }
-      this.dialogModify = true
-      getExamMsg(param).then( res => {
-        this.reForm = {...res.data.data}
       })
+      // this.dialogModify = true
+      // const param ={
+      //   id: rows.id,
+      // }
+      // getExamMsg(param).then( res => {
+      //   this.reForm = res.data.data
+      // })
     },
     /**
      * 删除按钮

@@ -68,7 +68,7 @@
       <template v-if="tabName ==='Single'" v-slot:Single>
         <single-dialog ref="single" :postAnswer="postAnswer"></single-dialog>
         <div align="center" style="margin-top:2%;">
-          <iep-button type="primary" @click="submitSingle">提交</iep-button>
+          <iep-button type="primary" @click="submitSingle">保存</iep-button>
           <!-- <iep-button @click="saveSingle" style="margin:0 10px;">保存</iep-button> -->
         </div>
       </template>
@@ -156,7 +156,11 @@ export default {
   },
   created (){
     this.getTestOption ()
-    this.getTestPaper ()
+  },
+  watch: {
+    res: function () {
+      this.getTestPaper ()
+    },
   },
   methods:{
     /**
@@ -169,17 +173,22 @@ export default {
       getExamMsg(param).then( res => {
         this.questionTypeDisabled = true
         this.form = res.data.data
-        this.$refs.single.ruleForm = res.data.data
+        this.$refs.single.ruleForm.title = res.data.data.title
+        this.$refs.single.ruleForm.analysis = res.data.data.analysis
         this.postAnswer = res.data.data.questionType
         if (res.data.data.questionType == 13) {
           var arrRadio = JSON.parse(res.data.data.titleOptions)
-          console.log(arrRadio)
+          // console.log(arrRadio)
           this.$refs.single.ruleForm.radioOptions = arrRadio
           this.$refs.single.ruleForm.radioOption = arrRadio.map(i => i.value)
           this.$refs.single.ruleForm.inputRadioAnswer = res.data.data.answer
         }
         if (res.data.data.questionType == 12) {
-          this.$refs.single.ruleForm.inputCheckboxAnswer = res.data.data.answer
+          var arrCheckbox = JSON.parse(res.data.data.titleOptions)
+          // console.log(arrCheckbox)
+          this.$refs.single.ruleForm.checkboxOptions = arrCheckbox
+          this.$refs.single.ruleForm.checkboxOption = arrCheckbox.map(i => i.value)
+          this.$refs.single.ruleForm.inputCheckboxAnswer = JSON.parse(res.data.data.answer)
         }
         if (res.data.data.questionType == 11) {
           this.$refs.single.ruleForm.inputJudgeAnswer = res.data.data.answer
@@ -187,7 +196,7 @@ export default {
         if (res.data.data.questionType == 10) {
           this.$refs.single.ruleForm.inputShortAnswer = res.data.data.answer
         }
-        console.log('res.data.data => ',res.data.data) 
+        // console.log('res.data.data => ',res.data.data)
       })
     },
     /**

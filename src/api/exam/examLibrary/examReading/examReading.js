@@ -94,6 +94,16 @@ export function passInterviewById (params) {
 }
 
 /**
+ * 根据id获取阅卷进度列表信息
+ */
+export function getPaperProcessById (id) {
+  return request({
+    url: `/exms/grade/examiner/${id}`,
+    method: 'get',
+  })
+}
+
+/**
  * 发放证书
  */
 export function sendCertificateById (params) {
@@ -111,7 +121,7 @@ export function rollingPaperById (params) {
   return request({
     url: '/exms/grade/rolling',
     method: 'post',
-    data: params,
+    params: params,
   })
 }
 
@@ -122,7 +132,7 @@ export function  overPapersById (params) {
   return request({
     url: '/exms/grade/done',
     method: 'post',
-    data: params,
+    params: params,
   })
 }
 

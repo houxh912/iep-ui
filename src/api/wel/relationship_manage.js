@@ -76,13 +76,13 @@ export function joinGroup (obj) {
   })
 }
 
-export function removeRelationshipById (groupId,useId) {
+export function removeRelationshipById (customId,useId) {
   return request({
     url: `${prefixUrl}/custom/relation/delete/batch`,
     method: 'post',
     data: { 
       userId:useId,
-      groupId:groupId,
+      customId:customId,
     },
   })
 }

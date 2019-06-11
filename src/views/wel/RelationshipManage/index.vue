@@ -153,7 +153,7 @@ export default {
       this.$refs['DialogForm'].dialogShow = true
     },
     handleSelectionChange (val) {
-      this.multipleSelection = val.map(m => m.id)
+      this.multipleSelection = val.map(m => m.userId)
     },
     handleSelectType (k) {
       this.groupType = k

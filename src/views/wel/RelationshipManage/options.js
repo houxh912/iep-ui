@@ -5,7 +5,7 @@ const columnsMap = [
   {
     prop: 'name',
     label: '姓名',
-    width: '200',
+    width: '120',
   },
   {
     prop: 'phone',
@@ -61,7 +61,7 @@ const initForm = () => {
 
 const initGroupForm = () => {
   return {
-    customId:'',
+    customId:0,
     userId:[],
   }
 }

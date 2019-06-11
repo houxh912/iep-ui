@@ -49,7 +49,7 @@
         <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
           <template slot="before-columns">
           </template>
-          <el-table-column prop="operation" label="操作">
+          <el-table-column prop="operation" label="操作" width="120px">
             <template slot-scope="scope">
               <operation-wrapper>
                 <iep-button type="warning" v-show="mark==''" plain @click="handleadd(scope.row)">添加</iep-button>
@@ -174,6 +174,7 @@ export default {
     // },
     loadPage (param = this.searchForm) {
       this.loadTypeList()
+      this.$nextTick(() => {this.$refs['AddDialogForm'].loadTypeList()})
       if(this.mark=='group'){
         this.loadTable({ groupId: this.groupType, ...param }, getTypeCountMap)
       }

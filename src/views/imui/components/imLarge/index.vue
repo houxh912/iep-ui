@@ -17,7 +17,7 @@
         <el-tree v-show="tableChosen === 'book'" @node-click="toChat" :data="$store.getters.imUserTree" node-key="id" :expand-on-click-node="false">
           <span v-if="data.leaf" class="im-tabel-content-large-im-item" slot-scope="{ node, data }">
             <span class="im-friend">
-              <img class="im-friend-head" :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'" />
+              <iep-img class="im-friend-head" :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
               <span>{{data.label}}</span>
             </span>
           </span>
@@ -25,7 +25,7 @@
         </el-tree>
         <ul v-show="tableChosen === 'chat'" class="im-chat-list">
           <li class="im-friend" v-for="user in $store.getters.imChatList" @click="toChatUser(user)" :key="user.id">
-            <img class="im-friend-head" :src="user.avatar ? user.avatar : '/img/icons/apple-touch-icon-60x60.png'" />
+            <iep-img class="im-friend-head" :src="user.avatar ? user.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
             <span>{{user.realName}}</span>
             <el-badge class="unread-point" v-show="$store.getters.imUnread(user.username)" :max="99" :value="$store.getters.imUnread(user.username)"></el-badge>
           </li>
@@ -225,6 +225,7 @@ export default {
         height: 36px;
         width: 36px;
         border-radius: 18px;
+        overflow: hidden;
       }
       .unread-point {
         position: absolute;
@@ -268,6 +269,7 @@ export default {
         height: 36px;
         width: 36px;
         border-radius: 18px;
+        overflow: hidden;
       }
       span {
         display: inline-block;

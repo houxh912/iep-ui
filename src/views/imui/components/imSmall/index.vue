@@ -116,6 +116,7 @@ export default {
     border-radius: 30px;
     vertical-align: middle;
     cursor: pointer;
+    overflow: hidden;
   }
   &:hover {
     opacity: 1;

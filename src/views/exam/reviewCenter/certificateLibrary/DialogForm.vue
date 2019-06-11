@@ -45,8 +45,9 @@ export default {
       if (!value) {
         return callback(new Error('标题不能为空'))
       }
-      validCertificateTitle(value).then(res => {
-        if (this.form.title !== value && !res.data.data) {
+      validCertificateTitle({ title: value }).then(res => {
+        // if (this.form.title !== value && !res.data.data) {
+        if (res.data.data === true) {
           callback(new Error('标题重复，已存在。'))
         } else {
           callback()

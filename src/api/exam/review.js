@@ -67,10 +67,10 @@ export function deleteIdAll (ids) {
 }
 
 // 验证通用政策
-export function validCertificateTitle (title) {
+export function validCertificateTitle (params) {
   return request({
     url: 'exms/iepcertificate/getByTitle',
     method: 'get',
-    data: { title },
+    params: params,
   })
 }

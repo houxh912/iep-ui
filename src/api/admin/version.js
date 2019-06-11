@@ -17,6 +17,13 @@ export function getVersionById (id) {
   })
 }
 
+export function getVersionTree () {
+  return request({
+    url: `${prefixUrl}/tree`,
+    method: 'get',
+  })
+}
+
 export function postVersion (obj) {
   return request({
     url: `${prefixUrl}/create`,

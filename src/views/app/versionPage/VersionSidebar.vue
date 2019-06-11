@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import { getVersionTree } from '@/api/admin/version'
 export default {
   data () {
     return {
@@ -25,9 +26,17 @@ export default {
       },
     }
   },
+  created () {
+    this.loadTree()
+  },
   methods: {
     handleNodeClick (data) {
       console.log(data)
+    },
+    loadTree () {
+      getVersionTree().then(({ data }) => {
+        console.log(data)
+      })
     },
   },
 }

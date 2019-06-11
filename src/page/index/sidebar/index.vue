@@ -5,7 +5,7 @@
       <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
       <div class="sub-menu-wrapper" v-if="mainMenu.path === '/wel'">
         <el-menu default-active="-1" :collapse="keyCollapse">
-          <el-menu-item :index="omenu.path" v-for="omenu in otherMenus" :key="omenu.path" @click="openModuleMenus(omenu)" :disabled="omenu.isDisable">
+          <el-menu-item :index="omenu.path" v-for="omenu in otherMenus" :key="omenu.path" @click="openModuleMenus(omenu)" :disabled="!!omenu.isDisable">
             <i :class="omenu.icon"></i>
             <span slot="title">{{omenu.label}}</span>
           </el-menu-item>

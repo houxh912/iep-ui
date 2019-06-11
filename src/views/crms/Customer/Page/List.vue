@@ -17,8 +17,8 @@
             </el-dropdown-menu>
           </el-dropdown> -->
         </template>
-        <template v-if="type==='1'" slot="left">
-          <iep-button type="primary" @click="Transfer" plain>转移</iep-button>
+        <template v-if="type==='1'"  slot="left">
+          <iep-button type="primary" @click="Transfer" plain v-show="isZyPermissions()">转移</iep-button>
         </template>
         <template slot="right">
           <el-radio-group v-model="type" size="small" @change="changeType">

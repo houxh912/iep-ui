@@ -54,7 +54,7 @@
                 </el-switch>
               </el-form-item>
               <el-form-item label="是否禁用" prop="isDisable">
-                <el-switch v-model="form.isDisable" :disabled="formEdit" active-color="#13ce66" inactive-color="#ff4949" :active-value="1" :inactive-value="0" active-text="启用" inactive-text="禁用">
+                <el-switch v-model="form.isDisable" :disabled="formEdit" active-color="#ff4949" inactive-color="#13ce66" :active-value="1" :inactive-value="0" active-text="禁用" inactive-text="启用">
                 </el-switch>
               </el-form-item>
               <el-form-item v-if="formStatus == 'update'">

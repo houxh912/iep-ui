@@ -1,11 +1,11 @@
 <template>
   <el-menu class="menu-wrapper" unique-opened :default-active="nowTagValue" mode="vertical" :show-timeout="200" :collapse="collapse">
     <template v-for="item in menu">
-      <el-menu-item :disabled="!item.isDisable" v-if="validatenull(item[childrenKey]) && vaildRoles(item)" :index="'' + item[pathKey]" @click="open(item)" :key="item[labelKey]" :class="{ 'is-active': vaildAvtive(item) }">
+      <el-menu-item :disabled="item.isDisable" v-if="validatenull(item[childrenKey]) && vaildRoles(item)" :index="'' + item[pathKey]" @click="open(item)" :key="item[labelKey]" :class="{ 'is-active': vaildAvtive(item) }">
         <i :class="item[iconKey]"></i>
         <span slot="title" :alt="item[pathKey]">{{ item[labelKey] }}</span>
       </el-menu-item>
-      <el-submenu :disabled="!item.isDisable" v-else-if="!validatenull(item[childrenKey]) && vaildRoles(item)" :index="item[pathKey]" :key="item[labelKey]">
+      <el-submenu :disabled="item.isDisable" v-else-if="!validatenull(item[childrenKey]) && vaildRoles(item)" :index="item[pathKey]" :key="item[labelKey]">
         <template slot="title">
           <i :class="item[iconKey]"></i>
           <span slot="title" :class="{ 'el-menu--display': collapse && first }">{{ item[labelKey] }}</span>

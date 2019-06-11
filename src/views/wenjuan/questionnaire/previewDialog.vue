@@ -35,7 +35,7 @@ import scoring from './editForm/scoring'
 import fileUpload from './editForm/fileUpload'
 import remarks from './editForm/remarks'
 import concluding from './editForm/concluding'
-import { getDetailAnswer, answerQuestion, getProject } from '@/api/evaluate/question'
+import { getDetailAnswer, answerQuestion } from '@/api/evaluate/question'
 export default {
   mixins: [mixin, scopeMixin],
   components: { singleElection, multipleElection, imgSelect, multipleImgSelect, selectElection, fillBlank, multipleFillBlank, scoring, fileUpload, remarks, concluding },
@@ -130,22 +130,7 @@ export default {
     // 打开时操作
     handleOpen () {
       this.form = this.temp
-      getProject().then(({ data }) => {
-        let dic = data.data.map(item => {
-          return {
-            value: item.id,
-            label: item.projectName,
-          }
-        })
-        let eva = null
-        if (this.form.evaDept instanceof Array) {
-          eva = this.form.evaDept
-        } else {
-          eva = (this.form.evaDept || []).split(',')
-        }
-        this.$set(this.form, 'evaDept', eva.map(item => item - 0))
-        this.projectIdDic = dic
-      })
+      this.projectIdDic = []
     },
     //绑定答案格式
     bindValues (arr) {

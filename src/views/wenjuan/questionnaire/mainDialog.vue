@@ -47,7 +47,6 @@ import {
   createData,
   updateData,
   getDetail,
-  getProject,
   automaticGrading,
 } from '@/api/evaluate/question'
 import { getIndexIds } from './const/utils'
@@ -234,17 +233,9 @@ export default {
   methods: {
     // 打开时操作
     handleOpen () {
-      getProject().then(({ data }) => {
-        let dic = data.data.map(item => {
-          return {
-            value: item.id,
-            label: item.projectName,
-          }
-        })
-        this.projectIdDic = dic
-        this.$nextTick(() => {
-          this.$refs['form'].clearValidate()
-        })
+      this.projectIdDic = []
+      this.$nextTick(() => {
+        this.$refs['form'].clearValidate()
       })
       // if(status === 'edit')
       if (this.status === 'update') {

@@ -22,7 +22,7 @@
 import mixin from '@/views/wenjuan/mixins/mixin'
 import currentMixin from './const/mixin'
 import { fetchList } from '@/api/admin/user'
-import { getList, getDetail, getProject } from '@/api/evaluate/question'
+import { getList, getDetail } from '@/api/evaluate/question'
 import previewDialog from './previewDialog'
 export default {
   mixins: [mixin, currentMixin],
@@ -48,19 +48,8 @@ export default {
       })
       this.createByDic = dic
     })
-    getProject().then(({ data }) => {
-      let dic = data.data.map(item => {
-        return {
-          value: item.id,
-          label: item.projectName,
-        }
-      })
-      dic.push({
-        value: 0,
-        label: '',
-      })
-      this.projectIdDic = dic
-    })
+
+    this.projectIdDic = []
     // console.log("tableOption",this.tableOption)
   },
   methods: {

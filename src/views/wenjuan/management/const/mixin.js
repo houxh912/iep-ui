@@ -1,8 +1,3 @@
-
-// import {
-//   getProject,
-//   getGroupDept,
-// } from '@/api/evaluate/question'
 export default {
   data () {
     return {

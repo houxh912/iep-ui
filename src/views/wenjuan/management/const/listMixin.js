@@ -1,5 +1,4 @@
 import { fetchList } from '@/api/admin/user'
-import { getProject } from '@/api/evaluate/question'
 import { getDic } from '@/views/wenjuan/util/dic'
 export default {
   data () {
@@ -76,15 +75,6 @@ export default {
       })
       this.createByDic = dic
     })
-    getProject().then(({data})=>{ //获取项目dic
-      let dic = data.data.map(item=>{
-        return {
-          value: item.id,
-          label: item.projectName,
-        }
-      })
-
-      this.projectIdDic = dic
-    })
+    this.projectIdDic = []
   },
 }

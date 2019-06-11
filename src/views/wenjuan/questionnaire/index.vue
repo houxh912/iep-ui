@@ -37,7 +37,7 @@ import mainDialog from './mainDialog'
 import previewDialog from './previewDialog'
 import statisticsDialog from './statisticsDialog'
 import { fetchList } from '@/api/admin/user'
-import { release, getDetail, getProject, getRePercent } from '@/api/evaluate/question'
+import { release, getDetail, getRePercent } from '@/api/evaluate/question'
 export default {
   components: { mainDialog, previewDialog, statisticsDialog },
   mixins: [mixin, currentMixin],
@@ -64,19 +64,8 @@ export default {
         })
         this.createByDic = dic
       })
-      getProject().then(({ data }) => { //获取项目dic
-        let dic = data.data.map(item => {
-          return {
-            value: item.id,
-            label: item.projectName,
-          }
-        })
-        dic.push({
-          value: 0,
-          label: "",
-        })
-        this.projectIdDic = dic
-      })
+
+      this.projectIdDic = []
     },
     getList () {
       this.tableLoading = true

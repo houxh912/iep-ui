@@ -2,10 +2,6 @@ import {
   getDic,
   getDept,
 } from '@/views/wenjuan/util/dic'
-// import {
-//   getProject,
-//   getGroupDept,
-// } from '@/api/evaluate/question'
 import {getGroupDept} from '@/api/evaluate/question'
 var moment = require('moment')
 export default {
@@ -373,11 +369,5 @@ export default {
           callback()
         }
     },
-  },
-  created () {
-    // getProject().then(({data})=>{
-    //   console.log('dicData',data.data)
-    //   getGroupDept(4)
-    // })
   },
 }

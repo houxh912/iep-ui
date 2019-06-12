@@ -37,6 +37,10 @@ function initForm () {
       id: 0,
       name: '',
     },
+    financialAudit:{
+      id:0,
+      name:'',
+    },
     relations: [],
   }
 }
@@ -66,7 +70,7 @@ const columnsMap = [
 	},
 	{
 		prop: 'auditorName',
-		label: '审核人',
+		label: '部门审批人',
 	},
 	{
 		prop: 'auditingTime',

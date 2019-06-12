@@ -31,7 +31,10 @@
         <iep-form-item v-if="projectOption" class="form-half" label-name="项目">
           <iep-div-detail :value="form.projectName"></iep-div-detail>
         </iep-form-item>
-        <iep-form-item v-if="auditorOption" class="form-half" label-name="审批人">
+        <iep-form-item v-if="financialAudit" class="form-half" label-name="财务审批人">
+          <iep-contact-select disabled v-model="form.financialAudit"></iep-contact-select>
+        </iep-form-item>
+        <iep-form-item v-if="auditorOption" class="form-half" label-name="部门审批人">
           <iep-contact-select disabled v-model="form.auditor"></iep-contact-select>
         </iep-form-item>
       </el-form>

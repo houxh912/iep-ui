@@ -36,6 +36,8 @@ const initForm = () => {
     amount: 0, // 打赏金额
     message: '', // 打赏备注
     type: '', // 打赏类型
+    projectId: '', // 项目
+    projectName: '', // 项目
     isReward: '1', // 打赏/扣减
     targetUsers: [], // 打赏对象
   }

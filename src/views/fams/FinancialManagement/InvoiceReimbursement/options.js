@@ -46,7 +46,7 @@ const columnsMap = [
 	},
 	{
 		prop: 'auditorName',
-		label: '审核人',
+		label: '部门审核人',
 	},
 	{
 		prop: 'auditingTime',

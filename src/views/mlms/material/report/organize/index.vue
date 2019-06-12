@@ -171,7 +171,7 @@ export default {
     margin-bottom: 20px;
     .item {
       display: inline-block;
-      width: 150px;
+      width: 220px;
       margin-right: 15px;
     }
   }

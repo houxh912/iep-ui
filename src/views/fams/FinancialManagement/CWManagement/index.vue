@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="提现" :replaceText="replaceText" :data="[10 ,300000]"></page-header>
+      <page-header title="提现管理"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleGrantBatch">批量发放</iep-button>
@@ -44,7 +44,6 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      replaceText: (data) => `（提现数：${data[0]}笔，总金额合计：￥${data[1]}元）`,
     }
   },
   created () {

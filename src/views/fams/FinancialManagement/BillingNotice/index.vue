@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="开票通知审批" :replaceText="replaceText" :data="[10 ,5,10,25,15,31421.00,4733.00,355]"></page-header>
+      <page-header title="开票审批"></page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage">
@@ -37,7 +37,6 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      replaceText: (data) => `（待审核：${data[0]}笔，已通过：${data[1]}笔，未通过：${data[2]}笔，废弃：${data[3]}笔，总计：${data[4]}，有效发票：￥${data[5]}元，已用发票：￥${data[6]}元，剩余发票：￥${data[7]}元）`,
     }
   },
   created () {

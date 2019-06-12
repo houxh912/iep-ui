@@ -1,9 +1,9 @@
 <template>
   <div class="empolyee">
     <el-carousel height="165px" :interval="5000" indicator-position="none">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
-          <div class="img"><iep-img :src="item.img" class="img"></iep-img></div>
+      <el-carousel-item v-for="(item, index) in Math.ceil(list.length/5)" :key="index">
+        <div v-for="(t, i) in list.slice(index*5, (index+1)*5)" :key="i" class="piece">
+          <div class="img"><iep-img :src="t.image" class="img"></iep-img></div>
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -12,16 +12,10 @@
 
 <script>
 export default {
-  data () {
-    return {
-      wonderfulList: [
-        { img: require('../img/copyright1.jpg') },
-        { img: require('../img/copyright2.jpg') },
-        { img: require('../img/copyright3.jpg') },
-        { img: require('../img/copyright4.jpg') },
-        { img: require('../img/copyright5.jpg') },
-      ],
-    }
+  props: {
+    list: {
+      type: Array,
+    },
   },
 }
 </script>

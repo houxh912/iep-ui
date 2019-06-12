@@ -124,7 +124,7 @@ export default {
             this.formData.createTime = getDateStr(this.formData.timeStamp)
           }
           delete this.formData.updateTime
-          this.formData.title = `第${this.formatDig(this.formData.index)}周个人工作周报`
+          this.formData.title = `第${this.formatDig(this.formData.index)}周组织工作周报`
           this.formData.meetingSummaryId = this.formData.meetingSummary.map(m => m.id)
           this.formData.projectIds = this.formData.projectList.map(m => m.id)
           this.formData.productIds = this.formData.productList.map(m => m.id)

@@ -225,17 +225,22 @@ export default {
           meetingSend(id).then(({ data }) => {
             this.loadState = false
             if (data.data) {
-              // 发送成功之后访问财务接口
-              if (this.formData.meetingType == 6) {
-                addBellBalanceRuleByNumber('VISIT_LOG').then(({data}) => {
-                  this.$message.success(`您成功发送一篇拜访纪要，${data.msg}，继续加油！`)
-                  this.goBack(true)
-                })
+              // 发送成功之后，判断是否是今天的纪要，若是访问财务接口
+              if (new Date(this.formData.meetingTime).toDateString() === new Date().toDateString()) {
+                if (this.formData.meetingType == 6) {
+                  addBellBalanceRuleByNumber('VISIT_LOG').then(({data}) => {
+                    this.$message.success(`您成功发送一篇拜访纪要，${data.msg}，继续加油！`)
+                    this.goBack(true)
+                  })
+                } else {
+                  addBellBalanceRuleByNumber('MEETING_SUMMARY').then(({data}) => {
+                    this.$message.success(`您成功发送一篇会议纪要，${data.msg}，继续加油！`)
+                    this.goBack(true)
+                  })
+                }
               } else {
-                addBellBalanceRuleByNumber('MEETING_SUMMARY').then(({data}) => {
-                  this.$message.success(`您成功发送一篇会议纪要，${data.msg}，继续加油！`)
-                  this.goBack(true)
-                })
+                this.$message.success('您成功发送一篇会议纪要，继续加油！')
+                this.goBack(true)
               }
             } else {
               this.$message.error('当前网络异常，请稍后再试！')

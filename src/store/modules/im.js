@@ -175,17 +175,17 @@ const im = {
     closeCurrentChatList (state, index) {
       state.currentChatList.splice(index, 1)
     },
-    initHistory (state, history) {
+    initHistory (state, {history, username}) {
       for (let i = 0; i <  history.length; i++) {
-        let user = getUserInfo(state, history[i].resourceName)
+        let user = getUserInfo(state, history[i].resourceName === username ? history[i].targetName : history[i].resourceName)
         user.unread = history[i].msgNum
         updateChatList(state, user, false)
         addChat(state, {
           id: history[i].id,
           message: history[i].msg,
           time: history[i].sendTime,
-          type: history[i].msgType,
-          username: history[i].resourceName,
+          type: history[i].targetName === username ? 1 : 0,
+          username: user.username,
           msgCode:  history[i].msgCode,
         })
       }

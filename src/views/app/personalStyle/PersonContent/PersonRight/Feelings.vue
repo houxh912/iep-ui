@@ -30,7 +30,7 @@ export default {
   },
   watch: {
     userId () {
-      getPersonalThoughts(this.userId).then(({data}) => {
+      getPersonalThoughts(this.userId).then(({ data }) => {
         this.dynamicList = data.data
       })
     },
@@ -42,8 +42,7 @@ export default {
 .feelings {
   margin-bottom: 30px;
   .btn {
-    float: right;
-    padding: 5px 0;
+    padding: 0;
     color: #cb3737;
     &:hover {
       color: #f56c6c;

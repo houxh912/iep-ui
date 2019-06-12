@@ -62,6 +62,7 @@ export default {
   line-height: 22px;
 }
 .btn {
+  margin-right: 5px;
   padding: 0;
   height: 22px;
   line-height: 22px;

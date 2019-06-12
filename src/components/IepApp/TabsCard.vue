@@ -38,8 +38,8 @@ export default {
 .btn {
   position: absolute;
   top: 0px;
-  right: 20px;
-  line-height: 53px;
+  right: 5px;
+  line-height: 50px;
   padding: 0;
   color: #999;
   z-index: 3;

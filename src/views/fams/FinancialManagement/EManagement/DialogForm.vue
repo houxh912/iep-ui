@@ -92,14 +92,12 @@ export default {
   methods: {
     handleContractChange (v) {
       if (v) {
-        console.log(v)
         this.form.projectId = v.id
         this.form.projectName = v.name
       }
     },
     handleProjectChange (v) {
       if (v) {
-        console.log(v)
         this.form.protocolId = v.id
         this.form.protocolName = v.name
       }

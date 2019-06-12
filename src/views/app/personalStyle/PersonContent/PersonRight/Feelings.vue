@@ -9,7 +9,7 @@
       </div>
     </IepAppTabCard>
     <!-- 发表说说 -->
-    <publish-dialog ref="publish" @load-page="getThoughtsList"></publish-dialog>
+    <publish-dialog ref="publish"></publish-dialog>
   </div>
 </template>
 

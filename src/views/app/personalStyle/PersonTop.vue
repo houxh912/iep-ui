@@ -34,7 +34,7 @@
           </div>
         </div>
         <el-row>
-          <el-button size="mini" type="danger" plain>邮件</el-button>
+          <el-button size="mini" type="danger" plain @click="handleEmail">邮件</el-button>
           <el-button size="mini" type="danger" plain @click="handleApprentice">拜师</el-button>
           <el-button size="mini" type="danger" plain>打赏</el-button>
           <el-button size="mini" type="danger">PK</el-button>
@@ -50,13 +50,17 @@
         <el-button type="primary" @click="handleApprenticeConfirm" size="small">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 邮件 -->
+    <email-dialog ref="email"></email-dialog>
   </div>
 </template>
 
 <script>
 import { addMasterWorker } from '@/api/cpms/characterrelations'
+import EmailDialog from '@/views/app/components/email/'
 
 export default {
+  components: { EmailDialog },
   props: {
     userInfo: {
       type: Object,
@@ -100,6 +104,15 @@ export default {
         this.$message.success('拜师成功！')
         this.apprenticeShow = false
       })
+    },
+    // 邮件
+    handleEmail () {
+      let receiverList = {
+        unions: [],
+        orgs: [],
+        users: [{id: this.userInfo.id, name: this.userInfo.name}],
+      }
+      this.$refs['email'].open({receiverList: receiverList})
     },
   },
 }

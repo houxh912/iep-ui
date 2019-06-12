@@ -36,22 +36,23 @@ export default {
   padding: 0;
 }
 .btn {
-  line-height: 53px;
   position: absolute;
-  right: 20px;
   top: 0px;
+  right: 20px;
+  line-height: 53px;
   padding: 0;
   color: #999;
   z-index: 3;
 }
 .index-card >>> .el-tabs__nav {
-  line-height: 53px;
+  line-height: 50px;
 }
 .index-card >>> .el-tabs__item {
+  bottom: -5px;
   font-size: 16px;
 }
 .index-card >>> .el-card__body {
-  padding: 2px 0 15px;
+  padding: 0 0 15px;
 }
 .el-card {
   padding: 0 20px;

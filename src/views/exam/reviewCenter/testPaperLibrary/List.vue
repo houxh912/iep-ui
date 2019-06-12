@@ -16,13 +16,18 @@
       :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange"
       @selection-change="selectionChange" is-index is-mutiple-selection>
 
-      <el-table-column prop="operation" label="操作" width="250">
+      <el-table-column prop="operation" label="操作" width="200">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
+            <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)">编辑</iep-button>
             <iep-button @click="handleSelect(scope.row)">查看</iep-button>
-            <iep-button @click="handleDelete([scope.row.id],'删除')">删除</iep-button>
-            <iep-button @click="share(scope.row)">分享</iep-button>
+            <el-dropdown size="medium">
+              <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item @click.native="handleDelete([scope.row.id],'删除')">删除</el-dropdown-item>
+                <el-dropdown-item @click.native="share(scope.row)">分享</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </operation-wrapper>
         </template>
       </el-table-column>

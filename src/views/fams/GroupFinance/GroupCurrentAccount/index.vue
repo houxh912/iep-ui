@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import { getCurrentBillFlowPage } from '@/api/fams/current_bill_flow'
+import { getAllCurrentBillFlowPage } from '@/api/fams/current_bill_flow'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
 export default {
@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getCurrentBillFlowPage)
+      this.loadTable(param, getAllCurrentBillFlowPage)
     },
   },
 }

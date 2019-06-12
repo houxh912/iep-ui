@@ -17,6 +17,9 @@
             </el-dropdown-menu>
           </el-dropdown> -->
         </template>
+        <template v-if="type==='1'"  slot="left">
+          <iep-button type="primary" @click="Transfer" plain v-show="isZyPermissions()">转移</iep-button>
+        </template>
         <template slot="right">
           <el-radio-group v-model="type" size="small" @change="changeType">
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
@@ -195,9 +198,10 @@ export default {
     //tab切换菜单
     changeType () {
       this.searchPage()
-      if (this.type === '2') {
-        this.showSelect = true
-      } else { this.showSelect = false }
+      // if (this.type === '2') {
+      //   this.showSelect = true
+      // } else { this.showSelect = false }
+      this.showSelect = true
     },
     //新增客户
     handleAdd () {

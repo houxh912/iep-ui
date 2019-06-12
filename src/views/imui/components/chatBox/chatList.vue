@@ -6,7 +6,7 @@
         :key="index"
         @click="chatChange(chat)"
         :class="currentChat === chat.userId ? 'chosen' : ''">
-        <img :src="chat.avatar ? chat.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
+        <iep-img class="headimage" :src="chat.avatar ? chat.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
         <span>{{chat.realName}}</span>
         <i class="icon-font icon-guanbi" @click.stop="chatClose(chat)"></i>
       </li>
@@ -62,17 +62,17 @@ export default {
       align-items: center;
       flex-direction: row;
       position: relative;
-      box-sizing: border-box;
       margin: 5px;
       height: 50px;
       padding: 5px 30px 5px 5px;
       border-radius: 3px;
       cursor: pointer;
-      img {
+      .headimage {
         flex: 0 0 40px;
         height: 40px;
         width: 40px;
         border-radius: 20px;
+        overflow: hidden;
       }
       span {
         flex: 0 1 100px;

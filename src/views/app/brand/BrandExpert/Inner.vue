@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
-      <img :src="item.imgSrc" alt="">
+      <iep-img class="img" :src="item.imgSrc" alt=""></iep-img>
       <div class="expert">
         <p class="name">{{item.name}}</p>
         <p class="des">{{item.des}}</p>
@@ -36,7 +36,7 @@ export default {
   width: 50%;
   margin-top:8px;
   margin-bottom: 14px;
-  img {
+  .img {
     width: 55px;
     height: 60px;
     vertical-align: top;

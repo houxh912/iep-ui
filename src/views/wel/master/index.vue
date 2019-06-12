@@ -6,7 +6,9 @@
       <el-card shadow="hover" v-for="master in masterList" :key="master.id">
         <div>
           <div class="name">
-            <span class="img" @click="getPerson()"><img :src="master.img" alt=""></span>
+            <span class="img" @click="getPerson()">
+              <iep-img :src="master.img" alt=""></iep-img>
+            </span>
             <span class="text">{{master.name}}<span class="num">{{master.num}}</span></span>
           </div>
           <span></span>

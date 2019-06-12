@@ -7,7 +7,7 @@
     <iep-no-data v-if="!form.technologyRelations.length"></iep-no-data>
     <div class="piece" v-for="(item) in form.technologyRelations" :key="item.id">
       <div>
-        <img :src="item.imageUrl" :alt="item.name" class="img">
+        <iep-img :src="item.imageUrl" :alt="item.name" class="img"></iep-img>
       </div>
       <span>{{item.name}}</span>
     </div>

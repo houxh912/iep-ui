@@ -241,10 +241,25 @@ export function examForm () {
     operateUserids: [],//报名管理&考卷管理列表
     writeUserids: [],//试卷审阅权限列表
     faceUserIds: [],//面试判分权限列表
-
+    age: '',
 
   }
 
+}
+
+/**
+ * 
+ * @param {*} rule 
+ * @param {*} value 
+ * @param {*} callback 
+ * 验证答卷时长是否为数字
+ */
+let intValidate = (rule, value, callback) => {
+  if (/^[0-9]*$/.test(value) || value === '') {
+    callback()
+  } else {
+    callback(new Error())
+  }
 }
 
 //考试表单字段验证
@@ -269,18 +284,22 @@ export const examFormRules = {
   ],
   consume: [
     { required: true, message: '必填', trigger: 'blur' },
+    { type: 'number', message: '该字段必须为数字值' },
   ],
   timeLong: [
-    { required: true, message: '必填', trigger: 'blur' },
+    { required: true, trigger: 'blur', validator: intValidate, message: '该字段必须为数字值' },
   ],
   passScore: [
     { required: true, message: '必填', trigger: 'blur' },
+    { type: 'number', message: '该字段必须为数字值' },
   ],
   excellentLine: [
     { required: true, message: '必填', trigger: 'blur' },
+    { type: 'number', message: '该字段必须为数字值' },
   ],
   reward: [
     { required: true, message: '必填', trigger: 'blur' },
+    { type: 'number', message: '该字段必须为数字值' },
   ],
   description: [
     { required: true, message: '必填', trigger: 'blur' },

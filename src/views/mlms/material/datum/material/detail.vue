@@ -56,7 +56,7 @@
           </div>
           <div class="list" v-for="(item, index) in commentList" :key="index">
             <div class="img">
-              <img :src="item.avatar" alt="">
+              <iep-img :src="item.avatar" alt=""></iep-img>
             </div>
             <div class="comment-info">
               <div class="name">{{item.realName}} <div class="rate">
@@ -225,7 +225,7 @@ export default {
           this.isDelete = false
           return
         }
-        this.formData = data.data
+        this.formData = Object.assign({}, this.formData, data.data)
         // 获取评论数据
         this.getComment(data.data.id)
         // 获取优秀材料
@@ -310,6 +310,7 @@ export default {
           }
         }
       }
+      return obj
     },
   },
   created () {

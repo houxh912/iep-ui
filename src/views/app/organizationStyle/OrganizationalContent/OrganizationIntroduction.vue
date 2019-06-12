@@ -8,7 +8,7 @@
             <div v-for="(item, i) in members.slice(index*3, index*3+3)" :key="i" class="piece">
               <div class="img">
                 <span class="bgb">{{item.post}}</span>
-                <img :src="item.avatar" class="img">
+                <iep-img :src="item.avatar" class="img"></iep-img>
               </div>
               <span class="name">{{item.name}}<span v-if="item.isExpert==1" class="dn show1" :class="item.isExpert==1?item.show1:''">V</span></span>
             </div>

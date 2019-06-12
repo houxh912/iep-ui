@@ -4,7 +4,7 @@
     <div class="librarys-item" v-for="(item,index) in librarys" :key="index" v-else @click="handleDetail(item)">
       <div class="user-info">
         <div class="img-con">
-          <div class="img"><img :src="item.avatar" alt=""></div>
+          <div class="img"><iep-img :src="item.avatar" alt=""></iep-img></div>
           <span class="num">{{item.staffId}}</span>
         </div>
         <div class="text">

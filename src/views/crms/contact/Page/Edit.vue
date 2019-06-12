@@ -118,7 +118,7 @@
       </div>
       <!-- <avue-crud :data="pagedTable" :option="option" :page="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange">
       </avue-crud> -->
-      <iep-table :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" :isLoadTable="isLoadTable" :columnsMap="columnsMap" @selection-change="handleSelectionChange" :isMutipleSelection="true"></iep-table>
+      <iep-table :pagination="pagination" :pagedTable="pagedTable"  @size-change="handleSizeChange" :isLoadTable="isLoadTable" :columnsMap="columnsMap" @selection-change="handleSelectionChange" :isMutipleSelection="true"  @current-change="handleCurrentChange" ></iep-table>
       <div class="btn">
         <iep-button class="cancel" @click="dialogVisible = false">取 消</iep-button>
         <iep-button type="primary" @click="handlequery">添加</iep-button>
@@ -154,6 +154,7 @@ export default {
       methodName: '创建',
       formData: initForm(),
       rules,
+      Checklist: false,
       gridData: [],
       selectData: [],
       clientId: '',
@@ -225,9 +226,10 @@ export default {
     handleSelectionChange (row) {
       this.formData.clientIds = row.map(m => m.clientId)
       this.selectData = row
+      this.Checklist = true
     },
     handlequery () {
-      if (this.formData.clientIds.length > 0) {
+      if (this.Checklist && this.formData.clientIds.length>0) {
         this.dialogVisible = false
         for (var i = 0; i < this.selectData.length; i++) {
           this.formData.clientInfos.push(this.selectData[i])

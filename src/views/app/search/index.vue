@@ -46,7 +46,7 @@
             <el-button style="float: right; padding: 3px 0" type="text">更多></el-button>
           </div>
           <div style="padding:15px;display:inline-block; width:50%;" v-for="(item,index) in imgList" :key="index">
-            <img style="width:100%;height:138px;" :src="item.imgSrc" class="image">
+            <iep-img style="width:100%;height:138px;" :src="item.imgSrc" class="image"></iep-img>
             <p class="imgDes" v-text="item.imgDes"></p>
           </div>
         </el-card>

@@ -1,5 +1,5 @@
 <template>
-  <img :src="fackerImg" />
+  <img class="img" :src="fackerImg"/>
 </template>
 <script>
 const fackerImg = require('./facker.png')

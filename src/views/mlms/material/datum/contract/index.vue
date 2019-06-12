@@ -1,7 +1,6 @@
 <template>
   <div>
     <div v-if="pageState=='list'">
-      <div class="info">回款总金额：123,000,000，待收款 <i class="el-icon-question"></i> ：3，000，000，回款率：89%</div>
       <operation-container>
         <template slot="left">
           <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd">新增</iep-button>

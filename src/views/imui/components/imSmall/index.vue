@@ -4,9 +4,9 @@
               v-show="$store.getters.imUnreadTotal"
               :max="99"
               :value="$store.getters.imUnreadTotal">
-      <img @mousemove.prevent="" class="headimage" :src="$store.getters.userInfo.avatar"/>
+      <iep-img @mousemove.prevent="" class="headimage" :src="$store.getters.userInfo.avatar"></iep-img>
     </el-badge>
-    <img @mousemove.prevent="" v-show="!$store.getters.imUnreadTotal" class="headimage" :src="$store.getters.userInfo.avatar"/>
+    <iep-img @mousemove.prevent="" v-show="!$store.getters.imUnreadTotal" class="headimage" :src="$store.getters.userInfo.avatar"></iep-img>
   </div>
 </template>
 
@@ -116,6 +116,7 @@ export default {
     border-radius: 30px;
     vertical-align: middle;
     cursor: pointer;
+    overflow: hidden;
   }
   &:hover {
     opacity: 1;

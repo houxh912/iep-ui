@@ -137,7 +137,7 @@ export function toChinesNum (num) {
 }
 
 // 获取全年的周数
-export function createWeeks (year){
+export function createWeeks (year, type = ''){
   // let arr = [{ year: `${year}` }]
   let arr = []
   let index = 1
@@ -170,6 +170,7 @@ export function createWeeks (year){
     time: `${year}-${formatDig(mIndex+1)}`,
     timeStamp: (+new Date(year, mIndex, 1)),
     children: [],
+    title: `1月${type}月报`,
   }
   mObj.children.unshift(obj)
   index++
@@ -193,6 +194,7 @@ export function createWeeks (year){
         time: `${year}-${formatDig(mIndex+1)}`,
         timeStamp: (+new Date(year, mIndex, 1)),
         children: [],
+        title: `${mIndex+1}月${type}月报`,
       }
     }
     mObj.children.unshift(obj)

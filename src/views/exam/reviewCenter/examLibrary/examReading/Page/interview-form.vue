@@ -1,7 +1,7 @@
 <template>
   <el-form :model="ruleForm" ref="ruleForm" :rules="rules" :label-position="labelPosition" label-width="100px">
     <el-form-item label="面试成绩" prop="interviewScore">
-      <el-input v-model="ruleForm.interviewScore" maxlength="255" placeholder="请输入面试成绩" clearable></el-input>
+      <el-input v-model.number="ruleForm.interviewScore" maxlength="255" placeholder="请输入面试成绩" autocomplete="off" clearable></el-input>
     </el-form-item>
     <!-- <el-form-item label="面试考官" prop="interviewer">
       <el-input v-model="ruleForm.interviewer" maxlength="255" placeholder="请输入面试考官" clearable></el-input>
@@ -22,7 +22,7 @@ import { getInterviewById, passInterviewById } from '@/api/exam/examLibrary/exam
 
 //校验规则
 const allRules = {
-  interviewScore: [{ required: true, message: '请输入面试成绩', trigger: 'blur' }],
+  interviewScore: [{ required: true, message: '面试成绩不能为空' }, { type: 'number', message: '面试成绩必须为数字值' }],
   //interviewer: [{ required: true, message: '请输入面试考官', trigger: 'blur' }],
   comments: [{ required: true, message: '请输入面试评语', trigger: 'blur' }],
 }
@@ -51,10 +51,6 @@ export default {
     loadPage () {
       getInterviewById(this.formData.examId).then(res => {
         this.ruleForm = res.data.data
-        // this.ruleForm.id = res.data.data.id
-        // this.ruleForm.interviewScore = res.data.data.interviewScore
-        // this.ruleForm.comments = res.data.data.comments
-        console.log('hhhh', this.ruleForm.id)
       })
     },
 
@@ -62,15 +58,14 @@ export default {
      * 保存提交
      */
     handleSubmit (formName) {
-      this.ruleForm.id = this.ruleForm.id
-      console.log('ppp', this.formData.examId)
+      //this.ruleForm.id = this.ruleForm.id
       this.$refs[formName].validate((valid) => {
         if (valid) {
           passInterviewById(this.ruleForm).then(() => {
             this.$emit('close', false)
             this.$message({
               showClose: true,
-              message: '判分成功',
+              message: '面试判分成功',
               type: 'success',
             })
           })

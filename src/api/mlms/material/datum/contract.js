@@ -50,10 +50,11 @@ export function getDataById (id) {
 }
 
 // 根据客户id查询市场经理
-export function getManeger (id) {
+export function getManeger (obj) {
   return request({
-    url: `${prefixUrl}/getManeger/${id}`,
+    url: `${prefixUrl}/getManeger`,
     method: 'get',
+    params: obj,
   })
 }
 

@@ -7,7 +7,7 @@
         <div class="task">
           <i class="el-icon-arrow-left"></i>
           <div class="img-list" v-for="(item,index) in img" :key="index"> 
-            <img :src="item.imgSrc">
+            <iep-img class="img" :src="item.imgSrc"></iep-img>
             <span>{{item.name}}</span>
           </div>
           <i class="el-icon-arrow-right"></i>
@@ -63,7 +63,7 @@ export default {
         text-align: center;
       }
     }
-    img {
+    .img {
       display: inline-block;
       margin: 8px;
       border-radius: 50%;
@@ -93,5 +93,10 @@ export default {
 }
 .red {
   color: #bb1a20;
+}
+</style>
+<style scoped>
+.grid-content>>>.el-image__inner{
+   border-radius: 50%;
 }
 </style>

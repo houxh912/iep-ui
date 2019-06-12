@@ -1,7 +1,7 @@
 <template>
   <div class="introduction">
     <div class="left">
-      <img :src="form.imageUrl" :alt="form.name">
+      <iep-img :src="form.imageUrl" :alt="form.name"></iep-img>
     </div>
     <div class="right">
       <div class="title">

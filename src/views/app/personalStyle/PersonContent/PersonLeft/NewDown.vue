@@ -3,7 +3,7 @@
     <IepAppTabCard :title="title">
       <div class="item" v-for="item in itemList" :key="item.id">
         <div class="img">
-          <img :src="item.img" alt="" />
+          <iep-img :src="item.img" alt="" ></iep-img>
         </div>
         <span>{{item.name}}</span>
       </div>

@@ -14,7 +14,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')">分享</iep-button>
+      <iep-button type="primary" @click="submitForm('form')">发送</iep-button>
       <iep-button @click="resetForm('form')">取消</iep-button>
     </template>
   </iep-dialog>

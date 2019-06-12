@@ -5,7 +5,7 @@
         <div>
             <div class="suggest-list">
                 <div v-for="(item,index) in suggestList" :key="index" class="piece">
-                    <img :src="item.photo" class="photo">
+                    <iep-img :src="item.photo" class="photo"></iep-img>
                     <div class="box">
                         <div class="piece-title">
                             <span class="name">{{item.name}}</span>

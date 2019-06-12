@@ -3,7 +3,7 @@
     <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
       <span class="count" :class="item.color">{{index+1}}</span>
       <span class="name">{{item.name}}</span>
-      <img v-if="item.isShow" :src="item.imgSrc" alt="">
+      <iep-img v-if="item.isShow" :src="item.imgSrc" alt="" class="img"></iep-img>
     </div>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
   &:hover {
     color: #cb3737;
   }
-  img{
+  .img{
     display:block;
     margin-top: 10px;
     width:100%;

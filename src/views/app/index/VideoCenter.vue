@@ -3,7 +3,7 @@
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
       <div class="videoCenter-list">
         <div v-for="(item,index) in videoCenterList" :key="index" class="piece" @click="handleOpen()">
-          <img :src="item.img" class="img">
+          <iep-img :src="item.img" class="img"></iep-img>
           <span class="name">{{item.name}}</span>
         </div>
       </div>

@@ -11,9 +11,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="关联项目：">
-        <el-input v-show="false" v-model="formData.projectId"></el-input>
-        <el-tag type="info" v-if="formData.projectName != ''">{{formData.projectName}}</el-tag>
-        <iep-button @click="relationProject"><i class="el-icon-plus"></i></iep-button>
+        <IepProjectSelect v-model="formData.projectId" :projectName="formData.projectName" @change="projectChange"></IepProjectSelect>
       </el-form-item>
       <el-form-item label="合同说明 / 收款方式：">
         <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5 maxlength="200"></el-input>
@@ -42,15 +40,14 @@
       <el-row v-if="formData.contractType==1">
         <el-col :span='12'>
           <el-form-item label="委托单位：">
-            <!-- <selectMore v-model="formData.companyOrgObj" prefix-url="crm/customer/myorcoll/list" @change="clientChange"></selectMore> -->
-            <IepCrmsSelect v-model="formData.companyOrgId" :option="[{id: formData.companyOrgId, name: formData.companyName.name}]" prefixUrl="crm/customer/myorcoll/list" @change="clientChange">
+            <IepCrmsSelect v-model="formData.companyOrgId" :option="[formData.companyName]" prefixUrl="crm/customer/myorcoll/list">
             </IepCrmsSelect>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
             <!-- <selectMore v-model="formData.signCompanyOrgId" prefix-url="crm/customer/all/list"></selectMore> -->
-            <IepCrmsSelect v-model="formData.signCompanyOrgId" :option="[{id: formData.signCompanyOrgId, name: formData.signCompanyRealName.name}]" prefixUrl="crm/customer/all/list">
+            <IepCrmsSelect v-model="formData.signCompanyOrgId" :option="[formData.signCompanyRealName]" prefixUrl="crm/customer/all/list">
             </IepCrmsSelect>
           </el-form-item>
         </el-col>
@@ -116,18 +113,16 @@
       <iep-button type="primary" @click="submitForm('form')" :loading="loadState">保存</iep-button>
       <iep-button @click="resetForm('form')">重置</iep-button>
     </footer-tool-bar>
-    <projectDialog ref="project" @project-success="projectSuccess" :form="formData"></projectDialog>
   </div>
 </template>
 <script>
 import { initFormData, rules, dictsMap } from './option'
 import { mapGetters } from 'vuex'
 import { getManeger, updateData, getDataById } from '@/api/mlms/material/datum/contract'
-import projectDialog from './projectRelation'
 import businessType from './businessType'
 
 export default {
-  components: { projectDialog, businessType },
+  components: { businessType },
   computed: {
     ...mapGetters(['userInfo', 'dictGroup']),
   },
@@ -177,11 +172,9 @@ export default {
         if (row.underTakeDeptName) {
           row.underTakeDeptId = row.underTakeDeptName.map(m => m.id) // 承接部门
         }
-        if (row.contractType == 0) {
-          row.directorList = {
-            id: row.directorId,
-            name: row.directorRealName,
-          }
+        row.directorList = {
+          id: row.directorId,
+          name: row.directorRealName,
         }
         if (row.projectRelation) {
           row.projectId = row.projectRelation.id
@@ -206,13 +199,7 @@ export default {
     submitForm (formName) {
       // this.formData.underTakeDeptId = this.formData.underTakeDeptList.map(m => m.id) // 承接部门
       this.formData.contractFile = this.formData.contractFileList.length > 0 ? this.formData.contractFileList[0].url : ''
-      // 提交前需要处理下数据
-      if (this.formData.contractType == 1) { // 外部合同
-        // this.formData.companyOrgId = this.formData.companyOrgObj.id // 委托单位
-        // this.formData.signCompanyOrgId = this.formData.signCompanyOrgObj.id // 签署单位
-      } else { // 内部合同
-        this.formData.directorId = this.formData.directorList.id
-      }
+      this.formData.directorId = this.formData.directorList.id
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loadState = true
@@ -233,31 +220,20 @@ export default {
         }
       })
     },
-    // 根据委托单位查询市场经理
-    clientChange (val) {
-      getManeger(val).then(({ data }) => {
-        // if (data.data) {
-        //   this.formData.directorRealName = data.data.name
-        //   this.formData.directorId = data.data.id
-        // } else {
-        //   this.formData.directorRealName = ''
-        //   this.formData.directorId = ''
-        // }
-        if (data.data) {
-          this.$set(this.formData, 'directorList', { id: data.data.id, name: data.data.name })
-        } else {
-          this.$set(this.formData, 'directorList', { id: '', name: '' })
-        }
-      })
-    },
-    // 关联项目
-    relationProject () {
-      this.$refs['project'].open(this.formData.projectId, this.formData.projectName)
-    },
-    projectSuccess (id, name) {
-      this.formData.projectId = id
-      // this.formData.projectName = name
-      this.$set(this.formData, 'projectName', name)
+    // 根据项目查询委托、签署单位、市场经理
+    projectChange (val) {
+      if (val) {
+        getManeger({id: val}).then(({ data }) => {
+          let row = data.data
+          let obj = {}
+          obj.companyOrgId = row.signCompanyId
+          obj.companyName = {id: row.signCompanyId, name: row.signCompanyRealName}
+          obj.signCompanyOrgId = row.signDeptOrgId
+          obj.signCompanyRealName = {id: row.signDeptOrgId, name: row.signDeptOrgName}
+          obj.directorList = {id: row.directorId, name: row.directorRealName}
+          this.formData = Object.assign({}, this.formData, obj)
+        })
+      }
     },
   },
   mounted () {

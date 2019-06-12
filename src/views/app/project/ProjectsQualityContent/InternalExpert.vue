@@ -2,7 +2,7 @@
   <div class="recommendable">
     <IepAppTabCard :title="title" :linkName="linkName" isMore :data="data">
       <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
-        <div class="img-con"><img :src="item.img" class="img"></div>
+        <div class="img-con"><iep-img :src="item.img" class="img"></iep-img></div>
         <div class="expert">
           <span class="name">{{item.name}}<span class="num">{{item.num}}</span></span>
           <span class="des">{{item.des}}</span>

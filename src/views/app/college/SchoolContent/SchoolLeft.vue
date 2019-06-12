@@ -2,7 +2,7 @@
   <div class="school-left">
     <el-carousel :interval="5000">
       <el-carousel-item v-for="(item,index) in banerImg" :key="index">
-        <img :src="item" class="baner-img">
+        <iep-img :src="item" class="baner-img"></iep-img>
       </el-carousel-item>
     </el-carousel>
   </div>

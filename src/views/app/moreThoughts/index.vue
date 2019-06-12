@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-more-thoughts">
     <div class="breadcrumb-wrapper">
       <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
         <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
@@ -9,7 +9,7 @@
       <div class="library">
         <div class="items" v-for="(item, index) in dataList" :key="index">
           <div class="avatar">
-            <img :src="item.avatar" alt="">
+            <iep-img :src="item.avatar" alt="" class="img"></iep-img>
           </div>
           <div class="content">
             <div class="title">
@@ -17,7 +17,7 @@
               <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
             </div>
             <div class="item">{{item.content}}</div>
-            <!-- 评论 -->
+            <!-- 说说评论 -->
             <div class="comment" v-if="activeIndex == index">
               <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>
               <iep-button class="comment-submit" @click="() => {activeIndex = -1}">取消</iep-button>
@@ -28,10 +28,24 @@
               <div class="comment-item" v-for="(comItem, comIndex) in item.thoughtsCommentList" :key="comIndex">
                 <div class="comment-head">
                   <div class="comment-avatar"><img :src="comItem.avatar" alt=""></div>
-                  <div class="comment-name">{{comItem.realName}}</div><div class="huuifu">回复</div><div class="comment-name">{{item.userName}}</div>
+                  <div class="comment-name">{{comItem.realName}}</div><div class="huuifu">评论</div><div class="comment-name">{{item.userName}}</div>
                 </div>
                 <div class="comment-content">{{comItem.replyMsg}}</div>
-                <div class="comment-date">{{comItem.createTime}}</div>
+                <div class="comment-date">
+                  <div class="date">
+                    {{comItem.createTime}}
+                  </div>
+                  <div class="button-list" v-if="false">
+                    <div class="button"><i class="icon-like"></i> 点赞（{{comItem.thumbsUpCount}}）</div>
+                    <div class="button" @click="hadnleComComment(comItem, index, comIndex)"><i class="icon-pinglun1"></i> 评论（0）</div>
+                    <div class="button"><i class="icon-yuanbao"></i> 打赏</div>
+                  </div>
+                </div>
+                <div class="comment-comment" v-if="commontActiveIndex == `${index}-${comIndex}`">
+                  <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>
+                  <iep-button class="comment-submit" @click="() => {commontActiveIndex = -1}">取消</iep-button>
+                  <iep-button type="primary" class="comment-submit" @click="comCommentSubmit">提交</iep-button>
+                </div>
               </div>
             </div>
             <!-- 按钮组 -->
@@ -91,7 +105,9 @@ export default {
       total: 0,
       params: initParams(),
       activeIndex: -1,
+      commontActiveIndex: -1,
       form: initFormData(),
+      comForm: initFormData(),
     }
   },
   methods: {
@@ -130,6 +146,18 @@ export default {
         }
       })
     },
+    // 回复评论
+    hadnleComComment (row, index, comIndex) {
+      this.commontActiveIndex = `${index}-${comIndex}`
+      this.comForm = {
+        replyMsg: '',
+        thoughtsId: row.thoughtsId,
+      }
+    },
+    // 回复评论提交
+    comCommentSubmit () {
+      if (this.comForm.replyMsg == '') return
+    },
   },
   created () {
     this.loadPage()
@@ -155,11 +183,6 @@ export default {
       display: flex;
       .avatar {
         width: 115px;
-        img {
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-        }
       }
       .content {
         flex: 1;
@@ -180,6 +203,7 @@ export default {
           .comment-item {
             border-bottom: 1px solid #ddd;
             margin-top: 10px;
+            padding-bottom: 3px;
             .comment-head {
               display: flex;
               .comment-avatar {
@@ -204,6 +228,28 @@ export default {
             .comment-date {
               margin-bottom: 10px;
               color: #999;
+              display: flex;
+              .date {
+                width: 160px;
+              }
+              .button-list {
+                flex: 1;
+                display: flex;
+                text-align: right;
+                justify-content: flex-end;
+                .button {
+                  margin-right: 20px;
+                  cursor: pointer;
+                }
+              }
+            }
+            .comment-comment {
+              margin-top: 20px;
+              text-align: right;
+              .comment-submit {
+                margin-top: 10px;
+                margin-left: 10px;
+              }
             }
           }
           .comment-item:last-of-type {
@@ -244,3 +290,20 @@ export default {
   }
 }
 </style>
+
+<style lang="scss">
+.app-more-thoughts {
+  .library{
+    .items {
+      .avatar {
+        img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}
+</style>
+

@@ -3,7 +3,7 @@
     <el-carousel :interval="5000" arrow="always">
       <el-carousel-item class="department-con" v-for="(item,index) in itemList" :key="index">
         <div class="piece" v-for="item in item.childList" :key="item.id">
-          <div class="img"><img :src="item.img" alt="" class="img"></div>
+          <div class="img"><iep-img :src="item.img" alt="" class="img"></iep-img></div>
           <span class="sub-title name">{{ item.subtitle }}</span>
         </div>
       </el-carousel-item>
@@ -79,7 +79,7 @@ export default {
       width: 100%;
       height: 165px;
       overflow: hidden;
-      img {
+      .img {
         width: 100%;
         height: 165px;
         transition: 0.5s;

@@ -4,7 +4,7 @@
     <div class="fams-person-top">
       <el-card shadow="hover">
         <div class="fams-top-con">
-          <div class="img"><img :src="img" alt=""></div>
+          <div class="img"><iep-img :src="img" alt=""></iep-img></div>
           <div class="text">
             <span class="title">{{title}}</span>
             <span class="detail">

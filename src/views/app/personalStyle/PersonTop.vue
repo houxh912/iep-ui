@@ -2,7 +2,7 @@
   <div class="personal-top">
     <el-card class="box-card" shadow="hover">
       <div class="img-con">
-        <div class="img"><img :src="userInfo.avatar" alt=""></div>
+        <div class="img"><iep-img :src="userInfo.avatar" alt=""></iep-img></div>
         <span class="num">{{userInfo.staffId}}</span>
       </div>
       <div class="text">
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { addMasterWorker } from '@/api/hrms/employee_profile'
+import { addMasterWorker } from '@/api/cpms/characterrelations'
 
 export default {
   props: {

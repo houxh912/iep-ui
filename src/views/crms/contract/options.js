@@ -78,25 +78,35 @@ export const initFormData = () => {
   return {
     contractName: '',
     contractExpl: '',
+    contractType: 1, // 合同类型
     businessType: '',
     tagKeyWords: [],
     signTime: '',
     finishTime: '',
-    companyOrgId: null, //委托单位
+    companyOrgId: '', // 委托单位
+    companyName: { id: '', name: '' },
+    companyOrgObj: {},
+    signCompanyOrgId: '', // 签署单位
+    signCompanyRealName: { id: '', name: '' },
+    signCompanyOrgObj: {},
+    signDeptOrgId: '', // 签署组织
     signDeptName: '',
-    signCompanyOrgId: null, //签属单位
-    signDeptOrgId: { id: '', name: '' }, //签属部门
-    underTakeDeptId: [], //承接部门
-    directorId: '', //市场经理
-    Manager: '',
+    underTakeDeptId: [], // 承接部门
+    underTakeDeptName: [],
+    directorId: '', // 市场经理-id
+    directorName: '', // 市场经理-name
+    directorList: {
+      id: '',
+      name: '',
+    }, // 市场经理-list
     contractAmount: '',
     contractLevel: '',
     contractStatus: '',
     deposit: '',
-    contractFileList: [],
-    contractType: 1,
     projectName: '',
     projectId: '',
+    contractFile: [],
+    contractFileList: [],
   }
 }
 export const projecTableOption = [

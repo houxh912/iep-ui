@@ -63,7 +63,7 @@
               <i class="icon-shanchu1 close" @click="handleClose(index)"></i>
               <div class="img">
                 <span class="bgb">{{opex.name1}}</span>
-                <img :src="opex.img" alt="">
+                <iep-img :src="opex.img" alt=""></iep-img>
               </div>
               <span class="name">{{opex.name}}</span>
             </div>
@@ -78,7 +78,7 @@
               <i class="icon-shanchu1 close" @click="handleClose2(opex)"></i>
               <div class="img">
                 <span class="bgb">{{opex2.name1}}</span>
-                <img :src="opex2.img" alt="">
+                <iep-img :src="opex2.img" alt=""></iep-img>
               </div>
               <span class="name">{{opex2.name}}</span>
             </div>

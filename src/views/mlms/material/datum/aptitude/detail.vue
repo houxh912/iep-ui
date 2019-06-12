@@ -17,7 +17,7 @@
         <pre>{{formData.intro}}</pre>
       </el-row>
       <el-row class="image">
-        <img v-if="formData.image" :src="formData.image" class="img-avatar">
+        <iep-img v-if="formData.image" :src="formData.image" class="img-avatar"></iep-img>
       </el-row>
       <el-row class="down-load" v-if="formData.attachFileList.length > 0">
         相关附件：

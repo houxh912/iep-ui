@@ -1,6 +1,6 @@
 <template>
   <div class="origanaze-report">
-    <leader-top></leader-top>  
+    <leader-top @select="select"></leader-top>
     <basic-container>
       <span class="btn" @click="handleReturn">返回</span>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
@@ -33,16 +33,18 @@ export default {
         label: '组织月报',
         value: 'OriganazeMonth',
       }],
-      activeTab: 'OriganazeWeek',
+      activeTab: '',
     }
   },
-
-  mounted () {
+   mounted () {
     this.activeTab = this.$route.query.name
   },
   methods:{
     handleReturn () {
       this.$router.push('/wel/desktop')
+    },
+    select (selectName) {
+      this.activeTab = selectName
     },
   },
 }

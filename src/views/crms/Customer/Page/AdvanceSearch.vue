@@ -16,7 +16,7 @@
       <iep-dict-select v-model="businessTypeKey" dict-name="crms_business_type" multiple></iep-dict-select>
     </el-form-item> -->
     <el-form-item label="市场经理" v-if="type==='1'">
-      <el-input v-model="form.marketManager" placeholder="请输入市场经理"></el-input>
+      <el-input v-model="form.marketManagerName" placeholder="请输入市场经理"></el-input>
     </el-form-item>
     <el-form-item label="负责部门" v-if="type==='1'">
       <el-input v-model="form.deptName" placeholder="请输入负责部门"></el-input>

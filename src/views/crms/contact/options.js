@@ -44,15 +44,15 @@ const initSearchForm = () => {
 //     callback()
 //   }
 // }
-const cellPhone = (rules, value, callback) => {
-  if (value !== '') {
-    var reg = /(^1[0-9]{10}$)|(^0\d{2,3}-?\d{7,8}$)/
-    if (!reg.test(value)) {
-      callback(new Error('请输入有效的电话号码'))
-    }
-  }
-  callback()
-}
+// const cellPhone = (rules, value, callback) => {
+//   if (value !== '') {
+//     var reg = /(^1[0-9]{10}$)|(^0\d{2,3}-?\d{7,8}$)/
+//     if (!reg.test(value)) {
+//       callback(new Error('请输入有效的电话号码'))
+//     }
+//   }
+//   callback()
+// }
 const rules = {
   contactName: [
     { required: true, message: '请输入联系人姓名', trigger: 'blur' },
@@ -74,7 +74,8 @@ const rules = {
     { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
   ],
   clientInfos: [{ required: true, message: '请选择对应客户', trigger: 'blur' }],
-  cellphone: [{ validator: cellPhone, trigger: 'blur' }],
+  // cellphone: [{ validator: cellPhone, trigger: 'blur' }],
+  cellphone: [{  trigger: 'blur' }],
   fax: [{ max: 255, message: '长度不可超过255个字符', trigger: 'blur' }],
   qq: [{ min: 5, max: 11, message: '长度为5-11位数字', trigger: 'blur' }],
   wechat: [{ max: 20, message: '长度不可超过20个字符', trigger: 'blur' }],

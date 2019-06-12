@@ -22,6 +22,9 @@
           <el-form-item label="工号：" class="form-half">
             <iep-div-detail :value="form.staffId"></iep-div-detail>
           </el-form-item>
+          <el-form-item label="身份标识：">
+            <iep-identity-mark v-for="item in form.identityMarks" :key="item.value" :icon=" item.icon" :title="item.label"></iep-identity-mark>
+          </el-form-item>
           <el-form-item label="角色：">
             <iep-tag-detail :value="form.roleName" iep-type="role"></iep-tag-detail>
           </el-form-item>

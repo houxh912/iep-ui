@@ -2,7 +2,7 @@
 <div class="whole">
   <div class="whole-box" v-for="(item,index) in wholeList" :key="index">
     <div class="whole-item">
-      <img :src="item.imgSrc" alt="">
+      <iep-img :src="item.imgSrc" alt=""></iep-img>
     </div>
     <p>{{item.description}}</p>
   </div>

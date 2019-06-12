@@ -46,11 +46,15 @@
               <el-form-item label="前端组件" prop="component">
                 <el-input v-model="form.component" :disabled="formEdit" placeholder="请输入描述"></el-input>
               </el-form-item>
-              <el-form-item label="前端地址" prop="component">
+              <el-form-item label="前端地址" prop="path">
                 <el-input v-model="form.path" :disabled="formEdit" placeholder="iframe嵌套地址"></el-input>
               </el-form-item>
-              <el-form-item label="路由缓冲" prop="component">
+              <el-form-item label="路由缓冲" prop="keepAlive">
                 <el-switch v-model="form.keepAlive" :disabled="formEdit" active-color="#13ce66" inactive-color="#ff4949" :active-value="'1'" :inactive-value="'0'" active-text="缓存（该页面不需要实时数据更新）" inactive-text="不缓存（该页面需要实时数据更新）">
+                </el-switch>
+              </el-form-item>
+              <el-form-item label="是否禁用" prop="isDisable">
+                <el-switch v-model="form.isDisable" :disabled="formEdit" active-color="#ff4949" inactive-color="#13ce66" :active-value="1" :inactive-value="0" active-text="禁用" inactive-text="启用">
                 </el-switch>
               </el-form-item>
               <el-form-item v-if="formStatus == 'update'">

@@ -2,7 +2,7 @@
   <div class="banner">
     <el-card class="banner-list" shadow="hover" v-for="banner in bannerList" :key="banner.id">
       <span class="title">{{banner.title}}</span>
-      <img class="img" :src="banner.img" alt="">
+      <iep-img class="img" :src="banner.img" alt=""></iep-img>
     </el-card>
   </div>
 </template>

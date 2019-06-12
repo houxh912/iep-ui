@@ -18,7 +18,7 @@
             <div class="right">
               <div class="user-poster">
                 <span class="say">{{timeFix}}，{{form.name}}
-                  <iep-identity-mark icon="iep2-iconchengyuan" title="成员"></iep-identity-mark>
+                  <iep-identity-mark v-for="item in form.identityMarks" :key="item.value" :icon="item.icon" :title="item.label"></iep-identity-mark>
                   <span class="welcome-text">{{welcome}}</span>
                 </span>
               </div>
@@ -78,6 +78,7 @@ const initIndexForm = () => {
   return {
     name: '', //名字
     staffId: '', //工号
+    identityMarks: [],
     job: '', //职位
     title: '',//职称
     tagNum: 10,//标签

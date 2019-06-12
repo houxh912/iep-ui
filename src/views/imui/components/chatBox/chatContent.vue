@@ -3,8 +3,8 @@
     <div class="chat-box">
       <div class="chat-group">
         <div class="chat-title">
-          <img class="chat-title-head"
-               :src="chatDetail.avatar ? chatDetail.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
+          <iep-img class="chat-title-head"
+               :src="chatDetail.avatar ? chatDetail.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
           <span class="chat-title-name">{{chatDetail.realName}}</span>
         </div>
         <div class="chat-main">
@@ -23,7 +23,7 @@
                 <img src=""/>
                 <div class="chat-main-content">
                   <span>{{message.time}}</span>
-                  <p>{{message.message}}</p>
+                  <p v-html="messageFormat(message.message)"></p>
                 </div>
               </li>
             </ul>
@@ -47,6 +47,8 @@
 
 <script>
 import { getMoreHistory } from '@/api/im'
+const urlReg = new RegExp('((http(s)?:\\/\\/)?(\\w+\\.)+(com|net|org|cn|xin|top|cc|online)(\\/(\\w)*)*)', 'gi')
+
 export default {
   name: 'chat-content',
   data () {
@@ -69,6 +71,9 @@ export default {
     this.messageList = Object.assign([], this.getMessageList)
   },
   methods: {
+    messageFormat (msg) {
+      return msg.replace(urlReg, '<a class="msg-link" href="//$1" target="_blank">$1</a>')
+    },
     readNew () {
       this.$refs.chatmain.scrollTop = this.$refs.chatmain.scrollHeight
     },
@@ -157,6 +162,13 @@ export default {
 }
 </script>
 
+<style>
+  .chat-main-content .msg-link {
+    color: #BA1B21;
+    text-decoration: underline;
+  }
+</style>
+
 <style lang="scss" scoped>
 .chat-content {
     flex: 1 1 400px;
@@ -185,6 +197,7 @@ export default {
             height: 50px;
             width: 50px;
             border-radius: 25px;
+            overflow: hidden;
           }
           .chat-title-name {
             display: block;

@@ -51,7 +51,7 @@ export const dictsMap = {
 export const initForm = () => {
   return {
     title: '', //试卷名称
-    field: '', //试卷分类
+    fieldName: '', //试卷分类
     iepQstnRuleList: [], //试题集合
     difficulty: '', //试卷难度
     choiceNum: 0, //题目总数

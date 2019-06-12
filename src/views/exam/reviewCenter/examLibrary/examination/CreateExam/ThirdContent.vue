@@ -1,46 +1,60 @@
 <template>
-  <div>
+  <div style="margin-top:40px">
     <div class="steps-content">
       <el-card shadow="never" class="content-wrapper">
+        <div slot="header">
+          <span>试卷信息</span>
+          <iep-button type="primary" @click="handleEdit(testPaper.id)" v-if="readOnly===false"
+            style="float:right; margin-top: -5px;">编辑试卷</iep-button>
+        </div>
         <el-form size="small" :model="data" label-width="100px">
-          <h1>{{testPaper.title}}</h1>
-          <el-form-item label="所属科目:" style="width:50%">
-            <el-input readonly v-model="testPaper.fieldName"></el-input>
-          </el-form-item>
-          <el-row>
-            <el-col :span="4">
-              <el-form-item label="试题数量:">
-                <el-input v-model="testPaper.choiceNum" readonly>
-                  <template slot="append">道</template>
-                </el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="4">
-              <el-form-item label="试题总分:">
-                <el-input v-model="testPaper.score" readonly>
-                  <template slot="append">分</template>
-                </el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="4">
-              <el-form-item label="试题难度:">
-                <el-input v-model="testPaper.difficulty" readonly></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="6">
-              <el-form-item label="创建人：">
-                <span>{{testPaper.createName}}</span>
-              </el-form-item>
-            </el-col>
-            <el-col :span="6">
-              <el-form-item label="创建时间：">
-                <span>{{testPaper.creatTime}}</span>
+          <el-row :gutter="40">
+            <el-col :span="12">
+              <el-form-item label="试卷名称">
+                <el-input readonly v-model="testPaper.title"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <iep-button type="primary" style="float:right" @click="handleEdit(testPaper.id)" v-if="readOnly===false">编辑试卷</iep-button>
+              <el-form-item label="所属科目">
+                <el-input readonly v-model="testPaper.fieldName"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="40">
+            <el-col :span="12">
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item label="试题数量">
+                    <el-input v-model="testPaper.choiceNum" readonly>
+                      <template slot="append">道</template>
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="总分">
+                    <el-input v-model="testPaper.score" readonly>
+                      <template slot="append">分</template>
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-col>
+            <!-- <el-col :span="4">
+              <el-form-item label="试题难度:">
+                <el-input v-model="testPaper.difficulty" readonly></el-input>
+              </el-form-item>
+            </el-col> -->
+          </el-row>
+          <el-row :gutter="40">
+            <el-col :span="12">
+              <el-form-item label="创建者" style="margin-bottom: 0">
+                <el-input readonly v-model="testPaper.createName"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="创建时间" style="margin-bottom: 0">
+                <el-input readonly v-model="testPaper.creatTime"></el-input>
+              </el-form-item>
             </el-col>
           </el-row>
         </el-form>
@@ -169,7 +183,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item prop="showPlace">
-                <el-switch active-text="添加面试判分" v-model="examForm.showComment" :active-value="1"
+                <el-switch active-text="添加面试判分" v-model="examForm.addInterview" :active-value="1"
                   :inactive-value="0" :disabled="readOnly"></el-switch>
               </el-form-item>
             </el-col>
@@ -191,7 +205,7 @@
                 <iep-contact-multiple-user v-model="examForm.writeUserids" :filter-user-list="filterUserList"
                   :disabled="readOnly"></iep-contact-multiple-user>
               </el-form-item>
-              <el-form-item prop="faceUserIds" label="面试判分权限" label-width="150px" v-if="examForm.showComment===1">
+              <el-form-item prop="faceUserIds" label="面试判分权限" label-width="150px" v-if="examForm.addInterview===1">
                 <iep-contact-multiple-user v-model="examForm.faceUserIds" :filter-user-list="filterUserList"
                   :disabled="readOnly"></iep-contact-multiple-user>
               </el-form-item>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="集团往来账" :replaceText="replaceText" :data="[10 ,5,10,25]"></page-header>
+      <page-header title="集团往来账"></page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks">
@@ -23,7 +23,6 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      replaceText: (data) => `（支出：${data[0]}笔，内部往来帐支出：${data[0]}收入：${data[0]}笔,集团往来账收入：${data[0]}贝，集团往来账：${data[0]}贝）`,
     }
   },
   created () {

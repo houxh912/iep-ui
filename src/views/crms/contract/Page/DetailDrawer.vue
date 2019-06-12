@@ -1,6 +1,6 @@
 <template>
   <iep-drawer :drawer-show="drawerShow" type="drawer" :title="'合同详情'" width="50%" @close="loadPage">
-    <el-form :model="formData" label-width="150px">
+    <el-form :model="formData" label-width="150px" class="form-detail">
       <el-form-item label="合同名称：">
         <el-input v-model="formData.contractName" disabled></el-input>
       </el-form-item>
@@ -30,13 +30,17 @@
       </el-row>
       <el-row>
         <el-col :span=12>
-          <el-form-item label="委托单位：">
-            <el-input v-model="formData.companyName" disabled></el-input>
+          <el-form-item label="委托单位：" disabled>
+            <!-- <el-input v-model="formData.companyName" disabled></el-input> -->
+            <IepCrmsSelect v-model="formData.companyOrgId" :option="[formData.companyName]" prefixUrl="crm/customer/myorcoll/list">
+            </IepCrmsSelect>
           </el-form-item>
         </el-col>
         <el-col :span=12>
-          <el-form-item label="签署单位：">
-            <el-input v-model="formData.signCompanyRealName" disabled></el-input>
+          <el-form-item label="签署单位：" disabled>
+            <!-- <el-input v-model="formData.signCompanyRealName" disabled></el-input> -->
+            <IepCrmsSelect v-model="formData.signCompanyOrgId" :option="[formData.signCompanyRealName]" prefixUrl="crm/customer/all/list">
+            </IepCrmsSelect>
           </el-form-item>
         </el-col>
       </el-row>
@@ -56,6 +60,7 @@
         <el-col :span=12>
           <el-form-item label="市场经理：">
             <el-input v-model="formData.Manager" disabled></el-input>
+            <!-- <iep-contact-select v-model="formData.directorList"></iep-contact-select> -->
           </el-form-item>
         </el-col>
         <el-col :span=12>
@@ -111,6 +116,7 @@ export default {
       drawerShow: false,
       formData: initFormData(),
       infoList: '',
+      directorList: [],
     }
   },
   computed: {

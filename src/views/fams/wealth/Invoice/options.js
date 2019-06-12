@@ -3,8 +3,9 @@
 const dictsMap = {
   status: {
     0: '待提交',
-    1: '待确认',
-    2: '已确认',
+    1: '部门审批',
+    2: '财务审批',
+    3: '已完成',
   },
   referType: {
     1: '项目管理类',
@@ -39,6 +40,7 @@ function initForm () {
       id: 0,
       name: '',
     },
+    financialAudit:0,
     relations: [],
   }
 }
@@ -68,7 +70,7 @@ const columnsMap = [
 	},
 	{
 		prop: 'auditorName',
-		label: '审核人',
+		label: '部门审批人',
 	},
 	{
 		prop: 'auditingTime',

@@ -1,6 +1,6 @@
 <template>
-  <iep-dialog :title="methodName" :dialog-show="dialogShow" width="520px" @close="close">
-    <el-form class="form-detail" :rules="rules" :model="form" size="small" label-width="140px">
+  <iep-dialog :title="methodName" :dialog-show="dialogShow" width="600px" @close="close">
+    <el-form class="form-detail" :rules="rules" ref="form" :model="form" size="small" label-width="140px">
       <el-form-item label="父公司：" v-if="!!form.parentId">
         <iep-div-detail :value="form.parentName"></iep-div-detail>
       </el-form-item>
@@ -34,7 +34,9 @@
 </template>
 <script>
 import { initForm, rules } from './options'
+import formMixins from '@/mixins/formMixins'
 export default {
+  mixins: [formMixins],
   data () {
     return {
       rules,
@@ -45,15 +47,39 @@ export default {
     }
   },
   methods: {
-    handleSubmit () {
-      this.formRequestFn(this.form).then(({ data }) => {
-        if (data.data) {
-          this.$message.success('操作成功')
-          this.close()
-        } else {
-          this.$message(data.msg)
+    async handleSubmit () {
+      try {
+        await this.mixinsValidate()
+        try {
+          const { data } = await this.formRequestFn(this.form)
+          if (data.data) {
+            this.$message({
+              message: '操作成功',
+              type: 'success',
+            })
+            this.close()
+          } else {
+            this.$message({
+              message: data.msg,
+              type: 'error',
+            })
+          }
+        } catch (error) {
+          this.$message({
+            message: error.message,
+            type: 'error',
+          })
         }
-      })
+      } catch (object) {
+        let message = ''
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            const element = object[key]
+            message = element[0].message
+          }
+        }
+        this.$message(message)
+      }
     },
     close () {
       this.dialogShow = false

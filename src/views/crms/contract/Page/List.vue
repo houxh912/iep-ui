@@ -102,6 +102,12 @@ export default {
       getDataById(row.contractId).then(res => {
         this.$refs['DetailDrawer'].formData = res.data.data
         this.$refs['DetailDrawer'].formData.signDeptOrgName = res.data.data.signDeptOrgName.name
+        let directorList = {
+          id: res.data.data.directorId,
+          name: res.data.data.directorRealName,
+        }
+        this.$set(this.$refs['DetailDrawer'].formData, 'directorList', directorList)
+        // this.$refs['DetailDrawer'].formData.directorList = directorList
         // 业务类型处理
         let businessType = res.data.data.businessType.split(','), list = []
         for (let type of businessType) {
@@ -114,7 +120,7 @@ export default {
           }
         }
         this.$refs['DetailDrawer'].infoList = list.toString()
-        getObj(res.data.data.directorId).then(res => {
+        getObj(res.data.data.creatorId).then(res => {
           this.$set(this.$refs['DetailDrawer'].formData, 'Manager', res.data.data.realName)
         })
       })

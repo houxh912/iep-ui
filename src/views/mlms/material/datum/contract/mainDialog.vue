@@ -223,14 +223,14 @@ export default {
     // 根据项目查询委托、签署单位、市场经理
     projectChange (val) {
       if (val) {
-        getManeger({id: val}).then(({ data }) => {
+        getManeger({ id: val }).then(({ data }) => {
           let row = data.data
           let obj = {}
           obj.companyOrgId = row.signCompanyId
-          obj.companyName = {id: row.signCompanyId, name: row.signCompanyRealName}
+          obj.companyName = { id: row.signCompanyId, name: row.signCompanyRealName }
           obj.signCompanyOrgId = row.signDeptOrgId
-          obj.signCompanyRealName = {id: row.signDeptOrgId, name: row.signDeptOrgName}
-          obj.directorList = {id: row.directorId, name: row.directorRealName}
+          obj.signCompanyRealName = { id: row.signDeptOrgId, name: row.signDeptOrgName }
+          obj.directorList = { id: row.directorId, name: row.directorRealName }
           this.formData = Object.assign({}, this.formData, obj)
         })
       }

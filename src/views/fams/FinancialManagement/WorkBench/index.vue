@@ -4,7 +4,7 @@
       <div class="container-grid">
         <financial-assets></financial-assets>
         <processing></processing>
-        <project-accounting></project-accounting>
+        <!-- <project-accounting></project-accounting> -->
         <org-in-out></org-in-out>
         <distribution-funds></distribution-funds>
       </div>
@@ -14,14 +14,14 @@
 <script>
 import FinancialAssets from './FinancialAssets'
 import Processing from './Processing'
-import ProjectAccounting from './ProjectAccounting'
+// import ProjectAccounting from './ProjectAccounting'
 import OrgInOut from './OrgInOut'
 import DistributionFunds from './DistributionFunds'
 export default {
   components: {
     FinancialAssets,
     Processing,
-    ProjectAccounting,
+    // ProjectAccounting,
     OrgInOut,
     DistributionFunds,
   },

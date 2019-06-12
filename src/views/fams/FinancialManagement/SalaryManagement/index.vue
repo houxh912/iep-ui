@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="工资" :replaceText="replaceText"></page-header>
+      <page-header title="工资管理" :replaceText="replaceText"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button icon="el-icon-plus" @click="handleAdd()">新增工资单</iep-button>

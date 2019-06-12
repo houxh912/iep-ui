@@ -3,7 +3,7 @@ const dictsMap = {
 }
 const columnsMap = [
   {
-    prop: 'name',
+    prop: 'realName',
     label: '姓名',
     width: '120',
   },
@@ -35,14 +35,14 @@ const columnsMap = [
   //   prop: 'wechat',
   //   label: '微信',
   // },
-  {
-    prop: 'positionName',
-    label: '岗位名称',
-  },
-  {
-    prop: 'jobName',
-    label: '职务名称',
-  },
+  // {
+  //   prop: 'positionName',
+  //   label: '岗位名称',
+  // },
+  // {
+  //   prop: 'jobName',
+  //   label: '职务名称',
+  // },
   // {
   //   prop: 'professionalTitle',
   //   label: '职称',
@@ -59,13 +59,6 @@ const initForm = () => {
   }
 }
 
-const initGroupForm = () => {
-  return {
-    customId:0,
-    userId:[],
-  }
-}
-
 const formToDto = (row) => {
   const newForm = {...row}
   return newForm
@@ -76,11 +69,4 @@ const initSearchForm = () => {
     name: '',
   }
 }
-
-const rules = {
-  name: [
-    { required: true, message: '请输入自定义分组名', trigger: 'blur' },
-  ],
-}
-
-export { dictsMap, columnsMap, initForm, initSearchForm, rules, formToDto, initGroupForm }
+export { dictsMap, columnsMap, initForm, initSearchForm, formToDto }

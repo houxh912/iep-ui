@@ -83,6 +83,7 @@ export default {
   },
   methods: {
     handleAddUsers () {
+      this.$refs['AddUserDialogForm'].selectUserList = []
       this.$refs['AddUserDialogForm'].loadPage()
       this.$refs['AddUserDialogForm'].dialogShow = true
     },

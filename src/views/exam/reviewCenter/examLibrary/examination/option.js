@@ -287,7 +287,8 @@ export const examFormRules = {
     { type: 'number', message: '该字段必须为数字值' },
   ],
   timeLong: [
-    { required: true, trigger: 'blur', validator: intValidate, message: '该字段必须为数字值' },
+    { required: true, trigger: 'blur', message: '必填' },
+    { validator: intValidate, message: '该字段必须为数字值' },
   ],
   passScore: [
     { required: true, message: '必填', trigger: 'blur' },

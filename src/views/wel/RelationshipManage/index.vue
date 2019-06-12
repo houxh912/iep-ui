@@ -11,33 +11,43 @@
               <template slot="title">
                 <span>国脉人</span>
               </template>
-              <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in allPeople" @click.native="handleAllPeople()">
+              <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in allPeople" @click.native="handleAllPeople(item.value)">
                 <span>{{item.label}}</span>
-                <!-- <el-badge v-if="typeCountMap[item.value]" class="mark" type="primary" :value="typeCountMap[item.value]" /> -->
               </el-menu-item>
             </el-submenu>
             <el-submenu index="2" collapse>
               <template slot="title">
                 <span>我的关系</span>
               </template>
+              <el-menu-item index="601" class="menu-item" @click.native="handleSelectMaster()">
+                <span>我的师傅</span>
+              </el-menu-item>
+              <el-menu-item index="602" class="menu-item" @click.native="handleSelectApprentice()">
+                <span>我的徒弟</span>
+              </el-menu-item>
               <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id)" @dblclick.native="changeGroup(item.name,item.id)">
                 <span>{{item.name}}</span>
                 <i class="iconfont icon-shanchu1" @click="handleDelete(item.id)"></i>
-                <!-- <el-badge v-if="typeCountMap[item.id]" class="mark" type="primary" :id="typeCountMap[item.id]" /> -->
               </el-menu-item>
             </el-submenu>
           </el-menu>
           <el-button style="width:100%;border:0;" @click="openContact"><i class="iconfont icon-xinzeng"></i></el-button>
         </el-card>
       </el-col>
-      <el-col :span="20">
+      <el-col :span="20" v-if="this.mark=='master'">
+        <master></master>
+      </el-col>
+      <el-col :span="20" v-else-if="this.mark=='apprentice'">
+        <apprentice></apprentice>
+      </el-col>
+      <el-col :span="20" v-else>
         <!-- <page-header title=""></page-header> -->
         <operation-container>
           <template slot="left">
-            <iep-button type="primary" @click="handleAddBatch" plain>批量添加</iep-button>
+            <iep-button type="primary" @click="handleAddBatch" plain v-show="mark==''">批量添加</iep-button>
+            <iep-button type="primary" @click="handleRemoveBatch" plain v-show="mark=='group'">批量移除</iep-button>
           </template>
           <template slot="right">
-            <!-- <el-radio-group v-model="type" size="small" @change="changeType"> -->
             <el-radio-group size="small">
               <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
             </el-radio-group>
@@ -65,17 +75,19 @@
   </div>
 </template>
 <script>
-import { getRelationshipManagePage, getTypeCountMap, getRelationshipList, putRelationshipList, joinRelationship, deleteRelationshipList, joinGroup, removeRelationshipById } from '@/api/wel/relationship_manage'
+import { getRelationshipManagePage, getTypeCountMap, getRelationshipList, putRelationshipList, joinRelationship, deleteRelationshipList, joinGroup, removeRelationshipById, removeRelationshipBatch } from '@/api/wel/relationship_manage'
 import mixins from '@/mixins/mixins'
 import formMixins from '@/mixins/formMixins'
 import { columnsMap, dictsMap, initForm } from './options'
 import DialogForm from './DialogForm'
 import AddDialogForm from './AddDialogForm'
+import master from './MentorTable/master'
+import apprentice from './MentorTable/apprentice'
 // import AdvanceSearch from './AdvanceSearch'
 export default {
   mixins: [mixins,formMixins],
   // components: { AdvanceSearch },
-  components: { DialogForm, AddDialogForm },
+  components: { DialogForm, AddDialogForm, master, apprentice },
   data () {
     return {
       dictsMap,
@@ -91,6 +103,7 @@ export default {
         {value:1002,label:'按职务信息'},
         {value:1003,label:'按职称信息'},
       ],
+      sort:{positionId:'',jobId:'',professionalTitleId:''},
       relationship:[
       ],
       tabList:[
@@ -121,12 +134,42 @@ export default {
     handleDelete (id) {
       this._handleGlobalDeleteById(id, deleteRelationshipList)
     },
-    handleAllPeople () {
+    handleAllPeople (val) {
       this.mark = ''
+      if(val==1001){
+        this.sort.positionId='1'
+        this.sort.jobId=''
+        this.sort.professionalTitleId=''
+      }
+      else if(val==1002){
+        this.sort.positionId=''
+        this.sort.jobId='1'
+        this.sort.professionalTitleId=''
+      }
+      else if(val==1003){
+        this.sort.positionId=''
+        this.sort.jobId=''
+        this.sort.professionalTitleId='1'
+      }
       this.loadPage()
     },
     async handleRemove (row) {
       const { data } = await removeRelationshipById(row.groupId,[row.userId])
+      if (data.data) {
+        this.$message({
+          message: '操作成功',
+          type: 'success',
+        })
+        this.loadPage()
+      } else {
+        this.$message({
+          message: data.msg,
+          type: 'error',
+        })
+      }
+    },
+    async handleRemoveBatch () {
+      const { data } = await removeRelationshipBatch(this.groupType,this.multipleSelection)
       if (data.data) {
         this.$message({
           message: '操作成功',
@@ -155,6 +198,12 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.userId)
     },
+    handleSelectMaster () {
+      this.mark = 'master'
+    },
+    handleSelectApprentice () {
+      this.mark = 'apprentice'
+    },
     handleSelectType (k) {
       this.groupType = k
       this.mark = 'group'
@@ -179,7 +228,7 @@ export default {
         this.loadTable({ groupId: this.groupType, ...param }, getTypeCountMap)
       }
       else {
-        this.loadTable(param, getRelationshipManagePage)
+        this.loadTable({ positionId: this.sort.positionId,jobId: this.sort.jobId,professionalTitleId: this.sort.professionalTitleId, ...param }, getRelationshipManagePage)
       }
     },
   },

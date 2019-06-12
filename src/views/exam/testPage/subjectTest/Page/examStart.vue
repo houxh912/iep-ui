@@ -36,9 +36,15 @@
             </el-checkbox-group>
           </div>
 
-          <div v-if="resdata.questionTypeName ==='判断题'">
+          <!-- <div v-if="resdata.questionTypeName ==='判断题'">
             <li v-for="(item,index) in resdata.titleOptions" :key="index">
               <el-radio v-model="trueOrFalseRadio" :label="item.value"></el-radio>
+            </li>
+          </div> -->
+
+          <div v-if="resdata.questionTypeName ==='判断题'">
+            <li v-for="(item,index) in trueOrFalseList" :key="index">
+              <el-radio v-model="trueOrFalseRadio" :label="item" @change="handleTrueOrFalse (item)"></el-radio>
             </li>
           </div>
 
@@ -136,6 +142,7 @@ export default {
       checksList: [],         //复选(v-model绑定的值)
       trueOrFalseRadio: '',   //判断(v-model绑定的值)
       freeInput: '',          //简答(v-model绑定的值)
+      trueOrFalseList: ['正确', '错误'],
       inputAreaList: [''],
       questionExplain: '本题来源于国脉内网、水巢、数据基因、技能类、知识类、数据能力类、基本能力类、项目管理类、公司常识类、人力资源类等。',
       mins: '',
@@ -208,6 +215,14 @@ export default {
 
   },
   methods: {
+
+    /**
+     * 判断题
+     */
+    handleTrueOrFalse (item) {
+      console.log('handleTrueOrFalse => ' + item)
+    },
+
     /**
      * 判断题型(公用方法)
      */

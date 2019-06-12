@@ -16,7 +16,12 @@
       <div class="table">
         <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
           @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectChange"
-          is-mutiple-selection is-index>
+          is-mutiple-selection>
+          <el-table-column prop="title" label="题目" min-width="100" sortable>
+            <template slot-scope="scope">
+              {{scope.row.title}}
+            </template>
+          </el-table-column>
           <el-table-column prop="fieldName" label="科目" min-width="100" sortable>
             <template slot-scope="scope">
               {{scope.row.fieldName}}
@@ -71,11 +76,11 @@
           <el-table-column prop="operation" label="操作" width="130">
             <template slot-scope="scope">
               <operation-wrapper>
-                <iep-button type="warning" plain @click="handleExamine(scope.row)">审核</iep-button>
+                <iep-button type="warning" :disabled="!scope.row.status == 0" plain @click="handleExamine(scope.row)">审核</iep-button>
                 <el-dropdown size="medium">
                   <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item @click.native="handleModify(scope.row)">修改</el-dropdown-item>
+                    <el-dropdown-item :disabled="!scope.row.status == 0" @click.native="handleModify(scope.row)">修改</el-dropdown-item>
                     <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>

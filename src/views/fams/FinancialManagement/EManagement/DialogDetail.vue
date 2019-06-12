@@ -30,6 +30,10 @@
         <iep-div-detail :value="form.protocolName"></iep-div-detail>
       </el-form-item>
 
+      <el-form-item label="关联项目：">
+        <iep-div-detail :value="form.projectName"></iep-div-detail>
+      </el-form-item>
+
       <el-form-item label="支出金额：">
         <iep-div-detail :value="form.amount+' 元'"></iep-div-detail>
       </el-form-item>

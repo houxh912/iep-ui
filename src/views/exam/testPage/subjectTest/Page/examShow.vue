@@ -103,14 +103,14 @@
                       <div class="handleButton">
                         <iep-button type="primary" @click="handleStart(item)" v-if="item.status === 1 && item.examStatus === 7">开始考试</iep-button>
                         <iep-button type="success" @click="handleSign(item)" v-if="item.status === 0 && item.examStatus === 5">开始报名</iep-button>
-                        <iep-button type="warning" disabled v-if="item.status !== 1 && item.examStatus === 7 ">等待考试</iep-button>
+                        <iep-button type="primary" disabled v-if="item.status !== 1 && item.examStatus === 7 ">等待考试</iep-button>
                         <iep-button type="info" disabled v-if="item.status === 2 && item.examStatus === 5">报名结束</iep-button>
                         <iep-button type="info" disabled v-if="item.examStatus === 4">考试结束</iep-button>
                         <iep-button type="info" disabled v-if="item.examStatus === 2">考试完成</iep-button>
-                        <iep-button type="warning" disabled v-if="item.examStatus === 0">报名审核中</iep-button>
+                        <iep-button type="success" disabled v-if="item.examStatus === 0">报名审核中</iep-button>
                         <iep-button type="danger" disabled v-if="item.examStatus === 1 && item.status === 1">报名审核不通过</iep-button>
                         <iep-button type="info" disabled v-if="item.examStatus === 3">已交卷</iep-button>
-                        <iep-button type="primary" v-if="item.examStatus === 8">查看成绩</iep-button>
+                        <iep-button type="primary" v-if="item.examStatus === 8" @click="handleExamine(item)">查看成绩</iep-button>
                       </div>
                     </div>
                   </el-card>
@@ -321,6 +321,13 @@ export default {
       this.$refs['SignDialog'].explainList = item.description
       this.$refs['SignDialog'].consume = item.consume
       this.$refs['SignDialog'].examId = item.id
+    },
+
+    /**
+     * 查看成绩
+     */
+    handleExamine (item) {
+      this.$emit('onExamine', item)
     },
     /**
      * 报名成功重新加载

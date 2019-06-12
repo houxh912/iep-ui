@@ -30,7 +30,9 @@ function initForm () {
     id: '',
     referType: 1,
     orgId: '',
+    orgName: '',
     companyId: '',
+    companyName: '',
     projectId: '',
     projectName: '',
     auditor: {

@@ -1,7 +1,7 @@
 <template>
   <div class="feedback">
     <IepAppTabCard :title="title" :linkName="linkName">
-      <el-button style="float: right; padding: 5px 0;" type="text" slot="right">我要发表</el-button>
+      <el-button class="btn" type="text" slot="right">我要发表</el-button>
       <div class="feedback-list">
         <div v-for="(item,index) in feedbackList" :key="index" class="piece">
           <iep-img :src="item.avatar" class="photo"></iep-img>
@@ -42,6 +42,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.feedback {
+  .btn {
+    margin-right: 5px;
+    padding: 0;
+    height: 22px;
+    line-height: 22px;
+  }
+}
 .feedback-list {
   .piece {
     margin-bottom: 20px;
@@ -85,9 +93,6 @@ export default {
 }
 </style>
 <style scoped>
-.index-card >>> .el-card__header {
-  padding: 13px 0;
-}
 .index-card >>> .el-card__body {
   padding: 16px 0 2px;
 }
@@ -95,6 +100,6 @@ export default {
   padding: 0 20px;
 }
 .feedback >>> .el-card__body {
-  height: 272px;
+  height: 270px;
 }
 </style>

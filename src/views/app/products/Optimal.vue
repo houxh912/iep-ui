@@ -99,4 +99,9 @@ export default {
 .last-card >>> .el-card__header {
   padding-top: 0;
 }
+.technology-list >>> .el-image,
+.last-month >>> .el-image {
+  width: 50px;
+  height: 50px;
+}
 </style>

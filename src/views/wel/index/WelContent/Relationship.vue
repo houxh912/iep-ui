@@ -1,8 +1,11 @@
 <template>
   <div class="about-task">
     <div class="task-nav">
-      <span class="navTitle">我的关系</span>
-      <nav-tab :nav-list="navList" @tab="tab"></nav-tab>
+      <div class="left">
+        <span class="navTitle">我的关系</span>
+        <nav-tab :nav-list="navList" @tab="tab"></nav-tab>
+      </div>
+      <el-button size="mini" plain @click="handManage">管理</el-button>
     </div>
     <relationship-content :contentData="contentData"></relationship-content>
   </div>
@@ -30,10 +33,6 @@ export default {
         subtitle: '同事',
         type: 'colleague',
         id: 3,
-      }, {
-        subtitle: '通讯录',
-        type: 'circle',
-        id: 4,
       }],
       content: {
         mentor: [],
@@ -51,6 +50,11 @@ export default {
     tab (val) {
       this.contentData = this.content[val]
     },
+    handManage () {
+      this.$router.push({
+        path: '/wel/relationship_manage',
+      })
+    },
   },
 }
 </script>
@@ -62,11 +66,17 @@ export default {
   border-bottom: 1px solid #eee;
   .task-nav {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    .navTitle {
-      font-size: 16px;
-      padding-right: 20px;
-      color: #000;
+    .left{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .navTitle {
+        font-size: 16px;
+        padding-right: 20px;
+        color: #000;
+      }
     }
   }
   .title {

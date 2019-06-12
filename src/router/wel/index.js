@@ -70,6 +70,11 @@ export default [
         name:'组织周月报',
         component: () => import('@/views/wel/desktop/OriganazeReport/index'),     
       },
+      {
+        path:'relationship_manage',
+        name:'关系管理',
+        component: () => import('@/views/wel/RelationshipManage/index'),     
+      },
     ],
   },
 ]

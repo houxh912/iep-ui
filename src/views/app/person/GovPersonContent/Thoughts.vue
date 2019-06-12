@@ -95,6 +95,8 @@ export default {
 .title-right {
   display: inline-block;
   width: 244px;
+  height: 22px;
+  line-height: 22px;
   > .publish {
     margin-right: 10px;
     color: #cb3737 !important;
@@ -227,5 +229,9 @@ export default {
   align-items: center;
   height: 125px;
   overflow: hidden;
+}
+.thoughts >>> .title {
+  height: 22px;
+  line-height: 22px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="module-wrapper">
     <iep-no-data v-if="!form.technologyRelations.length" message="暂无关联技术"></iep-no-data>
     <div v-else class="module" v-for="(item) in form.technologyRelations" :key="item.id">
       <div class="img">
@@ -21,10 +21,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.module-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
 .module {
   width: 150px;
   height: 150px;
   margin-right: 40px;
+  margin-bottom: 20px;
   display: inline-block;
   padding: 10px 25px;
   border: 1px solid #ccc;

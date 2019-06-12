@@ -21,6 +21,9 @@ export default {
         approver: [
           { required: true, message: '请选择审批人', trigger: 'change' },
         ],
+        cc: [
+          { required: true, message: '请选择抄送人', trigger: 'change' },
+        ],
       },
       fnSelf: getEmployeeProfileSelf,
       selfToVo,

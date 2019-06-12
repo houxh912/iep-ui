@@ -1,20 +1,20 @@
 <template>
   <div class="feedback">
-  <IepAppTabCard :title="title" :linkName="linkName">
-    <el-button style="float: right; padding: 5px 0;" type="text" slot="right">我要发表</el-button>
-    <div class="feedback-list">
-      <div v-for="(item,index) in feedbackList" :key="index" class="piece">
-        <iep-img :src="item.avatar" class="photo"></iep-img>
-        <div class="box">
-          <div class="piece-title">
-            <span class="name">{{item.name}}</span>
-            <span class="time">{{item.sendTime}}</span>
+    <IepAppTabCard :title="title" :linkName="linkName">
+      <el-button style="float: right; padding: 5px 0;" type="text" slot="right">我要发表</el-button>
+      <div class="feedback-list">
+        <div v-for="(item,index) in feedbackList" :key="index" class="piece">
+          <iep-img :src="item.avatar" class="photo"></iep-img>
+          <div class="box">
+            <div class="piece-title">
+              <span class="name">{{item.name}}</span>
+              <span class="time">{{item.sendTime}}</span>
+            </div>
+            <p class="feed">{{item.proposeContent}}</p>
           </div>
-          <p class="feed">{{item.proposeContent}}</p>
         </div>
       </div>
-    </div>
-  </IepAppTabCard>
+    </IepAppTabCard>
   </div>
 </template>
 
@@ -24,14 +24,14 @@ import { getProposeList } from '@/api/app/cpms/channel'
 export default {
   data () {
     return {
-      title:'意见反馈',
-      linkName:'/hrms_spa/suggestion_new',
+      title: '意见反馈',
+      linkName: '/hrms_spa/suggestion_new',
       feedbackList: [],
     }
   },
   methods: {
     loadList () {
-      getProposeList().then(({data}) => {
+      getProposeList().then(({ data }) => {
         this.feedbackList = data.data
       })
     },
@@ -42,43 +42,43 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.feedback-list{
-  .piece{
+.feedback-list {
+  .piece {
     margin-bottom: 20px;
     overflow: hidden;
-    .photo{
+    .photo {
       width: 68px;
       height: 68px;
       margin-right: 10px;
       float: left;
-      border:1px solid #eee;
+      border: 1px solid #eee;
     }
-    .box{
+    .box {
       float: left;
       width: 445px;
       height: 68px;
-      .piece-title{
-        .name{
+      .piece-title {
+        .name {
           font-size: 16px;
           margin-right: 8px;
         }
-        .time{
+        .time {
           color: #999;
         }
       }
-      .feed{
+      .feed {
         cursor: pointer;
-        overflow : hidden;
+        overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
-        &:hover{
+        &:hover {
           color: #ba1b21;
         }
       }
     }
-    &:last-child{
+    &:last-child {
       margin-bottom: 12px;
     }
   }
@@ -88,13 +88,13 @@ export default {
 .index-card >>> .el-card__header {
   padding: 13px 0;
 }
-.index-card >>> .el-card__body{
+.index-card >>> .el-card__body {
   padding: 16px 0 2px;
 }
-.el-card{
+.el-card {
   padding: 0 20px;
 }
 .feedback >>> .el-card__body {
-  height: 270px;
+  height: 272px;
 }
 </style>

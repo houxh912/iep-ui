@@ -1,6 +1,5 @@
 import {
   getDic,
-  getDept,
 } from '@/views/wenjuan/util/dic'
 import {getGroupDept} from '@/api/evaluate/question'
 var moment = require('moment')
@@ -189,25 +188,25 @@ export default {
                 prop: 'name',
                 span: 12,
               },
-              {
-                label: '问卷类型',
-                prop: 'type',
-                span: 12,
-                type: 'select',
-                dicData: getDic('QUESTION_TYPE'),
-              },
-              {
-                label: '所属项目',
-                prop: 'projectId',
-                type: 'select',
-                dicData: this.projectIdDic,
-                span: 12,
-              },
+              // {
+              //   label: '问卷类型',
+              //   prop: 'type',
+              //   span: 12,
+              //   type: 'select',
+              //   dicData: getDic('QUESTION_TYPE'),
+              // },
+              // {
+              //   label: '所属项目',
+              //   prop: 'projectId',
+              //   type: 'select',
+              //   dicData: this.projectIdDic,
+              //   span: 12,
+              // },
               {
                 label: '问卷单位',
                 prop: 'evaDept',
                 type: 'select',
-                dicData: getDept(),
+                dicData: this.groupDic,
                 span: 12,
               },
               {
@@ -266,9 +265,7 @@ export default {
         column: [
           { label: '问卷名称', prop: 'name'},
           { label: '创建人', prop: 'createBy',type: 'dic', dicData: this.createByDic },
-          { label: '问卷类型', prop: 'type', type: 'dic', dicData: getDic('QUESTION_TYPE') },
           { label: '问卷状态', prop: 'status', type: 'dic', dicData: getDic('QUESTION_STATUS') },
-          { label: '所属项目', prop: 'projectId',type: 'select', dicData: this.projectIdDic },
           { label: '开始日期', prop: 'startTime', type: 'date' },
           { label: '结束日期', prop: 'endTime', type: 'date' },
           { label: '参与人数/收到问卷人数', prop: 'proportion' },

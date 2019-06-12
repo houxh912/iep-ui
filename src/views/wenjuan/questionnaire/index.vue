@@ -53,16 +53,17 @@ export default {
     initApi () {
       this.getList()
       fetchList({ //获取用户dic
-        limit: 9999,
-        page: 1,
+        size: 9999,
+        current: 1,
       }).then(({ data }) => {
-        let dic = data.records.map(item => {
+        let dic = data.data.records.map(item => {
           return {
-            value: item.id,
+            value: item.userId,
             label: item.username,
           }
         })
         this.createByDic = dic
+        console.log('this.creat', this.createByDic)
       })
 
       this.projectIdDic = []

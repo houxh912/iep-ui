@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="新增收入" width="700px" @close="loadPage">
-    <el-form :model="form" size="small" ref="form" :rules="rules" label-width="120px">
+    <el-form class="form-detail" :model="form" size="small" ref="form" :rules="rules" label-width="120px">
       <el-form-item label="收入类型：" prop="type">
         <iep-dict-cascader dictName="fams_income_type" v-model="form.type"></iep-dict-cascader>
       </el-form-item>

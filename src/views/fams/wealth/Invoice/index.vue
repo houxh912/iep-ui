@@ -18,8 +18,8 @@
             <operation-wrapper>
               <iep-button v-if="scope.row.status===0" @click.stop="handleSend(scope.row)">发送</iep-button>
               <iep-button v-if="scope.row.status===0" @click.stop="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button v-if="scope.row.status===1" @click.stop="handleCancel(scope.row)">撤回</iep-button>
-              <iep-button v-if="scope.row.status!==2" @click.stop="handleDelete(scope.row)">删除</iep-button>
+              <iep-button v-if="scope.row.status===1 ||scope.row.status===2" @click.stop="handleCancel(scope.row)">撤回</iep-button>
+              <iep-button v-if="scope.row.status!==3" @click.stop="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

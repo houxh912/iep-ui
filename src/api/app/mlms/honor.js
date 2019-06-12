@@ -1,5 +1,6 @@
 import request from '@/router/axios'
 const prefixUrl = '/mlms/channel_material/honor'
+const honorListUrl = '/mlms/channel_material/honor_list'
 
 // 获得资质库总数
 export const getHonorCount = (params) => {
@@ -25,5 +26,13 @@ export const getHonorPage = (params) => {
     url: `${prefixUrl}/page`,
     method: 'get',
     params: params,
+  })
+}
+
+// 组织详情资质集合 
+export const getHonorList = (id) => {
+  return request({
+    url: `${honorListUrl}/${id}`,
+    method: 'get',
   })
 }

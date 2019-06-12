@@ -5,7 +5,7 @@
       <div class="person">
         <el-carousel height="84px" :interval="5000" arrow="always">
           <el-carousel-item v-for="(item, index) in Math.ceil(members.length/3)" :key="index">
-            <div v-for="(item, i) in members.slice(index*3, index*3+3)" :key="i" class="piece">
+            <div v-for="(item, i) in members.slice(index*3, index*3+3)" :key="i" class="piece" @click="handleDetail(item)">
               <div class="img">
                 <span class="bgb">{{item.post}}</span>
                 <iep-img :src="item.avatar" class="img"></iep-img>
@@ -18,7 +18,9 @@
     </iepAppTabCard>
   </div>
 </template>
+
 <script>
+
 export default {
   props: {
     data: {
@@ -39,13 +41,13 @@ export default {
   data () {
     return {
       title: '组织介绍',
-      wonderfulList: [
-        { img: require('../img/people1.png'), name: '姚静', post: '产品经理', show1: 'show' },
-        { img: require('../img/people2.jpg'), name: '邵佳欢', post: '视频剪辑' },
-        { img: require('../img/people3.jpg'), name: '林毅宁', post: '咨询师' },
-      ],
       linkName: '/app/organization_details',
     }
+  },
+  methods: {
+    handleDetail (row) {
+      this.$router.push(`/app/personal_style/${row.id}`)
+    },
   },
 }
 </script>

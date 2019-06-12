@@ -6,7 +6,7 @@
           <team-demeanor v-loading="activeTab !=='TeamDemeanor'"></team-demeanor>
         </template>
         <template v-if="activeTab ==='Honor'" v-slot:Honor>
-          <honor v-loading="activeTab !=='Honor'"></honor>
+          <honor v-loading="activeTab !=='Honor'" :list="honorList"></honor>
         </template>
       </iep-tabs>
     </IepAppTabsCard>
@@ -15,8 +15,14 @@
 <script>
 import TeamDemeanor from './TeamDemeanor'
 import Honor from './Honor'
+import { getHonorList } from '@/api/app/mlms/honor'
 
 export default {
+  props: {
+    orgId: {
+      default: 0,
+    },
+  },
   components: {
     TeamDemeanor,
     Honor,
@@ -32,7 +38,15 @@ export default {
       }],
       activeTab: 'TeamDemeanor',
       linkName: '',
+      honorList: [],
     }
+  },
+  watch: {
+    orgId (newVal) {
+      getHonorList(newVal).then(({data}) => {
+        this.honorList = data.data
+      })
+    },
   },
 }
 </script>

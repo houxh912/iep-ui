@@ -3,7 +3,7 @@
     <histogram></histogram>
     <project :counts="data.counts"></project>
     <project-switching :orgId="data.orgId"></project-switching>
-    <team></team>
+    <team :orgId="data.orgId"></team>
     <talent-demand :orgId="data.orgId"></talent-demand>
     <texture-score></texture-score>
   </div>

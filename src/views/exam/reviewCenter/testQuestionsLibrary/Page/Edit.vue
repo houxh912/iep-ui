@@ -49,8 +49,8 @@
       <template v-if="tabName ==='Single'" v-slot:Single>
         <single-dialog ref="single" :postAnswer="postAnswer"></single-dialog>
         <div align="center" style="margin-top:2%;">
-          <iep-button type="primary" @click="submitSingle">保存</iep-button>
-          <!-- <iep-button @click="saveSingle" style="margin:0 10px;">保存</iep-button> -->
+          <iep-button v-if="btnSave == 0" type="primary" @click="submitSingle">保存</iep-button>
+          <iep-button v-if="btnSave == 1" type="primary" @click="saveSingle">提交</iep-button>
         </div>
       </template>
       <template v-if="tabName ==='Batch'" v-slot:Batch>
@@ -65,7 +65,7 @@ import mixins from '@/mixins/mixins'
 import SingleDialog from './Single.vue'
 import BatchDialog from './Batch.vue'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
-import { getTestOption, postNewTest, getExamMsg } from '@/api/exam/createExam/newTest/newTest'
+import { getTestOption, postNewTest, getExamMsg, postModify } from '@/api/exam/createExam/newTest/newTest'
 export default {
   name: 'report',
   mixins: [mixins],
@@ -82,6 +82,7 @@ export default {
   },
   data () {
     return {
+      btnSave: '',
       questionTypeDisabled: false,
       postAnswer: '',
       backOption: {
@@ -150,6 +151,7 @@ export default {
     getTestPaper () {
       const { id } = this.record
       if (id) {
+        this.btnSave = 1
         const param = {
           id: this.record.id,
         }
@@ -182,6 +184,8 @@ export default {
           // console.log('res.data.data => ',res.data.data)
         })
       }
+      else
+        this.btnSave = 0
     },
     /**
      *判断题型
@@ -197,9 +201,31 @@ export default {
       this.$emit('onGoBack')
     },
     /**
-     * 保存试题
+     * 修改保存试题
      */
-    // saveSingle (){},
+    saveSingle (){
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          if (this.$refs.single.submitForm() == true) {
+            // this.$refs.single.submitForm ()
+            this.form.tag = this.form.tagKeyWords
+            let form = this.form
+            let ruleForm = this.$refs.single.ruleForm
+            let singleBothForm = Object.assign(form, ruleForm)
+            singleBothForm = JSON.stringify(singleBothForm)
+            postModify(singleBothForm).then(res => {
+              if (res.data.data == true) {
+                this.$message({
+                  type: 'success',
+                  message: '修改成功!',
+                })
+                this.$emit('onGoBack')
+              }
+            })
+          }
+        }
+      })
+    },
     /**
      * 提交试题
      */

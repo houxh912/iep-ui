@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="银行户头设置"></page-header>
+      <page-header title="银行户头"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button type="danger" @click="handleAdd()" icon="el-icon-plus" plain>新增</iep-button>

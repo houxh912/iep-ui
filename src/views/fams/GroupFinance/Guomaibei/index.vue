@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="国脉贝发行" :replaceText="replaceText" :data="[1000000 ,4]"></page-header>
+      <page-header title="国脉贝发行"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>发行</iep-button>
@@ -27,7 +27,6 @@ export default {
   data () {
     return {
       columnsMap,
-      replaceText: (data) => `（已发行${data[0]}贝，共发行${data[1]}次。）`,
     }
   },
   created () {

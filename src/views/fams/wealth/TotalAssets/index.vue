@@ -6,7 +6,10 @@
           <h4 class="title">总资产</h4>
           <div class="total-wrapper">
             <div class="total-item" v-for="(item, index) in financialData" :key="index">
-              <div class="value">{{item | parseToMoney}}</div>
+              <el-tooltip v-if="index=='现金'" class="item" effect="dark" content="现金=提现现金+工资银行卡部分" placement="bottom">
+                <div class="value">{{item}}</div>
+              </el-tooltip>
+              <div v-else class="value">{{item}}</div>
               <div class="label"><a href="#" @click="$openPage(typeUrlMap[index])">{{index}}</a></div>
             </div>
           </div>
@@ -27,7 +30,7 @@
         <el-card shadow="never">
           <operation-container>
             <template slot="left">
-              <page-header title="财富统计-类型" :replaceText="replaceText" :data="[10 ,5]"></page-header>
+              <page-header title="组织资产统计" :replaceText="replaceText" :data="['（此功能暂未开放）']"></page-header>
             </template>
             <template slot="right">
               <div class="time">
@@ -79,26 +82,26 @@ export default {
 
     }
     return {
-      replaceText: (data) => `（收入共计${data[0]}笔，共计${data[0]}贝）`,
+      replaceText: (data) => `${data[0]}`,
       dateValue: '',
       financialData: {
+        '现金': 0,
         '国脉贝': 0,
         '冻结金额': 0,
         '发票额度': 0,
-        '现金': 0,
-        '股权': 0,
-        '其他': 0,
+        '投资': 0,
+        '其他': '',
       },
       chartData: {
         columns: ['dept', '收入', '支出'],
         rows: [
-          { 'dept': '内网', '收入': 38, '支出': 22 },
-          { 'dept': '部门', '收入': 52, '支出': 22 },
-          { 'dept': '提现', '收入': 61, '支出': 22 },
-          { 'dept': '批评', '收入': 145, '支出': 22 },
-          { 'dept': '学习', '收入': 48, '支出': 22 },
-          { 'dept': '打赏', '收入': 38, '支出': 22 },
-          { 'dept': '其他', '收入': 38, '支出': 22 },
+          { 'dept': '内网', '收入': 0, '支出': 0},
+          { 'dept': '部门', '收入': 0, '支出': 0},
+          { 'dept': '提现', '收入': 0, '支出': 0},
+          { 'dept': '批评', '收入': 0, '支出': 0},
+          { 'dept': '学习', '收入': 0, '支出': 0},
+          { 'dept': '打赏', '收入': 0, '支出': 0},
+          { 'dept': '其他', '收入': 0, '支出': 0},
         ],
       },
     }
@@ -117,7 +120,7 @@ export default {
       this.financialData['冻结金额'] = data.data.lockBell
       this.financialData['发票额度'] = data.data.withInvoice
       this.financialData['现金'] = data.data.cash
-      this.financialData['股权'] = data.data.stockRight
+      this.financialData['投资'] = data.data.stockRight
       this.financialData['其他'] = data.data.other
     },
   },

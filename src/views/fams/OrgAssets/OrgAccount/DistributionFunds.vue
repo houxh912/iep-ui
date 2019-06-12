@@ -1,5 +1,5 @@
 <template>
-  <iep-fams-card title="财务资产统计">
+  <iep-fams-card title="组织资产统计（此功能暂未开放）">
     <template slot="right">
       <div style="width: 350px;">
         <iep-date-picker v-model="rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" size="small">
@@ -45,13 +45,13 @@ export default {
       chartData: {
         columns: ['dept', '资金'],
         rows: [
-          { 'dept': '货币资金', '资金': 38 },
-          { 'dept': '集团往来账', '资金': 52 },
-          { 'dept': '注册资本', '资金': 61 },
-          { 'dept': '有形资产', '资金': 145 },
-          { 'dept': '无形资产', '资金': 48 },
-          { 'dept': '应收款', '资金': 38 },
-          { 'dept': '其他', '资金': 38 },
+          { 'dept': '货币资金', '资金': 0 },
+          { 'dept': '集团往来账', '资金': 0 },
+          { 'dept': '注册资本', '资金': 0 },
+          { 'dept': '有形资产', '资金': 0 },
+          { 'dept': '无形资产', '资金': 0 },
+          { 'dept': '应收款', '资金': 0 },
+          { 'dept': '其他', '资金': 0 },
         ],
       },
       pickerOptions: {

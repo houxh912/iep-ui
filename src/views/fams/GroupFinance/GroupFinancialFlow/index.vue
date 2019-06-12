@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="集团财务流水"></page-header>
+      <page-header title="集团流水"></page-header>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       </iep-table>
     </basic-container>

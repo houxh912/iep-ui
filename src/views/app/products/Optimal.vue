@@ -50,6 +50,9 @@ export default {
 .technology-list,
 .last-month {
   .piece {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
     margin-bottom: 16px;
     overflow: hidden;

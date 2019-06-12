@@ -52,3 +52,8 @@ export default {
   white-space: nowrap;
 }
 </style>
+<style scoped>
+.task >>> .el-card__body {
+  height: 540px;
+}
+</style>

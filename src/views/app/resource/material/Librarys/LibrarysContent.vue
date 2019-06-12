@@ -133,7 +133,7 @@ export default {
   }
   i {
     margin-right: 10px;
-    font-size: 22px;
+    font-size: 20px;
     color: #aaa;
     vertical-align: -2px;
   }

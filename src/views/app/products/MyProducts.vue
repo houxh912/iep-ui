@@ -108,6 +108,9 @@ export default {
   .products-btn {
     width: 100%;
   }
+  .products-deletion {
+    padding-left: 5px;
+  }
   .codule-deletion,
   .products-deletion {
     width: 50%;

@@ -38,4 +38,7 @@ export default {
   white-space: nowrap;
   cursor: pointer;
 }
+.opportunity >>> .el-table__row:last-child >>> td {
+  border: 0;
+}
 </style>

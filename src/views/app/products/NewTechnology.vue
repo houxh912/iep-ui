@@ -97,8 +97,11 @@ export default {
     grid-column-gap: 10px;
     grid-template-columns: 1fr 1fr;
     .piece {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       cursor: pointer;
-      img {
+      .iep-img {
         float: left;
         width: 50px;
         height: 50px;
@@ -128,7 +131,7 @@ export default {
 .index-card >>> .el-card__header {
   padding: 16px 0 10px;
 }
-.new-tehnology >>> .el-card{
+.new-tehnology >>> .el-card {
   height: 354px;
 }
 </style>

@@ -15,7 +15,7 @@
             <iep-identity-mark class="mark" :icon="item.icon" :title="item.label" v-for="(item, index) in userInfo.identityMarks" :key="index"></iep-identity-mark>
           </span>
         </div>
-        <span class="autograph">个性签名：{{userInfo.signName}}</span>
+        <span class="autograph">个性签名：{{userInfo.signature}}</span>
         <div class="classTags">
           <div class="classTag">
             <el-tag type="white" v-for="(item, index) in userInfo.tagList.slice(0, 5)" :key="index">{{item}}</el-tag>
@@ -34,9 +34,9 @@
           </div>
         </div>
         <el-row>
-          <el-button size="mini" type="danger" plain>邮件</el-button>
+          <el-button size="mini" type="danger" plain @click="handleEmail">邮件</el-button>
           <el-button size="mini" type="danger" plain @click="handleApprentice">拜师</el-button>
-          <el-button size="mini" type="danger" plain>打赏</el-button>
+          <el-button size="mini" type="danger" plain @click="handleReward">打赏</el-button>
           <el-button size="mini" type="danger">PK</el-button>
         </el-row>
       </div>
@@ -50,13 +50,18 @@
         <el-button type="primary" @click="handleApprenticeConfirm" size="small">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 邮件 -->
+    <email-dialog ref="email"></email-dialog>
   </div>
 </template>
 
 <script>
 import { addMasterWorker } from '@/api/cpms/characterrelations'
+import EmailDialog from '@/views/app/components/email/'
+import { mapActions } from 'vuex'
 
 export default {
+  components: { EmailDialog },
   props: {
     userInfo: {
       type: Object,
@@ -100,6 +105,20 @@ export default {
         this.$message.success('拜师成功！')
         this.apprenticeShow = false
       })
+    },
+    // 邮件
+    handleEmail () {
+      let receiverList = {
+        unions: [],
+        orgs: [],
+        users: [{id: this.userInfo.id, name: this.userInfo.name}],
+      }
+      this.$refs['email'].open({receiverList: receiverList})
+    },
+    // 打赏
+    ...mapActions(['famsReward']),
+    handleReward () {
+      this.famsReward({id: this.userInfo.id, name: this.userInfo.name})
     },
   },
 }

@@ -103,7 +103,7 @@ export default {
     getUnreadHistory () {
       getTotalHistory().then(({data}) => {
         if (data.code === 0) {
-          this.$store.commit('initHistory', data.data)
+          this.$store.commit('initHistory', {history: data.data, username: this.$store.getters.userInfo.username})
         }
       }, error => {
         this.$message.error(error.message)

@@ -3,9 +3,6 @@
     <basic-container>
       <page-header title="报销管理"></page-header>
       <operation-container>
-        <template slot="left">
-          <iep-button>查看明细</iep-button>
-        </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
           </operation-search>

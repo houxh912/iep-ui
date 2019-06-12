@@ -4,11 +4,10 @@
   </el-tooltip>
 </template>
 <script>
-import { openWindow } from '@/util/util'
 export default {
   methods: {
     handleOpen () {
-      openWindow('/app/resource/material/material_detail/7914', '国脉内网使用指南', 1400, 900)
+      this.$openPage('/app/resource/material/material_detail/7914')
     },
   },
 }

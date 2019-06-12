@@ -1,6 +1,6 @@
 <template>
   <div class="top-class">
-    <div class="top-class-list" v-for="item in items" :key="item.id">
+    <div class="top-class-list" :class="item.router ? 'canRouter' : ''" v-for="item in items" :key="item.id" @click="handleDetail(item)">
       <span class="num">{{countObj[item.prop]}}</span>
       <span class="name">{{item.name}}</span>
     </div>
@@ -16,37 +16,33 @@ export default {
       items: [
         {
           id: '1',
-          num: '498',
           name: '国脉同学',
           prop: 'userCount',
+          router: '',
         },
         {
           id: '2',
-          num: '28',
           name: '外部同学',
           prop: 'externalCount',
         },
         {
           id: '3',
-          num: '88',
           name: '国脉专家',
           prop: 'expertCount',
+          router: '/app/resource/expert',
         },
         {
           id: '4',
-          num: '228',
           name: '国脉校友',
           prop: 'alumnusCount',
         },
         {
           id: '5',
-          num: '33',
           name: '组织',
           prop: 'orgCount',
         },
         {
           id: '6',
-          num: '28',
           name: '入驻机构',
           prop: 'institutionCount',
         },
@@ -60,6 +56,13 @@ export default {
         institutionCount: 0,
       },
     }
+  },
+  methods: {
+    handleDetail (row) {
+      if (row.router) {
+        this.$router.push(row.router)
+      }
+    },
   },
   created () {
     getRecruitCount().then(({data}) => {
@@ -91,6 +94,9 @@ export default {
     &:nth-child(1) .num {
       color: #cb3737;
     }
+  }
+  .canRouter {
+    cursor: pointer;
   }
 }
 </style>

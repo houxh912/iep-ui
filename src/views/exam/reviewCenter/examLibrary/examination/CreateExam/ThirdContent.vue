@@ -99,13 +99,18 @@
               <el-form-item label="考试时间" required>
                 <el-row>
                   <el-col :span="11" style="padding:0">
-                    <iep-date-picker v-model="examForm.beginTime" type="datetime" placeholder="开始时间"
-                      @change="startChange(examForm.beginTime,'exam')" :readonly="readOnly"></iep-date-picker>
+                    <el-form-item prop="signBeginTime">
+                      <iep-date-picker v-model="examForm.beginTime" type="datetime" placeholder="开始时间"
+                        @change="startChange(examForm.beginTime,'exam')" :readonly="readOnly"></iep-date-picker>
+                    </el-form-item>
+
                   </el-col>
                   <el-col class="line" :span="2">-</el-col>
                   <el-col :span="11" style="padding:0">
-                    <iep-date-picker v-model="examForm.endTime" type="datetime" placeholder="开始时间"
-                      @change="endChange(examForm.endTime,'exam')" :readonly="readOnly"></iep-date-picker>
+                    <el-form-item prop="endTime">
+                      <iep-date-picker v-model="examForm.endTime" type="datetime" placeholder="结束时间"
+                        @change="endChange(examForm.endTime,'exam')" :readonly="readOnly"></iep-date-picker>
+                    </el-form-item>
                   </el-col>
                 </el-row>
               </el-form-item>
@@ -306,20 +311,26 @@ export default {
 
     },
     startChange (val, type) {
+      let endTime = ''
       if (type === 'exam') {
         this.examForm.beginTime = val
+        endTime = this.examForm.endTime
       } else {
         this.examForm.signBeginTime = val
+        endTime = this.examForm.signEndTime
       }
-      this.dealTime(val, this.examForm.signEndTime)
+      this.dealTime(val, endTime)
     },
     endChange (val, type) {
+      let startTime = ''
       if (type === 'exam') {
         this.examForm.endTime = val
+        startTime = this.examForm.beginTime
       } else {
         this.examForm.signEndTime = val
+        startTime = this.examForm.signBeginTime
       }
-      this.dealTime(this.examForm.signBeginTime, val)
+      this.dealTime(startTime, val)
     },
 
     /**

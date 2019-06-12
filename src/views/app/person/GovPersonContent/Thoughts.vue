@@ -46,8 +46,8 @@
 <script>
 import { getRecruitBirthday } from '@/api/app/hrms/'
 import { getThoughtsList } from '@/api/app/cpms/channel'
-import BlessingDialog from './ThoughtsDialog/Blessing'
-import PublishDialog from './ThoughtsDialog/Publish'
+import BlessingDialog from '@/views/app/components/ThoughtsDialog/Blessing'
+import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
 
 export default {
   components: { BlessingDialog, PublishDialog },

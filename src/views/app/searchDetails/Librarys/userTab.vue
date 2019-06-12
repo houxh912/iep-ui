@@ -14,7 +14,7 @@
               <iep-identity-mark class="mark" :icon="t.icon" :title="t.label" v-for="(t, index) in item.identityMarks" :key="index"></iep-identity-mark>
             </span>
           </div>
-          <span class="autograph">个性签名：{{item.signName}}</span>
+          <span class="autograph">个性签名：{{item.signature}}</span>
           <div class="classTags">
             <div class="classTag">
               <el-tag type="white" v-for="(t, index) in item.tagList" :key="index">{{t}}</el-tag>

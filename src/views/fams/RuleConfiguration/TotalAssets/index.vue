@@ -35,7 +35,7 @@
           <h4 class="title">快捷入口</h4>
           <ul>
             <li>部门打赏扣减</li>
-            <li>个人打赏折扣</li>
+            <li>个人打赏扣减</li>
           </ul>
         </el-card>
       </div>

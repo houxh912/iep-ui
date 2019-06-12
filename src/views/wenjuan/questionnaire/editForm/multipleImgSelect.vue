@@ -57,8 +57,7 @@
 
 
 <script>
-import { getToken } from '@/views/wenjuan/util/auth'
-var token = getToken() // 要保证取到
+import store from '@/store'
 export default {
   components: {},
   props: {
@@ -81,7 +80,7 @@ export default {
   },
   data () {
     return {
-      myHeaders: { Authorization: 'Bearer ' + token },
+      myHeaders: { Authorization: 'Bearer ' + store.getters.access_token },
     }
   },
   created () {

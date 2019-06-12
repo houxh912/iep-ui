@@ -163,8 +163,10 @@ export default {
       }
     },
     catalogSelect (id) {
+      this.pageOption.current = 1
       if (id == -1) {
         // 获取全部
+        this.catalogId = 0
         this.loadTypeList()
       } else {
         this.catalogId = id

@@ -43,12 +43,16 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.form).then(() => {
-            this.$message({
-              message: '放入黑名单成功',
-              type: 'success',
-            })
-            this.loadPage()
+          this.formRequestFn(this.form).then(({ data }) => {
+            if (data.data) {
+              this.$message({
+                message: '放入黑名单成功',
+                type: 'success',
+              })
+              this.loadPage()
+            } else {
+              this.$message(data.msg)
+            }
           })
         } else {
           return false

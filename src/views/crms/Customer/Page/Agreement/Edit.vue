@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" ref="form" size="small" label-width="130px" style="margin-bottom: 50px;">
+    <el-form :model="formData" :rules="rules" ref="form" size="small" label-width="130px" style="margin-bottom: 50px;" class="form-detail">
       <el-form-item prop="contractName">
         <span slot="label">
           合同名称
@@ -54,12 +54,16 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <iep-select prefix-url="crm/customer/my" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)" placeholder="请选择该项目实际服务对象"></iep-select>
+            <!-- <iep-select prefix-url="crm/customer/my" v-model="formData.companyOrgId" @change="handleChange(formData.companyOrgId)" placeholder="请选择该项目实际服务对象"></iep-select> -->
+            <IepCrmsSelect v-model="formData.companyOrgId" :option="[formData.companyName]" prefixUrl="crm/customer/myorcoll/list" @change="clientChange">
+            </IepCrmsSelect>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
-            <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId" placeholder="请选择实际与我司签订合同的单位"></iep-select>
+            <!-- <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId" placeholder="请选择实际与我司签订合同的单位"></iep-select> -->
+            <IepCrmsSelect v-model="formData.signCompanyOrgId" :option="[formData.signCompanyRealName]" prefixUrl="crm/customer/all/list">
+            </IepCrmsSelect>
           </el-form-item>
         </el-col>
       </el-row>
@@ -82,7 +86,8 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="市场经理：" prop="Manager">
-            <el-input v-model="formData.Manager" disabled></el-input>
+            <!-- <el-input v-model="formData.Manager" disabled></el-input> -->
+            <iep-contact-select v-model="formData.directorList"></iep-contact-select>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -129,7 +134,7 @@ import FooterToolbar from '@/components/FooterToolbar/'
 import { mapGetters } from 'vuex'
 import { agreementById } from '@/api/crms/agreement'
 import { getMarket } from '@/api/crms/customer'
-import { getObj } from '@/api/admin/user'
+// import { getObj } from '@/api/admin/user'
 import businessType from './businessType'
 import projectDialog from './projectRelation'
 const tipContent = {
@@ -148,6 +153,7 @@ export default {
       methodName: '新增',
       formRequestFn: () => { },
       id: '',
+      directorList: [],
       contractId: '',
       formData: initFormData(),
       rules: rules,
@@ -181,16 +187,13 @@ export default {
     this.formRequestFn = this.add.formRequestFn
     this.methodName = this.add.methodName
     this.id = this.add.id
-    this.formData.companyOrgId = this.record.clientName
+    console.log(this.id)
+    // this.formData.companyOrgId = this.record.clientName
     this.formData.signCompanyOrgId = this.record.clientName
     this.formData.signDeptName = this.userInfo.orgName
     this.formData.signDeptOrgId = this.userInfo.orgId
-    getMarket({ clientId: this.id }).then((res) => {
-      this.formData.directorId = res.data.data.id
-      getObj(this.formData.directorId).then(res => {
-        this.$set(this.formData, 'Manager', res.data.data.realName)
-      })
-    })
+
+    this.clientChange(this.id)
     if (this.methodName == '编辑') {
       this.contractId = this.add.contractId
       agreementById(this.contractId).then(res => {
@@ -199,15 +202,14 @@ export default {
         this.finishTime = res.data.data.finishTime
         this.formData.projectName = res.data.data.projectRelation.name
         this.formData.projectId = res.data.data.projectRelation.id
-        this.formData.underTakeDeptId = res.data.data.underTakeDeptName.map(m => m.id)
-        getMarket({ clientId: this.id }).then((res) => {
-          this.formData.directorId = res.data.data.id
-          this.formData.signDeptName = this.userInfo.orgName
-          this.formData.signDeptOrgId = this.userInfo.orgId
-          getObj(this.formData.directorId).then(res => {
-            this.$set(this.formData, 'Manager', res.data.data.realName)
-          })
-        })
+        this.formData.signDeptOrgId = this.userInfo.orgId
+        this.formData.signDeptName = this.userInfo.orgName
+        this.$set(this.formData, 'underTakeDeptId', res.data.data.underTakeDeptName.map(m => m.id))
+        let directorList = {
+          id: res.data.data.directorId,
+          name: res.data.data.directorRealName,
+        }
+        this.$set(this.formData, 'directorList', directorList)
       })
     }
   },
@@ -216,10 +218,14 @@ export default {
     this.formData.signDeptName = this.userInfo.orgName
   },
   methods: {
-    handleChange (val) {
-      getMarket({ clientId: val }).then((res) => {
-        this.formData.directorId = res.data.data.id
-        this.formData.Manager = res.data.data.name
+    // 根据委托单位查询市场经理
+    clientChange (val) {
+      getMarket({ clientId: val }).then(({ data }) => {
+        if (data.data) {
+          this.$set(this.formData, 'directorList', { id: data.data.id, name: data.data.name })
+        } else {
+          this.$set(this.formData, 'directorList', { id: '', name: '' })
+        }
       })
     },
     loadPage () {

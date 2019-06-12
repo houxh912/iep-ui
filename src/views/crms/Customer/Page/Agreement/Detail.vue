@@ -1,7 +1,7 @@
 <template>
   <div>
     <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" ref="form" label-width="130px" style="margin-bottom: 50px;">
+    <el-form :model="formData" :rules="rules" ref="form" label-width="130px" style="margin-bottom: 50px;" class="form-detail">
       <el-form-item label="合同名称：" prop="contractName">
         <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。" disabled></el-input>
       </el-form-item>
@@ -33,12 +33,16 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="委托单位：" prop="companyOrgId">
-            <iep-select prefix-url="crm/customer" v-model="formData.companyOrgId" disabled></iep-select>
+            <!-- <iep-select prefix-url="crm/customer" v-model="formData.companyOrgId" disabled></iep-select> -->
+            <IepCrmsSelect v-model="formData.companyOrgId" :option="[formData.companyName]" prefixUrl="crm/customer/myorcoll/list">
+            </IepCrmsSelect>
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
-            <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId" disabled></iep-select>
+            <!-- <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId" disabled></iep-select> -->
+            <IepCrmsSelect v-model="formData.signCompanyOrgId" :option="[formData.signCompanyRealName]" prefixUrl="crm/customer/all/list">
+            </IepCrmsSelect>
           </el-form-item>
         </el-col>
       </el-row>
@@ -146,6 +150,11 @@ export default {
     agreementById(this.contractId).then(res => {
       this.formData = res.data.data
       this.formData.signDeptOrgName = res.data.data.signDeptOrgName.name
+      // let directorList = {
+      //   id: res.data.data.directorId,
+      //   name: res.data.data.directorRealName,
+      // }
+      // this.$set(this.formData, 'directorList', directorList)
       // 业务类型处理
       let businessType = res.data.data.businessType.split(','), list = []
       for (let type of businessType) {
@@ -158,7 +167,7 @@ export default {
         }
       }
       this.infoList = list.toString()
-      getObj(this.formData.directorId).then(res => {
+      getObj(this.formData.creatorId).then(res => {
         this.$set(this.formData, 'Manager', res.data.data.realName)
       })
     })

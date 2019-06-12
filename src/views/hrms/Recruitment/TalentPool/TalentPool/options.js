@@ -146,6 +146,7 @@ const formToVo = (form) => {
 const initSearchForm = () => {
   return {
     name: '', // 姓名
+    marriageStatus: '',
     positionName: '', // 岗位名称
     position: [], // 岗位id
     educationId: null, // 最高学历字典ID
@@ -158,6 +159,7 @@ const initSearchForm = () => {
 const initDtoSearchForm = () => {
   return {
     name: '', // 姓名
+    marriageStatus: '',
     positionName: '', // 岗位名称
     positionId: null, // 岗位id
     educationId: null, // 最高学历字典ID

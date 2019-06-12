@@ -1,7 +1,7 @@
 <template>
   <el-form :model="form" label-width="120px" size="mini">
-    <iep-form-item class="form-half" prop="marriage" label-name="婚姻状况" tip="请务必根据实际情况选择">
-      <iep-dict-select v-model="form.marriage" dict-name="hrms_marriage_status"></iep-dict-select>
+    <iep-form-item class="form-half" prop="marriageStatus" label-name="婚姻状况" tip="请务必根据实际情况选择">
+      <iep-dict-select v-model="form.marriageStatus" dict-name="hrms_marriage_status"></iep-dict-select>
     </iep-form-item>
     <el-form-item label="岗位：">
       <iep-cascader v-model="form.position" prefix-url="hrms/post_type" clearable></iep-cascader>

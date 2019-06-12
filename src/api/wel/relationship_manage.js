@@ -16,11 +16,28 @@ export function getRelationshipList () {
     url: `${prefixUrl}/contacts/custom/contacts/list`,
     method: 'get',
   })
+
 }
 
 export function getTypeCountMap (query) {
   return request({
     url: `${prefixUrl}/contacts/custom/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getMyMaster (query) {
+  return request({
+    url: '/cpms/iepcommoncharacterrelations/pageMyMaster',
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getMyApprentice (query) {
+  return request({
+    url: '/cpms/iepcommoncharacterrelations/pageMyApprentice',
     method: 'get',
     params: query,
   })

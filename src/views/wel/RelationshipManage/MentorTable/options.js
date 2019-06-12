@@ -3,7 +3,7 @@ const dictsMap = {
 }
 const columnsMap = [
   {
-    prop: 'name',
+    prop: 'realName',
     label: '姓名',
     width: '120',
   },
@@ -35,14 +35,14 @@ const columnsMap = [
   //   prop: 'wechat',
   //   label: '微信',
   // },
-  {
-    prop: 'positionName',
-    label: '岗位名称',
-  },
-  {
-    prop: 'jobName',
-    label: '职务名称',
-  },
+  // {
+  //   prop: 'positionName',
+  //   label: '岗位名称',
+  // },
+  // {
+  //   prop: 'jobName',
+  //   label: '职务名称',
+  // },
   // {
   //   prop: 'professionalTitle',
   //   label: '职称',

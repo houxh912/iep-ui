@@ -11,19 +11,20 @@
               <template slot="title">
                 <span>国脉人</span>
               </template>
-              <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in allPeople" @click.native="handleAllPeople()">
+              <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in allPeople" @click.native="handleAllPeople(item.value)">
                 <span>{{item.label}}</span>
-                <!-- <el-badge v-if="typeCountMap[item.value]" class="mark" type="primary" :value="typeCountMap[item.value]" /> -->
               </el-menu-item>
             </el-submenu>
             <el-submenu index="2" collapse>
               <template slot="title">
                 <span>我的关系</span>
               </template>
+              <el-menu-item class="menu-item" @click.native="handleSelectMentor()">
+                <span>我的师徒</span>
+              </el-menu-item>
               <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id)" @dblclick.native="changeGroup(item.name,item.id)">
                 <span>{{item.name}}</span>
                 <i class="iconfont icon-shanchu1" @click="handleDelete(item.id)"></i>
-                <!-- <el-badge v-if="typeCountMap[item.id]" class="mark" type="primary" :id="typeCountMap[item.id]" /> -->
               </el-menu-item>
             </el-submenu>
           </el-menu>
@@ -46,7 +47,8 @@
             </operation-search>
           </template>
         </operation-container>
-        <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+        <mentor-table v-if="this.mark=='mentor'"></mentor-table>
+        <iep-table v-else :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
           <template slot="before-columns">
           </template>
           <el-table-column prop="operation" label="操作" width="120px">
@@ -71,11 +73,12 @@ import formMixins from '@/mixins/formMixins'
 import { columnsMap, dictsMap, initForm } from './options'
 import DialogForm from './DialogForm'
 import AddDialogForm from './AddDialogForm'
+import MentorTable from './MentorTable/'
 // import AdvanceSearch from './AdvanceSearch'
 export default {
   mixins: [mixins,formMixins],
   // components: { AdvanceSearch },
-  components: { DialogForm, AddDialogForm },
+  components: { DialogForm, AddDialogForm, MentorTable },
   data () {
     return {
       dictsMap,
@@ -91,6 +94,7 @@ export default {
         {value:1002,label:'按职务信息'},
         {value:1003,label:'按职称信息'},
       ],
+      sort:{positionId:'',jobId:'',professionalTitleId:''},
       relationship:[
       ],
       tabList:[
@@ -121,8 +125,23 @@ export default {
     handleDelete (id) {
       this._handleGlobalDeleteById(id, deleteRelationshipList)
     },
-    handleAllPeople () {
+    handleAllPeople (val) {
       this.mark = ''
+      if(val==1001){
+        this.sort.positionId='1'
+        this.sort.jobId=''
+        this.sort.professionalTitleId=''
+      }
+      else if(val==1002){
+        this.sort.positionId=''
+        this.sort.jobId='1'
+        this.sort.professionalTitleId=''
+      }
+      else if(val==1003){
+        this.sort.positionId=''
+        this.sort.jobId=''
+        this.sort.professionalTitleId='1'
+      }
       this.loadPage()
     },
     async handleRemove (row) {
@@ -155,6 +174,9 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.userId)
     },
+    handleSelectMentor () {
+      this.mark = 'mentor'
+    },
     handleSelectType (k) {
       this.groupType = k
       this.mark = 'group'
@@ -179,7 +201,7 @@ export default {
         this.loadTable({ groupId: this.groupType, ...param }, getTypeCountMap)
       }
       else {
-        this.loadTable(param, getRelationshipManagePage)
+        this.loadTable({ positionId: this.sort.positionId,jobId: this.sort.jobId,professionalTitleId: this.sort.professionalTitleId, ...param }, getRelationshipManagePage)
       }
     },
   },

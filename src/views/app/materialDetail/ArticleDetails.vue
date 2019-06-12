@@ -120,7 +120,7 @@ export default {
     },
     // 收藏
     handleCollect (row) {
-      row.title = row.name
+      row.title = row.materialName
       this.$refs['collection'].dialogShow = true
       this.$refs['collection'].loadCollectList([row])
     },

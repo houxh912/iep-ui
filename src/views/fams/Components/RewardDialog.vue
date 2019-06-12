@@ -61,6 +61,7 @@ export default {
     ...mapState({
       dialogShow: state => state.fams.rewardDialogShow,
       maxAmount: state => state.fams.withdrawableCash,
+      person: state => state.fams.ARewardedPerson,
     }),
   },
   methods: {
@@ -83,7 +84,15 @@ export default {
       })
     },
     close () {
+      this.form = initForm()
       this.setRewardDialogShow(false)
+    },
+  },
+  watch: {
+    dialogShow (newVal) {
+      if (newVal) {
+        this.form.targetUser = this.person
+      }
     },
   },
 }

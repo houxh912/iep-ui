@@ -36,7 +36,7 @@
         <el-row>
           <el-button size="mini" type="danger" plain @click="handleEmail">邮件</el-button>
           <el-button size="mini" type="danger" plain @click="handleApprentice">拜师</el-button>
-          <el-button size="mini" type="danger" plain>打赏</el-button>
+          <el-button size="mini" type="danger" plain @click="handleReward">打赏</el-button>
           <el-button size="mini" type="danger">PK</el-button>
         </el-row>
       </div>
@@ -58,6 +58,7 @@
 <script>
 import { addMasterWorker } from '@/api/cpms/characterrelations'
 import EmailDialog from '@/views/app/components/email/'
+import { mapActions } from 'vuex'
 
 export default {
   components: { EmailDialog },
@@ -113,6 +114,11 @@ export default {
         users: [{id: this.userInfo.id, name: this.userInfo.name}],
       }
       this.$refs['email'].open({receiverList: receiverList})
+    },
+    // 打赏
+    ...mapActions(['famsReward']),
+    handleReward () {
+      this.famsReward({id: this.userInfo.id, name: this.userInfo.name})
     },
   },
 }

@@ -6,7 +6,7 @@
           <h4 class="title">总资产</h4>
           <div class="total-wrapper">
             <div class="total-item" v-for="(item, index) in financialData" :key="index">
-              <el-tooltip v-if="index=='国脉贝'" class="item" effect="dark" content="现金=提现现金+工资银行卡部分" placement="bottom">
+              <el-tooltip v-if="index=='现金'" class="item" effect="dark" content="现金=提现现金+工资银行卡部分" placement="bottom">
                 <div class="value">{{item}}</div>
               </el-tooltip>
               <div v-else class="value">{{item}}</div>
@@ -85,10 +85,10 @@ export default {
       replaceText: (data) => `${data[0]}`,
       dateValue: '',
       financialData: {
+        '现金': 0,
         '国脉贝': 0,
         '冻结金额': 0,
         '发票额度': 0,
-        '现金': 0,
         '投资': 0,
         '其他': '',
       },

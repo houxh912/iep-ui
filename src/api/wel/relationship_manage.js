@@ -123,7 +123,7 @@ export function deleteReleaseApprenticeById (apprenticeId) {
 }
 export function deleteReleaseMentorById (mentorId) {
   return request({
-    url: `/cpms/iepcommoncharacterrelations/delApprenticeRelation/${mentorId}`,
+    url: `/cpms/iepcommoncharacterrelations/delMentorRelation/${mentorId}`,
     method: 'post',
     data: [mentorId],
   })

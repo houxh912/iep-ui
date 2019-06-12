@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     handleRelease (row) {
-      this._handleGlobalDeleteById(row.characterId, deleteReleaseMentorById)
+      this._handleGlobalDeleteById(row.relatedId, deleteReleaseMentorById)
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getMyMaster)

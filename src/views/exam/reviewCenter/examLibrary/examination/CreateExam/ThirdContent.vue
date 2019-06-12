@@ -16,7 +16,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="所属科目">
-                <el-input readonly v-model="testPaper.fieldName"></el-input>
+                <el-input readonly v-model="testPaper.field"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -302,6 +302,7 @@ export default {
         await getExam({ id: this.data.id }).then(({ data }) => {
           this.examForm = selfToVo(data.data)
           this.testPaper = data.data.iepTestPaperVO
+          this.testPaper.field = data.data.iepTestPaperVO.fieldName
         })
       } else {
         this.examForm = examForm()

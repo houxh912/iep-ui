@@ -59,13 +59,6 @@ const initForm = () => {
   }
 }
 
-const initGroupForm = () => {
-  return {
-    customId:0,
-    userId:[],
-  }
-}
-
 const formToDto = (row) => {
   const newForm = {...row}
   return newForm
@@ -76,11 +69,4 @@ const initSearchForm = () => {
     name: '',
   }
 }
-
-const rules = {
-  name: [
-    { required: true, message: '请输入自定义分组名', trigger: 'blur' },
-  ],
-}
-
-export { dictsMap, columnsMap, initForm, initSearchForm, rules, formToDto, initGroupForm }
+export { dictsMap, columnsMap, initForm, initSearchForm, formToDto }

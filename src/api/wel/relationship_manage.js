@@ -103,10 +103,28 @@ export function removeRelationshipById (customId,useId) {
     },
   })
 }
-export function removeRelationshipBatch (ids) {
+export function removeRelationshipBatch (customId,userId) {
   return request({
     url: `${prefixUrl}/custom/relation/delete/batch`,
     method: 'post',
-    data: ids,
+    data: {
+      customId,
+      userId,
+    },
+  })
+}
+
+export function deleteReleaseApprenticeById (apprenticeId) {
+  return request({
+    url: `/cpms/iepcommoncharacterrelations/delApprenticeRelation/${apprenticeId}`,
+    method: 'post',
+    data: [apprenticeId],
+  })
+}
+export function deleteReleaseMentorById (mentorId) {
+  return request({
+    url: `/cpms/iepcommoncharacterrelations/delApprenticeRelation/${mentorId}`,
+    method: 'post',
+    data: [mentorId],
   })
 }

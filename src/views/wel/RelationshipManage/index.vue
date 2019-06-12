@@ -19,8 +19,11 @@
               <template slot="title">
                 <span>我的关系</span>
               </template>
-              <el-menu-item class="menu-item" @click.native="handleSelectMentor()">
-                <span>我的师徒</span>
+              <el-menu-item index="601" class="menu-item" @click.native="handleSelectMaster()">
+                <span>我的师傅</span>
+              </el-menu-item>
+              <el-menu-item index="602" class="menu-item" @click.native="handleSelectApprentice()">
+                <span>我的徒弟</span>
               </el-menu-item>
               <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id)" @dblclick.native="changeGroup(item.name,item.id)">
                 <span>{{item.name}}</span>
@@ -31,14 +34,20 @@
           <el-button style="width:100%;border:0;" @click="openContact"><i class="iconfont icon-xinzeng"></i></el-button>
         </el-card>
       </el-col>
-      <el-col :span="20">
+      <el-col :span="20" v-if="this.mark=='master'">
+        <master></master>
+      </el-col>
+      <el-col :span="20" v-else-if="this.mark=='apprentice'">
+        <apprentice></apprentice>
+      </el-col>
+      <el-col :span="20" v-else>
         <!-- <page-header title=""></page-header> -->
         <operation-container>
           <template slot="left">
-            <iep-button type="primary" @click="handleAddBatch" plain>批量添加</iep-button>
+            <iep-button type="primary" @click="handleAddBatch" plain v-show="mark==''">批量添加</iep-button>
+            <iep-button type="primary" @click="handleRemoveBatch" plain v-show="mark=='group'">批量移除</iep-button>
           </template>
           <template slot="right">
-            <!-- <el-radio-group v-model="type" size="small" @change="changeType"> -->
             <el-radio-group size="small">
               <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
             </el-radio-group>
@@ -47,8 +56,7 @@
             </operation-search>
           </template>
         </operation-container>
-        <mentor-table v-if="this.mark=='mentor'"></mentor-table>
-        <iep-table v-else :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+        <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
           <template slot="before-columns">
           </template>
           <el-table-column prop="operation" label="操作" width="120px">
@@ -67,18 +75,19 @@
   </div>
 </template>
 <script>
-import { getRelationshipManagePage, getTypeCountMap, getRelationshipList, putRelationshipList, joinRelationship, deleteRelationshipList, joinGroup, removeRelationshipById } from '@/api/wel/relationship_manage'
+import { getRelationshipManagePage, getTypeCountMap, getRelationshipList, putRelationshipList, joinRelationship, deleteRelationshipList, joinGroup, removeRelationshipById, removeRelationshipBatch } from '@/api/wel/relationship_manage'
 import mixins from '@/mixins/mixins'
 import formMixins from '@/mixins/formMixins'
 import { columnsMap, dictsMap, initForm } from './options'
 import DialogForm from './DialogForm'
 import AddDialogForm from './AddDialogForm'
-import MentorTable from './MentorTable/'
+import master from './MentorTable/master'
+import apprentice from './MentorTable/apprentice'
 // import AdvanceSearch from './AdvanceSearch'
 export default {
   mixins: [mixins,formMixins],
   // components: { AdvanceSearch },
-  components: { DialogForm, AddDialogForm, MentorTable },
+  components: { DialogForm, AddDialogForm, master, apprentice },
   data () {
     return {
       dictsMap,
@@ -159,6 +168,21 @@ export default {
         })
       }
     },
+    async handleRemoveBatch () {
+      const { data } = await removeRelationshipBatch(this.groupType,this.multipleSelection)
+      if (data.data) {
+        this.$message({
+          message: '操作成功',
+          type: 'success',
+        })
+        this.loadPage()
+      } else {
+        this.$message({
+          message: data.msg,
+          type: 'error',
+        })
+      }
+    },
     openContact () {
       this.$refs['DialogForm'].form = initForm()
       this.$refs['DialogForm'].formRequestFn = joinRelationship
@@ -174,8 +198,11 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.userId)
     },
-    handleSelectMentor () {
-      this.mark = 'mentor'
+    handleSelectMaster () {
+      this.mark = 'master'
+    },
+    handleSelectApprentice () {
+      this.mark = 'apprentice'
     },
     handleSelectType (k) {
       this.groupType = k

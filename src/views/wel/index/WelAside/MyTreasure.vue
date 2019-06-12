@@ -30,7 +30,6 @@
 <script>
 import { addBellBalanceRule } from '@/api/fams/balance_rule'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import { openWindow } from '@/util/util'
 import { getTotal } from '@/api/fams/total'
 export default {
   data () {
@@ -79,7 +78,7 @@ export default {
     }),
     ...mapActions(['famsReward']),
     handleOpen () {
-      openWindow('/app/resource/material/material_detail/7971', '挖贝攻略', 1400, 900)
+      this.$openPage('/app/resource/material/material_detail/7971')
     },
     handleReward () {
       this.famsReward()

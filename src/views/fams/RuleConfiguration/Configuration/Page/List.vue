@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="国脉贝配置"></page-header>
+      <page-header title="行为规则"></page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search>

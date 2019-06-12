@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="资金调拨申请"></page-header>
+      <page-header title="调拨申请"></page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage"></operation-search>

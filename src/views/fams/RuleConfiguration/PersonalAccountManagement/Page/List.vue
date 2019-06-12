@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="国脉贝配置"></page-header>
+      <page-header title="个人账户"></page-header>
       <operation-container>
         <template slot="left">
           <!-- <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>发起申请</iep-button> -->

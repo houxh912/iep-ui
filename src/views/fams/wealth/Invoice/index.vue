@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="报销"></page-header>
+      <page-header title="报销申请"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>新增</iep-button>

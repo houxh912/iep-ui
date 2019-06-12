@@ -23,24 +23,25 @@
           <!-- <div>
             <li v-for="(item,index) in fillAreaList" :key="index" style="margin-left:28px;">
               <el-input type="textarea" v-model="userByAnswer" style="width: 70%;margin-top:10px" :rows="2"></el-input>
-              <el-input  class="give-mark" v-model="fillInput"></el-input>
-              <span style="margin-left:10px;">分</span>
             </li>
           </div> -->
 
           <div>
             <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
-              <el-input type="textarea" v-model="userByAnswer" style="width: 80%;margin-top:10px" :rows="6"></el-input>
-              <el-input class="give-mark-two" v-model="freeInput"></el-input>
-              <span style="margin-left:10px;">分</span>
+              <el-input type="textarea" v-model="userByAnswer" style="width: 80%;margin-top:10px" :rows="6" :disabled="disabled" @focus="inputClose"></el-input>
             </li>
+            <div class="setScore">
+              <el-form :model="ruleForm" :rules="rules" ref="form" label-width="100px">
+                <el-form-item label="本题打分 :" prop="single">
+                  <el-input class="giveinput" v-model.number="ruleForm.single"></el-input>
+                </el-form-item>
+              </el-form>
+            </div>
           </div>
 
           <!-- <div>
             <li v-for="(item,index) in operationList" :key="index" style="margin-left:28px;display:flex">
               <iep-froala-editor v-model="userByAnswer" style="width:80%"></iep-froala-editor>
-              <el-input  class="give-mark-three" v-model="operation"></el-input>
-              <span style="margin-left:15px;margin-top:175px">分</span>
             </li>
           </div> -->
 
@@ -100,12 +101,29 @@ export default {
   mixins: [mixins],
   props: ['formData'],
   data () {
+    var checkSingle = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('分数不能为空'))
+      }
+      setTimeout(() => {
+        if (!Number.isInteger(value)) {
+          callback(new Error('请输入数字值'))
+        } else {
+          if (value > this.resdata.single) {
+            callback(new Error('本题所得分数不能大于该题总分 !'))
+          } else {
+            callback()
+          }
+        }
+      }, 1000)
+    }
     this.colors = ['#409AF9', '#FFFFFF']
     this.chartSettings = {
       radius: [50, 60],
       offsetY: 80,
     }
     return {
+      disabled: false,
       userByAnswer: '',        //显示用户答案的输入框(v-model绑定的值)
       showScore: '',           //答题卡上显示的分数(v-model绑定的值)
       fillInput: '',           //填空(v-model绑定的值)
@@ -129,10 +147,25 @@ export default {
         titleOptions: [],    //答案选项数组
         textMap: [],         //答题卡片的简答题数组集合，从数组中遍历题目出来
       },
+      ruleForm: {
+        single: '',
+      },
+      rules: {
+        single: [
+          { validator: checkSingle, trigger: 'blur' },
+        ],
+      },
     }
   },
   watch: {
-
+    // freeInput (curVal) {
+    //   if (curVal > this.resdata.single) {
+    //     this.$message({
+    //       type: 'error',
+    //       message: '本题所得分数不能大于该题总分 !',
+    //     })
+    //   }
+    // },
   },
   computed: {
     kindOffCount: function () {
@@ -162,8 +195,8 @@ export default {
         }
       }
       if (type === '简答题') {
-        if (this.freeInput > 0) {
-          params.score = this.freeInput
+        if (this.ruleForm.single > 0) {
+          params.score = this.ruleForm.single
           params.judgeId = this.formData.judgeId
         } else {
           params.score = ''
@@ -192,7 +225,7 @@ export default {
         this.resdata.questionTotalNum = record.questionNumList.textMap.length
         this.resdata.textMap = record.questionNumList.textMap
         if (this.resdata.questionTypeName === '简答题') {
-          this.freeInput = record.score
+          this.ruleForm.single = record.score
           this.resdata.kindTotalNum = record.questionNumList.textMap.length
           this.resdata.kindMark = record.questionNumList.textMap[0].grade * this.resdata.kindTotalNum
         }
@@ -208,6 +241,14 @@ export default {
         examId: this.formData.examId,
       }
       this.getSubjectById(params)
+    },
+
+    /**
+     * 当用户答案输入框获取到焦点，立马设置为禁用状态
+     */
+    inputClose (e) {
+      this.disabled = true
+      console.log(e)
     },
 
     /**
@@ -249,59 +290,75 @@ export default {
      * 上一题
      */
     prv () {
-      const params = {
-        questionNum: this.resdata.questionNum - 1,
-      }
-      this.judgeType(params)
-      this.getSubjectById(params)
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          const params = {
+            questionNum: this.resdata.questionNum - 1,
+          }
+          this.judgeType(params)
+          this.getSubjectById(params)
+        }
+      })
     },
 
     /** 
      * 下一题
      */
     next () {
-      const params = {
-        questionNum: this.resdata.questionNum + 1,
-      }
-      this.judgeType(params)
-      this.getSubjectById(params)
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          const params = {
+            questionNum: this.resdata.questionNum + 1,
+          }
+          this.judgeType(params)
+          this.getSubjectById(params)
+        }
+      })
     },
 
     /**
      * 点击答题卡
      */
     handleCard (item) {
-      const params = {
-        questionNum: item.questionNum,
-      }
-      this.judgeType(params)
-      this.getSubjectById(params)
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          const params = {
+            questionNum: item.questionNum,
+          }
+          this.judgeType(params)
+          this.getSubjectById(params)
+        }
+      })
     },
 
     /**
      * 保存并退出
      */
     saveAndGoBack () {
-      this.$confirm('此操作将保存试卷，是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        const params = {
-          ifCommit: 1,
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          this.$confirm('此操作将保存试卷，是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+          }).then(() => {
+            const params = {
+              ifCommit: 1,
+            }
+            this.judgeType(params)
+            this.getSubjectById(params)
+            this.$message({
+              type: 'success',
+              message: '保存成功!',
+            })
+            this.$emit('close', false)
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消',
+            })
+          })
         }
-        this.judgeType(params)
-        this.getSubjectById(params)
-        this.$message({
-          type: 'success',
-          message: '保存成功!',
-        })
-        this.$emit('close', false)
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消',
-        })
       })
     },
 
@@ -373,6 +430,12 @@ export default {
         width: 100%;
         margin: 50px 0 0 0;
       }
+      .setScore {
+        margin: 20px -8px;
+        .el-input {
+          width: 6%;
+        }
+      }
     }
   }
   .right {
@@ -386,11 +449,6 @@ export default {
       margin-top: 30px;
       background: #fffbf6;
       border: 1px solid #ffdbc1;
-      // background: linear-gradient(
-      //   to bottom right,
-      //   rgb(55, 15, 68),
-      //   rgb(107, 174, 246)
-      // );
       .top {
         text-align: center;
         position: relative;
@@ -430,6 +488,14 @@ export default {
           border-color: #ba1b21;
           color: #fff;
         }
+        .answerSheet {
+          font-size: 18px;
+          color: #595959;
+        }
+        .answerSheetTop {
+          border-top: solid 1px #eee;
+          padding-top: 6px;
+        }
       }
     }
   }
@@ -438,46 +504,17 @@ export default {
   padding: 0 20px;
 }
 </style>
+<style  scoped>
+.giveinput >>> .el-input__inner {
+  width: 50px;
+  height: 40px;
+  line-height: 40px;
+  color: #e6a23c;
+  font-size: 18px;
+}
+</style>
 <style lang="scss">
 .examShowss {
-  .give-mark {
-    width: 7%;
-    height: 50px;
-    //margin-top: 20px;
-    margin-left: 100px;
-    .el-input__inner {
-      height: 50px;
-      color: #ff6666;
-      font-size: 20px;
-      text-align: center;
-    }
-  }
-  .give-mark-two {
-    width: 8%;
-    height: 70px;
-    margin-left: 50px;
-    .el-input__inner {
-      width: 60px;
-      height: 50px;
-      margin-top: -40px;
-      color: #ff6666;
-      font-size: 20px;
-      text-align: center;
-    }
-  }
-  .give-mark-three {
-    width: 10%;
-    height: 74px;
-    margin-left: 30px;
-    margin-top: 150px;
-    .el-input__inner {
-      width: 80px;
-      height: 74px;
-      color: #ff6666;
-      font-size: 20px;
-      text-align: center;
-    }
-  }
   .titletwoss {
     .el-input__inner {
       width: 139%;
@@ -492,14 +529,7 @@ export default {
   .el-radio {
     margin: 0 10px 0 28px !important;
   }
-  .answerSheet {
-    font-size: 18px;
-    color: #595959;
-  }
-  .answerSheetTop {
-    border-top: solid 1px #eee;
-    padding-top: 6px;
-  }
+
   .choices + .choices {
     margin: 1px;
   }

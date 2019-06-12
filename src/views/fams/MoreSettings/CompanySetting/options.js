@@ -36,7 +36,31 @@ const columnsMap = [
 	},
 ]
 
+const rules = {
+  name: [
+    { required: true, message: '请输入线下公司名称', trigger: 'blur' },
+	],
+	orgId: [
+    { required: true, message: '请选择户头所属组织', trigger: 'blur' },
+	],
+	bankAccountIds: [
+    { required: true, message: '请选择户头所属组织', trigger: 'blur' },
+	],
+	taxpayerNumber: [
+    { required: true, message: '请输入纳税人识别号', trigger: 'blur' },
+  ],
+	phone: [
+    { required: true, message: '请输入电话', trigger: 'blur' },
+	],
+	address: [
+    { required: true, message: '请输入地址', trigger: 'blur' },
+	],
+	businessScope: [
+	{ required: true, message: '请输入经营范围', trigger: 'blur'},
+	],
+}
 export {
 	columnsMap,
 	initForm,
+	rules,
 }

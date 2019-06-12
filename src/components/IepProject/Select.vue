@@ -1,11 +1,11 @@
 <template>
-  <el-select filterable remote placeholder="请输入项目关键词" :remote-method="remoteMethod" :loading="loading" v-bind="$attrs" v-on="$listeners">
-    <el-option v-for="item in contractOptions" :key="item.id" :label="item.projectName" :value="item.id">
+  <el-select filterable remote placeholder="请输入项目关键词" :remote-method="remoteMethod" :loading="loading" @change="handleChange" v-bind="$attrs" v-on="$listeners">
+    <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
     </el-option>
   </el-select>
 </template>
 <script>
-import { getProjectPage } from '@/api/gpms/select'
+import { getProjecListByName } from '@/api/mlms/common'
 export default {
   name: 'IepProjectSelect',
   inheritAttrs: false,
@@ -17,35 +17,38 @@ export default {
   },
   data () {
     return {
-      contractOptions: [],
+      options: [],
       loading: false,
     }
   },
   created () {
   },
   methods: {
+    handleChange (v) {
+      const value = this.options.find(m => m.id === v)
+      this.$emit('relation-change', value.relationList)
+    },
     async remoteMethod (query) {
       if (query !== '') {
         this.loading = true
         try {
-          const { data } = await getProjectPage(query)
-          console.log(data)
-          this.contractOptions = data.data.records
+          const { data } = await getProjecListByName({ name: query })
+          this.options = data.data
         } catch (error) {
           console.log(error)
         } finally {
           this.loading = false
         }
       } else {
-        this.contractOptions = []
+        this.options = []
       }
     },
   },
   watch: {
     projectName: function (n) {
-      this.contractOptions = [{
+      this.options = [{
         id: this.$attrs.value,
-        projectName: n,
+        name: n,
       }]
     },
   },

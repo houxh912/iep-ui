@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="新增收入" width="700px" @close="loadPage">
-    <el-form :model="form" size="small" ref="form" :rules="rules" label-width="120px">
+    <el-form class="form-detail" :model="form" size="small" ref="form" :rules="rules" label-width="120px">
       <el-form-item label="收入类型：" prop="type">
         <iep-dict-cascader dictName="fams_income_type" v-model="form.type"></iep-dict-cascader>
       </el-form-item>
@@ -22,7 +22,10 @@
         <iep-select v-model="form.accountId" autocomplete="off" :prefix-url="bankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
       </el-form-item>
       <el-form-item label="关联合同：">
-        <iep-contract-select v-model="form.protocolId"></iep-contract-select>
+        <iep-contract-select v-model="form.protocolId" :contractName="form.protocolName" @relation-change="handleContractChange"></iep-contract-select>
+      </el-form-item>
+      <el-form-item label="关联项目：">
+        <iep-project-select v-model="form.projectId" :projectName="form.projectName" @relation-change="handleProjectChange"></iep-project-select>
       </el-form-item>
       <el-form-item label="收入金额(元)：" prop="amount">
         <iep-input-number v-model="form.amount"></iep-input-number>
@@ -90,6 +93,18 @@ export default {
     },
   },
   methods: {
+    handleContractChange (v) {
+      if (v) {
+        this.form.projectId = v.id
+        this.form.projectName = v.name
+      }
+    },
+    handleProjectChange (v) {
+      if (v) {
+        this.form.protocolId = v.id
+        this.form.protocolName = v.name
+      }
+    },
     handleChange () {
       this.form.accountId = ''
     },

@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="发送祝福" width="50%" @close="resetForm">
+  <iep-dialog :dialog-show="dialogShow" title="发布说说" width="50%" @close="resetForm">
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-right: 20px;">
 
       <el-form-item label="说说内容：" prop="content">

@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { getTableData } from '@/api/mlms/material/datum/material'
+import { getMaterialLPage } from '@/api/app/mlms/'
 
 export default {
   props: {
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     loadPage () {
-      getTableData(this.params).then(({data}) => {
+      getMaterialLPage(this.params).then(({data}) => {
         this.pageList = data.data.records
         this.total = data.data.total
       })

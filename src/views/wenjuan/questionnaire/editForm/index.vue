@@ -23,7 +23,7 @@
         <el-button class="selfBtn" v-if="data.type == '1' || data.type == '2' || data.type == '3' || data.type == '4' || data.type == '5'" type="text" @click="logic(index)"><i class="iconfont icon-xitongshezhi1"></i>逻辑配置</el-button>
         <el-button class="selfBtn" v-if="data.type != '11'" type="text" @click="copyData(index)"><i class="iconfont icon-cz-yinyongsj"></i>复制</el-button>
         <el-button class="selfBtn" v-if="data.type != '11'" type="text" @click="deleteData(index)"><i class="iconfont icon-shanchu"></i>删除</el-button>
-        <el-button class="selfBtn" v-if="data.type != '11' && star && data.isGrade == '1'" type="text" @click="scoreStar(index)"><i class="iconfont icon-pingfen"></i>自动评分</el-button>
+        <!-- <el-button class="selfBtn" v-if="data.type != '11' && star && data.isGrade == '1'" type="text" @click="scoreStar(index)"><i class="iconfont icon-pingfen"></i>自动评分</el-button> -->
         <el-button class="selfBtn" v-if="data.type != '10' && data.type != '11'" type="text" @click="()=>this.$set(this.data,'isRequire',this.data.isRequire == '1' ? '2' : '1')">
           是否必填
           <el-checkbox v-model="data.isRequire" true-label="1" false-label="2"></el-checkbox>
@@ -32,10 +32,10 @@
           是否显示
           <el-checkbox v-model="data.isShow" true-label="1" false-label="2"></el-checkbox>
         </el-button>
-        <el-button class="selfBtn" v-if="(data.type == '1' || data.type == '2' || data.type == '3' || data.type == '4' || data.type == '5') && star" type="text" @click="()=>this.$set(this.data,'isGrade',this.data.isGrade == '1' ? '2' : '1')">
+        <!-- <el-button class="selfBtn" v-if="(data.type == '1' || data.type == '2' || data.type == '3' || data.type == '4' || data.type == '5') && star" type="text" @click="()=>this.$set(this.data,'isGrade',this.data.isGrade == '1' ? '2' : '1')">
           是否评分
           <el-checkbox v-model="data.isGrade" true-label="1" false-label="2"></el-checkbox>
-        </el-button>
+        </el-button> -->
         <div>
           {{data.logic.type == 'jump' ? '跳转逻辑：' : (data.logic.type == 'display' ? '显示逻辑：' : '')}}
           <div v-if="data.logic.type == 'jump'">

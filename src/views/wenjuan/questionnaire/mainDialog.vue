@@ -37,6 +37,7 @@
   </gov-dialog>
 </template>
 <script>
+
 import mixin from '@/views/wenjuan/mixins/mixin'
 import scopeMixin from './const/mixin'
 import FormItem from './editForm'
@@ -47,8 +48,8 @@ import {
   createData,
   updateData,
   getDetail,
-  automaticGrading,
 } from '@/api/evaluate/question'
+import { getOrgList } from '@/api/evaluate/org'
 import { getIndexIds } from './const/utils'
 import { getGroupDept } from '@/api/evaluate/question'
 export default {
@@ -237,6 +238,9 @@ export default {
       this.$nextTick(() => {
         this.$refs['form'].clearValidate()
       })
+      getOrgList().then(({ data }) => {
+        this.groupDic = data.data
+      })
       // if(status === 'edit')
       if (this.status === 'update') {
         // this.form = {...this.temp}
@@ -277,30 +281,31 @@ export default {
 
     //保存为未发布
     handleSubmitDraft () {
-      this.$refs.form.validate().then(async () => {
-        let resData = { ...this.form }
-        resData.questionDTOList = this._setLogic(this.data)
-        resData.status = '2'
-        resData.evaDept = resData.evaDept.join(',')
-        resData.isGrade == '1' ? this.$set(this.indexList, 'after', getIndexIds(resData.questionDTOList)) : ''
-        let setList = false
-        await automaticGrading(this.indexList).then(() => {
-          setList = true
-        })
-        if (this.status === 'create' && setList) {
-          createData(resData).then(({ data }) => {
-            if (data.code === 0) {
-              this.$emit('successForm', '新增成功')
-              this.close()
-            }
-          })
-        } else {
-          updateData(resData).then(({ data }) => {
-            if (data.code === 0) {
-              this.$emit('successForm', '修改成功')
-              this.close()
-            }
-          })
+      console.log('assa', this.$refs.form.validate)
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          let resData = { ...this.form }
+          resData.questionDTOList = this._setLogic(this.data)
+          resData.status = '2'
+          resData.type = '2'
+          resData.isGrade = '1'
+          resData.evaDept = resData.evaDept.join(',')
+          resData.isGrade == '1' ? this.$set(this.indexList, 'after', getIndexIds(resData.questionDTOList)) : ''
+          if (this.status === 'create') {
+            createData(resData).then(({ data }) => {
+              if (data.code === 0) {
+                this.$emit('successForm', '新增成功')
+                this.close()
+              }
+            })
+          } else {
+            updateData(resData).then(({ data }) => {
+              if (data.code === 0) {
+                this.$emit('successForm', '修改成功')
+                this.close()
+              }
+            })
+          }
         }
       })
     },

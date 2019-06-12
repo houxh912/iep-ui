@@ -15,6 +15,7 @@ export default {
       projectIdDic: [],
       createByDic: [],
       groupData: [],
+      groupDic: [],
       disabledProject: false,  // 判断是否是项目跳转过来的
       projectId: '',
     }
@@ -39,12 +40,12 @@ export default {
           span: 12,
           type: 'select',
           dicData: getDic('QUESTION_TYPE'),
+          visdiplay: false,
           rules: [{
             required: true,
             message: '不能为空',
             trigger: 'change',
           }],
-          disabled: this.disabledProject,
         },
         {
           label: '所属项目',
@@ -81,7 +82,7 @@ export default {
           prop: 'evaDept',
           type: 'select',
           multiple: true,
-          dicData: getDept(),
+          dicData: this.groupDic,
           span: 12,
           rules: [{
             required: true,
@@ -118,6 +119,7 @@ export default {
           prop: 'isGrade',
           span: 12,
           type: 'radio',
+          visdiplay: false,
           dicData: [{
             value: '1',
             label: '是',
@@ -131,38 +133,38 @@ export default {
             trigger: 'blur',
           }],
         },
-        {
-          label: '评分有效性',
-          prop: 'gradeEffective',
-          span: 12,
-          type: 'radio',
-          visdiplay: this.showGrade,
-          dicData: [{
-            value: '1',
-            label: '按人数',
-          },{
-            value: '2',
-            label: '按回答率',
-          }],
-          rules: [{
-            required: true,
-            message: '不能为空',
-            trigger: 'blur',
-          }],
-        },
-        {
-          label: '有效阈值',
-          type: 'number',
-          prop: 'gradeNumber',
-          span: 12,
-          visdiplay: this.showGrade,
-          rules: [{
-            required: true,
-            message: '不能为空',
-            trigger: 'blur',
-          }],
-          maxlength: 4,
-        },
+        // {
+        //   label: '评分有效性',
+        //   prop: 'gradeEffective',
+        //   span: 12,
+        //   type: 'radio',
+        //   visdiplay: this.showGrade,
+        //   dicData: [{
+        //     value: '1',
+        //     label: '按人数',
+        //   },{
+        //     value: '2',
+        //     label: '按回答率',
+        //   }],
+        //   rules: [{
+        //     required: true,
+        //     message: '不能为空',
+        //     trigger: 'blur',
+        //   }],
+        // },
+        // {
+        //   label: '有效阈值',
+        //   type: 'number',
+        //   prop: 'gradeNumber',
+        //   span: 12,
+        //   visdiplay: this.showGrade,
+        //   rules: [{
+        //     required: true,
+        //     message: '不能为空',
+        //     trigger: 'blur',
+        //   }],
+        //   maxlength: 4,
+        // },
         {
           label: '问卷描述',
           prop: 'remarks',

@@ -54,9 +54,6 @@ export default {
   border: 1px solid #dc8687;
   color: #dc8687;
 }
-.brand {
-  height: 351px;
-}
 </style>
 <style scoped>
 .index-card >>> .el-card__header {
@@ -70,5 +67,8 @@ export default {
 }
 .brand >>> .el-card__header {
   padding: 18px 0 9px;
+}
+.brand >>> .el-card {
+  height: 351px;
 }
 </style>

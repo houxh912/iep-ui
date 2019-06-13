@@ -49,7 +49,7 @@
       </el-form-item>
       <el-form-item class="item" label="答案：" prop="inputCheckboxAnswer" v-if="postAnswer == 12">
         <el-select multiple v-model="ruleForm.inputCheckboxAnswer" clearable size="small"
-          placeholder="请选择答案"  :disabled="btnDisabled">
+          placeholder="请选择答案"  :disabled="btnDisabled" @change="handleSelectCheckboxAnswer">
           <el-option v-for="(item, index) in ruleForm.checkboxOption" :key="index" :label="checkboxList[index].label"
             :value="checkboxList[index].id">
           </el-option>
@@ -154,6 +154,12 @@ export default {
     //     }
     //   })
     // },
+    /**
+     * 复选答案正排序
+     */
+    handleSelectCheckboxAnswer () {
+      this.ruleForm.inputCheckboxAnswer = this.ruleForm.inputCheckboxAnswer.sort ()
+    },
     /**
      * 禁用输入及选择
      */

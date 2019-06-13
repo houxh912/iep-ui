@@ -38,7 +38,7 @@
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="handleWritten(scope.row)" v-if="permissionWritten || permissionAll">笔试阅卷</el-dropdown-item>
-                <el-dropdown-item @click.native="handleInterview(scope.row)" v-if="permissionInterview || permissionAll">面试判分</el-dropdown-item>
+                <el-dropdown-item @click.native="handleInterview(scope.row)" v-if="permissionInterview || permissionAll  && addInterview === 1">面试判分</el-dropdown-item>
                 <el-dropdown-item @click.native="handleDelete(scope.row)" v-if="permissionAll">删除</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -116,6 +116,7 @@ export default {
       labelPosition: 'right',
       InterviewData: initForm(),
       permissionAll: false,
+      addInterview: 0,
     }
   },
   computed: {
@@ -148,6 +149,8 @@ export default {
      * 获取列表分页数据
      */
     loadPage (param) {
+      this.addInterview = this.record.row.addInterview
+      console.log('mmm', this.addInterview)
       this.dialogProgress = false
       this.dialogWritten = false
       this.dialogChoice = false

@@ -14,7 +14,7 @@
           </el-dropdown> -->
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" prop="title">
             <!-- <advance-search @search-page="searchPage"></advance-search> -->
           </operation-search>
         </template>

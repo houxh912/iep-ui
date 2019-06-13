@@ -64,21 +64,21 @@ export default {
         {
           title: '考试',
           callback: () => {
-            this.$message.success('功能开发中')
+            this.$message('功能开发中')
           },
           disabled: 'disabled',
         },
         {
           title: '调研',
           callback: () => {
-            this.$message.success('功能开发中')
+            this.$message('功能开发中')
           },
           disabled: 'disabled',
         },
         {
           title: '建模',
           callback: () => {
-            this.$message.success('功能开发中')
+            this.$message('功能开发中')
           },
           disabled: 'disabled',
         },
@@ -106,7 +106,7 @@ export default {
   margin: 10px;
   .disabled {
     color: #ccc;
-    cursor: auto;
+    cursor: not-allowed;
     &:hover {
       color: #ccc;
     }

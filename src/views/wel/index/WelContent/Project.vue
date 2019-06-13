@@ -1,7 +1,6 @@
 <template>
   <div class="about-task">
     <div class="task-nav">
-      <span class="navTitle">我的待办</span>
       <nav-tab :nav-list="navList" @tab="tab"></nav-tab>
     </div>
     <nav-content :contentData="contentData"></nav-content>
@@ -17,13 +16,9 @@ export default {
     return {
       contentData: '',
       navList: [{
-        subtitle: '执行项目',
+        subtitle: '我的项目',
         type: 'action',
         id: 0,
-      }, {
-        subtitle: '完成项目',
-        type: 'success',
-        id: 1,
       }],
       content: {
         action: [],
@@ -49,11 +44,6 @@ export default {
   .task-nav {
     display: flex;
     align-items: center;
-    .navTitle {
-      font-size: 16px;
-      padding-right: 20px;
-      color: #000;
-    }
   }
   .title {
     font-size: 14px;

@@ -90,7 +90,7 @@ export default {
 </style>
 <style scoped>
 .business-system >>> .el-card {
-  height: 330px;
+  height: 324px;
 }
 .business-system >>> .el-card__body {
   padding: 24px 0;

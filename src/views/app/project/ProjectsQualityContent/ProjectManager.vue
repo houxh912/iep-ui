@@ -4,7 +4,9 @@
       <div>
         <div class="project-managerList">
           <div v-for="(item,index) in projectManagerList" :key="index" class="piece" @click="handleOpen()">
-            <div class="img-con"><iep-img :src="item.img" class="img" alt=""></iep-img></div>
+            <div class="img-con">
+              <iep-img :src="item.img" class="img" alt=""></iep-img>
+            </div>
             <div class="text">
               <span class="name">{{item.name}}<span class="num">{{item.num}}</span></span>
               <span class="department">{{item.department}}</span>
@@ -135,6 +137,6 @@ export default {
 </style>
 <style scoped>
 .project-manager >>> .el-card {
-  height: 413px;
+  height: 410px;
 }
 </style>

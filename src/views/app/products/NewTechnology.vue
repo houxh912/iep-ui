@@ -9,7 +9,7 @@
       <iep-no-data v-if="!technologyList.length"></iep-no-data>
       <div class="new-tehnology-content">
         <div v-for="(item,index) in technologyList" :key="index" class="piece" @click="handleOpen(item)">
-          <iep-img :src="item.imageUrl" alt="" class="img"></iep-img>
+          <iep-img class="img" :src="item.imageUrl" alt=""></iep-img>
           <div class="text">
             <span>{{item.name}}</span>
             <span class="introduction">{{item.synopsis}}</span>
@@ -97,6 +97,9 @@ export default {
     grid-column-gap: 10px;
     grid-template-columns: 1fr 1fr;
     .piece {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       cursor: pointer;
       .img {
         float: left;
@@ -128,7 +131,7 @@ export default {
 .index-card >>> .el-card__header {
   padding: 16px 0 10px;
 }
-.new-tehnology >>> .el-card{
+.new-tehnology >>> .el-card {
   height: 354px;
 }
 </style>

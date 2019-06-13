@@ -22,7 +22,7 @@ export default {
   },
   data () {
     return {
-      isMore:true,
+      isMore: true,
       linkName: '',
       tabList: [{
         label: '内部专家',
@@ -37,5 +37,8 @@ export default {
 }
 </script>
 <style scoped>
+.leaderBoard >>> .el-card {
+  height: 312px;
+}
 </style>
 

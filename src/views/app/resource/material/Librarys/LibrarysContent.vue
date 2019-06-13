@@ -133,19 +133,25 @@ export default {
   }
   i {
     margin-right: 10px;
-    font-size: 22px;
+    font-size: 20px;
     color: #aaa;
     vertical-align: -2px;
   }
 }
 .box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   margin-bottom: 15px;
   span {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     margin-right: 20px;
     color: #aaa;
     i {
       margin-right: 5px;
-      font-size: 18px;
+      font-size: 16px;
       color: #aaa;
       vertical-align: -2px;
     }

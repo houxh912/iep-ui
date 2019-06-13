@@ -9,7 +9,9 @@
     </div>
     <div class="no" v-if="commentList.length==0">目前还没有人评论，来发表自己的看法吧~</div>
     <div v-else v-for="(item,index) in commentList" :key="index" class="box">
-      <div class="left"><iep-img class="img" :src="item.avatar" :alt="item.realName"></iep-img></div>
+      <div class="left">
+        <iep-img class="img" :src="item.avatar" :alt="item.realName"></iep-img>
+      </div>
       <div class="right">
         <div class="title">
           <span class="name">{{item.realName}}</span>
@@ -25,11 +27,7 @@
       </div>
     </div>
     <div class="pagination" v-if="commentList.length > 0">
-      <el-pagination
-        background
-        @current-change="handleCurrentChange"
-        layout="total, prev, pager, next, jumper"
-        :total="pageSize.total">
+      <el-pagination background @current-change="handleCurrentChange" layout="total, prev, pager, next, jumper" :total="pageSize.total">
       </el-pagination>
     </div>
   </div>
@@ -71,7 +69,7 @@ export default {
       comment: commentForm(),
     }
   },
-  methods:{
+  methods: {
     // 获取评论列表
     getComment () {
       getCommentPage({
@@ -109,95 +107,96 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.evaluation-review{
+.evaluation-review {
   margin: 20px 0;
-  .evaluation{
+  .evaluation {
     height: 30px;
     line-height: 30px;
     display: flex;
     font-size: 16px;
     margin-bottom: 10px;
   }
-  .review{
+  .review {
     overflow: hidden;
   }
-  .no{
+  .no {
     color: #999;
     width: 100%;
     text-align: center;
     font-size: 16px;
   }
-  .box{
+  .box {
     display: flex;
     padding-bottom: 20px;
     margin-bottom: 15px;
     border-bottom: 1px solid #ddd;
-    .left{
+    .left {
       width: 60px;
       height: 100%;
       text-align: center;
-      > img{
+      .img {
         width: 40px;
         height: 40px;
         border-radius: 50%;
       }
     }
-    .right{
+    .right {
       width: 100%;
-      .title{
+      .title {
         display: flex;
-        .name{
+        .name {
           color: #2658a9;
           font-size: 16px;
           margin-right: 10px;
         }
       }
-      .desc{
+      .desc {
         line-height: 30px;
         color: #666;
-        .delete{
+        .delete {
           color: #2658a9;
           margin-left: 10px;
-          &:hover{
+          &:hover {
             cursor: pointer;
           }
         }
       }
-      .down{
+      .down {
         overflow: hidden;
-        .time{
+        .time {
           float: left;
           color: #999;
         }
-        .reply,.like{
+        .reply,
+        .like {
           float: right;
           color: #999;
           margin-right: 5px;
-          > i{
+          > i {
             margin: 5px 5px 0 0;
             font-size: 18px;
           }
-          &:hover{
+          &:hover {
             cursor: pointer;
             color: #d56368;
           }
         }
       }
-      .reply-box{
-        padding:20px 10px 10px 20px;
+      .reply-box {
+        padding: 20px 10px 10px 20px;
         margin: 10px 0 20px;
         background-color: #fafafa;
-        .title{
+        .title {
           display: flex;
           color: #999;
           height: 40px;
           line-height: 40px;
-          > img{
+          .img {
             width: 40px;
             height: 40px;
             border-radius: 50%;
           }
-          > span{
+          > span {
             color: #2658a9;
             margin: 0 5px;
           }
@@ -211,20 +210,20 @@ export default {
 }
 </style>
 <style scoped>
-.evaluation >>> .el-rate{
+.evaluation >>> .el-rate {
   margin-left: 20px;
   line-height: 1.6;
 }
-.evaluation >>> .el-rate__icon{
+.evaluation >>> .el-rate__icon {
   font-size: 22px;
 }
-.evaluation >>> .el-textarea__inner{
+.evaluation >>> .el-textarea__inner {
   margin: 5px 0;
 }
-.box >>> .el-rate{
+.box >>> .el-rate {
   line-height: 1.4;
 }
-.box >>> .el-rate__icon{
+.box >>> .el-rate__icon {
   font-size: 16px;
 }
 </style>

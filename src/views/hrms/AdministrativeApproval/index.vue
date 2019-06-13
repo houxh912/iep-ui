@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="行政审批" :replaceText="replaceText" :data="statistics"></page-header>
+      <page-header title="审批记录" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="left">
           <!-- <el-button @click="(scope.row)" size="small" class="share"><i class="el-icon-share"></i><span>分享</span></el-button> -->

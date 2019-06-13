@@ -452,4 +452,10 @@ export default {
 .img >>> .el-image__inner {
   border-radius: 50%;
 }
+.button-list >>> .five-key {
+  padding: 0;
+}
+.button-list >>> .icon-box {
+  margin: 5px;
+}
 </style>

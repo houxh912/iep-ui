@@ -150,7 +150,7 @@ export default {
     },
     // 附件下载
     downLoad (obj) {
-      downloadCount(this.formData.id).then(({data}) => {
+      downloadCount(this.formData.id).then(({ data }) => {
         if (data.data) {
           downloadFile(obj)
         } else {
@@ -293,6 +293,8 @@ export default {
   }
   .image {
     margin: 20px 0;
+    width: 30px;
+    height: 30px;
     .img-avatar {
       max-width: 100%;
     }

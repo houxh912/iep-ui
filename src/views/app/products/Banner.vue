@@ -48,7 +48,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .banner {
-  height: 400px;
   width: 100%;
   background-color: #f8f8f8;
   .baner-img {

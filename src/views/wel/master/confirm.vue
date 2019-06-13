@@ -44,17 +44,17 @@
       </div>
     </el-card>
     <div class="confirm">
-      <div class="title">是否接收他的拜师申请？</div>
+      <div class="title">是否接受他的拜师申请？</div>
       <div class="button-list">
-        <iep-button type="primary" @click="handleConfirm">确认</iep-button>
-        <iep-button @click="handleCancel">取消</iep-button>
+        <iep-button type="primary" @click="handleConfirm(1)">确认</iep-button>
+        <iep-button @click="handleConfirm(2)">取消</iep-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { getUserDetail } from '@/api/app/hrms/'
+import { getApprenticeUser, characterIsDetermine } from '@/api/cpms/characterrelations'
 
 export default {
   data () {
@@ -78,6 +78,7 @@ export default {
         projectTag: [],
       },
       apprenticeShow: false,
+      params: this.$route.params,
     }
   },
   methods: {
@@ -87,19 +88,18 @@ export default {
     },
     // 获取用户信息
     getUserDetail (id) {
-      getUserDetail(id).then(({data}) => {
+      getApprenticeUser(id).then(({data}) => {
         let obj = data.data
         this.userInfo = obj
       })
     },
-    handleConfirm () {
-      
+    handleConfirm (type) {
+      characterIsDetermine(this.params.id, {characterStatus: type}).then(() => {})
     },
-    handleCancel () {},
   },
   created () {
-    let params = this.$route.params
-    this.getUserDetail(params.id)
+    this.params = this.$route.params
+    this.getUserDetail(this.params.id)
   },
 }
 </script>

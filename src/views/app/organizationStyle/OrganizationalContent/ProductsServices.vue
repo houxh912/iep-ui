@@ -7,7 +7,7 @@
           <span class="operate">申请代理</span>
         </div>
       </div>
-      <IepNoData></IepNoData>
+      <IepNoData v-else></IepNoData>
     </iepAppTabCard>
   </div>
 </template>

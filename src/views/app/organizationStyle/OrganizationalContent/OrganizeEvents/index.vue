@@ -3,7 +3,7 @@
     <IepAppTabsCard :linkName="linkName">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='OrganizeDynamic'" v-slot:OrganizeDynamic>
-          <organize-dynamic v-loading="activeTab !=='OrganizeDynamic'"></organize-dynamic>
+          <organize-dynamic v-loading="activeTab !=='OrganizeDynamic'" :orgId="orgId"></organize-dynamic>
         </template>
         <template v-if="activeTab ==='Events'" v-slot:Events>
           <events v-loading="activeTab !=='Events'"></events>
@@ -15,7 +15,6 @@
 <script>
 import OrganizeDynamic from './OrganizeDynamic'
 import Events from './Events'
-import { getNewsList } from '@/api/app/mlms/'
 
 export default {
   components: {
@@ -36,16 +35,6 @@ export default {
       activeTab: 'OrganizeDynamic',
       linkName: '',
     }
-  },
-  methods: {
-    getNewsList (id) {
-      getNewsList({ orgId: id }).then(() => {})
-    },
-  },
-  watch: {
-    orgId (newVal) {
-      this.getNewsList(newVal)
-    },
   },
 }
 </script>

@@ -65,7 +65,7 @@ export default {
       // }
       // downloadFile(obj)
       // downloadCount(this.formData.id)
-      downloadCount(this.formData.id).then(({data}) => {
+      downloadCount(this.formData.id).then(({ data }) => {
         if (data.data) {
           downloadFile(obj)
         } else {
@@ -199,3 +199,14 @@ export default {
 }
 </style>
 
+<style scoped>
+.inform >>> .el-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.inform >>> .el-image__inner {
+  border-radius: 50%;
+}
+</style>

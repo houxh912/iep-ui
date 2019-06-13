@@ -45,17 +45,17 @@ export default {
   },
   methods: {
     changePage (val) {
-      this.$refs['librarys'].loadPage({wealthClsSecondClass: val})
+      this.$refs['librarys'].loadPage({ wealthClsSecondClass: val })
     },
     // 推荐主题
     getRectagsList () {
-      getRectagsList().then(({data}) => {
+      getRectagsList().then(({ data }) => {
         this.labelList = data.data
       })
     },
     // 猜你想找
     getGuessList () {
-      getGuessList().then(({data}) => {
+      getGuessList().then(({ data }) => {
         this.listList = data.data
       })
     },
@@ -67,6 +67,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.piece {
+  cursor: pointer;
+}
 .breadcrumb-wrapper {
   .breadcrumb-item {
     margin: 20px auto 0;

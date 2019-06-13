@@ -82,6 +82,9 @@ export default {
       font-size: 12px;
       line-height: 28px;
       color: #999;
+      i {
+        margin-right: 5px;
+      }
     }
   }
   .past-training-list {

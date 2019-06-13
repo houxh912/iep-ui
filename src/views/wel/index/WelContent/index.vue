@@ -65,3 +65,9 @@ export default {
   font-size: 12px;
 }
 </style>
+<style scoped>
+.wel-content >>> .name,
+.wel-content >>> .title {
+  margin-right: 10px;
+}
+</style>

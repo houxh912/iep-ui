@@ -112,13 +112,20 @@ export default {
   line-height: 28px;
 }
 .librarys-bottom {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   & > span {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     margin-right: 15px;
     color: #999;
     font-size: 12px;
+    line-height: 24px;
     i {
       margin-right: 5px;
-      font-size: 18px !important;
+      font-size: 16px !important;
       vertical-align: -2px;
     }
   }

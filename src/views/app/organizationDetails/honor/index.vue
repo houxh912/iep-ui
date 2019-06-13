@@ -36,14 +36,17 @@ export default {
   .whole-box {
     margin: 20px 0;
     width: 23%;
+    cursor: pointer;
     .whole-item {
+      height: 370px;
       border: 1px solid #ebeef5;
       img {
         width: 272px;
-        height: 250px;
+        height: 360px;
       }
     }
     p {
+      margin-top: 5px;
       padding: 0 10px;
       font-size: 14px;
       color: #333;

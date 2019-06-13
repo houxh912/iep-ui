@@ -4,7 +4,9 @@
     <div class="module">
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
         <div class="content">
-          <div class="img"><iep-img :src="item.imageUrl" alt=""></iep-img></div>
+          <div class="img">
+            <iep-img :src="item.imageUrl" alt=""></iep-img>
+          </div>
           <div class="text">
             <h4 class="item-title">{{item.name}}</h4>
             <p class="con">{{item.synopsis}}</p>
@@ -49,7 +51,7 @@ export default {
       this.getDetailsPage()
     },
     getDetailsPage () {
-      getDetailsPage(Object.assign({}, this.params, this.paramForm)).then(({data}) => {
+      getDetailsPage(Object.assign({}, this.params, this.paramForm)).then(({ data }) => {
         this.moduleList = data.data.records
         this.total = data.data.total
       })
@@ -119,7 +121,11 @@ export default {
     .text {
       width: 55%;
       .item-title {
+        max-width: 210px;
         font-size: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .con {
         height: 47px;
@@ -157,5 +163,13 @@ export default {
 }
 .module >>> .el-card.module-item {
   border: 1px solid #dcdfe6;
+}
+.img >>> .el-image {
+  width: 120px;
+  height: 120px;
+}
+.img >>> .el-image__inner {
+  width: 120px;
+  height: 120px;
 }
 </style>

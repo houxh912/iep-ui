@@ -14,7 +14,9 @@
       </template>
     </operation-container>
 
-    <iep-table :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-mutiple-selection is-index>
+    <iep-table :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination"
+      :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange"
+      @selection-change="selectionChange" is-mutiple-selection is-index>
       <el-table-column prop="paperStatus  " label="判分状态">
         <template slot-scope="scope">
           <el-tag type="warning" size="medium" v-if="scope.row.paperStatus === 1">未阅卷</el-tag>
@@ -24,16 +26,17 @@
           <el-tag type="success" size="medium" v-if="scope.row.paperStatus === 5">完成阅卷</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="operation" label="操作" width="180">
+      <el-table-column prop="operation" label="操作" width="150">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)">发放证书</iep-button>
+
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="handleWritten(scope.row)">笔试阅卷</el-dropdown-item>
-                <el-dropdown-item @click.native="handleInterview(scope.row)">面试判分</el-dropdown-item>
-                <!-- <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item> -->
+                <el-dropdown-item @click.native="handleWritten(scope.row)" v-if="permissionWritten">笔试阅卷</el-dropdown-item>
+                <el-dropdown-item @click.native="handleInterview(scope.row)" v-if="permissionInterview">面试判分</el-dropdown-item>
+                <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </operation-wrapper>
@@ -49,7 +52,8 @@
       <writte-form :formData="InterviewData" v-if="dialogWritten" @close="loadPage()"></writte-form>
     </el-dialog>
 
-    <iep-dialog :dialog-show="dialogInterview" title="面试判分" width="550px" @close="loadPage()" center>
+    <iep-dialog :dialog-show="dialogInterview" title="面试判分" width="550px" @close="loadPage()"
+      center>
       <interview-form :formData="InterviewData" @close="loadPage()"></interview-form>
     </iep-dialog>
 
@@ -112,9 +116,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'userInfo',
-    ]),
+    ...mapGetters(['userInfo']),
+    permissionInterview () {
+      const { faceUserIdsArray } = this.record.row.iepExaminationOperateVO
+      return faceUserIdsArray.map(Number).includes(this.userInfo.userId)
+    },
+    permissionWritten () {
+      const { writeUsedWriteUsedArray } = this.record.row.iepExaminationOperateVO
+      return writeUsedWriteUsedArray.map(Number).includes(this.userInfo.userId)
+    },
   },
   created () {
     this.loadPage()
@@ -139,11 +149,8 @@ export default {
      * 阅卷进度按钮
      */
     handleEdit () {
-      // console.log('redd',this.record)
       this.dialogProgress = true
       this.InterviewData = { ...this.record }
-      //console.log('kkk', this.InterviewData)
-      // this.InterviewData = initForm()
     },
 
     /**

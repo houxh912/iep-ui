@@ -1,9 +1,9 @@
 <template>
-  <div class="contract">
-    <div class="contract-nav">
+  <div class="wrapper-box">
+    <div class="title">
       <div>我的合同</div>
     </div>
-    <div class="contract-content">
+    <div class="content">
       <iep-no-data v-if="!dataList.length" message="暂无合同"></iep-no-data>
       <el-row class="item" v-for="(item,index) in dataList" :key="index">
         <el-col :span="12">
@@ -45,18 +45,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.contract {
+.wrapper-box {
   padding: 15px 30px;
   padding-bottom: 0;
   border-bottom: 1px solid #eee;
   color: #5f5f5f;
-  .contract-nav {
+  .title {
     display: flex;
     align-items: center;
     font-size: 16px;
     color: #000;
   }
-  .contract-content {
+  .content {
     padding: 10px 0;
     font-size: 14px;
     .item {

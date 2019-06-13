@@ -1,10 +1,10 @@
 <template>
-  <div class="customer">
-    <div class="customer-nav">
+  <div class="wrapper-box">
+    <div class="title">
       <div>我的客户</div>
     </div>
     <iep-no-data v-if="!tableData.length" message="暂无客户"></iep-no-data>
-    <div class="customer-content">
+    <div class="content">
       <el-row class="item" v-for="(item,index) in tableData" :key="index">
         <el-col :span="7">
           <div class="name iep-ellipsis" @click="handleDetail(item)">{{item.name}}</div>
@@ -53,18 +53,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.customer {
+.wrapper-box {
   padding: 20px 30px;
   padding-bottom: 0;
   border-bottom: 1px solid #eee;
   color: #5f5f5f;
-  .customer-nav {
+  .title {
     display: flex;
     align-items: center;
     font-size: 16px;
     color: #000;
   }
-  .customer-content {
+  .content {
     padding: 10px 0;
     font-size: 14px;
     .item {

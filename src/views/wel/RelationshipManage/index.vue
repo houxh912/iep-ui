@@ -48,6 +48,7 @@
             <iep-button type="primary" @click="handleRemoveBatch" plain v-show="mark=='group'">批量移除</iep-button>
           </template>
           <template slot="right">
+            <iep-select v-model="orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
             <el-radio-group size="small">
               <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
             </el-radio-group>
@@ -111,6 +112,7 @@ export default {
         {value:1,label:'仅管理员'},
         {value:2,label:'资产所属为本组织'},
       ],
+      orgId:'',
     }
   },
   computed: {
@@ -225,11 +227,17 @@ export default {
       this.loadTypeList()
       this.$nextTick(() => {this.$refs['AddDialogForm'].loadTypeList()})
       if(this.mark=='group'){
-        this.loadTable({ groupId: this.groupType, ...param }, getTypeCountMap)
+        this.loadTable({ orgId:this.orgId, groupId: this.groupType, ...param }, getTypeCountMap)
       }
       else {
-        this.loadTable({ positionId: this.sort.positionId,jobId: this.sort.jobId,professionalTitleId: this.sort.professionalTitleId, ...param }, getRelationshipManagePage)
+        this.loadTable({ orgId:this.orgId, positionId: this.sort.positionId,jobId: this.sort.jobId,professionalTitleId: this.sort.professionalTitleId, ...param }, getRelationshipManagePage)
       }
+    },
+  },
+  watch: {
+    'orgId': function (n) {
+      this.orgId = n
+      this.loadPage()
     },
   },
 }

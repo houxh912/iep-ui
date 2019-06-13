@@ -1,8 +1,7 @@
 import request from '@/router/axios'
 
-
 const prefixUrl = '/admin'
-// @/api/admin/contactscustom
+// @/api/wel/relationship_manage
 export function getRelationshipManagePage (query) {
   return request({
     url: `${prefixUrl}/contacts/custom/contacts/page`,
@@ -16,7 +15,6 @@ export function getRelationshipList () {
     url: `${prefixUrl}/contacts/custom/contacts/list`,
     method: 'get',
   })
-
 }
 
 export function getTypeCountMap (query) {
@@ -126,5 +124,12 @@ export function deleteReleaseMentorById (mentorId) {
     url: `/cpms/iepcommoncharacterrelations/delMentorRelation/${mentorId}`,
     method: 'post',
     data: [mentorId],
+  })
+}
+
+export function getRelationList () {
+  return request({
+    url: `${prefixUrl}/contacts/custom/list`,
+    method: 'get',
   })
 }

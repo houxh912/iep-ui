@@ -88,12 +88,19 @@ export default {
   }
 }
 .box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   span {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     margin-right: 20px;
+    line-height: 24px;
     color: #aaa;
     i {
       margin-right: 5px;
-      font-size: 18px;
+      font-size: 16px;
       color: #aaa;
       vertical-align: -2px;
     }

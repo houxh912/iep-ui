@@ -23,8 +23,7 @@
 
 <script>
 import { dictsMap, columnsMap } from './options'
-import { getOrgRewardPage } from '@/api/fams/org_reward'
-import { postGroupRewardUser } from '@/api/fams/group_reward'
+import { getGroupRewardUserPage, postGroupRewardUser } from '@/api/fams/group_reward'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 export default {
@@ -63,7 +62,7 @@ export default {
       this._handleGlobalDeleteById(row.id)
     },
     loadPage (param) {
-      this.loadTable({ ...param, isReward: this.isReward }, getOrgRewardPage)
+      this.loadTable({ ...param, isReward: this.isReward }, getGroupRewardUserPage)
     },
   },
 }

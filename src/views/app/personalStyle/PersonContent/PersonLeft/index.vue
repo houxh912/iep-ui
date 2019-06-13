@@ -98,7 +98,7 @@ export default {
     userId (newVal) {
       if (newVal) {
         this.$nextTick(() => {
-          this.activeTab = 'Project'
+          this.activeTab = 'Material'
         })
       }
     },

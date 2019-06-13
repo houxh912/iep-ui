@@ -23,7 +23,7 @@ const columnsMap = [
     label: '操作时间',
   },
   {
-    prop: 'message',
+    prop: 'remarks',
     label: '备注',
   },
 ]

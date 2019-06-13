@@ -35,8 +35,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.el-card{
-  border:0;
+.el-card {
+  border: 0;
+}
+</style>
+<style scoped>
+.ranking >>> .name {
+  cursor: pointer;
 }
 </style>
 

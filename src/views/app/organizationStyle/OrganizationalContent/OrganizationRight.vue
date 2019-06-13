@@ -14,7 +14,7 @@ import Ranking from './Ranking'
 import OrganizationIntroduction from './OrganizationIntroduction'
 import BusinessLayout from './BusinessLayout'
 import ProductsServices from './ProductsServices'
-import OrganizeEvents from './OrganizeEvents'
+import OrganizeEvents from './OrganizeEvents/'
 // import Reward from './Reward'
 import CollaborativeRecord from './CollaborativeRecord'
 export default {

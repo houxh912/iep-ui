@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">我的指数</div>
-    <ve-radar :data="chartData" :settings="chartSettings" :legendVisible="isTrue"></ve-radar>
+    <ve-radar width="220px" height="220px" :data="chartData" :settings="chartSettings" :legendVisible="isTrue"></ve-radar>
     <h4 style="text-align:center;">内网综合指数：0</h4>
   </div>
 </template>
@@ -62,5 +62,8 @@ export default {
   padding: 0 10px 10px;
   font-size: 16px;
   font-weight: 500;
+}
+.ve-radar {
+  margin: 0 auto;
 }
 </style>

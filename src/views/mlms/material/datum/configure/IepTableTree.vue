@@ -4,23 +4,16 @@
       <!-- 子级-开始 -->
       <el-table-column type="expand">
         <template slot-scope="scope">
-          <el-table :data="scope.row.childrens" :show-header="false" :style="tableStyle" :row-style="rowStyle" v-if="scope.row.childrens.length>0"  @selection-change="childSelectionChange">
+          <el-table :data="scope.row.childrens" :show-header="false" :style="tableStyle" :row-style="rowStyle" v-if="scope.row.childrens.length>0" @selection-change="childSelectionChange">
             <el-table-column width="48"></el-table-column>
             <el-table-column type="selection" width="55" class-name="child-column"></el-table-column>
-            <el-table-column
-              class-name="child-column"
-              :label="option.props[0].label"
-              :prop="option.props[0].prop">
+            <el-table-column class-name="child-column" :label="option.props[0].label" :prop="option.props[0].prop">
               <template slot-scope="childScope">
                 <slot v-if="option.props[0].slot" :name="option.props[0].prop" :scope="childScope.row" :index="`${scope.$index}-${childScope.$index}`"></slot>
                 <div v-else>{{childScope.row[option.props[0].prop]}}</div>
               </template>
             </el-table-column>
-            <el-table-column
-              v-for="(item, index) in option.props.slice(1)"
-              :key="index"
-              :label="item.label"
-              :prop="item.prop">
+            <el-table-column v-for="(item, index) in option.props.slice(1)" :key="index" :label="item.label" :prop="item.prop">
               <template slot-scope="childScope">
                 <slot v-if="item.slot" :name="item.prop" :scope="childScope.row" :index="`${scope.$index}-${childScope.$index}`"></slot>
                 <div v-else>{{childScope.row[item.prop]}}</div>
@@ -32,11 +25,7 @@
       </el-table-column>
       <!-- 子级-结束 -->
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column
-        v-for="(item, index) in option.props"
-        :key="index"
-        :label="item.label"
-        :prop="item.prop">
+      <el-table-column v-for="(item, index) in option.props" :key="index" :label="item.label" :prop="item.prop">
         <template slot-scope="scope">
           <slot v-if="item.slot" :name="item.prop" :scope="scope.row" :index="scope.$index"></slot>
           <div v-else>{{scope.row[item.prop]}}</div>
@@ -52,11 +41,11 @@ export default {
   props: {
     data: {
       type: Array,
-      default: () => {},
+      default: () => { },
     },
     option: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
     permissionAdd: {
       type: Boolean,
@@ -120,6 +109,12 @@ export default {
   padding-left: 30px !important;
 }
 .el-table__expanded-cell {
+  padding: 0 !important;
+}
+</style>
+
+<style scoped>
+.tree-table >>> .cell {
   padding: 0 !important;
 }
 </style>

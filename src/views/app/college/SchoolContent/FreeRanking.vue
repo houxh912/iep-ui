@@ -25,4 +25,9 @@ export default {
 }
 </script>
 
+<style lang="css" scoped>
+.school-board >>> .name {
+  width: 85% !important;
+}
+</style>
 

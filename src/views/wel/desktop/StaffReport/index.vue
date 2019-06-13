@@ -15,10 +15,12 @@
   </div>
 </template>
 <script>
+import mixins from '@/mixins/mixins'
 import LeaderTop from '../LeaderTop'
 import StaffWeek from './StaffWeek'
 import StaffMonth from './StaffMonth'
 export default {
+  mixins: [mixins],
   components: {
     LeaderTop,
     StaffWeek,
@@ -46,6 +48,7 @@ export default {
     select (selectName) {
       this.activeTab = selectName
     },
+    
   },
 }
 </script>

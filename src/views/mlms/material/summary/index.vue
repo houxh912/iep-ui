@@ -44,45 +44,17 @@
         </template>
       </operation-container>
 
-      <iep-tabs v-model="tabName" :tab-list="tabList" @tab-click="tabClick">
+      <iep-tabs class="backstage-tabs" v-model="tabName" :tab-list="tabList" @tab-click="tabClick">
         <template v-if="tabName ==='personal'" v-slot:personal>
-          <tableTemplate 
-            ref="tableTpl" 
-            :getTableData="getTablePersonal" 
-            @handleShare="handleShare" 
-            @selectionChange="handleSelectionChange" 
-            @handleCollection="handleCollection" 
-            :permissionEdit="permission_edit" 
-            :permissionDelete="permission_delete" 
-            @handleDetail="handleDetail" 
-            :permissionOpera=true
-            :paramForm="paramForm">
+          <tableTemplate ref="tableTpl" :getTableData="getTablePersonal" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection" :permissionEdit="permission_edit" :permissionDelete="permission_delete" @handleDetail="handleDetail" :permissionOpera=true :paramForm="paramForm">
           </tableTemplate>
         </template>
         <template v-if="tabName ==='involved'" v-slot:involved>
-          <tableTemplate 
-            ref="tableTpl" 
-            :getTableData="getTableMyInvolved" 
-            @handleShare="handleShare" 
-            @selectionChange="handleSelectionChange" 
-            @handleCollection="handleCollection" 
-            :permissionEdit="permission_edit" 
-            :permissionDelete="permission_delete" 
-            @handleDetail="handleDetail"
-            :paramForm="paramForm">
+          <tableTemplate ref="tableTpl" :getTableData="getTableMyInvolved" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection" :permissionEdit="permission_edit" :permissionDelete="permission_delete" @handleDetail="handleDetail" :paramForm="paramForm">
           </tableTemplate>
         </template>
         <template v-if="tabName ==='received'" v-slot:received>
-          <tableTemplate 
-            ref="tableTpl" 
-            :getTableData="getTableMyReceived" 
-            @handleShare="handleShare" 
-            @selectionChange="handleSelectionChange" 
-            @handleCollection="handleCollection" 
-            :permissionEdit="permission_edit" 
-            :permissionDelete="permission_delete" 
-            @handleDetail="handleDetail"
-            :paramForm="paramForm">
+          <tableTemplate ref="tableTpl" :getTableData="getTableMyReceived" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection" :permissionEdit="permission_edit" :permissionDelete="permission_delete" @handleDetail="handleDetail" :paramForm="paramForm">
           </tableTemplate>
         </template>
       </iep-tabs>
@@ -222,3 +194,7 @@ export default {
   },
 }
 </script>
+<style scoped>
+.backstage-tabs >>> .el-tabs__item {
+}
+</style>

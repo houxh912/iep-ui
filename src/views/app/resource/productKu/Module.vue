@@ -5,7 +5,9 @@
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
         <div class="content">
           <!-- <i class="iconfont icon-tongyongleiziyuanpeizhi"></i> -->
-          <div class="img"><iep-img :src="item.imageUrl" alt=""></iep-img></div>
+          <div class="img">
+            <iep-img :src="item.imageUrl" alt=""></iep-img>
+          </div>
           <div class="text">
             <h4 class="item-title">{{item.name}}</h4>
             <p class="con">{{item.synopsis}}</p>
@@ -53,7 +55,7 @@ export default {
       this.getModulePage()
     },
     getModulePage () {
-      getModulePage(Object.assign({}, this.params, this.paramForm)).then(({data}) => {
+      getModulePage(Object.assign({}, this.params, this.paramForm)).then(({ data }) => {
         this.moduleList = data.data.records
         this.total = data.data.total
       })
@@ -120,6 +122,7 @@ export default {
       }
     }
     .img {
+      margin-right: 10px;
       img {
         width: 50px;
         height: 50px;
@@ -129,7 +132,11 @@ export default {
     .text {
       width: 80%;
       .item-title {
+        max-width: 210px;
         font-size: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       .con {
         height: 47px;
@@ -143,6 +150,10 @@ export default {
       .classTag {
         .el-tag {
           margin-right: 5px;
+          max-width: 60px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
           &:hover {
             color: #cb3737;
             background: #fef0f0;
@@ -176,6 +187,16 @@ export default {
   padding: 0;
 }
 .module >>> .el-card.module-item {
+  border: 1px solid #dcdfe6;
+}
+.img >>> .el-image {
+  width: 120px;
+  height: 120px;
+}
+.img >>> .el-image__inner {
+  padding: 5px;
+  width: 120px;
+  height: 120px;
   border: 1px solid #dcdfe6;
 }
 </style>

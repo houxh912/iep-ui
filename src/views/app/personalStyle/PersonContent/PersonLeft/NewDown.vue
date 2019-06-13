@@ -3,7 +3,7 @@
     <IepAppTabCard :title="title">
       <div class="item" v-for="item in itemList" :key="item.id">
         <div class="img">
-          <iep-img :src="item.img" alt="" ></iep-img>
+          <iep-img :src="item.img" alt=""></iep-img>
         </div>
         <span>{{item.name}}</span>
       </div>
@@ -157,6 +157,7 @@ export default {
 }
 .new-down >>> .classTag-con .el-card__body {
   display: block;
+  padding: 16px 10px;
 }
 .new-down >>> .el-card {
   border: 0;
@@ -172,5 +173,15 @@ export default {
   line-height: 26px;
   background: #fff;
   color: #606266;
+}
+.new-down >>> .el-input-group__append {
+  border-radius: 0;
+  cursor: pointer;
+}
+.new-down >>> .el-input-group__append:hover {
+  opacity: 0.8;
+}
+.new-down >>> .prepend {
+  margin-left: -2px;
 }
 </style>

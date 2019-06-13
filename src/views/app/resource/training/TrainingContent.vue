@@ -14,7 +14,9 @@
       <el-row>
         <el-col>
           <el-card shadow="hover" v-for="(item,index) in pastTrainingList" :key="index" @click.native="handleOpen(item)">
-            <div class="img"><iep-img :src="item.trainerImage" alt=""></iep-img></div>
+            <div class="img">
+              <iep-img :src="item.trainerImage" alt=""></iep-img>
+            </div>
             <span class="item-title">{{item.trainingTheme}}</span>
             <p class="content">{{item.trainingBrief}}</p>
             <div class="classTag">
@@ -46,7 +48,7 @@ export default {
       })
     },
     getPastList () {
-      getPastList ().then(({data}) => {
+      getPastList().then(({ data }) => {
         this.pastTrainingList = data.data
       })
     },
@@ -80,6 +82,9 @@ export default {
       font-size: 12px;
       line-height: 28px;
       color: #999;
+      i {
+        margin-right: 5px;
+      }
     }
   }
   .past-training-list {
@@ -95,6 +100,7 @@ export default {
     }
     .item-title {
       margin: 10px 0;
+      width: 100%;
       font-size: 16px;
       overflow: hidden;
       text-overflow: ellipsis;

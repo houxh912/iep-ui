@@ -131,6 +131,7 @@ export default {
     margin-bottom: 15px;
     border-bottom: 1px solid #ddd;
     .left {
+      margin-right: 5px;
       width: 60px;
       height: 100%;
       text-align: center;
@@ -226,5 +227,13 @@ export default {
 .box >>> .el-rate__icon {
   font-size: 16px;
 }
+.img >>> .el-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.img >>> .el-image__inner {
+  border-radius: 50%;
+}
 </style>
-

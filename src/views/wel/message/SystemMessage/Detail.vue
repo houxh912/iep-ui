@@ -161,3 +161,15 @@ export default {
   }
 }
 </style>
+
+<style scoped>
+.img >>> .el-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.img >>> .el-image__inner {
+  border-radius: 50%;
+}
+</style>

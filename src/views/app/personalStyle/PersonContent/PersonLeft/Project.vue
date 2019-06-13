@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     loadPage () {
-      getProjectPage(this.params).then(({data}) => {
+      getProjectPage(this.params).then(({ data }) => {
         this.pageList = data.data.records
         this.total = data.data.total
       })
@@ -109,6 +109,7 @@ export default {
   .list-item-description {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     font-size: 12px;
     .time,
     .see {
@@ -136,6 +137,9 @@ export default {
     }
   }
   .classTag {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     margin-right: 8px;
   }
 }

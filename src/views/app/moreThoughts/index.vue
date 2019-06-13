@@ -28,7 +28,9 @@
               <div class="comment-item" v-for="(comItem, comIndex) in item.thoughtsCommentList" :key="comIndex">
                 <div class="comment-head">
                   <div class="comment-avatar"><img :src="comItem.avatar" alt=""></div>
-                  <div class="comment-name">{{comItem.realName}}</div><div class="huuifu">回复</div><div class="comment-name">{{item.userName}}</div>
+                  <div class="comment-name">{{comItem.realName}}</div>
+                  <div class="huuifu">回复</div>
+                  <div class="comment-name">{{item.userName}}</div>
                 </div>
                 <div class="comment-content">{{comItem.replyMsg}}</div>
                 <div class="comment-date">{{comItem.createTime}}</div>
@@ -68,14 +70,14 @@ const initFormData = () => {
 }
 
 export default {
-  components: {  },
+  components: {},
   data () {
     return {
       routerMatch: [
         {
           path: '/app/index',
           name: '首页',
-        }, 
+        },
         {
           path: '/app/person',
           name: '国脉人',
@@ -96,7 +98,7 @@ export default {
   },
   methods: {
     loadPage () {
-      geTallPage(this.params).then(({data}) => {
+      geTallPage(this.params).then(({ data }) => {
         this.dataList = data.data.records
         this.total = data.data.total
         this.activeIndex = -1
@@ -122,7 +124,7 @@ export default {
     },
     // 点赞
     hadnleAddUp (row) {
-      addThumbsUpByRecord(row.thoughtsId).then(({data}) => {
+      addThumbsUpByRecord(row.thoughtsId).then(({ data }) => {
         if (data.data) {
           this.loadPage()
         } else {
@@ -148,7 +150,7 @@ export default {
   width: 1200px;
   margin: 0 auto;
   border-top: 1px solid #eee;
-  .library{
+  .library {
     margin-top: 20px;
     .items {
       margin-bottom: 40px;
@@ -242,5 +244,16 @@ export default {
       }
     }
   }
+}
+</style>
+
+<style scoped>
+.img >>> .el-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.img >>> .el-image__inner {
+  border-radius: 50%;
 }
 </style>

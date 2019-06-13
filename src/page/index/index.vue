@@ -206,6 +206,10 @@ export default {
   overflow-x: hidden;
   height: calc(100vh - 60px);
 }
+.avue-contail >>> .el-tabs__item {
+  height: 40px !important;
+  line-height: 40px !important;
+}
 .avue-contail >>> .el-scrollbar__wrap {
   overflow-x: hidden;
 }

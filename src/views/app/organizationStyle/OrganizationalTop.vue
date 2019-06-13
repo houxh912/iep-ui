@@ -1,7 +1,9 @@
 <template>
   <div class="organizational-top">
     <div class="organizational-top-con">
-      <div class="img"><iep-img :src="data.logo" alt=""></iep-img></div>
+      <div class="img">
+        <iep-img :src="data.logo" alt=""></iep-img>
+      </div>
       <div class="text">
         <span class="title">{{data.name}}</span>
         <span class="sub-title">{{data.intro}}</span>
@@ -31,12 +33,12 @@ export default {
   props: {
     data: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   data () {
     return {
-      
+
     }
   },
 }
@@ -73,8 +75,8 @@ export default {
       .sub-title {
         display: block;
         margin-bottom: 5px;
-        padding:0 10px 0 0;
-        font-size: 16px;
+        padding: 0 10px 0 0;
+        font-size: 14px;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;

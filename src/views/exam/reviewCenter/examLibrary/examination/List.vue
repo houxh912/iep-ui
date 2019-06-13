@@ -4,7 +4,7 @@
       <page-header title="考试库管理"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd" v-if="permissionAll">新增</iep-button>
+          <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd" v-if="permissionAdd || permissionAll">新增</iep-button>
           <iep-button size="small" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button>
           <!-- <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
@@ -74,15 +74,15 @@
             <operation-wrapper>
               <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)" v-if="permissionAll">编辑</iep-button>
               <iep-button size="small" @click="handleDetail(scope.row)">查看</iep-button>
-              <el-dropdown size="medium" v-if="permissionReading(scope.row) || permissionRegist(scope.row) || permissionAll">
+              <el-dropdown size="medium" v-if="permissionReading(scope.row) || permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleOpen(scope.row)" v-if="scope.row.state === 1 && permissionAll">启用</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleForbid(scope.row)" v-if="scope.row.state === 0 && permissionAll">禁用</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleOpen(scope.row)" v-if="scope.row.state === 1 && (permissionAll  || isCreator(scope.row))">启用</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleForbid(scope.row)" v-if="scope.row.state === 0 && (permissionAll || isCreator(scope.row))">禁用</el-dropdown-item>
                   <el-dropdown-item @click.native="handleManage(scope.row, 'ExamRegistration')"
-                    v-if="permissionRegist(scope.row) || permissionAll">报名管理</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamPaper')" v-if="permissionRegist(scope.row) || permissionAll">考卷管理</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamReading')" v-if="permissionReading(scope.row) || permissionAll">阅卷管理</el-dropdown-item>
+                    v-if="permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">报名管理</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamPaper')" v-if="permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">考卷管理</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamReading')" v-if="permissionReading(scope.row) || isCreator(scope.row) || permissionAll">阅卷管理</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
@@ -152,6 +152,7 @@ export default {
         endTime: '',
       },
       permissionAll: false,
+      permissionAdd: false,
       permissionView: false,
     }
   },
@@ -165,6 +166,7 @@ export default {
   methods: {
     setPermission () {
       this.permissionAll = this.permissions['exam_library_all']
+      this.permissionAdd = this.permissions['exam_library_add']
       this.permissionView = this.permissions['exam_library_view']
     },
     /**
@@ -181,6 +183,13 @@ export default {
       const { writeUsedWriteUsedArray, faceUserIdsArray } = row.iepExaminationOperateVO
       return (writeUsedWriteUsedArray.map(Number).includes(this.userInfo.userId) || faceUserIdsArray.map(Number).includes(this.userInfo.userId)) && this.permissionView
     },
+    /**
+     * 判断当前用户是不是考试创建者
+     */
+    isCreator (row) {
+      return row.creatorId === this.userInfo.userId
+    },
+
     loadPage (param) {
       this.loadTable(param, getExamInationList)
     },

@@ -22,14 +22,14 @@
       <hr class="line">
 
       <iep-tabs v-model="activeTab" :tab-list="list">
-        <template v-if="activeTab ==='ExamPaper' && (permissionRegist || permissionAll)"
+        <template v-if="activeTab ==='ExamPaper' && (isCreator || permissionRegist || permissionAll)"
           v-slot:ExamPaper>
           <exam-paper :record="record"></exam-paper>
         </template>
         <template v-if="activeTab ==='ExamReading'" v-slot:ExamReading>
           <exam-reading :record="record"></exam-reading>
         </template>
-        <template v-if="activeTab ==='ExamRegistration' && (permissionRegist || permissionAll)"
+        <template v-if="activeTab ==='ExamRegistration' && (isCreator || permissionRegist || permissionAll)"
           v-slot:ExamRegistration>
           <exam-registration :record="record"></exam-registration>
         </template>
@@ -90,10 +90,17 @@ export default {
       const { writeUsedWriteUsedArray, faceUserIdsArray } = this.record.row.iepExaminationOperateVO
       return (writeUsedWriteUsedArray.map(Number).includes(this.userInfo.userId) || faceUserIdsArray.map(Number).includes(this.userInfo.userId)) && this.permissionView
     },
+    /**
+     * 判断当前用户是不是考试创建者
+     */
+    isCreator () {
+      const { creatorId } = this.record.row
+      return creatorId === this.userInfo.userId
+    },
     list () {
       // 根据权限是否显示报名/考卷的tab页
       const array = [].concat(this.tabList)
-      if (this.permissionAll) return array
+      if (this.isCreator || this.permissionAll) return array
       if (this.permissionRegist) return array.splice(0, 2)
       if (this.permissionReading) return array.splice(2)
       return array

@@ -41,10 +41,10 @@ export default {
     margin: 15px 0;
     text-align: center;
     i {
-      font-size: 38px!important;
+      font-size: 38px !important;
       color: #aaa;
     }
-    .title{
+    .title {
       font-size: 16px;
     }
     p {
@@ -63,5 +63,11 @@ export default {
   color: #333;
   margin-bottom: 5px;
   line-height: 1.4;
+}
+</style>
+
+<style scoped>
+.grid-content >>> .el-card {
+  height: 375px;
 }
 </style>

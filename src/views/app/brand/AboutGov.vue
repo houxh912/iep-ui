@@ -87,6 +87,7 @@ export default {
 }
 .grid-content >>> .el-card {
   padding: 0 20px;
+  height: 310px;
 }
 </style>
 

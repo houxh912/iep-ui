@@ -21,9 +21,9 @@
         </div>
       </div>
       <el-row class="operation">
-        <el-button type="danger" plain size="small">建议</el-button>
-        <el-button type="danger" plain size="small">pk</el-button>
-        <el-button type="danger" size="small">投资</el-button>
+        <el-button type="danger" plain size="small" @click="handleProposal">建议</el-button>
+        <el-button type="info" plain size="small" disabled>pk</el-button>
+        <el-button type="danger" plain size="small" @click="handleInvestment">投资</el-button>
       </el-row>
     </div>
   </div>
@@ -40,6 +40,14 @@ export default {
     return {
 
     }
+  },
+  methods: {
+    handleInvestment () {
+      this.$router.push('/app/wealth')
+    },
+    handleProposal () {
+      this.$router.push('/hrms_spa/suggestion_new')
+    },
   },
 }
 </script>

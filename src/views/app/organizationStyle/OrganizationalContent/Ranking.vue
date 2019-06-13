@@ -16,19 +16,19 @@ export default {
     return {
       labList: [
         {
-          data: '670',
+          data: '--',
           labTitle: '信用值',
         },
         {
-          data: '1453',
+          data: '--',
           labTitle: '贡献',
         },
         {
-          data: '13',
+          data: '--',
           labTitle: '业绩排名',
         },
         {
-          data: '25',
+          data: '--',
           labTitle: '业绩排名',
         },
       ],

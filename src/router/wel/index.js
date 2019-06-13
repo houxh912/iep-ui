@@ -16,6 +16,11 @@ export default [
         component: () => import('@/views/wel/master/'),
       },
       {
+        path: 'masterConfirm/:id',
+        name: '确认师傅',
+        component: () => import('@/views/wel/master/confirm'),
+      },
+      {
         path: 'account-settings',
         name: '个人设置',
         component: () => import('@/views/wel/account-settings/index'),

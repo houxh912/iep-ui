@@ -1,6 +1,6 @@
 <template>
   <div class="organiz-events">
-    <IepAppTabsCard isMore :linkName="linkName">
+    <IepAppTabsCard :linkName="linkName">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='OrganizeDynamic'" v-slot:OrganizeDynamic>
           <organize-dynamic v-loading="activeTab !=='OrganizeDynamic'"></organize-dynamic>
@@ -15,24 +15,37 @@
 <script>
 import OrganizeDynamic from './OrganizeDynamic'
 import Events from './Events'
+import { getNewsList } from '@/api/app/mlms/'
 
 export default {
   components: {
     OrganizeDynamic,
     Events,
   },
+  props: {
+    orgId: {
+      default: 0,
+    },
+  },
   data () {
     return {
       tabList: [{
         label: '组织动态',
         value: 'OrganizeDynamic',
-      }, {
-        label: '大事记',
-        value: 'Events',
       }],
       activeTab: 'OrganizeDynamic',
       linkName: '',
     }
+  },
+  methods: {
+    getNewsList (id) {
+      getNewsList({ orgId: id }).then(() => {})
+    },
+  },
+  watch: {
+    orgId (newVal) {
+      this.getNewsList(newVal)
+    },
   },
 }
 </script>

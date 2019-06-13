@@ -72,8 +72,8 @@ export default {
         {
           icon: 'icon-custom',
           name: '合同',
-          data: this.contractCount1,
-          text: `（待签 ${this.counts.contractCount1}）`,
+          data: this.counts.contractCount1,
+          text: `（待签 ${this.counts.contractCount2}）`,
         },
       ]
     },

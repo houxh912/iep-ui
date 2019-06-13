@@ -1,6 +1,6 @@
 <template>
   <div class="team">
-    <IepAppTabsCard isMore :linkName="linkName">
+    <IepAppTabsCard :linkName="linkName">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='TeamDemeanor'" v-slot:TeamDemeanor>
           <team-demeanor v-loading="activeTab !=='TeamDemeanor'"></team-demeanor>

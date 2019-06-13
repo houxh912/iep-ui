@@ -1,6 +1,6 @@
 <template>
   <div class="collaborative-record">
-    <iepAppTabCard :title="title" :linkName="linkName" isMore>
+    <iepAppTabCard :title="title" :linkName="linkName">
       <div class="collaborative-record-notice">
         <div v-for="(item,index) in collaborativeRecord" :key="index" class="piece">
           <div class="con">

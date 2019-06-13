@@ -1,13 +1,20 @@
 <template>
   <div class="relationshipContent">
     <iep-no-data v-if="!contentData.length" message="暂无内容"></iep-no-data>
-    <div class="relationship-item" v-for="(item,index) in contentData" :key="index">
-      <div><span class="title">{{item.title}}{{item.data}}</span></div>
+    <div v-show="mark==0" class="relationship-item">
+      <div><span class="title">我的师傅</span></div>
       <ul>
-        <li class="name" v-for="item in item.childList" :key="item.id">{{item.name}}</li>
+        <li class="name" v-for="(item,index) in contentData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
+      </ul>
+      <div><span class="title">我的徒弟</span></div>
+      <ul>
+        <li class="name" v-for="(item,index) in contentData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
       </ul>
     </div>
     <div class="relationship-item">
+      <ul>
+        <li class="name" v-for="(item,index) in contentData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
+      </ul>
     </div>
   </div>
 </template>
@@ -19,9 +26,20 @@ export default {
       type: Array,
       default: () => [],
     },
+    mark: {
+      type: Number,
+      default: 0,
+    },
   },
   created () {
     // console.log(this.content)
+  },
+  methods:{
+    gotoDetails (val) {
+      this.$router.push({
+        path:`/app/personal_style/${val}`,
+      })
+    },
   },
 }
 </script>

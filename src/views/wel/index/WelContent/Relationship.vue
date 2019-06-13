@@ -3,15 +3,16 @@
     <div class="task-nav">
       <div class="left">
         <span class="navTitle">我的关系</span>
-        <nav-tab :nav-list="navList" @tab="tab"></nav-tab>
+        <nav-tab :nav-list="relationship" @tab="tab"></nav-tab>
       </div>
       <el-button size="mini" plain @click="handManage">管理</el-button>
     </div>
-    <relationship-content :contentData="contentData"></relationship-content>
+    <relationship-content :contentData="contentData" :mark="mark"></relationship-content>
   </div>
 </template>
 
 <script>
+import { getRelationshipList, getCustomList } from '@/api/wel/relationship_manage'
 import NavTab from './NavTab'
 import RelationshipContent from './RelationshipContent'
 export default {
@@ -20,39 +21,37 @@ export default {
     return {
       showClass: 0,
       navName: 'order',
-      contentData: [],
-      navList: [{
-        subtitle: '师徒',
-        type: 'mentor',
-        id: 0,
-      }, {
-        subtitle: '协作',
-        type: 'customer',
-        id: 1,
-      }, {
-        subtitle: '同事',
-        type: 'colleague',
-        id: 3,
-      }],
-      content: {
-        mentor: [],
-        customer: [],
-        partner: [],
-        colleague: [],
-        circle: [],
-      },
+      contentData: [
+      ],
+      relationship: [],
+      content: [],
+      mark:0,
     }
   },
   created () {
-    this.contentData = this.content.mentor
+    this.loadTypeList()
   },
   methods: {
     tab (val) {
-      this.contentData = this.content[val]
+      if(val>0){
+        this.contentData = this.content[val-1].userList
+      }
+      else{
+        this.contentData = []
+      }
+      this.mark=val
     },
     handManage () {
       this.$router.push({
         path: '/wel/relationship_manage',
+      })
+    },
+    loadTypeList () {
+      getRelationshipList().then(({ data }) => {
+        this.relationship = data.data
+      })
+      getCustomList().then(({ data }) => {
+        this.content = data.data
       })
     },
   },

@@ -16,7 +16,13 @@ export function getRelationshipList () {
     url: `${prefixUrl}/contacts/custom/contacts/list`,
     method: 'get',
   })
+}
 
+export function getCustomList () {
+  return request({
+    url: `${prefixUrl}/contacts/custom/list`,
+    method: 'get',
+  })
 }
 
 export function getTypeCountMap (query) {

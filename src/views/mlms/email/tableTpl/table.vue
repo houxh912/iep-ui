@@ -1,14 +1,5 @@
 <template>
-  <iep-table 
-    :isLoadTable="isLoadTable"
-    :pagination="pagination"
-    :dictsMap="dictsMap"
-    :columnsMap="columnsMap"
-    :pagedTable="pagedTable"
-    @size-change="handleSizeChange"
-    @current-change="handleCurrentChange"
-    isMutipleSelection
-    @selection-change="selectionChange">
+  <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection @selection-change="selectionChange">
     <template slot="before-columns">
       <el-table-column label="">
         <template slot-scope="scope">
@@ -61,7 +52,7 @@ import { deleteEmailById, emailStarById, isReadeById, getEmailById } from '@/api
 export default {
   name: 'custom',
   mixins: [mixins],
-  components: {  },
+  components: {},
   props: {
     pageState: {
       type: String,
@@ -76,18 +67,18 @@ export default {
     return {
       dictsMap,
       columnsMap: tableOption,
-      requestFn: () => {},
+      requestFn: () => { },
     }
   },
   methods: {
     handleDetail (row) {
-      getEmailById(row.emailId).then(({data}) => {
+      getEmailById(row.emailId).then(({ data }) => {
         this.$emit('switchDialog', data.data)
       })
     },
     // 已读
     handleIsRead (row) {
-      isReadeById(row.emailId).then(()=>{})
+      isReadeById(row.emailId).then(() => { })
       this.loadPage(this.pageOption)
     },
     handleDeleteById (row) {
@@ -121,7 +112,7 @@ export default {
       }
       data = data.slice(0, data.length - 1)
       if (list.length > 5) {
-        return (data+'...')
+        return (data + '...')
       } else {
         return data
       }
@@ -148,7 +139,6 @@ export default {
 .mail-name {
   width: 100%;
   cursor: pointer;
-  padding-bottom: 10px;
 }
 .mail-tags {
   margin: 0;

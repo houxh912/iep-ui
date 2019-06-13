@@ -148,6 +148,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     margin-right: 20px;
+    line-height: 24px;
     color: #aaa;
     i {
       margin-right: 5px;

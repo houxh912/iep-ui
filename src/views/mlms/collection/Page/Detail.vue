@@ -25,7 +25,9 @@
       <div class="comment">
         <ul>
           <li class="con" v-for="item in list" :key="item.id">
-            <div class="img"><iep-img :src="item.img" alt="张三"></iep-img></div>
+            <div class="img">
+              <iep-img :src="item.img" alt="张三"></iep-img>
+            </div>
             <div class="text">
               <span class="name">{{item.name}}</span>
               <div class="text-bottom">
@@ -150,5 +152,17 @@ export default {
       }
     }
   }
+}
+</style>
+
+<style scoped>
+.img >>> .el-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.img >>> .el-image__inner {
+  border-radius: 50%;
 }
 </style>

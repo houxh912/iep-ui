@@ -325,6 +325,7 @@ export default {
       margin-bottom: 10px;
       padding: 10px 0;
       .img {
+        margin-right: 5px;
         width: 50px;
         img {
           width: 40px;
@@ -442,5 +443,16 @@ export default {
     width: 20px;
     height: 20px;
   }
+}
+</style>
+<style scoped>
+.img >>> .el-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.img >>> .el-image__inner {
+  border-radius: 50%;
 }
 </style>

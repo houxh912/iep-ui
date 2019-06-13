@@ -104,6 +104,7 @@ export default {
   color: #999;
 }
 .relation {
+  margin-bottom: 25px;
   .item {
     .title {
       display: block;

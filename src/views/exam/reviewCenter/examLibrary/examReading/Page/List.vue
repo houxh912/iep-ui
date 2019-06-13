@@ -2,9 +2,9 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button type="danger" @click="handleDeleteAll">批量删除</iep-button>
+        <iep-button type="danger" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button>
         <iep-button type="danger" plain>导出</iep-button>
-        <iep-button @click="handleEdit">阅卷进度</iep-button>
+        <iep-button @click="handleEdit" v-if="permissionWritten || permissionInterview || permissionAll">阅卷进度</iep-button>
         <iep-button class="tip">当前已选择<span>{{Value}}</span>项</iep-button>
         <iep-button class="empty" @click="handleEmpty">清空</iep-button>
       </template>
@@ -29,14 +29,15 @@
       <el-table-column prop="operation" label="操作" width="150">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)">发放证书</iep-button>
+            <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)"
+              v-if="permissionAll">发放证书</iep-button>
 
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="handleWritten(scope.row)" v-if="permissionWritten">笔试阅卷</el-dropdown-item>
-                <el-dropdown-item @click.native="handleInterview(scope.row)" v-if="permissionInterview">面试判分</el-dropdown-item>
-                <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
+                <el-dropdown-item @click.native="handleWritten(scope.row)" v-if="permissionWritten || permissionAll">笔试阅卷</el-dropdown-item>
+                <el-dropdown-item @click.native="handleInterview(scope.row)" v-if="permissionInterview || permissionAll">面试判分</el-dropdown-item>
+                <el-dropdown-item @click.native="handleDelete(scope.row)" v-if="permissionAll">删除</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </operation-wrapper>
@@ -113,10 +114,11 @@ export default {
       dialogInterview: false,
       labelPosition: 'right',
       InterviewData: initForm(),
+      permissionAll: false,
     }
   },
   computed: {
-    ...mapGetters(['userInfo']),
+    ...mapGetters(['userInfo', 'permissions']),
     permissionInterview () {
       const { faceUserIdsArray } = this.record.row.iepExaminationOperateVO
       return faceUserIdsArray.map(Number).includes(this.userInfo.userId)
@@ -128,21 +130,24 @@ export default {
   },
   created () {
     this.loadPage()
+    this.setPermission()
   },
   methods: {
+    setPermission () {
+      this.permissionAll = this.permissions['exam_library_all']
+    },
     /**
      * 获取列表分页数据
      */
-    loadPage () {
+    loadPage (param) {
       this.dialogProgress = false
       this.dialogWritten = false
       this.dialogChoice = false
       this.dialogInterview = false
-      const param = {
+      const params = {
         examinationId: this.record.row.id,
       }
-      this.loadTable({ ...param }, getExamReadingList)
-      // this.loadTable(param, getExamReadingList)
+      this.loadTable({ ...param, ...params }, getExamReadingList)
     },
 
     /**

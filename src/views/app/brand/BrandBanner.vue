@@ -58,11 +58,11 @@ export default {
         p {
           margin-bottom: 0;
           font-size: 14px;
-          color: #aaa;
+          color: #666;
         }
         .title {
           font-size: 16px;
-          color: #000;
+          color: #333;
         }
       }
     }

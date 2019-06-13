@@ -12,10 +12,10 @@ const columnsMapByTypeId = [
       label: '客户关系',
       prop: 'clientRelaName',
     },
-    {
-      label: '跟进状态',
-      prop: 'followUpStatusName',
-    },
+    // {
+    //   label: '跟进状态',
+    //   prop: 'followUpStatusName',
+    // },
     {
       label: '市场经理',
       prop: 'marketManagerName',
@@ -34,10 +34,10 @@ const columnsMapByTypeId = [
       label: '客户关系',
       prop: 'clientRelaName',
     },
-    {
-      label: '跟进状态',
-      prop: 'followUpStatusName',
-    },
+    // {
+    //   label: '跟进状态',
+    //   prop: 'followUpStatusName',
+    // },
   ],
   [
     // {
@@ -52,10 +52,10 @@ const columnsMapByTypeId = [
       label: '客户关系',
       prop: 'clientRelaName',
     },
-    {
-      label: '跟进状态',
-      prop: 'followUpStatusName',
-    },
+    // {
+    //   label: '跟进状态',
+    //   prop: 'followUpStatusName',
+    // },
     {
       label: '市场经理',
       prop: 'marketManagerName',

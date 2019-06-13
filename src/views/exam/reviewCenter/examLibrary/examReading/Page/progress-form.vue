@@ -210,7 +210,7 @@ export default {
   text-align: left;
   padding: 10px 18px 0;
   .answerSheet {
-    font-size: 18px;
+    font-size: 14px;
     color: #595959;
     .line {
       color: #409eff;

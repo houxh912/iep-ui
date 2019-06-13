@@ -550,12 +550,17 @@ export default {
             remainingTime: _this.mins + '-' + _this.secs,
           }
           _this.judgeType(params)
-          _this.getSubjectById(params)
-          _this.$message({
-            type: 'warning',
-            message: '考试时间已到，自动交卷！',
+          // _this.getSubjectById(params)
+          getTestPageById(params).then(res => {
+            if (res.data.code === 0) {
+              _this.$message({
+                type: 'warning',
+                message: '考试时间已到，自动交卷！',
+              })
+              _this.$emit('onGoBack')
+            }
+            console.log('时间到啦')
           })
-          _this.$emit('onGoBack')
         }
         else {
           _this.secs -= 1

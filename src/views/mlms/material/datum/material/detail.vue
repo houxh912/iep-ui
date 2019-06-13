@@ -440,8 +440,15 @@ export default {
       .comment-info {
         width: 100%;
         .name {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
           color: #5473b6;
           margin-bottom: 10px;
+          .rate {
+            margin-left: 5px;
+            font-size: 14px;
+          }
         }
         p {
           margin: 0 0 10px 0;
@@ -546,6 +553,12 @@ pre {
 </style>
 
 <style scoped>
+.footer-right >>> .five-key {
+  padding: 0;
+}
+.footer-right >>> .icon-box {
+  margin: 5px;
+}
 .img >>> .el-image {
   width: 40px;
   height: 40px;

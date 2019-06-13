@@ -9,14 +9,17 @@
         <iep-button class="empty" @click="handleEmpty">清空</iep-button>
       </template>
       <template slot="right">
-        <operation-search @search-page="searchPage">
+        <operation-search @search-page="searchPage" prop="username">
         </operation-search>
       </template>
     </operation-container>
 
-    <iep-table :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination"
-      :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange"
-      @selection-change="selectionChange" is-mutiple-selection is-index>
+    <iep-table :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-mutiple-selection is-index>
+      <el-table-column prop="remainingTime" label="剩余时间">
+        <template slot-scope="scope">
+          {{scope.row.remainingTime | setTime}}
+        </template>
+      </el-table-column>
       <el-table-column prop="paperStatus  " label="判分状态">
         <template slot-scope="scope">
           <el-tag type="warning" size="medium" v-if="scope.row.paperStatus === 1">未阅卷</el-tag>
@@ -29,8 +32,7 @@
       <el-table-column prop="operation" label="操作" width="150">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)"
-              v-if="permissionAll">发放证书</iep-button>
+            <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)" v-if="permissionAll">发放证书</iep-button>
 
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
@@ -45,7 +47,7 @@
       </el-table-column>
     </iep-table>
 
-    <iep-dialog :dialog-show="dialogProgress" title="阅卷进度" width="900px" @close="loadPage()" center>
+    <iep-dialog :dialog-show="dialogProgress" title="阅卷进度" width="600px" @close="loadPage()" center>
       <progress-form :formData="InterviewData" @close="loadPage()"></progress-form>
     </iep-dialog>
 
@@ -53,8 +55,7 @@
       <writte-form :formData="InterviewData" v-if="dialogWritten" @close="loadPage()"></writte-form>
     </el-dialog>
 
-    <iep-dialog :dialog-show="dialogInterview" title="面试判分" width="550px" @close="loadPage()"
-      center>
+    <iep-dialog :dialog-show="dialogInterview" title="面试判分" width="550px" @close="loadPage()" center>
       <interview-form :formData="InterviewData" @close="loadPage()"></interview-form>
     </iep-dialog>
 
@@ -88,10 +89,10 @@ const columnsMap = [
     label: '面试人',
     prop: 'interviewerName',
   },
-  {
-    label: '剩余时间',
-    prop: 'remainingTime',
-  },
+  // {
+  //   label: '剩余时间',
+  //   prop: 'remainingTime',
+  // },
 ]
 function initForm () {
   return {
@@ -126,6 +127,13 @@ export default {
     permissionWritten () {
       const { writeUsedWriteUsedArray } = this.record.row.iepExaminationOperateVO
       return writeUsedWriteUsedArray.map(Number).includes(this.userInfo.userId)
+    },
+  },
+  filters: {
+    setTime (val) {
+      var str = new Array()
+      str = val.split('-')
+      return str[0] + ' 分 ' + str[1] + ' 秒'
     },
   },
   created () {

@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增产品资料</iep-button>
+        <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增关联材料</iep-button>
       </template>
     </operation-container>
     <iep-no-data v-if="!tableData.length" message="暂无关联材料"></iep-no-data>
@@ -17,7 +17,7 @@
           <iep-dict-detail :value="scope.row.materialType" dict-name="mlms_material_type"></iep-dict-detail>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="200">
+      <el-table-column label="操作" width="100">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button plain @click="handleDelete(scope.row)">删除</iep-button>

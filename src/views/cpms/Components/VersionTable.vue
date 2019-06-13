@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
+        <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增版本</iep-button>
       </template>
     </operation-container>
     <el-table :data="tableData">

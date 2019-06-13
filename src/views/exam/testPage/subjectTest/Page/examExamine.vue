@@ -12,25 +12,30 @@
             </el-table-column>
             <el-table-column label="单选" align="center">
               <template slot-scope="scope">
-                <span v-if="scope.row.radio">{{scope.row.radio}}</span>
+                <span v-if="scope.row.radio">{{Number.isNaN(Number(scope.row.radio)) ?
+                  scope.row.radio : Number(scope.row.radio)}}</span>
                 <span v-else>/</span>
               </template>
             </el-table-column>
             <el-table-column label="复选" align="center">
               <template slot-scope="scope">
-                <span v-if="scope.row.checkbox">{{scope.row.checkbox}}</span>
+
+                <span v-if="scope.row.checkbox">{{Number.isNaN(Number(scope.row.checkbox)) ?
+                  scope.row.checkbox : Number(scope.row.checkbox)}}</span>
                 <span v-else>/</span>
               </template>
             </el-table-column>
             <el-table-column label="判断" align="center">
               <template slot-scope="scope">
-                <span v-if="scope.row.checked">{{scope.row.checked}}</span>
+                <span v-if="scope.row.checked">{{Number.isNaN(Number(scope.row.checked)) ?
+                  scope.row.checked : Number(scope.row.checked)}}</span>
                 <span v-else>/</span>
               </template>
             </el-table-column>
             <el-table-column label="简答" align="center">
               <template slot-scope="scope">
-                <span v-if="scope.row.text">{{scope.row.text}}</span>
+                <span v-if="scope.row.text">{{Number.isNaN(Number(scope.row.text)) ?
+                  scope.row.text : Number(scope.row.text)}}</span>
                 <span v-else>/</span>
               </template>
             </el-table-column>
@@ -228,6 +233,12 @@ export default {
       textMap: [],
     }
   },
+  computed: {
+    // valueReplace: function (value) {
+    //   console.log(Number(value))
+    //   return value
+    // },
+  },
   created () {
     this.resultPaper()
   },
@@ -363,9 +374,9 @@ export default {
           margin-bottom: 20px;
           .questionTitle {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
+            padding: 0 10px;
             font-size: 16px;
-            font-weight: bold;
             border-bottom: 1px solid #ebeef5;
             margin-bottom: 10px;
             align-items: center;

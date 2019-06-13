@@ -101,8 +101,12 @@ export default {
       this.apprenticeShow = true
     },
     handleApprenticeConfirm () {
-      addMasterWorker({ masterWorker: [this.userInfo.id] }).then(() => {
-        this.$message.success('拜师成功！')
+      addMasterWorker({ masterWorker: [this.userInfo.id] }).then(({data}) => {
+        if (data.data) {
+          this.$message.success('拜师成功！')
+        } else {
+          this.$message.error(data.msg)
+        }
         this.apprenticeShow = false
       })
     },

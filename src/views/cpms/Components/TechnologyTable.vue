@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增技术</iep-button>
+        <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增关联技术</iep-button>
       </template>
     </operation-container>
     <iep-no-data v-if="!tableData.length" message="暂无关联技术"></iep-no-data>

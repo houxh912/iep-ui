@@ -4,41 +4,33 @@
       <page-header title="项目核算"></page-header>
       <operation-container>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
-            <advance-search @search-page="searchPage"></advance-search>
+          <operation-search @search-page="searchPage">
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
+      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
       </iep-table>
     </basic-container>
   </div>
 </template>
 
 <script>
+import { getProjectPage } from '@/api/fams/statistics'
 import mixins from '@/mixins/mixins'
-import { columnsMap, dictsMap } from './options'
-import AdvanceSearch from './AdvanceSearch'
+import { columnsMap } from './options'
 export default {
-  components: { AdvanceSearch },
   mixins: [mixins],
   data () {
     return {
-      dictsMap,
       columnsMap,
-      pagedTable: [
-        { number: '1000231', name: 'ss', time: 'ss', contractAmount: '', income: '', expenditure: '', billingStatus: '0', settleStatus: '1', profit: '1000' },
-        { number: '1000231', name: 'ss', time: 'ss', contractAmount: '', income: '', expenditure: '', billingStatus: '0', settleStatus: '1', profit: '1000' },
-        { number: '1000231', name: 'ss', time: 'ss', contractAmount: '', income: '', expenditure: '', billingStatus: '0', settleStatus: '1', profit: '1000' },
-      ],
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
-    loadPage () {
-      //this.loadTable(param, getBillingPage)
+    loadPage (param = this.searchParam) {
+      this.loadTable(param, getProjectPage)
     },
     handleDetail (row) {
       this.$router.push({

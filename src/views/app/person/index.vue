@@ -30,7 +30,7 @@ export default {
   color: #cb3737;
 }
 .gov-person-content >>> .important {
-  float: right;
+  padding: 0;
   color: #cb3737;
 }
 .gov-person-content >>> .important:hover,

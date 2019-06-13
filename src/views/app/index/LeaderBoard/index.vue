@@ -33,9 +33,11 @@ export default {
       }, {
         label: '信用榜',
         value: 'CreditList',
+        disabled: true,
       }, {
         label: '业绩榜',
         value: 'PreformanceList',
+        disabled: true,
       }],
       activeTab: 'ContributionList',
     }

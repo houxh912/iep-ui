@@ -2,7 +2,7 @@
   <div>
     <div class="title">我的指数</div>
     <ve-radar :data="chartData" :settings="chartSettings" :legendVisible="isTrue"></ve-radar>
-    <h4 style="text-align:center;">内网综合指数：1112</h4>
+    <h4 style="text-align:center;">内网综合指数：0</h4>
   </div>
 </template>
 
@@ -46,10 +46,10 @@ export default {
         columns: ['date', 'creative', 'work', 'study', 'weath', 'admin', 'xz'],
         rows: [
           {
-            date: '去年', 'weath': 40, 'creative': 50, 'work': 30, 'study': 40, 'admin': 50, 'xz': 40,
+            date: '去年', 'weath': 0, 'creative': 0, 'work': 0, 'study': 0, 'admin': 0, 'xz': 0,
           },
           {
-            date: '今年', 'weath': 67, 'creative': 105, 'work': 75, 'study': 66, 'admin': 54, 'xz': 46,
+            date: '今年', 'weath': 0, 'creative': 0, 'work': 0, 'study': 0, 'admin': 0, 'xz': 0,
           },
         ],
       },

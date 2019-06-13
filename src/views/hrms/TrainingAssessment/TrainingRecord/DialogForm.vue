@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="培训信息" width="520px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="培训信息" width="600px" @close="close">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="培训图片：" prop="themePictures">
         <iep-avatar v-model="form.themePictures"></iep-avatar>
@@ -10,8 +10,9 @@
       <el-form-item label="培训老师：" prop="user">
         <iep-contact-select v-model="form.user"></iep-contact-select>
       </el-form-item>
-      <el-form-item label="培训时间：" prop="startTime">
-        <iep-date-picker v-model="form.startTime" type="date" placeholder="选择日期"></iep-date-picker>
+      <el-form-item label="培训时间：" prop="rangeTime">
+        <iep-date-picker v-model="form.rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions">
+        </iep-date-picker>
       </el-form-item>
       <el-form-item label="培训类型：" prop="typeId">
         <iep-dict-select v-model="form.typeId" dict-name="hrms_training_type" placeholder="选择类型"></iep-dict-select>
@@ -31,18 +32,27 @@
       <el-form-item label="培训材料：" prop="material">
         <iep-upload v-model="form.material">请上传培训材料</iep-upload>
       </el-form-item>
+      <el-form-item label="关联材料：" prop="material">
+        <material-table v-model="form.materialList"></material-table>
+      </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')">提交</iep-button>
-      <iep-button @click="loadPage">取消</iep-button>
+      <iep-button type="primary" @click="submitForm()">提交</iep-button>
+      <iep-button @click="dialogShow = false">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
 import { initForm, rules, formToDto } from './options'
+import { pickerOptions } from '@/const/formConfig.js'
+import formMixins from '@/mixins/formMixins'
+import MaterialTable from '@/views/cpms/Components/MaterialTable'
 export default {
+  components: { MaterialTable },
+  mixins: [formMixins],
   data () {
     return {
+      pickerOptions,
       dialogShow: false,
       formRequestFn: () => { },
       methodName: '创建',
@@ -51,25 +61,37 @@ export default {
     }
   },
   methods: {
-    loadPage () {
+    close () {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.formRequestFn(formToDto(this.form)).then(() => {
+    async submitForm () {
+      try {
+        await this.mixinsValidate()
+        try {
+          const { data } = await this.formRequestFn(formToDto(this.form))
+          if (data.data) {
             this.$message({
-              message: `${this.methodName}成功`,
+              message: '操作成功',
               type: 'success',
             })
-            this.loadPage()
+            this.close()
+          } else {
+            this.$message({
+              message: data.msg,
+              type: 'error',
+            })
+          }
+        } catch (error) {
+          this.$message({
+            message: error.message,
+            type: 'error',
           })
-        } else {
-          return false
         }
-      })
+      } catch (object) {
+        this.mixinsMessage(object)
+      }
     },
   },
 }

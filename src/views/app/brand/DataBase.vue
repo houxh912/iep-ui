@@ -1,20 +1,22 @@
 <template>
-  <IepAppTabCard :title="title" :linkName="linkName">
-       <div slot="right" v-for="(item,index) in selectList" :key="index" class="piece-tab" :class="showClass==index?'color':''" @click="tab(index)">{{item}}</div>
+  <div class="brand">
+    <IepAppTabCard :title="title" :linkName="linkName">
+      <div slot="right" v-for="(item,index) in selectList" :key="index" class="piece-tab" :class="showClass==index?'color':''" @click="tab(index)">{{item}}</div>
       <IepAppListCard :dataList="dataList"></IepAppListCard>
-  </IepAppTabCard>
+    </IepAppTabCard>
+  </div>
 </template>
 <script>
 export default {
   data () {
     return {
       showClass: 2,
-      title:'品牌资料',
+      title: '品牌资料',
       selectList: ['活动', '模板', '宣传'],
-      linkName:'',
-         dataList: ['国脉集团宣传PPT（16篇）',
+      linkName: '',
+      dataList: ['国脉集团宣传PPT（16篇）',
         '营商环境评价中心（8篇）',
-        '全球敏捷运维峰会' ,
+        '全球敏捷运维峰会',
         '2019首届长三角地区营商环境专题论坛',
         '2019首届长三角地区营商环境论坛',
         '2019珠三角营商环境与数字政府理论与实践',
@@ -33,32 +35,40 @@ export default {
 </script>
 <style lang='scss' scoped>
 .piece-tab {
-    float:right;
-    padding: 2px 10px;
-    border-radius: 12px;
-    border: 1px solid #ffffff;
-    margin: 0 4px;
-    cursor: pointer;
-    &:hover {
+  float: right;
+  padding: 0 10px;
+  height: 22px;
+  line-height: 22px;
+  border-radius: 12px;
+  border: 1px solid #ffffff;
+  margin: 0 4px;
+  cursor: pointer;
+  &:hover {
     background-color: #fef6f4;
     border: 1px solid #dc8687;
     color: #dc8687;
-    }
+  }
 }
 .color {
-    background-color: #fef6f4;
-    border: 1px solid #dc8687;
-    color: #dc8687;
+  background-color: #fef6f4;
+  border: 1px solid #dc8687;
+  color: #dc8687;
 }
 </style>
 <style scoped>
 .index-card >>> .el-card__header {
   padding: 13px 0;
 }
-.index-card >>> .el-card__body{
+.index-card >>> .el-card__body {
   padding: 16px 0 2px;
 }
-.el-card{
+.el-card {
   padding: 0 20px;
+}
+.brand >>> .el-card__header {
+  padding: 18px 0 9px;
+}
+.brand >>> .el-card {
+  height: 351px;
 }
 </style>

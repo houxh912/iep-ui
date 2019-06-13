@@ -31,7 +31,7 @@
         </div>
         <div class="chat-footer">
           <div class="chat-textarea">
-            <textarea @keydown.13.prevent="keydown($event)" v-model="message"></textarea>
+            <textarea @keydown.13.prevent="keydown($event)" v-model.trim="message"></textarea>
           </div>
           <div class="chat-bottom">
             <div class="chat-btn">
@@ -92,7 +92,11 @@ export default {
       }
     },
     sendMessage () {
-      this.$emit('sendMessage', {receiver: this.chatDetail, message: this.message, messageType: 1})
+      if (this.message !== '') {
+        this.$emit('sendMessage', {receiver: this.chatDetail, message: this.message, messageType: 1})
+      } else {
+        this.$message.warning('发送内容不能为空！')
+      }
       this.message = ''
     },
     closeChat () {

@@ -1,9 +1,9 @@
 <template>
   <div class="grid-content">
     <el-card class="box-card" shadow="naver">
-      <div slot="header" class="clearfix">
+      <div slot="header" class="clearfix title-con">
         <span class="title">关于国脉</span>
-        <el-button style="float: right; padding: 3px 0" type="text">了解更多></el-button>
+        <el-button class="btn" type="text">了解更多></el-button>
       </div>
       <div class="aboutGov">
         <p v-text="aboutGov"></p>
@@ -27,9 +27,23 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
+.title-con {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .title {
-  font-size: 18px;
+  flex: 2;
+  font-size: 16px;
+  height: 22px;
+  line-height: 22px;
   color: #333;
+}
+.btn {
+  margin-right: 5px;
+  padding: 0;
+  height: 22px;
+  line-height: 22px;
 }
 .aboutGov p {
   font-size: 14px;
@@ -62,6 +76,18 @@ export default {
       color: #fff;
     }
   }
+}
+</style>
+<style scoped>
+.grid-content >>> .el-card__header {
+  padding: 18px 0 9px;
+}
+.grid-content >>> .el-card__body {
+  padding: 0;
+}
+.grid-content >>> .el-card {
+  padding: 0 20px;
+  height: 310px;
 }
 </style>
 

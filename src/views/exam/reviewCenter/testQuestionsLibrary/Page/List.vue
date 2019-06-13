@@ -4,8 +4,8 @@
       <page-header title="试题库管理" :data="[10, 5]"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增试题</iep-button>
-          <iep-button @click="handleDeleteAll">批量删除</iep-button>
+          <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain v-if="exam_question_add">新增试题</iep-button>
+          <iep-button @click="handleDeleteAll" v-if="exam_question_del">批量删除</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="title">
@@ -76,12 +76,15 @@
           <el-table-column prop="operation" label="操作" width="130">
             <template slot-scope="scope">
               <operation-wrapper>
-                <iep-button type="warning" :disabled="!scope.row.status == 0" plain @click="handleExamine(scope.row)">审核</iep-button>
+                <iep-button type="warning" :disabled="scope.row.status != 0" plain @click="handleExamine(scope.row)"
+                  v-if="exam_question_review">审核</iep-button>
                 <el-dropdown size="medium">
                   <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item :disabled="!scope.row.status == 0" @click.native="handleModify(scope.row)">修改</el-dropdown-item>
-                    <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
+                    <el-dropdown-item @click.native="handleShow(scope.row)">查看</el-dropdown-item>
+                    <el-dropdown-item @click.native="handleModify(scope.row)" :disabled="scope.row.status === 1"
+                      v-if="exam_question_edit">修改</el-dropdown-item>
+                    <el-dropdown-item @click.native="handleDelete(scope.row)" v-if="exam_question_del">删除</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
               </operation-wrapper>
@@ -166,13 +169,16 @@
 
 <script>
 import AdvanceSearch from './AdvanceSearch'
-import { getTestList,deleteApprovalById,getTestOption,postExaminePass,postExamineFalse,postModify } from '@/api/exam/createExam/newTest/newTest'
+import { getTestList, deleteApprovalById, getTestOption, postExaminePass, postExamineFalse, postModify } from '@/api/exam/createExam/newTest/newTest'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import mixins from '@/mixins/mixins'
-
+import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
   components: { AdvanceSearch, MutiplyTagSelect },
+  computed: {
+    ...mapGetters(['permissions']),
+  },
   data () {
     return {
       examine: {},//审核
@@ -199,11 +205,19 @@ export default {
         { id: 0, label: '不限' },
         { id: 1, label: '限考试' },
       ],
+      exam_question_add: false,
+      exam_question_edit: false,
+      exam_question_del: false,
+      exam_question_review: false,
     }
   },
   created () {
     this.loadPage()
     this.getTestOption()
+    this.exam_question_add = this.permissions['exam_question_add']
+    this.exam_question_edit = this.permissions['exam_question_edit']
+    this.exam_question_del = this.permissions['exam_question_del']
+    this.exam_question_review = this.permissions['exam_question_review']
   },
   methods: {
     /**
@@ -232,9 +246,10 @@ export default {
      */
     handleAdd () {
       // this.$router.push('/exam/createExam/newTest/')
-      this.$emit('onEdit',{
+      this.$emit('onEdit', {
         methodName: '创建新',
         id: '',
+        edit: false,
       })
     },
     /**
@@ -245,12 +260,23 @@ export default {
       this.examine = row.id
     },
     /**
+     * 查看按钮
+     */
+    handleShow (row) {
+      this.$emit('onEdit', {
+        methodName: '查看',
+        id: row.id,
+        edit: true,
+      })
+    },
+    /**
      * 修改按钮
      */
-    handleModify (rows){
-      this.$emit('onEdit',{
+    handleModify (rows) {
+      this.$emit('onEdit', {
         methodName: '修改',
         id: rows.id,
+        edit: false,
       })
       // this.dialogModify = true
       // const param ={

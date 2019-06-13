@@ -7,7 +7,9 @@
       </div>
       <div class="thoughts-list">
         <div v-for="(item, index) in thoughtsList" :key="index" class="piece">
-          <div class="img-con"><iep-img :src="item.avatar" class="img"></iep-img></div>
+          <div class="img-con">
+            <iep-img :src="item.avatar" class="img"></iep-img>
+          </div>
           <div class="box">
             <div class="piece-title">
               <span class="name">{{item.userName}}</span>
@@ -23,7 +25,9 @@
       <el-button class="important" type="text" slot="right">申请互助基金</el-button>
       <div class="star-list">
         <div v-for="(item, index) in starList" :key="index" class="piece">
-          <div class="img-con"><iep-img :src="item.avatar" class="img"></iep-img></div>
+          <div class="img-con">
+            <iep-img :src="item.avatar" class="img"></iep-img>
+          </div>
           <div class="box">
             <div class="piece-title">
               <span class="name">{{item.name}}</span>
@@ -70,7 +74,7 @@ export default {
       })
     },
     getThoughtsList () {
-      getThoughtsList().then(({data}) => {
+      getThoughtsList().then(({ data }) => {
         this.thoughtsList = data.data
       })
     },
@@ -91,6 +95,8 @@ export default {
 .title-right {
   display: inline-block;
   width: 244px;
+  height: 22px;
+  line-height: 22px;
   > .publish {
     margin-right: 10px;
     color: #cb3737 !important;
@@ -221,6 +227,11 @@ export default {
 .mutual-card >>> .el-card__body {
   display: flex;
   align-items: center;
-  height: 131px;
+  height: 125px;
+  overflow: hidden;
+}
+.thoughts >>> .title {
+  height: 22px;
+  line-height: 22px;
 }
 </style>

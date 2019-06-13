@@ -44,3 +44,10 @@ export function loadContactsPyList (query) {
     params: query,
   })
 }
+
+export function getUserList () {
+  return request({
+    url: `${prefixUrl}/phone/user/name/list`,
+    method: 'get',
+  })
+}

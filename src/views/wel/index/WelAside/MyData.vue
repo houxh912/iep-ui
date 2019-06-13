@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title">我的指数</div>
-    <ve-radar width="200px" height="200px" :data="chartData" :settings="chartSettings" :legendVisible="isTrue"></ve-radar>
+    <ve-radar width="220px" height="220px" :data="chartData" :settings="chartSettings" :legendVisible="isTrue"></ve-radar>
     <h4 style="text-align:center;">内网综合指数：1112</h4>
   </div>
 </template>

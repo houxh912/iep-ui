@@ -1,23 +1,26 @@
 <template>
-  <div class="news-con">
-    <el-card class="news-list" v-for="item in pageList" :key="item.id" shadow="hover">
-      <div class="text">
-        <h4 class="sub-title">
-          <el-tag class="classTag">商机</el-tag><span class="sub-title-con">{{item.projectName}}</span>
-        </h4>
-        <p class="list-content">{{item.opportunityDes}}</p>
-        <div class="list-item-description">
-          <!-- <span class="time"><i class="iconfont icon-shijian"></i>{{item.createTime}}</span> -->
-          <span class="see"><i class="iconfont icon-yanjing"></i>{{`${item.views} 人浏览`}}</span>
-          <div class="classTag">
-            <el-tag type="white" v-for="(item, index) in item.tagsName" :key="index">{{item}}</el-tag>
+  <div>
+    <div class="news-con" v-if="pageList.length !== 0">
+      <el-card class="news-list" v-for="item in pageList" :key="item.id" shadow="hover">
+        <div class="text">
+          <h4 class="sub-title">
+            <el-tag class="classTag">商机</el-tag><span class="sub-title-con">{{item.projectName}}</span>
+          </h4>
+          <p class="list-content">{{item.opportunityDes}}</p>
+          <div class="list-item-description">
+            <!-- <span class="time"><i class="iconfont icon-shijian"></i>{{item.createTime}}</span> -->
+            <span class="see"><i class="iconfont icon-yanjing"></i>{{`${item.views} 人浏览`}}</span>
+            <div class="classTag">
+              <el-tag type="white" v-for="(item, index) in item.tagsName" :key="index">{{item}}</el-tag>
+            </div>
           </div>
         </div>
+      </el-card>
+      <div style="text-align: center;margin: 20px 0;">
+        <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
       </div>
-    </el-card>
-    <div style="text-align: center;margin: 20px 0;">
-      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
     </div>
+    <IepNoData v-else></IepNoData>
   </div>
 </template>
 

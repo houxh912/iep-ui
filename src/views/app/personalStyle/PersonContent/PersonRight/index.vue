@@ -1,7 +1,7 @@
 <template>
   <div class="person-right">
-    <person-mark :userId="userId"></person-mark>
     <feelings :userId="userId"></feelings>
+    <person-mark :userId="userId"></person-mark>
     <relation :userId="userId"></relation>
   </div>
 </template>

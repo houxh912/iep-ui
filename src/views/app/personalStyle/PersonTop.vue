@@ -18,11 +18,22 @@
         <span class="autograph">个性签名：{{userInfo.signature}}</span>
         <div class="classTags">
           <div class="classTag">
-            <el-tag type="white" v-for="(item, index) in userInfo.tagList.slice(0, 5)" :key="index">{{item}}</el-tag>
+            <div class="label">卓越标签：</div>
+            <div class="span">
+              <el-tag type="white" v-for="(item, index) in userInfo.abilityTag" :key="index">{{item}}</el-tag>
+            </div>
           </div>
-          <el-button class="text-btn" type="text" @click="show"><span :class="isShow?'hide':'dib'">展示全部</span><span :class="isShow?'dib':'hide'">收起全部</span><i class="el-icon--right" :class="isShow?'el-icon-arrow-up':'el-icon-arrow-down'"></i></el-button>
-          <div class="classTag" v-show="isShow">
-            <el-tag type="white" v-for="(item, index) in userInfo.tagList" :key="index">{{item}}</el-tag>
+          <div class="classTag">
+            <div class="label">专业标签：</div>
+            <div class="span">
+              <el-tag type="white" v-for="(item, index) in userInfo.projectTag" :key="index">{{item}}</el-tag>
+            </div>
+          </div>
+          <div class="classTag">
+            <div class="label">进步标签：</div>
+            <div class="span">
+              <el-tag type="white" v-for="(item, index) in userInfo.learningTag" :key="index">{{item}}</el-tag>
+            </div>
           </div>
         </div>
       </div>
@@ -37,7 +48,7 @@
           <el-button size="mini" type="danger" plain @click="handleEmail">邮件</el-button>
           <el-button size="mini" type="danger" plain @click="handleApprentice">拜师</el-button>
           <el-button size="mini" type="danger" plain @click="handleReward">打赏</el-button>
-          <el-button size="mini" type="danger">PK</el-button>
+          <el-button size="mini" type="info" plain disabled>PK</el-button>
         </el-row>
       </div>
     </el-card>
@@ -76,15 +87,15 @@ export default {
       show3: 'show',
       labList: [
         {
-          data: '670',
+          data: '--',
           labTitle: '信用值',
         },
         {
-          data: '11',
+          data: '--',
           labTitle: '活跃度',
         },
         {
-          data: '5',
+          data: '--',
           labTitle: '资产排名',
         },
       ],
@@ -200,6 +211,13 @@ export default {
     }
     .classTag {
       margin-bottom: 10px;
+      display: flex;
+      .label {
+        width: 80px;
+      }
+      .span {
+        flex: 1;
+      }
       .el-tag {
         margin-right: 5px;
         margin-bottom: 5px;

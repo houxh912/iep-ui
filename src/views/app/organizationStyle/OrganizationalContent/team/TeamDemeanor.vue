@@ -15,9 +15,9 @@ export default {
   data () {
     return {
       wonderfulList: [
-        { img: require('../img/organization1.jpg') },
-        { img: require('../img/organization2.jpg') },
-        { img: require('../img/organization3.jpg') },
+        { img: require('../../img/organization1.jpg') },
+        { img: require('../../img/organization2.jpg') },
+        { img: require('../../img/organization3.jpg') },
       ],
     }
   },

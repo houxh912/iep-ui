@@ -2,8 +2,7 @@
   <div class="leader-board">
     <IepAppTabCard :title="title" :linkName="linkName">
       <div class="important" slot="right">
-        <el-button type="text">争做伯乐</el-button>
-        <el-button type="text">申请转岗</el-button>
+        <el-button type="text" @click="() => {this.$router.push('/app/tobeBole')}">争做伯乐</el-button>
       </div>
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="positionName" label="岗位名称" width="180">

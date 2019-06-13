@@ -2,10 +2,10 @@
   <div class="organization-right">
     <ranking></ranking>
     <organization-introduction :data="data"></organization-introduction>
+    <organize-events :orgId="data.orgId"></organize-events>
     <business-layout></business-layout>
     <products-services :orgId="data.orgId"></products-services>
-    <organize-events></organize-events>
-    <reward></reward>
+    <!-- <reward></reward> -->
     <collaborative-record></collaborative-record>
   </div>
 </template>
@@ -15,7 +15,7 @@ import OrganizationIntroduction from './OrganizationIntroduction'
 import BusinessLayout from './BusinessLayout'
 import ProductsServices from './ProductsServices'
 import OrganizeEvents from './OrganizeEvents'
-import Reward from './Reward'
+// import Reward from './Reward'
 import CollaborativeRecord from './CollaborativeRecord'
 export default {
   props: {
@@ -23,6 +23,6 @@ export default {
       type: Object,
     },
   },
-  components: { Ranking, OrganizationIntroduction, BusinessLayout, ProductsServices, OrganizeEvents, Reward, CollaborativeRecord },
+  components: { Ranking, OrganizationIntroduction, BusinessLayout, OrganizeEvents, ProductsServices, CollaborativeRecord },
 }
 </script>

@@ -1,12 +1,13 @@
 <template>
   <div class="empolyee">
-    <el-carousel height="165px" :interval="5000" indicator-position="none">
+    <el-carousel height="165px" :interval="5000" indicator-position="none" v-if="list.length !== 0">
       <el-carousel-item v-for="(item, index) in Math.ceil(list.length/5)" :key="index">
         <div v-for="(t, i) in list.slice(index*5, (index+1)*5)" :key="i" class="piece">
           <div class="img"><iep-img :src="t.image" class="img"></iep-img></div>
         </div>
       </el-carousel-item>
     </el-carousel>
+    <IepNoData v-else></IepNoData>
   </div>
 </template>
 

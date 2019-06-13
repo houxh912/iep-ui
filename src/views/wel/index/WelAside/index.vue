@@ -7,7 +7,7 @@
     <!-- 我的财富 -->
     <my-treasure />
     <!-- 我的机会 -->
-    <my-chance :opportunity="opportunity" />
+    <my-chance ref="myChance" :opportunity="opportunity" />
     <!-- 收到评价 -->
     <!-- <receive-evaluation :appraise="appraise" /> -->
     <!-- 我的指數 -->

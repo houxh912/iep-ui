@@ -77,7 +77,7 @@ export default {
           },
         },
         {
-          label: '问卷单位',
+          label: '问卷范围',
           prop: 'evaDept',
           type: 'select',
           multiple: true,

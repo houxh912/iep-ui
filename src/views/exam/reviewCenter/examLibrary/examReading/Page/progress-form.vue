@@ -11,7 +11,7 @@
       <div class="title">
         <p class="line"></p>
         <p>面试题</p>
-        <p style="margin-left: 50px;"><span style="color:#409eff">{{resdata.done}}</span>/<span>{{resdata.all}}</span></p>
+        <!-- <span style="margin-left: 50px;"><span style="color:#409eff">{{resdata.done}}</span>/<span>{{resdata.all}}</span></p> -->
       </div>
       <div class="details-fu">
         <div class="details" v-for="(item, idx) in resdata.faceUsers" :key="idx">
@@ -24,7 +24,7 @@
       <div class="title">
         <p class="line"></p>
         <p>简答题</p>
-        <p style="margin-left: 50px;"><span style="color:#409eff">{{resdata.done}}</span>/<span>{{resdata.all}}</span></p>
+        <!-- <span style="margin-left: 50px;"><span style="color:#409eff">{{resdata.done}}</span>/<span>{{resdata.all}}</span></p> -->
       </div>
       <div class="details-fu">
         <div class="details" v-for="(item, idx) in resdata.writeUsers" :key="idx">
@@ -37,7 +37,7 @@
       <div class="title">
         <p class="line"></p>
         <p>实操题</p>
-        <p style="margin-left: 50px;"><span style="color:#409eff">{{resdata.done}}</span>/<span>{{resdata.all}}</span></p>
+        <!-- <p style="margin-left: 50px;"><span style="color:#409eff">{{resdata.done}}</span>/<span>{{resdata.all}}</span></p> -->
         <P style="margin-left: 50px;">
           <el-switch class="switch-switch" v-model="switchValue" active-text="多选1模式" active-color="#409eff"> </el-switch>
         </P>
@@ -54,10 +54,10 @@
         <el-button class="button" @click="handleRollingPaper">一键收卷</el-button>
         <el-button class="button" @click="handlePaper">完成阅卷</el-button>
       </el-form-item>
-      <el-form-item>
+      <!-- <el-form-item>
         <el-button class="button" @click="sendResult">发送成绩</el-button>
         <el-button class="button" @click="sendCertificate">放送证书</el-button>
-      </el-form-item>
+      </el-form-item> -->
     </div>
 
   </el-form>
@@ -245,7 +245,7 @@ export default {
   margin-left: 200px;
   .button {
     color: #fff;
-    background-color: #d4d4d4;
+    background-color: #ba1b21;
     border: 0px solid #d4d4d4;
     font-size: 18px;
     margin-right: 10px;

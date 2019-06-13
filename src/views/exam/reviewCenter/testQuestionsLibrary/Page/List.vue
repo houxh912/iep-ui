@@ -81,6 +81,7 @@
                 <el-dropdown size="medium">
                   <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                   <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item @click.native="handleShow(scope.row)">查看</el-dropdown-item>
                     <el-dropdown-item @click.native="handleModify(scope.row)" :disabled="scope.row.status === 1"
                       v-if="exam_question_edit">修改</el-dropdown-item>
                     <el-dropdown-item @click.native="handleDelete(scope.row)" v-if="exam_question_del">删除</el-dropdown-item>
@@ -257,6 +258,16 @@ export default {
     handleExamine (row) {
       this.dialogExamine = true
       this.examine = row.id
+    },
+    /**
+     * 查看按钮
+     */
+    handleShow (row) {
+      this.$emit('onEdit', {
+        methodName: '查看',
+        id: row.id,
+        edit: true,
+      })
     },
     /**
      * 修改按钮

@@ -2,27 +2,28 @@ export const columnsMap = [
   {
     label: '分类',
     prop: 'field',
-    width: '120px',
+    width: '180px',
   },
   {
     label: '名称',
     prop: 'title',
+    width: '180px',
   },
-  {
-    label: '难度',
-    prop: 'diffculty',
-    type: 'dict',
-    width: '100px',
-  },
+  // {
+  //   label: '难度',
+  //   prop: 'diffculty',
+  //   type: 'dict',
+  //   width: '100px',
+  // },
   {
     label: '题数',
     prop: 'choiceNum',
-    width: '100px',
+    width: '135px',
   },
   {
     label: '总分',
     prop: 'score',
-    width: '100px',
+    width: '135px',
   },
   // {
   //   label: '状态',
@@ -31,12 +32,12 @@ export const columnsMap = [
   {
     label: '创建者',
     prop: 'createName',
-    width: '120px',
+    width: '180px',
   },
   {
     label: '创建时间',
     prop: 'creatTime',
-    width: '160px',
+    width: '180px',
   },
 ]
 

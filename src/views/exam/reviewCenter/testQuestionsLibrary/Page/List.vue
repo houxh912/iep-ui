@@ -14,7 +14,9 @@
         </template>
       </operation-container>
       <div class="table">
-        <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectChange" is-mutiple-selection>
+        <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
+          @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectChange"
+          is-mutiple-selection>
           <el-table-column prop="title" label="题目" min-width="100" sortable>
             <template slot-scope="scope">
               {{scope.row.title}}
@@ -74,11 +76,13 @@
           <el-table-column prop="operation" label="操作" width="130">
             <template slot-scope="scope">
               <operation-wrapper>
-                <iep-button type="warning" :disabled="scope.row.status != 0" plain @click="handleExamine(scope.row)" v-if="exam_question_review">审核</iep-button>
+                <iep-button type="warning" :disabled="scope.row.status != 0" plain @click="handleExamine(scope.row)"
+                  v-if="exam_question_review">审核</iep-button>
                 <el-dropdown size="medium">
                   <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item @click.native="handleModify(scope.row)" v-if="exam_question_edit && scope.row.status != 1">修改</el-dropdown-item>
+                    <el-dropdown-item @click.native="handleModify(scope.row)" :disabled="scope.row.status === 1"
+                      v-if="exam_question_edit">修改</el-dropdown-item>
                     <el-dropdown-item @click.native="handleDelete(scope.row)" v-if="exam_question_del">删除</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
@@ -90,13 +94,15 @@
 
     </basic-container>
 
-    <iep-dialog :dialog-show="dialogExamine" title="审核" width="520px" @close="handleExamineCancel" center>
+    <iep-dialog :dialog-show="dialogExamine" title="审核" width="520px" @close="handleExamineCancel"
+      center>
       <div style="text-align: center;">
         <el-radio-group v-model="states">
           <el-radio :label="0">审核通过</el-radio>
           <el-radio :label="1">审核不通过</el-radio>
         </el-radio-group>
-        <el-input v-if="states === 1" v-model="content" type="textarea" maxlength="1000" rows="4" style="margin-top:25px;" placeholder="请输入理由，字数不超过 1000 ！">
+        <el-input v-if="states === 1" v-model="content" type="textarea" maxlength="1000" rows="4"
+          style="margin-top:25px;" placeholder="请输入理由，字数不超过 1000 ！">
         </el-input>
       </div>
       <template slot="footer">
@@ -107,32 +113,38 @@
       </template>
     </iep-dialog>
 
-    <iep-dialog :dialog-show="dialogModify" title="修改试题" width="500px" @close="handleModifyCancel" center>
+    <iep-dialog :dialog-show="dialogModify" title="修改试题" width="500px" @close="handleModifyCancel"
+      center>
       <el-form :label-position="labelPosition" label-width="100px" :model="reForm">
         <div class="select">
           <el-form-item style="padding-right: 25px;" label="科目：" prop="field">
             <el-select class="select" v-model="reForm.field" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label" :value="item.id"></el-option>
+              <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
+                :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="题型：" prop="questionType">
             <el-select v-model="reForm.questionType" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label" :value="item.id"></el-option>
+              <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label"
+                :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="题类：" prop="kind">
             <el-select v-model="reForm.kind" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label" :value="item.id"></el-option>
+              <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label"
+                :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="难度：" prop="difficulty">
             <el-select v-model="reForm.difficulty" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label" :value="item.id"></el-option>
+              <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label"
+                :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="关联：" prop="associatedState">
             <el-select v-model="reForm.associatedState" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label" :value="item.id"></el-option>
+              <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label"
+                :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="内容：" prop="title">

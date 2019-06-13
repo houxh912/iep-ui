@@ -8,3 +8,11 @@ export function addMasterWorker (obj) {
     data: obj,
   })
 }
+
+export function getPageRecommend (params) {
+  return request({
+    url: `${prefixUrl}/pageRecommend`,
+    method: 'get',
+    params: params,
+  })
+}

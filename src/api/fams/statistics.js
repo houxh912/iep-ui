@@ -82,3 +82,18 @@ export function getIncomeList (type) {
     })
   }
 }
+
+export function getProjectPage (query) {
+  return request({
+    url: `${prefixUrl}/project/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getProjectDetailById (id) {
+  return request({
+    url: `${prefixUrl}/project/detail/${id}`,
+    method: 'get',
+  })
+}

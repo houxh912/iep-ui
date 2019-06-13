@@ -231,11 +231,17 @@ export default {
         if (this.formData.status == 0 && this.formData.isSend == 1) {
           meetingSend(id).then(({ data }) => {
             if (data.data) {
-              addBellBalanceRuleByNumber('VISIT_LOG').then(() => {
-                this.$message.success('您成功发送一篇拜访纪要，获得2个国脉贝，继续加油！')
-              })
-              this.$emit('load-page')
-              this.dialogShow = false
+              if (new Date(this.formData.meetingTime).toDateString() === new Date().toDateString()) {
+                addBellBalanceRuleByNumber('VISIT_LOG').then(({ data }) => {
+                  this.$message.success(`您成功发送一篇拜访纪要，${data.msg}，继续加油！`)
+                })
+                this.$emit('load-page')
+                this.dialogShow = false
+              } else {
+                this.$message.success('您成功发送一篇会议纪要，继续加油！')
+                this.$emit('load-page')
+                this.dialogShow = false
+              }
             } else {
               this.$message.error('当前网络异常，请稍后再试！')
             }

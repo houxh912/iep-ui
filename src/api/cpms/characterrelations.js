@@ -16,3 +16,21 @@ export function getPageRecommend (params) {
     params: params,
   })
 }
+
+// 根据拜师消息id查询土地info
+export function getApprenticeUser (characterId) {
+  return request({
+    url: `${prefixUrl}/user/${characterId}`,
+    method: 'get',
+  })
+}
+
+// 是否确认收徒
+export function characterIsDetermine (id, data) {
+  return request({
+    url: `${prefixUrl}/isDetermine/${id}`,
+    method: 'post',
+    params: data,
+  })
+}
+

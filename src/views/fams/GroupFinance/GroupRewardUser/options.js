@@ -9,12 +9,8 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'targetUserName',
+    prop: 'targetName',
     label: '打赏对象',
-  },
-  {
-    prop: 'orgName',
-    label: '所属组织',
   },
   {
     prop: 'amount',
@@ -25,7 +21,7 @@ const columnsMap = [
     label: '操作时间',
   },
   {
-    prop: 'message',
+    prop: 'remarks',
     label: '备注',
   },
 ]

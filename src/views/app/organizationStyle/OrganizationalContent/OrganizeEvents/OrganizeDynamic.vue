@@ -1,7 +1,7 @@
 <template>
   <div class="organizational-dynamics-con">
     <div class="organizational-dynamics" v-if="organizationalDynamics.length !== 0">
-      <div v-for="(item,index) in organizationalDynamics" :key="index" class="piece">
+      <div v-for="(item,index) in organizationalDynamics" :key="index" class="piece" @click="handleDetail(item)">
         <span class="name">{{item.name}}</span>
         <!-- <span class="time">{{item.time}}</span> -->
       </div>
@@ -30,6 +30,9 @@ export default {
       getNewsList({ orgId: id }).then(({data}) => {
         this.organizationalDynamics = data.data
       })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
     },
   },
   watch: {

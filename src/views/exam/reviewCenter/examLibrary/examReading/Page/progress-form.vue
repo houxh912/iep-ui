@@ -1,51 +1,36 @@
 <template>
   <el-form :model="ruleForm" ref="ruleForm" :rules="rules" :label-position="labelPosition" label-width="100px">
     <div class="top">
-      <p>阅卷完毕人数</p>
-      <p style="margin-left: 50px;"><span style="color:#409eff">{{resdata.done}}</span>/<span>{{resdata.all}}</span></p>
+      <p style="margin-left:16px">阅卷完毕人数</p>
+      <p style="margin-left: 10px;"><span style="color:#409eff">{{resdata.done}}</span>/<span>{{resdata.all}}</span></p>
       <el-button icon="el-icon-warning" class="tip"></el-button>
       <p class="award">每位阅卷老师阅卷一题，奖励<el-button style="margin:0px 10px;border-radius:0px;">{{money}}</el-button>贝</p>
     </div>
 
-    <div class="container" v-if="resdata.faceUsers">
-      <div class="title">
-        <p class="line"></p>
-        <p>面试题</p>
-        <!-- <span style="margin-left: 50px;"><span style="color:#409eff">{{resdata.done}}</span>/<span>{{resdata.all}}</span></p> -->
-      </div>
-      <div class="details-fu">
-        <div class="details" v-for="(item, idx) in resdata.faceUsers" :key="idx">
-          <el-button size="mini" type="info" plain>{{item}}</el-button>
-        </div>
+    <div class="card">
+      <div v-if="resdata.operateUsers">
+        <span class="answerSheet"><span class="line">|</span>面试题</span>
+        <div class="answerSheetTop">
+          <iep-button class="choices" v-for="(item, idx) in resdata.faceUsers" :key="idx">{{item}}</iep-button>
+        </div><br>
       </div>
     </div>
 
-    <div class="container" v-if="resdata.writeUsers">
-      <div class="title">
-        <p class="line"></p>
-        <p>简答题</p>
-        <!-- <span style="margin-left: 50px;"><span style="color:#409eff">{{resdata.done}}</span>/<span>{{resdata.all}}</span></p> -->
-      </div>
-      <div class="details-fu">
-        <div class="details" v-for="(item, idx) in resdata.writeUsers" :key="idx">
-          <el-button size="mini" type="info" plain>{{item}}</el-button>
-        </div>
+    <div class="card">
+      <div v-if="resdata.operateUsers">
+        <span class="answerSheet"><span class="line">|</span>简答题</span>
+        <div class="answerSheetTop">
+          <iep-button class="choices" v-for="(item, idx) in resdata.writeUsers" :key="idx">{{item}}</iep-button>
+        </div><br>
       </div>
     </div>
 
-    <div class="container" v-if="resdata.operateUsers">
-      <div class="title">
-        <p class="line"></p>
-        <p>实操题</p>
-        <!-- <p style="margin-left: 50px;"><span style="color:#409eff">{{resdata.done}}</span>/<span>{{resdata.all}}</span></p> -->
-        <P style="margin-left: 50px;">
-          <el-switch class="switch-switch" v-model="switchValue" active-text="多选1模式" active-color="#409eff"> </el-switch>
-        </P>
-      </div>
-      <div class="details-fu">
-        <div class="details" v-for="(item, idx) in resdata.operateUsers" :key="idx">
-          <el-button size="mini" type="info" plain>{{item}}</el-button>
-        </div>
+    <div class="card">
+      <div v-if="resdata.operateUsers">
+        <span class="answerSheet"><span class="line">|</span>实操题</span>
+        <div class="answerSheetTop">
+          <iep-button class="choices" v-for="(item, idx) in resdata.operateUsers" :key="idx">{{item}}</iep-button>
+        </div><br>
       </div>
     </div>
 
@@ -211,7 +196,7 @@ export default {
   display: flex;
   .tip {
     margin-top: -8px;
-    margin-left: 250px;
+    margin-left: 50px;
     border: 0px solid #fff;
     &:hover {
       background-color: #fff;
@@ -221,28 +206,33 @@ export default {
     margin-top: -7px;
   }
 }
-.container {
-  margin-top: 10px;
-  margin-bottom: 40px;
-  .title {
-    display: flex;
+.card {
+  text-align: left;
+  padding: 10px 18px 0;
+  .answerSheet {
+    font-size: 18px;
+    color: #595959;
     .line {
-      height: 26px;
-      width: 4px;
-      background-color: #409eff;
-      margin-right: 10px;
-    }
-  }
-  .details-fu {
-    display: flex;
-    .details {
+      color: #409eff;
+      font-size: 19px;
       margin-right: 5px;
     }
+  }
+  .answerSheetTop {
+    padding-top: 6px;
+  }
+  .choices + .choices {
+    margin: 2px;
+  }
+  .choices {
+    width: 65px;
+    margin-right: 3px;
+    background-color: #f4f4f5;
   }
 }
 .bottom {
   padding-top: 20px !important;
-  margin-left: 200px;
+  margin-left: 55px;
   .button {
     color: #fff;
     background-color: #ba1b21;

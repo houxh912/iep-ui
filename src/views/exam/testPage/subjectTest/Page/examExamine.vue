@@ -36,7 +36,10 @@
             </el-table-column>
             <el-table-column label="卷面总分" align="center">
               <template slot-scope="scope">
-                <span v-if="scope.$index!=2">{{parseFloat(scope.row.radio)+parseFloat(scope.row.checkbox)+parseFloat(scope.row.checked)+parseFloat(scope.row.text)}}</span>
+                <span v-if="scope.$index!=2">{{parseFloat(scope.row.radio!== '/'? scope.row.radio
+                  :0)+parseFloat(scope.row.checkbox !==
+                  '/'?scope.row.checkbox:0)+parseFloat(scope.row.checked!==
+                  '/'?scope.row.checked:0)+parseFloat(scope.row.text!== '/'?scope.row.text:0)}}</span>
                 <span v-else>/</span>
               </template>
             </el-table-column>

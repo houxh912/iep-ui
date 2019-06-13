@@ -53,6 +53,9 @@ export default {
   height: 351px;
 }
 .notice >>> .assort .piece {
+  margin-left: -8px;
   padding-right: 40px;
+  height: 38px;
+  line-height: 38px;
 }
 </style>

@@ -127,7 +127,9 @@ export default {
   display: flex;
   justify-content: space-between;
   span {
-    display: inline-block;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     padding-left: 20px;
     width: 45%;
     background-color: #f2f2f2;

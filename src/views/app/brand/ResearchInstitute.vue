@@ -1,30 +1,44 @@
 <template>
-  <IepAppTabCard :title="title" :linkName="linkName">
-      <el-button style="float: right; padding: 5px 0;" type="text" slot="right">我要发表</el-button>
+  <div class="research">
+    <IepAppTabCard :title="title" :linkName="linkName">
+      <el-button class="btn" type="text" slot="right">我要发表</el-button>
       <IepAppListCard :dataList="dataList"></IepAppListCard>
-  </IepAppTabCard>
+    </IepAppTabCard>
+  </div>
 </template>
 <script>
 export default {
   data () {
     return {
-      title:'国脉研究院',
-      linkName:'',
-      dataList: ['数据治理研究院（16篇）', '智慧城市研究中心（12篇）', '数据治理研究院（16篇）', '智慧城市研究中心（12篇）', '数据治理研究院（16篇）','营商环境评价中心（8篇）', '数字经济研究所（11篇）', '最多跑一次研究改革中心（3篇）'],
+      title: '国脉研究院',
+      linkName: '',
+      dataList: ['数据治理研究院（16篇）', '智慧城市研究中心（12篇）', '数据治理研究院（16篇）', '智慧城市研究中心（12篇）', '数据治理研究院（16篇）', '营商环境评价中心（8篇）', '数字经济研究所（11篇）', '最多跑一次研究改革中心（3篇）'],
     }
   },
 }
 </script>
 <style lang='scss' scoped>
+.btn {
+  margin-right: 5px;
+  padding: 0;
+  height: 22px;
+  line-height: 22px;
+}
 </style>
 <style scoped>
 .index-card >>> .el-card__header {
   padding: 13px 0;
 }
-.index-card >>> .el-card__body{
+.index-card >>> .el-card__body {
   padding: 16px 0 2px;
 }
-.el-card{
+.el-card {
   padding: 0 20px;
+}
+.research >>> .el-card__header {
+  padding: 18px 0 9px;
+}
+.research >>> .el-card {
+  height: 312px;
 }
 </style>

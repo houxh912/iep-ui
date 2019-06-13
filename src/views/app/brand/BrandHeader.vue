@@ -37,3 +37,16 @@ export default {
   background-color: #d3dce6;
 }
 </style>
+<style scoped>
+.block >>> .el-carousel__button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid #c73e3e;
+}
+.block >>> .el-carousel__indicator.is-active button {
+  border-radius: 20px;
+  width: 30px;
+  background-color: #c73e3e;
+}
+</style>

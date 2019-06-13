@@ -33,7 +33,8 @@ export default {
   color: #ba1b21;
 }
 .iep-tabs >>> .el-tabs__item {
-  font-size: 17px;
-  height: 44px;
+  font-size: 16px;
+  height: 22px;
+  line-height: 22px;
 }
 </style>

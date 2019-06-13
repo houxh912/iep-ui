@@ -4,8 +4,8 @@
       <page-header title="试题库管理" :data="[10, 5]"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增试题</iep-button>
-          <iep-button @click="handleDeleteAll">批量删除</iep-button>
+          <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain v-if="exam_question_add">新增试题</iep-button>
+          <iep-button @click="handleDeleteAll" v-if="exam_question_del">批量删除</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="title">
@@ -14,9 +14,7 @@
         </template>
       </operation-container>
       <div class="table">
-        <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
-          @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectChange"
-          is-mutiple-selection>
+        <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectChange" is-mutiple-selection>
           <el-table-column prop="title" label="题目" min-width="100" sortable>
             <template slot-scope="scope">
               {{scope.row.title}}
@@ -76,12 +74,12 @@
           <el-table-column prop="operation" label="操作" width="130">
             <template slot-scope="scope">
               <operation-wrapper>
-                <iep-button type="warning" :disabled="!scope.row.status == 0" plain @click="handleExamine(scope.row)">审核</iep-button>
+                <iep-button type="warning" :disabled="scope.row.status != 0" plain @click="handleExamine(scope.row)" v-if="exam_question_review">审核</iep-button>
                 <el-dropdown size="medium">
                   <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item :disabled="!scope.row.status == 0" @click.native="handleModify(scope.row)">修改</el-dropdown-item>
-                    <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
+                    <el-dropdown-item @click.native="handleModify(scope.row)" v-if="exam_question_edit && scope.row.status != 1">修改</el-dropdown-item>
+                    <el-dropdown-item @click.native="handleDelete(scope.row)" v-if="exam_question_del">删除</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
               </operation-wrapper>
@@ -92,15 +90,13 @@
 
     </basic-container>
 
-    <iep-dialog :dialog-show="dialogExamine" title="审核" width="520px" @close="handleExamineCancel"
-      center>
+    <iep-dialog :dialog-show="dialogExamine" title="审核" width="520px" @close="handleExamineCancel" center>
       <div style="text-align: center;">
         <el-radio-group v-model="states">
           <el-radio :label="0">审核通过</el-radio>
           <el-radio :label="1">审核不通过</el-radio>
         </el-radio-group>
-        <el-input v-if="states === 1" v-model="content" type="textarea" maxlength="1000" rows="4"
-          style="margin-top:25px;" placeholder="请输入理由，字数不超过 1000 ！">
+        <el-input v-if="states === 1" v-model="content" type="textarea" maxlength="1000" rows="4" style="margin-top:25px;" placeholder="请输入理由，字数不超过 1000 ！">
         </el-input>
       </div>
       <template slot="footer">
@@ -111,38 +107,32 @@
       </template>
     </iep-dialog>
 
-    <iep-dialog :dialog-show="dialogModify" title="修改试题" width="500px" @close="handleModifyCancel"
-      center>
+    <iep-dialog :dialog-show="dialogModify" title="修改试题" width="500px" @close="handleModifyCancel" center>
       <el-form :label-position="labelPosition" label-width="100px" :model="reForm">
         <div class="select">
           <el-form-item style="padding-right: 25px;" label="科目：" prop="field">
             <el-select class="select" v-model="reForm.field" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
-                :value="item.id"></el-option>
+              <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="题型：" prop="questionType">
             <el-select v-model="reForm.questionType" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label"
-                :value="item.id"></el-option>
+              <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="题类：" prop="kind">
             <el-select v-model="reForm.kind" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label"
-                :value="item.id"></el-option>
+              <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="难度：" prop="difficulty">
             <el-select v-model="reForm.difficulty" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label"
-                :value="item.id"></el-option>
+              <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="关联：" prop="associatedState">
             <el-select v-model="reForm.associatedState" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label"
-                :value="item.id"></el-option>
+              <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="内容：" prop="title">
@@ -166,13 +156,16 @@
 
 <script>
 import AdvanceSearch from './AdvanceSearch'
-import { getTestList,deleteApprovalById,getTestOption,postExaminePass,postExamineFalse,postModify } from '@/api/exam/createExam/newTest/newTest'
+import { getTestList, deleteApprovalById, getTestOption, postExaminePass, postExamineFalse, postModify } from '@/api/exam/createExam/newTest/newTest'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import mixins from '@/mixins/mixins'
-
+import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
   components: { AdvanceSearch, MutiplyTagSelect },
+  computed: {
+    ...mapGetters(['permissions']),
+  },
   data () {
     return {
       examine: {},//审核
@@ -199,11 +192,19 @@ export default {
         { id: 0, label: '不限' },
         { id: 1, label: '限考试' },
       ],
+      exam_question_add: false,
+      exam_question_edit: false,
+      exam_question_del: false,
+      exam_question_review: false,
     }
   },
   created () {
     this.loadPage()
     this.getTestOption()
+    this.exam_question_add = this.permissions['exam_question_add']
+    this.exam_question_edit = this.permissions['exam_question_edit']
+    this.exam_question_del = this.permissions['exam_question_del']
+    this.exam_question_review = this.permissions['exam_question_review']
   },
   methods: {
     /**
@@ -232,9 +233,10 @@ export default {
      */
     handleAdd () {
       // this.$router.push('/exam/createExam/newTest/')
-      this.$emit('onEdit',{
+      this.$emit('onEdit', {
         methodName: '创建新',
         id: '',
+        edit: false,
       })
     },
     /**
@@ -247,10 +249,11 @@ export default {
     /**
      * 修改按钮
      */
-    handleModify (rows){
-      this.$emit('onEdit',{
+    handleModify (rows) {
+      this.$emit('onEdit', {
         methodName: '修改',
         id: rows.id,
+        edit: false,
       })
       // this.dialogModify = true
       // const param ={

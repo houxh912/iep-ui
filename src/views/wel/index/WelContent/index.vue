@@ -66,8 +66,7 @@ export default {
 }
 </style>
 <style scoped>
-.wel-content >>> .name,
-.wel-content >>> .title {
+.wel-content >>> .name{
   margin-right: 10px;
 }
 </style>

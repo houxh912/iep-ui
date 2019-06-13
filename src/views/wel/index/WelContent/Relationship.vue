@@ -68,7 +68,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .left{
+    .left {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -80,6 +80,7 @@ export default {
     }
   }
   .title {
+    margin-right: 10px;
     font-size: 14px;
     cursor: pointer;
     color: #666;

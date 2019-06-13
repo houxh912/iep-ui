@@ -4,8 +4,8 @@
       <page-header title="考试库管理"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd">新增</iep-button>
-          <iep-button size="small" @click="handleDeleteAll">批量删除</iep-button>
+          <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd" v-if="permissionAll">新增</iep-button>
+          <iep-button size="small" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button>
           <!-- <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -72,17 +72,17 @@
         <el-table-column prop="operation" label="操作" min-width="140">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)" v-if="permissionAll">编辑</iep-button>
               <iep-button size="small" @click="handleDetail(scope.row)">查看</iep-button>
-              <el-dropdown size="medium">
+              <el-dropdown size="medium" v-if="permissionReading(scope.row) || permissionRegist(scope.row) || permissionAll">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleOpen(scope.row)" v-if="scope.row.state === 1">启用</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleForbid(scope.row)" v-if="scope.row.state === 0">禁用</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleOpen(scope.row)" v-if="scope.row.state === 1 && permissionAll">启用</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleForbid(scope.row)" v-if="scope.row.state === 0 && permissionAll">禁用</el-dropdown-item>
                   <el-dropdown-item @click.native="handleManage(scope.row, 'ExamRegistration')"
-                    v-if="permission_edit">报名管理</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamPaper')" v-if="permission_edit">考卷管理</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamReading')" v-if="permission_edit">阅卷管理</el-dropdown-item>
+                    v-if="permissionRegist(scope.row) || permissionAll">报名管理</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamPaper')" v-if="permissionRegist(scope.row) || permissionAll">考卷管理</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamReading')" v-if="permissionReading(scope.row) || permissionAll">阅卷管理</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
@@ -127,12 +127,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
 import { getExamInationList, postExamForbidById, postExamPassById, deleteById } from '@/api/exam/examLibrary/examInation/examInation'
-// import { getTableData } from '@/api/mlms/material/datum/material'
-// import { putCustomer, deleteCustomerBatch } from '@/api/crms/customer'
-// import { getWealthFlowPage } from '@/api/fams/wealth_flow'
-// import { getExamPage } from '@/api/exam/review'
 
 export default {
   mixins: [mixins],
@@ -154,19 +151,40 @@ export default {
         beginTime: '',
         endTime: '',
       },
+      permissionAll: false,
+      permissionView: false,
     }
   },
   created () {
     this.loadPage()
     this.setPermission()
   },
+  computed: {
+    ...mapGetters(['userInfo', 'permissions']),
+  },
   methods: {
+    setPermission () {
+      this.permissionAll = this.permissions['exam_library_all']
+      this.permissionView = this.permissions['exam_library_view']
+    },
+    /**
+     * 报名、考卷权限设置
+     */
+    permissionRegist (row) {
+      // return true
+      const { operateUsersArray } = row.iepExaminationOperateVO
+      return operateUsersArray.map(Number).includes(this.userInfo.userId) && this.permissionView
+    },
+    /**
+     * 阅卷权限
+     */
+    permissionReading (row) {
+      // return true
+      const { writeUsedWriteUsedArray, faceUserIdsArray } = row.iepExaminationOperateVO
+      return (writeUsedWriteUsedArray.map(Number).includes(this.userInfo.userId) || faceUserIdsArray.map(Number).includes(this.userInfo.userId)) && this.permissionView
+    },
     loadPage (param) {
       this.loadTable(param, getExamInationList)
-    },
-    setPermission () {
-      // this.permission_edit = this.permissions['mlms_datum_edit']
-      this.permission_edit = true
     },
     /**
      * 选择试题

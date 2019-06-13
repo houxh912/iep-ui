@@ -36,7 +36,7 @@ import { getList, deleteData } from '@/api/evaluate/question'
 import mainDialog from './mainDialog'
 import previewDialog from './previewDialog'
 import statisticsDialog from './statisticsDialog'
-import { fetchList } from '@/api/admin/user'
+import { getUserList } from '@/api/admin/contacts'
 import { release, getDetail, getRePercent } from '@/api/evaluate/question'
 export default {
   components: { mainDialog, previewDialog, statisticsDialog },
@@ -52,17 +52,15 @@ export default {
   methods: {
     initApi () {
       this.getList()
-      fetchList({ //获取用户dic
-        size: 9999,
-        current: 1,
-      }).then(({ data }) => {
-        let dic = data.data.records.map(item => {
+      getUserList().then(({ data }) => {
+        let dic = data.data.map(item => {
           return {
-            value: item.userId,
-            label: item.username,
+            value: item.id,
+            label: item.name,
           }
         })
         this.createByDic = dic
+        console.log(this.createByDic)
       })
       this.projectIdDic = []
     },

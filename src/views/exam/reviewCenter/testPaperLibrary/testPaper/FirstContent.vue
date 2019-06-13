@@ -76,6 +76,7 @@ export default {
     getTestPaper (id) {
       getTestPaperById({ id: id }).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data[0])
+        this.form.field = (data.data[0].field)
       })
     },
 

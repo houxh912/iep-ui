@@ -1,8 +1,10 @@
 <template>
-  <IepAppTabCard :title="title" :linkName="linkName">
-    <div slot="right" v-for="(item,index) in selectList" :key="index" class="piece-tab" :class="showClass==index?'color':''" @click="tab(index)">{{item}}</div>
-    <IepAppListCard :dataList="dataList"></IepAppListCard>
-  </IepAppTabCard>
+  <div class="brand">
+    <IepAppTabCard :title="title" :linkName="linkName">
+      <div slot="right" v-for="(item,index) in selectList" :key="index" class="piece-tab" :class="showClass==index?'color':''" @click="tab(index)">{{item}}</div>
+      <IepAppListCard :dataList="dataList"></IepAppListCard>
+    </IepAppTabCard>
+  </div>
 </template>
 <script>
 export default {
@@ -34,7 +36,9 @@ export default {
 <style lang='scss' scoped>
 .piece-tab {
   float: right;
-  padding: 2px 10px;
+  padding: 0 10px;
+  height: 22px;
+  line-height: 22px;
   border-radius: 12px;
   border: 1px solid #ffffff;
   margin: 0 10px;

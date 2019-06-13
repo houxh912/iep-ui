@@ -9,7 +9,7 @@
       <iep-no-data v-if="!technologyList.length"></iep-no-data>
       <div class="new-tehnology-content">
         <div v-for="(item,index) in technologyList" :key="index" class="piece" @click="handleOpen(item)">
-          <iep-img :src="item.imageUrl" alt=""></iep-img>
+          <iep-img class="img" :src="item.imageUrl" alt=""></iep-img>
           <div class="text">
             <span>{{item.name}}</span>
             <span class="introduction">{{item.synopsis}}</span>
@@ -101,7 +101,7 @@ export default {
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      .iep-img {
+      .img {
         float: left;
         width: 50px;
         height: 50px;

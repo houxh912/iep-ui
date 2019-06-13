@@ -1,6 +1,6 @@
 <template>
   <el-card class="index-card" shadow="never">
-    <div slot="header" class="clearfix">
+    <div slot="header" class="title-con clearfix">
       <span class="title">{{title}}<span class="datas">{{data}}</span><i class="iconfont icon-wenhao" v-if="icon"></i></span>
       <slot name="statistics"></slot>
       <el-button class="btn" type="text" v-if="isMore" @click="getMore">更多></el-button>
@@ -49,14 +49,23 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.title-con {
+  display: flex;
+  justify-content: space-between;
+}
 .title {
+  flex: 2;
   font-size: 16px;
   color: #303133;
   margin: 0 4px;
+  height: 22px;
+  line-height: 22px;
 }
 .btn {
-  float: right;
-  padding: 5px 0;
+  margin-right: 5px;
+  padding: 0;
+  height: 22px;
+  line-height: 22px;
   color: #999;
 }
 .datas {
@@ -72,7 +81,7 @@ export default {
 </style>
 <style scoped>
 .index-card >>> .el-card__header {
-  padding: 18px 0 10px;
+  padding: 18px 0 9px;
 }
 .index-card >>> .el-card__body {
   padding: 16px 0;

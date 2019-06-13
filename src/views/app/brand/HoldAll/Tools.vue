@@ -1,18 +1,18 @@
 <template>
   <div class="new-tehnology">
-      <div class="new-tehnology-tab">
-        分类：
-        <div v-for="(item,index) in newTehnologyTab" :key="index" class="piece-tab" :class="showClass==index?'color':''" @click="tab(index)">{{item}}</div>
-      </div>
-      <div class="new-tehnology-content">
-        <div v-for="(item,index) in newTehnologyContent" :key="index" class="piece">
-          <iep-img class="img" :src="item.img" alt=""></iep-img>
-          <div class="text">
-            <span>{{item.name}}</span>
-            <span class="introduction">{{item.introduction}}</span>
-          </div>
+    <div class="new-tehnology-tab">
+      分类：
+      <div v-for="(item,index) in newTehnologyTab" :key="index" class="piece-tab" :class="showClass==index?'color':''" @click="tab(index)">{{item}}</div>
+    </div>
+    <div class="new-tehnology-content">
+      <div v-for="(item,index) in newTehnologyContent" :key="index" class="piece">
+        <iep-img class="img" :src="item.img" alt=""></iep-img>
+        <div class="text">
+          <span>{{item.name}}</span>
+          <span class="introduction">{{item.introduction}}</span>
         </div>
       </div>
+    </div>
   </div>
 </template>
 <script>
@@ -47,7 +47,7 @@ export default {
   .new-tehnology-tab {
     width: 100%;
     height: 40px;
-    line-height:26px;
+    line-height: 26px;
     .piece-tab {
       display: inline;
       padding: 2px 10px;
@@ -75,7 +75,7 @@ export default {
     grid-template-columns: 1fr 1fr;
     .piece {
       cursor: pointer;
-      img {
+      .img {
         float: left;
         width: 50px;
         height: 50px;

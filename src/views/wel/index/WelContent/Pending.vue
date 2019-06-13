@@ -1,7 +1,6 @@
 <template>
   <div class="about-task">
     <div class="task-nav">
-      <span class="navTitle">我的待办</span>
       <nav-tab :nav-list="dataList" @tab="tab"></nav-tab>
     </div>
     <nav-content :contentData="contentData" @on-detail="handleDetail"></nav-content>
@@ -84,11 +83,6 @@ export default {
   .task-nav {
     display: flex;
     align-items: center;
-    .navTitle {
-      font-size: 16px;
-      padding-right: 20px;
-      color: #000;
-    }
   }
   .title {
     font-size: 14px;

@@ -4,7 +4,9 @@
       <el-button class="charge" type="text" slot="right">我要发表</el-button>
       <div class="thoughtsList">
         <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
-          <div class="img-con"><iep-img :src="item.img" class="img"></iep-img></div>
+          <div class="img-con">
+            <iep-img :src="item.img" class="img"></iep-img>
+          </div>
           <div class="box">
             <div class="pieceTitle">
               <span class="name">{{item.name}}</span>
@@ -42,6 +44,7 @@ export default {
   color: #999;
 }
 .thoughtsList {
+  margin-top: 10px;
   .piece {
     display: flex;
     justify-content: flex-start;
@@ -99,8 +102,10 @@ export default {
 </style>
 <style scoped>
 .thoughts >>> .el-button {
-  float: right;
-  padding: 5px 0;
+  margin-right: 5px;
+  height: 22px;
+  line-height: 22px;
+  padding: 0;
   color: #cb3737;
 }
 .thoughts >>> .el-button :hover {
@@ -108,6 +113,6 @@ export default {
 }
 
 .thoughts >>> .el-card {
-  height: 329px;
+  height: 324px;
 }
 </style>

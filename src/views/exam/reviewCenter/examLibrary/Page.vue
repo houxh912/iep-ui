@@ -88,9 +88,6 @@ export default {
     permissionReading () {
       // 阅卷权限
       const { writeUsedWriteUsedArray, faceUserIdsArray } = this.record.row.iepExaminationOperateVO
-      // return writeUsedWriteUsedArray.map(Number).includes(this.userInfo.userId) && this.permissionView
-
-      // const { writeUsedWriteUsedArray, faceUserIdsArray } = row.iepExaminationOperateVO
       return (writeUsedWriteUsedArray.map(Number).includes(this.userInfo.userId) || faceUserIdsArray.map(Number).includes(this.userInfo.userId)) && this.permissionView
     },
     list () {

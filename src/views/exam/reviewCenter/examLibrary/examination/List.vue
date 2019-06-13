@@ -171,7 +171,6 @@ export default {
      * 报名、考卷权限设置
      */
     permissionRegist (row) {
-      // return true
       const { operateUsersArray } = row.iepExaminationOperateVO
       return operateUsersArray.map(Number).includes(this.userInfo.userId) && this.permissionView
     },
@@ -179,7 +178,6 @@ export default {
      * 阅卷权限
      */
     permissionReading (row) {
-      // return true
       const { writeUsedWriteUsedArray, faceUserIdsArray } = row.iepExaminationOperateVO
       return (writeUsedWriteUsedArray.map(Number).includes(this.userInfo.userId) || faceUserIdsArray.map(Number).includes(this.userInfo.userId)) && this.permissionView
     },

@@ -9,10 +9,10 @@
           <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
         </IepAppTabCard>
         <IepAppTabCard :title="listTitle">
-          <IepAppListCard :dataList="listList" name="projectName"></IepAppListCard>
+          <IepAppListCard :dataList="listList" name="projectName" @click="handleDetail"></IepAppListCard>
         </IepAppTabCard>
         <IepAppTabCard :title="rankingTitle">
-          <IepAppRankingCard :dataList="dataList" name="projectName"></IepAppRankingCard>
+          <IepAppRankingCard :dataList="dataList" name="projectName" @click="handleDetail"></IepAppRankingCard>
         </IepAppTabCard>
       </div>
     </div>
@@ -56,6 +56,9 @@ export default {
       getRectagsList().then(({data}) => {
         this.labelList = data.data
       })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/business/business_detail/${row.opportunityId}`)
     },
   },
   created () {

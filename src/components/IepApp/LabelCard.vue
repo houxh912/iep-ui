@@ -1,6 +1,6 @@
 <template>
   <div class="label">
-    <div v-for="(item,index) in dataList" :key="index" class="piece">
+    <div v-for="(item,index) in dataList" :key="index" class="piece" @click="handleDetail(item)">
       {{typeof item === 'object' ? item[name] : item}}
     </div>
   </div>
@@ -17,6 +17,12 @@ export default {
     name: {
       type: String,
       default: 'name',
+    },
+  },
+  methods: {
+    handleDetail (row) {
+      let val = typeof row === 'object' ? row.name : row
+      this.$openTagDetail(val)
     },
   },
 }

@@ -210,7 +210,10 @@ export default {
               display: flex;
               .comment-avatar {
                 margin-right: 20px;
-                .img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                img {
                   width: 30px;
                   height: 30px;
                   border-radius: 50%;
@@ -298,9 +301,12 @@ export default {
   .library {
     .items {
       .avatar {
-        .img {
-          width: 80px;
-          height: 80px;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        img {
+          width: 70px;
+          height: 70px;
           border-radius: 50%;
         }
       }

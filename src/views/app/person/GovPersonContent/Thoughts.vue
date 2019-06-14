@@ -227,11 +227,14 @@ export default {
 .mutual-card >>> .el-card__body {
   display: flex;
   align-items: center;
-  height: 125px;
+  height: 128px;
   overflow: hidden;
 }
 .thoughts >>> .title {
   height: 22px;
   line-height: 22px;
+}
+.thoughts >>> .el-card__body {
+  height: 166px;
 }
 </style>

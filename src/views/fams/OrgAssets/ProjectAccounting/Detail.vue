@@ -11,7 +11,8 @@
         <div class="info">
           <div class="info-item">
             <label>创建人：</label>
-            <div class="content">{{form.publisher}}</div>
+            <div class="content">{{form.publisherList}}</div>
+            <!-- <iep-div-detail style="height:40px;line-height:40px;" :value="form.publisherList.name"></iep-div-detail> -->
           </div>
           <div class="info-item">
             <label>项目编号：</label>

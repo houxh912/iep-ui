@@ -18,7 +18,7 @@ export default {
           id: '1',
           name: '国脉同学',
           prop: 'userCount',
-          router: '',
+          router: '/app/resource/expert',
         },
         {
           id: '2',

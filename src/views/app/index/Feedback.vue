@@ -1,7 +1,7 @@
 <template>
   <div class="feedback">
     <IepAppTabCard :title="title" :linkName="linkName">
-      <el-button class="btn" type="text" slot="right">我要发表</el-button>
+      <el-button class="btn" type="text" slot="right" @click="handleSubmit">我要发表</el-button>
       <div class="feedback-list">
         <div v-for="(item,index) in feedbackList" :key="index" class="piece">
           <iep-img :src="item.avatar" class="photo"></iep-img>
@@ -34,6 +34,9 @@ export default {
       getProposeList().then(({ data }) => {
         this.feedbackList = data.data
       })
+    },
+    handleSubmit () {
+      this.$router.push('/hrms_spa/suggestion_new')
     },
   },
   created () {

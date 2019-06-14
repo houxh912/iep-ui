@@ -19,11 +19,11 @@
           </div>
           <div class="info-item">
             <label>项目经理：</label>
-            <div class="content">{{form.projectManagerList.name}}</div>
+            <iep-div-detail style="height:40px;line-height:40px;" :value="form.projectManagerList.name"></iep-div-detail>
           </div>
           <div class="info-item">
             <label>市场经理：</label>
-            <div class="content">{{form.mktManagerList.name}}</div>
+            <iep-div-detail style="height:40px;line-height:40px;" :value="form.mktManagerList.name"></iep-div-detail>
           </div>
           <div class="info-item">
             <label>立项时间：</label>
@@ -55,18 +55,20 @@
 <script>
 import { getProjectInformationById } from '@/api/fams/statistics'
 import Accounting from './Accounting/'
+import { initForm } from './options'
 // import Budget from './Budget/'
+import mixins from '@/mixins/mixins'
 import Cost from './Cost/'
 import Payback from './Payback/'
 export default {
   components: { Accounting, Cost, Payback },
+  mixins: [mixins],
   data () {
     return {
       backOption: {
         isBack: true,
       },
-      //form: initForm(),
-      form: { projectImplementation: '585.00', name: '项目名称', number: '101222', projectManager: 'xxx', marketingNumber: 'xxx', projectTime: '2019-04-01', endTime: '2019-06-30' },
+      form: initForm(),
       tabList: [{
         label: '项目核算表',
         value: 'Accounting',
@@ -96,7 +98,7 @@ export default {
       if (this.id) {
         this.isLoadTable = true
         getProjectInformationById(this.id).then(({ data }) => {
-          this.form = data.data
+          this.form = this.$mergeByFirst(initForm(), data.data)
           this.isLoadTable = false
         })
       }

@@ -130,7 +130,7 @@ export default {
     },
     // 删除
     handleDelete (row) {
-      this.$confirm(this.IS_DELETE).then(() => {
+      this.$confirm('是否删除').then(() => {
         deleteData(row.id).then(() => {
           this.queryData = []
           this.$message.success('删除成功！')

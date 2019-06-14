@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <iep-dialog :dialog-show="dialogShow" title="字典子项" width="700" @close="close">
     <iep-button type="primary" icon="el-icon-plus" style="margin-bottom: 10px;" @click="handleEdit()">添 加</iep-button>
     <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagedTable="pagedTable" :is-pagination="false" is-tree>
       <el-table-column label="操作">
@@ -11,7 +11,7 @@
       </el-table-column>
     </iep-table>
     <child-dialog-form ref="ChildDialogForm" @load-page="loadPage"></child-dialog-form>
-  </div>
+  </iep-dialog>
 </template>
 <script>
 import { _initRow } from './options'
@@ -19,14 +19,9 @@ import { getChild, deleteChildById } from '@/api/admin/dict'
 import ChildDialogForm from './ChildDialogForm'
 export default {
   components: { ChildDialogForm },
-  props: {
-    currentId: {
-      type: Number,
-      required: true,
-    },
-  },
   data () {
     return {
+      id: 1,
       methodName: '添加',
       dialogShow: false,
       pagedTable: [],
@@ -51,19 +46,21 @@ export default {
         },
       ],
       isLoadTable: false,
-      id: this.currentId,
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
+    close () {
+      this.pagedTable = []
+      this.dialogShow = false
+    },
     loadPage () {
       this.isLoadTable = true
       getChild(this.id).then(({ data }) => {
         this.pagedTable = data.data
         this.isLoadTable = false
-        this.dialogShow = false
       })
     },
     handleEdit (row, index, isChild) {

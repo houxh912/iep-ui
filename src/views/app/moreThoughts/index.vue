@@ -210,7 +210,10 @@ export default {
               display: flex;
               .comment-avatar {
                 margin-right: 20px;
-                .img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                img {
                   width: 30px;
                   height: 30px;
                   border-radius: 50%;
@@ -281,10 +284,19 @@ export default {
         .footer {
           margin-top: 20px;
           display: flex;
+          justify-content: flex-start;
+          align-items: center;
           font-size: 14px;
           .button {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
             margin-right: 20px;
+            height: 20px;
             cursor: pointer;
+            i {
+              margin-right: 5px;
+            }
           }
         }
       }
@@ -298,9 +310,12 @@ export default {
   .library {
     .items {
       .avatar {
-        .img {
-          width: 80px;
-          height: 80px;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        img {
+          width: 70px;
+          height: 70px;
           border-radius: 50%;
         }
       }

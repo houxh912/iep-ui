@@ -1,7 +1,8 @@
 <template>
   <div class="librarys-content">
     <div v-for="(item,index) in dataList" :key="index" class="piece">
-      <div style="cursor: pointer;" @click="handleOpen(item)">
+      <a-skeleton :loading="loading" active />
+      <div v-if="!loading" style="cursor: pointer;" @click="handleOpen(item)">
         <div class="title">
           <h4 class="name">{{item.orgName}}</h4>
         </div>
@@ -19,11 +20,23 @@
 </template>
 <script>
 import { getInvestmentPage } from '@/api/fams/investment'
-
+function initDataItem () {
+  return {
+    orgName: '',
+    targetAmount: '',
+    investmentNumber: '',
+    createTime: '',
+  }
+}
 export default {
   data () {
+    const dataList = []
+    for (let i = 0; i < 10; i++) {
+      dataList.push(initDataItem())
+    }
     return {
-      dataList: [],
+      loading: true,
+      dataList,
       secondClass: '',
       paramForm: {},
       total: 0,
@@ -45,9 +58,11 @@ export default {
       })
     },
     loadPage () {
+      this.loading = true
       getInvestmentPage(Object.assign({}, this.paramForm, this.params)).then(({ data }) => {
         this.dataList = data.data.records
         this.total = data.data.total
+        this.loading = false
       })
     },
     currentChange (val) {

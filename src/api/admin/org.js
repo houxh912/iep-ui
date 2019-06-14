@@ -1,5 +1,5 @@
 import request from '@/router/axios'
-
+// @/api/admin/org
 export function getOrgList (name) {
   return request({
     url: '/admin/org/list',

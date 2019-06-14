@@ -60,7 +60,6 @@ export default {
           }
         })
         this.createByDic = dic
-        console.log(this.createByDic)
       })
       this.projectIdDic = []
     },

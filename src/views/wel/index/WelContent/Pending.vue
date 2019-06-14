@@ -69,12 +69,12 @@ export default {
     },
     tab (val) {
       getPending(val).then(({ data }) => {
-        this.contentData = data.data.map(m => {
+        this.contentData = data ? data.data.map(m => {
           return {
             ...m,
             type: val,
           }
-        })
+        }) : []
       })
     },
   },

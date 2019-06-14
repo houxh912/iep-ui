@@ -49,7 +49,7 @@ import {
   updateData,
   getDetail,
 } from '@/api/evaluate/question'
-import { getOrgList } from '@/api/evaluate/org'
+import { getOrgList } from '@/api/admin/org'
 import { getIndexIds } from './const/utils'
 import { getGroupDept } from '@/api/evaluate/question'
 export default {

@@ -1,9 +1,12 @@
 <template>
   <div class="list">
-    <div v-for="(item,index) in dataList" :key="index" class="piece" @click="clicked(item)">
-      {{typeof item === 'object' ? item[name] : item}}
+    <div v-if="dataList.length !== 0">
+      <div v-for="(item,index) in dataList" :key="index" class="piece" @click="clicked(item)">
+        {{typeof item === 'object' ? item[name] : item}}
+      </div>
+      <slot></slot>
     </div>
-    <slot></slot>
+    <IepNoData v-else></IepNoData>
   </div>
 </template>
 <script>
@@ -22,7 +25,7 @@ export default {
   },
   methods: {
     clicked (item) {
-      this.$emit('clicked', item)
+      this.$emit('click', item)
     },
   },
 }

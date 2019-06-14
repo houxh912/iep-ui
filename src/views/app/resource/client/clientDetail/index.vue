@@ -8,24 +8,23 @@
       </div>
       <customer></customer>
     </div> -->
-    <customerDetail></customerDetail>
+    <customerDetail :formData="formData"></customerDetail>
     <div class="piece">
       <IepAppTabCard :title="labelTitle">
         <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
       </IepAppTabCard>
       <IepAppTabCard :title="listTitle1">
-        <IepAppListCard :dataList="listList1" name="clientName"></IepAppListCard>
+        <IepAppListCard :dataList="listList1" name="clientName" @click="weekClientDetail"></IepAppListCard>
       </IepAppTabCard>
       <IepAppTabCard :title="rankingTitle">
-        <IepAppRankingCard :dataList="dataList" name="clientName"></IepAppRankingCard>
+        <IepAppRankingCard :dataList="dataList" name="clientName" @click="coopClientDetail"></IepAppRankingCard>
       </IepAppTabCard>
     </div>
   </div>
 </template>
 <script>
-// import Customer from './Customer'
+import customerDetail from './Customer/'
 import { getCustomerById } from '@/api/crms/customer'
-import customerDetail from '@/views/crms/Customer/Page/Detail.vue'
 import { getRectagsList } from '@/api/app/tms/index'
 import { getNewClientList, getCoopClientList } from '@/api/app/crms/'
 
@@ -44,11 +43,20 @@ export default {
       labelList: [],
       listList1: [],
       dataList: [],
+      formData: {},
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.$nextTick(() => {
+      this.getCustomerById(this.$route.params.id)
+    })
+    next()
   },
   methods: {
     getCustomerById (id) {
-      getCustomerById(id).then(() => {})
+      getCustomerById(id).then(({ data }) => {
+        this.formData = data.data
+      })
     },
     // 推荐主题
     getRectagsList () {
@@ -72,11 +80,17 @@ export default {
         this.dataList = row
       })
     },
+    coopClientDetail (row) {
+      this.$router.push(`/app/resource/client/client_detail/${row.clientId}`)
+    },
     // 本周新增
     getNewClientList () {
       getNewClientList().then(({data}) => {
         this.listList1 = data.data
       })
+    },
+    weekClientDetail (row) {
+      this.$router.push(`/app/resource/client/client_detail/${row.clientId}`)
     },
   },
   created () {

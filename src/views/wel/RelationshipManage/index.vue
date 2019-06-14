@@ -20,7 +20,7 @@
                 <span>我的关系</span>
               </template>
               <el-menu-item index="601" class="menu-item" @click.native="handleSelectMaster()">
-                <span>我的师傅</span>
+                <span>我的师父</span>
               </el-menu-item>
               <el-menu-item index="602" class="menu-item" @click.native="handleSelectApprentice()">
                 <span>我的徒弟</span>

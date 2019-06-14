@@ -1,10 +1,10 @@
 <template>
   <div class="leader-top">
     <el-card v-for="item in itemList" :key="item.id" shadow="hover">
-      <span class="info" @click="handleClick(item)">
+      <span class="info" @click="handleClick(item)" :class="item.disabled ? '' : 'disabled'">
         <span class="sub-title">{{item.title}}</span><span class="time" :style="item.bgc">{{item.time}}</span>
       </span>
-      <span class="num" @click="handleClick(item)">{{countObj[item.num]}}</span>
+      <span class="num" @click="handleClick(item)" :class="item.disabled ? '' : 'disabled'">{{countObj[item.num]}}</span>
     </el-card>
     <router-view></router-view>
   </div>
@@ -103,6 +103,7 @@ export default {
   },
   methods: {
     handleClick (row) {
+      if (!row.disabled) return
       this.$router.push({
         path:`/wel/${row.routerPath}`,
         query:{name:row.name},
@@ -120,6 +121,9 @@ export default {
   grid-column-gap: 25px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   height: auto;
+  .disabled {
+    cursor: no-drop !important;
+  }
   .info,
   .num {
     display: block;

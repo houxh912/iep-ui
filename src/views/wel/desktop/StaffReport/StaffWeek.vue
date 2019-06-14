@@ -3,19 +3,13 @@
     <basic-container>
       <operation-container>
         <template slot="left">
-          <el-dropdown>
-            <iep-button plain>
-              舟山国脉海洋有限公司<i class="el-icon-arrow-down el-icon--right"></i>
-            </iep-button>
-            <el-dropdown-menu slot="dropdown">
-            </el-dropdown-menu>
-          </el-dropdown>
+          <iep-select v-show="isAbled" v-model="orgIds" autocomplete="off" prefix-url="admin/org/all" @change="listPage()" placeholder="所有"></iep-select>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage"></operation-search>
+          <operation-search @search-page="searchPage" prop="realName" placeholder="根据姓名进行搜索"></operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" isMutipleSelection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" is-mutiple-selection>
         <el-table-column prop="operation" label="操作" width="200">
           <template>
             <iep-button>查看</iep-button>
@@ -26,20 +20,58 @@
   </div>
 </template>
 <script>
+import {getTableData} from '@/api/mlms/leader_report/'
 import mixins from '@/mixins/mixins'
+import { mapGetters,mapState } from 'vuex'
 import {columnsMap} from './options'
 export default {
   mixins: [mixins],
   data () {
     return {
       columnsMap,
-      pagedTable:[
-        {title:'第二十一周日报，前台展示页',releaseTime:'2019-02-20',发布人:'王大锤',subordinateDepartments:'内网2.0小组'},
-        {title:'第二十一周日报，前台展示页',releaseTime:'2019-02-20',发布人:'王大锤',subordinateDepartments:'内网2.0小组'},
-        {title:'第二十一周日报，前台展示页',releaseTime:'2019-02-20',发布人:'王大锤',subordinateDepartments:'内网2.0小组'},
-        {title:'第二十一周日报，前台展示页',releaseTime:'2019-02-20',发布人:'王大锤',subordinateDepartments:'内网2.0小组'},
-      ],
+      orgIds:'',
+      realName: '',
     }
+  },
+  created () {
+    this.loadPage()
+    
+  },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'dictGroup',
+    ]),
+    ...mapState({
+      orgId: state => state.user.userInfo.orgIds,
+    }),
+    isAbled () {
+      return this.userInfo.userId === 1||this.userInfo.userId === 2||this.userInfo.userId === 3||this.userInfo.userId === 451
+    },
+  },
+  methods: {
+    loadPage (param = this.searchForm) {
+      this.loadTable({realName: this.realName,orgId: this.orgIds,reportType: 0,...param}, getTableData)
+    },
+    listPage () {
+      this.realName = ''
+      this.loadPage()
+    },
+    searchPage (val) {
+      if (val.realName == '') {
+        // this.$message.error('请输入搜索内容')
+        // return
+        this.loadPage()
+      }
+      this.realName = val.realName
+      this.loadPage()
+    },
   },
 }
 </script>

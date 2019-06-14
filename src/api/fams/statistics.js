@@ -107,3 +107,10 @@ export function getProjectDetailPageById (id, isIncome) {
     },
   })
 }
+
+export function getProjectInformationById (id) {
+  return request({
+    url: `prms/iepProjectInformation/${id}`,
+    method: 'get',
+  })
+}

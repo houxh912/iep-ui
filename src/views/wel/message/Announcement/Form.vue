@@ -32,7 +32,7 @@
 <script>
 import { getAnnouncementById, postAnnouncement, putAnnouncement } from '@/api/ims/announcement'
 import { initForm, formToDto, formToVo } from './options'
-
+import { checkContact } from '@/util/rules'
 export default {
   data () {
     return {
@@ -53,7 +53,7 @@ export default {
           { min: 3, max: 2000000, message: '内容必须超过 3 个字符，但不得超过 2000000 个字符', trigger: 'blur' },
         ],
         receivers: [
-          { required: true, message: '请选择发布范围', trigger: 'blur' },
+          { required: true, validator: checkContact('发布范围'), trigger: 'blur' },
         ],
       },
     }

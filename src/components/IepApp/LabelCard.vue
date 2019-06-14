@@ -21,11 +21,19 @@ export default {
       type: String,
       default: 'name',
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     handleDetail (row) {
-      let val = typeof row === 'object' ? row.name : row
-      this.$openTagDetail(val)
+      if (!this.disabled) {
+        let val = typeof row === 'object' ? row.name : row
+        this.$openTagDetail(val)
+      } else {
+        this.$emit('click', row)
+      }
     },
   },
 }

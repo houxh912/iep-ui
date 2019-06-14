@@ -34,7 +34,7 @@ export default {
         { icon: 'icon-peixun', name: '培训库', number: this.counts.countTraining, path: '/app/resource/training' },
         { icon: 'icon-shangjifaxian', name: '商机库', number: this.counts.countOpportunity, path: '/app/resource/business' },
         { icon: 'icon-hetongliebiao', name: '专家库', number: this.counts.countExpert, path: '/app/resource/expert' },
-        { icon: 'icon-dingwei', name: '招标库', number: '0', path: '/app/project' },
+        { icon: 'icon-dingwei', name: '项目库', number: '0', path: '/app/project' },
       ]
     },
   },

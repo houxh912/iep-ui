@@ -1,7 +1,7 @@
 <template>
   <div class="information">
     <a-spin :spinning="pageLoading">
-      <el-card class="box-card" shadow="hover" :body-style="bodyStyle">
+      <el-card class="box-card" shadow="never" :body-style="bodyStyle">
         <el-row>
           <el-col :span="4" class="dotted">
             <div class="left">
@@ -33,7 +33,7 @@
                   <i class="icon-qian icon padding"></i>
                   <span>完成每日工作，领国脉贝<i class="el-icon-d-arrow-right"></i></span>
                 </a>
-                <a class="inline change" @click="handleSome2()">
+                <a v-if="permissions.wel_leadership_desktop" class="inline change" @click="handleSome2()">
                   领导桌面
                 </a>
                 <div class="inline data">
@@ -102,6 +102,7 @@ export default {
   computed: {
     ...mapGetters([
       'userInfo',
+      'permissions',
     ]),
   },
   created () {

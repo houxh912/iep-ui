@@ -22,7 +22,7 @@
             <li @click="$openPage('/wel/wealth/billing_notice')">开票通知</li>
             <li @click="$openPage('/wel/wealth/withdraw')">我要提现</li>
             <li @click="handleReward()">我要打赏</li>
-            <li>我要投资</li>
+            <li @click="handleToReward()">我要投资</li>
           </ul>
         </el-card>
       </div>
@@ -30,7 +30,7 @@
         <el-card shadow="never">
           <operation-container>
             <template slot="left">
-              <page-header title="组织资产统计" :replaceText="replaceText" :data="['（此功能暂未开放）']"></page-header>
+              <page-header title="国脉贝财富统计" :replaceText="replaceText" :data="['（此功能暂未开放）']"></page-header>
             </template>
             <template slot="right">
               <div class="time">
@@ -114,6 +114,9 @@ export default {
     handleReward () {
       this.famsReward()
     },
+    handleToReward () {
+      this.$router.push('/app/wealth')
+    },
     async loadPage () {
       const { data } = await getTotal()
       this.financialData['国脉贝'] = data.data.govmadeBell
@@ -190,6 +193,13 @@ ul {
       justify-content: flex-start;
       flex-wrap: wrap;
       align-items: center;
+      li:nth-child(1){
+        color: #ccc;
+         &:hover {
+          color: #ccc;
+          cursor:no-drop;
+        }
+      }
       li {
         cursor: pointer;
         padding: 10px 15px;

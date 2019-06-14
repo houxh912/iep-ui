@@ -19,35 +19,35 @@ export default {
     return {
       itemData: [
         {
-          sum: '6223.25',
+          sum: '--',
           name: '库存现金',
         },
         {
-          sum: '8000',
+          sum: '--',
           name: '银行存款',
         },
         {
-          sum: '5000',
+          sum: '--',
           name: '集团往来',
         },
         {
-          sum: '5000',
+          sum: '--',
           name: '合同应收账款',
         },
         {
-          sum: '5000',
+          sum: '--',
           name: '融资',
         },
         {
-          sum: '5000',
+          sum: '--',
           name: '投资',
         },
         {
-          sum: '5000',
+          sum: '--',
           name: '其他应收款',
         },
         {
-          sum: '5000',
+          sum: '--',
           name: '内部借款',
         },
       ],

@@ -93,7 +93,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="合同金额：" prop="contractAmount">
-            <el-input v-model="formData.contractAmount" placeholder="请填写合同约定的金额，以“元”为单位"></el-input>
+            <el-input v-model="formData.contractAmount" placeholder="请填写合同约定的金额，以“元”为单位" maxlength="9"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -112,7 +112,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="保证金：" prop="deposit">
-            <el-input v-model="formData.deposit" placeholder="请根据缴纳保证金额填写"></el-input>
+            <el-input v-model="formData.deposit" placeholder="请根据缴纳保证金额填写" maxlength="10"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

@@ -7,11 +7,11 @@
       </div>
       <div class="piece">
         <IepAppTabCard :title="labelTitle">
-          <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
+          <IepAppLabelCard :dataList="labelList" disabled @click="handleSearch"></IepAppLabelCard>
         </IepAppTabCard>
-        <IepAppTabCard :title="listTitle">
+        <!-- <IepAppTabCard :title="listTitle">
           <IepAppListCard :dataList="listList"></IepAppListCard>
-        </IepAppTabCard>
+        </IepAppTabCard> -->
         <ranking></ranking>
         <most></most>
       </div>
@@ -24,16 +24,15 @@ import Menus from './Menus'
 import Librarys from './Librarys/'
 import Ranking from './Ranking/'
 import Most from './Most/'
-import { getRectagsList } from '@/api/app/tms/index'
 import { getGuessList } from '@/api/app/mlms/index'
 
 export default {
   components: { Menus, Librarys, Ranking, Most },
   data () {
     return {
-      labelTitle: '推荐主题',
+      labelTitle: '快速搜索',
       listTitle: '猜你想找',
-      labelList: [],
+      labelList: ['互联网', '数据基因', '营商通', '大数据', '智慧城市', '政务服务', '创新', '电子政务', '十三五', '网站规划', '数据治理'],
       listList: [],
       routerMatch: this.$route.matched,
     }
@@ -46,21 +45,18 @@ export default {
     changePage (val) {
       this.$refs['librarys'].loadPage({materialClsSecondClass: val})
     },
-    // 推荐主题
-    getRectagsList () {
-      getRectagsList().then(({data}) => {
-        this.labelList = data.data
-      })
-    },
     // 猜你想找
     getGuessList () {
       getGuessList().then(({data}) => {
         this.listList = data.data
       })
     },
+    // 快速搜索
+    handleSearch (row) {
+      this.$refs['librarys'].loadPage({name: row})
+    },
   },
   created () {
-    this.getRectagsList()
     this.getGuessList()
   },
 }

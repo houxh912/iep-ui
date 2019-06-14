@@ -4,23 +4,26 @@
       <span class="info" @click="handleClick(item)">
         <span class="sub-title">{{item.title}}</span><span class="time" :style="item.bgc">{{item.time}}</span>
       </span>
-      <span class="num" @click="handleClick(item)">{{item.num}}</span>
+      <span class="num" @click="handleClick(item)">{{countObj[item.num]}}</span>
     </el-card>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import {getCount} from '@/api/mlms/leader_report/'
+import mixins from '@/mixins/mixins'
 export default {
   data () {
     return {
       name: 'leader-top',
+      mixins: [mixins],
       itemList: [
         {
           routerPath:'visiting_log',
           title: '拜訪日志',
           time: '全年',
-          num: '15',
+          num: 'visitNumber',
           bgc: {
             background: '#d7ba9a',
           },
@@ -31,7 +34,7 @@ export default {
           name:'StaffWeek',        
           title: '员工周报',
           time: '本周',
-          num: '530',
+          num: 'personalWeeklyReport',
           bgc: {
             background: '#89c7d6',
           },
@@ -42,7 +45,7 @@ export default {
           name:'StaffMonth',        
           title: '员工月报',
           time: '本月',
-          num: '188',
+          num: 'personalMonthlyReport',
           bgc: {
             background: '#dbadad',
           },
@@ -52,7 +55,7 @@ export default {
           routerPath:'project_report',         
           title: '项目周报',
           time: '本周',
-          num: '9',
+          num: 'projectWeeklyReport',
           bgc: {
             background: '#d7ba9a',
           },
@@ -63,7 +66,7 @@ export default {
           name:'OriganazeWeek',        
           title: '部门周报',
           time: '本周',
-          num: '34',
+          num: 'orgWeeklyReport',
           bgc: {
             background: '#89c7d6',
           },
@@ -74,14 +77,29 @@ export default {
           name:'OriganazeMonth',        
           title: '部门月报',
           time: '本月',
-          num: '34',
+          num: 'orgMonthlyReport',
           bgc: {
             background: '#dbadad',
           },
           disabled:true,
         },
       ],
+      countObj: {
+        visitNumber: 0,
+        personalWeeklyReport: 0,
+        personalMonthlyReport: 0,
+        projectWeeklyReport: 0,
+        orgWeeklyReport: 0,
+        orgMonthlyReport: 0,
+      },
     }
+  },
+   created () {
+    getCount().then(({data}) => {
+      this.countObj = data.data
+      this.countObj.visitNumber = data.data.visitNumber?data.data.visitNumber:'--'
+      this.countObj.projectWeeklyReport = data.data.projectWeeklyReport?data.data.projectWeeklyReport:'--'
+    })
   },
   methods: {
     handleClick (row) {

@@ -3,10 +3,10 @@
     <basic-container>
       <operation-container>
         <template slot="left">
-          <iep-select v-show="isAbled" v-model="orgIds" autocomplete="off" prefix-url="admin/org/all" @change="searchPage()" placeholder="舟山国脉海洋有限公司"></iep-select>
+          <iep-select v-show="isAbled" v-model="orgIds" autocomplete="off" prefix-url="admin/org/all" @change="listPage()" placeholder="所有"></iep-select>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage"></operation-search>
+          <operation-search @search-page="searchPage" prop="realName" placeholder="根据姓名进行搜索"></operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" isMutipleSelection>
@@ -30,6 +30,7 @@ export default {
     return {
       columnsMap,
       orgIds:'',
+      realName:'',
     }
   },
   created () {
@@ -56,11 +57,21 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable({orgId: this.orgIds,reportType: 0,...param}, getOrgTableData)
+      this.loadTable({realName: this.realName,orgId: this.orgIds,reportType: 0,...param}, getOrgTableData)
     },
-  },
-  searchPage () {
-    this.loadPage()
+    listPage () {
+      this.realName = ''
+      this.loadPage()
+    },
+    searchPage (val) {
+      if (val.realName == '') {
+        // this.$message.error('请输入搜索内容')
+        // return
+        this.loadPage()
+      }
+      this.realName = val.realName
+      this.loadPage()
+    },
   },
 }
 </script>

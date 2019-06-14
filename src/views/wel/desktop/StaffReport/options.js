@@ -17,6 +17,7 @@ const columnsMap = [
 		label: '所属部门',
 	},
 ]
+
 export {
 	columnsMap,
 }

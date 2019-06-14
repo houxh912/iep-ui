@@ -15,3 +15,9 @@ export function getOrgTableData (query) {
       params: query,
     })
   }
+  export function getCount () {
+    return request({
+      url: `${prefixUrl}/getCount`,
+      method: 'get',
+    })
+  }

@@ -61,6 +61,8 @@ export default {
         return '借款失败'
       } else if (this.data.status === 6) {
         return '确认成功'
+      } else if (this.data.status === 9) {
+        return '已逾期'
       } else {
         return '操作成功'
       }

@@ -10,6 +10,18 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" isMutipleSelection>
+        <template slot="before-columns">
+          <el-table-column label="标题" width="400">
+            <template slot-scope="scope">
+              <iep-div-detail :value="scope.row.title"></iep-div-detail>
+            </template>
+          </el-table-column>
+          <el-table-column label="发布时间">
+            <template slot-scope="scope">
+              {{scope.row.createTime|parseToDay}}
+            </template>
+          </el-table-column>
+        </template>
         <el-table-column prop="operation" label="操作" width="200">
           <template>
             <iep-button :disabled="true" @click="handleClick">查看</iep-button>
@@ -20,22 +32,22 @@
   </div>
 </template>
 <script>
-import {getTableData} from '@/api/mlms/leader_report/'
+import { getTableData } from '@/api/mlms/leader_report/'
 import mixins from '@/mixins/mixins'
-import { mapGetters,mapState } from 'vuex'
-import {columnsMap} from './options'
+import { mapGetters, mapState } from 'vuex'
+import { columnsMap } from './options'
 export default {
   mixins: [mixins],
   data () {
     return {
       columnsMap,
-      orgIds:'',
+      orgIds: '',
       realName: '',
     }
   },
   created () {
     this.loadPage()
-    
+
   },
   props: {
     record: {
@@ -52,14 +64,14 @@ export default {
       orgId: state => state.user.userInfo.orgIds,
     }),
     isAbled () {
-      return this.userInfo.userId === 1||this.userInfo.userId === 2||this.userInfo.userId === 3||this.userInfo.userId === 451
+      return this.userInfo.userId === 1 || this.userInfo.userId === 2 || this.userInfo.userId === 3 || this.userInfo.userId === 451
     },
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable({realName: this.realName,orgId: this.orgIds,reportType: 0,...param}, getTableData)
+      this.loadTable({ realName: this.realName, orgId: this.orgIds, reportType: 0, ...param }, getTableData)
     },
-     handleClick () {
+    handleClick () {
       this.$router.push('/wel/material/report')
     },
     listPage () {
@@ -79,7 +91,7 @@ export default {
 }
 </script>
 <style scoped>
-.staff-week>>>.basic-container{
-  padding:20px 0;
+.staff-week >>> .basic-container {
+  padding: 20px 0;
 }
 </style>

@@ -9,7 +9,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm">驳回</iep-button>
+      <iep-button type="primary" @click="submitForm">转交</iep-button>
       <iep-button @click="close">取消</iep-button>
     </template>
   </iep-dialog>

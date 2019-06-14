@@ -40,7 +40,7 @@ export default {
       },
       tableData: [{
         date: '2016-05-02',
-        organizationName: '山口组',
+        organizationName: '国脉集团研发中心',
         person: '赵22',
         income: '2344',
         incomeBudget: '2123',

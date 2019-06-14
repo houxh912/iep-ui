@@ -21,4 +21,17 @@ const columnsMap = [
 		label:'开票金额',
 	},
 ]
-export { columnsMap }
+
+const initForm = () => {
+  return {
+    projectName: '',
+    contractAmount: '',
+    publisher: '',
+    serialNo: '',
+    projectManagerList: {id:'',name:''},
+    mktManagerList: {id:'',name:''},
+    projectTime: '',
+    endTime: '',
+  }
+}
+export { columnsMap, initForm }

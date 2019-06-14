@@ -29,7 +29,7 @@
           <el-tag type="success" size="medium" v-if="scope.row.paperStatus === 5">完成阅卷</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="operation" label="操作" width="150">
+      <el-table-column prop="operation" label="操作" width="160">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)" v-if="permissionAll">发放证书</iep-button>

@@ -19,9 +19,10 @@
         <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5></el-input>
       </el-form-item>
       <el-form-item label="关联项目：" prop="projectId">
-        <el-input v-show="false" v-model="formData.projectId"></el-input>
+        <!-- <el-input v-show="false" v-model="formData.projectId"></el-input>
         <el-tag type="info" v-if="formData.projectName != ''">{{formData.projectName}}</el-tag>
-        <iep-button @click="relationProject"><i class="el-icon-plus"></i></iep-button>
+        <iep-button @click="relationProject"><i class="el-icon-plus"></i></iep-button> -->
+        <IepProjectSelect v-model="formData.projectId" :projectName="formData.projectName"></IepProjectSelect>
       </el-form-item>
       <el-form-item prop="businessType">
         <span slot="label">
@@ -216,6 +217,7 @@ export default {
       getMarket({ clientId: val }).then(({ data }) => {
         if (data.data) {
           this.$set(this.formData, 'directorList', { id: data.data.id, name: data.data.name })
+          this.$set(this.formData, 'directorId', data.data.id)
         } else {
           this.$set(this.formData, 'directorList', { id: '', name: '' })
         }
@@ -226,7 +228,7 @@ export default {
       let formData = Object.assign({}, this.formData)
       formData.contractAmount = parseInt(this.formData.contractAmount)
       formData.deposit = parseInt(this.formData.deposit)
-      formData.directorId = this.formData.directorId
+      // formData.directorId = this.formData.directorId
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.isTime) {

@@ -6,15 +6,9 @@
     <el-form-item label="岗位：">
       <iep-cascader v-model="form.position" prefix-url="hrms/post_type" clearable></iep-cascader>
     </el-form-item>
-    <el-form-item>
-      <span slot="label">
-        最高学历
-        <iep-tip content="高中及以下、专科、本科、硕士、博士及以上。">
-        </iep-tip>
-        ：
-      </span>
+    <iep-form-item label-name="最高学历" tip="高中及以下、专科、本科、硕士、博士及以上。">
       <iep-dict-select v-model="form.educationId" dict-name="hrms_highest_educational" clearable></iep-dict-select>
-    </el-form-item>
+    </iep-form-item>
     <el-form-item label="性别：">
       <el-radio-group v-model="form.sex">
         <el-radio :label="0">全部</el-radio>

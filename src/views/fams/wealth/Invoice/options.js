@@ -40,6 +40,7 @@ function initForm () {
       id: 0,
       name: '',
     },
+    remarks: '',
     financialAudit:0,
     relations: [],
   }
@@ -90,6 +91,9 @@ const rules = {
   ],
   projectId: [
     { required: true, message: '请选择项目', trigger: 'blur' },
+  ],
+  remarks: [
+    { required: false, trigger: 'blur' },
   ],
   auditor: [
     { required: false, trigger: 'blur' },

@@ -131,7 +131,7 @@ export default {
     selectGroup (data, node) {
       if (node.level === 3) {
         if (!this.userIds.includes(data.value)) {
-          this._pushUsers({
+          this.users.push({
             id: data.value,
             name: data.label,
           })

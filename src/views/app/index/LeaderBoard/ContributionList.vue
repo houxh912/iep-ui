@@ -1,6 +1,6 @@
 <template>
   <div class="leader-board">
-    <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
+    <IepAppRankingCard :dataList="dataList" @click="handleDetail"></IepAppRankingCard>
   </div>
 </template>
 
@@ -16,6 +16,11 @@ export default {
     getContributeList().then(({data}) => {
       this.dataList = data.data.map((m) => {return {name: m.name, grade: m.value, id: m.id}})
     })
+  },
+  methods: {
+    handleDetail (row) {
+      this.$router.push(`/app/personal_style/${row.id}`)
+    },
   },
 }
 </script>

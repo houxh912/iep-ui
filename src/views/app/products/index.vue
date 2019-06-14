@@ -12,8 +12,8 @@
       <new-technology></new-technology>
       <optimal></optimal>
       <honor></honor>
-      <bounty-mission></bounty-mission>
-      <task></task>
+      <!-- <bounty-mission></bounty-mission> -->
+      <!-- <task></task> -->
       <suggest></suggest>
     </div>
     <IepAppFooterBar></IepAppFooterBar>
@@ -29,11 +29,11 @@ import Resources from './Resources/'
 import NewTechnology from './NewTechnology'
 import Optimal from './Optimal'
 import Honor from './Honor'
-import BountyMission from './BountyMission/'
-import Task from './Task'
+// import BountyMission from './BountyMission/'
+// import Task from './Task'
 import Suggest from './Suggest'
 export default {
-  components: { Banner, MyProducts, Visualization, Newcomers, InstitutionalDocument, Resources, NewTechnology, Optimal, Honor, BountyMission, Task, Suggest },
+  components: { Banner, MyProducts, Visualization, Newcomers, InstitutionalDocument, Resources, NewTechnology, Optimal, Honor, Suggest },
   data () {
     return {
     }

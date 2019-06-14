@@ -1,6 +1,6 @@
 <template>
   <div class="new-tehnology">
-    <iepAppTabCard :title="title" isMore>
+    <iepAppTabCard :title="title">
       <div class="new-tehnology-tab">
         分类：
         <div :class="technologyType==''?'color':''" class="piece-tab" @click="tabTechnologyType('')">全部</div>

@@ -62,6 +62,11 @@ export default {
   created () {
     this.loadCount()
   },
+  watch: {
+    activeTab (newVal) {
+      this.$router.push({ path: '/app/resource/expert', query: { type: newVal === 'Empolyee' ? '1' : '2'} })
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

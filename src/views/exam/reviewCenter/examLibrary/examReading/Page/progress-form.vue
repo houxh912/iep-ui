@@ -1,44 +1,46 @@
 <template>
-  <el-form :model="ruleForm" ref="ruleForm" :rules="rules" :label-position="labelPosition" label-width="100px">
+  <el-form :model="ruleForm" ref="ruleForm" :rules="rules" :label-position="labelPosition"
+    label-width="100px">
     <div class="top">
-      <p style="margin-left:16px">阅卷完毕人数</p>
-      <p style="margin-left: 10px;"><span style="color:#409eff">{{resdata.done}}</span>/<span>{{resdata.all}}</span></p>
-      <el-button icon="el-icon-warning" class="tip"></el-button>
-      <p class="award">每位阅卷老师阅卷一题，奖励<el-button style="margin:0px 10px;border-radius:0px;">{{money}}</el-button>贝</p>
+      <h3 style="margin-left:16px; margin-bottom: 15px;">
+        <span>阅卷完毕人数: </span>
+        <span style="color:#409eff">{{resdata.done}}</span>/<span>{{resdata.all}}</span>，
+        <span>每位阅卷老师阅卷一题，奖励<span style="color: red">{{money}}</span>贝</span>
+      </h3>
     </div>
 
     <div class="card">
       <div v-if="resdata.operateUsers">
-        <span class="answerSheet"><span class="line">|</span>面试题</span>
+        <span class="answerSheet"><span class="line">|</span>报名管理&考卷管理</span>
         <div class="answerSheetTop">
-          <iep-button class="choices" v-for="(item, idx) in resdata.faceUsers" :key="idx">{{item}}</iep-button>
+          <el-tag type="info" v-for="(item, idx) in resdata.operateUsers" :key="idx" style="margin-right: 10px">{{item}}</el-tag>
         </div><br>
       </div>
     </div>
 
     <div class="card">
       <div v-if="resdata.operateUsers">
-        <span class="answerSheet"><span class="line">|</span>简答题</span>
+        <span class="answerSheet"><span class="line">|</span>试卷审阅权限</span>
         <div class="answerSheetTop">
-          <iep-button class="choices" v-for="(item, idx) in resdata.writeUsers" :key="idx">{{item}}</iep-button>
+          <el-tag type="info" v-for="(item, idx) in resdata.writeUsers" :key="idx" style="margin-right: 10px">{{item}}</el-tag>
         </div><br>
       </div>
     </div>
 
     <div class="card">
       <div v-if="resdata.operateUsers">
-        <span class="answerSheet"><span class="line">|</span>实操题</span>
+        <span class="answerSheet"><span class="line">|</span>面试判分权限</span>
         <div class="answerSheetTop">
-          <iep-button class="choices" v-for="(item, idx) in resdata.operateUsers" :key="idx">{{item}}</iep-button>
+          <el-tag type="info" v-for="(item, idx) in resdata.faceUsers" :key="idx" style="margin-right: 10px">{{item}}</el-tag>
         </div><br>
       </div>
     </div>
 
     <div class="bottom">
-      <el-form-item style="margin-bottom:5px">
-        <el-button class="button" @click="handleRollingPaper">一键收卷</el-button>
-        <el-button class="button" @click="handlePaper">完成阅卷</el-button>
-      </el-form-item>
+
+      <iep-button type="primary" class="button" @click="handleRollingPaper">一键收卷</iep-button>
+      <iep-button type="success" class="button" @click="handlePaper">完成阅卷</iep-button>
+
       <!-- <el-form-item>
         <el-button class="button" @click="sendResult">发送成绩</el-button>
         <el-button class="button" @click="sendCertificate">放送证书</el-button>
@@ -208,7 +210,7 @@ export default {
 }
 .card {
   text-align: left;
-  padding: 10px 18px 0;
+  padding: 0 18px 0;
   .answerSheet {
     font-size: 14px;
     color: #595959;
@@ -231,14 +233,9 @@ export default {
   }
 }
 .bottom {
-  padding-top: 20px !important;
-  margin-left: 55px;
+  text-align: center;
   .button {
-    color: #fff;
-    background-color: #ba1b21;
-    border: 0px solid #d4d4d4;
-    font-size: 18px;
-    margin-right: 10px;
+    margin: 0 5px;
   }
 }
 </style>

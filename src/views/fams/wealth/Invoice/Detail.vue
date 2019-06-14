@@ -41,16 +41,30 @@
         </iep-form-item>
 
         <iep-form-item class="form-half" label-name="财务审批人">
-          <iep-contact-select disabled v-model="form.financialAudit"></iep-contact-select>
+          <iep-div-detail v-model="form.financialAuditName"></iep-div-detail>
         </iep-form-item>
 
         <iep-form-item v-if="auditorOption" class="form-half" label-name="部门审批人">
-          <iep-contact-select disabled v-model="form.auditor"></iep-contact-select>
+          <iep-div-detail v-model="form.auditorName"></iep-div-detail>
         </iep-form-item>
 
         <iep-form-item label-name="备注">
           <iep-div-detail :value="form.remarks"></iep-div-detail>
         </iep-form-item>
+
+        <iep-divider />
+
+        <el-timeline>
+          <el-timeline-item v-for="(process) in form.processes" :key="process.id" :timestamp="process.time">
+            <el-card shadow="never">
+              <div>
+                <iep-img-avatar :src="process.avatar"></iep-img-avatar>
+                {{process.name}}
+                <span style="color: #aaa; font-size: 14px;">{{process.identityMarks.join(',')}}</span>
+              </div>
+            </el-card>
+          </el-timeline-item>
+        </el-timeline>
 
       </el-form>
     </basic-container>

@@ -16,25 +16,25 @@ export default {
     return {
       fractionList: [
         {
-          num: '275',
+          num: '--',
           title: '2019年合同总数',
-          progress: '48%',
+          progress: '0%',
           icon: 'el-icon-top',
-          percentage: 48,
+          percentage: 0,
         },
         {
-          num: '21,789,475',
+          num: '--',
           title: '2019年合同金额',
-          progress: '35%',
+          progress: '0%',
           icon: 'el-icon-bottom',
-          percentage: 35,
+          percentage: 0,
         },
         {
-          num: '275',
+          num: '--',
           title: '2019年收款金额',
-          progress: '20%',
+          progress: '0%',
           icon: 'el-icon-top',
-          percentage: 20,
+          percentage: 0,
         },
       ],
     }

@@ -36,12 +36,13 @@
         </el-form-item>
 
         <el-form-item class="item" label="关联标签：" prop="tagKeyWords" style="margin-left:20%;">
-          <mutiply-tag-select v-model="form.tagKeyWords" :select-objs="form.tagKeyWords"></mutiply-tag-select>
+          <mutiply-tag-select v-if="btnDisabled == false" v-model="form.tagKeyWords" :select-objs="form.tagKeyWords" width="906px" ></mutiply-tag-select>
+          <el-tag v-else class="relatedTag" type="info" :key="tag" v-for="tag in tagsShow" size="medium">{{tag}}</el-tag>
         </el-form-item>
       </div>
     </el-form>
 
-    <div align="center" style="width:100%;margin-top:220px;">
+    <div align="center" style="width:100%;margin-top:250px;">
       <hr>
     </div>
 
@@ -82,6 +83,7 @@ export default {
   },
   data () {
     return {
+      tagsShow: [],
       btnDisabled: false,
       btnSave: '',
       questionTypeDisabled: false,
@@ -170,6 +172,7 @@ export default {
           this.$refs.single.ruleForm.title = res.data.data.title
           this.$refs.single.ruleForm.analysis = res.data.data.analysis
           this.postAnswer = res.data.data.questionType
+          this.tagsShow = res.data.data.tagKeyWords
           if (res.data.data.questionType == 13) {
             var arrRadio = JSON.parse(res.data.data.titleOptions)
             // console.log(arrRadio)
@@ -315,5 +318,8 @@ export default {
 <style scoped>
 .select >>> .el-input .el-select__caret {
   line-height: 2.9;
+}
+.relatedTag {
+  margin-right: 10px;
 }
 </style>

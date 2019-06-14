@@ -17,27 +17,27 @@ export default {
     return {
       itemList: [
         {
-          sum: '1325',
+          sum: '--',
           name: '系统账户余额',
         },
         {
-          sum: '600',
+          sum: '--',
           name: '发行数',
         },
         {
-          sum: '1325',
+          sum: '--',
           name: '内部往来账',
         },
         {
-          sum: '1325',
+          sum: '--',
           name: '系统支出',
         },
         {
-          sum: '540',
+          sum: '--',
           name: '系统收入',
         },
         {
-          sum: '240',
+          sum: '--',
           name: '提现数',
         },
       ],

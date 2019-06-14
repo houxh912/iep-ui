@@ -12,7 +12,7 @@
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" isMutipleSelection>
         <el-table-column prop="operation" label="操作" width="200">
           <template>
-            <iep-button>查看</iep-button>
+            <iep-button :disabled="true" @click="handleClick">查看</iep-button>
           </template>
         </el-table-column>
       </iep-table>
@@ -33,10 +33,6 @@ export default {
       realName: '',
     }
   },
-  created () {
-    this.loadPage()
-    
-  },
   props: {
     record: {
       type: Object,
@@ -55,16 +51,22 @@ export default {
       return this.userInfo.userId === 1||this.userInfo.userId === 2||this.userInfo.userId === 3||this.userInfo.userId === 451
     },
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
     loadPage (param = this.searchForm) {
       this.loadTable({realName: this.realName,orgId:this.orgIds,reportType: 0,...param}, getOrgTableData)
     },
-   listPage () {
-      this.realName = ''
-      this.loadPage()
+    handleClick () {
+      this.$router.push('/wel/material/report')
     },
-   searchPage (val) {
-      if (val.realName == '') {
+    listPage () {
+       this.realName = ''
+       this.loadPage()
+     },
+    searchPage (val) {
+       if (val.realName == '') {
         // this.$message.error('请输入搜索内容')
         // return
         this.loadPage()

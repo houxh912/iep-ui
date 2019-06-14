@@ -1,30 +1,35 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="驳回" width="520px" @close="close">
+  <iep-dialog :dialog-show="dialogShow" title="转交" width="520px" @close="close">
     <el-form size="small" ref="form" label-width="100px">
+      <el-form-item label="转发对象">
+        <iep-contact-select v-model="user"></iep-contact-select>
+      </el-form-item>
       <el-form-item label="备注">
         <iep-input-area v-model="content"></iep-input-area>
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm">驳回</iep-button>
+      <iep-button type="primary" @click="submitForm">转交</iep-button>
       <iep-button @click="close">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
-import { myRejectInvoice } from '@/api/fams/invoice'
+import { myTransInvoice } from '@/api/fams/invoice'
 export default {
   data () {
     return {
       dialogShow: false,
+      user: { id: '', name: '' },
       id: '',
       content: '',
     }
   },
   methods: {
     submitForm () {
-      myRejectInvoice({
+      myTransInvoice({
         id: this.id,
+        receiverId: this.user.id,
         content: this.content,
       }).then(({ data }) => {
         if (data.data) {

@@ -1,6 +1,13 @@
 
 <template>
   <iep-table :isLoadTable="isLoadTable" :is-pagination="false" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable">
+    <template slot="before-columns">
+      <el-table-column label="时间">
+        <template slot-scope="scope">
+          {{scope.row.time|parseToDay}}
+        </template>
+      </el-table-column>
+    </template>
   </iep-table>
 </template>
 <script>
@@ -16,11 +23,6 @@ export default {
         },
       },
       columnsMap: [
-        {
-          prop: 'time',
-          label: '时间',
-          width: 150,
-        },
         {
           prop: 'typeName',
           label: '类型',

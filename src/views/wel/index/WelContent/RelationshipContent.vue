@@ -2,7 +2,7 @@
   <div class="relationshipContent">
     <div v-if="mark==0">
       <div class="relationship-item">
-        <div><span class="title">我的师傅</span></div>
+        <div><span class="title">我的师父</span></div>
         <ul>
           <li class="name" v-for="(item,index) in masterData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
         </ul>

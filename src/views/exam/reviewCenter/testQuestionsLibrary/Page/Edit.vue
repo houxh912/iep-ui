@@ -36,7 +36,7 @@
         </el-form-item>
 
         <el-form-item class="item" label="关联标签：" prop="tagKeyWords" style="margin-left:20%;">
-          <mutiply-tag-select v-model="form.tagKeyWords" :select-objs="form.tagKeyWords"></mutiply-tag-select>
+          <mutiply-tag-select v-model="form.tagKeyWords" :select-objs="form.tagKeyWords" width="906px"></mutiply-tag-select>
         </el-form-item>
       </div>
     </el-form>

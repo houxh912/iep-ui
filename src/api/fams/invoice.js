@@ -111,3 +111,11 @@ export function myPassInvoice (obj) {
     data: obj,
   })
 }
+
+export function myTransInvoice (obj) {
+  return request({
+    url: `${prefixUrl}/primary_transmit`,
+    method: 'post',
+    data: obj,
+  })
+}

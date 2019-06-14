@@ -40,9 +40,12 @@ function initForm () {
       id: 0,
       name: '',
     },
+    financialAuditName: '',
+    auditorName: '',
     remarks: '',
     financialAudit:0,
     relations: [],
+    processes: [],
   }
 }
 

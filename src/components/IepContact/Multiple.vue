@@ -22,7 +22,7 @@
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="close" :z-index="3000">
       <el-input placeholder="输入关键字对国脉人进行过滤" v-model="filterText" clearable></el-input>
       <div class="tab-title">国脉人</div>
-      <el-tree ref="tree" class="filter-tree" :props="props" :data="treeData" node-key="value" :filter-node-method="filterNode">
+      <el-tree ref="tree" :props="props" :data="treeData" node-key="value" :filter-node-method="filterNode">
         <span v-if="node.value!==1" class="custom-tree-node" slot-scope="{ node, data }">
           <iep-div-detail :value="node.label"></iep-div-detail>
           <span>
@@ -244,9 +244,6 @@ export default {
 }
 </script>
 <style scoped>
-.filter-tree {
-  margin-top: 10px;
-}
 .contact-wrapper {
   display: flex;
 }
@@ -274,6 +271,7 @@ export default {
   padding: 5px;
   padding-left: 15px;
   margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 5px;
 }
 </style>

@@ -6,11 +6,11 @@
     <iep-no-data v-if="!tableData.length" message="暂无项目"></iep-no-data>
     <div class="content">
       <el-row class="item" v-for="(item,index) in tableData" :key="index">
-        <el-col :span="12">
+        <el-col :span="14">
           <div class="name iep-ellipsis" @click="handleDetail(item)">{{item.name}}</div>
         </el-col>
-        <el-col :span="8">
-          <iep-tag-detail :value="item.businessType" class="iep-ellipsis"></iep-tag-detail>
+        <el-col :span="6">
+          <iep-dict-detail :value="item.type" dict-name="prms_project_type"></iep-dict-detail>
         </el-col>
         <el-col :span="4" class="time">
           <div class="iep-ellipsis">{{item.time | parseToMonthDay}}</div>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { getCustomerList } from '@/api/wel/index'
+import { getProjectList } from '@/api/wel/index'
 export default {
   data () {
     return {
@@ -29,7 +29,7 @@ export default {
     }
   },
   created () {
-    getCustomerList().then((res) => {
+    getProjectList().then((res) => {
       this.tableData = res.data.data
     })
   },

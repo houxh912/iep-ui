@@ -48,7 +48,7 @@
             <iep-button type="primary" @click="handleRemoveBatch" plain v-show="mark=='group'">批量移除</iep-button>
           </template>
           <template slot="right">
-            <iep-select v-model="orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+            <iep-select v-model="orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织" size="small"></iep-select>
             <el-radio-group size="small">
               <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
             </el-radio-group>

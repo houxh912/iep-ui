@@ -3,7 +3,7 @@
     <search></search>
     <div class="module">
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
-        <div @click="handleOpen()">
+        <div @click="handleOpen(item)">
           <div class="header clearfix">
             <div class="img"><iep-img :src="item.trainerImage" alt=""></iep-img></div>
             <span class="time">{{item.startTime}}</span>
@@ -14,7 +14,7 @@
             <p class="con">{{item.trainingBrief}}</p>
             <div class="detail">
               <div class="classTag">
-                <el-tag type="white" v-for="(tag, index) in item.trainingTags" :key="index">{{tag}}</el-tag>
+                <el-tag type="white" v-for="(tag, index) in item.trainingTags" :key="index" @click="() => {$openTagDetail(tag)}">{{tag}}</el-tag>
               </div>
               <span><i class="el-icon-view"></i>{{item.views}} 人浏览</span>
             </div>
@@ -48,15 +48,16 @@ export default {
     Search,
   },
   methods: {
-    handleOpen () {
+    handleOpen (row) {
       this.$router.push({
-        path: '/app/training_detail',
+        path: `/app/resource/training/training_detail/${row.id}`,
       })
     },
     getRecruitPage () {
       getRecruitPage(this.params).then(({data}) => {
         this.moduleList = data.data.records
         this.total = data.data.total
+        this.$emit('getTotal', data.data.total)
       })
     },
     currentChange (val) {

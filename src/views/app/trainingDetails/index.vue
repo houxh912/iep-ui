@@ -9,8 +9,8 @@
             <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗5国脉贝下载）</span></div>
           </div>
         </el-row>
-        <IepAppRewardCard></IepAppRewardCard>
-        <IepAppEvaluationReview></IepAppEvaluationReview>
+        <!-- <IepAppRewardCard></IepAppRewardCard>
+        <IepAppEvaluationReview></IepAppEvaluationReview> -->
       </div>
       <div class="piece">
         <IepAppTabCard :title="labelTitle">
@@ -18,7 +18,7 @@
         </IepAppTabCard>
         <IepAppTabCard :title="listTitle1">
           <div class="recommended-list">
-            <div v-for="(item,index) in recommendedList" :key="index" class="piece">
+            <div v-for="(item,index) in recommendedList" :key="index" class="piece" @click="handleDetail(item)">
               <div class="img-con"><iep-img :src="item.themePictures" class="img"></iep-img></div>
               <div class="box">
                 <div class="piece-title">
@@ -56,6 +56,9 @@ export default {
   beforeRouteUpdate (to, from, next) {
     //console.log(to, from)
     this.routerMatch = to.matched
+    this.$nextTick(() => {
+      this.getTrainingDetail(this.$route.params.id)
+    })
     next()
     // 在当前路由改变，但是该组件被复用时调用
     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
@@ -79,6 +82,9 @@ export default {
       getNoticeList().then(({data}) => {
         this.recommendedList = data.data
       })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/training/training_detail/${row.id}`)
     },
   },
   created () {

@@ -133,6 +133,12 @@ const columnsMap = [
     key: 'userName',
   },
   {
+    prop: 'integrity',
+    label: '资料完善(%)',
+    hidden: true,
+    key: 'integrity',
+  },
+  {
     prop: 'position',
     label: '岗位',
     hidden: false,

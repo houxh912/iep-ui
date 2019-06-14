@@ -7,7 +7,7 @@
     </el-input>
     <el-button v-else class="button-new-tag" size="mini" @click="showInput">快速添加</el-button>
     <el-button icon="el-icon-plus" size="mini" @click="handleOpenTable"></el-button>
-    <form-dialog :title="`选择${options.name}`" :dialog-show="dialogShow" @close="closeDialog">
+    <form-dialog :title="`选择${options.name}`" :dialog-show="dialogShow" :width="width" @close="closeDialog">
       <multiply-table :select-ids="submitSelectedIds" :selected-list="selectedList" :column-map="columnMap" :get-request-name="options.getRequestName" @giveSelectedObjs="handleChangeSelectedIds"></multiply-table>
     </form-dialog>
   </div>
@@ -36,6 +36,10 @@ export default {
       type: Array,
       require: true,
       default: () => [],
+    },
+    width: {
+      default: '30%',
+      type: String,
     },
     /**
      * name: '' 什么选择器

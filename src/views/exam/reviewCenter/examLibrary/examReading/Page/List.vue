@@ -4,7 +4,7 @@
       <template slot="left">
         <iep-button type="danger" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button>
         <iep-button type="danger" plain>导出</iep-button>
-        <iep-button @click="handleEdit" v-if="permissionWritten || permissionInterview || permissionAll">阅卷进度</iep-button>
+        <iep-button @click="handleEdit" v-if="isCreator || permissionAll">阅卷进度</iep-button>
         <iep-button class="tip">当前已选择<span>{{Value}}</span>项</iep-button>
         <iep-button class="empty" @click="handleEmpty">清空</iep-button>
       </template>
@@ -14,7 +14,9 @@
       </template>
     </operation-container>
 
-    <iep-table :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-mutiple-selection is-index>
+    <iep-table :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination"
+      :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange"
+      @selection-change="selectionChange" is-mutiple-selection is-index>
       <el-table-column prop="remainingTime" label="剩余时间">
         <template slot-scope="scope">
           {{scope.row.remainingTime | setTime}}
@@ -32,7 +34,8 @@
       <el-table-column prop="operation" label="操作" width="160">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)" v-if="permissionAll">发放证书</iep-button>
+            <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)"
+              v-if="permissionAll">发放证书</iep-button>
 
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
@@ -55,7 +58,8 @@
       <writte-form :formData="InterviewData" v-if="dialogWritten" @close="loadPage()"></writte-form>
     </el-dialog>
 
-    <iep-dialog :dialog-show="dialogInterview" title="面试判分" width="550px" @close="loadPage()" center>
+    <iep-dialog :dialog-show="dialogInterview" title="面试判分" width="550px" @close="loadPage()"
+      center>
       <interview-form :formData="InterviewData" @close="loadPage()"></interview-form>
     </iep-dialog>
 
@@ -122,12 +126,19 @@ export default {
   computed: {
     ...mapGetters(['userInfo', 'permissions']),
     permissionInterview () {
+      // 面试判分权限
       const { faceUserIdsArray } = this.record.row.iepExaminationOperateVO
       return faceUserIdsArray.map(Number).includes(this.userInfo.userId)
     },
     permissionWritten () {
+      // 笔试判分权限
       const { writeUsedWriteUsedArray } = this.record.row.iepExaminationOperateVO
       return writeUsedWriteUsedArray.map(Number).includes(this.userInfo.userId)
+    },
+    isCreator () {
+      // 判断当前用户是不是考试创建者
+      const { creatorId } = this.record.row
+      return creatorId === this.userInfo.userId
     },
   },
   filters: {
@@ -145,6 +156,9 @@ export default {
     setPermission () {
       this.permissionAll = this.permissions['exam_library_all']
     },
+
+
+
     /**
      * 获取列表分页数据
      */

@@ -1,7 +1,7 @@
 <template>
   <div class="learning-resources">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <IepAppListCard :dataList="dataList.slice(0, 8)" name="material_name" @clicked="handleDetail"></IepAppListCard>
+      <IepAppListCard :dataList="dataList.slice(0, 8)" name="material_name" @click="handleDetail"></IepAppListCard>
     </IepAppTabCard>
   </div>
 </template>

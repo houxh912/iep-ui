@@ -239,7 +239,12 @@ export default {
         this.$refs['form'].clearValidate()
       })
       getOrgList().then(({ data }) => {
-        this.groupDic = data.data
+        this.groupDic = data.data.map(item => {
+          return {
+            label: item.name,
+            value: item.orgId,
+          }
+        })
       })
       // if(status === 'edit')
       if (this.status === 'update') {

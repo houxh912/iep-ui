@@ -3,13 +3,7 @@
     <div class="tab-title">我的关系</div>
     <el-tree ref="tree" class="filter-tree" :props="props" :data="treeData" :default-expanded-keys="[1]" node-key="value">
       <span class="custom-tree-node" slot-scope="{ node, data }">
-        <span :class="{level1:node.level===1,level2:node.level===2,level3:node.level===3}">{{ node.label }}</span>
-        <span v-if="node.level===3">
-          <el-button :disabled="isDisabled(data, node)" type="text" size="mini" @click="() => selectUser(data, node)">选择</el-button>
-        </span>
-        <span v-if="node.level===2">
-          <el-button type="text" size="mini" @click="() => selectGroup(data, node)">全选</el-button>
-        </span>
+        <span @click="() => selectUser(data, node)">{{ node.label }}</span>
       </span>
     </el-tree>
   </div>
@@ -17,7 +11,6 @@
 <script>
 import { getRelationList } from '@/api/wel/relationship_manage'
 export default {
-  props: ['userIds', 'filterUserList'],
   data () {
     return {
       treeData: [],
@@ -32,25 +25,12 @@ export default {
     this.loadPage()
   },
   methods: {
-    isDisabled (data, node) {
-      if (node.level === 3 && (this.userIds.includes(data.id) || this.filterUserList.includes(data.id))) {
-        return true
-      }
-      return false
-    },
     selectUser (data, node) {
       if (node.level === 3) {
-        if (!this.userIds.includes(data.id)) {
-          this.$emit('push', {
-            id: data.id,
-            name: data.name,
-          })
-        }
-      }
-    },
-    selectGroup (data, node) {
-      if (node.level === 2) {
-        this.$emit('push-list', data.userList)
+        this.$emit('set-user', {
+          id: data.id,
+          name: data.name,
+        })
       }
     },
     loadPage () {

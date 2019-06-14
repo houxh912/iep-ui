@@ -1,8 +1,11 @@
 <template>
   <div class="label">
-    <div v-for="(item,index) in dataList" :key="index" class="piece">
-      {{typeof item === 'object' ? item[name] : item}}
+    <div v-if="dataList.length !== 0">
+      <div v-for="(item,index) in dataList" :key="index" class="piece" @click="handleDetail(item)">
+        {{typeof item === 'object' ? item[name] : item}}
+      </div>
     </div>
+    <IepNoData v-else></IepNoData>
   </div>
 </template>
 <script>
@@ -17,6 +20,12 @@ export default {
     name: {
       type: String,
       default: 'name',
+    },
+  },
+  methods: {
+    handleDetail (row) {
+      let val = typeof row === 'object' ? row.name : row
+      this.$openTagDetail(val)
     },
   },
 }

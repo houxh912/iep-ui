@@ -66,7 +66,7 @@ export default {
     getList () {
       this.tableLoading = true
       this.listQuery.isDeleted = 1
-      this.listQuery.createBy = this.userInfo.id
+      this.listQuery.createBy = this.userInfo.userId
       getList(this.listQuery).then(({ data }) => {
         this.tableList = data.records
         this.pagination.total = data.total
@@ -130,7 +130,7 @@ export default {
     },
     // 删除
     handleDelete (row) {
-      this.$confirm(this.IS_DELETE).then(() => {
+      this.$confirm('是否删除').then(() => {
         deleteData(row.id).then(() => {
           this.queryData = []
           this.$message.success('删除成功！')

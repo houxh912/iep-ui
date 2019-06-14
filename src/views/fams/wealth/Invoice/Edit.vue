@@ -57,6 +57,10 @@
           <iep-contact-select v-model="form.auditor"></iep-contact-select>
         </iep-form-item>
 
+        <iep-form-item prop="remarks" label-name="备注">
+          <iep-input-area v-model="form.remarks"></iep-input-area>
+        </iep-form-item>
+
       </el-form>
     </basic-container>
   </div>

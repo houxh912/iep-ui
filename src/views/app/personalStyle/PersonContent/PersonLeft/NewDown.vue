@@ -1,12 +1,15 @@
 <template>
   <div class="new-down">
     <IepAppTabCard :title="title">
-      <div class="item" v-for="item in itemList" :key="item.id">
-        <div class="img">
-          <iep-img :src="item.img" alt=""></iep-img>
+      <div v-if="visitVOs.length !== 0">
+        <div class="item" v-for="(item, index) in visitVOs" :key="index" @click="handleDetail(item)">
+          <div class="img">
+            <iep-img :src="item.visitorAvatar" alt=""></iep-img>
+          </div>
+          <span>{{item.visitorName}}</span>
         </div>
-        <span>{{item.name}}</span>
       </div>
+      <IepNoData v-else class="iepnodata"></IepNoData>
     </IepAppTabCard>
     <el-card class="classTag-con" shadow="never">
       <div slot="header" class="clearfix">
@@ -33,9 +36,14 @@
 
 <script>
 export default {
+  props: {
+    visitVOs: {
+      type: Array,
+    },
+  },
   data () {
     return {
-      title: '看了他的人还看了',
+      title: '历史访客',
       effect: '人物印象',
       input3: '',
       select: '',
@@ -47,33 +55,13 @@ export default {
           tag: '技术达人 2',
         },
       ],
-      itemList: [
-        {
-          img: require('../../img/p012.jpg'),
-          name: '钟乙乔',
-        },
-        {
-          img: require('../../img/p09.jpg'),
-          name: '潘超巧',
-        },
-        {
-          img: require('../../img/p8.jpg'),
-          name: '邵奇凯',
-        },
-        {
-          img: require('../../img/p02.jpg'),
-          name: '符恩祖',
-        },
-        {
-          img: require('../../img/p07.jpg'),
-          name: '张兵',
-        },
-        {
-          img: require('../../img/p013.jpg'),
-          name: '杨冰之',
-        },
-      ],
+      itemList: [],
     }
+  },
+  methods: {
+    handleDetail (row) {
+      this.$router.push(`/app/personal_style/${row.visitorId}`)
+    },
   },
 }
 </script>
@@ -82,6 +70,9 @@ export default {
   margin-bottom: 30px;
   border-radius: 4px;
   border: 1px solid #ebeef5;
+  .iepnodata {
+    width: 100%;
+  }
   .title {
     margin: 0 4px;
     font-size: 16px;

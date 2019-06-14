@@ -102,8 +102,8 @@
           <el-radio :label="0">审核通过</el-radio>
           <el-radio :label="1">审核不通过</el-radio>
         </el-radio-group>
-        <el-input v-if="states === 1" v-model="content" type="textarea" maxlength="1000" rows="4"
-          style="margin-top:25px;" placeholder="请输入理由，字数不超过 1000 ！">
+        <el-input v-if="states === 1" v-model="content" type="textarea" maxlength="250" rows="4"
+          style="margin-top:25px;" placeholder="请输入理由，字数不超过 250 ！" show-word-limit>
         </el-input>
       </div>
       <template slot="footer">

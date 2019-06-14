@@ -187,6 +187,21 @@ export default [
         ],
       },
       {
+        path: 'alliance_detail',
+        name: '关于联盟',
+        component: () => import('@/views/app/allianceDetails/allianceDetail/'),
+        meta: noAuth,
+        redirect: '/app/alliance_detail/overview_group',
+        children: [
+          {
+            path: 'overview_group',
+            name: '集团概况',
+            component: () => import('@/views/app/allianceDetails/allianceDetail/OverviewGroup'),
+            meta: noAuth,
+          },
+        ],
+      },
+      {
         path: 'personal_style/:id',
         name: '个人风采',
         component: () => import('@/views/app/personalStyle/'),

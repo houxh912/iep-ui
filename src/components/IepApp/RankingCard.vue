@@ -1,6 +1,6 @@
 <template>
   <div class="ranking">
-    <div v-for="(item,index) in dataList" :key="index" class="piece">
+    <div v-for="(item,index) in dataList" :key="index" class="piece" @click="getPeople(item.id)">
       <span class="count" :class="index==0||index==1||index==2?'red':''">{{index+1}}</span>
       <span class="name">{{item[name]}}</span>
       <span class="grade">{{item.grade}}</span>
@@ -21,6 +21,13 @@ export default {
       default: 'name',
     },
   },
+  methods: {
+    getPeople (val) {
+      this.$router.push({
+        path: `/app/personal_style/${val}`,
+      })
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -29,6 +36,7 @@ export default {
   .piece {
     color: #333;
     transition-duration: 0.3s;
+    cursor: pointer;
     .name {
       height: 30px;
       line-height: 30px;

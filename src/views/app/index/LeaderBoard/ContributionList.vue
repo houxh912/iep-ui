@@ -14,7 +14,7 @@ export default {
   },
   created () {
     getContributeList().then(({data}) => {
-      this.dataList = data.data.map((m) => {return {name: m.name, grade: m.value}})
+      this.dataList = data.data.map((m) => {return {name: m.name, grade: m.value, id: m.id}})
     })
   },
 }

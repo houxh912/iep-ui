@@ -1,6 +1,6 @@
 <template>
   <div class="leader-top">
-    <el-card class="leader-item" :class="{disabled: item.disabled}" v-for="item in itemList" :key="item.id" :shadow="item.disabled ? 'never' : 'hover'" @click="handleClick(item)">
+    <el-card class="leader-item" :class="{disabled: item.disabled}" v-for="item in itemList" :key="item.id" :shadow="item.disabled ? 'never' : 'hover'" @click.native="handleClick(item)">
       <span class="info">
         <span class="sub-title">{{item.title}}</span><span class="time" :style="item.bgc">{{item.time}}</span>
       </span>
@@ -103,9 +103,8 @@ export default {
   },
   methods: {
     handleClick (row) {
-      if (row.disabled) {
-        return
-      }
+      console.log(row)
+      if (row.disabled) return
       this.$router.push({
         path: `/wel/${row.routerPath}`,
         query: { name: row.name },

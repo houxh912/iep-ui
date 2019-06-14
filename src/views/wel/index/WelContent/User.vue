@@ -1,7 +1,7 @@
 <template>
   <div class="information">
     <a-spin :spinning="pageLoading">
-      <el-card class="box-card" shadow="hover" :body-style="bodyStyle">
+      <el-card class="box-card" shadow="never" :body-style="bodyStyle">
         <el-row>
           <el-col :span="4" class="dotted">
             <div class="left">

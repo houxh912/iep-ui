@@ -5,14 +5,14 @@
       </page-header>
       <el-card class="box-card" shadow="never" :body-style="{ display: 'flex' }">
         <div class="left-wrapper">
-          <span>项目实施</span>
+          <span>合同金额</span>
           <div class="content">￥{{form.contractAmount}}</div>
         </div>
         <div class="info">
           <div class="info-item">
             <label>创建人：</label>
-            <div class="content">{{form.publisherList}}</div>
-            <!-- <iep-div-detail style="height:40px;line-height:40px;" :value="form.publisherList.name"></iep-div-detail> -->
+            <!-- <div class="content">{{form.publisherList}}</div> -->
+            <iep-div-detail style="height:40px;line-height:40px;" :value="form.publisherList.name"></iep-div-detail>
           </div>
           <div class="info-item">
             <label>项目编号：</label>
@@ -28,11 +28,11 @@
           </div>
           <div class="info-item">
             <label>立项时间：</label>
-            <div class="content">{{form.projectTime}}</div>
+            <div class="content">{{form.projectTime | parseToDay}}</div>
           </div>
           <div class="info-item">
             <label>完结时间：</label>
-            <div class="content">{{form.endTime}}</div>
+            <div class="content">{{form.endTime | parseToDay}}</div>
           </div>
         </div>
       </el-card>
@@ -74,9 +74,9 @@ export default {
         label: '项目核算表',
         value: 'Accounting',
       }, {
-      //   label: '项目预算表',
-      //   value: 'Budget',
-      // }, {
+        //   label: '项目预算表',
+        //   value: 'Budget',
+        // }, {
         label: '项目费用表',
         value: 'Cost',
       }, {

@@ -25,9 +25,10 @@ const columnsMap = [
 const initForm = () => {
   return {
     projectName: '',
-    contractAmount: '',
+    contractAmount: 0,
     publisher: '',
     serialNo: '',
+    publisherList: {id:'',name:''},
     projectManagerList: {id:'',name:''},
     mktManagerList: {id:'',name:''},
     projectTime: '',

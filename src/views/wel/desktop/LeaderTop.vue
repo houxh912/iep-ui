@@ -1,17 +1,17 @@
 <template>
   <div class="leader-top">
-    <el-card v-for="item in itemList" :key="item.id" shadow="hover">
-      <span class="info" @click="handleClick(item)">
+    <el-card class="leader-item" :class="{disabled: item.disabled}" v-for="item in itemList" :key="item.id" :shadow="item.disabled ? 'never' : 'hover'" @click="handleClick(item)">
+      <span class="info">
         <span class="sub-title">{{item.title}}</span><span class="time" :style="item.bgc">{{item.time}}</span>
       </span>
-      <span class="num" @click="handleClick(item)">{{countObj[item.num]}}</span>
+      <span class="num">{{countObj[item.num]}}</span>
     </el-card>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import {getCount} from '@/api/mlms/leader_report/'
+import { getCount } from '@/api/mlms/leader_report/'
 import mixins from '@/mixins/mixins'
 export default {
   data () {
@@ -20,68 +20,68 @@ export default {
       mixins: [mixins],
       itemList: [
         {
-          routerPath:'visiting_log',
+          routerPath: 'visiting_log',
           title: '拜訪日志',
           time: '全年',
           num: 'visitNumber',
           bgc: {
             background: '#d7ba9a',
           },
-          disabled:false,
+          disabled: true,
         },
         {
-          routerPath:'staff_report',
-          name:'StaffWeek',        
+          routerPath: 'staff_report',
+          name: 'StaffWeek',
           title: '员工周报',
           time: '本周',
           num: 'personalWeeklyReport',
           bgc: {
             background: '#89c7d6',
           },
-          disabled:true,
+          disabled: false,
         },
         {
-          routerPath:'staff_report',
-          name:'StaffMonth',        
+          routerPath: 'staff_report',
+          name: 'StaffMonth',
           title: '员工月报',
           time: '本月',
           num: 'personalMonthlyReport',
           bgc: {
             background: '#dbadad',
           },
-          disabled:true,
+          disabled: false,
         },
         {
-          routerPath:'project_report',         
+          routerPath: 'project_report',
           title: '项目周报',
           time: '本周',
           num: 'projectWeeklyReport',
           bgc: {
             background: '#d7ba9a',
           },
-          disabled:false,
+          disabled: true,
         },
         {
-          routerPath:'origanaze_report',
-          name:'OriganazeWeek',        
+          routerPath: 'origanaze_report',
+          name: 'OriganazeWeek',
           title: '组织周报',
           time: '本周',
           num: 'orgWeeklyReport',
           bgc: {
             background: '#89c7d6',
           },
-          disabled:true,
+          disabled: false,
         },
         {
-          routerPath:'origanaze_report',
-          name:'OriganazeMonth',        
+          routerPath: 'origanaze_report',
+          name: 'OriganazeMonth',
           title: '组织月报',
           time: '本月',
           num: 'orgMonthlyReport',
           bgc: {
             background: '#dbadad',
           },
-          disabled:true,
+          disabled: false,
         },
       ],
       countObj: {
@@ -94,20 +94,23 @@ export default {
       },
     }
   },
-   created () {
-    getCount().then(({data}) => {
+  created () {
+    getCount().then(({ data }) => {
       this.countObj = data.data
-      this.countObj.visitNumber = data.data.visitNumber?data.data.visitNumber:'--'
-      this.countObj.projectWeeklyReport = data.data.projectWeeklyReport?data.data.projectWeeklyReport:'--'
+      this.countObj.visitNumber = data.data.visitNumber ? data.data.visitNumber : '--'
+      this.countObj.projectWeeklyReport = data.data.projectWeeklyReport ? data.data.projectWeeklyReport : '--'
     })
   },
   methods: {
     handleClick (row) {
+      if (row.disabled) {
+        return
+      }
       this.$router.push({
-        path:`/wel/${row.routerPath}`,
-        query:{name:row.name},
+        path: `/wel/${row.routerPath}`,
+        query: { name: row.name },
       })
-       this.$emit('select',row.name)
+      this.$emit('select', row.name)
     },
   },
 }
@@ -120,10 +123,15 @@ export default {
   grid-column-gap: 25px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   height: auto;
+  .leader-item {
+    cursor: pointer;
+    &.disabled {
+      cursor: not-allowed;
+    }
+  }
   .info,
   .num {
     display: block;
-    cursor: pointer;
   }
   .info {
     display: flex;

@@ -17,7 +17,7 @@ export default [
       },
       {
         path: 'masterConfirm/:id',
-        name: '确认师傅',
+        name: '确认师父',
         component: () => import('@/views/wel/master/confirm'),
       },
       {

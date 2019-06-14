@@ -12,7 +12,7 @@ const columnsMap = [
   },
   {
     prop: 'orgName',
-    label: '所属组织',
+    label: '打赏对象',
   },
   {
     prop: 'amount',

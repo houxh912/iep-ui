@@ -35,6 +35,7 @@
   </div>
 </template>
 <script>
+import uniqBy from 'lodash/uniqBy'
 import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
 import { loadContactsPyList } from '@/api/admin/contacts'
@@ -81,7 +82,9 @@ export default {
     ]),
     users: {
       get: function () { return this.group.users },
-      set: function (value) { this.group.users = value },
+      set: function (value) {
+        this.group.users = value
+      },
     },
     userIds: function () { return this.group.users.map(m => m.id) },
     usersValue () {
@@ -200,10 +203,14 @@ export default {
       }
     },
     _pushUsers (obj) {
-      this.users.push(obj)
+      const users = [...this.users]
+      users.push(obj)
+      this.users = uniqBy(users, 'id')
     },
     _pushUserList (arr) {
-      this.users.push(...arr)
+      const users = [...this.users]
+      users.push(...arr)
+      this.users = uniqBy(users, 'id')
     },
     handleChange (value) {
       const users = value.map(m => {

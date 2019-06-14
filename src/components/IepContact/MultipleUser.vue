@@ -78,8 +78,7 @@ export default {
     users: {
       get: function () { return this.value },
       set: function (value) {
-        const v = uniqBy(value, 'id')
-        this.$emit('input', v)
+        this.$emit('input', value)
       },
     },
     userIds: function () { return this.value.map(m => m.id) },
@@ -139,10 +138,14 @@ export default {
       }
     },
     _pushUsers (obj) {
-      this.users.push(obj)
+      const users = [...this.users]
+      users.push(obj)
+      this.users = uniqBy(users, 'id')
     },
     _pushUserList (arr) {
-      this.users.push(...arr)
+      const users = [...this.users]
+      users.push(...arr)
+      this.users = uniqBy(users, 'id')
     },
     handleChange (value) {
       const users = value.map(m => {

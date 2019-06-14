@@ -44,7 +44,7 @@ export default {
           userList: [
             {
               id: 1,
-              name: '我的师傅',
+              name: '我的师父',
               userList: masterList,
             },
             {

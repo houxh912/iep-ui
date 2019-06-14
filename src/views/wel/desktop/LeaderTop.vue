@@ -64,7 +64,7 @@ export default {
         {
           routerPath:'origanaze_report',
           name:'OriganazeWeek',        
-          title: '部门周报',
+          title: '组织周报',
           time: '本周',
           num: 'orgWeeklyReport',
           bgc: {
@@ -75,7 +75,7 @@ export default {
         {
           routerPath:'origanaze_report',
           name:'OriganazeMonth',        
-          title: '部门月报',
+          title: '组织月报',
           time: '本月',
           num: 'orgMonthlyReport',
           bgc: {

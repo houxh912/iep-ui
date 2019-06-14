@@ -5,18 +5,19 @@ const columnsMap = [
 		width:400,
 	},
 	{
-		prop: 'releaseTime',
+		prop: 'createTime',
 		label: '发布时间',
 	},
 	{
-		prop: 'publisher',
+		prop: 'realName',
 		label: '发布人',
 	},
 	{
-		prop: 'subordinateDepartments',
+		prop: 'orgName',
 		label: '所属部门',
 	},
 ]
+
 export {
 	columnsMap,
 }

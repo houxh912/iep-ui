@@ -3,7 +3,7 @@
     <div class="task-nav">
       <div class="left">
         <span class="navTitle">我的关系</span>
-        <nav-tab :nav-list="relationship" @tab="tab"></nav-tab>
+        <relationship-nav-tab :nav-list="relationship" @tab="tab"></relationship-nav-tab>
       </div>
       <el-button size="mini" plain @click="handManage">管理</el-button>
     </div>
@@ -13,10 +13,10 @@
 
 <script>
 import { getRelationshipList, getCustomList } from '@/api/wel/relationship_manage'
-import NavTab from './NavTab'
+import RelationshipNavTab from './RelationshipNavTab'
 import RelationshipContent from './RelationshipContent'
 export default {
-  components: { NavTab, RelationshipContent },
+  components: { RelationshipNavTab, RelationshipContent },
   data () {
     return {
       showClass: 0,
@@ -24,7 +24,9 @@ export default {
       contentData: [
       ],
       relationship: [],
-      content: [],
+      content: [
+        {userList:[]},
+      ],
       mark:0,
     }
   },
@@ -35,9 +37,6 @@ export default {
     tab (val) {
       if(val>0){
         this.contentData = this.content[val-1].userList
-      }
-      else{
-        this.contentData = []
       }
       this.mark=val
     },
@@ -53,6 +52,7 @@ export default {
       getCustomList().then(({ data }) => {
         this.content = data.data
       })
+      
     },
   },
 }

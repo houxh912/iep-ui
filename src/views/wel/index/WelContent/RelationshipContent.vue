@@ -1,17 +1,21 @@
 <template>
   <div class="relationshipContent">
-    <iep-no-data v-if="!contentData.length" message="暂无内容"></iep-no-data>
-    <div v-show="mark==0" class="relationship-item">
-      <div><span class="title">我的师傅</span></div>
-      <ul>
-        <li class="name" v-for="(item,index) in contentData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
-      </ul>
-      <div><span class="title">我的徒弟</span></div>
-      <ul>
-        <li class="name" v-for="(item,index) in contentData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
-      </ul>
+    <!-- <iep-no-data v-if="!contentData.length" message="暂无内容"></iep-no-data> -->
+    <div v-if="mark==0">
+      <div class="relationship-item">
+        <div><span class="title">我的师傅</span></div>
+        <ul>
+          <li class="name" v-for="(item,index) in masterData" :key="index" @click="gotoDetails(item.relatedId)">{{item.realName}}</li>
+        </ul>
+      </div>
+      <div class="relationship-item">
+        <div><span class="title">我的徒弟</span></div>
+        <ul>
+          <li class="name" v-for="(item,index) in apprenticeData" :key="index" @click="gotoDetails(item.relatedId)">{{item.realName}}</li>
+        </ul>
+      </div>
     </div>
-    <div class="relationship-item">
+    <div v-else class="relationship-item">
       <ul>
         <li class="name" v-for="(item,index) in contentData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
       </ul>
@@ -20,6 +24,7 @@
 </template>
 
 <script>
+import { getMyMasterList, getMyApprenticeList } from '@/api/wel/relationship_manage'
 export default {
   props: {
     contentData: {
@@ -32,12 +37,27 @@ export default {
     },
   },
   created () {
-    // console.log(this.content)
+    this.loadPage()
+  },
+  data () {
+    return{
+      masterData:[],
+      apprenticeData:[],
+    }
   },
   methods:{
     gotoDetails (val) {
       this.$router.push({
         path:`/app/personal_style/${val}`,
+      })
+    },
+    loadPage (){
+      getMyMasterList().then(({ data }) => {
+        this.masterData = data
+        console.log(this.masterData)
+      })
+      getMyApprenticeList().then(({ data }) => {
+        this.apprenticeData = data.data
       })
     },
   },

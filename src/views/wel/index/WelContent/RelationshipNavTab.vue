@@ -1,7 +1,11 @@
 <template>
   <div class="tab">
-    <div class="tabList" v-for="(item,index) in navList" :key="index" @click="tab(index,item.type)">
-      <span class="title" :class="showClass==index?'color':''">{{item.subtitle}} </span>
+    <div class="tabList" @click="tab(0,0)">
+      <span class="title" :class="showClass==0?'color':''">我的师徒</span>
+      <span class="line">/</span>
+    </div>
+    <div class="tabList" v-for="(item,index) in navList" :key="index" @click="tab(index+1,index+1)">
+      <span class="title" :class="showClass==index+1?'color':''">{{item.name}} </span>
       <span class="line" :class="index==navList.length-1?'showLine':''">/</span>
     </div>
   </div>

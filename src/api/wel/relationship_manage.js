@@ -49,6 +49,20 @@ export function getMyApprentice (query) {
   })
 }
 
+export function getMyMasterList () {
+  return request({
+    url: '/cpms/iepcommoncharacterrelations/listMyMaster',
+    method: 'get',
+  })
+}
+
+export function getMyApprenticeList () {
+  return request({
+    url: '/cpms/iepcommoncharacterrelations/listMyApprentice ',
+    method: 'get',
+  })
+}
+
 export function getRelationshipManageById (id) {
   return request({
     url: `${prefixUrl}/contacts/custom/${id}`,

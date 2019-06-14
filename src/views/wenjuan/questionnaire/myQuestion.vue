@@ -27,7 +27,7 @@ import currentMixin from './const/mixin'
 import { getList } from '@/api/evaluate/question'
 import mainDialog from './mainDialog'
 import previewDialog from './previewDialog'
-import { fetchList } from '@/api/admin/user'
+import { getUserList } from '@/api/admin/contacts'
 import { getDetail, getQuestionnaireIdList } from '@/api/evaluate/question'
 export default {
   components: { mainDialog, previewDialog },
@@ -44,14 +44,11 @@ export default {
   },
   methods: {
     initApi () {
-      fetchList({ //获取用户dic
-        size: 9999,
-        current: 1,
-      }).then(({ data }) => {
-        let dic = data.data.records.map(item => {
+      getUserList().then(({ data }) => {
+        let dic = data.data.map(item => {
           return {
-            value: item.userId,
-            label: item.username,
+            value: item.id,
+            label: item.name,
           }
         })
         this.createByDic = dic
@@ -69,9 +66,8 @@ export default {
     getList () {
       this.tableLoading = true
       this.listQuery.isDeleted = 1
-      this.listQuery.evaDept = this.userInfo.deptId
+      this.listQuery.evaDept = this.userInfo.orgId
       this.listQuery.status = '1,3'
-      // console.log("当前用户登录信息",this.userInfo.deptId)
       getList(this.listQuery).then(({ data }) => {
         this.tableList = data.records
         this.pagination.total = data.total

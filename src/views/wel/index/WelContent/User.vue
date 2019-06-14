@@ -57,7 +57,7 @@
                     <div class="count" @click="handleSome5()">{{form.credit}}</div>
                     <div class="lab-title">
                       <span>信用</span>
-                      <iep-tip class="tag-icon" icon="el-icon-question" content="个人信用是基于内网创建的一套征信系统，<br/>依据个人在内网中的各项行为数据，<br/>运用云计算和机器学习等技术，<br/>对各维度数据进行综合处理和评估，<br/>在个人工作、学习、管理、协作五个维度客观呈现个人信用状况的综合分值。<br/>信用值的高低将影响项目承接机会、企业内部投资、员工提拔、晋升、领导表扬/奖励及享受特权的重要依据。">
+                      <iep-tip class="tag-icon" icon="el-icon-question" content="个人信用是基于内网创建的一套征信系统，依据个人在内网中的各项行为数据，<br/>运用云计算和机器学习等技术，对各维度数据进行综合处理和评估，<br/>在个人工作、学习、管理、协作五个维度客观呈现个人信用状况的综合分值。<br/>信用值的高低将影响项目承接机会、企业内部投资、员工提拔、晋升、领导表扬/奖励及享受特权的重要依据。">
                       </iep-tip>
                     </div>
                   </div>

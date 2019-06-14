@@ -18,12 +18,9 @@ export default {
       required: true,
     },
   },
-  data () {
-    return {}
-  },
   methods: {
-    chanceDetail () {
-      this.$message.success('功能开发中')
+    chanceDetail (id) {
+      this.$openPage('/app/resource/business/business_detail/' + id)
     },
   },
 }

@@ -19,7 +19,7 @@
           <span :class="{'is-disabled':isDisabled(data, node)}" @click="() => selectUser(data, node)">{{ node.label }}</span>
         </span>
       </el-tree>
-      <!-- <relations></relations> -->
+      <relations></relations>
     </iep-drawer>
   </div>
 </template>
@@ -27,11 +27,11 @@
 import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
 import { loadContactsPyList } from '@/api/admin/contacts'
-// import Relations from './Relations'
+import Relations from './Relations'
 import debounce from 'lodash/debounce'
 export default {
   name: 'IepContactSelect',
-  // components: { Relations },
+  components: { Relations },
   props: {
     disabled: {
       type: Boolean,
@@ -194,6 +194,7 @@ export default {
   color: #aaa;
 }
 .tab-title {
+  font-size: 16px;
   color: #3a3a3a;
   background-color: #eee;
   padding: 5px;

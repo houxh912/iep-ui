@@ -36,6 +36,7 @@ import fileUpload from './editForm/fileUpload'
 import remarks from './editForm/remarks'
 import concluding from './editForm/concluding'
 import { getDetailAnswer, answerQuestion } from '@/api/evaluate/question'
+import { getOrgList } from '@/api/admin/org'
 export default {
   mixins: [mixin, scopeMixin],
   components: { singleElection, multipleElection, imgSelect, multipleImgSelect, selectElection, fillBlank, multipleFillBlank, scoring, fileUpload, remarks, concluding },
@@ -131,6 +132,15 @@ export default {
     handleOpen () {
       this.form = this.temp
       this.projectIdDic = []
+      getOrgList().then(({ data }) => {
+        this.groupDic = data.data.map(m => {
+          return {
+            label: m.name,
+            value: m.orgId,
+          }
+        })
+        console.log(this.groupDic)
+      })
     },
     //绑定答案格式
     bindValues (arr) {

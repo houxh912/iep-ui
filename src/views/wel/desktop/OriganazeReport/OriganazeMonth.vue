@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable({realName: this.realName,orgId: this.orgIds,reportType: 0,...param}, getOrgTableData)
+      this.loadTable({realName: this.realName,orgId: this.orgIds,reportType: 1,...param}, getOrgTableData)
     },
     listPage () {
       this.realName = ''

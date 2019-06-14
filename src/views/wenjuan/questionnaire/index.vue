@@ -66,7 +66,7 @@ export default {
     getList () {
       this.tableLoading = true
       this.listQuery.isDeleted = 1
-      this.listQuery.createBy = this.userInfo.id
+      this.listQuery.createBy = this.userInfo.userId
       getList(this.listQuery).then(({ data }) => {
         this.tableList = data.records
         this.pagination.total = data.total

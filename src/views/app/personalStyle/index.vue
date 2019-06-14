@@ -17,6 +17,12 @@ export default {
   components: {
     PersonTop, PersonContent,
   },
+  beforeRouteUpdate (to, from, next) {
+    this.$nextTick(() => {
+      this.getUserDetail()
+    })
+    next()
+  },
   data () {
     return {
       userInfo: {

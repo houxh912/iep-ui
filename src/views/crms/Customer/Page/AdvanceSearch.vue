@@ -9,9 +9,9 @@
     <el-form-item label="客户关系">
       <iep-dict-select v-model="form.clientRela" dict-name="crms_client_relation"></iep-dict-select>
     </el-form-item>
-    <el-form-item label="跟进状态">
+    <!-- <el-form-item label="跟进状态">
       <iep-dict-select v-model="form.followUpStatus" dict-name="crms_follow_up_status"></iep-dict-select>
-    </el-form-item>
+    </el-form-item> -->
     <!-- <el-form-item label="业务类型">
       <iep-dict-select v-model="businessTypeKey" dict-name="crms_business_type" multiple></iep-dict-select>
     </el-form-item> -->

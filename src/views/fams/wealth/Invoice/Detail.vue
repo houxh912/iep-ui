@@ -21,25 +21,37 @@
             </template>
           </el-table-column>
         </el-table>
+
         <iep-divider />
+
         <iep-form-item class="form-half" label-name="报销类型">
           <iep-div-detail :value="dictsMap.referType[form.referType]"></iep-div-detail>
         </iep-form-item>
+
         <iep-form-item class="form-half" label-name="报销组织">
           <iep-div-detail :value="form.orgName"></iep-div-detail>
         </iep-form-item>
+
         <iep-form-item class="form-half" label-name="报销抬头">
           <iep-div-detail :value="form.companyName"></iep-div-detail>
         </iep-form-item>
+
         <iep-form-item v-if="projectOption" class="form-half" label-name="项目">
           <iep-div-detail :value="form.projectName"></iep-div-detail>
         </iep-form-item>
+
         <iep-form-item class="form-half" label-name="财务审批人">
           <iep-contact-select disabled v-model="form.financialAudit"></iep-contact-select>
         </iep-form-item>
+
         <iep-form-item v-if="auditorOption" class="form-half" label-name="部门审批人">
           <iep-contact-select disabled v-model="form.auditor"></iep-contact-select>
         </iep-form-item>
+
+        <iep-form-item label-name="备注">
+          <iep-div-detail :value="form.remarks"></iep-div-detail>
+        </iep-form-item>
+
       </el-form>
     </basic-container>
   </div>

@@ -6,16 +6,16 @@
       </div>
       <div class="piece">
         <IepAppTabCard :title="listTitle1">
-          <IepAppListCard :dataList="listList1" name="clientName"></IepAppListCard>
+          <IepAppListCard :dataList="listList1" name="clientName" @click="mostCoopDetail"></IepAppListCard>
         </IepAppTabCard>
-        <IepAppTabCard :title="labelTitle">
+        <!-- <IepAppTabCard :title="labelTitle">
           <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
-        </IepAppTabCard>
+        </IepAppTabCard> -->
         <IepAppTabCard :title="rankingTitle">
-          <IepAppRankingCard :dataList="dataList" name="clientName"></IepAppRankingCard>
+          <IepAppRankingCard :dataList="dataList" name="clientName" @click="mostCoopDetail"></IepAppRankingCard>
         </IepAppTabCard>
         <IepAppTabCard :title="listTitle2">
-          <IepAppListCard :dataList="listList2" name="materialName"></IepAppListCard>
+          <IepAppListCard :dataList="listList2" name="materialName" @click="excellentDetail"></IepAppListCard>
         </IepAppTabCard>
         <!-- <IepAppTabCard :title="listTitle3">
           <IepAppListCard :dataList="listList3"></IepAppListCard>
@@ -76,11 +76,17 @@ export default {
         this.dataList = row
       })
     },
+    mostCoopDetail (row) {
+      this.$router.push(`/app/resource/client/client_detail/${row.clientId}`)
+    },
     // 优秀客户方案
     getExcellentList () {
       getExcellentList().then(({data}) => {
         this.listList2 = data.data
       })
+    },
+    excellentDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
     },
     // 推荐主题
     getRectagsList () {

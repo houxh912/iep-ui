@@ -1,11 +1,14 @@
 <template>
   <div class="reward-con">
-    <div class="reward">
+    <div class="reward" v-if="reward.length !== 0">
       <div v-for="(item,index) in reward" :key="index" class="piece" @click="handleDetail(item.clientId)">
         <span class="title">{{item.clientName}}</span>
         <span class="name">{{item.marketManagerName}}</span>
         <span class="percentage">{{item.followUpStatusName}}</span>
       </div>
+    </div>
+    <div class="reward" v-else>
+      <IepNoData></IepNoData>
     </div>
   </div>
 </template>
@@ -38,6 +41,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .reward {
+  height: 180px;
   .piece {
     display: flex;
     justify-content: space-between;
@@ -81,10 +85,5 @@ export default {
       background-color: #999;
     }
   }
-}
-</style>
-<style scoped>
-.reward-con >>> .el-card__body {
-  height: 270px;
 }
 </style>

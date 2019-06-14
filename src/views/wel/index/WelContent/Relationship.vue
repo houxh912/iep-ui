@@ -3,57 +3,56 @@
     <div class="task-nav">
       <div class="left">
         <span class="navTitle">我的关系</span>
-        <nav-tab :nav-list="navList" @tab="tab"></nav-tab>
+        <relationship-nav-tab :nav-list="relationship" @tab="tab"></relationship-nav-tab>
       </div>
       <el-button size="mini" plain @click="handManage">管理</el-button>
     </div>
-    <relationship-content :contentData="contentData"></relationship-content>
+    <relationship-content :contentData="contentData" :mark="mark"></relationship-content>
   </div>
 </template>
 
 <script>
-import NavTab from './NavTab'
+import { getRelationshipList, getCustomList } from '@/api/wel/relationship_manage'
+import RelationshipNavTab from './RelationshipNavTab'
 import RelationshipContent from './RelationshipContent'
 export default {
-  components: { NavTab, RelationshipContent },
+  components: { RelationshipNavTab, RelationshipContent },
   data () {
     return {
       showClass: 0,
       navName: 'order',
-      contentData: [],
-      navList: [{
-        subtitle: '师徒',
-        type: 'mentor',
-        id: 0,
-      }, {
-        subtitle: '协作',
-        type: 'customer',
-        id: 1,
-      }, {
-        subtitle: '同事',
-        type: 'colleague',
-        id: 3,
-      }],
-      content: {
-        mentor: [],
-        customer: [],
-        partner: [],
-        colleague: [],
-        circle: [],
-      },
+      contentData: [
+      ],
+      relationship: [],
+      content: [
+        {userList:[]},
+      ],
+      mark:0,
     }
   },
   created () {
-    this.contentData = this.content.mentor
+    this.loadTypeList()
   },
   methods: {
     tab (val) {
-      this.contentData = this.content[val]
+      if(val>0){
+        this.contentData = this.content[val-1].userList
+      }
+      this.mark=val
     },
     handManage () {
       this.$router.push({
         path: '/wel/relationship_manage',
       })
+    },
+    loadTypeList () {
+      getRelationshipList().then(({ data }) => {
+        this.relationship = data.data
+      })
+      getCustomList().then(({ data }) => {
+        this.content = data.data
+      })
+      
     },
   },
 }
@@ -68,7 +67,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .left{
+    .left {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -80,6 +79,7 @@ export default {
     }
   }
   .title {
+    margin-right: 10px;
     font-size: 14px;
     cursor: pointer;
     color: #666;

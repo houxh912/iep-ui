@@ -20,8 +20,9 @@
       </operation-wrapper>
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="close" :z-index="3000">
-      <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
-      <el-tree ref="tree" class="filter-tree" :props="props" :data="treeData" :default-expanded-keys="[1]" node-key="value" :filter-node-method="filterNode">
+      <el-input placeholder="输入关键字对国脉人进行过滤" v-model="filterText" clearable></el-input>
+      <div class="tab-title">国脉人</div>
+      <el-tree ref="tree" class="filter-tree" :props="props" :data="treeData" node-key="value" :filter-node-method="filterNode">
         <span v-if="node.value!==1" class="custom-tree-node" slot-scope="{ node, data }">
           <iep-div-detail :value="node.label"></iep-div-detail>
           <span>
@@ -29,6 +30,7 @@
           </span>
         </span>
       </el-tree>
+      <relations :user-ids="userIds" :filter-user-list="filterUserList" @push="_pushUsers" @push-list="_pushUserList"></relations>
     </iep-drawer>
   </div>
 </template>
@@ -36,9 +38,11 @@
 import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
 import { loadContactsPyList } from '@/api/admin/contacts'
+import Relations from './Relations'
 import debounce from 'lodash/debounce'
 export default {
   name: 'IepContactMultiple',
+  components: { Relations },
   props: {
     disabled: {
       type: Boolean,
@@ -195,6 +199,12 @@ export default {
         }
       }
     },
+    _pushUsers (obj) {
+      this.users.push(obj)
+    },
+    _pushUserList (arr) {
+      this.users.push(...arr)
+    },
     handleChange (value) {
       const users = value.map(m => {
         return {
@@ -256,5 +266,14 @@ export default {
   justify-content: space-between;
   font-size: 14px;
   padding-right: 8px;
+}
+.tab-title {
+  font-size: 16px;
+  color: #3a3a3a;
+  background-color: #eee;
+  padding: 5px;
+  padding-left: 15px;
+  margin-top: 10px;
+  border-radius: 5px;
 }
 </style>

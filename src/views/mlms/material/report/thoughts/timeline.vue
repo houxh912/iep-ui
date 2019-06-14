@@ -166,7 +166,7 @@ export default {
           content: "";
           position: absolute;
           left: -16px;
-          top: 16px;
+          top: 8px;
           width: 29px;
           height: 18px;
           background: #fafafa url(../img/sanjiao.jpg) no-repeat;

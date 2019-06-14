@@ -1,9 +1,9 @@
 <template>
   <div class="baner">
     <el-carousel :interval="5000" class="index-card">
-        <el-carousel-item v-for="(item,index) in img" :key="index" class="baner-box">
-            <iep-img :src="item" class="img"></iep-img>
-        </el-carousel-item>
+      <el-carousel-item v-for="(item,index) in img" :key="index" class="baner-box">
+        <iep-img :src="item" class="img"></iep-img>
+      </el-carousel-item>
     </el-carousel>
   </div>
 </template>
@@ -23,21 +23,20 @@ export default {
 }
 </script>
 <style scoped>
-.el-carousel >>> .el-carousel__container{
-  height: 293px;
+.el-carousel >>> .el-carousel__container {
+  height: 288px;
 }
 </style>
 
 <style lang="scss" scoped>
-.index-card{
-  height: 293px;
-  .baner-box{
-    height: 293px;
-    .img{
+.index-card {
+  height: 288px;
+  .baner-box {
+    height: 288px;
+    .img {
       width: 100%;
-      height: 293px;
+      height: 288px;
     }
   }
 }
-
 </style>

@@ -111,7 +111,7 @@ export default [
           },
           {
             path: 'member',
-            name: '组织介绍',
+            name: '组织成员',
             component: () => import('@/views/app/organizationDetails/member/'),
             meta: noAuth,
           },
@@ -228,7 +228,7 @@ export default [
       },
       {
         path: 'video_list',
-        name: '视频详情',
+        name: '视频列表',
         component: () => import('@/views/app/videoList/'),
       },
       {

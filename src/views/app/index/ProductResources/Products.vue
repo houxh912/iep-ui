@@ -50,10 +50,8 @@ export default {
     float: left;
     margin: 0 15px 0 0;
     overflow: hidden;
-    img {
-      width: 140px;
-      height: 80px;
-      transition: 0.5s;
+    border:1px solid #eee;
+    > iep-img {
       &:hover {
         cursor: pointer;
         transform: scale(1.1);
@@ -82,5 +80,12 @@ export default {
       -webkit-box-orient: vertical;
     }
   }
+}
+</style>
+<style scoped>
+.products >>> .el-image__inner{
+  width: 140px;
+  height: 80px;
+  transition: 0.5s;
 }
 </style>

@@ -2,11 +2,12 @@
   <div class="feelings">
     <IepAppTabCard :title="title">
       <!-- <el-button class="btn" type="text" slot="right" @click="handlePublish">发表说说</el-button> -->
-      <div class="dynamicList">
+      <div class="dynamicList" v-if="dynamicList.length !== 0">
         <div v-for="(item,index) in dynamicList" :key="index" class="piece">
           <span>{{item.content}}</span>
         </div>
       </div>
+      <IepNoData v-else></IepNoData>
     </IepAppTabCard>
     <!-- 发表说说 -->
     <publish-dialog ref="publish"></publish-dialog>
@@ -39,7 +40,7 @@ export default {
   },
   watch: {
     userId () {
-      getPersonalThoughts(this.userId).then(({data}) => {
+      getPersonalThoughts(this.userId).then(({ data }) => {
         this.dynamicList = data.data
       })
     },
@@ -51,8 +52,7 @@ export default {
 .feelings {
   margin-bottom: 30px;
   .btn {
-    float: right;
-    padding: 5px 0;
+    padding: 0;
     color: #cb3737;
     &:hover {
       color: #f56c6c;

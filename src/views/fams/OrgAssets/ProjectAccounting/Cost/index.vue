@@ -1,31 +1,84 @@
+
 <template>
-    <el-table :data="tableData" style="width: 100%">
-      <el-table-column  prop="name"  label="月份"></el-table-column>
-      <el-table-column  prop="name"  label="人工成本"></el-table-column>
-      <el-table-column  prop="name"  label="项目提成"></el-table-column>
-      <el-table-column label="项目费用">
-        <el-table-column  prop="name"  label="税费"></el-table-column>
-        <el-table-column  prop="name"  label="中标服务费"></el-table-column>
-        <el-table-column  prop="name"  label="外包费用"></el-table-column>
-        <el-table-column  prop="name"  label="项目评审专家费"></el-table-column>
-        <el-table-column  prop="name"  label="佣金"></el-table-column>
-        <el-table-column  prop="name"  label="其他"></el-table-column>
-      </el-table-column>
-      <el-table-column  prop="name"  label="项目管理费"></el-table-column>
-      <el-table-column  prop="name"  label="开票费用"></el-table-column>
-      <el-table-column  prop="name"  label="差旅费"></el-table-column>
-      <el-table-column  prop="name"  label="费用总支出"></el-table-column>
-    </el-table>
-  </template>
-       
-  <script>
-    export default {
-      data () {
-        return {
-          tableData: [{
-            name: 'sss',
-          }],
-        }
+  <iep-table :isLoadTable="isLoadTable" :is-pagination="false" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable">
+  </iep-table>
+</template>
+<script>
+import { getProjectDetailPageById } from '@/api/fams/statistics'
+export default {
+  data () {
+    return {
+      dictsMap: {
+        payType: {
+          0:'现金',
+          1:'银行',
+          2:'国脉贝',
+        },
       },
+      columnsMap: [
+        {
+          prop: 'time',
+          label: '时间',
+          width: 150,
+        },
+        {
+          prop: 'typeName',
+          label: '类型',
+        },
+        {
+          prop: 'amount',
+          label: '费用金额',
+        },
+        {
+          prop: 'payType',
+          label: '支付方式',
+          type:'dict',
+        },
+        {
+          prop: 'orgName',
+          label: '组织名称',
+        },
+        {
+          prop: 'companyName',
+          label: '公司名称',
+        },
+        {
+          prop: 'bankName',
+          label: '银行账户',
+        },
+        {
+          prop: 'remarks',
+          label: '备注',
+        },
+      ],
+      isLoadTable: true,
+      pagedTable: [],
+      isIncome:1,
     }
-  </script>
+  },
+  computed: {
+    id () {
+      return +this.$route.params.id
+    },
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    loadPage () {
+      if (this.id) {
+        this.isLoadTable = true
+        getProjectDetailPageById(this.id,this.isIncome).then(({ data }) => {
+          this.pagedTable = data.data
+          this.isLoadTable = false
+        })
+      }
+    },
+  },
+}
+</script>
+<style lang="scss" scoped>
+.is-red {
+  color: red;
+}
+</style>

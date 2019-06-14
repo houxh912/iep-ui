@@ -69,13 +69,20 @@ const rules = {
   //     trigger: 'blur',
   //   },
   // ],
+  telephoneNo: [
+    { trigger: 'blur' },
+    { max: 20, message: '长度不可超过20个字符', trigger: 'blur' },
+  ],
   address: [
     { message: '请填写地址', trigger: 'blur' },
     { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
   ],
   clientInfos: [{ required: true, message: '请选择对应客户', trigger: 'blur' }],
   // cellphone: [{ validator: cellPhone, trigger: 'blur' }],
-  cellphone: [{  trigger: 'blur' }],
+  cellphone: [
+    { trigger: 'blur' },
+    { max: 20, message: '长度不可超过20个字符', trigger: 'blur' },
+  ],
   fax: [{ max: 255, message: '长度不可超过255个字符', trigger: 'blur' }],
   qq: [{ min: 5, max: 11, message: '长度为5-11位数字', trigger: 'blur' }],
   wechat: [{ max: 20, message: '长度不可超过20个字符', trigger: 'blur' }],

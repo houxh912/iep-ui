@@ -4,7 +4,9 @@
       <div class="hot-course">
         <div class="con-course">
           <div class="con" v-for="(con, index) in conCourse" :key="index" @click="handleDetail(con)">
-            <div class="img"><iep-img :src="con.theme_pictures" alt=""></iep-img></div>
+            <div class="img">
+              <iep-img :src="con.theme_pictures" alt=""></iep-img>
+            </div>
             <span class="text">{{con.training_theme}}</span>
             <span class="num">{{con.views}} 人已学习</span>
           </div>
@@ -33,7 +35,7 @@ export default {
   },
   methods: {
     loadList () {
-      getHottestList().then(({data}) => {
+      getHottestList().then(({ data }) => {
         this.conCourse = data.data.slice(0, 2)
         this.hotCourse = data.data.slice(2)
       })
@@ -52,6 +54,9 @@ export default {
   .piece {
     cursor: pointer;
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-left: 15px;
     .name {
       display: inline-block;

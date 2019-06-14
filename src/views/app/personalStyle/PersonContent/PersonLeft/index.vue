@@ -24,7 +24,7 @@
         </iep-tabs>
       </IepAppTabsCard>
     </div>
-    <new-down></new-down>
+    <new-down :visitVOs="visitVOs"></new-down>
   </div>
 </template>
 <script>
@@ -57,6 +57,10 @@ export default {
     userId: {
       type: Number,
       default: 0,
+    },
+    visitVOs: {
+      type: Array,
+      default: () => [],
     },
   },
   computed: {
@@ -98,7 +102,7 @@ export default {
     userId (newVal) {
       if (newVal) {
         this.$nextTick(() => {
-          this.activeTab = 'Project'
+          this.activeTab = 'Material'
         })
       }
     },

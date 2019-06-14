@@ -2,7 +2,7 @@
   <div class="created">
     <div class="title">我要创建</div>
     <div class="created-content">
-      <div class="handelCreate" v-for="(item,index) in dataList" :key="index" @click="item.callback">{{item.title}}</div>
+      <div class="handelCreate" :class="item.disabled" v-for="(item,index) in dataList" :key="index" @click="item.callback">{{item.title}}</div>
       <div class="add"><i class="el-icon-plus"></i></div>
     </div>
   </div>
@@ -64,20 +64,23 @@ export default {
         {
           title: '考试',
           callback: () => {
-            this.$message.success('功能开发中')
+            this.$message('功能开发中')
           },
+          disabled: 'disabled',
         },
         {
           title: '调研',
           callback: () => {
-            this.$message.success('功能开发中')
+            this.$message('功能开发中')
           },
+          disabled: 'disabled',
         },
         {
           title: '建模',
           callback: () => {
-            this.$message.success('功能开发中')
+            this.$message('功能开发中')
           },
+          disabled: 'disabled',
         },
       ],
     }
@@ -101,6 +104,13 @@ export default {
 .created {
   box-sizing: border-box;
   margin: 10px;
+  .disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    &:hover {
+      color: #ccc;
+    }
+  }
 }
 .created-content {
   display: grid;

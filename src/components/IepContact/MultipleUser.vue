@@ -13,8 +13,9 @@
       <a-button v-if="isShowContactBtn" @click="openContact()">通讯录</a-button>
     </operation-wrapper>
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="close" :z-index="3000">
-      <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
-      <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="treeData" :default-expanded-keys="[1]" node-key="value">
+      <el-input placeholder="输入关键字对国脉人进行过滤" v-model="filterText" clearable></el-input>
+      <div class="tab-title">国脉人</div>
+      <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="treeData" node-key="value">
         <span v-if="node.value!==1" class="custom-tree-node" slot-scope="{ node, data }">
           <span :class="{level1:node.level===1,level2:node.level===2,level3:node.level===3}">{{ node.label }}</span>
           <span v-if="node.level===3">
@@ -22,16 +23,20 @@
           </span>
         </span>
       </el-tree>
+      <relations :user-ids="userIds" :filter-user-list="filterUserList" @push="_pushUsers" @push-list="_pushUserList"></relations>
     </iep-drawer>
   </div>
 </template>
 <script>
+import uniqBy from 'lodash/uniqBy'
 import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
 import { loadContactsPyList } from '@/api/admin/contacts'
+import Relations from './Relations'
 import debounce from 'lodash/debounce'
 export default {
   name: 'IepContactMultipleUser',
+  components: { Relations },
   props: {
     disabled: {
       type: Boolean,
@@ -72,7 +77,10 @@ export default {
     },
     users: {
       get: function () { return this.value },
-      set: function (value) { this.$emit('input', value) },
+      set: function (value) {
+        const v = uniqBy(value, 'id')
+        this.$emit('input', v)
+      },
     },
     userIds: function () { return this.value.map(m => m.id) },
     usersValue () {
@@ -129,6 +137,12 @@ export default {
           })
         }
       }
+    },
+    _pushUsers (obj) {
+      this.users.push(obj)
+    },
+    _pushUserList (arr) {
+      this.users.push(...arr)
     },
     handleChange (value) {
       const users = value.map(m => {
@@ -191,5 +205,14 @@ export default {
   justify-content: space-between;
   font-size: 14px;
   padding-right: 8px;
+}
+.tab-title {
+  font-size: 16px;
+  color: #3a3a3a;
+  background-color: #eee;
+  padding: 5px;
+  padding-left: 15px;
+  margin-top: 10px;
+  border-radius: 5px;
 }
 </style>

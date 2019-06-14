@@ -9,10 +9,10 @@
   </div>
 </template>
 <script>
-import Histogram from './Histogram'
+import Histogram from './Histogram/'
 import Project from './Project'
 import ProjectSwitching from './ProjectSwitching/'
-import Team from './Team'
+import Team from './team/'
 import TalentDemand from './TalentDemand'
 import TextureScore from './TextureScore'
 export default {

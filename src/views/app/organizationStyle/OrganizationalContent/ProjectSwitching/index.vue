@@ -1,6 +1,6 @@
 <template>
   <div class="project-switching">
-    <IepAppTabsCard isMore :linkName="linkName">
+    <IepAppTabsCard isMore :linkName="linkName[activeTab]">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Projects'" v-slot:Projects>
           <projects v-loading="activeTab !=='Projects'" :orgId="orgId"></projects>
@@ -44,7 +44,11 @@ export default {
         value: 'Programme',
       }],
       activeTab: '',
-      linkName: '',
+      linkName: {
+        Projects: '/app/project',
+        Customer: '/app/resource/client',
+        Programme: '/app/resource/material',
+      },
     }
   },
   watch: {
@@ -57,6 +61,7 @@ export default {
 <style lang="scss" scoped>
 .project-switching {
   margin-bottom: 30px;
+  height: 266px;
 }
 </style>
 

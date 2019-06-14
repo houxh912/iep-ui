@@ -1,8 +1,7 @@
 import request from '@/router/axios'
 
-
 const prefixUrl = '/admin'
-// @/api/admin/contactscustom
+// @/api/wel/relationship_manage
 export function getRelationshipManagePage (query) {
   return request({
     url: `${prefixUrl}/contacts/custom/contacts/page`,
@@ -16,7 +15,13 @@ export function getRelationshipList () {
     url: `${prefixUrl}/contacts/custom/contacts/list`,
     method: 'get',
   })
+}
 
+export function getCustomList () {
+  return request({
+    url: `${prefixUrl}/contacts/custom/list`,
+    method: 'get',
+  })
 }
 
 export function getTypeCountMap (query) {
@@ -40,6 +45,20 @@ export function getMyApprentice (query) {
     url: '/cpms/iepcommoncharacterrelations/pageMyApprentice',
     method: 'get',
     params: query,
+  })
+}
+
+export function getMyMasterList () {
+  return request({
+    url: '/cpms/iepcommoncharacterrelations/listMyMaster',
+    method: 'get',
+  })
+}
+
+export function getMyApprenticeList () {
+  return request({
+    url: '/cpms/iepcommoncharacterrelations/listMyApprentice ',
+    method: 'get',
   })
 }
 
@@ -126,5 +145,12 @@ export function deleteReleaseMentorById (mentorId) {
     url: `/cpms/iepcommoncharacterrelations/delMentorRelation/${mentorId}`,
     method: 'post',
     data: [mentorId],
+  })
+}
+
+export function getRelationList () {
+  return request({
+    url: `${prefixUrl}/contacts/custom/list`,
+    method: 'get',
   })
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="no-data">
-    <a-icon type="frown-o" />{{message}}</div>
+    <i class="icon-gmlogo"></i>{{message}}</div>
 </template>
 <script>
 export default {

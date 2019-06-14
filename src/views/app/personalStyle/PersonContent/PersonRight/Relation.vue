@@ -100,11 +100,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .btn {
-  float: right;
-  padding: 5px 0;
+  padding: 0;
   color: #999;
 }
 .relation {
+  margin-bottom: 25px;
   .item {
     .title {
       display: block;

@@ -49,5 +49,12 @@ const initMemberForm = () => {
   }
 }
 
+const initSearchForm = () =>  {
+  return {
+    code: '',
+    name: '',
+  }
+}
 
-export { columnsMap, initMemberForm, _initRow }
+
+export { columnsMap, initMemberForm, _initRow, initSearchForm }

@@ -17,7 +17,7 @@
             </el-dropdown-menu>
           </el-dropdown> -->
         </template>
-        <template v-if="type==='1'"  slot="left">
+        <template v-if="type==='1'" slot="left">
           <iep-button type="primary" @click="Transfer" plain v-show="isZyPermissions()">转移</iep-button>
         </template>
         <template slot="right">
@@ -197,6 +197,7 @@ export default {
     },
     //tab切换菜单
     changeType () {
+      this.pagedTable = []
       this.searchPage()
       // if (this.type === '2') {
       //   this.showSelect = true
@@ -262,7 +263,6 @@ export default {
     },
     //添加协作人
     handleCooperation (row) {
-      console.log(row)
       // if (this.ids.length == 0) {
       //   this.$message('请勾选需要添加协作人的客户')
       // } else if (this.ids.length == 1) {

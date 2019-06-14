@@ -70,11 +70,7 @@
             </div>
           </div>
           <div class="pagination" v-if="commentList.length > 0">
-            <el-pagination
-              background
-              @current-change="handleCurrentChange"
-              layout="total, prev, pager, next, jumper"
-              :total="pageSize.total">
+            <el-pagination background @current-change="handleCurrentChange" layout="total, prev, pager, next, jumper" :total="pageSize.total">
             </el-pagination>
           </div>
         </el-row>
@@ -177,7 +173,7 @@ export default {
       }
       this.comment.commentObjectId = this.formData.id
       commentMaterial(this.comment).then(() => {
-        addBellBalanceRuleByNumber('MATERIAL_COMMENT').then(({data}) => {
+        addBellBalanceRuleByNumber('MATERIAL_COMMENT').then(({ data }) => {
           this.getComment(this.formData.id)
           this.comment = commentForm()
           this.$message.success(`评论成功，${data.msg}！`)
@@ -207,7 +203,7 @@ export default {
       //   this.$message.error('对不起，您的余额不足！')
       //   return
       // }
-      downloadCount(this.formData.id).then(({data}) => {
+      downloadCount(this.formData.id).then(({ data }) => {
         if (data.data) {
           downloadFile(obj)
         } else {
@@ -434,6 +430,7 @@ export default {
       margin-bottom: 10px;
       padding: 10px 0;
       .img {
+        margin-right: 5px;
         width: 50px;
         img {
           width: 40px;
@@ -443,8 +440,15 @@ export default {
       .comment-info {
         width: 100%;
         .name {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
           color: #5473b6;
           margin-bottom: 10px;
+          .rate {
+            margin-left: 5px;
+            font-size: 14px;
+          }
         }
         p {
           margin: 0 0 10px 0;
@@ -545,5 +549,23 @@ pre {
   width: 160px;
   display: inline-block;
   font-size: 28px;
+}
+</style>
+
+<style scoped>
+.footer-right >>> .five-key {
+  padding: 0;
+}
+.footer-right >>> .icon-box {
+  margin: 5px;
+}
+.img >>> .el-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.img >>> .el-image__inner {
+  border-radius: 50%;
 }
 </style>

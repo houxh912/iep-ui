@@ -59,11 +59,7 @@
           </div>
         </div>
         <div class="pagination" v-if="commentList.length > 0">
-          <el-pagination
-            background
-            @current-change="handleCurrentChange"
-            layout="total, prev, pager, next, jumper"
-            :total="pageSize.total">
+          <el-pagination background @current-change="handleCurrentChange" layout="total, prev, pager, next, jumper" :total="pageSize.total">
           </el-pagination>
         </div>
       </div>
@@ -325,6 +321,7 @@ export default {
       margin-bottom: 10px;
       padding: 10px 0;
       .img {
+        margin-right: 5px;
         width: 50px;
         img {
           width: 40px;
@@ -442,5 +439,23 @@ export default {
     width: 20px;
     height: 20px;
   }
+}
+</style>
+
+<style scoped>
+.img >>> .el-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.img >>> .el-image__inner {
+  border-radius: 50%;
+}
+.button-list >>> .five-key {
+  padding: 0;
+}
+.button-list >>> .icon-box {
+  margin: 5px;
 }
 </style>

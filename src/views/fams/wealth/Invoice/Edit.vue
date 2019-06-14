@@ -57,6 +57,10 @@
           <iep-contact-select v-model="form.auditor"></iep-contact-select>
         </iep-form-item>
 
+        <iep-form-item prop="remarks" label-name="备注">
+          <iep-input-area v-model="form.remarks"></iep-input-area>
+        </iep-form-item>
+
       </el-form>
     </basic-container>
   </div>
@@ -137,14 +141,7 @@ export default {
           }
         })
       } catch (object) {
-        let message = ''
-        for (const key in object) {
-          if (object.hasOwnProperty(key)) {
-            const element = object[key]
-            message = element[0].message
-          }
-        }
-        this.$message(message)
+        this.mixinsMessage(object)
       }
     },
     loadPage () {

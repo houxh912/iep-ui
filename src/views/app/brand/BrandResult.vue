@@ -22,7 +22,7 @@ export default {
         { num: 11, name: '白皮书' },
         { num: 11, name: '观点' },
         { num: 11, name: '其它' },
-        { icon:'icon-shangchengxiantiao', name: '进入国脉微店', color: 'red' },
+        { icon: 'icon-shangchengxiantiao', name: '进入国脉微店', color: 'red' },
       ],
     }
   },
@@ -38,9 +38,9 @@ export default {
 }
 .result {
   text-align: center;
-  i{
-    font-size: 28px!important;
-    color:#999;
+  i {
+    font-size: 28px !important;
+    color: #999;
   }
   .gridResult {
     display: inline-block;
@@ -66,6 +66,11 @@ export default {
   .gridResult:nth-last-child(2) {
     border-bottom: none;
   }
+}
+</style>
+<style scoped>
+.grid-content >>> .el-card {
+  height: 312px;
 }
 </style>
 

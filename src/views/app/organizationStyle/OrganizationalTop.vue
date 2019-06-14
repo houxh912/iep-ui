@@ -1,7 +1,9 @@
 <template>
   <div class="organizational-top">
     <div class="organizational-top-con">
-      <div class="img"><iep-img :src="data.logo" alt=""></iep-img></div>
+      <div class="img">
+        <iep-img :src="data.logo" alt=""></iep-img>
+      </div>
       <div class="text">
         <span class="title">{{data.name}}</span>
         <span class="sub-title">{{data.intro}}</span>
@@ -19,9 +21,9 @@
         </div>
       </div>
       <el-row class="operation">
-        <el-button type="danger" plain size="small">建议</el-button>
-        <el-button type="danger" plain size="small">pk</el-button>
-        <el-button type="danger" size="small">投资</el-button>
+        <el-button type="danger" plain size="small" @click="handleProposal">建议</el-button>
+        <el-button type="info" plain size="small" disabled>pk</el-button>
+        <el-button type="danger" plain size="small" @click="handleInvestment">投资</el-button>
       </el-row>
     </div>
   </div>
@@ -31,13 +33,21 @@ export default {
   props: {
     data: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   data () {
     return {
-      
+
     }
+  },
+  methods: {
+    handleInvestment () {
+      this.$router.push('/app/wealth')
+    },
+    handleProposal () {
+      this.$router.push('/hrms_spa/suggestion_new')
+    },
   },
 }
 </script>
@@ -73,8 +83,8 @@ export default {
       .sub-title {
         display: block;
         margin-bottom: 5px;
-        padding:0 10px 0 0;
-        font-size: 16px;
+        padding: 0 10px 0 0;
+        font-size: 14px;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;

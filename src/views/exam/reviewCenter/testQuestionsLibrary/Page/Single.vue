@@ -1,36 +1,47 @@
 <template>
   <div>
-    <el-form :model="ruleForm" ref="ruleForm" label-width="110px" :rules="rules" style="border:solid 1px #eee;padding:40px 0 20px 0;">
+    <el-form
+      :model="ruleForm"
+      ref="ruleForm"
+      label-width="110px"
+      :rules="rules"
+      style="border:solid 1px #eee;padding:40px 0 20px 0;">
       <el-form-item label="题目：" prop="title">
-        <el-input type="textarea" rows="3" v-model="ruleForm.title" placeholder="请填写题目" style="width:89%;"></el-input>
+        <el-input type="textarea"
+          rows="3"
+          v-model="ruleForm.title"
+          placeholder="请填写题目"
+          style="width:89%;"
+           :readonly="btnDisabled">
+        </el-input>
       </el-form-item>
 
       <el-form-item v-show="index < 26 && postAnswer == 13" v-for="(option, index) in ruleForm.radioOptions"
         :label="'选项 ' + chooseOption[index] + ' ：'" :key="option.key" :prop="'radioOptions.' + index + '.value'">
-        <el-input v-model="option.value" placeholder="请输入选项答案" size="small" style="width:89%;"></el-input>
+        <el-input v-model="option.value" placeholder="请输入选项答案" size="small" style="width:89%;"  :readonly="btnDisabled"></el-input>
         <iep-button plain v-show="index > 0" @click="removeRadioOption(option)" icon="el-icon-close"
-          style="margin-left:10px;">移除
+          style="margin-left:10px;"  :disabled="btnDisabled">移除
         </iep-button>
         <span v-show="false">{{postAnswer}}</span>
       </el-form-item>
       <iep-button v-show="clickAdd < 25 && postAnswer == 13" icon="el-icon-plus" @click="addRadioOption"
-        style="margin:-4px 0 20px 110px;">添加选项
+        style="margin:-4px 0 20px 110px;"  :disabled="btnDisabled">添加选项
       </iep-button>
 
       <el-form-item v-show="index < 26 && postAnswer == 12" v-for="(option, index) in ruleForm.checkboxOptions"
         :label="'选项 ' + chooseOption[index] + ' ：'" :key="option.key" :prop="'checkboxOptions.' + index + '.value'">
-        <el-input v-model="option.value" placeholder="请输入选项答案" size="small" style="width:89%;"></el-input>
+        <el-input v-model="option.value" placeholder="请输入选项答案" size="small" style="width:89%;"  :readonly="btnDisabled"></el-input>
         <iep-button plain v-show="index > 0" @click="removeCheckboxOption(option)" icon="el-icon-close"
-          style="margin-left:10px;">移除
+          style="margin-left:10px;"  :disabled="btnDisabled">移除
         </iep-button>
         <span v-show="false">{{postAnswer}}</span>
       </el-form-item>
       <iep-button v-show="clickAdd < 25 && postAnswer == 12" icon="el-icon-plus" @click="addCheckboxOption"
-        style="margin:-4px 0 20px 110px;">添加选项
+        style="margin:-4px 0 20px 110px;" :disabled="btnDisabled">添加选项
       </iep-button>
 
       <el-form-item class="item" label="答案：" prop="inputRadioAnswer" v-if="postAnswer == 13">
-        <el-select v-model="ruleForm.inputRadioAnswer" clearable size="small" placeholder="请选择答案">
+        <el-select v-model="ruleForm.inputRadioAnswer" clearable size="small" placeholder="请选择答案"  :disabled="btnDisabled">
           <el-option v-for="(item, index) in ruleForm.radioOption" :key="index" :label="radioList[index].label"
             :value="radioList[index].id">
           </el-option>
@@ -38,14 +49,14 @@
       </el-form-item>
       <el-form-item class="item" label="答案：" prop="inputCheckboxAnswer" v-if="postAnswer == 12">
         <el-select multiple v-model="ruleForm.inputCheckboxAnswer" clearable size="small"
-          placeholder="请选择答案">
+          placeholder="请选择答案"  :disabled="btnDisabled">
           <el-option v-for="(item, index) in ruleForm.checkboxOption" :key="index" :label="checkboxList[index].label"
             :value="checkboxList[index].id">
           </el-option>
         </el-select>
       </el-form-item>
       <el-form-item class="item" label="答案：" prop="inputJudgeAnswer" v-if="postAnswer == 11">
-        <el-select v-model="ruleForm.inputJudgeAnswer" clearable size="small" placeholder="请选择答案">
+        <el-select v-model="ruleForm.inputJudgeAnswer" clearable size="small" placeholder="请选择答案"  :disabled="btnDisabled">
           <el-option v-for="(item, index) in judgeStateList" :key="index" :label="item.label"
             :value="item.id">
           </el-option>
@@ -53,10 +64,10 @@
       </el-form-item>
       <el-form-item label="答案：" prop="inputShortAnswer" v-if="postAnswer == 10">
         <el-input type="textarea" rows="3" v-model="ruleForm.inputShortAnswer" placeholder="请填写答案"
-          style="width:89%;"></el-input>
+          style="width:89%;"  :readonly="btnDisabled"></el-input>
       </el-form-item>
       <el-form-item label="解析：" prop="analysis">
-        <el-input type="textarea" rows="3" v-model="ruleForm.analysis" placeholder="请填写解析" style="width:89%;"></el-input>
+        <el-input type="textarea" rows="3" v-model="ruleForm.analysis" placeholder="请填写解析" style="width:89%;"  :readonly="btnDisabled"></el-input>
       </el-form-item>
     </el-form>
     <!-- <div align="center" style="margin-top:30px;">
@@ -72,6 +83,7 @@ export default {
   props: ['postAnswer'],
   data () {
     return {
+      btnDisabled: '',
       radioList,
       checkboxList,
       chooseOption,
@@ -142,6 +154,18 @@ export default {
     //     }
     //   })
     // },
+    /**
+     * 禁用输入及选择
+     */
+    inputDisabled () {
+      this.btnDisabled = true
+    },
+    /**
+     * 不禁用输入及选择
+     */
+    inputUndisabled () {
+      this.btnDisabled = false
+    },
     /**
      * 提交
      */

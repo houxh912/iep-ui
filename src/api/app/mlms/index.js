@@ -77,3 +77,12 @@ export const getContractPage = (params) => {
     params: params,
   })
 }
+
+// 首页要闻集合
+export const getNewsList = (params) => {
+  return request({
+    url: `${prefixUrl}/news_list`,
+    method: 'get',
+    params: params,
+  })
+}

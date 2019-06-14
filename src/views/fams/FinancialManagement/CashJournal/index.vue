@@ -10,7 +10,7 @@
           <iep-date-picker size="small" v-model="yearMonth" align="right" type="month" placeholder="选择年月" @change="searchPage()"></iep-date-picker>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :is-pagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" show-summary :summary-method="getSummaries">
+      <iep-table :isLoadTable="isLoadTable" :height="tableHeight" :is-pagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" show-summary :summary-method="getLastSummaries">
         <el-table-column label="金额(元)">
           <el-table-column prop="inCome" label="收入">
           </el-table-column>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { getSummaries } from '@/util/table'
+import { getLastSummaries } from '@/util/table'
 import { getCashDiaryList } from '@/api/fams/statistics'
 import { columnsMap, initSearchForm, initNow, getYear, getMonth } from './options'
 export default {
@@ -38,6 +38,7 @@ export default {
       companyId: '',
       isLoadTable: true,
       pagedTable: [],
+      tableHeight: 'calc(100vh - 200px)',
       searchForm: initSearchForm(),
       statistics: [0, 0],
       replaceText: (data) => `（累计总支出：${data[0]}元，累计总收入：${data[1]}元）`,
@@ -70,7 +71,7 @@ export default {
     loadPage (param = this.searchForm) {
       this.loadTable(param, getCashDiaryList)
     },
-    getSummaries,
+    getLastSummaries,
   },
 }
 </script>

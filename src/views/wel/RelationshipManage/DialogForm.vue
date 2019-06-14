@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" :title="`${methodName}自定义分组`" width="500px" @close="loadPage">
     <el-form :model="form" size="small" ref="form" :rules="rules" label-width="140px">
       <iep-form-item label-name="自定义分组名" prop="name">
-        <el-input v-model="form.name" maxlength="10"></el-input>
+        <el-input v-model="form.name" maxlength="6"></el-input>
       </iep-form-item>
     </el-form>
     <template slot="footer">
@@ -61,14 +61,7 @@ export default {
           })
         }
       } catch (object) {
-        let message = ''
-        for (const key in object) {
-          if (object.hasOwnProperty(key)) {
-            const element = object[key]
-            message = element[0].message
-          }
-        }
-        this.$message(message)
+        this.mixinsMessage(object)
       }
     },
   },

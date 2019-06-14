@@ -44,6 +44,7 @@ export default {
     width: 260px;
     float: left;
     margin: 0 5px;
+    cursor: pointer;
     .img {
       width: 100%;
       height: 165px;

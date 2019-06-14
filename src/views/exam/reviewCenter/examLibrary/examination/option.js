@@ -218,6 +218,7 @@ export const tipContent2 = {
 //考试表单字段
 export function examForm () {
   return {
+    addInterview: 0,  //控制面试判分的按钮
     id: '',//考试Id
     title: '',//考试名称
     field: '',//考试科目

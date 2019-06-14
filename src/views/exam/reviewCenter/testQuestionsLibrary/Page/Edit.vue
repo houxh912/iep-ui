@@ -11,25 +11,25 @@
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="难度：" prop="difficulty" style="margin-left:20%;">
-          <el-select v-model="form.difficulty" size="small" clearable>
+          <el-select v-model="form.difficulty" size="small" clearable :disabled="btnDisabled">
             <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="科目：" prop="field">
-          <el-select v-model="form.field" size="small" clearable>
+          <el-select v-model="form.field" size="small" clearable :disabled="btnDisabled">
             <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="题类：" prop="kind" style="margin-left:20%;">
-          <el-select v-model="form.kind" size="small" clearable>
+          <el-select v-model="form.kind" size="small" clearable :disabled="btnDisabled">
             <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="关联：" prop="associatedState">
-          <el-select v-model="form.associatedState" size="small" clearable>
+          <el-select v-model="form.associatedState" size="small" clearable :disabled="btnDisabled">
             <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
@@ -50,12 +50,12 @@
         <single-dialog ref="single" :postAnswer="postAnswer"></single-dialog>
         <div align="center" style="margin-top:2%;">
           <iep-button v-if="btnSave == 0" type="primary" @click="submitSingle">保存</iep-button>
-          <iep-button v-if="btnSave == 1" type="primary" @click="saveSingle">提交</iep-button>
+          <iep-button v-if="btnSave == 1" type="primary" @click="saveSingle" v-show="!btnDisabled">保存</iep-button>
         </div>
       </template>
-      <template v-if="tabName ==='Batch'" v-slot:Batch>
+      <!-- <template v-if="tabName ==='Batch'" v-slot:Batch>
         <batch-dialog ref="batch"></batch-dialog>
-      </template>
+      </template> -->
     </iep-tabs>
   </div>
 </template>
@@ -63,7 +63,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import SingleDialog from './Single.vue'
-import BatchDialog from './Batch.vue'
+// import BatchDialog from './Batch.vue'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import { getTestOption, postNewTest, getExamMsg, postModify } from '@/api/exam/createExam/newTest/newTest'
 export default {
@@ -71,7 +71,7 @@ export default {
   mixins: [mixins],
   components: {
     SingleDialog,
-    BatchDialog,
+    // BatchDialog,
     MutiplyTagSelect,
   },
   props: {
@@ -82,6 +82,7 @@ export default {
   },
   data () {
     return {
+      btnDisabled: false,
       btnSave: '',
       questionTypeDisabled: false,
       postAnswer: '',
@@ -112,10 +113,10 @@ export default {
           label: '单题输入',
           value: 'Single',
         },
-        {
-          label: '批量导入',
-          value: 'Batch',
-        },
+        // {
+        //   label: '批量导入',
+        //   value: 'Batch',
+        // },
       ],
       rules: {
         field: [
@@ -150,6 +151,14 @@ export default {
      */
     getTestPaper () {
       const { id } = this.record
+      if (this.record.edit == true) {
+        this.btnDisabled = this.record.edit
+        this.$refs.single.inputDisabled ()
+      }
+      if (this.record.edit == false) {
+        this.btnDisabled = this.record.edit
+        this.$refs.single.inputUndisabled ()
+      }
       if (id) {
         this.btnSave = 1
         const param = {
@@ -184,8 +193,9 @@ export default {
           // console.log('res.data.data => ',res.data.data)
         })
       }
-      else
+      if (!id) {
         this.btnSave = 0
+      }
     },
     /**
      *判断题型

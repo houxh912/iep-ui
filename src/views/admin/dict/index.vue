@@ -7,7 +7,8 @@
           <iep-button type="primary" @click="handleAdd()" icon="el-icon-plus" plain>添加字典</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -27,36 +28,31 @@
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
-    <iep-dialog :dialog-show="dialogShow" title="字典子项" width="70%" @close="dialogShow=false">
-      <dict-child v-if="dialogShow" :current-id="currentId"></dict-child>
-    </iep-dialog>
+    <child-form ref="ChildForm" @load-page="loadPage"></child-form>
   </div>
 </template>
 
 <script>
 import { addObj, delObj, fetchList, putObj } from '@/api/admin/dict'
 import { mapGetters } from 'vuex'
-import dictChild from './child'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
+import ChildForm from './ChildForm'
+import AdvanceSearch from './AdvanceSearch'
 import { columnsMap, initMemberForm } from './options'
 
 export default {
-  name: 'Dict',
-  components: { dictChild, DialogForm },
+  name: 'DictPage',
+  components: { DialogForm, ChildForm, AdvanceSearch },
   mixins: [mixins],
   data () {
     return {
       columnsMap,
-      currentId: 1,
-      tableLoading: false,
-      dialogShow: false,
     }
   },
   created () {
     this.loadPage()
   },
-  mounted: function () { },
   computed: {
     ...mapGetters(['permissions']),
   },
@@ -78,8 +74,9 @@ export default {
       this.multipleSelection = val.map(m => m.userId)
     },
     handleChild (row) {
-      this.currentId = row.id
-      this.dialogShow = true
+      this.$refs['ChildForm'].id = row.id
+      this.$refs['ChildForm'].dialogShow = true
+      this.$refs['ChildForm'].loadPage()
     },
     async loadPage (param = this.searchForm) {
       await this.loadTable(param, fetchList)

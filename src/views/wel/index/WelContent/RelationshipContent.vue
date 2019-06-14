@@ -4,13 +4,13 @@
       <div class="relationship-item">
         <div><span class="title">我的师傅</span></div>
         <ul>
-          <li class="name" v-for="(item,index) in masterData" :key="index" @click="gotoDetails(item.relatedId)">{{item.realName}}</li>
+          <li class="name" v-for="(item,index) in masterData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
         </ul>
       </div>
       <div class="relationship-item">
         <div><span class="title">我的徒弟</span></div>
         <ul>
-          <li class="name" v-for="(item,index) in apprenticeData" :key="index" @click="gotoDetails(item.relatedId)">{{item.realName}}</li>
+          <li class="name" v-for="(item,index) in apprenticeData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
         </ul>
       </div>
     </div>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { getMyMasterList, getMyApprenticeList } from '@/api/wel/relationship_manage'
+import { getMyMasterContactList, getMyApprenticeContactList } from '@/api/wel/relationship_manage'
 export default {
   props: {
     contentData: {
@@ -40,23 +40,23 @@ export default {
     this.loadPage()
   },
   data () {
-    return{
-      masterData:[],
-      apprenticeData:[],
+    return {
+      masterData: [],
+      apprenticeData: [],
     }
   },
-  methods:{
+  methods: {
     gotoDetails (val) {
       this.$router.push({
-        path:`/app/personal_style/${val}`,
+        path: `/app/personal_style/${val}`,
       })
     },
-    loadPage (){
-      getMyMasterList().then(({ data }) => {
-        this.masterData = data.slice(0,10)
+    loadPage () {
+      getMyMasterContactList().then(({ data }) => {
+        this.masterData = data.data.slice(0, 10)
       })
-      getMyApprenticeList().then(({ data }) => {
-        this.apprenticeData = data.slice(0,10)
+      getMyApprenticeContactList().then(({ data }) => {
+        this.apprenticeData = data.data.slice(0, 10)
       })
     },
   },

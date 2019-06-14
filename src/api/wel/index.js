@@ -48,3 +48,10 @@ export function getCustomerList (query) {
     params: query,
   })
 }
+
+export function getProjectList () {
+  return request({
+    url: '/prms/iepProjectInformation/getMyProject/list',
+    method: 'get',
+  })
+}

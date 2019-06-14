@@ -48,16 +48,16 @@ export function getMyApprentice (query) {
   })
 }
 
-export function getMyMasterList () {
+export function getMyMasterContactList () {
   return request({
-    url: '/cpms/iepcommoncharacterrelations/listMyMaster',
+    url: 'cpms/iepcommoncharacterrelations/listMyMasterDiy',
     method: 'get',
   })
 }
 
-export function getMyApprenticeList () {
+export function getMyApprenticeContactList () {
   return request({
-    url: '/cpms/iepcommoncharacterrelations/listMyApprentice ',
+    url: 'cpms/iepcommoncharacterrelations/listMyApprenticeDiy',
     method: 'get',
   })
 }

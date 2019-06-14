@@ -14,7 +14,7 @@
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="dialogShow = false" :z-index="3000">
       <el-input placeholder="输入关键字对国脉人进行过滤" v-model="filterText" clearable></el-input>
       <div class="tab-title">国脉人</div>
-      <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="treeData" @node-click="selectUser" node-key="value">
+      <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" @node-click="selectUser" node-key="value">
         <span class="custom-tree-node" slot-scope="{ node, data }">
           <span @click="() => selectUser(data, node)">{{ node.label }}</span>
         </span>
@@ -180,9 +180,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.filter-tree {
-  margin-top: 10px;
-}
 .contact-wrapper {
   display: flex;
 }
@@ -197,6 +194,7 @@ export default {
   padding: 5px;
   padding-left: 15px;
   margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 5px;
 }
 </style>

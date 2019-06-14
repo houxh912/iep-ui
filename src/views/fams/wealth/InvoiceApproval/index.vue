@@ -14,6 +14,7 @@
             <operation-wrapper>
               <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handlePass(scope.row)">通过</iep-button>
               <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handleReject(scope.row)">驳回</iep-button>
+              <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handleTrans(scope.row)">转交</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -21,6 +22,7 @@
     </basic-container>
     <pass-dialog-form ref="passDialogForm" @load-page="loadPage"></pass-dialog-form>
     <reject-dialog-form ref="rejectDialogForm" @load-page="loadPage"></reject-dialog-form>
+    <trans-dialog-form ref="transDialogForm" @load-page="loadPage"></trans-dialog-form>
   </div>
 </template>
 
@@ -30,8 +32,9 @@ import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options.js'
 import passDialogForm from './passDialogForm'
 import rejectDialogForm from './rejectDialogForm'
+import transDialogForm from './transDialogForm'
 export default {
-  components: { rejectDialogForm, passDialogForm },
+  components: { rejectDialogForm, passDialogForm, transDialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -43,6 +46,12 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleTrans (row) {
+      this.$refs['transDialogForm'].id = row.id
+      this.$refs['transDialogForm'].user = { id: '', name: '' }
+      this.$refs['transDialogForm'].content = ''
+      this.$refs['transDialogForm'].dialogShow = true
+    },
     handlePass (row) {
       this.$refs['passDialogForm'].id = row.id
       this.$refs['passDialogForm'].content = ''

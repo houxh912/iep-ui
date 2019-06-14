@@ -9,10 +9,10 @@
           <operation-search @search-page="searchPage" prop="realName" placeholder="根据姓名进行搜索"></operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" isMutipleSelection>
         <el-table-column prop="operation" label="操作" width="200">
           <template>
-            <iep-button>查看</iep-button>
+            <iep-button :disabled="true" @click="handleClick">查看</iep-button>
           </template>
         </el-table-column>
       </iep-table>
@@ -58,6 +58,9 @@ export default {
   methods: {
     loadPage (param = this.searchForm) {
       this.loadTable({realName: this.realName,orgId: this.orgIds,reportType: 0,...param}, getTableData)
+    },
+     handleClick () {
+      this.$router.push('/wel/material/report')
     },
     listPage () {
       this.realName = ''

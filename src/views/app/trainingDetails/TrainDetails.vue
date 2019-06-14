@@ -11,7 +11,7 @@
           <span><i class="iconfont icon-download1"></i>{{downloads}}</span>
         </div>
         <div class="btn-con">
-          <div class="btn" v-for="item in itemList" :key="item.id"><i class="iconfont" :class="item.icon"></i>{{item.operate}}</div>
+          <!-- <div class="btn" v-for="item in itemList" :key="item.id"><i class="iconfont" :class="item.icon"></i>{{item.operate}}</div> -->
         </div>
       </div>
       <div class="detail">
@@ -24,7 +24,7 @@
           <span>培训地点：{{data.place}}</span>
         </div>
         <div class="classTag">
-          <el-tag type="white" v-for="(tag, index) in data.trainingTags" :key="index">{{tag}}</el-tag>
+          <el-tag type="white" v-for="(tag, index) in data.trainingTags" :key="index" @click="$openTagDetail(tag)">{{tag}}</el-tag>
         </div>
       </div>
     </div>

@@ -143,7 +143,7 @@
           </li>
           <li>共{{assessmentPaper.choiceNum || 0}}道</li>
         </ul>
-        <p>难度系数：{{assessmentPaper.difficulty || 0}} <span>中等</span></p>
+        <!-- <span>难度系数：{{assessmentPaper.difficulty || 0}} <span>中等</span></p> -->
       </div>
     </el-card>
     <template v-slot:action>
@@ -158,9 +158,9 @@
     </template>
     <el-dialog title="试题配置" :visible.sync="questionConfiguration" :close-on-click-modal="false"
       width="700px" @close="questionConfiguration = false">
-      <el-form ref="form" :model="form" label-width="100px" :rules="rules">
+      <el-form ref="form" :model="form" label-width="100px" :rules="rules" v-loading="formLoading">
         <el-form-item label="科目" prop="field">
-          <el-select v-model="form.field" clearable placeholder="请选择科目" @change="fieldChang">
+          <el-select v-model="form.field" clearable placeholder="请选择科目" @change="fieldChange">
             <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
@@ -181,29 +181,29 @@
 
         <el-form-item label="简单题数" prop="simpleNum">
           <el-col :span="17">
-            <iep-input-number controls-position="right" :min="0" v-model="form.simpleNum" style="width:100%"
-              :disabled="form.configurationState==='0'"></iep-input-number>
+            <iep-input-number controls-position="right" :min="0" :max="totalNum.simple || 0"
+              v-model="form.simpleNum" style="width:100%" :disabled="form.configurationState==='0'"></iep-input-number>
           </el-col>
-          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.simpleTotalNum || 0}}</span>
+          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.simple || 0}}</span>
             道</el-col>
 
         </el-form-item>
 
         <el-form-item label="一般题数" prop="middleNum">
           <el-col :span="17">
-            <iep-input-number controls-position="right" :min="0" v-model="form.middleNum" style="width:100%"
-              :disabled="form.configurationState==='0'"></iep-input-number>
+            <iep-input-number controls-position="right" :min="0" :max="totalNum.general || 0"
+              v-model="form.middleNum" style="width:100%" :disabled="form.configurationState==='0'"></iep-input-number>
           </el-col>
-          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.middleTotalNum || 0}}</span>
+          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.general || 0}}</span>
             道</el-col>
         </el-form-item>
 
         <el-form-item label="困难题数" prop="hardNum">
           <el-col :span="17">
-            <iep-input-number controls-position="right" :min="0" v-model="form.hardNum" style="width:100%"
-              :disabled="form.configurationState==='0'"></iep-input-number>
+            <iep-input-number controls-position="right" :min="0" :max="totalNum.diffculty || 0"
+              v-model="form.hardNum" style="width:100%" :disabled="form.configurationState==='0'"></iep-input-number>
           </el-col>
-          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.hardTotalNum || 0}}</span>
+          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.diffculty || 0}}</span>
             道</el-col>
         </el-form-item>
 
@@ -280,6 +280,7 @@ export default {
   components: { StepsContent, DialogQuestionTable },
   data () {
     return {
+      formLoading: false,
       questionConfiguration: false,
       choiceType: [],//已选择的题型
       iepTestPaperIndex: '',//试题下标
@@ -295,13 +296,10 @@ export default {
         hardNum: [{ required: true, message: '请选择困难题数', trigger: 'blur' }],
         single: [{ required: true, message: '请输入每题分数', trigger: 'blur' }],
         scoringMethod: [{ required: true, message: '请选择打分方式', trigger: 'change' }],
+        iepItemBankList: [{ required: true, message: '请选择试题', trigger: 'blur' }],
       },
       form: questionForm(),
-      totalNum: {
-        simpleTotalNum: 0,//简单总数
-        middleTotalNum: 0,//普通总数
-        hardTotalNum: 0,//困难总数
-      },
+      totalNum: {},
       iepQstnRuleList: [],//试题集合
     }
   },
@@ -320,7 +318,7 @@ export default {
     },
     //新增/编辑
     isEdit () {
-      return this.data.id ? true : false
+      return this.data.iepTestPaperVO.id ? true : false
     },
     //是否只读
     readOnly () {
@@ -352,7 +350,7 @@ export default {
     },
   },
   watch: {
-    'data': {
+    'data.iepTestPaperVO': {
       handler () {
         this.getTestOption()
       },
@@ -389,10 +387,11 @@ export default {
      */
     loadSelf () {
       if (this.isEdit) {
-        this.iepQstnRuleList = this.data.iepQstnRuleList
+        this.iepQstnRuleList = this.data.iepTestPaperVO.iepQstnRuleList
         this.iepQstnRuleList.forEach((item) => {
           this.choiceType.push(item.type)
         })
+        this.choiceType.sort()
         this.submitDisabled = true
       } else {
         this.choiceType = []
@@ -405,18 +404,24 @@ export default {
      * 试题配置操作
      */
     questionButton (index) {
-      this.questionConfiguration = true
+      this.formLoading = true
       this.iepTestPaperIndex = index
       if (index != undefined) {
-        this.form = this.$mergeByFirst(questionForm(), this.iepQstnRuleList[index])
-        this.count()
+        postPaperAmount({ subject: this.iepQstnRuleList[index].field, question: this.iepQstnRuleList[index].type }).then(({ data }) => {
+          if (data.data) {
+            this.totalNum = data.data
+            this.form = this.$mergeByFirst(questionForm(), this.iepQstnRuleList[index])
+            this.formLoading = false
+          }
+        })
       } else {
         this.form = questionForm()
-        this.totalNum.simpleTotalNum = ''
-        this.totalNum.middleTotalNum = ''
-        this.totalNum.hardTotalNum = ''
+        this.totalNum.simple = 0
+        this.totalNum.general = 0
+        this.totalNum.difficulty = 0
+        this.formLoading = false
       }
-
+      this.questionConfiguration = true
     },
 
     /**
@@ -443,18 +448,22 @@ export default {
     },
 
     /**
-     * 计算题数
+     * 获取题数
      */
     async count () {
-      let _form = this.form
-      if (_form.type != '' && _form.field != '') {
-        const { data } = await postPaperAmount({ subject: _form.field, question: _form.type })
+      this.form.simpleNum = 0
+      this.form.middleNum = 0
+      this.form.hardNum = 0
+      if (this.form.iepItemBankList.length > 0) {
+        this.$refs['table'].handleDelete()
+      }
+      if (this.form.type != '' && this.form.field != '') {
+        const { data } = await postPaperAmount({ subject: this.form.field, question: this.form.type })
         if (data.data) {
-          this.totalNum.simpleTotalNum = data.data.simple
-          this.totalNum.middleTotalNum = data.data.general
-          this.totalNum.hardTotalNum = data.data.difficulty
+          this.totalNum = data.data
         }
       }
+
     },
 
     /**
@@ -462,10 +471,10 @@ export default {
      */
     configurationStateChange (val) {
       let _form = this.form
+      _form.simpleNum = 0
+      _form.middleNum = 0
+      _form.hardNum = 0
       if (val === '1') {
-        _form.simpleNum = 0
-        _form.middleNum = 0
-        _form.hardNum = 0
         _form.iepItemBankList = []
       }
     },
@@ -473,7 +482,7 @@ export default {
     /**
      * 科目选择时加载对应难度的总数
      */
-    fieldChang () {
+    fieldChange () {
       this.count()
     },
 
@@ -482,23 +491,19 @@ export default {
      * 题型选择时部分表单内容清空以及加载对应难度的总数
      */
     typeChange (value) {
-      let form = this.form
+
+      let _form = this.form
       if (value == '0' || value == '1') {
-        form.scoringMethod = ''
-        form.marker = ''
-        form.qstnDescribe = ''
-        form.multipleSelection = 0
+        _form.scoringMethod = ''
+        _form.marker = ''
+        _form.qstnDescribe = ''
+        _form.multipleSelection = 0
       } else if (value == '2') {
-        form.qstnDescribe = ''
-        form.multipleSelection = 0
+        _form.qstnDescribe = ''
+        _form.multipleSelection = 0
       } else {
-        form.scoringMethod = ''
+        _form.scoringMethod = ''
       }
-
-      // if (form.iepItemBankList.length > 0) {
-      //   this.$refs['table'].handleDelete()
-      // }
-
       this.count()
     },
 
@@ -506,35 +511,33 @@ export default {
      * 展示所选的题数
      */
     showNumber (val) {
-      if (val.length === 0) {
-        this.form.simpleNum = 0
-        this.form.middleNum = 0
-        this.form.hardNum = 0
-      } else {
-        var sortMap = {}
-        for (var i = 0; i < val.length; i++) {
-          for (var prop in val[i]) {
-            if (prop == 'difficulty') {
-              var key = val[i][prop]
-              if (sortMap.hasOwnProperty(key)) {
-                sortMap[key] = sortMap[key] * 1 + 1
-              } else {
-                sortMap[key] = 1
-              }
-              break
+      this.form.simpleNum = 0
+      this.form.middleNum = 0
+      this.form.hardNum = 0
+      var sortMap = {}
+      for (var i = 0; i < val.length; i++) {
+        for (var prop in val[i]) {
+          if (prop == 'difficulty') {
+            var key = val[i][prop]
+            if (sortMap.hasOwnProperty(key)) {
+              sortMap[key] = sortMap[key] * 1 + 1
+            } else {
+              sortMap[key] = 1
             }
-          }
-        }
-        for (var difficulty in sortMap) {
-          if (difficulty === '9') {
-            this.form.simpleNum = sortMap[difficulty]
-          } else if (difficulty === '8') {
-            this.form.middleNum = sortMap[difficulty]
-          } else {
-            this.form.hardNum = sortMap[difficulty]
+            break
           }
         }
       }
+      for (var difficulty in sortMap) {
+        if (difficulty === '9') {
+          this.form.simpleNum = sortMap[difficulty]
+        } else if (difficulty === '8') {
+          this.form.middleNum = sortMap[difficulty]
+        } else {
+          this.form.hardNum = sortMap[difficulty]
+        }
+      }
+
 
     },
 
@@ -560,7 +563,7 @@ export default {
      * 配置完成
      */
     async handleSubmit () {
-      const iepTestPaper = { ...this.data }
+      const iepTestPaper = { ...this.data.iepTestPaperVO }
       iepTestPaper.iepQstnRuleList = this.iepQstnRuleList
       iepTestPaper.score = this.assessmentPaper.score
       iepTestPaper.choiceNum = this.assessmentPaper.choiceNum
@@ -569,10 +572,10 @@ export default {
       try {
         const { data } = await postNewPaper(iepTestPaper)
         if (data.data) {
-          this.choiceType = []
-          this.iepQstnRuleList = []
           this.submitDisabled = false
-          this.$emit('on-data', data.data)
+          const examInfo = { ...this.data }
+          examInfo.iepTestPaperVO = data.data
+          this.$emit('on-data', examInfo)
         } else {
           this.$message(data.msg)
         }

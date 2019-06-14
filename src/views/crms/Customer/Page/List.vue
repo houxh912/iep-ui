@@ -21,8 +21,8 @@
           <iep-button type="primary" @click="Transfer" plain v-show="isZyPermissions()">转移</iep-button>
         </template>
         <template slot="right">
-          <el-radio-group v-model="type" size="small" @change="changeType">
-            <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
+          <el-radio-group v-model="type" size="small" @change="changeType" >
+            <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value" :disabled="isLoadTable">{{tab.label}}</el-radio-button>
           </el-radio-group>
           <operation-search @search-page="searchPage" advance-search prop="clientName">
             <advance-search @search-page="searchPage" :type="type"></advance-search>
@@ -134,7 +134,6 @@ export default {
     this.crms_customer_view = this.permissions['crms_customer_view']
     this.crms_customer_zy = this.permissions['crms_customer_zy']
     this.crms_customer_dr = this.permissions['crms_customer_dr']
-    console.log(this.crms_customer_dr)
     this.loadPage({ type: 2 })
     this.getWeekincrease()
   },
@@ -197,7 +196,6 @@ export default {
     },
     //tab切换菜单
     changeType () {
-      this.pagedTable = []
       this.searchPage()
       // if (this.type === '2') {
       //   this.showSelect = true

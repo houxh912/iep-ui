@@ -10,30 +10,30 @@ const initSearchForm = () => {
     contractType: '',
   }
 }
-const amount = (rules, value, callback) => {
-  if (value === '') {
-    callback(new Error('金额不能为空'))
-  } else {
-    var reg = /^\d{0,8}\.{0,1}(\d{1,2})?$/
-    var num = /^\d{0,100}\.{0,1}(\d{1,2})?$/
-    if (!num.test(value)) {
-      callback(new Error('金额为数字类型且小数点后最多两位'))
-    } else if (!reg.test(value)) {
-      callback(new Error('金额不超过9位整数'))
-    }
-  }
-  callback()
-}
-const amount1 = (rules, value, callback) => {
-  var reg = /^\d{0,8}\.{0,1}(\d{1,2})?$/
-  var num = /^\d{0,100}\.{0,1}(\d{1,2})?$/
-  if (!num.test(value)) {
-    callback(new Error('金额为数字类型且小数点后最多两位'))
-  } else if (!reg.test(value)) {
-    callback(new Error('金额不超过9位整数'))
-  }
-  callback()
-}
+// const amount = (rules, value, callback) => {
+//   if (value === '') {
+//     callback(new Error('金额不能为空'))
+//   } else {
+//     var reg = /^\d{0,8}\.{0,1}(\d{1,2})?$/
+//     var num = /^\d{0,100}\.{0,1}(\d{1,2})?$/
+//     if (!num.test(value)) {
+//       callback(new Error('金额为数字类型且小数点后最多两位'))
+//     } else if (!reg.test(value)) {
+//       callback(new Error('金额不超过9位整数'))
+//     }
+//   }
+//   callback()
+// }
+// const amount1 = (rules, value, callback) => {
+//   var reg = /^\d{0,8}\.{0,1}(\d{1,2})?$/
+//   var num = /^\d{0,100}\.{0,1}(\d{1,2})?$/
+//   if (!num.test(value)) {
+//     callback(new Error('金额为数字类型且小数点后最多两位'))
+//   } else if (!reg.test(value)) {
+//     callback(new Error('金额不超过9位整数'))
+//   }
+//   callback()
+// }
 // const RespDept = (rules, value, callback) => {
 //   if (value.name == '' || value.name == null) {
 //     callback(new Error('签署组织不能为空'))
@@ -41,12 +41,32 @@ const amount1 = (rules, value, callback) => {
 //     callback()
 //   }
 // }
+let intValidate = (rule, value, callback) => {
+  if (/^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/.test(value) || value === '') {
+    callback()
+  } else {
+    callback(new Error())
+  }
+}
+
+let xsValidate = (rule, value, callback) => {
+  if (/^\d+(\.\d{1,2})?$/.test(value) || value === '') {
+    callback()
+  } else {
+    callback(new Error())
+  }
+}
 export const rules = {
   contractName: [
     { required: true, message: '请输入合同名称', trigger: 'blur' },
     { min: 2, max: 50, message: '长度为2-50个字符', trigger: 'blur' },
   ],
-  contractAmount: [{ required: true, validator: amount, trigger: 'change' }],
+  // contractAmount: [{ required: true, validator: amount, trigger: 'change' }],
+  contractAmount: [
+    { required: true, message: '请输入合同金额', trigger: 'change' },
+    { validator: intValidate, message: '请输入正数', trigger: 'change' },
+    { validator: xsValidate, message: '小数位最多为2位', trigger: 'change' },
+  ],
   contractExpl: [{ max: 255, message: '长度不超过255个字符', trigger: 'blur' }],
   businessType: [
     { required: true, message: '请选择业务类型', trigger: 'change' },
@@ -71,7 +91,11 @@ export const rules = {
   contractStatus: [
     { required: true, message: '请选择合同级别', trigger: 'change' },
   ],
-  deposit: [{ validator: amount1, trigger: 'change' }],
+  // deposit: [{ validator: amount1, trigger: 'change' }],
+  deposit: [
+    { validator: intValidate, message: '请输入正数', trigger: 'change' },
+    { validator: xsValidate, message: '小数位最多为2位', trigger: 'change' },
+  ],
   projectId: [{ required: true, message: '请选择关联项目', trigger: 'change' }],
 }
 export const initFormData = () => {

@@ -1,8 +1,8 @@
 <template>
   <div>
     <IepAppListCard :dataList="dataList">
-      <iep-button type="" plain class="lr-btn">JAVA规范认定</iep-button>
-      <iep-button type="" plain class="lr-btn">产品能力认证</iep-button>
+      <iep-button type="" plain class="lr-btn" disabled>JAVA规范认定</iep-button>
+      <iep-button type="" plain class="lr-btn" disabled>产品能力认证</iep-button>
     </IepAppListCard>
   </div>
 </template>

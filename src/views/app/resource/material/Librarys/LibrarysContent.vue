@@ -1,35 +1,38 @@
 <template>
   <div class="librarys-content">
-    <div v-for="(item,index) in dataList" :key="index" class="piece">
-      <a-skeleton :loading="loading" active />
-      <template v-if="!loading">
-        <div>
-          <div @click="handleOpen(item)" style="cursor: pointer;">
-            <div class="title">
-              <h4 class="name">{{item.name}}</h4>
-              <i class="iconfont icon-caifu" v-if="item.downloadCost !== '0'"></i>
-              <i class="iconfont icon-fujian" v-if="item.attachFile !== ''"></i>
+    <div v-if="dataList.length !== 0">
+      <div v-for="(item,index) in dataList" :key="index" class="piece">
+        <a-skeleton :loading="loading" active />
+        <template v-if="!loading">
+          <div>
+            <div @click="handleOpen(item)" style="cursor: pointer;">
+              <div class="title">
+                <h4 class="name">{{item.name}}</h4>
+                <i class="iconfont icon-caifu" v-if="item.downloadCost !== '0'"></i>
+                <i class="iconfont icon-fujian" v-if="item.attachFile !== ''"></i>
+              </div>
+              <p>{{item.intro}}</p>
             </div>
-            <p>{{item.intro}}</p>
+            <div class="box">
+              <span class="uploaded">上传者：{{item.creatorRealName}}</span>
+              <span><i class="iconfont icon-shijian"></i>{{item.createTime}}</span>
+              <span><i class="iconfont icon-yanjing"></i>{{item.views}}人浏览</span>
+              <span><i class="iconfont icon-download1"></i>{{item.downloadTimes}}人下载</span>
+              <span style="cursor: pointer;" v-if="item.collection == 0" @click="handleCollect(item)"><i class="icon-heart"></i>收藏</span>
+              <span style="cursor: pointer;" v-else><i class="icon-aixin"></i>已收藏</span>
+              <span style="cursor: pointer;" @click="handleShare(item)"><i class="icon-share"></i>分享</span>
+            </div>
           </div>
-          <div class="box">
-            <span class="uploaded">上传者：{{item.creatorRealName}}</span>
-            <span><i class="iconfont icon-shijian"></i>{{item.createTime}}</span>
-            <span><i class="iconfont icon-yanjing"></i>{{item.views}}人浏览</span>
-            <span><i class="iconfont icon-download1"></i>{{item.downloadTimes}}人下载</span>
-            <span style="cursor: pointer;" v-if="item.collection == 0" @click="handleCollect(item)"><i class="icon-heart"></i>收藏</span>
-            <span style="cursor: pointer;" v-else><i class="icon-aixin"></i>已收藏</span>
-            <span style="cursor: pointer;" @click="handleShare(item)"><i class="icon-share"></i>分享</span>
+          <div v-for="(item,index) in item.tagKeyWords" :key="index" class="label">
+            <span>{{item}}</span>
           </div>
-        </div>
-        <div v-for="(item,index) in item.tagKeyWords" :key="index" class="label">
-          <span>{{item}}</span>
-        </div>
-      </template>
+        </template>
+      </div>
+      <div style="text-align: center;margin: 20px 0;">
+        <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+      </div>
     </div>
-    <div style="text-align: center;margin: 20px 0;">
-      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
-    </div>
+    <IepNoData v-else class="iep-no-data"></IepNoData>
     <collectionDialog ref="collection" type="material" :requestFn="createCollect" @load-page="loadPage"></collectionDialog>
     <share-dialog ref="share" type="material"></share-dialog>
   </div>
@@ -175,5 +178,8 @@ export default {
       cursor: pointer;
     }
   }
+}
+.iep-no-data {
+  padding-right: 160px;
 }
 </style>

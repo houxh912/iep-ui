@@ -23,13 +23,10 @@ export default {
   data () {
     return {
       tabList: [{
-        label: '热搜榜',
-        value: 'Search',
-      }, {
         label: '贡献达人',
         value: 'Contribution',
       }],
-      activeTab: 'Search',
+      activeTab: 'Contribution',
     }
   },
 }

@@ -1,6 +1,5 @@
 <template>
   <div class="relationshipContent">
-    <!-- <iep-no-data v-if="!contentData.length" message="暂无内容"></iep-no-data> -->
     <div v-if="mark==0">
       <div class="relationship-item">
         <div><span class="title">我的师傅</span></div>
@@ -15,8 +14,9 @@
         </ul>
       </div>
     </div>
-    <div v-else class="relationship-item">
-      <ul>
+    <div v-else>
+      <iep-no-data v-if="!contentData.length" message="暂无内容"></iep-no-data>
+      <ul v-else class="relationship-item">
         <li class="name" v-for="(item,index) in contentData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
       </ul>
     </div>
@@ -53,11 +53,10 @@ export default {
     },
     loadPage (){
       getMyMasterList().then(({ data }) => {
-        this.masterData = data
-        console.log(this.masterData)
+        this.masterData = data.slice(0,10)
       })
       getMyApprenticeList().then(({ data }) => {
-        this.apprenticeData = data.data
+        this.apprenticeData = data.slice(0,10)
       })
     },
   },
@@ -74,6 +73,7 @@ li {
 }
 .relationshipContent {
   padding: 18px 0;
+  height: 120px;
   .relationship-item {
     display: flex;
     margin-bottom: 10px;

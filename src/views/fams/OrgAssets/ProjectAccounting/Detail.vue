@@ -1,29 +1,29 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="form.name" :back-option="backOption">
+      <page-header :title="form.projectName" :back-option="backOption">
       </page-header>
       <el-card class="box-card" shadow="never" :body-style="{ display: 'flex' }">
         <div class="left-wrapper">
           <span>项目实施</span>
-          <div class="content">￥{{form.projectImplementation}}</div>
+          <div class="content">￥{{form.contractAmount}}</div>
         </div>
         <div class="info">
           <div class="info-item">
             <label>创建人：</label>
-            <div class="content">{{form.founder}}</div>
+            <div class="content">{{form.publisher}}</div>
           </div>
           <div class="info-item">
             <label>项目编号：</label>
-            <div class="content">{{form.number}}</div>
+            <div class="content">{{form.serialNo}}</div>
           </div>
           <div class="info-item">
             <label>项目经理：</label>
-            <div class="content">{{form.projectManager}}</div>
+            <div class="content">{{form.projectManagerList.name}}</div>
           </div>
           <div class="info-item">
             <label>市场经理：</label>
-            <div class="content">{{form.marketingNumber}}</div>
+            <div class="content">{{form.mktManagerList.name}}</div>
           </div>
           <div class="info-item">
             <label>立项时间：</label>
@@ -53,6 +53,7 @@
   </div>
 </template>
 <script>
+import { getProjectInformationById } from '@/api/fams/statistics'
 import Accounting from './Accounting/'
 // import Budget from './Budget/'
 import Cost from './Cost/'
@@ -83,8 +84,23 @@ export default {
     }
   },
   computed: {
+    id () {
+      return +this.$route.params.id
+    },
   },
   created () {
+    this.loadPage()
+  },
+  methods: {
+    loadPage () {
+      if (this.id) {
+        this.isLoadTable = true
+        getProjectInformationById(this.id).then(({ data }) => {
+          this.form = data.data
+          this.isLoadTable = false
+        })
+      }
+    },
   },
 }
 </script>

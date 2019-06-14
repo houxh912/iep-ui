@@ -24,6 +24,7 @@ export default {
           bgc: {
             background: '#d7ba9a',
           },
+          disabled:false,
         },
         {
           routerPath:'staff_report',
@@ -34,6 +35,7 @@ export default {
           bgc: {
             background: '#89c7d6',
           },
+          disabled:true,
         },
         {
           routerPath:'staff_report',
@@ -44,6 +46,7 @@ export default {
           bgc: {
             background: '#dbadad',
           },
+          disabled:true,
         },
         {
           routerPath:'project_report',         
@@ -53,6 +56,7 @@ export default {
           bgc: {
             background: '#d7ba9a',
           },
+          disabled:false,
         },
         {
           routerPath:'origanaze_report',
@@ -63,6 +67,7 @@ export default {
           bgc: {
             background: '#89c7d6',
           },
+          disabled:true,
         },
         {
           routerPath:'origanaze_report',
@@ -73,6 +78,7 @@ export default {
           bgc: {
             background: '#dbadad',
           },
+          disabled:true,
         },
       ],
     }

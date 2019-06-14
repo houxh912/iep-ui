@@ -39,9 +39,9 @@
         <template v-if="activeTab ==='Accounting'" v-slot:Accounting>
           <accounting v-loading="activeTab !=='Accounting'"></accounting>
         </template>
-        <template v-if="activeTab ==='Budget'" v-slot:Budget>
+        <!-- <template v-if="activeTab ==='Budget'" v-slot:Budget>
           <budget v-loading="activeTab !=='Budget'"></budget>
-        </template>
+        </template> -->
         <template v-if="activeTab ==='Cost'" v-slot:Cost>
           <cost v-loading="activeTab !=='Cost'"></cost>
         </template>
@@ -54,11 +54,11 @@
 </template>
 <script>
 import Accounting from './Accounting/'
-import Budget from './Budget/'
+// import Budget from './Budget/'
 import Cost from './Cost/'
 import Payback from './Payback/'
 export default {
-  components: { Accounting, Budget, Cost, Payback },
+  components: { Accounting, Cost, Payback },
   data () {
     return {
       backOption: {
@@ -70,9 +70,9 @@ export default {
         label: '项目核算表',
         value: 'Accounting',
       }, {
-        label: '项目预算表',
-        value: 'Budget',
-      }, {
+      //   label: '项目预算表',
+      //   value: 'Budget',
+      // }, {
         label: '项目费用表',
         value: 'Cost',
       }, {

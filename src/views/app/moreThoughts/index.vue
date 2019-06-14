@@ -284,10 +284,19 @@ export default {
         .footer {
           margin-top: 20px;
           display: flex;
+          justify-content: flex-start;
+          align-items: center;
           font-size: 14px;
           .button {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
             margin-right: 20px;
+            height: 20px;
             cursor: pointer;
+            i {
+              margin-right: 5px;
+            }
           }
         }
       }

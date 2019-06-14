@@ -14,14 +14,15 @@ export default {
     return {
       dictsMap: {
         isCleared: {
-          [false]: '是',
-          [true]: '否',
+          [false]: '否',
+          [true]: '是',
         },
       },
       columnsMap: [
         {
           prop: 'signingTime',
           label: '签订时间',
+          width: 150,
         },
         {
           prop: 'contractAmount',
@@ -30,6 +31,7 @@ export default {
         {
           prop: 'contractClosureTime',
           label: '合同完结时间',
+          width: 150,
         },
         {
           prop: 'projectIncome',
@@ -49,7 +51,7 @@ export default {
         },
         {
           prop: 'invoicingAmount',
-          label: '发票金额',
+          label: '开票金额',
         },
         {
           prop: 'isCleared',
@@ -79,6 +81,7 @@ export default {
         })
       }
     },
+    
   },
 }
 </script>

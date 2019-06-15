@@ -12,17 +12,17 @@ export default {
     return {
       bannerList: [
         {
-          id: '1',
+          id: 8502,
           img: '../img/app/person/img_01.png',
           title: '2019年江西全省互联网+智慧政务研讨会在南昌召开，共谋下步发展',
         },
         {
-          id: '2',
+          id: 8504,
           img: '../img/app/person/img_02.png',
           title: '国脉副总刘佳一行拜访中通服开展合作洽谈',
         },
         {
-          id: '3',
+          id: 8503,
           img: '../img/app/person/img_03.png',
           title: '国脉集团助力2019数博会协办，总经理郑爱军受邀发表系列演讲',
         },

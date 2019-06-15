@@ -64,7 +64,9 @@ export default {
   methods: {
     handleDetail (row) {
       if (row.type) {
-        this.$router.push({ path: '/app/resource/expert', query: {type: row.type} })
+        this.$router.push({ path: '/app/resource/expert', query: { type: row.type } })
+      } else {
+        this.$openPage(row.router)
       }
     },
   },

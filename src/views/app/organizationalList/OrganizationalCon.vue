@@ -34,8 +34,8 @@
           </div>
         </div>
         <div class="hover">
-          <h4 class="sub-title">{{item.subTitle}}</h4>
-          <div class="con">{{item.content}}</div>
+          <h4 class="sub-title">{{item.name}}</h4>
+          <div class="con">{{item.intro}}</div>
           <el-button class="btn" type="danger" plain @click="handleDetail(item)">组织风采<i class="el-icon-arrow-right"></i></el-button>
         </div>
       </el-card>

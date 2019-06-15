@@ -107,7 +107,7 @@ export default {
     ...mapGetters(['tagWel']),
   },
   methods: {
-    ...mapActions(['LoginBySocial', 'LoginByUsername', 'GetMenu']),
+    ...mapActions(['LoginBySocial', 'LoginByUsername', 'GetMenu', 'LoadAllDictMap']),
     emitEmpty (name) {
       this.$refs[name].focus()
       this.form[name] = ''
@@ -147,8 +147,14 @@ export default {
             this.loginLoading = true
             await this.LoginByUsername(this.form)
             const data = await this.GetMenu()
+            await this.LoadAllDictMap()
             this.$router.$avueRouter.formatRoutes(data, true)
-            this.$router.push({ path: this.tagWel.value })
+            console.log(this.$route)
+            if (this.$route.query.redirect) {
+              this.$router.push({ path: this.$route.query.redirect })
+            } else {
+              this.$router.push({ path: this.tagWel.value })
+            }
           } catch (error) {
             this.$message.error(error.message)
           } finally {

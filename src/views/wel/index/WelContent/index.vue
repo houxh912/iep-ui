@@ -1,7 +1,6 @@
 <template>
   <div class="wel-content">
-    <user @on-finish.once="handleWelcome"></user>
-    <!-- <account @on-finish.once="handleWelcome"></account> -->
+    <account @on-finish.once="handleWelcome"></account>
     <pending></pending>
     <project></project>
     <!-- <customer></customer>
@@ -23,8 +22,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import User from './User'
-// import Account from './Account'
+import Account from './Account'
 import Pending from './Pending'
 import Project from './Project'
 // import Customer from './Customer'
@@ -35,8 +33,8 @@ import Relationship from './Relationship'
 
 export default {
   components: {
-    // Account,
-    User, Pending, Project,
+    Account,
+    Pending, Project,
     // Customer,
     Material, Relationship,
     // Contract,

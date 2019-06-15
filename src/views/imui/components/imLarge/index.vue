@@ -53,12 +53,12 @@
       </span>
       </el-tree>
       <div v-show="dialogShow" style="position: fixed;right: 300px;top: 0;bottom: 0;width: 300px;overflow-y: auto;background: #FFFFFF;padding: 20px;">
-        <div style="text-align: center;">
-          <iep-button @click.native="addGroup">确定</iep-button>
-          <iep-button @click.native="clearGroup">重置</iep-button>
+        <div style="margin: 5px 0;text-align: center;">
+          <iep-button style="margin: 0 5px;" @click.native="addGroup">确定</iep-button>
+          <iep-button style="margin: 0 5px;" @click.native="clearGroup">重置</iep-button>
         </div>
         <div>
-          <el-input v-model="newGroup.groupName" clearable></el-input>
+          <el-input placeholder="群聊名称" v-model="newGroup.groupName" clearable></el-input>
         </div>
         <el-tag
                 style="margin: 5px;"

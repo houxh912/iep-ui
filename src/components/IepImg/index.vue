@@ -30,7 +30,6 @@ export default {
   height: 100%;
   background: #f5f7fa;
   color: #909399;
-  font-size: 30px;
   & > .icon-gmlogo {
     font-size: 30px;
   }

@@ -77,3 +77,8 @@ export default {
   }
 }
 </style>
+<style scoped>
+#app >>> .el-aside{
+  border-right: 0;
+}
+</style>

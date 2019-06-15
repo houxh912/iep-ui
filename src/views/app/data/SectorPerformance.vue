@@ -2,7 +2,7 @@
   <div class="statistics">
     <div class="title">{{title}}</div>
     <el-table :data="tableData" stripe>
-      <el-table-column prop="department" label="部门" width="240">
+      <el-table-column prop="department" label="部门" width="230">
       </el-table-column>
       <el-table-column prop="num" label="业绩数(万)">
       </el-table-column>
@@ -69,5 +69,10 @@ export default {
 .statistics >>> tr td:nth-child(1) .cell,
 .statistics >>> tr th:nth-child(1) .cell {
   text-align: left;
+}
+.statistics >>> tr td:nth-child(1) .cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

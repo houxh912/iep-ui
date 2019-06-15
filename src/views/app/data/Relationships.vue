@@ -49,34 +49,34 @@ export default {
           'word': 'JAVA',
           'count': 37517,
         }, {
-          'word': 'emphasis',
+          'word': '智慧城市',
           'count': 12053,
         }, {
-          'word': 'yAxis',
+          'word': '智慧政府',
           'count': 57299,
         }, {
-          'word': 'name',
+          'word': '规划',
           'count': 15418,
         }, {
-          'word': 'type',
+          'word': '政策分析',
           'count': 22905,
         }, {
-          'word': 'gridIndex',
+          'word': '淘渔吧',
           'count': 5146,
         }, {
-          'word': 'normal',
+          'word': '微服务',
           'count': 49487,
         }, {
-          'word': 'itemStyle',
+          'word': '网站规划',
           'count': 33837,
         }, {
-          'word': 'min',
+          'word': 'DNA',
           'count': 4500,
         }, {
-          'word': 'silent',
+          'word': 'DIPS',
           'count': 5744,
         }, {
-          'word': 'animation',
+          'word': 'IEP',
           'count': 4840,
         }, {
           'word': 'offsetCenter',

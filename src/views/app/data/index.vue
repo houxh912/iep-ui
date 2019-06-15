@@ -101,21 +101,21 @@ export default {
   }
   .half {
     display: grid;
-    grid-column-gap: 20px;
+    grid-column-gap: 40px;
     grid-row-gap: 20px;
     grid-auto-flow: row dense;
     grid-template-columns: 7fr 4fr;
   }
   .table {
     display: grid;
-    grid-column-gap: 20px;
+    grid-column-gap: 40px;
     grid-row-gap: 20px;
     grid-auto-flow: row dense;
     grid-template-columns: 2fr 2fr;
   }
   .three {
     display: grid;
-    grid-column-gap: 20px;
+    grid-column-gap: 40px;
     grid-row-gap: 20px;
     grid-auto-flow: row dense;
     grid-template-columns: 1fr 1fr 1fr;

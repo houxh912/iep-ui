@@ -1,6 +1,7 @@
 <template>
   <div class="person-right">
     <feelings :userId="userId"></feelings>
+    <rewards :userId="userId"></rewards>
     <person-mark :userId="userId"></person-mark>
     <relation :userId="userId"></relation>
   </div>
@@ -9,10 +10,11 @@
 <script>
 import PersonMark from './PersonMark'
 import Feelings from './Feelings'
+import Rewards from './Rewards'
 import Relation from './Relation'
 export default {
   components: {
-    PersonMark, Feelings, Relation,
+    PersonMark, Feelings, Relation, Rewards,
   },
   props: {
     userId: {

@@ -2,37 +2,37 @@
   <div class="personal-top">
     <el-card class="box-card" shadow="hover">
       <div class="img-con">
-        <div class="img"><iep-img :src="userInfo.avatar" alt=""></iep-img></div>
-        <span class="num">{{userInfo.staffId}}</span>
+        <div class="img"><iep-img :src="user_info.avatar" alt=""></iep-img></div>
+        <span class="num">{{user_info.staffId}}</span>
       </div>
       <div class="text">
         <div class="name-con">
-          <span class="name">{{userInfo.name}}</span>
-          <span class="post">{{userInfo.positionName}}
+          <span class="name">{{user_info.name}}</span>
+          <span class="post">{{user_info.positionName}}
             <!-- <span class="dn show1" :class="show1">V</span>
             <span class="dn show2 el-icon-star-on" :class="show2"></span>
             <span class="dn show3 iconfont icon-huangguan" :class="show2"></span> -->
-            <iep-identity-mark class="mark" :icon="item.icon" :title="item.label" v-for="(item, index) in userInfo.identityMarks" :key="index"></iep-identity-mark>
+            <iep-identity-mark class="mark" :icon="item.icon" :title="item.label" v-for="(item, index) in user_info.identityMarks" :key="index"></iep-identity-mark>
           </span>
         </div>
-        <span class="autograph">个性签名：{{userInfo.signature}}</span>
+        <span class="autograph">个性签名：{{user_info.signature}}</span>
         <div class="classTags">
           <div class="classTag">
             <div class="label">卓越标签：</div>
             <div class="span">
-              <el-tag type="white" v-for="(item, index) in userInfo.abilityTag" :key="index">{{item}}</el-tag>
+              <el-tag type="white" v-for="(item, index) in user_info.abilityTag" :key="index">{{item}}</el-tag>
             </div>
           </div>
           <div class="classTag">
             <div class="label">专业标签：</div>
             <div class="span">
-              <el-tag type="white" v-for="(item, index) in userInfo.projectTag" :key="index">{{item}}</el-tag>
+              <el-tag type="white" v-for="(item, index) in user_info.projectTag" :key="index">{{item}}</el-tag>
             </div>
           </div>
           <div class="classTag">
             <div class="label">进步标签：</div>
             <div class="span">
-              <el-tag type="white" v-for="(item, index) in userInfo.learningTag" :key="index">{{item}}</el-tag>
+              <el-tag type="white" v-for="(item, index) in user_info.learningTag" :key="index">{{item}}</el-tag>
             </div>
           </div>
         </div>
@@ -55,7 +55,7 @@
 
     <!-- 拜师 -->
     <el-dialog title="拜师" :visible.sync="apprenticeShow" width="330px" center>
-      <div style="text-align: center;">是否确认向 【{{userInfo.name}}】 拜师</div>
+      <div style="text-align: center;">是否确认向 【{{user_info.name}}】 拜师</div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="apprenticeShow = false" size="small">取 消</el-button>
         <el-button type="primary" @click="handleApprenticeConfirm" size="small">确 定</el-button>
@@ -69,15 +69,18 @@
 <script>
 import { addMasterWorker } from '@/api/cpms/characterrelations'
 import EmailDialog from '@/views/app/components/email/'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: { EmailDialog },
   props: {
-    userInfo: {
+    user_info: {
       type: Object,
       default: () => { },
     },
+  },
+  computed: {
+    ...mapGetters(['userInfo']),
   },
   data () {
     return {
@@ -109,10 +112,14 @@ export default {
     },
     // 拜师
     handleApprentice () {
+      if (this.userInfo.userId == this.user_info.id) {
+        this.$message.error('无法向自己拜师')
+        return
+      }
       this.apprenticeShow = true
     },
     handleApprenticeConfirm () {
-      addMasterWorker({ masterWorker: [this.userInfo.id] }).then(({data}) => {
+      addMasterWorker({ masterWorker: [this.user_info.id] }).then(({data}) => {
         if (data.data) {
           this.$message.success('拜师成功！')
         } else {
@@ -126,14 +133,18 @@ export default {
       let receiverList = {
         unions: [],
         orgs: [],
-        users: [{id: this.userInfo.id, name: this.userInfo.name}],
+        users: [{id: this.user_info.id, name: this.user_info.name}],
       }
       this.$refs['email'].open({receiverList: receiverList})
     },
     // 打赏
     ...mapActions(['famsReward']),
     handleReward () {
-      this.famsReward({id: this.userInfo.id, name: this.userInfo.name})
+      if (this.userInfo.userId == this.user_info.id) {
+        this.$message.error('无法向自己打赏')
+        return
+      }
+      this.famsReward({id: this.user_info.id, name: this.user_info.name})
     },
   },
 }

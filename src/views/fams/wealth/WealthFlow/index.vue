@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="财富流水" :replaceText="replaceText" :data="statistics"></page-header>
+      <page-header :title="`${applyName}财富流水`" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks" advance-search>
@@ -27,6 +27,7 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      applyName:'',
       statistics: [0, 0, 0, 0],
       replaceText: (data) => `（支出：${data[0]} 笔 ${data[1]} 贝，收入：${data[2]} 笔 ${data[3]} 贝）`,
     }
@@ -37,6 +38,7 @@ export default {
     ]),
   },
   created () {
+    this.applyName = this.$route.query.name? this.$route.query.name:''
     this.loadPage()
   },
   methods: {

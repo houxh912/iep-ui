@@ -56,6 +56,16 @@ export default [
         component: () => import('@/views/wel/desktop/index'),
       },
       {
+        path: 'origanaze_detail/:id',
+        name: '组织周月报详情页',
+        component: () => import('@/views/wel/desktop/OriganazeReport/OriganazeDetail.vue'),
+      },
+      {
+        path: 'staff_detail/:id',
+        name: '个人周月报详情页',
+        component: () => import('@/views/wel/desktop/StaffReport/StaffDetail.vue'),
+      },
+      {
         path:'visiting_log',
         name:'拜訪日志',
         component: () => import('@/views/wel/desktop/VisitingLog/index'),     

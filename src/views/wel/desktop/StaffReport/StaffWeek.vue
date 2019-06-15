@@ -23,8 +23,8 @@
           </el-table-column>
         </template>
         <el-table-column prop="operation" label="操作" width="200">
-          <template>
-            <iep-button :disabled="true" @click="handleClick">查看</iep-button>
+          <template slot-scope="scope">
+            <iep-button @click="handleClick(scope.row)">查看</iep-button>
           </template>
         </el-table-column>
       </iep-table>
@@ -71,8 +71,10 @@ export default {
     loadPage (param = this.searchForm) {
       this.loadTable({ realName: this.realName, orgId: this.orgIds, reportType: 0, ...param }, getTableData)
     },
-    handleClick () {
-      this.$router.push('/wel/material/report')
+    handleClick (row) {
+      this.$router.push({
+        path:`/wel/staff_detail/${row.reportId}`,
+      })
     },
     listPage () {
       this.realName = ''

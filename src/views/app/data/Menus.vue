@@ -2,7 +2,7 @@
   <div class="menus">
     <a-menu @click="handleClick" :openKeys.sync="openKeys">
       <a-menu-item key="sub1">
-        <i class="iconfont icon-gongzuotai"></i>
+        <i class="iconfont icon-dongtai"></i>
         总览
       </a-menu-item>
       <a-menu-item key="sub2">
@@ -18,7 +18,7 @@
         产品资源
       </a-menu-item>
       <a-menu-item key="sub5">
-        <i class="iconfont icon-lianxiren"></i>
+        <i class="iconfont icon-renli"></i>
         人力资源
       </a-menu-item>
       <a-menu-item key="sub6">

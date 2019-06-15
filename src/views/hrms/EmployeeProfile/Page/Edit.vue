@@ -31,7 +31,7 @@ import Welfare from './Welfare'
 import Transfer from './Transfer'
 import Dimission from './Dimission'
 import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
-import { initForm, formToDto, rules } from '@/views/hrms/EmployeeProfile/options'
+import { initForm, formToVo, formToDto, rules } from '@/views/hrms/EmployeeProfile/options'
 export default {
   mixins: [formMixins],
   components: {
@@ -132,9 +132,7 @@ export default {
     loadPage () {
       this.formLoading = true
       getEmployeeProfileById(this.record.id).then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
-        this.form.isStaff = !!this.form.staffId
-        this.form.identityMark = this.form.identityMarks.map(m => m.value)
+        this.form = formToVo(data.data)
         this.formLoading = false
       })
     },

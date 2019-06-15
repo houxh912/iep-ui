@@ -5,7 +5,7 @@
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>新增</iep-button>
-          <iep-button @click="handleDeleteBatch()">删除</iep-button>
+          <iep-button @click="handleDeleteBatch()">批量删除</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">

@@ -78,7 +78,7 @@ router.beforeEach(async (to, from, next) => {
       router.$avueRouter.formatRoutes(data, true)
       router.push({ path: tagWel.value })
     } else {
-      next('/login')
+      next(`/login?redirect=${to.path}`)
     }
   }
 })

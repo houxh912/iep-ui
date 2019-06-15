@@ -17,9 +17,8 @@
     <el-row :gutter="20" class="bg-white">
       <el-col :span="20" :offset="2">
         <div class="grid-content grid-border">
-          <span class="keyword" v-text="keyword"></span>
-          <span class="listName" v-for="(item,index) in listName" :key="index">{{item}}</span>
-          <span class="keyMore">查看所有标签></span>
+          <span class="keyword">热搜词：</span>
+          <span class="listName" v-for="(item,index) in listName" :key="index" @click="handleClick(item)">{{item}}</span>
         </div>
       </el-col>
     </el-row>
@@ -28,13 +27,10 @@
         <el-card class="box-card" shadow="never">
           <div slot="header" class="clearfix">
             <span style="font-size:18px;">集团要闻</span>
-            <el-button style="float: right; padding: 3px 0" type="text">更多></el-button>
           </div>
           <el-timeline>
-            <el-timeline-item v-for="(item,index) in timeline" :key="index">
-              {{item.timestamp}}
-              <br />
-              {{item.con}}
+            <el-timeline-item v-for="(item,index) in dataList" :key="index">
+              {{item.name}}
             </el-timeline-item>
           </el-timeline>
         </el-card>
@@ -43,9 +39,8 @@
         <el-card :body-style="{ padding: '0px' }" shadow="never">
           <div slot="header" class="clearfix">
             <span style="font-size:18px;">集团喜讯</span>
-            <el-button style="float: right; padding: 3px 0" type="text">更多></el-button>
           </div>
-          <div style="padding:15px;display:inline-block; width:50%;" v-for="(item,index) in imgList" :key="index">
+          <div style="padding:15px;display:inline-block; width:50%;cursor:pointer;" v-for="(item,index) in imgList" :key="index" @click="$openPage(item.url)">
             <iep-img style="width:100%;height:138px;" :src="item.imgSrc" class="image"></iep-img>
             <p class="imgDes" v-text="item.imgDes"></p>
           </div>
@@ -57,47 +52,49 @@
 </template>
 
 <script>
+import { getNewsList } from '@/api/app/mlms/index'
 export default {
   data () {
     return {
-      keyword: '热搜词:',
+      dataList: [],
       listName: ['产品设计', '项目管理', '原型设计', '平台规划', '需求分析', '流程设计'],
-      timeline: [
-        { con: '中国建设银行总行首席经济学家黄志凌一行前来舟山国脉考察', timestamp: '2018/4/12' },
-        { con: '首届长三角营商环境论坛在沪召开，共寻营商环境优化路径', timestamp: '2018/4/12' },
-        { con: '首届（2019）长三角营商环境评估与评选结果在沪召开', timestamp: '2018/4/12' },
-        { con: '舟山中船通荣获国家高新技术企业', timestamp: '2018/4/12' },
-        { con: '国脉海洋中标舟山生态环境数字化转型方案项目', timestamp: '2018/4/12' },
-      ],
       currentDate: new Date(),
       imgList: [
-        { imgSrc: require('./images/01.png'), imgDes: '热烈庆祝广州国脉公司乔迁开业' },
-        { imgSrc: require('./images/02.png'), imgDes: '国脉64名开发人员获“阿里巴巴编码规范证书”' },
-        { imgSrc: require('./images/03.png'), imgDes: '国脉海南项目获海南省十佳大数据应用案例' },
-        { imgSrc: require('./images/04.jpg'), imgDes: '国脉数据基因4.5版在京正式发布' },
+        { imgSrc: 'http://183.131.134.242:10060/upload/iep/201906/77474a9a-2fea-4095-8a85-1b945541e139_1560406750698.png', imgDes: '国脉集团助力2019数博会协办，总经理郑爱军受邀发表系列演讲', url: '/app/resource/material/material_detail/8493' },
+        { imgSrc: 'http://183.131.134.242:10060/upload/iep/201906/39751790-7a1a-4b16-8694-322bc435b63e_1560406565994.png', imgDes: '2019年江西全省互联网+智慧政务研讨会在南昌召开，共谋下步发展', url: '/app/resource/material/material_detail/8498' },
+        { imgSrc: 'http://183.131.134.242:10060/upload/iep/201906/4bcc8f2f-07cc-42a8-8106-944aa58f035a_1560406215464.png', imgDes: '国脉海洋荣获招投标AAA级信用企业认定', url: '/app/resource/material/material_detail/8499' },
+        { imgSrc: 'http://183.131.134.242:10060/upload/iep/201906/e9fd4dd8-8e01-400c-a09d-25c7df149dc0_1560397195674.png', imgDes: '舟山市副市长陈隆一行莅临国脉参观考察', url: '/app/resource/material/material_detail/8504' },
       ],
     }
   },
+  created () {
+    getNewsList().then(({ data }) => {
+      this.dataList = data.data
+    })
+  },
   methods: {
-    searchPage (val) {
-      if (val.name == '') {
-        return
+    handleClick (val) {
+      const v = {
+        title: val,
       }
+      this.$router.push({ path: '/app/search_detail', query: v })
+    },
+    searchPage (val) {
       this.$router.push({ path: '/app/search_detail', query: val })
     },
   },
 }
 </script>
 <style scoped>
-.search-con >>> .el-button{
+.search-con >>> .el-button {
   background-color: #ba1b21;
-  color:#fff;
+  color: #fff;
   border-radius: 0 3px 3px 0;
-  width:80px;
-  height:39px;
+  width: 80px;
+  height: 39px;
 }
-.search >>> .el-card{
-  border:none;
+.search >>> .el-card {
+  border: none;
 }
 .gov-search >>> .el-input--small input {
   height: 40px !important;
@@ -130,8 +127,8 @@ export default {
   margin-left: 0;
   margin-right: 0;
 }
-.gov-info{
-  margin-bottom:150px!important;
+.gov-info {
+  margin-bottom: 150px !important;
 }
 .el-row {
   margin-bottom: 20px;
@@ -165,7 +162,7 @@ export default {
       cursor: pointer;
     }
     .keyMore {
-      margin-left:20px;
+      margin-left: 20px;
       font-size: 14px;
       color: #cb3737;
     }

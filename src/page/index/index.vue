@@ -94,13 +94,12 @@ export default {
   },
   mounted () {
     this.init()
-    this.LoadAllDictMap()
     this.LoadContactsPyGroup()
     this.LoadFamsConfig()
     // this.initWebSocket()
   },
   methods: {
-    ...mapActions(['LoadAllDictMap', 'LoadContactsPyGroup', 'LoadFamsConfig', 'RefreshToken']),
+    ...mapActions(['LoadContactsPyGroup', 'LoadFamsConfig', 'RefreshToken']),
     ...mapMutations({ setScreen: 'SET_SCREEN', setExpiresIn: 'SET_EXPIRES_IN', setWindowSize: 'SET_WINDOWSIZE' }),
     handleOk () {
       this.visible = false

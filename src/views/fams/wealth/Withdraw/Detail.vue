@@ -26,6 +26,7 @@ const statusMap = {
   '1': 3,
   '2': 4,
   '3': 4,
+  '4': 4,
 }
 export default {
   components: {
@@ -37,7 +38,7 @@ export default {
   },
   data () {
     return {
-      replaceText: () => `（每一笔提现均需提交为${this.famsConfig.taxRate * 100}%的税费，税费可用发票抵消。）`,
+      replaceText: () => `（每一笔提现均需提交${this.famsConfig.taxRate * 100}%的税费，税费可用发票抵消。）`,
       backOption: {
         isBack: true,
       },

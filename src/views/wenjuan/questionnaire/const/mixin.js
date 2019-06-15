@@ -213,6 +213,7 @@ export default {
                 label: '问卷描述',
                 prop: 'remarks',
                 span: 12,
+                slot: true,
               },
               {
                 label: '开始日期',

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="news-con" v-if="pageList.length !== 0">
-      <el-card class="news-list" v-for="item in pageList" :key="item.id" shadow="hover">
+      <el-card class="news-list" v-for="item in pageList" :key="item.id" shadow="hover" @click.native="handleDetail(item)">
         <div class="text">
           <h4 class="sub-title">
             <el-tag class="classTag">商机</el-tag><span class="sub-title-con">{{item.projectName}}</span>
@@ -55,6 +55,9 @@ export default {
     currentChange (val) {
       this.params.current = val
       this.loadPage()
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/business/business_detail/${row.opportunityId}`)
     },
   },
   mounted () {

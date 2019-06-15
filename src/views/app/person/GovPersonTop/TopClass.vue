@@ -1,6 +1,6 @@
 <template>
   <div class="top-class">
-    <div class="top-class-list" :class="item.type ? 'canRouter' : ''" v-for="item in items" :key="item.id" @click="handleDetail(item)">
+    <div class="top-class-list" :class="(item.type || item.router) ? 'canRouter' : ''" v-for="item in items" :key="item.id" @click="handleDetail(item)">
       <span class="num">{{item.horizontal ? item.horizontal : countObj[item.prop]}}</span>
       <span class="name">{{item.name}}</span>
     </div>

@@ -38,12 +38,15 @@ export default {
       }, {
         label: '培训学习',
         value: 'Study',
+        disabled: true,
       }, {
         label: '成果分享',
         value: 'Share',
+        disabled: true,
       }, {
         label: '团建活动',
         value: 'Activity',
+        disabled: true,
       }],
       activeTab: 'Empolyee',
     }

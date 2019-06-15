@@ -73,3 +73,11 @@ export function getProposeList () {
     method: 'get',
   })
 }
+
+// 频道页意见反馈
+export function getproductCountList () {
+  return request({
+    url: `${prefixUrl}/product_count`,
+    method: 'get',
+  })
+}

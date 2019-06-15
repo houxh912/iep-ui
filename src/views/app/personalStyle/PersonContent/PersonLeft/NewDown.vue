@@ -1,7 +1,7 @@
 <template>
   <div class="new-down">
     <IepAppTabCard :title="title">
-      <div v-if="visitVOs.length !== 0">
+      <div v-if="visitVOs.length !== 0" class="list">
         <div class="item" v-for="(item, index) in visitVOs" :key="index" @click="handleDetail(item)">
           <div class="img">
             <iep-img :src="item.visitorAvatar" alt=""></iep-img>
@@ -93,13 +93,16 @@ export default {
       }
     }
   }
-  .item {
+  .list {
     display: flex;
-    flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
-    margin: 0 10px 10px;
     cursor: pointer;
+    width: 100%;
+    .item {
+      margin: 0 10px 10px;
+      text-align: center;
+    }
     &:hover {
       opacity: 0.7;
     }

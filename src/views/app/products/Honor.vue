@@ -1,23 +1,24 @@
 <template>
   <div class="honor">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <span slot="statistics" class="statistics">（{{replaceText[0]}}个软件著作权，{{replaceText[1]}}个A级企业认证，{{replaceText[2]}}个行业贡献企业奖）</span>
+      <!-- <span slot="statistics" class="statistics">（{{replaceText[0]}}个软件著作权，{{replaceText[1]}}个A级企业认证，{{replaceText[2]}}个行业贡献企业奖）</span> -->
       <iep-img :src="firstImg" alt="" class="img"></iep-img>
       <div class="honor-list">
-        <div v-for="(item,index) in HonorList" :key="index" class="piece">
-          {{item}}
+        <div v-for="(item,index) in HonorList" :key="index" class="piece" @click="handleDetail(item.id)">
+          {{item.honorQualName}}
         </div>
       </div>
     </IepAppTabCard>
   </div>
 </template>
 <script>
+import { getHonorPage } from '@/api/app/mlms/honor'
 export default {
   data () {
     return {
       title: '荣誉资质',
-      linkName: '',
-      replaceText: [24, 3, 5],
+      linkName: '/app/resource/qualification',
+      // replaceText: [24, 3, 5],
       firstImg: require('./img/copyright.jpg'),
       HonorList: [
         '软著|DIPS站群管理系统V2.0',
@@ -33,7 +34,21 @@ export default {
         '软著|数据基因数据元标准化管理系统',
         '软著|数据基因基于应用场景的数据架构管理系统',
       ],
+      size:12,
     }
+  },
+  methods: {
+    handleDetail (row) {
+      this.$router.push(`/mlms_spa/aptitude/detail/${row.id}`)
+    },
+    loadList () {
+      getHonorPage(this.size).then(({data}) => {
+        this.HonorList = data.data.records
+      })
+    },
+  },
+  created () {
+    this.loadList()
   },
 }
 </script>

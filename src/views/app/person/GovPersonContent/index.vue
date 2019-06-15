@@ -3,11 +3,11 @@
     <div class="top-content">
       <gov-person-img></gov-person-img>
       <gov-person-notice></gov-person-notice>
-      <glow-person></glow-person>
-      <talent-advantage></talent-advantage>
+      <!-- <glow-person></glow-person>
+      <talent-advantage></talent-advantage> -->
     </div>
     <div class="first-img">
-      <img src="./img/first.png" alt="">
+      <!-- <img src="./img/first.png" alt=""> -->
     </div>
     <div class="top-content">
       <shortage-posts></shortage-posts>
@@ -29,17 +29,17 @@
       <gov-document></gov-document>
       <thoughts></thoughts>
     </div>
-    <!-- <div class="copies copies2">
+    <div class="copies copies2">
       <interactive-zone></interactive-zone>
       <reward></reward>
       <feedback></feedback>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>
 import GovPersonImg from './GovPersonImg'
 import GovPersonNotice from './GovPersonNotice'
-import GlowPerson from './GlowPerson'
+// import GlowPerson from './GlowPerson'
 import Thoughts from './Thoughts'
 import ShortagePosts from './ShortagePosts'
 import GovTags from './GovTags'
@@ -52,13 +52,12 @@ import ExcellentLecturer from './ExcellentLecturer'
 // import Feedback from './Feedback'
 import GovLearn from './GovLearn/'
 import GovDocument from './GovDocument/'
-import TalentAdvantage from './TalentAdvantage'
+// import TalentAdvantage from './TalentAdvantage'
 
 export default {
   components: { 
     GovPersonImg, 
     GovPersonNotice, 
-    GlowPerson, 
     Thoughts, 
     ShortagePosts, 
     GovTags, 
@@ -71,7 +70,7 @@ export default {
     // Feedback, 
     GovLearn,
     GovDocument,
-    TalentAdvantage,
+    // TalentAdvantage,
   },
   data () {
     return {

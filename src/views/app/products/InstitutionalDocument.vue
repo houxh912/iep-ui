@@ -1,11 +1,12 @@
 <template>
   <div>
-    <iepAppTabCard :title="title" isMore>
-      <IepAppListCard :dataList="dataList"></IepAppListCard>
+    <iepAppTabCard :title="title" :linkName="linkName" isMore>
+      <IepAppListCard :dataList="dataList.slice(0, 8)" @click="handleDetail"></IepAppListCard>
     </iepAppTabCard>
   </div>
 </template>
 <script>
+import { getMaterialList } from '@/api/app/mlms/'
 export default {
   data () {
     return {
@@ -19,7 +20,21 @@ export default {
         '文件|智慧城市时空大数据平台建设技术大纲',
         '制度|宁波市智慧城市发展总体规划',
         '文件|数据基因白皮书V8.0'],
+      linkName:'/app/resource/material',
     }
+  },
+  methods: {
+    loadList () {
+      getMaterialList().then(({data}) => {
+        this.dataList = data.data.gzzd ? data.data.gzzd.map((m) => {return {name: m.material_name,id: m.id}}) : []
+      })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+    },
+  },
+  created () {
+    this.loadList()
   },
 }
 </script>

@@ -2,7 +2,7 @@
   <div class="tags">
     <IepAppTabCard :title="title" :data="data">
       <div class="leader-board-list">
-        <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
+        <div v-for="(item,index) in leaderBoardList" :key="index" class="piece" @click="handleDetail(item)">
           <span class="count" :class="item.color">{{index+1}}</span>
           <span class="name">{{item.key}}</span>
           <span class="num">{{item.value}}</span>
@@ -28,6 +28,9 @@ export default {
         this.leaderBoardList = data.data.tags
         this.data = `( ${data.data.size}个 )`
       })
+    },
+    handleDetail (row) {
+      this.$openTagDetail(row.key)
     },
   },
   created () {

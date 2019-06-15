@@ -6,7 +6,7 @@
         <el-button class="publish" type="text" @click="handlePublish">我要发布</el-button>
       </div>
       <div class="thoughts-list">
-        <div v-for="(item, index) in thoughtsList" :key="index" class="piece">
+        <div v-for="(item, index) in thoughtsList" :key="index" class="piece" @click="handleDetail(item.userId)">
           <div class="img-con">
             <iep-img :src="item.avatar" class="img"></iep-img>
           </div>
@@ -20,15 +20,15 @@
         </div>
       </div>
     </IepAppTabCard>
-<!-- 
+
     <IepAppTabCard :title="titleStar" :linkName="linkName" class="mutual-card">
-      <el-button class="important" type="text" slot="right">申请互助基金</el-button>
+      <!-- <el-button class="important" type="text" slot="right">申请互助基金</el-button> -->
       <div class="star-list">
         <div v-for="(item, index) in starList" :key="index" class="piece">
-          <div class="img-con">
+          <div class="img-con" @click="handleDetail(item.id)">
             <iep-img :src="item.avatar" class="img"></iep-img>
           </div>
-          <div class="box">
+          <div class="box" @click="handleDetail(item.id)">
             <div class="piece-title">
               <span class="name">{{item.name}}</span>
             </div>
@@ -39,7 +39,7 @@
           </div>
         </div>
       </div>
-    </IepAppTabCard> -->
+    </IepAppTabCard>
     <!-- 祝福 -->
     <blessing-dialog ref="blessing"></blessing-dialog>
     <!-- 发表说说 -->
@@ -83,6 +83,9 @@ export default {
     },
     handlePublish () {
       this.$refs['publish'].open()
+    },
+    handleDetail (id) {
+      this.$router.push(`/app/personal_style/${id}`)
     },
   },
   created () {
@@ -156,6 +159,9 @@ export default {
         &:hover {
           color: #ba1b21;
         }
+      }
+      .job {
+        margin-bottom: 3px;
       }
     }
     &:last-child {

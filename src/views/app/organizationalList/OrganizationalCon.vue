@@ -29,7 +29,7 @@
                 <span>{{item.time}}</span>
               </span>
               <span class="person">
-                <span>{{item.personName}}</span>
+                <span>{{item.personName}}：</span>
                 <span>{{item.personInfo}}</span>
               </span>
             </div>
@@ -431,7 +431,8 @@ export default {
       display: flex;
       flex-direction: column;
       align-self: center;
-      padding: 0 10px;
+      padding: 0 18px;
+      text-align: center;
       border-right: 1px solid #eee;
       &:last-child {
         border-right: 0;

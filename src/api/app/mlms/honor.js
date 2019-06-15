@@ -28,7 +28,15 @@ export const getHonorPage = (params) => {
     params: params,
   })
 }
-
+export function getHonorPage1 (size) {
+  return request({
+    url: `${prefixUrl}/page`,
+    method: 'get',
+    params: {
+      size,
+    },
+  })
+}
 // 组织详情资质集合 
 export const getHonorList = (id) => {
   return request({

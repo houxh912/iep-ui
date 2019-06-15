@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import { getHonorPage } from '@/api/app/mlms/honor'
+import { getHonorPage1 } from '@/api/app/mlms/honor'
 export default {
   data () {
     return {
@@ -42,7 +42,7 @@ export default {
       this.$router.push(`/mlms_spa/aptitude/detail/${row.id}`)
     },
     loadList () {
-      getHonorPage(this.size).then(({data}) => {
+      getHonorPage1(this.size).then(({data}) => {
         this.HonorList = data.data.records
       })
     },

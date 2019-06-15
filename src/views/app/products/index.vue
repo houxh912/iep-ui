@@ -6,11 +6,11 @@
     </div>
     <visualization></visualization>
     <div class="content">
-      <newcomers></newcomers>
+      <!-- <newcomers></newcomers> -->
       <institutional-document></institutional-document>
       <resources></resources>
-      <new-technology></new-technology>
       <optimal></optimal>
+      <new-technology></new-technology>
       <honor></honor>
       <!-- <bounty-mission></bounty-mission> -->
       <!-- <task></task> -->
@@ -23,7 +23,7 @@
 import Banner from './Banner'
 import MyProducts from './MyProducts'
 import Visualization from './Visualization'
-import Newcomers from './Newcomers'
+// import Newcomers from './Newcomers'
 import InstitutionalDocument from './InstitutionalDocument'
 import Resources from './Resources/'
 import NewTechnology from './NewTechnology'
@@ -33,7 +33,7 @@ import Honor from './Honor'
 // import Task from './Task'
 import Suggest from './Suggest'
 export default {
-  components: { Banner, MyProducts, Visualization, Newcomers, InstitutionalDocument, Resources, NewTechnology, Optimal, Honor, Suggest },
+  components: { Banner, MyProducts, Visualization, InstitutionalDocument, Resources, NewTechnology, Optimal, Honor, Suggest },
   data () {
     return {
     }

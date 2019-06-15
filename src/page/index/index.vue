@@ -7,7 +7,7 @@
         <top />
       </el-header>
       <el-container>
-        <el-aside :width="asideWidth">
+        <el-aside v-show="asideDisplay" :width="asideWidth">
           <!-- 左侧导航栏 -->
           <sidebar />
         </el-aside>
@@ -68,10 +68,13 @@ export default {
       'website',
       // 'expires_in',
     ]),
-    asideWidth () {
+    asideDisplay () {
       if (this.$route.matched[0].path === '/app') {
-        return '0px'
+        return false
       }
+      return true
+    },
+    asideWidth () {
       if (this.isDesktop()) {
         return '200px'
       } else {
@@ -91,13 +94,12 @@ export default {
   },
   mounted () {
     this.init()
-    this.LoadAllDictMap()
     this.LoadContactsPyGroup()
     this.LoadFamsConfig()
     // this.initWebSocket()
   },
   methods: {
-    ...mapActions(['LoadAllDictMap', 'LoadContactsPyGroup', 'LoadFamsConfig', 'RefreshToken']),
+    ...mapActions(['LoadContactsPyGroup', 'LoadFamsConfig', 'RefreshToken']),
     ...mapMutations({ setScreen: 'SET_SCREEN', setExpiresIn: 'SET_EXPIRES_IN', setWindowSize: 'SET_WINDOWSIZE' }),
     handleOk () {
       this.visible = false

@@ -14,12 +14,13 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-index>
-        <el-table-column prop="operation" label="操作" width="200" fixed="right">
+        <el-table-column prop="operation" label="操作" width="240" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button v-if="scope.row.status===1" @click="handleGrant(scope.row)">发放</iep-button>
               <iep-button v-if="scope.row.status===0" @click="handlePass(scope.row)">通过</iep-button>
               <iep-button v-if="[0,1].includes(scope.row.status)" @click="handleReject(scope.row)">驳回</iep-button>
+              <iep-button @click="handleRewards(scope.row)">财富流水</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -55,6 +56,12 @@ export default {
     },
     handleDetail (row) {
       this.$emit('onDetail', row)
+    },
+    handleRewards (row) {
+      this.$router.push({
+        path:`/wealth_flow/${row.userId}`,
+        query:{name:`${row.applyName}的`},
+      })
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getWithdrawPage)

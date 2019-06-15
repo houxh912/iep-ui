@@ -1,16 +1,20 @@
 <template>
   <div>
     <div class="training-search">
-      <h3>{{title}}<span>{{num}}</span></h3>
+      <h3>{{title}}<span>{{`（共${total}个）`}}</span></h3>
     </div>
   </div>
 </template>
 <script>
 export default {
+  props: {
+    total: {
+      type: Number,
+    },
+  },
   data () {
     return {
       title: '培训库',
-      num: '（共9865个）',
     }
   },
 }

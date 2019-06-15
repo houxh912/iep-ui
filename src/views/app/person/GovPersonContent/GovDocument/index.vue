@@ -23,13 +23,10 @@ export default {
   data () {
     return {
       tabList: [{
-        label: '新人必读',
-        value: 'NewPeople',
-      }, {
         label: '制度文件',
         value: 'documents',
       }],
-      activeTab: 'NewPeople',
+      activeTab: 'documents',
     }
   },
 }

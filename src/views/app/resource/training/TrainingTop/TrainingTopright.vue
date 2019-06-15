@@ -5,7 +5,7 @@
         <el-card :body-style=" { padding: '0px' }" shadow="never">
           <div class="sub-title clearfix" slot="header">
             <span class="cardTitle">{{title}}</span>
-            <el-button class="more" type="text" @click="getMore">更多></el-button>
+            <!-- <el-button class="more" type="text" @click="getMore">更多></el-button> -->
           </div>
         </el-card>
       </el-col>

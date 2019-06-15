@@ -2,7 +2,7 @@
   <div class="optimal">
     <iepAppTabCard :title="title1">
       <div class="technology-list">
-        <div v-for="(item,index) in technologyList" :key="index" class="piece">
+        <div v-for="(item,index) in technologyList" :key="index" class="piece" @click="technologyDetail(item.id)">
           <iep-img :src="item.img" alt=""></iep-img>
           <div class="text">
             <div class="title">
@@ -16,7 +16,7 @@
     </iepAppTabCard>
     <IepAppTabCard :title="title2" :linkName="linkName" class="last-card">
       <div class="last-month">
-        <div v-for="(item,index) in lastMonth" :key="index" class="piece">
+        <div v-for="(item,index) in lastMonth" :key="index" class="piece" @click="technologyDetail(item.id)">
           <iep-img :src="item.img" alt=""></iep-img>
           <div class="text">
             <div class="title">
@@ -38,11 +38,18 @@ export default {
       title2: '上月最佳',
       linkName: '',
       technologyList: [
-        { img: require('./img/optimal1.jpg'), name: '钟乙乔', department: '集团研发中心', label: '需求分析/原型设计/知识图谱' },
-        { img: require('./img/optimal2.jpg'), name: '张灵', department: '国脉集团研发中心运维组', label: 'DNA运维/环境配置/服务器部署' },
+        { id:35, img: require('./img/optimal1.jpg'), name: '钟乙乔', department: '集团研发中心', label: '需求分析/原型设计/知识图谱' },
+        { id:30, img: require('./img/optimal2.jpg'), name: '张灵', department: '国脉集团研发中心运维组', label: 'DNA运维/环境配置/服务器部署' },
       ],
-      lastMonth: [{ img: require('./img/optimal3.jpg'), name: '丁斌', department: '产品与技术委员会', label: '微服务/需求梳理/数据门户' }],
+      lastMonth: [{ id:11, img: require('./img/optimal3.jpg'), name: '丁斌', department: '产品与技术委员会', label: '微服务/需求梳理/数据门户' }],
     }
+  },
+  methods: {
+    technologyDetail (val) {
+      this.$router.push({
+        path:`/app/personal_style/${val}`,
+      })
+    },
   },
 }
 </script>
@@ -54,8 +61,9 @@ export default {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     overflow: hidden;
+    cursor: pointer;
     img {
       float: left;
       width: 50px;
@@ -86,8 +94,9 @@ export default {
   border-top-color: #fff;
   .last-month {
     .piece {
+      cursor: pointer;
       overflow: hidden;
-      margin-top: 20px;
+      margin-top: 14px;
     }
   }
 }

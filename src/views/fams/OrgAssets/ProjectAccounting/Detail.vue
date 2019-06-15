@@ -1,37 +1,37 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="form.name" :back-option="backOption">
+      <page-header :title="form.projectName" :back-option="backOption">
       </page-header>
       <el-card class="box-card" shadow="never" :body-style="{ display: 'flex' }">
         <div class="left-wrapper">
-          <span>项目实施</span>
-          <div class="content">￥{{form.projectImplementation}}</div>
+          <span>合同金额</span>
+          <div class="content">￥{{form.contractAmount}}</div>
         </div>
         <div class="info">
           <div class="info-item">
             <label>创建人：</label>
-            <div class="content">{{form.founder}}</div>
+            <iep-div-detail style="height:40px;line-height:40px;" :value="form.publisherList.name"></iep-div-detail>
           </div>
           <div class="info-item">
             <label>项目编号：</label>
-            <div class="content">{{form.number}}</div>
+            <div class="content">{{form.serialNo}}</div>
           </div>
           <div class="info-item">
             <label>项目经理：</label>
-            <div class="content">{{form.projectManager}}</div>
+            <iep-div-detail style="height:40px;line-height:40px;" :value="form.projectManagerList.name"></iep-div-detail>
           </div>
           <div class="info-item">
             <label>市场经理：</label>
-            <div class="content">{{form.marketingNumber}}</div>
+            <iep-div-detail style="height:40px;line-height:40px;" :value="form.mktManagerList.name"></iep-div-detail>
           </div>
           <div class="info-item">
             <label>立项时间：</label>
-            <div class="content">{{form.projectTime}}</div>
+            <div class="content">{{form.projectTime | parseToDay}}</div>
           </div>
           <div class="info-item">
             <label>完结时间：</label>
-            <div class="content">{{form.endTime}}</div>
+            <div class="content">{{form.endTime | parseToDay}}</div>
           </div>
         </div>
       </el-card>
@@ -39,9 +39,9 @@
         <template v-if="activeTab ==='Accounting'" v-slot:Accounting>
           <accounting v-loading="activeTab !=='Accounting'"></accounting>
         </template>
-        <template v-if="activeTab ==='Budget'" v-slot:Budget>
+        <!-- <template v-if="activeTab ==='Budget'" v-slot:Budget>
           <budget v-loading="activeTab !=='Budget'"></budget>
-        </template>
+        </template> -->
         <template v-if="activeTab ==='Cost'" v-slot:Cost>
           <cost v-loading="activeTab !=='Cost'"></cost>
         </template>
@@ -53,26 +53,29 @@
   </div>
 </template>
 <script>
+import { getProjectInformationById } from '@/api/fams/statistics'
 import Accounting from './Accounting/'
-import Budget from './Budget/'
+import { initForm } from './options'
+// import Budget from './Budget/'
+import mixins from '@/mixins/mixins'
 import Cost from './Cost/'
 import Payback from './Payback/'
 export default {
-  components: { Accounting, Budget, Cost, Payback },
+  components: { Accounting, Cost, Payback },
+  mixins: [mixins],
   data () {
     return {
       backOption: {
         isBack: true,
       },
-      //form: initForm(),
-      form: { projectImplementation: '585.00', name: '项目名称', number: '101222', projectManager: 'xxx', marketingNumber: 'xxx', projectTime: '2019-04-01', endTime: '2019-06-30' },
+      form: initForm(),
       tabList: [{
         label: '项目核算表',
         value: 'Accounting',
       }, {
-        label: '项目预算表',
-        value: 'Budget',
-      }, {
+        //   label: '项目预算表',
+        //   value: 'Budget',
+        // }, {
         label: '项目费用表',
         value: 'Cost',
       }, {
@@ -83,8 +86,23 @@ export default {
     }
   },
   computed: {
+    id () {
+      return +this.$route.params.id
+    },
   },
   created () {
+    this.loadPage()
+  },
+  methods: {
+    loadPage () {
+      if (this.id) {
+        this.isLoadTable = true
+        getProjectInformationById(this.id).then(({ data }) => {
+          this.form = this.$mergeByFirst(initForm(), data.data)
+          this.isLoadTable = false
+        })
+      }
+    },
   },
 }
 </script>

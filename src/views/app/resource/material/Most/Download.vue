@@ -1,6 +1,6 @@
 <template>
   <div class="download">
-    <IepAppListCard :dataList="list"></IepAppListCard>
+    <IepAppListCard :dataList="list" @click="handleDetail"></IepAppListCard>
   </div>
 </template>
 
@@ -14,6 +14,11 @@ export default {
   },
   data () {
     return {}
+  },
+  methods: {
+    handleDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+    },
   },
 }
 </script>

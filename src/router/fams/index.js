@@ -110,6 +110,11 @@ export default [
         name: '集团打赏/扣减(个人)',
         component: () => import('@/views/fams/GroupFinance/GroupRewardUser/index.vue'),
       },
+      {
+        path: '/wealth_flow/:id',
+        name: '提现申请(个人)',
+        component: () => import('@/views/fams/wealth/WealthFlow/index.vue'),
+      },
     ],
   },
 ]

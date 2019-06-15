@@ -5,24 +5,24 @@
         <div class="chat-title">
           <iep-img class="chat-title-head"
                :src="chatDetail.avatar ? chatDetail.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
-          <span class="chat-title-name">{{chatDetail.realName}}</span>
+          <span class="chat-title-name">{{chatDetail.chatName}}</span>
         </div>
         <div class="chat-main">
           <div class="chat-main-new" v-show="messageNew" @click="readNew">
-            {{chatDetail.realName}}:{{messageNew}}
+            {{messageNew}}
           </div>
           <div class="chat-main-box" ref="chatmain" @scroll="onScroll">
             <ul>
-              <li v-show="$store.getters.imMessageMore(chatDetail.username)" class="chat-more">
+              <li v-show="$store.getters.imMessageMore(chatDetail.chatNo)" class="chat-more">
                 <i v-show="loadingMore" class="el-icon-loading"></i>
                 <span v-show="!loadingMore" @click="getMore">点击查看更多</span>
               </li>
               <li v-for="message in messageList"
                   :key="message.id"
-                  :style="getDirectionStyle(message.type)">
-                <img src=""/>
+                  :style="getDirectionStyle(message.sendOrReceive)">
+                <img class="headimage" :src="message.avatar ? message.avatar : '/img/icons/apple-touch-icon-60x60.png'"/>
                 <div class="chat-main-content">
-                  <span>{{message.time}}</span>
+                  <span>{{message.time}}</span><br>
                   <p v-html="messageFormat(message.message)"></p>
                 </div>
               </li>
@@ -115,14 +115,16 @@ export default {
         msgCode = this.getMessageList[0].msgCode
       }
       getMoreHistory({
-        targetId: this.chatDetail.userId,
-        type: 1,
+        targetId: this.chatDetail.id,
+        type: this.chatDetail.type,
         msgCode,
       }).then(({data}) => {
         if (data.code === 0) {
           this.$store.commit('addHistoryMessage', {
             list: data.data,
-            username: this.chatDetail.username,
+            selfId: this.$store.getters.userInfo.userId,
+            type: this.chatDetail.type,
+            targetId: this.chatDetail.id,
           })
         }
       }, error => {
@@ -134,7 +136,7 @@ export default {
   },
   computed: {
     getMessageList () {
-      return this.$store.getters.imMessage(this.chatDetail.username)
+      return this.$store.getters.imMessage(this.chatDetail.chatNo)
     },
   },
   watch: {
@@ -148,7 +150,7 @@ export default {
         if (newVal && newVal.length > 0) {
           let oldHeight = this.$refs.chatmain.scrollHeight
           let oldScrollTop = this.$refs.chatmain.scrollTop
-          if (!oldVal || oldVal.length === 0 || (newVal[newVal.length - 1].id !== oldVal[oldVal.length - 1].id) && newVal[newVal.length - 1].type === 0) {
+          if (!oldVal || oldVal.length === 0 || (newVal[newVal.length - 1].id !== oldVal[oldVal.length - 1].id) && newVal[newVal.length - 1].sendOrReceive === 0) {
             this.$nextTick(() => {
               this.$refs.chatmain.scrollTop = this.$refs.chatmain.scrollHeight
             })
@@ -251,6 +253,25 @@ export default {
                   align-items: flex-start;
                   font-size: 12px;
                   color: #BA1B21;
+                }
+                .headimage {
+                  flex: 0 0 40px;
+                  margin: 0 5px;
+                  height: 40px;
+                  width: 40px;
+                  border-radius: 20px;
+                  overflow: hidden;
+                }
+                .chat-main-content {
+                  p {
+                    background: #F0F0F0;
+                    padding: 5px;
+                    border-radius: 3px;
+                    display: inline-block;
+                    word-break: break-all;
+                    word-wrap:break-word;
+                    text-align: left;
+                  }
                 }
               }
             }

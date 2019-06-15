@@ -1,10 +1,10 @@
 <template>
   <div class="wel-content">
-    <user @on-finish.once="handleWelcome"></user>
+    <account @on-finish.once="handleWelcome"></account>
     <pending></pending>
     <project></project>
-    <customer></customer>
-    <contract></contract>
+    <!-- <customer></customer>
+    <contract></contract> -->
     <material></material>
     <!-- <grades></grades> -->
     <relationship></relationship>
@@ -22,17 +22,23 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import User from './User'
+import Account from './Account'
 import Pending from './Pending'
 import Project from './Project'
-import Customer from './Customer'
+// import Customer from './Customer'
 import Material from './Material'
 // import Grades from './Grades'
 import Relationship from './Relationship'
-import Contract from './Contract'
+// import Contract from './Contract'
 
 export default {
-  components: { User, Pending, Project, Customer, Material, Relationship, Contract },
+  components: {
+    Account,
+    Pending, Project,
+    // Customer,
+    Material, Relationship,
+    // Contract,
+  },
   data () {
     return {
       visible: false,
@@ -62,11 +68,5 @@ export default {
   width: 100%;
   height: auto;
   background: white;
-  font-size: 12px;
-}
-</style>
-<style scoped>
-.wel-content >>> .name{
-  margin-right: 10px;
 }
 </style>

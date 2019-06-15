@@ -55,10 +55,12 @@ export default {
         this.versionList = this.form.versionDesc.split('\n')
       })
     },
-    handleNodeClick (data) {
-      this.defaultCheckedKeys = [data.id]
-      this.$refs.tree.setCheckedKeys(this.defaultCheckedKeys)
-      this.loadPage()
+    handleNodeClick (data, node) {
+      if (node.level === 2) {
+        this.defaultCheckedKeys = [data.id]
+        this.$refs.tree.setCheckedKeys(this.defaultCheckedKeys)
+        this.loadPage()
+      }
     },
     loadTree () {
       getVersionTree().then(({ data }) => {

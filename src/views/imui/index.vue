@@ -1,14 +1,10 @@
 <template>
   <div style="position: fixed;z-index: 1000">
     <im-ui-small v-show="showType === 'small'" @showLarge="showType = 'large'"></im-ui-small>
-    <im-ui-large v-show="showType === 'large'" @showSmall="showType = 'small'" @toChat="toChat"></im-ui-large>
+    <im-ui-large v-show="showType === 'large'" @showSmall="showType = 'small'"></im-ui-large>
     <chat-box
-      v-show="$store.getters.imCurrentChatList.length > 0 && chatShow"
-      :currentChat="currentChat"
-      @chatChange="chatChange"
-      @sendMessage="sendMessage"
-      @chatAllClose="chatAllClose"
-      @chatClose="chatClose"></chat-box>
+      v-show="$store.getters.imCurrentChatList.length > 0 && $store.getters.imChatShow"
+      @sendMessage="sendMessage"></chat-box>
   </div>
 </template>
 
@@ -19,7 +15,6 @@ import chatBox from './components/chatBox/index.vue'
 import store from '@/store'
 import SockJS from 'sockjs-client'
 import Stomp from 'stompjs'
-import { getUserListTree } from '@/api/admin/contacts'
 import { getTotalHistory, clearUnread } from '@/api/im'
 export default {
   name: 'im-ui',
@@ -37,20 +32,17 @@ export default {
       socket: null,
       stompClient: null,
       userInfo: {},
+      subscribeMap: {},
     }
   },
   created () {
     this.initWebSocket()
-    getUserListTree().then(({data}) => {
-      this.$store.commit('setUserList', data.data)
-      this.getUnreadHistory()
-    })
   },
   methods: {
     initWebSocket () {
       this.connection()
 //      let self = this
-//      //断开重连机制,尝试发送消息,捕获异常发生时重连
+      //断开重连机制,尝试发送消息,捕获异常发生时重连
 //      this.timer = setInterval(() => {
 //        try {
 //          let TENANT_ID = getStore({ name: 'tenantId' }) ? getStore({ name: 'tenantId' }) : '1'
@@ -71,6 +63,9 @@ export default {
       this.stompClient = Stomp.over(this.socket)
       this.stompClient.debug = null
       this.stompClient.connect(headers, () => {
+        this.$store.dispatch('getUserListTree').then(() => {
+          this.getGroup()
+        })
         this.$eventBus.$on('logout', () => {
           this.$store.commit('imClearAll')
           this.stompClient.disconnect(headers)
@@ -79,18 +74,31 @@ export default {
           let body = JSON.parse(data.body)
           this.$store.commit('addMessage', {
             id: body.id,
+            chatNo: `user${body.otherId}`,
             message: body.msg,
             msgCode: body.msgCode,
             time: body.sendTime,
             username: body.targetName === userInfo.username ? body.resourceName : body.targetName,
             avatar: body.otherAvatar,
+            resourceName: body.resourceName,
             realName: body.otherRealName,
             userId: body.otherId,
-            type: body.targetName === userInfo.username ? 1 : 0,
-            unread: (body.targetName === userInfo.username ? body.resourceName : body.targetName) !== this.currentChat.username ? 1 : 0,
+            type: 1,
+            sendOrReceive: body.targetName === userInfo.username ? 1 : 0,
+            unread: (body.targetName === userInfo.username && `user${body.otherId}` !== this.$store.getters.imCurrentChat.chatNo) ? 1 : 0,
           })
           if ((body.targetName === userInfo.username ? body.resourceName : body.targetName) === this.currentChat.username) {
             clearUnread({type: 1, targetId: body.otherId})
+          }
+        })
+        this.stompClient.subscribe(`/self/system/${userInfo.userId}`, (data) => {
+          let body = JSON.parse(data.body)
+          if (body.groupId) {
+            this.$store.commit('updateGroup', {
+              id: body.groupId,
+              groupName: body.groupName,
+              avatar: body.groupAvatar,
+            })
           }
         })
       }, (err) => {
@@ -98,48 +106,77 @@ export default {
       })
     },
     sendMessage ({receiver, message, messageType}) {
-      this.stompClient.send(`/unicast/${receiver.username}/${store.getters.userInfo.userId}-${receiver.userId}`, {}, JSON.stringify({msg: message, type: messageType, msgType: 1, msgCode: new Date().getTime()}))
+      let data = JSON.stringify({
+        msg: message,
+        type: receiver.type,
+        msgType: messageType,
+        msgCode: new Date().getTime(),
+      })
+      this.stompClient.send(`/unicast/${receiver.username}/${store.getters.userInfo.userId}-${receiver.id}`, {}, data)
+    },
+    getGroup () {
+      this.$store.dispatch('initGroup').then(() => {
+        this.getUnreadHistory()
+      })
+    },
+    updateGroupMap (list) {
+      let ids = []
+      let userInfo = this.$store.getters.userInfo
+      for (let i = list.length; i--;) {
+        ids.push(`group${list[i].id}`)
+        if (!this.subscribeMap.hasOwnProperty(`group${list[i].id}`)) {
+          let subscribe = {}
+          subscribe[`group${list[i].id}`] = this.stompClient.subscribe(`/public/${list[i].id}`, (data) => {
+            let body = JSON.parse(data.body)
+            this.$store.commit('addMessage', {
+              id: body.id,
+              chatNo: `group${body.otherId}`,
+              message: body.msg,
+              msgCode: body.msgCode,
+              time: body.sendTime,
+              username: body.targetName,
+              avatar: body.otherAvatar,
+              resourceName: body.resourceName,
+              realName: body.targetName,
+              userId: body.otherId,
+              type: 2,
+              sendOrReceive: body.resourceName !== userInfo.username ? 1 : 0,
+              unread: (body.resourceName !== userInfo.username && `group${body.otherId}` !== this.$store.getters.imCurrentChat.chatNo) ? 1 : 0,
+            })
+            if (`group${body.otherId}` === this.currentChat.chatNo) {
+              clearUnread({type: 2, targetId: body.otherId})
+            }
+          })
+          this.subscribeMap = {...this.subscribeMap, ...subscribe}
+        }
+      }
+      let subscribeMap = Object.assign({}, this.subscribeMap)
+      for (let key in subscribeMap) {
+        if (!ids.includes(key)) {
+          this.subscribeMap[key].unsubscribe()
+          delete subscribeMap.key
+        }
+      }
+      this.subscribeMap = subscribeMap
     },
     getUnreadHistory () {
       getTotalHistory().then(({data}) => {
         if (data.code === 0) {
-          this.$store.commit('initHistory', {history: data.data, username: this.$store.getters.userInfo.username})
+          this.$store.commit('initHistory', {history: data.data, selfId: this.$store.getters.userInfo.userId})
         }
       }, error => {
         this.$message.error(error.message)
       })
     },
-    toChat (user) {
-      this.chatShow = true
-      this.$store.commit('addCurrentChatList', user)
-      clearUnread({type: 1, targetId: user.userId})
-      this.currentChat = user
+  },
+  computed: {
+    groupList () {
+      return Object.assign([], this.$store.getters.imGroups)
     },
-    chatChange (user) {
-      this.$store.commit('clearUserUnread', user.username)
-      this.currentChat = user
-    },
-    chatClose (user) {
-      let imCurrentChatList = this.$store.getters.imCurrentChatList
-      for (let i = imCurrentChatList.length; i--;) {
-        if (imCurrentChatList[i].userId === user.userId) {
-          if (user.userId === this.currentChat.userId) {
-            if (i > 0) {
-              this.currentChat = imCurrentChatList[i - 1]
-            } else if (imCurrentChatList.length > 1) {
-              this.currentChat = imCurrentChatList[1]
-            } else {
-              this.currentChat = {}
-            }
-          }
-          this.$store.commit('closeCurrentChatList', i)
-          return
-        }
-      }
-    },
-    chatAllClose () {
-      this.chatShow = false
-      this.currentChat = {}
+  },
+  watch: {
+    groupList (newVal) {
+      this.updateGroupMap(newVal)
     },
   },
 }

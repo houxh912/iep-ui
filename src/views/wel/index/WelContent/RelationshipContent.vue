@@ -1,27 +1,64 @@
 <template>
   <div class="relationshipContent">
-    <iep-no-data v-if="!contentData.length" message="暂无内容"></iep-no-data>
-    <div class="relationship-item" v-for="(item,index) in contentData" :key="index">
-      <div><span class="title">{{item.title}}{{item.data}}</span></div>
-      <ul>
-        <li class="name" v-for="item in item.childList" :key="item.id">{{item.name}}</li>
-      </ul>
+    <div v-if="mark==0">
+      <div class="relationship-item">
+        <div><span class="title">我的师父</span></div>
+        <ul>
+          <li class="name" v-for="(item,index) in masterData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
+        </ul>
+      </div>
+      <div class="relationship-item">
+        <div><span class="title">我的徒弟</span></div>
+        <ul>
+          <li class="name" v-for="(item,index) in apprenticeData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
+        </ul>
+      </div>
     </div>
-    <div class="relationship-item">
+    <div v-else>
+      <iep-no-data v-if="!contentData.length" message="暂无内容"></iep-no-data>
+      <ul v-else class="relationship-item">
+        <li class="name" v-for="(item,index) in contentData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
+import { getMyMasterContactList, getMyApprenticeContactList } from '@/api/wel/relationship_manage'
 export default {
   props: {
     contentData: {
       type: Array,
       default: () => [],
     },
+    mark: {
+      type: Number,
+      default: 0,
+    },
   },
   created () {
-    // console.log(this.content)
+    this.loadPage()
+  },
+  data () {
+    return {
+      masterData: [],
+      apprenticeData: [],
+    }
+  },
+  methods: {
+    gotoDetails (val) {
+      this.$router.push({
+        path: `/app/personal_style/${val}`,
+      })
+    },
+    loadPage () {
+      getMyMasterContactList().then(({ data }) => {
+        this.masterData = data.data.slice(0, 10)
+      })
+      getMyApprenticeContactList().then(({ data }) => {
+        this.apprenticeData = data.data.slice(0, 10)
+      })
+    },
   },
 }
 </script>
@@ -36,6 +73,7 @@ li {
 }
 .relationshipContent {
   padding: 18px 0;
+  height: 120px;
   .relationship-item {
     display: flex;
     margin-bottom: 10px;

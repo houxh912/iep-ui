@@ -40,8 +40,8 @@ export default {
       this.dialogShow = true
       this.formData.subject = `对“${row.title}”的批示`
       // 获取所有的参会人作为收件人
-      this.formData.receiverList.orgs = row.attendee.orgs
-      this.formData.receiverList.users = row.attendee.users
+      this.formData.receiverList.orgs = row.attendee.orgs ? row.attendee.orgs : []
+      this.formData.receiverList.users = row.attendee.users ? row.attendee.users : []
     },
     submitForm (formName) {
       this.formData.receiverIds = this.formData.receiverList.users.map(m => m.id)

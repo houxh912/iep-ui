@@ -2,7 +2,6 @@
   <div class="origanaze-report">
     <leader-top @select="select"></leader-top>
     <basic-container>
-      <span class="btn" @click="handleReturn">返回</span>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='OriganazeWeek'" v-slot:OriganazeWeek>
           <origanaze-week v-loading="activeTab !=='OriganazeWeek'"></origanaze-week>
@@ -36,13 +35,10 @@ export default {
       activeTab: '',
     }
   },
-   mounted () {
+  mounted () {
     this.activeTab = this.$route.query.name
   },
-  methods:{
-    handleReturn () {
-      this.$router.push('/wel/desktop')
-    },
+  methods: {
     select (selectName) {
       this.activeTab = selectName
     },
@@ -50,7 +46,7 @@ export default {
 }
 </script>
 <style scoped lang='scss'>
-.origanaze-report{
+.origanaze-report {
   padding: 20px;
 }
 .btn {
@@ -61,16 +57,16 @@ export default {
   color: #aaa;
   z-index: 3;
   border: 1px solid #ddd;
-  border-radius:5px;
+  border-radius: 5px;
   padding: 1px 8px;
-  &:hover{
-    color:#999;
-     border: 1px solid #ccc;
+  &:hover {
+    color: #999;
+    border: 1px solid #ccc;
   }
 }
 </style>
 <style scoped>
-.origanaze-report>>>.el-card__body{
+.origanaze-report >>> .el-card__body {
   position: relative;
 }
 </style>

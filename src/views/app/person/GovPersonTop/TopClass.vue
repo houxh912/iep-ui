@@ -1,7 +1,7 @@
 <template>
   <div class="top-class">
-    <div class="top-class-list" :class="item.router ? 'canRouter' : ''" v-for="item in items" :key="item.id" @click="handleDetail(item)">
-      <span class="num">{{countObj[item.prop]}}</span>
+    <div class="top-class-list" :class="item.type ? 'canRouter' : ''" v-for="item in items" :key="item.id" @click="handleDetail(item)">
+      <span class="num">{{item.horizontal ? item.horizontal : countObj[item.prop]}}</span>
       <span class="name">{{item.name}}</span>
     </div>
   </div>
@@ -18,33 +18,37 @@ export default {
           id: '1',
           name: '国脉同学',
           prop: 'userCount',
-          router: '',
+          type: 1,
         },
         {
           id: '2',
           name: '外部同学',
           prop: 'externalCount',
+          type: 1,
         },
         {
           id: '3',
           name: '国脉专家',
           prop: 'expertCount',
-          router: '/app/resource/expert',
+          type: 2,
         },
         {
           id: '4',
           name: '国脉校友',
           prop: 'alumnusCount',
+          type: 1,
         },
         {
           id: '5',
           name: '组织',
           prop: 'orgCount',
+          router: '/app/organizational_list',
         },
         {
           id: '6',
           name: '入驻机构',
           prop: 'institutionCount',
+          horizontal: '--',
         },
       ],
       countObj: {
@@ -59,13 +63,13 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      if (row.router) {
-        this.$router.push(row.router)
+      if (row.type) {
+        this.$router.push({ path: '/app/resource/expert', query: {type: row.type} })
       }
     },
   },
   created () {
-    getRecruitCount().then(({data}) => {
+    getRecruitCount().then(({ data }) => {
       this.countObj = data.data
     })
   },

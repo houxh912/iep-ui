@@ -2,7 +2,7 @@
   <div class="baner">
     <el-carousel :interval="5000" class="index-card">
       <el-carousel-item v-for="(item,index) in img" :key="index" class="baner-box">
-        <iep-img :src="item" class="img"></iep-img>
+        <iep-img :src="item.img" class="img" @click.native="handleDetail(item)"></iep-img>
       </el-carousel-item>
     </el-carousel>
   </div>
@@ -12,13 +12,33 @@ export default {
   data () {
     return {
       img: [
-        require('./img/baner1.png'),
-        require('./img/baner2.jpg'),
-        require('./img/baner3.jpg'),
-        require('./img/baner4.jpg'),
-        require('./img/baner5.jpg'),
+        {
+          img: '../img/app/index/img_01.jpg',
+          pathId: 8451,
+        },
+        {
+          img: '../img/app/index/img_02.png',
+          pathId: 8465,
+        },
+        {
+          img: '../img/app/index/img_03.jpg',
+          pathName: 'http://www.echinagov.com/zt/szzf/',
+        },
+        {
+          img: '../img/app/index/img_04.jpg',
+          pathName: 'http://www.besticity.com/ZT/zhcs/',
+        },
       ],
     }
+  },
+  methods: {
+    handleDetail (row) {
+      if (row.pathId) {
+        this.$router.push(`/app/resource/material/material_detail/${row.pathId}`)
+      } else {
+        window.open(row.pathName)
+      }
+    },
   },
 }
 </script>

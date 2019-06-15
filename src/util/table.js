@@ -44,6 +44,8 @@ const getLastSummaries = (param) => {
       }, 0)
       if (index===5) {
         sums[index] = values[values.length - 1]
+      } else if (index===6) {
+        sums[index] = ''
       } else {
         sums[index] = parseToMoney(sums[index])
       }

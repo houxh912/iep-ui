@@ -17,7 +17,7 @@ export default {
   data () {
     return {
       dialogShow: false,
-      ids: '',
+      id: '',
       content: '',
     }
   },

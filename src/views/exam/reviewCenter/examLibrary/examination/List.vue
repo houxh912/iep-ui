@@ -72,13 +72,13 @@
         <el-table-column prop="operation" label="操作" min-width="140">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)" v-if="permissionAll">编辑</iep-button>
+              <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)" v-if="isCreator(scope.row) || permissionAll">编辑</iep-button>
               <iep-button size="small" @click="handleDetail(scope.row)">查看</iep-button>
               <el-dropdown size="medium" v-if="permissionReading(scope.row) || permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleOpen(scope.row)" v-if="scope.row.state === 1 && (permissionAll  || isCreator(scope.row))">启用</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleForbid(scope.row)" v-if="scope.row.state === 0 && (permissionAll || isCreator(scope.row))">禁用</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleOpen(scope.row)" v-if="scope.row.state === 1 && (isCreator(scope.row) || permissionAll)">启用</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleForbid(scope.row)" v-if="scope.row.state === 0 && (isCreator(scope.row) || permissionAll)">禁用</el-dropdown-item>
                   <el-dropdown-item @click.native="handleManage(scope.row, 'ExamRegistration')"
                     v-if="permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">报名管理</el-dropdown-item>
                   <el-dropdown-item @click.native="handleManage(scope.row, 'ExamPaper')" v-if="permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">考卷管理</el-dropdown-item>

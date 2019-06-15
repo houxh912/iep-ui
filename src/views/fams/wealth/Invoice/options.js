@@ -40,8 +40,12 @@ function initForm () {
       id: 0,
       name: '',
     },
+    financialAuditName: '',
+    auditorName: '',
+    remarks: '',
     financialAudit:0,
     relations: [],
+    processes: [],
   }
 }
 
@@ -63,19 +67,6 @@ const columnsMap = [
 		prop: 'createTime',
 		label: '申请日期',
 	},
-	{
-		prop: 'status',
-		label: '状态',
-		type: 'dict',
-	},
-	{
-		prop: 'auditorName',
-		label: '部门审批人',
-	},
-	{
-		prop: 'auditingTime',
-		label: '审核日期',
-	},
 ]
 
 const rules = {
@@ -90,6 +81,9 @@ const rules = {
   ],
   projectId: [
     { required: true, message: '请选择项目', trigger: 'blur' },
+  ],
+  remarks: [
+    { required: false, trigger: 'blur' },
   ],
   auditor: [
     { required: false, trigger: 'blur' },

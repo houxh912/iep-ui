@@ -1,30 +1,39 @@
 <template>
   <div class="baner">
-    <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <IepAppAssortCard :dataList="dataList"></IepAppAssortCard>
+    <IepAppTabCard :title="title" :linkName="linkName">
+      <IepAppAssortCard :dataList="dataList" @click="handleDetail"></IepAppAssortCard>
     </IepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getNewsList } from '@/api/app/mlms/index'
+
 export default {
   data () {
     return {
       title: '国脉动态',
-      dataList: [
-        { assort: '【喜报】', desc: '国脉海洋获质量管理体系认证' },
-        { assort: '【要闻】', desc: '中国建设银行总行首席经济学专家' },
-        { assort: '【喜报】', desc: '热烈庆祝广州国脉公司乔迁开业' },
-        { assort: '【喜报】', desc: '国脉总经理郑爱军荣获“浙江创业女杰' },
-        { assort: '【要闻】', desc: '国脉总经理郑爱军受邀为长三角地区作' },
-        { assort: '【要闻】', desc: '首届长三角营商环境论坛在沪召开' },
-      ],
+      dataList: [],
       linkName: '',
     }
+  },
+  methods: {
+    handleDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+    },
+  },
+  created () {
+    getNewsList().then(({data}) => {
+      this.dataList = data.data.map(m => {return {id: m.id, desc: m.name, assort: `【${m.secondClassName}】`}})
+    })
   },
 }
 </script>
 <style lang="css" scoped>
 .baner >>> .assort .piece .assort {
   margin-left: -8px;
+}
+.baner >>> .el-card__body {
+  height: 236px;
 }
 </style>

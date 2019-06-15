@@ -21,12 +21,6 @@
         <span class="name">创建者:</span>
         <span class="frequency" v-text="form.creatorRealName"></span>
       </div>
-      <div class="icon-item">
-        <div class="icon-box" v-for="(item,index) in iconList" :key="index">
-          <i :class="item.icon"></i>
-          <span v-text="item.iconName"></span>
-        </div>
-      </div>
     </IepAppTabCard>
   </div>
 </template>
@@ -35,13 +29,6 @@ export default {
   props: ['form'],
   data () {
     return {
-      iconList: [
-        { icon: 'icon-shoucang1', iconName: '收藏' },
-        { icon: 'icon-share', iconName: '分享' },
-        { icon: 'icon-chakantiezigengduojubao', iconName: '纠错' },
-        { icon: 'icon-yuanbao', iconName: '打赏' },
-        { icon: 'icon-xiaoxi', iconName: '评论' },
-      ],
     }
   },
 }

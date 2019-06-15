@@ -54,7 +54,7 @@
             <div class="footer">
               <div class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
               <div class="button" @click="hadnleComment(item, index)"><i class="icon-pinglun1"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
-              <div class="button"><i class="icon-yuanbao"></i> 打赏</div>
+              <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
             </div>
           </div>
         </div>
@@ -68,6 +68,7 @@
 
 <script>
 import { geTallPage, CommentThoughts, addThumbsUpByRecord } from '@/api/cpms/thoughts'
+import { mapActions } from 'vuex'
 
 const initParams = () => {
   return {
@@ -159,6 +160,11 @@ export default {
     // 回复评论提交
     comCommentSubmit () {
       if (this.comForm.replyMsg == '') return
+    },
+    // 打赏
+    ...mapActions(['famsReward']),
+    handleReward (row) {
+      this.famsReward({id: row.userId, name: row.userName})
     },
   },
   created () {

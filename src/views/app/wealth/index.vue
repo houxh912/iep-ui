@@ -10,13 +10,14 @@
         <librarys ref="librarys"></librarys>
       </div>
       <div class="piece">
-        <IepAppTabCard :title="listTitle">
+        <!-- <IepAppTabCard :title="listTitle">
           <IepAppListCard :dataList="listList"></IepAppListCard>
-        </IepAppTabCard>
+        </IepAppTabCard> -->
         <ranking></ranking>
       </div>
     </div>
     <router-view v-else></router-view>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>
@@ -29,7 +30,7 @@ export default {
   components: { Librarys, Ranking },
   data () {
     return {
-      listTitle: '猜你想找',
+      // listTitle: '猜你想找',
       listList: [],
       routerMatch: this.$route.matched,
     }

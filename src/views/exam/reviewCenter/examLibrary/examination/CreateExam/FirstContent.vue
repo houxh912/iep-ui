@@ -80,13 +80,13 @@ export default {
     handleNext () {
       if (this.form.resource === 1) {
         this.$refs.form.clearValidate()
-        let _form = Object.assign(this.data, { ...this.form })
+        let _form = Object.assign({}, this.data, { ...this.form })
         this.$emit('on-data', _form)
       } else {
         this.$refs.form.validate(valid => {
           if (valid) {
-            let _form = Object.assign(this.data, { ...this.form })
-            this.$emit('on-data', _form)
+            this.data.iepTestPaperVO = { ...this.form }
+            this.$emit('on-data', this.data)
           }
         })
       }

@@ -75,7 +75,7 @@ export default {
      * 抽取
      */
     handleDraw () {
-      if (this.currentRow == null) {
+      if (this.currentRow == '') {
         this.$message.error('请选择一份试卷进行抽取')
         return
       }
@@ -97,11 +97,7 @@ export default {
      * 下一步
      */
     onData (data) {
-      const record = {
-        methodName: this.data.methodName,
-        iepTestPaperVO: data,
-      }
-      this.$emit('on-data', record)
+      this.$emit('on-data', data)
     },
 
   },

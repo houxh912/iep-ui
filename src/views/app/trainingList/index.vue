@@ -1,7 +1,7 @@
 <template>
   <div class="training-list">
-    <training-list-top></training-list-top>
-    <training-list-content></training-list-content>
+    <training-list-top :total="total"></training-list-top>
+    <training-list-content @getTotal="getTotal"></training-list-content>
     <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
@@ -14,14 +14,16 @@ export default {
   components: { TrainingListContent, TrainingListTop },
   data () {
     return {
+      total: 0,
     }
   },
+  methods: {
+    getTotal (val) {
+      this.total = val
+    },
+  },
   created () {
-    this.$notify({
-      title: '注意',
-      message: '此页面正在开发中，当前数据仅供参考。',
-      offset: 60,
-    })
+    
   },
 }
 </script>

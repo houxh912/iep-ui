@@ -23,7 +23,7 @@
         <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗 {{getMoney(formData.downloadCost)}} 下载）</span></div>
       </div>
     </el-row>
-    <IepAppRewardCard :total="total" :dataList="rewardList"></IepAppRewardCard>
+    <IepAppRewardCard :total="total" :dataList="rewardList" :userInfo="beRewardedPerson"></IepAppRewardCard>
     <IepAppEvaluationReviews :id="formData.id" :objectType="1"></IepAppEvaluationReviews>
     <collectionDialog ref="collection" type="material" :requestFn="createCollect" @load-page="loadData(route.id)"></collectionDialog>
     <share-dialog ref="share" type="material"></share-dialog>
@@ -65,6 +65,7 @@ export default {
       firstClass: [],
       route: this.$route.params,
       createCollect,
+      beRewardedPerson: {id: '', name: ''},
     }
   },
   computed: {
@@ -79,17 +80,27 @@ export default {
       // }
       // downloadFile(obj)
       // downloadCount(this.formData.id)
-      downloadCount(this.formData.id).then(({ data }) => {
-        if (data.data) {
-          downloadFile(obj)
-        } else {
-          this.$message.error(data.msg)
-        }
-      })
+      this.$confirm('下载此材料需要消耗国脉贝, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        downloadCount(this.formData.id).then(({ data }) => {
+          if (data.data) {
+            downloadFile(obj)
+          } else {
+            this.$message.error(data.msg)
+          }
+        })
+      }).catch(() => {})
     },
     loadData (id) {
       getDataById(id).then(({ data }) => {
         this.formData = data.data
+        this.beRewardedPerson = {
+          id: data.data.creator,
+          name: data.data.creatorRealName,
+        }
       })
     },
     getMoney (val) {

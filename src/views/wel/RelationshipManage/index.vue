@@ -20,7 +20,7 @@
                 <span>我的关系</span>
               </template>
               <el-menu-item index="601" class="menu-item" @click.native="handleSelectMaster()">
-                <span>我的师傅</span>
+                <span>我的师父</span>
               </el-menu-item>
               <el-menu-item index="602" class="menu-item" @click.native="handleSelectApprentice()">
                 <span>我的徒弟</span>
@@ -48,11 +48,11 @@
             <iep-button type="primary" @click="handleRemoveBatch" plain v-show="mark=='group'">批量移除</iep-button>
           </template>
           <template slot="right">
-            <iep-select v-model="orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+            <iep-select v-model="orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织" size="small"></iep-select>
             <el-radio-group size="small">
-              <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
+              <!-- <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button> -->
             </el-radio-group>
-            <operation-search @search-page="searchPage" prop="title">
+            <operation-search @search-page="searchPage" prop="name">
               <!-- <advance-search @search-page="searchPage"></advance-search> -->
             </operation-search>
           </template>

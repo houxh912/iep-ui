@@ -54,7 +54,7 @@ export default {
   components:{ searchTop, projectTab, newsTab, materialTab, trainTab, contractTab, businessTab, userTab, honorTab },
   data () {
     return {
-      activeTab: 'yw',
+      activeTab: 'cy',
       labelTitle1: '标签库',
       labelTitle2: '标准库',
       listTitle1: '相关客户',
@@ -76,6 +76,9 @@ export default {
     tabList () {
       return [
         {
+          label: `成员（${this.counts.countUser}）`,
+          value: 'cy',
+        }, {
           label: '要闻（0）',
           value: 'yw',
         }, {
@@ -93,9 +96,6 @@ export default {
         }, {
           label: `商机（${this.counts.countOpportunity}）`,
           value: 'sj',
-        }, {
-          label: `成员（${this.counts.countUser}）`,
-          value: 'cy',
         }, {
           label: `荣誉资质（${this.counts.countHonor}）`,
           value: 'ryzz',

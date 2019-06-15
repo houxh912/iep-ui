@@ -67,6 +67,7 @@ export default {
   height: 22px;
   line-height: 22px;
   color: #999;
+  cursor: pointer;
 }
 .datas {
   margin-left: 5px;

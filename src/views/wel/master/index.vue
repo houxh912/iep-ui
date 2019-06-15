@@ -26,7 +26,7 @@
         </el-card>
       </div>
       <div class="img-tip" v-else>
-        <iep-img :src="'../img/default/nodata.png'" class="img"></iep-img>
+        <IepNoData></IepNoData>
       </div>
     </div>
     <!-- 拜师 -->

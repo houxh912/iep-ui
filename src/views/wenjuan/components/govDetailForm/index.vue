@@ -1,23 +1,14 @@
 <template>
   <div class="detail-form-wrapper">
     <template v-for="(options, index) in option.option">
-      <h3
-        class="detail-form-title"
-        v-if="options.label"
-        :key="index">
+      <h3 class="detail-form-title" v-if="options.label" :key="index">
         {{options.label}}
       </h3>
       <el-row :key="options.label" :gutter="10">
         <template v-for="item in options.column">
-          <el-col
-            :span="24 / ((item.span ? (24 / item.span) : false) || +option.column || 1)"
-            v-show="item.show == null ? (item.callback ? item.callback(value[item.prop]) : true) : item.show"
-            :key="item.prop">
-            <div class="detail-form-item" >
-              <div
-                class="detail-form-label"
-                :class="option.textAlign ? `text-${options.textAlign}` : 'text-right'"
-                :style="{'width': getLabelWidth(item)}">
+          <el-col :span="24 / ((item.span ? (24 / item.span) : false) || +option.column || 1)" v-show="item.show == null ? (item.callback ? item.callback(value[item.prop]) : true) : item.show" :key="item.prop">
+            <div class="detail-form-item">
+              <div class="detail-form-label" :class="option.textAlign ? `text-${options.textAlign}` : 'text-right'" :style="{'width': getLabelWidth(item)}">
                 <template v-if="item.slotLabel">
                   <slot :row="item" :name="`${item.prop}Label`"></slot>
                 </template>
@@ -28,16 +19,14 @@
                   <i class="iconfont" :class="item.icon" v-if="item.icon"></i>
                 </el-tooltip>
               </div>
-              <div
-                class="detail-form-content"
-                :style="{'margin-left': getLabelWidth(item)}">
+              <div class="detail-form-content" :style="{'margin-left': getLabelWidth(item)}">
                 <template v-if="item.slot">
-                  <span class="text-wrapper ellipsis" :style="setStyle(item)">
+                  <span :class="`text-wrapper ${item.autoHeight ? '' : ''}`" :style="setStyle(item)">
                     <slot :row="getTemplateData(value, item)" :name="item.prop"></slot>
                   </span>
                 </template>
                 <template v-else>
-                  <span class="text-wrapper ellipsis"  :style="{'border-color': item.border == null ? '#ddd' : (item.border ? '#ddd' : '#fff'), 'height': item.autoHeight ? 'auto' : '40px'}">{{item.valueFormat ? valueFormat(value[item.prop], item.valueFormat) : realData(value, item)}}</span>
+                  <span class="text-wrapper ellipsis" :style="{'border-color': item.border == null ? '#ddd' : (item.border ? '#ddd' : '#fff'), 'height': item.autoHeight ? 'auto' : '40px'}">{{item.valueFormat ? valueFormat(value[item.prop], item.valueFormat) : realData(value, item)}}</span>
                 </template>
               </div>
             </div>
@@ -48,7 +37,7 @@
   </div>
 </template>
 <script>
-import {valueFormat} from './js/index'
+import { valueFormat } from './js/index'
 export default {
   name: 'GovDetailForm',
   props: {
@@ -86,7 +75,7 @@ export default {
     */
     option: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
     // 数据
     value: {
@@ -108,10 +97,10 @@ export default {
   methods: {
     setStyle (item) {
       let style = item.style || {}
-      if (typeof(style) == 'string') {
+      if (typeof (style) == 'string') {
         style = JSON.parse(style)
-      } 
-      return Object.assign({'border-color': item.border == null ? '#ddd' : (item.border ? '#ddd' : '#fff'), 'height': item.autoHeight ? 'auto' : '40px'}, style)
+      }
+      return Object.assign({ 'border-color': item.border == null ? '#ddd' : (item.border ? '#ddd' : '#fff'), 'height': item.autoHeight ? 'auto' : '40px' }, style)
     },
     // 时间过滤
     valueFormat,
@@ -122,10 +111,10 @@ export default {
     getLabelWidth (data) {
       let labelWidth = '150px'
       if (this.option.labelWidth) {
-        labelWidth = `${ this.option.labelWidth }px`
+        labelWidth = `${this.option.labelWidth}px`
       }
       if (data.labelWidth) {
-        labelWidth = `${ data.labelWidth }px`
+        labelWidth = `${data.labelWidth}px`
       }
       return labelWidth
     },
@@ -163,7 +152,7 @@ export default {
       if (data.type === 'dic' || data.dicData) {
         if (data.dicData) {
           if (this.isCascader(val, data)) {
-            return this.getCascader({val: val[prop], data})
+            return this.getCascader({ val: val[prop], data })
           } else {
             let result = this.getSelectData(val[prop], data)
             return type === 'arr' ? result[type] : result
@@ -205,14 +194,14 @@ export default {
           }
         }
       }
-      return {arr: arr.join(','), list: isArray ? list : list[0]}
+      return { arr: arr.join(','), list: isArray ? list : list[0] }
     },
     /**
      * 获取级联数据
      * val:
      * data:
      */
-    getCascader ({val, data}) {
+    getCascader ({ val, data }) {
       if (val == null) {
         return ''
       }
@@ -220,15 +209,15 @@ export default {
       const value = this.getPropsName(data, 'value')
       const label = this.getPropsName(data, 'label')
       const children = this.getPropsName(data, 'children')
-      this.getCascaderLoop({arr, val, level: 0, data: data.dicData, value, label, children})
+      this.getCascaderLoop({ arr, val, level: 0, data: data.dicData, value, label, children })
       return arr.join('/')
     },
-    getCascaderLoop ({arr, val, level, data = [], value, label, children}) {
+    getCascaderLoop ({ arr, val, level, data = [], value, label, children }) {
       for (let i = 0, len = data.length; i < len; i++) {
         if (data[i][value] === val[level]) {
           arr.push(data[i][label])
           if (data[i][children] && data[i][children].length > 0) {
-            this.getCascaderLoop({arr, val, level: level + 1, data: data[i][children], value, label, children})
+            this.getCascaderLoop({ arr, val, level: level + 1, data: data[i][children], value, label, children })
           }
         }
       }
@@ -259,46 +248,46 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  .detail-form-wrapper {
-    .detail-form-title {
-      line-height: 40px;
-      margin: 20px 0 10px;
-      font-weight: 500;
-      padding-left: 20px;
-      // border-top: 1px solid #d7d7d7;
-    }
-    .detail-form-item {
-      line-height: 40px;
-      color: #606266;
-      margin-bottom: 20px;
-      .detail-form-label {
-        float: left;
-        padding-right: 10px;
-        &.text-left {
-          text-align: left;
-        }
-        &.text-center {
-          text-align: center;
-        }
-        &.text-right {
-          text-align: right;
-        }
+.detail-form-wrapper {
+  .detail-form-title {
+    line-height: 40px;
+    margin: 20px 0 10px;
+    font-weight: 500;
+    padding-left: 20px;
+    // border-top: 1px solid #d7d7d7;
+  }
+  .detail-form-item {
+    line-height: 40px;
+    color: #606266;
+    margin-bottom: 20px;
+    .detail-form-label {
+      float: left;
+      padding-right: 10px;
+      &.text-left {
+        text-align: left;
       }
-      .detail-form-content {
-        box-sizing: border-box;
-        .text-wrapper {
-          display: block;
-          border: 1px solid #ddd;
-          padding: 0 10px;
-          height: 40px;
-          color: #666;
-        }
-        .ellipsis {
-          overflow: hidden;
-          text-overflow:ellipsis;
-          white-space: nowrap;
-        }
+      &.text-center {
+        text-align: center;
+      }
+      &.text-right {
+        text-align: right;
+      }
+    }
+    .detail-form-content {
+      box-sizing: border-box;
+      .text-wrapper {
+        display: block;
+        border: 1px solid #ddd;
+        padding: 0 10px;
+        height: 40px;
+        color: #666;
+      }
+      .ellipsis {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
+}
 </style>

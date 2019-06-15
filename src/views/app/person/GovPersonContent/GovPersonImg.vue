@@ -2,7 +2,7 @@
   <div class="banner">
     <el-card class="banner-list" shadow="hover" v-for="banner in bannerList" :key="banner.id">
       <span class="title">{{banner.title}}</span>
-      <iep-img class="img" :src="banner.img" alt=""></iep-img>
+      <iep-img class="img" :src="banner.img" alt="" @click.native="handleDetail(banner)"></iep-img>
     </el-card>
   </div>
 </template>
@@ -12,22 +12,27 @@ export default {
     return {
       bannerList: [
         {
-          id: '1',
-          img: '../img/bg/banner1.jpg',
-          title: '中国建设银行总行首席经济学家黄志凌一行莅临舟山国脉考察',
+          id: 8498,
+          img: '../img/app/person/img_01.png',
+          title: '2019年江西全省互联网+智慧政务研讨会在南昌召开，共谋下步发展',
         },
         {
-          id: '2',
-          img: '../img/bg/banner2.jpg',
-          title: '国脉总经理郑爱军荣获“浙江创业女杰',
+          id: 8490,
+          img: '../img/app/person/img_02.png',
+          title: '国脉副总刘佳一行拜访中通服开展合作洽谈',
         },
         {
-          id: '3',
-          img: '../img/bg/banner3.jpg',
-          title: '热烈庆祝广州国脉公司乔迁开业',
+          id: 8493,
+          img: '../img/app/person/img_03.png',
+          title: '国脉集团助力2019数博会协办，总经理郑爱军受邀发表系列演讲',
         },
       ],
     }
+  },
+  methods: {
+    handleDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+    },
   },
 }
 </script>

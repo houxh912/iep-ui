@@ -2,7 +2,6 @@
   <div class="staff-report">
     <leader-top @select="select"></leader-top>
     <basic-container>
-      <span class="btn" @click="handleReturn">返回</span>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='StaffWeek'" v-slot:StaffWeek>
           <staff-week v-loading="activeTab !=='StaffWeek'"></staff-week>
@@ -11,14 +10,16 @@
           <staff-month v-loading="activeTab !=='StaffMonth'"></staff-month>
         </template>
       </iep-tabs>
-    </basic-container>  
+    </basic-container>
   </div>
 </template>
 <script>
+import mixins from '@/mixins/mixins'
 import LeaderTop from '../LeaderTop'
 import StaffWeek from './StaffWeek'
 import StaffMonth from './StaffMonth'
 export default {
+  mixins: [mixins],
   components: {
     LeaderTop,
     StaffWeek,
@@ -33,13 +34,13 @@ export default {
         label: '员工月报',
         value: 'StaffMonth',
       }],
-      activeTab: '',
+      activeTab: 'StaffWeek',
     }
   },
   mounted () {
     this.activeTab = this.$route.query.name
   },
-  methods:{
+  methods: {
     handleReturn () {
       this.$router.push('/wel/desktop')
     },
@@ -50,8 +51,8 @@ export default {
 }
 </script>
 <style scoped lang='scss'>
-.staff-report{
-    padding: 20px;
+.staff-report {
+  padding: 20px;
 }
 .btn {
   cursor: pointer;
@@ -61,16 +62,16 @@ export default {
   color: #aaa;
   z-index: 3;
   border: 1px solid #ddd;
-  border-radius:5px;
+  border-radius: 5px;
   padding: 1px 8px;
-  &:hover{
-    color:#999;
-     border: 1px solid #ccc;
+  &:hover {
+    color: #999;
+    border: 1px solid #ccc;
   }
 }
 </style>
 <style scoped>
-.staff-report>>>.el-card__body{
+.staff-report >>> .el-card__body {
   position: relative;
 }
 </style>

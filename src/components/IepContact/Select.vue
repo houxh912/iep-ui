@@ -14,12 +14,12 @@
     <iep-drawer :drawer-show="dialogShow" title="通讯录" width="300" @close="dialogShow = false" :z-index="3000">
       <el-input placeholder="输入关键字对国脉人进行过滤" v-model="filterText" clearable></el-input>
       <div class="tab-title">国脉人</div>
-      <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="treeData" @node-click="selectUser" :default-expanded-keys="[1]" node-key="value">
+      <el-tree ref="tree" :filter-node-method="filterNode" :props="props" :data="treeData" @node-click="selectUser" node-key="value">
         <span class="custom-tree-node" slot-scope="{ node, data }">
-          <span :class="{'is-disabled':isDisabled(data, node)}" @click="() => selectUser(data, node)">{{ node.label }}</span>
+          <span @click="() => selectUser(data, node)">{{ node.label }}</span>
         </span>
       </el-tree>
-      <relations></relations>
+      <relation @set-user="setUser"></relation>
     </iep-drawer>
   </div>
 </template>
@@ -27,11 +27,11 @@
 import { mapGetters } from 'vuex'
 import { getUserListTree } from '@/api/admin/contacts'
 import { loadContactsPyList } from '@/api/admin/contacts'
-import Relations from './Relations'
+import Relation from './Relation'
 import debounce from 'lodash/debounce'
 export default {
   name: 'IepContactSelect',
-  components: { Relations },
+  components: { Relation },
   props: {
     disabled: {
       type: Boolean,
@@ -135,24 +135,21 @@ export default {
       this.dialogShow = true
       this.loadNode()
     },
-    isDisabled (data, node) {
-      if (node.level === 3 && this.filterUserList.includes(data.value)) {
-        return true
-      }
-      return false
-    },
     selectUser (data, node) {
-      if (this.isDisabled(data, node)) {
-        return
-      }
       if (node.level === 3) {
-        this.user = {
+        this.setUser({
           id: data.value,
           name: data.label,
-        }
-        this.filterText = ''
-        this.dialogShow = false
+        })
       }
+    },
+    setUser (data) {
+      this.user = {
+        id: data.id,
+        name: data.name,
+      }
+      this.filterText = ''
+      this.dialogShow = false
     },
     filterNode (value, data, node) {
       console.log(value, data, node)
@@ -183,9 +180,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.filter-tree {
-  margin-top: 10px;
-}
 .contact-wrapper {
   display: flex;
 }
@@ -200,6 +194,7 @@ export default {
   padding: 5px;
   padding-left: 15px;
   margin-top: 10px;
+  margin-bottom: 10px;
   border-radius: 5px;
 }
 </style>

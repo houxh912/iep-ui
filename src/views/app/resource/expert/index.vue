@@ -35,6 +35,14 @@ export default {
       activeTab: 'Expert',
     }
   },
+  created () {
+    let query = this.$route.query
+    if (query.type == '1') {
+      this.activeTab = 'Person'
+    } else {
+      this.activeTab = 'Expert'
+    }
+  },
 }
 </script>
 <style scoped lang="scss">

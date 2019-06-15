@@ -1,20 +1,14 @@
 <template>
-  <el-form :model="form" label-width="120px" size="mini">
+  <el-form class="form-detail" :model="form" label-width="120px" size="mini">
     <iep-form-item class="form-half" prop="marriageStatus" label-name="婚姻状况" tip="请务必根据实际情况选择">
       <iep-dict-select v-model="form.marriageStatus" dict-name="hrms_marriage_status"></iep-dict-select>
     </iep-form-item>
     <el-form-item label="岗位：">
       <iep-cascader v-model="form.position" prefix-url="hrms/post_type" clearable></iep-cascader>
     </el-form-item>
-    <el-form-item>
-      <span slot="label">
-        最高学历
-        <iep-tip content="高中及以下、专科、本科、硕士、博士及以上。">
-        </iep-tip>
-        ：
-      </span>
+    <iep-form-item label-name="最高学历" tip="高中及以下、专科、本科、硕士、博士及以上。">
       <iep-dict-select v-model="form.educationId" dict-name="hrms_highest_educational" clearable></iep-dict-select>
-    </el-form-item>
+    </iep-form-item>
     <el-form-item label="性别：">
       <el-radio-group v-model="form.sex">
         <el-radio :label="0">全部</el-radio>

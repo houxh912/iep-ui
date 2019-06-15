@@ -32,7 +32,7 @@ const columnsMap = [
 		label: '操作时间',
 	},
 	{
-		prop: 'remake',
+		prop: 'remarks',
 		label: '操作说明',
 		minWidth: '200',
 	},

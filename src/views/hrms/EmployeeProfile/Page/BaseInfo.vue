@@ -26,7 +26,7 @@
       <el-input v-model="form.staffId"></el-input>
     </iep-form-item>
 
-    <iep-form-item class="form-half" prop="identityMark" label-name="身份标志">
+    <iep-form-item class="form-half" prop="identityMark" label-name="身份标志" tip="定义组织成员额外特殊身份的记号，如专家">
       <iep-select multiple prefix-url="hrms/employee_profile/identity_mark" v-model="form.identityMark"></iep-select>
     </iep-form-item>
 
@@ -51,9 +51,9 @@
         </el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="对外头衔：" prop="socialRela" class="form-half">
+    <iep-form-item label-name="对外头衔" prop="socialRela" class="form-half" tip="您所具备的某种身分、专业或学术资格等称号，如XXX协会会长">
       <el-input v-model="form.socialRela"></el-input>
-    </el-form-item>
+    </iep-form-item>
     <el-form-item label="所属部门：" prop="dept" class="form-half">
       <iep-dept-multiple v-model="form.dept"></iep-dept-multiple>
     </el-form-item>

@@ -1,6 +1,6 @@
 <template>
   <div class="thoughts">
-    <iepAppTabCard :title="title" :linkName="linkName" :data="data" isMore>
+    <iepAppTabCard :title="title" :data="data">
       <div class="thoughtsList">
         <div v-for="(item, index) in thoughtsList" :key="index" class="piece" @click="handleDetail(item)">
           <div class="img-con"><iep-img :src="item.avatar" class="img"></iep-img></div>
@@ -31,7 +31,7 @@ export default {
       title: '优秀讲师',
       data: '',
       thoughtsList: [],
-      linkName: '/app/resource/training',
+      // linkName: '/app/resource/training',
     }
   },
   methods: {

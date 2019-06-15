@@ -97,3 +97,20 @@ export function getProjectDetailById (id) {
     method: 'get',
   })
 }
+
+export function getProjectDetailPageById (id, isIncome) {
+  return request({
+    url: `${prefixUrl}/project/detail/page/${id}`,
+    method: 'get',
+    params: {
+      isIncome,
+    },
+  })
+}
+
+export function getProjectInformationById (id) {
+  return request({
+    url: `prms/iepProjectInformation/${id}`,
+    method: 'get',
+  })
+}

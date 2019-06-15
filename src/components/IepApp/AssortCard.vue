@@ -1,6 +1,6 @@
 <template>
   <div class="assort">
-    <div v-for="(item,index) in dataList" :key="index" class="piece">
+    <div v-for="(item,index) in dataList" :key="index" class="piece" @click="handleDetail(item)">
       <span class="assort">{{item[title]}}</span>{{item[desc]}}<slot name="label"></slot>
     </div>
   </div>
@@ -21,6 +21,11 @@ export default {
     desc: {
       type: String,
       default: 'desc',
+    },
+  },
+  methods: {
+    handleDetail (row) {
+      this.$emit('click', row)
     },
   },
 }

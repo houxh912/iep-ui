@@ -72,10 +72,6 @@ export default {
         type: 'warning',
       }).then(() => {
         this.$emit('onGoBack')
-        this.$message({
-          type: 'success',
-          message: '返回成功!',
-        })
       }).catch(() => {
         this.$message({
           type: 'info',

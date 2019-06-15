@@ -17,7 +17,7 @@ export default [
       },
       {
         path: 'masterConfirm/:id',
-        name: '确认师傅',
+        name: '确认师父',
         component: () => import('@/views/wel/master/confirm'),
       },
       {
@@ -54,6 +54,16 @@ export default [
         path: 'desktop',
         name: '领导桌面',
         component: () => import('@/views/wel/desktop/index'),
+      },
+      {
+        path: 'origanaze_detail/:id',
+        name: '组织周月报详情页',
+        component: () => import('@/views/wel/desktop/OriganazeReport/OriganazeDetail.vue'),
+      },
+      {
+        path: 'staff_detail/:id',
+        name: '个人周月报详情页',
+        component: () => import('@/views/wel/desktop/StaffReport/StaffDetail.vue'),
       },
       {
         path:'visiting_log',

@@ -1,13 +1,14 @@
 <template>
   <div class="my-products">
-    <div class="title">我的产品<span>（{{num[0]}}）</span></div>
-    <div class="products-btn">
+    <div class="title">我的产品</div>
+    <!-- <div class="title">我的产品<span>（{{num[0]}}）</span></div> -->
+    <!-- <div class="products-btn">
       <el-button size="small">产品官网</el-button>
       <el-button size="small">代理政策</el-button>
       <el-button size="small">我要代理</el-button>
       <el-button size="small">申请技术服务</el-button>
       <el-button size="small">联合开发</el-button>
-    </div>
+    </div> -->
     <div class="deletion-box">
       <div class="codule-deletion">
         按分类：
@@ -22,12 +23,14 @@
     <iep-no-data v-if="!moduleList.length"></iep-no-data>
     <div class="my-products-box">
       <el-card shadow="never" v-for="(item) in moduleList" :key="item.id" class="module-list">
-        <iep-img :src="item.imageUrl" style="width: 100px;height:100px;"></iep-img>
-        <hr>
-        <span class="name">{{item.name}}</span>
-        <p class="desc">{{item.synopsis}}</p>
-        <RouterLink class="inline change" :to="`/app/module_details/${item.id}`">详情介绍>
-        </RouterLink>
+        <div @click="getDetail(item.id)">
+          <iep-img :src="item.imageUrl" style="width: 100px;height:100px;"></iep-img>
+          <hr>
+          <span class="name">{{item.name}}</span>
+          <p class="desc">{{item.synopsis}}</p>
+          <RouterLink class="inline change" :to="`/app/module_details/${item.id}`">详情介绍>
+          </RouterLink>
+        </div>
       </el-card>
     </div>
   </div>
@@ -86,6 +89,12 @@ export default {
     tabProductId (val) {
       this.productId = val
       this.loadModuleList()
+    },
+    getDetail (val) {
+      this.$router.push({
+        path:`/app/module_details/${val}`,
+      })
+      console.log(111)
     },
   },
 }

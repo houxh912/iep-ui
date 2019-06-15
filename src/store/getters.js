@@ -40,7 +40,10 @@ const getters = {
   imUserTree: state => state.im.userTree,
   imChatList: state => state.im.chatList,
   imCurrentChatList: state => state.im.currentChatList,
+  imChatShow: state => state.im.chatShow,
+  imCurrentChat: state => state.im.currentChat,
   imUnread: state => key => state.im.unreadMap[key],
   imUnreadTotal: state => state.im.unreadTotal,
+  imGroups: state => state.im.groups,
 }
 export default getters

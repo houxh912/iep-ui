@@ -23,3 +23,18 @@ export function clearUnread (data) {
     data,
   })
 }
+
+export function createGroup (data) {
+  return request({
+    url: `${prefixUrl}/creat_group`,
+    method: 'post',
+    data,
+  })
+}
+
+export function getGroup () {
+  return request({
+    url: `${prefixUrl}/get_group`,
+    method: 'get',
+  })
+}

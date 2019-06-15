@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     chatClose () {
-      this.$emit('chatClose')
+      this.$store.dispatch('updateCurrentChat', {chat: null, show: false})
     },
     mousedown (event) {
       document.body.style['user-select'] = 'none'

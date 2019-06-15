@@ -44,7 +44,9 @@ import { dictMap, columnsMap, paramForm } from './const.js'
 import { getTableData, deleteData } from '@/api/gpms/index'
 // import searchForm from './searchForm'
 import { mapGetters } from 'vuex'
-
+const optNameMap = {
+  delete: '删除',
+}
 export default {
   components: {},
   props: {
@@ -99,7 +101,30 @@ export default {
       this.$emit('toggle-show', 'update', row)
     },
     handleDelete (val) {
-      this._handleGlobalById(val.id, deleteData)
+      this._handleGlobalById1(val.id, deleteData)
+    },
+    _handleGlobalById1 (id, optFunction, opt = 'delete') {
+      const optName = optNameMap[opt]
+      this.$confirm(`此操作将永久${optName}该数据, 是否继续?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        optFunction(id).then(res => {
+          if (res.data.data.data) {
+            this.$message({
+              type: 'success',
+              message: `${optName}成功!`,
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `${optName}失败，${res.data.data.msg}`,
+            })
+          }
+          this.load()
+        })
+      })
     },
     handleDeleteAll () {
       this._handleGlobalAll(deleteData)

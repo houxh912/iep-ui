@@ -1,9 +1,12 @@
 <template>
   <div class="notice">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <IepAppAssortCard :dataList="dataList" class="notice-box" title="typeName" desc="name">
-        <span class="new" slot="label">NEW</span>
-      </IepAppAssortCard>
+      <div v-if="dataList.length !== 0">
+        <IepAppAssortCard :dataList="dataList" class="notice-box" title="typeName" desc="name">
+          <span class="new" slot="label">NEW</span>
+        </IepAppAssortCard>
+      </div>
+      <IepNoData v-else></IepNoData>
     </IepAppTabCard>
   </div>
 </template>
@@ -16,7 +19,7 @@ export default {
     return {
       title: '通知公告',
       dataList: [],
-      linkName: '',
+      linkName: '/wel/message/announcement',
     }
   },
   created () {

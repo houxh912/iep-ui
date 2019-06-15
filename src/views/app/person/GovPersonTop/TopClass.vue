@@ -1,7 +1,7 @@
 <template>
   <div class="top-class">
     <div class="top-class-list" :class="item.type ? 'canRouter' : ''" v-for="item in items" :key="item.id" @click="handleDetail(item)">
-      <span class="num">{{countObj[item.prop]}}</span>
+      <span class="num">{{item.horizontal ? item.horizontal : countObj[item.prop]}}</span>
       <span class="name">{{item.name}}</span>
     </div>
   </div>
@@ -47,6 +47,7 @@ export default {
           id: '6',
           name: '入驻机构',
           prop: 'institutionCount',
+          horizontal: '--',
         },
       ],
       countObj: {

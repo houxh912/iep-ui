@@ -7,7 +7,7 @@
         <top />
       </el-header>
       <el-container>
-        <el-aside :width="asideWidth">
+        <el-aside v-show="asideDisplay" :width="asideWidth">
           <!-- 左侧导航栏 -->
           <sidebar />
         </el-aside>
@@ -68,10 +68,13 @@ export default {
       'website',
       // 'expires_in',
     ]),
-    asideWidth () {
+    asideDisplay () {
       if (this.$route.matched[0].path === '/app') {
-        return '0px'
+        return false
       }
+      return true
+    },
+    asideWidth () {
       if (this.isDesktop()) {
         return '200px'
       } else {

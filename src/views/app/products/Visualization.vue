@@ -2,20 +2,39 @@
     <div class="visualization">
         <img :src="img">
         <div class="visualization-list">
-            <div v-for="(item,index) in visualizationList" :key="index" class="piece">
-                <div class="name">{{item.name}}<i class="iconfont icon-wenhao"></i></div>
-                <div class="data">{{item.data}}</div>
+            <div class="piece">
+                <div class="name">产品售额<i class="iconfont icon-wenhao"></i></div>
+                <div class="data">88888</div>
                 <div class="chart">
-                    <ve-histogram v-if="index == 0" :extend="chartExtend3" :colors="colors1" width="240px" height="60px"></ve-histogram>
-                    <ve-line v-if="index == 1" :extend="chartExtend2" :colors="colors2" width="240px" height="60px"></ve-line>
-                    <ve-histogram v-if="index == 2" :extend="chartExtend3" :colors="colors3" width="240px" height="60px"></ve-histogram>
-                    <ve-histogram v-if="index == 3" :extend="chartExtend3" :colors="colors4" width="240px" height="60px"></ve-histogram>
+                    <ve-histogram :extend="chartExtend3" :colors="colors1" width="240px" height="60px"></ve-histogram>
+                </div>
+           </div>
+           <div class="piece">
+                <div class="name">项目数量<i class="iconfont icon-wenhao"></i></div>
+                <div class="data">{{this.visualizationList.countProject}}</div>
+                <div class="chart">
+                    <ve-line :extend="chartExtend2" :colors="colors2" width="240px" height="60px"></ve-line>
+                </div>
+           </div>
+           <div class="piece">
+                <div class="name">荣誉资质<i class="iconfont icon-wenhao"></i></div>
+                <div class="data">{{this.visualizationList.countHonor}}</div>
+                <div class="chart">
+                    <ve-histogram :extend="chartExtend3" :colors="colors3" width="240px" height="60px"></ve-histogram>
+                </div>
+           </div>
+           <div class="piece">
+                <div class="name">技术能力<i class="iconfont icon-wenhao"></i></div>
+                <div class="data">{{this.visualizationList.countTechnology}}</div>
+                <div class="chart">
+                    <ve-histogram :extend="chartExtend3" :colors="colors4" width="240px" height="60px"></ve-histogram>
                 </div>
            </div>
         </div>
     </div>
 </template>
 <script>
+import { getproductCountList } from '@/api/app/cpms/channel'
 export default {
     data (){
         this.colors1 = ['#db474f']
@@ -71,13 +90,13 @@ export default {
         }
         return{
             img:[require('./img/date.jpg')],
-            visualizationList: [
-                { name: '产品售额', data: '956340元' },
-                { name: '项目数量', data: '128个' },
-                { name: '荣誉资质', data: '59项' },
-                { name: '技术能力', data: '159项' },
-            ],
+            visualizationList: {countHonor:'',countProject:'',countTechnology:''},
         }
+    },
+    created () {
+        getproductCountList().then(({data}) => {
+        this.visualizationList = data.data
+        })
     },
 }
 </script>

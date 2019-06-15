@@ -1,7 +1,7 @@
 <template>
   <div class="honor">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <span slot="statistics" class="statistics">（{{replaceText[0]}}个软件著作权，{{replaceText[1]}}个A级企业认证，{{replaceText[2]}}个行业贡献企业奖）</span>
+      <!-- <span slot="statistics" class="statistics">（{{replaceText[0]}}个软件著作权，{{replaceText[1]}}个A级企业认证，{{replaceText[2]}}个行业贡献企业奖）</span> -->
       <iep-img :src="firstImg" alt="" class="img"></iep-img>
       <div class="honor-list">
         <div v-for="(item,index) in HonorList" :key="index" class="piece">
@@ -16,8 +16,8 @@ export default {
   data () {
     return {
       title: '荣誉资质',
-      linkName: '',
-      replaceText: [24, 3, 5],
+      linkName: '/app/resource/qualification',
+      // replaceText: [24, 3, 5],
       firstImg: require('./img/copyright.jpg'),
       HonorList: [
         '软著|DIPS站群管理系统V2.0',

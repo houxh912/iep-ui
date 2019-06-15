@@ -28,6 +28,7 @@ export default {
       }, {
         label: '热门投资',
         value: 'Popular',
+        disabled:true,
       }],
       activeTab: 'Talent',
     }

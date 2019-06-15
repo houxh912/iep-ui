@@ -32,6 +32,14 @@ export default {
       // console.log('titleClick', e)
     },
   },
+  created () {
+    let path = this.$route.path.split('/')
+    for (let item of this.data) {
+      if (path[3] === item.path) {
+        this.current = [item.levelName]
+      }
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>

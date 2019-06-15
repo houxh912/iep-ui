@@ -80,13 +80,19 @@ export default {
       // }
       // downloadFile(obj)
       // downloadCount(this.formData.id)
-      downloadCount(this.formData.id).then(({ data }) => {
-        if (data.data) {
-          downloadFile(obj)
-        } else {
-          this.$message.error(data.msg)
-        }
-      })
+      this.$confirm('下载此材料需要消耗国脉贝, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        downloadCount(this.formData.id).then(({ data }) => {
+          if (data.data) {
+            downloadFile(obj)
+          } else {
+            this.$message.error(data.msg)
+          }
+        })
+      }).catch(() => {})
     },
     loadData (id) {
       getDataById(id).then(({ data }) => {

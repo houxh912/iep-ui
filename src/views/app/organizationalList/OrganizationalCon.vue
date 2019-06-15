@@ -431,7 +431,7 @@ export default {
       display: flex;
       flex-direction: column;
       align-self: center;
-      padding: 0 10px;
+      padding: 0 18px;
       border-right: 1px solid #eee;
       &:last-child {
         border-right: 0;

@@ -200,10 +200,10 @@
 
         <el-form-item label="困难题数" prop="hardNum">
           <el-col :span="17">
-            <iep-input-number controls-position="right" :min="0" :max="totalNum.diffculty || 0"
+            <iep-input-number controls-position="right" :min="0" :max="totalNum.difficult || 0"
               v-model="form.hardNum" style="width:100%" :disabled="form.configurationState==='0'"></iep-input-number>
           </el-col>
-          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.diffculty || 0}}</span>
+          <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.difficult || 0}}</span>
             道</el-col>
         </el-form-item>
 
@@ -418,7 +418,7 @@ export default {
         this.form = questionForm()
         this.totalNum.simple = 0
         this.totalNum.general = 0
-        this.totalNum.difficulty = 0
+        this.totalNum.difficult = 0
         this.formLoading = false
       }
       this.questionConfiguration = true

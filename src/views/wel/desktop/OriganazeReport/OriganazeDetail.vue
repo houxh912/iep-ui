@@ -48,6 +48,8 @@ export default {
     getOgrReport (this.id).then(({data})=>{
       this.title  = data.data.title
       this.value1 = data.data.updateTime
+      this.origanize = data.data.orgName
+      this.publisher= data.data.realName
     })
   },
   methods: {

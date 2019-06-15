@@ -50,7 +50,7 @@ export default {
         type: this.technologyType,
       })
       const technologyList = data.data
-      this.technologyList = technologyList.slice(0, 8)
+      this.technologyList = technologyList.slice(0, 12)
     },
     tabTechnologyType (val) {
       this.technologyType = val
@@ -67,7 +67,7 @@ export default {
 <style lang="scss" scoped>
 .new-tehnology {
   grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column-end: 4;
   .new-tehnology-tab {
     width: 100%;
     height: 40px;
@@ -95,7 +95,7 @@ export default {
     grid-auto-flow: row dense;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     .piece {
       display: flex;
       justify-content: space-between;

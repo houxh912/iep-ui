@@ -50,9 +50,9 @@
           <template slot="right">
             <iep-select v-model="orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织" size="small"></iep-select>
             <el-radio-group size="small">
-              <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
+              <!-- <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button> -->
             </el-radio-group>
-            <operation-search @search-page="searchPage" prop="title">
+            <operation-search @search-page="searchPage" prop="name">
               <!-- <advance-search @search-page="searchPage"></advance-search> -->
             </operation-search>
           </template>

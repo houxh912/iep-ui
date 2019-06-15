@@ -203,13 +203,19 @@ export default {
       //   this.$message.error('对不起，您的余额不足！')
       //   return
       // }
-      downloadCount(this.formData.id).then(({ data }) => {
-        if (data.data) {
-          downloadFile(obj)
-        } else {
-          this.$message.error(data.msg)
-        }
-      })
+      this.$confirm('下载此材料需要消耗国脉贝, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        downloadCount(this.formData.id).then(({ data }) => {
+          if (data.data) {
+            downloadFile(obj)
+          } else {
+            this.$message.error(data.msg)
+          }
+        })
+      }).catch(() => {})
     },
     handleDetail (row) {
       this.$router.push(`/mlms_spa/material/detail/${row.id}`)

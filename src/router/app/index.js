@@ -251,6 +251,11 @@ export default [
         name: '版本记录',
         component: () => import('@/views/app/versionPage/'),
       },
+      {
+        path: 'project_details',
+        name: '项目详情',
+        component: () => import('@/views/app/projectDetails/'),
+      },
     ],
   },
 ]

@@ -14,26 +14,30 @@ export default {
       img: [
         {
           img: '../img/app/index/img_01.jpg',
-          pathId: 1,
+          pathId: 8451,
         },
         {
           img: '../img/app/index/img_02.png',
-          pathId: 1,
+          pathId: 8465,
         },
         {
           img: '../img/app/index/img_03.jpg',
-          pathId: 1,
+          pathName: 'http://www.echinagov.com/zt/szzf/',
         },
         {
           img: '../img/app/index/img_04.jpg',
-          pathId: 1,
+          pathName: 'http://www.besticity.com/ZT/zhcs/',
         },
       ],
     }
   },
   methods: {
     handleDetail (row) {
-      this.$router.push(`/app/resource/material/material_detail/${row.pathId}`)
+      if (row.pathId) {
+        this.$router.push(`/app/resource/material/material_detail/${row.pathId}`)
+      } else {
+        window.open(row.pathName)
+      }
     },
   },
 }

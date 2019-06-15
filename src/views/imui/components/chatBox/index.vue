@@ -2,14 +2,12 @@
   <div class="gov-chat" :style="getLeftStyle">
     <chat-list
       v-show="$store.getters.imCurrentChatList.length > 1"
-      :currentChat="currentChatId"
-      @chatChange="chatChange"
       @chatClose="chatClose"></chat-list>
-    <chat-total-title @chatClose="chatAllClose" @positionChange="positionChange"></chat-total-title>
+    <chat-total-title @positionChange="positionChange"></chat-total-title>
     <chat-content
       v-for="chat in $store.getters.imCurrentChatList"
-      :key="chat.username"
-      v-show="currentChatId === chat.userId"
+      :key="chat.chatNo"
+      v-show="$store.getters.imCurrentChat.chatNo === chat.chatNo"
       :chatDetail="chat"
       @sendMessage="sendMessage"
       @chatClose="chatClose"></chat-content>
@@ -27,17 +25,8 @@ export default {
     chatContent,
     chatList,
   },
-  props: {
-    currentChat: {
-      type: Object,
-      default () {
-        return {}
-      },
-    },
-  },
   data () {
     return {
-      currentChatId: null,
       position: {
         x: 0,
         y: 0,
@@ -56,13 +45,28 @@ export default {
         this.position.y = this.position.y + translate.y
       }
     },
-    chatChange (chat) {
-      this.$emit('chatChange', chat)
-    },
     sendMessage (data) {
       this.$emit('sendMessage', data)
     },
     chatClose (chat) {
+      let currentChat = this.$store.getters.imCurrentChat
+      let imCurrentChatList = this.$store.getters.imCurrentChatList
+      for (let i = imCurrentChatList.length; i--;) {
+        if (imCurrentChatList[i].chatNo === chat.chatNo) {
+          if (chat.chatNo === currentChat.chatNo) {
+            if (i > 0) {
+              this.$store.dispatch('updateCurrentChat', {chat: imCurrentChatList[i - 1], show: true})
+            } else if (imCurrentChatList.length > 1) {
+              this.$store.dispatch('updateCurrentChat', {chat: imCurrentChatList[1], show: true})
+            } else {
+              this.$store.dispatch('updateCurrentChat', {chat: null, show: true})
+            }
+          }
+          this.$store.commit('closeCurrentChatList', i)
+          return
+        }
+      }
+
       this.$emit('chatClose', chat)
     },
   },
@@ -79,12 +83,6 @@ export default {
     },
   },
   watch: {
-    currentChat: {
-      handler: function (newVal) {
-        this.currentChatId = newVal.userId
-      },
-      deep: true,
-    },
     windowSize () {
       this.position = {
         x: 0,

@@ -1,24 +1,29 @@
+import { getGroup, clearUnread } from '@/api/im'
+import { getUserListTree } from '@/api/admin/contacts'
+
 function addChat (state, data, isNew = true) {
   let message = {
     id: data.id,
     message: data.message,
     time: data.time,
-    type: data.type,
+    sendOrReceive: data.sendOrReceive,
     msgCode: data.msgCode,
+    avatar: data.avatar,
+    resourceName: data.resourceName,
   }
-  if (state.messageMap.hasOwnProperty(data.username)) {
+  if (state.messageMap.hasOwnProperty(data.chatNo)) {
     if (isNew) {
-      state.messageMap[data.username].push(message)
+      state.messageMap[data.chatNo].push(message)
     } else {
-      state.messageMap[data.username].unshift(message)
+      state.messageMap[data.chatNo].unshift(message)
     }
   } else {
     let userMessage = {}
-    userMessage[data.username] = []
+    userMessage[data.chatNo] = []
     if (isNew) {
-      userMessage[data.username].push(message)
+      userMessage[data.chatNo].push(message)
     } else {
-      userMessage[data.username].unshift(message)
+      userMessage[data.chatNo].unshift(message)
     }
     state.messageMap = {
       ...state.messageMap,
@@ -27,44 +32,46 @@ function addChat (state, data, isNew = true) {
   }
 }
 
-function updateChatList (state, user, reverse = true) {
+function updateChatList (state, chat, reverse = true) {
   let chatList = state.chatList
-  let chat = {}
+  let chatTemp = {}
   for (let i = chatList.length; i--;) {
-    if (chatList[i].username === user.username) {
-      chat = chatList[i]
+    if (chatList[i].chatNo === chat.chatNo) {
+      chatTemp = chatList[i]
       chatList.splice(i, 1)
-      updateUnread(state, chat.username, user.unread)
+      updateUnread(state, chatTemp.chatNo, chat.unread)
       if (reverse) {
-        chatList.unshift(chat)
+        chatList.unshift(chatTemp)
       } else {
-        chatList.push(chat)
+        chatList.push(chatTemp)
       }
       return
     }
   }
-  chat =  {
-    username: user.username,
-    avatar: user.avatar,
-    userId: user.userId,
-    realName: user.realName,
+  chatTemp =  {
+    id: chat.id,
+    chatNo: chat.chatNo,
+    type: chat.type,
+    avatar: chat.avatar,
+    realName: chat.realName,
+    username: chat.username,
   }
-  updateUnread(state, user.username, user.unread)
+  updateUnread(state, chat.chatNo, chat.unread)
   if (reverse) {
-    chatList.unshift(chat)
+    chatList.unshift(chatTemp)
   } else {
-    chatList.push(chat)
+    chatList.push(chatTemp)
   }
 }
 
-function updateUnread (state, username, num) {
-  if (!state.unreadMap.hasOwnProperty(username)) {
-    state.unreadMap[username] = 0
+function updateUnread (state, chatNo, num) {
+  if (!state.unreadMap.hasOwnProperty(chatNo)) {
+    state.unreadMap[chatNo] = 0
   }
   if (num) {
-    state.unreadMap[username] = state.unreadMap[username] + num
+    state.unreadMap[chatNo] = state.unreadMap[chatNo] + num
   } else {
-    state.unreadMap[username] = 0
+    state.unreadMap[chatNo] = 0
   }
   updateUnreadTotal(state)
 }
@@ -78,26 +85,12 @@ function updateUnreadTotal (state) {
 
 function newChat (chat, chatList) {
   for (let i = chatList.length; i--;) {
-    if (chatList[i].userId === chat.userId) {
+    if (chatList[i].chatNo === chat.chatNo) {
       chatList.splice(i, 1, chat)
       return false
     }
   }
   return true
-}
-
-function clearUserUnread (state, username) {
-  if (state.unreadMap.hasOwnProperty(username)) {
-    state.unreadMap[username] = 0
-  } else {
-    let unread = {}
-    unread[username] = 0
-    state.unreadMap = {
-      ...state.unreadMap,
-      ...unread,
-    }
-  }
-  updateUnreadTotal(state)
 }
 
 function initUserList (state, tree) {
@@ -116,14 +109,40 @@ function treeToList (tree) {
   return list
 }
 
-function getUserInfo (state, username) {
+function getUserInfo (state, userId) {
+  for (let i = state.userList.length; i--;) {
+    if (state.userList[i].value === userId) {
+      return {
+        username: state.userList[i].py,
+        realName: state.userList[i].label,
+        avatar: state.userList[i].avatar,
+        id: state.userList[i].value,
+      }
+    }
+  }
+}
+
+function getUserInfoByName (state, username) {
   for (let i = state.userList.length; i--;) {
     if (state.userList[i].py === username) {
       return {
-        username,
+        username: state.userList[i].py,
         realName: state.userList[i].label,
         avatar: state.userList[i].avatar,
-        userId: state.userList[i].value,
+        id: state.userList[i].value,
+      }
+    }
+  }
+}
+
+function getGroupInfro (state, id) {
+  for (let i = state.groups.length; i--;) {
+    if (state.groups[i].id === id) {
+      return {
+        username: state.groups[i].groupName,
+        realName: state.groups[i].groupName,
+        avatar: state.groups[i].avator,
+        id: state.groups[i].id,
       }
     }
   }
@@ -139,54 +158,106 @@ const im = {
     currentChatList: [],
     unreadMap: {},
     unreadTotal: 0,
+    groups: [],
+    currentChat: {},
+    chatShow: false,
   },
   mutations: {
     addMessage (state, data) {
+      let chat = Object.assign({}, data)
+      updateChatList(state, {...chat, ...{id: chat.userId}})
+      let user = getUserInfoByName(state, data.resourceName)
+      data.resourceName = user.realName
+      data.avatar = user.avatar
       addChat(state, data)
-      updateChatList(state, data)
     },
     addHistoryMessage (state, data) {
+      let chatNo = ''
+      if (data.type == 1) {
+        chatNo = 'user' + data.targetId
+      } else {
+        chatNo = 'group' + data.targetId
+      }
       for (let i = 0; i < data.list.length; i++) {
+        let sendOrReceive = ''
+        let resourceName = ''
+        let avatar = ''
+        if (data.type == 1) {
+          let user = getUserInfo(state, data.list[i].resourceId)
+          avatar = user.avatar
+          resourceName = user.realName
+          sendOrReceive = data.selfId === data.list[i].targetId ? 1 : 0
+        } else {
+          let user = getUserInfo(state, data.list[i].resourceId)
+          avatar = user.avatar
+          resourceName = user.realName
+          sendOrReceive = data.selfId === data.list[i].resourceId ? 0 : 1
+        }
         addChat(state, {
           id: data.list[i].id,
+          chatNo,
           message: data.list[i].msg,
           msgCode: data.list[i].msgCode,
           time: data.list[i].sendTime,
-          type: data.username === data.list[i].targetName ? 0 : 1,
+          sendOrReceive,
           username: data.username,
+          resourceName,
+          avatar,
         }, false)
       }
       if (data.list.length < 10) {
-        state.messageMore[data.username] = false
+        state.messageMore[chatNo] = false
       }
     },
-    addCurrentChatList (state, user) {
-      if (newChat(user, state.currentChatList)) {
-        state.currentChatList.unshift(user)
+    clearUserUnread (state, chatNo) {
+      if (state.unreadMap.hasOwnProperty(chatNo)) {
+        state.unreadMap[chatNo] = 0
+      } else {
+        let unread = {}
+        unread[chatNo] = 0
+        state.unreadMap = {
+          ...state.unreadMap,
+          ...unread,
+        }
       }
-      if (!state.messageMore.hasOwnProperty(user.username)) {
-        state.messageMore[user.username] = true
-      }
-      clearUserUnread(state, user.username)
-    },
-    clearUserUnread (state, username) {
-      clearUserUnread(state, username)
+      updateUnreadTotal(state)
     },
     closeCurrentChatList (state, index) {
       state.currentChatList.splice(index, 1)
     },
-    initHistory (state, {history, username}) {
+    initHistory (state, {history, selfId}) {
       for (let i = 0; i <  history.length; i++) {
-        let user = getUserInfo(state, history[i].resourceName === username ? history[i].targetName : history[i].resourceName)
-        user.unread = history[i].msgNum
-        updateChatList(state, user, false)
+        let chat = {}
+        let sendOrReceive = ''
+        let resourceName = ''
+        let avatar = ''
+        if (history[i].oneOrMore == 1) {
+          chat = getUserInfo(state, history[i].resourceId === selfId ? history[i].targetId : history[i].resourceId)
+          let user = getUserInfo(state, history[i].resourceId)
+          avatar = user.avatar
+          resourceName = user.realName
+          sendOrReceive = history[i].targetId === selfId ? 1 : 0
+        } else {
+          chat = getGroupInfro(state, history[i].targetId)
+          let user = getUserInfo(state, history[i].resourceId)
+          avatar = user.avatar
+          resourceName = user.realName
+          sendOrReceive = selfId === history[i].resourceId ? 0 : 1
+        }
+        let chatNo = history[i].oneOrMore == 1 ? `user${chat.id}` : `group${chat.id}`
+        chat.chatNo = chatNo
+        chat.unread = history[i].msgNum
+        chat.type = history[i].oneOrMore
+        updateChatList(state, chat, false)
         addChat(state, {
           id: history[i].id,
+          chatNo,
           message: history[i].msg,
           time: history[i].sendTime,
-          type: history[i].targetName === username ? 1 : 0,
-          username: user.username,
+          sendOrReceive,
           msgCode:  history[i].msgCode,
+          resourceName,
+          avatar,
         })
       }
     },
@@ -200,6 +271,60 @@ const im = {
     setUserList (state, data) {
       state.userTree = data
       initUserList(state, data)
+    },
+    initGroup (state, data) {
+      state.groups = data
+    },
+    chatChange (state, {chat, show}) {
+      state.chatShow = show
+      state.currentChat = chat || {}
+      if (chat) {
+        if (newChat(chat, state.currentChatList)) {
+          state.currentChatList.unshift(chat)
+        }
+        if (!state.messageMore.hasOwnProperty(chat.chatNo)) {
+          state.messageMore[chat.chatNo] = true
+        }
+      }
+    },
+    updateGroup (state, data) {
+      state.groups.push(data)
+    },
+  },
+  actions: {
+    initGroup ({ commit }) {
+      return new Promise((resolve, reject) => {
+        getGroup().then(({data}) => {
+          if (data.code === 0) {
+            commit('initGroup', data.data)
+            resolve()
+          } else {
+            reject(new Error(data.msg))
+          }
+        }, () => {
+          reject()
+        }).catch(() => {
+          reject()
+        })
+      })
+    },
+    updateCurrentChat ({ commit }, {chat, show}) {
+      if (chat) {
+        clearUnread({type: chat.type, targetId: chat.id}).then(() => {
+          commit('clearUserUnread', chat.chatNo)
+          commit('chatChange', {chat, show})
+        })
+      } else {
+        commit('chatChange', {chat, show})
+      }
+    },
+    getUserListTree ({ commit }) {
+      return new Promise(resolve => {
+        getUserListTree().then(({data}) => {
+          commit('setUserList', data.data)
+          resolve()
+        })
+      })
     },
   },
 }

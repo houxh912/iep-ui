@@ -6,7 +6,7 @@
       <iep-tabs v-model="activeTab" :tab-list="tabList">
       </iep-tabs>
     </div>
-    
+
     <div class="main">
       <div class="library">
         <newsTab v-if="activeTab=='yw'" :title="query.title" ref="content"></newsTab>
@@ -51,7 +51,7 @@ import { getSearchCount } from '@/api/app/cpms/channel'
 import { getRectagsList } from '@/api/app/tms/index'
 
 export default {
-  components:{ searchTop, projectTab, newsTab, materialTab, trainTab, contractTab, businessTab, userTab, honorTab },
+  components: { searchTop, projectTab, newsTab, materialTab, trainTab, contractTab, businessTab, userTab, honorTab },
   data () {
     return {
       activeTab: 'cy',
@@ -84,6 +84,7 @@ export default {
         }, {
           label: `项目（${this.counts.countProject}）`,
           value: 'xm',
+          disabled: true,
         }, {
           label: `材料（${this.counts.countMaterial}）`,
           value: 'cl',
@@ -105,7 +106,7 @@ export default {
   },
   methods: {
     getSearchCount (query) {
-      getSearchCount(query).then(({data}) => {
+      getSearchCount(query).then(({ data }) => {
         this.counts = data.data
       })
     },
@@ -122,24 +123,24 @@ export default {
     },
     // 标签库
     getRectagsList () {
-      getRectagsList().then(({data}) => {
+      getRectagsList().then(({ data }) => {
         this.labelList = data.data
       })
     },
   },
   created () {
-    this.query = {...this.$route.query}
+    this.query = { ...this.$route.query }
     this.getSearchCount(this.query)
     this.getRectagsList()
   },
 }
 </script>
 <style lang="scss" scoped>
-.container{
+.container {
   width: 1200px;
   margin: 20px auto 0;
 }
-.main{
+.main {
   width: 1200px;
   margin: 0 auto;
   display: grid;
@@ -149,10 +150,10 @@ export default {
 }
 </style>
 <style scoped>
-.search >>> .el-tabs__item{
-    padding: 0 10px;
+.search >>> .el-tabs__item {
+  padding: 0 10px;
 }
-.search >>> .el-card{
-  border:0;
+.search >>> .el-card {
+  border: 0;
 }
 </style>

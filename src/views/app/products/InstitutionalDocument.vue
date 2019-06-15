@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 324px;">
+  <div class="InstitutionalDocument">
     <iepAppTabCard :title="title" :linkName="linkName" isMore>
       <IepAppListCard :dataList="dataList.slice(0, 8)" @click="handleDetail"></IepAppListCard>
     </iepAppTabCard>
@@ -38,5 +38,8 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
+<style scoped>
+.InstitutionalDocument >>> .el-card__body {
+  height: 272px;
+}
 </style>

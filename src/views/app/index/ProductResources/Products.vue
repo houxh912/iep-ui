@@ -41,7 +41,6 @@ export default {
     overflow: hidden;
     margin-bottom: 15px;
     &:hover{
-      cursor: pointer;
     }
   }
   .img{
@@ -53,7 +52,6 @@ export default {
     border:1px solid #eee;
     > iep-img {
       &:hover {
-        cursor: pointer;
         transform: scale(1.1);
       }
     }

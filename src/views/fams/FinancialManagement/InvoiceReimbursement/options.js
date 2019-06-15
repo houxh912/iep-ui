@@ -39,19 +39,6 @@ const columnsMap = [
 		prop: 'createTime',
 		label: '申请日期',
 	},
-	{
-		prop: 'financialAudit',
-		label: '状态',
-		type: 'dict',
-	},
-	{
-		prop: 'auditorName',
-		label: '部门审核人',
-	},
-	{
-		prop: 'auditingTime',
-		label: '审核日期',
-	},
 ]
 
 export { dictsMap, columnsMap }

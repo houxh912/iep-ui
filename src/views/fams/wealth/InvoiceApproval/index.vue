@@ -9,6 +9,21 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
+        <el-table-column label="状态">
+          <template slot-scope="scope">
+            {{genStatus(scope.row)}}
+          </template>
+        </el-table-column>
+        <el-table-column label="部门审批人">
+          <template slot-scope="scope">
+            <iep-div-detail :value="scope.row.auditorName"></iep-div-detail>
+          </template>
+        </el-table-column>
+        <el-table-column label="审核日期">
+          <template slot-scope="scope">
+            <iep-div-detail :value="scope.row.auditingTime"></iep-div-detail>
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -29,6 +44,7 @@
 <script>
 import { getMyInvoiceApprovalPage } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
+import { genStatus } from '@/const/invoiceConfig'
 import { columnsMap, dictsMap } from './options.js'
 import passDialogForm from './passDialogForm'
 import rejectDialogForm from './rejectDialogForm'
@@ -46,6 +62,7 @@ export default {
     this.loadPage()
   },
   methods: {
+    genStatus,
     handleTrans (row) {
       this.$refs['transDialogForm'].id = row.id
       this.$refs['transDialogForm'].user = { id: '', name: '' }

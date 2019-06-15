@@ -67,19 +67,6 @@ const columnsMap = [
 		prop: 'createTime',
 		label: '申请日期',
 	},
-	{
-		prop: 'status',
-		label: '状态',
-		type: 'dict',
-	},
-	{
-		prop: 'auditorName',
-		label: '部门审批人',
-	},
-	{
-		prop: 'auditingTime',
-		label: '审核日期',
-	},
 ]
 
 const rules = {

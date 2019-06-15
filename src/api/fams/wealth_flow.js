@@ -9,3 +9,11 @@ export function getWealthFlowPage (query) {
     params: query,
   })
 }
+
+// 频道页获取奖惩记录
+export function getWealthFlowListById (id) {
+  return request({
+    url: `${prefixUrl}/list/${id}`,
+    method: 'get',
+  })
+}

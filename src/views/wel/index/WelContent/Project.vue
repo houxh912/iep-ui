@@ -3,7 +3,7 @@
     <div class="title">
       <div>我的项目</div>
     </div>
-    <iep-no-data v-if="!tableData.length" message="暂无项目"></iep-no-data>
+    <iep-no-data v-if="!tableData.length"></iep-no-data>
     <div class="content">
       <el-row class="item" v-for="(item,index) in tableData" :key="index">
         <el-col :span="14">
@@ -34,11 +34,10 @@ export default {
     })
   },
   methods: {
-    handleDetail () {
-      return
-      // this.$router.push({
-      //   path: `/crms_spa/customer_detail/${row.id}`,
-      // })
+    handleDetail (row) {
+      this.$router.push({
+        path: `/gpms_spa/project/detail/${row.id}`,
+      })
     },
   },
 }

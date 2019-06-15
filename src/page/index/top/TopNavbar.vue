@@ -8,10 +8,18 @@
         </el-submenu>
       </el-menu>
       <el-menu ref="navMenu" v-else :default-active="activeIndex" mode="horizontal" router>
-        <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id" :class="item.show">
+        <el-menu-item v-for="(item) in navListFront" :key="item.id" :index="item.id" :class="item.show">
           <span class="sub-menu">{{item.name}}</span>
           <resource-con ref="resource" class="sub-nav-menu" v-if="item.show=='show'"></resource-con>
         </el-menu-item>
+        <a-dropdown>
+          <a-icon class="ant-dropdown-link" type="ellipsis" />
+          <a-menu slot="overlay">
+            <a-menu-item v-for="item in navListEnd" :key="item.id" @click="$openPage(item.id)">
+              <a href="javascript:;">{{item.name}}</a>
+            </a-menu-item>
+          </a-menu>
+        </a-dropdown>
       </el-menu>
       <!-- <div class="search-con">
         <top-search class="search-con-input" :style="{top: isTop}" :class="{inactive:!isShow }">
@@ -26,6 +34,7 @@
 
 <script>
 // import TopSearch from './TopSearch'
+import remove from 'lodash/remove'
 import displayMixins from '@/mixins/displayMixins'
 import ResourceCon from './ResourceCon'
 import { navList, navPathList } from '@/router/app/navList.js'
@@ -33,27 +42,18 @@ export default {
   components: { ResourceCon },
   mixins: [displayMixins],
   data () {
+    const navListRaw = [...navList]
+    const nextList = remove(navListRaw, (v, i) => {
+      return i < 6
+    })
     return {
       isShow: false,
       navList,
+      navListFront: nextList,
+      navListEnd: navListRaw,
     }
   },
   // components: { TopSearch },
-  methods: {
-    handleInput () {
-      this.isShow = !this.isShow
-    },
-    menuItemEnter () {
-      this.$nextTick(() => {
-        this.$refs['resource'][0].getCount()
-      })
-    },
-  },
-  mounted () {
-    if (!this.keyCollapse) {
-      this.menuItemEnter()
-    }
-  },
   computed: {
     activeIndex () {
       const matchedPath = this.$route.matched[1].path
@@ -70,6 +70,21 @@ export default {
       }
     },
   },
+  methods: {
+    handleInput () {
+      this.isShow = !this.isShow
+    },
+    menuItemEnter () {
+      this.$nextTick(() => {
+        this.$refs['resource'][0].getCount()
+      })
+    },
+  },
+  mounted () {
+    if (!this.keyCollapse) {
+      this.menuItemEnter()
+    }
+  },
   watch: {
     'activeIndex': function (n) {
       this.$refs['navMenu'].activeIndex = n
@@ -77,6 +92,21 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.ant-dropdown-link {
+  display: inline-flex;
+  width: 30px;
+  height: 60px;
+  margin-left: 10px;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background-color: #eee;
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 .sub-nav-menu {

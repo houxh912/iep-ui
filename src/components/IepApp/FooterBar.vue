@@ -2,7 +2,7 @@
   <div class="footer-box">
     <div class="context">
       <div class="text">
-        <a href="javascript:void(0);">常见问题</a>
+        <a href="javascript:void(0);" @click="handleOpen1()">常见问题</a>
         <a href="javascript:void(0);" @click="handleOpen2()">操作手册</a>
         <a href="javascript:void(0);" @click="getTag()">标签库</a>
         <a href="javascript:void(0);">知识图谱</a>
@@ -15,27 +15,26 @@
   </div>
 </template>
 <script>
-import { openWindow } from '@/util/util'
 export default {
   name: 'IepAppFooterBar',
   methods: {
     handleOpen1 () {
-      openWindow('http://iep.govmade.com/app/resource/material/material_detail/7978', '常见问题', 800, 600)
+      this.$openPage('/app/resource/material/material_detail/7978')
     },
     handleOpen2 () {
-      openWindow('http://iep.govmade.com/app/resource/material/material_detail/7984', '操作手册', 800, 600)
+      this.$openPage('/app/resource/material/material_detail/7984')
     },
     handleOpen3 () {
-      openWindow('', '标签库', 800, 600)
+      this.$openPage('', '标签库', 800, 600)
     },
     handleOpen4 () {
-      openWindow('', '知识图谱', 800, 600)
+      this.$openPage('', '知识图谱', 800, 600)
     },
     handleOpen5 () {
-      openWindow('http://iep.govmade.com/app/resource/material/material_detail/7985', '国脉贝制度', 800, 600)
+      this.$openPage('/app/resource/material/material_detail/7985')
     },
     handleOpen6 () {
-      openWindow('', '新人培训', 800, 600)
+      this.$openPage('', '新人培训', 800, 600)
     },
     getTag () {
       this.$router.push({

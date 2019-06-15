@@ -1,7 +1,11 @@
 <template>
   <gov-dialog ref="dialog" width="80%" :btnGroup="btnGroup" @open="handleOpen" @closed="handleClosedDialog" :title="'问卷预览'" :isBtnGroup="status !== dialog.textName.detail" @handleSubmit="dialogSubmit">
     <layout-form>
-      <gov-detail-form v-model="temp" :option="detailOption" border></gov-detail-form>
+      <gov-detail-form v-model="temp" :option="detailOption" border :auto-height="80">
+        <template slot="remarks">
+          <iep-div-detail :value="temp.remarks"></iep-div-detail>
+        </template>
+      </gov-detail-form>
       <div class="content">
         <div class="topic" v-for="(item,index) in questionData" :key="index">
           <single-election v-if="item.type == '1'" :data="item" :index="index-0+1" :type="statusType" :disabled="disabled" @changeDisplay="changeDisplay"></single-election>

@@ -206,7 +206,7 @@ import formMixins from '@/mixins/formMixins'
 import { mapActions } from 'vuex'
 import debounce from 'lodash/debounce'
 import { getEmployeeProfileSelf, putEmployeeProfile } from '@/api/hrms/employee_profile'
-import { initForm, dictsMap, selfRules, formToDto } from '@/views/hrms/EmployeeProfile/options'
+import { initForm, dictsMap, selfRules, formToVo, formToDto } from '@/views/hrms/EmployeeProfile/options'
 import InlineFormTable from '@/views/hrms/Components/InlineFormTable/'
 import { workExpColumns, studyColumns, trainingColumns, certificateColumns } from '@/views/hrms/Components/options'
 const saveTypeMap = {
@@ -283,7 +283,7 @@ export default {
     },
     loadPage () {
       getEmployeeProfileSelf().then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
+        this.form = formToVo(data.data)
         this.initAutoSave()
       })
     },

@@ -39,14 +39,17 @@ export default {
       {
         label: '组织资产',
         value: 'OrganizationalAssets',
+        disabled: true,
       },
       {
         label: '股东情况',
         value: 'Shareholder',
+        disabled: true,
       },
       {
         label: '投资报告',
         value: 'Investment',
+        disabled: true,
       },
       ],
       activeTab: 'Performance',

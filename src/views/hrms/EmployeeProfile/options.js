@@ -104,6 +104,13 @@ const initForm = () => {
   }
 }
 
+const formToVo = (row) => {
+  const newForm = mergeByFirst(initForm(), row)
+  newForm.isStaff = !!newForm.staffId
+  newForm.identityMark = newForm.identityMarks.map(m => m.value)
+  return newForm
+}
+
 const formToDto = (row) => {
   const newForm = mergeByFirst(initForm(), row)
   newForm.province = row.currentCities[0]
@@ -579,4 +586,4 @@ const selfRules = {
   ],
 }
 
-export { dictsMap, columnsMap, initForm, formToDto, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm, toDtoSearchForm, rules, selfRules }
+export { dictsMap, columnsMap, initForm, formToVo, formToDto, transferFormToDto, initSearchForm, initTransferForm, initDepartureForm, initInductionForm, initPositiveForm, toDtoSearchForm, rules, selfRules }

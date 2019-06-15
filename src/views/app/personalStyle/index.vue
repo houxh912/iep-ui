@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="personal">
-      <person-top :userInfo="userInfo"></person-top>
+      <person-top :user_info="userInfo"></person-top>
       <person-content :userInfo="userInfo"></person-content>
     </div>
     <IepAppFooterBar></IepAppFooterBar>

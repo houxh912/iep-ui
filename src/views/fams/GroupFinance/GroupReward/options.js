@@ -7,10 +7,6 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'targetUserName',
-    label: '打赏对象',
-  },
-  {
     prop: 'orgName',
     label: '打赏对象',
   },

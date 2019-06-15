@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="form" label-width="120px" size="mini">
+  <el-form class="form-detail" :model="form" label-width="120px" size="mini">
     <el-form-item label="岗位名称：">
       <iep-cascader v-model="form.position" prefix-url="hrms/post_type" clearable></iep-cascader>
     </el-form-item>

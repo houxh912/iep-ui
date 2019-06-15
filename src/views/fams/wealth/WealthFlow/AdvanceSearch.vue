@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="form" label-width="100px" size="mini">
+  <el-form class="form-detail" :model="form" label-width="100px" size="mini">
     <el-form-item label="流水号：">
       <el-input v-model="form.serialNo" clearable></el-input>
     </el-form-item>

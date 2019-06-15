@@ -20,6 +20,7 @@ export default {
       const titleMap = {
         2: '已发放',
         3: '发放失败',
+        4: '发放失败',
       }
       return titleMap[this.data.status]
     },

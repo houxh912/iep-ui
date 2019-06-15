@@ -28,7 +28,7 @@ export default {
         },
         {
           name: '组织机构',
-          path: 'introduction',
+          path: 'mechanism',
         },
         {
           name: '专家团队',

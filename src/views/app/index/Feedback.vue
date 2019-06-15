@@ -3,7 +3,7 @@
     <IepAppTabCard :title="title" :linkName="linkName">
       <el-button class="btn" type="text" slot="right" @click="handleSubmit">我要发表</el-button>
       <div class="feedback-list">
-        <div v-for="(item,index) in feedbackList" :key="index" class="piece">
+        <div v-for="(item,index) in feedbackList" :key="index" class="piece" @click="handleDetail(item)">
           <iep-img :src="item.avatar" class="photo"></iep-img>
           <div class="box">
             <div class="piece-title">
@@ -38,6 +38,9 @@ export default {
     handleSubmit () {
       this.$router.push('/hrms_spa/suggestion_new')
     },
+    handleDetail (row) {
+      this.$router.push(`/app/personal_style/${row.userId}`)
+    },
   },
   created () {
     this.loadList()
@@ -57,6 +60,7 @@ export default {
   .piece {
     margin-bottom: 20px;
     overflow: hidden;
+    cursor: pointer;
     .photo {
       width: 68px;
       height: 68px;

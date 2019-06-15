@@ -94,7 +94,10 @@ export default {
       })
     },
     handleConfirm (type) {
-      characterIsDetermine(this.params.id, {characterStatus: type}).then(() => {})
+      characterIsDetermine(this.params.id, {characterStatus: type}).then(() => {
+        this.$message.success('操作成功')
+        this.$router.push('/wel/index')
+      })
     },
   },
   created () {

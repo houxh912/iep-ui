@@ -62,6 +62,10 @@
                 {{process.name}}
                 <span style="color: #aaa; font-size: 14px;">{{process.identityMarks.join(',')}}</span>
               </div>
+              <br>
+              <div>备注：
+                <iep-div-detail style="display: inline;" :value="form.remarks"></iep-div-detail>
+              </div>
             </el-card>
           </el-timeline-item>
         </el-timeline>

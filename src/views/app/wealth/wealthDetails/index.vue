@@ -6,7 +6,7 @@
           <el-card shadow="never" class="box-card" :body-style="bodyStyle">
             <div class="title-wrapper">
               <div class="left">
-                <iep-img :src="form.orgLogo" alt=""></iep-img>
+                <iep-img style="width: 350px;height:300px;" :src="form.orgLogo" alt=""></iep-img>
                 <div class="main">
                   <h4 class="investmentName">{{form.orgName}}</h4>
                   <div class="way">

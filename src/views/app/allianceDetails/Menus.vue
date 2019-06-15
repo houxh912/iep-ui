@@ -1,8 +1,8 @@
 <template>
   <div class="menus">
-    <a-menu @click="handleClick" mode="inline">
-      <a-menu-item v-for="(item,index) in data" :key="index">
-        <router-link  :to="item.path" >{{item.levelName}}</router-link>
+    <a-menu @click="handleClick" mode="inline" v-model="current">
+      <a-menu-item v-for="(item) in data" :key="item.levelName">
+        <router-link :to="item.path">{{item.levelName}}</router-link>
       </a-menu-item>
     </a-menu>
   </div>
@@ -13,13 +13,14 @@
 export default {
   data () {
     return {
+      current: ['集团概况'],
       data: [
-        {levelName:'集团概况',materialCount:'11',path:'group'},
-        {levelName:'企业文化',materialCount:'11',path:'culture'},
-        {levelName:'组织机构',materialCount:'11',path:'mechanism'},
-        {levelName:'专家团队',materialCount:'11',path:'team'},
-        {levelName:'发展历程',materialCount:'11',path:'development'},
-        {levelName:'业务领域',materialCount:'11',path:'business'},
+        { levelName: '集团概况', materialCount: '11', path: 'group' },
+        { levelName: '企业文化', materialCount: '11', path: 'culture' },
+        { levelName: '组织机构', materialCount: '11', path: 'mechanism' },
+        { levelName: '专家团队', materialCount: '11', path: 'team' },
+        { levelName: '发展历程', materialCount: '11', path: 'development' },
+        { levelName: '业务领域', materialCount: '11', path: 'business' },
       ],
     }
   },

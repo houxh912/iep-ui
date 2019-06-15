@@ -4,7 +4,6 @@
     <div class="title">
       <div>相关材料</div>
     </div>
-    <iep-no-data v-if="!form.materialRelations.length"></iep-no-data>
     <IepAppListCard :dataList="form.materialRelations.map(m => m.name)"></IepAppListCard>
   </div>
 </template>

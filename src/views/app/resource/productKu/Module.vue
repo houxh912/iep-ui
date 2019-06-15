@@ -18,7 +18,7 @@
         </div>
         <div class="header clearfix">
           <span class="price">指导价：¥{{item.guidePrice}}</span>
-          <el-button icon="el-icon-plus"></el-button>
+          <!-- <el-button icon="el-icon-plus"></el-button> -->
         </div>
       </el-card>
     </div>

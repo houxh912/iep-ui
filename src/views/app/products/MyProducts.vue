@@ -1,6 +1,6 @@
 <template>
   <div class="my-products">
-    <div class="title">我的产品</div>
+    <div class="title">产品系列</div>
     <!-- <div class="title">我的产品<span>（{{num[0]}}）</span></div> -->
     <!-- <div class="products-btn">
       <el-button size="small">产品官网</el-button>
@@ -92,7 +92,7 @@ export default {
     },
     getDetail (val) {
       this.$router.push({
-        path:`/app/module_details/${val}`,
+        path: `/app/module_details/${val}`,
       })
       console.log(111)
     },

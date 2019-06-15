@@ -12,7 +12,7 @@
             <p class="con">{{item.synopsis}}</p>
             <div class="header clearfix">
               <span class="price">指导价：¥{{item.valuation}}</span>
-              <el-button icon="el-icon-plus"></el-button>
+              <!-- <el-button icon="el-icon-plus"></el-button> -->
             </div>
           </div>
         </div>

@@ -293,8 +293,6 @@ export default {
   }
   .image {
     margin: 20px 0;
-    width: 30px;
-    height: 30px;
     .img-avatar {
       max-width: 100%;
     }

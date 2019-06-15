@@ -7,7 +7,7 @@
           <operation-search @search-page="searchPage" prop="title">
             <advance-search></advance-search>
           </operation-search>
-          <el-button type="danger" plain disabled>高级搜索</el-button>
+          <!-- <el-button type="danger" plain disabled>高级搜索</el-button> -->
         </div>
       </template>
     </div>
@@ -53,6 +53,13 @@ export default {
 }
 </style>
 <style scoped>
+.search-con >>> .el-button {
+  background-color: #ba1b21;
+  color: #fff;
+  border-radius: 0 3px 3px 0;
+  width: 80px;
+  height: 39px;
+}
 .gov-person-top >>> .el-card__body {
   display: flex;
   align-items: center;

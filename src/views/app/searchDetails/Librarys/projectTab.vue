@@ -43,13 +43,13 @@ export default {
       },
     }
   },
-  methods:{
+  methods: {
     loadPage (title = '') {
       if (title !== '') {
         this.params.projectName = title
       }
       this.loading = true
-      getProjectPage(this.params).then(({data}) => {
+      getProjectPage(this.params).then(({ data }) => {
         this.loading = false
         this.librarys = data.data.records
         this.total = data.data.total
@@ -60,7 +60,7 @@ export default {
       this.loadPage()
     },
     handleDetail () {
-      this.$router.push('/app/project')
+      this.$router.push('/app/project_details')
     },
   },
   created () {
@@ -69,7 +69,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.librarys-item{
+.librarys-item {
   padding: 20px 0;
   border-bottom: 1px solid #eee;
   overflow: hidden;
@@ -131,15 +131,15 @@ export default {
       }
     }
   }
-  .haveimg{
+  .haveimg {
     width: 740px;
     float: left;
   }
-  .img{
+  .img {
     width: 120px;
     height: 80px;
     float: right;
-    > img{
+    > img {
       width: 120px;
       height: 80px;
     }

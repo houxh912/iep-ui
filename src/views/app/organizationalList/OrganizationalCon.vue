@@ -485,6 +485,12 @@ export default {
     }
     .btn {
       padding: 10px 30px;
+      border-color: #cb3737;
+      color: #cb3737;
+      &:hover {
+        background-color: #cb3737;
+        color: #fff;
+      }
     }
     .con {
       margin-bottom: 15px;

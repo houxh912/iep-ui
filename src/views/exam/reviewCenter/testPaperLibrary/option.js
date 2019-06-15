@@ -1,7 +1,7 @@
 export const columnsMap = [
   {
     label: '分类',
-    prop: 'field',
+    prop: 'fieldName',
     width: '180px',
   },
   {

@@ -40,6 +40,7 @@ export default {
           id: '5',
           name: '组织',
           prop: 'orgCount',
+          router: '/app/organizational_list',
         },
         {
           id: '6',
@@ -65,7 +66,7 @@ export default {
     },
   },
   created () {
-    getRecruitCount().then(({data}) => {
+    getRecruitCount().then(({ data }) => {
       this.countObj = data.data
     })
   },

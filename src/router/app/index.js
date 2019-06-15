@@ -251,6 +251,11 @@ export default [
         name: '版本记录',
         component: () => import('@/views/app/versionPage/'),
       },
+      {
+        path: 'organizational_list',
+        name: '组织列表',
+        component: () => import('@/views/app/organizationalList/'),
+      },
     ],
   },
 ]

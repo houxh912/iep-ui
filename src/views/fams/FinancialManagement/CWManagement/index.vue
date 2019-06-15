@@ -60,7 +60,7 @@ export default {
     handleRewards (row) {
       this.$router.push({
         path:`/wealth_flow/${row.userId}`,
-        query:{name:row.applyName},
+        query:{name:`${row.applyName}的`},
       })
     },
     loadPage (param = this.searchForm) {

@@ -29,7 +29,7 @@
                 <span>{{item.time}}</span>
               </span>
               <span class="person">
-                <span>{{item.personName}}</span>
+                <span>{{item.personName}}：</span>
                 <span>{{item.personInfo}}</span>
               </span>
             </div>

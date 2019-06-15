@@ -10,6 +10,18 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" isMutipleSelection>
+         <template slot="before-columns">
+          <el-table-column label="标题" width="400">
+            <template slot-scope="scope">
+              <iep-div-detail :value="scope.row.title"></iep-div-detail>
+            </template>
+          </el-table-column>
+          <el-table-column label="发布时间">
+            <template slot-scope="scope">
+              {{scope.row.createTime|parseToDay}}
+            </template>
+          </el-table-column>
+        </template>
         <el-table-column prop="operation" label="操作" width="200">
           <template>
             <iep-button :disabled="true" @click="handleClick">查看</iep-button>

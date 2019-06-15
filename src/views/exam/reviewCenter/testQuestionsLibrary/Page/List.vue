@@ -19,7 +19,8 @@
           is-mutiple-selection>
           <el-table-column prop="title" label="题目" min-width="100" sortable>
             <template slot-scope="scope">
-              {{scope.row.title}}
+              <span class="hiddenOverText" :title="scope.row.title">{{scope.row.title}}</span>
+              <span class="overText" v-if="JSON.stringify(scope.row.title).length > 27">......</span>
             </template>
           </el-table-column>
           <el-table-column prop="fieldName" label="科目" min-width="100" sortable>
@@ -432,6 +433,16 @@ export default {
 }
 .select >>> .el-input .el-select__caret {
   line-height: 2.9;
+}
+.hiddenOverText {
+  max-height: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.overText {
+  position: absolute;
+  bottom: 3px;
+  left: 10px;
 }
 </style>
 

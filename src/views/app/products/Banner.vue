@@ -2,21 +2,25 @@
   <div class="banner">
     <el-carousel :interval="5000">
       <el-carousel-item v-for="(item,index) in note" :key="index">
-        <div class="baner-img" :style="item">
+        <div class="baner-img" :style="item" @click="open(item.url,item.name)">
         </div>
       </el-carousel-item>
     </el-carousel>
     <div class="new-dynamic">
       最新动态：
-      <div v-for="(item,index) in newDynamic" :key="index" class="new-dynamic-list">
-        <span class="time">{{item.time}}</span>
-        <span class="dsec">{{item.dsec}}</span>
-        <i class="iconfont icon-dingyue"></i>
+      <div class="box">
+        <div v-for="(item,index) in newDynamic" :key="index" class="new-dynamic-list" @click="details(item.id)">
+          <span class="time">{{item.secondClassName}}</span>
+          <span class="desc">{{item.name}}</span>
+          <i class="iconfont icon-dingyue"></i>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { openWindow } from '@/util/util'
+import { getNewsList } from '@/api/app/mlms/index'
 export default {
   data () {
     return {
@@ -24,25 +28,43 @@ export default {
         {
           backgroundImage: 'url(' + require('./img/banner2.jpg') + ')',
           backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% 100%',
+          url:'http://www.datadnas.com/',
+          name:'数据基因',
         },
         {
           backgroundImage: 'url(' + require('./img/banner3.jpg') + ')',
           backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% 100%',
+          url:'https://www.govmade.com/yingst/',
+          name:'营商通',
         },
         {
           backgroundImage: 'url(' + require('./img/banner4.jpg') + ')',
           backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% 100%',
+          url:'http://gc.govmade.cn/',
+          name:'国策',
         },
       ],
       newDynamic: [
-        { time: '03.10', dsec: '191内网2.0项目正式启动' },
-        { time: '03.10', dsec: '营商通微服务版专家评审上海通过' },
-        { time: '03.10', dsec: '北京新城区正式进入需求调研' },
+        { secondClassName: '03.10', name: '191内网2.0项目正式启动' },
+        { secondClassName: '03.10', name: '营商通微服务版专家评审上海通过' },
+        { secondClassName: '03.10', name: '北京新城区正式进入需求调研' },
       ],
     }
+  },
+  methods:{
+    open (val,name) {
+      openWindow(`${val}`, `${name}`, 800, 600)
+    },
+    details (val) {
+      this.$router.push({
+        path:`/app/resource/material/material_detail/${val}`,
+      })
+    },
+  },
+  created () {
+    getNewsList().then(({data}) => {
+      this.newDynamic = data.data
+    })
   },
 }
 </script>
@@ -53,19 +75,35 @@ export default {
   .baner-img {
     width: 100%;
     height: 100%;
+    cursor: pointer;
+    background-position: center;
   }
   .new-dynamic {
     width: 1200px;
     height: 60px;
     line-height: 60px;
     margin: 0 auto;
-    .new-dynamic-list {
-      display: inline;
-      margin: 0 150px 0 20px;
-      cursor: pointer;
-      .dsec {
-        color: #333;
-        margin: 0 6px 0 8px;
+    display: flex;
+    .box{
+      width: 1100px;
+      display: grid;
+      grid-auto-flow: row dense;
+      grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr);
+      .new-dynamic-list {
+        cursor: pointer;
+        .time{
+          float: left;
+          margin-right: 5px;
+        }
+        > i{
+          float: left;
+          margin-left: 5px;
+        }
+        .desc{
+          float: left;
+          max-width: 270px;
+          overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;
+        }
       }
     }
   }

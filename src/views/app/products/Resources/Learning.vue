@@ -1,12 +1,13 @@
 <template>
   <div>
-    <IepAppListCard :dataList="dataList">
+    <IepAppListCard :dataList="dataList.slice(0, 6)" @click="handleDetail">
       <iep-button type="" plain class="lr-btn" disabled>JAVA规范认定</iep-button>
       <iep-button type="" plain class="lr-btn" disabled>产品能力认证</iep-button>
     </IepAppListCard>
   </div>
 </template>
 <script>
+import { getMaterialList } from '@/api/app/mlms/'
 export default {
   data () {
     return {
@@ -19,6 +20,19 @@ export default {
         '20190226区块链点对点技术实现电子现金系统技术培训',
         '北京市政务服务（公共服务）事项规范填报说明培训'],
     }
+  },
+  methods: {
+    loadList () {
+      getMaterialList().then(({data}) => {
+        this.dataList = data.data.rlxx ? data.data.rlxx.map((m) => {return {name: m.material_name,id: m.id}}) : []
+      })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+    },
+  },
+  created () {
+    this.loadList()
   },
 }
 </script>

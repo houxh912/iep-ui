@@ -16,7 +16,7 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="所属科目">
-                <el-input readonly v-model="testPaper.field"></el-input>
+                <el-input readonly v-model="testPaper.fieldName"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -87,14 +87,14 @@
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="signBeginTime">
                       <iep-date-picker v-model="examForm.signBeginTime" type="datetime" placeholder="开始时间"
-                        @change="startChange(examForm.signBeginTime)" :readonly="readOnly"></iep-date-picker>
+                        :readonly="readOnly" :picker-options="pickerOptionsSignBegin" value-format="yyyy-MM-dd HH:mm:ss"></iep-date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col class="line" :span="2">-</el-col>
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="signEndTime">
                       <iep-date-picker v-model="examForm.signEndTime" type="datetime" placeholder="结束时间"
-                        @change="endChange(examForm.signEndTime)" :readonly="readOnly"></iep-date-picker>
+                        :readonly="readOnly" :picker-options="pickerOptionsSignEnd" value-format="yyyy-MM-dd HH:mm:ss"></iep-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -115,7 +115,7 @@
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="signBeginTime">
                       <iep-date-picker v-model="examForm.beginTime" type="datetime" placeholder="开始时间"
-                        @change="startChange(examForm.beginTime,'exam')" :readonly="readOnly"></iep-date-picker>
+                        :picker-options="pickerOptionsBegin" :readonly="readOnly"></iep-date-picker>
                     </el-form-item>
 
                   </el-col>
@@ -123,7 +123,7 @@
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="endTime">
                       <iep-date-picker v-model="examForm.endTime" type="datetime" placeholder="结束时间"
-                        @change="endChange(examForm.endTime,'exam')" :readonly="readOnly"></iep-date-picker>
+                        :picker-options="pickerOptionsEnd" :readonly="readOnly"></iep-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -142,14 +142,16 @@
           <el-row :gutter="40">
             <el-col :span="12">
               <el-form-item label="及格线" prop="passScore">
-                <el-input v-model.number="examForm.passScore" :readonly="readOnly"></el-input>
+                <iep-input-number controls-position="right" :min="0" :max="testPaper.score-1"
+                  v-model="examForm.passScore" style="width:100%"></iep-input-number>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-row>
                 <el-col :span="12">
                   <el-form-item label="优秀线" prop="excellentLine">
-                    <el-input v-model.number="examForm.excellentLine" :readonly="readOnly"></el-input>
+                    <iep-input-number controls-position="right" :min="0" :max="testPaper.score-1"
+                      v-model="examForm.excellentLine" style="width:100%"></iep-input-number>
                   </el-form-item>
                 </el-col>
                 <el-col :span="12">
@@ -249,6 +251,10 @@ export default {
       testPaper: initForm(),//试卷信息
       res: [],
       formRequestFn: () => { },
+      pickerOptionsSignBegin: this.signBeginDate(),
+      pickerOptionsSignEnd: this.signEndDate(),
+      pickerOptionsBegin: this.beginDate(),
+      pickerOptionsEnd: this.endDate(),
     }
   },
   computed: {
@@ -271,18 +277,72 @@ export default {
       return [this.userInfo.userId, ...this.examForm.operateUserids.map(m => m.id), ...this.examForm.faceUserIds.map(m => m.id), ...this.examForm.writeUserids.map(m => m.id)]
     },
   },
-  created () {
-    this.loadSelf()
-    this.getTestOption()
-  },
   watch: {
-    'data.iepTestPaperVO': {
-      handler (newName) {
-        this.testPaper = newName
+    'data': {
+      handler () {
+        this.loadSelf()
+        this.getTestOption()
       },
+      immediate: true,
     },
   },
   methods: {
+
+    /**
+     * 报名开始时间
+     */
+    signBeginDate () {
+      const self = this
+      return {
+        disabledDate (time) {
+          if (self.examForm.signEndTime) {
+            return new Date(self.examForm.signEndTime) < time.getTime()
+          }
+        },
+      }
+    },
+
+    /**
+     * 报名结束时间
+     */
+    signEndDate () {
+      const self = this
+      return {
+        disabledDate (time) {
+          if (self.examForm.signBeginTime) {
+            return new Date(self.examForm.signBeginTime) > time.getTime()
+          }
+        },
+      }
+    },
+
+    /**
+     * 考试开始时间
+     */
+    beginDate () {
+      const self = this
+      return {
+        disabledDate (time) {
+          if (self.examForm.endTime) {
+            return new Date(self.examForm.endTime) < time.getTime()
+          }
+        },
+      }
+    },
+
+    /**
+     * 考试结束时间
+     */
+    endDate () {
+      const self = this
+      return {
+        disabledDate (time) {
+          if (self.examForm.beginTime) {
+            return new Date(self.examForm.beginTime) > time.getTime()
+          }
+        },
+      }
+    },
 
     /**
     * 获取科目数据
@@ -302,7 +362,6 @@ export default {
         await getExam({ id: this.data.id }).then(({ data }) => {
           this.examForm = selfToVo(data.data)
           this.testPaper = data.data.iepTestPaperVO
-          this.testPaper.field = data.data.iepTestPaperVO.fieldName
         })
       } else {
         this.examForm = examForm()
@@ -311,50 +370,17 @@ export default {
 
     },
 
-    // 处理时间段
-    dealTime (val1, val2) {
-      function parseDate (date) {
-        return new Date(date)
-      }
-      const newDate1 = parseDate(val1)
-      const newDate2 = parseDate(val2)
-      const between = (Number(newDate2) - Number(newDate1)) / 1000
-      if (between < 0) {
-        this.$message.error('开始时间不能大于结束时间！！！')
-        return
-      }
-
-    },
-    startChange (val, type) {
-      let endTime = ''
-      if (type === 'exam') {
-        this.examForm.beginTime = val
-        endTime = this.examForm.endTime
-      } else {
-        this.examForm.signBeginTime = val
-        endTime = this.examForm.signEndTime
-      }
-      this.dealTime(val, endTime)
-    },
-    endChange (val, type) {
-      let startTime = ''
-      if (type === 'exam') {
-        this.examForm.endTime = val
-        startTime = this.examForm.beginTime
-      } else {
-        this.examForm.signEndTime = val
-        startTime = this.examForm.signBeginTime
-      }
-      this.dealTime(startTime, val)
-    },
-
     /**
      * 编辑/查看试卷
      */
     handleEdit (id) {
       getTestPaperById({ id: id }).then(({ data }) => {
         data.data[0].resource = 0
-        let _exam = Object.assign(data.data[0], { methodName: this.data.methodName })
+        let _exam = {
+          iepTestPaperVO: data.data[0],
+          methodName: this.data.methodName,
+          id: this.data.id,
+        }
         this.$emit('prev', _exam)
       })
     },

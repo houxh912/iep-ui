@@ -25,7 +25,7 @@
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="handleDelete([scope.row.id],'删除')">删除</el-dropdown-item>
-                <el-dropdown-item @click.native="share(scope.row)">分享</el-dropdown-item>
+                <!-- <el-dropdown-item @click.native="share(scope.row)">分享</el-dropdown-item> -->
               </el-dropdown-menu>
             </el-dropdown>
           </operation-wrapper>
@@ -77,7 +77,9 @@ export default {
     handleAdd () {
       this.$emit('onEdit', {
         methodName: '创建',
-        id: '',
+        iepTestPaperVO: {
+          id: '',
+        },
       })
     },
 
@@ -87,7 +89,9 @@ export default {
     handleEdit (row) {
       this.$emit('onEdit', {
         methodName: '编辑',
-        id: row.id,
+        iepTestPaperVO: {
+          id: row.id,
+        },
       })
     },
 
@@ -104,7 +108,9 @@ export default {
     handleSelect (row) {
       this.$emit('onEdit', {
         methodName: '查看',
-        id: row.id,
+        iepTestPaperVO: {
+          id: row.id,
+        },
       })
     },
 

@@ -293,7 +293,6 @@ export const examFormRules = {
   ],
   passScore: [
     { required: true, message: '必填', trigger: 'blur' },
-    { type: 'number', message: '该字段必须为数字值' },
   ],
   excellentLine: [
     { required: true, message: '必填', trigger: 'blur' },

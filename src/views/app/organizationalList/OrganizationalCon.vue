@@ -432,6 +432,7 @@ export default {
       flex-direction: column;
       align-self: center;
       padding: 0 18px;
+      text-align: center;
       border-right: 1px solid #eee;
       &:last-child {
         border-right: 0;

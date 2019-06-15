@@ -55,7 +55,7 @@ export default {
   padding: 0 0 20px;
   .title {
     padding-bottom: 10px;
-    font-size: 18px;
+    font-size: 16px;
     color: #333;
     border-bottom: 1px solid #eee;
   }

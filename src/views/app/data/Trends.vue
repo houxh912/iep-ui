@@ -19,6 +19,7 @@ export default {
       barWidth: '10',
     }
     return {
+      boundaryGap: false,
       title: '人员变动趋势',
       legendVisible: true,
       chartData: {
@@ -47,7 +48,7 @@ export default {
   position: relative;
   .title {
     position: absolute;
-    left: 20px;
+    left: 0;
     top: 0;
     font-size: 18px;
     color: #333;

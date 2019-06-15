@@ -71,7 +71,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .menus {
-  margin-top: 20px;
+  padding-top: 20px;
   border-right: 1px solid #eee;
   height: 100%;
   .ant-menu-vertical {
@@ -86,7 +86,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   i {
-    margin-right: 5px;
+    margin-right: 10px;
   }
   &:hover {
     background-color: #fbedec;

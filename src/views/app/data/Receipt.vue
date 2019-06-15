@@ -57,8 +57,8 @@ export default {
   padding: 20px 0 0;
   .title {
     position: absolute;
-    left: 20px;
-    top: 20px;
+    left: 0;
+    top: 18px;
     font-size: 18px;
     color: #333;
   }

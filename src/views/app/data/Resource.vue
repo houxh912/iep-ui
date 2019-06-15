@@ -58,7 +58,7 @@ export default {
   position: relative;
   .title {
     position: absolute;
-    left: 20px;
+    left: 0;
     top: 0;
     font-size: 18px;
     color: #333;
@@ -69,6 +69,8 @@ export default {
     grid-template-columns: 2fr 2fr;
   }
   .item {
+    margin-right: -1px;
+    margin-bottom: -1px;
     padding: 22px 20px;
     border: 1px solid #eee;
   }

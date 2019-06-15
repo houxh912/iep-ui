@@ -129,9 +129,9 @@ export default {
   position: relative;
   .title {
     position: absolute;
-    left: 20px;
-    top: 20px;
-    font-size: 16px;
+    left: 0;
+    top: 18px;
+    font-size: 18px;
     color: #333;
   }
 }

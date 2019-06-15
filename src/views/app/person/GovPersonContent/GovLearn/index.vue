@@ -5,29 +5,26 @@
         <template v-if="activeTab ==='GovLearn'" v-slot:GovLearn>
           <gov-learn v-loading="activeTab !=='GovLearn'"></gov-learn>
         </template>
-        <template v-if="activeTab ==='leadership'" v-slot:leadership>
+        <!-- <template v-if="activeTab ==='leadership'" v-slot:leadership>
           <leadership v-loading="activeTab !=='leadership'"></leadership>
-        </template>
+        </template> -->
       </iep-tabs>
     </IepAppTabsCard>
   </div>
 </template>
 <script>
 import GovLearn from './GovLearn'
-import leadership from './leadership'
+// import leadership from './leadership'
 export default {
   components: {
     GovLearn,
-    leadership,
+    // leadership,
   },
   data () {
     return {
       tabList: [{
         label: '学习资源',
         value: 'GovLearn',
-      }, {
-        label: '领导力',
-        value: 'leadership',
       }],
       activeTab: 'GovLearn',
     }

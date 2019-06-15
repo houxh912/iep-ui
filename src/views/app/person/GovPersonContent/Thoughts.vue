@@ -20,7 +20,7 @@
         </div>
       </div>
     </IepAppTabCard>
-
+<!-- 
     <IepAppTabCard :title="titleStar" :linkName="linkName" class="mutual-card">
       <el-button class="important" type="text" slot="right">申请互助基金</el-button>
       <div class="star-list">
@@ -39,7 +39,7 @@
           </div>
         </div>
       </div>
-    </IepAppTabCard>
+    </IepAppTabCard> -->
     <!-- 祝福 -->
     <blessing-dialog ref="blessing"></blessing-dialog>
     <!-- 发表说说 -->

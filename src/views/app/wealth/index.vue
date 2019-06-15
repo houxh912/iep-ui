@@ -17,6 +17,7 @@
       </div>
     </div>
     <router-view v-else></router-view>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>

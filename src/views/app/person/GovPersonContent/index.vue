@@ -29,11 +29,11 @@
       <gov-document></gov-document>
       <thoughts></thoughts>
     </div>
-    <div class="copies copies2">
+    <!-- <div class="copies copies2">
       <interactive-zone></interactive-zone>
       <reward></reward>
       <feedback></feedback>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -47,9 +47,9 @@ import Carousel from './Carousel/'
 import TrainingNotice from './TrainingNotice'
 import HotCourse from './HotCourse'
 import ExcellentLecturer from './ExcellentLecturer'
-import InteractiveZone from './InteractiveZone'
-import Reward from './Reward'
-import Feedback from './Feedback'
+// import InteractiveZone from './InteractiveZone'
+// import Reward from './Reward'
+// import Feedback from './Feedback'
 import GovLearn from './GovLearn/'
 import GovDocument from './GovDocument/'
 import TalentAdvantage from './TalentAdvantage'
@@ -66,9 +66,9 @@ export default {
     TrainingNotice, 
     HotCourse, 
     ExcellentLecturer, 
-    InteractiveZone, 
-    Reward, 
-    Feedback, 
+    // InteractiveZone, 
+    // Reward, 
+    // Feedback, 
     GovLearn,
     GovDocument,
     TalentAdvantage,

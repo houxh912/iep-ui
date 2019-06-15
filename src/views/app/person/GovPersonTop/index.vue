@@ -7,7 +7,7 @@
           <operation-search @search-page="searchPage" prop="title">
             <advance-search></advance-search>
           </operation-search>
-          <el-button type="danger" plain disabled="">高级搜索</el-button>
+          <el-button type="danger" plain disabled>高级搜索</el-button>
         </div>
       </template>
     </div>

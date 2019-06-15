@@ -9,7 +9,7 @@
     <div class="new-dynamic">
       最新动态：
       <div class="box">
-        <div v-for="(item,index) in newDynamic" :key="index" class="new-dynamic-list" @click="details(item.id)">
+        <div v-for="(item,index) in newDynamic.slice(0, 3)" :key="index" class="new-dynamic-list" @click="details(item.id)">
           <span class="time">{{item.secondClassName}}</span>
           <span class="desc">{{item.name}}</span>
           <i class="iconfont icon-dingyue"></i>

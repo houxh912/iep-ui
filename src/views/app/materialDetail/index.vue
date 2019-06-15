@@ -2,20 +2,20 @@
   <div>
     <div class="material-detail">
       <div class="library">
-        <article-details></article-details>
+        <article-details ref="details"></article-details>
       </div>
       <div class="piece">
         <IepAppTabCard :title="labelTitle">
           <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
         </IepAppTabCard>
         <IepAppTabCard :title="listTitle1">
-          <IepAppListCard :dataList="listList1"></IepAppListCard>
+          <IepAppListCard :dataList="listList1" @click="handleDetail"></IepAppListCard>
         </IepAppTabCard>
-        <IepAppTabCard :title="rankingTitle">
-          <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
-        </IepAppTabCard>
+        <!-- <IepAppTabCard :title="rankingTitle">
+          <IepAppRankingCard :dataList="dataList" @click="handleDetail"></IepAppRankingCard>
+        </IepAppTabCard> -->
         <IepAppTabCard :title="listTitle2">
-          <IepAppListCard :dataList="listList2" name="materialName"></IepAppListCard>
+          <IepAppListCard :dataList="listList2" name="materialName" @click="handleDetail"></IepAppListCard>
         </IepAppTabCard>
       </div>
     </div>
@@ -68,15 +68,17 @@ export default {
         this.listList2 = data.data
       })
     },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+    },
   },
   beforeRouteUpdate (to, from, next) {
-    //console.log(to, from)
     this.routerMatch = to.matched
+    this.$nextTick(() => {
+      this.$refs['details'].route = this.$route.params
+      this.$refs['details'].loadData(this.$route.params.id)
+    })
     next()
-    // 在当前路由改变，但是该组件被复用时调用
-    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
-    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
-    // 可以访问组件实例 `this`
   },
   created () {
     this.getRectagsList()

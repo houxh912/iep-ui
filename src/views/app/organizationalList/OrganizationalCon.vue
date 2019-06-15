@@ -1,6 +1,6 @@
 <template>
   <div class="organization-list-con">
-    <!-- <search></search> -->
+    <search @click="handleSearch"></search>
     <div class="module">
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
         <div class="content">
@@ -48,12 +48,12 @@
 </template>
 
 <script>
-// import Search from './Search'
+import Search from './Search'
 import { getRectagsOrgPage } from '@/api/app/upms/'
 
 export default {
   components: {
-    // Search,
+    Search,
   },
   data () {
     return {
@@ -95,6 +95,10 @@ export default {
     },
     currentChange (val) {
       this.params.current = val
+      this.getRecruitPage()
+    },
+    handleSearch (params) {
+      this.params = Object.assign({}, this.params, params)
       this.getRecruitPage()
     },
   },

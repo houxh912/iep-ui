@@ -14,12 +14,12 @@ export default {
   data () {
     return {
       data: [
-        {levelName:'联盟介绍',materialCount:'11',path:'introduction'},
-        {levelName:'联盟大事记',materialCount:'11',path:'memorabilia'},
-        {levelName:'联盟发展历程',materialCount:'11',path:'development'},
-        {levelName:'联盟文化',materialCount:'11',path:'culture'},
-        {levelName:'联盟相册',materialCount:'11',path:'album'},
-        {levelName:'评价管理',materialCount:'11',path:'evaluation'},
+        {levelName:'集团概况',materialCount:'11',path:'group'},
+        {levelName:'企业文化',materialCount:'11',path:'culture'},
+        {levelName:'组织机构',materialCount:'11',path:'mechanism'},
+        {levelName:'专家团队',materialCount:'11',path:'team'},
+        {levelName:'发展历程',materialCount:'11',path:'development'},
+        {levelName:'业务领域',materialCount:'11',path:'business'},
       ],
     }
   },

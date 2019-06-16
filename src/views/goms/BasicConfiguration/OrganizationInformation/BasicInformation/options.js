@@ -16,8 +16,7 @@ const optionMap = [{
   value: 0,
 }]
 
-const columnsMap = [
-  {
+const columnsMap = [{
     prop: 'realName',
     label: '真实姓名',
   },
@@ -50,6 +49,7 @@ const initForm = () => {
     coreAdvantage: '',
     abilityTag: [],
     learningTag: [],
+    projectTag: [],
   }
 }
 
@@ -61,4 +61,10 @@ const initSearchForm = () => {
 }
 
 
-export { dictsMap, columnsMap, optionMap, initSearchForm, initForm }
+export {
+  dictsMap,
+  columnsMap,
+  optionMap,
+  initSearchForm,
+  initForm,
+}

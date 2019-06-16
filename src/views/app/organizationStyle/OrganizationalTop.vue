@@ -9,7 +9,7 @@
         <!-- <span class="sub-title">{{data.intro}}</span> -->
         <span class="sub-title">
           <span class="creatorName">负责人：{{data.creatorName}}</span>
-          <span>成立时间：{{data.establishTime}}</span>
+          <span>成立时间：{{formatDate(data.establishTime)}}</span>
         </span>
         <div class="tags-con">
           <span>卓越：</span>
@@ -39,6 +39,26 @@
   </div>
 </template>
 <script>
+import { dateFormat } from '@/util/date'
+
+// 月份日期前一位补0
+function formatDig (num) {
+  return num>9?''+num:'0'+num
+}
+
+// 根据传入的时间，返回 MM-DD
+function formatDate (mill){
+  var y = new Date(mill)
+  let raws = [
+      y.getFullYear(),
+      formatDig(y.getMonth() + 1),
+      formatDig(y.getDate()),
+      '',
+  ]
+  let format = ['年','月', '日']
+  return String.raw({raw:raws}, ...format)
+}
+
 export default {
   props: {
     data: {
@@ -48,7 +68,8 @@ export default {
   },
   data () {
     return {
-
+      dateFormat,
+      formatDate,
     }
   },
   methods: {

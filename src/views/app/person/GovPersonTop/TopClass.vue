@@ -25,6 +25,7 @@ export default {
           name: '外部同学',
           prop: 'externalCount',
           type: 1,
+          isOut: 1,
         },
         {
           id: '3',
@@ -64,7 +65,7 @@ export default {
   methods: {
     handleDetail (row) {
       if (row.type) {
-        this.$router.push({ path: '/app/resource/expert', query: { type: row.type } })
+        this.$router.push({ path: '/app/resource/expert', query: { type: row.type, isOut: row.isOut } })
       } else {
         this.$openPage(row.router)
       }

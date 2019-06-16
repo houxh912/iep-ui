@@ -95,7 +95,8 @@
 import multiplyMixin from '../multiply_mixin'
 import { region } from '../region'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
-import { postGeneral, putGeneral, validGeneralTitle, postGeneralAndCommit, putGeneralAndCommit } from '@/api/govdata/general_policy'
+import { postGeneral, putGeneral, postGeneralAndCommit, putGeneralAndCommit } from '@/api/govdata/general_policy'
+//import { validGeneralTitle } from '@/api/govdata/general_policy'
 import { getBasisPage } from '@/api/govdata/common'
 // import { getOrganizationPage } from '@/api/govdata/common'
 // const orgOption = [{
@@ -111,23 +112,23 @@ export default {
   mixins: [multiplyMixin],
   components: { MutiplyTagSelect },
   data () {
-    const checkTitle = (rule, value, callback) => {
-      const title = this.isEdited ? this.formData.title : undefined
-      if (!value) {
-        return callback(new Error('标题不能为空'))
-      }
-      validGeneralTitle({ title: value }).then(res => {
-        if (title !== value && !res.data.data) {
-          callback(new Error('标题重复，已存在。'))
-        } else {
-          callback()
-        }
-      }).catch(() => {
-        this.msg('不能检查标题是否重复，请检查你的网络链接。', 'error')
-      })
-    }
+    // const checkTitle = (rule, value, callback) => {
+    //   const title = this.isEdited ? this.formData.title : undefined
+    //   if (!value) {
+    //     return callback(new Error('标题不能为空'))
+    //   }
+    //   validGeneralTitle({ title: value }).then(res => {
+    //     if (title !== value && !res.data.data) {
+    //       callback(new Error('标题重复，已存在。'))
+    //     } else {
+    //       callback()
+    //     }
+    //   }).catch(() => {
+    //     this.msg('不能检查标题是否重复，请检查你的网络链接。', 'error')
+    //   })
+    // }
     const allRules = {
-      title: [{ required: true, validator: checkTitle, trigger: 'blur' }],
+      //title: [{ required: true, validator: checkTitle, trigger: 'blur' }],
       text: [{ required: true, message: '请输入通用政策正文' }],
       summary: [{ required: true, message: '请输入通用政策摘要' }],
       url: [{ type: 'url', message: '请输入有效的网址 如：https://www.baodu.com', trigger: 'blur' }],
@@ -217,15 +218,15 @@ export default {
      * 验证标题是否重复
      * 默认的验证规则跟新开发的暂存和提交审核有冲突
      */
-    async validTitle (title) {
-      const { data } = await validGeneralTitle(title)
-      if (this.defaultTitle !== title && !data.data) {
-        this.msg('标题重复，已存在。', 'warning')
-        this.disabled = true
-      } else {
-        this.disabled = false
-      }
-    },
+    // async validTitle (title) {
+    //   const { data } = await validGeneralTitle(title)
+    //   if (this.defaultTitle !== title && !data.data) {
+    //     this.msg('标题重复，已存在。', 'warning')
+    //     this.disabled = true
+    //   } else {
+    //     this.disabled = false
+    //   }
+    // },
 
 
     /**

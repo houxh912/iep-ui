@@ -15,13 +15,7 @@
             <el-date-picker v-model="formInline.startTime" type="date" placeholder="开始日期" class="block" clearable></el-date-picker> —
             <el-date-picker v-model="formInline.endTime" type="date" placeholder="结束日期" class="block" clearable></el-date-picker>
           </el-form-item>
-
-          <!-- <el-form-item label="级别：">
-            <el-select v-model="formInline.level" size="small" clearable>
-              <el-option v-for="(item, index) in res.POLICY_LEVEL" :key="index" :label="item.label" :value="item.id"></el-option>
-            </el-select>
-          </el-form-item> -->
-
+          <!-- 这里是循环选择器的组件 -->
           <el-form-item :label="key" v-for="(value, key) in selectFiledMap" :key="key">
             <el-select v-model="formInline[value.searchText]" :placeholder="`请选择${key}`" clearable>
               <el-option v-for="item in dictGroup[value.dictText]" :key="item.value" :label="item.label" :value="item.value">
@@ -32,6 +26,9 @@
       </collapse-form>
 
       <el-form :inline="true" size="small">
+        <el-form-item>
+          <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus">新增</el-button>
+        </el-form-item>
         <!-- <el-form-item>
           <el-dropdown @command="handleMove">
             <el-button type="primary" icon="el-icon-rank">
@@ -168,12 +165,19 @@ for (const key in selectFiledMap) {
 }
 function initForm () {
   return {
-    target: [],
-    theme: [],
-    scale: [],
-    industry: [],
+    title: '',
+    tagList: [],
+    views: 0,
+    source: '',
+    url: '',
+    reference: '',
+    issue: '',
+    publishTime: '',
+    effectTime: '',
+    invalidTime: '',
     regionArr: [],
-    generalViews: 1,
+    summary: '',
+    text: '',
   }
 }
 function initDictGroup () {
@@ -215,15 +219,12 @@ export default {
   created () {
     this.load()
     this.loadDict()
-    // this.getTestOption()
   },
   methods: {
     /**
      * 获取获取层级、适用对象、主题、规模、行业数据
      */
     loadDict () {
-      // findByTypeList({ typeList: numberList }).then(res => {
-      // console.log(typeList)
       findByTypeList(typeList).then(res => {
         const { data } = res
         const dictGroup = initDictGroup()
@@ -235,7 +236,6 @@ export default {
             })
           }
         }
-        console.log('jjj', dictGroup)
         this.$set(this, 'dictGroup', dictGroup)
       })
     },
@@ -243,7 +243,7 @@ export default {
     /**
      * 获取政策列表数据
      */
-    async load (pageOption = this.pageOption, params = this.params) {
+    async load (pageOption = this.pageOption, params = { ...this.params }) {
       this.isLoadTable = false
       this.editDialogShow = false
       this.dialogShow = false
@@ -368,16 +368,20 @@ export default {
       // this.isReadonly = false
       // this.isNeedConfirm = false
       // this.dialogShow = true
-      this.isEdit = true
       this.isReadonly = false
-      this.isNeedConfirm = false
-      getGeneralById(rows.id).then(res => {
-        const row = res.data.data
-        this.readRelation(row)
-        this.form = { ...row }
-
-        this.dialogShow = true
-      })
+      this.dialogShow = true
+      if (rows === undefined) {
+        this.isEdit = false
+        this.form = initForm()
+      } else {
+        getGeneralById(rows.id).then(res => {
+          this.isEdit = true
+          const row = res.data.data
+          this.readRelation(row)
+          this.form = { ...row }
+          this.isNeedConfirm = false
+        })
+      }
     },
 
     /**
@@ -388,7 +392,6 @@ export default {
       const id = rows.id
       this._handleGlobalDeleteById([id], deleteGeneralBatch)
     },
-
   },
 }
 </script>

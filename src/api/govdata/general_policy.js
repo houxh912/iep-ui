@@ -56,7 +56,7 @@ export function deleteGeneralBatch (id) {
 export function validGeneralTitle (params) {
     return request({
         url: '/gov/policy/general/repeat',
-        method: 'get',
+        method: 'post',
         params: params,
     })
 }

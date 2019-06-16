@@ -22,6 +22,9 @@
       </collapse-form>
 
       <el-form :inline="true" size="small">
+        <el-form-item>
+          <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus">新增</el-button>
+        </el-form-item>
         <!-- <el-form-item>
           <el-dropdown @command="handleMove">
             <el-button type="primary" icon="el-icon-rank">
@@ -122,8 +125,15 @@ const commadOptions = [
 ]
 function initForm () {
   return {
-    priority: 1,
+    title: '',
     tagList: [],
+    publishTime: '',
+    source: '',
+    url: '',
+    regionArr: [],
+    priority: 0,
+    summary: '',
+    text: '',
   }
 }
 export default {
@@ -237,12 +247,22 @@ export default {
      * 修改按钮
      */
     handleClickMotify (rows) {
-      this.isEdit = true
-      this.readRelation(rows)
-      this.form = { ...rows }
+      // this.isEdit = true
+      // this.readRelation(rows)
+      // this.form = { ...rows }
+      // this.isReadonly = false
+      // this.isNeedConfirm = false
       this.isReadonly = false
-      this.isNeedConfirm = false
       this.dialogShow = true
+      if (rows === undefined) {
+        this.isEdit = false
+        this.form = initForm()
+      } else {
+        this.isEdit = true
+        this.isNeedConfirm = false
+        this.readRelation(rows)
+        this.form = { ...rows }
+      }
     },
 
     /**

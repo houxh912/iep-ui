@@ -14,7 +14,7 @@
     </el-form-item>
 
     <el-form-item label="发布时间" class="formWidth" prop="publishTime">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" style="width: 100%;" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" style="width: 100%;" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
     <el-form-item label="来源" class="formWidth" prop="source">
@@ -27,11 +27,11 @@
       </el-input>
     </el-form-item>
 
-    <el-form-item label="适用地区" prop="regionArr" class="formWidth">
+    <el-form-item label="适用地区" class="formWidth" prop="regionArr">
       <el-cascader :options="options" :props="props" v-model="formData.regionArr" ref="region" clearable change-on-select :disabled="isReadonly"></el-cascader>
     </el-form-item>
 
-    <el-form-item label="优先级" class="formWidth">
+    <el-form-item label="优先级" class="formWidth" prop="priority">
       <el-input-number v-model="formData.priority" :min="1" :max="5" :disabled="isReadonly"></el-input-number>
     </el-form-item>
 
@@ -58,33 +58,34 @@
 import mixins from '@/mixins/mixins'
 import { region } from '../region'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
-import {  postInformation, putInformation,validInformationTitle, postInformationAndCommit, putInformationAndCommit } from '@/api/govdata/information'
+import { postInformation, putInformation, postInformationAndCommit, putInformationAndCommit } from '@/api/govdata/information'
+//import { validInformationTitle } from '@/api/govdata/information'
 export default {
   props: ['formData', 'isEdit', 'isReadonly', 'isAudit', 'isHideSubmitBtn'],
   mixins: [mixins],
   components: { MutiplyTagSelect },
   data () {
-    var checkTitle = (rule, value, callback) => {
-      const title = this.isEdited ? this.formData.title : undefined
-      if (!value) {
-        return callback(new Error('标题不能为空'))
-      }
-      validInformationTitle(value).then(res => {
-        if (title !== value && !res.data.data) {
-          callback(new Error('标题重复，已存在。'))
-        } else {
-          callback()
-        }
-      }).catch(() => {
-        this.msg('不能检查标题是否重复，请检查你的网络链接。', 'error')
-      })
-    }
+    // var checkTitle = (rule, value, callback) => {
+    //   const title = this.isEdited ? this.formData.title : undefined
+    //   if (!value) {
+    //     return callback(new Error('标题不能为空'))
+    //   }
+    //   validInformationTitle(value).then(res => {
+    //     if (title !== value && !res.data.data) {
+    //       callback(new Error('标题重复，已存在。'))
+    //     } else {
+    //       callback()
+    //     }
+    //   }).catch(() => {
+    //     this.msg('不能检查标题是否重复，请检查你的网络链接。', 'error')
+    //   })
+    // }
     return {
       isEdited: this.isEdit,
       isShow: false,
       loading: false,
       rules: this.isReadonly ? {} : {
-        title: [{ required: true, validator: checkTitle, trigger: 'blur' }],
+        // title: [{ required: true, validator: checkTitle, trigger: 'blur' }],
         summary: [{ required: true, message: '请输入政策资讯摘要' }, { max: 200, message: '字数不超过200字', trigger: 'blur' }],
         text: [{ required: true, message: '请输入政策资讯正文' }],
         url: [{ required: true, max: 200, type: 'url', message: '请输入有效的网址 如：https://www.baodu.com', trigger: 'blur' }],
@@ -130,29 +131,29 @@ export default {
      * 暂存
      */
     async handleTempSave (formName) {
-        this.loading = true
-        this.formData.region = this.$refs['region'].currentLabels.join(',')
-        this.formData.regionList = []
-        const submitForm = JSON.parse(JSON.stringify(this.formData))
-        submitForm.file = submitForm.attachments ? submitForm.attachments.url : ''
+      this.loading = true
+      this.formData.region = this.$refs['region'].currentLabels.join(',')
+      this.formData.regionList = []
+      const submitForm = JSON.parse(JSON.stringify(this.formData))
+      submitForm.file = submitForm.attachments ? submitForm.attachments.url : ''
 
-        this.$refs[formName].validateField(('title'))
-        if (!submitForm.title) {
-          this.msg('标题不能为空', 'warning')
-          return false
+      this.$refs[formName].validateField(('title'))
+      if (!submitForm.title) {
+        this.msg('标题不能为空', 'warning')
+        return false
+      }
+
+      const requestFun = this.isEdited ? putInformation : postInformation
+      requestFun(submitForm).then(res => {
+        if (!this.isEdited) {
+          this.formData.id = res.data.msg ? Number(res.data.msg) : this.formData.id
+          this.formData.title = submitForm.title
+          this.isEdited = true
         }
-
-        const requestFun = this.isEdited ? putInformation : postInformation
-        requestFun(submitForm).then(res => {
-          if (!this.isEdited) {
-            this.formData.id = res.data.msg ? Number(res.data.msg) : this.formData.id
-            this.formData.title = submitForm.title
-            this.isEdited = true
-          }
-          this.msg('保存成功!', 'success')
-        }).catch(() => {
-          this.msg('保存失败，请检查你的网络链接。', 'error')
-        })
+        this.msg('保存成功!', 'success')
+      }).catch(() => {
+        this.msg('保存失败，请检查你的网络链接。', 'error')
+      })
     },
 
     /**

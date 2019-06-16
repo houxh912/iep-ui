@@ -3,20 +3,30 @@
     <template slot="page">
       <collapse-form ref="collapseForm" @clear="formInline=initFormInline()" @search="search()">
         <template slot="search-header">
-          <el-form-item label="资讯标题:">
-            <el-input placeholder="请输入资讯标题" v-model.trim="formInline.title" clearable></el-input>
+          <el-form-item label="政策名称:">
+            <el-input placeholder="请输入政策名称" v-model.trim="formInline.title" clearable></el-input>
           </el-form-item>
           <el-form-item label="上传者:">
             <el-input placeholder="请输入上传者用户名" v-model="formInline.username" clearable></el-input>
           </el-form-item>
         </template>
         <template slot="search-body">
-          <el-form-item label="来源:">
-            <el-input placeholder="请输入来源" v-model="formInline.source" clearable></el-input>
-          </el-form-item>
           <el-form-item label="发布时间">
             <el-date-picker v-model="formInline.startTime" type="date" placeholder="开始日期" class="block" clearable></el-date-picker> —
             <el-date-picker v-model="formInline.endTime" type="date" placeholder="结束日期" class="block" clearable></el-date-picker>
+          </el-form-item>
+
+          <!-- <el-form-item label="级别：">
+            <el-select v-model="formInline.level" size="small" clearable>
+              <el-option v-for="(item, index) in res.POLICY_LEVEL" :key="index" :label="item.label" :value="item.id"></el-option>
+            </el-select>
+          </el-form-item> -->
+
+          <el-form-item :label="key" v-for="(value, key) in selectFiledMap" :key="key">
+            <el-select v-model="formInline[value.searchText]" :placeholder="`请选择${key}`" clearable>
+              <el-option v-for="item in dictGroup[value.dictText]" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
           </el-form-item>
         </template>
       </collapse-form>
@@ -51,7 +61,7 @@
       <pagination @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" :pagination-option="paginationOption"></pagination>
 
       <form-dialog :dialog-show="dialogShow" :title="infoFormTitle" @close="load()" :isNeedConfirm="isNeedConfirm" width="1000px">
-        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()"></dialog-form>
+        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()" :dictGroup="dictGroup" :selectFiledMap="selectFiledMap"></dialog-form>
       </form-dialog>
     </template>
   </page-dialog>
@@ -65,17 +75,12 @@ import collapseForm from '@/components/deprecated/collapse-form'
 import dialogMixins from '@/mixins/deprecated/dialog_mixins'
 import paginationMixins from '@/mixins/deprecated/pagination_mixins'
 import dialogForm from './dialog-form'
-import { getInformationPage, deleteInformationById } from '@/api/govdata/information'
-import { movePolicy } from '@/api/govdata/common'
+import { getGeneralPage, deleteGeneralBatch } from '@/api/govdata/general_policy'
+import { movePolicy, findByTypeList } from '@/api/govdata/common'
 const columnMap = [
   {
-    prop: 'source',
-    label: '来源',
-    width: 200,
-  },
-  {
     prop: 'title',
-    label: '资讯标题',
+    label: '政策名称',
   },
   {
     prop: 'publishTime',
@@ -87,18 +92,18 @@ const columnMap = [
   {
     prop: 'creatorName',
     label: '上传者',
-    width: 140,
+    // width: 140,
   },
   {
     prop: 'examineUserName',
     label: '审核人',
-    width: 140,
+    // width: 140,
   },
   {
     prop: 'examineDate',
     label: '审核通过时间',
     type: 'time',
-    width: 140,
+    // width: 140,
     // sortable: 'custom',
   },
 ]
@@ -120,11 +125,64 @@ const commadOptions = [
     value: 'information',
   },
 ]
+const selectFiledMap = {
+  层级: {
+    formText: 'level',
+    searchText: 'level',
+    dictText: 'POLICY_LEVEL',
+    multiple: false,
+  },
+  适用对象: {
+    formText: 'target',
+    searchText: 'target',
+    dictText: 'DECLARE_TARGET',
+    multiple: true,
+  },
+  主题: {
+    formText: 'theme',
+    searchText: 'theme',
+    dictText: 'POLICY_THEME',
+    multiple: true,
+  },
+  适用规模: {
+    formText: 'scale',
+    searchText: 'scale',
+    dictText: 'POLICY_SCALE',
+    multiple: true,
+  },
+  适用行业: {
+    formText: 'industry',
+    searchText: 'industry',
+    dictText: 'POLICY_INDUSTRY',
+    multiple: true,
+  },
+}
+const typeList = []
+for (const key in selectFiledMap) {
+  if (selectFiledMap.hasOwnProperty(key)) {
+    const element = selectFiledMap[key]
+    typeList.push(element.dictText)
+  }
+}
 function initForm () {
   return {
-    priority: 1,
-    tagList: [],
+    target: [],
+    theme: [],
+    scale: [],
+    industry: [],
+    regionArr: [],
+    generalViews: 1,
   }
+}
+function initDictGroup () {
+  const dictGroup = {}
+  for (const key in selectFiledMap) {
+    if (selectFiledMap.hasOwnProperty(key)) {
+      const element = selectFiledMap[key]
+      dictGroup[element.dictText] = []
+    }
+  }
+  return dictGroup
 }
 export default {
   mixins: [mixins, dialogMixins, paginationMixins],
@@ -132,9 +190,11 @@ export default {
   data () {
     return {
       id: '',
-      type: 'information',
+      type: 'general',
       columnMap,
+      selectFiledMap,
       formInline: {},
+      dictGroup: initDictGroup(),
       form: initForm(),
       isEdit: true,
       isReadonly: false,
@@ -152,8 +212,31 @@ export default {
   },
   created () {
     this.load()
+    this.loadDict()
+    // this.getTestOption()
   },
   methods: {
+    /**
+     * 获取获取层级、适用对象、主题、规模、行业数据
+     */
+    loadDict () {
+      // findByTypeList({ typeList: numberList }).then(res => {
+      console.log(typeList)
+      findByTypeList(typeList).then(res => {
+        const { data } = res
+        const dictGroup = initDictGroup()
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const element = data[key]
+            dictGroup[key] = element.map(m => {
+              return { label: m.value, value: m.key }
+            })
+          }
+        }
+        this.$set(this, 'dictGroup', dictGroup)
+      })
+    },
+
     /**
      * 获取政策列表数据
      */
@@ -161,7 +244,7 @@ export default {
       this.isLoadTable = false
       this.editDialogShow = false
       this.dialogShow = false
-      getInformationPage({ ...params, ...pageOption }).then(res => {
+      getGeneralPage({ ...params, ...pageOption }).then(res => {
         const { data } = res
         this.loadTable(data)
       })
@@ -251,7 +334,7 @@ export default {
     handleDelete (rows) {
       console.log(rows)
       const id = rows.id
-      this._handleGlobalDeleteById([id], deleteInformationById)
+      this._handleGlobalDeleteById([id], deleteGeneralBatch)
     },
 
   },

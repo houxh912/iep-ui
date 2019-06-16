@@ -55,7 +55,7 @@
       <pagination @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" :pagination-option="paginationOption"></pagination>
 
       <form-dialog :dialog-show="dialogShow" :title="infoFormTitle" @close="load()" :isNeedConfirm="isNeedConfirm" width="1000px">
-        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()"></dialog-form>
+        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()" :dictGroup="dictGroup" :selectFiledMap="selectFiledMap"></dialog-form>
       </form-dialog>
     </template>
   </page-dialog>
@@ -286,7 +286,7 @@ export default {
     /**
      * 获取政策列表数据
      */
-    async load (pageOption = this.pageOption, params = this.params) {
+    async load (pageOption = this.pageOption, params = {...this.params}) {
       this.isLoadTable = false
       this.editDialogShow = false
       this.dialogShow = false
@@ -295,7 +295,7 @@ export default {
       const res = await getExplainPage({ ...params, ...pageOption })
 
       const { data } = res
-      console.log('mmm', res)
+      // console.log('mmm', res)
       let { records } = data
       records = records.map(m => {
         return {
@@ -362,7 +362,7 @@ export default {
           source: this.type,
           target: command,
         }
-        console.log('mmm', parmas)
+        // console.log('mmm', parmas)
         const { data } = await movePolicy(parmas)
         if (data.data) {
           this.load()

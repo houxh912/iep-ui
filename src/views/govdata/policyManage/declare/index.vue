@@ -55,7 +55,7 @@
       <pagination @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" :pagination-option="paginationOption"></pagination>
 
       <form-dialog :dialog-show="dialogShow" :title="infoFormTitle" @close="load()" :isNeedConfirm="isNeedConfirm" width="1000px">
-        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()"></dialog-form>
+        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()" :dictGroup="dictGroup" :selectFiledMap="selectFiledMap"></dialog-form>
       </form-dialog>
     </template>
   </page-dialog>
@@ -152,6 +152,12 @@ const selectFiledMap = {
     dictText: 'DECLARE_STATUS',
     multiple: false,
   },
+  // 适用对象: {
+  //   formText: 'target',
+  //   searchText: 'target',
+  //   dictText: 'DECLARE_TARGET',
+  //   multiple: true,
+  // },
   主题: {
     formText: 'theme',
     searchText: 'theme',
@@ -210,15 +216,19 @@ for (const key in selectFiledMap) {
 }
 function initForm () {
   return {
-    mode: [],
-    formality: [],
-    support: [],
-    fund: [],
-    target: [],
-    theme: [],
-    scale: [],
-    industry: [],
+    title: '',
+    tagList: [],
+    views: 0,
+    source: '',
+    url: '',
+    reference: '',
+    issue: '',
+    publishTime: '',
+    effectTime: '',
+    invalidTime: '',
     regionArr: [],
+    summary: '',
+    text: '',
   }
 }
 function initDictGroup () {
@@ -275,7 +285,7 @@ export default {
           if (data.hasOwnProperty(key)) {
             const element = data[key]
             dictGroup[key] = element.map(m => {
-              return { label: m.value, value: m.key }
+              return { label: m.label, value: m.value }
             })
           }
         }
@@ -361,7 +371,7 @@ export default {
           source: this.type,
           target: command,
         }
-        console.log('mmm', parmas)
+        // console.log('mmm', parmas)
         const { data } = await movePolicy(parmas)
         if (data.data) {
           this.load()
@@ -418,7 +428,7 @@ export default {
       // this.isNeedConfirm = false
       // this.dialogShow = true
       getDeclareById(rows.id).then(res => {
-        console.log('mmm', res)
+        // console.log('mmm', res)
         const rows = res.data.data
         this.readRelation(rows)
         this.form = { ...rows }

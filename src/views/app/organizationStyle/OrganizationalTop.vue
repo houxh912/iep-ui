@@ -6,7 +6,11 @@
       </div>
       <div class="text">
         <span class="title">{{data.name}}</span>
-        <span class="sub-title">{{data.intro}}</span>
+        <!-- <span class="sub-title">{{data.intro}}</span> -->
+        <span class="sub-title">
+          <span class="creatorName">负责人：{{data.creatorName}}</span>
+          <span>成立时间：{{data.establishTime}}</span>
+        </span>
         <div class="tags-con">
           <span>卓越：</span>
           <span class="tags" v-for="(item, index) in data.abilityTag" :key="index">
@@ -14,9 +18,15 @@
           </span>
         </div>
         <div class="tags-con">
-          <span>学习：</span>
+          <span>专业：</span>
           <span class="tags" v-for="(item2, index) in data.learningTag" :key="index">
             {{item2}}
+          </span>
+        </div>
+        <div class="tags-con">
+          <span>进步：</span>
+          <span class="tags" v-for="(item3, index) in data.projectTag" :key="index">
+            {{item3}}
           </span>
         </div>
       </div>
@@ -90,6 +100,9 @@ export default {
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
+        .creatorName {
+          margin-right: 50px;
+        }
       }
       .tags-con {
         display: flex;

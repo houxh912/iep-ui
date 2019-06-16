@@ -11,12 +11,20 @@ export function getDeclarePage (params) {
   })
 }
 
+// 根据id查看申报类政策
+export function getDeclareById (id) {
+  return request({
+    url: `${prefixUrl}/policy/declare/infoForConsole/${id}`,
+    method: 'get',
+  })
+}
+
+
 // 删除申报政策(批量)
 export function deleteDeclareBatch (ids) {
-    return request({
-      url: `${prefixUrl}/policy/declare`,
-      method: 'delete',
-      data: ids,
-    })
-  }
-  
+  return request({
+    url: `${prefixUrl}/policy/declare`,
+    method: 'delete',
+    data: ids,
+  })
+}

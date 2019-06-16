@@ -32,7 +32,7 @@
       </collapse-form>
 
       <el-form :inline="true" size="small">
-        <el-form-item>
+        <!-- <el-form-item>
           <el-dropdown @command="handleMove">
             <el-button type="primary" icon="el-icon-rank">
               移动到<i class="el-icon-arrow-down el-icon--right"></i>
@@ -43,7 +43,7 @@
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
 
       <crud-table :is-load-table="isLoadTable" align="center" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
@@ -68,14 +68,16 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import mixins from '@/mixins/mixins'
+import multiplyMixin from '../multiply_mixin'
 import { validatenull } from '@/util/validate'
 import crudTable from '@/components/deprecated/crud-table'
 import collapseForm from '@/components/deprecated/collapse-form'
 import dialogMixins from '@/mixins/deprecated/dialog_mixins'
 import paginationMixins from '@/mixins/deprecated/pagination_mixins'
 import dialogForm from './dialog-form'
-import { getGeneralPage, deleteGeneralBatch } from '@/api/govdata/general_policy'
+import { getGeneralPage, getGeneralById, deleteGeneralBatch } from '@/api/govdata/general_policy'
 import { movePolicy, findByTypeList } from '@/api/govdata/common'
 const columnMap = [
   {
@@ -185,7 +187,7 @@ function initDictGroup () {
   return dictGroup
 }
 export default {
-  mixins: [mixins, dialogMixins, paginationMixins],
+  mixins: [mixins, dialogMixins, paginationMixins, multiplyMixin],
   components: { crudTable, collapseForm, dialogForm },
   data () {
     return {
@@ -221,7 +223,7 @@ export default {
      */
     loadDict () {
       // findByTypeList({ typeList: numberList }).then(res => {
-      console.log(typeList)
+      // console.log(typeList)
       findByTypeList(typeList).then(res => {
         const { data } = res
         const dictGroup = initDictGroup()
@@ -229,10 +231,11 @@ export default {
           if (data.hasOwnProperty(key)) {
             const element = data[key]
             dictGroup[key] = element.map(m => {
-              return { label: m.value, value: m.key }
+              return { label: m.label, value: m.value }
             })
           }
         }
+        console.log('jjj', dictGroup)
         this.$set(this, 'dictGroup', dictGroup)
       })
     },
@@ -240,25 +243,55 @@ export default {
     /**
      * 获取政策列表数据
      */
-    load (pageOption = this.pageOption, params = this.params) {
+    async load (pageOption = this.pageOption, params = this.params) {
       this.isLoadTable = false
       this.editDialogShow = false
       this.dialogShow = false
-      getGeneralPage({ ...params, ...pageOption }).then(res => {
-        const { data } = res
-        this.loadTable(data)
+      params.title = params.title ? encodeURIComponent(params.title) : ''
+      const res = await getGeneralPage({ ...params, ...pageOption })
+
+      const { data } = res
+      let { records } = data
+      records = records.map(m => {
+        return {
+          ...m,
+          dispatchsList: m.dispatchList[0] ? _.map(m.dispatchList, 'commonName').join('，') : '暂无',
+        }
       })
+      data.records = records
+      this.loadTable(data)
     },
 
     readRelation (rows) {
-      const { tagList } = rows
+      const { dispatchList, unionList, target, industry, scale, theme } = rows
       // file
       rows.attachments = validatenull(rows.file) ? null : [{
         name: rows.file.match(/([^/]*)$/)[1],
         url: rows.file,
       }]
+      // 多选
+      rows.target = this.decodeSplitStr(target)
+      rows.industry = this.decodeSplitStr(industry)
+      rows.scale = this.decodeSplitStr(scale)
+      rows.theme = this.decodeSplitStr(theme)
+      // console.log(rows)
+      // 发文单位
+      rows.dispatchList = dispatchList.map(m => m.commonId)
+      rows.dispatchsList = dispatchList.map(m => {
+        return { id: m.commonId, name: m.commonName }
+      })
+      // 联合发文单位
+      rows.unionList = unionList.map(m => m.commonId)
+      rows.unionsList = unionList.map(m => {
+        return { id: m.commonId, name: m.commonName }
+      })
+      // 政策依据
+      // rows.policyList = policyList.map(m => m.commonId)
+      // rows.policysList = policyList.map(m => {
+      //   return { id: m.commonId, title: m.commonName }
+      // })
       // 标签
-      rows.tagsList = this._mapPickTagIdName(tagList)
+      rows.tagsList = this._mapPickTagIdName(rows.tagList)
       rows.tagList = rows.tagsList.map(m => m.name)
       return rows
     },
@@ -309,23 +342,42 @@ export default {
      * 查看按钮
      */
     handleView (rows) {
-      this.readRelation(rows)
-      this.form = { ...rows }
+      // this.readRelation(rows)
+      // this.form = { ...rows }
+      // this.isReadonly = true
+      // this.isNeedConfirm = false
+      // this.dialogShow = true
       this.isReadonly = true
       this.isNeedConfirm = false
-      this.dialogShow = true
+      getGeneralById(rows.id).then(res => {
+        const row = res.data.data
+        this.readRelation(row)
+        this.form = { ...row }
+
+        this.dialogShow = true
+      })
     },
 
     /**
      * 修改按钮
      */
     handleClickMotify (rows) {
+      // this.isEdit = true
+      // this.readRelation(rows)
+      // this.form = { ...rows }
+      // this.isReadonly = false
+      // this.isNeedConfirm = false
+      // this.dialogShow = true
       this.isEdit = true
-      this.readRelation(rows)
-      this.form = { ...rows }
       this.isReadonly = false
       this.isNeedConfirm = false
-      this.dialogShow = true
+      getGeneralById(rows.id).then(res => {
+        const row = res.data.data
+        this.readRelation(row)
+        this.form = { ...row }
+
+        this.dialogShow = true
+      })
     },
 
     /**

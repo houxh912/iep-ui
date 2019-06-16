@@ -15,6 +15,16 @@ export function getGeneralPage (params) {
     })
 }
 
+/**
+ * 根据id查询通用政策
+ */ 
+export function getGeneralById (id) {
+    return request({
+        url: `/gov/policy/general/infoForConsole/${id}`,
+        method: 'get',
+    })
+}
+
 // 移动政策
 // export function movePolicy (params) {
 //     return request({
@@ -30,14 +40,6 @@ export function deleteGeneralBatch (id) {
         url: '/gov/policy/general/logicDelete',
         method: 'delete',
         data: id,
-    })
-}
-
-//根据id获取通用政策
-export function getGeneralById (id) {
-    return request({
-        url: `/gov/policy/general/infoForConsole/${id}`,
-        method: 'get',
     })
 }
 

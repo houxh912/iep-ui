@@ -50,15 +50,15 @@
     </el-form-item> -->
 
     <el-form-item label="发文时间" class="formWidth" prop="publishTime">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
     <el-form-item label="生效时间" class="formWidth" prop="effectTime">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.effectTime" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker type="date" placeholder="选择日期" v-model="formData.effectTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
     <el-form-item label="失效时间" class="formWidth" prop="invalidTime">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.invalidTime" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker type="date" placeholder="选择日期" v-model="formData.invalidTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
     <el-form-item class="formWidth" :label="key" v-for="(value, key) in selectFiledMap" :key="key" :prop="value.formText">

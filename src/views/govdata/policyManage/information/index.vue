@@ -22,7 +22,7 @@
       </collapse-form>
 
       <el-form :inline="true" size="small">
-        <el-form-item>
+        <!-- <el-form-item>
           <el-dropdown @command="handleMove">
             <el-button type="primary" icon="el-icon-rank">
               移动到<i class="el-icon-arrow-down el-icon--right"></i>
@@ -33,7 +33,7 @@
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
 
       <crud-table :is-load-table="isLoadTable" align="center" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">

@@ -30,10 +30,10 @@ export function movePolicy (params) {
 }
 
 //获取层级、适用对象、主题、规模、行业
-export function findByTypeList (numberList) {
+export function findByTypeList () {
   return request({
-      url: '/admin/dict/map',
+      url: '/admin/dict/all_map',
       method: 'get',
-      params: {numberList},
+      //params: {numberList},
   })
 }

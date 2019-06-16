@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <basic-container>
       <page-header :title="`${methodName}联系人`"></page-header>
-      <el-form :model="formData" :rules="rules" ref="formName" label-width="130px" size="small">
+      <el-form :model="formData" :rules="rules" ref="formName" label-width="130px" size="small" class="form-detail">
         <el-row>
           <el-col :span="12">
             <el-form-item prop="contactName">
@@ -32,16 +32,17 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item prop="clientInfos">
+            <el-form-item prop="clientIds">
               <span slot="label">
                 对应客户
                 <iep-tip :content="tipContent.clientInfos"></iep-tip>
                 :
               </span>
-              <el-tag v-for="(item,index) in formData.clientInfos" :key="index" closable @close="handleClose(item)">
+              <!-- <el-tag v-for="(item,index) in formData.clientInfos" :key="index" closable @close="handleClose(item)">
                 {{item.clientName}}
               </el-tag>
-              <el-button size="small" @click="addContact" icon="el-icon-plus"></el-button>
+              <el-button size="small" @click="addContact" icon="el-icon-plus"></el-button> -->
+              <IepCrmsSelectMultiple v-model="formData.clientIds" :option="formData.clientInfos" prefixUrl="crm/customer/all/list"></IepCrmsSelectMultiple>
             </el-form-item>
           </el-col>
         </el-row>
@@ -195,8 +196,10 @@ export default {
     this.id = this.record.id
     if (this.id) {
       getContactById(this.id).then(({ data }) => {
-        this.formData = this.$mergeByFirst(initForm(), data.data)
-        this.formData.clientIds = this.formData.clientInfos.map(m => m.clientId)
+        let form = this.$mergeByFirst(initForm(), data.data)
+        form.clientIds = form.clientInfos.map(m => m.clientId)
+        form.clientInfos = form.clientInfos.map(m => {return { id: m.clientId, name: m.clientName, clientId: m.clientId, clientName: m.clientName }})
+        this.formData = {...form}
       })
     }
   },
@@ -251,7 +254,7 @@ export default {
       this.loadPage()
     },
     submitForm (formName) {
-      this.formData.clientIds = this.formData.clientInfos.map(m => m.clientId)
+      // this.formData.clientIds = this.formData.clientInfos.map(m => m.clientId)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn(this.formData).then(() => {

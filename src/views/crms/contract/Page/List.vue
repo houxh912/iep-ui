@@ -11,9 +11,7 @@
           <el-radio-group v-model="type" size="small" @change="changeType">
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
           </el-radio-group>
-          <operation-search @search-page="searchPage" advance-search :prop="'contractName'">
-            <advance-search @search-page="searchPage" :type="type"></advance-search>
-          </operation-search>
+          <advance-search @search-page="searchPage"></advance-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" @row-click="handleDetail" :dictsMap="dictsMap">

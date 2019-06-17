@@ -5,11 +5,11 @@
         <div class="project-managerList">
           <div v-for="(item,index) in projectManagerList" :key="index" class="piece" @click="handleOpen()">
             <div class="img-con">
-              <iep-img :src="item.img" class="img" alt=""></iep-img>
+              <iep-img :src="item.avatar" class="img" alt=""></iep-img>
             </div>
             <div class="text">
-              <span class="name">{{item.name}}<span class="num">{{item.num}}</span></span>
-              <span class="department">{{item.department}}</span>
+              <span class="name">{{item.projectManagerName}}<span class="num">{{`执行项目（${item.time}个）`}}</span></span>
+              <span class="department">{{item.orgName}}</span>
             </div>
           </div>
         </div>
@@ -17,24 +17,17 @@
     </IepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getProjectProjectManager } from '@/api/app/prms/'
+
 export default {
   data () {
     return {
       title: '项目经理',
       data: '(9个)',
       linkName: '',
-      projectManagerList: [
-        { img: '../img/person/p01.jpg', name: '李凯', department: '北方区业务一部', num: '执行项目（4个）' },
-        { img: '../img/person/p02.jpg', name: '符恩祖', department: '海南办事处', num: '执行项目（2个）' },
-        { img: '../img/person/p03.jpg', name: '张小燕', department: '北方业务一部', num: '执行项目（3个）' },
-        { img: '../img/person/p04.jpg', name: '洪琼', department: '湖南国脉原道数据科技有限公司（衡阳办事处、长沙）', num: '执行项目（5个）' },
-        { img: '../img/person/p05.jpg', name: '阮晨光', department: '国脉集团研发中心', num: '执行项目（2个）' },
-        { img: '../img/person/p06.jpg', name: '杜照鸿', department: '国脉集团研发中心', num: '执行项目（2个）' },
-        { img: '../img/person/p07.jpg', name: '张兵', department: '国脉集团研发中心', num: '执行项目（8个）' },
-        { img: '../img/person/p09.jpg', name: '何舟杰', department: '国脉先锋队', num: '执行项目（3个）' },
-        { img: '../img/person/p010.jpg', name: '潘超巧', department: '国脉先锋队', num: '执行项目（4个）' },
-      ],
+      projectManagerList: [],
     }
   },
   methods: {
@@ -43,6 +36,11 @@ export default {
         path: '',
       })
     },
+  },
+  created () {
+    getProjectProjectManager().then(({data}) => {
+      this.projectManagerList = data.data
+    })
   },
 }
 </script>

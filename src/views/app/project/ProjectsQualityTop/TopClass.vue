@@ -1,13 +1,16 @@
 <template>
   <el-card class="top-class" shadow="never">
     <div class="top-class-list" v-for="item in items" :key="item.id">
-      <span class="numTotal">{{item.numTotal}}<span class="num">{{item.num}}</span>个</span>
-      <span class="numProjects">{{item.numProjects}}</span>
-      <span class="numNow">{{item.numNow}}</span>
+      <span class="numTotal">{{item.numTotal}}<span class="num">{{counts[item.numCount]}}</span>个</span>
+      <span class="numProjects">{{item.numProjects}} {{counts[item.projectsCount]}} 个</span>
+      <span class="numNow" v-if="item.numNow">{{item.numNow}} {{counts[item.nowCount]}} 个</span>
     </div>
   </el-card>
 </template>
+
 <script>
+import { getProjectCount } from '@/api/app/prms'
+
 export default {
   data () {
     return {
@@ -15,40 +18,54 @@ export default {
         {
           id: '1',
           numTotal: '项目总数',
-          num: '23',
-          numProjects: '已建项目19个',
-          numNow: '在建项目4个',
+          numProjects: '已建项目',
+          numNow: '在建项目',
+          numCount: 'projectTotal',
+          projectsCount: 'alreadyProject',
+          nowCount: 'constructionProject',
         },
         {
           id: '2',
           numTotal: '项目合同',
-          num: '23',
-          numProjects: '待签项目19个',
-          numNow: '',
+          numProjects: '待签项目',
+          numCount: 'porjectContract',
+          projectsCount: 'stayPorject',
         },
         {
           id: '3',
           numTotal: '项目软件',
-          num: '12',
-          numProjects: '咨询项目6个',
-          numNow: '其它项目5个',
+          numProjects: '咨询项目',
+          numNow: '其它项目',
+          numCount: 'porjectSoftware',
+          projectsCount: 'consultPorject',
+          nowCount: 'otherPorject',
         },
         {
           id: '4',
           numTotal: '国家及项目',
-          num: '12',
-          numProjects: '省级项目6个',
-          numNow: '市区级项目13个',
+          numProjects: '省级项目',
+          numNow: '市区级项目',
+          numCount: 'countryPorject',
+          projectsCount: 'provincePorject',
+          nowCount: 'cityPorject',
         },
         {
           id: '5',
           numTotal: '项目经理',
-          num: '5',
-          numProjects: '技术类6个',
-          numNow: '咨询类17个',
+          numProjects: '技术类',
+          numNow: '咨询类',
+          numCount: 'porjectManager',
+          projectsCount: 'technologyManager',
+          nowCount: 'consultManager',
         },
       ],
+      counts: {},
     }
+  },
+  created () {
+    getProjectCount().then(({data}) => {
+      this.counts = data.data
+    })
   },
 }
 </script>

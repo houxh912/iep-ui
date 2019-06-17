@@ -64,7 +64,7 @@
               </div>
               <br>
               <div>备注：
-                <iep-div-detail style="display: inline;" :value="form.remarks"></iep-div-detail>
+                <iep-div-detail style="display: inline;" :value="process.remarks"></iep-div-detail>
               </div>
             </el-card>
           </el-timeline-item>

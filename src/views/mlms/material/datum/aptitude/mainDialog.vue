@@ -158,15 +158,16 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.avatar-uploader .el-upload {
+<style lang="scss" scoped>
+.avatar-uploader {
+  display: inline-block;
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
 }
-.avatar-uploader .el-upload:hover {
+.avatar-uploader:hover {
   border-color: #409EFF;
 }
 .avatar-uploader-icon {

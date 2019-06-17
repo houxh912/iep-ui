@@ -26,7 +26,7 @@
             <el-form label-width="50px" :inline="true">
               <div class="dt_div">
                 <el-form-item label="科目:">
-                  <el-select v-model="item.field" size="mini" disabled>
+                  <el-select v-model="item.field" multiple collapse-tags size="mini" disabled>
                     <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
                       :value="item.id"></el-option>
                   </el-select>
@@ -160,20 +160,22 @@
       width="700px" @close="questionConfiguration = false">
       <el-form ref="form" :model="form" label-width="100px" :rules="rules" v-loading="formLoading">
         <el-form-item label="科目" prop="field">
-          <el-select v-model="form.field" clearable placeholder="请选择科目" @change="fieldChange">
+          <el-select v-model="form.field" clearable multiple placeholder="请选择科目" @visible-change="fieldChange"
+            style="width:100%">
             <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="题型" prop="type">
-          <el-select v-model="form.type" clearable placeholder="请选择题型" @change="typeChange">
+          <el-select v-model="form.type" clearable placeholder="请选择题型" @change="typeChange" style="width:100%">
             <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label"
               :value="item.id" :disabled="choiceType.indexOf(item.id)>-1"></el-option>
           </el-select>
         </el-form-item>
 
         <el-form-item label="配置状态" prop="configurationState">
-          <el-select v-model="form.configurationState" placeholder="请选择配置状态" clearable @change="configurationStateChange">
+          <el-select v-model="form.configurationState" placeholder="请选择配置状态" clearable @change="configurationStateChange"
+            style="width:100%">
             <el-option value="0" label="固定选题"></el-option>
             <el-option value="1" label="随机选题"></el-option>
           </el-select>
@@ -181,8 +183,8 @@
 
         <el-form-item label="简单题数" prop="simpleNum">
           <el-col :span="17">
-            <iep-input-number controls-position="right" :min="0" :max="totalNum.simple || 0"
-              v-model="form.simpleNum" style="width:100%" :disabled="form.configurationState==='0'"></iep-input-number>
+            <iep-input-number controls-position="right" :max="totalNum.simple || 0" v-model="form.simpleNum"
+              style="width:100%" :disabled="form.configurationState==='0'"></iep-input-number>
           </el-col>
           <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.simple || 0}}</span>
             道</el-col>
@@ -191,8 +193,8 @@
 
         <el-form-item label="一般题数" prop="middleNum">
           <el-col :span="17">
-            <iep-input-number controls-position="right" :min="0" :max="totalNum.general || 0"
-              v-model="form.middleNum" style="width:100%" :disabled="form.configurationState==='0'"></iep-input-number>
+            <iep-input-number controls-position="right" :max="totalNum.general || 0" v-model="form.middleNum"
+              style="width:100%" :disabled="form.configurationState==='0'"></iep-input-number>
           </el-col>
           <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.general || 0}}</span>
             道</el-col>
@@ -200,8 +202,8 @@
 
         <el-form-item label="困难题数" prop="hardNum">
           <el-col :span="17">
-            <iep-input-number controls-position="right" :min="0" :max="totalNum.difficult || 0"
-              v-model="form.hardNum" style="width:100%" :disabled="form.configurationState==='0'"></iep-input-number>
+            <iep-input-number controls-position="right" :max="totalNum.difficult || 0" v-model="form.hardNum"
+              style="width:100%" :disabled="form.configurationState==='0'"></iep-input-number>
           </el-col>
           <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.difficult || 0}}</span>
             道</el-col>
@@ -274,16 +276,43 @@ function sortKey (array, key) {
   })
 }
 
+
 export default {
   name: 'CreatedNewPaper',
   props: ['data'],
   components: { StepsContent, DialogQuestionTable },
   data () {
+    var checkSimpleNum = (rule, value, callback) => {
+      setTimeout(() => {
+        if (value === 0 && this.totalNum.simple > 0) {
+          callback(new Error('请配置试题的简单题数'))
+        } else {
+          callback()
+        }
+      }, 100)
+    }
+    var checkMiddleNum = (rule, value, callback) => {
+      setTimeout(() => {
+        if (value === 0 && this.totalNum.general > 0) {
+          callback(new Error('请配置试题的一般题数'))
+        } else {
+          callback()
+        }
+      }, 100)
+    }
+    var checkHardNum = (rule, value, callback) => {
+      setTimeout(() => {
+        if (value === 0 && this.totalNum.difficult > 0) {
+          callback(new Error('请配置试题的困难题数'))
+        } else {
+          callback()
+        }
+      }, 100)
+    }
     return {
       formLoading: false,
       questionConfiguration: false,
-      choiceType: [],//已选择的题型
-      iepTestPaperIndex: '',//试题下标
+      choiceType: [],//已选择的题型      iepTestPaperIndex: '',//试题下标
       submitLoading: false,//提交加载
       submitDisabled: false,//禁用配置完成的按钮
       res: [],//下拉框的值
@@ -291,9 +320,9 @@ export default {
         field: [{ required: true, message: '请选择题库', trigger: 'change' }],
         type: [{ required: true, message: '请选择题型', trigger: 'change' }],
         configurationState: [{ required: true, message: '请选择配置状态', trigger: 'change' }],
-        simpleNum: [{ required: true, message: '请选择简单题数', trigger: 'blur' }],
-        middleNum: [{ required: true, message: '请选择一般题数', trigger: 'blur' }],
-        hardNum: [{ required: true, message: '请选择困难题数', trigger: 'blur' }],
+        simpleNum: [{ validator: checkSimpleNum, trigger: 'blur' }],
+        middleNum: [{ validator: checkMiddleNum, trigger: 'blur' }],
+        hardNum: [{ validator: checkHardNum, trigger: 'blur' }],
         single: [{ required: true, message: '请输入每题分数', trigger: 'blur' }],
         scoringMethod: [{ required: true, message: '请选择打分方式', trigger: 'change' }],
         iepItemBankList: [{ required: true, message: '请选择试题', trigger: 'blur' }],
@@ -407,7 +436,7 @@ export default {
       this.formLoading = true
       this.iepTestPaperIndex = index
       if (index != undefined) {
-        postPaperAmount({ subject: this.iepQstnRuleList[index].field, question: this.iepQstnRuleList[index].type }).then(({ data }) => {
+        postPaperAmount({ subject: this.iepQstnRuleList[index].field.join(','), question: this.iepQstnRuleList[index].type }).then(({ data }) => {
           if (data.data) {
             this.totalNum = data.data
             this.form = this.$mergeByFirst(questionForm(), this.iepQstnRuleList[index])
@@ -458,7 +487,8 @@ export default {
         this.$refs['table'].handleDelete()
       }
       if (this.form.type != '' && this.form.field != '') {
-        const { data } = await postPaperAmount({ subject: this.form.field, question: this.form.type })
+        const field = this.form.field.join(',')
+        const { data } = await postPaperAmount({ subject: field, question: this.form.type })
         if (data.data) {
           this.totalNum = data.data
         }

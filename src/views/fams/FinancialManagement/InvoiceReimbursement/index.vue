@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="报销管理"></page-header>
+      <page-header title="报销管理" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage">
@@ -53,6 +53,8 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      statistics: [0, 0, 0, 0],
+      replaceText: (data) => `（待审核：${data[0]}笔，总计：${data[1]}，已确认：${data[2]}笔，总计：${data[3]}）`,
     }
   },
   created () {
@@ -75,8 +77,9 @@ export default {
         path: `/fams_spa/invoice_detail/${row.id}`,
       })
     },
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getInvoicePage)
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable(param, getInvoicePage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

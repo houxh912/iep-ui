@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header title="开票通知详情" :back-option="backOption">
+      <page-header title="资金调拨详情" :back-option="backOption">
       </page-header>
       <el-form ref="form" class="form-detail" :model="form" label-width="200px" size="small">
         <h4 class="iep-sub-title">基础信息</h4>

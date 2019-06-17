@@ -8,12 +8,11 @@
             {{list.post}}：
           </span>
           <span :class="list.show">
-            {{list.name}}
-            <span class="classTag" v-show="list.show=='show'">
-              <el-tag type="white">{{list.tag1}}</el-tag>
-              <el-tag type="white">{{list.tag2}}</el-tag>
-              <el-tag type="white">{{list.tag3}}</el-tag>
+            <span class="classTag" v-if="list.show=='show'">
+              <el-tag type="white" v-for="(item, index) in projectData.projectTagList" :key="index">{{item}}</el-tag>
             </span>
+            <span v-else-if="list.dict">{{dictMap[list.dict][projectData[list.name]]}}</span>
+            <span v-else>{{projectData[list.name]}}</span>
           </span>
         </span>
       </div>
@@ -22,6 +21,11 @@
 </template>
 <script>
 export default {
+  props: {
+    projectData: {
+      type: Object,
+    },
+  },
   data () {
     return {
       itemList: [
@@ -30,42 +34,47 @@ export default {
           lists: [
             {
               post: '项目名称',
-              name: '北京市政务服务管理办公室五个主体事项梳理',
+              name: 'projectName',
             },
             {
               post: '项目标签',
-              tag1: '大数据',
-              tag2: '政务规划',
-              tag3: '人工智能',
+              name: 'projectTagList',
               show: 'show',
             },
             {
               post: '发布人',
-              name: '超级管理员',
+              name: 'publisherName',
             },
             {
               post: '发布时间',
-              name: '2019-06-22  16:30',
+              name: 'publishTime',
             },
             {
               post: '编号',
-              name: 'GM20190622',
+              name: 'serialNo',
             },
             {
               post: '客户名称',
-              name: '战略合作伙伴',
+              name: 'groupExternalCooperatePartnerName',
             },
             {
               post: '项目预算',
-              name: '60,000,00',
+              name: 'projectBudget',
             },
             {
               post: '是否关联产品',
-              name: '是',
+              name: 'isRelevanceProduct',
+              dict: 'is_yes',
             },
           ],
         },
       ],
+      dictMap: {
+        is_yes: {
+          1: '是',
+          2: '否',
+        },
+      },
     }
   },
 }

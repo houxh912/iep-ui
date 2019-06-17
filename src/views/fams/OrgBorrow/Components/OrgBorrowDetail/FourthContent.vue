@@ -14,7 +14,7 @@
       <iep-form-item v-if="!bankAmountOption.disabled" label-name="收款账户">
         <iep-div-detail :value="data.borrowInCompanyBank"></iep-div-detail>
       </iep-form-item>
-      <iep-form-item label-name="还款天数">
+      <iep-form-item label-name="借款天数">
         <iep-div-detail :value="`${data.borrowDays}天`"></iep-div-detail>
       </iep-form-item>
       <iep-form-item label-name="还款时间">
@@ -26,13 +26,15 @@
       <iep-form-item label-name="借款金额">
         <iep-div-detail :value="`${data.amount}元`"></iep-div-detail>
       </iep-form-item>
-      <iep-divider />
-      <iep-form-item label-name="支付公司">
-        <iep-select v-model="borrowOutCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择收入公司"></iep-select>
-      </iep-form-item>
-      <iep-form-item v-if="!outBankAmountOption.disabled" label-name="支付账户">
-        <iep-select v-model="borrowOutCompanyBankId" autocomplete="off" :prefix-url="outBankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
-      </iep-form-item>
+      <template v-if="data.isOut">
+        <iep-divider />
+        <iep-form-item label-name="支付公司">
+          <iep-select v-model="borrowOutCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择收入公司"></iep-select>
+        </iep-form-item>
+        <iep-form-item v-if="!outBankAmountOption.disabled" label-name="支付账户">
+          <iep-select v-model="borrowOutCompanyBankId" autocomplete="off" :prefix-url="outBankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
+        </iep-form-item>
+      </template>
     </el-form>
     <template v-slot:action>
       <a-button v-if="!data.isOut" type="primary" :loading="submitLoading" @click="handleSubmit">

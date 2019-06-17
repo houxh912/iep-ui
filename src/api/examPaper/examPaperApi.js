@@ -31,7 +31,7 @@ export function postNewPaper (params) {
 export function postPaperAmount (params) {
   return request({
     url: '/exms/iepitembank/statistics',
-    method: 'get',
+    method: 'post',
     params: params,
   })
 }

@@ -2,12 +2,10 @@ export const columnsMap = [
   {
     label: '分类',
     prop: 'fieldName',
-    width: '180px',
   },
   {
     label: '名称',
     prop: 'title',
-    width: '180px',
   },
   // {
   //   label: '难度',
@@ -18,12 +16,12 @@ export const columnsMap = [
   {
     label: '题数',
     prop: 'choiceNum',
-    width: '135px',
+    width: '150px',
   },
   {
     label: '总分',
     prop: 'score',
-    width: '135px',
+    width: '150px',
   },
   // {
   //   label: '状态',
@@ -37,7 +35,7 @@ export const columnsMap = [
   {
     label: '创建时间',
     prop: 'creatTime',
-    width: '180px',
+    width: '200px',
   },
 ]
 
@@ -62,7 +60,7 @@ export const initForm = () => {
 
 export const questionForm = () => {
   return {
-    field: '', //科目
+    field: [], //科目
     type: '', //题型
     configurationState: '', //配置状态
     simpleNum: '', //简单题数
@@ -79,7 +77,7 @@ export const questionForm = () => {
   }
 }
 
-export const toDtoForm = row => {
+export const toDtoForm = (row) => {
   var newForm = { ...row }
   newForm.questionList = row.iepItemBankList.map(m => m.id).join(',')
 

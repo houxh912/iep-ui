@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="提现管理"></page-header>
+      <page-header title="提现管理" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleGrantBatch">批量发放</iep-button>
@@ -45,6 +45,8 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      statistics: [0, 0, 0, 0, 0, 0],
+      replaceText: (data) => `（待审核：${data[0]}笔，总计：${data[1]}，待发放：${data[2]}笔，总计：${data[3]}，已发放：${data[4]}笔，总计：${data[5]}）`,
     }
   },
   created () {
@@ -59,12 +61,13 @@ export default {
     },
     handleRewards (row) {
       this.$router.push({
-        path:`/wealth_flow/${row.userId}`,
-        query:{name:`${row.applyName}的`},
+        path: `/wealth_flow/${row.userId}`,
+        query: { name: `${row.applyName}的` },
       })
     },
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getWithdrawPage)
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable(param, getWithdrawPage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
     handleAdd () {
       this.$emit('onEdit', {

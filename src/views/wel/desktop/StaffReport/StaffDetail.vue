@@ -1,22 +1,31 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="title">
-        <span class="to-reward" @click="handleReturn">返回</span>
+      <page-header :title="form.title" :backOption="backOption">
       </page-header>
       <operation-container style="border-bottom: 1px solid #eee;padding-bottom:15px;">
         <template slot="left">
-          <span style="margin-right:15px;">组织：{{origanize}}</span>
-          <span>发布人：{{publisher}}</span>
-        </template>
-        <template slot="right">
-          <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+          <span style="margin-right:15px;">组织：{{form.orgName}}</span>
+          <span>发布人：{{form.realName}}</span>
+          <span>发布日期：{{form.updateTime|parseToDay}}</span>
         </template>
       </operation-container>
       <div class="container">
-        <div class="con-item" v-for="(item,index) in pageList" :key="index">
-          <div class="title">{{index}}</div>
-          <div class="content">{{item}}</div>
+        <div class="con-item">
+          <div class="title">领导指示</div>
+          <iep-div-detail class="content" :value="form.leaderIndication"></iep-div-detail>
+        </div>
+        <div class="con-item">
+          <div class="title">本月工作总结</div>
+          <iep-div-detail class="content" :value="form.workSummary"></iep-div-detail>
+        </div>
+        <div class="con-item">
+          <div class="title">下月工作计划</div>
+          <iep-div-detail class="content" :value="form.workPlan"></iep-div-detail>
+        </div>
+        <div class="con-item">
+          <div class="title">总结与感想</div>
+          <iep-div-detail class="content" :value="form.summarySentiment"></iep-div-detail>
         </div>
       </div>
     </basic-container>
@@ -24,56 +33,43 @@
 </template>
 <script>
 import { getStaffReport } from '@/api/mlms/leader_report/'
+function initForm () {
+  return {
+    title: '',
+    orgName: '',
+    updateTime: '',
+    realName: '',
+    leaderIndication: '',
+    workSummary: '',
+    workPlan: '',
+    summarySentiment: '',
+    meetingSummary: [],
+    productList: [],
+    projectList: [],
+  }
+}
 export default {
   data () {
     return {
-      value1: '',
-      title: '',
-      origanize: '',
-      publisher: '',
-      pageList: {
-        领导指示: '',
-        本月工作总结: '',
-        下月工作计划: '',
-        总结与感想: '',
+      backOption: {
+        isBack: true,
       },
-      id: '',
+      form: initForm(),
     }
   },
-  created () {
-    this.id = this.$route.params.id
-    getStaffReport(this.id).then(({ data }) => {
-      this.title = data.data.title
-      this.value1 = data.data.updateTime
-      this.origanize = data.data.orgName
-      this.publisher = data.data.realName
-      this.pageList.领导指示 = data.data.leaderIndication
-      this.pageList.本月工作总结 = data.data.workSummary
-      this.pageList.下月工作计划 = data.data.workPlan
-      this.pageList.总结与感想 = data.data.summarySentiment
-    })
-  },
-  methods: {
-    handleReturn () {
-      this.$router.go(-1)
+  computed: {
+    id () {
+      return + this.$route.params.id
     },
-
+  },
+  created () {
+    getStaffReport(this.id).then(({ data }) => {
+      this.form = this.$mergeByFirst(initForm(), data.data)
+    })
   },
 }
 </script>
 <style scoped lang='scss'>
-.to-reward {
-  padding: 3px 8px;
-  color: #ccc;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    border-color: #aaa;
-    color: #aaa;
-  }
-}
 .container {
   padding: 0 10px;
   .con-item {

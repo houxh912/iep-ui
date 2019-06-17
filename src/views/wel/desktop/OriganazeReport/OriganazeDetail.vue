@@ -1,22 +1,46 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="title">
-        <span class="to-reward" @click="handleReturn">返回</span>
+      <page-header :title="form.title" :backOption="backOption">
       </page-header>
       <operation-container style="border-bottom: 1px solid #eee;padding-bottom:15px;">
         <template slot="left">
-          <span style="margin-right:15px;">组织：{{orgName}}</span>
-          <span>发布人：{{realName}}</span>
-        </template>
-        <template slot="right">
-          <el-date-picker v-model="updateTime" type="date" placeholder="选择日期"></el-date-picker>
+          <span style="margin-right:15px;">组织：{{form.orgName}}</span>
+          <span>发布人：{{form.realName}}</span>
+          <span>发布日期：{{form.updateTime|parseToDay}}</span>
         </template>
       </operation-container>
       <div class="container">
-        <div class="con-item" v-for="(item,index) in pageList" :key="index">
-          <div class="title">{{index}}</div>
-          <iep-div-detail class="content" :value="item"></iep-div-detail>
+        <div class="con-item">
+          <div class="title">领导指示</div>
+          <iep-div-detail class="content" :value="form.leaderIndication"></iep-div-detail>
+        </div>
+        <div class="con-item">
+          <div class="title">本月工作总结</div>
+          <iep-div-detail class="content" :value="form.workSummary"></iep-div-detail>
+        </div>
+        <div class="con-item">
+          <div class="title">下月工作计划</div>
+          <iep-div-detail class="content" :value="form.workPlan"></iep-div-detail>
+        </div>
+        <div class="con-item">
+          <div class="title">总结与感想</div>
+          <iep-div-detail class="content" :value="form.summarySentiment"></iep-div-detail>
+        </div>
+        <div class="con-item">
+          <div class="title">市场拓展</div>
+          <iep-div-detail v-if="!form.meetingSummary.length" class="content" :value="form.meetingSummary"></iep-div-detail>
+          <relation-list class="content" v-else :value="form.meetingSummary"></relation-list>
+        </div>
+        <div class="con-item">
+          <div class="title">相关产品</div>
+          <iep-div-detail v-if="!form.productList.length" class="content" :value="form.productList"></iep-div-detail>
+          <relation-list class="content" v-else :value="form.productList"></relation-list>
+        </div>
+        <div class="con-item">
+          <div class="title">相关项目</div>
+          <iep-div-detail v-if="!form.projectList.length" class="content" :value="form.projectList"></iep-div-detail>
+          <relation-list class="content" v-else :value="form.projectList"></relation-list>
         </div>
       </div>
     </basic-container>
@@ -24,61 +48,45 @@
 </template>
 <script>
 import { getOgrReport } from '@/api/mlms/leader_report/'
+import RelationList from '@/views/wel/desktop/Components/RelationList.vue'
+function initForm () {
+  return {
+    title: '',
+    orgName: '',
+    updateTime: '',
+    realName: '',
+    leaderIndication: '',
+    workSummary: '',
+    workPlan: '',
+    summarySentiment: '',
+    meetingSummary: [],
+    productList: [],
+    projectList: [],
+  }
+}
 export default {
+  components: { RelationList },
   data () {
     return {
-      updateTime: '',
-      title: '',
-      orgName: '',
-      realName: '',
-      pageList: {
-        领导指示: '',
-        本月工作总结: '',
-        下月工作计划: '',
-        总结与感想: '',
-        市场拓展: '',
-        相关产品: '',
-        相关项目: '',
+      backOption: {
+        isBack: true,
       },
-      id: '',
+      form: initForm(),
     }
   },
-  created () {
-    this.id = this.$route.params.id
-    getOgrReport(this.id).then(({ data }) => {
-      this.title = data.data.title
-      this.updateTime = data.data.updateTime
-      this.orgName = data.data.orgName
-      this.realName = data.data.realName
-      this.pageList.领导指示 = data.data.leaderIndication
-      this.pageList.本月工作总结 = data.data.workSummary
-      this.pageList.下月工作计划 = data.data.workPlan
-      this.pageList.总结与感想 = data.data.summarySentiment
-      this.pageList.市场拓展 = data.data.meetingSummary.map(m => m.name).join(',')
-      this.pageList.相关产品 = data.data.productList.map(m => m.name).join(',')
-      this.pageList.相关项目 = data.data.projectList.map(m => m.name).join(',')
-    })
-  },
-  methods: {
-    handleReturn () {
-      this.$router.go(-1)
+  computed: {
+    id () {
+      return + this.$route.params.id
     },
+  },
+  created () {
+    getOgrReport(this.id).then(({ data }) => {
+      this.form = this.$mergeByFirst(initForm(), data.data)
+    })
   },
 }
 </script>
 <style scoped lang='scss'>
-.to-reward {
-  padding: 3px 8px;
-  color: #ccc;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    border-color: #aaa;
-    color: #aaa;
-  }
-}
 .container {
   padding: 0 10px;
   .con-item {

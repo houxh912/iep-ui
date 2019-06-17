@@ -11,10 +11,13 @@
         </el-table-column>
         <el-table-column prop="academicId" label="学历要求">
           <template slot-scope="scope">
-            {{getEducation(scope.row.academicId)}}
+            {{getDictVal(scope.row.academicId, 'hrms_highest_educational')}}
           </template>
         </el-table-column>
         <el-table-column prop="treatment" label="薪资待遇">
+          <template slot-scope="scope">
+            {{getDictVal(scope.row.treatment, 'hrms_wages_salaries')}}
+          </template>
         </el-table-column>
         <el-table-column prop="orgName" label="需求组织">
         </el-table-column>
@@ -43,6 +46,14 @@ export default {
       getPostList().then(({ data }) => {
         this.tableData = data.data
       })
+    },
+    getDictVal (val, dict) {
+      for (let item of this.dictGroup[dict]) {
+        if (item.value == val) {
+          return item.label
+        }
+      }
+      return '暂无'
     },
     getEducation (val) {
       for (let item of this.dictGroup.hrms_highest_educational) {

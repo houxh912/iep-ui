@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="title" style="float:right;margin:0">
-                          <div v-if="item.status !== 1 && item.examStatus === 7">
+                          <div v-if="item.status !== 1 && item.examStatus === 7  && item.status!==3">
                             <div class="circleG"></div>
                             <div class="states">已报名</div>
                           </div>
@@ -78,22 +78,22 @@
                             <div class="states">进行中</div>
                           </div>
 
-                          <div v-if="item.examStatus === 5">
+                          <div v-if="item.examStatus === 5 && item.status!==3">
                             <div class="circleY"></div>
                             <div class="states">未报名</div>
                           </div>
 
-                          <div v-if="item.examStatus === 4">
+                          <div v-if="item.status === 3 ">
                             <div class="circleGray"></div>
                             <div class="states">已结束</div>
                           </div>
 
-                          <div v-if="item.examStatus === 2">
+                          <div v-if="item.examStatus === 2 && item.status!==3">
                             <div class="circleB"></div>
                             <div class="states">已完成</div>
                           </div>
 
-                          <div v-if="item.examStatus === 1 && item.status === 1">
+                          <div v-if="item.examStatus === 1 && item.status === 1 && item.status!==3">
                             <div class="circleR"></div>
                             <div class="states">已撤销考试资格</div>
                           </div>
@@ -101,16 +101,16 @@
                         </div>
                       </div>
                       <div class="handleButton">
-                        <iep-button type="primary" @click="handleStart(item)" v-if="item.status === 1 && item.examStatus === 7">开始考试</iep-button>
-                        <iep-button type="success" @click="handleSign(item)" v-if="item.status === 0 && item.examStatus === 5">开始报名</iep-button>
-                        <iep-button type="primary" disabled v-if="item.status !== 1 && item.examStatus === 7 ">等待考试</iep-button>
-                        <iep-button type="info" disabled v-if="item.status === 2 && item.examStatus === 5">报名结束</iep-button>
-                        <iep-button type="info" disabled v-if="item.examStatus === 4">考试结束</iep-button>
-                        <iep-button type="info" disabled v-if="item.examStatus === 2">考试完成</iep-button>
-                        <iep-button type="success" disabled v-if="item.examStatus === 0">报名审核中</iep-button>
-                        <iep-button type="danger" disabled v-if="item.examStatus === 1 && item.status === 1">报名审核不通过</iep-button>
-                        <iep-button type="info" disabled v-if="item.examStatus === 3">已交卷</iep-button>
-                        <iep-button type="primary" v-if="item.examStatus === 8" @click="handleExamine(item)">查看成绩</iep-button>
+                        <iep-button type="primary" @click="handleStart(item)" v-if="item.status === 1 && item.examStatus === 7 && item.status!==3">开始考试</iep-button>
+                        <iep-button type="success" @click="handleSign(item)" v-if="item.status === 0 && item.examStatus === 5 && item.status!==3">开始报名</iep-button>
+                        <iep-button type="primary" disabled v-if="item.status !== 1 && item.examStatus === 7 && item.status!==3">等待考试</iep-button>
+                        <iep-button type="info" disabled v-if="item.status === 2 && item.examStatus === 5 && item.status!==3">报名结束</iep-button>
+                        <iep-button type="info" disabled v-if="item.status === 3 && item.examStatus !== 8 ">考试结束</iep-button>
+                        <iep-button type="info" disabled v-if="item.examStatus === 2 && item.status!==3">考试完成</iep-button>
+                        <iep-button type="success" disabled v-if="item.examStatus === 0 && item.status!==3">报名审核中</iep-button>
+                        <iep-button type="danger" disabled v-if="item.examStatus === 1 && item.status === 1 && item.status!==3">报名审核不通过</iep-button>
+                        <iep-button type="info" disabled v-if="item.examStatus === 3 && item.status!==3">已交卷</iep-button>
+                        <iep-button type="primary" v-if="item.examStatus === 8 " @click="handleExamine(item)">查看成绩</iep-button>
                       </div>
                     </div>
                   </el-card>

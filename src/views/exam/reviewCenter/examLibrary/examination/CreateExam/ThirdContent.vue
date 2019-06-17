@@ -171,24 +171,31 @@
           </el-form-item>
           <hr>
           <el-form-item>
-            <el-col :span="8">
+            <el-col :span="6">
               <el-form-item prop="showResult">
                 <el-switch active-text="考后显示成绩" v-model="examForm.showResult" :active-value="1"
                   :inactive-value="0" :disabled="readOnly"></el-switch>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="6">
               <el-form-item prop="showAnswer">
                 <el-switch active-text="考后显示答案和解析" v-model="examForm.showAnswer" :active-value="1"
                   :inactive-value="0" :disabled="readOnly"></el-switch>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="6">
               <el-form-item prop="addInterview">
                 <el-switch active-text="添加面试判分" v-model="examForm.addInterview" :active-value="1"
                   :inactive-value="0" :disabled="readOnly"></el-switch>
               </el-form-item>
             </el-col>
+            <el-col :span="6">
+              <el-form-item prop="registrationState">
+                <el-switch active-text="是否添加报名审核" v-model="examForm.registrationState"
+                  :active-value="1" :inactive-value="0" :disabled="readOnly"></el-switch>
+              </el-form-item>
+            </el-col>
+
           </el-form-item>
           <el-form-item label="证书信息" prop="iepCertiFicate">
             <dialog-certificate v-model="examForm.iepCertiFicate" :is-show-contact-btn="readOnly"></dialog-certificate>

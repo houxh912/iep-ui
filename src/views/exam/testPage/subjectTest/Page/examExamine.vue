@@ -328,12 +328,10 @@ export default {
         border-bottom: 1px solid #ebeef5;
         margin-bottom: 10px;
         .comments {
-          display: flex;
-          margin: 20px 0px;
+          margin: 15px 0px;
           label {
-            width: 80px;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: bold;
           }
         }
       }

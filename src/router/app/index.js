@@ -276,7 +276,7 @@ export default [
         component: () => import('@/views/app/versionPage/'),
       },
       {
-        path: 'project_details',
+        path: 'project_details/:id',
         name: '项目详情',
         component: () => import('@/views/app/projectDetails/'),
       },

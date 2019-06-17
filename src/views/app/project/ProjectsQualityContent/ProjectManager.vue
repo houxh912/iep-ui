@@ -39,7 +39,7 @@ export default {
   },
   created () {
     getProjectProjectManager().then(({data}) => {
-      this.projectManagerList = data.data
+      this.projectManagerList = data.data.slice(0, 9)
     })
   },
 }

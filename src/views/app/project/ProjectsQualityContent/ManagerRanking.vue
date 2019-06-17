@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-project-manager-ranking">
     <IepAppTabCard :title="title">
       <div class="manager-board-list">
         <div class="sub">
@@ -8,15 +8,18 @@
           <span class="subNum">{{subNum}}</span>
         </div>
         <div v-for="(item,index) in managerBoardList" :key="index" class="piece">
-          <span class="count" :class="item.color">{{index+1}}</span>
-          <span class="name">{{item.name}}</span>
-          <span class="num">{{item.num}}</span>
+          <span class="count" :class="index < 3 ? 'red' : ''">{{index+1}}</span>
+          <span class="name">{{item.projectManagerName}}</span>
+          <span class="num">{{item.time}}</span>
         </div>
       </div>
     </IepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getProjectProjectManager } from '@/api/app/prms/'
+
 export default {
   data () {
     return {
@@ -24,19 +27,13 @@ export default {
       subTitle: '名次',
       subName: '姓名',
       subNum: '担任次数',
-      managerBoardList: [
-        { name: '张小燕', num: '22', color: 'red' },
-        { name: '王林源', num: '18', color: 'red' },
-        { name: '郑爱军', num: '17', color: 'red' },
-        { name: '黄成祥', num: '15', color: '' },
-        { name: '苏肖', num: '12', color: '' },
-        { name: '刘畅', num: '10', color: '' },
-        { name: '谢海艳', num: '9', color: '' },
-        { name: '王昉', num: '7', color: '' },
-        { name: '王春', num: '5', color: '' },
-        { name: '胡小丽', num: '3', color: '' },
-      ],
+      managerBoardList: [],
     }
+  },
+  created () {
+    getProjectProjectManager().then(({data}) => {
+      this.managerBoardList = data.data
+    })
   },
 }
 </script>
@@ -104,3 +101,9 @@ export default {
   color: #999;
 }
 </style>
+<style lang="scss" scoped>
+.app-project-manager-ranking >>> .el-card__body {
+  height: 358px;
+}
+</style>
+

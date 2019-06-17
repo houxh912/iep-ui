@@ -1,7 +1,7 @@
 <template>
   <div class="recommendable">
     <IepAppTabCard :title="title" :linkName="linkName" isMore :data="data">
-      <IepAppListCard :dataList="dataList" name='project_name'></IepAppListCard>
+      <IepAppListCard :dataList="dataList" name='project_name' @click="handleDetail"></IepAppListCard>
     </IepAppTabCard>
   </div>
 </template>
@@ -17,6 +17,11 @@ export default {
       dataList: [],
       linkName: '',
     }
+  },
+  methods: {
+    handleDetail (row) {
+      this.$router.push(`/app/project_details/${row.id}`)
+    },
   },
   created () {
     getProjectRecProjects().then(({data}) => {

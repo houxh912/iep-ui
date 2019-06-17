@@ -5,9 +5,9 @@
         v-for="(chat, index) in $store.getters.imCurrentChatList"
         :key="index"
         @click="chatChange(chat)"
-        :class="currentChat === chat.userId ? 'chosen' : ''">
+        :class="$store.getters.imCurrentChat.chatNo === chat.chatNo ? 'chosen' : ''">
         <iep-img class="headimage" :src="chat.avatar ? chat.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
-        <span>{{chat.realName}}</span>
+        <span>{{chat.chatName}}</span>
         <i class="icon-font icon-guanbi" @click.stop="chatClose(chat)"></i>
       </li>
     </ul>
@@ -17,15 +17,9 @@
 <script>
 export default {
   name: 'chat-list',
-  props: {
-    currentChat: {
-      type: Number,
-      default: 0,
-    },
-  },
   methods: {
     chatChange (chat) {
-      this.$emit('chatChange', chat)
+      this.$store.dispatch('updateCurrentChat', {chat, show: true})
     },
     chatClose (chat) {
       this.$emit('chatClose', chat)

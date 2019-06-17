@@ -9,13 +9,13 @@
           <IepAppLabelCard :dataList="labelList"></IepAppLabelCard>
         </IepAppTabCard>
         <IepAppTabCard :title="listTitle1">
-          <IepAppListCard :dataList="listList1"></IepAppListCard>
+          <IepAppListCard :dataList="listList1" @click="handleDetail"></IepAppListCard>
         </IepAppTabCard>
-        <IepAppTabCard :title="rankingTitle">
+        <!-- <IepAppTabCard :title="rankingTitle">
           <IepAppRankingCard :dataList="dataList"></IepAppRankingCard>
-        </IepAppTabCard>
+        </IepAppTabCard> -->
         <IepAppTabCard :title="listTitle2">
-          <IepAppListCard :dataList="listList2" name="materialName"></IepAppListCard>
+          <IepAppListCard :dataList="listList2" name="materialName" @click="handleDetail"></IepAppListCard>
         </IepAppTabCard>
       </div>
     </div>
@@ -67,6 +67,9 @@ export default {
       getExcellentList().then(({data}) => {
         this.listList2 = data.data
       })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
     },
   },
   beforeRouteUpdate (to, from, next) {

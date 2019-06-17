@@ -44,7 +44,7 @@
 
           <div v-if="resdata.questionTypeName ==='判断题'">
             <li v-for="(item,index) in trueOrFalseList" :key="index">
-              <el-radio v-model="trueOrFalseRadio" :label="item" @change="handleTrueOrFalse (item)"></el-radio>
+              <el-radio v-model="trueOrFalseRadio" :label="item" @change="handleTrueOrFalse ()"></el-radio>
             </li>
           </div>
 
@@ -219,8 +219,8 @@ export default {
     /**
      * 判断题
      */
-    handleTrueOrFalse (item) {
-      console.log('handleTrueOrFalse => ' + item)
+    handleTrueOrFalse () {
+      // console.log('handleTrueOrFalse => ' + item)
     },
 
     /**
@@ -234,7 +234,7 @@ export default {
         params.userAnswer = this.answerRadio
       }
       if (type === '复选题') {
-        params.userAnswer = this.checksList.length > 0 ? JSON.stringify(this.checksList) : ''
+        params.userAnswer = this.checksList.length > 0 ? JSON.stringify(this.checksList.sort()) : ''
         // console.log('111', params.userAnswer)
       }
       if (type === '判断题') {
@@ -278,9 +278,9 @@ export default {
             }
 
             if (record.questionTypeName === '复选题') {
-              console.log('222', this.checksList)
+              // console.log('222', this.checksList)
               this.checksList = record.userAnswer && record.userAnswer.length > 0 ? JSON.parse(record.userAnswer) : []
-              console.log('333', this.checksList)
+              // console.log('333', this.checksList)
               this.resdata.kindTotalNum = record.questionNumList.checkboxMap.length
               this.resdata.kindMark = record.questionNumList.checkboxMap[0].grade * this.resdata.kindTotalNum
             }
@@ -509,7 +509,7 @@ export default {
         this.judgeType(params)
         getTestPageById(params).then(res => {
           if (res.data.code === 0) {
-            console.log('success go back')
+            // console.log('success go back')
             this.$message({
               type: 'success',
               message: '交卷成功!',

@@ -1,6 +1,6 @@
 <template>
   <div class="top-class">
-    <div class="top-class-list" :class="item.type ? 'canRouter' : ''" v-for="item in items" :key="item.id" @click="handleDetail(item)">
+    <div class="top-class-list" :class="(item.type || item.router) ? 'canRouter' : ''" v-for="item in items" :key="item.id" @click="handleDetail(item)">
       <span class="num">{{item.horizontal ? item.horizontal : countObj[item.prop]}}</span>
       <span class="name">{{item.name}}</span>
     </div>
@@ -25,6 +25,7 @@ export default {
           name: '外部同学',
           prop: 'externalCount',
           type: 1,
+          isOut: 1,
         },
         {
           id: '3',
@@ -64,7 +65,9 @@ export default {
   methods: {
     handleDetail (row) {
       if (row.type) {
-        this.$router.push({ path: '/app/resource/expert', query: {type: row.type} })
+        this.$router.push({ path: '/app/resource/expert', query: { type: row.type, isOut: row.isOut } })
+      } else {
+        this.$openPage(row.router)
       }
     },
   },

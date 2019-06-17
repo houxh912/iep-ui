@@ -2,8 +2,8 @@
   <div class="notice">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
       <div v-if="dataList.length !== 0">
-        <IepAppAssortCard :dataList="dataList" class="notice-box" title="typeName" desc="name">
-          <span class="new" slot="label">NEW</span>
+        <IepAppAssortCard :dataList="dataList" class="notice-box" title="typeName" desc="name" @click="handleDetail">
+          <!-- <span class="new" slot="label">NEW</span> -->
         </IepAppAssortCard>
       </div>
       <IepNoData v-else></IepNoData>
@@ -21,6 +21,11 @@ export default {
       dataList: [],
       linkName: '/wel/message/announcement',
     }
+  },
+  methods: {
+    handleDetail (row) {
+      this.$router.push(`/ims_spa/announcement_detail/${row.id}`)
+    },
   },
   created () {
     getNotificationList().then(({ data }) => {

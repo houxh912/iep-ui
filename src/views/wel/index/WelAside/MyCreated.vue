@@ -64,16 +64,14 @@ export default {
         {
           title: '考试',
           callback: () => {
-            this.$message('功能开发中')
+            this.$router.push('/exam/testPage/subjectTest')
           },
-          disabled: 'disabled',
         },
         {
           title: '调研',
           callback: () => {
-            this.$message('功能开发中')
+            this.$router.push('/wenjuan/questionnaire')
           },
-          disabled: 'disabled',
         },
         {
           title: '建模',

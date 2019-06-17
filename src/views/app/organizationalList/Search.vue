@@ -1,10 +1,10 @@
 <template>
   <div class="expert-search">
     <div class="search-con">
-      <operation-search @search-page="searchPage" :paramForm="paramForm">
+      <operation-search @search-page="searchPage" :paramForm="paramForm" prop="orgName">
         <!-- <advance-search></advance-search> -->
       </operation-search>
-      <el-button type="danger" plain>高级搜索</el-button>
+      <!-- <el-button type="danger" plain>高级搜索</el-button> -->
     </div>
   </div>
 </template>
@@ -19,8 +19,9 @@ export default {
     }
   },
   methods: {
-    searchPage () {
-      console.log('params: ', this.paramForm)
+    searchPage (val) {
+      console.log('params: ', val)
+      this.$emit('click', val)
     },
   },
 }

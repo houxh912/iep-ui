@@ -44,7 +44,7 @@
         <div class="name">{{formData.creatorRealName}}</div>
         <div class="num">共{{materialTotal}}篇材料</div>
         <div class="foot">
-          <iep-button type="primary" @click="subscribe">订阅</iep-button>
+          <iep-button type="primary" disabled @click="subscribe">订阅</iep-button>
           <iep-button type="primary" @click="apprentice">向他拜师</iep-button>
         </div>
       </div>
@@ -53,6 +53,14 @@
         <p v-for="(item, index) in greatMaterialList" :key="index" @click="handleDetail(item)">{{item.name}}</p>
       </div>
     </el-col>
+    <!-- 拜师 -->
+    <el-dialog title="拜师" :visible.sync="apprenticeShow" width="330px" center>
+      <div style="text-align: center;">是否确认向 【{{formData.creatorRealName}}】 拜师</div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="apprenticeShow = false" size="small">取 消</el-button>
+        <el-button type="primary" @click="handleApprenticeConfirm" size="small">确 定</el-button>
+      </span>
+    </el-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" type="honor" :requestFn="createCollect"></collection-dialog>
     <share-dialog ref="share" type="material"></share-dialog>
   </basic-container>
@@ -67,6 +75,7 @@ import CollectionDialog from '../../components/collectionDialog'
 import { createCollect } from '@/api/mlms/material/summary'
 import ShareDialog from '@/views/mlms/material/components/shareDialog'
 import { mapGetters } from 'vuex'
+import { addMasterWorker } from '@/api/cpms/characterrelations'
 
 function commentForm () {
   return {
@@ -92,7 +101,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['dictGroup']),
+    ...mapGetters(['dictGroup', 'userInfo']),
   },
   data () {
     return {
@@ -118,6 +127,7 @@ export default {
       createCollect,
       pageSize,
       isDelete: true,
+      apprenticeShow: false,
     }
   },
   methods: {
@@ -188,7 +198,21 @@ export default {
     },
     // 拜师
     apprentice () {
-      this.$message.info('抱歉，此功能正在开发中')
+      if (this.userInfo.userId == this.formData.creator) {
+        this.$message.error('无法向自己拜师')
+        return
+      }
+      this.apprenticeShow = true
+    },
+    handleApprenticeConfirm () {
+      addMasterWorker({ masterWorker: [this.formData.creator] }).then(({data}) => {
+        if (data.data) {
+          this.$message.success('拜师成功！')
+        } else {
+          this.$message.error(data.msg)
+        }
+        this.apprenticeShow = false
+      })
     },
     // 收藏
     handleCollect () {
@@ -293,8 +317,6 @@ export default {
   }
   .image {
     margin: 20px 0;
-    width: 30px;
-    height: 30px;
     .img-avatar {
       max-width: 100%;
     }

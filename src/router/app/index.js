@@ -276,6 +276,11 @@ export default [
         component: () => import('@/views/app/versionPage/'),
       },
       {
+        path: 'project_details',
+        name: '项目详情',
+        component: () => import('@/views/app/projectDetails/'),
+      },
+      {
         path: 'organizational_list',
         name: '组织列表',
         component: () => import('@/views/app/organizationalList/'),

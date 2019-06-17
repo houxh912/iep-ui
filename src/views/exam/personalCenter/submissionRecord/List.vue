@@ -14,12 +14,13 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
         @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <el-table-column prop="title" label="题目" min-width="89">
+        <el-table-column prop="title" label="题目" min-width="115">
           <template slot-scope="scope">
-            {{scope.row.title}}
+            <span class="hiddenOverText" :title="scope.row.title">{{scope.row.title}}</span>
+            <span class="overText" v-if="JSON.stringify(scope.row.title).length > 45">......</span>
           </template>
         </el-table-column>
-        <el-table-column prop="fieldName" label="科目" min-width="89">
+        <el-table-column prop="fieldName" label="科目">
           <template slot-scope="scope">
             {{scope.row.fieldName}}
           </template>
@@ -39,12 +40,12 @@
             {{scope.row.title}}
           </template>
         </el-table-column> -->
-        <el-table-column prop="difficultyName" label="难度">
+        <el-table-column prop="difficultyName" label="难度" min-width="70">
           <template slot-scope="scope">
             {{scope.row.difficultyName}}
           </template>
         </el-table-column>
-        <el-table-column prop="status" label="状态">
+        <el-table-column prop="status" label="状态" min-width="70">
           <template slot-scope="scope">
             <el-tag type="info" size="medium" v-if="scope.row.status === 0">审核中</el-tag>
             <el-tag type="success" size="medium" v-if="scope.row.status === 1">通过</el-tag>
@@ -124,4 +125,17 @@ export default {
   },
 }
 </script>
+<style scoped>
+.hiddenOverText {
+  max-height: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.overText {
+  position: absolute;
+  bottom: 3px;
+  left: 10px;
+}
+</style>
+
 

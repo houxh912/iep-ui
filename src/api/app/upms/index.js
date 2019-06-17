@@ -16,3 +16,12 @@ export const getOrgDetail = (id) => {
     method: 'get',
   })
 }
+
+// 组织详情
+export const getRectagsOrgPage = (params) => {
+  return request({
+    url: `${prefixUrl}/org/page`,
+    method: 'get',
+    params: params,
+  })
+}

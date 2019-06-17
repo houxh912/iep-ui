@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     handleDetail (id) {
-      this.$router.push(`/crms_spa/customer_detail/${id}?type=2`)
+      this.$router.push(`/app/resource/client/client_detail/${id}`)
     },
   },
   created () {
@@ -52,7 +52,8 @@ export default {
     .percentage {
       height: 30px;
       line-height: 30px;
-      width: 60px;
+      width: 100px;
+      text-align: right;
     }
     .title {
       display: inline-block;

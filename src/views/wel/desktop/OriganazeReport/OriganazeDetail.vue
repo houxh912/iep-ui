@@ -6,7 +6,7 @@
       </page-header>
       <operation-container style="border-bottom: 1px solid #eee;padding-bottom:15px;">
         <template slot="left">
-           <span style="margin-right:15px;">组织：{{origanize}}</span>
+          <span style="margin-right:15px;">组织：{{origanize}}</span>
           <span>发布人：{{publisher}}</span>
         </template>
         <template slot="right">
@@ -15,76 +15,83 @@
       </operation-container>
       <div class="container">
         <div class="con-item" v-for="(item,index) in pageList" :key="index">
-          <div class="title">{{item.topic}}</div>
-          <div class="content">{{item.content}}</div>
+          <div class="title">{{index}}</div>
+          <iep-div-detail class="content" :value="item"></iep-div-detail>
         </div>
       </div>
     </basic-container>
   </div>
 </template>
 <script>
-import {getOgrReport} from '@/api/mlms/leader_report/' 
+import { getOgrReport } from '@/api/mlms/leader_report/'
 export default {
   data () {
     return {
       value1: '',
-      title:'',
+      title: '',
       origanize: '',
       publisher: '',
-      pageList:[
-        {topic:'领导指示',content:''},
-        {topic:'本月工作总结',content:''},
-        {topic:'下月工作计划',content:''},
-        {topic:'总结与感想',content:''},
-        {topic:'市场拓展',content:''},
-        {topic:'相关产品',content:''},
-        {topic:'相关项目',content:''},
-      ],
+      pageList: {
+        领导指示: '',
+        本月工作总结: '',
+        下月工作计划: '',
+        总结与感想: '',
+        市场拓展: '',
+        相关产品: '',
+        相关项目: '',
+      },
       id: '',
     }
   },
   created () {
     this.id = this.$route.params.id
-    getOgrReport (this.id).then(({data})=>{
-      this.title  = data.data.title
+    getOgrReport(this.id).then(({ data }) => {
+      this.title = data.data.title
       this.value1 = data.data.updateTime
       this.origanize = data.data.orgName
-      this.publisher= data.data.realName
+      this.publisher = data.data.realName
+      this.pageList.领导指示 = data.data.leaderIndication
+      this.pageList.本月工作总结 = data.data.workSummary
+      this.pageList.下月工作计划 = data.data.workPlan
+      this.pageList.总结与感想 = data.data.summarySentiment
+      this.pageList.市场拓展 = data.data.meetingSummary.map(m => m.name).join(',')
+      this.pageList.相关产品 = data.data.productList.map(m => m.name).join(',')
+      this.pageList.相关项目 = data.data.projectList.map(m => m.name).join(',')
     })
   },
   methods: {
     handleReturn () {
-        this.$router.push('/wel/origanaze_report')
+      this.$router.go(-1)
     },
   },
 }
 </script>
 <style scoped lang='scss'>
-.to-reward{
-    padding: 3px 8px;
-    color:#ccc;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    &:hover{
-       border-color: #aaa; 
-       color:#aaa;
-    }
+.to-reward {
+  padding: 3px 8px;
+  color: #ccc;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    border-color: #aaa;
+    color: #aaa;
+  }
 }
-.container{
-    padding: 0 10px;
-    .con-item{
-        margin-bottom: 15px;
-        .title{
-            font-size: 15px;
-            color:#333;
-        }
-        .content{
-            padding: 15px;
-            font-size: 14px;
-            color:#999;
-        }
+.container {
+  padding: 0 10px;
+  .con-item {
+    margin-bottom: 15px;
+    .title {
+      font-size: 15px;
+      color: #333;
     }
+    .content {
+      padding: 15px;
+      font-size: 14px;
+      color: #999;
+    }
+  }
 }
 </style>

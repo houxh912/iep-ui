@@ -20,7 +20,7 @@
               <iep-button v-if="scope.row.status===1" @click="handleGrant(scope.row)">发放</iep-button>
               <iep-button v-if="scope.row.status===0" @click="handlePass(scope.row)">通过</iep-button>
               <iep-button v-if="[0,1].includes(scope.row.status)" @click="handleReject(scope.row)">驳回</iep-button>
-              <iep-button @click="handleRewards(scope.row)">个人详情</iep-button>
+              <iep-button @click="handleRewards(scope.row)">财富流水</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -58,7 +58,10 @@ export default {
       this.$emit('onDetail', row)
     },
     handleRewards (row) {
-      this.$router.push(`/app/personal_style/${row.userId}`)
+      this.$router.push({
+        path:`/wealth_flow/${row.userId}`,
+        query:{name:`${row.applyName}的`},
+      })
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getWithdrawPage)

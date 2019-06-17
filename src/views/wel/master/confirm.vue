@@ -46,8 +46,8 @@
     <div class="confirm">
       <div class="title">是否接受他的拜师申请？</div>
       <div class="button-list">
-        <iep-button type="primary" @click="handleConfirm(1)">确认</iep-button>
-        <iep-button @click="handleConfirm(2)">取消</iep-button>
+        <iep-button type="primary" @click="handleConfirm(1)" v-loading="confirmState">确认</iep-button>
+        <iep-button @click="handleConfirm(2)" v-loading="confirmState">取消</iep-button>
       </div>
     </div>
   </div>
@@ -79,6 +79,7 @@ export default {
       },
       apprenticeShow: false,
       params: this.$route.params,
+      confirmState: false,
     }
   },
   methods: {
@@ -94,7 +95,9 @@ export default {
       })
     },
     handleConfirm (type) {
+      this.confirmState = true
       characterIsDetermine(this.params.id, {characterStatus: type}).then(() => {
+        this.confirmState = false
         this.$message.success('操作成功')
         this.$router.push('/wel/index')
       })

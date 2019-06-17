@@ -1,7 +1,7 @@
 export const columnsMap = [
   {
     label: '分类',
-    prop: 'field',
+    prop: 'fieldName',
     width: '180px',
   },
   {
@@ -52,7 +52,7 @@ export const dictsMap = {
 export const initForm = () => {
   return {
     title: '', //试卷名称
-    fieldName: '', //试卷分类
+    field: '', //试卷分类
     iepQstnRuleList: [], //试题集合
     difficulty: '', //试卷难度
     choiceNum: 0, //题目总数

@@ -1,7 +1,7 @@
 <template>
   <div class="about-person">
     <iep-no-data v-if="!data.length"></iep-no-data>
-    <span v-for="(item) in data" :key="item.commonId" @click="TagsDetail()">
+    <span v-for="(item) in data" :key="item.commonId" @click="TagsDetail(item)">
       {{item.commonName}}
     </span>
     <!-- <span>更多...</span> -->
@@ -11,11 +11,11 @@
 export default {
   props: ['data'],
   methods: {
-    TagsDetail () {
-      return
-      // this.$router.push({
-      //   path: '/app/tags_detail',
-      // })
+    TagsDetail (item) {
+      // return
+      this.$router.push({
+        path: `/app/personal_style/${item.commonId}`,
+      })
     },
   },
 }

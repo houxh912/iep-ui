@@ -25,6 +25,11 @@ import Search from './ExpertSearch'
 import { getRecruitDetailPage } from '@/api/app/hrms/'
 
 export default {
+  props: {
+    isOut: {
+      default: '',
+    },
+  },
   data () {
     return {
       loading: false,
@@ -33,6 +38,7 @@ export default {
       params: {
         current: 1,
         size: 12,
+        isOut: this.isOut,
       },
       paramData: {},
     }

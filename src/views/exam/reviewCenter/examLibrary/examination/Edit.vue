@@ -89,10 +89,6 @@ export default {
         type: 'warning',
       }).then(() => {
         this.$emit('onGoBack')
-        this.$message({
-          type: 'success',
-          message: '返回成功!',
-        })
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -107,7 +103,7 @@ export default {
 <style scoped>
 .withdraw-wrapper {
   margin-top: 50px;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 2%;
+  margin-right: 2%;
 }
 </style>

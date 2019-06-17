@@ -14,7 +14,9 @@
               <p>{{item.intro}}</p>
             </div>
             <div class="box">
-              <span class="uploaded">上传者：{{item.creatorRealName}}</span>
+              <span class="uploaded">上传者：
+                <iep-div-detail style="width: 50px;" :value="item.creatorRealName"></iep-div-detail>
+              </span>
               <span><i class="iconfont icon-shijian"></i>{{item.createTime}}</span>
               <span><i class="iconfont icon-yanjing"></i>{{item.views}}人浏览</span>
               <span><i class="iconfont icon-download1"></i>{{item.downloadTimes}}人下载</span>
@@ -23,9 +25,10 @@
               <span style="cursor: pointer;" @click="handleShare(item)"><i class="icon-share"></i>分享</span>
             </div>
           </div>
-          <div v-for="(item,index) in item.tagKeyWords" :key="index" class="label">
+          <iep-tag-detail :value="item.tagKeyWords"></iep-tag-detail>
+          <!-- <div v-for="(item,index) in item.tagKeyWords" :key="index" class="label">
             <span>{{item}}</span>
-          </div>
+          </div> -->
         </template>
       </div>
       <div style="text-align: center;margin: 20px 0;">

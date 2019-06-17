@@ -30,9 +30,9 @@
       <thoughts></thoughts>
     </div>
     <div class="copies copies2">
-      <interactive-zone></interactive-zone>
+      <!-- <interactive-zone></interactive-zone>
       <reward></reward>
-      <feedback></feedback>
+      <feedback></feedback> -->
     </div>
   </div>
 </template>

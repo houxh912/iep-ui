@@ -15,77 +15,78 @@
       </operation-container>
       <div class="container">
         <div class="con-item" v-for="(item,index) in pageList" :key="index">
-          <div class="title">{{item.topic}}</div>
-          <div class="content">{{item.content}}</div>
+          <div class="title">{{index}}</div>
+          <div class="content">{{item}}</div>
         </div>
       </div>
     </basic-container>
   </div>
 </template>
 <script>
-import {getStaffReport} from '@/api/mlms/leader_report/' 
+import { getStaffReport } from '@/api/mlms/leader_report/'
 export default {
   data () {
     return {
       value1: '',
-      title:'',
+      title: '',
       origanize: '',
       publisher: '',
-      pageList:[
-        {topic:'领导指示',content:''},
-        {topic:'本月工作总结',content:''},
-        {topic:'下月工作计划',content:''},
-        {topic:'总结与感想',content:''},
-        {topic:'市场拓展',content:''},
-        {topic:'相关产品',content:''},
-        {topic:'相关项目',content:''},
-      ],
+      pageList: {
+        领导指示: '',
+        本月工作总结: '',
+        下月工作计划: '',
+        总结与感想: '',
+      },
       id: '',
     }
   },
   created () {
     this.id = this.$route.params.id
-    getStaffReport (this.id).then(({data})=>{
-      this.title  = data.data.title
+    getStaffReport(this.id).then(({ data }) => {
+      this.title = data.data.title
       this.value1 = data.data.updateTime
       this.origanize = data.data.orgName
-      this.publisher= data.data.realName
+      this.publisher = data.data.realName
+      this.pageList.领导指示 = data.data.leaderIndication
+      this.pageList.本月工作总结 = data.data.workSummary
+      this.pageList.下月工作计划 = data.data.workPlan
+      this.pageList.总结与感想 = data.data.summarySentiment
     })
   },
   methods: {
     handleReturn () {
-      this.$router.push('/wel/staff_report')
+      this.$router.go(-1)
     },
-    
+
   },
 }
 </script>
 <style scoped lang='scss'>
-.to-reward{
-    padding: 3px 8px;
-    color:#ccc;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    &:hover{
-       border-color: #aaa; 
-       color:#aaa;
-    }
+.to-reward {
+  padding: 3px 8px;
+  color: #ccc;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    border-color: #aaa;
+    color: #aaa;
+  }
 }
-.container{
-    padding: 0 10px;
-    .con-item{
-        margin-bottom: 15px;
-        .title{
-            font-size: 15px;
-            color:#333;
-        }
-        .content{
-            padding: 15px;
-            font-size: 14px;
-            color:#999;
-        }
+.container {
+  padding: 0 10px;
+  .con-item {
+    margin-bottom: 15px;
+    .title {
+      font-size: 15px;
+      color: #333;
     }
+    .content {
+      padding: 15px;
+      font-size: 14px;
+      color: #999;
+    }
+  }
 }
 </style>

@@ -1,5 +1,8 @@
-const columnsMap = [
-  { label: '联系人姓名', prop: 'contactName', width: '250' },
+const columnsMap = [{
+    label: '联系人姓名',
+    prop: 'contactName',
+    width: '250',
+  },
   {
     prop: 'contactPosition',
     label: '联系人职务',
@@ -13,6 +16,7 @@ const initForm = () => {
     contactPosition: '', //联系人职务
     telephoneNo: '', //电话
     clientIds: [], //对接客户
+    clientInfos: [],
     cellphone: '', //手机
     fax: '', //传真
     qq: '', //qq
@@ -21,7 +25,6 @@ const initForm = () => {
     address: '', //地址
     clientConcern: '', //客户关注
     other: '', //其他
-    clientInfos: [],
     clientContactId: '',
   }
 }
@@ -54,13 +57,27 @@ const initSearchForm = () => {
 //   callback()
 // }
 const rules = {
-  contactName: [
-    { required: true, message: '请输入联系人姓名', trigger: 'blur' },
-    { max: 20, message: '长度不可超过20个字符', trigger: 'blur' },
+  contactName: [{
+      required: true,
+      message: '请输入联系人姓名',
+      trigger: 'blur',
+    },
+    {
+      max: 20,
+      message: '长度不可超过20个字符',
+      trigger: 'blur',
+    },
   ],
-  contactPosition: [
-    { required: true, message: '请输入联系人职务', trigger: 'blur' },
-    { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
+  contactPosition: [{
+      required: true,
+      message: '请输入联系人职务',
+      trigger: 'blur',
+    },
+    {
+      max: 255,
+      message: '长度不可超过255个字符',
+      trigger: 'blur',
+    },
   ],
   // telephoneNo: [
   //   {
@@ -69,30 +86,80 @@ const rules = {
   //     trigger: 'blur',
   //   },
   // ],
-  telephoneNo: [
-    { trigger: 'blur' },
-    { max: 20, message: '长度不可超过20个字符', trigger: 'blur' },
+  telephoneNo: [{
+      trigger: 'blur',
+    },
+    {
+      max: 20,
+      message: '长度不可超过20个字符',
+      trigger: 'blur',
+    },
   ],
-  address: [
-    { message: '请填写地址', trigger: 'blur' },
-    { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
+  address: [{
+      message: '请填写地址',
+      trigger: 'blur',
+    },
+    {
+      max: 255,
+      message: '长度不可超过255个字符',
+      trigger: 'blur',
+    },
   ],
-  clientInfos: [{ required: true, message: '请选择对应客户', trigger: 'blur' }],
+  clientIds: [{
+    required: true,
+    message: '请选择对应客户',
+    trigger: 'blur',
+  }],
   // cellphone: [{ validator: cellPhone, trigger: 'blur' }],
-  cellphone: [
-    { trigger: 'blur' },
-    { max: 20, message: '长度不可超过20个字符', trigger: 'blur' },
+  cellphone: [{
+      trigger: 'blur',
+    },
+    {
+      max: 20,
+      message: '长度不可超过20个字符',
+      trigger: 'blur',
+    },
   ],
-  fax: [{ max: 255, message: '长度不可超过255个字符', trigger: 'blur' }],
-  qq: [{ min: 5, max: 11, message: '长度为5-11位数字', trigger: 'blur' }],
-  wechat: [{ max: 20, message: '长度不可超过20个字符', trigger: 'blur' }],
-  email: [
-    { message: '请输入邮箱地址', trigger: 'blur' },
-    { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] },
+  fax: [{
+    max: 255,
+    message: '长度不可超过255个字符',
+    trigger: 'blur',
+  }],
+  qq: [{
+    min: 5,
+    max: 11,
+    message: '长度为5-11位数字',
+    trigger: 'blur',
+  }],
+  wechat: [{
+    max: 20,
+    message: '长度不可超过20个字符',
+    trigger: 'blur',
+  }],
+  email: [{
+      message: '请输入邮箱地址',
+      trigger: 'blur',
+    },
+    {
+      type: 'email',
+      message: '请输入正确的邮箱地址',
+      trigger: ['blur', 'change'],
+    },
   ],
-  clientConcern: [
-    { max: 255, message: '长度不可超过255个字符', trigger: 'blur' },
-  ],
-  other: [{ max: 255, message: '长度不可超过255个字符', trigger: 'blur' }],
+  clientConcern: [{
+    max: 255,
+    message: '长度不可超过255个字符',
+    trigger: 'blur',
+  }],
+  other: [{
+    max: 255,
+    message: '长度不可超过255个字符',
+    trigger: 'blur',
+  }],
 }
-export { columnsMap, initForm, rules, initSearchForm }
+export {
+  columnsMap,
+  initForm,
+  rules,
+  initSearchForm,
+}

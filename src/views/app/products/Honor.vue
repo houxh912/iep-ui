@@ -4,7 +4,7 @@
       <!-- <span slot="statistics" class="statistics">（{{replaceText[0]}}个软件著作权，{{replaceText[1]}}个A级企业认证，{{replaceText[2]}}个行业贡献企业奖）</span> -->
       <iep-img :src="firstImg" alt="" class="img"></iep-img>
       <div class="honor-list">
-        <div v-for="(item,index) in HonorList" :key="index" class="piece" @click="handleDetail(item.id)">
+        <div v-for="(item,index) in HonorList" :key="index" class="piece" @click="handleDetail(item)">
           {{item.honorQualName}}
         </div>
       </div>

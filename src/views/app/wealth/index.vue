@@ -7,7 +7,7 @@
     </div>
     <div class="wealth" v-if="'/app/wealth'==routerMatch[routerMatch.length-1].path">
       <div class="library">
-        <librarys ref="librarys"></librarys>
+        <librarys ref="librarys" class="librarys"></librarys>
       </div>
       <div class="piece">
         <!-- <IepAppTabCard :title="listTitle">
@@ -68,6 +68,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.library {
+  min-height: calc(100vh - 120px);
+}
 .piece {
   cursor: pointer;
 }

@@ -43,7 +43,7 @@ export default {
   },
   computed: {
     isEdit () {
-      return this.data.id ? true : false
+      return this.data.iepTestPaperVO.id ? true : false
     },
     readOnly () {
       if (this.isEdit) {
@@ -55,7 +55,7 @@ export default {
   },
   created () {
     this.getTestOption()
-    this.getTestPaper(this.data.id)
+    this.getTestPaper(this.data.iepTestPaperVO.id)
   },
   methods: {
     /**
@@ -64,8 +64,8 @@ export default {
     handleNext () {
       this.$refs.form.validate(valid => {
         if (valid) {
-          let testPaper = Object.assign(this.data, this.form)
-          this.$emit('on-data', testPaper)
+          this.data.iepTestPaperVO = Object.assign({}, this.data.iepTestPaperVO, this.form)
+          this.$emit('on-data', this.data)
         }
       })
     },
@@ -73,11 +73,13 @@ export default {
     /**
      * 获取试卷
      */
-    getTestPaper (id) {
-      getTestPaperById({ id: id }).then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data[0])
-        this.form.field = (data.data[0].field)
-      })
+    async getTestPaper (id) {
+      if (this.isEdit) {
+        await getTestPaperById({ id: id }).then(({ data }) => {
+          this.form = this.$mergeByFirst(initForm(), data.data[0])
+        })
+      }
+
     },
 
     /**

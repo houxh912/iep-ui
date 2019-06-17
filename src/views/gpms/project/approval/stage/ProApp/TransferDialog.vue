@@ -2,11 +2,11 @@
   <iep-dialog :dialog-show="dialogShow" title="立项申请" width="60%" @close="resetForm(false)">
 
     <p class="tipes"><i class="el-icon-warning"></i> 项目预算大于100万的项目由项目执行与质量委员会审批。</p>
-    <el-form :model="formData" ref="form" label-width="150px">
+    <el-form :model="formData" :rules="rules" ref="form" label-width="150px">
       <el-form-item label='编号'>{{formData.serialNo}}</el-form-item>
       <el-form-item label='项目名称'>{{formData.projectName}}</el-form-item>
       <el-form-item label='项目预算'>{{formData.projectBudget}}</el-form-item>
-      <el-form-item label='审批人'>
+      <el-form-item label='审批人' prop="approverObj">
         <iep-contact-select v-model="formData.approverObj" style="width: 200px"></iep-contact-select>
       </el-form-item>
       <el-form-item label='抄送人'>
@@ -25,7 +25,7 @@
 import mixins from '@/mixins/mixins'
 import { updateData } from '@/api/gpms/index'
 import { initFormData } from './option'
-
+import { checkContactUser } from '@/util/rules'
 export default {
   name: 'index',
   mixins: [mixins],
@@ -34,8 +34,8 @@ export default {
       dialogShow: false,
       formData: initFormData(),
       rules: {
-        issuename: [
-          { required: true, message: '请选择活动区域', trigger: 'change' },
+        approverObj: [
+          { required: true, validator: checkContactUser('审批人'), trigger: 'change' },
         ],
       },
     }

@@ -1,19 +1,19 @@
 <template>
-    <div class="TagSearch-search">
-        <h3>标签库</h3>
-        <template>
-            <div class="search-con">
-                <operation-search>
-                <advance-search></advance-search>
-                </operation-search>
-                <el-button type="danger" plain>人物标签排行</el-button>
-            </div>
-        </template>
-    </div>
+  <div class="TagSearch-search">
+    <h3>标签库</h3>
+    <template>
+      <div class="search-con">
+        <operation-search>
+          <advance-search></advance-search>
+        </operation-search>
+        <!-- <el-button type="danger" plain>人物标签排行</el-button> -->
+      </div>
+    </template>
+  </div>
 </template>
 <script>
 export default {
-    
+
 }
 </script>
 <style lang="scss" scoped>
@@ -24,7 +24,7 @@ export default {
   background-color: #f6f6f6;
   h3 {
     font-size: 24px;
-    color:#000;
+    color: #000;
   }
   .search-con {
     display: flex;

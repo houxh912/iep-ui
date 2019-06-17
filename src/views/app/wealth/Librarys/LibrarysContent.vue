@@ -1,21 +1,26 @@
 <template>
   <div class="librarys-content">
-    <div v-for="(item,index) in dataList" :key="index" class="piece">
-      <a-skeleton :loading="loading" active />
-      <div v-if="!loading" style="cursor: pointer;" @click="handleOpen(item)">
-        <div class="title">
-          <h4 class="name">{{item.orgName}}</h4>
-        </div>
-        <div class="box">
-          <span>目标金额：{{item.targetAmount}}</span>
-          <span>已投人数：{{item.investmentNumber}}</span>
-          <span><i class="iconfont icon-shijian"></i>{{item.createTime}}</span>
+    <div v-if="dataList.length !== 0">
+      <div class="content-page">
+        <div v-for="(item,index) in dataList" :key="index" class="piece">
+          <a-skeleton :loading="loading" active />
+          <div v-if="!loading" style="cursor: pointer;" @click="handleOpen(item)">
+            <div class="title">
+              <h4 class="name">{{item.orgName}}</h4>
+            </div>
+            <div class="box">
+              <span>目标金额：{{item.targetAmount}}</span>
+              <span>已投人数：{{item.investmentNumber}}</span>
+              <span><i class="iconfont icon-shijian"></i>{{item.createTime}}</span>
+            </div>
+          </div>
         </div>
       </div>
+      <div style="text-align: center;margin: 20px 0;">
+        <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+      </div>
     </div>
-    <div style="text-align: center;margin: 20px 0;">
-      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
-    </div>
+    <IepNoData v-else></IepNoData>
   </div>
 </template>
 <script>
@@ -76,6 +81,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.content-page {
+  min-height: 320px;
+}
 .piece {
   padding-top: 15px;
   padding-bottom: 15px;

@@ -2,11 +2,11 @@
   <div class="appraise">
     <basic-container>
       <page-header title="评价管理"></page-header>
-      <el-collapse v-model="activeNames" @change="handleChange">
+      <el-collapse v-model="activeNames" @change="activeChange">
         <el-timeline v-for="(appraise,index) in appraiseList" :key="index">
           <el-collapse-item :title="appraise.time" :name="index">
             <el-card shadow="never" v-for="(child, index2) in appraise.childList" :key="index2">
-              <div class="conList" v-if="isShow">
+              <div class="conList">
                 <div class="img"><iep-img :src="child.img" alt=""></iep-img></div>
                 <div class="con">
                   <h4>
@@ -14,13 +14,18 @@
                     <span class="department">{{child.department}}</span>
                     <span class="subTime">{{child.subTime}}</span>
                     <span class="operate">
-                      <i class="el-icon-edit" @click="handleEdit"></i>
+                      <i class="el-icon-edit" @click="update(index,index2, child.con)"></i>
                       <i class="icon-shanchu1 close" @click="handleClose"></i>
                     </span>
                   </h4>
-                  <div v-if="itShow">{{child.con}}</div>
-                  <el-input v-if="show" type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="textarea">
-                  </el-input>
+                  <div class="fillin" v-if="updateIndex2 == index2 && updateIndex == index">
+                    <el-input type="textarea" rows=5 v-model="updateData" placeholder="" maxlength="300"></el-input>
+                    <div class="footer">
+                      <iep-button type="primary" @click="submit()">保存</iep-button>
+                      <div class="error" v-if="updateValidate">日报内容不能为空</div>
+                    </div>
+                  </div>
+                  <div v-else>{{child.con}}</div>
                 </div>
               </div>
             </el-card>
@@ -35,9 +40,11 @@ export default {
   data () {
     return {
       activeNames: [0, 1],
-      itShow: true,
-      show: false,
-      isShow: true,
+      dailyState: 'detail',
+      updateIndex:-1,
+      updateIndex2:-1,
+      updateData:'',
+      updateValidate: false,
       textarea: '',
       appraiseList: [
         {
@@ -96,11 +103,23 @@ export default {
     }
   },
   methods: {
+    activeChange () {
+      this.dailyState = 'detail'
+      this.updateValidate = ''
+    },
     handleClose () {
     },
-    handleEdit () {
-      this.show = !this.show
-      this.itShow = !this.itShow
+    // 编辑
+    update (index, index2, data) {
+      this.$nextTick(() => {
+        this.updateIndex = index
+        this.updateIndex2 = index2
+        this.updateData = data
+        this.dailyState='更新'
+      })
+    },
+    submit () {
+
     },
   },
 }
@@ -134,6 +153,18 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+      }
+      .fillin {
+        padding: 10px 0 20px;
+        .footer {
+          margin: 20px auto 0;
+          .error {
+            display: inline-block;
+            font-size: 12px;
+            color: red;
+            margin-left: 10px;
+          }
+        }
       }
     }
   }

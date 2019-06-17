@@ -26,7 +26,7 @@
       </collapse-form>
 
       <el-form :inline="true" size="small">
-        <el-form-item>
+        <!-- <el-form-item>
           <el-dropdown @command="handleMove">
             <el-button type="primary" icon="el-icon-rank">
               移动到<i class="el-icon-arrow-down el-icon--right"></i>
@@ -37,6 +37,10 @@
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
+        </el-form-item> -->
+
+        <el-form-item>
+          <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus">新增</el-button>
         </el-form-item>
       </el-form>
 
@@ -55,7 +59,7 @@
       <pagination @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" :pagination-option="paginationOption"></pagination>
 
       <form-dialog :dialog-show="dialogShow" :title="infoFormTitle" @close="load()" :isNeedConfirm="isNeedConfirm" width="1000px">
-        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()" :dictGroup="dictGroup" :selectFiledMap="selectFiledMap"></dialog-form>
+        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()" :dictGroup="dictGroup" :selectFiledMap="selectFiledMap" :postTxt="postTxt"></dialog-form>
       </form-dialog>
     </template>
   </page-dialog>
@@ -122,34 +126,16 @@ const commadOptions = [
   },
 ]
 const selectFiledMap = {
-  文体: {
-    formText: 'style',
-    searchText: 'style',
-    dictText: 'POLICY_STYLE',
-    multiple: false,
-  },
   层级: {
     formText: 'level',
     searchText: 'level',
     dictText: 'POLICY_LEVEL',
     multiple: false,
   },
-  申报方式: {
-    formText: 'method',
-    searchText: 'method',
-    dictText: 'DECLARE_METHOD',
-    multiple: false,
-  },
-  专项分类: {
-    formText: 'special',
-    searchText: 'special',
-    dictText: 'DECLARE_SPECIAL',
-    multiple: false,
-  },
-  申报状态: {
-    formText: 'status',
-    searchText: 'status',
-    dictText: 'DECLARE_STATUS',
+  解读主体: {
+    formText: 'main',
+    searchText: 'main',
+    dictText: 'POLICY_MAIN',
     multiple: false,
   },
   主题: {
@@ -158,46 +144,10 @@ const selectFiledMap = {
     dictText: 'POLICY_THEME',
     multiple: true,
   },
-  适用规模: {
-    formText: 'scale',
-    searchText: 'scale',
-    dictText: 'POLICY_SCALE',
-    multiple: true,
-  },
   适用行业: {
     formText: 'industry',
     searchText: 'industry',
     dictText: 'POLICY_INDUSTRY',
-    multiple: true,
-  },
-  扶持方式: {
-    formText: 'mode',
-    searchText: 'mode',
-    dictText: 'DECLARE_MODE',
-    multiple: true,
-  },
-  扶持形式: {
-    formText: 'formality',
-    searchText: 'formality',
-    dictText: 'DECLARE_FORMALITY',
-    multiple: true,
-  },
-  支持方式: {
-    formText: 'support',
-    searchText: 'support',
-    dictText: 'DECLARE_SUPPORT',
-    multiple: true,
-  },
-  扶持资金规模: {
-    formText: 'fund',
-    searchText: 'fund',
-    dictText: 'DECLARE_FUND',
-    multiple: true,
-  },
-  申报对象: {
-    formText: 'target',
-    searchText: 'target',
-    dictText: 'DECLARE_TARGET',
     multiple: true,
   },
 }
@@ -210,15 +160,19 @@ for (const key in selectFiledMap) {
 }
 function initForm () {
   return {
-    mode: [],
-    formality: [],
-    support: [],
-    fund: [],
-    target: [],
-    theme: [],
-    scale: [],
-    industry: [],
+    title: '',
+    tagList: [],
+    publishTime: '',
+    source: '',
+    url: '',
     regionArr: [],
+    priority: '',
+    level: '',
+    main: '',
+    summary: '',
+    theme: [],
+    industry: [],
+    text: '',
   }
 }
 function initDictGroup () {
@@ -251,7 +205,7 @@ export default {
   },
   computed: {
     infoFormTitle () {
-      return this.isReadonly ? '查看申报类政策' : this.isEdit ? '修改申报类政策' : '新增申报类政策'
+      return this.isReadonly ? '查看政策解读' : this.isEdit ? '修改政策解读' : '新增政策解读'
     },
     params () {
       return this.formInline
@@ -275,7 +229,7 @@ export default {
           if (data.hasOwnProperty(key)) {
             const element = data[key]
             dictGroup[key] = element.map(m => {
-              return { label: m.value, value: m.key }
+              return { label: m.label, value: m.value }
             })
           }
         }
@@ -418,23 +372,42 @@ export default {
       // this.isReadonly = false
       // this.isNeedConfirm = false
       // this.dialogShow = true
-      getExplainById(rows.id).then(res => {
-        console.log('kkk', res)
-        const row = res.data
-        this.readRelation(row)
-        this.form = { ...row }
-        this.isEdit = true
+      this.dialogShow = true
+      if (!rows) {
+        this.form = initForm()
+        this.isEdit = false
         this.isReadonly = false
-        this.isNeedConfirm = false
-        this.dialogShow = true
-      })
+        this.postTxt = '提交'
+      } else {
+        this.isEdit = true
+        this.postTxt = '暂存'
+        getExplainById(rows.id).then(res => {
+          const row = res.data
+          this.readRelation(row)
+          this.form = { ...row }
+          if (rows.condition == null) {
+            this.form.condition = ''
+          }
+          if (rows.standard == null) {
+            this.form.standard = ''
+          }
+          if (rows.process == null) {
+            this.form.process = ''
+          }
+          if (rows.requirement == null) {
+            this.form.requirement = ''
+          }
+          this.isReadonly = false
+          this.isNeedConfirm = false
+        })
+      }
     },
 
     /**
      * 删除按钮
      */
     handleDelete (rows) {
-      console.log(rows)
+      // console.log(rows)
       const id = rows.id
       this._handleGlobalDeleteById([id], deleteExplainBatch)
     },

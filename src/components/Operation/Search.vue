@@ -51,6 +51,7 @@ export default {
 .input-wrapper {
   display: flex;
   max-width: 350px;
+  margin:0 auto;
 }
 .input-wrapper > * {
   margin-right: 5px;

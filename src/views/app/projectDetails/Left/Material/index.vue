@@ -114,3 +114,12 @@ export default {
   margin-bottom: 20px;
 }
 </style>
+<style scoped>
+.survey >>> .el-tag--white {
+  border: 1px solid #dcdfe6;
+  height: 28px;
+  line-height: 26px;
+  background: #fff;
+  color: #606266;
+}
+</style>

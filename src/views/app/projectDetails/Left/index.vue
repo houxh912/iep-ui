@@ -1,18 +1,18 @@
 <template>
   <div class="project-details-con">
-    <h3 class="title">{{title}}</h3>
+    <h3 class="title">{{projectData.projectName}}</h3>
     <div class="post-con">
-      <span class="post">{{post1}}：<span class="name">{{name1}}</span></span>
-      <span class="post">{{post2}}：<span class="name">{{name2}}</span></span>
+      <span class="post">市场经理：<span class="name">{{projectData.mktManagerName}}</span></span>
+      <span class="post">项目经理：<span class="name">{{projectData.projectManagerList.name}}</span></span>
     </div>
     <div class="leaderBoard">
       <IepAppTabsCard :linkName="linkName">
         <iep-tabs v-model="activeTab" :tab-list="tabList">
-          <template v-if="activeTab ==='Survey'" v-slot:Survey>
-            <survey v-loading="activeTab !=='Survey'"></survey>
+          <template v-if="activeTab ==='Basic'" v-slot:Basic>
+            <basic v-loading="activeTab !=='Basic'" :projectData="projectData"></basic>
           </template>
-          <template v-if="activeTab ==='Set'" v-slot:Set>
-            <set-it v-loading="activeTab !=='Set'"></set-it>
+          <template v-if="activeTab ==='Approval'" v-slot:Approval>
+            <approval v-loading="activeTab !=='Approval'" :projectData="projectData"></approval>
           </template>
           <template v-if="activeTab ==='Material'" v-slot:Material>
             <material v-loading="activeTab !=='Material'"></material>
@@ -22,12 +22,15 @@
     </div>
   </div>
 </template>
+
 <script>
-import Survey from './Survey'
-import SetIt from './SetIt'
-import Material from './Material'
+import Basic from './Basic'
+import Approval from './Approval/'
+import Material from './Material/'
+import { getDataDetail } from '@/api/gpms/'
+
 export default {
-  components: { Survey, SetIt, Material },
+  components: { Basic, Approval, Material },
   data () {
     return {
       title: '北京市政务服务管理办公室五个主体事项梳理',
@@ -37,19 +40,37 @@ export default {
       name2: '胡浩',
       tabList: [{
         label: '项目概况',
-        value: 'Survey',
+        value: 'Basic',
       }, {
         label: '立项阶段',
-        value: 'Set',
+        value: 'Approval',
       }, {
         label: '项目材料',
         value: 'Material',
       }],
-      activeTab: 'Survey',
+      activeTab: 'Basic',
+      linkName: '',
+      projectData: {
+        projectManagerList: {id: '', name: ''},
+      },
     }
+  },
+  methods: {
+    getDataDetail (id) {
+      getDataDetail(id).then(({data}) => {
+        let obj = data.data
+        obj.publisherName = obj.publisherList ? obj.publisherList.name : ''
+        obj.groupExternalCooperatePartnerName = obj.groupExternalCooperatePartnerList ? obj.groupExternalCooperatePartnerList.name : ''
+        this.projectData = obj
+      })
+    },
+  },
+  created () {
+    this.getDataDetail(this.$route.params.id)
   },
 }
 </script>
+
 <style lang="scss" scoped>
 .project-details-con {
   padding-right: 20px;

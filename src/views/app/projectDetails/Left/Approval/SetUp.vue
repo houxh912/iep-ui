@@ -9,9 +9,9 @@
           </span>
           <span :class="list.show">
             <span class="classTag" v-if="list.show=='show'">
-              <el-tag type="white" v-for="(item, index) in projectData.projectTagList" :key="index">{{item}}</el-tag>
+              <el-tag type="white" v-for="(item, index) in projectData[list.name]" :key="index">{{item}}</el-tag>
             </span>
-            <span v-else-if="list.dict">{{dictMap[list.dict][projectData[list.name]]}}</span>
+            <span v-else-if="list.dict">{{getDictLabel(projectData[list.name], dictMap[list.name])}}</span>
             <span v-else>{{projectData[list.name]}}</span>
           </span>
         </span>
@@ -19,7 +19,10 @@
     </div>
   </div>
 </template>
+
 <script>
+import { setUpOption, dictMap, getDictLabel } from './options'
+
 export default {
   props: {
     projectData: {
@@ -28,53 +31,9 @@ export default {
   },
   data () {
     return {
-      itemList: [
-        {
-          title: '基本信息',
-          lists: [
-            {
-              post: '项目名称',
-              name: 'projectName',
-            },
-            {
-              post: '项目标签',
-              name: 'projectTagList',
-              show: 'show',
-            },
-            {
-              post: '发布人',
-              name: 'publisherName',
-            },
-            {
-              post: '发布时间',
-              name: 'publishTime',
-            },
-            {
-              post: '编号',
-              name: 'serialNo',
-            },
-            {
-              post: '客户名称',
-              name: 'groupExternalCooperatePartnerName',
-            },
-            {
-              post: '项目预算',
-              name: 'projectBudget',
-            },
-            {
-              post: '是否关联产品',
-              name: 'isRelevanceProduct',
-              dict: 'is_yes',
-            },
-          ],
-        },
-      ],
-      dictMap: {
-        is_yes: {
-          1: '是',
-          2: '否',
-        },
-      },
+      itemList: setUpOption,
+      dictMap,
+      getDictLabel,
     }
   },
 }
@@ -120,3 +79,4 @@ export default {
   border: 0;
 }
 </style>
+

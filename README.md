@@ -14,13 +14,6 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 
 `Mac OS` 系统等 `Linux` 系统需要加 `sudo` 前缀以提高权限
 
-## 产品上手
-
-> 推荐使用 `PowerShell`, `Bash` 等本地命令行
-
-- `yarn mock` 运行预备好的假数据
-- `yarn serve-mock` 运行前端
-
 ## 上手开发
 
 > 推荐使用 `git bash`

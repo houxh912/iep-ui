@@ -8,9 +8,7 @@
     "lint": "node --max_old_space_size=3072 node_modules/@vue/cli-service/bin/vue-cli-service.js lint",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -w -r 0",
     "cz": "git cz",
-    "mock": "node server/index",
-    "report": "node --max_old_space_size=3072 node_modules/@vue/cli-service/bin/vue-cli-service.js build --report",
-    "serve-mock": "node --max_old_space_size=3072 node_modules/@vue/cli-service/bin/vue-cli-service.js serve --mode=mock"
+    "report": "node --max_old_space_size=3072 node_modules/@vue/cli-service/bin/vue-cli-service.js build --report"
   },
   "dependencies": {
     "@smallwei/avue": "^1.5.3",
@@ -25,9 +23,6 @@
     "html2canvas": "^1.0.0-alpha.12",
     "jquery": "^3.4.0",
     "js-cookie": "^2.2.0",
-    "koa": "^2.7.0",
-    "koa-log4": "^2.3.2",
-    "koa-router": "^7.4.0",
     "moment": "^2.24.0",
     "nprogress": "^0.2.0",
     "qs": "^6.7.0",

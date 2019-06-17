@@ -40,7 +40,7 @@ export default {
       this.treeData = [
         {
           id: 1,
-          name: '我的关系',
+          name: '我的师徒',
           userList: [
             {
               id: 1,

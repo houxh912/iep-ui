@@ -103,7 +103,7 @@ export default {
   methods: {
     loadPage () {
       getOrgBorrowById(this.id).then(({ data }) => {
-        this.form = borrowToForm(data.data)
+        this.form = borrowToForm(data.data, this.id)
       })
     },
     async handleSubmit () {

@@ -168,23 +168,31 @@ export default {
       })
     },
     handleLocking (row) {
+      let functionName = undefined
+      let msg = undefined
       if (row.status === 0) {
-        userLock(row.userId).then(() => {
-          this.$message({
-            type: 'success',
-            message: '锁定成功!',
-          })
-          this.loadPage()
-        })
+        functionName = userLock
+        msg = '锁定'
       } else if (row.status === 2) {
-        userUnLock(row.userId).then(() => {
+        functionName = userUnLock
+        msg = '解锁'
+      } else {
+        return
+      }
+      functionName(row.userId).then(({ data }) => {
+        if (data.data) {
           this.$message({
             type: 'success',
-            message: '解锁成功!',
+            message: `${msg}成功!`,
           })
           this.loadPage()
-        })
-      }
+        } else {
+          this.$message({
+            type: 'success',
+            message: data.msg,
+          })
+        }
+      })
     },
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.userId)

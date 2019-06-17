@@ -4,17 +4,26 @@
       <iep-form-item label-name="支付方式">
         <iep-div-detail :value="dictsMap.borrowMoneyType[data.borrowMoneyType]"></iep-div-detail>
       </iep-form-item>
-      <iep-form-item label-name="收款公司">
+      <iep-form-item label-name="调入组织线下公司">
         <iep-div-detail :value="data.borrowInCompany"></iep-div-detail>
       </iep-form-item>
-      <iep-form-item v-if="!bankAmountOption.disabled" label-name="收款账户">
-        <iep-div-detail :value="data.borrowInCompanyBank"></iep-div-detail>
+      <iep-form-item label-name="调入组织银行账户">
+        {{data.borrowInCompanyBank}}
       </iep-form-item>
-      <iep-form-item label-name="还款天数">
+      <iep-form-item label-name="调出组织">
+        <iep-div-detail :value="data.outOrgName"></iep-div-detail>
+      </iep-form-item>
+      <iep-form-item label-name="调出组织线下公司">
+        <iep-div-detail :value="data.borrowOutCompany"></iep-div-detail>
+      </iep-form-item>
+      <iep-form-item label-name="调出组织银行账户">
+        {{data.borrowOutCompanyBank}}
+      </iep-form-item>
+      <iep-form-item label-name="借款天数">
         <iep-div-detail :value="`${data.borrowDays}天`"></iep-div-detail>
       </iep-form-item>
       <iep-form-item label-name="还款时间">
-        <iep-div-detail :value="data.repaymentTime"></iep-div-detail>
+        {{data.repaymentTime|parseToDay}}
       </iep-form-item>
       <iep-form-item label-name="借款利息(日)">
         <iep-div-detail :value="`${data.orgInterest}%`"></iep-div-detail>
@@ -24,13 +33,17 @@
       </iep-form-item>
     </el-form>
     <template v-slot:action>
-      <a-button type="primary" @click="handleAdd">去填写资金调拨</a-button>
+      <a-button v-if="isApproval" type="primary" @click="handleAdd">去填写资金调拨</a-button>
+      <a-button v-if="!isApproval && data.isOut" type="primary" @click="handleFinishAccount">转账完成</a-button>
       <a-button style="margin-left: 8px" @click="handleBack">返回列表</a-button>
     </template>
   </iep-result>
 </template>
 <script>
-import { cancelOrgBorrow } from '@/api/fams/org_borrow'
+import {
+  finishFundTransferById,
+  // confirmFundTransferById
+} from '@/api/fams/fund_transfer'
 import { dictsMap } from './options'
 export default {
   props: ['data'],
@@ -43,6 +56,9 @@ export default {
     }
   },
   computed: {
+    isApproval () {
+      return this.$route.query.approval === 'true'
+    },
     bankAmountOption () {
       if (this.data.borrowInCompanyId && this.data.borrowMoneyType === '1') {
         return {
@@ -60,37 +76,32 @@ export default {
   created () {
   },
   methods: {
+    handleFinishAccount () {
+      this.$confirm('是否确认', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(async () => {
+        const { data } = await finishFundTransferById(this.data.id)
+        if (data.data) {
+          this.$message({
+            type: 'success',
+            message: '操作成功!',
+          })
+        } else {
+          this.$message({
+            type: 'info',
+            message: `${data.msg}`,
+          })
+        }
+      }).catch(() => {
+      })
+    },
     handleAdd () {
       this.$emit('add', this.data)
     },
     handleBack () {
       this.$emit('back')
-    },
-    async handleSubmit () {
-      try {
-        await this.$confirm('此操作将取消借款, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-        })
-        this.submitLoading = true
-        try {
-          const { data } = await cancelOrgBorrow(this.data.id)
-          if (data.data) {
-            this.$message('操作成功')
-            this.$emit('on-data', data.data)
-          } else {
-            this.$message(data.msg)
-          }
-        } catch (error) {
-          this.$message('似乎出现了一些问题')
-        }
-      } catch (error) {
-        this.$message('操作取消')
-      } finally {
-        this.submitLoading = false
-      }
-
     },
   },
 }

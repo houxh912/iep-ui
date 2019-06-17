@@ -57,7 +57,8 @@ const calculateTime = (time, value) => {
 const initForm = () => {
 	return {
 		id: 0, //id
-  
+		
+		borrowId: 0,
 		amount: 0,//调拨金额
 		allocationWay: 0,//资金调拨方式（0国脉贝，1现金）
 		orgInterest: 0,//组织日利息
@@ -121,8 +122,10 @@ const formToDto = (row) => {
 	return newForm
 }
 
-const borrowToForm = (row) => {
+const borrowToForm = (row, id) => {
 	const newForm = initForm()
+	newForm.borrowId = id
+	newForm.allocationDays = row.borrowDays
 	newForm.amount = row.amount
 	newForm.callInOrgId = row.inOrgId
 	newForm.callInCompanyId = row.borrowInCompanyId

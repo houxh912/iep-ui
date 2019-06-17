@@ -436,7 +436,7 @@ export default {
       this.formLoading = true
       this.iepTestPaperIndex = index
       if (index != undefined) {
-        postPaperAmount({ subject: this.iepQstnRuleList[index].field, question: this.iepQstnRuleList[index].type }).then(({ data }) => {
+        postPaperAmount({ subject: this.iepQstnRuleList[index].field.join(','), question: this.iepQstnRuleList[index].type }).then(({ data }) => {
           if (data.data) {
             this.totalNum = data.data
             this.form = this.$mergeByFirst(questionForm(), this.iepQstnRuleList[index])
@@ -487,7 +487,8 @@ export default {
         this.$refs['table'].handleDelete()
       }
       if (this.form.type != '' && this.form.field != '') {
-        const { data } = await postPaperAmount({ subject: this.form.field, question: this.form.type })
+        const field = this.form.field.join(',')
+        const { data } = await postPaperAmount({ subject: field, question: this.form.type })
         if (data.data) {
           this.totalNum = data.data
         }

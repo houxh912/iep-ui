@@ -236,14 +236,13 @@ export function examForm () {
     showAnswer: '',//考完后是否显示答案和解析
     showComment: '',//是否显示面试评语
     oncludingRemarks: '',//考试结束语
+    registrationState:'',//是否添加报名审核
     testPaperId: '',//试卷库id
     iepCertiFicate: [],//证书信息
     examRoleId: '',//权限id
     operateUserids: [],//报名管理&考卷管理列表
     writeUserids: [],//试卷审阅权限列表
     faceUserIds: [],//面试判分权限列表
-    age: '',
-
   }
 
 }

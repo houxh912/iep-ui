@@ -31,16 +31,16 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="委托单位：" disabled>
-            <!-- <el-input v-model="formData.companyName" disabled></el-input> -->
-            <IepCrmsSelect v-model="formData.companyOrgId" :option="[formData.companyName]" prefixUrl="crm/customer/myorcoll/list">
-            </IepCrmsSelect>
+            <el-input v-model="formData.companyName.name" disabled></el-input>
+            <!-- <IepCrmsSelect v-model="formData.companyOrgId" :option="[formData.companyName]" prefixUrl="crm/customer/myorcoll/list">
+            </IepCrmsSelect> -->
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="签署单位：" disabled>
-            <!-- <el-input v-model="formData.signCompanyRealName" disabled></el-input> -->
-            <IepCrmsSelect v-model="formData.signCompanyOrgId" :option="[formData.signCompanyRealName]" prefixUrl="crm/customer/all/list">
-            </IepCrmsSelect>
+            <el-input v-model="formData.signCompanyRealName.name" disabled></el-input>
+            <!-- <IepCrmsSelect v-model="formData.signCompanyOrgId" :option="[formData.signCompanyRealName]" prefixUrl="crm/customer/all/list">
+            </IepCrmsSelect> -->
           </el-form-item>
         </el-col>
       </el-row>

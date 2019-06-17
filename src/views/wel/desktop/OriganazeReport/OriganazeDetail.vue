@@ -6,11 +6,11 @@
       </page-header>
       <operation-container style="border-bottom: 1px solid #eee;padding-bottom:15px;">
         <template slot="left">
-          <span style="margin-right:15px;">组织：{{origanize}}</span>
-          <span>发布人：{{publisher}}</span>
+          <span style="margin-right:15px;">组织：{{orgName}}</span>
+          <span>发布人：{{realName}}</span>
         </template>
         <template slot="right">
-          <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+          <el-date-picker v-model="updateTime" type="date" placeholder="选择日期"></el-date-picker>
         </template>
       </operation-container>
       <div class="container">
@@ -27,10 +27,10 @@ import { getOgrReport } from '@/api/mlms/leader_report/'
 export default {
   data () {
     return {
-      value1: '',
+      updateTime: '',
       title: '',
-      origanize: '',
-      publisher: '',
+      orgName: '',
+      realName: '',
       pageList: {
         领导指示: '',
         本月工作总结: '',
@@ -47,9 +47,9 @@ export default {
     this.id = this.$route.params.id
     getOgrReport(this.id).then(({ data }) => {
       this.title = data.data.title
-      this.value1 = data.data.updateTime
-      this.origanize = data.data.orgName
-      this.publisher = data.data.realName
+      this.updateTime = data.data.updateTime
+      this.orgName = data.data.orgName
+      this.realName = data.data.realName
       this.pageList.领导指示 = data.data.leaderIndication
       this.pageList.本月工作总结 = data.data.workSummary
       this.pageList.下月工作计划 = data.data.workPlan

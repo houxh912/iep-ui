@@ -72,13 +72,13 @@ import { getInformationPage, deleteInformationById } from '@/api/govdata/informa
 import { movePolicy } from '@/api/govdata/common'
 const columnMap = [
   {
+    prop: 'title',
+    label: '资讯标题',
+  },
+  {
     prop: 'source',
     label: '来源',
     width: 200,
-  },
-  {
-    prop: 'title',
-    label: '资讯标题',
   },
   {
     prop: 'publishTime',
@@ -202,7 +202,7 @@ export default {
           source: this.type,
           target: command,
         }
-        console.log('mmm', parmas)
+        //console.log('mmm', parmas)
         const { data } = await movePolicy(parmas)
         if (data.data) {
           this.load()
@@ -223,9 +223,6 @@ export default {
           message: '请先选择政策。',
         })
       }
-      // this._handleComfirm([command], movePolicy,'移动')
-      // this._handleGlobalDeleteById(command, movePolicy, 'delete')
-      // this._handleGlobalMovePolicy(command, movePolicy)
     },
 
     handleSelectionChange (val) {
@@ -247,11 +244,6 @@ export default {
      * 修改按钮
      */
     handleClickMotify (rows) {
-      // this.isEdit = true
-      // this.readRelation(rows)
-      // this.form = { ...rows }
-      // this.isReadonly = false
-      // this.isNeedConfirm = false
       this.isReadonly = false
       this.dialogShow = true
       if (rows === undefined) {
@@ -269,7 +261,7 @@ export default {
      * 删除按钮
      */
     handleDelete (rows) {
-      console.log(rows)
+      //console.log(rows)
       const id = rows.id
       this._handleGlobalDeleteById([id], deleteInformationById)
     },

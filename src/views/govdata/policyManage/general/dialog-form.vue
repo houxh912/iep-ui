@@ -1,8 +1,8 @@
 <template>
   <!-- <iep-dialog :dialog-show="dialogShow" :title="`${methodName}政策资讯`" width="500px" @close="loadPage"> -->
   <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="120px" :class="isReadonly ? 'readonly-form' : ''">
-    <el-form-item label="标题" prop="title">
-      <el-input v-model="formData.title" maxlength="255" :readonly="isReadonly"></el-input>
+    <el-form-item label="标题" class="inputclass" prop="title">
+      <el-input v-model="formData.title" :readonly="isReadonly"></el-input>
     </el-form-item>
 
     <el-form-item label="标签" prop="tagList">
@@ -35,19 +35,13 @@
       <el-input v-model="formData.issue" maxlength="255" :readonly="isReadonly"></el-input>
     </el-form-item>
 
-    <!-- <el-form-item label="aaaa" prop="dispatchList">
-      <el-select v-model="formData.dispatchList" multiple size="small" clearable placeholder="请选择答案" :disabled="isReadonly">
-        <el-option v-for="(item, index) in formData.dispatchList" :key="index" :label="item.label"  :options="单位options" :otherProps="orgOption" ></el-option>
-      </el-select>
-    </el-form-item> -->
-
-    <!-- <el-form-item label="发文单位" class="formWidth" prop="dispatchList">
+    <el-form-item label="发文单位" class="formWidth" prop="dispatchList">
       <mutiply-select v-model="formData.dispatchList" :selectObjs="formData.dispatchsList" :options="单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
-    </el-form-item> -->
+    </el-form-item>
 
-    <!-- <el-form-item label="联合发文单位" class="formWidth">
+    <el-form-item label="联合发文单位" class="formWidth">
       <mutiply-select v-model="formData.unionList" :selectObjs="formData.unionsList" :options="单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
-    </el-form-item> -->
+    </el-form-item>
 
     <el-form-item label="发文时间" class="formWidth" prop="publishTime">
       <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
@@ -61,30 +55,30 @@
       <el-date-picker type="date" placeholder="选择日期" v-model="formData.invalidTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
-    <el-form-item class="formWidth" :label="key" v-for="(value, key) in selectFiledMap" :key="key" :prop="value.formText">
+    <el-form-item class="formWidth selectclass" :label="key" v-for="(value, key) in selectFiledMap" :key="key" :prop="value.formText">
       <el-select v-model="formData[value.formText]" :placeholder="`请选择${key}`" :multiple="value.multiple" :disabled="isReadonly">
         <el-option v-for="item in dictGroup[value.dictText]" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
       </el-select>
     </el-form-item>
 
-    <el-form-item label="适用地区" prop="regionArr" class="formWidth">
+    <el-form-item label="适用地区" class="formWidth cascaderclass" prop="regionArr">
       <el-cascader :options="options" :props="props" v-model="formData.regionArr" ref="region" clearable change-on-select :disabled="isReadonly"></el-cascader>
     </el-form-item>
 
-    <el-form-item label="摘要" prop="summary">
+    <el-form-item label="摘要" class="textoneclass" prop="summary">
       <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}" placeholder="请输入摘要内容" v-model="formData.summary" maxlength="1000" :readonly="isReadonly">
       </el-input>
     </el-form-item>
 
-    <el-form-item label="正文" prop="text">
+    <el-form-item label="正文" class="texttwoclass" prop="text">
       <iep-froala-editor v-model="formData.text" :disabled="isReadonly"></iep-froala-editor>
     </el-form-item>
 
     <el-form-item>
       <el-button type="primary" :loading="loading" @click="$emit('onAudit', formData)" v-if="isAudit">审核</el-button>
-      <el-button type="primary" :loading="loading" @click="handleTempSave('form')" v-if="!isReadonly || isAudit">暂存</el-button>
-      <el-button type="primary" :loading="loading" @click="handleSubmit('form')" v-if="!isReadonly && !isHideSubmitBtn && !isAudit">保存并提交</el-button>
+      <el-button type="primary" :loading="loading" @click="handleTempSave('form')" v-if="!isReadonly || isAudit">保存</el-button>
+      <!-- <el-button type="primary" :loading="loading" @click="handleSubmit('form')" v-if="!isReadonly && !isHideSubmitBtn && !isAudit">保存并提交</el-button> -->
       <el-button type="primary" plain @click="$emit('hideDialog', false)" v-else>关闭</el-button>
     </el-form-item>
 
@@ -95,22 +89,23 @@
 import multiplyMixin from '../multiply_mixin'
 import { region } from '../region'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
+import MutiplySelect from '@/components/deprecated/mutiply-select'
 import { postGeneral, putGeneral, postGeneralAndCommit, putGeneralAndCommit } from '@/api/govdata/general_policy'
 //import { validGeneralTitle } from '@/api/govdata/general_policy'
 import { getBasisPage } from '@/api/govdata/common'
-// import { getOrganizationPage } from '@/api/govdata/common'
-// const orgOption = [{
-//   prop: 'label',
-//   label: '机构分类',
-// }, {
-//   prop: 'organizationUrl',
-//   label: '机构网址',
-// }]
+import { getOrganizationPage } from '@/api/govdata/common'
+const orgOption = [{
+  prop: 'label',
+  label: '机构分类',
+}, {
+  prop: 'organizationUrl',
+  label: '机构网址',
+}]
 
 export default {
   props: ['formData', 'isEdit', 'isReadonly', 'isAudit', 'dictGroup', 'selectFiledMap', 'isHideSubmitBtn'],
   mixins: [multiplyMixin],
-  components: { MutiplyTagSelect },
+  components: { MutiplyTagSelect, MutiplySelect },
   data () {
     // const checkTitle = (rule, value, callback) => {
     //   const title = this.isEdited ? this.formData.title : undefined
@@ -139,28 +134,29 @@ export default {
       generalLevel: [{ required: true, message: '请选择政策层级' }],
       generalStage: [{ required: true, message: '请选择政策阶段状态' }],
       generalFormality: [{ required: true, message: '请选择发文形式' }],
-      // target: [{ required: true, message: '请选择政策适用对象' }],
-      // theme: [{ required: true, message: '请选择政策主题' }],
-      // industry: [{ required: true, message: '请选择政策适用行业' }],
-      // scale: [{ required: true, message: '请选择政策适用规模' }],
-      // regionArr: [{ required: true, message: '请选择政策适用地区' }],
+      target: [{ required: true, message: '请选择政策适用对象' }],
+      theme: [{ required: true, message: '请选择政策主题' }],
+      industry: [{ required: true, message: '请选择政策适用行业' }],
+      scale: [{ required: true, message: '请选择政策适用规模' }],
+      regionArr: [{ required: true, message: '请选择政策适用地区' }],
     }
     return {
+      isShow: false,
       isEdited: this.isEdit,
       disabled: false,
       loading: false,
-      // orgOption,
+      orgOption,
       addressData: [],
       rules: this.isReadonly ? {} : allRules,
-      // 单位options: {
-      //   name: '单位',
-      //   labelName: '单位名称',
-      //   labelProp: 'name',
-      //   valueName: '机构ID',
-      //   valueProp: 'id',
-      //   getRequestName: getOrganizationPage,
-      //   pageLimit: 6,
-      // },
+      单位options: {
+        name: '单位',
+        labelName: '单位名称',
+        labelProp: 'name',
+        valueName: '机构ID',
+        valueProp: 'id',
+        getRequestName: getOrganizationPage,
+        pageLimit: 6,
+      },
       政策依据options: {
         name: '政策',
         labelName: '政策名称',
@@ -251,7 +247,8 @@ export default {
           this.formData.title = submitForm.title
           this.isEdited = true
         }
-        this.msg('保存成功!', 'success')
+        // this.msg('保存成功!', 'success')
+        this.submitMessage()
       }).catch(() => {
         this.msg('保存失败，请检查你的网络链接。', 'error')
       })
@@ -285,10 +282,35 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
+<style scoped>
+.el-form-item--small.el-form-item {
+  margin-left: -15px;
+}
 .formWidth {
   display: inline-block;
   width: 50%;
+}
+.inputclass >>> .el-input {
+  width: 96.5%;
+}
+.textoneclass >>> .el-textarea {
+  width: 97%;
+}
+.texttwoclass >>> #app {
+  width: 97%;
+}
+.el-date-editor.el-input,
+.el-date-editor.el-input__inner {
+  width: 353px;
+}
+.selectclass >>> .el-input {
+  width: 170%;
+}
+.el-select__tags >>> .style {
+  width: 170;
+}
+.cascaderclass >>> .el-input {
+  width: 169%;
 }
 </style>
 

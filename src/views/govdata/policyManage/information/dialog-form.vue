@@ -1,7 +1,7 @@
 <template>
   <!-- <iep-dialog :dialog-show="dialogShow" :title="`${methodName}政策资讯`" width="500px" @close="loadPage"> -->
   <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="120px">
-    <el-form-item label="标题" prop="title">
+    <el-form-item label="标题" class="inputclass" prop="title">
       <el-input v-model="formData.title" maxlength="255" :readonly="isReadonly"></el-input>
     </el-form-item>
 
@@ -14,7 +14,7 @@
     </el-form-item>
 
     <el-form-item label="发布时间" class="formWidth" prop="publishTime">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" style="width: 100%;" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
     <el-form-item label="来源" class="formWidth" prop="source">
@@ -27,7 +27,7 @@
       </el-input>
     </el-form-item>
 
-    <el-form-item label="适用地区" class="formWidth" prop="regionArr">
+    <el-form-item label="适用地区" class="formWidth cascaderclass" prop="regionArr">
       <el-cascader :options="options" :props="props" v-model="formData.regionArr" ref="region" clearable change-on-select :disabled="isReadonly"></el-cascader>
     </el-form-item>
 
@@ -35,25 +35,28 @@
       <el-input-number v-model="formData.priority" :min="1" :max="5" :disabled="isReadonly"></el-input-number>
     </el-form-item>
 
-    <el-form-item label="摘要" prop="summary">
+    <el-form-item label="摘要" class="textoneclass" prop="summary">
       <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}" placeholder="请输入摘要内容" v-model="formData.summary" :readonly="isReadonly">
       </el-input>
     </el-form-item>
 
-    <el-form-item label="正文" prop="text">
-      <iep-froala-editor v-model="formData.text" style="width:80%" :readonly="isReadonly"></iep-froala-editor>
+    <el-form-item label="正文" class="texttwoclass" prop="text">
+      <iep-froala-editor v-model="formData.text" v-if="!isReadonly"></iep-froala-editor>
+      <!-- <iep-html v-else :htmlStr="formData.text"></iep-html> -->
+      <!-- <el-input v-else  :autosize="{ minRows: 5, maxRows: 10}" placeholder="请输入正文" v-model="formData.text" :readonly="isReadonly"></el-input> -->
     </el-form-item>
 
     <el-form-item>
       <el-button type="primary" :loading="loading" @click="$emit('onAudit', formData)" v-if="isAudit">审核</el-button>
-      <el-button type="primary" :loading="loading" @click="handleTempSave('form')" v-if="!isReadonly || isAudit">暂存</el-button>
-      <el-button type="primary" :loading="loading" @click="handleSubmit('form')" v-if="!isReadonly && !isHideSubmitBtn && !isAudit">保存并提交</el-button>
+      <el-button type="primary" :loading="loading" @click="handleTempSave('form')" v-if="!isReadonly || isAudit">保存</el-button>
+      <el-button type="primary" :loading="loading" @click="handleSubmit('form')" v-if="!isReadonly && !isHideSubmitBtn && !isAudit && isShow">保存并提交</el-button>
       <el-button type="primary" plain @click="$emit('hideDialog', false)" v-else>关闭</el-button>
     </el-form-item>
 
   </el-form>
   <!-- </iep-dialog> -->
 </template>
+
 <script>
 import mixins from '@/mixins/mixins'
 import { region } from '../region'
@@ -81,8 +84,8 @@ export default {
     //   })
     // }
     return {
-      isEdited: this.isEdit,
       isShow: false,
+      isEdited: this.isEdit,
       loading: false,
       rules: this.isReadonly ? {} : {
         // title: [{ required: true, validator: checkTitle, trigger: 'blur' }],
@@ -105,6 +108,9 @@ export default {
 
   },
   methods: {
+    /**
+     * 提交保存
+     */
     handleSubmit (formName) {
       this.loading = true
       this.formData.region = this.$refs['region'].currentLabels.join(',')
@@ -150,7 +156,8 @@ export default {
           this.formData.title = submitForm.title
           this.isEdited = true
         }
-        this.msg('保存成功!', 'success')
+        // this.msg('保存成功!', 'success')
+        this.submitMessage()
       }).catch(() => {
         this.msg('保存失败，请检查你的网络链接。', 'error')
       })
@@ -184,10 +191,30 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
+
+<style  scoped>
+.el-form-item--small.el-form-item {
+  margin-left: -15px;
+}
 .formWidth {
   display: inline-block;
   width: 50%;
+}
+.inputclass >>> .el-input {
+  width: 96.5%;
+}
+.el-date-editor.el-input,
+.el-date-editor.el-input__inner {
+  width: 351px;
+}
+.textoneclass >>> .el-textarea {
+  width: 97% !important;
+}
+.texttwoclass >>> #app {
+  width: 97%;
+}
+.cascaderclass >>> .el-input {
+  width: 169%;
 }
 </style>
 

@@ -16,7 +16,7 @@
             <el-date-picker v-model="formInline.endTime" type="date" placeholder="结束日期" class="block" clearable></el-date-picker>
           </el-form-item>
           <!-- 这里是循环选择器的组件 -->
-          <el-form-item :label="key" v-for="(value, key) in selectFiledMap" :key="key">
+          <el-form-item class="selectclass" :label="key" v-for="(value, key) in selectFiledMap" :key="key">
             <el-select v-model="formInline[value.searchText]" :placeholder="`请选择${key}`" clearable>
               <el-option v-for="item in dictGroup[value.dictText]" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
@@ -80,12 +80,13 @@ const columnMap = [
   {
     prop: 'title',
     label: '政策名称',
+    width: 300,
   },
   {
     prop: 'publishTime',
     label: '发文时间',
     type: 'time',
-    width: 140,
+    // width: 140,
     // sortable: 'custom',
   },
   {
@@ -210,7 +211,7 @@ export default {
   },
   computed: {
     infoFormTitle () {
-      return this.isReadonly ? '查看政策资讯' : this.isEdit ? '修改政策资讯' : '新增政策资讯'
+      return this.isReadonly ? '查看通用政策' : this.isEdit ? '修改通用政策' : '新增通用政策'
     },
     params () {
       return this.formInline
@@ -362,24 +363,19 @@ export default {
      * 修改按钮
      */
     handleClickMotify (rows) {
-      // this.isEdit = true
-      // this.readRelation(rows)
-      // this.form = { ...rows }
-      // this.isReadonly = false
-      // this.isNeedConfirm = false
-      // this.dialogShow = true
       this.isReadonly = false
-      this.dialogShow = true
       if (rows === undefined) {
         this.isEdit = false
         this.form = initForm()
+        this.dialogShow = true
       } else {
+        this.isEdit = true
         getGeneralById(rows.id).then(res => {
-          this.isEdit = true
           const row = res.data.data
           this.readRelation(row)
           this.form = { ...row }
           this.isNeedConfirm = false
+          this.dialogShow = true
         })
       }
     },
@@ -395,3 +391,11 @@ export default {
   },
 }
 </script>
+<style lang="scss">
+.selectclass {
+  .el-select__tags {
+    width: 190% !important;
+  }
+}
+</style>
+

@@ -16,6 +16,10 @@
         <iep-form-item prop="attendeeList" label-name="接收对象">
           <div class="content" v-for="(item,index) in form.attendeeList" :key="index" style="margin-right:5px;">{{item}}</div>
         </iep-form-item>
+
+        <iep-form-item prop="sendTime" label-name="建议发布时间">
+          <div class="content">{{form.sendTime}}</div>
+        </iep-form-item>
         <hr>
         <iep-form-item prop="status" label-name="处理意见">
           <el-radio :disabled="isEdit" v-model="form.status" label="2">采纳</el-radio>

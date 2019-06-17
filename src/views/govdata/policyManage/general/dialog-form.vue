@@ -7,7 +7,7 @@
 
     <el-form-item label="标签" prop="tagList">
       <mutiply-tag-select v-model="formData.tagList" :selectObjs="formData.tagsList" v-if="!isReadonly"></mutiply-tag-select>
-      <el-select v-model="formData.tagList" multiple disabled v-else>
+      <el-select class="selectclass" v-model="formData.tagList" multiple disabled v-else>
         <el-option v-for="item in formData.tagsList" :key="item.commonId" :label="item.commonName" :value="item.commonId">
         </el-option>
       </el-select>
@@ -35,16 +35,24 @@
       <el-input v-model="formData.issue" maxlength="255" :readonly="isReadonly"></el-input>
     </el-form-item>
 
+    <el-form-item label="发文时间" class="formWidth" prop="publishTime">
+      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
+    </el-form-item>
+
     <el-form-item label="发文单位" class="formWidth" prop="dispatchList">
-      <mutiply-select v-model="formData.dispatchList" :selectObjs="formData.dispatchsList" :options="单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
+      <mutiply-select v-model="formData.dispatchList" :selectObjs="formData.dispatchsList" :options="单位options" :otherProps="orgOption" v-if="!isReadonly"></mutiply-select>
+      <el-select class="selectclass" v-model="formData.dispatchList" multiple disabled v-else>
+        <el-option v-for="item in formData.dispatchsList" :key="item.id" :label="item.name" :value="item.id">
+        </el-option>
+      </el-select>
     </el-form-item>
 
     <el-form-item label="联合发文单位" class="formWidth">
-      <mutiply-select v-model="formData.unionList" :selectObjs="formData.unionsList" :options="单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
-    </el-form-item>
-
-    <el-form-item label="发文时间" class="formWidth" prop="publishTime">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
+      <mutiply-select v-model="formData.unionList" :selectObjs="formData.unionsList" :options="单位options" :otherProps="orgOption" v-if="!isReadonly"></mutiply-select>
+      <el-select class="selectclass" v-model="formData.unionList" multiple disabled v-else>
+        <el-option v-for="item in formData.unionsList" :key="item.id" :label="item.name" :value="item.id">
+        </el-option>
+      </el-select>
     </el-form-item>
 
     <el-form-item label="生效时间" class="formWidth" prop="effectTime">
@@ -77,7 +85,7 @@
 
     <el-form-item>
       <el-button type="primary" :loading="loading" @click="$emit('onAudit', formData)" v-if="isAudit">审核</el-button>
-      <el-button type="primary" :loading="loading" @click="handleTempSave('form')" v-if="!isReadonly || isAudit">保存</el-button>
+      <el-button type="primary" :loading="loading" @click="handleTempSave('form')" v-if="!isReadonly || isAudit">提交</el-button>
       <!-- <el-button type="primary" :loading="loading" @click="handleSubmit('form')" v-if="!isReadonly && !isHideSubmitBtn && !isAudit">保存并提交</el-button> -->
       <el-button type="primary" plain @click="$emit('hideDialog', false)" v-else>关闭</el-button>
     </el-form-item>
@@ -175,6 +183,9 @@ export default {
   },
   computed: {
 
+  },
+  created () {
+    console.log('mmm', this.formData)
   },
   methods: {
     _processForm (rows) {
@@ -313,4 +324,3 @@ export default {
   width: 169%;
 }
 </style>
-

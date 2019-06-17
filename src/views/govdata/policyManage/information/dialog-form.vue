@@ -41,15 +41,15 @@
     </el-form-item>
 
     <el-form-item label="正文" class="texttwoclass" prop="text">
-      <iep-froala-editor v-model="formData.text" v-if="!isReadonly"></iep-froala-editor>
+      <iep-froala-editor v-model="formData.text" :disabled="isReadonly"></iep-froala-editor>
       <!-- <iep-html v-else :htmlStr="formData.text"></iep-html> -->
       <!-- <el-input v-else  :autosize="{ minRows: 5, maxRows: 10}" placeholder="请输入正文" v-model="formData.text" :readonly="isReadonly"></el-input> -->
     </el-form-item>
 
     <el-form-item>
       <el-button type="primary" :loading="loading" @click="$emit('onAudit', formData)" v-if="isAudit">审核</el-button>
-      <el-button type="primary" :loading="loading" @click="handleTempSave('form')" v-if="!isReadonly || isAudit">保存</el-button>
-      <el-button type="primary" :loading="loading" @click="handleSubmit('form')" v-if="!isReadonly && !isHideSubmitBtn && !isAudit && isShow">保存并提交</el-button>
+      <el-button type="primary" :loading="loading" @click="handleTempSave('form')" v-if="!isReadonly || isAudit">提交</el-button>
+      <!-- <el-button type="primary" :loading="loading" @click="handleSubmit('form')" v-if="!isReadonly && !isHideSubmitBtn && !isAudit && isShow">保存并提交</el-button> -->
       <el-button type="primary" plain @click="$emit('hideDialog', false)" v-else>关闭</el-button>
     </el-form-item>
 

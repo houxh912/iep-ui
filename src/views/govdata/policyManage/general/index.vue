@@ -44,6 +44,11 @@
       </el-form>
 
       <crud-table :is-load-table="isLoadTable" align="center" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
+        <el-table-column prop="title" label="政策名称" align="left" width="300"></el-table-column>
+        <el-table-column prop="publishTime" label="发文时间" align="center"></el-table-column>
+        <el-table-column prop="creatorName" label="上传者" align="center"></el-table-column>
+        <el-table-column prop="examineUserName" label="审核人" align="center"></el-table-column>
+        <el-table-column prop="examineDate" label="审核通过时间" align="center"></el-table-column>
         <el-table-column prop="operation" align="center" label="操作" width="200">
           <template slot-scope="scope">
             <el-button @click="handleView(scope.row)" type="text" size="small" icon="el-icon-view">查看</el-button>
@@ -77,35 +82,35 @@ import dialogForm from './dialog-form'
 import { getGeneralPage, getGeneralById, deleteGeneralBatch } from '@/api/govdata/general_policy'
 import { movePolicy, findByTypeList } from '@/api/govdata/common'
 const columnMap = [
-  {
-    prop: 'title',
-    label: '政策名称',
-    width: 300,
-  },
-  {
-    prop: 'publishTime',
-    label: '发文时间',
-    type: 'time',
-    // width: 140,
-    // sortable: 'custom',
-  },
-  {
-    prop: 'creatorName',
-    label: '上传者',
-    // width: 140,
-  },
-  {
-    prop: 'examineUserName',
-    label: '审核人',
-    // width: 140,
-  },
-  {
-    prop: 'examineDate',
-    label: '审核通过时间',
-    type: 'time',
-    // width: 140,
-    // sortable: 'custom',
-  },
+  // {
+  //   prop: 'title',
+  //   label: '政策名称',
+  //   width: 300,
+  // },
+  // {
+  //   prop: 'publishTime',
+  //   label: '发文时间',
+  //   type: 'time',
+  //   // width: 140,
+  //   // sortable: 'custom',
+  // },
+  // {
+  //   prop: 'creatorName',
+  //   label: '上传者',
+  //   // width: 140,
+  // },
+  // {
+  //   prop: 'examineUserName',
+  //   label: '审核人',
+  //   // width: 140,
+  // },
+  // {
+  //   prop: 'examineDate',
+  //   label: '审核通过时间',
+  //   type: 'time',
+  //   // width: 140,
+  //   // sortable: 'custom',
+  // },
 ]
 const commadOptions = [
   {
@@ -343,11 +348,6 @@ export default {
      * 查看按钮
      */
     handleView (rows) {
-      // this.readRelation(rows)
-      // this.form = { ...rows }
-      // this.isReadonly = true
-      // this.isNeedConfirm = false
-      // this.dialogShow = true
       this.isReadonly = true
       this.isNeedConfirm = false
       getGeneralById(rows.id).then(res => {

@@ -21,7 +21,7 @@ export default {
       itemList: [
         {
           routerPath: 'visiting_log',
-          title: '拜訪日志',
+          title: '拜访日志',
           time: '全年',
           num: 'visitNumber',
           bgc: {

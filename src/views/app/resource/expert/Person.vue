@@ -6,7 +6,7 @@
         <div class="img"><iep-img :src="item.avatar" alt=""></iep-img></div>
         <div class="text">
           <span class="name">{{item.name}}<span class="dn show1 show" v-if="item.isExpert == 1">V</span></span>
-          <span class="job">{{item.externalTitle}}</span>
+          <span class="job">{{item.socialRela}}</span>
           <span class="sign">
             <span v-for="(sign, index) in item.abilityTag" :key="index">{{sign}}</span>
           </span>

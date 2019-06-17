@@ -62,8 +62,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { checkName } from '@/api/crms/customer'
-import { checkBusinessName } from '@/api/crms/business'
+// import { checkName } from '@/api/crms/customer'
+// import { checkBusinessName } from '@/api/crms/business'
 import { initForm } from './options'
 import businessType from './businessType'
 import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
@@ -78,48 +78,51 @@ export default {
   components: { businessType },
   data () {
     //自定义客户名称去重验证
-    var validateFun = (rule, value, callback) => {
-      let val = value.replace(/(^\s*)|(\s*$)/g, '')
-      if (!val) {
-        return callback(new Error('客户名称不能为空'))
-      } else {
-        if (this.flagName == this.formData.clientName) {
-          callback()
-          return false
-        }
-        if (value.length < 6 || value.length > 20) {
-          callback(new Error('客户名称至少6个字'))
-          return false
-        } else {
-          checkName({ clientName: val }).then(res => {
-            if (!res.data.data) {
-              callback(new Error('您输入的客户名称已存在，请重新输入！'))
-            } else {
-              if (this.flag == value) {
-                callback()
-              } else {
-                checkBusinessName({ name: val }).then(res => {
-                  if (res.data) {
-                    callback()
-                    return false
-                  } else {
-                    callback(new Error('您输入的客户名称已存在，请重新输入！'))
-                  }
-                })
-              }
-            }
-          })
-        }
-      }
-    }
+    // var validateFun = (rule, value, callback) => {
+    //   let val = value.replace(/(^\s*)|(\s*$)/g, '')
+    //   if (!val) {
+    //     return callback(new Error('客户名称不能为空'))
+    //   } else {
+    //     if (this.flagName == this.formData.clientName) {
+    //       callback()
+    //       return false
+    //     }
+    //     if (value.length < 6 || value.length > 20) {
+    //       callback(new Error('客户名称至少6个字'))
+    //       return false
+    //     } else {
+    //       checkName({ clientName: val }).then(res => {
+    //         if (!res.data.data) {
+    //           callback(new Error('您输入的客户名称已存在，请重新输入！'))
+    //         } else {
+    //           if (this.flag == value) {
+    //             callback()
+    //           } else {
+    //             checkBusinessName({ name: val }).then(res => {
+    //               if (res.data) {
+    //                 callback()
+    //                 return false
+    //               } else {
+    //                 callback(new Error('您输入的客户名称已存在，请重新输入！'))
+    //               }
+    //             })
+    //           }
+    //         }
+    //       })
+    //     }
+    //   }
+    // }
     return {
       tipContent,
       formData: initForm(),
       methodName: '',
       flag: '',
       rules: {
+        // clientName: [
+        //   { required: true, validator: validateFun, trigger: 'blur' },
+        // ],
         clientName: [
-          { required: true, validator: validateFun, trigger: 'blur' },
+          { required: true, message: '客户名称', trigger: 'blur' },
         ],
         projectName: [
           { required: true, message: '请输入项目名称', trigger: 'blur' },

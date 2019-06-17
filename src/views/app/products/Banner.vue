@@ -34,14 +34,14 @@ export default {
         {
           backgroundImage: 'url(' + require('./img/banner3.jpg') + ')',
           backgroundRepeat: 'no-repeat',
-          url:'https://www.govmade.com/yingst/',
-          name:'营商通',
+          url:'http://gc.govmade.cn/',
+          name:'国策',
         },
         {
           backgroundImage: 'url(' + require('./img/banner4.jpg') + ')',
           backgroundRepeat: 'no-repeat',
-          url:'http://gc.govmade.cn/',
-          name:'国策',
+          url:'https://www.govmade.com/yingst/',
+          name:'营商通',
         },
       ],
       newDynamic: [

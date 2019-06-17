@@ -268,6 +268,7 @@ export default {
       isReadonly: false,
       isNeedConfirm: true,
       commadOptions,
+      postTxt: null,
     }
   },
   computed: {
@@ -450,7 +451,7 @@ export default {
       // this.isNeedConfirm = false
       // this.dialogShow = true
       
-      this.dialogShow = true
+      
       if (!rows) {
         this.form = initForm()
         this.isEdit = false
@@ -481,6 +482,7 @@ export default {
           this.isNeedConfirm = false
         })
       }
+      this.dialogShow = true
     },
 
     /**

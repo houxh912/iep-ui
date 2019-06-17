@@ -52,7 +52,8 @@
     </el-form-item> -->
 
     <el-form-item label="关联机构">
-      <mutiply-select v-model="formData.organizationList" :selectObjs="formData.organizationsList" :options="关联机构options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
+      <mutiply-select v-if="!isReadonly || isAudit" v-model="formData.organizationList" :selectObjs="formData.organizationsList" :options="关联机构options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
+      <el-tag v-else type="info" :key="tag" v-for="tag in tagsShow" size="medium">{{tag}}</el-tag>
     </el-form-item>
 
     <el-form-item label="优先级" class="formWidth" prop="priority">
@@ -119,6 +120,7 @@ export default {
     //   })
     // }
     return {
+      tagsShow: [],
       orgOption,
       disabled: false,
       isEdited: this.isEdit,
@@ -165,6 +167,9 @@ export default {
   },
   computed: {
 
+  },
+  created () {
+    this.tagsShow = this.formData.organizationList
   },
   methods: {
     // _processForm (rows) {

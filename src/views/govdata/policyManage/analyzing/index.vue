@@ -173,6 +173,7 @@ function initForm () {
     theme: [],
     industry: [],
     text: '',
+    postTxt: null,
   }
 }
 function initDictGroup () {
@@ -372,7 +373,7 @@ export default {
       // this.isReadonly = false
       // this.isNeedConfirm = false
       // this.dialogShow = true
-      this.dialogShow = true
+      
       if (!rows) {
         this.form = initForm()
         this.isEdit = false
@@ -401,6 +402,7 @@ export default {
           this.isNeedConfirm = false
         })
       }
+      this.dialogShow = true
     },
 
     /**

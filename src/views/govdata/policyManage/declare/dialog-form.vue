@@ -32,20 +32,14 @@
     </el-form-item>
 
     <el-form-item label="发文单位" class="formWidth" prop="dispatchList">
-      <mutiply-select v-model="formData.dispatchList" :selectObjs="formData.dispatchsList" :options="发文单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
+      <mutiply-select v-if="!isReadonly || isAudit" v-model="formData.dispatchList" :selectObjs="formData.dispatchsList" :options="发文单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
+      <el-tag v-else type="info" :key="tag.id" v-for="tag in tagsDispatchListShow" size="medium">{{tag.name}}</el-tag>
     </el-form-item>
-
-    <!-- <el-form-item label="发文单位" class="formWidth" prop="dispatchList" v-if="!(!isReadonly || isAudit)">
-      <mutiply-select v-model="formData.dispatchList" :selectObjs="formData.dispatchsList" :options="发文单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
-    </el-form-item> -->
 
     <el-form-item label="联合发文单位" class="formWidth" prop="unionList">
-      <mutiply-select v-model="formData.unionList" :selectObjs="formData.unionsList" :options="联合发文单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
+      <mutiply-select v-if="!isReadonly || isAudit" v-model="formData.unionList" :selectObjs="formData.unionsList" :options="联合发文单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
+      <el-tag v-else type="info" :key="tag.id" v-for="tag in tagsUnionListShow" size="medium">{{tag.name}}</el-tag>
     </el-form-item>
-
-    <!-- <el-form-item label="联合发文单位" class="formWidth" prop="unionList" v-if="!(!isReadonly || isAudit)">
-      <mutiply-select v-model="formData.unionList" :selectObjs="formData.unionsList" :options="联合发文单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
-    </el-form-item> -->
 
     <el-form-item label="发文时间" prop="publishTime" class="formWidth">
       <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
@@ -148,6 +142,8 @@ export default {
     //   })
     // }
     return {
+      tagsDispatchListShow: [],
+      tagsUnionListShow: [],
       orgOption,
       disabled: false,
       isEdited: this.isEdit,
@@ -203,6 +199,10 @@ export default {
   },
   computed: {
 
+  },
+  created () {
+    this.tagsDispatchListShow = this.formData.dispatchsList
+    this.tagsUnionListShow = this.formData.unionList
   },
   methods: {
     // _processForm (rows) {

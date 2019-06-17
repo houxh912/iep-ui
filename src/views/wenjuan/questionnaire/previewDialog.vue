@@ -105,7 +105,7 @@ export default {
             getDetailAnswer({
               questionnaireId: this.temp.id,
               limit: 1000,
-              createBy: this.userInfo.id,
+              createBy: this.userInfo.userId,
             }).then(({ data }) => {
               let outArr = []
               let dataArr = data.records

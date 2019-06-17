@@ -16,7 +16,7 @@
           </span>
           <div>
             <div class="organization-tag">
-              <span>组织标签：</span>
+              <span class="tag-name">组织标签：</span>
               <span class="tag-con">
                 <span v-for="(t, i) in item.abilityTag.slice(0, 3)" :key="i">{{t}}</span>
               </span>
@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     getRecruitPage () {
-      getRectagsOrgPage(this.params).then(({data}) => {
+      getRectagsOrgPage(this.params).then(({ data }) => {
         this.moduleList = data.data.records
         this.total = data.data.total
       })
@@ -201,6 +201,13 @@ export default {
     align-items: center;
     margin-top: 20px;
     margin-bottom: 10px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    .tag-name {
+      width: 80px;
+    }
     .tag-con {
       display: flex;
       justify-content: flex-start;
@@ -209,6 +216,10 @@ export default {
         padding: 0 6px;
         line-height: 14px;
         border-right: 1px solid #ccc;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 69px;
         &:last-child {
           border: 0;
         }

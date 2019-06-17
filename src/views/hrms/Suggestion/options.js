@@ -35,6 +35,7 @@ const initForm = () => {
     'disabled':'',
     'annexList':[],
     'fileName':'',//文件名
+    'sendTime':'',//发送时间
     'proposeRelatioList':'',//反馈
   }
 }

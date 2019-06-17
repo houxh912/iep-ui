@@ -80,7 +80,7 @@ export default {
     },
     handleSelectType (k) {
       this.selectType = k
-      this.loadPage()
+      this.searchPage()
     },
     handleDetail (row) {
       this.$router.push({

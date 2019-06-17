@@ -1,7 +1,9 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${applyName}财富流水`" :replaceText="replaceText" :data="statistics"></page-header>
+      <page-header :title="`${applyName}财富流水`" :replaceText="replaceText" :data="statistics">
+        <span v-show="isShow" class="torewards" @click="handleReturn">返回</span>
+      </page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks" advance-search>
@@ -28,6 +30,7 @@ export default {
       dictsMap,
       columnsMap,
       applyName:'',
+      isShow:false,
       statistics: [0, 0, 0, 0],
       replaceText: (data) => `（支出：${data[0]} 笔 ${data[1]} 贝，收入：${data[2]} 笔 ${data[3]} 贝）`,
     }
@@ -39,6 +42,7 @@ export default {
   },
   created () {
     this.applyName = this.$route.query.name? this.$route.query.name:''
+    this.isShow = this.$route.query.name? true:false
     this.loadPage()
   },
   methods: {
@@ -46,6 +50,22 @@ export default {
       const data = await this.loadTable({ ...param, userId: this.userInfo.userId }, getWealthFlowPage)
       this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
+    handleReturn () {
+      this.$router.go(-1)
+    },
   },
 }
 </script>
+<style scoped lang='scss'>
+.torewards{
+  padding: 3px 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #ccc;
+  cursor: pointer;
+  &:hover{
+     border: 1px solid #bbb;
+     color: #bbb;
+  }
+} 
+</style>

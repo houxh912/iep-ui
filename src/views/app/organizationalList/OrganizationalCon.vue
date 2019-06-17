@@ -16,7 +16,7 @@
           </span>
           <div>
             <div class="organization-tag">
-              <span>{{item.name}}：</span>
+              <span class="tag-name">{{item.name}}：</span>
               <span class="tag-con">
                 <span>{{item.tagName1}}</span>
                 <span>{{item.tagName2}}</span>
@@ -448,6 +448,13 @@ export default {
     align-items: center;
     margin-top: 20px;
     margin-bottom: 10px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    .tag-name {
+      width: 80px;
+    }
     .tag-con {
       display: flex;
       justify-content: flex-start;
@@ -456,6 +463,10 @@ export default {
         padding: 0 6px;
         line-height: 14px;
         border-right: 1px solid #ccc;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 69px;
         &:last-child {
           border: 0;
         }

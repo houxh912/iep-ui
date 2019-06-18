@@ -4,7 +4,7 @@
       <template slot="left">
         <iep-button type="danger" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button>
         <iep-button type="danger" plain>导出</iep-button>
-        <iep-button @click="handleEdit" v-if="isCreator || permissionAll">阅卷进度</iep-button>
+        <iep-button @click="handleEdit">阅卷进度</iep-button>
         <iep-button class="tip">当前已选择<span>{{Value}}</span>项</iep-button>
         <iep-button class="empty" @click="handleEmpty">清空</iep-button>
       </template>
@@ -35,14 +35,14 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)"
-              v-if="permissionAll">发放证书</iep-button>
+              v-if="isCreator || permissionAll">发放证书</iep-button>
 
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="handleWritten(scope.row)" v-if="permissionWritten || permissionAll">笔试阅卷</el-dropdown-item>
-                <el-dropdown-item @click.native="handleInterview(scope.row)" v-if="permissionInterview || permissionAll  && addInterview === 1">面试判分</el-dropdown-item>
-                <el-dropdown-item @click.native="handleDelete(scope.row)" v-if="permissionAll">删除</el-dropdown-item>
+                <el-dropdown-item @click.native="handleWritten(scope.row)" v-if="permissionWritten || isCreator || permissionAll">笔试阅卷</el-dropdown-item>
+                <el-dropdown-item @click.native="handleInterview(scope.row)" v-if="(permissionInterview || isCreator || permissionAll)  && addInterview === 1">面试判分</el-dropdown-item>
+                <el-dropdown-item @click.native="handleDelete(scope.row)" v-if="isCreator || permissionAll">删除</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </operation-wrapper>
@@ -51,7 +51,8 @@
     </iep-table>
 
     <iep-dialog :dialog-show="dialogProgress" title="阅卷进度" width="600px" @close="loadPage()" center>
-      <progress-form :formData="InterviewData" @close="loadPage()"></progress-form>
+      <progress-form :formData="InterviewData" :isCreator="isCreator" :permissionAll="permissionAll"
+        @close="loadPage()"></progress-form>
     </iep-dialog>
 
     <el-dialog class="titleDialogs" title="笔试判分" :visible.sync="dialogWritten" width="90%" @close="loadPage()">

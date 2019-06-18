@@ -16,7 +16,7 @@
             <el-date-picker v-model="formInline.endTime" type="date" placeholder="结束日期" class="block" clearable></el-date-picker>
           </el-form-item>
           <!-- 这里是循环选择器的组件 -->
-          <el-form-item class="selectclass" :label="key" v-for="(value, key) in selectFiledMap" :key="key">
+          <el-form-item class="selectclasss" :label="key" v-for="(value, key) in selectFiledMap" :key="key">
             <el-select v-model="formInline[value.searchText]" :placeholder="`请选择${key}`" clearable>
               <el-option v-for="item in dictGroup[value.dictText]" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
@@ -169,6 +169,14 @@ for (const key in selectFiledMap) {
     typeList.push(element.dictText)
   }
 }
+function initFormInline () {
+  return {
+    title: '',
+    username: '',
+    startTime: '',
+    endTime: '',
+  }
+}
 function initForm () {
   return {
     title: '',
@@ -203,9 +211,11 @@ export default {
     return {
       id: '',
       type: 'general',
+      // formInline: {},
+      initFormInline,
+      formInline: initFormInline(),
       columnMap,
       selectFiledMap,
-      formInline: {},
       dictGroup: initDictGroup(),
       form: initForm(),
       isEdit: true,
@@ -314,7 +324,7 @@ export default {
           source: this.type,
           target: command,
         }
-        console.log('mmm', parmas)
+        //console.log('mmm', parmas)
         const { data } = await movePolicy(parmas)
         if (data.data) {
           this.load()
@@ -392,7 +402,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.selectclass {
+.selectclasss {
   .el-select__tags {
     width: 190% !important;
   }

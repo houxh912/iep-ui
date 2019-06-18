@@ -7,7 +7,7 @@
 
     <el-form-item label="标签" prop="tagList">
       <mutiply-tag-select v-model="formData.tagList" :selectObjs="formData.tagsList" v-if="!isReadonly"></mutiply-tag-select>
-      <el-select class="selectclass" v-model="formData.tagList" multiple disabled v-else>
+      <el-select style="width:96.5%" v-model="formData.tagList" multiple disabled v-else>
         <el-option v-for="item in formData.tagsList" :key="item.commonId" :label="item.commonName" :value="item.commonId">
         </el-option>
       </el-select>
@@ -41,7 +41,7 @@
 
     <el-form-item label="发文单位" class="formWidth" prop="dispatchList">
       <mutiply-select v-model="formData.dispatchList" :selectObjs="formData.dispatchsList" :options="单位options" :otherProps="orgOption" v-if="!isReadonly"></mutiply-select>
-      <el-select class="selectclass" v-model="formData.dispatchList" multiple disabled v-else>
+      <el-select class="selectclasss" v-model="formData.dispatchList" multiple disabled v-else>
         <el-option v-for="item in formData.dispatchsList" :key="item.id" :label="item.name" :value="item.id">
         </el-option>
       </el-select>
@@ -49,7 +49,7 @@
 
     <el-form-item label="联合发文单位" class="formWidth">
       <mutiply-select v-model="formData.unionList" :selectObjs="formData.unionsList" :options="单位options" :otherProps="orgOption" v-if="!isReadonly"></mutiply-select>
-      <el-select class="selectclass" v-model="formData.unionList" multiple disabled v-else>
+      <el-select class="selectclasss" v-model="formData.unionList" multiple disabled v-else>
         <el-option v-for="item in formData.unionsList" :key="item.id" :label="item.name" :value="item.id">
         </el-option>
       </el-select>
@@ -63,7 +63,7 @@
       <el-date-picker type="date" placeholder="选择日期" v-model="formData.invalidTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
-    <el-form-item class="formWidth selectclass" :label="key" v-for="(value, key) in selectFiledMap" :key="key" :prop="value.formText">
+    <el-form-item class="formWidth selectclasss" :label="key" v-for="(value, key) in selectFiledMap" :key="key" :prop="value.formText">
       <el-select v-model="formData[value.formText]" :placeholder="`请选择${key}`" :multiple="value.multiple" :disabled="isReadonly">
         <el-option v-for="item in dictGroup[value.dictText]" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
@@ -79,8 +79,14 @@
       </el-input>
     </el-form-item>
 
-    <el-form-item label="正文" class="texttwoclass" prop="text">
-      <iep-froala-editor v-model="formData.text" :disabled="isReadonly"></iep-froala-editor>
+    <el-form-item label="正文" class="texttwoclass" v-if="!isReadonly">
+      <iep-froala-editor v-model="formData.text"></iep-froala-editor>
+    </el-form-item>
+
+    <el-form-item label="正文" v-if="isReadonly">
+      <div class="html">
+        <iep-html v-model="formData.text"></iep-html>
+      </div>
     </el-form-item>
 
     <el-form-item>
@@ -185,7 +191,7 @@ export default {
 
   },
   created () {
-    console.log('mmm', this.formData)
+    // console.log('mmm', this.formData)
   },
   methods: {
     _processForm (rows) {
@@ -314,13 +320,27 @@ export default {
 .el-date-editor.el-input__inner {
   width: 353px;
 }
-.selectclass >>> .el-input {
+.selectclasss >>> .el-input {
   width: 170%;
 }
 .el-select__tags >>> .style {
-  width: 170;
+  width: 170%;
 }
 .cascaderclass >>> .el-input {
   width: 169%;
+}
+.tagselected >>> .el-input {
+  width: 168%;
+}
+.html {
+  margin-right: 24px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+.html >>> .fr-view[data-v-5eb9c662] {
+  padding: 10px;
+  resize: vertical;
+  color: #000;
+  overflow-x: auto;
 }
 </style>

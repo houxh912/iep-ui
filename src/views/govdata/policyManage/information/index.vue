@@ -128,6 +128,14 @@ const commadOptions = [
     value: 'information',
   },
 ]
+function initFormInline () {
+  return {
+    title: '',
+    username: '',
+    startTime: '',
+    endTime: '',
+  }
+}
 function initForm () {
   return {
     title: '',
@@ -149,7 +157,9 @@ export default {
       id: '',
       type: 'information',
       columnMap,
-      formInline: {},
+      // formInline: {},
+      initFormInline,
+      formInline: initFormInline(),
       form: initForm(),
       isEdit: true,
       isReadonly: false,

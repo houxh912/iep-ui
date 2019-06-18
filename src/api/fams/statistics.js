@@ -91,6 +91,14 @@ export function getProjectPage (query) {
   })
 }
 
+export function getContractPage (query) {
+  return request({
+    url: `${prefixUrl}/contract/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
 export function getProjectDetailById (id) {
   return request({
     url: `${prefixUrl}/project/detail/${id}`,

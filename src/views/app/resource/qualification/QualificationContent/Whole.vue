@@ -73,6 +73,7 @@ export default {
 }
 .whole >>> .el-image__inner {
   max-height: 100%;
+  height: auto;
 }
 </style>
 

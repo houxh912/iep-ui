@@ -56,6 +56,7 @@ export default {
     border-radius: 3px;
     border: 1px solid #cb3737;
     color: #cb3737;
+    box-shadow: 1px 1px 1px 1px #eee;
   }
 }
 </style>

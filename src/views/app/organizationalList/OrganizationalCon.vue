@@ -206,7 +206,7 @@ export default {
     text-overflow: ellipsis;
     white-space: nowrap;
     .tag-name {
-      width: 80px;
+      width: 70px;
     }
     .tag-con {
       display: flex;
@@ -219,7 +219,7 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        max-width: 72px;
+        max-width: 80px;
         &::before {
           position: absolute;
           content: "";

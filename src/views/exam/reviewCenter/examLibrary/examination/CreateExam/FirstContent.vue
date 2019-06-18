@@ -11,7 +11,8 @@
         <el-input v-model="form.title" :disabled="resourceReadonly"></el-input>
       </el-form-item>
       <el-form-item label="试卷分类：" prop="field">
-        <el-select v-model="form.field" clearable placeholder="请选择科目" :disabled="resourceReadonly">
+        <el-select v-model="form.field" clearable placeholder="请选择科目" :disabled="resourceReadonly"
+          style="width:100%">
           <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
             :value="item.id"></el-option>
         </el-select>

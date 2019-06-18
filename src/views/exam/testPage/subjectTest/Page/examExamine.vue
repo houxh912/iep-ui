@@ -70,7 +70,7 @@
                 <ul>
                   <li v-for="(radioItem,index) in radioMap" :key="index+1" :id="'radio_'+(index+1)">
                     <div class="question-title">
-                      <h3><b>{{index+1}}.{{radioItem.questionTypeName}}（{{radioItem.single}}
+                      <h3><b>{{index+1}}.{{radioItem.questionTypeName}}（{{radioItem.grade}}
                           分）{{radioItem.title}}</b></h3>
                     </div>
                     <el-radio-group v-model="radioItem.userAnswer" disabled>

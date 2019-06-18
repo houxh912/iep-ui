@@ -38,8 +38,8 @@
 
     <div class="bottom">
 
-      <iep-button type="primary" class="button" @click="handleRollingPaper">一键收卷</iep-button>
-      <iep-button type="success" class="button" @click="handlePaper">完成阅卷</iep-button>
+      <iep-button type="primary" class="button" v-if="isCreator || permissionAll" @click="handleRollingPaper">一键收卷</iep-button>
+      <iep-button type="success" class="button" v-if="isCreator || permissionAll" @click="handlePaper">完成阅卷</iep-button>
 
       <!-- <el-form-item>
         <el-button class="button" @click="sendResult">发送成绩</el-button>
@@ -58,7 +58,7 @@ const allRules = {
 }
 export default {
   components: {},
-  props: ['formData'],
+  props: ['formData', 'isCreator', 'permissionAll'],
   data () {
     return {
       labelPosition: 'right',

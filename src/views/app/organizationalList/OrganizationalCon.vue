@@ -213,15 +213,25 @@ export default {
       justify-content: flex-start;
       align-items: center;
       span {
-        padding: 0 6px;
+        position: relative;
+        padding: 0 8px;
         line-height: 14px;
-        border-right: 1px solid #ccc;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        max-width: 69px;
-        &:last-child {
-          border: 0;
+        max-width: 72px;
+        &::before {
+          position: absolute;
+          content: "";
+          top: 5px;
+          right: -6px;
+          width: 15px;
+          height: 1px;
+          background-color: #aaa;
+          transform: rotate(110deg);
+        }
+        &:last-child:before {
+          background: none;
         }
       }
     }

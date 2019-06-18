@@ -66,7 +66,7 @@ export default {
 }
 .notice >>> .assort .piece {
   margin-left: -8px;
-  padding: 10px;
+  padding: 0;
   height: 38px;
   line-height: 38px;
 }

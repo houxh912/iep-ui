@@ -2,15 +2,18 @@
   <div class="relation">
     <IepAppTabCard :title="title">
       <el-button class="btn" type="text" slot="right" @click="show" :class="isShow?'el-icon-arrow-up':'el-icon-arrow-down'"></el-button>
-      <div class="item" v-for="(title,index) in titleList" :key="index" v-show="isShow">
-        <span class="title">{{title.title1}}</span>
-        <div class="person-list">
-          <div class="person" v-for="(item,index1) in title.itemList" :key="index1">
-            <div class="img">
-              <iep-img :src="item.img" alt=""></iep-img>
+      <div class="item" v-for="(row, index) in titleList" :key="index" v-show="isShow">
+        <span class="title">{{row.title1}}</span>
+        <div>
+          <div v-if="row.list.length !== 0" class="person-list">
+            <div class="person" v-for="(item, index1) in row.list" :key="index1">
+              <div class="img">
+                <iep-img :src="item.avatar" alt=""></iep-img>
+              </div>
+              <span class="name">{{item.name}}</span>
             </div>
-            <span class="name">{{item.name}}</span>
           </div>
+          <IepNoData v-else></IepNoData>
         </div>
       </div>
     </IepAppTabCard>
@@ -18,83 +21,59 @@
 </template>
 
 <script>
+import { getproductMentors } from '@/api/app/cpms/channel'
+
 export default {
+  props: {
+    similarUser: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data () {
     return {
       isShow: true,
       title: '人物关系',
-      titleList: [
+      MentorsList: [],
+      cooperationList: [],
+    }
+  },
+  computed: {
+    titleList () {
+      return [
         {
           title1: '标签相似',
-          itemList: [
-            {
-              img: require('../../img/pr1.jpg'),
-              name: '何舟杰',
-            },
-            {
-              img: require('../../img/p8.jpg'),
-              name: '邵奇凯',
-            },
-            {
-              img: require('../../img/p09.jpg'),
-              name: '潘超巧',
-            },
-            {
-              img: require('../../img/p07.jpg'),
-              name: '张兵',
-            },
-          ],
+          list: this.similarUser,
         },
         {
           title1: 'TA的师徒',
-          itemList: [
-            {
-              img: require('../../img/pr1.jpg'),
-              name: '何舟杰',
-            },
-            {
-              img: require('../../img/p8.jpg'),
-              name: '邵奇凯',
-            },
-            {
-              img: require('../../img/p09.jpg'),
-              name: '潘超巧',
-            },
-            {
-              img: require('../../img/p07.jpg'),
-              name: '张兵',
-            },
-          ],
+          list: this.MentorsList,
         },
         {
           title1: '协作伙伴',
-          itemList: [
-            {
-              img: require('../../img/pr1.jpg'),
-              name: '何舟杰',
-            },
-            {
-              img: require('../../img/p8.jpg'),
-              name: '邵奇凯',
-            },
-            {
-              img: require('../../img/p09.jpg'),
-              name: '潘超巧',
-            },
-            {
-              img: require('../../img/p07.jpg'),
-              name: '张兵',
-            },
-          ],
+          list: this.cooperationList,
         },
-      ],
-    }
+      ]
+    },
+  },
+  watch: {
+    userId (newVal) {
+      this.loadRelation(newVal)
+    },
   },
   methods: {
     show () {
       this.name = 'el-icon-arrow-up',
         this.isShow = !this.isShow
     },
+    loadRelation (id) {
+      getproductMentors(id).then(({data}) => {
+        this.MentorsList = data.data.masters.concat(data.data.pupils)
+      })
+    },
+  },
+  created () {
+    this.loadRelation(this.$route.params.id)
   },
 }
 </script>

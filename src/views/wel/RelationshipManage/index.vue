@@ -54,7 +54,7 @@
             <el-radio-group size="small">
               <!-- <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button> -->
             </el-radio-group>
-            <operation-search @search-page="searchPage" prop="name">
+            <operation-search ref="OperationSearch" @search-page="searchPage">
               <!-- <advance-search @search-page="searchPage"></advance-search> -->
             </operation-search>
           </template>
@@ -155,23 +155,9 @@ export default {
         this.sort.jobId=''
         this.sort.professionalTitleId='1'
       }
-      this.loadPage()
+      this.$refs['OperationSearch'].input = ''
+      this.searchPage()
     },
-    // async handleRemove (row) {
-    //   const { data } = await removeRelationshipById(row.groupId,[row.userId])
-    //   if (data.data) {
-    //     this.$message({
-    //       message: '操作成功',
-    //       type: 'success',
-    //     })
-    //     this.loadPage()
-    //   } else {
-    //     this.$message({
-    //       message: data.msg,
-    //       type: 'error',
-    //     })
-    //   }
-    // },
     handleRemove (row) {
       this.$confirm('此操作将永久移除该数据, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -194,21 +180,6 @@ export default {
         })
       })
     },
-    // async handleRemoveBatch () {
-    //   const { data } = await removeRelationshipBatch(this.groupType,this.multipleSelection)
-    //   if (data.data) {
-    //     this.$message({
-    //       message: '操作成功',
-    //       type: 'success',
-    //     })
-    //     this.loadPage()
-    //   } else {
-    //     this.$message({
-    //       message: data.msg,
-    //       type: 'error',
-    //     })
-    //   }
-    // },
     handleRemoveBatch () {
       this.$confirm('此操作将永久移除该数据, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -255,7 +226,8 @@ export default {
     handleSelectType (k) {
       this.groupType = k
       this.mark = 'group'
-      this.loadPage()
+      this.$refs['OperationSearch'].input = ''
+      this.searchPage()
     },
     loadTypeList () {
       getRelationshipList().then(({ data }) => {

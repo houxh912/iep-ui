@@ -6,7 +6,7 @@
         <template v-if="type==='2'" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
           <iep-button type="primary" @click="excellImport" plain v-show="isDrPermissions()">导入</iep-button>
-          <iep-button type="primary" @click="Transfer" plain>转移</iep-button>
+          <iep-button type="primary" @click="Transfer(2)" plain>转移</iep-button>
           <!-- <el-dropdown size="medium">
             <iep-button size="small" :disabled="type !== '2'" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -18,10 +18,10 @@
           </el-dropdown> -->
         </template>
         <template v-if="type==='1'" slot="left">
-          <iep-button type="primary" @click="Transfer" plain v-show="isZyPermissions()">转移</iep-button>
+          <iep-button type="primary" @click="Transfer(1)" plain v-show="isZyPermissions()">转移</iep-button>
         </template>
         <template slot="right">
-          <el-radio-group v-model="type" size="small" @change="changeType" >
+          <el-radio-group v-model="type" size="small" @change="changeType">
             <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value" :disabled="isLoadTable">{{tab.label}}</el-radio-button>
           </el-radio-group>
           <operation-search @search-page="searchPage" advance-search prop="clientName">
@@ -271,13 +271,19 @@ export default {
       // }
     },
     //转移
-    Transfer () {
+    Transfer (val) {
       if (this.ids.length === 0) {
         this.$message('请勾选需要转移的客户')
         return false
       } else {
         this.$refs['transfer'].dialogShow = true
         this.$refs['transfer'].id = this.ids
+        if (val == 2) {
+          this.$refs['transfer'].myOrAll = '1'
+        } else {
+          this.$refs['transfer'].myOrAll = '2'
+        }
+
       }
     },
     //table多选

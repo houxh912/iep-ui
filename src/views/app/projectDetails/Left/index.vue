@@ -15,7 +15,7 @@
             <approval v-loading="activeTab !=='Approval'" :projectData="projectData"></approval>
           </template>
           <template v-if="activeTab ==='Material'" v-slot:Material>
-            <material v-loading="activeTab !=='Material'"></material>
+            <material v-loading="activeTab !=='Material'" :projectData="projectData"></material>
           </template>
         </iep-tabs>
       </IepAppTabsCard>

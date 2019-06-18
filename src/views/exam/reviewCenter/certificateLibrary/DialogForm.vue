@@ -3,7 +3,8 @@
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="科目：" prop="field">
         <el-select v-model="form.field" size="small" clearable>
-          <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label" :value="item.id"></el-option>
+          <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
+            :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="名称：" prop="title">
@@ -11,7 +12,8 @@
       </el-form-item>
       <el-form-item label="级别：" prop="level">
         <el-select v-model="form.level" size="small" clearable>
-          <el-option v-for="(item, index) in res.exam_certificate_level" :key="index" :label="item.label" :value="item.id"></el-option>
+          <el-option v-for="(item, index) in res.exam_certificate_level" :key="index" :label="item.label"
+            :value="item.id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="颁发机构：" prop="deptId">
@@ -46,8 +48,7 @@ export default {
         return callback(new Error('标题不能为空'))
       }
       validCertificateTitle({ title: value }).then(res => {
-        // if (this.form.title !== value && !res.data.data) {
-        if (res.data.data === true) {
+        if (this.title != value && res.data.data === true) {
           callback(new Error('标题重复，已存在。'))
         } else {
           callback()
@@ -62,6 +63,7 @@ export default {
       limit: 1,
       res: {},
       resdata: {},
+      title: '',
       rules: {
         title: [{ required: true, validator: checkTitle, trigger: 'blur' }],
         field: [{ required: true, message: '请选择科目', trigger: 'blur' }],

@@ -59,7 +59,7 @@
       <pagination @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" :pagination-option="paginationOption"></pagination>
 
       <form-dialog :dialog-show="dialogShow" :title="infoFormTitle" @close="load()" :isNeedConfirm="isNeedConfirm" width="1000px">
-        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()" :dictGroup="dictGroup" :selectFiledMap="selectFiledMap" :postTxt="postTxt"></dialog-form>
+        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()" :dictGroup="dictGroup" :selectFiledMap="selectFiledMap" :btnTxt="btnTxt"></dialog-form>
       </form-dialog>
     </template>
   </page-dialog>
@@ -173,7 +173,6 @@ function initForm () {
     theme: [],
     industry: [],
     text: '',
-    postTxt: null,
   }
 }
 function initDictGroup () {
@@ -186,6 +185,11 @@ function initDictGroup () {
   }
   return dictGroup
 }
+
+function initFormInline () {
+  return {
+  }
+}
 export default {
   mixins: [mixins, dialogMixins, paginationMixins, multiplyMixin],
   components: { crudTable, collapseForm, dialogForm },
@@ -195,13 +199,15 @@ export default {
       type: 'declare',
       columnMap,
       selectFiledMap,
-      formInline: {},
+      initFormInline,
+      formInline: initFormInline(),
       dictGroup: initDictGroup(),
       form: initForm(),
       isEdit: true,
       isReadonly: false,
       isNeedConfirm: true,
       commadOptions,
+      btnTxt: '',
     }
   },
   computed: {
@@ -373,19 +379,21 @@ export default {
       // this.isReadonly = false
       // this.isNeedConfirm = false
       // this.dialogShow = true
-      
+      this.isReadonly = false
       if (!rows) {
         this.form = initForm()
         this.isEdit = false
-        this.isReadonly = false
-        this.postTxt = '提交'
-      } else {
+        this.btnTxt = '提交'
+        this.dialogShow = true
+      } 
+      else {
         this.isEdit = true
-        this.postTxt = '暂存'
+        this.btnTxt = '暂存'
         getExplainById(rows.id).then(res => {
           const row = res.data
           this.readRelation(row)
           this.form = { ...row }
+          this.isNeedConfirm = false
           if (rows.condition == null) {
             this.form.condition = ''
           }
@@ -398,11 +406,9 @@ export default {
           if (rows.requirement == null) {
             this.form.requirement = ''
           }
-          this.isReadonly = false
-          this.isNeedConfirm = false
         })
+        this.dialogShow = true
       }
-      this.dialogShow = true
     },
 
     /**

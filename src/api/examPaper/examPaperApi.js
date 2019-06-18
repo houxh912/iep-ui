@@ -43,7 +43,7 @@ export function postPaperAmount (params) {
 export function getPaperTest (params) {
   return request({
     url: '/exms/iepitembank/selectItemByTypeSub',
-    method: 'get',
+    method: 'post',
     params: params,
   })
 }

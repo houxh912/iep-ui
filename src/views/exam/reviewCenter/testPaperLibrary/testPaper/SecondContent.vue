@@ -252,7 +252,7 @@
         </el-form-item>
         <el-form-item v-if="form.configurationState==='0'" prop="iepItemBankList" label-width="20px">
           <dialog-question-table v-model="form.iepItemBankList" :questionType="form.type"
-            :fieldType="form.field" ref="table" @show-number="showNumber"></dialog-question-table>
+            :fieldType="form.field.join(',')" ref="table" @show-number="showNumber"></dialog-question-table>
         </el-form-item>
       </el-form>
       <template slot="footer">
@@ -317,7 +317,7 @@ export default {
       submitDisabled: false,//禁用配置完成的按钮
       res: [],//下拉框的值
       rules: {
-        field: [{ required: true, message: '请选择题库', trigger: 'change' }],
+        field: [{ required: true, message: '请选择科目', trigger: 'change' }],
         type: [{ required: true, message: '请选择题型', trigger: 'change' }],
         configurationState: [{ required: true, message: '请选择配置状态', trigger: 'change' }],
         simpleNum: [{ validator: checkSimpleNum, trigger: 'blur' }],
@@ -377,6 +377,7 @@ export default {
       paperNum.choiceNum = simpleNum + middleNum + hardNum
       return paperNum
     },
+
   },
   watch: {
     'data.iepTestPaperVO': {
@@ -416,9 +417,11 @@ export default {
      */
     loadSelf () {
       if (this.isEdit) {
-        this.iepQstnRuleList = this.data.iepTestPaperVO.iepQstnRuleList
-        this.iepQstnRuleList.forEach((item) => {
+        this.iepQstnRuleList = this.data.iepTestPaperVO.iepQstnRuleList.map(function (item) {
           this.choiceType.push(item.type)
+          const fieldArray = item.field.split(',')
+          item.field = fieldArray
+          return item
         })
         this.choiceType.sort()
         this.submitDisabled = true
@@ -487,8 +490,7 @@ export default {
         this.$refs['table'].handleDelete()
       }
       if (this.form.type != '' && this.form.field != '') {
-        const field = this.form.field.join(',')
-        const { data } = await postPaperAmount({ subject: field, question: this.form.type })
+        const { data } = await postPaperAmount({ subject: this.form.field.join(','), question: this.form.type })
         if (data.data) {
           this.totalNum = data.data
         }
@@ -594,10 +596,15 @@ export default {
      */
     async handleSubmit () {
       const iepTestPaper = { ...this.data.iepTestPaperVO }
-      iepTestPaper.iepQstnRuleList = this.iepQstnRuleList
+      iepTestPaper.iepQstnRuleList = this.iepQstnRuleList.map(function (item) {
+        const field = item.field.join(',')
+        item.field = field
+        return item
+      })
       iepTestPaper.score = this.assessmentPaper.score
       iepTestPaper.choiceNum = this.assessmentPaper.choiceNum
       iepTestPaper.difficulty = this.assessmentPaper.difficulty
+      console.log('iepTestPaper', iepTestPaper)
       this.submitLoading = true
       try {
         const { data } = await postNewPaper(iepTestPaper)

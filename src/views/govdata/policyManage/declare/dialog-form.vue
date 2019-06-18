@@ -1,6 +1,6 @@
 <template>
   <!-- <iep-dialog :dialog-show="dialogShow" :title="`${methodName}政策资讯`" width="500px" @close="loadPage"> -->
-  <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="120px">
+  <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="120px" :class="isReadonly ? 'readonly-form' : ''">
     <el-form-item label="标题" prop="title">
       <el-input v-model="formData.title" maxlength="255" :readonly="isReadonly"></el-input>
     </el-form-item>
@@ -23,41 +23,40 @@
       </el-input>
     </el-form-item>
 
-    <el-form-item label="索引号" class="formWidth">
+    <el-form-item label="索引号" class="formWidth" prop="reference">
       <el-input v-model="formData.reference" maxlength="255" :readonly="isReadonly"></el-input>
     </el-form-item>
 
-    <el-form-item label="发文号" class="formWidth">
+    <el-form-item label="发文号" class="formWidth" prop="issue">
       <el-input v-model="formData.issue" maxlength="255" :readonly="isReadonly"></el-input>
     </el-form-item>
 
-    <!-- <el-form-item label="发文单位" class="formWidth" prop="dispatchList">
-      <mutiply-select v-model="formData.dispatchList" :selectObjs="formData.dispatchsList" :options="发文单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
+    <el-form-item label="发文单位" class="formWidth" prop="dispatchList">
+      <mutiply-select v-if="!isReadonly || isAudit" v-model="formData.dispatchList" :selectObjs="formData.dispatchsList" :options="发文单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
+      <el-tag v-else type="info" :key="tag.id" v-for="tag in tagsDispatchListShow" size="medium">{{tag.name}}</el-tag>
     </el-form-item>
 
-    <el-form-item label="联合发文单位" class="formWidth">
-      <mutiply-select v-model="formData.unionList" :selectObjs="formData.unionsList" :options="联合发文单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
-    </el-form-item> -->
+    <el-form-item label="联合发文单位" class="formWidth" prop="unionList">
+      <mutiply-select v-if="!isReadonly || isAudit" v-model="formData.unionList" :selectObjs="formData.unionsList" :options="联合发文单位options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
+      <el-tag v-else type="info" :key="tag.id" v-for="tag in tagsUnionListShow" size="medium">{{tag.name}}</el-tag>
+    </el-form-item>
 
-    <!-- <el-form-item label="成文时间" class="formWidth">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.writeTime" style="width: 100%;" :disabled="isReadonly"></el-date-picker>
-    </el-form-item> -->
-
-    <el-form-item label="发文时间" class="formWidth" prop="publishTime">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" style="width: 100%;" :disabled="isReadonly"></el-date-picker>
+    <el-form-item label="发文时间" prop="publishTime" class="formWidth">
+      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
     <el-form-item label="申报开始时间" class="formWidth">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.effectTime" style="width: 100%;" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker type="date" placeholder="选择日期" v-model="formData.effectTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" style="width: 100%;" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
     <el-form-item label="申报截止时间" class="formWidth">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.invalidTime" style="width: 100%;" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker type="date" placeholder="选择日期" v-model="formData.invalidTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" style="width: 100%;" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
-    <!-- <el-form-item label="政策依据" class="formWidth">
-      <mutiply-select v-model="formData.policyList" :selectObjs="formData.policysList" :options="政策依据options" :otherProps="政策依据otherProps" :disabled="isReadonly"></mutiply-select>
+    <!-- <el-form-item label="标题图" class="formWidth">
+      <el-input v-model="formData.explainImage" :readonly="isReadonly"></el-input>
     </el-form-item> -->
+
 
     <!-- 这里是循环选择器的组件 -->
     <el-form-item class="formWidth" :label="key" v-for="(value, key) in selectFiledMap" :key="key" :prop="value.formText">
@@ -72,24 +71,24 @@
     </el-form-item>
 
     <el-form-item label="摘要" prop="summary">
-      <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}" maxlength="1000" placeholder="请输入内容" v-model="formData.summary" :readonly="isReadonly">
+      <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}" placeholder="请输入摘要内容" v-model="formData.summary" :readonly="isReadonly">
       </el-input>
     </el-form-item>
 
     <el-form-item label="申报条件" prop="condition">
-      <iep-froala-editor v-model="formData.condition" :disabled="isReadonly"></iep-froala-editor>>
+      <iep-froala-editor v-model="formData.condition" style="width:80%" :readonly="isReadonly"></iep-froala-editor>
     </el-form-item>
 
-    <el-form-item label="扶持标准">
-      <iep-froala-editor v-model="formData.standard" :disabled="isReadonly"></iep-froala-editor>>
+    <el-form-item label="扶持标准" prop="standard">
+      <iep-froala-editor v-model="formData.standard" style="width:80%" :readonly="isReadonly"></iep-froala-editor>
     </el-form-item>
 
     <el-form-item label="办理流程" prop="process">
-      <iep-froala-editor v-model="formData.process" :disabled="isReadonly"></iep-froala-editor>>
+      <iep-froala-editor v-model="formData.process" style="width:80%" :readonly="isReadonly"></iep-froala-editor>
     </el-form-item>
 
-    <el-form-item label="材料递交要求">
-      <iep-froala-editor v-model="formData.requirement" :disabled="isReadonly"></iep-froala-editor>>
+    <el-form-item label="材料递交要求" prop="requirement">
+      <iep-froala-editor v-model="formData.requirement" style="width:80%" :readonly="isReadonly"></iep-froala-editor>
     </el-form-item>
 
     <el-form-item label="正文" prop="text">
@@ -98,8 +97,8 @@
 
     <el-form-item>
       <el-button type="primary" :loading="loading" @click="$emit('onAudit', formData)" v-if="isAudit">审核</el-button>
-      <el-button type="primary" :loading="loading" @click="handleTempSave('form')" v-if="!isReadonly || isAudit">暂存</el-button>
-      <el-button type="primary" :loading="loading" @click="handleSubmit('form')" v-if="!isReadonly && !isHideSubmitBtn && !isAudit">保存并提交</el-button>
+      <el-button type="primary" :loading="loading" @click="handleTempSave('form')" v-if="!isReadonly || isAudit">{{postTxt}}</el-button>
+      <!-- <el-button type="primary" :loading="loading" @click="handleSubmit('form')" v-if="!isReadonly && !isHideSubmitBtn && !isAudit">保存并提交</el-button> -->
       <el-button type="primary" plain @click="$emit('hideDialog', false)" v-else>关闭</el-button>
     </el-form-item>
 
@@ -107,70 +106,64 @@
   <!-- </iep-dialog> -->
 </template>
 <script>
+import mixins from '@/mixins/mixins'
 import { region } from '../region'
-import multiplyMixin from '../multiply_mixin'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
-import {  postInformation, putInformation,validInformationTitle, postInformationAndCommit, putInformationAndCommit } from '@/api/govdata/information'
-// import { getBasisPage } from '@/api/govdata/common'
+import MutiplySelect from '@/components/deprecated/mutiply-select'
+import {  postDeclare, putDeclare, postDeclareAndCommit, putDeclareAndCommit } from '@/api/govdata/declaration_policy'
+// import { validInformationTitle}from '@/api/govdata/information'
+import { getBasisPage } from '@/api/govdata/common'
 import { getOrganizationPage } from '@/api/govdata/common'
-// const orgOption = [{
-//   prop: 'label',
-//   label: '机构分类',
-// }, {
-//   prop: 'organizationUrl',
-//   label: '机构网址',
-// }]
+const orgOption = [{
+  prop: 'label',
+  label: '机构分类',
+}, {
+  prop: 'organizationUrl',
+  label: '机构网址',
+}]
 export default {
-  props: ['formData', 'isEdit', 'isReadonly', 'isAudit', 'dictGroup', 'selectFiledMap', 'isHideSubmitBtn'],
-  mixins: [multiplyMixin],
-  components: { MutiplyTagSelect },
+  props: ['formData', 'isEdit', 'isReadonly', 'isAudit', 'dictGroup', 'selectFiledMap', 'isHideSubmitBtn','postTxt'],
+  mixins: [mixins],
+  components: { MutiplyTagSelect,MutiplySelect },
   data () {
-    var checkTitle = (rule, value, callback) => {
-      const title = this.isEdited ? this.formData.title : undefined
-      if (!value) {
-        return callback(new Error('标题不能为空'))
-      }
-      validInformationTitle(value).then(res => {
-        if (title !== value && !res.data.data) {
-          callback(new Error('标题重复，已存在。'))
-        } else {
-          callback()
-        }
-      }).catch(() => {
-        this.msg('不能检查标题是否重复，请检查你的网络链接。', 'error')
-      })
-    }
+    // var checkTitle = (rule, value, callback) => {
+    //   const title = this.isEdited ? this.formData.title : undefined
+    //   if (!value) {
+    //     return callback(new Error('标题不能为空'))
+    //   }
+    //   validInformationTitle(value).then(res => {
+    //     if (title !== value && !res.data.data) {
+    //       callback(new Error('标题重复，已存在。'))
+    //     } else {
+    //       callback()
+    //     }
+    //   }).catch(() => {
+    //     this.msg('不能检查标题是否重复，请检查你的网络链接。', 'error')
+    //   })
+    // }
     return {
-      // orgOption,
+      tagsDispatchListShow: [],
+      tagsUnionListShow: [],
+      orgOption,
+      disabled: false,
       isEdited: this.isEdit,
       isShow: false,
       loading: false,
       rules: this.isReadonly ? {} : {
-        title: [{ required: true, validator: checkTitle, trigger: 'blur' }],
-        text: [{ required: true, message: '请输入申报政策正文' }],
-        url: [{ type: 'url', message: '请输入有效的网址 如：https://www.baodu.com', trigger: 'blur' }],
-        declareTagList: [{ type: 'array', required: true, message: '请至少选择或填写3个标签', min: 3, trigger: 'change' }],
-        source: [{ required: true, message: '请输入政策来源' }],
-        declareDispatchList: [{ type: 'array', required: true, message: '请选择发文单位', trigger: 'change' }],
-        publishTime: [{ required: true, message: '请选择发文时间' }],
-        declareStyle: [{ required: true, message: '请选择政策文体' }],
-        generalLevel: [{ required: true, message: '请选择政策层级' }],
-        formality: [{ required: true, message: '请选择政策扶持形式' }],
-        support: [{ required: true, message: '请选择政策支持方式' }],
-        declareMethod: [{ required: true, message: '请选择政策申报方式' }],
-        declareSpecial: [{ required: true, message: '请选择政策专项分类' }],
-        scale: [{ required: true, message: '请选择政策适用规模' }],
-        theme: [{ required: true, message: '请选择政策主题' }],
-        // fund: [{ required: true, message: '请选择政策扶持资金规模' }],
+        // title: [{ required: true, validator: checkTitle, trigger: 'blur' }],
+        text: [{ required: true, message: '请输入政策解读正文' }],
+        tagList: [{ type: 'array', required: true, message: '请至少选择或填写3个标签', min: 2, trigger: 'change' }],
+        url: [{ required: true, type: 'url', message: '请输入有效的网址 如：https://www.baodu.com', trigger: 'blur' }],
+        publishTime: [{ required: true, message: '请选择政策解读时间' }],
+        level: [{ required: true, message: '请选择政策层级' }],
         industry: [{ required: true, message: '请选择政策适用行业' }],
-        declareStatus: [{ required: true, message: '请选择政策申报状态' }],
-        target: [{ required: true, message: '请选择政策申报对象' }],
-        declareAbstract: [{ required: true, message: '请输入政策摘要' }],
-        condition: [{ required: true, message: '请输入政策申报条件' }],
-        process: [{ required: true, message: '请输入政策办理流程' }],
-        regionArr: [{ required: true, message: '请选择政策适用地区' }],
+        main: [{ required: true, message: '请选择政策解读主体' }],
+        theme: [{ required: true, message: '请选择政策主题' }],
+        source: [{ required: true, message: '请输入政策解读来源' }],
+        summary: [{ required: true, message: '请输入政策摘要' }],
+        // regionArr: [{ required: true, message: '请选择政策适用地区' }],
       },
-        发文单位options: {
+      发文单位options: {
         name: '发文单位',
         labelName: '机构名',
         labelProp: 'name',
@@ -179,13 +172,22 @@ export default {
         getRequestName: getOrganizationPage,
         pageLimit: 6,
       },
-            联合发文单位options: {
+      联合发文单位options: {
         name: '发文单位',
         labelName: '机构名',
         labelProp: 'name',
         valueName: '机构ID',
         valueProp: 'id',
         getRequestName: getOrganizationPage,
+        pageLimit: 6,
+      },
+      政策依据options: {
+        name: '政策',
+        labelName: '政策名称',
+        labelProp: 'title',
+        valueName: '政策ID',
+        valueProp: 'id',
+        getRequestName: getBasisPage,
         pageLimit: 6,
       },
       options: region,
@@ -198,17 +200,30 @@ export default {
   computed: {
 
   },
+  created () {
+    this.tagsDispatchListShow = this.formData.dispatchsList
+    this.tagsUnionListShow = this.formData.unionList
+  },
   methods: {
+    // _processForm (rows) {
+    //   rows.target = this.encodeSplitStr(rows.target)
+    //   rows.industry = this.encodeSplitStr(rows.industry)
+    //   rows.scale = this.encodeSplitStr(rows.scale)
+    //   rows.theme = this.encodeSplitStr(rows.theme)
+    //   rows.region = this.$refs['region'].currentLabels.join(',')
+    //   rows.regionList = []
+    // },
+    /**
+     * 保存并提交
+     */
     handleSubmit (formName) {
       this.loading = true
-      this.formData.region = this.$refs['region'].currentLabels.join(',')
-      this.formData.regionList = []
       const submitForm = JSON.parse(JSON.stringify(this.formData))
       submitForm.file = submitForm.attachments ? submitForm.attachments.url : ''
-
+      // this._processForm(submitForm)
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          const requestFun = this.isEdited ? putInformationAndCommit : postInformationAndCommit
+          const requestFun = this.isEdited ? putDeclareAndCommit : postDeclareAndCommit
           requestFun(submitForm).then(() => {
             this.submitMessage()
           }).catch(() => {
@@ -226,25 +241,33 @@ export default {
      */
     async handleTempSave (formName) {
         this.loading = true
-        this.formData.region = this.$refs['region'].currentLabels.join(',')
-        this.formData.regionList = []
+        // this.formData.region = this.$refs['region'].currentLabels.join(',')
+        // this.formData.regionList = []
+        this.formData.theme = this.formData.theme.join(',')
+        this.formData.industry = this.formData.industry.join(',')
+        this.formData.scale = this.formData.scale.join(',')
+        this.formData.mode = this.formData.mode.join(',')
+        this.formData.formality = this.formData.formality.join(',')
+        this.formData.support = this.formData.support.join(',')
+        this.formData.fund = this.formData.fund.join(',')
+        this.formData.target = this.formData.target.join(',')
         const submitForm = JSON.parse(JSON.stringify(this.formData))
         submitForm.file = submitForm.attachments ? submitForm.attachments.url : ''
-
+        // this._processForm(submitForm)
         this.$refs[formName].validateField(('title'))
         if (!submitForm.title) {
           this.msg('标题不能为空', 'warning')
           return false
         }
 
-        const requestFun = this.isEdited ? putInformation : postInformation
+        const requestFun = this.isEdited ? putDeclare : postDeclare
         requestFun(submitForm).then(res => {
           if (!this.isEdited) {
             this.formData.id = res.data.msg ? Number(res.data.msg) : this.formData.id
             this.formData.title = submitForm.title
             this.isEdited = true
           }
-          this.msg('保存成功!', 'success')
+          this.submitMessage()
         }).catch(() => {
           this.msg('保存失败，请检查你的网络链接。', 'error')
         })

@@ -28,3 +28,46 @@ export function deleteDeclareBatch (ids) {
     data: ids,
   })
 }
+
+/**
+ * 新增并提交政策
+ * @param {Object} obj 表单参数
+ */
+export function postDeclareAndCommit (params) {
+  return request({
+    url: '/gov/policy/declare/createAndCommit',
+    method: 'post',
+    data: params,
+  })
+}
+
+/**
+ * 修改并提交政策
+ * @param {Object} obj 表单参数
+ */
+export function putDeclareAndCommit (params) {
+  return request({
+    url: '/gov/policy/declare/updateAndCommit',
+    method: 'post',
+    data: params,
+  })
+}
+
+// 暂存(添加)
+export function postDeclare (params) {
+  return request({
+    url: '/gov/policy/declare/create',
+    method: 'post',
+    data: params,
+  })
+}
+
+
+// 暂存(修改)
+export function putDeclare (params) {
+  return request({
+    url: '/gov/policy/declare/update',
+    method: 'post',
+    data: params,
+  })
+}

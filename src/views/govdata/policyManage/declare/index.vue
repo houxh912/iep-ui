@@ -26,7 +26,7 @@
       </collapse-form>
 
       <el-form :inline="true" size="small">
-        <el-form-item>
+        <!-- <el-form-item>
           <el-dropdown @command="handleMove">
             <el-button type="primary" icon="el-icon-rank">
               移动到<i class="el-icon-arrow-down el-icon--right"></i>
@@ -37,6 +37,10 @@
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
+        </el-form-item> -->
+
+        <el-form-item>
+          <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus">新增</el-button>
         </el-form-item>
       </el-form>
 
@@ -55,7 +59,7 @@
       <pagination @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" :pagination-option="paginationOption"></pagination>
 
       <form-dialog :dialog-show="dialogShow" :title="infoFormTitle" @close="load()" :isNeedConfirm="isNeedConfirm" width="1000px">
-        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()" :dictGroup="dictGroup" :selectFiledMap="selectFiledMap"></dialog-form>
+        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()" :dictGroup="dictGroup" :selectFiledMap="selectFiledMap" :postTxt="postTxt"></dialog-form>
       </form-dialog>
     </template>
   </page-dialog>
@@ -218,8 +222,7 @@ function initForm () {
   return {
     title: '',
     tagList: [],
-    views: 0,
-    source: '',
+    formWidth: '',
     url: '',
     reference: '',
     issue: '',
@@ -228,6 +231,14 @@ function initForm () {
     invalidTime: '',
     regionArr: [],
     summary: '',
+    condition: '',
+    standard: '',
+    process: '',
+    requirement: '',
+    theme: [],
+    industry: [],
+    level: '',
+    main: [],
     text: '',
   }
 }
@@ -257,6 +268,7 @@ export default {
       isReadonly: false,
       isNeedConfirm: true,
       commadOptions,
+      postTxt: null,
     }
   },
   computed: {
@@ -328,7 +340,6 @@ export default {
       this.$set(rows, 'fund', this.decodeSplitStr(fund))
       this.$set(rows, 'industry', this.decodeSplitStr(industry))
       this.$set(rows, 'mode', this.decodeSplitStr(mode))
-      this.$set(rows, 'scale', this.decodeSplitStr(scale))
       this.$set(rows, 'scale', this.decodeSplitStr(scale))
       this.$set(rows, 'support', this.decodeSplitStr(support))
       this.$set(rows, 'target', this.decodeSplitStr(target))
@@ -411,6 +422,18 @@ export default {
         const rows = res.data.data
         this.readRelation(rows)
         this.form = { ...rows }
+        if (rows.condition == null) {
+          this.form.condition = ''
+        }
+        if (rows.standard == null) {
+          this.form.standard = ''
+        }
+        if (rows.process == null) {
+          this.form.process = ''
+        }
+        if (rows.requirement == null) {
+          this.form.requirement = ''
+        }
         this.isReadonly = true
         this.isNeedConfirm = false
         this.dialogShow = true
@@ -427,23 +450,46 @@ export default {
       // this.isReadonly = false
       // this.isNeedConfirm = false
       // this.dialogShow = true
-      getDeclareById(rows.id).then(res => {
-        // console.log('mmm', res)
-        const rows = res.data.data
-        this.readRelation(rows)
-        this.form = { ...rows }
-        this.isEdit = true
+      
+      
+      if (!rows) {
+        this.form = initForm()
+        this.isEdit = false
         this.isReadonly = false
-        this.isNeedConfirm = false
-        this.dialogShow = true
-      })
+        this.postTxt = '提交'
+      }
+      else {
+        this.isEdit = true
+        this.postTxt = '暂存'
+        getDeclareById(rows.id).then(res => {
+          // console.log('mmm', res)
+          const rows = res.data.data
+          this.readRelation(rows)
+          this.form = { ...rows }
+          if (rows.condition == null) {
+            this.form.condition = ''
+          }
+          if (rows.standard == null) {
+            this.form.standard = ''
+          }
+          if (rows.process == null) {
+            this.form.process = ''
+          }
+          if (rows.requirement == null) {
+            this.form.requirement = ''
+          }
+          this.isReadonly = false
+          this.isNeedConfirm = false
+        })
+      }
+      this.dialogShow = true
     },
 
     /**
      * 删除按钮
      */
     handleDelete (rows) {
-      console.log(rows)
+      // console.log(rows)
       const id = rows.id
       this._handleGlobalDeleteById([id], deleteDeclareBatch)
     },

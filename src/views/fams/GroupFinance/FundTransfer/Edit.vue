@@ -40,7 +40,7 @@
         <iep-form-item v-if="!callOutBankAmountOption.disabled" label-name="银行账户">
           <iep-select v-model="form.callOutCompanyBankId" autocomplete="off" :prefix-url="callOutBankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
         </iep-form-item>
-        <iep-form-item label-name="调出方财务" class="form-half">
+        <iep-form-item label-name="调出方财务">
           <iep-contact-select v-model="form.callOutUser"></iep-contact-select>
         </iep-form-item>
         <h4 class="iep-sub-title">调入组织</h4>
@@ -53,7 +53,7 @@
         <iep-form-item v-if="!callInBankAmountOption.disabled" label-name="银行账户">
           <iep-select v-model="form.callInCompanyBankId" autocomplete="off" :prefix-url="callInBankAmountOption.prefixUrl" placeholder="请选择银行账户" disabled></iep-select>
         </iep-form-item>
-        <iep-form-item label-name="调入方财务" class="form-half">
+        <iep-form-item label-name="调入方财务">
           <iep-contact-select v-model="form.callInUser"></iep-contact-select>
         </iep-form-item>
       </el-form>

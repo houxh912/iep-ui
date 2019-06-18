@@ -29,13 +29,17 @@
             <div class="content">{{form.endTime}}</div>
           </div>
           <div class="info-item">
+            <label>请假时长：</label>
+            <div class="content">{{form.duration}}</div>
+          </div>
+          <div class="info-item">
             <label>请假类型：</label>
             <div class="content">
               <iep-dict-detail dict-name="hrms_applic_type" :value="form.type+''"></iep-dict-detail>/
               <iep-dict-detail dict-name="hrms_levae_type" :value="form.levaeType"></iep-dict-detail>
             </div>
           </div>
-          <div class="info-item">
+          <div v-if="form.levaeType===4" class="info-item">
             <label>查看加班：</label>
             <div class="content">
               <el-button type="text" @click="handleOverTimeList">查看加班详细</el-button>

@@ -3,7 +3,7 @@
     <feelings :userId="userId"></feelings>
     <rewards :userId="userId"></rewards>
     <person-mark :userId="userId"></person-mark>
-    <relation :userId="userId"></relation>
+    <relation :userId="userId" :similarUser="similarUser"></relation>
   </div>
 </template>
 
@@ -20,6 +20,9 @@ export default {
     userId: {
       type: Number,
       default: 0,
+    },
+    similarUser: {
+      type: Array,
     },
   },
   data () {

@@ -41,18 +41,22 @@ export default {
 <style lang="scss" scoped>
 .notice-box {
   position: relative;
+  .piece {
+    position: relative;
+  }
   .new {
+    position: absolute;
+    right: 0;
+    top: 10px;
     padding: 0 3px;
-    height: 20px;
-    line-height: 18px;
+    height: 18px;
+    line-height: 14px;
     font-size: 12px;
     background-color: #fff;
     border-radius: 3px;
     border: 1px solid #cb3737;
     color: #cb3737;
-    position: absolute;
-    right: 0;
-    top: 7px;
+    box-shadow: 1px 1px 1px 1px #eee;
   }
 }
 </style>
@@ -62,7 +66,7 @@ export default {
 }
 .notice >>> .assort .piece {
   margin-left: -8px;
-  padding-right: 40px;
+  padding: 10px;
   height: 38px;
   line-height: 38px;
 }

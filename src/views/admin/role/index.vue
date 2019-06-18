@@ -24,7 +24,7 @@
       </avue-crud>
     </basic-container>
     <el-dialog title="分配权限" :visible.sync="dialogPermissionVisible">
-      <el-tree class="filter-tree" :data="treeData" :default-checked-keys="checkedKeys" :check-strictly="false" node-key="id" highlight-current :props="defaultProps" show-checkbox ref="menuTree" :filter-node-method="filterNode" default-expand-all>
+      <el-tree class="filter-tree" :data="treeData" :default-checked-keys="checkedKeys" :check-strictly="false" node-key="id" highlight-current :props="defaultProps" show-checkbox ref="menuTree" :filter-node-method="filterNode">
       </el-tree>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="updatePermession(roleId, roleCode)">更 新

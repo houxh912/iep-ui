@@ -13,6 +13,7 @@ const statusMap = {
   '2': 3,
   '3': 3,
   '10': 3,
+  '7': 3,
 }
 
 const initForm = (config) => {

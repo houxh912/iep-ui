@@ -7,7 +7,7 @@
 
     <el-form-item label="标签" prop="tagList">
       <mutiply-tag-select v-model="formData.tagList" :selectObjs="formData.tagsList" v-if="!isReadonly"></mutiply-tag-select>
-      <el-select v-model="formData.tagList" multiple disabled v-else>
+      <el-select style="width:96.5%" v-model="formData.tagList" multiple disabled v-else>
         <el-option v-for="item in formData.tagsList" :key="item.commonId" :label="item.commonName" :value="item.commonId">
         </el-option>
       </el-select>
@@ -40,10 +40,14 @@
       </el-input>
     </el-form-item>
 
-    <el-form-item label="正文" class="texttwoclass" prop="text">
-      <iep-froala-editor v-model="formData.text" :disabled="isReadonly"></iep-froala-editor>
-      <!-- <iep-html v-else :htmlStr="formData.text"></iep-html> -->
-      <!-- <el-input v-else  :autosize="{ minRows: 5, maxRows: 10}" placeholder="请输入正文" v-model="formData.text" :readonly="isReadonly"></el-input> -->
+    <el-form-item label="正文" class="texttwoclass" v-if="!isReadonly">
+      <iep-froala-editor v-model="formData.text"></iep-froala-editor>
+    </el-form-item>
+
+    <el-form-item label="正文" v-if="isReadonly">
+      <div class="html">
+        <iep-html v-model="formData.text"></iep-html>
+      </div>
     </el-form-item>
 
     <el-form-item>
@@ -215,6 +219,17 @@ export default {
 }
 .cascaderclass >>> .el-input {
   width: 169%;
+}
+.html {
+  margin-right: 24px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+.html >>> .fr-view[data-v-5eb9c662] {
+  padding: 10px;
+  resize: vertical;
+  color: #000;
+  overflow-x: auto;
 }
 </style>
 

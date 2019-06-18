@@ -16,7 +16,7 @@
             <el-date-picker v-model="formInline.endTime" type="date" placeholder="结束日期" class="block" clearable></el-date-picker>
           </el-form-item>
           <!-- 这里是循环选择器的组件 -->
-          <el-form-item class="selectclass" :label="key" v-for="(value, key) in selectFiledMap" :key="key">
+          <el-form-item class="selectclasss" :label="key" v-for="(value, key) in selectFiledMap" :key="key">
             <el-select v-model="formInline[value.searchText]" :placeholder="`请选择${key}`" clearable>
               <el-option v-for="item in dictGroup[value.dictText]" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
@@ -43,12 +43,12 @@
         </el-form-item> -->
       </el-form>
 
-      <crud-table :is-load-table="isLoadTable" align="center" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
-        <el-table-column prop="title" label="政策名称" align="left" width="300"></el-table-column>
+      <crud-table :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
+        <!-- <el-table-column prop="title" label="政策名称" align="left" width="300"></el-table-column>
         <el-table-column prop="publishTime" label="发文时间" align="center"></el-table-column>
         <el-table-column prop="creatorName" label="上传者" align="center"></el-table-column>
         <el-table-column prop="examineUserName" label="审核人" align="center"></el-table-column>
-        <el-table-column prop="examineDate" label="审核通过时间" align="center"></el-table-column>
+        <el-table-column prop="examineDate" label="审核通过时间" align="center"></el-table-column> -->
         <el-table-column prop="operation" align="center" label="操作" width="200">
           <template slot-scope="scope">
             <el-button @click="handleView(scope.row)" type="text" size="small" icon="el-icon-view">查看</el-button>
@@ -82,35 +82,35 @@ import dialogForm from './dialog-form'
 import { getGeneralPage, getGeneralById, deleteGeneralBatch } from '@/api/govdata/general_policy'
 import { movePolicy, findByTypeList } from '@/api/govdata/common'
 const columnMap = [
-  // {
-  //   prop: 'title',
-  //   label: '政策名称',
-  //   width: 300,
-  // },
-  // {
-  //   prop: 'publishTime',
-  //   label: '发文时间',
-  //   type: 'time',
-  //   // width: 140,
-  //   // sortable: 'custom',
-  // },
-  // {
-  //   prop: 'creatorName',
-  //   label: '上传者',
-  //   // width: 140,
-  // },
-  // {
-  //   prop: 'examineUserName',
-  //   label: '审核人',
-  //   // width: 140,
-  // },
-  // {
-  //   prop: 'examineDate',
-  //   label: '审核通过时间',
-  //   type: 'time',
-  //   // width: 140,
-  //   // sortable: 'custom',
-  // },
+  {
+    prop: 'title',
+    label: '政策名称',
+    // width: 300,
+  },
+  {
+    prop: 'publishTime',
+    label: '发文时间',
+    type: 'time',
+    width: 140,
+    // sortable: 'custom',
+  },
+  {
+    prop: 'creatorName',
+    label: '上传者',
+    width: 140,
+  },
+  {
+    prop: 'examineUserName',
+    label: '审核人',
+    width: 140,
+  },
+  {
+    prop: 'examineDate',
+    label: '审核通过时间',
+    type: 'time',
+    width: 140,
+    // sortable: 'custom',
+  },
 ]
 const commadOptions = [
   {
@@ -169,6 +169,14 @@ for (const key in selectFiledMap) {
     typeList.push(element.dictText)
   }
 }
+function initFormInline () {
+  return {
+    title: '',
+    username: '',
+    startTime: '',
+    endTime: '',
+  }
+}
 function initForm () {
   return {
     title: '',
@@ -203,9 +211,11 @@ export default {
     return {
       id: '',
       type: 'general',
+      // formInline: {},
+      initFormInline,
+      formInline: initFormInline(),
       columnMap,
       selectFiledMap,
-      formInline: {},
       dictGroup: initDictGroup(),
       form: initForm(),
       isEdit: true,
@@ -314,7 +324,7 @@ export default {
           source: this.type,
           target: command,
         }
-        console.log('mmm', parmas)
+        //console.log('mmm', parmas)
         const { data } = await movePolicy(parmas)
         if (data.data) {
           this.load()
@@ -392,7 +402,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.selectclass {
+.selectclasss {
   .el-select__tags {
     width: 190% !important;
   }

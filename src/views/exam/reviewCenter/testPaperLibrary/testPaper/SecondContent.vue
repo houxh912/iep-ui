@@ -417,11 +417,14 @@ export default {
      */
     loadSelf () {
       if (this.isEdit) {
-        this.iepQstnRuleList = this.data.iepTestPaperVO.iepQstnRuleList.map(function (item) {
+        this.data.iepTestPaperVO.iepQstnRuleList.forEach((item) => {
           this.choiceType.push(item.type)
-          const fieldArray = item.field.split(',')
-          item.field = fieldArray
-          return item
+          var fieldString = item.field.split(',')
+          var fieldInt = fieldString.map((data) => {
+            return +data
+          })
+          item.field = fieldInt
+          this.iepQstnRuleList.push(item)
         })
         this.choiceType.sort()
         this.submitDisabled = true
@@ -604,7 +607,6 @@ export default {
       iepTestPaper.score = this.assessmentPaper.score
       iepTestPaper.choiceNum = this.assessmentPaper.choiceNum
       iepTestPaper.difficulty = this.assessmentPaper.difficulty
-      console.log('iepTestPaper', iepTestPaper)
       this.submitLoading = true
       try {
         const { data } = await postNewPaper(iepTestPaper)

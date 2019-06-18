@@ -191,7 +191,7 @@
             </el-col>
             <el-col :span="6">
               <el-form-item prop="registrationState">
-                <el-switch active-text="是否添加报名审核" v-model="examForm.registrationState"
+                <el-switch active-text="报名自动审核通过" v-model="examForm.registrationState"
                   :active-value="1" :inactive-value="0" :disabled="readOnly"></el-switch>
               </el-form-item>
             </el-col>

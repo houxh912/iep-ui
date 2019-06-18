@@ -1,6 +1,12 @@
 // import { checkContactUser } from '@/util/rules'
 
 const dictsMap = {
+  processStatus: {
+    0: '待审核',
+    1: '通过',
+    2: '驳回',
+    3: '转交',
+  },
   status: {
     0: '待提交',
     1: '部门审批',
@@ -40,7 +46,7 @@ function initForm () {
       id: 0,
       name: '',
     },
-    financialAuditName: '',
+    financialName: '',
     auditorName: '',
     remarks: '',
     financialAudit:0,

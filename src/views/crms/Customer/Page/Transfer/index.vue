@@ -31,7 +31,9 @@ export default {
       Contacts: {
         clientIds: '',
         creatorId: [],
+        myOrAll: '',
       },
+      myOrAll: '',
       form: {
         user: {
           id: '',
@@ -55,7 +57,7 @@ export default {
     handleGoBack () {
       this.$emit('onGoBack')
     },
-    close () {      
+    close () {
       this.form.user = {
         id: '',
         name: '',
@@ -65,6 +67,7 @@ export default {
     submitForm () {
       this.Contacts.clientIds = this.id
       this.Contacts.creatorId = this.form.user.id
+      this.Contacts.myOrAll = this.myOrAll
       TransferCustomers(this.Contacts).then(res => {
         if (res.data.data) {
           this.$message.success('转移客户成功！')

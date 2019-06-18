@@ -41,7 +41,7 @@
         </iep-form-item>
 
         <iep-form-item class="form-half" label-name="财务审批人">
-          <iep-div-detail v-model="form.financialAuditName"></iep-div-detail>
+          <iep-div-detail v-model="form.financialName"></iep-div-detail>
         </iep-form-item>
 
         <iep-form-item v-if="auditorOption" class="form-half" label-name="部门审批人">
@@ -61,6 +61,7 @@
                 <iep-img-avatar :src="process.avatar"></iep-img-avatar>
                 {{process.name}}
                 <span style="color: #aaa; font-size: 14px;">{{process.identityMarks.join(',')}}</span>
+                <span>{{dictsMap.processStatus[process.status]}}</span>
               </div>
               <br>
               <div>备注：

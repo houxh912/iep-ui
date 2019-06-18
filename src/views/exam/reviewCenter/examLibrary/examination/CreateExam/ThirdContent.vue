@@ -73,7 +73,8 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="所属科目" prop="field">
-                <el-select placeholder="请选择所属科目" v-model="examForm.field" :disabled="readOnly">
+                <el-select placeholder="请选择所属科目" v-model="examForm.field" :disabled="readOnly"
+                  style="width:100%">
                   <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
                     :value="item.id"></el-option>
                 </el-select>
@@ -87,14 +88,16 @@
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="signBeginTime">
                       <iep-date-picker v-model="examForm.signBeginTime" type="datetime" placeholder="开始时间"
-                        :readonly="readOnly" :picker-options="pickerOptionsSignBegin" value-format="yyyy-MM-dd HH:mm:ss"></iep-date-picker>
+                        style="width:100%" :readonly="readOnly" :picker-options="pickerOptionsSignBegin"
+                        value-format="yyyy-MM-dd HH:mm:ss"></iep-date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col class="line" :span="2">-</el-col>
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="signEndTime">
                       <iep-date-picker v-model="examForm.signEndTime" type="datetime" placeholder="结束时间"
-                        :readonly="readOnly" :picker-options="pickerOptionsSignEnd" value-format="yyyy-MM-dd HH:mm:ss"></iep-date-picker>
+                        style="width:100%" :readonly="readOnly" :picker-options="pickerOptionsSignEnd"
+                        value-format="yyyy-MM-dd HH:mm:ss"></iep-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -115,7 +118,7 @@
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="signBeginTime">
                       <iep-date-picker v-model="examForm.beginTime" type="datetime" placeholder="开始时间"
-                        :picker-options="pickerOptionsBegin" :readonly="readOnly"></iep-date-picker>
+                        style="width:100%" :picker-options="pickerOptionsBegin" :readonly="readOnly"></iep-date-picker>
                     </el-form-item>
 
                   </el-col>
@@ -123,7 +126,7 @@
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="endTime">
                       <iep-date-picker v-model="examForm.endTime" type="datetime" placeholder="结束时间"
-                        :picker-options="pickerOptionsEnd" :readonly="readOnly"></iep-date-picker>
+                        style="width:100%" :picker-options="pickerOptionsEnd" :readonly="readOnly"></iep-date-picker>
                     </el-form-item>
                   </el-col>
                 </el-row>

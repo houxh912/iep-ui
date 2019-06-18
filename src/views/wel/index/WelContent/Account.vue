@@ -15,41 +15,45 @@
         <iep-identity-mark v-for="item in form.identityMarks" :key="item.value" :icon="item.icon" :title="item.label"></iep-identity-mark>
         <span class="welcome-text">{{welcome}}</span>
       </div>
-      <div class="user-position-box">
-        <iep-div-detail class="position-item title-label" :value="form.title" nullmsg="暂无职称"></iep-div-detail>
-        <iep-div-detail class="position-item job-label" :value="form.job" nullmsg="暂无岗位"></iep-div-detail>
-      </div>
-      <div class="user-operation-box">
-        <span class="inline task" @click="handleSome1()">
-          <i class="icon-qian icon padding"></i>
-          <span>完成每日工作，领国脉贝
-            <i class="el-icon-d-arrow-right"></i>
-          </span>
-        </span>
-        <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" type="primary" plain @click="handleSome2()">领导桌面</iep-button>
-      </div>
-    </div>
-    <div class="user-tags-box">
-      <div class="user-height">
-        <div class="user-tag">
-          <div class="count" @click="handleSome3()">{{form.tagNum}}</div>
-          <div class="name">标签
-            <iep-tip class="tag-icon" icon="el-icon-question" content="您的个人标签总数">
-            </iep-tip>
+      <div class="user-position-tags-box">
+        <div class="user-position-operation-box">
+          <div class="user-position-box">
+            <iep-div-detail class="position-item title-label" :value="form.title" nullmsg="暂无职称"></iep-div-detail>
+            <iep-div-detail class="position-item job-label" :value="form.job" nullmsg="暂无岗位"></iep-div-detail>
+          </div>
+          <div class="user-operation-box">
+            <span class="inline task" @click="handleSome1()">
+              <i class="icon-qian icon padding"></i>
+              <span>完成每日工作，领国脉贝
+                <i class="el-icon-d-arrow-right"></i>
+              </span>
+            </span>
+            <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" type="primary" plain @click="handleSome2()">领导桌面</iep-button>
           </div>
         </div>
-        <div class="user-tag">
-          <div class="count" @click="handleSome4()">{{form.materialNum}}</div>
-          <div class="name">材料
-            <iep-tip class="tag-icon" icon="el-icon-question" content="您上传材料的总数量">
-            </iep-tip>
-          </div>
-        </div>
-        <div class="user-tag">
-          <div class="count" @click="handleSome5()">{{form.credit}}</div>
-          <div class="name">信用
-            <iep-tip class="tag-icon" icon="el-icon-question" content="个人信用是基于内网创建的一套征信系统，依据个人在内网中的各项行为数据，<br/>运用云计算和机器学习等技术，对各维度数据进行综合处理和评估，<br/>在个人工作、学习、管理、协作五个维度客观呈现个人信用状况的综合分值。<br/>信用值的高低将影响项目承接机会、企业内部投资、员工提拔、晋升、领导表扬/奖励及享受特权的重要依据。">
-            </iep-tip>
+        <div class="user-tags-box">
+          <div class="user-height">
+            <div class="user-tag">
+              <div class="count" @click="handleSome3()">{{form.tagNum}}</div>
+              <div class="name">标签
+                <iep-tip class="tag-icon" icon="el-icon-question" content="您的个人标签总数">
+                </iep-tip>
+              </div>
+            </div>
+            <div class="user-tag">
+              <div class="count" @click="handleSome4()">{{form.materialNum}}</div>
+              <div class="name">材料
+                <iep-tip class="tag-icon" icon="el-icon-question" content="您上传材料的总数量">
+                </iep-tip>
+              </div>
+            </div>
+            <div class="user-tag">
+              <div class="count" @click="handleSome5()">{{form.credit}}</div>
+              <div class="name">信用
+                <iep-tip class="tag-icon" icon="el-icon-question" content="个人信用是基于内网创建的一套征信系统，依据个人在内网中的各项行为数据，<br/>运用云计算和机器学习等技术，对各维度数据进行综合处理和评估，<br/>在个人工作、学习、管理、协作五个维度客观呈现个人信用状况的综合分值。<br/>信用值的高低将影响项目承接机会、企业内部投资、员工提拔、晋升、领导表扬/奖励及享受特权的重要依据。">
+                </iep-tip>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -125,6 +129,18 @@ export default {
 .account-wrapper {
   margin: 20px;
   margin-bottom: 0;
+}
+.user-position-tags-box {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+.user-position-operation-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
 }
 .user-simple-box {
   border-right: 2px dotted #eee;

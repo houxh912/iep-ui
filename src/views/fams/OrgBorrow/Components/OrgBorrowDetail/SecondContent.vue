@@ -16,7 +16,7 @@
       <iep-form-item v-if="!bankAmountOption.disabled" label-name="收款账户">
         <iep-select v-model="data.borrowInCompanyBankId" autocomplete="off" :prefix-url="bankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>
       </iep-form-item>
-      <iep-form-item label-name="还款天数(天)">
+      <iep-form-item label-name="借款天数(天)">
         <iep-input-number v-model="data.borrowDays" :precision="0"></iep-input-number>
       </iep-form-item>
       <iep-form-item label-name="还款时间">

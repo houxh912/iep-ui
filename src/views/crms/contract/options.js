@@ -2,6 +2,7 @@ const initSearchForm = () => {
   return {
     contractName: '',
     director: '',
+    businessTypeFirst: '',
     businessType: '',
     contractLevel: '',
     contractStatus: '',

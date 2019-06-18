@@ -21,7 +21,8 @@
 </template>
 <script>
 import { initSearchForm } from '../options'
-import { getContactAssociate } from '@/api/crms/contact'
+// import { getContactAssociate } from '@/api/crms/contact'
+import { getPageData } from '@/api/crms/customer'
 import { mapGetters } from 'vuex'
 export default {
   data () {
@@ -50,9 +51,9 @@ export default {
       this.form = initSearchForm()
     },
     querySearch (queryString, cb) {
-      getContactAssociate({ clientName: queryString }).then(res => {
-        if (res.data.length > 0) {
-          let data = res.data.map(m => {
+      getPageData({ clientName: queryString }).then(res => {
+        if (res.data.data.records.length > 0) {
+          let data = res.data.data.records.map(m => {
             return { value: m.clientName }
           })
           cb(data)

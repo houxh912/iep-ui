@@ -8,49 +8,32 @@
             {{list.post}}：
           </span>
           <span :class="list.show">
-            {{list.name}}
-            <span class="classTag" v-show="list.show=='show'">
-              <el-tag type="white">{{list.tag1}}</el-tag>
-              <el-tag type="white">{{list.tag2}}</el-tag>
-              <el-tag type="white">{{list.tag3}}</el-tag>
+            <span class="classTag" v-if="list.show=='show'">
+              <el-tag type="white" v-for="(item, index) in projectData[list.name]" :key="index">{{item}}</el-tag>
             </span>
+            <span v-else-if="list.dict">{{getDictLabel(projectData[list.name], dictMap[list.name])}}</span>
+            <span v-else>{{projectData[list.name]}}</span>
           </span>
         </span>
       </div>
     </div>
   </div>
 </template>
+
 <script>
+import { setItOption, dictMap, getDictLabel } from './options'
+
 export default {
+  props: {
+    projectData: {
+      type: Object,
+    },
+  },
   data () {
     return {
-      itemList: [
-        {
-          title: '审批信息',
-          lists: [
-            {
-              post: '审批状态',
-              name: '未提交',
-            },
-            {
-              post: '申请人',
-              name: '北方业务一部',
-            },
-            {
-              post: '审批人',
-              name: '无',
-            },
-            {
-              post: '申请时间',
-              name: '2019-06-22  16:30',
-            },
-            {
-              post: '审批不通过理由',
-              name: '无',
-            },
-          ],
-        },
-      ],
+      itemList: setItOption,
+      dictMap,
+      getDictLabel,
     }
   },
 }
@@ -83,8 +66,7 @@ export default {
   grid-row-gap: 25px;
   grid-column-gap: 25px;
   grid-template-columns: minmax(100px, 2fr) minmax(100px, 2fr);
-  padding-bottom: 20px;
-  border-bottom: 1px solid #eee;
+  background-color: #fafafa;
   .item-list {
     display: flex;
     justify-content: flex-start;

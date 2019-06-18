@@ -70,5 +70,9 @@ export default {
       name: '营商通',
       url: 'https://www.govmade.com/yingst/',
     },
+    {
+      name: '国策数据',
+      url: 'http://gc.govmade.cn/',
+    },
   ],
 }

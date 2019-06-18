@@ -31,6 +31,7 @@ import { mapGetters } from 'vuex'
 import { getOrgBorrowPage } from '@/api/fams/org_borrow'
 import mixins from '@/mixins/mixins'
 import { dictsMap, colMap, propMap, tabList } from './options'
+import { formatBorrow } from '../options'
 export default {
   mixins: [mixins],
   data () {
@@ -79,7 +80,7 @@ export default {
     },
     handleDetail (row) {
       this.$router.push({
-        path: `/fams_spa/org_borrow_detail/${row.id}`,
+        path: formatBorrow(row),
       })
     },
     loadPage (param = this.searchForm) {

@@ -26,7 +26,9 @@
                 <span>我的徒弟</span>
               </el-menu-item>
               <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id)" @dblclick.native="changeGroup(item.name,item.id)">
-                <span>{{item.name}}</span>
+                <el-tooltip class="item" effect="dark" content="双击可进行编辑自定义分组名" placement="bottom-start">
+                  <span>{{item.name}}</span>
+                </el-tooltip>
                 <i class="iconfont icon-shanchu1" @click="handleDelete(item.id)"></i>
               </el-menu-item>
             </el-submenu>
@@ -155,35 +157,79 @@ export default {
       }
       this.loadPage()
     },
-    async handleRemove (row) {
-      const { data } = await removeRelationshipById(row.groupId,[row.userId])
-      if (data.data) {
-        this.$message({
-          message: '操作成功',
-          type: 'success',
+    // async handleRemove (row) {
+    //   const { data } = await removeRelationshipById(row.groupId,[row.userId])
+    //   if (data.data) {
+    //     this.$message({
+    //       message: '操作成功',
+    //       type: 'success',
+    //     })
+    //     this.loadPage()
+    //   } else {
+    //     this.$message({
+    //       message: data.msg,
+    //       type: 'error',
+    //     })
+    //   }
+    // },
+    handleRemove (row) {
+      this.$confirm('此操作将永久移除该数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        removeRelationshipById(row.groupId,[row.userId]).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '移除成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `移除失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
         })
-        this.loadPage()
-      } else {
-        this.$message({
-          message: data.msg,
-          type: 'error',
-        })
-      }
+      })
     },
-    async handleRemoveBatch () {
-      const { data } = await removeRelationshipBatch(this.groupType,this.multipleSelection)
-      if (data.data) {
-        this.$message({
-          message: '操作成功',
-          type: 'success',
+    // async handleRemoveBatch () {
+    //   const { data } = await removeRelationshipBatch(this.groupType,this.multipleSelection)
+    //   if (data.data) {
+    //     this.$message({
+    //       message: '操作成功',
+    //       type: 'success',
+    //     })
+    //     this.loadPage()
+    //   } else {
+    //     this.$message({
+    //       message: data.msg,
+    //       type: 'error',
+    //     })
+    //   }
+    // },
+    handleRemoveBatch () {
+      this.$confirm('此操作将永久移除该数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        removeRelationshipBatch(this.groupType,this.multipleSelection).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '移除成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `移除失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
         })
-        this.loadPage()
-      } else {
-        this.$message({
-          message: data.msg,
-          type: 'error',
-        })
-      }
+      })
     },
     openContact () {
       this.$refs['DialogForm'].form = initForm()

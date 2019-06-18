@@ -14,7 +14,7 @@
       <iep-form-item v-if="!bankAmountOption.disabled" label-name="收款账户">
         <iep-div-detail :value="data.borrowInCompanyBank"></iep-div-detail>
       </iep-form-item>
-      <iep-form-item label-name="还款天数">
+      <iep-form-item label-name="借款天数">
         <iep-div-detail :value="`${data.borrowDays}天`"></iep-div-detail>
       </iep-form-item>
       <iep-form-item label-name="还款时间">

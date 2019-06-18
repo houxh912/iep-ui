@@ -34,7 +34,7 @@
         <div class="user-tag">
           <div class="count" @click="handleSome3()">{{form.tagNum}}</div>
           <div class="name">标签
-            <iep-tip class="tag-icon" icon="el-icon-question" content="您创建和管理标签的数量">
+            <iep-tip class="tag-icon" icon="el-icon-question" content="您的个人标签总数">
             </iep-tip>
           </div>
         </div>

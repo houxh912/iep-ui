@@ -129,11 +129,11 @@ export function initFormData () {
     projectBudget: '', // 项目预算
     projectTime:'',
     endTime:'',
-    projectManager:'',//项目经理
+    projectManager:'',// 项目经理
     projectManagerList:{
       id: '',
       name: '',
-    },//项目经理
+    },// 项目经理
     projectMembersList: [], // 项目成员
     membersList: [],
     mktManager: '', // 市场经理
@@ -151,7 +151,7 @@ export function initFormData () {
     notRelevanceProductReason: '', // 不关联理由
     inChargeDept: '', // 承接部门
     inChargeDeptList: {},
-    initFormData:{},//项目等级
+    initFormData:{},// 项目等级
     coopDept: '', // 合作部门
     coopDeptList: {},
     groupExternalCooperatePartner: '', // 集团外部合作伙伴

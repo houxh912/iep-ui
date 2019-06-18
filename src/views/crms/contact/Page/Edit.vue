@@ -42,7 +42,7 @@
                 {{item.clientName}}
               </el-tag>
               <el-button size="small" @click="addContact" icon="el-icon-plus"></el-button> -->
-              <IepCrmsSelectMultiple v-model="formData.clientIds" :option="formData.clientInfos" prefixUrl="crm/customer/all/list"></IepCrmsSelectMultiple>
+              <IepCrmsSelectMultiple v-model="formData.clientIds" :option="formData.clientInfos" prefixUrl="crm/customer/page/list"></IepCrmsSelectMultiple>
             </el-form-item>
           </el-col>
         </el-row>
@@ -119,7 +119,7 @@
       </div>
       <!-- <avue-crud :data="pagedTable" :option="option" :page="page" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange">
       </avue-crud> -->
-      <iep-table :pagination="pagination" :pagedTable="pagedTable"  @size-change="handleSizeChange" :isLoadTable="isLoadTable" :columnsMap="columnsMap" @selection-change="handleSelectionChange" :isMutipleSelection="true"  @current-change="handleCurrentChange" ></iep-table>
+      <iep-table :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" :isLoadTable="isLoadTable" :columnsMap="columnsMap" @selection-change="handleSelectionChange" :isMutipleSelection="true" @current-change="handleCurrentChange"></iep-table>
       <div class="btn">
         <iep-button class="cancel" @click="dialogVisible = false">取 消</iep-button>
         <iep-button type="primary" @click="handlequery">添加</iep-button>
@@ -198,8 +198,8 @@ export default {
       getContactById(this.id).then(({ data }) => {
         let form = this.$mergeByFirst(initForm(), data.data)
         form.clientIds = form.clientInfos.map(m => m.clientId)
-        form.clientInfos = form.clientInfos.map(m => {return { id: m.clientId, name: m.clientName, clientId: m.clientId, clientName: m.clientName }})
-        this.formData = {...form}
+        form.clientInfos = form.clientInfos.map(m => { return { id: m.clientId, name: m.clientName, clientId: m.clientId, clientName: m.clientName } })
+        this.formData = { ...form }
       })
     }
   },
@@ -232,7 +232,7 @@ export default {
       this.Checklist = true
     },
     handlequery () {
-      if (this.Checklist && this.formData.clientIds.length>0) {
+      if (this.Checklist && this.formData.clientIds.length > 0) {
         this.dialogVisible = false
         for (var i = 0; i < this.selectData.length; i++) {
           this.formData.clientInfos.push(this.selectData[i])

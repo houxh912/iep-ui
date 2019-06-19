@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="全部任务"></page-header>
+      <page-header title="我的任务"></page-header>
       <el-card class="box" shadow="hover">
         <div class="total-wrapper">
           <div class="total-item" v-for="(item, index) in dataList" :key="index">
@@ -28,11 +28,12 @@
               <iep-button type="warning" plain>已关注</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="warning" plain>
-                  {{dictsMap.status[scope.row.status]}}<i class="el-icon-arrow-down el-icon--right"></i>
+                  <!-- {{dictsMap.status[scope.row.status]}}<i class="el-icon-arrow-down el-icon--right"></i> -->
+                  <i class="el-icon-arrow-down el-icon--right"></i>
                 </iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <!-- <el-dropdown-item v-for="(s,i) in dictsMap.status" :key="i" v-if="+i !== scope.row.status" @click.native="handleChangeStatus([scope.row.id], i)">{{s}}</el-dropdown-item> -->
-                      <el-dropdown-item v-for="(s,i) in dictsMap.status" :key="i" v-if="+i !== scope.row.status">{{s}}</el-dropdown-item>
+                  <el-dropdown-item v-for="(s,i) in dictsMap.status" :key="i">{{s}}</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>

@@ -35,8 +35,8 @@
           </operation-wrapper>
           <operation-wrapper v-else>
             <iep-button @click="handleDetail(scope.row)" type="warning" plain>查看</iep-button>
-            <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+            <iep-button @click="handleEdit(scope.row)" :disabled="scope.row.userId !== userInfo.userId">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)" :disabled="scope.row.userId !== userInfo.userId">删除</iep-button>
           </operation-wrapper>
 
         </template>

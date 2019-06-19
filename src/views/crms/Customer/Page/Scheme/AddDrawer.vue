@@ -163,7 +163,7 @@ export default {
             this.$emit('add', row)
             this.drawerShow = false
           } else {
-            this.$message.error('改则材料已经存在，无法添加！')
+            this.$message.error('该则材料已经存在，无法添加！')
           }
         })
 

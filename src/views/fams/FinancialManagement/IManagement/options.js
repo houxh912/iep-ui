@@ -46,6 +46,7 @@ const initForm = () => {
 		invoiceOrgId: '',
 		protocolId: '',
 		orgName: '',
+		expenditureId: '',
 		incomeMode: '0',
 		companyId: '',
 		accountId: '',

@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import { getExpenditurePage, postExpenditure, getExpenditureById } from '@/api/fams/expenditure'
+import { getExpenditurePage, postExpenditure } from '@/api/fams/expenditure'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initForm } from './options'
 import DialogForm from './DialogForm'
@@ -48,11 +48,9 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      getExpenditureById(row.expenditureId).then(({ data }) => {
-        console.log(data.data)
-        this.$refs['DialogDetail'].form = data.data
-        this.$refs['DialogDetail'].dialogShow = true
-      })
+      this.$refs['DialogDetail'].id = row.expenditureId
+      this.$refs['DialogDetail'].loadPage()
+      this.$refs['DialogDetail'].dialogShow = true
     },
     handleExpenditure () {
       this.$refs['DialogForm'].form = initForm()

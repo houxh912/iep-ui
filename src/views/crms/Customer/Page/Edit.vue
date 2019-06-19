@@ -176,7 +176,7 @@ export default {
           return false
         }
         if (value.length < 6 || value.length > 50) {
-          callback(new Error('客户名称至少6个字'))
+          callback(new Error('客户名称在6至50个字符之间'))
           return false
         } else {
           checkName({ clientName: val }).then(res => {

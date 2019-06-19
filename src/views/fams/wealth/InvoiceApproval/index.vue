@@ -29,7 +29,6 @@
 <script>
 import { getMyInvoiceApprovalPage } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
-import { genStatus } from '@/const/invoiceConfig'
 import { columnsMap, dictsMap } from './options.js'
 import passDialogForm from './passDialogForm'
 import rejectDialogForm from './rejectDialogForm'
@@ -47,7 +46,6 @@ export default {
     this.loadPage()
   },
   methods: {
-    genStatus,
     handleTrans (row) {
       this.$refs['transDialogForm'].id = row.id
       this.$refs['transDialogForm'].user = { id: '', name: '' }

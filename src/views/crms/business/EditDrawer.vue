@@ -123,7 +123,7 @@ export default {
         // ],
         clientName: [
           { required: true, message: '客户名称', trigger: 'blur' },
-          { max: 20, message: '长度不超过20个字符', trigger: 'blur' },
+          { min: 6, max: 20, message: '客户名称在6至50个字符之间', trigger: 'blur' },
         ],
         projectName: [
           { required: true, message: '请输入项目名称', trigger: 'blur' },

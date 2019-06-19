@@ -2,6 +2,9 @@
   <div>
     <basic-container>
       <page-header title="查看报销" :back-option="backOption">
+        <iep-button v-if="form.primaryAudit===0" @click="handlePass(form)">通过</iep-button>
+        <iep-button v-if="form.primaryAudit===0" @click="handleReject(form)">驳回</iep-button>
+        <iep-button v-if="form.primaryAudit===0" @click="handleTrans(form)">转交</iep-button>
       </page-header>
       <el-form ref="form" class="form-detail" :model="form" label-width="140px" size="small">
         <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
@@ -40,6 +43,10 @@
           <iep-div-detail :value="form.projectName"></iep-div-detail>
         </iep-form-item>
 
+        <iep-form-item class="form-half" label-name="发票创建人">
+          <iep-div-detail v-model="form.creatorName"></iep-div-detail>
+        </iep-form-item>
+
         <iep-form-item class="form-half" label-name="财务审批人">
           <iep-div-detail v-model="form.financialName"></iep-div-detail>
         </iep-form-item>
@@ -73,12 +80,19 @@
 
       </el-form>
     </basic-container>
+    <pass-dialog-form ref="passDialogForm" @load-page="goBack"></pass-dialog-form>
+    <reject-dialog-form ref="rejectDialogForm" @load-page="goBack"></reject-dialog-form>
+    <trans-dialog-form ref="transDialogForm" @load-page="goBack"></trans-dialog-form>
   </div>
 </template>
 <script>
 import { dictsMap, initForm } from './options'
 import { getInvoiceById } from '@/api/fams/invoice'
+import passDialogForm from '../InvoiceApproval/passDialogForm'
+import rejectDialogForm from '../InvoiceApproval/rejectDialogForm'
+import transDialogForm from '../InvoiceApproval/transDialogForm'
 export default {
+  components: { rejectDialogForm, passDialogForm, transDialogForm },
   data () {
     return {
       dictsMap,
@@ -105,7 +119,25 @@ export default {
     })
   },
   methods: {
-
+    handleTrans (row) {
+      this.$refs['transDialogForm'].id = row.id
+      this.$refs['transDialogForm'].user = { id: '', name: '' }
+      this.$refs['transDialogForm'].content = ''
+      this.$refs['transDialogForm'].dialogShow = true
+    },
+    handlePass (row) {
+      this.$refs['passDialogForm'].id = row.id
+      this.$refs['passDialogForm'].content = ''
+      this.$refs['passDialogForm'].dialogShow = true
+    },
+    handleReject (row) {
+      this.$refs['rejectDialogForm'].id = row.id
+      this.$refs['rejectDialogForm'].content = ''
+      this.$refs['rejectDialogForm'].dialogShow = true
+    },
+    goBack () {
+      this.$route.go(-1)
+    },
   },
 }
 </script>

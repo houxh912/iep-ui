@@ -27,7 +27,6 @@
 <script>
 import { getInvoicePage } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
-import { genStatus } from '@/const/invoiceConfig'
 import { columnsMap, dictsMap } from './options'
 import passDialogForm from './passDialogForm'
 import rejectDialogForm from './rejectDialogForm'
@@ -46,7 +45,6 @@ export default {
     this.loadPage()
   },
   methods: {
-    genStatus,
     handlePass (row) {
       this.$refs['passDialogForm'].id = row.id
       this.$refs['passDialogForm'].content = ''

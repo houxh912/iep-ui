@@ -50,7 +50,6 @@ export default {
   methods: {
     handleDetail (row) {
       getIncomeById(row.incomeId).then(({ data }) => {
-        console.log(data.data)
         this.$refs['DialogDetail'].form = data.data
         this.$refs['DialogDetail'].dialogShow = true
       })

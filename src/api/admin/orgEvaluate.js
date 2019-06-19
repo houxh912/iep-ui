@@ -9,3 +9,12 @@ export function getOrgevaluatePage (params) {
     params: params,
   })
 }
+
+// 组织评价
+export function postOrgevaluateForm (data) {
+  return request({
+    url: `${prefixUrl}/create`,
+    method: 'post',
+    data: data,
+  })
+}

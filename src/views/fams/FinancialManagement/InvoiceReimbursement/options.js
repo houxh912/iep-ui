@@ -1,4 +1,5 @@
 // import { mergeByFirst } from '@/util/util'
+import { genStatus } from '@/const/invoiceConfig'
 // org config options
 const dictsMap = {
   financialAudit: {
@@ -38,6 +39,24 @@ const columnsMap = [
 	{
 		prop: 'createTime',
 		label: '申请日期',
+  },
+	{
+		prop: null,
+    label: '状态',
+    type: 'custom',
+    customFunction: genStatus,
+	},
+	{
+		prop: 'auditorName',
+    label: '部门审批人',
+	},
+	{
+		prop: 'auditingTime',
+    label: '审核日期',
+	},
+	{
+		prop: 'remarks',
+    label: '备注',
 	},
 ]
 

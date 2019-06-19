@@ -1,4 +1,5 @@
 // import { checkContactUser } from '@/util/rules'
+import { genStatus } from '@/const/invoiceConfig'
 
 const dictsMap = {
   processStatus: {
@@ -72,6 +73,24 @@ const columnsMap = [
 	{
 		prop: 'createTime',
 		label: '申请日期',
+	},
+	{
+		prop: null,
+    label: '状态',
+    type: 'custom',
+    customFunction: genStatus,
+	},
+	{
+		prop: 'auditorName',
+    label: '部门审批人',
+	},
+	{
+		prop: 'auditingTime',
+    label: '审核日期',
+	},
+	{
+		prop: 'remarks',
+    label: '备注',
 	},
 ]
 

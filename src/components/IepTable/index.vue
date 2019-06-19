@@ -22,7 +22,13 @@
             <div>{{dictsMap[item.prop][scope.row[item.prop]]}}</div>
           </template>
           <template v-else-if="item.type==='dictGroup'">
-            <div>{{dictJS(item, scope)}}</div>
+            <div>{{caculateDict(item, scope)}}</div>
+          </template>
+          <template v-else-if="item.type==='date'">
+            <div>{{caculateDate(item, scope)}}</div>
+          </template>
+          <template v-else-if="item.type==='custom'">
+            <div>{{caculateCustom(item, scope)}}</div>
           </template>
           <template v-else-if="item.type==='tag'">
             <iep-tag-detail :value="scope.row[item.prop]"></iep-tag-detail>
@@ -40,6 +46,7 @@
 
 <script>
 import { pageOption } from '@/const/pageConfig'
+import { parseDate } from '@/filters/index'
 import treeToArray from './eval'
 import keyBy from 'lodash/keyBy'
 import { mapGetters } from 'vuex'
@@ -163,7 +170,13 @@ export default {
     },
   },
   methods: {
-    dictJS (item, scope) {
+    caculateCustom (item, scope) {
+      return item.customFunction(scope.row)
+    },
+    caculateDate (item, scope) {
+      return parseDate(scope.row[item.prop], item.formatString)
+    },
+    calculateDict (item, scope) {
       return keyBy(this.dictGroup[item.dictName], 'value')[scope.row[item.prop]].label
     },
     handleSizeChange (val) {

@@ -76,26 +76,6 @@ export default {
     color: #999;
   }
 }
-::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 6px;
-  background-color: #fff;
-}
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #fff;
-  transition: 0.3s background-color;
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #ddd;
-  transition: 0.3s background-color;
-  display: none;
-  transition: all 0.5s;
-}
-:hover ::-webkit-scrollbar-thumb {
-  display: block;
-}
 </style>
 <style scoped>
 .important >>> .el-button--text {
@@ -117,5 +97,25 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.leader-board >>> .el-table__body-wrapper::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 6px;
+  background-color: #fff;
+}
+.leader-board >>> .el-table__body-wrapper::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fff;
+  transition: 0.3s background-color;
+}
+.leader-board >>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ddd;
+  transition: 0.3s background-color;
+  display: none;
+  transition: all 0.5s;
+}
+.leader-board >>> .el-table__body-wrapper:hover ::-webkit-scrollbar-thumb {
+  display: block;
 }
 </style>

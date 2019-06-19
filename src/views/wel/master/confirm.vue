@@ -47,7 +47,7 @@
       <div class="title">是否接受他的拜师申请？</div>
       <div class="button-list">
         <iep-button type="primary" @click="handleConfirm(1)" v-loading="confirmState">确认</iep-button>
-        <iep-button @click="handleConfirm(2)" v-loading="confirmState">取消</iep-button>
+        <iep-button @click="handleConfirm(2)" v-loading="confirmState">拒绝</iep-button>
       </div>
     </div>
   </div>

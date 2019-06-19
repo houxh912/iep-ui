@@ -101,6 +101,7 @@ export default {
   watch: {
     userId (newVal) {
       if (newVal) {
+        this.activeTab = ''
         this.$nextTick(() => {
           this.activeTab = 'Material'
         })

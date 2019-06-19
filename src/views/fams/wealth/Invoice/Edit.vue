@@ -3,7 +3,7 @@
     <basic-container>
       <page-header :title="`${methodName}报销-${dictsMap.referType[this.form.referType]}`" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">存为草稿</iep-button>
-        <iep-button type="primary" @click="handleSubmit(true)">发布</iep-button>
+        <iep-button type="primary" @click="handleSubmit(true)">保存并发送</iep-button>
       </page-header>
       <el-table :data="tableData" style="width: 100%" size="small" border show-summary>
         <el-table-column prop="type" label="支出类型">

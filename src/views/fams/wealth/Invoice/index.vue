@@ -30,7 +30,6 @@
 <script>
 import { getMyInvoicePage, deleteInvoiceById, deleteInvoiceBatch, referInvoiceById, withdrawInvoiceById } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
-import { genStatus } from '@/const/invoiceConfig'
 import { dictsMap, columnsMap } from './options'
 import { mapMutations } from 'vuex'
 export default {
@@ -45,7 +44,6 @@ export default {
     this.loadPage()
   },
   methods: {
-    genStatus,
     ...mapMutations({
       setInvoiceDialogShow: 'SET_INVOICE_DIALOG_SHOW',
     }),

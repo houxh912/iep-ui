@@ -29,47 +29,28 @@
         <IepNoData></IepNoData>
       </div>
     </div>
-    <!-- 拜师 -->
-    <el-dialog title="拜师" :visible.sync="apprenticeShow" width="330px" center>
-      <div style="text-align: center;">是否确认向 【{{userInfo.realName}}】 拜师</div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="apprenticeShow = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handleApprenticeConfirm" size="small">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import { addMasterWorker, getPageRecommend } from '@/api/cpms/characterrelations'
+import { getPageRecommend } from '@/api/cpms/characterrelations'
+import { mapActions } from 'vuex'
 
 export default {
   data () {
     return {
-      apprenticeShow: false,
       loadState: true,
-      userInfo: {},
       masterList: [],
     }
   },
   methods: {
+    ...mapActions(['ApprenticeApply']),
+    handleApprentice (row) {
+      this.ApprenticeApply({id: row.userId, name: row.realName})
+    },
     getPerson (row) {
       this.$router.push({
         path: `/app/personal_style/${row.userId}`,
-      })
-    },
-    handleApprentice (row) {
-      this.userInfo = row
-      this.apprenticeShow = true
-    },
-    handleApprenticeConfirm () {
-      addMasterWorker({ masterWorker: [this.userInfo.userId] }).then(({data}) => {
-        if (data.data) {
-          this.$message.success('拜师成功！')
-        } else {
-          this.$message.error(data.msg)
-        }
-        this.apprenticeShow = false
       })
     },
     getPageRecommend () {

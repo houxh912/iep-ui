@@ -157,7 +157,7 @@ export default {
 }
 .user-detail-box {
   display: flex;
-  flex: 4;
+  flex: 5;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;

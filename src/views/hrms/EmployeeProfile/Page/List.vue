@@ -9,7 +9,7 @@
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <!-- <el-dropdown-item>导入</el-dropdown-item> -->
-              <el-dropdown-item @click.native="handleDownload">导出</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-download" @click.native="handleDownload">导出</el-dropdown-item>
               <!-- <el-dropdown-item>分享</el-dropdown-item> -->
             </el-dropdown-menu>
           </el-dropdown>

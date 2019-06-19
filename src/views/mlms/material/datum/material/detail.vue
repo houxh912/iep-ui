@@ -284,8 +284,13 @@ export default {
       this.isCommentShow = !this.isCommentShow
     },
     // 打赏
+    ...mapActions(['famsReward']),
     handleReward () {
-      this.$message.info('抱歉，此功能正在开发中')
+      if (this.userInfo.userId == this.formData.creator) {
+        this.$message.error('无法向自己打赏')
+        return
+      }
+      this.famsReward({id: this.formData.creator, name: this.formData.creatorRealName})
     },
     // 收藏和分享的返回函数
     loadPage () {

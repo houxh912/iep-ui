@@ -16,7 +16,10 @@
     </IepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getOrgevaluatePage } from '@/api/admin/orgEvaluate'
+
 export default {
   data () {
     return {
@@ -29,6 +32,14 @@ export default {
         { photo: require('../img/people3.jpg'), name: '张路', department: '广东国脉信息发展有限公司', feed: '通过这次合作，让我对我们国脉的研发中心有了进一步的了解，这是一个非常有创造力的部门，值得大', time: '2019-12-26' },
       ],
     }
+  },
+  methods: {
+    getOrgevaluatePage () {
+      getOrgevaluatePage({size: 5}).then(() => {})
+    },
+  },
+  created () {
+    this.getOrgevaluatePage()
   },
 }
 </script>

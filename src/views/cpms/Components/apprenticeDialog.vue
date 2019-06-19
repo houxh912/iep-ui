@@ -50,7 +50,7 @@ export default {
     submitForm () {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          addMasterWorker({ masterWorker: [this.person.id] }).then(({ data }) => {
+          addMasterWorker({ masterWorker: [this.person.id], refuseContent: this.form.reason }).then(({ data }) => {
             if (data.data) {
               this.$message.success('拜师申请已提交成功')
               this.setApprenticeDialogShow(false)

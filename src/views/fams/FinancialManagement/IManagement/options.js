@@ -53,7 +53,7 @@ const initForm = () => {
 		projectId: '',
 		projectName: '',
 		amount: 0,
-		invoiceAmount: 0,
+		// invoiceAmount: 0,
 		remarks: '',
 		typeValue: '',
 		invoicingTax:'',
@@ -88,7 +88,7 @@ const rules = {
     { required: true, message: '请输入银行户头', trigger: 'blur' },
 	],
 	amount: [
-	{ required: true, message: '支出金额为数字且大于0', trigger: 'blur', type:'number', min:1 },
+		{ required: true, message: '请输入支出金额', trigger: 'blur', type: 'number' },
 	],
 }
 

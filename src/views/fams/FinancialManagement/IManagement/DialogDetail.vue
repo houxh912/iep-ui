@@ -37,9 +37,9 @@
         <iep-div-detail :value="form.amount+' 元'"></iep-div-detail>
       </el-form-item>
 
-      <el-form-item label="开票费：">
+      <!-- <el-form-item label="开票费：">
         <iep-div-detail :value="form.invoiceAmount+' 元'"></iep-div-detail>
-      </el-form-item>
+      </el-form-item> -->
 
       <!-- <el-form-item label="开票组织：">
         <iep-div-detail :value="form.invoiceOrgName"></iep-div-detail>

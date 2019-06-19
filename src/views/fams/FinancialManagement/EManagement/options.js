@@ -40,6 +40,7 @@ const columnsMap = [
 
 const initForm = () => {
 	return {
+		incomeIds: [],
 		type: [],
 		createTime: '',
 		orgId: '',

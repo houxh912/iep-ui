@@ -53,9 +53,6 @@ export default {
 }
 </script>
 <style lang="scss">
-.el-collapse {
-  border: 0;
-}
 .con {
   display: flex;
   margin-bottom: 15px;

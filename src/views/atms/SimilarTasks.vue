@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-collapse v-model="activeNames" @change="handleChange" v-for="(CirculationLog,index) in similarTasksList" :key="index">
-      <el-collapse-item :title="CirculationLog.title" name="1">
+    <el-collapse v-model="activeNames" @change="handleChange" v-for="(similarTasks,index) in similarTasksList" :key="index">
+      <el-collapse-item :title="similarTasks.title" name="1">
         <IepAppListCard :dataList="dataList" @click="handleDetail"></IepAppListCard>
       </el-collapse-item>
     </el-collapse>
@@ -12,7 +12,7 @@ export default {
   data () {
     return {
       activeNames: ['1'],
-      CirculationLogList: [
+      similarTasksList: [
         {
           title: '相似任务（3）',
         },

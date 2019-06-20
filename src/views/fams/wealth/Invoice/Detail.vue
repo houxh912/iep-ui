@@ -2,9 +2,11 @@
   <div>
     <basic-container>
       <page-header title="查看报销" :back-option="backOption">
-        <iep-button v-if="form.primaryAudit===0" @click="handlePass(form)">通过</iep-button>
-        <iep-button v-if="form.primaryAudit===0" @click="handleReject(form)">驳回</iep-button>
-        <iep-button v-if="form.primaryAudit===0" @click="handleTrans(form)">转交</iep-button>
+        <template v-if="form.primaryAudit===0">
+          <iep-button @click="handlePass(form)">通过</iep-button>
+          <iep-button @click="handleReject(form)">驳回</iep-button>
+          <iep-button @click="handleTrans(form)">转交</iep-button>
+        </template>
       </page-header>
       <el-form ref="form" class="form-detail" :model="form" label-width="140px" size="small">
         <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
@@ -43,7 +45,7 @@
           <iep-div-detail :value="form.projectName"></iep-div-detail>
         </iep-form-item>
 
-        <iep-form-item class="form-half" label-name="发票创建人">
+        <iep-form-item class="form-half" label-name="申请人">
           <iep-div-detail v-model="form.creatorName"></iep-div-detail>
         </iep-form-item>
 

@@ -1,6 +1,7 @@
 import request from '@/router/axios'
 const prefixUrl = '/cpms/iephrthoughts'
 const commentUrl = '/cpms/iepcommonthoughtscomment'
+const replyUrl = '/cpms/iepcommonthoughtsreply'
 
 export function thoughtsCreate (obj) {
   return request({
@@ -51,12 +52,28 @@ export function addThumbsUpByRecord (id) {
   })
 }
 
-
 // 评论
 export function CommentThoughts (obj) {
   return request({
     url: `${commentUrl}/create`,
     method: 'post',
     data: obj,
+  })
+}
+
+// 回复评论
+export function CommentReply (obj) {
+  return request({
+    url: `${replyUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+// 回复点赞
+export function addReplyThumbsByRecord (id) {
+  return request({
+    url: `${replyUrl}/replyThumbsByRecord/${id}`,
+    method: 'get',
   })
 }

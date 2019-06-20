@@ -25,29 +25,9 @@
             </div>
             <!-- 评论列表 -->
             <div class="comment-list" v-if="item.thoughtsCommentList.length > 0">
-              <div class="comment-item" v-for="(comItem, comIndex) in item.thoughtsCommentList" :key="comIndex">
-                <div class="comment-head">
-                  <div class="comment-avatar"><img :src="comItem.avatar" alt=""></div>
-                  <div class="comment-name">{{comItem.realName}}</div>
-                  <div class="huuifu">评论</div>
-                  <div class="comment-name">{{item.userName}}</div>
-                </div>
-                <div class="comment-content">{{comItem.replyMsg}}</div>
-                <div class="comment-date">
-                  <div class="date">
-                    {{comItem.createTime}}
-                  </div>
-                  <div class="button-list" v-if="false">
-                    <div class="button"><i class="icon-like"></i> 点赞（{{comItem.thumbsUpCount}}）</div>
-                    <div class="button" @click="hadnleComComment(comItem, index, comIndex)"><i class="icon-pinglun1"></i> 评论（0）</div>
-                    <div class="button"><i class="icon-yuanbao"></i> 打赏</div>
-                  </div>
-                </div>
-                <div class="comment-comment" v-if="commontActiveIndex == `${index}-${comIndex}`">
-                  <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>
-                  <iep-button class="comment-submit" @click="() => {commontActiveIndex = -1}">取消</iep-button>
-                  <iep-button type="primary" class="comment-submit" @click="comCommentSubmit">提交</iep-button>
-                </div>
+              <div v-for="(t, i) in item.thoughtsCommentList" :key="i" >
+                <commentTpl :item="t" :userInfo="{id: item.userId, name: item.userName}" @load-page="loadPage"></commentTpl>
+                <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userInfo="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" :type="'reply'"></commentTpl>
               </div>
             </div>
             <!-- 按钮组 -->
@@ -68,6 +48,7 @@
 
 <script>
 import { geTallPage, CommentThoughts, addThumbsUpByRecord } from '@/api/cpms/thoughts'
+import commentTpl from './commentTpl'
 import { mapActions } from 'vuex'
 
 const initParams = () => {
@@ -85,7 +66,7 @@ const initFormData = () => {
 }
 
 export default {
-  components: {},
+  components: { commentTpl },
   data () {
     return {
       routerMatch: [
@@ -103,14 +84,13 @@ export default {
         },
       ],
       dataList: [
-        {},
+        {thoughtsCommentList: []},
       ],
       total: 0,
       params: initParams(),
       activeIndex: -1,
       commontActiveIndex: -1,
       form: initFormData(),
-      comForm: initFormData(),
     }
   },
   methods: {
@@ -148,18 +128,6 @@ export default {
           this.$message.error(data.msg)
         }
       })
-    },
-    // 回复评论
-    hadnleComComment (row, index, comIndex) {
-      this.commontActiveIndex = `${index}-${comIndex}`
-      this.comForm = {
-        replyMsg: '',
-        thoughtsId: row.thoughtsId,
-      }
-    },
-    // 回复评论提交
-    comCommentSubmit () {
-      if (this.comForm.replyMsg == '') return
     },
     // 打赏
     ...mapActions(['famsReward']),
@@ -208,67 +176,6 @@ export default {
           background-color: #fafafa;
           margin-top: 15px;
           border-radius: 3px;
-          .comment-item {
-            border-bottom: 1px solid #ddd;
-            margin-top: 10px;
-            padding-bottom: 3px;
-            .comment-head {
-              display: flex;
-              .comment-avatar {
-                margin-right: 20px;
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                img {
-                  width: 30px;
-                  height: 30px;
-                  border-radius: 50%;
-                }
-              }
-              .huuifu {
-                margin-top: 3px;
-              }
-              .comment-name {
-                margin: 3px 15px;
-                color: #5883ce;
-              }
-            }
-            .comment-content {
-              margin: 10px 0;
-            }
-            .comment-date {
-              margin-bottom: 10px;
-              color: #999;
-              display: flex;
-              .date {
-                width: 160px;
-              }
-              .button-list {
-                flex: 1;
-                display: flex;
-                text-align: right;
-                justify-content: flex-end;
-                .button {
-                  margin-right: 20px;
-                  cursor: pointer;
-                }
-              }
-            }
-            .comment-comment {
-              margin-top: 20px;
-              text-align: right;
-              .comment-submit {
-                margin-top: 10px;
-                margin-left: 10px;
-              }
-            }
-          }
-          .comment-item:last-of-type {
-            border: 0;
-            .comment-date {
-              margin-bottom: 0;
-            }
-          }
         }
         .title {
           display: flex;

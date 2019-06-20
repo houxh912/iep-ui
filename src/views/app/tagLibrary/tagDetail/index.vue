@@ -1,12 +1,11 @@
 <template>
-  <div>
+  <IepAppLayout>
     <bread-crumb></bread-crumb>
     <div class="tag-detail">
       <tag-content :form="form"></tag-content>
       <about-tags :form="form"></about-tags>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </IepAppLayout>
 </template>
 <script>
 import BreadCrumb from './BreadCrumb'

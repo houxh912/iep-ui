@@ -90,6 +90,7 @@ import IepProjectSelect from '@/components/IepProject/Select'
 import IepAppTabCard from '@/components/IepApp/TabCard'
 import IepAppTabsCard from '@/components/IepApp/TabsCard'
 import IepAppFooterBar from '@/components/IepApp/FooterBar'
+import IepAppLayout from '@/components/IepApp/Layout'
 import IepAppListCard from '@/components/IepApp/ListCard'
 import IepAppRankingCard from '@/components/IepApp/RankingCard'
 import IepAppLabelCard from '@/components/IepApp/LabelCard'
@@ -187,6 +188,7 @@ Vue.component(IepProjectSelect.name, IepProjectSelect)
 Vue.component(IepAppTabCard.name, IepAppTabCard)
 Vue.component(IepAppTabsCard.name, IepAppTabsCard)
 Vue.component(IepAppFooterBar.name, IepAppFooterBar)
+Vue.component(IepAppLayout.name, IepAppLayout)
 Vue.component(IepAppListCard.name, IepAppListCard)
 Vue.component(IepAppRankingCard.name, IepAppRankingCard)
 Vue.component(IepAppLabelCard.name, IepAppLabelCard)

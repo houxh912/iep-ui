@@ -143,7 +143,7 @@ export default {
           if (this.detailState) {
             this.$emit('backPage', false)
           } else {
-            this.$router.go(-1)
+            this.$router.history.go(-1)
           }
         },
       },

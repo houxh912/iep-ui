@@ -20,9 +20,9 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <pass-dialog-form ref="passDialogForm" @load-page="loadPage"></pass-dialog-form>
-    <reject-dialog-form ref="rejectDialogForm" @load-page="loadPage"></reject-dialog-form>
-    <trans-dialog-form ref="transDialogForm" @load-page="loadPage"></trans-dialog-form>
+    <invoice-pass-dialog-form ref="InvoicePassDialogForm" @load-page="loadPage"></invoice-pass-dialog-form>
+    <invoice-reject-dialog-form ref="InvoiceRejectDialogForm" @load-page="loadPage"></invoice-reject-dialog-form>
+    <invoice-trans-dialog-form ref="InvoiceTransDialogForm" @load-page="loadPage"></invoice-trans-dialog-form>
   </div>
 </template>
 
@@ -30,11 +30,11 @@
 import { getMyInvoiceApprovalPage } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options.js'
-import passDialogForm from './passDialogForm'
-import rejectDialogForm from './rejectDialogForm'
-import transDialogForm from './transDialogForm'
+import InvoicePassDialogForm from '@/views/fams/Components/InvoicePassDialogForm.vue'
+import InvoiceRejectDialogForm from '@/views/fams/Components/InvoiceRejectDialogForm.vue'
+import InvoiceTransDialogForm from '@/views/fams/Components/InvoiceTransDialogForm'
 export default {
-  components: { rejectDialogForm, passDialogForm, transDialogForm },
+  components: { InvoiceRejectDialogForm, InvoicePassDialogForm, InvoiceTransDialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -47,20 +47,20 @@ export default {
   },
   methods: {
     handleTrans (row) {
-      this.$refs['transDialogForm'].id = row.id
-      this.$refs['transDialogForm'].user = { id: '', name: '' }
-      this.$refs['transDialogForm'].content = ''
-      this.$refs['transDialogForm'].dialogShow = true
+      this.$refs['InvoiceTransDialogForm'].id = row.id
+      this.$refs['InvoiceTransDialogForm'].user = { id: '', name: '' }
+      this.$refs['InvoiceTransDialogForm'].content = ''
+      this.$refs['InvoiceTransDialogForm'].dialogShow = true
     },
     handlePass (row) {
-      this.$refs['passDialogForm'].id = row.id
-      this.$refs['passDialogForm'].content = ''
-      this.$refs['passDialogForm'].dialogShow = true
+      this.$refs['InvoicePassDialogForm'].id = row.id
+      this.$refs['InvoicePassDialogForm'].content = ''
+      this.$refs['InvoicePassDialogForm'].dialogShow = true
     },
     handleReject (row) {
-      this.$refs['rejectDialogForm'].id = row.id
-      this.$refs['rejectDialogForm'].content = ''
-      this.$refs['rejectDialogForm'].dialogShow = true
+      this.$refs['InvoiceRejectDialogForm'].id = row.id
+      this.$refs['InvoiceRejectDialogForm'].content = ''
+      this.$refs['InvoiceRejectDialogForm'].dialogShow = true
     },
     handleDetail (row) {
       this.$router.push({

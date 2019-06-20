@@ -268,7 +268,7 @@ export default {
     goBack (state) {
       // this.$router.push(this.backRouter)
       if (this.pageState == 'summary') {
-        this.$router.go(-1)
+        this.$router.history.go(-1)
       } else if (this.pageState == 'project') {
         this.$emit('close', state === true ? true : false)
       }

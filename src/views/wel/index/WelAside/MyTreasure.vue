@@ -104,6 +104,7 @@ export default {
   }
 }
 .title {
+  width: 100%;
   display: flex;
   padding: 10px 0;
   font-size: 16px;

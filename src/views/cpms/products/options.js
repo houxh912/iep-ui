@@ -22,7 +22,7 @@ const initForm = () => {
     website: '', // 网址
     onlineTime: '',//上线时间
     tagKeywords: [], // 标签
-    tapeLibrary: '', // 是否带库
+    tapeLibrary: '0', // 是否带库
     valuation: 0, // 产品估值
     instructions: '', // 估值说明
     synopsis: '', // 产品简介
@@ -84,12 +84,9 @@ const rules = {
   onlineTime: [
     { required: true, message: '请填写上线时间', trigger: 'blur' },
   ],
-  tapeLibrary: [
-    { required: true, message: '请选择是否带库', trigger: 'blur' },
-  ],
   tagKeywords: [
-    { type: 'array', min: 3, message: '标签至少 3 个', trigger: 'change' },
-    { type: 'array', required: true, message: '请填写标签', trigger: 'change' },
+    { type: 'array', min: 3, message: '标签至少 3 个', trigger: 'blur' },
+    { type: 'array', required: true, message: '请填写标签', trigger: 'blur' },
   ],
   valuation: [
     { required: true, message: '请填写产品估值', trigger: 'blur' },

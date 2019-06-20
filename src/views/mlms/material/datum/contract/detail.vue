@@ -114,7 +114,7 @@ export default {
         backFunction: () => {
           let params = this.$route.params
           if (params.id) {
-            this.$router.go(-1)
+            this.$router.history.go(-1)
           } else {
             this.$emit('load-page', true)
           }

@@ -19,8 +19,8 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <pass-dialog-form ref="passDialogForm" @load-page="loadPage"></pass-dialog-form>
-    <reject-dialog-form ref="rejectDialogForm" @load-page="loadPage"></reject-dialog-form>
+    <invoice-pass-dialog-form ref="InvoicePassDialogForm" is-financial @load-page="loadPage"></invoice-pass-dialog-form>
+    <invoice-reject-dialog-form ref="InvoiceRejectDialogForm" is-financial @load-page="loadPage"></invoice-reject-dialog-form>
   </div>
 </template>
 
@@ -28,10 +28,10 @@
 import { getInvoicePage } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
-import passDialogForm from './passDialogForm'
-import rejectDialogForm from './rejectDialogForm'
+import InvoicePassDialogForm from '@/views/fams/Components/InvoicePassDialogForm.vue'
+import InvoiceRejectDialogForm from '@/views/fams/Components/InvoiceRejectDialogForm.vue'
 export default {
-  components: { rejectDialogForm, passDialogForm },
+  components: { InvoicePassDialogForm, InvoiceRejectDialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -46,14 +46,14 @@ export default {
   },
   methods: {
     handlePass (row) {
-      this.$refs['passDialogForm'].id = row.id
-      this.$refs['passDialogForm'].content = ''
-      this.$refs['passDialogForm'].dialogShow = true
+      this.$refs['InvoicePassDialogForm'].id = row.id
+      this.$refs['InvoicePassDialogForm'].content = ''
+      this.$refs['InvoicePassDialogForm'].dialogShow = true
     },
     handleReject (row) {
-      this.$refs['rejectDialogForm'].id = row.id
-      this.$refs['rejectDialogForm'].content = ''
-      this.$refs['rejectDialogForm'].dialogShow = true
+      this.$refs['InvoiceRejectDialogForm'].id = row.id
+      this.$refs['InvoiceRejectDialogForm'].content = ''
+      this.$refs['InvoiceRejectDialogForm'].dialogShow = true
     },
     handleDetail (row) {
       this.$router.push({

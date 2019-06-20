@@ -4,7 +4,7 @@
     <div class="sub">
       <span>所属任务：{{subTitle}}</span>
       <span class="opt">
-        <span><i class="iconfont icon-xingxing"></i>关注<span><i class="iconfont icon-xitongguanli"></i>任务菜单</span></span>
+        <span><i class="iconfont icon-xingxing"></i>关注</span><span><i class="iconfont icon-xitongguanli"></i>任务菜单</span>
       </span>
     </div>
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px" class="form form-detail" v-for="(item,index) in itemList" :key="index">
@@ -118,6 +118,10 @@ export default {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+  }
+  .opt {
+    display: flex;
+    justify-content: flex-start;
   }
   .form-half {
     span {

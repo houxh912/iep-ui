@@ -37,7 +37,10 @@ const allSearchForm = () => {
     followUpStatus: '',
     businessTypeKey: [],
     marketManager: '',
-    deptName: '',
+    // respDept: {
+    //   id: '',
+    //   name: '',
+    // },
   }
 }
 // 我的客户/协作客户搜索

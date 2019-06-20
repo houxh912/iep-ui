@@ -47,7 +47,8 @@
             </el-col>
             <el-col :span='10' :offset="4">
               <el-form-item label="市场经理:" prop="Manager">
-                <el-input v-model="formData.Manager" :disabled="true"></el-input>
+                <!-- <el-input v-model="formData.Manager" :disabled="true"></el-input> -->
+                {{formData.Manager}}
               </el-form-item>
             </el-col>
           </el-row>

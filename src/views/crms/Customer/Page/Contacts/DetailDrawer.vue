@@ -4,24 +4,24 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="联系人姓名：">
-            <el-input v-model="form.contactName"></el-input>
+            {{form.contactName}}
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="联系人职务：">
-            <el-input v-model="form.contactPosition"></el-input>
+            {{form.contactPosition}}
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span=12>
           <el-form-item label="电话：">
-            <el-input v-model="form.telephoneNo"></el-input>
+            {{form.telephoneNo}}
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="手机：">
-            <el-input v-model="form.cellphone"></el-input>
+            {{form.cellphone}}
           </el-form-item>
         </el-col>
       </el-row>
@@ -29,35 +29,35 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="传真：">
-            <el-input v-model="form.fax"></el-input>
+            {{form.fax}}
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="QQ：">
-            <el-input v-model="form.qq"></el-input>
+            {{form.qq}}
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span=12>
           <el-form-item label="微信：">
-            <el-input v-model="form.wechat"></el-input>
+            {{form.wechat}}
           </el-form-item>
         </el-col>
         <el-col :span=12>
           <el-form-item label="邮箱：">
-            <el-input v-model="form.email"></el-input>
+            {{form.email}}
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item label="地址：">
-        <el-input v-model="form.address"></el-input>
+        {{form.address}}
       </el-form-item>
       <el-form-item label="客户关注：">
-        <el-input type="textarea" v-model="form.clientConcern"></el-input>
+        {{form.clientConcern}}
       </el-form-item>
       <el-form-item label="其他：">
-        <el-input type="textarea" v-model="form.other"></el-input>
+        {{form.other}}
       </el-form-item>
     </el-form>
   </iep-drawer>

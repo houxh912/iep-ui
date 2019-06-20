@@ -85,6 +85,12 @@ export default [
         meta: noAuth,
       },
       {
+        path: 'policyCenter',
+        name: '政策中心频道',
+        component: () => import('@/views/app/policyCenter/'),
+        meta: noAuth,
+      },
+      {
         path: 'search',
         name: '搜索频道',
         component: () => import('@/views/app/search/'),

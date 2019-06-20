@@ -128,7 +128,7 @@ module.exports = {
   // 配置转发代理
   devServer: {
     host: devServer.host, // can be overwritten by process.env.HOST
-    open: true,
+    open: false,
     port: devServer.port, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     proxy: devServer.proxy,
     overlay: {

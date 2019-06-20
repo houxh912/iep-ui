@@ -36,13 +36,13 @@ export default {
                 message: '已向该组织发送邀请',
                 type: 'success',
               })
+              this.loadPage()
             } else {
               this.$message({
                 message: data.msg,
                 type: 'error',
               })
             }
-            this.loadPage()
           })
         } else {
           return false

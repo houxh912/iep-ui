@@ -74,7 +74,7 @@ export default {
       const { data } = await getTotal()
       if (!data.data) {
         this.$message(data.msg)
-        this.$router.go(-1)
+        this.$router.history.go(-1)
         return
       }
       this.maxAmount = data.data.withdrawableCash >= 0 ? data.data.withdrawableCash : 0

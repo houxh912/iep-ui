@@ -3,9 +3,13 @@
     <basic-container>
       <page-header title="查看报销" :back-option="backOption">
         <template v-if="form.primaryAudit===0">
-          <iep-button @click="handlePass(form)">通过</iep-button>
-          <iep-button @click="handleReject(form)">驳回</iep-button>
+          <iep-button @click="handlePass(form, false)">通过</iep-button>
+          <iep-button @click="handleReject(form, false)">驳回</iep-button>
           <iep-button @click="handleTrans(form)">转交</iep-button>
+        </template>
+        <template v-if="form.primaryAudit!==0&&form.financialAudit===0">
+          <iep-button @click="handlePass(form, true)">通过</iep-button>
+          <iep-button @click="handleReject(form, true)">驳回</iep-button>
         </template>
       </page-header>
       <el-form ref="form" class="form-detail" :model="form" label-width="140px" size="small">
@@ -82,23 +86,24 @@
 
       </el-form>
     </basic-container>
-    <pass-dialog-form ref="passDialogForm" @load-page="goBack"></pass-dialog-form>
-    <reject-dialog-form ref="rejectDialogForm" @load-page="goBack"></reject-dialog-form>
-    <trans-dialog-form ref="transDialogForm" @load-page="goBack"></trans-dialog-form>
+    <invoice-pass-dialog-form ref="InvoicePassDialogForm" :is-financial="isFinancial" @load-page="goBack"></invoice-pass-dialog-form>
+    <invoice-reject-dialog-form ref="InvoiceRejectDialogForm" :is-financial="isFinancial" @load-page="goBack"></invoice-reject-dialog-form>
+    <invoice-trans-dialog-form ref="InvoiceTransDialogForm" @load-page="goBack"></invoice-trans-dialog-form>
   </div>
 </template>
 <script>
 import { dictsMap, initForm } from './options'
 import { getInvoiceById } from '@/api/fams/invoice'
-import passDialogForm from '../InvoiceApproval/passDialogForm'
-import rejectDialogForm from '../InvoiceApproval/rejectDialogForm'
-import transDialogForm from '../InvoiceApproval/transDialogForm'
+import InvoicePassDialogForm from '@/views/fams/Components/InvoicePassDialogForm.vue'
+import InvoiceRejectDialogForm from '@/views/fams/Components/InvoiceRejectDialogForm.vue'
+import InvoiceTransDialogForm from '@/views/fams/Components/InvoiceTransDialogForm'
 export default {
-  components: { rejectDialogForm, passDialogForm, transDialogForm },
+  components: { InvoicePassDialogForm, InvoiceRejectDialogForm, InvoiceTransDialogForm },
   data () {
     return {
       dictsMap,
       form: initForm(),
+      isFinancial: false,
       backOption: {
         isBack: true,
       },
@@ -122,23 +127,25 @@ export default {
   },
   methods: {
     handleTrans (row) {
-      this.$refs['transDialogForm'].id = row.id
-      this.$refs['transDialogForm'].user = { id: '', name: '' }
-      this.$refs['transDialogForm'].content = ''
-      this.$refs['transDialogForm'].dialogShow = true
+      this.$refs['InvoiceTransDialogForm'].id = row.id
+      this.$refs['InvoiceTransDialogForm'].user = { id: '', name: '' }
+      this.$refs['InvoiceTransDialogForm'].content = ''
+      this.$refs['InvoiceTransDialogForm'].dialogShow = true
     },
-    handlePass (row) {
-      this.$refs['passDialogForm'].id = row.id
-      this.$refs['passDialogForm'].content = ''
-      this.$refs['passDialogForm'].dialogShow = true
+    handlePass (row, isFinancial) {
+      this.isFinancial = isFinancial
+      this.$refs['InvoicePassDialogForm'].id = row.id
+      this.$refs['InvoicePassDialogForm'].content = ''
+      this.$refs['InvoicePassDialogForm'].dialogShow = true
     },
-    handleReject (row) {
-      this.$refs['rejectDialogForm'].id = row.id
-      this.$refs['rejectDialogForm'].content = ''
-      this.$refs['rejectDialogForm'].dialogShow = true
+    handleReject (row, isFinancial) {
+      this.isFinancial = isFinancial
+      this.$refs['InvoiceRejectDialogForm'].id = row.id
+      this.$refs['InvoiceRejectDialogForm'].content = ''
+      this.$refs['InvoiceRejectDialogForm'].dialogShow = true
     },
     goBack () {
-      this.$route.go(-1)
+      this.$router.history.go(-1)
     },
   },
 }

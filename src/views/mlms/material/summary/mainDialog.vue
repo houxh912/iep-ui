@@ -34,7 +34,7 @@
 2、感想主要围绕会议中所汇报内容和指导意见如何应用到之后工作中；
 3、困惑主要围绕目前工作中疑惑不解，需要寻求帮助的事情。"></el-input>
         </el-form-item>
-        <el-row>
+        <el-row style="margin-bottom:5px;">
           <el-col :span="12">
             <el-form-item label="会议时间" prop="meetingTime">
               <!-- <IepDatePicker v-model="formData.meetingTime"></IepDatePicker> -->
@@ -268,7 +268,7 @@ export default {
     goBack (state) {
       // this.$router.push(this.backRouter)
       if (this.pageState == 'summary') {
-        this.$router.go(-1)
+        this.$router.history.go(-1)
       } else if (this.pageState == 'project') {
         this.$emit('close', state === true ? true : false)
       }

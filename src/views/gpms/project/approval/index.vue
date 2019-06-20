@@ -43,7 +43,7 @@ export default {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          this.$router.go(-1)
+          this.$router.history.go(-1)
         },
       },
       pageState: 'list',

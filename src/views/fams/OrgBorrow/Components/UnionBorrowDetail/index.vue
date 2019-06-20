@@ -92,7 +92,7 @@ export default {
       this.current--
     },
     back () {
-      this.$router.go(-1)
+      this.$router.history.go(-1)
     },
     add (row) {
       console.log(`/fams_spa/fund_transfer_edit/${row.id}`)

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="费用审核"></page-header>
+      <page-header title="费用管理" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks">
@@ -12,46 +12,39 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handlePass(scope.row)">通过</iep-button>
-              <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handleReject(scope.row)">驳回</iep-button>
-              <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handleTrans(scope.row)">转交</iep-button>
+              <iep-button v-if="scope.row.financialAudit===0" @click.stop="handlePass(scope.row)">通过</iep-button>
+              <iep-button v-if="scope.row.financialAudit===0" @click.stop="handleReject(scope.row)">驳回</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
     </basic-container>
-    <invoice-pass-dialog-form ref="InvoicePassDialogForm" @load-page="loadPage"></invoice-pass-dialog-form>
-    <invoice-reject-dialog-form ref="InvoiceRejectDialogForm" @load-page="loadPage"></invoice-reject-dialog-form>
-    <invoice-trans-dialog-form ref="InvoiceTransDialogForm" @load-page="loadPage"></invoice-trans-dialog-form>
+    <invoice-pass-dialog-form ref="InvoicePassDialogForm" is-financial @load-page="loadPage"></invoice-pass-dialog-form>
+    <invoice-reject-dialog-form ref="InvoiceRejectDialogForm" is-financial @load-page="loadPage"></invoice-reject-dialog-form>
   </div>
 </template>
 
 <script>
-import { getMyInvoiceApprovalPage } from '@/api/fams/invoice'
+import { getInvoicePage } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
-import { columnsMap, dictsMap } from './options.js'
+import { columnsMap, dictsMap } from './options'
 import InvoicePassDialogForm from '@/views/fams/Components/InvoicePassDialogForm.vue'
 import InvoiceRejectDialogForm from '@/views/fams/Components/InvoiceRejectDialogForm.vue'
-import InvoiceTransDialogForm from '@/views/fams/Components/InvoiceTransDialogForm'
 export default {
-  components: { InvoiceRejectDialogForm, InvoicePassDialogForm, InvoiceTransDialogForm },
+  components: { InvoicePassDialogForm, InvoiceRejectDialogForm },
   mixins: [mixins],
   data () {
     return {
       dictsMap,
       columnsMap,
+      statistics: [0, 0, 0, 0],
+      replaceText: (data) => `（待审核：${data[0]}笔，总计：${data[1]}，已确认：${data[2]}笔，总计：${data[3]}）`,
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
-    handleTrans (row) {
-      this.$refs['InvoiceTransDialogForm'].id = row.id
-      this.$refs['InvoiceTransDialogForm'].user = { id: '', name: '' }
-      this.$refs['InvoiceTransDialogForm'].content = ''
-      this.$refs['InvoiceTransDialogForm'].dialogShow = true
-    },
     handlePass (row) {
       this.$refs['InvoicePassDialogForm'].id = row.id
       this.$refs['InvoicePassDialogForm'].content = ''
@@ -67,8 +60,9 @@ export default {
         path: `/fams_spa/invoice_detail/${row.id}`,
       })
     },
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getMyInvoiceApprovalPage)
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable(param, getInvoicePage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

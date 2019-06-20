@@ -104,13 +104,24 @@ export function getPaperProcessById (id) {
 }
 
 /**
- * 发放证书
+ * 列表里的发放证书
  */
 export function sendCertificateById (params) {
   return request({
-    url: 'exms',
+    url: 'exms/iepcertificate/grantone',
     method: 'post',
-    data: params,
+    params: params,
+  })
+}
+
+/**
+ * 阅卷进度里的发放证书
+ */
+export function sendCertificateAllById (params) {
+  return request({
+    url: '/exms/iepcertificate/grantall',
+    method: 'post',
+    params: params,
   })
 }
 

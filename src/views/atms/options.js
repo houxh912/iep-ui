@@ -8,11 +8,13 @@ const initForm = () => {
             orgs: [],
             users: [],
             unions: [],
+            img:'',
         },
         executor: {
             orgs: [],
             users: [],
             unions: [],
+            img:'',
         },
         implementRangeTime:'',
         sign: [],

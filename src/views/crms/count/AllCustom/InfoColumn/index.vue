@@ -27,12 +27,12 @@
       </div>
       <div class="content">合同金额</div>
     </el-col>
-    <el-col class="tab">
+    <!-- <el-col class="tab">
       <div class="head">
         <span>{{data.softwareQuantity}}</span>
       </div>
       <div class="content">软件</div>
-    </el-col>
+    </el-col> -->
   </el-row>
 </template>
 
@@ -81,7 +81,7 @@ export default {
   }
   .tab {
     padding: 5px 15px;
-    width: 20%;
+    width: 25%;
     border-left: 1px dashed #ddd;
     text-align: center;
     color: #666;

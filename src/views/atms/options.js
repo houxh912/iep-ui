@@ -4,13 +4,21 @@ const initForm = () => {
         ownTask:[],
         status: '',
         priority: '',
-        synergist: '',
-        executor:'',
+        synergist: {
+            orgs: [],
+            users: [],
+            unions: [],
+        },
+        executor: {
+            orgs: [],
+            users: [],
+            unions: [],
+        },
         implementRangeTime:'',
-        sign: '',
+        sign: [],
         remarks:'',
         subtasks: '',
-        enclosure: '',
+        enclosure: [],
         links: '',
     }
 }

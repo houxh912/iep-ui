@@ -12,17 +12,7 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <!-- <el-table-column label="公司名称">
-          <template slot-scope="scope">
-            <iep-tag-detail :value="scope.row.companyName.map(m => m.name)"></iep-tag-detail>
-          </template>
-        </el-table-column> -->
-        <el-table-column label="操作时间">
-          <template slot-scope="scope">
-            <iep-div-detail :value="scope.row.updateTime"></iep-div-detail>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="150px">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)">编辑</iep-button>

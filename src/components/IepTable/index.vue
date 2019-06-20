@@ -31,10 +31,10 @@
             <div>{{caculateCustom(item, scope)}}</div>
           </template>
           <template v-else-if="item.type==='tag'">
-            <iep-tag-detail :value="scope.row[item.prop]"></iep-tag-detail>
+            <iep-tag-detail :value="scope.row[item.prop]" :iep-type="item.iepType"></iep-tag-detail>
           </template>
           <template v-else>
-            <iep-table-detail :value="scope.row[item.prop]"></iep-table-detail>
+            <iep-div-detail :value="scope.row[item.prop]" :nullmsg="item.nullmsg"></iep-div-detail>
           </template>
         </template>
       </el-table-column>

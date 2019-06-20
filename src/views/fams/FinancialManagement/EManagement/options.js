@@ -8,6 +8,12 @@ const dictsMap = {
 
 const columnsMap = [
 	{
+		prop: 'createTime',
+		label: '时间',
+		type: 'date',
+		formatString: 'YYYY-MM-DD',
+	},
+	{
 		prop: 'amount',
 		label: '金额',
 	},

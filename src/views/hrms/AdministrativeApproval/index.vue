@@ -19,21 +19,6 @@
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
-          <el-table-column label="申请类型">
-            <template slot-scope="scope">
-              {{scope.row.applyType}}
-            </template>
-          </el-table-column>
-          <el-table-column label="请假类型">
-            <template slot-scope="scope">
-              {{scope.row.leavingType || '无'}}
-            </template>
-          </el-table-column>
-          <el-table-column label="部门">
-            <template slot-scope="scope">
-              <iep-tag-detail :value="scope.row.deptList"></iep-tag-detail>
-            </template>
-          </el-table-column>
         </template>
         <el-table-column label="操作">
           <template>

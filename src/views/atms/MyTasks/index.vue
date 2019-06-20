@@ -11,7 +11,16 @@
         </div>
       </el-card>
       <operation-container>
-          <template slot="left">
+        <template slot="left">
+          <iep-button type="primary" @click="handleAdd()" icon="el-icon-plus" plain>新增</iep-button>
+          <el-dropdown size="medium">
+            <iep-button type="default" plain>批量操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>关注</el-dropdown-item>
+              <el-dropdown-item>完成</el-dropdown-item>
+              <el-dropdown-item>确认</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
@@ -24,7 +33,7 @@
         <el-table-column prop="operation" label="操作" width="260">
           <template>
             <operation-wrapper>
-                <iep-button>关注</iep-button>
+              <iep-button>关注</iep-button>
               <iep-button type="warning" plain>已关注</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="warning" plain>

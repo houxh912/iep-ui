@@ -36,6 +36,9 @@ export default {
   methods: {
     handleDetail () {
     },
+    handleChange () {
+
+    },
   },
 }
 </script>

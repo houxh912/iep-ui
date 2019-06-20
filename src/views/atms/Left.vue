@@ -7,33 +7,33 @@
         <span><i class="iconfont icon-xingxing"></i>关注<span><i class="iconfont icon-xitongguanli"></i>任务菜单</span></span>
       </span>
     </div>
-    <el-form :model="formData" :rules="rules" ref="form" label-width="100px" class="form form-detail" v-for="(item,index) in itemList" :key="index">
+    <el-form :model="form" ref="form" label-width="200px" class="form form-detail">
       <el-form-item label="状态：" class="form-half">
-        <span>{{item.state}}</span>
+        <span>{{form.state}}</span>
       </el-form-item>
       <el-form-item label="优先级：" class="form-half">
-        <span>{{item.priority}}</span>
+        <span>{{form.priority}}</span>
       </el-form-item>
       <el-form-item label="协同人：" class="form-half">
         <span>
-          <img class="img" :src="item.img1" alt="">
-          {{item.executor}}
+          <img class="img" :src="form.img" alt="">
+          {{form.executor.users}}
         </span>
       </el-form-item>
       <el-form-item label="执行人：" class="form-half">
         <span>
-          <img class="img" :src="item.img1" alt="">
-          {{item.synergist}}
+          <img class="img" :src="form.img" alt="">
+          {{form.synergist.users}}
         </span>
       </el-form-item>
       <el-form-item label="起止时间：">
-        <span>{{item.startEndTime}}</span>
+        <span>{{form.startEndTime}}</span>
       </el-form-item>
       <iep-form-item prop="learningTag" label-name="标签" tip="请输入不少于3个标签">
-        <iep-tag v-model="item.learningTag"></iep-tag>
+        <iep-tag v-model="form.learningTag"></iep-tag>
       </iep-form-item>
       <el-form-item label="备注：">
-        <span>{{item.remarks}}</span>
+        <span>{{form.remarks}}</span>
       </el-form-item>
       <el-form-item label="子任务：" prop="subtasks">
         <el-upload class="upload-demo" action="">
@@ -41,7 +41,7 @@
         </el-upload>
       </el-form-item>
       <el-form-item label="附件：" prop="enclosure">
-        <el-input v-model="item.enclosure"></el-input>
+        <iep-upload v-model="form.enclosure" :limit="limit"></iep-upload>
       </el-form-item>
       <el-form-item label="关联内容：" prop="subtasks">
         <el-upload class="upload-demo" action="">
@@ -66,20 +66,9 @@ export default {
           this.close()
         },
       },
-      formData: initForm(),
+      form: initForm(),
       rules,
-      itemList: [
-        {
-          state: '未完成',
-          priority: '普通',
-          synergist: '钟乙乔',
-          img1: '../img/person/p120.jpg',
-          executor: '何益挺',
-          img2: '../img/person/p012.jpg',
-          startEndTime: '2018-12-13~2019-02-17',
-          remarks: '当前阶段完成后，及时与相关部门对接，务必加快项目进程',
-        },
-      ],
+      limit:1,
     }
   },
 }

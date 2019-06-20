@@ -61,6 +61,15 @@ export function CommentThoughts (obj) {
   })
 }
 
+// 评论点赞
+export function addcCommentThumbsByRecord (id) {
+  return request({
+    url: `${commentUrl}/commentThumbsByRecord/${id}`,
+    method: 'get',
+  })
+}
+
+
 // 回复评论
 export function CommentReply (obj) {
   return request({

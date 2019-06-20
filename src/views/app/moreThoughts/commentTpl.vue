@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { CommentReply, addReplyThumbsByRecord } from '@/api/cpms/thoughts'
+import { CommentReply, addcCommentThumbsByRecord } from '@/api/cpms/thoughts'
 import { mapActions } from 'vuex'
 
 const initFormData = () => {
@@ -85,7 +85,7 @@ export default {
     },
     // 点赞
     hadnleAddUp () {
-      addReplyThumbsByRecord(this.item.commentId).then(({ data }) => {
+      addcCommentThumbsByRecord(this.item.commentId).then(({ data }) => {
         if (data.data) {
           this.$emit('load-page', true)
         } else {

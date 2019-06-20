@@ -32,7 +32,7 @@
       <el-table-column prop="operation" label="操作" width="160">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)" v-if="isCreator || permissionAll && paperStatus=== 5 && isPass === 1">发放证书</iep-button>
+            <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)" v-if="(scope.row.paperStatus === 5 && scope.row.isPass === 1) && (isCreator || permissionAll)">发放证书</iep-button>
 
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>

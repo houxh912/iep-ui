@@ -95,7 +95,7 @@ module.exports = {
           uglifyOptions: {
             warnings: false,
             drop_debugger: true,
-            drop_console: true,
+            // drop_console: true,
           },
           sourceMap: false,
           parallel: true,

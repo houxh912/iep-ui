@@ -258,6 +258,7 @@ export default {
                   type: 'success',
                 })
                 this.$emit('onGoBack')
+                this.$emit('async')
                 this.loadPage()
               } else {
                 this.$message.error(data.msg)

@@ -18,3 +18,20 @@ export function postOrgevaluateForm (data) {
     data: data,
   })
 }
+
+// 删除评价
+export function orgEvaluateDelete (id) {
+  return request({
+    url: `${prefixUrl}/delete/${id}`,
+    method: 'post',
+  })
+}
+
+// 修改评价
+export function orgEvaluateUpdate (data) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: data,
+  })
+}

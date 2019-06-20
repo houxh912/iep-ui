@@ -1,10 +1,10 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`${methodName}职称`" width="500px" @close="loadPage">
     <el-form :model="form" :rules="rules" ref="form" size="small" label-width="100px">
-      <el-form-item label="职务名称" prop="name">
+      <el-form-item label="职称名称" prop="name">
         <el-input :maxlength="80" v-model="form.name"></el-input>
       </el-form-item>
-      <el-form-item label="职务说明" prop="description">
+      <el-form-item label="职称说明" prop="description">
         <iep-input-area v-model="form.description"></iep-input-area>
       </el-form-item>
       <el-form-item label="优先级" prop="intro">
@@ -27,10 +27,10 @@ export default {
       form: initForm(),
       rules: {
         name: [
-          { required: true, message: '请输入职务名称', trigger: 'change' },
+          { required: true, message: '请输入职称名称', trigger: 'change' },
         ],
         description: [
-          { required: true, message: '请填写职务描述', trigger: 'change' },
+          { required: true, message: '请填写职称描述', trigger: 'change' },
         ],
       },
     }

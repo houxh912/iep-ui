@@ -14,7 +14,7 @@
             </el-col>
             <el-col :span="22">
               <div class="answerSheetTop">
-                <el-tag class="choices" type="info" v-for="(item, index) in POLICY_LEVEL" :key="index"  @click="clickButton(item)" style="margin-right: 10px">{{item.label}}</el-tag>
+                <el-tag class="choices" type="info" v-for="(item, index) in POLICY_LEVEL" :key="index" @click="clickButton(item)" style="margin-right: 10px">{{item.label}}</el-tag>
               </div>
             </el-col>
           </el-row>
@@ -49,19 +49,48 @@
         <div class="card">
           <el-row>
             <el-col :span="2">
-              <div class="titletop">适用规模 : </div>
+              <div class="titletop">适用行业 : </div>
             </el-col>
             <el-col :span="22">
               <div class="answerSheetTop">
-                <el-tag class="choices" type="info" v-for="(item, idx) in POLICY_SCALE" :key="idx" style="margin-right: 10px">{{item.label}}</el-tag>
+                <el-tag class="choices" type="info" v-for="(item, idx) in POLICY_INDUSTRY" :key="idx" style="margin-right: 10px">{{item.label}}</el-tag>
               </div>
             </el-col>
           </el-row>
         </div>
 
-         <el-collapse-transition>
-             
-         </el-collapse-transition>
+        <el-collapse-transition>
+
+          <template>
+            <div class="card">
+              <el-row>
+                <el-col :span="2">
+                  <div class="titletop">适用规模 : </div>
+                </el-col>
+                <el-col :span="22">
+                  <div class="answerSheetTop">
+                    <el-tag class="choices" type="info" v-for="(item, idx) in POLICY_SCALE" :key="idx" style="margin-right: 10px">{{item.label}}</el-tag>
+                  </div>
+                </el-col>
+              </el-row>
+            </div>
+          </template>
+
+          <template>
+            <div class="card">
+              <el-row>
+                <el-col :span="2">
+                  <div class="titletop">适用地区 : </div>
+                </el-col>
+                <el-col :span="22">
+                  <div class="answerSheetTop">
+                    <el-tag class="choices" type="info" v-for="(item, idx) in POLICY_SCALE" :key="idx" style="margin-right: 10px">{{item.label}}</el-tag>
+                  </div>
+                </el-col>
+              </el-row>
+            </div>
+          </template>
+        </el-collapse-transition>
       </div>
 
       <div>
@@ -81,11 +110,11 @@ import { findByTypeList } from '@/api/govdata/common'
 export default {
   data () {
     return {
-      POLICY_LEVEL:[],      //层级
-      DECLARE_TARGET:[],    //对象
-      POLICY_THEME:[],      //主题
-      POLICY_SCALE:[],      //规模
-      POLICY_INDUSTRY:[],   //行业
+      POLICY_LEVEL: [],      //层级
+      DECLARE_TARGET: [],    //对象
+      POLICY_THEME: [],      //主题
+      POLICY_SCALE: [],      //规模
+      POLICY_INDUSTRY: [],   //行业
     }
   },
   computed: {
@@ -120,7 +149,6 @@ export default {
         //   }
         // }
         // this.$set(this, 'dictGroup', dictGroup)
-        console.log('gg', this.POLICY_LEVEL)
       })
     },
   },

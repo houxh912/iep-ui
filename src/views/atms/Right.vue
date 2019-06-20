@@ -80,16 +80,6 @@ export default {
       color: #fff;
     }
   }
-  .el-button--danger {
-    color: #fff;
-    background: #cb3737;
-    border-color: #cb3737;
-    &:hover {
-      color: #cb3737;
-      background: #f8e8e9;
-      border-color: #e3a4a6;
-    }
-  }
 }
 .bottom {
   display: flex;
@@ -100,6 +90,16 @@ export default {
   }
   .btn-con {
     text-align: right;
+    .el-button--danger {
+      color: #fff;
+      background: #cb3737;
+      border-color: #cb3737;
+      &:hover {
+        color: #cb3737;
+        background: #f8e8e9;
+        border-color: #e3a4a6;
+      }
+    }
   }
 }
 </style>

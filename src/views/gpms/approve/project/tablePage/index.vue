@@ -38,11 +38,14 @@ export default {
       dictsMap,
       pageState: 'list',
       formData: {},
+      params: {
+        approvalStatus: this.status,
+      },
     }
   },
   methods: {
     loadPage (param) {
-      this.loadTable(param, getApprovalList)
+      this.loadTable(Object.assign({}, param, this.params), getApprovalList)
     },
     // 审批
     handleApprove (row) {
@@ -62,12 +65,12 @@ export default {
           message: '操作成功',
           type: 'success',
         })
-        this.loadPage({ approvalStatus: this.status })
+        this.loadPage()
       })
     },
   },
   created () {
-    this.loadPage({ approvalStatus: this.status })
+    this.loadPage()
   },
 }
 </script>

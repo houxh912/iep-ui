@@ -98,6 +98,9 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.leader-board >>> .el-table__body-wrapper {
+  overflow-y: scroll;
+}
 .leader-board >>> .el-table__body-wrapper::-webkit-scrollbar {
   border-radius: 10px;
   width: 6px;
@@ -115,7 +118,7 @@ export default {
   display: none;
   transition: all 0.5s;
 }
-.leader-board >>> .el-table__body-wrapper:hover ::-webkit-scrollbar-thumb {
+.leader-board >>> .el-table__body-wrapper:hover::-webkit-scrollbar-thumb {
   display: block;
 }
 </style>

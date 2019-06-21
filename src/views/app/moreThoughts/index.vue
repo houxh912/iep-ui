@@ -14,6 +14,7 @@
           <div class="content">
             <div class="title">
               <div class="name">{{item.userName}}</div>
+              <div class="date">{{getNumber(index)}}</div>
               <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
             </div>
             <div class="item">{{item.content}}</div>
@@ -133,6 +134,20 @@ export default {
     ...mapActions(['famsReward']),
     handleReward (row) {
       this.famsReward({id: row.userId, name: row.userName})
+    },
+    // 获取编号
+    getNumber (index) {
+      let number = this.total
+      number = number - ((this.params.current - 1) * this.params.size) - index
+      if (number < 10) {
+        return '000' + number
+      } else if (number < 100) {
+        return '00' + number
+      } else if (number < 1000) {
+        return '0' + number
+      } else {
+        return number
+      }
     },
   },
   created () {

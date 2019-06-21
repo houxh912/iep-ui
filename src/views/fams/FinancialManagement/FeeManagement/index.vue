@@ -19,19 +19,19 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <invoice-pass-dialog-form ref="InvoicePassDialogForm" is-financial @load-page="loadPage"></invoice-pass-dialog-form>
-    <invoice-reject-dialog-form ref="InvoiceRejectDialogForm" is-financial @load-page="loadPage"></invoice-reject-dialog-form>
+    <fee-pass-dialog-form ref="FeePassDialogForm" is-financial @load-page="loadPage"></fee-pass-dialog-form>
+    <fee-reject-dialog-form ref="FeeRejectDialogForm" is-financial @load-page="loadPage"></fee-reject-dialog-form>
   </div>
 </template>
 
 <script>
-import { getInvoicePage } from '@/api/fams/invoice'
+import { getFeePage } from '@/api/fams/fee'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
-import InvoicePassDialogForm from '@/views/fams/Components/InvoicePassDialogForm.vue'
-import InvoiceRejectDialogForm from '@/views/fams/Components/InvoiceRejectDialogForm.vue'
+import FeePassDialogForm from '@/views/fams/Components/FeePassDialogForm.vue'
+import FeeRejectDialogForm from '@/views/fams/Components/FeeRejectDialogForm.vue'
 export default {
-  components: { InvoicePassDialogForm, InvoiceRejectDialogForm },
+  components: { FeePassDialogForm, FeeRejectDialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -46,26 +46,24 @@ export default {
   },
   methods: {
     handlePass (row) {
-      this.$refs['InvoicePassDialogForm'].id = row.id
-      this.$refs['InvoicePassDialogForm'].content = ''
-      this.$refs['InvoicePassDialogForm'].dialogShow = true
+      this.$refs['FeePassDialogForm'].id = row.id
+      this.$refs['FeePassDialogForm'].content = ''
+      this.$refs['FeePassDialogForm'].dialogShow = true
     },
     handleReject (row) {
-      this.$refs['InvoiceRejectDialogForm'].id = row.id
-      this.$refs['InvoiceRejectDialogForm'].content = ''
-      this.$refs['InvoiceRejectDialogForm'].dialogShow = true
+      this.$refs['FeeRejectDialogForm'].id = row.id
+      this.$refs['FeeRejectDialogForm'].content = ''
+      this.$refs['FeeRejectDialogForm'].dialogShow = true
     },
     handleDetail (row) {
       this.$router.push({
-        path: `/fams_spa/invoice_detail/${row.id}`,
+        path: `/fams_spa/fee_detail/${row.id}`,
       })
     },
     async loadPage (param = this.searchForm) {
-      const data = await this.loadTable(param, getInvoicePage)
+      const data = await this.loadTable(param, getFeePage)
       this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }
 </script>
-<style scoped>
-</style>

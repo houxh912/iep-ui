@@ -47,10 +47,10 @@ export const columnsMap = [
     prop: 'publisherName',
     label: '发布人',
   },
-  {
-    prop: 'publishTime',
-    label: '发布时间',
-  },
+  // {
+  //   prop: 'projectTime',
+  //   label: '立项时间',
+  // },
 ]
 
 let intValidate = (rule, value, callback) => {
@@ -193,3 +193,12 @@ export const relatedFormList = [{
     list: 'reportList',
   },
 ]
+export const initSearchForm = () => {
+  return {
+    projectName: '',//项目名称
+    projectStage: [],//项目阶段
+    projectLevel: [],//项目等级
+    associatedProducts: false,//是否项目关联
+    projectManager: '',//项目经理
+  }
+}

@@ -37,6 +37,16 @@ export default [
         component: () => import('@/views/fams/wealth/Invoice/Edit.vue'),
       },
       {
+        path: 'fee_detail/:id',
+        name: '费用详情',
+        component: () => import('@/views/fams/wealth/Fee/Detail.vue'),
+      },
+      {
+        path: 'fee_edit/:id',
+        name: '费用编辑',
+        component: () => import('@/views/fams/wealth/Fee/Edit.vue'),
+      },
+      {
         path: 'billing_edit/:id',
         name: '开票编辑',
         component: () => import('@/views/fams/wealth/BillingNotice/Edit.vue'),

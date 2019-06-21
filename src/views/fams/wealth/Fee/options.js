@@ -1,46 +1,36 @@
 // import { checkContactUser } from '@/util/rules'
-import { genStatus } from '@/const/invoiceConfig'
 
 const dictsMap = {
-  processStatus: {
-    0: '待审核',
-    1: '通过',
-    2: '驳回',
-    3: '转交',
-  },
   status: {
     0: '待提交',
-    1: '部门审批',
-    2: '财务审批',
-    3: '已完成',
-  },
-  referType: {
-    1: '项目管理类',
-    2: '日常管理类',
-    3: '其他类(发票抵税)',
-  },
-  invoiceType: {
-    1: '增值税专用发票',
-    2: '增值税普通发票',
-    3: '其他',
+    1: '待初级审核',
+    2: '初级审核确认',
+    3: '初级审核驳回',
+    4: '财务审核通过',
+    5: '财务审核驳回',
   },
 }
 
 function initTableForm () {
   return {
     type: [],
-    invoiceType: '',
+    bank: '',
     amount: 0,
   }
 }
 function initForm () {
   return {
-    id: '',
-    referType: 1,
+    costId: '',
+    isSubstitute: 0,
     orgId: '',
+    costFile: '',
+    ccOrgId: '',
     orgName: '',
     companyId: '',
+    ccCompanyId: '',
     companyName: '',
+    protocolId: '',
+    protocolName: '',
     projectId: '',
     projectName: '',
     auditor: {
@@ -60,13 +50,8 @@ function initForm () {
 
 const columnsMap = [
 	{
-		prop: 'referType',
-		label: '报销类型',
-		type: 'dict',
-	},
-	{
-		prop: 'companyName',
-		label: '报销抬头',
+		prop: 'id',
+		label: 'ID',
 	},
 	{
 		prop: 'totalAmount',
@@ -77,22 +62,13 @@ const columnsMap = [
 		label: '申请日期',
 	},
 	{
-		prop: null,
+		prop: 'status',
     label: '状态',
-    type: 'custom',
-    customFunction: genStatus,
+    type: 'dict',
 	},
 	{
 		prop: 'auditorName',
     label: '部门审批人',
-	},
-	{
-		prop: 'auditingTime',
-    label: '审核日期',
-	},
-	{
-		prop: 'remarks',
-    label: '备注',
 	},
 ]
 

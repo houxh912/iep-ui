@@ -96,6 +96,9 @@ export default {
       color: #333;
     }
     .content {
+      word-break: break-all;
+      word-wrap: break-word;
+      white-space: pre-wrap;
       padding: 15px;
       font-size: 14px;
       color: #999;

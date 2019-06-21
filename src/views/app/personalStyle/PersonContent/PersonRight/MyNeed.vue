@@ -1,7 +1,6 @@
 <template>
   <div class="feelings">
-    <IepAppTabCard :title="title" isMore :linkName="linkName">
-      <!-- <el-button class="btn" type="text" slot="right" @click="handlePublish">发表说说</el-button> -->
+    <IepAppTabCard :title="title" :linkName="linkName">
       <div class="dynamicList" v-if="dynamicList.length !== 0">
         <div v-for="(item,index) in dynamicList" :key="index" class="piece">
           <span>{{item.content}}</span>
@@ -9,17 +8,12 @@
       </div>
       <IepNoData v-else></IepNoData>
     </IepAppTabCard>
-    <!-- 发表说说 -->
-    <publish-dialog ref="publish"></publish-dialog>
   </div>
 </template>
 
 <script>
-import { getPersonalThoughts } from '@/api/app/cpms/channel'
-import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
 
 export default {
-  components: { PublishDialog },
   props: {
     userId: {
       type: Number,
@@ -29,22 +23,10 @@ export default {
   data () {
     return {
       showClass: 0,
-      title: '个人说说',
+      title: '我的需求',
       dynamicList: [],
       linkName: '/app/more_thoughts',
     }
-  },
-  methods: {
-    handlePublish () {
-      this.$refs['publish'].open()
-    },
-  },
-  watch: {
-    userId () {
-      getPersonalThoughts(this.userId).then(({ data }) => {
-        this.dynamicList = data.data
-      })
-    },
   },
 }
 </script>

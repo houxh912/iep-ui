@@ -53,7 +53,6 @@ export default {
   props: {
     tabType: {
       type: String,
-      default: '',
     },
   },
   computed: {

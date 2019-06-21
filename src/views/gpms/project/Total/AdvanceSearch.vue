@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form :model="form" label-width="100px" size="small">
-      <el-form-item label="项目名称" prop="projectName">
+      <el-form-item label="项目名称" prop="projectName" :rules="rules">
         <el-input v-model="form.projectName"></el-input>
       </el-form-item>
       <el-form-item label="项目阶段" prop="projectStage">
@@ -33,7 +33,7 @@
   </div>
 </template>
 <script>
-import { initSearchForm,dictMap} from './const'
+import { initSearchForm,dictMap,rules} from './const'
 // import { getContactAssociate } from '@/api/crms/contact'
 // import { getPageData } from '@/api/crms/customer'
 import { mapGetters } from 'vuex'
@@ -45,6 +45,7 @@ export default {
       clientList: [],
       isLoading: true,
       dictMap,
+      rules,
     }
   },
   computed: {

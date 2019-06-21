@@ -49,7 +49,7 @@ export const columnsMap = [
   },
   {
     prop: 'publishTime',
-    label: '发布时间',
+    label: '立项时间',
   },
 ]
 
@@ -193,3 +193,12 @@ export const relatedFormList = [{
     list: 'reportList',
   },
 ]
+export const initSearchForm = () => {
+  return {
+    projectName: '',//项目名称
+    projectStage: [],//项目阶段
+    projectLevel: [],//项目等级
+    associatedProducts: false,//是否项目关联
+    projectManager: '',//项目经理
+  }
+}

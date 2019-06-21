@@ -8,9 +8,21 @@ import request from '@/router/axios'
  * @param {Object} params 参数
  */
 export function getTestRecordList (params) {
-    return request({
-        url: '/exms/iepexamination/selectById',
-        method: 'get',
-        params: params,
-    })
+  return request({
+    url: '/exms/iepexamination/selectById',
+    method: 'get',
+    params: params,
+  })
+}
+
+/**
+ * 获取专题考试列表页
+ * @param {Object} params 参数
+ */
+export function getCertificate (params) {
+  return request({
+    url: '/exms/iepcertificate/grantimage',
+    method: 'get',
+    params: params,
+  })
 }

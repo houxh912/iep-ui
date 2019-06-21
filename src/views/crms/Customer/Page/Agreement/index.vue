@@ -30,8 +30,8 @@
         <el-table-column prop="operation" label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleEdit(scope.row)" plain size="small" type="warning" :disabled="scope.row.userId !== userInfo.userId">编辑</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)" size="small" :disabled="scope.row.userId !== userInfo.userId">删除</iep-button>
+              <iep-button @click="handleEdit(scope.row)" plain size="small" type="warning" :disabled="isEditDelete(scope.row)">编辑</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)" size="small" :disabled="isEditDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -78,6 +78,17 @@ export default {
     ]),
   },
   methods: {
+    isEditDelete (row) {
+      if (this.record.marketManager == this.userInfo.userId) {
+        return false
+      } else {
+        if (this.userInfo.userId == row.userId) {
+          return false
+        } else {
+          return true
+        }
+      }
+    },
     async () {
       this.$emit('load-page')
     },

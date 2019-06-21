@@ -99,7 +99,7 @@ export default {
         }
       }
       .img {
-        margin-right: 10px;
+        margin-right: 0;
         width: 40px;
         height: 40px;
         border: 1px solid #dcdfe6;

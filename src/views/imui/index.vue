@@ -93,11 +93,16 @@ export default {
         })
         this.stompClient.subscribe(`/self/system/${userInfo.userId}`, (data) => {
           let body = JSON.parse(data.body)
-          if (body.groupId) {
+          if (body.msgType === 1 || body.msgType === 2) {
             this.$store.commit('updateGroup', {
               id: body.groupId,
               groupName: body.groupName,
               avatar: body.groupAvatar,
+            })
+          } else if (body.msgType === 3) {
+            this.$store.commit('updateGroupMember', {
+              groupId: body.groupId,
+              ids: JSON.parse(body.membersIds),
             })
           }
         })

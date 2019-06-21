@@ -200,6 +200,9 @@ export default {
       font-size: 14px;
       border-radius: 3px;
       color: #666;
+      span {
+        font-size: 12px;
+      }
       > .icon {
         font-size: 20px;
         color: #ffbc01;

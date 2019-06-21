@@ -104,7 +104,7 @@ export default {
       }
       .content {
         .sub-title-con {
-          font-size: 18px;
+          font-size: 16px;
           text-overflow: ellipsis;
           margin-bottom: 10px;
         }

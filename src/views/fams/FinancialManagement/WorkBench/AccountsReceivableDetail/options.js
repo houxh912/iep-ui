@@ -1,98 +1,38 @@
-import { mergeByFirst } from '@/util/util'
-
-const dictsMap = {
-  status: {
-    0: '未执行',
-    1: '执行中',
-    2: '已完成',
-  },
-}
 
 const columnsMap = [
 	{
-		prop: 'id',
-		label: '序号',
+		prop: 'projectNum',
+		label: '项目编号',
 	},
 	{
-		prop: 'signingTime',
-		label: '签订时间',
-	},
-	{
-		prop: 'entryName',
+		prop: 'projectName',
 		label: '项目名称',
 	},
 	{
-		prop: 'contractName',
-		label: '合同名称',
+		prop: 'createTime',
+		label: '创建时间',
 	},
 	{
-		prop:'contractAmount',
+		prop:'amount',
 		label:'合同金额',
 	},
 	{
-		prop:'amountReached',
-		label:'已到金额',
-	},
-	{
-		prop:'outstandingAmount',
-		label:'未到金额',
-	},
-	{
-		prop:'invoice',
-		label:'开票',
-	},
-	{
-		prop:'invoiced',
-		label:'已开票金额',
-	},
-	{
-		prop: 'status',
-		label: '项目状态',
-		type: 'dict',
-	},
-	{
-		prop: 'charge',
-		label: '负责人',
-	},
-	{
-		prop: 'refundTime',
-		label: '回款时间',
-	},
-	{
-		prop: 'beOverdue',
-		label: '逾期(天)',
+		prop:'invoiceAmount',
+		label:'开票金额',
 	},
 ]
-const initSearchForm = () => {
-	return {
-	  name: '',
-	  charge:'',
-	  dept: [],
-	  position: [],
-	  refundTime: [],
-	  invoice: false,
-	  status: '',
-	}
+
+const initForm = () => {
+  return {
+    projectName: '',
+    contractAmount: 0,
+    publisher: '',
+    serialNo: '',
+    publisherList: {id:'',name:''},
+    projectManagerList: {id:'',name:''},
+    mktManagerList: {id:'',name:''},
+    projectTime: '',
+    endTime: '',
   }
-  const initDtoSearchForm = () => {
-	return {
-		name: '',
-		charge:'',
-		dept: [],
-		position: [],
-		refundTime: [],
-		invoice: false,
-		status: '',
-	}
-  }
-  const toDtoSearchForm = (row) => {
-	const newForm = mergeByFirst(initDtoSearchForm(), row)
-	// newForm.startTime = row.rangeTime[0]
-	// newForm.endTime = row.rangeTime[1]
-	// newForm.province = row.cities[0]
-	// newForm.city = row.cities[1]
-	// newForm.positionId = row.position[row.position.length - 1]
-	// newForm.deptId = row.dept[row.dept.length - 1]
-	return newForm
-  }
-export { dictsMap, columnsMap ,initSearchForm,initDtoSearchForm,toDtoSearchForm }
+}
+export { columnsMap, initForm }

@@ -28,6 +28,7 @@ export default {
       userInfo: {
         identityMarks: [],
         tagList: [],
+        similarUser: [],
       },
     }
   },

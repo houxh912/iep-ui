@@ -12,11 +12,6 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
-        <template slot="before-columns">
-          <el-table-column label="时间">
-            <template slot-scope="scope">{{scope.row.createTime | parseToDay}}</template>
-          </el-table-column>
-        </template>
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
@@ -50,7 +45,6 @@ export default {
   methods: {
     handleDetail (row) {
       getIncomeById(row.incomeId).then(({ data }) => {
-        console.log(data.data)
         this.$refs['DialogDetail'].form = data.data
         this.$refs['DialogDetail'].dialogShow = true
       })

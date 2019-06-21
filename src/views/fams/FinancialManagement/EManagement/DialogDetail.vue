@@ -1,6 +1,6 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="详情" width="700px" @close="loadPage">
-    <el-form :model="form" size="small" ref="form" label-width="120px" disabled>
+  <iep-dialog :dialog-show="dialogShow" title="详情" width="700px" @close="close">
+    <el-form :model="form" size="small" ref="form" label-width="120px">
 
       <el-form-item label="支出类型：">
         <iep-div-detail :value="form.typeValue"></iep-div-detail>
@@ -54,21 +54,68 @@
         <iep-div-detail :value="form.remarks"></iep-div-detail>
       </el-form-item>
 
+      <template v-if="form.parentType==='17'">
+        <el-form-item label="">
+          <operation-wrapper>
+            <iep-button @click="handleIncome()">新增其他应收款收入</iep-button>
+            <iep-button @click="handleShow()">查看其他应收款收入</iep-button>
+          </operation-wrapper>
+        </el-form-item>
+      </template>
+
     </el-form>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+    <incomes ref="Incomes" :forms="forms" @load-page="loadPage"></incomes>
   </iep-dialog>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+import { postIncome } from '@/api/fams/income'
 import { initForm, dictsMap } from './options'
+import DialogForm from '../IManagement/DialogForm'
+import Incomes from './Incomes'
+import { getExpenditureById } from '@/api/fams/expenditure'
+import { getIncomeById } from '@/api/fams/income'
 export default {
+  components: { DialogForm, Incomes },
   data () {
     return {
+      id: '',
       dictsMap,
       dialogShow: false,
       form: initForm(),
+      forms: [],
     }
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
   methods: {
+    handleShow () {
+      this.form.incomeIds.map(async (idx) => {
+        const data = (await getIncomeById(idx)).data.data
+        this.forms.push(data)
+      })
+      this.$refs['Incomes'].dialogShow = true
+    },
+    handleIncome () {
+      this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].formRequestFn = postIncome
+      this.$refs['DialogForm'].form.expenditureId = this.form.expenditureId
+      this.$refs['DialogForm'].form.orgId = this.userInfo.orgId
+      this.$refs['DialogForm'].form.invoiceOrgId = this.userInfo.orgId
+      this.$refs['DialogForm'].form.orgName = this.userInfo.orgName
+      this.$refs['DialogForm'].dialogShow = true
+    },
     loadPage () {
+      getExpenditureById(this.id).then(({ data }) => {
+        this.form = data.data
+        this.forms = []
+      })
+    },
+    close () {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')

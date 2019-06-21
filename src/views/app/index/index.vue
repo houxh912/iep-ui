@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <IepAppLayout>
     <div class="index">
       <about></about>
       <baner></baner>
@@ -13,8 +13,7 @@
       <feedback></feedback>
       <learning-resources></learning-resources>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </IepAppLayout>
 </template>
 <script>
 import About from './About'

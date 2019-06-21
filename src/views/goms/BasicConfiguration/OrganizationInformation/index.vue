@@ -11,6 +11,9 @@
         <template v-if="activeTab ==='Album'" v-slot:Album>
           <album v-loading="activeTab !=='Album'"></album>
         </template>
+        <template v-if="activeTab ==='evaluate'" v-slot:evaluate>
+          <evaluate v-loading="activeTab !=='evaluate'"></evaluate>
+        </template>
       </iep-tabs>
     </basic-container>
   </div>
@@ -19,8 +22,9 @@
 import BasicInformation from './BasicInformation/'
 import Memorabilia from './Memorabilia/'
 import Album from './Album/'
+import Evaluate from './evaluate/'
 export default {
-  components: { BasicInformation, Memorabilia, Album },
+  components: { BasicInformation, Memorabilia, Album, Evaluate },
   data () {
     return {
       tabList: [{
@@ -32,6 +36,9 @@ export default {
       }, {
         label: '组织相册',
         value: 'Album',
+      }, {
+        label: '评价管理',
+        value: 'evaluate',
       }],
       activeTab: 'BasicInformation',
     }

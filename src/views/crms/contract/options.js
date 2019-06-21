@@ -90,7 +90,7 @@ export const rules = {
     { required: true, message: '请选择合同级别', trigger: 'change' },
   ],
   contractStatus: [
-    { required: true, message: '请选择合同级别', trigger: 'change' },
+    { required: true, message: '请选择合同状态', trigger: 'change' },
   ],
   // deposit: [{ validator: amount1, trigger: 'change' }],
   deposit: [

@@ -35,9 +35,10 @@
               </iep-button>
               <el-dropdown-menu slot="dropdown">
                 <!-- <el-dropdown-item @click.native="handleRejected(scope.row)">驳回</el-dropdown-item> -->
-                <!-- eslint-disable -->
-                <el-dropdown-item v-for="(s,i) in dictsMap.status" :key="i" v-if="+i !== scope.row.status" @click.native="handleChangeStatus([scope.row.id], i)">{{s}}</el-dropdown-item>
-                <!-- eslint-enable -->
+                <!-- eslint-disable-next-line -->
+                <template v-for="(s,i) in dictsMap.status">
+                  <el-dropdown-item :key="i" v-if="+i !== scope.row.status" @click.native="handleChangeStatus([scope.row.id], i)">{{s}}</el-dropdown-item>
+                </template>
               </el-dropdown-menu>
             </el-dropdown>
             <!-- <iep-button @click="handleEdit(scope.row)">编辑</iep-button> -->

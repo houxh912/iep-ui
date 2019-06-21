@@ -130,8 +130,16 @@ const columnsMap = [
     prop: 'sex',
     label: '性别',
     width: 55,
-    sortable: true,
+    hidden: false,
     key: 'sex',
+  },
+  {
+    prop: 'entryTime',
+    label: '入职时间',
+    hidden: false,
+    key: 'employedDate',
+    type: 'date',
+    formatString: 'YYYY-MM-DD',
   },
   {
     prop: 'userName',

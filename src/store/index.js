@@ -10,6 +10,7 @@ import fams from './modules/fams'
 import hrms from './modules/hrms'
 import notify from './modules/notify'
 import im from './modules/im'
+import cpms from './modules/cpms'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -25,6 +26,7 @@ const store = new Vuex.Store({
     hrms,
     notify,
     im,
+    cpms,
   },
   getters,
 })

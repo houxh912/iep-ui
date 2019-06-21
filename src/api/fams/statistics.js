@@ -90,6 +90,20 @@ export function getProjectPage (query) {
     params: query,
   })
 }
+export function getBossProjectPage (id) {
+  return request({
+    url: `${prefixUrl}/project/page/${id}`,
+    method: 'get',
+  })
+}
+
+export function getContractPage (query) {
+  return request({
+    url: `${prefixUrl}/contract/page`,
+    method: 'get',
+    params: query,
+  })
+}
 
 export function getProjectDetailById (id) {
   return request({

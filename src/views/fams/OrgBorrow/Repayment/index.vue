@@ -25,7 +25,7 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      type: 'outOrgId',
+      type: this.$route.query.type || 'outOrgId',
       tabList,
       dictsMap,
     }
@@ -52,7 +52,8 @@ export default {
     this.loadPage()
   },
   methods: {
-    changeType () {
+    changeType (v) {
+      this.$router.push({ query: { type: v } })
       this.loadPage()
     },
     handleAddOrgBorrow () {
@@ -68,6 +69,7 @@ export default {
     handleDetail (row) {
       this.$router.push({
         path: formatBorrow(row),
+        query: { repayment: 'true' },
       })
     },
     loadPage (param = this.searchForm) {

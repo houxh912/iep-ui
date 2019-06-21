@@ -50,7 +50,8 @@
         <el-input type="textarea" v-model="formData.opportunityDes" placeholder="商机描述与内部合作点"></el-input>
       </el-form-item>
       <el-form-item label="发布者：">
-        <el-input v-model="userInfo.realName" :disabled="true"></el-input>
+        <!-- <el-input v-model="userInfo.realName" :disabled="true"></el-input> -->
+        {{userInfo.realName}}
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -123,6 +124,7 @@ export default {
         // ],
         clientName: [
           { required: true, message: '客户名称', trigger: 'blur' },
+          { min: 6, max: 20, message: '客户名称在6至50个字符之间', trigger: 'blur' },
         ],
         projectName: [
           { required: true, message: '请输入项目名称', trigger: 'blur' },

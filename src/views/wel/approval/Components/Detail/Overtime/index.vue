@@ -29,6 +29,10 @@
             <div class="content">{{form.endTime}}</div>
           </div>
           <div class="info-item">
+            <label>加班时长：</label>
+            <div class="content">{{form.duration}}</div>
+          </div>
+          <div class="info-item">
             <label>职务：</label>
             <div class="content">{{form.job}}</div>
           </div>

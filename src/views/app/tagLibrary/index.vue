@@ -1,10 +1,9 @@
 <template>
-  <div>
+  <IepAppLayout>
     <tag-search></tag-search>
     <recommend></recommend>
     <all-tags></all-tags>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </IepAppLayout>
 </template>
 <script>
 import TagSearch from './TagSearch'

@@ -20,6 +20,11 @@ const columnsMap = [
 		prop: 'accountName',
 		label: '银行户头',
 	},
+	{
+		prop: 'updateTime',
+		label: '操作时间',
+		width: '150px',
+	},
 ]
 
 export {

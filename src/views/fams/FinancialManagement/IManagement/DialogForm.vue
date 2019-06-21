@@ -28,11 +28,11 @@
         <iep-project-select v-model="form.projectId" :projectName="form.projectName" @relation-change="handleProjectChange"></iep-project-select>
       </el-form-item>
       <el-form-item label="收入金额(元)：" prop="amount">
-        <iep-input-number v-model="form.amount"></iep-input-number>
+        <iep-input-number v-model="form.amount" :min="-99999999"></iep-input-number>
       </el-form-item>
-      <el-form-item label="开票费(元)：">
-        <iep-input-number v-model="form.invoiceAmount"></iep-input-number>
-      </el-form-item>
+      <!-- <el-form-item label="开票费(元)：">
+        <iep-input-number v-model="form.invoiceAmount" :min="-99999999"></iep-input-number>
+      </el-form-item> -->
       <!-- <el-form-item label="开票组织：">
         <iep-select v-model="form.invoiceOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择开票组织"></iep-select>
       </el-form-item> -->
@@ -141,10 +141,10 @@ export default {
       }
     },
   },
-  watch: {
-    'form.amount': function (n) {
-      this.form.invoiceAmount = n * 0.01
-    },
-  },
+  // watch: {
+  //   'form.amount': function (n) {
+  //     this.form.invoiceAmount = n * 0.01
+  //   },
+  // },
 }
 </script>

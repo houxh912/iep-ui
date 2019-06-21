@@ -44,8 +44,8 @@
         </el-form-item>
       </el-form>
 
-      <crud-table :is-load-table="isLoadTable" align="center" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
-        <el-table-column prop="operation" align="center" label="操作" width="200">
+      <crud-table :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
+        <el-table-column prop="operation" align="left" label="操作" width="200">
           <template slot-scope="scope">
             <el-button @click="handleView(scope.row)" type="text" size="small" icon="el-icon-view">查看</el-button>
             <iep-divider type="vertical" />
@@ -59,7 +59,7 @@
       <pagination @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" :pagination-option="paginationOption"></pagination>
 
       <form-dialog :dialog-show="dialogShow" :title="infoFormTitle" @close="load()" :isNeedConfirm="isNeedConfirm" width="1000px">
-        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()" :dictGroup="dictGroup" :selectFiledMap="selectFiledMap" :postTxt="postTxt"></dialog-form>
+        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()" :dictGroup="dictGroup" :selectFiledMap="selectFiledMap" :btnTxt="btnTxt"></dialog-form>
       </form-dialog>
     </template>
   </page-dialog>
@@ -86,24 +86,24 @@ const columnMap = [
     prop: 'publishTime',
     label: '发文时间',
     type: 'time',
-    // width: 140,
+    width: 140,
     // sortable: 'custom',
   },
   {
     prop: 'creatorName',
     label: '上传者',
-    // width: 140,
+    width: 140,
   },
   {
     prop: 'examineUserName',
     label: '审核人',
-    // width: 140,
+    width: 140,
   },
   {
     prop: 'examineDate',
     label: '审核通过时间',
     type: 'time',
-    // width: 140,
+    width: 140,
     // sortable: 'custom',
   },
 ]
@@ -252,6 +252,10 @@ function initDictGroup () {
   }
   return dictGroup
 }
+function initFormInline () {
+  return {
+  }
+}
 export default {
   mixins: [mixins, dialogMixins, paginationMixins, multiplyMixin],
   components: { crudTable, collapseForm, dialogForm },
@@ -261,14 +265,15 @@ export default {
       type: 'declare',
       columnMap,
       selectFiledMap,
-      formInline: {},
+      initFormInline,
+      formInline: initFormInline(),
       dictGroup: initDictGroup(),
       form: initForm(),
       isEdit: true,
       isReadonly: false,
       isNeedConfirm: true,
       commadOptions,
-      postTxt: null,
+      btnTxt: '',
     }
   },
   computed: {
@@ -322,6 +327,7 @@ export default {
         return {
           ...m,
           dispatchsList: m.dispatchList[0] ? _.map(m.dispatchList, 'commonName').join('，') : '暂无',
+          unionsList: m.unionList[0] ? _.map(m.unionList, 'commonName').join('，') : '暂无',
         }
       })
       data.records = records
@@ -329,45 +335,41 @@ export default {
     },
 
     readRelation (rows) {
-      const { dispatchList, unionList, formality, fund, industry, mode, scale, support, target, theme, tagList, policyList } = rows
+      const { dispatchList, unionList, target, fund, support, formality, mode, industry, scale, theme } = rows
       // file
       rows.attachments = validatenull(rows.file) ? null : [{
         name: rows.file.match(/([^/]*)$/)[1],
         url: rows.file,
       }]
-      // 字典组
-      this.$set(rows, 'formality', this.decodeSplitStr(formality))
-      this.$set(rows, 'fund', this.decodeSplitStr(fund))
-      this.$set(rows, 'industry', this.decodeSplitStr(industry))
-      this.$set(rows, 'mode', this.decodeSplitStr(mode))
-      this.$set(rows, 'scale', this.decodeSplitStr(scale))
-      this.$set(rows, 'support', this.decodeSplitStr(support))
-      this.$set(rows, 'target', this.decodeSplitStr(target))
-      this.$set(rows, 'theme', this.decodeSplitStr(theme))
+      // 多选
+      rows.target = this.decodeSplitStr(target)
+      rows.industry = this.decodeSplitStr(industry)
+      rows.scale = this.decodeSplitStr(scale)
+      rows.theme = this.decodeSplitStr(theme)
+      rows.fund = this.decodeSplitStr(fund)
+      rows.support = this.decodeSplitStr(support)
+      rows.formality = this.decodeSplitStr(formality)
+      rows.mode = this.decodeSplitStr(mode)
+      // console.log(rows)
       // 发文单位
-      if (dispatchList) {
-        rows.dispatchList = dispatchList.map(m => m.commonId)
-        rows.dispatchsList = dispatchList.map(m => {
-          return { id: m.commonId, name: m.commonName }
-        })
-      }
+      rows.dispatchList = dispatchList.map(m => m.commonId)
+      rows.dispatchsList = dispatchList.map(m => {
+        return { id: m.commonId, name: m.commonName }
+      })
       // 联合发文单位
-      if (unionList) {
-        rows.unionList = unionList.map(m => m.commonId)
-        rows.unionsList = unionList.map(m => {
-          return { id: m.commonId, name: m.commonName }
-        })
-      }
+      rows.unionList = unionList.map(m => m.commonId)
+      rows.unionsList = unionList.map(m => {
+        return { id: m.commonId, name: m.commonName }
+      })
       // 政策依据
-      if (policyList) {
-        rows.policyList = policyList.map(m => m.commonId)
-        rows.policysList = policyList.map(m => {
-          return { id: m.commonId, title: m.commonName }
-        })
-      }
+      // rows.policyList = policyList.map(m => m.commonId)
+      // rows.policysList = policyList.map(m => {
+      //   return { id: m.commonId, title: m.commonName }
+      // })
       // 标签
-      rows.tagsList = this._mapPickTagIdName(tagList)
+      rows.tagsList = this._mapPickTagIdName(rows.tagList)
       rows.tagList = rows.tagsList.map(m => m.name)
+      return rows
     },
 
     /**
@@ -420,8 +422,9 @@ export default {
       // this.dialogShow = true
       getDeclareById(rows.id).then(res => {
         const rows = res.data.data
-        this.readRelation(rows)
-        this.form = { ...rows }
+        // this.readRelation(rows)
+        // this.form = { ...rows }
+        this.form = this.readRelation(rows)
         if (rows.condition == null) {
           this.form.condition = ''
         }
@@ -450,19 +453,17 @@ export default {
       // this.isReadonly = false
       // this.isNeedConfirm = false
       // this.dialogShow = true
-      
-      
+      this.isReadonly = false
       if (!rows) {
         this.form = initForm()
         this.isEdit = false
-        this.isReadonly = false
-        this.postTxt = '提交'
+        this.btnTxt = '提交'
+        this.dialogShow = true
       }
       else {
         this.isEdit = true
-        this.postTxt = '暂存'
+        this.btnTxt = '暂存'
         getDeclareById(rows.id).then(res => {
-          // console.log('mmm', res)
           const rows = res.data.data
           this.readRelation(rows)
           this.form = { ...rows }
@@ -478,11 +479,10 @@ export default {
           if (rows.requirement == null) {
             this.form.requirement = ''
           }
-          this.isReadonly = false
           this.isNeedConfirm = false
         })
+        this.dialogShow = true
       }
-      this.dialogShow = true
     },
 
     /**

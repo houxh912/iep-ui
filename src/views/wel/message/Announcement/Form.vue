@@ -21,7 +21,7 @@
 
         <el-form-item label="">
           <operation-wrapper>
-            <iep-button type="primary" @click="handleSubmit">{{methodName}}</iep-button>
+            <a-button type="primary" :loading="submitLoading" @click="handleSubmit">{{methodName}}</a-button>
             <!-- <iep-button @click="handlePublish">保存并发布</iep-button> -->
           </operation-wrapper>
         </el-form-item>
@@ -36,10 +36,10 @@ import { checkContact } from '@/util/rules'
 export default {
   data () {
     return {
-      id: +this.$route.params.id,
       backOption: {
         isBack: true,
       },
+      submitLoading: false,
       form: initForm(),
       rules: {
         name: [
@@ -59,6 +59,9 @@ export default {
     }
   },
   computed: {
+    id () {
+      return +this.$route.params.id
+    },
     disabled () {
       return !!this.id
     },
@@ -89,6 +92,7 @@ export default {
       this.handleSubmit(true)
     },
     handleSubmit (isPublish) {
+      this.submitLoading = true
       this.$refs['form'].validate((valid) => {
         if (valid) {
           const publish = isPublish === true ? true : false
@@ -102,6 +106,7 @@ export default {
             } else {
               this.$message(data.msg)
             }
+            this.submitLoading = false
           })
         }
       })

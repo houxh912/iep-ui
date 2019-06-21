@@ -23,21 +23,6 @@
             <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
           </template>
         </el-table-column>
-        <el-table-column label="性别" width="55px">
-          <template slot-scope="scope">
-            <iep-div-detail :value="scope.row.sex"></iep-div-detail>
-          </template>
-        </el-table-column>
-        <el-table-column label="学历">
-          <template slot-scope="scope">
-            <iep-div-detail :value="scope.row.education"></iep-div-detail>
-          </template>
-        </el-table-column>
-        <el-table-column label="出生年月">
-          <template slot-scope="scope">
-            <span>{{scope.row.birthday | parseToDay}}</span>
-          </template>
-        </el-table-column>
       </template>
       <el-table-column prop="operation" label="操作" width="150">
         <template slot-scope="scope">

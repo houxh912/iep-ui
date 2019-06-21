@@ -15,3 +15,6 @@ export function getAdministrativeApprovalById (id) {
     method: 'get',
   })
 }
+export function postExcelExport () {
+  
+}

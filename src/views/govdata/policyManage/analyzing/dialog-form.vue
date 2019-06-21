@@ -1,20 +1,20 @@
 <template>
   <!-- <iep-dialog :dialog-show="dialogShow" :title="`${methodName}政策资讯`" width="500px" @close="loadPage"> -->
   <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="120px" :class="isReadonly ? 'readonly-form' : ''">
-    <el-form-item label="标题" prop="title">
+    <el-form-item label="标题" prop="title" class="titleItem">
       <el-input v-model="formData.title" maxlength="255" :readonly="isReadonly"></el-input>
     </el-form-item>
 
     <el-form-item label="标签" prop="tagList">
-      <mutiply-tag-select v-model="formData.tagList" :selectObjs="formData.tagsList" v-if="!isReadonly"></mutiply-tag-select>
-      <el-select v-model="formData.tagList" multiple disabled v-else>
+      <mutiply-tag-select class="tagListItem" v-model="formData.tagList" :selectObjs="formData.tagsList" v-if="!isReadonly"></mutiply-tag-select>
+      <el-select class="tagListItem" v-model="formData.tagList" multiple disabled v-else>
         <el-option v-for="item in formData.tagsList" :key="item.commonId" :label="item.commonName" :value="item.commonId">
         </el-option>
       </el-select>
     </el-form-item>
 
     <el-form-item label="发文时间" prop="publishTime" class="formWidth">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker style="width: 317px;" type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
     <!-- <el-form-item label="标题图" class="formWidth">
@@ -33,14 +33,14 @@
 
     <!-- 这里是循环选择器的组件 -->
     <el-form-item class="formWidth" :label="key" v-for="(value, key) in selectFiledMap" :key="key" :prop="value.formText">
-      <el-select v-model="formData[value.formText]" :placeholder="`请选择${key}`" :multiple="value.multiple" :disabled="isReadonly">
+      <el-select style="width: 317px;" v-model="formData[value.formText]" :placeholder="`请选择${key}`" :multiple="value.multiple" :disabled="isReadonly">
         <el-option v-for="item in dictGroup[value.dictText]" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
       </el-select>
     </el-form-item>
 
     <el-form-item label="适用地区" prop="regionArr" class="formWidth">
-      <el-cascader :options="options" :props="props" v-model="formData.regionArr" ref="region" clearable change-on-select :disabled="isReadonly"></el-cascader>
+      <el-cascader style="width: 317px;" :options="options" :props="props" v-model="formData.regionArr" ref="region" clearable change-on-select :disabled="isReadonly"></el-cascader>
     </el-form-item>
 
     <!-- <el-form-item label="政策原文">
@@ -51,9 +51,12 @@
       <select-tag-list v-model="formData.tagName" :commonTagList="formData.proTagList" />
     </el-form-item> -->
 
-    <el-form-item label="关联机构">
+    <el-form-item label="关联机构" class="formWidth" prop="organizationList">
       <mutiply-select v-if="!isReadonly || isAudit" v-model="formData.organizationList" :selectObjs="formData.organizationsList" :options="关联机构options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
-      <el-tag v-else type="info" :key="tag" v-for="tag in tagsShow" size="medium">{{tag}}</el-tag>
+      <el-select class="selectclass" v-model="formData.organizationList" multiple disabled v-else>
+        <el-option v-for="item in formData.organizationsList" :key="item.id" :label="item.name" :value="item.id">
+        </el-option>
+      </el-select>
     </el-form-item>
 
     <el-form-item label="优先级" class="formWidth" prop="priority">
@@ -64,18 +67,19 @@
       <avatar-uploader v-model="formData.image" />
     </el-form-item> -->
 
-    <el-form-item label="摘要" prop="summary">
+    <el-form-item label="摘要" prop="summary" class="summaryItem">
       <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}" placeholder="请输入摘要内容" v-model="formData.summary" :readonly="isReadonly">
       </el-input>
     </el-form-item>
 
     <el-form-item label="正文" prop="text">
-      <iep-froala-editor v-model="formData.text" style="width:80%" :readonly="isReadonly"></iep-froala-editor>
+      <iep-froala-editor v-if="!isReadonly || isAudit" v-model="formData.text" style="width: 787px;"></iep-froala-editor>
+      <iep-html class="htmlItem" v-else v-model="formData.text"></iep-html>
     </el-form-item>
 
     <el-form-item>
       <el-button type="primary" :loading="loading" @click="$emit('onAudit', formData)" v-if="isAudit">审核</el-button>
-      <el-button type="primary" :loading="loading" @click="handleTempSave('form')" v-if="!isReadonly || isAudit">{{postTxt}}</el-button>
+      <el-button type="primary" :loading="loading" @click="handleTempSave('form')" v-if="!isReadonly || isAudit">{{btnTxt}}</el-button>
       <!-- <el-button type="primary" :loading="loading" @click="handleSubmit('form')" v-if="!isReadonly && !isHideSubmitBtn && !isAudit">保存并提交</el-button> -->
       <el-button type="primary" plain @click="$emit('hideDialog', false)" v-else>关闭</el-button>
     </el-form-item>
@@ -84,7 +88,7 @@
   <!-- </iep-dialog> -->
 </template>
 <script>
-import mixins from '@/mixins/mixins'
+import multiplyMixin from '../multiply_mixin'
 import { region } from '../region'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import MutiplySelect from '@/components/deprecated/mutiply-select'
@@ -100,8 +104,8 @@ const orgOption = [{
   label: '机构网址',
 }]
 export default {
-  props: ['formData', 'isEdit', 'isReadonly', 'isAudit', 'dictGroup', 'selectFiledMap', 'isHideSubmitBtn','postTxt'],
-  mixins: [mixins],
+  props: ['formData', 'isEdit', 'isReadonly', 'isAudit', 'dictGroup', 'selectFiledMap', 'isHideSubmitBtn','btnTxt'],
+  mixins: [multiplyMixin],
   components: { MutiplyTagSelect,MutiplySelect },
   data () {
     // var checkTitle = (rule, value, callback) => {
@@ -120,7 +124,6 @@ export default {
     //   })
     // }
     return {
-      tagsShow: [],
       orgOption,
       disabled: false,
       isEdited: this.isEdit,
@@ -169,7 +172,7 @@ export default {
 
   },
   created () {
-    this.tagsShow = this.formData.organizationList
+    console.log('this.formData => ',this.formData)
   },
   methods: {
     // _processForm (rows) {
@@ -268,6 +271,30 @@ export default {
 .formWidth {
   display: inline-block;
   width: 50%;
+  padding-right: 35px;
 }
 </style>
+<style scoped>
+.selectclass >>> .el-input {
+  width: 170%;
+}
+.titleItem{
+  margin-right: 35px;
+}
+.tagListItem{
+  min-width: 315px;
+}
+.summaryItem{
+  margin-right: 35px;
+}
+.htmlItem {
+  overflow: scroll;
+  width: 787px;
+  height: 310px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  padding: 3px 15px 10px 15px;
+}
+</style>
+
 

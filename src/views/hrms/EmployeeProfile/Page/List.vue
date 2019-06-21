@@ -9,7 +9,7 @@
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <!-- <el-dropdown-item>导入</el-dropdown-item> -->
-              <el-dropdown-item @click.native="handleDownload">导出</el-dropdown-item>
+              <el-dropdown-item icon="el-icon-download" @click.native="handleDownload">导出</el-dropdown-item>
               <!-- <el-dropdown-item>分享</el-dropdown-item> -->
             </el-dropdown-menu>
           </el-dropdown>
@@ -37,7 +37,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <el-dropdown size="medium">
-                <iep-button type="warning" @click.stop="null" plain>
+                <iep-button type="warning" plain>
                   变更<i class="el-icon-arrow-down el-icon--right"></i>
                 </iep-button>
                 <el-dropdown-menu slot="dropdown">
@@ -49,7 +49,7 @@
               </el-dropdown>
               <iep-button @click.stop="handleOpenGrowthFile(scope.row)">成长档案</iep-button>
               <el-dropdown size="medium">
-                <iep-button type="default" @click.stop="null"><i class="el-icon-more-outline"></i></iep-button>
+                <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="handleEdit(scope.row)">修改</el-dropdown-item>
                   <!-- <el-dropdown-item>分享</el-dropdown-item> -->

@@ -110,7 +110,7 @@ export default {
       this.current--
     },
     back () {
-      this.$router.go(-1)
+      this.$router.history.go(-1)
     },
     loadPage () {
       if (this.id) {

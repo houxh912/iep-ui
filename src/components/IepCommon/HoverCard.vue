@@ -11,7 +11,7 @@
         <a-avatar slot="avatar" :src="cardData.avatar" />
       </a-card-meta>
     </a-card>
-    <a-button slot="reference" size="small" :type="type">{{obj.name}}</a-button>
+    <el-link slot="reference" :type="type">{{obj.name}}</el-link>
   </el-popover>
 </template>
 <script>

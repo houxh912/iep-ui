@@ -200,7 +200,7 @@ export default {
       })
     },
     resetForm () {
-      this.$router.go(-1)
+      this.$router.history.go(-1)
     },
   },
 }

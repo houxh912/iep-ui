@@ -18,9 +18,9 @@
     <el-form-item label="市场经理" v-if="type==='1'">
       <el-input v-model="form.marketManagerName" placeholder="请输入市场经理"></el-input>
     </el-form-item>
-    <el-form-item label="负责部门" v-if="type==='1'">
+    <!-- <el-form-item label="负责部门" v-if="type==='1'">
       <el-input v-model="form.deptName" placeholder="请输入负责部门"></el-input>
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item label="距离上次拜访" v-if="type!='1'">
       <el-select v-model="form.timeSerach" placeholder="请选择">
         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
@@ -40,7 +40,8 @@ export default {
   props: ['type'],
   data () {
     return {
-      form: {},
+      form: {
+      },
       businessTypeKey: [],
       options: [{
         value: '1',
@@ -68,7 +69,6 @@ export default {
     }
   },
   methods: {
-
     searchPage () {
       this.form.type = this.type
       this.form.businessTypeKeyString = this.businessTypeKey.join(',')

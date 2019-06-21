@@ -22,15 +22,15 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="项目标签：" prop="projectTagList">
+            <span slot="label">
+              项目标签
+              <iep-tip :content="tipContent.projectTagList"></iep-tip>：
+            </span>
             <iep-tag v-model="formData.projectTagList"></iep-tag>
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="项目经理：" prop="projectManagerList">
-            <span slot="label">
-              项目经理
-              <iep-tip :content="tipContent.projectTagList"></iep-tip>：
-            </span>
             <iep-contact-select v-model="formData.projectManagerList" :is-show-contact-btn="false"></iep-contact-select>
           </el-form-item>
         </el-col>

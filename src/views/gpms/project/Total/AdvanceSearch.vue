@@ -1,28 +1,22 @@
 <template>
   <div>
     <el-form :model="form" label-width="100px" size="small">
-      <el-form-item label="项目名称" prop="projectName" :rules="rules">
+      <el-form-item label="项目名称">
         <el-input v-model="form.projectName"></el-input>
       </el-form-item>
-      <el-form-item label="项目阶段" prop="projectStage">
-        <el-select v-model="form.projectStage" style="width: 100%;" placeholder="请选择">
-          <el-option
-            v-for="item in dictMap.projectStage"
-            :key="item"
-            :value="item">
-          </el-option>
-        </el-select>
+      <el-form-item label="项目阶段">
+        <iep-dict-select v-model="form.projectLevel" dict-name="prms_project_stage" style="width: 100%"></iep-dict-select>
       </el-form-item>
-      <el-form-item label="项目等级" prop="projectLevel">
+      <el-form-item label="项目等级">
         <iep-dict-select v-model="form.projectLevel" dict-name="prms_project_level" style="width: 100%"></iep-dict-select>
       </el-form-item>
-      <el-form-item label="是否产品关联" prop="associatedProducts">
+      <el-form-item label="是否产品关联">
         <el-radio-group v-model="form.associatedProducts">
           <el-radio :label="1">是</el-radio>
           <el-radio :label="2">否</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="项目经理" prop="projectManager">
+      <el-form-item label="项目经理">
         <el-input v-model="form.projectManager"></el-input>
       </el-form-item>
       <el-form-item label="">

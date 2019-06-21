@@ -32,19 +32,19 @@
           </li>
         </ul>
         <ul v-show="tableChosen === 'group'" class="im-chat-list">
-          <li style="max-width: 260px;padding: 10px 0;text-align: center;">
-            <el-button @click="openContact" class="btn-addgroup" size="mini" round>创建群聊+</el-button>
-          </li>
           <li class="im-friend" v-for="group in $store.getters.imGroups" @click="toChatGroup(group)" :key="group.id">
             <iep-img class="im-friend-head" :src="group.avatar ? group.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
             <span>{{group.groupName}}</span>
           </li>
+          <li style="max-width: 260px;padding: 10px 0;text-align: center;">
+            <el-button @click="openContact" class="btn-addgroup" size="mini" round>创建群聊+</el-button>
+          </li>
         </ul>
       </div>
     </div>
-    <a-drawer :visible="dialogShow" title="通讯录" width="300" @close="close" :z-index="3000">
+    <a-drawer :visible="dialogShow" title="选择组成员" width="300" @close="close" :z-index="3000">
       <el-input placeholder="输入关键字进行过滤" v-model="filterText" clearable></el-input>
-      <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="$store.getters.imUserTree" :default-expanded-keys="[1]" node-key="value">
+      <el-tree ref="tree" class="filter-tree" :filter-node-method="filterNode" :props="props" :data="$store.getters.imUserTree" node-key="value">
       <span v-if="node.value!==1" class="custom-tree-node" slot-scope="{ node, data }">
         <span :class="{level1:node.level===1,level2:node.level===2,level3:node.level===3}">{{ node.label }}</span>
         <span v-if="node.level===3">
@@ -52,7 +52,7 @@
         </span>
       </span>
       </el-tree>
-      <div v-show="dialogShow" style="position: fixed;right: 300px;top: 0;bottom: 0;width: 300px;overflow-y: auto;background: #FFFFFF;padding: 20px;">
+      <div v-show="dialogShow" class="check-list">
         <div style="margin: 5px 0;text-align: center;">
           <iep-button style="margin: 0 5px;" @click.native="addGroup">确定</iep-button>
           <iep-button style="margin: 0 5px;" @click.native="clearGroup">重置</iep-button>
@@ -112,7 +112,7 @@ export default {
   },
   methods: {
     close () {
-      this.filterText = ''
+      this.clearGroup()
       this.dialogShow = false
     },
     filterNode (value, data) {
@@ -134,20 +134,28 @@ export default {
       this.newGroup.membersId.splice(index, 1)
     },
     addGroup () {
-      if (!this.newGroup.membersId.includes(this.$store.getters.userInfo.userId)) {
-        this.newGroup.membersId.push(this.$store.getters.userInfo.userId)
-      }
-      createGroup(this.newGroup).then(({data}) => {
-        if (data.code === 0) {
-          this.$message.success('创建成功！')
-          this.dialogShow = false
-          this.clearGroup()
+      this.newGroup.groupName = this.newGroup.groupName.replace(/(^\s*)|(\s*$)/g, '')
+      if (this.newGroup.membersId.length === 0) {
+        this.$message.error('请选择群聊成员！')
+      } else if (this.newGroup.groupName === '') {
+        this.$message.error('请输入群名称！')
+      } else {
+        if (!this.newGroup.membersId.includes(this.$store.getters.userInfo.userId)) {
+          this.newGroup.membersId.push(this.$store.getters.userInfo.userId)
         }
-      }, error => {
-        this.$message.error(error.msg)
-      })
+        createGroup(this.newGroup).then(({data}) => {
+          if (data.code === 0) {
+            this.clearGroup()
+            this.$message.success('创建成功！')
+            this.dialogShow = false
+          }
+        }, error => {
+          this.$message.error(error.msg)
+        })
+      }
     },
     clearGroup () {
+      this.filterText = ''
       this.users = []
       this.newGroup.membersId = []
       this.newGroup.groupName = ''
@@ -260,6 +268,19 @@ export default {
   >>> .is-leaf.el-tree-node__expand-icon.el-icon-caret-right {
   display: none;
 }
+.check-list {
+  position: fixed;
+  right: 300px;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  padding: 20px;
+  overflow-y: auto;
+  background: #FFFFFF;
+}
+.el-tag {
+  border-style: none;
+}
 </style>
 
 <style lang="scss" scoped>
@@ -337,6 +358,7 @@ export default {
     }
   }
   .im-tabel-content-large-im {
+    position: relative;
     height: 400px;
     width: 290px;
     padding: 10px 0;

@@ -82,7 +82,7 @@ export default {
       await this.handleCommon('审核通过', outOrgConfirmBorrow)
     },
     async handleOrgReject () {
-      await this.handleCommon('审核通过', orgRejectBorrow)
+      await this.handleCommon('审核拒绝', orgRejectBorrow)
     },
     async handleSubmit () {
       await this.handleCommon('取消借款', cancelOrgBorrow)

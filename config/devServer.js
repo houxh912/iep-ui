@@ -10,19 +10,6 @@ const baseUrl = process.env.BASEURL
 // 删除配置: 本机的监听端口为10022,10022端口接受的连接地址为"*",使用的协议为tcp,当前仅支持TCP协议。
 // netsh interface portproxy delete v4tov4 listenport=9999 listenaddress=* protocol=tcp
 // console.log(process.env)
-if (process.env.MOCK === 'true') {
-  // MOCK代理转发表
-  console.log(`MOCK Proxy forwarding table, Proxy address: <${baseUrl}>`)
-  exports.proxy = {
-    '/api': {
-      target: baseUrl,
-      changeOrigin: true,
-      pathRewrite: {
-        '^/api': '',
-      },
-    },
-  }
-} 
 if (process.env.NODE_ENV === 'development') {
   // 实际代理转发表
   console.log(`Develop Proxy forwarding table, Proxy address: <${baseUrl}>`)
@@ -41,14 +28,6 @@ if (process.env.NODE_ENV === 'development') {
       ws: true,
       pathRewrite: {
         '^/api': '',
-      },
-    },
-    '/act': {
-      target: baseUrl,
-      changeOrigin: true,
-      ws: true,
-      pathRewrite: {
-        '^/act': '/act',
       },
     },
   }

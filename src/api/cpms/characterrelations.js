@@ -26,11 +26,12 @@ export function getApprenticeUser (characterId) {
 }
 
 // 是否确认收徒
-export function characterIsDetermine (id, data) {
+export function characterIsDetermine (type, data) {
   return request({
-    url: `${prefixUrl}/isDetermine/${id}`,
+    url: `${prefixUrl}/isDetermine`,
     method: 'post',
-    params: data,
+    params: type,
+    data: data,
   })
 }
 

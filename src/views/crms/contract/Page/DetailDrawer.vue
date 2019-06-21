@@ -59,7 +59,8 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="市场经理：">
-            <el-input v-model="formData.Manager" disabled></el-input>
+            <!-- <el-input v-model="formData.Manager" disabled></el-input> -->
+            {{formData.Manager}}
             <!-- <iep-contact-select v-model="formData.directorList"></iep-contact-select> -->
           </el-form-item>
         </el-col>

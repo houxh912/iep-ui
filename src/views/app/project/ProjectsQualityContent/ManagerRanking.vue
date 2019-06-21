@@ -101,7 +101,7 @@ export default {
   color: #999;
 }
 </style>
-<style lang="scss" scoped>
+<style scoped>
 .app-project-manager-ranking >>> .el-card__body {
   height: 358px;
 }

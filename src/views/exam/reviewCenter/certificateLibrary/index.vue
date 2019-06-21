@@ -93,6 +93,7 @@ export default {
       this.$refs['DialogForm'].methodName = '创建'
       this.$refs['DialogForm'].formRequestFn = postCertificate
       this.$refs['DialogForm'].dialogShow = true
+      this.$refs['DialogForm'].title = ''
     },
 
     /**
@@ -101,6 +102,7 @@ export default {
     handleEdit (row) {
       this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].methodName = '修改'
+      this.$refs['DialogForm'].title = row.title
       this.$refs['DialogForm'].formRequestFn = putCertificate
       this.$refs['DialogForm'].dialogShow = true
     },

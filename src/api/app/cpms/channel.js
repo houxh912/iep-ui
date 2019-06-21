@@ -81,3 +81,12 @@ export function getproductCountList () {
     method: 'get',
   })
 }
+
+// 个人风采页师徒
+export function getproductMentors (id) {
+  return request({
+    url: `${prefixUrl}/get_mentors/${id}`,
+    method: 'get',
+  })
+}
+

@@ -42,7 +42,7 @@ const rules = {
   ],
   projectName: [
     { required: true, message: '请输入项目名称', trigger: 'blur' },
-    { max: 20, message: '长度不超过20个字符', trigger: 'blur' },
+    { min: 2, max: 25, message: '长度在 2 到 25 个字符', trigger: 'blur' },
   ],
   businessType: [
     { required: true, message: '请选择业务类型', trigger: 'blur' },

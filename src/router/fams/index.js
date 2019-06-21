@@ -20,6 +20,7 @@ export default [
         name: '工资管理个人详情',
         component: () => import('@/views/fams/FinancialManagement/SalaryManagement/PersonDetail.vue'),
       },
+      // WARNING: 字典项不要删除
       {
         path: 'payroll_detail/:id',
         name: '工资条',
@@ -111,7 +112,7 @@ export default [
         component: () => import('@/views/fams/GroupFinance/GroupRewardUser/index.vue'),
       },
       {
-        path: '/wealth_flow/:id',
+        path: 'wealth_flow/:id',
         name: '提现申请(个人)',
         component: () => import('@/views/fams/wealth/WealthFlow/index.vue'),
       },

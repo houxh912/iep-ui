@@ -6,7 +6,7 @@
         <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="120px" class="wrap">
           <el-row>
             <el-col :span='10'>
-              <el-form-item prop="clientName" class="">
+              <el-form-item prop="clientName">
                 <span slot="label">
                   客户名称
                   <iep-tip :content="tipContent.clientName"></iep-tip>
@@ -16,14 +16,14 @@
               </el-form-item>
             </el-col>
             <el-col :span='10' :offset="4">
-              <el-form-item label="客户简称:">
+              <el-form-item label="客户简称:" prop="clientAbrName">
                 <el-input v-model="formData.clientAbrName"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span='10'>
-              <el-form-item label="原机构名:">
+              <el-form-item label="原机构名:" prop="orgNameForOld">
                 <el-input v-model="formData.orgNameForOld"></el-input>
               </el-form-item>
             </el-col>
@@ -47,11 +47,12 @@
             </el-col>
             <el-col :span='10' :offset="4">
               <el-form-item label="市场经理:" prop="Manager">
-                <el-input v-model="formData.Manager" :disabled="true"></el-input>
+                <!-- <el-input v-model="formData.Manager" :disabled="true"></el-input> -->
+                {{formData.Manager}}
               </el-form-item>
             </el-col>
           </el-row>
-          <el-form-item>
+          <el-form-item prop="companyUrl">
             <span slot='label'>
               客户描述
               <iep-tip :content="tipContent.companyUrl"></iep-tip>
@@ -176,7 +177,7 @@ export default {
           return false
         }
         if (value.length < 6 || value.length > 50) {
-          callback(new Error('客户名称至少6个字'))
+          callback(new Error('客户名称在6至50个字符之间'))
           return false
         } else {
           checkName({ clientName: val }).then(res => {
@@ -217,6 +218,9 @@ export default {
           { required: true, message: '请输入手机号码', trigger: 'blur' },
           { min: 11, max: 11, message: '手机位数为11位', trigger: 'blur' },
         ],
+        clientAbrName: [
+          { max: 100, message: '长度不超过100个字符', trigger: 'blur' },
+        ],
         districtType: [
           { required: true, message: '请选择区域类型', trigger: 'blur' },
         ],
@@ -229,6 +233,10 @@ export default {
         ],
         contractAddress: [
           { message: '请填写单位地址', trigger: 'blur' },
+          { max: 255, message: '长度不超过255个字符', trigger: 'blur' },
+        ],
+        orgNameForOld: [
+          { max: 100, message: '长度不超过100个字符', trigger: 'blur' },
         ],
         otherDesc: [
           { message: '请填写其他说明', trigger: 'blur' },
@@ -236,6 +244,9 @@ export default {
         ],
         clientTypeKey: [
           { required: true, message: '请选择客户类型', trigger: 'blur' },
+        ],
+        companyUrl: [
+          { max: 255, message: '长度不超过255个字符', trigger: 'blur' },
         ],
         businessTypeKey: [
           { required: true, message: '请选择业务类型', trigger: 'blur' },

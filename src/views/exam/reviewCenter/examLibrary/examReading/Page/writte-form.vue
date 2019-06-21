@@ -11,7 +11,8 @@
     <div class="examShowss" style="background-color:#fff">
       <div class="left">
         <span style="font-size: 20px;"><b>{{resdata.questionTypeName}}</b></span>
-        <span class="title1">共 {{resdata.kindTotalNum}} 题，合计 {{resdata.kindMark}} 分，已完成 {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
+        <span class="title1">共 {{resdata.kindTotalNum}} 题，合计 {{resdata.kindMark}} 分，已完成
+          {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
         <hr>
         <div class="container">
           <div style="margin-bottom: 10px;">
@@ -28,7 +29,8 @@
 
           <div>
             <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
-              <el-input type="textarea" v-model="userByAnswer" style="width: 80%;margin-top:10px" :rows="6" :disabled="disabled" @focus="inputClose"></el-input>
+              <el-input type="textarea" v-model="userByAnswer" style="width: 80%;margin-top:10px"
+                :rows="6" :disabled="disabled" @focus="inputClose"></el-input>
             </li>
             <div class="setScore">
               <el-form :model="ruleForm" :rules="rules" ref="form" label-width="100px">
@@ -64,7 +66,8 @@
             <span class="titlefour">{{resdata.single}}</span>
           </div>
 
-          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="160px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
+          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="160px" :data="chartData"
+            :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
 
           <div class="card">
             <!-- <div v-if="resdata.textMap.length > 0">
@@ -77,7 +80,8 @@
             <div v-if="resdata.textMap.length > 0">
               <span class="answerSheet">简答题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index"
+                  @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
               </div><br>
             </div>
 
@@ -102,7 +106,7 @@ export default {
   props: ['formData'],
   data () {
     var checkSingle = (rule, value, callback) => {
-      if (!value) {
+      if (value === '') {
         return callback(new Error('分数不能为空'))
       }
       setTimeout(() => {

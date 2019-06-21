@@ -95,7 +95,7 @@ module.exports = {
           uglifyOptions: {
             warnings: false,
             drop_debugger: true,
-            drop_console: true,
+            // drop_console: true,
           },
           sourceMap: false,
           parallel: true,
@@ -128,7 +128,7 @@ module.exports = {
   // 配置转发代理
   devServer: {
     host: devServer.host, // can be overwritten by process.env.HOST
-    open: true,
+    open: false,
     port: devServer.port, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     proxy: devServer.proxy,
     overlay: {

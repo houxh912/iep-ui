@@ -28,7 +28,7 @@
         <iep-project-select v-model="form.projectId" :projectName="form.projectName" @relation-change="handleProjectChange"></iep-project-select>
       </el-form-item>
       <el-form-item label="支出金额(元)：" prop="amount">
-        <iep-input-number v-model="form.amount"></iep-input-number>
+        <iep-input-number v-model="form.amount" :min="-99999999"></iep-input-number>
       </el-form-item>
       <!-- <el-form-item label="税率：">
         <el-select v-model="form.taxRate">

@@ -1,10 +1,10 @@
 import moment from 'moment'
 
-function parseDate (date, formatString) {
+export function parseDate (date, formatString) {
   if(moment(date).isValid()) {
     return moment(date).format(formatString)
   } else {
-    return null
+    return '暂无'
   }
 }
 

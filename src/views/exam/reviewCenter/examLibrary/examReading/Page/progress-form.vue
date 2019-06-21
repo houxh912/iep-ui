@@ -1,6 +1,5 @@
 <template>
-  <el-form :model="ruleForm" ref="ruleForm" :rules="rules" :label-position="labelPosition"
-    label-width="100px">
+  <el-form :model="ruleForm" ref="ruleForm" :rules="rules" :label-position="labelPosition" label-width="100px">
     <div class="top">
       <h3 style="margin-left:16px; margin-bottom: 15px;">
         <span>阅卷完毕人数: </span>
@@ -37,20 +36,17 @@
     </div>
 
     <div class="bottom">
+      <iep-button type="primary" class="button" v-if="isCreator || permissionAll" @click="handleRollingPaper">一键收卷</iep-button>
+      <iep-button type="success" class="button" v-if="isCreator || permissionAll" @click="handlePaper">完成阅卷</iep-button>
+      <iep-button type="warning" plain class="button" @click="sendCertificate" v-if="isCreator|| permissionAll">放送证书</iep-button>
 
-      <iep-button type="primary" class="button" @click="handleRollingPaper">一键收卷</iep-button>
-      <iep-button type="success" class="button" @click="handlePaper">完成阅卷</iep-button>
-
-      <!-- <el-form-item>
-        <el-button class="button" @click="sendResult">发送成绩</el-button>
-        <el-button class="button" @click="sendCertificate">放送证书</el-button>
-      </el-form-item> -->
+      <!-- <iep-button class="button" @click="sendResult">发送成绩</iep-button> -->
     </div>
 
   </el-form>
 </template>
 <script>
-import { getPaperProcessById, rollingPaperById, overPapersById, sendResultById, sendCertificateById } from '@/api/exam/examLibrary/examReading/examReading'
+import { getPaperProcessById, rollingPaperById, overPapersById, sendResultById, sendCertificateAllById } from '@/api/exam/examLibrary/examReading/examReading'
 
 //校验规则
 const allRules = {
@@ -58,7 +54,7 @@ const allRules = {
 }
 export default {
   components: {},
-  props: ['formData'],
+  props: ['formData', 'isCreator', 'permissionAll'],
   data () {
     return {
       labelPosition: 'right',
@@ -169,15 +165,15 @@ export default {
      * 发送证书
      */
     sendCertificate () {
-      const param = {
-        sendCertificateById: this.formData.row.id,
+      const params = {
+        examinationmanagementId: this.formData.row.id,
       }
-      this.$confirm('此操作将发送证书, 是否继续?', '提示', {
+      this.$confirm('此操作将发送本场考试的证书, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        sendCertificateById(param).then(res => {
+        sendCertificateAllById(params).then(res => {
           this.$message({
             type: 'success',
             message: res.data.msg,
@@ -235,7 +231,7 @@ export default {
 .bottom {
   text-align: center;
   .button {
-    margin: 0 5px;
+    margin: 0 5px 10px 5px;
   }
 }
 </style>

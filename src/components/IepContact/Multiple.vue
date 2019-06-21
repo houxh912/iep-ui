@@ -1,10 +1,10 @@
 <template>
   <div class="multiple-box">
     <operation-wrapper v-if="disabled" class="contact-wrapper">
-      <el-tag v-if="!isClear" type="info">暂无</el-tag>
+      <span v-if="!isClear">暂无</span>
       <el-tag type="danger" v-for="tag in unions" :key="tag.id+tag.name">{{tag.name}}</el-tag>
       <el-tag type="warning" v-for="tag in orgs" :key="tag.id+tag.name">{{tag.name}}</el-tag>
-      <el-tag type="info" v-for="tag in users" :key="tag.id+tag.name">{{tag.name}}</el-tag>
+      <span v-for="tag in users" :key="tag.id+tag.name">{{tag.name}}、</span>
     </operation-wrapper>
     <operation-wrapper v-if="!disabled">
       <!-- <el-tag v-if="!isClearUser" type="info">暂无</el-tag> -->

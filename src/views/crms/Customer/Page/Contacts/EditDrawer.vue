@@ -9,7 +9,7 @@
               <iep-tip :content="tipContent.contactName"></iep-tip>
               :
             </span>
-            <el-input v-model="form.contactName"></el-input>
+            <el-input v-model.trim="form.contactName"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
@@ -19,7 +19,7 @@
               <iep-tip :content="tipContent.contactPosition"></iep-tip>
               :
             </span>
-            <el-input v-model="form.contactPosition"></el-input>
+            <el-input v-model.trim="form.contactPosition"></el-input>
           </el-form-item>
         </el-col>
       </el-row>

@@ -32,7 +32,27 @@ export default {
   },
   methods: {
     handleRelease (row) {
-      this._handleGlobalDeleteById(row.userId, deleteReleaseApprenticeById)
+      // this._handleGlobalDeleteById(row.userId, deleteReleaseApprenticeById)
+      this.$confirm('此操作将永久解除师徒关系, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        deleteReleaseApprenticeById(row.userId).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '解除成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `解除失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      })
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getMyApprentice)

@@ -61,7 +61,8 @@
       <el-row>
         <el-col :span=12>
           <el-form-item label="市场经理：" prop="Manager">
-            <el-input v-model="formData.Manager" disabled></el-input>
+            <!-- <el-input v-model="formData.Manager" disabled></el-input> -->
+            {{formData.Manager}}
           </el-form-item>
         </el-col>
         <el-col :span=12>

@@ -80,6 +80,8 @@ export default {
   methods: {
     handleSelect (item) {
       this.selectType = item.id
+      this.pagination = pageOption()
+      this.pageOption = pageOption()
       this.loadPage()
     },
     async loadPage (param = this.searchForm) {

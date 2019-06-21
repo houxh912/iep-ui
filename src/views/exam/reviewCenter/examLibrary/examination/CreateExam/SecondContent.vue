@@ -1,5 +1,5 @@
 <template>
-  <steps-content v-if="data.resource===1">
+  <steps-content v-if="data.iepTestPaperVO.resource===1">
     <el-card shadow="never" class="content-wrapper">
       <div slot="header">
         <span>试卷抽取</span>

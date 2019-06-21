@@ -142,13 +142,13 @@ const rules = {
     { required: true, message: '请输入调拨方式', trigger: 'blur' },
 	],
 	orgInterest: [
-    { required: true, message: '组织日利息(%)为数字且大于0', trigger: 'blur', type:'number', min:1 },
+    { required: true, message: '组织日利息(%)为数字且大于0', trigger: 'blur', type:'number', min:0.01 },
 	],
 	groupInterest: [
-    { required: true, message: '集团日利息(%)为数字且大于0', trigger: 'blur', type:'number', min:1 },
+    { required: true, message: '集团日利息(%)为数字且大于0', trigger: 'blur', type:'number', min:0.01 },
 	],
 	allocationDays: [
-    { required: true, message: '调拨天数(日)为数字且大于0', trigger: 'blur', type:'number', min:1 },
+    { required: true, message: '调拨天数(日)为数字且大于0', trigger: 'blur', type:'number', min:0.01 },
   ],
 	implementRangeTime: [
     { required: true, message: '请输入执行日期', trigger: 'blur' },

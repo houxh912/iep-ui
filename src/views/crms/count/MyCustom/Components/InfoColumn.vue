@@ -35,12 +35,12 @@
         </div>
         <div class="content">超过了 {{data.contractAmountBeyond}}% 的同事</div>
       </el-col>
-      <el-col class="tab">
+      <!-- <el-col class="tab">
         <div class="head">
           <span>{{data.softwareQuantity}}</span> 个软件
         </div>
         <div class="content">超过了{{data.softwareBeyond}}% 的同事</div>
-      </el-col>
+      </el-col> -->
     </el-row>
   </el-card>
 </template>
@@ -104,7 +104,7 @@ export default {
   }
   .tab {
     padding: 5px 15px;
-    width: 20%;
+    width: 25%;
     border-left: 1px dashed #ddd;
     text-align: center;
     color: #666;

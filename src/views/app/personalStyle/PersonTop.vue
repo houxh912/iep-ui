@@ -53,21 +53,12 @@
       </div>
     </el-card>
 
-    <!-- 拜师 -->
-    <el-dialog title="拜师" :visible.sync="apprenticeShow" width="330px" center>
-      <div style="text-align: center;">是否确认向 【{{user_info.name}}】 拜师</div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="apprenticeShow = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handleApprenticeConfirm" size="small">确 定</el-button>
-      </span>
-    </el-dialog>
     <!-- 邮件 -->
     <email-dialog ref="email"></email-dialog>
   </div>
 </template>
 
 <script>
-import { addMasterWorker } from '@/api/cpms/characterrelations'
 import EmailDialog from '@/views/app/components/email/'
 import { mapActions, mapGetters } from 'vuex'
 
@@ -102,7 +93,6 @@ export default {
           labTitle: '资产排名',
         },
       ],
-      apprenticeShow: false,
     }
   },
   methods: {
@@ -111,22 +101,13 @@ export default {
         this.isShow = !this.isShow
     },
     // 拜师
+    ...mapActions(['ApprenticeApply']),
     handleApprentice () {
       if (this.userInfo.userId == this.user_info.id) {
         this.$message.error('无法向自己拜师')
         return
       }
-      this.apprenticeShow = true
-    },
-    handleApprenticeConfirm () {
-      addMasterWorker({ masterWorker: [this.user_info.id] }).then(({data}) => {
-        if (data.data) {
-          this.$message.success('拜师成功！')
-        } else {
-          this.$message.error(data.msg)
-        }
-        this.apprenticeShow = false
-      })
+      this.ApprenticeApply({id: this.user_info.id, name: this.user_info.name})
     },
     // 邮件
     handleEmail () {

@@ -23,6 +23,7 @@
 </template>
 <script>
 import { mapState, mapMutations } from 'vuex'
+import { parseToTimeSeconds } from '@/filters/index.js'
 export default {
   data () {
     return {
@@ -47,6 +48,11 @@ export default {
     ...mapState({
       isExperimental: state => state.common.isExperimental,
     }),
+  },
+  created () {
+    console.log(`前端名称：${this.BUILD_PRO_NAME}(${this.BUILD_VER_TAG})`)
+    console.log(`版本号：${this.BUILD_GIT_HASH}`)
+    console.log(`最近更新日期：${parseToTimeSeconds(this.BUILD_TIME)}`)
   },
   methods: {
     ...mapMutations({

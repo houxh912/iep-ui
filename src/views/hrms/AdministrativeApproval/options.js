@@ -29,6 +29,20 @@ const dictsMap = {
 
 const columnsMap = [
   {
+    prop: 'applyType',
+    label: '申请类型',
+  },
+  {
+    prop: 'leavingType',
+    label: '请假类型',
+  },
+  {
+    prop: 'deptList',
+    type: 'tag',
+    iepType: 'deptList',
+    label: '部门',
+  },
+  {
     prop: 'startTime',
     label: '申请开始时间',
   },

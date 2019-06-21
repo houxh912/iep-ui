@@ -1,34 +1,95 @@
 <template>
   <div class="texture-score">
     <IepAppTabCard :title="title" :linkName="linkName">
-      <el-button style="float: right; padding: 5px 0;" type="text" slot="right">我要评价</el-button>
+      <el-button style="float: right; padding: 5px 0;" type="text" slot="right" @click="handleEvaluate">我要评价</el-button>
       <div class="texture-score-list">
-        <div v-for="(item,index) in textureScoreList" :key="index" class="piece">
-          <div class="img"><iep-img :src="item.photo"></iep-img></div>
-          <div class="box">
-            <div class="piece-title">
-              <span class="name">{{item.name}}<span class="department">{{item.department}}</span><span class="time">{{item.time}}</span></span>
+        <div v-if="textureScoreList.length !== 0">
+          <div v-for="(item,index) in textureScoreList" :key="index" class="piece">
+            <div class="img"><iep-img :src="item.avatar"></iep-img></div>
+            <div class="box">
+              <div class="piece-title">
+                <span class="name">{{item.creatorName}}<span class="department">{{item.department}}</span><span class="time">{{item.createTime}}</span></span>
+              </div>
+              <p class="feed">{{item.content}}</p>
             </div>
-            <p class="feed">{{item.feed}}</p>
           </div>
         </div>
+        <IepNoData v-else></IepNoData>
       </div>
     </IepAppTabCard>
+    <!-- 评价 -->
+    <iep-dialog :dialog-show="dialogShow" title="组织评价" width="600px" @close="close">
+      <el-form ref="form" :model="form" :rules="rules" size="small" label-width="0">
+        <el-form-item label="" prop="content">
+          <el-input type="textarea" v-model="form.content" placeholder="发表评价" :rows="5"></el-input>
+        </el-form-item>
+      </el-form>
+      <template slot="footer">
+        <iep-button type="primary" @click="submitForm">确认</iep-button>
+        <iep-button @click="close">取消</iep-button>
+      </template>
+    </iep-dialog>
   </div>
 </template>
+
 <script>
+import { getOrgevaluatePage, postOrgevaluateForm } from '@/api/admin/orgEvaluate'
+const initFormData = () => {
+  return {
+    orgId: 0,
+    content: '',
+  }
+}
+
 export default {
   data () {
     return {
       title: '组织评价',
       linkName: '',
-      textureScoreList: [
-        { photo: require('../img/people1.png'), name: '姚静', department: '上海国脉互联知政信息咨询有限公司', feed: '合作下来非常愉快，技术团队强大，产品功能非常满足我们的需求，期待下次合作！', time: '2019-02-15' },
-        { photo: require('../img/people2.jpg'), name: '邵佳欢', department: '国脉技术研发中心', feed: '严谨的工作态度，良好的沟通能力，整个组织非常有活力。', time: '2019-01-30' },
-        { photo: require('../img/people3.jpg'), name: '林毅宁', department: '广东国脉信息发展有限公司', feed: '通过这次合作，让我对我们国脉的研发中心有了进一步的了解，这是一个非常有创造力的部门，值得大', time: '2019-12-26' },
-        { photo: require('../img/people3.jpg'), name: '张路', department: '广东国脉信息发展有限公司', feed: '通过这次合作，让我对我们国脉的研发中心有了进一步的了解，这是一个非常有创造力的部门，值得大', time: '2019-12-26' },
-      ],
+      textureScoreList: [],
+      dialogShow: false,
+      form: initFormData(),
+      rules: {
+        content: [
+          { required: true, message: '请输入你的评价', trigger: 'blur' },
+        ],
+      },
     }
+  },
+  methods: {
+    getOrgevaluatePage () {
+      getOrgevaluatePage({size: 5, orgId: this.$route.params.id}).then(({data}) => {
+        this.textureScoreList = data.data.records
+      })
+    },
+    // 我要评价
+    handleEvaluate () {
+      this.dialogShow = true
+      this.form.orgId = this.$route.params.id
+    },
+    submitForm () {
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          console.log('form: ', this.form)
+          postOrgevaluateForm(this.form).then(({data}) => {
+            if (data.data) {
+              this.$message.success('评价成功！')
+              this.getOrgevaluatePage()
+            } else {
+              this.$message.error('评价出错，请重试')
+            }
+            this.dialogShow = false
+          })
+        }
+      })
+    },
+    close () {
+      this.form = initFormData()
+      this.dialogShow = false
+    },
+  },
+  created () {
+    this.getOrgevaluatePage()
   },
 }
 </script>
@@ -37,7 +98,7 @@ export default {
   margin: 30px 0 60px;
 }
 .texture-score-list {
-  height: 261px;
+  max-height: 261px;
   .piece {
     display: flex;
     justify-content: space-between;

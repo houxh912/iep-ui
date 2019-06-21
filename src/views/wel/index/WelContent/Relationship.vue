@@ -5,7 +5,7 @@
         <span class="navTitle">我的关系</span>
         <relationship-nav-tab :nav-list="relationship" @tab="tab"></relationship-nav-tab>
       </div>
-      <el-button size="mini" plain @click="handManage">管理</el-button>
+      <el-button size="mini" plain @click="handManage">通讯录管理</el-button>
     </div>
     <relationship-content :contentData="contentData" :mark="mark"></relationship-content>
   </div>

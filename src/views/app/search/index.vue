@@ -117,6 +117,27 @@ export default {
   border-color: #ba1b21;
   color: #fff;
 }
+.gov-info >>> .el-timeline-item__node {
+  position: relative;
+  left: -3px;
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+  border: 1px solid #e4e7ed;
+}
+.gov-info >>> .el-timeline-item__node::before {
+  position: absolute;
+  content: "";
+  top: 4px;
+  left: 4px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #e4e7ed;
+}
+.gov-info >>> .el-timeline-item__tail {
+  border-width: 1px;
+}
 </style>
 
 <style lang="scss" scoped>

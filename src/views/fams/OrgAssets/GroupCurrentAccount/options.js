@@ -12,10 +12,10 @@ const columnsMap = [
     minWidth: 120,
   },
   {
-    prop: 'categoryName',
+    prop: 'category',
     label: '往来分类',
-    // type: 'dictGroup',
-    // dictName: 'fams_current_bill_flow_type',
+    type: 'dictGroup',
+    dictName: 'fams_current_bill_flow_type',
   },
   {
     prop: 'type',

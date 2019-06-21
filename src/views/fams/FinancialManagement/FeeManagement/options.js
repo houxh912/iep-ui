@@ -1,19 +1,11 @@
-// import { mergeByFirst } from '@/util/util'
-// org config options
+import { feeStatus } from '@/const/invoiceConfig.js'
 const dictsMap = {
-  status: {
-    0: '待提交',
-    1: '待初级审核',
-    2: '初级审核确认',
-    3: '初级审核驳回',
-    4: '财务审核通过',
-    5: '财务审核驳回',
-  },
+	status: feeStatus,
 }
 
 const columnsMap = [
 	{
-		prop: 'id',
+		prop: 'costId',
 		label: 'ID',
 	},
 	{

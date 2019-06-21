@@ -12,9 +12,9 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handlePass(scope.row)">通过</iep-button>
-              <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handleReject(scope.row)">驳回</iep-button>
-              <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handleTrans(scope.row)">转交</iep-button>
+              <iep-button @click.stop="handlePass(scope.row)">通过</iep-button>
+              <iep-button @click.stop="handleReject(scope.row)">驳回</iep-button>
+              <iep-button @click.stop="handleTrans(scope.row)">转交</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -47,24 +47,24 @@ export default {
   },
   methods: {
     handleTrans (row) {
-      this.$refs['FeeTransDialogForm'].id = row.id
+      this.$refs['FeeTransDialogForm'].id = row.costId
       this.$refs['FeeTransDialogForm'].user = { id: '', name: '' }
       this.$refs['FeeTransDialogForm'].content = ''
       this.$refs['FeeTransDialogForm'].dialogShow = true
     },
     handlePass (row) {
-      this.$refs['FeePassDialogForm'].id = row.id
+      this.$refs['FeePassDialogForm'].id = row.costId
       this.$refs['FeePassDialogForm'].content = ''
       this.$refs['FeePassDialogForm'].dialogShow = true
     },
     handleReject (row) {
-      this.$refs['FeeRejectDialogForm'].id = row.id
+      this.$refs['FeeRejectDialogForm'].id = row.costId
       this.$refs['FeeRejectDialogForm'].content = ''
       this.$refs['FeeRejectDialogForm'].dialogShow = true
     },
     handleDetail (row) {
       this.$router.push({
-        path: `/fams_spa/fee_detail/${row.id}`,
+        path: `/fams_spa/fee_detail/${row.costId}`,
       })
     },
     loadPage (param = this.searchForm) {

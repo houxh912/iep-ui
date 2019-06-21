@@ -1,5 +1,5 @@
 <template>
-  <IepAppLayout>
+  <iep-app-layout>
     <div class="index">
       <about></about>
       <baner></baner>
@@ -13,7 +13,7 @@
       <feedback></feedback>
       <learning-resources></learning-resources>
     </div>
-  </IepAppLayout>
+  </iep-app-layout>
 </template>
 <script>
 import About from './About'

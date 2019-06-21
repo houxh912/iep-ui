@@ -2,12 +2,12 @@
   <div>
     <basic-container>
       <page-header title="查看财务费用申请" :back-option="backOption">
-        <template v-if="form.primaryAudit===0">
+        <template v-if="form.status===1">
           <iep-button @click="handlePass(form, false)">通过</iep-button>
           <iep-button @click="handleReject(form, false)">驳回</iep-button>
           <iep-button @click="handleTrans(form)">转交</iep-button>
         </template>
-        <template v-if="form.primaryAudit!==0&&form.financialAudit===0">
+        <template v-if="form.status===2">
           <iep-button @click="handlePass(form, true)">通过</iep-button>
           <iep-button @click="handleReject(form, true)">驳回</iep-button>
         </template>
@@ -21,7 +21,7 @@
           </el-table-column>
           <el-table-column label="收款单位账号及开户行">
             <template slot-scope="scope">
-              <iep-div-detail :value="dictsMap.invoiceType[scope.row.invoiceType]"></iep-div-detail>
+              <iep-div-detail :value="scope.row.bank"></iep-div-detail>
             </template>
           </el-table-column>
           <el-table-column prop="amount" label="报销金额(元)">
@@ -57,22 +57,19 @@
           <iep-div-detail v-model="form.financialName"></iep-div-detail>
         </iep-form-item>
 
-        <iep-form-item v-if="auditorOption" class="form-half" label-name="部门审批人">
+        <iep-form-item class="form-half" label-name="部门审批人">
           <iep-div-detail v-model="form.auditorName"></iep-div-detail>
         </iep-form-item>
 
         <iep-form-item class="form-half" label-name="是否代缴">
-          <el-radio-group v-model="form.isSubstitute">
-            <el-radio :label="0">否</el-radio>
-            <el-radio :label="1">是</el-radio>
-          </el-radio-group>
+          <span>{{form.isSubstitute ? '是' : '否'}}</span>
         </iep-form-item>
 
-        <iep-form-item class="form-half" label-name="代缴组织">
+        <iep-form-item v-if="form.isSubstitute" class="form-half" label-name="代缴组织">
           <iep-div-detail :value="form.ccOrgName"></iep-div-detail>
         </iep-form-item>
 
-        <iep-form-item class="form-half" label-name="代缴公司">
+        <iep-form-item v-if="form.isSubstitute" class="form-half" label-name="代缴公司">
           <iep-div-detail :value="form.ccCompanyName"></iep-div-detail>
         </iep-form-item>
 
@@ -83,7 +80,7 @@
         <iep-divider />
 
         <el-form-item label="附件上传:">
-          <iep-upload-select style="margin-top: 5px;" v-model="form.costFile"></iep-upload-select>
+          <iep-upload-select style="margin-top: 5px;" v-model="form.costFile" disabled></iep-upload-select>
         </el-form-item>
 
         <iep-divider />
@@ -95,7 +92,7 @@
                 <iep-img-avatar :src="process.avatar"></iep-img-avatar>
                 {{process.name}}
                 <span style="color: #aaa; font-size: 14px;">{{process.identityMarks.join(',')}}</span>
-                <span>{{dictsMap.processStatus[process.status]}}</span>
+                <span>{{dictsMap.status[process.status]}}</span>
               </div>
               <br>
               <div>备注：
@@ -105,6 +102,29 @@
           </el-timeline-item>
         </el-timeline>
 
+        <template v-if="form.status === 4">
+
+          <iep-divider />
+
+          <el-form-item label="支出方式：" prop="payType">
+            <el-radio-group v-model="flowForm.payType">
+              <el-radio v-for="(item, idx) in dictsMap.payType" :key="idx" :label="idx">{{item}}</el-radio>
+            </el-radio-group>
+          </el-form-item>
+
+          <el-form-item label="支出公司：" class="form-half">
+            <iep-select v-model="flowForm.companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择收入公司" disabled></iep-select>
+          </el-form-item>
+
+          <el-form-item v-if="!bankAmountOption.disabled" label="支出账户：" prop="bankId" class="form-half">
+            <iep-select v-model="flowForm.bankId" autocomplete="off" :prefix-url="bankAmountOption.prefixUrl" placeholder="请选择支出账户"></iep-select>
+          </el-form-item>
+          <el-form-item label="">
+            <iep-button type="primary" @click="handleGenFlow">生成流水</iep-button>
+          </el-form-item>
+
+        </template>
+
       </el-form>
     </basic-container>
     <fee-pass-dialog-form ref="FeePassDialogForm" :is-financial="isFinancial" @load-page="goBack"></fee-pass-dialog-form>
@@ -113,8 +133,9 @@
   </div>
 </template>
 <script>
-import { dictsMap, initForm } from './options'
+import { dictsMap, initForm, initFlowForm, formToVo } from './options'
 import { getFeeById } from '@/api/fams/fee'
+import { genFlow } from '@/api/fams/expenditure'
 import FeePassDialogForm from '@/views/fams/Components/FeePassDialogForm.vue'
 import FeeRejectDialogForm from '@/views/fams/Components/FeeRejectDialogForm.vue'
 import FeeTransDialogForm from '@/views/fams/Components/FeeTransDialogForm'
@@ -124,6 +145,7 @@ export default {
     return {
       dictsMap,
       form: initForm(),
+      flowForm: initFlowForm(),
       isFinancial: false,
       backOption: {
         isBack: true,
@@ -134,34 +156,57 @@ export default {
     id () {
       return this.$route.params.id
     },
-    projectOption () {
-      return this.form.referType === 1
-    },
-    auditorOption () {
-      return this.form.referType !== 3
+    bankAmountOption () {
+      if (this.flowForm.payType === '1') {
+        return {
+          disabled: false,
+          prefixUrl: `fams/bank_account/${this.flowForm.companyId}`,
+        }
+      } else {
+        return {
+          disabled: true,
+          prefixUrl: `fams/bank_account/${this.flowForm.companyId}`,
+        }
+      }
     },
   },
   created () {
-    getFeeById(this.id).then(({ data }) => {
-      this.form = this.$mergeByFirst(initForm(), data.data)
-    })
+    this.loadPage()
   },
   methods: {
+    loadPage () {
+      getFeeById(this.id).then(({ data }) => {
+        this.flowForm = initFlowForm()
+        this.form = formToVo(data.data)
+        this.flowForm.costId = this.form.costId
+        this.flowForm.companyId = this.form.isSubstitute ? this.form.ccCompanyId : this.form.companyId
+      })
+    },
+    handleGenFlow () {
+      genFlow(this.flowForm).then(({ data }) => {
+        if (data.data) {
+          this.$message.success('生成成功')
+          this.loadPage()
+        } else {
+          this.$message(data.msg)
+        }
+      })
+    },
     handleTrans (row) {
-      this.$refs['FeeTransDialogForm'].id = row.id
+      this.$refs['FeeTransDialogForm'].id = row.costId
       this.$refs['FeeTransDialogForm'].user = { id: '', name: '' }
       this.$refs['FeeTransDialogForm'].content = ''
       this.$refs['FeeTransDialogForm'].dialogShow = true
     },
     handlePass (row, isFinancial) {
       this.isFinancial = isFinancial
-      this.$refs['FeePassDialogForm'].id = row.id
+      this.$refs['FeePassDialogForm'].id = row.costId
       this.$refs['FeePassDialogForm'].content = ''
       this.$refs['FeePassDialogForm'].dialogShow = true
     },
     handleReject (row, isFinancial) {
       this.isFinancial = isFinancial
-      this.$refs['FeeRejectDialogForm'].id = row.id
+      this.$refs['FeeRejectDialogForm'].id = row.costId
       this.$refs['FeeRejectDialogForm'].content = ''
       this.$refs['FeeRejectDialogForm'].dialogShow = true
     },

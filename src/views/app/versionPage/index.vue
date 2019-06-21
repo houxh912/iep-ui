@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <iep-app-layout>
     <breadcrumb></breadcrumb>
     <div class="version-con">
       <div class="version-sidebar">
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </iep-app-layout>
 </template>
 <script>
 import Breadcrumb from './Breadcrumb'

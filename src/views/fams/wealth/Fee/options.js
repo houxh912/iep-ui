@@ -1,16 +1,13 @@
 // import { checkContactUser } from '@/util/rules'
-
+import { mergeByFirst } from '@/util/util'
+import { feeStatus } from '@/const/invoiceConfig.js'
 const dictsMap = {
-  status: {
-    0: '待提交',
-    1: '待初级审核',
-    2: '初级审核确认',
-    3: '初级审核驳回',
-    4: '财务审核通过',
-    5: '财务审核驳回',
+  payType: {
+    '0': '库存现金',
+    '1': '银行存款',
   },
+  status: feeStatus,
 }
-
 function initTableForm () {
   return {
     type: [],
@@ -18,6 +15,16 @@ function initTableForm () {
     amount: 0,
   }
 }
+
+function initFlowForm () {
+  return {
+    costId: '',
+    bankId: '',
+    companyId: '',
+    payType: '0',
+  }
+}
+
 function initForm () {
   return {
     costId: '',
@@ -33,14 +40,16 @@ function initForm () {
     protocolName: '',
     projectId: '',
     projectName: '',
+    auditorId: '',
+    auditorName: '',
     auditor: {
       id: 0,
       name: '',
     },
     creatorName: '',
     financialName: '',
+    status: '',
     primaryAudit: '',
-    auditorName: '',
     remarks: '',
     financialAudit:0,
     relations: [],
@@ -48,9 +57,18 @@ function initForm () {
   }
 }
 
+const formToVo = (row) => {
+  const newForm = mergeByFirst(initForm(), row)
+  newForm.auditor = {
+    id: newForm.auditorId,
+    name: newForm.auditorName,
+  }
+  return newForm
+}
+
 const columnsMap = [
 	{
-		prop: 'id',
+		prop: 'costId',
 		label: 'ID',
 	},
 	{
@@ -98,5 +116,7 @@ export {
 	dictsMap,
 	rules,
 	initTableForm,
-	initForm,
+  initForm,
+  initFlowForm,
+  formToVo,
 }

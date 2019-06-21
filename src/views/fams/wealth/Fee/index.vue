@@ -50,23 +50,23 @@ export default {
   },
   methods: {
     handleSend (row) {
-      this._handleComfirm(row.id, referFeeById, '发送')
+      this._handleComfirm(row.costId, referFeeById, '发送')
     },
     handleCancel (row) {
-      this._handleComfirm(row.id, withdrawFeeById, '撤回')
+      this._handleComfirm(row.costId, withdrawFeeById, '撤回')
     },
     handleSelectionChange (val) {
-      this.multipleSelection = val.map(m => m.id)
+      this.multipleSelection = val.map(m => m.costId)
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deleteFeeById)
+      this._handleGlobalDeleteById(row.costId, deleteFeeById)
     },
     handleDeleteBatch () {
       this._handleGlobalDeleteAll(deleteFeeBatch)
     },
     handleDetail (row) {
       this.$router.push({
-        path: `/fams_spa/fee_detail/${row.id}`,
+        path: `/fams_spa/fee_detail/${row.costId}`,
       })
     },
     loadPage (param = this.searchForm) {
@@ -79,7 +79,7 @@ export default {
     },
     handleEdit (row) {
       this.$router.push({
-        path: `/fams_spa/fee_edit/${row.id}`,
+        path: `/fams_spa/fee_edit/${row.costId}`,
       })
     },
   },

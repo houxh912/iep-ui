@@ -12,8 +12,8 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.financialAudit===0" @click.stop="handlePass(scope.row)">通过</iep-button>
-              <iep-button v-if="scope.row.financialAudit===0" @click.stop="handleReject(scope.row)">驳回</iep-button>
+              <iep-button v-if="scope.row.status===2" @click.stop="handlePass(scope.row)">通过</iep-button>
+              <iep-button v-if="scope.row.status===2" @click.stop="handleReject(scope.row)">驳回</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -46,23 +46,23 @@ export default {
   },
   methods: {
     handlePass (row) {
-      this.$refs['FeePassDialogForm'].id = row.id
+      this.$refs['FeePassDialogForm'].id = row.costId
       this.$refs['FeePassDialogForm'].content = ''
       this.$refs['FeePassDialogForm'].dialogShow = true
     },
     handleReject (row) {
-      this.$refs['FeeRejectDialogForm'].id = row.id
+      this.$refs['FeeRejectDialogForm'].id = row.costId
       this.$refs['FeeRejectDialogForm'].content = ''
       this.$refs['FeeRejectDialogForm'].dialogShow = true
     },
     handleDetail (row) {
       this.$router.push({
-        path: `/fams_spa/fee_detail/${row.id}`,
+        path: `/fams_spa/fee_detail/${row.costId}`,
       })
     },
     async loadPage (param = this.searchForm) {
-      const data = await this.loadTable(param, getFeePage)
-      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
+      await this.loadTable(param, getFeePage)
+      // this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

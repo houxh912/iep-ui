@@ -83,7 +83,7 @@
 <script>
 import { getFeeById, putFee, postFee } from '@/api/fams/fee'
 import formMixins from '@/mixins/formMixins'
-import { dictsMap, rules, initTableForm, initForm } from './options'
+import { dictsMap, rules, initTableForm, initForm, formToVo } from './options'
 export default {
   mixins: [formMixins],
   props: ['record'],
@@ -174,7 +174,7 @@ export default {
     },
     loadPage () {
       getFeeById(this.id).then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
+        this.form = formToVo(data.data)
         this.tableData = this.form.relations
       })
     },

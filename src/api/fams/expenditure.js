@@ -25,3 +25,11 @@ export function getExpenditureById (id) {
     method: 'get',
   })
 }
+
+export function genFlow (obj) {
+  return request({
+    url: `${prefixUrl}/create/fee`,
+    method: 'post',
+    data: obj,
+  })
+}

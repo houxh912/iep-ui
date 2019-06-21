@@ -4,7 +4,9 @@
     <div class="librarys-item" v-for="(item,index) in librarys" :key="index" v-else @click="handleDetail(item)">
       <div class="text">
         <h4 class="sub-title">
-          <iep-img :src="item.image" alt=""></iep-img>
+          <div class="img">
+            <iep-img :src="item.image" alt=""></iep-img>
+          </div>
           <div class="content">
             <div class="sub-title-con">{{item.honorQualName}}</div>
             <div class="time"><i class="iconfont icon-shijian"></i> {{item.createTime}}</div>
@@ -40,13 +42,13 @@ export default {
       },
     }
   },
-  methods:{
+  methods: {
     loadPage (title = '') {
       if (title !== '') {
         this.params.honorQualName = title
       }
       this.loading = true
-      getHonorPage(this.params).then(({data}) => {
+      getHonorPage(this.params).then(({ data }) => {
         this.loading = false
         this.librarys = data.data.records
         this.total = data.data.total
@@ -66,7 +68,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.librarys-item{
+.librarys-item {
   padding: 20px 0;
   border-bottom: 1px solid #eee;
   overflow: hidden;
@@ -85,10 +87,20 @@ export default {
       width: 100%;
       overflow: hidden;
       white-space: nowrap;
-      img {
-        width: 70px;
-        height: 70x;
+      .img {
         margin-right: 30px;
+        width: 70px;
+        height: 70px;
+        overflow: hidden;
+        border: 1px solid #ebeef5;
+        .el-image {
+          width: 100%;
+          height: 100%;
+          transition: 0.5s;
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
       }
       .content {
         .sub-title-con {

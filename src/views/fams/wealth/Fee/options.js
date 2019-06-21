@@ -9,11 +9,6 @@ const dictsMap = {
     4: '财务审核通过',
     5: '财务审核驳回',
   },
-  referType: {
-    1: '项目管理类',
-    2: '日常管理类',
-    3: '其他类(发票抵税)',
-  },
 }
 
 function initTableForm () {

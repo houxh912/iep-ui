@@ -25,6 +25,9 @@ const navList = [
     id: '/app/policyCenter',
     name: '政策中心',
   }, {
+  //   id: '/app/policyCenter',
+  //   name: '政策中心',
+  // }, {
     id: '/app/project',
     name: '项目',
   }, {

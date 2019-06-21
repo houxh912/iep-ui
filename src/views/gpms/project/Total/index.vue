@@ -28,6 +28,11 @@
           </div>
         </template>
       </el-table-column>
+      <el-table-column label="立项时间" width="150px">
+        <template slot-scope="scope">
+          <span>{{ scope.row.projectTime.slice(0, 10) }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <!-- <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">详情</el-button> -->
@@ -67,7 +72,7 @@ export default {
       dialogIsShow: true,
       paramForm: paramForm(),
       value: '',
-      searchForm: '',
+      searchForm: {},
       gpms_project_add: false,
       gpms_project_view: false,
       gpms_project_edit_del: false,
@@ -83,7 +88,7 @@ export default {
       this.paramForm = paramForm()
     },
     searchPage (val) {
-      if (val.projectName) this.loadPage(val)
+      this.loadPage(val)
     },
     //勾选行执行
     selectionChange (val) {

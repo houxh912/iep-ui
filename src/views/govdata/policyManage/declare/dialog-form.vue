@@ -117,7 +117,7 @@
   <!-- </iep-dialog> -->
 </template>
 <script>
-import mixins from '@/mixins/mixins'
+import multiplyMixin from '../multiply_mixin'
 import { region } from '../region'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import MutiplySelect from '@/components/deprecated/mutiply-select'
@@ -134,7 +134,7 @@ const orgOption = [{
 }]
 export default {
   props: ['formData', 'isEdit', 'isReadonly', 'isAudit', 'dictGroup', 'selectFiledMap', 'isHideSubmitBtn','btnTxt'],
-  mixins: [mixins],
+  mixins: [multiplyMixin],
   components: { MutiplyTagSelect,MutiplySelect },
   data () {
     // var checkTitle = (rule, value, callback) => {
@@ -210,6 +210,7 @@ export default {
 
   },
   created () {
+    console.log('this.formData => ',this.formData)
   },
   methods: {
     // _processForm (rows) {

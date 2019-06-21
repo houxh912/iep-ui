@@ -51,7 +51,7 @@
       <select-tag-list v-model="formData.tagName" :commonTagList="formData.proTagList" />
     </el-form-item> -->
 
-    <el-form-item label="关联机构" class="formWidth">
+    <el-form-item label="关联机构" class="formWidth" prop="organizationList">
       <mutiply-select v-if="!isReadonly || isAudit" v-model="formData.organizationList" :selectObjs="formData.organizationsList" :options="关联机构options" :otherProps="orgOption" :disabled="isReadonly"></mutiply-select>
       <el-select class="selectclass" v-model="formData.organizationList" multiple disabled v-else>
         <el-option v-for="item in formData.organizationsList" :key="item.id" :label="item.name" :value="item.id">
@@ -88,7 +88,7 @@
   <!-- </iep-dialog> -->
 </template>
 <script>
-import mixins from '@/mixins/mixins'
+import multiplyMixin from '../multiply_mixin'
 import { region } from '../region'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import MutiplySelect from '@/components/deprecated/mutiply-select'
@@ -105,7 +105,7 @@ const orgOption = [{
 }]
 export default {
   props: ['formData', 'isEdit', 'isReadonly', 'isAudit', 'dictGroup', 'selectFiledMap', 'isHideSubmitBtn','btnTxt'],
-  mixins: [mixins],
+  mixins: [multiplyMixin],
   components: { MutiplyTagSelect,MutiplySelect },
   data () {
     // var checkTitle = (rule, value, callback) => {
@@ -172,6 +172,7 @@ export default {
 
   },
   created () {
+    console.log('this.formData => ',this.formData)
   },
   methods: {
     // _processForm (rows) {

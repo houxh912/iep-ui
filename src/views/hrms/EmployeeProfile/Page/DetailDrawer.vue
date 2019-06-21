@@ -75,6 +75,14 @@
       </a-col>
     </a-row>
 
+    <a-row>
+      <a-col :span="24">
+        <iep-description-item title="资料完善度：">
+          <el-progress slot="content" :percentage="form.integrity"></el-progress>
+        </iep-description-item>
+      </a-col>
+    </a-row>
+
     <iep-divider />
     <p :style="pStyle">联系方式</p>
 

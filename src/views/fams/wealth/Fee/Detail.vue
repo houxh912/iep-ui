@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="查看报销" :back-option="backOption">
+      <page-header title="查看财务费用申请" :back-option="backOption">
         <template v-if="form.primaryAudit===0">
           <iep-button @click="handlePass(form, false)">通过</iep-button>
           <iep-button @click="handleReject(form, false)">驳回</iep-button>

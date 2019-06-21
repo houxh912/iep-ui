@@ -37,7 +37,6 @@ import {
 } from '@/api/fams/fee'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
-import { mapMutations } from 'vuex'
 export default {
   mixins: [mixins],
   data () {
@@ -50,9 +49,6 @@ export default {
     this.loadPage()
   },
   methods: {
-    ...mapMutations({
-      setInvoiceDialogShow: 'SET_INVOICE_DIALOG_SHOW',
-    }),
     handleSend (row) {
       this._handleComfirm(row.id, referFeeById, '发送')
     },
@@ -70,18 +66,20 @@ export default {
     },
     handleDetail (row) {
       this.$router.push({
-        path: `/fams_spa/invoice_detail/${row.id}`,
+        path: `/fams_spa/fee_detail/${row.id}`,
       })
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getMyFeePage)
     },
     handleAdd () {
-      this.setInvoiceDialogShow(true)
+      this.$router.push({
+        path: '/fams_spa/fee_edit/0',
+      })
     },
     handleEdit (row) {
       this.$router.push({
-        path: `/fams_spa/invoice_edit/${row.id}`,
+        path: `/fams_spa/fee_edit/${row.id}`,
       })
     },
   },

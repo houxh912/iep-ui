@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="我收到的建议"></page-header>
+      <page-header title="收到的建议"></page-header>
       <operation-container>
         <template slot="left">
           <el-dropdown size="medium">

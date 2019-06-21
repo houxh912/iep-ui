@@ -3,10 +3,15 @@
     <div class="row first">
       <div class="item" v-for="(item, index) in firstFormList" :key="index">
         <span class="label">{{item.name}}：</span>
-        <span class="span">{{item.value}}</span>
+        <span class="span">{{userInfo[item.value]}}</span>
       </div>
     </div>
-    <div class="row"></div>
+    <div class="row second">
+      <div class="item" v-for="(item, index) in secondFormList" :key="index">
+        <span class="label">{{item.name}}：</span>
+        <span class="span">{{toString(userInfo[item.value])}}</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,43 +19,50 @@
 const firstFormList = [
   {
     name: '岗位',
-    value: 'value',
+    value: 'positionName',
   }, {
     name: 'QQ',
-    value: 'value',
+    value: 'qq',
   }, {
     name: '职称',
-    value: 'value',
+    value: 'title',
   }, {
     name: '微信',
-    value: 'value',
+    value: 'wechat',
   }, {
     name: '职务',
-    value: 'value',
+    value: 'job',
   }, {
     name: '联系电话',
-    value: 'value',
+    value: 'phone',
   }, {
     name: '邮箱',
-    value: 'value',
+    value: 'email',
   },
 ]
 
 const secondFormList = [
   {
     name: '所在组织',
-    value: 'value',
-  }, {
-    name: '特设机构',
-    value: 'value',
+    value: 'orgList',
   },
 ]
 export default {
+  props: {
+    userInfo: {
+      type: Object,
+    },
+  },
   data () {
     return {
       firstFormList,
       secondFormList,
     }
+  },
+  methods: {
+    toString (list) {
+      return list.join('、')
+    },
   },
 }
 </script>
@@ -60,12 +72,9 @@ export default {
   display: flex;
   .row {
     width: 50%;
-  }
-  .first {
     display: flex;
     flex-wrap: wrap;
     .item {
-      width: 50%;
       display: flex;
       margin-bottom: 10px;
       .label {
@@ -75,6 +84,16 @@ export default {
       .span {
         flex: 1;
       }
+    }
+  }
+  .first {
+    .item {
+      width: 50%;
+    }
+  }
+  .second {
+    .item {
+      width: 100%;
     }
   }
 }

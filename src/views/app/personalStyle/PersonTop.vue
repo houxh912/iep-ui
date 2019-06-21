@@ -61,7 +61,7 @@
             </el-row>
           </div>
         </div>
-        <moreTemplate v-if="userInfoShow"></moreTemplate>
+        <moreTemplate v-if="userInfoShow" :userInfo='user_info' @handleClose="()=> {userInfoShow=false}"></moreTemplate>
       </div>
     </el-card>
 
@@ -85,20 +85,6 @@ export default {
   },
   computed: {
     ...mapGetters(['userInfo']),
-    integrityColors () {
-      if (!this.user_info.integrity) {
-        return '#fff'
-      }
-      if (this.user_info.integrity < 30) {
-        return '#909399'
-      } else if (this.user_info.integrity < 70) {
-        return '#e6a23c'
-      } else if (this.user_info.integrity < 100) {
-        return '#409eff'
-      } else {
-        return '#67c23a'
-      }
-    },
   },
   data () {
     return {
@@ -121,6 +107,7 @@ export default {
         },
       ],
       userInfoShow: false,
+      integrityColors: '#66cb68',
     }
   },
   methods: {
@@ -169,6 +156,9 @@ export default {
   margin-top: 30px;
   .box-card {
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    .content {
+      width: 100%;
+    }
     .info {
       display: flex;
     }

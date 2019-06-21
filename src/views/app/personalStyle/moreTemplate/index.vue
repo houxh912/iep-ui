@@ -3,19 +3,20 @@
     <IepAppTabsCard>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='userInfo'" v-slot:userInfo>
-          <userInfo v-loading="activeTab !=='userInfo'"></userInfo>
+          <userInfo v-loading="activeTab !=='userInfo'" :userInfo="userInfo"></userInfo>
         </template>
         <template v-if="activeTab ==='workExperience'" v-slot:workExperience>
-          <workExperience v-loading="activeTab !=='workExperience'"></workExperience>
+          <workExperience v-loading="activeTab !=='workExperience'" :list="userInfo.workExperience"></workExperience>
         </template>
         <template v-if="activeTab ==='educationalExperience'" v-slot:educationalExperience>
-          <educationalExperience v-loading="activeTab !=='educationalExperience'"></educationalExperience>
+          <educationalExperience v-loading="activeTab !=='educationalExperience'" :list="userInfo.eduSituation"></educationalExperience>
         </template>
         <template v-if="activeTab ==='externalCertificate'" v-slot:externalCertificate>
-          <externalCertificate v-loading="activeTab !=='externalCertificate'"></externalCertificate>
+          <externalCertificate v-loading="activeTab !=='externalCertificate'" :list="userInfo.userCert"></externalCertificate>
         </template>
       </iep-tabs>
     </IepAppTabsCard>
+    <div class="footer" @click="handleClose">收起 <i class="el-icon-arrow-up"></i></div>
   </div>
 </template>
 <script>
@@ -25,6 +26,11 @@ import educationalExperience from './educationalExperience'
 import externalCertificate from './externalCertificate'
 
 export default {
+  props: {
+    userInfo: {
+      type: Object,
+    },
+  },
   components: {
     userInfo, workExperience, educationalExperience, externalCertificate,
   },
@@ -52,7 +58,9 @@ export default {
     }
   },
   methods: {
-
+    handleClose () {
+      this.$emit('handleClose', true)
+    },
   },
   created () {
 
@@ -69,6 +77,10 @@ export default {
     .iep-tabs {
       width: 100%;
     }
+  }
+  .footer {
+    text-align: center;
+    cursor: pointer;
   }
 }
 </style>

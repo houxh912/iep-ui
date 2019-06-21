@@ -15,6 +15,15 @@ export function getGeneralPage (params) {
     })
 }
 
+// 政策中心里根据不同的条件通用政策分页
+export function getGeneralCentrePage (params) {
+    return request({
+      url: '/gov/policy/general/page',
+      method: 'get',
+      params: params,
+    })
+  }
+
 /**
  * 根据id查询通用政策
  */ 

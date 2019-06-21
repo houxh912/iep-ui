@@ -42,15 +42,15 @@ export default {
     titleList () {
       return [
         {
-          title1: '标签相似',
-          list: this.similarUser,
-        },
-        {
           title1: 'TA的师徒',
           list: this.MentorsList,
         },
         {
-          title1: '协作伙伴',
+          title1: '标签相似',
+          list: this.similarUser,
+        },
+        {
+          title1: '交流密切',
           list: this.cooperationList,
         },
       ]

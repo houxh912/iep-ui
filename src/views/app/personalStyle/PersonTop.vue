@@ -57,7 +57,11 @@
               <el-button size="mini" type="danger" plain @click="handleEmail">邮件</el-button>
               <el-button size="mini" type="danger" plain @click="handleApprentice">拜师</el-button>
               <el-button size="mini" type="danger" plain @click="handleReward">打赏</el-button>
+              <el-button size="mini" type="info" plain disabled>建议</el-button>
               <el-button size="mini" type="info" plain disabled>PK</el-button>
+            </el-row>
+            <el-row class="apply">
+              <el-button type="info" plain disabled>申请授权</el-button>
             </el-row>
           </div>
         </div>
@@ -103,7 +107,11 @@ export default {
         },
         {
           data: '--',
-          labTitle: '资产排名',
+          labTitle: '财富排名',
+        },
+        {
+          data: '--',
+          labTitle: '数据资产',
         },
       ],
       userInfoShow: false,
@@ -259,6 +267,10 @@ export default {
       margin-top: 15px;
       flex-direction: column;
       align-items: center;
+      .apply {
+        margin-top: 25px;
+        text-align: right;
+      }
     }
     .labs-con {
       margin-bottom: 30px;
@@ -266,7 +278,7 @@ export default {
         font-size: 24px;
       }
       .data-lab {
-        &:nth-child(3) {
+        &:nth-child(4) {
           border: 0;
         }
       }

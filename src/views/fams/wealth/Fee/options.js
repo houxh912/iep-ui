@@ -47,7 +47,7 @@ function initForm () {
       name: '',
     },
     creatorName: '',
-    financialName: '',
+    financeUserName: '',
     status: '',
     primaryAudit: '',
     remarks: '',

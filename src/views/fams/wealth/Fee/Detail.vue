@@ -54,7 +54,7 @@
         </iep-form-item>
 
         <iep-form-item class="form-half" label-name="财务审批人">
-          <iep-div-detail v-model="form.financialName"></iep-div-detail>
+          <iep-div-detail v-model="form.financeUserName"></iep-div-detail>
         </iep-form-item>
 
         <iep-form-item class="form-half" label-name="部门审批人">

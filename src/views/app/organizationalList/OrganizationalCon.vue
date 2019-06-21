@@ -219,6 +219,11 @@ export default {
         position: relative;
         padding: 0 8px;
         line-height: 14px;
+        &:last-child {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
         &::before {
           position: absolute;
           content: "";

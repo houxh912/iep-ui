@@ -5,13 +5,9 @@
         <h2 class="sub-title">组织收支</h2>
       </div>
       <el-form ref="form" class="form-detail" :model="form" size="small" label-width="80px">
-        <iep-form-item label-name="组织">
-          <iep-dict-select v-model="form.organization" dict-name=""></iep-dict-select>
+        <iep-form-item label-name="组织" v-show="isAbled">
+          <iep-select size="small" v-model="orgIds" autocomplete="off" prefix-url="admin/org/all" @change="listPage()" placeholder="所有"></iep-select>
         </iep-form-item>
-        <iep-form-item label-name="日期">
-          <iep-date-picker v-model="form.birthday" type="date" placeholder="--"></iep-date-picker>
-        </iep-form-item>
-        <el-button class="search-btn" type="primary" size="small">搜索</el-button>
       </el-form>
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="date" label="日期"></el-table-column>
@@ -26,9 +22,13 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapState } from 'vuex'
+import mixins from '@/mixins/mixins'
 export default {
+  mixins: [mixins],
   data () {
     return {
+      orgIds: '',
       form: {
         organization: '',
         birthday: '',
@@ -64,6 +64,23 @@ export default {
         applyBudget: '--',
       }],
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'dictGroup',
+    ]),
+    ...mapState({
+      orgId: state => state.user.userInfo.orgIds,
+    }),
+    isAbled () {
+      return this.userInfo.userId === 1 || this.userInfo.userId === 2 || this.userInfo.userId === 3 || this.userInfo.userId === 451
+    },
+  },
+  methods: {
+     listPage () {
+      this.loadPage()
+    },
   },
 }
 </script>

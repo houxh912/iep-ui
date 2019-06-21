@@ -4,52 +4,98 @@
       <el-card shadow="never">
         <operation-container>
           <template slot="left">
-            <span class="sub-title">项目签收</span>
+            <span class="sub-title">项目核算</span>
           </template>
           <template slot="right">
-            <el-button-group class="time">
-              <el-button>月</el-button>
-              <el-button class="active">年</el-button>
-            </el-button-group>
+            <operation-search @search-page="searchPage" prop="projectName">
+            </operation-search>
           </template>
         </operation-container>
         <iep-divider />
         <div class="chart">
-          <ve-line :data="chartData" :settings="chartSettings" :colors="colors" width="400"></ve-line>
-          <fraction></fraction>
+          <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">          </iep-table>
         </div>
       </el-card>
     </div>
   </div>
 </template>
 <script>
-import Fraction from './Fraction'
+import { getProjectPage,getBossProjectPage } from '@/api/fams/statistics'
+import mixins from '@/mixins/mixins'
+import { mapGetters } from 'vuex'
+const columnsMap = [
+	{
+		prop: 'projectNum',
+		label: '项目编号',
+	},
+	{
+		prop: 'projectName',
+		label: '项目名称',
+	},
+	{
+		prop: 'createTime',
+		label: '创建时间',
+	},
+	{
+		prop:'amount',
+		label:'合同金额',
+	},
+	{
+		prop:'invoiceAmount',
+		label:'开票金额',
+	},
+]
+function pageOption () {
+  return {
+    current: 2,
+    size: 5,
+  }
+}
 export default {
-  components: { Fraction },
+  mixins: [mixins],
   data () {
-    this.colors = ['#d66368', '#f58f44']
-    this.chartSettings = {
-      yAxisName: ['  单位(百万元)'],
-    }
     return {
-      chartData: {
-        columns: ['日期', '合同金额', '收款金额'],
-        rows: [
-          { '日期': '1月', '合同金额': 0, '收款金额': 0 },
-          { '日期': '2月', '合同金额': 0, '收款金额': 0 },
-          { '日期': '3月', '合同金额': 0, '收款金额': 0 },
-          { '日期': '4月', '合同金额': 0, '收款金额': 0 },
-          { '日期': '5月', '合同金额': 0, '收款金额': 0 },
-          { '日期': '6月', '合同金额': 0, '收款金额': 0 },
-          { '日期': '7月', '合同金额': 0, '收款金额': 0 },
-          { '日期': '8月', '合同金额': 0, '收款金额': 0 },
-          { '日期': '9月', '合同金额': 0, '收款金额': 0 },
-          { '日期': '10月', '合同金额': 0, '收款金额': 0 },
-          { '日期': '11月', '合同金额': 0, '收款金额': 0 },
-          { '日期': '12月', '合同金额': 0, '收款金额': 0 },
-        ],
-      },
+      columnsMap,
+      userId: '',
+      pagination: pageOption(),
+      pageOption: pageOption(),
     }
+  },
+  created () {
+    this.userId = this.userInfo.userId
+    this.loadPage()
+  },
+  computed: {
+     ...mapGetters([
+      'userInfo',
+    ]),
+    isAbled () {
+      return this.userInfo.userId === 1 || this.userInfo.userId === 2 || this.userInfo.userId === 3 || this.userInfo.userId === 451
+    },
+  },
+  methods: {
+    loadPage (param = this.searchParam) {
+      if(this.isAbled){
+        getBossProjectPage(this.userId).then(({data})=>{
+          const { records, size, total, current } = data.data
+          const isBug = total / size + 1 === current
+          if (isBug && total !== 0) {
+            this.searchPage() // 防止分页为空页的情况
+          } else {
+            this.pagination = { current, size, total }
+          }
+          this.pagedTable = records
+        })
+        // this.loadTable({id:this.userId, ...param}, getBossProjectPage)
+      }else{
+        this.loadTable(param, getProjectPage)
+      }
+    },
+    handleDetail (row) {
+      this.$router.push({
+        path: `/fams_spa/project_accounting/${row.id}`,
+      })
+    },
   },
 }
 </script>
@@ -63,7 +109,7 @@ export default {
     grid-auto-flow: row dense;
     grid-row-gap: 25px;
     grid-column-gap: 25px;
-    grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
+    // grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
   }
 }
 </style>

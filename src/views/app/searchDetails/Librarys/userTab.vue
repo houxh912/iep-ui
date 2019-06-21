@@ -4,7 +4,9 @@
     <div class="librarys-item" v-for="(item,index) in librarys" :key="index" v-else @click="handleDetail(item)">
       <div class="user-info">
         <div class="img-con">
-          <div class="img"><iep-img :src="item.avatar" alt=""></iep-img></div>
+          <div class="img">
+            <iep-img :src="item.avatar" alt=""></iep-img>
+          </div>
           <span class="num">{{item.staffId}}</span>
         </div>
         <div class="text">
@@ -51,13 +53,13 @@ export default {
       },
     }
   },
-  methods:{
+  methods: {
     loadPage (title = '') {
       if (title !== '') {
         this.params.name = title
       }
       this.loading = true
-      getRecruitDetailPage(this.params).then(({data}) => {
+      getRecruitDetailPage(this.params).then(({ data }) => {
         this.loading = false
         this.librarys = data.data.records
         this.total = data.data.total
@@ -77,7 +79,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.librarys-item{
+.librarys-item {
   padding: 20px 0;
   border-bottom: 1px solid #eee;
   overflow: hidden;
@@ -92,12 +94,12 @@ export default {
       align-items: center;
       align-content: center;
       .img {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
         border-radius: 50%;
         border: 1px solid #ebeef5;
         overflow: hidden;
-        img {
+        .el-image {
           display: block;
           width: 100%;
           height: 100%;
@@ -180,7 +182,7 @@ export default {
       margin-bottom: 10px;
       .name {
         margin-right: 10px;
-        font-size: 20px;
+        font-size: 18px;
       }
     }
     .autograph {

@@ -327,6 +327,7 @@ export default {
         return {
           ...m,
           dispatchsList: m.dispatchList[0] ? _.map(m.dispatchList, 'commonName').join('，') : '暂无',
+          unionsList: m.unionList[0] ? _.map(m.unionList, 'commonName').join('，') : '暂无',
         }
       })
       data.records = records
@@ -334,45 +335,41 @@ export default {
     },
 
     readRelation (rows) {
-      const { dispatchList, unionList, formality, fund, industry, mode, scale, support, target, theme, tagList, policyList } = rows
+      const { dispatchList, unionList, target, fund, support, formality, mode, industry, scale, theme } = rows
       // file
       rows.attachments = validatenull(rows.file) ? null : [{
         name: rows.file.match(/([^/]*)$/)[1],
         url: rows.file,
       }]
-      // 字典组
-      this.$set(rows, 'formality', this.decodeSplitStr(formality))
-      this.$set(rows, 'fund', this.decodeSplitStr(fund))
-      this.$set(rows, 'industry', this.decodeSplitStr(industry))
-      this.$set(rows, 'mode', this.decodeSplitStr(mode))
-      this.$set(rows, 'scale', this.decodeSplitStr(scale))
-      this.$set(rows, 'support', this.decodeSplitStr(support))
-      this.$set(rows, 'target', this.decodeSplitStr(target))
-      this.$set(rows, 'theme', this.decodeSplitStr(theme))
+      // 多选
+      rows.target = this.decodeSplitStr(target)
+      rows.industry = this.decodeSplitStr(industry)
+      rows.scale = this.decodeSplitStr(scale)
+      rows.theme = this.decodeSplitStr(theme)
+      rows.fund = this.decodeSplitStr(fund)
+      rows.support = this.decodeSplitStr(support)
+      rows.formality = this.decodeSplitStr(formality)
+      rows.mode = this.decodeSplitStr(mode)
+      // console.log(rows)
       // 发文单位
-      if (dispatchList) {
-        rows.dispatchList = dispatchList.map(m => m.commonId)
-        rows.dispatchsList = dispatchList.map(m => {
-          return { id: m.commonId, name: m.commonName }
-        })
-      }
+      rows.dispatchList = dispatchList.map(m => m.commonId)
+      rows.dispatchsList = dispatchList.map(m => {
+        return { id: m.commonId, name: m.commonName }
+      })
       // 联合发文单位
-      if (unionList) {
-        rows.unionList = unionList.map(m => m.commonId)
-        rows.unionsList = unionList.map(m => {
-          return { id: m.commonId, name: m.commonName }
-        })
-      }
+      rows.unionList = unionList.map(m => m.commonId)
+      rows.unionsList = unionList.map(m => {
+        return { id: m.commonId, name: m.commonName }
+      })
       // 政策依据
-      if (policyList) {
-        rows.policyList = policyList.map(m => m.commonId)
-        rows.policysList = policyList.map(m => {
-          return { id: m.commonId, title: m.commonName }
-        })
-      }
+      // rows.policyList = policyList.map(m => m.commonId)
+      // rows.policysList = policyList.map(m => {
+      //   return { id: m.commonId, title: m.commonName }
+      // })
       // 标签
-      rows.tagsList = this._mapPickTagIdName(tagList)
+      rows.tagsList = this._mapPickTagIdName(rows.tagList)
       rows.tagList = rows.tagsList.map(m => m.name)
+      return rows
     },
 
     /**
@@ -425,8 +422,9 @@ export default {
       // this.dialogShow = true
       getDeclareById(rows.id).then(res => {
         const rows = res.data.data
-        this.readRelation(rows)
-        this.form = { ...rows }
+        // this.readRelation(rows)
+        // this.form = { ...rows }
+        this.form = this.readRelation(rows)
         if (rows.condition == null) {
           this.form.condition = ''
         }

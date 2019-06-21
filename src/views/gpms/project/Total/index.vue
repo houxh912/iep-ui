@@ -6,16 +6,17 @@
         <iep-button @click="handleDeleteAll" class="add" v-if="gpms_project_edit_del">批量删除</iep-button>
       </template>
       <template slot="right">
-        <operation-search @search-page="searchPage" @closed="dialogIsShow = true" advanceSearch placeHolder="请输入项目名称" :dialogIsShow="dialogIsShow" prop="projectName">
+        <operation-search @search-page="searchPage" @closed="dialogIsShow = true" advance-search placeHolder="请输入项目名称" :dialogIsShow="dialogIsShow" prop="projectName">
           <!--title-->
-          <el-row class="search">
+          <!-- <el-row class="search">
             <el-col :span="23">高级搜索</el-col>
             <el-col :span="1">
               <i class="iconfon el-icon-plus" @click="closeDialog" style="cursor: pointer;"></i>
             </el-col>
-          </el-row>
+          </el-row> -->
           <!--表单-->
-          <!-- <searchForm></searchForm> -->
+          <!-- <search-form></search-form> -->
+            <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
     </operation-container>
@@ -42,13 +43,13 @@
 import mixins from '@/mixins/mixins'
 import { dictMap, columnsMap, paramForm } from './const.js'
 import { getTableData, deleteData } from '@/api/gpms/index'
-// import searchForm from './searchForm'
+import AdvanceSearch from './AdvanceSearch'
 import { mapGetters } from 'vuex'
 const optNameMap = {
   delete: '删除',
 }
 export default {
-  components: {},
+  components: {AdvanceSearch},
   props: {
     tabType: {
       type: String,

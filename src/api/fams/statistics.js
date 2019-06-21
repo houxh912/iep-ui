@@ -90,6 +90,12 @@ export function getProjectPage (query) {
     params: query,
   })
 }
+export function getBossProjectPage (id) {
+  return request({
+    url: `${prefixUrl}/project/page/${id}`,
+    method: 'get',
+  })
+}
 
 export function getContractPage (query) {
   return request({

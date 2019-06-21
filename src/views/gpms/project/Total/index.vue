@@ -53,7 +53,6 @@ export default {
   props: {
     tabType: {
       type: String,
-      default: '',
     },
   },
   computed: {
@@ -68,6 +67,7 @@ export default {
       dialogIsShow: true,
       paramForm: paramForm(),
       value: '',
+      searchForm: '',
       gpms_project_add: false,
       gpms_project_view: false,
       gpms_project_edit_del: false,

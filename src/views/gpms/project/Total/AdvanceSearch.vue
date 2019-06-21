@@ -1,16 +1,22 @@
 <template>
   <div>
     <el-form :model="form" label-width="100px" size="small">
-      <el-form-item label="项目名称" prop="projectName">
+      <el-form-item label="项目名称" prop="projectName" :rules="rules">
         <el-input v-model="form.projectName"></el-input>
       </el-form-item>
       <el-form-item label="项目阶段" prop="projectStage">
-        <iep-dict-select v-model="form.projectStage" dict-name='' style="width: 100%"></iep-dict-select>
+        <el-select v-model="form.projectStage" style="width: 100%;" placeholder="请选择">
+          <el-option
+            v-for="item in dictMap.projectStage"
+            :key="item"
+            :value="item">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="项目等级" prop="projectLevel">
-        <iep-dict-select v-model="form.projectLevel" dict-name='' style="width: 100%"></iep-dict-select>
+        <iep-dict-select v-model="form.projectLevel" dict-name="prms_project_level" style="width: 100%"></iep-dict-select>
       </el-form-item>
-      <el-form-item label="是否项目关联" prop="associatedProducts">
+      <el-form-item label="是否产品关联" prop="associatedProducts">
         <el-radio-group v-model="form.associatedProducts">
           <el-radio :label="1">是</el-radio>
           <el-radio :label="2">否</el-radio>
@@ -27,17 +33,19 @@
   </div>
 </template>
 <script>
-import { initSearchForm } from './const'
+import { initSearchForm,dictMap,rules} from './const'
 // import { getContactAssociate } from '@/api/crms/contact'
-import { getPageData } from '@/api/crms/customer'
+// import { getPageData } from '@/api/crms/customer'
 import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      form: {},
+      form: initSearchForm(),
       restaurants: [],
       clientList: [],
       isLoading: true,
+      dictMap,
+      rules,
     }
   },
   computed: {
@@ -56,16 +64,6 @@ export default {
     },
     clearSearchParam () {
       this.form = initSearchForm()
-    },
-    querySearch (queryString, cb) {
-      getPageData({ clientName: queryString }).then(res => {
-        if (res.data.data.records.length > 0) {
-          let data = res.data.data.records.map(m => {
-            return { value: m.clientName }
-          })
-          cb(data)
-        }
-      })
     },
     handleSelect (item) {
       console.log(item)

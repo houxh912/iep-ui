@@ -14,12 +14,12 @@
       </page-header>
       <el-form ref="form" class="form-detail" :model="form" label-width="140px" size="small">
         <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
-          <el-table-column prop="expenditureType" label="支出类型">
+          <el-table-column prop="expenditureType" label="付款事项">
             <template slot-scope="scope">
               <iep-dict-cascader-detail dictName="fams_expenditure_type" :value="scope.row.type"></iep-dict-cascader-detail>
             </template>
           </el-table-column>
-          <el-table-column label="报销类型">
+          <el-table-column label="收款单位账号及开户行">
             <template slot-scope="scope">
               <iep-div-detail :value="dictsMap.invoiceType[scope.row.invoiceType]"></iep-div-detail>
             </template>
@@ -33,20 +33,20 @@
 
         <iep-divider />
 
-        <iep-form-item class="form-half" label-name="报销类型">
-          <iep-div-detail :value="dictsMap.referType[form.referType]"></iep-div-detail>
-        </iep-form-item>
-
         <iep-form-item class="form-half" label-name="报销组织">
           <iep-div-detail :value="form.orgName"></iep-div-detail>
         </iep-form-item>
 
-        <iep-form-item class="form-half" label-name="报销抬头">
+        <iep-form-item class="form-half" label-name="报销公司">
           <iep-div-detail :value="form.companyName"></iep-div-detail>
         </iep-form-item>
 
-        <iep-form-item v-if="projectOption" class="form-half" label-name="项目">
+        <iep-form-item class="form-half" label-name="关联项目">
           <iep-div-detail :value="form.projectName"></iep-div-detail>
+        </iep-form-item>
+
+        <iep-form-item class="form-half" label-name="关联合同">
+          <iep-div-detail :value="form.protocolName"></iep-div-detail>
         </iep-form-item>
 
         <iep-form-item class="form-half" label-name="申请人">
@@ -61,9 +61,30 @@
           <iep-div-detail v-model="form.auditorName"></iep-div-detail>
         </iep-form-item>
 
+        <iep-form-item class="form-half" label-name="是否代缴">
+          <el-radio-group v-model="form.isSubstitute">
+            <el-radio :label="0">否</el-radio>
+            <el-radio :label="1">是</el-radio>
+          </el-radio-group>
+        </iep-form-item>
+
+        <iep-form-item class="form-half" label-name="代缴组织">
+          <iep-div-detail :value="form.ccOrgName"></iep-div-detail>
+        </iep-form-item>
+
+        <iep-form-item class="form-half" label-name="代缴公司">
+          <iep-div-detail :value="form.ccCompanyName"></iep-div-detail>
+        </iep-form-item>
+
         <iep-form-item label-name="备注">
           <iep-div-detail :value="form.remarks"></iep-div-detail>
         </iep-form-item>
+
+        <iep-divider />
+
+        <el-form-item label="附件上传:">
+          <iep-upload-select style="margin-top: 5px;" v-model="form.costFile"></iep-upload-select>
+        </el-form-item>
 
         <iep-divider />
 
@@ -86,19 +107,19 @@
 
       </el-form>
     </basic-container>
-    <invoice-pass-dialog-form ref="InvoicePassDialogForm" :is-financial="isFinancial" @load-page="goBack"></invoice-pass-dialog-form>
-    <invoice-reject-dialog-form ref="InvoiceRejectDialogForm" :is-financial="isFinancial" @load-page="goBack"></invoice-reject-dialog-form>
-    <invoice-trans-dialog-form ref="InvoiceTransDialogForm" @load-page="goBack"></invoice-trans-dialog-form>
+    <fee-pass-dialog-form ref="FeePassDialogForm" :is-financial="isFinancial" @load-page="goBack"></fee-pass-dialog-form>
+    <fee-reject-dialog-form ref="FeeRejectDialogForm" :is-financial="isFinancial" @load-page="goBack"></fee-reject-dialog-form>
+    <fee-trans-dialog-form ref="FeeTransDialogForm" @load-page="goBack"></fee-trans-dialog-form>
   </div>
 </template>
 <script>
 import { dictsMap, initForm } from './options'
-import { getInvoiceById } from '@/api/fams/invoice'
-import InvoicePassDialogForm from '@/views/fams/Components/InvoicePassDialogForm.vue'
-import InvoiceRejectDialogForm from '@/views/fams/Components/InvoiceRejectDialogForm.vue'
-import InvoiceTransDialogForm from '@/views/fams/Components/InvoiceTransDialogForm'
+import { getFeeById } from '@/api/fams/fee'
+import FeePassDialogForm from '@/views/fams/Components/FeePassDialogForm.vue'
+import FeeRejectDialogForm from '@/views/fams/Components/FeeRejectDialogForm.vue'
+import FeeTransDialogForm from '@/views/fams/Components/FeeTransDialogForm'
 export default {
-  components: { InvoicePassDialogForm, InvoiceRejectDialogForm, InvoiceTransDialogForm },
+  components: { FeePassDialogForm, FeeRejectDialogForm, FeeTransDialogForm },
   data () {
     return {
       dictsMap,
@@ -121,28 +142,28 @@ export default {
     },
   },
   created () {
-    getInvoiceById(this.id).then(({ data }) => {
+    getFeeById(this.id).then(({ data }) => {
       this.form = this.$mergeByFirst(initForm(), data.data)
     })
   },
   methods: {
     handleTrans (row) {
-      this.$refs['InvoiceTransDialogForm'].id = row.id
-      this.$refs['InvoiceTransDialogForm'].user = { id: '', name: '' }
-      this.$refs['InvoiceTransDialogForm'].content = ''
-      this.$refs['InvoiceTransDialogForm'].dialogShow = true
+      this.$refs['FeeTransDialogForm'].id = row.id
+      this.$refs['FeeTransDialogForm'].user = { id: '', name: '' }
+      this.$refs['FeeTransDialogForm'].content = ''
+      this.$refs['FeeTransDialogForm'].dialogShow = true
     },
     handlePass (row, isFinancial) {
       this.isFinancial = isFinancial
-      this.$refs['InvoicePassDialogForm'].id = row.id
-      this.$refs['InvoicePassDialogForm'].content = ''
-      this.$refs['InvoicePassDialogForm'].dialogShow = true
+      this.$refs['FeePassDialogForm'].id = row.id
+      this.$refs['FeePassDialogForm'].content = ''
+      this.$refs['FeePassDialogForm'].dialogShow = true
     },
     handleReject (row, isFinancial) {
       this.isFinancial = isFinancial
-      this.$refs['InvoiceRejectDialogForm'].id = row.id
-      this.$refs['InvoiceRejectDialogForm'].content = ''
-      this.$refs['InvoiceRejectDialogForm'].dialogShow = true
+      this.$refs['FeeRejectDialogForm'].id = row.id
+      this.$refs['FeeRejectDialogForm'].content = ''
+      this.$refs['FeeRejectDialogForm'].dialogShow = true
     },
     goBack () {
       this.$router.history.go(-1)

@@ -67,12 +67,12 @@ export default {
     tabList () {
       return [
         {
-          label: `项目(${this.counts.projectCount})`,
-          value: 'Project',
-        },
-        {
           label: `材料(${this.counts.materialCount})`,
           value: 'Material',
+        },
+        {
+          label: `项目(${this.counts.projectCount})`,
+          value: 'Project',
         },
         {
           label: `培训(${this.counts.trainingCount})`,

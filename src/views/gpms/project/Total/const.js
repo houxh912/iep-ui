@@ -47,10 +47,10 @@ export const columnsMap = [
     prop: 'publisherName',
     label: '发布人',
   },
-  {
-    prop: 'publishTime',
-    label: '立项时间',
-  },
+  // {
+  //   prop: 'projectTime',
+  //   label: '立项时间',
+  // },
 ]
 
 let intValidate = (rule, value, callback) => {

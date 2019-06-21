@@ -21,6 +21,9 @@
           <template v-if="activeTab ==='Business'" v-slot:Business>
             <business v-loading="activeTab !=='Business'" :userId="userId"></business>
           </template>
+          <template v-if="activeTab ==='paper'" v-slot:paper>
+            <paper v-loading="activeTab !=='paper'" :userId="userId"></paper>
+          </template>
         </iep-tabs>
       </IepAppTabsCard>
     </div>
@@ -35,6 +38,8 @@ import News from './News'
 import Customer from './Customer'
 import Business from './Business'
 import NewDown from './NewDown'
+import paper from './paper'
+
 export default {
   components: {
     Project,
@@ -44,6 +49,7 @@ export default {
     Customer,
     Business,
     NewDown,
+    paper,
   },
   props: {
     counts: {
@@ -89,6 +95,10 @@ export default {
         {
           label: `商机(${this.counts.opportunityCount})`,
           value: 'Business',
+        },
+        {
+          label: '学术论文(0)',
+          value: 'paper',
         },
       ]
     },

@@ -2,6 +2,17 @@
   <div class="master">
     <page-header title="推荐师父">
     </page-header>
+     <operation-container>
+        <template slot="left">
+          <iep-button @click="handleClick">国脉人</iep-button>
+          <iep-button @click="handleClick2">我的师徒</iep-button>
+        </template>
+        <template slot="right">
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
+          </operation-search>
+        </template>
+      </operation-container>
     <div v-loading="loadState" v-if="loadState"></div>
     <div v-else>
       <div class="master-con" v-if="masterList.length !== 0">
@@ -58,6 +69,12 @@ export default {
         this.loadState = false
         this.masterList = data.records
       })
+    },
+    handleClick () {
+      this.$router.push('/app/person')
+    },
+    handleClick2 () {
+      // this.$router.push('/app/person')
     },
   },
   created () {

@@ -119,6 +119,7 @@ export default {
 }
 .gov-info >>> .el-timeline-item__node {
   position: relative;
+  top: 15px;
   left: -3px;
   width: 15px;
   height: 15px;
@@ -137,6 +138,9 @@ export default {
 }
 .gov-info >>> .el-timeline-item__tail {
   border-width: 1px;
+}
+.gov-info >>> .el-timeline-item__tail {
+  top: 15px;
 }
 </style>
 

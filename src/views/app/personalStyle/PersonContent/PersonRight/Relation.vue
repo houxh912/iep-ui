@@ -9,6 +9,7 @@
             <div class="person" v-for="(item, index1) in row.list" :key="index1">
               <div class="img">
                 <iep-img :src="item.avatar" alt=""></iep-img>
+                <div class="shifu" v-if="false">师</div>
               </div>
               <span class="name">{{item.name}}</span>
             </div>
@@ -68,6 +69,9 @@ export default {
     },
     loadRelation (id) {
       getproductMentors(id).then(({data}) => {
+        for (let item of data.data.masters) {
+          item.show = true
+        }
         this.MentorsList = data.data.masters.concat(data.data.pupils)
       })
     },
@@ -107,6 +111,7 @@ export default {
         height: 60px;
         border: 1px solid #ebeef5;
         overflow: hidden;
+        position: relative;
         img {
           display: block;
           width: 100%;
@@ -115,6 +120,17 @@ export default {
           &:hover {
             transform: scale(1.1);
           }
+        }
+        .shifu {
+          position: absolute;
+          right: -12px;
+          top: -12px;
+          border-radius: 50%;
+          width: 24px;
+          height: 24px;
+          font-size: 12px;
+          background-color: #f00;
+          color: #fff;
         }
       }
       .name {

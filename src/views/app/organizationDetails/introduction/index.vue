@@ -15,7 +15,10 @@ export default {
   components: { IntroductionContent, IntroductionTop },
   data () {
     return {
-      data: {},
+      data: {
+        establishTime: '',
+        structure: '',
+      },
     }
   },
   methods: {

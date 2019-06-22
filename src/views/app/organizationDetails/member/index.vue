@@ -3,18 +3,18 @@
     <div class="block">
       <span class="details-title">{{subTitle1}}</span>
       <div class="con">
-        <div class="item" v-for="detail in datailList" :key="detail.id">
-          <div class="img"><iep-img :src="detail.img" alt=""></iep-img></div>
+        <div class="item" v-for="detail in datailList" :key="detail.id" @click="handleDetail(detail)">
+          <div class="img"><iep-img :src="detail.avatar" alt=""></iep-img></div>
           <span class="name">{{detail.name}}</span>
-          <span class="post">{{detail.post}}</span>
+          <!-- <span class="post">{{detail.post}}</span> -->
         </div>
       </div>
     </div>
     <div class="block">
       <span class="details-title">{{subTitle2}}</span>
       <div class="con">
-        <div class="item" v-for="detail2 in datailList2" :key="detail2.id">
-          <div class="img"><iep-img :src="detail2.img" alt=""></iep-img></div>
+        <div class="item" v-for="detail2 in datailList2" :key="detail2.id" @click="handleDetail(detail2)">
+          <div class="img"><iep-img :src="detail2.avatar" alt=""></iep-img></div>
           <span class="name">{{detail2.name}}</span>
         </div>
       </div>
@@ -22,6 +22,8 @@
   </div>
 </template>
 <script>
+import { getOrgDetail } from '@/api/app/upms/'
+
 export default {
   data () {
     return {
@@ -114,6 +116,20 @@ export default {
       ],
     }
   },
+  methods: {
+    loadData () {
+      getOrgDetail(this.$route.query.id).then(({data}) => {
+        this.datailList = data.data.adminList
+        this.datailList2 = data.data.members
+      })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/personal_style/${row.id}`)
+    },
+  },
+  created () {
+    this.loadData()
+  },
 }
 </script>
 
@@ -132,6 +148,7 @@ export default {
         margin: 0 20px 25px;
         flex-direction: column;
         align-items: center;
+        cursor: pointer;
         .name {
           margin-top: 10px;
         }

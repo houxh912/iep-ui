@@ -25,14 +25,18 @@
       <span class="details-title">组织简介</span>
       <p class="con">{{data.intro}}</p>
     </div>
-    <div class="contact">
+    <!-- <div class="contact">
       <span class="details-title">联系方式</span>
       <span class="con"><span>官网地址 ：{{website}}</span>
         <span>官方新浪微博：{{blog}}</span></span>
+    </div> -->
+    <!-- <framework></framework> -->
+    <div class="contact">
+      <span class="details-title">组织结构</span>
+      <iep-html v-model="data.structure"></iep-html>
     </div>
-    <framework></framework>
     <business-layout></business-layout>
-    <div class="opex">
+    <!-- <div class="opex">
       <span class="details-title">组织运维</span>
       <div class="con">
         <div class="opex-item" v-for="opex in opexList" :key="opex.id">
@@ -40,11 +44,12 @@
           <span class="name">{{opex.name}}</span>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
+
 <script>
-import Framework from './Framework'
+// import Framework from './Framework'
 import BusinessLayout from './BusinessLayout'
 export default {
   props: {
@@ -52,7 +57,7 @@ export default {
       type: Object,
     },
   },
-  components: { Framework, BusinessLayout },
+  components: { BusinessLayout },
   data () {
     return {
       opexList: [

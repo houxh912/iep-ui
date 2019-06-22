@@ -1,6 +1,6 @@
 <template>
   <div class="feelings">
-    <IepAppTabCard :title="title" isMore :linkName="linkName">
+    <IepAppTabCard :title="title" :data="`（${total}）`" isMore :linkName="linkName">
       <!-- <el-button class="btn" type="text" slot="right" @click="handlePublish">发表说说</el-button> -->
       <div class="dynamicList" v-if="dynamicList.length !== 0">
         <div v-for="(item,index) in dynamicList" :key="index" class="piece">
@@ -28,7 +28,7 @@ export default {
   },
   data () {
     return {
-      showClass: 0,
+      total: 0,
       title: '个人说说',
       dynamicList: [],
       linkName: '/app/more_thoughts',
@@ -42,7 +42,8 @@ export default {
   watch: {
     userId () {
       getPersonalThoughts(this.userId).then(({ data }) => {
-        this.dynamicList = data.data
+        this.dynamicList = data.data.list
+        this.total = data.data.size
       })
     },
   },

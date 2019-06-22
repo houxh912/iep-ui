@@ -9,7 +9,7 @@
             <div class="person" v-for="(item, index1) in row.list" :key="index1">
               <div class="img">
                 <iep-img :src="item.avatar" alt=""></iep-img>
-                <div class="shifu" v-if="false">师</div>
+                <div class="shifu" v-if="item.show">师</div>
               </div>
               <span class="name">{{item.name}}</span>
             </div>
@@ -110,7 +110,7 @@ export default {
         width: 60px;
         height: 60px;
         border: 1px solid #ebeef5;
-        overflow: hidden;
+        // overflow: hidden;
         position: relative;
         img {
           display: block;
@@ -123,14 +123,16 @@ export default {
         }
         .shifu {
           position: absolute;
-          right: -12px;
-          top: -12px;
+          right: -8px;
+          top: -8px;
           border-radius: 50%;
-          width: 24px;
-          height: 24px;
+          width: 20px;
+          height: 20px;
           font-size: 12px;
-          background-color: #f00;
+          background-color: #c9484d;
           color: #fff;
+          text-align: center;
+          line-height: 20px;
         }
       }
       .name {

@@ -1,33 +1,39 @@
 <template>
   <div class="introduction-details">
     <div class="tags-detail">
-      <span class="details-title">{{subTitle1}}</span>
+      <span class="details-title">组织标签</span>
       <div class="tags-con">
         <span>卓越：</span>
-        <span class="tags" v-for="item in tags" :key="item.id">
-          {{item.tag}}
+        <span class="tags" v-for="(item, index) in data.abilityTag" :key="index">
+          {{item}}
         </span>
       </div>
       <div class="tags-con">
         <span>专业：</span>
-        <span class="tags" v-for="item2 in tags2" :key="item2.id">
-          {{item2.tag}}
+        <span class="tags" v-for="(item, index) in data.projectTag" :key="index">
+          {{item}}
+        </span>
+      </div>
+      <div class="tags-con">
+        <span>进步：</span>
+        <span class="tags" v-for="(item, index) in data.learningTag" :key="index">
+          {{item}}
         </span>
       </div>
     </div>
     <div class="brief">
-      <span class="details-title">{{subTitle2}}</span>
-      <p class="con">{{con}}</p>
+      <span class="details-title">组织简介</span>
+      <p class="con">{{data.intro}}</p>
     </div>
     <div class="contact">
-      <span class="details-title">{{subTitle3}}</span>
+      <span class="details-title">联系方式</span>
       <span class="con"><span>官网地址 ：{{website}}</span>
         <span>官方新浪微博：{{blog}}</span></span>
     </div>
     <framework></framework>
     <business-layout></business-layout>
     <div class="opex">
-      <span class="details-title">{{subTitle4}}</span>
+      <span class="details-title">组织运维</span>
       <div class="con">
         <div class="opex-item" v-for="opex in opexList" :key="opex.id">
           <div class="img"><span class="bgb">{{opex.name1}}</span><iep-img :src="opex.img" alt=""></iep-img></div>
@@ -41,13 +47,14 @@
 import Framework from './Framework'
 import BusinessLayout from './BusinessLayout'
 export default {
+  props: {
+    data: {
+      type: Object,
+    },
+  },
   components: { Framework, BusinessLayout },
   data () {
     return {
-      subTitle1: '组织标签',
-      subTitle2: '组织简介',
-      subTitle3: '联系方式',
-      subTitle4: '组织运维',
       opexList: [
         {
           img: require('../img/people1.png'),

@@ -1,6 +1,6 @@
 <template>
   <div class="organization-introduction">
-    <iepAppTabCard :title="title" :linkName="linkName" :data="`（当前${data.memberNum}人）`">
+    <iepAppTabCard :title="title" isMore :linkName="linkName" :data="`（当前${data.memberNum}人）`">
       <p class="con">{{data.intro}}</p>
       <div class="person">
         <el-carousel height="84px" :interval="5000" arrow="always">
@@ -41,7 +41,7 @@ export default {
   data () {
     return {
       title: '组织介绍',
-      linkName: '/app/organization_details',
+      linkName: `/app/organization_details?id=${this.$route.params.id}`,
     }
   },
   methods: {

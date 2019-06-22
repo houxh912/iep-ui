@@ -66,13 +66,13 @@
           <iep-select v-model="form.ccCompanyId" autocomplete="off" :prefix-url="ccCompanyOption.prefixUrl" placeholder="请选择代缴公司"></iep-select>
         </iep-form-item>
 
-        <iep-form-item prop="remarks" label-name="备注">
+        <iep-form-item label-name="备注">
           <iep-input-area v-model="form.remarks"></iep-input-area>
         </iep-form-item>
 
         <iep-divider />
 
-        <el-form-item label="附件上传:">
+        <el-form-item label="附件上传:" prop="costFile">
           <iep-upload-select style="margin-top: 5px;" v-model="form.costFile"></iep-upload-select>
         </el-form-item>
 

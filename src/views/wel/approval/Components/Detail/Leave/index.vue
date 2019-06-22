@@ -73,7 +73,7 @@
         <div slot="header" class="clearfix">
           <span>抄送人</span>
         </div>
-        <iep-tag-detail :value="form.ccList.map(m => m.name)"></iep-tag-detail>
+        <span>{{form.ccList.map(m => m.name).join('、')}}</span>
       </el-card>
       <el-card v-if="needApproval" class="middle-card" :body-style="middleBodyStyle" shadow="never">
         <div slot="header" class="clearfix">

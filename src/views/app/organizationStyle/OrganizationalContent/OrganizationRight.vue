@@ -1,6 +1,5 @@
 <template>
   <div class="organization-right">
-    <ranking></ranking>
     <organization-introduction :data="data"></organization-introduction>
     <organize-events :orgId="data.orgId"></organize-events>
     <business-layout></business-layout>
@@ -10,7 +9,6 @@
   </div>
 </template>
 <script>
-import Ranking from './Ranking'
 import OrganizationIntroduction from './OrganizationIntroduction'
 import BusinessLayout from './BusinessLayout'
 import ProductsServices from './ProductsServices'
@@ -23,6 +21,6 @@ export default {
       type: Object,
     },
   },
-  components: { Ranking, OrganizationIntroduction, BusinessLayout, OrganizeEvents, ProductsServices, CollaborativeRecord },
+  components: { OrganizationIntroduction, BusinessLayout, OrganizeEvents, ProductsServices, CollaborativeRecord },
 }
 </script>

@@ -4,6 +4,10 @@
       <page-header title="其他应收账款"></page-header>
       <operation-container>
         <template slot="right">
+          <el-select size="small" v-model="type" placeholder="请选择其他应收款类别" @change="hanldeChange">
+            <el-option v-for="item in otherReceivables" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
           <operation-search @search-page="searchPage" prop="projectName">
           </operation-search>
         </template>
@@ -15,6 +19,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { getExpenditurePage } from '@/api/fams/expenditure'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../../EManagement/options'
@@ -22,16 +27,27 @@ export default {
   mixins: [mixins],
   data () {
     return {
+      type: '81',
       dictsMap,
       columnsMap,
     }
   },
+  computed: {
+    ...mapGetters(['dictGroup']),
+    otherReceivables () {
+      return this.dictGroup['fams_expenditure_type'].find(m => m.value === '17').children
+    },
+  },
   created () {
+    this.type = this.otherReceivables[0].value
     this.loadPage()
   },
   methods: {
+    hanldeChange () {
+      this.loadPage()
+    },
     loadPage (param = this.searchParam) {
-      this.loadTable(param, getExpenditurePage)
+      this.loadTable({ ...param, type: this.type }, getExpenditurePage)
     },
   },
 }

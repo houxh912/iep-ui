@@ -37,8 +37,8 @@ export default {
     loadPage () {
       getAside().then(({ data }) => {
         const rawData = data.data
-        this.opportunity = rawData.opportunity
-        this.appraise = rawData.appraise
+        this.opportunity = rawData.opportunity || []
+        this.appraise = rawData.appraise || []
       })
     },
   },

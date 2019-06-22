@@ -1,7 +1,9 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="费用管理" :replaceText="replaceText" :data="statistics"></page-header>
+      <!-- TODO: 费用统计 -->
+      <!-- <page-header title="费用管理" :replaceText="replaceText" :data="statistics"></page-header> -->
+      <page-header title="费用管理"></page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks">
@@ -37,8 +39,9 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      statistics: [0, 0, 0, 0],
-      replaceText: (data) => `（待审核：${data[0]}笔，总计：${data[1]}，已确认：${data[2]}笔，总计：${data[3]}）`,
+      // TODO: 费用统计
+      // statistics: [0, 0, 0, 0],
+      // replaceText: (data) => `（待审核：${data[0]}笔，总计：${data[1]}，已确认：${data[2]}笔，总计：${data[3]}）`,
     }
   },
   created () {
@@ -62,6 +65,8 @@ export default {
     },
     async loadPage (param = this.searchForm) {
       await this.loadTable(param, getFeePage)
+      // TODO: 费用统计
+      // const data = await this.loadTable(param, getFeePage)
       // this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },

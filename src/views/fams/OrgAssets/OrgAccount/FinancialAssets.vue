@@ -62,7 +62,7 @@ export default {
         '可用金额': '/fams/org_assets/org_account',
         '银行存款': '/fams/financial_management/bank_deposit_journal',
         '库存现金': '/fams/financial_management/cash_journal',
-        '集团往来': '/fams/financial_management/group_current_ccount',
+        '集团往来': '/fams/org_assets/group_current_ccount',
         '合同应收账款': '/fams_spa/accounts_receivable',
         '其他应收款': '/fams_spa/other_receivables',
         '组织拆借': '/fams/org_borrow/org_borrow',

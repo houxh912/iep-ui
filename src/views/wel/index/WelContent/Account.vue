@@ -2,7 +2,7 @@
   <el-card class="account-wrapper" shadow="never" :body-style="bodyStyle">
     <div class="user-simple-box">
       <div class="user-info">
-        <iep-img class="user-avatar" :src="userInfo.avatar"></iep-img>
+        <iep-img class="user-avatar" :src="userInfo.avatar" @click.native="$openPage(`/app/personal_style/${userInfo.userId}`)"></iep-img>
         <iep-div-detail class="user-code" :value="form.staffId"></iep-div-detail>
       </div>
       <el-tooltip class="item" effect="dark" content="资料完善度" placement="top">
@@ -250,6 +250,7 @@ export default {
   }
 }
 .user-avatar {
+  cursor: pointer;
   width: 90px;
   height: 90px;
 }

@@ -12,7 +12,7 @@
           <iep-button @click="handleReject(form, true)">驳回</iep-button>
         </template>
       </page-header>
-      <el-form ref="form" class="form-detail" :model="form" label-width="140px" size="small">
+      <el-form ref="form" class="form-detail" :model="flowForm" :rules="rules" label-width="140px" size="small">
         <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
           <el-table-column prop="expenditureType" label="付款事项">
             <template slot-scope="scope">
@@ -133,16 +133,19 @@
   </div>
 </template>
 <script>
-import { dictsMap, initForm, initFlowForm, formToVo } from './options'
+import { dictsMap, initForm, initFlowForm, formToVo, flowRules } from './options'
+import formMixins from '@/mixins/formMixins'
 import { getFeeById } from '@/api/fams/fee'
 import { genFlow } from '@/api/fams/expenditure'
 import FeePassDialogForm from '@/views/fams/Components/FeePassDialogForm.vue'
 import FeeRejectDialogForm from '@/views/fams/Components/FeeRejectDialogForm.vue'
 import FeeTransDialogForm from '@/views/fams/Components/FeeTransDialogForm'
 export default {
+  mixins: [formMixins],
   components: { FeePassDialogForm, FeeRejectDialogForm, FeeTransDialogForm },
   data () {
     return {
+      rules: flowRules,
       dictsMap,
       form: initForm(),
       flowForm: initFlowForm(),
@@ -182,15 +185,20 @@ export default {
         this.flowForm.companyId = this.form.isSubstitute ? this.form.ccCompanyId : this.form.companyId
       })
     },
-    handleGenFlow () {
-      genFlow(this.flowForm).then(({ data }) => {
-        if (data.data) {
-          this.$message.success('生成成功')
-          this.loadPage()
-        } else {
-          this.$message(data.msg)
-        }
-      })
+    async handleGenFlow () {
+      try {
+        await this.mixinsValidate()
+        genFlow(this.flowForm).then(({ data }) => {
+          if (data.data) {
+            this.$message.success('生成成功')
+            this.loadPage()
+          } else {
+            this.$message(data.msg)
+          }
+        })
+      } catch (object) {
+        this.mixinsMessage(object)
+      }
     },
     handleTrans (row) {
       this.$refs['FeeTransDialogForm'].id = row.costId

@@ -1,4 +1,4 @@
-// import { checkContactUser } from '@/util/rules'
+import { checkContactUser } from '@/util/rules'
 import { mergeByFirst } from '@/util/util'
 import { feeStatus } from '@/const/invoiceConfig.js'
 const dictsMap = {
@@ -98,6 +98,12 @@ const columnsMap = [
 	},
 ]
 
+const flowRules = {
+  bankId: [
+    { required: true, message: '请选择支出账户', trigger: 'blur' },
+  ],
+}
+
 const rules = {
   referType: [
     { required: true, message: '请选择报销类型', trigger: 'blur' },
@@ -106,23 +112,27 @@ const rules = {
     { required: true, message: '请选择报销组织', trigger: 'blur' },
   ],
   companyId: [
-    { required: true, message: '请选择报销抬头', trigger: 'blur' },
+    { required: true, message: '请选择报销公司', trigger: 'blur' },
   ],
-  projectId: [
-    { required: true, message: '请选择项目', trigger: 'blur' },
+  ccOrgId: [
+    { required: true, message: '请选择代缴组织', trigger: 'blur' },
   ],
-  remarks: [
-    { required: false, trigger: 'blur' },
+  ccCompanyId: [
+    { required: true, message: '请选择代缴公司', trigger: 'blur' },
+  ],
+  costFile: [
+    { required: true, message: '请上传附件', trigger: 'blur' },
   ],
   auditor: [
-    { required: false, trigger: 'blur' },
+    { required: true, validator: checkContactUser('部门审批人'), trigger: 'blur' },
   ],
 }
 
 export {
 	columnsMap,
 	dictsMap,
-	rules,
+  rules,
+  flowRules,
 	initTableForm,
   initForm,
   initFlowForm,

@@ -8,8 +8,7 @@
           <iep-button @click="handleClick2">我的师徒</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
-            <advance-search @search-page="searchPage"></advance-search>
+          <operation-search @search-page="searchPage">
           </operation-search>
         </template>
       </operation-container>
@@ -52,6 +51,9 @@ export default {
     return {
       loadState: true,
       masterList: [],
+      params: {
+        name: '',
+      },
     }
   },
   methods: {
@@ -65,16 +67,20 @@ export default {
       })
     },
     getPageRecommend () {
-      getPageRecommend().then(({data}) => {
+      getPageRecommend(this.params).then(({data}) => {
         this.loadState = false
         this.masterList = data.records
       })
     },
     handleClick () {
-      this.$router.push('/app/person')
+      this.$router.push('/app/resource/expert?type=1')
     },
     handleClick2 () {
-      // this.$router.push('/app/person')
+      this.$router.push('/wel/relationship_manage')
+    },
+    searchPage (val) {
+      this.params = val
+      this.getPageRecommend()
     },
   },
   created () {

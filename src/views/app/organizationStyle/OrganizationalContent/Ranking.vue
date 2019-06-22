@@ -39,6 +39,11 @@ export default {
 <style lang="scss" scoped>
 .ranking {
   margin-bottom: 30px;
+  .el-card {
+    background: none;
+    background-color: whitesmoke;
+    border: 0;
+  }
   .labs-con {
     display: flex;
     justify-content: space-between;

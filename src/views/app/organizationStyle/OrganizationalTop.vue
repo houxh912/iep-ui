@@ -2,7 +2,11 @@
   <div class="organizational-top">
     <div class="organizational-top-con">
       <div class="img">
-        <iep-img :src="data.logo" alt=""></iep-img>
+        <iep-img class="img-avatar" :src="data.logo" alt=""></iep-img>
+        <div class="integrity">
+          <div class="integrity-desc">资料完善度{{`${data.integrity}%`}}</div>
+          <el-progress :percentage="data.integrity" color="#66cb68" :show-text="false"></el-progress>
+        </div>
       </div>
       <div class="text">
         <span class="title">{{data.name}}</span>
@@ -11,26 +15,27 @@
           <span class="creatorName">负责人：{{data.creatorName}}</span>
           <span>成立时间：{{formatDate(data.establishTime)}}</span>
         </span>
-        <div class="tags-con">
-          <span>卓越：</span>
-          <span class="tags" v-for="(item, index) in data.abilityTag" :key="index">
-            {{item}}
-          </span>
+        <div class="classTag">
+          <div class="label">卓越标签：</div>
+          <div class="span">
+            <el-tag type="white" v-for="(item, index) in data.abilityTag" :key="index">{{item}}</el-tag>
+          </div>
         </div>
-        <div class="tags-con">
-          <span>专业：</span>
-          <span class="tags" v-for="(item2, index) in data.learningTag" :key="index">
-            {{item2}}
-          </span>
+        <div class="classTag">
+          <div class="label">专业标签：</div>
+          <div class="span">
+            <el-tag type="white" v-for="(item, index) in data.learningTag" :key="index">{{item}}</el-tag>
+          </div>
         </div>
-        <div class="tags-con">
-          <span>进步：</span>
-          <span class="tags" v-for="(item3, index) in data.projectTag" :key="index">
-            {{item3}}
-          </span>
+        <div class="classTag">
+          <div class="label">进步标签：</div>
+          <div class="span">
+            <el-tag type="white" v-for="(item, index) in data.projectTag" :key="index">{{item}}</el-tag>
+          </div>
         </div>
       </div>
       <el-row class="operation">
+        <ranking></ranking>
         <el-button type="danger" plain size="small" @click="handleProposal">建议</el-button>
         <el-button type="info" plain size="small" disabled>pk</el-button>
         <el-button type="danger" plain size="small" @click="handleInvestment">投资</el-button>
@@ -40,6 +45,7 @@
 </template>
 <script>
 import { dateFormat } from '@/util/date'
+import Ranking from './OrganizationalContent/Ranking'
 
 // 月份日期前一位补0
 function formatDig (num) {
@@ -66,6 +72,7 @@ export default {
       default: () => { },
     },
   },
+  components: { Ranking },
   data () {
     return {
       dateFormat,
@@ -88,10 +95,10 @@ export default {
   display: flex;
   align-items: center;
   align-content: center;
-  height: 180px;
   text-align: center;
   background: #fafafa url(./img/zzbg.png) no-repeat;
   background-size: 100% 100%;
+  padding: 15px 0;
   .organizational-top-con {
     display: flex;
     margin: 0 auto;
@@ -123,6 +130,32 @@ export default {
         -webkit-box-orient: vertical;
         .creatorName {
           margin-right: 50px;
+        }
+      }
+      .classTag {
+        margin-bottom: 10px;
+        display: flex;
+        .label {
+          width: 80px;
+          text-align: left;
+        }
+        .span {
+          flex: 1;
+          text-align: left;
+        }
+        .el-tag {
+          margin-right: 5px;
+          margin-bottom: 5px;
+          border: 1px solid #dcdfe6;
+          height: 28px;
+          line-height: 26px;
+          background: #fff;
+          color: #606266;
+          &:hover {
+            color: #cb3737;
+            background: #fef0f0;
+            border-color: #cb3737;
+          }
         }
       }
       .tags-con {
@@ -162,19 +195,25 @@ export default {
     }
     .img {
       padding: 5px;
-      width: 196px;
-      height: 124px;
-      border: 1px solid #ebeef5;
       overflow: hidden;
-      background-color: #fff;
-      &:hover {
-        box-shadow: 0 1px 1px 1px #eee;
-      }
       img {
         display: block;
         width: 100%;
         height: 100%;
         transition: 0.5s;
+      }
+      .img-avatar {
+        width: 196px;
+        height: 124px;
+      }
+      .integrity {
+        margin-top: 30px;
+        font-size: 12px;
+        text-align: center;
+        width: 100%;
+        .integrity-desc {
+          margin-bottom: 5px;
+        }
       }
     }
   }

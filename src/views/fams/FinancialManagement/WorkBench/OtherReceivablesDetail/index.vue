@@ -1,35 +1,38 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="其他应收款"></page-header>
-      <iep-tabs v-model="activeTab" :tab-list="tabList">
-        <template v-if="activeTab ==='Bond'" v-slot:Bond>
-          <bond v-loading="activeTab !=='Bond'"></bond>
+      <page-header title="其他应收账款"></page-header>
+      <operation-container>
+        <template slot="right">
+          <operation-search @search-page="searchPage" prop="projectName">
+          </operation-search>
         </template>
-        <template v-if="activeTab ==='Rent'" v-slot:Rent>
-          <rent v-loading="activeTab !=='Rent'"></rent>
-        </template>
-      </iep-tabs>
+      </operation-container>
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      </iep-table>
     </basic-container>
   </div>
 </template>
+
 <script>
-import Bond from './Bond/'
-import Rent from './Rent/'
+import { getExpenditurePage } from '@/api/fams/expenditure'
+import mixins from '@/mixins/mixins'
+import { columnsMap, dictsMap } from '../../EManagement/options'
 export default {
-  components: { Bond, Rent },
+  mixins: [mixins],
   data () {
     return {
-      // replaceText: (data) => `（本周新增${data[0]}条招聘信息，收到${data[1]}份简历）`,
-      tabList: [{
-        label: '保证金',
-        value: 'Bond',
-      }, {
-        label: '房租押金',
-        value: 'Rent',
-      }],
-      activeTab: 'Bond',
+      dictsMap,
+      columnsMap,
     }
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    loadPage (param = this.searchParam) {
+      this.loadTable(param, getExpenditurePage)
+    },
   },
 }
 </script>

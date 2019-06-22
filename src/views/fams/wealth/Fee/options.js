@@ -6,6 +6,12 @@ const dictsMap = {
     '0': '库存现金',
     '1': '银行存款',
   },
+  processStatus: {
+    0: '待审核',
+    1: '通过',
+    2: '驳回',
+    3: '转交',
+  },
   status: feeStatus,
 }
 function initTableForm () {
@@ -33,9 +39,11 @@ function initForm () {
     costFile: '',
     ccOrgId: '',
     orgName: '',
+    ccOrgName: '',
     companyId: '',
     ccCompanyId: '',
     companyName: '',
+    ccCompanyName: '',
     protocolId: '',
     protocolName: '',
     projectId: '',

@@ -92,7 +92,7 @@
                 <iep-img-avatar :src="process.avatar"></iep-img-avatar>
                 {{process.name}}
                 <span style="color: #aaa; font-size: 14px;">{{process.identityMarks.join(',')}}</span>
-                <span>{{dictsMap.status[process.status]}}</span>
+                <span>{{dictsMap.processStatus[process.status]}}</span>
               </div>
               <br>
               <div>备注：
@@ -113,7 +113,7 @@
           </el-form-item>
 
           <el-form-item label="支出公司：" class="form-half">
-            <iep-select v-model="flowForm.companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择收入公司" disabled></iep-select>
+            <iep-div-detail :value="form.ccCompanyName"></iep-div-detail>
           </el-form-item>
 
           <el-form-item v-if="!bankAmountOption.disabled" label="支出账户：" prop="bankId" class="form-half">

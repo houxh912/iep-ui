@@ -7,7 +7,7 @@
         <div>
           <div v-if="row.list.length !== 0" class="person-list">
             <div class="person" v-for="(item, index1) in row.list" :key="index1">
-              <div class="img">
+              <div class="img" @click="$openPage(`/app/personal_style/${item.id}`)">
                 <iep-img :src="item.avatar" alt=""></iep-img>
                 <div class="shifu" v-if="item.show">师</div>
               </div>
@@ -68,7 +68,7 @@ export default {
         this.isShow = !this.isShow
     },
     loadRelation (id) {
-      getproductMentors(id).then(({data}) => {
+      getproductMentors(id).then(({ data }) => {
         for (let item of data.data.masters) {
           item.show = true
         }

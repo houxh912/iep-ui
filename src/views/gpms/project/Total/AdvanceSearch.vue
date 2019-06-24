@@ -20,7 +20,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="项目经理">
-        <el-input v-model="form.projectManager"></el-input>
+        <el-input v-model="form. manager"></el-input>
       </el-form-item>
       <el-form-item label="">
         <el-button type="primary" @click="searchPage" size="mini">搜索</el-button>

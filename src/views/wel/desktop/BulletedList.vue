@@ -2,32 +2,28 @@
   <div class="bulleted-list">
     <IepAppTabCard :title="title" :linkName="linkName" isMore>
       <div class="bulleted-item" v-for="(item,index) in dataList" :key="index">
-        <span class="sub-item">{{item.typeName}}</span>
-        <el-progress :percentage="item.percentage" status="success" class="right"></el-progress>
+        <span class="sub-item">{{item.project_name}}</span>
       </div>
     </IepAppTabCard>
   </div>
 </template>
 
 <script>
+import {getProjectRecProjects} from '@/api/app/prms/'
 export default {
   data () {
     return {
       title: '项目列表',
       linkName: '',
       dataList: [
-        { typeName: '--', percentage: 0 },
-        { typeName: '--', percentage: 0 },
-        { typeName: '--', percentage: 0 },
-        { typeName: '--', percentage: 0 },
-        { typeName: '--', percentage: 0 },
-        { typeName: '--', percentage: 0 },
-        { typeName: '--', percentage: 0 },
       ],
     }
   },
   created () {
     this.linkName = '/wel/budget_list_detail'
+     getProjectRecProjects().then(({data}) => {
+      this.dataList = data.data.list
+    })
   },
 }
 </script>
@@ -48,29 +44,9 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  .right {
-    display: inline-block;
-    width: 70px;
-  }
-}
-.bulleted-list-box {
-  position: relative;
-  .new {
-    padding: 0 3px;
-    height: 20px;
-    line-height: 18px;
-    font-size: 12px;
-    background-color: #fff;
-    border-radius: 3px;
-    border: 1px solid #cb3737;
-    color: #cb3737;
-    position: absolute;
-    right: 0;
-    top: 7px;
-  }
-  .assort .piece {
-    padding-right: 40px;
+    &:hover{
+      color: #cb3737;
+    }
   }
 }
 .bulleted-list .el-card {

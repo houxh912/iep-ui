@@ -45,20 +45,12 @@ const columnsMap = [
 		label:'开票金额',
 	},
 ]
-function pageOption () {
-  return {
-    current: 2,
-    size: 5,
-  }
-}
 export default {
   mixins: [mixins],
   data () {
     return {
       columnsMap,
       userId: '',
-      pagination: pageOption(),
-      pageOption: pageOption(),
     }
   },
   created () {

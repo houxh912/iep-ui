@@ -13,12 +13,6 @@
 <script>
 import { getPostLibraryPage } from '@/api/hrms/post_library'
 import mixins from '@/mixins/mixins'
-function pageOption () {
-  return {
-    current: 2,
-    size: 5,
-  }
-}
 const columnsMap = [
 	{
 		prop: 'name',
@@ -43,8 +37,6 @@ export default {
         flexDirection: 'column',
         justifyContent: 'space-around',
       },
-      pagination: pageOption(),
-      pageOption: pageOption(),
     }
   },
   created () {

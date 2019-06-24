@@ -15,13 +15,13 @@
           ></iep-select>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
-            <advance-search @search-page="searchPage"></advance-search>
+          <operation-search @search-page="searchPage">
+            <!-- <advance-search @search-page="searchPage"></advance-search> -->
           </operation-search>
         </template>
       </operation-container>
       <iep-table
-        :isLoadTable="false"
+        :isLoadTable="isLoadTable"
         :columnsMap="columnsMap"
         :pagination="pagination"
         :pagedTable="pagedTable"
@@ -47,6 +47,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex'
 import mixins from '@/mixins/mixins'
+import { getProjectList } from '@/api/gpms/index'
 const columnsMap = [
   {
     prop: 'projectName',
@@ -87,6 +88,11 @@ export default {
     }),
     isAbled () {
       return this.userInfo.userId === 1 || this.userInfo.userId === 2 || this.userInfo.userId === 3 || this.userInfo.userId === 451
+    },
+  },
+  methods: {
+    loadPage (param = {}) {
+      this.loadTable(Object.assign({}, param, this.searchForm), getProjectList)
     },
   },
 }

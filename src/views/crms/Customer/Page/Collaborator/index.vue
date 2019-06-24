@@ -15,7 +15,6 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { AddCollaborator } from '@/api/crms/customer'
-// import { fetchList } from '@/api/admin/user'
 export default {
   name: 'collaborator',
   mixins: [mixins],
@@ -29,7 +28,7 @@ export default {
     return {
       user: [],
       dialogShow: false,
-      data: {
+      Data: {
         clientId: '',
         userId: [],
       },
@@ -41,11 +40,12 @@ export default {
       this.user = []
     },
     submitForm () {
-      var that = this
-      this.user.forEach(function (val) {
-        that.data.userId.push(val.id)
-      })
-      AddCollaborator(this.data).then(res => {
+      for (let i = 0; i < this.user.length; i++) {
+        this.Data.userId.push(this.user[i].id)
+      }
+      let array = Array.from(new Set(this.Data.userId))
+      this.Data.userId = array
+      AddCollaborator(this.Data).then(res => {
         if (res.data.data) {
           this.$message.success('添加协作人成功！')
           this.dialogShow = false

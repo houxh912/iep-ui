@@ -261,14 +261,8 @@ export default {
     },
     //添加协作人
     handleCooperation (row) {
-      // if (this.ids.length == 0) {
-      //   this.$message('请勾选需要添加协作人的客户')
-      // } else if (this.ids.length == 1) {
-      this.$refs['collaborator'].data.clientId = row.clientId
+      this.$refs['collaborator'].Data.clientId = row.clientId
       this.$refs['collaborator'].dialogShow = true
-      // } else {
-      //   this.$message('一次只能添加一名协作人')
-      // }
     },
     //转移
     Transfer (val) {

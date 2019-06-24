@@ -157,3 +157,14 @@ export function  sendResultById (params) {
     data: params,
   })
 }
+
+/**
+ * 一键零分
+ */
+export function setZeroAll (params) {
+  return request({
+    url: '/exms/grade/tozero',
+    method: 'post',
+    params: params,
+  })
+}

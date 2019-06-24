@@ -5,7 +5,9 @@
       <span class="title2"></span>
       <span class="title3">{{resdata.fieldName}}</span>
       <span class="title4">
-        评分进度<span class="title5">{{count}}</span> / {{resdata.questionTotalNum}}</span>
+        评分进度<span class="title5">{{count}}</span> / {{resdata.questionTotalNum}}
+      </span>
+      <iep-button class="button" @click="giveZero">一键零分</iep-button>
     </div>
 
     <div class="examShowss" style="background-color:#fff">
@@ -29,8 +31,7 @@
 
           <div>
             <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
-              <el-input type="textarea" v-model="userByAnswer" style="width: 80%;margin-top:10px"
-                :rows="6" :disabled="disabled" @focus="inputClose"></el-input>
+              <el-input type="textarea" v-model="userByAnswer" style="width: 80%;margin-top:10px" :rows="6" :disabled="disabled" @focus="inputClose"></el-input>
             </li>
             <div class="setScore">
               <el-form :model="ruleForm" :rules="rules" ref="form" label-width="100px">
@@ -66,8 +67,7 @@
             <span class="titlefour">{{resdata.single}}</span>
           </div>
 
-          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="160px" :data="chartData"
-            :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
+          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="160px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
 
           <div class="card">
             <!-- <div v-if="resdata.textMap.length > 0">
@@ -80,8 +80,7 @@
             <div v-if="resdata.textMap.length > 0">
               <span class="answerSheet">简答题</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index"
-                  @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
               </div><br>
             </div>
 
@@ -99,7 +98,7 @@
   </div>
 </template>
 <script>
-import { passWrittenById } from '@/api/exam/examLibrary/examReading/examReading'
+import { passWrittenById, setZeroAll } from '@/api/exam/examLibrary/examReading/examReading'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -199,7 +198,7 @@ export default {
         }
       }
       if (type === '简答题') {
-        if (this.ruleForm.single > 0) {
+        if (this.ruleForm.single >= 0) {
           params.score = this.ruleForm.single
           params.judgeId = this.formData.judgeId
         } else {
@@ -253,6 +252,32 @@ export default {
     inputClose (e) {
       this.disabled = true
       console.log(e)
+    },
+
+    /**
+     *一键零分
+     */
+    giveZero () {
+      const params = {
+        examId: this.formData.examId,
+      }
+      this.$confirm('此操作将一键设置为零分, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        setZeroAll(params).then(res => {
+          this.$message({
+            type: 'success',
+            message: res.data.msg,
+          })
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消设置',
+        })
+      })
     },
 
     /**
@@ -411,6 +436,12 @@ export default {
       color: rgb(65, 153, 248);
       margin-left: 15px;
     }
+  }
+  .button {
+    margin-left: 50px;
+    background: #f8e8e9;
+    border-color: #e3a4a6;
+    color: #ba1b21;
   }
 }
 .examShowss {

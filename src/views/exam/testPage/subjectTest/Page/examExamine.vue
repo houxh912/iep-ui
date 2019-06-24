@@ -269,8 +269,10 @@ export default {
       if (resultInfo) {
         this.performanceInfor = resultInfo
         this.checkboxMap = resultInfo.result.checkboxMap.map(function (item) {
-          const checkUserAnswer = JSON.parse(item.userAnswer)
-          item.userAnswer = checkUserAnswer
+          if (item.userAnswer) {
+            const checkUserAnswer = JSON.parse(item.userAnswer)
+            item.userAnswer = checkUserAnswer
+          }
           if (item.itemOptions) {
             const checkitemOptions = JSON.parse(item.itemOptions)
             item.itemOptions = checkitemOptions

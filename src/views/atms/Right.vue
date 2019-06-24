@@ -53,11 +53,13 @@ export default {
     margin-right: 15px;
     width: 60px;
     height: 60px;
+    border-radius: 50%;
     border: 1px solid #ebeef5;
     overflow: hidden;
     img {
       width: 100%;
       height: 100%;
+      border-radius: 50%;
       transition: 0.5s;
       &:hover {
         transform: scale(1.1);

@@ -90,8 +90,10 @@ export default {
       this.form.duration = hours + '小时' + minutes + '分钟'
     },
     startChange (val) {
-      this.form.startTime = val
-      this.dealTime(val, this.form.endTime)
+      if (this.form.endTime) {
+        this.form.startTime = val
+        this.dealTime(val, this.form.endTime)
+      }
     },
     endChange (val) {
       this.form.endTime = val

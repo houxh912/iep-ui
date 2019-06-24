@@ -1,6 +1,4 @@
-// org config options
-const dictsMap = {
-}
+import { checkContactUsers } from '@/util/rules'
 
 const columnsMap = []
 
@@ -70,7 +68,7 @@ const initSearchForm = () => {
 
 const rules = {
   imageUrl: [
-    { required: true, message: '请上传图片', trigger: 'blur' },
+    { required: true, message: '请上传图片', trigger: 'change' },
   ],
   number: [
     { required: true, message: '请填写产品编号', trigger: 'blur' },
@@ -101,8 +99,8 @@ const rules = {
     { required: true, message: '请填写产品介绍', trigger: 'blur' },
   ],
   userRelationCharges: [
-    { required: true, type: 'array', message: '请填写负责人', trigger: 'blur' },
+    { required: true, validator: checkContactUsers('负责人'), trigger: 'blur' },
   ],
 }
 
-export { dictsMap, columnsMap, Column, initForm, toDtoForm, initSearchForm, rules }
+export { columnsMap, Column, initForm, toDtoForm, initSearchForm, rules }

@@ -7,7 +7,7 @@
       <span class="title4">
         评分进度<span class="title5">{{count}}</span> / {{resdata.questionTotalNum}}
       </span>
-      <iep-button class="button">一键零分</iep-button>
+      <iep-button class="button" @click="giveZero">一键零分</iep-button>
     </div>
 
     <div class="examShowss" style="background-color:#fff">
@@ -98,7 +98,7 @@
   </div>
 </template>
 <script>
-import { passWrittenById } from '@/api/exam/examLibrary/examReading/examReading'
+import { passWrittenById, setZeroAll } from '@/api/exam/examLibrary/examReading/examReading'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -252,6 +252,32 @@ export default {
     inputClose (e) {
       this.disabled = true
       console.log(e)
+    },
+
+    /**
+     *一键零分
+     */
+    giveZero () {
+      const params = {
+        examId: this.formData.examId,
+      }
+      this.$confirm('此操作将一键设置为零分, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        setZeroAll(params).then(res => {
+          this.$message({
+            type: 'success',
+            message: res.data.msg,
+          })
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消设置',
+        })
+      })
     },
 
     /**
@@ -413,9 +439,9 @@ export default {
   }
   .button {
     margin-left: 50px;
-    background: #ba1b21;
-    border-color: #ba1b21;
-    color: #fff;
+    background: #f8e8e9;
+    border-color: #e3a4a6;
+    color: #ba1b21;
   }
 }
 .examShowss {

@@ -4,8 +4,11 @@
       <el-form-item label="项目名称">
         <el-input v-model="form.projectName"></el-input>
       </el-form-item>
-      <el-form-item label="项目阶段">
+      <!-- <el-form-item label="项目阶段">
         <iep-dict-select v-model="form.projectLevel" dict-name="prms_project_stage" style="width: 100%"></iep-dict-select>
+      </el-form-item> -->
+      <el-form-item label="所属组织">
+        <iep-select v-model="form.orgId" prefix-url="admin/org/all" style="width: 100%"></iep-select>
       </el-form-item>
       <el-form-item label="项目等级">
         <iep-dict-select v-model="form.projectLevel" dict-name="prms_project_level" style="width: 100%"></iep-dict-select>
@@ -30,7 +33,7 @@
 import { initSearchForm,dictMap,rules} from './const'
 // import { getContactAssociate } from '@/api/crms/contact'
 // import { getPageData } from '@/api/crms/customer'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -40,12 +43,17 @@ export default {
       isLoading: true,
       dictMap,
       rules,
+      orgId: '',
     }
   },
   computed: {
     ...mapGetters([
       'userInfo',
+      'dictGroup',
     ]),
+    ...mapState({
+      orgId: state => state.user.userInfo.orgIds,
+    }),
   },
   // mounted () {
   //   this.restaurants = this.loadAll()

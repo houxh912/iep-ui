@@ -26,6 +26,9 @@ export default {
       ],
     }
   },
+  created () {
+    this.linkName = '/wel/budget_list_detail'
+  },
 }
 </script>
 

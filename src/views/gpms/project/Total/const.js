@@ -196,6 +196,7 @@ export const relatedFormList = [{
 export const initSearchForm = () => {
   return {
     projectName: '',//项目名称
+    orgId:'',//所属组织
     projectStage: [],//项目阶段
     projectLevel: [],//项目等级
     associatedProducts: false,//是否项目关联

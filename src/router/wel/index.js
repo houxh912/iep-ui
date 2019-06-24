@@ -86,6 +86,11 @@ export default [
         component: () => import('@/views/wel/desktop/OriganazeReport/index'),     
       },
       {
+        path:'budget_list_detail',
+        name:'项目列表',
+        component: () => import('@/views/wel/desktop/BudgetListDetail'),     
+      },
+      {
         path:'relationship_manage',
         name:'关系管理',
         component: () => import('@/views/wel/RelationshipManage/index'),     

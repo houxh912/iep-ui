@@ -180,6 +180,12 @@ export default {
   computed: {
     ...mapGetters(['permissions']),
   },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
   data () {
     return {
       examine: {},//审核
@@ -213,7 +219,20 @@ export default {
     }
   },
   created () {
-    this.loadPage()
+    /**
+     * 当没点击查看或修改
+     */
+    if (!this.record) {
+      this.loadPage()
+    }
+    /**
+     * 当点击查看或修改后返回
+     */
+    if (this.record) {
+      this.pageOption.current = this.record.current
+      this.pageOption.size = this.record.size
+      this.loadTable({ ...this.pageOption }, getTestList)
+    }
     this.getTestOption()
     this.exam_question_add = this.permissions['exam_question_add']
     this.exam_question_edit = this.permissions['exam_question_edit']
@@ -268,6 +287,8 @@ export default {
         methodName: '查看',
         id: row.id,
         edit: true,
+        current: this.pageOption.current,
+        size: this.pageOption.size,
       })
     },
     /**
@@ -278,6 +299,8 @@ export default {
         methodName: '修改',
         id: rows.id,
         edit: false,
+        current: this.pageOption.current,
+        size: this.pageOption.size,
       })
       // this.dialogModify = true
       // const param ={

@@ -1,35 +1,35 @@
 <template>
   <div class="report">
     <page-header :title="`${record.methodName}试题`" :data="[10, 5]" :backOption="backOption"></page-header>
-    <el-form :model="form" ref="form" label-width="110px" :rules="rules">
+    <el-form :model="form" ref="form" label-width="120px" :rules="rules">
       <div class="select">
         <el-form-item class="item" label="题型：" prop="questionType">
           <el-select v-model="form.questionType" size="small" clearable @change="handleChangeQuestionType"
-            :disabled="questionTypeDisabled">
+            :disabled="questionTypeDisabled" class="selectItem">
             <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="难度：" prop="difficulty" style="margin-left:20%;">
-          <el-select v-model="form.difficulty" size="small" clearable :disabled="btnDisabled">
+          <el-select v-model="form.difficulty" size="small" clearable :disabled="btnDisabled" class="selectItem">
             <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="科目：" prop="field">
-          <el-select v-model="form.field" size="small" clearable :disabled="btnDisabled">
+          <el-select v-model="form.field" size="small" clearable :disabled="btnDisabled" class="selectItem">
             <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="题类：" prop="kind" style="margin-left:20%;">
-          <el-select v-model="form.kind" size="small" clearable :disabled="btnDisabled">
+          <el-select v-model="form.kind" size="small" clearable :disabled="btnDisabled" class="selectItem">
             <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="关联：" prop="associatedState">
-          <el-select v-model="form.associatedState" size="small" clearable :disabled="btnDisabled">
+          <el-select v-model="form.associatedState" size="small" clearable :disabled="btnDisabled" class="selectItem">
             <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
@@ -140,7 +140,7 @@ export default {
     }
   },
   created () {
-    this.getTestOption()
+    this.getTestOption ()
   },
   watch: {
     res: function () {
@@ -211,7 +211,10 @@ export default {
      * 返回
      */
     handleGoBack () {
-      this.$emit('onGoBack')
+      this.$emit('onGoBack',{
+        current: this.record.current,
+        size: this.record.size,
+      })
     },
     /**
      * 修改保存试题
@@ -317,7 +320,12 @@ export default {
 </style>
 <style scoped>
 .select >>> .el-input .el-select__caret {
-  line-height: 2.9;
+  line-height: 32px;
+}
+.selectItem {
+  height: 32px;
+  width: 100%;
+  line-height: 32px;
 }
 .relatedTag {
   margin-right: 10px;

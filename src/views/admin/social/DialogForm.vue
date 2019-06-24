@@ -26,7 +26,7 @@
   </iep-dialog>
 </template>
 <script>
-import { initMemberForm } from './options'
+import { initForm } from './options'
 export default {
   props: {
     loadImage: {
@@ -39,14 +39,14 @@ export default {
       disabled: false,
       formRequestFn: () => { },
       methodName: '创建',
-      form: initMemberForm(),
+      form: initForm(),
     }
   },
   computed: {
   },
   methods: {
     loadPage () {
-      this.form = initMemberForm()
+      this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },

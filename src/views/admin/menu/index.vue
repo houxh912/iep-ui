@@ -3,11 +3,11 @@
     <basic-container>
       <div class="filter-container">
         <el-button-group>
-          <el-button type="primary" v-if="menuManager_btn_add" icon="plus" @click="handlerAdd">添加
+          <el-button type="primary" v-if="sys_menu_add" icon="plus" @click="handlerAdd">添加
           </el-button>
-          <el-button type="primary" v-if="menuManager_btn_edit" icon="edit" @click="handlerEdit">编辑
+          <el-button type="primary" v-if="sys_menu_edit" icon="edit" @click="handlerEdit">编辑
           </el-button>
-          <el-button type="primary" v-if="menuManager_btn_del" icon="delete" @click="handleDelete">删除
+          <el-button type="primary" v-if="sys_menu_del" icon="delete" @click="handleDelete">删除
           </el-button>
         </el-button-group>
       </div>
@@ -124,9 +124,9 @@ export default {
         path: undefined,
       },
       currentId: -1,
-      menuManager_btn_add: false,
-      menuManager_btn_edit: false,
-      menuManager_btn_del: false,
+      sys_menu_add: false,
+      sys_menu_edit: false,
+      sys_menu_del: false,
     }
   },
   filters: {
@@ -141,9 +141,9 @@ export default {
   },
   created () {
     this.getList()
-    this.menuManager_btn_add = this.permissions['sys_menu_add']
-    this.menuManager_btn_edit = this.permissions['sys_menu_edit']
-    this.menuManager_btn_del = this.permissions['sys_menu_del']
+    this.sys_menu_add = this.permissions['sys_menu_add']
+    this.sys_menu_edit = this.permissions['sys_menu_edit']
+    this.sys_menu_del = this.permissions['sys_menu_del']
   },
   computed: {
     ...mapGetters(['permissions']),

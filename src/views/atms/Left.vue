@@ -1,15 +1,15 @@
 <template>
   <div class="detail-left iep-page-form">
-    <page-header :title="`${methodName}`" :backOption="backOption"></page-header>
+    <page-header :title="`${form.taskName}`" :backOption="backOption"></page-header>
     <div class="sub">
-      <span>所属任务：{{subTitle}}</span>
+      <span>所属任务：{{ownTask}}</span>
       <span class="opt">
         <span><i class="iconfont icon-xingxing"></i>关注<span><i class="iconfont icon-xitongguanli"></i>任务菜单</span></span>
       </span>
     </div>
     <el-form :model="form" ref="form" label-width="200px" class="form form-detail">
       <el-form-item label="状态：" class="form-half">
-        <span>{{form.state}}</span>
+        <span>{{form.taskStatus}}</span>
       </el-form-item>
       <el-form-item label="优先级：" class="form-half">
         <span>{{form.priority}}</span>
@@ -27,10 +27,10 @@
         </span>
       </el-form-item>
       <el-form-item label="起止时间：">
-        <span>{{form.startEndTime}}</span>
+        <span>{{form.implementRangeTime}}</span>
       </el-form-item>
-      <iep-form-item prop="learningTag" label-name="标签" tip="请输入不少于3个标签">
-        <iep-tag v-model="form.learningTag"></iep-tag>
+      <iep-form-item prop="sign" label-name="标签" tip="请输入不少于3个标签">
+        <iep-tag v-model="form.sign"></iep-tag>
       </iep-form-item>
       <el-form-item label="备注：">
         <span>{{form.remarks}}</span>
@@ -40,8 +40,8 @@
           <i class="button el-icon-plus"></i>
         </el-upload>
       </el-form-item>
-      <el-form-item label="附件：" prop="enclosure">
-        <iep-upload v-model="form.enclosure" :limit="limit"></iep-upload>
+      <el-form-item label="附件：" prop="attach">
+        <iep-upload v-model="form.attach" :limit="limit"></iep-upload>
       </el-form-item>
       <el-form-item label="关联内容：" prop="subtasks">
         <el-upload class="upload-demo" action="">
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import { getAtmsById } from '@/api/atms/index'
 import { initForm, rules } from './options.js'
 export default {
   data () {
@@ -69,7 +70,23 @@ export default {
       form: initForm(),
       rules,
       limit:1,
+      id: this.$route.params.id,
     }
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    close () {
+      this.$router.history.go(-1)
+    },
+    loadPage () {
+      this.pageLoading = true
+      getAtmsById(this.id).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
+        this.pageLoading = false
+      })
+    },
   },
 }
 </script>

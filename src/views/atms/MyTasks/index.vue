@@ -27,8 +27,13 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
+          <el-table-column label="任务名称" width="300px">
+            <template slot-scope="scope">
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+            </template>
+          </el-table-column>
         </template>
         <el-table-column prop="operation" label="操作" width="260">
           <template>
@@ -53,6 +58,7 @@
   </div>
 </template>
 <script>
+import { getTableData } from '@/api/atms/index'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
 export default {
@@ -82,12 +88,24 @@ export default {
       ],
     }
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getTableData)
+    },
     handleSelectionChange () {
     },
     handleAdd () {
+      this.$router.push({
+        path:'/atms/add',
+      })
     },
-    handleDetail () {
+    handleDetail (row) {
+      this.$router.push({
+        path:`/atms/details/${row.id}`,
+      })
     },
     // loadPage (param = this.searchForm) {
     //   this.loadTable(param, getAlreadyApprovalPage)

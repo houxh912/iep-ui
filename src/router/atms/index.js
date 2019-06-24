@@ -1,4 +1,4 @@
-import Layout from '@/page/index/index'
+import Layout from '@/page/index'
 export default [
   {
     path: '/atms',
@@ -11,7 +11,7 @@ export default [
         component: () => import('@/views/atms/add'),
       },
       {
-        path: 'details',
+        path: 'details/:id',
         name: '任务详情',
         component: () => import('@/views/atms/details'),
       },

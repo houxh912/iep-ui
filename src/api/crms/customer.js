@@ -100,3 +100,11 @@ export function getPageData (query) {
     params: query,
   })
 }
+// 认领客户
+export function getToclaimHighseas (query) {
+  return request({
+    url: `${prefixUrl}/toclaim/highseas`,
+    method: 'get',
+    params: query,
+  })
+}

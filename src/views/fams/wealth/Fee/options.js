@@ -121,7 +121,7 @@ const rules = {
     { required: true, message: '请选择代缴公司', trigger: 'blur' },
   ],
   costFile: [
-    { required: true, message: '请上传附件', trigger: 'blur' },
+    { required: false, message: '请上传附件', trigger: 'blur' },
   ],
   auditor: [
     { required: true, validator: checkContactUser('部门审批人'), trigger: 'blur' },

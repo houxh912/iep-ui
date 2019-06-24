@@ -16,7 +16,7 @@
       <el-form-item label="回调地址：" prop="webServerRedirectUri" class="form-half">
         <el-input v-model="form.webServerRedirectUri"></el-input>
       </el-form-item>
-       <el-form-item label="权限：" prop="authorities" class="form-half">
+      <el-form-item label="权限：" prop="authorities" class="form-half">
         <el-input v-model="form.authorities"></el-input>
       </el-form-item>
       <el-form-item label="自动放行：" prop="autoapprove" class="form-half">
@@ -25,13 +25,13 @@
           <el-radio :label="false">否</el-radio>
         </el-radio-group>
       </el-form-item>
-       <el-form-item label="令牌时效：" prop="accessTokenValidity" class="form-half">
+      <el-form-item label="令牌时效：" prop="accessTokenValidity" class="form-half">
         <el-input v-model="form.accessTokenValidity"></el-input>
       </el-form-item>
       <el-form-item label="刷新时效：" prop="refreshTokenValidity" class="form-half">
         <el-input v-model="form.refreshTokenValidity"></el-input>
       </el-form-item>
-       <el-form-item label="扩展信息：" prop="additionalInformation" class="form-half">
+      <el-form-item label="扩展信息：" prop="additionalInformation" class="form-half">
         <el-input v-model="form.additionalInformation"></el-input>
       </el-form-item>
       <el-form-item label="资源ID：" prop="resourceIds" class="form-half">
@@ -47,7 +47,7 @@
   </iep-dialog>
 </template>
 <script>
-import { initMemberForm, rules } from './options'
+import { initForm, rules } from './options'
 export default {
   props: {
     loadImage: {
@@ -61,7 +61,7 @@ export default {
       disEdit: false,
       formRequestFn: () => { },
       methodName: '创建',
-      form: initMemberForm(),
+      form: initForm(),
       rules,
     }
   },
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     loadPage () {
-      this.form = initMemberForm()
+      this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },

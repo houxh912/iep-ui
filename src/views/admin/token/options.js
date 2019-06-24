@@ -29,15 +29,15 @@ const columnsMap = [
   },
 ]
 
-const initMemberForm = () => {
+const initForm = () => {
   return {
-    token: '12771a33-1b37-4376-a19b-23',
+    access_token: '',
     createTime: '',
-    id: '60',
-    name: 'huzhengwei',
-    type: 'bearer',
-    overTime: '23220',
+    refresh_token: '',
+    username: '',
+    token_type: '',
+    expires_in: '',
   }
 }
 
-export { columnsMap,initMemberForm }
+export { columnsMap, initForm }

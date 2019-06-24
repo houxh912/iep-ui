@@ -12,7 +12,7 @@
         <el-table-column prop="operation" label="操作" min-width="100">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" @click="handleDetails(scope.row)" plain>查看</iep-button>
+              <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -23,8 +23,9 @@
   </div>
 </template>
 <script>
-import { getUnionPage, fetchList } from '@/api/admin/token'
-import { columnsMap, initMemberForm } from './options'
+import { mapGetters } from 'vuex'
+import { fetchList } from '@/api/admin/token'
+import { columnsMap, initForm } from './options'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 export default {
@@ -33,34 +34,24 @@ export default {
   data () {
     return {
       columnsMap,
+      sys_token_del: false,
     }
   },
+  computed: {
+    ...mapGetters(['permissions']),
+  },
   created () {
+    this.sys_token_del = this.permissions['sys_token_del']
     this.loadPage()
   },
-  computed: {
-  },
   methods: {
-    handleDetails (row) {
-      this.$refs['DialogForm'].form = this.$mergeByFirst(initMemberForm(), row)
+    handleDetail (row) {
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].methodName = '查看'
-      this.$refs['DialogForm'].formRequestFn = fetchList
       this.$refs['DialogForm'].dialogShow = true
     },
     async loadPage (param = this.searchForm) {
-      await this.loadTable(param, getUnionPage)
-    },
-    /**
-     * 搜索回调
-     */
-    searchChange (form) {
-      this.getList(this.page, form)
-    },
-    /**
-     * 刷新回调
-     */
-    refreshChange () {
-      this.getList(this.page)
+      await this.loadTable(param, fetchList)
     },
   },
 }

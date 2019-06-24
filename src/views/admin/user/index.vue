@@ -4,7 +4,7 @@
       <page-header title="用户管理"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="primary" @click="handleAddUsers()" icon="el-icon-plus" plain>添加用户</iep-button>
+          <iep-button v-if="sys_user_add" type="primary" @click="handleAddUsers()" icon="el-icon-plus" plain>添加用户</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="username">
@@ -20,7 +20,7 @@
         <el-table-column prop="operation" label="操作" width="220">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
+              <iep-button v-if="sys_user_edit" type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
               <iep-button @click="handleResetPass(scope.row)" plain>重置密码</iep-button>
             </operation-wrapper>
           </template>
@@ -31,7 +31,7 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 import { dictsMap, columnsMap, initMemberForm } from './options'
@@ -45,14 +45,21 @@ export default {
     return {
       columnsMap,
       dictsMap,
+      sys_user_add: false,
+      sys_user_edit: false,
+      sys_user_del: false,
     }
   },
   computed: {
-    ...mapState({
-      userInfo: state => state.user.userInfo,
-    }),
+    ...mapGetters([
+      'userInfo',
+      'permissions',
+    ]),
   },
   created () {
+    this.sys_user_add = this.permissions['sys_user_add']
+    this.sys_user_edit = this.permissions['sys_user_edit']
+    this.sys_user_del = this.permissions['sys_user_del']
     this.loadPage()
   },
   methods: {

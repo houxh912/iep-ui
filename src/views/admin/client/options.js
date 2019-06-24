@@ -69,7 +69,7 @@ const dictsMap = {
       { message: '请输入', trigger: 'blur' },
     ],
   }
-  const initMemberForm = () => {
+  const initForm = () => {
     return {
         additionalInformation: '',
         authorities: '',
@@ -84,4 +84,4 @@ const dictsMap = {
   }
   
   
-  export { dictsMap, columnsMap, initMemberForm, rules }
+  export { dictsMap, columnsMap, initForm, rules }

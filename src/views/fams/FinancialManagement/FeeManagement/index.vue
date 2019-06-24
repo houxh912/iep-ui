@@ -61,6 +61,9 @@ export default {
     handleDetail (row) {
       this.$router.push({
         path: `/fams_spa/fee_detail/${row.costId}`,
+        query: {
+          approval: 'true',
+        },
       })
     },
     async loadPage (param = this.searchForm) {

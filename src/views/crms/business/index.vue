@@ -25,7 +25,6 @@
               <iep-button v-if="(type === '3') && scope.row.isCreate==1" disabled>已创建客户</iep-button>
               <iep-button v-if="type === '3'&&scope.row.isCreate==0" @click="handleCancel(scope.row)">取消认领</iep-button>
               <iep-button v-if="(type === '2') && scope.row.statusValue=='已认领'" v-show="scope.row.isCreate!==1" @click="handleRefuse(scope.row)">拒绝认领</iep-button>
-              <!-- <iep-button @click="click(scope.row)">详情</iep-button> -->
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -82,14 +81,6 @@ export default {
   methods: {
     handleSelectionChange () {
     },
-    // click (row) {
-    //   this.$router.push({
-    //     path: '/crms_spa/business_detail',
-    //     query: {
-    //       id: row.opportunityId,
-    //     },
-    //   })
-    // },
     changeType () {
       if (this.type == '1') {
         this.$refs.search.form = allSearchForm()

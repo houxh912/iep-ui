@@ -7,7 +7,7 @@
         <template slot="left">
           <span style="margin-right:15px;">组织：{{form.orgName}}</span>
           <span>发布人：{{form.realName}}</span>
-          <span>发布日期：{{form.updateTime|parseToDay}}</span>
+          <span>发布日期：{{form.createTime|parseToDay}}</span>
         </template>
       </operation-container>
       <div class="container">
@@ -37,7 +37,7 @@ function initForm () {
   return {
     title: '',
     orgName: '',
-    updateTime: '',
+    createTime: '',
     realName: '',
     leaderIndication: '',
     workSummary: '',

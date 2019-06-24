@@ -23,3 +23,30 @@ export function getAtmsById (id) {
     method: 'get',
   })
 }
+
+export function deleteAtmsById (id) {
+  return request({
+    url: `${prefixUrl}/delete/batch`,
+    method: 'post',
+    data: [id],
+  })
+}
+
+export function changeAtmsStatus (ids, status) {
+  return request({
+    url: `${prefixUrl}/status/batch`,
+    method: 'post',
+    data: {
+      ids,
+      status,
+    },
+  })
+}
+
+export function transferPrincipal (obj) {
+  return request({
+    url: `${prefixUrl}/deliver`,
+    method: 'post',
+    data: obj,
+  })
+}

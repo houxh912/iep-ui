@@ -36,20 +36,19 @@
           </el-table-column>
         </template>
         <el-table-column prop="operation" label="操作" width="260">
-          <template>
+          <template slot-scope="scope">
             <operation-wrapper>
               <iep-button>关注</iep-button>
               <iep-button type="warning" plain>已关注</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="warning" plain>
-                  <!-- {{dictsMap.status[scope.row.status]}}<i class="el-icon-arrow-down el-icon--right"></i> -->
-                  <i class="el-icon-arrow-down el-icon--right"></i>
+                  {{dictsMap.status[scope.row.status]}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <!-- <el-dropdown-item v-for="(s,i) in dictsMap.status" :key="i" v-if="+i !== scope.row.status" @click.native="handleChangeStatus([scope.row.id], i)">{{s}}</el-dropdown-item> -->
-                  <el-dropdown-item v-for="(s,i) in dictsMap.status" :key="i">{{s}}</el-dropdown-item>
+                  <el-dropdown-item v-for="(s,i) in dictsMap.status" :key="i" @click.native="handleChangeStatus([scope.row.id], i)">{{s}}</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
+              <iep-button @click.native="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -58,7 +57,7 @@
   </div>
 </template>
 <script>
-import { getTableData } from '@/api/atms/index'
+import { getTableData, deleteAtmsById, changeAtmsStatus } from '@/api/atms/index'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
 export default {
@@ -107,9 +106,14 @@ export default {
         path:`/atms/details/${row.id}`,
       })
     },
-    // loadPage (param = this.searchForm) {
-    //   this.loadTable(param, getAlreadyApprovalPage)
-    // },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deleteAtmsById)
+    },
+    handleChangeStatus (ids, status) {
+      changeAtmsStatus(ids, status).then(() => {
+        this.loadPage()
+      })
+    },
   },
 }
 </script>

@@ -14,32 +14,28 @@ const dictsMap = {
 const initForm = () => {
     return {
         taskName: '',
-        ownTask:[],
+        parentName:'',
         taskStatus: '',//任务状态
         priority: '',//优先级 
-        synergist: {//协同人
-            orgs: [],
-            users: [],
-            unions: [],
-            img:'',
-        },
-        executor: {//执行人
-            orgs: [],
-            users: [],
-            unions: [],
-            img:'',
-        },
-        implementRangeTime:'',//起止时间
-        sign: [],//标签
+        executors: [],//协同人
+        assistants: [],//执行人,
+        startTime:'',//起止时间
+        tagKeyWords: [],//标签
         remarks:'',//备注
-        enclosure: [],//附件
-        links: '',//关联内容
+        attach: [],//附件
+        materials: '',//关联内容
+        records:[],
+    }
+}
+const initTransferForm = () => {
+    return {
+        principal:{id:'',name:''},
     }
 }
 const formToDto = (form) => {
   const newForm = mergeByFirst(initForm(), form)
-  newForm.assistantIds = form.synergist.users.map(m=>m.id)
-  newForm.executorIds = form.executor.users.map(m=>m.id)
+  newForm.executorIds = form.executors.map(m=>m.id)
+  newForm.assistantIds = form.assistants.map(m=>m.id)
   return newForm
 }
 const rules = {
@@ -74,4 +70,4 @@ const rules = {
         { required: true, message: '请输入', trigger: 'blur' },
     ],
 }
-export { initForm, rules, dictsMap, formToDto }
+export { initForm, rules, dictsMap, formToDto, initTransferForm }

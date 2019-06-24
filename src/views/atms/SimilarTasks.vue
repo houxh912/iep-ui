@@ -2,7 +2,9 @@
   <div>
     <el-collapse v-model="activeNames" @change="handleChange" v-for="(similarTasks,index) in similarTasksList" :key="index">
       <el-collapse-item :title="similarTasks.title" name="1">
-        <IepAppListCard :dataList="dataList" @click="handleDetail"></IepAppListCard>
+        <div v-for="(item,index) in dataList" :key="index" class="piece" @click="handleDetail(item)">
+          {{item}}
+        </div>
       </el-collapse-item>
     </el-collapse>
   </div>

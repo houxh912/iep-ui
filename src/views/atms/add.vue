@@ -7,8 +7,8 @@
           <el-input v-model="form.taskName" placeholder="请填写任务名称"></el-input>
         </el-form-item>
 
-        <el-form-item label='所属任务' prop="ownTask" class="form-half">
-          <iep-dict-select v-model="form.ownTask" dict-name="prms_project_level"></iep-dict-select>
+        <el-form-item label='所属任务' prop="parentName" class="form-half">
+          <iep-dict-select v-model="form.parentName" dict-name="prms_project_level"></iep-dict-select>
         </el-form-item>
 
         <el-form-item label='状态' prop="taskStatus" class="form-half">
@@ -19,12 +19,12 @@
           <iep-dict-select v-model="form.priority" placeholder="普通" dict-name="atms_task_priority"></iep-dict-select>
         </el-form-item>
 
-        <el-form-item label='协同人' prop="synergist">
-          <iep-contact-multiple v-model="form.synergist"></iep-contact-multiple>
+        <el-form-item label='协同人' prop="executors">
+          <iep-contact-multiple-user v-model="form.executors"></iep-contact-multiple-user>
         </el-form-item>
         
-        <el-form-item label='执行人' prop="executor">
-          <iep-contact-multiple v-model="form.executor"></iep-contact-multiple>
+        <el-form-item label='执行人' prop="assistants">
+          <iep-contact-multiple-user v-model="form.assistants"></iep-contact-multiple-user>
         </el-form-item>
 
         <el-form-item label='起止时间' prop="implementRangeTime" class="form-half">
@@ -32,8 +32,8 @@
               </iep-date-picker>
         </el-form-item>
 
-        <el-form-item label='标签' prop="sign">
-          <iep-tag v-model="form.sign"></iep-tag>
+        <el-form-item label='标签' prop="tagKeyWords">
+          <iep-tag v-model="form.tagKeyWords"></iep-tag>
         </el-form-item>
 
         <el-form-item label='备注' prop="remarks">
@@ -44,8 +44,8 @@
           <iep-upload v-model="form.attach" :limit="limit"></iep-upload>
         </el-form-item>
 
-        <el-form-item label='关联内容' prop="links">
-          <el-input v-model="form.links"></el-input>
+        <el-form-item label='关联内容' prop="materials">
+          <el-input v-model="form.materials"></el-input>
         </el-form-item>
       </el-form>
       <footer-tool-bar>

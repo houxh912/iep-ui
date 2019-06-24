@@ -2,7 +2,8 @@
   <div class="detail-left iep-page-form">
     <page-header :title="`${form.taskName}`" :backOption="backOption"></page-header>
     <div class="sub">
-      <span>所属任务：{{ownTask}}</span>
+      <span v-if='!form.parentName'>所属任务：无</span>
+      <span v-else>所属任务：{{form.parentName}}</span>
       <span class="opt">
         <span><i class="iconfont icon-xingxing"></i>关注</span><span><i class="iconfont icon-xitongguanli"></i>任务菜单</span>
       </span>
@@ -15,39 +16,38 @@
         <iep-dict-detail :value="form.priority" dict-name="atms_task_priority"></iep-dict-detail>
       </el-form-item>
       <el-form-item label="协同人：" class="form-half">
-        <span>
-          <img class="img" :src="form.img" alt="">
-          {{form.executor.users}}
+        <span v-for="(e,i) in form.executors" :key="i" class="people">
+          <img class="img" :src="e.headImg" alt="">
+          {{e.realName}}
         </span>
       </el-form-item>
       <el-form-item label="执行人：" class="form-half">
-        <span>
-          <img class="img" :src="form.img" alt="">
-          {{form.synergist.users}}
+        <span v-for="(a,i) in form.assistants" :key="i" class="people">
+          <img class="img" :src="a.headImg" alt="">
+          {{a.realName}}
         </span>
       </el-form-item>
       <el-form-item label="起止时间：">
-        <span>{{form.implementRangeTime}}</span>
+        <span>{{form.startTime}}</span>
       </el-form-item>
-      <iep-form-item prop="sign" label-name="标签" tip="请输入不少于3个标签">
-        <iep-tag v-model="form.sign"></iep-tag>
-      </iep-form-item>
+      <el-form-item label="标签">
+        <span v-for="(a,i) in form.tagKeyWords" :key="i" class="sign">{{a}}</span>
+      </el-form-item>
       <el-form-item label="备注：">
         <span>{{form.remarks}}</span>
       </el-form-item>
-      <el-form-item label="子任务：" prop="subtasks">
-        <el-upload class="upload-demo" action="">
-          <i class="button el-icon-plus"></i>
-        </el-upload>
+      <el-form-item label="子任务：">
+        <span v-if="!form.taskName">无</span>
+        <span v-else>{{form.taskName}}</span>
       </el-form-item>
-      <el-form-item label="附件：" prop="attach">
+      <el-form-item label="附件：">
         <!-- <div v-if="form.attach.length > 0">
           <a-tag v-for="file in form.attach" :key="file.url" @click="handleDownload(file)">
           <a-icon type="paper-clip" />{{file.name}}</a-tag>
         </div> -->
         <span>无附件</span>
       </el-form-item>
-      <el-form-item label="关联内容：" prop="subtasks">
+      <el-form-item label="关联内容：">
         <el-upload class="upload-demo" action="">
           <i class="button el-icon-plus"></i>
         </el-upload>
@@ -146,6 +146,14 @@ export default {
         margin-right: 10px;
       }
     }
+  }
+  .people{
+    float: left;
+  }
+  .sign{
+    padding: 4px 10px;
+    border: 1px solid #eee;
+    margin-right: 10px;
   }
 }
 </style>

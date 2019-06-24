@@ -4,9 +4,9 @@
       <el-collapse-item :title="similarTasks.title" name="1">
         <div class="con" v-for="(item,index) in itemList" :key="index">
           <span class="name">
-            <span class="sub-name">{{item.subName}}</span>{{item.name}}
+            <span class="sub-name">{{item.operatorName}}</span>{{item.remarks}}
           </span>
-          <span class="time">{{item.time}}</span>
+          <span class="time">{{item.operateTime | formatTime}}</span>
         </div>
       </el-collapse-item>
     </el-collapse>
@@ -14,34 +14,19 @@
 </template>
 <script>
 export default {
+  props: {
+    itemList: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
+  },
   data () {
     return {
       activeNames: ['1'],
       similarTasksList: [
         {
           title: '流转日志',
-        },
-      ],
-      itemList: [
-        {
-          subName: '潘超巧',
-          name: '徐州市发改委营商环境评估项目',
-          time: '今天 8:22',
-        },
-        {
-          subName: '潘超巧',
-          name: '22州市发改委营商环境评估项目',
-          time: '昨天 8:22',
-        },
-        {
-          subName: '潘超巧',
-          name: '11徐州市发改委营商环境评估项目',
-          time: '昨天 8:22',
-        },
-        {
-          subName: '潘超巧',
-          name: '11徐州市发改委营商环境评估项目',
-          time: '6月2日 9:22',
         },
       ],
     }

@@ -4,12 +4,12 @@
       <div class="person-info">
         <span class="img"><img :src="img" alt=""></span>
         <div class="info">
-          <span class="info-con"><span class="post">{{post}}</span><span class="name">{{name}}</span></span>
-          <el-button type="danger" size="mini" plain>转移</el-button>
+          <span class="info-con"><span class="post">负责人</span><span class="name">{{form.principalName}}</span></span>
+          <el-button type="danger" size="mini" plain @click="handleTransfer">转移</el-button>
         </div>
       </div>
       <similar-tasks></similar-tasks>
-      <circulation-log></circulation-log>
+      <circulation-log :itemList="form.records"></circulation-log>
       <div class="bottom">
         <span>{{handleTitle}}</span>
         <div class="con"></div>
@@ -18,15 +18,20 @@
         </div>
       </div>
     </el-card>
+    <transfer-dialog-form ref="DialogForm" @load-page="loadPage"></transfer-dialog-form>
   </div>
 </template>
 <script>
 import SimilarTasks from './SimilarTasks'
 import CirculationLog from './CirculationLog'
+import TransferDialogForm from './TransferDialogForm'
+import { getAtmsById } from '@/api/atms/index'
+import { initForm } from './options.js'
 export default {
   components: {
     SimilarTasks,
     CirculationLog,
+    TransferDialogForm,
   },
   data () {
     return {
@@ -34,7 +39,24 @@ export default {
       post: '负责人',
       name: '潘超巧',
       handleTitle: '@提及他人',
+      id: this.$route.params.id,
+      form: initForm(),
     }
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    handleTransfer (){
+      this.$refs['DialogForm'].dialogShow = true
+    },
+    loadPage () {
+      this.pageLoading = true
+      getAtmsById(this.id).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
+        this.pageLoading = false
+      })
+    },
   },
 }
 </script>

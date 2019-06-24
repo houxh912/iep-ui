@@ -1,6 +1,6 @@
 // org config options
 const dictsMap = {
-  taskStatus: {
+  status: {
     0: '待办',
     1: '进行中',
     2: '已完成',

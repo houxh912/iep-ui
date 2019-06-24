@@ -9,10 +9,10 @@
     </div>
     <el-form :model="form" ref="form" label-width="200px" class="form form-detail">
       <el-form-item label="状态：" class="form-half">
-        <span>{{form.taskStatus}}</span>
+        <iep-dict-detail :value="form.taskStatus" dict-name="atms_task_status"></iep-dict-detail>
       </el-form-item>
       <el-form-item label="优先级：" class="form-half">
-        <span>{{form.priority}}</span>
+        <iep-dict-detail :value="form.priority" dict-name="atms_task_priority"></iep-dict-detail>
       </el-form-item>
       <el-form-item label="协同人：" class="form-half">
         <span>
@@ -41,7 +41,11 @@
         </el-upload>
       </el-form-item>
       <el-form-item label="附件：" prop="attach">
-        <iep-upload v-model="form.attach" :limit="limit"></iep-upload>
+        <!-- <div v-if="form.attach.length > 0">
+          <a-tag v-for="file in form.attach" :key="file.url" @click="handleDownload(file)">
+          <a-icon type="paper-clip" />{{file.name}}</a-tag>
+        </div> -->
+        <span>无附件</span>
       </el-form-item>
       <el-form-item label="关联内容：" prop="subtasks">
         <el-upload class="upload-demo" action="">
@@ -55,6 +59,7 @@
 <script>
 import { getAtmsById } from '@/api/atms/index'
 import { initForm, rules } from './options.js'
+import { downloadFile } from '@/api/common'
 export default {
   data () {
     return {
@@ -79,6 +84,9 @@ export default {
   methods: {
     close () {
       this.$router.history.go(-1)
+    },
+    handleDownload (file) {
+      downloadFile(file)
     },
     loadPage () {
       this.pageLoading = true

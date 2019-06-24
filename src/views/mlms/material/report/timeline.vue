@@ -1,13 +1,7 @@
 <template>
   <div class="time-line">
     <div class="chosen-year">
-      <el-date-picker
-        v-model="selectYear"
-        type="year"
-        placeholder="选择年"
-        ref="selectYear"
-        @change="changeYear"
-        value-format="yyyy">
+      <el-date-picker v-model="selectYear" type="year" placeholder="选择年" ref="selectYear" @change="changeYear" value-format="yyyy">
       </el-date-picker>
     </div>
     <div v-for="(item, index) in option.list" :key=index>
@@ -50,7 +44,7 @@ export default {
   props: {
     option: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   computed: {
@@ -155,10 +149,10 @@ export default {
         color: #999;
       }
       .active {
-        border: 1px solid #F56C6C;
-        color: #F56C6C;
-        background: #fef0f0;
-        border-color: #fbc4c4;
+        border: 1px solid #cb3737;
+        color: #cb3737;
+        background: #f9eae7;
+        border-color: #cb3737;
       }
       .content {
         position: relative;
@@ -208,17 +202,22 @@ export default {
       }
     }
     .actively {
-      color: #F56C6C;
+      border-color: #cb3737 !important;
+      color: #cb3737;
       .title {
-        color: #F56C6C !important;
+        color: #cb3737;
       }
       .date {
-        border: 1px solid #F56C6C;
+        background-color: #f9eae7;
+        border: 1px solid #cb3737;
         .spot:before {
-          border: 2px solid #F56C6C;
-          background-color: #F56C6C;
+          border: 2px solid #cb3737;
+          background-color: #cb3737;
         }
       }
+    }
+    .actively.date {
+      background-color: #f9eae7 !important;
     }
   }
 }

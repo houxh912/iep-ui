@@ -5,7 +5,7 @@
       <div class="img">
         <iep-img :src="item.imageUrl" alt=""></iep-img>
       </div>
-      <div class="module-title iep-ellipsis">{{item.name}}</div>
+      <iep-div-detail class="title" :value="item.name"></iep-div-detail>
     </div>
   </div>
 </template>
@@ -55,7 +55,7 @@ export default {
       box-sizing: border-box;
     }
   }
-  .module-title {
+  .title {
     width: 100%;
     padding-top: 10px;
     text-align: center;

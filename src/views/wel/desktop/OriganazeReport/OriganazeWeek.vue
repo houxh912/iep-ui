@@ -41,6 +41,7 @@ export default {
       columnsMap,
       orgIds: '',
       realName: '',
+      isLoadTable: false,
     }
   },
   props: {

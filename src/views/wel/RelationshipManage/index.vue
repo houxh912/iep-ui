@@ -120,6 +120,7 @@ export default {
   computed: {
   },
   created () {
+    this.mark = this.$route.query.mark? this.$route.query.mark:''
     this.loadPage()
   },
   methods: {

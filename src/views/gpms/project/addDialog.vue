@@ -145,10 +145,10 @@
             <template slot-scope="scope">
               <el-date-picker
                 v-model="formData.paymentRelations[scope.$index].projectPaymentTime"
-                type="month"
+                type="date"
                 placeholder="选择时间"
-                format="yyyy-MM"
-                value-format="yyyy-MM">
+                format="yyyy-MM-dd"
+                value-format="yyyy-MM-dd hh:mm:ss">
               </el-date-picker>
             </template>
           </el-table-column>
@@ -167,7 +167,18 @@
           </el-table-column>
           <el-table-column prop="menu" label="操作" width="200px">
             <template slot-scope="scope">
-              <iep-button size="small" @click="handleDelete(scope.$index)">删除</iep-button>
+              <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelay(scope.$index)">延期</iep-button>
+              <el-date-picker 
+                v-if="selectDelay.index == scope.$index"
+                v-model="selectDelay.value" 
+                type="date" 
+                placeholder="选择延期时间" 
+                ref="selectDelay" 
+                @change="changeDelay" 
+                format="yyyy-MM-dd"
+                value-format="yyyy-MM-dd hh:mm:ss">
+              </el-date-picker>
+              <iep-button size="small" v-if="!formData.paymentRelations[scope.$index].id" @click="handleDelete(scope.$index)">删除</iep-button>
             </template>
           </el-table-column>
         </el-table>
@@ -235,6 +246,10 @@ export default {
       workTypeOne: dictMap.workTypeOne, // 业务类型一级菜单
       relatedFormList,
       selectIndex: -1,
+      selectDelay: {
+        value: '',
+        index: -1,
+      },
     }
   },
   methods: {
@@ -372,6 +387,14 @@ export default {
           this.formData.paymentRelations[index].paymentAmount = 0
         }
       })
+    },
+    // 延期
+    handleDelay (index) {
+      this.selectDelay.index = index
+      this.$refs['selectDelay'].focus()
+    },
+    changeDelay (val) {
+      this.formData.paymentRelations[this.selectDelay.index].projectPaymentTime = val
     },
   },
   created () {

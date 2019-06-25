@@ -14,6 +14,7 @@
     </operation-container>
 
     <iep-table
+      ref="table"
       :columnsMap="columnsMap"
       :isLoadTable="isLoadTable"
       :pagination="pagination"
@@ -215,6 +216,7 @@ export default {
      * 清空选择
      */
     handleEmpty () {
+      this.$refs.table.clearSelection ()
     },
   },
 }

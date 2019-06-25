@@ -213,6 +213,10 @@ export default {
     toggleRowSelection (row, selected) {
       this.$refs['table'].toggleRowSelection(row, selected)
     },
+    // 全部取消选择
+    clearSelection () {
+      this.$refs['table'].clearSelection()
+    },
   },
 }
 </script>

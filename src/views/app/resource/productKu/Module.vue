@@ -107,6 +107,8 @@ export default {
     justify-content: space-between;
     align-items: flex-start;
     padding: 15px;
+    height: 186px;
+    overflow: hidden;
     i {
       display: inline-block;
       width: 50px;
@@ -148,12 +150,22 @@ export default {
         color: #999;
       }
       .classTag {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        text-align: justify;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
         .el-tag {
           margin-right: 5px;
-          max-width: 60px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+          margin-bottom: 5px;
+          cursor: pointer;
+          &:last-child {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
           &:hover {
             color: #cb3737;
             background: #fef0f0;
@@ -187,6 +199,7 @@ export default {
   padding: 0;
 }
 .module >>> .el-card.module-item {
+  height: 228px;
   border: 1px solid #dcdfe6;
 }
 .img >>> .el-image {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="项目核算"></page-header>
+      <page-header title="项目核算" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="projectName">
@@ -33,14 +33,17 @@ export default {
   data () {
     return {
       columnsMap,
+      statistics: [0, 0, 0, 0, 0, 0],
+      replaceText: (data) => `（项目总金额：${data[0]}元，到账总金额：${data[1]}元，未到账总金额：${data[2]}元，开票总金额：${data[3]}元，未开票总金额：${data[4]}元，应收账款：${data[5]}元）`,
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
-    loadPage (param = this.searchParam) {
-      this.loadTable(param, getProjectPage)
+    async loadPage (param = this.searchParam) {
+      const data = await this.loadTable(param, getProjectPage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
     handleDetail (row) {
       this.$router.push({

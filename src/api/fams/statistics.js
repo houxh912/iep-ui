@@ -90,9 +90,17 @@ export function getProjectPage (query) {
     params: query,
   })
 }
+
 export function getBossProjectPage (id) {
   return request({
     url: `${prefixUrl}/project/page/${id}`,
+    method: 'get',
+  })
+}
+// TODO:联盟项目核算
+export function getAllOrgProjectPage () {
+  return request({
+    url: `${prefixUrl}/all/project/page`,
     method: 'get',
   })
 }
@@ -126,5 +134,21 @@ export function getProjectInformationById (id) {
   return request({
     url: `prms/iepProjectInformation/${id}`,
     method: 'get',
+  })
+}
+
+export function getUnionProjectPage (query) {
+  return request({
+    url: `${prefixUrl}/business_index/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function postUnionProject (obj) {
+  return request({
+    url: `${prefixUrl}/create/business_index`,
+    method: 'post',
+    data: obj,
   })
 }

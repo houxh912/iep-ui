@@ -4,7 +4,9 @@
       <div class="content">
         <div class="info">
           <div class="img-con">
-            <div class="img"><iep-img :src="user_info.avatar" alt=""></iep-img></div>
+            <div class="img">
+              <iep-img :src="user_info.avatar" alt=""></iep-img>
+            </div>
             <span class="num">{{user_info.staffId}}</span>
             <span class="integrity">
               <div class="integrity-desc">资料完善度{{`${user_info.integrity}%`}}</div>
@@ -130,16 +132,16 @@ export default {
         this.$message.error('无法向自己拜师')
         return
       }
-      this.ApprenticeApply({id: this.user_info.id, name: this.user_info.name})
+      this.ApprenticeApply({ id: this.user_info.id, name: this.user_info.name })
     },
     // 邮件
     handleEmail () {
       let receiverList = {
         unions: [],
         orgs: [],
-        users: [{id: this.user_info.id, name: this.user_info.name}],
+        users: [{ id: this.user_info.id, name: this.user_info.name }],
       }
-      this.$refs['email'].open({receiverList: receiverList})
+      this.$refs['email'].open({ receiverList: receiverList })
     },
     // 打赏
     ...mapActions(['famsReward']),
@@ -148,7 +150,7 @@ export default {
         this.$message.error('无法向自己打赏')
         return
       }
-      this.famsReward({id: this.user_info.id, name: this.user_info.name})
+      this.famsReward({ id: this.user_info.id, name: this.user_info.name })
     },
   },
 }
@@ -252,6 +254,7 @@ export default {
       .el-tag {
         margin-right: 5px;
         margin-bottom: 5px;
+        cursor: pointer;
         &:hover {
           color: #cb3737;
           background: #fef0f0;

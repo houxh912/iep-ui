@@ -26,7 +26,7 @@
           {{scope.row.examineeNumber}}
         </template>
       </el-table-column>
-      <el-table-column prop="department" label="部门" width="110">
+      <el-table-column prop="department" label="所在组织" width="110">
         <template slot-scope="scope">
           {{scope.row.department}}
         </template>

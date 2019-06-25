@@ -90,7 +90,7 @@
               </div>
 
               <div class="dt_div" v-if="item.type==10">
-                <el-form-item label="题型:" style="width: 100%;" class="qstnDescribeArea">
+                <el-form-item label="题型说明:" style="width: 100%;" class="qstnDescribeArea" label-width="80px">
                   <iep-input-area :autosize={minRows:2,maxRows:6} readonly v-model="item.qstnDescribe"></iep-input-area>
                 </el-form-item>
               </div>
@@ -228,26 +228,26 @@
 
         </el-form-item>
 
-        <el-form-item label="打分方式" prop="scoringMethod" v-if="form.type==2">
+        <el-form-item label="打分方式" prop="scoringMethod" v-if="form.type==11">
           <el-radio-group v-model="form.scoringMethod">
             <el-radio label="0">系统判定</el-radio>
             <el-radio label="1">人工阅卷</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item>
-          <el-col :span="9" v-if="form.type==2 || form.type==3">
+          <el-col :span="9" v-if="form.type==11 || form.type==10">
             <el-form-item prop="marker">
               <el-checkbox v-model="form.marker" label="指定阅卷老师"></el-checkbox>
             </el-form-item>
           </el-col>
-          <el-col :span="9" v-if="form.type==3">
+          <el-col :span="9" v-if="form.type==10">
             <el-form-item prop="multipleSelection">
               <el-switch active-text="多选模式" v-model="form.multipleSelection" :active-value="1"
                 :inactive-value="0"></el-switch>
             </el-form-item>
           </el-col>
         </el-form-item>
-        <el-form-item label="题型说明" prop="qstnDescribe" v-if="form.type==3">
+        <el-form-item label="题型说明" prop="qstnDescribe" v-if="form.type==10">
           <iep-input-area placeholder="请输入题型说明" :autosize={minRows:2,maxRows:6} v-model="form.qstnDescribe"></iep-input-area>
         </el-form-item>
         <el-form-item v-if="form.configurationState==='0'" prop="iepItemBankList" label-width="20px">
@@ -256,7 +256,9 @@
         </el-form-item>
       </el-form>
       <template slot="footer">
-        <iep-button type="primary" @click="submitForm">确认配置</iep-button>
+        <div align="center">
+          <iep-button type="primary" @click="submitForm">确认配置</iep-button>
+        </div>
       </template>
     </el-dialog>
   </steps-content>
@@ -418,6 +420,9 @@ export default {
     loadSelf () {
       if (this.isEdit) {
         this.data.iepTestPaperVO.iepQstnRuleList.forEach((item) => {
+          if (item.qstnDescribe === '') {
+            item.qstnDescribe = '暂无'
+          }
           this.choiceType.push(item.type)
           var fieldString = item.field.split(',')
           var fieldInt = fieldString.map((data) => {
@@ -694,7 +699,7 @@ span {
 </style>
 <style  scoped>
 .qstnDescribeArea >>> .el-form-item__content {
-  width: 95%;
+  width: 91.5%;
 }
 .questionTable >>> .th {
   background: #ccc;

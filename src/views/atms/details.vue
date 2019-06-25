@@ -3,7 +3,9 @@
     <basic-container>
       <div class="details">
       <div class="detail-left">
-        <page-header :title="`${form.taskName}`" :backOption="backOption"></page-header>
+        <page-header :title="`${form.taskName}`" :backOption="backOption">
+          <slot><iep-button @click="handleEdit">编辑</iep-button></slot>
+        </page-header>
         <div class="sub">
           <span v-if='!form.parentName'>所属任务：无</span>
           <span v-else>所属任务：{{form.parentName}}</span>
@@ -15,9 +17,9 @@
                   <i class="iconfont icon-xitongguanli"></i>任务菜单
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item><i class="iconfont icon-Icon-zhuanru"></i>转化为子任务</el-dropdown-item>
+                  <el-dropdown-item><div @click="handleConversion"><i class="iconfont icon-Icon-zhuanru"></i>转化为子任务</div></el-dropdown-item>
                   <el-dropdown-item><i class="iconfont icon-tixing"></i>催办</el-dropdown-item>
-                  <el-dropdown-item><i class="iconfont icon-shanchu"></i>删除</el-dropdown-item>
+                  <el-dropdown-item><div @click="handleDelete"><i class="iconfont icon-shanchu"></i>删除</div></el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </span>
@@ -32,13 +34,13 @@
           </el-form-item>
           <el-form-item label="协同人：" class="form-half">
             <span v-for="(e,i) in form.executors" :key="i" class="people">
-              <img class="img" :src="e.headImg" alt="">
+              <iep-img class="img" :src="e.headImg" alt=""></iep-img>
               {{e.realName}}
             </span>
           </el-form-item>
           <el-form-item label="执行人：" class="form-half">
             <span v-for="(a,i) in form.assistants" :key="i" class="people">
-              <img class="img" :src="a.headImg" alt="">
+              <iep-img class="img" :src="a.headImg" alt=""></iep-img>
               {{a.realName}}
             </span>
           </el-form-item>
@@ -52,15 +54,15 @@
             <span>{{form.remarks}}</span>
           </el-form-item>
           <el-form-item label="子任务：">
-            <span v-if="!form.children">无</span>
-            <span v-else>{{form.children}}</span>
+            <span v-for="(item,index) in form.children" :key="index" style="display:block;">{{item.name}}</span>
+            <!-- <span v-else>无</!--> 
           </el-form-item>
           <el-form-item label="附件：">
-            <!-- <div v-if="form.attach.length > 0">
-              <a-tag v-for="file in form.attach" :key="file.url" @click="handleDownload(file)">
+            <div>
+              <a-tag v-for="file in form.annexList" :key="file.url" @click="handleDownload(file)">
               <a-icon type="paper-clip" />{{file.name}}</a-tag>
-            </div> -->
-            <span>无附件</span>
+            </div>
+            <!-- <span>无附件</span> -->
           </el-form-item>
           <el-form-item label="关联内容：">
             <el-upload class="upload-demo" action="">
@@ -71,7 +73,7 @@
       </div>
       <el-card shadow="never" class="person-info">
         <div class="person-info">
-          <span class="img"><img :src="form.avatar" alt=""></span>
+          <span class="img"><iep-img :src="form.avatar" alt=""></iep-img></span>
           <div class="info">
             <span class="info-con"><span class="post">负责人</span><span class="name">{{form.principalName}}</span></span>
             <el-button type="danger" size="mini" plain @click="handleTransfer">转移</el-button>
@@ -89,21 +91,26 @@
       </el-card>
       </div>
     </basic-container>
-    <transfer-dialog-form ref="DialogForm" @load-page="loadPage"></transfer-dialog-form>
+    <transfer-dialog-form ref="TransferDialogForm" @load-page="loadPage"></transfer-dialog-form>
+    <conversion-dialog-form ref="ConversionDialogForm" @load-page="loadPage"></conversion-dialog-form>
   </div>
 </template>
 <script>
-import { getAtmsById } from '@/api/atms/index'
+import { getAtmsById, deleteAtmsById } from '@/api/atms/index'
 import { initForm, rules } from './options.js'
 import { downloadFile } from '@/api/common'
 import SimilarTasks from './SimilarTasks'
 import CirculationLog from './CirculationLog'
 import TransferDialogForm from './TransferDialogForm'
+import ConversionDialogForm from './ConversionDialogForm'
+import mixins from '@/mixins/mixins'
 export default {
+  mixins: [mixins],
   components: {
     SimilarTasks,
     CirculationLog,
     TransferDialogForm,
+    ConversionDialogForm,
   },
   data () {
     return {
@@ -143,8 +150,37 @@ export default {
         this.pageLoading = false
       })
     },
-    handleTransfer (){
-      this.$refs['DialogForm'].dialogShow = true
+    handleTransfer () {
+      this.$refs['TransferDialogForm'].dialogShow = true
+    },
+    handleConversion () {
+      this.$refs['ConversionDialogForm'].dialogShow = true
+    },
+    handleEdit () {
+
+    },
+    handleDelete () {
+      this.$confirm('此操作将永久删除该任务, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        deleteAtmsById(this.id).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '移除成功!',
+            })
+            this.$router.push({path:'/atms/my_tasks'})
+          } else {
+            this.$message({
+              type: 'info',
+              message: `移除失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      })
     },
   },
 }
@@ -176,6 +212,7 @@ export default {
         justify-content: flex-start;
         margin-right: 20px;
         align-items: center;
+        cursor: pointer;
         &:last-child {
           margin-right: 0;
         }
@@ -200,7 +237,8 @@ export default {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      img {
+      iep-img {
+        border-radius: 50%;
         margin-right: 10px;
       }
     }
@@ -231,7 +269,7 @@ export default {
     border-radius: 50%;
     border: 1px solid #ebeef5;
     overflow: hidden;
-    img {
+    iep-img {
       width: 100%;
       height: 100%;
       border-radius: 50%;
@@ -280,3 +318,10 @@ export default {
   }
 }
 </style>
+<style scoped>
+.details >>> .el-image__inner{
+  border-radius: 50%;
+  margin-right: 5px;
+}
+</style>
+

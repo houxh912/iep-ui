@@ -2,18 +2,18 @@
   <div class="abs iep-page-form">
     <basic-container>
       <page-header :title="`${methodName}任务`"></page-header>
-      <el-form :model="form" :rules="rules" ref="form" label-width="200px" class="form form-detail">
+      <el-form :model="form" :rules="rules" size="small" ref="form" label-width="200px" class="form form-detail">
         <el-form-item label='任务名称' prop="taskName">
           <el-input v-model="form.taskName" placeholder="请填写任务名称"></el-input>
         </el-form-item>
 
         <el-form-item label='所属任务' prop="parentName" class="form-half">
-          <iep-dict-select v-model="form.parentName" dict-name="prms_project_level"></iep-dict-select>
+          <iep-contract-select v-model="form.parentId" :contractName="form.parentName" @relation-change="handleContractChange"></iep-contract-select>
         </el-form-item>
 
-        <el-form-item label='状态' prop="taskStatus" class="form-half">
+        <!-- <el-form-item label='状态' prop="taskStatus" class="form-half">
           <iep-dict-select v-model="form.taskStatus" placeholder="未完成" dict-name="atms_task_status"></iep-dict-select>
-        </el-form-item>
+        </el-form-item> -->
 
         <el-form-item label='优先级' prop="priority" class="form-half">
           <iep-dict-select v-model="form.priority" placeholder="普通" dict-name="atms_task_priority"></iep-dict-select>
@@ -27,13 +27,13 @@
           <iep-contact-multiple-user v-model="form.assistants"></iep-contact-multiple-user>
         </el-form-item>
 
-        <el-form-item label='起止时间' prop="startTime" class="form-half">
-          <iep-date-picker v-model="form.startTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+        <el-form-item label='起止时间' prop="startEndTime" class="form-half">
+          <iep-date-picker v-model="form.startEndTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
               </iep-date-picker>
         </el-form-item>
 
-        <el-form-item label='标签' prop="sign">
-          <iep-tag v-model="form.sign"></iep-tag>
+        <el-form-item label='标签' prop="tagKeyWords">
+          <iep-tag v-model="form.tagKeyWords"></iep-tag>
         </el-form-item>
 
         <el-form-item label='备注' prop="remarks">
@@ -58,7 +58,7 @@
 
 <script>
 import { postAtms } from '@/api/atms/index'
-import { initForm, formToDto } from './options.js'
+import { initForm, formToDto, rules } from './options.js'
 import formMixins from '@/mixins/formMixins'
 export default {
   mixins: [formMixins],
@@ -73,17 +73,27 @@ export default {
         },
       },
       form: initForm(),
-      // rules,
+      rules,
       limit:1,
     }
   },
   methods: {
+    handleContractChange (v) {
+      if (v) {
+        this.form.parentId = v.id
+        this.form.parentName = v.name
+      }
+    },
     handleSubmit (isPublish) {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           const publish = isPublish === true ? true : false
           if (this.form.annexList.length > 0) {
             this.form.attach = this.form.annexList[0].url
+          }
+          if (this.form.startEndTime.length > 0) {
+            this.form.startTime = this.form.startEndTime[0]
+            this.form.endTime = this.form.startEndTime[1]
           }
           postAtms(formToDto(this.form), publish).then(({ data }) => {
             if (data.data) {

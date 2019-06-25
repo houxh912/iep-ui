@@ -21,14 +21,16 @@ const initForm = () => {
         assistants: [],//执行人,
         principalName:'',//负责人
         avatar:'',//负责人头像
-        startTime:'',//开始时间
-        endTime:'',//结束时间
-        sign: [],//标签
+        startEndTime:[],//起止时间
+        startTime:'',
+        endTime:'',
+        tagKeyWords: [],//标签
         remarks:'',//备注
         annexList: [],//附件
         attach:'',
         materials: [],//关联内容
         records:[],
+        children: [],//子任务
     }
 }
 const initTransferForm = () => {
@@ -43,34 +45,25 @@ const formToDto = (form) => {
   return newForm
 }
 const rules = {
-    tasktName: [
+    taskName: [
         { required: true, message: '请输入任务名称', trigger: 'blur' },
     ],
-    ownTask: [
-        { required: true, message: '请输入', trigger: 'blur' },
-    ],
-    status: [
+    taskStatus: [
         { required: true, message: '请输入', trigger: 'blur' },
     ],
     priority: [
         { required: true, message: '请输入', trigger: 'blur' },
     ],
-    synergist: [
+    executors: [
         { required: true, message: '请输入', trigger: 'blur' },
     ],
-    executor: [
+    assistants: [
         { required: true, message: '请输入', trigger: 'blur' },
     ],
-    implementRangeTime: [
+    startEndTime: [
         { required: true, message: '请输入', trigger: 'blur' },
     ],
-    sign: [
-        { required: true, message: '请输入', trigger: 'blur' },
-    ],
-    enclosure: [
-        { required: true, message: '请输入', trigger: 'blur' },
-    ],
-    links: [
+    tagKeyWords: [
         { required: true, message: '请输入', trigger: 'blur' },
     ],
 }

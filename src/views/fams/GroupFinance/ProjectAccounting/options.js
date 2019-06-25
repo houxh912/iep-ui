@@ -40,22 +40,21 @@ const initForm = () => {
 
 const initSearchForm = () => {
   return {
-    businessDate: '',
+    businessMonth: '',
+    businessYear: '',
   }
 }
 
 const toDtoSearchForm = (row) => {
 	const newForm = {...row}
-	newForm.businessYear = getYear(row.businessDate) || null
-	newForm.businessMonth = getMonth(row.businessDate) || null
-	delete newForm.businessDate
+	newForm.businessYear = getYear(row.businessYear) || null
   return newForm
 }
 
 const toDtoForm = (row) => {
   const newForm = {...row}
-  newForm.businessYear = getYear(row.businessDate)
-  newForm.businessMonth = getMonth(row.businessDate)
+  newForm.businessYear = getYear(row.businessDate) || null
+  newForm.businessMonth = getMonth(row.businessDate) || null
 	delete newForm.businessDate
   return newForm
 }

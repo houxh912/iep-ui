@@ -2,6 +2,17 @@
   <div>
     <basic-container>
       <iep-statistics-header title="项目核算-集团" :dataMap="financialData">
+        <template slot="left">
+          <iep-tip icon="el-icon-question" content="项目金额=合同金额+待签金额<br/>
+                            合同金额：已经签订合同的项目金额<br/>
+                            待签金额：未签订合同的项目金额<br/>
+                            开票金额：已经开发票的项目金额<br/>
+                            应收账款金额：已经开发票的未到账的项目金额<br/>
+                            业务指标完成率：合同金额/业务指标"></iep-tip>
+        </template>
+        <template slot="right">
+          <iep-button type="primary" @click="$openPage(`/fams_spa/union_payment_plan`)">查看回款计划</iep-button>
+        </template>
       </iep-statistics-header>
       <operation-container style="margin-top: 10px;">
         <template slot="left">
@@ -74,7 +85,7 @@ export default {
       this.$refs['DialogForm'].dialogShow = true
     },
     handleDetail (row) {
-      this.$openPage(`/fams_spa/project/${row.orgId}`)
+      this.$openPage(`/fams_spa/project/${row.orgId}?name=${row.orgName}`)
     },
     async loadPage (param = this.searchForm) {
       const data = await this.loadTable(param, getUnionProjectPage)

@@ -1,4 +1,4 @@
-
+import { getYear, getMonth } from '@/util/date'
 const columnsMap = [
 	{
 		prop: 'projectNum',
@@ -10,7 +10,9 @@ const columnsMap = [
 	},
 	{
 		prop: 'createTime',
-		label: '创建时间',
+		label: '立项时间',
+		type: 'date',
+		formatString: 'YYYY-MM-DD',
 	},
 	{
 		prop:'amount',
@@ -24,15 +26,32 @@ const columnsMap = [
 
 const initForm = () => {
   return {
-    projectName: '',
-    contractAmount: 0,
-    publisher: '',
-    serialNo: '',
-    publisherList: {id:'',name:''},
-    projectManagerList: {id:'',name:''},
-    mktManagerList: {id:'',name:''},
-    projectTime: '',
-    endTime: '',
+    orgId: '',
+    businessDate: '',
+    amount: 0,
   }
 }
-export { columnsMap, initForm }
+
+const initSearchForm = () => {
+  return {
+    signatureStatus: '',
+  }
+}
+const toDtoSearchForm = (row) => {
+	const newForm = {...row}
+	newForm.year = getYear(newForm.date) || null
+	newForm.month = getMonth(newForm.date) || null
+	if (newForm.onlyYear) {
+		delete newForm.month
+	}
+  return newForm
+}
+
+const toDtoForm = (row) => {
+  const newForm = {...row}
+  newForm.businessYear = getYear(row.businessDate) || null
+  newForm.businessMonth = getMonth(row.businessDate) || null
+	delete newForm.businessDate
+  return newForm
+}
+export { columnsMap, initForm, toDtoForm, initSearchForm, toDtoSearchForm }

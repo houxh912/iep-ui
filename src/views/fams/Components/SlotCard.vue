@@ -1,7 +1,9 @@
 <template>
   <el-card class="index-card" shadow="never">
     <div slot="header" class="hander-wrapper">
-      <div class="title">{{title}}</div>
+      <div class="title">{{title}}
+        <slot name="left"></slot>
+      </div>
       <slot name="right"></slot>
     </div>
     <slot></slot>

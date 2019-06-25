@@ -168,6 +168,8 @@ export function initFormData () {
     projectList: [],
     reportIds: [], // 周报
     reportList: [],
+    paymentRelations: [], // 预计回款时间,
+    estimatedSigntime: '', // 预计签订时间
   }
 }
 

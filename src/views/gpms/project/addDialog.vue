@@ -105,6 +105,11 @@
             </IepCrmsSelect>
           </el-form-item>
         </el-col>
+        <el-col :span="12">
+          <el-form-item label="预计签订时间：" prop="estimatedSigntime">
+            <IepDatePicker v-model="formData.estimatedSigntime"></IepDatePicker>
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
         <span slot="label">
@@ -134,6 +139,40 @@
           </ul>
         </el-form-item>
       </div>
+      <el-form-item label="预计回款时间：" class="table">
+        <el-table :data="formData.paymentRelations" style="width: 100%">
+          <el-table-column prop="projectPaymentTime" label="月份">
+            <template slot-scope="scope">
+              <el-date-picker
+                v-model="formData.paymentRelations[scope.$index].projectPaymentTime"
+                type="month"
+                placeholder="选择时间"
+                format="yyyy-MM"
+                value-format="yyyy-MM">
+              </el-date-picker>
+            </template>
+          </el-table-column>
+          <el-table-column prop="paymentAmount" label="回款金额">
+            <template slot-scope="scope">
+              <el-input 
+                v-if="selectIndex==scope.$index" 
+                v-model="formData.paymentRelations[scope.$index].paymentAmount" 
+                @blur="()=>{changeNumber(scope.$index);selectIndex=-1}" 
+                maxlength="10" 
+                type="number" 
+                min=0
+                placeholder="请正确输入非负回款金额"></el-input>
+              <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column prop="menu" label="操作" width="200px">
+            <template slot-scope="scope">
+              <iep-button size="small" @click="handleDelete(scope.$index)">删除</iep-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="create" @click="handleCreate"><i class="el-icon-plus"></i> 新增</div>
+      </el-form-item>
     </el-form>
 
     <footer-tool-bar>
@@ -195,6 +234,7 @@ export default {
       isRelevOptions: dictMap.isRelevOptions, // 是否关联菜单
       workTypeOne: dictMap.workTypeOne, // 业务类型一级菜单
       relatedFormList,
+      selectIndex: -1,
     }
   },
   methods: {
@@ -316,6 +356,23 @@ export default {
       this.formData[list].splice(index, 1)
       this.formData[ids].splice(index, 1)
     },
+    handleCreate () {
+      this.formData.paymentRelations.push({
+        projectPaymentTime: '',
+        paymentAmount: '',
+      })
+    },
+    handleDelete (index) {
+      this.formData.paymentRelations.splice(index, 1)
+    },
+    // 预计回款时间金额调整
+    changeNumber (index) {
+      this.$nextTick(() => {
+        if (this.formData.paymentRelations[index].paymentAmount < 0) {
+          this.formData.paymentRelations[index].paymentAmount = 0
+        }
+      })
+    },
   },
   created () {
     // console.log('userinfo: ', this.userInfo)
@@ -339,6 +396,13 @@ export default {
       margin-left: 10px;
       cursor: pointer;
     }
+  }
+}
+.table {
+  .create {
+    text-align: center;
+    color: #ba1b21;
+    cursor: pointer;
   }
 }
 </style>

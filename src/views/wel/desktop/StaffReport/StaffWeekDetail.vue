@@ -8,7 +8,7 @@
           <span>发布人：{{form.realName}}</span>
           <span>发布日期：{{form.createTime|parseToDay}}</span>
         </template>
-        <template slot="right">
+        <template slot="right" ref="btn">
           <iep-button @click="handlePreClick">上周</iep-button>
           <iep-button @click="handleNextClick">下周</iep-button>
         </template>
@@ -51,6 +51,7 @@ function initForm () {
     projectList: [],
   }
 }
+function add0 (m) { return m < 10 ? '0' + m : m }
 export default {
   data () {
     return {
@@ -60,7 +61,7 @@ export default {
       form: initForm(),
       useId: '',
       reportInfo: {
-        reportType: '',
+        reportType: 0,
         startTime: '',
         userId: '',
       },
@@ -72,30 +73,39 @@ export default {
     },
   },
   created () {
-    this.reportInfo.userId = this.id
     getStaffReport(this.id).then(({ data }) => {
       this.form = this.$mergeByFirst(initForm(), data.data)
       this.reportInfo.startTime = data.data.createTime
-    })
-    putStaffReport(this.reportInfo).then(({ data }) => {
-      console.log(data.data)
+      this.reportInfo.userId = data.data.userId
     })
   },
   methods: {
-    // dataReduce () {
-    //   let data = new Data(this.reportInfo.startTime)
-    //   let time = data.getTime()
-    //   return time
-    // },
-    // resultData (timeStamp) {
-    //   console.log(timeStamp)
-    // },
-    // handlePreClick () {
-    //   this.resultData(this.dataReduce()-7 * 24 * 60 * 60 *1000)
-    // },
-    // handleNextClick () {
-    //   this.resultData(this.dataReduce()+7 * 24 * 60 * 60 *1000)
-    // },
+    dataReduce () {
+      let data = new Date(this.reportInfo.startTime)
+      let time = data.getTime()
+      return time
+    },
+    resultData (timeStamp) {
+      const time = new Date(timeStamp)
+      const year = time.getFullYear()
+      const month = time.getMonth() + 1
+      const date = time.getDate()
+      const resultTime = year + '-' + add0(month) + '-' + add0(date)
+      this.reportInfo.startTime = resultTime
+    },
+    putStaffReport () {
+      putStaffReport(this.reportInfo).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
+      })
+    },
+    handlePreClick () {
+      this.resultData(this.dataReduce() - 7 * 24 * 60 * 60 * 1000)
+      this.putStaffReport()
+    },
+    handleNextClick () {
+      this.resultData(this.dataReduce() + 7 * 24 * 60 * 60 * 1000)
+      this.putStaffReport()
+    },
   },
 }
 </script>

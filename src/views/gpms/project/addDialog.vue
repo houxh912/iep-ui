@@ -105,6 +105,11 @@
             </IepCrmsSelect>
           </el-form-item>
         </el-col>
+        <el-col :span="12">
+          <el-form-item label="预计签订时间：" prop="estimatedSigntime">
+            <IepDatePicker v-model="formData.estimatedSigntime"></IepDatePicker>
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
         <span slot="label">
@@ -134,6 +139,55 @@
           </ul>
         </el-form-item>
       </div>
+      <el-form-item label="预计回款时间：" class="table">
+        <el-table :data="formData.paymentRelations" style="width: 100%">
+          <el-table-column prop="projectPaymentTime" label="月份">
+            <template slot-scope="scope">
+              <el-date-picker
+                v-model="formData.paymentRelations[scope.$index].projectPaymentTime"
+                type="date"
+                placeholder="选择时间"
+                format="yyyy-MM-dd"
+                value-format="yyyy-MM-dd hh:mm:ss"
+                :readonly="formData.paymentRelations[scope.$index].id?true:false">
+              </el-date-picker>
+            </template>
+          </el-table-column>
+          <el-table-column prop="paymentAmount" label="回款金额">
+            <template slot-scope="scope">
+              <el-input 
+                v-if="selectIndex==scope.$index" 
+                v-model="formData.paymentRelations[scope.$index].paymentAmount" 
+                @blur="()=>{changeNumber(scope.$index);selectIndex=-1}" 
+                maxlength="10" 
+                type="number" 
+                min=0
+                placeholder="请正确输入非负回款金额"
+                :readonly="formData.paymentRelations[scope.$index].id?true:false"></el-input>
+              <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
+            </template>
+          </el-table-column>
+          <el-table-column prop="menu" label="操作" width="200px">
+            <template slot-scope="scope">
+              <!-- 0可以延期 -->
+              <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelay(scope.$index)">延期</iep-button>
+              <div class="project-select-delay" v-if="selectDelay.index == scope.$index">
+                <el-date-picker
+                  v-model="selectDelay.value" 
+                  type="date" 
+                  placeholder="选择延期时间" 
+                  ref="selectDelay" 
+                  @change="changeDelay" 
+                  format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd hh:mm:ss">
+                </el-date-picker>
+              </div>
+              <iep-button size="small" v-if="!formData.paymentRelations[scope.$index].id" @click="handleDelete(scope.$index)">删除</iep-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="create" @click="handleCreate"><i class="el-icon-plus"></i> 新增</div>
+      </el-form-item>
     </el-form>
 
     <footer-tool-bar>
@@ -195,6 +249,11 @@ export default {
       isRelevOptions: dictMap.isRelevOptions, // 是否关联菜单
       workTypeOne: dictMap.workTypeOne, // 业务类型一级菜单
       relatedFormList,
+      selectIndex: -1,
+      selectDelay: {
+        value: '',
+        index: -1,
+      },
     }
   },
   methods: {
@@ -262,6 +321,8 @@ export default {
               form[item.name] = this.formData[item.list].id
             }
           }
+          // 判断签订状态 -- 是否关联合同
+          form.signatureStatus = form.contractIds.length > 0 ? 1 : 0
 
           form.inChargeDept = this.formData.inChargeDeptList.id
           form.coopDept = this.formData.coopDeptList.id
@@ -316,6 +377,34 @@ export default {
       this.formData[list].splice(index, 1)
       this.formData[ids].splice(index, 1)
     },
+    handleCreate () {
+      this.formData.paymentRelations.push({
+        projectPaymentTime: '',
+        paymentAmount: '',
+      })
+    },
+    handleDelete (index) {
+      this.formData.paymentRelations.splice(index, 1)
+    },
+    // 预计回款时间金额调整
+    changeNumber (index) {
+      this.$nextTick(() => {
+        if (this.formData.paymentRelations[index].paymentAmount < 0) {
+          this.formData.paymentRelations[index].paymentAmount = 0
+        }
+      })
+    },
+    // 延期
+    handleDelay (index) {
+      this.selectDelay.index = index
+      this.$nextTick(() => {
+        this.$refs['selectDelay'].focus()
+      })
+    },
+    changeDelay (val) {
+      this.formData.paymentRelations[this.selectDelay.index].projectPaymentTime = val
+      this.selectDelay.index = -1
+    },
   },
   created () {
     // console.log('userinfo: ', this.userInfo)
@@ -339,6 +428,27 @@ export default {
       margin-left: 10px;
       cursor: pointer;
     }
+  }
+}
+.table {
+  .create {
+    text-align: center;
+    color: #ba1b21;
+    cursor: pointer;
+  }
+}
+</style>
+<style lang="scss">
+.project-select-delay {
+  width: 0;
+  height: 0;
+  input {
+    width: 0;
+    height: 0;
+    border: 0;
+  }
+  span {
+    display: none;
   }
 }
 </style>

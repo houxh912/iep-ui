@@ -40,8 +40,6 @@ export default {
   .piece{
     overflow: hidden;
     margin-bottom: 15px;
-    &:hover{
-    }
   }
   .img{
     width: 140px;

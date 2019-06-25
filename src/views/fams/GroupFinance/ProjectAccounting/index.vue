@@ -28,7 +28,7 @@
         <template slot="before-columns">
           <el-table-column label="时间">
             <template slot-scope="scope">
-              {{scope.row.businessYear + '-' + scope.row.businessMonth}}
+              {{scope.row.businessYear + '年' + scope.row.businessMonth}}
             </template>
           </el-table-column>
         </template>

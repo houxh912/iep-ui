@@ -24,6 +24,20 @@ const columnsMap = [
 	},
 ]
 
+const initDetailForm = () => {
+  return {
+		projectName: '',
+    contractAmount: 0,
+    publisher: '',
+    serialNo: '',
+    publisherList: {id:'',name:''},
+    projectManagerList: {id:'',name:''},
+    mktManagerList: {id:'',name:''},
+    projectTime: '',
+    endTime: '',
+  }
+}
+
 const initForm = () => {
   return {
     orgId: '',
@@ -54,4 +68,4 @@ const toDtoForm = (row) => {
 	delete newForm.businessDate
   return newForm
 }
-export { columnsMap, initForm, toDtoForm, initSearchForm, toDtoSearchForm }
+export { columnsMap, initForm, initDetailForm, toDtoForm, initSearchForm, toDtoSearchForm }

@@ -55,7 +55,7 @@
 <script>
 import { getProjectInformationById } from '@/api/fams/statistics'
 import Accounting from './Accounting/'
-import { initForm } from './options'
+import { initDetailForm } from './options'
 // import Budget from './Budget/'
 import mixins from '@/mixins/mixins'
 import Cost from './Cost/'
@@ -68,7 +68,7 @@ export default {
       backOption: {
         isBack: true,
       },
-      form: initForm(),
+      form: initDetailForm(),
       tabList: [{
         label: '项目核算表',
         value: 'Accounting',
@@ -98,7 +98,7 @@ export default {
       if (this.id) {
         this.isLoadTable = true
         getProjectInformationById(this.id).then(({ data }) => {
-          this.form = this.$mergeByFirst(initForm(), data.data)
+          this.form = this.$mergeByFirst(initDetailForm(), data.data)
           this.isLoadTable = false
         })
       }

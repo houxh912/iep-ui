@@ -43,10 +43,6 @@
       </div>
     </el-form>
 
-    <div align="center" style="width:100%;margin-top:250px;">
-      <hr>
-    </div>
-
     <div align="center" style="width:100%;">
       <hr>
     </div>

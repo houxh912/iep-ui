@@ -27,21 +27,21 @@
           <iep-contact-multiple-user v-model="form.assistants"></iep-contact-multiple-user>
         </el-form-item>
 
-        <el-form-item label='起止时间' prop="implementRangeTime" class="form-half">
-          <iep-date-picker v-model="form.implementRangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
+        <el-form-item label='起止时间' prop="startTime" class="form-half">
+          <iep-date-picker v-model="form.startTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
               </iep-date-picker>
         </el-form-item>
 
-        <el-form-item label='标签' prop="tagKeyWords">
-          <iep-tag v-model="form.tagKeyWords"></iep-tag>
+        <el-form-item label='标签' prop="sign">
+          <iep-tag v-model="form.sign"></iep-tag>
         </el-form-item>
 
         <el-form-item label='备注' prop="remarks">
           <el-input v-model="form.remarks" maxlength="300" :rows="4"></el-input>
         </el-form-item>
 
-        <el-form-item label='附件' prop="attach">
-          <iep-upload v-model="form.attach" :limit="limit"></iep-upload>
+        <el-form-item label='附件' prop="annexList">
+          <iep-upload v-model="form.annexList" :limit="limit"></iep-upload>
         </el-form-item>
 
         <el-form-item label='关联内容' prop="materials">
@@ -82,6 +82,9 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           const publish = isPublish === true ? true : false
+          if (this.form.annexList.length > 0) {
+            this.form.attach = this.form.annexList[0].url
+          }
           postAtms(formToDto(this.form), publish).then(({ data }) => {
             if (data.data) {
               this.$message({

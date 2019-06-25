@@ -13,10 +13,6 @@ const columnsMap = [
     prop: 'parentName',
     label: '所属任务',
   },
-  {
-    prop: 'startTime',
-    label: '起止时间',
-  },
 ]
 
 const initForm = () => {

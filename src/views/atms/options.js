@@ -19,11 +19,15 @@ const initForm = () => {
         priority: '',//优先级 
         executors: [],//协同人
         assistants: [],//执行人,
-        startTime:'',//起止时间
-        tagKeyWords: [],//标签
+        principalName:'',//负责人
+        avatar:'',//负责人头像
+        startTime:'',//开始时间
+        endTime:'',//结束时间
+        sign: [],//标签
         remarks:'',//备注
-        attach: [],//附件
-        materials: '',//关联内容
+        annexList: [],//附件
+        attach:'',
+        materials: [],//关联内容
         records:[],
     }
 }

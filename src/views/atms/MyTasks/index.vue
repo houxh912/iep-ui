@@ -35,6 +35,13 @@
             </template>
           </el-table-column>
         </template>
+        <template>
+          <el-table-column label="起止时间" width="300px">
+            <template slot-scope="scope">
+              {{scope.row.startTime | parseToDay}}~{{scope.row.endTime | parseToDay}}
+            </template>
+          </el-table-column>
+        </template>
         <el-table-column prop="operation" label="操作" width="260">
           <template slot-scope="scope">
             <operation-wrapper>

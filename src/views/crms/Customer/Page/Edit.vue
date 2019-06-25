@@ -111,6 +111,10 @@
               {{tag.commonName}}
             </a-tag>
           </el-form-item>
+          <el-form-item label="是否认领">
+            <el-switch v-model="value" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否">
+            </el-switch>
+          </el-form-item>
           <!-- <el-form-item label="跟进状态:" prop="followUpStatus">
             <iep-dict-select v-model="formData.followUpStatus" dict-name="crms_follow_up_status"></iep-dict-select>
           </el-form-item> -->
@@ -193,6 +197,7 @@ export default {
     return {
       tipContent,
       id: '',
+      value: false,
       backOption: {
         isBack: true,
         backPath: null,
@@ -285,6 +290,11 @@ export default {
     }
   },
   created () {
+    if (this.value) {
+      this.formData.toClaim == 0
+    } else {
+      this.formData.toClaim == 1
+    }
     this.formData.marketManager = this.userInfo.userId
     this.flagName = this.record.flagName
     this.type = this.record.type
@@ -309,6 +319,11 @@ export default {
         getObj(data.data.marketManager).then(res => {
           this.formData.Manager = res.data.data.realName
         })
+        if(this.formData.toClaim == 0){
+          this.value = true
+        }else{
+          this.value = false
+        }
       })
     } else if (this.flag) {
       // this.formData.businessTypeKey = this.data.businessType.map(m => m.commonId)

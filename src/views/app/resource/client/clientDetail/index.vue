@@ -36,7 +36,7 @@ export default {
   data () {
     return {
       title: '厦门市信息中心标准规划部',
-      name:['李凯','胡浩'], 
+      name: ['李凯', '胡浩'],
       labelTitle: '热门标签',
       listTitle1: '本周新增',
       rankingTitle: '合作次数最多',
@@ -60,13 +60,13 @@ export default {
     },
     // 推荐主题
     getRectagsList () {
-      getRectagsList().then(({data}) => {
+      getRectagsList().then(({ data }) => {
         this.labelList = data.data
       })
     },
     // 合作次数最多
     getCoopClientList () {
-      getCoopClientList().then(({data}) => {
+      getCoopClientList().then(({ data }) => {
         // 存在偶尔可能数据为null的情况
         let row = data.data
         for (let i = 0; i < row.length; ++i) {
@@ -85,7 +85,7 @@ export default {
     },
     // 本周新增
     getNewClientList () {
-      getNewClientList().then(({data}) => {
+      getNewClientList().then(({ data }) => {
         this.listList1 = data.data
       })
     },
@@ -103,14 +103,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.client-top{
+.client-top {
   margin-bottom: 15px;
-  p{
-    color:#333;
+  p {
+    color: #333;
     font-size: 18px;
     margin-bottom: 8px;
   }
-  span{
+  span {
     margin-right: 10px;
     font-size: 14px;
   }
@@ -126,17 +126,22 @@ export default {
 }
 .ranking {
   padding: 0;
+  .piece {
+    .name {
+      width: 100%;
+    }
+  }
 }
-.el-card{
-  border:0;
+.el-card {
+  border: 0;
 }
-.library{
+.library {
   padding-right: 20px;
-  border-right: 1px solid #EBEEF5;
+  border-right: 1px solid #ebeef5;
 }
 </style>
 <style scoped>
-.breadcrumb-wrapper >>> .el-breadcrumb__inner.is-link{
+.breadcrumb-wrapper >>> .el-breadcrumb__inner.is-link {
   font-weight: normal;
 }
 </style>

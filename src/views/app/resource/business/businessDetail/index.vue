@@ -40,11 +40,11 @@ export default {
       listList2: [],
       dataList: [
         { name: '厦门市信息中心标准规划部' },
-        { name: '深圳市经济贸易和信息化委员会'},
-        { name: '象山政府部门'},
-        { name: '珠海市营商环境评估'},
-        { name: '珠海市营商环境评估'},
-        { name: '珠海市营商环境评估'},
+        { name: '深圳市经济贸易和信息化委员会' },
+        { name: '象山政府部门' },
+        { name: '珠海市营商环境评估' },
+        { name: '珠海市营商环境评估' },
+        { name: '珠海市营商环境评估' },
       ],
       routerMatch: this.$route.matched,
     }
@@ -52,19 +52,19 @@ export default {
   methods: {
     // 推荐主题
     getRectagsList () {
-      getRectagsList().then(({data}) => {
+      getRectagsList().then(({ data }) => {
         this.labelList = data.data
       })
     },
     // 猜你想找
     getGuessList () {
-      getGuessList().then(({data}) => {
+      getGuessList().then(({ data }) => {
         this.listList1 = data.data
       })
     },
     // 优秀材料
     getExcellentList () {
-      getExcellentList().then(({data}) => {
+      getExcellentList().then(({ data }) => {
         this.listList2 = data.data
       })
     },
@@ -99,17 +99,22 @@ export default {
 }
 .ranking {
   padding: 0;
+  .piece {
+    .name {
+      width: 100%;
+    }
+  }
 }
-.el-card{
-  border:0;
+.el-card {
+  border: 0;
 }
-.library{
+.library {
   padding-right: 20px;
-  border-right: 1px solid #EBEEF5;
+  border-right: 1px solid #ebeef5;
 }
 </style>
 <style scoped>
-.breadcrumb-wrapper >>> .el-breadcrumb__inner.is-link{
+.breadcrumb-wrapper >>> .el-breadcrumb__inner.is-link {
   font-weight: normal;
 }
 </style>

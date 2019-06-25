@@ -91,6 +91,16 @@ export function getProjectPage (query) {
   })
 }
 
+export function getProjectPageByOrgId (orgId) {
+  return function (query) {
+    return request({
+      url: `${prefixUrl}/project/page/${orgId}`,
+      method: 'get',
+      params: query,
+    })
+  }
+}
+
 export function getBossProjectPage (id) {
   return request({
     url: `${prefixUrl}/project/page/${id}`,

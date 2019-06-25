@@ -38,11 +38,26 @@ const initForm = () => {
   }
 }
 
+const initSearchForm = () => {
+  return {
+    businessDate: '',
+  }
+}
+
+const toDtoSearchForm = (row) => {
+	const newForm = {...row}
+	newForm.businessYear = getYear(row.businessDate) || null
+	newForm.businessMonth = getMonth(row.businessDate) || null
+	delete newForm.businessDate
+  return newForm
+}
+
 const toDtoForm = (row) => {
   const newForm = {...row}
   newForm.businessYear = getYear(row.businessDate)
   newForm.businessMonth = getMonth(row.businessDate)
+	delete newForm.businessDate
   return newForm
 }
 
-export { columnsMap, initForm, toDtoForm }
+export { columnsMap, initForm, toDtoForm, initSearchForm, toDtoSearchForm }

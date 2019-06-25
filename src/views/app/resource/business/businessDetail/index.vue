@@ -101,7 +101,7 @@ export default {
   padding: 0;
   .piece {
     .name {
-      width: 100%;
+      width: 100% !important;
     }
   }
 }

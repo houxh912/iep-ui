@@ -157,7 +157,7 @@ export default {
       this.$refs['ConversionDialogForm'].dialogShow = true
     },
     handleEdit () {
-
+      this.$router.push(`/atms/edit/${this.id}`)
     },
     handleDelete () {
       this.$confirm('此操作将永久删除该任务, 是否继续?', '提示', {

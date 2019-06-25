@@ -64,7 +64,6 @@ export default {
   mixins: [formMixins],
   data () {
     return {
-      methodName: '新增',
       backOption: {
         isBack: true,
         backPath: null,
@@ -76,6 +75,14 @@ export default {
       rules,
       limit:1,
     }
+  },
+  computed: {
+    id () {
+      return +this.$route.params.id
+    },
+    methodName () {
+      return this.id ? '编辑' : '新增'
+    },
   },
   methods: {
     handleContractChange (v) {

@@ -54,6 +54,9 @@
         </span>
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
+      <el-form-item label="关联组织：">
+        <iep-select v-model="formData.relationOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择关联组织"></iep-select>
+      </el-form-item>
       <el-form-item label="图片：" prop="image">
         <span slot="label">
           图片

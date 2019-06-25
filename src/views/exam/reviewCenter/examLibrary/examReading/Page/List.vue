@@ -3,10 +3,10 @@
     <operation-container>
       <template slot="left">
         <iep-button type="danger" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button>
-        <iep-button type="danger" plain>导出</iep-button>
+        <!-- <iep-button type="danger" plain>导出</iep-button> -->
         <iep-button @click="handleEdit">阅卷进度</iep-button>
         <iep-button class="tip">当前已选择<span>{{Value}}</span>项</iep-button>
-        <iep-button class="empty" @click="handleEmpty">清空</iep-button>
+        <iep-button class="empty" @click="handleEmpty" v-show="Value != 0">清空</iep-button>
       </template>
       <template slot="right">
         <operation-search @search-page="searchPage" prop="username">
@@ -326,6 +326,7 @@ export default {
   }
 }
 .empty {
+  margin-top: 6px;
   border: 0px solid #ccc;
   color: #419fff;
   &:hover {

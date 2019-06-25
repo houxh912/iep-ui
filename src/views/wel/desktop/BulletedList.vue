@@ -1,15 +1,25 @@
 <template>
   <div class="bulleted-list">
-    <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <div class="bulleted-item" v-for="(item,index) in dataList" :key="index">
-        <span class="sub-item">{{item.project_name}}</span>
+    <el-card class="index-card" shadow="never">
+      <div slot="header" class="title-con clearfix">
+        <span class="title">
+          {{title}}
+        </span>
+        <slot name="statistics"></slot>
+        <el-button class="btn" type="text" @click="getMore">更多></el-button>
+        <slot name="right"></slot>
       </div>
-    </IepAppTabCard>
+      <el-scrollbar style="height:240px">
+        <div class="bulleted-item" v-for="(item,index) in dataList" :key="index">
+          <span class="sub-item">{{item.project_name}}</span>
+        </div>
+      </el-scrollbar>
+    </el-card>
   </div>
 </template>
 
 <script>
-import {getProjectRecProjects} from '@/api/app/prms/'
+import { getProjectRecProjects } from '@/api/app/prms/'
 export default {
   data () {
     return {
@@ -21,30 +31,60 @@ export default {
   },
   created () {
     this.linkName = '/wel/budget_list_detail'
-     getProjectRecProjects().then(({data}) => {
+    getProjectRecProjects().then(({ data }) => {
       this.dataList = data.data.list
     })
+  },
+  methods: {
+    getMore () {
+      this.$router.push({
+        path: this.linkName,
+      })
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.title-con {
+  display: flex;
+  justify-content: space-between;
+}
+.title {
+  flex: 2;
+  font-size: 16px;
+  color: #303133;
+  margin: 0 4px;
+  height: 22px;
+  line-height: 22px;
+}
+.btn {
+  margin-right: 5px;
+  padding: 0;
+  height: 22px;
+  line-height: 22px;
+  color: #999;
+  cursor: pointer;
+}
+.datas {
+  margin-left: 5px;
+  font-size: 14px;
+  color: #999;
+}
 .bulleted-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
   padding: 0 10px;
   line-height: 32px;
   font-size: 14px;
   color: #333;
   .sub-item {
     display: inline-block;
-    width: 170px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    &:hover{
+    &:hover {
       color: #cb3737;
     }
   }
@@ -54,6 +94,9 @@ export default {
 }
 </style>
 <style scoped>
+.el-card {
+  padding: 0 20px;
+}
 .bulleted-list >>> .el-card {
   height: 351px;
 }

@@ -32,6 +32,7 @@ export default {
   data () {
     return {
       columnsMap,
+      isLoadTable: false,
       bodyStyle: {
         display: 'flex',
         flexDirection: 'column',

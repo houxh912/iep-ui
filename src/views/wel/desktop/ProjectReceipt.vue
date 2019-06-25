@@ -13,7 +13,7 @@
         </operation-container>
         <iep-divider />
         <div class="chart">
-          <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">          </iep-table>
+          <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">          </iep-table>
         </div>
       </el-card>
     </div>
@@ -41,7 +41,7 @@ const columnsMap = [
 		label:'合同金额',
 	},
 	{
-		prop:'invoiceAmount',
+		prop:'invoicingAmount',
 		label:'开票金额',
 	},
 ]
@@ -51,6 +51,7 @@ export default {
     return {
       columnsMap,
       userId: '',
+      isLoadTable: false,
     }
   },
   created () {

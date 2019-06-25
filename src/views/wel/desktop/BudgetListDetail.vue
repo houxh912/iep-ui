@@ -15,8 +15,8 @@
           ></iep-select>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
-            <!-- <advance-search @search-page="searchPage"></advance-search> -->
+          <operation-search @search-page="searchPage" advance-search  prop="projectName">
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -31,13 +31,13 @@
         <template slot="before-columns">
           <el-table-column label="项目名称" width="300">
             <template slot-scope="scope">
-              <span>{{ scope.row.projectName.slice(0, 10) }}</span>
+              <span>{{ scope.row.projectName}}</span>
             </template>
           </el-table-column>
         </template>
         <el-table-column label="发布时间" width="150">
           <template slot-scope="scope">
-            <span>{{ scope.row.publisherTime.slice(0, 10) }}</span>
+            <span>{{ scope.row.publisherTime }}</span>
           </template>
         </el-table-column>
       </iep-table>
@@ -45,14 +45,11 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
 import { getProjectList } from '@/api/gpms/index'
+import AdvanceSearch from './AdvanceSearch'
 const columnsMap = [
-  {
-    prop: 'projectName',
-    label: '项目名称',
-  },
   {
     prop: 'projectStage',
     label: '项目阶段',
@@ -70,12 +67,24 @@ const columnsMap = [
     label: '发布人',
   },
 ]
+// const initForm = () => {
+//   return {
+//     projectStage: '',
+//     projectManager: '',
+//     projectLevel: '',
+//     publisherName: '',
+//   }
+// }
 export default {
   mixins: [mixins],
+  components: {AdvanceSearch},
   data () {
     return {
       orgIds: '',
       columnsMap,
+      pagedTable: [],
+      searchForm: {},
+      isLoadTable: false,
     }
   },
   computed: {
@@ -83,16 +92,25 @@ export default {
       'userInfo',
       'dictGroup',
     ]),
-    ...mapState({
-      orgId: state => state.user.userInfo.orgIds,
-    }),
+    // ...mapState({
+    //   orgId: state => state.user.userInfo.orgIds,
+    // }),
     isAbled () {
       return this.userInfo.userId === 1 || this.userInfo.userId === 2 || this.userInfo.userId === 3 || this.userInfo.userId === 451
     },
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
     loadPage (param = {}) {
-      this.loadTable(Object.assign({}, param, this.searchForm), getProjectList)
+      this.loadTable(Object.assign({ orgId: this.orgIds }, param, this.searchForm), getProjectList)
+    },
+    listPage () {
+      this.loadPage()
+    },
+    searchPage (val) {
+      this.loadPage(val)
     },
   },
 }

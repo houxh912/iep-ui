@@ -75,7 +75,7 @@
                     </div>
                     <el-radio-group v-model="radioItem.userAnswer" disabled>
                       <el-radio v-for="radioOption in radioItem.itemOptions" :key="radioOption.key"
-                        :label="radioOption.key">{{radioOption.value}}</el-radio>
+                        :label="radioOption.key">{{radioOption.key}} . {{radioOption.value}}</el-radio>
                     </el-radio-group>
                     <div class="question-analysis">
                       <p><b>考生答案：<span>{{radioItem.userAnswer}}</span></b></p>
@@ -290,6 +290,8 @@ export default {
           if (item.itemOptions) {
             const checkeditemOptions = JSON.parse(item.itemOptions)
             item.itemOptions = checkeditemOptions
+          } else {
+            item.itemOptions = [{ key: '正确', value: '正确' }, { key: '错误', value: '错误' }]
           }
           return item
         })

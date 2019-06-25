@@ -4,8 +4,8 @@
     <el-form :model="form" ref="form" label-width="110px" :rules="rules">
       <div class="select">
         <el-form-item class="item" label="题型：" prop="questionType">
-          <el-select v-model="form.questionType" size="small" clearable @change="handleChangeQuestionType"
-            :disabled="questionTypeDisabled">
+          <el-select :value="form.questionType" @input="updateValue(arguments[0])" size="small"
+            clearable :disabled="questionTypeDisabled">
             <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
@@ -36,7 +36,8 @@
         </el-form-item>
 
         <el-form-item class="item" label="关联标签：" prop="tagKeyWords" style="margin-left:20%;">
-          <mutiply-tag-select v-if="btnDisabled == false" v-model="form.tagKeyWords" :select-objs="form.tagKeyWords" width="906px" ></mutiply-tag-select>
+          <mutiply-tag-select v-if="btnDisabled == false" v-model="form.tagKeyWords" :select-objs="form.tagKeyWords"
+            width="906px"></mutiply-tag-select>
           <el-tag v-else class="relatedTag" type="info" :key="tag" v-for="tag in tagsShow" size="medium">{{tag}}</el-tag>
         </el-form-item>
       </div>
@@ -54,9 +55,9 @@
           <iep-button v-if="btnSave == 1" type="primary" @click="saveSingle" v-show="!btnDisabled">保存</iep-button>
         </div>
       </template>
-      <!-- <template v-if="tabName ==='Batch'" v-slot:Batch>
-        <batch-dialog ref="batch"></batch-dialog>
-      </template> -->
+      <template v-if="tabName ==='Batch'" v-slot:Batch>
+        <batch-dialog ref="batch" v-model="form.questionType"></batch-dialog>
+      </template>
     </iep-tabs>
   </div>
 </template>
@@ -64,7 +65,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import SingleDialog from './Single.vue'
-// import BatchDialog from './Batch.vue'
+import BatchDialog from './Batch.vue'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import { getTestOption, postNewTest, getExamMsg, postModify } from '@/api/exam/createExam/newTest/newTest'
 export default {
@@ -72,7 +73,7 @@ export default {
   mixins: [mixins],
   components: {
     SingleDialog,
-    // BatchDialog,
+    BatchDialog,
     MutiplyTagSelect,
   },
   props: {
@@ -115,10 +116,10 @@ export default {
           label: '单题输入',
           value: 'Single',
         },
-        // {
-        //   label: '批量导入',
-        //   value: 'Batch',
-        // },
+        {
+          label: '批量导入',
+          value: 'Batch',
+        },
       ],
       rules: {
         field: [
@@ -148,6 +149,24 @@ export default {
     },
   },
   methods: {
+
+    updateValue (value) {
+      if (this.form.questionType) {
+        this.$confirm('输入区试题内容会清空，请确认', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          this.form.questionType = value
+          this.postAnswer = value
+        }).catch(() => {
+        })
+      } else {
+        this.form.questionType = value
+        this.postAnswer = value
+      }
+    },
+
     /**
      * 获取试题
      */
@@ -155,11 +174,11 @@ export default {
       const { id } = this.record
       if (this.record.edit == true) {
         this.btnDisabled = this.record.edit
-        this.$refs.single.inputDisabled ()
+        this.$refs.single.inputDisabled()
       }
       if (this.record.edit == false) {
         this.btnDisabled = this.record.edit
-        this.$refs.single.inputUndisabled ()
+        this.$refs.single.inputUndisabled()
       }
       if (id) {
         this.btnSave = 1
@@ -204,7 +223,6 @@ export default {
      *判断题型
      */
     handleChangeQuestionType (val) {
-      // this.$refs.single.$refs['ruleForm'].resetFields ()
       this.postAnswer = val
     },
     /**
@@ -216,7 +234,7 @@ export default {
     /**
      * 修改保存试题
      */
-    saveSingle (){
+    saveSingle () {
       this.$refs.form.validate((valid) => {
         if (valid) {
           if (this.$refs.single.submitForm() == true) {

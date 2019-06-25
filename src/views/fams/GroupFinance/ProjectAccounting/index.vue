@@ -28,7 +28,7 @@
         <template slot="before-columns">
           <el-table-column label="时间">
             <template slot-scope="scope">
-              {{scope.row.businessYear-scope.row.businessMonth}}
+              {{scope.row.businessYear + '-' + scope.row.businessMonth}}
             </template>
           </el-table-column>
         </template>
@@ -40,6 +40,11 @@
         <el-table-column label="业务指标完成率">
           <template slot-scope="scope">
             {{!scope.row.contractAmount ? '暂无' : (scope.row.contractAmount||0 / scope.row.amount||1) }}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <iep-button @click.stop="handleEdit(scope.row)">编辑</iep-button>
           </template>
         </el-table-column>
       </iep-table>
@@ -82,6 +87,12 @@ export default {
   methods: {
     handleAdd () {
       this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].isEdit = false
+      this.$refs['DialogForm'].dialogShow = true
+    },
+    handleEdit (row) {
+      this.$refs['DialogForm'].form = { ...row }
+      this.$refs['DialogForm'].isEdit = true
       this.$refs['DialogForm'].dialogShow = true
     },
     handleDetail (row) {

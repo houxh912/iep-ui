@@ -1,4 +1,17 @@
 import { getYear, getMonth } from '@/util/date'
+
+const rules = {
+  orgId: [
+    { required: true, message: '请选择组织', trigger: 'blur' },
+  ],
+  businessDate: [
+    { required: true, message: '请选择日期', trigger: 'blur' },
+  ],
+  amount: [
+    { type:'number', required: true, message: '请输入日期', trigger: 'blur' },
+  ],
+}
+
 const columnsMap = [
 	{
 		prop: 'orgName',
@@ -59,4 +72,4 @@ const toDtoForm = (row) => {
   return newForm
 }
 
-export { columnsMap, initForm, toDtoForm, initSearchForm, toDtoSearchForm }
+export { columnsMap, initForm, toDtoForm, initSearchForm, toDtoSearchForm, rules }

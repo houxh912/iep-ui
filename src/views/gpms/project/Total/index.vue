@@ -23,7 +23,7 @@
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="selectionChange" :dictsMap="dictMap">
       <el-table-column label="项目名称" slot="before-columns" width="300px">
         <template slot-scope="scope">
-          <div style="cursor: pointer;" @click="handleDetail(scope.row)">
+          <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
             <span>{{ scope.row.projectName }}</span>
           </div>
         </template>

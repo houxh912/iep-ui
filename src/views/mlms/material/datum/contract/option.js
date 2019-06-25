@@ -82,6 +82,7 @@ export const initFormData = () => {
     projectId: '',
     contractFile: [],
     contractFileList: [],
+    isHistory: 1,
   }
 }
 

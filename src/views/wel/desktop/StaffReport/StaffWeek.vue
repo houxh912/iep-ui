@@ -41,6 +41,7 @@ export default {
       columnsMap,
       orgIds: '',
       realName: '',
+      isLoadTable: false,
     }
   },
   created () {
@@ -71,7 +72,7 @@ export default {
     },
     handleClick (row) {
       this.$router.push({
-        path: `/wel/staff_detail/${row.reportId}`,
+        path: `/wel/staff_week_detail/${row.reportId}`,
       })
     },
     listPage () {

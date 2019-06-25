@@ -136,3 +136,19 @@ export function getProjectInformationById (id) {
     method: 'get',
   })
 }
+
+export function getUnionProjectPage (query) {
+  return request({
+    url: `${prefixUrl}/business_index/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function postUnionProject (obj) {
+  return request({
+    url: `${prefixUrl}/create/business_index`,
+    method: 'post',
+    data: obj,
+  })
+}

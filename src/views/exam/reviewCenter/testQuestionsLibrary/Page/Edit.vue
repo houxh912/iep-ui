@@ -1,7 +1,7 @@
 <template>
   <div class="report">
     <page-header :title="`${record.methodName}试题`" :data="[10, 5]" :backOption="backOption"></page-header>
-    <el-form :model="form" ref="form" label-width="110px" :rules="rules">
+    <el-form :model="form" ref="form" label-width="120px" :rules="rules">
       <div class="select">
         <el-form-item class="item" label="题型：" prop="questionType">
           <el-select :value="form.questionType" @input="updateValue(arguments[0])" size="small"
@@ -44,6 +44,10 @@
     </el-form>
 
     <div align="center" style="width:100%;margin-top:250px;">
+      <hr>
+    </div>
+
+    <div align="center" style="width:100%;">
       <hr>
     </div>
 
@@ -229,7 +233,10 @@ export default {
      * 返回
      */
     handleGoBack () {
-      this.$emit('onGoBack')
+      this.$emit('onGoBack', {
+        current: this.record.current,
+        size: this.record.size,
+      })
     },
     /**
      * 修改保存试题
@@ -334,8 +341,16 @@ export default {
 }
 </style>
 <style scoped>
+.select {
+  overflow: auto;
+}
 .select >>> .el-input .el-select__caret {
-  line-height: 2.9;
+  line-height: 32px;
+}
+.selectItem {
+  height: 32px;
+  width: 100%;
+  line-height: 32px;
 }
 .relatedTag {
   margin-right: 10px;

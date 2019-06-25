@@ -30,10 +30,20 @@
   </div>
 </template>
 <script>
-import { initSearchForm,dictMap,rules} from './const'
+// import { initSearchForm} from './const'
 // import { getContactAssociate } from '@/api/crms/contact'
 // import { getPageData } from '@/api/crms/customer'
 import { mapGetters, mapState } from 'vuex'
+const initSearchForm = () => {
+  return {
+    projectName: '',//项目名称
+    orgId:'',//所属组织
+    projectStage: [],//项目阶段
+    projectLevel: [],//项目等级
+    associatedProducts: false,//是否项目关联
+    manager: '',//项目经理
+  }
+}
 export default {
   data () {
     return {
@@ -41,8 +51,6 @@ export default {
       restaurants: [],
       clientList: [],
       isLoading: true,
-      dictMap,
-      rules,
       orgId: '',
     }
   },

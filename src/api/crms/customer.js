@@ -108,3 +108,12 @@ export function getToclaimHighseas (query) {
     params: query,
   })
 }
+
+// 取消认领客户
+export function getUnToclaimHighseas (query) {
+  return request({
+    url: `${prefixUrl}/un/toclaim/highseas`,
+    method: 'get',
+    params: query,
+  })
+}

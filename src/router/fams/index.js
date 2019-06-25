@@ -126,6 +126,11 @@ export default [
         name: '提现申请(个人)',
         component: () => import('@/views/fams/wealth/WealthFlow/index.vue'),
       },
+      {
+        path: 'project/:id',
+        name: '项目核算',
+        component: () => import('@/views/fams/OrgAssets/ProjectAccounting/index.vue'),
+      },
     ],
   },
 ]

@@ -8,7 +8,7 @@
         <operation-search @search-page="searchPage" prop="realName" placeholder="根据姓名进行搜索"></operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" isMutipleSelection>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" isMutipleSelection>
       <template slot="before-columns">
         <el-table-column label="标题" width="400">
           <template slot-scope="scope">
@@ -41,6 +41,7 @@ export default {
       columnsMap,
       orgIds: '',
       realName: '',
+      isLoadTable: false,
     }
   },
   created () {

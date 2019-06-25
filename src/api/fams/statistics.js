@@ -91,6 +91,16 @@ export function getProjectPage (query) {
   })
 }
 
+export function getProjectPageByOrgId (orgId) {
+  return function (query) {
+    return request({
+      url: `${prefixUrl}/project/page/${orgId}`,
+      method: 'get',
+      params: query,
+    })
+  }
+}
+
 export function getBossProjectPage (id) {
   return request({
     url: `${prefixUrl}/project/page/${id}`,
@@ -134,5 +144,21 @@ export function getProjectInformationById (id) {
   return request({
     url: `prms/iepProjectInformation/${id}`,
     method: 'get',
+  })
+}
+
+export function getUnionProjectPage (query) {
+  return request({
+    url: `${prefixUrl}/business_index/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function postUnionProject (obj) {
+  return request({
+    url: `${prefixUrl}/create/business_index`,
+    method: 'post',
+    data: obj,
   })
 }

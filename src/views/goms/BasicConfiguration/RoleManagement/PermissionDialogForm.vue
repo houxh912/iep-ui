@@ -25,7 +25,6 @@ export default {
       },
       menuIds: '',
       roleId: undefined,
-      // roleCode: undefined,
     }
   },
   methods: {

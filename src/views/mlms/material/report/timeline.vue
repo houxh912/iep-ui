@@ -205,7 +205,7 @@ export default {
       border-color: #cb3737 !important;
       color: #cb3737;
       .title {
-        color: #cb3737;
+        color: #cb3737!important;
       }
       .date {
         background-color: #f9eae7;

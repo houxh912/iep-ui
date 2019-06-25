@@ -189,11 +189,11 @@ export default {
      */
     handleDeleteAll (){
       if (this.selectValue == false){
-        this.$message.error('请至少选择一项考试！')
+        this.$message.error('请至少选择一名考生！')
       }
 
       if (this.selectValue == true) {
-        this.$confirm('此操作将删除选中的考试，是否继续？','提示',{
+        this.$confirm('此操作将删除选中的考生，是否继续？','提示',{
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',

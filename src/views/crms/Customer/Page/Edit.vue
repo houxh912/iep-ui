@@ -290,11 +290,7 @@ export default {
     }
   },
   created () {
-    if (this.value) {
-      this.formData.toClaim == 0
-    } else {
-      this.formData.toClaim == 1
-    }
+
     this.formData.marketManager = this.userInfo.userId
     this.flagName = this.record.flagName
     this.type = this.record.type
@@ -319,10 +315,10 @@ export default {
         getObj(data.data.marketManager).then(res => {
           this.formData.Manager = res.data.data.realName
         })
-        if(this.formData.toClaim == 0){
-          this.value = true
-        }else{
+        if (this.formData.unionId == 0) {
           this.value = false
+        } else {
+          this.value = true
         }
       })
     } else if (this.flag) {
@@ -408,6 +404,12 @@ export default {
       })
     },
     submitForm (formName) {
+      if (!this.value) {
+        this.formData.toClaim = 1
+      } else {
+        this.formData.toClaim = 0
+      }
+
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn((this.formData)).then(({ data }) => {

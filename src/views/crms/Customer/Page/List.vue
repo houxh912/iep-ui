@@ -7,15 +7,6 @@
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
           <iep-button type="primary" @click="excellImport" plain v-show="isDrPermissions()">导入</iep-button>
           <iep-button type="primary" @click="Transfer(2)" plain>转移</iep-button>
-          <!-- <el-dropdown size="medium">
-            <iep-button size="small" :disabled="type !== '2'" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="excellImport">导入</el-dropdown-item>
-              <el-dropdown-item @click.native="handleAllDelete">删除</el-dropdown-item>
-              <el-dropdown-item @click.native="Transfer">转移</el-dropdown-item>
-              <el-dropdown-item @click.native="handleCooperation">添加协作人</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown> -->
         </template>
         <template v-if="type==='1'" slot="left">
           <iep-button type="primary" @click="Transfer(1)" plain v-show="isZyPermissions()">转移</iep-button>
@@ -59,6 +50,7 @@
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="addContact(scope.row)">添加联系人</el-dropdown-item>
                   <el-dropdown-item @click.native="handleCooperation(scope.row)">添加协作人</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleCancelClaim(scope.row)">取消认领</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
@@ -98,7 +90,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId, tabList } from '../columns'
-import { getCustomerPage, postCustomer, putCustomer, deleteCustomerBatch, getToclaimHighseas } from '@/api/crms/customer'
+import { getCustomerPage, postCustomer, putCustomer, deleteCustomerBatch, getToclaimHighseas, getUnToclaimHighseas } from '@/api/crms/customer'
 import { getWeekincrease } from '@/api/crms/count'
 import AdvanceSearch from './AdvanceSearch'
 import ExcellImport from './ExcellImport/'
@@ -326,6 +318,18 @@ export default {
         if (data.data) {
           this.$message({
             message: '认领成功!',
+            type: 'success',
+          })
+          this.$emit('onGoBack')
+        }
+      })
+    },
+    // 取消认领
+    handleCancelClaim (row) {
+      getUnToclaimHighseas({ clientId: row.clientId }).then(({ data }) => {
+        if (data.data) {
+          this.$message({
+            message: '取消认领成功!',
             type: 'success',
           })
           this.$emit('onGoBack')

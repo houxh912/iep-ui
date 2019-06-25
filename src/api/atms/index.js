@@ -32,12 +32,12 @@ export function deleteAtmsById (id) {
   })
 }
 
-export function changeAtmsStatus (ids, status) {
+export function changeAtmsStatus (id, status) {
   return request({
-    url: `${prefixUrl}/status/batch`,
+    url: `${prefixUrl}/status/update`,
     method: 'post',
     data: {
-      ids,
+      id,
       status,
     },
   })

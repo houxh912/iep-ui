@@ -48,11 +48,11 @@
               <iep-button>关注</iep-button>
               <iep-button type="warning" plain>已关注</iep-button>
               <el-dropdown size="medium">
-                <iep-button type="warning" plain>
+                <iep-button type="warning" plain :disabled="scope.row.status==3">
                   {{dictsMap.status[scope.row.status]}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item v-for="(s,i) in dictsMap.status" :key="i" @click.native="handleChangeStatus([scope.row.id], i)">{{s}}</el-dropdown-item>
+                  <el-dropdown-item v-for="(s,i) in dictsMap.status" :key="i" @click.native="handleChangeStatus(scope.row.id, i)">{{s}}</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
               <iep-button @click.native="handleDelete(scope.row)">删除</iep-button>
@@ -116,8 +116,8 @@ export default {
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deleteAtmsById)
     },
-    handleChangeStatus (ids, status) {
-      changeAtmsStatus(ids, status).then(() => {
+    handleChangeStatus (id, status) {
+      changeAtmsStatus(id, status).then(() => {
         this.loadPage()
       })
     },

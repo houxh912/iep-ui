@@ -1,10 +1,9 @@
 // org config options
 const dictsMap = {
   status: {
-    0: '待办',
     1: '进行中',
     2: '已完成',
-    3: '已逾期',
+    3: '已确认',
   },
 }
 

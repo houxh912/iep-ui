@@ -148,7 +148,8 @@
                 type="date"
                 placeholder="选择时间"
                 format="yyyy-MM-dd"
-                value-format="yyyy-MM-dd hh:mm:ss">
+                value-format="yyyy-MM-dd hh:mm:ss"
+                :readonly="formData.paymentRelations[scope.$index].id?true:false">
               </el-date-picker>
             </template>
           </el-table-column>
@@ -161,23 +162,26 @@
                 maxlength="10" 
                 type="number" 
                 min=0
-                placeholder="请正确输入非负回款金额"></el-input>
+                placeholder="请正确输入非负回款金额"
+                :readonly="formData.paymentRelations[scope.$index].id?true:false"></el-input>
               <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
             </template>
           </el-table-column>
           <el-table-column prop="menu" label="操作" width="200px">
             <template slot-scope="scope">
+              <!-- 0可以延期 -->
               <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelay(scope.$index)">延期</iep-button>
-              <el-date-picker 
-                v-if="selectDelay.index == scope.$index"
-                v-model="selectDelay.value" 
-                type="date" 
-                placeholder="选择延期时间" 
-                ref="selectDelay" 
-                @change="changeDelay" 
-                format="yyyy-MM-dd"
-                value-format="yyyy-MM-dd hh:mm:ss">
-              </el-date-picker>
+              <div class="project-select-delay" v-if="selectDelay.index == scope.$index">
+                <el-date-picker
+                  v-model="selectDelay.value" 
+                  type="date" 
+                  placeholder="选择延期时间" 
+                  ref="selectDelay" 
+                  @change="changeDelay" 
+                  format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd hh:mm:ss">
+                </el-date-picker>
+              </div>
               <iep-button size="small" v-if="!formData.paymentRelations[scope.$index].id" @click="handleDelete(scope.$index)">删除</iep-button>
             </template>
           </el-table-column>
@@ -317,6 +321,8 @@ export default {
               form[item.name] = this.formData[item.list].id
             }
           }
+          // 判断签订状态 -- 是否关联合同
+          form.signatureStatus = form.contractIds.length > 0 ? 1 : 0
 
           form.inChargeDept = this.formData.inChargeDeptList.id
           form.coopDept = this.formData.coopDeptList.id
@@ -391,10 +397,13 @@ export default {
     // 延期
     handleDelay (index) {
       this.selectDelay.index = index
-      this.$refs['selectDelay'].focus()
+      this.$nextTick(() => {
+        this.$refs['selectDelay'].focus()
+      })
     },
     changeDelay (val) {
       this.formData.paymentRelations[this.selectDelay.index].projectPaymentTime = val
+      this.selectDelay.index = -1
     },
   },
   created () {
@@ -426,6 +435,20 @@ export default {
     text-align: center;
     color: #ba1b21;
     cursor: pointer;
+  }
+}
+</style>
+<style lang="scss">
+.project-select-delay {
+  width: 0;
+  height: 0;
+  input {
+    width: 0;
+    height: 0;
+    border: 0;
+  }
+  span {
+    display: none;
   }
 }
 </style>

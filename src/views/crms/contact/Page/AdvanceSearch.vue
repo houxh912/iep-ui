@@ -52,7 +52,6 @@ export default {
     },
     querySearch (queryString, cb) {
       getPageData({ clientName: queryString }).then(res => {
-        console.log(res)
         if (res.data.data.records.length > 0) {
           let data = res.data.data.records.map(m => {
             return { value: m.clientName }

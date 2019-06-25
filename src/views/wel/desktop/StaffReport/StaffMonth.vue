@@ -56,6 +56,7 @@ export default {
       columnsMap,
       orgIds: '',
       realName: '',
+      isLoadTable: false,
     }
   },
   created () {

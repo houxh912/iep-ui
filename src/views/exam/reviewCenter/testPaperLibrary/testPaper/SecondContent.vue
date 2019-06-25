@@ -90,7 +90,8 @@
               </div>
 
               <div class="dt_div" v-if="item.type==10">
-                <el-form-item label="题型说明:" style="width: 100%;" class="qstnDescribeArea" label-width="80px">
+                <el-form-item label="题型说明:" style="width: 100%;" class="qstnDescribeArea"
+                  label-width="80px">
                   <iep-input-area :autosize={minRows:2,maxRows:6} readonly v-model="item.qstnDescribe"></iep-input-area>
                 </el-form-item>
               </div>
@@ -161,7 +162,7 @@
       <el-form ref="form" :model="form" label-width="100px" :rules="rules" v-loading="formLoading">
         <el-form-item label="科目" prop="field">
           <el-select v-model="form.field" clearable multiple placeholder="请选择科目" @visible-change="fieldChange"
-            style="width:100%">
+            @remove-tag="fieldChange" @clear="fieldChange" style="width:100%">
             <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
@@ -497,7 +498,7 @@ export default {
       if (this.form.iepItemBankList.length > 0) {
         this.$refs['table'].handleDelete()
       }
-      if (this.form.type != '' && this.form.field != '') {
+      if (this.form.type && this.form.field) {
         const { data } = await postPaperAmount({ subject: this.form.field.join(','), question: this.form.type })
         if (data.data) {
           this.totalNum = data.data

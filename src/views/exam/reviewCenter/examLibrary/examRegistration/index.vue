@@ -13,7 +13,7 @@
         </operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination"
+    <iep-table ref="table" :isLoadTable="isLoadTable" :pagination="pagination"
       :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange"
       isMutipleSelection @selection-change="selectionChange" is-mutiple-selection is-index>
       <el-table-column prop="examineeName" label="姓名">
@@ -26,7 +26,7 @@
           {{scope.row.examineeNumber}}
         </template>
       </el-table-column>
-      <el-table-column prop="department" label="部门" width="110">
+      <el-table-column prop="department" label="所在组织" width="110">
         <template slot-scope="scope">
           {{scope.row.department}}
         </template>
@@ -106,13 +106,13 @@ export default {
   props: ['record'],
   data () {
     return {
+      selectArray: [],
       imgUrlNo: false,
       dialogShow: false,
       sumValue: 0,
       selectValue: false,
       selectionValue: '',
       paramForm: {},
-      selectList: [],
       imgUrl: null,
     }
   },
@@ -224,6 +224,7 @@ export default {
      * 选择试题
      */
     selectionChange (val) {
+      this.selectArray = val
       this.sumValue = val.length
       if (val.map(m => m.id) == ''){
         this.selectValue = false
@@ -238,7 +239,7 @@ export default {
      * 清空按钮
      */
     handleEmpty (){
-
+      this.$refs.table.clearSelection ()
     },
   },
 }

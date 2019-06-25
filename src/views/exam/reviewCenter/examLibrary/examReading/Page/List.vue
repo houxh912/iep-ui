@@ -14,7 +14,7 @@
       </template>
     </operation-container>
 
-    <iep-table :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-mutiple-selection is-index>
+    <iep-table ref="table" :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-mutiple-selection is-index>
       <el-table-column prop="remainingTime" label="剩余时间">
         <template slot-scope="scope">
           {{scope.row.remainingTime | setTime}}
@@ -307,8 +307,7 @@ export default {
      * 清空选择
      */
     handleEmpty () {
-      this.Value = 0
-      console.log(22)
+      this.$refs.table.clearSelection ()
     },
   },
 }

@@ -141,6 +141,11 @@ export default {
       color: #999;
       border: 1px solid #ccc;
       border-radius: 3px;
+      &:hover {
+        background-color: #fef6f4;
+        border: 1px solid #dc8687;
+        color: #dc8687;
+      }
     }
   }
 }

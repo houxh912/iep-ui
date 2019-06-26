@@ -13,24 +13,20 @@
   </iep-dialog>
 </template>
 <script>
+import formMixins from '@/mixins/formMixins'
 import { mapGetters } from 'vuex'
+import { checkContactUser } from '@/util/rules'
 import { initDeliverForm, toDeliverForm } from '../options'
 export default {
+  mixins: [formMixins],
   data () {
-    const checkContact = (rule, value, callback) => {
-      if (!value.id) {
-        return callback(new Error('用户不能为空'))
-      } else {
-        callback()
-      }
-    }
     return {
       id: '',
       userId: '', // 申请人ID
       dialogShow: false,
       rules: {
         user: [
-          { required: true, validator: checkContact, trigger: 'blur' },
+          { required: true, validator: checkContactUser('转交人'), trigger: 'blur' },
         ],
       },
       formRequestFn: () => { },
@@ -51,20 +47,20 @@ export default {
       this.dialogShow = false
       this.$emit('load-page')
     },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.formRequestFn(toDeliverForm(this.form)).then(() => {
-            this.$message({
-              message: '转交成功',
-              type: 'success',
-            })
+    async submitForm () {
+      try {
+        await this.mixinsValidate()
+        this.formRequestFn(toDeliverForm(this.form)).then(({ data }) => {
+          if (data.data) {
+            this.$message.success('转交成功')
             this.loadPage()
-          })
-        } else {
-          return false
-        }
-      })
+          } else {
+            this.$message(data.msg)
+          }
+        })
+      } catch (object) {
+        this.mixinsMessage(object)
+      }
     },
   },
 }

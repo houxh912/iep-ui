@@ -148,6 +148,14 @@ export function getUnionProjectPage (query) {
   })
 }
 
+export function getOrgProjectPage (query) {
+  return request({
+    url: `${prefixUrl}/business_index/org/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
 export function postUnionProject (obj) {
   return request({
     url: `${prefixUrl}/create/business_index`,

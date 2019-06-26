@@ -14,13 +14,15 @@
       </template>
     </operation-container>
 
-    <iep-table ref="table" :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-index>
+    <iep-table ref="table" :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination"
+      :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange"
+      @selection-change="selectionChange" is-index>
       <el-table-column prop="remainingTime" label="剩余时间">
         <template slot-scope="scope">
           {{scope.row.remainingTime | setTime}}
         </template>
       </el-table-column>
-      <el-table-column prop="paperStatus  " label="判分状态">
+      <el-table-column prop="paperStatus" label="判分状态">
         <template slot-scope="scope">
           <el-tag type="warning" size="medium" v-if="scope.row.paperStatus === 1">未阅卷</el-tag>
           <el-tag type="success" size="medium" v-if="scope.row.paperStatus === 2">正在阅卷</el-tag>
@@ -32,9 +34,13 @@
       <el-table-column prop="operation" label="操作" width="190">
         <template slot-scope="scope">
           <operation-wrapper style="padding-top: 4px;">
-            <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)" v-if="(scope.row.paperStatus === 5 && scope.row.isPass === 1) && (isCreator || permissionAll)">发放证书</iep-button>
-            <iep-button type="warning" size="small" plain @click.native="handleWritten(scope.row)" v-if="permissionWritten || isCreator || permissionAll">笔试阅卷</iep-button>
-            <iep-button type="warning" size="small" plain @click.native="handleInterview(scope.row)" v-if="(permissionInterview || isCreator || permissionAll)  && addInterview === 1">面试判分</iep-button>
+            <iep-button type="success" size="small" plain disabled v-if="scope.row.paperStatus === 5 && scope.row.isPass === 1 && scope.row.certificateId">已发证书</iep-button>
+            <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)"
+              v-if="(scope.row.paperStatus === 5 && scope.row.isPass === 1 && !scope.row.certificateId) && (isCreator || permissionAll)">发放证书</iep-button>
+            <iep-button type="warning" size="small" plain @click.native="handleWritten(scope.row)"
+              v-if="permissionWritten || isCreator || permissionAll">笔试阅卷</iep-button>
+            <iep-button type="warning" size="small" plain @click.native="handleInterview(scope.row)"
+              v-if="(permissionInterview || isCreator || permissionAll)  && addInterview === 1">面试判分</iep-button>
             <!-- <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
@@ -49,14 +55,16 @@
     </iep-table>
 
     <iep-dialog :dialog-show="dialogProgress" title="阅卷进度" width="600px" @close="loadPage()" center>
-      <progress-form :formData="InterviewData" :isCreator="isCreator" :permissionAll="permissionAll" @close="loadPage()"></progress-form>
+      <progress-form :formData="InterviewData" :isCreator="isCreator" :permissionAll="permissionAll"
+        @close="loadPage()"></progress-form>
     </iep-dialog>
 
     <el-dialog class="titleDialogs" title="笔试判分" :visible.sync="dialogWritten" width="90%" @close="loadPage()">
       <writte-form :formData="InterviewData" v-if="dialogWritten" @close="loadPage()"></writte-form>
     </el-dialog>
 
-    <iep-dialog :dialog-show="dialogInterview" title="面试判分" width="550px" @close="loadPage()" center>
+    <iep-dialog :dialog-show="dialogInterview" title="面试判分" width="550px" @close="loadPage()"
+      center>
       <interview-form :formData="InterviewData" @close="loadPage()"></interview-form>
     </iep-dialog>
 
@@ -308,7 +316,7 @@ export default {
      * 清空选择
      */
     handleEmpty () {
-      this.$refs.table.clearSelection ()
+      this.$refs.table.clearSelection()
     },
   },
 }

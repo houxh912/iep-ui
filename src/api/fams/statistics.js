@@ -162,3 +162,10 @@ export function postUnionProject (obj) {
     data: obj,
   })
 }
+export function putUnionProject (obj) {
+  return request({
+    url: `${prefixUrl}/update/business_index`,
+    method: 'post',
+    data: obj,
+  })
+}

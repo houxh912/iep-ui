@@ -26,6 +26,7 @@
         <div @click="$openPage('/fams_spa/organization_reward')">组织打赏/扣减</div>
         <div>投资管理</div>
         <div @click="$openPage('/fams/financial_management/organizational_budget')">组织预算</div>
+        <div @click="$openPage('/fams_spa/org_payment_plan/0')">回款计划</div>
       </div>
     </iep-slot-card>
   </div>

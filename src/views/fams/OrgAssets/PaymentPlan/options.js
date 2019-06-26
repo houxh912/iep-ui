@@ -1,32 +1,32 @@
 import { getYear, getMonth } from '@/util/date'
 const columnsMap = [
 	{
-		prop: 'projectNum',
-		label: '项目编号',
-	},
-	{
 		prop: 'projectName',
 		label: '项目名称',
 	},
 	{
-		prop: 'createTime',
-		label: '立项时间',
+		prop: 'projectPaymentTime',
+		label: '回款时间',
 		type: 'date',
 		formatString: 'YYYY-MM-DD',
 	},
 	{
-		prop:'amount',
-		label:'合同金额',
+		prop: 'paymentAmount',
+		label: '回款计划金额',
 	},
 	{
-		prop:'invoiceAmount',
-		label:'开票金额',
+		prop: 'contractAmount',
+		label: '合同金额',
+	},
+	{
+		prop: 'incomeAmount',
+		label: '到账金额',
 	},
 ]
 
-const initDetailForm = () => {
+const initForm = () => {
   return {
-		projectName: '',
+    projectName: '',
     contractAmount: 0,
     publisher: '',
     serialNo: '',
@@ -37,18 +37,11 @@ const initDetailForm = () => {
     endTime: '',
   }
 }
-
-const initForm = () => {
-  return {
-    orgId: '',
-    businessDate: '',
-    amount: 0,
-  }
-}
-
 const initSearchForm = () => {
   return {
+		date: '',
     signatureStatus: '',
+    onlyYear: false,
   }
 }
 const toDtoSearchForm = (row) => {
@@ -60,12 +53,4 @@ const toDtoSearchForm = (row) => {
 	}
   return newForm
 }
-
-const toDtoForm = (row) => {
-  const newForm = {...row}
-  newForm.businessYear = getYear(row.businessDate) || null
-  newForm.businessMonth = getMonth(row.businessDate) || null
-	delete newForm.businessDate
-  return newForm
-}
-export { columnsMap, initForm, initDetailForm, toDtoForm, initSearchForm, toDtoSearchForm }
+export { columnsMap, initForm, initSearchForm, toDtoSearchForm }

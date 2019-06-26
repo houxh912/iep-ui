@@ -2,6 +2,17 @@
   <div>
     <basic-container>
       <iep-statistics-header title="项目核算-集团" :dataMap="financialData">
+        <template slot="left">
+          <iep-tip icon="el-icon-question" content="项目金额=合同金额+待签金额<br/>
+                            合同金额：已经签订合同的项目金额<br/>
+                            待签金额：未签订合同的项目金额<br/>
+                            开票金额：已经开发票的项目金额<br/>
+                            应收账款金额：已经开发票的未到账的项目金额<br/>
+                            业务指标完成率：合同金额/业务指标"></iep-tip>
+        </template>
+        <template slot="right">
+          <iep-button type="primary" @click="$openPage(`/fams_spa/union_payment_plan`)">查看回款计划</iep-button>
+        </template>
       </iep-statistics-header>
       <operation-container style="margin-top: 10px;">
         <template slot="left">
@@ -17,7 +28,7 @@
         <template slot="before-columns">
           <el-table-column label="时间">
             <template slot-scope="scope">
-              {{scope.row.businessYear-scope.row.businessMonth}}
+              {{scope.row.businessYear + '年' + scope.row.businessMonth}}
             </template>
           </el-table-column>
         </template>
@@ -29,6 +40,11 @@
         <el-table-column label="业务指标完成率">
           <template slot-scope="scope">
             {{!scope.row.contractAmount ? '暂无' : (scope.row.contractAmount||0 / scope.row.amount||1) }}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <iep-button @click.stop="handleEdit(scope.row)">编辑</iep-button>
           </template>
         </el-table-column>
       </iep-table>
@@ -71,10 +87,16 @@ export default {
   methods: {
     handleAdd () {
       this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].isEdit = false
+      this.$refs['DialogForm'].dialogShow = true
+    },
+    handleEdit (row) {
+      this.$refs['DialogForm'].form = { ...row }
+      this.$refs['DialogForm'].isEdit = true
       this.$refs['DialogForm'].dialogShow = true
     },
     handleDetail (row) {
-      this.$openPage(`/fams_spa/project/${row.orgId}`)
+      this.$openPage(`/fams_spa/project/${row.orgId}?name=${row.orgName}`)
     },
     async loadPage (param = this.searchForm) {
       const data = await this.loadTable(param, getUnionProjectPage)

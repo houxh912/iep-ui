@@ -11,7 +11,7 @@
           </span>
         </div>
       </el-col>
-      <div v-for="(item, index) in infoList" :key="index" class="tip" @mouseenter="tipsSelect=index" @mouseleave="tipsSelect=-1">
+      <div v-for="(item, index) in infoList" :key="index" class="tip" @mouseenter="tipsSelect=index" @mouseleave="tipsSelect=-1" :title="item.qarningMessage">
         <i class="icon-tongzhi"></i>
         <span>{{item.qarningMessage}}</span>
         <iep-button type="primary" class="btn" size="mini" v-if="index==tipsSelect" @click="clear">忽略</iep-button>

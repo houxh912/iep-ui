@@ -57,6 +57,8 @@ export default {
             return { value: m.clientName }
           })
           cb(data)
+        } else {
+          cb([])
         }
       })
     },

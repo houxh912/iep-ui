@@ -179,12 +179,9 @@ export default {
   computed: {
     ...mapGetters(['permissions']),
   },
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
+  props: [
+    'record',
+  ],
   data () {
     return {
       examine: {},//审核

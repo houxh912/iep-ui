@@ -86,12 +86,9 @@ import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
   components: { AdvanceSearch },
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
+  props: [
+    'record',
+  ],
   data () {
     return {}
   },

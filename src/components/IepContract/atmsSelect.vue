@@ -1,13 +1,13 @@
 <template>
-  <el-select filterable remote placeholder="请输入合同关键词" :remote-method="remoteMethod" :loading="loading" @change="handleChange" v-bind="$attrs" v-on="$listeners">
+  <el-select filterable remote placeholder="请输入任务关键词" :remote-method="remoteMethod" :loading="loading" @change="handleChange" v-bind="$attrs" v-on="$listeners">
     <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
     </el-option>
   </el-select>
 </template>
 <script>
-import { getContractListByName } from '@/api/mlms/common'
+import { getAtmsListByName } from '@/api/atms/index'
 export default {
-  name: 'IepContractSelect',
+  name: 'IepContractAtmsSelect',
   inheritAttrs: false,
   props: {
     contractName: {
@@ -30,8 +30,8 @@ export default {
       if (query !== '') {
         this.loading = true
         try {
-          const { data } = await getContractListByName({ name: query })
-          this.options = data.data
+          const { data } = await getAtmsListByName({ name: query })
+          this.options = data
         } catch (error) {
           console.log(error)
         } finally {

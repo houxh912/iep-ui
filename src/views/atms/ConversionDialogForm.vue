@@ -1,8 +1,8 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="转化为子任务" width="600px" @close="loadPage">
     <el-form :model="form" ref="form" :rules="rules" class="form-detail" size="small" label-width="100px">
-      <el-form-item label="负责人：">
-        <iep-contact-select v-model="form.principal"></iep-contact-select>
+      <el-form-item label="任务名称：">
+        <iep-contract-atms-select v-model="form.parent.id" :contractName="form.parent.name"></iep-contract-atms-select>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -14,15 +14,15 @@
   </iep-dialog>
 </template>
 <script>
-import { initTransferForm, rules } from './options'
+import { initConversionForm, rules } from './options'
 import formMixins from '@/mixins/formMixins'
-import { transferPrincipal } from '@/api/atms/index'
+import { conversionAtms } from '@/api/atms/index'
 export default {
   mixins: [formMixins],
   data () {
     return {
       dialogShow: false,
-      form: initTransferForm(),
+      form: initConversionForm(),
       rules,
       id: this.$route.params.id,
     }
@@ -31,17 +31,17 @@ export default {
   },
   methods: {
     loadPage () {
-      this.form = initTransferForm()
+      this.form = initConversionForm()
       this.dialogShow = false
       this.$emit('load-page')
     },
     updateForm () {
       const obj = {
         id:this.id,
-        principalId:this.form.principal.id,
-        principalName:this.form.principal.name,
+        parentId:this.form.parent.id,
+        parentName:this.form.parent.name,
       }
-      transferPrincipal(obj).then(({ data }) => {
+      conversionAtms(obj).then(({ data }) => {
         if (data.data) {
           this.$message.success('修改成功')
           this.loadPage()

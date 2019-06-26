@@ -31,11 +31,17 @@ const initForm = () => {
         materials: [],//关联内容
         records:[],
         children: [],//子任务
+        parentId:'',
     }
 }
 const initTransferForm = () => {
     return {
         principal:{id:'',name:''},
+    }
+}
+const initConversionForm = () => {
+    return {
+        parent:{id:'',name:''},
     }
 }
 const formToDto = (form) => {
@@ -67,4 +73,4 @@ const rules = {
         { required: true, message: '请输入', trigger: 'blur' },
     ],
 }
-export { initForm, rules, dictsMap, formToDto, initTransferForm }
+export { initForm, rules, dictsMap, formToDto, initTransferForm, initConversionForm }

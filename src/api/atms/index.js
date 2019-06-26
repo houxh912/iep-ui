@@ -1,5 +1,5 @@
 import request from '@/router/axios'
-const prefixUrl = '/atms/task/'
+const prefixUrl = '/atms/task'
 
 export function getTableData (obj) {
   return request({
@@ -48,5 +48,21 @@ export function transferPrincipal (obj) {
     url: `${prefixUrl}/deliver`,
     method: 'post',
     data: obj,
+  })
+}
+
+export function conversionAtms (obj) {
+  return request({
+    url: `${prefixUrl}/transfer`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function getAtmsListByName (query) {
+  return request({
+    url: `${prefixUrl}/list`,
+    method: 'get',
+    params: query,
   })
 }

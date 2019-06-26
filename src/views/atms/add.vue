@@ -8,7 +8,7 @@
         </el-form-item>
 
         <el-form-item label='所属任务' prop="parentName" class="form-half">
-          <iep-contract-select v-model="form.parentId" :contractName="form.parentName" @relation-change="handleContractChange"></iep-contract-select>
+          <iep-contract-atms-select v-model="form.parentId" :contractName="form.parentName"></iep-contract-atms-select>
         </el-form-item>
 
         <!-- <el-form-item label='状态' prop="taskStatus" class="form-half">
@@ -44,9 +44,9 @@
           <iep-upload v-model="form.annexList" :limit="limit"></iep-upload>
         </el-form-item>
 
-        <el-form-item label='关联内容' prop="materials">
+        <!-- <el-form-item label='关联内容' prop="materials">
           <el-input v-model="form.materials"></el-input>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <footer-tool-bar>
         <iep-button type="primary" @click="handleSubmit">保存</iep-button>
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { postAtms } from '@/api/atms/index'
+import { postAtms, getAtmsById } from '@/api/atms/index'
 import { initForm, formToDto, rules } from './options.js'
 import formMixins from '@/mixins/formMixins'
 export default {
@@ -76,6 +76,17 @@ export default {
       limit:1,
     }
   },
+  created () {
+    if (this.id) {
+      getAtmsById(this.id).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
+        this.form.executors.map((m) => {return { name: m.realName }})
+        this.form.assistants.map((m) => {return { name: m.realName }})
+        this.form.startEndTime=[this.form.startTime,this.form.endTime]
+        console.log(this.form.executors)
+      })
+    }
+  },
   computed: {
     id () {
       return +this.$route.params.id
@@ -85,12 +96,6 @@ export default {
     },
   },
   methods: {
-    handleContractChange (v) {
-      if (v) {
-        this.form.parentId = v.id
-        this.form.parentName = v.name
-      }
-    },
     handleSubmit (isPublish) {
       this.$refs['form'].validate((valid) => {
         if (valid) {

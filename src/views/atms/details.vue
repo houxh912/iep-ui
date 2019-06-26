@@ -4,7 +4,7 @@
       <div class="details">
       <div class="detail-left">
         <page-header :title="`${form.taskName}`" :backOption="backOption">
-          <slot><iep-button @click="handleEdit">编辑</iep-button></slot>
+          <slot><iep-button @click="handleEdit()">编辑</iep-button></slot>
         </page-header>
         <div class="sub">
           <span v-if='!form.parentName'>所属任务：无</span>
@@ -35,13 +35,13 @@
           <el-form-item label="协同人：" class="form-half">
             <span v-for="(e,i) in form.executors" :key="i" class="people">
               <iep-img class="img" :src="e.headImg" alt=""></iep-img>
-              {{e.realName}}
+              <span>{{e.name}}</span>
             </span>
           </el-form-item>
           <el-form-item label="执行人：" class="form-half">
             <span v-for="(a,i) in form.assistants" :key="i" class="people">
               <iep-img class="img" :src="a.headImg" alt=""></iep-img>
-              {{a.realName}}
+              <span>{{a.name}}</span>
             </span>
           </el-form-item>
           <el-form-item label="起止时间：">
@@ -245,6 +245,10 @@ export default {
     .people{
       margin-right: 10px;
       float: left;
+      display: flex;
+      > span{
+        margin-left: 6px;
+      }
     }
   }
   .sign{

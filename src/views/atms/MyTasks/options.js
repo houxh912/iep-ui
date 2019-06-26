@@ -19,6 +19,7 @@ const initForm = () => {
     name: '',
     isOpen: false,
     intro: '',
+    hasBegun:'',//是否待办
   }
 }
 

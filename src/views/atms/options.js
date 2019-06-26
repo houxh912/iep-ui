@@ -13,9 +13,10 @@ const dictsMap = {
 }
 const initForm = () => {
     return {
+        taskId:'',
         taskName: '',
         parentName:'',
-        taskStatus: '',//任务状态
+        taskStatus: '1',//任务状态
         priority: '',//优先级 
         executors: [],//协同人
         assistants: [],//执行人,

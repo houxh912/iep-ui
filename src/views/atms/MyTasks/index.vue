@@ -21,6 +21,14 @@
               <el-dropdown-item>确认</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
+          <!-- <el-dropdown size="medium" style="margin-left:20px;">
+            <i class="icon-paixu2"></i>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item><i class="icon-paixu2"></i>默认排序</el-dropdown-item>
+              <el-dropdown-item><i class="icon-px-early"></i>按创建时间最早</el-dropdown-item>
+              <el-dropdown-item><i class="icon-px-late"></i>按创建时间最晚</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown> -->
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
@@ -47,7 +55,7 @@
             <operation-wrapper>
               <iep-button>关注</iep-button>
               <iep-button type="warning" plain>已关注</iep-button>
-              <el-dropdown size="medium">
+              <el-dropdown size="medium" v-if="scope.row.hasBegun==1">
                 <iep-button type="warning" plain :disabled="scope.row.status==3">
                   {{dictsMap.status[scope.row.status]}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </iep-button>
@@ -55,6 +63,7 @@
                   <el-dropdown-item v-for="(s,i) in dictsMap.status" :key="i" @click.native="handleChangeStatus(scope.row.id, i)">{{s}}</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
+              <iep-button type="warning" plain v-else-if="scope.row.hasBegun==0">待办</iep-button>
               <iep-button @click.native="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
@@ -117,8 +126,16 @@ export default {
       this._handleGlobalDeleteById(row.id, deleteAtmsById)
     },
     handleChangeStatus (id, status) {
-      changeAtmsStatus(id, status).then(() => {
-        this.loadPage()
+      changeAtmsStatus(id, status).then(({ data }) => {
+        if (data.data) {
+          this.$message({
+            message: '修改成功',
+            type: 'success',
+          })
+          this.loadPage()
+        } else {
+          this.$message(data.msg)
+        }
       })
     },
   },

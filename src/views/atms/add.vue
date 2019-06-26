@@ -44,24 +44,27 @@
           <iep-upload v-model="form.annexList" :limit="limit"></iep-upload>
         </el-form-item>
 
-        <!-- <el-form-item label='关联内容' prop="materials">
-          <el-input v-model="form.materials"></el-input>
-        </el-form-item> -->
+        <el-form-item label='关联内容' prop="materials">
+          <el-button @click="handleAdd"><i class="iconfont icon-xinzeng"></i></el-button>
+        </el-form-item>
       </el-form>
       <footer-tool-bar>
         <iep-button type="primary" @click="handleSubmit">保存</iep-button>
         <iep-button @click="onGoBack">取消</iep-button>
       </footer-tool-bar>
     </basic-container>
+    <relation-dialog ref="relationDialog" @relativeSubmit="relativeSubmit"></relation-dialog>
   </div>
 </template>
 
 <script>
-import { postAtms, getAtmsById } from '@/api/atms/index'
+import { createAtms, getAtmsById, updateAtms } from '@/api/atms/index'
 import { initForm, formToDto, rules } from './options.js'
 import formMixins from '@/mixins/formMixins'
+import RelationDialog from './relation'
 export default {
   mixins: [formMixins],
+  components: { RelationDialog },
   data () {
     return {
       backOption: {
@@ -80,10 +83,7 @@ export default {
     if (this.id) {
       getAtmsById(this.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
-        this.form.executors.map((m) => {return { name: m.realName }})
-        this.form.assistants.map((m) => {return { name: m.realName }})
         this.form.startEndTime=[this.form.startTime,this.form.endTime]
-        console.log(this.form.executors)
       })
     }
   },
@@ -97,6 +97,7 @@ export default {
   },
   methods: {
     handleSubmit (isPublish) {
+      const submitFunction = this.id ? updateAtms : createAtms
       this.$refs['form'].validate((valid) => {
         if (valid) {
           const publish = isPublish === true ? true : false
@@ -107,7 +108,7 @@ export default {
             this.form.startTime = this.form.startEndTime[0]
             this.form.endTime = this.form.startEndTime[1]
           }
-          postAtms(formToDto(this.form), publish).then(({ data }) => {
+          submitFunction(formToDto(this.form), publish).then(({ data }) => {
             if (data.data) {
               this.$message({
                 message: `${this.methodName}任务成功`,
@@ -123,6 +124,14 @@ export default {
     },
     onGoBack () {
       this.$router.history.go(-1)
+    },
+    handleAdd () {
+      this.$refs['relationDialog'].dialogShow = true
+      
+    },
+    // 添加其他关联
+    relativeSubmit (list) {
+      this.formData = Object.assign({}, this.form, list)
     },
   },
 }

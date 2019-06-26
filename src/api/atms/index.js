@@ -9,9 +9,17 @@ export function getTableData (obj) {
   })
 }
 
-export function postAtms (obj) {
+export function createAtms (obj) {
   return request({
     url: `${prefixUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function updateAtms (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
     method: 'post',
     data: obj,
   })

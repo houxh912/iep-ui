@@ -171,6 +171,7 @@
             <template slot-scope="scope">
               <!-- 0可以延期 -->
               <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelay(scope.$index)">延期</iep-button>
+              <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelete(scope.$index)">删除</iep-button>
               <div class="project-select-delay" v-if="selectDelay.index == scope.$index">
                 <el-date-picker
                   v-model="selectDelay.value" 
@@ -178,6 +179,7 @@
                   placeholder="选择延期时间" 
                   ref="selectDelay" 
                   @change="changeDelay" 
+                  @blur="selectDelay.index = -1"
                   format="yyyy-MM-dd"
                   value-format="yyyy-MM-dd hh:mm:ss">
                 </el-date-picker>

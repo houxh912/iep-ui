@@ -65,14 +65,6 @@ export default {
       const data = await this.loadTable(param, getAdministrativeApprovalPage)
       this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
-    handleCommandType () {
-      // console.log(val)
-    },
-    handleCommandUser () {
-      // console.log(val)
-    },
   },
 }
 </script>
-<style scoped>
-</style>

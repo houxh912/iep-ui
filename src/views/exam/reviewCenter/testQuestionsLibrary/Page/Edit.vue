@@ -5,31 +5,31 @@
       <div class="select">
         <el-form-item class="item" label="题型：" prop="questionType">
           <el-select :value="form.questionType" @input="updateValue(arguments[0])" size="small"
-            clearable :disabled="questionTypeDisabled">
+            clearable :disabled="questionTypeDisabled" class="selectItem">
             <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="难度：" prop="difficulty" style="margin-left:20%;">
-          <el-select v-model="form.difficulty" size="small" clearable :disabled="btnDisabled">
+          <el-select v-model="form.difficulty" size="small" clearable :disabled="btnDisabled" class="selectItem">
             <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="科目：" prop="field">
-          <el-select v-model="form.field" size="small" clearable :disabled="btnDisabled">
+          <el-select v-model="form.field" size="small" clearable :disabled="btnDisabled" class="selectItem">
             <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="题类：" prop="kind" style="margin-left:20%;">
-          <el-select v-model="form.kind" size="small" clearable :disabled="btnDisabled">
+          <el-select v-model="form.kind" size="small" clearable :disabled="btnDisabled" class="selectItem">
             <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="关联：" prop="associatedState">
-          <el-select v-model="form.associatedState" size="small" clearable :disabled="btnDisabled">
+          <el-select v-model="form.associatedState" size="small" clearable :disabled="btnDisabled" class="selectItem">
             <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
@@ -43,9 +43,7 @@
       </div>
     </el-form>
 
-    <div align="center" style="width:100%;">
-      <hr>
-    </div>
+    <div align="center" style="width:100%;"><hr></div>
 
     <iep-tabs v-model="tabName" :tab-list="tabList">
       <template v-if="tabName ==='Single'" v-slot:Single>
@@ -141,7 +139,7 @@ export default {
     }
   },
   created () {
-    this.getTestOption()
+    this.getTestOption ()
   },
   watch: {
     res: function () {

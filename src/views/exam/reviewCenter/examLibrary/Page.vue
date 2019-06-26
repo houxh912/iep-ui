@@ -5,11 +5,11 @@
 
       <div class="top">
         <div class="row">
-          <p>名称：<span>{{row.title}}</span></p>
-          <p>题库：<span>{{row.fieldName}}</span></p>
-          <p>总题量：<span>{{row.number}}道</span></p>
-          <p>总分：<span>{{row.totalScore}}</span></p>
-          <p>考试时间：<span>{{row.beginTime}} ~ {{row.endTime}}</span></p>
+          <div>名称：<span>{{row.title}}</span></div>
+          <div>题库：<span>{{row.fieldName}}</span></div>
+          <div>总题量：<span>{{row.number}}道</span></div>
+          <div>总分：<span>{{row.totalScore}}</span></div>
+          <div>考试时间：<span>{{row.beginTime}} ~ {{row.endTime}}</span></div>
         </div>
         <!-- <div class="row" style="margin-top:-17px">
         </div> -->
@@ -157,8 +157,9 @@ export default {
       line-height: 33px;
       font-size: 16px;
       color: #000000;
-      p {
-        margin-right: 80px;
+      div {
+        margin-right: 40px;
+        float: left;
         span {
           color: #797b79;
         }

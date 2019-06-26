@@ -24,3 +24,9 @@ export function getOrgPaymentPlanPageByOrgId (orgId) {
     })
   }
 }
+export function getProjectPaymentPlanList (id) {
+  return request({
+    url: `/prms/payment/getPaymentList/${id}`,
+    method: 'get',
+  })
+}

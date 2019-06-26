@@ -2,7 +2,9 @@
   <div class="personal-top">
     <el-card class="box-card" shadow="hover">
       <div class="img-con">
-        <div class="img"><iep-img :src="userInfo.avatar" alt=""></iep-img></div>
+        <div class="img">
+          <iep-img :src="userInfo.avatar" alt=""></iep-img>
+        </div>
         <span class="num">{{userInfo.staffId}}</span>
       </div>
       <div class="text">
@@ -118,7 +120,7 @@ export default {
     },
     // 获取用户信息
     getUserDetail (id) {
-      getApprenticeUser(id).then(({data}) => {
+      getApprenticeUser(id).then(({ data }) => {
         let obj = data.data
         this.userInfo = obj
       })
@@ -140,7 +142,7 @@ export default {
     },
     handleConfirm (type) {
       this.confirmState = true
-      characterIsDetermine({characterStatus: type}, {characterId: this.params.id, refuseContent: this.form.reason}).then(() => {
+      characterIsDetermine({ characterStatus: type }, { characterId: this.params.id, refuseContent: this.form.reason }).then(() => {
         this.confirmState = false
         this.$message.success('操作成功')
         this.$router.push('/wel/index')
@@ -241,6 +243,11 @@ export default {
           color: #cb3737;
           background: #fef0f0;
           border-color: #cb3737;
+        }
+        &:last-child {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }

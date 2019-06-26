@@ -170,7 +170,8 @@
             </el-col>
           </el-row>
           <el-form-item label="考试说明" prop="description">
-            <iep-input-area v-model="examForm.description" :readonly="readOnly"></iep-input-area>
+            <!-- <iep-input-area v-model="examForm.description" :readonly="readOnly"></iep-input-area> -->
+            <el-input type="textarea" rows="4" v-model="examForm.description" :readonly="readOnly" maxlength="200" show-word-limit></el-input>
           </el-form-item>
           <hr>
           <el-form-item>
@@ -204,7 +205,8 @@
             <dialog-certificate v-model="examForm.iepCertiFicate" :is-show-contact-btn="readOnly"></dialog-certificate>
           </el-form-item>
           <el-form-item label="结束语" prop="oncludingRemarks">
-            <iep-input-area v-model="examForm.oncludingRemarks" :readonly="readOnly"></iep-input-area>
+            <!-- <iep-input-area v-model="examForm.oncludingRemarks" :readonly="readOnly"></iep-input-area> -->
+            <el-input type="textarea" rows="4" v-model="examForm.oncludingRemarks" :readonly="readOnly" maxlength="200" show-word-limit></el-input>
           </el-form-item>
           <hr>
           <el-form-item label="权限设置" required>

@@ -64,7 +64,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleShow(scope.row)">查看</iep-button>
-              <iep-button plain @click="handleModify(scope.row)" :disabled="scope.row.status == 1">重新修改</iep-button>
+              <iep-button plain @click="handleModify(scope.row)">重新修改</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

@@ -110,7 +110,7 @@ export default {
   created () {
     const { row, activeTab } = this.record
     this.row = row
-    console.log(this.row)
+    // console.log(this.row)
     this.activeTab = activeTab
     this.row.fieldName = this.row.fieldName
     this.row.title = this.row.title

@@ -190,7 +190,7 @@ export default {
       return row.creatorId === this.userInfo.userId
     },
 
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getExamInationList)
     },
     /**

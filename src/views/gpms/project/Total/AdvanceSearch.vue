@@ -43,7 +43,6 @@ export default {
       isLoading: true,
       dictMap,
       rules,
-      orgId: '',
     }
   },
   computed: {

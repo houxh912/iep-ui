@@ -1,47 +1,50 @@
 <template>
   <div class="app-more-thoughts">
-    <div class="breadcrumb-wrapper">
-      <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <div class="material">
-      <div class="library">
-        <div class="items" v-for="(item, index) in dataList" :key="index">
-          <div class="avatar">
-            <iep-img :src="item.avatar" alt="" class="img"></iep-img>
-          </div>
-          <div class="content">
-            <div class="title">
-              <div class="name">{{item.userName}}</div>
-              <div class="date">{{getNumber(index)}}</div>
-              <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
+    <IepNoData v-if="dataList.length == 0"></IepNoData>
+    <div v-else>
+      <div class="breadcrumb-wrapper">
+        <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <div class="material">
+        <div class="library">
+          <div class="items" v-for="(item, index) in dataList" :key="index">
+            <div class="avatar">
+              <iep-img :src="item.avatar" alt="" class="img"></iep-img>
             </div>
-            <div class="item">{{item.content}}</div>
-            <!-- 说说评论 -->
-            <div class="comment" v-if="activeIndex == index">
-              <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>
-              <iep-button class="comment-submit" @click="() => {activeIndex = -1}">取消</iep-button>
-              <iep-button type="primary" class="comment-submit" @click="commentSubmit">提交</iep-button>
-            </div>
-            <!-- 评论列表 -->
-            <div class="comment-list" v-if="item.thoughtsCommentList.length > 0">
-              <div v-for="(t, i) in item.thoughtsCommentList" :key="i" >
-                <commentTpl :item="t" :userInfo="{id: item.userId, name: item.userName}" @load-page="loadPage"></commentTpl>
-                <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userInfo="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" :type="'reply'"></commentTpl>
+            <div class="content">
+              <div class="title">
+                <div class="name">{{item.userName}}</div>
+                <div class="date">{{getNumber(index)}}</div>
+                <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
               </div>
-            </div>
-            <!-- 按钮组 -->
-            <div class="footer">
-              <div class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
-              <div class="button" @click="hadnleComment(item, index)"><i class="icon-pinglun1"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
-              <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
+              <div class="item">{{item.content}}</div>
+              <!-- 说说评论 -->
+              <div class="comment" v-if="activeIndex == index">
+                <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>
+                <iep-button class="comment-submit" @click="() => {activeIndex = -1}">取消</iep-button>
+                <iep-button type="primary" class="comment-submit" @click="commentSubmit">提交</iep-button>
+              </div>
+              <!-- 评论列表 -->
+              <div class="comment-list" v-if="item.thoughtsCommentList.length > 0">
+                <div v-for="(t, i) in item.thoughtsCommentList" :key="i" >
+                  <commentTpl :item="t" :userInfo="{id: item.userId, name: item.userName}" @load-page="loadPage"></commentTpl>
+                  <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userInfo="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" :type="'reply'"></commentTpl>
+                </div>
+              </div>
+              <!-- 按钮组 -->
+              <div class="footer">
+                <div class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
+                <div class="button" @click="hadnleComment(item, index)"><i class="icon-pinglun1"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
+                <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div style="text-align: center;margin: 20px 0;">
-        <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+        <div style="text-align: center;margin: 20px 0;">
+          <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+        </div>
       </div>
     </div>
   </div>
@@ -151,6 +154,10 @@ export default {
     },
   },
   created () {
+    console.log('route: ', this.$route.query)
+    if (this.$route.query.id) {
+      this.params.userId = this.$route.query.id
+    }
     this.loadPage()
   },
 }

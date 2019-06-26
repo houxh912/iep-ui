@@ -86,12 +86,30 @@ import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
   components: { AdvanceSearch },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
   data () {
-    return {
-    }
+    return {}
   },
   created () {
-    this.loadPage()
+    /**
+     * 当没点击查看或修改
+     */
+    if (!this.record) {
+      this.loadPage()
+    }
+    /**
+     * 当点击查看或修改后返回
+     */
+    if (this.record) {
+      this.pageOption.current = this.record.current
+      this.pageOption.size = this.record.size
+      this.loadTable({ ...this.pageOption }, getSubmissionRecordList)
+    }
   },
   methods: {
     loadPage (param = this.searchForm) {
@@ -116,6 +134,8 @@ export default {
         methodName: '修改',
         id: row.id,
         edit: false,
+        current: this.pageOption.current,
+        size: this.pageOption.size,
       })
     },
     /**
@@ -126,6 +146,8 @@ export default {
         methodName: '查看',
         id: row.id,
         edit: true,
+        current: this.pageOption.current,
+        size: this.pageOption.size,
       })
     },
   },

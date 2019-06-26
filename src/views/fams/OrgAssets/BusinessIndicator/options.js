@@ -1,26 +1,12 @@
 import { getYear, getMonth } from '@/util/date'
 const columnsMap = [
 	{
-		prop: 'projectNum',
-		label: '项目编号',
-	},
-	{
-		prop: 'projectName',
-		label: '项目名称',
-	},
-	{
-		prop: 'createTime',
-		label: '立项时间',
-		type: 'date',
-		formatString: 'YYYY-MM-DD',
+		prop:'orgName',
+		label:'组织名称',
 	},
 	{
 		prop:'amount',
 		label:'合同金额',
-	},
-	{
-		prop:'invoiceAmount',
-		label:'开票金额',
 	},
 ]
 
@@ -34,20 +20,6 @@ const rules = {
 	amount: [
     { required: true, message: '请输入指标金额', trigger: 'blur', type:'number' },
 	],
-}
-
-const initDetailForm = () => {
-  return {
-		projectName: '',
-    contractAmount: 0,
-    publisher: '',
-    serialNo: '',
-    publisherList: {id:'',name:''},
-    projectManagerList: {id:'',name:''},
-    mktManagerList: {id:'',name:''},
-    projectTime: '',
-    endTime: '',
-  }
 }
 
 const initForm = () => {
@@ -80,4 +52,4 @@ const toDtoForm = (row) => {
 	delete newForm.businessDate
   return newForm
 }
-export { columnsMap, initForm, initDetailForm, toDtoForm, initSearchForm, toDtoSearchForm, rules }
+export { columnsMap, initForm, toDtoForm, initSearchForm, toDtoSearchForm, rules }

@@ -33,7 +33,7 @@ const getYear = (date) => {
 }
 
 const getMonth = (date) => {
-  return moment(date).month()
+  return moment(date).month() + 1
 }
 
 /**

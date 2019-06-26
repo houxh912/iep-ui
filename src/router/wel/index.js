@@ -56,9 +56,14 @@ export default [
         component: () => import('@/views/wel/desktop/index'),
       },
       {
-        path: 'origanaze_detail/:id',
-        name: '组织周月报详情页',
-        component: () => import('@/views/wel/desktop/OriganazeReport/OriganazeDetail.vue'),
+        path: 'origanaze_week_detail/:id',
+        name: '组织周报详情页',
+        component: () => import('@/views/wel/desktop/OriganazeReport/OriganazeWeekDetail.vue'),
+      },
+      {
+        path: 'origanaze_month_detail/:id',
+        name: '组织月报详情页',
+        component: () => import('@/views/wel/desktop/OriganazeReport/OriganazeMonthDetail.vue'),
       },
       {
         path: 'staff_week_detail/:id',

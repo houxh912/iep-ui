@@ -100,13 +100,6 @@ export function getProjectPageByOrgId (orgId) {
     })
   }
 }
-
-export function getBossProjectPage (id) {
-  return request({
-    url: `${prefixUrl}/project/page/${id}`,
-    method: 'get',
-  })
-}
 // TODO:联盟项目核算
 export function getAllOrgProjectPage () {
   return request({
@@ -150,6 +143,14 @@ export function getProjectInformationById (id) {
 export function getUnionProjectPage (query) {
   return request({
     url: `${prefixUrl}/business_index/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getOrgProjectPage (query) {
+  return request({
+    url: `${prefixUrl}/business_index/org/page`,
     method: 'get',
     params: query,
   })

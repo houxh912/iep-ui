@@ -28,7 +28,7 @@ export default {
     return {
       loading: true,
       chartData: {
-        columns: ['marketManager', 'contractQuantity'],
+        columns: ['planUpload', 'other'],
         rows: [],
       },
     }
@@ -39,6 +39,7 @@ export default {
   methods: {
     load () {
       getDistrict().then((res) => {
+        console.log(res)
         if (res) {
           this.chartData.rows = res.data.data
           this.loading = false

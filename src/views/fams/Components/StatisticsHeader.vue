@@ -1,11 +1,14 @@
 <template>
   <iep-slot-card :title="title">
+    <template slot="left">
+      <slot name="left"></slot>
+    </template>
     <template slot="right">
       <slot name="right"></slot>
     </template>
     <div class="total-wrapper">
       <div class="total-item" v-for="(item, index) in dataMap" :key="index">
-        <div class="value">{{item | parseToMoney}}</div>
+        <div class="value">{{item|parseToM}}</div>
         <div class="label"><a href="#" @click="handleClick(index)">{{index}}</a></div>
       </div>
     </div>

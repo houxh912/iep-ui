@@ -131,6 +131,21 @@ export default [
         name: '项目核算',
         component: () => import('@/views/fams/OrgAssets/ProjectAccounting/index.vue'),
       },
+      {
+        path: 'org_payment_plan/:id',
+        name: '组织回款计划',
+        component: () => import('@/views/fams/OrgAssets/PaymentPlan/index.vue'),
+      },
+      {
+        path: 'union_payment_plan',
+        name: '联盟回款计划',
+        component: () => import('@/views/fams/GroupFinance/PaymentPlan/index.vue'),
+      },
+      {
+        path: 'business_indicator',
+        name: '本组织业务指标',
+        component: () => import('@/views/fams/OrgAssets/BusinessIndicator/index.vue'),
+      },
     ],
   },
 ]

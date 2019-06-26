@@ -1,4 +1,17 @@
 import { getYear, getMonth } from '@/util/date'
+
+const rules = {
+  orgId: [
+    { required: true, message: '请选择组织', trigger: 'blur' },
+  ],
+  businessDate: [
+    { required: true, message: '请选择日期', trigger: 'blur' },
+  ],
+  amount: [
+    { type:'number', required: true, message: '请输入日期', trigger: 'blur' },
+  ],
+}
+
 const columnsMap = [
 	{
 		prop: 'orgName',
@@ -40,24 +53,23 @@ const initForm = () => {
 
 const initSearchForm = () => {
   return {
-    businessDate: '',
+    businessMonth: '',
+    businessYear: '',
   }
 }
 
 const toDtoSearchForm = (row) => {
 	const newForm = {...row}
-	newForm.businessYear = getYear(row.businessDate) || null
-	newForm.businessMonth = getMonth(row.businessDate) || null
-	delete newForm.businessDate
+	newForm.businessYear = getYear(row.businessYear) || null
   return newForm
 }
 
 const toDtoForm = (row) => {
   const newForm = {...row}
-  newForm.businessYear = getYear(row.businessDate)
-  newForm.businessMonth = getMonth(row.businessDate)
+  newForm.businessYear = getYear(row.businessDate) || null
+  newForm.businessMonth = getMonth(row.businessDate) || null
 	delete newForm.businessDate
   return newForm
 }
 
-export { columnsMap, initForm, toDtoForm, initSearchForm, toDtoSearchForm }
+export { columnsMap, initForm, toDtoForm, initSearchForm, toDtoSearchForm, rules }

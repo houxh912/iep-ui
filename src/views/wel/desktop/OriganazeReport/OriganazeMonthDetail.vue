@@ -30,12 +30,32 @@
           <div class="title">总结与感想</div>
           <iep-div-detail class="content" :value="form.summarySentiment"></iep-div-detail>
         </div>
+        <div class="con-item">
+          <div class="title">市场拓展</div>
+          <iep-div-detail
+            v-if="!form.meetingSummary.length"
+            class="content"
+            :value="form.meetingSummary"
+          ></iep-div-detail>
+          <relation-list class="content" v-else :value="form.meetingSummary"></relation-list>
+        </div>
+        <div class="con-item">
+          <div class="title">相关产品</div>
+          <iep-div-detail v-if="!form.productList.length" class="content" :value="form.productList"></iep-div-detail>
+          <relation-list class="content" v-else :value="form.productList"></relation-list>
+        </div>
+        <div class="con-item">
+          <div class="title">相关项目</div>
+          <iep-div-detail v-if="!form.projectList.length" class="content" :value="form.projectList"></iep-div-detail>
+          <relation-list class="content" v-else :value="form.projectList"></relation-list>
+        </div>
       </div>
     </basic-container>
   </div>
 </template>
 <script>
-import { getStaffReport, putStaffReport } from '@/api/mlms/leader_report/'
+import { getOgrReport,putOrgReport } from '@/api/mlms/leader_report/'
+import RelationList from '@/views/wel/desktop/Components/RelationList.vue'
 function initForm () {
   return {
     title: '',
@@ -53,6 +73,7 @@ function initForm () {
 }
 function add0 (m) { return m < 10 ? '0' + m : m }
 export default {
+  components: { RelationList },
   data () {
     return {
       backOption: {
@@ -63,7 +84,7 @@ export default {
       reportInfo: {
         reportType: 1,
         startTime: '',
-        userId: '',
+        orgId: '',
       },
     }
   },
@@ -73,10 +94,10 @@ export default {
     },
   },
   created () {
-    getStaffReport(this.id).then(({ data }) => {
+    getOgrReport(this.id).then(({ data }) => {
       this.form = this.$mergeByFirst(initForm(), data.data)
       this.reportInfo.startTime = data.data.createTime
-      this.reportInfo.userId = data.data.userId
+      this.reportInfo.orgId = data.data.orgId
     })
   },
   methods: {
@@ -89,8 +110,8 @@ export default {
       // this.reportInfo.startTime = resultTime
       return { year, month, date }
     },
-    putStaffReport () {
-      putStaffReport(this.reportInfo).then(({ data }) => {
+    putOrgReport () {
+      putOrgReport(this.reportInfo).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data[0])
       })
     },
@@ -100,7 +121,7 @@ export default {
       if (realMonth <= 0) return
       let resultTime = year + '-' + add0(realMonth) + '-' + add0(date)
       this.reportInfo.startTime = resultTime
-      this.putStaffReport()
+      this.putOrgReport()
     },
     handleNextClick () {
       let realMonth = this.fillterData().month + 1
@@ -108,7 +129,7 @@ export default {
       if (realMonth > 12) return
       let resultTime = year + '-' + add0(realMonth) + '-' + add0(date)
       this.reportInfo.startTime = resultTime
-      this.putStaffReport()
+      this.putOrgReport()
     },
   },
 }

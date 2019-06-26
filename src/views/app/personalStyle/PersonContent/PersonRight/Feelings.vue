@@ -4,7 +4,10 @@
       <!-- <el-button class="btn" type="text" slot="right" @click="handlePublish">发表说说</el-button> -->
       <div class="dynamicList" v-if="dynamicList.length !== 0">
         <div v-for="(item,index) in dynamicList" :key="index" class="piece">
-          <span>{{item.content}}</span>
+          <!-- <span>{{item.content}}</span> -->
+          <el-tooltip class="item" effect="dark" :content="item.content" placement="top-start">
+            <span>{{item.content}}</span>
+          </el-tooltip>
         </div>
       </div>
       <IepNoData v-else></IepNoData>
@@ -31,7 +34,7 @@ export default {
       total: 0,
       title: '个人说说',
       dynamicList: [],
-      linkName: '/app/more_thoughts',
+      linkName: '',
     }
   },
   methods: {
@@ -41,6 +44,7 @@ export default {
   },
   watch: {
     userId () {
+      this.linkName = `/app/more_thoughts?id=${this.userId}`
       getPersonalThoughts(this.userId).then(({ data }) => {
         this.dynamicList = data.data.list
         this.total = data.data.size

@@ -71,7 +71,7 @@ export default {
       this.loadTable({ realName: this.realName, orgId: this.orgIds, reportType: 1, ...param }, getOrgTableData)
     },
     handleClick (row) {
-      this.$router.push(`/wel/origanaze_detail/${row.reportId}`)
+      this.$router.push(`/wel/origanaze_month_detail/${row.reportId}`)
     },
     listPage () {
       this.realName = ''

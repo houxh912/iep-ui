@@ -8,7 +8,7 @@
           <span>发布人：{{form.realName}}</span>
           <span>发布日期：{{form.createTime|parseToDay}}</span>
         </template>
-        <template slot="right" ref="btn">
+        <template slot="right">
           <iep-button @click="handlePreClick">上周</iep-button>
           <iep-button @click="handleNextClick">下周</iep-button>
         </template>
@@ -95,7 +95,7 @@ export default {
     },
     putStaffReport () {
       putStaffReport(this.reportInfo).then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
+        this.form = this.$mergeByFirst(initForm(), data.data[0])
       })
     },
     handlePreClick () {

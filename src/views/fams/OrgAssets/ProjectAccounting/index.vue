@@ -1,11 +1,28 @@
 <template>
   <div>
     <basic-container>
-      <iep-statistics-header title="项目核算" :dataMap="financialData">
+      <iep-statistics-header :title="title" :dataMap="financialData">
+        <template slot="left">
+          <iep-tip icon="el-icon-question" content="项目金额=合同金额+待签金额<br/>
+                            合同金额：已经签订合同的项目金额<br/>
+                            待签金额：未签订合同的项目金额<br/>
+                            开票金额：已经开发票的项目金额<br/>
+                            应收账款金额：已经开发票的未到账的项目金额"></iep-tip>
+        </template>
+        <template slot="right">
+          <operation-wrapper>
+            <iep-button type="primary" @click="$openPage(`/fams_spa/org_payment_plan/0`)">查看回款计划</iep-button>
+            <iep-button type="primary" @click="$openPage(`/fams_spa/business_indicator`)">本组织业务指标</iep-button>
+          </operation-wrapper>
+        </template>
       </iep-statistics-header>
       <operation-container style="margin-top: 10px;">
+        <template slot="left">
+          <!-- <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>新增业务指标</iep-button> -->
+        </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="projectName">
+          <operation-search @search-page="searchPage" prop="projectName" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -34,9 +51,10 @@
 import { getProjectPage, getProjectPageByOrgId } from '@/api/fams/statistics'
 import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 import mixins from '@/mixins/mixins'
-import { columnsMap } from './options'
+import { columnsMap, initForm } from './options'
+import AdvanceSearch from './AdvanceSearch'
 export default {
-  components: { IepStatisticsHeader },
+  components: { IepStatisticsHeader, AdvanceSearch },
   mixins: [mixins],
   data () {
     return {
@@ -46,7 +64,11 @@ export default {
   },
   computed: {
     id () {
-      return +this.$route.query.id
+      return +this.$route.params.id
+    },
+    title () {
+      const { name } = this.$route.query
+      return name ? `项目核算(${name})` : '项目核算'
     },
     financialData () {
       return {
@@ -63,6 +85,10 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleAdd () {
+      this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].dialogShow = true
+    },
     async loadPage (param = this.searchParam) {
       const pageFunction = this.id ? getProjectPageByOrgId(this.id) : getProjectPage
       const data = await this.loadTable(param, pageFunction)

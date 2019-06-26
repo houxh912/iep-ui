@@ -8,6 +8,10 @@
           <span>发布人：{{form.realName}}</span>
           <span>发布日期：{{form.createTime|parseToDay}}</span>
         </template>
+        <template slot="right">
+          <iep-button @click="handlePreClick">上周</iep-button>
+          <iep-button @click="handleNextClick">下周</iep-button>
+        </template>
       </operation-container>
       <div class="container">
         <div class="con-item">
@@ -50,7 +54,7 @@
   </div>
 </template>
 <script>
-import { getOgrReport } from '@/api/mlms/leader_report/'
+import { getOgrReport,putOrgReport } from '@/api/mlms/leader_report/'
 import RelationList from '@/views/wel/desktop/Components/RelationList.vue'
 function initForm () {
   return {
@@ -67,6 +71,7 @@ function initForm () {
     projectList: [],
   }
 }
+function add0 (m) { return m < 10 ? '0' + m : m }
 export default {
   components: { RelationList },
   data () {
@@ -79,7 +84,7 @@ export default {
       reportInfo: {
         reportType: 0,
         startTime: '',
-        userId: '',
+        orgId: '',
       },
     }
   },
@@ -91,7 +96,37 @@ export default {
   created () {
     getOgrReport(this.id).then(({ data }) => {
       this.form = this.$mergeByFirst(initForm(), data.data)
+      this.reportInfo.startTime = data.data.createTime
+      this.reportInfo.orgId = data.data.orgId
     })
+  },
+   methods: {
+    dataReduce () {
+      let data = new Date(this.reportInfo.startTime)
+      let time = data.getTime()
+      return time
+    },
+    resultData (timeStamp) {
+      const time = new Date(timeStamp)
+      const year = time.getFullYear()
+      const month = time.getMonth() + 1
+      const date = time.getDate()
+      const resultTime = year + '-' + add0(month) + '-' + add0(date)
+      this.reportInfo.startTime = resultTime
+    },
+    putOrgReport () {
+      putOrgReport(this.reportInfo).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data[0])
+      })
+    },
+    handlePreClick () {
+      this.resultData(this.dataReduce() - 7 * 24 * 60 * 60 * 1000)
+      this.putOrgReport()
+    },
+    handleNextClick () {
+      this.resultData(this.dataReduce() + 7 * 24 * 60 * 60 * 1000)
+      this.putOrgReport()
+    },
   },
 }
 </script>

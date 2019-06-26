@@ -1,13 +1,17 @@
 <template>
   <el-form class="form-detail" :model="form" label-width="100px" size="mini">
-    <el-form-item label="月份：">
-      <el-select v-model="form.businessMonth" clearable placeholder="请选择月份">
-        <el-option v-for="idx in monthOptions" :key="idx" :value="idx" :label="idx"></el-option>
-      </el-select>
+    <el-form-item label="时间：">
+      <iep-date-picker v-model="form.date" type="month" placeholder="请选择年与月"></iep-date-picker>
     </el-form-item>
-    <el-form-item label="年度：">
-      <iep-date-picker v-model="form.businessYear" type="year" placeholder="请选择年份">
-      </iep-date-picker>
+    <el-form-item label="只选当年：">
+      <el-checkbox v-model="form.onlyYear">只选年</el-checkbox>
+    </el-form-item>
+    <el-form-item label="签订状态：">
+      <el-select v-model="form.signatureStatus">
+        <el-option label="全部" value=""></el-option>
+        <el-option label="待签" value="2"></el-option>
+        <el-option label="已签" value="1"></el-option>
+      </el-select>
     </el-form-item>
     <el-form-item>
       <operation-wrapper>
@@ -17,15 +21,13 @@
     </el-form-item>
   </el-form>
 </template>
+
 <script>
 import { initSearchForm, toDtoSearchForm } from './options'
 export default {
   data () {
     return {
       form: initSearchForm(),
-      monthOptions: [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-      ],
     }
   },
   methods: {
@@ -34,7 +36,6 @@ export default {
     },
     clearSearchParam () {
       this.form = initSearchForm()
-      // this.$emit('clear-search-param')
     },
   },
 }

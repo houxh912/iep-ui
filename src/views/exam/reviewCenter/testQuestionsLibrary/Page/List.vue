@@ -83,8 +83,7 @@
                   <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                   <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item @click.native="handleShow(scope.row)">查看</el-dropdown-item>
-                    <el-dropdown-item @click.native="handleModify(scope.row)" :disabled="scope.row.status === 1"
-                      v-if="exam_question_edit">修改</el-dropdown-item>
+                    <el-dropdown-item @click.native="handleModify(scope.row)" v-if="exam_question_edit">修改</el-dropdown-item>
                     <el-dropdown-item @click.native="handleDelete(scope.row)" v-if="exam_question_del">删除</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>

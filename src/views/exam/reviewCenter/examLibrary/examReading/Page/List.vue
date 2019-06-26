@@ -148,9 +148,14 @@ export default {
   },
   filters: {
     setTime (val) {
-      var str = new Array()
-      str = val.split('-')
-      return str[0] + ' 分 ' + str[1] + ' 秒'
+      if (val === '-') {
+        return '0 分 0 秒'
+      }
+      else {
+        var str = new Array()
+        str = val.split('-')
+        return str[0] + ' 分 ' + str[1] + ' 秒'
+      }
     },
   },
   created () {

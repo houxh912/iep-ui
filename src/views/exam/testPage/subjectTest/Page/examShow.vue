@@ -101,6 +101,7 @@
                         </div>
                       </div>
                       <div class="handleButton">
+                        <iep-button type="success" disabled v-if="item.status === undefined && item.examStatus === 5 ">等待报名</iep-button>
                         <iep-button type="primary" @click="handleStart(item)" v-if="item.status === 1 && item.examStatus === 7 && item.status!==3">开始考试</iep-button>
                         <iep-button type="success" @click="handleSign(item)" v-if="item.status === 0 && item.examStatus === 5 && item.status!==3">开始报名</iep-button>
                         <iep-button type="primary" disabled v-if="item.status !== 1 && item.examStatus === 7 && item.status!==3">等待考试</iep-button>

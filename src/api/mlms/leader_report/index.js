@@ -40,3 +40,10 @@ export function putStaffReport (obj) {
     data: obj,
   })
 }
+export function putOrgReport (obj) {
+  return request({
+    url: '/mlms/orgreport/report/time',
+    method: 'post',
+    data: obj,
+  })
+}

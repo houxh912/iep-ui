@@ -116,16 +116,10 @@ export default {
         try {
           const { data } = await this.formRequestFn(toDtoForm(this.form))
           if (data.data) {
-            this.$message({
-              message: '操作成功',
-              type: 'success',
-            })
+            this.$message.success('操作成功')
             this.loadPage()
           } else {
-            this.$message({
-              message: data.msg,
-              type: 'error',
-            })
+            this.$message(data.msg)
           }
         } catch (error) {
           this.$message({

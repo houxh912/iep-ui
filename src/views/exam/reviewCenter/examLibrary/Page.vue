@@ -9,7 +9,7 @@
           <p>题库：<span>{{row.fieldName}}</span></p>
           <p>总题量：<span>{{row.number}}道</span></p>
           <p>总分：<span>{{row.totalScore}}</span></p>
-          <p>考试时间：<span>{{row.beginTime}}</span></p>
+          <p>考试时间：<span>{{row.beginTime}} ~ {{row.endTime}}</span></p>
         </div>
         <!-- <div class="row" style="margin-top:-17px">
         </div> -->
@@ -110,12 +110,14 @@ export default {
   created () {
     const { row, activeTab } = this.record
     this.row = row
+    console.log(this.row)
     this.activeTab = activeTab
     this.row.fieldName = this.row.fieldName
     this.row.title = this.row.title
     this.row.number = this.row.number
     this.row.totalScore = this.row.totalScore
     this.row.beginTime = this.row.beginTime
+    this.row.endTime = this.row.endTime
     this.topTitle = '试题： ' + this.row.title
     this.setPermission()
   },

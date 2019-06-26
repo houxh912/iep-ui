@@ -10,7 +10,10 @@
                             应收账款金额：已经开发票的未到账的项目金额"></iep-tip>
         </template>
         <template slot="right">
-          <iep-button type="primary" @click="$openPage(`/fams_spa/org_payment_plan/0`)">查看回款计划</iep-button>
+          <operation-wrapper>
+            <iep-button type="primary" @click="$openPage(`/fams_spa/org_payment_plan/0`)">查看回款计划</iep-button>
+            <iep-button type="primary" @click="$openPage(`/fams_spa/business_indicator`)">本组织业务指标</iep-button>
+          </operation-wrapper>
         </template>
       </iep-statistics-header>
       <operation-container style="margin-top: 10px;">

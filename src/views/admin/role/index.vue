@@ -7,7 +7,7 @@
           <iep-button v-if="sys_role_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>添加角色</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="roleName">
+          <operation-search @search-page="searchPage">
           </operation-search>
         </template>
       </operation-container>
@@ -18,7 +18,7 @@
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
               <iep-button v-if="sys_role_edit" @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="sys_role_del" @click="handleDeleteById(scope.row)">删除</iep-button>
-              <iep-button @click="handlePermission(scope.row, scope.index)" v-if="sys_role_perm">权限</iep-button>
+              <iep-button v-if="sys_role_perm" @click="handlePermission(scope.row, scope.index)">权限</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -121,9 +121,10 @@ export default {
             this.$refs['PermissionDialogForm'].checkedKeys,
             []
           )
-          this.$refs['PermissionDialogForm'].dialogPermissionVisible = true
           this.$refs['PermissionDialogForm'].roleId = row.roleId
           this.$refs['PermissionDialogForm'].roleCode = row.roleCode
+          this.$refs['PermissionDialogForm'].title = row.roleName
+          this.$refs['PermissionDialogForm'].dialogShow = true
         })
     },
     /**

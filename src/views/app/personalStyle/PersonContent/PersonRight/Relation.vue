@@ -30,6 +30,9 @@ export default {
       type: Array,
       default: () => [],
     },
+    userId: {
+      type: Number,
+    },
   },
   data () {
     return {
@@ -75,9 +78,6 @@ export default {
         this.MentorsList = data.data.masters.concat(data.data.pupils)
       })
     },
-  },
-  created () {
-    this.loadRelation(this.$route.params.id)
   },
 }
 </script>

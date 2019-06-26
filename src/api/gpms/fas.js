@@ -30,3 +30,10 @@ export function getProjectPaymentPlanList (id) {
     method: 'get',
   })
 }
+export function updatePayment (obj) {
+  return request({
+    url: '/prms/payment/updateActualRepayment',
+    method: 'post',
+    data: obj,
+  })
+}

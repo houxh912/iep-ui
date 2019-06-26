@@ -12,17 +12,18 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
-        <!-- <el-table-column prop="operation" label="操作" width="100" fixed="right">
+        <el-table-column prop="operation" label="操作" width="100" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.projectStatus===2" @click="handleProcess(scope.row)">待处理</iep-button>
+              <iep-button v-if="scope.row.projectStatus===2" @click.stop="handleProcess(scope.row)">待处理</iep-button>
             </operation-wrapper>
           </template>
-        </el-table-column> -->
+        </el-table-column>
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
     <dialog-detail ref="DialogDetail" @load-page="loadPage"></dialog-detail>
+    <project-form ref="ProjectForm" @load-page="loadPage"></project-form>
   </div>
 </template>
 <script>
@@ -30,11 +31,12 @@ import { getIncomePage, postIncome, getIncomeById } from '@/api/fams/income'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initForm } from './options'
 import DialogForm from './DialogForm'
+import ProjectForm from './ProjectForm'
 import DialogDetail from './DialogDetail'
 import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
-  components: { DialogForm, DialogDetail },
+  components: { DialogForm, DialogDetail, ProjectForm },
   data () {
     return {
       dictsMap,
@@ -50,6 +52,13 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleProcess (row) {
+      this.$refs['ProjectForm'].incomeId = row.incomeId
+      this.$refs['ProjectForm'].actualRepayment = row.amount
+      this.$refs['ProjectForm'].dateCash = row.createTime
+      this.$refs['ProjectForm'].loadPage(row.projectId)
+      this.$refs['ProjectForm'].dialogShow = true
+    },
     handleDetail (row) {
       getIncomeById(row.incomeId).then(({ data }) => {
         this.$refs['DialogDetail'].form = data.data

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <operation-container>
+    <operation-container class="topBtn">
       <template slot="left">
-        <iep-button type="danger" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button>
+        <!-- <iep-button type="danger" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button> -->
         <!-- <iep-button type="danger" plain>导出</iep-button> -->
-        <iep-button @click="handleEdit">阅卷进度</iep-button>
-        <iep-button class="tip">当前已选择<span>{{Value}}</span>项</iep-button>
-        <iep-button class="empty" @click="handleEmpty" v-show="Value != 0">清空</iep-button>
+        <iep-button @click="handleEdit" icon="el-icon-plus" type="primary" plain>阅卷进度</iep-button>
+        <!-- <iep-button class="tip">当前已选择<span>{{Value}}</span>项</iep-button> -->
+        <!-- <iep-button class="empty" @click="handleEmpty" v-show="Value != 0">清空</iep-button> -->
       </template>
       <template slot="right">
         <operation-search @search-page="searchPage" prop="username">
@@ -14,7 +14,7 @@
       </template>
     </operation-container>
 
-    <iep-table ref="table" :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-mutiple-selection is-index>
+    <iep-table ref="table" :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-index>
       <el-table-column prop="remainingTime" label="剩余时间">
         <template slot-scope="scope">
           {{scope.row.remainingTime | setTime}}
@@ -29,19 +29,20 @@
           <el-tag type="success" size="medium" v-if="scope.row.paperStatus === 5">完成阅卷</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="operation" label="操作" width="160">
+      <el-table-column prop="operation" label="操作" width="190">
         <template slot-scope="scope">
-          <operation-wrapper>
+          <operation-wrapper style="padding-top: 4px;">
             <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)" v-if="(scope.row.paperStatus === 5 && scope.row.isPass === 1) && (isCreator || permissionAll)">发放证书</iep-button>
-
-            <el-dropdown size="medium">
+            <iep-button type="warning" size="small" plain @click.native="handleWritten(scope.row)" v-if="permissionWritten || isCreator || permissionAll">笔试阅卷</iep-button>
+            <iep-button type="warning" size="small" plain @click.native="handleInterview(scope.row)" v-if="(permissionInterview || isCreator || permissionAll)  && addInterview === 1">面试判分</iep-button>
+            <!-- <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="handleWritten(scope.row)" v-if="permissionWritten || isCreator || permissionAll">笔试阅卷</el-dropdown-item>
                 <el-dropdown-item @click.native="handleInterview(scope.row)" v-if="(permissionInterview || isCreator || permissionAll)  && addInterview === 1">面试判分</el-dropdown-item>
                 <el-dropdown-item @click.native="handleDelete(scope.row)" v-if="isCreator || permissionAll">删除</el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -287,21 +288,21 @@ export default {
     /**
      * 批量删除
      */
-    handleDeleteAll () {
-      if (this.selectValue == false) {
-        this.$message.error('请至少选择一项试题！')
-        return
-      }
-      if (this.selectValue == true) {
-        // deleteIdAll(this.selectionValue).then(() => {
-        //   this.$message({
-        //     message: '操作成功',
-        //     type: 'success',
-        //   })
-        //   this.loadPage()
-        // })
-      }
-    },
+    // handleDeleteAll () {
+    //   if (this.selectValue == false) {
+    //     this.$message.error('请至少选择一名考生！')
+    //     return
+    //   }
+    //   if (this.selectValue == true) {
+    //     deleteIdAll(this.selectionValue).then(() => {
+    //       this.$message({
+    //         message: '操作成功',
+    //         type: 'success',
+    //       })
+    //       this.loadPage()
+    //     })
+    //   }
+    // },
 
     /**
      * 清空选择
@@ -336,6 +337,9 @@ export default {
 <style scoped>
 .titleDialogs >>> .el-dialog__title {
   display: none;
+}
+.topBtn {
+  padding: 3px 0 3px 0;
 }
 </style>
 

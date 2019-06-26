@@ -38,9 +38,9 @@
       <el-table-column prop="operation" label="操作" width="240">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleRollingTest(scope.row)" v-if="scope.row.state === 1">收卷</iep-button>
-            <iep-button @click="handlesetTest(scope.row)" v-if="scope.row.state === 2">设为可考</iep-button>
-            <iep-button @click="handleDelete(scope.row)">删除</iep-button>
+            <iep-button type="warning" size="small" plain @click="handleRollingTest(scope.row)" v-if="scope.row.state === 1">收卷</iep-button>
+            <iep-button type="warning" size="small" plain @click="handlesetTest(scope.row)" v-if="scope.row.state === 2">设为可考</iep-button>
+            <iep-button size="small" plain @click="handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>

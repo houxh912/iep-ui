@@ -21,7 +21,13 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button v-if="sys_user_edit" type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
-              <iep-button @click="handleResetPass(scope.row)" plain>重置密码</iep-button>
+              <el-dropdown size="medium">
+                <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item @click.native="handleResetPass(scope.row)">重置密码</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleCreateFinance(scope.row)">生成财富</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -36,6 +42,7 @@ import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 import { dictsMap, columnsMap, initMemberForm } from './options'
 import { fetchList, putUser, resetPassByUserId } from '@/api/admin/user'
+import { getCreateFinanceByUserId } from '@/api/fams/financial_management'
 export default {
   components: {
     DialogForm,
@@ -70,6 +77,9 @@ export default {
       this.$refs['DialogForm'].formRequestFn = putUser
       this.$refs['DialogForm'].disabled = false
       this.$refs['DialogForm'].dialogShow = true
+    },
+    handleCreateFinance (row) {
+      this._handleComfirm(row.userId, getCreateFinanceByUserId, '为此用户生成财富账户')
     },
     handleResetPass (row) {
       this._handleComfirm(row.userId, resetPassByUserId, '重置密码为123456')

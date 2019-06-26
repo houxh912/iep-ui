@@ -5,10 +5,10 @@
 
       <div class="top">
         <div class="row">
-          <div>名称：<span>{{row.title}}</span></div>
-          <div>题库：<span>{{row.fieldName}}</span></div>
-          <div>总题量：<span>{{row.number}}道</span></div>
-          <div>总分：<span>{{row.totalScore}}</span></div>
+          <!-- <div>名称：<span>{{row.title}}</span></div> -->
+          <div>科目：<span>{{row.fieldName}}</span></div>
+          <div>总题量：<span>{{row.choiceNum}} 道</span></div>
+          <div>总分：<span>{{row.totalScore}} 分</span></div>
           <div>考试时间：<span>{{row.beginTime}} ~ {{row.endTime}}</span></div>
         </div>
         <!-- <div class="row" style="margin-top:-17px">
@@ -113,12 +113,12 @@ export default {
     // console.log(this.row)
     this.activeTab = activeTab
     this.row.fieldName = this.row.fieldName
-    this.row.title = this.row.title
-    this.row.number = this.row.number
+    // this.row.title = this.row.title
+    this.row.choiceNum = this.row.choiceNum
     this.row.totalScore = this.row.totalScore
     this.row.beginTime = this.row.beginTime
     this.row.endTime = this.row.endTime
-    this.topTitle = '试题： ' + this.row.title
+    this.topTitle = '考试名称： ' + this.row.title
     this.setPermission()
   },
   methods: {

@@ -1,6 +1,7 @@
 <template>
   <steps-content>
-    <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px" class="content-wrapper">
+    <el-form ref="form" :model="form" :rules="form.resource === 0 ? rules : {}" size="small"
+      label-width="100px" class="content-wrapper">
       <el-form-item prop="resource">
         <el-radio-group v-model="form.resource" @change="resourceChange">
           <el-radio :label="0">创建新试卷</el-radio>
@@ -71,8 +72,10 @@ export default {
      */
     resourceChange (val) {
       if (val === 1) {
-        this.form.title = ''
-        this.form.field = ''
+        this.$refs['form'].resetFields()
+        this.form.resource = 1
+        // this.form.title = ''
+        // this.form.field = ''
       }
     },
     /**

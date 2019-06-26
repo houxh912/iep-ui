@@ -3,7 +3,7 @@
     <basic-container>
       <page-header :title="`${record.methodName}考试`" :backOption="backOption"></page-header>
       <div class="withdraw-wrapper">
-        <a-steps :current="current">
+        <a-steps :current="current" v-if="!record.id">
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />
         </a-steps>
         <keep-alive>
@@ -102,7 +102,7 @@ export default {
 </script>
 <style scoped>
 .withdraw-wrapper {
-  margin-top: 50px;
+  /* margin-top: 50px; */
   margin-left: 2%;
   margin-right: 2%;
 }

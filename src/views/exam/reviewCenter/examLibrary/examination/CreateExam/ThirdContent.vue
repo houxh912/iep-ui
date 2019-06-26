@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top:40px">
+  <div :style="isEdit ? '': 'margin-top:40px'">
     <div class="steps-content">
       <el-card shadow="never" class="content-wrapper">
         <div slot="header">
@@ -171,7 +171,8 @@
           </el-row>
           <el-form-item label="考试说明" prop="description">
             <!-- <iep-input-area v-model="examForm.description" :readonly="readOnly"></iep-input-area> -->
-            <el-input type="textarea" rows="4" v-model="examForm.description" :readonly="readOnly" maxlength="200" show-word-limit></el-input>
+            <el-input type="textarea" rows="4" v-model="examForm.description" :readonly="readOnly"
+              maxlength="200" show-word-limit></el-input>
           </el-form-item>
           <hr>
           <el-form-item>
@@ -206,20 +207,22 @@
           </el-form-item>
           <el-form-item label="结束语" prop="oncludingRemarks">
             <!-- <iep-input-area v-model="examForm.oncludingRemarks" :readonly="readOnly"></iep-input-area> -->
-            <el-input type="textarea" rows="4" v-model="examForm.oncludingRemarks" :readonly="readOnly" maxlength="200" show-word-limit></el-input>
+            <el-input type="textarea" rows="4" v-model="examForm.oncludingRemarks" :readonly="readOnly"
+              maxlength="200" show-word-limit></el-input>
           </el-form-item>
           <hr>
           <el-form-item label="权限设置" required>
             <div class="permissionSettings">
-              <el-form-item prop="operateUserids" label="报名管理&考卷管理" label-width="150px">
+              <el-form-item prop="operateUserids" label="报名管理&考卷管理" label-width="150px" :class="readOnly ? 'readOnly' : ''">
                 <iep-contact-multiple-user v-model="examForm.operateUserids" :filter-user-list="filterUserList"
                   :disabled="readOnly"></iep-contact-multiple-user>
               </el-form-item>
-              <el-form-item prop="writeUserids" label="试卷审阅权限" label-width="150px">
+              <el-form-item prop="writeUserids" label="试卷审阅权限" label-width="150px" :class="readOnly ? 'readOnly' : ''">
                 <iep-contact-multiple-user v-model="examForm.writeUserids" :filter-user-list="filterUserList"
                   :disabled="readOnly"></iep-contact-multiple-user>
               </el-form-item>
-              <el-form-item prop="faceUserIds" label="面试判分权限" label-width="150px" v-if="examForm.addInterview===1">
+              <el-form-item prop="faceUserIds" label="面试判分权限" label-width="150px" :class="readOnly ? 'readOnly' : ''"
+                v-if="examForm.addInterview===1">
                 <iep-contact-multiple-user v-model="examForm.faceUserIds" :filter-user-list="filterUserList"
                   :disabled="readOnly"></iep-contact-multiple-user>
               </el-form-item>
@@ -498,5 +501,8 @@ export default {
 <style scoped>
 .permissionSettings >>> .el-form-item__label {
   line-height: 32px;
+}
+.permissionSettings .readOnly >>> .el-form-item__label {
+  line-height: 40px;
 }
 </style>

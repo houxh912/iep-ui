@@ -116,7 +116,7 @@ export default {
           labTitle: '数据资产',
         },
       ],
-      userInfoShow: false,
+      userInfoShow: true,
       integrityColors: '#66cb68',
     }
   },

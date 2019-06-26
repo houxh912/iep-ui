@@ -78,7 +78,6 @@ export default {
       display: flex;
       margin-bottom: 10px;
       .label {
-        width: 120px;
         text-align: right;
       }
       .span {
@@ -87,11 +86,23 @@ export default {
     }
   }
   .first {
-    .item {
+    .item:nth-child(odd){
       width: 50%;
+      .label {
+        width: 44px;
+      }
+    }
+    .item:nth-child(even){
+      width: 50%;
+      .label {
+        width: 120px;
+      }
     }
   }
   .second {
+    .label {
+      width: 120px;
+    }
     .item {
       width: 100%;
     }

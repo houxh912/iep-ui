@@ -99,7 +99,7 @@
                     </el-checkbox-group>
                     <div class="question-analysis">
                       <p>考生答案：<span>{{checkboxItem.userAnswer.toString()}}</span></p>
-                      <p>正确答案：<span>{{checkboxItem.itemAnswer}}</span></p>
+                      <p>正确答案：<span>{{checkboxItem.itemAnswer.toString()}}</span></p>
                       <p>答案解析：<span>{{checkboxItem.itemExplain}}</span></p>
                     </div>
                   </li>
@@ -272,6 +272,7 @@ export default {
         // 多选题
         this.checkboxMap = resultInfo.result.checkboxMap.map(function (item) {
           item.userAnswer = item.userAnswer ? JSON.parse(item.userAnswer) : []
+          item.itemAnswer = item.itemAnswer ? JSON.parse(item.itemAnswer) : []
           item.itemOptions = item.itemOptions ? JSON.parse(item.itemOptions) : []
           return item
         })

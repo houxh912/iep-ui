@@ -33,7 +33,7 @@ export default {
         label: '团队风采',
         value: 'TeamDemeanor',
       }, {
-        label: '荣誉',
+        label: '荣誉资质',
         value: 'Honor',
       }],
       activeTab: 'TeamDemeanor',

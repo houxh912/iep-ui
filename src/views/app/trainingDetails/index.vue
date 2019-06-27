@@ -3,12 +3,12 @@
     <div class="material-detail">
       <div class="library">
         <train-details :data="detailData"></train-details>
-        <el-row class="down-load">
+        <!-- <el-row class="down-load">
           相关附件：
           <div class="file" v-for="(item, index) in attachFileList" :key="index">
             <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗5国脉贝下载）</span></div>
           </div>
-        </el-row>
+        </el-row> -->
         <!-- <IepAppRewardCard></IepAppRewardCard>
         <IepAppEvaluationReview></IepAppEvaluationReview> -->
       </div>

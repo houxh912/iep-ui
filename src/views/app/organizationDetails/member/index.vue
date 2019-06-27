@@ -27,8 +27,8 @@ import { getOrgDetail } from '@/api/app/upms/'
 export default {
   data () {
     return {
-      subTitle1: '管理者',
-      subTitle2: '普通成员',
+      subTitle1: '班委成员',
+      subTitle2: '成员',
       datailList: [
         {
           img: require('./img/p100.jpg'),

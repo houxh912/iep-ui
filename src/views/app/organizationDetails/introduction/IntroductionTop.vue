@@ -5,12 +5,13 @@
       <div class="text">
         <span class="title">{{data.name}}</span>
         <span class="detail"><span>创建人：{{data.creatorName}}</span><span>成立时间：{{data.establishTime.slice(0, 10)}}</span><span>人员规模：{{data.memberNum}}</span></span>
-        <div class="labs-con">
+        <!-- <div class="labs-con">
           <div class="data-lab" v-for="lab in labList" :key="lab.id">
             <div class="count">{{lab.data}}</div>
             <div class="labTitle"><span>{{lab.labTitle}}</span></div>
           </div>
-        </div>
+        </div> -->
+        <span class="detail"><span>联系电话：{{data.phone}}</span></span>
       </div>
     </div>
   </div>

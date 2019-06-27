@@ -6,7 +6,8 @@
         <template slot="left">
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -57,7 +58,9 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
+import AdvanceSearch from './AdvanceSearch'
 export default {
+  components: { AdvanceSearch },
   mixins: [mixins],
   data () {
     return {

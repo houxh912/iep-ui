@@ -4,7 +4,7 @@
       <iep-page-header title="我的交易"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="primary" @click="handleTransaction">发起交易</iep-button>
+          <iep-button type="primary" @click="handleTransaction" icon="el-icon-plus" plain>发起交易</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
@@ -54,11 +54,14 @@
         </el-table-column>
       </iep-table>
     </basic-container>
+    <dialog-form ref="DialogForm"></dialog-form>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
+import DialogForm from './DialogForm'
 export default {
+  components: { DialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -67,7 +70,7 @@ export default {
   },
   methods: {
     handleTransaction () {
-
+      this.$refs['DialogForm'].dialogShow = true
     },
   },
 }

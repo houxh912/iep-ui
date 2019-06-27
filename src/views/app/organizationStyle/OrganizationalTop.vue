@@ -18,19 +18,19 @@
         <div class="classTag">
           <div class="label">卓越标签：</div>
           <div class="span">
-            <el-tag type="white" v-for="(item, index) in data.abilityTag" :key="index">{{item}}</el-tag>
+            <el-tag type="white" @click="handleDetail(item)" v-for="(item, index) in data.abilityTag" :key="index">{{item}}</el-tag>
           </div>
         </div>
         <div class="classTag">
           <div class="label">专业标签：</div>
           <div class="span">
-            <el-tag type="white" v-for="(item, index) in data.learningTag" :key="index">{{item}}</el-tag>
+            <el-tag type="white"  @click="handleDetail(item)" v-for="(item, index) in data.learningTag" :key="index">{{item}}</el-tag>
           </div>
         </div>
         <div class="classTag">
           <div class="label">进步标签：</div>
           <div class="span">
-            <el-tag type="white" v-for="(item, index) in data.projectTag" :key="index">{{item}}</el-tag>
+            <el-tag type="white"  @click="handleDetail(item)" v-for="(item, index) in data.projectTag" :key="index">{{item}}</el-tag>
           </div>
         </div>
       </div>
@@ -85,6 +85,9 @@ export default {
     },
     handleProposal () {
       this.$router.push('/hrms_spa/suggestion_new')
+    },
+    handleDetail (row) {
+      this.$openTagDetail(row)
     },
   },
 }

@@ -12,12 +12,12 @@
         <div class="library">
           <div class="items" v-for="(item, index) in dataList" :key="index">
             <div class="avatar">
-              <iep-img :src="item.avatar" alt="" class="img"></iep-img>
+              <iep-img :src="item.avatar" @click.native="handleDetail(item.userId)" alt="" class="img"></iep-img>
             </div>
             <div class="content">
               <div class="top">
                 <div class="title">
-                  <div class="name">{{item.userName}}</div>
+                  <div class="name" @click="handleDetail(item.userId)">{{item.userName}}</div>
                   <div class="date">{{getNumber(index)}}</div>
                   <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
                 </div>
@@ -118,6 +118,11 @@ export default {
         this.activeIndex = -1
       })
     },
+    handleDetail (id) {
+      this.$router.push({
+        path:`/app/personal_style/${id}`,
+      })
+    },
     currentChange (val) {
       this.params.current = val
       this.loadPage()
@@ -167,7 +172,6 @@ export default {
     },
   },
   created () {
-    console.log('route: ', this.$route.query)
     if (this.$route.query.id) {
       this.params.userId = this.$route.query.id
     }
@@ -191,9 +195,15 @@ export default {
     .items {
       margin-bottom: 40px;
       display: flex;
+      .name{
+        cursor: pointer;
+      }
       .avatar {
         margin-right: 35px;
         width: 70px;
+        .img{
+          cursor: pointer;
+        }
       }
       .content {
         flex: 1;

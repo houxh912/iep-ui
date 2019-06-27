@@ -67,7 +67,7 @@
               项目预算(元)
               <iep-tip :content="tipContent.projectBudget"></iep-tip>：
             </span>
-            <el-input v-model="formData.projectBudget"></el-input>
+            <el-input v-model="formData.projectBudget" readonly @click.native="handleBudget" placeholder="点击填写项目预算"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -198,6 +198,7 @@
     </footer-tool-bar>
     <relation-dialog ref="relationDialog" @relativeSubmit="relativeSubmit"></relation-dialog>
     <product-relation-dialog ref="productRelationDialog" @relativeSubmit="relativeProductSubmit"></product-relation-dialog>
+    <budgetDialog ref="budgetDialog" @budgetSubmit="budgetSubmit"></budgetDialog>
   </div>
 </template>
 
@@ -210,10 +211,11 @@ import { mapGetters } from 'vuex'
 import { tipContent } from './option'
 import RelationDialog from './Total/relation'
 import ProductRelationDialog from './Total/productRelation'
+import budgetDialog from './Total/budgetDialog'
 
 export default {
   name: 'add-dialog',
-  components: { RelationDialog, ProductRelationDialog },
+  components: { RelationDialog, ProductRelationDialog, budgetDialog },
   computed: {
     ...mapGetters(['dictGroup', 'userInfo']),
   },
@@ -406,6 +408,14 @@ export default {
     changeDelay (val) {
       this.formData.paymentRelations[this.selectDelay.index].projectPaymentTime = val
       this.selectDelay.index = -1
+    },
+    // 项目预算
+    handleBudget () {
+      this.$refs['budgetDialog'].open(this.formData.projectBudgetList)
+    },
+    budgetSubmit (val) {
+      this.formData.projectBudgetList = val
+      this.formData.projectBudget = val.projectBudget
     },
   },
   created () {

@@ -45,19 +45,19 @@
 
     <div align="center" style="width:100%;"><hr></div>
 
-    <iep-tabs v-model="tabName" :tab-list="tabList">
-      <template v-if="tabName ==='Single'" v-slot:Single>
+    <el-tabs v-model="tabName">
+      <el-tab-pane label=单题输入 name="single">
         <single-dialog ref="single" :postAnswer="postAnswer"></single-dialog>
         <div align="center" style="margin-top:2%;">
           <iep-button v-if="btnExamine === true" type="primary" @click="handleExamine">审核</iep-button>
           <iep-button v-if="btnSave == 0" type="primary" @click="submitSingle">保存</iep-button>
           <iep-button v-if="btnSave == 1" type="primary" @click="saveSingle" v-show="!btnDisabled">保存</iep-button>
         </div>
-      </template>
-      <template v-if="tabName ==='Batch'" v-slot:Batch>
+      </el-tab-pane>
+      <el-tab-pane label=批量导入 name="batch">
         <batch-dialog ref="batch" v-model="form.questionType"></batch-dialog>
-      </template>
-    </iep-tabs>
+      </el-tab-pane>
+    </el-tabs>
 
     <iep-dialog :dialog-show="dialogExamine" title="审核试题" width="520px" @close="handleExamineCancel"
       center>
@@ -127,20 +127,10 @@ export default {
         difficulty: '',
         associatedState: '',
       },
-      tabName: 'Single',
+      tabName: 'single',
       associatedStateList: [
         { id: 0, label: '不限' },
         { id: 1, label: '限考试' },
-      ],
-      tabList: [
-        {
-          label: '单题输入',
-          value: 'Single',
-        },
-        {
-          label: '批量导入',
-          value: 'Batch',
-        },
       ],
       rules: {
         field: [

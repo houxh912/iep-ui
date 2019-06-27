@@ -95,25 +95,6 @@
 
     </basic-container>
 
-    <iep-dialog :dialog-show="dialogExamine" title="审核" width="520px" @close="handleExamineCancel"
-      center>
-      <div style="text-align: center;">
-        <el-radio-group v-model="states">
-          <el-radio :label="0">审核通过</el-radio>
-          <el-radio :label="1">审核不通过</el-radio>
-        </el-radio-group>
-        <el-input v-if="states === 1" v-model="content" type="textarea" maxlength="250" rows="4"
-          style="margin-top:25px;" placeholder="请输入理由，字数不超过 250 ！" show-word-limit>
-        </el-input>
-      </div>
-      <template slot="footer">
-        <operation-wrapper>
-          <iep-button type="primary" @click="handleSubmit">提交</iep-button>
-          <iep-button @click="handleExamineCancel">取消</iep-button>
-        </operation-wrapper>
-      </template>
-    </iep-dialog>
-
     <iep-dialog :dialog-show="dialogModify" title="修改试题" width="500px" @close="handleModifyCancel"
       center>
       <el-form :label-position="labelPosition" label-width="100px" :model="reForm">
@@ -169,7 +150,7 @@
 
 <script>
 import AdvanceSearch from './AdvanceSearch'
-import { getTestList, deleteApprovalById, getTestOption, postExaminePass, postExamineFalse, postModify } from '@/api/exam/createExam/newTest/newTest'
+import { getTestList, deleteApprovalById, getTestOption, postModify } from '@/api/exam/createExam/newTest/newTest'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import mixins from '@/mixins/mixins'
 import { mapGetters } from 'vuex'
@@ -184,16 +165,13 @@ export default {
   ],
   data () {
     return {
-      examine: {},//审核
       isModifyChange: true,//是否被修改
       selectValue: false,
       selectionValue: '',
       res: {},
       labelPosition: 'right',
-      states: 0,
       content: '',
       flag: false,
-      dialogExamine: false,
       dialogModify: false,
       reForm: {
         field: '',
@@ -280,9 +258,19 @@ export default {
     /**
      * 审核按钮
      */
+    // handleExamine (row) {
+    //   this.dialogExamine = true
+    //   this.examine = row.id
+    // },
     handleExamine (row) {
-      this.dialogExamine = true
-      this.examine = row.id
+      this.$emit('onEdit', {
+        methodName: '审核',
+        id: row.id,
+        edit: true,
+        examine: true,
+        current: this.pageOption.current,
+        size: this.pageOption.size,
+      })
     },
     /**
      * 查看按钮
@@ -368,60 +356,6 @@ export default {
       this.content = ''
       this.isModifyChange = true
       // this.$refs['reform'].resetFields()
-    },
-    /**
-     * 审核取消
-     */
-    handleExamineCancel () {
-      this.dialogExamine = false
-      this.states = 0
-      this.content = ''
-    },
-    /**
-     * 审核提交
-     */
-    handleSubmit () {
-      if (this.states === 0) {
-        let postExaminePassList = {
-          id: null,
-        }
-        postExaminePassList.id = this.examine
-        postExaminePass(postExaminePassList).then(res => {
-          if (res.data.data == true) {
-            this.dialogExamine = false,
-              this.$message({
-                message: '该试题审核通过',
-                type: 'success',
-              }),
-              this.loadPage()
-          }
-        })
-      }
-      if (this.states === 1 && this.content != '') {
-        let postExamineFalseList = {
-          id: null,
-          reason: '',
-        }
-        postExamineFalseList.id = this.examine
-        postExamineFalseList.reason = this.content
-        postExamineFalseList = JSON.stringify(postExamineFalseList)
-        postExamineFalse(postExamineFalseList).then(res => {
-          if (res.data.data == true) {
-            this.dialogExamine = false,
-              this.$message({
-                message: '该试题审核不通过',
-                type: 'success',
-              }),
-              this.loadPage()
-          }
-        })
-      }
-      if (this.states === 1 && this.content == '') {
-        this.$message({
-          message: '请填写理由！',
-          type: 'warning',
-        })
-      }
     },
     /**
      * 是否修改选项

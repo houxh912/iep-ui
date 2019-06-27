@@ -49,6 +49,7 @@
       <template v-if="tabName ==='Single'" v-slot:Single>
         <single-dialog ref="single" :postAnswer="postAnswer"></single-dialog>
         <div align="center" style="margin-top:2%;">
+          <iep-button v-if="btnExamine === true" type="primary" @click="handleExamine">审核</iep-button>
           <iep-button v-if="btnSave == 0" type="primary" @click="submitSingle">保存</iep-button>
           <iep-button v-if="btnSave == 1" type="primary" @click="saveSingle" v-show="!btnDisabled">保存</iep-button>
         </div>
@@ -57,6 +58,26 @@
         <batch-dialog ref="batch" v-model="form.questionType"></batch-dialog>
       </template>
     </iep-tabs>
+
+    <iep-dialog :dialog-show="dialogExamine" title="审核试题" width="520px" @close="handleExamineCancel"
+      center>
+      <div style="text-align: center;">
+        <el-radio-group v-model="states">
+          <el-radio :label="0">审核通过</el-radio>
+          <el-radio :label="1">审核不通过</el-radio>
+        </el-radio-group>
+        <el-input v-if="states === 1" v-model="content" type="textarea" maxlength="250" rows="4"
+          style="margin-top:25px;" placeholder="请输入理由，字数不超过 250 ！" show-word-limit>
+        </el-input>
+      </div>
+      <template slot="footer">
+        <operation-wrapper>
+          <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+          <iep-button @click="handleExamineCancel">取消</iep-button>
+        </operation-wrapper>
+      </template>
+    </iep-dialog>
+
   </div>
 </template>
 
@@ -65,7 +86,7 @@ import mixins from '@/mixins/mixins'
 import SingleDialog from './Single.vue'
 import BatchDialog from './Batch.vue'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
-import { getTestOption, postNewTest, getExamMsg, postModify } from '@/api/exam/createExam/newTest/newTest'
+import { getTestOption, postNewTest, getExamMsg, postModify, postExaminePass, postExamineFalse } from '@/api/exam/createExam/newTest/newTest'
 export default {
   name: 'report',
   mixins: [mixins],
@@ -74,14 +95,16 @@ export default {
     BatchDialog,
     MutiplyTagSelect,
   },
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
+  props: [
+    'record',
+  ],
   data () {
     return {
+      examine: {},//审核
+      dialogExamine: false,
+      content: '',
+      states: 0,
+      btnExamine: false,
       tagsShow: [],
       btnDisabled: false,
       btnSave: '',
@@ -139,6 +162,7 @@ export default {
     }
   },
   created () {
+    // console.log(this.record)
     this.getTestOption ()
   },
   watch: {
@@ -170,14 +194,33 @@ export default {
      */
     getTestPaper () {
       const { id } = this.record
+      /**
+       * 审核
+       */
+      if (this.record.examine === true) {
+        this.btnExamine = true
+        this.$confirm('每过审入库 1 题，奖励出题人 5 贝', '提示', {
+          confirmButtonText: '确定',
+          type: 'warning',
+        })
+      }
+      /**
+       * 查看
+       */
       if (this.record.edit == true) {
         this.btnDisabled = this.record.edit
         this.$refs.single.inputDisabled()
       }
+      /**
+       * 修改试题
+       */
       if (this.record.edit == false) {
         this.btnDisabled = this.record.edit
         this.$refs.single.inputUndisabled()
       }
+      /**
+       * 修改试题
+       */
       if (id) {
         this.btnSave = 1
         const param = {
@@ -213,6 +256,9 @@ export default {
           // console.log('res.data.data => ',res.data.data)
         })
       }
+      /**
+       * 提交试题
+       */
       if (!id) {
         this.btnSave = 0
       }
@@ -319,6 +365,67 @@ export default {
       // this.res.exms_question_category = this.res.exms_question_category.map(i => i.label)
       // this.res.exms_difficulty = this.res.exms_difficulty.map(i => i.label)
       // console.log(this.res.data.map(i => i.label))
+    },
+    /**
+     * 审核按钮
+     */
+    handleExamine () {
+      this.dialogExamine = true
+      this.examine = this.record.id
+    },
+    /**
+     * 审核取消
+     */
+    handleExamineCancel () {
+      this.dialogExamine = false
+      this.states = 0
+      this.content = ''
+    },
+    /**
+     * 审核提交
+     */
+    handleSubmit () {
+      if (this.states === 0) {
+        let postExaminePassList = {
+          id: null,
+        }
+        postExaminePassList.id = this.examine
+        postExaminePass(postExaminePassList).then(res => {
+          if (res.data.data == true) {
+            this.dialogExamine = false,
+              this.$message({
+                message: '该试题审核通过',
+                type: 'success',
+              }),
+              this.$emit('onGoBack')
+          }
+        })
+      }
+      if (this.states === 1 && this.content != '') {
+        let postExamineFalseList = {
+          id: null,
+          reason: '',
+        }
+        postExamineFalseList.id = this.examine
+        postExamineFalseList.reason = this.content
+        postExamineFalseList = JSON.stringify(postExamineFalseList)
+        postExamineFalse(postExamineFalseList).then(res => {
+          if (res.data.data == true) {
+            this.dialogExamine = false,
+              this.$message({
+                message: '该试题审核不通过',
+                type: 'success',
+              }),
+              this.$emit('onGoBack')
+          }
+        })
+      }
+      if (this.states === 1 && this.content == '') {
+        this.$message({
+          message: '请填写理由！',
+          type: 'warning',
+        })
+      }
     },
   },
 }

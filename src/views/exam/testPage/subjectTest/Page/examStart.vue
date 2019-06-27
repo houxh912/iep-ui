@@ -13,7 +13,7 @@
         <span class="title">共 {{resdata.kindTotalNum}} 题，合计 {{resdata.kindMark}} 分，已完成 {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
         <hr>
         <span style="font-size: 15px;"><b>说明：</b></span>
-        <span style="font-size: 15px;">{{questionExplain}}</span>
+        <span style="font-size: 15px;">{{resdata.description}}</span>
         <div class="question">
           <div style="margin-bottom: 10px;">
             <span>{{resdata.questionNum}}、 </span>
@@ -114,7 +114,7 @@
     </div>
 
     <footer-tool-bar>
-      <span class="headerTxt">准考证号：{{examNo}}</span>
+      <span class="headerTxt">准考证号：{{resdata.examinationNumber}}</span>
       <span class="headerTxt">剩余时间：{{min}} 分：{{sec}} 秒</span>
       <!-- <iep-button @click="handleSave">暂停</iep-button> -->
       <iep-button @click="backhome">返回</iep-button>
@@ -144,11 +144,11 @@ export default {
       freeInput: '',          //简答(v-model绑定的值)
       trueOrFalseList: ['正确', '错误'],
       inputAreaList: [''],
-      questionExplain: '本题来源于国脉内网、水巢、数据基因、技能类、知识类、数据能力类、基本能力类、项目管理类、公司常识类、人力资源类等。',
+      // questionExplain: '本题来源于国脉内网、水巢、数据基因、技能类、知识类、数据能力类、基本能力类、项目管理类、公司常识类、人力资源类等。',
       mins: '',
       secs: '',
       time: '',   //定义定时器
-      examNo: '2019052568969',
+      // examNo: '2019052568969',
       chartData: {
         columns: ['是否完成', '进度'],
         rows: '',
@@ -525,7 +525,7 @@ export default {
       })
     },
 
-    /**f
+    /**
      * 小于10自动补零
      */
     num (n) {

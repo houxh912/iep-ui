@@ -328,6 +328,11 @@ export default {
           // 判断签订状态 -- 是否关联合同 -- 已签-1 待签-2
           form.signatureStatus = form.contractIds.length > 0 ? 1 : 2
 
+          // 回款表加上index
+          for (let index = 0; index < form.paymentRelations.length; ++index) {
+            form.paymentRelations[index].index = index + 1
+          }
+
           form.inChargeDept = this.formData.inChargeDeptList.id
           form.coopDept = this.formData.coopDeptList.id
           delete form.productList

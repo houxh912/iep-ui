@@ -255,3 +255,51 @@ export function getMyClientAverage (params) {
     params: params,
   })
 }
+// 查所有客户区域类型最大值
+export function getAllClientRelaMax (params) {
+  return request({
+    url: `${allUrl}/clientRelaMax`,
+    method: 'get',
+    params: params,
+  })
+}
+// 查所有客户区域类型最小值
+export function getAllClientRelaMin (params) {
+  return request({
+    url: `${allUrl}/clientRelaMin`,
+    method: 'get',
+    params: params,
+  })
+}
+// 查看所有区域类型最大值
+export function getAllDistrictMax (params) {
+  return request({
+    url: `${allUrl}/districtMax`,
+    method: 'get',
+    params: params,
+  })
+}
+// 查看所有区域类型最大值
+export function getAllDistrictMin (params) {
+  return request({
+    url: `${allUrl}/districtMin`,
+    method: 'get',
+    params: params,
+  })
+}
+// 查看我的客户关系最大值
+export function getMyClientRelaMax (params) {
+  return request({
+    url: `${myUrl}/clientRelaMax`,
+    method: 'get',
+    params: params,
+  })
+}
+// 查看我的客户关系最小值
+export function getMyClientRelaMin (params) {
+  return request({
+    url: `${myUrl}/clientRelaMin`,
+    method: 'get',
+    params: params,
+  })
+}

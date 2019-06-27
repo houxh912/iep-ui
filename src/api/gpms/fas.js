@@ -32,7 +32,7 @@ export function getProjectPaymentPlanList (id) {
 }
 export function updatePayment (obj) {
   return request({
-    url: '/prms/payment/updateActualRepayment',
+    url: '/prms/payment/updateArtificial',
     method: 'post',
     data: obj,
   })

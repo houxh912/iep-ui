@@ -1,69 +1,52 @@
 <template>
-  <div class="wrap">
+  <div class="iep-page-form project-relation">
     <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" ref="form" label-width="170px" style="margin-bottom: 50px;" class="form-detail">
-      <el-form-item prop="contractName">
-        <span slot="label">
-          合同名称
-          <iep-tip :content="tipContent.contractName"></iep-tip>
-          :
-        </span>
-        <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。"></el-input>
+    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;" class="form-detail">
+      <el-form-item label="合同名称：" prop="contractName">
+        <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。" maxlength="50"></el-input>
       </el-form-item>
-      <el-form-item prop="contractExpl">
-        <span slot="label">
-          合同说明 / 收款方式
-          <iep-tip :content="tipContent.contractExpl"></iep-tip>
-          :
-        </span>
-        <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5></el-input>
+      <el-form-item label="合同类型：" prop="contractType">
+        <el-select v-model="formData.contractType" placeholder="请选择" :disabled="true">
+          <el-option v-for="(item, value) in dictsMap.contractType" :key="value" :label="item" :value="value"></el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="关联项目：" prop="projectId">
-        <!-- <el-input v-show="false" v-model="formData.projectId"></el-input>
-        <el-tag type="info" v-if="formData.projectName != ''">{{formData.projectName}}</el-tag>
-        <iep-button @click="relationProject"><i class="el-icon-plus"></i></iep-button> -->
-        <IepProjectSelect v-model="formData.projectId" :projectName="formData.projectName"></IepProjectSelect>
+      <el-form-item label="关联项目：">
+        <IepProjectSelect v-model="formData.projectId" :projectName="formData.projectName" @change="projectChange"></IepProjectSelect>
       </el-form-item>
-      <el-form-item prop="businessType">
-        <span slot="label">
-          业务类型
-          <iep-tip :content="tipContent.businessType"></iep-tip>
-          :
-        </span>
+      <el-form-item label="合同说明 / 收款方式：">
+        <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5 maxlength="200"></el-input>
+      </el-form-item>
+      <el-form-item label="业务类型：" prop="businessType">
         <!-- <el-radio-group v-model="formData.businessType">
-          <el-radio v-for="item in dictGroup['mlms_business_type']" :key="item.value" :label="item.value">{{item.label}}</el-radio>
+          <el-radio v-for="item in dictGroup.mlms_business_type" :key="item.value" :label="item.value">{{item.label}}</el-radio>
         </el-radio-group> -->
         <businessType v-model="formData.businessType"></businessType>
       </el-form-item>
-      <el-form-item prop="tagKeyWords">
-        <span slot="label">
-          合同标签
-          <iep-tip :content="tipContent.tagKeyWords"></iep-tip>
-          :
-        </span>
+      <el-form-item label="合同标签：" prop="tagKeyWords">
         <iep-tag v-model="formData.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-row>
         <el-col :span='12'>
           <el-form-item label="签订日期：" prop="signTime">
-            <IepDatePicker v-model="formData.signTime" @change="startChange(formData.signTime)" placeholder="请选择实际签订合同日期"></IepDatePicker>
+            <IepDatePicker v-model="formData.signTime" :picker-options="signTimeOption"></IepDatePicker>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
           <el-form-item label="完结日期：" prop="finishTime">
-            <IepDatePicker v-model="formData.finishTime" @change="endChange(formData.finishTime)" placeholder="请选择合同中签订的完结时间"></IepDatePicker>
+            <IepDatePicker v-model="formData.finishTime" :picker-options="finishTimeOption"></IepDatePicker>
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row v-if="formData.contractType==1">
         <el-col :span='12'>
-          <el-form-item label="委托单位：" prop="companyOrgId">
-            <IepCrmsSelect v-model="formData.companyOrgId" :option="[formData.companyName]" prefixUrl="crm/customer/myorcoll/list" @change="clientChange">
+          <el-form-item label="委托单位：">
+            <IepCrmsSelect v-model="formData.companyOrgId" :option="[formData.companyName]" prefixUrl="crm/customer/myorcoll/list">
             </IepCrmsSelect>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
           <el-form-item label="签署单位：" prop="signCompanyOrgId">
+            <!-- <selectMore v-model="formData.signCompanyOrgId" prefix-url="crm/customer/all/list"></selectMore> -->
             <IepCrmsSelect v-model="formData.signCompanyOrgId" :option="[formData.signCompanyRealName]" prefixUrl="crm/customer/all/list">
             </IepCrmsSelect>
           </el-form-item>
@@ -71,77 +54,83 @@
       </el-row>
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="签署组织：" prop="signDeptOrgName">
+          <el-form-item label="签署组织：" prop="signDeptName">
+            <!-- <iep-dept-select v-model="formData.signDeptName"></iep-dept-select> -->
             <el-input v-model="formData.signDeptName" readonly></el-input>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
+          <!-- <el-form-item label="承接部门：">
+            <iep-dept-multiple v-model="formData.underTakeDeptList"></iep-dept-multiple>
+          </el-form-item> -->
           <el-form-item label="承接组织：">
             <iep-select v-model="formData.underTakeDeptId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调出组织" multiple></iep-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
+        <!-- <el-col :span='12' v-if="formData.contractType == 1">
+          <el-form-item label="市场经理：">
+            <el-input v-model="formData.directorId" v-show="false"></el-input>
+            <el-input v-model="formData.directorRealName" disabled></el-input>
+          </el-form-item>
+        </el-col> -->
         <el-col :span='12'>
           <el-form-item label="市场经理：" prop="directorList">
             <iep-contact-select v-model="formData.directorList"></iep-contact-select>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="合同金额：" prop="contractAmount">
-            <el-input v-model="formData.contractAmount" placeholder="请填写合同约定的金额，以“元”为单位" maxlength="9"></el-input>
+          <el-form-item label="合同金额(元)：" prop="contractAmount">
+            <el-input v-model="formData.contractAmount" placeholder="合同金额" maxlength="9"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span='12'>
           <el-form-item label="合同级别：" prop="contractLevel">
-            <iep-dict-select dict-name="mlms_contract_level" v-model="formData.contractLevel"></iep-dict-select>
+            <iep-dict-select v-model="formData.contractLevel" dict-name="mlms_contract_level"></iep-dict-select>
           </el-form-item>
         </el-col>
         <el-col :span='12'>
           <el-form-item label="合同状态：" prop="contractStatus">
-            <iep-dict-select dict-name="mlms_contract_status" v-model="formData.contractStatus"></iep-dict-select>
+            <iep-dict-select v-model="formData.contractStatus" dict-name="mlms_contract_status"></iep-dict-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span='12'>
-          <el-form-item label="保证金：" prop="deposit">
-            <el-input v-model="formData.deposit" placeholder="请根据缴纳保证金额填写" maxlength="10"></el-input>
+          <el-form-item label="保证金(元)：" prop="deposit">
+            <el-input v-model="formData.deposit" placeholder="保证金" maxlength="10"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span='12'>
+          <el-form-item label="历史合同：" prop="isHistory">
+            <el-switch v-model="formData.isHistory" :active-value="2" :inactive-value="1" active-color="#13ce66" />
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
-        <el-form-item label="合同附件上传：" prop="contractFileList">
-          <iep-upload v-model="formData.contractFileList" :limit="limit"></iep-upload>
-        </el-form-item>
-      </el-row>
+      <el-form-item label="合同附件上传：" prop="contractFileList">
+        <iep-upload v-model="formData.contractFileList" :limit="limit"></iep-upload>
+      </el-form-item>
     </el-form>
-    <footer-toolbar>
-      <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
-      <iep-button @click="resetForm('form')">取消</iep-button>
-    </footer-toolbar>
-    <projectDialog ref="project" @project-success="projectSuccess" :form="formData"></projectDialog>
+    <footer-tool-bar>
+      <iep-button type="primary" @click="submitForm('form')" :loading="loadState">保存</iep-button>
+      <iep-button @click="resetForm('form')">重置</iep-button>
+    </footer-tool-bar>
   </div>
 </template>
 <script>
-import { initFormData, rules } from '../options'
-import FooterToolbar from '@/components/FooterToolbar/'
+import { initFormData, rules, dictsMap } from './option'
 import { mapGetters } from 'vuex'
-import { getDataById } from '@/api/crms/contract'
-import { getMarket } from '@/api/crms/customer'
+import { getManeger, updateData, getDataById } from '@/api/mlms/material/datum/contract'
 import businessType from './businessType'
-import projectDialog from './projectRelation'
-const tipContent = {
-  contractName: '合同签订日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”',
-  contractExpl: '1、合同说明：请详细说明签订合同时承诺客户或需要注意的地方；<br>2、收款方式：付款周期+付款方式，如三期付款+对公;<br>3、开票资料信息。',
-  businessType: '咨询：规划/行动计划/工作方案/课题研究/标准规范/管理制度/整体解决方案/评测;<br>产品：DNA/DIPS/营商通/咨询服务产品化;<br>数据：数据采集/普查/编目/标准化/开放共享/应用服务/主题库、基础库建设/事项材料梳理/主题清单规范优化、再造;<br>外包：软件/平台/服务;<br>会议培训：研讨会/招商合作/培训会;<br>平台：平台新建/平台升级;<br>技术服务：网站/平台/软件;<br>其他：自定义填写',
-  tagKeyWords: '1、合同标签要与合作项目/产品关联，其中合作项目简称，合作产品，客户简称等必须作为标签；<br>2、标签次序按照重要性排序；<br>3、标签数量必须3个以上。',
 
-}
 export default {
-  components: { FooterToolbar, businessType, projectDialog },
+  components: { businessType },
+  computed: {
+    ...mapGetters(['userInfo', 'dictGroup']),
+  },
   props: {
     record: {
       type: Object,
@@ -150,145 +139,136 @@ export default {
   },
   data () {
     return {
-      tipContent,
+      loadState: false,
       dialogShow: false,
-      directorList: [],
-      methodName: '',
+      methodName: '新增',
       formRequestFn: () => { },
       formData: initFormData(),
       rules: rules,
-      id: '',
+      id:'',
+      directorList: [],
+      dictsMap,
       backOption: {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          // this.$emit('load-page', true)
           this.$emit('onGoBack')
         },
       },
-      signTime: '',
-      finishTime: '',
-      isTime: true,
       limit: 1,
+      signTimeOption: {
+        disabledDate: (time) => {
+          if (this.formData.finishTime) {
+            return time.getTime() > +new Date(this.formData.finishTime)
+          } else {
+            return time.getTime() < 0
+          }
+        },
+      },
+      finishTimeOption: {
+        disabledDate: (time) => {
+          if (this.formData.signTime) {
+            return time.getTime() < +new Date(this.formData.signTime)
+          } else {
+            return time.getTime() < 0
+          }
+        },
+      },
     }
-  },
-  computed: {
-    ...mapGetters(['userInfo', 'dictGroup']),
   },
   created () {
     this.formRequestFn = this.record.formRequestFn
     this.methodName = this.record.methodName
     this.id = this.record.id
-    this.formData.signDeptOrgId = this.userInfo.orgId
-    this.formData.signDeptName = this.userInfo.orgName
-    if (this.id) {
-      getDataById(this.id).then(res => {
-        console.log(res)
-        this.formData = res.data.data
-        this.signTime = res.data.data.signTime
-        this.finishTime = res.data.data.finishTime
-        this.formData.signDeptOrgId = this.userInfo.orgId
-        this.formData.signDeptName = this.userInfo.orgName
-        this.formData.projectName = res.data.data.projectRelation.name
-        this.formData.projectId = res.data.data.projectRelation.id
-        this.$set(this.formData, 'underTakeDeptId', res.data.data.underTakeDeptName.map(m => m.id))
-        let directorList = {
-          id: res.data.data.directorId,
-          name: res.data.data.directorRealName,
-        }
-        this.$set(this.formData, 'directorList', directorList)
-      })
+    if (this.methodName == '修改') {
+      this.open(this.record.id)
     }
   },
-  mounted () {
-    this.formData.signDeptOrgId = this.userInfo.orgId
-    this.formData.signDeptName = this.userInfo.orgName
-  },
   methods: {
+    // 编辑
+    open (id) {
+      getDataById(id).then(({ data }) => {
+        let row = data.data
+        if (row.underTakeDeptName) {
+          row.underTakeDeptId = row.underTakeDeptName.map(m => m.id) // 承接部门
+        }
+        row.directorList = {
+          id: row.directorId,
+          name: row.directorRealName,
+        }
+        if (row.projectRelation) {
+          row.projectId = row.projectRelation.id
+          row.projectName = row.projectRelation.name
+        }
+        row.signDeptName = row.signDeptOrgName.name
+        row.companyOrgObj = { id: row.companyOrgId, name: row.companyName ? row.companyName.name : '' }
+        row.signCompanyOrgObj = { id: row.signCompanyOrgId, name: row.signCompanyRealName ? row.signCompanyRealName.name : '' }
+        this.formData = Object.assign({}, this.formData, row)
+        this.methodName = '编辑'
+        this.formRequestFn = updateData
+      })
+    },
     loadPage () {
       this.$emit('load-page')
     },
-    resetForm () {
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
       this.formData = initFormData()
-      this.$emit('onGoBack')
-    },
-    // 根据委托单位查询市场经理
-    clientChange (val) {
-      getMarket({ clientId: val }).then(({ data }) => {
-        if (data.data) {
-          this.$set(this.formData, 'directorList', { id: data.data.id, name: data.data.name })
-          this.$set(this.formData, 'directorId', data.data.id)
-        } else {
-          this.$set(this.formData, 'directorList', { id: '', name: '' })
-        }
-      })
+      this.dialogShow = false
     },
     submitForm (formName) {
+      // this.formData.underTakeDeptId = this.formData.underTakeDeptList.map(m => m.id) // 承接部门
       this.formData.contractFile = this.formData.contractFileList.length > 0 ? this.formData.contractFileList[0].url : ''
-      let formData = Object.assign({}, this.formData)
-      formData.contractAmount = parseInt(this.formData.contractAmount)
-      formData.deposit = parseInt(this.formData.deposit)
-      // formData.directorId = this.formData.directorId
+      this.formData.directorId = this.formData.directorList.id
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (this.isTime) {
-            this.formRequestFn(formData).then(({ data }) => {
-              if (data.data) {
-                this.$message({
-                  message: `${this.methodName}成功`,
-                  type: 'success',
-                })
-                this.$emit('onGoBack')
-                this.loadPage()
-              } else {
-                this.$message.error(data.msg)
-              }
-            })
-          } else {
-            this.$message.error('签订日期不能晚于完结日期')
-          }
+          this.loadState = true
+          this.formRequestFn(this.formData).then(({ data }) => {
+            this.loadState = false
+            if (data.data) {
+              this.$message({
+                message: `${this.methodName}成功`,
+                type: 'success',
+              })
+              this.$emit('onGoBack')
+              this.loadPage()
+            } else {
+              this.$message.error(data.msg)
+            }
+          })
         } else {
           return false
         }
       })
     },
-    dealTime (val1, val2) {
-      var str1 = val1.replace(/-/g, '/')
-      var time1 = Date.parse(new Date(str1))
-      var str2 = val2.replace(/-/g, '/')
-      var time2 = Date.parse(new Date(str2))
-      if (time2 < time1) {
-        this.$message.error('签订日期不能晚于完结日期')
-        this.isTime = false
-      } else {
-        this.isTime = true
+    // 根据项目查询委托、签署单位、市场经理
+    projectChange (val) {
+      if (val) {
+        getManeger({ id: val }).then(({ data }) => {
+          let row = data.data
+          let obj = {}
+          obj.companyOrgId = row.signCompanyId
+          obj.companyName = { id: row.signCompanyId, name: row.signCompanyRealName }
+          obj.signCompanyOrgId = row.signDeptOrgId
+          obj.signCompanyRealName = { id: row.signDeptOrgId, name: row.signDeptOrgName }
+          obj.directorList = { id: row.directorId, name: row.directorRealName }
+          this.formData = Object.assign({}, this.formData, obj)
+        })
       }
     },
-    startChange (val) {
-      this.signTime = val
-      this.dealTime(val, this.finishTime)
-    },
-    endChange (val) {
-      this.finishTime = val
-      this.dealTime(this.signTime, val)
-    },
-    // 关联项目
-    relationProject () {
-      this.$refs['project'].open(this.formData.projectId, this.formData.projectName)
-    },
-    projectSuccess (id, name) {
-      this.formData.projectId = id
-      this.$set(this.formData, 'projectName', name)
-    },
+  },
+  mounted () {
+    this.formData.signDeptOrgId = this.userInfo.orgId
+    this.formData.signDeptName = this.userInfo.orgName
   },
 }
 </script>
-<style>
-.wrap {
+
+<style lang="scss" scoped>
+.project-relation {
   padding: 20px;
-}
-.el-tag {
-  margin-right: 10px;
+  .el-tag {
+    margin-right: 10px;
+  }
 }
 </style>
-

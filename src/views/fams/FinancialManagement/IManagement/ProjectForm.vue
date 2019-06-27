@@ -64,6 +64,7 @@ export default {
         })
         if (data.data) {
           this.$message.success('操作成功')
+          this.$emit('load-page')
         } else {
           this.$message('data.msg')
         }

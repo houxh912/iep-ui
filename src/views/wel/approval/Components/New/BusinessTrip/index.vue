@@ -18,11 +18,11 @@
       </iep-form-item>
 
       <iep-form-item class="form-half" prop="busTripDistrict" label-name="出差地点" tip="请务必精确市区，如舟山市定海区">
-        <el-input v-model="form.busTripDistrict"></el-input>
+        <el-input v-model="form.busTripDistrict" placeholder="输入出差地址"></el-input>
       </iep-form-item>
 
       <el-form-item label="出差时长：" class="form-half">
-        <el-input v-model="form.duration" disabled></el-input>
+        <el-input v-model="form.duration" placeholder="可以自行计算请假时间段"></el-input>
         <!-- <iep-input-number v-model="form.duration"></iep-input-number> -->
       </el-form-item>
 
@@ -61,8 +61,6 @@ export default {
         this.form = this.selfToVo(data.data)
         this.form.startTime = initNow()
       })
-    },
-    handlePublish () {
     },
   },
 }

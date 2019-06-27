@@ -48,7 +48,7 @@
             <el-col :span='10' :offset="4">
               <el-form-item label="市场经理:" prop="Manager">
                 <!-- <el-input v-model="formData.Manager" :disabled="true"></el-input> -->
-                {{formData.Manager}}
+                {{this.Claim == true?formData.Manager:''}}
               </el-form-item>
             </el-col>
           </el-row>
@@ -79,17 +79,6 @@
               <el-checkbox v-for="item in dictGroup['crms_client_type']" :key="item.value" :label="item.value" name="leixing">{{item.label}}</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <!-- <el-form-item prop="businessTypeKey">
-            <span slot="label">
-              业务类型
-              <iep-tip :content="tipContent.businessTypeKey"></iep-tip>
-              :
-            </span>
-            <businessType v-model="formData.businessTypeKey"></businessType>
-          </el-form-item> -->
-          <!-- <el-form-item label="" prop="specificBusinessType">
-            <el-input v-model="formData.specificBusinessType" placeholder="请务必结合客户需求准确填写业务类型"></el-input>
-          </el-form-item> -->
           <el-form-item label="客户关系：" prop="clientRela">
             <span slot="label">
               客户关系
@@ -112,7 +101,7 @@
             </a-tag>
           </el-form-item>
           <el-form-item label="是否认领">
-            <el-switch v-model="value" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否">
+            <el-switch v-model="Claim" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否">
             </el-switch>
           </el-form-item>
           <!-- <el-form-item label="跟进状态:" prop="followUpStatus">
@@ -197,7 +186,7 @@ export default {
     return {
       tipContent,
       id: '',
-      value: false,
+      Claim: false,
       backOption: {
         isBack: true,
         backPath: null,
@@ -228,9 +217,6 @@ export default {
         ],
         districtType: [
           { required: true, message: '请选择区域类型', trigger: 'blur' },
-        ],
-        marketManager: [
-          { required: true, message: '请填写市场经理', trigger: 'blur' },
         ],
         companyFunction: [
           { message: '请填写单位职能', trigger: 'blur' },
@@ -290,11 +276,10 @@ export default {
     }
   },
   created () {
-
+    this.formData.Manager = this.userInfo.realName
     this.formData.marketManager = this.userInfo.userId
     this.flagName = this.record.flagName
     this.type = this.record.type
-    this.formData.Manager = this.userInfo.realName
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn
     this.id = this.record.id
@@ -305,7 +290,6 @@ export default {
     if (this.id) {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = this.$mergeByFirst(initForm(), data.data)
-        // this.formData.businessTypeKey = data.data.businessTypeKey.map(m => m.commonId)
         this.formData.clientTypeKey = data.data.clientTypeKey.map(m => m.commonId)
         this.formData.districtType = data.data.districtTypeKey
         this.formData.followUpStatus = data.data.followUpStatusKey
@@ -316,13 +300,12 @@ export default {
           this.formData.Manager = res.data.data.realName
         })
         if (this.formData.unionId == 0) {
-          this.value = false
+          this.Claim = false
         } else {
-          this.value = true
+          this.Claim = true
         }
       })
     } else if (this.flag) {
-      // this.formData.businessTypeKey = this.data.businessType.map(m => m.commonId)
       this.formData.clientName = this.data.clientName
       this.formData.tags = this.data.tags.map(m => (m.commonName))
     }
@@ -404,12 +387,11 @@ export default {
       })
     },
     submitForm (formName) {
-      if (!this.value) {
+      if (!this.Claim) {
         this.formData.toClaim = 1
       } else {
         this.formData.toClaim = 0
       }
-
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn((this.formData)).then(({ data }) => {

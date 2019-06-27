@@ -33,6 +33,12 @@ export function getBudgetList () {
     method: 'get',
   })
 }
+export function getBossBudgetList () {
+  return request({
+    url: `${prefixUrl}/all/budget/list`,
+    method: 'get',
+  })
+}
 // 取 3 条
 export function getOrgBudgetList (type) {
   return request({

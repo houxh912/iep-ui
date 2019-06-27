@@ -21,15 +21,15 @@ export default {
         },
         {
           data: '--',
-          labTitle: '贡献',
+          labTitle: '活跃度',
         },
         {
           data: '--',
-          labTitle: '业绩排名',
+          labTitle: '资产排名',
         },
         {
           data: '--',
-          labTitle: '业绩排名',
+          labTitle: '数据资产',
         },
       ],
     }

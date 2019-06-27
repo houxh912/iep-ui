@@ -40,7 +40,7 @@ export default {
   },
   data () {
     return {
-      title: '组织介绍',
+      title: '组织简介/优势',
       linkName: `/app/organization_details?id=${this.$route.params.id}`,
     }
   },

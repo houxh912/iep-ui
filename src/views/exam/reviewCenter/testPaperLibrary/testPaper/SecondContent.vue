@@ -168,7 +168,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="题型" prop="type">
-          <el-select v-model="form.type" clearable placeholder="请选择题型" @change="typeChange" style="width:100%">
+          <el-select v-model="form.type" clearable placeholder="请选择题型" @change="typeChange" style="width:100%" :disabled="reSave">
             <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label"
               :value="item.id" :disabled="choiceType.indexOf(item.id)>-1"></el-option>
           </el-select>
@@ -285,34 +285,35 @@ export default {
   props: ['data'],
   components: { StepsContent, DialogQuestionTable },
   data () {
-    var checkSimpleNum = (rule, value, callback) => {
-      setTimeout(() => {
-        if (value === 0 && this.totalNum.simple > 0) {
-          callback(new Error('请配置试题的简单题数'))
-        } else {
-          callback()
-        }
-      }, 100)
-    }
-    var checkMiddleNum = (rule, value, callback) => {
-      setTimeout(() => {
-        if (value === 0 && this.totalNum.general > 0) {
-          callback(new Error('请配置试题的一般题数'))
-        } else {
-          callback()
-        }
-      }, 100)
-    }
-    var checkHardNum = (rule, value, callback) => {
-      setTimeout(() => {
-        if (value === 0 && this.totalNum.difficult > 0) {
-          callback(new Error('请配置试题的困难题数'))
-        } else {
-          callback()
-        }
-      }, 100)
-    }
+    // var checkSimpleNum = (rule, value, callback) => {
+    //   setTimeout(() => {
+    //     if (value === 0 && this.totalNum.simple > 0) {
+    //       callback(new Error('请配置试题的简单题数'))
+    //     } else {
+    //       callback()
+    //     }
+    //   }, 100)
+    // }
+    // var checkMiddleNum = (rule, value, callback) => {
+    //   setTimeout(() => {
+    //     if (value === 0 && this.totalNum.general > 0) {
+    //       callback(new Error('请配置试题的一般题数'))
+    //     } else {
+    //       callback()
+    //     }
+    //   }, 100)
+    // }
+    // var checkHardNum = (rule, value, callback) => {
+    //   setTimeout(() => {
+    //     if (value === 0 && this.totalNum.difficult > 0) {
+    //       callback(new Error('请配置试题的困难题数'))
+    //     } else {
+    //       callback()
+    //     }
+    //   }, 100)
+    // }
     return {
+      reSave: false,
       judgeTotal: '',
       formLoading: false,
       questionConfiguration: false,
@@ -324,9 +325,9 @@ export default {
         field: [{ required: true, message: '请选择科目', trigger: 'change' }],
         type: [{ required: true, message: '请选择题型', trigger: 'change' }],
         configurationState: [{ required: true, message: '请选择配置状态', trigger: 'change' }],
-        simpleNum: [{ validator: checkSimpleNum, trigger: 'blur' }],
-        middleNum: [{ validator: checkMiddleNum, trigger: 'blur' }],
-        hardNum: [{ validator: checkHardNum, trigger: 'blur' }],
+        // simpleNum: [{ validator: checkSimpleNum, trigger: 'blur' }],
+        // middleNum: [{ validator: checkMiddleNum, trigger: 'blur' }],
+        // hardNum: [{ validator: checkHardNum, trigger: 'blur' }],
         single: [{ required: true, message: '请输入每题分数', trigger: 'blur' }],
         scoringMethod: [{ required: true, message: '请选择打分方式', trigger: 'change' }],
         iepItemBankList: [{ required: true, message: '请选择试题', trigger: 'blur' }],
@@ -449,6 +450,7 @@ export default {
       this.formLoading = true
       this.iepTestPaperIndex = index
       if (index != undefined) {
+        this.reSave = true
         postPaperAmount({ subject: this.iepQstnRuleList[index].field.join(','), question: this.iepQstnRuleList[index].type }).then(({ data }) => {
           if (data.data) {
             this.totalNum = data.data
@@ -457,6 +459,7 @@ export default {
           }
         })
       } else {
+        this.reSave = false
         this.form = questionForm()
         this.totalNum.simple = 0
         this.totalNum.general = 0
@@ -473,21 +476,26 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           if (this.judgeTotal === true) {
-            this.$message.error('当前题数全为 0 道，不能继续配置！')
+            this.$message.error('当前题库数量为 0 道，不能继续配置！')
           }
           else {
-            let _form = toDtoForm(this.form)
-            _form.total = this.totalCount
-            if (this.iepTestPaperIndex != undefined) {
-              this.iepQstnRuleList.splice(this.iepTestPaperIndex, 1, _form)
-              this.choiceType.splice(this.iepTestPaperIndex, 1, _form.type)
-            } else {
-              this.choiceType.push(_form.type)
-              this.iepQstnRuleList.push(_form)
+            if (this.form.simpleNum === 0 && this.form.middleNum === 0 && this.form.hardNum === 0) {
+              this.$message.error('当前选择的题目为 0 道，请选择相应题目！')
             }
-            this.choiceType.sort()
-            this.questionConfiguration = false
-            this.submitDisabled = true
+            else {
+              let _form = toDtoForm(this.form)
+              _form.total = this.totalCount
+              if (this.iepTestPaperIndex != undefined) {
+                this.iepQstnRuleList.splice(this.iepTestPaperIndex, 1, _form)
+                this.choiceType.splice(this.iepTestPaperIndex, 1, _form.type)
+              } else {
+                this.choiceType.push(_form.type)
+                this.iepQstnRuleList.push(_form)
+              }
+              this.choiceType.sort()
+              this.questionConfiguration = false
+              this.submitDisabled = true
+            }
           }
         }
       })

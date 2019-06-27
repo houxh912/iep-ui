@@ -9,6 +9,7 @@ export default {
   components: { IepStatisticsHeader },
   data () {
     return {
+      rangeTime: [],
       financialData: {
         '银行存款': 0,
         '库存现金': 0,

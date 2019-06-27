@@ -54,7 +54,7 @@
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm()">提交</iep-button>
-      <iep-button @click="loadPage">取消</iep-button>
+      <iep-button @click="dialogShow=false">取消</iep-button>
     </template>
   </iep-dialog>
 </template>

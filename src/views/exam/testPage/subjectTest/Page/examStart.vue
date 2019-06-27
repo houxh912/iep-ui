@@ -3,8 +3,11 @@
     <div class="header">
       <!-- <img src="../img/IG.png"> -->
       <span class="title-one"><b>在线考试系统</b></span>
+      <span class="title-two" style="margin-left:6px">- {{record.title}}</span>
       <span class="line"></span>
       <span class="title-two">{{resdata.fieldName}}</span>
+      <!-- <span class="line"></span> -->
+      <!-- <span class="title-two">{{record.title}}</span> -->
     </div>
 
     <div class="examShow" v-loading="loading">
@@ -203,6 +206,7 @@ export default {
     // this.timer()
   },
   created () {
+    // console.log('record => ', this.record)
     this.loadPage()
   },
   beforeDestroy () {
@@ -559,7 +563,7 @@ export default {
               })
               _this.$emit('onGoBack')
             }
-            console.log('时间到啦')
+            // console.log('时间到啦')
           })
         }
         else {

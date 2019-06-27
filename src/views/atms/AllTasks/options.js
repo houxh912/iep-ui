@@ -10,10 +10,6 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'taskName',
-    label: '任务名称',
-  },
-  {
     prop: 'taskStatus',
     label: '状态',
     type: 'dict',

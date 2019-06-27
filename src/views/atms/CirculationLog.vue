@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-collapse v-model="activeNames" @change="handleChange" v-for="(similarTasks,index) in similarTasksList" :key="index">
-      <el-collapse-item :title="similarTasks.title" name="1">
+    <el-collapse v-model="activeNames">
+      <el-collapse-item :title="title" name="2">
         <div class="con" v-for="(item,index) in itemList" :key="index">
           <span class="name">
             <span class="sub-name">{{item.operatorName}}</span>{{item.remarks}}
@@ -23,19 +23,12 @@ export default {
   },
   data () {
     return {
-      activeNames: ['1'],
-      similarTasksList: [
-        {
-          title: '流转日志',
-        },
-      ],
+      activeNames: ['2'],
+      title: '流转日志',
     }
   },
   methods: {
     handleDetail () {
-    },
-    handleChange () {
-
     },
   },
 }

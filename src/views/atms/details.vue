@@ -33,13 +33,13 @@
             <iep-dict-detail :value="form.priority" dict-name="atms_task_priority"></iep-dict-detail>
           </el-form-item>
           <el-form-item label="协同人：" class="form-half">
-            <span v-for="(e,i) in form.executors" :key="i" class="people">
+            <span v-for="(e,i) in form.assistants" :key="i" class="people">
               <iep-img class="img" :src="e.headImg" alt=""></iep-img>
               <span>{{e.name}}</span>
             </span>
           </el-form-item>
           <el-form-item label="执行人：" class="form-half">
-            <span v-for="(a,i) in form.assistants" :key="i" class="people">
+            <span v-for="(a,i) in form.executors" :key="i" class="people">
               <iep-img class="img" :src="a.headImg" alt=""></iep-img>
               <span>{{a.name}}</span>
             </span>
@@ -80,7 +80,7 @@
           </div>
         </div>
         <similar-tasks></similar-tasks>
-        <circulation-log :itemList="form.records"></circulation-log>
+        <circulation-log :itemList="form.records.slice(0,8)"></circulation-log>
         <div class="bottom">
           <span>{{handleTitle}}</span>
           <div class="con"></div>
@@ -326,6 +326,9 @@ export default {
 .details >>> .el-image__inner{
   border-radius: 50%;
   margin-right: 5px;
+}
+.details >>> .el-card__body{
+  width: 100%;
 }
 </style>
 

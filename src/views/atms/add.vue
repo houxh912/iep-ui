@@ -8,7 +8,8 @@
         </el-form-item>
 
         <el-form-item label='所属任务' prop="parentName" class="form-half">
-          <iep-contract-atms-select v-model="form.parentId" :contractName="form.parentName"></iep-contract-atms-select>
+          <span v-if="form.children.length>0">此任务已有子任务不能再添加所属任务</span>
+          <iep-contract-atms-select v-else v-model="form.parentId" :contractName="form.parentName"></iep-contract-atms-select>
         </el-form-item>
 
         <!-- <el-form-item label='状态' prop="taskStatus" class="form-half">
@@ -19,12 +20,12 @@
           <iep-dict-select v-model="form.priority" placeholder="普通" dict-name="atms_task_priority"></iep-dict-select>
         </el-form-item>
 
-        <el-form-item label='协同人' prop="executors">
-          <iep-contact-multiple-user v-model="form.executors"></iep-contact-multiple-user>
+        <el-form-item label='协同人' prop="assistants">
+          <iep-contact-multiple-user v-model="form.assistants"></iep-contact-multiple-user>
         </el-form-item>
         
-        <el-form-item label='执行人' prop="assistants">
-          <iep-contact-multiple-user v-model="form.assistants"></iep-contact-multiple-user>
+        <el-form-item label='执行人' prop="executors">
+          <iep-contact-multiple-user v-model="form.executors"></iep-contact-multiple-user>
         </el-form-item>
 
         <el-form-item label='起止时间' prop="startEndTime" class="form-half">
@@ -84,6 +85,7 @@ export default {
       getAtmsById(this.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
         this.form.startEndTime=[this.form.startTime,this.form.endTime]
+        this.form.parentId == 0 ? this.form.parentId = '' : this.form.parentId
       })
     }
   },

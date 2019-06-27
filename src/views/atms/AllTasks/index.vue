@@ -19,7 +19,15 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange">
-          <template slot="before-columns">
+        <template slot="before-columns">
+          <el-table-column label="任务名称" width="300px">
+            <template slot-scope="scope">
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.taskName}}</iep-table-link>
+              <el-tooltip class="item" effect="dark" content="此任务已逾期" placement="top">
+                <i class="iconfont icon-shijian"></i>
+              </el-tooltip>
+            </template>
+          </el-table-column>
         </template>
       </iep-table>
     </basic-container>
@@ -60,7 +68,10 @@ export default {
     },
     handleAdd () {
     },
-    handleDetail () {
+    handleDetail (row) {
+      this.$router.push({
+        path:`/atms/details/${row.id}`,
+      })
     },
     // loadPage (param = this.searchForm) {
     //   this.loadTable(param, getAlreadyApprovalPage)

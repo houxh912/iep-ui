@@ -287,3 +287,19 @@ export function getAllDistrictMin (params) {
     params: params,
   })
 }
+// 查看我的客户关系最大值
+export function getMyClientRelaMax (params) {
+  return request({
+    url: `${myUrl}/clientRelaMax`,
+    method: 'get',
+    params: params,
+  })
+}
+// 查看我的客户关系最小值
+export function getMyClientRelaMin (params) {
+  return request({
+    url: `${myUrl}/clientRelaMin`,
+    method: 'get',
+    params: params,
+  })
+}

@@ -3,12 +3,12 @@
     <basic-container>
       <page-header :title="`${methodName}任务`"></page-header>
       <el-form :model="form" :rules="rules" size="small" ref="form" label-width="200px" class="form form-detail">
-        <el-form-item label='任务名称' prop="taskName">
+        <el-form-item label='任务名称：' prop="taskName">
           <el-input v-model="form.taskName" placeholder="请填写任务名称"></el-input>
         </el-form-item>
 
-        <el-form-item label='所属任务' prop="parentName" class="form-half">
-          <span v-if="form.children.length>0">此任务已有子任务不能再添加所属任务</span>
+        <el-form-item label='所属任务：' prop="parentName" class="form-half">
+          <span v-if="form.children.length>0" style="color:#999;">此任务已有子任务不能再添加所属任务</span>
           <iep-contract-atms-select v-else v-model="form.parentId" :contractName="form.parentName"></iep-contract-atms-select>
         </el-form-item>
 
@@ -16,36 +16,36 @@
           <iep-dict-select v-model="form.taskStatus" placeholder="未完成" dict-name="atms_task_status"></iep-dict-select>
         </el-form-item> -->
 
-        <el-form-item label='优先级' prop="priority" class="form-half">
+        <el-form-item label='优先级：' prop="priority" class="form-half">
           <iep-dict-select v-model="form.priority" placeholder="普通" dict-name="atms_task_priority"></iep-dict-select>
         </el-form-item>
 
-        <el-form-item label='协同人' prop="assistants">
+        <el-form-item label='协同人：' prop="assistants">
           <iep-contact-multiple-user v-model="form.assistants"></iep-contact-multiple-user>
         </el-form-item>
         
-        <el-form-item label='执行人' prop="executors">
+        <el-form-item label='执行人：' prop="executors">
           <iep-contact-multiple-user v-model="form.executors"></iep-contact-multiple-user>
         </el-form-item>
 
-        <el-form-item label='起止时间' prop="startEndTime" class="form-half">
+        <el-form-item label='起止时间：' prop="startEndTime" class="form-half">
           <iep-date-picker v-model="form.startEndTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
               </iep-date-picker>
         </el-form-item>
 
-        <el-form-item label='标签' prop="tagKeyWords">
+        <el-form-item label='标签：' prop="tagKeyWords">
           <iep-tag v-model="form.tagKeyWords"></iep-tag>
         </el-form-item>
 
-        <el-form-item label='备注' prop="remarks">
+        <el-form-item label='备注：' prop="remarks">
           <el-input v-model="form.remarks" maxlength="300" :rows="4"></el-input>
         </el-form-item>
 
-        <el-form-item label='附件' prop="annexList">
+        <el-form-item label='附件：' prop="annexList">
           <iep-upload v-model="form.annexList" :limit="limit"></iep-upload>
         </el-form-item>
 
-        <el-form-item label='关联内容' prop="materials">
+        <el-form-item label='关联内容：' prop="materials">
           <el-button @click="handleAdd"><i class="iconfont icon-xinzeng"></i></el-button>
         </el-form-item>
       </el-form>

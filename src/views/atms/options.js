@@ -45,6 +45,7 @@ const initConversionForm = () => {
         parent:{id:'',name:''},
     }
 }
+
 const formToDto = (form) => {
   const newForm = mergeByFirst(initForm(), form)
   newForm.executorIds = form.executors.map(m=>m.id)

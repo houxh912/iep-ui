@@ -1,9 +1,25 @@
 import request from '@/router/axios'
 const prefixUrl = '/atms/task'
 
-export function getTableData (obj) {
+export function getMyAtms (obj) {
   return request({
     url: `${prefixUrl}/page`,
+    method: 'get',
+    params: obj,
+  })
+}
+
+export function getAllAtms (obj) {
+  return request({
+    url: `${prefixUrl}/page/all`,
+    method: 'get',
+    params: obj,
+  })
+}
+
+export function getMyCount (obj) {
+  return request({
+    url: `${prefixUrl}/myCount`,
     method: 'get',
     params: obj,
   })

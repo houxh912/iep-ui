@@ -4,7 +4,7 @@
       <div class="details">
       <div class="detail-left">
         <page-header :title="`${form.taskName}`" :backOption="backOption">
-          <slot><iep-button @click="handleEdit()">编辑</iep-button></slot>
+          <slot><iep-button @click="handleEdit()" :disabled="userId==form.principalName">编辑</iep-button></slot>
         </page-header>
         <div class="sub">
           <span v-if='!form.parentName'>所属任务：无</span>
@@ -104,6 +104,7 @@ import CirculationLog from './CirculationLog'
 import TransferDialogForm from './TransferDialogForm'
 import ConversionDialogForm from './ConversionDialogForm'
 import mixins from '@/mixins/mixins'
+import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
   components: {
@@ -135,6 +136,11 @@ export default {
   },
   created () {
     this.loadPage()
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
   },
   methods: {
     close () {

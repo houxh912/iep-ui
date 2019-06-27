@@ -18,8 +18,8 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange">
-        <template slot="before-columns">
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-tree>
+        <!-- <template slot="before-columns">
           <el-table-column label="任务名称" width="300px">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.taskName}}</iep-table-link>
@@ -28,12 +28,48 @@
               </el-tooltip>
             </template>
           </el-table-column>
+          <el-table-column label="状态">
+            <template slot-scope="scope">
+              {{scope.row.taskStatus}}
+              <span></span> 
+            </template>
+          </el-table-column>
+          <el-table-column label="创建人">
+            <template slot-scope="scope">
+              {{scope.row.founder}}
+            </template>
+          </el-table-column>
+          <el-table-column label="负责人">
+            <template slot-scope="scope">
+              {{scope.row.principal}}
+            </template>
+          </el-table-column>
+          <el-table-column label="起止时间">
+            <template slot-scope="scope">
+              {{scope.row.time}}
+            </template>
+          </el-table-column>
+        </template> -->
+        <template>
+          <el-table-column label="起止时间" width="300px">
+            <template slot-scope="scope">
+              {{scope.row.startTime | parseToDay}}~{{scope.row.endTime | parseToDay}}
+            </template>
+          </el-table-column>
         </template>
+        <el-table-column prop="operation" label="操作" width="100">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button @click="handleDetail(scope.row)" type="warning" plain>查看</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
       </iep-table>
     </basic-container>
   </div>
 </template>
 <script>
+import { getAllAtms } from '@/api/atms/index'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
 export default {
@@ -57,13 +93,22 @@ export default {
           founder:'ss',
           principal:'ddd',
           time:'2019-06-16~2019-06-25',
+          children:[
+            {id:11,taskName:'修改合同的签署部门字段',taskStatus:'0',founder:'ss',principal:'ddd',time:'2019-06-16~2019-06-25'},
+          ],
         },
         {id:2,taskName:'修改合同的签署部门字段',taskStatus:'0',founder:'ss',principal:'ddd',time:'2019-06-16~2019-06-25'},
         {id:3,taskName:'修改合同的签署部门字段',taskStatus:'0',founder:'ss',principal:'ddd',time:'2019-06-16~2019-06-25'},
       ],
     }
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getAllAtms)
+    },
     handleSelectionChange () {
     },
     handleAdd () {

@@ -4,9 +4,29 @@
       <page-header title="我的任务"></page-header>
       <el-card class="box" shadow="hover">
         <div class="total-wrapper">
-          <div class="total-item" v-for="(item, index) in dataList" :key="index">
-            <div class="value">{{item.value}}</div>
-            <div class="label"><a href="#">{{item.label}}</a></div>
+          <div class="total-item">
+            <div class="value">{{myCountList.myAll}}</div>
+            <div class="label"><a href="#">全部</a></div>
+          </div>
+          <div class="total-item">
+            <div class="value">{{myCountList.myCreated}}</div>
+            <div class="label"><a href="#">我创建的</a></div>
+          </div>
+          <div class="total-item">
+            <div class="value">{{myCountList.myToDo}}</div>
+            <div class="label"><a href="#">我的待办</a></div>
+          </div>
+          <div class="total-item">
+            <div class="value">{{myCountList.myCharge}}</div>
+            <div class="label"><a href="#">我负责的</a></div>
+          </div>
+          <div class="total-item">
+            <div class="value">{{myCountList.myParticipated}}</div>
+            <div class="label"><a href="#">我参与的</a></div>
+          </div>
+          <div class="total-item">
+            <div class="value">{{myCountList.myCollection}}</div>
+            <div class="label"><a href="#">我关注的</a></div>
           </div>
         </div>
       </el-card>
@@ -44,7 +64,7 @@
           </el-table-column>
         </template>
         <template>
-          <el-table-column label="起止时间" width="300px">
+          <el-table-column label="起止时间" width="220px">
             <template slot-scope="scope">
               {{scope.row.startTime | parseToDay}}~{{scope.row.endTime | parseToDay}}
             </template>
@@ -73,42 +93,35 @@
   </div>
 </template>
 <script>
-import { getTableData, deleteAtmsById, changeAtmsStatus } from '@/api/atms/index'
+import { getMyAtms, deleteAtmsById, changeAtmsStatus, getMyCount } from '@/api/atms/index'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
 export default {
   mixins: [mixins],
   data () {
     return{
-      dataList:[
-        {value:55,label:'任务统计'},
-        {value:55,label:'代办任务'},
-        {value:55,label:'进行中'},
-        {value:55,label:'已完成'},
-        {value:55,label:'已逾期'},
-      ],
       dictsMap,
       columnsMap,
       pagedTable:[
-        {
-          id:1,
-          taskName:'修改合同的签署部门字段',
-          taskStatus:'0',
-          founder:'ss',
-          principal:'ddd',
-          time:'2019-06-16~2019-06-25',
-        },
-        {id:2,taskName:'修改合同的签署部门字段',taskStatus:'0',founder:'ss',principal:'ddd',time:'2019-06-16~2019-06-25'},
-        {id:3,taskName:'修改合同的签署部门字段',taskStatus:'0',founder:'ss',principal:'ddd',time:'2019-06-16~2019-06-25'},
       ],
+      myCountList:{
+        myAll: 0,
+        myCreated: 0,
+        myToDo: 0,
+        myCharge: 0,
+        myCollection: 0,
+      },
     }
   },
   created () {
     this.loadPage()
+    getMyCount().then(({ data }) => {
+      this.myCountList = data.data
+    })
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getTableData)
+      this.loadTable(param, getMyAtms)
     },
     handleSelectionChange () {
     },

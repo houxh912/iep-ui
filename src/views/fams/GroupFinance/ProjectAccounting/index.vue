@@ -28,7 +28,7 @@
         <template slot="before-columns">
           <el-table-column label="时间">
             <template slot-scope="scope">
-              {{scope.row.businessYear + '年' + scope.row.businessMonth + '月'}}
+              {{scope.row.businessYear + '年'}}
             </template>
           </el-table-column>
         </template>
@@ -50,6 +50,7 @@
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+    <create-dialog ref="CreateDialog" @load-page="loadPage"></create-dialog>
   </div>
 </template>
 
@@ -57,11 +58,12 @@
 import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 import { getUnionProjectPage } from '@/api/fams/statistics'
 import DialogForm from './DialogForm'
+import CreateDialog from './CreateDialog'
 import AdvanceSearch from './AdvanceSearch'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initForm } from './options'
 export default {
-  components: { DialogForm, AdvanceSearch, IepStatisticsHeader },
+  components: { DialogForm, CreateDialog, AdvanceSearch, IepStatisticsHeader },
   mixins: [mixins],
   data () {
     return {
@@ -86,13 +88,11 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$refs['DialogForm'].form = initForm()
-      this.$refs['DialogForm'].isEdit = false
-      this.$refs['DialogForm'].dialogShow = true
+      this.$refs['CreateDialog'].form = initForm()
+      this.$refs['CreateDialog'].dialogShow = true
     },
     handleEdit (row) {
       this.$refs['DialogForm'].form = { ...row }
-      this.$refs['DialogForm'].isEdit = true
       this.$refs['DialogForm'].dialogShow = true
     },
     handleDetail (row) {

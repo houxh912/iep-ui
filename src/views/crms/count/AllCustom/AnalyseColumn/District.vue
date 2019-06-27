@@ -39,7 +39,6 @@ export default {
   methods: {
     load () {
       getDistrict().then((res) => {
-        console.log(res)
         if (res) {
           this.chartData.rows = res.data.data
           this.loading = false

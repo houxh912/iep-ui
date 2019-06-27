@@ -170,6 +170,7 @@ export function initFormData () {
     reportList: [],
     paymentRelations: [], // 预计回款时间,
     estimatedSigntime: '', // 预计签订时间
+    projectBudgetList: {},
   }
 }
 
@@ -203,5 +204,24 @@ export const initSearchForm = () => {
     projectLevel: [],//项目等级
     associatedProducts: false,//是否项目关联
     manager: '',//项目经理
+  }
+}
+
+// 项目预算
+export const initBudgetForm = () => {
+  return {
+    artificialCost: '', // 人工成本
+    projectCommission: '', // 项目提成
+    taxes: '', // 税费
+    bidWinning: '', // 中标服务费
+    outsourcingCost: '', // 外包费用(必填)
+    commission: '', // 佣金(必填)
+    expertsFee: '', // 项目评审专家费
+    otherFees: '', //其他
+    managementFee: '', // 项目管理费
+    invoiceFee: '', // 开票费用
+    travelFee: '', // 差旅费
+    projectBudget: '', // 项目总预算(必填)
+    forecastProfits: '', // 预估利润
   }
 }

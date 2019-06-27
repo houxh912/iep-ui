@@ -49,7 +49,7 @@ export default {
       return {
         companyId: this.companyId,
         year: getYear(this.yearMonth),
-        month: getMonth(this.yearMonth) + 1,
+        month: getMonth(this.yearMonth),
       }
     },
   },

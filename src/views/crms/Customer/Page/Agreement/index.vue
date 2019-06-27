@@ -107,7 +107,7 @@ export default {
     handleEdit (row) {
       this.add = {
         formRequestFn: putAgreement,
-        methodName: '编辑',
+        methodName: '修改',
         id: this.id,
         contractId: row.contractId,
       }

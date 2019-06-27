@@ -18,7 +18,7 @@
       </iep-form-item>
 
       <iep-form-item class="form-half" prop="duration" label-name="加班时长" tip="单位为小时">
-        <el-input v-model="form.duration" disabled></el-input>
+        <el-input v-model="form.duration" disabled placeholder="自动计算请假时间段"></el-input>
       </iep-form-item>
 
       <iep-form-item prop="reason" label-name="申请理由" tip="请说明加班地点+加班事项">
@@ -56,8 +56,6 @@ export default {
         this.form = this.selfToVo(data.data)
         this.form.startTime = initNow()
       })
-    },
-    handlePublish () {
     },
   },
 }

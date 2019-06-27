@@ -313,6 +313,7 @@ export default {
       }, 100)
     }
     return {
+      judgeTotal: '',
       formLoading: false,
       questionConfiguration: false,
       choiceType: [],//已选择的题型      iepTestPaperIndex: '',//试题下标
@@ -471,19 +472,23 @@ export default {
     submitForm () {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          let _form = toDtoForm(this.form)
-          _form.total = this.totalCount
-          if (this.iepTestPaperIndex != undefined) {
-            this.iepQstnRuleList.splice(this.iepTestPaperIndex, 1, _form)
-            this.choiceType.splice(this.iepTestPaperIndex, 1, _form.type)
-          } else {
-            this.choiceType.push(_form.type)
-            this.iepQstnRuleList.push(_form)
+          if (this.judgeTotal === true) {
+            this.$message.error('当前题数全为 0 道，不能继续配置！')
           }
-          this.choiceType.sort()
-          this.questionConfiguration = false
-          this.submitDisabled = true
-
+          else {
+            let _form = toDtoForm(this.form)
+            _form.total = this.totalCount
+            if (this.iepTestPaperIndex != undefined) {
+              this.iepQstnRuleList.splice(this.iepTestPaperIndex, 1, _form)
+              this.choiceType.splice(this.iepTestPaperIndex, 1, _form.type)
+            } else {
+              this.choiceType.push(_form.type)
+              this.iepQstnRuleList.push(_form)
+            }
+            this.choiceType.sort()
+            this.questionConfiguration = false
+            this.submitDisabled = true
+          }
         }
       })
     },
@@ -502,6 +507,12 @@ export default {
         const { data } = await postPaperAmount({ subject: this.form.field.join(','), question: this.form.type })
         if (data.data) {
           this.totalNum = data.data
+        }
+        if (data.data.subjects === 0) {
+          this.judgeTotal = true
+        }
+        if (data.data.subjects !== 0) {
+          this.judgeTotal = false
         }
       }
 
@@ -532,14 +543,14 @@ export default {
      * 题型选择时部分表单内容清空以及加载对应难度的总数
      */
     typeChange (value) {
-
+      // console.log(value)
       let _form = this.form
-      if (value == '0' || value == '1') {
+      if (value === 13 || value === 12) {
         _form.scoringMethod = ''
         _form.marker = ''
         _form.qstnDescribe = ''
         _form.multipleSelection = 0
-      } else if (value == '2') {
+      } else if (value === 11) {
         _form.qstnDescribe = ''
         _form.multipleSelection = 0
       } else {

@@ -51,7 +51,6 @@ export default {
       restaurants: [],
       clientList: [],
       isLoading: true,
-      orgId: '',
     }
   },
   computed: {

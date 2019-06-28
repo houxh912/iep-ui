@@ -11,7 +11,7 @@
             <div class="labTitle"><span>{{lab.labTitle}}</span></div>
           </div>
         </div> -->
-        <span class="detail"><span>联系电话：{{data.phone}}</span></span>
+        <span class="detail"><span>联系电话：{{data.contactMethod}}</span><span>联系地址：{{data.address}}</span></span>
       </div>
     </div>
   </div>
@@ -68,6 +68,7 @@ export default {
       display: flex;
       align-items: center;
       width: 100%;
+      margin-top: 20px;
       span {
         margin-right: 20px;
       }
@@ -102,7 +103,7 @@ export default {
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        margin-bottom: 18px;
+        margin-bottom: 5px;
         font-size: 18px;
       }
       .sub-title {

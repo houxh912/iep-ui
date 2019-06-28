@@ -7,7 +7,10 @@
     </div>
     <div class="organizationDetails">
       <menus></menus>
-      <router-view></router-view>
+      <div>
+        <page-header :title="title" :backOption="backOption"></page-header>
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -19,6 +22,14 @@ export default {
   data () {
     return {
       routerMatch: this.$route.matched,
+      title: '',
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: () => {
+          this.$router.push(`/app/organization_style/${this.$route.query.id}`)
+        },
+      },
     }
   },
   beforeRouteUpdate (to, from, next) {

@@ -330,7 +330,7 @@ export default {
 
           // 回款表加上index
           for (let index = 0; index < form.paymentRelations.length; ++index) {
-            form.paymentRelations[index].index = index + 1
+            form.paymentRelations[index].serialNumber = index + 1
           }
 
           form.inChargeDept = this.formData.inChargeDeptList.id

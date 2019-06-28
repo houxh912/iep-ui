@@ -4,27 +4,27 @@
       <page-header title="我的任务"></page-header>
       <el-card class="box" shadow="hover">
         <div class="total-wrapper">
-          <div class="total-item">
+          <div class="total-item" @click="cSelectTpye('myAll')">
             <div class="value">{{myCountList.myAll}}</div>
             <div class="label"><a href="#">全部</a></div>
           </div>
-          <div class="total-item">
+          <div class="total-item"  @click="cSelectTpye('myCreated')">
             <div class="value">{{myCountList.myCreated}}</div>
             <div class="label"><a href="#">我创建的</a></div>
           </div>
-          <div class="total-item">
+          <div class="total-item"  @click="cSelectTpye('myToDo')">
             <div class="value">{{myCountList.myToDo}}</div>
             <div class="label"><a href="#">我的待办</a></div>
           </div>
-          <div class="total-item">
+          <div class="total-item"  @click="cSelectTpye('myCharge')">
             <div class="value">{{myCountList.myCharge}}</div>
             <div class="label"><a href="#">我负责的</a></div>
           </div>
-          <div class="total-item">
+          <div class="total-item"  @click="cSelectTpye('myParticipated')">
             <div class="value">{{myCountList.myParticipated}}</div>
             <div class="label"><a href="#">我参与的</a></div>
           </div>
-          <div class="total-item">
+          <div class="total-item"  @click="cSelectTpye('myCollection')">
             <div class="value">{{myCountList.myCollection}}</div>
             <div class="label"><a href="#">我关注的</a></div>
           </div>
@@ -111,6 +111,7 @@ export default {
         myCharge: 0,
         myCollection: 0,
       },
+      selectTpye:'myAll',
     }
   },
   created () {
@@ -121,7 +122,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getMyAtms)
+      this.loadTable({selectTpye:this.selectTpye,...param}, getMyAtms)
     },
     handleSelectionChange () {
     },
@@ -151,6 +152,14 @@ export default {
         }
       })
     },
+    cSelectTpye (val) {
+      this.selectTpye = val
+    },
+  },
+  watch: {
+    'selectTpye': function () {
+      this.loadPage()
+    },
   },
 }
 </script>
@@ -168,6 +177,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     border-right: 1px solid rgb(233, 233, 233);
     width: 100%;
     &:last-child {

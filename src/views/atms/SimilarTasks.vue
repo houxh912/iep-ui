@@ -1,7 +1,7 @@
 <template>
   <div class="similar-tasks">
     <el-collapse v-model="activeNames">
-      <el-collapse-item :title="title" name="1">
+      <el-collapse-item :title="`相似任务（${dataList.length}）`" name="1">
         <div v-for="(item,index) in dataList" :key="index" class="piece" @click="handleDetail(item.id)">
           {{item.name}}
         </div>
@@ -21,7 +21,6 @@ export default {
   data () {
     return {
       activeNames: ['1'],
-      title: '相似任务（3）',
     }
   },
   methods: {
@@ -54,7 +53,7 @@ export default {
 }
 </style>
 <style scoped>
-.similar-tasks >>> .el-collapse-item__content{
+/* .similar-tasks >>> .el-collapse-item__content{
   padding: 0
-}
+} */
 </style>

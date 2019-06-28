@@ -1,7 +1,7 @@
 <template>
   <div class="member">
     <div class="block">
-      <span class="details-title">{{subTitle1}}</span>
+      <span class="details-title">{{subTitle1}}（{{datailList.length}}）</span>
       <div class="con">
         <div class="item" v-for="detail in datailList" :key="detail.id" @click="handleDetail(detail)">
           <div class="img"><iep-img :src="detail.avatar" alt=""></iep-img></div>
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="block">
-      <span class="details-title">{{subTitle2}}</span>
+      <span class="details-title">{{subTitle2}}（{{datailList2.length}}）</span>
       <div class="con">
         <div class="item" v-for="detail2 in datailList2" :key="detail2.id" @click="handleDetail(detail2)">
           <div class="img"><iep-img :src="detail2.avatar" alt=""></iep-img></div>
@@ -29,91 +29,8 @@ export default {
     return {
       subTitle1: '班委成员',
       subTitle2: '成员',
-      datailList: [
-        {
-          img: require('./img/p100.jpg'),
-          name: '黄磊',
-          post: '（所有者）',
-        },
-        {
-          img: require('./img/p120.jpg'),
-          name: '何益挺',
-        },
-        {
-          img: require('./img/p322.jpg'),
-          name: '潘超巧',
-        },
-      ],
-      datailList2: [
-        {
-          img: require('./img/p07.jpg'),
-          name: '张兵',
-        },
-        {
-          img: require('./img/p05.jpg'),
-          name: '阮晨光',
-        },
-        {
-          img: require('./img/p08.jpg'),
-          name: '何舟杰',
-        },
-        {
-          img: require('./img/p07.jpg'),
-          name: '张兵',
-        },
-        {
-          img: require('./img/p05.jpg'),
-          name: '阮晨光',
-        },
-        {
-          img: require('./img/p08.jpg'),
-          name: '何舟杰',
-        },
-        {
-          img: require('./img/p07.jpg'),
-          name: '张兵',
-        },
-        {
-          img: require('./img/p05.jpg'),
-          name: '阮晨光',
-        },
-        {
-          img: require('./img/p08.jpg'),
-          name: '何舟杰',
-        },
-        {
-          img: require('./img/p06.jpg'),
-          name: '杜召红',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-      ],
+      datailList: [],
+      datailList2: [],
     }
   },
   methods: {

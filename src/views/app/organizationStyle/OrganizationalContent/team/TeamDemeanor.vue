@@ -1,9 +1,12 @@
 <template>
   <div class="empolyee">
-    <el-carousel height="165px" :interval="5000" indicator-position="none">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
-          <div class="img"><iep-img :src="item.img" class="img"></iep-img></div>
+    <el-carousel height="" :interval="5000" indicator-position="none">
+      <el-carousel-item v-for="(item, index) in Math.ceil(wonderfulList.length/3)" :key="index">
+        <div v-for="(t,i) in wonderfulList" :key="i" class="piece">
+          <div class="imgs">
+            <iep-img :src="t.imageUrl" class="img"></iep-img>
+          </div>
+          <span class="name">{{t.title}}</span>
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -11,15 +14,24 @@
 </template>
 
 <script>
+import { geOrgPage } from '@/api/goms/org_album'
 export default {
   data () {
     return {
-      wonderfulList: [
-        { img: require('../../img/organization1.jpg') },
-        { img: require('../../img/organization2.jpg') },
-        { img: require('../../img/organization3.jpg') },
-      ],
+      wonderfulList: [],
     }
+  },
+  methods: {
+    loadPage () {
+      geOrgPage({ current: 1, isze: 20 }).then(({data}) => {
+        if (data.data) {
+          this.wonderfulList = data.data.records
+        }
+      })
+    },
+  },
+  created () {
+    this.loadPage()
   },
 }
 </script>
@@ -32,19 +44,22 @@ export default {
     width: 240px;
     text-align: center;
     overflow: hidden;
-    .img {
+    height: 100%;
+    .imgs {
       width: 100%;
-      height: 165px;
+      height: 180px;
       overflow: hidden;
       img {
         width: 100%;
-        height: 165px;
         transition: 0.5s;
         &:hover {
           cursor: pointer;
           transform: scale(1.1);
         }
       }
+    }
+    .name {
+      line-height: 40px;
     }
     &:first-child {
       margin: 0 15px 0 10px;

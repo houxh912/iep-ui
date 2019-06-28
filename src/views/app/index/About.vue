@@ -27,7 +27,7 @@ export default {
           path: 'culture',
         },
         {
-          name: '组织机构',
+          name: '组织架构',
           path: 'mechanism',
         },
         {

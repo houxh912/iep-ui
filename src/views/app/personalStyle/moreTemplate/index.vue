@@ -16,7 +16,7 @@
         </template>
       </iep-tabs>
     </IepAppTabsCard>
-    <div class="footer" @click="handleClose">收起 <i class="el-icon-arrow-up"></i></div>
+    <!-- <div class="footer" @click="handleClose">收起 <i class="el-icon-arrow-up"></i></div> -->
   </div>
 </template>
 <script>

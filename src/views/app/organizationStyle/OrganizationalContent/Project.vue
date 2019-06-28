@@ -41,7 +41,7 @@ export default {
       return [
         {
           icon: 'icon-hetongliebiao',
-          name: '资质',
+          name: '材料',
           data: this.counts.honorCount1,
           text: `（本月新增 ${this.counts.honorCount2}）`,
         },

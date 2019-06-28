@@ -1,18 +1,26 @@
 <template>
-  <div class="avue-sidebar" :style="{width: keyCollapse ? '' : '200px'}">
-    <el-scrollbar style="height:calc(100vh - 60px);" native>
-      <main-item :mainMenu="mainMenu" :collapse="keyCollapse"></main-item>
-      <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
-      <div class="sub-menu-wrapper" v-if="mainMenu.path === '/wel'">
-        <el-menu default-active="-1" :collapse="keyCollapse">
-          <el-menu-item :index="omenu.path" v-for="omenu in otherMenus" :key="omenu.path" @click="openModuleMenus(omenu)" :disabled="!!omenu.isDisable">
-            <i :class="omenu.icon"></i>
-            <span slot="title">{{omenu.label}}</span>
-          </el-menu-item>
-        </el-menu>
-      </div>
-    </el-scrollbar>
-  </div>
+  <el-aside v-show="asideDisplay" :width="asideWidth">
+    <div class="avue-sidebar" :style="{width: asideWidth}">
+      <el-scrollbar style="height:calc(100vh - 100px);" native>
+        <main-item :mainMenu="mainMenu" :collapse="keyCollapse"></main-item>
+        <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
+        <div class="sub-menu-wrapper" v-if="mainMenu.path === '/wel'">
+          <el-menu default-active="-1" :collapse="keyCollapse">
+            <el-menu-item :index="omenu.path" v-for="omenu in otherMenus" :key="omenu.path" @click="openModuleMenus(omenu)" :disabled="!!omenu.isDisable">
+              <i :class="omenu.icon"></i>
+              <span slot="title">{{omenu.label}}</span>
+            </el-menu-item>
+          </el-menu>
+        </div>
+      </el-scrollbar>
+      <el-menu :collapse="keyCollapse">
+        <el-menu-item @click="changeCollapse()">
+          <i :class="`${keyCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'}`"></i>
+          <span slot="title">{{keyCollapse ? '展开':'收起'}}</span>
+        </el-menu-item>
+      </el-menu>
+    </div>
+  </el-aside>
 </template>
 
 <script>
@@ -24,14 +32,33 @@ export default {
   mixins: [displayMixins],
   name: 'Sidebar',
   components: { sidebarItem, MainItem },
+  data () {
+    return {
+      matualCollapse: false,
+    }
+  },
   computed: {
     ...mapGetters(['website', 'menu', 'mainMenu', 'otherMenus', 'menusMap', 'screen']),
     keyCollapse () {
-      if (this.isDesktop()) {
-        return false
+      const deskTop = !this.isDesktop()
+      if (this.matualCollapse) {
+        return !deskTop
       } else {
-        return true
+        return deskTop
       }
+    },
+    asideWidth () {
+      if (!this.keyCollapse) {
+        return '200px'
+      } else {
+        return '64px'
+      }
+    },
+    asideDisplay () {
+      if (this.$route.matched[0].path === '/app') {
+        return false
+      }
+      return true
     },
   },
   methods: {
@@ -48,10 +75,18 @@ export default {
         path: findMenuChidrenPath(menu),
       })
     },
+    changeCollapse () {
+      this.matualCollapse = !this.matualCollapse
+    },
   },
 }
 </script>
 <style lang="scss" scoped>
+.el-aside {
+  overflow: hidden;
+  background-color: #fafafa;
+  border-right: 1px solid #e5e5e5;
+}
 .sub-menu-wrapper {
   border-top: 1px solid #eee;
   .el-menu-item {

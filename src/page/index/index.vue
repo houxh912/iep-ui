@@ -7,10 +7,8 @@
         <top />
       </el-header>
       <el-container>
-        <el-aside v-show="asideDisplay" :width="asideWidth">
-          <!-- 左侧导航栏 -->
-          <sidebar />
-        </el-aside>
+        <!-- 左侧导航栏 -->
+        <sidebar />
         <el-main>
           <!-- 主体视图层 -->
           <el-scrollbar style="height:100%">
@@ -27,7 +25,6 @@
 </template>
 
 <script>
-import displayMixins from '@/mixins/displayMixins'
 import DialogGroup from './DialogGroup'
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import top from './top/'
@@ -42,7 +39,6 @@ import { getStore } from '@/util/store.js'
 // import store from '@/store'
 
 export default {
-  mixins: [displayMixins],
   components: {
     top,
     sidebar,
@@ -73,13 +69,6 @@ export default {
         return false
       }
       return true
-    },
-    asideWidth () {
-      if (this.isDesktop()) {
-        return '200px'
-      } else {
-        return '64px'
-      }
     },
   },
   created () {
@@ -195,13 +184,7 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.el-aside {
-  overflow: hidden;
-  background-color: #fafafa;
-  border-right: 1px solid #e5e5e5;
-}
-</style>
+
 <style lang="css" scoped>
 .avue-contail >>> .el-main {
   padding: 0;

@@ -56,6 +56,7 @@ export default {
   grid-column-end: 3;
   display: grid;
   margin: 30px 0;
+  height: 310px;
 }
 </style>
 <style scoped>

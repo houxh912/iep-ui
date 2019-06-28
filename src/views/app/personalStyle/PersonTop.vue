@@ -7,7 +7,7 @@
             <div class="img">
               <iep-img :src="user_info.avatar" alt=""></iep-img>
             </div>
-            <span class="num">{{user_info.staffId}}</span>
+            <!-- <span class="num">{{user_info.staffId}}</span> -->
             <span class="integrity">
               <div class="integrity-desc">资料完善度{{`${user_info.integrity}%`}}</div>
               <el-progress :percentage="user_info.integrity" :color="integrityColors" :show-text="false"></el-progress>

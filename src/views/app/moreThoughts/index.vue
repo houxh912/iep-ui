@@ -7,7 +7,7 @@
           <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
-      <search @load-page="searchPage"></search>
+      <search @load-page="searchPage" :num="total"></search>
       <div class="material">
         <div class="library">
           <div class="items" v-for="(item, index) in dataList" :key="index">

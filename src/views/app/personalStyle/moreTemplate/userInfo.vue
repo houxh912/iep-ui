@@ -1,15 +1,9 @@
 <template>
   <div class="userInfo">
-    <div class="row first">
+    <div class="row">
       <div class="item" v-for="(item, index) in firstFormList" :key="index">
         <span class="label">{{item.name}}：</span>
         <span class="span">{{userInfo[item.value]}}</span>
-      </div>
-    </div>
-    <div class="row second">
-      <div class="item" v-for="(item, index) in secondFormList" :key="index">
-        <span class="label">{{item.name}}：</span>
-        <span class="span">{{toString(userInfo[item.value])}}</span>
       </div>
     </div>
   </div>
@@ -18,11 +12,20 @@
 <script>
 const firstFormList = [
   {
-    name: '岗位',
-    value: 'positionName',
+    name: '工号',
+    value: 'staffId',
+  }, {
+    name: '职务',
+    value: 'job',
   }, {
     name: 'QQ',
     value: 'qq',
+  }, {
+    name: '联系电话',
+    value: 'phone',
+  }, {
+    name: '岗位',
+    value: 'positionName',
   }, {
     name: '职称',
     value: 'title',
@@ -30,23 +33,14 @@ const firstFormList = [
     name: '微信',
     value: 'wechat',
   }, {
-    name: '职务',
-    value: 'job',
-  }, {
-    name: '联系电话',
-    value: 'phone',
-  }, {
     name: '邮箱',
     value: 'email',
-  },
-]
-
-const secondFormList = [
-  {
+  }, {
     name: '所在组织',
     value: 'orgList',
   },
 ]
+
 export default {
   props: {
     userInfo: {
@@ -56,7 +50,6 @@ export default {
   data () {
     return {
       firstFormList,
-      secondFormList,
     }
   },
   methods: {
@@ -71,40 +64,19 @@ export default {
 .userInfo {
   display: flex;
   .row {
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     .item {
       display: flex;
       margin-bottom: 10px;
+      width: 25%;
       .label {
         text-align: right;
       }
       .span {
         flex: 1;
       }
-    }
-  }
-  .first {
-    .item:nth-child(odd){
-      width: 50%;
-      .label {
-        width: 44px;
-      }
-    }
-    .item:nth-child(even){
-      width: 50%;
-      .label {
-        width: 120px;
-      }
-    }
-  }
-  .second {
-    .label {
-      width: 120px;
-    }
-    .item {
-      width: 100%;
     }
   }
 }

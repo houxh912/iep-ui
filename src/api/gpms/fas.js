@@ -30,6 +30,12 @@ export function getProjectPaymentPlanList (id) {
     method: 'get',
   })
 }
+export function getIssuedList (id) {
+  return request({
+    url: `/prms/iepProjectInformation/getAmount/${id}`,
+    method: 'get',
+  })
+}
 export function updatePayment (obj) {
   return request({
     url: '/prms/iepProjectInformation/updateArtificial',

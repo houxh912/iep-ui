@@ -18,8 +18,6 @@
               {{dictsMap.artificialPaymentStatus[scope.row.artificialPaymentStatus]}}<i class="el-icon-arrow-down el-icon--right"></i>
             </iep-button>
             <el-dropdown-menu slot="dropdown">
-              <!-- <el-dropdown-item @click.native="handleRejected(scope.row)">驳回</el-dropdown-item> -->
-              <!-- eslint-disable-next-line -->
               <template v-for="(s,i) in dictsMap.artificialPaymentStatus">
                 <el-dropdown-item :key="i" v-if="+i !== scope.row.artificialPaymentStatus" @click.native="handleChangeStatus(scope.row, i)">{{s}}</el-dropdown-item>
               </template>

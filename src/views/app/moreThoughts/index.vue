@@ -21,7 +21,7 @@
                   <div class="date">{{getNumber(index)}}</div>
                   <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
                 </div>
-                <el-button size="mini" round>只看此人</el-button>
+                <!-- <el-button size="mini" round>只看此人</el-button> -->
               </div>
               <div class="item">{{item.content}}</div>
               <!-- 说说评论 -->

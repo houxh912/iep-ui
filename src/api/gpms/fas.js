@@ -26,13 +26,13 @@ export function getOrgPaymentPlanPageByOrgId (orgId) {
 }
 export function getProjectPaymentPlanList (id) {
   return request({
-    url: `/prms/payment/getPaymentList/${id}`,
+    url: `/prms/iepProjectInformation/getPaymentList/${id}`,
     method: 'get',
   })
 }
 export function updatePayment (obj) {
   return request({
-    url: '/prms/payment/updateArtificial',
+    url: '/prms/iepProjectInformation/updateArtificial',
     method: 'post',
     data: obj,
   })

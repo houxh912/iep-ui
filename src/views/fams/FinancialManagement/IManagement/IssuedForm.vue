@@ -4,7 +4,7 @@
       <el-table-column label="回款状态">
         <template slot-scope="scope">
           <el-dropdown size="medium">
-            <iep-button type="warning" plain>
+            <iep-button type="warning" :disabled="scope.row.status===2" plain>
               {{dictsMap.status[scope.row.status]}}<i class="el-icon-arrow-down el-icon--right"></i>
             </iep-button>
             <el-dropdown-menu slot="dropdown">
@@ -22,7 +22,7 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { getIssuedList, updatePayment } from '@/api/gpms/fas'
+import { getIssuedList, updateIssued } from '@/api/gpms/fas'
 export default {
   mixins: [mixins],
   data () {
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     handleChangeStatus (row) {
-      updatePayment({
+      updateIssued({
         incomeId: this.incomeId,
         projectId: this.projectId,
         sortBy: row.sortBy,

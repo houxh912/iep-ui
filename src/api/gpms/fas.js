@@ -38,7 +38,14 @@ export function getIssuedList (id) {
 }
 export function updatePayment (obj) {
   return request({
-    url: '/prms/iepProjectInformation/updateArtificial',
+    url: '/prms/iepProjectInformation/updateAmount',
+    method: 'post',
+    data: obj,
+  })
+}
+export function updateIssued (obj) {
+  return request({
+    url: '/prms/iepProjectInformation/updateAmount',
     method: 'post',
     data: obj,
   })

@@ -53,11 +53,11 @@
           <iep-div-detail v-model="form.creatorName"></iep-div-detail>
         </iep-form-item>
 
-        <iep-form-item class="form-half" label-name="财务审批人">
+        <iep-form-item class="form-half" label-name="财务核准人">
           <iep-div-detail v-model="form.financeUserName"></iep-div-detail>
         </iep-form-item>
 
-        <iep-form-item class="form-half" label-name="部门审批人">
+        <iep-form-item class="form-half" label-name="部门核准人">
           <iep-div-detail v-model="form.auditorName"></iep-div-detail>
         </iep-form-item>
 

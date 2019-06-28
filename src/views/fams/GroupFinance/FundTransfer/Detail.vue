@@ -53,7 +53,7 @@
           <iep-div-detail :value="form.callInUser"></iep-div-detail>
         </iep-form-item>
         <template v-if="form.flag === 1">
-          <h4 class="iep-sub-title">审核</h4>
+          <h4 class="iep-sub-title">核准</h4>
           <iep-form-item label-name="状态">
             <iep-div-detail :value="dictsMap.status[form.status]"></iep-div-detail>
           </iep-form-item>

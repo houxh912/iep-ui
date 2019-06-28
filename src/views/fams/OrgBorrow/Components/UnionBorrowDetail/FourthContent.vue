@@ -64,7 +64,7 @@ export default {
     return {
       dictsMap,
       title: '操作成功',
-      description: '集团财政资金调拨审核通过，等待其调拨。',
+      description: '集团财政资金调拨核准通过，等待其调拨。',
       submitLoading: false,
       borrowInRepayCompanyId: '',
       borrowInRepayCompanyBankId: '',

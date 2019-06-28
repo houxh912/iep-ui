@@ -7,7 +7,7 @@ const dictsMap = {
     '1': '银行存款',
   },
   processStatus: {
-    0: '待审核',
+    0: '待核准',
     1: '通过',
     2: '驳回',
     3: '转交',
@@ -94,7 +94,7 @@ const columnsMap = [
 	},
 	{
 		prop: 'auditorName',
-    label: '部门审批人',
+    label: '部门核准人',
 	},
 ]
 
@@ -124,7 +124,7 @@ const rules = {
     { required: false, message: '请上传附件', trigger: 'blur' },
   ],
   auditor: [
-    { required: true, validator: checkContactUser('部门审批人'), trigger: 'blur' },
+    { required: true, validator: checkContactUser('部门核准人'), trigger: 'blur' },
   ],
 }
 

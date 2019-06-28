@@ -47,7 +47,7 @@
           <iep-project-select v-model="form.projectId" :projectName="form.projectName" @relation-change="handleProjectChange"></iep-project-select>
         </el-form-item>
 
-        <iep-form-item class="form-half" prop="auditor" label-name="部门审批">
+        <iep-form-item class="form-half" prop="auditor" label-name="部门核准">
           <iep-contact-select v-model="form.auditor"></iep-contact-select>
         </iep-form-item>
 

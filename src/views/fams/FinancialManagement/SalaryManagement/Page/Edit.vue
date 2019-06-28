@@ -8,7 +8,7 @@
         <el-steps :active="active" align-center finish-status="success">
           <el-step description="填写提现信息"></el-step>
           <el-step description="确认提现信息"></el-step>
-          <el-step description="财务审核"></el-step>
+          <el-step description="财务核准"></el-step>
           <el-step description="财务发放"></el-step>
           <el-step description="完成"></el-step>
         </el-steps>
@@ -36,7 +36,7 @@
         <div v-if="active === 1">
           <el-form ref="form" :model="form" size="small">
             <div class="tips">
-              <i class="el-icon-warning"></i>确认提现后，财务将对您的提现申请进行审核。
+              <i class="el-icon-warning"></i>确认提现后，财务将对您的提现申请进行核准。
             </div>
             <div class="cashc-confirmation">
               <p>提现金额：<span class="sum">{{sum1}}</span><span class="sumCap">({{sumCap1}})</span></p>
@@ -52,7 +52,7 @@
           <div class="success-tips">
             <i class="el-icon-success"></i>
             <span>操作成功</span>
-            <p>等待财务审核，财务审核通过后提现资金将被冻结。同时在财务未审核通过前撤销申请。</p>
+            <p>等待财务核准，财务核准通过后提现资金将被冻结。同时在财务未核准通过前撤销申请。</p>
           </div>
           <el-form ref="form" :model="form" size="small">
             <div class="cashc-confirmation">

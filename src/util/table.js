@@ -42,9 +42,9 @@ const getLastSummaries = (param) => {
           return prev
         }
       }, 0)
-      if (index===5) {
+      if (index === 5) {
         sums[index] = values[values.length - 1]
-      } else if (index===6) {
+      } else if (index === 6) {
         sums[index] = ''
       } else {
         sums[index] = parseToMoney(sums[index])
@@ -84,4 +84,37 @@ const getSummariesInBudget = (budgetTable) => {
     return sums
   }
 }
-export { getSummaries, getLastSummaries, getSummariesInBudget }
+const getSummariesUnionBudget = (budgetTable) => {
+  return function (param) {
+    const { columns } = param
+    const sums = []
+    columns.forEach((column, index) => {
+      if (index === 0) {
+        sums[index] = '总计'
+        return
+      }
+      console.log(index)
+      // const data = budgetTable[index - 1].orgRelation
+      console.log(budgetTable)
+      // const values = data.map(item => {
+      //   return Number(item[column.property])
+      // })
+      // console.log(values)
+      // if (!values.every(value => isNaN(value))) {
+      //   sums[index] = values.reduce((prev, curr) => {
+      //     const value = Number(curr)
+      //     if (!isNaN(value)) {
+      //       return prev + curr
+      //     } else {
+      //       return prev
+      //     }
+      //   }, 0)
+      //   sums[index] = parseToMoney(sums[index])
+      // } else {
+      //   sums[index] = 'N/A'
+      // }
+    })
+    return sums
+  }
+}
+export { getSummaries, getLastSummaries, getSummariesInBudget, getSummariesUnionBudget }

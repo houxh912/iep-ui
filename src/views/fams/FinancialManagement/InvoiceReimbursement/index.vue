@@ -38,7 +38,7 @@ export default {
       dictsMap,
       columnsMap,
       statistics: [0, 0, 0, 0],
-      replaceText: (data) => `（待审核：${data[0]}笔，总计：${data[1]}，已确认：${data[2]}笔，总计：${data[3]}）`,
+      replaceText: (data) => `（待核准：${data[0]}笔，总计：${data[1]}，已确认：${data[2]}笔，总计：${data[3]}）`,
     }
   },
   created () {
@@ -70,5 +70,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-</style>

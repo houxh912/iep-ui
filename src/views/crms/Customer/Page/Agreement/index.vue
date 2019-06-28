@@ -38,7 +38,8 @@
       </iep-table>
     </div>
     <edit ref="EditDialog" @load-page="loadPage" v-if="pageState=='dialog'" @dialog="isShow" @async="async" :record="record" :add="add"></edit>
-    <detail ref="DetailDialog" v-if="pageState=='detail'" @detail="isShow" :add="add"></detail>
+    <!-- <detail ref="DetailDialog" v-if="pageState=='detail'" @detail="isShow" :add="add"></detail> -->
+    <detailDialog ref="detail" @load-page="pageState='list'" v-if="pageState == 'detail'"></detailDialog>
   </div>
 </template>
 
@@ -47,11 +48,12 @@ import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
 import { getAgreementPage, postAgreement, putAgreement, deleteAgreementById } from '@/api/crms/agreement'
 import Edit from './Edit'
-import Detail from './Detail'
+// import Detail from './Detail'
+import detailDialog from './detail'
 import { mapGetters } from 'vuex'
 export default {
   name: 'contract',
-  components: { Edit, Detail },
+  components: { Edit, detailDialog },
   mixins: [mixins],
   data () {
     return {
@@ -117,13 +119,17 @@ export default {
       if (column.label == '操作' || column.type == 'selection' || column.type == 'index') {
         return false
       }
-      this.add = {
-        formRequestFn: putAgreement,
-        methodName: '详情',
-        id: this.id,
-        contractId: row.contractId,
-      }
+      // this.add = {
+      //   formRequestFn: putAgreement,
+      //   methodName: '详情',
+      //   id: this.id,
+      //   contractId: row.contractId,
+      // }
+      // this.pageState = 'detail'
       this.pageState = 'detail'
+      this.$nextTick(() => {
+        this.$refs['detail'].open(row.contractId)
+      })
     },
     isShow () {
       this.pageState = 'list'

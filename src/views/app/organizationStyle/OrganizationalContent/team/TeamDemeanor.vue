@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     loadPage () {
-      geOrgPage({ current: 1, isze: 20 }).then(({data}) => {
+      geOrgPage({ current: 1, size: 20 }).then(({data}) => {
         if (data.data) {
           this.wonderfulList = data.data.records
         }

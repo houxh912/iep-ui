@@ -3,7 +3,7 @@
     <div class="row">
       <div class="item" v-for="(item, index) in firstFormList" :key="index">
         <span class="label">{{item.name}}：</span>
-        <span class="span">{{userInfo[item.value]}}</span>
+        <span class="span">{{item.type ? userInfo[item.value].join('、') : userInfo[item.value]}}</span>
       </div>
     </div>
   </div>
@@ -38,6 +38,7 @@ const firstFormList = [
   }, {
     name: '所在组织',
     value: 'orgList',
+    type: 'list',
   },
 ]
 

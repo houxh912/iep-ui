@@ -4,6 +4,7 @@
       <iep-page-header title="发行记录"></iep-page-header>
       <operation-container>
         <template slot="left">
+          <iep-button type="primary" @click="handleIssued" icon="el-icon-plus" plain>发币</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
@@ -53,16 +54,24 @@
         </el-table-column>
       </iep-table>
     </basic-container>
+    <dialog-form ref="DialogForm"></dialog-form>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
+import DialogForm from './DialogForm'
 export default {
+  components: { DialogForm },
   mixins: [mixins],
   data () {
     return {
-
+      isLoadTable: false,
     }
+  },
+  methods: {
+    handleIssued () {
+      this.$refs['DialogForm'].dialogShow = true
+    },
   },
 }
 </script>

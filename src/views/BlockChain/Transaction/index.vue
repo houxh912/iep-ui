@@ -65,7 +65,7 @@ export default {
   mixins: [mixins],
   data () {
     return {
-
+      isLoadTable: false,
     }
   },
   methods: {

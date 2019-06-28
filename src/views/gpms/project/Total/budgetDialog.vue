@@ -61,7 +61,7 @@
           <el-input v-model="tableData[scope.$index].travelFee" maxlength="12" type="number" min=0></el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="date" label="费用总支出" align='center' width="150px">
+      <el-table-column prop="date" label="费用总预算" align='center' width="150px">
         <template slot-scope="scope">
           <el-input v-model="tableData[scope.$index].projectBudget" maxlength="12" type="number" min=0></el-input>
         </template>

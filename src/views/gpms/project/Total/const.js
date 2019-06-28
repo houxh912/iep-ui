@@ -171,6 +171,7 @@ export function initFormData () {
     paymentRelations: [], // 预计回款时间,
     estimatedSigntime: '', // 预计签订时间
     projectBudgetList: {},
+    projectAmount: '',
   }
 }
 

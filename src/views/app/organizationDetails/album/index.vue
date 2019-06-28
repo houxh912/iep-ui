@@ -1,93 +1,51 @@
 <template>
-    <el-collapse v-model="activeNames" class="album">
-      <el-collapse-item title="2019年4月" name="1" class="album-block">
-        <div class="album-lib">
-          <div class="lib-ibox" v-for="(item,index) in imgList" :key="index">
-            <iep-img :src="item.imgSrc" alt=""></iep-img>
-            <span>{{item.desc}}</span>
-          </div>
-        </div>
-      </el-collapse-item>
-      <el-collapse-item title="2019年3月" name="2" class="album-block">
-        <div class="album-lib">
-          <div class="lib-ibox" v-for="(item,index) in imgList" :key="index">
-            <iep-img :src="item.imgSrc" alt=""></iep-img>
-            <span>{{item.desc}}</span>
-          </div>
-        </div>
-      </el-collapse-item>
-    </el-collapse>
+    <el-carousel indicator-position="outside" class="content">
+      <el-carousel-item v-for="(item, index) in list" :key="index">
+        <iep-img :src="item.imageUrl"></iep-img>
+        <div>{{item.title}}</div>
+      </el-carousel-item>
+    </el-carousel>
 </template>
 <script>
+import { geOrgPage } from '@/api/goms/org_album'
 export default {
   data () {
     return {
-      imgList:[
-        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
-        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
-        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
-        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
-        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
-      ],
-      activeNames: ['1','2'],
+      list:[],
     }
   },
   methods:{
+    loadPage () {
+      geOrgPage({ current: 1, size: 100 }).then(({data}) => {
+        if (data.data) {
+          this.list = data.data.records
+        }
+      })
+    },
+  },
+  created () {
+    this.loadPage()
   },
 }
 </script>
-<style scoped lang='scss'>
-.album{
-  padding: 20px;
-  .album-list{
-    padding: 20px 15px;
-    color:#ccc;
-    i{
-      display:block;
-      font-size: 34px!important;
-    }
-  }
-  .album-lib{
-    padding: 20px 15px;
-    .lib-ibox{
-      position: relative;
-      display:inline-block;
-      margin-bottom: 20px;
-      margin-right: 50px;
-      text-align: center;
-      img{
-        margin-bottom: 10px;
-        width: 240px;
-        height:135px;
-      }
-      span{
-        display:block;
-      }
-    }
-  }
-}
-</style>
+
 <style scoped>
-.album >>> .el-collapse-item__arrow{
-  margin: 0 auto 0 8px;
+.content {
+  padding: 0 20px;
 }
-.album>>>.el-collapse-item__content{
-  padding-bottom: 0;
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 18px;
+  opacity: 0.75;
+  line-height: 300px;
+  margin: 0;
 }
-.album>>>.el-collapse-item__wrap{
-  border-bottom: none;
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
 }
-.album >>> .el-upload-dragger{
-  padding: 30px 100px 38px;
-  width:inherit;
-  height:inherit;
-}
-.album >>> .el-upload__text{
-  line-height: 22px;
-  color:#999;
-}
-.album >>> .el-collapse-item__header{
-  font-size: 16px;
-  color:#333;
+
+.el-carousel__item:nth-child(2n+1) {
+  background-color: #d3dce6;
 }
 </style>

@@ -27,8 +27,8 @@ import { getOrgDetail } from '@/api/app/upms/'
 export default {
   data () {
     return {
-      subTitle1: '班委成员',
-      subTitle2: '成员',
+      subTitle1: '组织成员',
+      subTitle2: '协作成员',
       datailList: [],
       datailList2: [],
     }
@@ -36,8 +36,8 @@ export default {
   methods: {
     loadData () {
       getOrgDetail(this.$route.query.id).then(({data}) => {
-        this.datailList = data.data.adminList
-        this.datailList2 = data.data.members
+        this.datailList = data.data.members
+        this.datailList2 = data.data.cooperations
       })
     },
     handleDetail (row) {

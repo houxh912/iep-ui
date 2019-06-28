@@ -244,11 +244,11 @@ export default {
           background: #fef0f0;
           border-color: #cb3737;
         }
-        &:last-child {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
+        // &:last-child {
+        //   overflow: hidden;
+        //   text-overflow: ellipsis;
+        //   white-space: nowrap;
+        // }
       }
     }
     .right-con {

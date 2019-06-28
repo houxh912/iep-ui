@@ -110,6 +110,14 @@
             <IepDatePicker v-model="formData.estimatedSigntime"></IepDatePicker>
           </el-form-item>
         </el-col>
+        <el-col :span="12">
+          <el-form-item label="项目金额：" prop="projectAmount">
+            <el-input 
+              v-model="formData.projectAmount" 
+              type="number" 
+              placeholder="请正确输入非负金额" />
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
         <span slot="label">

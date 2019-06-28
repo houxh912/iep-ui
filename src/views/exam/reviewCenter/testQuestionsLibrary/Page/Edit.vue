@@ -36,7 +36,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item class="item" label="关联标签：" prop="tagKeyWords" style="margin-left:20%;" v-if="tabName ==='Single'">
+        <el-form-item class="item" label="关联标签：" prop="tagKeyWords" style="margin-left:20%;" v-if="tabName ==='single'">
           <mutiply-tag-select v-if="btnDisabled == false" v-model="form.tagKeyWords" :select-objs="form.tagKeyWords"
             width="906px"></mutiply-tag-select>
           <el-tag v-else class="relatedTag" type="info" :key="tag" v-for="tag in tagsShow" size="medium">{{tag}}</el-tag>
@@ -57,7 +57,7 @@
           <iep-button v-if="btnSave == 1" type="primary" @click="saveSingle" v-show="!btnDisabled">保存</iep-button>
         </div>
       </el-tab-pane>
-      <el-tab-pane label=批量导入 name="batch">
+      <el-tab-pane label=批量导入 name="batch" v-if="record.id===''">
         <batch-dialog ref="batch" v-model="form.questionType" @submit-batch="submitBatch"></batch-dialog>
       </el-tab-pane>
     </el-tabs>

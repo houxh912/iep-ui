@@ -29,17 +29,17 @@
       <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
         <el-table-column label="未开票金额">
           <template slot-scope="scope">
-            {{!scope.row.amount ? '暂无' : (scope.row.amount||0 - scope.row.invoiceAmount||0) }}
+            {{!scope.row.amount ? '暂无' : (scope.row.amount - scope.row.invoicingAmount||0) }}
           </template>
         </el-table-column>
         <el-table-column label="未到账金额">
           <template slot-scope="scope">
-            {{!scope.row.amount ? '暂无' : (scope.row.amount||0 - scope.row.projectIncome||0) }}
+            {{!scope.row.amount ? '暂无' : (scope.row.amount - scope.row.projectIncome||0) }}
           </template>
         </el-table-column>
         <el-table-column label="应收账款金额">
           <template slot-scope="scope">
-            {{!scope.row.projectIncome ? '暂无' : (scope.row.projectIncome||0 - scope.row.invoiceAmount||0) }}
+            {{!scope.row.invoicingAmount ? '暂无' : (scope.row.invoicingAmount - scope.row.projectIncome||0) }}
           </template>
         </el-table-column>
       </iep-table>

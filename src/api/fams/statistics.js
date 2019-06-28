@@ -162,17 +162,17 @@ export function getOrgProjectPage (query) {
   })
 }
 
-export function postUnionProject (obj) {
-  return request({
-    url: `${prefixUrl}/create/business_index`,
-    method: 'post',
-    data: obj,
-  })
-}
 export function putUnionProject (obj) {
   return request({
     url: `${prefixUrl}/update/business_index`,
     method: 'post',
     data: obj,
+  })
+}
+
+export function createUnionProject (year) {
+  return request({
+    url: `${prefixUrl}/create/business_index/${year}`,
+    method: 'get',
   })
 }

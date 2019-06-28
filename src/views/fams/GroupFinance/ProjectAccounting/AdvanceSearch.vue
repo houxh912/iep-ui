@@ -1,13 +1,11 @@
 <template>
   <el-form class="form-detail" :model="form" label-width="100px" size="mini">
-    <el-form-item label="月份：">
-      <el-select v-model="form.businessMonth" clearable placeholder="请选择月份">
-        <el-option v-for="idx in monthOptions" :key="idx" :value="idx" :label="idx"></el-option>
-      </el-select>
-    </el-form-item>
     <el-form-item label="年度：">
       <iep-date-picker v-model="form.businessYear" type="year" placeholder="请选择年份">
       </iep-date-picker>
+    </el-form-item>
+    <el-form-item label="组织名称：">
+      <el-input v-model="form.orgName" placeholder="请选择组织"></el-input>
     </el-form-item>
     <el-form-item>
       <operation-wrapper>
@@ -23,9 +21,6 @@ export default {
   data () {
     return {
       form: initSearchForm(),
-      monthOptions: [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-      ],
     }
   },
   methods: {

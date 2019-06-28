@@ -4,8 +4,8 @@
     <el-form :model="form" ref="form" label-width="120px" :rules="rules">
       <div class="select">
         <el-form-item class="item" label="题型：" prop="questionType">
-          <el-select :value="form.questionType" @input="updateValue(arguments[0])" size="small"
-            clearable :disabled="questionTypeDisabled" class="selectItem">
+          <el-select size="small" clearable :disabled="questionTypeDisabled" class="selectItem"
+            :value="form.questionType" @input="updateValue(arguments[0])">
             <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
@@ -29,13 +29,14 @@
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="关联：" prop="associatedState">
-          <el-select v-model="form.associatedState" size="small" clearable :disabled="btnDisabled" class="selectItem">
+          <el-select v-model="form.associatedState" size="small" clearable :disabled="btnDisabled"
+            class="selectItem">
             <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item class="item" label="关联标签：" prop="tagKeyWords" style="margin-left:20%;">
+        <el-form-item class="item" label="关联标签：" prop="tagKeyWords" style="margin-left:20%;" v-if="tabName ==='Single'">
           <mutiply-tag-select v-if="btnDisabled == false" v-model="form.tagKeyWords" :select-objs="form.tagKeyWords"
             width="906px"></mutiply-tag-select>
           <el-tag v-else class="relatedTag" type="info" :key="tag" v-for="tag in tagsShow" size="medium">{{tag}}</el-tag>
@@ -43,7 +44,9 @@
       </div>
     </el-form>
 
-    <div align="center" style="width:100%;"><hr></div>
+    <div align="center" style="width:100%;">
+      <hr>
+    </div>
 
     <iep-tabs v-model="tabName" :tab-list="tabList">
       <template v-if="tabName ==='Single'" v-slot:Single>
@@ -55,7 +58,8 @@
         </div>
       </template>
       <template v-if="tabName ==='Batch'" v-slot:Batch>
-        <batch-dialog ref="batch" v-model="form.questionType"></batch-dialog>
+        <batch-dialog ref="batch" v-model="form.questionType" @submit-batch="submitBatch"></batch-dialog>
+
       </template>
     </iep-tabs>
 
@@ -137,10 +141,10 @@ export default {
           label: '单题输入',
           value: 'Single',
         },
-        {
+        this.record.id === '' ? {
           label: '批量导入',
           value: 'Batch',
-        },
+        } : {},
       ],
       rules: {
         field: [
@@ -163,11 +167,16 @@ export default {
   },
   created () {
     // console.log(this.record)
-    this.getTestOption ()
+    this.getTestOption()
   },
   watch: {
     res: function () {
       // this.getTestPaper ()
+    },
+  },
+  computed: {
+    isEdit () {
+      return this.record.id ? true : false
     },
   },
   methods: {
@@ -181,7 +190,10 @@ export default {
         }).then(() => {
           this.form.questionType = value
           this.postAnswer = value
-        }).catch(() => {
+          if (this.tabName === 'Batch') {
+            this.$refs.batch.testQuestions = ''
+            this.$refs.batch.itemBankList = []
+          }
         })
       } else {
         this.form.questionType = value
@@ -426,6 +438,34 @@ export default {
           type: 'warning',
         })
       }
+    },
+    /**
+    * 提交批量试题
+    */
+    submitBatch (value) {
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          let postBatchBothForm = {
+            itemBankList: [],
+          }
+          for (let i = 0; i < value.length; i++) {
+            let itemBank = Object.assign({}, this.form, value[i])
+            itemBank.titleOptions = JSON.stringify(itemBank.titleOptions)
+            itemBank.answer = itemBank.answer instanceof Array ? JSON.stringify(itemBank.answer) : itemBank.answer
+            postBatchBothForm.itemBankList.push(itemBank)
+          }
+          postBatchBothForm = JSON.stringify(postBatchBothForm)
+          postNewTest(postBatchBothForm).then(res => {
+            if (res.data.data == true) {
+              this.$message({
+                type: 'success',
+                message: '提交成功!',
+              })
+              this.$emit('onGoBack')
+            }
+          })
+        }
+      })
     },
   },
 }

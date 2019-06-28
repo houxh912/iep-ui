@@ -113,12 +113,12 @@ export default {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          let params = this.$route.params
-          if (params.id) {
-            this.$router.history.go(-1)
-          } else {
-            this.$emit('load-page', true)
-          }
+          // let params = this.$route.params
+          // if (params.id) {
+          //   this.$router.history.go(-1)
+          // } else {
+          this.$emit('load-page', true)
+          // }
         },
       },
       infoList,

@@ -157,6 +157,13 @@
 </template>
 <script>
 import { gruber, markArray } from './makedown'
+function sortKey (array, key) {
+  return array.sort(function (a, b) {
+    var x = a[key]
+    var y = b[key]
+    return ((x < y) ? -1 : (x > y) ? 1 : 0)
+  })
+}
 export default {
   props: ['value'],
   data () {
@@ -297,7 +304,7 @@ export default {
           } else {
             this.itemBank.titleOptions.push({ class: 'qt_error', key: jsonml[i][0], value: jsonml[i][1] })
           }
-
+          sortKey(this.itemBank.titleOptions, 'key')
         } else {
           this.itemBank[jsonml[i][0]] = jsonml[i][1]
         }
@@ -384,8 +391,6 @@ export default {
         .el-checkbox {
           margin: 0 0 7px 0;
           padding: 4px;
-          // border: 1px solid #e4eaf0;
-          // border-radius: 2px;
         }
       }
     }

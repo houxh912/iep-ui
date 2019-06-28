@@ -18,7 +18,7 @@ export const gruber = {
         return key
       } else {
         let error = ['key_error']
-        error.push(m[3])
+        error.push(m[0])
         return error
       }
     },
@@ -32,10 +32,10 @@ export const gruber = {
         n = m[2].match(/^\s*[a-z]\s*(?:\n|$)/i)
         if (n == null) {
           let error = ['ans_error']
-          error.push(m[0])
+          error.push(m[2])
           return error
         } else {
-          answer.push(n[0])
+          answer.push(m[2].toUpperCase())
         }
       } else if (qt_type === 12) {
         n = m[2].match(/^\s*[a-z]{1,26}\s*(?:\n|$)/i)
@@ -44,7 +44,7 @@ export const gruber = {
           error.push(m[2])
           return error
         } else {
-          answer.push(m[2].split(''))
+          answer.push(m[2].toUpperCase().split(''))
         }
       } else if (qt_type === 11) {
         n = m[2].match(/^\s*(正确|错误|对|错)\s*(?:\n|$)/i)

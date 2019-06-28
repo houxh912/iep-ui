@@ -582,9 +582,9 @@ export default {
   // background: -moz-linear-gradient(right, #012f52, #35495e);
   // background: -o-linear-gradient(right, #012f52, #35495e);
   // background: linear-gradient(to right, #012f52, #35495e);
-  padding: 15px 20px;
+  padding: 20px 20px;
   width: 100%;
-  height: 60px;
+  height: 65px;
   img {
     margin-top: -2px;
     float: left;
@@ -634,11 +634,11 @@ export default {
     float: right;
     width: 28%;
     border-left: 0px solid #eee;
-    padding-top: 30px;
+    // padding-top: 30px;
     padding-bottom: 75px;
     .container {
       float: right;
-      width: 280px;
+      width: 304px;
       background: #fffbf6;
       border: 1px solid #ffdbc1;
       // background: linear-gradient(

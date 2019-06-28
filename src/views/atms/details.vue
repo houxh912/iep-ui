@@ -4,7 +4,7 @@
       <div class="details">
       <div class="detail-left">
         <page-header :title="`${form.taskName}`" :backOption="backOption">
-          <slot><iep-button @click="handleEdit()" :disabled="userId==form.principalName">编辑</iep-button></slot>
+          <slot><iep-button @click="handleEdit()" :disabled="this.userInfo.id!=form.creatorId || this.userInfo.id!=form.principal">编辑</iep-button></slot>
         </page-header>
         <div class="sub">
           <span v-if='!form.parentName'>所属任务：无</span>
@@ -44,25 +44,29 @@
               <span>{{a.name}}</span>
             </span>
           </el-form-item>
-          <el-form-item label="起止时间：">
+          <el-form-item label="起止时间：" class="form-half">
             <span>{{form.startTime | parseToDay}}~{{form.endTime | parseToDay}}</span>
           </el-form-item>
+          <el-form-item label="完成时间：" class="form-half">
+            <span v-if="form.completeTime">{{form.completeTime | parseToDay}}</span>
+            <span v-else>未完成</span>
+          </el-form-item>
           <el-form-item label="标签：">
-            <span v-for="(a,i) in form.tagKeyWords" :key="i" class="sign">{{a}}</span>
+            <span v-for="(a,i) in form.tagKeyWords" :key="i" class="sign" @click="tagDetail(a)">{{a}}</span>
           </el-form-item>
           <el-form-item label="备注：">
             <span>{{form.remarks}}</span>
           </el-form-item>
           <el-form-item label="子任务：">
-            <span v-for="(item,index) in form.children" :key="index" style="display:block;">{{item.name}}</span>
-            <!-- <span v-else>无</!--> 
+            <div v-if="form.children.length>0"><span v-for="(item,index) in form.children" :key="index" style="display:block;">{{item.name}}</span></div>
+            <span v-else>无</span>
           </el-form-item>
           <el-form-item label="附件：">
-            <div>
+            <div v-if="form.annexList.length>0">
               <a-tag v-for="file in form.annexList" :key="file.url" @click="handleDownload(file)">
               <a-icon type="paper-clip" />{{file.name}}</a-tag>
             </div>
-            <!-- <span>无附件</span> -->
+            <span v-else>无附件</span>
           </el-form-item>
           <el-form-item label="关联内容：">
             <el-upload class="upload-demo" action="">
@@ -79,7 +83,7 @@
             <el-button type="danger" size="mini" plain @click="handleTransfer">转移</el-button>
           </div>
         </div>
-        <similar-tasks></similar-tasks>
+        <similar-tasks :dataList="form.similarTasks.slice(0,4)" @click="handleDetail"></similar-tasks>
         <circulation-log :itemList="form.records.slice(0,8)"></circulation-log>
         <div class="bottom">
           <span>{{handleTitle}}</span>
@@ -113,6 +117,17 @@ export default {
     TransferDialogForm,
     ConversionDialogForm,
   },
+  beforeRouteUpdate (to, from, next) {
+    // console.log(to, from)
+    this.$nextTick(() => {
+      this.loadPage()
+    })
+    next()
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+  },
   data () {
     return {
       methodName: '舟山市营商环境优化',
@@ -127,7 +142,6 @@ export default {
       form: initForm(),
       rules,
       limit:1,
-      id: this.$route.params.id,
       img: '../img/person/p09.jpg',
       post: '负责人',
       name: '潘超巧',
@@ -141,6 +155,9 @@ export default {
     ...mapGetters([
       'userInfo',
     ]),
+    id () {
+      return +this.$route.params.id
+    },
   },
   methods: {
     close () {
@@ -150,10 +167,8 @@ export default {
       downloadFile(file)
     },
     loadPage () {
-      this.pageLoading = true
       getAtmsById(this.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
-        this.pageLoading = false
       })
     },
     handleTransfer () {
@@ -186,6 +201,14 @@ export default {
           }
           this.loadPage()
         })
+      })
+    },
+    tagDetail (row) {
+      this.$openTagDetail(row)
+    },
+    handleDetail (row) {
+      this.$router.push({
+        path:`/atms/details/${row}`,
       })
     },
   },

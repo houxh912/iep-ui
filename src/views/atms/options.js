@@ -23,6 +23,7 @@ const initForm = () => {
         principalName:'',//负责人
         avatar:'',//负责人头像
         startEndTime:[],//起止时间
+        completeTime:'',//完成时间
         startTime:'',
         endTime:'',
         tagKeyWords: [],//标签
@@ -30,7 +31,8 @@ const initForm = () => {
         annexList: [],//附件
         attach:'',
         materials: [],//关联内容
-        records:[],
+        records:[],//流转日志
+        similarTasks:[],//相似任务
         children: [],//子任务
         parentId:'',
     }

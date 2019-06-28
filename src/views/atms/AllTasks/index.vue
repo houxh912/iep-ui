@@ -4,9 +4,25 @@
       <page-header title="全部任务"></page-header>
       <el-card class="box" shadow="hover">
         <div class="total-wrapper">
-          <div class="total-item" v-for="(item, index) in dataList" :key="index">
-            <div class="value">{{item.value}}</div>
-            <div class="label"><a href="#">{{item.label}}</a></div>
+          <div class="total-item">
+            <div class="value">1</div>
+            <div class="label"><a href="#">任务统计</a></div>
+          </div>
+          <div class="total-item">
+            <div class="value">1</div>
+            <div class="label"><a href="#">待办任务</a></div>
+          </div>
+          <div class="total-item">
+            <div class="value">1</div>
+            <div class="label"><a href="#">进行中</a></div>
+          </div>
+          <div class="total-item">
+            <div class="value">1</div>
+            <div class="label"><a href="#">已完成</a></div>
+          </div>
+          <div class="total-item">
+            <div class="value">1</div>
+            <div class="label"><a href="#">已逾期</a></div>
           </div>
         </div>
       </el-card>
@@ -18,7 +34,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-tree>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-tree>
         <!-- <template slot="before-columns">
           <el-table-column label="任务名称" width="300px">
             <template slot-scope="scope">
@@ -86,19 +102,6 @@ export default {
       dictsMap,
       columnsMap,
       pagedTable:[
-        {
-          id:1,
-          taskName:'修改合同的签署部门字段',
-          taskStatus:'0',
-          founder:'ss',
-          principal:'ddd',
-          time:'2019-06-16~2019-06-25',
-          children:[
-            {id:11,taskName:'修改合同的签署部门字段',taskStatus:'0',founder:'ss',principal:'ddd',time:'2019-06-16~2019-06-25'},
-          ],
-        },
-        {id:2,taskName:'修改合同的签署部门字段',taskStatus:'0',founder:'ss',principal:'ddd',time:'2019-06-16~2019-06-25'},
-        {id:3,taskName:'修改合同的签署部门字段',taskStatus:'0',founder:'ss',principal:'ddd',time:'2019-06-16~2019-06-25'},
       ],
     }
   },

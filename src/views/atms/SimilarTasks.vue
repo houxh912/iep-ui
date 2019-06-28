@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="similar-tasks">
     <el-collapse v-model="activeNames">
       <el-collapse-item :title="title" name="1">
-        <div v-for="(item,index) in dataList" :key="index" class="piece" @click="handleDetail(item)">
-          {{item}}
+        <div v-for="(item,index) in dataList" :key="index" class="piece" @click="handleDetail(item.id)">
+          {{item.name}}
         </div>
       </el-collapse-item>
     </el-collapse>
@@ -11,28 +11,22 @@
 </template>
 <script>
 export default {
+  props: {
+    dataList: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
+  },
   data () {
     return {
       activeNames: ['1'],
       title: '相似任务（3）',
-      dataList: [
-        {
-          name: '徐州市发改委营商环境评估项目',
-        },
-        {
-          name: '22州市发改委营商环境评估项目',
-        },
-        {
-          name: '11徐州市发改委营商环境评估项目',
-        },
-        {
-          name: '11徐州市发改委营商环境评估项目',
-        },
-      ],
     }
   },
   methods: {
-    handleDetail () {
+    handleDetail (row) {
+      this.$emit('click', row)
     },
   },
 }
@@ -40,5 +34,27 @@ export default {
 <style lang="scss">
 .el-collapse {
   border: 0;
+}
+.piece{
+  cursor: pointer;
+  height: 34px;
+  line-height: 34px;
+  padding-left: 20px;
+  position: relative;
+  &:before{
+    content: "";
+    position: absolute;
+    left: 6px;
+    top:16px;
+    width: 4px;
+    height: 4px;
+    border-radius:50%;
+    background-color: #999; 
+  }
+}
+</style>
+<style scoped>
+.similar-tasks >>> .el-collapse-item__content{
+  padding: 0
 }
 </style>

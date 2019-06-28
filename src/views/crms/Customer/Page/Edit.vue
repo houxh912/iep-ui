@@ -299,7 +299,7 @@ export default {
         getObj(data.data.marketManager).then(res => {
           this.formData.Manager = res.data.data.realName
         })
-        if (this.formData.unionId == 0) {
+        if (this.formData.marketManager == 0) {
           this.Claim = false
         } else {
           this.Claim = true

@@ -65,6 +65,9 @@ export default {
     handleDetail (row) {
       this.$router.push({
         path: `/fams_spa/invoice_detail/${row.id}`,
+        query: {
+          isApproval: true,
+        },
       })
     },
     loadPage (param = this.searchForm) {

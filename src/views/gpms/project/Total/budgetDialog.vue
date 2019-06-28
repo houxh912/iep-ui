@@ -1,7 +1,7 @@
 <template>
     <iep-dialog :dialog-show="dialogShow" title="添加关联" width="80%" @close="resetForm">
 
-    <p>注：外包费用、佣金、项目总预算为必填项</p>
+    <p>注：外包费用、佣金、项目总预算为必填项，<span style="color: #f00;">如不填，则不发项目提成</span></p>
     
     <el-table :data="tableData" style="width: 100%" class="table">
       <el-table-column prop="date" label="人工成本" align='center' width="150px">
@@ -25,7 +25,10 @@
             <el-input v-model="tableData[scope.$index].bidWinning" maxlength="12" type="number" min=0></el-input>
           </template>
         </el-table-column>
-        <el-table-column prop="province" label="外包费用" align='center' width="150px">
+        <el-table-column prop="province" align='center' width="150px">
+          <template slot="header">
+            <span class="column-header">外包费用</span>
+          </template>
           <template slot-scope="scope">
             <el-input v-model="tableData[scope.$index].outsourcingCost" maxlength="12" type="number" min=0></el-input>
           </template>
@@ -35,7 +38,10 @@
             <el-input v-model="tableData[scope.$index].expertsFee" maxlength="12" type="number" min=0></el-input>
           </template>
         </el-table-column>
-        <el-table-column prop="province" label="佣金" align='center' width="150px">
+        <el-table-column prop="province" align='center' width="150px">
+          <template slot="header">
+            <span class="column-header">佣金</span>
+          </template>
           <template slot-scope="scope">
             <el-input v-model="tableData[scope.$index].commission" maxlength="12" type="number" min=0></el-input>
           </template>
@@ -61,7 +67,10 @@
           <el-input v-model="tableData[scope.$index].travelFee" maxlength="12" type="number" min=0></el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="date" label="费用总预算" align='center' width="150px">
+      <el-table-column prop="date" align='center' width="150px">
+          <template slot="header">
+            <span class="column-header">费用总预算</span>
+          </template>
         <template slot-scope="scope">
           <el-input v-model="tableData[scope.$index].projectBudget" maxlength="12" type="number" min=0></el-input>
         </template>
@@ -133,6 +142,9 @@ export default {
 .table >>> .el-input__inner {
   padding: 0;
   border: 0;
+}
+.column-header {
+  color: #f00;
 }
 </style>
 

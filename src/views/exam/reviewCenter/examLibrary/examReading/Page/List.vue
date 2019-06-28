@@ -263,6 +263,7 @@ export default {
             type: 'success',
             message: res.data.msg,
           })
+          this.loadPage()
         })
       }).catch(() => {
         this.$message({

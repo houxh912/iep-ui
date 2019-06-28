@@ -89,7 +89,7 @@ import mixins from '@/mixins/mixins'
 import SingleDialog from './Single.vue'
 import BatchDialog from './Batch.vue'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
-import { getTestOption, postNewTest, getExamMsg, postModify, postExaminePass, postExamineFalse } from '@/api/exam/createExam/newTest/newTest'
+import { getTestOption, postNewTest, getExamMsg, postModify, postExaminePass, postExamineFalse, postBatchIteamBank } from '@/api/exam/createExam/newTest/newTest'
 export default {
   name: 'report',
   mixins: [mixins],
@@ -179,7 +179,7 @@ export default {
         }).then(() => {
           this.form.questionType = value
           this.postAnswer = value
-          if (this.tabName === 'Batch') {
+          if (this.tabName === 'batch') {
             this.$refs.batch.testQuestions = ''
             this.$refs.batch.itemBankList = []
           }
@@ -444,7 +444,7 @@ export default {
             postBatchBothForm.itemBankList.push(itemBank)
           }
           postBatchBothForm = JSON.stringify(postBatchBothForm)
-          postNewTest(postBatchBothForm).then(res => {
+          postBatchIteamBank(postBatchBothForm).then(res => {
             if (res.data.data == true) {
               this.$message({
                 type: 'success',

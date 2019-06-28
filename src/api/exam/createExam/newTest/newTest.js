@@ -179,5 +179,18 @@ export function updateRelease (params) {
     })
 }
 
+/**
+ * 批量导入试题
+ */
+export function postBatchIteamBank (params) {
+    return request({
+        url: '/exms/iepitembank/batchIteamBank',
+        method: 'post',
+        data: params,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+}
 
 

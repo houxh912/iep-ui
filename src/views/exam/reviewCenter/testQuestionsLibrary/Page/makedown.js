@@ -32,13 +32,13 @@ export const gruber = {
         n = m[2].match(/^\s*[a-z]\s*(?:\n|$)/i)
         if (n == null) {
           let error = ['ans_error']
-          error.push(n[0])
+          error.push(m[0])
           return error
         } else {
           answer.push(n[0])
         }
       } else if (qt_type === 12) {
-        n = m[2].match(/^\s*[a-z]{2,26}\s*(?:\n|$)/i)
+        n = m[2].match(/^\s*[a-z]{1,26}\s*(?:\n|$)/i)
         if (n == null) {
           let error = ['ans_error']
           error.push(m[2])

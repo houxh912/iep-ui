@@ -37,7 +37,7 @@
                 </li>
               </ul>
               <el-checkbox-group v-model="item.answer" v-if="value===12">
-                <el-checkbox v-for="option in item.titleOptions" :label="option.key" :key="option.key"
+                <el-checkbox v-for="(option,index) in item.titleOptions" :label="option.key" :key="index"
                   :class="option.class">
                   <span class="caption">{{option.key}}.</span>{{option.value}}
                 </el-checkbox>
@@ -355,7 +355,7 @@ export default {
         background-color: #fafafa;
         border: 1px solid #dadada;
         .qt_error {
-          padding-left: 30px;
+          padding-left: 10px;
           margin-bottom: 5px;
           color: #fff;
           font-weight: bold;
@@ -384,8 +384,8 @@ export default {
         .el-checkbox {
           margin: 0 0 7px 0;
           padding: 4px;
-          border: 1px solid #e4eaf0;
-          border-radius: 2px;
+          // border: 1px solid #e4eaf0;
+          // border-radius: 2px;
         }
       }
     }

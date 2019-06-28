@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     getNewsList (id) {
-      getNewsList({ orgId: id }).then(({data}) => {
+      getNewsList({ orgId: id }).then(({ data }) => {
         this.organizationalDynamics = data.data
       })
     },
@@ -72,7 +72,7 @@ export default {
 }
 </style>
 <style scoped>
-.organizational-dynamics-con >>> .el-card__body {
-  height: 270px;
+.organizational-dynamics-con >>> .el-card {
+  height: 275px;
 }
 </style>

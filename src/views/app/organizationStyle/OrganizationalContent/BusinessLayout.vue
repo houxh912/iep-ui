@@ -37,8 +37,8 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.business-layout {
-  margin-bottom: 30px;
+<style scoped>
+.business-layout >>> .el-card {
+  height: 300px;
 }
 </style>

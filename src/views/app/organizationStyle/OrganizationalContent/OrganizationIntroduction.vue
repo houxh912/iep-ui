@@ -53,7 +53,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .organization-introduction {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   .con {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -147,5 +147,8 @@ export default {
 }
 .person >>> .el-carousel__indicators {
   display: none;
+}
+.organization-introduction >>> .el-card {
+  height: 340px;
 }
 </style>

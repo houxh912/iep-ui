@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-tasks">
     <basic-container>
       <page-header title="我的任务"></page-header>
       <el-card class="box" shadow="hover">
@@ -24,10 +24,10 @@
             <div class="value">{{myCountList.myParticipated}}</div>
             <div class="label"><a href="#">我参与的</a></div>
           </div>
-          <div class="total-item"  @click="cSelectTpye('myCollection')">
+          <!-- <div class="total-item"  @click="cSelectTpye('myCollection')">
             <div class="value">{{myCountList.myCollection}}</div>
             <div class="label"><a href="#">我关注的</a></div>
-          </div>
+          </div> -->
         </div>
       </el-card>
       <operation-container>
@@ -55,14 +55,8 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
-        <template slot="before-columns">
-          <el-table-column label="任务名称" width="300px">
-            <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
-            </template>
-          </el-table-column>
-        </template>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection  @row-click="handleDetail">
+        
         <template>
           <el-table-column label="起止时间" width="220px">
             <template slot-scope="scope">
@@ -73,8 +67,8 @@
         <el-table-column prop="operation" label="操作" width="260">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button>关注</iep-button>
-              <iep-button type="warning" plain>已关注</iep-button>
+              <!-- <iep-button>关注</iep-button>
+              <iep-button type="warning" plain>已关注</iep-button> -->
               <el-dropdown size="medium" v-if="scope.row.hasBegun==1">
                 <iep-button type="warning" plain :disabled="scope.row.status==3">
                   {{dictsMap.status[scope.row.status]}}<i class="el-icon-arrow-down el-icon--right"></i>
@@ -111,7 +105,7 @@ export default {
         myCharge: 0,
         myCollection: 0,
       },
-      selectTpye:'myAll',
+      selectType:'myAll',
     }
   },
   created () {
@@ -122,7 +116,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable({selectTpye:this.selectTpye,...param}, getMyAtms)
+      this.loadTable({selectType:this.selectType,...param}, getMyAtms)
     },
     handleSelectionChange () {
     },
@@ -153,11 +147,11 @@ export default {
       })
     },
     cSelectTpye (val) {
-      this.selectTpye = val
+      this.selectType = val
     },
   },
   watch: {
-    'selectTpye': function () {
+    'selectType': function () {
       this.loadPage()
     },
   },
@@ -193,6 +187,11 @@ export default {
       }
     }
   }
+}
+</style>
+<style scoped>
+.my-tasks >>> .el-table tr{
+  cursor:pointer;
 }
 </style>
 

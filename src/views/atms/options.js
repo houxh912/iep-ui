@@ -58,23 +58,23 @@ const rules = {
     taskName: [
         { required: true, message: '请输入任务名称', trigger: 'blur' },
     ],
-    taskStatus: [
-        { required: true, message: '请输入', trigger: 'blur' },
-    ],
-    priority: [
-        { required: true, message: '请输入', trigger: 'blur' },
-    ],
-    executors: [
-        { required: true, message: '请输入', trigger: 'blur' },
-    ],
-    assistants: [
-        { required: true, message: '请输入', trigger: 'blur' },
-    ],
+    // taskStatus: [
+    //     { required: true, message: '请输入', trigger: 'blur' },
+    // ],
+    // priority: [
+    //     { required: true, message: '请输入', trigger: 'blur' },
+    // ],
+    // executors: [
+    //     { required: true, message: '请输入', trigger: 'blur' },
+    // ],
+    // assistants: [
+    //     { required: true, message: '请输入', trigger: 'blur' },
+    // ],
     startEndTime: [
         { required: true, message: '请输入', trigger: 'blur' },
     ],
-    tagKeyWords: [
-        { required: true, message: '请输入', trigger: 'blur' },
-    ],
+    // tagKeyWords: [
+    //     { required: true, message: '请输入', trigger: 'blur' },
+    // ],
 }
 export { initForm, rules, dictsMap, formToDto, initTransferForm, initConversionForm }

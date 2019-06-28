@@ -155,7 +155,9 @@ export default {
         this.sort.jobId=''
         this.sort.professionalTitleId='1'
       }
-      this.$refs['OperationSearch'].input = ''
+      if (typeof this.$refs['OperationSearch']!='undefined'){
+        this.$refs['OperationSearch'].input = ''
+      }
       this.searchPage()
     },
     handleRemove (row) {
@@ -226,7 +228,9 @@ export default {
     handleSelectType (k) {
       this.groupType = k
       this.mark = 'group'
-      this.$refs['OperationSearch'].input = ''
+      if (typeof this.$refs['OperationSearch']!='undefined'){
+        this.$refs['OperationSearch'].input = ''
+      }
       this.searchPage()
     },
     loadTypeList () {

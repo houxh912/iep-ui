@@ -289,14 +289,34 @@ export default {
             break
           }
         }
+
+        // if (title_reg.test(jsonml[i][0])) {
+        //   this.count++
+        //   if (this.count > 1) {
+        //     //出现下一个title意味着上一题结束，重新初始化
+        //     this.itemBank = { titleOptions: [] }
+        //   }
+        //   this.itemBankList.push(this.itemBank)
+        // }
+        // if (jsonml[i][0].match(/^[A-Z]/)) {
+        //   if (this.countOccurences(this.itemBank.titleOptions, jsonml[i][0]) === 0) {
+        //     this.itemBank.titleOptions.push({ key: jsonml[i][0], value: jsonml[i][1] })
+        //   } else {
+        //     this.itemBank.titleOptions.push({ class: 'qt_error', key: jsonml[i][0], value: jsonml[i][1] })
+        //   }
+        //   sortKey(this.itemBank.titleOptions, 'key')
+        // } else {
+        //   this.itemBank[jsonml[i][0]] = jsonml[i][1]
+        // }
+        // this.itemBankList.slice(this.count - 1, 1, { ...this.itemBank })
         // 题目计数
         if (title_reg.test(jsonml[i][0])) {
           this.count++
-          if (this.count > 1) {
-            //出现下一个title意味着上一题结束，重新初始化
-            this.itemBank = { titleOptions: [] }
-          }
+        }
+        if (this.count > 1) {
           this.itemBankList.push(this.itemBank)
+          this.itemBank = { titleOptions: [] }
+          this.count = 1
         }
         if (jsonml[i][0].match(/^[A-Z]/)) {
           if (this.countOccurences(this.itemBank.titleOptions, jsonml[i][0]) === 0) {
@@ -308,7 +328,9 @@ export default {
         } else {
           this.itemBank[jsonml[i][0]] = jsonml[i][1]
         }
-        this.itemBankList.slice(this.count - 1, 1, { ...this.itemBank })
+      }
+      if (this.count === 1) {
+        this.itemBankList.push(this.itemBank)
       }
     },
 

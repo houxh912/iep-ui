@@ -88,7 +88,8 @@ export default {
       this.paramForm = paramForm()
     },
     searchPage (val) {
-      this.loadPage(val)
+      this.searchForm = Object.assign({}, this.searchForm, val)
+      this.loadPage()
     },
     //勾选行执行
     selectionChange (val) {

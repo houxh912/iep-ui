@@ -29,9 +29,11 @@
         @current-change="handleCurrentChange"
       >
         <template slot="before-columns">
-          <el-table-column label="项目名称" width="300">
+          <el-table-column label="项目名称" width="300px">
             <template slot-scope="scope">
-              <span>{{ scope.row.projectName}}</span>
+             <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
+              <span>{{ scope.row.projectName }}</span>
+            </div>
             </template>
           </el-table-column>
         </template>
@@ -111,6 +113,9 @@ export default {
     },
     searchPage (val) {
       this.loadPage(val)
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/project_details/${row.id}`)
     },
   },
 }

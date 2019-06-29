@@ -12,7 +12,7 @@
 import Histogram from './Histogram/'
 import Project from './Project'
 import ProjectSwitching from './ProjectSwitching/'
-import Team from './team/'
+import Team from './Team/'
 import TalentDemand from './TalentDemand'
 import TextureScore from './TextureScore'
 export default {

@@ -55,7 +55,7 @@ export default {
 }
 .title {
   flex: 2;
-  font-size: 16px;
+  font-size: 18px;
   color: #303133;
   margin: 0 4px;
   height: 22px;

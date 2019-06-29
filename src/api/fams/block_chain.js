@@ -9,6 +9,14 @@ export function getAmountByUserId (userId) {
     method: 'get',
   })
 }
+
+export function getPage (query) {
+  return request({
+    url: `${prefixUrl}/page`,
+    method: 'get',
+    params: query,
+  })
+}
 export function sendAmount (obj) {
   return request({
     url: `${prefixUrl}/send`,

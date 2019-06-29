@@ -1,3 +1,32 @@
+const columnsMap = [
+  {
+    prop: 'id',
+    label: 'ID',
+    width: '55',
+  },
+  {
+    prop: 'sender',
+    label: '发送者',
+  },
+  {
+    prop: 'receiver',
+    label: '接收者',
+  },
+  {
+    prop: 'hash',
+    label: '哈希值',
+  },
+  {
+    prop: 'amount',
+    label: '金额',
+    width: '80',
+  },
+  {
+    prop: 'createTime',
+    label: '创建时间',
+  },
+]
+
 const initSearchForm = () => {
   return {
     send: {
@@ -27,6 +56,7 @@ const toDtoSearchForm = (row) => {
 }
 
 export {
+  columnsMap,
   initSearchForm,
   toDtoSearchForm,
 }

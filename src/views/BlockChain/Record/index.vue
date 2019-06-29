@@ -11,52 +11,14 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <el-table-column label="ID">
-          <!-- <template slot-scope="scope"> -->
-          sss
-          <!-- </template> -->
-        </el-table-column>
-        <el-table-column label="Nonce">
-          <!-- <template slot-scope="scope"> -->
-          sss
-          <!-- </template> -->
-        </el-table-column>
-        <el-table-column label="日期">
-          <!-- <template slot-scope="scope"> -->
-          sss
-          <!-- </template> -->
-        </el-table-column>
-        <el-table-column label="哈希值">
-          <!-- <template slot-scope="scope"> -->
-          sss
-          <!-- </template> -->
-        </el-table-column>
-        <el-table-column label="发送账户">
-          <!-- <template slot-scope="scope"> -->
-          sss
-          <!-- </template> -->
-        </el-table-column>
-        <el-table-column label="接受账户">
-          <!-- <template slot-scope="scope"> -->
-          sss
-          <!-- </template> -->
-        </el-table-column>
-        <el-table-column label="金额">
-          <!-- <template slot-scope="scope"> -->
-          sss
-          <!-- </template> -->
-        </el-table-column>
-        <el-table-column label="创建时间">
-          <!-- <template slot-scope="scope"> -->
-          sss
-          <!-- </template> -->
-        </el-table-column>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       </iep-table>
     </basic-container>
   </div>
 </template>
 <script>
+import { columnsMap } from './options'
+import { getPage } from '@/api/fams/block_chain'
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from './AdvanceSearch'
 export default {
@@ -64,8 +26,17 @@ export default {
   mixins: [mixins],
   data () {
     return {
+      columnsMap,
       isLoadTable: false,
     }
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getPage)
+    },
   },
 }
 </script>

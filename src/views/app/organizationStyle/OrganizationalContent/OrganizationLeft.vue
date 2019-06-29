@@ -12,7 +12,7 @@
 import Histogram from './Histogram/'
 import Project from './Project'
 import ProjectSwitching from './ProjectSwitching/'
-import Team from './Team/'
+import Team from './team/index'
 import TalentDemand from './TalentDemand'
 import TextureScore from './TextureScore'
 export default {
@@ -21,6 +21,6 @@ export default {
       type: Object,
     },
   },
-  components: { Histogram, Project, ProjectSwitching, Team, TalentDemand,TextureScore },
+  components: { Histogram, Project, ProjectSwitching, Team, TalentDemand, TextureScore },
 }
 </script>

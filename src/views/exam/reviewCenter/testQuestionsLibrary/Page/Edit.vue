@@ -52,7 +52,7 @@
       <el-tab-pane label=单题输入 name="single">
         <single-dialog ref="single" :postAnswer="postAnswer"></single-dialog>
         <div align="center" style="margin-top:2%;">
-          <iep-button v-if="btnExamine === true" type="primary" @click="handleExamine">审核</iep-button>
+          <iep-button v-if="record.examine === true" type="primary" @click="handleExamine">审核</iep-button>
           <iep-button v-if="btnSave == 0" type="primary" @click="submitSingle">保存</iep-button>
           <iep-button v-if="btnSave == 1" type="primary" @click="saveSingle" v-show="!btnDisabled">保存</iep-button>
         </div>
@@ -64,7 +64,11 @@
 
     <iep-dialog :dialog-show="dialogExamine" title="审核试题" width="520px" @close="handleExamineCancel"
       center>
-      <div style="text-align: center;">
+      <div style="margin-bottom:16px">
+        <span class="explain">说明： </span>
+        <span class="explainTxt">每过审入库 1 题，奖励出题人 5 贝 !</span>
+      </div>
+      <div>
         <el-radio-group v-model="states">
           <el-radio :label="0">审核通过</el-radio>
           <el-radio :label="1">审核不通过</el-radio>
@@ -103,7 +107,6 @@ export default {
   ],
   data () {
     return {
-      examine: {},//审核
       dialogExamine: false,
       content: '',
       states: 0,
@@ -198,13 +201,13 @@ export default {
       /**
        * 审核
        */
-      if (this.record.examine === true) {
-        this.btnExamine = true
-        this.$confirm('每过审入库 1 题，奖励出题人 5 贝', '提示', {
-          confirmButtonText: '确定',
-          type: 'warning',
-        })
-      }
+      // if (this.record.examine === true) {
+      //   this.btnExamine = true
+      //   this.$confirm('每过审入库 1 题，奖励出题人 5 贝', '提示', {
+      //     confirmButtonText: '确定',
+      //     type: 'warning',
+      //   })
+      // }
       /**
        * 查看
        */
@@ -484,5 +487,13 @@ export default {
 }
 .relatedTag {
   margin-right: 10px;
+}
+.explain {
+  font-weight: 600;
+  font-size: 14px;
+}
+.explainTxt {
+  font-weight: 100;
+  font-size: 14px;
 }
 </style>

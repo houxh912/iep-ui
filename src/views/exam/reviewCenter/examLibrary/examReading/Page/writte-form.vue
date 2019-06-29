@@ -1,104 +1,106 @@
 <template>
-  <div>
-    <div class="header">
-      <span class="title1"><b>在线考试系统</b></span>
-      <span class="title2"></span>
-      <span class="title3">{{resdata.fieldName}}</span>
-      <span class="title4">
-        评分进度<span class="title5">{{count}}</span> / {{resdata.questionTotalNum}}
-      </span>
-      <iep-button class="button" @click="giveZero">一键零分</iep-button>
-    </div>
+  <el-dialog :visible.sync="dialogVisible" title="阅卷进度" width="90%" :before-close="saveAndGoBack">
+    <div>
+      <div class="header">
+        <span class="title1"><b>在线考试系统</b></span>
+        <span class="title2"></span>
+        <span class="title3">{{resdata.fieldName}}</span>
+        <span class="title4">
+          评分进度<span class="title5">{{count}}</span> / {{resdata.questionTotalNum}}
+        </span>
+        <iep-button class="button" @click="giveZero">一键零分</iep-button>
+      </div>
 
-    <div class="examShowss" style="background-color:#fff">
-      <div class="left">
-        <span style="font-size: 20px;"><b>{{resdata.questionTypeName}}</b></span>
-        <span class="title1">共 {{resdata.kindTotalNum}} 题，合计 {{resdata.kindMark}} 分，已完成
-          {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
-        <hr>
-        <div class="container">
-          <div style="margin-bottom: 10px;">
-            <span>{{resdata.questionNum}}、 </span>
-            <span>{{resdata.title}}</span>
-            <span> （ {{resdata.single}} 分）</span>
-          </div>
+      <div class="examShowss" style="background-color:#fff">
+        <div class="left">
+          <span style="font-size: 20px;"><b>{{resdata.questionTypeName}}</b></span>
+          <span class="title1">共 {{resdata.kindTotalNum}} 题，合计 {{resdata.kindMark}} 分，已完成
+            {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
+          <hr>
+          <div class="container">
+            <div style="margin-bottom: 10px;">
+              <span>{{resdata.questionNum}}、 </span>
+              <span>{{resdata.title}}</span>
+              <span> （ {{resdata.single}} 分）</span>
+            </div>
 
-          <!-- <div>
-            <li v-for="(item,index) in fillAreaList" :key="index" style="margin-left:28px;">
-              <el-input type="textarea" v-model="userByAnswer" style="width: 70%;margin-top:10px" :rows="2"></el-input>
-            </li>
-          </div> -->
+            <!-- <div>
+              <li v-for="(item,index) in fillAreaList" :key="index" style="margin-left:28px;">
+                <el-input type="textarea" v-model="userByAnswer" style="width: 70%;margin-top:10px" :rows="2"></el-input>
+              </li>
+            </div> -->
 
-          <div>
-            <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
-              <el-input type="textarea" v-model="userByAnswer" style="width: 80%;margin-top:10px"
-                :rows="6" :disabled="disabled" @focus="inputClose"></el-input>
-            </li>
-            <div class="setScore">
-              <el-form :model="ruleForm" :rules="rules" ref="form" label-width="100px">
-                <el-form-item label="本题打分 :" prop="single">
-                  <el-input class="giveinput" v-model.number="ruleForm.single"></el-input>
-                </el-form-item>
-              </el-form>
+            <div>
+              <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
+                <el-input type="textarea" v-model="userByAnswer" style="width: 80%;margin-top:10px"
+                  :rows="6" :disabled="disabled" @focus="inputClose"></el-input>
+              </li>
+              <div class="setScore">
+                <el-form :model="ruleForm" :rules="rules" ref="form" label-width="100px">
+                  <el-form-item label="本题打分 :" prop="single">
+                    <el-input class="giveinput" v-model.number="ruleForm.single"></el-input>
+                  </el-form-item>
+                </el-form>
+              </div>
+            </div>
+
+            <!-- <div>
+              <li v-for="(item,index) in operationList" :key="index" style="margin-left:28px;display:flex">
+                <iep-froala-editor v-model="userByAnswer" style="width:80%"></iep-froala-editor>
+              </li>
+            </div> -->
+
+            <div class="center" align="center">
+              <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.firstOrLastQuestion === 0">上一题</iep-button>
+              <iep-button style="margin:0 10px;" @click="next" :disabled="resdata.firstOrLastQuestion === 1">下一题</iep-button>
+              <iep-button style="margin:0 10px;" @click="saveAndGoBack">保存并退出</iep-button>
             </div>
           </div>
+        </div>
 
-          <!-- <div>
-            <li v-for="(item,index) in operationList" :key="index" style="margin-left:28px;display:flex">
-              <iep-froala-editor v-model="userByAnswer" style="width:80%"></iep-froala-editor>
-            </li>
-          </div> -->
+        <div class="right" v-if="resdata.title">
+          <div class="container">
+            <div class="top">
+              <span class="titleone">本题得分</span><br>
+              <span class="titletwoss">
+                <el-input class="fen" v-model="showScore"></el-input>
+              </span>
+              <span class="titlethree"> / </span>
+              <span class="titlefour">{{resdata.single}}</span>
+            </div>
 
-          <div class="center" align="center">
-            <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.firstOrLastQuestion === 0">上一题</iep-button>
-            <iep-button style="margin:0 10px;" @click="next" :disabled="resdata.firstOrLastQuestion === 1">下一题</iep-button>
-            <iep-button style="margin:0 10px;" @click="saveAndGoBack">保存并退出</iep-button>
+            <ve-ring style="padding-top: 15px;margin-top: -75px;" height="160px" :data="chartData"
+              :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
+
+            <div class="card">
+              <!-- <div v-if="resdata.textMap.length > 0">
+                <span class="answerSheet">填空题</span>
+                <div class="answerSheetTop">
+                  <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
+                </div><br>
+              </div> -->
+
+              <div v-if="resdata.textMap.length > 0">
+                <span class="answerSheet">简答题</span>
+                <div class="answerSheetTop">
+                  <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index"
+                    @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
+                </div><br>
+              </div>
+
+              <!-- <div v-if="resdata.Map.length > 0">
+                <span class="answerSheet">实操题</span>
+                <div class="answerSheetTop">
+                  <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
+                </div><br>
+              </div> -->
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="right" v-if="resdata.title">
-        <div class="container">
-          <div class="top">
-            <span class="titleone">本题得分</span><br>
-            <span class="titletwoss">
-              <el-input class="fen" v-model="showScore"></el-input>
-            </span>
-            <span class="titlethree"> / </span>
-            <span class="titlefour">{{resdata.single}}</span>
-          </div>
-
-          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="160px" :data="chartData"
-            :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
-
-          <div class="card">
-            <!-- <div v-if="resdata.textMap.length > 0">
-              <span class="answerSheet">填空题</span>
-              <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
-              </div><br>
-            </div> -->
-
-            <div v-if="resdata.textMap.length > 0">
-              <span class="answerSheet">简答题</span>
-              <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index"
-                  @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
-              </div><br>
-            </div>
-
-            <!-- <div v-if="resdata.Map.length > 0">
-              <span class="answerSheet">实操题</span>
-              <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
-              </div><br>
-            </div> -->
-          </div>
-        </div>
-      </div>
     </div>
-
-  </div>
+  </el-dialog>
 </template>
 <script>
 import { passWrittenById, setZeroAll } from '@/api/exam/examLibrary/examReading/examReading'
@@ -129,6 +131,7 @@ export default {
       offsetY: 80,
     }
     return {
+      dialogVisible: true,
       disabled: false,
       userByAnswer: '',        //显示用户答案的输入框(v-model绑定的值)
       showScore: '',           //答题卡上显示的分数(v-model绑定的值)
@@ -373,17 +376,19 @@ export default {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning',
-          }).then(() => {
+          }).then(async () => {
             const params = {
               ifCommit: 1,
             }
             this.judgeType(params)
-            this.getSubjectById(params)
-            this.$message({
-              type: 'success',
-              message: '保存成功!',
-            })
-            this.$emit('close', false)
+            // const isSuccess = this.getSubjectById(params)
+            await passWrittenById(params)
+              this.$message({
+                type: 'success',
+                message: '保存成功!',
+              })
+              this.$emit('close', false)
+            
           }).catch(() => {
             this.$message({
               type: 'info',

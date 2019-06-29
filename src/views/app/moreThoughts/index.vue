@@ -36,9 +36,9 @@
                   <commentTpl :item="t" :userInfo="{id: item.userId, name: item.userName}" @load-page="loadPage"></commentTpl>
                   <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userInfo="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" :type="'reply'"></commentTpl>
                 </div>
-                <div v-show="isShow" style="text-align: right;margin: 20px 0;">
+                <!-- <div v-show="isShow" style="text-align: right;margin: 20px 0;">
                   <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
-                </div>
+                </div> -->
               </div>
               <!-- 按钮组 -->
               <div class="footer">

@@ -172,6 +172,7 @@ export function initFormData () {
     estimatedSigntime: '', // 预计签订时间
     projectBudgetList: {},
     projectAmount: '',
+    projectStage: '',
   }
 }
 

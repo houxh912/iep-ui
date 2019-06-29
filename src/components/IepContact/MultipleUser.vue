@@ -188,6 +188,7 @@ export default {
 <style scoped>
 .contact-wrapper {
   display: flex;
+  min-width: 200px;
 }
 .contact-wrapper
   >>> .ant-select-selection__choice__content

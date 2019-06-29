@@ -1,7 +1,7 @@
 <template>
   <div class="account-settings-info-view">
     <a-row :gutter="16">
-      <a-col :md="24" :lg="20">
+      <a-col :md="24" :lg="24">
         <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="150px" size="small">
           <el-form-item label="姓名：" class="form-half">
             <iep-div-detail :value="form.name"></iep-div-detail>

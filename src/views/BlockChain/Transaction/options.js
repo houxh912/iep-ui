@@ -9,6 +9,13 @@ const initForm = () => {
   }
 }
 
+const toDtoFrom = (row) => {
+  const newForm = { ...row }
+  newForm.userId = newForm.user.id
+  delete newForm.user
+  return newForm
+}
+
 const rules = {
   user: [
     { required: true, validator: checkContactUser('接收人'), trigger: 'blur' },
@@ -21,4 +28,5 @@ const rules = {
 export {
   initForm,
   rules,
+  toDtoFrom,
 }

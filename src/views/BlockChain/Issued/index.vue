@@ -4,7 +4,10 @@
       <iep-page-header title="发行记录"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="primary" @click="handleIssued" icon="el-icon-plus" plain>发币</iep-button>
+          <operation-wrapper>
+            <iep-button type="primary" @click="handleIssued" icon="el-icon-plus" plain>发币</iep-button>
+            <iep-button @click="handleSearchAmount">查询成员余额</iep-button>
+          </operation-wrapper>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
@@ -55,13 +58,15 @@
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm"></dialog-form>
+    <search-form ref="SearchForm"></search-form>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
+import SearchForm from './SearchForm'
 import DialogForm from './DialogForm'
 export default {
-  components: { DialogForm },
+  components: { DialogForm, SearchForm },
   mixins: [mixins],
   data () {
     return {
@@ -69,6 +74,9 @@ export default {
     }
   },
   methods: {
+    handleSearchAmount () {
+      this.$refs['SearchForm'].dialogShow = true
+    },
     handleIssued () {
       this.$refs['DialogForm'].dialogShow = true
     },

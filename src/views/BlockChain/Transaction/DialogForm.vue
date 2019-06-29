@@ -17,7 +17,8 @@
   </iep-dialog>
 </template>
 <script>
-import { initForm, rules } from './options'
+import { initForm, rules, toDtoFrom } from './options'
+import { sendAmount } from '@/api/fams/block_chain'
 export default {
   data () {
     return {
@@ -32,7 +33,14 @@ export default {
       this.$emit('load-page')
     },
     submitForm () {
-
+      sendAmount(toDtoFrom(this.form)).then(({ data }) => {
+        if (data.data) {
+          this.$message.success('操作成功')
+          this.close()
+        } else {
+          this.$message(data.msg)
+        }
+      })
     },
   },
 }

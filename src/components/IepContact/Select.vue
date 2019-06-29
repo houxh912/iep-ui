@@ -182,6 +182,7 @@ export default {
 <style lang="scss" scoped>
 .contact-wrapper {
   display: flex;
+  min-width: 200px;
 }
 .is-disabled {
   cursor: not-allowed;

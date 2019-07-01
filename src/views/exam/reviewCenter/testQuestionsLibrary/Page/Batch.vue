@@ -7,7 +7,7 @@
             <iep-button type='text' style='color:black;font-size:16px'>输入区</iep-button>
             <div>
               <iep-button type='text' icon='el-icon-warning' size='medium' style='margin-right:10px;color:#999'
-                @click='dialogShow=true'>格式</iep-button>
+                @click='handleVisible'>格式</iep-button>
               <iep-button type="primary" @click="submit">保存</iep-button>
             </div>
           </div>
@@ -189,6 +189,18 @@ export default {
     }
   },
   methods: {
+    // 查看格式
+    handleVisible () {
+      const type = [10, 11, 12, 13]
+      if (type.includes(this.value)) {
+        this.dialogShow = true
+      } else {
+        this.$message({
+          message: '请先选择题型',
+          type: 'warning',
+        })
+      }
+    },
     //输入内容
     editor (value) {
       if (this.value) {

@@ -40,7 +40,7 @@
       </el-table-column>
       <slot></slot>
     </el-table>
-    <iep-pagination v-if="isPagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :pagination-option="pagination" :page-sizes="initPageSize" layout="total, sizes, prev, pager, next" prev-text="上一页" next-text="下一页" background></iep-pagination>
+    <iep-pagination v-if="isPagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :pagination-option="pagination" :page-sizes="initPageSize" :layout="layout" prev-text="上一页" next-text="下一页" background></iep-pagination>
   </div>
 </template>
 
@@ -113,6 +113,10 @@ export default {
     pageOptionSize: {
       type: Number,
       default: 10,
+    },
+    layout: {
+      type: String,
+      default: 'total, sizes, prev, pager, next',
     },
     cellClassName: {
       type: Function,

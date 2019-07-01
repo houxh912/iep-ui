@@ -33,14 +33,14 @@
       <operation-container>
         <template slot="left">
           <iep-button type="primary" @click="handleAdd()" icon="el-icon-plus" plain>新增</iep-button>
-          <el-dropdown size="medium">
+          <!-- <el-dropdown size="medium">
             <iep-button type="default" plain>批量操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>关注</el-dropdown-item>
               <el-dropdown-item>完成</el-dropdown-item>
               <el-dropdown-item>确认</el-dropdown-item>
             </el-dropdown-menu>
-          </el-dropdown>
+          </el-dropdown> -->
           <!-- <el-dropdown size="medium" style="margin-left:20px;">
             <i class="icon-paixu2"></i>
             <el-dropdown-menu slot="dropdown">

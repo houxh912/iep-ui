@@ -10,7 +10,7 @@
           <span v-if='!form.parentName'>所属任务：无</span>
           <span v-else>所属任务：{{form.parentName}}</span>
           <span class="opt">
-            <span><i class="iconfont icon-xingxing"></i>关注</span>
+            <!-- <span><i class="iconfont icon-xingxing"></i>关注</span> -->
             <span>
               <el-dropdown>
                 <span class="el-dropdown-link">
@@ -18,7 +18,7 @@
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item><div @click="handleConversion"><i class="iconfont icon-Icon-zhuanru"></i>转化为子任务</div></el-dropdown-item>
-                  <el-dropdown-item><i class="iconfont icon-tixing"></i>催办</el-dropdown-item>
+                  <el-dropdown-item disabled><i class="iconfont icon-tixing"></i>催办</el-dropdown-item>
                   <el-dropdown-item><div @click="handleDelete"><i class="iconfont icon-shanchu"></i>删除</div></el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -68,11 +68,11 @@
             </div>
             <span v-else>无附件</span>
           </el-form-item>
-          <el-form-item label="关联内容：">
+          <!-- <el-form-item label="关联内容：">
             <el-upload class="upload-demo" action="">
               <i class="button el-icon-plus"></i>
             </el-upload>
-          </el-form-item>
+          </el-form-item> -->
         </el-form>
       </div>
       <el-card shadow="never" class="person-info">
@@ -85,13 +85,13 @@
         </div>
         <similar-tasks :dataList="form.similarTasks.slice(0,4)" @click="handleDetail"></similar-tasks>
         <circulation-log :itemList="form.records.slice(0,8)"></circulation-log>
-        <div class="bottom">
+        <!-- <div class="bottom">
           <span>{{handleTitle}}</span>
           <div class="con"></div>
           <div class="btn-con">
             <el-button type="danger" size="mini">发表</el-button>
           </div>
-        </div>
+        </div> -->
       </el-card>
       </div>
     </basic-container>

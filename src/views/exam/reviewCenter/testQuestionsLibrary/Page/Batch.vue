@@ -344,6 +344,11 @@ export default {
       this.errorCount = document.getElementById('inspectionContent').getElementsByClassName('qt_error').length
       if (this.errorCount === 0 && this.itemBankList.length > 0) {
         this.$emit('submit-batch', this.itemBankList)
+      } else {
+        this.$message({
+          message: '请检查输入区是否填写正确',
+          type: 'warning',
+        })
       }
     },
   },

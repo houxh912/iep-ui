@@ -137,4 +137,7 @@ export default {
       2fr
     );
 }
+.project >>> .el-card {
+  height: 245px;
+}
 </style>

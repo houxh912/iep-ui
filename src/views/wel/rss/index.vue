@@ -142,6 +142,7 @@ export default {
   margin: -20px 15px -20px -20px;
   padding-top: 12px;
   border-right: 1px solid #e5e5e5;
+  height: 100ch;
   .title {
     margin-bottom: 15px;
     font-size: 16px;

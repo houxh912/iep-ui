@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="投资人审核"></page-header>
+      <page-header title="投资人核准"></page-header>
       <operation-container>
         <template slot="left">
         </template>
@@ -30,7 +30,7 @@
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" plain @click="handleReview(scope.row)" v-if="scope.row.status==1">审核</iep-button>
+              <iep-button type="warning" plain @click="handleReview(scope.row)" v-if="scope.row.status==1">核准</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     handleReview (row) {
-      this.$refs['iepReviewForm'].title = '审核'
+      this.$refs['iepReviewForm'].title = '核准'
       this.$refs['iepReviewForm'].id = row.id
       this.$refs['iepReviewForm'].formRequestFn = PersonInvestmentBatch
       this.$refs['iepReviewForm'].dialogShow = true

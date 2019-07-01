@@ -59,7 +59,6 @@ export default {
   .full {
     grid-column-start: 1;
     grid-column-end: 3;
-    display: grid;
     height: auto;
   }
 }

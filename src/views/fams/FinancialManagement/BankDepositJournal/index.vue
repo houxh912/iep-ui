@@ -65,7 +65,7 @@ export default {
         companyId: this.companyId,
         bankId: this.bankId,
         year: getYear(this.yearMonth),
-        month: getMonth(this.yearMonth) + 1,
+        month: getMonth(this.yearMonth),
       }
     },
   },

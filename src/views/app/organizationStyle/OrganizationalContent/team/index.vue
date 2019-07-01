@@ -33,7 +33,7 @@ export default {
         label: '团队风采',
         value: 'TeamDemeanor',
       }, {
-        label: '荣誉',
+        label: '荣誉资质',
         value: 'Honor',
       }],
       activeTab: 'TeamDemeanor',
@@ -56,6 +56,7 @@ export default {
   grid-column-end: 3;
   display: grid;
   margin: 30px 0;
+  height: 310px;
 }
 </style>
 <style scoped>

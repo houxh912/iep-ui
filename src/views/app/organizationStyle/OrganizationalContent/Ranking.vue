@@ -21,15 +21,15 @@ export default {
         },
         {
           data: '--',
-          labTitle: '贡献',
+          labTitle: '活跃度',
         },
         {
           data: '--',
-          labTitle: '业绩排名',
+          labTitle: '资产排名',
         },
         {
           data: '--',
-          labTitle: '业绩排名',
+          labTitle: '数据资产',
         },
       ],
     }
@@ -39,6 +39,11 @@ export default {
 <style lang="scss" scoped>
 .ranking {
   margin-bottom: 30px;
+  .el-card {
+    background: none;
+    background-color: whitesmoke;
+    border: 0;
+  }
   .labs-con {
     display: flex;
     justify-content: space-between;

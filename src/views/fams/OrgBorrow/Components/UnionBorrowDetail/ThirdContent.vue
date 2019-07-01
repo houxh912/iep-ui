@@ -1,7 +1,7 @@
 <template>
   <steps-content>
     <el-form class="content-wrapper" ref="form" size="small" :model="data" label-width="150px" disabled>
-      <a-alert :closable="true" type="error" message="集团审核通过后，将无法撤回！" style="margin-bottom: 24px;" />
+      <a-alert :closable="true" type="error" message="集团核准通过后，将无法撤回！" style="margin-bottom: 24px;" />
       <iep-form-item label-name="支付方式">
         <iep-div-detail :value="dictsMap.borrowMoneyType[data.borrowMoneyType]"></iep-div-detail>
       </iep-form-item>
@@ -86,7 +86,7 @@ export default {
     },
     async handleSubmit () {
       try {
-        const { res } = await this.handleCommon('确认审核', groupConfirmBorrow)
+        const { res } = await this.handleCommon('确认核准', groupConfirmBorrow)
         if (res) {
           this.$emit('add', this.data)
         }
@@ -97,7 +97,7 @@ export default {
     },
     async handleReject () {
       try {
-        const { res } = await this.handleCommon('拒绝审核', groupRejectBorrow)
+        const { res } = await this.handleCommon('拒绝核准', groupRejectBorrow)
         if (res) {
           this.handleBack()
         }

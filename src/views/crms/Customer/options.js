@@ -25,6 +25,8 @@ const initForm = () => {
     assertionsSave: 1,
     orgNameForOld: '',//原机构名
     clientAbrName: '',//客户简称
+    toClaim: 1,
+    unionId: '',
   }
 }
 // 全部客户搜索

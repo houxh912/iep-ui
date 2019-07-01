@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="投资审核"></page-header>
+      <page-header title="投资核准"></page-header>
       <operation-container>
         <template slot="right">
           <el-radio-group v-model="status" size="small" @change="handleChange">
@@ -21,7 +21,7 @@
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===1" type="warning" @click="handleReview(scope.row)" plain>审核</iep-button>
+              <iep-button v-if="scope.row.status===1" type="warning" @click="handleReview(scope.row)" plain>核准</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     handleReview (row) {
-      this.$refs['iepReviewForm'].title = '审核'
+      this.$refs['iepReviewForm'].title = '核准'
       this.$refs['iepReviewForm'].id = row.id
       this.$refs['iepReviewForm'].formRequestFn = ReviewInvestmentBatch
       this.$refs['iepReviewForm'].dialogShow = true

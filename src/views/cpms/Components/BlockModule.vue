@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card class="card" v-for="(item) in value" :key="item.id" :body-style="{ padding: '0px', width: '150px' }" shadow="hover">
-      <iep-img :src="item.imageUrl" alt=""></iep-img>
+      <iep-img class="img" :src="item.imageUrl" alt=""></iep-img>
       <div style="padding: 14px;">
         <iep-div-detail :value="item.name"></iep-div-detail>
         <div class="bottom clearfix">
@@ -27,7 +27,7 @@ export default {
 }
 </script>
 <style scoped>
-.card >>> img {
+.card >>> .img {
   width: 100%;
   height: 150px;
   padding: 5px;

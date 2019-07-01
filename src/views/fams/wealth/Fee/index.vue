@@ -37,7 +37,6 @@ import {
 } from '@/api/fams/fee'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
-import { mapMutations } from 'vuex'
 export default {
   mixins: [mixins],
   data () {
@@ -50,38 +49,37 @@ export default {
     this.loadPage()
   },
   methods: {
-    ...mapMutations({
-      setInvoiceDialogShow: 'SET_INVOICE_DIALOG_SHOW',
-    }),
     handleSend (row) {
-      this._handleComfirm(row.id, referFeeById, '发送')
+      this._handleComfirm(row.costId, referFeeById, '发送')
     },
     handleCancel (row) {
-      this._handleComfirm(row.id, withdrawFeeById, '撤回')
+      this._handleComfirm(row.costId, withdrawFeeById, '撤回')
     },
     handleSelectionChange (val) {
-      this.multipleSelection = val.map(m => m.id)
+      this.multipleSelection = val.map(m => m.costId)
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deleteFeeById)
+      this._handleGlobalDeleteById(row.costId, deleteFeeById)
     },
     handleDeleteBatch () {
       this._handleGlobalDeleteAll(deleteFeeBatch)
     },
     handleDetail (row) {
       this.$router.push({
-        path: `/fams_spa/invoice_detail/${row.id}`,
+        path: `/fams_spa/fee_detail/${row.costId}`,
       })
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getMyFeePage)
     },
     handleAdd () {
-      this.setInvoiceDialogShow(true)
+      this.$router.push({
+        path: '/fams_spa/fee_edit/0',
+      })
     },
     handleEdit (row) {
       this.$router.push({
-        path: `/fams_spa/invoice_edit/${row.id}`,
+        path: `/fams_spa/fee_edit/${row.costId}`,
       })
     },
   },

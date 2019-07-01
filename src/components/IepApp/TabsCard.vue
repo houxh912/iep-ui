@@ -49,7 +49,7 @@ export default {
 }
 .index-card >>> .el-tabs__item {
   bottom: -5px;
-  font-size: 16px;
+  font-size: 18px;
 }
 .index-card >>> .el-card__body {
   padding: 0 0 15px;

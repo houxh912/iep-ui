@@ -86,9 +86,9 @@ const columnsMap = [
 ]
 const dictsMap = {
   status: {
-    1: '待审核',
-    2: '审核通过',
-    3: '审核驳回',
+    1: '待核准',
+    2: '核准通过',
+    3: '核准驳回',
   },
 }
 export default {

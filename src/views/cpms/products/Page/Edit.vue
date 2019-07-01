@@ -58,7 +58,7 @@
             <iep-contact-multiple-user v-model="form.userRelationProducts"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="团队成员：">
-            <iep-contact-multiple-user v-model="form.userRelationTeams"></iep-contact-multiple-user>
+            <iep-contact-multiple-user v-model="form.userRelationTeams" :filter-user-list="filterUserList"></iep-contact-multiple-user>
           </el-form-item>
         </el-row>
         <template v-if="isEdit">
@@ -125,6 +125,16 @@ export default {
     },
     methodName () {
       return this.isEdit ? '修改' : '新增'
+    },
+    filterUserList () {
+      const filterUsers = []
+      filterUsers.push(...this.form.userRelationCharges)
+      filterUsers.push(...this.form.userRelationDemands)
+      filterUsers.push(...this.form.userRelationTechnologys)
+      filterUsers.push(...this.form.userRelationProducts)
+      let dupeArray = filterUsers.map(m => m.id)
+      let uniqueArray = Array.from(new Set(dupeArray))
+      return uniqueArray
     },
   },
   created () {

@@ -34,3 +34,10 @@ export function formatTime (time) {
 export function parseToMoney (money) {
   return new Intl.NumberFormat().format(money)
 }
+export function parseToM (v) {
+  if (v === '-') {
+    return v
+  } else {
+    return parseToMoney(v)
+  }
+}

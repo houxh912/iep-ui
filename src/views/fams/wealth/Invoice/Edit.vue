@@ -53,7 +53,7 @@
           <iep-project-select v-model="form.projectId" :project-name="form.projectName"></iep-project-select>
         </iep-form-item>
 
-        <iep-form-item v-if="auditorOption" class="form-half" prop="auditor" label-name="审批人" tip="报销金额超过 1 万，请添加部门班长为审批人">
+        <iep-form-item v-if="auditorOption" class="form-half" prop="auditor" label-name="部门核准" tip="报销金额超过 1 万，请添加部门班长为核准人">
           <iep-contact-select v-model="form.auditor"></iep-contact-select>
         </iep-form-item>
 

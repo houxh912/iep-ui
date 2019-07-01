@@ -1,0 +1,3 @@
+<template>
+  <IepNoData></IepNoData>
+</template>

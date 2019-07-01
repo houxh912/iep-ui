@@ -64,7 +64,7 @@ const initForm = () => {
     'avatar': '', // 头像
     'type': 1, // 
     'deptList': [], // 所属部门
-    'approverList':[],
+    'approverList': [],
     'attachFile': [], // 附件
     'createTime': '', // 创建时间
     'startTime': '', // 开始时间(1:请假开始时间；2:出差开始时间;3:加班开始时间;4:入职时间;5:入职时间）
@@ -86,7 +86,16 @@ const initSearchForm = () => {
     name: '',
     type: '',
     status: '',
+    rangeTime: [],
   }
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm }
+const toDtoSearchForm = (row) => {
+  const newForm = { ...row }
+  newForm.startTime = newForm.rangeTime[0]
+  newForm.endTime = newForm.rangeTime[1]
+  delete newForm.rangeTime
+  return newForm
+}
+
+export { dictsMap, columnsMap, initForm, initSearchForm, toDtoSearchForm }

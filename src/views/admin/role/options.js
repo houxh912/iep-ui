@@ -33,7 +33,7 @@ const columnsMap = [
   },
 ]
 
-const initMemberForm = () => {
+const initForm = () => {
   return {
     roleId:'',
     dsType: '',
@@ -43,4 +43,4 @@ const initMemberForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initMemberForm }
+export { dictsMap, columnsMap, initForm }

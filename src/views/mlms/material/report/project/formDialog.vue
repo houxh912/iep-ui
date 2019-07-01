@@ -5,7 +5,7 @@
       <div class="cancel"><iep-button @click="cancel" type="small">返回</iep-button></div>
     </div>
     <el-form ref="form" :model="formData" :rules="rules">
-      <el-row>
+      <!-- <el-row>
         <el-col :span=12>
           <el-form-item prop="estimateSignTime">
             <div class="title validate">
@@ -57,8 +57,6 @@
                 min=0
                 placeholder="请正确输入非负回款金额"></el-input>
               <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
-              <!-- <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="selectIndex=-1" maxlength="10"></el-input>
-              <div v-else @click="selectIndex=scope.$index" style="min-height: 20px;">{{scope.row.paymentAmount}}</div> -->
             </template>
           </el-table-column>
           <el-table-column prop="menu" label="操作" width="200px">
@@ -68,7 +66,7 @@
           </el-table-column>
         </el-table>
         <div class="create" @click="handleCreate"><i class="el-icon-plus"></i> 新增</div>
-      </el-form-item>
+      </el-form-item> -->
       <div class="title">
           客户需求
           <iep-tip :content="tipContent.clientRqmt"></iep-tip>

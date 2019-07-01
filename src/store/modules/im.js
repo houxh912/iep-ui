@@ -1,4 +1,4 @@
-import { getGroup, clearUnread } from '@/api/im'
+import { getGroup, clearUnread, getGroupMembers } from '@/api/im'
 import { getUserListTree } from '@/api/admin/contacts'
 
 function addChat (state, data, isNew = true) {
@@ -158,8 +158,9 @@ const im = {
     currentChatList: [],
     unreadMap: {},
     unreadTotal: 0,
-    groups: [],
     currentChat: {},
+    groups: [],
+    groupMemberMap: {},
     chatShow: false,
   },
   mutations: {
@@ -226,7 +227,7 @@ const im = {
       state.currentChatList.splice(index, 1)
     },
     initHistory (state, {history, selfId}) {
-      for (let i = 0; i <  history.length; i++) {
+      for (let i = 0; i < history.length; i++) {
         let chat = {}
         let sendOrReceive = ''
         let resourceName = ''
@@ -263,10 +264,14 @@ const im = {
     },
     imClearAll (state) {
       state.messageMap = {}
+      state.messageMore = {}
       state.chatList = []
       state.currentChatList = []
       state.unreadMap = {}
       state.unreadTotal = 0
+      state.currentChat = {}
+      state.groups = {}
+      state.groupMemberMap = {}
     },
     setUserList (state, data) {
       state.userTree = data
@@ -289,6 +294,33 @@ const im = {
     },
     updateGroup (state, data) {
       state.groups.push(data)
+    },
+    updateGroupMember (state, {groupId, ids}) {
+      if (state.groupMemberMap.hasOwnProperty(`group${groupId}`)) {
+        let newMembers = []
+        for (let i = ids.length; i--;) {
+          let user = getUserInfo(state, ids[i])
+          newMembers.push({
+            id: groupId,
+            membersId: user.id,
+            avatar: user.avatar,
+            membersName: user.username,
+            realName: user.realName,
+          })
+        }
+        let members = Object.assign([], state.groupMemberMap[`group${groupId}`])
+        state.groupMemberMap[`group${groupId}`] = [...members, ...newMembers]
+      }
+    },
+    innitGroupMember (state, {groupId, data}) {
+      if (state.groupMemberMap.hasOwnProperty(`group${groupId}`)) {
+        let members = Object.assign([], state.groupMemberMap[`group${groupId}`])
+        state.groupMemberMap[`group${groupId}`] = [...members, ...data]
+      } else {
+        let members = {}
+        members[`group${groupId}`] = data
+        state.groupMemberMap = {...state.groupMemberMap, ...members}
+      }
     },
   },
   actions: {
@@ -323,6 +355,18 @@ const im = {
         getUserListTree().then(({data}) => {
           commit('setUserList', data.data)
           resolve()
+        })
+      })
+    },
+    setGroupMembers ({ commit }, groupId) {
+      return new Promise((resolve, reject) => {
+        getGroupMembers({groupId}).then(({data}) => {
+          if (data.code === 0) {
+            commit('innitGroupMember', {groupId, data: data.data})
+            resolve(data.data)
+          }
+        }, error => {
+          reject(error)
         })
       })
     },

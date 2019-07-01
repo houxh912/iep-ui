@@ -1,8 +1,8 @@
 <template>
   <div class="menus">
-    <a-menu @click="handleClick" mode="inline">
-      <a-menu-item v-for="(item,index) in data" :key="index">
-        <router-link  :to="item.path" >{{item.levelName}}</router-link>
+    <a-menu @click="handleClick" mode="inline" v-model="current">
+      <a-menu-item v-for="(item) in data" :key="item.levelName">
+        <router-link :to="pathObject(item.path)">{{item.levelName}}</router-link>
       </a-menu-item>
     </a-menu>
   </div>
@@ -13,6 +13,7 @@
 export default {
   data () {
     return {
+      current: ['组织介绍'],
       data: [
         {levelName:'组织介绍',materialCount:'11',path:'introduction'},
         {levelName:'组织成员',materialCount:'11',path:'member'},
@@ -30,6 +31,17 @@ export default {
     titleClick () {
       // console.log('titleClick', e)
     },
+    pathObject (path) {
+      return { path: path, query: this.$route.query }
+    },
+  },
+  created () {
+    let path = this.$route.path.split('/')
+    for (let item of this.data) {
+      if (path[3] === item.path) {
+        this.current = [item.levelName]
+      }
+    }
   },
 }
 </script>

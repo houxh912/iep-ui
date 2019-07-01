@@ -59,9 +59,9 @@
         @close="loadPage()"></progress-form>
     </iep-dialog>
 
-    <!-- <el-dialog class="titleDialogs" title="笔试判分" :visible.sync="dialogWritten" width="90%" @close="loadPage()"> -->
-      <writte-form dialog-show="dialogWritten" :formData="InterviewData" v-if="dialogWritten" @close="loadPage()"></writte-form>
-    <!-- </el-dialog> -->
+    <iep-dialog :dialog-show="dialogWritten" title="笔试判分" width="90%" @close="loadPage()" class="writte-form">
+      <writte-form :formData="InterviewData" @close="loadPage()"></writte-form>
+    </iep-dialog>
 
     <iep-dialog :dialog-show="dialogInterview" title="面试判分" width="550px" @close="loadPage()"
       center>
@@ -354,6 +354,14 @@ export default {
 }
 .topBtn {
   padding: 3px 0 3px 0;
+}
+</style>
+<style lang="css" scoped>
+.writte-form >>> .el-dialog {
+  margin-top: 8vh !important;
+}
+.writte-form >>> .wrap-dialog {
+  max-height: 72vh;
 }
 </style>
 

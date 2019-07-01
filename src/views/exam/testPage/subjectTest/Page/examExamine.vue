@@ -133,8 +133,9 @@
                 <ul>
                   <li v-for="(textItem,index) in textMap" :key="index+1" :id="'text_'+(index+1)">
                     <div class="question-title">{{textItem.title}} <span>({{textItem.grade}}分)</span></div>
-                    <iep-input-area :autosize={minRows:8,maxRows:6} v-model="textItem.userAnswer"
-                      placeholder="" readonly></iep-input-area>
+                    <!-- <iep-input-area :autosize={minRows:8,maxRows:6} v-model="textItem.userAnswer"
+                      placeholder="" readonly></iep-input-area> -->
+                    <iep-html v-model="textItem.userAnswer"></iep-html>
                     <div class="question-analysis">
                       <p>正确答案：<span>{{textItem.itemAnswer}}</span></p>
                       <p>答案解析：<span>{{textItem.itemExplain}}</span></p>
@@ -345,7 +346,7 @@ export default {
             margin: 0px;
             list-style: decimal;
             li {
-              margin-top: 20px;
+              margin-top: 30px;
               font-weight: 700;
 
               &:first-child {
@@ -444,6 +445,12 @@ export default {
       }
     }
   }
+}
+.fr-view {
+  border: 1px solid #dcdfe6;
+  padding: 15px;
+  border-radius: 4px;
+  font-weight: 400;
 }
 </style>
 <style scoped>

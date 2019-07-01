@@ -1,10 +1,10 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="我的交易"></iep-page-header>
+      <iep-page-header title="我的交易" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="primary" @click="handleTransaction" icon="el-icon-plus" plain>发起交易</iep-button>
+          <iep-button v-if="userInfo.userId !== 1" type="primary" @click="handleTransaction" icon="el-icon-plus" plain>发起交易</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="hash">
@@ -18,8 +18,9 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { columnsMap } from './options'
-import { getMyPage } from '@/api/fams/block_chain'
+import { getMyPage, getAmountByUserId } from '@/api/fams/block_chain'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 export default {
@@ -29,10 +30,16 @@ export default {
     return {
       columnsMap,
       isLoadTable: false,
+      replaceText: (data) => `（余额${data[0]}元）`,
+      statistics: [0],
     }
+  },
+  computed: {
+    ...mapGetters(['userInfo']),
   },
   created () {
     this.loadPage()
+    this.loadSelfAmount()
   },
   methods: {
     handleTransaction () {
@@ -40,6 +47,11 @@ export default {
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getMyPage)
+    },
+    loadSelfAmount () {
+      getAmountByUserId(this.userInfo.userId).then(({ data }) => {
+        this.statistics = [data.data.balance]
+      })
     },
   },
 }

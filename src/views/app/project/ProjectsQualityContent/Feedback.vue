@@ -69,6 +69,8 @@ export default {
     .box {
       height: 62px;
       .pieceTitle {
+        margin-bottom: 10px;
+        line-height: 14px;
         .name {
           font-size: 16px;
           margin-right: 8px;

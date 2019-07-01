@@ -84,6 +84,9 @@ export default {
       display: block;
       line-height: 28px;
     }
+    .numTotal {
+      font-size: 18px;
+    }
     .num {
       margin: 0 5px;
       font-size: 24px;

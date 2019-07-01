@@ -68,8 +68,8 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-flow: row dense;
-  grid-row-gap: 20px;
-  grid-column-gap: 20px;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
   .piece {
     cursor: pointer;
     height: 30px;

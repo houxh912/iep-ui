@@ -46,7 +46,7 @@ export default {
   grid-row-gap: 20px;
   grid-column-gap: 25px;
   grid-template-columns: minmax(300px, 30fr) minmax(550px, 55fr) minmax(
-      550px,
+      300px,
       30fr
     );
   .index-card {

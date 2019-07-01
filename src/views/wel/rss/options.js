@@ -21,7 +21,7 @@ const columnsMap = [
     prop: 'time',
     label: '更新时间',
   },
-  
+
 ]
 
 const initForm = () => {
@@ -32,11 +32,9 @@ const initForm = () => {
   }
 }
 
-const initSearchForm = () => {
-  return {
-    name: '',
-    sex: '',
-  }
+const toDtoForm = (row) => {
+  const newForm = { ...row }
+  return newForm
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm }
+export { dictsMap, columnsMap, initForm, toDtoForm }

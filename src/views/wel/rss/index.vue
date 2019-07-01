@@ -6,21 +6,22 @@
           <span class="title">订阅目录</span>
         </div>
         <el-menu :default-active="selectType" class="menu-vertical">
-          <el-menu-item class="menu-item" :key="index" v-for="(item,index) in imsMsgType">
+          <el-menu-item class="menu-item" :key="index" v-for="(item,index) in rssType" @click="handleSelect(item)">
             <span>{{item.label}}</span>
           </el-menu-item>
         </el-menu>
       </el-card>
     </el-col>
     <el-col :span="20">
-      <page-header title="我的订阅"></page-header>
-      <div class="info">
+      <page-header :title="rssTitle"></page-header>
+      <!-- <div class="info">
         <span>我的订阅模块主要为个人在内网中订阅的内容。</span>
         <span class="red">我的订阅模块还在开发中，敬请期待，本页面仅为样式效果演示</span>
-      </div>
+      </div> -->
       <operation-container>
         <template slot="left">
-          <el-dropdown size="medium">
+          <iep-button type="primary" @click="handleAdd()" plain>订阅主题</iep-button>
+          <!-- <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>删除</el-dropdown-item>
@@ -28,32 +29,36 @@
               <el-dropdown-item @click.native="handleCollectAll">收藏</el-dropdown-item>
               <el-dropdown-item>分享</el-dropdown-item>
             </el-dropdown-menu>
-          </el-dropdown>
+          </el-dropdown> -->
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage"></operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <template slot="before-columns">
         </template>
-        <el-table-column prop="operation" label="操作" width="260">
+        <el-table-column prop="operation" label="操作" width="160">
           <template>
             <operation-wrapper>
-              <iep-button type="warning" plain>收藏</iep-button>
-              <iep-button>分享</iep-button>
+              <!-- <iep-button type="warning" plain>收藏</iep-button> -->
+              <!-- <iep-button>分享</iep-button> -->
               <iep-button>取消订阅</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
     </el-col>
+    <dialog-form ref="DialogForm"></dialog-form>
   </el-row>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
+import { getRssGmsPage } from '@/api/rss/gms'
+import DialogForm from './DialogForm'
 export default {
+  components: { DialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -66,15 +71,15 @@ export default {
         { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
         { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
         { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
+        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
+        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
+        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
+        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
       ],
-      imsMsgType: [
-        { label: '技术文档', value: '1' },
-        { label: '产品解决方案', value: '1' },
-        { label: '培训/课程', value: '1' },
-        { label: '制度文件', value: '1' },
-        { label: '会议纪要', value: '1' },
-        { label: '学习资源', value: '1' },
+      rssType: [
+        { label: '国策主题', value: '1' },
       ],
+      rssTitle: '我的订阅',
       selectType: '0',
       bodyStyle: {
         padding: 0,
@@ -82,23 +87,18 @@ export default {
     }
   },
   methods: {
-    handleSelectionChange () {
-    },
     handleAdd () {
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleDetail () {
     },
-    handleSelectType (k) {
-      this.selectType = k
+    handleSelect (item) {
+      this.rssTitle = item.label
+      this.selectType = item.value
       this.loadPage()
     },
-    // 导出
-    handleExporthandleExport () {
-      this.$message.error('抱歉，此功能尚未开发')
-    },
-    // 收藏
-    handleCollectAll () {
-      this.$message.error('抱歉，此功能尚未开发')
+    loadPage () {
+      getRssGmsPage()
     },
   },
 }

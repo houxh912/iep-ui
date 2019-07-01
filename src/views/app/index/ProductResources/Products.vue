@@ -2,7 +2,9 @@
   <div class="products">
     <el-scrollbar style="height:100%">
       <div v-for="(item, index) in productsList" :key="index" class="piece">
-        <div class="img"><iep-img :src="item.image_url" :alt="item.name"></iep-img></div>
+        <div class="img">
+          <iep-img :src="item.image_url" :alt="item.name"></iep-img>
+        </div>
         <div class="box">
           <span class="name">{{item.name}}</span>
           <span class="desc">{{item.synopsis}}</span>
@@ -22,7 +24,7 @@ export default {
   },
   methods: {
     loadList () {
-      getDetailsIndex().then(({data}) => {
+      getDetailsIndex().then(({ data }) => {
         this.productsList = data.data
       })
     },
@@ -34,42 +36,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.products{
+.products {
   height: 304px;
-  padding-left: 15px;
-  .piece{
+  .piece {
     overflow: hidden;
     margin-bottom: 15px;
   }
-  .img{
-    width: 140px;
+  .img {
+    width: 130px;
     height: 80px;
     float: left;
     margin: 0 15px 0 0;
     overflow: hidden;
-    border:1px solid #eee;
+    border: 1px solid #eee;
     > iep-img {
       &:hover {
         transform: scale(1.1);
       }
     }
   }
-  .box{
+  .box {
     width: 355px;
     height: 80px;
     float: left;
-    .name{
+    .name {
+      display: block;
+      margin-bottom: 5px;
       width: 100%;
       font-size: 16px;
-      height: 36px;
-      line-height: 36px;
+      line-height: 24px;
     }
-    .desc{
+    .desc {
       width: 100%;
       line-height: 20px;
       font-size: 14px;
       color: #999;
-      overflow : hidden;
+      overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -79,9 +81,13 @@ export default {
 }
 </style>
 <style scoped>
-.products >>> .el-image__inner{
+.products >>> .el-image__inner {
   width: 140px;
   height: 80px;
   transition: 0.5s;
+}
+
+.products >>> :hover ::-webkit-scrollbar-thumb {
+  display: block;
 }
 </style>

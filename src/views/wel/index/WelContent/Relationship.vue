@@ -47,7 +47,8 @@ export default {
     },
     loadTypeList () {
       getRelationshipList().then(({ data }) => {
-        this.relationship = data.data
+        this.relationship = data.data.splice(0,3)
+        this.relationship[0].name = '好友'
       })
       getCustomList().then(({ data }) => {
         this.content = data.data

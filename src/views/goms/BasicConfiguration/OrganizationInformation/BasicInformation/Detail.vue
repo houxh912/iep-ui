@@ -26,6 +26,12 @@
                   <span class="value">{{form.contactMethod}}</span>
                 </div>
               </div>
+              <div class="col">
+                <div class="form-item-wrapper">
+                  <label for="">联系地址：</label>
+                  <span class="value">{{form.address}}</span>
+                </div>
+              </div>
             </div>
           </div>
           <iep-divider dashed />
@@ -102,6 +108,7 @@ export default {
     loadPage () {
       getOrgBySelf(this.orgId).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
+        console.log('form: ', this.form)
       })
     },
   },

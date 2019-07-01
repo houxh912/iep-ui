@@ -286,7 +286,9 @@ export default {
           data.groupExternalCooperatePartner
         )
         // 判断是否关联合同，若关联，修改字段，并获取到合同的金额
-        // 
+        if (data.contractList && data.contractList.length > 0) {
+          data.projectAmount = data.contractList[0].amount
+        }
         this.formData = Object.assign({}, this.formData, data)
         this.methodName = '修改'
       }

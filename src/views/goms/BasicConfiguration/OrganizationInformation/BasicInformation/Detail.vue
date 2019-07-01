@@ -108,7 +108,6 @@ export default {
     loadPage () {
       getOrgBySelf(this.orgId).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
-        console.log('form: ', this.form)
       })
     },
   },

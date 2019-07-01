@@ -11,48 +11,58 @@
               <iep-button type="primary" @click="submit">保存</iep-button>
             </div>
           </div>
+
           <div class='input-content'>
-            <iep-input-area :autosize='{minRows:23,maxRows:23}' placeholder='请将当前所选题型的所有试题复制到这里'
-              :value='testQuestions' @input='editor(arguments[0])'></iep-input-area>
+            <!-- <el-input type="textarea" :autosize="{minRows:23,maxRows:23}" placeholder='请将当前所选题型的所有试题复制到这里'
+              v-model="testQuestions">
+              <el-scrollbar>
+                <slot></slot>
+              </el-scrollbar>
+            </el-input> -->
+
+            <iep-input-area :autosize='{minRows:24,maxRows:24}' placeholder='请将当前所选题型的所有试题复制到这里'
+              :value='testQuestions' @input='editor(arguments[0])'>
+            </iep-input-area>
+
           </div>
-          <!-- <el-button type='primary' @click="submit">提交</el-button> -->
-          <!-- <el-button>保存</el-button> -->
         </div>
 
-        <el-aside width='50%' class='inspection-area'>
+        <el-aside class="inspection-area" width='50%'>
           <div class='inspection-title'>
             <iep-button type='text' style='color:black;font-size:16px'>检查区</iep-button>
             <span class="error-text" v-show="errorCount>0">共{{errorCount}}处错误，请参照例题修改</span>
           </div>
-          <div id="inspectionContent">
-            <div class='question' v-for="(item,index) in itemBankList" :key="index">
-              <p v-if="item.title">
-                <pre><span class="caption">{{index+1}}.</span>{{item.title}}</pre>
-              </p>
-              <p class='qt_error' v-else>题目（至少两个字）</p>
-              <p class='qt_error' v-if="item.titleOptions.length<2 && (value===13 || value===12)">选项（至少两项）</p>
-              <ul v-if="value===13">
-                <li v-for="(option,index) in item.titleOptions" :key="index" :class="option.class">
-                  <el-radio v-model="item.answer" :label="option.key"> <span class="caption">{{option.key}}.</span>{{option.value}}</el-radio>
-                </li>
-              </ul>
-              <el-checkbox-group v-model="item.answer" v-if="value===12">
-                <el-checkbox v-for="(option,index) in item.titleOptions" :label="option.key" :key="index"
-                  :class="option.class">
-                  <span class="caption">{{option.key}}.</span>{{option.value}}
-                </el-checkbox>
-              </el-checkbox-group>
-              <p v-if="item.answer"><span class="caption">答案：</span>{{item.answer}}</p>
-              <p class='qt_error' v-else>答案：</p>
-              <p v-if="item.analysis"><span class="caption">解析：</span>{{item.analysis}}</p>
-              <p v-if="item.tag"><span class="caption">标签：</span>{{item.tag}}</p>
-              <p class='qt_error' v-else>标签（至少三个标签）</p>
+          <el-scrollbar>
+            <div id="inspectionContent">
+              <div class='question' v-for="(item,index) in itemBankList" :key="index">
+                <p v-if="item.title">
+                  <pre><span class="caption">{{index+1}}.</span>{{item.title}}</pre>
+                </p>
+                <p class='qt_error' v-else>题目（至少两个字）</p>
+                <p class='qt_error' v-if="item.titleOptions.length<2 && (value===13 || value===12)">选项（至少两项）</p>
+                <ul v-if="value===13">
+                  <li v-for="(option,index) in item.titleOptions" :key="index" :class="option.class">
+                    <el-radio v-model="item.answer" :label="option.key"> <span class="caption">{{option.key}}.</span>{{option.value}}</el-radio>
+                  </li>
+                </ul>
+                <el-checkbox-group v-model="item.answer" v-if="value===12">
+                  <el-checkbox v-for="(option,index) in item.titleOptions" :label="option.key" :key="index"
+                    :class="option.class">
+                    <span class="caption">{{option.key}}.</span>{{option.value}}
+                  </el-checkbox>
+                </el-checkbox-group>
+                <p v-if="item.answer"><span class="caption">答案：</span>{{item.answer}}</p>
+                <p class='qt_error' v-else>答案：</p>
+                <p v-if="item.analysis"><span class="caption">解析：</span>{{item.analysis}}</p>
+                <p v-if="item.tag"><span class="caption">标签：</span>{{item.tag}}</p>
+                <p class='qt_error' v-else>标签（至少三个标签）</p>
+              </div>
             </div>
-          </div>
+          </el-scrollbar>
         </el-aside>
       </el-container>
     </div>
-    <iep-dialog :dialog-show='dialogShow' title='例题示范' @close='dialogShow=false'>
+    <el-dialog :visible.sync='dialogShow' width="500px" title='例题示范' @close='dialogShow=false'>
       <div class='dialog-body'>
         <div class='accordion batch-cont' v-show='value===13'>
           <div class='accordion-group'>
@@ -152,7 +162,7 @@
 
       </div>
 
-    </iep-dialog>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -289,26 +299,6 @@ export default {
             break
           }
         }
-
-        // if (title_reg.test(jsonml[i][0])) {
-        //   this.count++
-        //   if (this.count > 1) {
-        //     //出现下一个title意味着上一题结束，重新初始化
-        //     this.itemBank = { titleOptions: [] }
-        //   }
-        //   this.itemBankList.push(this.itemBank)
-        // }
-        // if (jsonml[i][0].match(/^[A-Z]/)) {
-        //   if (this.countOccurences(this.itemBank.titleOptions, jsonml[i][0]) === 0) {
-        //     this.itemBank.titleOptions.push({ key: jsonml[i][0], value: jsonml[i][1] })
-        //   } else {
-        //     this.itemBank.titleOptions.push({ class: 'qt_error', key: jsonml[i][0], value: jsonml[i][1] })
-        //   }
-        //   sortKey(this.itemBank.titleOptions, 'key')
-        // } else {
-        //   this.itemBank[jsonml[i][0]] = jsonml[i][1]
-        // }
-        // this.itemBankList.slice(this.count - 1, 1, { ...this.itemBank })
         // 题目计数
         if (title_reg.test(jsonml[i][0])) {
           this.count++
@@ -353,17 +343,16 @@ export default {
   .input-area {
     flex: 1;
     .input-title {
+      margin-bottom: 15px;
       display: flex;
       justify-content: space-between;
-    }
-    .input-content {
-      margin: 15px 0px;
     }
   }
 
   .inspection-area {
     margin-left: 3%;
     .inspection-title {
+      margin-bottom: 15px;
       .error-text {
         margin-left: 10px;
         color: #f00;
@@ -371,9 +360,7 @@ export default {
     }
 
     #inspectionContent {
-      margin: 15px 0px;
       height: 500px;
-      overflow: auto;
       .question {
         position: relative;
         margin-bottom: 17px;
@@ -420,11 +407,26 @@ export default {
 }
 
 .dialog-body {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  font-family: "Microsoft yahei";
   .accordion-group {
     h2 {
       text-align: center;
     }
+    .b-example {
+      h3 {
+        line-height: 30px;
+        font-size: 16px;
+        color: #6b6b6b;
+      }
+      .exam-notes {
+        color: #f00;
+      }
+    }
   }
 }
 </style>
+
 

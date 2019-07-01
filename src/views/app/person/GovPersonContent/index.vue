@@ -29,7 +29,7 @@
       <gov-document></gov-document>
       <thoughts></thoughts>
     </div>
-    <div class="copies copies2">
+    <div class="copies">
       <!-- <interactive-zone></interactive-zone>
       <reward></reward>
       <feedback></feedback> -->
@@ -55,16 +55,16 @@ import GovDocument from './GovDocument/'
 // import TalentAdvantage from './TalentAdvantage'
 
 export default {
-  components: { 
-    GovPersonImg, 
-    GovPersonNotice, 
-    Thoughts, 
-    ShortagePosts, 
-    GovTags, 
-    Carousel, 
-    TrainingNotice, 
-    HotCourse, 
-    ExcellentLecturer, 
+  components: {
+    GovPersonImg,
+    GovPersonNotice,
+    Thoughts,
+    ShortagePosts,
+    GovTags,
+    Carousel,
+    TrainingNotice,
+    HotCourse,
+    ExcellentLecturer,
     // InteractiveZone, 
     // Reward, 
     // Feedback, 
@@ -90,7 +90,8 @@ export default {
     grid-column-gap: 25px;
     grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
   }
-  .first-img, .second-img {
+  .first-img,
+  .second-img {
     margin: 20px 0;
   }
   .block {
@@ -107,9 +108,6 @@ export default {
         100px,
         2fr
       );
-  }
-  .copies2 {
-    margin-bottom: 25px;
   }
 }
 </style>

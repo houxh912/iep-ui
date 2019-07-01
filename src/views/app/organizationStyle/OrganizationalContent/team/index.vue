@@ -43,7 +43,7 @@ export default {
   },
   watch: {
     orgId (newVal) {
-      getHonorList(newVal).then(({data}) => {
+      getHonorList(newVal).then(({ data }) => {
         this.honorList = data.data
       })
     },

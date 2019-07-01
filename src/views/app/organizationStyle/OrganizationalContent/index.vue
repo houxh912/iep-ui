@@ -5,7 +5,7 @@
       <organization-right-top :data="data"></organization-right-top>
     </div>
     <div class="middle">
-      <middle :data="data"></middle>
+      <team :data="data" :orgId="data.orgId"></team>
     </div>
     <div class="organization-content">
       <organization-left-d :data="data"></organization-left-d>
@@ -18,14 +18,14 @@ import OrganizationLeftTop from './OrganizationLeftTop'
 import OrganizationRightTop from './OrganizationRightTop'
 import OrganizationLeftD from './OrganizationLeftD'
 import OrganizationRightD from './OrganizationRightD'
-import Middle from './Middle'
+import team from './team/'
 export default {
   props: {
     data: {
       type: Object,
     },
   },
-  components: { OrganizationLeftTop, OrganizationRightTop, Middle, OrganizationRightD, OrganizationLeftD },
+  components: { OrganizationLeftTop, OrganizationRightTop, team, OrganizationRightD, OrganizationLeftD },
 }
 </script>
 <style lang="scss" scoped>

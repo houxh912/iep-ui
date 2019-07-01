@@ -18,6 +18,10 @@
 <script>
 const firstFormList = [
   {
+    name: '工号',
+    value: 'GM000276',
+  },
+  {
     name: '岗位',
     value: 'positionName',
   }, {
@@ -70,8 +74,8 @@ export default {
 <style lang="scss" scoped>
 .userInfo {
   display: flex;
+  flex-direction: column;
   .row {
-    width: 50%;
     display: flex;
     flex-wrap: wrap;
     .item {
@@ -86,25 +90,11 @@ export default {
     }
   }
   .first {
-    .item:nth-child(odd){
-      width: 50%;
-      .label {
-        width: 44px;
-      }
-    }
-    .item:nth-child(even){
-      width: 50%;
-      .label {
-        width: 120px;
-      }
-    }
-  }
-  .second {
-    .label {
-      width: 120px;
-    }
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
     .item {
-      width: 100%;
+      width: 25%;
     }
   }
 }

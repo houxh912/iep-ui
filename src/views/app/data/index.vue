@@ -87,7 +87,7 @@ export default {
   display: grid;
   grid-column-gap: 20px;
   grid-auto-flow: row dense;
-  grid-template-columns: minmax(100px, 130px) minmax(100px, 1070px);
+  grid-template-columns: minmax(100px, 139px) minmax(100px, 1061px);
   .test {
     width: 100%;
     padding: 20px;
@@ -97,7 +97,7 @@ export default {
     }
   }
   .right {
-    margin: 10px 0 30px;
+    margin: 10px 0 10px;
   }
   .half {
     display: grid;

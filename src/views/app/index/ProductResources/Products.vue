@@ -1,7 +1,7 @@
 <template>
   <div class="products">
     <el-scrollbar style="height:100%">
-      <div v-for="(item, index) in productsList" :key="index" class="piece">
+      <div v-for="(item, index) in productsList" :key="index" class="piece" @click="handleDetail(item)">
         <div class="img">
           <iep-img :src="item.image_url" :alt="item.name"></iep-img>
         </div>
@@ -32,6 +32,9 @@ export default {
   created () {
     this.loadList()
   },
+  handleDetail (row) {
+    this.$router.push(row.path)
+  },
 }
 </script>
 
@@ -41,6 +44,10 @@ export default {
   .piece {
     overflow: hidden;
     margin-bottom: 15px;
+    cursor: pointer;
+    &:hover .name {
+      color: #cb3737;
+    }
   }
   .img {
     width: 130px;
@@ -49,7 +56,7 @@ export default {
     margin: 0 15px 0 0;
     overflow: hidden;
     border: 1px solid #eee;
-    > iep-img {
+    > .iep-img {
       &:hover {
         transform: scale(1.1);
       }
@@ -85,9 +92,5 @@ export default {
   width: 140px;
   height: 80px;
   transition: 0.5s;
-}
-
-.products >>> :hover ::-webkit-scrollbar-thumb {
-  display: block;
 }
 </style>

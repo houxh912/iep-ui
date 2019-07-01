@@ -51,9 +51,9 @@ export default {
     margin-bottom: 20px;
     overflow: hidden;
     .img-con {
-      float: left;
       margin-right: 15px;
-      width: 60px;
+      min-width: 60px;
+      max-width: 60px;
       height: 60px;
       border: 1px solid #ebeef5;
       overflow: hidden;
@@ -67,8 +67,6 @@ export default {
       }
     }
     .box {
-      float: left;
-      width: 270px;
       height: 62px;
       .pieceTitle {
         .name {
@@ -92,6 +90,9 @@ export default {
         &:hover {
           color: #ba1b21;
         }
+      }
+      .feed {
+        text-align: justify;
       }
     }
     &:last-child {

@@ -54,7 +54,7 @@ export default {
 .statistics {
   padding: 0 0 20px;
   .title {
-    padding-bottom: 10px;
+    padding-bottom: 18px;
     font-size: 16px;
     color: #333;
     border-bottom: 1px solid #eee;

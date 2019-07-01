@@ -1,5 +1,5 @@
 <template>
-  <div class="operation-wrapper">
+  <div class="operation-wrapper" @click.stop>
     <slot></slot>
   </div>
 </template>

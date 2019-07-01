@@ -59,7 +59,7 @@ export default {
       })
     },
     handleDownload () {
-      postAppprovalExcelExport()
+      postAppprovalExcelExport(this.searchForm)
     },
     async loadPage (param = this.searchForm) {
       const data = await this.loadTable(param, getAdministrativeApprovalPage)

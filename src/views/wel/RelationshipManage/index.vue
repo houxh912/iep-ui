@@ -15,6 +15,9 @@
                 <span>{{item.label}}</span>
               </el-menu-item>
             </el-submenu> -->
+            <el-menu-item index="1" @click.native="handleAllPeople(1001)">
+              <span slot="title">国脉人</span>
+            </el-menu-item>
             <el-submenu index="2" collapse>
               <template slot="title">
                 <span>我的关系</span>
@@ -156,7 +159,9 @@ export default {
         this.sort.jobId=''
         this.sort.professionalTitleId='1'
       }
-      this.$refs['OperationSearch'].input = ''
+      if (typeof this.$refs['OperationSearch']!='undefined'){
+        this.$refs['OperationSearch'].input = ''
+      }
       this.searchPage()
     },
     handleRemove (row) {
@@ -227,7 +232,9 @@ export default {
     handleSelectType (k) {
       this.groupType = k
       this.mark = 'group'
-      this.$refs['OperationSearch'].input = ''
+      if (typeof this.$refs['OperationSearch']!='undefined'){
+        this.$refs['OperationSearch'].input = ''
+      }
       this.searchPage()
     },
     loadTypeList () {

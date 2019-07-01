@@ -8,24 +8,28 @@
       <team :data="data" :orgId="data.orgId"></team>
     </div>
     <div class="organization-content">
-      <organization-left-d :data="data"></organization-left-d>
-      <organization-right-d :data="data"></organization-right-d>
+      <talent-demand :orgId="data.orgId" :data="data"></talent-demand>
+      <texture-score :data="data"></texture-score>
+      <products-services :orgId="data.orgId" :data="data"></products-services>
+      <collaborative-record :data="data"></collaborative-record>
     </div>
   </div>
 </template>
 <script>
 import OrganizationLeftTop from './OrganizationLeftTop'
 import OrganizationRightTop from './OrganizationRightTop'
-import OrganizationLeftD from './OrganizationLeftD'
-import OrganizationRightD from './OrganizationRightD'
+import TalentDemand from './TalentDemand'
+import TextureScore from './TextureScore'
 import team from './team/'
+import ProductsServices from './ProductsServices'
+import CollaborativeRecord from './CollaborativeRecord'
 export default {
   props: {
     data: {
       type: Object,
     },
   },
-  components: { OrganizationLeftTop, OrganizationRightTop, team, OrganizationRightD, OrganizationLeftD },
+  components: { OrganizationLeftTop, OrganizationRightTop, team, ProductsServices, TalentDemand, TextureScore, CollaborativeRecord },
 }
 </script>
 <style lang="scss" scoped>

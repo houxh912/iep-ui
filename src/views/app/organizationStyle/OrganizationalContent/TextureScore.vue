@@ -96,9 +96,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.texture-score {
-  margin: 20px 0 25px;
-}
 .texture-score-list {
   max-height: 261px;
   .piece {

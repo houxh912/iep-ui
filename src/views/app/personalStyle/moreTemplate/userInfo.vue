@@ -19,7 +19,7 @@
 const firstFormList = [
   {
     name: '工号',
-    value: 'GM000276',
+    value: '',
   },
   {
     name: '岗位',

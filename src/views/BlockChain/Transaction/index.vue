@@ -7,7 +7,7 @@
           <iep-button type="primary" @click="handleTransaction" icon="el-icon-plus" plain>发起交易</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" prop="hash">
           </operation-search>
         </template>
       </operation-container>

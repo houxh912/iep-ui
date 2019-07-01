@@ -6,8 +6,9 @@
         <template slot="left">
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
-            <advance-search @search-page="searchPage"></advance-search>
+          <operation-search @search-page="searchPage" prop="hash">
+            <!-- advance-search -->
+            <!-- <advance-search @search-page="searchPage"></advance-search> -->
           </operation-search>
         </template>
       </operation-container>
@@ -20,9 +21,9 @@
 import { columnsMap } from './options'
 import { getPage } from '@/api/fams/block_chain'
 import mixins from '@/mixins/mixins'
-import AdvanceSearch from './AdvanceSearch'
+// import AdvanceSearch from './AdvanceSearch'
 export default {
-  components: { AdvanceSearch },
+  // components: { AdvanceSearch },
   mixins: [mixins],
   data () {
     return {

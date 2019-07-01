@@ -10,7 +10,7 @@
           </operation-wrapper>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" prop="hash">
           </operation-search>
         </template>
       </operation-container>

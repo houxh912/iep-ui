@@ -52,9 +52,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .statistics {
-  padding: 0 0 20px;
+  padding: 0 0 15px;
   .title {
-    padding-bottom: 18px;
+    padding-bottom: 15px;
     font-size: 16px;
     color: #333;
     border-bottom: 1px solid #eee;

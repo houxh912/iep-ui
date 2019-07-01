@@ -135,6 +135,10 @@ export default {
 .data >>> .el-table td {
   border: 0;
 }
+.data >>> .el-table th,
+.data >>> .el-table td {
+  padding: 6px 0;
+}
 .data >>> .el-table::before {
   height: 0;
   background: none;

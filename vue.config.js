@@ -6,53 +6,17 @@ const isProduction = process.env.NODE_ENV === 'production'
 const cdn = {
   css: [],
   js: [
-    'https://cdn.bootcss.com/vue/2.6.10/vue.runtime.min.js',
-    'https://cdn.bootcss.com/vue-router/3.0.4/vue-router.min.js',
-    'https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js',
-    'https://cdn.bootcss.com/axios/0.18.0/axios.min.js',
-  ]
+    '//unpkg.com/vue@2.6.10/dist/vue.runtime.min.js',
+    '//unpkg.com/vue-router@3.0.4/dist/vue-router.min.js',
+    '//unpkg.com/vuex@3.0.1/dist/vuex.min.js',
+    '//unpkg.com/axios@0.19.0/dist/axios.min.js',
+  ],
 }
 
 module.exports = {
   lintOnSave: true,
-  // pages: {
-  //   index: {
-  //     // page 的入口
-  //     entry: isProduction ? 'src/main.js' : 'src/main.dev.js',
-  //     // 模板来源
-  //     template: isProduction ? 'public/index.html' : 'public/index.dev.html',
-  //   },
-  // },
-  // configureWebpack: {
-  //   externals: isProduction
-  //     ? {
-  //       vue: 'Vue',
-  //       vuex: 'Vuex',
-  //       'vue-router': 'VueRouter',
-  //       'element-ui': 'ELEMENT',
-  //       '@smallwei/avue/lib/index.js': 'AVUE',
-  //     }
-  //     : undefined,
-  // },
   chainWebpack: config => {
-    // config.resolve.symlinks(true)
-    // config.plugin('preload').tap(options => {
-    //   options[0] = {
-    //     rel: 'preload',
-    //     as (entry) {
-    //       if (/\.css$/.test(entry)) return 'style'
-    //       if (/\.(woff||ttf))$/.test(entry)) return 'font'
-    //       if (/\.png)$/.test(entry)) return 'image'
-    //       return 'script'
-    //     },
-    //     include: 'allAssets',
-    //     fileBlacklist: [/\.map$/, /hot-update\.js$/],
-    //   }
-    // })
-    // config
-    //   .entry('index')
-    //   .add('babel-polyfill')
-    //   .end()
+    config.entry('index').add('babel-polyfill').end()
     if (isProduction) {
       // 删除预加载
       config.plugins.delete('preload')
@@ -65,9 +29,9 @@ module.exports = {
       })
       // 生产环境注入cdn
       config.plugin('html').tap(args => {
-        args[0].cdn = cdn;
-        return args;
-      });
+        args[0].cdn = cdn
+        return args
+      })
     }
     config
       .plugin('webpack-context-replacement')
@@ -96,7 +60,7 @@ module.exports = {
         'vue': 'Vue',
         'vuex': 'Vuex',
         'vue-router': 'VueRouter',
-        'axios': 'axios'
+        'axios': 'axios',
       }
       // 为生产环境修改配置...
       config.plugins.push(
@@ -136,8 +100,8 @@ module.exports = {
         // 引入全局变量样式,@使我们设置的别名,执行src目录
         data: `
             @import "@/styles/approval.scss";
-        `
-      }
+        `,
+      },
     },
     // 启用 CSS modules for all css / pre-processor files.
     // modules: false,

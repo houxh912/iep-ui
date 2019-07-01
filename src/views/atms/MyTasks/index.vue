@@ -78,7 +78,7 @@
                 </el-dropdown-menu>
               </el-dropdown>
               <iep-button type="warning" plain v-else-if="scope.row.hasBegun==0">待办</iep-button>
-              <iep-button @click.native="handleDelete(scope.row)">删除</iep-button>
+              <iep-button @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

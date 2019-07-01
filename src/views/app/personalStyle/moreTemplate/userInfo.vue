@@ -71,7 +71,7 @@ export default {
     .item {
       display: flex;
       margin-bottom: 10px;
-      width: 25%;
+      min-width: 25%;
       .label {
         text-align: right;
       }

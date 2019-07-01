@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <el-card class="top-card" :body-style="bodyStyle" shadow="hover">
+      <el-card class="iep-approval-top-card" :body-style="bodyStyle" shadow="hover">
         <div class="avatar-wrapper">
           <iep-img-avatar :size="90" :src="form.avatar" alt="头像"></iep-img-avatar>
         </div>
@@ -125,7 +125,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import "../approval.scss";
-</style>

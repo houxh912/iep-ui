@@ -69,6 +69,6 @@ export default {
 </style>
 <style scoped>
 .collaborative-record >>> .el-card {
-  height: 330px;
+  height: 338px;
 }
 </style>

@@ -81,6 +81,6 @@ export default {
 </style>
 <style scoped>
 .products-services-con >>> .el-card {
-  height: 330px;
+  height: 338px;
 }
 </style>

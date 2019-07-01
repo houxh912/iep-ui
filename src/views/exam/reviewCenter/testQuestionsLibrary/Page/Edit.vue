@@ -290,7 +290,7 @@ export default {
         if (valid) {
           if (this.$refs.single.submitForm() == true) {
             // this.$refs.single.submitForm ()
-            this.form.tag = this.form.tagKeyWords
+            this.form.tag = this.form.tagKeyWords.toString()
             let form = this.form
             let ruleForm = this.$refs.single.ruleForm
             let singleBothForm = Object.assign(form, ruleForm)

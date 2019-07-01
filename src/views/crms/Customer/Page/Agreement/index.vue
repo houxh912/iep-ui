@@ -49,7 +49,7 @@ import { columnsMap, dictsMap } from './options'
 import { getAgreementPage, postAgreement, putAgreement, deleteAgreementById } from '@/api/crms/agreement'
 import Edit from './Edit'
 // import Detail from './Detail'
-import detailDialog from './Detail'
+import detailDialog from './detail'
 import { mapGetters } from 'vuex'
 export default {
   name: 'contract',

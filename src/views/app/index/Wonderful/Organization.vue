@@ -41,7 +41,7 @@ export default {
   padding-top: 15px;
   .piece {
     text-align: center;
-    width: 260px;
+    width: 255px;
     float: left;
     margin: 0 5px;
     cursor: pointer;

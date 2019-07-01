@@ -70,7 +70,7 @@ export default {
     }
     .box {
       float: left;
-      width: 445px;
+      width: 420px;
       height: 68px;
       .piece-title {
         .name {

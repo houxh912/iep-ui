@@ -35,7 +35,7 @@
 import IepScroll from '@/components/IepScroll/index'
 import { getMaterialList } from '@/api/mlms/material/datum/material'
 import { getTableData } from '@/api/mlms/material/summary'
-import { getContractPageAll } from '@/api/mlms/material/datum/contract'
+// import { getContractPageAll } from '@/api/mlms/material/datum/contract'
 // import { getProjectList } from '@/api/gpms/index'
 // import { getAllReportsOrg } from '@/api/mlms/material/report/project'
 function initParams () {
@@ -56,7 +56,7 @@ export default {
       selectList: [
         { name: '会议纪要', requestFn: getTableData, type: 'summaryList', prop: 'title', searchName: 'title' },
         { name: '材料', requestFn: getMaterialList, type: 'materialList', searchName: 'name' },
-        { name: '合同', requestFn: getContractPageAll, type: 'contractList', prop: 'contractName', searchName: 'contractName' },
+        // { name: '合同', requestFn: getContractPageAll, type: 'contractList', prop: 'contractName', searchName: 'contractName' },
         // { name: '项目', requestFn: getProjectList, type: 'projectList', prop: 'projectName', searchName: 'projectName' },
         // { name: '周报', requestFn: getAllReportsOrg, type: 'reportList', prop: 'projectName', id: 'projectWeekReportId', searchName: 'projectName' },
       ],

@@ -37,6 +37,10 @@ const initForm = () => {
         similarTasks:[],//相似任务
         children: [],//子任务
         parentId:'',
+        summaryIds: [], // 纪要
+        summaryList: [],
+        materialIds: [], // 材料
+        materialList: [],
     }
 }
 const initTransferForm = () => {
@@ -79,4 +83,16 @@ const rules = {
     //     { required: true, message: '请输入', trigger: 'blur' },
     // ],
 }
+
+export const relatedFormList = [{
+    name: '关联的纪要',
+    ids: 'summaryIds',
+    list: 'summaryList',
+  }, {
+    name: '关联的材料',
+    ids: 'materialIds',
+    list: 'materialList',
+  },
+]
+
 export { initForm, rules, dictsMap, formToDto, initTransferForm, initConversionForm }

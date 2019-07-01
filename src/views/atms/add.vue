@@ -48,6 +48,14 @@
         <el-form-item label='关联内容：' prop="materials">
           <el-button @click="handleAdd"><i class="iconfont icon-xinzeng"></i></el-button>
         </el-form-item>
+
+        <div v-for="(item, index) in relatedFormList" :key="index">
+          <el-form-item :label="`${item.name}：`" v-if="form[item.list].length > 0">
+            <ul class="relevance-list">
+              <li class="item" v-for="(t, i) in form[item.list]" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, item.list, item.ids)"></i></li>
+            </ul>
+          </el-form-item>
+        </div>
       </el-form>
       <footer-tool-bar>
         <iep-button type="primary" @click="handleSubmit">保存</iep-button>
@@ -60,7 +68,7 @@
 
 <script>
 import { createAtms, getAtmsById, updateAtms } from '@/api/atms/index'
-import { initForm, formToDto, rules } from './options.js'
+import { initForm, formToDto, rules, relatedFormList } from './options.js'
 import formMixins from '@/mixins/formMixins'
 import RelationDialog from './relation'
 export default {
@@ -78,6 +86,7 @@ export default {
       form: initForm(),
       rules,
       limit:1,
+      relatedFormList,
     }
   },
   created () {
@@ -102,6 +111,9 @@ export default {
       const submitFunction = this.id ? updateAtms : createAtms
       this.$refs['form'].validate((valid) => {
         if (valid) {
+          for (let item of this.relatedFormList) {
+            this.form[item.ids] = this.form[item.list].map(m => m.id)
+          }
           const publish = isPublish === true ? true : false
           if (this.form.annexList.length > 0) {
             this.form.attach = this.form.annexList[0].url
@@ -110,6 +122,8 @@ export default {
             this.form.startTime = this.form.startEndTime[0]
             this.form.endTime = this.form.startEndTime[1]
           }
+          delete this.form.summaryList
+          delete this.form.materialList
           submitFunction(formToDto(this.form), publish).then(({ data }) => {
             if (data.data) {
               this.$message({
@@ -129,15 +143,34 @@ export default {
     },
     handleAdd () {
       this.$refs['relationDialog'].dialogShow = true
-      
+      this.$refs['relationDialog'].loadData({
+        summaryList: this.form.summaryList,
+        materialList: this.form.materialList,
+      })
     },
     // 添加其他关联
     relativeSubmit (list) {
-      this.formData = Object.assign({}, this.form, list)
+      this.form = Object.assign({}, this.form, list)
+    },
+    // 删除关联
+    closeRelation (index, list, ids) {
+      this.form[list].splice(index, 1)
+      this.form[ids].splice(index, 1)
     },
   },
 }
 </script>
 
 <style scoped lang="scss">
+.relevance-list {
+  padding: 0;
+  .item {
+    list-style: none;
+    height: 28px;
+    i {
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  }
+}
 </style>

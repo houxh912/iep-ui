@@ -68,11 +68,11 @@
             </div>
             <span v-else>无附件</span>
           </el-form-item>
-          <!-- <el-form-item label="关联内容：">
+          <el-form-item label="关联内容：">
             <el-upload class="upload-demo" action="">
               <i class="button el-icon-plus"></i>
             </el-upload>
-          </el-form-item> -->
+          </el-form-item>
         </el-form>
       </div>
       <el-card shadow="never" class="person-info">

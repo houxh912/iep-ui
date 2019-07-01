@@ -45,6 +45,10 @@
           <iep-upload v-model="form.annexList" :limit="limit"></iep-upload>
         </el-form-item>
 
+        <el-form-item label='关联项目：' prop="project">
+          <iep-project-select v-model="form.projectId" :projectName="form.projectName" @relation-change="handleProjectChange"></iep-project-select>
+        </el-form-item>
+
         <el-form-item label='关联内容：' prop="materials">
           <el-button @click="handleAdd"><i class="iconfont icon-xinzeng"></i></el-button>
         </el-form-item>
@@ -157,6 +161,12 @@ export default {
       this.form[list].splice(index, 1)
       this.form[ids].splice(index, 1)
     },
+    handleProjectChange (v) {
+      if (v) {
+        this.form.protocolId = v.id
+        this.form.protocolName = v.name
+      }
+    },
   },
 }
 </script>
@@ -172,5 +182,7 @@ export default {
       cursor: pointer;
     }
   }
-}
+} 
+
+
 </style>

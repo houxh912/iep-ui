@@ -68,10 +68,15 @@
             </div>
             <span v-else>无附件</span>
           </el-form-item>
-          <el-form-item label="关联内容：">
-            <el-upload class="upload-demo" action="">
-              <i class="button el-icon-plus"></i>
-            </el-upload>
+          <el-form-item :label="`${item.name}：`" v-for="(item, index) in relatedFormList" :key="index">
+            <div v-if="form[item.list].length > 0">
+              <ul class="relevance-list">
+                <li class="item" v-for="t in form[item.list]" :key="t.id">{{t.name}}</li>
+              </ul>
+            </div>
+          </el-form-item>
+          <el-form-item label="关联项目：">
+            <span>{{form.projectName}}</span>
           </el-form-item>
         </el-form>
       </div>
@@ -101,7 +106,7 @@
 </template>
 <script>
 import { getAtmsById, deleteAtmsById } from '@/api/atms/index'
-import { initForm, rules } from './options.js'
+import { initForm, rules, relatedFormList } from './options.js'
 import { downloadFile } from '@/api/common'
 import SimilarTasks from './SimilarTasks'
 import CirculationLog from './CirculationLog'
@@ -146,6 +151,7 @@ export default {
       post: '负责人',
       name: '潘超巧',
       handleTitle: '@提及他人',
+      relatedFormList,
     }
   },
   created () {
@@ -350,6 +356,17 @@ export default {
     }
   }
 }
+.relevance-list {
+  padding: 0;
+  .item {
+    list-style: none;
+    height: 28px;
+    i {
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  }
+} 
 </style>
 <style scoped>
 .details >>> .el-image__inner{

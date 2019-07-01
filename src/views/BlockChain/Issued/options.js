@@ -31,6 +31,10 @@ const columnsMap = [
 const initForm = () => {
   return {
     amount: 0,
+    user: {
+      id: '',
+      name: '',
+    },
   }
 }
 const initUserForm = () => {
@@ -40,6 +44,13 @@ const initUserForm = () => {
       name: '',
     },
   }
+}
+
+const toDtoFrom = (row) => {
+  const newForm = { ...row }
+  newForm.userId = newForm.user.id
+  delete newForm.user
+  return newForm
 }
 
 const rules = {
@@ -59,4 +70,5 @@ export {
   rules,
   initUserForm,
   userRules,
+  toDtoFrom,
 }

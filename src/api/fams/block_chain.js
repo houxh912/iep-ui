@@ -24,3 +24,10 @@ export function sendAmount (obj) {
     data: obj,
   })
 }
+export function issuedAmount (obj) {
+  return request({
+    url: `${prefixUrl}/coin/making`,
+    method: 'post',
+    data: obj,
+  })
+}

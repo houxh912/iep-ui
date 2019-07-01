@@ -19,7 +19,7 @@
 </template>
 <script>
 import { columnsMap } from './options'
-import { getPage } from '@/api/fams/block_chain'
+import { getMyPage } from '@/api/fams/block_chain'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 export default {
@@ -39,7 +39,7 @@ export default {
       this.$refs['DialogForm'].dialogShow = true
     },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getPage)
+      this.loadTable(param, getMyPage)
     },
   },
 }

@@ -17,6 +17,23 @@ export function getPage (query) {
     params: query,
   })
 }
+
+export function getMyPage (query) {
+  return request({
+    url: `${prefixUrl}/my/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getCoinPage (query) {
+  return request({
+    url: `${prefixUrl}/coin/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
 export function sendAmount (obj) {
   return request({
     url: `${prefixUrl}/send`,

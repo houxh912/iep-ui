@@ -20,6 +20,8 @@ const initForm = () => {
         priority: '',//优先级 
         executors: [],//协同人
         assistants: [],//执行人,
+        principal:'',//负责人id
+        creatorId:'',//创建人id
         principalName:'',//负责人
         avatar:'',//负责人头像
         startEndTime:[],//起止时间

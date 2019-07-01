@@ -4,24 +4,24 @@
       <page-header title="全部任务"></page-header>
       <el-card class="box" shadow="hover">
         <div class="total-wrapper">
-          <div class="total-item">
-            <div class="value">1</div>
+          <div class="total-item" @click="cSelectTpye('all')">
+            <div class="value">{{allCountList.all}}</div>
             <div class="label"><a href="#">任务统计</a></div>
           </div>
-          <div class="total-item">
-            <div class="value">1</div>
+          <div class="total-item" @click="cSelectTpye('isNotStarted')">
+            <div class="value">{{allCountList.isNotStarted}}</div>
             <div class="label"><a href="#">待办任务</a></div>
           </div>
-          <div class="total-item">
-            <div class="value">1</div>
+          <div class="total-item" @click="cSelectTpye('isStarted')">
+            <div class="value">{{allCountList.isStarted}}</div>
             <div class="label"><a href="#">进行中</a></div>
           </div>
-          <div class="total-item">
-            <div class="value">1</div>
+          <div class="total-item" @click="cSelectTpye('isFinished')">
+            <div class="value">{{allCountList.isFinished}}</div>
             <div class="label"><a href="#">已完成</a></div>
           </div>
-          <div class="total-item">
-            <div class="value">1</div>
+          <div class="total-item" @click="cSelectTpye('isOverDue')">
+            <div class="value">{{allCountList.isOverDue}}</div>
             <div class="label"><a href="#">已逾期</a></div>
           </div>
         </div>
@@ -85,32 +85,36 @@
   </div>
 </template>
 <script>
-import { getAllAtms } from '@/api/atms/index'
+import { getAllAtms, getAllCount } from '@/api/atms/index'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
 export default {
   mixins: [mixins],
   data () {
     return{
-      dataList:[
-        {value:55,label:'任务统计'},
-        {value:55,label:'代办任务'},
-        {value:55,label:'进行中'},
-        {value:55,label:'已完成'},
-        {value:55,label:'已逾期'},
-      ],
       dictsMap,
       columnsMap,
       pagedTable:[
       ],
+      allCountList:{
+        all: 0,
+        isStarted: 0,
+        isNotStarted: 0,
+        isFinished: 0,
+        isOverDue: 0,
+      },
+      selectType:'all',
     }
   },
   created () {
     this.loadPage()
+    getAllCount().then(({ data }) => {
+      this.allCountList = data.data
+    })
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getAllAtms)
+      this.loadTable({selectType:this.selectType,...param}, getAllAtms)
     },
     handleSelectionChange () {
     },
@@ -124,6 +128,14 @@ export default {
     // loadPage (param = this.searchForm) {
     //   this.loadTable(param, getAlreadyApprovalPage)
     // },
+    cSelectTpye (val) {
+      this.selectType = val
+    },
+  },
+  watch: {
+    'selectType': function () {
+      this.loadPage()
+    },
   },
 }
 </script>
@@ -141,6 +153,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     border-right: 1px solid rgb(233, 233, 233);
     width: 100%;
     &:last-child {

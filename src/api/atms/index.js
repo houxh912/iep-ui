@@ -25,6 +25,14 @@ export function getMyCount (obj) {
   })
 }
 
+export function getAllCount (obj) {
+  return request({
+    url: `${prefixUrl}/allCount`,
+    method: 'get',
+    params: obj,
+  })
+}
+
 export function createAtms (obj) {
   return request({
     url: `${prefixUrl}/create`,

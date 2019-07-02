@@ -184,3 +184,9 @@ export function getAssetsList () {
     method: 'get',
   })
 }
+export function getAssetDataById (id) {
+  return request({
+    url: `${prefixUrl}/org/assets/${id}`,
+    method: 'get',
+  })
+}

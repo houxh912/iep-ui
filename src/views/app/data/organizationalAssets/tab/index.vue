@@ -1,18 +1,18 @@
 <template>
   <basic-container>
-    <page-header title="组织资产-舟山国脉研发中心"></page-header>
+    <page-header :title="`组织资产-${deptData.name}`" :backOption="backOption"></page-header>
     <iep-tabs v-model="tabName" :tab-list="tabList">
-      <template v-if="tabName ==='dataAssets'" :tabType="1" v-slot:dataAssets>
-        <dataAssets></dataAssets>
+      <template v-if="tabName ==='dataAssets'" v-slot:dataAssets>
+        <dataAssets ref="dataAssets" :orgId="deptData.id" :tabType="1"></dataAssets>
       </template>
-      <template v-if="tabName ==='financialAssets'" :tabType="2" v-slot:financialAssets>
-        <dataAssets></dataAssets>
+      <template v-if="tabName ==='financialAssets'" v-slot:financialAssets>
+        <dataAssets ref="dataAssets" :orgId="deptData.id" :tabType="2"></dataAssets>
       </template>
-      <template v-if="tabName ==='capabilityAssets'" :tabType="3" v-slot:capabilityAssets>
-        <dataAssets></dataAssets>
+      <template v-if="tabName ==='capabilityAssets'" v-slot:capabilityAssets>
+        <dataAssets ref="dataAssets" :orgId="deptData.id" :tabType="3"></dataAssets>
       </template>
-      <template v-if="tabName ==='otherAssets'" :tabType="4" v-slot:otherAssets>
-        <dataAssets></dataAssets>
+      <template v-if="tabName ==='otherAssets'" v-slot:otherAssets>
+        <dataAssets ref="dataAssets" :orgId="deptData.id" :tabType="4"></dataAssets>
       </template>
     </iep-tabs>
   </basic-container>
@@ -24,9 +24,14 @@ import dataAssets from './dataAssets'
 export default {
   name: 'datum',
   components: { dataAssets },
+  props: {
+    deptData: {
+      type: Object,
+    },
+  },
   data () {
     return {
-      tabName: 'materialDialog',
+      tabName: 'dataAssets',
       tabList: [
         {
           label: '数据资产',
@@ -42,10 +47,14 @@ export default {
           value: 'otherAssets',
         },
       ],
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: () => {
+          this.$emit('load-page', true)
+        },
+      },
     }
-  },
-  created () {
-    
   },
 }
 </script>

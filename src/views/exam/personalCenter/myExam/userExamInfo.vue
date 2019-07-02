@@ -26,7 +26,7 @@
             <el-switch
               class="btnSwitch"
               v-model="reviewCenter"
-              active-color="#409EFF"
+              active-color="#D56268"
               :active-text="switchText"
               @change="switchChange"
             ></el-switch>
@@ -67,8 +67,8 @@
                   class="iep-iellipsis"
                   :text-inside="true"
                   :stroke-width="18"
-                  :percentage="70"
-                  color="#409eff"
+                  :percentage="30"
+                  color="#D56268"
                 ></el-progress>
               </el-col>
               <el-col :span="3">
@@ -114,6 +114,7 @@ export default {
       } else {
         this.switchText = '考试中心'
       }
+      this.$emit('showCard',status)
     },
     loadPage () {
       this.pageLoading = true

@@ -26,27 +26,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.shortcutEntrance-box {
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    li {
-      cursor: pointer;
-      padding: 5px 0px;
-      font-size: 18px;
-      &:hover {
-        color: #cb3737;
-      }
-    }
-  }
-}
 .btnAdd {
   position: absolute;
   margin: -.4% 0 0 10.1%;
 }
 .txtAdd {
   margin-left: 6px;
+  color: rgb(136, 136, 136);
+}
+.txtAdd:hover {
+  color: #cb3737;
 }
 </style>

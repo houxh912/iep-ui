@@ -46,7 +46,7 @@ export default {
     // this.loadTag()
   },
   methods: {
-    filterOption (inputValue, option) {
+    filterOption (inputValue) {
       const name = inputValue.toLowerCase().trim()
       if (name) {
         return true

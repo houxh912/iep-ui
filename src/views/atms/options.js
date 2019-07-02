@@ -41,8 +41,9 @@ const initForm = () => {
         summaryList: [],
         materialIds: [], // 材料
         materialList: [],
-        projectId:[],//项目
+        projectId:'',//项目
         projectName:'',
+        projectList:[{id:'',name:''}],
     }
 }
 const initTransferForm = () => {

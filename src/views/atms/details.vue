@@ -76,7 +76,7 @@
             </div>
           </el-form-item>
           <el-form-item label="关联项目：">
-            <span>{{form.projectName}}</span>
+            <span v-for="project in form.projectList" :key="project.id">{{project.name}}</span>
           </el-form-item>
         </el-form>
       </div>

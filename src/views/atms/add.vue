@@ -99,6 +99,10 @@ export default {
         this.form = this.$mergeByFirst(initForm(), data.data)
         this.form.startEndTime=[this.form.startTime,this.form.endTime]
         this.form.parentId == 0 ? this.form.parentId = '' : this.form.parentId
+        if (this.form.projectList.length > 0) {
+          this.form.projectId = this.form.projectList[0].id
+          this.form.projectName = this.form.projectList[0].name
+        }
       })
     }
   },

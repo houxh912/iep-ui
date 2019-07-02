@@ -58,9 +58,9 @@ export function getAtmsById (id) {
 
 export function deleteAtmsById (id) {
   return request({
-    url: `${prefixUrl}/delete/batch`,
+    url: `${prefixUrl}/delete/${id}`,
     method: 'post',
-    data: [id],
+    data: id,
   })
 }
 

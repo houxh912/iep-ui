@@ -274,8 +274,13 @@ export default [
       },
       {
         path: 'data_assets',
-        name: '数据资产',
+        name: '组织资产',
         component: () => import('@/views/app/data/organizationalAssets/component'),
+      },
+      {
+        path: 'data_assets_detail',
+        name: '数据资产',
+        component: () => import('@/views/app/data/organizationalAssets/tab/component'),
       },
     ],
   },

@@ -51,7 +51,11 @@ export default {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          this.$emit('load-page', true)
+          if (this.$route.query.id) {
+            this.$router.go(-1)
+          } else {
+            this.$emit('load-page', true)
+          }
         },
       },
     }

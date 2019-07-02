@@ -1,10 +1,4 @@
 <template>
-  <!-- <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagedTable="pagedTable" :isPagination="false">
-    <template v-if="tabName ==='personal'" v-slot:personal>
-      <tableTemplate ref="tableTpl" :getTableData="getTablePersonal" @handleShare="handleShare" @selectionChange="handleSelectionChange" @handleCollection="handleCollection" :permissionEdit="permission_edit" :permissionDelete="permission_delete" @handleDetail="handleDetail" :permissionOpera=true :paramForm="paramForm">
-      </tableTemplate>
-    </template>
-  </iep-table> -->
   <div class="table">
     <el-table
       :data="tableData"
@@ -30,6 +24,12 @@
 <script>
 // import { dataAssetsData } from './option'
 export default {
+  props: {
+    tabType: {
+      type: Number,
+      default: 0,
+    },
+  },
   data () {
     return {
       isLoadTable: false,
@@ -37,10 +37,10 @@ export default {
       columnsMap: [
         {
           label: '资产项',
-          prop: 'createTime',
+          prop: 'name',
         }, {
           label: '金额',
-          prop: 'createTime',
+          prop: 'money',
         },
       ],
     }

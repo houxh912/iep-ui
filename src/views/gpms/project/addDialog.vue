@@ -124,8 +124,10 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="是否认领项目：" prop="isClaim">
-            <el-switch v-model="formData.isClaim" :active-value="1" :inactive-value="2" active-color="#13ce66"></el-switch>
+          <el-form-item label="放入公海库：" prop="isClaim">
+            <span style="padding: 0 5px;">否</span>
+            <el-switch v-model="formData.isClaim" :active-value="2" :inactive-value="1" active-color="#13ce66"></el-switch>
+            <span style="padding: 0 5px;">是</span>
           </el-form-item>
         </el-col>
       </el-row>

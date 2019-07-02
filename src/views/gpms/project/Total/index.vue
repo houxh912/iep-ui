@@ -38,7 +38,7 @@
           <!-- <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">详情</el-button> -->
           <el-button size="small" @click="handleUpdate(scope.row)" v-if="gpms_project_edit_del">编辑</el-button>
           <el-button size="small" @click="handleDelete(scope.row)" v-if="gpms_project_edit_del">删除</el-button>
-          <el-button size="small" @click="handleClaim(scope.row)" v-if="gpms_project_edit_del">取消认领</el-button>
+          <el-button size="small" @click="handleClaim(scope.row)" v-if="gpms_project_edit_del">移入公海库</el-button>
         </template>
       </el-table-column>
       <el-table-column label="操作" v-else>

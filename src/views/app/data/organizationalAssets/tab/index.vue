@@ -2,16 +2,16 @@
   <basic-container>
     <page-header title="组织资产-舟山国脉研发中心"></page-header>
     <iep-tabs v-model="tabName" :tab-list="tabList">
-      <template v-if="tabName ==='dataAssets'" v-slot:dataAssets>
+      <template v-if="tabName ==='dataAssets'" :tabType="1" v-slot:dataAssets>
         <dataAssets></dataAssets>
       </template>
-      <template v-if="tabName ==='financialAssets'" v-slot:financialAssets>
+      <template v-if="tabName ==='financialAssets'" :tabType="2" v-slot:financialAssets>
         <dataAssets></dataAssets>
       </template>
-      <template v-if="tabName ==='capabilityAssets'" v-slot:capabilityAssets>
+      <template v-if="tabName ==='capabilityAssets'" :tabType="3" v-slot:capabilityAssets>
         <dataAssets></dataAssets>
       </template>
-      <template v-if="tabName ==='otherAssets'" v-slot:otherAssets>
+      <template v-if="tabName ==='otherAssets'" :tabType="4" v-slot:otherAssets>
         <dataAssets></dataAssets>
       </template>
     </iep-tabs>

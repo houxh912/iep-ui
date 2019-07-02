@@ -123,6 +123,11 @@
             <iep-dict-select v-model="formData.projectStage" dict-name="prms_project_stage"></iep-dict-select>
           </el-form-item>
         </el-col>
+        <el-col :span="12">
+          <el-form-item label="是否认领项目：" prop="isClaim">
+            <el-switch v-model="formData.isClaim" :active-value="1" :inactive-value="2" active-color="#13ce66"></el-switch>
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
         <span slot="label">

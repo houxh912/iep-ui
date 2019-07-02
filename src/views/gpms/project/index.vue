@@ -12,6 +12,9 @@
         <template v-if="activeTab === 'TakePartIn'" v-slot:TakePartIn>
           <total ref="table" :isShow="addDialogShow" @toggle-show="dealForm" :tabType="'2'"></total>
         </template>
+        <template v-if="activeTab === 'International'" v-slot:International>
+          <total ref="table" :isShow="addDialogShow" @toggle-show="dealForm" :tabType="'3'"></total>
+        </template>
       </iep-tabs>
     </div>
     <add-dialog v-else @close="closeForm" ref="form"></add-dialog>
@@ -37,6 +40,9 @@ export default {
       }, {
         label: '全部',
         value: 'Total',
+      }, {
+        label: '公海',
+        value: 'International',
       }],
       activeTab: 'Release',
       pageState: 'list',

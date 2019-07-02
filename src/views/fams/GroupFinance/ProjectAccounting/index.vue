@@ -34,12 +34,12 @@
         </template>
         <el-table-column label="应收账款金额">
           <template slot-scope="scope">
-            {{!scope.row.invoicingAmount ? '暂无' : (scope.row.invoicingAmount||0 - scope.row.projectIncome||0) }}
+            {{!scope.row.invoicingAmount ? '暂无' : ((scope.row.invoicingAmount||0) - (scope.row.projectIncome||0)) }}
           </template>
         </el-table-column>
-        <el-table-column label="业务指标完成率">
+        <el-table-column label="业务指标完成率(%)">
           <template slot-scope="scope">
-            {{!scope.row.contractAmount ? '暂无' : (scope.row.contractAmount||0 / scope.row.amount||1) }}
+            {{!scope.row.amount ? '暂无' : ((scope.row.contractAmount||0) / (scope.row.amount)) }}
           </template>
         </el-table-column>
         <el-table-column label="操作">

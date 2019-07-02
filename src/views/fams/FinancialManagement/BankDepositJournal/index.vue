@@ -4,7 +4,7 @@
       <page-header title="银行存款日记账" :replaceText="replaceText" :data="statistics"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-select size="small" v-model="companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择公司" @change="searchPage()"></iep-select>
+          <iep-select size="small" v-model="companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择公司" @change="searchPageByCompany()"></iep-select>
           <iep-select size="small" v-if="!bankOption.disabled" v-model="bankId" autocomplete="off" :prefix-url="bankOption.prefixUrl" placeholder="请选择银行账户" @change="searchPage()"></iep-select>
         </template>
         <template slot="right">
@@ -81,6 +81,10 @@ export default {
       this.pagedTable = data.data.diaryList
       this.statistics = [data.data.expenditureTotal, data.data.inComeTotal]
       this.isLoadTable = false
+    },
+    searchPageByCompany () {
+      this.bankId = 0
+      this.searchPage()
     },
     searchPage () {
       this.loadPage(this.newSearchForm)

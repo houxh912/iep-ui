@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { getAssetsList } from '@/api/fams/statistics'
 export default {
   data () {
     return {
@@ -33,9 +34,11 @@ export default {
     }
   },
   methods: {
-    loadPage () {},
+    loadPage () {
+      getAssetsList().then(() => {})
+    },
   },
-  created () {
+  cteared () {
     this.loadPage()
   },
 }

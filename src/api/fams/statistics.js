@@ -176,3 +176,11 @@ export function createUnionProject (year) {
     method: 'get',
   })
 }
+
+// 组织资产
+export function getAssetsList () {
+  return request({
+    url: `${prefixUrl}/org/assets/list`,
+    method: 'get',
+  })
+}

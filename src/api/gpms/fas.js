@@ -64,7 +64,7 @@ export function statusCancel (list) {
   return request({
     url: `${InformationUrl}/status/cancel`,
     method: 'post',
-    data: list,
+    data: {ids: list},
   })
 }
 // 公海确定认领
@@ -72,6 +72,6 @@ export function statusDefine (list) {
   return request({
     url: `${InformationUrl}/status/define`,
     method: 'post',
-    data: list,
+    data: {ids: list},
   })
 }

@@ -41,7 +41,7 @@ export default {
         label: '全部',
         value: 'Total',
       }, {
-        label: '公海',
+        label: '项目公海',
         value: 'International',
       }],
       activeTab: 'Release',

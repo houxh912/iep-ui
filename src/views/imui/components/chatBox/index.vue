@@ -66,8 +66,6 @@ export default {
           return
         }
       }
-
-      this.$emit('chatClose', chat)
     },
   },
   computed: {

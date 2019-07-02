@@ -15,17 +15,29 @@
         </li>
       </ul>
       <div class="im-tabel-content-large-im">
-        <el-tree v-show="tableChosen === 'book'" @node-click="toChatUser" :data="$store.getters.imUserTree" node-key="id" :expand-on-click-node="false">
-          <span v-if="data.leaf" class="im-tabel-content-large-im-item" slot-scope="{ node, data }">
-            <span class="im-friend">
-              <iep-img class="im-friend-head" :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
-              <span>{{data.label}}</span>
-            </span>
-          </span>
+        <el-tree class="im-tabel-tree" v-show="tableChosen === 'book'" @node-click="toChatUser" :data="$store.getters.imUserTree" node-key="id" :expand-on-click-node="false">
+          <div v-if="data.leaf" class="im-friend" slot-scope="{ node, data }">
+            <iep-img class="im-friend-head" :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
+            <span>{{data.label}}</span>
+            <i class="iconfont icon-liebiao" @click.stop.prevent="toOption(data.value)">
+              <el-dropdown v-show="optionId === data.value" style="position: absolute;right: 20px;top: 0;" @command="moveToGroup">
+                <div style="height: 38px;line-height: 38px;padding: 0 10px;border: 1px solid #dddddd;background: #FFFFFF;">
+                  添加到分组
+                </div>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item :command="{membersId: data.value.toString(), customId: group.value}" v-for="(group, index) in $store.getters.imCustomGroups" :key="index">{{group.label}}</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </i>
+          </div>
           <span v-else>{{ data.label }}</span>
         </el-tree>
+        <custom-group @toChatUser="toChatUser" v-show="tableChosen === 'book'"></custom-group>
+        <div v-show="tableChosen === 'book'" style="max-width: 260px;padding: 10px 0;text-align: center;">
+          <el-button @click="addCustomGroup" class="btn-addgroup" size="mini" round>创建分组+</el-button>
+        </div>
         <ul v-show="tableChosen === 'chat'" class="im-chat-list">
-          <li class="im-friend" v-for="chat in $store.getters.imChatList" @click="toChat(chat)" :key="chat.id">
+          <li class="im-friend" v-for="chat in $store.getters.imChatList" @click="toChat(chat)" :key="chat.chatNo">
             <iep-img class="im-friend-head" :src="chat.avatar ? chat.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
             <span>{{chat.realName}}</span>
             <el-badge class="unread-point" v-show="getImUnread(chat)" :max="99" :value="getImUnread(chat)"></el-badge>
@@ -75,11 +87,16 @@
 </template>
 
 <script>
-import { createGroup } from '@/api/im'
+import { createGroup, createCustomGroup, moveToCustomGroup } from '@/api/im'
+import customGroup from './customGroup.vue'
 export default {
   name: 'im-ui-large',
+  components: {
+    customGroup,
+  },
   data () {
     return {
+      optionId: '',
       treeData: [],
       dialogShow: false,
       props: {
@@ -111,6 +128,41 @@ export default {
     this.boxHeight = this.$refs.imbox.offsetHeight
   },
   methods: {
+    toOption (id) {
+      this.optionId = id
+      this.$nextTick(() => {
+        document.addEventListener('mouseDown', this.optionIdClear, true)
+      })
+    },
+    optionIdClear (){
+      this.optionId = ''
+    },
+    addCustomGroup () {
+      this.$prompt('请输入分组名称', '', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then(({ value }) => {
+        createCustomGroup({name: value}).then(({data}) => {
+          if (data.code === 0) {
+            this.$store.dispatch('initCustomGroup')
+          } else {
+            this.$message.error(data.msg)
+          }
+        }, error => {
+          this.$message.error(error.msg)
+        })
+      }, () => {})
+    },
+    moveToGroup ({membersId, customId}) {
+      this.optionId = ''
+      let userId = this.$store.getters.userInfo.userId
+      let type = 0
+      moveToCustomGroup({membersId, customId, type, userId}).then(({data}) => {
+        if (data.code === 0) {
+          this.$store.dispatch('initCustomGroup')
+        }
+      })
+    },
     close () {
       this.clearGroup()
       this.dialogShow = false
@@ -216,7 +268,8 @@ export default {
         username: user.username,
         chatName: user.realName,
         avatar: user.avatar,
-        type: user.type,
+        type: parseInt(user.type),
+        originatorId: user.originatorId || '',
       })
     },
     toChatGroup (group) {
@@ -227,6 +280,7 @@ export default {
         chatName: group.groupName,
         avatar: group.avatar,
         type: 2,
+        originatorId: group.originatorId,
       })
     },
     chatChange (chat) {
@@ -256,12 +310,18 @@ export default {
     filterText (val) {
       this.$refs.tree.filter(val)
     },
+    optionId (val) {
+      if (!val) {
+        document.removeEventListener('mouseDown', this.optionIdClear)
+      }
+    },
   },
 }
 </script>
 
 <style scoped>
 .im-tabel-content-large-im >>> .el-tree-node__content {
+  max-width: 260px;
   height: auto;
 }
 .im-tabel-content-large-im
@@ -370,6 +430,7 @@ export default {
   .im-chat-list {
     padding: 0;
     .im-friend {
+      display: block;
       box-sizing: border-box;
       height: 52px;
       max-width: 260px;
@@ -415,42 +476,52 @@ export default {
       }
     }
   }
-  .im-tabel-content-large-im .im-tabel-content-large-im-item {
-    position: relative;
+  .im-tabel-tree .im-friend {
+    display: block;
     box-sizing: border-box;
     height: 52px;
-    max-width: 260px;
+    max-width: 224px;
+    width: 100%;
     padding: 5px 15px 5px 60px;
     cursor: pointer;
-    .im-friend {
-      .im-friend-head {
-        position: absolute;
-        left: 15px;
-        top: 8px;
-        height: 36px;
-        width: 36px;
-        border-radius: 18px;
-        overflow: hidden;
-      }
-      span {
-        display: inline-block;
-        vertical-align: top;
-        margin-top: 4px;
-        max-width: 185px;
-        line-height: 19px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: 14px;
-      }
-      p {
-        line-height: 18px;
-        max-width: 185px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: #dfdfdf;
-        font-size: 12px;
+    position: relative;
+    .im-friend-head {
+      position: absolute;
+      left: 15px;
+      top: 8px;
+      height: 36px;
+      width: 36px;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    span {
+      display: inline-block;
+      vertical-align: top;
+      margin-top: 4px;
+      max-width: 185px;
+      line-height: 19px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 14px;
+    }
+    p {
+      line-height: 18px;
+      max-width: 185px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #dfdfdf;
+      font-size: 12px;
+    }
+    .icon-liebiao {
+      position: absolute;
+      right: 20px;
+      height:40px;
+      line-height: 40px;
+      top: 6px;
+      &:hover {
+        color: #ba1b21;
       }
     }
   }

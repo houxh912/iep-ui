@@ -32,6 +32,14 @@ export function createGroup (data) {
   })
 }
 
+export function updateGroupInfo (data) {
+  return request({
+    url: `${prefixUrl}/update_group`,
+    method: 'post',
+    data,
+  })
+}
+
 export function updateGroupMember (data) {
   return request({
     url: `${prefixUrl}/update_member`,
@@ -55,3 +63,41 @@ export function getGroupMembers (params) {
   })
 }
 
+export function deleteGroup (data) {
+  return request({
+    url: `${prefixUrl}/del_group`,
+    method: 'post',
+    data,
+  })
+}
+
+export function getFile (fileName) {
+  return request({
+    url: `${prefixUrl}/file/${fileName}`,
+    method: 'get',
+    responseType: 'blob',
+  })
+}
+
+export function createCustomGroup (data) {
+  return request({
+    url: `${prefixUrl}/create_custom_group`,
+    method: 'post',
+    data,
+  })
+}
+
+export function moveToCustomGroup (data) {
+  return request({
+    url: `${prefixUrl}/add_custom_members`,
+    method: 'post',
+    data,
+  })
+}
+
+export function getCustomGroup () {
+  return request({
+    url: `${prefixUrl}/get_custom_group`,
+    method: 'get',
+  })
+}

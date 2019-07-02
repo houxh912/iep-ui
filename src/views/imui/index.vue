@@ -65,6 +65,7 @@ export default {
       this.stompClient.connect(headers, () => {
         this.$store.dispatch('getUserListTree').then(() => {
           this.getGroup()
+          this.getCustomGroup()
         })
         this.$eventBus.$on('logout', () => {
           this.$store.commit('imClearAll')
@@ -76,6 +77,7 @@ export default {
             id: body.id,
             chatNo: `user${body.otherId}`,
             message: body.msg,
+            messageType: body.msgType,
             msgCode: body.msgCode,
             time: body.sendTime,
             username: body.targetName === userInfo.username ? body.resourceName : body.targetName,
@@ -93,15 +95,37 @@ export default {
         })
         this.stompClient.subscribe(`/self/system/${userInfo.userId}`, (data) => {
           let body = JSON.parse(data.body)
-          if (body.msgType === 1 || body.msgType === 2) {
+          if (body.msgType === 1 || body.msgType === 2  || body.msgType === 4 || body.msgType === 6) {
             this.$store.commit('updateGroup', {
               id: body.groupId,
               groupName: body.groupName,
               avatar: body.groupAvatar,
+              originatorId: body.originatorId,
+              type:body.msgType === 1 || body.msgType === 2 ? true : false,
             })
-          } else if (body.msgType === 3) {
+            if (body.msgType === 4 || body.msgType === 6) {
+              let currentChat = this.$store.getters.imCurrentChat
+              let imCurrentChatList = this.$store.getters.imCurrentChatList
+              for (let i = imCurrentChatList.length; i--;) {
+                if (imCurrentChatList[i].chatNo === `group${body.groupId}`) {
+                  if (`group${body.groupId}` === currentChat.chatNo) {
+                    if (i > 0) {
+                      this.$store.dispatch('updateCurrentChat', {chat: imCurrentChatList[i - 1], show: true})
+                    } else if (imCurrentChatList.length > 1) {
+                      this.$store.dispatch('updateCurrentChat', {chat: imCurrentChatList[1], show: true})
+                    } else {
+                      this.$store.dispatch('updateCurrentChat', {chat: null, show: true})
+                    }
+                  }
+                  this.$store.commit('closeCurrentChatList', i)
+                  return
+                }
+              }
+            }
+          } else if (body.msgType === 3 || body.msgType === 7) {
             this.$store.commit('updateGroupMember', {
               groupId: body.groupId,
+              type: body.msgType === 3 ? true : false,
               ids: JSON.parse(body.membersIds),
             })
           }
@@ -124,6 +148,9 @@ export default {
         this.getUnreadHistory()
       })
     },
+    getCustomGroup () {
+      this.$store.dispatch('initCustomGroup')
+    },
     updateGroupMap (list) {
       let ids = []
       let userInfo = this.$store.getters.userInfo
@@ -137,6 +164,7 @@ export default {
               id: body.id,
               chatNo: `group${body.otherId}`,
               message: body.msg,
+              messageType: body.msgType,
               msgCode: body.msgCode,
               time: body.sendTime,
               username: body.targetName,
@@ -159,7 +187,7 @@ export default {
       for (let key in subscribeMap) {
         if (!ids.includes(key)) {
           this.subscribeMap[key].unsubscribe()
-          delete subscribeMap.key
+          delete subscribeMap[key]
         }
       }
       this.subscribeMap = subscribeMap

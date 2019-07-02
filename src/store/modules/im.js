@@ -1,10 +1,11 @@
-import { getGroup, clearUnread, getGroupMembers } from '@/api/im'
+import { getCustomGroup, getGroup, clearUnread, getGroupMembers, updateGroupInfo, deleteGroup } from '@/api/im'
 import { getUserListTree } from '@/api/admin/contacts'
 
 function addChat (state, data, isNew = true) {
   let message = {
     id: data.id,
     message: data.message,
+    messageType: data.messageType,
     time: data.time,
     sendOrReceive: data.sendOrReceive,
     msgCode: data.msgCode,
@@ -55,6 +56,7 @@ function updateChatList (state, chat, reverse = true) {
     avatar: chat.avatar,
     realName: chat.realName,
     username: chat.username,
+    originatorId: chat.originatorId || '',
   }
   updateUnread(state, chat.chatNo, chat.unread)
   if (reverse) {
@@ -120,6 +122,7 @@ function getUserInfo (state, userId) {
       }
     }
   }
+  return null
 }
 
 function getUserInfoByName (state, username) {
@@ -143,7 +146,51 @@ function getGroupInfro (state, id) {
         realName: state.groups[i].groupName,
         avatar: state.groups[i].avator,
         id: state.groups[i].id,
+        originatorId: state.groups[i].originatorId,
       }
+    }
+  }
+}
+
+function getCustomGroupMembers (state, data) {
+  let list = []
+  for (let i = data.length; i--;) {
+    let children = [{}]
+    let ids = data[i].members ? data[i].members.split(',') : []
+    for (let j = ids.length; j--;) {
+      let user = getUserInfo(state, parseInt(ids[j]))
+      children.unshift({
+        avatar: user.avatar,
+        leaf: true,
+        label: user.realName,
+        py: user.username,
+        value: user.id,
+      })
+    }
+    let item = {
+      label: data[i].name,
+      leaf: false,
+      value: data[i].id,
+      children,
+    }
+    list.unshift(item)
+  }
+  return list
+}
+
+function groupRemove (state, groupId) {
+  let groups = state.groups
+  for (let i = 0; i < groups.length; i++) {
+    if (groups[i].id === groupId) {
+      groups.splice(i, 1)
+      break
+    }
+  }
+  let chatList = state.chatList
+  for (let i = 0; i < chatList.length; i++) {
+    if (chatList[i].chatNo === `group${groupId}`) {
+      chatList.splice(i, 1)
+      break
     }
   }
 }
@@ -160,6 +207,7 @@ const im = {
     unreadTotal: 0,
     currentChat: {},
     groups: [],
+    customGroups: [],
     groupMemberMap: {},
     chatShow: false,
   },
@@ -198,6 +246,7 @@ const im = {
           id: data.list[i].id,
           chatNo,
           message: data.list[i].msg,
+          messageType: data.list[i].msgType,
           msgCode: data.list[i].msgCode,
           time: data.list[i].sendTime,
           sendOrReceive,
@@ -254,6 +303,7 @@ const im = {
           id: history[i].id,
           chatNo,
           message: history[i].msg,
+          messageType: history[i].msgType,
           time: history[i].sendTime,
           sendOrReceive,
           msgCode:  history[i].msgCode,
@@ -270,7 +320,8 @@ const im = {
       state.unreadMap = {}
       state.unreadTotal = 0
       state.currentChat = {}
-      state.groups = {}
+      state.groups = []
+      state.customGroups = []
       state.groupMemberMap = {}
     },
     setUserList (state, data) {
@@ -279,6 +330,9 @@ const im = {
     },
     initGroup (state, data) {
       state.groups = data
+    },
+    initCustomGroup (state, data) {
+      state.customGroups = getCustomGroupMembers(state, data)
     },
     chatChange (state, {chat, show}) {
       state.chatShow = show
@@ -293,23 +347,45 @@ const im = {
       }
     },
     updateGroup (state, data) {
-      state.groups.push(data)
+      if (data.type) {
+        state.groups.push(data)
+      } else {
+        groupRemove(state, data.id)
+      }
     },
-    updateGroupMember (state, {groupId, ids}) {
-      if (state.groupMemberMap.hasOwnProperty(`group${groupId}`)) {
-        let newMembers = []
-        for (let i = ids.length; i--;) {
-          let user = getUserInfo(state, ids[i])
-          newMembers.push({
-            id: groupId,
-            membersId: user.id,
-            avatar: user.avatar,
-            membersName: user.username,
-            realName: user.realName,
-          })
+    updateGroupInfo (state, {id, groupName}) {
+      for (let i = state.groups.length; i--;) {
+        if (state.groups[i].id === id) {
+          state.groups[i].groupName = groupName
+          if (state.currentChat.chatNo === `group${id}`) {
+            state.currentChat.chatName = groupName
+          }
         }
-        let members = Object.assign([], state.groupMemberMap[`group${groupId}`])
-        state.groupMemberMap[`group${groupId}`] = [...members, ...newMembers]
+      }
+    },
+    updateGroupMember (state, {groupId, type, ids}) {
+      if (state.groupMemberMap.hasOwnProperty(`group${groupId}`)) {
+        if (type) {
+          let newMembers = []
+          for (let i = ids.length; i--;) {
+            let user = getUserInfo(state, ids[i])
+            newMembers.push({
+              id: groupId,
+              membersId: user.id,
+              avatar: user.avatar,
+              membersName: user.username,
+              realName: user.realName,
+            })
+          }
+          let members = Object.assign([], state.groupMemberMap[`group${groupId}`])
+          state.groupMemberMap[`group${groupId}`] = [...members, ...newMembers]
+        } else {
+          for (let i = state.groupMemberMap[`group${groupId}`].length; i--;) {
+            if (ids.includes(state.groupMemberMap[`group${groupId}`][i].membersId)) {
+              state.groupMemberMap[`group${groupId}`].splice(i, 1)
+            }
+          }
+        }
       }
     },
     innitGroupMember (state, {groupId, data}) {
@@ -322,8 +398,27 @@ const im = {
         state.groupMemberMap = {...state.groupMemberMap, ...members}
       }
     },
+    groupRemove (state, groupId) {
+      groupRemove (state, groupId)
+    },
   },
   actions: {
+    initCustomGroup ({ commit }) {
+      return new Promise((resolve, reject) => {
+        getCustomGroup().then(({data}) => {
+          if (data.code === 0) {
+            commit('initCustomGroup', data.data)
+            resolve()
+          } else {
+            reject(new Error(data.msg))
+          }
+        }, () => {
+          reject()
+        }).catch(() => {
+          reject()
+        })
+      })
+    },
     initGroup ({ commit }) {
       return new Promise((resolve, reject) => {
         getGroup().then(({data}) => {
@@ -358,12 +453,41 @@ const im = {
         })
       })
     },
+    updateGroupInfo ({ commit }, {id, groupName}) {
+      return new Promise((resolve, reject) => {
+        updateGroupInfo({
+          id,
+          groupName,
+        }).then(({data}) => {
+          if (data.code === 0) {
+            commit('updateGroupInfo', {id, groupName})
+            resolve()
+          } else {
+            reject(data)
+          }
+        }, (error) => {
+          reject(error)
+        })
+      })
+    },
     setGroupMembers ({ commit }, groupId) {
       return new Promise((resolve, reject) => {
         getGroupMembers({groupId}).then(({data}) => {
           if (data.code === 0) {
             commit('innitGroupMember', {groupId, data: data.data})
             resolve(data.data)
+          }
+        }, error => {
+          reject(error)
+        })
+      })
+    },
+    removeGroup ({ commit }, groupId) {
+      return new Promise((resolve, reject) => {
+        deleteGroup({groupId}).then(({data}) => {
+          if (data.code === 0) {
+            commit('groupRemove', groupId)
+            resolve()
           }
         }, error => {
           reject(error)

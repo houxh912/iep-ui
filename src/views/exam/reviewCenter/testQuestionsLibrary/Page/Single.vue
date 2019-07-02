@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div class="single">
     <el-form :model="ruleForm" ref="ruleForm" label-width="120px" :rules="rules" style="border:solid 1px #eee;padding:40px 0 20px 0;">
       <el-form-item label="题目：" prop="title">
-        <el-input type="textarea" rows="3" v-model="ruleForm.title" placeholder="请填写题目" style="width:89%;"
+        <el-input type="textarea" rows="3" v-model="ruleForm.title" placeholder="请填写题目" style="width:93.5%;"
           :readonly="btnDisabled" maxlength="250" show-word-limit>
         </el-input>
       </el-form-item>
 
       <el-form-item v-show="index < 26 && postAnswer == 13" v-for="(option, index) in ruleForm.radioOptions"
         :label="'选项 ' + chooseOption[index] + ' ：'" :key="option.key" :prop="'radioOptions.' + index + '.value'">
-        <el-input v-model="option.value" placeholder="请输入选项答案" size="small" style="width:89%;"
+        <el-input v-model="option.value" placeholder="请输入选项答案" size="small" style="width:93.5%;"
           :readonly="btnDisabled"></el-input>
         <iep-button plain v-show="index > 0" @click="removeRadioOption(option)" icon="el-icon-close"
           style="margin-left:10px;" :disabled="btnDisabled">移除
@@ -22,7 +22,7 @@
 
       <el-form-item v-show="index < 26 && postAnswer == 12" v-for="(option, index) in ruleForm.checkboxOptions"
         :label="'选项 ' + chooseOption[index] + ' ：'" :key="option.key" :prop="'checkboxOptions.' + index + '.value'">
-        <el-input v-model="option.value" placeholder="请输入选项答案" size="small" style="width:89%;"
+        <el-input v-model="option.value" placeholder="请输入选项答案" size="small" style="width:93.5%;"
           :readonly="btnDisabled"></el-input>
         <iep-button plain v-show="index > 0" @click="removeCheckboxOption(option)" icon="el-icon-close"
           style="margin-left:10px;" :disabled="btnDisabled">移除
@@ -59,10 +59,10 @@
       </el-form-item>
       <el-form-item label="答案：" prop="inputShortAnswer" v-if="postAnswer == 10">
         <el-input type="textarea" rows="3" v-model="ruleForm.inputShortAnswer" placeholder="请填写答案"
-          style="width:89%;" :readonly="btnDisabled" maxlength="500" show-word-limit></el-input>
+          style="width:93.5%;" :readonly="btnDisabled" maxlength="500" show-word-limit></el-input>
       </el-form-item>
       <el-form-item label="解析：" prop="analysis">
-        <el-input type="textarea" rows="3" v-model="ruleForm.analysis" placeholder="请填写解析" style="width:89%;"
+        <el-input type="textarea" rows="3" v-model="ruleForm.analysis" placeholder="请填写解析" style="width:93.5%;"
           :readonly="btnDisabled" maxlength="500" show-word-limit></el-input>
       </el-form-item>
     </el-form>
@@ -330,6 +330,15 @@ export default {
 <style lang="scss" scoped>
 .el-form-item__error {
   padding: 4px 4px 0 25px !important;
+}
+.single {
+  .el-form-item:nth-child(2),.el-form-item:nth-child(3),.el-form-item:nth-child(4),.el-form-item:nth-child(5),
+  .el-form-item:nth-child(6),.el-form-item:nth-child(7),.el-form-item:nth-child(8) {
+    margin-top: -5px;
+  }
+  .iep-button {
+    margin-top: -5px;
+  }
 }
 </style>
 <style scoped>

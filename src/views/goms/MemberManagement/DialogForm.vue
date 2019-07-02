@@ -67,7 +67,6 @@ export default {
     },
     handleSetAsset (row) {
       this.form.assetOrgId = row.id
-      console.log(row.id)
     },
     load () {
       getRoleOrgList().then(({ data }) => {

@@ -13,6 +13,7 @@
           <span class="sign">
             <span v-for="(sign, index) in item.abilityTag" :key="index">{{sign}}</span>
           </span>
+          <span class="deptQm">{{item.deptQm}}</span>
         </div>
       </div>
     </div>
@@ -112,6 +113,10 @@ export default {
       .job {
         color: #888;
       }
+      .deptQm {
+        color: #aaa;
+        font-size: 12px;
+      }
       .sign {
         color: #aaa;
         span {
@@ -145,14 +150,15 @@ export default {
       }
       .name,
       .job,
-      .sign {
-        min-height: 30px;
+      .sign,
+      .deptQm {
+        min-height: 26px;
         display: block;
         width: 200px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        line-height: 30px;
+        line-height: 26px;
         font-size: 14px;
         margin-bottom: 0;
       }

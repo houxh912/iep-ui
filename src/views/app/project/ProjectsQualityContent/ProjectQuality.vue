@@ -168,4 +168,7 @@ export default {
 .person >>> .el-carousel__indicators {
   display: none;
 }
+.person >>> .el-card {
+  height: 330px;
+}
 </style>

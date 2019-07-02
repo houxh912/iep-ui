@@ -168,7 +168,7 @@ export default [
           },
           {
             path: 'mechanism',
-            name: '组织机构',
+            name: '组织架构',
             component: () => import('@/views/app/allianceDetails/mechanism/'),
             meta: noAuth,
           },

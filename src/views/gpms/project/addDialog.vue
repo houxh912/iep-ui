@@ -111,7 +111,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="项目金额：" prop="projectAmount">
+          <el-form-item :label="`${formData.contractList.length > 0 ? '合同' : '项目'}金额：`" prop="projectAmount">
             <el-input 
               v-model="formData.projectAmount" 
               type="number" 
@@ -276,15 +276,19 @@ export default {
   methods: {
     open (type, data) {
       this.type = type
-      if (!data) {
+      if (!data) { // 新增
         this.formData = initFormData()
         this.formData.mktManagerList = { id: this.userInfo.userId, name: this.userInfo.realName }
         this.formData.projectManagerList = { id: this.userInfo.userId, name: this.userInfo.realName }
-      } else {
+      } else { // 修改
         data.relatedClient = parseInt(data.relatedClient)
         data.groupExternalCooperatePartner = parseInt(
           data.groupExternalCooperatePartner
         )
+        // 判断是否关联合同，若关联，修改字段，并获取到合同的金额
+        if (data.contractList && data.contractList.length > 0) {
+          data.projectAmount = data.contractList[0].amount
+        }
         this.formData = Object.assign({}, this.formData, data)
         this.methodName = '修改'
       }

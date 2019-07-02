@@ -59,11 +59,11 @@
               <el-button size="mini" type="danger" plain @click="handleEmail">邮件</el-button>
               <el-button size="mini" type="danger" plain @click="handleApprentice">拜师</el-button>
               <el-button size="mini" type="danger" plain @click="handleReward">打赏</el-button>
-              <el-button size="mini" type="info" plain disabled>建议</el-button>
-              <el-button size="mini" type="info" plain disabled>PK</el-button>
+              <el-button size="mini" type="danger" plain @click="handleProposal">建议</el-button>
+              <el-button size="mini" type="danger" plain @click="handlePk">PK</el-button>
             </el-row>
             <el-row class="apply">
-              <el-button type="info" plain disabled>申请授权</el-button>
+              <el-button type="danger" plain  @click="handleApply">申请授权</el-button>
             </el-row>
           </div>
         </div>
@@ -143,6 +143,23 @@ export default {
       }
       this.$refs['email'].open({ receiverList: receiverList })
     },
+    // 建议
+    handleProposal () {
+      let userInfo = this.userInfo
+      let obj = {
+        subject: `${userInfo.realName}的建议`,
+        receiverList: {
+          unions: [],
+          orgs: [],
+          users: [{ id: this.user_info.id, name: this.user_info.name }],
+        },
+      }
+      this.$refs['email'].open(obj)
+    },
+    // pk
+    handlePk () {
+      this.$router.push('/app/resource/expert?type=1')
+    },
     // 打赏
     ...mapActions(['famsReward']),
     handleReward () {
@@ -151,6 +168,19 @@ export default {
         return
       }
       this.famsReward({ id: this.user_info.id, name: this.user_info.name })
+    },
+    // 申请授权
+    handleApply () {
+      let userInfo = this.userInfo
+      let obj = {
+        subject: `${userInfo.realName}向您发起个人资料授权申请`,
+        receiverList: {
+          unions: [],
+          orgs: [],
+          users: [{ id: this.user_info.id, name: this.user_info.name }],
+        },
+      }
+      this.$refs['email'].open(obj)
     },
   },
 }
@@ -261,9 +291,6 @@ export default {
           border-color: #cb3737;
         }
       }
-    }
-    .more {
-      cursor: pointer;
     }
     .right-con {
       display: flex;

@@ -1,15 +1,9 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="新增" width="40%" @close="resetForm">
-    
+
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="120px" style="margin-bottom: 50px;" class="form-detail">
       <el-form-item label="上传图片：" prop="imageUrl">
-        <el-upload
-          class="avatar-uploader"
-          action="/api/admin/file/upload/avatar"
-          :show-file-list="false"
-          :headers="headers"
-          :on-success="handleAvatarSuccess"
-          accept="image/*">
+        <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="handleAvatarSuccess" accept="image/*">
           <iep-img v-if="formData.imageUrl" :src="formData.imageUrl" class="avatar"></iep-img>
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
@@ -67,7 +61,6 @@ export default {
       }
     },
     submitForm () {
-      console.log('a')
       this.$refs['form'].validate((valid) => {
         if (valid) {
           this.loadState = true
@@ -105,7 +98,7 @@ export default {
   overflow: hidden;
 }
 .avatar-uploader:hover {
-  border-color: #409EFF;
+  border-color: #409eff;
 }
 .avatar-uploader-icon {
   font-size: 28px;

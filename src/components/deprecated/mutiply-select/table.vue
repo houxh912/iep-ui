@@ -82,7 +82,6 @@ export default {
         this.tempSelectedObjs = [...this.selectedObjs]
         // 移除当前页的数据 为了与当前页选择的合并.
         for (const key in this.keyObject) {
-          // console.log(selectedIds, parseInt(key))
           const isIncludes = selectedIds.includes(parseInt(key))
           if (this.keyObject.hasOwnProperty(key) && isIncludes) {
             // this.tempSelectedObjs.splice(index, 1)

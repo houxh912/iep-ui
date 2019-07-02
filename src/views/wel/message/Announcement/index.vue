@@ -6,7 +6,7 @@
       <operation-container>
         <template slot="left">
           <iep-button v-if="ims_announcement_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>发布公告</iep-button>
-          <iep-read-mark-del :enableList="[true, true, false]" @on-view-batch="handleViewBatch"></iep-read-mark-del>
+          <iep-read-mark-del :enableList="[type==='2', true, false]" @on-view-batch="handleViewBatch"></iep-read-mark-del>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage"></operation-search>

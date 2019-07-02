@@ -2,7 +2,7 @@
   <div>
     <basic-container>
       <page-header :title="`${form.name}的${typeMap[form.type].label}`" :backOption="backOption"></page-header>
-      <el-card class="top-card" :body-style="bodyStyle" shadow="hover">
+      <el-card class="iep-approval-top-card" :body-style="bodyStyle" shadow="hover">
         <div class="avatar-wrapper">
           <iep-img-avatar :size="90" :src="form.avatar" alt="头像"></iep-img-avatar>
         </div>
@@ -164,45 +164,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.top-card {
-  .avatar-wrapper {
-    flex: 1;
-    text-align: center;
-  }
-  .avatar {
-    border-radius: 50%;
-    border: 1px solid #fff;
-    height: 100px;
-    width: 100px;
-  }
-  .info {
-    flex: 5;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    .info-item {
-      & > label {
-        width: 120px;
-        text-align: right;
-        vertical-align: middle;
-        float: left;
-        font-size: 14px;
-        color: #606266;
-        line-height: 40px;
-        padding: 0 12px 0 0;
-        box-sizing: border-box;
-      }
-      .content {
-        margin-left: 120px;
-        line-height: 40px;
-        position: relative;
-        font-size: 14px;
-      }
-    }
-  }
-}
-.middle-card {
-  margin-top: 20px;
-}
-</style>

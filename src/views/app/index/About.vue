@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="about">
     <IepAppTabCard :title="title" :linkName="linkName">
       <div>
         <p class="about-text">国脉集团是中国领先的大数据治理和数据服务专业机构。创新提出“软件+咨询+平台+数据+创新...</p>
@@ -68,8 +68,8 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-flow: row dense;
-  grid-row-gap: 20px;
-  grid-column-gap: 20px;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
   .piece {
     cursor: pointer;
     height: 30px;
@@ -82,5 +82,10 @@ export default {
       color: #fff;
     }
   }
+}
+</style>
+<style scoped>
+.about >>> .el-card {
+  height: 288px;
 }
 </style>

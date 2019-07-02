@@ -1,51 +1,26 @@
 const utils = require('./config/utils')
 const devServer = require('./config/devServer')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
 const isProduction = process.env.NODE_ENV === 'production'
+const cdn = {
+  css: [],
+  js: [
+    '//unpkg.com/vue@2.6.10/dist/vue.runtime.min.js',
+    '//unpkg.com/vue-router@3.0.4/dist/vue-router.min.js',
+    '//unpkg.com/vuex@3.0.1/dist/vuex.min.js',
+    '//unpkg.com/axios@0.19.0/dist/axios.min.js',
+  ],
+}
+
 module.exports = {
   lintOnSave: true,
-  // pages: {
-  //   index: {
-  //     // page 的入口
-  //     entry: isProduction ? 'src/main.js' : 'src/main.dev.js',
-  //     // 模板来源
-  //     template: isProduction ? 'public/index.html' : 'public/index.dev.html',
-  //   },
-  // },
-  // configureWebpack: {
-  //   externals: isProduction
-  //     ? {
-  //       vue: 'Vue',
-  //       vuex: 'Vuex',
-  //       'vue-router': 'VueRouter',
-  //       'element-ui': 'ELEMENT',
-  //       '@smallwei/avue/lib/index.js': 'AVUE',
-  //     }
-  //     : undefined,
-  // },
   chainWebpack: config => {
-    // config.resolve.symlinks(true)
-    // config.plugin('preload').tap(options => {
-    //   options[0] = {
-    //     rel: 'preload',
-    //     as (entry) {
-    //       if (/\.css$/.test(entry)) return 'style'
-    //       if (/\.(woff||ttf))$/.test(entry)) return 'font'
-    //       if (/\.png)$/.test(entry)) return 'image'
-    //       return 'script'
-    //     },
-    //     include: 'allAssets',
-    //     fileBlacklist: [/\.map$/, /hot-update\.js$/],
-    //   }
-    // })
-    // config
-    //   .entry('index')
-    //   .add('babel-polyfill')
-    //   .end()
+    config.entry('index').add('babel-polyfill').end()
     if (isProduction) {
       // 删除预加载
-      // config.plugins.delete('preload')
-      // config.plugins.delete('prefetch')
+      config.plugins.delete('preload')
+      config.plugins.delete('prefetch')
       // 压缩代码
       config.optimization.minimize(true)
       // 分割代码
@@ -53,11 +28,10 @@ module.exports = {
         chunks: 'all',
       })
       // 生产环境注入cdn
-      // config.plugin('html')
-      //   .tap(args => {
-      //     args[0].cdn = cdn;
-      //     return args;
-      //   });
+      config.plugin('html').tap(args => {
+        args[0].cdn = cdn
+        return args
+      })
     }
     config
       .plugin('webpack-context-replacement')
@@ -82,12 +56,12 @@ module.exports = {
   configureWebpack: config => {
     if (isProduction) {
       // 用cdn方式引入
-      // config.externals = {
-      //   'vue': 'Vue',
-      //   'vuex': 'Vuex',
-      //   'vue-router': 'VueRouter',
-      //   'axios': 'axios'
-      // }
+      config.externals = {
+        'vue': 'Vue',
+        'vuex': 'Vuex',
+        'vue-router': 'VueRouter',
+        'axios': 'axios',
+      }
       // 为生产环境修改配置...
       config.plugins.push(
         //生产环境自动删除console
@@ -120,6 +94,13 @@ module.exports = {
           // 'border-radius-base': '2px',
         },
         javascriptEnabled: true,
+      },
+      // pass options to sass-loader
+      sass: {
+        // 引入全局变量样式,@使我们设置的别名,执行src目录
+        data: `
+            @import "@/styles/approval.scss";
+        `,
       },
     },
     // 启用 CSS modules for all css / pre-processor files.

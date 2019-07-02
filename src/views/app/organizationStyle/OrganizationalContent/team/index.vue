@@ -27,15 +27,19 @@ export default {
     TeamDemeanor,
     Honor,
   },
-  data () {
-    return {
-      tabList: [{
+  computed: {
+    tabList () {
+      return [{
         label: '团队风采',
         value: 'TeamDemeanor',
       }, {
-        label: '荣誉资质',
+        label: `荣誉资质(${this.honorList.length})`,
         value: 'Honor',
-      }],
+      }]
+    },
+  },
+  data () {
+    return {
       activeTab: 'TeamDemeanor',
       linkName: '',
       honorList: [],
@@ -43,7 +47,7 @@ export default {
   },
   watch: {
     orgId (newVal) {
-      getHonorList(newVal).then(({data}) => {
+      getHonorList(newVal).then(({ data }) => {
         this.honorList = data.data
       })
     },

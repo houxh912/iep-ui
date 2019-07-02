@@ -151,8 +151,7 @@ export default {
       this.filterText = ''
       this.dialogShow = false
     },
-    filterNode (value, data, node) {
-      console.log(value, data, node)
+    filterNode (value, data) {
       if (!value) return true
       return data.label.indexOf(value) !== -1
     },

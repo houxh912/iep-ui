@@ -5,12 +5,12 @@
         <iep-input-number v-model="form.amount"></iep-input-number>
       </el-form-item>
       <el-form-item label="方式：" prop="isReward">
-        <el-radio-group v-model="form.isReward" size="medium">
+        <el-radio-group v-model="form.isReward" size="medium" @change="form.type=''">
           <el-radio v-for="(v,k) in dictsMap.isReward" :key="k" :label="k">{{v}}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="类型：" prop="type">
-        <iep-dict-select v-model="form.type" dict-name="fams_reward_reason" placeholder="选择打赏类型"></iep-dict-select>
+        <iep-dict-select v-model="form.type" :dict-name="dictName" placeholder="选择打赏类型"></iep-dict-select>
       </el-form-item>
       <el-form-item label="打赏组织：" prop="targetOrgId">
         <iep-select v-model="form.targetOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择打赏组织"></iep-select>
@@ -37,6 +37,11 @@ export default {
       form: initForm(),
       rules,
     }
+  },
+  computed: {
+    dictName () {
+      return this.form.isReward === '1' ? 'fams_reward_reason' : 'fams_reduce_reason'
+    },
   },
   methods: {
     close () {

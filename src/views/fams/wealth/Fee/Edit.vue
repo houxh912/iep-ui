@@ -67,7 +67,7 @@
         </iep-form-item>
 
         <iep-form-item label-name="备注">
-          <iep-input-area v-model="form.remarks"></iep-input-area>
+          <iep-input-area v-model="form.remarks" :maxlength="10000"></iep-input-area>
         </iep-form-item>
 
         <iep-divider />

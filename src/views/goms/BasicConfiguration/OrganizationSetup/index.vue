@@ -133,7 +133,6 @@ export default {
     loadPage () {
       getOrgMessage().then(({ data }) => {
         this.message = data.data
-        console.log(data.data)
       })
     },
   },

@@ -28,19 +28,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.piece:nth-last-child(1),.piece:nth-last-child(2){
+.piece:nth-last-child(1),
+.piece:nth-last-child(2) {
   margin-bottom: 0;
 }
 .piece {
   display: inline-block;
   width: 50%;
-  margin-top:8px;
+  margin-top: 8px;
   margin-bottom: 14px;
+  cursor: pointer;
   .img {
     width: 55px;
     height: 60px;
     vertical-align: top;
     margin-right: 10px;
+  }
+  &:hover .name {
+    color: #cb3737;
   }
   .expert {
     display: inline-block;

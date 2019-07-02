@@ -26,6 +26,13 @@ export function getOrgPaymentPlanPageByOrgId (orgId) {
   }
 }
 
+export function getUnionBudgetList (year) {
+  return request({
+    url: `/prms/income/group/${year}`,
+    method: 'get',
+  })
+}
+
 export function getOrgBudgetList (query) {
   return request({
     url: '/prms/income/org',
@@ -73,7 +80,7 @@ export function statusCancel (list) {
   return request({
     url: `${InformationUrl}/status/cancel`,
     method: 'post',
-    data: {ids: list},
+    data: { ids: list },
   })
 }
 // 公海确定认领
@@ -81,6 +88,6 @@ export function statusDefine (list) {
   return request({
     url: `${InformationUrl}/status/define`,
     method: 'post',
-    data: {ids: list},
+    data: { ids: list },
   })
 }

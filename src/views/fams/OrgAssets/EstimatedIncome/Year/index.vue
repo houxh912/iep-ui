@@ -3,11 +3,11 @@
     <operation-container>
       <template slot="left">
         <operation-wrapper>
-          <span>{{year}}年度组织收入</span>
+          <span>{{year}}年度{{orgName}}组织预计收入</span>
         </operation-wrapper>
       </template>
       <template slot="right">
-        <iep-date-picker type="year" v-model="year" @change="loadPage"></iep-date-picker>
+        <iep-date-picker size="small" v-model="yearDate" align="right" type="year" placeholder="选择年" @change="handleChange()"></iep-date-picker>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :is-pagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable">
@@ -17,7 +17,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getOrgBudgetList } from '@/api/gpms/fas'
-import { getYear } from '@/util/date'
+import { getYear, initNow } from '@/util/date'
 export default {
   data () {
     return {
@@ -29,31 +29,48 @@ export default {
         },
         {
           prop: 'oneQuarter',
-          label: '一季度',
+          label: '一季度(元)',
         },
         {
           prop: 'twoQuarter',
-          label: '二季度',
+          label: '二季度(元)',
         },
         {
           prop: 'threeQuarter',
-          label: '三季度',
+          label: '三季度(元)',
         },
         {
           prop: 'fourQuarter',
-          label: '四季度',
+          label: '四季度(元)',
         },
         {
           prop: 'projectedYear',
-          label: '年度',
+          label: '年度(元)',
         },
       ],
       isLoadTable: false,
-      year: getYear(new Date()),
+      yearDate: initNow(),
     }
   },
   computed: {
     ...mapGetters(['userInfo']),
+    year () {
+      return getYear(this.yearDate)
+    },
+    orgId () {
+      if (this.$route.query.orgId) {
+        return +this.$route.query.orgId
+      } else {
+        return this.userInfo.orgId
+      }
+    },
+    orgName () {
+      if (this.$route.query.orgName) {
+        return this.$route.query.orgName
+      } else {
+        return this.userInfo.orgName
+      }
+    },
   },
   created () {
     this.loadPage()
@@ -66,7 +83,7 @@ export default {
       this.isLoadTable = true
       getOrgBudgetList({
         year: this.year,
-        orgId: this.userInfo.orgId,
+        orgId: this.orgId,
       }).then(({ data }) => {
         this.pagedTable = data.data
         this.isLoadTable = false

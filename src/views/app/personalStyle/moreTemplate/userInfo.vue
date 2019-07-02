@@ -64,8 +64,8 @@ export default {
 <style lang="scss" scoped>
 .userInfo {
   display: flex;
+  flex-direction: column;
   .row {
-    width: 100%;
     display: flex;
     flex-wrap: wrap;
     .item {
@@ -78,6 +78,14 @@ export default {
       .span {
         flex: 1;
       }
+    }
+  }
+  .first {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    .item {
+      width: 25%;
     }
   }
 }

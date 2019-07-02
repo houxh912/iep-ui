@@ -31,7 +31,7 @@ export default {
     }
   },
   created () {
-    getProjectProjectManager().then(({data}) => {
+    getProjectProjectManager().then(({ data }) => {
       this.managerBoardList = data.data
     })
   },
@@ -102,8 +102,8 @@ export default {
 }
 </style>
 <style scoped>
-.app-project-manager-ranking >>> .el-card__body {
-  height: 358px;
+.app-project-manager-ranking >>> .el-card {
+  height: 410px;
 }
 </style>
 

@@ -86,14 +86,14 @@ export default {
   },
   data () {
     return {
-      
+
     }
   },
 }
 </script>
 <style lang="scss" scoped>
 .project {
-  margin: 30px 0;
+  margin: 20px 0;
   i {
     display: inline-block;
     width: 70px;
@@ -115,7 +115,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 25px 10px;
+    margin: 18px 25px;
     .text {
       display: flex;
       flex-direction: column;
@@ -142,5 +142,8 @@ export default {
       100px,
       2fr
     );
+}
+.project >>> .el-card {
+  height: 245px;
 }
 </style>

@@ -241,6 +241,6 @@ export default {
   line-height: 22px;
 }
 .thoughts >>> .el-card__body {
-  height: 166px;
+  height: 158px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <ve-line :data="chartData" :extend="chartExtend" :colors="colors" :toolbox="toolbox" height="307px">
+  <ve-line :data="chartData" :extend="chartExtend" :colors="colors" :toolbox="toolbox" height="280px">
   </ve-line>
 </template>
 

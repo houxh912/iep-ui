@@ -1,7 +1,7 @@
 <template>
   <div class="receipt">
     <div class="title">{{title}}</div>
-    <ve-histogram :data="chartData" :extend="extend" :colors="colors"></ve-histogram>
+    <ve-histogram height="360px" :data="chartData" :extend="extend" :colors="colors"></ve-histogram>
   </div>
 </template>
 

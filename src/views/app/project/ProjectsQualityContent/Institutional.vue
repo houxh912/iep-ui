@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     loadList () {
-      getMaterialList().then(({data}) => {
+      getMaterialList().then(({ data }) => {
         this.dataList = data.data.gzzd ? data.data.gzzd.slice(0, 8) : []
       })
     },
@@ -33,7 +33,7 @@ export default {
 }
 </script>
 <style scoped>
-.institutional >>> .el-card__body {
-  height: 272px;
+.institutional >>> .el-card {
+  height: 324px;
 }
 </style>

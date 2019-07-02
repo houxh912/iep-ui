@@ -26,6 +26,7 @@ export default {
       }, {
         label: '月度',
         value: 'Monthly',
+        disabled: true,
       }],
       activeTab: 'Year',
     }

@@ -1,5 +1,5 @@
 import request from '@/router/axios'
-const prefixUrl = '/prms/fas'
+const prefixUrl = '/prms/payment'
 const InformationUrl = '/prms/iepProjectInformation'
 // @/api/gpms/fas
 export function getPaymentPlanPage (obj) {

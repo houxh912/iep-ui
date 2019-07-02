@@ -52,10 +52,11 @@
                   </el-checkbox>
                 </el-checkbox-group>
                 <p v-if="item.answer"><span class="caption">答案：</span>{{item.answer}}</p>
-                <p class='qt_error' v-else>答案：</p>
+                <p class='qt_error' v-else>答案: 缺少答案</p>
                 <p v-if="item.analysis"><span class="caption">解析：</span>{{item.analysis}}</p>
-                <p v-if="item.tag"><span class="caption">标签：</span>{{item.tag}}</p>
-                <p class='qt_error' v-else>标签（至少三个标签）</p>
+                <p class='qt_error' v-else>解析: 缺少解析</p>
+                <p v-if="item.tag && item.tag.split(',').length >= 3"><span class="caption">标签：</span>{{item.tag}}</p>
+                <p class='qt_error' v-else>标签: 需要三个以上的标签</p>
               </div>
             </div>
           </el-scrollbar>
@@ -301,16 +302,17 @@ export default {
     renderJsonML (jsonml) {
       for (let i = 0; i < jsonml.length; i++) {
         var title_reg = new RegExp('title')
-        var error_reg = new RegExp('para')
+        // var error_reg = new RegExp('para')
         //这是无法识别出来的内容，统一视为上一项中的内容
-        for (var j = i; j < jsonml.length - 1; j = i) {//都是检测下一项，所以不用再去对最后一行做判断
-          if (error_reg.test(jsonml[j + 1][0])) {//检测当前项的下一项
-            jsonml[i][1] += ('\n' + jsonml[j + 1][1])
-            jsonml.splice(j + 1, 1)
-          } else {
-            break
-          }
-        }
+        // for (var j = i; j < jsonml.length - 1; j = i) {//都是检测下一项，所以不用再去对最后一行做判断
+          // if (error_reg.test(jsonml[j + 1][0])) {//检测当前项的下一项
+          //   console.log('error',jsonml[j + 1][1])
+          //   jsonml[i][1] += ('\n' + jsonml[j + 1][1])
+          //   jsonml.splice(j + 1, 1)
+          // } else {
+          //   break
+          // }
+        // }
         // 题目计数
         if (title_reg.test(jsonml[i][0])) {
           this.count++

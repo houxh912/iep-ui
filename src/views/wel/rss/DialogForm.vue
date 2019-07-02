@@ -1,6 +1,13 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="订阅主题" width="700px" @close="close">
-    <el-transfer v-model="value" :data="data"></el-transfer>
+    <el-transfer style="text-align: left; display: inline-block" v-model="value" filterable :left-default-checked="[2, 3]" :right-default-checked="[1]" :titles="['全部主題', '已订阅']" :button-texts="['取消订阅', '订阅']" :format="{
+        noChecked: '${total}',
+        hasChecked: '${checked}/${total}'
+      }" @change="handleChange" :data="data">
+      <span slot-scope="{ option }">{{ option.key }} - {{ option.label }}</span>
+      <!-- <el-button class="transfer-footer" slot="left-footer" size="small">操作</el-button> -->
+      <!-- <el-button class="transfer-footer" slot="right-footer" size="small">操作</el-button> -->
+    </el-transfer>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm('form')">提交</iep-button>
       <iep-button @click="dialogShow = false">取消</iep-button>

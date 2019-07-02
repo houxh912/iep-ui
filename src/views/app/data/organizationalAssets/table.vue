@@ -1,7 +1,7 @@
 <template>
   <div class="organizationalAssets">
     <page-header title="组织资产"></page-header>
-    <iep-table :isLoadTable="isLoadTable" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" :isPagination="false" border @row-click="rowClick">
+    <iep-table :isLoadTable="isLoadTable" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" :isPagination="false" @row-click="rowClick">
       <el-table-column label="排行" slot="before-columns" width="90px">
         <template slot-scope="scope">
           <span>{{ scope.$index + 1}}</span>
@@ -48,7 +48,7 @@ export default {
       })
     },
     rowClick (row) {
-      console.log('row: ', row)
+      this.$emit('change-tab', row)
     },
   },
   created () {
@@ -56,3 +56,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.organizationalAssets >>> .el-table__row {
+  height: 45px;
+  border-bottom: 1px solid #ccc;
+}
+</style>

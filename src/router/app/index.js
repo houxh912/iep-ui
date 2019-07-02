@@ -272,6 +272,11 @@ export default [
         name: '组织列表',
         component: () => import('@/views/app/organizationalList/'),
       },
+      {
+        path: 'data_assets',
+        name: '数据资产',
+        component: () => import('@/views/app/data/organizationalAssets/component'),
+      },
     ],
   },
 ]

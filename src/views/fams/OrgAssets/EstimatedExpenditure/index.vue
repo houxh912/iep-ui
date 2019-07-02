@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织预算"></page-header>
+      <page-header title="组织预计支出"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Year'" v-slot:Year>
           <year v-loading="activeTab !=='Year'" @on-change-year="handleChangeYear" @on-change-quarter="handleChangeQuarter"></year>

@@ -25,6 +25,15 @@ export function getOrgPaymentPlanPageByOrgId (orgId) {
     })
   }
 }
+
+export function getOrgBudgetList (query) {
+  return request({
+    url: '/prms/income/org',
+    method: 'get',
+    params: query,
+  })
+}
+
 export function getProjectPaymentPlanList (id) {
   return request({
     url: `${InformationUrl}/getPaymentList/${id}`,

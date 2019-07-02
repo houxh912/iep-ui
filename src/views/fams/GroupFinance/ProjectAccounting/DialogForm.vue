@@ -5,17 +5,17 @@
         <iep-div-detail :value="form.businessYear+'年'"></iep-div-detail>
       </el-form-item>
       <el-form-item label="金额：" prop="amount">
-        <iep-input-number v-model="form.amount" :disabled="isEdit" placeholder="请输入金额"></iep-input-number>
+        <iep-input-number v-model="form.amount" placeholder="请输入金额"></iep-input-number>
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
+      <iep-button type="primary" @click="submitForm()">保存</iep-button>
       <iep-button @click="dialogShow = false">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
-import { createUnionProject, putUnionProject } from '@/api/fams/statistics'
+import { putUnionProject } from '@/api/fams/statistics'
 import { initForm, toDtoForm, rules } from './options'
 import formMixins from '@/mixins/formMixins'
 export default {
@@ -23,7 +23,6 @@ export default {
   data () {
     return {
       rules,
-      isEdit: false,
       dialogShow: false,
       form: initForm(),
     }
@@ -37,8 +36,7 @@ export default {
     async submitForm () {
       try {
         await this.mixinsValidate()
-        const functionName = this.isEdit ? putUnionProject : createUnionProject
-        functionName(toDtoForm(this.form)).then(({ data }) => {
+        putUnionProject(toDtoForm(this.form)).then(({ data }) => {
           if (data.data) {
             this.$message('操作成功')
             this.close()

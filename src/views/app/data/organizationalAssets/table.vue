@@ -1,11 +1,18 @@
 <template>
   <div class="organizationalAssets">
     <page-header title="组织资产"></page-header>
-    <iep-table :isLoadTable="isLoadTable" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" :isPagination="false"></iep-table>
+    <iep-table :isLoadTable="isLoadTable" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" :isPagination="false" border @row-click="rowClick">
+      <el-table-column label="排行" slot="before-columns" width="90px">
+        <template slot-scope="scope">
+          <span>{{ scope.$index + 1}}</span>
+        </template>
+      </el-table-column>
+    </iep-table>
   </div>
 </template>
 
 <script>
+import { getAssetsList } from '@/api/fams/statistics'
 export default {
   data () {
     return {
@@ -14,26 +21,35 @@ export default {
       pagedTable: [],
       columnsMap: [
         {
-          label: '排行',
-          prop: 'createTime',
-        }, {
           label: '组织名称',
-          prop: 'createTime',
+          prop: 'name',
         }, {
           label: '组织资产',
-          prop: 'createTime',
+          prop: 'orgAssets',
+          width: '170px',
         }, {
           label: '数据资产',
-          prop: 'createTime',
+          prop: 'dataAssets',
+          width: '170px',
         }, {
           label: '财务资产',
-          prop: 'createTime',
+          prop: 'financialAssets',
+          width: '170px',
         },
       ],
     }
   },
   methods: {
-    loadPage () {},
+    loadPage () {
+      this.isLoadTable = true
+      getAssetsList().then(({data}) => {
+        this.isLoadTable = false
+        this.pagedTable = data.data
+      })
+    },
+    rowClick (row) {
+      console.log('row: ', row)
+    },
   },
   created () {
     this.loadPage()

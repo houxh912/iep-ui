@@ -50,7 +50,7 @@
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="addContact(scope.row)">添加联系人</el-dropdown-item>
                   <el-dropdown-item @click.native="handleCooperation(scope.row)">添加协作人</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleCancelClaim(scope.row)">取消认领</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleCancelClaim(scope.row)">移入公海库</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>

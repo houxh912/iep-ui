@@ -39,12 +39,12 @@ export default {
         }, {
           label: '财务资产',
           value: 'financialAssets',
-        }, {
-          label: '能力资产',
-          value: 'capabilityAssets',
-        }, {
-          label: '其他资产',
-          value: 'otherAssets',
+        // }, {
+        //   label: '能力资产',
+        //   value: 'capabilityAssets',
+        // }, {
+        //   label: '其他资产',
+        //   value: 'otherAssets',
         },
       ],
       backOption: {

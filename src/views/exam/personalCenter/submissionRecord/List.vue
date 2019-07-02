@@ -55,9 +55,9 @@
           <template slot-scope="scope">
             <el-tag type="info" size="medium" v-if="scope.row.status === 0">审核中</el-tag>
             <el-tag type="success" size="medium" v-if="scope.row.status === 1">通过</el-tag>
-            <el-tooltip effect="dark" placement="top-start">
+            <el-tooltip effect="dark" placement="top-start" v-if="scope.row.status === 2">
               <div slot="content">未通过原因：<br />{{scope.row.reason}}</div>
-              <el-tag type="warning" size="medium" v-if="scope.row.status === 2">未通过</el-tag>
+              <el-tag type="warning" size="medium">未通过</el-tag>
             </el-tooltip>
           </template>
         </el-table-column>

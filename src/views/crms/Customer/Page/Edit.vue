@@ -100,8 +100,8 @@
               {{tag.commonName}}
             </a-tag>
           </el-form-item>
-          <el-form-item label="是否认领">
-            <el-switch v-model="Claim" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否">
+          <el-form-item label="放入公海：">
+            <el-switch v-model="Claim" active-color="#13ce66" active-text="是" inactive-text="否">
             </el-switch>
           </el-form-item>
           <!-- <el-form-item label="跟进状态:" prop="followUpStatus">
@@ -300,9 +300,9 @@ export default {
           this.formData.Manager = res.data.data.realName
         })
         if (this.formData.marketManager == 0) {
-          this.Claim = false
-        } else {
           this.Claim = true
+        } else {
+          this.Claim = false
         }
       })
     } else if (this.flag) {
@@ -387,7 +387,7 @@ export default {
       })
     },
     submitForm (formName) {
-      if (!this.Claim) {
+      if (this.Claim) {
         this.formData.toClaim = 1
       } else {
         this.formData.toClaim = 0

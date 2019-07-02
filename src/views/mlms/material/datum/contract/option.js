@@ -29,6 +29,10 @@ export const deptList = [
 
 export const tableOption = [
   {
+    label: '市场经理',
+    prop: 'directorRealName',
+    width: '180px',
+  }, {
     label: '合同类型',
     prop: 'contractType',
     type: 'dict',

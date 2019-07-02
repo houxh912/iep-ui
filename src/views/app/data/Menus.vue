@@ -1,45 +1,9 @@
 <template>
   <div class="menus">
     <a-menu @click="handleClick" :openKeys.sync="openKeys">
-      <a-menu-item key="sub1">
-        <i class="iconfont icon-dongtai"></i>
-        总览
-      </a-menu-item>
-      <a-menu-item key="sub2">
-        <i class="iconfont icon-kehu"></i>
-        客户资产
-      </a-menu-item>
-      <a-menu-item key="sub3">
-        <i class="iconfont icon-renwu"></i>
-        项目资产
-      </a-menu-item>
-      <a-menu-item key="sub4">
-        <i class="iconfont icon-shoucangjia"></i>
-        产品资源
-      </a-menu-item>
-      <a-menu-item key="sub5">
-        <i class="iconfont icon-renli"></i>
-        人力资源
-      </a-menu-item>
-      <a-menu-item key="sub6">
-        <i class="iconfont icon-weath2"></i>
-        财富统计
-      </a-menu-item>
-      <a-menu-item key="sub7">
-        <i class="iconfont icon-wendang"></i>
-        财务报表
-      </a-menu-item>
-      <a-menu-item key="sub8">
-        <i class="iconfont icon-yunweiguanli"></i>
-        投资指数
-      </a-menu-item>
-      <a-menu-item key="sub9">
-        <i class="iconfont icon-share"></i>
-        学习资源
-      </a-menu-item>
-      <a-menu-item key="sub10">
-        <i class="iconfont icon-tongji"></i>
-        我的数据
+      <a-menu-item v-for="(item, index) in menus" :key="index">
+        <i class="iconfont" :class="item.icon"></i>
+        {{item.name}}
       </a-menu-item>
     </a-menu>
   </div>
@@ -49,14 +13,53 @@
 export default {
   data () {
     return {
-      data: ['(86)', '(16)', '(25)', '(25)', '(80)', '(58)', '(36)', '(126)', '(96)'],
-      current: ['mail'],
-      openKeys: ['sub1'],
+      menus: [
+        {
+          name: '总览',
+          icon: 'icon-dongtai',
+          link: 'overview',
+        }, {
+          name: '客户资产',
+          icon: 'icon-kehu',
+        }, {
+          name: '项目资产',
+          icon: 'icon-renwu',
+        }, {
+          name: '产品资源',
+          icon: 'icon-shoucangjia',
+        }, {
+          name: '人力资源',
+          icon: 'icon-renli',
+        }, {
+          name: '财富统计',
+          icon: 'icon-weath2',
+        }, {
+          name: '财务报表',
+          icon: 'icon-wendang',
+        }, {
+          name: '投资指数',
+          icon: 'icon-yunweiguanli',
+        }, {
+          name: '投资指数',
+          icon: 'icon-share',
+        }, {
+          name: '我的数据',
+          icon: 'icon-tongji',
+        }, {
+          name: '组织资产',
+          icon: 'icon-shangjibaobeixianxing',
+          link: 'organizationalAssets',
+        },
+      ],
+      openKeys: [0],
     }
   },
   methods: {
     handleClick (e) {
-      console.log('click', e)
+      let row = this.menus[e.key]
+      if (row.link) {
+        this.$emit('change-menu', row.link)
+      }
     },
     titleClick (e) {
       console.log('titleClick', e)

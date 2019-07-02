@@ -47,7 +47,6 @@ export default {
   },
   methods: {
     filterOption (inputValue, option) {
-      console.log(inputValue, option)
       const name = inputValue.toLowerCase().trim()
       if (name) {
         return true

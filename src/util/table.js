@@ -93,9 +93,7 @@ const getSummariesUnionBudget = (budgetTable) => {
         sums[index] = '总计'
         return
       }
-      console.log(index)
       // const data = budgetTable[index - 1].orgRelation
-      console.log(budgetTable)
       // const values = data.map(item => {
       //   return Number(item[column.property])
       // })

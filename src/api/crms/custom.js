@@ -84,7 +84,6 @@ export function AddCollaborator (query) {
 
 // 客户全景查询
 export function fetchDetail (id) {
-  console.log(id)
   return request({
     // url: `${crmsUrl}/${id}`,
     url: `${crmsUrl}`,

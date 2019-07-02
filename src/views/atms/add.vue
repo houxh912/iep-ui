@@ -9,7 +9,7 @@
 
         <el-form-item label='所属任务：' prop="parentName" class="form-half">
           <span v-if="form.children.length>0" style="color:#999;">此任务已有子任务不能再添加所属任务</span>
-          <iep-contract-atms-select v-else v-model="form.parentId" :contractName="form.parentName"></iep-contract-atms-select>
+          <iep-task-atms-select v-else v-model="form.parentId" :contractName="form.parentName"></iep-task-atms-select>
         </el-form-item>
 
         <!-- <el-form-item label='状态' prop="taskStatus" class="form-half">
@@ -18,6 +18,12 @@
 
         <el-form-item label='优先级：' prop="priority" class="form-half">
           <iep-dict-select v-model="form.priority" placeholder="普通" dict-name="atms_task_priority"></iep-dict-select>
+        </el-form-item>
+        
+        <el-form-item label='负责人：' prop="principals" v-if="!this.id">
+          <div style="width: 200px;">
+            <iep-contact-select v-model="form.principals"></iep-contact-select>
+          </div>
         </el-form-item>
 
         <el-form-item label='协同人：' prop="assistants">
@@ -52,9 +58,9 @@
         <el-form-item label='关联内容：' prop="materials">
           <el-button @click="handleAdd"><i class="iconfont icon-xinzeng"></i></el-button>
         </el-form-item>
-
+        
         <div v-for="(item, index) in relatedFormList" :key="index">
-          <el-form-item :label="`${item.name}：`" v-if="form[item.list].length > 0">
+          <el-form-item :label="`${item.name}：`" v-if="form[item.list].length>0">
             <ul class="relevance-list">
               <li class="item" v-for="(t, i) in form[item.list]" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, item.list, item.ids)"></i></li>
             </ul>
@@ -75,6 +81,7 @@ import { createAtms, getAtmsById, updateAtms } from '@/api/atms/index'
 import { initForm, formToDto, rules, relatedFormList } from './options.js'
 import formMixins from '@/mixins/formMixins'
 import RelationDialog from './relation'
+import { mapGetters } from 'vuex'
 export default {
   mixins: [formMixins],
   components: { RelationDialog },
@@ -104,9 +111,14 @@ export default {
           this.form.projectName = this.form.projectList[0].name
         }
       })
+    } else {
+       this.form = initForm(this.userInfo)
     }
   },
   computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
     id () {
       return +this.$route.params.id
     },
@@ -130,6 +142,8 @@ export default {
             this.form.startTime = this.form.startEndTime[0]
             this.form.endTime = this.form.startEndTime[1]
           }
+          this.form.principal=this.form.principals.id
+          delete this.form.principals
           delete this.form.summaryList
           delete this.form.materialList
           submitFunction(formToDto(this.form), publish).then(({ data }) => {

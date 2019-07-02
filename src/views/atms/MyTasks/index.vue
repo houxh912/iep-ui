@@ -131,7 +131,46 @@ export default {
       })
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deleteAtmsById)
+      const yChildrenCount = '此任务包含子任务，是否保留子任务？'
+      const nChildrenCount = '此操作将永久删除该任务, 是否继续?'
+      
+      this.$confirm( this.childrenCount!=0 ? yChildrenCount : nChildrenCount , '提示', {
+        confirmButtonText: this.childrenCount!=0 ? '保留' : '确定',
+        cancelButtonText: this.childrenCount!=0 ? '不保留' : '取消',
+        type: 'warning',
+      }).then(() => {
+        const reserved =''
+        this.childrenCount!=0 ? this.reserved='1': ''
+        deleteAtmsById(row.id,reserved).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `删除失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      }).catch(() => {
+        deleteAtmsById(row.id,'2').then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '删除成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `删除失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      })
     },
     handleChangeStatus (id, status) {
       changeAtmsStatus(id, status).then(({ data }) => {

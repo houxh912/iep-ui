@@ -56,11 +56,14 @@ export function getAtmsById (id) {
   })
 }
 
-export function deleteAtmsById (id) {
+export function deleteAtmsById (id,reserved) {
   return request({
     url: `${prefixUrl}/delete/${id}`,
     method: 'post',
-    data: id,
+    data: {
+      id,
+      reserved,
+    },
   })
 }
 

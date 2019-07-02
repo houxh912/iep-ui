@@ -83,9 +83,12 @@ import IepDeptMultiple from '@/components/IepDept/Multiple'
 
 // 合同组件Contact
 import IepContractSelect from '@/components/IepContract/Select'
-import IepContractAtmsSelect from '@/components/IepContract/atmsSelect'
+
 // 项目
 import IepProjectSelect from '@/components/IepProject/Select'
+
+//任务
+import IepTaskAtmsSelect from '@/components/IepTask/atmsSelect'
 
 // 展示页公共组件
 import IepAppTabCard from '@/components/IepApp/TabCard'
@@ -181,10 +184,12 @@ Vue.component(IepDeptMultiple.name, IepDeptMultiple)
 
 // 合同组件Contract
 Vue.component(IepContractSelect.name, IepContractSelect)
-Vue.component(IepContractAtmsSelect.name, IepContractAtmsSelect)
+
 // 项目
 Vue.component(IepProjectSelect.name, IepProjectSelect)
 
+//任务
+Vue.component(IepTaskAtmsSelect.name, IepTaskAtmsSelect)
 
 // 展示页公共组件
 Vue.component(IepAppTabCard.name, IepAppTabCard)

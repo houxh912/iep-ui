@@ -24,6 +24,7 @@ const initForm = () => {
     isOpen: false,
     intro: '',
     hasBegun:'',//是否待办
+    childrenCount:'',//是否包含子任务
   }
 }
 

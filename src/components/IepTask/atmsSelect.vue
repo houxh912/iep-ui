@@ -1,5 +1,5 @@
 <template>
-  <el-select filterable remote placeholder="请输入任务关键词" :remote-method="remoteMethod" :loading="loading" @change="handleChange" v-bind="$attrs" v-on="$listeners">
+  <el-select filterable remote placeholder="请输入任务关键词" :remote-method="remoteMethod" :loading="loading" @change="handleChange" clearable v-bind="$attrs" v-on="$listeners">
     <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
     </el-option>
   </el-select>
@@ -7,7 +7,7 @@
 <script>
 import { getAtmsListByName } from '@/api/atms/index'
 export default {
-  name: 'IepContractAtmsSelect',
+  name: 'IepTaskAtmsSelect',
   inheritAttrs: false,
   props: {
     contractName: {

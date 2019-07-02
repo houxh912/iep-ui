@@ -33,16 +33,22 @@
             <iep-dict-detail :value="form.priority" dict-name="atms_task_priority"></iep-dict-detail>
           </el-form-item>
           <el-form-item label="协同人：" class="form-half">
-            <span v-for="(e,i) in form.assistants" :key="i" class="people">
-              <iep-img class="img" :src="e.headImg" alt=""></iep-img>
-              <span>{{e.name}}</span>
-            </span>
+            <div v-if="form.assistants.length>0">
+              <span v-for="(e,i) in form.assistants" :key="i" class="people" :value="form.assistants.length>0">
+                <iep-img class="img" :src="e.headImg" alt=""></iep-img>
+                <span>{{e.name}}</span>
+              </span>
+            </div>
+            <span v-else>无</span>
           </el-form-item>
           <el-form-item label="执行人：" class="form-half">
-            <span v-for="(a,i) in form.executors" :key="i" class="people">
-              <iep-img class="img" :src="a.headImg" alt=""></iep-img>
-              <span>{{a.name}}</span>
-            </span>
+            <div v-if="form.executors.length>0">
+              <span v-for="(a,i) in form.executors" :key="i" class="people" :value="form.executors.length>0">
+                <iep-img class="img" :src="a.headImg" alt=""></iep-img>
+                <span>{{a.name}}</span>
+              </span>
+            </div>
+            <span v-else>无</span>
           </el-form-item>
           <el-form-item label="起止时间：" class="form-half">
             <span>{{form.startTime | parseToDay}}~{{form.endTime | parseToDay}}</span>
@@ -52,10 +58,11 @@
             <span v-else>未完成</span>
           </el-form-item>
           <el-form-item label="标签：">
-            <span v-for="(a,i) in form.tagKeyWords" :key="i" class="sign" @click="tagDetail(a)">{{a}}</span>
+            <div v-if="form.tagKeyWords.length>0"><span v-for="(a,i) in form.tagKeyWords" :key="i" class="sign" @click="tagDetail(a)">{{a}}</span></div>
+            <span v-else>无</span>
           </el-form-item>
           <el-form-item label="备注：">
-            <span>{{form.remarks}}</span>
+            <iep-div-detail :value="form.remarks"></iep-div-detail>
           </el-form-item>
           <el-form-item label="子任务：">
             <div v-if="form.children.length>0"><span v-for="(item,index) in form.children" :key="index" style="display:block;">{{item.name}}</span></div>
@@ -68,15 +75,15 @@
             </div>
             <span v-else>无附件</span>
           </el-form-item>
-          <el-form-item :label="`${item.name}：`" v-for="(item, index) in relatedFormList" :key="index">
-            <div v-if="form[item.list].length > 0">
+          <div v-for="(item, index) in relatedFormList" :key="index">
+            <el-form-item :label="`${item.name}：`" v-if="form[item.list].length > 0">
               <ul class="relevance-list">
                 <li class="item" v-for="t in form[item.list]" :key="t.id">{{t.name}}</li>
               </ul>
-            </div>
-          </el-form-item>
-          <el-form-item label="关联项目：">
-            <span v-for="project in form.projectList" :key="project.id">{{project.name}}</span>
+            </el-form-item>
+          </div>
+          <el-form-item label="关联项目：" v-if="form.projectList.length > 0">
+            <span v-for="project in form.projectList" :key="project.id" :value="form.projectList.length>0">{{project.name}}</span>
           </el-form-item>
         </el-form>
       </div>

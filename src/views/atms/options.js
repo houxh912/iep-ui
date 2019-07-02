@@ -11,17 +11,21 @@ const dictsMap = {
     3: '非常紧急',
   },
 }
-const initForm = () => {
+const initForm = (opt) => {
     return {
         taskId:'',
         taskName: '',
         parentName:'',
         taskStatus: '1',//任务状态
         priority: '',//优先级 
+        creatorId:'',//创建人id
         executors: [],//协同人
         assistants: [],//执行人,
+        principals: {
+          id: opt ? opt.userId : '',
+          name: opt ? opt.realName : '',
+        },//负责人
         principal:'',//负责人id
-        creatorId:'',//创建人id
         principalName:'',//负责人
         avatar:'',//负责人头像
         startEndTime:[],//起止时间

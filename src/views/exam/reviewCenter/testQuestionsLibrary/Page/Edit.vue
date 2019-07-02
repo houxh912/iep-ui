@@ -10,7 +10,7 @@
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item class="item" label="难度：" prop="difficulty" style="margin-left:20%;">
+        <el-form-item class="item" label="难度：" prop="difficulty" style="margin-left:4%">
           <el-select v-model="form.difficulty" size="small" clearable :disabled="btnDisabled" class="selectItem">
             <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label"
               :value="item.id"></el-option>
@@ -22,7 +22,7 @@
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item class="item" label="题类：" prop="kind" style="margin-left:20%;">
+        <el-form-item class="item" label="题类：" prop="kind" style="margin-left:4%">
           <el-select v-model="form.kind" size="small" clearable :disabled="btnDisabled" class="selectItem">
             <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label"
               :value="item.id"></el-option>
@@ -36,17 +36,16 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item class="item" label="关联标签：" prop="tagKeyWords" style="margin-left:20%;" v-if="tabName ==='single'">
-          <mutiply-tag-select v-if="btnDisabled == false" v-model="form.tagKeyWords" :select-objs="form.tagKeyWords"
-            width="906px"></mutiply-tag-select>
+        <el-form-item class="item" label="关联标签：" prop="tagKeyWords" v-if="tabName ==='single'" style="margin-left:4%">
+          <!-- <mutiply-tag-select v-if="btnDisabled == false" v-model="form.tagKeyWords" :select-objs="form.tagKeyWords"
+            width="906px"></mutiply-tag-select> -->
+          <iep-tag v-if="btnDisabled == false" v-model="form.tagKeyWords"></iep-tag>
           <el-tag v-else class="relatedTag" type="info" :key="tag" v-for="tag in tagsShow" size="medium">{{tag}}</el-tag>
         </el-form-item>
       </div>
     </el-form>
 
-    <div align="center" style="width:100%;">
-      <hr>
-    </div>
+    <div align="center" style="width:100%;"><hr></div>
 
     <el-tabs v-model="tabName">
       <el-tab-pane label=单题输入 name="single">
@@ -92,15 +91,15 @@
 import mixins from '@/mixins/mixins'
 import SingleDialog from './Single.vue'
 import BatchDialog from './Batch.vue'
-import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
-import { getTestOption, postNewTest, getExamMsg, postModify, postExaminePass, postExamineFalse, postBatchIteamBank } from '@/api/exam/createExam/newTest/newTest'
+// import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
+import { getTestOption, getExamMsg, postModify, postExaminePass, postExamineFalse, postBatchIteamBank } from '@/api/exam/createExam/newTest/newTest'
 export default {
   name: 'report',
   mixins: [mixins],
   components: {
     SingleDialog,
     BatchDialog,
-    MutiplyTagSelect,
+    // MutiplyTagSelect,
   },
   props: [
     'record',
@@ -132,6 +131,8 @@ export default {
         kind: '',
         difficulty: '',
         associatedState: '',
+        tagKeyWords: [],
+        tag: '', // 标签
       },
       tabName: 'single',
       associatedStateList: [
@@ -153,6 +154,9 @@ export default {
         ],
         associatedState: [
           { required: true, message: '请选择关联', trigger: 'change' },
+        ],
+        tagKeyWords: [
+          { required: true, message: '请选择关联标签', trigger: 'change' },
         ],
       },
     }
@@ -232,32 +236,37 @@ export default {
         }
         getExamMsg(param).then(res => {
           this.questionTypeDisabled = true
-          this.form = res.data.data
-          this.$refs.single.ruleForm.title = res.data.data.title
-          this.$refs.single.ruleForm.analysis = res.data.data.analysis
-          this.postAnswer = res.data.data.questionType
-          this.tagsShow = res.data.data.tagKeyWords
-          if (res.data.data.questionType == 13) {
-            var arrRadio = JSON.parse(res.data.data.titleOptions)
+          // console.log(res.data.data.tagKeyWords)
+          // this.form.tag = res.data.data.tagKeyWords
+          // console.log(this.form.tag)
+          const {data} = res.data
+          this.form = data
+          this.form.tagKeyWords = data.tagKeyWords ? data.tagKeyWords : []
+          this.$refs.single.ruleForm.title = data.title
+          this.$refs.single.ruleForm.analysis = data.analysis
+          this.postAnswer = data.questionType
+          this.tagsShow = data.tagKeyWords
+          if (data.questionType == 13) {
+            var arrRadio = JSON.parse(data.titleOptions)
             // console.log(arrRadio)
             this.$refs.single.ruleForm.radioOptions = arrRadio
             this.$refs.single.ruleForm.radioOption = arrRadio.map(i => i.value)
-            this.$refs.single.ruleForm.inputRadioAnswer = res.data.data.answer
+            this.$refs.single.ruleForm.inputRadioAnswer = data.answer
           }
-          if (res.data.data.questionType == 12) {
-            var arrCheckbox = JSON.parse(res.data.data.titleOptions)
+          if (data.questionType == 12) {
+            var arrCheckbox = JSON.parse(data.titleOptions)
             // console.log(arrCheckbox)
             this.$refs.single.ruleForm.checkboxOptions = arrCheckbox
             this.$refs.single.ruleForm.checkboxOption = arrCheckbox.map(i => i.value)
-            this.$refs.single.ruleForm.inputCheckboxAnswer = JSON.parse(res.data.data.answer)
+            this.$refs.single.ruleForm.inputCheckboxAnswer = JSON.parse(data.answer)
           }
-          if (res.data.data.questionType == 11) {
-            this.$refs.single.ruleForm.inputJudgeAnswer = res.data.data.answer
+          if (data.questionType == 11) {
+            this.$refs.single.ruleForm.inputJudgeAnswer = data.answer
           }
-          if (res.data.data.questionType == 10) {
-            this.$refs.single.ruleForm.inputShortAnswer = res.data.data.answer
+          if (data.questionType == 10) {
+            this.$refs.single.ruleForm.inputShortAnswer = data.answer
           }
-          // console.log('res.data.data => ',res.data.data)
+          // console.log('data => ',data)
         })
       }
       /**
@@ -316,20 +325,20 @@ export default {
         if (valid) {
           if (this.$refs.single.submitForm() == true) {
             // this.$refs.single.submitForm ()
-            this.form.tags = this.form.tagKeyWords
+            // this.form.tags = this.form.tagKeyWords
+            var tag = this.form.tagKeyWords.toString()
+            this.form.tag = tag
             let form = this.form
             let ruleForm = this.$refs.single.ruleForm
             let singleBothForm = Object.assign(form, ruleForm)
             delete singleBothForm.options
-            delete singleBothForm.tagKeyWords
+            // delete singleBothForm.tagKeyWords
             let postSingleBothForm = {
               itemBankList: [],
-              tag: [],
             }
             postSingleBothForm.itemBankList.push(singleBothForm)
-            postSingleBothForm.tag = this.form.tags
             postSingleBothForm = JSON.stringify(postSingleBothForm)
-            postNewTest(postSingleBothForm).then(res => {
+            postBatchIteamBank(postSingleBothForm).then(res => {
               if (res.data.data == true) {
                 this.$message({
                   type: 'success',
@@ -469,11 +478,19 @@ export default {
   background-color: #fff;
 }
 .item {
-  width: 35%;
+  width: 45%;
   float: left;
+}
+.select {
+  .el-form-item:nth-child(3),.el-form-item:nth-child(4),.el-form-item:nth-child(5),.el-form-item:nth-child(6) {
+    margin-top: -10px;
+  }
 }
 </style>
 <style scoped>
+hr {
+  margin: 0 0 10px 0;
+}
 .select {
   overflow: auto;
 }

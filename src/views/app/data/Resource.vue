@@ -64,14 +64,14 @@ export default {
     color: #333;
   }
   .con {
-    margin-top: 57px;
+    margin-top: 40px;
     display: grid;
     grid-template-columns: 2fr 2fr;
   }
   .item {
     margin-right: -1px;
     margin-bottom: -1px;
-    padding: 22px 20px;
+    padding: 20px;
     border: 1px solid #eee;
   }
   .num {

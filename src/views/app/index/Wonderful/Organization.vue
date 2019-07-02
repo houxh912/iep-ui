@@ -38,10 +38,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .organization {
-  padding-top: 15px;
   .piece {
     text-align: center;
-    width: 255px;
+    width: 268px;
     float: left;
     margin: 0 5px;
     cursor: pointer;
@@ -63,10 +62,10 @@ export default {
       line-height: 40px;
     }
     &:first-child {
-      margin: 0 15px 0 10px;
+      margin: 0 15px 0 0;
     }
     &:last-child {
-      margin: 0 10px 0 15px;
+      margin: 0 -1px 0 15px;
     }
   }
 }

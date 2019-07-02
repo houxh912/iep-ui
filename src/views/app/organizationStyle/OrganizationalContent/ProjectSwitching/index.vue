@@ -60,8 +60,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .project-switching {
-  margin-bottom: 30px;
   height: 266px;
+}
+</style>
+<style scoped>
+.project-switching >>> .el-card {
+  height: 300px;
 }
 </style>
 

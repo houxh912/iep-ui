@@ -88,6 +88,9 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  height: 44px;
+  text-align: center;
+  line-height: 44px;
   i {
     margin-right: 10px;
   }

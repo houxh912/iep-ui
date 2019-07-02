@@ -30,7 +30,7 @@ export default {
   },
   watch: {
     orgId (newVal) {
-      if (newVal) getDetailsList(newVal).then(({data}) => {
+      if (newVal) getDetailsList(newVal).then(({ data }) => {
         this.productsServices = data.data
       })
     },
@@ -39,7 +39,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .products-services-con {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .products-services {
   .piece {
@@ -80,7 +80,7 @@ export default {
 }
 </style>
 <style scoped>
-.products-services-con >>> .el-card__body {
-  height: 209px;
+.products-services-con >>> .el-card {
+  height: 338px;
 }
 </style>

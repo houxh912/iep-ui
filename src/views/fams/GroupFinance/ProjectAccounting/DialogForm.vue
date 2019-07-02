@@ -1,8 +1,11 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="业务指标" width="520px" @close="close">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="140px">
-      <el-form-item v-if="!isEdit" label="时间：" prop="businessDate">
-        <iep-date-picker v-model="form.businessDate" type="year" :disabled="isEdit" placeholder="请选择日期"></iep-date-picker>
+      <el-form-item label="时间：">
+        <iep-div-detail :value="form.businessYear+'年'"></iep-div-detail>
+      </el-form-item>
+      <el-form-item label="金额：" prop="amount">
+        <iep-input-number v-model="form.amount" :disabled="isEdit" placeholder="请输入金额"></iep-input-number>
       </el-form-item>
     </el-form>
     <template slot="footer">

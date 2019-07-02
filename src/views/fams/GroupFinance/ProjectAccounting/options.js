@@ -46,6 +46,7 @@ const columnsMap = [
 function initForm () {
 	return {
 		year: '',
+		amount: '',
 	}
 }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="performance">
     <div class="title">{{title}}</div>
-    <ve-line height="400px" :data="chartData" :settings="chartSettings" :colors="colors"></ve-line>
+    <ve-line height="330px" :data="chartData" :settings="chartSettings" :colors="colors"></ve-line>
   </div>
 </template>
 

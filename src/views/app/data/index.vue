@@ -34,9 +34,17 @@ export default {
   display: grid;
   grid-column-gap: 20px;
   grid-auto-flow: row dense;
-  grid-template-columns: minmax(100px, 130px) minmax(100px, 1070px);
+  grid-template-columns: minmax(100px, 139px) minmax(100px, 1061px);
+  .test {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #eee;
+    > p {
+      margin: 0;
+    }
+  }
   .right {
-    margin: 10px 0 30px;
+    margin: 10px 0 10px;
   }
 }
 </style>
@@ -44,6 +52,10 @@ export default {
 .data >>> .el-table th.is-leaf,
 .data >>> .el-table td {
   border: 0;
+}
+.data >>> .el-table th,
+.data >>> .el-table td {
+  padding: 6px 0;
 }
 .data >>> .el-table::before {
   height: 0;

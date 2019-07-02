@@ -66,7 +66,7 @@ const toDtoSearchForm = (row) => {
 const toDtoForm = (row) => {
 	const newForm = { ...row }
 	newForm.year = getYear(row.year) || null
-	return newForm.year
+	return newForm
 }
 
 export { columnsMap, initForm, toDtoForm, initSearchForm, toDtoSearchForm, rules }

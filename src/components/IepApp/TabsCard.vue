@@ -45,16 +45,16 @@ export default {
   z-index: 3;
 }
 .index-card >>> .el-tabs__nav {
-  line-height: 50px;
+  line-height: 59px;
 }
 .index-card >>> .el-tabs__item {
-  bottom: -5px;
-  font-size: 16px;
+  bottom: 0;
+  font-size: 18px;
 }
 .index-card >>> .el-card__body {
   padding: 0 0 15px;
 }
 .el-card {
-  padding: 0 20px;
+  padding: 0 15px;
 }
 </style>

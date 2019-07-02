@@ -34,6 +34,7 @@ export default {
       },
       statistics: [0, 0, 0, 0],
       replaceText: (data) => `（支出：${data[0]} 笔 ${data[1]} 贝，收入：${data[2]} 笔 ${data[3]} 贝）`,
+      paramsId: '',
     }
   },
   computed: {
@@ -44,11 +45,12 @@ export default {
   created () {
     this.applyName = this.$route.query.name? this.$route.query.name:''
     this.backOption.isBack = this.$route.query.name? true:false
+    this.paramsId = this.$route.params.id
     this.loadPage()
   },
   methods: {
     async loadPage (param = this.searchForm) {
-      const data = await this.loadTable({ ...param, userId: this.userInfo.userId }, getWealthFlowPage)
+      const data = await this.loadTable({ ...param, userId: this.paramsId? this.paramsId:this.userInfo.userId }, getWealthFlowPage)
       this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },

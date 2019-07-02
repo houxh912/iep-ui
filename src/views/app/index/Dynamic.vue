@@ -23,8 +23,8 @@ export default {
     },
   },
   created () {
-    getNewsList().then(({data}) => {
-      this.dataList = data.data.map(m => {return {id: m.id, desc: m.name, assort: `【${m.secondClassName}】`}})
+    getNewsList().then(({ data }) => {
+      this.dataList = data.data.map(m => { return { id: m.id, desc: m.name, assort: `【${m.secondClassName}】` } })
     })
   },
 }
@@ -33,7 +33,7 @@ export default {
 .baner >>> .assort .piece .assort {
   margin-left: -8px;
 }
-.baner >>> .el-card__body {
-  height: 236px;
+.baner >>> .el-card {
+  height: 288px;
 }
 </style>

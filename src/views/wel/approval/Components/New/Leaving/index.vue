@@ -13,11 +13,6 @@
         <iep-dict-select v-model="form.levaeType" dict-name="hrms_levae_type"></iep-dict-select>
       </iep-form-item>
 
-      <el-form-item label="请假时长：" class="form-half">
-        <!-- <iep-input-number v-model="form.duration"></iep-input-number> -->
-        <el-input v-model="form.duration" disabled placeholder="请选择请假时间段"></el-input>
-      </el-form-item>
-
       <iep-form-item class="form-half" prop="startTime" label-name="开始时间" tip="请假实际开始时间，例如5月12日8：30">
         <iep-date-picker v-model="form.startTime" type="datetime" placeholder="选择日期" @change="startChange(form.startTime)"></iep-date-picker>
       </iep-form-item>
@@ -25,6 +20,11 @@
       <iep-form-item class="form-half" prop="endTime" label-name="结束时间" tip="请假实际结束时间，例如5月12日17：30">
         <iep-date-picker v-model="form.endTime" type="datetime" placeholder="选择日期" @change="endChange(form.endTime)"></iep-date-picker>
       </iep-form-item>
+
+      <el-form-item label="请假时长：" class="form-half">
+        <!-- <iep-input-number v-model="form.duration"></iep-input-number> -->
+        <el-input v-model="form.duration" placeholder="可以自行计算请假时间段"></el-input>
+      </el-form-item>
 
       <iep-form-item prop="reason" label-name="申请理由" tip="因xxxx原因需请假x天，望领导批准。">
         <iep-input-area v-model="form.reason"></iep-input-area>
@@ -62,13 +62,6 @@ export default {
         this.form.startTime = initNow()
       })
     },
-    handlePublish () {
-    },
   },
 }
 </script>
-<style scoped>
-.el-form-item__content span {
-  display: inline-block;
-}
-</style>

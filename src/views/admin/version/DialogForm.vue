@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}`" width="500px" @close="close">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}`" width="600px" @close="close">
     <el-form :model="form" ref="form" size="small" label-width="100px" :disabled="disabled">
       <el-form-item label="标题：" prop="versionTitle">
         <el-input v-model="form.versionTitle" placeholder="请在此输入标题"></el-input>
@@ -8,7 +8,7 @@
         <el-input v-model="form.versionNumber" placeholder="请在此输入版本号"></el-input>
       </el-form-item>
       <el-form-item label="发布时间：" prop="createTime">
-        <iep-date-picker v-model="form.createTime" type="date" placeholder="请选择发布时间">
+        <iep-date-picker v-model="form.createTime" type="datetime" placeholder="请选择发布时间">
         </iep-date-picker>
       </el-form-item>
       <el-form-item label="内容：" prop="versionDesc">

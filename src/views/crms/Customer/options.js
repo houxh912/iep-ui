@@ -25,6 +25,8 @@ const initForm = () => {
     assertionsSave: 1,
     orgNameForOld: '',//原机构名
     clientAbrName: '',//客户简称
+    toClaim: 1,
+    unionId: '',
   }
 }
 // 全部客户搜索
@@ -37,7 +39,10 @@ const allSearchForm = () => {
     followUpStatus: '',
     businessTypeKey: [],
     marketManager: '',
-    deptName: '',
+    // respDept: {
+    //   id: '',
+    //   name: '',
+    // },
   }
 }
 // 我的客户/协作客户搜索

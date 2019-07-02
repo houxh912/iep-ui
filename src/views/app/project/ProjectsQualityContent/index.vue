@@ -58,19 +58,19 @@ export default {
   .top-content {
     display: grid;
     grid-auto-flow: row dense;
-    grid-row-gap: 25px;
+    grid-row-gap: 20px;
     grid-column-gap: 25px;
     grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
   }
   .block {
-    margin-top: 25px;
+    margin-top: 20px;
     width: 100%;
   }
   .copies {
     display: grid;
-    margin-top: 25px;
+    margin-top: 20px;
     grid-auto-flow: row dense;
-    grid-row-gap: 25px;
+    grid-row-gap: 20px;
     grid-column-gap: 25px;
     grid-template-columns: minmax(100px, 2fr) minmax(100px, 4fr) minmax(
         100px,
@@ -78,7 +78,7 @@ export default {
       );
   }
   .copies2 {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
   }
 }
 </style>

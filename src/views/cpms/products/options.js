@@ -1,6 +1,4 @@
-// org config options
-const dictsMap = {
-}
+import { checkContactUsers } from '@/util/rules'
 
 const columnsMap = []
 
@@ -22,7 +20,7 @@ const initForm = () => {
     website: '', // 网址
     onlineTime: '',//上线时间
     tagKeywords: [], // 标签
-    tapeLibrary: '', // 是否带库
+    tapeLibrary: '0', // 是否带库
     valuation: 0, // 产品估值
     instructions: '', // 估值说明
     synopsis: '', // 产品简介
@@ -70,7 +68,7 @@ const initSearchForm = () => {
 
 const rules = {
   imageUrl: [
-    { required: true, message: '请上传图片', trigger: 'blur' },
+    { required: true, message: '请上传图片', trigger: 'change' },
   ],
   number: [
     { required: true, message: '请填写产品编号', trigger: 'blur' },
@@ -84,12 +82,9 @@ const rules = {
   onlineTime: [
     { required: true, message: '请填写上线时间', trigger: 'blur' },
   ],
-  tapeLibrary: [
-    { required: true, message: '请选择是否带库', trigger: 'blur' },
-  ],
   tagKeywords: [
-    { type: 'array', min: 3, message: '标签至少 3 个', trigger: 'change' },
-    { type: 'array', required: true, message: '请填写标签', trigger: 'change' },
+    { type: 'array', min: 3, message: '标签至少 3 个', trigger: 'blur' },
+    { type: 'array', required: true, message: '请填写标签', trigger: 'blur' },
   ],
   valuation: [
     { required: true, message: '请填写产品估值', trigger: 'blur' },
@@ -104,8 +99,8 @@ const rules = {
     { required: true, message: '请填写产品介绍', trigger: 'blur' },
   ],
   userRelationCharges: [
-    { required: true, type: 'array', message: '请填写负责人', trigger: 'blur' },
+    { required: true, validator: checkContactUsers('负责人'), trigger: 'blur' },
   ],
 }
 
-export { dictsMap, columnsMap, Column, initForm, toDtoForm, initSearchForm, rules }
+export { columnsMap, Column, initForm, toDtoForm, initSearchForm, rules }

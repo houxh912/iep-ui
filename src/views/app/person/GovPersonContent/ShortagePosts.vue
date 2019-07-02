@@ -4,7 +4,7 @@
       <div class="important" slot="right">
         <el-button type="text" @click="() => {this.$router.push('/app/tobeBole')}">争做伯乐</el-button>
       </div>
-      <el-table :data="tableData" style="width: 100%" height="300px">
+      <el-table :data="tableData" style="padding-bottom:20px;width: 100%" height="300px">
         <el-table-column prop="positionName" label="岗位名称" width="180">
         </el-table-column>
         <el-table-column prop="recruitsCount" label="需求数" width="180">
@@ -76,26 +76,6 @@ export default {
     color: #999;
   }
 }
-::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 6px;
-  background-color: #fff;
-}
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #fff;
-  transition: 0.3s background-color;
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #ddd;
-  transition: 0.3s background-color;
-  display: none;
-  transition: all 0.5s;
-}
-:hover ::-webkit-scrollbar-thumb {
-  display: block;
-}
 </style>
 <style scoped>
 .important >>> .el-button--text {
@@ -110,12 +90,35 @@ export default {
 .leader-board >>> .el-table tr {
   /* cursor: pointer; */
 }
-.leader-board >>> .el-card__body {
-  height: 302px;
+.leader-board >>> .el-card {
+  height: 362px;
 }
 .leader-board >>> .el-table .cell {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.leader-board >>> .el-table__body-wrapper {
+  overflow-y: scroll;
+}
+.leader-board >>> .el-table__body-wrapper::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 6px;
+  background-color: #fff;
+}
+.leader-board >>> .el-table__body-wrapper::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fff;
+  transition: 0.3s background-color;
+}
+.leader-board >>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ddd;
+  transition: 0.3s background-color;
+  display: none;
+  transition: all 0.5s;
+}
+.leader-board >>> .el-table__body-wrapper:hover::-webkit-scrollbar-thumb {
+  display: block;
 }
 </style>

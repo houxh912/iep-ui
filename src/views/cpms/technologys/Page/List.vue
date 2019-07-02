@@ -24,7 +24,7 @@
         </el-table-column>
         <el-table-column label="负责人">
           <template slot-scope="scope">
-            <iep-tag-detail iep-type="user" :value="scope.row.chargeNames"></iep-tag-detail>
+            <iep-div-detail :value="scope.row.chargeNames.join('、')"></iep-div-detail>
           </template>
         </el-table-column>
         <el-table-column label="操作">

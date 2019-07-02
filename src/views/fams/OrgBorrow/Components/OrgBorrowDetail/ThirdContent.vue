@@ -1,7 +1,7 @@
 <template>
   <steps-content>
     <el-form class="content-wrapper" ref="form" size="small" :model="data" label-width="150px" disabled>
-      <a-alert :closable="true" type="error" message="借出方组织审核通过后，将无法撤回！" style="margin-bottom: 24px;" />
+      <a-alert :closable="true" type="error" message="借出方组织核准通过后，将无法撤回！" style="margin-bottom: 24px;" />
       <iep-form-item label-name="借出组织">
         <iep-div-detail :value="data.outOrgName"></iep-div-detail>
       </iep-form-item>
@@ -32,10 +32,10 @@
         取消借款
       </a-button>
       <a-button v-if="data.isOut" style="margin-left: 8px" type="primary" :loading="submitLoading" @click="handleOutConfirm">
-        审核通过
+        核准通过
       </a-button>
       <a-button v-if="data.isOut" style="margin-left: 8px" :loading="submitLoading" @click="handleOrgReject">
-        审核拒绝
+        核准拒绝
       </a-button>
       <a-button style="margin-left: 8px" @click="handleBack">
         返回
@@ -79,10 +79,10 @@ export default {
       this.$emit('back')
     },
     async handleOutConfirm () {
-      await this.handleCommon('审核通过', outOrgConfirmBorrow)
+      await this.handleCommon('核准通过', outOrgConfirmBorrow)
     },
     async handleOrgReject () {
-      await this.handleCommon('审核通过', orgRejectBorrow)
+      await this.handleCommon('核准拒绝', orgRejectBorrow)
     },
     async handleSubmit () {
       await this.handleCommon('取消借款', cancelOrgBorrow)
@@ -115,7 +115,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import "../borrow.scss";
-</style>

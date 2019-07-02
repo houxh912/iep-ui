@@ -5,7 +5,19 @@
         <div class="login-main">
           <div class="title-image">
             <img src="/img/logo.png" class="top-image">
-            <div class="login-title">{{title}}</div>
+            <div class="login-title">{{title}}
+              <a-dropdown>
+                <a style="font-size: 14px;">
+                  备用网址
+                  <a-icon type="down" />
+                </a>
+                <a-menu slot="overlay">
+                  <a-menu-item v-for="(v, i) in backupUrl" :key="i" @click="$openPage(v.url, 'url')">
+                    {{v.name}}
+                  </a-menu-item>
+                </a-menu>
+              </a-dropdown>
+            </div>
           </div>
           <slot name="tab-panel"></slot>
         </div>
@@ -20,12 +32,18 @@
   </div>
 </template>
 <script>
+import website from '@/const/website'
 export default {
   props: {
     title: {
       type: String,
       required: true,
     },
+  },
+  data () {
+    return {
+      backupUrl: website.backupUrl,
+    }
   },
 }
 </script>

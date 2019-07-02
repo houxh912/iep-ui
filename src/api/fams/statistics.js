@@ -33,6 +33,12 @@ export function getBudgetList () {
     method: 'get',
   })
 }
+export function getBossBudgetList () {
+  return request({
+    url: `${prefixUrl}/all/budget/list`,
+    method: 'get',
+  })
+}
 // 取 3 条
 export function getOrgBudgetList (type) {
   return request({
@@ -91,6 +97,23 @@ export function getProjectPage (query) {
   })
 }
 
+export function getProjectPageByOrgId (orgId) {
+  return function (query) {
+    return request({
+      url: `${prefixUrl}/project/page/${orgId}`,
+      method: 'get',
+      params: query,
+    })
+  }
+}
+// TODO:联盟项目核算
+export function getAllOrgProjectPage () {
+  return request({
+    url: `${prefixUrl}/all/project/page`,
+    method: 'get',
+  })
+}
+
 export function getContractPage (query) {
   return request({
     url: `${prefixUrl}/contract/page`,
@@ -119,6 +142,37 @@ export function getProjectDetailPageById (id, isIncome) {
 export function getProjectInformationById (id) {
   return request({
     url: `prms/iepProjectInformation/${id}`,
+    method: 'get',
+  })
+}
+
+export function getUnionProjectPage (query) {
+  return request({
+    url: `${prefixUrl}/business_index/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getOrgProjectPage (query) {
+  return request({
+    url: `${prefixUrl}/business_index/org/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function putUnionProject (obj) {
+  return request({
+    url: `${prefixUrl}/update/business_index`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function createUnionProject (year) {
+  return request({
+    url: `${prefixUrl}/create/business_index/${year}`,
     method: 'get',
   })
 }

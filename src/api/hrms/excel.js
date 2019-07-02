@@ -20,3 +20,21 @@ export function postExcelExport (fileds) {
     link.click()
   })
 }
+export function postAppprovalExcelExport (query) {
+  return request({
+    url: `${prefixUrl}/excel/applic_export`,
+    method: 'post',
+    params: query,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    responseType: 'arraybuffer',
+  }).then(response => {
+    // 处理返回的文件流
+    const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' })
+    const link = document.createElement('a')
+    link.href = window.URL.createObjectURL(blob)
+    link.download = '导出信息.xls'
+    link.click()
+  })
+}

@@ -75,6 +75,8 @@ const payRollForm = () => {
     postTaxWage: '',//税后工资/实发工资
     bankPay: '',//银行代发
     innerPay: '',//内网发放
+    cashPay: '',//现金发放
+
     basicPay: '',//基本工资
     jobSubsidy: '',//职务补贴
     titleSubsidy: '',//职称补贴

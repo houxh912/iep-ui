@@ -2,7 +2,9 @@
   <div class="personal-top">
     <el-card class="box-card" shadow="hover">
       <div class="img-con">
-        <div class="img"><iep-img :src="userInfo.avatar" alt=""></iep-img></div>
+        <div class="img">
+          <iep-img :src="userInfo.avatar" alt=""></iep-img>
+        </div>
         <span class="num">{{userInfo.staffId}}</span>
       </div>
       <div class="text">
@@ -32,6 +34,10 @@
               <el-tag type="white" v-for="(item, index) in userInfo.learningTag" :key="index">{{item}}</el-tag>
             </div>
           </div>
+          <div class="classTag">
+            <div class="label">拜师理由：</div>
+            <div class="span">{{userInfo.refuseContent}}</div>
+          </div>
         </div>
       </div>
       <div class="right-con">
@@ -47,14 +53,32 @@
       <div class="title">是否接受他的拜师申请？</div>
       <div class="button-list">
         <iep-button type="primary" @click="handleConfirm(1)" v-loading="confirmState">确认</iep-button>
-        <iep-button @click="handleConfirm(2)" v-loading="confirmState">取消</iep-button>
+        <iep-button @click="handleClose" v-loading="confirmState">拒绝</iep-button>
       </div>
     </div>
+    <!-- 拒绝理由 -->
+    <iep-dialog :dialog-show="dialogShow" title="拒绝拜师" width="520px" @close="close">
+      <el-form ref="form" :model="form" :rules="rules" size="small" label-width="120px">
+        <el-form-item label="拒绝拜师理由：" prop="reason">
+          <iep-input-area v-model="form.reason"></iep-input-area>
+        </el-form-item>
+      </el-form>
+      <template slot="footer">
+        <iep-button type="primary" @click="submitForm">确认</iep-button>
+        <iep-button @click="close">取消</iep-button>
+      </template>
+    </iep-dialog>
   </div>
 </template>
 
 <script>
 import { getApprenticeUser, characterIsDetermine } from '@/api/cpms/characterrelations'
+
+const initFormData = () => {
+  return {
+    reason: '',
+  }
+}
 
 export default {
   data () {
@@ -80,6 +104,13 @@ export default {
       apprenticeShow: false,
       params: this.$route.params,
       confirmState: false,
+      dialogShow: false,
+      form: initFormData(),
+      rules: {
+        reason: [
+          { required: true, message: '请输入你的拒绝理由', trigger: 'blur' },
+        ],
+      },
     }
   },
   methods: {
@@ -89,14 +120,29 @@ export default {
     },
     // 获取用户信息
     getUserDetail (id) {
-      getApprenticeUser(id).then(({data}) => {
+      getApprenticeUser(id).then(({ data }) => {
         let obj = data.data
         this.userInfo = obj
       })
     },
+    // 取消
+    handleClose () {
+      this.dialogShow = true
+    },
+    submitForm () {
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.handleConfirm(2)
+        }
+      })
+    },
+    close () {
+      this.form = initFormData()
+      this.dialogShow = false
+    },
     handleConfirm (type) {
       this.confirmState = true
-      characterIsDetermine(this.params.id, {characterStatus: type}).then(() => {
+      characterIsDetermine({ characterStatus: type }, { characterId: this.params.id, refuseContent: this.form.reason }).then(() => {
         this.confirmState = false
         this.$message.success('操作成功')
         this.$router.push('/wel/index')
@@ -198,6 +244,11 @@ export default {
           background: #fef0f0;
           border-color: #cb3737;
         }
+        // &:last-child {
+        //   overflow: hidden;
+        //   text-overflow: ellipsis;
+        //   white-space: nowrap;
+        // }
       }
     }
     .right-con {

@@ -1,7 +1,7 @@
 <template>
   <div class="tab">
     <div class="tabList" @click="tab(0,0)">
-      <span class="title" :class="showClass==0?'color':''">我的师徒</span>
+      <span class="title" :class="showClass==0?'color':''">师徒</span>
       <span class="line">/</span>
     </div>
     <div class="tabList" v-for="(item,index) in navList" :key="index" @click="tab(index+1,index+1)">

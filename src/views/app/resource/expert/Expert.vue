@@ -5,11 +5,15 @@
       <div class="person-item" v-for="(item,index) in personList" :key="index" @click="handleDetail(item.id)">
         <div class="img"><iep-img :src="item.avatar" alt=""></iep-img></div>
         <div class="text">
-          <span class="name">{{item.name}}<span class="dn show1 show" v-if="item.isExpert == 1">V</span></span>
+          <span class="name">{{item.name}}
+            <!-- <span class="dn show1 show" v-if="item.isExpert == 1">V</span> -->
+            <iep-identity-mark class="mark" :icon="t.icon" :title="t.label" v-for="(t, i) in item.identityMarks" :key="i"></iep-identity-mark>
+          </span>
           <span class="job">{{item.socialRela}}</span>
           <span class="sign">
             <span v-for="(sign, index) in item.abilityTag" :key="index">{{sign}}</span>
           </span>
+          <span class="deptQm">{{item.deptQm}}</span>
         </div>
       </div>
     </div>
@@ -106,6 +110,10 @@ export default {
       .job {
         color: #888;
       }
+      .deptQm {
+        color: #aaa;
+        font-size: 12px;
+      }
       .sign {
         color: #aaa;
         span {
@@ -140,13 +148,13 @@ export default {
       .name,
       .job,
       .sign {
-        min-height: 30px;
+        min-height: 26px;
         display: block;
         width: 200px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        line-height: 30px;
+        line-height: 26px;
         font-size: 14px;
         margin-bottom: 0;
       }

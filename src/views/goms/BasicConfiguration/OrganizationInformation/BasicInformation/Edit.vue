@@ -25,6 +25,9 @@
         <el-form-item label="联系方式：" prop="contactMethod" class="form-half">
           <el-input v-model="form.contactMethod" placeholder="请输入联系方式"></el-input>
         </el-form-item>
+        <el-form-item label="联系地址：" prop="address" class="form-half">
+          <el-input v-model="form.address" placeholder="请输入联系地址"></el-input>
+        </el-form-item>
         <el-form-item label="卓越标签：">
           <iep-tag v-model="form.abilityTag"></iep-tag>
         </el-form-item>

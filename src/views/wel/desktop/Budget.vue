@@ -5,30 +5,35 @@
         <h2 class="sub-title">组织收支</h2>
       </div>
       <el-form ref="form" class="form-detail" :model="form" size="small" label-width="80px">
-        <iep-form-item label-name="组织">
-          <iep-dict-select v-model="form.organization" dict-name=""></iep-dict-select>
+        <iep-form-item label-name="组织" v-show="isAbled">
+          <iep-select
+            size="small"
+            v-model="orgIds"
+            autocomplete="off"
+            prefix-url="admin/org/all"
+            @change="listPage()"
+            placeholder="所有"
+          ></iep-select>
         </iep-form-item>
-        <iep-form-item label-name="日期">
-          <iep-date-picker v-model="form.birthday" type="date" placeholder="--"></iep-date-picker>
-        </iep-form-item>
-        <el-button class="search-btn" type="primary" size="small">搜索</el-button>
       </el-form>
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="date" label="日期"></el-table-column>
-        <el-table-column prop="organizationName" label="组织名称"></el-table-column>
-        <el-table-column prop="person" label="负责人"></el-table-column>
-        <el-table-column prop="income" label="本月实际收入"></el-table-column>
-        <el-table-column prop="incomeBudget" label="本月收入预算"></el-table-column>
-        <el-table-column prop="apply" label="本月实际支出"></el-table-column>
-        <el-table-column prop="applyBudget" label="本月支出预算"></el-table-column>
+        <el-table-column prop="createTime" label="创建日期"></el-table-column>
+        <el-table-column prop="actualIncome" label="实际收入"></el-table-column>
+        <el-table-column prop="actualExpenditure" label="实际支出"></el-table-column>
+        <el-table-column prop="budgetExpenditure" label="预算支出"></el-table-column>
       </el-table>
     </el-card>
   </div>
 </template>
 <script>
+import { mapGetters, mapState } from 'vuex'
+import mixins from '@/mixins/mixins'
+import { getBudgetList, getBossBudgetList } from '@/api/fams/statistics'
 export default {
+  mixins: [mixins],
   data () {
     return {
+      orgIds: '',
       form: {
         organization: '',
         birthday: '',
@@ -38,32 +43,37 @@ export default {
         flexDirection: 'column',
         justifyContent: 'space-around',
       },
-      tableData: [{
-        date: '--',
-        organizationName: '--',
-        person: '--',
-        income: '--',
-        incomeBudget: '--',
-        apply: '--',
-        applyBudget: '--',
-      }, {
-        date: '--',
-        organizationName: '--',
-        person: '--',
-        income: '--',
-        incomeBudget: '--',
-        apply: '--',
-        applyBudget: '--',
-      }, {
-        date: '--',
-        organizationName: '--',
-        person: '--',
-        income: '--',
-        incomeBudget: '--',
-        apply: '--',
-        applyBudget: '--',
-      }],
+      tableData: [],
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'dictGroup',
+    ]),
+    ...mapState({
+      orgId: state => state.user.userInfo.orgIds,
+    }),
+    isAbled () {
+      return this.userInfo.userId === 1 || this.userInfo.userId === 2 || this.userInfo.userId === 3 || this.userInfo.userId === 451
+    },
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    listPage () {
+      this.loadPage()
+    },
+    async loadPage () {
+      if (this.isAbled) {
+        const { data } = await getBossBudgetList()
+        this.tableData = data.data
+      } else {
+        const { data } = await getBudgetList()
+        this.tableData = data.data
+      }
+    },
   },
 }
 </script>

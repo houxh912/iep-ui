@@ -156,7 +156,7 @@ export default {
         { value: null, label: '全部' },
         { value: 0, label: '已报名' },
         { value: 1, label: '进行中' },
-        { value: 2, label: '已完成' },
+        { value: 8, label: '已完成' },
         { value: 3, label: '批卷中' },
         { value: 4, label: '已结束' },
         { value: 5, label: '未报名' },

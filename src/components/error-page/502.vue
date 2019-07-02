@@ -14,7 +14,7 @@ export default {
   name: 'Error502',
   methods: {
     backPage () {
-      this.$router.go(-1)
+      this.$router.history.go(-1)
     },
     goHome () {
       this.$router.push({

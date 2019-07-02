@@ -20,9 +20,9 @@
         <a-menu-item @click="openVersion">
           更新日志
         </a-menu-item>
-        <!-- <a-menu-item @click="handleAbout">
+        <a-menu-item v-if="!isProduction" @click="handleAbout">
           关于
-        </a-menu-item> -->
+        </a-menu-item>
         <a-menu-divider />
         <a-menu-item @click="handleLogout">
           退出登录
@@ -48,6 +48,9 @@ export default {
     }
   },
   computed: {
+    isProduction () {
+      return process.env.NODE_ENV === 'production'
+    },
     ...mapGetters([
       'userInfo',
       'noOrg',

@@ -82,6 +82,8 @@ export const initFormData = () => {
     projectId: '',
     contractFile: [],
     contractFileList: [],
+    isHistory: 1,
+    signCompany: '',
   }
 }
 
@@ -219,10 +221,11 @@ export const infoList = [
   { name: '签订日期', value: 'signTime', type: 'date' },
   { name: '完结日期', value: 'finishTime', type: 'date' },
   { name: '委托单位', value: 'companyRealName' },
-  { name: '签署单位', value: 'signCompanyName' },
+  { name: '签署单位', value: 'signCompanyRealNameName' },
   { name: '签署组织', value: 'signDeptOrgNames' },
   { name: '承接部门', value: 'underTakeDeptNames' },
   { name: '合同金额', value: 'contractAmount' },
   { name: '合同级别', value: 'contractLevel', type: 'dict' },
   { name: '保证金', value: 'deposit' },
+  { name: '签署主体', value: 'signCompanyName' },
 ]

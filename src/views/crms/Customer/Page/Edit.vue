@@ -6,7 +6,7 @@
         <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="120px" class="wrap">
           <el-row>
             <el-col :span='10'>
-              <el-form-item prop="clientName" class="">
+              <el-form-item prop="clientName">
                 <span slot="label">
                   客户名称
                   <iep-tip :content="tipContent.clientName"></iep-tip>
@@ -16,14 +16,14 @@
               </el-form-item>
             </el-col>
             <el-col :span='10' :offset="4">
-              <el-form-item label="客户简称:">
+              <el-form-item label="客户简称:" prop="clientAbrName">
                 <el-input v-model="formData.clientAbrName"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span='10'>
-              <el-form-item label="原机构名:">
+              <el-form-item label="原机构名:" prop="orgNameForOld">
                 <el-input v-model="formData.orgNameForOld"></el-input>
               </el-form-item>
             </el-col>
@@ -47,11 +47,12 @@
             </el-col>
             <el-col :span='10' :offset="4">
               <el-form-item label="市场经理:" prop="Manager">
-                <el-input v-model="formData.Manager" :disabled="true"></el-input>
+                <!-- <el-input v-model="formData.Manager" :disabled="true"></el-input> -->
+                {{this.Claim == true?formData.Manager:''}}
               </el-form-item>
             </el-col>
           </el-row>
-          <el-form-item>
+          <el-form-item prop="companyUrl">
             <span slot='label'>
               客户描述
               <iep-tip :content="tipContent.companyUrl"></iep-tip>
@@ -78,17 +79,6 @@
               <el-checkbox v-for="item in dictGroup['crms_client_type']" :key="item.value" :label="item.value" name="leixing">{{item.label}}</el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <!-- <el-form-item prop="businessTypeKey">
-            <span slot="label">
-              业务类型
-              <iep-tip :content="tipContent.businessTypeKey"></iep-tip>
-              :
-            </span>
-            <businessType v-model="formData.businessTypeKey"></businessType>
-          </el-form-item> -->
-          <!-- <el-form-item label="" prop="specificBusinessType">
-            <el-input v-model="formData.specificBusinessType" placeholder="请务必结合客户需求准确填写业务类型"></el-input>
-          </el-form-item> -->
           <el-form-item label="客户关系：" prop="clientRela">
             <span slot="label">
               客户关系
@@ -109,6 +99,10 @@
             <a-tag :key="tag.commonId" v-for="tag in formData.collaborations" closable :disable-transitions="false" @close="handleClose(tag)">
               {{tag.commonName}}
             </a-tag>
+          </el-form-item>
+          <el-form-item label="是否认领">
+            <el-switch v-model="Claim" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否">
+            </el-switch>
           </el-form-item>
           <!-- <el-form-item label="跟进状态:" prop="followUpStatus">
             <iep-dict-select v-model="formData.followUpStatus" dict-name="crms_follow_up_status"></iep-dict-select>
@@ -176,7 +170,7 @@ export default {
           return false
         }
         if (value.length < 6 || value.length > 50) {
-          callback(new Error('客户名称至少6个字'))
+          callback(new Error('客户名称在6至50个字符之间'))
           return false
         } else {
           checkName({ clientName: val }).then(res => {
@@ -192,6 +186,7 @@ export default {
     return {
       tipContent,
       id: '',
+      Claim: false,
       backOption: {
         isBack: true,
         backPath: null,
@@ -217,11 +212,11 @@ export default {
           { required: true, message: '请输入手机号码', trigger: 'blur' },
           { min: 11, max: 11, message: '手机位数为11位', trigger: 'blur' },
         ],
+        clientAbrName: [
+          { max: 100, message: '长度不超过100个字符', trigger: 'blur' },
+        ],
         districtType: [
           { required: true, message: '请选择区域类型', trigger: 'blur' },
-        ],
-        marketManager: [
-          { required: true, message: '请填写市场经理', trigger: 'blur' },
         ],
         companyFunction: [
           { message: '请填写单位职能', trigger: 'blur' },
@@ -229,6 +224,10 @@ export default {
         ],
         contractAddress: [
           { message: '请填写单位地址', trigger: 'blur' },
+          { max: 255, message: '长度不超过255个字符', trigger: 'blur' },
+        ],
+        orgNameForOld: [
+          { max: 100, message: '长度不超过100个字符', trigger: 'blur' },
         ],
         otherDesc: [
           { message: '请填写其他说明', trigger: 'blur' },
@@ -236,6 +235,9 @@ export default {
         ],
         clientTypeKey: [
           { required: true, message: '请选择客户类型', trigger: 'blur' },
+        ],
+        companyUrl: [
+          { max: 255, message: '长度不超过255个字符', trigger: 'blur' },
         ],
         businessTypeKey: [
           { required: true, message: '请选择业务类型', trigger: 'blur' },
@@ -274,10 +276,10 @@ export default {
     }
   },
   created () {
+    this.formData.Manager = this.userInfo.realName
     this.formData.marketManager = this.userInfo.userId
     this.flagName = this.record.flagName
     this.type = this.record.type
-    this.formData.Manager = this.userInfo.realName
     this.methodName = this.record.methodName
     this.formRequestFn = this.record.formRequestFn
     this.id = this.record.id
@@ -288,7 +290,6 @@ export default {
     if (this.id) {
       getCustomerById(this.id).then(({ data }) => {
         this.formData = this.$mergeByFirst(initForm(), data.data)
-        // this.formData.businessTypeKey = data.data.businessTypeKey.map(m => m.commonId)
         this.formData.clientTypeKey = data.data.clientTypeKey.map(m => m.commonId)
         this.formData.districtType = data.data.districtTypeKey
         this.formData.followUpStatus = data.data.followUpStatusKey
@@ -298,9 +299,13 @@ export default {
         getObj(data.data.marketManager).then(res => {
           this.formData.Manager = res.data.data.realName
         })
+        if (this.formData.marketManager == 0) {
+          this.Claim = false
+        } else {
+          this.Claim = true
+        }
       })
     } else if (this.flag) {
-      // this.formData.businessTypeKey = this.data.businessType.map(m => m.commonId)
       this.formData.clientName = this.data.clientName
       this.formData.tags = this.data.tags.map(m => (m.commonName))
     }
@@ -382,6 +387,11 @@ export default {
       })
     },
     submitForm (formName) {
+      if (!this.Claim) {
+        this.formData.toClaim = 1
+      } else {
+        this.formData.toClaim = 0
+      }
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn((this.formData)).then(({ data }) => {

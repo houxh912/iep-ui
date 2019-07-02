@@ -1,5 +1,5 @@
 <template>
-  <iep-fams-card title="项目核算">
+  <iep-slot-card title="项目核算">
     <template slot="right">
       <el-radio-group v-model="timeType" size="small">
         <el-radio-button label="week">周</el-radio-button>
@@ -22,12 +22,12 @@
         </div>
       </div>
     </div>
-  </iep-fams-card>
+  </iep-slot-card>
 </template>
 <script>
-import IepFamsCard from './IepFamsCard'
+import IepSlotCard from '@/views/fams/Components/SlotCard'
 export default {
-  components: { IepFamsCard },
+  components: { IepSlotCard },
   data () {
     this.chartExtend = {
       'xAxis.0.axisLabel.rotate': 45,

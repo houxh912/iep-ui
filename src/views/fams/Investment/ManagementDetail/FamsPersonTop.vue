@@ -9,7 +9,7 @@
             <span class="title">{{title}}</span>
             <span class="detail">
               <span>创建人：{{founder}}</span>
-              <span>审核人：{{auditor}}</span>
+              <span>核准人：{{auditor}}</span>
               <span>开始时间：{{startTime}}</span>
               <span>结束时间：{{endTime}}</span>
             </span>

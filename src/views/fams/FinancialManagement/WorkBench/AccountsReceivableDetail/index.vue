@@ -4,7 +4,7 @@
       <page-header title="合同应收账款"></page-header>
       <operation-container>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" prop="projectName">
           </operation-search>
         </template>
       </operation-container>

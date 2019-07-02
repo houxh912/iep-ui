@@ -30,7 +30,7 @@ export default {
           id: '2',
         },
         {
-          name: '组织机构',
+          name: '组织架构',
           id: '3',
         },
         {

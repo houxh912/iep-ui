@@ -52,6 +52,7 @@
 import TimeLine from './timeline'
 import { thoughtsCreate, getThoughtsPage, thoughtsDelete } from '@/api/cpms/thoughts'
 import { mapGetters } from 'vuex'
+import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 
 function initFormData () {
   return {
@@ -96,12 +97,14 @@ export default {
       this.createValidate = false
       this.loadState = true
       thoughtsCreate(this.formData).then(() => {
-        this.$message.success('保存成功！')
-        this.loadState = false
-        this.params.current = 1
-        this.list = []
-        this.loadPage()
-        this.formData = initFormData()
+        addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
+          this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
+          this.loadState = false
+          this.params.current = 1
+          this.list = []
+          this.loadPage()
+          this.formData = initFormData()
+        })
       })
     },
     // 获取更多

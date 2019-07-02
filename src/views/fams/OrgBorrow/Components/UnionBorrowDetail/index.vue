@@ -49,7 +49,7 @@ export default {
         data: undefined,
         onData: this.handleSecond,
       }, {
-        title: '集团财政财务审核',
+        title: '集团财政财务核准',
         content: 'ThirdContent',
         nextText: '撤销',
         prevText: '',
@@ -92,7 +92,7 @@ export default {
       this.current--
     },
     back () {
-      this.$router.go(-1)
+      this.$router.history.go(-1)
     },
     add (row) {
       console.log(`/fams_spa/fund_transfer_edit/${row.id}`)

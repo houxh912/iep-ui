@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <el-card class="top-card" :body-style="bodyStyle" shadow="hover">
+      <el-card class="iep-approval-top-card" :body-style="bodyStyle" shadow="hover">
         <div class="avatar-wrapper">
           <iep-img-avatar :size="90" :src="form.avatar" alt="头像"></iep-img-avatar>
         </div>
@@ -73,7 +73,7 @@
         <div slot="header" class="clearfix">
           <span>抄送人</span>
         </div>
-        <iep-tag-detail :value="form.ccList.map(m => m.name)"></iep-tag-detail>
+        <span>{{form.ccList.map(m => m.name).join('、')}}</span>
       </el-card>
       <el-card v-if="needApproval" class="middle-card" :body-style="middleBodyStyle" shadow="never">
         <div slot="header" class="clearfix">
@@ -108,7 +108,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import "../approval.scss";
-</style>

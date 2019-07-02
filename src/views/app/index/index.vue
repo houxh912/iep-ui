@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <iep-app-layout>
     <div class="index">
       <about></about>
       <baner></baner>
@@ -13,8 +13,7 @@
       <feedback></feedback>
       <learning-resources></learning-resources>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 <script>
 import About from './About'
@@ -44,11 +43,11 @@ export default {
   margin: 0 auto;
   display: grid;
   grid-auto-flow: row dense;
-  grid-row-gap: 25px;
+  grid-row-gap: 20px;
   grid-column-gap: 25px;
-  grid-template-columns: minmax(100px, 28fr) minmax(100px, 55fr) minmax(
-      100px,
-      28fr
+  grid-template-columns: minmax(300px, 30fr) minmax(550px, 55fr) minmax(
+      300px,
+      30fr
     );
   .index-card {
     font-size: 14px;

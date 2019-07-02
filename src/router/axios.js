@@ -4,7 +4,7 @@ import axios from 'axios'
 import qs from 'qs'
 import NProgress from 'nprogress' // progress bar
 import errorCode from '@/const/errorCode'
-// import { Message } from 'element-ui'
+import { Message } from 'element-ui'
 import 'nprogress/nprogress.css'
 import store from '@/store' // progress bar style
 import router from '@/router/router'
@@ -73,12 +73,9 @@ axios.interceptors.response.use(res => {
     //   router.push({ path: '/500' })
     //   return
   } else if (status !== 200 || res.data.code === 1) {
-    // if (process.env.NODE_ENV === 'development') {
-    //   Message({
-    //     message: message,
-    //     type: 'error',
-    //   })
-    // }
+    if (res.data.code === 1 && status === 400) {
+      Message(res.data.msg)
+    }
     return Promise.reject(new Error(message))
   } else {
     return res

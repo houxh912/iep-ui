@@ -2,9 +2,9 @@ import { mergeByFirst } from '@/util/util'
 // org config options
 const dictsMap = {
   status: {
-    0: '审核通过',
-    1: '待审核',
-    2: '审核驳回',
+    0: '核准通过',
+    1: '待核准',
+    2: '核准驳回',
   },
 }
 

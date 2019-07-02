@@ -100,7 +100,7 @@
         <el-form-item label="附件：">
           <el-input v-model="form.annex"></el-input>
         </el-form-item>
-        <el-form-item label="审批人：">
+        <el-form-item label="核准人：">
           <el-input v-model="form.approver"></el-input>
         </el-form-item>
         <el-form-item label="抄送人：">

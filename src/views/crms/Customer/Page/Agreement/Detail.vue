@@ -1,185 +1,168 @@
 <template>
-  <div>
-    <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
-    <el-form :model="formData" :rules="rules" ref="form" label-width="130px" style="margin-bottom: 50px;" class="form-detail">
-      <el-form-item label="合同名称：" prop="contractName">
-        <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。" disabled></el-input>
-      </el-form-item>
-      <el-form-item label="合同说明 / 收款方式：" prop="contractExpl">
-        <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5 disabled></el-input>
-      </el-form-item>
-      <el-form-item label="业务类型：" prop="businessType">
-        <!-- <el-radio-group v-model="formData.businessType">
-          <el-radio v-for="item in dictGroup['mlms_business_type']" :key="item.value" :label="item.value">{{item.label}}</el-radio>
-        </el-radio-group> -->{{infoList}}
-      </el-form-item>
-      <el-form-item label="合同标签：" prop="tagKeyWords">
-        <!-- <iep-tag v-model="formData.tagKeyWords"></iep-tag> -->
-        <!-- <a-tag v-for="(item,index) in formData.tagKeyWords" :key="index">{{item}}</a-tag> -->
-        <iep-tag-detail v-model="formData.tagKeyWords" disabled></iep-tag-detail>
-      </el-form-item>
-      <el-row>
-        <el-col :span=12>
-          <el-form-item label="签订日期：" prop="signTime">
-            <IepDatePicker v-model="formData.signTime" disabled></IepDatePicker>
-          </el-form-item>
+  <basic-container>
+    <iep-page-header :title="formData.contractName" :backOption="backOption" :isAdvance="true">
+      <div slot="custom" class="page-hander-title">{{formData.contractName}} <span class="sub-title" v-if="formData.isHistory === 2">历史合同</span></div>
+      <div slot="sub" class="tags">
+        <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
+      </div>
+    </iep-page-header>
+
+    <el-row class="info">
+      <el-col class="item" :span='12' v-for="(item, index) in infoList" :key="index">
+        <div class="label">{{item.name}}：</div>
+        <div class="span" v-if="item.type == 'dict'">{{dictsMap[item.value][formData[item.value]]}}</div>
+        <div class="span" v-else-if="item.type == 'date'">{{formatYear(formData[item.value])}}</div>
+        <div class="span" v-else>{{formData[item.value]}}</div>
+      </el-col>
+      <el-col class="item remark">
+        <div class="remark-title">合同说明/收款方式：</div>
+        <div class="remark-content">{{formData.contractExpl}}</div>
+      </el-col>
+      <el-col class="item file">
+        <el-col class="item" :span='12'>
+          <div class="label">合同附件：</div>
+          <div class="span" v-for="(item, index) in formData.contractFileList" :key="index">
+            <i class="icon-fujian"></i>{{item.name}} <iep-button type="text" @click="downloadFile(item)">下载</iep-button>
+          </div>
         </el-col>
-        <el-col :span=12>
-          <el-form-item label="完结日期：" prop="finishTime">
-            <IepDatePicker v-model="formData.finishTime" disabled></IepDatePicker>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span=12>
-          <el-form-item label="委托单位：" prop="companyOrgId">
-            <!-- <iep-select prefix-url="crm/customer" v-model="formData.companyOrgId" disabled></iep-select> -->
-            <IepCrmsSelect v-model="formData.companyOrgId" :option="[formData.companyName]" prefixUrl="crm/customer/myorcoll/list">
-            </IepCrmsSelect>
-          </el-form-item>
-        </el-col>
-        <el-col :span=12>
-          <el-form-item label="签署单位：" prop="signCompanyOrgId">
-            <!-- <iep-select prefix-url="crm/customer" v-model="formData.signCompanyOrgId" disabled></iep-select> -->
-            <IepCrmsSelect v-model="formData.signCompanyOrgId" :option="[formData.signCompanyRealName]" prefixUrl="crm/customer/all/list">
-            </IepCrmsSelect>
-          </el-form-item>
+        <!-- <iep-button type="primary">附件下载</iep-button>
+        <iep-button>复制下载链接</iep-button>
+        <iep-button>预览</iep-button> -->
+      </el-col>
+    </el-row>
+
+    <el-row class="clause">
+      <el-col class="name">合同/项目款项</el-col>
+      <el-row class="list">
+        <el-col class="title">关联项目：</el-col>
+        <el-col class="content">
+          <label>金额</label><span>{{formData.contractAmount}}</span>
         </el-col>
       </el-row>
-      <el-row>
-        <el-col :span=12>
-          <el-form-item label="签署组织：" prop="signDeptOrgName">
-            <el-input v-model="formData.signDeptOrgName" disabled></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span=12>
-          <el-form-item label="承接组织：" prop="underTakeDeptName">
-            <a-tag v-for="(item,index) in formData.underTakeDeptName" :key="index">{{item.name}}</a-tag>
-          </el-form-item>
+      <el-row class="list">
+        <el-col class="title">回款率：</el-col>
+        <el-col class="content">
+          <label>{{formData.contractCollection ? calculation(formData.contractCollection[formData.contractCollection.length-1].cumulativeAmount, formData.contractAmount) : '0%'}}</label>
         </el-col>
       </el-row>
-      <el-row>
-        <el-col :span=12>
-          <el-form-item label="市场经理：" prop="Manager">
-            <el-input v-model="formData.Manager" disabled></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span=12>
-          <el-form-item label="合同金额：" prop="contractAmount">
-            <el-input v-model="formData.contractAmount" placeholder="合同金额" disabled></el-input>
-          </el-form-item>
+      <el-row class="list">
+        <el-col class="title">集团项目管理费：</el-col>
+        <el-col class="content">
+          <label>金额</label><span>{{formData.manageAmount}}</span>
+          <label>费率</label><span>5%</span>
         </el-col>
       </el-row>
-      <el-row>
-        <el-col :span=12>
-          <el-form-item label="合同级别：" prop="contractLevel">
-            <iep-dict-select dict-name="mlms_contract_level" v-model="formData.contractLevel" disabled></iep-dict-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span=12>
-          <el-form-item label="合同状态：" prop="contractStatus">
-            <iep-dict-select dict-name="mlms_contract_status" v-model="formData.contractStatus" disabled></iep-dict-select>
-          </el-form-item>
+      <el-row class="list">
+        <el-col class="title">开票费：</el-col>
+        <el-col class="content">
+          <label>金额</label><span>{{formData.billingAmount}}</span>
+          <label>费率</label><span>1%</span>
         </el-col>
       </el-row>
-      <el-row>
-        <el-col :span=12>
-          <el-form-item label="保证金：" prop="deposit">
-            <el-input v-model="formData.deposit" placeholder="保证金" disabled></el-input>
-          </el-form-item>
+      <el-row class="list">
+        <el-col class="title">税费：</el-col>
+        <el-col class="content">
+          <label>金额</label><span>{{formData.taxes}}</span>
+          <label>费率</label><span>6.34%</span>
         </el-col>
       </el-row>
-      <el-row>
-        <el-col :span=12>
-          <el-form-item label="合同附件：">
-            <span v-for="(item, index) in formData.contractFileList" :key="index">
-              <i class="icon-fujian"></i>{{item.name}} <iep-button type="text" @click="downloadFile(item)">下载</iep-button>
-            </span>
-          </el-form-item>
+      <el-row class="list" v-if="formData.contractCollection">
+        <el-col class="title">合同收款：</el-col>
+        <el-col class="content">
+          <el-table :data="formData.contractCollection" stripe style="width: 100%" border>
+            <el-table-column prop="arrivalTime" label="到账时间"> </el-table-column>
+            <el-table-column prop="arrivalAmount" label="到账金额"> </el-table-column>
+            <el-table-column prop="cumulativeAmount" label="累计到账"> </el-table-column>
+            <el-table-column prop="icon" label="到账比例">
+              <template slot-scope="scope">{{calculation(scope.row.cumulativeAmount, formData.contractAmount)}}</template>
+            </el-table-column>
+          </el-table>
         </el-col>
       </el-row>
-    </el-form>
-    <footer-toolbar>
-      <iep-button @click="resetForm('form')">取消</iep-button>
-    </footer-toolbar>
-  </div>
+    </el-row>
+
+  </basic-container>
 </template>
 <script>
-import { initFormData, rules } from './options'
-import FooterToolbar from '@/components/FooterToolbar/'
+import { getDataById } from '@/api/mlms/material/datum/contract'
+import { dictsMap, infoList } from './option'
 import { mapGetters } from 'vuex'
-import { agreementById } from '@/api/crms/agreement'
-import { getObj } from '@/api/admin/user'
 import { downloadFile } from '@/api/common'
+
+function formatDig (num) {
+  return num > 9 ? '' + num : '0' + num
+}
+
+function formatYear (mill) {
+  var y = new Date(mill)
+  let raws = [
+    y.getFullYear(),
+    formatDig(y.getMonth() + 1),
+    formatDig(y.getDate()),
+  ]
+  let format = ['-', '-', '-']
+  return String.raw({ raw: raws }, ...format)
+}
+
 export default {
-  components: { FooterToolbar },
   data () {
     return {
-      dialogShow: false,
-      methodName: '详情',
-      formRequestFn: () => { },
-      id: '',
-      contractId: '',
-      formData: initFormData(),
-      rules: rules,
+      formData: {},
+      dictsMap,
       backOption: {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          this.$emit('detail')
+          // let params = this.$route.params
+          // if (params.id) {
+          //   this.$router.history.go(-1)
+          // } else {
+          this.$emit('load-page', true)
+          // }
         },
       },
-      infoList: '',
+      infoList,
+      contractMoney: [
+        { date: '2019-03-22', money: '22,000', const: '22,000', icon: '9.0%' },
+      ],
+      payList: [
+        { waibao: '8000', pingshen: '20000', fuwu: '3000' },
+      ],
+      formatYear,
     }
-  },
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-    add: {
-      type: Object,
-      default: () => { },
-    },
   },
   computed: {
     ...mapGetters(['dictGroup']),
   },
-  created () {
-    this.contractId = this.add.contractId
-    agreementById(this.contractId).then(res => {
-      this.formData = res.data.data
-      this.formData.signDeptOrgName = res.data.data.signDeptOrgName.name
-      // let directorList = {
-      //   id: res.data.data.directorId,
-      //   name: res.data.data.directorRealName,
-      // }
-      // this.$set(this.formData, 'directorList', directorList)
-      // 业务类型处理
-      let businessType = res.data.data.businessType.split(','), list = []
-      for (let type of businessType) {
-        for (let item of this.dictGroup.prms_business_type) {
-          for (let t of item.children) {
-            if (t.value == type) {
-              list.push(t.label)
+  methods: {
+    open (id) {
+      getDataById(id).then((res) => {
+        let data = res.data.data
+        data.signDeptOrgNames = data.signDeptOrgName.name // 签署组织
+        // let underTakeDeptNames = ''
+        // for (let item of data.underTakeDeptName) {
+        //   underTakeDeptNames += item.name + '、'
+        // }
+        // data.underTakeDeptNames = underTakeDeptNames.slice(0, underTakeDeptNames.length - 1)
+        data.companyRealName = data.companyName ? `${data.companyName.name} - ${data.companyName.orgName}` : ''
+        data.signCompanyName = data.signCompanyRealName ? `${data.signCompanyRealName.name} - ${data.signCompanyRealName.orgName}` : ''
+        data.underTakeDeptNames = ''
+        if (data.underTakeDeptName) data.underTakeDeptNames = data.underTakeDeptName.map(m => m.name).join('、')
+        data.projectName = data.projectRelation ? data.projectRelation.name : '无'
+        console.log('data: ', data)
+        let businessType = data.businessType.split(','), list = []
+        for (let type of businessType) {
+          for (let item of this.dictGroup.prms_business_type) {
+            for (let t of item.children) {
+              if (t.value == type) {
+                list.push(t.label)
+              }
             }
           }
         }
-      }
-      this.infoList = list.toString()
-      getObj(this.formData.creatorId).then(res => {
-        this.$set(this.formData, 'Manager', res.data.data.realName)
+        data.businessTypeList = list.toString()
+        this.formData = data
       })
-    })
-  },
-  methods: {
-    loadPage () {
-      this.$emit('load-page')
-    },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
-      this.formData = initFormData()
-      this.$emit('detail')
     },
     // 下载附件
     downloadFile (obj) {
@@ -188,6 +171,87 @@ export default {
         name: obj.name,
       })
     },
+    // 计算百分数
+    calculation (son, mom) {
+      return `${son / mom * 100}%`
+    },
+  },
+  created () {
+    let params = this.$route.params
+    if (params.id) {
+      this.open(params.id)
+    }
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.page-hander-title {
+  font-size: 20px;
+  .sub-title {
+    font-size: 12px;
+    color: #ba1b21;
+  }
+}
+.tags {
+  .el-tag {
+    margin-right: 10px;
+  }
+}
+.info {
+  border-bottom: 1px solid #ddd;
+  padding: 0 0 15px 0;
+  .item {
+    margin-bottom: 10px;
+    display: flex;
+    .label {
+      width: 150px;
+      text-align: right;
+      display: inline-block;
+    }
+    .span {
+      flex: 1;
+    }
+    .el-button {
+      margin-right: 15px;
+    }
+  }
+  .remark {
+    display: flex;
+    .remark-title {
+      width: 150px;
+      text-align: right;
+    }
+    .remark-content {
+      width: calc(100% - 150px);
+    }
+  }
+}
+.clause {
+  padding: 20px 0;
+  .name {
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 30px;
+  }
+  .list {
+    margin-bottom: 15px;
+    .title {
+      width: 130px;
+      text-align: right;
+    }
+    .content {
+      width: calc(100% - 130px);
+      label {
+        display: inline-block;
+        width: 60px;
+        padding-left: 20px;
+      }
+      span {
+        display: inline-block;
+        width: 150px;
+      }
+    }
+  }
+}
+</style>

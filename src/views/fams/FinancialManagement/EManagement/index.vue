@@ -11,11 +11,6 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
-        <template slot="before-columns">
-          <el-table-column label="时间">
-            <template slot-scope="scope">{{scope.row.createTime | parseToDay}}</template>
-          </el-table-column>
-        </template>
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
@@ -23,7 +18,7 @@
   </div>
 </template>
 <script>
-import { getExpenditurePage, postExpenditure, getExpenditureById } from '@/api/fams/expenditure'
+import { getExpenditurePage, postExpenditure } from '@/api/fams/expenditure'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initForm } from './options'
 import DialogForm from './DialogForm'
@@ -48,11 +43,9 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      getExpenditureById(row.expenditureId).then(({ data }) => {
-        console.log(data.data)
-        this.$refs['DialogDetail'].form = data.data
-        this.$refs['DialogDetail'].dialogShow = true
-      })
+      this.$refs['DialogDetail'].id = row.expenditureId
+      this.$refs['DialogDetail'].loadPage()
+      this.$refs['DialogDetail'].dialogShow = true
     },
     handleExpenditure () {
       this.$refs['DialogForm'].form = initForm()

@@ -2,10 +2,8 @@
   <div class="module-wrapper">
     <iep-no-data v-if="!form.moduleRelations.length" message="暂无关联模块"></iep-no-data>
     <div v-else class="module" v-for="(item) in form.moduleRelations" :key="item.id">
-      <div class="img">
-        <iep-img :src="item.imageUrl" alt=""></iep-img>
-      </div>
-      <div class="module-title iep-ellipsis">{{item.name}}</div>
+      <iep-img class="img" :src="item.imageUrl" alt=""></iep-img>
+      <iep-div-detail class="title" :value="item.name"></iep-div-detail>
     </div>
   </div>
 </template>
@@ -46,16 +44,14 @@ export default {
   }
   .img {
     padding: 5px;
-    img {
-      width: 88px;
-      height: 88px;
-      padding: 0;
-      margin: 0;
-      display: block;
-      box-sizing: border-box;
-    }
+    width: 88px;
+    height: 88px;
+    padding: 0;
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box;
   }
-  .module-title {
+  .title {
     width: 100%;
     padding-top: 10px;
     text-align: center;

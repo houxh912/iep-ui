@@ -13,9 +13,9 @@
           </div>
         </div>
         <div class="right">
-          <div class="list">
+          <!-- <div class="list">
             <span>部门：国脉集团、国脉先锋队</span>
-          </div>
+          </div> -->
           <div class="list">
             <span>岗位：{{form.position}}</span>
             <span>职务：{{form.job}}</span>

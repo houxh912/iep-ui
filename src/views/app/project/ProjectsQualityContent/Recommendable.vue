@@ -15,7 +15,7 @@ export default {
       data: 0,
       title: '重点推荐项目',
       dataList: [],
-      linkName: '',
+      linkName: '/app/project_list',
     }
   },
   methods: {

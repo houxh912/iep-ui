@@ -1,20 +1,39 @@
 <template>
   <div class="institutional">
-    <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <IepAppListCard :dataList="dataList"></IepAppListCard>
+    <IepAppTabCard :title="title" :linkName="linkName">
+      <IepAppListCard :dataList="dataList" @click="handleDetail" name="material_name"></IepAppListCard>
     </IepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getMaterialList } from '@/api/app/mlms/'
+
 export default {
   data () {
     return {
       title: '制度文件',
-      dataList: ['关于项目验收表格材料标准化模版', '国脉软件项目实施管理规范V1.0', '广东省信息中心全省事项通用实施目', '松原市人民政府网站内容规划总报告', '吉林省安监局政务公开评测报告', '上海市长宁区信息公开第三方评议项报告', '广东省信息中心全省事项通用实施目', '松原市人民政府网站内容规划总报告'],
+      dataList: [],
       linkName: '',
     }
+  },
+  methods: {
+    loadList () {
+      getMaterialList().then(({ data }) => {
+        this.dataList = data.data.gzzd ? data.data.gzzd.slice(0, 8) : []
+      })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+    },
+  },
+  created () {
+    this.loadList()
   },
 }
 </script>
 <style scoped>
+.institutional >>> .el-card {
+  height: 324px;
+}
 </style>

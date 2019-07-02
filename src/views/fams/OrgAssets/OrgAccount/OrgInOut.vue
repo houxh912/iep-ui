@@ -1,6 +1,6 @@
 <template>
   <div class="total-wrapper">
-    <iep-fams-card class="total-item-2" title="组织收支">
+    <iep-slot-card class="total-item-2" title="组织收支">
       <template slot="right">
         <el-radio-group v-model="type" size="small" @change="loadPage">
           <el-radio-button label="1">月</el-radio-button>
@@ -18,23 +18,24 @@
         <el-table-column prop="budgetExpenditure" label="预算支出">
         </el-table-column>
       </el-table>
-    </iep-fams-card>
-    <iep-fams-card class="total-item-1" title="快捷入口">
+    </iep-slot-card>
+    <iep-slot-card class="total-item-1" title="快捷入口">
       <div class="card-btn-grid">
         <div @click="$openPage('/fams/org_borrow/org_borrow')">组织拆借</div>
         <div @click="$openPage('/fams_spa/organization_transfer')">组织转账</div>
         <div @click="$openPage('/fams_spa/organization_reward')">组织打赏/扣减</div>
         <div>投资管理</div>
         <div @click="$openPage('/fams/financial_management/organizational_budget')">组织预算</div>
+        <div @click="$openPage('/fams_spa/org_payment_plan/0')">回款计划</div>
       </div>
-    </iep-fams-card>
+    </iep-slot-card>
   </div>
 </template>
 <script>
 import { getOrgBudgetList } from '@/api/fams/statistics'
-import IepFamsCard from './IepFamsCard'
+import IepSlotCard from '@/views/fams/Components/SlotCard'
 export default {
-  components: { IepFamsCard },
+  components: { IepSlotCard },
   data () {
     return {
       type: '1',

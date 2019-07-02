@@ -43,7 +43,7 @@
         <div class="item">
           <div class="label">合作项目：</div>
           <div class="value">
-            <div class="dot" v-for="(item, index) in formData.collaborations" :key="index">{{item.name}}<span>（合同金额：{{item.money}}）</span></div>
+            <div class="dot" v-for="(item, index) in formData.projects" :key="index">{{item.name}}<span>（合同金额：{{item.amount}}）</span></div>
           </div>
         </div>
         <div class="item">

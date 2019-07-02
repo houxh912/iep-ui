@@ -1,7 +1,7 @@
 <template>
   <steps-content>
     <el-form class="content-wrapper" ref="form" size="small" :model="data" label-width="150px" disabled>
-      <a-alert :closable="true" type="error" message="确认借款申请后，将向借出方组织发出借款申请。" style="margin-bottom: 24px;" />
+      <a-alert :closable="true" type="error" message="确认借款申请后，将向集团发出借款申请。" style="margin-bottom: 24px;" />
       <iep-form-item label-name="支付方式">
         <el-radio-group v-model="data.borrowMoneyType">
           <el-radio v-for="(item, idx) in dictsMap.borrowMoneyType" :key="idx" :label="idx">{{item}}</el-radio>
@@ -95,7 +95,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import "../borrow.scss";
-</style>

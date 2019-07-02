@@ -7,14 +7,17 @@
             <span class="title">通讯录</span>
           </div>
           <el-menu :default-openeds="selectType" class="menu-vertical">
-            <el-submenu index="1" collapse>
+            <!-- <el-submenu index="1" collapse>
               <template slot="title">
                 <span>国脉人</span>
               </template>
               <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in allPeople" @click.native="handleAllPeople(item.value)">
                 <span>{{item.label}}</span>
               </el-menu-item>
-            </el-submenu>
+            </el-submenu> -->
+            <el-menu-item index="1" @click.native="handleAllPeople(1001)">
+              <span slot="title">国脉人</span>
+            </el-menu-item>
             <el-submenu index="2" collapse>
               <template slot="title">
                 <span>我的关系</span>
@@ -120,6 +123,7 @@ export default {
   computed: {
   },
   created () {
+    this.mark = this.$route.query.mark? this.$route.query.mark:''
     this.loadPage()
   },
   methods: {

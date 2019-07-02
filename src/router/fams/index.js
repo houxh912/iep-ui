@@ -20,6 +20,7 @@ export default [
         name: '工资管理个人详情',
         component: () => import('@/views/fams/FinancialManagement/SalaryManagement/PersonDetail.vue'),
       },
+      // WARNING: 字典项不要删除
       {
         path: 'payroll_detail/:id',
         name: '工资条',
@@ -34,6 +35,16 @@ export default [
         path: 'invoice_edit/:id',
         name: '发票编辑',
         component: () => import('@/views/fams/wealth/Invoice/Edit.vue'),
+      },
+      {
+        path: 'fee_detail/:id',
+        name: '费用详情',
+        component: () => import('@/views/fams/wealth/Fee/Detail.vue'),
+      },
+      {
+        path: 'fee_edit/:id',
+        name: '费用编辑',
+        component: () => import('@/views/fams/wealth/Fee/Edit.vue'),
       },
       {
         path: 'billing_edit/:id',
@@ -111,9 +122,29 @@ export default [
         component: () => import('@/views/fams/GroupFinance/GroupRewardUser/index.vue'),
       },
       {
-        path: '/wealth_flow/:id',
+        path: 'wealth_flow/:id',
         name: '提现申请(个人)',
         component: () => import('@/views/fams/wealth/WealthFlow/index.vue'),
+      },
+      {
+        path: 'project/:id',
+        name: '项目核算',
+        component: () => import('@/views/fams/OrgAssets/ProjectAccounting/index.vue'),
+      },
+      {
+        path: 'org_payment_plan/:id',
+        name: '组织回款计划',
+        component: () => import('@/views/fams/OrgAssets/PaymentPlan/index.vue'),
+      },
+      {
+        path: 'union_payment_plan',
+        name: '联盟回款计划',
+        component: () => import('@/views/fams/GroupFinance/PaymentPlan/index.vue'),
+      },
+      {
+        path: 'business_indicator',
+        name: '本组织业务指标',
+        component: () => import('@/views/fams/OrgAssets/BusinessIndicator/index.vue'),
       },
     ],
   },

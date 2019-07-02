@@ -58,7 +58,7 @@ export default {
         data: undefined,
         onData: this.handleSecond,
       }, {
-        title: '财务审核',
+        title: '财务核准',
         content: 'ThirdContent',
         nextText: '撤销',
         prevText: '',

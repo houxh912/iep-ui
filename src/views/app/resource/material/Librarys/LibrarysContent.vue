@@ -153,7 +153,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-right: 20px;
+    margin-right: 15px;
     line-height: 24px;
     color: #aaa;
     i {

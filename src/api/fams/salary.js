@@ -41,10 +41,11 @@ export function grantSalaryById (id) {
   })
 }
 
-export function addSalary () {
+export function addSalary (obj) {
   return request({
     url: `${prefixUrl}/create`,
-    method: 'get',
+    method: 'post',
+    data: obj,
   })
 }
 

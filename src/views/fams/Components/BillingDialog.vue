@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="新增开票通知" width="550px" @close="close" center>
+  <iep-dialog :dialog-show="dialogShow" title="新增开票申请" width="550px" @close="close" center>
     <el-form size="small" ref="form" label-width="100px">
       <el-form-item label="开票类型：">
         <iep-button v-for="(v,k) in dictsMap.invoicingType" :key="k" class="tag-item" size="mini" @click="handleChange(k)">{{v}}</iep-button>

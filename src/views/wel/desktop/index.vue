@@ -4,12 +4,12 @@
     <div class="full">
       <leader-top></leader-top>
     </div>
-    <div>
+    <!-- <div>
       <fund-distribution></fund-distribution>
     </div>
     <div>
       <dev-ops></dev-ops>
-    </div>
+    </div> -->
     <div class="full">
       <financial-assets></financial-assets>
     </div>
@@ -30,15 +30,15 @@
 </template>
 <script>
 import LeaderTop from './LeaderTop'
-import FundDistribution from './FundDistribution'
-import DevOps from './DevOps'
+// import FundDistribution from './FundDistribution'
+// import DevOps from './DevOps'
 import FinancialAssets from './FinancialAssets'
 import ProjectReceipt from './ProjectReceipt'
 import Budget from './Budget'
 import BulletedList from './BulletedList'
 import PostStatistics from './PostStatistics'
 export default {
-  components: { LeaderTop, FundDistribution, DevOps, FinancialAssets, ProjectReceipt, Budget, BulletedList, PostStatistics },
+  components: { LeaderTop, FinancialAssets, ProjectReceipt, Budget, BulletedList, PostStatistics },
   data () {
     return {
     }
@@ -59,7 +59,6 @@ export default {
   .full {
     grid-column-start: 1;
     grid-column-end: 3;
-    display: grid;
     height: auto;
   }
 }

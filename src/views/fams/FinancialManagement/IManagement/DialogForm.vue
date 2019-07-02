@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="新增收入" width="700px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="新增收入" width="700px" @close="close">
     <el-form class="form-detail" :model="form" size="small" ref="form" :rules="rules" label-width="120px">
       <el-form-item label="收入类型：" prop="type">
         <iep-dict-cascader dictName="fams_income_type" v-model="form.type"></iep-dict-cascader>
@@ -54,7 +54,7 @@
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm()">提交</iep-button>
-      <iep-button @click="loadPage">取消</iep-button>
+      <iep-button @click="dialogShow=false">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
@@ -108,7 +108,7 @@ export default {
     handleChange () {
       this.form.accountId = ''
     },
-    loadPage () {
+    close () {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
@@ -123,7 +123,7 @@ export default {
               message: '操作成功',
               type: 'success',
             })
-            this.loadPage()
+            this.close()
           } else {
             this.$message({
               message: data.msg,

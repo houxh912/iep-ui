@@ -35,8 +35,8 @@
           </operation-wrapper>
           <operation-wrapper v-else>
             <iep-button @click="handleDetail(scope.row)" type="warning" plain>查看</iep-button>
-            <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+            <iep-button @click="handleEdit(scope.row)" :disabled="isEditDelete(scope.row)">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)" :disabled="isEditDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
 
         </template>
@@ -83,6 +83,17 @@ export default {
     ]),
   },
   methods: {
+    isEditDelete (row) {
+      if (this.record.marketManager == this.userInfo.userId) {
+        return false
+      } else {
+        if (this.userInfo.userId == row.userId) {
+          return false
+        } else {
+          return true
+        }
+      }
+    },
     handleAdd () {
       // this.$refs['VisitDialog'].formData = initFormData()
       this.$refs['VisitDialog'].methodName = '创建'

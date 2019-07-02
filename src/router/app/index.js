@@ -85,6 +85,12 @@ export default [
         meta: noAuth,
       },
       {
+        path: 'policyCenter',
+        name: '政策中心频道',
+        component: () => import('@/views/app/policyCenter/'),
+        meta: noAuth,
+      },
+      {
         path: 'search',
         name: '搜索频道',
         component: () => import('@/views/app/search/'),
@@ -148,30 +154,6 @@ export default [
         meta: noAuth,
         redirect: '/app/alliance_details/introduction',
         children: [
-          // {
-          //   path: 'introduction',
-          //   name: '联盟介绍',
-          //   component: () => import('@/views/app/allianceDetails/introduction/'),
-          //   meta: noAuth,
-          // },
-          // {
-          //   path: 'memorabilia',
-          //   name: '联盟大事记',
-          //   component: () => import('@/views/app/allianceDetails/memorabilia/'),
-          //   meta: noAuth,
-          // },
-          // {
-          //   path: 'album',
-          //   name: '联盟相册',
-          //   component: () => import('@/views/app/allianceDetails/album/'),
-          //   meta: noAuth,
-          // },
-          // {
-          //   path: 'evaluation',
-          //   name: '评价管理',
-          //   component: () => import('@/views/app/organizationDetails/evaluation/'),
-          //   meta: noAuth,
-          // },
           {
             path: 'group',
             name: '集团概况',
@@ -186,7 +168,7 @@ export default [
           },
           {
             path: 'mechanism',
-            name: '组织机构',
+            name: '组织架构',
             component: () => import('@/views/app/allianceDetails/mechanism/'),
             meta: noAuth,
           },
@@ -279,6 +261,11 @@ export default [
         path: 'project_details/:id',
         name: '项目详情',
         component: () => import('@/views/app/projectDetails/'),
+      },
+      {
+        path: 'project_list',
+        name: '项目列表',
+        component: () => import('@/views/app/projectList/'),
       },
       {
         path: 'organizational_list',

@@ -59,6 +59,7 @@ export default {
         type: this.$route.query.type,
         flag: this.$route.query.flag,
         collaborations: '',
+        marketManager: '',
       },
       backOption: {
         isBack: true,
@@ -131,6 +132,7 @@ export default {
           this.formData = data.data
         this.record.collaborations = this.formData.collaborations
         this.record.clientName = this.formData.clientName
+        this.record.marketManager = this.formData.marketManager
         // if (this.formData.preMarketManagerName == '') {
         //   this.formData.preMarketManagerName = '暂无'
         // }

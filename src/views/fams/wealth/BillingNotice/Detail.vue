@@ -71,7 +71,7 @@
           <iep-div-detail :value="form.remarks"></iep-div-detail>
         </iep-form-item>
         <template v-if="form.status">
-          <h4 class="iep-sub-title">审批内容</h4>
+          <h4 class="iep-sub-title">核准内容</h4>
           <iep-form-item label-name="状态">
             <iep-div-detail :value="dictsMap.status[form.status]"></iep-div-detail>
           </iep-form-item>

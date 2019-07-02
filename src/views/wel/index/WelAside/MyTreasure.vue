@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import { addBellBalanceRule } from '@/api/fams/balance_rule'
+// import { addBellBalanceRule } from '@/api/fams/balance_rule'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { getTotal } from '@/api/fams/total'
 export default {
@@ -62,10 +62,10 @@ export default {
       setShowMoney: 'SET_SHOWMONEY',
     }),
     async loadPage () {
-      const res = await addBellBalanceRule()
-      if (res.data.data) {
-        this.$message.success(res.data.msg)
-      }
+      // const res = await addBellBalanceRule()
+      // if (res.data.data) {
+      //   this.$message.success(res.data.msg)
+      // }
       const { data } = await getTotal()
       this.totalAsset = data.data.govmadeBell + data.data.lockBell
       this.todayChange = data.data.dayBell
@@ -104,6 +104,7 @@ export default {
   }
 }
 .title {
+  width: 100%;
   display: flex;
   padding: 10px 0;
   font-size: 16px;

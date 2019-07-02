@@ -135,7 +135,7 @@ export default {
         this.submitMsg = '保存成功'
       } else {
         // 判断是否是这个月内
-        let firstDay = +new Date(`${new Date().getFullYear()}-${new Date().getMonth()}`)
+        let firstDay = +new Date(`${new Date().getFullYear()}-${new Date().getMonth()+1}`)
         if (this.formData.timeStamp !== firstDay) {
           this.submitMsg = '恭喜您完成月报补写，继续努力！'
         } else {

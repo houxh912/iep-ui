@@ -2,6 +2,21 @@ import { mergeByFirst } from '@/util/util'
 
 const columnsMap = [
   {
+    prop: 'sex',
+    label: '性别',
+    width: '55px',
+  },
+  {
+    prop: 'education',
+    label: '学历',
+  },
+  {
+    prop: 'birthday',
+    label: '出生年月',
+    type: 'date',
+    formatString: 'YYYY-MM-DD',
+  },
+  {
     prop: 'applyPosition',
     label: '应聘岗位',
   },

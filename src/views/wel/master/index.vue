@@ -2,6 +2,16 @@
   <div class="master">
     <page-header title="推荐师父">
     </page-header>
+     <operation-container>
+        <template slot="left">
+          <iep-button @click="handleClick2">我的师徒</iep-button>
+        </template>
+        <template slot="right">
+          <operation-search @search-page="searchPage">
+          </operation-search>
+          <iep-button @click="handleClick">国脉人</iep-button>
+        </template>
+      </operation-container>
     <div v-loading="loadState" v-if="loadState"></div>
     <div v-else>
       <div class="master-con" v-if="masterList.length !== 0">
@@ -29,54 +39,52 @@
         <IepNoData></IepNoData>
       </div>
     </div>
-    <!-- 拜师 -->
-    <el-dialog title="拜师" :visible.sync="apprenticeShow" width="330px" center>
-      <div style="text-align: center;">是否确认向 【{{userInfo.realName}}】 拜师</div>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="apprenticeShow = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handleApprenticeConfirm" size="small">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
 <script>
-import { addMasterWorker, getPageRecommend } from '@/api/cpms/characterrelations'
+import { getPageRecommend } from '@/api/cpms/characterrelations'
+import { mapActions } from 'vuex'
 
 export default {
   data () {
     return {
-      apprenticeShow: false,
       loadState: true,
-      userInfo: {},
       masterList: [],
+      params: {
+        name: '',
+      },
+      mark:'master',
     }
   },
   methods: {
+    ...mapActions(['ApprenticeApply']),
+    handleApprentice (row) {
+      this.ApprenticeApply({id: row.userId, name: row.realName})
+    },
     getPerson (row) {
       this.$router.push({
         path: `/app/personal_style/${row.userId}`,
       })
     },
-    handleApprentice (row) {
-      this.userInfo = row
-      this.apprenticeShow = true
-    },
-    handleApprenticeConfirm () {
-      addMasterWorker({ masterWorker: [this.userInfo.userId] }).then(({data}) => {
-        if (data.data) {
-          this.$message.success('拜师成功！')
-        } else {
-          this.$message.error(data.msg)
-        }
-        this.apprenticeShow = false
-      })
-    },
     getPageRecommend () {
-      getPageRecommend().then(({data}) => {
+      getPageRecommend(this.params).then(({data}) => {
         this.loadState = false
         this.masterList = data.records
       })
+    },
+    handleClick () {
+      this.$router.push('/app/resource/expert?type=1')
+    },
+    handleClick2 () {
+      this.$router.push({
+        path:'/wel/relationship_manage',
+        query:{mark:this.mark},
+      })
+    },
+    searchPage (val) {
+      this.params = val
+      this.getPageRecommend()
     },
   },
   created () {

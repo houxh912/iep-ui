@@ -55,7 +55,7 @@ export default {
 }
 .title {
   flex: 2;
-  font-size: 16px;
+  font-size: 18px;
   color: #303133;
   margin: 0 4px;
   height: 22px;
@@ -82,13 +82,13 @@ export default {
 </style>
 <style scoped>
 .index-card >>> .el-card__header {
-  padding: 18px 0 9px;
+  padding: 18px 0 18px;
 }
 .index-card >>> .el-card__body {
-  padding: 16px 0;
+  padding: 15px 0;
 }
 .el-card {
-  padding: 0 20px;
+  padding: 0 15px !important;
 }
 </style>
 

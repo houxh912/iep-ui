@@ -1,7 +1,7 @@
 <template>
   <div class="project">
     <el-card class="box-card" shadow="never">
-      <div class="item" v-for="item in itemList" :key="item.id">
+      <div class="item" v-for="item in itemList" :key="item.id" @click="() => {$router.push(item.link)}">
         <i class="iconfont" :class="item.icon"></i>
         <div class="text">
           <span class="name">{{item.name}}</span>
@@ -40,54 +40,60 @@ export default {
     itemList () {
       return [
         {
+          icon: 'icon-hetongliebiao',
+          name: '材料',
+          data: this.counts.honorCount1,
+          text: `（本月新增 ${this.counts.honorCount2}）`,
+          link: '/app/resource/material',
+        },
+        {
           icon: 'icon-renwu',
           name: '项目',
           data: this.counts.projectCount1,
           text: `（在建 ${this.counts.projectCount2}）`,
-        },
-        {
-          icon: 'icon-lianxiren',
-          name: '客户',
-          data: this.counts.clientCount1,
-          text: `（本月新增 ${this.counts.clientCount2}）`,
+          link: '/app/project',
         },
         {
           icon: 'icon-dangan',
           name: '方案',
           data: this.counts.planCount1,
           text: `（本月新增 ${this.counts.planCount2}）`,
+          link: '/app/resource/material',
         },
         {
-          icon: 'icon-dongtai',
-          name: '产品',
-          data: this.counts.productCount,
-          text: '（最新代理 0）',
-        },
-        {
-          icon: 'icon-hetongliebiao',
-          name: '资质',
-          data: this.counts.honorCount1,
-          text: `（本月新增 ${this.counts.honorCount2}）`,
+          icon: 'icon-lianxiren',
+          name: '客户',
+          data: this.counts.clientCount1,
+          text: `（本月新增 ${this.counts.clientCount2}）`,
+          link: '/app/resource/client',
         },
         {
           icon: 'icon-custom',
           name: '合同',
           data: this.counts.contractCount1,
           text: `（待签 ${this.counts.contractCount2}）`,
+          link: '/app/project',
+        },
+        {
+          icon: 'icon-dongtai',
+          name: '产品',
+          data: this.counts.productCount,
+          text: '（最新代理 0）',
+          link: '/app/products',
         },
       ]
     },
   },
   data () {
     return {
-      
+
     }
   },
 }
 </script>
 <style lang="scss" scoped>
 .project {
-  margin: 30px 0;
+  margin: 20px 0;
   i {
     display: inline-block;
     width: 70px;
@@ -109,7 +115,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 25px 10px;
+    margin: 18px 25px;
     .text {
       display: flex;
       flex-direction: column;
@@ -136,5 +142,8 @@ export default {
       100px,
       2fr
     );
+}
+.project >>> .el-card {
+  height: 245px;
 }
 </style>

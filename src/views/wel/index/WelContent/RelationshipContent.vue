@@ -53,10 +53,10 @@ export default {
     },
     loadPage () {
       getMyMasterContactList().then(({ data }) => {
-        this.masterData = data.data.slice(0, 10)
+        this.masterData = data.data
       })
       getMyApprenticeContactList().then(({ data }) => {
-        this.apprenticeData = data.data.slice(0, 10)
+        this.apprenticeData = data.data
       })
     },
   },

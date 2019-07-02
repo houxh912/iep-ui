@@ -1,8 +1,8 @@
 <template>
   <div class="multiple-box">
     <operation-wrapper v-if="disabled">
-      <el-tag v-if="!users.length" type="info">暂无</el-tag>
-      <el-tag type="info" v-for="user in users" :key="user.id">{{user.name}}</el-tag>
+      <span v-if="!users.length">暂无</span>
+      <span v-for="item in users" :key="item.id">{{item.name}}、</span>
     </operation-wrapper>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
       <a-select mode="multiple" labelInValue :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="fetching ? undefined : null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select">

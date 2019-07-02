@@ -107,7 +107,7 @@ import ShareDialog from '@/views/mlms/material/components/shareDialog'
 // import ShareDialog from '../../summary/shareDialog'
 import wrongDialog from '@/views/mlms/material/components/wrongDialog'
 // import wrongDialog from './wrongDialog'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { getConfigureTree } from '@/api/mlms/material/datum/configure'
 import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 
@@ -146,7 +146,7 @@ export default {
           if (this.detailState) {
             this.$emit('backPage', false)
           } else {
-            this.$router.go(-1)
+            this.$router.history.go(-1)
           }
         },
       },
@@ -162,7 +162,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['dictGroup']),
+    ...mapGetters(['dictGroup', 'userInfo']),
   },
   methods: {
     // 评论
@@ -247,8 +247,13 @@ export default {
       this.$message.info('抱歉，此功能正在开发中')
     },
     // 拜师
+    ...mapActions(['ApprenticeApply']),
     apprentice () {
-      this.$message.info('抱歉，此功能正在开发中')
+      if (this.userInfo.userId == this.formData.creator) {
+        this.$message.error('无法向自己拜师')
+        return
+      }
+      this.ApprenticeApply({id: this.formData.creator, name: this.formData.creatorRealName})
     },
     // 收藏
     handleCollect () {
@@ -279,8 +284,13 @@ export default {
       this.isCommentShow = !this.isCommentShow
     },
     // 打赏
+    ...mapActions(['famsReward']),
     handleReward () {
-      this.$message.info('抱歉，此功能正在开发中')
+      if (this.userInfo.userId == this.formData.creator) {
+        this.$message.error('无法向自己打赏')
+        return
+      }
+      this.famsReward({id: this.formData.creator, name: this.formData.creatorRealName})
     },
     // 收藏和分享的返回函数
     loadPage () {

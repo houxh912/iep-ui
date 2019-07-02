@@ -70,7 +70,6 @@ import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 // 表格相关组件
 import IepTable from '@/components/IepTable/'
 import IepTableLink from '@/components/IepTable/Link'
-import IepTableDetail from '@/components/IepTable/Detail'
 import IepTableLinkImgDesc from '@/components/IepTable/LinkImgDesc'
 
 // 通讯录组件Contact
@@ -92,6 +91,7 @@ import IepProjectSelect from '@/components/IepProject/Select'
 import IepAppTabCard from '@/components/IepApp/TabCard'
 import IepAppTabsCard from '@/components/IepApp/TabsCard'
 import IepAppFooterBar from '@/components/IepApp/FooterBar'
+import IepAppLayout from '@/components/IepApp/Layout'
 import IepAppListCard from '@/components/IepApp/ListCard'
 import IepAppRankingCard from '@/components/IepApp/RankingCard'
 import IepAppLabelCard from '@/components/IepApp/LabelCard'
@@ -168,7 +168,6 @@ Vue.component(IepReviewConfirm.name, IepReviewConfirm)
 // 表格相关组件
 Vue.component(IepTable.name, IepTable)
 Vue.component(IepTableLink.name, IepTableLink)
-Vue.component(IepTableDetail.name, IepTableDetail)
 Vue.component(IepTableLinkImgDesc.name, IepTableLinkImgDesc)
 
 // 通讯录组件Contact
@@ -191,6 +190,7 @@ Vue.component(IepProjectSelect.name, IepProjectSelect)
 Vue.component(IepAppTabCard.name, IepAppTabCard)
 Vue.component(IepAppTabsCard.name, IepAppTabsCard)
 Vue.component(IepAppFooterBar.name, IepAppFooterBar)
+Vue.component(IepAppLayout.name, IepAppLayout)
 Vue.component(IepAppListCard.name, IepAppListCard)
 Vue.component(IepAppRankingCard.name, IepAppRankingCard)
 Vue.component(IepAppLabelCard.name, IepAppLabelCard)

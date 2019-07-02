@@ -4,7 +4,7 @@
       <page-header title="字典管理"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="primary" @click="handleAdd()" icon="el-icon-plus" plain>添加字典</iep-button>
+          <iep-button v-if="sys_dict_add" type="primary" @click="handleAdd()" icon="el-icon-plus" plain>添加字典</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search>
@@ -18,9 +18,9 @@
             <operation-wrapper>
               <iep-button type="warning" @click="handleChild(scope.row, scope.index)" icon="el-icon-plus" plain>子项
               </iep-button>
-              <iep-button v-if="permissions.sys_dict_edit" @click="handleEdit(scope.row)" plain>编辑
+              <iep-button v-if="sys_dict_edit" @click="handleEdit(scope.row)" plain>编辑
               </iep-button>
-              <iep-button v-if="permissions.sys_dict_del" @click="handleDeleteById(scope.row)" plain>删除
+              <iep-button v-if="sys_dict_del" @click="handleDeleteById(scope.row)" plain>删除
               </iep-button>
             </operation-wrapper>
           </template>
@@ -48,13 +48,19 @@ export default {
   data () {
     return {
       columnsMap,
+      sys_dict_add: false,
+      sys_dict_edit: false,
+      sys_dict_del: false,
     }
-  },
-  created () {
-    this.loadPage()
   },
   computed: {
     ...mapGetters(['permissions']),
+  },
+  created () {
+    this.sys_dict_add = this.permissions['sys_dict_add']
+    this.sys_dict_edit = this.permissions['sys_dict_edit']
+    this.sys_dict_del = this.permissions['sys_dict_del']
+    this.loadPage()
   },
   methods: {
     handleAdd () {

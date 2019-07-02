@@ -29,6 +29,7 @@ export const initFormData = () => {
     attachFileList: [],
     attachFile: '',
     image: '',
+    relationOrgId: '',
   }
 }
 

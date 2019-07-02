@@ -212,14 +212,18 @@ export default {
       display: flex;
       justify-content: flex-start;
       align-items: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       span {
         position: relative;
         padding: 0 8px;
         line-height: 14px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        max-width: 80px;
+        &:last-child {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
         &::before {
           position: absolute;
           content: "";

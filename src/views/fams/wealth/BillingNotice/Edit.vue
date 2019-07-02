@@ -174,7 +174,7 @@ export default {
         this.formRequestFn(this.form).then(({ data }) => {
           if (data.data) {
             this.$message.success('操作成功')
-            this.$router.go(-1)
+            this.$router.history.go(-1)
           } else {
             this.$message(data.msg)
           }

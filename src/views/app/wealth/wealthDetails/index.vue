@@ -209,6 +209,7 @@ export default {
       this.$refs['DialogForm'].formRequestFn = joinInvestment
       this.$refs['DialogForm'].form.investmentId = this.id
       this.$refs['DialogForm'].form.orgId = this.form.orgId
+      this.$refs['DialogForm'].form.orgName = this.form.orgName
       this.$refs['DialogForm'].form.minimumBuy = this.form.minimumBuy
       this.$refs['DialogForm'].form.remainSharesNumber = this.form.remainSharesNumber
       this.$refs['DialogForm'].form.sharesUnivalent = this.form.sharesUnivalent

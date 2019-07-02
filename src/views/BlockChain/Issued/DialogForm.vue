@@ -10,7 +10,7 @@
     </el-form>
     <template slot="footer">
       <operation-wrapper>
-        <iep-button type="primary" @click="submitForm()">确定</iep-button>
+        <iep-button type="primary" :loading="loading" @click="submitForm()">确定</iep-button>
         <iep-button @click="close">取消</iep-button>
       </operation-wrapper>
     </template>
@@ -22,6 +22,7 @@ import { issuedAmount } from '@/api/fams/block_chain'
 export default {
   data () {
     return {
+      loading: false,
       dialogShow: false,
       form: initForm(),
       rules,
@@ -34,6 +35,7 @@ export default {
       this.$emit('load-page')
     },
     submitForm () {
+      this.loading = true
       issuedAmount(toDtoFrom(this.form)).then(({ data }) => {
         if (data.data) {
           this.$message.success('操作成功')
@@ -41,6 +43,7 @@ export default {
         } else {
           this.$message(data.msg)
         }
+        this.loading = false
       })
     },
   },

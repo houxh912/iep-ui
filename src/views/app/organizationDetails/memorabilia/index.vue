@@ -13,52 +13,58 @@
     </el-collapse>
   </div>
 </template>
+
 <script>
+import { getOrgEventsByOrgId } from '@/api/admin/orgEvents'
+import { dateFormat } from '@/util/date'
 export default {
   data () {
     return {
-      activeNames: [0, 1],
-      eventsList: [
-        {
-          time: '2019年',
-          activities: [{
-            content: '职称由助理咨询师变为初级咨询师',
-            timestamp: '04-03',
-          }, {
-            content: '部门有平台运营中心变为产品中心',
-            timestamp: '03-12',
-          }, {
-            content: '获得“专业员工”称号',
-            timestamp: '02-03',
-          }, {
-            content: '获被同事评为“热情敬业”',
-            timestamp: '01-03',
-          }],
-        },
-        {
-          time: '2018年',
-          activities: [{
-            content: '成功中标《眉山大数据产业发展规划》项目。',
-            timestamp: '12-03',
-          }, {
-            content: '成功中标《眉山大数据产业发展规划》项目。',
-            timestamp: '10-12',
-          }, {
-            content: '获得“专业员工”称号',
-            timestamp: '09-03',
-          }, {
-            content: '国脉智慧产业城正式建成，是舟山海洋科学城海洋大数据产业园重要组成部分、舟山智慧城市的示范基地、中国大数据基因研发中心、国家信息化专家重点工程实验室。舟山海洋电子信息产业服务综合实验室挂牌。',
-            timestamp: '08-03',
-          }, {
-            content: '成功中标《眉山大数据产业发展规划》项目。',
-            timestamp: '07-03',
-          }, {
-            content: '国脉智慧产业城正式建成，是舟山海洋科学城海洋大数据产业园重要组成部分、舟山智慧城市的示范基地、中国大数据基因研发中心、国家信息化专家重点工程实验室。舟山海洋电子信息产业服务综合实验室挂牌。',
-            timestamp: '05-03',
-          }],
-        },
-      ],
+      activeNames: [],
+      eventsList: [],
     }
+  },
+  methods: {
+    getOrgEventsByOrgId (id) {
+      getOrgEventsByOrgId(id).then(({data}) => {
+        let row = data.data
+        if (row.length === 0) { // 不存在大事件
+          this.eventsList = []
+        } else { // 存在大事件
+          let time = ''
+          let obj = {
+            time: '',
+            activities: [],
+          }
+          for (let item of row) {
+            if (dateFormat(item.happenTime, 'yyyy') === time) { // 当前年份已经存在
+              obj.activities.push({
+                content: item.title,
+                timestamp: dateFormat(item.happenTime, 'MM-dd'),
+              })
+            } else { // 当前年份不存在，新建对象
+              if (obj.time) { // 存在年份，，即不是第一次遍历进来，需要将原有的数据push进去数组
+                this.eventsList.push(obj)
+                this.activeNames.push(this.eventsList.length - 1)
+              }
+              time = dateFormat(item.happenTime, 'yyyy')
+              obj = {
+                time: time,
+                activities: [{
+                  content: item.title,
+                  timestamp: dateFormat(item.happenTime, 'MM-dd'),
+                }],
+              }
+            }
+          }
+          this.eventsList.push(obj)
+          this.activeNames.push(this.eventsList.length - 1)
+        }
+      })
+    },
+  },
+  created () {
+    this.getOrgEventsByOrgId(this.$route.query.id)
   },
 }
 </script>

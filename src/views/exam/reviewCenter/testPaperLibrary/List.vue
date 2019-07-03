@@ -47,6 +47,7 @@ export default {
   computed: {
     ...mapGetters(['permissions']),
   },
+  props: ['record'],
   data () {
     return {
       columnsMap,
@@ -58,12 +59,26 @@ export default {
     }
   },
   created () {
+    /**
+     * 当没点击查看或修改
+     */
+    if (!this.record) {
+      this.loadPage()
+    }
+    /**
+     * 当点击查看或修改后返回
+     */
+    if (this.record) {
+      this.pageOption.current = this.record.current
+      this.pageOption.size = this.record.size
+      this.loadTable({ ...this.pageOption }, getExamPagerList)
+    }
     this.loadPage()
     this.permission_exam_testPaper_del = this.permissions['exam_testPaper_del']
     this.permission_exam_testPaper_ex_del = this.permissions['exam_testPaper_ex_del']
   },
   methods: {
-
+    
     /**
       * 获取试卷列表数据
       */
@@ -92,6 +107,8 @@ export default {
         iepTestPaperVO: {
           id: row.id,
         },
+        current: this.pageOption.current,
+        size: this.pageOption.size,
       })
     },
 
@@ -111,6 +128,8 @@ export default {
         iepTestPaperVO: {
           id: row.id,
         },
+        current: this.pageOption.current,
+        size: this.pageOption.size,
       })
     },
 

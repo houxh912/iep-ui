@@ -8,7 +8,7 @@
         </page-header>
         <div class="sub">
           <span v-if='!form.parentName'>所属任务：无</span>
-          <span v-else>所属任务：{{form.parentName}}</span>
+          <span v-else @click="handleDetail(form.parentId)" style="cursor: pointer;">所属任务：{{form.parentName}}</span>
           <span class="opt">
             <!-- <span><i class="iconfont icon-xingxing"></i>关注</span> -->
             <span>
@@ -65,7 +65,7 @@
             <iep-div-detail :value="form.remarks"></iep-div-detail>
           </el-form-item>
           <el-form-item label="子任务：">
-            <div v-if="form.children.length>0"><span v-for="(item,index) in form.children" :key="index" style="display:block;">{{item.name}}</span></div>
+            <div v-if="form.children.length>0"><span v-for="(item,index) in form.children" :key="index" style="display:block;cursor: pointer;" @click="handleDetail(item.id)">{{item.name}}</span></div>
             <span v-else>无</span>
           </el-form-item>
           <el-form-item label="附件：">

@@ -115,9 +115,6 @@ export default {
   },
   created () {
     this.loadPage()
-    getMyCount().then(({ data }) => {
-      this.myCountList = data.data
-    })
   },
   computed: {
     ...mapGetters([
@@ -127,6 +124,9 @@ export default {
   methods: {
     loadPage (param = this.searchForm) {
       this.loadTable({selectType:this.selectType,...param}, getMyAtms)
+      getMyCount().then(({ data }) => {
+        this.myCountList = data.data
+      })
     },
     handleSelectionChange () {
     },

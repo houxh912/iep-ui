@@ -108,13 +108,13 @@ export default {
   },
   created () {
     this.loadPage()
-    getAllCount().then(({ data }) => {
-      this.allCountList = data.data
-    })
   },
   methods: {
     loadPage (param = this.searchForm) {
       this.loadTable({selectType:this.selectType,...param}, getAllAtms)
+      getAllCount().then(({ data }) => {
+        this.allCountList = data.data
+      })
     },
     handleSelectionChange () {
     },

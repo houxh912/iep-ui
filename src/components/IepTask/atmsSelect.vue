@@ -21,6 +21,11 @@ export default {
       loading: false,
     }
   },
+  computed: {
+    id () {
+      return +this.$route.params.id
+    },
+  },
   methods: {
     handleChange (v) {
       const value = this.options.find(m => m.id === v)
@@ -30,7 +35,7 @@ export default {
       if (query !== '') {
         this.loading = true
         try {
-          const { data } = await getAtmsListByName({ name: query })
+          const { data } = await getAtmsListByName({ name: query,id:this.id })
           this.options = data
         } catch (error) {
           console.log(error)

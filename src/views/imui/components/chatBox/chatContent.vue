@@ -7,15 +7,17 @@
                :src="chatDetail.avatar ? chatDetail.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
           <p class="chat-title-name">
             <span v-show="!nameModify">{{chatDetail.chatName}}</span>
-            <input v-show="nameModify" ref="chatName" :value="chatDetail.chatName" @blur="modifyName"/>
-            <i v-show="!nameModify" @mousedown.prevent.stop="" @click.prevent.stop="toModifyName" class="iconfont icon-iconset0136"></i>
-            <i v-if="chatDetail.originatorId === $store.getters.userInfo.userId"
-               @mousedown.prevent.stop=""
-               @click.prevent.stop="removeGroup"
-               class="iconfont icon-jiesan"></i>
-            <i v-else @mousedown.prevent.stop=""
-               @click.prevent.stop="leaveGroup"
-               class="iconfont icon-tuichu1"></i>
+            <template v-if="chatDetail.type == 2">
+              <input v-show="nameModify" ref="chatName" :value="chatDetail.chatName" @blur="modifyName"/>
+              <i v-show="!nameModify" @mousedown.prevent.stop="" @click.prevent.stop="toModifyName" class="iconfont icon-iconset0136"></i>
+              <i v-if="chatDetail.originatorId === $store.getters.userInfo.userId"
+                 @mousedown.prevent.stop=""
+                 @click.prevent.stop="removeGroup"
+                 class="iconfont icon-jiesan"></i>
+              <i v-else @mousedown.prevent.stop=""
+                 @click.prevent.stop="leaveGroup"
+                 class="iconfont icon-tuichu1"></i>
+            </template>
           </p>
           <p v-if="chatDetail.type == 2"
                 class="chat-title-members"

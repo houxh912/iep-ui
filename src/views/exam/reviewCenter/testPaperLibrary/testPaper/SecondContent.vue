@@ -170,7 +170,7 @@
         <el-form-item label="题型" prop="type">
           <el-select v-model="form.type" clearable placeholder="请选择题型" @change="typeChange" style="width:100%" :disabled="reSave">
             <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label"
-              :value="item.id" :disabled="choiceType.indexOf(item.id)>-1"></el-option>
+              :value="item.id"></el-option>
           </el-select>
         </el-form-item>
 
